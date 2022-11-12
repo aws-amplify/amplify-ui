@@ -41,7 +41,7 @@ Replace any `TextField` components using the `isMultiline` prop with the `TextAr
   If you are NOT using `dir="rtl"` in your application, feel free to skip this item.
 </Alert>
 
-`@aws-amplify/ui-react` has a dependency on Radix components for Menu, SliderField, Tabs, and Expander. There were a number of changes in the [July 21, 2022 release](https://www.radix-ui.com/docs/primitives/overview/releases#july-21-2022) of `radix-ui/*` packages, and the breaking change for `@aws-amplify/ui-react` was removal of support for the `dir` HTML attribute, and the addition of the DirectionProvider. In order to make the transition seamless for most of Amplify users, we've added the `DirectionProvider` with a default `direction` of `ltr` to the `ThemeProvider`.
+`@aws-amplify/ui-react` has a dependency on Radix components for Menu, SliderField, Tabs, and Expander. There were a number of changes in the [July 21, 2022 release](https://www.radix-ui.com/docs/primitives/overview/releases#july-21-2022) of `radix-ui/*` packages, and the breaking change for `@aws-amplify/ui-react` was removal of support for the `dir` HTML attribute, and the addition of the `DirectionProvider`. In order to make the transition seamless for most of Amplify users, we've added the `DirectionProvider` with a default `direction` of `ltr` to the `ThemeProvider`.
 
 If your application is using right to left directionality, the example below shows the needed change for apps using the native HTML `dir="rtl"`:
 
