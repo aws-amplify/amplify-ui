@@ -30,8 +30,6 @@ export const useDataStoreCollection = <M extends PersistentModel>({
 
     const subscription = DataStore.observeQuery(
       model,
-      // TODO remove temporary eslint disable
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       criteria,
       pagination
     ).subscribe(

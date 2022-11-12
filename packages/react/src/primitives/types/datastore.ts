@@ -14,9 +14,7 @@ export type DataStoreItemProps<Model extends PersistentModel> = {
 
 export type DataStoreCollectionProps<Model extends PersistentModel> = {
   model: PersistentModelConstructor<Model>;
-  // TODO remove temporary `any`
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  criteria?: ProducerModelPredicate<Model> | any;
+  criteria?: ProducerModelPredicate<Model>;
   pagination?: ProducerPaginationInput<Model>;
 };
 
