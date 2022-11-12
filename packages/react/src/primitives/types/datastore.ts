@@ -3,8 +3,8 @@ import {
   PersistentModel,
   PersistentModelConstructor,
   PersistentModelMetaData,
-  ProducerModelPredicate,
   ProducerPaginationInput,
+  RecursiveModelPredicateExtender,
 } from '@aws-amplify/datastore';
 
 export type DataStoreItemProps<Model extends PersistentModel> = {
@@ -14,7 +14,7 @@ export type DataStoreItemProps<Model extends PersistentModel> = {
 
 export type DataStoreCollectionProps<Model extends PersistentModel> = {
   model: PersistentModelConstructor<Model>;
-  criteria?: ProducerModelPredicate<Model>;
+  criteria?: RecursiveModelPredicateExtender<Model>;
   pagination?: ProducerPaginationInput<Model>;
 };
 

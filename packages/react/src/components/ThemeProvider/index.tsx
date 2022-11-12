@@ -1,23 +1,42 @@
 import * as React from 'react';
+import { DirectionProvider } from '@radix-ui/react-direction';
 
 import { createTheme, Theme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
 
 export type ColorMode = 'system' | 'light' | 'dark';
+export type Direction = 'ltr' | 'rtl';
 
 interface ThemeProviderProps {
   children: React.ReactNode;
+  /**
+   * Changes the color mode applied to the theme
+   */
   colorMode?: ColorMode;
-  theme?: Theme;
+  /**
+   * Controls the language direction in the app
+   * @default: 'ltr'
+   */
+  direction?: Direction;
+  /**
+   * Provide a server generated nonce which matches your CSP `style-src` rule.
+   * This will be attached to the generated <style> tag.
+   * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
+   */
   nonce?: string;
+  /**
+   * Custom theme
+   */
+  theme?: Theme;
 }
 
 export function AmplifyProvider({
   children,
   colorMode,
-  theme,
+  direction = 'ltr',
   nonce,
+  theme,
 }: ThemeProviderProps): JSX.Element {
   const value = React.useMemo(() => ({ theme: createTheme(theme) }), [theme]);
   const {
@@ -26,23 +45,28 @@ export function AmplifyProvider({
 
   return (
     <AmplifyContext.Provider value={value}>
-      {/*
+      <DirectionProvider dir={direction}>
+        {/*
           The data attributes on here as well as the root element allow for nested
           themes to work because CSS variables are inherited, ones closer in the 
           ancestor tree will override further ones. So the CSS variables added to this
           DOM node through the same selector will take precedence.
         */}
-      <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
-        {children}
-      </div>
-      {/*
+        <div
+          data-amplify-theme={name}
+          data-amplify-color-mode={colorMode}
+          dir={direction}
+        >
+          {children}
+        </div>
+        {/*
           Only inject theme CSS variables if given a theme.
           The CSS file users import already has the default theme variables in it.
           This will allow users to use the provider and theme with CSS variables
           without having to worry about specificity issues because this stylesheet
           will likely come after a user's defined CSS.
         */}
-      {/*
+        {/*
           Q: Why are we using dangerouslySetInnerHTML?
           A: We need to directly inject the theme's CSS string into the <style> tag without typical HTML escaping. 
              For example, JSX would escape characters meaningful in CSS such as ', ", < and >, thus breaking the CSS. 
@@ -82,14 +106,15 @@ export function AmplifyProvider({
              Therefore, by only rendering CSS text which does not include a closing '</style>' tag, 
              we ensure that the browser will correctly interpret all the text as CSS. 
         */}
-      {typeof theme === 'undefined' || /<\/style/i.test(cssText) ? null : (
-        <style
-          id={`amplify-theme-${name}`}
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: cssText }}
-          nonce={nonce}
-        />
-      )}
+        {typeof theme === 'undefined' || /<\/style/i.test(cssText) ? null : (
+          <style
+            id={`amplify-theme-${name}`}
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: cssText }}
+            nonce={nonce}
+          />
+        )}
+      </DirectionProvider>
     </AmplifyContext.Provider>
   );
 }

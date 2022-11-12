@@ -112,6 +112,7 @@ jobs:
           - angular
           - vue
           - react
+          - react-native
           - react-core
 
     steps:
