@@ -67,7 +67,7 @@ export const setPreferredMFA = async ({
   try {
     logger.debug('calling Auth.setPreferredMFA');
 
-    const preferredMFA = Auth.setPreferredMFA(user, mfaType);
+    const preferredMFA = await Auth.setPreferredMFA(user, mfaType);
     logger.debug('Auth.setPreferredMFA was successful');
 
     return preferredMFA;
