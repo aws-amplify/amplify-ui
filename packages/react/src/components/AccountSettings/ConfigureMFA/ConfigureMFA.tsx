@@ -124,12 +124,19 @@ function SetupMFA({
     async (code: string) => {
       try {
         await verifyTOTPToken({ user, code });
+
+        // move to an intermediary state so that `SetupTOTP` doesn't remount
+        // and call `Auth.setupTOTP` in parallel
+        setState('LOADING');
         await setPreferredMFA({ user, mfaType: 'TOTP' });
+
+        // mfa has been succesfully changed!
         setCurrentMFA('TOTP');
         setState('DONE');
       } catch (e) {
         const error = e as Error;
         onError?.(error);
+        setErrorMessage(error.message);
       }
     },
     [onError, user]
@@ -140,13 +147,12 @@ function SetupMFA({
       try {
         await setPreferredMFA({ user, mfaType: newMFA });
         setState('DONE');
-        fetchCurrentMFA();
       } catch (e) {
         const error = e as Error;
         onError?.(error);
       }
     },
-    [user, onError, fetchCurrentMFA]
+    [user, onError]
   );
 
   const getTotpSecretCode = React.useCallback(async () => {
@@ -195,26 +201,6 @@ function SetupMFA({
     },
     [desiredMFA]
   );
-
-  // /*
-  //  * TODO: THIS IS A WORKAROUND.
-  //  * <ConfigureTOTP /> keeps remounting, because:
-  //  *   (1) `Auth.setPreferredMFA` sends a 'signIn' and `tokenRefresh` hub events
-  //  *   (2)  `useAuth` re-renders
-  //  *   (3) `ConfigureTOTP` remounts, causing `Auth.setupTOTP` to run again.
-  //  */S
-  // const ConfigureTOTPMemo = React.useMemo(() => {
-  //   return (
-  //     <ConfigureTOTP
-  //       onCancel={toSelectMFA}
-  //       getTotpSecretCode={getTotpSecretCode}
-  //       onChange={handleCodeChange}
-  //       onSubmit={handleConfigureTOTPSubmit}
-  //       totpIssuer="AWSCognito"
-  //       totpUsername={user.username}
-  //     ></ConfigureTOTP>
-  //   );
-  // }, [state]);
 
   const handleConfigureTOTPSubmit = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {

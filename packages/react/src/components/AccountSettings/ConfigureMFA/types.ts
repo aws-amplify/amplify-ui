@@ -28,9 +28,9 @@ export type ConfigureMFAState =
   | 'DISABLING_MFA'
   | 'SELECT_MFA'
   | 'CONFIGURE_TOTP'
+  | 'LOADING'
   | 'CONFIGURE_SMS'
   | 'VERIFY_SMS'
-  | 'SET_PREFERRED_MFA'
   | 'DONE';
 
 // subcomponent types
