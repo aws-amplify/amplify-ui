@@ -1,1 +1,8 @@
-export { changePassword, deleteUser, getCurrentMFA, disableMFA } from './utils';
+export {
+  changePassword,
+  deleteUser,
+  getCurrentMFA,
+  setPreferredMFA,
+  setupTOTP,
+  verifyTOTPToken,
+} from './services';

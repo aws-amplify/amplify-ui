@@ -3,8 +3,10 @@ import React from 'react';
 import {
   getLogger,
   getCurrentMFA,
-  disableMFA,
+  setPreferredMFA,
   translate,
+  setupTOTP,
+  verifyTOTPToken,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
@@ -23,6 +25,7 @@ import {
   MFAType,
   SelectMFAOptionProps,
 } from './types';
+import { FormValues } from '../types';
 
 const logger = getLogger('Auth');
 
@@ -66,9 +69,10 @@ function SetupMFA({
   const [state, setState] = React.useState<ConfigureMFAState>('IDLE');
   const [currentMFA, setCurrentMFA] = React.useState<string>(null);
   const [_errorMessage, setErrorMessage] = React.useState<string>(null);
-
+  // desired mfa type that end user selects
+  const [desiredMFA, setDesiredMFA] = React.useState<string>(null);
+  const [formValues, setFormValues] = React.useState<FormValues>(null);
   const { user, isLoading } = useAuth();
-
   // translations
   const enableMFAText = translate('Enable multi-factor authentication');
 
@@ -84,28 +88,70 @@ function SetupMFA({
     }
   }, [user]);
 
+  const hasFetched = React.useRef<boolean>(false);
+
   // get current mfa settings for current user
   React.useEffect(() => {
-    fetchCurrentMFA();
-  }, [fetchCurrentMFA]);
+    const runFetch = async () => {
+      await fetchCurrentMFA();
+      hasFetched.current = true;
+    };
+    if (user && !hasFetched.current) {
+      runFetch();
+    }
+  }, [user, fetchCurrentMFA]);
 
   const isMFADisabled = React.useMemo(
     () => currentMFA === 'NOMFA',
     [currentMFA]
   );
 
+  // transition methods
+  const toIdle = React.useCallback(() => {
+    setFormValues({});
+    setDesiredMFA(null);
+    setState('IDLE');
+  }, []);
+
+  const toSelectMFA = React.useCallback(() => {
+    setFormValues({});
+    setDesiredMFA(null);
+    setState('SELECT_MFA');
+  }, []);
+
   // API calls
-  const runDisableMFA = React.useCallback(async () => {
-    try {
-      setState('DISABLING_MFA');
-      await disableMFA(user);
-    } catch (e) {
-      const error = e as Error;
-      onError(error);
-    } finally {
-      setState('IDLE');
-    }
-  }, [onError, user]);
+  const runVerifyTOTPToken = React.useCallback(
+    async (code: string) => {
+      try {
+        await verifyTOTPToken({ user, code });
+        await setPreferredMFA({ user, mfaType: 'TOTP' });
+        setCurrentMFA('TOTP');
+        setState('DONE');
+      } catch (e) {
+        const error = e as Error;
+        onError?.(error);
+      }
+    },
+    [onError, user]
+  );
+
+  const runSetPreferredMFA = React.useCallback(
+    async (newMFA: MFAType) => {
+      try {
+        await setPreferredMFA({ user, mfaType: newMFA });
+        setState('DONE');
+        fetchCurrentMFA();
+      } catch (e) {
+        const error = e as Error;
+        onError?.(error);
+      }
+    },
+    [user, onError, fetchCurrentMFA]
+  );
+
+  const getTotpSecretCode = React.useCallback(async () => {
+    return setupTOTP(user);
+  }, [user]);
 
   // event handlers
   const handleEnableMFA = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -114,13 +160,79 @@ function SetupMFA({
   };
 
   const handleDisableMFA = React.useCallback(() => {
-    // using a separate async function because disableMFA needs to be async
-    runDisableMFA();
-  }, [runDisableMFA]);
+    runSetPreferredMFA('NOMFA');
+  }, [runSetPreferredMFA]);
 
-  const handleUpdateMFA = React.useCallback(() => {
-    setState('SELECT_MFA');
-  }, []);
+  const handleSelectMFAChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      event.preventDefault();
+      const { name, value } = event.target;
+      if (name === 'mfaType') {
+        setDesiredMFA(value);
+      }
+    },
+    []
+  );
+
+  const handleSelectMFASubmit = React.useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      switch (desiredMFA) {
+        case 'SMS': {
+          setState('CONFIGURE_SMS');
+          break;
+        }
+        case 'TOTP': {
+          setState('CONFIGURE_TOTP');
+          break;
+        }
+        default: {
+          logger.error('Unknown mfa was selected:', desiredMFA);
+          break;
+        }
+      }
+    },
+    [desiredMFA]
+  );
+
+  // /*
+  //  * TODO: THIS IS A WORKAROUND.
+  //  * <ConfigureTOTP /> keeps remounting, because:
+  //  *   (1) `Auth.setPreferredMFA` sends a 'signIn' and `tokenRefresh` hub events
+  //  *   (2)  `useAuth` re-renders
+  //  *   (3) `ConfigureTOTP` remounts, causing `Auth.setupTOTP` to run again.
+  //  */S
+  // const ConfigureTOTPMemo = React.useMemo(() => {
+  //   return (
+  //     <ConfigureTOTP
+  //       onCancel={toSelectMFA}
+  //       getTotpSecretCode={getTotpSecretCode}
+  //       onChange={handleCodeChange}
+  //       onSubmit={handleConfigureTOTPSubmit}
+  //       totpIssuer="AWSCognito"
+  //       totpUsername={user.username}
+  //     ></ConfigureTOTP>
+  //   );
+  // }, [state]);
+
+  const handleConfigureTOTPSubmit = React.useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const { code } = formValues;
+      runVerifyTOTPToken(code);
+    },
+    [runVerifyTOTPToken, formValues]
+  );
+
+  const handleCodeChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      event.preventDefault();
+      const { name, value } = event.target;
+      setFormValues({ ...formValues, [name]: value });
+    },
+    [formValues]
+  );
 
   // Return null if user isn't authenticated in the first place
   if (!user) {
@@ -130,6 +242,11 @@ function SetupMFA({
 
   // Return null if Auth.getCurrentAuthenticatedUser is still in progress
   if (isLoading) {
+    return null;
+  }
+
+  // return null if mfaType hasn't been fetched yet
+  if (!currentMFA) {
     return null;
   }
 
@@ -145,14 +262,34 @@ function SetupMFA({
             <DisplayCurrentMFA
               currentMFA={currentMFA as MFAType}
               onDisableMFA={handleDisableMFA}
-              onUpdateMFA={handleUpdateMFA}
+              onUpdateMFA={toSelectMFA}
             />
           )}
         </>
       ) : null}
-      {state === 'SELECT_MFA' ? <SelectMFA>{children}</SelectMFA> : null}
-      {state === 'CONFIGURE_TOTP' ? <ConfigureTOTP /> : null}
-      {state === 'CONFIGURE_SMS' ? <ConfigureSMS /> : null}
+      {state === 'SELECT_MFA' ? (
+        <SelectMFA
+          onSubmit={handleSelectMFASubmit}
+          onChange={handleSelectMFAChange}
+          onCancel={toIdle}
+          isDisabled={!desiredMFA}
+        >
+          {children}
+        </SelectMFA>
+      ) : null}
+      {state === 'CONFIGURE_TOTP' ? (
+        <ConfigureTOTP
+          onCancel={toSelectMFA}
+          getTotpSecretCode={getTotpSecretCode}
+          onChange={handleCodeChange}
+          onSubmit={handleConfigureTOTPSubmit}
+          totpIssuer="AWSCognito"
+          totpUsername={user.username}
+        />
+      ) : null}
+      {state === 'CONFIGURE_SMS' ? (
+        <ConfigureSMS onCancel={toSelectMFA} />
+      ) : null}
       {state === 'VERIFY_SMS' ? <VerifySMS /> : null}
     </View>
   );

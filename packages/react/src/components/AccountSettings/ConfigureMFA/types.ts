@@ -20,7 +20,8 @@ export interface ConfigureMFAProps {
  * 3a. If user selects TOTP MFA, they set it up in "CONFIGURE_TOTP" state
  * 3b-1. If User selects SMS MFA, they enter desired phone number in "CONFIGURE_SMS" state
  * 3b-2. User confirms their phone number to finish sms setup
- * 4. app is done in "DONE" state
+ * 4. Chosen mfa method is set to preferred mfa
+ * 5. app is done in "DONE" state
  */
 export type ConfigureMFAState =
   | 'IDLE'
@@ -29,20 +30,23 @@ export type ConfigureMFAState =
   | 'CONFIGURE_TOTP'
   | 'CONFIGURE_SMS'
   | 'VERIFY_SMS'
+  | 'SET_PREFERRED_MFA'
   | 'DONE';
 
 // subcomponent types
 export interface SelectMFAProps {
-  /** Callback when end user changes their selection on the radiofield group */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   /** Callback when end user cancels mfa selection */
   onCancel?: () => void;
+  /** Callback when end user changes their mfa selection */
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   /** Callback when end user selects desired mfa selection and clicks "continue" button */
-  onContinue?: () => void;
+  onSubmit?: React.FormEventHandler;
   /** Whether to show warning that changing your MFA will invalidate your old one */
   showWarning?: () => void;
   /** Current MFA selection */
   selection?: string;
+  /** Whether continue button is disabled */
+  isDisabled?: boolean;
   children?: React.ReactNode;
 }
 
@@ -56,6 +60,7 @@ export interface ConfigureTOTPProps {
   totpUsername?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
+  onCancel?: () => void;
 }
 
 export interface ConfigureSMSProps {

@@ -27,9 +27,10 @@ export const EnableMFAButton = Button;
 
 export const SelectMFA = ({
   children,
+  isDisabled,
   onCancel,
   onChange,
-  onContinue,
+  onSubmit,
   selection,
   showWarning,
 }: SelectMFAProps): JSX.Element => {
@@ -45,27 +46,29 @@ export const SelectMFA = ({
   const mfaTypeText = translate('MFA type');
 
   return (
-    <>
-      {showWarning ? <Alert>{changeMFAWarningText}</Alert> : null}
-      <Text>{mfaDescriptionText}</Text>
-      <RadioGroupField
-        label={translate(mfaTypeText)}
-        name="mfaType"
-        labelHidden
-        value={selection}
-        onChange={onChange}
-      >
-        {children}
-      </RadioGroupField>
-      <Flex justifyContent="space-between">
-        <Button variation="link" onClick={onCancel}>
-          {cancelText}
-        </Button>
-        <Button variation="primary" onClick={onContinue}>
-          {continueText}
-        </Button>
+    <View as="form" onSubmit={onSubmit}>
+      <Flex direction="column">
+        {showWarning ? <Alert>{changeMFAWarningText}</Alert> : null}
+        <Text>{mfaDescriptionText}</Text>
+        <RadioGroupField
+          label={translate(mfaTypeText)}
+          name="mfaType"
+          labelHidden
+          onChange={onChange}
+          value={selection}
+        >
+          {children}
+        </RadioGroupField>
+        <Flex justifyContent="space-between">
+          <Button variation="link" onClick={onCancel}>
+            {cancelText}
+          </Button>
+          <Button isDisabled={isDisabled} variation="primary" type="submit">
+            {continueText}
+          </Button>
+        </Flex>
       </Flex>
-    </>
+    </View>
   );
 };
 
@@ -78,7 +81,7 @@ export const DisplayCurrentMFA = ({
   const mfaTitleText = translate('Multi-factor authentication');
   const enabledText = translate('enabled');
   const disableMFAText = translate('Disable MFA');
-  const currentMFAText = translate(currentMFA.toLowerCase());
+  const currentMFAText = translate(currentMFA?.toLowerCase());
   const currentMethodText = translate('Current MFA');
   const updateText = translate('Update');
 
@@ -116,6 +119,7 @@ export const ConfigureTOTP = ({
   totpUsername,
   onChange,
   onSubmit,
+  onCancel,
 }: ConfigureTOTPProps): JSX.Element => {
   const [qrCode, setQrCode] = React.useState<string>(null);
   const [secretKey, setSecretKey] = React.useState<string>(null);
@@ -141,6 +145,7 @@ export const ConfigureTOTP = ({
 
   // translations
   const confirmText = translate('Confirm');
+  const backText = translate('Back');
   const copyCodeText = translate('Copy Secret Code');
 
   // event handlers
@@ -149,22 +154,32 @@ export const ConfigureTOTP = ({
   };
 
   return (
-    <View as="form" className="amplify-configuretotp" onSubmit={onSubmit}>
+    <View as="form" onSubmit={onSubmit}>
       <Flex direction="column">
-        <img
-          data-amplify-qrcode
-          src={qrCode}
-          alt="qr code"
-          width="228"
-          height="228"
-        />
+        {qrCode ? (
+          <img
+            data-amplify-qrcode
+            src={qrCode}
+            alt="qr code"
+            width="228"
+            height="228"
+          />
+        ) : null}
         <Button onClick={handleCopy}>{copyCodeText}</Button>
         <TextField
           onChange={onChange}
+          name="code"
           label="Confirmation Code"
           placeholder="Code"
         ></TextField>
-        <Button type="submit">{confirmText}</Button>
+        <Flex justifyContent="space-between">
+          <Button variation="link" onClick={onCancel}>
+            {backText}
+          </Button>
+          <Button type="submit" variation="primary">
+            {confirmText}
+          </Button>
+        </Flex>
       </Flex>
     </View>
   );
@@ -177,23 +192,25 @@ export const ConfigureSMS = ({
   // translations
   const phoneNumberText = translate('Phone Number');
   const descriptiveText = translate('Verification codes will be sent here');
-  const backText = translate('back text');
+  const backText = translate('Back');
   const sendCodeText = translate('Send code');
 
   return (
     <View as="form" onSubmit={onSubmit}>
-      <PhoneNumberField
-        label={phoneNumberText}
-        descriptiveText={descriptiveText}
-      />
+      <Flex direction="column">
+        <PhoneNumberField
+          label={phoneNumberText}
+          descriptiveText={descriptiveText}
+        />
 
-      <Flex direction="row" justifyContent="space-between">
-        <Button variation="link" onClick={onCancel}>
-          {backText}
-        </Button>
-        <Button variation="primary" type="submit">
-          {sendCodeText}
-        </Button>
+        <Flex direction="row" justifyContent="space-between">
+          <Button variation="link" onClick={onCancel}>
+            {backText}
+          </Button>
+          <Button variation="primary" type="submit">
+            {sendCodeText}
+          </Button>
+        </Flex>
       </Flex>
     </View>
   );
