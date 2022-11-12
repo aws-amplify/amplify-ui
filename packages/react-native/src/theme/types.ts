@@ -3,11 +3,12 @@ import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
 import {
+  CheckboxStyles,
   HeadingStyles,
   IconStyles,
   LabelStyles,
-  RadioGroupStyles,
   RadioStyles,
+  RadioGroupStyles,
 } from '../primitives';
 
 export interface Tokens extends ReactNativeTokens {
@@ -41,6 +42,7 @@ export interface Theme {
 
 export interface ComponentStyles {
   // TODO: add components
+  checkbox: CheckboxStyles;
   heading: HeadingStyles;
   icon: IconStyles;
   label: LabelStyles;
