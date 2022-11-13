@@ -33,7 +33,7 @@ and [Amazon Pinpoint](https://docs.aws.amazon.com/pinpoint/latest/userguide/chan
 
 > Prerequisites: 
 > - [Create an In-App Messaging campaign](https://docs.amplify.aws/lib/in-app-messaging/prerequisites/q/platform/js/)
-> - [install the required dependencies](../getting-started/installation)
+> - [Install the required dependencies](../getting-started/installation)
 
 ## Setup
 
@@ -53,7 +53,7 @@ to its `children`. `useInAppMessaging` can be used to directly interact with `In
 
 <ReactPropsTable props={USE_IN_APP_MESSAGING_API} />
 
-In some use cases, you may want to forego the usage of the default UI handling altogether while still leveraging the Amplify provided In-App Messaging React context and provider for in-app message context state. This can be achieved by wrapping your application in an `InAppMessagingProvider` and utilizing the `useInAppMessaging` hook to expose the values of the `InAppMessagingContext`.
+In some use cases, you may want to forgo the usage of the default UI handling altogether while still leveraging the Amplify provided In-App Messaging React context and provider for in-app message context state. This can be achieved by wrapping your application in an `InAppMessagingProvider` and utilizing the `useInAppMessaging` hook to expose the values of the `InAppMessagingContext`.
 
 <Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/use-messaging.${platform}.mdx`)}</Fragment>
 
