@@ -12,6 +12,7 @@ type ComponentNameKey =
   | 'PhoneNumberField'
   | 'Divider'
   | 'Expander'
+  | 'FileUploader'
   | 'Flex'
   | 'Grid'
   | 'Heading'

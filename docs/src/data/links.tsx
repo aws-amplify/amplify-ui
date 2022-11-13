@@ -134,6 +134,19 @@ export const connectedComponents: ComponentNavItem[] = [
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
   },
+  {
+    href: '/connected-components/storage',
+    label: 'Storage',
+    body: "Amplify UI Storage components allow you to store files in the cloud using Amplify's Storage category",
+    platforms: ['react'],
+  },
+  {
+    href: '/connected-components/storage/fileuploader',
+    label: 'FileUploader',
+    body: 'FileUploader component allows users to upload files to your Amplify backend.',
+    platforms: ['react'],
+    tertiary: true,
+  },
 ];
 
 export const dataDisplayComponents: ComponentNavItem[] = [

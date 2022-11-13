@@ -1,0 +1,93 @@
+import { Alert } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { DefaultFileUploaderExample, AcceptedFileTypesExample, FileUploaderErrorExample, FileUploaderThemeExample, 
+FileUploaderComponentsExample } from './examples'
+
+<Alert variation="info">
+  The file uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
+</Alert>
+
+## Usage
+
+<Example>
+  <DefaultFileUploaderExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultFileUploaderExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Accepted file types
+
+<Example>
+  <AcceptedFileTypesExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/AcceptedFileTypesExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Alert variation="info">
+
+  The `acceptedFileTypes` prop is an array of strings and NOT a comma separated string like the [`accept` HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept).
+
+</Alert>
+
+Here are some common ones:
+
+* `"image/*"`
+* `"video/*"`
+* `"audio/*"`
+* `"text/plain"`
+
+[List of of MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
+
+### Event handling
+
+#### Errors
+
+The FileUploader will send error information back to the `onError` function if there is an error during upload.
+
+_This example will fail at 50%_
+
+<Example>
+  <FileUploaderErrorExample />
+  
+  <ExampleCode>
+  ```jsx file=./examples/FileUploaderErrorExample.tsx
+  ```
+  </ExampleCode>
+</Example>
+
+## Customization
+
+### Component overrides
+
+You can override parts of the FileUploder component by passing in a `components` prop.
+
+<Example>
+  <FileUploaderComponentsExample />
+  
+  <ExampleCode>
+    ```jsx{12-20} file=./examples/FileUploaderComponentsExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Theming
+
+<Example>
+  <FileUploaderThemeExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/FileUploaderThemeExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Target classes
+
+<ComponentStyleDisplay componentName="FileUploader" />
+
