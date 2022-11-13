@@ -11,9 +11,6 @@ interface TerminalCommandProps {
   command?: string;
 }
 
-// require exact versions for React Native
-const EXACT_VERSIONS_FLAG = '-E';
-
 const frameworkInstallScript = (
   framework: Framework,
   packageManager: PackageManager
@@ -22,7 +19,7 @@ const frameworkInstallScript = (
 
   const packageManagerPrefix = `${
     packageManager === 'npm' ? 'npm i' : 'yarn add'
-  } ${isReactNative ? EXACT_VERSIONS_FLAG : ''}`;
+  }`;
 
   const extraDependencies = `${
     isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''

@@ -14,7 +14,6 @@ module.exports = withNextPluginPreval({
     DOCSEARCH_DOCS_APP_ID: process.env.DOCSEARCH_DOCS_APP_ID,
     DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
     DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
-    FF_REACT_NATIVE: process.env.FF_REACT_NATIVE,
   },
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
@@ -71,6 +70,12 @@ module.exports = withNextPluginPreval({
       {
         source: '/:platform(react|angular|vue)/components/geo/:page*',
         destination: '/:platform/connected-components/geo/:page*',
+        permanent: true,
+      },
+      {
+        source:
+          '/:platform(react|react-native)/components/in-app-messaging/:page*',
+        destination: '/:platform/connected-components/in-app-messaging/:page*',
         permanent: true,
       },
       {
