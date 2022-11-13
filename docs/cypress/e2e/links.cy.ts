@@ -11,7 +11,7 @@ type EvtName =
   | 'RETURNING'
   | 'NO_HREF';
 let allLinks: string[] = [];
-const numberOfLinks = 121;
+const numberOfLinks = 116;
 const requestedLinks: Set<string> = new Set();
 
 before(() => {
