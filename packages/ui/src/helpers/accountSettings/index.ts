@@ -1,2 +1,2 @@
 export * from './services';
-export { UserPhoneInfo, getUserPhoneInfo } from './utils';
+export { UserPhoneInfo, getUserPhoneInfo, isMFAType } from './utils';

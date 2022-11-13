@@ -1,4 +1,4 @@
-import { AmplifyUser } from '../../types';
+import { AmplifyUser, MFAType } from '../../types';
 import { Auth } from 'aws-amplify';
 
 import { getLogger } from '../utils';
@@ -43,14 +43,33 @@ export const deleteUser = async () => {
   }
 };
 
-export const getCurrentMFA = async (user: AmplifyUser) => {
+export const getCurrentMFA = async (user: AmplifyUser): Promise<MFAType> => {
   try {
     logger.debug('calling Auth.getPreferredMFA');
 
-    const preferredMFA = Auth.getPreferredMFA(user);
+    const preferredMFA = await Auth.getPreferredMFA(user);
     logger.debug('Auth.getPreferredMFA was successful');
 
-    return preferredMFA;
+    // converting preferredMFA to standard mfa type strign
+    switch (preferredMFA) {
+      case 'SMS':
+      case 'SMS_MFA': {
+        return 'sms';
+      }
+      case 'TOTP':
+      case 'SOFTWARE_TOKEN_MFA': {
+        return 'totp';
+      }
+      case 'NOMFA': {
+        return 'nomfa';
+      }
+      default: {
+        const errorMessage = 'unknown mfa type was returned';
+        logger.error(errorMessage, preferredMFA);
+
+        throw new Error(errorMessage);
+      }
+    }
   } catch (e) {
     logger.error('Auth.getPreferredMFA failed with error', e);
     return Promise.reject(e);

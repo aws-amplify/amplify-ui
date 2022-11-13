@@ -1,8 +1,7 @@
 import React from 'react';
+import { MFAType } from '@aws-amplify/ui';
 import { FormValues } from '../types';
 
-// Shared types
-export type MFAType = 'SMS' | 'TOTP' | 'NOMFA';
 export interface ConfigureMFAProps {
   /** callback for successful mfa update */
   onSuccess?: () => void;
@@ -51,7 +50,7 @@ export interface SelectMFAProps {
 }
 
 export interface MFAOptionProps {
-  mfaType: 'SMS' | 'TOTP';
+  mfaType: 'sms' | 'totp';
 }
 
 export interface DisplayCurrentMFAProps {

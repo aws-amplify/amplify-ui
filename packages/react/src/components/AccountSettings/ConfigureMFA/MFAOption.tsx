@@ -19,10 +19,10 @@ export function MFAOption({ mfaType }: MFAOptionProps): JSX.Element | null {
   return (
     <Radio value={mfaType}>
       <Text fontWeight="bold">
-        {mfaType === 'SMS' ? useSMSText : useTOTPText}
+        {mfaType === 'sms' ? useSMSText : useTOTPText}
       </Text>
       <Text>
-        {mfaType === 'SMS' ? smsDescriptionText : useTOTPDescriptionText}
+        {mfaType === 'totp' ? smsDescriptionText : useTOTPDescriptionText}
       </Text>
     </Radio>
   );

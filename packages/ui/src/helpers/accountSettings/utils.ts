@@ -1,4 +1,4 @@
-import { AmplifyUser } from '../../types';
+import { AmplifyUser, MFAType } from '../../types';
 import parsePhoneNumber from 'libphonenumber-js';
 
 export type UserPhoneInfo = {
@@ -23,4 +23,8 @@ export const getUserPhoneInfo = (user: AmplifyUser): UserPhoneInfo => {
   } else {
     return { hasPhoneNumber: false };
   }
+};
+
+export const isMFAType = (mfaType: string): mfaType is MFAType => {
+  return mfaType === 'sms' || mfaType === 'totp' || mfaType === 'noMFA';
 };

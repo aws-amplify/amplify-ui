@@ -1,15 +1,17 @@
 import React from 'react';
 
 import {
-  getLogger,
-  getCurrentMFA,
-  setPreferredMFA,
-  translate,
-  setupTOTP,
-  verifyTOTPToken,
-  UserPhoneInfo,
   AmplifyUser,
+  getCurrentMFA,
+  getLogger,
   getUserPhoneInfo,
+  isMFAType,
+  MFAType,
+  setPreferredMFA,
+  setupTOTP,
+  translate,
+  UserPhoneInfo,
+  verifyTOTPToken,
   verifyUserAttribute,
   verifyUserAttributeSubmit,
 } from '@aws-amplify/ui';
@@ -27,7 +29,7 @@ import {
   SelectMFA,
   VerifySMS,
 } from './defaults';
-import { ConfigureMFAProps, ConfigureMFAState, MFAType } from './types';
+import { ConfigureMFAProps, ConfigureMFAState } from './types';
 
 const logger = getLogger('Auth');
 
@@ -36,9 +38,8 @@ function SetupMFA({
   onError,
 }: ConfigureMFAProps): JSX.Element | null {
   const [state, setState] = React.useState<ConfigureMFAState>('IDLE');
-  const [currentMFA, setCurrentMFA] = React.useState<string>(null);
-  // desired mfa type that end user selects
-  const [desiredMFA, setDesiredMFA] = React.useState<string>(null);
+  const [currentMFA, setCurrentMFA] = React.useState<MFAType>(null);
+  const [desiredMFA, setDesiredMFA] = React.useState<MFAType>(null);
   const [formValues, setFormValues] = React.useState<FormValues>(null);
   const [phoneInfo, setPhoneInfo] = React.useState<UserPhoneInfo>(null);
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
@@ -77,7 +78,7 @@ function SetupMFA({
   }, [user, fetchCurrentMFA]);
 
   const isMFADisabled = React.useMemo(
-    () => currentMFA === 'NOMFA',
+    () => currentMFA === 'nomfa',
     [currentMFA]
   );
 
@@ -106,7 +107,7 @@ function SetupMFA({
         await setPreferredMFA({ user, mfaType: 'TOTP' });
 
         // mfa has been succesfully changed!
-        setCurrentMFA('TOTP');
+        setCurrentMFA('totp');
         setState('DONE');
       } catch (e) {
         const error = e as Error;
@@ -122,7 +123,7 @@ function SetupMFA({
     try {
       await setPreferredMFA({ user, mfaType: 'NOMFA' });
 
-      setCurrentMFA('NOMFA');
+      setCurrentMFA('nomfa');
       setState('DONE');
     } catch (e) {
       const error = e as Error;
@@ -142,7 +143,7 @@ function SetupMFA({
       try {
         await verifyUserAttributeSubmit(code);
         await setPreferredMFA({ user, mfaType: 'SMS' });
-        setCurrentMFA('SMS');
+        setCurrentMFA('sms');
         setState('DONE');
       } catch (e) {
         const error = e as Error;
@@ -182,9 +183,12 @@ function SetupMFA({
   const handleSelectMFAChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
-      const { name, value } = event.target;
-      if (name === 'mfaType') {
+      const { value } = event.target;
+
+      if (isMFAType(value)) {
         setDesiredMFA(value);
+      } else {
+        logger.error('Unknown mfa type was selected', value);
       }
     },
     []
@@ -195,7 +199,7 @@ function SetupMFA({
       event.preventDefault();
 
       switch (desiredMFA) {
-        case 'SMS': {
+        case 'sms': {
           const userPhoneInfo = getUserPhoneInfo(user);
           const { dialCode, phoneNumber, hasPhoneNumber } = userPhoneInfo;
 
@@ -210,7 +214,7 @@ function SetupMFA({
           }
           break;
         }
-        case 'TOTP': {
+        case 'totp': {
           setState('CONFIGURE_TOTP');
           break;
         }
@@ -289,7 +293,7 @@ function SetupMFA({
             </EnableMFAButton>
           ) : (
             <DisplayCurrentMFA
-              currentMFA={currentMFA as MFAType}
+              currentMFA={currentMFA}
               onDisableMFA={handleDisableMFA}
               onUpdateMFA={toSelectMFA}
             />
