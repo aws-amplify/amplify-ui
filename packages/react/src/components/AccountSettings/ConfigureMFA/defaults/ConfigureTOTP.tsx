@@ -3,7 +3,7 @@ import QRCode from 'qrcode';
 
 import { getLogger, getTotpCodeURL, translate } from '@aws-amplify/ui';
 
-import { Button, Flex } from '../../../../primitives';
+import { Button, Flex, TextField, View } from '../../../../primitives';
 import { ConfigureTOTPProps } from '../types';
 
 const logger = getLogger('Auth');
