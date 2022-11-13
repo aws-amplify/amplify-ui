@@ -5,7 +5,7 @@ Feature: Reset Password
   Background:
     Given I'm running the example "ui/components/authenticator/reset-password"
 
-  @react @vue 
+  @react @vue @angular
   Scenario: Reset Password with valid username
     When I type my "username" with status "CONFIRMED"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
@@ -19,7 +19,7 @@ Feature: Reset Password
     And I click the submit button
     Then I see "Sign In"
     
-  @react @vue 
+  @react @vue @angular
   Scenario: Reset Password with invalid username
     When I type my "username" with status "UNKNOWN"
     And I click the "Send code" button

@@ -193,13 +193,32 @@ To override styling on all SearchField primitives, you can set the Amplify CSS v
     label="Globally styled search field"
     className="globally-styled-searchfield"
   />
+  <ExampleCode>
+
+```css
+/* styles.css */
+.amplify-searchfield {
+  --amplify-components-button-color: rebeccapurple;
+  --amplify-components-button-border-color: rebeccapurple;
+  --amplify-components-fieldcontrol-border-color: rebeccapurple;
+}
+```
+
+  </ExampleCode>
 </Example>
 
 ### Local styling
 
-To override styling on a specific TextField, you can use a class selector or style props.
+To override styling on a specific SearchField, you can use a class selector or style props.
 
 _Using a class selector:_
+
+<Example>
+  <SearchField
+    className="custom-searchfield-class"
+    label="Square password field"
+  />
+  <ExampleCode>
 
 ```css
 /* styles.css */
@@ -209,16 +228,12 @@ _Using a class selector:_
 }
 ```
 
-<Example>
-  <SearchField
-    className="custom-searchfield-class"
-    label="Square password field"
-  />
+  </ExampleCode>
 </Example>
 
 _Using style props:_
 
-Flex styling props will be applied to the SearchField wrapping Flex component, whereas other style props will be applied to the input field. This allows us to change the layout of the label and input field, while also styling the input field directly.
+All style props will be applied to the [`Flex`](flex) wrapper of the `SearchField`. To style the `input` of the `SearchField`, you can pass a `inputStyles` prop with the style props you want to apply to the input.
 
 <Example>
   <View>

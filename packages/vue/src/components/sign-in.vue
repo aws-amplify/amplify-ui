@@ -3,9 +3,9 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
+  authenticatorTextUtil,
   getActorState,
   getFormDataFromEvent,
-  hasTranslation,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
@@ -26,15 +26,14 @@ const emit = defineEmits([
   'createAccountClicked',
 ]);
 
-const forgotYourPasswordLink = computed(() =>
-  // Support backwards compatibility for legacy key with trailing space
-  !hasTranslation('Forgot your password? ')
-    ? translate('Forgot your password?')
-    : translate('Forgot your password? ')
-);
+// Text Util
+const { getForgotPasswordText, getSignInText, getSigningInText } =
+  authenticatorTextUtil;
 
-const signInButtonText = computed(() => translate('Sign in'));
-const signIngButtonText = computed(() => translate('Signing in'));
+// Computed Properties
+const forgotYourPasswordLink = computed(() => getForgotPasswordText());
+const signInButtonText = computed(() => getSignInText());
+const signIngButtonText = computed(() => getSigningInText());
 
 const { state, send } = useAuth();
 const actorState = computed(() =>

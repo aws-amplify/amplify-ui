@@ -1,9 +1,6 @@
 import { PrimitiveCatalog } from '@aws-amplify/ui-react/internal';
 
-// Jest doesn't support `exports` maps, so we have to reference `dist` directly.
-// See: https://github.com/facebook/jest/issues/9771
 import * as exported from '../src';
-import * as legacy from '../src/legacy';
 import * as internal from '../src/internal';
 
 describe('@aws-amplify/ui-react', () => {
@@ -12,16 +9,6 @@ describe('@aws-amplify/ui-react', () => {
       const sortedExports = Object.keys(exported).sort();
 
       expect(sortedExports).toMatchSnapshot();
-    });
-  });
-});
-
-describe('@aws-amplify/ui-react/legacy', () => {
-  describe('exports', () => {
-    it('should match snapshot', () => {
-      const sortedLegacyExports = Object.keys(legacy).sort();
-
-      expect(sortedLegacyExports).toMatchSnapshot();
     });
   });
 });

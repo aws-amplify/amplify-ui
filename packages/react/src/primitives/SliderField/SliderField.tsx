@@ -55,8 +55,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
-  const { flexContainerStyleProps, baseStyleProps, rest } =
-    splitPrimitiveProps(_rest);
+  const { styleProps, rest } = splitPrimitiveProps(_rest);
 
   const isControlled = value !== undefined;
 
@@ -111,8 +110,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
       )}
       testId={testId}
       data-size={size}
-      {...baseStyleProps}
-      {...flexContainerStyleProps}
+      {...styleProps}
     >
       <Label
         className={ComponentClassNames.SliderFieldLabel}

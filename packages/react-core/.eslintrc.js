@@ -1,7 +1,7 @@
 module.exports = {
   env: { node: true },
   root: true,
-  ignorePatterns: ['dist', '.eslintrc.js', 'jest.config.js', 'babel.config.js'],
+  ignorePatterns: ['dist', '.eslintrc.js', '*.config.js'],
   extends: [
     'eslint:recommended',
     'plugin:jest/recommended',
