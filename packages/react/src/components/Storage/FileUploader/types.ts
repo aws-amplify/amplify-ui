@@ -83,7 +83,7 @@ export interface TrackerProps {
 export interface FileStatus extends Partial<FileStateProps> {
   percentage?: number;
   uploadTask?: UploadTask;
-  fileErrors?: string;
+  fileErrors?: string | null;
   name?: string;
   file?: File;
 }

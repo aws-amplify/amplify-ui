@@ -73,7 +73,17 @@ describe('Previewer', () => {
     expect(await screen.findByText('1 files selected')).toBeVisible();
   });
   it('shows a disabled button when any file is in an edit state', async () => {
-    render(<Previewer {...commonProps} isEditingName={[true]} />);
+    render(
+      <Previewer
+        {...commonProps}
+        fileStatuses={[
+          {
+            ...fileStatus,
+            fileState: 'editing',
+          },
+        ]}
+      />
+    );
 
     expect(await screen.findByText(/Upload 1 files/)).toBeDisabled();
   });

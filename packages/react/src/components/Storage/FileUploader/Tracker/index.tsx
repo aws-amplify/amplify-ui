@@ -107,12 +107,12 @@ export function Tracker({
             {showEditButton ? (
               <Button onClick={onStartEdit} size="small" variation="link">
                 <VisuallyHidden>Edit file name {file.name}</VisuallyHidden>
-                <IconEdit ariaHidden fontSize="medium" />
+                <IconEdit aria-hidden fontSize="medium" />
               </Button>
             ) : null}
             <Button size="small" onClick={onCancel}>
               <VisuallyHidden>Remove file name {file.name}</VisuallyHidden>
-              <IconClose ariaHidden fontSize="medium" />
+              <IconClose aria-hidden fontSize="medium" />
             </Button>
           </>
         );
