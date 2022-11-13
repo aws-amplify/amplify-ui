@@ -81,7 +81,7 @@ export const setupTOTP = async (user: AmplifyUser) => {
   try {
     logger.debug('calling Auth.setupTOTP');
 
-    const secretCode = await Auth.setupTOTP(user);
+    const secretCode = Auth.setupTOTP(user);
     logger.debug('Auth.setupTOTP was successful');
 
     return secretCode;

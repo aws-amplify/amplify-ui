@@ -7,7 +7,6 @@ import {
   Flex,
   Heading,
   ConfigureMFA,
-  withAuthenticator,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -16,23 +15,25 @@ Amplify.configure(awsExports);
 
 Logger.LOG_LEVEL = 'DEBUG';
 
-function App({ signOut }) {
+export default function App() {
   return (
-    <Card width="600px">
-      <Flex direction="column">
-        <Card variation="outlined">
+    <Authenticator>
+      {({ signOut }) => (
+        <Card width="600px">
           <Flex direction="column">
-            <Heading>Configure MFA:</Heading>
-            <ConfigureMFA>
-              <ConfigureMFA.Option mfaType="SMS"></ConfigureMFA.Option>
-              <ConfigureMFA.Option mfaType="TOTP"></ConfigureMFA.Option>
-            </ConfigureMFA>
+            <Card variation="outlined">
+              <Flex direction="column">
+                <Heading>Configure MFA:</Heading>
+                <ConfigureMFA>
+                  <ConfigureMFA.Option mfaType="SMS"></ConfigureMFA.Option>
+                  <ConfigureMFA.Option mfaType="TOTP"></ConfigureMFA.Option>
+                </ConfigureMFA>
+              </Flex>
+            </Card>
+            <Button onClick={signOut}>Sign Out</Button>
           </Flex>
         </Card>
-        <Button onClick={signOut}>Sign Out</Button>
-      </Flex>
-    </Card>
+      )}
+    </Authenticator>
   );
 }
-
-export default withAuthenticator(App);
