@@ -29,6 +29,7 @@ export type ConfigureMFAState =
   | 'CONFIGURE_TOTP'
   | 'CONFIGURE_SMS'
   | 'VERIFY_SMS'
+  | 'LOADING'
   | 'DONE';
 
 // subcomponent types
@@ -53,7 +54,7 @@ export interface SelectMFAOptionProps {
 }
 
 export interface ConfigureTOTPProps {
-  totpSecretCode?: () => string;
+  getTotpSecretCode?: () => Promise<string>;
   qrCode?: () => string;
   totpIssuer?: string;
   totpUsername?: string;

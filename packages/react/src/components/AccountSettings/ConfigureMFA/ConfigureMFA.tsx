@@ -128,7 +128,7 @@ function SetupMFA({
 
         // move to an intermediary state so that `SetupTOTP` doesn't remount
         // and call `Auth.setupTOTP` in parallel
-        setState('SET_PREFERRED_MFA');
+        setState('LOADING');
         await setPreferredMFA({ user, mfaType: 'TOTP' });
 
         // mfa has been succesfully changed!
