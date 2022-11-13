@@ -33,7 +33,7 @@ import { ConfigureMFAProps, ConfigureMFAState } from './types';
 
 const logger = getLogger('Auth');
 
-function SetupMFA({
+function ConfigureMFA({
   children,
   onError,
 }: ConfigureMFAProps): JSX.Element | null {
@@ -269,7 +269,7 @@ function SetupMFA({
 
   // Return null if user isn't authenticated in the first place
   if (!user) {
-    logger.warn('<SetupMFA /> requires user to be authenticated.');
+    logger.warn('<ConfigureMFA /> requires user to be authenticated.');
     return null;
   }
 
@@ -345,6 +345,6 @@ function SetupMFA({
   );
 }
 
-SetupMFA.Option = MFAOption;
+ConfigureMFA.Option = MFAOption;
 
-export default SetupMFA;
+export default ConfigureMFA;

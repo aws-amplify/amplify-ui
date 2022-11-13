@@ -21,7 +21,7 @@ export const VerifySMS = ({
     <View as="form" onSubmit={onSubmit}>
       <Flex direction="column">
         <TextField
-          isRequired="true"
+          isRequired
           onChange={onChange}
           name="code"
           label={verificationCodeText}
