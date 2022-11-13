@@ -121,6 +121,7 @@ function SetupMFA({
   const runDisableMFA = React.useCallback(async () => {
     try {
       await setPreferredMFA({ user, mfaType: 'NOMFA' });
+
       setCurrentMFA('NOMFA');
       setState('DONE');
     } catch (e) {
@@ -140,16 +141,16 @@ function SetupMFA({
     async (code: string) => {
       try {
         await verifyUserAttributeSubmit(code);
+        await setPreferredMFA({ user, mfaType: 'SMS' });
         setCurrentMFA('SMS');
         setState('DONE');
       } catch (e) {
         const error = e as Error;
         onError?.(error);
         setErrorMessage(error.message);
-        toSelectMFA();
       }
     },
-    [onError, toSelectMFA]
+    [onError, user]
   );
 
   const runSendSMSCode = React.useCallback(async () => {

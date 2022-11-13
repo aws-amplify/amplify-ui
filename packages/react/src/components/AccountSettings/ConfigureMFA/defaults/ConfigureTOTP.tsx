@@ -66,6 +66,7 @@ export const ConfigureTOTP = ({
           name="code"
           label="Confirmation Code"
           placeholder="Code"
+          isRequired
         ></TextField>
         <Flex justifyContent="space-between">
           <Button variation="link" onClick={onCancel}>

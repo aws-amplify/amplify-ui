@@ -21,6 +21,7 @@ export const VerifySMS = ({
     <View as="form" onSubmit={onSubmit}>
       <Flex direction="column">
         <TextField
+          isRequired="true"
           onChange={onChange}
           name="code"
           label={verificationCodeText}
@@ -30,7 +31,9 @@ export const VerifySMS = ({
           <Button type="submit" variation="link" onClick={onCancel}>
             {backText}
           </Button>
-          <Button variation="primary">Confirm</Button>
+          <Button type="submit" variation="primary">
+            Confirm
+          </Button>
         </Flex>
       </Flex>
     </View>
