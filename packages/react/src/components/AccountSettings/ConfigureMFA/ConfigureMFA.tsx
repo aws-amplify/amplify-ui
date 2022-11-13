@@ -11,6 +11,7 @@ import {
   AmplifyUser,
   getUserPhoneInfo,
   verifyUserAttribute,
+  verifyUserAttributeSubmit,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
@@ -41,8 +42,9 @@ function SetupMFA({
   const [formValues, setFormValues] = React.useState<FormValues>(null);
   const [phoneInfo, setPhoneInfo] = React.useState<UserPhoneInfo>(null);
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
-  const [_destination, setDestination] = React.useState<string>(null);
+
   const { user, isLoading } = useAuth();
+
   // translations
   const enableMFAText = translate('Enable multi-factor authentication');
   const noPhoneErrorText = translate(
@@ -109,6 +111,7 @@ function SetupMFA({
       } catch (e) {
         const error = e as Error;
         onError?.(error);
+        setState('CONFIGURE_TOTP');
         setErrorMessage(error.message);
       }
     },
@@ -123,6 +126,7 @@ function SetupMFA({
     } catch (e) {
       const error = e as Error;
       onError?.(error);
+      setErrorMessage(error.message);
     }
   }, [user, onError]);
 
@@ -132,18 +136,37 @@ function SetupMFA({
     };
   }, []);
 
-  const runVerifyPhone = React.useCallback(
-    async (user: AmplifyUser, formValues: FormValues) => {
-      const { dialCode, phoneNumber } = formValues;
-      const fullPhoneNumber = `+${dialCode}${phoneNumber}`;
-
-      await verifyUserAttribute({ user, attr: 'phone_number' });
-
-      setDestination(fullPhoneNumber);
-      setState('VERIFY_SMS');
+  const runVerifySMSCode = React.useCallback(
+    async (code: string) => {
+      try {
+        await verifyUserAttributeSubmit(code);
+        setCurrentMFA('SMS');
+        setState('DONE');
+      } catch (e) {
+        const error = e as Error;
+        onError?.(error);
+        setErrorMessage(error.message);
+        toSelectMFA();
+      }
     },
-    []
+    [onError, toSelectMFA]
   );
+
+  const runSendSMSCode = React.useCallback(async () => {
+    try {
+      setState('LOADING');
+      await verifyUserAttribute();
+
+      setFormValues({});
+      setState('VERIFY_SMS');
+      setPhoneInfo(null);
+    } catch (e) {
+      const error = e as Error;
+      onError?.(error);
+      setErrorMessage(error.message);
+      toSelectMFA();
+    }
+  }, [onError, toSelectMFA]);
 
   // event handlers
   const handleEnableMFA = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -230,7 +253,13 @@ function SetupMFA({
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-    runVerifyPhone(user, formValues);
+    runSendSMSCode();
+  };
+
+  const handleVerifySMSCode = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { code } = formValues;
+    runVerifySMSCode(code);
   };
 
   // Return null if user isn't authenticated in the first place
@@ -298,7 +327,13 @@ function SetupMFA({
           onSubmit={handleConfigureSMSSubmit}
         />
       ) : null}
-      {state === 'VERIFY_SMS' ? <VerifySMS /> : null}
+      {state === 'VERIFY_SMS' ? (
+        <VerifySMS
+          onCancel={toSelectMFA}
+          onSubmit={handleVerifySMSCode}
+          onChange={handleChange}
+        />
+      ) : null}
 
       {errorMessage ? <Error>{errorMessage}</Error> : null}
     </Flex>

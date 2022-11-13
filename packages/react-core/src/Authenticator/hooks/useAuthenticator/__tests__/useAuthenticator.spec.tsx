@@ -10,7 +10,7 @@ import { useAuthenticator, UseAuthenticator } from '..';
 
 const mockServiceFacade: AuthenticatorServiceFacade = {
   authStatus: 'authenticated',
-  codeDeliveryDetails: {} as UseAuthenticator['codeDeliveryDetails'],
+  sendSMSCode: {} as UseAuthenticator['sendSMSCode'],
   error: undefined as unknown as UseAuthenticator['error'],
   hasValidationErrors: false,
   isPending: false,

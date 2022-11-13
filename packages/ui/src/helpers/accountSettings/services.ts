@@ -111,16 +111,22 @@ export const verifyTOTPToken = async ({
   }
 };
 
-export const verifyUserAttribute = async ({
-  user,
-  attr,
-}: {
-  user: AmplifyUser;
-  attr: 'phone_number' | 'email';
-}) => {
+export const verifyUserAttribute = async () => {
   try {
-    logger.debug('calling Auth.verifyUserAttribute');
-    await Auth.verifyUserAttribute(user, attr);
+    logger.debug('calling Auth.verifyCurrentUserAttribute');
+    await Auth.verifyCurrentUserAttribute('phone_number');
+    logger.debug('Auth.verifyCurrentUserAttribute was successful');
+    return Promise.resolve();
+  } catch (e) {
+    logger.error('Auth.verifyCurrentUserAttribute failed with error', e);
+    return Promise.reject(e);
+  }
+};
+
+export const verifyUserAttributeSubmit = async (code: string) => {
+  try {
+    logger.debug('calling Auth.verifyCurrentUserAttributeSubmit');
+    await Auth.verifyCurrentUserAttributeSubmit('phone_number', code);
     logger.debug('Auth.verifyUserAttribute was successful');
     return Promise.resolve();
   } catch (e) {

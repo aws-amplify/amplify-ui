@@ -8,7 +8,7 @@ export const facade = {
   authStatus: '',
   user: '',
   validationErrors: [''],
-  codeDeliveryDetails: {
+  sendSMSCode: {
     val: '',
     DeliveryMedium: '',
   },

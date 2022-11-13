@@ -19,11 +19,11 @@ export function ConfirmSignUp({
   const {
     isPending,
     resendCode,
-    codeDeliveryDetails: { DeliveryMedium, Destination } = {},
+    sendSMSCode: { DeliveryMedium, Destination } = {},
   } = useAuthenticator((context) => [
     context.isPending,
     context.resendCode,
-    context.codeDeliveryDetails,
+    context.sendSMSCode,
   ]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
@@ -100,8 +100,8 @@ export function ConfirmSignUp({
 }
 
 const DefaultHeader = () => {
-  const { codeDeliveryDetails: { DeliveryMedium } = {} } = useAuthenticator(
-    (context) => [context.codeDeliveryDetails]
+  const { sendSMSCode: { DeliveryMedium } = {} } = useAuthenticator(
+    (context) => [context.sendSMSCode]
   );
 
   const confirmSignUpHeading =

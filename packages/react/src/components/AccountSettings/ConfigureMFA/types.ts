@@ -82,7 +82,6 @@ export interface ConfigureSMSProps {
 }
 
 export interface VerifySMSProps {
-  phoneNumber?: string; // pre-existing phone number, if any
   onCancel?: () => void;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit?: React.FormEventHandler<HTMLFormElement>;

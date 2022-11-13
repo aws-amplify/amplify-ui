@@ -73,7 +73,7 @@ interface BaseFormContext {
   /** Maps each password validation rule */
   passwordSettings?: PasswordSettings;
   /** Denotes where a confirmation code has been sent to */
-  codeDeliveryDetails?: CodeDeliveryDetails;
+  sendSMSCode?: CodeDeliveryDetails;
   /** Default country code for all phone number fields. */
   country_code?: string; // TODO: this one should be customizable as well
 }

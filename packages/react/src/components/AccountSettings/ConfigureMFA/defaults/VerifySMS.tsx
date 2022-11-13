@@ -1,37 +1,33 @@
 import React from 'react';
 
-import { censorPhoneNumber, translate } from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 import { Button, Flex, TextField, View } from '../../../../primitives';
 import { VerifySMSProps } from '../types';
 
 export const VerifySMS = ({
-  phoneNumber,
   onCancel,
   onSubmit,
+  onChange,
 }: VerifySMSProps): JSX.Element => {
-  // censored phone number
-  const destination = React.useMemo(
-    () => censorPhoneNumber(phoneNumber),
-    [phoneNumber]
-  );
-
   // translations
   const verificationCodeText = translate('Verification Code');
-  const descriptiveText = `${translate(
-    'Please enter the verification code we sent to'
-  )} ${destination}`;
+  const descriptiveText = translate(
+    'Please enter the verification code we sent to your phone number'
+  );
   const backText = translate('Back');
 
   return (
     <View as="form" onSubmit={onSubmit}>
       <Flex direction="column">
         <TextField
+          onChange={onChange}
+          name="code"
           label={verificationCodeText}
           descriptiveText={descriptiveText}
         />
         <Flex direction="row" justifyContent="space-between">
-          <Button variation="link" onClick={onCancel}>
+          <Button type="submit" variation="link" onClick={onCancel}>
             {backText}
           </Button>
           <Button variation="primary">Confirm</Button>

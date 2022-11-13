@@ -10,14 +10,14 @@ const attrs = useAttrs();
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
 const useAuthShared = createSharedComposable(useAuthenticator);
-const { isPending, error, codeDeliveryDetails } = toRefs(useAuthShared());
+const { isPending, error, sendSMSCode } = toRefs(useAuthShared());
 const { submitForm, updateForm, resendCode } = useAuthShared();
 
 // Only two types of delivery methods is EMAIL or SMS
 const confirmSignUpHeading = computed(() => {
-  return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
+  return sendSMSCode.value?.DeliveryMedium === 'EMAIL'
     ? translate('We Emailed You')
-    : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
+    : sendSMSCode.value?.DeliveryMedium === 'SMS'
     ? translate('We Texted You')
     : translate('We Sent A Code');
 });
@@ -35,10 +35,10 @@ const defaultMessage = translate(
 );
 const minutesMessage = translate('It may take a minute to arrive.');
 const subtitleText = computed(() => {
-  return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
-    ? `${emailMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
-    : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
-    ? `${textedMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
+  return sendSMSCode.value?.DeliveryMedium === 'EMAIL'
+    ? `${emailMessage} ${sendSMSCode.value?.Destination}. ${minutesMessage}`
+    : sendSMSCode.value?.DeliveryMedium === 'SMS'
+    ? `${textedMessage} ${sendSMSCode.value?.Destination}. ${minutesMessage}`
     : translate(`${defaultMessage}`);
 });
 

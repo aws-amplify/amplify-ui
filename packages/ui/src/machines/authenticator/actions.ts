@@ -117,7 +117,7 @@ export const setUsername = assign({
 });
 
 export const setCodeDeliveryDetails = assign({
-  codeDeliveryDetails: (_, event: AuthEvent) => event.data.codeDeliveryDetails,
+  sendSMSCode: (_, event: AuthEvent) => event.data.sendSMSCode,
 });
 
 export const setUsernameAuthAttributes = assign({
