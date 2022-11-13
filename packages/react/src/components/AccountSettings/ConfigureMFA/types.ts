@@ -49,7 +49,7 @@ export interface SelectMFAProps {
   children?: React.ReactNode;
 }
 
-export interface SelectMFAOptionProps {
+export interface MFAOptionProps {
   mfaType: 'SMS' | 'TOTP';
 }
 

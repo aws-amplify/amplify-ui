@@ -11,7 +11,9 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
-import { View, Radio, Text } from '../../../primitives';
+import { View } from '../../../primitives';
+import { FormValues } from '../types';
+import { MFAOption } from './MFAOption';
 import {
   ConfigureSMS,
   ConfigureTOTP,
@@ -20,48 +22,9 @@ import {
   SelectMFA,
   VerifySMS,
 } from './defaults';
-import {
-  ConfigureMFAProps,
-  ConfigureMFAState,
-  MFAType,
-  SelectMFAOptionProps,
-} from './types';
-import { FormValues } from '../types';
+import { ConfigureMFAProps, ConfigureMFAState, MFAType } from './types';
 
 const logger = getLogger('Auth');
-
-/*
- * helper subcomponent that represents radio button option for desired
- * MFA type. This will be passed as children to `<ConfigureMFA />`:
- *
- * <ConfigureMFA>
- *   <ConfigureMFA.Option mfaType="SMS" />
- * </ConfigureMFA>
- */
-function SelectMFAOption({
-  mfaType,
-}: SelectMFAOptionProps): JSX.Element | null {
-  // translation
-  const useSMSText = translate('Use SMS');
-  const useTOTPText = translate('Use an app');
-  const smsDescriptionText = translate(
-    'Receive an SMS on your phone with a code'
-  );
-  const useTOTPDescriptionText = translate(
-    'Use an application on your phone. Applications include cloud-based TOTP (temporary one time password) apps such as Authy, Google Authenticator, and 1password.'
-  );
-
-  return (
-    <Radio value={mfaType}>
-      <Text fontWeight="bold">
-        {mfaType === 'SMS' ? useSMSText : useTOTPText}
-      </Text>
-      <Text>
-        {mfaType === 'SMS' ? smsDescriptionText : useTOTPDescriptionText}
-      </Text>
-    </Radio>
-  );
-}
 
 function SetupMFA({
   children,
@@ -285,6 +248,6 @@ function SetupMFA({
   );
 }
 
-SetupMFA.Option = SelectMFAOption;
+SetupMFA.Option = MFAOption;
 
 export default SetupMFA;
