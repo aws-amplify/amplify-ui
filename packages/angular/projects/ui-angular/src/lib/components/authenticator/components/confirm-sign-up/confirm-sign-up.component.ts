@@ -37,7 +37,7 @@ export class ConfirmSignUpComponent {
   }
 
   public get confirmSignUpHeading(): string {
-    const { sendSMSCode: { DeliveryMedium } = {} } = this.authenticator;
+    const { codeDeliveryDetails: { DeliveryMedium } = {} } = this.authenticator;
     return DeliveryMedium === 'EMAIL'
       ? translate('We Emailed You')
       : DeliveryMedium === 'SMS'
@@ -46,7 +46,7 @@ export class ConfirmSignUpComponent {
   }
 
   public get subtitleText(): string {
-    const { sendSMSCode: { DeliveryMedium, Destination } = {} } =
+    const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
       this.authenticator;
     return DeliveryMedium === 'EMAIL'
       ? `${this.emailMessage} ${Destination}. ${this.minutesMessage}`

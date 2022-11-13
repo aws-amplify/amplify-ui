@@ -78,8 +78,8 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade?.validationErrors;
   }
 
-  public get sendSMSCode() {
-    return this._facade?.sendSMSCode;
+  public get codeDeliveryDetails() {
+    return this._facade?.codeDeliveryDetails;
   }
 
   /**

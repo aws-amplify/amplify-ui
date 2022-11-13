@@ -43,7 +43,7 @@ type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
 interface AuthenticatorServiceContextFacade {
   authStatus: AuthStatus;
-  sendSMSCode: CodeDeliveryDetails;
+  codeDeliveryDetails: CodeDeliveryDetails;
   error: string;
   hasValidationErrors: boolean;
   isPending: boolean;
@@ -120,7 +120,7 @@ export const getServiceContextFacade = (
 ): AuthenticatorServiceContextFacade => {
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
-    sendSMSCode,
+    codeDeliveryDetails,
     remoteError: error,
     unverifiedContactMethods,
     validationError: validationErrors,
@@ -196,7 +196,7 @@ export const getServiceContextFacade = (
 
   return {
     authStatus,
-    sendSMSCode,
+    codeDeliveryDetails,
     error,
     hasValidationErrors,
     isPending,
