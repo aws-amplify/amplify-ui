@@ -25,8 +25,8 @@ export default function App() {
               <Flex direction="column">
                 <Heading>Configure MFA:</Heading>
                 <ConfigureMFA>
-                  <ConfigureMFA.Option mfaType="SMS"></ConfigureMFA.Option>
-                  <ConfigureMFA.Option mfaType="TOTP"></ConfigureMFA.Option>
+                  <ConfigureMFA.Option mfaType="sms"></ConfigureMFA.Option>
+                  <ConfigureMFA.Option mfaType="totp"></ConfigureMFA.Option>
                 </ConfigureMFA>
               </Flex>
             </Card>
