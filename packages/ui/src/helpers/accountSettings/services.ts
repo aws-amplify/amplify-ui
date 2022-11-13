@@ -100,29 +100,13 @@ export const verifyTOTPToken = async ({
 }) => {
   try {
     logger.debug('calling Auth.verifyTotpToken');
+
     await Auth.verifyTotpToken(user, code);
     logger.debug('Auth.verifyTotpToken was successful');
+
     return Promise.resolve();
   } catch (e) {
     logger.error('Auth.verifyTotpToken failed with error', e);
-    return Promise.reject(e);
-  }
-};
-
-export const updateUserAttributes = async ({
-  user,
-  attributes,
-}: {
-  user: AmplifyUser;
-  attributes: Record<string, string>;
-}) => {
-  try {
-    logger.debug('calling Auth.updateUserAttributes');
-    await Auth.updateUserAttributes(user, attributes);
-    logger.debug('Auth.updateUserAttributes was successful');
-    return Promise.resolve();
-  } catch (e) {
-    logger.error('Auth.updateUserAttributes failed with error', e);
     return Promise.reject(e);
   }
 };

@@ -11,7 +11,6 @@ import {
   AmplifyUser,
   getUserPhoneInfo,
   verifyUserAttribute,
-  updateUserAttributes,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
@@ -46,6 +45,10 @@ function SetupMFA({
   const { user, isLoading } = useAuth();
   // translations
   const enableMFAText = translate('Enable multi-factor authentication');
+  const noPhoneErrorText = translate(
+    'You do not have a phone number setup yet. Please register a phone number first.'
+  );
+
   const fetchCurrentMFA = React.useCallback(async () => {
     if (user) {
       try {
@@ -133,20 +136,13 @@ function SetupMFA({
     async (user: AmplifyUser, formValues: FormValues) => {
       const { dialCode, phoneNumber } = formValues;
       const fullPhoneNumber = `+${dialCode}${phoneNumber}`;
-      if (phoneInfo.hasPhoneNumber) {
-        // user had a phone number registered already, just reverify phone number
-        await verifyUserAttribute({ user, attr: 'phone_number' });
-      } else {
-        // else, user registers a new phone. Verification code will be sent automatically.
-        await updateUserAttributes({
-          user,
-          attributes: { phone_number: fullPhoneNumber },
-        });
-      }
+
+      await verifyUserAttribute({ user, attr: 'phone_number' });
+
       setDestination(fullPhoneNumber);
       setState('VERIFY_SMS');
     },
-    [phoneInfo]
+    []
   );
 
   // event handlers
@@ -177,12 +173,17 @@ function SetupMFA({
       switch (desiredMFA) {
         case 'SMS': {
           const userPhoneInfo = getUserPhoneInfo(user);
-          const { dialCode, phoneNumber } = userPhoneInfo;
+          const { dialCode, phoneNumber, hasPhoneNumber } = userPhoneInfo;
 
-          // set initial values
-          setFormValues({ dialCode, phoneNumber });
-          setPhoneInfo(userPhoneInfo);
-          setState('CONFIGURE_SMS');
+          if (hasPhoneNumber) {
+            // set initial values
+            setFormValues({ dialCode, phoneNumber });
+            setPhoneInfo(userPhoneInfo);
+            setState('CONFIGURE_SMS');
+          } else {
+            // user doesn't have a phone yet, warn them.
+            setErrorMessage(noPhoneErrorText);
+          }
           break;
         }
         case 'TOTP': {
@@ -195,7 +196,7 @@ function SetupMFA({
         }
       }
     },
-    [desiredMFA, user]
+    [desiredMFA, user, noPhoneErrorText]
   );
 
   const handleConfigureTOTPSubmit = React.useCallback(
