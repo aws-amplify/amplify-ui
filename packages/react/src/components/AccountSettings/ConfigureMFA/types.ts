@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormValues } from '../types';
 
 // Shared types
 export type MFAType = 'SMS' | 'TOTP' | 'NOMFA';
@@ -53,6 +54,12 @@ export interface MFAOptionProps {
   mfaType: 'SMS' | 'TOTP';
 }
 
+export interface DisplayCurrentMFAProps {
+  onDisableMFA?: () => void;
+  onUpdateMFA?: () => void;
+  currentMFA?: MFAType;
+}
+
 export interface ConfigureTOTPProps {
   getTotpSecretCode?: () => Promise<string>;
   qrCode?: () => string;
@@ -64,16 +71,14 @@ export interface ConfigureTOTPProps {
 }
 
 export interface ConfigureSMSProps {
-  phoneNumber?: string; // pre-existing phone number, if any
+  defaultDialCode?: string;
+  formValues?: FormValues;
+  hasPhoneNumber?: boolean;
+  isVerified?: boolean;
   onCancel?: () => void;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onDialCodeChange?: React.ChangeEventHandler<HTMLSelectElement>;
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
-}
-
-export interface DisplayCurrentMFAProps {
-  onDisableMFA?: () => void;
-  onUpdateMFA?: () => void;
-  currentMFA?: MFAType;
 }
 
 export interface VerifySMSProps {

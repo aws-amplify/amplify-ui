@@ -7,11 +7,15 @@ import {
   translate,
   setupTOTP,
   verifyTOTPToken,
+  UserPhoneInfo,
   AmplifyUser,
+  getUserPhoneInfo,
+  verifyUserAttribute,
+  updateUserAttributes,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
-import { View } from '../../../primitives';
+import { Flex } from '../../../primitives';
 import { FormValues } from '../types';
 import { MFAOption } from './MFAOption';
 import {
@@ -19,6 +23,7 @@ import {
   ConfigureTOTP,
   DisplayCurrentMFA,
   EnableMFAButton,
+  Error,
   SelectMFA,
   VerifySMS,
 } from './defaults';
@@ -32,14 +37,15 @@ function SetupMFA({
 }: ConfigureMFAProps): JSX.Element | null {
   const [state, setState] = React.useState<ConfigureMFAState>('IDLE');
   const [currentMFA, setCurrentMFA] = React.useState<string>(null);
-  const [_errorMessage, setErrorMessage] = React.useState<string>(null);
   // desired mfa type that end user selects
   const [desiredMFA, setDesiredMFA] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>(null);
+  const [phoneInfo, setPhoneInfo] = React.useState<UserPhoneInfo>(null);
+  const [errorMessage, setErrorMessage] = React.useState<string>(null);
+  const [_destination, setDestination] = React.useState<string>(null);
   const { user, isLoading } = useAuth();
   // translations
   const enableMFAText = translate('Enable multi-factor authentication');
-
   const fetchCurrentMFA = React.useCallback(async () => {
     if (user) {
       try {
@@ -123,6 +129,26 @@ function SetupMFA({
     };
   }, []);
 
+  const runVerifyPhone = React.useCallback(
+    async (user: AmplifyUser, formValues: FormValues) => {
+      const { dialCode, phoneNumber } = formValues;
+      const fullPhoneNumber = `+${dialCode}${phoneNumber}`;
+      if (phoneInfo.hasPhoneNumber) {
+        // user had a phone number registered already, just reverify phone number
+        await verifyUserAttribute({ user, attr: 'phone_number' });
+      } else {
+        // else, user registers a new phone. Verification code will be sent automatically.
+        await updateUserAttributes({
+          user,
+          attributes: { phone_number: fullPhoneNumber },
+        });
+      }
+      setDestination(fullPhoneNumber);
+      setState('VERIFY_SMS');
+    },
+    [phoneInfo]
+  );
+
   // event handlers
   const handleEnableMFA = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -150,6 +176,12 @@ function SetupMFA({
 
       switch (desiredMFA) {
         case 'SMS': {
+          const userPhoneInfo = getUserPhoneInfo(user);
+          const { dialCode, phoneNumber } = userPhoneInfo;
+
+          // set initial values
+          setFormValues({ dialCode, phoneNumber });
+          setPhoneInfo(userPhoneInfo);
           setState('CONFIGURE_SMS');
           break;
         }
@@ -163,7 +195,7 @@ function SetupMFA({
         }
       }
     },
-    [desiredMFA]
+    [desiredMFA, user]
   );
 
   const handleConfigureTOTPSubmit = React.useCallback(
@@ -184,6 +216,22 @@ function SetupMFA({
     [formValues]
   );
 
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+    setFormValues((formValues) => ({ ...formValues, [name]: value }));
+  };
+
+  const handleConfigureSMSSubmit = (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+    runVerifyPhone(user, formValues);
+  };
+
   // Return null if user isn't authenticated in the first place
   if (!user) {
     logger.warn('<SetupMFA /> requires user to be authenticated.');
@@ -201,7 +249,7 @@ function SetupMFA({
   }
 
   return (
-    <View className="amplify-configuremfa">
+    <Flex direction="column" className="amplify-configuremfa">
       {state === 'IDLE' || state === 'DONE' ? (
         <>
           {isMFADisabled ? (
@@ -239,12 +287,20 @@ function SetupMFA({
       ) : null}
       {state === 'CONFIGURE_SMS' ? (
         <ConfigureSMS
-          phoneNumber={user.attributes?.phone_number}
+          hasPhoneNumber={phoneInfo.hasPhoneNumber}
+          defaultDialCode={phoneInfo.dialCode}
+          isVerified={phoneInfo.isVerified}
+          formValues={formValues}
           onCancel={toSelectMFA}
+          onChange={handleChange}
+          onDialCodeChange={handleChange}
+          onSubmit={handleConfigureSMSSubmit}
         />
       ) : null}
       {state === 'VERIFY_SMS' ? <VerifySMS /> : null}
-    </View>
+
+      {errorMessage ? <Error>{errorMessage}</Error> : null}
+    </Flex>
   );
 }
 

@@ -7,7 +7,11 @@ import { ConfigureSMSProps } from '../types';
 
 export const ConfigureSMS = ({
   onSubmit,
+  onChange,
   onCancel,
+  onDialCodeChange,
+  formValues,
+  hasPhoneNumber,
 }: ConfigureSMSProps): JSX.Element => {
   // translations
   const phoneNumberText = translate('Phone Number');
@@ -15,12 +19,21 @@ export const ConfigureSMS = ({
   const backText = translate('Back');
   const sendCodeText = translate('Send code');
 
+  const { dialCode, phoneNumber } = formValues;
+
   return (
     <View as="form" onSubmit={onSubmit}>
       <Flex direction="column">
         <PhoneNumberField
           label={phoneNumberText}
           descriptiveText={descriptiveText}
+          name="phoneNumber"
+          dialCodeName="dialCode"
+          isDisabled={hasPhoneNumber}
+          onChange={onChange}
+          onDialCodeChange={onDialCodeChange}
+          defaultDialCode={dialCode}
+          value={phoneNumber}
         />
 
         <Flex direction="row" justifyContent="space-between">
