@@ -20,7 +20,6 @@ export interface ConfigureMFAProps {
  * 3a. If user selects TOTP MFA, they set it up in "CONFIGURE_TOTP" state
  * 3b-1. If User selects SMS MFA, they enter desired phone number in "CONFIGURE_SMS" state
  * 3b-2. User confirms their phone number to finish sms setup
- * 4. Chosen mfa method is set to preferred mfa
  * 5. app is done in "DONE" state
  */
 export type ConfigureMFAState =
@@ -30,7 +29,6 @@ export type ConfigureMFAState =
   | 'CONFIGURE_TOTP'
   | 'CONFIGURE_SMS'
   | 'VERIFY_SMS'
-  | 'SET_PREFERRED_MFA'
   | 'DONE';
 
 // subcomponent types
@@ -55,7 +53,8 @@ export interface SelectMFAOptionProps {
 }
 
 export interface ConfigureTOTPProps {
-  getTotpSecretCode?: () => Promise<string>;
+  totpSecretCode?: () => string;
+  qrCode?: () => string;
   totpIssuer?: string;
   totpUsername?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
