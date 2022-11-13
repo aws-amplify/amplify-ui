@@ -129,13 +129,16 @@ export const ConfigureTOTP = ({
   const [qrCode, setQrCode] = React.useState<string>(null);
   const [secretKey, setSecretKey] = React.useState<string>(null);
 
+  const hasInit = React.useRef(false);
+
   const generateQRCode = React.useCallback(async (): Promise<void> => {
     try {
       const newSecretKey = await getTotpSecretCode();
-      setSecretKey(newSecretKey);
+
       const totpCode = getTotpCodeURL(totpIssuer, totpUsername, newSecretKey);
       const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
+      setSecretKey(newSecretKey);
       setQrCode(qrCodeImageSource);
     } catch (e) {
       logger.error(e);
@@ -143,7 +146,10 @@ export const ConfigureTOTP = ({
   }, [getTotpSecretCode, totpIssuer, totpUsername]);
 
   React.useEffect(() => {
-    if (!secretKey) {
+    // console.log('+++ above secret', hasInit.current, secretKey);
+    if (!hasInit.current && !secretKey) {
+      // console.log('+++ below secret');
+      hasInit.current = true;
       generateQRCode();
     }
   }, [generateQRCode, secretKey]);

@@ -121,28 +121,6 @@ function SetupMFA({
   }, []);
 
   // API calls
-  const runVerifyTOTPToken = React.useCallback(
-    async (code: string) => {
-      try {
-        await verifyTOTPToken({ user, code });
-
-        // move to an intermediary state so that `SetupTOTP` doesn't remount
-        // and call `Auth.setupTOTP` in parallel
-        setState('SET_PREFERRED_MFA');
-        await setPreferredMFA({ user, mfaType: 'TOTP' });
-
-        // mfa has been succesfully changed!
-        setCurrentMFA('TOTP');
-        setState('DONE');
-      } catch (e) {
-        const error = e as Error;
-        onError?.(error);
-        setErrorMessage(error.message);
-      }
-    },
-    [onError, user]
-  );
-
   const runDisableMFA = React.useCallback(async () => {
     try {
       await setPreferredMFA({ user, mfaType: 'NOMFA' });
@@ -154,10 +132,29 @@ function SetupMFA({
     }
   }, [user, onError]);
 
-  const getTotpSecretCode = React.useCallback((user: AmplifyUser) => {
-    return () => {
-      return setupTOTP(user);
-    };
+  // Setting a Ref to keep user object consistent across TOTP handlers.
+  // This is done because `
+  const totpUser = React.useRef<AmplifyUser>();
+
+  const runVerifyTOTPToken = React.useCallback(
+    async (code: string) => {
+      try {
+        await verifyTOTPToken({ user: totpUser.current, code });
+        await setPreferredMFA({ user: totpUser.current, mfaType: 'TOTP' });
+        // mfa has been succesfully changed!
+        setCurrentMFA('TOTP');
+        setState('DONE');
+      } catch (e) {
+        const error = e as Error;
+        onError?.(error);
+        setErrorMessage(error.message);
+      }
+    },
+    [onError]
+  );
+
+  const getTotpSecretCode = React.useCallback(() => {
+    return setupTOTP(totpUser.current);
   }, []);
 
   // event handlers
@@ -191,6 +188,7 @@ function SetupMFA({
           break;
         }
         case 'TOTP': {
+          totpUser.current = user;
           setState('CONFIGURE_TOTP');
           break;
         }
@@ -200,7 +198,7 @@ function SetupMFA({
         }
       }
     },
-    [desiredMFA]
+    [desiredMFA, user]
   );
 
   const handleConfigureTOTPSubmit = React.useCallback(
@@ -267,16 +265,16 @@ function SetupMFA({
       {state === 'CONFIGURE_TOTP' ? (
         <ConfigureTOTP
           onCancel={toSelectMFA}
-          getTotpSecretCode={getTotpSecretCode(user)}
+          getTotpSecretCode={getTotpSecretCode}
           onChange={handleCodeChange}
           onSubmit={handleConfigureTOTPSubmit}
           totpIssuer="AWSCognito"
-          totpUsername={user.username}
+          totpUsername={totpUser.current.username}
         />
       ) : null}
       {state === 'CONFIGURE_SMS' ? (
         <ConfigureSMS
-          phoneNumber={user.attributes?.phone_number}
+          phoneNumber={user.attributes.phone_number}
           onCancel={toSelectMFA}
         />
       ) : null}
