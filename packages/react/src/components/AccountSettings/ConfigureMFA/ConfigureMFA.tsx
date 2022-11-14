@@ -80,34 +80,10 @@ function ConfigureMFA({
   );
 
   // transition methods
-  const toIdle = React.useCallback(() => {
+  const transitionTo = React.useCallback((newState: ConfigureMFAState) => {
     setFormValues({});
     setErrorMessage(null);
-    setState('IDLE');
-  }, []);
-
-  const toDone = React.useCallback(() => {
-    setFormValues({});
-    setErrorMessage(null);
-    setState('DONE');
-  }, []);
-
-  const toSelectMFA = React.useCallback(() => {
-    setFormValues({});
-    setErrorMessage(null);
-    setState('SELECT_MFA');
-  }, []);
-
-  const toVerifySMS = React.useCallback(() => {
-    setFormValues({});
-    setErrorMessage(null);
-    setState('VERIFY_SMS');
-  }, []);
-
-  const toConfigureTOTP = React.useCallback(() => {
-    setFormValues({});
-    setErrorMessage(null);
-    setState('CONFIGURE_TOTP');
+    setState(newState);
   }, []);
 
   // API call helpers
@@ -123,15 +99,17 @@ function ConfigureMFA({
 
         // mfa has been succesfully changed!
         setCurrentMFA('totp');
-        toDone();
+        transitionTo('DONE');
       } catch (e) {
         const error = e as Error;
         onError?.(error);
-        if (state !== 'CONFIGURE_TOTP') setState('CONFIGURE_TOTP');
+        if (state !== 'CONFIGURE_TOTP') {
+          setState('CONFIGURE_TOTP');
+        }
         setErrorMessage(error.message);
       }
     },
-    [onError, user, state, toDone]
+    [user, transitionTo, onError, state]
   );
 
   const runDisableMFA = React.useCallback(async () => {
@@ -139,13 +117,13 @@ function ConfigureMFA({
       await setPreferredMFA({ user, mfaType: 'NOMFA' });
 
       setCurrentMFA('nomfa');
-      toDone();
+      transitionTo('DONE');
     } catch (e) {
       const error = e as Error;
       onError?.(error);
       setErrorMessage(error.message);
     }
-  }, [user, onError, toDone]);
+  }, [user, transitionTo, onError]);
 
   const getTotpSecretCode = React.useCallback((user: AmplifyUser) => {
     return () => {
@@ -159,14 +137,14 @@ function ConfigureMFA({
         await verifyUserAttributeSubmit(code);
         await setPreferredMFA({ user, mfaType: 'SMS' });
         setCurrentMFA('sms');
-        toDone();
+        transitionTo('DONE');
       } catch (e) {
         const error = e as Error;
         onError?.(error);
         setErrorMessage(error.message);
       }
     },
-    [onError, user, toDone]
+    [user, transitionTo, onError]
   );
 
   const runSendSMSCode = React.useCallback(async () => {
@@ -174,14 +152,14 @@ function ConfigureMFA({
       setState('LOADING');
       await verifyUserAttribute();
 
-      toVerifySMS();
+      transitionTo('VERIFY_SMS');
     } catch (e) {
       const error = e as Error;
       onError?.(error);
       setErrorMessage(error.message);
-      toSelectMFA();
+      transitionTo('SELECT_MFA');
     }
-  }, [onError, toSelectMFA, toVerifySMS]);
+  }, [onError, transitionTo]);
 
   // submit handlers
   const handleChange = (
@@ -195,47 +173,44 @@ function ConfigureMFA({
 
   const handleEnableMFA = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    toSelectMFA();
+    transitionTo('SELECT_MFA');
   };
 
   const handleDisableMFA = React.useCallback(() => {
     runDisableMFA();
   }, [runDisableMFA]);
 
-  const handleSelectMFA = React.useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+  const handleSelectMFA = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-      const { mfaType } = formValues;
+    const { mfaType } = formValues;
 
-      switch (mfaType) {
-        case 'sms': {
-          const userPhoneInfo = getUserPhoneInfo(user);
-          const { dialCode, phoneNumber, hasPhoneNumber } = userPhoneInfo;
+    switch (mfaType) {
+      case 'sms': {
+        const userPhoneInfo = getUserPhoneInfo(user);
+        const { dialCode, phoneNumber, hasPhoneNumber } = userPhoneInfo;
 
-          if (hasPhoneNumber) {
-            // set initial values
-            setDefaultDialCode(dialCode);
-            setFormValues({ dialCode, phoneNumber });
-            setState('CONFIGURE_SMS');
-          } else {
-            // user doesn't have a phone yet, warn them.
-            setErrorMessage(noPhoneErrorText);
-          }
-          break;
+        if (hasPhoneNumber) {
+          // set initial values
+          setDefaultDialCode(dialCode);
+          setFormValues({ dialCode, phoneNumber });
+          setState('CONFIGURE_SMS');
+        } else {
+          // user doesn't have a phone yet, warn them.
+          setErrorMessage(noPhoneErrorText);
         }
-        case 'totp': {
-          toConfigureTOTP();
-          break;
-        }
-        default: {
-          logger.error('Unknown mfa was selected:', mfaType);
-          break;
-        }
+        break;
       }
-    },
-    [user, noPhoneErrorText, formValues, toConfigureTOTP]
-  );
+      case 'totp': {
+        transitionTo('CONFIGURE_TOTP');
+        break;
+      }
+      default: {
+        logger.error('Unknown mfa was selected:', mfaType);
+        break;
+      }
+    }
+  };
 
   const handleConfigureTOTP = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
@@ -285,7 +260,7 @@ function ConfigureMFA({
             <DisplayCurrentMFA
               currentMFA={currentMFA}
               onDisableMFA={handleDisableMFA}
-              onUpdateMFA={toSelectMFA}
+              onUpdateMFA={() => transitionTo('SELECT_MFA')}
             />
           )}
         </>
@@ -294,7 +269,7 @@ function ConfigureMFA({
         <SelectMFA
           onSubmit={handleSelectMFA}
           onChange={handleChange}
-          onCancel={toIdle}
+          onCancel={() => transitionTo('IDLE')}
           isDisabled={!formValues.mfaType}
         >
           {children}
@@ -302,7 +277,7 @@ function ConfigureMFA({
       ) : null}
       {state === 'CONFIGURE_TOTP' ? (
         <ConfigureTOTP
-          onCancel={toSelectMFA}
+          onCancel={() => transitionTo('SELECT_MFA')}
           getTotpSecretCode={getTotpSecretCode(user)}
           onChange={handleChange}
           onSubmit={handleConfigureTOTP}
@@ -314,7 +289,7 @@ function ConfigureMFA({
         <ConfigureSMS
           defaultDialCode={defaultDialCode}
           formValues={formValues}
-          onCancel={toSelectMFA}
+          onCancel={() => transitionTo('SELECT_MFA')}
           onChange={handleChange}
           onDialCodeChange={handleChange}
           onSubmit={handleConfigureSMS}
@@ -322,7 +297,7 @@ function ConfigureMFA({
       ) : null}
       {state === 'VERIFY_SMS' ? (
         <VerifySMS
-          onCancel={toSelectMFA}
+          onCancel={() => transitionTo('SELECT_MFA')}
           onSubmit={handleVerifySMS}
           onChange={handleChange}
         />
