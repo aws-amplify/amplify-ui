@@ -5,7 +5,6 @@ import {
   getCurrentMFA,
   getLogger,
   getUserPhoneInfo,
-  isMFAType,
   MFAType,
   setPreferredMFA,
   setupTOTP,
@@ -39,7 +38,6 @@ function ConfigureMFA({
 }: ConfigureMFAProps): JSX.Element | null {
   const [state, setState] = React.useState<ConfigureMFAState>('IDLE');
   const [currentMFA, setCurrentMFA] = React.useState<MFAType>(null);
-  const [desiredMFA, setDesiredMFA] = React.useState<MFAType>(null);
   const [formValues, setFormValues] = React.useState<FormValues>(null);
   const [phoneInfo, setPhoneInfo] = React.useState<UserPhoneInfo>(null);
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
@@ -85,17 +83,15 @@ function ConfigureMFA({
   // transition methods
   const toIdle = React.useCallback(() => {
     setFormValues({});
-    setDesiredMFA(null);
     setState('IDLE');
   }, []);
 
   const toSelectMFA = React.useCallback(() => {
     setFormValues({});
-    setDesiredMFA(null);
     setState('SELECT_MFA');
   }, []);
 
-  // API calls
+  // API call helpers
   const runVerifyTOTPToken = React.useCallback(
     async (code: string) => {
       try {
@@ -170,7 +166,16 @@ function ConfigureMFA({
     }
   }, [onError, toSelectMFA]);
 
-  // event handlers
+  // submit handlers
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+    setFormValues((formValues) => ({ ...formValues, [name]: value }));
+  };
+
   const handleEnableMFA = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setState('SELECT_MFA');
@@ -180,25 +185,13 @@ function ConfigureMFA({
     runDisableMFA();
   }, [runDisableMFA]);
 
-  const handleSelectMFAChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      event.preventDefault();
-      const { value } = event.target;
-
-      if (isMFAType(value)) {
-        setDesiredMFA(value);
-      } else {
-        logger.error('Unknown mfa type was selected', value);
-      }
-    },
-    []
-  );
-
-  const handleSelectMFASubmit = React.useCallback(
+  const handleSelectMFA = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      switch (desiredMFA) {
+      const { mfaType } = formValues;
+
+      switch (mfaType) {
         case 'sms': {
           const userPhoneInfo = getUserPhoneInfo(user);
           const { dialCode, phoneNumber, hasPhoneNumber } = userPhoneInfo;
@@ -219,15 +212,15 @@ function ConfigureMFA({
           break;
         }
         default: {
-          logger.error('Unknown mfa was selected:', desiredMFA);
+          logger.error('Unknown mfa was selected:', mfaType);
           break;
         }
       }
     },
-    [desiredMFA, user, noPhoneErrorText]
+    [user, noPhoneErrorText, formValues]
   );
 
-  const handleConfigureTOTPSubmit = React.useCallback(
+  const handleConfigureTOTP = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const { code } = formValues;
@@ -236,32 +229,12 @@ function ConfigureMFA({
     [runVerifyTOTPToken, formValues]
   );
 
-  const handleCodeChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      event.preventDefault();
-      const { name, value } = event.target;
-      setFormValues({ ...formValues, [name]: value });
-    },
-    [formValues]
-  );
-
-  const handleChange = (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { name, value } = event.target;
-    setFormValues((formValues) => ({ ...formValues, [name]: value }));
-  };
-
-  const handleConfigureSMSSubmit = (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleConfigureSMS = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     runSendSMSCode();
   };
 
-  const handleVerifySMSCode = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleVerifySMS = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { code } = formValues;
     runVerifySMSCode(code);
@@ -302,10 +275,10 @@ function ConfigureMFA({
       ) : null}
       {state === 'SELECT_MFA' ? (
         <SelectMFA
-          onSubmit={handleSelectMFASubmit}
-          onChange={handleSelectMFAChange}
+          onSubmit={handleSelectMFA}
+          onChange={handleChange}
           onCancel={toIdle}
-          isDisabled={!desiredMFA}
+          isDisabled={!formValues.mfaType}
         >
           {children}
         </SelectMFA>
@@ -314,8 +287,8 @@ function ConfigureMFA({
         <ConfigureTOTP
           onCancel={toSelectMFA}
           getTotpSecretCode={getTotpSecretCode(user)}
-          onChange={handleCodeChange}
-          onSubmit={handleConfigureTOTPSubmit}
+          onChange={handleChange}
+          onSubmit={handleConfigureTOTP}
           totpIssuer="AWSCognito"
           totpUsername={user.username}
         />
@@ -329,13 +302,13 @@ function ConfigureMFA({
           onCancel={toSelectMFA}
           onChange={handleChange}
           onDialCodeChange={handleChange}
-          onSubmit={handleConfigureSMSSubmit}
+          onSubmit={handleConfigureSMS}
         />
       ) : null}
       {state === 'VERIFY_SMS' ? (
         <VerifySMS
           onCancel={toSelectMFA}
-          onSubmit={handleVerifySMSCode}
+          onSubmit={handleVerifySMS}
           onChange={handleChange}
         />
       ) : null}
