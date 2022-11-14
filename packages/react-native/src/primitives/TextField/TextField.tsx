@@ -28,9 +28,9 @@ export default function TextField({
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 
-  const fieldContainerStyle: ViewStyle = useMemo(
+  const inputContainerStyle: ViewStyle = useMemo(
     () => ({
-      ...themedStyle.container,
+      ...themedStyle.inputContainer,
       ...(disabled && themedStyle.disabled),
     }),
     [disabled, themedStyle]
@@ -42,10 +42,10 @@ export default function TextField({
       accessibilityLabel={accessibilityLabel ?? label}
       accessibilityRole={accessibilityRole}
       accessibilityState={{ disabled, ...accessibilityState }}
-      style={[fieldContainerStyle, style]}
+      style={[themedStyle.container, style]}
     >
       {label ? <Label style={labelStyle}>{label}</Label> : null}
-      <View style={themedStyle.inputContainer} testID={INPUT_CONTAINER_TEST_ID}>
+      <View style={inputContainerStyle} testID={INPUT_CONTAINER_TEST_ID}>
         <TextInput
           {...rest}
           accessible={accessible}

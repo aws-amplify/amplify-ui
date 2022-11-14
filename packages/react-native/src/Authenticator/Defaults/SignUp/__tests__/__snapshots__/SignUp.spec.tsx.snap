@@ -1327,7 +1327,6 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "opacity": 0.6,
           },
           Object {
             "fontSize": 16,
@@ -1364,6 +1363,7 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
+            "opacity": 0.6,
             "padding": 8,
             "width": "100%",
           }
@@ -1401,7 +1401,6 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "opacity": 0.6,
           },
           Object {
             "fontSize": 16,
@@ -1438,6 +1437,7 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
+            "opacity": 0.6,
             "padding": 8,
             "width": "100%",
           }
@@ -1522,7 +1522,6 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "opacity": 0.6,
           },
           Object {
             "fontSize": 16,
@@ -1559,6 +1558,7 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
+            "opacity": 0.6,
             "padding": 8,
             "width": "100%",
           }
@@ -1706,7 +1706,6 @@ Array [
           Array [
             Object {
               "alignItems": "flex-start",
-              "opacity": 0.6,
             },
             Array [
               undefined,
@@ -1743,6 +1742,7 @@ Array [
               "borderWidth": 1,
               "flexDirection": "row",
               "lineHeight": 24,
+              "opacity": 0.6,
               "padding": 8,
               "width": "100%",
             }

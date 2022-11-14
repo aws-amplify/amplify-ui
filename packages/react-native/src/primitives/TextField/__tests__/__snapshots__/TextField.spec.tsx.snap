@@ -402,7 +402,6 @@ exports[`TextField renders as expected when disabled 1`] = `
     Array [
       Object {
         "alignItems": "flex-start",
-        "opacity": 0.6,
       },
       undefined,
     ]
@@ -436,6 +435,7 @@ exports[`TextField renders as expected when disabled 1`] = `
         "borderWidth": 1,
         "flexDirection": "row",
         "lineHeight": 24,
+        "opacity": 0.6,
         "padding": 8,
         "width": "100%",
       }

@@ -88,7 +88,7 @@ describe('TextField', () => {
   });
 
   it('renders disabled state correctly', () => {
-    const { getByTestId, getByRole } = render(
+    const { getByTestId } = render(
       <TextField
         {...defaultProps}
         disabled
@@ -103,11 +103,11 @@ describe('TextField', () => {
     const { result } = renderHook(() => useTheme());
     const themedStyle = getThemedStyles(result.current);
 
-    const container = getByRole('none');
-    expect(container.props.style).toStrictEqual([
-      { ...themedStyle.container, ...themedStyle.disabled },
-      undefined,
-    ]);
+    const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
+    expect(inputContainer.props.style).toStrictEqual({
+      ...themedStyle.inputContainer,
+      ...themedStyle.disabled,
+    });
   });
 
   it('applies theme and style props', () => {
