@@ -6,6 +6,7 @@ exports[`UploaderDrop exists 1`] = `
     class="amplify-fileuploader__dropzone"
   >
     <span
+      aria-hidden="true"
       class="amplify-icon amplify-fileuploader__dropzone__icon"
       style="width: 1em; height: 1em;"
     >

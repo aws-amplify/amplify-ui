@@ -10,6 +10,7 @@ import {
   TextField,
   Loader,
   ComponentClassNames,
+  VisuallyHidden,
 } from '../../../../primitives';
 import {
   IconClose,
@@ -23,18 +24,27 @@ export function Tracker({
   fileState,
   hasImage,
   url,
-  onChange,
   onPause,
   onResume,
   onCancel,
   errorMessage,
   name,
   percentage,
-  isEditing,
   onSaveEdit,
   onStartEdit,
+  onCancelEdit,
   resumable,
 }: TrackerProps): JSX.Element {
+  const [tempName, setTempName] = React.useState(name);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  // Focus the input after pressing the edit button
+  React.useEffect(() => {
+    if (fileState === 'editing' && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [fileState]);
+
   if (!file) return null;
 
   const { size } = file;
@@ -63,9 +73,26 @@ export function Tracker({
     switch (fileState) {
       case 'editing':
         return (
-          <Button size="small" variation="primary" onClick={onSaveEdit}>
-            Save
-          </Button>
+          <>
+            <Button
+              size="small"
+              variation="primary"
+              onClick={() => {
+                onSaveEdit(tempName);
+              }}
+            >
+              Save
+            </Button>
+            <Button
+              size="small"
+              onClick={() => {
+                setTempName(name);
+                onCancelEdit();
+              }}
+            >
+              Cancel
+            </Button>
+          </>
         );
       case 'loading':
         if (!resumable) return null;
@@ -87,11 +114,13 @@ export function Tracker({
           <>
             {showEditButton ? (
               <Button onClick={onStartEdit} size="small" variation="link">
-                <IconEdit fontSize="medium" />
+                <VisuallyHidden>Edit file name {file.name}</VisuallyHidden>
+                <IconEdit aria-hidden fontSize="medium" />
               </Button>
             ) : null}
             <Button size="small" onClick={onCancel}>
-              <IconClose />
+              <VisuallyHidden>Remove file name {file.name}</VisuallyHidden>
+              <IconClose aria-hidden fontSize="medium" />
             </Button>
           </>
         );
@@ -105,17 +134,29 @@ export function Tracker({
       <View className={ComponentClassNames.FileUploaderFileImage}>{icon}</View>
 
       {/* Main View */}
-      {isEditing ? (
-        <TextField
-          maxLength={1024}
-          width="100%"
-          label="file name"
-          size="small"
-          variation="quiet"
-          labelHidden
-          onChange={onChange}
-          value={name}
-        />
+      {fileState === 'editing' ? (
+        // Wrapping this text field in a form with onSubmit will allow keyboard
+        // users to press enter to save changes.
+        <View
+          as="form"
+          flex="1"
+          onSubmit={() => {
+            onSaveEdit(tempName);
+          }}
+        >
+          <TextField
+            maxLength={1024}
+            ref={inputRef}
+            label="file name"
+            size="small"
+            variation="quiet"
+            labelHidden
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setTempName(e.target.value);
+            }}
+            value={tempName}
+          />
+        </View>
       ) : (
         <DisplayView />
       )}

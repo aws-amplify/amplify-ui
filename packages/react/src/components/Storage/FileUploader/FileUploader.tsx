@@ -37,9 +37,6 @@ export function FileUploader({
 
   const fileStatusesRef = useRef<FileStatuses>([]);
 
-  // Tracker state
-  const [isEditingName, setisEditingName] = React.useState<boolean[]>([]);
-
   const {
     addTargetFiles,
     fileStatuses,
@@ -267,16 +264,16 @@ export function FileUploader({
 
   const onSaveEdit = useCallback(
     (index: number) => {
-      return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const fileName = fileStatuses[index].name;
+      return (value: string) => {
         // no empty file names
-        if (fileName.trim().length === 0) return;
-        const [extension] = fileName.split('.').reverse();
+        if (value.trim().length === 0) return;
+        const [extension] = value.split('.').reverse();
         const validExtension = acceptedFileTypes.includes('.' + extension);
         const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
         newFileStatuses[index] = {
           ...status,
+          name: value,
           fileState: !validExtension ? 'error' : null,
           fileErrors: validExtension
             ? null
@@ -284,32 +281,29 @@ export function FileUploader({
         };
 
         setFileStatuses(newFileStatuses);
-        const names = [...isEditingName];
-        names[index] = false;
-        setisEditingName(names);
       };
     },
-    [acceptedFileTypes, fileStatuses, isEditingName, setFileStatuses]
+    [acceptedFileTypes, fileStatuses, setFileStatuses]
   );
 
   const onCancelEdit = useCallback(
     (index: number) => {
-      return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const fileName = fileStatuses[index].name;
-        if (fileName.trim().length === 0) return;
-        const names = [...isEditingName];
-        names[index] = false;
-        setisEditingName(names);
+      return () => {
+        const newFileStatuses = [...fileStatuses];
+        const status = fileStatuses[index];
+        newFileStatuses[index] = {
+          ...status,
+          fileState: null,
+        };
+        setFileStatuses(newFileStatuses);
       };
     },
-    [fileStatuses, isEditingName]
+    [fileStatuses, setFileStatuses]
   );
 
   const onStartEdit = useCallback(
     (index: number) => {
       return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const names = [...isEditingName];
-        names[index] = true;
         const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
         newFileStatuses[index] = {
@@ -317,10 +311,9 @@ export function FileUploader({
           fileState: 'editing',
         };
         setFileStatuses(newFileStatuses);
-        setisEditingName(names);
       };
     },
-    [isEditingName, fileStatuses, setFileStatuses]
+    [fileStatuses, setFileStatuses]
   );
 
   // UploadButton
@@ -345,7 +338,6 @@ export function FileUploader({
         fileStatuses={fileStatuses}
         hiddenInput={hiddenInput}
         inDropZone={inDropZone}
-        isEditingName={isEditingName}
         isLoading={isLoading}
         isSuccess={isSuccess()}
         maxFilesError={maxFilesError}
@@ -376,7 +368,6 @@ export function FileUploader({
             name={status.name}
             fileState={status?.fileState}
             errorMessage={status?.fileErrors}
-            isEditing={isEditingName[index]}
             onSaveEdit={onSaveEdit(index)}
             onCancelEdit={onCancelEdit(index)}
             onStartEdit={onStartEdit(index)}
