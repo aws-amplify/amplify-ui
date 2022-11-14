@@ -103,13 +103,14 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
-            "backgroundColor": "black",
+            "backgroundColor": "hsl(0, 0%, 0%)",
             "flex": 1,
             "height": 0.5,
           },
           undefined,
         ]
       }
+      testID="amplify__divider__line"
     />
     <Text
       accessibilityRole="text"
@@ -144,7 +145,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
-            "backgroundColor": "black",
+            "backgroundColor": "hsl(0, 0%, 0%)",
             "flex": 1,
             "height": 0.5,
           },
