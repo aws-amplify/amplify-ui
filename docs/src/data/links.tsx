@@ -38,7 +38,6 @@ import {
   MdCheckCircle,
   MdHighlight,
 } from 'react-icons/md';
-import { IS_REACT_NATIVE_ENABLED } from '@/utils/featureFlags';
 
 export interface ComponentNavItem {
   href: string;
@@ -134,6 +133,12 @@ export const connectedComponents: ComponentNavItem[] = [
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
+  },
+  {
+    href: '/connected-components/in-app-messaging',
+    label: 'In-App Messaging',
+    body: 'Amplify UI In-App Messaging provides UI components for displaying In-App Messages.',
+    platforms: ['react', 'react-native'],
   },
 ];
 
@@ -437,23 +442,17 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/introduction',
     label: 'Introduction',
-    platforms: IS_REACT_NATIVE_ENABLED
-      ? ['react', 'vue', 'angular', 'flutter', 'react-native']
-      : ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/getting-started/installation',
     label: 'Installation',
-    platforms: IS_REACT_NATIVE_ENABLED
-      ? ['react', 'vue', 'angular', 'flutter', 'react-native']
-      : ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/getting-started/usage',
     label: 'Usage',
-    platforms: IS_REACT_NATIVE_ENABLED
-      ? ['react', 'vue', 'angular', 'react-native']
-      : ['react', 'vue', 'angular'],
+    platforms: ['react', 'vue', 'angular', 'react-native'],
   },
   {
     href: '/getting-started/usage/create-react-app',
