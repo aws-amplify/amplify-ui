@@ -1,1 +1,6 @@
-export { changePassword, deleteUser } from './utils';
+export * from './utils';
+export {
+  getDefaultConfirmPasswordValidators,
+  getDefaultPasswordValidators,
+  runFieldValidators,
+} from './validator';

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert, Button, PasswordField } from '../../../primitives';
+import { ValidationErrors } from '../../shared/ValidationErrors';
 import {
   AccountSettingsError,
   AccountSettingsPasswordField,
@@ -8,12 +9,16 @@ import {
 
 /** ChangePassword subcomponents */
 // TODO: enable component override
-export const DefaultCurrentPassword: AccountSettingsPasswordField = (props) => {
-  return <PasswordField {...props} />;
-};
-
-export const DefaultNewPassword: AccountSettingsPasswordField = (props) => {
-  return <PasswordField {...props} />;
+export const DefaultPasswordField: AccountSettingsPasswordField = ({
+  validationErrors,
+  ...rest
+}) => {
+  return (
+    <>
+      <PasswordField {...rest} />
+      <ValidationErrors errors={validationErrors} />
+    </>
+  );
 };
 
 export const DefaultSubmitButton: AccountSettingsSubmitButton = ({
