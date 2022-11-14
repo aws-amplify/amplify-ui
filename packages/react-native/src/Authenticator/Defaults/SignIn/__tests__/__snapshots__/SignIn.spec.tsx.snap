@@ -199,6 +199,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
@@ -271,6 +272,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
@@ -494,6 +496,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
@@ -566,6 +569,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
@@ -922,6 +926,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
@@ -994,6 +999,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }

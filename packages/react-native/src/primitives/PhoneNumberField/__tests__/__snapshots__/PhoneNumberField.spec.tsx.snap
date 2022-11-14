@@ -40,6 +40,7 @@ exports[`PhoneNumberField does not render picker when dial codes are undefined 1
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
+          "lineHeight": 24,
           "padding": 8,
           "width": "100%",
         }
@@ -1379,6 +1380,7 @@ exports[`PhoneNumberField renders as expected 1`] = `
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
+          "lineHeight": 24,
           "padding": 8,
           "width": "100%",
         }
@@ -2718,6 +2720,7 @@ exports[`PhoneNumberField renders as expected when default dial code is undefine
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
+          "lineHeight": 24,
           "padding": 8,
           "width": "100%",
         }
@@ -4058,6 +4061,7 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
+          "lineHeight": 24,
           "padding": 8,
           "width": "100%",
         }
