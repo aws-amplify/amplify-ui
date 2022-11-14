@@ -4,11 +4,13 @@ import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
 import {
   CheckboxStyles,
+  DividerStyles,
   HeadingStyles,
   IconStyles,
   LabelStyles,
   RadioStyles,
   RadioGroupStyles,
+  TabsStyles,
 } from '../primitives';
 
 export interface Tokens extends ReactNativeTokens {
@@ -43,11 +45,13 @@ export interface Theme {
 export interface ComponentStyles {
   // TODO: add components
   checkbox: CheckboxStyles;
+  divider: DividerStyles;
   heading: HeadingStyles;
   icon: IconStyles;
   label: LabelStyles;
   radio: RadioStyles;
   radiogroup: RadioGroupStyles;
+  tabs: TabsStyles;
 }
 
 /**
