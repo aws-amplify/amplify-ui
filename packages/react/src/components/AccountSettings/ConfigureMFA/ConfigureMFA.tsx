@@ -83,12 +83,32 @@ function ConfigureMFA({
   // transition methods
   const toIdle = React.useCallback(() => {
     setFormValues({});
+    setErrorMessage(null);
     setState('IDLE');
+  }, []);
+
+  const toDone = React.useCallback(() => {
+    setFormValues({});
+    setErrorMessage(null);
+    setState('DONE');
   }, []);
 
   const toSelectMFA = React.useCallback(() => {
     setFormValues({});
+    setErrorMessage(null);
     setState('SELECT_MFA');
+  }, []);
+
+  const toVerifySMS = React.useCallback(() => {
+    setFormValues({});
+    setErrorMessage(null);
+    setState('VERIFY_SMS');
+  }, []);
+
+  const toConfigureTOTP = React.useCallback(() => {
+    setFormValues({});
+    setErrorMessage(null);
+    setState('CONFIGURE_TOTP');
   }, []);
 
   // API call helpers
@@ -104,15 +124,15 @@ function ConfigureMFA({
 
         // mfa has been succesfully changed!
         setCurrentMFA('totp');
-        setState('DONE');
+        toDone();
       } catch (e) {
         const error = e as Error;
         onError?.(error);
-        setState('CONFIGURE_TOTP');
+        if (state !== 'CONFIGURE_TOTP') setState('CONFIGURE_TOTP');
         setErrorMessage(error.message);
       }
     },
-    [onError, user]
+    [onError, user, state, toDone]
   );
 
   const runDisableMFA = React.useCallback(async () => {
@@ -120,13 +140,13 @@ function ConfigureMFA({
       await setPreferredMFA({ user, mfaType: 'NOMFA' });
 
       setCurrentMFA('nomfa');
-      setState('DONE');
+      toDone();
     } catch (e) {
       const error = e as Error;
       onError?.(error);
       setErrorMessage(error.message);
     }
-  }, [user, onError]);
+  }, [user, onError, toDone]);
 
   const getTotpSecretCode = React.useCallback((user: AmplifyUser) => {
     return () => {
@@ -140,14 +160,14 @@ function ConfigureMFA({
         await verifyUserAttributeSubmit(code);
         await setPreferredMFA({ user, mfaType: 'SMS' });
         setCurrentMFA('sms');
-        setState('DONE');
+        toDone();
       } catch (e) {
         const error = e as Error;
         onError?.(error);
         setErrorMessage(error.message);
       }
     },
-    [onError, user]
+    [onError, user, toDone]
   );
 
   const runSendSMSCode = React.useCallback(async () => {
@@ -155,8 +175,7 @@ function ConfigureMFA({
       setState('LOADING');
       await verifyUserAttribute();
 
-      setFormValues({});
-      setState('VERIFY_SMS');
+      toVerifySMS();
       setPhoneInfo(null);
     } catch (e) {
       const error = e as Error;
@@ -164,7 +183,7 @@ function ConfigureMFA({
       setErrorMessage(error.message);
       toSelectMFA();
     }
-  }, [onError, toSelectMFA]);
+  }, [onError, toSelectMFA, toVerifySMS]);
 
   // submit handlers
   const handleChange = (
@@ -178,7 +197,7 @@ function ConfigureMFA({
 
   const handleEnableMFA = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    setState('SELECT_MFA');
+    toSelectMFA();
   };
 
   const handleDisableMFA = React.useCallback(() => {
@@ -208,7 +227,7 @@ function ConfigureMFA({
           break;
         }
         case 'totp': {
-          setState('CONFIGURE_TOTP');
+          toConfigureTOTP();
           break;
         }
         default: {
@@ -217,7 +236,7 @@ function ConfigureMFA({
         }
       }
     },
-    [user, noPhoneErrorText, formValues]
+    [user, noPhoneErrorText, formValues, toConfigureTOTP]
   );
 
   const handleConfigureTOTP = React.useCallback(
