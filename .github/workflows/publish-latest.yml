@@ -39,48 +39,48 @@ jobs:
       #       case of (2), `@changesets/action` will know that UI packages have already published and will
       #       skip publish.
 
-  build-test:
-    runs-on: ubuntu-latest
-    needs: setup
-    environment: ci
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "::set-output name=version::$(amplify --version)"
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v3
-        with:
-          path: canary/environments/**/aws-exports.js
-          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
-        working-directory: ./canary
-      - name: Setup canary apps against @next
-        run: yarn setup:next
-        working-directory: ./canary
-      - name: Run yarn install on each sample app
-        run: yarn install
-        working-directory: ./canary
-      - name: Run yarn build on each sample app
-        run: yarn build
-        working-directory: ./canary
+  # build-test:
+  #   runs-on: ubuntu-latest
+  #   needs: setup
+  #   environment: ci
+  #   if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v3
+  #     - name: Add Amplify CLI
+  #       run: yarn global add @aws-amplify/cli
+  #     - name: Get CLI versions
+  #       id: cli-version
+  #       run: echo "::set-output name=version::$(amplify --version)"
+  #     - name: Create or restore environments cache
+  #       id: environments-cache
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: canary/environments/**/aws-exports.js
+  #         key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+  #     - name: Pull down AWS environments
+  #       if: steps.environments-cache.outputs.cache-hit != 'true'
+  #       run: yarn pull
+  #       env:
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
+  #       working-directory: ./canary
+  #     - name: Setup canary apps against @next
+  #       run: yarn setup:next
+  #       working-directory: ./canary
+  #     - name: Run yarn install on each sample app
+  #       run: yarn install
+  #       working-directory: ./canary
+  #     - name: Run yarn build on each sample app
+  #       run: yarn build
+  #       working-directory: ./canary
 
   publish:
     runs-on: ubuntu-latest
     environment: deployment
-    needs: build-test
+    # needs: build-test
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo
