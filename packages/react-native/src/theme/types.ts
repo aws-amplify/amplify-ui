@@ -48,7 +48,7 @@ export interface ComponentStyles {
   heading: HeadingStyles;
   icon: IconStyles;
   label: LabelStyles;
-  passwordfield: PasswordFieldStyles;
+  passwordField: PasswordFieldStyles;
   radio: RadioStyles;
   radiogroup: RadioGroupStyles;
   tabs: TabsStyles;

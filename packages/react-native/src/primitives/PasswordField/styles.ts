@@ -8,8 +8,8 @@ export const getThemedStyles = (theme: StrictTheme): PasswordFieldStyles => {
 
   return StyleSheet.create({
     container: {
-      ...components?.passwordfield.container,
+      ...components?.passwordField.container,
     },
-    icon: { ...components?.passwordfield.icon },
+    icon: { ...components?.passwordField.icon },
   });
 };
