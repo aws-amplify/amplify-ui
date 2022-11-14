@@ -18,7 +18,6 @@ Amplify.configure(awsExports);
 
 export default function App() {
   const [isSuccessful, setIsSuccessful] = React.useState(false);
-  console.log(isSuccessful);
   return (
     <Authenticator>
       {({ signOut }) => (
