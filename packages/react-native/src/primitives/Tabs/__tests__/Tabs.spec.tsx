@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
+import { fireEvent, render, renderHook } from '@testing-library/react-native';
 
+import { useTheme } from '../../../theme';
 import { Tab, Tabs } from '..';
+import { getThemedStyles } from '../styles';
 
 const onChangeMock = jest.fn();
 
@@ -53,5 +55,27 @@ describe('Tabs', () => {
     fireEvent.press(tabs[2]);
     expect(onChangeMock).not.toHaveBeenCalled();
     expect(tabs[2].props.accessibilityState).toHaveProperty('disabled', true);
+  });
+
+  it('applies theme and custom styling', () => {
+    const customStyles = { backgroundColor: 'blue' };
+    const { getByRole, toJSON } = render(
+      <Tabs style={customStyles}>
+        <Tab>Sign In</Tab>
+        <Tab>Create Account</Tab>
+      </Tabs>
+    );
+
+    expect(toJSON()).toMatchSnapshot();
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    const tablist = getByRole('tablist');
+
+    expect(tablist.props.style).toStrictEqual([
+      themedStyle.tabList,
+      customStyles,
+    ]);
   });
 });
