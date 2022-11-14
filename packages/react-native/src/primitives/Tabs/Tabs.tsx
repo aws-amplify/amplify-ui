@@ -1,7 +1,8 @@
 import React, { Children, cloneElement, isValidElement } from 'react';
 import { View } from 'react-native';
 
-import { styles } from './styles';
+import { useTheme } from '../../theme';
+import { getThemedStyles } from './styles';
 import { TabProps, TabsProps } from './types';
 
 export default function Tabs({
@@ -11,12 +12,19 @@ export default function Tabs({
   style,
   ...rest
 }: TabsProps): JSX.Element {
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
   const handleOnChange = (nextIndex: number) => {
     onChange?.(nextIndex);
   };
 
   return (
-    <View {...rest} accessibilityRole="tablist" style={[styles.tabList, style]}>
+    <View
+      {...rest}
+      accessibilityRole="tablist"
+      style={[themedStyle.tabList, style]}
+    >
       {Children.map(children, (child, index) => {
         if (isValidElement<TabProps>(child)) {
           return cloneElement<TabProps>(child, {

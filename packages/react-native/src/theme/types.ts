@@ -8,6 +8,7 @@ import {
   LabelStyles,
   RadioGroupStyles,
   RadioStyles,
+  TabsStyles,
 } from '../primitives';
 
 export interface Tokens extends ReactNativeTokens {
@@ -46,6 +47,7 @@ export interface ComponentStyles {
   label: LabelStyles;
   radio: RadioStyles;
   radiogroup: RadioGroupStyles;
+  tabs: TabsStyles;
 }
 
 /**
