@@ -97,7 +97,7 @@ export const HeroSection = () => {
             </Grid>
           ) : null}
 
-          <TerminalCommand command={frameworkInstallScript} />
+          <TerminalCommand command={frameworkInstallScript} variant="hero" />
 
           <Flex direction="row">
             <Button

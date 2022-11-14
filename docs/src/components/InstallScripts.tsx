@@ -9,6 +9,7 @@ interface TerminalCommandProps {
   framework?: Framework;
   packageManager?: PackageManager;
   command?: string;
+  variant?: 'default' | 'hero';
 }
 
 const frameworkInstallScript = (
@@ -32,13 +33,14 @@ export const TerminalCommand = ({
   framework,
   packageManager,
   command,
+  variant = 'default',
 }: TerminalCommandProps) => {
   const terminalCommand = command
     ? command
     : frameworkInstallScript(framework, packageManager);
 
   return (
-    <code className="install-code__container">
+    <code className={`install-code__container ${variant}`}>
       <p className="install-code__content">{terminalCommand}</p>
       <CopyButton
         className="install-code__button"
