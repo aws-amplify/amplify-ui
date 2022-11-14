@@ -27,6 +27,7 @@
     "@mdx-js/mdx": "^2.1.0",
     "@mdx-js/react": "^2.1.0",
     "@moxy/next-compile-node-modules": "^2.1.1",
+    "@stackblitz/sdk": "^1.8.1",
     "@xstate/inspect": "^0.4.1",
     "aws-amplify": "^5.0.1",
     "classnames": "^2.3.1",

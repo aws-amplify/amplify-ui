@@ -8,6 +8,17 @@ const vscViewbox = {
   height: 16,
 };
 
+export const StackBlitzIcon = (props) => (
+  <Icon
+    {...props}
+    viewBox={{
+      width: 32,
+      height: 32,
+    }}
+    pathData="M5.853 18.647h8.735L9.45 31l16.697-17.647h-8.735L22.55 1 5.853 18.647z"
+  />
+);
+
 export const ReactIcon = ({ ariaLabel = '', ...rest }) => (
   <Icon {...rest} ariaLabel={ariaLabel} as={SiReact} />
 );

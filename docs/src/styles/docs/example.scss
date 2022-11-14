@@ -1,37 +1,32 @@
 @import './variables';
 
-.example {
+.docs-example {
   width: 100%;
 }
 
-.example [data-amplify-authenticator] {
+.docs-example [data-amplify-authenticator] {
   display: grid;
   max-width: var(--amplify-components-authenticator-max-width);
   margin: auto;
 }
 
-.example [data-amplify-authenticator][data-variation='modal'] {
+.docs-example [data-amplify-authenticator][data-variation='modal'] {
   position: relative;
   width: 100%;
   height: 100%;
   padding: var(--amplify-space-relative-xxxl);
 }
 
-.example pre {
-  margin: 0;
-}
-
-.example-code {
+.docs-example__code {
   position: relative;
   background: var(--amplify-colors-background-secondary);
   width: 100%;
-}
-
-.example-copy-button {
-  background: var(--amplify-colors-background-secondary);
-  position: absolute;
-  right: var(--amplify-space-medium);
-  top: var(--amplify-space-small);
+  border: var(--amplify-border-widths-small) solid
+  var(--amplify-colors-border-secondary);
+  margin-top: calc(-1 * var(--amplify-border-widths-small));
+  & > pre {
+    margin: 0;
+  }
 }
 
 @media (max-width: $breakpoint-medium) {
@@ -50,11 +45,22 @@
   }
 
   & .example-copy-button {
-    background: var(--amplify-colors-background-secondary);
+    position: absolute;
     bottom: var(--amplify-space-small);
     top: auto;
     right: var(--amplify-space-medium);
   }
+}
+
+.docs-example__preview,
+.docs-example > *:first-child {
+  padding: var(--amplify-space-medium);
+  border: var(--amplify-border-widths-small) solid
+    var(--amplify-colors-border-secondary);
+}
+
+.docs-example__actions {
+  padding-block-start: var(--amplify-space-small);
 }
 
 .example-styling-demo > .amplify-flex {
