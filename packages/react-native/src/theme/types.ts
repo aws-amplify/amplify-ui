@@ -8,8 +8,8 @@ import {
   IconStyles,
   LabelStyles,
   PasswordFieldStyles,
-  RadioGroupStyles,
   RadioStyles,
+  RadioGroupStyles,
   TabsStyles,
 } from '../primitives';
 
