@@ -120,30 +120,39 @@ function ConfigureTOTP({
 
   return (
     <View as="form" onSubmit={handleSubmit}>
-      <Flex direction="column">
+      <Flex direction="column" alignItems="center">
         {qrCode ? (
           <SecretKeyQRCode
             data-amplify-qrcode
             src={qrCode}
             alt="qr code"
-            width="228"
-            height="228"
+            width="228px"
+            height="228px"
           />
         ) : null}
-        <CopySecretKey onClick={handleCopy}>{copyCodeText}</CopySecretKey>
+        <CopySecretKey alignSelf="stretch" onClick={handleCopy}>
+          {copyCodeText}
+        </CopySecretKey>
         <ConfirmationCode
-          onChange={handleChange}
-          name="code"
-          label="Confirmation Code"
-          placeholder="Code"
+          alignSelf="stretch"
           isRequired
+          label="Confirmation Code"
+          name="code"
+          onChange={handleChange}
+          placeholder="Code"
           value={formValues.code}
+          width="100%"
         ></ConfirmationCode>
 
-        <SubmitButton type="submit" variation="primary">
+        <SubmitButton
+          type="submit"
+          variation="primary"
+          isDisabled={!formValues.code}
+          isFullWidth
+        >
           {confirmText}
         </SubmitButton>
-        {errorMessage ? <Error>{errorMessage}</Error> : null}
+        {errorMessage ? <Error width="100%">{errorMessage}</Error> : null}
       </Flex>
     </View>
   );
