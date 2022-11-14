@@ -6,7 +6,7 @@ exports[`FormField renders as expected in the happy path 1`] = `
     class="amplify-flex amplify-field amplify-textfield"
   >
     <label
-      class="amplify-label amplify-visually-hidden"
+      class="amplify-label"
       for="mock-id-0"
     >
       Username
@@ -25,7 +25,7 @@ exports[`FormField renders as expected in the happy path 1`] = `
           class="amplify-input amplify-field-group__control"
           id="mock-id-0"
           name="username"
-          placeholder="Username"
+          placeholder="Enter your Username"
           required=""
           type="text"
         />
@@ -41,7 +41,7 @@ exports[`FormField renders as expected in the unhappy path 1`] = `
     class="amplify-flex amplify-field amplify-textfield"
   >
     <label
-      class="amplify-label amplify-visually-hidden"
+      class="amplify-label"
       for="amplify-id-0"
     >
       Username
@@ -61,7 +61,7 @@ exports[`FormField renders as expected in the unhappy path 1`] = `
           class="amplify-input amplify-field-group__control amplify-input--error"
           id="amplify-id-0"
           name="username"
-          placeholder="Username"
+          placeholder="Enter your Username"
           required=""
           type="text"
         />
