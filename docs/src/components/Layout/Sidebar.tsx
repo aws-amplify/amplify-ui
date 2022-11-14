@@ -26,7 +26,6 @@ import {
 } from '../../data/links';
 
 import Link from 'next/link';
-import { IS_REACT_NATIVE_ENABLED } from '@/utils/featureFlags';
 import { FrameworkChooser } from './FrameworkChooser';
 import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';

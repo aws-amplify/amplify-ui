@@ -32,10 +32,10 @@ exports[`IconButton renders as expected 1`] = `
     style={
       Array [
         Object {
-          "height": 20,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": 20,
+          "width": 24,
         },
         undefined,
       ]
@@ -76,10 +76,10 @@ exports[`IconButton renders as expected with custom icon style 1`] = `
     style={
       Array [
         Object {
-          "height": 20,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": 20,
+          "width": 24,
         },
         Object {
           "backgroundColor": "antiquewhite",

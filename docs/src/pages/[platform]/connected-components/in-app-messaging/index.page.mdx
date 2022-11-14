@@ -1,0 +1,85 @@
+---
+title: In-App Messaging
+description: Amplify UI In-App Messaging provides UI components for displaying in-app messages.
+supportedFrameworks: react|react-native
+---
+
+import { Fragment } from '@/components/Fragment';
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
+import { 
+  IN_APP_MESSAGE_DISPLAY_PROPS, 
+  MESSAGE_COMPONENTS, 
+  ReactPropsTable,
+  USE_IN_APP_MESSAGING_API, 
+} from './props';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+## Overview
+
+In-App Messaging allows you to better engage users with contextually appropriate messages rendered on events triggered by their activity while using your application. Create messages that look native to your application and deliver them to your users all without additional code changes.
+
+<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./fragments/overview.${platform}.mdx`)}</Fragment>
+
+## Prerequisites
+
+<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./fragments/prereqs.${platform}.mdx`)}</Fragment>
+
+## Getting Started
+
+Integration with your application can be done with the `InAppMessagingProvider` and `InAppMessageDisplay` components directly, 
+or wrap your app in `withInAppMessaging` (a [React Higher-Order Component](https://reactjs.org/docs/higher-order-components.html)):
+
+<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/getting-started.${platform}.mdx`)}</Fragment>
+
+>[`InAppMessaging.syncMessages`](https://docs.amplify.aws/lib/in-app-messaging/sync-messages/q/platform/react-native) is an asynchronous function that handles syncing remote in-app messages with the end user application.
+
+## `InAppMessagingProvider` and `useInAppMessaging`
+
+`InAppMessagingProvider` exposes the value of the `InAppMessagingContext` (a [React context](https://reactjs.org/docs/context.html)) 
+to its `children`. `useInAppMessaging` can be used to directly interact with `InAppMessagingContext` from within `InAppMessagingProvider`.
+
+`useInAppMessaging` exposes the following functions and values of the `InAppMessagingContext`:
+
+<ReactPropsTable props={USE_IN_APP_MESSAGING_API} />
+
+In some use cases, you may want to forgo the usage of the default UI handling altogether while still leveraging the Amplify provided In-App Messaging React context and provider for in-app message context state. This can be achieved by wrapping your application in an `InAppMessagingProvider` and utilizing the `useInAppMessaging` hook to expose the values of the `InAppMessagingContext`.
+
+<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/use-messaging.${platform}.mdx`)}</Fragment>
+
+## `InAppMessageDisplay`
+
+`InAppMessageDisplay` handles the display and lifecycle of an in-app message.
+
+<ReactPropsTable props={IN_APP_MESSAGE_DISPLAY_PROPS} />
+
+# The `MessageComponents` prop
+
+Functional UI components that render in-app message content
+
+<ReactPropsTable props={MESSAGE_COMPONENTS} />
+
+### Integrate Custom Components
+
+You may provide your own In-App Messaging UI components to override the default Amplify provided UI components by utilizing the components prop of InAppMessagingProvider.
+
+<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/custom-components.${platform}.mdx`)}</Fragment>
+
+### Style Override
+
+The default Amplify UI components handle custom style using the `styles` prop:
+
+<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/custom-style.${platform}.mdx`)}</Fragment>
+
+Available style props:
+
+<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./props/styles.${platform}.mdx`)}</Fragment>
