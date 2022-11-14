@@ -3,6 +3,7 @@ import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
 import {
+  CheckboxStyles,
   DividerStyles,
   ErrorMessageStyles,
   HeadingStyles,
@@ -44,6 +45,7 @@ export interface Theme {
 
 export interface ComponentStyles {
   // TODO: add components
+  checkbox: CheckboxStyles;
   divider: DividerStyles;
   errorMessage: ErrorMessageStyles;
   heading: HeadingStyles;
