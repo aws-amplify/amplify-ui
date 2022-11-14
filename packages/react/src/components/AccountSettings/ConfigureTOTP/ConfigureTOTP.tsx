@@ -25,7 +25,7 @@ import { ConfigureTOTPProps } from './types';
 const logger = getLogger('Auth');
 
 function ConfigureTOTP({
-  totpIssuer,
+  totpIssuer = 'AWSCognito',
   totpUsername,
   onSuccess,
   onError,
@@ -37,15 +37,21 @@ function ConfigureTOTP({
 
   const { user, isLoading } = useAuth();
 
+  const hasInit = React.useRef(false);
+
   const generateQRCode = React.useCallback(
     async (user: AmplifyUser): Promise<void> => {
       try {
         const newSecretKey = await setupTOTP(user);
-        const totpCode = getTotpCodeURL(totpIssuer, totpUsername, newSecretKey);
+        const username = totpUsername || user?.username;
+        const totpCode = getTotpCodeURL(totpIssuer, username, newSecretKey);
         const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
-        setSecretKey(newSecretKey);
-        setQrCode(qrCodeImageSource);
+        if (!hasInit.current) {
+          setSecretKey(newSecretKey);
+          setQrCode(qrCodeImageSource);
+          hasInit.current = false;
+        }
       } catch (e) {
         logger.error(e);
       }
@@ -54,10 +60,10 @@ function ConfigureTOTP({
   );
 
   React.useEffect(() => {
-    if (user && !secretKey) {
+    if (user && !hasInit.current) {
       generateQRCode(user);
     }
-  }, [generateQRCode, user, secretKey]);
+  }, [generateQRCode, user]);
 
   // translations
   const confirmText = translate('Confirm');
