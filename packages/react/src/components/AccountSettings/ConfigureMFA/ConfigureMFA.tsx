@@ -1,23 +1,11 @@
 import React from 'react';
 
-import {
-  AmplifyUser,
-  getCurrentMFA,
-  getLogger,
-  getUserPhoneInfo,
-  MFAType,
-  setPreferredMFA,
-  setupTOTP,
-  translate,
-  verifyTOTPToken,
-  verifyUserAttribute,
-  verifyUserAttributeSubmit,
-} from '@aws-amplify/ui';
+import { getLogger, translate } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
-import { FormValues } from '../types';
 import { MFAOption } from './MFAOption';
+import { useConfigureMFA } from './hooks/useConfigureMFA';
 import {
   ConfigureSMS,
   ConfigureTOTP,
@@ -27,153 +15,54 @@ import {
   SelectMFA,
   VerifySMS,
 } from './defaults';
-import { ConfigureMFAProps, ConfigureMFAState } from './types';
+import { ConfigureMFAProps } from './types';
 
 const logger = getLogger('Auth');
 
 function ConfigureMFA({
   children,
+  onSuccess,
   onError,
 }: ConfigureMFAProps): JSX.Element | null {
-  const [state, setState] = React.useState<ConfigureMFAState>('IDLE');
-  const [currentMFA, setCurrentMFA] = React.useState<MFAType>(null);
-  const [formValues, setFormValues] = React.useState<FormValues>(null);
-  const [errorMessage, setErrorMessage] = React.useState<string>(null);
-  const [defaultDialCode, setDefaultDialCode] = React.useState<string>(null);
-
+  const {
+    state,
+    currentMFA,
+    formValues,
+    errorMessage,
+    defaultDialCode,
+    updateForm,
+    runVerifyTOTPToken,
+    getTotpSecretCode,
+    runEnableMFA,
+    runDisableMFA,
+    runVerifySMSCode,
+    runSelectMFA,
+    transitionTo,
+    runSendSMSCode,
+  } = useConfigureMFA({ onSuccess, onError });
   const { user, isLoading } = useAuth();
 
   // translations
   const enableMFAText = translate('Enable multi-factor authentication');
-  const noPhoneErrorText = translate(
-    'You do not have a phone number setup yet. Please register a phone number first.'
-  );
-
-  const fetchCurrentMFA = React.useCallback(async () => {
-    if (user) {
-      try {
-        const currentMFASetting = await getCurrentMFA(user);
-        setCurrentMFA(currentMFASetting);
-      } catch (e) {
-        const error = e as Error;
-        setErrorMessage(error.message);
-      }
-    }
-  }, [user]);
-
-  const hasFetched = React.useRef<boolean>(false);
-
-  // get current mfa settings for current user
-  React.useEffect(() => {
-    const runFetch = async () => {
-      await fetchCurrentMFA();
-      hasFetched.current = true;
-    };
-    if (user && !hasFetched.current) {
-      runFetch();
-    }
-  }, [user, fetchCurrentMFA]);
 
   const isMFADisabled = React.useMemo(
     () => currentMFA === 'nomfa',
     [currentMFA]
   );
 
-  // transition methods
-  const transitionTo = React.useCallback((newState: ConfigureMFAState) => {
-    setFormValues({});
-    setErrorMessage(null);
-    setState(newState);
-  }, []);
-
-  // API call helpers
-  const runVerifyTOTPToken = React.useCallback(
-    async (code: string) => {
-      try {
-        await verifyTOTPToken({ user, code });
-
-        // move to an intermediary state so that `SetupTOTP` doesn't remount
-        // and call `Auth.setupTOTP` in parallel
-        setState('LOADING');
-        await setPreferredMFA({ user, mfaType: 'TOTP' });
-
-        // mfa has been succesfully changed!
-        setCurrentMFA('totp');
-        transitionTo('DONE');
-      } catch (e) {
-        const error = e as Error;
-        onError?.(error);
-        if (state !== 'CONFIGURE_TOTP') {
-          setState('CONFIGURE_TOTP');
-        }
-        setErrorMessage(error.message);
-      }
-    },
-    [user, transitionTo, onError, state]
-  );
-
-  const runDisableMFA = React.useCallback(async () => {
-    try {
-      await setPreferredMFA({ user, mfaType: 'NOMFA' });
-
-      setCurrentMFA('nomfa');
-      transitionTo('DONE');
-    } catch (e) {
-      const error = e as Error;
-      onError?.(error);
-      setErrorMessage(error.message);
-    }
-  }, [user, transitionTo, onError]);
-
-  const getTotpSecretCode = React.useCallback((user: AmplifyUser) => {
-    return () => {
-      return setupTOTP(user);
-    };
-  }, []);
-
-  const runVerifySMSCode = React.useCallback(
-    async (code: string) => {
-      try {
-        await verifyUserAttributeSubmit(code);
-        await setPreferredMFA({ user, mfaType: 'SMS' });
-        setCurrentMFA('sms');
-        transitionTo('DONE');
-      } catch (e) {
-        const error = e as Error;
-        onError?.(error);
-        setErrorMessage(error.message);
-      }
-    },
-    [user, transitionTo, onError]
-  );
-
-  const runSendSMSCode = React.useCallback(async () => {
-    try {
-      setState('LOADING');
-      await verifyUserAttribute();
-
-      transitionTo('VERIFY_SMS');
-    } catch (e) {
-      const error = e as Error;
-      onError?.(error);
-      setErrorMessage(error.message);
-      transitionTo('SELECT_MFA');
-    }
-  }, [onError, transitionTo]);
-
-  // submit handlers
+  // event handlers
   const handleChange = (
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-    setFormValues((formValues) => ({ ...formValues, [name]: value }));
+    updateForm({ name, value });
   };
 
   const handleEnableMFA = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    transitionTo('SELECT_MFA');
+    runEnableMFA();
   };
 
   const handleDisableMFA = React.useCallback(() => {
@@ -182,34 +71,7 @@ function ConfigureMFA({
 
   const handleSelectMFA = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const { mfaType } = formValues;
-
-    switch (mfaType) {
-      case 'sms': {
-        const userPhoneInfo = getUserPhoneInfo(user);
-        const { dialCode, phoneNumber, hasPhoneNumber } = userPhoneInfo;
-
-        if (hasPhoneNumber) {
-          // set initial values
-          setDefaultDialCode(dialCode);
-          setFormValues({ dialCode, phoneNumber });
-          setState('CONFIGURE_SMS');
-        } else {
-          // user doesn't have a phone yet, warn them.
-          setErrorMessage(noPhoneErrorText);
-        }
-        break;
-      }
-      case 'totp': {
-        transitionTo('CONFIGURE_TOTP');
-        break;
-      }
-      default: {
-        logger.error('Unknown mfa was selected:', mfaType);
-        break;
-      }
-    }
+    runSelectMFA();
   };
 
   const handleConfigureTOTP = React.useCallback(

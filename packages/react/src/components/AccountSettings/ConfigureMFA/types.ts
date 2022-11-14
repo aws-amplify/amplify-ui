@@ -4,7 +4,7 @@ import { FormValues } from '../types';
 
 export interface ConfigureMFAProps {
   /** callback for successful mfa update */
-  onSuccess?: () => void;
+  onSuccess?: (mfaType: MFAType) => void;
 
   /** callback for unsuccessful user update  */
   onError?: (error: Error) => void;
