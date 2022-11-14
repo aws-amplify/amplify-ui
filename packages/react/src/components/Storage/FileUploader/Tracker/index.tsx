@@ -36,6 +36,14 @@ export function Tracker({
   resumable,
 }: TrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState(name);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  // Focus the input after pressing the edit button
+  React.useEffect(() => {
+    if (fileState === 'editing' && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [fileState]);
 
   if (!file) return null;
 
@@ -127,18 +135,28 @@ export function Tracker({
 
       {/* Main View */}
       {fileState === 'editing' ? (
-        <TextField
-          maxLength={1024}
-          width="100%"
-          label="file name"
-          size="small"
-          variation="quiet"
-          labelHidden
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setTempName(e.target.value);
+        // Wrapping this text field in a form with onSubmit will allow keyboard
+        // users to press enter to save changes.
+        <View
+          as="form"
+          flex="1"
+          onSubmit={() => {
+            onSaveEdit(tempName);
           }}
-          value={tempName}
-        />
+        >
+          <TextField
+            maxLength={1024}
+            ref={inputRef}
+            label="file name"
+            size="small"
+            variation="quiet"
+            labelHidden
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setTempName(e.target.value);
+            }}
+            value={tempName}
+          />
+        </View>
       ) : (
         <DisplayView />
       )}
