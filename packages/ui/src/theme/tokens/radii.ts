@@ -11,8 +11,6 @@ export type Radii<
   Platform = unknown
 > = DesignTokenValues<RadiusSize, RadiusValue<Platform>, Output, Platform>;
 
-export type ReactNativeRadii = Radii<'optional', 'mobile'>;
-
 export const radii: Radii<'default'> = {
   xs: { value: '0.125rem' },
   small: { value: '0.25rem' },

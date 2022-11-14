@@ -1,5 +1,5 @@
 import { borderWidths, BorderWidths } from './borderWidths';
-import { colors, Colors, ReactNativeColors } from './colors';
+import { colors, Colors } from './colors';
 import {
   components,
   ComponentTokens,
@@ -7,20 +7,16 @@ import {
   WebComponentTokens,
 } from './components';
 import { fonts, Fonts } from './fonts';
-import { fontSizes, FontSizes, ReactNativeFontSizes } from './fontSizes';
-import {
-  fontWeights,
-  FontWeights,
-  ReactNativeFontWeights,
-} from './fontWeights';
+import { fontSizes, FontSizes } from './fontSizes';
+import { fontWeights, FontWeights } from './fontWeights';
 import { lineHeights, LineHeights } from './lineHeights';
-import { opacities, Opacities, ReactNativeOpacities } from './opacities';
+import { opacities, Opacities } from './opacities';
 import { outlineOffsets, OutlineOffsets } from './outlineOffsets';
 import { outlineWidths, OutlineWidths } from './outlineWidths';
-import { radii, Radii, ReactNativeRadii } from './radii';
+import { radii, Radii } from './radii';
 import { shadows, Shadows } from './shadows';
-import { space, Space, ReactNativeSpace } from './space';
-import { time, Time, ReactNativeTime } from './time';
+import { space, Space } from './space';
+import { time, Time } from './time';
 import { transforms, Transforms } from './transforms';
 import { OutputVariantKey } from './types/designToken';
 
@@ -58,15 +54,23 @@ export type WebTokens = Required<BaseTokens<'required'>> & {
   components: WebComponentTokens;
 };
 
-export interface ReactNativeTokens {
-  colors: ReactNativeColors;
-  fontSizes: ReactNativeFontSizes;
-  fontWeights: ReactNativeFontWeights;
-  opacities: ReactNativeOpacities;
-  radii: ReactNativeRadii;
-  space: ReactNativeSpace;
-  time: ReactNativeTime;
-}
+type ReactNative = 'react-native';
+
+type BaseReactNativeTokens<Output extends OutputVariantKey = unknown> = {
+  colors?: Colors<Output, ReactNative>;
+  fontSizes?: Omit<FontSizes<Output, ReactNative>, 'xxxs' | 'xxxxl'>;
+  fontWeights?: FontWeights<Output, ReactNative>;
+  opacities?: Opacities<Output, ReactNative>;
+  radii?: Radii<Output, ReactNative>;
+  space?: Omit<Space<Output, ReactNative>, 'xxxs' | 'relative' | 'zero'>;
+  time?: Time<Output, ReactNative>;
+};
+
+export type ReactNativeTokens<Output extends OutputVariantKey> = Output extends
+  | 'required'
+  | 'default'
+  ? Required<BaseReactNativeTokens<Output>>
+  : BaseReactNativeTokens<Output>;
 
 export const tokens: DefaultTokens = {
   components,

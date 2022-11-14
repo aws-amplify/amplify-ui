@@ -52,7 +52,10 @@ export type DisplayValue = string;
 export type FlexDirectionValue = string;
 export type FlexValue = string;
 export type FlexWrapValue = string;
-export type FontSizeValue = string;
+
+// `fontSize` values are `string` for web and `number` for react-native
+export type FontSizeValue<Platform extends PlatformKey = unknown> =
+  Platform extends 'react-native' ? number : string;
 export type FontStyleValue = string;
 export type FontValue = string;
 export type FontWeightValue = string | number;
@@ -60,16 +63,22 @@ export type GapValue = string;
 export type JustifyContentValue = string;
 export type LineHeightValue = string | number;
 export type ObjectFitValue = string;
-export type OpacityValue = string;
+
+// `opacity` values are `string` for web and `number` for react-native
+export type OpacityValue<Platform extends PlatformKey = unknown> =
+  Platform extends 'react-native' ? number : string;
+
 export type OutlineOffsetValue = string;
 export type OutlineWidthValue = string;
 export type OutlineColorValue = string;
 export type OutlineStyleValue = string;
 export type PositionValue = string;
 export type PointerEventsValue = string;
-// radius values are `string` for web and `number` for mobile
+
+// radius values are `string` for web and `number` for react-native
 export type RadiusValue<Platform extends PlatformKey = unknown> =
   Platform extends 'react-native' ? number : string;
+
 export type ShadowValue =
   | {
       offsetX: string;
@@ -83,11 +92,17 @@ export type StrokeFilledValue = string;
 export type StrokeEmptyValue = string;
 export type StrokeLinecapValue = string;
 export type StrokeWidthValue = string;
-export type SpaceValue = string;
+
+// radius values are `string` for web and `number` for react native
+export type SpaceValue<Platform extends PlatformKey = unknown> =
+  Platform extends 'react-native' ? number : string;
+
 export type TextAlignValue = string;
-// radius values are `string` for web and `number` for mobile
+
+// `radius` values are `string` for web and `number` for react native
 export type TimeValue<Platform extends PlatformKey = unknown> =
   Platform extends 'react-native' ? number : string;
+
 export type TransformValue = string;
 export type TransitionDurationValue = string;
 export type TransitionPropertyValue = string;
@@ -247,7 +262,7 @@ export type DesignTokenProperties<
   ? OptionalDesignTokenProperties<Keys>
   : DefaultDesignTokenProperties<Keys>;
 
-export type PlatformKey = 'web' | 'react-native' | unknown;
+export type PlatformKey = 'web' | 'react-native' | 'android' | 'ios' | unknown;
 
 // scales can be keyed with `number`
 type PropKey = string | number;
@@ -278,9 +293,11 @@ type DefaultTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
   Platform extends PlatformKey = unknown
-> = Record<
-  PropertyValueKey,
-  Platform extends 'react-native' ? PropertyValue : DesignToken<PropertyValue>
+> = Required<
+  Record<
+    PropertyValueKey,
+    Platform extends 'react-native' ? PropertyValue : DesignToken<PropertyValue>
+  >
 >;
 
 /**

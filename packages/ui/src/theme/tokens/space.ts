@@ -18,7 +18,12 @@ type SpaceSize =
 export type SpaceSizes<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = DesignTokenValues<SpaceSize | 'zero', SpaceValue, Output, Platform>;
+> = DesignTokenValues<
+  SpaceSize | 'zero',
+  SpaceValue<Platform>,
+  Output,
+  Platform
+>;
 
 type BaseSpace<
   Output extends OutputVariantKey = unknown,
@@ -26,7 +31,7 @@ type BaseSpace<
 > = SpaceSizes<Output, Platform> & {
   relative?: DesignTokenValues<
     SpaceSize | 'full',
-    SpaceValue,
+    SpaceValue<Platform>,
     Output,
     Platform
   >;
@@ -39,11 +44,6 @@ export type Space<
 > = Output extends 'required' | 'default'
   ? Required<BaseSpace<Output, Platform>>
   : BaseSpace<Output, Platform>;
-
-export type ReactNativeSpace = Omit<
-  Space<'optional', 'react-native'>,
-  'xxxs' | 'relative' | 'zero'
->;
 
 export const space: Space<'default'> = {
   zero: { value: '0' },

@@ -2,7 +2,7 @@
  * Style Dictionary config
  */
 
-import StyleDictionary from 'style-dictionary';
+import StyleDictionary, { Config } from 'style-dictionary';
 import { defaultTheme } from './src/theme';
 import { CSS_VARIABLE_PREFIX } from './src/theme/utils';
 import { WebTransforms } from './src/theme/platforms/web';
@@ -15,7 +15,8 @@ import {
 const CSS_VARIABLE_SCOPE = ':root, [data-amplify-theme]';
 
 StyleDictionary.extend({
-  tokens: defaultTheme.tokens,
+  // cast as the type emiited for `DesignToken` in SD conflicts with the `DesignToken` interface used
+  tokens: defaultTheme.tokens as Config['tokens'],
   format: {
     ReactNativeFormat,
   },

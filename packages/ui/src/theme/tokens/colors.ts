@@ -7,20 +7,36 @@ import {
 /**
  * Util type for creating color interfaces using `ColorValue` from string and number unions
  */
-type ColorValues<
+type BaseColorValues<
   VariantKey extends string | number,
   Output,
   Platform = unknown
 > = DesignTokenValues<VariantKey, ColorValue, Output, Platform>;
 
+type ColorValues<
+  VariantKey extends string | number,
+  Output,
+  Platform = unknown
+> = Output extends 'required' | 'default'
+  ? BaseColorValues<VariantKey, Output, Platform>
+  : Partial<BaseColorValues<VariantKey, Output, Platform>>;
+
 /**
  * Util type for creating nested color scale interfaces from variant keys
  */
+type BaseColorValueScale<
+  VariantKey extends string | number,
+  Output,
+  Platform = unknown
+> = Record<VariantKey, ColorValues<ScaleKey, Output, Platform>>;
+
 type ColorValueScale<
   VariantKey extends string | number,
   Output,
   Platform = unknown
-> = Partial<Record<VariantKey, ColorValues<ScaleKey, Output, Platform>>>;
+> = Output extends 'required' | 'default'
+  ? BaseColorValueScale<VariantKey, Output, Platform>
+  : Partial<BaseColorValueScale<VariantKey, Output, Platform>>;
 
 // scale keys
 type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
@@ -40,40 +56,53 @@ type ColorPaletteKey =
 type GreyscalePaletteKey = 'white' | 'black' | 'transparent';
 
 // variant keys
-type OrderVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+type OrderVariant = 'primary' | 'secondary' | 'tertiary';
 type OrderVariantKey<Output = unknown> = Output extends 'default'
   ? Exclude<OrderVariant, 'quaternary'>
   : OrderVariant;
 
 type InformationVariantKey = 'info' | 'warning' | 'error' | 'success';
-type StateVariantKey =
+
+type WebStateVariantKey =
   | 'active'
   | 'disabled'
   | 'error'
   | 'hover'
   | 'focus'
   | 'pressed';
+type ReactNativeStateVariantKey = Exclude<
+  WebStateVariantKey,
+  'focused' | 'hover'
+>;
+
+type StateVariantKey<Platform> = Platform extends 'react-native'
+  ? ReactNativeStateVariantKey
+  : WebStateVariantKey;
 
 type BrandVariantKey = Extract<OrderVariantKey, 'primary' | 'secondary'>;
-type ShadowVariantKey = Exclude<OrderVariantKey, 'quaternary'>;
-type FontVariantKey<Output> =
+type FontVariantKey<Output, Platform> =
   | 'inverse'
   | 'interactive'
-  | Extract<StateVariantKey, 'active' | 'disabled' | 'hover' | 'focus'>
+  | Extract<
+      StateVariantKey<Platform>,
+      'active' | 'disabled' | 'hover' | 'focus'
+    >
   | OrderVariantKey<Output>
   | InformationVariantKey;
 
-type BackgroundColorKey =
-  | Extract<StateVariantKey, 'disabled'>
+type BackgroundColorKey<Platform> =
+  | Extract<StateVariantKey<Platform>, 'disabled'>
   | OrderVariantKey
-  | InformationVariantKey;
+  | InformationVariantKey
+  | 'quaternary';
 
-type BorderColorKey<Output> =
-  | Extract<StateVariantKey, 'disabled' | 'error'>
+type BorderColorKey<Output, Platform> =
+  | Extract<StateVariantKey<Platform>, 'disabled' | 'error'>
   | OrderVariantKey<Output>
   | (Output extends 'default'
-      ? Exclude<StateVariantKey, 'active' | 'hover'>
-      : StateVariantKey);
+      ? // currently excludes `active` and 'hover' for `default` because there are no defaults for them
+        Exclude<StateVariantKey<Platform>, 'active' | 'hover'>
+      : StateVariantKey<Platform>);
 
 type PaletteValues<Output, Platform> = ColorValueScale<
   ColorPaletteKey,
@@ -96,24 +125,22 @@ type BaseColors<
     // brand properties have scaled values
     brand?: ColorValueScale<BrandVariantKey, Output, Platform>;
 
-    background?: ColorValues<BackgroundColorKey, Output, Platform>;
-    border?: ColorValues<BorderColorKey<Output>, Output, Platform>;
-    font?: ColorValues<FontVariantKey<Output>, Output, Platform>;
+    background?: ColorValues<BackgroundColorKey<Platform>, Output, Platform>;
+    border?: ColorValues<BorderColorKey<Output, Platform>, Output, Platform>;
+    font?: ColorValues<FontVariantKey<Output, Platform>, Output, Platform>;
     overlay?: ColorValues<OverlayKey, Output, Platform>;
-    shadow?: ColorValues<ShadowVariantKey, Output, Platform>;
+    shadow?: ColorValues<OrderVariantKey, Output, Platform>;
   };
 
 export type Colors<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = (Output extends 'required'
+> = (Output extends 'required' | 'default'
   ? Required<BaseColors<Output, Platform>>
   : BaseColors<Output, Platform>) &
   Record<string, any>; // TODO: remove 'any' and created structured custom color generic
 
-export type ReactNativeColors = Colors<unknown, 'mobile'>;
-
-export const colors: Required<Colors<'default'>> = {
+export const colors: Colors<'default'> = {
   red: {
     10: { value: 'hsl(0, 75%, 95%)' },
     20: { value: 'hsl(0, 75%, 85%)' },

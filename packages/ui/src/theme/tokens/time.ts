@@ -11,8 +11,6 @@ export type Time<
   Platform = unknown
 > = DesignTokenValues<Duration, TimeValue<Platform>, Output, Platform>;
 
-export type ReactNativeTime = Time<'optional', 'mobile'>;
-
 export const time: Time<'default'> = {
   short: { value: '100ms' },
   medium: { value: '250ms' },

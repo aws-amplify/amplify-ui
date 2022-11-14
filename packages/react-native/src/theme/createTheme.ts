@@ -1,10 +1,10 @@
 import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import tokens from '@aws-amplify/ui/dist/react-native/tokens';
 
-import { Theme, StrictTheme } from './types';
+import { DefaultTheme, Theme, StrictTheme } from './types';
 import { setupTokens } from './utils';
 
-const defaultTheme: StrictTheme = {
+const defaultTheme: DefaultTheme = {
   tokens,
   name: 'default-theme',
   colorMode: 'system',

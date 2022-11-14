@@ -20,8 +20,6 @@ export type FontWeights<
   Platform = unknown
 > = DesignTokenValues<FontWeight, FontWeightValue, Output, Platform>;
 
-export type ReactNativeFontWeights = FontWeights<unknown, 'mobile'>;
-
 export const fontWeights: FontWeights<'default'> = {
   hairline: { value: 100 },
   thin: { value: 200 },

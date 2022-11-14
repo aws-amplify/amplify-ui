@@ -9,7 +9,9 @@ export const REACT_NATIVE_TOKENS = [
   'space',
   'time',
 ];
-const EXCLUDED_TOKENS = ['zero', 'xxxs', 'xxxxl', 'relative'];
+
+// TODO: scope to token key (e.g. `space`, 'fontSize`)
+const EXCLUDED_TOKENS = ['zero', 'xxxs', 'xxxxl', 'relative', 'hover'];
 
 const buildRNTokens = (obj: object) => {
   if (typeof obj !== 'object' || Array.isArray(obj)) {
@@ -36,12 +38,14 @@ const ReactNativeFormat = ({ dictionary, file }): string => {
 
   return (
     fileHeader({ file }) +
-    `const baseTokens = ${JSON.stringify(
+    `import { ReactNativeTokens } from '../types';
+
+const baseTokens: ReactNativeTokens<'default'> = ${JSON.stringify(
       buildRNTokens(dictionary.tokens),
       null,
       2
     )};
-     export default baseTokens;`
+export default baseTokens;`
   );
 };
 

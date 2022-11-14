@@ -13,7 +13,7 @@ type ColorMode = 'light' | 'dark' | 'system';
 type Override = Omit<StrictTheme, 'overrides'>;
 
 // re-name and export to align naming with `StrictTheme`
-export type StrictTokens = ReactNativeTokens;
+export type StrictTokens = ReactNativeTokens<'required'>;
 
 // `StrictTokens` but everything optional for custom themes
 export type Tokens = PartialDeep<StrictTokens>;
@@ -40,6 +40,11 @@ export interface Theme {
    * like light and dark mode.
    */
   overrides?: Override[];
+}
+
+export interface DefaultTheme
+  extends Required<Pick<Theme, 'name' | 'colorMode'>> {
+  tokens: ReactNativeTokens<'default'>;
 }
 
 /**

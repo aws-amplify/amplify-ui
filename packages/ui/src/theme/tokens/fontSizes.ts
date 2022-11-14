@@ -19,12 +19,7 @@ type FontSize =
 export type FontSizes<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = DesignTokenValues<FontSize, FontSizeValue, Output, Platform>;
-
-export type ReactNativeFontSizes = Omit<
-  FontSizes<unknown, 'react-native'>,
-  'xxxs' | 'xxxxl'
->;
+> = DesignTokenValues<FontSize, FontSizeValue<Platform>, Output, Platform>;
 
 export const fontSizes: FontSizes<'default'> = {
   xxxs: { value: '0.375rem' },

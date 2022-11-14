@@ -1,25 +1,24 @@
-import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
-
+import defaultTokens from '@aws-amplify/ui/dist/react-native/tokens';
 import { StrictTokens } from '../types';
 import { setupTokens } from '../utils';
 
 // setupTokens will receive a fully defined theme so all props are required
 const tokens: StrictTokens = {
-  ...baseTokens,
+  ...defaultTokens,
   colors: {
-    ...baseTokens.colors,
+    ...defaultTokens.colors,
     brand: {
       primary: {
-        ...baseTokens.colors.brand.primary,
+        ...defaultTokens.colors.brand.primary,
         10: '#bada55',
       },
       secondary: {
-        ...baseTokens.colors.brand.secondary,
+        ...defaultTokens.colors.brand.secondary,
         10: '{colors.brand.primary[10]}',
       },
     },
   },
-};
+} as StrictTokens; // cast because "strict" tokens require values that are not available in "default" tokens
 
 describe('utils', () => {
   describe('setupTokens', () => {
