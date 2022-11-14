@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type StateTokens<Output> = DesignTokenProperties<
   'backgroundColor' | 'borderColor' | 'color',
@@ -12,14 +12,12 @@ type ButtonTokens<Output> = DesignTokenProperties<'color', Output> & {
   _hover?: StateTokens<Output>;
 };
 
-export type PasswordFieldTokens<Output = unknown> = DesignTokenProperties<
-  'color',
-  Output
-> & {
-  button?: ButtonTokens<Output>;
-};
+export type PasswordFieldTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'color', Output> & {
+    button?: ButtonTokens<Output>;
+  };
 
-export const passwordfield: PasswordFieldTokens = {
+export const passwordfield: Required<PasswordFieldTokens<'default'>> = {
   color: { value: '{components.fieldcontrol.color.value}' },
   button: {
     color: { value: '{components.button.color.value}' },

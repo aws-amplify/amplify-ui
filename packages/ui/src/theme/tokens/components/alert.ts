@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type AlertVariationTokens<OutputType> = DesignTokenProperties<
   'backgroundColor' | 'color',
@@ -20,19 +20,17 @@ type AlertTokenKey =
   | 'paddingBlock'
   | 'paddingInline';
 
-export type AlertTokens<OutputType = unknown> = DesignTokenProperties<
-  AlertTokenKey,
-  OutputType
-> & {
-  icon?: AlertIconTokens<OutputType>;
-  heading?: AlertHeadingTokens<OutputType>;
-  info?: AlertVariationTokens<OutputType>;
-  error?: AlertVariationTokens<OutputType>;
-  warning?: AlertVariationTokens<OutputType>;
-  success?: AlertVariationTokens<OutputType>;
-};
+export type AlertTokens<OutputType extends OutputVariantKey> =
+  DesignTokenProperties<AlertTokenKey, OutputType> & {
+    icon?: AlertIconTokens<OutputType>;
+    heading?: AlertHeadingTokens<OutputType>;
+    info?: AlertVariationTokens<OutputType>;
+    error?: AlertVariationTokens<OutputType>;
+    warning?: AlertVariationTokens<OutputType>;
+    success?: AlertVariationTokens<OutputType>;
+  };
 
-export const alert: AlertTokens = {
+export const alert: Required<AlertTokens<'default'>> = {
   // Default styles
   alignItems: { value: 'center' },
   justifyContent: { value: 'space-between' },

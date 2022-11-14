@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type BaseTableTokens<Output> = DesignTokenProperties<
   'display' | 'verticalAlign',
@@ -28,34 +28,32 @@ type TableCellSizeTokens<Output> = DesignTokenProperties<
 
 type TableCaptionSizeTokens<Output> = DesignTokenProperties<'fontSize', Output>;
 
-export type TableTokens<Output = unknown> = DesignTokenProperties<
-  'borderCollapse' | 'display' | 'width',
-  Output
-> & {
-  head?: BaseTableTokens<Output>;
-  body?: BaseTableTokens<Output>;
-  foot?: BaseTableTokens<Output>;
-  row?: BaseTableTokens<Output> & {
-    hover?: DesignTokenProperties<'backgroundColor', Output>;
-    striped?: DesignTokenProperties<'backgroundColor', Output>;
+export type TableTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'borderCollapse' | 'display' | 'width', Output> & {
+    head?: BaseTableTokens<Output>;
+    body?: BaseTableTokens<Output>;
+    foot?: BaseTableTokens<Output>;
+    row?: BaseTableTokens<Output> & {
+      hover?: DesignTokenProperties<'backgroundColor', Output>;
+      striped?: DesignTokenProperties<'backgroundColor', Output>;
+    };
+    header: TableCellTokens<Output>;
+    data: TableCellTokens<Output>;
+    caption?: DesignTokenProperties<
+      | 'captionSide'
+      | 'color'
+      | 'display'
+      | 'fontSize'
+      | 'textAlign'
+      | 'wordBreak',
+      Output
+    > & {
+      large?: TableCaptionSizeTokens<Output>;
+      small?: TableCaptionSizeTokens<Output>;
+    };
   };
-  header: TableCellTokens<Output>;
-  data: TableCellTokens<Output>;
-  caption?: DesignTokenProperties<
-    | 'captionSide'
-    | 'color'
-    | 'display'
-    | 'fontSize'
-    | 'textAlign'
-    | 'wordBreak',
-    Output
-  > & {
-    large?: TableCaptionSizeTokens<Output>;
-    small?: TableCaptionSizeTokens<Output>;
-  };
-};
 
-export const table: TableTokens = {
+export const table: Required<TableTokens<'default'>> = {
   /**
    * Default table styles
    */

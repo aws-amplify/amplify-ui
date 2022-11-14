@@ -1,11 +1,12 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type ImageTokens<Output = unknown> = DesignTokenProperties<
-  'maxWidth' | 'height' | 'objectFit' | 'objectPosition',
-  Output
->;
+export type ImageTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    'maxWidth' | 'height' | 'objectFit' | 'objectPosition',
+    Output
+  >;
 
-export const image: ImageTokens = {
+export const image: Required<ImageTokens<'default'>> = {
   maxWidth: { value: '100%' },
   height: { value: 'auto' },
   objectFit: { value: 'initial' },

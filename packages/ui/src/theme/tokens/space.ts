@@ -1,4 +1,8 @@
-import { DesignTokenValues, SpaceValue } from './types/designToken';
+import {
+  DesignTokenValues,
+  OutputVariantKey,
+  SpaceValue,
+} from './types/designToken';
 
 type SpaceSize =
   | 'xxxs'
@@ -12,14 +16,14 @@ type SpaceSize =
   | 'xxxl';
 
 export type SpaceSizes<
-  Output = unknown,
+  Output extends OutputVariantKey = unknown,
   Platform = unknown
 > = DesignTokenValues<SpaceSize | 'zero', SpaceValue, Output, Platform>;
 
-export type Space<Output = unknown, Platform = unknown> = SpaceSizes<
-  Output,
-  Platform
-> & {
+type BaseSpace<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = SpaceSizes<Output, Platform> & {
   relative?: DesignTokenValues<
     SpaceSize | 'full',
     SpaceValue,
@@ -28,12 +32,20 @@ export type Space<Output = unknown, Platform = unknown> = SpaceSizes<
   >;
 };
 
+// `Space` tokens requires special handling for `required` output due to nested tokens
+export type Space<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = Output extends 'required' | 'default'
+  ? Required<BaseSpace<Output, Platform>>
+  : BaseSpace<Output, Platform>;
+
 export type ReactNativeSpace = Omit<
-  Space<number>,
+  Space<'optional', 'react-native'>,
   'xxxs' | 'relative' | 'zero'
 >;
 
-export const space: Space = {
+export const space: Space<'default'> = {
   zero: { value: '0' },
   xxxs: { value: '0.25rem' },
   xxs: { value: '0.375rem' },

@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type ModalTokenKey = 'width' | 'height' | 'backgroundColor' | 'top' | 'left';
 
@@ -44,20 +44,18 @@ type AuthenticatorContainerToken<OutputType> = {
   widthMax?: DesignTokenProperties<'maxWidth', OutputType>['maxWidth'];
 };
 
-export type AuthenticatorTokens<OutputType = unknown> = DesignTokenProperties<
-  'maxWidth',
-  OutputType
-> & {
-  modal?: AuthenticatorModalTokens<OutputType>;
-  container?: AuthenticatorContainerToken<OutputType>;
-  router?: AuthenticatorRouterTokens<OutputType>;
-  footer?: AuthenticatorFooterTokens<OutputType>;
-  form?: AuthenticatorFormTokens<OutputType>;
-  state?: AuthenticatorStateTokens<OutputType>;
-  orContainer?: AuthenticatorOrContainerTokens<OutputType>;
-};
+export type AuthenticatorTokens<OutputType extends OutputVariantKey> =
+  DesignTokenProperties<'maxWidth', OutputType> & {
+    modal?: AuthenticatorModalTokens<OutputType>;
+    container?: AuthenticatorContainerToken<OutputType>;
+    router?: AuthenticatorRouterTokens<OutputType>;
+    footer?: AuthenticatorFooterTokens<OutputType>;
+    form?: AuthenticatorFormTokens<OutputType>;
+    state?: AuthenticatorStateTokens<OutputType>;
+    orContainer?: AuthenticatorOrContainerTokens<OutputType>;
+  };
 
-export const authenticator: AuthenticatorTokens = {
+export const authenticator: Required<AuthenticatorTokens<'default'>> = {
   maxWidth: { value: '60rem' },
   modal: {
     width: { value: '{space.relative.full}' },

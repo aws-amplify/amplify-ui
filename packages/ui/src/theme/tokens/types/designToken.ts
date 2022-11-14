@@ -69,7 +69,7 @@ export type PositionValue = string;
 export type PointerEventsValue = string;
 // radius values are `string` for web and `number` for mobile
 export type RadiusValue<Platform extends PlatformKey = unknown> =
-  Platform extends 'mobile' ? number : string;
+  Platform extends 'react-native' ? number : string;
 export type ShadowValue =
   | {
       offsetX: string;
@@ -87,7 +87,7 @@ export type SpaceValue = string;
 export type TextAlignValue = string;
 // radius values are `string` for web and `number` for mobile
 export type TimeValue<Platform extends PlatformKey = unknown> =
-  Platform extends 'mobile' ? number : string;
+  Platform extends 'react-native' ? number : string;
 export type TransformValue = string;
 export type TransitionDurationValue = string;
 export type TransitionPropertyValue = string;
@@ -212,7 +212,7 @@ type Property =
   | Extract<keyof Properties, TokenProperty>
   | keyof TokenCustomProperties;
 
-type OutputKey = 'strict' | unknown;
+export type OutputVariantKey = 'default' | 'optional' | 'required' | unknown;
 
 /**
  * Return interface with all types optional for custom theme input
@@ -229,16 +229,27 @@ type RequiredDesignTokenProperties<Keys extends TokenProperty> = {
 };
 
 /**
+ * Return interface with all types required for strict theme output
+ */
+type DefaultDesignTokenProperties<Keys extends TokenProperty> = Required<{
+  [Key in Keys]: DesignToken<TokenProperties[Key]>;
+}>;
+
+/**
  * Utility for creating interfaces for components from supported CSS property keys
  */
 export type DesignTokenProperties<
   Keys extends TokenProperty,
-  Output extends OutputKey = unknown
-> = Output extends 'strict'
+  Output extends OutputVariantKey = unknown
+> = Output extends 'required'
   ? RequiredDesignTokenProperties<Keys>
-  : OptionalDesignTokenProperties<Keys>;
+  : Output extends 'optional'
+  ? OptionalDesignTokenProperties<Keys>
+  : DefaultDesignTokenProperties<Keys>;
 
-export type PlatformKey = 'web' | 'mobile' | unknown;
+export type PlatformKey = 'web' | 'react-native' | unknown;
+
+// scales can be keyed with `number`
 type PropKey = string | number;
 
 type RequiredTokenValues<
@@ -247,7 +258,9 @@ type RequiredTokenValues<
   Platform extends PlatformKey = unknown
 > = Record<
   PropertyValueKey,
-  Platform extends 'mobile' ? PropertyValue : WebDesignToken<PropertyValue>
+  Platform extends 'react-native'
+    ? PropertyValue
+    : WebDesignToken<PropertyValue>
 >;
 
 type OptionalTokenValues<
@@ -257,8 +270,17 @@ type OptionalTokenValues<
 > = Partial<
   Record<
     PropertyValueKey,
-    Platform extends 'mobile' ? PropertyValue : DesignToken<PropertyValue>
+    Platform extends 'react-native' ? PropertyValue : DesignToken<PropertyValue>
   >
+>;
+
+type DefaultTokenValues<
+  PropertyValueKey extends PropKey,
+  PropertyValue,
+  Platform extends PlatformKey = unknown
+> = Record<
+  PropertyValueKey,
+  Platform extends 'react-native' ? PropertyValue : DesignToken<PropertyValue>
 >;
 
 /**
@@ -267,8 +289,10 @@ type OptionalTokenValues<
 export type DesignTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
-  Output extends OutputKey = unknown,
+  Output extends OutputVariantKey = unknown,
   Platform extends PlatformKey = unknown
-> = Output extends 'strict'
+> = Output extends 'required'
   ? RequiredTokenValues<PropertyValueKey, PropertyValue, Platform>
-  : OptionalTokenValues<PropertyValueKey, PropertyValue, Platform>;
+  : Output extends 'optional'
+  ? OptionalTokenValues<PropertyValueKey, PropertyValue, Platform>
+  : DefaultTokenValues<PropertyValueKey, PropertyValue, Platform>;

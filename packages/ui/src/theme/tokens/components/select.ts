@@ -1,22 +1,26 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type SelectSizeTokens<Output> = DesignTokenProperties<'minWidth', Output>;
 
-export type SelectTokens<Output = unknown> = DesignTokenProperties<
-  'paddingInlineEnd' | 'whiteSpace' | 'minWidth'
-> & {
-  wrapper?: DesignTokenProperties<'cursor' | 'display' | 'flex' | 'position'>;
-  iconWrapper?: DesignTokenProperties<
-    'alignItems' | 'position' | 'top' | 'right' | 'transform' | 'pointerEvents'
-  >;
-  option?: DesignTokenProperties<'backgroundColor' | 'color'> & {
-    _disabled?: DesignTokenProperties<'color'>;
+export type SelectTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'paddingInlineEnd' | 'whiteSpace' | 'minWidth'> & {
+    wrapper?: DesignTokenProperties<'cursor' | 'display' | 'flex' | 'position'>;
+    iconWrapper?: DesignTokenProperties<
+      | 'alignItems'
+      | 'position'
+      | 'top'
+      | 'right'
+      | 'transform'
+      | 'pointerEvents'
+    >;
+    option?: DesignTokenProperties<'backgroundColor' | 'color'> & {
+      _disabled?: DesignTokenProperties<'color'>;
+    };
+    small?: SelectSizeTokens<Output>;
+    large?: SelectSizeTokens<Output>;
   };
-  small?: SelectSizeTokens<Output>;
-  large?: SelectSizeTokens<Output>;
-};
 
-export const select: SelectTokens = {
+export const select: Required<SelectTokens<'default'>> = {
   paddingInlineEnd: { value: '{space.xxl.value}' },
   // wrappers
   wrapper: {

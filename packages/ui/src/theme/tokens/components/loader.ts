@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type LoaderSizeTokens<Output> = DesignTokenProperties<
   'fontSize' | 'height' | 'width',
@@ -21,18 +21,22 @@ type BaseLoaderTokens<Output> = DesignTokenProperties<
   Output
 >;
 
-export type LoaderTokens<Output = unknown> = BaseLoaderTokens<Output> & {
-  small?: LoaderSizeTokens<Output>;
-  large?: LoaderSizeTokens<Output>;
-  linear?: BaseLoaderTokens<Output> &
-    DesignTokenProperties<'minWidth' | 'strokeWidth', Output> & {
-      small?: LoaderLinearSizeTokens<Output>;
-      large?: LoaderLinearSizeTokens<Output>;
-    };
-  text?: DesignTokenProperties<'fill', Output>;
-};
+export type LoaderTokens<Output extends OutputVariantKey> =
+  BaseLoaderTokens<Output> & {
+    small?: LoaderSizeTokens<Output>;
+    large?: LoaderSizeTokens<Output>;
+    linear?: Omit<
+      BaseLoaderTokens<Output> &
+        DesignTokenProperties<'minWidth' | 'strokeWidth', Output> & {
+          small?: LoaderLinearSizeTokens<Output>;
+          large?: LoaderLinearSizeTokens<Output>;
+        },
+      Output extends 'default' ? 'height' : never
+    >;
+    text?: DesignTokenProperties<'fill', Output>;
+  };
 
-export const loader: LoaderTokens = {
+export const loader: Required<LoaderTokens<'default'>> = {
   width: { value: '{fontSizes.medium.value}' },
   height: { value: '{fontSizes.medium.value}' },
   fontSize: { value: '{fontSizes.xs.value}' },

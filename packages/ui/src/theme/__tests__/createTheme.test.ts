@@ -10,6 +10,8 @@ describe('@aws-amplify/ui', () => {
     describe('without a base theme', () => {
       const { tokens } = createTheme({ name: 'test-theme' });
 
+      tokens.borderWidths.large.name;
+
       // This will allow users to use the token in a style prop
       // without `.value` and for it to use the CSS variable
       // so it won't change even the value changes (with

@@ -1,6 +1,6 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type PaginationTokens<Output = unknown> = {
+export type PaginationTokens<Output extends OutputVariantKey> = {
   current?: DesignTokenProperties<
     'alignItems' | 'backgroundColor' | 'color' | 'fontSize' | 'justifyContent',
     Output
@@ -35,7 +35,7 @@ export type PaginationTokens<Output = unknown> = {
   >;
 };
 
-export const pagination: PaginationTokens = {
+export const pagination: Required<PaginationTokens<'default'>> = {
   current: {
     alignItems: { value: 'center' },
     justifyContent: { value: 'center' },

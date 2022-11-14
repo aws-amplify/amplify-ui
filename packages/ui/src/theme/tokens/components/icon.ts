@@ -1,11 +1,11 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type IconTokens<Output = unknown> = DesignTokenProperties<
+export type IconTokens<Output extends OutputVariantKey> = DesignTokenProperties<
   'height' | 'lineHeight',
   Output
 >;
 
-export const icon: IconTokens = {
+export const icon: Required<IconTokens<'default'>> = {
   lineHeight: { value: 1 },
   height: { value: '1em' }, // Should match height of parent container font-size
 };

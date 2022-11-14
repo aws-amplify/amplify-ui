@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type ExpanderItemTokens<Output> = DesignTokenProperties<
   | 'marginTop'
@@ -44,21 +44,22 @@ type ExpanderContentTokens<Output> = DesignTokenProperties<
   _closed?: ExpanderContentStateTokens<Output>;
 };
 
-export type ExpanderTokens<Output = unknown> = DesignTokenProperties<
-  'display' | 'backgroundColor' | 'borderRadius' | 'boxShadow' | 'width',
-  Output
-> & {
-  content?: ExpanderContentTokens<Output>;
-  header?: DesignTokenProperties<'boxShadow', Output>;
-  item?: ExpanderItemTokens<Output>;
-  trigger?: ExpanderTriggerTokens<Output>;
-  icon?: DesignTokenProperties<
-    'transitionDuration' | 'transitionTimingFunction',
+export type ExpanderTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    'display' | 'backgroundColor' | 'borderRadius' | 'boxShadow' | 'width',
     Output
-  >;
-};
+  > & {
+    content?: ExpanderContentTokens<Output>;
+    header?: DesignTokenProperties<'boxShadow', Output>;
+    item?: ExpanderItemTokens<Output>;
+    trigger?: ExpanderTriggerTokens<Output>;
+    icon?: DesignTokenProperties<
+      'transitionDuration' | 'transitionTimingFunction',
+      Output
+    >;
+  };
 
-export const expander: ExpanderTokens = {
+export const expander: Required<ExpanderTokens<'default'>> = {
   display: { value: 'block' },
   backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.medium.value}' },

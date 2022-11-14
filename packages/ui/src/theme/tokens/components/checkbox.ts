@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type ButtonFocusToken<Output> = DesignTokenProperties<
   | 'outlineColor'
@@ -52,17 +52,15 @@ type IconToken<Output> = DesignTokenProperties<
   _indeterminate?: IconCheckedStateToken<Output>;
 };
 
-export type CheckboxTokens<Output = unknown> = DesignTokenProperties<
-  'alignItems' | 'cursor',
-  Output
-> & {
-  _disabled?: DesignTokenProperties<'cursor', Output>;
-  button?: ButtonToken<Output>;
-  icon?: IconToken<Output>;
-  label?: { _disabled?: DesignTokenProperties<'color', Output> };
-};
+export type CheckboxTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'alignItems' | 'cursor', Output> & {
+    _disabled?: DesignTokenProperties<'cursor', Output>;
+    button?: ButtonToken<Output>;
+    icon?: IconToken<Output>;
+    label?: { _disabled?: DesignTokenProperties<'color', Output> };
+  };
 
-export const checkbox: CheckboxTokens = {
+export const checkbox: Required<CheckboxTokens<'default'>> = {
   cursor: { value: 'pointer' },
   alignItems: { value: 'center' },
   _disabled: {

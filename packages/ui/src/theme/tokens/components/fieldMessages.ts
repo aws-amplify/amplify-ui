@@ -1,6 +1,6 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type FieldMessagesTokens<Output = unknown> = {
+export type FieldMessagesTokens<Output extends OutputVariantKey> = {
   error?: DesignTokenProperties<'color' | 'fontSize', Output>;
   description?: DesignTokenProperties<
     'color' | 'fontSize' | 'fontStyle',
@@ -8,7 +8,7 @@ export type FieldMessagesTokens<Output = unknown> = {
   >;
 };
 
-export const fieldmessages: FieldMessagesTokens = {
+export const fieldmessages: Required<FieldMessagesTokens<'default'>> = {
   error: {
     color: { value: '{colors.font.error.value}' },
     fontSize: { value: '{fontSizes.small.value}' },

@@ -1,8 +1,8 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type MenuSizeTokens<Output> = DesignTokenProperties<'width' | 'height', Output>;
 
-export type MenuTokens<Output = unknown> = DesignTokenProperties<
+export type MenuTokens<Output extends OutputVariantKey> = DesignTokenProperties<
   | 'backgroundColor'
   | 'borderColor'
   | 'borderRadius'
@@ -23,7 +23,7 @@ export type MenuTokens<Output = unknown> = DesignTokenProperties<
   >;
 };
 
-export const menu: MenuTokens = {
+export const menu: Required<MenuTokens<'default'>> = {
   backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.medium.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },

@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type VariationKey = 'backgroundColor' | 'color';
 
@@ -22,19 +22,17 @@ type BadgeKey =
   | 'paddingVertical'
   | 'textAlign';
 
-export type BadgeTokens<OutputType = unknown> = DesignTokenProperties<
-  BadgeKey,
-  OutputType
-> & {
-  error?: BadgeVariationTokens<OutputType>;
-  large?: BadgeSizeTokens<OutputType>;
-  small?: BadgeSizeTokens<OutputType>;
-  info?: BadgeVariationTokens<OutputType>;
-  success?: BadgeVariationTokens<OutputType>;
-  warning?: BadgeVariationTokens<OutputType>;
-};
+export type BadgeTokens<OutputType extends OutputVariantKey> =
+  DesignTokenProperties<BadgeKey, OutputType> & {
+    error?: BadgeVariationTokens<OutputType>;
+    large?: BadgeSizeTokens<OutputType>;
+    small?: BadgeSizeTokens<OutputType>;
+    info?: BadgeVariationTokens<OutputType>;
+    success?: BadgeVariationTokens<OutputType>;
+    warning?: BadgeVariationTokens<OutputType>;
+  };
 
-export const badge: BadgeTokens = {
+export const badge: Required<BadgeTokens<'default'>> = {
   // Default styles
   color: { value: '{colors.font.primary.value}' },
   lineHeight: { value: 1 },

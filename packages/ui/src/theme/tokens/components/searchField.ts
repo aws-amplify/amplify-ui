@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type StateTokens<Output> = DesignTokenProperties<
   'backgroundColor' | 'borderColor' | 'color',
@@ -14,14 +14,12 @@ type SearchTokens<Output> = DesignTokenProperties<
   _hover?: StateTokens<Output>;
 };
 
-export type SearchFieldTokens<Output = unknown> = DesignTokenProperties<
-  'color',
-  Output
-> & {
-  button?: SearchTokens<Output>;
-};
+export type SearchFieldTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'color', Output> & {
+    button?: SearchTokens<Output>;
+  };
 
-export const searchfield: SearchFieldTokens = {
+export const searchfield: Required<SearchFieldTokens<'default'>> = {
   color: { value: '{components.fieldcontrol.color.value}' },
   button: {
     color: { value: '{components.button.color.value}' },

@@ -1,11 +1,11 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type FlexTokens<Output = unknown> = DesignTokenProperties<
+export type FlexTokens<Output extends OutputVariantKey> = DesignTokenProperties<
   'gap' | 'justifyContent' | 'alignItems' | 'alignContent' | 'flexWrap',
   Output
 >;
 
-export const flex: FlexTokens = {
+export const flex: Required<FlexTokens<'default'>> = {
   gap: { value: '{space.medium.value}' },
   justifyContent: { value: 'normal' },
   alignItems: { value: 'stretch' },

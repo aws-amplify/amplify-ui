@@ -1,4 +1,8 @@
-import { DesignTokenValues, FontWeightValue } from './types/designToken';
+import {
+  DesignTokenValues,
+  FontWeightValue,
+  OutputVariantKey,
+} from './types/designToken';
 
 type FontWeight =
   | 'hairline'
@@ -12,13 +16,13 @@ type FontWeight =
   | 'black';
 
 export type FontWeights<
-  Output = unknown,
+  Output extends OutputVariantKey = unknown,
   Platform = unknown
 > = DesignTokenValues<FontWeight, FontWeightValue, Output, Platform>;
 
 export type ReactNativeFontWeights = FontWeights<unknown, 'mobile'>;
 
-export const fontWeights: FontWeights = {
+export const fontWeights: FontWeights<'default'> = {
   hairline: { value: 100 },
   thin: { value: 200 },
   light: { value: 300 },

@@ -1,12 +1,11 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type TextFieldTokens<Output = unknown> = DesignTokenProperties<
-  'color' | 'borderColor' | 'fontSize'
-> & {
-  _focus?: DesignTokenProperties<'borderColor', Output>;
-};
+export type TextFieldTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'color' | 'borderColor' | 'fontSize'> & {
+    _focus?: DesignTokenProperties<'borderColor', Output>;
+  };
 
-export const textfield: TextFieldTokens = {
+export const textfield: Required<TextFieldTokens<'default'>> = {
   color: { value: '{components.fieldcontrol.color.value}' },
   borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
   fontSize: { value: '{components.fieldcontrol.fontSize.value}' },

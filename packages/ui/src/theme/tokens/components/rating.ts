@@ -1,6 +1,6 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type RatingTokens<Output = unknown> = {
+export type RatingTokens<Output extends OutputVariantKey> = {
   large: DesignTokenProperties<'size', Output>;
   default: DesignTokenProperties<'size', Output>;
   small: DesignTokenProperties<'size', Output>;
@@ -8,7 +8,7 @@ export type RatingTokens<Output = unknown> = {
   empty?: DesignTokenProperties<'color', Output>;
 };
 
-export const rating: RatingTokens = {
+export const rating: Required<RatingTokens<'default'>> = {
   large: { size: { value: '{fontSizes.xxxl.value}' } },
   default: { size: { value: '{fontSizes.xl.value}' } },
   small: { size: { value: '{fontSizes.small.value}' } },

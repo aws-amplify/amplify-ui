@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type CardVariationStyleKey =
   | 'backgroundColor'
@@ -13,13 +13,14 @@ type CardVariationTokens<OutputType> = DesignTokenProperties<
   OutputType
 >;
 
-export type CardTokens<OutputType = unknown> = CardVariationTokens<OutputType> &
-  DesignTokenProperties<'padding', OutputType> & {
-    elevated?: CardVariationTokens<OutputType>;
-    outlined?: CardVariationTokens<OutputType>;
-  };
+export type CardTokens<OutputType extends OutputVariantKey> =
+  CardVariationTokens<OutputType> &
+    DesignTokenProperties<'padding', OutputType> & {
+      elevated?: CardVariationTokens<OutputType>;
+      outlined?: CardVariationTokens<OutputType>;
+    };
 
-export const card: CardTokens = {
+export const card: Required<CardTokens<'default'>> = {
   backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.xs.value}' },
   borderWidth: { value: '0' },

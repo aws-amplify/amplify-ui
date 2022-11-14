@@ -1,11 +1,15 @@
-import { ColorValue, DesignTokenValues } from './types/designToken';
+import {
+  ColorValue,
+  DesignTokenValues,
+  OutputVariantKey,
+} from './types/designToken';
 
 /**
  * Util type for creating color interfaces using `ColorValue` from string and number unions
  */
 type ColorValues<
   VariantKey extends string | number,
-  Output = unknown,
+  Output,
   Platform = unknown
 > = DesignTokenValues<VariantKey, ColorValue, Output, Platform>;
 
@@ -36,7 +40,11 @@ type ColorPaletteKey =
 type GreyscalePaletteKey = 'white' | 'black' | 'transparent';
 
 // variant keys
-type OrderVariantKey = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+type OrderVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+type OrderVariantKey<Output = unknown> = Output extends 'default'
+  ? Exclude<OrderVariant, 'quaternary'>
+  : OrderVariant;
+
 type InformationVariantKey = 'info' | 'warning' | 'error' | 'success';
 type StateVariantKey =
   | 'active'
@@ -48,11 +56,11 @@ type StateVariantKey =
 
 type BrandVariantKey = Extract<OrderVariantKey, 'primary' | 'secondary'>;
 type ShadowVariantKey = Exclude<OrderVariantKey, 'quaternary'>;
-type FontVariantKey =
+type FontVariantKey<Output> =
   | 'inverse'
   | 'interactive'
   | Extract<StateVariantKey, 'active' | 'disabled' | 'hover' | 'focus'>
-  | OrderVariantKey
+  | OrderVariantKey<Output>
   | InformationVariantKey;
 
 type BackgroundColorKey =
@@ -60,10 +68,12 @@ type BackgroundColorKey =
   | OrderVariantKey
   | InformationVariantKey;
 
-type BorderColorKey =
-  | StateVariantKey
-  | OrderVariantKey
-  | Extract<StateVariantKey, 'disabled' | 'error'>;
+type BorderColorKey<Output> =
+  | Extract<StateVariantKey, 'disabled' | 'error'>
+  | OrderVariantKey<Output>
+  | (Output extends 'default'
+      ? Exclude<StateVariantKey, 'active' | 'hover'>
+      : StateVariantKey);
 
 type PaletteValues<Output, Platform> = ColorValueScale<
   ColorPaletteKey,
@@ -77,24 +87,33 @@ type GreyscaleColors<Output, Platform> = ColorValues<
   Platform
 >;
 
-export type Colors<Output = unknown, Platform = unknown> = PaletteValues<
-  Output,
-  Platform
-> &
+// `Colors` tokens requires special handling for `required` output due to nested tokens
+type BaseColors<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = PaletteValues<Output, Platform> &
   GreyscaleColors<Output, Platform> & {
     // brand properties have scaled values
     brand?: ColorValueScale<BrandVariantKey, Output, Platform>;
 
     background?: ColorValues<BackgroundColorKey, Output, Platform>;
-    border?: ColorValues<BorderColorKey, Output, Platform>;
-    font?: ColorValues<FontVariantKey, Output, Platform>;
+    border?: ColorValues<BorderColorKey<Output>, Output, Platform>;
+    font?: ColorValues<FontVariantKey<Output>, Output, Platform>;
     overlay?: ColorValues<OverlayKey, Output, Platform>;
     shadow?: ColorValues<ShadowVariantKey, Output, Platform>;
-  } & Record<string, any>; // TODO: remove 'any' and created structured custom color generic
+  };
+
+export type Colors<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = (Output extends 'required'
+  ? Required<BaseColors<Output, Platform>>
+  : BaseColors<Output, Platform>) &
+  Record<string, any>; // TODO: remove 'any' and created structured custom color generic
 
 export type ReactNativeColors = Colors<unknown, 'mobile'>;
 
-export const colors: Colors = {
+export const colors: Required<Colors<'default'>> = {
   red: {
     10: { value: 'hsl(0, 75%, 95%)' },
     20: { value: 'hsl(0, 75%, 85%)' },

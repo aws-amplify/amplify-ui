@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type FieldControlSizeTokens<Output> = DesignTokenProperties<
   | 'fontSize'
@@ -41,34 +41,35 @@ type FieldControlQuietTokens<Output> = DesignTokenProperties<
   };
 };
 
-export type FieldControlTokens<Output = unknown> = DesignTokenProperties<
-  | 'borderStyle'
-  | 'borderColor'
-  | 'borderWidth'
-  | 'borderRadius'
-  | 'color'
-  | 'paddingBlockStart'
-  | 'paddingBlockEnd'
-  | 'paddingInlineStart'
-  | 'paddingInlineEnd'
-  | 'fontSize'
-  | 'lineHeight'
-  | 'transitionDuration'
-  | 'outlineColor'
-  | 'outlineStyle'
-  | 'outlineWidth'
-  | 'outlineOffset',
-  Output
-> & {
-  small?: FieldControlSizeTokens<Output>;
-  large?: FieldControlSizeTokens<Output>;
-  quiet?: FieldControlQuietTokens<Output>;
-  _focus?: FieldControlFocusTokens<Output>;
-  _disabled?: FieldControlDisabledTokens<Output>;
-  _error?: FieldControlErrorTokens<Output>;
-};
+export type FieldControlTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    | 'borderStyle'
+    | 'borderColor'
+    | 'borderWidth'
+    | 'borderRadius'
+    | 'color'
+    | 'paddingBlockStart'
+    | 'paddingBlockEnd'
+    | 'paddingInlineStart'
+    | 'paddingInlineEnd'
+    | 'fontSize'
+    | 'lineHeight'
+    | 'transitionDuration'
+    | 'outlineColor'
+    | 'outlineStyle'
+    | 'outlineWidth'
+    | 'outlineOffset',
+    Output
+  > & {
+    small?: FieldControlSizeTokens<Output>;
+    large?: FieldControlSizeTokens<Output>;
+    quiet?: FieldControlQuietTokens<Output>;
+    _focus?: FieldControlFocusTokens<Output>;
+    _disabled?: FieldControlDisabledTokens<Output>;
+    _error?: FieldControlErrorTokens<Output>;
+  };
 
-export const fieldcontrol: FieldControlTokens = {
+export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },

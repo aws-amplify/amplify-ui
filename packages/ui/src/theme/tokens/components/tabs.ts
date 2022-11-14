@@ -1,11 +1,11 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type TabItemStateTokens<OutputType> = DesignTokenProperties<
   'backgroundColor' | 'borderColor' | 'color',
   OutputType
 >;
 
-type TabItemTokens<OutputType = unknown> = DesignTokenProperties<
+type TabItemTokens<OutputType extends OutputVariantKey> = DesignTokenProperties<
   | 'backgroundColor'
   | 'borderColor'
   | 'borderStyle'
@@ -25,14 +25,14 @@ type TabItemTokens<OutputType = unknown> = DesignTokenProperties<
   _disabled?: TabItemStateTokens<OutputType>;
 };
 
-export type TabsTokens<OutputType = unknown> = DesignTokenProperties<
+export type TabsTokens<Output extends OutputVariantKey> = DesignTokenProperties<
   'backgroundColor' | 'borderColor' | 'borderStyle' | 'borderWidth' | 'gap',
-  OutputType
+  Output
 > & {
-  item?: TabItemTokens<OutputType>;
+  item?: TabItemTokens<Output>;
 };
 
-export const tabs: TabsTokens = {
+export const tabs: Required<TabsTokens<'default'>> = {
   backgroundColor: { value: 'transparent' },
   borderColor: { value: '{colors.border.secondary.value}' },
   borderStyle: { value: 'solid' },

@@ -1,6 +1,11 @@
 import { borderWidths, BorderWidths } from './borderWidths';
 import { colors, Colors, ReactNativeColors } from './colors';
-import { ComponentTokens, components } from './components';
+import {
+  components,
+  ComponentTokens,
+  DefaultComponentTokens,
+  WebComponentTokens,
+} from './components';
 import { fonts, Fonts } from './fonts';
 import { fontSizes, FontSizes, ReactNativeFontSizes } from './fontSizes';
 import {
@@ -17,34 +22,40 @@ import { shadows, Shadows } from './shadows';
 import { space, Space, ReactNativeSpace } from './space';
 import { time, Time, ReactNativeTime } from './time';
 import { transforms, Transforms } from './transforms';
+import { OutputVariantKey } from './types/designToken';
 
 /**
  * Used for custom themes
  */
-export interface Tokens<Output = unknown> {
-  components: ComponentTokens<Output>;
-  borderWidths: BorderWidths<Output>;
-  colors: Colors<Output>;
-  fonts: Fonts<Output>;
-  fontSizes: FontSizes<Output>;
-  fontWeights: FontWeights<Output>;
-  lineHeights: LineHeights<Output>;
-  opacities: Opacities<Output>;
-  outlineOffsets: OutlineOffsets<Output>;
-  outlineWidths: OutlineWidths<Output>;
-  radii: Radii<Output>;
-  shadows: Shadows<Output>;
-  space: Space<Output>;
-  time: Time<Output>;
-  transforms: Transforms<Output>;
+interface BaseTokens<Output extends OutputVariantKey = unknown> {
+  borderWidths?: BorderWidths<Output>;
+  colors?: Colors<Output>;
+  fonts?: Fonts<Output>;
+  fontSizes?: FontSizes<Output>;
+  fontWeights?: FontWeights<Output>;
+  lineHeights?: LineHeights<Output>;
+  opacities?: Opacities<Output>;
+  outlineOffsets?: OutlineOffsets<Output>;
+  outlineWidths?: OutlineWidths<Output>;
+  radii?: Radii<Output>;
+  shadows?: Shadows<Output>;
+  space?: Space<Output>;
+  time?: Time<Output>;
+  transforms?: Transforms<Output>;
 }
+
+export type Tokens = BaseTokens<'optional'> & { components?: ComponentTokens };
+
+export type DefaultTokens = Required<BaseTokens<'default'>> & {
+  components: DefaultComponentTokens;
+};
 
 /**
  * The fully setup theme tokens. It has the same shape as Tokens
  * but each token has added fields.
  */
-export type WebTokens = {
-  [Key in keyof Tokens]: Required<Tokens<'strict'>[Key]>;
+export type WebTokens = Required<BaseTokens<'required'>> & {
+  components: WebComponentTokens;
 };
 
 export interface ReactNativeTokens {
@@ -57,7 +68,7 @@ export interface ReactNativeTokens {
   time: ReactNativeTime;
 }
 
-export const tokens: Tokens = {
+export const tokens: DefaultTokens = {
   components,
   borderWidths,
   colors,

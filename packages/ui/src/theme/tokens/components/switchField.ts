@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type SwitchFieldSizeTokens<OutputType> = DesignTokenProperties<
   'fontSize',
@@ -10,7 +10,7 @@ type SwitchFieldTrackCheckedTokens<OutputType> = DesignTokenProperties<
   OutputType
 >;
 
-export type SwitchFieldTokens<OutputType = unknown> =
+export type SwitchFieldTokens<OutputType extends OutputVariantKey> =
   DesignTokenProperties<'fontSize'> & {
     _disabled?: DesignTokenProperties<'opacity', OutputType>;
     _focused?: DesignTokenProperties<'shadow', OutputType>;
@@ -34,7 +34,7 @@ export type SwitchFieldTokens<OutputType = unknown> =
     };
   };
 
-export const switchfield: SwitchFieldTokens = {
+export const switchfield: Required<SwitchFieldTokens<'default'>> = {
   // States
   _disabled: {
     opacity: { value: '{opacities.60.value}' },

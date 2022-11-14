@@ -1,14 +1,15 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type OrderVariantKey = 'primary' | 'secondary' | 'tertiary';
 type InformationVariantKey = 'info' | 'warning' | 'error' | 'success';
 
 type BaseTextTokens<Output> = DesignTokenProperties<'color', Output>;
 
-export type TextTokens<Output = unknown> = BaseTextTokens<Output> &
-  Record<OrderVariantKey | InformationVariantKey, BaseTextTokens<Output>>;
+export type TextTokens<Output extends OutputVariantKey> =
+  BaseTextTokens<Output> &
+    Record<OrderVariantKey | InformationVariantKey, BaseTextTokens<Output>>;
 
-export const text: TextTokens = {
+export const text: Required<TextTokens<'default'>> = {
   // default styles
   color: { value: '{colors.font.primary.value}' },
 

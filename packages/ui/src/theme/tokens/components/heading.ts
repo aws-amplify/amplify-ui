@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type HeadingLevelTokens<Output> = DesignTokenProperties<
   'fontSize' | 'fontWeight',
@@ -7,12 +7,11 @@ type HeadingLevelTokens<Output> = DesignTokenProperties<
 
 type Level = 1 | 2 | 3 | 4 | 5 | 6;
 
-export type HeadingTokens<Output = unknown> = DesignTokenProperties<
-  'color' | 'lineHeight'
-> &
-  Record<Level, HeadingLevelTokens<Output>>;
+export type HeadingTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'color' | 'lineHeight'> &
+    Record<Level, HeadingLevelTokens<Output>>;
 
-export const heading: HeadingTokens = {
+export const heading: Required<HeadingTokens<'default'>> = {
   color: { value: '{colors.font.primary.value}' },
   lineHeight: { value: '{lineHeights.small.value}' },
 

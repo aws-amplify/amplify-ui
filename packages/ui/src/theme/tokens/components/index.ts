@@ -46,54 +46,68 @@ import {
   ToggleButtonGroupTokens,
 } from './toggleButtonGroup';
 
-export interface ComponentTokens<Output = unknown> {
-  alert: AlertTokens<Output>;
-  authenticator: AuthenticatorTokens<Output>;
-  badge: BadgeTokens<Output>;
-  button: ButtonTokens<Output>;
-  card: CardTokens<Output>;
-  checkbox: CheckboxTokens<Output>;
-  checkboxfield: CheckboxFieldTokens<Output>;
-  collection: CollectionTokens<Output>;
-  copy: CopyTokens<Output>;
-  countrycodeselect: DialCodeSelectTokens<Output>;
-  divider: DividerTokens<Output>;
-  expander: ExpanderTokens<Output>;
-  field: FieldTokens<Output>;
-  fieldcontrol: FieldControlTokens<Output>;
-  fieldgroup: FieldGroupTokens<Output>;
-  fieldmessages: FieldMessagesTokens<Output>;
-  flex: FlexTokens<Output>;
-  heading: HeadingTokens<Output>;
-  icon: IconTokens<Output>;
-  image: ImageTokens<Output>;
-  inappmessaging: InAppMessagingTokens<Output>;
-  link: LinkTokens<Output>;
-  loader: LoaderTokens<Output>;
-  menu: MenuTokens<Output>;
-  pagination: PaginationTokens<Output>;
-  passwordfield: PasswordFieldTokens<Output>;
-  phonenumberfield: PhoneNumberFieldTokens<Output>;
-  placeholder: PlaceholderTokens<Output>;
-  radio: RadioTokens<Output>;
-  radiogroup: RadioGroupTokens<Output>;
-  rating: RatingTokens<Output>;
-  searchfield: SearchFieldTokens<Output>;
-  select: SelectTokens<Output>;
-  selectfield: SelectFieldTokens<Output>;
-  sliderfield: SliderFieldTokens<Output>;
-  stepperfield: StepperFieldTokens<Output>;
-  switchfield: SwitchFieldTokens<Output>;
-  table: TableTokens<Output>;
-  tabs: TabsTokens<Output>;
-  text: TextTokens<Output>;
-  textareafield: TextAreaFieldTokens<Output>;
-  textfield: TextFieldTokens<Output>;
-  togglebutton: ToggleButtonTokens<Output>;
-  togglebuttongroup: ToggleButtonGroupTokens<Output>;
-}
+import { OutputVariantKey } from '../types/designToken';
 
-export const components: ComponentTokens = {
+type BaseComponentTokens<Output extends OutputVariantKey> = {
+  alert?: AlertTokens<Output>;
+  authenticator?: AuthenticatorTokens<Output>;
+  badge?: BadgeTokens<Output>;
+  button?: ButtonTokens<Output>;
+  card?: CardTokens<Output>;
+  checkbox?: CheckboxTokens<Output>;
+  checkboxfield?: CheckboxFieldTokens<Output>;
+  collection?: CollectionTokens<Output>;
+  copy?: CopyTokens<Output>;
+  countrycodeselect?: DialCodeSelectTokens<Output>;
+  divider?: DividerTokens<Output>;
+  expander?: ExpanderTokens<Output>;
+  field?: FieldTokens<Output>;
+  fieldcontrol?: FieldControlTokens<Output>;
+  fieldgroup?: FieldGroupTokens<Output>;
+  fieldmessages?: FieldMessagesTokens<Output>;
+  flex?: FlexTokens<Output>;
+  heading?: HeadingTokens<Output>;
+  icon?: IconTokens<Output>;
+  image?: ImageTokens<Output>;
+  inappmessaging?: InAppMessagingTokens<Output>;
+  link?: LinkTokens<Output>;
+  loader?: LoaderTokens<Output>;
+  menu?: MenuTokens<Output>;
+  pagination?: PaginationTokens<Output>;
+  passwordfield?: PasswordFieldTokens<Output>;
+  phonenumberfield?: PhoneNumberFieldTokens<Output>;
+  placeholder?: PlaceholderTokens<Output>;
+  radio?: RadioTokens<Output>;
+  radiogroup?: RadioGroupTokens<Output>;
+  rating?: RatingTokens<Output>;
+  searchfield?: SearchFieldTokens<Output>;
+  select?: SelectTokens<Output>;
+  selectfield?: SelectFieldTokens<Output>;
+  sliderfield?: SliderFieldTokens<Output>;
+  stepperfield?: StepperFieldTokens<Output>;
+  switchfield?: SwitchFieldTokens<Output>;
+  table?: TableTokens<Output>;
+  tabs?: TabsTokens<Output>;
+  text?: TextTokens<Output>;
+  textareafield?: TextAreaFieldTokens<Output>;
+  textfield?: TextFieldTokens<Output>;
+  togglebutton?: ToggleButtonTokens<Output>;
+  togglebuttongroup?: ToggleButtonGroupTokens<Output>;
+};
+
+export type ComponentTokens = BaseComponentTokens<'optional'>;
+
+export type DefaultComponentTokens = Required<{
+  [Key in keyof ComponentTokens]: Required<BaseComponentTokens<'default'>[Key]>;
+}>;
+
+export type WebComponentTokens = Required<{
+  [Key in keyof ComponentTokens]: Required<
+    BaseComponentTokens<'required'>[Key]
+  >;
+}>;
+
+export const components: DefaultComponentTokens = {
   alert,
   authenticator,
   badge,

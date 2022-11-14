@@ -1,6 +1,6 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type CopyTokens<Output = unknown> = DesignTokenProperties<
+export type CopyTokens<Output extends OutputVariantKey> = DesignTokenProperties<
   'fontSize' | 'gap',
   Output
 > & {
@@ -8,7 +8,7 @@ export type CopyTokens<Output = unknown> = DesignTokenProperties<
   toolTip?: DesignTokenProperties<'bottom' | 'color' | 'fontSize', Output>;
 };
 
-export const copy: CopyTokens = {
+export const copy: Required<CopyTokens<'default'>> = {
   fontSize: { value: '{fontSizes.xs}' },
   gap: { value: '{space.relative.medium}' },
 

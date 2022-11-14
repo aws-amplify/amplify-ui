@@ -1,11 +1,12 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type CheckboxFieldTokens<Output = unknown> = DesignTokenProperties<
-  'alignItems' | 'alignContent' | 'flexDirection' | 'justifyContent',
-  Output
->;
+export type CheckboxFieldTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    'alignItems' | 'alignContent' | 'flexDirection' | 'justifyContent',
+    Output
+  >;
 
-export const checkboxfield: CheckboxFieldTokens = {
+export const checkboxfield: Required<CheckboxFieldTokens<'default'>> = {
   alignItems: { value: 'flex-start' },
   alignContent: { value: 'center' },
   flexDirection: { value: 'column' },

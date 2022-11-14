@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type StateTokens<Output> = DesignTokenProperties<
   'backgroundColor' | 'borderColor' | 'color',
@@ -49,35 +49,36 @@ type ButtonSizeTokens<Output> = DesignTokenProperties<
   Output
 >;
 
-export type ButtonTokens<Output = unknown> = DesignTokenProperties<
-  | 'fontWeight'
-  | 'transitionDuration'
-  | 'fontSize'
-  | 'lineHeight'
-  | 'paddingBlockStart'
-  | 'paddingBlockEnd'
-  | 'paddingInlineStart'
-  | 'paddingInlineEnd'
-  | 'borderColor'
-  | 'borderWidth'
-  | 'borderStyle'
-  | 'borderRadius'
-  | 'color'
-> & {
-  _hover?: StateTokens<Output>;
-  _focus?: StateWithShadowTokens<Output>;
-  _active?: StateTokens<Output>;
-  _loading?: StateTokens<Output>;
-  _disabled?: StateTokens<Output>;
-  primary?: PrimaryVariationTokens<Output>;
-  menu?: MenuVariationTokens<Output>;
-  link?: LinkVariationTokens<Output>;
-  small?: ButtonSizeTokens<Output>;
-  large?: ButtonSizeTokens<Output>;
-  loaderWrapper: DesignTokenProperties<'alignItems' | 'gap', Output>;
-};
+export type ButtonTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    | 'fontWeight'
+    | 'transitionDuration'
+    | 'fontSize'
+    | 'lineHeight'
+    | 'paddingBlockStart'
+    | 'paddingBlockEnd'
+    | 'paddingInlineStart'
+    | 'paddingInlineEnd'
+    | 'borderColor'
+    | 'borderWidth'
+    | 'borderStyle'
+    | 'borderRadius'
+    | 'color'
+  > & {
+    _hover?: StateTokens<Output>;
+    _focus?: StateWithShadowTokens<Output>;
+    _active?: StateTokens<Output>;
+    _loading?: StateTokens<Output>;
+    _disabled?: StateTokens<Output>;
+    primary?: PrimaryVariationTokens<Output>;
+    menu?: MenuVariationTokens<Output>;
+    link?: LinkVariationTokens<Output>;
+    small?: ButtonSizeTokens<Output>;
+    large?: ButtonSizeTokens<Output>;
+    loaderWrapper: DesignTokenProperties<'alignItems' | 'gap', Output>;
+  };
 
-export const button: ButtonTokens = {
+export const button: Required<ButtonTokens<'default'>> = {
   // shared styles
   fontWeight: { value: '{fontWeights.bold.value}' },
   transitionDuration: {

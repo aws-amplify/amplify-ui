@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type StateTokens<Output> = DesignTokenProperties<
   'backgroundColor' | 'borderColor' | 'color',
@@ -23,14 +23,14 @@ type SearchTokens<Output> = {
   };
 };
 
-export interface CollectionTokens<Output = unknown> {
+export interface CollectionTokens<Output extends OutputVariantKey> {
   pagination: PaginationTokens<Output>;
   search: SearchTokens<Output>;
 }
 
 //we are reusing the types from the nested components but new tokens need to be created that reference the previous tokens so that they can inherit the needed values but can be overwritten and only effect the collection component.
 //only a subset of the design tokens of the nested components are being exposed, this can be expanded later.
-export const collection: CollectionTokens = {
+export const collection: Required<CollectionTokens<'default'>> = {
   pagination: {
     current: {
       color: { value: '{components.pagination.current.color}' },

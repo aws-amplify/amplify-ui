@@ -1,4 +1,4 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type BannerTokens<Output> = DesignTokenProperties<'height' | 'width', Output>;
 
@@ -17,14 +17,14 @@ type HeaderTokens<Output> = DesignTokenProperties<
   Output
 >;
 
-export type InAppMessagingTokens<Output = unknown> = {
+export type InAppMessagingTokens<Output extends OutputVariantKey> = {
   banner?: BannerTokens<Output>;
   button?: ButtonTokens<Output>;
   dialog?: DialogTokens<Output>;
   header?: HeaderTokens<Output>;
 };
 
-export const inappmessaging: InAppMessagingTokens = {
+export const inappmessaging: Required<InAppMessagingTokens<'default'>> = {
   banner: {
     height: { value: '150px ' },
     width: { value: '400px ' },

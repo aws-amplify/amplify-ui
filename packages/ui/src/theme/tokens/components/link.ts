@@ -1,11 +1,12 @@
-import { DesignTokenProperties } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type LinkState = 'active' | 'focus' | 'hover' | 'visited';
 
-export type LinkTokens<Output = unknown> = DesignTokenProperties<'color'> &
-  Record<LinkState, DesignTokenProperties<'color', Output>>;
+export type LinkTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'color'> &
+    Record<LinkState, DesignTokenProperties<'color', Output>>;
 
-export const link: LinkTokens = {
+export const link: Required<LinkTokens<'default'>> = {
   active: { color: { value: '{colors.font.active.value}' } },
   color: { value: '{colors.font.interactive.value}' },
   focus: { color: { value: '{colors.font.focus.value}' } },
