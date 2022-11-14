@@ -5,6 +5,7 @@ export interface ButtonProps extends PressableProps {
 }
 
 export interface ButtonStyles {
+  button: ViewStyle;
   pressed: ViewStyle;
   text: TextStyle;
 }
