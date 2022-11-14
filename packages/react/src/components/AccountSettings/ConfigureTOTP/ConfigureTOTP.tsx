@@ -1,0 +1,152 @@
+import React from 'react';
+import QRCode from 'qrcode';
+
+import {
+  setupTOTP,
+  verifyTOTPToken,
+  getLogger,
+  translate,
+  getTotpCodeURL,
+  AmplifyUser,
+} from '@aws-amplify/ui';
+
+import { useAuth } from '../../../internal';
+import { View, Flex } from '../../../primitives';
+import { FormValues } from '../types';
+import {
+  ConfirmationCode,
+  CopySecretKey,
+  Error,
+  SecretKeyQRCode,
+  SubmitButton,
+} from './defaults';
+import { ConfigureTOTPProps } from './types';
+
+const logger = getLogger('Auth');
+
+function ConfigureTOTP({
+  totpIssuer,
+  totpUsername,
+  onSuccess,
+  onError,
+}: ConfigureTOTPProps): JSX.Element | null {
+  const [secretKey, setSecretKey] = React.useState<string>(null);
+  const [qrCode, setQrCode] = React.useState<string>(null);
+  const [formValues, setFormValues] = React.useState<FormValues>({ code: '' });
+  const [errorMessage, setErrorMessage] = React.useState<string>(null);
+
+  const { user, isLoading } = useAuth();
+
+  const generateQRCode = React.useCallback(
+    async (user: AmplifyUser): Promise<void> => {
+      try {
+        const newSecretKey = await setupTOTP(user);
+        const totpCode = getTotpCodeURL(totpIssuer, totpUsername, newSecretKey);
+        const qrCodeImageSource = await QRCode.toDataURL(totpCode);
+
+        setSecretKey(newSecretKey);
+        setQrCode(qrCodeImageSource);
+      } catch (e) {
+        logger.error(e);
+      }
+    },
+    [totpIssuer, totpUsername]
+  );
+
+  React.useEffect(() => {
+    if (user && !secretKey) {
+      generateQRCode(user);
+    }
+  }, [generateQRCode, user, secretKey]);
+
+  // translations
+  const confirmText = translate('Confirm');
+  const copyCodeText = translate('Copy Secret Code');
+
+  // event handlers
+  const handleChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      event.preventDefault();
+      const { name, value } = event.target;
+      setFormValues((formValues) => ({ ...formValues, [name]: value }));
+    },
+    []
+  );
+
+  const runVerifyTotpToken = React.useCallback(
+    async ({ user, code }: { user: AmplifyUser; code: string }) => {
+      if (errorMessage) {
+        setErrorMessage(null);
+      }
+      try {
+        await verifyTOTPToken({ user, code });
+
+        onSuccess?.(); // notify success to the parent
+      } catch (e) {
+        const error = e as Error;
+        if (error.message) {
+          setErrorMessage(error.message);
+        }
+
+        onError?.(error); // notify error to the parent
+      }
+    },
+    [errorMessage, onError, onSuccess]
+  );
+
+  const handleSubmit = React.useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const { code } = formValues;
+      runVerifyTotpToken({ user, code });
+    },
+    [user, formValues, runVerifyTotpToken]
+  );
+
+  const handleCopy = React.useCallback(() => {
+    navigator.clipboard.writeText(secretKey);
+  }, [secretKey]);
+
+  /** Return null if user isn't authenticated in the first place */
+  if (!user) {
+    logger.warn('<ConfigureTOTP /> requires user to be authenticated.');
+    return null;
+  }
+
+  /** Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
+  if (isLoading) {
+    return null;
+  }
+
+  return (
+    <View as="form" onSubmit={handleSubmit}>
+      <Flex direction="column">
+        {qrCode ? (
+          <SecretKeyQRCode
+            data-amplify-qrcode
+            src={qrCode}
+            alt="qr code"
+            width="228"
+            height="228"
+          />
+        ) : null}
+        <CopySecretKey onClick={handleCopy}>{copyCodeText}</CopySecretKey>
+        <ConfirmationCode
+          onChange={handleChange}
+          name="code"
+          label="Confirmation Code"
+          placeholder="Code"
+          isRequired
+          value={formValues.code}
+        ></ConfirmationCode>
+
+        <SubmitButton type="submit" variation="primary">
+          {confirmText}
+        </SubmitButton>
+        {errorMessage ? <Error>{errorMessage}</Error> : null}
+      </Flex>
+    </View>
+  );
+}
+
+export default ConfigureTOTP;
