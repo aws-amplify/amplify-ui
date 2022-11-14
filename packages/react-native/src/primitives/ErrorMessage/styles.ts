@@ -14,17 +14,17 @@ export const getThemedStyles = (theme: StrictTheme): ErrorMessageStyles => {
       paddingHorizontal: space.xs,
       paddingVertical: space.xl,
       width: '100%',
-      ...components?.errormessage.container,
+      ...components?.errorMessage.container,
     },
     icon: {
       margin: space.xs,
-      ...components?.errormessage.icon,
+      ...components?.errorMessage.icon,
     },
     label: {
       color: colors.font.error,
       flex: 1,
       paddingHorizontal: space.xs,
-      ...components?.errormessage.label,
+      ...components?.errorMessage.label,
     },
   });
 };
