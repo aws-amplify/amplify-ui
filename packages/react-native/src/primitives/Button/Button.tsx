@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   Pressable,
   PressableStateCallbackType,
   StyleProp,
   Text,
+  TextStyle,
   ViewStyle,
 } from 'react-native';
 
@@ -17,6 +18,7 @@ export default function Button({
   disabled,
   style,
   textStyle,
+  variant = 'primary',
   ...rest
 }: ButtonProps): JSX.Element {
   const theme = useTheme();
@@ -24,16 +26,34 @@ export default function Button({
 
   const pressableStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
+      const containerStyle = {
+        ...themedStyle.container,
+        ...(variant === 'primary'
+          ? themedStyle.containerPrimary
+          : themedStyle.containerSecondary),
+      };
+
       const pressedStateStyle =
         (typeof style === 'function' ? style({ pressed }) : style) ?? null;
       return [
-        themedStyle.button,
+        containerStyle,
         pressed ? themedStyle.pressed : null,
         pressedStateStyle,
         disabled ? themedStyle.disabled : null,
       ];
     },
-    [disabled, style, themedStyle]
+    [disabled, style, themedStyle, variant]
+  );
+
+  const buttonTextStyle: TextStyle = useMemo(
+    () => ({
+      ...themedStyle.text,
+      ...(variant === 'primary'
+        ? themedStyle.textPrimary
+        : themedStyle.textSecondary),
+      textStyle,
+    }),
+    [textStyle, themedStyle, variant]
   );
 
   return (
@@ -43,7 +63,7 @@ export default function Button({
       style={pressableStyle}
     >
       {typeof children === 'string' ? (
-        <Text style={[themedStyle.text, textStyle]}>{children}</Text>
+        <Text style={buttonTextStyle}>{children}</Text>
       ) : (
         children
       )}

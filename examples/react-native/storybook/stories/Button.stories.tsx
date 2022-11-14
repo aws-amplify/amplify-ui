@@ -11,6 +11,12 @@ storiesOf('Button', module)
       <Text style={styles.whiteText}>Text Component</Text>
     </Button>
   ))
+  .add('variants', () => (
+    <>
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+    </>
+  ))
   .add('with emoji', () => (
     <Button onPress={action('clicked-emoji')}>
       <Text>😀 😎 👍 💯</Text>
