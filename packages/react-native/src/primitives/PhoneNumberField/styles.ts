@@ -19,10 +19,6 @@ export const getThemedStyles = (theme: StrictTheme): PhoneNumberFieldStyles => {
       flexDirection: 'row',
       ...components?.phoneNumberField.container,
     },
-    fieldStyle: {
-      flex: 1,
-      ...components?.phoneNumberField.fieldStyle,
-    },
     picker: {
       flex: 1,
       height: PICKER_HEIGHT,
