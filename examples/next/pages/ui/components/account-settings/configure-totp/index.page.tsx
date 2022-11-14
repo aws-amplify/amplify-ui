@@ -29,7 +29,6 @@ export default function App() {
                 <Heading>Setup MFA:</Heading>
                 <ConfigureTOTP
                   onSuccess={() => {
-                    console.log('+++');
                     setIsSuccessful(true);
                   }}
                 />
