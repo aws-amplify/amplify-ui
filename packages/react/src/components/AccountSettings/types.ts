@@ -24,7 +24,7 @@ type CommonAlertProps = PrimitiveProps<AlertProps, 'div'>;
  */
 export type AccountSettingsPasswordField<Props = {}> = React.ComponentType<
   // `Props` generic allows additional props passed on override components
-  Props & CommonPasswordFieldProps
+  Props & CommonPasswordFieldProps & { validationErrors?: string[] }
 >;
 
 export type AccountSettingsTextField<Props = {}> = React.ComponentType<
@@ -43,5 +43,9 @@ export type AccountSettingsError<Props = {}> = React.ComponentType<
   Props & CommonAlertProps
 >;
 
-/** Form specific types */
+/* Form specific types */
 export type FormValues = Record<string, string>;
+
+export type BlurredFields = string[];
+
+export type ValidationError = Record<string, string[]>;

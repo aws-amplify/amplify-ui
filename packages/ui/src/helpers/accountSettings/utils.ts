@@ -1,6 +1,6 @@
-import { AmplifyUser } from '../../types';
 import { Auth } from 'aws-amplify';
 
+import { AmplifyUser } from '../../types';
 import { getLogger } from '../utils';
 
 const logger = getLogger('Auth');

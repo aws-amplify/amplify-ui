@@ -84,6 +84,8 @@ export type PasswordPolicyRules =
   | 'REQUIRES_NUMBERS'
   | 'REQUIRES_SYMBOLS'
   | 'REQUIRES_UPPERCASE';
+
+// password setting directly coming from Amplify.Auth
 export interface PasswordSettings {
   passwordPolicyMinLength: number;
   passwordPolicyCharacters: Array<PasswordPolicyRules>;
