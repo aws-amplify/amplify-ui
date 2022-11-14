@@ -5,6 +5,7 @@ import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 import {
   CheckboxStyles,
   DividerStyles,
+  ErrorMessageStyles,
   HeadingStyles,
   IconStyles,
   LabelStyles,
@@ -47,12 +48,13 @@ export interface ComponentStyles {
   // TODO: add components
   checkbox: CheckboxStyles;
   divider: DividerStyles;
+  errorMessage: ErrorMessageStyles;
   heading: HeadingStyles;
   icon: IconStyles;
   label: LabelStyles;
   passwordField: PasswordFieldStyles;
   radio: RadioStyles;
-  radiogroup: RadioGroupStyles;
+  radioGroup: RadioGroupStyles;
   tabs: TabsStyles;
 }
 
