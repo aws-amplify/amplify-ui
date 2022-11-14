@@ -9,7 +9,6 @@ import {
   setPreferredMFA,
   setupTOTP,
   translate,
-  UserPhoneInfo,
   verifyTOTPToken,
   verifyUserAttribute,
   verifyUserAttributeSubmit,
@@ -39,8 +38,8 @@ function ConfigureMFA({
   const [state, setState] = React.useState<ConfigureMFAState>('IDLE');
   const [currentMFA, setCurrentMFA] = React.useState<MFAType>(null);
   const [formValues, setFormValues] = React.useState<FormValues>(null);
-  const [phoneInfo, setPhoneInfo] = React.useState<UserPhoneInfo>(null);
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
+  const [defaultDialCode, setDefaultDialCode] = React.useState<string>(null);
 
   const { user, isLoading } = useAuth();
 
@@ -176,7 +175,6 @@ function ConfigureMFA({
       await verifyUserAttribute();
 
       toVerifySMS();
-      setPhoneInfo(null);
     } catch (e) {
       const error = e as Error;
       onError?.(error);
@@ -217,8 +215,8 @@ function ConfigureMFA({
 
           if (hasPhoneNumber) {
             // set initial values
+            setDefaultDialCode(dialCode);
             setFormValues({ dialCode, phoneNumber });
-            setPhoneInfo(userPhoneInfo);
             setState('CONFIGURE_SMS');
           } else {
             // user doesn't have a phone yet, warn them.
@@ -314,9 +312,7 @@ function ConfigureMFA({
       ) : null}
       {state === 'CONFIGURE_SMS' ? (
         <ConfigureSMS
-          hasPhoneNumber={phoneInfo.hasPhoneNumber}
-          defaultDialCode={phoneInfo.dialCode}
-          isVerified={phoneInfo.isVerified}
+          defaultDialCode={defaultDialCode}
           formValues={formValues}
           onCancel={toSelectMFA}
           onChange={handleChange}

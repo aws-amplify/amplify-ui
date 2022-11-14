@@ -72,8 +72,6 @@ export interface ConfigureTOTPProps {
 export interface ConfigureSMSProps {
   defaultDialCode?: string;
   formValues?: FormValues;
-  hasPhoneNumber?: boolean;
-  isVerified?: boolean;
   onCancel?: () => void;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onDialCodeChange?: React.ChangeEventHandler<HTMLSelectElement>;

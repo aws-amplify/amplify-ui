@@ -11,7 +11,6 @@ export const ConfigureSMS = ({
   onCancel,
   onDialCodeChange,
   formValues,
-  hasPhoneNumber,
 }: ConfigureSMSProps): JSX.Element => {
   // translations
   const phoneNumberText = translate('Phone Number');
@@ -29,7 +28,7 @@ export const ConfigureSMS = ({
           descriptiveText={descriptiveText}
           name="phoneNumber"
           dialCodeName="dialCode"
-          isDisabled={hasPhoneNumber}
+          isDisabled
           onChange={onChange}
           onDialCodeChange={onDialCodeChange}
           defaultDialCode={dialCode}
