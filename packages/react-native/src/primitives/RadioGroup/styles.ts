@@ -8,14 +8,14 @@ export const getThemedStyles = (theme: StrictTheme): RadioGroupStyles => {
 
   return StyleSheet.create({
     container: {
-      ...components?.radiogroup.container,
+      ...components?.radioGroup.container,
     },
     label: {
       /**
        * The RadioGroup label inherits its styles from the Label primitive,
        * and also supports customization via a Theme.
        */
-      ...components?.radiogroup.label,
+      ...components?.radioGroup.label,
     },
   });
 };
