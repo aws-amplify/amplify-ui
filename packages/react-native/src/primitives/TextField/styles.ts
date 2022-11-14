@@ -9,7 +9,7 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
   return StyleSheet.create({
     container: {
       alignItems: 'flex-start',
-      ...components?.textfield.container,
+      ...components?.textField.container,
     },
     inputContainer: {
       alignItems: 'center',
@@ -19,18 +19,18 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       flexDirection: 'row',
       padding: space.medium,
       width: '100%',
-      ...components?.textfield.inputContainer,
+      ...components?.textField.inputContainer,
     },
     input: {
       flexGrow: 1,
       fontSize: fontSizes.medium,
       // this is needed because of extra padding inside the input - in Android only
       ...(Platform.OS === 'android' && { padding: 0 }),
-      ...components?.textfield.input,
+      ...components?.textField.input,
     },
     disabled: {
       opacity: opacities[60],
-      ...components?.textfield.disabled,
+      ...components?.textField.disabled,
     },
   });
 };

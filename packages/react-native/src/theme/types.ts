@@ -3,10 +3,13 @@ import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
 
 import {
+  DividerStyles,
   HeadingStyles,
+  IconStyles,
   LabelStyles,
   RadioGroupStyles,
   RadioStyles,
+  TabsStyles,
   TextFieldStyles,
 } from '../primitives';
 
@@ -41,11 +44,14 @@ export interface Theme {
 
 export interface ComponentStyles {
   // TODO: add components
+  divider: DividerStyles;
   heading: HeadingStyles;
+  icon: IconStyles;
   label: LabelStyles;
   radio: RadioStyles;
   radiogroup: RadioGroupStyles;
-  textfield: TextFieldStyles;
+  tabs: TabsStyles;
+  textField: TextFieldStyles;
 }
 
 /**
