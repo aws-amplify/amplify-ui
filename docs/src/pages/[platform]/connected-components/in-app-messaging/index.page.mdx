@@ -24,18 +24,17 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
+## Overview
+
 In-App Messaging allows you to better engage users with contextually appropriate messages rendered on events triggered by their activity while using your application. Create messages that look native to your application and deliver them to your users all without additional code changes.
->Amplify UI In-App Messaging uses 
-[Amplify In-App Messaging API](https://docs.amplify.aws/lib/in-app-messaging/overview/q/platform/react/)
-and [Amazon Pinpoint](https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-inapp.html).
+
+<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./fragments/overview.${platform}.mdx`)}</Fragment>
+
+## Prerequisites
+
+<Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./fragments/prereqs.${platform}.mdx`)}</Fragment>
 
 ## Getting Started
-
-> Prerequisites: 
-> - [Create an In-App Messaging campaign](https://docs.amplify.aws/lib/in-app-messaging/prerequisites/q/platform/js/)
-> - [Install the required dependencies](../getting-started/installation)
-
-## Setup
 
 Integration with your application can be done with the `InAppMessagingProvider` and `InAppMessageDisplay` components directly, 
 or wrap your app in `withInAppMessaging` (a [React Higher-Order Component](https://reactjs.org/docs/higher-order-components.html)):
