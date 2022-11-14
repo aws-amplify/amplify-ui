@@ -1,4 +1,5 @@
 import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
+
 import { createTheme } from '../createTheme';
 
 describe('createTheme', () => {

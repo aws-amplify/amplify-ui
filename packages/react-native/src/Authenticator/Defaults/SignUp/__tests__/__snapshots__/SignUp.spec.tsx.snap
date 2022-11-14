@@ -35,8 +35,8 @@ Array [
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -57,7 +57,7 @@ Array [
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -89,8 +89,8 @@ Array [
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -100,9 +100,9 @@ Array [
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderTopColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -117,15 +117,15 @@ Array [
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderTopColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -1206,8 +1206,8 @@ Array [
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -1228,7 +1228,7 @@ Array [
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -1260,8 +1260,8 @@ Array [
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -1271,9 +1271,9 @@ Array [
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderTopColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -1288,15 +1288,15 @@ Array [
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderTopColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -1862,8 +1862,8 @@ Array [
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -1884,7 +1884,7 @@ Array [
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -1916,8 +1916,8 @@ Array [
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -1927,9 +1927,9 @@ Array [
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderTopColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -1944,15 +1944,15 @@ Array [
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderTopColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -2565,8 +2565,8 @@ Array [
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -2587,7 +2587,7 @@ Array [
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -2619,8 +2619,8 @@ Array [
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -2630,9 +2630,9 @@ Array [
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderTopColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -2647,15 +2647,15 @@ Array [
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderTopColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]

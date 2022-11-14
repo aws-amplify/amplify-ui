@@ -1,5 +1,97 @@
 # @aws-amplify/ui-react
 
+## 3.6.0
+
+### Minor Changes
+
+- [#2708](https://github.com/aws-amplify/amplify-ui/pull/2708) [`702a35738`](https://github.com/aws-amplify/amplify-ui/commit/702a3573850639c492c51ce10e27e194d720d5ac) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: add Autocomplete primitive
+
+  **Example**
+
+  ```jsx
+  // Uncontrolled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteUncontrolledExample = () => {
+    return <Autocomplete label="Uncontrolled autocomplete" options={options} />;
+  };
+  ```
+
+  ```jsx
+  // Controlled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteControlledExample = () => {
+    const [value, setValue] = React.useState('');
+
+    const onChange = (event) => {
+      setValue(event.target.value);
+    };
+
+    // Set up onSelect
+    const onSelect = (option) => {
+      const { label } = option;
+      setValue(label);
+    };
+
+    // Set up onClear
+    const onClear = () => {
+      setValue('');
+    };
+
+    return (
+      <Autocomplete
+        label="Controlled autocomplete"
+        options={options}
+        value={value}
+        onChange={onChange}
+        onClear={onClear}
+        onSelect={onSelect}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`702a35738`](https://github.com/aws-amplify/amplify-ui/commit/702a3573850639c492c51ce10e27e194d720d5ac), [`0935da51a`](https://github.com/aws-amplify/amplify-ui/commit/0935da51ac04334e458339da2bf0ef72f248cf26)]:
+  - @aws-amplify/ui@4.1.0
+  - @aws-amplify/ui-react-core@1.0.5
+
+## 3.5.11
+
+### Patch Changes
+
+- [#2871](https://github.com/aws-amplify/amplify-ui/pull/2871) [`6f999c10f`](https://github.com/aws-amplify/amplify-ui/commit/6f999c10fc89ae7cce5d63b38bf4393aa6fd5670) Thanks [@sreeramsama](https://github.com/sreeramsama)! - chore: upgrade maplibre-gl-js-amplify to v2.1.0 to support getSuggestions and getPlace
+
+- [#2868](https://github.com/aws-amplify/amplify-ui/pull/2868) [`d8d24f107`](https://github.com/aws-amplify/amplify-ui/commit/d8d24f107229942afa0bb3065ee302b6c885caa3) Thanks [@david-mcafee](https://github.com/david-mcafee)! - fix(data): update usage of internal DataStore types
+
 ## 3.5.10
 
 ### Patch Changes

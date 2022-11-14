@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
 
+import { useTheme } from '../../theme';
 import { Button } from '../Button';
-
-import { styles } from './styles';
+import { getThemedStyles } from './styles';
 import { TabProps } from './types';
 
 export default function Tab({
@@ -13,18 +13,26 @@ export default function Tab({
   textStyle,
   ...rest
 }: TabProps): JSX.Element {
-  const selectedStyles = selected ? styles.selected : null;
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
+  const selectedStyles = selected ? themedStyle.selected : null;
 
   const containerStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
-      const readonlyStyle = selected ? styles.readonly : null;
+      const readonlyStyle = selected ? themedStyle.readonly : null;
       const pressedStateStyle =
         (typeof style === 'function' ? style({ pressed }) : style) ?? null;
 
       // include `pressedStateStyle` last to override other styles
-      return [styles.tab, readonlyStyle, selectedStyles, pressedStateStyle];
+      return [
+        themedStyle.tab,
+        readonlyStyle,
+        selectedStyles,
+        pressedStateStyle,
+      ];
     },
-    [selected, selectedStyles, style]
+    [selected, selectedStyles, style, themedStyle]
   );
 
   return (
@@ -32,7 +40,7 @@ export default function Tab({
       {...rest}
       accessibilityRole="tab"
       style={containerStyle}
-      textStyle={[styles.tabText, textStyle, selectedStyles]}
+      textStyle={[themedStyle.tabText, textStyle, selectedStyles]}
     >
       {children}
     </Button>

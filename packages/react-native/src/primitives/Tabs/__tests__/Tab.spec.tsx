@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, ViewStyle } from 'react-native';
-import { render } from '@testing-library/react-native';
+import { render, renderHook } from '@testing-library/react-native';
 
+import { useTheme } from '../../../theme';
 import { Tab } from '..';
-import { styles } from '../styles';
+import { getThemedStyles } from '../styles';
 
 const customStyles = StyleSheet.create({
   tabStyle: {
@@ -32,12 +33,15 @@ describe('Tab', () => {
 
     expect(toJSON()).toMatchSnapshot();
 
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
     const tab = getByRole('tab');
     // select second index as `Button` applies its own style first
     expect((tab.props.style as ViewStyle[])[1]).toStrictEqual([
-      styles.tab,
-      styles.readonly,
-      styles.selected,
+      themedStyle.tab,
+      themedStyle.readonly,
+      themedStyle.selected,
       null,
     ]);
   });
@@ -49,10 +53,13 @@ describe('Tab', () => {
 
     expect(toJSON()).toMatchSnapshot();
 
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
     const tab = getByRole('tab');
     // select second index as `Button` applies its own style first
     expect((tab.props.style as ViewStyle[])[1]).toStrictEqual([
-      styles.tab,
+      themedStyle.tab,
       null,
       null,
       customStyles.tabStyle,
