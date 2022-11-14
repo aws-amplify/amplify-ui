@@ -179,6 +179,16 @@ InputMode
     </TableRow>
 
     <TableRow>
+      <ResponsiveTableCell label="Name">inputStyles</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+BaseStyleProps
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Style props to be applied to the input element</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
       <ResponsiveTableCell label="Name">isDisabled</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
@@ -242,7 +252,7 @@ boolean
       <ResponsiveTableCell label="Name">menuSlots</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-Pick<AutocompleteMenuProps, "ariaLabel" | "Header" | "Footer" | "Empty" | "Loading">
+Pick<AutocompleteMenuProps, "ariaLabel" | "Header" | "Footer" | "Empty" | "LoadingIndicator">
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">A colleciton of slots to customize the dropdown of options</ResponsiveTableCell>
@@ -272,7 +282,7 @@ string
       <ResponsiveTableCell label="Name">onSelect</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-(option: Option) => void
+(option: ComboBoxOption) => void
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Triggered when an option is selected</ResponsiveTableCell>
@@ -292,7 +302,7 @@ string
       <ResponsiveTableCell label="Name">optionFilter</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-(option: Option, value: string) => boolean
+(option: ComboBoxOption, value: string) => boolean
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Custom filter that will be applied to options.  Note: Applying custom filter to options will disable match highlighting.</ResponsiveTableCell>
@@ -302,7 +312,7 @@ string
       <ResponsiveTableCell label="Name">options<sup>*</sup></ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-Option[]
+ComboBoxOption[]
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">A list of options</ResponsiveTableCell>
@@ -342,7 +352,7 @@ string
       <ResponsiveTableCell label="Name">renderOption</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-(option: Option, value: string) => React.ReactNode
+(option: ComboBoxOption, value: string) => React.ReactNode
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Used to customize the rendering of an option inside the li element</ResponsiveTableCell>
@@ -395,7 +405,7 @@ string
 React.HTMLInputTypeAttribute
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Input field type (only applies when isMultiline = false)</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Input field type</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
