@@ -14,6 +14,7 @@ import { ButtonProps } from './types';
 export default function Button({
   accessibilityRole = 'button',
   children,
+  disabled,
   style,
   textStyle,
   ...rest
@@ -29,9 +30,10 @@ export default function Button({
         themedStyle.button,
         pressed ? themedStyle.pressed : null,
         pressedStateStyle,
+        disabled ? themedStyle.disabled : null,
       ];
     },
-    [style, themedStyle]
+    [disabled, style, themedStyle]
   );
 
   return (

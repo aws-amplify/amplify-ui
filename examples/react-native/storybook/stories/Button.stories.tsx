@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { action } from '@storybook/addon-actions';
-import { text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
 import { Button } from '@aws-amplify/ui-react-native/dist/primitives';
 
@@ -9,7 +8,7 @@ storiesOf('Button', module)
   .add('default', () => <Button>Default Button</Button>)
   .add('with text', () => (
     <Button onPress={action('clicked-text')}>
-      <Text>{text('Button text', 'Hello Button')}</Text>
+      <Text style={styles.whiteText}>Text Component</Text>
     </Button>
   ))
   .add('with emoji', () => (
