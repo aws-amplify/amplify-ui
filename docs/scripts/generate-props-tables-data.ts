@@ -2,7 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import { globbyStream } from 'globby';
 import { getAllTypesData, getCatalog } from './util';
-import type { Category, ComponentName, Properties } from './types/catalog';
+import type {
+  Category,
+  ComponentName,
+  Properties,
+  PropsTableData,
+} from './types/catalog';
 import { TypeFileName } from './types/allTypesData';
 import { capitalizeString } from '@/utils/capitalizeString';
 
@@ -16,8 +21,8 @@ createAllPropsTablesData().then((allPropsTablesData) => {
   );
 });
 
-async function createAllPropsTablesData() {
-  const data = {};
+async function createAllPropsTablesData(): Promise<PropsTableData> {
+  const data: PropsTableData = {};
   for await (const componentFilepath of globbyStream(
     path.join(
       __dirname,

@@ -18,7 +18,11 @@ export function PropsTable({ properties }: { properties: Properties }) {
           <TableCell as="th">Description</TableCell>
         </TableRow>
       </TableHead>
-      <TableBody>{Object.entries(properties).map(PropsTableBody)}</TableBody>
+      <TableBody>
+        {Object.entries(properties)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(PropsTableBody)}
+      </TableBody>
     </ResponsiveTable>
   );
 }

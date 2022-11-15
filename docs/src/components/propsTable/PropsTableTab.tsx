@@ -1,7 +1,30 @@
 import { Heading, Link } from '@aws-amplify/ui-react';
-import { Properties } from '../../../scripts/types/catalog';
+import {
+  PropsTableData,
+  PropsTableSubComponentData,
+} from '../../../scripts/types/catalog';
 import { PropsTable } from './PropsTable';
 import { PropsTableExpander } from './PropsTableExpander';
+
+function PropsTableSet({
+  componentName,
+  componentPropsData,
+}: {
+  componentName: string;
+  componentPropsData: PropsTableSubComponentData;
+}) {
+  return (
+    <>
+      <Heading level={4}>{`<${componentName}>`}</Heading>
+      <PropsTable properties={componentPropsData[componentName][0]['Main']} />
+      <PropsTableExpander
+        key={componentName}
+        propsSortedByCategory={componentPropsData[componentName].slice(1)}
+      />
+    </>
+  );
+}
+
 export function PropsTableTab({
   componentName,
   PropsData,
@@ -9,37 +32,33 @@ export function PropsTableTab({
   mdnUrl,
 }: {
   componentName: string;
-  PropsData: {};
+  PropsData: PropsTableData;
   htmlElement: string;
   mdnUrl: string;
 }) {
-  const componentPropsData = PropsData[componentName];
+  const componentPropsData: PropsTableSubComponentData =
+    PropsData[componentName];
   return (
     <>
-      <Heading level={4}>{`<${componentName}>`}</Heading>
-      <PropsTable properties={componentPropsData[componentName][0]['Main']} />
-      <PropsTableExpander
-        propsSortedByCategory={componentPropsData[componentName].slice(1)}
+      <PropsTableSet
+        componentName={componentName}
+        componentPropsData={componentPropsData}
       />
       {Object.keys(componentPropsData)
         .filter((subComponentName) => subComponentName !== componentName)
         .map((subComponentName) => (
-          <>
-            <Heading level={4}>{`<${subComponentName}>`}</Heading>
-            <PropsTable
-              properties={componentPropsData[subComponentName][0]['Main']}
-            />
-            <PropsTableExpander
-              propsSortedByCategory={componentPropsData[subComponentName].slice(
-                1
-              )}
-            />
-          </>
+          <PropsTableSet
+            key={subComponentName}
+            componentName={subComponentName}
+            componentPropsData={componentPropsData}
+          />
         ))}
-      <p>`*` indicates required props.</p>
       <p>
-        See [Style Props](/react/theming/style-props) for all supported style
-        and layout properties.
+        <code>*</code> indicates required props.
+      </p>
+      <p>
+        See <a href="/react/theming/style-props">Style Props</a> for all
+        supported style and layout properties.
       </p>
       <p>
         {componentName} will also accept any of the standard HTML attributes

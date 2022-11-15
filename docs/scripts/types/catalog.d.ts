@@ -122,3 +122,17 @@ export type Property = {
 export type Properties = Record<string, Property>;
 
 export type Catalog = Record<ComponentName, Properties>;
+
+export type PropsTableSubComponentData = {
+  [key in ComponentName]: {
+    string: {
+      [key in 'Main' | 'Layout']: Properties;
+    };
+  }[];
+};
+
+export type PropsTableData =
+  | {
+      [key in ComponentName]: PropsTableSubComponentData;
+    }
+  | {};
