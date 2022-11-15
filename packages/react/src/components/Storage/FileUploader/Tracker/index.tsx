@@ -20,20 +20,20 @@ import {
 import { FileState } from './FileState';
 
 export function Tracker({
+  errorMessage,
   file,
   fileState,
   hasImage,
-  url,
+  name,
+  onCancel,
+  onCancelEdit,
   onPause,
   onResume,
-  onCancel,
-  errorMessage,
-  name,
-  percentage,
   onSaveEdit,
   onStartEdit,
-  onCancelEdit,
+  percentage,
   resumable,
+  url,
 }: TrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState(name);
   const inputRef = React.useRef<HTMLInputElement>(null);

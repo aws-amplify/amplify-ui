@@ -500,4 +500,40 @@ describe('File Uploader', () => {
       await screen.findByText(`Preview: ${fileStatuses[0].name}`)
     ).toBeVisible();
   });
+  it('shows an icon for the image previewer if showImages is false', async () => {
+    const fileStatuses = [fileStatus];
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+    });
+    const { container } = render(
+      <FileUploader
+        {...commonProps}
+        showImages={false}
+        isPreviewerVisible={true}
+      />
+    );
+
+    expect(
+      container.querySelector('.amplify-fileuploader__file__image > span')
+    ).toBeVisible();
+  });
+  it('shows an image for the image previewer if showImages is true', async () => {
+    const fileStatuses = [fileStatus];
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+    });
+    const { container } = render(
+      <FileUploader
+        {...commonProps}
+        showImages={true}
+        isPreviewerVisible={true}
+      />
+    );
+
+    expect(
+      container.querySelector('.amplify-fileuploader__file__image > img')
+    ).toBeVisible();
+  });
 });

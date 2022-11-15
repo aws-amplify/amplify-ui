@@ -13,6 +13,7 @@ export default function FileUploaderEmail() {
       <FileUploader
         variation="drop"
         onSuccess={onSuccess}
+        showImages={true}
         acceptedFileTypes={['.png', '.jpg', '.pdf']}
         level="public"
         multiple={true}
