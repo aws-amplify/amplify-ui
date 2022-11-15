@@ -28,17 +28,10 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     rows,
     size,
     testId,
-
-    alignSelf, // @TODO: remove custom destructuring for 3.0 release
-    bottom, // @TODO: remove custom destructuring for 3.0 release
-    height, // @TODO: remove custom destructuring for 3.0 release
-    left, // @TODO: remove custom destructuring for 3.0 release
-    padding, // @TODO: remove custom destructuring for 3.0 release
-    position, // @TODO: remove custom destructuring for 3.0 release
-    right, // @TODO: remove custom destructuring for 3.0 release
-    top, // @TODO: remove custom destructuring for 3.0 release
-    width, // @TODO: remove custom destructuring for 3.0 release
-
+    inputStyles,
+    // Destructuring the 'resize' style prop because while it is a style prop
+    // it should go on the textarea element and not the wrapper div.
+    resize,
     ..._rest
   } = props;
 
@@ -46,28 +39,18 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
-  const { flexContainerStyleProps, baseStyleProps, rest } =
-    splitPrimitiveProps(_rest);
+  const { styleProps, rest } = splitPrimitiveProps(_rest);
 
   return (
     <Flex
-      alignSelf={alignSelf}
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.TextAreaField,
         className
       )}
       data-size={size}
-      height={height}
       testId={testId}
-      width={width}
-      bottom={bottom}
-      left={left}
-      right={right}
-      top={top}
-      position={position}
-      padding={padding}
-      {...flexContainerStyleProps}
+      {...styleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
@@ -84,8 +67,9 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         ref={ref}
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
-        {...baseStyleProps}
+        resize={resize}
         {...rest}
+        {...inputStyles}
       />
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>

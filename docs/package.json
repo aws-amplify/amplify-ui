@@ -19,7 +19,7 @@
     "test": "$_ run build"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "3.5.11",
+    "@aws-amplify/ui-react": "4.0.0",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -28,7 +28,7 @@
     "@mdx-js/react": "^2.1.0",
     "@moxy/next-compile-node-modules": "^2.1.1",
     "@xstate/inspect": "^0.4.1",
-    "aws-amplify": "latest",
+    "aws-amplify": "^5.0.1",
     "classnames": "^2.3.1",
     "countries-list": "^2.6.1",
     "dotenv": "^16.0.0",

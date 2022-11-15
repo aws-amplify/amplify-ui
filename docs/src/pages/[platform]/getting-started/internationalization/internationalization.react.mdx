@@ -1,0 +1,20 @@
+import { Example, ExampleCode } from '@/components/Example';
+import { ThemeProviderDirectionExample } from './examples';
+
+## What's included?
+
+Amplify UI components follow Web Standards with all components with the aim of making internationalization straightforward. We use [logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties/Margins_borders_padding) for margins, borders, and padding. 
+An example would be our use of `padding-inline-start` and `padding-inline-end` CSS properties in the default theme which ensure paddings are flipped when the language direction is changed. In addition, Flex and Grid will both honor the language direction and flip the layout as well due to the underlying use of CSS Flexbox and Grid Layout APIs.
+
+##  Changing the language direction
+
+To change the directionality of the text and layout in your application to right to left (RTL), add the `direction` prop with value `rtl` to your `ThemeProvider`:
+
+<Example>
+  <ThemeProviderDirectionExample />
+  <ExampleCode>
+```tsx file=./examples/ThemeProviderDirectionExample.tsx
+
+```
+  </ExampleCode>
+</Example>

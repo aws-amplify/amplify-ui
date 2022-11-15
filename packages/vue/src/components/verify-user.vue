@@ -3,6 +3,7 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
+  authenticatorTextUtil,
   getActorState,
   SignInState,
   defaultFormFieldOptions,
@@ -27,13 +28,19 @@ const actorState: ComputedRef<SignInState> = computed(
 
 const { unverifiedContactMethods } = actorState.value.context;
 
+// Text Util
+const {
+  getAccountRecoveryInfoText,
+  getSkipText,
+  getVerifyText,
+  getVerifyContactText,
+} = authenticatorTextUtil;
+
 // Computed Properties
-const verifyHeading = computed(() =>
-  translate('Account recovery requires verified contact information')
-);
-const skipText = computed(() => translate('Skip'));
-const verifyText = computed(() => translate('Verify'));
-const verifyContactText = computed(() => translate('Verify Contact'));
+const verifyHeading = computed(() => getAccountRecoveryInfoText());
+const skipText = computed(() => getSkipText());
+const verifyText = computed(() => getVerifyText());
+const verifyContactText = computed(() => getVerifyContactText());
 
 // Methods
 const onInput = (e: Event): void => {

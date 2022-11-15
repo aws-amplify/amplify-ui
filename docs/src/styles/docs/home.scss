@@ -82,6 +82,14 @@
     padding-inline-start: var(--amplify-space-small);
     max-width: 90vw;
   }
+  & .hero {
+    @media (min-width: $breakpoint-large) {
+      max-width: 60vw;
+    }
+    @media (min-width: $breakpoint-xl) {
+      max-width: 40vw;
+    }
+  }
   
   .install-code__content {
     background-color: var(--amplify-colors-background-primary);

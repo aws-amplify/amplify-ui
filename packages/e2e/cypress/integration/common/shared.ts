@@ -324,8 +324,26 @@ When('I mock {string} event', (eventName: string) => {
     throw new Error('Hub is not available on the window.');
   }
 
-  Hub.dispatch('auth', { event: eventName });
+  Hub.dispatch('auth', { event: eventName, data: {} });
 });
+
+When(
+  'I mock {string} event with fixture {string}',
+  async (eventName: string, fixture: string) => {
+    if (!window) {
+      throw new Error('window has not been set in the Cypress tests');
+    }
+
+    const Hub = window['Hub'];
+    if (!Hub) {
+      throw new Error('Hub is not available on the window.');
+    }
+
+    cy.fixture(fixture).then((data) => {
+      Hub.dispatch('auth', { event: eventName, data });
+    });
+  }
+);
 
 Given('I spy {string} method', (path) => {
   const { obj, method } = getMethodFromWindow(path);
