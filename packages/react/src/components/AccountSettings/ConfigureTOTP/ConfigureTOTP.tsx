@@ -20,7 +20,7 @@ import {
   SecretKeyQRCode,
   SubmitButton,
 } from './defaults';
-import { ConfigureTOTPProps, TotpSecret } from './types';
+import { ConfigureTOTPProps, TotpSecret, VerifyTotpStatus } from './types';
 import { QR_CODE_DIMENSIONS } from './constants';
 
 const logger = getLogger('Auth');
@@ -32,9 +32,9 @@ function ConfigureTOTP({
   onError,
 }: ConfigureTOTPProps): JSX.Element | null {
   const [formValues, setFormValues] = React.useState<FormValues>({ code: '' });
-  const [errorMessage, setErrorMessage] = React.useState<string>(null);
-  const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
   const [totpSecret, setTotpSecret] = React.useState<TotpSecret>(null);
+  const [verifyTotpStatus, setVerifyTotpStatus] =
+    React.useState<VerifyTotpStatus>(null);
 
   const { user, isLoading } = useAuth();
 
@@ -79,26 +79,26 @@ function ConfigureTOTP({
 
   const runVerifyTotpToken = React.useCallback(
     async ({ user, code }: { user: AmplifyUser; code: string }) => {
-      if (errorMessage) {
-        setErrorMessage(null);
-      }
-      setIsDisabled(true);
+      setVerifyTotpStatus({ isVerifying: true, errorMessage: null });
+
       try {
         await verifyTOTPToken({ user, code });
+
+        setVerifyTotpStatus({ isVerifying: false, errorMessage: null });
 
         onSuccess?.(); // notify success to the parent
       } catch (e) {
         const error = e as Error;
-        if (error.message) {
-          setErrorMessage(error.message);
-        }
+
+        setVerifyTotpStatus({
+          isVerifying: false,
+          errorMessage: error.message,
+        });
 
         onError?.(error); // notify error to the parent
-      } finally {
-        setIsDisabled(false);
       }
     },
-    [errorMessage, onError, onSuccess]
+    [onError, onSuccess]
   );
 
   const handleSubmit = React.useCallback(
@@ -125,8 +125,10 @@ function ConfigureTOTP({
     return null;
   }
 
+  const { isVerifying, errorMessage } = verifyTotpStatus;
+
   return (
-    <View as="form" onSubmit={handleSubmit} disabled={isDisabled}>
+    <View as="form" onSubmit={handleSubmit}>
       <Flex direction="column" alignItems="center">
         {totpSecret?.qrCode ? (
           <SecretKeyQRCode
@@ -136,7 +138,7 @@ function ConfigureTOTP({
           />
         ) : null}
         <CopySecretKey
-          isDisabled={isDisabled}
+          isDisabled={isVerifying}
           alignSelf="stretch"
           onClick={handleCopy}
         >
@@ -150,13 +152,13 @@ function ConfigureTOTP({
           onChange={handleChange}
           placeholder="Code"
           value={formValues.code}
-          isDisabled={isDisabled}
+          isDisabled={isVerifying}
         />
 
         <SubmitButton
           type="submit"
           variation="primary"
-          isDisabled={isDisabled || !formValues.code}
+          isDisabled={isVerifying || !formValues.code}
           isFullWidth
         >
           {confirmText}

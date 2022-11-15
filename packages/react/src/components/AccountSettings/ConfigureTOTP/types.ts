@@ -3,6 +3,11 @@ export interface TotpSecret {
   qrCode: string;
 }
 
+export interface VerifyTotpStatus {
+  isVerifying: boolean;
+  errorMessage: string;
+}
+
 export interface ConfigureTOTPProps {
   /** TOTP issuer. Default to "AWSCognito" */
   totpIssuer?: string;
