@@ -14,6 +14,7 @@ import { IconButtonProps } from './types';
 export default function IconButton({
   accessibilityRole = 'button',
   color,
+  disabled,
   iconStyle,
   size = iconSizes.medium,
   source,
@@ -26,16 +27,22 @@ export default function IconButton({
   const pressableStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
       const pressedStateStyle =
-        (typeof style === 'function' ? style({ pressed }) : style) ?? null;
-      return [pressed ? themedStyle.pressed : null, pressedStateStyle];
+        typeof style === 'function' ? style({ pressed }) : style;
+      return [
+        themedStyle.container,
+        disabled ? themedStyle.disabled : null,
+        pressed ? themedStyle.pressed : null,
+        pressedStateStyle,
+      ];
     },
-    [style, themedStyle]
+    [disabled, style, themedStyle]
   );
 
   return (
     <Pressable
       {...rest}
       accessibilityRole={accessibilityRole}
+      disabled={disabled}
       style={pressableStyle}
     >
       <Icon color={color} size={size} source={source} style={iconStyle} />

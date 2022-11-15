@@ -52,7 +52,7 @@ export interface ComponentStyles {
   divider: DividerStyles;
   errorMessage: ErrorMessageStyles;
   heading: HeadingStyles;
-  iconbutton: IconButtonStyles;
+  iconButton: IconButtonStyles;
   icon: IconStyles;
   label: LabelStyles;
   radio: RadioStyles;

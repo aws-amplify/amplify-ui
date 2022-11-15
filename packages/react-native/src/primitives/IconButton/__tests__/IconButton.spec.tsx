@@ -1,7 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render, renderHook } from '@testing-library/react-native';
 
+import { useTheme } from '../../../theme';
 import IconButton from '../IconButton';
+import { getThemedStyles } from '../styles';
 
 const source = { uri: 'icon.png' };
 
@@ -14,6 +16,29 @@ describe('IconButton', () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
+  it('handles disabled state', () => {
+    const onPressMock = jest.fn();
+
+    const { toJSON, getByRole } = render(
+      <IconButton disabled source={source} />
+    );
+
+    const button = getByRole('button');
+    fireEvent.press(button);
+    expect(onPressMock).not.toHaveBeenCalled();
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    expect(button.props.style).toStrictEqual([
+      themedStyle.container,
+      themedStyle.disabled,
+      null,
+      undefined,
+    ]);
+    expect(toJSON()).toMatchSnapshot();
+  });
+
   it('renders as expected with custom icon style', () => {
     const customIconStyle = { backgroundColor: 'antiquewhite' };
     const { toJSON, getByRole } = render(
@@ -22,6 +47,25 @@ describe('IconButton', () => {
 
     const icon = getByRole('image');
     expect(icon.props.style).toContain(customIconStyle);
+    expect(toJSON()).toMatchSnapshot();
+  });
+
+  it('applies theme and style props', () => {
+    const customStyle = { backgroundColor: 'blue' };
+
+    const { toJSON, getByRole } = render(
+      <IconButton source={source} style={customStyle} />
+    );
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    expect(getByRole('button').props.style).toStrictEqual([
+      themedStyle.container,
+      null,
+      null,
+      customStyle,
+    ]);
     expect(toJSON()).toMatchSnapshot();
   });
 });

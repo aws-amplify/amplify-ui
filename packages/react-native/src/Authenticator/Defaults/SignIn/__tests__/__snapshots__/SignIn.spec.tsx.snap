@@ -314,8 +314,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -609,8 +611,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -1037,8 +1041,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
