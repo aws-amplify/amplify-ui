@@ -28,7 +28,7 @@ export const useAuth = (): UseAuthResult => {
    * This util will be used to get current user after those events.
    */
   const fetchCurrentUser = React.useCallback(async () => {
-    setResult((result) => ({ ...result, isLoading: true }));
+    setResult((prevResult) => ({ ...prevResult, isLoading: true }));
 
     try {
       // casting the result because `Auth.currentAuthenticateduser` returns `any`

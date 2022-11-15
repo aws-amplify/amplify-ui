@@ -133,7 +133,6 @@ function ConfigureTOTP({
       <Flex direction="column" alignItems="center">
         {qrCode ? (
           <SecretKeyQRCode
-            data-amplify-qrcode
             src={qrCode}
             alt="qr code"
             width="228px"
@@ -156,8 +155,7 @@ function ConfigureTOTP({
           placeholder="Code"
           value={formValues.code}
           isDisabled={isDisabled}
-          width="100%"
-        ></ConfirmationCode>
+        />
 
         <SubmitButton
           type="submit"
