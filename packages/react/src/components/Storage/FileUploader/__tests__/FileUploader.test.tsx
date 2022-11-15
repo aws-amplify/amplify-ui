@@ -9,6 +9,7 @@ const useFileUploaderSpy = jest.spyOn(UseHooks, 'useFileUploader');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
 const mockReturnUseFileUploader = {
+  autoUploadRef: { current: '' } as any,
   onDragStart: () => null,
   onDragEnter: () => null,
   onDragLeave: () => null,
@@ -499,5 +500,32 @@ describe('File Uploader', () => {
     expect(
       await screen.findByText(`Preview: ${fileStatuses[0].name}`)
     ).toBeVisible();
+  });
+  it('starts upload after file is selected if autoProceed is true', async () => {
+    const fileStatuses = [fileStatus];
+    useFileUploaderSpy.mockReturnValueOnce({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+      autoUploadRef: { current: true },
+    });
+
+    const { container } = render(
+      <FileUploader {...commonProps} autoProceed={true} />
+    );
+
+    const input = container.getElementsByTagName('input')[0];
+    fireEvent.change(input, {
+      target: { files: [fakeFile] },
+    });
+
+    expect(uploadFileSpy).toBeCalledWith({
+      completeCallback: expect.any(Function),
+      errorCallback: expect.any(Function),
+      file: fakeFile,
+      fileName: fakeFile.name,
+      level: 'public',
+      resumable: true,
+      progressCallback: expect.any(Function),
+    });
   });
 });

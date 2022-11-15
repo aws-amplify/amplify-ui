@@ -14,6 +14,7 @@ const isUploadTask = (value: unknown): value is UploadTask =>
 
 export function FileUploader({
   acceptedFileTypes,
+  autoProceed = false,
   components = {},
   fileNames,
   isPreviewerVisible,
@@ -41,6 +42,7 @@ export function FileUploader({
 
   const {
     addTargetFiles,
+    autoUploadRef,
     fileStatuses,
     inDropZone,
     onDragEnter,
@@ -51,7 +53,12 @@ export function FileUploader({
     setFileStatuses,
     setShowPreviewer,
     showPreviewer,
-  } = useFileUploader({ maxSize, acceptedFileTypes, multiple, isLoading });
+  } = useFileUploader({
+    maxSize,
+    acceptedFileTypes,
+    multiple,
+    isLoading,
+  });
 
   // Creates aggregate percentage to show during downloads
   const percentage = Math.floor(
@@ -74,7 +81,7 @@ export function FileUploader({
     if (Math.floor(percentage) === 100) {
       setLoading(false);
     }
-  }, [fileStatuses, percentage]);
+  }, [percentage, fileStatuses]);
 
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
@@ -196,7 +203,7 @@ export function FileUploader({
         ...status,
         uploadTask: uploadTasksTemp?.[index],
         fileState: status.fileState ?? 'loading',
-        percentage: 0,
+        percentage: status.percentage ?? 0,
       };
     });
     const uploadTasks = [...fileStatusesRef.current];
@@ -223,9 +230,12 @@ export function FileUploader({
       const { files } = event.target;
       const addedFilesLength = addTargetFiles([...files]);
       // only show previewer if the added files are great then 0
-      if (addedFilesLength > 0) setShowPreviewer(true);
+      if (addedFilesLength > 0) {
+        setShowPreviewer(true);
+        autoUploadRef.current = true;
+      }
     },
-    [addTargetFiles, setShowPreviewer]
+    [addTargetFiles, autoUploadRef, setShowPreviewer]
   );
 
   const onClear = useCallback(() => {
@@ -317,6 +327,13 @@ export function FileUploader({
     },
     [fileStatuses, setFileStatuses]
   );
+
+  useEffect(() => {
+    if (autoProceed && autoUploadRef.current) {
+      onFileClick();
+    }
+    autoUploadRef.current = false;
+  }, [autoProceed, autoUploadRef, onFileClick]);
 
   // UploadButton
   const hiddenInput = React.useRef<HTMLInputElement>();
