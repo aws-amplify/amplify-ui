@@ -36,6 +36,7 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
     },
     textSecondary: {
       color: colors.brand.primary[80],
+      fontSize: fontSizes.small,
       ...components?.button.textSecondary,
     },
   });

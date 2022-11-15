@@ -103,6 +103,7 @@ Array [
           Object {
             "alignSelf": "center",
             "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
           },
           undefined,
         ]
@@ -217,6 +218,7 @@ Array [
           Object {
             "alignSelf": "center",
             "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
           },
           undefined,
         ]
@@ -383,6 +385,7 @@ Array [
           Object {
             "alignSelf": "center",
             "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
           },
           undefined,
         ]
