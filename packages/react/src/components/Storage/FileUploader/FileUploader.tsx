@@ -361,7 +361,8 @@ export function FileUploader({
             errorMessage={status?.fileErrors}
             file={status.file}
             fileState={status?.fileState}
-            hasImage={status.file?.type.startsWith('image/') && showImages}
+            hasImage={status.file?.type.startsWith('image/')}
+            showImage={showImages}
             key={index}
             name={status.name}
             onCancel={onFileCancel(index)}

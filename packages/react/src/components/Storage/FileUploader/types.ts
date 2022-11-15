@@ -78,6 +78,7 @@ export interface TrackerProps {
   onStartEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   percentage: number;
   resumable?: boolean;
+  showImage: boolean;
   url: string;
 }
 

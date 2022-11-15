@@ -4,6 +4,7 @@ import * as UseHooks from '../hooks/useFileUploader';
 import { FileUploader } from '..';
 import * as UIModule from '@aws-amplify/ui';
 import { act } from 'react-dom/test-utils';
+import { ComponentClassNames } from '../../../../primitives';
 const uploadFileSpy = jest.spyOn(UIModule, 'uploadFile');
 const useFileUploaderSpy = jest.spyOn(UseHooks, 'useFileUploader');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
@@ -500,7 +501,7 @@ describe('File Uploader', () => {
       await screen.findByText(`Preview: ${fileStatuses[0].name}`)
     ).toBeVisible();
   });
-  it('shows an icon for the image previewer if showImages is false', async () => {
+  it('shows nothing in Tracker if showImages is false', async () => {
     const fileStatuses = [fileStatus];
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
@@ -515,10 +516,10 @@ describe('File Uploader', () => {
     );
 
     expect(
-      container.querySelector('.amplify-fileuploader__file__image > span')
-    ).toBeVisible();
+      container.querySelector(`.${ComponentClassNames.FileUploaderFileImage}`)
+    ).toBeNull();
   });
-  it('shows an image for the image previewer if showImages is true', async () => {
+  it('shows an image inside the tracker if showImages is true', async () => {
     const fileStatuses = [fileStatus];
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
@@ -533,7 +534,7 @@ describe('File Uploader', () => {
     );
 
     expect(
-      container.querySelector('.amplify-fileuploader__file__image > img')
+      container.querySelector(`.${ComponentClassNames.FileUploaderFileImage}`)
     ).toBeVisible();
   });
 });

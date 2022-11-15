@@ -33,6 +33,7 @@ export function Tracker({
   onStartEdit,
   percentage,
   resumable,
+  showImage,
   url,
 }: TrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState(name);
@@ -131,7 +132,13 @@ export function Tracker({
 
   return (
     <View className={ComponentClassNames.FileUploaderFile}>
-      <View className={ComponentClassNames.FileUploaderFileImage}>{icon}</View>
+      {showImage ? (
+        <View className={ComponentClassNames.FileUploaderFileImage}>
+          {icon}
+        </View>
+      ) : (
+        ''
+      )}
 
       {/* Main View */}
       {fileState === 'editing' ? (
