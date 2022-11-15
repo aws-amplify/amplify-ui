@@ -15,6 +15,6 @@ export interface ConfigureTOTPProps {
   totpUsername?: string;
   /** callback once totp is successfully set up */
   onSuccess?: () => void;
-  // callback when there's an error
+  /** callback when there's an error */
   onError?: (error: Error) => void;
 }
