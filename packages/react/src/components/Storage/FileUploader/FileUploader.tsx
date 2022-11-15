@@ -30,6 +30,8 @@ export function FileUploader({
   const {
     UploadDropZone = FileUploader.UploadDropZone,
     UploadButton = FileUploader.UploadButton,
+    Previewer = FileUploader.Previewer,
+    Tracker = FileUploader.Tracker,
   } = components;
 
   // File Previewer loading state
@@ -404,3 +406,5 @@ export function FileUploader({
 
 FileUploader.UploadDropZone = UploadDropZone;
 FileUploader.UploadButton = UploadButton;
+FileUploader.Previewer = Previewer;
+FileUploader.Tracker = Tracker;

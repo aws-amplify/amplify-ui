@@ -460,4 +460,44 @@ describe('File Uploader', () => {
       },
     ]);
   });
+  it('shows the overridden Tracker component', async () => {
+    const Tracker = ({ name }) => <div>File Name: {name}</div>;
+    const fileStatuses = [fileStatus];
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+    });
+    render(
+      <FileUploader
+        {...commonProps}
+        components={{ Tracker }}
+        isPreviewerVisible={true}
+      />
+    );
+
+    expect(
+      await screen.findByText(`File Name: ${fileStatus.name}`)
+    ).toBeVisible();
+  });
+  it('shows the overridden Previewer component', async () => {
+    const Previewer = ({ fileStatuses }) => (
+      <div>Preview: {fileStatuses[0].name} </div>
+    );
+    const fileStatuses = [fileStatus];
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+    });
+    render(
+      <FileUploader
+        {...commonProps}
+        components={{ Previewer }}
+        isPreviewerVisible={true}
+      />
+    );
+
+    expect(
+      await screen.findByText(`Preview: ${fileStatuses[0].name}`)
+    ).toBeVisible();
+  });
 });

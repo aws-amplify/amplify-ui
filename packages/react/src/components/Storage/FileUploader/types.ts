@@ -111,7 +111,18 @@ type UploadButtonComponent<Props = {}> = React.ComponentType<
 type UploadDropZoneComponent<Props = {}> = React.ComponentType<
   Props & Partial<UploadDropZoneProps>
 >;
+
+type PreviewerComponent<Props = {}> = React.ComponentType<
+  Props & Partial<PreviewerProps>
+>;
+
+type TrackerComponent<Props = {}> = React.ComponentType<
+  Props & Partial<TrackerProps>
+>;
+
 export interface Components {
   UploadDropZone?: UploadDropZoneComponent;
   UploadButton?: UploadButtonComponent;
+  Previewer?: PreviewerComponent;
+  Tracker?: TrackerComponent;
 }
