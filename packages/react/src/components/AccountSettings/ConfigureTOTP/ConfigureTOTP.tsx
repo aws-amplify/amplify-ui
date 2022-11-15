@@ -21,6 +21,7 @@ import {
   SubmitButton,
 } from './defaults';
 import { ConfigureTOTPProps } from './types';
+import { QR_CODE_DIMENSIONS } from './constants';
 
 const logger = getLogger('Auth');
 
@@ -136,8 +137,7 @@ function ConfigureTOTP({
             data-amplify-qrcode
             src={qrCode}
             alt="qr code"
-            width="228px"
-            height="228px"
+            {...QR_CODE_DIMENSIONS}
           />
         ) : null}
         <CopySecretKey
