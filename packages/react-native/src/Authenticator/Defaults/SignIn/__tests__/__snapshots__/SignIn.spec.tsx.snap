@@ -343,6 +343,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -385,6 +386,7 @@ Array [
   </View>,
   <View>
     <View
+      accessibilityRole="button"
       accessible={true}
       collapsable={false}
       focusable={true}
@@ -636,6 +638,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -678,6 +681,7 @@ Array [
   </View>,
   <View>
     <View
+      accessibilityRole="button"
       accessible={true}
       collapsable={false}
       focusable={true}
@@ -1114,6 +1118,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -1156,6 +1161,7 @@ Array [
   </View>,
   <View>
     <View
+      accessibilityRole="button"
       accessible={true}
       collapsable={false}
       focusable={true}
