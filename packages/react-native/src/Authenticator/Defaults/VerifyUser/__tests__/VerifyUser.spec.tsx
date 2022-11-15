@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
+import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { VerifyUser } from '..';
 import { RadioFieldOptions } from '../../../hooks/types';
@@ -8,15 +9,19 @@ import { RadioFieldOptions } from '../../../hooks/types';
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
 
+const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+
 const radioEmailField = {
   type: 'radio',
   name: 'email',
+  label: 'Email',
   value: 'hello@world.com',
 } as RadioFieldOptions;
 
 const radioPhoneField = {
   type: 'radio',
   name: 'phone',
+  label: 'Phone Number',
   value: '+1 000-000-0000',
 } as RadioFieldOptions;
 
@@ -25,6 +30,11 @@ const radioField = {
   name: 'test',
   value: 'testValue',
 } as RadioFieldOptions;
+
+const mockUnverifiedContactMethods = {
+  email: 'Email',
+  phone: 'Phone Number',
+};
 
 const props = {
   fields: [radioEmailField, radioPhoneField, radioField],
@@ -36,11 +46,14 @@ const props = {
   Header: VerifyUser.Header,
   isPending: false,
   skipVerification: jest.fn(),
+  unverifiedContactMethods: mockUnverifiedContactMethods,
 };
 
 describe('VerifyUser', () => {
   it('renders as expected', () => {
-    const { toJSON, getByRole, getByText } = render(<VerifyUser {...props} />);
+    const { toJSON, getByRole, getByText, queryByText } = render(
+      <VerifyUser {...props} />
+    );
     expect(toJSON()).toMatchSnapshot();
 
     expect(getByRole('header')).toBeDefined();
@@ -50,7 +63,14 @@ describe('VerifyUser', () => {
     expect(getByText(getVerifyText())).toBeDefined();
     expect(getByText('h***o@world.com')).toBeDefined();
     expect(getByText('***********0000')).toBeDefined();
-    expect(getByText('testValue')).toBeDefined();
+    expect(queryByText('testValue')).toBe(null);
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      `${radioField.name} is not supported. Available values are: ${Object.keys(
+        mockUnverifiedContactMethods
+      )}.`
+    );
   });
 
   it('renders as expected with errors', () => {

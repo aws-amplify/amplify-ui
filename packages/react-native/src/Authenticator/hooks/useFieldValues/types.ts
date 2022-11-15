@@ -1,5 +1,6 @@
 import {
   AuthenticatorComponentDefaultProps,
+  AuthenticatorMachineContext,
   AuthenticatorRouteComponentName,
 } from '@aws-amplify/ui-react-core';
 
@@ -26,6 +27,10 @@ export interface UseFieldValuesParams<FieldType extends TypedField> {
    * machine "SUBMIT"" event handler, validates `field` value against machine validation rules
    */
   handleSubmit: MachineEventHandlers['handleSubmit'];
+  /**
+   * Cognito user contact methods that have not been verified as valid
+   */
+  unverifiedContactMethods?: AuthenticatorMachineContext['unverifiedContactMethods'];
 }
 
 export interface UseFieldValues<FieldType extends TypedField> {

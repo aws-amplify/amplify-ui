@@ -1,5 +1,8 @@
 import { Logger } from 'aws-amplify';
-import { AuthenticatorRouteComponentName } from '@aws-amplify/ui-react-core';
+import {
+  AuthenticatorRouteComponentName,
+  AuthenticatorMachineContext,
+} from '@aws-amplify/ui-react-core';
 
 import { RadioFieldOptions, TypedField } from '../types';
 
@@ -11,7 +14,8 @@ export const isRadioFieldOptions = (
 
 export const getSanitizedRadioFields = (
   fields: TypedField[],
-  componentName: AuthenticatorRouteComponentName
+  componentName: AuthenticatorRouteComponentName,
+  unverifiedContactMethods?: AuthenticatorMachineContext['unverifiedContactMethods']
 ): TypedField[] => {
   const values: Record<string, boolean> = {};
 
@@ -23,7 +27,7 @@ export const getSanitizedRadioFields = (
       return false;
     }
 
-    const { value } = field;
+    const { name, value } = field;
 
     if (!value) {
       logger.warn(
@@ -35,6 +39,18 @@ export const getSanitizedRadioFields = (
     if (values[value]) {
       logger.warn(
         `Each radio field value must be unique. field with duplicate value of ${value} has been ignored.`
+      );
+      return false;
+    }
+
+    if (
+      unverifiedContactMethods &&
+      Object.keys(unverifiedContactMethods).findIndex((key) => key === name) < 0
+    ) {
+      logger.warn(
+        `${name} is not supported. Available values are: ${Object.keys(
+          unverifiedContactMethods
+        )}.`
       );
       return false;
     }

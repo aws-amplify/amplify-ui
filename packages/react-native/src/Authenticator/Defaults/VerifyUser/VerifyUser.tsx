@@ -3,6 +3,7 @@ import {
   authenticatorTextUtil,
   censorAllButFirstAndLast,
   censorPhoneNumber,
+  ContactMethod,
 } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage, Radio, RadioGroup } from '../../../primitives';
@@ -19,14 +20,17 @@ const COMPONENT_NAME = 'VerifyUser';
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
 
-const censorContactInformation = (name: string, value: string): string => {
+const censorContactInformation = (
+  type: ContactMethod,
+  value: string
+): string => {
   let censoredVal = value;
-  if (name === 'email') {
+  if (type === 'Email') {
     const splitEmail = value.split('@');
     const censoredName = censorAllButFirstAndLast(splitEmail[0]);
 
     censoredVal = `${censoredName}@${splitEmail[1]}`;
-  } else if (name === 'phone') {
+  } else if (type === 'Phone Number') {
     censoredVal = censorPhoneNumber(value);
   }
   return censoredVal;
@@ -43,6 +47,7 @@ const VerifyUser: DefaultVerifyUserComponent = ({
   Header,
   isPending,
   skipVerification,
+  unverifiedContactMethods,
 }) => {
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -50,6 +55,7 @@ const VerifyUser: DefaultVerifyUserComponent = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    unverifiedContactMethods,
   });
 
   return (
@@ -82,12 +88,12 @@ const FormFields: DefaultVerifyUserComponent['FormFields'] = ({
 }) => {
   return (
     <RadioGroup disabled={isPending}>
-      {fields.map(({ name, value, ...props }) => (
+      {fields.map(({ label, name, value, ...props }) => (
         <Radio
           {...props}
-          key={value}
-          value={value}
-          label={censorContactInformation(name, value)}
+          key={name}
+          value={name}
+          label={censorContactInformation(label as ContactMethod, value)}
         />
       ))}
     </RadioGroup>
