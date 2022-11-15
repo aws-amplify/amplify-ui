@@ -1,3 +1,8 @@
+export interface TotpSecret {
+  secretKey: string;
+  qrCode: string;
+}
+
 export interface ConfigureTOTPProps {
   /** TOTP issuer. Default to "AWSCognito" */
   totpIssuer?: string;

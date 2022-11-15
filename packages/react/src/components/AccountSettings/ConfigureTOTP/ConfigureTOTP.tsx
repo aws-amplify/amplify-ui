@@ -20,7 +20,7 @@ import {
   SecretKeyQRCode,
   SubmitButton,
 } from './defaults';
-import { ConfigureTOTPProps } from './types';
+import { ConfigureTOTPProps, TotpSecret } from './types';
 import { QR_CODE_DIMENSIONS } from './constants';
 
 const logger = getLogger('Auth');
@@ -31,29 +31,24 @@ function ConfigureTOTP({
   onSuccess,
   onError,
 }: ConfigureTOTPProps): JSX.Element | null {
-  const [secretKey, setSecretKey] = React.useState<string>(null);
-  const [qrCode, setQrCode] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({ code: '' });
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
+  const [totpSecret, setTotpSecret] = React.useState<TotpSecret>(null);
 
   const { user, isLoading } = useAuth();
 
   const hasInit = React.useRef(false);
 
   const generateQRCode = React.useCallback(
-    async (user: AmplifyUser): Promise<void> => {
+    async (currentUser: AmplifyUser): Promise<void> => {
       try {
-        const newSecretKey = await setupTOTP(user);
-        const username = totpUsername || user?.username;
-        const totpCode = getTotpCodeURL(totpIssuer, username, newSecretKey);
-        const qrCodeImageSource = await QRCode.toDataURL(totpCode);
+        const secretKey = await setupTOTP(currentUser);
+        const username = totpUsername || currentUser?.username;
+        const totpCode = getTotpCodeURL(totpIssuer, username, secretKey);
+        const qrCode = await QRCode.toDataURL(totpCode);
 
-        if (!hasInit.current) {
-          setSecretKey(newSecretKey);
-          setQrCode(qrCodeImageSource);
-          hasInit.current = true;
-        }
+        setTotpSecret({ secretKey, qrCode });
       } catch (e) {
         logger.error(e);
       }
@@ -63,6 +58,7 @@ function ConfigureTOTP({
 
   React.useEffect(() => {
     if (user && !hasInit.current) {
+      hasInit.current = true;
       generateQRCode(user);
     }
   }, [generateQRCode, user]);
@@ -115,8 +111,8 @@ function ConfigureTOTP({
   );
 
   const handleCopy = React.useCallback(() => {
-    navigator.clipboard.writeText(secretKey);
-  }, [secretKey]);
+    navigator.clipboard.writeText(totpSecret.secretKey);
+  }, [totpSecret]);
 
   /** Return null if user isn't authenticated in the first place */
   if (!user) {
@@ -132,9 +128,9 @@ function ConfigureTOTP({
   return (
     <View as="form" onSubmit={handleSubmit} disabled={isDisabled}>
       <Flex direction="column" alignItems="center">
-        {qrCode ? (
+        {totpSecret?.qrCode ? (
           <SecretKeyQRCode
-            src={qrCode}
+            src={totpSecret?.qrCode}
             alt="qr code"
             {...QR_CODE_DIMENSIONS}
           />
