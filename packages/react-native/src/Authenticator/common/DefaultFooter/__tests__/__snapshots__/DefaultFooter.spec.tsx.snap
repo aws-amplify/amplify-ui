@@ -20,8 +20,7 @@ exports[`DefaultFooter renders as expected with children 1`] = `
       Array [
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
-          "paddingHorizontal": 12,
-          "paddingVertical": 6,
+          "padding": 12,
         },
         null,
         null,

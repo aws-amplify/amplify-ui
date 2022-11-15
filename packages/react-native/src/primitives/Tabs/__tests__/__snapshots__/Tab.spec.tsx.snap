@@ -19,8 +19,7 @@ exports[`Tab can apply custom styling 1`] = `
     Array [
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
-        "paddingHorizontal": 12,
-        "paddingVertical": 6,
+        "padding": 12,
       },
       null,
       Array [
@@ -50,6 +49,7 @@ exports[`Tab can apply custom styling 1`] = `
         Object {
           "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
           "fontWeight": "700",
         },
         Array [
@@ -88,8 +88,7 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
     Array [
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
-        "paddingHorizontal": 12,
-        "paddingVertical": 6,
+        "padding": 12,
       },
       null,
       Array [
@@ -122,6 +121,7 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
         Object {
           "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
           "fontWeight": "700",
         },
         Array [
@@ -164,8 +164,7 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
     Array [
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
-        "paddingHorizontal": 12,
-        "paddingVertical": 6,
+        "padding": 12,
       },
       null,
       Array [
@@ -211,8 +210,7 @@ exports[`Tab renders default Tab as expected 1`] = `
     Array [
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
-        "paddingHorizontal": 12,
-        "paddingVertical": 6,
+        "padding": 12,
       },
       null,
       Array [
@@ -239,6 +237,7 @@ exports[`Tab renders default Tab as expected 1`] = `
         Object {
           "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
           "fontWeight": "700",
         },
         Array [

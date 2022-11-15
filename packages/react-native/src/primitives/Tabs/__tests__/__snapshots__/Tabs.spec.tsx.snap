@@ -33,8 +33,7 @@ exports[`Tabs applies theme and custom styling 1`] = `
       Array [
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
-          "paddingHorizontal": 12,
-          "paddingVertical": 6,
+          "padding": 12,
         },
         null,
         Array [
@@ -67,6 +66,7 @@ exports[`Tabs applies theme and custom styling 1`] = `
           Object {
             "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
             "fontWeight": "700",
           },
           Array [
@@ -106,8 +106,7 @@ exports[`Tabs applies theme and custom styling 1`] = `
       Array [
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
-          "paddingHorizontal": 12,
-          "paddingVertical": 6,
+          "padding": 12,
         },
         null,
         Array [
@@ -134,6 +133,7 @@ exports[`Tabs applies theme and custom styling 1`] = `
           Object {
             "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
             "fontWeight": "700",
           },
           Array [

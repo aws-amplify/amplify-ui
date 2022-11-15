@@ -19,8 +19,7 @@ exports[`Button applies theme and style props 1`] = `
     Array [
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
-        "paddingHorizontal": 12,
-        "paddingVertical": 6,
+        "padding": 12,
       },
       null,
       Object {
@@ -36,6 +35,7 @@ exports[`Button applies theme and style props 1`] = `
         Object {
           "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
           "fontWeight": "700",
         },
         Object {
@@ -68,8 +68,7 @@ exports[`Button renders as expected with a component passed as children 1`] = `
     Array [
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
-        "paddingHorizontal": 12,
-        "paddingVertical": 6,
+        "padding": 12,
       },
       null,
       null,
@@ -102,8 +101,7 @@ exports[`Button renders as expected with a string passed as children 1`] = `
     Array [
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
-        "paddingHorizontal": 12,
-        "paddingVertical": 6,
+        "padding": 12,
       },
       null,
       null,
@@ -117,6 +115,7 @@ exports[`Button renders as expected with a string passed as children 1`] = `
         Object {
           "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
           "fontWeight": "700",
         },
         undefined,
