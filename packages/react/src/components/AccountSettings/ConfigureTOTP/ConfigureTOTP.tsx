@@ -34,7 +34,10 @@ function ConfigureTOTP({
   const [formValues, setFormValues] = React.useState<FormValues>({ code: '' });
   const [totpSecret, setTotpSecret] = React.useState<TotpSecret>(null);
   const [verifyTotpStatus, setVerifyTotpStatus] =
-    React.useState<VerifyTotpStatus>(null);
+    React.useState<VerifyTotpStatus>({
+      isVerifying: false,
+      errorMessage: null,
+    });
 
   const { user, isLoading } = useAuth();
 
