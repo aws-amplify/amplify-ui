@@ -9,6 +9,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
   }
 >
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
