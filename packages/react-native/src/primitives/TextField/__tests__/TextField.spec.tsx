@@ -1,6 +1,9 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
-import TextField from '../TextField';
+import { fireEvent, render, renderHook } from '@testing-library/react-native';
+
+import { useTheme } from '../../../theme';
+import { getThemedStyles } from '../styles';
+import TextField, { INPUT_CONTAINER_TEST_ID } from '../TextField';
 
 const placeHolderText = 'Placeholder';
 const labelText = 'Label';
@@ -84,12 +87,71 @@ describe('TextField', () => {
     expect(textInput.props.secureTextEntry).toBe(true);
   });
 
-  it('does nothing when disabled', () => {
+  it('renders disabled state correctly', () => {
     const { getByTestId } = render(
-      <TextField {...defaultProps} disabled onChangeText={onChangeText} />
+      <TextField
+        {...defaultProps}
+        disabled
+        onChangeText={onChangeText}
+        accessibilityRole="none"
+      />
     );
     const textInput = getByTestId(testID);
     fireEvent.press(textInput);
     expect(onChangeText).not.toHaveBeenCalled();
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
+    expect(inputContainer.props.style).toStrictEqual({
+      ...themedStyle.inputContainer,
+      ...themedStyle.disabled,
+    });
+  });
+
+  it('applies theme and style props', () => {
+    const errorMessageText = 'Error!';
+    const customErrorMessageStyle = { color: 'red' };
+    const customFieldStyle = { color: 'orange' };
+    const customLabelStyle = { color: 'blue' };
+    const customStyle = { backgroundColor: 'purple' };
+
+    const { toJSON, getByTestId, getByText, getByRole } = render(
+      <TextField
+        {...defaultProps}
+        accessibilityRole="none"
+        error
+        errorMessage={errorMessageText}
+        errorMessageStyle={customErrorMessageStyle}
+        fieldStyle={customFieldStyle}
+        labelStyle={customLabelStyle}
+        style={customStyle}
+      />
+    );
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    const container = getByRole('none');
+    const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
+    const input = getByTestId(testID);
+    const errorMessage = getByText(errorMessageText);
+    const label = getByText(labelText);
+
+    expect(container.props.style).toStrictEqual([
+      themedStyle.container,
+      customStyle,
+    ]);
+    expect(inputContainer.props.style).toStrictEqual(
+      themedStyle.inputContainer
+    );
+    expect(input.props.style).toStrictEqual([
+      themedStyle.input,
+      customFieldStyle,
+    ]);
+    expect(errorMessage.props.style).toContain(customErrorMessageStyle);
+    expect(label.props.style).toContain(customLabelStyle);
+    expect(toJSON()).toMatchSnapshot();
   });
 });
