@@ -17,7 +17,7 @@ exports[`ConfigureTOTP renders as expected 1`] = `
       </button>
       <div
         class="amplify-flex amplify-field amplify-textfield"
-        style="align-self: stretch; width: 100%;"
+        style="align-self: stretch;"
       >
         <label
           class="amplify-label"

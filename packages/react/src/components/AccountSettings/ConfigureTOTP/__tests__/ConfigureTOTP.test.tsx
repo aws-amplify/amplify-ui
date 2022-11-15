@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
 
@@ -41,7 +47,10 @@ describe('ConfigureTOTP', () => {
     verifyTOTPToken.mockResolvedValue();
 
     const onSuccess = jest.fn();
-    render(<ConfigureTOTP onSuccess={onSuccess} />);
+
+    await act(async () => {
+      render(<ConfigureTOTP onSuccess={onSuccess} />);
+    });
 
     const submitButton = await screen.findByRole('button', {
       name: 'Confirm',
@@ -58,8 +67,9 @@ describe('ConfigureTOTP', () => {
     verifyTOTPToken.mockRejectedValue(new Error('Mock Error'));
 
     const onError = jest.fn();
-    render(<ConfigureTOTP onError={onError} />);
-
+    await act(async () => {
+      render(<ConfigureTOTP onError={onError} />);
+    });
     const submitButton = await screen.findByRole('button', {
       name: 'Confirm',
     });
@@ -75,7 +85,10 @@ describe('ConfigureTOTP', () => {
     verifyTOTPToken.mockRejectedValue(new Error('Mock Error'));
 
     const onError = jest.fn();
-    render(<ConfigureTOTP onError={onError} />);
+
+    await act(async () => {
+      render(<ConfigureTOTP onError={onError} />);
+    });
 
     const submitButton = await screen.findByRole('button', {
       name: 'Confirm',
@@ -92,7 +105,9 @@ describe('ConfigureTOTP', () => {
     verifyTOTPToken.mockRejectedValue(new Error('Mock Error'));
 
     const onError = jest.fn();
-    render(<ConfigureTOTP onError={onError} />);
+    await act(async () => {
+      render(<ConfigureTOTP onError={onError} />);
+    });
 
     const submitButton = await screen.findByRole('button', {
       name: 'Confirm',
