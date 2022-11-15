@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { remark } from 'remark';
 import html from 'remark-html';
-import { TableRow } from '@aws-amplify/ui-react';
+import { Badge, TableRow, View } from '@aws-amplify/ui-react';
 import { ResponsiveTableCell } from '@/components/ResponsiveTable';
 import { CodeHighlight } from '@/components/CodeHighlight';
 import { Property } from '../../../scripts/types/catalog';
@@ -24,7 +24,13 @@ export const PropsTableBody = ([
     <TableRow key={name}>
       <ResponsiveTableCell label="Name">
         {name}
-        {isOptional ? '' : '<sup>*</sup>'}
+        {isOptional ? null : (
+          <View marginBlockEnd="xs">
+            <Badge variation="info" size="small">
+              required
+            </Badge>
+          </View>
+        )}
       </ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
         <CodeHighlight code={type} />

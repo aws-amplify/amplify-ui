@@ -15,7 +15,12 @@ function PropsTableSet({
 }) {
   return (
     <>
-      <Heading level={4}>{`<${componentName}>`}</Heading>
+      <Heading level={4} id={componentName}>
+        <Link aria-hidden="true" tabIndex={-1} href={`#${componentName}`}>
+          <span className="icon icon-link"></span>
+        </Link>
+        {`<${componentName}>`}
+      </Heading>
       <PropsTable properties={componentPropsData[componentName][0]['Main']} />
       <PropsTableExpander
         key={componentName}
@@ -53,11 +58,9 @@ export function PropsTableTab({
             componentPropsData={componentPropsData}
           />
         ))}
+
       <p>
-        <code>*</code> indicates required props.
-      </p>
-      <p>
-        See <a href="/react/theming/style-props">Style Props</a> for all
+        See <Link href="/react/theming/style-props">Style Props</Link> for all
         supported style and layout properties.
       </p>
       <p>
