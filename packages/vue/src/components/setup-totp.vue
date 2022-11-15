@@ -5,6 +5,7 @@ import QRCode from 'qrcode';
 
 import { Auth, Logger } from 'aws-amplify';
 import {
+  authenticatorTextUtil,
   getActorState,
   getFormDataFromEvent,
   SignInState,
@@ -37,11 +38,16 @@ let qrCode = reactive({
   isLoading: true,
 });
 let secretKey = ref('');
-let copyTextLabel = ref(translate('COPY'));
+
+// Text Util
+const { getCopyText, getCopiedText, getBackToSignInText, getConfirmText } =
+  authenticatorTextUtil;
+
+let copyTextLabel = ref(getCopyText());
 
 function copyText() {
   navigator.clipboard.writeText(secretKey.value);
-  copyTextLabel.value = translate('COPIED');
+  copyTextLabel.value = getCopiedText();
 }
 
 // lifecycle hooks
@@ -68,8 +74,8 @@ onMounted(async () => {
 });
 
 // Computed Properties
-const backSignInText = computed(() => translate('Back to Sign In'));
-const confirmText = computed(() => translate('Confirm'));
+const backSignInText = computed(() => getBackToSignInText());
+const confirmText = computed(() => getConfirmText());
 
 // Methods
 const onInput = (e: Event): void => {
@@ -159,10 +165,7 @@ const onBackToSignInClicked = (): void => {
                   {{ translate(actorState.context.remoteError) }}
                 </base-alert>
                 <amplify-button
-                  class="
-                    amplify-field-group__control
-                    amplify-authenticator__font
-                  "
+                  class="amplify-field-group__control amplify-authenticator__font"
                   :fullwidth="false"
                   :loading="false"
                   :variation="'primary'"
@@ -172,10 +175,7 @@ const onBackToSignInClicked = (): void => {
                   {{ confirmText }}
                 </amplify-button>
                 <amplify-button
-                  class="
-                    amplify-field-group__control
-                    amplify-authenticator__font
-                  "
+                  class="amplify-field-group__control amplify-authenticator__font"
                   :fullwidth="false"
                   :size="'small'"
                   :variation="'link'"

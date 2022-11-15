@@ -8,10 +8,12 @@ interface DemoProps {
   propControls?: React.ReactNode;
   themeControls?: React.ReactNode;
   code: string;
+  childrenOverflow?: React.CSSProperties['overflow'];
 }
 
 export const Demo = ({
   children,
+  childrenOverflow = 'auto',
   propControls,
   themeControls,
   code,
@@ -39,7 +41,7 @@ export const Demo = ({
         alignItems="stretch"
       >
         <Flex direction="column" flex="1">
-          <View overflow="auto" padding="5px">
+          <View overflow={childrenOverflow} padding="5px">
             {children}
           </View>
           <Divider

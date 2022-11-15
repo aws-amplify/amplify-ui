@@ -12,6 +12,7 @@ exports[`Previewer renders as expected 1`] = `
         class="amplify-fileuploader__dropzone"
       >
         <span
+          aria-hidden="true"
           class="amplify-icon amplify-fileuploader__dropzone__icon"
           style="width: 1em; height: 1em;"
         >
@@ -48,6 +49,7 @@ exports[`Previewer renders as expected 1`] = `
           <input
             accept=".png"
             multiple=""
+            tabindex="-1"
             type="file"
           />
         </span>

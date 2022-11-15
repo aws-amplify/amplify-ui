@@ -36,6 +36,13 @@ exports[`Tracker exists 1`] = `
       type="button"
     >
       <span
+        class="amplify-visually-hidden"
+      >
+        Edit file name 
+        hello.png
+      </span>
+      <span
+        aria-hidden="true"
         class="amplify-icon"
         style="width: 1em; height: 1em;"
       >
@@ -60,6 +67,13 @@ exports[`Tracker exists 1`] = `
       type="button"
     >
       <span
+        class="amplify-visually-hidden"
+      >
+        Remove file name 
+        hello.png
+      </span>
+      <span
+        aria-hidden="true"
         class="amplify-icon"
         style="width: 1em; height: 1em;"
       >

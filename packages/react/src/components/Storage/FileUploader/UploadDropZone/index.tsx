@@ -27,7 +27,10 @@ export function UploadDropZone({
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
-      <IconUpload className={ComponentClassNames.FileUploaderDropZoneIcon} />
+      <IconUpload
+        aria-hidden
+        className={ComponentClassNames.FileUploaderDropZoneIcon}
+      />
       {children}
     </View>
   );

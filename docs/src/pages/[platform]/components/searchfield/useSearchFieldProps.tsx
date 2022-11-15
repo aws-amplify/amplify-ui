@@ -22,6 +22,12 @@ export const useSearchFieldProps: UseSearchFieldFieldProps = (
   const [variation, setVariation] = React.useState<
     SearchFieldProps['variation']
   >(initialValues.variation);
+  const [hasSearchButton, setHasSearchButton] = React.useState<
+    SearchFieldProps['hasSearchButton']
+  >(initialValues.hasSearchButton);
+  const [hasSearchIcon, setHasSearchIcon] = React.useState<
+    SearchFieldProps['hasSearchIcon']
+  >(initialValues.hasSearchIcon);
   const [labelHidden, setLabelHidden] = React.useState<
     SearchFieldProps['labelHidden']
   >(initialValues.labelHidden);
@@ -35,10 +41,21 @@ export const useSearchFieldProps: UseSearchFieldFieldProps = (
       placeholder,
       size,
       variation,
+      hasSearchButton,
+      hasSearchIcon,
       labelHidden,
       isDisabled,
     });
-  }, [label, placeholder, size, variation, labelHidden, isDisabled]);
+  }, [
+    label,
+    placeholder,
+    size,
+    variation,
+    hasSearchButton,
+    hasSearchIcon,
+    labelHidden,
+    isDisabled,
+  ]);
 
   return React.useMemo(
     () => ({
@@ -50,6 +67,10 @@ export const useSearchFieldProps: UseSearchFieldFieldProps = (
       setSize,
       variation,
       setVariation,
+      hasSearchButton,
+      setHasSearchButton,
+      hasSearchIcon,
+      setHasSearchIcon,
       labelHidden,
       setLabelHidden,
       isDisabled,
@@ -64,6 +85,10 @@ export const useSearchFieldProps: UseSearchFieldFieldProps = (
       setSize,
       variation,
       setVariation,
+      hasSearchButton,
+      setHasSearchButton,
+      hasSearchIcon,
+      setHasSearchIcon,
       labelHidden,
       setLabelHidden,
       isDisabled,

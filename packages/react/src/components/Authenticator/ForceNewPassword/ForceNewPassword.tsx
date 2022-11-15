@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
@@ -10,6 +10,9 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormFields as DefaultFormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+
+const { getChangePasswordText, getChangingText, getBackToSignInText } =
+  authenticatorTextUtil;
 
 export const ForceNewPassword = ({
   className,
@@ -38,7 +41,7 @@ export const ForceNewPassword = ({
         onBlur={handleBlur}
       >
         <Flex as="fieldset" direction="column" isDisabled={isPending}>
-          <Heading level={3}>{translate('Change Password')}</Heading>
+          <Heading level={3}>{getChangePasswordText()}</Heading>
 
           <FormFields />
 
@@ -48,10 +51,10 @@ export const ForceNewPassword = ({
             type="submit"
             variation="primary"
             isLoading={isPending}
-            loadingText={translate('Changing')}
+            loadingText={getChangingText()}
             fontWeight="normal"
           >
-            {translate('Change Password')}
+            {getChangePasswordText()}
           </Button>
           <Button
             onClick={toSignIn}
@@ -60,7 +63,7 @@ export const ForceNewPassword = ({
             variation="link"
             size="small"
           >
-            {translate('Back to Sign In')}
+            {getBackToSignInText()}
           </Button>
         </Flex>
       </form>

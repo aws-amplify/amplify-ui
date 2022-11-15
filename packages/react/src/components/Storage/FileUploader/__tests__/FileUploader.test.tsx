@@ -30,7 +30,7 @@ const commonProps = {
 const fileStatus = {
   percentage: 0,
   uploadTask: undefined,
-  fileErrors: undefined,
+  fileErrors: null,
   name: 'hello.png',
   file: fakeFile,
   fileState: null,
@@ -391,29 +391,32 @@ describe('File Uploader', () => {
   });
   it('updates file name after clicking the pencil and editing name', async () => {
     const newFileName = 'newFile.png';
-    const fileStatuses = [fileStatus];
     const setFileStatusMock = jest.fn();
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
       setFileStatuses: setFileStatusMock,
+      fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
     });
 
-    const { container } = render(
-      <FileUploader {...commonProps} isPreviewerVisible={true} />
-    );
+    await act(async () => {
+      render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+    });
 
     // click pencel icon
-    const button = await container.querySelectorAll('button')[1];
+    const button = await screen.getAllByRole('button')[1];
     await fireEvent.click(button);
     // input file name box
-    const input = (await container.querySelectorAll(
-      'input'
-    )[1]) as HTMLInputElement;
+    const input = (await screen.getByLabelText(
+      'file name'
+    )) as HTMLInputElement;
 
     fireEvent.change(input, {
       target: { value: newFileName },
     });
+
+    // click save button
+    const saveButton = await screen.getByRole('button', { name: 'Save' });
+    await fireEvent.click(saveButton);
 
     expect(setFileStatusMock).toHaveBeenCalledWith([
       { ...fileStatus, name: newFileName },
@@ -421,21 +424,12 @@ describe('File Uploader', () => {
   });
   it('updates file name and checks extension shows error', async () => {
     const badFileName = 'newFile.xls';
-    const fileStatuses = [fileStatus];
     const setFileStatusMock = jest.fn();
-    const commonUploadSpy = {
+    useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
       setFileStatuses: setFileStatusMock,
-    };
-    useFileUploaderSpy
-      .mockReturnValueOnce({
-        ...commonUploadSpy,
-        fileStatuses,
-      })
-      .mockReturnValueOnce({
-        ...commonUploadSpy,
-        fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
-      });
+      fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
+    });
 
     await act(async () => {
       render(<FileUploader {...commonProps} isPreviewerVisible={true} />);

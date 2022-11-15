@@ -1,4 +1,5 @@
 import { AlertTokens, alert } from './alert';
+import { AutocompleteTokens, autocomplete } from './autocomplete';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
 import { button, ButtonTokens } from './button';
@@ -17,8 +18,10 @@ import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
 import { fileuploader, FileUploaderTokens } from './fileUploader';
 import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
+import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
+import { inappmessaging, InAppMessagingTokens } from './inAppMessaging';
 import { link, LinkTokens } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
@@ -49,6 +52,7 @@ import {
 export interface ComponentTokens {
   alert: AlertTokens;
   authenticator: AuthenticatorTokens;
+  autocomplete: AutocompleteTokens;
   badge: BadgeTokens;
   button: ButtonTokens;
   card: CardTokens;
@@ -67,7 +71,9 @@ export interface ComponentTokens {
   flex: FlexTokens;
   heading: HeadingTokens;
   icon: IconTokens;
+  highlightmatch: HighlightMatchTokens;
   image: ImageTokens;
+  inappmessaging: InAppMessagingTokens;
   link: LinkTokens;
   loader: LoaderTokens;
   menu: MenuTokens;
@@ -96,6 +102,7 @@ export interface ComponentTokens {
 export const components: ComponentTokens = {
   alert,
   authenticator,
+  autocomplete,
   badge,
   button,
   card,
@@ -114,7 +121,9 @@ export const components: ComponentTokens = {
   flex,
   heading,
   icon,
+  highlightmatch,
   image,
+  inappmessaging,
   link,
   loader,
   menu,

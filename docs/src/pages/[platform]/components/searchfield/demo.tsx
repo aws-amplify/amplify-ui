@@ -19,6 +19,14 @@ const propsToCode = (searchFieldProps) => {
     (searchFieldProps.variation
       ? `\n  variation=${JSON.stringify(searchFieldProps.variation)}`
       : '') +
+    (!searchFieldProps.hasSearchButton
+      ? `\n  hasSearchButton={${JSON.stringify(
+          searchFieldProps.hasSearchButton
+        )}}`
+      : '') +
+    (searchFieldProps.hasSearchIcon
+      ? `\n  hasSearchIcon={${JSON.stringify(searchFieldProps.hasSearchIcon)}}`
+      : '') +
     (!searchFieldProps.labelHidden
       ? `\n  labelHidden={${JSON.stringify(searchFieldProps.labelHidden)}}`
       : '') +
@@ -30,6 +38,8 @@ const propsToCode = (searchFieldProps) => {
 };
 
 const defaultSearchFieldProps = {
+  hasSearchButton: true,
+  hasSearchIcon: false,
   isDisabled: false,
   label: 'Search',
   labelHidden: true,
@@ -55,6 +65,8 @@ export const SearchFieldDemo = () => {
       propControls={<SearchFieldPropControls {...searchFieldProps} />}
     >
       <SearchField
+        hasSearchButton={searchFieldProps.hasSearchButton}
+        hasSearchIcon={searchFieldProps.hasSearchIcon}
         label={searchFieldProps.label}
         placeholder={searchFieldProps.placeholder}
         size={searchFieldProps.size}

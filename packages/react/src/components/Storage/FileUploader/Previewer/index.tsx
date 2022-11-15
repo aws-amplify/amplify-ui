@@ -17,7 +17,6 @@ export function Previewer({
   children,
   fileStatuses,
   inDropZone,
-  isEditingName,
   isLoading,
   isSuccess,
   maxFilesError,
@@ -101,10 +100,9 @@ export function Previewer({
             <>
               <Button
                 disabled={
-                  fileStatuses.some(
-                    (status) => status?.fileState === 'error'
+                  fileStatuses.some((status) =>
+                    ['error', 'editing'].includes(status?.fileState)
                   ) ||
-                  isEditingName.some((edit) => edit) ||
                   remainingFilesLength === 0 ||
                   maxFilesError
                 }

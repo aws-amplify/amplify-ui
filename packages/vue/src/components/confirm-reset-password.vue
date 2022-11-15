@@ -3,6 +3,7 @@ import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
+  authenticatorTextUtil,
   getActorState,
   ResetPasswordState,
   translate,
@@ -24,12 +25,14 @@ const actorState: ComputedRef<ResetPasswordState> = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<ResetPasswordState>;
 
+// Text Util
+const { getResendCodeText, getResetYourPasswordText, getSubmitText } =
+  authenticatorTextUtil;
+
 // Computed Properties
-const resendCodeText = computed(() => translate('Resend Code'));
-const confirmResetPasswordHeading = computed(() =>
-  translate('Reset your Password')
-);
-const confirmResetPasswordText = computed(() => translate('Submit'));
+const resendCodeText = computed(() => getResendCodeText());
+const confirmResetPasswordHeading = computed(() => getResetYourPasswordText());
+const confirmResetPasswordText = computed(() => getSubmitText());
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
