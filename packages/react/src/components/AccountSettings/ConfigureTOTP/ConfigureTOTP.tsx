@@ -34,6 +34,7 @@ function ConfigureTOTP({
   const [qrCode, setQrCode] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({ code: '' });
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
+  const [isDisabled, setIsDisabled] = React.useState<boolean>(false);
 
   const { user, isLoading } = useAuth();
 
@@ -84,6 +85,7 @@ function ConfigureTOTP({
       if (errorMessage) {
         setErrorMessage(null);
       }
+      setIsDisabled(true);
       try {
         await verifyTOTPToken({ user, code });
 
@@ -95,6 +97,8 @@ function ConfigureTOTP({
         }
 
         onError?.(error); // notify error to the parent
+      } finally {
+        setIsDisabled(false);
       }
     },
     [errorMessage, onError, onSuccess]
@@ -125,7 +129,7 @@ function ConfigureTOTP({
   }
 
   return (
-    <View as="form" onSubmit={handleSubmit}>
+    <View as="form" onSubmit={handleSubmit} disabled={isDisabled}>
       <Flex direction="column" alignItems="center">
         {qrCode ? (
           <SecretKeyQRCode
@@ -136,7 +140,11 @@ function ConfigureTOTP({
             height="228px"
           />
         ) : null}
-        <CopySecretKey alignSelf="stretch" onClick={handleCopy}>
+        <CopySecretKey
+          isDisabled={isDisabled}
+          alignSelf="stretch"
+          onClick={handleCopy}
+        >
           {copyCodeText}
         </CopySecretKey>
         <ConfirmationCode
@@ -147,13 +155,14 @@ function ConfigureTOTP({
           onChange={handleChange}
           placeholder="Code"
           value={formValues.code}
+          isDisabled={isDisabled}
           width="100%"
         ></ConfirmationCode>
 
         <SubmitButton
           type="submit"
           variation="primary"
-          isDisabled={!formValues.code}
+          isDisabled={isDisabled || !formValues.code}
           isFullWidth
         >
           {confirmText}
