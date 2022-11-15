@@ -2,12 +2,12 @@ import React from 'react';
 import QRCode from 'qrcode';
 
 import {
-  setupTOTP,
-  verifyTOTPToken,
-  getLogger,
-  translate,
-  getTotpCodeURL,
   AmplifyUser,
+  getLogger,
+  getTotpCodeURL,
+  setupTOTP,
+  translate,
+  verifyTOTPToken,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
