@@ -4,12 +4,12 @@ import { StrictTheme } from '../../theme';
 import { ButtonStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
-  const { colors, components, fontWeights, opacities, space } = theme.tokens;
+  const { colors, components, fontSizes, fontWeights, opacities, space } =
+    theme.tokens;
 
   return StyleSheet.create({
     container: {
-      paddingHorizontal: space.large,
-      paddingVertical: space.small,
+      padding: space.large,
       ...components?.button.container,
     },
     containerPrimary: {
@@ -27,10 +27,11 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
     pressed: { opacity: opacities[60], ...components?.button.pressed },
     text: {
       alignSelf: 'center',
-      fontWeight: fontWeights.bold as TextStyle['fontWeight'],
     },
     textPrimary: {
       color: colors.white,
+      fontSize: fontSizes.medium,
+      fontWeight: fontWeights.bold as TextStyle['fontWeight'],
       ...components?.button.textPrimary,
     },
     textSecondary: {

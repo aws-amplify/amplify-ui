@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import { useTheme } from '../../theme';
+import { capitalize } from '../../utils';
 import { getThemedStyles } from './styles';
 import { ButtonProps } from './types';
 
@@ -28,9 +29,7 @@ export default function Button({
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
       const containerStyle = {
         ...themedStyle.container,
-        ...(variant === 'primary'
-          ? themedStyle.containerPrimary
-          : themedStyle.containerSecondary),
+        ...themedStyle[`container${capitalize(variant)}`],
       };
 
       const pressedStateStyle =
@@ -48,9 +47,7 @@ export default function Button({
   const buttonTextStyle: TextStyle = useMemo(
     () => ({
       ...themedStyle.text,
-      ...(variant === 'primary'
-        ? themedStyle.textPrimary
-        : themedStyle.textSecondary),
+      ...themedStyle[`text${capitalize(variant)}`],
     }),
     [themedStyle, variant]
   );
