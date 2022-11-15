@@ -9,6 +9,7 @@ import {
   ResponsiveTable,
   ResponsiveTableCell,
 } from '@/components/ResponsiveTable';
+import { CodeHighlight } from '@/components/CodeHighlight';
 
 export function PropsTable({ properties }: { properties: Properties }) {
   return (
@@ -29,7 +30,7 @@ export function PropsTable({ properties }: { properties: Properties }) {
                 {isOptional ? '' : '<sup>*</sup>'}
               </ResponsiveTableCell>
               <ResponsiveTableCell label="Type">
-                <code>{type}</code>
+                <CodeHighlight code={type} />
               </ResponsiveTableCell>
               <ResponsiveTableCell label="Description">
                 {description ? description : '-'}
