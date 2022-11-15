@@ -51,19 +51,19 @@ export default function Button({
       ...(variant === 'primary'
         ? themedStyle.textPrimary
         : themedStyle.textSecondary),
-      textStyle,
     }),
-    [textStyle, themedStyle, variant]
+    [themedStyle, variant]
   );
 
   return (
     <Pressable
       {...rest}
       accessibilityRole={accessibilityRole}
+      disabled={disabled}
       style={pressableStyle}
     >
       {typeof children === 'string' ? (
-        <Text style={buttonTextStyle}>{children}</Text>
+        <Text style={[buttonTextStyle, textStyle]}>{children}</Text>
       ) : (
         children
       )}

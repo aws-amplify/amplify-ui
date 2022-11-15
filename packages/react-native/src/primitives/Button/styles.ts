@@ -14,11 +14,10 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
     },
     containerPrimary: {
       backgroundColor: colors.brand.primary[80],
-      borderRadius: space.xs,
       ...components?.button.containerPrimary,
     },
     containerSecondary: {
-      backgroundColor: colors.white, // change this
+      backgroundColor: colors.background.primary,
       ...components?.button.containerSecondary,
     },
     disabled: {
@@ -26,13 +25,16 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
       ...components?.button.disabled,
     },
     pressed: { opacity: opacities[60], ...components?.button.pressed },
-    text: { fontWeight: fontWeights.bold as TextStyle['fontWeight'] },
+    text: {
+      alignSelf: 'center',
+      fontWeight: fontWeights.bold as TextStyle['fontWeight'],
+    },
     textPrimary: {
       color: colors.white,
       ...components?.button.textPrimary,
     },
     textSecondary: {
-      color: colors.teal[80], // change this
+      color: colors.brand.primary[80],
       ...components?.button.textSecondary,
     },
   });

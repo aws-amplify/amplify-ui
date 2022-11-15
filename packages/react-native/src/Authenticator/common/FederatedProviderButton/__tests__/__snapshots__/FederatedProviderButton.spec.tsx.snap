@@ -17,6 +17,11 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+        "paddingHorizontal": 12,
+        "paddingVertical": 6,
+      },
       null,
       Array [
         Object {
@@ -30,6 +35,7 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
         },
         undefined,
       ],
+      null,
     ]
   }
 >

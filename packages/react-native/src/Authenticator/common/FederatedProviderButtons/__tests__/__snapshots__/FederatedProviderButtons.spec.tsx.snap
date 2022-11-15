@@ -24,6 +24,11 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
+        },
         null,
         Array [
           Object {
@@ -39,6 +44,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
             "marginVertical": 8,
           },
         ],
+        null,
       ]
     }
   >

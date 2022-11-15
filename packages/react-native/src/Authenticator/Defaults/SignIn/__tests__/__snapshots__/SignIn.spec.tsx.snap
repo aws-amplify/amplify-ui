@@ -32,6 +32,11 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+            "paddingHorizontal": 12,
+            "paddingVertical": 6,
+          },
           null,
           Array [
             Object {
@@ -40,7 +45,8 @@ Array [
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 12,
+              "paddingVertical": 12,
             },
             Object {
               "opacity": 1,
@@ -52,6 +58,7 @@ Array [
             },
             null,
           ],
+          null,
         ]
       }
     >
@@ -60,6 +67,8 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontWeight": "700",
             },
             Array [
               Object {
@@ -96,6 +105,11 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+            "paddingHorizontal": 12,
+            "paddingVertical": 6,
+          },
           null,
           Array [
             Object {
@@ -104,12 +118,14 @@ Array [
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 12,
+              "paddingVertical": 12,
             },
             null,
             null,
             null,
           ],
+          null,
         ]
       }
     >
@@ -118,6 +134,8 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontWeight": "700",
             },
             Array [
               Object {
@@ -358,12 +376,18 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
+        },
         null,
         Object {
           "backgroundColor": "teal",
           "marginVertical": 8,
           "paddingVertical": 12,
         },
+        null,
       ]
     }
   >
@@ -372,6 +396,8 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(0, 0%, 100%)",
+            "fontWeight": "700",
           },
           Object {
             "color": "white",
@@ -401,11 +427,17 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+            "paddingHorizontal": 12,
+            "paddingVertical": 6,
+          },
           null,
           Object {
             "marginVertical": 8,
             "paddingVertical": 12,
           },
+          null,
         ]
       }
     >
@@ -414,6 +446,8 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontWeight": "700",
             },
             Object {
               "color": "teal",
@@ -653,12 +687,18 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
+        },
         null,
         Object {
           "backgroundColor": "teal",
           "marginVertical": 8,
           "paddingVertical": 12,
         },
+        null,
       ]
     }
   >
@@ -667,6 +707,8 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(0, 0%, 100%)",
+            "fontWeight": "700",
           },
           Object {
             "color": "white",
@@ -696,11 +738,17 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+            "paddingHorizontal": 12,
+            "paddingVertical": 6,
+          },
           null,
           Object {
             "marginVertical": 8,
             "paddingVertical": 12,
           },
+          null,
         ]
       }
     >
@@ -709,6 +757,8 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontWeight": "700",
             },
             Object {
               "color": "teal",
@@ -755,6 +805,11 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+            "paddingHorizontal": 12,
+            "paddingVertical": 6,
+          },
           null,
           Array [
             Object {
@@ -763,7 +818,8 @@ Array [
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 12,
+              "paddingVertical": 12,
             },
             Object {
               "opacity": 1,
@@ -775,6 +831,7 @@ Array [
             },
             null,
           ],
+          null,
         ]
       }
     >
@@ -783,6 +840,8 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontWeight": "700",
             },
             Array [
               Object {
@@ -819,6 +878,11 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+            "paddingHorizontal": 12,
+            "paddingVertical": 6,
+          },
           null,
           Array [
             Object {
@@ -827,12 +891,14 @@ Array [
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 12,
+              "paddingVertical": 12,
             },
             null,
             null,
             null,
           ],
+          null,
         ]
       }
     >
@@ -841,6 +907,8 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontWeight": "700",
             },
             Array [
               Object {
@@ -1132,12 +1200,18 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
+        },
         null,
         Object {
           "backgroundColor": "teal",
           "marginVertical": 8,
           "paddingVertical": 12,
         },
+        null,
       ]
     }
   >
@@ -1146,6 +1220,8 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(0, 0%, 100%)",
+            "fontWeight": "700",
           },
           Object {
             "color": "white",
@@ -1175,11 +1251,17 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+            "paddingHorizontal": 12,
+            "paddingVertical": 6,
+          },
           null,
           Object {
             "marginVertical": 8,
             "paddingVertical": 12,
           },
+          null,
         ]
       }
     >
@@ -1188,6 +1270,8 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontWeight": "700",
             },
             Object {
               "color": "teal",

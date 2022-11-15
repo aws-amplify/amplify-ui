@@ -26,6 +26,12 @@ exports[`DefaultContainer renders as expected with children 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
+        },
+        null,
         null,
         null,
       ]

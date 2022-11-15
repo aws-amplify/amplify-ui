@@ -82,7 +82,10 @@ describe('Button', () => {
 
     expect(getByRole('button').props.style).toContain(customStyle);
     expect(getByText(labelText).props.style).toStrictEqual([
-      themedStyle.text,
+      {
+        ...themedStyle.text,
+        ...themedStyle.textPrimary,
+      },
       customTextStyle,
     ]);
     expect(toJSON()).toMatchSnapshot();

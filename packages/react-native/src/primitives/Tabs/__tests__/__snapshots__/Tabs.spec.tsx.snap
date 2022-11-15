@@ -31,6 +31,11 @@ exports[`Tabs applies theme and custom styling 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
+        },
         null,
         Array [
           Object {
@@ -39,7 +44,8 @@ exports[`Tabs applies theme and custom styling 1`] = `
             "borderTopWidth": 2,
             "flexBasis": 0,
             "flexGrow": 1,
-            "padding": 12,
+            "paddingHorizontal": 12,
+            "paddingVertical": 12,
           },
           Object {
             "opacity": 1,
@@ -51,6 +57,7 @@ exports[`Tabs applies theme and custom styling 1`] = `
           },
           null,
         ],
+        null,
       ]
     }
   >
@@ -59,6 +66,8 @@ exports[`Tabs applies theme and custom styling 1`] = `
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(0, 0%, 100%)",
+            "fontWeight": "700",
           },
           Array [
             Object {
@@ -95,6 +104,11 @@ exports[`Tabs applies theme and custom styling 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
+        },
         null,
         Array [
           Object {
@@ -103,12 +117,14 @@ exports[`Tabs applies theme and custom styling 1`] = `
             "borderTopWidth": 2,
             "flexBasis": 0,
             "flexGrow": 1,
-            "padding": 12,
+            "paddingHorizontal": 12,
+            "paddingVertical": 12,
           },
           null,
           null,
           null,
         ],
+        null,
       ]
     }
   >
@@ -117,6 +133,8 @@ exports[`Tabs applies theme and custom styling 1`] = `
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(0, 0%, 100%)",
+            "fontWeight": "700",
           },
           Array [
             Object {
