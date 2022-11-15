@@ -7,15 +7,15 @@ import {
 } from 'react-native';
 
 import { useTheme } from '../../theme';
-import { Icon } from '../Icon';
 import { getThemedStyles } from './styles';
+import { Icon, iconSizes } from '../Icon';
 import { IconButtonProps } from './types';
 
 export default function IconButton({
   accessibilityRole = 'button',
   color,
   iconStyle,
-  size = 20,
+  size = iconSizes.medium,
   source,
   style,
   ...rest

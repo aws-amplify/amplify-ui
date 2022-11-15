@@ -1,33 +1,42 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
 
+import { StrictTheme } from '../../theme';
 import { TabsStyles } from './types';
 
-const SELECTED_COLOR = '#047d95';
+export const getThemedStyles = (theme: StrictTheme): TabsStyles => {
+  const { colors, components, fontSizes, fontWeights, opacities, space } =
+    theme.tokens;
 
-export const styles: TabsStyles = StyleSheet.create({
-  readonly: {
-    opacity: 1,
-  },
-  tabList: {
-    flexDirection: 'row',
-    width: '100%',
-  },
-  tab: {
-    backgroundColor: '#e1e1e1',
-    borderTopColor: '#dcdee0',
-    borderTopWidth: 2,
-    flexBasis: 0,
-    flexGrow: 1,
-    padding: 12,
-  },
-  tabText: {
-    color: '#304050',
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  selected: {
-    backgroundColor: '#fff',
-    borderTopColor: SELECTED_COLOR,
-    color: SELECTED_COLOR,
-  },
-});
+  return StyleSheet.create({
+    readonly: {
+      opacity: opacities[100],
+      ...components?.tabs.readonly,
+    },
+    tabList: {
+      flexDirection: 'row',
+      width: '100%',
+      ...components?.tabs.tabList,
+    },
+    tab: {
+      backgroundColor: colors.background.tertiary,
+      borderTopColor: colors.border.secondary,
+      borderTopWidth: space.xxs,
+      flexBasis: 0,
+      flexGrow: 1,
+      padding: space.large,
+      ...components?.tabs.tab,
+    },
+    tabText: {
+      color: colors.font.secondary,
+      fontSize: fontSizes.medium,
+      fontWeight: fontWeights.bold as TextStyle['fontWeight'],
+      ...components?.tabs.tabText,
+    },
+    selected: {
+      backgroundColor: colors.background.primary,
+      borderTopColor: colors.brand.primary[80],
+      color: colors.brand.primary[80],
+      ...components?.tabs.selected,
+    },
+  });
+};

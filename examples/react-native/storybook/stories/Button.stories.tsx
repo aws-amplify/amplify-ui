@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react-native';
@@ -16,4 +16,21 @@ storiesOf('Button', module)
       <Text>😀 😎 👍 💯</Text>
     </Button>
   ))
-  .add('disabled', () => <Button disabled>Disabled Button</Button>);
+  .add('disabled', () => <Button disabled>Disabled Button</Button>)
+  .add('styles', () => (
+    <Button style={styles.container} textStyle={styles.whiteText}>
+      White text, blue background
+    </Button>
+  ));
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'blue',
+    borderRadius: 5,
+    padding: 10,
+  },
+  whiteText: {
+    color: 'white',
+    fontWeight: '900',
+  },
+});
