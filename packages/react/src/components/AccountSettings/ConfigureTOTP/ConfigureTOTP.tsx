@@ -75,7 +75,7 @@ function ConfigureTOTP({
     (event: React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
       const { name, value } = event.target;
-      setFormValues((formValues) => ({ ...formValues, [name]: value }));
+      setFormValues((prevFormValues) => ({ ...prevFormValues, [name]: value }));
     },
     []
   );
