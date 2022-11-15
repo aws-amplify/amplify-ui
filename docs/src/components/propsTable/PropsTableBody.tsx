@@ -23,13 +23,11 @@ export const PropsTableBody = ([
   return (
     <TableRow key={name}>
       <ResponsiveTableCell label="Name">
-        {name}
+        {name} {` `}
         {isOptional ? null : (
-          <View marginBlockEnd="xs">
-            <Badge variation="info" size="small">
-              required
-            </Badge>
-          </View>
+          <Badge variation="info" size="small">
+            Required
+          </Badge>
         )}
       </ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
