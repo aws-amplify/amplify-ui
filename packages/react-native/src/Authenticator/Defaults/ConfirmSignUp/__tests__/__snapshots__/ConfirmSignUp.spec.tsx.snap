@@ -282,7 +282,7 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5bcbc",
+          "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
           "paddingHorizontal": 4,
           "paddingVertical": 16,
@@ -317,6 +317,7 @@ Array [
       style={
         Array [
           Object {
+            "color": "hsl(0, 100%, 20%)",
             "flex": 1,
             "paddingHorizontal": 4,
           },

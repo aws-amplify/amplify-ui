@@ -6,6 +6,7 @@ import {
   ButtonStyles,
   CheckboxStyles,
   DividerStyles,
+  ErrorMessageStyles,
   HeadingStyles,
   IconStyles,
   LabelStyles,
@@ -48,11 +49,12 @@ export interface ComponentStyles {
   button: ButtonStyles;
   checkbox: CheckboxStyles;
   divider: DividerStyles;
+  errorMessage: ErrorMessageStyles;
   heading: HeadingStyles;
   icon: IconStyles;
   label: LabelStyles;
   radio: RadioStyles;
-  radiogroup: RadioGroupStyles;
+  radioGroup: RadioGroupStyles;
   tabs: TabsStyles;
 }
 
