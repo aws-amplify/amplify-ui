@@ -35,11 +35,10 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  # Disabled until there's a component to publish
-  # publish:
-  #   needs: test
-  #   uses: ./.github/workflows/reusable-tagged-publish.yml
-  #   with:
-  #     dist-tag: account-settings
-  #   secrets:
-  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  publish:
+    needs: test
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: account-settings
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
