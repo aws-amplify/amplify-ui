@@ -39,4 +39,6 @@ storiesOf('TextField', module)
       errorMessageStyle={styles.errorMessage}
     />
   ))
-  .add('disabled', () => <TextField style={styles.container} disabled />);
+  .add('disabled', () => (
+    <TextField label="Disabled" style={styles.container} disabled />
+  ));

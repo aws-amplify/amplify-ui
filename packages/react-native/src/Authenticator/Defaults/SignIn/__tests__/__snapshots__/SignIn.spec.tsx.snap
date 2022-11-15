@@ -215,14 +215,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -286,14 +288,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -520,14 +524,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -591,14 +597,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -978,14 +986,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1049,14 +1059,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
