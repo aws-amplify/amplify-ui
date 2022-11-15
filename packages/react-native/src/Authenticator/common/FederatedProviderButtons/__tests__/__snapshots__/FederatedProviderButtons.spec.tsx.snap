@@ -25,9 +25,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Array [
           Object {
@@ -43,7 +46,6 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
             "marginVertical": 8,
           },
         ],
-        null,
       ]
     }
   >

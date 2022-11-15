@@ -18,9 +18,12 @@ exports[`Tab can apply custom styling 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "hsl(190, 95%, 30%)",
         "padding": 12,
       },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
       null,
       Array [
         Object {
@@ -29,8 +32,7 @@ exports[`Tab can apply custom styling 1`] = `
           "borderTopWidth": 2,
           "flexBasis": 0,
           "flexGrow": 1,
-          "paddingHorizontal": 12,
-          "paddingVertical": 12,
+          "padding": 12,
         },
         null,
         null,
@@ -39,7 +41,6 @@ exports[`Tab can apply custom styling 1`] = `
           "borderTopColor": "rebeccapurple",
         },
       ],
-      null,
     ]
   }
 >
@@ -87,9 +88,12 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "hsl(190, 95%, 30%)",
         "padding": 12,
       },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
       null,
       Array [
         Object {
@@ -98,8 +102,7 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
           "borderTopWidth": 2,
           "flexBasis": 0,
           "flexGrow": 1,
-          "paddingHorizontal": 12,
-          "paddingVertical": 12,
+          "padding": 12,
         },
         Object {
           "opacity": 1,
@@ -111,7 +114,6 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
         },
         null,
       ],
-      null,
     ]
   }
 >
@@ -163,9 +165,12 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "hsl(190, 95%, 30%)",
         "padding": 12,
       },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
       null,
       Array [
         Object {
@@ -174,14 +179,12 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
           "borderTopWidth": 2,
           "flexBasis": 0,
           "flexGrow": 1,
-          "paddingHorizontal": 12,
-          "paddingVertical": 12,
+          "padding": 12,
         },
         null,
         null,
         null,
       ],
-      null,
     ]
   }
 >
@@ -209,9 +212,12 @@ exports[`Tab renders default Tab as expected 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "hsl(190, 95%, 30%)",
         "padding": 12,
       },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
       null,
       Array [
         Object {
@@ -220,14 +226,12 @@ exports[`Tab renders default Tab as expected 1`] = `
           "borderTopWidth": 2,
           "flexBasis": 0,
           "flexGrow": 1,
-          "paddingHorizontal": 12,
-          "paddingVertical": 12,
+          "padding": 12,
         },
         null,
         null,
         null,
       ],
-      null,
     ]
   }
 >

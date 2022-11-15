@@ -27,18 +27,15 @@ export default function Button({
 
   const pressableStyle = useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
-      const containerStyle = {
-        ...themedStyle.container,
-        ...themedStyle[`container${capitalize(variant)}`],
-      };
-
       const pressedStateStyle =
-        (typeof style === 'function' ? style({ pressed }) : style) ?? null;
+        typeof style === 'function' ? style({ pressed }) : style;
+
       return [
-        containerStyle,
+        themedStyle.container,
+        themedStyle[`container${capitalize(variant)}`],
+        disabled ? themedStyle.disabled : null,
         pressed ? themedStyle.pressed : null,
         pressedStateStyle,
-        disabled ? themedStyle.disabled : null,
       ];
     },
     [disabled, style, themedStyle, variant]

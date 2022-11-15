@@ -38,7 +38,7 @@ describe('Tab', () => {
 
     const tab = getByRole('tab');
     // select second index as `Button` applies its own style first
-    expect((tab.props.style as ViewStyle[])[2]).toStrictEqual([
+    expect((tab.props.style as ViewStyle[])[4]).toStrictEqual([
       themedStyle.tab,
       themedStyle.readonly,
       themedStyle.selected,
@@ -58,7 +58,7 @@ describe('Tab', () => {
 
     const tab = getByRole('tab');
     // select second index as `Button` applies its own style first
-    expect((tab.props.style as ViewStyle[])[2]).toStrictEqual([
+    expect((tab.props.style as ViewStyle[])[4]).toStrictEqual([
       themedStyle.tab,
       null,
       null,

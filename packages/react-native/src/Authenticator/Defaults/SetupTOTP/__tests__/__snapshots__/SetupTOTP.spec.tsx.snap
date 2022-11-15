@@ -162,14 +162,16 @@ Array [
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
         },
-        null,
       ]
     }
   >
@@ -206,14 +208,16 @@ Array [
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(0, 0%, 100%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
         },
-        null,
       ]
     }
   >
@@ -344,14 +348,16 @@ Array [
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
         },
-        null,
       ]
     }
   >
@@ -388,14 +394,16 @@ Array [
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(0, 0%, 100%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
         },
-        null,
       ]
     }
   >
@@ -526,14 +534,16 @@ Array [
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
         },
-        null,
       ]
     }
   >
@@ -570,14 +580,16 @@ Array [
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(0, 0%, 100%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
         },
-        null,
       ]
     }
   >
@@ -772,14 +784,16 @@ Array [
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
         },
-        null,
       ]
     }
   >
@@ -816,14 +830,16 @@ Array [
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(0, 0%, 100%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
         },
-        null,
       ]
     }
   >

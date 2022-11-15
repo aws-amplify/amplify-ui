@@ -32,9 +32,12 @@ exports[`Tabs applies theme and custom styling 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Array [
           Object {
@@ -43,8 +46,7 @@ exports[`Tabs applies theme and custom styling 1`] = `
             "borderTopWidth": 2,
             "flexBasis": 0,
             "flexGrow": 1,
-            "paddingHorizontal": 12,
-            "paddingVertical": 12,
+            "padding": 12,
           },
           Object {
             "opacity": 1,
@@ -56,7 +58,6 @@ exports[`Tabs applies theme and custom styling 1`] = `
           },
           null,
         ],
-        null,
       ]
     }
   >
@@ -105,9 +106,12 @@ exports[`Tabs applies theme and custom styling 1`] = `
     style={
       Array [
         Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
           "padding": 12,
         },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Array [
           Object {
@@ -116,14 +120,12 @@ exports[`Tabs applies theme and custom styling 1`] = `
             "borderTopWidth": 2,
             "flexBasis": 0,
             "flexGrow": 1,
-            "paddingHorizontal": 12,
-            "paddingVertical": 12,
+            "padding": 12,
           },
           null,
           null,
           null,
         ],
-        null,
       ]
     }
   >

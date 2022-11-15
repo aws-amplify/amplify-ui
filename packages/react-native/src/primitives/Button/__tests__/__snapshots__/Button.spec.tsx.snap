@@ -18,14 +18,16 @@ exports[`Button applies theme and style props 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "hsl(190, 95%, 30%)",
         "padding": 12,
       },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
       null,
       Object {
         "backgroundColor": "blue",
       },
-      null,
     ]
   }
 >
@@ -67,12 +69,14 @@ exports[`Button renders as expected with a component passed as children 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "hsl(190, 95%, 30%)",
         "padding": 12,
+      },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
       },
       null,
       null,
-      null,
+      undefined,
     ]
   }
 >
@@ -100,12 +104,14 @@ exports[`Button renders as expected with a string passed as children 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "hsl(190, 95%, 30%)",
         "padding": 12,
+      },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
       },
       null,
       null,
-      null,
+      undefined,
     ]
   }
 >

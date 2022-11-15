@@ -23,8 +23,7 @@ export const getThemedStyles = (theme: StrictTheme): TabsStyles => {
       borderTopWidth: space.xxs,
       flexBasis: 0,
       flexGrow: 1,
-      paddingHorizontal: space.large,
-      paddingVertical: space.large,
+      padding: space.large,
       ...components?.tabs.tab,
     },
     tabText: {
