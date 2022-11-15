@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "latest",
-    "aws-amplify": "unstable",
+    "aws-amplify": "latest",
     "core-js": "^3.6.5",
     "vue": "^3.0.0"
   },
