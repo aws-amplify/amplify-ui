@@ -71,6 +71,8 @@
     "eslint-config-next": "12.0.10",
     "globby": "^13.1.1",
     "postcss": "^8.2.6",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1",
     "sitemap-urls": "^3.0.0",
     "ts-morph": "^15.1.0"
   }

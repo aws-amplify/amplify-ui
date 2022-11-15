@@ -1,15 +1,12 @@
-import { Properties } from '../../../scripts/types/catalog';
 import {
   TableBody,
   TableCell,
   TableHead,
   TableRow,
 } from '@aws-amplify/ui-react';
-import {
-  ResponsiveTable,
-  ResponsiveTableCell,
-} from '@/components/ResponsiveTable';
-import { CodeHighlight } from '@/components/CodeHighlight';
+import { ResponsiveTable } from '@/components/ResponsiveTable';
+import { Properties } from '../../../scripts/types/catalog';
+import { PropsTableBody } from './PropsTableBody';
 
 export function PropsTable({ properties }: { properties: Properties }) {
   return (
@@ -21,24 +18,7 @@ export function PropsTable({ properties }: { properties: Properties }) {
           <TableCell as="th">Description</TableCell>
         </TableRow>
       </TableHead>
-      <TableBody>
-        {Object.entries(properties).map(
-          ([propName, { name, type, description, isOptional }]) => (
-            <TableRow key={name}>
-              <ResponsiveTableCell label="Name">
-                {name}
-                {isOptional ? '' : '<sup>*</sup>'}
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="Type">
-                <CodeHighlight code={type} />
-              </ResponsiveTableCell>
-              <ResponsiveTableCell label="Description">
-                {description ? description : '-'}
-              </ResponsiveTableCell>
-            </TableRow>
-          )
-        )}
-      </TableBody>
+      <TableBody>{Object.entries(properties).map(PropsTableBody)}</TableBody>
     </ResponsiveTable>
   );
 }
