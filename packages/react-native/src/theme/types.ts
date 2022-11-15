@@ -14,6 +14,7 @@ import {
   RadioStyles,
   RadioGroupStyles,
   TabsStyles,
+  TextFieldStyles,
 } from '../primitives';
 
 export interface Tokens extends ReactNativeTokens {
@@ -58,6 +59,7 @@ export interface ComponentStyles {
   radio: RadioStyles;
   radioGroup: RadioGroupStyles;
   tabs: TabsStyles;
+  textField: TextFieldStyles;
 }
 
 /**
