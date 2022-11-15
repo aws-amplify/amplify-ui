@@ -3,7 +3,11 @@ import { Text } from 'react-native';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage } from '../../../primitives';
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultConfirmSignUpComponent } from '../types';
@@ -49,20 +53,20 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
       <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
         {isPending ? getConfirmingText() : getConfirmText()}
       </Button>
-      <Footer>
-        <Button
-          onPress={resendCode}
-          variant="secondary"
-          style={styles.buttonSecondary}
-        >
-          {getResendCodeText()}
-        </Button>
-      </Footer>
+
+      <Button
+        onPress={resendCode}
+        variant="secondary"
+        style={styles.buttonSecondary}
+      >
+        {getResendCodeText()}
+      </Button>
+      <Footer />
     </>
   );
 };
 
-ConfirmSignUp.FormFields = DefaultFormFields;
+ConfirmSignUp.FormFields = DefaultTextFormFields;
 ConfirmSignUp.Footer = DefaultFooter;
 ConfirmSignUp.Header = DefaultHeader;
 

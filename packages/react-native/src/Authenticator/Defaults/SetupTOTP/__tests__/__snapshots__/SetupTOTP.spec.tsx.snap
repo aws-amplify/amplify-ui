@@ -34,10 +34,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -54,7 +51,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -105,7 +108,6 @@ Array [
           "flexDirection": "row",
           "paddingHorizontal": 4,
           "paddingVertical": 16,
-          "width": "100%",
         },
         undefined,
       ]
@@ -164,10 +166,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -181,10 +185,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -210,10 +214,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(0, 0%, 100%)",
+          "padding": 8,
         },
         null,
         null,
@@ -227,9 +233,9 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(190, 95%, 30%)",
             "fontSize": 14,
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -275,10 +281,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -295,7 +298,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -353,10 +362,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -370,10 +381,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -399,10 +410,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(0, 0%, 100%)",
+          "padding": 8,
         },
         null,
         null,
@@ -416,9 +429,9 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(190, 95%, 30%)",
             "fontSize": 14,
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -464,10 +477,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -484,7 +494,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -542,10 +558,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -559,10 +577,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -588,10 +606,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(0, 0%, 100%)",
+          "padding": 8,
         },
         null,
         null,
@@ -605,9 +625,9 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(190, 95%, 30%)",
             "fontSize": 14,
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -717,10 +737,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -737,7 +754,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -795,10 +818,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -812,10 +837,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -841,10 +866,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(0, 0%, 100%)",
+          "padding": 8,
         },
         null,
         null,
@@ -858,9 +885,9 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(190, 95%, 30%)",
             "fontSize": 14,
+            "textAlign": "center",
           },
           undefined,
         ]
