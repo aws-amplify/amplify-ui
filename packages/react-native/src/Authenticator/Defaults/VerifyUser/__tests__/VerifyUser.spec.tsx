@@ -5,6 +5,7 @@ import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { VerifyUser } from '..';
 import { RadioFieldOptions } from '../../../hooks/types';
+import { supportedContactMethods } from '../../../hooks/useFieldValues/utils';
 
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
@@ -13,14 +14,14 @@ const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
 const radioEmailField = {
   type: 'radio',
-  name: 'email',
+  name: 'Email',
   label: 'Email',
   value: 'hello@world.com',
 } as RadioFieldOptions;
 
 const radioPhoneField = {
   type: 'radio',
-  name: 'phone',
+  name: 'Phone Number',
   label: 'Phone Number',
   value: '+1 000-000-0000',
 } as RadioFieldOptions;
@@ -28,13 +29,9 @@ const radioPhoneField = {
 const radioField = {
   type: 'radio',
   name: 'test',
+  label: 'test',
   value: 'testValue',
 } as RadioFieldOptions;
-
-const mockUnverifiedContactMethods = {
-  email: 'Email',
-  phone: 'Phone Number',
-};
 
 const props = {
   fields: [radioEmailField, radioPhoneField, radioField],
@@ -46,7 +43,6 @@ const props = {
   Header: VerifyUser.Header,
   isPending: false,
   skipVerification: jest.fn(),
-  unverifiedContactMethods: mockUnverifiedContactMethods,
 };
 
 describe('VerifyUser', () => {
@@ -67,8 +63,10 @@ describe('VerifyUser', () => {
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
-      `${radioField.name} is not supported. Available values are: ${Object.keys(
-        mockUnverifiedContactMethods
+      `'${
+        radioField.name
+      }' is not supported. Available values are: ${Object.values(
+        supportedContactMethods
       )}.`
     );
   });

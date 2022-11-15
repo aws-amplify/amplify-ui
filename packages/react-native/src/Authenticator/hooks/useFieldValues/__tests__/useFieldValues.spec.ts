@@ -9,6 +9,7 @@ import {
 } from '../../types';
 import { UseFieldValuesParams } from '../types';
 import useFieldValues from '../useFieldValues';
+import { supportedContactMethods } from '../utils';
 
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
@@ -20,7 +21,7 @@ const textField = {
 
 const radioField = {
   type: 'radio',
-  name: 'test',
+  name: 'Email',
   value: 'testValue',
   onChange: jest.fn,
 } as RadioFieldOptions;
@@ -156,8 +157,7 @@ describe('useFieldValues', () => {
   it('restricts radio fields to unverified contact methods', () => {
     const phoneRadioField = {
       type: 'radio',
-      name: 'phone',
-      label: 'Phone Number',
+      name: 'Phone Number',
       value: 'testValue',
       onChange: jest.fn,
     } as RadioFieldOptions;
@@ -167,16 +167,12 @@ describe('useFieldValues', () => {
       value: 'testUnsupportedValue',
       onChange: jest.fn,
     } as RadioFieldOptions;
-    const mockUnverifiedContactMethods = {
-      email: 'Email',
-      phone: 'Phone Number',
-    };
+
     const { result } = renderHook(() =>
       useFieldValues({
         ...props,
         componentName: 'VerifyUser',
         fields: [phoneRadioField, unsupportedRadioField],
-        unverifiedContactMethods: mockUnverifiedContactMethods,
       })
     );
 
@@ -185,10 +181,10 @@ describe('useFieldValues', () => {
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
-      `${
+      `'${
         unsupportedRadioField.name
-      } is not supported. Available values are: ${Object.keys(
-        mockUnverifiedContactMethods
+      }' is not supported. Available values are: ${Object.values(
+        supportedContactMethods
       )}.`
     );
   });

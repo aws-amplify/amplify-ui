@@ -143,7 +143,6 @@ export type SignUpBaseProps<FieldType = {}> = {
 
 export type VerifyUserProps<FieldType = {}> = {
   skipVerification: AuthenticatorMachineContext['skipVerification'];
-  unverifiedContactMethods: AuthenticatorMachineContext['unverifiedContactMethods'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 

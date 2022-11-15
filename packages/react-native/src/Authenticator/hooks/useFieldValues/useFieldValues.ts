@@ -18,7 +18,6 @@ export default function useFieldValues<FieldType extends TypedField>({
   handleBlur,
   handleChange,
   handleSubmit,
-  unverifiedContactMethods,
 }: UseFieldValuesParams<FieldType>): UseFieldValues<FieldType> {
   const [values, setValues] = useState<Record<string, string>>({});
   const isRadioFieldComponent = componentName === 'VerifyUser';
@@ -32,15 +31,11 @@ export default function useFieldValues<FieldType extends TypedField>({
     }
 
     if (isRadioFieldComponent) {
-      return getSanitizedRadioFields(
-        fields,
-        componentName,
-        unverifiedContactMethods
-      );
+      return getSanitizedRadioFields(fields, componentName);
     }
 
     return getSanitizedTextFields(fields, componentName);
-  }, [componentName, fields, isRadioFieldComponent, unverifiedContactMethods]);
+  }, [componentName, fields, isRadioFieldComponent]);
 
   const fieldsWithHandlers = sanitizedFields.map((field) => {
     if (isRadioFieldOptions(field)) {

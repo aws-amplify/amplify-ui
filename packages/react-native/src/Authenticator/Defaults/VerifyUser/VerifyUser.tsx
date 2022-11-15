@@ -47,7 +47,6 @@ const VerifyUser: DefaultVerifyUserComponent = ({
   Header,
   isPending,
   skipVerification,
-  unverifiedContactMethods,
 }) => {
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -55,7 +54,6 @@ const VerifyUser: DefaultVerifyUserComponent = ({
     handleBlur,
     handleChange,
     handleSubmit,
-    unverifiedContactMethods,
   });
 
   return (

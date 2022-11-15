@@ -1,12 +1,18 @@
 import { Logger } from 'aws-amplify';
-import {
-  AuthenticatorRouteComponentName,
-  AuthenticatorMachineContext,
-} from '@aws-amplify/ui-react-core';
+import { AuthenticatorRouteComponentName } from '@aws-amplify/ui-react-core';
 
 import { RadioFieldOptions, TypedField } from '../types';
+import { ContactMethod, UnverifiedContactMethods } from '@aws-amplify/ui';
 
 const logger = new Logger('Authenticator');
+
+export const supportedContactMethods: Record<
+  keyof UnverifiedContactMethods,
+  ContactMethod
+> = {
+  email: 'Email',
+  phone_number: 'Phone Number',
+};
 
 export const isRadioFieldOptions = (
   field: TypedField
@@ -14,8 +20,7 @@ export const isRadioFieldOptions = (
 
 export const getSanitizedRadioFields = (
   fields: TypedField[],
-  componentName: AuthenticatorRouteComponentName,
-  unverifiedContactMethods?: AuthenticatorMachineContext['unverifiedContactMethods']
+  componentName: AuthenticatorRouteComponentName
 ): TypedField[] => {
   const values: Record<string, boolean> = {};
 
@@ -44,12 +49,12 @@ export const getSanitizedRadioFields = (
     }
 
     if (
-      unverifiedContactMethods &&
-      Object.keys(unverifiedContactMethods).findIndex((key) => key === name) < 0
+      Object.values(supportedContactMethods).findIndex((key) => key === name) <
+      0
     ) {
       logger.warn(
-        `${name} is not supported. Available values are: ${Object.keys(
-          unverifiedContactMethods
+        `'${name}' is not supported. Available values are: ${Object.values(
+          supportedContactMethods
         )}.`
       );
       return false;
