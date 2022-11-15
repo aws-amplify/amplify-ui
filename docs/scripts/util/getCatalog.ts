@@ -10,7 +10,6 @@ import {
   Properties,
   Catalog,
 } from '../types/catalog';
-import { sanitize } from './sanitize';
 import { TypeFileName } from 'scripts/types/allTypesData';
 
 const { allTypeFilesInterfaceData, allTypeFilesTypeData } = getAllTypesData();
@@ -149,10 +148,10 @@ function getCatalogComponentProperty(
       ?.get('type') as string) ?? propType.getText(); // use type from allTypeFilesInterfaceData because it has a better-looking format
 
   return {
-    name: sanitize(name),
+    name,
     type: overwriteType(type, name, componentName),
-    description: sanitize(description),
-    category: sanitize(category),
+    description,
+    category,
     isOptional: property.isOptional(),
   };
 }
