@@ -51,7 +51,7 @@ function ConfigureTOTP({
         if (!hasInit.current) {
           setSecretKey(newSecretKey);
           setQrCode(qrCodeImageSource);
-          hasInit.current = false;
+          hasInit.current = true;
         }
       } catch (e) {
         logger.error(e);
