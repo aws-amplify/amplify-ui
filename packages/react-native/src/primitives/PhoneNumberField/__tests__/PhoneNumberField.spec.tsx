@@ -5,7 +5,7 @@ import { countryDialCodes } from '@aws-amplify/ui';
 import { useTheme } from '../../../theme';
 import PhoneNumberField from '../PhoneNumberField';
 import { getThemedStyles } from '../styles';
-import { styles as textFieldStyles } from '../../TextField/styles';
+import { getThemedStyles as getTextFieldStyles } from '../../TextField/styles';
 
 const testID = 'phoneNumberInput';
 const pickerTestID = 'RNPicker';
@@ -82,6 +82,7 @@ describe('PhoneNumberField', () => {
 
     const { result } = renderHook(() => useTheme());
     const themedStyle = getThemedStyles(result.current);
+    const textFieldStyles = getTextFieldStyles(result.current);
 
     expect(getByTestId('RNPicker').props.style).toContainEqual([
       themedStyle.pickerItem,
