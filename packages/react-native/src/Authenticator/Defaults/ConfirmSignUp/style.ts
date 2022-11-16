@@ -1,23 +1,15 @@
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 
-// TODO: clean up with theming
-interface SignUpStyle {
+export interface ConfirmSignInStyle {
   buttonPrimary: ViewStyle;
-  buttonPrimaryLabel: TextStyle;
-  buttonSecondary: TextStyle;
-  buttonSecondaryLabel: TextStyle;
+  buttonSecondary: ViewStyle;
 }
 
-export const styles: SignUpStyle = StyleSheet.create({
+export const styles: ConfirmSignInStyle = StyleSheet.create({
   buttonPrimary: {
-    backgroundColor: 'teal',
     marginVertical: 8,
-    paddingVertical: 12,
   },
-  buttonPrimaryLabel: { color: 'white', fontSize: 16, fontWeight: 'bold' },
   buttonSecondary: {
     marginVertical: 8,
-    paddingVertical: 12,
   },
-  buttonSecondaryLabel: { color: 'teal' },
 });
