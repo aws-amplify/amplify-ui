@@ -42,17 +42,13 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
       <Header>{getAccountRecoveryInfoText()}</Header>
       <FormFields isPending={isPending} fields={fieldsWithHandlers} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-        textStyle={styles.buttonPrimaryLabel}
-      >
+      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
         {isPending ? getSubmittingText() : getSubmitText()}
       </Button>
       <Button
         onPress={skipVerification}
+        variant="secondary"
         style={styles.buttonSecondary}
-        textStyle={styles.buttonSecondaryLabel}
       >
         {getSkipText()}
       </Button>
