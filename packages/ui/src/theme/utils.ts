@@ -72,20 +72,16 @@ export function isDesignToken(value: unknown): value is WebDesignToken {
   return isObject(value) && has(value, 'value');
 }
 
-interface SetupTokenProps {
-  token: BaseDesignToken;
-  path?: Array<string>;
-}
-
 type SetupTokensProps = {
   tokens: Record<string | number, any>;
   path?: Array<string>;
   setupToken: SetupToken;
 };
 
-export type SetupToken<ReturnType = any> = (
-  args: SetupTokenProps
-) => ReturnType;
+export type SetupToken<ReturnType = any> = (args: {
+  token: BaseDesignToken;
+  path: Array<string>;
+}) => ReturnType;
 
 type BaseDesignToken = {
   value: string | number;

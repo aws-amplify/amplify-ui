@@ -53,7 +53,15 @@ export type FlexDirectionValue = string;
 export type FlexValue = string;
 export type FlexWrapValue = string;
 
-export type FontSizeValue = string | number;
+export type FontSizeValue<
+  Platform extends PlatformKey = unknown,
+  Output extends OutputVariantKey = unknown
+> = Output extends 'required'
+  ? Platform extends 'react-native'
+    ? number
+    : string
+  : string;
+
 export type FontStyleValue = string;
 export type FontValue = string;
 export type FontWeightValue = string | number;
@@ -79,7 +87,14 @@ export type OutlineStyleValue = string;
 export type PositionValue = string;
 export type PointerEventsValue = string;
 
-export type RadiusValue = string | number;
+export type RadiusValue<
+  Platform extends PlatformKey = unknown,
+  Output extends OutputVariantKey = unknown
+> = Output extends 'required'
+  ? Platform extends 'react-native'
+    ? number
+    : string
+  : string;
 
 export type ShadowValue =
   | {
@@ -99,7 +114,14 @@ export type SpaceValue = string | number;
 
 export type TextAlignValue = string;
 
-export type TimeValue = string | number;
+export type TimeValue<
+  Platform extends PlatformKey = unknown,
+  Output extends OutputVariantKey = unknown
+> = Output extends 'required'
+  ? Platform extends 'react-native'
+    ? number
+    : string
+  : string;
 
 export type TransformValue = string;
 export type TransitionDurationValue = string;

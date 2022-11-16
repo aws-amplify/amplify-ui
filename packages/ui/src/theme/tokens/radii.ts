@@ -9,7 +9,12 @@ type RadiusSize = 'xs' | 'small' | 'medium' | 'large' | 'xl' | 'xxl' | 'xxxl';
 export type Radii<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = DesignTokenValues<RadiusSize, RadiusValue, Output, Platform>;
+> = DesignTokenValues<
+  RadiusSize,
+  RadiusValue<Platform, Output>,
+  Output,
+  Platform
+>;
 
 export const radii: Radii<'default'> = {
   xs: { value: '0.125rem' },

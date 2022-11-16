@@ -1,9 +1,6 @@
 import { ViewStyle } from 'react-native';
 import { ReactNativeTokens } from '@aws-amplify/ui';
 
-// TODO: delete this example and update unit test
-type BottomSheetStyle = { container: ViewStyle };
-
 // Util that takes a theme shape
 // and if it is an input of createTheme it can be the theme shape OR a function
 // that takes in base tokens as an argument and returns that shape.
@@ -15,8 +12,7 @@ type ComponentTheme<ComponentType, Output> = Output extends 'output'
 // TODO: make optional all the way down
 export type Components<Output> = Record<string, object> & {
   // TODO: add components
-  bottomSheet?: BottomSheetStyle;
-  test?: ComponentTheme<
+  bottomSheet?: ComponentTheme<
     {
       container?: ViewStyle;
     },

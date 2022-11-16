@@ -19,7 +19,12 @@ type FontSize =
 export type FontSizes<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = DesignTokenValues<FontSize, FontSizeValue, Output, Platform>;
+> = DesignTokenValues<
+  FontSize,
+  FontSizeValue<Platform, Output>,
+  Output,
+  Platform
+>;
 
 export const fontSizes: FontSizes<'default'> = {
   xxxs: { value: '0.375rem' },
