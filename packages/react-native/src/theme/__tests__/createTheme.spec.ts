@@ -1,27 +1,194 @@
-import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
+import { defaultTheme } from '@aws-amplify/ui';
 import { createTheme } from '../createTheme';
 
 describe('createTheme', () => {
   describe('without a base theme', () => {
     const { tokens, components } = createTheme({
-      name: 'test-theme',
       components: { bottomSheet: { container: { backgroundColor: 'red' } } },
     });
 
     it('should have tokens', () => {
       expect(tokens).toBeDefined();
-
       expect(components).toBeDefined();
-      expect(components?.bottomSheet.container.backgroundColor).toBe('red');
+      expect(components?.bottomSheet?.container?.backgroundColor).toBe('red');
+    });
 
-      expect(tokens.colors).toStrictEqual(baseTokens.colors);
-      expect(tokens.fontSizes).toStrictEqual(baseTokens.fontSizes);
-      expect(tokens.fontWeights).toStrictEqual(baseTokens.fontWeights);
-      expect(tokens.opacities).toStrictEqual(baseTokens.opacities);
-      expect(tokens.radii).toStrictEqual(baseTokens.radii);
-      expect(tokens.space).toStrictEqual(baseTokens.space);
-      expect(tokens.time).toStrictEqual(baseTokens.time);
+    it('should return proper React Native token types', () => {
+      const { tokens } = createTheme({});
+      expect(typeof tokens.opacities[10]).toBe('number');
     });
   });
-  //TODO add more tests once component tokens are added
+
+  describe('with mixture of value and no value', () => {
+    const { tokens } = createTheme({
+      tokens: {
+        colors: {
+          neutral: {
+            100: { value: 'hotpink' },
+          },
+          font: {
+            secondary: { value: '{colors.red.10}' },
+            tertiary: { value: '{colors.red.10.value}' },
+          },
+          background: {
+            primary: '{colors.black}',
+            secondary: '{colors.white.value}',
+          },
+        },
+        // Using the web default theme should just work
+        space: defaultTheme.tokens.space,
+      },
+    });
+
+    it('should resolve references from the default theme when the referenced has .value', () => {
+      expect(tokens.colors.font.primary).toEqual('hotpink');
+    });
+
+    it('should resolve references from .value to the default theme without .value', () => {
+      expect(tokens.colors.font.secondary).toEqual('hsl(0, 75%, 95%)');
+    });
+
+    it('should resolve references from .value to the default theme with .value', () => {
+      expect(tokens.colors.font.secondary).toEqual('hsl(0, 75%, 95%)');
+    });
+
+    it('should resolve references from without .value to the default theme without .value', () => {
+      expect(tokens.colors.background.primary).toEqual('hsl(0, 0%, 0%)');
+    });
+
+    it('should resolve references from without .value to the default theme with .value', () => {
+      expect(tokens.colors.background.secondary).toEqual('hsl(0, 0%, 100%)');
+    });
+  });
+
+  describe('with components', () => {
+    it('should resolve references in a functional component theme', () => {
+      const { components } = createTheme({
+        components: {
+          bottomSheet(tokens) {
+            return {
+              container: {
+                backgroundColor: tokens.colors.background.primary,
+              },
+            };
+          },
+        },
+      });
+      expect(components?.bottomSheet?.container?.backgroundColor).toBe(
+        'hsl(0, 0%, 100%)'
+      );
+    });
+
+    it('should resolve references in an object-based theme', () => {
+      const { components } = createTheme({
+        tokens: {
+          colors: {
+            background: {
+              primary: '{colors.white}',
+            },
+          },
+        },
+        components: {
+          bottomSheet: {
+            container: {
+              backgroundColor: '{colors.background.primary}',
+              padding: '{space.xl}',
+            },
+          },
+        },
+      });
+      expect(components?.bottomSheet?.container?.backgroundColor).toBe(
+        'hsl(0, 0%, 100%)'
+      );
+      expect(components?.bottomSheet?.container?.padding).toBe(32);
+    });
+
+    it('should respect colorMode', () => {
+      const { components } = createTheme(
+        {
+          components: {
+            bottomSheet(tokens) {
+              return {
+                container: {
+                  // default value is a reference to colors.white
+                  backgroundColor: tokens.colors.background.primary,
+                },
+              };
+            },
+          },
+          overrides: [
+            {
+              colorMode: 'dark',
+              tokens: {
+                colors: {
+                  white: 'black',
+                },
+              },
+            },
+          ],
+        },
+        'dark'
+      );
+      expect(components?.bottomSheet?.container?.backgroundColor).toBe('black');
+    });
+
+    it('should properly resolve with overrides', () => {
+      const { components } = createTheme(
+        {
+          tokens: {
+            colors: {
+              background: {
+                primary: '{colors.white}',
+              },
+            },
+          },
+          overrides: [
+            {
+              colorMode: 'dark',
+              tokens: {
+                colors: {
+                  background: {
+                    primary: '{colors.black}',
+                  },
+                },
+              },
+            },
+          ],
+          components: {
+            bottomSheet: {
+              container: { backgroundColor: '{colors.background.primary}' },
+            },
+          },
+        },
+        'dark'
+      );
+      expect(components?.bottomSheet?.container?.backgroundColor).toBe(
+        'hsl(0, 0%, 0%)'
+      );
+    });
+  });
+
+  describe('with dark mode override', () => {
+    const { tokens } = createTheme(
+      {
+        overrides: [
+          {
+            colorMode: 'dark',
+            tokens: {
+              colors: {
+                neutral: {
+                  100: 'white',
+                },
+              },
+            },
+          },
+        ],
+      },
+      'dark'
+    );
+
+    it('should properly resolve references', () => {
+      expect(tokens.colors.font.primary).toEqual('white');
+    });
+  });
 });

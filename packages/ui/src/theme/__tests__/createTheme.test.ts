@@ -10,8 +10,6 @@ describe('@aws-amplify/ui', () => {
     describe('without a base theme', () => {
       const { tokens } = createTheme({ name: 'test-theme' });
 
-      tokens.borderWidths.large.name;
-
       // This will allow users to use the token in a style prop
       // without `.value` and for it to use the CSS variable
       // so it won't change even the value changes (with
@@ -189,7 +187,62 @@ describe('@aws-amplify/ui', () => {
         expect(tokens.colors.background.secondary.value).toEqual(
           'var(--amplify-colors-neutral-10)'
         );
+        expect(`${tokens.colors.background.primary}`).toEqual(
+          'var(--amplify-colors-background-primary)'
+        );
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
+      });
+    });
+
+    describe('with mixture of value and no value', () => {
+      const { tokens } = createTheme({
+        name: 'test-tokens',
+        tokens: {
+          colors: {
+            neutral: {
+              100: { value: 'hotpink' },
+            },
+            font: {
+              secondary: { value: '{colors.red.10}' },
+              tertiary: { value: '{colors.red.10.value}' },
+            },
+            background: {
+              primary: '{colors.black}',
+              secondary: '{colors.white.value}',
+            },
+          },
+        },
+      });
+
+      it('should work with .value', () => {
+        expect(tokens.colors.neutral[100].value).toEqual('hotpink');
+        expect(`${tokens.colors.neutral[100]}`).toEqual(
+          'var(--amplify-colors-neutral-100)'
+        );
+      });
+
+      it('should work without .value', () => {
+        expect(tokens.colors.background.primary.value).toEqual(
+          'var(--amplify-colors-black)'
+        );
+      });
+
+      it('should work with .value on reference without .value', () => {
+        expect(tokens.colors.font.secondary.value).toEqual(
+          'var(--amplify-colors-red-10)'
+        );
+      });
+
+      it('should work with .value on reference with .value', () => {
+        expect(tokens.colors.font.tertiary.value).toEqual(
+          'var(--amplify-colors-red-10)'
+        );
+      });
+
+      it('should work without .value on references with .value', () => {
+        expect(tokens.colors.background.secondary.value).toEqual(
+          'var(--amplify-colors-white)'
+        );
       });
     });
   });

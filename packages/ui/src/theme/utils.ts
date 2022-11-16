@@ -71,3 +71,50 @@ export function cssNameTransform({ path = [] }: NameTransformProps): string {
 export function isDesignToken(value: unknown): value is WebDesignToken {
   return isObject(value) && has(value, 'value');
 }
+
+type SetupTokensProps = {
+  tokens: Record<string | number, any>;
+  path?: Array<string>;
+  setupToken: SetupToken;
+};
+
+export type SetupToken<ReturnType = any> = (args: {
+  token: BaseDesignToken;
+  path: Array<string>;
+}) => ReturnType;
+
+type BaseDesignToken = {
+  value: string | number;
+};
+
+/**
+ * Recursive function that will walk down the token object
+ * and perform the setupToken function on each token.
+ * Similar to what Style Dictionary does.
+ */
+export function setupTokens({
+  tokens,
+  path = [],
+  setupToken,
+}: SetupTokensProps): any {
+  if (has(tokens, 'value')) {
+    return setupToken({ token: tokens as BaseDesignToken, path });
+  }
+
+  const output = {};
+
+  for (const name in tokens) {
+    if (has(tokens, name)) {
+      const value = tokens[name];
+      const nextTokens = isObject(value) ? value : { value };
+
+      output[name] = setupTokens({
+        tokens: nextTokens,
+        path: path.concat(name),
+        setupToken,
+      });
+    }
+  }
+
+  return output;
+}

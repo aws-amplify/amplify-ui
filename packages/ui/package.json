@@ -30,11 +30,10 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "yarn build:sd && yarn build:css && yarn build:js",
-    "build:css": "./scripts/generateCSS.js",
+    "build": "yarn build:css && yarn build:js",
+    "build:css": "ts-node --transpile-only ./scripts/generateCSS.ts",
     "build:js": "rollup --config",
     "build:dev:js": "tsup",
-    "build:sd": "ts-node --transpile-only sd.config.ts",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:sd && yarn build:css && yarn build:dev:js --watch",
     "dev:build": "yarn build:sd && yarn build:css && yarn build:dev:js",

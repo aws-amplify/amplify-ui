@@ -89,3 +89,32 @@ export const tokens: DefaultTokens = {
   time,
   transforms,
 };
+
+export const reactNativeTokens: ReactNativeTokens<'default'> = {
+  colors,
+  fontSizes: {
+    xxs: fontSizes.xxs,
+    xs: fontSizes.xs,
+    small: fontSizes.small,
+    medium: fontSizes.medium,
+    large: fontSizes.large,
+    xl: fontSizes.xl,
+    xxl: fontSizes.xxl,
+    xxxl: fontSizes.xxxl,
+  },
+  fontWeights,
+  opacities,
+  // React Native doesn't need the relative space values
+  space: {
+    xxs: space.xxs,
+    xs: space.xs,
+    small: space.small,
+    medium: space.medium,
+    large: space.large,
+    xl: space.xl,
+    xxl: space.xxl,
+    xxxl: space.xxxl,
+  },
+  radii,
+  time,
+};
