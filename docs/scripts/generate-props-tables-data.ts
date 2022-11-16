@@ -6,7 +6,8 @@ import type {
   Category,
   ComponentName,
   Properties,
-  PropsTableData,
+  PropsTableSubComponentData,
+  SortedPropertiesByCategory,
 } from './types/catalog';
 import { TypeFileName } from './types/allTypesData';
 import { capitalizeString } from '@/utils/capitalizeString';
@@ -17,12 +18,14 @@ const { allTypeFilesInterfaceData } = getAllTypesData();
 createAllPropsTablesData().then((allPropsTablesData) => {
   fs.writeFileSync(
     path.join(__dirname, '../../docs/src/data/', `./props-table.json`),
-    JSON.stringify(allPropsTablesData, null, 4)
+    JSON.stringify(Object.fromEntries(allPropsTablesData), null, 4)
   );
 });
 
-async function createAllPropsTablesData(): Promise<PropsTableData> {
-  const data: PropsTableData = {};
+async function createAllPropsTablesData(): Promise<
+  Map<string, PropsTableSubComponentData>
+> {
+  const data: Map<string, PropsTableSubComponentData> = new Map();
   for await (const componentFilepath of globbyStream(
     path.join(
       __dirname,
@@ -43,7 +46,9 @@ async function createAllPropsTablesData(): Promise<PropsTableData> {
       properties,
       componentName
     );
-    data[componentName] = { [componentName]: propsSortedByCategory };
+    data.set(componentName, {
+      [componentName]: propsSortedByCategory,
+    } as PropsTableSubComponentData);
 
     const componentsWithChildren: { [key in ComponentName]?: ComponentName[] } =
       {
@@ -56,18 +61,23 @@ async function createAllPropsTablesData(): Promise<PropsTableData> {
       };
 
     if (componentName in componentsWithChildren) {
+      const subComponentProps = {};
       componentsWithChildren[componentName].forEach((childName) => {
-        data[componentName] = {
-          ...data[componentName],
-          [childName]: getPropsSortedByCategory(properties, childName),
-        };
+        subComponentProps[childName] = getPropsSortedByCategory(
+          properties,
+          childName
+        );
+      });
+
+      data.set(componentName, {
+        ...data.get(componentName),
+        ...subComponentProps,
       });
     }
   }
-  return data;
+  return new Map([...data.entries()].sort(([a], [b]) => a.localeCompare(b)));
 }
 
-type SortedPropertiesByCategory = { [key: string]: Properties }[];
 function getPropsSortedByCategory(
   properties: Properties,
   componentName: ComponentName
