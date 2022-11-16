@@ -1,5 +1,4 @@
 export {
-  getFileName,
   uploadFile,
   humanFileSize,
   checkMaxSize,

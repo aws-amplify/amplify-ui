@@ -188,46 +188,6 @@ describe('File Uploader', () => {
 
     expect(uploadTaskSpy).toBeCalled();
   });
-  it('updates the name from the fileName prop', async () => {
-    uploadFileSpy.mockResolvedValue({} as never);
-    const oldFileName = 'test.png';
-    const updatedFileName = 'update.png';
-    const fileStatuses = [
-      {
-        ...fileStatus,
-        name: oldFileName,
-      },
-    ];
-
-    useFileUploaderSpy.mockReturnValue({
-      fileStatuses,
-      ...mockReturnUseFileUploader,
-    });
-    const { container } = render(
-      <FileUploader {...commonProps} fileNames={[updatedFileName]} />
-    );
-
-    const input = container.getElementsByTagName('input')[0];
-    fireEvent.change(input, {
-      target: { files: [fakeFile] },
-    });
-
-    const clickButton = await screen.findByRole('button', {
-      name: uploadOneFile,
-    });
-
-    fireEvent.click(clickButton);
-
-    expect(uploadFileSpy).toBeCalledWith({
-      completeCallback: expect.any(Function),
-      errorCallback: expect.any(Function),
-      file: fakeFile,
-      fileName: updatedFileName,
-      level: 'public',
-      progressCallback: expect.any(Function),
-      resumable: true,
-    });
-  });
   it('calls the errorCallback when there is an eror', async () => {
     const ERROR_MESSAGE = 'error!';
     uploadFileSpy.mockResolvedValue({} as never);

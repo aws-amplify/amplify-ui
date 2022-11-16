@@ -1,16 +1,6 @@
 import { Storage } from 'aws-amplify';
-import { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+import { StorageAccessLevel } from '@aws-amplify/storage';
 import { translate } from '../../../../i18n';
-
-export function getFileName(fileName: string, name: string): string {
-  if (!fileName) {
-    // If user did not send over fileName prop
-    // default to the file name, or the name they changed
-    return name;
-  } else {
-    return fileName;
-  }
-}
 
 export function uploadFile({
   file,
