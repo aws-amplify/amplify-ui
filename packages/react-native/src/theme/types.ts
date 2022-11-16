@@ -1,5 +1,4 @@
 import { ViewStyle } from 'react-native';
-import { PartialDeep } from 'type-fest';
 import { ReactNativeTokens } from '@aws-amplify/ui';
 
 // TODO: delete this example and update unit test
@@ -18,7 +17,7 @@ type Override = Omit<Theme, 'overrides'> & {
 export type StrictTokens = ReactNativeTokens<'required'>;
 
 // `StrictTokens` but everything optional for custom themes
-export type Tokens = PartialDeep<StrictTokens>;
+export type Tokens = ReactNativeTokens<'optional'>;
 
 /**
  * A Theme just needs a name, all other properties are optional.
@@ -57,7 +56,8 @@ export interface DefaultTheme {
  * `components` remains an optional property, it is only populated
  * via custom themes.
  */
-export interface StrictTheme extends Theme {
-  colorMode: ColorMode;
+export interface StrictTheme {
   tokens: StrictTokens;
+  components?: Components;
+  overrides?: Override[];
 }

@@ -8,7 +8,7 @@ const defaultTheme: DefaultTheme = {
   tokens: reactNativeTokens,
 };
 
-const setupToken: SetupToken<string | number> = ({ token }) => {
+const setupToken: SetupToken<string | number> = ({ token, path = [] }) => {
   const { value } = token;
   if (typeof value === 'string') {
     // Perform transforms
@@ -17,6 +17,9 @@ const setupToken: SetupToken<string | number> = ({ token }) => {
     }
     if (value.includes('px')) {
       return parseInt(value, 10);
+    }
+    if (path[0] === 'opacities') {
+      return parseFloat(value);
     }
     // Remove .value from references if there is a reference
     if (usesReference(value)) {

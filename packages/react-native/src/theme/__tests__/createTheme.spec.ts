@@ -70,6 +70,11 @@ describe('createTheme', () => {
       );
     });
 
+    it('should return proper React Native token types', () => {
+      const { tokens } = createTheme({});
+      expect(typeof tokens.opacities[10]).toBe('number');
+    });
+
     it('should work for overridden tokens', () => {
       const { components } = createTheme({
         tokens: {
@@ -84,7 +89,6 @@ describe('createTheme', () => {
             container: {
               backgroundColor: '{colors.background.primary}',
               padding: '{space.xl}',
-              opacity: '{opacities.10}',
             },
           },
         },
@@ -93,7 +97,6 @@ describe('createTheme', () => {
         'hsl(0, 0%, 100%)'
       );
       expect(components?.bottomSheet.container.padding).toBe(32);
-      expect(components?.bottomSheet.container.opacity).toBe(0.1);
     });
 
     it('should work for token overrides', () => {
