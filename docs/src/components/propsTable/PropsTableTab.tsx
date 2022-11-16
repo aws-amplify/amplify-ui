@@ -1,4 +1,4 @@
-import { Heading, Link, View } from '@aws-amplify/ui-react';
+import { Heading, Link, Text } from '@aws-amplify/ui-react';
 import {
   PropsTableData,
   PropsTableSubComponentData,
@@ -59,11 +59,11 @@ export function PropsTableTab({
           />
         ))}
 
-      <View as="p">
+      <Text>
         See <Link href="/react/theming/style-props">Style Props</Link> for all
         supported style and layout properties.
-      </View>
-      <View as="p">
+      </Text>
+      <Text>
         {componentName} will also accept any of the standard HTML attributes
         that a <code>{htmlElement || 'div'}</code> element accepts, which can be
         found in the{' '}
@@ -76,7 +76,7 @@ export function PropsTableTab({
         >
           MDN Documentation
         </Link>
-      </View>
+      </Text>
     </>
   );
 }
