@@ -99,12 +99,6 @@ describe('createDataStorePredicate', () => {
     expect(agePredicate).toHaveBeenCalledWith(agePredicateObject.operand);
   });
 
-  /*
-  DataStore.query(Post, p => p.or(p => [
-  p.and(p => [ p.name.eq('john')]),
-  p.age.lt(34)
-]));
-*/
   test('should generate a nested predicate', () => {
     const predicateObject: DataStorePredicateObject = {
       and: [
