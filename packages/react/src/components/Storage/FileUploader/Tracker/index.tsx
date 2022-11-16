@@ -136,9 +136,7 @@ export function Tracker({
         <View className={ComponentClassNames.FileUploaderFileImage}>
           {icon}
         </View>
-      ) : (
-        ''
-      )}
+      ) : null}
 
       {/* Main View */}
       {fileState === 'editing' ? (
