@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import sass from 'sass';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
