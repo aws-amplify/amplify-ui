@@ -73,8 +73,7 @@
     "globby": "^13.1.1",
     "jest": "^29.3.1",
     "postcss": "^8.2.6",
-    "remark": "^14.0.2",
-    "remark-html": "^15.0.1",
+    "react-markdown": "^8.0.3",
     "sitemap-urls": "^3.0.0",
     "ts-jest": "^29.0.3",
     "ts-morph": "^15.1.0"
