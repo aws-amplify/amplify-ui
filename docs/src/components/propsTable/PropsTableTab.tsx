@@ -69,8 +69,8 @@ export function PropsTableTab({
         found in the{' '}
         <Link
           href={
-            mdnUrl ??
-            'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div'
+            mdnUrl ||
+            `https://developer.mozilla.org/en-US/docs/Web/HTML/Element/${htmlElement}`
           }
           isExternal
         >
