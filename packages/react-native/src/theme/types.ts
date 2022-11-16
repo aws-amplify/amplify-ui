@@ -10,7 +10,7 @@ export interface Components {
 }
 
 type ColorMode = 'light' | 'dark' | 'system';
-type Override = Omit<StrictTheme, 'overrides'>;
+type Override = Omit<Theme, 'overrides'>;
 
 // re-name and export to align naming with `StrictTheme`
 export type StrictTokens = ReactNativeTokens<'required'>;

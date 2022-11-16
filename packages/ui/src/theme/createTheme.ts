@@ -4,10 +4,8 @@ import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
 import { defaultTheme } from './defaultTheme';
 import { Theme, DefaultTheme, WebTheme, Override } from './types';
-import { cssValue, cssNameTransform } from './utils';
-import { DesignToken, WebDesignToken } from './tokens/types/designToken';
-import has from 'lodash/has';
-import isObject from 'lodash/isObject';
+import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
+import { WebDesignToken } from './tokens/types/designToken';
 
 /**
  * This will take a design token and add some data to it for it
@@ -17,40 +15,13 @@ import isObject from 'lodash/isObject';
  *
  * We should see if there is a way to share this logic with style dictionary...
  */
-function setupToken(
-  token: DesignToken<{ value: unknown }>,
-  path: Array<string>
-): WebDesignToken {
+const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
   const name = `--${cssNameTransform({ path })}`;
   const { value: original } = token;
   const value = cssValue(token);
 
   return { name, original, path, value, toString: () => `var(${name})` };
-}
-
-/**
- * Recursive function that will walk down the token object
- * and perform the setupToken function on each token.
- * Similar to what Style Dictionary does.
- */
-function setupTokens(tokens: any, path = []) {
-  if (has(tokens, 'value')) {
-    return setupToken(tokens, path);
-  }
-
-  const output = {};
-
-  for (const name in tokens) {
-    if (has(tokens, name)) {
-      const value = tokens[name];
-      const nextTokens = isObject(value) ? value : { value };
-
-      output[name] = setupTokens(nextTokens, path.concat(name));
-    }
-  }
-
-  return output;
-}
+};
 
 /**
  * This will be used like `const myTheme = createTheme({})`
@@ -73,7 +44,10 @@ export function createTheme(
   // does. At the end of this, each token should have:
   // - CSS variable name of itself
   // - its value (reference to another CSS variable or raw value)
-  const tokens = setupTokens(mergedTheme.tokens) as WebTheme['tokens']; // Setting the type here because setupTokens is recursive
+  const tokens = setupTokens({
+    tokens: mergedTheme.tokens,
+    setupToken,
+  }) as WebTheme['tokens']; // Setting the type here because setupTokens is recursive
 
   const { breakpoints, name } = mergedTheme;
 
@@ -95,7 +69,10 @@ export function createTheme(
    */
   if (mergedTheme.overrides) {
     overrides = mergedTheme.overrides.map((override) => {
-      const tokens = setupTokens(override.tokens);
+      const tokens = setupTokens({
+        tokens: override.tokens,
+        setupToken,
+      });
       const customProperties = flattenProperties(tokens)
         .map((token) => `${token.name}: ${token.value};`)
         .join('\n');

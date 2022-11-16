@@ -28,7 +28,6 @@ type FieldControlErrorTokens<Output> = DesignTokenProperties<
 
 type FieldControlQuietTokens<Output> = DesignTokenProperties<
   | 'borderStyle'
-  | 'borderBlockEnd'
   | 'borderInlineStart'
   | 'borderInlineEnd'
   | 'borderBlockStart'
@@ -129,9 +128,6 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
 
   quiet: {
     borderStyle: { value: 'none' },
-    borderBlockEnd: {
-      value: '{borderWidths.small.value} solid {colors.border.primary.value}',
-    },
     borderInlineStart: { value: 'none' },
     borderInlineEnd: { value: 'none' },
     borderBlockStart: { value: 'none' },

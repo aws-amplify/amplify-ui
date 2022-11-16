@@ -9,8 +9,7 @@ describe('@aws-amplify/ui', () => {
   describe('createTheme', () => {
     describe('without a base theme', () => {
       const { tokens } = createTheme({ name: 'test-theme' });
-
-      tokens.borderWidths.large.name;
+      console.log(tokens.space);
 
       // This will allow users to use the token in a style prop
       // without `.value` and for it to use the CSS variable
@@ -189,8 +188,53 @@ describe('@aws-amplify/ui', () => {
         expect(tokens.colors.background.secondary.value).toEqual(
           'var(--amplify-colors-neutral-10)'
         );
+        expect(`${tokens.colors.background.primary}`).toEqual(
+          'var(--amplify-colors-background-primary)'
+        );
         expect(tokens.colors.background.primary.value).toEqual('#bada55');
       });
+    });
+
+    it('should poop', () => {
+      const { tokens } = createTheme({
+        name: 'test',
+        tokens: {
+          colors: {
+            neutral: {
+              100: { value: 'hotpink' },
+              90: 'teal',
+            },
+            background: {
+              primary: '{colors.neutral.100}',
+              secondary: '{colors.neutral.90.value}',
+              tertiary: { value: '{colors.neutral.90}' },
+            },
+          },
+        },
+      });
+      expect(tokens.colors.neutral[100].value).toEqual('hotpink');
+      expect(`${tokens.colors.neutral[100]}`).toEqual(
+        'var(--amplify-colors-neutral-100)'
+      );
+      expect(tokens.colors.neutral[90].value).toEqual('teal');
+      expect(`${tokens.colors.neutral[90]}`).toEqual(
+        'var(--amplify-colors-neutral-90)'
+      );
+      expect(tokens.colors.font.primary.value).toEqual(
+        'var(--amplify-colors-neutral-100)'
+      );
+      expect(tokens.colors.font.secondary.value).toEqual(
+        'var(--amplify-colors-neutral-90)'
+      );
+      expect(tokens.colors.background.primary.value).toEqual(
+        'var(--amplify-colors-neutral-100)'
+      );
+      expect(tokens.colors.background.secondary.value).toEqual(
+        'var(--amplify-colors-neutral-90)'
+      );
+      expect(tokens.colors.background.tertiary.value).toEqual(
+        'var(--amplify-colors-neutral-90)'
+      );
     });
   });
 });

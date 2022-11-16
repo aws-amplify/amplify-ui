@@ -53,9 +53,7 @@ export type FlexDirectionValue = string;
 export type FlexValue = string;
 export type FlexWrapValue = string;
 
-// `fontSize` values are `string` for web and `number` for react-native
-export type FontSizeValue<Platform extends PlatformKey = unknown> =
-  Platform extends 'react-native' ? number : string;
+export type FontSizeValue = string | number;
 export type FontStyleValue = string;
 export type FontValue = string;
 export type FontWeightValue = string | number;
@@ -64,9 +62,7 @@ export type JustifyContentValue = string;
 export type LineHeightValue = string | number;
 export type ObjectFitValue = string;
 
-// `opacity` values are `string` for web and `number` for react-native
-export type OpacityValue<Platform extends PlatformKey = unknown> =
-  Platform extends 'react-native' ? number : string;
+export type OpacityValue = string | number;
 
 export type OutlineOffsetValue = string;
 export type OutlineWidthValue = string;
@@ -75,9 +71,7 @@ export type OutlineStyleValue = string;
 export type PositionValue = string;
 export type PointerEventsValue = string;
 
-// radius values are `string` for web and `number` for react-native
-export type RadiusValue<Platform extends PlatformKey = unknown> =
-  Platform extends 'react-native' ? number : string;
+export type RadiusValue = string | number;
 
 export type ShadowValue =
   | {
@@ -93,15 +87,11 @@ export type StrokeEmptyValue = string;
 export type StrokeLinecapValue = string;
 export type StrokeWidthValue = string;
 
-// radius values are `string` for web and `number` for react native
-export type SpaceValue<Platform extends PlatformKey = unknown> =
-  Platform extends 'react-native' ? number : string;
+export type SpaceValue = string | number;
 
 export type TextAlignValue = string;
 
-// `radius` values are `string` for web and `number` for react native
-export type TimeValue<Platform extends PlatformKey = unknown> =
-  Platform extends 'react-native' ? number : string;
+export type TimeValue = string | number;
 
 export type TransformValue = string;
 export type TransitionDurationValue = string;
@@ -274,7 +264,7 @@ type RequiredTokenValues<
 > = Record<
   PropertyValueKey,
   Platform extends 'react-native'
-    ? PropertyValue
+    ? DesignToken<PropertyValue>
     : WebDesignToken<PropertyValue>
 >;
 
@@ -282,23 +272,13 @@ type OptionalTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
   Platform extends PlatformKey = unknown
-> = Partial<
-  Record<
-    PropertyValueKey,
-    Platform extends 'react-native' ? PropertyValue : DesignToken<PropertyValue>
-  >
->;
+> = Partial<Record<PropertyValueKey, DesignToken<PropertyValue>>>;
 
 type DefaultTokenValues<
   PropertyValueKey extends PropKey,
   PropertyValue,
   Platform extends PlatformKey = unknown
-> = Required<
-  Record<
-    PropertyValueKey,
-    Platform extends 'react-native' ? PropertyValue : DesignToken<PropertyValue>
-  >
->;
+> = Required<Record<PropertyValueKey, DesignToken<PropertyValue>>>;
 
 /**
  * Utility for creating token interfaces in `Theme`

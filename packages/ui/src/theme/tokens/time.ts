@@ -9,7 +9,7 @@ type Duration = 'short' | 'medium' | 'long';
 export type Time<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = DesignTokenValues<Duration, TimeValue<Platform>, Output, Platform>;
+> = DesignTokenValues<Duration, TimeValue, Output, Platform>;
 
 export const time: Time<'default'> = {
   short: { value: '100ms' },
