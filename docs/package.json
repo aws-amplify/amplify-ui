@@ -12,11 +12,11 @@
     "build": "yarn build:props-tables && next build",
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables-data.ts",
     "lint": "next lint",
-    "postbuild": "yarn postbuild:previews && yarn postbuild:sitemap",
+    "postbuild": "yarn test && yarn postbuild:previews && yarn postbuild:sitemap",
     "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
     "start": "next start",
-    "test": "$_ run build"
+    "test": "jest"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "4.0.0",
@@ -58,6 +58,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^29.2.3",
     "@types/lodash": "^4.14.170",
     "@types/node": "^14.14.31",
     "@types/react": "17.0.47",
@@ -70,10 +71,12 @@
     "eslint": "^7.32.0",
     "eslint-config-next": "12.0.10",
     "globby": "^13.1.1",
+    "jest": "^29.3.1",
     "postcss": "^8.2.6",
     "remark": "^14.0.2",
     "remark-html": "^15.0.1",
     "sitemap-urls": "^3.0.0",
+    "ts-jest": "^29.0.3",
     "ts-morph": "^15.1.0"
   }
 }
