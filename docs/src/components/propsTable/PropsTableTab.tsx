@@ -15,7 +15,7 @@ function PropsTableSet({
 }) {
   return (
     <>
-      <Heading level={4} id={componentName}>
+      <Heading level={2} id={componentName} className="amplify-heading--4">
         <Link aria-hidden="true" tabIndex={-1} href={`#${componentName}`}>
           <span className="icon icon-link"></span>
         </Link>
