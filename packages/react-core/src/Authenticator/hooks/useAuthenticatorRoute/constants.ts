@@ -82,8 +82,10 @@ const SETUP_TOTP_MACHINE_KEYS: SetupTOTPMachineKey[] = [
   'toSignIn',
   'user',
 ];
-const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] =
-  COMMON_ROUTE_MACHINE_KEYS;
+const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
+  'skipVerification',
+];
 
 export const MACHINE_PROP_KEYS: Record<
   AuthenticatorRouteComponentKey,
