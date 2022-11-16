@@ -33,7 +33,6 @@ describe('FaceLivenessDetector', () => {
     videoRef: { current: document.createElement('video') },
     videoHeight: 100,
     videoWidth: 100,
-    streamOffset: 20,
   });
 
   const mockVideoConstraints = {};

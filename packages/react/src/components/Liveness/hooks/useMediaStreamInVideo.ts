@@ -4,7 +4,6 @@ interface UseMediaStreamInVideoResult {
   videoRef: React.MutableRefObject<HTMLVideoElement>;
   videoHeight: number;
   videoWidth: number;
-  streamOffset: number;
 }
 
 export function useMediaStreamInVideo(
@@ -17,7 +16,6 @@ export function useMediaStreamInVideo(
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoHeight, setVideoHeight] = useState<number>(height);
   const [videoWidth, setVideoWidth] = useState<number>(width);
-  const [streamOffset, setStreamOffset] = useState<number>(0);
 
   useEffect(() => {
     if (stream) {
@@ -25,11 +23,8 @@ export function useMediaStreamInVideo(
       const { height: streamHeight, width: streamWidth } = stream
         .getTracks()[0]
         .getSettings();
-      const offsetHeight = window.innerHeight - streamHeight;
-
       setVideoHeight(streamHeight);
       setVideoWidth(streamWidth);
-      setStreamOffset(offsetHeight <= 0 ? 0 : offsetHeight / 2);
     }
 
     return () => {
@@ -46,6 +41,5 @@ export function useMediaStreamInVideo(
     videoRef,
     videoHeight,
     videoWidth,
-    streamOffset,
   };
 }

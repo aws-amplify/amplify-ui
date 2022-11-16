@@ -35,8 +35,10 @@ export const LivenessCameraModule = (
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
 
-  const { videoRef, videoHeight, videoWidth, streamOffset } =
-    useMediaStreamInVideo(videoStream, videoConstraints);
+  const { videoRef, videoHeight, videoWidth } = useMediaStreamInVideo(
+    videoStream,
+    videoConstraints
+  );
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const freshnessColorRef = useRef<HTMLDivElement | null>(null);
 
@@ -120,7 +122,10 @@ export const LivenessCameraModule = (
           position="fixed"
           top={0}
           left={0}
-          style={{ pointerEvents: 'none', zIndex: 1 }}
+          style={{
+            pointerEvents: 'none',
+            zIndex: 1,
+          }}
           hidden
         />
 
@@ -145,57 +150,63 @@ export const LivenessCameraModule = (
         />
 
         {isRecording && (
-          <View position="absolute" top="medium" left="medium">
+          <View
+            style={{ zIndex: 1 }}
+            position="absolute"
+            top="medium"
+            left="medium"
+          >
             <RecordingIcon />
           </View>
         )}
 
-        <View position="absolute" top="medium" right="medium">
+        <View
+          style={{ zIndex: 1 }}
+          position="absolute"
+          top="medium"
+          right="medium"
+        >
           <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
         </View>
-      </Flex>
+        {countDownRunning && (
+          <Flex
+            direction="column"
+            alignItems="center"
+            position={'absolute'}
+            width="100%"
+            style={{ zIndex: 1 }}
+            bottom="medium"
+          >
+            <Instruction />
 
-      {countDownRunning && (
-        <Flex
-          direction="column"
-          alignItems="center"
-          position={'absolute'}
-          width="100%"
-          bottom={
-            isMobileScreen
-              ? `calc(${streamOffset} + var(--amplify-space-medium))`
-              : `var(--amplify-space-medium)`
-          }
-        >
-          <Instruction />
-
-          {isNotRecording && (
-            <View
-              backgroundColor="background.primary"
-              borderRadius="100%"
-              padding="8px"
-            >
-              <CountdownCircleTimer
-                isPlaying={isNotRecording}
-                size={85}
-                strokeWidth={8}
-                duration={3}
-                rotation="counterclockwise"
-                // FIXME: colors is hard coded because it only allows a hex value
-                colors="#40aabf"
-                trailColor={`${tokens.colors.background.primary}`}
-                onComplete={timerCompleteHandler}
+            {isNotRecording && (
+              <View
+                backgroundColor="background.primary"
+                borderRadius="100%"
+                padding="8px"
               >
-                {({ remainingTime }) => (
-                  <Text fontSize="xxxl" fontWeight="bold">
-                    {remainingTime}
-                  </Text>
-                )}
-              </CountdownCircleTimer>
-            </View>
-          )}
-        </Flex>
-      )}
+                <CountdownCircleTimer
+                  isPlaying={isNotRecording}
+                  size={85}
+                  strokeWidth={8}
+                  duration={3}
+                  rotation="counterclockwise"
+                  // FIXME: colors is hard coded because it only allows a hex value
+                  colors="#40aabf"
+                  trailColor={`${tokens.colors.background.primary}`}
+                  onComplete={timerCompleteHandler}
+                >
+                  {({ remainingTime }) => (
+                    <Text fontSize="xxxl" fontWeight="bold">
+                      {remainingTime}
+                    </Text>
+                  )}
+                </CountdownCircleTimer>
+              </View>
+            )}
+          </Flex>
+        )}
+      </Flex>
     </Flex>
   );
 };
