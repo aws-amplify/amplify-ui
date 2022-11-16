@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { remark } from 'remark';
 import html from 'remark-html';
-import { Badge, TableRow, View } from '@aws-amplify/ui-react';
+import { Badge, TableRow } from '@aws-amplify/ui-react';
 import { ResponsiveTableCell } from '@/components/ResponsiveTable';
 import { CodeHighlight } from '@/components/CodeHighlight';
 import { Property } from '../../../scripts/types/catalog';
