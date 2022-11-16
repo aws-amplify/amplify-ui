@@ -62,7 +62,9 @@ export type JustifyContentValue = string;
 export type LineHeightValue = string | number;
 export type ObjectFitValue = string;
 
-export type OpacityValue = string | number;
+// `opacity` values are `string` for web and `number` for react-native
+export type OpacityValue<Platform extends PlatformKey = unknown> =
+  Platform extends 'react-native' ? number : string;
 
 export type OutlineOffsetValue = string;
 export type OutlineWidthValue = string;

@@ -2,13 +2,10 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import resolveObject from 'style-dictionary/lib/utils/resolveObject';
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
 import { reactNativeTokens, setupTokens, SetupToken } from '@aws-amplify/ui';
-import { DefaultTheme, Theme, StrictTheme } from './types';
+import { DefaultTheme, Theme, StrictTheme, ColorMode } from './types';
 
 const defaultTheme: DefaultTheme = {
   tokens: reactNativeTokens,
-  name: 'default-theme',
-  // TODO: We should move colorMode out of the Theme object
-  colorMode: 'system',
 };
 
 const setupToken: SetupToken<string | number> = ({ token }) => {
@@ -36,7 +33,10 @@ const setupToken: SetupToken<string | number> = ({ token }) => {
  * const myTheme = createTheme({})
  * const myOtherTheme = createTheme({}, myTheme);
  */
-export const createTheme = (theme?: Theme): StrictTheme => {
+export const createTheme = (
+  theme?: Theme,
+  colorMode?: ColorMode
+): StrictTheme => {
   // merge custom `theme` param and `StrictTheme` to get the merged theme.
   // `deepExtend` is a Style Dictionary method that performs a deep merge on n objects.
   const mergedTheme = deepExtend([
@@ -51,9 +51,9 @@ export const createTheme = (theme?: Theme): StrictTheme => {
   // We need to merge in any applicable overrides because we need to
   // resolve the values of all tokens at runtime based on which
   // overrides are present and should be applied
-  if (theme?.overrides && theme.overrides.length) {
+  if (theme?.overrides?.length) {
     theme.overrides.forEach((override) => {
-      if (override.colorMode && override.colorMode === theme.colorMode) {
+      if (override?.colorMode === colorMode) {
         mergedTokens = deepExtend([
           {},
           mergedTokens,
@@ -74,5 +74,11 @@ export const createTheme = (theme?: Theme): StrictTheme => {
     }) as StrictTheme['tokens']
   );
 
-  return { ...mergedTheme, tokens };
+  // Resolve component token references too
+  const { components } = resolveObject({
+    components: mergedTheme.components,
+    ...tokens,
+  });
+
+  return { ...mergedTheme, tokens, components };
 };

@@ -9,8 +9,10 @@ export interface Components {
   bottomSheet: BottomSheetStyle;
 }
 
-type ColorMode = 'light' | 'dark' | 'system';
-type Override = Omit<Theme, 'overrides'>;
+export type ColorMode = 'light' | 'dark' | 'system';
+type Override = Omit<Theme, 'overrides'> & {
+  colorMode?: ColorMode;
+};
 
 // re-name and export to align naming with `StrictTheme`
 export type StrictTokens = ReactNativeTokens<'required'>;
@@ -22,7 +24,7 @@ export type Tokens = PartialDeep<StrictTokens>;
  * A Theme just needs a name, all other properties are optional.
  */
 export interface Theme {
-  colorMode?: ColorMode;
+  // colorMode?: ColorMode;
   /**
    * Custom component styles
    */
@@ -30,7 +32,7 @@ export interface Theme {
   /**
    * The name of the theme.
    */
-  name: string;
+  // name: string;
   /**
    * Component and component agnostic tokens.
    */
@@ -42,9 +44,9 @@ export interface Theme {
   overrides?: Override[];
 }
 
-export interface DefaultTheme
-  extends Required<Pick<Theme, 'name' | 'colorMode'>> {
+export interface DefaultTheme {
   tokens: ReactNativeTokens<'default'>;
+  overrides?: Override[];
 }
 
 /**

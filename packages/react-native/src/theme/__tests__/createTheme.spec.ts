@@ -4,7 +4,6 @@ import { createTheme } from '../createTheme';
 describe('createTheme', () => {
   describe('with mixture of value and no value', () => {
     const { tokens } = createTheme({
-      name: 'test-tokens',
       tokens: {
         colors: {
           neutral: {
@@ -47,7 +46,6 @@ describe('createTheme', () => {
 
   describe('without a base theme', () => {
     const { tokens, components } = createTheme({
-      name: 'test-theme',
       components: { bottomSheet: { container: { backgroundColor: 'red' } } },
     });
 
@@ -60,24 +58,98 @@ describe('createTheme', () => {
   });
   //TODO add more tests once component tokens are added
 
-  describe('dark mode override', () => {
-    const { tokens } = createTheme({
-      name: 'test',
-      colorMode: 'dark',
-      overrides: [
-        {
-          colorMode: 'dark',
-          name: 'foo',
-          tokens: {
-            colors: {
-              neutral: {
-                100: 'white',
-              },
+  describe('component references', () => {
+    it('should have tokens', () => {
+      const { components } = createTheme({
+        components: {
+          bottomSheet: { container: { backgroundColor: '{colors.red.10}' } },
+        },
+      });
+      expect(components?.bottomSheet.container.backgroundColor).toBe(
+        'hsl(0, 75%, 95%)'
+      );
+    });
+
+    it('should work for overridden tokens', () => {
+      const { components } = createTheme({
+        tokens: {
+          colors: {
+            background: {
+              primary: '{colors.white}',
             },
           },
         },
-      ],
+        components: {
+          bottomSheet: {
+            container: {
+              backgroundColor: '{colors.background.primary}',
+              padding: '{space.xl}',
+              opacity: '{opacities.10}',
+            },
+          },
+        },
+      });
+      expect(components?.bottomSheet.container.backgroundColor).toBe(
+        'hsl(0, 0%, 100%)'
+      );
+      expect(components?.bottomSheet.container.padding).toBe(32);
+      expect(components?.bottomSheet.container.opacity).toBe(0.1);
     });
+
+    it('should work for token overrides', () => {
+      const { components } = createTheme(
+        {
+          tokens: {
+            colors: {
+              background: {
+                primary: '{colors.white}',
+              },
+            },
+          },
+          overrides: [
+            {
+              colorMode: 'dark',
+              tokens: {
+                colors: {
+                  background: {
+                    primary: '{colors.black}',
+                  },
+                },
+              },
+            },
+          ],
+          components: {
+            bottomSheet: {
+              container: { backgroundColor: '{colors.background.primary}' },
+            },
+          },
+        },
+        'dark'
+      );
+      expect(components?.bottomSheet.container.backgroundColor).toBe(
+        'hsl(0, 0%, 0%)'
+      );
+    });
+  });
+
+  describe('dark mode override', () => {
+    const { tokens } = createTheme(
+      {
+        overrides: [
+          {
+            colorMode: 'dark',
+            tokens: {
+              colors: {
+                neutral: {
+                  100: 'white',
+                },
+              },
+            },
+          },
+        ],
+      },
+      'dark'
+    );
 
     it('should properly resolve references', () => {
       expect(tokens.colors.font.primary).toEqual('white');
