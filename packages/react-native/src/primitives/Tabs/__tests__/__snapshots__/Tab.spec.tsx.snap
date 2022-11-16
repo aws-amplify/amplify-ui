@@ -17,6 +17,13 @@ exports[`Tab can apply custom styling 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "padding": 12,
+      },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
       null,
       Array [
         Object {
@@ -42,6 +49,9 @@ exports[`Tab can apply custom styling 1`] = `
       Array [
         Object {
           "alignSelf": "center",
+          "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
+          "fontWeight": "700",
         },
         Array [
           Object {
@@ -77,6 +87,13 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "padding": 12,
+      },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
       null,
       Array [
         Object {
@@ -105,6 +122,9 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
       Array [
         Object {
           "alignSelf": "center",
+          "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
+          "fontWeight": "700",
         },
         Array [
           Object {
@@ -144,6 +164,13 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "padding": 12,
+      },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
       null,
       Array [
         Object {
@@ -184,6 +211,13 @@ exports[`Tab renders default Tab as expected 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "padding": 12,
+      },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
       null,
       Array [
         Object {
@@ -206,6 +240,9 @@ exports[`Tab renders default Tab as expected 1`] = `
       Array [
         Object {
           "alignSelf": "center",
+          "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
+          "fontWeight": "700",
         },
         Array [
           Object {
