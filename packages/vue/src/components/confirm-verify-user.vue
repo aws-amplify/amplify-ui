@@ -3,6 +3,7 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
+  authenticatorTextUtil,
   getActorState,
   getFormDataFromEvent,
   SignInState,
@@ -24,12 +25,14 @@ const actorState: ComputedRef<SignInState> = computed(
   () => getActorState(state.value) as SignInState
 );
 
+// Text Util
+const { getAccountRecoveryInfoText, getSkipText, getSubmitText } =
+  authenticatorTextUtil;
+
 // Computed Properties
-const verifyHeading = computed(() =>
-  translate('Account recovery requires verified contact information')
-);
-const skipText = computed(() => translate('Skip'));
-const submitText = computed(() => translate('Submit'));
+const verifyHeading = computed(() => getAccountRecoveryInfoText());
+const skipText = computed(() => getSkipText());
+const submitText = computed(() => getSubmitText());
 
 // Methods
 const onInput = (e: Event): void => {

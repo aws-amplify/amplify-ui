@@ -10,6 +10,7 @@ import {
   StepperFieldSizeExample,
   StepperFieldValidationErrorExample,
   StepperFieldThemeExample,
+  StepperFieldStylePropsExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -275,33 +276,13 @@ _Using data attributes:_
 
 _Using style props:_
 
-<Example>
-  <StepperField
-    label="Stepper"
-    defaultValue={0}
-    min={0}
-    max={10}
-    step={1}
-    backgroundColor="var(--amplify-colors-teal-60)"
-    border="1px solid var(--amplify-colors-teal-60)"
-    color="var(--amplify-colors-white)"
-    labelHidden
-  />
-  <ExampleCode>
-    ```jsx
-    import { StepperField } from '@aws-amplify/ui-react';
+All style props will be applied to the [`Flex`](flex) wrapper of the `StepperField`. To style the `input` of the `StepperField`, you can pass a `inputStyles` prop with the style props you want to apply to the input.
 
-    <StepperField
-      label="Stepper"
-      defaultValue={0}
-      min={0}
-      max={10}
-      step={1}
-      color="var(--amplify-colors-white)"
-      border="1px solid var(--amplify-colors-teal-60)"
-      backgroundColor="var(--amplify-colors-teal-60)"
-      labelHidden
-    />;
+<Example>
+  <StepperFieldStylePropsExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/StepperFieldStylePropsExample.tsx
     ```
 
   </ExampleCode>

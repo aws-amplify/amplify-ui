@@ -1,6 +1,6 @@
 import { Fragment } from '@/components/Fragment';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
-import { TableCell, TableBody, TableHead, TableRow } from '@aws-amplify/ui-react';
+import { TableCell, TableBody, TableHead, TableRow, Alert } from '@aws-amplify/ui-react';
 
 ## Override Function Calls
 
@@ -10,12 +10,17 @@ To override a call you must create a new `services` object with an `async` `hand
 The service object must then be passed into the `authenticator` component as a `services` prop. For example, let's imagine you'd like to lowercase the `username` and the `email` attributes during `signUp`.
 This would be overriden like so:
 
+<Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
+  When overriding `signUp` you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
+</Alert>
+
 <Fragment>
   {({ platform }) => import(`./overrides/username.${platform}.mdx`)}
 </Fragment>
 
-Each `handle*` function will return the neccessary values you'll need to make the call to the `Auth.*` function call. Here is a table of each override function name, and the values returned from `formData`.
 
+
+Each `handle*` function will return the neccessary values you'll need to make the call to the `Auth.*` function call. Here is a table of each override function name, and the values returned from `formData`.
 <ResponsiveTable labelWidth="10rem">
   <TableHead>
     <TableRow>

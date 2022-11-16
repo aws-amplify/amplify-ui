@@ -1,0 +1,555 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Radio renders as expected when disabled 1`] = `
+<View
+  accessibilityRole="radio"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "opacity": 0.6,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderColor": "#317d95",
+          "borderRadius": 999,
+          "borderWidth": 2,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 20,
+          "width": 20,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    disabled
+  </Text>
+</View>
+`;
+
+exports[`Radio renders as expected when passing a number to the size prop 1`] = `
+<View
+  accessibilityRole="radio"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderColor": "#317d95",
+          "borderRadius": 999,
+          "borderWidth": 2,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 40,
+          "width": 40,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#317d95",
+            "borderRadius": 999,
+          },
+          Object {
+            "height": 20,
+            "width": 20,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    number
+  </Text>
+</View>
+`;
+
+exports[`Radio renders as expected when selected is false 1`] = `
+<View
+  accessibilityRole="radio"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderColor": "#317d95",
+          "borderRadius": 999,
+          "borderWidth": 2,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 20,
+          "width": 20,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    false
+  </Text>
+</View>
+`;
+
+exports[`Radio renders as expected when selected is true 1`] = `
+<View
+  accessibilityRole="radio"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderColor": "#317d95",
+          "borderRadius": 999,
+          "borderWidth": 2,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 20,
+          "width": 20,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#317d95",
+            "borderRadius": 999,
+          },
+          Object {
+            "height": 10,
+            "width": 10,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    true
+  </Text>
+</View>
+`;
+
+exports[`Radio renders as expected when size is large 1`] = `
+<View
+  accessibilityRole="radio"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderColor": "#317d95",
+          "borderRadius": 999,
+          "borderWidth": 2,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 24,
+          "width": 24,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#317d95",
+            "borderRadius": 999,
+          },
+          Object {
+            "height": 12,
+            "width": 12,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    large
+  </Text>
+</View>
+`;
+
+exports[`Radio renders as expected when size is medium 1`] = `
+<View
+  accessibilityRole="radio"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderColor": "#317d95",
+          "borderRadius": 999,
+          "borderWidth": 2,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 20,
+          "width": 20,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#317d95",
+            "borderRadius": 999,
+          },
+          Object {
+            "height": 10,
+            "width": 10,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    medium
+  </Text>
+</View>
+`;
+
+exports[`Radio renders as expected when size is small 1`] = `
+<View
+  accessibilityRole="radio"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderColor": "#317d95",
+          "borderRadius": 999,
+          "borderWidth": 2,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 16,
+          "width": 16,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#317d95",
+            "borderRadius": 999,
+          },
+          Object {
+            "height": 8,
+            "width": 8,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        undefined,
+      ]
+    }
+  >
+    small
+  </Text>
+</View>
+`;
+
+exports[`Radio renders as expected with accessibilityRole 1`] = `
+<View
+  accessibilityRole="none"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderColor": "#317d95",
+          "borderRadius": 999,
+          "borderWidth": 2,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 20,
+          "width": 20,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;

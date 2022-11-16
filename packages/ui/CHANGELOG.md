@@ -1,5 +1,120 @@
 # @aws-amplify/ui
 
+## 5.0.0
+
+### Major Changes
+
+- [#2828](https://github.com/aws-amplify/amplify-ui/pull/2828) [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(next-release): render Authenticator field labels
+
+- [#2558](https://github.com/aws-amplify/amplify-ui/pull/2558) [`d90b148c0`](https://github.com/aws-amplify/amplify-ui/commit/d90b148c0e06b3321f4f05fad2b32ef52c04214d) Thanks [@reesscot](https://github.com/reesscot)! - chore: upgrade radix to 1.0
+
+  Fixes error messages during `npm install` related to React 18. See Migration guide for more information:
+  https://ui.docs.amplify.aws/react/getting-started/migration
+
+### Patch Changes
+
+- [#2877](https://github.com/aws-amplify/amplify-ui/pull/2877) [`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7) Thanks [@ErikCH](https://github.com/ErikCH)! - **BREAKING**: When overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. This is now required.
+
+  ```diff
+   async handleSignUp(formData) {
+    let { username, password, attributes } = formData;
+    // custom username
+    username = username.toLowerCase();
+    attributes.email = attributes.email.toLowerCase();
+    return Auth.signUp({
+      username,
+      password,
+      attributes,
+  +   autoSignIn: {
+  +     enabled: true
+  +   }
+    });
+  }
+
+  ```
+
+## 4.1.0
+
+### Minor Changes
+
+- [#2708](https://github.com/aws-amplify/amplify-ui/pull/2708) [`702a35738`](https://github.com/aws-amplify/amplify-ui/commit/702a3573850639c492c51ce10e27e194d720d5ac) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: add Autocomplete primitive
+
+  **Example**
+
+  ```jsx
+  // Uncontrolled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteUncontrolledExample = () => {
+    return <Autocomplete label="Uncontrolled autocomplete" options={options} />;
+  };
+  ```
+
+  ```jsx
+  // Controlled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteControlledExample = () => {
+    const [value, setValue] = React.useState('');
+
+    const onChange = (event) => {
+      setValue(event.target.value);
+    };
+
+    // Set up onSelect
+    const onSelect = (option) => {
+      const { label } = option;
+      setValue(label);
+    };
+
+    // Set up onClear
+    const onClear = () => {
+      setValue('');
+    };
+
+    return (
+      <Autocomplete
+        label="Controlled autocomplete"
+        options={options}
+        value={value}
+        onChange={onChange}
+        onClear={onClear}
+        onSelect={onSelect}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2881](https://github.com/aws-amplify/amplify-ui/pull/2881) [`0935da51a`](https://github.com/aws-amplify/amplify-ui/commit/0935da51ac04334e458339da2bf0ef72f248cf26) Thanks [@francisGolden](https://github.com/francisGolden)! - Fix italian grammar in translation and improve accuracy
+
 ## 4.0.1
 
 ### Patch Changes

@@ -28,7 +28,6 @@ Feature: Map with LocationSearch
   @react
   Scenario: Clear search results
     When I search for "Amazon Go"
-    And I select the first search result
     And I clear the search results
     Then I see no map markers
     And I see no search results

@@ -5,6 +5,7 @@ Array [
   "Alert",
   "AmplifyProvider",
   "Authenticator",
+  "Autocomplete",
   "Badge",
   "Button",
   "ButtonGroup",
@@ -27,8 +28,11 @@ Array [
   "Geocoder",
   "Grid",
   "Heading",
+  "HighlightMatch",
   "Icon",
   "Image",
+  "InAppMessageDisplay",
+  "InAppMessagingProvider",
   "Link",
   "Loader",
   "LocationSearch",
@@ -74,9 +78,11 @@ Array [
   "useAmplify",
   "useAuthenticator",
   "useBreakpointValue",
+  "useInAppMessaging",
   "usePagination",
   "useTheme",
   "withAuthenticator",
+  "withInAppMessaging",
 ]
 `;
 
@@ -122,26 +128,10 @@ Array [
 ]
 `;
 
-exports[`@aws-amplify/ui-react/legacy exports should match snapshot 1`] = `
-Array [
-  "AmplifyAuthenticator",
-  "AmplifyChatbot",
-  "AmplifyPhotoPicker",
-  "AmplifyPicker",
-  "AmplifyS3Album",
-  "AmplifyS3Image",
-  "AmplifyS3ImagePicker",
-  "AmplifyS3Text",
-  "AmplifyS3TextPicker",
-  "AmplifySignIn",
-  "AmplifySignOut",
-  "withAuthenticator",
-]
-`;
-
 exports[`primitive catalog should match primitives list snapshot 1`] = `
 Array [
   "Alert",
+  "Autocomplete",
   "Badge",
   "Button",
   "ButtonGroup",
@@ -156,6 +146,7 @@ Array [
   "Flex",
   "Grid",
   "Heading",
+  "HighlightMatch",
   "Icon",
   "Image",
   "Link",
