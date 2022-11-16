@@ -43,10 +43,6 @@ describe('createTheme', () => {
     it('should resolve references from without .value to the default theme with .value', () => {
       expect(tokens.colors.background.secondary).toEqual('hsl(0, 0%, 100%)');
     });
-
-    it('should allow custom keys in the theme to be referenced without .value', () => {
-      expect(tokens.colors.background.tertiary).toEqual('#bada55');
-    });
   });
 
   describe('without a base theme', () => {
