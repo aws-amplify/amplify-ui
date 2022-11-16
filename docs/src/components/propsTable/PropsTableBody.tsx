@@ -31,7 +31,7 @@ export const PropsTableBody = ([
         )}
       </ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
-        <CodeHighlight code={type} />
+        <CodeHighlight code={type} language="typescript" />
       </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">
         {/**
