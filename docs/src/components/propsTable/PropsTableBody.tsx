@@ -22,7 +22,7 @@ export const PropsTableBody = ([
         <CodeHighlight code={type} language="typescript" />
       </ResponsiveTableCell>
       <ResponsiveTableCell label="Description">
-        <ReactMarkdown>{description}</ReactMarkdown>
+        <ReactMarkdown>{description || '\\-'}</ReactMarkdown>
       </ResponsiveTableCell>
     </TableRow>
   );
