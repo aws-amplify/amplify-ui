@@ -46,18 +46,14 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
       <Text>{getDeliveryMessageText(codeDeliveryDetails)}</Text>
       <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-        textStyle={styles.buttonPrimaryLabel}
-      >
+      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
         {isPending ? getConfirmingText() : getConfirmText()}
       </Button>
       <Footer>
         <Button
           onPress={resendCode}
+          variant="secondary"
           style={styles.buttonSecondary}
-          textStyle={styles.buttonSecondaryLabel}
         >
           {getResendCodeText()}
         </Button>

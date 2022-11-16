@@ -95,7 +95,7 @@ describe('getRouteMachineSelector', () => {
     ],
     ['signUp', [...commonSelectorProps, toSignIn, validationErrors]],
     ['setupTOTP', [...commonSelectorProps, toSignIn, user]],
-    ['verifyUser', commonSelectorProps],
+    ['verifyUser', [...commonSelectorProps, skipVerification]],
   ])('returns the expected route selector for %s', (route, expected) => {
     const selector = getRouteMachineSelector(route as AuthenticatorRoute);
     const output = selector(machineContext);
@@ -154,7 +154,11 @@ describe('props resolver functions', () => {
       resolveSignUpRoute,
       { error, isPending, toSignIn, validationErrors },
     ],
-    ['VerifyUser', resolveVerifyUserRoute, { error, isPending }],
+    [
+      'VerifyUser',
+      resolveVerifyUserRoute,
+      { error, isPending, skipVerification },
+    ],
   ])(
     'resolve%s returns the expected values',
     (key, resolver, routeSpecificProps) => {
