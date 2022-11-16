@@ -9,7 +9,6 @@ describe('@aws-amplify/ui', () => {
   describe('createTheme', () => {
     describe('without a base theme', () => {
       const { tokens } = createTheme({ name: 'test-theme' });
-      console.log(tokens.space);
 
       // This will allow users to use the token in a style prop
       // without `.value` and for it to use the CSS variable
@@ -195,46 +194,56 @@ describe('@aws-amplify/ui', () => {
       });
     });
 
-    it('should poop', () => {
+    describe('with mixture of value and no value', () => {
       const { tokens } = createTheme({
-        name: 'test',
+        name: 'test-tokens',
         tokens: {
           colors: {
             neutral: {
               100: { value: 'hotpink' },
-              90: 'teal',
+            },
+            font: {
+              secondary: { value: '{colors.red.10}' },
+              tertiary: { value: '{colors.red.10.value}' },
             },
             background: {
-              primary: '{colors.neutral.100}',
-              secondary: '{colors.neutral.90.value}',
-              tertiary: { value: '{colors.neutral.90}' },
+              primary: '{colors.black}',
+              secondary: '{colors.white.value}',
             },
           },
         },
       });
-      expect(tokens.colors.neutral[100].value).toEqual('hotpink');
-      expect(`${tokens.colors.neutral[100]}`).toEqual(
-        'var(--amplify-colors-neutral-100)'
-      );
-      expect(tokens.colors.neutral[90].value).toEqual('teal');
-      expect(`${tokens.colors.neutral[90]}`).toEqual(
-        'var(--amplify-colors-neutral-90)'
-      );
-      expect(tokens.colors.font.primary.value).toEqual(
-        'var(--amplify-colors-neutral-100)'
-      );
-      expect(tokens.colors.font.secondary.value).toEqual(
-        'var(--amplify-colors-neutral-90)'
-      );
-      expect(tokens.colors.background.primary.value).toEqual(
-        'var(--amplify-colors-neutral-100)'
-      );
-      expect(tokens.colors.background.secondary.value).toEqual(
-        'var(--amplify-colors-neutral-90)'
-      );
-      expect(tokens.colors.background.tertiary.value).toEqual(
-        'var(--amplify-colors-neutral-90)'
-      );
+
+      it('should work with .value', () => {
+        expect(tokens.colors.neutral[100].value).toEqual('hotpink');
+        expect(`${tokens.colors.neutral[100]}`).toEqual(
+          'var(--amplify-colors-neutral-100)'
+        );
+      });
+
+      it('should work without .value', () => {
+        expect(tokens.colors.background.primary.value).toEqual(
+          'var(--amplify-colors-black)'
+        );
+      });
+
+      it('should work with .value on reference without .value', () => {
+        expect(tokens.colors.font.secondary.value).toEqual(
+          'var(--amplify-colors-red-10)'
+        );
+      });
+
+      it('should work with .value on reference with .value', () => {
+        expect(tokens.colors.font.tertiary.value).toEqual(
+          'var(--amplify-colors-red-10)'
+        );
+      });
+
+      it('should work without .value on references with .value', () => {
+        expect(tokens.colors.background.secondary.value).toEqual(
+          'var(--amplify-colors-white)'
+        );
+      });
     });
   });
 });
