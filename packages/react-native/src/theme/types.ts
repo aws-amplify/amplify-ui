@@ -3,10 +3,26 @@ import { ReactNativeTokens } from '@aws-amplify/ui';
 
 // TODO: delete this example and update unit test
 type BottomSheetStyle = { container: ViewStyle };
-export interface Components {
+
+// Util that takes a theme shape
+// and if it is an input of createTheme it can be the theme shape OR a function
+// that takes in base tokens as an argument and returns that shape.
+// If it is an output, it should be that shape.
+type ComponentTheme<ComponentType, Output> = Output extends 'output'
+  ? ComponentType
+  : ((tokens: StrictTheme['tokens']) => ComponentType) | ComponentType;
+
+// TODO: make optional all the way down
+export type Components<Output> = Record<string, object> & {
   // TODO: add components
-  bottomSheet: BottomSheetStyle;
-}
+  bottomSheet?: BottomSheetStyle;
+  test?: ComponentTheme<
+    {
+      container?: ViewStyle;
+    },
+    Output
+  >;
+};
 
 export type ColorMode = 'light' | 'dark' | 'system';
 type Override = Omit<Theme, 'overrides'> & {
@@ -16,22 +32,17 @@ type Override = Omit<Theme, 'overrides'> & {
 // re-name and export to align naming with `StrictTheme`
 export type StrictTokens = ReactNativeTokens<'required'>;
 
-// `StrictTokens` but everything optional for custom themes
+// Everything optional for custom themes
 export type Tokens = ReactNativeTokens<'optional'>;
 
 /**
  * A Theme just needs a name, all other properties are optional.
  */
 export interface Theme {
-  // colorMode?: ColorMode;
   /**
    * Custom component styles
    */
-  components?: Components;
-  /**
-   * The name of the theme.
-   */
-  // name: string;
+  components?: Components<'input'>;
   /**
    * Component and component agnostic tokens.
    */
@@ -45,7 +56,6 @@ export interface Theme {
 
 export interface DefaultTheme {
   tokens: ReactNativeTokens<'default'>;
-  overrides?: Override[];
 }
 
 /**
@@ -58,6 +68,6 @@ export interface DefaultTheme {
  */
 export interface StrictTheme {
   tokens: StrictTokens;
-  components?: Components;
+  components?: Components<'output'>;
   overrides?: Override[];
 }

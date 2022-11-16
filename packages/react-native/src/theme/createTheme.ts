@@ -8,6 +8,28 @@ const defaultTheme: DefaultTheme = {
   tokens: reactNativeTokens,
 };
 
+// This will resolve all references in component themes by either
+// calling the component theme function with the already resolved base tokens
+// OR
+// resolving the component theme object
+const setupComponents = (theme: StrictTheme) => {
+  const output = {};
+  if (theme.components) {
+    const { components } = theme;
+    for (const [key, value] of Object.entries(components)) {
+      if (typeof value === 'function') {
+        output[key] = value(theme.tokens) as object;
+      } else {
+        output[key] = value;
+      }
+    }
+  }
+  return resolveObject({
+    ...theme.tokens,
+    components: output,
+  }).components;
+};
+
 const setupToken: SetupToken<string | number> = ({ token, path = [] }) => {
   const { value } = token;
   if (typeof value === 'string') {
@@ -77,11 +99,12 @@ export const createTheme = (
     }) as StrictTheme['tokens']
   );
 
+  let { components } = mergedTheme;
+
   // Resolve component token references too
-  const { components } = resolveObject({
-    components: mergedTheme.components,
-    ...tokens,
-  });
+  if (mergedTheme.components) {
+    components = setupComponents({ ...mergedTheme, tokens });
+  }
 
   return { ...mergedTheme, tokens, components };
 };

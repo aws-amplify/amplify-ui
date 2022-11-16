@@ -53,7 +53,7 @@ describe('createTheme', () => {
       expect(tokens).toBeDefined();
 
       expect(components).toBeDefined();
-      expect(components?.bottomSheet.container.backgroundColor).toBe('red');
+      expect(components?.bottomSheet?.container.backgroundColor).toBe('red');
     });
   });
   //TODO add more tests once component tokens are added
@@ -65,9 +65,70 @@ describe('createTheme', () => {
           bottomSheet: { container: { backgroundColor: '{colors.red.10}' } },
         },
       });
-      expect(components?.bottomSheet.container.backgroundColor).toBe(
+      expect(components?.bottomSheet?.container.backgroundColor).toBe(
         'hsl(0, 75%, 95%)'
       );
+    });
+
+    it('should resolve references in a functional component theme', () => {
+      const { components } = createTheme({
+        components: {
+          test(tokens) {
+            return {
+              container: {
+                backgroundColor: tokens.colors.background.primary,
+              },
+            };
+          },
+        },
+      });
+      expect(components?.test?.container?.backgroundColor).toBe(
+        'hsl(0, 0%, 100%)'
+      );
+    });
+
+    it('should resolve references in an object-based theme', () => {
+      const { components } = createTheme({
+        components: {
+          test: {
+            container: {
+              backgroundColor: '{colors.background.primary}',
+            },
+          },
+        },
+      });
+      expect(components?.test?.container?.backgroundColor).toBe(
+        'hsl(0, 0%, 100%)'
+      );
+    });
+
+    it('should respect colorMode', () => {
+      const { components } = createTheme(
+        {
+          components: {
+            test(tokens) {
+              return {
+                container: {
+                  // default value is a reference to colors.white
+                  backgroundColor: tokens.colors.background.primary,
+                },
+              };
+            },
+          },
+          overrides: [
+            {
+              colorMode: 'dark',
+              tokens: {
+                colors: {
+                  white: 'black',
+                },
+              },
+            },
+          ],
+        },
+        'dark'
+      );
+      expect(components?.test?.container?.backgroundColor).toBe('black');
     });
 
     it('should return proper React Native token types', () => {
@@ -93,10 +154,10 @@ describe('createTheme', () => {
           },
         },
       });
-      expect(components?.bottomSheet.container.backgroundColor).toBe(
+      expect(components?.bottomSheet?.container.backgroundColor).toBe(
         'hsl(0, 0%, 100%)'
       );
-      expect(components?.bottomSheet.container.padding).toBe(32);
+      expect(components?.bottomSheet?.container.padding).toBe(32);
     });
 
     it('should work for token overrides', () => {
@@ -129,7 +190,7 @@ describe('createTheme', () => {
         },
         'dark'
       );
-      expect(components?.bottomSheet.container.backgroundColor).toBe(
+      expect(components?.bottomSheet?.container.backgroundColor).toBe(
         'hsl(0, 0%, 0%)'
       );
     });
