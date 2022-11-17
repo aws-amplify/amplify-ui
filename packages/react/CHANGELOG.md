@@ -1,5 +1,13 @@
 # @aws-amplify/ui-react
 
+## 4.0.1
+
+### Patch Changes
+
+- [#3000](https://github.com/aws-amplify/amplify-ui/pull/3000) [`72c2c5d83`](https://github.com/aws-amplify/amplify-ui/commit/72c2c5d83163c158abacf1cabcbc6a78f5e7ae02) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Updates the useDataStore hook to generate the predicates according to the new syntax.
+
+- [#2964](https://github.com/aws-amplify/amplify-ui/pull/2964) [`ee4b37b6d`](https://github.com/aws-amplify/amplify-ui/commit/ee4b37b6dfc5b8263dfdb93602d9448a0b0b4709) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Fixes an issue where the Button loading spinner is not rendered unless the `loadingText` prop is supplied.
+
 ## 4.0.0
 
 ### Major Changes
