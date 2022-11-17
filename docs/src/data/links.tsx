@@ -142,8 +142,8 @@ export const connectedComponents: ComponentNavItem[] = [
   },
   {
     href: '/connected-components/storage/fileuploader',
-    label: 'FileUploader',
-    body: 'FileUploader component allows users to upload files to your Amplify backend.',
+    label: 'File Uploader',
+    body: 'File Uploader component allows users to upload files to your Amplify backend.',
     platforms: ['react'],
     tertiary: true,
   },

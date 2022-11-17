@@ -1,5 +1,5 @@
 import { FileUploader } from '@aws-amplify/ui-react';
-export const AcceptedFileTypesExample = () => {
+export const VariationExample = () => {
   return (
     <FileUploader
       variation="drop"

@@ -1,8 +1,8 @@
 import { FileUploader } from '@aws-amplify/ui-react';
-export const AcceptedFileTypesExample = () => {
+export const IsPreviewerVisibleExample = () => {
   return (
     <FileUploader
-      variation="drop"
+      isPreviewerVisible={true}
       acceptedFileTypes={['.gif', '.bmp', '.doc']}
       level="public"
       provider="slow" // IGNORE

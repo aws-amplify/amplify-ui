@@ -2,7 +2,17 @@ import { Alert } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import { DefaultFileUploaderExample, AcceptedFileTypesExample, FileUploaderErrorExample, FileUploaderThemeExample, 
-FileUploaderComponentsExample } from './examples'
+FileUploaderComponentsExample, LevelExample, IsPreviewerVisibleExample, VariationExample } from './examples'
+
+<Alert role="none" heading="Wait!">
+  Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the File Uploader first and the storage and auth services?
+
+</Alert>
+
+
+
+## Overview
+The File Uploader component allows your customers to seamlessly upload files to you. It's powered by our [S3 storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/) service.
 
 <Alert variation="info">
   The file uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
@@ -10,15 +20,43 @@ FileUploaderComponentsExample } from './examples'
 
 ## Usage
 
+To use the File Uploader component import it into your React application with the included styles. At a minimum you must include the `level` and the `acceptedFileTypes` prop.
+
 <Example>
   <DefaultFileUploaderExample />
   <ExampleCode>
+    ```jsx
+import { FileUploader } from '@aws-amplify/ui-react'; 
+import '@aws-amplify/ui-react/styles.css'
+    ```
     ```jsx file=./examples/DefaultFileUploaderExample.tsx
     ```
   </ExampleCode>
 </Example>
 
-### Accepted file types
+
+## Required Props
+The props listed below must be added to the File Uploader component.
+
+### File Level Access
+The `level` prop accepts a string of type `public`, `private`, or `protected`. This will affect what level of [access](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/) the files uploaded will have inside S3. This is a *required* prop and must be added to the File Uploader.
+
+<Example>
+  <LevelExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/LevelExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Alert role="none" variation="info" heading="Private and Protected Acccess">
+  If the `level` prop is set to `private` or `protected` the user must be authenticated. Otherwise an error will occur, and the upload will fail!
+</Alert>
+
+### Accepted File Types
+The `acceptedFileTypes` prop accepts an array of strings indicating the file extensions that will be allowed to be uploaded by the File Uploader. 
+
 
 <Example>
   <AcceptedFileTypesExample />
@@ -35,18 +73,58 @@ FileUploaderComponentsExample } from './examples'
 
 </Alert>
 
-Here are some common ones:
 
-* `"image/*"`
-* `"video/*"`
-* `"audio/*"`
-* `"text/plain"`
+## Default Display
 
-[List of of MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
+The uploader can be configured to display as a drop zone, a button, or start on a preview page when it is first loaded. 
 
-### Event handling
 
-#### Errors
+
+### Button or Drop Zone
+
+The `variation` prop can be added to show a `button` or as a `drop` area when the File Uploader loads.
+
+<Example>
+  <VariationExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/VariationExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Show Preview Page
+
+The `isPreviewerVisible` prop can be used to default to show the preview page on initial load of the File Uploader.
+
+<Example>
+  <IsPreviewerVisibleExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/IsPreviewerVisibleExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+
+
+## Setting Limits
+
+The following props allow you to set some on what the File Uploader will accept.
+
+### Max Files
+### Max Size
+### Multiple Files
+### Allow Resuming of Files
+
+
+
+## Event Handling
+
+### Success
+
+### Errors
 
 The FileUploader will send error information back to the `onError` function if there is an error during upload.
 
@@ -63,7 +141,7 @@ _This example will fail at 50%_
 
 ## Customization
 
-### Component overrides
+### Component Overrides
 
 You can override parts of the FileUploder component by passing in a `components` prop.
 
@@ -87,7 +165,7 @@ You can override parts of the FileUploder component by passing in a `components`
   </ExampleCode>
 </Example>
 
-### Target classes
+### Target Classes
 
 <ComponentStyleDisplay componentName="FileUploader" />
 
