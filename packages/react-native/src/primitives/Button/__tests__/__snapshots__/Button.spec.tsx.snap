@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button renders as expected with a component passed as children 1`] = `
+exports[`Button applies theme and style props 1`] = `
 <View
+  accessibilityRole="button"
   accessible={true}
   collapsable={false}
   focusable={true}
@@ -16,35 +17,17 @@ exports[`Button renders as expected with a component passed as children 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "padding": 12,
+      },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
       null,
       null,
-    ]
-  }
->
-  <Text>
-    A preesable button
-  </Text>
-</View>
-`;
-
-exports[`Button renders as expected with a string passed as children 1`] = `
-<View
-  accessible={true}
-  collapsable={false}
-  focusable={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderRelease={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  style={
-    Array [
-      null,
-      null,
+      Object {
+        "backgroundColor": "blue",
+      },
     ]
   }
 >
@@ -53,12 +36,99 @@ exports[`Button renders as expected with a string passed as children 1`] = `
       Array [
         Object {
           "alignSelf": "center",
+          "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
+          "fontWeight": "700",
+        },
+        Object {
+          "color": "red",
+        },
+      ]
+    }
+  >
+    A pressable button
+  </Text>
+</View>
+`;
+
+exports[`Button renders as expected with a component passed as children 1`] = `
+<View
+  accessibilityRole="button"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "padding": 12,
+      },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
+      null,
+      undefined,
+    ]
+  }
+>
+  <Text>
+    A pressable button
+  </Text>
+</View>
+`;
+
+exports[`Button renders as expected with a string passed as children 1`] = `
+<View
+  accessibilityRole="button"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "padding": 12,
+      },
+      Object {
+        "backgroundColor": "hsl(190, 95%, 30%)",
+      },
+      null,
+      null,
+      undefined,
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "alignSelf": "center",
+          "color": "hsl(0, 0%, 100%)",
+          "fontSize": 16,
+          "fontWeight": "700",
         },
         undefined,
       ]
     }
   >
-    A preesable button
+    A pressable button
   </Text>
 </View>
 `;

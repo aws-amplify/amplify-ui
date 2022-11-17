@@ -31,6 +31,13 @@ exports[`Tabs applies theme and custom styling 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Array [
           Object {
@@ -59,6 +66,9 @@ exports[`Tabs applies theme and custom styling 1`] = `
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
+            "fontWeight": "700",
           },
           Array [
             Object {
@@ -95,6 +105,13 @@ exports[`Tabs applies theme and custom styling 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Array [
           Object {
@@ -117,6 +134,9 @@ exports[`Tabs applies theme and custom styling 1`] = `
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
+            "fontWeight": "700",
           },
           Array [
             Object {

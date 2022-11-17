@@ -57,17 +57,13 @@ const VerifyUser: DefaultVerifyUserComponent = ({
       <Header>{getAccountRecoveryInfoText()}</Header>
       <FormFields isPending={isPending} fields={fieldsWithHandlers} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-        textStyle={styles.buttonPrimaryLabel}
-      >
+      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
         {isPending ? 'Verifying...' : getVerifyText()}
       </Button>
       <Button
         onPress={skipVerification}
+        variant="secondary"
         style={styles.buttonSecondary}
-        textStyle={styles.buttonSecondaryLabel}
       >
         {getSkipText()}
       </Button>
@@ -85,9 +81,11 @@ const FormFields: DefaultVerifyUserComponent['FormFields'] = ({
       {fields.map(({ label, name, value, ...props }) => (
         <Radio
           {...props}
-          key={name}
+          key={value}
+          // value has to be name, because Auth is only interested in the
+          // string "email" or "phone_number", not the actual value
           value={name}
-          label={censorContactInformation(label, value)}
+          label={censorContactInformation(name, value)}
         />
       ))}
     </RadioGroup>

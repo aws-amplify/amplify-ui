@@ -17,7 +17,6 @@
   "author": "",
   "devDependencies": {
     "cypress": "^9.5.1",
-    "@aws-amplify/ui": "^3.1.0",
     "@testing-library/cypress": "^7.0.6",
     "@types/cypress-cucumber-preprocessor": "^4.0.0",
     "cypress-cucumber-preprocessor": "^4.1.2",

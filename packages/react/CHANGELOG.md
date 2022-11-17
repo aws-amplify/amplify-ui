@@ -1,5 +1,82 @@
 # @aws-amplify/ui-react
 
+## 4.0.0
+
+### Major Changes
+
+- [#2556](https://github.com/aws-amplify/amplify-ui/pull/2556) [`54794d44c`](https://github.com/aws-amplify/amplify-ui/commit/54794d44c9fc8affff8f8b30f82f17b897da84f7) Thanks [@reesscot](https://github.com/reesscot)! - BREAKING CHANGE: `isMultiline` prop removed from `TextField`. Replace any `TextField` components
+  using the `isMultiline` prop with the `TextAreaField` component.
+
+  ```diff
+  - <TextField
+  -  isMultiline
+  + <TextAreaField
+  ```
+
+- [#2636](https://github.com/aws-amplify/amplify-ui/pull/2636) [`d71836994`](https://github.com/aws-amplify/amplify-ui/commit/d71836994a5d2f5b0e524f1ab176a88db18dec46) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - BREAKING CHANGE: No longer splitting out Flex and Base style props on Field primitives.
+  Instead, removing all style props to be applied to the wrapper element, the rest will be applied to the input element.
+  Adding `inputStyles` prop where developers can send style props to the input element (or textarea, select)
+  For `TextAreaField`, destructuring the `resize` style prop because it makes sense to apply that to the textarea element.
+
+  ```diff
+  - <TextField
+  -   backgroundColor="red"
+  + <TextField
+  +   inputStyles={{backgroundColor: "red"}}
+  ```
+
+- [#2786](https://github.com/aws-amplify/amplify-ui/pull/2786) [`20a3c6103`](https://github.com/aws-amplify/amplify-ui/commit/20a3c6103aad0883aa14adecfe706d1a6998adce) Thanks [@reesscot](https://github.com/reesscot)! - BREAKING CHANGE: remove legacy exports `@aws-amplify/ui-react/legacy` and `@aws-amplify/ui-angular/legacy`.
+
+- [#2703](https://github.com/aws-amplify/amplify-ui/pull/2703) [`5ec150f4e`](https://github.com/aws-amplify/amplify-ui/commit/5ec150f4ee6fd5d0186fa3b8e55cc98089f4c80e) Thanks [@calebpollman](https://github.com/calebpollman)! - Remove useAuthenticator internal variables `_state` and `_send` (See #2685)
+
+- [#2772](https://github.com/aws-amplify/amplify-ui/pull/2772) [`4a22217e0`](https://github.com/aws-amplify/amplify-ui/commit/4a22217e0f92ef71baaffc4346bee9599db62c20) Thanks [@zchenwei](https://github.com/zchenwei)! - BREAKING CHANGE(react): bump up React minimum support version to 16.14.0 and update JSX transform
+
+- [#2828](https://github.com/aws-amplify/amplify-ui/pull/2828) [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(next-release): render Authenticator field labels
+
+- [#2558](https://github.com/aws-amplify/amplify-ui/pull/2558) [`d90b148c0`](https://github.com/aws-amplify/amplify-ui/commit/d90b148c0e06b3321f4f05fad2b32ef52c04214d) Thanks [@reesscot](https://github.com/reesscot)! - chore: upgrade radix to 1.0
+
+  Fixes error messages during `npm install` related to React 18. See Migration guide for more information:
+  https://ui.docs.amplify.aws/react/getting-started/migration
+
+- [#2735](https://github.com/aws-amplify/amplify-ui/pull/2735) [`fa3135add`](https://github.com/aws-amplify/amplify-ui/commit/fa3135add1346465db19b9d252ae26edaed70e3b) Thanks [@wlee221](https://github.com/wlee221)! - **Breaking**: We replaced following legacy Authenticator texts:
+
+  - `Forgot your password? ` with the trailing space is replaced by `Forgot your password`.
+
+  If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
+
+### Minor Changes
+
+- [#2962](https://github.com/aws-amplify/amplify-ui/pull/2962) [`11c7d9c60`](https://github.com/aws-amplify/amplify-ui/commit/11c7d9c602af211cd0b378742e8975f936d61fc5) Thanks [@calebpollman](https://github.com/calebpollman)! - Release In-App Messaging feature for React and React Native
+  PR: https://github.com/aws-amplify/amplify-ui/pull/2798
+
+### Patch Changes
+
+- [#2877](https://github.com/aws-amplify/amplify-ui/pull/2877) [`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7) Thanks [@ErikCH](https://github.com/ErikCH)! - **BREAKING**: When overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. This is now required.
+
+  ```diff
+   async handleSignUp(formData) {
+    let { username, password, attributes } = formData;
+    // custom username
+    username = username.toLowerCase();
+    attributes.email = attributes.email.toLowerCase();
+    return Auth.signUp({
+      username,
+      password,
+      attributes,
+  +   autoSignIn: {
+  +     enabled: true
+  +   }
+    });
+  }
+
+  ```
+
+- [#2827](https://github.com/aws-amplify/amplify-ui/pull/2827) [`74e01fc7a`](https://github.com/aws-amplify/amplify-ui/commit/74e01fc7aacbd6aefab1d7d54232e0c5f4a93b2a) Thanks [@wlee221](https://github.com/wlee221)! - deps(react): pin radix dependencies
+
+- Updated dependencies [[`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7), [`5ec150f4e`](https://github.com/aws-amplify/amplify-ui/commit/5ec150f4ee6fd5d0186fa3b8e55cc98089f4c80e), [`4a22217e0`](https://github.com/aws-amplify/amplify-ui/commit/4a22217e0f92ef71baaffc4346bee9599db62c20), [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a), [`d90b148c0`](https://github.com/aws-amplify/amplify-ui/commit/d90b148c0e06b3321f4f05fad2b32ef52c04214d)]:
+  - @aws-amplify/ui@5.0.0
+  - @aws-amplify/ui-react-core@2.0.0
+
 ## 3.6.0
 
 ### Minor Changes

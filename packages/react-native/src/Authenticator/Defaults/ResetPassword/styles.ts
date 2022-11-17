@@ -1,22 +1,15 @@
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 
-export interface ResetPasswordStyle {
+export interface ConfirmSignInStyle {
   buttonPrimary: ViewStyle;
-  buttonPrimaryLabel: TextStyle;
   buttonSecondary: ViewStyle;
-  buttonSecondaryLabel: TextStyle;
 }
 
-export const styles: ResetPasswordStyle = StyleSheet.create({
+export const styles: ConfirmSignInStyle = StyleSheet.create({
   buttonPrimary: {
-    backgroundColor: 'teal',
     marginVertical: 8,
-    paddingVertical: 12,
   },
-  buttonPrimaryLabel: { color: 'white', fontSize: 16, fontWeight: 'bold' },
   buttonSecondary: {
     marginVertical: 8,
-    paddingVertical: 12,
   },
-  buttonSecondaryLabel: { color: 'teal' },
 });

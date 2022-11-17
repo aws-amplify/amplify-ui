@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 
 import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
@@ -33,19 +33,25 @@ const radioField = {
   value: 'testValue',
 } as RadioFieldOptions;
 
+const handleSubmit = jest.fn();
+
 const props = {
   fields: [radioEmailField, radioPhoneField, radioField],
   FormFields: VerifyUser.FormFields,
   Footer: VerifyUser.Footer,
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
-  handleSubmit: jest.fn(),
+  handleSubmit,
   Header: VerifyUser.Header,
   isPending: false,
   skipVerification: jest.fn(),
 };
 
 describe('VerifyUser', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders as expected', () => {
     const { toJSON, getByRole, getByText, queryByText } = render(
       <VerifyUser {...props} />
@@ -80,6 +86,21 @@ describe('VerifyUser', () => {
 
     expect(getByRole('alert')).toBeDefined();
     expect(getByText(error)).toBeDefined();
+  });
+
+  it('calls onSubmit with expected values', () => {
+    const { getByRole } = render(<VerifyUser {...props} />);
+
+    const emailRadio = getByRole('radio', { name: 'h***o@world.com' });
+    fireEvent.press(emailRadio);
+
+    const submitButton = getByRole('button', {
+      name: 'Verify',
+    });
+    fireEvent.press(submitButton);
+
+    expect(handleSubmit).toBeCalledTimes(1);
+    expect(handleSubmit).toBeCalledWith({ unverifiedAttr: 'email' });
   });
 
   it('renders as expected when isPending is true', () => {
