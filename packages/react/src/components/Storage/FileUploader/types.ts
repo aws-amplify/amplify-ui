@@ -23,6 +23,7 @@ export interface UploadDropZoneProps extends DragActionHandlers {
 
 export interface FileUploaderProps {
   acceptedFileTypes: string[];
+  autoProceed?: boolean;
   fileNames?: string[];
   multiple?: boolean;
   components?: Components;
