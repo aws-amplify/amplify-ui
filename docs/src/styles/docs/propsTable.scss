@@ -29,7 +29,6 @@
 
   .amplify-expander__item {
     box-shadow: unset;
-    border-radius: unset;
   }
 
   .amplify-expander__content {
@@ -39,6 +38,10 @@
   .amplify-expander__content__text {
     overflow-x: auto;
     padding-block: unset;
+  }
+  .amplify-expander__header:focus-within {
+    border-radius: var(--amplify-radii-medium);
+    box-shadow: 0 0 0 2px var(--amplify-colors-border-focus) inset;
   }
 }
 
