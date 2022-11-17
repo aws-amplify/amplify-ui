@@ -33,7 +33,7 @@ describe(`All pages on Sitemap`, () => {
   it('should succesfully load each url in the sitemap', () => {
     allLinks.forEach((link, idx) => {
       cy.task('log', `🧪[TESTING...] page #${idx} ${BASE_URL}/${link}`);
-      cy.visit(link || '/');
+      cy.visit({ url: link || '/', qs: { cypress: true } });
       cy.get('a').each((el) => hrefWorks(el, link, allLinks, requestedLinks));
     });
   });
@@ -118,6 +118,7 @@ function hrefWorks(
         url: pureHref,
         followRedirect: false,
         method: requestMethod,
+        qs: { cypress: true },
       }).then(({ status }) => {
         logMessage({
           evtName: 'RETURNING',
