@@ -32,11 +32,18 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "padding": 12,
+          },
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -54,10 +61,13 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontSize": 16,
+              "fontWeight": "700",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -86,11 +96,18 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "padding": 12,
+          },
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -100,9 +117,9 @@ Array [
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderTopColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -114,18 +131,21 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontSize": 16,
+              "fontWeight": "700",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderTopColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -140,12 +160,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -178,8 +198,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -191,14 +215,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -245,8 +271,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -258,14 +288,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -359,8 +391,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -372,14 +408,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -536,8 +574,12 @@ Array [
             Array [
               Object {
                 "fontSize": 16,
+                "fontWeight": "400",
                 "marginHorizontal": 4,
                 "marginVertical": 2,
+              },
+              Object {
+                "color": "hsl(210, 50%, 10%)",
               },
               undefined,
             ]
@@ -549,14 +591,16 @@ Array [
           style={
             Object {
               "alignItems": "center",
-              "borderColor": "black",
+              "borderColor": "hsl(0, 0%, 0%)",
               "borderRadius": 4,
               "borderWidth": 1,
               "flexDirection": "row",
+              "lineHeight": 24,
               "padding": 8,
               "width": "100%",
             }
           }
+          testID="amplify__text-field__input-container"
         >
           <TextInput
             accessible={true}
@@ -581,6 +625,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -595,11 +640,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -609,12 +659,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -631,12 +680,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -669,8 +718,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -682,14 +735,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -736,8 +791,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -749,14 +808,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -850,8 +911,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -863,14 +928,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1027,8 +1094,12 @@ Array [
             Array [
               Object {
                 "fontSize": 16,
+                "fontWeight": "400",
                 "marginHorizontal": 4,
                 "marginVertical": 2,
+              },
+              Object {
+                "color": "hsl(210, 50%, 10%)",
               },
               undefined,
             ]
@@ -1040,14 +1111,16 @@ Array [
           style={
             Object {
               "alignItems": "center",
-              "borderColor": "black",
+              "borderColor": "hsl(0, 0%, 0%)",
               "borderRadius": 4,
               "borderWidth": 1,
               "flexDirection": "row",
+              "lineHeight": 24,
               "padding": 8,
               "width": "100%",
             }
           }
+          testID="amplify__text-field__input-container"
         >
           <TextInput
             accessible={true}
@@ -1072,6 +1145,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -1086,11 +1160,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -1100,12 +1179,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -1147,11 +1225,18 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "padding": 12,
+          },
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -1169,10 +1254,13 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontSize": 16,
+              "fontWeight": "700",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -1201,11 +1289,18 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "padding": 12,
+          },
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -1215,9 +1310,9 @@ Array [
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderTopColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -1229,18 +1324,21 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontSize": 16,
+              "fontWeight": "700",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderTopColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -1255,12 +1353,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -1279,7 +1377,6 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "opacity": 0.6,
           },
           Object {
             "fontSize": 16,
@@ -1294,8 +1391,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -1307,14 +1408,17 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
+            "opacity": 0.6,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1347,7 +1451,6 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "opacity": 0.6,
           },
           Object {
             "fontSize": 16,
@@ -1362,8 +1465,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -1375,14 +1482,17 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
+            "opacity": 0.6,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1462,7 +1572,6 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "opacity": 0.6,
           },
           Object {
             "fontSize": 16,
@@ -1477,8 +1586,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -1490,14 +1603,17 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
+            "opacity": 0.6,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1640,7 +1756,6 @@ Array [
           Array [
             Object {
               "alignItems": "flex-start",
-              "opacity": 0.6,
             },
             Array [
               undefined,
@@ -1655,8 +1770,12 @@ Array [
             Array [
               Object {
                 "fontSize": 16,
+                "fontWeight": "400",
                 "marginHorizontal": 4,
                 "marginVertical": 2,
+              },
+              Object {
+                "color": "hsl(210, 50%, 10%)",
               },
               undefined,
             ]
@@ -1668,14 +1787,17 @@ Array [
           style={
             Object {
               "alignItems": "center",
-              "borderColor": "black",
+              "borderColor": "hsl(0, 0%, 0%)",
               "borderRadius": 4,
               "borderWidth": 1,
               "flexDirection": "row",
+              "lineHeight": 24,
+              "opacity": 0.6,
               "padding": 8,
               "width": "100%",
             }
           }
+          testID="amplify__text-field__input-container"
         >
           <TextInput
             accessible={true}
@@ -1700,6 +1822,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -1714,11 +1837,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -1728,12 +1856,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -1775,11 +1902,18 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "padding": 12,
+          },
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -1797,10 +1931,13 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontSize": 16,
+              "fontWeight": "700",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -1829,11 +1966,18 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "padding": 12,
+          },
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -1843,9 +1987,9 @@ Array [
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderTopColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -1857,18 +2001,21 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontSize": 16,
+              "fontWeight": "700",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderTopColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -1883,12 +2030,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -1921,8 +2068,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -1934,14 +2085,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1988,8 +2141,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -2001,14 +2158,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2102,8 +2261,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -2115,14 +2278,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2279,8 +2444,12 @@ Array [
             Array [
               Object {
                 "fontSize": 16,
+                "fontWeight": "400",
                 "marginHorizontal": 4,
                 "marginVertical": 2,
+              },
+              Object {
+                "color": "hsl(210, 50%, 10%)",
               },
               undefined,
             ]
@@ -2292,14 +2461,16 @@ Array [
           style={
             Object {
               "alignItems": "center",
-              "borderColor": "black",
+              "borderColor": "hsl(0, 0%, 0%)",
               "borderRadius": 4,
               "borderWidth": 1,
               "flexDirection": "row",
+              "lineHeight": 24,
               "padding": 8,
               "width": "100%",
             }
           }
+          testID="amplify__text-field__input-container"
         >
           <TextInput
             accessible={true}
@@ -2329,7 +2500,7 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5bcbc",
+          "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
           "paddingHorizontal": 4,
           "paddingVertical": 16,
@@ -2364,6 +2535,7 @@ Array [
       style={
         Array [
           Object {
+            "color": "hsl(0, 100%, 20%)",
             "flex": 1,
             "paddingHorizontal": 4,
           },
@@ -2375,6 +2547,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -2389,11 +2562,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -2403,12 +2581,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -2450,11 +2627,18 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "padding": 12,
+          },
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -2472,10 +2656,13 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontSize": 16,
+              "fontWeight": "700",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -2504,11 +2691,18 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "padding": 12,
+          },
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
+              "backgroundColor": "hsl(210, 5%, 94%)",
+              "borderTopColor": "hsl(210, 5%, 87%)",
               "borderTopWidth": 2,
               "flexBasis": 0,
               "flexGrow": 1,
@@ -2518,9 +2712,9 @@ Array [
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderTopColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -2532,18 +2726,21 @@ Array [
           Array [
             Object {
               "alignSelf": "center",
+              "color": "hsl(0, 0%, 100%)",
+              "fontSize": 16,
+              "fontWeight": "700",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderTopColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -2558,12 +2755,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -2596,8 +2793,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -2609,14 +2810,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2663,8 +2866,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -2676,14 +2883,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2777,8 +2986,12 @@ Array [
           Array [
             Object {
               "fontSize": 16,
+              "fontWeight": "400",
               "marginHorizontal": 4,
               "marginVertical": 2,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
             },
             undefined,
           ]
@@ -2790,14 +3003,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(0, 0%, 0%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "lineHeight": 24,
             "padding": 8,
             "width": "100%",
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2954,8 +3169,12 @@ Array [
             Array [
               Object {
                 "fontSize": 16,
+                "fontWeight": "400",
                 "marginHorizontal": 4,
                 "marginVertical": 2,
+              },
+              Object {
+                "color": "hsl(210, 50%, 10%)",
               },
               undefined,
             ]
@@ -2967,14 +3186,16 @@ Array [
           style={
             Object {
               "alignItems": "center",
-              "borderColor": "black",
+              "borderColor": "hsl(0, 0%, 0%)",
               "borderRadius": 4,
               "borderWidth": 1,
               "flexDirection": "row",
+              "lineHeight": 24,
               "padding": 8,
               "width": "100%",
             }
           }
+          testID="amplify__text-field__input-container"
         >
           <TextInput
             accessible={true}
@@ -2999,6 +3220,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -3013,11 +3235,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -3027,12 +3254,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >

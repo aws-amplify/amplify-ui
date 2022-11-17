@@ -1,5 +1,18 @@
-import { ViewStyle } from 'react-native';
 import { ReactNativeTokens } from '@aws-amplify/ui';
+
+import {
+  ButtonStyles,
+  CheckboxStyles,
+  DividerStyles,
+  ErrorMessageStyles,
+  HeadingStyles,
+  IconStyles,
+  LabelStyles,
+  RadioStyles,
+  RadioGroupStyles,
+  TabsStyles,
+  TextFieldStyles,
+} from '../primitives';
 
 // Util that takes a theme shape
 // and if it is an input of createTheme it can be the theme shape OR a function
@@ -9,15 +22,20 @@ type ComponentTheme<ComponentType, Output> = Output extends 'output'
   ? ComponentType
   : ((tokens: StrictTheme['tokens']) => ComponentType) | ComponentType;
 
+
 // TODO: make optional all the way down
 export type Components<Output> = Record<string, object> & {
-  // TODO: add components
-  bottomSheet?: ComponentTheme<
-    {
-      container?: ViewStyle;
-    },
-    Output
-  >;
+  button?: ComponentTheme<ButtonStyles, Output>;
+  checkbox?: ComponentTheme<CheckboxStyles, Output>;
+  divider?: ComponentTheme<DividerStyles, Output>;
+  errorMessage?: ComponentTheme<ErrorMessageStyles, Output>;
+  heading?: ComponentTheme<HeadingStyles, Output>;
+  icon?: ComponentTheme<IconStyles, Output>;
+  label?: ComponentTheme<LabelStyles, Output>;
+  radio?: ComponentTheme<RadioStyles, Output>;
+  radioGroup?: ComponentTheme<RadioGroupStyles, Output>;
+  tabs?: ComponentTheme<TabsStyles, Output>;
+  textField?: ComponentTheme<TextFieldStyles, Output>;
 };
 
 export type ColorMode = 'light' | 'dark' | 'system';

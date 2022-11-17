@@ -1,12 +1,21 @@
 import { StyleSheet } from 'react-native';
 
+import { StrictTheme } from '../../theme';
 import { RadioGroupStyles } from './types';
 
-export const styles: RadioGroupStyles = StyleSheet.create({
-  label: {
-    fontSize: 18,
-    fontWeight: '500',
-    marginHorizontal: 4,
-    marginVertical: 2,
-  },
-});
+export const getThemedStyles = (theme: StrictTheme): RadioGroupStyles => {
+  const { components } = theme.tokens;
+
+  return StyleSheet.create({
+    container: {
+      ...components?.radioGroup.container,
+    },
+    label: {
+      /**
+       * The RadioGroup label inherits its styles from the Label primitive,
+       * and also supports customization via a Theme.
+       */
+      ...components?.radioGroup.label,
+    },
+  });
+};

@@ -14,7 +14,6 @@ Amplify.configure(awsExports);
 const formFields = {
   confirmSignUp: {
     confirmation_code: {
-      labelHidden: false,
       placeholder: 'Enter the code given',
       isRequired: true,
     },

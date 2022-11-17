@@ -1,18 +1,20 @@
 import {
+  IdentifierFieldOrIdentifierObject,
   PersistentModel,
   PersistentModelConstructor,
-  ProducerModelPredicate,
+  PersistentModelMetaData,
   ProducerPaginationInput,
+  RecursiveModelPredicateExtender,
 } from '@aws-amplify/datastore';
 
 export type DataStoreItemProps<Model extends PersistentModel> = {
   model: PersistentModelConstructor<Model>;
-  id: string;
+  id: IdentifierFieldOrIdentifierObject<Model, PersistentModelMetaData<Model>>;
 };
 
 export type DataStoreCollectionProps<Model extends PersistentModel> = {
   model: PersistentModelConstructor<Model>;
-  criteria?: ProducerModelPredicate<Model>;
+  criteria?: RecursiveModelPredicateExtender<Model>;
   pagination?: ProducerPaginationInput<Model>;
 };
 

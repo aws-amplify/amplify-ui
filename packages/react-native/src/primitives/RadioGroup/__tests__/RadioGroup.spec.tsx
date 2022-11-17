@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
+import { fireEvent, render, renderHook } from '@testing-library/react-native';
 
+import { useTheme } from '../../../theme';
+import { getThemedStyles as getThemedLabelStyles } from '../../Label/styles';
 import { Radio } from '../../Radio';
 import { Size } from '../../Radio/types';
 
@@ -153,5 +155,29 @@ describe('RadioGroup', () => {
     );
 
     expect(getByText(label)).toBeDefined();
+  });
+
+  it('applies theme and custom styles', () => {
+    const labelText = 'Test label';
+    const customLabelStyle = { color: 'red' };
+    const themedRadioGroupLabelStyle = {};
+
+    const { getByText } = render(
+      <RadioGroup label={labelText} labelStyle={customLabelStyle}>
+        <Radio value="option-1" label="Option 1" testID="option-1" />
+        <Radio value="option-2" label="Option 1" testID="option-2" />
+      </RadioGroup>
+    );
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedLabelStyles(result.current);
+
+    const label = getByText(labelText);
+
+    expect(label.props.style).toStrictEqual([
+      themedStyle.text,
+      themedStyle['primary'],
+      [themedRadioGroupLabelStyle, customLabelStyle],
+    ]);
   });
 });

@@ -5,8 +5,8 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { Icon } from '../Icon';
 
+import { Icon, iconSizes } from '../Icon';
 import { styles } from './styles';
 import { IconButtonProps } from './types';
 
@@ -14,7 +14,7 @@ export default function IconButton({
   accessibilityRole = 'button',
   color,
   iconStyle,
-  size = 20,
+  size = iconSizes.medium,
   source,
   style,
   ...rest

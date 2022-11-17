@@ -1,4 +1,5 @@
 import { AlertTokens, alert } from './alert';
+import { AutocompleteTokens, autocomplete } from './autocomplete';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
 import { button, ButtonTokens } from './button';
@@ -16,6 +17,7 @@ import { fieldgroup, FieldGroupTokens } from './fieldGroup';
 import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
 import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
+import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
 import { inappmessaging, InAppMessagingTokens } from './inAppMessaging';
@@ -110,6 +112,7 @@ export type WebComponentTokens = Required<{
 export const components: DefaultComponentTokens = {
   alert,
   authenticator,
+  autocomplete,
   badge,
   button,
   card,
@@ -127,6 +130,7 @@ export const components: DefaultComponentTokens = {
   flex,
   heading,
   icon,
+  highlightmatch,
   image,
   inappmessaging,
   link,

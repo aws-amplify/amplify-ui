@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { Radio } from '@aws-amplify/ui-react-native/dist/primitives';
 
@@ -29,25 +29,42 @@ storiesOf('Radio', module)
   ))
   .add('disabled', () => (
     <>
-      <Radio disabled selected label="disabled and selected" value="option1" />
-      <Radio disabled label="disabled and not selected" value="option2" />
-      <Radio selected label="not disabled and selected" value="option3" />
-      <Radio label="not disabled and not selected" value="option4" />
+      <Radio disabled selected label="disabled and selected" value="option-1" />
+      <Radio disabled label="disabled and not selected" value="option-2" />
+      <Radio selected label="not disabled and selected" value="option-3" />
+      <Radio label="not disabled and not selected" value="option-4" />
     </>
   ))
   .add('size', () => (
-    <>
-      <Radio size="small" label="small" value="option1" />
-      <Radio size="small" selected label="small selected" value="option2" />
-      <Radio label="default" value="option3" />
-      <Radio selected label="default selected" value="option4" />
-      <Radio size="large" label="large" value="option5" />
-      <Radio size="large" selected label="large selected" value="option6" />
-      <Radio size={40} label="custom-big" value="option7" />
-      <Radio size={40} selected label="custom-big selected" value="option8" />
-      <Radio size={10} label="custom-tiny" value="option9" />
-      <Radio size={10} selected label="custom-tiny selected" value="option10" />
-    </>
+    <View style={styles.container}>
+      <Radio size="small" label="small" value="option-1" />
+      <Radio size="small" selected label="small selected" value="option-2" />
+      <Radio label="default" value="option-3" />
+      <Radio selected label="default selected" value="option-4" />
+      <Radio size="large" label="large" value="option-5" />
+      <Radio size="large" selected label="large selected" value="option-6" />
+      <Radio size={20} label="custom-small" value="option-7" />
+      <Radio
+        size={20}
+        selected
+        label="custom-small selected"
+        value="option-8"
+      />
+      <Radio size={30} label="custom-medium" value="option-9" />
+      <Radio
+        size={30}
+        selected
+        label="custom-medium selected"
+        value="option-10"
+      />
+      <Radio size={40} label="custom-large" value="option-11" />
+      <Radio
+        size={40}
+        selected
+        label="custom-large selected"
+        value="option-12"
+      />
+    </View>
   ))
   .add('styles', () => (
     <Radio
@@ -60,6 +77,9 @@ storiesOf('Radio', module)
   ));
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: 'flex-start',
+  },
   redText: {
     color: 'red',
   },

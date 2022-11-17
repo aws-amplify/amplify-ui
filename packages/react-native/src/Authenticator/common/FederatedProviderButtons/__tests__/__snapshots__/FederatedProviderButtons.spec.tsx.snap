@@ -9,6 +9,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
   }
 >
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -23,6 +24,13 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Array [
           Object {
@@ -68,8 +76,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
         Array [
           Object {
             "fontSize": 16,
+            "fontWeight": "400",
             "marginHorizontal": 4,
             "marginVertical": 2,
+          },
+          Object {
+            "color": "hsl(210, 50%, 10%)",
           },
           Array [
             Object {
@@ -98,13 +110,14 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
-            "backgroundColor": "black",
+            "backgroundColor": "hsl(0, 0%, 0%)",
             "flex": 1,
             "height": 0.5,
           },
           undefined,
         ]
       }
+      testID="amplify__divider__line"
     />
     <Text
       accessibilityRole="text"
@@ -112,8 +125,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
         Array [
           Object {
             "fontSize": 16,
+            "fontWeight": "400",
             "marginHorizontal": 4,
             "marginVertical": 2,
+          },
+          Object {
+            "color": "hsl(210, 50%, 10%)",
           },
           Array [
             Object {
@@ -135,7 +152,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
-            "backgroundColor": "black",
+            "backgroundColor": "hsl(0, 0%, 0%)",
             "flex": 1,
             "height": 0.5,
           },

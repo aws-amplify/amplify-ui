@@ -1,5 +1,143 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Checkbox applies label position prop 1`] = `
+<View
+  accessibilityRole="checkbox"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "padding": 4,
+      },
+      undefined,
+    ]
+  }
+  testID="checkboxTestID"
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/checkboxOutline.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 24,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 24,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "fontWeight": "400",
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        undefined,
+      ]
+    }
+  >
+    test
+  </Text>
+</View>
+`;
+
+exports[`Checkbox applies theme and style props 1`] = `
+<View
+  accessibilityRole="checkbox"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "padding": 4,
+      },
+      Object {
+        "padding": 10,
+      },
+    ]
+  }
+  testID="checkboxTestID"
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/checkboxOutline.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 24,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 24,
+        },
+        Object {},
+      ]
+    }
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "fontWeight": "400",
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {},
+      ]
+    }
+  >
+    test
+  </Text>
+</View>
+`;
+
 exports[`Checkbox renders as expected when disabled 1`] = `
 <View
   accessibilityRole="checkbox"
@@ -31,6 +169,7 @@ exports[`Checkbox renders as expected when disabled 1`] = `
       undefined,
     ]
   }
+  testID="checkboxTestID"
 >
   <Image
     accessibilityRole="image"
@@ -42,15 +181,102 @@ exports[`Checkbox renders as expected when disabled 1`] = `
     style={
       Array [
         Object {
-          "height": undefined,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": undefined,
+          "width": 24,
         },
         undefined,
       ]
     }
   />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "fontWeight": "400",
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        undefined,
+      ]
+    }
+  >
+    test
+  </Text>
+</View>
+`;
+
+exports[`Checkbox renders as expected when passing a number to the size prop 1`] = `
+<View
+  accessibilityRole="checkbox"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "padding": 4,
+      },
+      undefined,
+    ]
+  }
+  testID="checkboxTestID"
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/checkboxOutline.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 42,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 42,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "fontWeight": "400",
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        undefined,
+      ]
+    }
+  >
+    test
+  </Text>
 </View>
 `;
 
@@ -74,12 +300,12 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
       Object {
         "alignItems": "center",
         "flexDirection": "row",
-        "opacity": 1,
         "padding": 4,
       },
       undefined,
     ]
   }
+  testID="checkboxTestID"
 >
   <Image
     accessibilityRole="image"
@@ -91,15 +317,34 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
     style={
       Array [
         Object {
-          "height": undefined,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": undefined,
+          "width": 24,
         },
         undefined,
       ]
     }
   />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "fontWeight": "400",
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        undefined,
+      ]
+    }
+  >
+    test
+  </Text>
 </View>
 `;
 
@@ -123,12 +368,12 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
       Object {
         "alignItems": "center",
         "flexDirection": "row",
-        "opacity": 1,
         "padding": 4,
       },
       undefined,
     ]
   }
+  testID="checkboxTestID"
 >
   <Image
     accessibilityRole="image"
@@ -140,19 +385,38 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
     style={
       Array [
         Object {
-          "height": undefined,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": undefined,
+          "width": 24,
         },
         undefined,
       ]
     }
   />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "fontWeight": "400",
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        undefined,
+      ]
+    }
+  >
+    test
+  </Text>
 </View>
 `;
 
-exports[`Checkbox renders as expected with accessibilityRole 1`] = `
+exports[`Checkbox renders as expected with custom accessibilityRole 1`] = `
 <View
   accessibilityRole="none"
   accessible={true}
@@ -172,12 +436,12 @@ exports[`Checkbox renders as expected with accessibilityRole 1`] = `
       Object {
         "alignItems": "center",
         "flexDirection": "row",
-        "opacity": 1,
         "padding": 4,
       },
       undefined,
     ]
   }
+  testID="checkboxTestID"
 >
   <Image
     accessibilityRole="image"
@@ -189,10 +453,78 @@ exports[`Checkbox renders as expected with accessibilityRole 1`] = `
     style={
       Array [
         Object {
-          "height": undefined,
+          "height": 24,
           "resizeMode": "contain",
           "tintColor": undefined,
-          "width": undefined,
+          "width": 24,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "fontWeight": "400",
+          "marginHorizontal": 4,
+          "marginVertical": 2,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        undefined,
+      ]
+    }
+  >
+    test
+  </Text>
+</View>
+`;
+
+exports[`Checkbox renders as expected without a label 1`] = `
+<View
+  accessibilityRole="checkbox"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "padding": 4,
+      },
+      undefined,
+    ]
+  }
+  testID="checkboxTestID"
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/checkboxOutline.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 24,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 24,
         },
         undefined,
       ]

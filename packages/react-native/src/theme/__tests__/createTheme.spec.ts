@@ -7,7 +7,7 @@ describe('createTheme', () => {
       components: { bottomSheet: { container: { backgroundColor: 'red' } } },
     });
 
-    it('should have tokens', () => {
+    it('should have component agnostic tokens', () => {
       expect(tokens).toBeDefined();
       expect(components).toBeDefined();
       expect(components?.bottomSheet?.container?.backgroundColor).toBe('red');

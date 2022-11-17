@@ -7,12 +7,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -22,6 +22,7 @@ Array [
   </Text>,
   <View />,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -36,11 +37,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -50,12 +56,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -63,6 +68,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -77,10 +83,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -90,10 +102,10 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >
@@ -110,12 +122,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -125,6 +137,7 @@ Array [
   </Text>,
   <View />,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -139,11 +152,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -153,12 +171,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -166,6 +183,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -180,10 +198,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -193,10 +217,10 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >
@@ -213,12 +237,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -233,7 +257,7 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5bcbc",
+          "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
           "paddingHorizontal": 4,
           "paddingVertical": 16,
@@ -268,6 +292,7 @@ Array [
       style={
         Array [
           Object {
+            "color": "hsl(0, 100%, 20%)",
             "flex": 1,
             "paddingHorizontal": 4,
           },
@@ -279,6 +304,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -293,11 +319,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -307,12 +338,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -320,6 +350,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -334,10 +365,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -347,10 +384,10 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >

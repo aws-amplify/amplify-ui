@@ -69,6 +69,7 @@ select {
 @import './component/fieldMessages.scss';
 @import './component/heading.scss';
 @import './component/icon.scss';
+@import './component/highlightMatch.scss';
 @import './component/input.scss';
 @import './component/textArea.scss';
 @import './component/image.scss';
@@ -79,6 +80,7 @@ select {
 
 // Composed components
 @import './component/alert.scss';
+@import './component/autocomplete.scss';
 @import './component/authenticator.scss';
 @import './component/card.scss';
 @import './component/collection.scss';
