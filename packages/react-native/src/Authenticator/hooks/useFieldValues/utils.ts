@@ -161,13 +161,14 @@ export function getRouteTypedFields({
   route,
 }: Pick<UseAuthenticator, 'fields' | 'route'>): TypedField[] {
   const isComponentRoute = isAuthenticatorComponentRouteKey(route);
-  if (isComponentRoute) {
-    // `VerifyUser` does not require additional updates to the shape of `fields`
-    const isVerifyUserRoute = route === 'verifyUser';
-    const radioFields = fields as TypedField[];
 
-    return isVerifyUserRoute ? radioFields : getTypedFields(fields);
-  } else {
+  if (!isComponentRoute) {
     return [];
   }
+
+  // `VerifyUser` does not require additional updates to the shape of `fields`
+  const isVerifyUserRoute = route === 'verifyUser';
+  const radioFields = fields as TypedField[];
+
+  return isVerifyUserRoute ? radioFields : getTypedFields(fields);
 }
