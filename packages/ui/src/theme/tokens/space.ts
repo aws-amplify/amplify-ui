@@ -18,7 +18,12 @@ type SpaceSize =
 export type SpaceSizes<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = DesignTokenValues<SpaceSize | 'zero', SpaceValue, Output, Platform>;
+> = DesignTokenValues<
+  SpaceSize | 'zero',
+  SpaceValue<Platform>,
+  Output,
+  Platform
+>;
 
 type BaseSpace<
   Output extends OutputVariantKey = unknown,

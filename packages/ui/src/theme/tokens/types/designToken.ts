@@ -117,7 +117,8 @@ export type StrokeEmptyValue = string;
 export type StrokeLinecapValue = string;
 export type StrokeWidthValue = string;
 
-export type SpaceValue = string | number;
+export type SpaceValue<Platform extends PlatformKey = unknown> =
+  Platform extends 'react-native' ? string | number : string;
 
 export type TextAlignValue = string;
 
