@@ -3,7 +3,6 @@ import {
   authenticatorTextUtil,
   censorAllButFirstAndLast,
   censorPhoneNumber,
-  ContactMethod,
 } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage, Radio, RadioGroup } from '../../../primitives';
@@ -20,10 +19,7 @@ const COMPONENT_NAME = 'VerifyUser';
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
 
-const censorContactInformation = (
-  type: ContactMethod,
-  value: string
-): string => {
+const censorContactInformation = (type: string, value: string): string => {
   let censoredVal = value;
   if (type === 'Email') {
     const splitEmail = value.split('@');
@@ -91,7 +87,7 @@ const FormFields: DefaultVerifyUserComponent['FormFields'] = ({
           {...props}
           key={name}
           value={name}
-          label={censorContactInformation(label as ContactMethod, value)}
+          label={censorContactInformation(label, value)}
         />
       ))}
     </RadioGroup>
