@@ -10,3 +10,4 @@ export { SelectFieldValidationErrorExample } from './SelectFieldValidationErrorE
 export { SelectFieldControlledExample } from './SelectFieldControlledExample';
 export { SelectFieldOptionsExample } from './SelectFieldOptionsExample';
 export { SelectFieldThemeExample } from './SelectFieldThemeExample';
+export { SelectFieldStylePropsExample } from './SelectFieldStylePropsExample';

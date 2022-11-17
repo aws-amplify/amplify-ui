@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -8,6 +8,7 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
+    "./package.json": "./package.json",
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css"
   },
@@ -45,7 +46,7 @@
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x || 5.x.x",
+    "aws-amplify": ">= 5.0.1",
     "xstate": "^4.33.6"
   },
   "peerDependenciesMeta": {

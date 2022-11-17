@@ -28,6 +28,8 @@ Array [
   "HighlightMatch",
   "Icon",
   "Image",
+  "InAppMessageDisplay",
+  "InAppMessagingProvider",
   "Link",
   "Loader",
   "LocationSearch",
@@ -73,9 +75,11 @@ Array [
   "useAmplify",
   "useAuthenticator",
   "useBreakpointValue",
+  "useInAppMessaging",
   "usePagination",
   "useTheme",
   "withAuthenticator",
+  "withInAppMessaging",
 ]
 `;
 
@@ -118,23 +122,6 @@ Array [
   "useNavigateAction",
   "useStateMutationAction",
   "useStorageURL",
-]
-`;
-
-exports[`@aws-amplify/ui-react/legacy exports should match snapshot 1`] = `
-Array [
-  "AmplifyAuthenticator",
-  "AmplifyChatbot",
-  "AmplifyPhotoPicker",
-  "AmplifyPicker",
-  "AmplifyS3Album",
-  "AmplifyS3Image",
-  "AmplifyS3ImagePicker",
-  "AmplifyS3Text",
-  "AmplifyS3TextPicker",
-  "AmplifySignIn",
-  "AmplifySignOut",
-  "withAuthenticator",
 ]
 `;
 

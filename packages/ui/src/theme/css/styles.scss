@@ -111,6 +111,12 @@ select {
 @import './component/textField.scss';
 @import './component/toggleButton.scss';
 @import './component/toggleButtonGroup.scss';
+// In-App Messaging components
+@import './component/inAppMessaging/backdrop.scss';
+@import './component/inAppMessaging/bannerMessage.scss';
+@import './component/inAppMessaging/fullScreenMessage.scss';
+@import './component/inAppMessaging/messageLayout.scss';
+@import './component/inAppMessaging/modalMessage.scss';
 
 // This comes after the field styles so it can override them
 @import './component/fieldModifiers.scss';

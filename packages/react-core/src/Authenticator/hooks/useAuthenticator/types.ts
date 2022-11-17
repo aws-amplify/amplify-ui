@@ -1,6 +1,4 @@
 import {
-  AuthMachineSend,
-  AuthMachineState,
   AuthenticatorServiceFacade,
   LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
@@ -36,21 +34,11 @@ export type Selector = (
   context: AuthenticatorMachineContext
 ) => AuthenticatorMachineContext[AuthenticatorMachineContextKey][];
 
-// TODO(breaking): remove these from usage in the UI layer
-type InternalAuthenticatorContext = {
-  _state: AuthMachineState;
-  _send: AuthMachineSend;
-};
-
 export interface UseAuthenticator extends AuthenticatorServiceFacade {
   getTotpSecretCode: () => Promise<string>;
 
   /** @deprecated For internal use only */
   fields: AuthenticatorLegacyFields;
-  /** @deprecated For internal use only */
-  _send: InternalAuthenticatorContext['_send'];
-  /** @deprecated For internal use only */
-  _state: InternalAuthenticatorContext['_state'];
 }
 
 export type Comparator = (

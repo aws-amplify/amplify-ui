@@ -1,0 +1,22 @@
+.amplify-inappmessaging-modalmessage {
+  align-items: center;
+  height: initial;
+  inset: 0;
+  justify-content: center;
+  pointer-events: none;
+  position: fixed;
+  width: initial;
+  z-index: 1000;
+  &__dialog {
+    box-shadow: var(--amplify-shadows-medium);
+    height: var(--amplify-components-inappmessaging-dialog-height);
+    min-height: var(--amplify-components-inappmessaging-dialog-min-height);
+    min-width: var(--amplify-components-inappmessaging-dialog-min-width);
+    pointer-events: auto;
+    width: var(--amplify-components-inappmessaging-dialog-width);
+    &--full-width {
+      width: 100%;
+      margin: var(--amplify-space-small);
+    }
+  }
+}

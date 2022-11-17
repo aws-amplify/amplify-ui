@@ -24,7 +24,7 @@ const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
   },
   ref
 ) => {
-  // Throw away baseStyleProps and flexContainerStyleProps since they won't work on Root element
+  // Throw away style props since they won't work on Root element
   const { rest } = splitPrimitiveProps(_rest);
 
   const handleValueChange = onValueChange ?? onChange;

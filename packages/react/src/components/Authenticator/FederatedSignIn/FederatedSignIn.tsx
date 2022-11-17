@@ -1,10 +1,15 @@
 import React from 'react';
-import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
+import {
+  authenticatorTextUtil,
+  FederatedIdentityProviders,
+} from '@aws-amplify/ui';
 
 import { Divider } from '../../../primitives/Divider';
 import { Flex } from '../../../primitives/Flex';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { FederatedSignInButton } from './FederatedSignInButtons';
+
+const { getSignInWithFederationText } = authenticatorTextUtil;
 
 export function FederatedSignIn(): JSX.Element {
   const { route, socialProviders } = useAuthenticator(
@@ -14,8 +19,6 @@ export function FederatedSignIn(): JSX.Element {
   if (socialProviders.length === 0) {
     return null;
   }
-
-  const federatedText = route === 'signUp' ? 'Up' : 'In';
 
   return (
     <Flex
@@ -31,7 +34,7 @@ export function FederatedSignIn(): JSX.Element {
                 icon="amazon"
                 key={provider}
                 provider={FederatedIdentityProviders.Amazon}
-                text={translate<string>(`Sign ${federatedText} with Amazon`)}
+                text={getSignInWithFederationText(route, provider)}
               />
             );
           case 'apple':
@@ -40,7 +43,7 @@ export function FederatedSignIn(): JSX.Element {
                 icon="apple"
                 key={provider}
                 provider={FederatedIdentityProviders.Apple}
-                text={translate<string>(`Sign ${federatedText} with Apple`)}
+                text={getSignInWithFederationText(route, provider)}
               />
             );
           case 'facebook':
@@ -49,7 +52,7 @@ export function FederatedSignIn(): JSX.Element {
                 icon="facebook"
                 key={provider}
                 provider={FederatedIdentityProviders.Facebook}
-                text={translate<string>(`Sign ${federatedText} with Facebook`)}
+                text={getSignInWithFederationText(route, provider)}
               />
             );
           case 'google':
@@ -58,7 +61,7 @@ export function FederatedSignIn(): JSX.Element {
                 icon="google"
                 key={provider}
                 provider={FederatedIdentityProviders.Google}
-                text={translate<string>(`Sign ${federatedText} with Google`)}
+                text={getSignInWithFederationText(route, provider)}
               />
             );
           default:

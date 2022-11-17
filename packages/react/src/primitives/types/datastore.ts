@@ -3,8 +3,8 @@ import {
   PersistentModel,
   PersistentModelConstructor,
   PersistentModelMetaData,
-  ProducerModelPredicate,
   ProducerPaginationInput,
+  RecursiveModelPredicateExtender,
 } from '@aws-amplify/datastore';
 
 export type DataStoreItemProps<Model extends PersistentModel> = {
@@ -14,9 +14,7 @@ export type DataStoreItemProps<Model extends PersistentModel> = {
 
 export type DataStoreCollectionProps<Model extends PersistentModel> = {
   model: PersistentModelConstructor<Model>;
-  // TODO remove temporary `any`
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  criteria?: ProducerModelPredicate<Model> | any;
+  criteria?: RecursiveModelPredicateExtender<Model>;
   pagination?: ProducerPaginationInput<Model>;
 };
 

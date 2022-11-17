@@ -410,6 +410,17 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-image-height: auto;
         --amplify-components-image-object-fit: initial;
         --amplify-components-image-object-position: initial;
+        --amplify-components-inappmessaging-banner-height: 150px ;
+        --amplify-components-inappmessaging-banner-width: 400px ;
+        --amplify-components-inappmessaging-button-background-color: #e8e8e8;
+        --amplify-components-inappmessaging-button-border-radius: 5px;
+        --amplify-components-inappmessaging-button-color: black;
+        --amplify-components-inappmessaging-dialog-height: 50vh;
+        --amplify-components-inappmessaging-dialog-min-height: 400px;
+        --amplify-components-inappmessaging-dialog-min-width: 400px;
+        --amplify-components-inappmessaging-dialog-width: 30vw;
+        --amplify-components-inappmessaging-header-font-size: var(--amplify-font-sizes-medium);
+        --amplify-components-inappmessaging-header-font-weight: var(--amplify-font-weights-extrabold);
         --amplify-components-link-active-color: var(--amplify-colors-font-active);
         --amplify-components-link-color: var(--amplify-colors-font-interactive);
         --amplify-components-link-focus-color: var(--amplify-colors-font-focus);

@@ -12,15 +12,15 @@ import {
 } from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
 import {
+  AmplifyUser,
+  AuthenticatorMachineOptions,
+  authenticatorTextUtil,
+  AuthFormFields,
+  createAuthenticatorMachine,
   getActorState,
   getServiceFacade,
-  AuthenticatorMachineOptions,
-  createAuthenticatorMachine,
-  translate,
-  AmplifyUser,
-  SocialProvider,
   listenToAuthHub,
-  AuthFormFields,
+  SocialProvider,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -129,10 +129,12 @@ const confirmResetPasswordComponent = ref();
 const verifyUserComponent = ref();
 const confirmVerifyUserComponent = ref();
 
-// computed
+// text util
+const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 
-const signInLabel = computed(() => translate('Create Account'));
-const createAccountLabel = computed(() => translate('Sign In'));
+// computed
+const signInLabel = computed(() => getSignInTabText());
+const createAccountLabel = computed(() => getSignUpTabText());
 
 //methods
 
@@ -271,13 +273,13 @@ const hasRouteComponent = computed(() => {
           <base-two-tab-item
             :active="actorState?.matches('signIn')"
             :id="44472"
-            :label="createAccountLabel"
+            :label="signInLabel"
             @click="send('SIGN_IN')"
           />
           <base-two-tab-item
             :active="actorState?.matches('signUp')"
             :id="44471"
-            :label="signInLabel"
+            :label="createAccountLabel"
             @click="send('SIGN_UP')"
           />
         </base-two-tabs>

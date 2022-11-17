@@ -20,6 +20,7 @@ import { heading, HeadingTokens } from './heading';
 import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
+import { inappmessaging, InAppMessagingTokens } from './inAppMessaging';
 import { link, LinkTokens } from './link';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
@@ -70,6 +71,7 @@ export interface ComponentTokens {
   icon: IconTokens;
   highlightmatch: HighlightMatchTokens;
   image: ImageTokens;
+  inappmessaging: InAppMessagingTokens;
   link: LinkTokens;
   loader: LoaderTokens;
   menu: MenuTokens;
@@ -118,6 +120,7 @@ export const components: ComponentTokens = {
   icon,
   highlightmatch,
   image,
+  inappmessaging,
   link,
   loader,
   menu,
