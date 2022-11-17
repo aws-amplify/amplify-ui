@@ -34,88 +34,106 @@ describe(`All pages on Sitemap`, () => {
     allLinks.forEach((link, idx) => {
       cy.task('log', `🧪[TESTING...] page #${idx} ${BASE_URL}/${link}`);
       cy.visit({ url: link || '/', qs: { cypress: true } });
-      cy.get('a').each((el) => hrefWorks(el, link, allLinks, requestedLinks));
+
+      /** Check all the internal links */
+      cy.get(`a[href^='/']`).each((el) => hrefOnSitemap(el, link, allLinks));
+
+      /** Check all the external links and internal links with hash */
+      cy.get(`a:not([href^='/']), a[href*='#']`).each((el) =>
+        hrefWorks(el, link, requestedLinks)
+      );
     });
   });
 });
 
 export {};
 
+function hrefOnSitemap(
+  htmlTag: JQuery<HTMLElement>,
+  link: string,
+  allLinks: string[]
+) {
+  const tagHref: string = htmlTag.prop('href');
+  const tagText: string = htmlTag.prop('text');
+  const tagName: string = htmlTag.prop('tagName');
+  const tagHash: string = htmlTag.prop('hash');
+  const pureHref = tagHref.replace(tagHash, '');
+  /**
+   * The following logic is to make the list cy.request() to save memory when build in Amplify Hosting.
+   */
+  if (
+    /** pureHref is included in Sitemap, which is already tested by cy.visit(). */
+    allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, '')}`)
+  ) {
+    expect(`${pureHref.replace(`${BASE_URL}/`, '')}`).to.oneOf(allLinks);
+    logMessage({
+      evtName: 'SKIPPING_SITEMAP',
+      link,
+      tagHref: pureHref,
+      tagName,
+      tagText,
+    });
+  } else {
+    /**
+     * pureHref is platform neutral, which would be redirected to react by default and return a 308.
+     * To prevent the 308, we manually redirect it to react
+     */
+    expect(`${pureHref.replace(`${BASE_URL}/`, 'react/')}`).to.oneOf(allLinks);
+    logMessage({
+      evtName: 'SKIPPING_SITEMAP',
+      link,
+      tagHref: pureHref,
+      tagName,
+      tagText,
+    });
+  }
+}
+
 function hrefWorks(
   htmlTag: JQuery<HTMLElement>,
   link: string,
-  allLinks: string[],
   requestedLinks: Set<string>
 ): void {
   const tagHref: string = htmlTag.prop('href');
-  const tagHash: string = htmlTag.prop('hash');
   const tagText: string = htmlTag.prop('text');
   const tagName: string = htmlTag.prop('tagName');
-  let pureHref: string;
 
   if (tagHref) {
-    pureHref = tagHref.replace(tagHash, ''); // TODO: add test to validate links with a hash tag.
-    logMessage({ evtName: 'CHECKING', link, pureHref, tagName, tagText });
+    logMessage({
+      evtName: 'CHECKING',
+      link,
+      tagHref,
+      tagName,
+      tagText,
+    });
 
-    /**
-     * The following logic is to make the list cy.request() to save memory when build in Amplify Hosting.
-     */
     if (
-      /** pureHref is included in Sitemap, which is already tested by cy.visit(). */
-      allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, '')}`)
-    ) {
-      expect(`${pureHref.replace(`${BASE_URL}/`, '')}`).to.oneOf(allLinks);
-      logMessage({
-        evtName: 'SKIPPING_SITEMAP',
-        link,
-        pureHref,
-        tagName,
-        tagText,
-      });
-    } else if (
-      /**
-       * pureHref is platform neutral, which would be redirected to react by default and return a 308.
-       * To prevent the 308, we manually redirect it to react
-       */
-      allLinks.includes(`${pureHref.replace(`${BASE_URL}/`, 'react/')}`)
-    ) {
-      expect(`${pureHref.replace(`${BASE_URL}/`, 'react/')}`).to.oneOf(
-        allLinks
-      );
-      logMessage({
-        evtName: 'SKIPPING_SITEMAP',
-        link,
-        pureHref,
-        tagName,
-        tagText,
-      });
-    } else if (
       /** pureHref is listed in the VALIDATED_LINKS list or already requested in the test. */
-      VALIDATED_LINKS.includes(pureHref) ||
-      VALIDATED_LINKS.includes(`${pureHref.replace(BASE_URL, '')}`) ||
-      requestedLinks.has(pureHref)
+      VALIDATED_LINKS.includes(tagHref) ||
+      VALIDATED_LINKS.includes(`${tagHref.replace(BASE_URL, '')}`) ||
+      requestedLinks.has(tagHref)
     ) {
       logMessage({
         evtName: 'SKIPPING_VALIDATED',
         link,
-        pureHref,
+        tagHref,
         tagName,
         tagText,
       });
     } else {
-      const requestMethod = REQUEST_GET_LINKS.includes(pureHref)
+      const requestMethod = REQUEST_GET_LINKS.includes(tagHref)
         ? 'GET'
         : 'HEAD';
       logMessage({
         evtName: 'REQUESTING',
         link,
-        pureHref,
+        tagHref,
         tagName,
         tagText,
       });
-      requestedLinks.add(pureHref);
+      requestedLinks.add(tagHref);
       cy.request({
-        url: pureHref,
+        url: tagHref,
         followRedirect: false,
         method: requestMethod,
         qs: { cypress: true },
@@ -123,7 +141,7 @@ function hrefWorks(
         logMessage({
           evtName: 'RETURNING',
           link,
-          pureHref,
+          tagHref,
           tagName,
           tagText,
           status,
@@ -133,21 +151,27 @@ function hrefWorks(
       });
     }
   } else if (tagName === 'A') {
-    logMessage({ evtName: 'NO_HREF', link, pureHref, tagName, tagText });
+    logMessage({
+      evtName: 'NO_HREF',
+      link,
+      tagHref,
+      tagName,
+      tagText,
+    });
   }
 }
 
 function logMessage({
   evtName,
   link,
-  pureHref,
+  tagHref,
   status,
   tagName,
   tagText,
 }: {
   evtName: EvtName;
   link: string;
-  pureHref: string;
+  tagHref: string;
   status?: number;
   tagName: string;
   tagText: string;
@@ -156,35 +180,35 @@ function logMessage({
     case 'CHECKING':
       return cy.task(
         'log',
-        `🔍[CHECKING...] ${pureHref} from ${tagName} tag ${
+        `🔍[CHECKING...] ${tagHref} from ${tagName} tag ${
           tagText ? `"${tagText}"` : ''
         } on ${BASE_URL}/${link}`
       );
     case 'SKIPPING_SITEMAP':
       return cy.task(
         'log',
-        `⏭[SKIPPING...] ${pureHref} from ${tagName} tag ${
+        `⏭[SKIPPING...] ${tagHref} from ${tagName} tag ${
           tagText ? `"${tagText}"` : ''
         } on ${BASE_URL}/${link} because it's included in Sitemap and already tested.`
       );
     case 'SKIPPING_VALIDATED':
       return cy.task(
         'log',
-        `⏭[SKIPPING...] ${pureHref} from ${tagName} tag ${
+        `⏭[SKIPPING...] ${tagHref} from ${tagName} tag ${
           tagText ? `"${tagText}"` : ''
         } on ${BASE_URL}/${link} because it's already validated.`
       );
     case 'REQUESTING':
       return cy.task(
         'log',
-        `📞[REQUESTING...] ${pureHref} from ${tagName} tag ${
+        `📞[REQUESTING...] ${tagHref} from ${tagName} tag ${
           tagText ? `"${tagText}"` : ''
         } on ${BASE_URL}/${link}`
       );
     case 'RETURNING':
       return cy.task(
         'log',
-        `↩️ [RETURNING STATUS...] ${status} for ${pureHref}`
+        `↩️ [RETURNING STATUS...] ${status} for ${tagHref}`
       );
     case 'NO_HREF':
       return cy.task(
