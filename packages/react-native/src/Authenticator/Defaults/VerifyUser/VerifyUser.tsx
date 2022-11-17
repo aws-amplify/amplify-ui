@@ -82,7 +82,9 @@ const FormFields: DefaultVerifyUserComponent['FormFields'] = ({
         <Radio
           {...props}
           key={value}
-          value={value}
+          // value has to be name, because Auth is only interested in the
+          // string "email" or "phone_number", not the actual value
+          value={name}
           label={censorContactInformation(name, value)}
         />
       ))}
