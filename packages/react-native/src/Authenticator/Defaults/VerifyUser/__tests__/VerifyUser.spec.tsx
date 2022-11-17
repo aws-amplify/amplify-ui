@@ -14,14 +14,14 @@ const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
 const radioEmailField = {
   type: 'radio',
-  name: 'Email',
+  name: 'email',
   label: 'Email',
   value: 'hello@world.com',
 } as RadioFieldOptions;
 
 const radioPhoneField = {
   type: 'radio',
-  name: 'Phone Number',
+  name: 'phone_number',
   label: 'Phone Number',
   value: '+1 000-000-0000',
 } as RadioFieldOptions;
@@ -71,7 +71,7 @@ describe('VerifyUser', () => {
     expect(warnSpy).toHaveBeenCalledWith(
       `'${
         radioField.name
-      }' is not supported. Available values are: ${Object.values(
+      }' is not supported. Available values are: ${Object.keys(
         supportedContactMethods
       )}.`
     );

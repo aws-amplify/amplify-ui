@@ -21,7 +21,7 @@ const textField = {
 
 const radioField = {
   type: 'radio',
-  name: 'Email',
+  name: 'email',
   value: 'testValue',
   onChange: jest.fn,
 } as RadioFieldOptions;
@@ -157,7 +157,7 @@ describe('useFieldValues', () => {
   it('restricts radio fields to unverified contact methods', () => {
     const phoneRadioField = {
       type: 'radio',
-      name: 'Phone Number',
+      name: 'phone_number',
       value: 'testValue',
       onChange: jest.fn,
     } as RadioFieldOptions;
@@ -183,7 +183,7 @@ describe('useFieldValues', () => {
     expect(warnSpy).toHaveBeenCalledWith(
       `'${
         unsupportedRadioField.name
-      }' is not supported. Available values are: ${Object.values(
+      }' is not supported. Available values are: ${Object.keys(
         supportedContactMethods
       )}.`
     );

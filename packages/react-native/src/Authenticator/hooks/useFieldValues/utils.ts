@@ -15,7 +15,6 @@ import {
 } from '../types';
 import { KEY_ALLOW_LIST } from './constants';
 
-
 const logger = new Logger('Authenticator');
 
 export const supportedContactMethods: Record<
@@ -61,11 +60,10 @@ export const getSanitizedRadioFields = (
     }
 
     if (
-      Object.values(supportedContactMethods).findIndex((key) => key === name) <
-      0
+      Object.keys(supportedContactMethods).findIndex((key) => key === name) < 0
     ) {
       logger.warn(
-        `'${name}' is not supported. Available values are: ${Object.values(
+        `'${name}' is not supported. Available values are: ${Object.keys(
           supportedContactMethods
         )}.`
       );

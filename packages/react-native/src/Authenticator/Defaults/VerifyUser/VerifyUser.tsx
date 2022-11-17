@@ -19,14 +19,14 @@ const COMPONENT_NAME = 'VerifyUser';
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
 
-const censorContactInformation = (type: string, value: string): string => {
+const censorContactInformation = (name: string, value: string): string => {
   let censoredVal = value;
-  if (type === 'Email') {
+  if (name === 'email') {
     const splitEmail = value.split('@');
     const censoredName = censorAllButFirstAndLast(splitEmail[0]);
 
     censoredVal = `${censoredName}@${splitEmail[1]}`;
-  } else if (type === 'Phone Number') {
+  } else if (name === 'phone_number') {
     censoredVal = censorPhoneNumber(value);
   }
   return censoredVal;
@@ -78,7 +78,7 @@ const FormFields: DefaultVerifyUserComponent['FormFields'] = ({
 }) => {
   return (
     <RadioGroup disabled={isPending}>
-      {fields.map(({ label, name, value, ...props }) => (
+      {fields.map(({ name, value, ...props }) => (
         <Radio
           {...props}
           key={value}
