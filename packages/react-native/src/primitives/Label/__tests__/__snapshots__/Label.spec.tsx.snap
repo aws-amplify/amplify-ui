@@ -9,7 +9,7 @@ exports[`Label applies accessibility role 1`] = `
         "fontSize": 16,
         "fontWeight": "400",
         "marginHorizontal": 4,
-        "marginVertical": 3,
+        "marginVertical": 2,
       },
       Object {
         "color": "hsl(210, 50%, 10%)",
@@ -32,7 +32,7 @@ exports[`Label renders a default Label 1`] = `
         "fontSize": 16,
         "fontWeight": "400",
         "marginHorizontal": 4,
-        "marginVertical": 3,
+        "marginVertical": 2,
       },
       Object {
         "color": "hsl(210, 50%, 10%)",
@@ -55,7 +55,7 @@ exports[`Label should apply theme and style props 1`] = `
         "fontSize": 16,
         "fontWeight": "400",
         "marginHorizontal": 4,
-        "marginVertical": 3,
+        "marginVertical": 2,
       },
       Object {
         "color": "hsl(210, 50%, 10%)",
@@ -80,7 +80,7 @@ exports[`Label should apply variant styles 1`] = `
         "fontSize": 16,
         "fontWeight": "400",
         "marginHorizontal": 4,
-        "marginVertical": 3,
+        "marginVertical": 2,
       },
       Object {
         "color": "hsl(130, 27%, 29%)",

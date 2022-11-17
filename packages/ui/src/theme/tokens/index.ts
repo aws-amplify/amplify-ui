@@ -106,7 +106,8 @@ export const reactNativeTokens: ReactNativeTokens<'default'> = {
   opacities,
   // React Native doesn't need the relative space values
   space: {
-    xxs: space.xxs,
+    // use `space.xxxs` to output a value of `2` and avoid odd space numbers
+    xxs: space.xxxs,
     xs: space.xs,
     small: space.small,
     medium: space.medium,
