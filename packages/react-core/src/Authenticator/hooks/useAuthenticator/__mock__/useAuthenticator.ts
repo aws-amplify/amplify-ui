@@ -27,12 +27,10 @@ const toSignUp = jest.fn();
 const unverifiedContactMethods = {};
 const updateBlur = jest.fn();
 const updateForm = jest.fn();
-const username = 'Charles';
 const validationErrors = {};
 
 const user = {
   challengeName,
-  username,
 } as AuthenticatorMachineContext['user'];
 
 export const mockMachineContext: AuthenticatorMachineContext = {

@@ -15,11 +15,7 @@ import {
   UseAuthenticatorSelector,
 } from '../useAuthenticator';
 import { isComponentRouteKey } from '../utils';
-import {
-  DEFAULT_TOTP_ISSUER,
-  MACHINE_PROP_KEYS,
-  EVENT_HANDLER_KEY_MAP,
-} from './constants';
+import { MACHINE_PROP_KEYS, EVENT_HANDLER_KEY_MAP } from './constants';
 import {
   ConvertedMachineProps,
   FormEventHandlerMachineKey,
@@ -152,24 +148,12 @@ export function resolveSetupTOTPRoute<FieldType = {}>(
   Component: Defaults<FieldType>['SetupTOTP'],
   { getTotpSecretCode, ...props }: UseAuthenticator
 ): UseAuthenticatorRoute<'SetupTOTP', FieldType> {
-  const { user, ...machineProps } = getConvertedMachineProps(
-    'setupTOTP',
-    props
-  );
-
-  // prior to reaching the `setupTOTP` route, `user` will be
-  // authenticated ensuring `username` is provided
-  const totpUsername = user.username!;
-  const totpIssuer = DEFAULT_TOTP_ISSUER;
-
   return {
     Component,
     props: {
       ...Component,
-      ...machineProps,
+      ...getConvertedMachineProps('setupTOTP', props),
       getTotpSecretCode,
-      totpUsername,
-      totpIssuer,
     },
   };
 }

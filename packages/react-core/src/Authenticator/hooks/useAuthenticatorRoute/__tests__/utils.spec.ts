@@ -53,8 +53,7 @@ const {
   validationErrors,
 } = mockUseAuthenticatorOutput;
 
-const totpIssuer = 'AWSCognito';
-const { challengeName, username } = user;
+const { challengeName } = user;
 
 const machineContext = mockMachineContext;
 
@@ -94,7 +93,7 @@ describe('getRouteMachineSelector', () => {
       ],
     ],
     ['signUp', [...commonSelectorProps, toSignIn, validationErrors]],
-    ['setupTOTP', [...commonSelectorProps, toSignIn, user]],
+    ['setupTOTP', [...commonSelectorProps, toSignIn]],
     ['verifyUser', [...commonSelectorProps, skipVerification]],
   ])('returns the expected route selector for %s', (route, expected) => {
     const selector = getRouteMachineSelector(route as AuthenticatorRoute);
@@ -131,11 +130,7 @@ describe('props resolver functions', () => {
       resolveResetPasswordRoute,
       { error, isPending, toSignIn },
     ],
-    [
-      'SetupTOTP',
-      resolveSetupTOTPRoute,
-      { getTotpSecretCode, toSignIn, totpUsername: username, totpIssuer },
-    ],
+    ['SetupTOTP', resolveSetupTOTPRoute, { getTotpSecretCode, toSignIn }],
     [
       'SignIn',
       resolveSignInRoute,
