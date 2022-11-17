@@ -20,20 +20,21 @@ import {
 import { FileState } from './FileState';
 
 export function Tracker({
+  errorMessage,
   file,
   fileState,
   hasImage,
-  url,
+  name,
+  onCancel,
+  onCancelEdit,
   onPause,
   onResume,
-  onCancel,
-  errorMessage,
-  name,
-  percentage,
   onSaveEdit,
   onStartEdit,
-  onCancelEdit,
+  percentage,
   resumable,
+  showImage,
+  url,
 }: TrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState(name);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -131,7 +132,11 @@ export function Tracker({
 
   return (
     <View className={ComponentClassNames.FileUploaderFile}>
-      <View className={ComponentClassNames.FileUploaderFileImage}>{icon}</View>
+      {showImage ? (
+        <View className={ComponentClassNames.FileUploaderFileImage}>
+          {icon}
+        </View>
+      ) : null}
 
       {/* Main View */}
       {fileState === 'editing' ? (
