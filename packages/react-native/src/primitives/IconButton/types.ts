@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 export interface IconButtonStyles {
-  pressed: ViewStyle;
+  pressed?: ViewStyle;
 }
 
 export interface IconButtonProps extends PressableProps {

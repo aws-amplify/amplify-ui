@@ -15,7 +15,7 @@ export interface DividerProps extends ViewProps {
 }
 
 export interface DividerStyles {
-  container: ViewStyle;
-  label: TextStyle;
-  line: ViewStyle;
+  container?: ViewStyle;
+  label?: TextStyle;
+  line?: ViewStyle;
 }

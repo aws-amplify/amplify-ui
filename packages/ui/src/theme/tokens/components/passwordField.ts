@@ -1,20 +1,23 @@
-import { ColorValue, DesignToken } from '../types/designToken';
-import { StateTokens } from './button';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface ButtonTokens {
-  color: DesignToken<ColorValue>;
-  _active: StateTokens;
-  _disabled: StateTokens;
-  _focus: StateTokens;
-  _hover: StateTokens;
-}
+type StateTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'color',
+  Output
+>;
 
-export interface PasswordFieldTokens {
-  color: DesignToken<ColorValue>;
-  button: ButtonTokens;
-}
+type ButtonTokens<Output> = DesignTokenProperties<'color', Output> & {
+  _active?: StateTokens<Output>;
+  _disabled?: StateTokens<Output>;
+  _focus?: StateTokens<Output>;
+  _hover?: StateTokens<Output>;
+};
 
-export const passwordfield: PasswordFieldTokens = {
+export type PasswordFieldTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'color', Output> & {
+    button?: ButtonTokens<Output>;
+  };
+
+export const passwordfield: Required<PasswordFieldTokens<'default'>> = {
   color: { value: '{components.fieldcontrol.color.value}' },
   button: {
     color: { value: '{components.button.color.value}' },

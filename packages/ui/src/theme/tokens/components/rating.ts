@@ -1,25 +1,14 @@
-import { ColorValue, DesignToken, SpaceValue } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface RatingSizeTokens {
-  size: DesignToken<SpaceValue>;
-}
+export type RatingTokens<Output extends OutputVariantKey> = {
+  large: DesignTokenProperties<'size', Output>;
+  default: DesignTokenProperties<'size', Output>;
+  small: DesignTokenProperties<'size', Output>;
+  filled?: DesignTokenProperties<'color', Output>;
+  empty?: DesignTokenProperties<'color', Output>;
+};
 
-interface RatingFilledTokens {
-  color: DesignToken<ColorValue>;
-}
-
-interface RatingEmptyTokens {
-  color: DesignToken<ColorValue>;
-}
-
-export interface RatingTokens {
-  large: RatingSizeTokens;
-  default: RatingSizeTokens;
-  small: RatingSizeTokens;
-  filled: RatingFilledTokens;
-  empty: RatingEmptyTokens;
-}
-export const rating: RatingTokens = {
+export const rating: Required<RatingTokens<'default'>> = {
   large: { size: { value: '{fontSizes.xxxl.value}' } },
   default: { size: { value: '{fontSizes.xl.value}' } },
   small: { size: { value: '{fontSizes.small.value}' } },

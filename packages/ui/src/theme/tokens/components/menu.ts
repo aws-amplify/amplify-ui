@@ -1,44 +1,29 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderRadiusValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  BoxShadowValue,
-  DesignToken,
-  FlexDirectionValue,
-  GapValue,
-  SpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface MenuSizeTokens {
-  width: DesignToken<SpaceValue>;
-  height: DesignToken<SpaceValue>;
-}
+type MenuSizeTokens<Output> = DesignTokenProperties<'width' | 'height', Output>;
 
-interface MenuItemTokens {
-  minHeight: DesignToken<SpaceValue>;
-  paddingInlineStart: DesignToken<SpaceValue>;
-  paddingInlineEnd: DesignToken<SpaceValue>;
-}
+export type MenuTokens<Output extends OutputVariantKey> = DesignTokenProperties<
+  | 'backgroundColor'
+  | 'borderColor'
+  | 'borderRadius'
+  | 'borderStyle'
+  | 'borderWidth'
+  | 'boxShadow'
+  | 'flexDirection'
+  | 'gap'
+  | 'maxWidth'
+  | 'minWidth',
+  Output
+> & {
+  small?: MenuSizeTokens<Output>;
+  large?: MenuSizeTokens<Output>;
+  item?: DesignTokenProperties<
+    'minHeight' | 'paddingInlineEnd' | 'paddingInlineStart',
+    Output
+  >;
+};
 
-export interface MenuTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-  flexDirection: DesignToken<FlexDirectionValue>;
-  gap: DesignToken<GapValue>;
-  maxWidth: DesignToken<SpaceValue>;
-  minWidth: DesignToken<SpaceValue>;
-  small: MenuSizeTokens;
-  large: MenuSizeTokens;
-  item: MenuItemTokens;
-}
-
-export const menu: MenuTokens = {
+export const menu: Required<MenuTokens<'default'>> = {
   backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.medium.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },

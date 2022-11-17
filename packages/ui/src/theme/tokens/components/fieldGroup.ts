@@ -1,18 +1,12 @@
-import { DesignToken, AlignItemsValue, GapValue } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface FieldGroupVerticalTokens {
-  alignItems: DesignToken<AlignItemsValue>;
-}
-interface FieldGroupOuterTokens {
-  alignItems: DesignToken<AlignItemsValue>;
-}
-export interface FieldGroupTokens {
-  gap: DesignToken<GapValue>;
-  vertical: FieldGroupVerticalTokens;
-  outer: FieldGroupOuterTokens;
-}
+export type FieldGroupTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'gap', Output> & {
+    vertical?: DesignTokenProperties<'alignItems', Output>;
+    outer?: DesignTokenProperties<'alignItems', Output>;
+  };
 
-export const fieldgroup: FieldGroupTokens = {
+export const fieldgroup: Required<FieldGroupTokens<'default'>> = {
   gap: { value: '{space.zero.value}' },
   vertical: {
     alignItems: { value: 'center' },
