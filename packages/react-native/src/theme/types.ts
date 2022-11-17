@@ -22,7 +22,6 @@ type ComponentTheme<ComponentType, Output> = Output extends 'output'
   ? ComponentType
   : ((tokens: StrictTheme['tokens']) => ComponentType) | ComponentType;
 
-
 // TODO: make optional all the way down
 export type Components<Output> = Record<string, object> & {
   button?: ComponentTheme<ButtonStyles, Output>;
@@ -66,6 +65,8 @@ export interface Theme {
    * like light and dark mode.
    */
   overrides?: Override[];
+
+  spaceModifier?: number;
 }
 
 export interface DefaultTheme {
@@ -84,4 +85,5 @@ export interface StrictTheme {
   tokens: StrictTokens;
   components?: Components<'output'>;
   overrides?: Override[];
+  spaceModifier?: number;
 }

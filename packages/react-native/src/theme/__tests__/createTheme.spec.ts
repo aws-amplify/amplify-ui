@@ -4,18 +4,19 @@ import { createTheme } from '../createTheme';
 describe('createTheme', () => {
   describe('without a base theme', () => {
     const { tokens, components } = createTheme({
-      components: { bottomSheet: { container: { backgroundColor: 'red' } } },
+      components: { button: { container: { backgroundColor: 'red' } } },
     });
 
     it('should have component agnostic tokens', () => {
       expect(tokens).toBeDefined();
       expect(components).toBeDefined();
-      expect(components?.bottomSheet?.container?.backgroundColor).toBe('red');
+      expect(components?.button?.container?.backgroundColor).toBe('red');
     });
 
     it('should return proper React Native token types', () => {
       const { tokens } = createTheme({});
       expect(typeof tokens.opacities[10]).toBe('number');
+      expect(typeof tokens.fontWeights.bold).toBe('string');
     });
   });
 
@@ -65,7 +66,7 @@ describe('createTheme', () => {
     it('should resolve references in a functional component theme', () => {
       const { components } = createTheme({
         components: {
-          bottomSheet(tokens) {
+          button(tokens) {
             return {
               container: {
                 backgroundColor: tokens.colors.background.primary,
@@ -74,7 +75,7 @@ describe('createTheme', () => {
           },
         },
       });
-      expect(components?.bottomSheet?.container?.backgroundColor).toBe(
+      expect(components?.button?.container?.backgroundColor).toBe(
         'hsl(0, 0%, 100%)'
       );
     });
@@ -89,7 +90,7 @@ describe('createTheme', () => {
           },
         },
         components: {
-          bottomSheet: {
+          button: {
             container: {
               backgroundColor: '{colors.background.primary}',
               padding: '{space.xl}',
@@ -97,17 +98,17 @@ describe('createTheme', () => {
           },
         },
       });
-      expect(components?.bottomSheet?.container?.backgroundColor).toBe(
+      expect(components?.button?.container?.backgroundColor).toBe(
         'hsl(0, 0%, 100%)'
       );
-      expect(components?.bottomSheet?.container?.padding).toBe(32);
+      expect(components?.button?.container?.padding).toBe(16);
     });
 
     it('should respect colorMode', () => {
       const { components } = createTheme(
         {
           components: {
-            bottomSheet(tokens) {
+            button(tokens) {
               return {
                 container: {
                   // default value is a reference to colors.white
@@ -129,7 +130,7 @@ describe('createTheme', () => {
         },
         'dark'
       );
-      expect(components?.bottomSheet?.container?.backgroundColor).toBe('black');
+      expect(components?.button?.container?.backgroundColor).toBe('black');
     });
 
     it('should properly resolve with overrides', () => {
@@ -155,14 +156,14 @@ describe('createTheme', () => {
             },
           ],
           components: {
-            bottomSheet: {
+            button: {
               container: { backgroundColor: '{colors.background.primary}' },
             },
           },
         },
         'dark'
       );
-      expect(components?.bottomSheet?.container?.backgroundColor).toBe(
+      expect(components?.button?.container?.backgroundColor).toBe(
         'hsl(0, 0%, 0%)'
       );
     });

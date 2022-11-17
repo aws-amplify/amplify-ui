@@ -20,12 +20,12 @@ export type LabelVariant =
   | 'success';
 
 export interface LabelStyles {
-  text: TextStyle;
-  primary: TextStyle;
-  secondary: TextStyle;
-  tertiary: TextStyle;
-  error: TextStyle;
-  warning: TextStyle;
-  success: TextStyle;
-  info: TextStyle;
+  text?: TextStyle;
+  primary?: TextStyle;
+  secondary?: TextStyle;
+  tertiary?: TextStyle;
+  error?: TextStyle;
+  warning?: TextStyle;
+  success?: TextStyle;
+  info?: TextStyle;
 }

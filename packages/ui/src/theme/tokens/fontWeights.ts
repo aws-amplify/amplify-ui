@@ -18,7 +18,12 @@ type FontWeight =
 export type FontWeights<
   Output extends OutputVariantKey = unknown,
   Platform = unknown
-> = DesignTokenValues<FontWeight, FontWeightValue, Output, Platform>;
+> = DesignTokenValues<
+  FontWeight,
+  FontWeightValue<Platform, Output>,
+  Output,
+  Platform
+>;
 
 export const fontWeights: FontWeights<'default'> = {
   hairline: { value: 100 },

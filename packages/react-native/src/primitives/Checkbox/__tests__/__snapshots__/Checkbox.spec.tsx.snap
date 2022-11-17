@@ -54,7 +54,7 @@ exports[`Checkbox applies label position prop 1`] = `
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
-          "marginVertical": 2,
+          "marginVertical": 3,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -124,7 +124,7 @@ exports[`Checkbox applies theme and style props 1`] = `
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
-          "marginVertical": 2,
+          "marginVertical": 3,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -198,7 +198,7 @@ exports[`Checkbox renders as expected when disabled 1`] = `
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
-          "marginVertical": 2,
+          "marginVertical": 3,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -266,7 +266,7 @@ exports[`Checkbox renders as expected when passing a number to the size prop 1`]
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
-          "marginVertical": 2,
+          "marginVertical": 3,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -334,7 +334,7 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
-          "marginVertical": 2,
+          "marginVertical": 3,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -402,7 +402,7 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
-          "marginVertical": 2,
+          "marginVertical": 3,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -470,7 +470,7 @@ exports[`Checkbox renders as expected with custom accessibilityRole 1`] = `
           "fontSize": 16,
           "fontWeight": "400",
           "marginHorizontal": 4,
-          "marginVertical": 2,
+          "marginVertical": 3,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",

@@ -53,6 +53,7 @@ import { OutputVariantKey } from '../types/designToken';
 type BaseComponentTokens<Output extends OutputVariantKey> = {
   alert?: AlertTokens<Output>;
   authenticator?: AuthenticatorTokens<Output>;
+  autocomplete?: AutocompleteTokens<Output>;
   badge?: BadgeTokens<Output>;
   button?: ButtonTokens<Output>;
   card?: CardTokens<Output>;
@@ -69,6 +70,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   fieldmessages?: FieldMessagesTokens<Output>;
   flex?: FlexTokens<Output>;
   heading?: HeadingTokens<Output>;
+  highlightmatch?: HighlightMatchTokens<Output>;
   icon?: IconTokens<Output>;
   image?: ImageTokens<Output>;
   inappmessaging?: InAppMessagingTokens<Output>;

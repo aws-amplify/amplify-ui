@@ -22,6 +22,6 @@ export interface RadioGroupProps<T>
 }
 
 export interface RadioGroupStyles {
-  container: ViewStyle;
-  label: TextStyle;
+  container?: ViewStyle;
+  label?: TextStyle;
 }

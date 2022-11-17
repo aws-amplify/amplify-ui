@@ -1,7 +1,7 @@
 import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import resolveObject from 'style-dictionary/lib/utils/resolveObject';
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
-import { reactNativeTokens, setupTokens, SetupToken } from '@aws-amplify/ui';
+import { reactNativeTokens, setupTokens } from '@aws-amplify/ui';
 import { DefaultTheme, Theme, StrictTheme, ColorMode } from './types';
 
 const defaultTheme: DefaultTheme = {
@@ -30,10 +30,25 @@ const setupComponents = (theme: StrictTheme) => {
   }).components;
 };
 
-const setupToken: SetupToken<string | number> = ({ token, path = [] }) => {
+const setupToken = ({
+  token,
+  path = [],
+  spaceModifier,
+}: {
+  token: {
+    value: string | number;
+  };
+  path: Array<string>;
+  spaceModifier: number;
+}): string | number => {
   const { value } = token;
   if (typeof value === 'string') {
     // Perform transforms
+    if (path[0] === 'space') {
+      if (value.includes('rem')) {
+        return Math.floor(parseFloat(value) * 16 * spaceModifier);
+      }
+    }
     if (value.includes('rem')) {
       return Math.floor(parseFloat(value) * 16);
     }
@@ -49,6 +64,11 @@ const setupToken: SetupToken<string | number> = ({ token, path = [] }) => {
     }
     return value;
   }
+  // Font Weights in RN are strings
+  if (path[0] === 'fontWeights') {
+    return `${value}`;
+  }
+
   return value;
 };
 
@@ -72,6 +92,7 @@ export const createTheme = (
   ]) as StrictTheme;
 
   let { tokens: mergedTokens } = mergedTheme;
+  const { spaceModifier = 0.5 } = mergedTheme;
 
   // We need to merge in any applicable overrides because we need to
   // resolve the values of all tokens at runtime based on which
@@ -95,7 +116,9 @@ export const createTheme = (
   const tokens = resolveObject(
     setupTokens({
       tokens: mergedTokens,
-      setupToken,
+      setupToken: ({ token, path }) => {
+        return setupToken({ token, path, spaceModifier });
+      },
     }) as StrictTheme['tokens']
   );
 

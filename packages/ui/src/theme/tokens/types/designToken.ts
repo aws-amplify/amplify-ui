@@ -64,7 +64,14 @@ export type FontSizeValue<
 
 export type FontStyleValue = string;
 export type FontValue = string;
-export type FontWeightValue = string | number;
+export type FontWeightValue<
+  Platform extends PlatformKey = unknown,
+  Output extends OutputVariantKey = unknown
+> = Output extends 'required'
+  ? Platform extends 'react-native'
+    ? string
+    : string | number
+  : string | number;
 export type GapValue = string;
 export type JustifyContentValue = string;
 export type LineHeightValue = string | number;
@@ -174,6 +181,8 @@ interface TokenStandardProperties {
   margin: SpaceValue;
   marginLeft: SpaceValue;
   marginRight: SpaceValue;
+  marginBlockStart: SpaceValue;
+  maxHeight: SpaceValue;
   maxWidth: SpaceValue;
   minHeight: SpaceValue;
   minWidth: SpaceValue;

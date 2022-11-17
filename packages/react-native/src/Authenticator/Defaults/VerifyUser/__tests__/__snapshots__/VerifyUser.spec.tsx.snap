@@ -91,7 +91,7 @@ Array [
                 "fontSize": 16,
                 "fontWeight": "400",
                 "marginHorizontal": 4,
-                "marginVertical": 2,
+                "marginVertical": 3,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -155,7 +155,7 @@ Array [
                 "fontSize": 16,
                 "fontWeight": "400",
                 "marginHorizontal": 4,
-                "marginVertical": 2,
+                "marginVertical": 3,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -219,7 +219,7 @@ Array [
                 "fontSize": 16,
                 "fontWeight": "400",
                 "marginHorizontal": 4,
-                "marginVertical": 2,
+                "marginVertical": 3,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -419,7 +419,7 @@ Array [
                 "fontSize": 16,
                 "fontWeight": "400",
                 "marginHorizontal": 4,
-                "marginVertical": 2,
+                "marginVertical": 3,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -484,7 +484,7 @@ Array [
                 "fontSize": 16,
                 "fontWeight": "400",
                 "marginHorizontal": 4,
-                "marginVertical": 2,
+                "marginVertical": 3,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -549,7 +549,7 @@ Array [
                 "fontSize": 16,
                 "fontWeight": "400",
                 "marginHorizontal": 4,
-                "marginVertical": 2,
+                "marginVertical": 3,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -748,7 +748,7 @@ Array [
                 "fontSize": 16,
                 "fontWeight": "400",
                 "marginHorizontal": 4,
-                "marginVertical": 2,
+                "marginVertical": 3,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -812,7 +812,7 @@ Array [
                 "fontSize": 16,
                 "fontWeight": "400",
                 "marginHorizontal": 4,
-                "marginVertical": 2,
+                "marginVertical": 3,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -876,7 +876,7 @@ Array [
                 "fontSize": 16,
                 "fontWeight": "400",
                 "marginHorizontal": 4,
-                "marginVertical": 2,
+                "marginVertical": 3,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
