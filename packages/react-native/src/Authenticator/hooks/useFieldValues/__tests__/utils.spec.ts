@@ -1,9 +1,33 @@
 import { Logger } from 'aws-amplify';
 import { TypedField } from '../../types';
 
-import { getSanitizedRadioFields, getSanitizedTextFields } from '../utils';
+import {
+  getRouteTypedFields,
+  getSanitizedRadioFields,
+  getSanitizedTextFields,
+} from '../utils';
 
 const warnSpy = jest.spyOn(Logger.prototype, 'warn');
+
+const idle = 'idle';
+const signIn = 'signIn';
+const verifyUser = 'verifyUser';
+
+const passwordField = {
+  type: 'password',
+  name: 'password',
+  label: 'Password',
+  required: true,
+};
+const phoneField = {
+  dialCode: '999',
+  dialCodeList: ['123', '456'],
+  name: 'phonenumber',
+  type: 'tel',
+};
+const textField = { order: 3, name: 'username', isRequired: true };
+
+const radioField = { type: 'radio', name: 'email', value: 'hello@world.com' };
 
 describe('getSanitizedTextFields', () => {
   afterEach(() => {
@@ -142,5 +166,47 @@ describe('getSanitizedRadioFields', () => {
 
     expect(output).toHaveLength(1);
     expect(output).toStrictEqual([validField]);
+  });
+});
+
+describe('getRouteTypedFields', () => {
+  it('returns the expected value for a non-component route', () => {
+    const fields = getRouteTypedFields({ fields: [], route: idle });
+
+    expect(fields).toStrictEqual([]);
+    expect(fields).toHaveLength(0);
+  });
+
+  it('returns the expected result for the verifyUser route', () => {
+    const fields = getRouteTypedFields({
+      fields: [radioField],
+      route: verifyUser,
+    });
+
+    expect(fields).toStrictEqual([radioField]);
+  });
+
+  it('returns the expected value for varied fields', () => {
+    const fields = getRouteTypedFields({
+      fields: [passwordField, phoneField, textField],
+      route: signIn,
+    });
+
+    const expected = [
+      passwordField,
+      {
+        defaultDialCode: phoneField.dialCode,
+        dialCodes: phoneField.dialCodeList,
+        name: phoneField.name,
+        type: 'phone',
+      },
+      {
+        name: textField.name,
+        required: textField.isRequired,
+        type: 'default',
+      },
+    ];
+
+    expect(fields).toStrictEqual(expected);
   });
 });
