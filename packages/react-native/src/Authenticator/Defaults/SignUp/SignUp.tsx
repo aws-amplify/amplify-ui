@@ -56,11 +56,7 @@ const SignUp: DefaultSignUpComponent = ({
         validationErrors={validationErrors}
       />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-        textStyle={styles.buttonPrimaryLabel}
-      >
+      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
         {isPending ? getCreatingAccountText() : getCreateAccountText()}
       </Button>
       <Footer />

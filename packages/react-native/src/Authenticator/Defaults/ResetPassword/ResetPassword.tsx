@@ -41,17 +41,13 @@ const ResetPassword: DefaultResetPasswordComponent = ({
       <Header>{getResetYourPasswordText()}</Header>
       <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-        textStyle={styles.buttonPrimaryLabel}
-      >
+      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
         {isPending ? getSendingText() : getSendCodeText()}
       </Button>
       <Button
         onPress={toSignIn}
+        variant="secondary"
         style={styles.buttonSecondary}
-        textStyle={styles.buttonSecondaryLabel}
       >
         {getBackToSignInText()}
       </Button>

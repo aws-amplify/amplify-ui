@@ -37,11 +37,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -51,12 +56,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -79,10 +83,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -92,10 +102,10 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >
@@ -142,11 +152,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -156,12 +171,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -184,10 +198,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -197,10 +217,10 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >
@@ -299,11 +319,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -313,12 +338,11 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
           },
+          undefined,
         ]
       }
     >
@@ -341,10 +365,16 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "padding": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+        },
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -354,10 +384,10 @@ Array [
         Array [
           Object {
             "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >
