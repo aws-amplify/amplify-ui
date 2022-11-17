@@ -1,5 +1,9 @@
 import { Logger } from 'aws-amplify';
 import {
+  isUnverifiedContactMethodType,
+  UnverifiedContactMethodType,
+} from '@aws-amplify/ui';
+import {
   AuthenticatorLegacyField,
   AuthenticatorRouteComponentName,
   isAuthenticatorComponentRouteKey,
@@ -34,7 +38,7 @@ export const getSanitizedRadioFields = (
       return false;
     }
 
-    const { value } = field;
+    const { name, value } = field;
 
     if (!value) {
       logger.warn(
@@ -46,6 +50,15 @@ export const getSanitizedRadioFields = (
     if (values[value]) {
       logger.warn(
         `Each radio field value must be unique. field with duplicate value of ${value} has been ignored.`
+      );
+      return false;
+    }
+
+    if (!isUnverifiedContactMethodType(name)) {
+      logger.warn(
+        `field with name '${name}' has been ignored. Supported values are: ${Object.values(
+          UnverifiedContactMethodType
+        )}.`
       );
       return false;
     }

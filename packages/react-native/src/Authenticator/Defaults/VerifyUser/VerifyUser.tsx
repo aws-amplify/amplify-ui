@@ -3,6 +3,7 @@ import {
   authenticatorTextUtil,
   censorAllButFirstAndLast,
   censorPhoneNumber,
+  UnverifiedContactMethodType,
 } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage, Radio, RadioGroup } from '../../../primitives';
@@ -21,12 +22,12 @@ const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
 
 const censorContactInformation = (name: string, value: string): string => {
   let censoredVal = value;
-  if (name === 'email') {
+  if (name === UnverifiedContactMethodType.Email) {
     const splitEmail = value.split('@');
     const censoredName = censorAllButFirstAndLast(splitEmail[0]);
 
     censoredVal = `${censoredName}@${splitEmail[1]}`;
-  } else if (name === 'phone') {
+  } else if (name === UnverifiedContactMethodType.PhoneNumber) {
     censoredVal = censorPhoneNumber(value);
   }
   return censoredVal;

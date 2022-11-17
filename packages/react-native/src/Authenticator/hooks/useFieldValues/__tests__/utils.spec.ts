@@ -64,7 +64,7 @@ describe('getSanitizedTextFields', () => {
     const validField: TypedField = { name: 'test', type: 'default' };
     const fields: TypedField[] = [
       validField,
-      { name: 'Password', type: 'radio', value: 'value' },
+      { name: 'Phone Number', type: 'radio', value: 'value' },
     ];
 
     const output = getSanitizedTextFields(fields, 'SignIn');
@@ -104,7 +104,7 @@ describe('getSanitizedRadioFields', () => {
 
   it('logs a warning and ignores the field when not a radio field', () => {
     const validField: TypedField = {
-      name: 'test',
+      name: 'email',
       type: 'radio',
       value: 'value',
     };
@@ -126,13 +126,13 @@ describe('getSanitizedRadioFields', () => {
 
   it('logs a warning and ignores the field when value is missing.', () => {
     const validField: TypedField = {
-      name: 'test',
+      name: 'email',
       type: 'radio',
       value: 'value',
     };
     const fields: TypedField[] = [
       validField,
-      { name: 'test', type: 'radio' } as TypedField,
+      { name: 'phone_number', type: 'radio' } as TypedField,
     ];
 
     const output = getSanitizedRadioFields(fields, 'VerifyUser');
@@ -148,13 +148,13 @@ describe('getSanitizedRadioFields', () => {
 
   it('logs a warning and ignores the field when a duplicate value is found.', () => {
     const validField: TypedField = {
-      name: 'test',
+      name: 'email',
       type: 'radio',
       value: 'testValue',
     };
     const fields: TypedField[] = [
       validField,
-      { name: 'test', type: 'radio', value: 'testValue' } as TypedField,
+      { name: 'email', type: 'radio', value: 'testValue' } as TypedField,
     ];
 
     const output = getSanitizedRadioFields(fields, 'VerifyUser');

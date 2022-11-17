@@ -1,28 +1,37 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { Logger } from 'aws-amplify';
+import {
+  authenticatorTextUtil,
+  UnverifiedContactMethodType,
+} from '@aws-amplify/ui';
 import { VerifyUser } from '..';
 import { RadioFieldOptions } from '../../../hooks/types';
 
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
 
+const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+
 const radioEmailField = {
   type: 'radio',
   name: 'email',
+  label: 'Email',
   value: 'hello@world.com',
 } as RadioFieldOptions;
 
 const radioPhoneField = {
   type: 'radio',
-  name: 'phone',
+  name: 'phone_number',
+  label: 'Phone Number',
   value: '+1 000-000-0000',
 } as RadioFieldOptions;
 
 const radioField = {
   type: 'radio',
   name: 'test',
+  label: 'test',
   value: 'testValue',
 } as RadioFieldOptions;
 
@@ -46,7 +55,9 @@ describe('VerifyUser', () => {
   });
 
   it('renders as expected', () => {
-    const { toJSON, getByRole, getByText } = render(<VerifyUser {...props} />);
+    const { toJSON, getByRole, getByText, queryByText } = render(
+      <VerifyUser {...props} />
+    );
     expect(toJSON()).toMatchSnapshot();
 
     expect(getByRole('header')).toBeDefined();
@@ -56,7 +67,16 @@ describe('VerifyUser', () => {
     expect(getByText(getVerifyText())).toBeDefined();
     expect(getByText('h***o@world.com')).toBeDefined();
     expect(getByText('***********0000')).toBeDefined();
-    expect(getByText('testValue')).toBeDefined();
+    expect(queryByText('testValue')).toBe(null);
+
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      `field with name '${
+        radioField.name
+      }' has been ignored. Supported values are: ${Object.values(
+        UnverifiedContactMethodType
+      )}.`
+    );
   });
 
   it('renders as expected with errors', () => {
