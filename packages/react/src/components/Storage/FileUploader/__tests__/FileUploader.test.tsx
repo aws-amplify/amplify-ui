@@ -4,6 +4,7 @@ import * as UseHooks from '../hooks/useFileUploader';
 import { FileUploader } from '..';
 import * as UIModule from '@aws-amplify/ui';
 import { act } from 'react-dom/test-utils';
+import { ComponentClassNames } from '../../../../primitives';
 const uploadFileSpy = jest.spyOn(UIModule, 'uploadFile');
 const useFileUploaderSpy = jest.spyOn(UseHooks, 'useFileUploader');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
@@ -499,6 +500,42 @@ describe('File Uploader', () => {
 
     expect(
       await screen.findByText(`Preview: ${fileStatuses[0].name}`)
+    ).toBeVisible();
+  });
+  it('shows nothing in Tracker if showImages is false', async () => {
+    const fileStatuses = [fileStatus];
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+    });
+    const { container } = render(
+      <FileUploader
+        {...commonProps}
+        showImages={false}
+        isPreviewerVisible={true}
+      />
+    );
+
+    expect(
+      container.querySelector(`.${ComponentClassNames.FileUploaderFileImage}`)
+    ).toBeNull();
+  });
+  it('shows an image inside the tracker if showImages is true', async () => {
+    const fileStatuses = [fileStatus];
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+    });
+    const { container } = render(
+      <FileUploader
+        {...commonProps}
+        showImages={true}
+        isPreviewerVisible={true}
+      />
+    );
+
+    expect(
+      container.querySelector(`.${ComponentClassNames.FileUploaderFileImage}`)
     ).toBeVisible();
   });
   it('starts upload after file is selected if autoProceed is true', async () => {

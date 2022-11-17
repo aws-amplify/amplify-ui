@@ -24,6 +24,7 @@ export function FileUploader({
   multiple = true,
   onError,
   onSuccess,
+  showImages = true,
   variation = 'button',
   resumable = false,
   ...rest
@@ -374,23 +375,24 @@ export function FileUploader({
       >
         {fileStatuses?.map((status, index) => (
           <Tracker
-            percentage={status.percentage}
+            errorMessage={status?.fileErrors}
             file={status.file}
+            fileState={status?.fileState}
             hasImage={status.file?.type.startsWith('image/')}
-            url={URL.createObjectURL(status.file)}
+            showImage={showImages}
             key={index}
-            onChange={onNameChange(index)}
+            name={status.name}
             onCancel={onFileCancel(index)}
+            onCancelEdit={onCancelEdit(index)}
+            onChange={onNameChange(index)}
+            onDelete={onDelete}
             onPause={onPause(index)}
             onResume={onResume(index)}
-            onDelete={onDelete}
-            name={status.name}
-            fileState={status?.fileState}
-            errorMessage={status?.fileErrors}
             onSaveEdit={onSaveEdit(index)}
-            onCancelEdit={onCancelEdit(index)}
             onStartEdit={onStartEdit(index)}
+            percentage={status.percentage}
             resumable={resumable}
+            url={URL.createObjectURL(status.file)}
           />
         ))}
       </Previewer>
