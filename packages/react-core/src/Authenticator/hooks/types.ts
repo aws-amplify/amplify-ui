@@ -117,9 +117,6 @@ export type ResetPasswordBaseProps<FieldType = {}> = {
 export type SetupTOTPBaseProps<FieldType = {}> = {
   getTotpSecretCode: GetTotpSecretCode;
   toSignIn: AuthenticatorMachineContext['toSignIn'];
-  // `totpIssuer` and `totpUsername` are used for RWA only
-  totpIssuer?: string;
-  totpUsername?: string;
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
