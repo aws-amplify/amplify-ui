@@ -17,5 +17,6 @@ export default defineConfig({
     baseUrl: BASE_URL,
     numTestsKeptInMemory: 1,
     supportFile: false,
+    video: false,
   },
 });
