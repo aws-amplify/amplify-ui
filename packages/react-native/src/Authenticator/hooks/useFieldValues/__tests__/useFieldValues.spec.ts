@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 
 import { Logger } from 'aws-amplify';
+import { UnverifiedContactMethodType } from '@aws-amplify/ui';
 import {
   RadioFieldOptions,
   TextFieldOptionsType,
@@ -9,7 +10,6 @@ import {
 } from '../../types';
 import { UseFieldValuesParams } from '../types';
 import useFieldValues from '../useFieldValues';
-import { supportedContactMethods } from '../utils';
 
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
@@ -87,9 +87,7 @@ describe('useFieldValues', () => {
   });
 
   it('logs a warning for non array fields', () => {
-    const mockFields = 'test';
-    // test js users usecase, ignore ts on purpose
-    //@ts-ignore
+    const mockFields = 'test' as unknown as RadioFieldOptions[];
     renderHook(() => useFieldValues({ ...props, fields: mockFields }));
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
@@ -181,10 +179,10 @@ describe('useFieldValues', () => {
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
-      `'${
+      `field with name '${
         unsupportedRadioField.name
-      }' is not supported. Available values are: ${Object.keys(
-        supportedContactMethods
+      }' has been ignored. Supported values are: ${Object.values(
+        UnverifiedContactMethodType
       )}.`
     );
   });

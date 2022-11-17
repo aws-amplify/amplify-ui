@@ -1,5 +1,8 @@
 import { Logger } from 'aws-amplify';
-import { ContactMethod, UnverifiedContactMethods } from '@aws-amplify/ui';
+import {
+  isUnverifiedContactMethodType,
+  UnverifiedContactMethodType,
+} from '@aws-amplify/ui';
 import {
   AuthenticatorLegacyField,
   AuthenticatorRouteComponentName,
@@ -16,14 +19,6 @@ import {
 import { KEY_ALLOW_LIST } from './constants';
 
 const logger = new Logger('Authenticator');
-
-export const supportedContactMethods: Record<
-  keyof UnverifiedContactMethods,
-  ContactMethod
-> = {
-  email: 'Email',
-  phone_number: 'Phone Number',
-};
 
 export const isRadioFieldOptions = (
   field: TypedField
@@ -59,12 +54,10 @@ export const getSanitizedRadioFields = (
       return false;
     }
 
-    if (
-      Object.keys(supportedContactMethods).findIndex((key) => key === name) < 0
-    ) {
+    if (!isUnverifiedContactMethodType(name)) {
       logger.warn(
-        `'${name}' is not supported. Available values are: ${Object.keys(
-          supportedContactMethods
+        `field with name '${name}' has been ignored. Supported values are: ${Object.values(
+          UnverifiedContactMethodType
         )}.`
       );
       return false;

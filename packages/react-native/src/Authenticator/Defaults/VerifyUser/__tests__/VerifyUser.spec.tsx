@@ -2,10 +2,12 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
 import { Logger } from 'aws-amplify';
-import { authenticatorTextUtil } from '@aws-amplify/ui';
+import {
+  authenticatorTextUtil,
+  UnverifiedContactMethodType,
+} from '@aws-amplify/ui';
 import { VerifyUser } from '..';
 import { RadioFieldOptions } from '../../../hooks/types';
-import { supportedContactMethods } from '../../../hooks/useFieldValues/utils';
 
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
@@ -69,10 +71,10 @@ describe('VerifyUser', () => {
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
-      `'${
+      `field with name '${
         radioField.name
-      }' is not supported. Available values are: ${Object.keys(
-        supportedContactMethods
+      }' has been ignored. Supported values are: ${Object.values(
+        UnverifiedContactMethodType
       )}.`
     );
   });
