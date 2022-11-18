@@ -2,7 +2,9 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "main", "account-settings/main", "docs-release", "feat-geo", "feat-geo-e2e", "feat-geo-geocoder", "feat-geo-geocoder-docs", "feat-geo-map", "feat-geo-map-docs", "feat-geo-map-e2e", "fileuploader/main", "in-app-messaging/main", "in-app-messaging/release", "legacy", "next-release/main", "poc/angular-primitives/alpha", "rna/demo", "rna/main", "rna/release", "rwa/main", "split-environments/main", "studio-release", "ui-geo/main", "ui-react/v2", "ui-svelte/main" ]
+    branches: 
+      - main
+      - 'feat**'
   pull_request:
     branches: [ "main" ]
   schedule:
