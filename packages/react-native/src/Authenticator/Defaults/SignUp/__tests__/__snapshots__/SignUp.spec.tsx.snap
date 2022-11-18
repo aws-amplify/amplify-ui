@@ -335,8 +335,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -464,8 +466,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -865,8 +869,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -994,8 +1000,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -1554,8 +1562,12 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
+              Object {
+                "opacity": 0.6,
+              },
               null,
-              null,
+              undefined,
             ]
           }
         >
@@ -1684,8 +1696,12 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
+              Object {
+                "opacity": 0.6,
+              },
               null,
-              null,
+              undefined,
             ]
           }
         >
@@ -2243,8 +2259,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -2372,8 +2390,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -2981,8 +3001,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -3110,8 +3132,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >

@@ -61,6 +61,8 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Array [
+            Object {},
+            null,
             null,
             Array [
               Object {
@@ -203,6 +205,8 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Array [
+            Object {},
+            null,
             null,
             Array [
               Object {
@@ -302,6 +306,8 @@ exports[`ModalMessage renders as expected in portrait mode 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Array [
+            Object {},
+            null,
             null,
             Array [
               Object {

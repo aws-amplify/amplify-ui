@@ -7,6 +7,7 @@ import {
   ErrorMessageStyles,
   HeadingStyles,
   IconStyles,
+  IconButtonStyles,
   LabelStyles,
   PasswordFieldStyles,
   PhoneNumberFieldStyles,
@@ -32,6 +33,7 @@ export type Components<Output> = Record<string, object> & {
   errorMessage?: ComponentTheme<ErrorMessageStyles, Output>;
   heading?: ComponentTheme<HeadingStyles, Output>;
   icon?: ComponentTheme<IconStyles, Output>;
+  iconButton?: ComponentTheme<IconButtonStyles, Output>;
   label?: ComponentTheme<LabelStyles, Output>;
   passwordField?: ComponentTheme<PasswordFieldStyles, Output>;
   phoneNumberField?: ComponentTheme<PhoneNumberFieldStyles, Output>;
