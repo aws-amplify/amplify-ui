@@ -9,8 +9,8 @@ exports[`ErrorMessage applies theme and style props 1`] = `
         "alignItems": "center",
         "backgroundColor": "hsl(0, 75%, 85%)",
         "flexDirection": "row",
-        "paddingHorizontal": 4,
-        "paddingVertical": 16,
+        "paddingHorizontal": 8,
+        "paddingVertical": 32,
       },
       Object {
         "backgroundColor": "blue",
@@ -34,7 +34,7 @@ exports[`ErrorMessage applies theme and style props 1`] = `
           "width": 20,
         },
         Object {
-          "margin": 4,
+          "margin": 8,
         },
       ]
     }
@@ -45,7 +45,7 @@ exports[`ErrorMessage applies theme and style props 1`] = `
         Object {
           "color": "hsl(0, 100%, 20%)",
           "flex": 1,
-          "paddingHorizontal": 4,
+          "paddingHorizontal": 8,
         },
         Object {
           "color": "white",
@@ -67,8 +67,8 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
         "alignItems": "center",
         "backgroundColor": "hsl(0, 75%, 85%)",
         "flexDirection": "row",
-        "paddingHorizontal": 4,
-        "paddingVertical": 16,
+        "paddingHorizontal": 8,
+        "paddingVertical": 32,
       },
       undefined,
     ]
@@ -90,7 +90,7 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
           "width": 20,
         },
         Object {
-          "margin": 4,
+          "margin": 8,
         },
       ]
     }
@@ -101,7 +101,7 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
         Object {
           "color": "hsl(0, 100%, 20%)",
           "flex": 1,
-          "paddingHorizontal": 4,
+          "paddingHorizontal": 8,
         },
         undefined,
       ]
