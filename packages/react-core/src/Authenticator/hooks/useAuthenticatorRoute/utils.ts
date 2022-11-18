@@ -15,11 +15,7 @@ import {
   UseAuthenticatorSelector,
 } from '../useAuthenticator';
 import { isComponentRouteKey } from '../utils';
-import {
-  DEFAULT_TOTP_ISSUER,
-  MACHINE_PROP_KEYS,
-  EVENT_HANDLER_KEY_MAP,
-} from './constants';
+import { MACHINE_PROP_KEYS, EVENT_HANDLER_KEY_MAP } from './constants';
 import {
   ConvertedMachineProps,
   FormEventHandlerMachineKey,
@@ -28,23 +24,23 @@ import {
   UseAuthenticatorRouteDefault,
 } from './types';
 
-// selects nothing
-const defaultSelector = () => [];
-
 // only select `route` from machine context
 export const routeSelector: UseAuthenticatorSelector = ({ route }) => [route];
 
 const createSelector =
   (selectorKeys: AuthenticatorMachineContextKey[]): UseAuthenticatorSelector =>
-  (context) =>
-    selectorKeys.map((key) => context[key]);
+  (context) => {
+    const dependencies = selectorKeys.map((key) => context[key]);
+    // route should always be part of deps, so hook knows when route changes.
+    return [...dependencies, context.route];
+  };
 
 export const getRouteMachineSelector = (
   route: AuthenticatorRoute
 ): UseAuthenticatorSelector =>
   isComponentRouteKey(route)
     ? createSelector(MACHINE_PROP_KEYS[route])
-    : defaultSelector;
+    : routeSelector;
 
 const isFormEventHandlerKey = (
   key: AuthenticatorMachineContextKey
@@ -152,24 +148,12 @@ export function resolveSetupTOTPRoute<FieldType = {}>(
   Component: Defaults<FieldType>['SetupTOTP'],
   { getTotpSecretCode, ...props }: UseAuthenticator
 ): UseAuthenticatorRoute<'SetupTOTP', FieldType> {
-  const { user, ...machineProps } = getConvertedMachineProps(
-    'setupTOTP',
-    props
-  );
-
-  // prior to reaching the `setupTOTP` route, `user` will be
-  // authenticated ensuring `username` is provided
-  const totpUsername = user.username!;
-  const totpIssuer = DEFAULT_TOTP_ISSUER;
-
   return {
     Component,
     props: {
       ...Component,
-      ...machineProps,
+      ...getConvertedMachineProps('setupTOTP', props),
       getTotpSecretCode,
-      totpUsername,
-      totpIssuer,
     },
   };
 }

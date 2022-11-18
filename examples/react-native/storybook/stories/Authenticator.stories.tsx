@@ -147,7 +147,9 @@ const signUpProps = {
 const verifyUserProps = {
   ...sharedProps,
   ...getComponentSlots(Authenticator.VerifyUser),
-  fields: [],
+  fields: [
+    { name: 'email', type: 'radio' as const, value: 'jeff@example.com' },
+  ],
   skipVerification: noop,
 };
 

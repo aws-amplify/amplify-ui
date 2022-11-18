@@ -18,10 +18,12 @@ exports[`Tab can apply custom styling 1`] = `
   style={
     Array [
       Object {
-        "padding": 12,
+        "alignItems": "center",
+        "justifyContent": "center",
       },
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
+        "padding": 12,
       },
       null,
       null,
@@ -48,10 +50,10 @@ exports[`Tab can apply custom styling 1`] = `
     style={
       Array [
         Object {
-          "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
           "fontSize": 16,
           "fontWeight": "700",
+          "textAlign": "center",
         },
         Array [
           Object {
@@ -88,10 +90,12 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
   style={
     Array [
       Object {
-        "padding": 12,
+        "alignItems": "center",
+        "justifyContent": "center",
       },
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
+        "padding": 12,
       },
       null,
       null,
@@ -121,10 +125,10 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
     style={
       Array [
         Object {
-          "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
           "fontSize": 16,
           "fontWeight": "700",
+          "textAlign": "center",
         },
         Array [
           Object {
@@ -165,10 +169,12 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
   style={
     Array [
       Object {
-        "padding": 12,
+        "alignItems": "center",
+        "justifyContent": "center",
       },
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
+        "padding": 12,
       },
       null,
       null,
@@ -212,10 +218,12 @@ exports[`Tab renders default Tab as expected 1`] = `
   style={
     Array [
       Object {
-        "padding": 12,
+        "alignItems": "center",
+        "justifyContent": "center",
       },
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
+        "padding": 12,
       },
       null,
       null,
@@ -239,10 +247,10 @@ exports[`Tab renders default Tab as expected 1`] = `
     style={
       Array [
         Object {
-          "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
           "fontSize": 16,
           "fontWeight": "700",
+          "textAlign": "center",
         },
         Array [
           Object {

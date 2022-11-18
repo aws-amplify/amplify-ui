@@ -33,10 +33,12 @@ Array [
       style={
         Array [
           Object {
-            "padding": 12,
+            "alignItems": "center",
+            "justifyContent": "center",
           },
           Object {
             "backgroundColor": "hsl(190, 95%, 30%)",
+            "padding": 12,
           },
           null,
           null,
@@ -60,10 +62,10 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
               "color": "hsl(0, 0%, 100%)",
               "fontSize": 16,
               "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
@@ -97,10 +99,12 @@ Array [
       style={
         Array [
           Object {
-            "padding": 12,
+            "alignItems": "center",
+            "justifyContent": "center",
           },
           Object {
             "backgroundColor": "hsl(190, 95%, 30%)",
+            "padding": 12,
           },
           null,
           null,
@@ -130,10 +134,10 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
               "color": "hsl(0, 0%, 100%)",
               "fontSize": 16,
               "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
@@ -155,22 +159,6 @@ Array [
       </Text>
     </View>
   </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "hsl(210, 50%, 10%)",
-        },
-        Object {
-          "fontSize": 24,
-          "fontWeight": "300",
-          "lineHeight": 36,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -185,10 +173,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -205,7 +190,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -281,7 +272,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -407,7 +404,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -505,10 +508,7 @@ Array [
             "display": "flex",
             "flexDirection": "row",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -593,7 +593,13 @@ Array [
               Object {
                 "color": "hsl(210, 50%, 10%)",
               },
-              undefined,
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 21,
+                },
+                undefined,
+              ],
             ]
           }
         >
@@ -653,10 +659,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -670,10 +678,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -687,22 +695,6 @@ Array [
 
 exports[`SignUp renders as expected when hideSignIn is true 1`] = `
 Array [
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "hsl(210, 50%, 10%)",
-        },
-        Object {
-          "fontSize": 24,
-          "fontWeight": "300",
-          "lineHeight": 36,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -717,10 +709,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -737,7 +726,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -813,7 +808,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -939,7 +940,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -1037,10 +1044,7 @@ Array [
             "display": "flex",
             "flexDirection": "row",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -1125,7 +1129,13 @@ Array [
               Object {
                 "color": "hsl(210, 50%, 10%)",
               },
-              undefined,
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 21,
+                },
+                undefined,
+              ],
             ]
           }
         >
@@ -1185,10 +1195,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -1202,10 +1214,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -1250,10 +1262,12 @@ Array [
       style={
         Array [
           Object {
-            "padding": 12,
+            "alignItems": "center",
+            "justifyContent": "center",
           },
           Object {
             "backgroundColor": "hsl(190, 95%, 30%)",
+            "padding": 12,
           },
           null,
           null,
@@ -1277,10 +1291,10 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
               "color": "hsl(0, 0%, 100%)",
               "fontSize": 16,
               "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
@@ -1314,10 +1328,12 @@ Array [
       style={
         Array [
           Object {
-            "padding": 12,
+            "alignItems": "center",
+            "justifyContent": "center",
           },
           Object {
             "backgroundColor": "hsl(190, 95%, 30%)",
+            "padding": 12,
           },
           null,
           null,
@@ -1347,10 +1363,10 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
               "color": "hsl(0, 0%, 100%)",
               "fontSize": 16,
               "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
@@ -1372,22 +1388,6 @@ Array [
       </Text>
     </View>
   </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "hsl(210, 50%, 10%)",
-        },
-        Object {
-          "fontSize": 24,
-          "fontWeight": "300",
-          "lineHeight": 36,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -1402,10 +1402,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -1422,7 +1419,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -1499,7 +1502,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -1626,7 +1635,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -1725,10 +1740,7 @@ Array [
             "display": "flex",
             "flexDirection": "row",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -1813,7 +1825,13 @@ Array [
               Object {
                 "color": "hsl(210, 50%, 10%)",
               },
-              undefined,
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 21,
+                },
+                undefined,
+              ],
             ]
           }
         >
@@ -1874,10 +1892,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -1891,10 +1911,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -1939,10 +1959,12 @@ Array [
       style={
         Array [
           Object {
-            "padding": 12,
+            "alignItems": "center",
+            "justifyContent": "center",
           },
           Object {
             "backgroundColor": "hsl(190, 95%, 30%)",
+            "padding": 12,
           },
           null,
           null,
@@ -1966,10 +1988,10 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
               "color": "hsl(0, 0%, 100%)",
               "fontSize": 16,
               "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
@@ -2003,10 +2025,12 @@ Array [
       style={
         Array [
           Object {
-            "padding": 12,
+            "alignItems": "center",
+            "justifyContent": "center",
           },
           Object {
             "backgroundColor": "hsl(190, 95%, 30%)",
+            "padding": 12,
           },
           null,
           null,
@@ -2036,10 +2060,10 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
               "color": "hsl(0, 0%, 100%)",
               "fontSize": 16,
               "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
@@ -2061,22 +2085,6 @@ Array [
       </Text>
     </View>
   </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "hsl(210, 50%, 10%)",
-        },
-        Object {
-          "fontSize": 24,
-          "fontWeight": "300",
-          "lineHeight": 36,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -2091,10 +2099,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -2111,7 +2116,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -2187,7 +2198,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -2313,7 +2330,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -2411,10 +2434,7 @@ Array [
             "display": "flex",
             "flexDirection": "row",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -2499,7 +2519,13 @@ Array [
               Object {
                 "color": "hsl(210, 50%, 10%)",
               },
-              undefined,
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 21,
+                },
+                undefined,
+              ],
             ]
           }
         >
@@ -2552,7 +2578,6 @@ Array [
           "flexDirection": "row",
           "paddingHorizontal": 4,
           "paddingVertical": 16,
-          "width": "100%",
         },
         undefined,
       ]
@@ -2611,10 +2636,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -2628,10 +2655,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -2676,10 +2703,12 @@ Array [
       style={
         Array [
           Object {
-            "padding": 12,
+            "alignItems": "center",
+            "justifyContent": "center",
           },
           Object {
             "backgroundColor": "hsl(190, 95%, 30%)",
+            "padding": 12,
           },
           null,
           null,
@@ -2703,10 +2732,10 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
               "color": "hsl(0, 0%, 100%)",
               "fontSize": 16,
               "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
@@ -2740,10 +2769,12 @@ Array [
       style={
         Array [
           Object {
-            "padding": 12,
+            "alignItems": "center",
+            "justifyContent": "center",
           },
           Object {
             "backgroundColor": "hsl(190, 95%, 30%)",
+            "padding": 12,
           },
           null,
           null,
@@ -2773,10 +2804,10 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
               "color": "hsl(0, 0%, 100%)",
               "fontSize": 16,
               "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
@@ -2798,22 +2829,6 @@ Array [
       </Text>
     </View>
   </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "hsl(210, 50%, 10%)",
-        },
-        Object {
-          "fontSize": 24,
-          "fontWeight": "300",
-          "lineHeight": 36,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -2828,10 +2843,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -2848,7 +2860,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -2924,7 +2942,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -3050,7 +3074,13 @@ Array [
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "fontSize": 14,
+                "lineHeight": 21,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -3148,10 +3178,7 @@ Array [
             "display": "flex",
             "flexDirection": "row",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -3236,7 +3263,13 @@ Array [
               Object {
                 "color": "hsl(210, 50%, 10%)",
               },
-              undefined,
+              Array [
+                Object {
+                  "fontSize": 14,
+                  "lineHeight": 21,
+                },
+                undefined,
+              ],
             ]
           }
         >
@@ -3296,10 +3329,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -3313,10 +3348,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]

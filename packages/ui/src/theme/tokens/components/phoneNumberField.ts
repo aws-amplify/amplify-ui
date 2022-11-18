@@ -1,18 +1,9 @@
-import {
-  ColorValue,
-  DesignToken,
-  BorderColorValue,
-  FontSizeValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export interface PhoneNumberFieldTokens {
-  color: DesignToken<ColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  _focus: {
-    borderColor: DesignToken<BorderColorValue>;
+export type PhoneNumberFieldTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'color' | 'borderColor' | 'fontSize', Output> & {
+    _focus?: DesignTokenProperties<'borderColor', Output>;
   };
-}
 
 export const phonenumberfield = {
   color: { value: '{components.fieldcontrol.color}' },

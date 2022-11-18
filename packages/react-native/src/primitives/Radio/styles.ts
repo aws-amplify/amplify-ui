@@ -6,60 +6,64 @@ import { RadioStyles } from './types';
 
 const ROUNDED_BORDER_RADIUS = 999;
 
-export const getThemedStyles = (theme: StrictTheme): RadioStyles => {
-  const { colors, components, fontSizes, opacities, space } = theme.tokens;
+export const getThemedStyles = (theme: StrictTheme): Required<RadioStyles> => {
+  const {
+    components,
+    tokens: { colors, fontSizes, opacities },
+  } = theme;
 
   return StyleSheet.create({
     container: {
       alignItems: 'center',
-      ...components?.radio.container,
+      ...components?.radio?.container,
     },
     disabled: {
       opacity: opacities[60],
-      ...components?.radio.disabled,
+      ...components?.radio?.disabled,
     },
     radioContainer: {
       alignItems: 'center',
       borderColor: colors.border.primary,
       borderRadius: ROUNDED_BORDER_RADIUS,
-      borderWidth: space.xxs,
+      // TODO: get borderWidths in base tokens
+      borderWidth: 2,
       justifyContent: 'center',
-      ...components?.radio.radioContainer,
+      ...components?.radio?.radioContainer,
     },
     radioDot: {
       backgroundColor: colors.brand.primary[80],
       borderRadius: ROUNDED_BORDER_RADIUS,
-      ...components?.radio.radioDot,
+      ...components?.radio?.radioDot,
     },
     radioContainerLarge: {
       height: fontSizes.xl,
       width: fontSizes.xl,
-      ...components?.radio.radioContainerLarge,
+      ...components?.radio?.radioContainerLarge,
     },
     radioContainerMedium: {
       height: fontSizes.large,
       width: fontSizes.large,
-      ...components?.radio.radioContainerMedium,
+      ...components?.radio?.radioContainerMedium,
     },
     radioContainerSmall: {
       height: fontSizes.medium,
       width: fontSizes.medium,
-      ...components?.radio.radioContainerSmall,
+      ...components?.radio?.radioContainerSmall,
     },
     radioDotLarge: {
       height: fontSizes.xl * RADIO_DOT_PROPORTION,
       width: fontSizes.xl * RADIO_DOT_PROPORTION,
-      ...components?.radio.radioDotLarge,
+      ...components?.radio?.radioDotLarge,
     },
     radioDotMedium: {
       height: fontSizes.large * RADIO_DOT_PROPORTION,
       width: fontSizes.large * RADIO_DOT_PROPORTION,
-      ...components?.radio.radioDotMedium,
+      ...components?.radio?.radioDotMedium,
     },
     radioDotSmall: {
       height: fontSizes.medium * RADIO_DOT_PROPORTION,
       width: fontSizes.medium * RADIO_DOT_PROPORTION,
-      ...components?.radio.radioDotSmall,
+      ...components?.radio?.radioDotSmall,
     },
   });
 };

@@ -3,7 +3,11 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
 
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultSignUpComponent } from '../types';
@@ -65,7 +69,7 @@ const SignUp: DefaultSignUpComponent = ({
 };
 
 SignUp.Footer = DefaultFooter;
-SignUp.FormFields = DefaultFormFields;
+SignUp.FormFields = DefaultTextFormFields;
 SignUp.Header = DefaultHeader;
 
 SignUp.displayName = COMPONENT_NAME;

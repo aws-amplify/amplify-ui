@@ -9,24 +9,25 @@ export const getThemedStyles = (
   theme: StrictTheme,
   labelPosition: LabelPosition
 ): CheckboxStyles => {
-  const { opacities, space, components } = theme.tokens;
+  const { tokens, components } = theme;
+  const { opacities, space } = tokens;
 
   return StyleSheet.create({
     container: {
       alignItems: 'center',
       padding: space.xs,
       flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
-      ...components?.checkbox.container,
+      ...components?.checkbox?.container,
     },
     disabled: {
       opacity: opacities[60],
-      ...components?.checkbox.disabled,
+      ...components?.checkbox?.disabled,
     },
     icon: {
-      ...components?.checkbox.icon,
+      ...components?.checkbox?.icon,
     },
     label: {
-      ...components?.checkbox.label,
+      ...components?.checkbox?.label,
     },
   });
 };

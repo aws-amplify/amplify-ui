@@ -8,7 +8,11 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { icons } from '../../../assets';
 import { Button, ErrorMessage, IconButton } from '../../../primitives';
 
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultSetupTOTPComponent } from '../types';
@@ -106,7 +110,7 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
 };
 
 SetupTOTP.Footer = DefaultFooter;
-SetupTOTP.FormFields = DefaultFormFields;
+SetupTOTP.FormFields = DefaultTextFormFields;
 SetupTOTP.Header = DefaultHeader;
 
 SetupTOTP.displayName = COMPONENT_NAME;

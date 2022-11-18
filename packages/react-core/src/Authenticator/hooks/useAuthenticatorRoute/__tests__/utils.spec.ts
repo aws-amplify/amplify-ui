@@ -40,6 +40,7 @@ const {
   getTotpSecretCode,
   isPending,
   resendCode,
+  route,
   skipVerification,
   socialProviders,
   submitForm,
@@ -53,8 +54,7 @@ const {
   validationErrors,
 } = mockUseAuthenticatorOutput;
 
-const totpIssuer = 'AWSCognito';
-const { challengeName, username } = user;
+const { challengeName } = user;
 
 const machineContext = mockMachineContext;
 
@@ -72,17 +72,20 @@ describe('getRouteMachineSelector', () => {
   it.each([
     [
       'confirmResetPassword',
-      [...commonSelectorProps, resendCode, validationErrors],
+      [...commonSelectorProps, resendCode, validationErrors, route],
     ],
-    ['confirmSignIn', [...commonSelectorProps, toSignIn, user]],
+    ['confirmSignIn', [...commonSelectorProps, toSignIn, user, route]],
     [
       'confirmSignUp',
-      [...commonSelectorProps, codeDeliveryDetails, resendCode],
+      [...commonSelectorProps, codeDeliveryDetails, resendCode, route],
     ],
-    ['confirmVerifyUser', [...commonSelectorProps, skipVerification]],
-    ['forceNewPassword', [...commonSelectorProps, toSignIn, validationErrors]],
-    ['idle', []],
-    ['resetPassword', [...commonSelectorProps, toSignIn]],
+    ['confirmVerifyUser', [...commonSelectorProps, skipVerification, route]],
+    [
+      'forceNewPassword',
+      [...commonSelectorProps, toSignIn, validationErrors, route],
+    ],
+    ['idle', [route]],
+    ['resetPassword', [...commonSelectorProps, toSignIn, route]],
     [
       'signIn',
       [
@@ -91,11 +94,12 @@ describe('getRouteMachineSelector', () => {
         toFederatedSignIn,
         toResetPassword,
         toSignUp,
+        route,
       ],
     ],
-    ['signUp', [...commonSelectorProps, toSignIn, validationErrors]],
-    ['setupTOTP', [...commonSelectorProps, toSignIn, user]],
-    ['verifyUser', [...commonSelectorProps, skipVerification]],
+    ['signUp', [...commonSelectorProps, toSignIn, validationErrors, route]],
+    ['setupTOTP', [...commonSelectorProps, toSignIn, route]],
+    ['verifyUser', [...commonSelectorProps, skipVerification, route]],
   ])('returns the expected route selector for %s', (route, expected) => {
     const selector = getRouteMachineSelector(route as AuthenticatorRoute);
     const output = selector(machineContext);
@@ -131,11 +135,7 @@ describe('props resolver functions', () => {
       resolveResetPasswordRoute,
       { error, isPending, toSignIn },
     ],
-    [
-      'SetupTOTP',
-      resolveSetupTOTPRoute,
-      { getTotpSecretCode, toSignIn, totpUsername: username, totpIssuer },
-    ],
+    ['SetupTOTP', resolveSetupTOTPRoute, { getTotpSecretCode, toSignIn }],
     [
       'SignIn',
       resolveSignInRoute,

@@ -58,8 +58,9 @@ export interface TextFieldProps extends Omit<TextInputProps, 'editable'> {
 }
 
 export interface TextFieldStyles {
-  container: ViewStyle;
-  input: TextStyle;
-  inputContainer: ViewStyle;
-  disabled: ViewStyle;
+  container?: ViewStyle;
+  disabled?: ViewStyle;
+  input?: TextStyle;
+  inputContainer?: ViewStyle;
+  label?: TextStyle;
 }
