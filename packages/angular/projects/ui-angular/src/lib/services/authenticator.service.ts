@@ -156,11 +156,9 @@ export class AuthenticatorService implements OnDestroy {
 
   /** @deprecated For internal use only */
   public get slotContext() {
-    const slotContext = this._facade;
-
     return {
-      ...slotContext,
-      $implicit: { ...slotContext },
+      ...this._facade,
+      $implicit: this._facade,
     };
   }
 
