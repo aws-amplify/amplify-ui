@@ -30,7 +30,7 @@ describe('AuthenticatorService', () => {
     jest.clearAllMocks();
   });
 
-  it('subscribes to state machine changes', () => {
+  it('subscribe returns state machine facade', () => {
     const handler = jest.fn();
     const unsubscribe = authService.subscribe(handler);
 
