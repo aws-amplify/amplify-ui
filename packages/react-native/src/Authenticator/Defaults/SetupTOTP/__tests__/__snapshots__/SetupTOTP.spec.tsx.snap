@@ -694,8 +694,10 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {},
           null,
           null,
+          undefined,
         ]
       }
       testID="amplify__copy-text-button"

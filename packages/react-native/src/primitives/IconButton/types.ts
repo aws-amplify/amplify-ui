@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 
 export interface IconButtonStyles {
+  container?: ViewStyle;
+  disabled?: ViewStyle;
   pressed?: ViewStyle;
 }
 
