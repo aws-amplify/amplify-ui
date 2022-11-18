@@ -31,8 +31,8 @@ export const getThemedStyles = (
   theme: StrictTheme,
   color?: IconProps['color'],
   size?: IconProps['size']
-): IconStyles => {
-  const { components } = theme.tokens;
+): Required<IconStyles> => {
+  const { components } = theme;
   const iconSize = getIconSize(size);
 
   return StyleSheet.create({

@@ -1,63 +1,44 @@
-import {
-  AlignItemsValue,
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderWidthValue,
-  BorderStyleValue,
-  BorderRadiusValue,
-  ColorValue,
-  CursorValue,
-  DesignToken,
-  DisplayValue,
-  FlexDirectionValue,
-  SpaceValue,
-  TransitionDurationValue,
-  TransitionPropertyValue,
-  TransitionTimingFunctionValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export interface AutocompleteTokens {
-  menu: {
-    width: DesignToken<SpaceValue>;
-    marginBlockStart: DesignToken<SpaceValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-    borderColor: DesignToken<BorderColorValue>;
-    borderWidth: DesignToken<BorderWidthValue>;
-    borderStyle: DesignToken<BorderStyleValue>;
-    borderRadius: DesignToken<BorderRadiusValue>;
-    options: {
-      display: DesignToken<DisplayValue>;
-      flexDirection: DesignToken<FlexDirectionValue>;
-      maxHeight: DesignToken<SpaceValue>;
+export type AutocompleteTokens<OutputType extends OutputVariantKey> = {
+  menu?: DesignTokenProperties<
+    | 'backgroundColor'
+    | 'borderColor'
+    | 'borderRadius'
+    | 'borderStyle'
+    | 'borderWidth'
+    | 'marginBlockStart'
+    | 'width',
+    OutputType
+  > & {
+    options: DesignTokenProperties<
+      'display' | 'flexDirection' | 'maxHeight',
+      OutputType
+    >;
+    option: DesignTokenProperties<
+      | 'backgroundColor'
+      | 'color'
+      | 'cursor'
+      | 'transitionDuration'
+      | 'transitionProperty'
+      | 'transitionTimingFunction',
+      OutputType
+    > & {
+      _active: DesignTokenProperties<'backgroundColor' | 'color', OutputType>;
     };
-    option: {
-      backgroundColor: DesignToken<BackgroundColorValue>;
-      color: DesignToken<ColorValue>;
-      cursor: DesignToken<CursorValue>;
-      transitionDuration: DesignToken<TransitionDurationValue>;
-      transitionProperty: DesignToken<TransitionPropertyValue>;
-      transitionTimingFunction: DesignToken<TransitionTimingFunctionValue>;
-      _active: {
-        backgroundColor: DesignToken<BackgroundColorValue>;
-        color: DesignToken<ColorValue>;
-      };
-    };
-    _empty: {
-      display: DesignToken<DisplayValue>;
-    };
-    _loading: {
-      alignItems: DesignToken<AlignItemsValue>;
-      display: DesignToken<DisplayValue>;
-      gap: DesignToken<SpaceValue>;
-    };
-    spaceShared: {
-      paddingBlock: DesignToken<SpaceValue>;
-      paddingInline: DesignToken<SpaceValue>;
-    };
+    _empty: DesignTokenProperties<'display', OutputType>;
+    _loading: DesignTokenProperties<
+      'alignItems' | 'display' | 'gap',
+      OutputType
+    >;
+    spaceShared: DesignTokenProperties<
+      'paddingBlock' | 'paddingInline',
+      OutputType
+    >;
   };
-}
+};
 
-export const autocomplete: AutocompleteTokens = {
+export const autocomplete: Required<AutocompleteTokens<'default'>> = {
   menu: {
     width: { value: '100%' },
     marginBlockStart: { value: '{space.xxxs}' },

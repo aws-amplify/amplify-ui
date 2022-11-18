@@ -85,8 +85,8 @@ export type ResetPasswordMachineKey =
   | CommonRouteMachineKey;
 
 export type SetupTOTPMachineKey =
-  // SetupTOTP requires `user` to extract values needed for `totpIssuer` and 'totpUsername`
-  ExtractMachineKey<SetupTOTPBaseProps> | CommonRouteMachineKey | 'user';
+  | ExtractMachineKey<SetupTOTPBaseProps>
+  | CommonRouteMachineKey;
 
 export type SignInMachineKey =
   | ExtractMachineKey<SignInBaseProps>

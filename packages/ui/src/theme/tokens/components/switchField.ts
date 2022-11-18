@@ -1,79 +1,40 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderRadiusValue,
-  DesignToken,
-  FontSizeValue,
-  OpacityValue,
-  ShadowValue,
-  SpaceValue,
-  TransformValue,
-  TransitionDurationValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface SwitchFieldDisabledTokens {
-  opacity: DesignToken<OpacityValue>;
-}
+type SwitchFieldSizeTokens<OutputType> = DesignTokenProperties<
+  'fontSize',
+  OutputType
+>;
 
-interface SwitchFieldFocusedTokens {
-  shadow: DesignToken<ShadowValue>;
-}
+type SwitchFieldTrackCheckedTokens<OutputType> = DesignTokenProperties<
+  'backgroundColor',
+  OutputType
+>;
 
-interface SwitchFieldSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-}
+export type SwitchFieldTokens<OutputType extends OutputVariantKey> =
+  DesignTokenProperties<'fontSize'> & {
+    _disabled?: DesignTokenProperties<'opacity', OutputType>;
+    _focused?: DesignTokenProperties<'shadow', OutputType>;
+    large?: SwitchFieldSizeTokens<OutputType>;
+    small?: SwitchFieldSizeTokens<OutputType>;
+    label?: DesignTokenProperties<'padding', OutputType>;
+    thumb?: DesignTokenProperties<
+      'backgroundColor' | 'borderColor' | 'borderRadius' | 'width',
+      OutputType
+    > & {
+      checked: DesignTokenProperties<'transform', OutputType>;
+      transition: DesignTokenProperties<'duration', OutputType>;
+    };
+    track?: DesignTokenProperties<
+      'backgroundColor' | 'borderRadius' | 'height' | 'width' | 'padding',
+      OutputType
+    > & {
+      checked: SwitchFieldTrackCheckedTokens<OutputType>;
+      transition: DesignTokenProperties<'duration', OutputType>;
+      _error: SwitchFieldTrackCheckedTokens<OutputType>;
+    };
+  };
 
-interface SwitchFieldLabelTokens {
-  padding: DesignToken<SpaceValue>;
-}
-
-interface SwitchFieldThumbTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  checked: SwitchFieldThumbCheckedTokens;
-  transition: SwitchFieldThumbTransitionTokens;
-  width: DesignToken<SpaceValue>;
-}
-
-interface SwitchFieldThumbTransitionTokens {
-  duration: DesignToken<TransitionDurationValue>;
-}
-
-interface SwitchFieldThumbCheckedTokens {
-  transform: DesignToken<TransformValue>;
-}
-interface SwitchFieldTrackTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  checked: SwitchFieldTrackCheckedTokens;
-  height: DesignToken<SpaceValue>;
-  padding: DesignToken<SpaceValue>;
-  transition: SwitchFieldTrackTransitionTokens;
-  width: DesignToken<SpaceValue>;
-  _error: SwitchFieldTrackCheckedTokens;
-}
-
-interface SwitchFieldTrackTransitionTokens {
-  duration: DesignToken<TransitionDurationValue>;
-}
-
-interface SwitchFieldTrackCheckedTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-
-export interface SwitchFieldTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  _disabled: SwitchFieldDisabledTokens;
-  _focused: SwitchFieldFocusedTokens;
-  large: SwitchFieldSizeTokens;
-  small: SwitchFieldSizeTokens;
-  label: SwitchFieldLabelTokens;
-  thumb: SwitchFieldThumbTokens;
-  track: SwitchFieldTrackTokens;
-}
-
-export const switchfield: SwitchFieldTokens = {
+export const switchfield: Required<SwitchFieldTokens<'default'>> = {
   // States
   _disabled: {
     opacity: { value: '{opacities.60.value}' },

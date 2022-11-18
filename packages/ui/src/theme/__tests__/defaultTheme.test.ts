@@ -359,7 +359,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-large-padding-inline-start: var(--amplify-space-medium);
         --amplify-components-fieldcontrol-large-padding-inline-end: var(--amplify-space-medium);
         --amplify-components-fieldcontrol-quiet-border-style: none;
-        --amplify-components-fieldcontrol-quiet-border-block-end: var(--amplify-border-widths-small-solid-colors-border-primary-value);
         --amplify-components-fieldcontrol-quiet-border-inline-start: none;
         --amplify-components-fieldcontrol-quiet-border-inline-end: none;
         --amplify-components-fieldcontrol-quiet-border-block-start: none;

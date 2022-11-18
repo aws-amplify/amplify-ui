@@ -4,7 +4,10 @@ import { StrictTheme } from '../../theme';
 import { ErrorMessageStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): ErrorMessageStyles => {
-  const { colors, components, space } = theme.tokens;
+  const {
+    tokens: { colors, space },
+    components,
+  } = theme;
 
   return StyleSheet.create({
     container: {
@@ -14,17 +17,17 @@ export const getThemedStyles = (theme: StrictTheme): ErrorMessageStyles => {
       paddingHorizontal: space.xs,
       paddingVertical: space.xl,
       width: '100%',
-      ...components?.errorMessage.container,
+      ...components?.errorMessage?.container,
     },
     icon: {
       margin: space.xs,
-      ...components?.errorMessage.icon,
+      ...components?.errorMessage?.icon,
     },
     label: {
       color: colors.font.error,
       flex: 1,
       paddingHorizontal: space.xs,
-      ...components?.errorMessage.label,
+      ...components?.errorMessage?.label,
     },
   });
 };

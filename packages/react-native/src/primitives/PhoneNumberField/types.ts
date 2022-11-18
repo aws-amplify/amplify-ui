@@ -42,6 +42,6 @@ export interface PhoneNumberFieldProps
 }
 
 export interface PhoneNumberFieldStyles extends Partial<TextFieldStyles> {
-  picker: TextStyle;
-  pickerItem: TextStyle;
+  picker?: TextStyle;
+  pickerItem?: TextStyle;
 }

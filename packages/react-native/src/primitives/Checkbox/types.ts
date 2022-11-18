@@ -22,8 +22,8 @@ export interface CheckboxProps<T> extends PressableProps {
 }
 
 export interface CheckboxStyles {
-  container: ViewStyle;
-  disabled: ViewStyle;
-  icon: ImageStyle;
-  label: TextStyle;
+  container?: ViewStyle;
+  disabled?: ViewStyle;
+  icon?: ImageStyle;
+  label?: TextStyle;
 }

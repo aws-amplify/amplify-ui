@@ -4,7 +4,10 @@ import { StrictTheme } from '../../theme';
 import { LabelStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): LabelStyles => {
-  const { colors, fontSizes, fontWeights, space, components } = theme.tokens;
+  const {
+    components,
+    tokens: { colors, fontSizes, fontWeights, space },
+  } = theme;
 
   return StyleSheet.create({
     text: {
@@ -12,35 +15,35 @@ export const getThemedStyles = (theme: StrictTheme): LabelStyles => {
       fontWeight: fontWeights.normal as TextStyle['fontWeight'],
       marginVertical: space.xxs,
       marginHorizontal: space.xs,
-      ...components?.label.text,
+      ...components?.label?.text,
     },
     primary: {
       color: colors.font.primary,
-      ...components?.label.primary,
+      ...components?.label?.primary,
     },
     secondary: {
       color: colors.font.secondary,
-      ...components?.label.secondary,
+      ...components?.label?.secondary,
     },
     tertiary: {
       color: colors.font.tertiary,
-      ...components?.label.tertiary,
+      ...components?.label?.tertiary,
     },
     error: {
       color: colors.font.error,
-      ...components?.label.error,
+      ...components?.label?.error,
     },
     warning: {
       color: colors.font.warning,
-      ...components?.label.warning,
+      ...components?.label?.warning,
     },
     success: {
       color: colors.font.success,
-      ...components?.label.success,
+      ...components?.label?.success,
     },
     info: {
       color: colors.font.info,
-      ...components?.label.info,
+      ...components?.label?.info,
     },
   });
 };
