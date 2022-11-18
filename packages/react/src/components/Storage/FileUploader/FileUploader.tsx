@@ -8,6 +8,7 @@ import { UploadButton } from './UploadButton';
 import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
 import { Tracker } from './Tracker';
+import { Logger } from 'aws-amplify';
 
 const isUploadTask = (value: unknown): value is UploadTask =>
   typeof (value as UploadTask)?.resume === 'function';
@@ -36,8 +37,7 @@ export function FileUploader({
   } = components;
 
   if (!acceptedFileTypes || !level) {
-    // eslint-disable-next-line no-console
-    console.warn(
+    new Logger(
       'You must include the level and acceptedFileNames props to use the file uploader!'
     );
   }
