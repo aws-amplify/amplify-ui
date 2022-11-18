@@ -98,7 +98,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {},
+          Array [
+            Object {},
+            Object {},
+          ],
         ]
       }
     >
@@ -181,8 +184,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -201,7 +206,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -471,7 +479,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {},
+          Array [
+            Object {},
+            Object {},
+          ],
         ]
       }
     >
@@ -554,8 +565,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -574,7 +587,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -784,7 +800,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {},
+          Array [
+            Object {},
+            Object {},
+          ],
         ]
       }
     >
@@ -867,8 +886,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -887,7 +908,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />

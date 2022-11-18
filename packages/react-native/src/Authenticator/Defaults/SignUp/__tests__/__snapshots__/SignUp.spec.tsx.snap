@@ -263,7 +263,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -346,8 +349,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -366,7 +371,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -386,7 +394,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -469,8 +480,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -489,7 +502,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -785,7 +801,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -868,8 +887,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -888,7 +909,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -908,7 +932,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -991,8 +1018,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -1011,7 +1040,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -1479,7 +1511,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -1563,8 +1598,12 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
+              Object {
+                "opacity": 0.6,
+              },
               null,
-              null,
+              undefined,
             ]
           }
         >
@@ -1583,7 +1622,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -1603,7 +1645,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -1687,8 +1732,12 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
+              Object {
+                "opacity": 0.6,
+              },
               null,
-              null,
+              undefined,
             ]
           }
         >
@@ -1707,7 +1756,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2175,7 +2227,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -2258,8 +2313,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -2278,7 +2335,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2298,7 +2358,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -2381,8 +2444,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -2401,7 +2466,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2919,7 +2987,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -3002,8 +3073,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -3022,7 +3095,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -3042,7 +3118,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -3125,8 +3204,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -3145,7 +3226,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
