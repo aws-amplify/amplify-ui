@@ -1,27 +1,39 @@
-import { StyleSheet, TextStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { StrictTheme } from '../../theme';
 import { ButtonStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
   const { tokens, components } = theme;
-  const { colors, fontSizes, fontWeights, opacities, space } = tokens;
+  const {
+    colors,
+    fontSizes,
+    fontWeights,
+    opacities,
+    space,
+    radii,
+    borderWidths,
+  } = tokens;
 
   return StyleSheet.create({
     container: {
       alignItems: 'center',
+      backgroundColor: colors.transparent,
       justifyContent: 'center',
+      paddingVertical: space.small,
+      paddingHorizontal: space.medium,
+      borderRadius: radii.small,
+      borderWidth: borderWidths.small,
+      borderColor: colors.border.primary,
       ...components?.button?.container,
     },
     containerPrimary: {
       backgroundColor: colors.brand.primary[80],
-      padding: space.large,
+      borderWidth: 0,
       ...components?.button?.containerPrimary,
     },
-    containerSecondary: {
-      backgroundColor: colors.background.primary,
-      padding: space.medium,
-      ...components?.button?.containerSecondary,
+    containerLink: {
+      borderWidth: 0,
     },
     disabled: {
       opacity: opacities[60],
@@ -33,17 +45,16 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
     },
     text: {
       textAlign: 'center',
+      color: colors.font.primary,
+      fontSize: fontSizes.medium,
+      fontWeight: fontWeights.bold,
     },
     textPrimary: {
-      color: colors.white,
-      fontSize: fontSizes.medium,
-      fontWeight: fontWeights.bold as TextStyle['fontWeight'],
+      color: colors.font.inverse,
       ...components?.button?.textPrimary,
     },
-    textSecondary: {
-      color: colors.brand.primary[80],
-      fontSize: fontSizes.small,
-      ...components?.button?.textSecondary,
+    textLink: {
+      color: colors.font.interactive,
     },
   });
 };

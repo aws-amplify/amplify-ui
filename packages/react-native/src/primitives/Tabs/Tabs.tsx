@@ -10,10 +10,11 @@ export default function Tabs({
   onChange,
   selectedIndex = 0,
   style,
+  indicatorPosition,
   ...rest
 }: TabsProps): JSX.Element {
   const theme = useTheme();
-  const themedStyle = getThemedStyles(theme);
+  const themedStyle = getThemedStyles(theme, indicatorPosition);
 
   const handleOnChange = (nextIndex: number) => {
     onChange?.(nextIndex);

@@ -9,7 +9,7 @@ const ROUNDED_BORDER_RADIUS = 999;
 export const getThemedStyles = (theme: StrictTheme): Required<RadioStyles> => {
   const {
     components,
-    tokens: { colors, fontSizes, opacities },
+    tokens: { colors, fontSizes, opacities, borderWidths },
   } = theme;
 
   return StyleSheet.create({
@@ -25,8 +25,7 @@ export const getThemedStyles = (theme: StrictTheme): Required<RadioStyles> => {
       alignItems: 'center',
       borderColor: colors.border.primary,
       borderRadius: ROUNDED_BORDER_RADIUS,
-      // TODO: get borderWidths in base tokens
-      borderWidth: 2,
+      borderWidth: borderWidths.medium,
       justifyContent: 'center',
       ...components?.radio?.radioContainer,
     },

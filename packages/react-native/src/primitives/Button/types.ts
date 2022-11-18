@@ -1,6 +1,6 @@
 import { PressableProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-export type ButtonVariant = 'primary' | 'secondary';
+export type ButtonVariant = 'primary' | 'default' | 'link';
 
 export interface ButtonProps extends PressableProps {
   textStyle?: StyleProp<TextStyle>;

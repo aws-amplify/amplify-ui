@@ -46,14 +46,14 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
       <Header>{getResetYourPasswordText()}</Header>
       <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
+      <Button
+        variant="primary"
+        onPress={handleFormSubmit}
+        style={styles.buttonPrimary}
+      >
         {isPending ? getSubmittingText() : getSubmitText()}
       </Button>
-      <Button
-        onPress={resendCode}
-        variant="secondary"
-        style={styles.buttonSecondary}
-      >
+      <Button onPress={resendCode} style={styles.buttonSecondary}>
         {getResendCodeText()}
       </Button>
       <Footer />

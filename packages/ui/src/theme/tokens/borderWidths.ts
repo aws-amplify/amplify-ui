@@ -11,10 +11,20 @@ export type BorderWidths<
   Platform = unknown
 > = Output extends 'required' | 'default'
   ? Required<
-      DesignTokenValues<BorderWidthSize, BorderWidthValue, Output, Platform>
+      DesignTokenValues<
+        BorderWidthSize,
+        BorderWidthValue<Platform, Output>,
+        Output,
+        Platform
+      >
     >
   : Partial<
-      DesignTokenValues<BorderWidthSize, BorderWidthValue, Output, Platform>
+      DesignTokenValues<
+        BorderWidthSize,
+        BorderWidthValue<Platform, Output>,
+        Output,
+        Platform
+      >
     >;
 
 export const borderWidths: BorderWidths<'default'> = {

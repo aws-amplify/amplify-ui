@@ -23,6 +23,12 @@ export interface TabsProps extends ViewProps {
    * used in tandem with `onChange` to use Tabs as a controlled component.
    */
   selectedIndex?: number;
+
+  /**
+   * @description
+   * Sets the border and indicator of the tabs to be the top or bottom.
+   */
+  indicatorPosition?: 'top' | 'bottom';
 }
 
 export interface TabProps extends ButtonProps {

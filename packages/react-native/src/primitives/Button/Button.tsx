@@ -19,7 +19,7 @@ export default function Button({
   disabled,
   style,
   textStyle,
-  variant = 'primary',
+  variant = 'default',
   ...rest
 }: ButtonProps): JSX.Element {
   const theme = useTheme();
@@ -36,16 +36,17 @@ export default function Button({
         disabled ? themedStyle.disabled : null,
         pressed ? themedStyle.pressed : null,
         pressedStateStyle,
-      ];
+      ] as StyleProp<ViewStyle>;
     },
     [disabled, style, themedStyle, variant]
   );
 
-  const buttonTextStyle: TextStyle = useMemo(
-    () => ({
-      ...themedStyle.text,
-      ...themedStyle[`text${capitalize(variant)}`],
-    }),
+  const buttonTextStyle: TextStyle = useMemo<TextStyle>(
+    (): TextStyle =>
+      ({
+        ...themedStyle.text,
+        ...themedStyle[`text${capitalize(variant)}`],
+      } as TextStyle),
     [themedStyle, variant]
   );
 
