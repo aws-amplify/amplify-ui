@@ -33,6 +33,7 @@ export default function Tabs({
               child.props.onPress?.(event);
               handleOnChange(index);
             },
+            indicatorPosition,
             selected: index === selectedIndex,
           });
         }

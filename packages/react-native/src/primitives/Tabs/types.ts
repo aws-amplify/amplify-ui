@@ -37,6 +37,7 @@ export interface TabProps extends ButtonProps {
    * Indicates if a Tab is currently selected
    */
   selected?: boolean;
+  indicatorPosition?: 'top' | 'bottom';
 }
 
 export interface TabsStyles {

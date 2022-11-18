@@ -11,10 +11,11 @@ export default function Tab({
   selected,
   style,
   textStyle,
+  indicatorPosition,
   ...rest
 }: TabProps): JSX.Element {
   const theme = useTheme();
-  const themedStyle = getThemedStyles(theme);
+  const themedStyle = getThemedStyles(theme, indicatorPosition);
 
   const selectedStyles = selected ? themedStyle.selected : null;
 
