@@ -6,7 +6,7 @@ supportedFrameworks: all
 
 import { Alert } from '@aws-amplify/ui-react';
 import { FRAMEWORKS } from '@/data/frameworks';
-import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
