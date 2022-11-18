@@ -4,16 +4,22 @@ import { StrictTheme } from '../../theme';
 import { IconButtonStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): IconButtonStyles => {
-  const { components, opacities } = theme.tokens;
+  const {
+    components,
+    tokens: { opacities },
+  } = theme;
 
   return StyleSheet.create({
     container: {
-      ...components?.iconButton.container,
+      ...components?.iconButton?.container,
     },
     disabled: {
       opacity: opacities[60],
-      ...components?.iconButton.disabled,
+      ...components?.iconButton?.disabled,
     },
-    pressed: { opacity: opacities[60], ...components?.iconButton.pressed },
+    pressed: {
+      opacity: opacities[60],
+      ...components?.iconButton?.pressed,
+    },
   });
 };
