@@ -1,12 +1,6 @@
 import * as React from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import {
-  AutocompleteProps,
-  Divider,
-  Flex,
-  View,
-  useTheme,
-} from '@aws-amplify/ui-react';
+import { Divider, Flex, View, useTheme } from '@aws-amplify/ui-react';
 import { CopyButton } from './CopyButton';
 
 interface DemoProps {
