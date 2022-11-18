@@ -251,10 +251,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }
@@ -383,10 +380,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }
@@ -787,10 +781,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }
@@ -919,10 +910,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }
@@ -1481,10 +1469,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }
@@ -1614,10 +1599,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }
@@ -2177,10 +2159,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }
@@ -2309,10 +2288,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }
@@ -2921,10 +2897,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }
@@ -3053,10 +3026,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            undefined,
           ],
         ]
       }

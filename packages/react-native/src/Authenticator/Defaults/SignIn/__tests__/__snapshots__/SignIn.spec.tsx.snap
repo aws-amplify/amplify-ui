@@ -100,10 +100,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            Object {},
           ],
         ]
       }
@@ -475,10 +472,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            Object {},
           ],
         ]
       }
@@ -792,10 +786,7 @@ Array [
           },
           Array [
             Object {},
-            Object {
-              "fontSize": 16,
-              "marginVertical": 4,
-            },
+            Object {},
           ],
         ]
       }
