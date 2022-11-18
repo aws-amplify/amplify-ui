@@ -3,11 +3,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import * as UseHooks from '../hooks/useFileUploader';
 import { FileUploader } from '..';
 import * as UIModule from '@aws-amplify/ui';
-import * as Amplify from 'aws-amplify';
 import { act } from 'react-dom/test-utils';
 import { ComponentClassNames } from '../../../../primitives';
 const uploadFileSpy = jest.spyOn(UIModule, 'uploadFile');
-const LoggerSpy = jest.spyOn(Amplify, 'Logger');
 const useFileUploaderSpy = jest.spyOn(UseHooks, 'useFileUploader');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
@@ -526,18 +524,5 @@ describe('File Uploader', () => {
       resumable: true,
       progressCallback: expect.any(Function),
     });
-  });
-  it('shows logger message if acceptedFileTypes and level are not set', async () => {
-    const acceptedFileTypes = null as any;
-    const level = null as any;
-
-    render(
-      <FileUploader acceptedFileTypes={acceptedFileTypes} level={level} />
-    );
-
-    const errorText =
-      'You must include the level and acceptedFileNames props to use the file uploader!';
-
-    expect(LoggerSpy).toBeCalledWith(errorText);
   });
 });
