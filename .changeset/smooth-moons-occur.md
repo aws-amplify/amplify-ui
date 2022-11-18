@@ -15,7 +15,7 @@ class MyComponent implements OnInit, OnDelete {
       if (authStatus === 'authenticated') {
         this.router.navigate(['/admin']);
       }
-    });
+    }).unsubscribe;
   }
 
   ngOnDelete() {
