@@ -4,19 +4,11 @@ import * as UIModule from '@aws-amplify/ui';
 import * as XState from 'xstate';
 import { MockAuthService } from './mockAuthService';
 
-const mockContextFacade = {
-  authStatus: 'unauthenticated',
-} as unknown as ReturnType<typeof UIModule['getServiceContextFacade']>;
+const mockFacade = {} as unknown as ReturnType<
+  typeof UIModule['getServiceFacade']
+>;
 
-const mockSendAliases = {
-  toSignIn: jest.fn(),
-} as unknown as ReturnType<typeof UIModule['getSendEventAliases']>;
-
-jest
-  .spyOn(UIModule, 'getServiceContextFacade')
-  .mockReturnValue(mockContextFacade);
-jest.spyOn(UIModule, 'getSendEventAliases').mockReturnValue(mockSendAliases);
-
+jest.spyOn(UIModule, 'getServiceFacade').mockReturnValue(mockFacade);
 // mock interpreted authservice
 jest
   .spyOn(XState, 'interpret')
@@ -40,7 +32,7 @@ describe('AuthenticatorService', () => {
     expect(handler).toBeCalledTimes(1);
 
     const facade = handler.mock.calls[0][0];
-    expect(facade).toMatchObject({ ...mockContextFacade, ...mockSendAliases });
+    expect(facade).toEqual(mockFacade);
 
     unsubscribe();
   });
