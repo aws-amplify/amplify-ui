@@ -4,12 +4,12 @@ import { StrictTheme } from '../../theme';
 import { PasswordFieldStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): PasswordFieldStyles => {
-  const { components } = theme.tokens;
+  const { components } = theme;
 
   return StyleSheet.create({
     container: {
-      ...components?.passwordField.container,
+      ...components?.passwordField?.container,
     },
-    icon: { ...components?.passwordField.icon },
+    icon: { ...components?.passwordField?.icon },
   });
 };
