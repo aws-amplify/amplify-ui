@@ -1,12 +1,14 @@
 import { Alert } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import {UPLOAD_DROP_COMPONENTS, UPLOAD_BUTTON_COMPONENTS, PREVIEWER_COMPONENTS, TRACKER_COMPONENTS} from "./props"
 import { DefaultFileUploaderExample, AcceptedFileTypesExample, FileUploaderErrorExample, FileUploaderThemeExample, 
 FileUploaderComponentsExample, LevelExample, IsPreviewerVisibleExample, VariationExample, AutoProceedExample, MaxFilesExample, 
 MaxSizeExample, MultipleExample, ResumableExample, ShowImagesExample, FileUploaderSuccessExample, PreviewerComponentsExample, TrackerComponentsExample, UploadButtonComponentsExample } from './examples'
+import { ReactPropsTable } from '../../in-app-messaging/props'
 
 <Alert role="none" heading="Wait!">
-  Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the File Uploader first and the storage and auth services?
+  Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
 
 </Alert>
 
@@ -26,11 +28,11 @@ To use the File Uploader component import it into your React application with th
 <Example>
   <DefaultFileUploaderExample />
   <ExampleCode>
-    ```jsx
+    ```jsx{1-2}
 import { FileUploader } from '@aws-amplify/ui-react'; 
 import '@aws-amplify/ui-react/styles.css'
     ```
-    ```jsx file=./examples/DefaultFileUploaderExample.tsx
+    ```jsx{3} file=./examples/DefaultFileUploaderExample.tsx
     ```
   </ExampleCode>
 </Example>
@@ -96,7 +98,7 @@ The `variation` prop can be added to show a `button` or as a `drop` area when th
 
 ### Show Preview Page
 
-The `isPreviewerVisible` prop can be used to default to show the preview page on initial load of the File Uploader. The default is set as `false`.
+The `isPreviewerVisible` prop can be used to show the preview page on initial load of the File Uploader. The default is set as `false`.
 
 <Example>
   <IsPreviewerVisibleExample />
@@ -126,11 +128,11 @@ The `autoProceed` prop  will automatically start the download after a file is se
 
 ## Setting Limits
 
-The following props allow you to set some on what the File Uploader will accept.
+The following props set limits on what the File Uploader will accept.
 
 ### Max Number of Files
 
-The `maxFiles` prop accepts a number that defines how many files at one time you can select and upload.  The default is unlimited.
+The `maxFiles` prop accepts how many files at one time you can select to upload.  The default is unlimited.
 
 <Example>
   <MaxFilesExample />
@@ -146,7 +148,7 @@ The `maxFiles` prop accepts a number that defines how many files at one time you
 
 ### Max Size Per File
 
-The `maxSize` prop sets a maximum file size the uploader will accept in bytes. The default is unlimited size.
+The `maxSize` prop sets a maximum file size the uploader will accept in bytes. The default is unlimited.
 
 <Example>
   <MaxSizeExample />
@@ -161,7 +163,7 @@ The `maxSize` prop sets a maximum file size the uploader will accept in bytes. T
 
 ### Allow Multiple Files
 
-The `multiple` prop allows to select more than one file for upload. The default is set as `true`. 
+The `multiple` prop allows you to select more then one file for upload. The default is set as `true`. 
 
 <Example>
   <MultipleExample />
@@ -176,7 +178,8 @@ The `multiple` prop allows to select more than one file for upload. The default 
 
 ### Allow Resuming of Files
 
-The `resumable` prop allows for uploads to be paused and then resumed. The default is set as `false`.
+The `resumable` prop allows uploads to be resumable. The default is set as `false`.
+
 <Example>
   <ResumableExample />
   
@@ -209,7 +212,7 @@ The `showImages` prop will display or hide the image preview after selecting a f
 
 ## Event Handling
 
-When an upload occurs there are two different events that can occur. It can complete and trigger a `onSuccess` callback which also send back a key. Or a `onError` call back can occur. 
+When an upload occurs there are two different events that can occur. It can complete and trigger a `onSuccess` callback that sends back a `key`. Or an `onError` callback can occur. 
 
 ### Success
 
@@ -226,7 +229,7 @@ The `onSuccess` callback prop will be called with a `key` after the upload compl
 
 ### Errors
 
-The `onError` callback prop will send error information back if there is an error during upload.
+The `onError` callback will send error information back if there is an problem during upload.
 
 _This example will fail at 50%_
 
@@ -245,7 +248,7 @@ You can customize the File Uploader components to meet your needs, by using comp
 
 ### Component Overrides
 
-You can override parts of the FileUploder component by passing in a `components` prop. This includes the `UploadDropZone`, `UploadButton`, `Previewer` and the `Tracker` components.
+You can override parts of the FileUploder component by passing in a `components` prop. This can include the `UploadDropZone`, `UploadButton`, `Previewer` and the `Tracker` components.
 
 #### Upload Drop Zone
 
@@ -260,6 +263,11 @@ The `UploadDropZone` component controls how files can be dropped onto the File U
   </ExampleCode>
 </Example>
 
+#### Upload Drop Zone Props
+
+<ReactPropsTable props={UPLOAD_DROP_COMPONENTS} />
+
+
 #### Upload Button
 
 The `UploadButton` component controls the button used to select files for an upload.
@@ -268,14 +276,19 @@ The `UploadButton` component controls the button used to select files for an upl
   <UploadButtonComponentsExample />
   
   <ExampleCode>
-    ```jsx{12-19} file=./examples/UploadButtonComponentsExample.tsx
+    ```jsx{13-18} file=./examples/UploadButtonComponentsExample.tsx
     ```
   </ExampleCode>
 </Example>
 
+#### Upload Button Props
+
+
+<ReactPropsTable props={UPLOAD_BUTTON_COMPONENTS} />
+
 #### Previewer
 
-The `Preview` component controls the preview pages that is shown before an upload begins.
+The `Preview` component controls the preview page that is shown before an upload begins.
 
 <Example>
   <PreviewerComponentsExample />
@@ -286,9 +299,14 @@ The `Preview` component controls the preview pages that is shown before an uploa
   </ExampleCode>
 </Example>
 
+#### Previewer Props
+
+<ReactPropsTable props={PREVIEWER_COMPONENTS} />
+
+
 #### Tracker
 
-The `Tracker` component controls how the Files added will look when being displayed inside the preview window.
+The `Tracker` component controls how the files added will look when being displayed inside the preview component.
 
 <Example>
   <TrackerComponentsExample />
@@ -298,6 +316,10 @@ The `Tracker` component controls how the Files added will look when being displa
     ```
   </ExampleCode>
 </Example>
+
+#### Tracker Props
+
+<ReactPropsTable props={TRACKER_COMPONENTS} />
 
 
 ### Theming
