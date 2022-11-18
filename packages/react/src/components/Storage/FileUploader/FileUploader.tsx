@@ -13,6 +13,8 @@ import { Logger } from 'aws-amplify';
 const isUploadTask = (value: unknown): value is UploadTask =>
   typeof (value as UploadTask)?.resume === 'function';
 
+const logger = new Logger('AmplifyUI:Auth');
+
 export function FileUploader({
   acceptedFileTypes,
   autoProceed = false,
@@ -37,9 +39,7 @@ export function FileUploader({
   } = components;
 
   if (!acceptedFileTypes || !level) {
-    new Logger(
-      'You must include the level and acceptedFileNames props to use the file uploader!'
-    );
+    logger.warn('FileUploader requires level and acceptedFileTypes props');
   }
 
   // File Previewer loading state
