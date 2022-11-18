@@ -3,7 +3,11 @@ import React from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage } from '../../../primitives';
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultConfirmSignInComponent } from '../types';
@@ -60,7 +64,7 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
 };
 
 ConfirmSignIn.Footer = DefaultFooter;
-ConfirmSignIn.FormFields = DefaultFormFields;
+ConfirmSignIn.FormFields = DefaultTextFormFields;
 ConfirmSignIn.Header = DefaultHeader;
 
 ConfirmSignIn.displayName = COMPONENT_NAME;

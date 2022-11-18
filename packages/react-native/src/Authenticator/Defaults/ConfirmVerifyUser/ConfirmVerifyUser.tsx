@@ -2,7 +2,11 @@ import React from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage } from '../../../primitives';
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultConfirmVerifyUserComponent } from '../types';
@@ -58,7 +62,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
 };
 
 ConfirmVerifyUser.Footer = DefaultFooter;
-ConfirmVerifyUser.FormFields = DefaultFormFields;
+ConfirmVerifyUser.FormFields = DefaultTextFormFields;
 ConfirmVerifyUser.Header = DefaultHeader;
 
 ConfirmVerifyUser.displayName = COMPONENT_NAME;

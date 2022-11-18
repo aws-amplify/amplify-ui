@@ -25,10 +25,12 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,

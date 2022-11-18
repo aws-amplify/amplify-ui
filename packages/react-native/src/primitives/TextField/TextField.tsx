@@ -44,7 +44,9 @@ export default function TextField({
       accessibilityState={{ disabled, ...accessibilityState }}
       style={[themedStyle.container, style]}
     >
-      {label ? <Label style={labelStyle}>{label}</Label> : null}
+      {label ? (
+        <Label style={[themedStyle.label, labelStyle]}>{label}</Label>
+      ) : null}
       <View style={inputContainerStyle} testID={INPUT_CONTAINER_TEST_ID}>
         <TextInput
           {...rest}

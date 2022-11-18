@@ -5,6 +5,12 @@ import { DefaultHeaderProps } from './types';
 
 export default function DefaultHeader({
   children,
-}: DefaultHeaderProps): JSX.Element {
-  return <Heading level={3}>{children}</Heading>;
+  level = 3,
+  ...rest
+}: DefaultHeaderProps): JSX.Element | null {
+  return children ? (
+    <Heading {...rest} level={level}>
+      {children}
+    </Heading>
+  ) : null;
 }

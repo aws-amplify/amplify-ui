@@ -41,10 +41,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -58,10 +60,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -70,52 +72,52 @@ Array [
       Confirm
     </Text>
   </View>,
-  <View>
-    <View
-      accessibilityRole="button"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+          "padding": 8,
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
       style={
         Array [
           Object {
-            "padding": 12,
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
+            "textAlign": "center",
           },
-          Object {
-            "backgroundColor": "hsl(0, 0%, 100%)",
-          },
-          null,
-          null,
-          Object {
-            "marginVertical": 8,
-          },
+          undefined,
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-              "color": "hsl(190, 95%, 30%)",
-              "fontSize": 14,
-            },
-            undefined,
-          ]
-        }
-      >
-        Resend Code
-      </Text>
-    </View>
+      Resend Code
+    </Text>
   </View>,
 ]
 `;
@@ -161,10 +163,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -178,10 +182,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -190,52 +194,52 @@ Array [
       Confirming
     </Text>
   </View>,
-  <View>
-    <View
-      accessibilityRole="button"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+          "padding": 8,
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
       style={
         Array [
           Object {
-            "padding": 12,
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
+            "textAlign": "center",
           },
-          Object {
-            "backgroundColor": "hsl(0, 0%, 100%)",
-          },
-          null,
-          null,
-          Object {
-            "marginVertical": 8,
-          },
+          undefined,
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-              "color": "hsl(190, 95%, 30%)",
-              "fontSize": 14,
-            },
-            undefined,
-          ]
-        }
-      >
-        Resend Code
-      </Text>
-    </View>
+      Resend Code
+    </Text>
   </View>,
 ]
 `;
@@ -274,7 +278,6 @@ Array [
           "flexDirection": "row",
           "paddingHorizontal": 4,
           "paddingVertical": 16,
-          "width": "100%",
         },
         undefined,
       ]
@@ -333,10 +336,12 @@ Array [
     style={
       Array [
         Object {
-          "padding": 12,
+          "alignItems": "center",
+          "justifyContent": "center",
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
+          "padding": 12,
         },
         null,
         null,
@@ -350,10 +355,10 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
             "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
             "fontWeight": "700",
+            "textAlign": "center",
           },
           undefined,
         ]
@@ -362,52 +367,52 @@ Array [
       Confirm
     </Text>
   </View>,
-  <View>
-    <View
-      accessibilityRole="button"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        },
+        Object {
+          "backgroundColor": "hsl(0, 0%, 100%)",
+          "padding": 8,
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
       style={
         Array [
           Object {
-            "padding": 12,
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 14,
+            "textAlign": "center",
           },
-          Object {
-            "backgroundColor": "hsl(0, 0%, 100%)",
-          },
-          null,
-          null,
-          Object {
-            "marginVertical": 8,
-          },
+          undefined,
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-              "color": "hsl(190, 95%, 30%)",
-              "fontSize": 14,
-            },
-            undefined,
-          ]
-        }
-      >
-        Resend Code
-      </Text>
-    </View>
+      Resend Code
+    </Text>
   </View>,
 ]
 `;

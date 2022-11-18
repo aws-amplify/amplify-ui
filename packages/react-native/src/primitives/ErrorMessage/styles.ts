@@ -16,7 +16,6 @@ export const getThemedStyles = (theme: StrictTheme): ErrorMessageStyles => {
       flexDirection: 'row',
       paddingHorizontal: space.xs,
       paddingVertical: space.xl,
-      width: '100%',
       ...components?.errorMessage?.container,
     },
     icon: {

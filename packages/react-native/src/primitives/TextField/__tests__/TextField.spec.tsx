@@ -117,7 +117,7 @@ describe('TextField', () => {
     const customLabelStyle = { color: 'blue' };
     const customStyle = { backgroundColor: 'purple' };
 
-    const { toJSON, getByTestId, getByText, getByRole } = render(
+    const { getByTestId, getByText, getByRole } = render(
       <TextField
         {...defaultProps}
         accessibilityRole="none"
@@ -137,7 +137,6 @@ describe('TextField', () => {
     const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
     const input = getByTestId(testID);
     const errorMessage = getByText(errorMessageText);
-    const label = getByText(labelText);
 
     expect(container.props.style).toStrictEqual([
       themedStyle.container,
@@ -151,7 +150,5 @@ describe('TextField', () => {
       customFieldStyle,
     ]);
     expect(errorMessage.props.style).toContain(customErrorMessageStyle);
-    expect(label.props.style).toContain(customLabelStyle);
-    expect(toJSON()).toMatchSnapshot();
   });
 });
