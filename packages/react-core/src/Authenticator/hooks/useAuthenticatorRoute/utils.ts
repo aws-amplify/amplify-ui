@@ -32,7 +32,7 @@ const createSelector =
   (context) => {
     const dependencies = selectorKeys.map((key) => context[key]);
     // route should always be part of deps, so hook knows when route changes.
-    return [...dependencies, 'route'];
+    return [...dependencies, context.route];
   };
 
 export const getRouteMachineSelector = (
