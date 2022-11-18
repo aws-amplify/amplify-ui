@@ -7,7 +7,7 @@ Expose `subscribe` from `AuthenticatorService`.
 ```ts
 @Component()
 class MyComponent implements OnInit, OnDelete {
-  private unsubscribe: () => void = null;
+  private unsubscribe: () => void;
   constructor(private authenticator: Authenticator, private route: Router) {}
 
   ngOnInit() {
@@ -15,7 +15,7 @@ class MyComponent implements OnInit, OnDelete {
       if (authStatus === 'authenticated') {
         this.router.navigate(['/admin']);
       }
-    });
+    }).unsubscribe;
   }
 
   ngOnDelete() {
