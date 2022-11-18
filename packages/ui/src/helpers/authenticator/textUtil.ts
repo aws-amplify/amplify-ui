@@ -93,7 +93,6 @@ export const authenticatorTextUtil = {
   getChangingText: () => translate(DefaultTexts.CHANGING_PASSWORD),
   getConfirmText: () => translate(DefaultTexts.CONFIRM),
   getConfirmingText: () => translate(DefaultTexts.CONFIRMING),
-  // TODO: add 'COPY' to DefaultTexts
   getCopyText: () => translate(DefaultTexts.UPPERCASE_COPY),
   getResendCodeText: () => translate(DefaultTexts.RESEND_CODE),
   getSendCodeText: () => translate(DefaultTexts.SEND_CODE),

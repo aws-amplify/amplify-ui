@@ -9,7 +9,7 @@ import { name as appName } from './app.json';
 import { setupStorybook } from './storybook';
 
 //TODO: replace with env var
-const initStorybook = true;
+const initStorybook = false;
 
 const { StorybookRoot } = setupStorybook(initStorybook);
 
