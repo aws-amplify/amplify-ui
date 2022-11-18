@@ -20,7 +20,7 @@ export const getThemedStyles = (theme: StrictTheme): PhoneNumberFieldStyles => {
       alignItems: 'center',
       display: 'flex',
       flexDirection: 'row',
-      ...components?.phoneNumberField.container,
+      ...components?.phoneNumberField?.container,
     },
     picker: {
       flex: 1,
@@ -30,11 +30,11 @@ export const getThemedStyles = (theme: StrictTheme): PhoneNumberFieldStyles => {
        * as the selected value of the Picker on Android
        */
       minWidth: Platform.OS === 'android' ? space.xl : 0,
-      ...components?.phoneNumberField.picker,
+      ...components?.phoneNumberField?.picker,
     },
     pickerItem: {
       height: PICKER_HEIGHT,
-      ...components?.phoneNumberField.pickerItem,
+      ...components?.phoneNumberField?.pickerItem,
     },
   });
 };
