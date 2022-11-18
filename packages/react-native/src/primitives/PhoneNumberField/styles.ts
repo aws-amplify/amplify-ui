@@ -10,7 +10,10 @@ import { PhoneNumberFieldStyles } from './types';
 const PICKER_HEIGHT = 44;
 
 export const getThemedStyles = (theme: StrictTheme): PhoneNumberFieldStyles => {
-  const { components, space } = theme.tokens;
+  const {
+    components,
+    tokens: { space },
+  } = theme;
 
   return StyleSheet.create({
     container: {
