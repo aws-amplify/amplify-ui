@@ -84,7 +84,6 @@ describe('Button', () => {
     expect(getByText(labelText).props.style).toStrictEqual([
       {
         ...themedStyle.text,
-        // ...themedStyle.textPrimary,
       },
       customTextStyle,
     ]);
