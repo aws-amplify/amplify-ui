@@ -15,6 +15,10 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       alignItems: 'flex-start',
       ...components?.textField?.container,
     },
+    disabled: {
+      opacity: opacities[60],
+      ...components?.textField?.disabled,
+    },
     inputContainer: {
       alignItems: 'center',
       borderColor: colors.black,
@@ -33,9 +37,10 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       ...(Platform.OS === 'android' && { padding: 0 }),
       ...components?.textField?.input,
     },
-    disabled: {
-      opacity: opacities[60],
-      ...components?.textField?.disabled,
+    label: {
+      fontSize: fontSizes.small,
+      lineHeight: getLineHeight(fontSizes.small),
+      ...components?.textField?.label,
     },
   });
 };

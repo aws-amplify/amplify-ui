@@ -93,8 +93,7 @@ export const authenticatorTextUtil = {
   getChangingText: () => translate(DefaultTexts.CHANGING_PASSWORD),
   getConfirmText: () => translate(DefaultTexts.CONFIRM),
   getConfirmingText: () => translate(DefaultTexts.CONFIRMING),
-  // TODO: add 'COPY' to DefaultTexts
-  getCopyText: () => translate('COPY'),
+  getCopyText: () => translate(DefaultTexts.UPPERCASE_COPY),
   getResendCodeText: () => translate(DefaultTexts.RESEND_CODE),
   getSendCodeText: () => translate(DefaultTexts.SEND_CODE),
   getSendingText: () => translate(DefaultTexts.SENDING),
@@ -107,7 +106,12 @@ export const authenticatorTextUtil = {
   getSignUpTabText: () => translate(DefaultTexts.CREATE_ACCOUNT),
 
   /** SignIn */
-  getForgotPasswordText: () => translate(DefaultTexts.FORGOT_YOUR_PASSWORD),
+  getForgotPasswordText: (shortVersion?: boolean) =>
+    translate(
+      shortVersion
+        ? DefaultTexts.FORGOT_PASSWORD
+        : DefaultTexts.FORGOT_YOUR_PASSWORD
+    ),
   getSigningInText: () => translate(DefaultTexts.SIGNING_IN_BUTTON),
   getSignInText: () => translate(DefaultTexts.SIGN_IN_BUTTON),
 

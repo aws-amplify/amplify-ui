@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-import DefaultFormFields from '../DefaultFormFields';
+import DefaultFormFields from '../DefaultTextFormFields';
 
 describe('DefaultFormFields', () => {
   it('renders as expected', () => {

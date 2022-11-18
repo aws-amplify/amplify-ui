@@ -60,7 +60,6 @@ describe('VerifyUser', () => {
     );
     expect(toJSON()).toMatchSnapshot();
 
-    expect(getByRole('header')).toBeDefined();
     expect(getByRole('radiogroup')).toBeDefined();
     expect(getByText(getAccountRecoveryInfoText())).toBeDefined();
     expect(getByText(getSkipText())).toBeDefined();
@@ -103,12 +102,5 @@ describe('VerifyUser', () => {
 
     expect(handleSubmit).toBeCalledTimes(1);
     expect(handleSubmit).toBeCalledWith({ unverifiedAttr: 'email' });
-  });
-
-  it('renders as expected when isPending is true', () => {
-    const { toJSON, getByText } = render(<VerifyUser {...props} isPending />);
-    expect(toJSON()).toMatchSnapshot();
-
-    expect(getByText('Verifying...')).toBeDefined();
   });
 });

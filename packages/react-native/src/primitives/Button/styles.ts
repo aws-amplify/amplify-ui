@@ -9,24 +9,30 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
 
   return StyleSheet.create({
     container: {
-      padding: space.large,
+      alignItems: 'center',
+      justifyContent: 'center',
       ...components?.button?.container,
     },
     containerPrimary: {
       backgroundColor: colors.brand.primary[80],
+      padding: space.large,
       ...components?.button?.containerPrimary,
     },
     containerSecondary: {
       backgroundColor: colors.background.primary,
+      padding: space.medium,
       ...components?.button?.containerSecondary,
     },
     disabled: {
       opacity: opacities[60],
       ...components?.button?.disabled,
     },
-    pressed: { opacity: opacities[60], ...components?.button?.pressed },
+    pressed: {
+      opacity: opacities[60],
+      ...components?.button?.pressed,
+    },
     text: {
-      alignSelf: 'center',
+      textAlign: 'center',
     },
     textPrimary: {
       color: colors.white,

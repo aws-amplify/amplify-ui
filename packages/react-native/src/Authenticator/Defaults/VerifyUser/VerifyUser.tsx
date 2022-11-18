@@ -1,49 +1,28 @@
-import React from 'react';
-import {
-  authenticatorTextUtil,
-  censorAllButFirstAndLast,
-  censorPhoneNumber,
-  UnverifiedContactMethodType,
-} from '@aws-amplify/ui';
+import React, { useMemo } from 'react';
+import { Text } from 'react-native';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { Button, ErrorMessage, Radio, RadioGroup } from '../../../primitives';
-import { DefaultFooter } from '../../common/DefaultFooter';
-import { DefaultHeader } from '../../common/DefaultHeader';
+import {
+  DefaultContent,
+  DefaultFooter,
+  DefaultHeader,
+  DefaultRadioFormFields,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 import { DefaultVerifyUserComponent } from '../types';
 
-import { styles } from './styles';
-
 const COMPONENT_NAME = 'VerifyUser';
 
-//TODO: add getVerifyingText util
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
 
-const censorContactInformation = (name: string, value: string): string => {
-  let censoredVal = value;
-  if (name === UnverifiedContactMethodType.Email) {
-    const splitEmail = value.split('@');
-    const censoredName = censorAllButFirstAndLast(splitEmail[0]);
-
-    censoredVal = `${censoredName}@${splitEmail[1]}`;
-  } else if (name === UnverifiedContactMethodType.PhoneNumber) {
-    censoredVal = censorPhoneNumber(value);
-  }
-  return censoredVal;
-};
-
 const VerifyUser: DefaultVerifyUserComponent = ({
-  error,
   fields,
-  FormFields,
-  Footer,
   handleBlur,
   handleChange,
   handleSubmit,
-  Header,
-  isPending,
   skipVerification,
+  ...rest
 }) => {
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -53,48 +32,36 @@ const VerifyUser: DefaultVerifyUserComponent = ({
     handleSubmit,
   });
 
-  return (
-    <>
-      <Header>{getAccountRecoveryInfoText()}</Header>
-      <FormFields isPending={isPending} fields={fieldsWithHandlers} />
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
-        {isPending ? 'Verifying...' : getVerifyText()}
-      </Button>
-      <Button
-        onPress={skipVerification}
-        variant="secondary"
-        style={styles.buttonSecondary}
-      >
-        {getSkipText()}
-      </Button>
-      <Footer />
-    </>
-  );
-};
+  const skipText = getSkipText();
+  const verifyText = getVerifyText();
 
-const FormFields: DefaultVerifyUserComponent['FormFields'] = ({
-  fields,
-  isPending,
-}) => {
+  const buttons = useMemo(
+    () => ({
+      primary: {
+        children: verifyText,
+        onPress: handleFormSubmit,
+      },
+      secondary: { children: skipText, onPress: skipVerification },
+    }),
+    [handleFormSubmit, skipText, skipVerification, verifyText]
+  );
+
+  const body = (
+    <Text style={{ fontSize: 18 }}>{getAccountRecoveryInfoText()}</Text>
+  );
+
   return (
-    <RadioGroup disabled={isPending}>
-      {fields.map(({ name, value, ...props }) => (
-        <Radio
-          {...props}
-          key={value}
-          // value has to be name, because Auth is only interested in the
-          // string "email" or "phone_number", not the actual value
-          value={name}
-          label={censorContactInformation(name, value)}
-        />
-      ))}
-    </RadioGroup>
+    <DefaultContent
+      {...rest}
+      body={body}
+      buttons={buttons}
+      fields={fieldsWithHandlers}
+    />
   );
 };
 
 VerifyUser.Footer = DefaultFooter;
-VerifyUser.FormFields = FormFields;
+VerifyUser.FormFields = DefaultRadioFormFields;
 VerifyUser.Header = DefaultHeader;
 
 VerifyUser.displayName = COMPONENT_NAME;
