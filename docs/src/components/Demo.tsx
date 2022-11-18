@@ -1,6 +1,12 @@
 import * as React from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import { Divider, Flex, View, useTheme } from '@aws-amplify/ui-react';
+import {
+  AutocompleteProps,
+  Divider,
+  Flex,
+  View,
+  useTheme,
+} from '@aws-amplify/ui-react';
 import { CopyButton } from './CopyButton';
 
 interface DemoProps {
@@ -13,7 +19,6 @@ interface DemoProps {
 
 export const Demo = ({
   children,
-  childrenOverflow = 'auto',
   propControls,
   themeControls,
   code,
@@ -41,9 +46,18 @@ export const Demo = ({
         alignItems="stretch"
       >
         <Flex direction="column" flex="1">
-          <View overflow={childrenOverflow} padding="5px">
-            {children}
-          </View>
+          {
+            // No need to add extra overflow container to Autocomplete in demo
+            // This will affect the way Safari and Firefox to compute menu width
+            // width 100% will not work somehow
+            React.isValidElement<AutocompleteProps>(children) ? (
+              children
+            ) : (
+              <View overflow="auto" padding="5px">
+                {children}
+              </View>
+            )
+          }
           <Divider
             margin="20px 0 0"
             border={`2px solid ${tokens.colors.border.secondary}`}

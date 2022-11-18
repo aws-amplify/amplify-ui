@@ -71,7 +71,6 @@ export const AutocompleteDemo = () => {
 
   return (
     <Demo
-      childrenOverflow="initial"
       code={propsToCode(autocompleteProps)}
       propControls={<AutocompletePropControls {...autocompleteProps} />}
     >
