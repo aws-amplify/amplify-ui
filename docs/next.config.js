@@ -79,16 +79,6 @@ module.exports = withNextPluginPreval({
         permanent: true,
       },
       {
-        source: '/:platform(react|angular|vue)/components/storage',
-        destination: '/:platform/legacy-components/storage',
-        permanent: true,
-      },
-      {
-        source: '/:platform(react|angular|vue)/components/chatbot',
-        destination: '/:platform/legacy-components/chatbot',
-        permanent: true,
-      },
-      {
         source: '/ui/primitives/stepperField',
         destination: '/components/stepperfield',
         permanent: true,
@@ -145,7 +135,7 @@ module.exports = withNextPluginPreval({
        */
       {
         source:
-          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)/:page*',
+          '/:nav(connected-components|components|getting-started|guides|theming)/:page*',
         destination: '/react/:nav/:page*',
         permanent: true,
       },
@@ -155,7 +145,7 @@ module.exports = withNextPluginPreval({
        */
       {
         source:
-          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)',
+          '/:nav(connected-components|components|getting-started|guides|theming)',
         destination: '/react/:nav',
         permanent: true,
       },
