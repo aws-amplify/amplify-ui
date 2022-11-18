@@ -8,6 +8,7 @@ import {
   HeadingStyles,
   IconStyles,
   LabelStyles,
+  PhoneNumberFieldStyles,
   RadioStyles,
   RadioGroupStyles,
   TabsStyles,
@@ -31,6 +32,7 @@ export type Components<Output> = Record<string, object> & {
   heading?: ComponentTheme<HeadingStyles, Output>;
   icon?: ComponentTheme<IconStyles, Output>;
   label?: ComponentTheme<LabelStyles, Output>;
+  phoneNumberField?: ComponentTheme<PhoneNumberFieldStyles, Output>;
   radio?: ComponentTheme<RadioStyles, Output>;
   radioGroup?: ComponentTheme<RadioGroupStyles, Output>;
   tabs?: ComponentTheme<TabsStyles, Output>;
