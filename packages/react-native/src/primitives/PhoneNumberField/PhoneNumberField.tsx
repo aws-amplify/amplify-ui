@@ -2,9 +2,10 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
+import { useTheme } from '../../theme';
+import { getThemedStyles } from './styles';
 import { TextField } from '../TextField';
 import { PhoneNumberFieldProps } from './types';
-import { styles } from './styles';
 
 export default function PhoneNumberField({
   defaultDialCode,
@@ -17,6 +18,9 @@ export default function PhoneNumberField({
   style,
   ...rest
 }: PhoneNumberFieldProps): JSX.Element | null {
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
   const [selectedDialCode, setSelectedDialCode] = useState(defaultDialCode);
 
   const handleOnValueChange = useCallback(
@@ -34,16 +38,16 @@ export default function PhoneNumberField({
   }, [dialCodes]);
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[themedStyle.container, style]}>
       {dialCodes ? (
         <Picker
           enabled={!disabled}
-          itemStyle={[styles.pickerItem, pickerItemStyle]}
+          itemStyle={[themedStyle.pickerItem, pickerItemStyle]}
           mode="dropdown"
           onValueChange={handleOnValueChange}
           selectedValue={selectedDialCode}
           testID="RNPicker"
-          style={[styles.picker, pickerStyle]}
+          style={[themedStyle.picker, pickerStyle]}
         >
           {pickerItems}
         </Picker>
@@ -52,7 +56,7 @@ export default function PhoneNumberField({
         {...rest}
         disabled={disabled}
         keyboardType="phone-pad"
-        style={[styles.inputContainer, inputStyle]}
+        style={[themedStyle.inputContainer, inputStyle]}
       />
     </View>
   );
