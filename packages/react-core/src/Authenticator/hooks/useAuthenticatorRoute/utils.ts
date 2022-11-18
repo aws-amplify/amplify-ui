@@ -24,23 +24,23 @@ import {
   UseAuthenticatorRouteDefault,
 } from './types';
 
-// selects nothing
-const defaultSelector = () => [];
-
 // only select `route` from machine context
 export const routeSelector: UseAuthenticatorSelector = ({ route }) => [route];
 
 const createSelector =
   (selectorKeys: AuthenticatorMachineContextKey[]): UseAuthenticatorSelector =>
-  (context) =>
-    selectorKeys.map((key) => context[key]);
+  (context) => {
+    const dependencies = selectorKeys.map((key) => context[key]);
+    // route should always be part of deps, so hook knows when route changes.
+    return [...dependencies, context.route];
+  };
 
 export const getRouteMachineSelector = (
   route: AuthenticatorRoute
 ): UseAuthenticatorSelector =>
   isComponentRouteKey(route)
     ? createSelector(MACHINE_PROP_KEYS[route])
-    : defaultSelector;
+    : routeSelector;
 
 const isFormEventHandlerKey = (
   key: AuthenticatorMachineContextKey
