@@ -72,10 +72,10 @@ boolean
       <ResponsiveTableCell label="Name">defaultValue</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-string | number | readonly string[]
+string
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Use this to provide a default value for an uncontrolled field.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Set the initial value for an uncontrolled search field</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -119,6 +119,26 @@ boolean
     </TableRow>
 
     <TableRow>
+      <ResponsiveTableCell label="Name">hasSearchButton</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+boolean
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Used to determine whether to render a search button on the right Default: true</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">hasSearchIcon</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+boolean
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Used to determine whether to render a search icon on the left when there is no search button Default: false</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
       <ResponsiveTableCell label="Name">id</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
@@ -156,6 +176,16 @@ InputMode
 ```
 </ResponsiveTableCell>
       <ResponsiveTableCell label="Description"> Provides hint for virtual keyboard shown See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) Default: "text"</ResponsiveTableCell>
+    </TableRow>
+
+    <TableRow>
+      <ResponsiveTableCell label="Name">inputStyles</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">
+```jsx
+BaseStyleProps
+```
+</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Style props to be applied to the input element</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
@@ -315,17 +345,17 @@ string
 React.HTMLInputTypeAttribute
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Input field type (only applies when isMultiline = false)</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Input field type</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>
       <ResponsiveTableCell label="Name">value</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">
 ```jsx
-string | number | readonly string[]
+string
 ```
 </ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">If value is provided, this will be a controlled field.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Set the value for a controlled search field</ResponsiveTableCell>
     </TableRow>
 
     <TableRow>

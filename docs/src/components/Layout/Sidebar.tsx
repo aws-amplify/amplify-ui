@@ -19,7 +19,6 @@ import {
 import {
   ComponentNavItem,
   connectedComponents,
-  legacyComponents,
   guides,
   theming,
   gettingStarted,
@@ -27,7 +26,6 @@ import {
 } from '../../data/links';
 
 import Link from 'next/link';
-import { IS_REACT_NATIVE_ENABLED } from '@/utils/featureFlags';
 import { FrameworkChooser } from './FrameworkChooser';
 import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
@@ -185,22 +183,6 @@ const SecondaryNav = (props) => {
           </NavLink>
         ))}
       </ExpanderItem>
-
-      {/* Flutter and React Native don't have legacy components */}
-      {isFlutter || isReactNative ? null : (
-        <ExpanderItem
-          title={
-            <ExpanderTitle Icon={MdWebAssetOff} text="Legacy components" />
-          }
-          value="legacy-components"
-        >
-          {legacyComponents.map(({ label, ...rest }) => (
-            <NavLink key={label} {...rest} onClick={props.onClick}>
-              {label}
-            </NavLink>
-          ))}
-        </ExpanderItem>
-      )}
 
       {/* React Native does not yet support theming */}
       {isReactNative ? null : (

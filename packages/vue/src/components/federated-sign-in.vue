@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
+import {
+  authenticatorTextUtil,
+  FederatedIdentityProviders,
+} from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';
@@ -23,32 +26,29 @@ const includeGoogle = socialProviders?.includes('google');
 const shouldShowFederatedSignIn =
   includeFacebook || includeGoogle || includeAmazon || includeApple;
 
-const federatedText = route === 'signUp' ? 'Up' : 'In';
+// Text Util
+const { getSignInWithFederationText } = authenticatorTextUtil;
 
-// computed properties
+// Computed Properties
 
 const fp = computed(() => FederatedIdentityProviders);
 const signInWithAmazon = computed(() =>
-  translate<string>(`Sign ${federatedText} with Amazon`)
+  getSignInWithFederationText(route, 'amazon')
 );
 const signInWithApple = computed(() =>
-  translate<string>(`Sign ${federatedText} with Apple`)
+  getSignInWithFederationText(route, 'apple')
 );
 const signInWithFacebook = computed(() =>
-  translate<string>(`Sign ${federatedText} with Facebook`)
+  getSignInWithFederationText(route, 'facebook')
 );
 const signInWithGoogle = computed(() =>
-  translate<string>(`Sign ${federatedText} with Google`)
+  getSignInWithFederationText(route, 'google')
 );
 </script>
 
 <template>
   <base-wrapper
-    class="
-      amplify-flex
-      federated-sign-in-container
-      amplify-authenticator__column amplify-authenticator__sign-in-base
-    "
+    class="amplify-flex federated-sign-in-container amplify-authenticator__column amplify-authenticator__sign-in-base"
     v-if="shouldShowFederatedSignIn"
   >
     <federated-sign-in-button v-if="includeAmazon" :provider="fp.Amazon">

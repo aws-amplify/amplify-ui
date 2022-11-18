@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
-import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
+import {
+  authenticatorTextUtil,
+  getFormDataFromEvent,
+  translate,
+} from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
 import { createSharedComposable } from '@vueuse/core';
@@ -13,34 +17,25 @@ const useAuthShared = createSharedComposable(useAuthenticator);
 const { isPending, error, codeDeliveryDetails } = toRefs(useAuthShared());
 const { submitForm, updateForm, resendCode } = useAuthShared();
 
-// Only two types of delivery methods is EMAIL or SMS
-const confirmSignUpHeading = computed(() => {
-  return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
-    ? translate('We Emailed You')
-    : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
-    ? translate('We Texted You')
-    : translate('We Sent A Code');
-});
+// Text Util
+const {
+  getDeliveryMethodText,
+  getDeliveryMessageText,
+  getResendCodeText,
+  getConfirmText,
+} = authenticatorTextUtil;
 
-const resendCodeText = computed(() => translate('Resend Code'));
-const confirmText = computed(() => translate('Confirm'));
-const emailMessage = translate(
-  'Your code is on the way. To log in, enter the code we emailed to'
+// Only two types of delivery methods is EMAIL or SMS
+const confirmSignUpHeading = computed(() =>
+  getDeliveryMethodText(codeDeliveryDetails.value)
 );
-const textedMessage = translate(
-  'Your code is on the way. To log in, enter the code we texted to'
+
+// Computed Properties
+const resendCodeText = computed(() => getResendCodeText());
+const confirmText = computed(() => getConfirmText());
+const subtitleText = computed(() =>
+  getDeliveryMessageText(codeDeliveryDetails.value)
 );
-const defaultMessage = translate(
-  'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
-);
-const minutesMessage = translate('It may take a minute to arrive.');
-const subtitleText = computed(() => {
-  return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
-    ? `${emailMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
-    : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
-    ? `${textedMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
-    : translate(`${defaultMessage}`);
-});
 
 // Methods
 const onInput = (e: Event): void => {

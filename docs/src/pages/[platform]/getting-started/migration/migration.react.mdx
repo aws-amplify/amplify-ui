@@ -1,6 +1,117 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Alert } from '@aws-amplify/ui-react';
 
+## 3.x to 4.x
+### Installation
+Install the 4.x version of the `@aws-amplify/ui-react` library and the 5.x version of the `aws-amplify` library.
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install aws-amplify@5.x @aws-amplify/ui-react@4.x
+```
+
+</TabItem>
+<TabItem title="yarn">
+```shell
+yarn add aws-amplify@5.x @aws-amplify/ui-react@4.x
+```
+
+</TabItem>
+</Tabs>
+
+### Update and usage
+
+`@aws-amplify/ui-react@4.x` introduces the following breaking changes:
+
+#### 1. `@aws-amplify/ui-react@4.x` removes `isMultiline` prop from `TextField`.
+
+Replace any `TextField` components using the `isMultiline` prop with the `TextAreaField` component.
+
+```diff
+- <TextField
+-  isMultiline
++ <TextAreaField
+```
+
+#### 2. `@aws-amplify/ui-react@4.x` moves text directionality support to ThemeProvider
+
+<Alert variation="info" heading="Note">
+  If you are NOT using `dir="rtl"` in your application, feel free to skip this item.
+</Alert>
+
+`@aws-amplify/ui-react` has a dependency on Radix components for Menu, SliderField, Tabs, and Expander. There were a number of changes in the [July 21, 2022 release](https://www.radix-ui.com/docs/primitives/overview/releases#july-21-2022) of `radix-ui/*` packages, and the breaking change for `@aws-amplify/ui-react` was removal of support for the `dir` HTML attribute, and the addition of the `DirectionProvider`. In order to make the transition seamless for most of Amplify users, we've added the `DirectionProvider` with a default `direction` of `ltr` to the `ThemeProvider`.
+
+If your application is using right to left directionality, the example below shows the needed change for apps using the native HTML `dir="rtl"`:
+
+```diff
+- <View dir="rtl">
++ <ThemeProvider direction="rtl">
+```
+Also see: [Internationalization](../../getting-started/internationalization)
+
+#### 3. `@aws-amplify/ui-react@4.x` removes legacy component exports
+
+The following deprecated components imported from `@aws-amplify/ui-react/legacy` are removed:
+
+- AmplifyAuthenticator
+- AmplifySignIn
+- AmplifySignOut
+- AmplifyChatbot
+- AmplifyPhotoPicker
+- AmplifyPicker
+- AmplifyS3Album
+- AmplifyS3Image
+- AmplifyS3ImagePicker
+- AmplifyS3Text
+- AmplifyS3TextPicker
+- withAuthenticator
+Depending on the v1 version of this package and re-exporting these components caused issues. If you still want to use these legacy components you can depend on the v1 version of this package with an npm alias in your dependencies: 
+
+`"@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9"`
+
+
+#### 4. `@aws-amplify/ui-react@4.x` adds `inputStyles` prop to Field primitives
+
+Before 4.0, Field components like `TextField` would try to intelligently apply certain style props onto the wrapper element and some on the input element. We felt this was a little too opaque to users, but we still want to allow you to style the input element directly. `@aws-amplify/ui-react@4.x` adds an `inputStyles` prop to Field components so you can apply style props directly on the input (or `textarea` or `select`) as well as on the wrapper element. 
+
+Hopefully this change won't affect your code but will allow for more customization and control. 
+
+<Alert variation="info" heading="Note">
+  The TextAreaField component does apply 1 style prop directly on the `textarea` element: `resize`. We felt this one makes sense to apply direclty on the the `textarea` element and not the wrapper element.
+</Alert>
+
+#### 5. `@aws-amplify/ui-react@4.x` moves automatic signin on signup logic to `aws-amplify`. 
+
+If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to `enabled`. If this change is not made, users will not be automatically signed in on signup.
+
+```diff
+ async handleSignUp(formData) {
+  let { username, password, attributes } = formData;
+  // custom username
+  username = username.toLowerCase();
+  attributes.email = attributes.email.toLowerCase();
+  return Auth.signUp({
+    username,
+    password,
+    attributes,
++   autoSignIn: {
++     enabled: true
++   }
+  });
+}
+
+```
+
+#### 6. `@aws-amplify/ui-react@4.x` removes legacy i18n translation keys removed
+
+We replaced following legacy Authenticator texts:
+
+- `Forgot your password? ` with the trailing space is replaced by `Forgot your password`.
+
+If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
+
 ## 2.x to 3.x
 
 ### Installation
@@ -24,9 +135,9 @@ yarn add aws-amplify @aws-amplify/ui-react@3.x
 
 ### Update and usage
 
-The following breaking changes where introduced in `@aws-amplify/ui-react` major version `3.0`:
+`@aws-amplify/ui-react@3.x` introduces the following breaking changes:
 
-#### 1. We removed the built-in icons (Icon360, IconSave, etc).
+#### 1. `@aws-amplify/ui-react@3.x` removes the built-in icons (Icon360, IconSave, etc).
 
 Replace any icon components in use the react-icons package or other React icon libraries in its place.
 
@@ -37,7 +148,7 @@ Replace any icon components in use the react-icons package or other React icon l
 
 Note: We did not remove the [Icon](/react/components/icon) component, which allows customers to easily add SVG icons using the `pathData` prop.
 
-#### 2. We removed `ShareText` export.
+#### 2. `@aws-amplify/ui-react@3.x` removes `ShareText`.
 
 This export has been removed and should no longer be used.
 
@@ -108,8 +219,8 @@ sense of the changes please check out the [Headers and Footers](../connected-com
 
 #### Form Fields
 
-The latest version of the `Authenticator` has a different format for the `formFields` prop. It also no long accepts
-`inputProps` nor `hint`. Instead it's recommended that you use the [Headers and Footers Slots](../connected-components/authenticator/customization#headers--footers) or use the
+The latest version of the `Authenticator` has a different format for the `formFields` prop. It also no longer accepts
+`inputProps` nor `hint`. Instead, it's recommended that you use the [Headers and Footers Slots](../connected-components/authenticator/customization#headers--footers) or use the
 [Sign Up Fields customization](../connected-components/authenticator/customization#sign-up-fields). For more information on form field customizations
 please see the [Form Field Customization](../connected-components/authenticator/customization#form-field-customization) section.
 

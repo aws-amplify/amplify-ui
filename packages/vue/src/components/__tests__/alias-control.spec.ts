@@ -25,9 +25,9 @@ describe('AliasControl', () => {
       },
       props: {
         label: 'Username',
+        labelHidden: true,
         name: 'username',
         placeholder: 'Username',
-        labelHidden: true,
       },
     });
 

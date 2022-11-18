@@ -17,8 +17,8 @@ export const defaultServices = {
     return Auth.currentAuthenticatedUser();
   },
 
-  async handleSignUp(formData): Promise<any> {
-    return Auth.signUp(formData);
+  async handleSignUp(formData) {
+    return Auth.signUp({ ...formData, autoSignIn: { enabled: true } });
   },
   async handleSignIn({
     username,

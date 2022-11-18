@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthEventTypes, translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil, AuthEventTypes } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { Button } from '../../../primitives/Button';
@@ -10,6 +10,8 @@ export interface TwoButtonSubmitFooterProps {
   cancelButtonText: string;
   submitButtonText?: JSX.Element;
 }
+
+const { getSubmitText, getSubmittingText } = authenticatorTextUtil;
 
 export const TwoButtonSubmitFooter = (
   props: TwoButtonSubmitFooterProps
@@ -36,9 +38,9 @@ export const TwoButtonSubmitFooter = (
   };
 
   const defaultSubmitText = isPending ? (
-    <>{translate('Submitting')}&hellip;</>
+    <>{getSubmittingText()}&hellip;</>
   ) : (
-    <>{translate('Submit')}</>
+    <>{getSubmitText()}</>
   );
   const submitText = submitButtonText || defaultSubmitText;
 

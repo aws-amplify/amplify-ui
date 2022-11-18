@@ -1,11 +1,17 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   FormFieldsArray,
   getFormDataFromEvent,
-  hasTranslation,
-  translate,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
+
+const {
+  getBackToSignInText,
+  getResendCodeText,
+  getSubmitText,
+  getResetYourPasswordText,
+} = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-confirm-reset-password',
@@ -13,20 +19,14 @@ import {
 })
 export class ConfirmResetPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
-  @Input() public headerText = translate('Reset your password');
+  @Input() public headerText = getResetYourPasswordText();
+
+  public sortedFormFields: FormFieldsArray;
 
   // translated strings
-  public backToSignInText = translate('Back to Sign In');
-  public resendCodeText = translate('Resend Code');
-  public sortedFormFields: FormFieldsArray;
-  /**
-   * Support backwards compatibility for erroneous 'Send Code' text
-   * See https://github.com/aws-amplify/amplify-ui/issues/1784
-   * TODO: Remove support for 'Send Code' translation in next Major release
-   */
-  public submitText = !hasTranslation('Send Code')
-    ? translate('Submit')
-    : translate('Send Code');
+  public backToSignInText = getBackToSignInText();
+  public resendCodeText = getResendCodeText();
+  public submitText = getSubmitText();
 
   constructor(public authenticator: AuthenticatorService) {}
 
