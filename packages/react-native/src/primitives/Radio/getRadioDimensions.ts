@@ -25,7 +25,7 @@ export const RADIO_DOT_PROPORTION = 0.6;
 
 export const getRadioDimensions = (
   size: Size,
-  styles: RadioStyles
+  styles: Required<RadioStyles>
 ): {
   radioContainerDimensions: RadioDimensions;
   radioDotDimensions: RadioDimensions;
