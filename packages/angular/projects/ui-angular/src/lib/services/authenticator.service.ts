@@ -166,7 +166,7 @@ export class AuthenticatorService implements OnDestroy {
     };
   }
 
-  public subscribe(callback: AuthSubscriptionCallback) {
+  public subscribe(callback: AuthSubscriptionCallback): () => void {
     if (this._authService) {
       const subscription = this._authService.subscribe(() => {
         callback({ ...this._facade, ...this._sendEventAliases });

@@ -126,7 +126,7 @@ export class AuthenticatorComponent
 
         this.hasInitialized = true;
       }
-    }).unsubscribe;
+    });
 
     /**
      * handling translations after content init, because authenticator and its
