@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { UploadTask, Storage } from '@aws-amplify/storage';
-import { getFileName, translate, uploadFile } from '@aws-amplify/ui';
+import { translate, uploadFile } from '@aws-amplify/ui';
 import { FileStatuses, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
 import { ComponentClassNames, Text } from '../../../primitives';
@@ -8,15 +8,17 @@ import { UploadButton } from './UploadButton';
 import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
 import { Tracker } from './Tracker';
+import { Logger } from 'aws-amplify';
 
 const isUploadTask = (value: unknown): value is UploadTask =>
   typeof (value as UploadTask)?.resume === 'function';
+
+const logger = new Logger('AmplifyUI:Auth');
 
 export function FileUploader({
   acceptedFileTypes,
   autoProceed = false,
   components = {},
-  fileNames,
   isPreviewerVisible,
   level,
   maxFiles,
@@ -35,6 +37,10 @@ export function FileUploader({
     Previewer = FileUploader.Previewer,
     Tracker = FileUploader.Tracker,
   } = components;
+
+  if (!acceptedFileTypes || !level) {
+    logger.warn('FileUploader requires level and acceptedFileTypes props');
+  }
 
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
@@ -175,16 +181,9 @@ export function FileUploader({
     fileStatuses.forEach((status, i) => {
       if (status?.fileState === 'success') return;
 
-      // remove any filenames that are not accepted from user prop
-      const fileNamesFiltered = fileNames?.filter((file: string) => {
-        const [extension] = file.split('.').reverse();
-        return acceptedFileTypes.includes('.' + extension);
-      });
-      const uploadFileName = getFileName(fileNamesFiltered?.[i], status.name);
-
       const uploadTask = uploadFile({
         file: status.file,
-        fileName: uploadFileName,
+        fileName: status.name,
         level,
         resumable,
         progressCallback: progressCallback(i),
@@ -210,10 +209,8 @@ export function FileUploader({
     const uploadTasks = [...fileStatusesRef.current];
     setFileStatuses(uploadTasks);
   }, [
-    acceptedFileTypes,
     completeCallback,
     errorCallback,
-    fileNames,
     fileStatuses,
     level,
     progressCallback,
