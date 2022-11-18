@@ -249,7 +249,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -354,7 +357,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -374,7 +380,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -479,7 +488,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -771,7 +783,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -876,7 +891,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -896,7 +914,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -1001,7 +1022,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -1451,7 +1475,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -1559,7 +1586,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -1579,7 +1609,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -1687,7 +1720,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2137,7 +2173,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -2242,7 +2281,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2262,7 +2304,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -2367,7 +2412,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2867,7 +2915,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -2972,7 +3023,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2992,7 +3046,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -3097,7 +3154,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />

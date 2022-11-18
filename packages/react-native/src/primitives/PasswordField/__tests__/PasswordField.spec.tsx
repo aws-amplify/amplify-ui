@@ -1,7 +1,10 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
-import PasswordField from '../PasswordField';
+import { fireEvent, render, renderHook } from '@testing-library/react-native';
+
 import { icons } from '../../../assets';
+import { useTheme } from '../../../theme';
+import PasswordField from '../PasswordField';
+import { getThemedStyles } from '../styles';
 
 const labelText = 'Label';
 const testID = 'passwordInput';
@@ -71,5 +74,37 @@ describe('PasswordField', () => {
     expect(textInput.props.editable).toBe(false);
     const icon = getByRole('button');
     expect(icon.props.accessibilityState).toHaveProperty('disabled', true);
+  });
+
+  it('applies theme and style props', () => {
+    const customStyle = { backgroundColor: 'red' };
+    const customIconStyle = { backgroundColor: 'blue' };
+
+    const { toJSON, getByRole } = render(
+      <PasswordField
+        {...defaultProps}
+        accessibilityRole="none"
+        iconStyle={customIconStyle}
+        style={customStyle}
+      />
+    );
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    const container = getByRole('none');
+    const icon = getByRole('image');
+
+    expect(container.props.style).toContainEqual([
+      themedStyle.container,
+      customStyle,
+    ]);
+
+    expect(icon.props.style).toContainEqual([
+      themedStyle.icon,
+      customIconStyle,
+    ]);
+
+    expect(toJSON()).toMatchSnapshot();
   });
 });
