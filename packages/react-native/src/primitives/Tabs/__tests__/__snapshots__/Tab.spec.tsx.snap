@@ -20,14 +20,15 @@ exports[`Tab can apply custom styling 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
-        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
-        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      undefined,
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
       null,
       null,
       Array [
@@ -98,14 +99,15 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
-        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
-        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      undefined,
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
       null,
       null,
       Array [
@@ -183,14 +185,15 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
-        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
-        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      undefined,
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
       null,
       null,
       Array [
@@ -238,14 +241,15 @@ exports[`Tab renders default Tab as expected 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
-        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
-        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      undefined,
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
       null,
       null,
       Array [

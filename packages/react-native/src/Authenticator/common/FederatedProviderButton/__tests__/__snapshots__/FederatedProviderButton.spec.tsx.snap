@@ -20,14 +20,15 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
-        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
-        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      undefined,
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
       null,
       null,
       Array [

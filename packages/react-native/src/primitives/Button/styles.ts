@@ -23,17 +23,19 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
       paddingVertical: space.small,
       paddingHorizontal: space.medium,
       borderRadius: radii.small,
+      ...components?.button?.container,
+    },
+    containerDefault: {
       borderWidth: borderWidths.small,
       borderColor: colors.border.primary,
-      ...components?.button?.container,
+      ...components?.button?.containerDefault,
     },
     containerPrimary: {
       backgroundColor: colors.brand.primary[80],
-      borderWidth: 0,
       ...components?.button?.containerPrimary,
     },
     containerLink: {
-      borderWidth: 0,
+      ...components?.button?.containerLink,
     },
     disabled: {
       opacity: opacities[60],
@@ -48,6 +50,7 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
       color: colors.font.primary,
       fontSize: fontSizes.medium,
       fontWeight: fontWeights.bold,
+      ...components?.button?.text,
     },
     textPrimary: {
       color: colors.font.inverse,
@@ -55,6 +58,7 @@ export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
     },
     textLink: {
       color: colors.font.interactive,
+      ...components?.button?.textLink,
     },
   });
 };

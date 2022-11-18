@@ -10,10 +10,12 @@ export interface ButtonProps extends PressableProps {
 export interface ButtonStyles {
   container?: ViewStyle;
   containerPrimary?: ViewStyle;
-  containerSecondary?: ViewStyle;
+  containerDefault?: ViewStyle;
+  containerLink?: ViewStyle;
   disabled?: ViewStyle;
   pressed?: ViewStyle;
   text?: TextStyle;
   textPrimary?: TextStyle;
-  textSecondary?: TextStyle;
+  textDefault?: TextStyle;
+  textLink?: TextStyle;
 }
