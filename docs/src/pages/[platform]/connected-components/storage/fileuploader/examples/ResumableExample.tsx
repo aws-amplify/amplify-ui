@@ -1,12 +1,12 @@
 import { FileUploader } from '@aws-amplify/ui-react';
 
-export const LevelExample = () => {
+export const ResumableExample = () => {
   return (
     <FileUploader
-      variation="drop"
+      resumable={true}
       acceptedFileTypes={['.gif', '.bmp', '.jpg', '.png']}
-      level="private"
-      provider="fast" // IGNORE
+      level="public"
+      provider="slow" // IGNORE
     />
   );
 };

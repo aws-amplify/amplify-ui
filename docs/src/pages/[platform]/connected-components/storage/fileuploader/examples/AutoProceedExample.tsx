@@ -1,11 +1,12 @@
 import { FileUploader } from '@aws-amplify/ui-react';
-export const VariationExample = () => {
+
+export const AutoProceedExample = () => {
   return (
     <FileUploader
-      variation="drop"
+      autoProceed={true}
       acceptedFileTypes={['.gif', '.bmp', '.doc']}
       level="public"
-      provider="fast" // IGNORE
+      provider="slow" // IGNORE
     />
   );
 };

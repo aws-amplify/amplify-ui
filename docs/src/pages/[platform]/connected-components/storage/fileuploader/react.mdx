@@ -2,7 +2,8 @@ import { Alert } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import { DefaultFileUploaderExample, AcceptedFileTypesExample, FileUploaderErrorExample, FileUploaderThemeExample, 
-FileUploaderComponentsExample, LevelExample, IsPreviewerVisibleExample, VariationExample } from './examples'
+FileUploaderComponentsExample, LevelExample, IsPreviewerVisibleExample, VariationExample, AutoProceedExample, MaxFilesExample, 
+MaxSizeExample, MultipleExample, ResumableExample, ShowImagesExample, FileUploaderSuccessExample, PreviewerComponentsExample, TrackerComponentsExample, UploadButtonComponentsExample } from './examples'
 
 <Alert role="none" heading="Wait!">
   Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the File Uploader first and the storage and auth services?
@@ -74,15 +75,15 @@ The `acceptedFileTypes` prop accepts an array of strings indicating the file ext
 </Alert>
 
 
-## Default Display
+## Display and Behavior
 
-The uploader can be configured to display as a drop zone, a button, or start on a preview page when it is first loaded. 
+The uploader can be configured to display as a drop zone, a button, or start on a preview page when it is first loaded. It can also proceed directly to uploading after a file is selected or show a preview page first for you to make changes before the upload starts.
 
 
 
 ### Button or Drop Zone
 
-The `variation` prop can be added to show a `button` or as a `drop` area when the File Uploader loads.
+The `variation` prop can be added to show a `button` or as a `drop` area when the File Uploader loads. The default is set as `button`.
 
 <Example>
   <VariationExample />
@@ -95,7 +96,7 @@ The `variation` prop can be added to show a `button` or as a `drop` area when th
 
 ### Show Preview Page
 
-The `isPreviewerVisible` prop can be used to default to show the preview page on initial load of the File Uploader.
+The `isPreviewerVisible` prop can be used to default to show the preview page on initial load of the File Uploader. The default is set as `false`.
 
 <Example>
   <IsPreviewerVisibleExample />
@@ -106,6 +107,20 @@ The `isPreviewerVisible` prop can be used to default to show the preview page on
   </ExampleCode>
 </Example>
 
+### Start Upload After Selection
+
+The `autoProceed` prop  will automatically start the download after a file is selected. By default is set to `false`.
+
+<Example>
+  <AutoProceedExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/AutoProceedExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
 
 
 
@@ -113,20 +128,105 @@ The `isPreviewerVisible` prop can be used to default to show the preview page on
 
 The following props allow you to set some on what the File Uploader will accept.
 
-### Max Files
-### Max Size
-### Multiple Files
+### Max Number of Files
+
+The `maxFiles` prop accepts a number that defines how many files at one time you can select and upload.  The default is unlimited.
+
+<Example>
+  <MaxFilesExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/MaxFilesExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+
+
+### Max Size Per File
+
+The `maxSize` prop sets a maximum file size the uploader will accept in bytes. The default is unlimited size.
+
+<Example>
+  <MaxSizeExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/MaxSizeExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+
+### Allow Multiple Files
+
+The `multiple` prop allows to select more than one file for upload. The default is set as `true`. 
+
+<Example>
+  <MultipleExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/MultipleExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+
 ### Allow Resuming of Files
+
+The `resumable` prop allows for uploads to be paused and then resumed. The default is set as `false`.
+<Example>
+  <ResumableExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/ResumableExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+
+
+### Display Image Preview
+
+The `showImages` prop will display or hide the image preview after selecting a file for upload. The default is set as `true`.
+
+<Example>
+  <ShowImagesExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/ShowImagesExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+
 
 
 
 ## Event Handling
 
+When an upload occurs there are two different events that can occur. It can complete and trigger a `onSuccess` callback which also send back a key. Or a `onError` call back can occur. 
+
 ### Success
+
+The `onSuccess` callback prop will be called with a `key` after the upload completes.
+
+<Example>
+  <FileUploaderSuccessExample />
+  
+  <ExampleCode>
+    ```jsx file=./examples/FileUploaderSuccessExample.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ### Errors
 
-The FileUploader will send error information back to the `onError` function if there is an error during upload.
+The `onError` callback prop will send error information back if there is an error during upload.
 
 _This example will fail at 50%_
 
@@ -141,20 +241,68 @@ _This example will fail at 50%_
 
 ## Customization
 
+You can customize the File Uploader components to meet your needs, by using component overrides, theming and updating classes.
+
 ### Component Overrides
 
-You can override parts of the FileUploder component by passing in a `components` prop.
+You can override parts of the FileUploder component by passing in a `components` prop. This includes the `UploadDropZone`, `UploadButton`, `Previewer` and the `Tracker` components.
+
+#### Upload Drop Zone
+
+The `UploadDropZone` component controls how files can be dropped onto the File Uploader.
 
 <Example>
   <FileUploaderComponentsExample />
   
   <ExampleCode>
-    ```jsx{12-20} file=./examples/FileUploaderComponentsExample.tsx
+    ```jsx{12-14} file=./examples/FileUploaderComponentsExample.tsx
     ```
   </ExampleCode>
 </Example>
 
+#### Upload Button
+
+The `UploadButton` component controls the button used to select files for an upload.
+
+<Example>
+  <UploadButtonComponentsExample />
+  
+  <ExampleCode>
+    ```jsx{12-19} file=./examples/UploadButtonComponentsExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+#### Previewer
+
+The `Preview` component controls the preview pages that is shown before an upload begins.
+
+<Example>
+  <PreviewerComponentsExample />
+  
+  <ExampleCode>
+    ```jsx{12-22} file=./examples/PreviewerComponentsExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+#### Tracker
+
+The `Tracker` component controls how the Files added will look when being displayed inside the preview window.
+
+<Example>
+  <TrackerComponentsExample />
+  
+  <ExampleCode>
+    ```jsx{12-15} file=./examples/TrackerComponentsExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
 ### Theming
+
+The File Uploader component is built upon our robust [Amplify UI theming system](../../theming). To get started add a theme object and set the appropriate [design tokens](../../theming#design-tokens). You can then pass that `theme` to the `ThemeProvider` so the changes can take affect.
 
 <Example>
   <FileUploaderThemeExample />
@@ -166,6 +314,8 @@ You can override parts of the FileUploder component by passing in a `components`
 </Example>
 
 ### Target Classes
+
+If you like you can target classes directly or use CSS variables to make changes to the look and feel of the File Uploader. 
 
 <ComponentStyleDisplay componentName="FileUploader" />
 

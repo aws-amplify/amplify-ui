@@ -4,11 +4,8 @@ export const FileUploaderComponentsExample = () => {
   return (
     <FileUploader
       variation="drop"
-      acceptedFileTypes={['image/*']}
+      acceptedFileTypes={['.bmp', '.jpg', '.jpeg']}
       level="public"
-      multiple={true}
-      maxSize={100000000}
-      maxFiles={3}
       components={{
         UploadDropZone: ({ inDropZone, children, ...rest }) => {
           return (

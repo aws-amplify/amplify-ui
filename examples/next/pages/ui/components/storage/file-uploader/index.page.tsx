@@ -12,7 +12,6 @@ export default function FileUploaderEmail() {
     <>
       <FileUploader
         variation="drop"
-        isPreviewerVisible={true}
         onSuccess={onSuccess}
         acceptedFileTypes={['.png', '.jpg', '.pdf']}
         level="public"

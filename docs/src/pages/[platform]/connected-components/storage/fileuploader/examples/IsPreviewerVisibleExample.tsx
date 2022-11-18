@@ -1,11 +1,12 @@
 import { FileUploader } from '@aws-amplify/ui-react';
+
 export const IsPreviewerVisibleExample = () => {
   return (
     <FileUploader
       isPreviewerVisible={true}
-      acceptedFileTypes={['.gif', '.bmp', '.doc']}
+      acceptedFileTypes={['.gif', '.bmp', '.jpg', '.png']}
       level="public"
-      provider="slow" // IGNORE
+      provider="fast" // IGNORE
     />
   );
 };

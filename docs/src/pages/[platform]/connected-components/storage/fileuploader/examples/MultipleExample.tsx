@@ -1,10 +1,10 @@
 import { FileUploader } from '@aws-amplify/ui-react';
 
-export const AcceptedFileTypesExample = () => {
+export const MultipleExample = () => {
   return (
     <FileUploader
-      acceptedFileTypes={['.gif', '.bmp', '.doc', '.jpeg', 'jpg']}
-      variation="drop"
+      multiple={false}
+      acceptedFileTypes={['.gif', '.bmp', '.jpg', '.png']}
       level="public"
       provider="fast" // IGNORE
     />
