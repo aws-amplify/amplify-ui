@@ -120,8 +120,6 @@ Object {
     "handleSubmit": [MockFunction],
     "isPending": false,
     "toSignIn": [MockFunction],
-    "totpIssuer": "AWSCognito",
-    "totpUsername": "Charles",
   },
 }
 `;

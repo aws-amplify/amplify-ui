@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { AuthenticatorDemo } from '../features/Authenticator';
+// import Example from '../features/Authenticator/Demo/Example';
+import Example from '../features/Authenticator/Styles/Example';
 // import { Demo as InAppDemo } from '../features/InAppMessaging';
 
 const App = () => {
-  return <AuthenticatorDemo />;
-  // return <InAppDemo />;
+  return <Example />;
 };
 
 export default App;

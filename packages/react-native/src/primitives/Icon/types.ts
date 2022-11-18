@@ -4,7 +4,7 @@ export type Size = 'xs' | 'small' | 'medium' | 'large' | 'xl';
 export type IconSizes = Record<Size, number>;
 
 export interface IconStyles {
-  icon: ImageStyle;
+  icon?: ImageStyle;
 }
 
 export interface IconProps extends ImageProps {

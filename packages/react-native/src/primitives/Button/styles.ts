@@ -4,40 +4,46 @@ import { StrictTheme } from '../../theme';
 import { ButtonStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): ButtonStyles => {
-  const { colors, components, fontSizes, fontWeights, opacities, space } =
-    theme.tokens;
+  const { tokens, components } = theme;
+  const { colors, fontSizes, fontWeights, opacities, space } = tokens;
 
   return StyleSheet.create({
     container: {
-      padding: space.large,
-      ...components?.button.container,
+      alignItems: 'center',
+      justifyContent: 'center',
+      ...components?.button?.container,
     },
     containerPrimary: {
       backgroundColor: colors.brand.primary[80],
-      ...components?.button.containerPrimary,
+      padding: space.large,
+      ...components?.button?.containerPrimary,
     },
     containerSecondary: {
       backgroundColor: colors.background.primary,
-      ...components?.button.containerSecondary,
+      padding: space.medium,
+      ...components?.button?.containerSecondary,
     },
     disabled: {
       opacity: opacities[60],
-      ...components?.button.disabled,
+      ...components?.button?.disabled,
     },
-    pressed: { opacity: opacities[60], ...components?.button.pressed },
+    pressed: {
+      opacity: opacities[60],
+      ...components?.button?.pressed,
+    },
     text: {
-      alignSelf: 'center',
+      textAlign: 'center',
     },
     textPrimary: {
       color: colors.white,
       fontSize: fontSizes.medium,
       fontWeight: fontWeights.bold as TextStyle['fontWeight'],
-      ...components?.button.textPrimary,
+      ...components?.button?.textPrimary,
     },
     textSecondary: {
       color: colors.brand.primary[80],
       fontSize: fontSizes.small,
-      ...components?.button.textSecondary,
+      ...components?.button?.textSecondary,
     },
   });
 };

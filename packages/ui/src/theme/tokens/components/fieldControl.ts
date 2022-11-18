@@ -1,106 +1,74 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderRadiusValue,
-  BorderStyleValue,
-  BorderValue,
-  BorderWidthValue,
-  BoxShadowValue,
-  ColorValue,
-  CursorValue,
-  DesignToken,
-  FontSizeValue,
-  LineHeightValue,
-  OutlineColorValue,
-  OutlineOffsetValue,
-  OutlineStyleValue,
-  OutlineWidthValue,
-  SpaceValue,
-  TransitionDurationValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface FieldControlSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  paddingBlockStart: DesignToken<SpaceValue>;
-  paddingBlockEnd: DesignToken<SpaceValue>;
-  paddingInlineStart: DesignToken<SpaceValue>;
-  paddingInlineEnd: DesignToken<SpaceValue>;
-}
+type FieldControlSizeTokens<Output> = DesignTokenProperties<
+  | 'fontSize'
+  | 'paddingBlockStart'
+  | 'paddingBlockEnd'
+  | 'paddingInlineStart'
+  | 'paddingInlineEnd',
+  Output
+>;
 
-interface FieldControlFocusTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-}
+type FieldControlFocusTokens<Output> = DesignTokenProperties<
+  'borderColor' | 'boxShadow',
+  Output
+>;
 
-interface FieldControlDisabledTokens {
-  color: DesignToken<ColorValue>;
-  cursor: DesignToken<CursorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+type FieldControlDisabledTokens<Output> = DesignTokenProperties<
+  'color' | 'cursor' | 'borderColor' | 'backgroundColor',
+  Output
+>;
 
-interface FieldControlErrorTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  _focus: FieldControlErrorFocusTokens;
-}
+type FieldControlErrorTokens<Output> = DesignTokenProperties<
+  'borderColor',
+  Output
+> & {
+  _focus?: DesignTokenProperties<'boxShadow', Output>;
+};
 
-interface FieldControlErrorFocusTokens {
-  boxShadow: DesignToken<BoxShadowValue>;
-}
+type FieldControlQuietTokens<Output> = DesignTokenProperties<
+  | 'borderStyle'
+  | 'borderInlineStart'
+  | 'borderInlineEnd'
+  | 'borderBlockStart'
+  | 'borderRadius',
+  Output
+> & {
+  _focus?: DesignTokenProperties<'borderBlockEndColor' | 'boxShadow', Output>;
+  _error?: DesignTokenProperties<'borderBlockEndColor', Output> & {
+    _focus?: DesignTokenProperties<'boxShadow', Output>;
+  };
+};
 
-interface FieldControlQuietTokens {
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderBlockEnd: DesignToken<BorderValue>;
-  borderInlineStart: DesignToken<BorderValue>;
-  borderInlineEnd: DesignToken<BorderValue>;
-  borderBlockStart: DesignToken<BorderValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  _focus: FieldControlQuietFocusTokens;
-  _error: FieldControlQuietErrorTokens;
-}
+export type FieldControlTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    | 'borderStyle'
+    | 'borderColor'
+    | 'borderWidth'
+    | 'borderRadius'
+    | 'color'
+    | 'paddingBlockStart'
+    | 'paddingBlockEnd'
+    | 'paddingInlineStart'
+    | 'paddingInlineEnd'
+    | 'fontSize'
+    | 'lineHeight'
+    | 'transitionDuration'
+    | 'outlineColor'
+    | 'outlineStyle'
+    | 'outlineWidth'
+    | 'outlineOffset',
+    Output
+  > & {
+    small?: FieldControlSizeTokens<Output>;
+    large?: FieldControlSizeTokens<Output>;
+    quiet?: FieldControlQuietTokens<Output>;
+    _focus?: FieldControlFocusTokens<Output>;
+    _disabled?: FieldControlDisabledTokens<Output>;
+    _error?: FieldControlErrorTokens<Output>;
+  };
 
-interface FieldControlQuietFocusTokens {
-  borderBlockEndColor: DesignToken<ColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-}
-
-interface FieldControlQuietErrorTokens {
-  borderBlockEndColor: DesignToken<ColorValue>;
-  _focus: FieldControlQuietErrorFocusTokens;
-}
-
-interface FieldControlQuietErrorFocusTokens {
-  boxShadow: DesignToken<BoxShadowValue>;
-}
-
-export interface FieldControlTokens {
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  color: DesignToken<ColorValue>;
-  paddingBlockStart: DesignToken<SpaceValue>;
-  paddingBlockEnd: DesignToken<SpaceValue>;
-  paddingInlineStart: DesignToken<SpaceValue>;
-  paddingInlineEnd: DesignToken<SpaceValue>;
-
-  fontSize: DesignToken<FontSizeValue>;
-  lineHeight: DesignToken<LineHeightValue>;
-  transitionDuration: DesignToken<TransitionDurationValue>;
-  outlineColor: DesignToken<OutlineColorValue>;
-  outlineStyle: DesignToken<OutlineStyleValue>;
-  outlineWidth: DesignToken<OutlineWidthValue>;
-  outlineOffset: DesignToken<OutlineOffsetValue>;
-
-  small: FieldControlSizeTokens;
-  large: FieldControlSizeTokens;
-  quiet: FieldControlQuietTokens;
-  _focus: FieldControlFocusTokens;
-  _disabled: FieldControlDisabledTokens;
-  _error: FieldControlErrorTokens;
-}
-
-export const fieldcontrol: FieldControlTokens = {
+export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
@@ -160,9 +128,6 @@ export const fieldcontrol: FieldControlTokens = {
 
   quiet: {
     borderStyle: { value: 'none' },
-    borderBlockEnd: {
-      value: '{borderWidths.small.value} solid {colors.border.primary.value}',
-    },
     borderInlineStart: { value: 'none' },
     borderInlineEnd: { value: 'none' },
     borderBlockStart: { value: 'none' },

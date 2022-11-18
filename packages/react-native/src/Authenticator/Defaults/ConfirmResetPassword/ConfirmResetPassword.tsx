@@ -2,7 +2,11 @@ import React from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage } from '../../../primitives';
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultConfirmResetPasswordComponent } from '../types';
@@ -58,7 +62,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
 };
 
 ConfirmResetPassword.Footer = DefaultFooter;
-ConfirmResetPassword.FormFields = DefaultFormFields;
+ConfirmResetPassword.FormFields = DefaultTextFormFields;
 ConfirmResetPassword.Header = DefaultHeader;
 
 ConfirmResetPassword.displayName = COMPONENT_NAME;

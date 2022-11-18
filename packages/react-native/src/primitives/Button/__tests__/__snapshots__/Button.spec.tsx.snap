@@ -18,10 +18,12 @@ exports[`Button applies theme and style props 1`] = `
   style={
     Array [
       Object {
-        "padding": 12,
+        "alignItems": "center",
+        "justifyContent": "center",
       },
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
+        "padding": 12,
       },
       null,
       null,
@@ -35,10 +37,10 @@ exports[`Button applies theme and style props 1`] = `
     style={
       Array [
         Object {
-          "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
           "fontSize": 16,
           "fontWeight": "700",
+          "textAlign": "center",
         },
         Object {
           "color": "red",
@@ -69,10 +71,12 @@ exports[`Button renders as expected with a component passed as children 1`] = `
   style={
     Array [
       Object {
-        "padding": 12,
+        "alignItems": "center",
+        "justifyContent": "center",
       },
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
+        "padding": 12,
       },
       null,
       null,
@@ -104,10 +108,12 @@ exports[`Button renders as expected with a string passed as children 1`] = `
   style={
     Array [
       Object {
-        "padding": 12,
+        "alignItems": "center",
+        "justifyContent": "center",
       },
       Object {
         "backgroundColor": "hsl(190, 95%, 30%)",
+        "padding": 12,
       },
       null,
       null,
@@ -119,10 +125,10 @@ exports[`Button renders as expected with a string passed as children 1`] = `
     style={
       Array [
         Object {
-          "alignSelf": "center",
           "color": "hsl(0, 0%, 100%)",
           "fontSize": 16,
           "fontWeight": "700",
+          "textAlign": "center",
         },
         undefined,
       ]

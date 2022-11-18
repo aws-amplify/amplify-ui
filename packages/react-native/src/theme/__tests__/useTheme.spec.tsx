@@ -42,4 +42,10 @@ describe('useTheme', () => {
 
     expect(result.current).toStrictEqual(createTheme());
   });
+
+  it('should output the base tokens as expected', () => {
+    const { result } = renderHook(useTheme);
+
+    expect(result.current.tokens).toMatchSnapshot();
+  });
 });

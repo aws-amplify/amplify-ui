@@ -6,6 +6,7 @@ import { useTheme } from '../../../theme';
 import { getThemedStyles } from '../styles';
 import Icon from '../Icon';
 import { IconProps, iconSizes } from '..';
+import { Size } from '../types';
 
 // use empty mockImplementation to turn off console output
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
@@ -84,13 +85,9 @@ describe('Icon', () => {
   });
 
   it('throws an error for invalid size type', () => {
-    const invalidSize = 'small_medium';
+    const invalidSize = 'small_medium' as unknown as Size;
 
-    const { toJSON } = render(
-      // This test is for vanilla js use-case, ignoring ts error for size type
-      // @ts-ignore
-      <Icon {...props} size={invalidSize} />
-    );
+    const { toJSON } = render(<Icon {...props} size={invalidSize} />);
     expect(toJSON()).toMatchSnapshot();
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
