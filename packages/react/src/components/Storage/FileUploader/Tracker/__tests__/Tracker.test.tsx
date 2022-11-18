@@ -23,6 +23,7 @@ describe('Tracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
+        showImage={true}
       />
     );
 
@@ -47,6 +48,7 @@ describe('Tracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
+        showImage={true}
       />
     );
 
@@ -73,6 +75,7 @@ describe('Tracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
+        showImage={true}
       />
     );
 

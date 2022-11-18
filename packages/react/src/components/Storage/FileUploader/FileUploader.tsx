@@ -14,6 +14,7 @@ const isUploadTask = (value: unknown): value is UploadTask =>
 
 export function FileUploader({
   acceptedFileTypes,
+  autoProceed = false,
   components = {},
   isPreviewerVisible,
   level,
@@ -22,6 +23,7 @@ export function FileUploader({
   multiple = true,
   onError,
   onSuccess,
+  showImages = true,
   variation = 'button',
   resumable = false,
   ...rest
@@ -47,6 +49,7 @@ export function FileUploader({
 
   const {
     addTargetFiles,
+    autoUploadRef,
     fileStatuses,
     inDropZone,
     onDragEnter,
@@ -57,7 +60,12 @@ export function FileUploader({
     setFileStatuses,
     setShowPreviewer,
     showPreviewer,
-  } = useFileUploader({ maxSize, acceptedFileTypes, multiple, isLoading });
+  } = useFileUploader({
+    maxSize,
+    acceptedFileTypes,
+    multiple,
+    isLoading,
+  });
 
   // Creates aggregate percentage to show during downloads
   const percentage = Math.floor(
@@ -80,7 +88,7 @@ export function FileUploader({
     if (Math.floor(percentage) === 100) {
       setLoading(false);
     }
-  }, [fileStatuses, percentage]);
+  }, [percentage, fileStatuses]);
 
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
@@ -195,7 +203,7 @@ export function FileUploader({
         ...status,
         uploadTask: uploadTasksTemp?.[index],
         fileState: status.fileState ?? 'loading',
-        percentage: 0,
+        percentage: status.percentage ?? 0,
       };
     });
     const uploadTasks = [...fileStatusesRef.current];
@@ -220,9 +228,12 @@ export function FileUploader({
       const { files } = event.target;
       const addedFilesLength = addTargetFiles([...files]);
       // only show previewer if the added files are great then 0
-      if (addedFilesLength > 0) setShowPreviewer(true);
+      if (addedFilesLength > 0) {
+        setShowPreviewer(true);
+        autoUploadRef.current = true;
+      }
     },
-    [addTargetFiles, setShowPreviewer]
+    [addTargetFiles, autoUploadRef, setShowPreviewer]
   );
 
   const onClear = useCallback(() => {
@@ -315,6 +326,13 @@ export function FileUploader({
     [fileStatuses, setFileStatuses]
   );
 
+  useEffect(() => {
+    if (autoProceed && autoUploadRef.current) {
+      onFileClick();
+    }
+    autoUploadRef.current = false;
+  }, [autoProceed, autoUploadRef, onFileClick]);
+
   // UploadButton
   const hiddenInput = React.useRef<HTMLInputElement>();
   const onUploadButtonClick = () => {
@@ -354,23 +372,24 @@ export function FileUploader({
       >
         {fileStatuses?.map((status, index) => (
           <Tracker
-            percentage={status.percentage}
+            errorMessage={status?.fileErrors}
             file={status.file}
+            fileState={status?.fileState}
             hasImage={status.file?.type.startsWith('image/')}
-            url={URL.createObjectURL(status.file)}
+            showImage={showImages}
             key={index}
-            onChange={onNameChange(index)}
+            name={status.name}
             onCancel={onFileCancel(index)}
+            onCancelEdit={onCancelEdit(index)}
+            onChange={onNameChange(index)}
+            onDelete={onDelete}
             onPause={onPause(index)}
             onResume={onResume(index)}
-            onDelete={onDelete}
-            name={status.name}
-            fileState={status?.fileState}
-            errorMessage={status?.fileErrors}
             onSaveEdit={onSaveEdit(index)}
-            onCancelEdit={onCancelEdit(index)}
             onStartEdit={onStartEdit(index)}
+            percentage={status.percentage}
             resumable={resumable}
+            url={URL.createObjectURL(status.file)}
           />
         ))}
       </Previewer>

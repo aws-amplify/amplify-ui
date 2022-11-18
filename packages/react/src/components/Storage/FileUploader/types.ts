@@ -23,6 +23,7 @@ export interface UploadDropZoneProps extends DragActionHandlers {
 
 export interface FileUploaderProps {
   acceptedFileTypes: string[];
+  autoProceed?: boolean;
   multiple?: boolean;
   components?: Components;
   level: LevelInfo;
@@ -34,6 +35,7 @@ export interface FileUploaderProps {
   onError?: (error: string) => void;
   onSuccess?: (event: { key: string }) => void;
   path?: string;
+  showImages?: boolean;
   variation?: 'drop' | 'button';
   resumable?: boolean;
 }
@@ -61,22 +63,23 @@ export interface PreviewerProps extends DragActionHandlers {
 }
 
 export interface TrackerProps {
+  errorMessage: string;
   file: File;
   fileState: FileState;
   hasImage: boolean;
-  url: string;
-  resumable?: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name: string;
   onCancel: () => void;
+  onCancelEdit?: () => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onDelete?: () => void;
   onPause: () => void;
   onResume: () => void;
-  onDelete?: () => void;
-  name: string;
-  percentage: number;
-  errorMessage: string;
   onSaveEdit: (value: string) => void;
-  onCancelEdit?: () => void;
   onStartEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  percentage: number;
+  resumable?: boolean;
+  showImage: boolean;
+  url: string;
 }
 
 export interface FileStatus extends Partial<FileStateProps> {
