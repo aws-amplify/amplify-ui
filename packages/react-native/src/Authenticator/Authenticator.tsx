@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import {
   AuthenticatorProvider as Provider,
@@ -73,11 +74,13 @@ function Authenticator({
   }
 
   return (
-    <DefaultContainer>
-      <InnerContainer>
-        <Component {...props} fields={typedFields} />
-      </InnerContainer>
-    </DefaultContainer>
+    <SafeAreaProvider>
+      <DefaultContainer>
+        <InnerContainer>
+          <Component {...props} fields={typedFields} />
+        </InnerContainer>
+      </DefaultContainer>
+    </SafeAreaProvider>
   );
 }
 
