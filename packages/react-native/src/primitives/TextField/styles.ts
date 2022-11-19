@@ -26,11 +26,12 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       borderWidth: borderWidths.small,
       flexDirection: 'row',
       lineHeight: getLineHeight(fontSizes.medium),
-      padding: space.medium,
-      width: '100%',
+      paddingHorizontal: space.xs,
+      paddingVertical: space.small,
       ...components?.textField?.inputContainer,
     },
     input: {
+      color: colors.font.primary,
       flexGrow: 1,
       fontSize: fontSizes.medium,
       // this is needed because of extra padding inside the input - in Android only
@@ -38,9 +39,8 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       ...components?.textField?.input,
     },
     label: {
-      fontSize: fontSizes.medium,
       color: colors.font.secondary,
-      paddingVertical: space.small,
+      paddingVertical: space.xs,
       lineHeight: getLineHeight(fontSizes.small),
       ...components?.textField?.label,
     },

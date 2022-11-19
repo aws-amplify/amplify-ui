@@ -81,8 +81,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 16,
+                "fontSize": 14,
                 "fontWeight": "400",
+                "lineHeight": 21,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -143,8 +144,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 16,
+                "fontSize": 14,
                 "fontWeight": "400",
+                "lineHeight": 21,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -343,8 +345,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 16,
+                "fontSize": 14,
                 "fontWeight": "400",
+                "lineHeight": 21,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -405,8 +408,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 16,
+                "fontSize": 14,
                 "fontWeight": "400",
+                "lineHeight": 21,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
