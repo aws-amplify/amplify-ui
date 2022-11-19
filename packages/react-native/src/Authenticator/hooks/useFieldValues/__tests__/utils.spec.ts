@@ -193,8 +193,6 @@ describe('getRouteTypedFields', () => {
     const expected = [
       passwordField,
       {
-        defaultDialCode: phoneField.dialCode,
-        dialCodes: phoneField.dialCodeList,
         name: phoneField.name,
         type: 'phone',
       },

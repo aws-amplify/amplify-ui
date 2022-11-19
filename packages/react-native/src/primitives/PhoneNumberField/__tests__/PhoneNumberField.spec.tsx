@@ -4,6 +4,7 @@ import { render, renderHook } from '@testing-library/react-native';
 import { useTheme } from '../../../theme';
 import PhoneNumberField from '../PhoneNumberField';
 import { getThemedStyles as getTextFieldStyles } from '../../TextField/styles';
+import { getThemedStyles } from '../styles';
 
 const testID = 'phoneNumberInput';
 const defaultProps = {
@@ -39,11 +40,12 @@ describe('PhoneNumberField', () => {
     );
 
     const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
     const textFieldStyles = getTextFieldStyles(result.current);
 
     expect(getByTestId(testID).props.style).toStrictEqual([
       textFieldStyles.field,
-      undefined,
+      [themedStyle.field, undefined],
     ]);
 
     expect(toJSON()).toMatchSnapshot();

@@ -7,9 +7,9 @@ import { Amplify } from 'aws-amplify';
 import { Button } from '../../../ui';
 
 // replace with actual amplify config from environments
-import config from '../../../../aws-exports';
+// import config from '../../../aws-exports';
 
-Amplify.configure(config);
+Amplify.configure({});
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();

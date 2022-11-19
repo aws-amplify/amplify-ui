@@ -105,7 +105,7 @@ describe('TextField', () => {
 
     const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
     expect(inputContainer.props.style).toStrictEqual({
-      ...themedStyle.inputContainer,
+      ...themedStyle.fieldContainer,
       ...themedStyle.disabled,
     });
   });
@@ -143,10 +143,10 @@ describe('TextField', () => {
       customStyle,
     ]);
     expect(inputContainer.props.style).toStrictEqual(
-      themedStyle.inputContainer
+      themedStyle.fieldContainer
     );
     expect(input.props.style).toStrictEqual([
-      themedStyle.input,
+      themedStyle.field,
       customFieldStyle,
     ]);
     expect(errorMessage.props.style).toContain(customErrorMessageStyle);

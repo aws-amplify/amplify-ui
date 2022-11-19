@@ -27,7 +27,6 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       flexDirection: 'row',
       lineHeight: getLineHeight(fontSizes.medium),
       padding: space.medium,
-      width: '100%',
       ...components?.textField?.fieldContainer,
     },
     field: {

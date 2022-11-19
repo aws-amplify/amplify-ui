@@ -212,7 +212,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -288,7 +287,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -411,7 +409,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -483,144 +480,88 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
+              "marginHorizontal": 4,
+              "marginVertical": 2,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "fontSize": 14,
+                "lineHeight": 21,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(0, 0%, 0%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "padding": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
-              },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
               },
               Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 21,
-                },
+                Object {},
                 undefined,
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(0, 0%, 0%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -730,7 +671,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -806,7 +746,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -929,7 +868,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -1001,144 +939,88 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
+              "marginHorizontal": 4,
+              "marginVertical": 2,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "fontSize": 14,
+                "lineHeight": 21,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(0, 0%, 0%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "padding": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
-              },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
               },
               Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 21,
-                },
+                Object {},
                 undefined,
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(0, 0%, 0%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -1406,7 +1288,6 @@ Array [
             "lineHeight": 24,
             "opacity": 0.6,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -1483,7 +1364,6 @@ Array [
             "lineHeight": 24,
             "opacity": 0.6,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -1607,7 +1487,6 @@ Array [
             "lineHeight": 24,
             "opacity": 0.6,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -1679,145 +1558,89 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
+              "marginHorizontal": 4,
+              "marginVertical": 2,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "fontSize": 14,
+                "lineHeight": 21,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": true,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(0, 0%, 0%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "opacity": 0.6,
+            "padding": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={false}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
-              },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
               },
               Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 21,
-                },
+                Object {},
                 undefined,
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(0, 0%, 0%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "opacity": 0.6,
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={false}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -2084,7 +1907,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -2160,7 +1982,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -2283,7 +2104,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -2355,144 +2175,88 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
+              "marginHorizontal": 4,
+              "marginVertical": 2,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "fontSize": 14,
+                "lineHeight": 21,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(0, 0%, 0%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "padding": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
-              },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
               },
               Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 21,
-                },
+                Object {},
                 undefined,
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(0, 0%, 0%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -2810,7 +2574,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -2886,7 +2649,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -3009,7 +2771,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 8,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -3081,144 +2842,88 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
+              "marginHorizontal": 4,
+              "marginVertical": 2,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "fontSize": 14,
+                "lineHeight": 21,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(0, 0%, 0%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "padding": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
-              },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
               },
               Array [
-                Object {
-                  "fontSize": 14,
-                  "lineHeight": 21,
-                },
+                Object {},
                 undefined,
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(0, 0%, 0%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
