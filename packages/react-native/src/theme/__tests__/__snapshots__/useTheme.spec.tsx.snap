@@ -2,6 +2,11 @@
 
 exports[`useTheme should output the base tokens as expected 1`] = `
 Object {
+  "borderWidths": Object {
+    "large": 3,
+    "medium": 2,
+    "small": 1,
+  },
   "colors": Object {
     "background": Object {
       "disabled": "hsl(210, 5%, 94%)",
@@ -203,14 +208,14 @@ Object {
     "xxxl": 128,
   },
   "space": Object {
-    "large": 12,
-    "medium": 8,
-    "small": 6,
-    "xl": 16,
-    "xs": 4,
-    "xxl": 24,
-    "xxs": 2,
-    "xxxl": 36,
+    "large": 24,
+    "medium": 16,
+    "small": 12,
+    "xl": 32,
+    "xs": 8,
+    "xxl": 48,
+    "xxs": 4,
+    "xxxl": 72,
   },
   "time": Object {
     "long": "500ms",

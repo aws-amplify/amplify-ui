@@ -14,7 +14,8 @@ storiesOf('Button', module)
   .add('variants', () => (
     <>
       <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
+      <Button variant="default">Default</Button>
+      <Button variant="link">Link</Button>
     </>
   ))
   .add('with emoji', () => (
@@ -22,7 +23,19 @@ storiesOf('Button', module)
       <Text>😀 😎 👍 💯</Text>
     </Button>
   ))
-  .add('disabled', () => <Button disabled>Disabled Button</Button>)
+  .add('disabled', () => (
+    <>
+      <Button disabled variant="primary">
+        Primary
+      </Button>
+      <Button disabled variant="default">
+        Default
+      </Button>
+      <Button disabled variant="link">
+        Link
+      </Button>
+    </>
+  ))
   .add('styles', () => (
     <Button style={styles.container} textStyle={styles.whiteText}>
       White text, blue background

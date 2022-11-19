@@ -101,7 +101,7 @@ describe('createTheme', () => {
       expect(components?.button?.container?.backgroundColor).toBe(
         'hsl(0, 0%, 100%)'
       );
-      expect(components?.button?.container?.padding).toBe(16);
+      expect(components?.button?.container?.padding).toBe(32);
     });
 
     it('should respect colorMode', () => {

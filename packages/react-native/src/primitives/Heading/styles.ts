@@ -1,4 +1,4 @@
-import { StyleSheet, TextStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StrictTheme } from '../../theme';
 
 import { getLineHeight } from '../../utils';
@@ -17,37 +17,37 @@ export const getThemedStyles = (theme: StrictTheme): HeadingStyles => {
     },
     1: {
       fontSize: fontSizes.xxxl,
-      fontWeight: fontWeights.hairline as TextStyle['fontWeight'],
+      fontWeight: fontWeights.hairline,
       lineHeight: getLineHeight(fontSizes.xxxl),
       ...components?.heading?.[1],
     },
     2: {
       fontSize: fontSizes.xxl,
-      fontWeight: fontWeights.thin as TextStyle['fontWeight'],
+      fontWeight: fontWeights.thin,
       lineHeight: getLineHeight(fontSizes.xxl),
       ...components?.heading?.[2],
     },
     3: {
       fontSize: fontSizes.xl,
-      fontWeight: fontWeights.light as TextStyle['fontWeight'],
+      fontWeight: fontWeights.light,
       lineHeight: getLineHeight(fontSizes.xl),
       ...components?.heading?.[3],
     },
     4: {
       fontSize: fontSizes.large,
-      fontWeight: fontWeights.medium as TextStyle['fontWeight'],
+      fontWeight: fontWeights.medium,
       lineHeight: getLineHeight(fontSizes.large),
       ...components?.heading?.[4],
     },
     5: {
       fontSize: fontSizes.medium,
-      fontWeight: fontWeights.bold as TextStyle['fontWeight'],
+      fontWeight: fontWeights.bold,
       lineHeight: getLineHeight(fontSizes.medium),
       ...components?.heading?.[5],
     },
     6: {
       fontSize: fontSizes.small,
-      fontWeight: fontWeights.black as TextStyle['fontWeight'],
+      fontWeight: fontWeights.black,
       lineHeight: getLineHeight(fontSizes.small),
       ...components?.heading?.[6],
     },

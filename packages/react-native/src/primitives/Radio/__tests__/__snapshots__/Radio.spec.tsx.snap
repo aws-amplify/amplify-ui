@@ -123,8 +123,6 @@ exports[`Radio renders as expected when disabled 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -206,8 +204,6 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -272,8 +268,6 @@ exports[`Radio renders as expected when selected is false 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -355,8 +349,6 @@ exports[`Radio renders as expected when selected is true 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -438,8 +430,6 @@ exports[`Radio renders as expected when size is large 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -521,8 +511,6 @@ exports[`Radio renders as expected when size is medium 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -604,8 +592,6 @@ exports[`Radio renders as expected when size is small 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",

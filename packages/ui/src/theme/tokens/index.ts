@@ -58,6 +58,7 @@ type ReactNative = 'react-native';
 
 type BaseReactNativeTokens<Output extends OutputVariantKey = unknown> = {
   colors?: Colors<Output, ReactNative>;
+  borderWidths?: BorderWidths<Output, ReactNative>;
   fontSizes?: Omit<FontSizes<Output, ReactNative>, 'xxxs' | 'xxxxl'>;
   fontWeights?: FontWeights<Output, ReactNative>;
   opacities?: Opacities<Output, ReactNative>;
@@ -92,6 +93,7 @@ export const tokens: DefaultTokens = {
 
 export const reactNativeTokens: ReactNativeTokens<'default'> = {
   colors,
+  borderWidths,
   fontSizes: {
     xxs: fontSizes.xxs,
     xs: fontSizes.xs,

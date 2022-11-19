@@ -7,7 +7,7 @@ import { TextFieldStyles } from './types';
 export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
   const {
     components,
-    tokens: { colors, fontSizes, opacities, space, radii },
+    tokens: { colors, fontSizes, opacities, space, radii, borderWidths },
   } = theme;
 
   return StyleSheet.create({
@@ -21,9 +21,9 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
     },
     inputContainer: {
       alignItems: 'center',
-      borderColor: colors.black,
+      borderColor: colors.border.primary,
       borderRadius: radii.small,
-      borderWidth: 1,
+      borderWidth: borderWidths.small,
       flexDirection: 'row',
       lineHeight: getLineHeight(fontSizes.medium),
       padding: space.medium,
@@ -38,7 +38,9 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       ...components?.textField?.input,
     },
     label: {
-      fontSize: fontSizes.small,
+      fontSize: fontSizes.medium,
+      color: colors.font.secondary,
+      paddingVertical: space.small,
       lineHeight: getLineHeight(fontSizes.small),
       ...components?.textField?.label,
     },

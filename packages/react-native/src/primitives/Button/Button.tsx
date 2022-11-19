@@ -19,7 +19,7 @@ export default function Button({
   disabled,
   style,
   textStyle,
-  variant = 'primary',
+  variant = 'default',
   ...rest
 }: ButtonProps): JSX.Element {
   const theme = useTheme();
@@ -42,7 +42,7 @@ export default function Button({
   );
 
   const buttonTextStyle: TextStyle = useMemo(
-    () => ({
+    (): TextStyle => ({
       ...themedStyle.text,
       ...themedStyle[`text${capitalize(variant)}`],
     }),

@@ -92,7 +92,7 @@ export const createTheme = (
   ]) as StrictTheme;
 
   let { tokens: mergedTokens } = mergedTheme;
-  const { spaceModifier = 0.5 } = mergedTheme;
+  const { spaceModifier = 1 } = mergedTheme;
 
   // We need to merge in any applicable overrides because we need to
   // resolve the values of all tokens at runtime based on which

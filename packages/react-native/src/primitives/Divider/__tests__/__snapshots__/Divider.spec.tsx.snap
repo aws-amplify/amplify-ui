@@ -34,8 +34,6 @@ exports[`Divider applies theme and style props 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -43,7 +41,7 @@ exports[`Divider applies theme and style props 1`] = `
         Array [
           Object {
             "fontSize": 16,
-            "margin": 8,
+            "margin": 16,
             "textAlign": "center",
           },
           Object {
@@ -104,8 +102,6 @@ exports[`Divider renders as expected with label 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -113,7 +109,7 @@ exports[`Divider renders as expected with label 1`] = `
         Array [
           Object {
             "fontSize": 16,
-            "margin": 8,
+            "margin": 16,
             "textAlign": "center",
           },
           undefined,

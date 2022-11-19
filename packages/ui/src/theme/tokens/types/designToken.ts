@@ -41,7 +41,14 @@ export type BorderColorValue = ColorValue;
 export type BorderCollapseValue = string;
 export type BorderRadiusValue = RadiusValue;
 export type BorderStyleValue = string;
-export type BorderWidthValue = SpaceValue;
+export type BorderWidthValue<
+  Platform extends PlatformKey = unknown,
+  Output extends OutputVariantKey = unknown
+> = Output extends 'required'
+  ? Platform extends 'react-native'
+    ? number
+    : SpaceValue
+  : SpaceValue;
 export type BorderValue = string;
 export type BoxSizingValue = string;
 export type BoxShadowValue = ShadowValue;
@@ -69,7 +76,18 @@ export type FontWeightValue<
   Output extends OutputVariantKey = unknown
 > = Output extends 'required'
   ? Platform extends 'react-native'
-    ? string
+    ?
+        | 'normal'
+        | 'bold'
+        | '100'
+        | '200'
+        | '300'
+        | '400'
+        | '500'
+        | '600'
+        | '700'
+        | '800'
+        | '900'
     : string | number
   : string | number;
 export type GapValue = string;

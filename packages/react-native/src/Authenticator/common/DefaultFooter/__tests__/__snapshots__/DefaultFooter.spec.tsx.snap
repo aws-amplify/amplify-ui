@@ -20,11 +20,15 @@ exports[`DefaultFooter renders as expected with children 1`] = `
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
-          "padding": 12,
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
         },
         null,
         null,

@@ -1308,12 +1308,12 @@ exports[`PhoneNumberField applies theming 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "hsl(0, 0%, 0%)",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
           "lineHeight": 24,
-          "padding": 8,
+          "padding": 16,
           "width": "100%",
         }
       }
@@ -1376,12 +1376,12 @@ exports[`PhoneNumberField does not render picker when dial codes are undefined 1
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "hsl(0, 0%, 0%)",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
           "lineHeight": 24,
-          "padding": 8,
+          "padding": 16,
           "width": "100%",
         }
       }
@@ -2716,12 +2716,12 @@ exports[`PhoneNumberField renders as expected 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "hsl(0, 0%, 0%)",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
           "lineHeight": 24,
-          "padding": 8,
+          "padding": 16,
           "width": "100%",
         }
       }
@@ -4056,12 +4056,12 @@ exports[`PhoneNumberField renders as expected when default dial code is undefine
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "hsl(0, 0%, 0%)",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
           "lineHeight": 24,
-          "padding": 8,
+          "padding": 16,
           "width": "100%",
         }
       }
@@ -5396,13 +5396,13 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderColor": "hsl(0, 0%, 0%)",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 4,
           "borderWidth": 1,
           "flexDirection": "row",
           "lineHeight": 24,
           "opacity": 0.6,
-          "padding": 8,
+          "padding": 16,
           "width": "100%",
         }
       }
