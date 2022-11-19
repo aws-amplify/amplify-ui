@@ -1,24 +1,27 @@
 import {
-  DesignToken,
-  WebDesignToken,
+  DesignTokenValues,
+  OutputVariantKey,
   TransformValue,
 } from './types/designToken';
 
-export type Transforms = {
-  slideX: {
-    small: DesignToken<TransformValue>;
-    medium: DesignToken<TransformValue>;
-    large: DesignToken<TransformValue>;
-  };
+type TransformSize = 'small' | 'medium' | 'large';
+
+export type BaseTransforms<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = {
+  slideX?: DesignTokenValues<TransformSize, TransformValue, Output, Platform>;
 };
 
-export type WebTransforms = {
-  slideX: {
-    [Property in keyof Transforms['slideX']]: WebDesignToken<TransformValue>;
-  };
-};
+// `Transforms` tokens requires special handling for `required` output due to nested tokens
+export type Transforms<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = Output extends 'required' | 'default'
+  ? Required<BaseTransforms<Output, Platform>>
+  : BaseTransforms<Output, Platform>;
 
-export const transforms: Transforms = {
+export const transforms: Transforms<'default'> = {
   // TODO: make this more generic and cross-platform
   slideX: {
     small: { value: 'translateX(0.5em)' },

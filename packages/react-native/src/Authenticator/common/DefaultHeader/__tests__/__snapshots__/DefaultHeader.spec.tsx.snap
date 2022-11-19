@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultHeader renders as expected with children 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "fontSize": 24,
+        "fontWeight": "300",
+        "lineHeight": 36,
+      },
+      undefined,
+    ]
+  }
+>
+  test
+</Text>
+`;
+
+exports[`DefaultHeader renders as expected without children 1`] = `null`;

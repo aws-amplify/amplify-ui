@@ -5,8 +5,14 @@ Array [
   "AuthenticatorProvider",
   "InAppMessagingProvider",
   "handleMessageAction",
+  "isAuthenticatorComponentRouteKey",
+  "resolveAuthenticatorComponents",
   "useAuthenticator",
+  "useAuthenticatorInitMachine",
+  "useAuthenticatorRoute",
+  "useHasValueUpdated",
   "useInAppMessaging",
   "useMessage",
+  "usePreviousValue",
 ]
 `;

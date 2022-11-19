@@ -5,11 +5,11 @@ import { AuthMachineState, getServiceFacade } from '@aws-amplify/ui';
 import { AuthenticatorContext } from '../../context';
 
 import { USE_AUTHENTICATOR_ERROR } from './constants';
-import { Selector, UseAuthenticator } from './types';
+import { UseAuthenticatorSelector, UseAuthenticator } from './types';
 import {
   defaultComparator,
   getComparator,
-  getLegacyFields,
+  getMachineFields,
   getTotpSecretCodeCallback,
 } from './utils';
 
@@ -17,7 +17,7 @@ import {
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator/headless#useauthenticator-hook)
  */
 export default function useAuthenticator(
-  selector?: Selector
+  selector?: UseAuthenticatorSelector
 ): UseAuthenticator {
   const context = React.useContext(AuthenticatorContext);
 
@@ -37,7 +37,7 @@ export default function useAuthenticator(
 
   const facade = useSelector(service, xstateSelector, comparator);
 
-  const { route, user, ...rest } = facade;
+  const { route, unverifiedContactMethods, user, ...rest } = facade;
 
   // do not memoize output. `service.getSnapshot` reference remains stable preventing
   // `fields` from updating with current form state on value changes
@@ -45,14 +45,20 @@ export default function useAuthenticator(
 
   // legacy `formFields` values required until form state is removed from state machine
   const fields = useMemo(
-    () => getLegacyFields(route, serviceSnapshot as AuthMachineState),
-    [route, serviceSnapshot]
+    () =>
+      getMachineFields(
+        route,
+        serviceSnapshot as AuthMachineState,
+        unverifiedContactMethods
+      ),
+    [route, serviceSnapshot, unverifiedContactMethods]
   );
 
   return {
     ...rest,
     getTotpSecretCode: getTotpSecretCodeCallback(user),
     route,
+    unverifiedContactMethods,
     user,
     /** @deprecated For internal use only */
     fields,

@@ -1,42 +1,30 @@
-import {
-  BorderRadiusValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  FontWeightValue,
-  SpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface BannerTokens {
-  height: DesignToken<SpaceValue>;
-  width: DesignToken<SpaceValue>;
-}
-interface ButtonTokens {
-  backgroundColor: DesignToken<ColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  color: DesignToken<ColorValue>;
-}
+type BannerTokens<Output> = DesignTokenProperties<'height' | 'width', Output>;
 
-interface DialogTokens {
-  height: DesignToken<SpaceValue>;
-  minHeight: DesignToken<SpaceValue>;
-  minWidth: DesignToken<SpaceValue>;
-  width: DesignToken<SpaceValue>;
-}
+type ButtonTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderRadius' | 'color',
+  Output
+>;
 
-interface HeaderTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  fontWeight: DesignToken<FontWeightValue>;
-}
+type DialogTokens<Output> = DesignTokenProperties<
+  'height' | 'minHeight' | 'minWidth' | 'width',
+  Output
+>;
 
-export interface InAppMessagingTokens {
-  banner: BannerTokens;
-  button: ButtonTokens;
-  dialog: DialogTokens;
-  header: HeaderTokens;
-}
+type HeaderTokens<Output> = DesignTokenProperties<
+  'fontSize' | 'fontWeight',
+  Output
+>;
 
-export const inappmessaging: InAppMessagingTokens = {
+export type InAppMessagingTokens<Output extends OutputVariantKey> = {
+  banner?: BannerTokens<Output>;
+  button?: ButtonTokens<Output>;
+  dialog?: DialogTokens<Output>;
+  header?: HeaderTokens<Output>;
+};
+
+export const inappmessaging: Required<InAppMessagingTokens<'default'>> = {
   banner: {
     height: { value: '150px ' },
     width: { value: '400px ' },
