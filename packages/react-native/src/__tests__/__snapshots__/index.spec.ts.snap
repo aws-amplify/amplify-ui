@@ -4,12 +4,6 @@ exports[`@aws-amplify/ui-react-native exports should match snapshot 1`] = `
 Array [
   "Authenticator",
   "AuthenticatorProps",
-  "Theme",
-  "ThemeProvider",
-  "UseAuthenticator",
-  "WithAuthenticatorOptions",
-  "useAuthenticator",
-  "withAuthenticator",
   "BannerMessageProps",
   "CarouselMessageProps",
   "FullScreenMessageProps",
@@ -17,7 +11,14 @@ Array [
   "InAppMessagingProvider",
   "MessageComponents",
   "ModalMessageProps",
+  "Theme",
+  "ThemeProvider",
+  "UseAuthenticator",
+  "WithAuthenticatorOptions",
+  "defaultDarkModeOverride",
+  "useAuthenticator",
   "useInAppMessaging",
+  "withAuthenticator",
   "withInAppMessaging",
 ]
 `;
