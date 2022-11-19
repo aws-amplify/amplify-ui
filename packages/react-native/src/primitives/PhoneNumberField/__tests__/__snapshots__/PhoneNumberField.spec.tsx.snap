@@ -24,12 +24,12 @@ exports[`PhoneNumberField applies theming 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(0, 0%, 0%)",
+        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
         "lineHeight": 24,
-        "padding": 8,
+        "padding": 16,
       }
     }
     testID="amplify__text-field__input-container"
@@ -81,12 +81,12 @@ exports[`PhoneNumberField renders as expected 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(0, 0%, 0%)",
+        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
         "lineHeight": 24,
-        "padding": 8,
+        "padding": 16,
       }
     }
     testID="amplify__text-field__input-container"
@@ -138,13 +138,13 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(0, 0%, 0%)",
+        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
         "lineHeight": 24,
         "opacity": 0.6,
-        "padding": 8,
+        "padding": 16,
       }
     }
     testID="amplify__text-field__input-container"
