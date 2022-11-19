@@ -5,8 +5,4 @@ export const KEY_ALLOW_LIST = [
   'required',
   'isRequired',
   'type',
-
-  // phone options only
-  'dialCode',
-  'dialCodeList',
 ];

@@ -20,8 +20,6 @@ const passwordField = {
   required: true,
 };
 const phoneField = {
-  dialCode: '999',
-  dialCodeList: ['123', '456'],
   name: 'phonenumber',
   type: 'tel',
 };
