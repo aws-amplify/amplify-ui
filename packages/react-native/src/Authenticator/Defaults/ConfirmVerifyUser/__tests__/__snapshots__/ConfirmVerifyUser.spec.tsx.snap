@@ -39,11 +39,14 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
-          "padding": 12,
         },
         null,
         null,
@@ -87,11 +90,15 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
-          "backgroundColor": "hsl(0, 0%, 100%)",
-          "padding": 8,
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
         },
         null,
         null,
@@ -105,8 +112,9 @@ Array [
       style={
         Array [
           Object {
-            "color": "hsl(190, 95%, 30%)",
-            "fontSize": 14,
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
             "textAlign": "center",
           },
           undefined,
@@ -158,11 +166,14 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
-          "padding": 12,
         },
         null,
         null,
@@ -206,11 +217,15 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
-          "backgroundColor": "hsl(0, 0%, 100%)",
-          "padding": 8,
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
         },
         null,
         null,
@@ -224,8 +239,9 @@ Array [
       style={
         Array [
           Object {
-            "color": "hsl(190, 95%, 30%)",
-            "fontSize": 14,
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
             "textAlign": "center",
           },
           undefined,
@@ -267,8 +283,8 @@ Array [
           "alignItems": "center",
           "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
-          "paddingHorizontal": 4,
-          "paddingVertical": 16,
+          "paddingHorizontal": 8,
+          "paddingVertical": 32,
         },
         undefined,
       ]
@@ -290,7 +306,7 @@ Array [
             "width": 20,
           },
           Object {
-            "margin": 4,
+            "margin": 8,
           },
         ]
       }
@@ -301,7 +317,7 @@ Array [
           Object {
             "color": "hsl(0, 100%, 20%)",
             "flex": 1,
-            "paddingHorizontal": 4,
+            "paddingHorizontal": 8,
           },
           undefined,
         ]
@@ -328,11 +344,14 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
-          "padding": 12,
         },
         null,
         null,
@@ -376,11 +395,15 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
-          "backgroundColor": "hsl(0, 0%, 100%)",
-          "padding": 8,
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
         },
         null,
         null,
@@ -394,8 +417,9 @@ Array [
       style={
         Array [
           Object {
-            "color": "hsl(190, 95%, 30%)",
-            "fontSize": 14,
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
             "textAlign": "center",
           },
           undefined,

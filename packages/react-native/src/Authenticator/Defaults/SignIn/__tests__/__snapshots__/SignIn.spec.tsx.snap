@@ -5,7 +5,7 @@ Array [
   <View
     style={
       Object {
-        "marginVertical": 6,
+        "marginVertical": 12,
       }
     }
   >
@@ -33,16 +33,16 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
             Array [
               Object {
-                "fontSize": 14,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
                 "lineHeight": 21,
+                "paddingVertical": 12,
               },
               undefined,
             ],
@@ -55,12 +55,12 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(0, 0%, 0%)",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 8,
+            "padding": 16,
           }
         }
         testID="amplify__text-field__input-container"
@@ -97,7 +97,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {},
+          Array [
+            Object {},
+            Object {},
+          ],
         ]
       }
     >
@@ -108,16 +111,16 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
             Array [
               Object {
-                "fontSize": 14,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
                 "lineHeight": 21,
+                "paddingVertical": 12,
               },
               undefined,
             ],
@@ -130,12 +133,12 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(0, 0%, 0%)",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 8,
+            "padding": 16,
           }
         }
         testID="amplify__text-field__input-container"
@@ -179,8 +182,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -199,7 +204,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -225,16 +233,19 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
-          "padding": 12,
         },
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "marginVertical": 16,
         },
       ]
     }
@@ -282,16 +293,17 @@ Array [
         Array [
           Object {
             "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
             "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
           },
-          Object {
-            "backgroundColor": "hsl(0, 0%, 100%)",
-            "padding": 8,
-          },
+          Object {},
           null,
           null,
           Object {
-            "marginVertical": 4,
+            "marginVertical": 8,
             "minWidth": "50%",
           },
         ]
@@ -302,7 +314,8 @@ Array [
           Array [
             Object {
               "color": "hsl(190, 95%, 30%)",
-              "fontSize": 14,
+              "fontSize": 16,
+              "fontWeight": "700",
               "textAlign": "center",
             },
             undefined,
@@ -330,16 +343,17 @@ Array [
         Array [
           Object {
             "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
             "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
           },
-          Object {
-            "backgroundColor": "hsl(0, 0%, 100%)",
-            "padding": 8,
-          },
+          Object {},
           null,
           null,
           Object {
-            "marginVertical": 4,
+            "marginVertical": 8,
             "minWidth": "50%",
           },
         ]
@@ -350,7 +364,8 @@ Array [
           Array [
             Object {
               "color": "hsl(190, 95%, 30%)",
-              "fontSize": 14,
+              "fontSize": 16,
+              "fontWeight": "700",
               "textAlign": "center",
             },
             undefined,
@@ -369,7 +384,7 @@ Array [
   <View
     style={
       Object {
-        "marginVertical": 6,
+        "marginVertical": 12,
       }
     }
   >
@@ -397,16 +412,16 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
             Array [
               Object {
-                "fontSize": 14,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
                 "lineHeight": 21,
+                "paddingVertical": 12,
               },
               undefined,
             ],
@@ -419,12 +434,12 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(0, 0%, 0%)",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 8,
+            "padding": 16,
           }
         }
         testID="amplify__text-field__input-container"
@@ -461,7 +476,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {},
+          Array [
+            Object {},
+            Object {},
+          ],
         ]
       }
     >
@@ -472,16 +490,16 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
             Array [
               Object {
-                "fontSize": 14,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
                 "lineHeight": 21,
+                "paddingVertical": 12,
               },
               undefined,
             ],
@@ -494,12 +512,12 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(0, 0%, 0%)",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 8,
+            "padding": 16,
           }
         }
         testID="amplify__text-field__input-container"
@@ -543,8 +561,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -563,7 +583,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -589,16 +612,19 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
-          "padding": 12,
         },
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "marginVertical": 16,
         },
       ]
     }
@@ -637,16 +663,17 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
-        Object {
-          "backgroundColor": "hsl(0, 0%, 100%)",
-          "padding": 8,
-        },
+        Object {},
         null,
         null,
         Object {
-          "marginVertical": 4,
+          "marginVertical": 8,
           "minWidth": "50%",
         },
       ]
@@ -657,7 +684,8 @@ Array [
         Array [
           Object {
             "color": "hsl(190, 95%, 30%)",
-            "fontSize": 14,
+            "fontSize": 16,
+            "fontWeight": "700",
             "textAlign": "center",
           },
           undefined,
@@ -675,7 +703,7 @@ Array [
   <View
     style={
       Object {
-        "marginVertical": 6,
+        "marginVertical": 12,
       }
     }
   >
@@ -703,16 +731,16 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
             Array [
               Object {
-                "fontSize": 14,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
                 "lineHeight": 21,
+                "paddingVertical": 12,
               },
               undefined,
             ],
@@ -725,12 +753,12 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(0, 0%, 0%)",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 8,
+            "padding": 16,
           }
         }
         testID="amplify__text-field__input-container"
@@ -767,7 +795,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {},
+          Array [
+            Object {},
+            Object {},
+          ],
         ]
       }
     >
@@ -778,16 +809,16 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
             Array [
               Object {
-                "fontSize": 14,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
                 "lineHeight": 21,
+                "paddingVertical": 12,
               },
               undefined,
             ],
@@ -800,12 +831,12 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(0, 0%, 0%)",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 8,
+            "padding": 16,
           }
         }
         testID="amplify__text-field__input-container"
@@ -849,8 +880,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -869,7 +902,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -885,11 +921,11 @@ Array [
           "alignItems": "center",
           "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
-          "paddingHorizontal": 4,
-          "paddingVertical": 16,
+          "paddingHorizontal": 8,
+          "paddingVertical": 32,
         },
         Object {
-          "marginVertical": 6,
+          "marginVertical": 12,
         },
       ]
     }
@@ -910,7 +946,7 @@ Array [
             "width": 20,
           },
           Object {
-            "margin": 4,
+            "margin": 8,
           },
         ]
       }
@@ -921,7 +957,7 @@ Array [
           Object {
             "color": "hsl(0, 100%, 20%)",
             "flex": 1,
-            "paddingHorizontal": 4,
+            "paddingHorizontal": 8,
           },
           Object {},
         ]
@@ -948,16 +984,19 @@ Array [
       Array [
         Object {
           "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
           "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
           "backgroundColor": "hsl(190, 95%, 30%)",
-          "padding": 12,
         },
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "marginVertical": 16,
         },
       ]
     }
@@ -1005,16 +1044,17 @@ Array [
         Array [
           Object {
             "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
             "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
           },
-          Object {
-            "backgroundColor": "hsl(0, 0%, 100%)",
-            "padding": 8,
-          },
+          Object {},
           null,
           null,
           Object {
-            "marginVertical": 4,
+            "marginVertical": 8,
             "minWidth": "50%",
           },
         ]
@@ -1025,7 +1065,8 @@ Array [
           Array [
             Object {
               "color": "hsl(190, 95%, 30%)",
-              "fontSize": 14,
+              "fontSize": 16,
+              "fontWeight": "700",
               "textAlign": "center",
             },
             undefined,
@@ -1053,16 +1094,17 @@ Array [
         Array [
           Object {
             "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
             "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
           },
-          Object {
-            "backgroundColor": "hsl(0, 0%, 100%)",
-            "padding": 8,
-          },
+          Object {},
           null,
           null,
           Object {
-            "marginVertical": 4,
+            "marginVertical": 8,
             "minWidth": "50%",
           },
         ]
@@ -1073,7 +1115,8 @@ Array [
           Array [
             Object {
               "color": "hsl(190, 95%, 30%)",
-              "fontSize": 14,
+              "fontSize": 16,
+              "fontWeight": "700",
               "textAlign": "center",
             },
             undefined,

@@ -95,6 +95,8 @@ exports[`BannerMessage renders a message as expected with an image 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Array [
+            Object {},
+            null,
             null,
             Array [
               Object {
@@ -202,6 +204,8 @@ exports[`BannerMessage renders a message as expected without an image 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Array [
+            Object {},
+            null,
             null,
             Array [
               Object {

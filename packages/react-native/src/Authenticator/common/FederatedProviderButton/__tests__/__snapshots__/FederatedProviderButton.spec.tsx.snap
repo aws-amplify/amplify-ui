@@ -19,11 +19,15 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
     Array [
       Object {
         "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderRadius": 4,
         "justifyContent": "center",
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
       },
       Object {
-        "backgroundColor": "hsl(190, 95%, 30%)",
-        "padding": 12,
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
       },
       null,
       null,
@@ -70,8 +74,6 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",

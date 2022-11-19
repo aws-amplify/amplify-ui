@@ -1,7 +1,25 @@
 import { StyleSheet } from 'react-native';
+
+import { StrictTheme } from '../../theme';
 import { IconButtonStyles } from './types';
 
-export const styles: IconButtonStyles = StyleSheet.create({
-  pressed: { opacity: 0.6 },
-  text: { alignSelf: 'center' },
-});
+export const getThemedStyles = (theme: StrictTheme): IconButtonStyles => {
+  const {
+    components,
+    tokens: { opacities },
+  } = theme;
+
+  return StyleSheet.create({
+    container: {
+      ...components?.iconButton?.container,
+    },
+    disabled: {
+      opacity: opacities[60],
+      ...components?.iconButton?.disabled,
+    },
+    pressed: {
+      opacity: opacities[60],
+      ...components?.iconButton?.pressed,
+    },
+  });
+};

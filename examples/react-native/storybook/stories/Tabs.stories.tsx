@@ -43,6 +43,13 @@ storiesOf('Tabs', module)
       <Tab>Tab 3</Tab>
     </ControlledTabs>
   ))
+  .add('indicatorPosition', () => (
+    <ControlledTabs indicatorPosition="top">
+      <Tab>Tab 1</Tab>
+      <Tab>Tab 2</Tab>
+      <Tab>Tab 3</Tab>
+    </ControlledTabs>
+  ))
   .add('styles', () => (
     <ControlledTabs style={styles.styledContainer}>
       <Tab style={styles.tabStyle1} textStyle={styles.tabTextStyle1}>

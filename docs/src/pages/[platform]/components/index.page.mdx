@@ -7,7 +7,7 @@ supportedFrameworks: react
 
 import { ComponentsGrid } from './ComponentsGrid';
 import { FRAMEWORKS } from '@/data/frameworks';
-import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);

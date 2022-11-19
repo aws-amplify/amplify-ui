@@ -37,7 +37,7 @@ export default function DefaultContent<
               <Button
                 {...button}
                 style={themedStyles.buttonSecondary}
-                variant="secondary"
+                variant="link"
               />
             </Fragment>
           ))}
@@ -46,7 +46,7 @@ export default function DefaultContent<
         <Button
           {...secondary}
           style={themedStyles.buttonSecondary}
-          variant="secondary"
+          variant="link"
         />
       ),
     [secondary, themedStyles]
@@ -79,6 +79,7 @@ export default function DefaultContent<
       ) : null}
       <Button
         {...primary}
+        variant="primary"
         textStyle={themedStyles.buttonPrimaryLabel}
         style={themedStyles.buttonPrimary}
       />

@@ -48,14 +48,14 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
       <Header>{getChallengeText(challengeName)}</Header>
       <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
+      <Button
+        variant="primary"
+        onPress={handleFormSubmit}
+        style={styles.buttonPrimary}
+      >
         {isPending ? getConfirmingText() : getConfirmText()}
       </Button>
-      <Button
-        onPress={toSignIn}
-        variant="secondary"
-        style={styles.buttonSecondary}
-      >
+      <Button onPress={toSignIn} variant="link" style={styles.buttonSecondary}>
         {getBackToSignInText()}
       </Button>
       <Footer />
