@@ -6,5 +6,17 @@ export {
   withAuthenticator,
   WithAuthenticatorOptions,
 } from './Authenticator';
-export * from './InAppMessaging';
-export { Theme, ThemeProvider } from './theme';
+
+export {
+  BannerMessageProps,
+  CarouselMessageProps,
+  FullScreenMessageProps,
+  InAppMessageDisplay,
+  InAppMessagingProvider,
+  MessageComponents,
+  ModalMessageProps,
+  useInAppMessaging,
+  withInAppMessaging,
+} from './InAppMessaging';
+
+export { defaultDarkModeOverride, Theme, ThemeProvider } from './theme';
