@@ -36,7 +36,9 @@ export const useAutocomplete = ({
   const filteredOptions = React.useMemo(() => {
     const defaultFilter = (option: ComboBoxOption) => {
       const { label } = option;
-      return label?.includes(composedValue);
+      return label
+        ?.toLocaleLowerCase()
+        .includes(composedValue?.toLocaleLowerCase());
     };
     const filter = isCustomFiltering
       ? (option: ComboBoxOption) => optionFilter(option, composedValue)
