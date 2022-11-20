@@ -55,13 +55,13 @@ export type StrictTokens = ReactNativeTokens<'required'>;
 export type Tokens = ReactNativeTokens<'optional'>;
 
 /**
- * A Theme just needs a name, all other properties are optional.
+ * A custom Theme with all properties optional.
  */
 export interface Theme {
   /**
    * Custom component styles
    */
-  components?: Components<'input'>;
+  components?: Omit<Components<'input'>, 'divider' | 'tabs'>;
   /**
    * Component and component agnostic tokens.
    */

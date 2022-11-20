@@ -2,6 +2,8 @@ import { TextStyle, ViewProps, ViewStyle } from 'react-native';
 
 import { ButtonProps } from '../Button';
 
+type IndicatorPosition = 'top' | 'bottom';
+
 export interface TabsProps extends ViewProps {
   /**
    * @description
@@ -28,7 +30,7 @@ export interface TabsProps extends ViewProps {
    * @description
    * Sets the border and indicator of the tabs to be the top or bottom.
    */
-  indicatorPosition?: 'top' | 'bottom';
+  indicatorPosition?: IndicatorPosition;
 }
 
 export interface TabProps extends ButtonProps {
@@ -37,7 +39,7 @@ export interface TabProps extends ButtonProps {
    * Indicates if a Tab is currently selected
    */
   selected?: boolean;
-  indicatorPosition?: 'top' | 'bottom';
+  indicatorPosition?: IndicatorPosition;
 }
 
 export interface TabsStyles {
