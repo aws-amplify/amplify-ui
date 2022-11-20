@@ -1,5 +1,6 @@
 import { defaultTheme } from '@aws-amplify/ui';
 import { createTheme } from '../createTheme';
+import { StrictTokens } from '../types';
 
 describe('createTheme', () => {
   describe('without a base theme', () => {
@@ -66,7 +67,7 @@ describe('createTheme', () => {
     it('should resolve references in a functional component theme', () => {
       const { components } = createTheme({
         components: {
-          button(tokens) {
+          button(tokens: StrictTokens) {
             return {
               container: {
                 backgroundColor: tokens.colors.background.primary,
@@ -108,7 +109,7 @@ describe('createTheme', () => {
       const { components } = createTheme(
         {
           components: {
-            button(tokens) {
+            button(tokens: StrictTokens) {
               return {
                 container: {
                   // default value is a reference to colors.white

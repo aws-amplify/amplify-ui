@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { StrictTheme } from '../../theme';
+import { getLineHeight } from '../../utils';
 import { LabelStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): LabelStyles => {
@@ -11,8 +12,9 @@ export const getThemedStyles = (theme: StrictTheme): LabelStyles => {
 
   return StyleSheet.create({
     text: {
-      fontSize: fontSizes.medium,
+      fontSize: fontSizes.small,
       fontWeight: fontWeights.normal,
+      lineHeight: getLineHeight(fontSizes.small),
       ...components?.label?.text,
     },
     primary: {

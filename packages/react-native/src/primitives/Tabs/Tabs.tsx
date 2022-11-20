@@ -7,10 +7,10 @@ import { TabProps, TabsProps } from './types';
 
 export default function Tabs({
   children,
+  indicatorPosition = 'bottom',
   onChange,
   selectedIndex = 0,
   style,
-  indicatorPosition,
   ...rest
 }: TabsProps): JSX.Element {
   const theme = useTheme();

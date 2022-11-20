@@ -8,26 +8,35 @@ export const getDefaultStyle = ({
 }: StrictTheme): Required<DefaultContentStyle> =>
   StyleSheet.create({
     buttonPrimary: {
-      marginVertical: space.medium,
+      margin: space.medium,
     },
     buttonPrimaryLabel: {}, // themed value only
-    buttonSecondary: {
+    buttonSecondary: {}, // themed value only
+    buttonSecondaryLabel: {}, // themed value only
+    errorMessage: {
+      marginVertical: space.small,
+    },
+    errorMessageLabel: {}, // themed value only
+    fieldContainerStyle: {
+      paddingHorizontal: space.small,
+    }, // themed value only
+    fieldErrorStyle: {}, // themed value only
+    fieldLabelStyle: {}, // themed value only
+    fieldStyle: {}, // themed value only
+    footer: {}, // themed value only
+    formFields: {
+      paddingBottom: space.small,
+    },
+    header: {
+      marginVertical: space.small,
+    },
+    link: {
       marginVertical: space.xs,
       minWidth: '50%',
     },
-    buttonSecondaryContainer: {
+    linksContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'center',
     },
-    buttonSecondaryLabel: {}, // themed value only
-    errorMessage: { marginVertical: space.small },
-    errorMessageLabel: {}, // themed value only
-    fieldContainerStyle: {}, // themed value only
-    fieldErrorStyle: {}, // themed value only
-    fieldLabelStyle: {}, // themed value only
-    fieldStyle: {}, // themed value only
-    footer: { height: 24, width: '100%' },
-    formFields: { marginVertical: space.small },
-    header: { marginVertical: space.small },
   });

@@ -45,8 +45,8 @@ const SignIn: DefaultSignInComponent = ({
     };
     return {
       primary: { children: signInText, onPress: handleFormSubmit },
-      secondary: hideSignUp
-        ? forgotPassword
+      links: hideSignUp
+        ? [forgotPassword]
         : [forgotPassword, { children: signUpText, onPress: toSignUp }],
     };
   }, [

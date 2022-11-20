@@ -1313,8 +1313,8 @@ exports[`PhoneNumberField applies theming 1`] = `
           "borderWidth": 1,
           "flexDirection": "row",
           "lineHeight": 24,
-          "padding": 16,
-          "width": "100%",
+          "paddingHorizontal": 8,
+          "paddingVertical": 12,
         }
       }
       testID="amplify__text-field__input-container"
@@ -1324,9 +1324,12 @@ exports[`PhoneNumberField applies theming 1`] = `
         autoCapitalize="none"
         editable={true}
         keyboardType="phone-pad"
+        placeholderTextColor="hsl(210, 10%, 40%)"
+        selectionColor="hsl(210, 50%, 10%)"
         style={
           Array [
             Object {
+              "color": "hsl(210, 50%, 10%)",
               "flexGrow": 1,
               "fontSize": 16,
             },
@@ -1381,8 +1384,8 @@ exports[`PhoneNumberField does not render picker when dial codes are undefined 1
           "borderWidth": 1,
           "flexDirection": "row",
           "lineHeight": 24,
-          "padding": 16,
-          "width": "100%",
+          "paddingHorizontal": 8,
+          "paddingVertical": 12,
         }
       }
       testID="amplify__text-field__input-container"
@@ -1392,9 +1395,12 @@ exports[`PhoneNumberField does not render picker when dial codes are undefined 1
         autoCapitalize="none"
         editable={true}
         keyboardType="phone-pad"
+        placeholderTextColor="hsl(210, 10%, 40%)"
+        selectionColor="hsl(210, 50%, 10%)"
         style={
           Array [
             Object {
+              "color": "hsl(210, 50%, 10%)",
               "flexGrow": 1,
               "fontSize": 16,
             },
@@ -2721,8 +2727,8 @@ exports[`PhoneNumberField renders as expected 1`] = `
           "borderWidth": 1,
           "flexDirection": "row",
           "lineHeight": 24,
-          "padding": 16,
-          "width": "100%",
+          "paddingHorizontal": 8,
+          "paddingVertical": 12,
         }
       }
       testID="amplify__text-field__input-container"
@@ -2732,9 +2738,12 @@ exports[`PhoneNumberField renders as expected 1`] = `
         autoCapitalize="none"
         editable={true}
         keyboardType="phone-pad"
+        placeholderTextColor="hsl(210, 10%, 40%)"
+        selectionColor="hsl(210, 50%, 10%)"
         style={
           Array [
             Object {
+              "color": "hsl(210, 50%, 10%)",
               "flexGrow": 1,
               "fontSize": 16,
             },
@@ -4061,8 +4070,8 @@ exports[`PhoneNumberField renders as expected when default dial code is undefine
           "borderWidth": 1,
           "flexDirection": "row",
           "lineHeight": 24,
-          "padding": 16,
-          "width": "100%",
+          "paddingHorizontal": 8,
+          "paddingVertical": 12,
         }
       }
       testID="amplify__text-field__input-container"
@@ -4072,9 +4081,12 @@ exports[`PhoneNumberField renders as expected when default dial code is undefine
         autoCapitalize="none"
         editable={true}
         keyboardType="phone-pad"
+        placeholderTextColor="hsl(210, 10%, 40%)"
+        selectionColor="hsl(210, 50%, 10%)"
         style={
           Array [
             Object {
+              "color": "hsl(210, 50%, 10%)",
               "flexGrow": 1,
               "fontSize": 16,
             },
@@ -5402,8 +5414,8 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
           "flexDirection": "row",
           "lineHeight": 24,
           "opacity": 0.6,
-          "padding": 16,
-          "width": "100%",
+          "paddingHorizontal": 8,
+          "paddingVertical": 12,
         }
       }
       testID="amplify__text-field__input-container"
@@ -5413,9 +5425,12 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
         autoCapitalize="none"
         editable={false}
         keyboardType="phone-pad"
+        placeholderTextColor="hsl(210, 10%, 40%)"
+        selectionColor="hsl(210, 50%, 10%)"
         style={
           Array [
             Object {
+              "color": "hsl(210, 50%, 10%)",
               "flexGrow": 1,
               "fontSize": 16,
             },

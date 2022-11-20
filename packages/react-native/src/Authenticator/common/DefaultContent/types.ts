@@ -20,7 +20,6 @@ export interface DefaultContentStyle {
   buttonPrimary?: ViewStyle;
   buttonPrimaryLabel?: TextStyle;
   buttonSecondary?: ViewStyle;
-  buttonSecondaryContainer?: ViewStyle;
   buttonSecondaryLabel?: TextStyle;
   errorMessage?: ViewStyle;
   errorMessageLabel?: TextStyle;
@@ -31,6 +30,8 @@ export interface DefaultContentStyle {
   footer?: TextStyle;
   formFields?: ViewStyle;
   header?: TextStyle;
+  link?: ViewStyle;
+  linksContainer?: ViewStyle;
 }
 
 export type DefaultContentStyleProps = {
@@ -46,7 +47,8 @@ type AuthenticatorButtonProps = Omit<ButtonProps, 'children'> & {
 
 type DefaultButtons = {
   primary: AuthenticatorButtonProps;
-  secondary: AuthenticatorButtonProps | AuthenticatorButtonProps[];
+  secondary?: AuthenticatorButtonProps;
+  links?: AuthenticatorButtonProps[];
 };
 
 export type DefaultContentProps<

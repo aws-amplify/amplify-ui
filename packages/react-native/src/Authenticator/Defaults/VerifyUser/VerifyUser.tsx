@@ -37,11 +37,8 @@ const VerifyUser: DefaultVerifyUserComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: {
-        children: verifyText,
-        onPress: handleFormSubmit,
-      },
-      secondary: { children: skipText, onPress: skipVerification },
+      primary: { children: verifyText, onPress: handleFormSubmit },
+      links: [{ children: skipText, onPress: skipVerification }],
     }),
     [handleFormSubmit, skipText, skipVerification, verifyText]
   );

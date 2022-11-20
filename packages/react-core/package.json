@@ -35,8 +35,7 @@
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",
-    "react": ">= 16.14.0",
-    "react-dom": ">= 16.14.0"
+    "react": ">= 16.14.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.1",

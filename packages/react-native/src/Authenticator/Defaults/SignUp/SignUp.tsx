@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
-
 import {
+  DefaultContent,
   DefaultFooter,
   DefaultTextFormFields,
   DefaultHeader,
@@ -12,30 +11,20 @@ import { useFieldValues } from '../../hooks';
 
 import { DefaultSignUpComponent } from '../types';
 
-import { styles } from './style';
-
 const COMPONENT_NAME = 'SignUp';
 
-const {
-  getCreateAccountText,
-  getCreatingAccountText,
-  getSignInTabText,
-  getSignUpTabText,
-} = authenticatorTextUtil;
+const { getCreateAccountText, getCreatingAccountText, getSignInTabText } =
+  authenticatorTextUtil;
 
 const SignUp: DefaultSignUpComponent = ({
-  error,
   fields,
-  Footer,
-  FormFields,
-  Header,
   handleBlur,
   handleChange,
   handleSubmit,
   hideSignIn,
   isPending,
   toSignIn,
-  validationErrors,
+  ...rest
 }) => {
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -45,26 +34,34 @@ const SignUp: DefaultSignUpComponent = ({
     handleSubmit,
   });
 
+  const primaryButtonText = isPending
+    ? getCreatingAccountText()
+    : getCreateAccountText();
+  const secondaryButtonText = getSignInTabText();
+
+  const buttons = useMemo(
+    () => ({
+      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      links: hideSignIn
+        ? undefined
+        : [{ children: secondaryButtonText, onPress: toSignIn }],
+    }),
+    [
+      handleFormSubmit,
+      hideSignIn,
+      primaryButtonText,
+      secondaryButtonText,
+      toSignIn,
+    ]
+  );
+
   return (
-    <>
-      {hideSignIn ? null : (
-        <Tabs selectedIndex={1} style={styles.tabs}>
-          <Tab onPress={toSignIn}>{getSignInTabText()}</Tab>
-          <Tab>{getSignUpTabText()}</Tab>
-        </Tabs>
-      )}
-      <Header />
-      <FormFields
-        isPending={isPending}
-        fields={fieldsWithHandlers}
-        validationErrors={validationErrors}
-      />
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
-        {isPending ? getCreatingAccountText() : getCreateAccountText()}
-      </Button>
-      <Footer />
-    </>
+    <DefaultContent
+      {...rest}
+      buttons={buttons}
+      fields={fieldsWithHandlers}
+      isPending={isPending}
+    />
   );
 };
 
