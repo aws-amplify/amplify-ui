@@ -73,7 +73,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 16,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -325,7 +324,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 16,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -526,7 +524,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 16,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"
@@ -793,7 +790,6 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "padding": 16,
-            "width": "100%",
           }
         }
         testID="amplify__text-field__input-container"

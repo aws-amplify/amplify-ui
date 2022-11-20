@@ -144,16 +144,6 @@ export const getTypedField = ({
         return { ...acc, required: value as boolean };
       }
 
-      const isPhoneFieldType = type === 'phone';
-
-      if (isPhoneFieldType && key === 'dialCode') {
-        return { ...acc, defaultDialCode: value as string };
-      }
-
-      if (isPhoneFieldType && key === 'dialCodeList') {
-        return { ...acc, dialCodes: value as string[] };
-      }
-
       return { ...acc, [key]: value };
     },
     // initialize `acc` with field `name` and `type`
