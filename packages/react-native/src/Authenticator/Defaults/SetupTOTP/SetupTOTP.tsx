@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
+import { Text } from 'react-native';
 
 import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { icons } from '../../../assets';
-import { Button, ErrorMessage, IconButton } from '../../../primitives';
+import { Button, ErrorMessage } from '../../../primitives';
 
 import {
   DefaultFooter,
@@ -53,16 +51,13 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
   const [secretKey, setSecretKey] = useState<string | null>(null);
 
   const getSecretKey = useCallback(async () => {
-    if (secretKey) {
-      return;
-    }
     try {
       const newSecretKey = await getTotpSecretCode();
       setSecretKey(newSecretKey);
     } catch (error) {
       logger.error(error);
     }
-  }, [getTotpSecretCode, secretKey]);
+  }, [getTotpSecretCode]);
 
   useEffect(() => {
     if (!secretKey) {
@@ -70,27 +65,13 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
     }
   }, [getSecretKey, secretKey]);
 
-  const copyText = () => {
-    if (secretKey) {
-      Clipboard.setString(secretKey);
-    }
-  };
-
   return (
     <>
       <Header>{getSetupTOTPText()}</Header>
       {secretKey ? (
-        <View style={styles.secretKeyContainer}>
-          <Text style={styles.secretKeyText}>{secretKey}</Text>
-          <IconButton
-            color="teal"
-            iconStyle={styles.copyIcon}
-            onPress={copyText}
-            size={24}
-            source={icons.copy}
-            testID="amplify__copy-text-button"
-          />
-        </View>
+        <Text selectable style={styles.secretKeyText}>
+          {secretKey}
+        </Text>
       ) : null}
       <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
