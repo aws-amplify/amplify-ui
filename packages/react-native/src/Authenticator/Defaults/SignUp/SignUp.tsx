@@ -50,7 +50,7 @@ const SignUp: DefaultSignUpComponent = ({
       handleFormSubmit,
       hideSignIn,
       primaryButtonText,
-      secondaryButtontext,
+      secondaryButtonText,
       toSignIn,
     ]
   );
