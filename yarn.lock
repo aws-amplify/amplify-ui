@@ -8060,7 +8060,7 @@
     estree-walker "^2.0.2"
     source-map "^0.6.1"
 
-"@vue/compiler-dom@3.2.45", "@vue/compiler-dom@^3.2.19", "@vue/compiler-dom@^3.2.38":
+"@vue/compiler-dom@3.2.45", "@vue/compiler-dom@^3.2.19":
   version "3.2.45"
   resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.45.tgz#c43cc15e50da62ecc16a42f2622d25dc5fd97dce"
   integrity sha512-tyYeUEuKqqZO137WrZkpwfPCdiiIeXYCcJ8L4gWz9vqaxzIQRccTSwSWZ/Axx5YR2z+LvpUbmPNXxuBU45lyRw==
@@ -8068,7 +8068,15 @@
     "@vue/compiler-core" "3.2.45"
     "@vue/shared" "3.2.45"
 
-"@vue/compiler-sfc@3.2.45", "@vue/compiler-sfc@^3.0.5", "@vue/compiler-sfc@^3.2.38":
+"@vue/compiler-dom@^3.2.38":
+  version "3.2.44"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.44.tgz#0fac337a8a6b3cae586aa8cac62e418aa4c79a83"
+  integrity sha512-wPDR+gOn2Qi7SudPJ+gE62vuO/aKXIiIFALvHpztXmDdbAHGy3CDfmBgOGchTgTlSeDJHe9olEMkgOdmyXTjUg==
+  dependencies:
+    "@vue/compiler-core" "3.2.44"
+    "@vue/shared" "3.2.44"
+
+"@vue/compiler-sfc@3.2.45":
   version "3.2.45"
   resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.2.45.tgz#7f7989cc04ec9e7c55acd406827a2c4e96872c70"
   integrity sha512-1jXDuWah1ggsnSAOGsec8cFjT/K6TMZ0sPL3o3d84Ft2AYZi2jWJgRMjw4iaK0rBfA89L5gw427H4n1RZQBu6Q==
@@ -8079,6 +8087,22 @@
     "@vue/compiler-ssr" "3.2.45"
     "@vue/reactivity-transform" "3.2.45"
     "@vue/shared" "3.2.45"
+    estree-walker "^2.0.2"
+    magic-string "^0.25.7"
+    postcss "^8.1.10"
+    source-map "^0.6.1"
+
+"@vue/compiler-sfc@^3.0.5", "@vue/compiler-sfc@^3.2.38":
+  version "3.2.44"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.2.44.tgz#3cc87afdd39d1d9294b45bdd3402ef405d2b0938"
+  integrity sha512-8cFZcUWlrtnfM/GlRwYJdlfgbEOy0OZ/osLDU3h/wJu24HuYAc7QIML1USaKqiZzkjOaTd4y8mvYvcWXq3o5dA==
+  dependencies:
+    "@babel/parser" "^7.16.4"
+    "@vue/compiler-core" "3.2.44"
+    "@vue/compiler-dom" "3.2.44"
+    "@vue/compiler-ssr" "3.2.44"
+    "@vue/reactivity-transform" "3.2.44"
+    "@vue/shared" "3.2.44"
     estree-walker "^2.0.2"
     magic-string "^0.25.7"
     postcss "^8.1.10"
@@ -12074,7 +12098,7 @@ csstype@^2.5.7, csstype@^2.6.8:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.21.tgz#2efb85b7cc55c80017c66a5ad7cbd931fda3a90e"
   integrity sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==
 
-csstype@^3.0.2:
+csstype@^3.0.2, csstype@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
