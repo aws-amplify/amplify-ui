@@ -17,6 +17,7 @@ import {
 import { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
 
 export interface DefaultContentStyle {
+  body?: TextStyle;
   buttonPrimary?: ViewStyle;
   buttonPrimaryLabel?: TextStyle;
   buttonSecondary?: ViewStyle;
@@ -61,7 +62,7 @@ export type DefaultContentProps<
   'error' | 'Footer' | 'isPending'
 > & {
   buttons: DefaultButtons;
-  body?: React.ReactNode;
+  body?: React.ReactNode | string;
   fields: FieldsType[];
   headerText?: string;
   Footer: AuthenticatorFooterComponent<{ style?: StyleProp<TextStyle> }>;

@@ -1,9 +1,13 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { Logger } from 'aws-amplify';
 
 import { SetupTOTP } from '..';
 import { GetTotpSecretCode } from '@aws-amplify/ui-react-core/dist/types/Authenticator/hooks';
+
+// use empty mockImplementation to turn off console output
+const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
 
 const code = {
   name: 'code',
@@ -39,6 +43,10 @@ const SECRET_KEY = 'secretKey';
 const mockGetTotpSecretCode = jest.fn().mockResolvedValue(SECRET_KEY);
 
 describe('SetupTOTP', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders as expected', async () => {
     const { toJSON, getAllByRole, getByText } = render(
       <SetupTOTP {...props} />
@@ -95,13 +103,27 @@ describe('SetupTOTP', () => {
       expect(mockGetTotpSecretCode).toHaveBeenCalledTimes(1);
       expect(queryByText(SECRET_KEY)).toBeDefined();
       expect(queryByText(SECRET_KEY)?.props.selectable).toBe(true);
+      expect(errorSpy).not.toHaveBeenCalled();
 
       rerender(
         <SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />
       );
       await waitFor(() => {
         expect(mockGetTotpSecretCode).toHaveBeenCalledTimes(1);
+        expect(errorSpy).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  it('handles secret code generation errors as expected', async () => {
+    mockGetTotpSecretCode.mockImplementationOnce(() => {
+      throw new Error('Mock Error');
+    });
+
+    render(<SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />);
+    await waitFor(() => {
+      expect(mockGetTotpSecretCode).toHaveBeenCalledTimes(1);
+      expect(errorSpy).toHaveBeenCalledTimes(1);
     });
   });
 });

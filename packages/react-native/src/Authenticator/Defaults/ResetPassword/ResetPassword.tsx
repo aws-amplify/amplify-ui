@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { Button, ErrorMessage } from '../../../primitives';
 import {
+  DefaultContent,
   DefaultFooter,
   DefaultTextFormFields,
   DefaultHeader,
@@ -10,7 +10,6 @@ import {
 import { useFieldValues } from '../../hooks';
 
 import { DefaultResetPasswordComponent } from '../types';
-import { styles } from './styles';
 
 const COMPONENT_NAME = 'ResetPassword';
 const {
@@ -21,16 +20,13 @@ const {
 } = authenticatorTextUtil;
 
 const ResetPassword: DefaultResetPasswordComponent = ({
-  error,
   fields,
-  Footer,
-  FormFields,
   handleBlur,
   handleChange,
   handleSubmit,
-  Header,
   isPending,
   toSignIn,
+  ...rest
 }) => {
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -40,23 +36,26 @@ const ResetPassword: DefaultResetPasswordComponent = ({
     handleSubmit,
   });
 
+  const headerText = getResetYourPasswordText();
+  const primaryButtonText = isPending ? getSendingText() : getSendCodeText();
+  const secondaryButtonText = getBackToSignInText();
+
+  const buttons = useMemo(
+    () => ({
+      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      links: [{ children: secondaryButtonText, onPress: toSignIn }],
+    }),
+    [handleFormSubmit, primaryButtonText, secondaryButtonText, toSignIn]
+  );
+
   return (
-    <>
-      <Header>{getResetYourPasswordText()}</Header>
-      <FormFields fields={fieldsWithHandlers} isPending={isPending} />
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        variant="primary"
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-      >
-        {isPending ? getSendingText() : getSendCodeText()}
-      </Button>
-      <Button onPress={toSignIn} variant="link" style={styles.buttonSecondary}>
-        {getBackToSignInText()}
-      </Button>
-      <Footer />
-    </>
+    <DefaultContent
+      {...rest}
+      buttons={buttons}
+      headerText={headerText}
+      fields={fieldsWithHandlers}
+      isPending={isPending}
+    />
   );
 };
 

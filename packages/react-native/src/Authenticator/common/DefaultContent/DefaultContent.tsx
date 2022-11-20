@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo } from 'react';
 import { View } from 'react-native';
 
-import { Button, ErrorMessage } from '../../../primitives';
+import { Button, Label, ErrorMessage } from '../../../primitives';
 import { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
 import { StrictTheme, useTheme } from '../../../theme';
 
@@ -49,7 +49,13 @@ export default function DefaultContent<
       ) : (
         <Header />
       )}
-      {body ? body : null}
+      {body ? (
+        typeof body === 'string' ? (
+          <Label style={themedStyles.body}>{body}</Label>
+        ) : (
+          body
+        )
+      ) : null}
       <FormFields
         fieldContainerStyle={themedStyles.fieldContainerStyle}
         fieldErrorStyle={themedStyles.fieldErrorStyle}
