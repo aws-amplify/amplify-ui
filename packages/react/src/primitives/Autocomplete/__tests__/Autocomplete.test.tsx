@@ -237,7 +237,7 @@ describe('Autocomplete: ', () => {
     );
 
     userEvent.keyboard('{ArrowDown}');
-    // expect(textInput).toHaveFocus();
+    expect(textInput).toHaveFocus();
     expect(appleOption).not.toHaveClass(
       classNameModifier(ComponentClassNames.AutocompleteMenuOption, 'active')
     );
