@@ -255,6 +255,21 @@ describe('Autocomplete: ', () => {
     );
   });
 
+  it('should be case insensitive filtering', async () => {
+    render(<Autocomplete label={label} options={options} />);
+
+    const textInput = await screen.findByRole('combobox');
+    userEvent.type(textInput, 'ap');
+    let optionElements = await screen.findAllByRole('option');
+    expect(optionElements).toHaveLength(1);
+    expect(optionElements[0]).toHaveTextContent('apple');
+    userEvent.clear(textInput);
+    userEvent.type(textInput, 'AP');
+    optionElements = await screen.findAllByRole('option');
+    expect(optionElements).toHaveLength(1);
+    expect(optionElements[0]).toHaveTextContent('apple');
+  });
+
   it('should be able to apply custom filtering', async () => {
     const optionFilter = jest.fn();
     render(
