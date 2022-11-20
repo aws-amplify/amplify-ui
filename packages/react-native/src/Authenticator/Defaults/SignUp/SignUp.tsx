@@ -37,7 +37,7 @@ const SignUp: DefaultSignUpComponent = ({
   const primaryButtonText = isPending
     ? getCreatingAccountText()
     : getCreateAccountText();
-  const secondaryButtontext = getSignInTabText();
+  const secondaryButtonText = getSignInTabText();
 
   const buttons = useMemo(
     () => ({
