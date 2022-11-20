@@ -53,6 +53,8 @@ export default function TextField({
           accessible={accessible}
           autoCapitalize={autoCapitalize}
           editable={!disabled}
+          placeholderTextColor={theme.tokens.colors.font.tertiary}
+          selectionColor={theme.tokens.colors.font.primary}
           style={[themedStyle.input, fieldStyle]}
         />
         {endAccessory ?? null}

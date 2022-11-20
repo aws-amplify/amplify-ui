@@ -196,8 +196,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -205,9 +206,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -225,8 +225,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -238,9 +238,12 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Username"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -275,8 +278,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -284,9 +288,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -304,8 +307,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -317,10 +320,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -372,7 +378,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -406,8 +414,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -415,9 +424,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -435,8 +443,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -448,10 +456,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Confirm Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -503,7 +514,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -597,8 +610,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 16,
+                "fontSize": 14,
                 "fontWeight": "400",
+                "lineHeight": 21,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -606,9 +620,8 @@ Array [
               Array [
                 Object {
                   "color": "hsl(210, 25%, 25%)",
-                  "fontSize": 16,
                   "lineHeight": 21,
-                  "paddingVertical": 12,
+                  "paddingVertical": 8,
                 },
                 undefined,
               ],
@@ -626,8 +639,8 @@ Array [
               "borderWidth": 1,
               "flexDirection": "row",
               "lineHeight": 24,
-              "padding": 16,
-              "width": "100%",
+              "paddingHorizontal": 8,
+              "paddingVertical": 12,
             }
           }
           testID="amplify__text-field__input-container"
@@ -640,9 +653,12 @@ Array [
             onBlur={[Function]}
             onChangeText={[Function]}
             placeholder="Phone"
+            placeholderTextColor="hsl(210, 10%, 40%)"
+            selectionColor="hsl(210, 50%, 10%)"
             style={
               Array [
                 Object {
+                  "color": "hsl(210, 50%, 10%)",
                   "flexGrow": 1,
                   "fontSize": 16,
                 },
@@ -734,8 +750,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -743,9 +760,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -763,8 +779,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -776,9 +792,12 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Username"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -813,8 +832,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -822,9 +842,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -842,8 +861,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -855,10 +874,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -910,7 +932,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -944,8 +968,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -953,9 +978,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -973,8 +997,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -986,10 +1010,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Confirm Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -1041,7 +1068,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -1135,8 +1164,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 16,
+                "fontSize": 14,
                 "fontWeight": "400",
+                "lineHeight": 21,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -1144,9 +1174,8 @@ Array [
               Array [
                 Object {
                   "color": "hsl(210, 25%, 25%)",
-                  "fontSize": 16,
                   "lineHeight": 21,
-                  "paddingVertical": 12,
+                  "paddingVertical": 8,
                 },
                 undefined,
               ],
@@ -1164,8 +1193,8 @@ Array [
               "borderWidth": 1,
               "flexDirection": "row",
               "lineHeight": 24,
-              "padding": 16,
-              "width": "100%",
+              "paddingHorizontal": 8,
+              "paddingVertical": 12,
             }
           }
           testID="amplify__text-field__input-container"
@@ -1178,9 +1207,12 @@ Array [
             onBlur={[Function]}
             onChangeText={[Function]}
             placeholder="Phone"
+            placeholderTextColor="hsl(210, 10%, 40%)"
+            selectionColor="hsl(210, 50%, 10%)"
             style={
               Array [
                 Object {
+                  "color": "hsl(210, 50%, 10%)",
                   "flexGrow": 1,
                   "fontSize": 16,
                 },
@@ -1443,8 +1475,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -1452,9 +1485,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -1473,8 +1505,8 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "opacity": 0.6,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -1486,9 +1518,12 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Username"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -1523,8 +1558,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -1532,9 +1568,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -1553,8 +1588,8 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "opacity": 0.6,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -1566,10 +1601,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -1623,7 +1661,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -1657,8 +1697,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -1666,9 +1707,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -1687,8 +1727,8 @@ Array [
             "flexDirection": "row",
             "lineHeight": 24,
             "opacity": 0.6,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -1700,10 +1740,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Confirm Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -1757,7 +1800,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -1851,8 +1896,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 16,
+                "fontSize": 14,
                 "fontWeight": "400",
+                "lineHeight": 21,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -1860,9 +1906,8 @@ Array [
               Array [
                 Object {
                   "color": "hsl(210, 25%, 25%)",
-                  "fontSize": 16,
                   "lineHeight": 21,
-                  "paddingVertical": 12,
+                  "paddingVertical": 8,
                 },
                 undefined,
               ],
@@ -1881,8 +1926,8 @@ Array [
               "flexDirection": "row",
               "lineHeight": 24,
               "opacity": 0.6,
-              "padding": 16,
-              "width": "100%",
+              "paddingHorizontal": 8,
+              "paddingVertical": 12,
             }
           }
           testID="amplify__text-field__input-container"
@@ -1895,9 +1940,12 @@ Array [
             onBlur={[Function]}
             onChangeText={[Function]}
             placeholder="Phone"
+            placeholderTextColor="hsl(210, 10%, 40%)"
+            selectionColor="hsl(210, 50%, 10%)"
             style={
               Array [
                 Object {
+                  "color": "hsl(210, 50%, 10%)",
                   "flexGrow": 1,
                   "fontSize": 16,
                 },
@@ -2160,8 +2208,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -2169,9 +2218,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -2189,8 +2237,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -2202,9 +2250,12 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Username"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -2239,8 +2290,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -2248,9 +2300,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -2268,8 +2319,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -2281,10 +2332,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -2336,7 +2390,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -2370,8 +2426,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -2379,9 +2436,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -2399,8 +2455,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -2412,10 +2468,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Confirm Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -2467,7 +2526,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -2561,8 +2622,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 16,
+                "fontSize": 14,
                 "fontWeight": "400",
+                "lineHeight": 21,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -2570,9 +2632,8 @@ Array [
               Array [
                 Object {
                   "color": "hsl(210, 25%, 25%)",
-                  "fontSize": 16,
                   "lineHeight": 21,
-                  "paddingVertical": 12,
+                  "paddingVertical": 8,
                 },
                 undefined,
               ],
@@ -2590,8 +2651,8 @@ Array [
               "borderWidth": 1,
               "flexDirection": "row",
               "lineHeight": 24,
-              "padding": 16,
-              "width": "100%",
+              "paddingHorizontal": 8,
+              "paddingVertical": 12,
             }
           }
           testID="amplify__text-field__input-container"
@@ -2604,9 +2665,12 @@ Array [
             onBlur={[Function]}
             onChangeText={[Function]}
             placeholder="Phone"
+            placeholderTextColor="hsl(210, 10%, 40%)"
+            selectionColor="hsl(210, 50%, 10%)"
             style={
               Array [
                 Object {
+                  "color": "hsl(210, 50%, 10%)",
                   "flexGrow": 1,
                   "fontSize": 16,
                 },
@@ -2920,8 +2984,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -2929,9 +2994,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -2949,8 +3013,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -2962,9 +3026,12 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Username"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -2999,8 +3066,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -3008,9 +3076,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -3028,8 +3095,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -3041,10 +3108,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -3096,7 +3166,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -3130,8 +3202,9 @@ Array [
         style={
           Array [
             Object {
-              "fontSize": 16,
+              "fontSize": 14,
               "fontWeight": "400",
+              "lineHeight": 21,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
@@ -3139,9 +3212,8 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "fontSize": 16,
                 "lineHeight": 21,
-                "paddingVertical": 12,
+                "paddingVertical": 8,
               },
               undefined,
             ],
@@ -3159,8 +3231,8 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "lineHeight": 24,
-            "padding": 16,
-            "width": "100%",
+            "paddingHorizontal": 8,
+            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
@@ -3172,10 +3244,13 @@ Array [
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Confirm Password"
+          placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
+                "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
               },
@@ -3227,7 +3302,9 @@ Array [
                   "width": 16,
                 },
                 Array [
-                  Object {},
+                  Object {
+                    "tintColor": "hsl(210, 10%, 40%)",
+                  },
                   undefined,
                 ],
               ]
@@ -3321,8 +3398,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 16,
+                "fontSize": 14,
                 "fontWeight": "400",
+                "lineHeight": 21,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -3330,9 +3408,8 @@ Array [
               Array [
                 Object {
                   "color": "hsl(210, 25%, 25%)",
-                  "fontSize": 16,
                   "lineHeight": 21,
-                  "paddingVertical": 12,
+                  "paddingVertical": 8,
                 },
                 undefined,
               ],
@@ -3350,8 +3427,8 @@ Array [
               "borderWidth": 1,
               "flexDirection": "row",
               "lineHeight": 24,
-              "padding": 16,
-              "width": "100%",
+              "paddingHorizontal": 8,
+              "paddingVertical": 12,
             }
           }
           testID="amplify__text-field__input-container"
@@ -3364,9 +3441,12 @@ Array [
             onBlur={[Function]}
             onChangeText={[Function]}
             placeholder="Phone"
+            placeholderTextColor="hsl(210, 10%, 40%)"
+            selectionColor="hsl(210, 50%, 10%)"
             style={
               Array [
                 Object {
+                  "color": "hsl(210, 50%, 10%)",
                   "flexGrow": 1,
                   "fontSize": 16,
                 },
