@@ -3,7 +3,6 @@ import { ReactNativeTokens } from '@aws-amplify/ui';
 import {
   ButtonStyles,
   CheckboxStyles,
-  DividerStyles,
   ErrorMessageStyles,
   HeadingStyles,
   IconStyles,
@@ -13,7 +12,6 @@ import {
   PhoneNumberFieldStyles,
   RadioStyles,
   RadioGroupStyles,
-  TabsStyles,
   TextFieldStyles,
 } from '../primitives';
 
@@ -29,7 +27,6 @@ type ComponentTheme<ComponentType, Output> = Output extends 'output'
 export type Components<Output> = Record<string, object> & {
   button?: ComponentTheme<ButtonStyles, Output>;
   checkbox?: ComponentTheme<CheckboxStyles, Output>;
-  divider?: ComponentTheme<DividerStyles, Output>;
   errorMessage?: ComponentTheme<ErrorMessageStyles, Output>;
   heading?: ComponentTheme<HeadingStyles, Output>;
   icon?: ComponentTheme<IconStyles, Output>;
@@ -39,7 +36,6 @@ export type Components<Output> = Record<string, object> & {
   phoneNumberField?: ComponentTheme<PhoneNumberFieldStyles, Output>;
   radio?: ComponentTheme<RadioStyles, Output>;
   radioGroup?: ComponentTheme<RadioGroupStyles, Output>;
-  tabs?: ComponentTheme<TabsStyles, Output>;
   textField?: ComponentTheme<TextFieldStyles, Output>;
 };
 

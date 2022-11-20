@@ -8,7 +8,6 @@ export const getThemedStyles = (
   indicatorPosition?: TabsProps['indicatorPosition']
 ): TabsStyles => {
   const {
-    components,
     tokens: { colors, fontSizes, fontWeights, opacities, space, borderWidths },
   } = theme;
 
@@ -28,12 +27,10 @@ export const getThemedStyles = (
   return StyleSheet.create({
     readonly: {
       opacity: opacities[100],
-      ...components?.tabs?.readonly,
     },
     tabList: {
       flexDirection: 'row',
       width: '100%',
-      ...components?.tabs?.tabList,
     },
     tab: {
       backgroundColor: colors.transparent,
@@ -44,19 +41,16 @@ export const getThemedStyles = (
       paddingHorizontal: space.medium,
       borderWidth: 0,
       ...tabBorderStyles,
-      ...components?.tabs?.tab,
     },
     tabText: {
       color: colors.font.secondary,
       fontSize: fontSizes.medium,
       fontWeight: fontWeights.bold,
-      ...components?.tabs?.tabText,
     },
     selected: {
       backgroundColor: colors.background.primary,
       color: colors.brand.primary[80],
       ...selectedTabBorderStyles,
-      ...components?.tabs?.selected,
     },
   });
 };
