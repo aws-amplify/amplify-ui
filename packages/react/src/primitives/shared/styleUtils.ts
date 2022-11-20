@@ -18,6 +18,7 @@ import { useTheme } from '../../hooks';
 import { isEmptyString, isNullOrEmptyString } from './utils';
 import { FlexContainerStyleProps } from '../types/flex';
 import { ThemeStylePropKey } from '../types/theme';
+import { WebTheme } from '@aws-amplify/ui';
 
 export const isSpanPrimitiveValue = (
   spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
@@ -86,6 +87,7 @@ interface ConvertStylePropsToStyleObjParams {
   style?: React.CSSProperties;
   breakpoint: Breakpoint;
   breakpoints: Breakpoints;
+  tokens: WebTheme['tokens'];
 }
 export interface ConvertStylePropsToStyleObj {
   (params: ConvertStylePropsToStyleObjParams): {
@@ -104,6 +106,7 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   style = {},
   breakpoint,
   breakpoints,
+  tokens,
 }) => {
   const nonStyleProps = {};
   Object.keys(props)
@@ -122,6 +125,7 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
             breakpoint,
             breakpoints,
             propKey,
+            tokens,
           }),
         };
       }
@@ -138,6 +142,7 @@ export const useStyles = (
 } => {
   const {
     breakpoints: { values: breakpoints, defaultBreakpoint },
+    tokens,
   } = useTheme();
 
   const breakpoint = useBreakpoint({
@@ -154,8 +159,9 @@ export const useStyles = (
         style,
         breakpoint,
         breakpoints,
+        tokens,
       }),
-    [propStyles, style, breakpoints, breakpoint]
+    [propStyles, style, breakpoints, breakpoint, tokens]
   );
 };
 

@@ -1,116 +1,98 @@
-import {
-  AlignItemsValue,
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderRadiusValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  JustifyContentValue,
-  SpaceValue,
-  StrokeLinecapValue,
-  TextAlignValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 import { TypographyTokens } from '../types/typography';
 
-interface BaseDropZoneTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-}
+type BaseDropZoneTokens<OutputType> = DesignTokenProperties<
+  | 'backgroundColor'
+  | 'borderWidth'
+  | 'borderStyle'
+  | 'borderColor'
+  | 'borderRadius',
+  OutputType
+>
 
-interface DropZoneTokens extends BaseDropZoneTokens {
-  gap: DesignToken<SpaceValue>;
-  paddingInline: DesignToken<SpaceValue>;
-  paddingBlock: DesignToken<SpaceValue>;
-  textAlign: DesignToken<TextAlignValue>;
+export interface FileUploaderTokens<OutputType extends OutputVariantKey> {
+  dropzone: DesignTokenProperties<
+    | 'gap'
+    | 'paddingBlock'
+    | 'paddingInline'
+    | 'textAlign'
+  > & BaseDropZoneTokens<OutputType> & {
+    _active: BaseDropZoneTokens<OutputType>;
 
-  _active: BaseDropZoneTokens;
+    icon: DesignTokenProperties<
+      | 'fontSize'
+      | 'color',
+      OutputType
+    >;
 
-  icon: {
-    fontSize: DesignToken<FontSizeValue>;
-    color: DesignToken<ColorValue>;
+    text: TypographyTokens<OutputType>;
   };
+  
+  file: DesignTokenProperties<
+    | 'alignItems'
+    | 'backgroundColor'
+    | 'borderColor'
+    | 'borderRadius'
+    | 'borderStyle'
+    | 'borderWidth'
+    | 'gap'
+    | 'paddingBlock'
+    | 'paddingInline',
+    OutputType
+  > & {
 
-  text: TypographyTokens;
-}
-
-interface FileNameTokens extends TypographyTokens {}
-
-interface FileSizeTokens extends TypographyTokens {}
-
-interface FileImageTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  color: DesignToken<ColorValue>;
-  height: DesignToken<SpaceValue>;
-  width: DesignToken<SpaceValue>;
-}
-
-interface FileUploaderFileTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  paddingInline: DesignToken<SpaceValue>;
-  paddingBlock: DesignToken<SpaceValue>;
-  gap: DesignToken<SpaceValue>;
-  alignItems: DesignToken<AlignItemsValue>;
-
-  name: FileNameTokens;
-  size: FileSizeTokens;
-  image: FileImageTokens;
-}
-
-interface FileUploaderLoaderTokens {
-  strokeWidth: DesignToken<SpaceValue>;
-  strokeFilled: DesignToken<ColorValue>;
-  strokeEmpty: DesignToken<ColorValue>;
-  strokeLinecap: DesignToken<StrokeLinecapValue>;
-}
-
-interface FileUploaderPreviewerTokens {
-  maxHeight: DesignToken<SpaceValue>;
-  maxWidth: DesignToken<SpaceValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  paddingInline: DesignToken<SpaceValue>;
-  paddingBlock: DesignToken<SpaceValue>;
-
-  text: TypographyTokens;
-
-  body: {
-    gap: DesignToken<SpaceValue>;
-    paddingInline: DesignToken<SpaceValue>;
-    paddingBlock: DesignToken<SpaceValue>;
+    name: TypographyTokens<OutputType>;
+    size: TypographyTokens<OutputType>;
+    image: DesignTokenProperties<
+      | 'backgroundColor'
+      | 'borderRadius'
+      | 'color'
+      | 'height'
+      | 'width',
+      OutputType
+    >;
   };
+  loader: DesignTokenProperties<
+    | 'strokeWidth'
+    | 'strokeFilled'
+    | 'strokeEmpty'
+    | 'strokeLinecap',
+    OutputType
+  >;
+  previewer: DesignTokenProperties<
+    | 'backgroundColor'
+    | 'borderColor'
+    | 'borderRadius'
+    | 'borderStyle'
+    | 'borderWidth'
+    | 'maxHeight'
+    | 'maxWidth'
+    | 'paddingBlock'
+    | 'paddingInline',
+    OutputType
+  > & {
+    text: TypographyTokens<OutputType>;
 
-  footer: {
-    paddingInline: DesignToken<SpaceValue>;
-    paddingBlock: DesignToken<SpaceValue>;
-    justifyContent: DesignToken<JustifyContentValue>;
-    borderWidth: DesignToken<BorderWidthValue>;
-    borderColor: DesignToken<BorderColorValue>;
-    borderStyle: DesignToken<BorderStyleValue>;
+    body: DesignTokenProperties<
+      | 'gap'
+      | 'paddingInline'
+      | 'paddingBlock',
+      OutputType
+    >;
+
+    footer: DesignTokenProperties<
+      | 'borderColor'
+      | 'borderStyle'
+      | 'borderWidth'
+      | 'justifyContent'
+      | 'paddingBlock'
+      | 'paddingInline',
+      OutputType
+    >;
   };
 }
 
-export interface FileUploaderTokens {
-  dropzone: DropZoneTokens;
-  file: FileUploaderFileTokens;
-  loader: FileUploaderLoaderTokens;
-  previewer: FileUploaderPreviewerTokens;
-}
-
-export const fileuploader: FileUploaderTokens = {
+export const fileuploader: Required<FileUploaderTokens<'default'>> = {
   dropzone: {
     backgroundColor: { value: '{colors.background.primary}' },
     borderRadius: { value: '{radii.small}' },

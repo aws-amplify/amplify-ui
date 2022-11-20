@@ -1,30 +1,26 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderRadiusValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  BoxShadowValue,
-  DesignToken,
-  SpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface CardVariationTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-}
+type CardVariationStyleKey =
+  | 'backgroundColor'
+  | 'borderRadius'
+  | 'borderWidth'
+  | 'borderStyle'
+  | 'borderColor'
+  | 'boxShadow';
 
-export type CardTokens = CardVariationTokens & {
-  padding: DesignToken<SpaceValue>;
-  outlined: CardVariationTokens;
-  elevated: CardVariationTokens;
-};
+type CardVariationTokens<OutputType> = DesignTokenProperties<
+  CardVariationStyleKey,
+  OutputType
+>;
 
-export const card: CardTokens = {
+export type CardTokens<OutputType extends OutputVariantKey> =
+  CardVariationTokens<OutputType> &
+    DesignTokenProperties<'padding', OutputType> & {
+      elevated?: CardVariationTokens<OutputType>;
+      outlined?: CardVariationTokens<OutputType>;
+    };
+
+export const card: Required<CardTokens<'default'>> = {
   backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.xs.value}' },
   borderWidth: { value: '0' },

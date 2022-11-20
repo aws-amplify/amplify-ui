@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldErrors renders as expected 1`] = `
+Array [
+  <Text>
+    error 1
+  </Text>,
+  <Text>
+    error 2
+  </Text>,
+]
+`;
+
+exports[`FieldErrors renders as expected with no errors 1`] = `null`;

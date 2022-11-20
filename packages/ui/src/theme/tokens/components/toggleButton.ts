@@ -1,143 +1,64 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderWidthValue,
-  BoxShadowValue,
-  ColorValue,
-  DesignToken,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface ToggleButtonHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-interface ToggleButtonActiveTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-interface ToggleButtonFocusTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-}
+type ToggleButtonStateTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'color',
+  Output
+>;
 
-interface ToggleButtonDisabledTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-}
+export type ToggleButtonTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'borderColor' | 'color', Output> & {
+    _hover?: DesignTokenProperties<'backgroundColor', Output>;
+    _focus?: DesignTokenProperties<'borderColor' | 'color', Output>;
+    _active?: DesignTokenProperties<'backgroundColor', Output>;
+    _disabled?: DesignTokenProperties<
+      'backgroundColor' | 'borderColor' | 'color',
+      Output
+    >;
+    _pressed?: DesignTokenProperties<
+      'backgroundColor' | 'borderColor' | 'color',
+      Output
+    > & {
+      _hover?: DesignTokenProperties<'backgroundColor', Output>;
+    };
+    primary?: DesignTokenProperties<
+      'backgroundColor' | 'borderWidth',
+      Output
+    > & {
+      _focus?: DesignTokenProperties<
+        'backgroundColor' | 'borderColor' | 'boxShadow' | 'color',
+        Output
+      >;
+      _hover?: DesignTokenProperties<'backgroundColor' | 'color', Output>;
+      _disabled?: DesignTokenProperties<
+        'backgroundColor' | 'borderColor' | 'color',
+        Output
+      >;
+      _pressed?: DesignTokenProperties<
+        'backgroundColor' | 'borderColor' | 'color',
+        Output
+      > & {
+        _focus?: DesignTokenProperties<
+          'backgroundColor' | 'borderColor' | 'color',
+          Output
+        >;
+        _hover?: DesignTokenProperties<
+          'backgroundColor' | 'borderColor' | 'boxShadow' | 'color',
+          Output
+        >;
+      };
+    };
+    link?: DesignTokenProperties<'backgroundColor' | 'color'> & {
+      _hover?: ToggleButtonStateTokens<Output>;
+      _focus?: ToggleButtonStateTokens<Output>;
+      _disabled?: ToggleButtonStateTokens<Output>;
+      _pressed?: ToggleButtonStateTokens<Output> & {
+        _hover?: ToggleButtonStateTokens<Output>;
+        _focus?: ToggleButtonStateTokens<Output>;
+      };
+    };
+  };
 
-interface ToggleButtonPressedTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  _hover: ToggleButtonPressedHoverTokens;
-}
-
-interface ToggleButtonPressedHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-
-interface ToggleButtonPrimaryTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  _focus: ToggleButtonPrimaryFocusTokens;
-  _hover: ToggleButtonPrimaryHoverTokens;
-  _disabled: ToggleButtonPrimaryDisabledTokens;
-  _pressed: ToggleButtonPrimaryPressedTokens;
-}
-interface ToggleButtonPrimaryFocusTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-  color: DesignToken<ColorValue>;
-}
-
-interface ToggleButtonPrimaryHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
-
-interface ToggleButtonPrimaryDisabledTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
-
-interface ToggleButtonPrimaryDisabledTokens {
-  color: DesignToken<ColorValue>;
-}
-
-interface ToggleButtonPrimaryPressedTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-  _focus: TogglButtonPrimaryPressedFocusTokens;
-  _hover: TogglButtonPrimaryPressedHoverTokens;
-}
-
-interface TogglButtonPrimaryPressedFocusTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-}
-interface TogglButtonPrimaryPressedHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-  color: DesignToken<ColorValue>;
-}
-
-interface ToggleButtonLinkTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-  _hover: ToggleButtonLinkHoverTokens;
-  _focus: ToggleButtonLinkFocusTokens;
-  _disabled: ToggleButtonLinkDisabledTokens;
-  _pressed: ToggleButtonLinkPressedTokens;
-}
-interface ToggleButtonLinkHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
-
-interface ToggleButtonLinkFocusTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
-
-interface ToggleButtonLinkDisabledTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
-
-interface ToggleButtonLinkPressedTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-  _focus: ToggleButtonLinkPressedFocusTokens;
-  _hover: ToggleButtonLinkPressedHoverTokens;
-}
-
-interface ToggleButtonLinkPressedFocusTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-
-interface ToggleButtonLinkPressedHoverTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-
-export interface ToggleButtonTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  color: DesignToken<ColorValue>;
-  _hover: ToggleButtonHoverTokens;
-  _focus: ToggleButtonFocusTokens;
-  _active: ToggleButtonActiveTokens;
-  _disabled: ToggleButtonDisabledTokens;
-  _pressed: ToggleButtonPressedTokens;
-  primary: ToggleButtonPrimaryTokens;
-  link: ToggleButtonLinkTokens;
-}
-
-export const togglebutton: ToggleButtonTokens = {
+export const togglebutton: Required<ToggleButtonTokens<'default'>> = {
   borderColor: { value: '{colors.border.primary.value}' },
   color: { value: '{colors.font.primary.value}' },
   _hover: {

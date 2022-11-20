@@ -37,6 +37,14 @@ export interface AmplifyUser extends CognitoUser {
 export interface CognitoUserAmplify extends AmplifyUser {}
 
 /**
+ * Cognito user contact method types that have not been verified as valid
+ */
+export enum UnverifiedContactMethodType {
+  Email = 'email',
+  PhoneNumber = 'phone_number',
+}
+
+/**
  * Cognito user contact methods that have not been verified as valid
  */
 export interface UnverifiedContactMethods {

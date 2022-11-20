@@ -1,12 +1,8 @@
-import {
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  FontWeightValue,
-} from './designToken';
+import { DesignTokenProperties } from './designToken';
 
-export interface TypographyTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  fontWeight: DesignToken<FontWeightValue>;
-  color: DesignToken<ColorValue>;
-}
+export type TypographyTokens<OutputType> = DesignTokenProperties<
+  | 'fontSize'
+  | 'fontWeight'
+  | 'color',
+  OutputType
+>;

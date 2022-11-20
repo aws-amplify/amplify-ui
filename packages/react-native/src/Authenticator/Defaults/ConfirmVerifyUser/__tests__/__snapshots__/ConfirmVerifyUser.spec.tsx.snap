@@ -1,0 +1,433 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmVerifyUser renders as expected 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        undefined,
+      ]
+    }
+  >
+    Account recovery requires verified contact information
+  </Text>,
+  <View />,
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Submit
+    </Text>
+  </View>,
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Skip
+    </Text>
+  </View>,
+]
+`;
+
+exports[`ConfirmVerifyUser renders as expected when isPending is true 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        undefined,
+      ]
+    }
+  >
+    Account recovery requires verified contact information
+  </Text>,
+  <View />,
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Submitting
+    </Text>
+  </View>,
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Skip
+    </Text>
+  </View>,
+]
+`;
+
+exports[`ConfirmVerifyUser renders as expected with errors 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        undefined,
+      ]
+    }
+  >
+    Account recovery requires verified contact information
+  </Text>,
+  <View />,
+  <View
+    accessibilityRole="alert"
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "hsl(0, 75%, 85%)",
+          "flexDirection": "row",
+          "paddingHorizontal": 8,
+          "paddingVertical": 32,
+        },
+        undefined,
+      ]
+    }
+  >
+    <Image
+      accessibilityRole="image"
+      source={
+        Object {
+          "testUri": "../../../src/assets/icons/error.png",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "height": 20,
+            "resizeMode": "contain",
+            "tintColor": undefined,
+            "width": 20,
+          },
+          Object {
+            "margin": 8,
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(0, 100%, 20%)",
+            "flex": 1,
+            "paddingHorizontal": 8,
+          },
+          undefined,
+        ]
+      }
+    >
+      Something went wrong
+    </Text>
+  </View>,
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Submit
+    </Text>
+  </View>,
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Skip
+    </Text>
+  </View>,
+]
+`;
