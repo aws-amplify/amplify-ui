@@ -103,64 +103,54 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "justifyContent": "center",
-      }
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Object {},
+      ]
     }
   >
-    <View
-      accessibilityRole="button"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "backgroundColor": "transparent",
-            "borderRadius": 4,
-            "justifyContent": "center",
-            "paddingHorizontal": 16,
-            "paddingVertical": 12,
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
           Object {},
-          null,
-          null,
-          Object {
-            "marginVertical": 8,
-            "minWidth": "50%",
-          },
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "color": "hsl(190, 95%, 30%)",
-              "fontSize": 16,
-              "fontWeight": "700",
-              "textAlign": "center",
-            },
-            undefined,
-          ]
-        }
-      >
-        Resend Code
-      </Text>
-    </View>
+      Resend Code
+    </Text>
   </View>,
 ]
 `;
@@ -268,64 +258,54 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "justifyContent": "center",
-      }
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Object {},
+      ]
     }
   >
-    <View
-      accessibilityRole="button"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "backgroundColor": "transparent",
-            "borderRadius": 4,
-            "justifyContent": "center",
-            "paddingHorizontal": 16,
-            "paddingVertical": 12,
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
           Object {},
-          null,
-          null,
-          Object {
-            "marginVertical": 8,
-            "minWidth": "50%",
-          },
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "color": "hsl(190, 95%, 30%)",
-              "fontSize": 16,
-              "fontWeight": "700",
-              "textAlign": "center",
-            },
-            undefined,
-          ]
-        }
-      >
-        Resend Code
-      </Text>
-    </View>
+      Resend Code
+    </Text>
   </View>,
 ]
 `;
@@ -486,64 +466,54 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "justifyContent": "center",
-      }
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Object {},
+      ]
     }
   >
-    <View
-      accessibilityRole="button"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "backgroundColor": "transparent",
-            "borderRadius": 4,
-            "justifyContent": "center",
-            "paddingHorizontal": 16,
-            "paddingVertical": 12,
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
           Object {},
-          null,
-          null,
-          Object {
-            "marginVertical": 8,
-            "minWidth": "50%",
-          },
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "color": "hsl(190, 95%, 30%)",
-              "fontSize": 16,
-              "fontWeight": "700",
-              "textAlign": "center",
-            },
-            undefined,
-          ]
-        }
-      >
-        Resend Code
-      </Text>
-    </View>
+      Resend Code
+    </Text>
   </View>,
 ]
 `;

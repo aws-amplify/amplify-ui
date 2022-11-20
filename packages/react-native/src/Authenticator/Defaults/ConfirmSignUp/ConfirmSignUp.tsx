@@ -47,7 +47,7 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
   const buttons = useMemo(
     () => ({
       primary: { children: primaryButtonText, onPress: handleFormSubmit },
-      links: [{ children: secondaryButtonText, onPress: resendCode }],
+      secondary: { children: secondaryButtonText, onPress: resendCode },
     }),
     [handleFormSubmit, primaryButtonText, resendCode, secondaryButtonText]
   );
