@@ -44,7 +44,7 @@ const SignUp: DefaultSignUpComponent = ({
       primary: { children: primaryButtonText, onPress: handleFormSubmit },
       links: hideSignIn
         ? undefined
-        : [{ children: secondaryButtontext, onPress: toSignIn }],
+        : [{ children: secondaryButtonText, onPress: toSignIn }],
     }),
     [
       handleFormSubmit,
