@@ -1,6 +1,5 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { SetupTOTP } from '..';
@@ -36,7 +35,6 @@ const {
   getSetupTOTPText,
 } = authenticatorTextUtil;
 
-const clipboardSetStringSpy = jest.spyOn(Clipboard, 'setString');
 const SECRET_KEY = 'secretKey';
 const mockGetTotpSecretCode = jest.fn().mockResolvedValue(SECRET_KEY);
 
@@ -80,7 +78,7 @@ describe('SetupTOTP', () => {
     });
   });
 
-  it('renders correct text based on isPending', async () => {
+  it('shows the correct submit button based on isPending', async () => {
     const { queryByText } = render(<SetupTOTP {...props} isPending />);
 
     await waitFor(() => {
@@ -89,29 +87,21 @@ describe('SetupTOTP', () => {
     });
   });
 
-  it('renders as expected with secret code', async () => {
-    const { toJSON, getByTestId, queryByText } = render(
+  it('handles secret code generation as expected', async () => {
+    const { queryByText, rerender } = render(
       <SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />
     );
-    await waitFor(() => {
-      expect(toJSON()).toMatchSnapshot();
-
+    await waitFor(async () => {
+      expect(mockGetTotpSecretCode).toHaveBeenCalledTimes(1);
       expect(queryByText(SECRET_KEY)).toBeDefined();
-      expect(getByTestId('amplify__copy-text-button')).toBeDefined();
-    });
-  });
+      expect(queryByText(SECRET_KEY)?.props.selectable).toBe(true);
 
-  it('calls clipboard setString on copy button press', async () => {
-    const { getByTestId } = render(
-      <SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />
-    );
-
-    await waitFor(() => {
-      const copyTextButton = getByTestId('amplify__copy-text-button');
-
-      expect(copyTextButton).toBeDefined();
-      fireEvent(copyTextButton, 'press');
-      expect(clipboardSetStringSpy).toHaveBeenCalledTimes(1);
+      rerender(
+        <SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />
+      );
+      await waitFor(() => {
+        expect(mockGetTotpSecretCode).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });

@@ -19,7 +19,6 @@
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
-    "@react-native-clipboard/clipboard": "^1.11.1",
     "@react-native-picker/picker": "^2.4.8",
     "@testing-library/react-hooks": "^8.0.0",
     "@testing-library/react-native": "^11.1.0",
