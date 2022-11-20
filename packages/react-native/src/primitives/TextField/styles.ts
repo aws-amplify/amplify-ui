@@ -19,29 +19,28 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       opacity: opacities[60],
       ...components?.textField?.disabled,
     },
-    inputContainer: {
+    fieldContainer: {
       alignItems: 'center',
       borderColor: colors.border.primary,
       borderRadius: radii.small,
       borderWidth: borderWidths.small,
       flexDirection: 'row',
-      lineHeight: getLineHeight(fontSizes.medium),
       paddingHorizontal: space.xs,
       paddingVertical: space.small,
-      ...components?.textField?.inputContainer,
+      ...components?.textField?.fieldContainer,
     },
-    input: {
+    field: {
       color: colors.font.primary,
-      flexGrow: 1,
       fontSize: fontSizes.medium,
+      flexGrow: 1,
       // this is needed because of extra padding inside the input - in Android only
       ...(Platform.OS === 'android' && { padding: 0 }),
-      ...components?.textField?.input,
+      ...components?.textField?.field,
     },
     label: {
       color: colors.font.secondary,
-      paddingVertical: space.xs,
       lineHeight: getLineHeight(fontSizes.small),
+      padding: space.xxs,
       ...components?.textField?.label,
     },
   });

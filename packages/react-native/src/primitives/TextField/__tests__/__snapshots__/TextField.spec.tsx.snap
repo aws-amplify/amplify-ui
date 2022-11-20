@@ -34,7 +34,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
           Object {
             "color": "hsl(210, 25%, 25%)",
             "lineHeight": 21,
-            "paddingVertical": 8,
+            "padding": 4,
           },
           undefined,
         ],
@@ -51,7 +51,6 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
         "paddingHorizontal": 8,
         "paddingVertical": 12,
       }
@@ -115,7 +114,7 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
           Object {
             "color": "hsl(210, 25%, 25%)",
             "lineHeight": 21,
-            "paddingVertical": 8,
+            "padding": 4,
           },
           undefined,
         ],
@@ -132,7 +131,6 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
         "paddingHorizontal": 8,
         "paddingVertical": 12,
       }
@@ -196,7 +194,7 @@ exports[`TextField renders as expected 1`] = `
           Object {
             "color": "hsl(210, 25%, 25%)",
             "lineHeight": 21,
-            "paddingVertical": 8,
+            "padding": 4,
           },
           undefined,
         ],
@@ -213,7 +211,6 @@ exports[`TextField renders as expected 1`] = `
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
         "paddingHorizontal": 8,
         "paddingVertical": 12,
       }
@@ -277,7 +274,7 @@ exports[`TextField renders as expected as password field 1`] = `
           Object {
             "color": "hsl(210, 25%, 25%)",
             "lineHeight": 21,
-            "paddingVertical": 8,
+            "padding": 4,
           },
           undefined,
         ],
@@ -294,7 +291,6 @@ exports[`TextField renders as expected as password field 1`] = `
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
         "paddingHorizontal": 8,
         "paddingVertical": 12,
       }
@@ -359,7 +355,7 @@ exports[`TextField renders as expected when disabled 1`] = `
           Object {
             "color": "hsl(210, 25%, 25%)",
             "lineHeight": 21,
-            "paddingVertical": 8,
+            "padding": 4,
           },
           undefined,
         ],
@@ -376,7 +372,6 @@ exports[`TextField renders as expected when disabled 1`] = `
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
         "opacity": 0.6,
         "paddingHorizontal": 8,
         "paddingVertical": 12,
@@ -441,7 +436,7 @@ exports[`TextField renders as expected with error message 1`] = `
           Object {
             "color": "hsl(210, 25%, 25%)",
             "lineHeight": 21,
-            "paddingVertical": 8,
+            "padding": 4,
           },
           undefined,
         ],
@@ -458,7 +453,6 @@ exports[`TextField renders as expected with error message 1`] = `
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
         "paddingHorizontal": 8,
         "paddingVertical": 12,
       }
