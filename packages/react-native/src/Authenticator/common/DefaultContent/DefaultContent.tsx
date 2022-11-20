@@ -46,9 +46,7 @@ export default function DefaultContent<
     <>
       {headerText ? (
         <Header style={themedStyles.header}>{headerText}</Header>
-      ) : (
-        <Header />
-      )}
+      ) : null}
       {body ? (
         typeof body === 'string' ? (
           <Label style={themedStyles.body}>{body}</Label>

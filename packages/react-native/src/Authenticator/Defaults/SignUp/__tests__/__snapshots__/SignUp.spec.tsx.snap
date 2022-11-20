@@ -2,6 +2,27 @@
 
 exports[`SignUp renders as expected 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {
@@ -629,6 +650,27 @@ Array [
 
 exports[`SignUp renders as expected when hideSignIn is true 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {
@@ -1196,6 +1238,27 @@ Array [
 
 exports[`SignUp renders as expected when isPending is true 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {
@@ -1831,6 +1894,27 @@ Array [
 
 exports[`SignUp renders as expected with errors 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {
@@ -2511,6 +2595,27 @@ Array [
 
 exports[`SignUp renders as expected with social providers 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {

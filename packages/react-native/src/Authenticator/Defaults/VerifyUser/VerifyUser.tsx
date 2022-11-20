@@ -12,8 +12,12 @@ import { DefaultVerifyUserComponent } from '../types';
 
 const COMPONENT_NAME = 'VerifyUser';
 
-const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
-  authenticatorTextUtil;
+const {
+  getSkipText,
+  getVerifyContactText,
+  getVerifyText,
+  getAccountRecoveryInfoText,
+} = authenticatorTextUtil;
 
 const VerifyUser: DefaultVerifyUserComponent = ({
   fields,
@@ -31,6 +35,7 @@ const VerifyUser: DefaultVerifyUserComponent = ({
     handleSubmit,
   });
 
+  const headerText = getVerifyContactText();
   const skipText = getSkipText();
   const verifyText = getVerifyText();
   const bodyText = getAccountRecoveryInfoText();
@@ -49,6 +54,7 @@ const VerifyUser: DefaultVerifyUserComponent = ({
       body={bodyText}
       buttons={buttons}
       fields={fieldsWithHandlers}
+      headerText={headerText}
     />
   );
 };

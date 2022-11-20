@@ -16,6 +16,7 @@ Array [
         },
         Object {
           "marginVertical": 12,
+          "paddingHorizontal": 12,
         },
       ]
     }
@@ -159,6 +160,7 @@ Array [
         },
         Object {
           "marginVertical": 12,
+          "paddingHorizontal": 12,
         },
       ]
     }
@@ -302,6 +304,7 @@ Array [
         },
         Object {
           "marginVertical": 12,
+          "paddingHorizontal": 12,
         },
       ]
     }

@@ -9,6 +9,7 @@ export const getDefaultStyle = ({
   StyleSheet.create({
     body: {
       fontSize: fontSizes.medium,
+      paddingHorizontal: space.small,
     },
     buttonPrimary: {
       margin: space.medium,
@@ -32,6 +33,7 @@ export const getDefaultStyle = ({
     },
     header: {
       marginVertical: space.small,
+      paddingHorizontal: space.small,
     },
     link: {
       marginVertical: space.xs,
