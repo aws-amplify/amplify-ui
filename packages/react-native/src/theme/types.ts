@@ -3,6 +3,7 @@ import { ReactNativeTokens } from '@aws-amplify/ui';
 import {
   ButtonStyles,
   CheckboxStyles,
+  DividerStyles,
   ErrorMessageStyles,
   HeadingStyles,
   IconStyles,
@@ -12,6 +13,7 @@ import {
   PhoneNumberFieldStyles,
   RadioStyles,
   RadioGroupStyles,
+  TabsStyles,
   TextFieldStyles,
 } from '../primitives';
 
@@ -27,6 +29,7 @@ type ComponentTheme<ComponentType, Output> = Output extends 'output'
 export type Components<Output> = Record<string, object> & {
   button?: ComponentTheme<ButtonStyles, Output>;
   checkbox?: ComponentTheme<CheckboxStyles, Output>;
+  divider?: ComponentTheme<DividerStyles, Output>;
   errorMessage?: ComponentTheme<ErrorMessageStyles, Output>;
   heading?: ComponentTheme<HeadingStyles, Output>;
   icon?: ComponentTheme<IconStyles, Output>;
@@ -36,6 +39,7 @@ export type Components<Output> = Record<string, object> & {
   phoneNumberField?: ComponentTheme<PhoneNumberFieldStyles, Output>;
   radio?: ComponentTheme<RadioStyles, Output>;
   radioGroup?: ComponentTheme<RadioGroupStyles, Output>;
+  tabs?: ComponentTheme<TabsStyles, Output>;
   textField?: ComponentTheme<TextFieldStyles, Output>;
 };
 
@@ -51,13 +55,13 @@ export type StrictTokens = ReactNativeTokens<'required'>;
 export type Tokens = ReactNativeTokens<'optional'>;
 
 /**
- * A Theme just needs a name, all other properties are optional.
+ * A custom Theme with all properties optional.
  */
 export interface Theme {
   /**
    * Custom component styles
    */
-  components?: Components<'input'>;
+  components?: Omit<Components<'input'>, 'divider' | 'tabs'>;
   /**
    * Component and component agnostic tokens.
    */
