@@ -28,9 +28,9 @@ export default function TextField({
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 
-  const inputContainerStyle: ViewStyle = useMemo(
+  const fieldContainerStyle: ViewStyle = useMemo(
     () => ({
-      ...themedStyle.inputContainer,
+      ...themedStyle.fieldContainer,
       ...(disabled && themedStyle.disabled),
     }),
     [disabled, themedStyle]
@@ -47,7 +47,7 @@ export default function TextField({
       {label ? (
         <Label style={[themedStyle.label, labelStyle]}>{label}</Label>
       ) : null}
-      <View style={inputContainerStyle} testID={INPUT_CONTAINER_TEST_ID}>
+      <View style={fieldContainerStyle} testID={INPUT_CONTAINER_TEST_ID}>
         <TextInput
           {...rest}
           accessible={accessible}
@@ -55,7 +55,7 @@ export default function TextField({
           editable={!disabled}
           placeholderTextColor={theme.tokens.colors.font.tertiary}
           selectionColor={theme.tokens.colors.font.primary}
-          style={[themedStyle.input, fieldStyle]}
+          style={[themedStyle.field, fieldStyle]}
         />
         {endAccessory ?? null}
       </View>

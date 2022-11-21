@@ -44,7 +44,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -61,7 +61,6 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
             "paddingVertical": 12,
           }
@@ -128,7 +127,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -145,7 +144,6 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
             "paddingVertical": 12,
           }
@@ -437,7 +435,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -454,7 +452,6 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
             "paddingVertical": 12,
           }
@@ -521,7 +518,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -538,7 +535,6 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
             "paddingVertical": 12,
           }
@@ -780,7 +776,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -797,7 +793,6 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
             "paddingVertical": 12,
           }
@@ -864,7 +859,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -881,7 +876,6 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
             "paddingVertical": 12,
           }
