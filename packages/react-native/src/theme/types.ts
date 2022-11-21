@@ -54,6 +54,9 @@ export type StrictTokens = ReactNativeTokens<'required'>;
 // Everything optional for custom themes
 export type Tokens = ReactNativeTokens<'optional'>;
 
+// omitted from custom themes until used in another component/publicly available
+type OmittedComponents = 'checkbox' | 'divider' | 'tabs';
+
 /**
  * A custom Theme with all properties optional.
  */
@@ -61,7 +64,7 @@ export interface Theme {
   /**
    * Custom component styles
    */
-  components?: Omit<Components<'input'>, 'divider' | 'tabs'>;
+  components?: Omit<Components<'input'>, OmittedComponents>;
   /**
    * Component and component agnostic tokens.
    */
