@@ -16,6 +16,9 @@ type SupportedAuthenticatorMachineOptions = Omit<
 export interface AuthenticatorProps
   extends SupportedAuthenticatorMachineOptions {
   children?: React.ReactNode;
+  Container?: React.ComponentType;
+  Footer?: React.ComponentType;
+  Header?: React.ComponentType;
   components?: Components;
 }
 

@@ -9,6 +9,7 @@ Array [
   "UseAuthenticator",
   "WithAuthenticatorOptions",
   "useAuthenticator",
+  "useTheme",
   "withAuthenticator",
   "BannerMessageProps",
   "CarouselMessageProps",

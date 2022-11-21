@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { render } from '@testing-library/react-native';
 
 import * as UIReactCoreModule from '@aws-amplify/ui-react-core';
@@ -15,12 +15,28 @@ jest.mock('@aws-amplify/ui-react-core');
 const CHILD_TEST_ID = 'child-test-id';
 const CHILD_CONTENT = 'Test Children';
 
+const CONTAINER_TEST_ID = 'container-test-id';
+const FOOTER_TEST_ID = 'footer-test-id';
+const HEADER_TEST_ID = 'header-test-id';
+
 function TestChildren() {
   return <Text testID={CHILD_TEST_ID}>{CHILD_CONTENT}</Text>;
 }
 const TestComponent = () => {
   return null;
 };
+
+function Container() {
+  return <View testID={CONTAINER_TEST_ID} />;
+}
+
+function Footer() {
+  return <View testID={FOOTER_TEST_ID} />;
+}
+
+function Header() {
+  return <View testID={HEADER_TEST_ID} />;
+}
 
 const useAuthenticatorInitMachineSpy = jest.spyOn(
   UIReactCoreModule,
@@ -98,4 +114,20 @@ describe('Authenticator', () => {
       expect(container.instance).toBeNull();
     }
   );
+
+  it('renders with custom slot components as expected', () => {
+    useAuthenticatorSpy.mockReturnValue({
+      route: 'signIn',
+    } as unknown as UseAuthenticator);
+
+    const { findByTestId, toJSON } = render(
+      <Authenticator Container={Container} Footer={Footer} Header={Header} />
+    );
+
+    expect(findByTestId(CONTAINER_TEST_ID)).toBeDefined();
+    expect(findByTestId(FOOTER_TEST_ID)).toBeDefined();
+    expect(findByTestId(HEADER_TEST_ID)).toBeDefined();
+
+    expect(toJSON()).toMatchSnapshot();
+  });
 });
