@@ -4,9 +4,13 @@ import { StrictTheme } from '../../../theme';
 import { DefaultContentStyle } from './types';
 
 export const getDefaultStyle = ({
-  tokens: { space },
+  tokens: { fontSizes, space },
 }: StrictTheme): Required<DefaultContentStyle> =>
   StyleSheet.create({
+    body: {
+      fontSize: fontSizes.medium,
+      paddingHorizontal: space.small,
+    },
     buttonPrimary: {
       margin: space.medium,
     },
@@ -29,6 +33,7 @@ export const getDefaultStyle = ({
     },
     header: {
       marginVertical: space.small,
+      paddingHorizontal: space.small,
     },
     link: {
       marginVertical: space.xs,
