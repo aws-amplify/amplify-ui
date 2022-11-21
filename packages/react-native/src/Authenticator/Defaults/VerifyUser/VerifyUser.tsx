@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { Text } from 'react-native';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import {
@@ -13,8 +12,12 @@ import { DefaultVerifyUserComponent } from '../types';
 
 const COMPONENT_NAME = 'VerifyUser';
 
-const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
-  authenticatorTextUtil;
+const {
+  getSkipText,
+  getVerifyContactText,
+  getVerifyText,
+  getAccountRecoveryInfoText,
+} = authenticatorTextUtil;
 
 const VerifyUser: DefaultVerifyUserComponent = ({
   fields,
@@ -32,8 +35,10 @@ const VerifyUser: DefaultVerifyUserComponent = ({
     handleSubmit,
   });
 
+  const headerText = getVerifyContactText();
   const skipText = getSkipText();
   const verifyText = getVerifyText();
+  const bodyText = getAccountRecoveryInfoText();
 
   const buttons = useMemo(
     () => ({
@@ -43,16 +48,13 @@ const VerifyUser: DefaultVerifyUserComponent = ({
     [handleFormSubmit, skipText, skipVerification, verifyText]
   );
 
-  const body = (
-    <Text style={{ fontSize: 18 }}>{getAccountRecoveryInfoText()}</Text>
-  );
-
   return (
     <DefaultContent
       {...rest}
-      body={body}
+      body={bodyText}
       buttons={buttons}
       fields={fieldsWithHandlers}
+      headerText={headerText}
     />
   );
 };
