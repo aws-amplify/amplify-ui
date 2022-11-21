@@ -53,6 +53,7 @@ export interface LivenessContext {
   responseStreamActorRef: ActorRef<any>;
   shouldDisconnect: boolean | undefined;
   faceMatchStateBeforeStart: FaceMatchState;
+  isFaceFarEnoughBeforeRecording: boolean;
 }
 
 export type LivenessEventTypes =

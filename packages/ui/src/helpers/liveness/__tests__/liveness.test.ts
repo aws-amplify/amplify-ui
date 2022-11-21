@@ -27,6 +27,8 @@ describe('Liveness Helper', () => {
       top: 185.12999,
       left: 256.78488,
       timestampMs: Date.now(),
+      rightEye: [200, 200],
+      leftEye: [200, 200],
     };
 
     it('should return the correct oval details in landscape', () => {
@@ -85,6 +87,8 @@ describe('Liveness Helper', () => {
         top: 160,
         left: 208,
         timestampMs: Date.now(),
+        rightEye: [200, 200],
+        leftEye: [200, 200],
       };
 
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
@@ -99,6 +103,8 @@ describe('Liveness Helper', () => {
         top: 160,
         left: 150,
         timestampMs: Date.now(),
+        rightEye: [200, 200],
+        leftEye: [200, 200],
       };
 
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
@@ -113,6 +119,8 @@ describe('Liveness Helper', () => {
         top: 160,
         left: 250,
         timestampMs: Date.now(),
+        rightEye: [200, 200],
+        leftEye: [200, 200],
       };
 
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
@@ -127,6 +135,8 @@ describe('Liveness Helper', () => {
         top: 110,
         left: 200,
         timestampMs: Date.now(),
+        rightEye: [200, 200],
+        leftEye: [200, 200],
       };
 
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
@@ -141,6 +151,8 @@ describe('Liveness Helper', () => {
         top: 160,
         left: 220,
         timestampMs: Date.now(),
+        rightEye: [200, 200],
+        leftEye: [200, 200],
       };
 
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);

@@ -56,6 +56,8 @@ export const mockFace: Face = {
   left: 150,
   top: 200,
   timestampMs: testTimestampMs,
+  rightEye: [200, 200],
+  leftEye: [200, 200],
 };
 export const mockOvalDetails: LivenessOvalDetails = {
   height: 100,
@@ -124,6 +126,7 @@ export const mockContext = (): LivenessContext => {
     responseStreamActorRef: mockResponseStreamActorRef,
     shouldDisconnect: false,
     faceMatchStateBeforeStart: FaceMatchState.MATCHED,
+    isFaceFarEnoughBeforeRecording: true,
   };
 };
 

@@ -553,6 +553,45 @@ export async function getFaceMatchState(
   return faceMatchState;
 }
 
+const FACE_DISTANCE_THRESHOLD = 0.4;
+
+export async function isFaceDistanceBelowThreshold(
+  faceDetector: FaceDetection,
+  videoEl: HTMLVideoElement,
+  ovalDetails?: LivenessOvalDetails
+) {
+  const detectedFaces = await faceDetector.detectFaces(videoEl);
+  let detectedFace: Face;
+
+  let distanceBelowThreshold = false;
+
+  switch (detectedFaces.length) {
+    case 0: {
+      //no face detected;
+      break;
+    }
+    case 1: {
+      //exactly one face detected, match face with oval;
+      detectedFace = detectedFaces[0];
+
+      const { leftEye, rightEye } = detectedFace;
+      const { width } = ovalDetails;
+      const pupilDistance = Math.sqrt(
+        (rightEye[0] - leftEye[0]) ** 2 + (rightEye[1] - leftEye[1]) ** 2
+      );
+
+      distanceBelowThreshold = pupilDistance / width < FACE_DISTANCE_THRESHOLD;
+      break;
+    }
+    default: {
+      //more than one face detected
+      break;
+    }
+  }
+
+  return distanceBelowThreshold;
+}
+
 export function getBoundingBox({
   deviceHeight,
   deviceWidth,

@@ -53,12 +53,14 @@ export class BlazeFaceFaceDetection extends FaceDetection {
     const timestampMs = Date.now();
 
     const faces: Face[] = predictions.map((prediction) => {
-      const { topLeft, bottomRight, probability } = prediction;
+      const { topLeft, bottomRight, probability, landmarks } = prediction;
 
       const [right, top] = topLeft as [number, number]; // right, top because the prediction is flipped
       const [left, bottom] = bottomRight as [number, number]; // left, bottom because the prediction is flipped
       const width = Math.abs(right - left);
       const height = Math.abs(bottom - top);
+      const rightEye = landmarks[0];
+      const leftEye = landmarks[1];
 
       return {
         top,
@@ -67,6 +69,8 @@ export class BlazeFaceFaceDetection extends FaceDetection {
         height,
         timestampMs,
         probability: probability[0] as number,
+        rightEye,
+        leftEye,
       };
     });
 

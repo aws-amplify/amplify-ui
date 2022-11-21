@@ -86,6 +86,8 @@ describe('Liveness Machine', () => {
     left: 150,
     top: 200,
     timestampMs: testTimestampMs,
+    rightEye: [200, 200],
+    leftEye: [200, 200],
   };
   const mockOvalDetails: LivenessOvalDetails = {
     height: 100,
@@ -138,6 +140,10 @@ describe('Liveness Machine', () => {
       },
     });
     jest.advanceTimersToNextTimer(); // waitForSessionInformation
+
+    jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording
+    await flushPromises();
+    jest.advanceTimersToNextTimer(); // checkFaceDistanceBeforeRecording
   }
 
   async function advanceMinFaceMatches() {
@@ -351,7 +357,7 @@ describe('Liveness Machine', () => {
   });
 
   describe('detectFaceBeforeStart', () => {
-    it('should reach recording state on START_RECORDING', async () => {
+    it('should reach initializeLivenessStream state on face detected', async () => {
       transitionToCameraCheck(service);
       await flushPromises(); // waitForDOMAndCameraDetails
 
@@ -384,6 +390,10 @@ describe('Liveness Machine', () => {
         },
       });
       jest.advanceTimersToNextTimer(); // waitForSessionInformation
+
+      jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording
+      await flushPromises();
+      jest.advanceTimersToNextTimer(); // checkFaceDistanceBeforeRecording
 
       expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
     });
@@ -447,6 +457,7 @@ describe('Liveness Machine', () => {
       mockBlazeFace.detectFaces
         .mockResolvedValue([mockFace])
         .mockResolvedValueOnce([mockFace]) // first to pass detecting face before start
+        .mockResolvedValueOnce([mockFace]) // second to pass face distance before start
         .mockResolvedValueOnce([]); // not having face in view when recording begins
       mockedHelpers.estimateIllumination.mockImplementation(
         () => IlluminationState.BRIGHT
@@ -471,6 +482,7 @@ describe('Liveness Machine', () => {
       mockBlazeFace.detectFaces
         .mockResolvedValue([mockFace])
         .mockResolvedValueOnce([mockFace]) // first to pass detecting face before start
+        .mockResolvedValueOnce([mockFace]) // second to pass face distance before start
         .mockRejectedValue(error);
 
       await transitionToRecording(service);

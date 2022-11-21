@@ -25,6 +25,9 @@ export const selectFaceMatchState = createLivenessSelector(
 export const selectIlluminationState = createLivenessSelector(
   (state) => state.context.faceMatchAssociatedParams.illuminationState
 );
+export const selectIsFaceFarEnoughBeforeRecording = createLivenessSelector(
+  (state) => state.context.isFaceFarEnoughBeforeRecording
+);
 
 export interface InstructionProps {}
 
@@ -36,9 +39,15 @@ export const Instruction: React.FC<InstructionProps> = () => {
   const errorState = useLivenessSelector(selectErrorState);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const illuminationState = useLivenessSelector(selectIlluminationState);
+  const isFaceFarEnoughBeforeRecordingState = useLivenessSelector(
+    selectIsFaceFarEnoughBeforeRecording
+  );
 
   const isCheckFaceDetectedBeforeStart = state.matches(
     'checkFaceDetectedBeforeStart'
+  );
+  const isCheckFaceDistanceBeforeRecording = state.matches(
+    'checkFaceDistanceBeforeRecording'
   );
   const isNotRecording = state.matches('notRecording');
   const isWaitingForSessionInfo = state.matches('waitForSessionInfo');
@@ -68,6 +77,14 @@ export const Instruction: React.FC<InstructionProps> = () => {
 
     if (isCheckFaceDetectedBeforeStart) {
       return translate('Move face in front of camera');
+    }
+
+    // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
+    if (
+      isCheckFaceDistanceBeforeRecording &&
+      isFaceFarEnoughBeforeRecordingState === false
+    ) {
+      return translate('Move face further away');
     }
 
     if (isNotRecording) {

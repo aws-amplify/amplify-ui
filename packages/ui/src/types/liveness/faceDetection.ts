@@ -8,6 +8,8 @@ export interface Face {
   height: number;
   timestampMs: number;
   probability?: number;
+  rightEye: number[];
+  leftEye: number[];
 }
 
 /**
