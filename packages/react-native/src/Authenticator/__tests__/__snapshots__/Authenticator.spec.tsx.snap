@@ -74,3 +74,25 @@ exports[`Authenticator handles the signOut route as expected with children 1`] =
   Test Children
 </Text>
 `;
+
+exports[`Authenticator renders with custom slot components as expected 1`] = `
+<SafeAreaProvider>
+  <View
+    testID="container-test-id"
+  >
+    <View
+      testID="header-test-id"
+    />
+    <View
+      style={
+        Object {
+          "marginHorizontal": 16,
+        }
+      }
+    />
+    <View
+      testID="footer-test-id"
+    />
+  </View>
+</SafeAreaProvider>
+`;
