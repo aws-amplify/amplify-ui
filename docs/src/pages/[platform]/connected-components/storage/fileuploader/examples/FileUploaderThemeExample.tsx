@@ -26,7 +26,7 @@ export const FileUploaderThemeExample = () => {
         variation="drop"
         acceptedFileTypes={['image/*']}
         level="public"
-        multiple={true}
+        hasMultipleFiles={true}
         maxSize={100000000}
         maxFiles={3}
         provider="fast" // IGNORE

@@ -6,12 +6,12 @@ import { UseFileUploader } from './types';
 export default function useFileUploader({
   maxSize,
   acceptedFileTypes,
-  multiple,
+  hasMultipleFiles,
   isLoading,
 }: {
   maxSize: number;
   acceptedFileTypes: string[];
-  multiple: boolean;
+  hasMultipleFiles: boolean;
   isLoading: boolean;
 }): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
@@ -42,16 +42,17 @@ export default function useFileUploader({
     if (!targets) return 0;
 
     // If not multiple and files already selected return
-    if (!multiple && fileStatuses.length > 0) return fileStatuses.length;
+    if (!hasMultipleFiles && fileStatuses.length > 0)
+      return fileStatuses.length;
 
     // if not multiple and only 1 file selected save
-    if (!multiple && targets.length == 1) {
+    if (!hasMultipleFiles && targets.length == 1) {
       updateFileStatusArray([...targets], fileStatuses);
       return targets.length;
     }
 
     // if not multiple save just the first target into the array
-    if (!multiple && targets.length > 1) {
+    if (!hasMultipleFiles && targets.length > 1) {
       updateFileStatusArray([targets[0]], fileStatuses);
       return 1;
     }

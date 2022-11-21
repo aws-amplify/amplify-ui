@@ -41,7 +41,7 @@ const commonProps = {
   isLoading: false,
   isSuccessful: false,
   hasMaxFilesError: false,
-  multiple: true,
+  hasMultipleFiles: true,
   onClear: () => null,
   onDragEnter: () => null,
   onDragLeave: () => null,

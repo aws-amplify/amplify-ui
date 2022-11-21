@@ -23,7 +23,7 @@ export function FileUploader({
   level,
   maxFiles,
   maxSize,
-  multiple = true,
+  hasMultipleFiles = true,
   onError,
   onSuccess,
   showImages = true,
@@ -63,7 +63,7 @@ export function FileUploader({
   } = useFileUploader({
     maxSize,
     acceptedFileTypes,
-    multiple,
+    hasMultipleFiles,
     isLoading,
   });
 
@@ -342,7 +342,7 @@ export function FileUploader({
 
   const CommonProps = {
     acceptedFileTypes,
-    multiple,
+    hasMultipleFiles,
     onFileChange,
     onClick: onUploadButtonClick,
     hiddenInput,
@@ -358,7 +358,7 @@ export function FileUploader({
         isLoading={isLoading}
         isSuccessful={isSuccessful()}
         hasMaxFilesError={hasMaxFilesError}
-        multiple={multiple}
+        hasMultipleFiles={hasMultipleFiles}
         onClear={onClear}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}

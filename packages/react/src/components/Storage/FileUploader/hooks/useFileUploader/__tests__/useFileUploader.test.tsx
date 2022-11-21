@@ -10,7 +10,7 @@ const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const commonUseFileLoaderArgs = {
   maxSize: 200,
   acceptedFileTypes: ['.png'],
-  multiple: true,
+  hasMultipleFiles: true,
   isLoading: false,
 };
 
@@ -82,11 +82,11 @@ describe('useFileUploader', () => {
     });
     expect(result.current.fileStatuses.length).toEqual(1);
   });
-  it('returns 1 and updates file statuses when not multiple and target length is 1', () => {
+  it('returns 1 and updates file statuses when not hasMultipleFiles and target length is 1', () => {
     const { result } = renderHook(() =>
       useFileUploader({
         ...commonUseFileLoaderArgs,
-        multiple: false,
+        hasMultipleFiles: false,
       })
     );
 
@@ -99,11 +99,11 @@ describe('useFileUploader', () => {
     expect(result.current.fileStatuses.length).toEqual(1);
   });
 
-  it('returns 1 and updates file statutuses when not multiple and target length > 1', () => {
+  it('returns 1 and updates file statutuses when not hasMultipleFiles and target length > 1', () => {
     const { result } = renderHook(() =>
       useFileUploader({
         ...commonUseFileLoaderArgs,
-        multiple: false,
+        hasMultipleFiles: false,
       })
     );
 
@@ -236,7 +236,7 @@ describe('useFileUploader', () => {
     const { result } = renderHook(() =>
       useFileUploader({
         ...commonUseFileLoaderArgs,
-        multiple: false,
+        hasMultipleFiles: false,
         maxSize: 1,
       })
     );

@@ -8,7 +8,7 @@ export type Files = File[];
 
 export interface UploadButtonProps {
   acceptedFileTypes: string[];
-  multiple?: boolean;
+  hasMultipleFiles?: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   isLoading?: boolean;
@@ -24,11 +24,11 @@ export interface UploadDropZoneProps extends DragActionHandlers {
 export interface FileUploaderProps {
   acceptedFileTypes: string[];
   shouldAutoProceed?: boolean;
-  multiple?: boolean;
+  hasMultipleFiles?: boolean;
   components?: Components;
   level: LevelInfo;
   maxFiles?: number;
-  maxMultipleSize?: number;
+  maxhasMultipleFilesSize?: number;
   isPreviewerVisible?: boolean;
   maxSize?: number;
   onChange?: () => void;
@@ -54,7 +54,7 @@ export interface PreviewerProps extends DragActionHandlers {
   isLoading: boolean;
   isSuccessful: boolean;
   hasMaxFilesError: boolean;
-  multiple?: boolean;
+  hasMultipleFiles?: boolean;
   onClear: () => void;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFileClick: () => void;

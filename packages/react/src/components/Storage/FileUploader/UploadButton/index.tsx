@@ -4,7 +4,7 @@ import { UploadButtonProps } from '../types';
 import { Button, VisuallyHidden } from '../../../../primitives';
 
 export function UploadButton({
-  multiple,
+  hasMultipleFiles,
   acceptedFileTypes,
   onFileChange,
   className,
@@ -29,7 +29,7 @@ export function UploadButton({
           tabIndex={-1}
           ref={hiddenInput}
           onChange={onFileChange}
-          multiple={multiple}
+          multiple={hasMultipleFiles}
           accept={acceptedFileTypes?.join()}
         />
       </VisuallyHidden>

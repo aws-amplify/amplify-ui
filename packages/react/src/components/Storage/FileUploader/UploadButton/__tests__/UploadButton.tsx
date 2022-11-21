@@ -12,7 +12,7 @@ describe('Uploader Button', () => {
   it('exists', () => {
     const { container } = render(
       <UploadButton
-        multiple={false}
+        hasMultipleFiles={false}
         acceptedFileTypes={['.png']}
         onFileChange={() => null}
         onClick={() => null}
@@ -26,7 +26,7 @@ describe('Uploader Button', () => {
   it('accepts a file for upload', async () => {
     render(
       <UploadButton
-        multiple={false}
+        hasMultipleFiles={false}
         acceptedFileTypes={['.png']}
         onFileChange={() => null}
         onClick={() => null}

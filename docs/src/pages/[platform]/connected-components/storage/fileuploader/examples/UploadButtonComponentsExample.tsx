@@ -24,7 +24,7 @@ export const UploadButtonComponentsExample = () => {
                   tabIndex={-1}
                   ref={hiddenInput}
                   onChange={onFileChange}
-                  multiple={true}
+                  hashasMultipleFilesFiles={true}
                   accept={acceptedFileTypes?.join()}
                 />
               </VisuallyHidden>

@@ -20,7 +20,7 @@ export function Previewer({
   isLoading,
   isSuccessful,
   hasMaxFilesError,
-  multiple,
+  hasMultipleFiles,
   onClear,
   onDragEnter,
   onDragLeave,
@@ -55,7 +55,7 @@ export function Previewer({
           <UploadButton
             acceptedFileTypes={acceptedFileTypes}
             isLoading={isLoading}
-            multiple={multiple}
+            hasMultipleFiles={hasMultipleFiles}
             onFileChange={onFileChange}
             className={ComponentClassNames.FileUploaderDropZoneButton}
             hiddenInput={hiddenInput}

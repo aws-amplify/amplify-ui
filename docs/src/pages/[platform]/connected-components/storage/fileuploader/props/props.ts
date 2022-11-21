@@ -55,7 +55,7 @@ export const UPLOAD_BUTTON_COMPONENTS = [
     type: `boolean`,
   },
   {
-    name: `multiple?`,
+    name: `hasMultipleFiles?`,
     description: 'Allows multiple files to be selected at once',
     type: `boolean`,
   },
