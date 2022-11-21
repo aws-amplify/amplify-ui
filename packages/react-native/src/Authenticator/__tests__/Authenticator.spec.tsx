@@ -10,6 +10,7 @@ import {
 
 import { Authenticator } from '..';
 
+jest.mock('aws-amplify');
 jest.mock('@aws-amplify/ui-react-core');
 
 const CHILD_TEST_ID = 'child-test-id';
@@ -26,8 +27,8 @@ const TestComponent = () => {
   return null;
 };
 
-function Container() {
-  return <View testID={CONTAINER_TEST_ID} />;
+function Container({ children }: { children: React.ReactNode }) {
+  return <View testID={CONTAINER_TEST_ID}>{children}</View>;
 }
 
 function Footer() {
@@ -116,17 +117,17 @@ describe('Authenticator', () => {
   );
 
   it('renders with custom slot components as expected', () => {
-    useAuthenticatorSpy.mockReturnValue({
+    useAuthenticatorSpy.mockReturnValueOnce({
       route: 'signIn',
     } as unknown as UseAuthenticator);
 
-    const { findByTestId, toJSON } = render(
+    const { getByTestId, toJSON } = render(
       <Authenticator Container={Container} Footer={Footer} Header={Header} />
     );
 
-    expect(findByTestId(CONTAINER_TEST_ID)).toBeDefined();
-    expect(findByTestId(FOOTER_TEST_ID)).toBeDefined();
-    expect(findByTestId(HEADER_TEST_ID)).toBeDefined();
+    expect(getByTestId(CONTAINER_TEST_ID)).toBeDefined();
+    expect(getByTestId(FOOTER_TEST_ID)).toBeDefined();
+    expect(getByTestId(HEADER_TEST_ID)).toBeDefined();
 
     expect(toJSON()).toMatchSnapshot();
   });
