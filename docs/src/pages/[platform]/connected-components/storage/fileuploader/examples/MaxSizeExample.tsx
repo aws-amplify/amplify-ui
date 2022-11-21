@@ -4,7 +4,7 @@ export const MaxSizeExample = () => {
   return (
     <FileUploader
       maxSize={100000}
-      acceptedFileTypes={['.gif', '.bmp', '.jpg', '.png']}
+      acceptedFileTypes={['image/*']}
       level="public"
       provider="fast" // IGNORE
     />

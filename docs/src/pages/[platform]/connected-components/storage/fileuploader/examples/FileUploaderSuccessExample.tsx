@@ -1,7 +1,7 @@
 import { FileUploader } from '@aws-amplify/ui-react';
 
 export const FileUploaderSuccessExample = () => {
-  const onSuccess = ({ key }: { key: string }) => {
+  const onSuccess = ({ key }) => {
     console.log('Key:', key);
   };
 
@@ -9,7 +9,7 @@ export const FileUploaderSuccessExample = () => {
     <FileUploader
       onSuccess={onSuccess}
       variation="drop"
-      acceptedFileTypes={['.gif', '.bmp', '.jpg', '.jpeg']}
+      acceptedFileTypes={['image/*']}
       level="public"
       provider="fast" // IGNORE
     />

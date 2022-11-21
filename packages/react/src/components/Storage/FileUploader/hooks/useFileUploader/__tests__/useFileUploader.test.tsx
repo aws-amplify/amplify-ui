@@ -257,4 +257,22 @@ describe('useFileUploader', () => {
       },
     ]);
   });
+  it('returns 1 file from target files that matches image/* mime type', () => {
+    const { result } = renderHook(() =>
+      useFileUploader({
+        ...commonUseFileLoaderArgs,
+        acceptedFileTypes: ['image/*'],
+      })
+    );
+    const fakeFileHTML = new File(['goodbye'], 'goodbye.html', {
+      type: 'text/html',
+    });
+
+    const {
+      current: { addTargetFiles },
+    } = result;
+    const numOfFiles = addTargetFiles?.([fakeFile, fakeFileHTML]);
+
+    expect(numOfFiles).toEqual(1);
+  });
 });

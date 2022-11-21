@@ -4,7 +4,7 @@ export const LevelExample = () => {
   return (
     <FileUploader
       variation="drop"
-      acceptedFileTypes={['.gif', '.bmp', '.jpg', '.png']}
+      acceptedFileTypes={['image/*']}
       level="private"
       provider="fast" // IGNORE
     />

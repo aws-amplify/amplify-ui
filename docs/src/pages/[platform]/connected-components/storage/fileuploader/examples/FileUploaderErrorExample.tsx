@@ -10,7 +10,7 @@ export const FileUploaderErrorExample = () => {
       onError={onError}
       resumable={true}
       variation="drop"
-      acceptedFileTypes={['.gif', '.bmp', '.jpg']}
+      acceptedFileTypes={['image/*']}
       level="public"
       provider="error" // IGNORE
     />

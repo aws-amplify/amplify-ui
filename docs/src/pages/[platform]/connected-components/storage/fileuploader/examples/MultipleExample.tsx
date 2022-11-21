@@ -4,7 +4,7 @@ export const MultipleExample = () => {
   return (
     <FileUploader
       multiple={false}
-      acceptedFileTypes={['.gif', '.bmp', '.jpg', '.png']}
+      acceptedFileTypes={['image/*']}
       level="public"
       provider="fast" // IGNORE
     />

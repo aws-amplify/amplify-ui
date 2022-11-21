@@ -6,7 +6,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 export const UploadButtonComponentsExample = () => {
-  const acceptedFileTypes = ['.bmp', '.jpg', '.jpeg'];
+  const acceptedFileTypes = ['image/*'];
   return (
     <FileUploader
       acceptedFileTypes={acceptedFileTypes}

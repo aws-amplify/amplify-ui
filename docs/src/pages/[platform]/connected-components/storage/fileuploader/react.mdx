@@ -15,13 +15,17 @@ import { ReactPropsTable } from '../../in-app-messaging/props'
 
 
 ## Overview
-The File Uploader component allows your customers to seamlessly upload files to you. It's powered by our [S3 storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/) service.
+The File Uploader component allows your customers to seamlessly upload files to you. It's powered by the [Amplify Storage Library](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/).
 
 <Alert variation="info">
   The file uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
 </Alert>
 
 ## Usage
+
+<Alert variation="info" heading="Developer Preview">
+  The File Uploader component is in developer preview! It should not be used in production yet. 
+</Alert>
 
 To use the File Uploader component import it into your React application with the included styles. At a minimum you must include the `level` and the `acceptedFileTypes` prop.
 
@@ -337,7 +341,7 @@ The File Uploader component is built upon our robust [Amplify UI theming system]
 
 ### Target Classes
 
-If you like you can target classes directly or use CSS variables to make changes to the look and feel of the File Uploader. 
+If you like, you can target classes directly or use CSS variables to make changes to the look and feel of the File Uploader. 
 
 <ComponentStyleDisplay componentName="FileUploader" />
 

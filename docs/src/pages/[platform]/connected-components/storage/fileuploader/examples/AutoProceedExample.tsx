@@ -4,9 +4,9 @@ export const AutoProceedExample = () => {
   return (
     <FileUploader
       autoProceed={true}
-      acceptedFileTypes={['.gif', '.bmp', '.doc']}
+      acceptedFileTypes={['image/*']}
       level="public"
-      provider="slow" // IGNORE
+      provider="fast" // IGNORE
     />
   );
 };

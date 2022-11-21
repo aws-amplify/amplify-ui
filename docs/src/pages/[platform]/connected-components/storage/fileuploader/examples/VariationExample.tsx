@@ -3,7 +3,7 @@ export const VariationExample = () => {
   return (
     <FileUploader
       variation="drop"
-      acceptedFileTypes={['.gif', '.bmp', '.doc']}
+      acceptedFileTypes={['image/*']}
       level="public"
       provider="fast" // IGNORE
     />

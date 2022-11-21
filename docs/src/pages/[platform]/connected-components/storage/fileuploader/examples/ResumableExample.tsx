@@ -4,7 +4,7 @@ export const ResumableExample = () => {
   return (
     <FileUploader
       resumable={true}
-      acceptedFileTypes={['.gif', '.bmp', '.jpg', '.png']}
+      acceptedFileTypes={['image/*']}
       level="public"
       provider="slow" // IGNORE
     />
