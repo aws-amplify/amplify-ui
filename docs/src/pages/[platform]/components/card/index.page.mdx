@@ -10,7 +10,9 @@ supportedFrameworks: react
 
 import { Fragment } from '@/components/Fragment';
 import { PageTabLayout } from '@/components/Layout/PageTabLayout';
-import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { PropsTableTab } from '@/components/propsTable/PropsTableTab';
+import data from '@/data/props-table.json';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -22,13 +24,18 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<PageTabLayout
+<PageTabLayout 
   tabComponents={[{
-    title: "Documentation",
+    title: "Documentation", 
     children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
   },
   {
-    title: "Props",
-    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+    title: "Props", 
+    children: <PropsTableTab 
+                componentName={frontmatter.title} 
+                PropsData={data} 
+                htmlElement={frontmatter.htmlElement} 
+                mdnUrl={frontmatter.mdnUrl}
+              />
   }]}
 />

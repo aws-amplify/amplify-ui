@@ -1,14 +1,10 @@
-import { DesignToken, FontWeightValue } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface HighlightMatchHighlightedTokens {
-  fontWeight: DesignToken<FontWeightValue>;
-}
+export type HighlightMatchTokens<OutputType extends OutputVariantKey> = {
+  highlighted?: DesignTokenProperties<'fontWeight', OutputType>;
+};
 
-export interface HighlightMatchTokens {
-  highlighted: HighlightMatchHighlightedTokens;
-}
-
-export const highlightmatch: HighlightMatchTokens = {
+export const highlightmatch: Required<HighlightMatchTokens<'default'>> = {
   highlighted: {
     fontWeight: { value: '{fontWeights.bold}' },
   },

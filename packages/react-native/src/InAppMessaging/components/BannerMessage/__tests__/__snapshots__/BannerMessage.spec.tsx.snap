@@ -72,6 +72,7 @@ exports[`BannerMessage renders a message as expected with an image 1`] = `
         }
       />
       <View
+        accessibilityRole="button"
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -94,16 +95,22 @@ exports[`BannerMessage renders a message as expected with an image 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Array [
-            Object {
-              "alignSelf": "flex-start",
-              "marginLeft": "auto",
-            },
-            undefined,
+            Object {},
+            null,
+            null,
+            Array [
+              Object {
+                "alignSelf": "flex-start",
+                "marginLeft": "auto",
+              },
+              undefined,
+            ],
           ]
         }
         testID="in-app-messaging--close-button"
       >
         <Image
+          accessibilityRole="image"
           source={
             Object {
               "testUri": "../../../src/assets/icons/close.png",
@@ -174,6 +181,7 @@ exports[`BannerMessage renders a message as expected without an image 1`] = `
         }
       />
       <View
+        accessibilityRole="button"
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -196,16 +204,22 @@ exports[`BannerMessage renders a message as expected without an image 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Array [
-            Object {
-              "alignSelf": "flex-start",
-              "marginLeft": "auto",
-            },
-            undefined,
+            Object {},
+            null,
+            null,
+            Array [
+              Object {
+                "alignSelf": "flex-start",
+                "marginLeft": "auto",
+              },
+              undefined,
+            ],
           ]
         }
         testID="in-app-messaging--close-button"
       >
         <Image
+          accessibilityRole="image"
           source={
             Object {
               "testUri": "../../../src/assets/icons/close.png",

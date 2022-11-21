@@ -1,4 +1,5 @@
 import { ViewProps } from '../../types';
+import { createTheme } from '@aws-amplify/ui';
 import {
   getConsecutiveIntArray,
   strHasLength,
@@ -27,6 +28,9 @@ const props: ViewProps = {
   ariaLabel: 'important section',
   className: 'my-section',
 };
+
+const theme = createTheme();
+const { tokens } = theme;
 
 describe('getConsecutiveIntArray: ', () => {
   it('should return an array of consecutive integer', () => {
@@ -97,14 +101,14 @@ describe('classNameModifierByFlag', () => {
 
 describe('getCSSVariableIfValueIsThemeKey', () => {
   it('should return CSS variable if value is a theme key', () => {
-    expect(getCSSVariableIfValueIsThemeKey('backgroundColor', 'red.10')).toBe(
-      'var(--amplify-colors-red-10)'
-    );
+    expect(
+      getCSSVariableIfValueIsThemeKey('backgroundColor', 'red.10', tokens)
+    ).toBe('var(--amplify-colors-red-10)');
   });
 
   it('should return value directly if it is not a theme key', () => {
-    expect(getCSSVariableIfValueIsThemeKey('backgroundColor', 'red')).toBe(
-      'red'
-    );
+    expect(
+      getCSSVariableIfValueIsThemeKey('backgroundColor', 'red', tokens)
+    ).toBe('red');
   });
 });

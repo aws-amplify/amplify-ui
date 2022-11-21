@@ -1,29 +1,33 @@
 import {
-  DesignToken,
-  WebDesignToken,
   BorderWidthValue,
+  DesignTokenValues,
+  OutputVariantKey,
 } from './types/designToken';
 
-export type BorderWidths = {
-  /**
-   * Small border, used for inputs and such
-   */
-  small: DesignToken<BorderWidthValue>;
-  /**
-   * Medium border, used for
-   */
-  medium: DesignToken<BorderWidthValue>;
-  /**
-   * Large border
-   */
-  large: DesignToken<BorderWidthValue>;
-};
+type BorderWidthSize = 'small' | 'medium' | 'large';
 
-export type WebBorderWidths = {
-  [Property in keyof BorderWidths]: WebDesignToken<BorderWidthValue>;
-};
+export type BorderWidths<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = Output extends 'required' | 'default'
+  ? Required<
+      DesignTokenValues<
+        BorderWidthSize,
+        BorderWidthValue<Platform, Output>,
+        Output,
+        Platform
+      >
+    >
+  : Partial<
+      DesignTokenValues<
+        BorderWidthSize,
+        BorderWidthValue<Platform, Output>,
+        Output,
+        Platform
+      >
+    >;
 
-export const borderWidths: BorderWidths = {
+export const borderWidths: BorderWidths<'default'> = {
   small: { value: '1px' },
   medium: { value: '2px' },
   large: { value: '3px' },

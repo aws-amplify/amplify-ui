@@ -3,10 +3,9 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
 import { defaultTheme } from './defaultTheme';
-import { Theme, BaseTheme, WebTheme, Override } from './types';
-import { cssValue, cssNameTransform } from './utils';
-import { WebTokens } from './tokens';
-import { DesignToken, WebDesignToken } from './tokens/types/designToken';
+import { Theme, DefaultTheme, WebTheme, Override } from './types';
+import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
+import { WebDesignToken } from './tokens/types/designToken';
 
 /**
  * This will take a design token and add some data to it for it
@@ -16,52 +15,13 @@ import { DesignToken, WebDesignToken } from './tokens/types/designToken';
  *
  * We should see if there is a way to share this logic with style dictionary...
  */
-function setupToken(token: DesignToken, path: Array<string>): WebDesignToken {
+const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
   const name = `--${cssNameTransform({ path })}`;
-  const { value } = token;
+  const { value: original } = token;
+  const value = cssValue(token);
 
-  return {
-    name,
-    path,
-    value: cssValue(token),
-    original: value,
-    toString: () => `var(${name})`,
-  };
-}
-
-/**
- * Recursive function that will walk down the token object
- * and perform the setupToken function on each token.
- * Similar to what Style Dictionary does.
- */
-function setupTokens(obj: any, path = []) {
-  let tokens = {};
-
-  if (obj.hasOwnProperty('value')) {
-    return setupToken(obj, path);
-  } else if (typeof obj === 'object') {
-    for (const name in obj) {
-      if (obj.hasOwnProperty(name)) {
-        if (typeof obj[name] !== 'object') {
-          // If we get to this point that means there is a 'dangling' part of the theme object
-          // basically some part of the theme object that is not a design token, which is
-          // anything that is not an object with a value attribute
-          console.warn(
-            `Non-design token found when creating the theme at path: ${path.join(
-              '.'
-            )}.${name}\nDid you forget to add '{value:"${obj[name]}"}'?`
-          );
-          // Keep the users data there just in case
-          tokens[name] = obj[name];
-        } else {
-          tokens[name] = setupTokens(obj[name], path.concat(name));
-        }
-      }
-    }
-  }
-
-  return tokens;
-}
+  return { name, original, path, value, toString: () => `var(${name})` };
+};
 
 /**
  * This will be used like `const myTheme = createTheme({})`
@@ -72,19 +32,22 @@ function setupTokens(obj: any, path = []) {
  */
 export function createTheme(
   theme?: Theme,
-  baseTheme: BaseTheme = defaultTheme
+  DefaultTheme: DefaultTheme | WebTheme = defaultTheme
 ): WebTheme {
-  // merge theme and baseTheme to get a complete theme
+  // merge theme and DefaultTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
-  const mergedTheme: BaseTheme = deepExtend([{}, baseTheme, theme]);
+  const mergedTheme: DefaultTheme = deepExtend([{}, DefaultTheme, theme]);
 
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:
   // - CSS variable name of itself
   // - its value (reference to another CSS variable or raw value)
-  const tokens = setupTokens(mergedTheme.tokens) as WebTokens; // Setting the type here because setupTokens is recursive
+  const tokens = setupTokens({
+    tokens: mergedTheme.tokens,
+    setupToken,
+  }) as WebTheme['tokens']; // Setting the type here because setupTokens is recursive
 
   const { breakpoints, name } = mergedTheme;
 
@@ -106,7 +69,10 @@ export function createTheme(
    */
   if (mergedTheme.overrides) {
     overrides = mergedTheme.overrides.map((override) => {
-      const tokens = setupTokens(override.tokens);
+      const tokens = setupTokens({
+        tokens: override.tokens,
+        setupToken,
+      });
       const customProperties = flattenProperties(tokens)
         .map((token) => `${token.name}: ${token.value};`)
         .join('\n');

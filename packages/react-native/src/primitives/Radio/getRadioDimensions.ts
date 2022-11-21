@@ -16,23 +16,36 @@ import { RadioDimensions, RadioStyles, Size } from './types';
  * (e.g., 'small' => { radioContainerSmall, radioDotSmall } )
  */
 
+/**
+ * We landed on this value for the ratio of the Radio dot to the Radio container
+ * because it looks aesthetically proportional. Incidentally, this value is also
+ * an approximation of the golden ratio conjugate.
+ */
+export const RADIO_DOT_PROPORTION = 0.6;
+
 export const getRadioDimensions = (
   size: Size,
-  styles: RadioStyles
+  styles: Required<RadioStyles>
 ): {
-  radioContainerSize: RadioDimensions;
-  radioDotSize: RadioDimensions;
+  radioContainerDimensions: RadioDimensions;
+  radioDotDimensions: RadioDimensions;
 } => {
   if (typeof size === 'number') {
     return {
-      radioContainerSize: { height: size, width: size },
-      radioDotSize: { height: size * 0.5, width: size * 0.5 },
+      radioContainerDimensions: {
+        height: size,
+        width: size,
+      },
+      radioDotDimensions: {
+        height: size * RADIO_DOT_PROPORTION,
+        width: size * RADIO_DOT_PROPORTION,
+      },
     };
   }
 
   const sizeKey = capitalize(size);
   return {
-    radioContainerSize: styles[`radioContainer${sizeKey}`],
-    radioDotSize: styles[`radioDot${sizeKey}`],
+    radioContainerDimensions: styles[`radioContainer${sizeKey}`],
+    radioDotDimensions: styles[`radioDot${sizeKey}`],
   };
 };

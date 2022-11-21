@@ -23,6 +23,7 @@ export const enDict: AuthenticatorDictionary = {
   'Enter your email': 'Enter your email',
   'Enter your phone number': 'Enter your phone number',
   'Enter your username': 'Enter your username',
+  'Forgot password?': 'Forgot password?',
   'Forgot your password?': 'Forgot your password?',
   'Hide password': 'Hide password',
   Loading: 'Loading',

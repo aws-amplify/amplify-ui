@@ -2,6 +2,7 @@
 
 exports[`Icon renders an animated icon 1`] = `
 <Image
+  accessibilityRole="image"
   collapsable={false}
   source={
     Object {
@@ -10,17 +11,19 @@ exports[`Icon renders an animated icon 1`] = `
   }
   style={
     Object {
-      "height": undefined,
+      "height": 24,
       "resizeMode": "contain",
       "tintColor": undefined,
-      "width": undefined,
+      "width": 24,
     }
   }
+  testID="iconTestID"
 />
 `;
 
 exports[`Icon renders as expected 1`] = `
 <Image
+  accessibilityRole="image"
   source={
     Object {
       "uri": "mock.png",
@@ -29,19 +32,21 @@ exports[`Icon renders as expected 1`] = `
   style={
     Array [
       Object {
-        "height": undefined,
+        "height": 24,
         "resizeMode": "contain",
         "tintColor": undefined,
-        "width": undefined,
+        "width": 24,
       },
       undefined,
     ]
   }
+  testID="iconTestID"
 />
 `;
 
 exports[`Icon renders as expected with custom styles 1`] = `
 <Image
+  accessibilityRole="image"
   source={
     Object {
       "uri": "mock.png",
@@ -50,15 +55,85 @@ exports[`Icon renders as expected with custom styles 1`] = `
   style={
     Array [
       Object {
-        "height": undefined,
+        "height": 24,
         "resizeMode": "contain",
         "tintColor": undefined,
-        "width": undefined,
+        "width": 24,
       },
       Object {
         "tintColor": "red",
       },
     ]
   }
+  testID="iconTestID"
+/>
+`;
+
+exports[`Icon should override size as number 1`] = `
+<Image
+  accessibilityRole="image"
+  source={
+    Object {
+      "uri": "mock.png",
+    }
+  }
+  style={
+    Array [
+      Object {
+        "height": 22,
+        "resizeMode": "contain",
+        "tintColor": undefined,
+        "width": 22,
+      },
+      undefined,
+    ]
+  }
+  testID="iconTestID"
+/>
+`;
+
+exports[`Icon should override size as string 1`] = `
+<Image
+  accessibilityRole="image"
+  source={
+    Object {
+      "uri": "mock.png",
+    }
+  }
+  style={
+    Array [
+      Object {
+        "height": 32,
+        "resizeMode": "contain",
+        "tintColor": undefined,
+        "width": 32,
+      },
+      undefined,
+    ]
+  }
+  testID="iconTestID"
+/>
+`;
+
+exports[`Icon throws an error for invalid size type 1`] = `
+<Image
+  accessibilityRole="image"
+  source={
+    Object {
+      "uri": "mock.png",
+    }
+  }
+  style={
+    Array [
+      Object {
+        "height": 24,
+        "resizeMode": "contain",
+        "tintColor": undefined,
+        "width": 24,
+      },
+      undefined,
+    ]
+  }
+  testID="iconTestID"
 />
 `;

@@ -1,33 +1,51 @@
-import { DesignToken, WebDesignToken, SpaceValue } from './types/designToken';
+import {
+  DesignTokenValues,
+  OutputVariantKey,
+  SpaceValue,
+} from './types/designToken';
 
-export type SpaceSizes = {
-  xxxs: DesignToken<SpaceValue>;
-  xxs: DesignToken<SpaceValue>;
-  xs: DesignToken<SpaceValue>;
-  small: DesignToken<SpaceValue>;
-  medium: DesignToken<SpaceValue>;
-  large: DesignToken<SpaceValue>;
-  xl: DesignToken<SpaceValue>;
-  xxl: DesignToken<SpaceValue>;
-  xxxl: DesignToken<SpaceValue>;
+type SpaceSize =
+  | 'xxxs'
+  | 'xxs'
+  | 'xs'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xl'
+  | 'xxl'
+  | 'xxxl';
+
+export type SpaceSizes<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = DesignTokenValues<
+  SpaceSize | 'zero',
+  SpaceValue<Platform>,
+  Output,
+  Platform
+>;
+
+type BaseSpace<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = SpaceSizes<Output, Platform> & {
+  relative?: DesignTokenValues<
+    SpaceSize | 'full',
+    SpaceValue,
+    Output,
+    Platform
+  >;
 };
 
-export type Space = SpaceSizes & {
-  zero: DesignToken<SpaceValue>;
-  relative: SpaceSizes & {
-    full: DesignToken<SpaceValue>;
-  };
-};
+// `Space` tokens requires special handling for `required` output due to nested tokens
+export type Space<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = Output extends 'required' | 'default'
+  ? Required<BaseSpace<Output, Platform>>
+  : BaseSpace<Output, Platform>;
 
-export type WebSpace = {
-  [Property in keyof Omit<Space, 'relative'>]: WebDesignToken<SpaceValue>;
-} & {
-  relative: {
-    [Property in keyof Space['relative']]: WebDesignToken<SpaceValue>;
-  };
-};
-
-export const space: Space = {
+export const space: Space<'default'> = {
   zero: { value: '0' },
   xxxs: { value: '0.25rem' },
   xxs: { value: '0.375rem' },

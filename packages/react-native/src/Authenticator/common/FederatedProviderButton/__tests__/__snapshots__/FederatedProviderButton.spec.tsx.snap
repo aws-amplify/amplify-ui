@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FederatedProviderButton renders default button as expected 1`] = `
+<View
+  accessibilityRole="button"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderRadius": 4,
+        "justifyContent": "center",
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      },
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
+      null,
+      null,
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderRadius": 4,
+          "borderWidth": 0.5,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingVertical": 8,
+          "width": "100%",
+        },
+        undefined,
+      ],
+    ]
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/amazonLogo.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 20,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 20,
+        },
+        Object {
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Array [
+          Object {
+            "fontWeight": "400",
+          },
+          undefined,
+        ],
+      ]
+    }
+  >
+    Sign In with Amazon
+  </Text>
+</View>
+`;

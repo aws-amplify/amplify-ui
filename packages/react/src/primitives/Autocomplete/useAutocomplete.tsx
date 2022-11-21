@@ -21,7 +21,6 @@ export const useAutocomplete = ({
   onChange,
   onClear,
   onClick,
-  onFocus,
   onSelect,
   onSubmit,
 }: UseAutocompleteProps) => {
@@ -36,7 +35,9 @@ export const useAutocomplete = ({
   const filteredOptions = React.useMemo(() => {
     const defaultFilter = (option: ComboBoxOption) => {
       const { label } = option;
-      return label?.includes(composedValue);
+      return label
+        ?.toLocaleLowerCase()
+        .includes(composedValue?.toLocaleLowerCase());
     };
     const filter = isCustomFiltering
       ? (option: ComboBoxOption) => optionFilter(option, composedValue)
@@ -101,17 +102,6 @@ export const useAutocomplete = ({
         }
       },
       [onClick]
-    );
-
-  const handleOnFocus: React.FocusEventHandler<HTMLInputElement> =
-    React.useCallback(
-      (event) => {
-        setIsMenuOpen(true);
-        if (isFunction(onFocus)) {
-          onFocus(event);
-        }
-      },
-      [onFocus]
     );
 
   const handleOnKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (
@@ -239,7 +229,6 @@ export const useAutocomplete = ({
     handleOnBlur,
     handleOnClear,
     handleOnClick,
-    handleOnFocus,
     handleOnChange,
     handleOnKeyDown,
     isControlled,

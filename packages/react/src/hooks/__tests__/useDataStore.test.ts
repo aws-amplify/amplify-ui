@@ -1,10 +1,12 @@
 import { DataStore, SortDirection } from '@aws-amplify/datastore';
 import { renderHook } from '@testing-library/react-hooks';
+import { createDataStorePredicate } from '../../primitives/shared/datastore';
 import {
   useDataStoreBinding,
   useDataStoreCollection,
   useDataStoreItem,
 } from '../useDataStore';
+import { Todo } from '../actions/testShared';
 
 jest.mock('@aws-amplify/datastore');
 
@@ -76,7 +78,12 @@ describe('useDataStoreCollection', () => {
   it('should return items on success', async () => {
     const fakeItems = Array.from({ length: 100 }).map((_) => fakeItem);
 
-    const fakePredicate = (p) => p.fieldName('eq', 'fake-value');
+    const namePredicateObject = {
+      field: 'name',
+      operator: 'eq',
+      operand: 'fake-value',
+    };
+    const predicate: any = createDataStorePredicate<Todo>(namePredicateObject);
 
     const fakePagination = {
       limit: 100,
@@ -97,7 +104,7 @@ describe('useDataStoreCollection', () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useDataStoreCollection({
         model: fakeModel,
-        criteria: fakePredicate,
+        criteria: predicate,
         pagination: fakePagination,
       })
     );
@@ -285,7 +292,12 @@ describe('useDataStoreBinding', () => {
   it('handles calls with type collection in the happy path', async () => {
     const fakeItems = Array.from({ length: 100 }).map((_) => fakeItem);
 
-    const fakePredicate = (p) => p.fieldName('eq', 'fake-value');
+    const namePredicateObject = {
+      field: 'name',
+      operator: 'eq',
+      operand: 'fake-value',
+    };
+    const predicate: any = createDataStorePredicate<Todo>(namePredicateObject);
 
     const fakePagination = {
       limit: 100,
@@ -305,8 +317,8 @@ describe('useDataStoreBinding', () => {
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useDataStoreBinding({
-        model: fakeModel,
-        criteria: fakePredicate,
+        model: Todo,
+        criteria: predicate,
         pagination: fakePagination,
         type: 'collection',
       })
