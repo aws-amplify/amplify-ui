@@ -8,7 +8,7 @@ export const FileUploaderErrorExample = () => {
   return (
     <FileUploader
       onError={onError}
-      resumable={true}
+      isResumable={true}
       variation="drop"
       acceptedFileTypes={['image/*']}
       level="public"

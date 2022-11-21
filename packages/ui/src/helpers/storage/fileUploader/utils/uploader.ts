@@ -89,7 +89,7 @@ export const returnAcceptedFiles = (
   acceptedFileTypes: string[]
 ): File[] => {
   // Remove any files that are not in the accepted file list
-  return [...files].filter((file) => {
+  return files.filter((file) => {
     const fileName = file.name || '';
     const mimeType = (file.type || '').toLowerCase();
     const baseMimeType = mimeType.replace(/\/.*$/, '');

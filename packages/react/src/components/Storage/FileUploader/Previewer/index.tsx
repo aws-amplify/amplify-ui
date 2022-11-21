@@ -18,8 +18,8 @@ export function Previewer({
   fileStatuses,
   inDropZone,
   isLoading,
-  isSuccess,
-  maxFilesError,
+  isSuccessful,
+  hasMaxFilesError,
   multiple,
   onClear,
   onDragEnter,
@@ -63,7 +63,7 @@ export function Previewer({
           />
         </UploadDropZone>
         <Text className={ComponentClassNames.FileUploaderPreviewerText}>
-          {isSuccess ? (
+          {isSuccessful ? (
             <>
               {uploadedFilesLength()} {translate('files uploaded')}
             </>
@@ -96,7 +96,7 @@ export function Previewer({
         </View>
 
         <View className={ComponentClassName.FileUploaderPreviewerFooterActions}>
-          {!isLoading && !isSuccess && (
+          {!isLoading && !isSuccessful && (
             <>
               <Button
                 disabled={
@@ -104,7 +104,7 @@ export function Previewer({
                     ['error', 'editing'].includes(status?.fileState)
                   ) ||
                   remainingFilesLength === 0 ||
-                  maxFilesError
+                  hasMaxFilesError
                 }
                 size="small"
                 variation="primary"
@@ -120,7 +120,7 @@ export function Previewer({
               </Button>
             </>
           )}
-          {isSuccess && (
+          {isSuccessful && (
             <Button size="small" onClick={onClear}>
               {translate('Done')}
             </Button>
@@ -128,7 +128,9 @@ export function Previewer({
         </View>
       </View>
 
-      {maxFilesError && <Alert variation="error" heading={headingMaxFiles} />}
+      {hasMaxFilesError && (
+        <Alert variation="error" heading={headingMaxFiles} />
+      )}
     </View>
   );
 }

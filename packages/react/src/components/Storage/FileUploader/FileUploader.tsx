@@ -74,14 +74,14 @@ export function FileUploader({
   );
 
   // checks if all downloads completed to 100%
-  const isSuccess = () => {
+  const isSuccessful = () => {
     if (fileStatuses.length === 0) return;
 
     return fileStatuses.every((status) => status?.percentage === 100);
   };
 
   // Displays if over max files
-  const maxFilesError = fileStatuses.length > maxFiles;
+  const hasMaxFilesError = fileStatuses.length > maxFiles;
 
   useEffect(() => {
     // Loading ends when all files are at 100%
@@ -356,8 +356,8 @@ export function FileUploader({
         hiddenInput={hiddenInput}
         inDropZone={inDropZone}
         isLoading={isLoading}
-        isSuccess={isSuccess()}
-        maxFilesError={maxFilesError}
+        isSuccessful={isSuccessful()}
+        hasMaxFilesError={hasMaxFilesError}
         multiple={multiple}
         onClear={onClear}
         onDragEnter={onDragEnter}

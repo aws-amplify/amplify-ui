@@ -52,8 +52,8 @@ export interface PreviewerProps extends DragActionHandlers {
   hiddenInput: React.MutableRefObject<HTMLInputElement>;
   inDropZone?: boolean;
   isLoading: boolean;
-  isSuccess: boolean;
-  maxFilesError: boolean;
+  isSuccessful: boolean;
+  hasMaxFilesError: boolean;
   multiple?: boolean;
   onClear: () => void;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

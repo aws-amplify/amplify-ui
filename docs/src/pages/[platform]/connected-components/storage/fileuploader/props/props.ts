@@ -85,12 +85,12 @@ export const PREVIEWER_COMPONENTS = [
   },
 
   {
-    name: `isSuccess`,
+    name: `isSuccessful`,
     description: 'Indicates if all files have completed uploading',
     type: `boolean`,
   },
   {
-    name: `maxFilesError`,
+    name: `hashasMaxFilesError`,
     description: 'Indicates if there is a max file size error',
     type: `boolean`,
   },
