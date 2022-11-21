@@ -15,7 +15,9 @@ export const getDefaultStyle = ({
       margin: space.medium,
     },
     buttonPrimaryLabel: {}, // themed value only
-    buttonSecondary: {}, // themed value only
+    buttonSecondary: {
+      margin: space.medium,
+    },
     buttonSecondaryLabel: {}, // themed value only
     errorMessage: {
       marginVertical: space.small,
