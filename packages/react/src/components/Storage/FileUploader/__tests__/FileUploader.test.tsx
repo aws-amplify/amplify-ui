@@ -498,7 +498,7 @@ describe('File Uploader', () => {
       container.querySelector(`.${ComponentClassNames.FileUploaderFileImage}`)
     ).toBeVisible();
   });
-  it('starts upload after file is selected if autoProceed is true', async () => {
+  it('starts upload after file is selected if shouldAutoProceed is true', async () => {
     const fileStatuses = [fileStatus];
     useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
@@ -507,7 +507,7 @@ describe('File Uploader', () => {
     });
 
     const { container } = render(
-      <FileUploader {...commonProps} autoProceed={true} />
+      <FileUploader {...commonProps} shouldAutoProceed={true} />
     );
 
     const input = container.getElementsByTagName('input')[0];

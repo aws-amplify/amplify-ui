@@ -17,7 +17,7 @@ const logger = new Logger('AmplifyUI:Auth');
 
 export function FileUploader({
   acceptedFileTypes,
-  autoProceed = false,
+  shouldAutoProceed = false,
   components = {},
   isPreviewerVisible,
   level,
@@ -327,11 +327,11 @@ export function FileUploader({
   );
 
   useEffect(() => {
-    if (autoProceed && autoUploadRef.current) {
+    if (shouldAutoProceed && autoUploadRef.current) {
       onFileClick();
     }
     autoUploadRef.current = false;
-  }, [autoProceed, autoUploadRef, onFileClick]);
+  }, [shouldAutoProceed, autoUploadRef, onFileClick]);
 
   // UploadButton
   const hiddenInput = React.useRef<HTMLInputElement>();
