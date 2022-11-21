@@ -94,12 +94,14 @@ export const authenticatorTextUtil = {
   getConfirmText: () => translate(DefaultTexts.CONFIRM),
   getConfirmingText: () => translate(DefaultTexts.CONFIRMING),
   getCopyText: () => translate(DefaultTexts.UPPERCASE_COPY),
+  getHidePasswordText: () => translate(DefaultTexts.HIDE_PASSWORD),
+  getLoadingText: () => translate(DefaultTexts.LOADING),
   getResendCodeText: () => translate(DefaultTexts.RESEND_CODE),
   getSendCodeText: () => translate(DefaultTexts.SEND_CODE),
   getSendingText: () => translate(DefaultTexts.SENDING),
+  getShowPasswordText: () => translate(DefaultTexts.SHOW_PASSWORD),
   getSubmitText: () => translate(DefaultTexts.SUBMIT),
   getSubmittingText: () => translate(DefaultTexts.SUBMITTING),
-  getLoadingText: () => translate(DefaultTexts.LOADING),
 
   /** SignInSignUpTabs */
   getSignInTabText: () => translate(DefaultTexts.SIGN_IN_TAB),

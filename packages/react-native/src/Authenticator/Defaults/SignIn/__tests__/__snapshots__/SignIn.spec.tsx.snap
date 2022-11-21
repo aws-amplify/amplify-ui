@@ -31,13 +31,6 @@ Array [
     }
   >
     <View
-      accessibilityLabel="Username"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -48,8 +41,10 @@ Array [
           },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Username"
         accessibilityRole="text"
         style={
           Array [
@@ -75,6 +70,7 @@ Array [
         Username
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -83,12 +79,16 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -103,6 +103,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
@@ -111,13 +112,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -131,8 +125,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Password"
         accessibilityRole="text"
         style={
           Array [
@@ -158,6 +154,7 @@ Array [
         Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -166,12 +163,16 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -187,12 +188,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -443,13 +446,6 @@ Array [
     }
   >
     <View
-      accessibilityLabel="Username"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -460,8 +456,10 @@ Array [
           },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Username"
         accessibilityRole="text"
         style={
           Array [
@@ -487,6 +485,7 @@ Array [
         Username
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -495,12 +494,16 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -515,6 +518,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
@@ -523,13 +527,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -543,8 +540,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Password"
         accessibilityRole="text"
         style={
           Array [
@@ -570,6 +569,7 @@ Array [
         Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -578,12 +578,16 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -599,12 +603,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -805,13 +811,6 @@ Array [
     }
   >
     <View
-      accessibilityLabel="Username"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -822,8 +821,10 @@ Array [
           },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Username"
         accessibilityRole="text"
         style={
           Array [
@@ -849,6 +850,7 @@ Array [
         Username
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -857,12 +859,16 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -877,6 +883,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
@@ -885,13 +892,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -905,8 +905,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Password"
         accessibilityRole="text"
         style={
           Array [
@@ -932,6 +934,7 @@ Array [
         Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -940,12 +943,16 @@ Array [
             "borderWidth": 1,
             "flexDirection": "row",
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -961,12 +968,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {

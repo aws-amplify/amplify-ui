@@ -132,7 +132,9 @@ Array [
         },
         null,
         null,
-        Object {},
+        Object {
+          "margin": 16,
+        },
       ]
     }
   >
@@ -287,7 +289,9 @@ Array [
         },
         null,
         null,
-        Object {},
+        Object {
+          "margin": 16,
+        },
       ]
     }
   >
@@ -495,7 +499,9 @@ Array [
         },
         null,
         null,
-        Object {},
+        Object {
+          "margin": 16,
+        },
       ]
     }
   >
