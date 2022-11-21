@@ -4,6 +4,7 @@ import {
   IlluminationState,
   IlluminationStateStringMap,
   FaceMatchStateStringMap,
+  LivenessErrorState,
   LivenessErrorStateStringMap,
 } from '@aws-amplify/ui';
 
@@ -12,9 +13,9 @@ import {
   useLivenessSelector,
   createLivenessSelector,
 } from '../hooks';
-import { useTheme } from '../../../hooks';
+import { Toast } from './Toast';
+import { Overlay } from './Overlay';
 import { Flex, Loader, View } from '../../../primitives';
-import { LivenessAlertIcon } from './LivenessAlertIcon';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -32,7 +33,6 @@ export const selectIsFaceFarEnoughBeforeRecording = createLivenessSelector(
 export interface InstructionProps {}
 
 export const Instruction: React.FC<InstructionProps> = () => {
-  const { tokens } = useTheme();
   const [state] = useLivenessActor();
 
   // NOTE: Do not change order of these selectors as the unit tests depend on this order
@@ -60,23 +60,34 @@ export const Instruction: React.FC<InstructionProps> = () => {
 
   const getInstructionContent = () => {
     if (errorState || isCheckFailed) {
+      let heading: string = null;
+
+      switch (errorState) {
+        case LivenessErrorState.TIMEOUT:
+          heading = translate('Time out');
+          break;
+        case LivenessErrorState.SERVER_ERROR:
+          heading = translate('Internal server error');
+          break;
+        case LivenessErrorState.RUNTIME_ERROR:
+          heading = translate('Client error');
+          break;
+        default:
+          heading = null;
+      }
+
       return (
-        <Flex
-          gap={`${tokens.space.xs}`}
-          color={`${tokens.colors.red[80]}`}
-          alignItems="center"
-        >
-          <LivenessAlertIcon variation="error" />
-          <View as="span">
+        <Overlay backgroundColor="overlay.40">
+          <Toast heading={heading} variation="error">
             {errorState && LivenessErrorStateStringMap[errorState]}
             {isCheckFailed && translate('Check unsuccessful. Try again')}
-          </View>
-        </Flex>
+          </Toast>
+        </Overlay>
       );
     }
 
     if (isCheckFaceDetectedBeforeStart) {
-      return translate('Move face in front of camera');
+      return <Toast>{translate('Move face in front of camera')}</Toast>;
     }
 
     // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
@@ -84,66 +95,66 @@ export const Instruction: React.FC<InstructionProps> = () => {
       isCheckFaceDistanceBeforeRecording &&
       isFaceFarEnoughBeforeRecordingState === false
     ) {
-      return translate('Move face further away');
+      return <Toast>{translate('Move face further away')}</Toast>;
     }
 
     if (isNotRecording) {
-      return translate('After countdown, move face to fit in oval');
+      return (
+        <Toast>{translate('After countdown, move face to fit in oval')}</Toast>
+      );
     }
 
     if (isWaitingForSessionInfo) {
       return (
-        <Flex gap={`${tokens.space.xxs}`} alignItems="center">
-          <Loader />
-          <View as="span">{translate('Connecting...')}</View>
-        </Flex>
+        <Toast>
+          <Flex alignItems="center" gap="xs">
+            <Loader />
+            <View>{translate('Connecting...')}</View>
+          </Flex>
+        </Toast>
       );
     }
 
     if (isUploading) {
       return (
-        <Flex gap={`${tokens.space.xxs}`} alignItems="center">
-          <Loader />
-          <View as="span">{translate('Verifying...')}</View>
-        </Flex>
+        <Overlay
+          backgroundColor="overlay.40"
+          anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
+        >
+          <Toast>
+            <Flex alignItems="center" gap="xs">
+              <Loader />
+              <View>{translate('Verifying...')}</View>
+            </Flex>
+          </Toast>
+        </Overlay>
       );
     }
 
     if (isCheckSuccessful) {
       return (
-        <Flex
-          gap={`${tokens.space.xs}`}
-          color={`${tokens.colors.green[80]}`}
-          alignItems="center"
+        <Overlay
+          backgroundColor="overlay.40"
+          anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
         >
-          <LivenessAlertIcon variation="success" />
-          <View as="span" style={{ whiteSpace: 'nowrap' }}>
-            {translate('Check successful')}
-          </View>
-        </Flex>
+          <Toast variation="success">{translate('Check successful')}</Toast>
+        </Overlay>
       );
     }
 
     if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
-      return IlluminationStateStringMap[illuminationState];
+      return <Toast>{IlluminationStateStringMap[illuminationState]}</Toast>;
     }
 
     if (isFlashingFreshness) {
-      return translate('Hold face in oval');
+      return <Toast>{translate('Hold face in oval')}</Toast>;
     }
 
-    return FaceMatchStateStringMap[faceMatchState];
+    return FaceMatchStateStringMap[faceMatchState] ? (
+      <Toast>{FaceMatchStateStringMap[faceMatchState]}</Toast>
+    ) : null;
   };
 
   const instructionContent = getInstructionContent();
-  return instructionContent ? (
-    <Flex
-      borderRadius={`${tokens.radii.medium}`}
-      backgroundColor={`${tokens.colors.background.primary}`}
-      padding={`${tokens.space.small}`}
-      margin={`0 ${tokens.space.medium}`}
-    >
-      <View color={`${tokens.colors.font.primary}`}>{instructionContent}</View>
-    </Flex>
-  ) : null;
+  return instructionContent ? instructionContent : null;
 };

@@ -22,7 +22,7 @@ interface LivenessAlertIconProps {
 
 export const LivenessAlertIcon: React.FC<LivenessAlertIconProps> = ({
   variation,
-  ariaHidden,
+  ariaHidden = true,
 }) => {
   switch (variation) {
     case 'info':

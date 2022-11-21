@@ -47,10 +47,15 @@ export const enDict = {
   'Move face to fit in oval': 'Move face to fit in oval',
 
   // Error messages
-  'Check encountered an error. Try again':
-    'Check encountered an error. Try again',
-  'Try again. Move face to fit in oval in 5 seconds':
-    'Try again. Move face to fit in oval in 5 seconds',
-
-  'Multiple faces detected': 'Multiple faces detected',
+  'Check failed due to server issue. Try again':
+    'Check failed due to server issue. Try again',
+  'Check failed due to client issue. Try again':
+    'Check failed due to client issue. Try again',
+  'You must place your face inside the oval within 5 seconds':
+    'You must place your face inside the oval within 5 seconds',
+  'Time out': 'Time out',
+  'Internal server error': 'Internal server error',
+  'Client error': 'Client error',
+  'Ensure only one face is in front of camera':
+    'Ensure only one face is in front of camera',
 };

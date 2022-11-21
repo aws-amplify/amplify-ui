@@ -301,7 +301,9 @@ export const IlluminationStateStringMap: Record<IlluminationState, string> = {
 export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
   [FaceMatchState.CANT_IDENTIFY]: translate('Move face in front of camera'),
   [FaceMatchState.FACE_IDENTIFIED]: translate('Face detected'),
-  [FaceMatchState.TOO_MANY]: translate('Multiple faces detected'),
+  [FaceMatchState.TOO_MANY]: translate(
+    'Ensure only one face is in front of camera'
+  ),
   [FaceMatchState.TOO_CLOSE]: translate('Move face further away'),
   [FaceMatchState.TOO_FAR]: translate('Move face closer'),
   [FaceMatchState.TOO_LEFT]: translate('Move face right'),
@@ -311,13 +313,13 @@ export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
 
 export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.RUNTIME_ERROR]: translate(
-    'Check encountered an error. Try again'
+    'Check failed due to client issue. Try again'
   ),
   [LivenessErrorState.SERVER_ERROR]: translate(
-    'Check encountered an error. Try again'
+    'Check failed due to server issue. Try again'
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>(
-    'Try again. Move face to fit in oval in 5 seconds'
+    'You must place your face inside the oval within 5 seconds'
   ),
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: undefined,
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: undefined,

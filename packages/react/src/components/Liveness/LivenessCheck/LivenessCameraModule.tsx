@@ -9,7 +9,7 @@ import {
   createLivenessSelector,
   useMediaStreamInVideo,
 } from '../hooks';
-import { CancelButton, Instruction, RecordingIcon } from '../shared';
+import { CancelButton, Instruction, RecordingIcon, Overlay } from '../shared';
 import { isFirefox, isAndroid } from '../utils/device';
 import { Flex, Loader, Text, View } from '../../../primitives';
 
@@ -161,7 +161,7 @@ export const LivenessCameraModule = (
         )}
 
         <View
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 2 }}
           position="absolute"
           top="medium"
           right="medium"
@@ -169,13 +169,9 @@ export const LivenessCameraModule = (
           <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
         </View>
         {countDownRunning && (
-          <Flex
-            direction="column"
-            alignItems="center"
-            position={'absolute'}
-            width="100%"
+          <Overlay
             style={{ zIndex: 1 }}
-            bottom="medium"
+            anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
           >
             <Instruction />
 
@@ -204,7 +200,7 @@ export const LivenessCameraModule = (
                 </CountdownCircleTimer>
               </View>
             )}
-          </Flex>
+          </Overlay>
         )}
       </Flex>
     </Flex>
