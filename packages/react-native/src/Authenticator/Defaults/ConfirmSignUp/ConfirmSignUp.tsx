@@ -1,9 +1,8 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useMemo } from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { Button, ErrorMessage } from '../../../primitives';
 import {
+  DefaultContent,
   DefaultFooter,
   DefaultTextFormFields,
   DefaultHeader,
@@ -11,7 +10,6 @@ import {
 import { useFieldValues } from '../../hooks';
 
 import { DefaultConfirmSignUpComponent } from '../types';
-import { styles } from './style';
 
 const COMPONENT_NAME = 'ConfirmSignUp';
 
@@ -25,16 +23,13 @@ const {
 
 const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
   codeDeliveryDetails,
-  error,
   fields,
-  Footer,
-  FormFields,
-  Header,
   handleBlur,
   handleChange,
   handleSubmit,
   isPending,
   resendCode,
+  ...rest
 }) => {
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -44,25 +39,28 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
     handleSubmit,
   });
 
-  return (
-    <>
-      <Header>{getDeliveryMethodText(codeDeliveryDetails)}</Header>
-      <Text>{getDeliveryMessageText(codeDeliveryDetails)}</Text>
-      <FormFields fields={fieldsWithHandlers} isPending={isPending} />
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        variant="primary"
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-      >
-        {isPending ? getConfirmingText() : getConfirmText()}
-      </Button>
+  const headerText = getDeliveryMethodText(codeDeliveryDetails);
+  const bodyText = getDeliveryMessageText(codeDeliveryDetails);
+  const primaryButtonText = isPending ? getConfirmingText() : getConfirmText();
+  const secondaryButtonText = getResendCodeText();
 
-      <Button onPress={resendCode} style={styles.buttonSecondary}>
-        {getResendCodeText()}
-      </Button>
-      <Footer />
-    </>
+  const buttons = useMemo(
+    () => ({
+      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      secondary: { children: secondaryButtonText, onPress: resendCode },
+    }),
+    [handleFormSubmit, primaryButtonText, resendCode, secondaryButtonText]
+  );
+
+  return (
+    <DefaultContent
+      {...rest}
+      body={bodyText}
+      buttons={buttons}
+      headerText={headerText}
+      fields={fieldsWithHandlers}
+      isPending={isPending}
+    />
   );
 };
 

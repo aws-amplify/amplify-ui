@@ -2,6 +2,27 @@
 
 exports[`SignIn renders as expected 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Sign In
+  </Text>,
   <View
     style={
       Object {
@@ -393,6 +414,27 @@ Array [
 
 exports[`SignIn renders as expected when hideSignUp is true 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Sign In
+  </Text>,
   <View
     style={
       Object {
@@ -734,6 +776,27 @@ Array [
 
 exports[`SignIn renders as expected with an error 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Sign In
+  </Text>,
   <View
     style={
       Object {

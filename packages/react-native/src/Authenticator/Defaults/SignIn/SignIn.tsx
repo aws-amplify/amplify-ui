@@ -23,8 +23,12 @@ const SignIn: DefaultSignInComponent = ({
   toSignUp,
   ...rest
 }) => {
-  const { getSignInText, getSignUpTabText, getForgotPasswordText } =
-    authenticatorTextUtil;
+  const {
+    getSignInTabText,
+    getSignInText,
+    getSignUpTabText,
+    getForgotPasswordText,
+  } = authenticatorTextUtil;
 
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -34,6 +38,7 @@ const SignIn: DefaultSignInComponent = ({
     handleSubmit,
   });
 
+  const headerText = getSignInTabText();
   const forgotPasswordText = getForgotPasswordText(true);
   const signInText = getSignInText();
   const signUpText = getSignUpTabText();
@@ -60,7 +65,12 @@ const SignIn: DefaultSignInComponent = ({
   ]);
 
   return (
-    <DefaultContent {...rest} buttons={buttons} fields={fieldsWithHandlers} />
+    <DefaultContent
+      {...rest}
+      buttons={buttons}
+      fields={fieldsWithHandlers}
+      headerText={headerText}
+    />
   );
 };
 

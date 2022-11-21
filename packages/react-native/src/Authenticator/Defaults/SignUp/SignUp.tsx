@@ -13,8 +13,12 @@ import { DefaultSignUpComponent } from '../types';
 
 const COMPONENT_NAME = 'SignUp';
 
-const { getCreateAccountText, getCreatingAccountText, getSignInTabText } =
-  authenticatorTextUtil;
+const {
+  getCreateAccountText,
+  getCreatingAccountText,
+  getSignInTabText,
+  getSignUpTabText,
+} = authenticatorTextUtil;
 
 const SignUp: DefaultSignUpComponent = ({
   fields,
@@ -34,6 +38,7 @@ const SignUp: DefaultSignUpComponent = ({
     handleSubmit,
   });
 
+  const headerText = getSignUpTabText();
   const primaryButtonText = isPending
     ? getCreatingAccountText()
     : getCreateAccountText();
@@ -60,6 +65,7 @@ const SignUp: DefaultSignUpComponent = ({
       {...rest}
       buttons={buttons}
       fields={fieldsWithHandlers}
+      headerText={headerText}
       isPending={isPending}
     />
   );

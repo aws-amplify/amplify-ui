@@ -3,10 +3,43 @@
 exports[`VerifyUser renders as expected 1`] = `
 Array [
   <Text
+    accessibilityRole="header"
     style={
-      Object {
-        "fontSize": 18,
-      }
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Verify Contact
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 16,
+          "paddingHorizontal": 12,
+        },
+      ]
     }
   >
     Account recovery requires verified contact information
@@ -281,10 +314,43 @@ Array [
 exports[`VerifyUser renders as expected with errors 1`] = `
 Array [
   <Text
+    accessibilityRole="header"
     style={
-      Object {
-        "fontSize": 18,
-      }
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Verify Contact
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 16,
+          "paddingHorizontal": 12,
+        },
+      ]
     }
   >
     Account recovery requires verified contact information
