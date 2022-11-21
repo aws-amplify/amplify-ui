@@ -1,18 +1,17 @@
 import { FileUploader } from '@aws-amplify/ui-react';
 
-export const FileUploaderErrorExample = () => {
-  const onError = (event) => {
-    console.log(event);
+export const FileUploaderSuccessExample = () => {
+  const onSuccess = ({ key }) => {
+    console.log('Key:', key);
   };
 
   return (
     <FileUploader
-      onError={onError}
-      resumable={true}
+      onSuccess={onSuccess}
       variation="drop"
       acceptedFileTypes={['image/*']}
       level="public"
-      provider="error" // IGNORE
+      provider="fast" // IGNORE
     />
   );
 };

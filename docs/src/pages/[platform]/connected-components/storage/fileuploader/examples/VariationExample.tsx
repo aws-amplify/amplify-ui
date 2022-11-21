@@ -1,7 +1,8 @@
-import { FileUploader } from '@aws-amplify/ui-react'; // IGNORE
-export const DefaultFileUploaderExample = () => {
+import { FileUploader } from '@aws-amplify/ui-react';
+export const VariationExample = () => {
   return (
     <FileUploader
+      variation="drop"
       acceptedFileTypes={['image/*']}
       level="public"
       provider="fast" // IGNORE

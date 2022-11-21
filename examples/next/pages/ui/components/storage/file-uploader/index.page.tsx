@@ -13,7 +13,7 @@ export default function FileUploaderEmail() {
       <FileUploader
         variation="drop"
         onSuccess={onSuccess}
-        acceptedFileTypes={['.png', '.jpg', '.pdf']}
+        acceptedFileTypes={['image/*']}
         level="public"
         multiple={true}
         maxSize={100000000}
