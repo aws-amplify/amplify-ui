@@ -43,8 +43,8 @@ export type Components<Output> = Record<string, object> & {
   textField?: ComponentTheme<TextFieldStyles, Output>;
 };
 
-export type ColorMode = 'light' | 'dark' | 'system';
-type Override = Omit<Theme, 'overrides'> & {
+export type ColorMode = 'light' | 'dark' | 'system' | null;
+export type Override = Omit<Theme, 'overrides'> & {
   colorMode?: ColorMode;
 };
 

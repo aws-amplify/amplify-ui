@@ -7,4 +7,10 @@ export {
   WithAuthenticatorOptions,
 } from './Authenticator';
 export * from './InAppMessaging';
-export { Theme, ThemeProvider, useTheme } from './theme';
+export {
+  Theme,
+  ThemeProvider,
+  defaultDarkModeOverride,
+  defaultTheme,
+  useTheme,
+} from './theme';

@@ -8,6 +8,8 @@ Array [
   "ThemeProvider",
   "UseAuthenticator",
   "WithAuthenticatorOptions",
+  "defaultDarkModeOverride",
+  "defaultTheme",
   "useAuthenticator",
   "useTheme",
   "withAuthenticator",
