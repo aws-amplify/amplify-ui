@@ -12,4 +12,5 @@ export {
   ThemeProvider,
   defaultDarkModeOverride,
   defaultTheme,
+  useTheme,
 } from './theme';

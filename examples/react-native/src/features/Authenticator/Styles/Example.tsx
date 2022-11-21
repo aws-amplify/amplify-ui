@@ -14,12 +14,34 @@ import {
   defaultDarkModeOverride,
   ThemeProvider,
   Theme,
+  useTheme,
 } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 
 import { Button } from '../../../ui';
 
 Amplify.configure({});
+
+const MyHeader = ({
+  children,
+  style,
+}: {
+  children?: ReactNode;
+  style?: StyleProp<ViewStyle>;
+}) => {
+  const {
+    tokens: { colors, fontSizes },
+  } = useTheme();
+  return (
+    <View style={style}>
+      <Text
+        style={{ fontSize: fontSizes.xxl, color: colors.brand.primary[80] }}
+      >
+        {children}
+      </Text>
+    </View>
+  );
+};
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();
@@ -35,7 +57,13 @@ function App() {
   return (
     <ThemeProvider theme={theme} colorMode={colorMode}>
       <Authenticator.Provider>
-        <Authenticator>
+        <Authenticator
+          components={{
+            SignIn: (props) => (
+              <Authenticator.SignIn {...props} Header={MyHeader} />
+            ),
+          }}
+        >
           <View style={style.container}>
             <SignOutButton />
           </View>
