@@ -51,8 +51,6 @@ const commonProps = {
   onFileChange: () => null,
   onFileClick: () => null,
   percentage: 0,
-  hiddenInput: ref,
-  onUploadButtonClick: () => null,
 };
 
 describe('Previewer', () => {

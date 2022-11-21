@@ -30,8 +30,6 @@ export function Previewer({
   onFileChange,
   onFileClick,
   percentage,
-  hiddenInput,
-  onUploadButtonClick,
 }: PreviewerProps): JSX.Element {
   const headingMaxFiles = translate('Over Max files!');
   const uploadedFilesLength = () =>
@@ -58,8 +56,6 @@ export function Previewer({
             hasMultipleFiles={hasMultipleFiles}
             onFileChange={onFileChange}
             className={ComponentClassNames.FileUploaderDropZoneButton}
-            hiddenInput={hiddenInput}
-            onClick={onUploadButtonClick}
           />
         </UploadDropZone>
         <Text className={ComponentClassNames.FileUploaderPreviewerText}>

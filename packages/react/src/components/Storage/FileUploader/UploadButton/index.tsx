@@ -9,9 +9,12 @@ export function UploadButton({
   onFileChange,
   className,
   isLoading,
-  hiddenInput,
-  onClick,
 }: UploadButtonProps): JSX.Element {
+  const hiddenInput = React.useRef<HTMLInputElement>();
+  const onClick = () => {
+    hiddenInput.current.click();
+    hiddenInput.current.value = null;
+  };
   return (
     <>
       <Button

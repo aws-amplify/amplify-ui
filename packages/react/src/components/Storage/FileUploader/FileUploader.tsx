@@ -333,19 +333,10 @@ export function FileUploader({
     autoUploadRef.current = false;
   }, [shouldAutoProceed, autoUploadRef, onFileClick]);
 
-  // UploadButton
-  const hiddenInput = React.useRef<HTMLInputElement>();
-  const onUploadButtonClick = () => {
-    hiddenInput.current.click();
-    hiddenInput.current.value = null;
-  };
-
   const CommonProps = {
     acceptedFileTypes,
     hasMultipleFiles,
     onFileChange,
-    onClick: onUploadButtonClick,
-    hiddenInput,
   };
 
   if (showPreviewer) {
@@ -353,7 +344,6 @@ export function FileUploader({
       <Previewer
         acceptedFileTypes={acceptedFileTypes}
         fileStatuses={fileStatuses}
-        hiddenInput={hiddenInput}
         inDropZone={inDropZone}
         isLoading={isLoading}
         isSuccessful={isSuccessful()}
@@ -367,7 +357,6 @@ export function FileUploader({
         onDrop={onDrop}
         onFileChange={onFileChange}
         onFileClick={onFileClick}
-        onUploadButtonClick={onUploadButtonClick}
         percentage={percentage}
       >
         {fileStatuses?.map((status, index) => (

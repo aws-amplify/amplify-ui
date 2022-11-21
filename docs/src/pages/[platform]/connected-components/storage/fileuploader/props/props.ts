@@ -45,11 +45,6 @@ export const UPLOAD_BUTTON_COMPONENTS = [
     type: `string`,
   },
   {
-    name: `hiddenInput`,
-    description: 'Hidden Ref used to help select input element',
-    type: `React.MutableRefObject<HTMLInputElement>`,
-  },
-  {
     name: `isLoading?`,
     description: 'Indicates if the file uploader is uploading',
     type: `boolean`,
@@ -90,7 +85,7 @@ export const PREVIEWER_COMPONENTS = [
     type: `boolean`,
   },
   {
-    name: `hashasMaxFilesError`,
+    name: `hasMaxFilesError`,
     description: 'Indicates if there is a max file size error',
     type: `boolean`,
   },
@@ -110,12 +105,6 @@ export const PREVIEWER_COMPONENTS = [
     name: `percentage`,
     description: 'Total percentage of files uploaded',
     type: `number`,
-  },
-
-  {
-    name: `onUploadButtonClick`,
-    description: 'Triggers event to add more files to file uploader',
-    type: `()=> void`,
   },
   ...UPLOAD_DROP_COMPONENTS,
   ...UPDATED_UPLOAD_PROPS,

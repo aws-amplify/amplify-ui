@@ -4,6 +4,7 @@ import {
   Text,
   VisuallyHidden,
 } from '@aws-amplify/ui-react';
+import React from 'react';
 
 export const UploadButtonComponentsExample = () => {
   const acceptedFileTypes = ['image/*'];
@@ -12,7 +13,12 @@ export const UploadButtonComponentsExample = () => {
       acceptedFileTypes={acceptedFileTypes}
       level="public"
       components={{
-        UploadButton: ({ onFileChange, onClick, hiddenInput }) => {
+        UploadButton: ({ onFileChange }) => {
+          const hiddenInput = React.useRef<HTMLInputElement>();
+          const onClick = () => {
+            hiddenInput.current.click();
+            hiddenInput.current.value = null;
+          };
           return (
             <>
               <Button backgroundColor={'brand.primary.20'} onClick={onClick}>
@@ -24,7 +30,7 @@ export const UploadButtonComponentsExample = () => {
                   tabIndex={-1}
                   ref={hiddenInput}
                   onChange={onFileChange}
-                  hashasMultipleFilesFiles={true}
+                  multiple={true}
                   accept={acceptedFileTypes?.join()}
                 />
               </VisuallyHidden>

@@ -15,8 +15,6 @@ describe('Uploader Button', () => {
         hasMultipleFiles={false}
         acceptedFileTypes={['.png']}
         onFileChange={() => null}
-        onClick={() => null}
-        hiddenInput={ref}
       />
     );
 
@@ -29,8 +27,6 @@ describe('Uploader Button', () => {
         hasMultipleFiles={false}
         acceptedFileTypes={['.png']}
         onFileChange={() => null}
-        onClick={() => null}
-        hiddenInput={ref}
       />
     );
     const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
