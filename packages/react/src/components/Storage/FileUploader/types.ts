@@ -88,7 +88,7 @@ export interface FileStatus extends Partial<FileStateProps> {
 
 export type FileStatuses = FileStatus[];
 
-type FileState =
+export type FileState =
   | 'paused'
   | 'success'
   | 'error'

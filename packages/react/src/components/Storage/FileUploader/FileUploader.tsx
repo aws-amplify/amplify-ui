@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { UploadTask, Storage } from '@aws-amplify/storage';
 import { translate, uploadFile } from '@aws-amplify/ui';
-import { FileStatuses, FileUploaderProps } from './types';
+import { FileState, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
 import { ComponentClassNames, Text } from '../../../primitives';
 import { UploadButton } from './UploadButton';
@@ -44,8 +44,6 @@ export function FileUploader({
 
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
-
-  const fileStatusesRef = useRef<FileStatuses>([]);
 
   const {
     addTargetFiles,
@@ -99,14 +97,29 @@ export function FileUploader({
   const progressCallback = useCallback(
     (index: number) => {
       return (progress: { loaded: number; total: number }) => {
-        const percentage = Math.floor((progress.loaded / progress.total) * 100);
-        const status = fileStatusesRef.current[index];
-        fileStatusesRef.current[index] =
-          percentage !== 100
-            ? { ...status, percentage, fileState: 'loading' }
-            : { ...status, percentage, fileState: 'success' };
-        const newFileStatuses = [...fileStatusesRef.current];
-        setFileStatuses(newFileStatuses);
+        setFileStatuses((prevFileStatuses) => {
+          const prevStatus = { ...prevFileStatuses[index] };
+
+          const progressPercentage = Math.floor(
+            (progress.loaded / progress.total) * 100
+          );
+          const updatedStatus =
+            progressPercentage !== 100
+              ? {
+                  ...prevStatus,
+                  percentage: progressPercentage,
+                  fileState: 'loading' as FileState,
+                }
+              : {
+                  ...prevStatus,
+                  percentage: progressPercentage,
+                  fileState: 'success' as FileState,
+                };
+
+          prevFileStatuses[index] = updatedStatus;
+
+          return [...prevFileStatuses];
+        });
       };
     },
     [setFileStatuses]
@@ -115,15 +128,19 @@ export function FileUploader({
   const errorCallback = useCallback(
     (index: number) => {
       return (err: string) => {
-        const status = fileStatusesRef.current[index];
-        fileStatusesRef.current[index] = {
-          ...status,
-          fileState: 'error',
-          fileErrors: translate(err.toString()),
-        };
+        setFileStatuses((prevFileStatuses) => {
+          const prevStatus = { ...prevFileStatuses[index] };
 
-        const newFileStatuses = [...fileStatusesRef.current];
-        setFileStatuses(newFileStatuses);
+          const updatedStatus = {
+            ...prevStatus,
+            fileState: 'error' as FileState,
+            fileErrors: translate(err.toString()),
+          };
+
+          prevFileStatuses[index] = updatedStatus;
+
+          return [...prevFileStatuses];
+        });
         setLoading(false);
         if (typeof onError === 'function') onError(err);
       };
@@ -197,17 +214,19 @@ export function FileUploader({
       }
     });
 
-    const newFileStatuses = [...fileStatuses];
-    fileStatusesRef.current = newFileStatuses.map((status, index) => {
-      return {
-        ...status,
-        uploadTask: uploadTasksTemp?.[index],
-        fileState: status.fileState ?? 'loading',
-        percentage: status.percentage ?? 0,
-      };
+    setFileStatuses((prevFileStatuses) => {
+      const newFileStatuses = [...prevFileStatuses];
+      const updatedStatuses = newFileStatuses.map((status, index) => {
+        return {
+          ...status,
+          uploadTask: uploadTasksTemp?.[index],
+          fileState: status.fileState ?? 'loading',
+          percentage: status.percentage ?? 0,
+        };
+      });
+
+      return [...updatedStatuses];
     });
-    const uploadTasks = [...fileStatusesRef.current];
-    setFileStatuses(uploadTasks);
   }, [
     completeCallback,
     errorCallback,
