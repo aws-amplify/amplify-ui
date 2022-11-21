@@ -1,12 +1,9 @@
 import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import resolveObject from 'style-dictionary/lib/utils/resolveObject';
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
-import { reactNativeTokens, setupTokens } from '@aws-amplify/ui';
-import { DefaultTheme, Theme, StrictTheme, ColorMode } from './types';
-
-const defaultTheme: DefaultTheme = {
-  tokens: reactNativeTokens,
-};
+import { setupTokens } from '@aws-amplify/ui';
+import { Theme, StrictTheme, ColorMode } from './types';
+import { defaultTheme } from './defaultTheme';
 
 // This will resolve all references in component themes by either
 // calling the component theme function with the already resolved base tokens
