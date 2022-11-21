@@ -17,7 +17,7 @@ import {
   IconEdit,
   IconFile,
 } from '../../../../primitives/Icon/internal';
-import { FileState } from './FileState';
+import { FileMessage } from './FileMessage';
 
 export function Tracker({
   errorMessage,
@@ -58,7 +58,7 @@ export function Tracker({
     <>
       <View className={ComponentClassNames.FileUploaderFileMain}>
         <Text className={ComponentClassNames.FileUploaderFileName}>{name}</Text>
-        <FileState
+        <FileMessage
           fileState={fileState}
           errorMessage={errorMessage}
           percentage={percentage}

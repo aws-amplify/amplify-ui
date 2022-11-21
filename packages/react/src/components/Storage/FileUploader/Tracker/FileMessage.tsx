@@ -6,7 +6,7 @@ import { FileStateProps } from '../types';
 import classNames from 'classnames';
 import { classNameModifier } from '../../../../primitives/shared/utils';
 
-export const FileState = ({
+export const FileMessage = ({
   fileState,
   errorMessage,
   percentage,

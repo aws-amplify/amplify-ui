@@ -18,7 +18,7 @@ const logger = new Logger('AmplifyUI:Auth');
 export function FileUploader({
   acceptedFileTypes,
   shouldAutoProceed = false,
-  components = {},
+  components,
   isPreviewerVisible,
   level,
   maxFiles,
@@ -36,7 +36,7 @@ export function FileUploader({
     UploadButton = FileUploader.UploadButton,
     Previewer = FileUploader.Previewer,
     Tracker = FileUploader.Tracker,
-  } = components;
+  } = components ?? {};
 
   if (!acceptedFileTypes || !level) {
     logger.warn('FileUploader requires level and acceptedFileTypes props');
@@ -88,7 +88,7 @@ export function FileUploader({
     if (Math.floor(percentage) === 100) {
       setLoading(false);
     }
-  }, [percentage, fileStatuses]);
+  }, [percentage]);
 
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
