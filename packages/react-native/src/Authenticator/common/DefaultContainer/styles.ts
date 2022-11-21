@@ -5,7 +5,10 @@ import { ContainerStyles, InnerContainerStyles } from './types';
 
 export const getThemedStyles = (
   { tokens: { colors } }: StrictTheme,
-  insetPadding: Pick<ViewStyle, 'paddingBottom' | 'paddingTop'>
+  insetPadding: Pick<
+    ViewStyle,
+    'paddingBottom' | 'paddingLeft' | 'paddingRight' | 'paddingTop'
+  >
 ): Required<ContainerStyles> => {
   return StyleSheet.create({
     keyboardAvoidingView: {

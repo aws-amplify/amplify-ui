@@ -6,56 +6,55 @@ exports[`Authenticator behaves as expected in the happy path 1`] = `
     onLayout={[Function]}
     style={
       Array [
+        Array [
+          Object {
+            "alignContent": "center",
+            "backgroundColor": "hsl(0, 0%, 100%)",
+            "flex": 1,
+            "justifyContent": "center",
+          },
+          undefined,
+        ],
         Object {
-          "alignContent": "center",
-          "backgroundColor": "hsl(0, 0%, 100%)",
-          "flex": 1,
-          "justifyContent": "center",
+          "paddingBottom": 0,
         },
-        undefined,
       ]
     }
   >
-    <View
+    <RCTScrollView
+      alwaysBounceVertical={false}
+      contentContainerStyle={
+        Array [
+          Object {
+            "alignContent": "center",
+            "flexGrow": 1,
+            "justifyContent": "center",
+            "paddingBottom": 44,
+            "paddingLeft": undefined,
+            "paddingRight": undefined,
+            "paddingTop": 47,
+          },
+          undefined,
+        ]
+      }
+      keyboardShouldPersistTaps="handled"
       style={
-        Object {
-          "bottom": 0,
-        }
+        Array [
+          Object {},
+          undefined,
+        ]
       }
     >
-      <RCTScrollView
-        alwaysBounceVertical={false}
-        contentContainerStyle={
-          Array [
+      <View>
+        <View
+          style={
             Object {
-              "alignContent": "center",
-              "flexGrow": 1,
-              "justifyContent": "center",
-              "paddingBottom": 44,
-              "paddingTop": 47,
-            },
-            undefined,
-          ]
-        }
-        keyboardShouldPersistTaps="handled"
-        style={
-          Array [
-            Object {},
-            undefined,
-          ]
-        }
-      >
-        <View>
-          <View
-            style={
-              Object {
-                "marginHorizontal": 16,
-              }
+              "marginHorizontal": 16,
             }
-          />
-        </View>
-      </RCTScrollView>
-    </View>
+          }
+        />
+      </View>
+    </RCTScrollView>
   </View>
 </SafeAreaProvider>
 `;
