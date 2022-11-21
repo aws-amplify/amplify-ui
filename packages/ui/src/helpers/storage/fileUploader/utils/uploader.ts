@@ -9,21 +9,21 @@ export function uploadFile({
   progressCallback,
   errorCallback,
   completeCallback,
-  resumable = false,
+  isResumable = false,
   ...rest
 }: {
   file: File;
   fileName: string;
   level: StorageAccessLevel;
-  resumable?: boolean;
+  isResumable?: boolean;
   progressCallback: (progress: { loaded: number; total: number }) => void;
   errorCallback: (err: string) => void;
   completeCallback: (event) => void;
 }) {
-  if (resumable === true) {
+  if (isResumable === true) {
     return Storage.put(fileName, file, {
       level,
-      resumable,
+      resumable: isResumable,
       progressCallback,
       errorCallback,
       // TODO: Remove this override once we depend on aws-amplify@5

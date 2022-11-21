@@ -34,7 +34,7 @@ describe('Uploader utils', () => {
     });
   });
   describe('uploadfile', () => {
-    it('calls resumable true with storage put', () => {
+    it('calls isResumable true with storage put', () => {
       storageSpy.mockImplementation();
       uploadFile({
         file: imageFile,
@@ -43,7 +43,7 @@ describe('Uploader utils', () => {
         progressCallback: () => '',
         errorCallback: () => '',
         completeCallback: () => '',
-        resumable: true,
+        isResumable: true,
       });
 
       expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
@@ -51,10 +51,10 @@ describe('Uploader utils', () => {
         errorCallback: expect.any(Function),
         level: 'public',
         progressCallback: expect.any(Function),
-        resumable: true,
+        isResumable: true,
       });
     });
-    it('calls resumable false with storage put', () => {
+    it('calls isResumable false with storage put', () => {
       storageSpy.mockImplementation(() => Promise.resolve() as any);
       uploadFile({
         file: imageFile,
@@ -63,13 +63,13 @@ describe('Uploader utils', () => {
         progressCallback: () => '',
         errorCallback: () => '',
         completeCallback: () => '',
-        resumable: false,
+        isResumable: false,
       });
 
       expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
         level: 'public',
         progressCallback: expect.any(Function),
-        resumable: false,
+        isResumable: false,
       });
     });
   });

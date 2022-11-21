@@ -37,7 +37,7 @@ export interface FileUploaderProps {
   path?: string;
   showImages?: boolean;
   variation?: 'drop' | 'button';
-  resumable?: boolean;
+  isResumable?: boolean;
 }
 
 export interface IconProps {
@@ -77,7 +77,7 @@ export interface TrackerProps {
   onSaveEdit: (value: string) => void;
   onStartEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   percentage: number;
-  resumable?: boolean;
+  isResumable?: boolean;
   showImage: boolean;
   url: string;
 }

@@ -184,7 +184,7 @@ export const TRACKER_COMPONENTS = [
     type: `number`,
   },
   {
-    name: `resumable`,
+    name: `isResumable`,
     description: 'Indicates if upload can be resumable',
     type: `boolean`,
   },

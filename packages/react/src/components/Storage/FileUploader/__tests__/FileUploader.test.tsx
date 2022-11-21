@@ -26,7 +26,7 @@ const commonProps = {
   level: 'public' as any,
   acceptedFileTypes: ['.png'],
   variation: 'drop' as any,
-  resumable: true,
+  isResumable: true,
 };
 
 const fileStatus = {
@@ -97,7 +97,7 @@ describe('File Uploader', () => {
       file: fakeFile,
       fileName: fakeFile.name,
       level: 'public',
-      resumable: true,
+      isResumable: true,
       progressCallback: expect.any(Function),
     });
   });
@@ -140,7 +140,7 @@ describe('File Uploader', () => {
       file: fakeFile,
       fileName: fileName2,
       level: 'public',
-      resumable: true,
+      isResumable: true,
       progressCallback: expect.any(Function),
     });
   });
@@ -521,7 +521,7 @@ describe('File Uploader', () => {
       file: fakeFile,
       fileName: fakeFile.name,
       level: 'public',
-      resumable: true,
+      isResumable: true,
       progressCallback: expect.any(Function),
     });
   });

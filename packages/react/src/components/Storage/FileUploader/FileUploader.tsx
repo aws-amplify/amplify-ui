@@ -28,7 +28,7 @@ export function FileUploader({
   onSuccess,
   showImages = true,
   variation = 'button',
-  resumable = false,
+  isResumable = false,
   ...rest
 }: FileUploaderProps): JSX.Element {
   const {
@@ -185,14 +185,14 @@ export function FileUploader({
         file: status.file,
         fileName: status.name,
         level,
-        resumable,
+        isResumable,
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
         completeCallback: completeCallback(),
         ...rest,
       });
 
-      if (isUploadTask(uploadTask) && resumable) {
+      if (isUploadTask(uploadTask) && isResumable) {
         uploadTasksTemp.push(uploadTask);
       }
     });
@@ -215,7 +215,7 @@ export function FileUploader({
     level,
     progressCallback,
     setFileStatuses,
-    resumable,
+    isResumable,
     rest,
   ]);
 
@@ -388,7 +388,7 @@ export function FileUploader({
             onSaveEdit={onSaveEdit(index)}
             onStartEdit={onStartEdit(index)}
             percentage={status.percentage}
-            resumable={resumable}
+            isResumable={isResumable}
             url={URL.createObjectURL(status.file)}
           />
         ))}

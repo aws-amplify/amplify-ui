@@ -32,7 +32,7 @@ export function Tracker({
   onSaveEdit,
   onStartEdit,
   percentage,
-  resumable,
+  isResumable,
   showImage,
   url,
 }: TrackerProps): JSX.Element {
@@ -96,7 +96,7 @@ export function Tracker({
           </>
         );
       case 'loading':
-        if (!resumable) return null;
+        if (!isResumable) return null;
         return (
           <Button onClick={onPause} size="small" variation="link">
             {translate('pause')}
@@ -128,7 +128,7 @@ export function Tracker({
     }
   };
 
-  const isDeterminate = !resumable || (resumable && percentage > 0);
+  const isDeterminate = !isResumable || (isResumable && percentage > 0);
 
   return (
     <View className={ComponentClassNames.FileUploaderFile}>
