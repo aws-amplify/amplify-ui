@@ -19,9 +19,7 @@ export default function DefaultContainer({
   alwaysBounceVertical = ALWAYS_BOUNCE_VERTICAL,
   children,
   keyboardAvoidingViewStyle,
-
   keyboardShouldPersistTaps = KEYBOARD_SHOULD_PERSIST_TAPS,
-
   keyboardVerticalOffset = KEYBOARD_VERTICAL_OFFSET,
   scrollViewContentContainerStyle,
   style,
