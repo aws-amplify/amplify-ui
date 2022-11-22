@@ -17,4 +17,22 @@ You can provide an alternative `username` such as `email` or `phone_number`.
 
 > **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
 
-hihihi
+<Tabs>
+  <TabItem title="Username">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.username.${platform}.mdx`)}
+    </Fragment>
+  </TabItem>
+  <TabItem title="Email">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
+    </Fragment>
+  </TabItem>
+  <TabItem title="Phone Number">
+    <Fragment>
+      {({ platform }) =>
+        import(`./loginMechanisms.phone_number.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+</Tabs>
