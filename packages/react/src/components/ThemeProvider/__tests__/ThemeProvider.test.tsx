@@ -31,7 +31,7 @@ describe('ThemeProvider', () => {
         tokens: {
           colors: {
             font: {
-              primary: { value: 'blue' },
+              primary: { value: 'hotpink' },
             },
           },
         },
