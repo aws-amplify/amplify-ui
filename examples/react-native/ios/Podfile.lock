@@ -361,8 +361,6 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.17.10):
     - React-Core
-  - RNCPicker (2.4.8):
-    - React-Core
   - SocketRocket (0.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -428,7 +426,6 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
   - "RNCAsyncStorage (from `../../../node_modules/@react-native-async-storage/async-storage`)"
-  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -520,8 +517,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/amazon-cognito-identity-js"
   RNCAsyncStorage:
     :path: "../../../node_modules/@react-native-async-storage/async-storage"
-  RNCPicker:
-    :path: "../node_modules/@react-native-picker/picker"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -574,7 +569,6 @@ SPEC CHECKSUMS:
   ReactCommon: bf2888a826ceedf54b99ad1b6182d1bc4a8a3984
   RNAWSCognito: 9554c635fc9bfdc86d5d40084c792c318c9706bf
   RNCAsyncStorage: 0c357f3156fcb16c8589ede67cc036330b6698ca
-  RNCPicker: 0bf8ef8f7800524f32d2bb2a8bcadd53eda0ecd1
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 17cd9a50243093b547c1e539c749928dd68152da
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
