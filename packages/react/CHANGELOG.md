@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react
 
+## 4.0.2
+
+### Patch Changes
+
+- [#3033](https://github.com/aws-amplify/amplify-ui/pull/3033) [`c9f67b1b0`](https://github.com/aws-amplify/amplify-ui/commit/c9f67b1b00f70419b4d623ecb282b5452bd67e15) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(Autocomplete): remove handler to open menu on focus to fix #3030
+
+- [#3019](https://github.com/aws-amplify/amplify-ui/pull/3019) [`0ff6cbc15`](https://github.com/aws-amplify/amplify-ui/commit/0ff6cbc152486ba04384de500d97b18e5db768ba) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: update Autocomplete filter to be case insensitive
+
+- Updated dependencies [[`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1), [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf)]:
+  - @aws-amplify/ui@5.1.0
+  - @aws-amplify/ui-react-core@2.1.0
+
 ## 4.0.1
 
 ### Patch Changes

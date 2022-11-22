@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-angular",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "scripts": {
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
@@ -17,7 +17,7 @@
     "aws-amplify": "5.x.x"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.0.0",
+    "@aws-amplify/ui": "5.1.0",
     "nanoid": "3.1.31",
     "qrcode": "1.5.0",
     "tslib": "2.3.1",

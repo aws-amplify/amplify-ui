@@ -1,5 +1,15 @@
 # @aws-amplify/ui
 
+## 5.1.0
+
+### Minor Changes
+
+- [#3067](https://github.com/aws-amplify/amplify-ui/pull/3067) [`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1) Thanks [@joebuono](https://github.com/joebuono)! - feat: Add React Native Authenticator
+
+### Patch Changes
+
+- [#3013](https://github.com/aws-amplify/amplify-ui/pull/3013) [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fix autocomplete popup render issue in Safari and Firefox and bump its z-index
+
 ## 5.0.0
 
 ### Major Changes

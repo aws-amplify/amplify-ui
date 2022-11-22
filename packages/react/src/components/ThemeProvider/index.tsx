@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DirectionProvider } from '@radix-ui/react-direction';
 
-import { createTheme, Theme } from '@aws-amplify/ui';
+import { createTheme, Theme, WebTheme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
 
@@ -28,7 +28,7 @@ interface ThemeProviderProps {
   /**
    * Custom theme
    */
-  theme?: Theme;
+  theme?: Theme | WebTheme;
 }
 
 export function AmplifyProvider({
