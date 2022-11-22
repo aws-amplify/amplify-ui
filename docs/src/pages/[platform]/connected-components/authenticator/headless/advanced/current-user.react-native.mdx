@@ -1,0 +1,16 @@
+You can use `useAuthenticator` hook to access current signed in `user`. If no user is authenticated, it'll return `undefined`.
+
+```tsx{1,4,8-9}
+import { useAuthenticator } from '@aws-amplify/ui-react-native';
+
+const Home = () => {
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+
+  return (
+    <>
+      <h2>Welcome, {user.username}!</h2>
+      <button onClick={signOut}>Sign Out</button>
+    </>
+  );
+};
+```

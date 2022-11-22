@@ -1,0 +1,37 @@
+```js{9,13}
+import { Amplify } from 'aws-amplify';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
+import { View, Button, Text } from 'react-native';
+
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+export default function App() {
+  const components = {
+    SignIn: {
+      Footer() {
+        const { toResetPassword } = useAuthenticator();
+        return (
+          <View>
+            <Button onPress={toResetPassword}>
+              Custom Reset Password
+            </Button>
+          </View>
+        );
+      },
+    },
+  };
+
+  return (
+    <Authenticator components={components}>
+      {({ signOut, user }) => (
+        <View>
+          <Text>Hello {user.username}</Text>
+          <Button onPress={signOut}>Sign out</Button>
+        </View>
+      )}
+    </Authenticator>
+  );
+}
+
+```

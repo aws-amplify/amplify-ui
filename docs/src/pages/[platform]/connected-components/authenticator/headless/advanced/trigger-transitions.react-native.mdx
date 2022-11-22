@@ -1,0 +1,11 @@
+You can use `useAuthenticator` hook to access functions that lets you trigger transitions to the authenticator. Please see [Full API](#full-api) to see all supported transition functions. Any invalid transitions (e.g. `signUp` directly to `authenticated`) will be ignored.
+
+```tsx{1,4-6}
+import { useAuthenticator } from '@aws-amplify/ui-react-native';
+
+const Home = () => {
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+
+  return <button onClick={signOut}>Welcome, {user.username}!</button>;
+};
+```
