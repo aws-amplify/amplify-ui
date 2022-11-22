@@ -23,7 +23,6 @@ const logger = new Logger('Authenticator');
 const {
   getBackToSignInText,
   getConfirmingText,
-  getConfirmTOTPText,
   getConfirmText,
   getSetupTOTPText,
   getSetupTOTPInstructionsText,
@@ -64,7 +63,7 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
     }
   }, [getSecretKey, secretKey]);
 
-  const headerText = secretKey ? getConfirmTOTPText() : getSetupTOTPText();
+  const headerText = getSetupTOTPText();
   const primaryButtonText = isPending ? getConfirmingText() : getConfirmText();
   const secondaryButtonText = getBackToSignInText();
 

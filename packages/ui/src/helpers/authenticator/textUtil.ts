@@ -132,7 +132,6 @@ export const authenticatorTextUtil = {
   getResetYourPasswordText: () => translate(DefaultTexts.RESET_PASSWORD),
 
   /** SetupTOTP */
-  getConfirmTOTPText: () => translate('Confirm TOTP Code'),
   getSetupTOTPText: () => translate(DefaultTexts.SETUP_TOTP),
   // TODO: add defaultText for below
   getSetupTOTPInstructionsText: () =>
