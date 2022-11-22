@@ -8,8 +8,8 @@ import {
   useTheme,
 } from '@aws-amplify/ui-react-native';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
 
 const MyHeader = () => {
   const {

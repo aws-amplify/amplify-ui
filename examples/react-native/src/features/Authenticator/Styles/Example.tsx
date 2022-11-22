@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import {
+  Button,
   StyleProp,
   StyleSheet,
   Text,
@@ -18,9 +19,8 @@ import {
 } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 
-import { Button } from '../../../ui';
-
-Amplify.configure({});
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
 
 const MyHeader = ({
   children,
@@ -45,7 +45,7 @@ const MyHeader = ({
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();
-  return <Button onPress={signOut}>Sign Out</Button>;
+  return <Button onPress={signOut} title="Sign Out" />;
 }
 
 const theme: Theme = {
