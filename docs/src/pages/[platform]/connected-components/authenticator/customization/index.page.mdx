@@ -41,7 +41,9 @@ export async function getStaticProps() {
   {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web', 'flutter']}>
+## Labels & Text
+
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
 </Fragment>
 
