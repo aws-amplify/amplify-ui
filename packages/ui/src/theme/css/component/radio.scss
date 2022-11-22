@@ -10,6 +10,7 @@
 }
 
 .amplify-radio__button {
+  flex-shrink: 0;
   align-items: var(--amplify-components-radio-button-align-items);
   justify-content: var(--amplify-components-radio-button-justify-content);
   padding: var(--amplify-components-radio-button-padding);
