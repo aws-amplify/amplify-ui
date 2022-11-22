@@ -5,5 +5,6 @@ export interface SetupTOTPStyle {
 }
 
 export const styles: SetupTOTPStyle = StyleSheet.create({
-  secretKeyText: { flexWrap: 'wrap', paddingVertical: 4 },
+  // TODO: replace with tokens
+  secretKeyText: { flexWrap: 'wrap', paddingVertical: 4, marginHorizontal: 8 },
 });
