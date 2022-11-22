@@ -1,7 +1,7 @@
 import React from 'react';
 
-// import Example from '../features/Authenticator/Demo/Example';
-import Example from '../features/Authenticator/Styles/Example';
+import Example from '../features/Authenticator/InitialState/Example';
+// import Example from '../features/Authenticator/Styles/Example';
 // import { Demo as InAppDemo } from '../features/InAppMessaging';
 
 const App = () => {

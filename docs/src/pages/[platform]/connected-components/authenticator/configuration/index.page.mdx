@@ -33,7 +33,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
-    <Fragment useCommonWebContent>
+    <Fragment platforms={['react', 'vue', 'angular', 'flutter']}>
       {({ platform }) =>
         import(`./initialState.signIn.example.${platform}.mdx`)
       }
@@ -43,7 +43,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
     </Fragment>
-    <Fragment useCommonWebContent>
+    <Fragment platforms={['react', 'vue', 'angular', 'flutter']}>
       {({ platform }) =>
         import(`./initialState.signUp.example.${platform}.mdx`)
       }
@@ -53,7 +53,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
     </Fragment>
-    <Fragment useCommonWebContent>
+    <Fragment platforms={['react', 'vue', 'angular', 'flutter']}>
       {({ platform }) =>
         import(`./initialState.resetPassword.example.${platform}.mdx`)
       }
