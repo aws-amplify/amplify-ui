@@ -79,7 +79,7 @@ export function humanFileSize(bytes, si = false, dp = 1) {
 export const checkMaxSize = (maxSize: number, file: File): string | null => {
   if (!maxSize) return null;
   if (file.size > maxSize) {
-    return translate('Size above max ') + humanFileSize(maxSize, true);
+    return translate('Above max ') + humanFileSize(maxSize, true);
   }
   return null;
 };

@@ -425,6 +425,50 @@ describe('File Uploader', () => {
       },
     ]);
   });
+  it('updates file name and checks extension shows error if you save then cancel', async () => {
+    const badFileName = 'newFile.xls';
+    const setFileStatusMock = jest.fn();
+    useFileUploaderSpy.mockReturnValueOnce({
+      ...mockReturnUseFileUploader,
+      setFileStatuses: setFileStatusMock,
+      fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
+    });
+
+    await act(async () => {
+      render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+    });
+
+    // click pencel icon
+    const button = await screen.getAllByRole('button')[1];
+    await fireEvent.click(button);
+    // input file name box
+    const input = (await screen.getByLabelText(
+      'file name'
+    )) as HTMLInputElement;
+
+    await fireEvent.change(input, {
+      target: { value: badFileName },
+    });
+
+    // click save button
+    const saveButton = await screen.getByRole('button', { name: 'Save' });
+    await fireEvent.click(saveButton);
+
+    // click pencel icon again
+    await fireEvent.click(button);
+    // click cancel button
+    const cancelButton = await screen.getByRole('button', { name: 'Cancel' });
+    await fireEvent.click(cancelButton);
+
+    expect(setFileStatusMock).toHaveBeenCalledWith([
+      {
+        ...fileStatus,
+        name: badFileName,
+        fileErrors: 'Extension not allowed',
+        fileState: 'error',
+      },
+    ]);
+  });
   it('shows the overridden Tracker component', async () => {
     const Tracker = ({ name }) => <div>File Name: {name}</div>;
     const fileStatuses = [fileStatus];

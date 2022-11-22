@@ -52,7 +52,9 @@ export function Tracker({
 
   const icon = hasImage ? <Image alt={file.name} src={url} /> : <IconFile />;
 
-  const showEditButton = fileState === null || fileState === 'error';
+  const showEditButton =
+    fileState === null ||
+    (fileState === 'error' && errorMessage === 'Extension not allowed');
 
   const DisplayView = () => (
     <>
@@ -95,6 +97,7 @@ export function Tracker({
             </Button>
           </>
         );
+      case 'resume':
       case 'loading':
         if (!isResumable) return null;
         return (

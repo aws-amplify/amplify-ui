@@ -100,11 +100,15 @@
         --amplify-components-fileuploader-file-image-border-radius
       );
       color: var(--amplify-components-fileuploader-file-image-color);
+      img {
+        max-height: 100%;
+      }
     }
 
     &__status {
       &--error {
         color: var(--amplify-colors-font-error);
+        font-size: var(--amplify-components-fileuploader-file-size-font-size);
       }
       &--success {
         color: var(--amplify-colors-font-success);

@@ -292,10 +292,12 @@ export function FileUploader({
       return (value: string) => {
         // no empty file names
         if (value.trim().length === 0) return;
-        const [extension] = value.split('.').reverse();
-        const validExtension = acceptedFileTypes.includes('.' + extension);
+
         const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
+        const [extension] = value.split('.').reverse();
+        const [fileExtension] = status.file.name.split('.').reverse();
+        const validExtension = fileExtension === extension;
         newFileStatuses[index] = {
           ...status,
           name: value,
@@ -308,16 +310,20 @@ export function FileUploader({
         setFileStatuses(newFileStatuses);
       };
     },
-    [acceptedFileTypes, fileStatuses, setFileStatuses]
+    [fileStatuses, setFileStatuses]
   );
 
   const updateEditStatus = useCallback(
     (index: number, isCancelEdit: boolean): FileStatus[] => {
       const newFileStatuses = [...fileStatuses];
       const status = fileStatuses[index];
+      const [extension] = status.name.split('.').reverse();
+      const [fileExtension] = status.file.name.split('.').reverse();
+      const validExtension = fileExtension === extension ? null : 'error';
+
       newFileStatuses[index] = {
         ...status,
-        fileState: isCancelEdit ? null : 'editing',
+        fileState: isCancelEdit ? validExtension : 'editing',
       };
 
       return newFileStatuses;
