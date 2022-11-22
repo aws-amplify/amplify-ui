@@ -14,12 +14,8 @@ import {
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import { FormValues, BlurredFields, ValidationError } from '../types';
-import {
-  DefaultPasswordField,
-  DefaultError,
-  DefaultSubmitButton,
-} from './defaultComponents';
 import { ChangePasswordProps, ValidateParams } from './types';
+import DEFAULTS from './defaults';
 
 const logger = new Logger('ChangePassword');
 
@@ -45,6 +41,7 @@ function ChangePassword({
   onSuccess,
   onError,
   validators,
+  components = {},
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
@@ -175,10 +172,13 @@ function ChangePassword({
     return null;
   }
 
+  const { CurrentPassword, NewPassword, ConfirmPassword, SubmitButton, Error } =
+    { ...DEFAULTS, ...components };
+
   return (
     <View as="form" className="amplify-changepassword" onSubmit={handleSubmit}>
       <Flex direction="column">
-        <DefaultPasswordField
+        <CurrentPassword
           autoComplete="current-password"
           isRequired
           label={currentPasswordLabel}
@@ -186,7 +186,7 @@ function ChangePassword({
           onBlur={handleBlur}
           onChange={handleChange}
         />
-        <DefaultPasswordField
+        <NewPassword
           autoComplete="new-password"
           isRequired
           label={newPasswordLabel}
@@ -195,7 +195,7 @@ function ChangePassword({
           onChange={handleChange}
           validationErrors={validationError?.newPassword}
         />
-        <DefaultPasswordField
+        <ConfirmPassword
           autoComplete="new-password"
           isRequired
           label={confirmPasswordLabel}
@@ -204,13 +204,19 @@ function ChangePassword({
           onChange={handleChange}
           validationErrors={validationError?.confirmPassword}
         />
-        <DefaultSubmitButton isDisabled={isDisabled} type="submit">
+        <SubmitButton isDisabled={isDisabled} type="submit">
           {updatePasswordText}
-        </DefaultSubmitButton>
-        {errorMessage ? <DefaultError>{errorMessage}</DefaultError> : null}
+        </SubmitButton>
+        {errorMessage ? <Error>{errorMessage}</Error> : null}
       </Flex>
     </View>
   );
 }
+
+ChangePassword.CurrentPassword = DEFAULTS.CurrentPassword;
+ChangePassword.NewPassword = DEFAULTS.NewPassword;
+ChangePassword.ConfirmPassword = DEFAULTS.ConfirmPassword;
+ChangePassword.SubmitButton = DEFAULTS.SubmitButton;
+ChangePassword.Error = DEFAULTS.Error;
 
 export default ChangePassword;
