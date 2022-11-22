@@ -33,7 +33,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
-    <Fragment platforms={['react', 'vue', 'angular', 'flutter']} useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./initialState.signIn.example.${platform}.mdx`)
       }
@@ -43,7 +43,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
     </Fragment>
-    <Fragment platforms={['react', 'vue', 'angular', 'flutter']} useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./initialState.signUp.example.${platform}.mdx`)
       }
@@ -53,7 +53,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
     </Fragment>
-    <Fragment platforms={['react', 'vue', 'angular', 'flutter']} useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./initialState.resetPassword.example.${platform}.mdx`)
       }
@@ -86,7 +86,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
     <Fragment>
       {({ platform }) => import(`./signUpAttributes.default.${platform}.mdx`)}
     </Fragment>
-    <Fragment platforms={['react', 'vue', 'angular', 'flutter']} useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./signUpAttributes.default.example.${platform}.mdx`)
       }
@@ -96,7 +96,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
     <Fragment>
       {({ platform }) => import(`./signUpAttributes.all.${platform}.mdx`)}
     </Fragment>
-    <Fragment platforms={['react', 'vue', 'angular', 'flutter']} useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./signUpAttributes.all.example.${platform}.mdx`)
       }
