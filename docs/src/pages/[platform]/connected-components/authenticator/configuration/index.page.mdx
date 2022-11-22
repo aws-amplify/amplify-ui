@@ -104,11 +104,11 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   </TabItem>
 </Tabs>
 
-<Fragment useCommonWebContent platforms={['react', 'vue', 'angular', 'flutter']}>
+<Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['react', 'vue', 'angular']}>
+<Fragment useCommonWebContent platforms={['web']}>
   {({ platform }) => import(`./variation.${platform}.mdx`)}
 </Fragment>
 
