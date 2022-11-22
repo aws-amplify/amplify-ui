@@ -4,8 +4,9 @@ import { render } from '@testing-library/react-native';
 import { SignUp } from '..';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
+const USERNAME = 'username';
 const username = {
-  name: 'username',
+  name: USERNAME,
   label: 'Username',
   placeholder: 'Username',
   type: 'default' as const,
@@ -81,5 +82,20 @@ describe('SignUp', () => {
     expect(toJSON()).toMatchSnapshot();
 
     expect(queryByText(getCreatingAccountText())).toBeDefined();
+  });
+
+  it('renders as expected with validationErrors', () => {
+    const { toJSON, getByText } = render(
+      <SignUp
+        {...props}
+        isPending
+        validationErrors={{ [USERNAME]: ['error', 'another error'] }}
+      />
+    );
+
+    expect(toJSON()).toMatchSnapshot();
+
+    expect(getByText('error')).toBeDefined();
+    expect(getByText('another error')).toBeDefined();
   });
 });

@@ -52,7 +52,7 @@ Array [
           "flexDirection": "column-reverse",
         },
         Object {
-          "paddingBottom": 12,
+          "paddingBottom": 8,
         },
       ]
     }
@@ -227,7 +227,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -363,7 +364,7 @@ Array [
           "flexDirection": "column-reverse",
         },
         Object {
-          "paddingBottom": 12,
+          "paddingBottom": 8,
         },
       ]
     }
@@ -591,7 +592,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }

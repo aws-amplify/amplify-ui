@@ -25,6 +25,7 @@ export default function DefaultContent<
   isPending,
   Header,
   headerText,
+  validationErrors,
 }: DefaultContentProps<FieldsType>): JSX.Element {
   const themedStyles = useThemedStyles(getDefaultStyle);
 
@@ -53,12 +54,14 @@ export default function DefaultContent<
         )
       ) : null}
       <FormFields
-        fieldContainerStyle={themedStyles.fieldContainerStyle}
-        fieldErrorStyle={themedStyles.fieldErrorStyle}
-        fieldLabelStyle={themedStyles.fieldLabelStyle}
+        fieldContainerStyle={themedStyles.fieldContainer}
+        fieldErrorsContainer={themedStyles.fieldErrorsContainer}
+        fieldErrorStyle={themedStyles.fieldError}
+        fieldLabelStyle={themedStyles.fieldLabel}
         fieldStyle={themedStyles.fieldStyle}
         fields={fields}
         isPending={isPending}
+        validationErrors={validationErrors}
         style={themedStyles.formFields}
       />
       {error ? (

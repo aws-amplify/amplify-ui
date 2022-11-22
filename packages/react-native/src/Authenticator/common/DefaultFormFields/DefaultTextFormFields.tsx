@@ -14,6 +14,7 @@ import { DefaultTextFormFieldsComponent } from './types';
 
 const DefaultTextFormFields: DefaultTextFormFieldsComponent = ({
   fieldContainerStyle,
+  fieldErrorsContainer,
   fieldErrorStyle,
   fieldStyle,
   fields = [],
@@ -43,7 +44,11 @@ const DefaultTextFormFields: DefaultTextFormFieldsComponent = ({
           key={name}
           style={fieldContainerStyle}
         />
-        <FieldErrors errors={errors} style={fieldErrorStyle} />
+        <FieldErrors
+          errors={errors}
+          errorStyle={fieldErrorStyle}
+          style={fieldErrorsContainer}
+        />
       </Fragment>
     );
   });

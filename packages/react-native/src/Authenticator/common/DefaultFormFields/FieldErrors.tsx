@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { FieldErrorsProps } from './types';
 
 export const FieldErrors = ({
   errors,
+  errorStyle,
   style,
 }: FieldErrorsProps): JSX.Element | null => {
   if (!errors || !errors.length) {
@@ -12,12 +13,12 @@ export const FieldErrors = ({
   }
 
   return (
-    <>
+    <View style={style}>
       {errors.map((error) => (
-        <Text key={error} style={style}>
+        <Text key={error} style={errorStyle}>
           {error}
         </Text>
       ))}
-    </>
+    </View>
   );
 };
