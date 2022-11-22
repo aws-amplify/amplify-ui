@@ -8,7 +8,8 @@ import {
   useTheme,
 } from '@aws-amplify/ui-react-native';
 
-Amplify.configure({});
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
 const MyHeader = () => {
   const {
@@ -43,6 +44,14 @@ function App() {
           />
         )}
         Header={MyHeader}
+        components={{
+          SignUp: ({ fields, ...props }) => (
+            <Authenticator.SignUp
+              {...props}
+              Footer={<Text>My Custom Footer</Text>}
+            />
+          ),
+        }}
       >
         <View style={style.container}>
           <SignOutButton />
