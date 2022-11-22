@@ -9,7 +9,6 @@ export interface DragActionHandlers {
 }
 
 export interface UseFileUploader extends DragActionHandlers {
-  autoUploadRef: React.MutableRefObject<boolean>;
   showPreviewer?: boolean;
   setShowPreviewer?: React.Dispatch<React.SetStateAction<boolean>>;
   fileStatuses: FileStatuses;

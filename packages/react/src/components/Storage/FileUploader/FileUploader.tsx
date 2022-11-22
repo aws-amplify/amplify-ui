@@ -44,10 +44,10 @@ export function FileUploader({
 
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
+  const [autoLoad, setAutoLoad] = useState(false);
 
   const {
     addTargetFiles,
-    autoUploadRef,
     fileStatuses,
     inDropZone,
     onDragEnter,
@@ -63,6 +63,7 @@ export function FileUploader({
     acceptedFileTypes,
     hasMultipleFiles,
     isLoading,
+    setAutoLoad,
   });
 
   // Creates aggregate percentage to show during downloads
@@ -244,10 +245,10 @@ export function FileUploader({
       // only show previewer if the added files are great then 0
       if (addedFilesLength > 0) {
         setShowPreviewer(true);
-        autoUploadRef.current = true;
+        setAutoLoad(true);
       }
     },
-    [addTargetFiles, autoUploadRef, setShowPreviewer]
+    [addTargetFiles, setShowPreviewer]
   );
 
   const onClear = useCallback(() => {
@@ -343,11 +344,13 @@ export function FileUploader({
   );
 
   useEffect(() => {
-    if (shouldAutoProceed && autoUploadRef.current) {
+    if (shouldAutoProceed && autoLoad && !hasMaxFilesError) {
       onFileClick();
+    } else {
+      return;
     }
-    autoUploadRef.current = false;
-  }, [shouldAutoProceed, autoUploadRef, onFileClick]);
+    setAutoLoad(false);
+  }, [shouldAutoProceed, onFileClick, autoLoad, hasMaxFilesError]);
 
   if (showPreviewer) {
     return (

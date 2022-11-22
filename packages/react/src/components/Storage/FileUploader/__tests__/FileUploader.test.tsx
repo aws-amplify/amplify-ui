@@ -10,7 +10,6 @@ const useFileUploaderSpy = jest.spyOn(UseHooks, 'useFileUploader');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
 const mockReturnUseFileUploader = {
-  autoUploadRef: { current: '' } as any,
   onDragStart: () => null,
   onDragEnter: () => null,
   onDragLeave: () => null,
@@ -507,7 +506,6 @@ describe('File Uploader', () => {
     useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
       fileStatuses,
-      autoUploadRef: { current: true },
     });
 
     const { container } = render(

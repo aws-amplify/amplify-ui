@@ -1,5 +1,5 @@
 import { checkMaxSize, returnAcceptedFiles } from '@aws-amplify/ui';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Files, FileStatuses } from '../../types';
 import { UseFileUploader } from './types';
 
@@ -8,15 +8,16 @@ export default function useFileUploader({
   acceptedFileTypes,
   hasMultipleFiles,
   isLoading,
+  setAutoLoad,
 }: {
   maxSize: number;
   acceptedFileTypes: string[];
   hasMultipleFiles: boolean;
   isLoading: boolean;
+  setAutoLoad: React.Dispatch<React.SetStateAction<boolean>>;
 }): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
-  const autoUploadRef = useRef(false);
 
   const [inDropZone, setInDropZone] = useState(false);
 
@@ -93,13 +94,12 @@ export default function useFileUploader({
     const addedFilesLength = addTargetFiles([...files]);
     if (addedFilesLength > 0) {
       setShowPreviewer(true);
-      autoUploadRef.current = true;
+      setAutoLoad(true);
     }
     setInDropZone(false);
   };
 
   return {
-    autoUploadRef,
     inDropZone,
     onDragEnter,
     onDragLeave,
