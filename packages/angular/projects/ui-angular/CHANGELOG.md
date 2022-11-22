@@ -1,5 +1,36 @@
 # @aws-amplify/ui-angular
 
+## 3.1.0
+
+### Minor Changes
+
+- [#2817](https://github.com/aws-amplify/amplify-ui/pull/2817) [`01cf6d2f8`](https://github.com/aws-amplify/amplify-ui/commit/01cf6d2f8273d8aeea5efa60d2905bf00d2119a8) Thanks [@wlee221](https://github.com/wlee221)! - Expose `subscribe` from `AuthenticatorService`.
+
+  ```ts
+  @Component()
+  class MyComponent implements OnInit, OnDelete {
+    private unsubscribe: () => void;
+    constructor(private authenticator: Authenticator, private route: Router) {}
+
+    ngOnInit() {
+      this.unsubscribe = authenticator.subscribe(({ authStatus }) => {
+        if (authStatus === 'authenticated') {
+          this.router.navigate(['/admin']);
+        }
+      }).unsubscribe;
+    }
+
+    ngOnDelete() {
+      this.unsubscribe();
+    }
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1), [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf)]:
+  - @aws-amplify/ui@5.1.0
+
 ## 3.0.0
 
 ### Major Changes
