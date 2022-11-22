@@ -41,9 +41,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
 </Fragment>
 
-## Labels & Text
-
-<Fragment useCommonWebContent>
+<Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
 </Fragment>
 
@@ -66,7 +64,7 @@ The following example customizes the Force New Password screen by:
   {({ platform }) => import(`./formfields/form-fields.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent>
+<Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
 </Fragment>
 
