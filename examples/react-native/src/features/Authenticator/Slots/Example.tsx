@@ -1,14 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
+import { Amplify } from 'aws-amplify';
 import {
   Authenticator,
   useAuthenticator,
   useTheme,
 } from '@aws-amplify/ui-react-native';
-import { Amplify } from 'aws-amplify';
-
-import { Button } from '../../../ui';
 
 Amplify.configure({});
 
@@ -27,7 +25,7 @@ const MyHeader = () => {
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();
-  return <Button onPress={signOut}>Sign Out</Button>;
+  return <Button onPress={signOut} title="Sign Out" />;
 }
 
 function App() {
