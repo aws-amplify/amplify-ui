@@ -11,7 +11,7 @@ import {
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
 
-const MyHeader = () => {
+const MyAppHeader = () => {
   const {
     tokens: { space, fontSizes },
   } = useTheme();
@@ -37,21 +37,16 @@ function App() {
   return (
     <Authenticator.Provider>
       <Authenticator
+        // will wrap every subcomponent
         Container={(props) => (
+          // reuse default `Container` and apply custom background
           <Authenticator.Container
             {...props}
             style={{ backgroundColor: colors.pink[20] }}
           />
         )}
-        Header={MyHeader}
-        components={{
-          SignUp: ({ fields, ...props }) => (
-            <Authenticator.SignUp
-              {...props}
-              Footer={<Text>My Custom Footer</Text>}
-            />
-          ),
-        }}
+        // will render on every subcomponent
+        Header={MyAppHeader}
       >
         <View style={style.container}>
           <SignOutButton />

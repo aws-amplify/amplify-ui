@@ -2,6 +2,8 @@ import React from 'react';
 
 import Example from '../features/Authenticator/Demo/Example';
 // import Example from '../features/Authenticator/Basic/Example';
+// import Example from '../features/Authenticator/Component/Example';
+// import Example from '../features/Authenticator/ComponentSlots/Example';
 // import Example from '../features/Authenticator/Fields/Example';
 // import Example from '../features/Authenticator/LabelHidden/Example';
 // import Example from '../features/Authenticator/Slots/Example';
