@@ -1,0 +1,14 @@
+```js{3}
+export default function App() {
+  return (
+    <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']}>
+      {({ signOut, user }) => (
+        <main>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </main>
+      )}
+    </Authenticator>
+  );
+}
+```
