@@ -184,19 +184,16 @@ const SecondaryNav = (props) => {
         ))}
       </ExpanderItem>
 
-      {/* React Native does not yet support theming */}
-      {isReactNative ? null : (
-        <ExpanderItem
-          title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
-          value="theming"
-        >
-          {theming.map(({ label, ...rest }) => (
-            <NavLink key={label} {...rest} onClick={props.onClick}>
-              {label}
-            </NavLink>
-          ))}
-        </ExpanderItem>
-      )}
+      <ExpanderItem
+        title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
+        value="theming"
+      >
+        {theming.map(({ label, ...rest }) => (
+          <NavLink key={label} {...rest} onClick={props.onClick}>
+            {label}
+          </NavLink>
+        ))}
+      </ExpanderItem>
 
       {/* Flutter and React Native don't have guides at this time */}
       {isFlutter || isReactNative ? null : (

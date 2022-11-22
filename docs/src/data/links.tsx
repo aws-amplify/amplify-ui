@@ -497,7 +497,7 @@ export const theming: ComponentNavItem[] = [
   {
     href: '/theming',
     label: 'Overview',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/theming/responsive',
@@ -530,7 +530,7 @@ export const theming: ComponentNavItem[] = [
   {
     href: '/theming/dark-mode',
     label: 'Dark mode',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/theming/css-variables',

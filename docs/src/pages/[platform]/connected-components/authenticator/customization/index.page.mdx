@@ -59,7 +59,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./formfields/form-fields.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent>
+<Fragment useCommonWebContent platforms={['web','react-native']}>
   {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
 </Fragment>
 
