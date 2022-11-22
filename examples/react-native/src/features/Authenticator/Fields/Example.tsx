@@ -17,7 +17,24 @@ function SignOutButton() {
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator>
+      <Authenticator
+        components={{
+          SignUp: ({ fields, ...props }) => (
+            <Authenticator.SignUp
+              {...props}
+              fields={[
+                ...fields,
+                {
+                  name: 'preferred_username',
+                  label: 'Preferred Username',
+                  type: 'default',
+                  placeholder: 'Enter your preferred username',
+                },
+              ]}
+            />
+          ),
+        }}
+      >
         <View style={style.container}>
           <SignOutButton />
         </View>
