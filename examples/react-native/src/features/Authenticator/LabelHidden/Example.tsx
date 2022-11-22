@@ -17,7 +17,16 @@ function SignOutButton() {
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator>
+      <Authenticator
+        components={{
+          SignIn: ({ fields, ...props }) => (
+            <Authenticator.SignIn
+              {...props}
+              fields={fields.map((field) => ({ ...field, labelHidden: true }))}
+            />
+          ),
+        }}
+      >
         <View style={style.container}>
           <SignOutButton />
         </View>
