@@ -41,3 +41,6 @@ yarn-error.log*
 # Cypress
 /cypress/videos
 /cypress/screenshots
+
+# data
+/src/data/props-table.json

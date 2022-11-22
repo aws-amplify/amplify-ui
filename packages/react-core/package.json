@@ -21,6 +21,7 @@
     "clean": "rimraf dist node_modules",
     "prebuild": "rimraf dist",
     "build": "rollup --config",
+    "build:esm": "tsc --project tsconfig.esm.json",
     "dev": "yarn build:esm --watch",
     "lint": "tsc --noEmit && eslint src",
     "test": "jest --coverage --verbose",
@@ -34,8 +35,7 @@
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",
-    "react": ">= 16.14.0",
-    "react-dom": ">= 16.14.0"
+    "react": ">= 16.14.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.1",

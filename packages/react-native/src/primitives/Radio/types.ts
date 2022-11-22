@@ -9,7 +9,7 @@ export interface RadioProps<T> extends PressableProps {
   label?: string;
   labelPosition?: LabelPosition;
   labelStyle?: StyleProp<TextStyle>;
-  onChange?: (value?: T) => void;
+  onChange?: (value: T) => void;
   radioContainerStyle?: StyleProp<ViewStyle>;
   radioDotStyle?: StyleProp<ViewStyle>;
   size?: Size;
@@ -18,15 +18,16 @@ export interface RadioProps<T> extends PressableProps {
 }
 
 export type RadioDimensions = Pick<ViewStyle, 'height' | 'width'>;
+
 export interface RadioStyles {
-  container: ViewStyle;
-  disabled: ViewStyle;
-  radioContainer: ViewStyle;
-  radioContainerLarge: RadioDimensions;
-  radioContainerMedium: RadioDimensions;
-  radioContainerSmall: RadioDimensions;
-  radioDot: ViewStyle;
-  radioDotLarge: RadioDimensions;
-  radioDotMedium: RadioDimensions;
-  radioDotSmall: RadioDimensions;
+  container?: ViewStyle;
+  disabled?: ViewStyle;
+  radioContainer?: ViewStyle;
+  radioContainerLarge?: RadioDimensions;
+  radioContainerMedium?: RadioDimensions;
+  radioContainerSmall?: RadioDimensions;
+  radioDot?: ViewStyle;
+  radioDotLarge?: RadioDimensions;
+  radioDotMedium?: RadioDimensions;
+  radioDotSmall?: RadioDimensions;
 }

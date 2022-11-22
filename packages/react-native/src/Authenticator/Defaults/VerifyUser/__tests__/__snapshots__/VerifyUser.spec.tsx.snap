@@ -1,0 +1,678 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerifyUser renders as expected 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Verify Contact
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 16,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Account recovery requires verified contact information
+  </Text>,
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "flexDirection": "column-reverse",
+        },
+        Object {
+          "paddingBottom": 8,
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityRole="radiogroup"
+      style={
+        Object {
+          "flexDirection": "column",
+        }
+      }
+    >
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            Object {
+              "paddingHorizontal": 12,
+            },
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "hsl(210, 8%, 55%)",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__container"
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 14,
+                "fontWeight": "400",
+                "lineHeight": 21,
+              },
+              Object {
+                "color": "hsl(210, 50%, 10%)",
+              },
+              Object {},
+            ]
+          }
+        >
+          h***o@world.com
+        </Text>
+      </View>
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            Object {
+              "paddingHorizontal": 12,
+            },
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "hsl(210, 8%, 55%)",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__container"
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 14,
+                "fontWeight": "400",
+                "lineHeight": 21,
+              },
+              Object {
+                "color": "hsl(210, 50%, 10%)",
+              },
+              Object {},
+            ]
+          }
+        >
+          ***********0000
+        </Text>
+      </View>
+    </View>
+  </View>,
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
+        null,
+        Object {
+          "marginHorizontal": 16,
+          "marginVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          Object {},
+        ]
+      }
+    >
+      Verify
+    </Text>
+  </View>,
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {},
+          null,
+          null,
+          Object {
+            "marginVertical": 8,
+            "minWidth": "50%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+            undefined,
+          ]
+        }
+      >
+        Skip
+      </Text>
+    </View>
+  </View>,
+]
+`;
+
+exports[`VerifyUser renders as expected with errors 1`] = `
+Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Verify Contact
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 16,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Account recovery requires verified contact information
+  </Text>,
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "flexDirection": "column-reverse",
+        },
+        Object {
+          "paddingBottom": 8,
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityRole="radiogroup"
+      style={
+        Object {
+          "flexDirection": "column",
+        }
+      }
+    >
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            Object {
+              "paddingHorizontal": 12,
+            },
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "hsl(210, 8%, 55%)",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__container"
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 14,
+                "fontWeight": "400",
+                "lineHeight": 21,
+              },
+              Object {
+                "color": "hsl(210, 50%, 10%)",
+              },
+              Object {},
+            ]
+          }
+        >
+          h***o@world.com
+        </Text>
+      </View>
+      <View
+        accessibilityRole="radio"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+            },
+            Object {
+              "paddingHorizontal": 12,
+            },
+          ]
+        }
+        type="radio"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "borderColor": "hsl(210, 8%, 55%)",
+                "borderRadius": 999,
+                "borderWidth": 2,
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__container"
+        />
+        <Text
+          accessibilityRole="text"
+          style={
+            Array [
+              Object {
+                "fontSize": 14,
+                "fontWeight": "400",
+                "lineHeight": 21,
+              },
+              Object {
+                "color": "hsl(210, 50%, 10%)",
+              },
+              Object {},
+            ]
+          }
+        >
+          ***********0000
+        </Text>
+      </View>
+    </View>
+  </View>,
+  <View
+    accessibilityRole="alert"
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "hsl(0, 75%, 85%)",
+          "flexDirection": "row",
+          "paddingHorizontal": 8,
+          "paddingVertical": 32,
+        },
+        Object {
+          "marginVertical": 12,
+        },
+      ]
+    }
+  >
+    <Image
+      accessibilityRole="image"
+      source={
+        Object {
+          "testUri": "../../../src/assets/icons/error.png",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "height": 20,
+            "resizeMode": "contain",
+            "tintColor": undefined,
+            "width": 20,
+          },
+          Object {
+            "margin": 8,
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(0, 100%, 20%)",
+            "flex": 1,
+            "paddingHorizontal": 8,
+          },
+          Object {},
+        ]
+      }
+    >
+      Something went wrong
+    </Text>
+  </View>,
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
+        null,
+        Object {
+          "marginHorizontal": 16,
+          "marginVertical": 12,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "hsl(0, 0%, 100%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
+          },
+          Object {},
+        ]
+      }
+    >
+      Verify
+    </Text>
+  </View>,
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {},
+          null,
+          null,
+          Object {
+            "marginVertical": 8,
+            "minWidth": "50%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+            undefined,
+          ]
+        }
+      >
+        Skip
+      </Text>
+    </View>
+  </View>,
+]
+`;

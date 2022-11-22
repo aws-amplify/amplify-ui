@@ -1,11 +1,11 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 
-import RenderNothng from '../RenderNothing';
+import RenderNothing from '../RenderNothing';
 
-describe('RenderNothng', () => {
+describe('RenderNothing', () => {
   it('renders nothing', () => {
-    const renderer = TestRenderer.create(<RenderNothng />);
+    const renderer = TestRenderer.create(<RenderNothing />);
 
     expect(renderer.toJSON()).toBeNull();
   });

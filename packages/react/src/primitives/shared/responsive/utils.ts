@@ -1,4 +1,4 @@
-import { isDesignToken } from '@aws-amplify/ui';
+import { isDesignToken, WebTheme } from '@aws-amplify/ui';
 
 import { getCSSVariableIfValueIsThemeKey } from '../../shared/utils';
 import { Breakpoint, Breakpoints } from '../../types/responsive';
@@ -9,18 +9,20 @@ const getClosestValueByBreakpoint = <Value>({
   breakpoints,
   propKey,
   values,
+  tokens,
 }: {
   breakpoint: Breakpoint;
   breakpoints: Breakpoints;
   propKey: ThemeStylePropKey;
   values: Record<string, Value>;
+  tokens: WebTheme['tokens'];
 }): string | Value => {
   // Check if breakpoint exists in values
   if (values[breakpoint] !== undefined) {
     const value = values[breakpoint];
     return isDesignToken(value)
       ? value.toString()
-      : getCSSVariableIfValueIsThemeKey(propKey, value);
+      : getCSSVariableIfValueIsThemeKey(propKey, value, tokens);
   }
 
   // Otherwise use a lower breakpoint value
@@ -36,7 +38,7 @@ const getClosestValueByBreakpoint = <Value>({
       const value = values[breakpoint];
       return isDesignToken(value)
         ? value.toString()
-        : getCSSVariableIfValueIsThemeKey(propKey, value);
+        : getCSSVariableIfValueIsThemeKey(propKey, value, tokens);
     }
   }
 
@@ -48,11 +50,13 @@ export const getValueAtCurrentBreakpoint = <Value>({
   breakpoints,
   propKey,
   values,
+  tokens,
 }: {
   values: Record<string, Value> | Value[] | Value;
   breakpoint: Breakpoint;
   breakpoints: Breakpoints;
   propKey?: ThemeStylePropKey;
+  tokens: WebTheme['tokens'];
 }): string | Value => {
   // if value is a DesignToken use its toString()
   if (isDesignToken(values)) {
@@ -60,7 +64,7 @@ export const getValueAtCurrentBreakpoint = <Value>({
   }
 
   if (typeof values !== 'object') {
-    return getCSSVariableIfValueIsThemeKey(propKey, values);
+    return getCSSVariableIfValueIsThemeKey(propKey, values, tokens);
   }
 
   let breakpointCompatValues = {};
@@ -80,5 +84,6 @@ export const getValueAtCurrentBreakpoint = <Value>({
     breakpoints,
     propKey,
     values: breakpointCompatValues,
+    tokens,
   });
 };

@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultContainer renders as expected with children 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    Array [
+      Array [
+        Object {
+          "alignContent": "center",
+          "backgroundColor": "hsl(0, 0%, 100%)",
+          "flex": 1,
+          "justifyContent": "center",
+        },
+        undefined,
+      ],
+      Object {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <RCTScrollView
+    alwaysBounceVertical={false}
+    contentContainerStyle={
+      Array [
+        Object {
+          "alignContent": "center",
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "paddingBottom": 44,
+          "paddingLeft": undefined,
+          "paddingRight": undefined,
+          "paddingTop": 47,
+        },
+        undefined,
+      ]
+    }
+    keyboardShouldPersistTaps="handled"
+    style={
+      Array [
+        Object {},
+        undefined,
+      ]
+    }
+  >
+    <View>
+      <View
+        accessibilityRole="button"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "borderRadius": 4,
+              "justifyContent": "center",
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
+            },
+            Object {
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderWidth": 1,
+            },
+            null,
+            null,
+            undefined,
+          ]
+        }
+        testID="testButton"
+      />
+    </View>
+  </RCTScrollView>
+</View>
+`;

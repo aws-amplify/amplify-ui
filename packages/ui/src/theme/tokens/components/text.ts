@@ -1,21 +1,15 @@
-import { ColorValue, DesignToken } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface TextVariationTokens {
-  color: DesignToken<ColorValue>;
-}
+type OrderVariantKey = 'primary' | 'secondary' | 'tertiary';
+type InformationVariantKey = 'info' | 'warning' | 'error' | 'success';
 
-export interface TextTokens {
-  color: DesignToken<ColorValue>;
-  primary: TextVariationTokens;
-  secondary: TextVariationTokens;
-  tertiary: TextVariationTokens;
-  error: TextVariationTokens;
-  warning: TextVariationTokens;
-  success: TextVariationTokens;
-  info: TextVariationTokens;
-}
+type BaseTextTokens<Output> = DesignTokenProperties<'color', Output>;
 
-export const text: TextTokens = {
+export type TextTokens<Output extends OutputVariantKey> =
+  BaseTextTokens<Output> &
+    Record<OrderVariantKey | InformationVariantKey, BaseTextTokens<Output>>;
+
+export const text: Required<TextTokens<'default'>> = {
   // default styles
   color: { value: '{colors.font.primary.value}' },
 
