@@ -65,7 +65,6 @@ const RESET_PASSWORD_MACHINE_KEYS: ResetPasswordMachineKey[] = [
 ];
 const SIGN_IN_MACHINE_KEYS: SignInMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
-  'socialProviders',
   'toFederatedSignIn',
   'toResetPassword',
   'toSignUp',

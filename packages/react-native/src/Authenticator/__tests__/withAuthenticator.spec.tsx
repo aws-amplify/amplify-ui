@@ -36,7 +36,7 @@ type MockSelectorParam =
 
 describe('withAuthenticator', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
 
     useAuthenticatorRouteSpy.mockReturnValue({
       Component: TestComponent as any,

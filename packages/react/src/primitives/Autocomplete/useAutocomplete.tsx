@@ -21,7 +21,6 @@ export const useAutocomplete = ({
   onChange,
   onClear,
   onClick,
-  onFocus,
   onSelect,
   onSubmit,
 }: UseAutocompleteProps) => {
@@ -103,17 +102,6 @@ export const useAutocomplete = ({
         }
       },
       [onClick]
-    );
-
-  const handleOnFocus: React.FocusEventHandler<HTMLInputElement> =
-    React.useCallback(
-      (event) => {
-        setIsMenuOpen(true);
-        if (isFunction(onFocus)) {
-          onFocus(event);
-        }
-      },
-      [onFocus]
     );
 
   const handleOnKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (
@@ -241,7 +229,6 @@ export const useAutocomplete = ({
     handleOnBlur,
     handleOnClear,
     handleOnClick,
-    handleOnFocus,
     handleOnChange,
     handleOnKeyDown,
     isControlled,

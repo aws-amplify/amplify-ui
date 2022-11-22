@@ -14,6 +14,7 @@ import useFieldValues from '../useFieldValues';
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
 const textField = {
+  label: 'test',
   type: 'default',
   name: 'test',
   value: 'testValue',
@@ -52,6 +53,28 @@ describe('useFieldValues', () => {
       fields: [
         {
           ...textField,
+          onBlur: expect.any(Function),
+          onChangeText: expect.any(Function),
+          value: undefined,
+        },
+      ],
+      handleFormSubmit: expect.any(Function),
+    });
+  });
+
+  it('removes hidden labels from text fields', () => {
+    const { result } = renderHook(() =>
+      useFieldValues({
+        ...props,
+        fields: [{ ...textField, labelHidden: true }],
+      })
+    );
+    expect(result.current).toStrictEqual({
+      disableFormSubmit: false,
+      fields: [
+        {
+          ...textField,
+          label: undefined,
           onBlur: expect.any(Function),
           onChangeText: expect.any(Function),
           value: undefined,
@@ -205,6 +228,7 @@ describe('useFieldValues', () => {
       fields: [
         {
           ...mockTextField,
+          label: undefined,
           onBlur: expect.any(Function),
           onChangeText: expect.any(Function),
           value: undefined,
@@ -216,6 +240,7 @@ describe('useFieldValues', () => {
 
   it('enables form submit if required fields have values', () => {
     const mockTextField = {
+      label: 'test',
       type: 'default',
       name: 'test',
       required: true,
@@ -243,6 +268,33 @@ describe('useFieldValues', () => {
         },
       ],
       handleFormSubmit: expect.any(Function),
+    });
+  });
+
+  it('submits the expected values for phone fields', () => {
+    const phoneTextField = {
+      type: 'phone',
+      name: 'test',
+    } as TextFieldOptionsType;
+    const { result } = renderHook(() =>
+      useFieldValues({
+        ...props,
+        fields: [phoneTextField],
+      })
+    );
+
+    const mockValue = '+10000000000';
+    act(() => {
+      result.current.fields[0].onChangeText?.(mockValue);
+    });
+
+    expect(result.current.fields.length).toBe(1);
+    expect(result.current.fields[0].value).toEqual(mockValue);
+    result.current.handleFormSubmit();
+    expect(props.handleSubmit).toHaveBeenCalledTimes(1);
+    expect(props.handleSubmit).toHaveBeenCalledWith({
+      country_code: mockValue.substring(0, 3),
+      [textField.name]: mockValue.substring(3, mockValue.length),
     });
   });
 });

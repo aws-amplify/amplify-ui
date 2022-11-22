@@ -14,31 +14,37 @@ Array [
           "fontWeight": "300",
           "lineHeight": 36,
         },
-        undefined,
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
       ]
     }
   >
     Setup TOTP
   </Text>,
-  <View>
-    <View
-      accessibilityLabel="Code"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
+  <View
+    style={
+      Object {
+        "paddingBottom": 8,
       }
-      accessible={true}
+    }
+  >
+    <View
       style={
         Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Object {
+            "paddingHorizontal": 12,
+          },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Code"
         accessibilityRole="text"
         style={
           Array [
@@ -54,7 +60,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -64,6 +70,7 @@ Array [
         Code
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -71,14 +78,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -93,8 +103,9 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
-              undefined,
+              Object {},
             ]
           }
         />
@@ -112,7 +123,9 @@ Array [
           "paddingHorizontal": 8,
           "paddingVertical": 32,
         },
-        undefined,
+        Object {
+          "marginVertical": 12,
+        },
       ]
     }
   >
@@ -145,7 +158,7 @@ Array [
             "flex": 1,
             "paddingHorizontal": 8,
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -182,7 +195,8 @@ Array [
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -196,7 +210,7 @@ Array [
             "fontWeight": "700",
             "textAlign": "center",
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -204,53 +218,64 @@ Array [
     </Text>
   </View>,
   <View
-    accessibilityRole="button"
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "transparent",
-          "borderRadius": 4,
-          "justifyContent": "center",
-          "paddingHorizontal": 16,
-          "paddingVertical": 12,
-        },
-        Object {},
-        null,
-        null,
-        Object {
-          "marginVertical": 8,
-        },
-      ]
+      Object {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      }
     }
   >
-    <Text
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Array [
           Object {
-            "color": "hsl(190, 95%, 30%)",
-            "fontSize": 16,
-            "fontWeight": "700",
-            "textAlign": "center",
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
           },
-          undefined,
+          Object {},
+          null,
+          null,
+          Object {
+            "marginVertical": 8,
+            "minWidth": "50%",
+          },
         ]
       }
     >
-      Back to Sign In
-    </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+            undefined,
+          ]
+        }
+      >
+        Back to Sign In
+      </Text>
+    </View>
   </View>,
 ]
 `;
@@ -269,31 +294,37 @@ Array [
           "fontWeight": "300",
           "lineHeight": 36,
         },
-        undefined,
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
       ]
     }
   >
     Setup TOTP
   </Text>,
-  <View>
-    <View
-      accessibilityLabel="Code"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
+  <View
+    style={
+      Object {
+        "paddingBottom": 8,
       }
-      accessible={true}
+    }
+  >
+    <View
       style={
         Array [
           Object {
             "alignItems": "flex-start",
           },
-          undefined,
+          Object {
+            "paddingHorizontal": 12,
+          },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Code"
         accessibilityRole="text"
         style={
           Array [
@@ -309,7 +340,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -319,6 +350,7 @@ Array [
         Code
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -326,14 +358,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -348,8 +383,9 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
-              undefined,
+              Object {},
             ]
           }
         />
@@ -386,7 +422,8 @@ Array [
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -400,7 +437,7 @@ Array [
             "fontWeight": "700",
             "textAlign": "center",
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -408,53 +445,64 @@ Array [
     </Text>
   </View>,
   <View
-    accessibilityRole="button"
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onBlur={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "transparent",
-          "borderRadius": 4,
-          "justifyContent": "center",
-          "paddingHorizontal": 16,
-          "paddingVertical": 12,
-        },
-        Object {},
-        null,
-        null,
-        Object {
-          "marginVertical": 8,
-        },
-      ]
+      Object {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      }
     }
   >
-    <Text
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Array [
           Object {
-            "color": "hsl(190, 95%, 30%)",
-            "fontSize": 16,
-            "fontWeight": "700",
-            "textAlign": "center",
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
           },
-          undefined,
+          Object {},
+          null,
+          null,
+          Object {
+            "marginVertical": 8,
+            "minWidth": "50%",
+          },
         ]
       }
     >
-      Back to Sign In
-    </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+            undefined,
+          ]
+        }
+      >
+        Back to Sign In
+      </Text>
+    </View>
   </View>,
 ]
 `;

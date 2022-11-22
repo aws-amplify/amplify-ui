@@ -122,7 +122,6 @@ export type SetupTOTPBaseProps<FieldType = {}> = {
 
 export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
-  socialProviders?: AuthenticatorMachineContext['socialProviders'];
   toFederatedSignIn: AuthenticatorMachineContext['toFederatedSignIn'];
   toResetPassword: AuthenticatorMachineContext['toResetPassword'];
   toSignUp: AuthenticatorMachineContext['toSignUp'];
@@ -131,7 +130,6 @@ export type SignInBaseProps<FieldType = {}> = {
 
 export type SignUpBaseProps<FieldType = {}> = {
   hideSignIn?: boolean;
-  socialProviders?: AuthenticatorMachineContext['socialProviders'];
   toFederatedSignIn: AuthenticatorMachineContext['toFederatedSignIn'];
   toSignIn: AuthenticatorMachineContext['toSignIn'];
   validationErrors?: AuthenticatorMachineContext['validationErrors'];

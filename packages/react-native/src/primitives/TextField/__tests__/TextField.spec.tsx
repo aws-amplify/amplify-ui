@@ -3,7 +3,10 @@ import { fireEvent, render, renderHook } from '@testing-library/react-native';
 
 import { useTheme } from '../../../theme';
 import { getThemedStyles } from '../styles';
-import TextField, { INPUT_CONTAINER_TEST_ID } from '../TextField';
+import TextField, {
+  INPUT_CONTAINER_TEST_ID,
+  TEXTFIELD_CONTAINER_TEST_ID,
+} from '../TextField';
 
 const placeHolderText = 'Placeholder';
 const labelText = 'Label';
@@ -34,16 +37,13 @@ describe('TextField', () => {
   });
 
   it('renders as expected when disabled', () => {
-    const { toJSON, getByLabelText, getByTestId } = render(
+    const { toJSON, getByTestId } = render(
       <TextField {...defaultProps} disabled />
     );
     expect(toJSON()).toMatchSnapshot();
-    const textInputContainer = getByLabelText(labelText);
-    expect(textInputContainer.props.accessibilityState).toHaveProperty(
-      'disabled',
-      true
-    );
     const textInput = getByTestId(testID);
+    expect(textInput.props.accessibilityState).toHaveProperty('disabled', true);
+
     expect(textInput.props.editable).toBe(false);
   });
 
@@ -105,7 +105,7 @@ describe('TextField', () => {
 
     const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
     expect(inputContainer.props.style).toStrictEqual({
-      ...themedStyle.inputContainer,
+      ...themedStyle.fieldContainer,
       ...themedStyle.disabled,
     });
   });
@@ -117,10 +117,9 @@ describe('TextField', () => {
     const customLabelStyle = { color: 'blue' };
     const customStyle = { backgroundColor: 'purple' };
 
-    const { getByTestId, getByText, getByRole } = render(
+    const { getByTestId, getByText } = render(
       <TextField
         {...defaultProps}
-        accessibilityRole="none"
         error
         errorMessage={errorMessageText}
         errorMessageStyle={customErrorMessageStyle}
@@ -133,7 +132,7 @@ describe('TextField', () => {
     const { result } = renderHook(() => useTheme());
     const themedStyle = getThemedStyles(result.current);
 
-    const container = getByRole('none');
+    const container = getByTestId(TEXTFIELD_CONTAINER_TEST_ID);
     const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
     const input = getByTestId(testID);
     const errorMessage = getByText(errorMessageText);
@@ -143,10 +142,10 @@ describe('TextField', () => {
       customStyle,
     ]);
     expect(inputContainer.props.style).toStrictEqual(
-      themedStyle.inputContainer
+      themedStyle.fieldContainer
     );
     expect(input.props.style).toStrictEqual([
-      themedStyle.input,
+      themedStyle.field,
       customFieldStyle,
     ]);
     expect(errorMessage.props.style).toContain(customErrorMessageStyle);

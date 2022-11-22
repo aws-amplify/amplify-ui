@@ -11,25 +11,11 @@ const styles = StyleSheet.create({
   container: {
     width: '75%',
   },
-  inputStyle: {
-    width: '50%',
-  },
-  picker: {
-    color: 'red',
-    fontSize: 16,
-    width: '50%',
-  },
-  pickerItem: {
-    color: 'red',
-    fontSize: 16,
-  },
+  fieldStyle: { backgroundColor: 'red' },
 });
 
-const codes = ['+1', '+7', '+20', '+27', '+30'];
 const props: PhoneNumberFieldProps = {
   style: styles.container,
-  defaultDialCode: undefined,
-  dialCodes: codes,
 };
 
 storiesOf('PhoneNumberField', module)
@@ -39,10 +25,8 @@ storiesOf('PhoneNumberField', module)
     <PhoneNumberField
       {...props}
       style={styles.container}
-      inputStyle={styles.inputStyle}
-      pickerStyle={styles.picker}
-      pickerItemStyle={styles.pickerItem}
+      fieldStyle={styles.fieldStyle}
     >
-      Dial code should be red
+      Input should be red
     </PhoneNumberField>
   ));

@@ -4,8 +4,9 @@ import { render } from '@testing-library/react-native';
 import { SignUp } from '..';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
+const USERNAME = 'username';
 const username = {
-  name: 'username',
+  name: USERNAME,
   label: 'Username',
   placeholder: 'Username',
   type: 'default' as const,
@@ -27,7 +28,6 @@ const phone = {
   label: 'Phone',
   placeholder: 'Phone',
   type: 'phone' as const,
-  dialCodes: ['+1', '+7'],
 };
 
 const fields = [username, password, confirmPassword, phone];
@@ -77,25 +77,25 @@ describe('SignUp', () => {
     expect(queryByRole('tab')).toBe(null);
   });
 
-  it('renders as expected with social providers', () => {
-    const { toJSON, queryByText } = render(
-      <SignUp
-        {...props}
-        socialProviders={['amazon', 'apple', 'facebook', 'google']}
-      />
-    );
-    expect(toJSON()).toMatchSnapshot();
-
-    expect(queryByText('amazon')).toBeDefined();
-    expect(queryByText('apple')).toBeDefined();
-    expect(queryByText('facebook')).toBeDefined();
-    expect(queryByText('google')).toBeDefined();
-  });
-
   it('renders as expected when isPending is true', () => {
     const { toJSON, queryByText } = render(<SignUp {...props} isPending />);
     expect(toJSON()).toMatchSnapshot();
 
     expect(queryByText(getCreatingAccountText())).toBeDefined();
+  });
+
+  it('renders as expected with validationErrors', () => {
+    const { toJSON, getByText } = render(
+      <SignUp
+        {...props}
+        isPending
+        validationErrors={{ [USERNAME]: ['error', 'another error'] }}
+      />
+    );
+
+    expect(toJSON()).toMatchSnapshot();
+
+    expect(getByText('error')).toBeDefined();
+    expect(getByText('another error')).toBeDefined();
   });
 });

@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { AmplifySection, CompatibleSection } from '@/components/home/sections';
+import {
+  AmplifySection,
+  AuthenticationSection,
+  CompatibleSection,
+} from '@/components/home/sections';
 
 export default function ReactNativeHomePage({ colorMode }) {
   const {
@@ -9,6 +13,7 @@ export default function ReactNativeHomePage({ colorMode }) {
 
   return (
     <>
+      <AuthenticationSection platform={platform} />
       <AmplifySection platform={platform} />
       <CompatibleSection platform={platform} />
     </>

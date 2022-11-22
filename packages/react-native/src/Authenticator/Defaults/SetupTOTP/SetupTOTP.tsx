@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { Button, ErrorMessage } from '../../../primitives';
+import { Label } from '../../../primitives';
 
 import {
+  DefaultContent,
   DefaultFooter,
   DefaultTextFormFields,
   DefaultHeader,
@@ -25,20 +25,18 @@ const {
   getConfirmingText,
   getConfirmText,
   getSetupTOTPText,
+  getSetupTOTPInstructionsText,
 } = authenticatorTextUtil;
 
 const SetupTOTP: DefaultSetupTOTPComponent = ({
-  error,
   fields,
-  Footer,
-  FormFields,
   getTotpSecretCode,
   handleBlur,
   handleChange,
   handleSubmit,
-  Header,
   isPending,
   toSignIn,
+  ...rest
 }) => {
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -65,28 +63,38 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
     }
   }, [getSecretKey, secretKey]);
 
-  return (
+  const headerText = getSetupTOTPText();
+  const primaryButtonText = isPending ? getConfirmingText() : getConfirmText();
+  const secondaryButtonText = getBackToSignInText();
+
+  const body = secretKey ? (
     <>
-      <Header>{getSetupTOTPText()}</Header>
-      {secretKey ? (
-        <Text selectable style={styles.secretKeyText}>
-          {secretKey}
-        </Text>
-      ) : null}
-      <FormFields fields={fieldsWithHandlers} isPending={isPending} />
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        variant="primary"
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-      >
-        {isPending ? getConfirmingText() : getConfirmText()}
-      </Button>
-      <Button onPress={toSignIn} variant="link" style={styles.buttonSecondary}>
-        {getBackToSignInText()}
-      </Button>
-      <Footer />
+      <Label style={styles.secretKeyText}>
+        {getSetupTOTPInstructionsText()}
+      </Label>
+      <Label selectable style={styles.secretKeyText}>
+        {secretKey}
+      </Label>
     </>
+  ) : null;
+
+  const buttons = useMemo(
+    () => ({
+      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      links: [{ children: secondaryButtonText, onPress: toSignIn }],
+    }),
+    [handleFormSubmit, primaryButtonText, secondaryButtonText, toSignIn]
+  );
+
+  return (
+    <DefaultContent
+      {...rest}
+      body={body}
+      buttons={buttons}
+      headerText={headerText}
+      fields={fieldsWithHandlers}
+      isPending={isPending}
+    />
   );
 };
 

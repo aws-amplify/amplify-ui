@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo } from 'react';
 import { View } from 'react-native';
 
-import { Button, ErrorMessage } from '../../../primitives';
+import { Button, Label, ErrorMessage } from '../../../primitives';
 import { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
 import { StrictTheme, useTheme } from '../../../theme';
 
@@ -25,6 +25,7 @@ export default function DefaultContent<
   isPending,
   Header,
   headerText,
+  validationErrors,
 }: DefaultContentProps<FieldsType>): JSX.Element {
   const themedStyles = useThemedStyles(getDefaultStyle);
 
@@ -44,19 +45,23 @@ export default function DefaultContent<
 
   return (
     <>
-      {headerText ? (
-        <Header style={themedStyles.header}>{headerText}</Header>
-      ) : (
-        <Header />
-      )}
-      {body ? body : null}
+      <Header style={themedStyles.header}>{headerText}</Header>
+      {body ? (
+        typeof body === 'string' ? (
+          <Label style={themedStyles.body}>{body}</Label>
+        ) : (
+          body
+        )
+      ) : null}
       <FormFields
-        fieldContainerStyle={themedStyles.fieldContainerStyle}
-        fieldErrorStyle={themedStyles.fieldErrorStyle}
-        fieldLabelStyle={themedStyles.fieldLabelStyle}
+        fieldContainerStyle={themedStyles.fieldContainer}
+        fieldErrorsContainer={themedStyles.fieldErrorsContainer}
+        fieldErrorStyle={themedStyles.fieldError}
+        fieldLabelStyle={themedStyles.fieldLabel}
         fieldStyle={themedStyles.fieldStyle}
         fields={fields}
         isPending={isPending}
+        validationErrors={validationErrors}
         style={themedStyles.formFields}
       />
       {error ? (

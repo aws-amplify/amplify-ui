@@ -2,21 +2,35 @@
 
 exports[`SignUp renders as expected 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
     <View
-      accessibilityLabel="Username"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -27,8 +41,10 @@ Array [
           },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Username"
         accessibilityRole="text"
         style={
           Array [
@@ -44,7 +60,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -54,6 +70,7 @@ Array [
         Username
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -61,14 +78,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -83,6 +103,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
@@ -91,13 +112,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -111,8 +125,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Password"
         accessibilityRole="text"
         style={
           Array [
@@ -128,7 +144,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -138,6 +154,7 @@ Array [
         Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -145,14 +162,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -168,12 +188,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -229,13 +251,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Confirm Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -249,8 +264,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Confirm Password"
         accessibilityRole="text"
         style={
           Array [
@@ -266,7 +283,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -276,6 +293,7 @@ Array [
         Confirm Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -283,14 +301,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -306,12 +327,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -370,146 +393,91 @@ Array [
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "paddingHorizontal": 12,
-          },
+          Array [
+            Object {},
+            Object {
+              "paddingHorizontal": 12,
+            },
+          ],
         ]
       }
+      testID="amplify__text-field-container"
     >
-      <View
+      <Text
+        accessibilityLabel="Phone"
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "lineHeight": 21,
+                "padding": 4,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        accessible={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "paddingHorizontal": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 21,
-              },
-              Object {
                 "color": "hsl(210, 50%, 10%)",
+                "flexGrow": 1,
+                "fontSize": 16,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "color": "hsl(210, 25%, 25%)",
-                  "lineHeight": 21,
-                  "paddingVertical": 8,
-                },
-                undefined,
+                Object {},
+                Object {},
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(210, 8%, 55%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "paddingHorizontal": 8,
-              "paddingVertical": 12,
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            placeholderTextColor="hsl(210, 10%, 40%)"
-            selectionColor="hsl(210, 50%, 10%)"
-            style={
-              Array [
-                Object {
-                  "color": "hsl(210, 50%, 10%)",
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                Object {},
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -543,7 +511,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -629,21 +598,35 @@ Array [
 
 exports[`SignUp renders as expected when hideSignIn is true 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
     <View
-      accessibilityLabel="Username"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -654,8 +637,10 @@ Array [
           },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Username"
         accessibilityRole="text"
         style={
           Array [
@@ -671,7 +656,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -681,6 +666,7 @@ Array [
         Username
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -688,14 +674,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -710,6 +699,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
@@ -718,13 +708,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -738,8 +721,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Password"
         accessibilityRole="text"
         style={
           Array [
@@ -755,7 +740,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -765,6 +750,7 @@ Array [
         Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -772,14 +758,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -795,12 +784,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -856,13 +847,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Confirm Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -876,8 +860,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Confirm Password"
         accessibilityRole="text"
         style={
           Array [
@@ -893,7 +879,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -903,6 +889,7 @@ Array [
         Confirm Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -910,14 +897,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -933,12 +923,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -997,146 +989,91 @@ Array [
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "paddingHorizontal": 12,
-          },
+          Array [
+            Object {},
+            Object {
+              "paddingHorizontal": 12,
+            },
+          ],
         ]
       }
+      testID="amplify__text-field-container"
     >
-      <View
+      <Text
+        accessibilityLabel="Phone"
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "lineHeight": 21,
+                "padding": 4,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        accessible={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "paddingHorizontal": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 21,
-              },
-              Object {
                 "color": "hsl(210, 50%, 10%)",
+                "flexGrow": 1,
+                "fontSize": 16,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "color": "hsl(210, 25%, 25%)",
-                  "lineHeight": 21,
-                  "paddingVertical": 8,
-                },
-                undefined,
+                Object {},
+                Object {},
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(210, 8%, 55%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "paddingHorizontal": 8,
-              "paddingVertical": 12,
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            placeholderTextColor="hsl(210, 10%, 40%)"
-            selectionColor="hsl(210, 50%, 10%)"
-            style={
-              Array [
-                Object {
-                  "color": "hsl(210, 50%, 10%)",
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                Object {},
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -1170,7 +1107,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -1196,21 +1134,35 @@ Array [
 
 exports[`SignUp renders as expected when isPending is true 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
     <View
-      accessibilityLabel="Username"
-      accessibilityState={
-        Object {
-          "disabled": true,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -1221,8 +1173,10 @@ Array [
           },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Username"
         accessibilityRole="text"
         style={
           Array [
@@ -1238,7 +1192,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -1248,6 +1202,7 @@ Array [
         Username
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -1255,15 +1210,18 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "opacity": 0.6,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={false}
@@ -1278,6 +1236,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
@@ -1286,13 +1245,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Password"
-      accessibilityState={
-        Object {
-          "disabled": true,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -1306,8 +1258,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Password"
         accessibilityRole="text"
         style={
           Array [
@@ -1323,7 +1277,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -1333,6 +1287,7 @@ Array [
         Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -1340,15 +1295,18 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "opacity": 0.6,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={false}
@@ -1364,12 +1322,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -1427,13 +1387,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Confirm Password"
-      accessibilityState={
-        Object {
-          "disabled": true,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -1447,8 +1400,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Confirm Password"
         accessibilityRole="text"
         style={
           Array [
@@ -1464,7 +1419,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -1474,6 +1429,7 @@ Array [
         Confirm Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -1481,15 +1437,18 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "opacity": 0.6,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={false}
@@ -1505,12 +1464,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -1571,147 +1532,92 @@ Array [
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "paddingHorizontal": 12,
-          },
+          Array [
+            Object {},
+            Object {
+              "paddingHorizontal": 12,
+            },
+          ],
         ]
       }
+      testID="amplify__text-field-container"
     >
-      <View
+      <Text
+        accessibilityLabel="Phone"
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "lineHeight": 21,
+                "padding": 4,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": true,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        accessible={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "opacity": 0.6,
+            "paddingHorizontal": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
+          accessible={true}
+          autoCapitalize="none"
+          editable={false}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 21,
-              },
-              Object {
                 "color": "hsl(210, 50%, 10%)",
+                "flexGrow": 1,
+                "fontSize": 16,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "color": "hsl(210, 25%, 25%)",
-                  "lineHeight": 21,
-                  "paddingVertical": 8,
-                },
-                undefined,
+                Object {},
+                Object {},
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(210, 8%, 55%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "opacity": 0.6,
-              "paddingHorizontal": 8,
-              "paddingVertical": 12,
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={false}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            placeholderTextColor="hsl(210, 10%, 40%)"
-            selectionColor="hsl(210, 50%, 10%)"
-            style={
-              Array [
-                Object {
-                  "color": "hsl(210, 50%, 10%)",
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                Object {},
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -1745,7 +1651,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -1831,21 +1738,35 @@ Array [
 
 exports[`SignUp renders as expected with errors 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
     <View
-      accessibilityLabel="Username"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -1856,8 +1777,10 @@ Array [
           },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Username"
         accessibilityRole="text"
         style={
           Array [
@@ -1873,7 +1796,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -1883,6 +1806,7 @@ Array [
         Username
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -1890,14 +1814,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -1912,6 +1839,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
@@ -1920,13 +1848,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -1940,8 +1861,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Password"
         accessibilityRole="text"
         style={
           Array [
@@ -1957,7 +1880,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -1967,6 +1890,7 @@ Array [
         Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -1974,14 +1898,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -1997,12 +1924,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -2058,13 +1987,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Confirm Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -2078,8 +2000,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Confirm Password"
         accessibilityRole="text"
         style={
           Array [
@@ -2095,7 +2019,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -2105,6 +2029,7 @@ Array [
         Confirm Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -2112,14 +2037,17 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
           editable={true}
@@ -2135,12 +2063,14 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
@@ -2199,146 +2129,91 @@ Array [
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "paddingHorizontal": 12,
-          },
+          Array [
+            Object {},
+            Object {
+              "paddingHorizontal": 12,
+            },
+          ],
         ]
       }
+      testID="amplify__text-field-container"
     >
-      <View
+      <Text
+        accessibilityLabel="Phone"
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "lineHeight": 21,
+                "padding": 4,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        accessible={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "paddingHorizontal": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessibilityState={
+            Object {
+              "disabled": false,
+            }
+          }
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 21,
-              },
-              Object {
                 "color": "hsl(210, 50%, 10%)",
+                "flexGrow": 1,
+                "fontSize": 16,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "color": "hsl(210, 25%, 25%)",
-                  "lineHeight": 21,
-                  "paddingVertical": 8,
-                },
-                undefined,
+                Object {},
+                Object {},
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(210, 8%, 55%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "paddingHorizontal": 8,
-              "paddingVertical": 12,
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            placeholderTextColor="hsl(210, 10%, 40%)"
-            selectionColor="hsl(210, 50%, 10%)"
-            style={
-              Array [
-                Object {
-                  "color": "hsl(210, 50%, 10%)",
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                Object {},
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -2425,7 +2300,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -2509,23 +2385,37 @@ Array [
 ]
 `;
 
-exports[`SignUp renders as expected with social providers 1`] = `
+exports[`SignUp renders as expected with validationErrors 1`] = `
 Array [
+  <Text
+    accessibilityRole="header"
+    style={
+      Array [
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 24,
+          "fontWeight": "300",
+          "lineHeight": 36,
+        },
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
+    Create Account
+  </Text>,
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
     <View
-      accessibilityLabel="Username"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -2536,8 +2426,10 @@ Array [
           },
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Username"
         accessibilityRole="text"
         style={
           Array [
@@ -2553,7 +2445,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -2563,6 +2455,7 @@ Array [
         Username
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -2570,17 +2463,21 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
+            "opacity": 0.6,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
-          editable={true}
+          editable={false}
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Username"
@@ -2592,6 +2489,7 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
@@ -2600,13 +2498,35 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Password"
-      accessibilityState={
+      style={
         Object {
-          "disabled": false,
+          "paddingHorizontal": 16,
+          "paddingVertical": 8,
         }
       }
-      accessible={true}
+    >
+      <Text
+        style={
+          Object {
+            "color": "hsl(0, 100%, 20%)",
+            "paddingVertical": 1,
+          }
+        }
+      >
+        error
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "hsl(0, 100%, 20%)",
+            "paddingVertical": 1,
+          }
+        }
+      >
+        another error
+      </Text>
+    </View>
+    <View
       style={
         Array [
           Object {
@@ -2620,8 +2540,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Password"
         accessibilityRole="text"
         style={
           Array [
@@ -2637,7 +2559,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -2647,6 +2569,7 @@ Array [
         Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -2654,17 +2577,21 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
+            "opacity": 0.6,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
-          editable={true}
+          editable={false}
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Password"
@@ -2677,16 +2604,18 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
-              "disabled": false,
+              "disabled": true,
             }
           }
           accessible={true}
@@ -2704,7 +2633,9 @@ Array [
           style={
             Array [
               Object {},
-              null,
+              Object {
+                "opacity": 0.6,
+              },
               null,
               undefined,
             ]
@@ -2738,13 +2669,6 @@ Array [
       </View>
     </View>
     <View
-      accessibilityLabel="Confirm Password"
-      accessibilityState={
-        Object {
-          "disabled": false,
-        }
-      }
-      accessible={true}
       style={
         Array [
           Object {
@@ -2758,8 +2682,10 @@ Array [
           ],
         ]
       }
+      testID="amplify__text-field-container"
     >
       <Text
+        accessibilityLabel="Confirm Password"
         accessibilityRole="text"
         style={
           Array [
@@ -2775,7 +2701,7 @@ Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
                 "lineHeight": 21,
-                "paddingVertical": 8,
+                "padding": 4,
               },
               undefined,
             ],
@@ -2785,6 +2711,7 @@ Array [
         Confirm Password
       </Text>
       <View
+        accessible={true}
         style={
           Object {
             "alignItems": "center",
@@ -2792,17 +2719,21 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "lineHeight": 24,
+            "opacity": 0.6,
             "paddingHorizontal": 8,
-            "paddingVertical": 12,
           }
         }
         testID="amplify__text-field__input-container"
       >
         <TextInput
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
           accessible={true}
           autoCapitalize="none"
-          editable={true}
+          editable={false}
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Confirm Password"
@@ -2815,16 +2746,18 @@ Array [
                 "color": "hsl(210, 50%, 10%)",
                 "flexGrow": 1,
                 "fontSize": 16,
+                "paddingVertical": 12,
               },
               Object {},
             ]
           }
         />
         <View
+          accessibilityLabel="Show password"
           accessibilityRole="button"
           accessibilityState={
             Object {
-              "disabled": false,
+              "disabled": true,
             }
           }
           accessible={true}
@@ -2842,7 +2775,9 @@ Array [
           style={
             Array [
               Object {},
-              null,
+              Object {
+                "opacity": 0.6,
+              },
               null,
               undefined,
             ]
@@ -2879,146 +2814,92 @@ Array [
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "paddingHorizontal": 12,
-          },
+          Array [
+            Object {},
+            Object {
+              "paddingHorizontal": 12,
+            },
+          ],
         ]
       }
+      testID="amplify__text-field-container"
     >
-      <View
+      <Text
+        accessibilityLabel="Phone"
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "lineHeight": 21,
+                "padding": 4,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        accessible={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "opacity": 0.6,
+            "paddingHorizontal": 8,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessibilityState={
+            Object {
+              "disabled": true,
+            }
+          }
+          accessible={true}
+          autoCapitalize="none"
+          editable={false}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
+          placeholderTextColor="hsl(210, 10%, 40%)"
+          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
-                "fontSize": 14,
-                "fontWeight": "400",
-                "lineHeight": 21,
-              },
-              Object {
                 "color": "hsl(210, 50%, 10%)",
+                "flexGrow": 1,
+                "fontSize": 16,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "color": "hsl(210, 25%, 25%)",
-                  "lineHeight": 21,
-                  "paddingVertical": 8,
-                },
-                undefined,
+                Object {},
+                Object {},
               ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "hsl(210, 8%, 55%)",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "lineHeight": 24,
-              "paddingHorizontal": 8,
-              "paddingVertical": 12,
-            }
-          }
-          testID="amplify__text-field__input-container"
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            placeholderTextColor="hsl(210, 10%, 40%)"
-            selectionColor="hsl(210, 50%, 10%)"
-            style={
-              Array [
-                Object {
-                  "color": "hsl(210, 50%, 10%)",
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                Object {},
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -3052,7 +2933,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -3070,7 +2952,7 @@ Array [
         ]
       }
     >
-      Create Account
+      Creating Account
     </Text>
   </View>,
   <View
