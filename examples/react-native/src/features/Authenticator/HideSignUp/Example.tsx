@@ -19,7 +19,7 @@ function App() {
       <Authenticator
         components={{
           SignIn: (props) => (
-            <Authenticator.SignIn {...props} hideSignUp={true} />
+            <Authenticator.SignIn {...props} hideSignUp />
           ),
         }}
       >
