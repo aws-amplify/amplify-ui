@@ -51,7 +51,7 @@ describe('Uploader utils', () => {
         errorCallback: expect.any(Function),
         level: 'public',
         progressCallback: expect.any(Function),
-        isResumable: true,
+        resumable: true,
       });
     });
     it('calls isResumable false with storage put', () => {
@@ -69,7 +69,7 @@ describe('Uploader utils', () => {
       expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
         level: 'public',
         progressCallback: expect.any(Function),
-        isResumable: false,
+        resumable: false,
       });
     });
   });
