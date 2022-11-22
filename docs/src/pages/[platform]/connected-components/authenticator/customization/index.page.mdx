@@ -29,7 +29,7 @@ export async function getStaticProps() {
   }
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native']}>
   {({ platform }) =>
     import(`./customization.override-function-calls.${platform}.mdx`)
   }
