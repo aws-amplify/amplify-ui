@@ -15,6 +15,7 @@ export interface ContainerStyles {
 export interface ContainerProps
   extends ScrollViewProps,
     Pick<KeyboardAvoidingViewProps, 'behavior' | 'keyboardVerticalOffset'> {
+  children: React.ReactNode;
   keyboardAvoidingViewStyle?: StyleProp<ViewStyle>;
   scrollViewContentContainerStyle?: StyleProp<ViewStyle>;
 }
