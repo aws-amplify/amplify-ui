@@ -119,6 +119,10 @@ function ChangePassword({
   const confirmPasswordLabel = translate('Confirm Password');
   const updatePasswordText = translate('Update password');
 
+  /* Subcomponents */
+  const { CurrentPassword, NewPassword, ConfirmPassword, SubmitButton, Error } =
+    React.useMemo(() => ({ ...DEFAULTS, ...components }), [components]);
+
   /* Event Handlers */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -171,9 +175,6 @@ function ChangePassword({
     logger.warn('<ChangePassword /> requires user to be authenticated.');
     return null;
   }
-
-  const { CurrentPassword, NewPassword, ConfirmPassword, SubmitButton, Error } =
-    { ...DEFAULTS, ...components };
 
   return (
     <View as="form" className="amplify-changepassword" onSubmit={handleSubmit}>
