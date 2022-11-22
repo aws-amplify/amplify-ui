@@ -1,4 +1,5 @@
 import React from 'react';
+import { useColorScheme } from 'react-native';
 
 import {
   Authenticator,
@@ -8,7 +9,6 @@ import {
 import { Amplify } from 'aws-amplify';
 
 import config from './aws-exports';
-import { useColorScheme } from 'react-native';
 
 Amplify.configure(config);
 
