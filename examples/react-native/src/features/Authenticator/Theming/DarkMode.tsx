@@ -37,7 +37,8 @@ function App() {
       }}
     >
       <Authenticator.Provider>
-        <Authenticator></Authenticator>
+        <Authenticator />
+```
       </Authenticator.Provider>
     </ThemeProvider>
   );
