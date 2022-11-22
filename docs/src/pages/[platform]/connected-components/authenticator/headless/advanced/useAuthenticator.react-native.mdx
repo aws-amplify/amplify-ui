@@ -4,7 +4,7 @@ import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 `@aws-amplify/ui-react-native` ships with `useAuthenticator` React hook that can be used to access, modify, and update Authenticator's auth state. To use them, first wrap your application with [`<Authenticator.Provider>`](#authenticator-provider):
 
-```tsx
+```jsx
 import { Authenticator } from '@aws-amplify/ui-react-native';
 
 export default () => (
@@ -16,7 +16,7 @@ export default () => (
 
 Then, you can use `useAuthenticator` on your App:
 
-```tsx
+```jsx
 import { useAuthenticator } from '@aws-amplify/ui-react-native';
 
 const App = () => {
@@ -30,13 +30,15 @@ const App = () => {
 In advanced use cases where usage of the [`useAuthenticator` hook](headless#useauthenticator-hook) outside the scope of the [`Authenticator`](../authenticator) is needed, wrap your application inside an `Authenticator.Provider`. The `Authenticator.Provider` guarantees that the [useAuthenticator hook](headless#useauthenticator-hook) is available throughout your application. You can see an example of this pattern in the [Protected Routes Guide.](../../guides/auth-protected)
 
 ```jsx
+import { View, Text } from 'react-native';
 import { Authenticator } from '@aws-amplify/ui-react-native';
-import { View } from 'react-native';
 
 export default function App() {
   return (
     <Authenticator.Provider>
-      <View>Your app here</View>
+      <View>
+        <Text>Your app here<Text/>
+      </View>
     </Authenticator.Provider>
   );
 };
@@ -50,7 +52,7 @@ To prevent undesired re-renders, you can pass a function to `useAuthenticator` t
 
 For example, you can ensure `useAuthenticator` to only reevaluate when its `user` context changes:
 
-```tsx
+```jsx
 import { useAuthenticator } from '@aws-amplify/ui-react-native';
 
 // hook below is only reevaluated when `user` changes
