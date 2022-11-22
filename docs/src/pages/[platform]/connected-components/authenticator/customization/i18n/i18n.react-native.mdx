@@ -1,0 +1,17 @@
+```js
+import { I18n } from 'aws-amplify';
+import { translations } from '@aws-amplify/ui';
+I18n.putVocabularies(translations);
+I18n.setLanguage('fr');
+
+I18n.putVocabularies({
+  fr: {
+    'Sign In': 'Se connecter',
+    'Sign Up': "S'inscrire",
+  },
+  es: {
+    'Sign In': 'Registrarse',
+    'Sign Up': 'Regístrate',
+  },
+});
+```
