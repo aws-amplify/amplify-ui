@@ -76,11 +76,6 @@ export function FileUploader({
     fileStatuses.length === 0
       ? false
       : fileStatuses.every((status) => status?.percentage === 100);
-  // const isSuccessful = () => {
-  //   if (fileStatuses.length === 0) return;
-
-  //   return fileStatuses.every((status) => status?.percentage === 100);
-  // };
 
   // Displays if over max files
   const hasMaxFilesError = fileStatuses.length > maxFiles;
