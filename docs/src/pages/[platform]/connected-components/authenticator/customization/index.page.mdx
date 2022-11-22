@@ -51,14 +51,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
 </Fragment>
 
-## Force New Password Fields
-
-The following example customizes the Force New Password screen by:
-
-- Re-using the default Force New Password form fields
-- Appending a custom "Zone Info" text field
-
-<Fragment>
+<Fragment  useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
 </Fragment>
 
