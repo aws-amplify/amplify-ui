@@ -1,4 +1,3 @@
-```jsx{19}
 import React from 'react';
 import { Button } from 'react-native';
 
@@ -17,7 +16,7 @@ function SignOutButton() {
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator>
+      <Authenticator initialState="signUp">
         <SignOutButton />
       </Authenticator>
     </Authenticator.Provider>
@@ -25,4 +24,3 @@ function App() {
 }
 
 export default App;
-```

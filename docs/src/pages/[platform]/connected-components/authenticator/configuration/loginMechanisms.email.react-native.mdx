@@ -1,10 +1,9 @@
-```jsx{19}
+```jsx{18}
 import React from 'react';
 import { Button } from 'react-native';
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
-
 import awsconfig from './aws-exports';
 
 Amplify.configure(awsconfig);
@@ -17,7 +16,7 @@ function SignOutButton() {
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator>
+      <Authenticator loginMechanisms={['email']}>
         <SignOutButton />
       </Authenticator>
     </Authenticator.Provider>
