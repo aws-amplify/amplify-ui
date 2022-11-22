@@ -47,9 +47,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
 </Fragment>
 
-## Sign Up Fields
-
-<Fragment useCommonWebContent>
+<Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
 </Fragment>
 
