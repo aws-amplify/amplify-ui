@@ -29,7 +29,7 @@ export function uploadFile({
       // TODO: Remove this override once we depend on aws-amplify@5
       // this behavior is fixed in version 5
       completeCallback: (event) => {
-        completeCallback({ key: event.key.split('/').slice(1).join('/') });
+        completeCallback({ key: event });
       },
       ...rest,
     });
