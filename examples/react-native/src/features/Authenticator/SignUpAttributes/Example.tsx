@@ -17,7 +17,7 @@ function SignOutButton() {
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator initialState="signUp">
+      <Authenticator signUpAttributes={[]}>
         <SignOutButton />
       </Authenticator>
     </Authenticator.Provider>

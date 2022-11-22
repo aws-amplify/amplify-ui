@@ -1,0 +1,20 @@
+import { Alert, Authenticator } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+<Alert role="none" heading="Zero Configuration">
+
+The Authenticator [automatically infers](#1-configure-backend) `loginMechanisms` from `amplify pull`,
+but can be explicitly defined as seen below.
+
+</Alert>
+
+By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username` using
+[`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
+
+You can provide an alternative `username` such as `email` or `phone_number`.
+
+> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
+
+hihihi
