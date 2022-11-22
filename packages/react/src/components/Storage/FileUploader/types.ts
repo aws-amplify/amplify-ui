@@ -45,6 +45,7 @@ export interface IconProps {
 
 export interface PreviewerProps extends DragActionHandlers {
   acceptedFileTypes: string[];
+  aggregatePercentage: number;
   children?: React.ReactNode;
   fileStatuses: FileStatuses;
   inDropZone?: boolean;
@@ -55,7 +56,6 @@ export interface PreviewerProps extends DragActionHandlers {
   onClear: () => void;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFileClick: () => void;
-  percentage: number;
 }
 
 export interface TrackerProps {

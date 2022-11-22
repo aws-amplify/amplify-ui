@@ -67,7 +67,7 @@ export function FileUploader({
   });
 
   // Creates aggregate percentage to show during downloads
-  const percentage = Math.floor(
+  const aggregatePercentage = Math.floor(
     fileStatuses.reduce((prev, curr) => prev + (curr?.percentage ?? 0), 0) /
       fileStatuses.length
   );
@@ -83,10 +83,10 @@ export function FileUploader({
 
   useEffect(() => {
     // Loading ends when all files are at 100%
-    if (Math.floor(percentage) === 100) {
+    if (Math.floor(aggregatePercentage) === 100) {
       setLoading(false);
     }
-  }, [percentage]);
+  }, [aggregatePercentage]);
 
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
@@ -103,18 +103,13 @@ export function FileUploader({
           const progressPercentage = Math.floor(
             (progress.loaded / progress.total) * 100
           );
-          const updatedStatus =
-            progressPercentage !== 100
-              ? {
-                  ...prevStatus,
-                  percentage: progressPercentage,
-                  fileState: 'loading' as FileState,
-                }
-              : {
-                  ...prevStatus,
-                  percentage: progressPercentage,
-                  fileState: 'success' as FileState,
-                };
+          const fileState: FileState =
+            progressPercentage !== 100 ? 'loading' : 'success';
+          const updatedStatus = {
+            ...prevStatus,
+            percentage: progressPercentage,
+            fileState,
+          };
 
           prevFileStatuses[index] = updatedStatus;
 
@@ -209,19 +204,14 @@ export function FileUploader({
       }
     });
 
-    setFileStatuses((prevFileStatuses) => {
-      const newFileStatuses = [...prevFileStatuses];
-      const updatedStatuses = newFileStatuses.map((status, index) => {
-        return {
-          ...status,
-          uploadTask: uploadTasksTemp?.[index],
-          fileState: status.fileState ?? 'loading',
-          percentage: status.percentage ?? 0,
-        };
-      });
-
-      return [...updatedStatuses];
-    });
+    setFileStatuses((prevFileStatuses) =>
+      prevFileStatuses.map((status, index) => ({
+        ...status,
+        uploadTask: uploadTasksTemp?.[index],
+        fileState: status.fileState ?? 'loading',
+        percentage: status.percentage ?? 0,
+      }))
+    );
   }, [
     completeCallback,
     errorCallback,
@@ -370,7 +360,7 @@ export function FileUploader({
         onDrop={onDrop}
         onFileChange={onFileChange}
         onFileClick={onFileClick}
-        percentage={percentage}
+        aggregatePercentage={aggregatePercentage}
       >
         {fileStatuses?.map((status, index) => (
           <Tracker

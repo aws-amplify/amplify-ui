@@ -50,7 +50,7 @@ const commonProps = {
   onDrop: () => null,
   onFileChange: () => null,
   onFileClick: () => null,
-  percentage: 0,
+  aggregatePercentage: 0,
 };
 
 describe('Previewer', () => {
@@ -117,7 +117,9 @@ describe('Previewer', () => {
     expect(await screen.findByText(/1 files uploaded/)).toBeVisible();
   });
   it('shows when loading an uploading with percentage', async () => {
-    render(<Previewer {...commonProps} isLoading={true} percentage={23} />);
+    render(
+      <Previewer {...commonProps} isLoading={true} aggregatePercentage={23} />
+    );
 
     expect(await screen.findByText(/Uploading: 23%/)).toBeVisible();
   });

@@ -29,7 +29,7 @@ export function Previewer({
   onDrop,
   onFileChange,
   onFileClick,
-  percentage,
+  aggregatePercentage,
 }: PreviewerProps): JSX.Element {
   const headingMaxFiles = translate('Over Max files');
   const getUploadedFilesLength = () =>
@@ -82,12 +82,12 @@ export function Previewer({
             <>
               <Text>
                 {translate('Uploading')}
-                {percentage > 0 ? `: ${percentage}%` : ''}
+                {aggregatePercentage > 0 ? `: ${aggregatePercentage}%` : ''}
               </Text>
               <Loader
                 className={ComponentClassNames.FileUploaderLoader}
                 variation="linear"
-                percentage={percentage}
+                percentage={aggregatePercentage}
                 isPercentageTextHidden
                 isDeterminate
               />

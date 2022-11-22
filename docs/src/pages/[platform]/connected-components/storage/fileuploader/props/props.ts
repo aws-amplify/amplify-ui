@@ -102,7 +102,7 @@ export const PREVIEWER_COMPONENTS = [
     type: `(event: React.ChangeEvent<HTMLInputElement>) => void`,
   },
   {
-    name: `percentage`,
+    name: `aggregatePercentage`,
     description: 'Total percentage of files uploaded',
     type: `number`,
   },
