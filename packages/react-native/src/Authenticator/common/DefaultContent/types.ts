@@ -17,6 +17,7 @@ import {
 import { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
 
 export interface DefaultContentStyle {
+  body?: TextStyle;
   buttonPrimary?: ViewStyle;
   buttonPrimaryLabel?: TextStyle;
   buttonSecondary?: ViewStyle;
@@ -63,7 +64,7 @@ export type DefaultContentProps<
   buttons: DefaultButtons;
   body?: React.ReactNode;
   fields: FieldsType[];
-  headerText?: string;
+  headerText: string;
   Footer: AuthenticatorFooterComponent<{ style?: StyleProp<TextStyle> }>;
   FormFields: DefaultFormFieldsComponent<FieldsType>;
   Header: AuthenticatorHeaderComponent<{ style?: StyleProp<TextStyle> }>;

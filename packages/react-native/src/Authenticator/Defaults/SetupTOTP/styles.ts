@@ -1,17 +1,10 @@
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
 
 export interface SetupTOTPStyle {
-  buttonPrimary: ViewStyle;
-  buttonSecondary: ViewStyle;
   secretKeyText: TextStyle;
 }
 
 export const styles: SetupTOTPStyle = StyleSheet.create({
-  buttonPrimary: {
-    marginVertical: 8,
-  },
-  buttonSecondary: {
-    marginVertical: 8,
-  },
-  secretKeyText: { flexWrap: 'wrap', paddingVertical: 4 },
+  // TODO: replace with tokens
+  secretKeyText: { flexWrap: 'wrap', paddingVertical: 4, marginHorizontal: 8 },
 });

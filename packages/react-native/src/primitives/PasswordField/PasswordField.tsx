@@ -7,6 +7,9 @@ import { TextField } from '../TextField';
 
 import { PasswordFieldProps } from './types';
 import { getThemedStyles } from './styles';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
+
+const { getHidePasswordText, getShowPasswordText } = authenticatorTextUtil;
 
 export default function PasswordField({
   disabled,
@@ -26,6 +29,11 @@ export default function PasswordField({
     setObscureText(!obscureText);
   }, [obscureText]);
 
+  const toggleVisibilityAccessibilityLabel =
+    iconAccessibilityLabel ?? obscureText
+      ? getShowPasswordText()
+      : getHidePasswordText();
+
   return (
     <TextField
       {...rest}
@@ -35,7 +43,7 @@ export default function PasswordField({
       endAccessory={
         showPasswordButton ? (
           <IconButton
-            accessibilityLabel={iconAccessibilityLabel}
+            accessibilityLabel={toggleVisibilityAccessibilityLabel}
             disabled={disabled}
             iconStyle={[themedStyle.icon, iconStyle]}
             size={16}

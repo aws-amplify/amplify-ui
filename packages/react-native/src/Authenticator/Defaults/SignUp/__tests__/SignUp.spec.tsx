@@ -27,7 +27,6 @@ const phone = {
   label: 'Phone',
   placeholder: 'Phone',
   type: 'phone' as const,
-  dialCodes: ['+1', '+7'],
 };
 
 const fields = [username, password, confirmPassword, phone];

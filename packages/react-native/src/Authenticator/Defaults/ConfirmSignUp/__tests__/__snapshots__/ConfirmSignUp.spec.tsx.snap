@@ -14,16 +14,43 @@ Array [
           "fontWeight": "300",
           "lineHeight": 36,
         },
-        undefined,
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
       ]
     }
   >
     We Emailed You
   </Text>,
-  <Text>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 16,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
     Your code is on the way. To log in, enter the code we emailed to a***@e***.com. It may take a minute to arrive.
   </Text>,
-  <View />,
+  <View
+    style={
+      Object {
+        "paddingBottom": 12,
+      }
+    }
+  />,
   <View
     accessibilityRole="button"
     accessible={true}
@@ -54,7 +81,7 @@ Array [
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "margin": 16,
         },
       ]
     }
@@ -68,7 +95,7 @@ Array [
             "fontWeight": "700",
             "textAlign": "center",
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -106,7 +133,7 @@ Array [
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "margin": 16,
         },
       ]
     }
@@ -120,7 +147,7 @@ Array [
             "fontWeight": "700",
             "textAlign": "center",
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -144,16 +171,43 @@ Array [
           "fontWeight": "300",
           "lineHeight": 36,
         },
-        undefined,
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
       ]
     }
   >
     We Emailed You
   </Text>,
-  <Text>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 16,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
     Your code is on the way. To log in, enter the code we emailed to a***@e***.com. It may take a minute to arrive.
   </Text>,
-  <View />,
+  <View
+    style={
+      Object {
+        "paddingBottom": 12,
+      }
+    }
+  />,
   <View
     accessibilityRole="button"
     accessible={true}
@@ -184,7 +238,7 @@ Array [
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "margin": 16,
         },
       ]
     }
@@ -198,7 +252,7 @@ Array [
             "fontWeight": "700",
             "textAlign": "center",
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -236,7 +290,7 @@ Array [
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "margin": 16,
         },
       ]
     }
@@ -250,7 +304,7 @@ Array [
             "fontWeight": "700",
             "textAlign": "center",
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -274,16 +328,43 @@ Array [
           "fontWeight": "300",
           "lineHeight": 36,
         },
-        undefined,
+        Object {
+          "marginVertical": 12,
+          "paddingHorizontal": 12,
+        },
       ]
     }
   >
     We Emailed You
   </Text>,
-  <Text>
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "fontSize": 16,
+          "paddingHorizontal": 12,
+        },
+      ]
+    }
+  >
     Your code is on the way. To log in, enter the code we emailed to a***@e***.com. It may take a minute to arrive.
   </Text>,
-  <View />,
+  <View
+    style={
+      Object {
+        "paddingBottom": 12,
+      }
+    }
+  />,
   <View
     accessibilityRole="alert"
     style={
@@ -295,7 +376,9 @@ Array [
           "paddingHorizontal": 8,
           "paddingVertical": 32,
         },
-        undefined,
+        Object {
+          "marginVertical": 12,
+        },
       ]
     }
   >
@@ -328,7 +411,7 @@ Array [
             "flex": 1,
             "paddingHorizontal": 8,
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -365,7 +448,7 @@ Array [
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "margin": 16,
         },
       ]
     }
@@ -379,7 +462,7 @@ Array [
             "fontWeight": "700",
             "textAlign": "center",
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -417,7 +500,7 @@ Array [
         null,
         null,
         Object {
-          "marginVertical": 8,
+          "margin": 16,
         },
       ]
     }
@@ -431,7 +514,7 @@ Array [
             "fontWeight": "700",
             "textAlign": "center",
           },
-          undefined,
+          Object {},
         ]
       }
     >
