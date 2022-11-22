@@ -67,7 +67,6 @@ export interface TrackerProps {
   onCancel: () => void;
   onCancelEdit?: () => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onDelete?: () => void;
   onPause: () => void;
   onResume: () => void;
   onSaveEdit: (value: string) => void;
@@ -75,7 +74,6 @@ export interface TrackerProps {
   percentage: number;
   isResumable?: boolean;
   showImage: boolean;
-  url: string;
 }
 
 export interface FileStatus extends Partial<FileStateProps> {

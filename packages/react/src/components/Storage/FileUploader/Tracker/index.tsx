@@ -34,10 +34,10 @@ export function Tracker({
   percentage,
   isResumable,
   showImage,
-  url,
 }: TrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState(name);
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const url = URL.createObjectURL(file);
 
   // Focus the input after pressing the edit button
   React.useEffect(() => {

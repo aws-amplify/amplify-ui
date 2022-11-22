@@ -11,11 +11,9 @@ describe('Tracker', () => {
         file={fakeFile}
         hasImage={true}
         fileState={null}
-        url={''}
         onChange={() => {}}
         onCancel={() => {}}
         name={'hello.png'}
-        onDelete={() => {}}
         onPause={() => {}}
         onResume={() => {}}
         percentage={0}
@@ -36,11 +34,9 @@ describe('Tracker', () => {
         file={fakeFile}
         fileState={null}
         hasImage={true}
-        url={''}
         onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
-        onDelete={() => {}}
         onPause={() => {}}
         onResume={() => {}}
         percentage={0}
@@ -63,11 +59,9 @@ describe('Tracker', () => {
         file={fakeFile}
         fileState={null}
         hasImage={true}
-        url={''}
         onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
-        onDelete={() => {}}
         onPause={() => {}}
         onResume={() => {}}
         percentage={0}

@@ -32,7 +32,7 @@ const commonProps = {
 const fileStatus = {
   percentage: 0,
   uploadTask: undefined,
-  fileErrors: null,
+  fileErrors: undefined,
   name: 'hello.png',
   file: fakeFile,
   fileState: null,
@@ -196,7 +196,9 @@ describe('File Uploader', () => {
 
     const fileStatuses = [fileStatus];
 
-    const setFileStatusMock = jest.fn();
+    const setFileStatusMock = jest.fn((callback: any) => {
+      return callback([{}]);
+    });
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
       fileStatuses,
@@ -223,7 +225,7 @@ describe('File Uploader', () => {
     );
     await fireEvent.click(clickButton);
 
-    expect(setFileStatusMock).toHaveBeenNthCalledWith(1, [
+    expect(setFileStatusMock.mock.results[0].value).toEqual([
       {
         fileErrors: ERROR_MESSAGE,
         fileState: 'error',
@@ -239,7 +241,9 @@ describe('File Uploader', () => {
 
     const fileStatuses = [fileStatus];
 
-    const setFileStatusMock = jest.fn();
+    const setFileStatusMock = jest.fn((callback: any) => {
+      return callback([{}]);
+    });
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
       fileStatuses,
@@ -266,7 +270,7 @@ describe('File Uploader', () => {
     );
     await fireEvent.click(clickButton);
 
-    expect(setFileStatusMock).toHaveBeenNthCalledWith(1, [
+    expect(setFileStatusMock.mock.results[0].value).toEqual([
       { fileState: 'loading', percentage },
     ]);
   });

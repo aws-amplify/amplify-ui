@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { UploadTask, Storage } from '@aws-amplify/storage';
 import { translate, uploadFile } from '@aws-amplify/ui';
-import { FileState, FileUploaderProps } from './types';
+import { FileState, FileStatus, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
 import { ComponentClassNames, Text } from '../../../primitives';
 import { UploadButton } from './UploadButton';
@@ -154,10 +154,6 @@ export function FileUploader({
     };
   }, [onSuccess]);
 
-  const onDelete = () => {
-    //todo delete
-  };
-
   const onPause = useCallback(
     (index: number): (() => void) => {
       return function () {
@@ -197,7 +193,6 @@ export function FileUploader({
     const uploadTasksTemp: UploadTask[] = [];
     fileStatuses.forEach((status, i) => {
       if (status?.fileState === 'success') return;
-
       const uploadTask = uploadFile({
         file: status.file,
         fileName: status.name,
@@ -245,6 +240,7 @@ export function FileUploader({
       }
 
       const { files } = event.target;
+      // Spread files here because a I need a File[] instead, it's easier to iterate through
       const addedFilesLength = addTargetFiles([...files]);
       // only show previewer if the added files are great then 0
       if (addedFilesLength > 0) {
@@ -305,7 +301,7 @@ export function FileUploader({
           name: value,
           fileState: !validExtension ? 'error' : null,
           fileErrors: validExtension
-            ? null
+            ? undefined
             : translate('Extension not allowed'),
         };
 
@@ -315,34 +311,36 @@ export function FileUploader({
     [acceptedFileTypes, fileStatuses, setFileStatuses]
   );
 
+  const updateEditStatus = useCallback(
+    (index: number, isCancelEdit: boolean): FileStatus[] => {
+      const newFileStatuses = [...fileStatuses];
+      const status = fileStatuses[index];
+      newFileStatuses[index] = {
+        ...status,
+        fileState: isCancelEdit ? null : 'editing',
+      };
+
+      return newFileStatuses;
+    },
+    [fileStatuses]
+  );
+
   const onCancelEdit = useCallback(
     (index: number) => {
       return () => {
-        const newFileStatuses = [...fileStatuses];
-        const status = fileStatuses[index];
-        newFileStatuses[index] = {
-          ...status,
-          fileState: null,
-        };
-        setFileStatuses(newFileStatuses);
+        setFileStatuses(updateEditStatus(index, true));
       };
     },
-    [fileStatuses, setFileStatuses]
+    [setFileStatuses, updateEditStatus]
   );
 
   const onStartEdit = useCallback(
     (index: number) => {
       return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const newFileStatuses = [...fileStatuses];
-        const status = fileStatuses[index];
-        newFileStatuses[index] = {
-          ...status,
-          fileState: 'editing',
-        };
-        setFileStatuses(newFileStatuses);
+        setFileStatuses(updateEditStatus(index, false));
       };
     },
-    [fileStatuses, setFileStatuses]
+    [setFileStatuses, updateEditStatus]
   );
 
   useEffect(() => {
@@ -351,12 +349,6 @@ export function FileUploader({
     }
     autoUploadRef.current = false;
   }, [shouldAutoProceed, autoUploadRef, onFileClick]);
-
-  const CommonProps = {
-    acceptedFileTypes,
-    hasMultipleFiles,
-    onFileChange,
-  };
 
   if (showPreviewer) {
     return (
@@ -390,22 +382,26 @@ export function FileUploader({
             onCancel={onFileCancel(index)}
             onCancelEdit={onCancelEdit(index)}
             onChange={onNameChange(index)}
-            onDelete={onDelete}
             onPause={onPause(index)}
             onResume={onResume(index)}
             onSaveEdit={onSaveEdit(index)}
             onStartEdit={onStartEdit(index)}
             percentage={status.percentage}
             isResumable={isResumable}
-            url={URL.createObjectURL(status.file)}
           />
         ))}
       </Previewer>
     );
   }
 
+  const commonProps = {
+    acceptedFileTypes,
+    hasMultipleFiles,
+    onFileChange,
+  };
+
   if (variation === 'button') {
-    return <UploadButton {...CommonProps} />;
+    return <UploadButton {...commonProps} />;
   } else {
     return (
       <UploadDropZone
@@ -420,7 +416,7 @@ export function FileUploader({
           {translate('Drop files here or')}
         </Text>
         <UploadButton
-          {...CommonProps}
+          {...commonProps}
           className={ComponentClassNames.FileUploaderDropZoneButton}
         />
       </UploadDropZone>

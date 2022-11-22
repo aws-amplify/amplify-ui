@@ -31,7 +31,7 @@ export function Previewer({
   onFileClick,
   percentage,
 }: PreviewerProps): JSX.Element {
-  const headingMaxFiles = translate('Over Max files!');
+  const headingMaxFiles = translate('Over Max files');
   const uploadedFilesLength = () =>
     fileStatuses.filter((file) => file?.fileState === 'success').length;
 
