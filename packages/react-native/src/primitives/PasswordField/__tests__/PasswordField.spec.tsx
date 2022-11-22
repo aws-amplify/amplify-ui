@@ -5,6 +5,7 @@ import { icons } from '../../../assets';
 import { useTheme } from '../../../theme';
 import PasswordField from '../PasswordField';
 import { getThemedStyles } from '../styles';
+import { TEXTFIELD_CONTAINER_TEST_ID } from '../../TextField/TextField';
 
 const labelText = 'Label';
 const testID = 'passwordInput';
@@ -80,10 +81,9 @@ describe('PasswordField', () => {
     const customStyle = { backgroundColor: 'red' };
     const customIconStyle = { backgroundColor: 'blue' };
 
-    const { toJSON, getByRole } = render(
+    const { toJSON, getByRole, getByTestId } = render(
       <PasswordField
         {...defaultProps}
-        accessibilityRole="none"
         iconStyle={customIconStyle}
         style={customStyle}
       />
@@ -92,7 +92,7 @@ describe('PasswordField', () => {
     const { result } = renderHook(() => useTheme());
     const themedStyle = getThemedStyles(result.current);
 
-    const container = getByRole('none');
+    const container = getByTestId(TEXTFIELD_CONTAINER_TEST_ID);
     const icon = getByRole('image');
 
     expect(container.props.style).toContainEqual([

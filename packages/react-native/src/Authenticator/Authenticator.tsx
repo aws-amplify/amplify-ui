@@ -53,6 +53,9 @@ const routePropSelector = ({
 function Authenticator({
   children,
   components: overrides,
+  Container = DefaultContainer,
+  Footer,
+  Header,
   ...options
 }: AuthenticatorProps): JSX.Element | null {
   useAuthenticatorInitMachine(options);
@@ -75,16 +78,19 @@ function Authenticator({
 
   return (
     <SafeAreaProvider>
-      <DefaultContainer>
+      <Container>
+        {Header ? <Header /> : null}
         <InnerContainer>
           <Component {...props} fields={typedFields} />
         </InnerContainer>
-      </DefaultContainer>
+        {Footer ? <Footer /> : null}
+      </Container>
     </SafeAreaProvider>
   );
 }
 
 // assign slot components
+Authenticator.Container = DefaultContainer;
 Authenticator.Provider = Provider;
 Authenticator.ConfirmResetPassword = ConfirmResetPassword;
 Authenticator.ConfirmSignIn = ConfirmSignIn;

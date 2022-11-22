@@ -62,7 +62,7 @@ export type DefaultContentProps<
   'error' | 'Footer' | 'isPending'
 > & {
   buttons: DefaultButtons;
-  body?: React.ReactNode | string;
+  body?: React.ReactNode;
   fields: FieldsType[];
   headerText: string;
   Footer: AuthenticatorFooterComponent<{ style?: StyleProp<TextStyle> }>;

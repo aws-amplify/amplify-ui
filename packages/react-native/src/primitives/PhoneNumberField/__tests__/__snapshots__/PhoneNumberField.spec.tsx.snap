@@ -2,12 +2,6 @@
 
 exports[`PhoneNumberField applies theming 1`] = `
 <View
-  accessibilityState={
-    Object {
-      "disabled": undefined,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -19,8 +13,10 @@ exports[`PhoneNumberField applies theming 1`] = `
       ],
     ]
   }
+  testID="amplify__text-field-container"
 >
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
@@ -29,12 +25,16 @@ exports[`PhoneNumberField applies theming 1`] = `
         "borderWidth": 1,
         "flexDirection": "row",
         "paddingHorizontal": 8,
-        "paddingVertical": 12,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={true}
@@ -47,6 +47,7 @@ exports[`PhoneNumberField applies theming 1`] = `
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           Array [
             Object {},
@@ -62,12 +63,6 @@ exports[`PhoneNumberField applies theming 1`] = `
 
 exports[`PhoneNumberField renders as expected 1`] = `
 <View
-  accessibilityState={
-    Object {
-      "disabled": undefined,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -79,8 +74,10 @@ exports[`PhoneNumberField renders as expected 1`] = `
       ],
     ]
   }
+  testID="amplify__text-field-container"
 >
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
@@ -89,12 +86,16 @@ exports[`PhoneNumberField renders as expected 1`] = `
         "borderWidth": 1,
         "flexDirection": "row",
         "paddingHorizontal": 8,
-        "paddingVertical": 12,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={true}
@@ -107,6 +108,7 @@ exports[`PhoneNumberField renders as expected 1`] = `
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           Array [
             Object {},
@@ -122,12 +124,6 @@ exports[`PhoneNumberField renders as expected 1`] = `
 
 exports[`PhoneNumberField renders as expected when disabled 1`] = `
 <View
-  accessibilityState={
-    Object {
-      "disabled": true,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -139,8 +135,10 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
       ],
     ]
   }
+  testID="amplify__text-field-container"
 >
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
@@ -150,12 +148,16 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
         "flexDirection": "row",
         "opacity": 0.6,
         "paddingHorizontal": 8,
-        "paddingVertical": 12,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={false}
@@ -168,6 +170,7 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           Array [
             Object {},
