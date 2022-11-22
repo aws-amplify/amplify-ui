@@ -47,7 +47,7 @@ Array [
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   />,
@@ -81,7 +81,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -133,7 +134,7 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
         },
       ]
     }
@@ -204,7 +205,7 @@ Array [
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   />,
@@ -238,7 +239,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -290,7 +292,7 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
         },
       ]
     }
@@ -361,7 +363,7 @@ Array [
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   />,
@@ -448,7 +450,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -500,7 +503,7 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
         },
       ]
     }

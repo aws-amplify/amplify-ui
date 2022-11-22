@@ -6,7 +6,7 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { ForceNewPassword } from '..';
 
 const props = {
-  fields: [],
+  fields: [{ name: 'password' }],
   Footer: ForceNewPassword.Footer,
   FormFields: ForceNewPassword.FormFields,
   handleBlur: jest.fn(),
@@ -58,5 +58,20 @@ describe('ForceNewPassword', () => {
     const { queryByText } = render(<ForceNewPassword {...props} isPending />);
 
     expect(queryByText(getChangingText())).toBeTruthy();
+  });
+
+  it('renders as expected with validationErrors', () => {
+    const { toJSON, getByText } = render(
+      <ForceNewPassword
+        {...props}
+        isPending
+        validationErrors={{ password: ['error', 'another error'] }}
+      />
+    );
+
+    expect(toJSON()).toMatchSnapshot();
+
+    expect(getByText('error')).toBeDefined();
+    expect(getByText('another error')).toBeDefined();
   });
 });
