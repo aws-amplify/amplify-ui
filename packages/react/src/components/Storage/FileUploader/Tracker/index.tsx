@@ -54,7 +54,8 @@ export function Tracker({
 
   const showEditButton =
     fileState === null ||
-    (fileState === 'error' && errorMessage === 'Extension not allowed');
+    (fileState === 'error' &&
+      errorMessage === translate('Extension not allowed'));
 
   const DisplayView = () => (
     <>
