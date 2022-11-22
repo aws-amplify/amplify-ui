@@ -3,10 +3,11 @@ import { fireEvent, render } from '@testing-library/react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
+import { TextFieldOptionsType } from '../../../hooks';
 import { ForceNewPassword } from '..';
 
 const props = {
-  fields: [{ name: 'password' }],
+  fields: [{ name: 'password', type: 'password' } as TextFieldOptionsType],
   Footer: ForceNewPassword.Footer,
   FormFields: ForceNewPassword.FormFields,
   handleBlur: jest.fn(),
