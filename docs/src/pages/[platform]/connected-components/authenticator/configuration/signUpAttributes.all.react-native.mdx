@@ -1,26 +1,28 @@
-```js{4-22}
+```js{5-23}
 export default function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator signUpAttributes={[
-      'address',
-      'birthdate',
-      'email',
-      'family_name',
-      'gender',
-      'given_name',
-      'locale',
-      'middle_name',
-      'name',
-      'nickname',
-      'phone_number',
-      'picture',
-      'preferred_username',
-      'profile',
-      'updated_at',
-      'website',
-      'zoneinfo',
-    ]}>
+      <Authenticator
+        signUpAttributes={[
+          "address",
+          "birthdate",
+          "email",
+          "family_name",
+          "gender",
+          "given_name",
+          "locale",
+          "middle_name",
+          "name",
+          "nickname",
+          "phone_number",
+          "picture",
+          "preferred_username",
+          "profile",
+          "updated_at",
+          "website",
+          "zoneinfo",
+        ]}
+      >
         {({ signOut, user }) => (
           <main>
             <h1>Hello {user.username}</h1>
