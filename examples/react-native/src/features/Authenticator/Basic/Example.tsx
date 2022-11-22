@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button } from 'react-native';
 
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
@@ -16,16 +16,10 @@ function App() {
   return (
     <Authenticator.Provider>
       <Authenticator>
-        <View style={style.container}>
-          <SignOutButton />
-        </View>
+        <SignOutButton />
       </Authenticator>
     </Authenticator.Provider>
   );
 }
-
-const style = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-});
 
 export default App;

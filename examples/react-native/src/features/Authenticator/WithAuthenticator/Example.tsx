@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button } from 'react-native';
 
 import { Amplify } from 'aws-amplify';
 import {
@@ -12,19 +12,11 @@ Amplify.configure(awsExports);
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();
-  return <Button title="Sign Out" onPress={signOut} />;
+  return <Button onPress={signOut} title="Sign Out" />;
 }
 
 function App() {
-  return (
-    <View style={style.container}>
-      <SignOutButton />
-    </View>
-  );
+  return <SignOutButton />;
 }
-
-const style = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-});
 
 export default withAuthenticator(App);
