@@ -4,4 +4,4 @@
 "@aws-amplify/ui-react-native": minor
 ---
 
-Add React Native Authenticator. 
+feat: Add React Native Authenticator
