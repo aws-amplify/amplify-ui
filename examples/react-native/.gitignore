@@ -61,3 +61,5 @@ buck-out/
 /vendor/bundle/
 
 aws-exports.js
+# Below aws-exports are empty aws-exports for purpose of demo
+!src/features/*/*/aws-exports.js
