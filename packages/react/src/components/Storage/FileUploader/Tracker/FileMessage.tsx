@@ -13,8 +13,10 @@ export const FileMessage = ({
 }: FileStateProps): JSX.Element => {
   switch (fileState) {
     case 'loading': {
-      let text = translate('Uploading');
-      if (percentage > 0) text = text + `: ${percentage}%`;
+      const text =
+        percentage > 0
+          ? `${translate('Uploading')}: ${percentage}%`
+          : translate('Uploading');
       return (
         <Text className={ComponentClassNames.FileUploaderFileStatus}>
           {text}

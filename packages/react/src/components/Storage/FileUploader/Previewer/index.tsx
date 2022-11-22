@@ -32,10 +32,18 @@ export function Previewer({
   percentage,
 }: PreviewerProps): JSX.Element {
   const headingMaxFiles = translate('Over Max files');
-  const uploadedFilesLength = () =>
+  const getUploadedFilesLength = () =>
     fileStatuses.filter((file) => file?.fileState === 'success').length;
 
-  const remainingFilesLength = fileStatuses.length - uploadedFilesLength();
+  const remainingFilesLength = fileStatuses.length - getUploadedFilesLength();
+
+  const isDisabled =
+    fileStatuses.some((status) =>
+      ['error', 'editing'].includes(status?.fileState)
+    ) ||
+    remainingFilesLength === 0 ||
+    hasMaxFilesError;
+
   return (
     <View className={ComponentClassNames.FileUploaderPreviewer}>
       <View className={ComponentClassNames.FileUploaderPreviewerBody}>
@@ -60,13 +68,9 @@ export function Previewer({
         </UploadDropZone>
         <Text className={ComponentClassNames.FileUploaderPreviewerText}>
           {isSuccessful ? (
-            <>
-              {uploadedFilesLength()} {translate('files uploaded')}
-            </>
+            <>{`${getUploadedFilesLength()} ${translate('files uploaded')}`}</>
           ) : (
-            <>
-              {remainingFilesLength} {translate('files selected')}
-            </>
+            <>{`${remainingFilesLength} ${translate('files selected')}`}</>
           )}
         </Text>
         {children}
@@ -95,13 +99,7 @@ export function Previewer({
           {!isLoading && !isSuccessful && (
             <>
               <Button
-                disabled={
-                  fileStatuses.some((status) =>
-                    ['error', 'editing'].includes(status?.fileState)
-                  ) ||
-                  remainingFilesLength === 0 ||
-                  hasMaxFilesError
-                }
+                disabled={isDisabled}
                 size="small"
                 variation="primary"
                 onClick={onFileClick}
