@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { translate } from '@aws-amplify/ui';
 import { humanFileSize } from '@aws-amplify/ui';
 import { TrackerProps } from '../types';
@@ -46,31 +46,35 @@ export function Tracker({
     }
   }, [fileState]);
 
-  if (!file) return null;
-
   const { size } = file;
 
   const icon = hasImage ? <Image alt={file.name} src={url} /> : <IconFile />;
+  const isDeterminate = !isResumable || (isResumable && percentage > 0);
 
   const showEditButton = fileState === null || fileState === 'error';
 
-  const DisplayView = () => (
-    <>
-      <View className={ComponentClassNames.FileUploaderFileMain}>
-        <Text className={ComponentClassNames.FileUploaderFileName}>{name}</Text>
-        <FileMessage
-          fileState={fileState}
-          errorMessage={errorMessage}
-          percentage={percentage}
-        />
-      </View>
-      <Text as="span" className={ComponentClassNames.FileUploaderFileSize}>
-        {humanFileSize(size, true)}
-      </Text>
-    </>
+  const DisplayView = useCallback(
+    () => (
+      <>
+        <View className={ComponentClassNames.FileUploaderFileMain}>
+          <Text className={ComponentClassNames.FileUploaderFileName}>
+            {name}
+          </Text>
+          <FileMessage
+            fileState={fileState}
+            errorMessage={errorMessage}
+            percentage={percentage}
+          />
+        </View>
+        <Text as="span" className={ComponentClassNames.FileUploaderFileSize}>
+          {humanFileSize(size, true)}
+        </Text>
+      </>
+    ),
+    [errorMessage, fileState, name, percentage, size]
   );
 
-  const Actions = () => {
+  const Actions = useCallback(() => {
     switch (fileState) {
       case 'editing':
         return (
@@ -126,9 +130,22 @@ export function Tracker({
           </>
         );
     }
-  };
+  }, [
+    file.name,
+    fileState,
+    isResumable,
+    name,
+    onCancel,
+    onCancelEdit,
+    onPause,
+    onResume,
+    onSaveEdit,
+    onStartEdit,
+    showEditButton,
+    tempName,
+  ]);
 
-  const isDeterminate = !isResumable || (isResumable && percentage > 0);
+  if (!file) return null;
 
   return (
     <View className={ComponentClassNames.FileUploaderFile}>

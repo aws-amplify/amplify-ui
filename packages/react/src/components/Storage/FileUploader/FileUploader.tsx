@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import { Logger } from 'aws-amplify';
 import { UploadTask, Storage } from '@aws-amplify/storage';
 import { translate, uploadFile } from '@aws-amplify/ui';
+
+import { ComponentClassNames, Text, VisuallyHidden } from '../../../primitives';
+
 import { FileState, FileStatus, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
-import { ComponentClassNames, Text } from '../../../primitives';
 import { UploadButton } from './UploadButton';
 import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
 import { Tracker } from './Tracker';
-import { Logger } from 'aws-amplify';
 
 const isUploadTask = (value: unknown): value is UploadTask =>
   typeof (value as UploadTask)?.resume === 'function';
@@ -50,14 +52,10 @@ export function FileUploader({
     addTargetFiles,
     fileStatuses,
     inDropZone,
-    onDragEnter,
-    onDragLeave,
-    onDragOver,
-    onDragStart,
-    onDrop,
     setFileStatuses,
     setShowPreviewer,
     showPreviewer,
+    ...dropZoneProps
   } = useFileUploader({
     maxSize,
     acceptedFileTypes,
@@ -352,23 +350,51 @@ export function FileUploader({
     setAutoLoad(false);
   }, [shouldAutoProceed, onFileClick, autoLoad, hasMaxFilesError]);
 
+  const hiddenInput = React.useRef<HTMLInputElement>();
+
+  const accept = acceptedFileTypes?.join();
+  const uploadButton = useMemo(
+    () => (
+      <>
+        <UploadButton
+          onClick={() => {
+            hiddenInput.current.click();
+            hiddenInput.current.value = null;
+          }}
+          className={ComponentClassNames.FileUploaderDropZoneButton}
+        />
+        <VisuallyHidden>
+          <input
+            type="file"
+            tabIndex={-1}
+            ref={hiddenInput}
+            onChange={onFileChange}
+            multiple={hasMultipleFiles}
+            accept={accept}
+          />
+        </VisuallyHidden>
+      </>
+    ),
+    [accept, hasMultipleFiles, onFileChange, UploadButton]
+  );
+
   if (showPreviewer) {
     return (
       <Previewer
-        acceptedFileTypes={acceptedFileTypes}
+        dropZone={
+          <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
+            <Text className={ComponentClassNames.FileUploaderDropZoneText}>
+              {translate('Drop files here or')}
+            </Text>
+            {uploadButton}
+          </UploadDropZone>
+        }
         fileStatuses={fileStatuses}
         inDropZone={inDropZone}
         isLoading={isLoading}
         isSuccessful={isSuccessful}
         hasMaxFilesError={hasMaxFilesError}
-        hasMultipleFiles={hasMultipleFiles}
         onClear={onClear}
-        onDragEnter={onDragEnter}
-        onDragLeave={onDragLeave}
-        onDragOver={onDragOver}
-        onDragStart={onDragStart}
-        onDrop={onDrop}
-        onFileChange={onFileChange}
         onFileClick={onFileClick}
         percentage={percentage}
       >
@@ -396,31 +422,15 @@ export function FileUploader({
     );
   }
 
-  const commonProps = {
-    acceptedFileTypes,
-    hasMultipleFiles,
-    onFileChange,
-  };
-
   if (variation === 'button') {
-    return <UploadButton {...commonProps} />;
+    return uploadButton;
   } else {
     return (
-      <UploadDropZone
-        inDropZone={inDropZone}
-        onDragEnter={onDragEnter}
-        onDragLeave={onDragLeave}
-        onDragOver={onDragOver}
-        onDragStart={onDragStart}
-        onDrop={onDrop}
-      >
+      <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
         <Text className={ComponentClassNames.FileUploaderDropZoneText}>
           {translate('Drop files here or')}
         </Text>
-        <UploadButton
-          {...commonProps}
-          className={ComponentClassNames.FileUploaderDropZoneButton}
-        />
+        {uploadButton}
       </UploadDropZone>
     );
   }

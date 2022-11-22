@@ -7,11 +7,9 @@ type LevelInfo = 'public' | 'protected' | 'private';
 export type Files = File[];
 
 export interface UploadButtonProps {
-  acceptedFileTypes: string[];
-  hasMultipleFiles?: boolean;
-  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
-  isLoading?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
 export interface UploadDropZoneProps extends DragActionHandlers {
@@ -43,17 +41,15 @@ export interface IconProps {
   fontSize?: string;
 }
 
-export interface PreviewerProps extends DragActionHandlers {
-  acceptedFileTypes: string[];
+export interface PreviewerProps {
   children?: React.ReactNode;
+  dropZone: React.ReactNode;
   fileStatuses: FileStatuses;
   inDropZone?: boolean;
   isLoading: boolean;
   isSuccessful: boolean;
   hasMaxFilesError: boolean;
-  hasMultipleFiles?: boolean;
   onClear: () => void;
-  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFileClick: () => void;
   percentage: number;
 }

@@ -10,25 +10,13 @@ const ref = {
 
 describe('Uploader Button', () => {
   it('exists', () => {
-    const { container } = render(
-      <UploadButton
-        hasMultipleFiles={false}
-        acceptedFileTypes={['.png']}
-        onFileChange={() => null}
-      />
-    );
+    const { container } = render(<UploadButton />);
 
     expect(container).toBeTruthy();
   });
 
   it('accepts a file for upload', async () => {
-    render(
-      <UploadButton
-        hasMultipleFiles={false}
-        acceptedFileTypes={['.png']}
-        onFileChange={() => null}
-      />
-    );
+    render(<UploadButton />);
     const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
     const input = document.getElementsByTagName('input')[0];
 

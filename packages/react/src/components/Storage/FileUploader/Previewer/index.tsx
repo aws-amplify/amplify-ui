@@ -9,25 +9,17 @@ import {
   Text,
   View,
 } from '../../../../primitives';
-import { UploadDropZone } from '../UploadDropZone';
-import { UploadButton } from '../UploadButton';
+// import { UploadDropZone } from '../UploadDropZone';
+// import { UploadButton } from '../UploadButton';
 
 export function Previewer({
-  acceptedFileTypes,
   children,
+  dropZone,
   fileStatuses,
-  inDropZone,
   isLoading,
   isSuccessful,
   hasMaxFilesError,
-  hasMultipleFiles,
   onClear,
-  onDragEnter,
-  onDragLeave,
-  onDragOver,
-  onDragStart,
-  onDrop,
-  onFileChange,
   onFileClick,
   percentage,
 }: PreviewerProps): JSX.Element {
@@ -47,25 +39,7 @@ export function Previewer({
   return (
     <View className={ComponentClassNames.FileUploaderPreviewer}>
       <View className={ComponentClassNames.FileUploaderPreviewerBody}>
-        <UploadDropZone
-          inDropZone={inDropZone}
-          onDragEnter={onDragEnter}
-          onDragLeave={onDragLeave}
-          onDragOver={onDragOver}
-          onDragStart={onDragStart}
-          onDrop={onDrop}
-        >
-          <Text className={ComponentClassNames.FileUploaderDropZoneText}>
-            {translate('Drop files here or')}
-          </Text>
-          <UploadButton
-            acceptedFileTypes={acceptedFileTypes}
-            isLoading={isLoading}
-            hasMultipleFiles={hasMultipleFiles}
-            onFileChange={onFileChange}
-            className={ComponentClassNames.FileUploaderDropZoneButton}
-          />
-        </UploadDropZone>
+        {dropZone}
         <Text className={ComponentClassNames.FileUploaderPreviewerText}>
           {isSuccessful ? (
             <>{`${getUploadedFilesLength()} ${translate('files uploaded')}`}</>

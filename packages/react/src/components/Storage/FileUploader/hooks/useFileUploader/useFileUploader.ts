@@ -106,7 +106,6 @@ export default function useFileUploader({
     onDragOver,
     onDragStart,
     onDrop,
-    setInDropZone,
     setShowPreviewer,
     addTargetFiles,
     showPreviewer,
