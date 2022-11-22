@@ -23,8 +23,10 @@ const logger = new Logger('Authenticator');
 const {
   getBackToSignInText,
   getConfirmingText,
+  getConfirmTOTPText,
   getConfirmText,
   getSetupTOTPText,
+  getSetupTOTPInstructionsText,
 } = authenticatorTextUtil;
 
 const SetupTOTP: DefaultSetupTOTPComponent = ({
@@ -62,14 +64,19 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
     }
   }, [getSecretKey, secretKey]);
 
-  const headerText = getSetupTOTPText();
+  const headerText = secretKey ? getConfirmTOTPText() : getSetupTOTPText();
   const primaryButtonText = isPending ? getConfirmingText() : getConfirmText();
   const secondaryButtonText = getBackToSignInText();
 
   const body = secretKey ? (
-    <Label selectable style={styles.secretKeyText}>
-      {secretKey}
-    </Label>
+    <>
+      <Label style={styles.secretKeyText}>
+        {getSetupTOTPInstructionsText()}
+      </Label>
+      <Label selectable style={styles.secretKeyText}>
+        {secretKey}
+      </Label>
+    </>
   ) : null;
 
   const buttons = useMemo(

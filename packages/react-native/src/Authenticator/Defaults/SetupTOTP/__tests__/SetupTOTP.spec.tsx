@@ -37,6 +37,7 @@ const {
   getConfirmingText,
   getConfirmText,
   getSetupTOTPText,
+  getSetupTOTPInstructionsText,
 } = authenticatorTextUtil;
 
 const SECRET_KEY = 'secretKey';
@@ -96,13 +97,14 @@ describe('SetupTOTP', () => {
   });
 
   it('handles secret code generation as expected', async () => {
-    const { queryByText, rerender } = render(
+    const { getByText, queryByText, rerender } = render(
       <SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />
     );
     await waitFor(async () => {
       expect(mockGetTotpSecretCode).toHaveBeenCalledTimes(1);
+      expect(getByText(getSetupTOTPInstructionsText())).toBeDefined();
       expect(queryByText(SECRET_KEY)).toBeDefined();
-      expect(queryByText(SECRET_KEY)?.props.selectable).toBe(true);
+      expect(getByText(SECRET_KEY).props.selectable).toBe(true);
       expect(errorSpy).not.toHaveBeenCalled();
 
       rerender(

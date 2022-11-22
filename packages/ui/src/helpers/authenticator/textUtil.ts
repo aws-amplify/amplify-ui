@@ -132,7 +132,13 @@ export const authenticatorTextUtil = {
   getResetYourPasswordText: () => translate(DefaultTexts.RESET_PASSWORD),
 
   /** SetupTOTP */
+  getConfirmTOTPText: () => translate('Confirm TOTP Code'),
   getSetupTOTPText: () => translate(DefaultTexts.SETUP_TOTP),
+  // TODO: add defaultText for below
+  getSetupTOTPInstructionsText: () =>
+    translate(
+      'Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.'
+    ),
   // TODO: add defaultText for "COPIED"
   getCopiedText: () => translate('COPIED'),
 
