@@ -26,11 +26,7 @@ export function uploadFile({
       resumable: isResumable,
       progressCallback,
       errorCallback,
-      // TODO: Remove this override once we depend on aws-amplify@5
-      // this behavior is fixed in version 5
-      completeCallback: (event) => {
-        completeCallback({ key: event });
-      },
+      completeCallback,
       ...rest,
     });
   } else {

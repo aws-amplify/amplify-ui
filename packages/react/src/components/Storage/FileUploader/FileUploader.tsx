@@ -143,12 +143,6 @@ export function FileUploader({
     [onError, setFileStatuses]
   );
 
-  const completeCallback = useCallback(() => {
-    return (event: { key: string }) => {
-      if (typeof onSuccess === 'function') onSuccess(event);
-    };
-  }, [onSuccess]);
-
   const onPause = useCallback(
     (index: number): (() => void) => {
       return function () {
@@ -195,7 +189,7 @@ export function FileUploader({
         isResumable,
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
-        completeCallback: completeCallback(),
+        completeCallback: onSuccess,
         ...rest,
       });
 
@@ -213,13 +207,13 @@ export function FileUploader({
       }))
     );
   }, [
-    completeCallback,
-    errorCallback,
     fileStatuses,
-    level,
-    progressCallback,
     setFileStatuses,
+    level,
     isResumable,
+    progressCallback,
+    errorCallback,
+    onSuccess,
     rest,
   ]);
 
