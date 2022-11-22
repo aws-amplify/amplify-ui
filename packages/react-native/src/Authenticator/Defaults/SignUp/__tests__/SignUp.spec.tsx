@@ -77,21 +77,6 @@ describe('SignUp', () => {
     expect(queryByRole('tab')).toBe(null);
   });
 
-  it('renders as expected with social providers', () => {
-    const { toJSON, queryByText } = render(
-      <SignUp
-        {...props}
-        socialProviders={['amazon', 'apple', 'facebook', 'google']}
-      />
-    );
-    expect(toJSON()).toMatchSnapshot();
-
-    expect(queryByText('amazon')).toBeDefined();
-    expect(queryByText('apple')).toBeDefined();
-    expect(queryByText('facebook')).toBeDefined();
-    expect(queryByText('google')).toBeDefined();
-  });
-
   it('renders as expected when isPending is true', () => {
     const { toJSON, queryByText } = render(<SignUp {...props} isPending />);
     expect(toJSON()).toMatchSnapshot();
