@@ -14,6 +14,7 @@ import useFieldValues from '../useFieldValues';
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
 const textField = {
+  label: 'test',
   type: 'default',
   name: 'test',
   value: 'testValue',
@@ -52,6 +53,28 @@ describe('useFieldValues', () => {
       fields: [
         {
           ...textField,
+          onBlur: expect.any(Function),
+          onChangeText: expect.any(Function),
+          value: undefined,
+        },
+      ],
+      handleFormSubmit: expect.any(Function),
+    });
+  });
+
+  it('removes hidden labels from text fields', () => {
+    const { result } = renderHook(() =>
+      useFieldValues({
+        ...props,
+        fields: [{ ...textField, labelHidden: true }],
+      })
+    );
+    expect(result.current).toStrictEqual({
+      disableFormSubmit: false,
+      fields: [
+        {
+          ...textField,
+          label: undefined,
           onBlur: expect.any(Function),
           onChangeText: expect.any(Function),
           value: undefined,
@@ -205,6 +228,7 @@ describe('useFieldValues', () => {
       fields: [
         {
           ...mockTextField,
+          label: undefined,
           onBlur: expect.any(Function),
           onChangeText: expect.any(Function),
           value: undefined,
@@ -216,6 +240,7 @@ describe('useFieldValues', () => {
 
   it('enables form submit if required fields have values', () => {
     const mockTextField = {
+      label: 'test',
       type: 'default',
       name: 'test',
       required: true,

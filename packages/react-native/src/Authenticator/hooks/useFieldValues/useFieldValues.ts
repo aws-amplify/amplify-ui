@@ -50,7 +50,7 @@ export default function useFieldValues<FieldType extends TypedField>({
       return { ...field, onChange };
     }
 
-    const { name } = field;
+    const { name, label, labelHidden, ...rest } = field;
 
     const onBlur: TextFieldOnBlur = (event) => {
       // call `onBlur` passed as text `field` option
@@ -70,7 +70,14 @@ export default function useFieldValues<FieldType extends TypedField>({
       setValues({ ...values, [name]: value });
     };
 
-    return { ...field, onBlur, onChangeText, name, value: values[name] };
+    return {
+      ...rest,
+      label: labelHidden ? undefined : label,
+      onBlur,
+      onChangeText,
+      name,
+      value: values[name],
+    };
   }) as FieldType[];
 
   const disableFormSubmit = isRadioFieldComponent
