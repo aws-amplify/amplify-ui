@@ -9,6 +9,7 @@ import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { NextSteps } from './NextSteps';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { DeveloperPreview } from './DeveloperPreview';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -19,6 +20,8 @@ export async function getStaticPaths() {
 export async function getStaticProps() {
   return { props: {} }
 }
+
+<DeveloperPreview />
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./intro.${platform}.mdx`)}
