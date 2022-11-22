@@ -1,0 +1,27 @@
+You can use `useAuthenticator` hook to access `route` string that represents the current `authState`. They can be one of:
+
+- `idle`
+- `setup`
+- `signIn`
+- `signUp`
+- `confirmSignIn`
+- `confirmSignUp`
+- `setupTOTP`
+- `forceNewPassword`
+- `resetPassword`
+- `confirmResetPassword`
+- `verifyUser`
+- `confirmVerifyUser`
+- `signOut`
+- `authenticated`
+
+```jsx
+import { useAuthenticator } from '@aws-amplify/ui-react-native';
+
+const App = () => {
+  const { route } = useAuthenticator(context => [context.route]);
+
+  // Use the value of route to decide which page to render
+  return route === 'authenticated' ? <Home /> : <Authenticator />;
+};
+```
