@@ -271,6 +271,12 @@ export function FileUploader({
 
   // Tracker methods
 
+  const isValidExtension = (fileName: string, fileName2: string): boolean => {
+    const extension = fileName.split('.').pop();
+    const fileExtension = fileName2.split('.').pop();
+    return fileExtension === extension;
+  };
+
   const onSaveEdit = useCallback(
     (index: number) => {
       return (value: string) => {
@@ -279,9 +285,7 @@ export function FileUploader({
 
         const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
-        const [extension] = value.split('.').reverse();
-        const [fileExtension] = status.file.name.split('.').reverse();
-        const validExtension = fileExtension === extension;
+        const validExtension = isValidExtension(value, status.file.name);
         newFileStatuses[index] = {
           ...status,
           name: value,
@@ -303,9 +307,9 @@ export function FileUploader({
         const newFileStatuses = [...prevFileStatuses];
         const status = newFileStatuses[index];
         // Check if extension is valid before setting state
-        const [extension] = status.name.split('.').reverse();
-        const [fileExtension] = status.file.name.split('.').reverse();
-        const validExtension = fileExtension === extension ? null : 'error';
+        const validExtension = isValidExtension(status.name, status.file.name)
+          ? null
+          : 'error';
         const updatedFileState =
           fileState === null ? validExtension : fileState;
 
