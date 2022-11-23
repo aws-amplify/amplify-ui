@@ -1,6 +1,11 @@
 // backticks intentional to display as `code` block
 export const UPLOAD_DROP_COMPONENTS = [
   {
+    name: `children?`,
+    description: 'React Children',
+    type: `React.ReactNode`,
+  },
+  {
     name: `inDropZone?`,
     description: 'Indicates if files are in drop zone',
     type: `boolean`,
@@ -35,11 +40,6 @@ export const UPLOAD_DROP_COMPONENTS = [
 // backticks intentional to display as `code` block
 export const UPLOAD_BUTTON_COMPONENTS = [
   {
-    name: `acceptedFileTypes`,
-    description: 'List of file types allowed to be uploaded',
-    type: `string[]`,
-  },
-  {
     name: `className?`,
     description: 'Class name prop',
     type: `string`,
@@ -50,43 +50,58 @@ export const UPLOAD_BUTTON_COMPONENTS = [
     type: `boolean`,
   },
   {
-    name: `hasMultipleFiles?`,
-    description: 'Allows multiple files to be selected at once',
-    type: `boolean`,
-  },
-  {
     name: `onClick`,
     description: 'Initiates adding files to file uploader',
     type: `() => void`,
   },
-
-  {
-    name: `onFileChange`,
-    description: 'Change event handler that adds files to upload',
-    type: `(event: React.ChangeEvent<HTMLInputElement>) => void`,
-  },
 ];
-
-const UPDATED_UPLOAD_PROPS = UPLOAD_BUTTON_COMPONENTS.filter(
-  (prop) => prop.name !== 'onClick' && prop.name !== 'className?'
-);
 
 // backticks intentional to display as `code` block
 export const PREVIEWER_COMPONENTS = [
+  {
+    name: `acceptedFileTypes`,
+    description: 'List of file types allowed to be uploaded',
+    type: `string[]`,
+  },
+  {
+    name: `aggregatePercentage`,
+    description: 'Total percentage of files uploaded',
+    type: `number`,
+  },
+  {
+    name: `children?`,
+    description: 'React Children',
+    type: `React.ReactNode`,
+  },
+  {
+    name: `dropZone`,
+    description: 'Drop zone component',
+    type: `React.ReactNode`,
+  },
   {
     name: `fileStatuses`,
     description: 'Array of files and their statuses',
     type: `FileStatuses`,
   },
+  {
+    name: `hasMaxFilesError`,
+    description: 'Indicates if there is a max file size error',
+    type: `boolean`,
+  },
+  {
+    name: `inDropZone?`,
+    description: 'Indicates if files are in drop zone',
+    type: `boolean`,
+  },
+  {
+    name: `isLoading?`,
+    description: 'Indicates if the file uploader is uploading',
+    type: `boolean`,
+  },
 
   {
     name: `isSuccessful`,
     description: 'Indicates if all files have completed uploading',
-    type: `boolean`,
-  },
-  {
-    name: `hasMaxFilesError`,
-    description: 'Indicates if there is a max file size error',
     type: `boolean`,
   },
 
@@ -101,14 +116,7 @@ export const PREVIEWER_COMPONENTS = [
     description: 'Event handler that triggers the upload to begin',
     type: `(event: React.ChangeEvent<HTMLInputElement>) => void`,
   },
-  {
-    name: `aggregatePercentage`,
-    description: 'Total percentage of files uploaded',
-    type: `number`,
-  },
-  ...UPLOAD_DROP_COMPONENTS,
-  ...UPDATED_UPLOAD_PROPS,
-].sort((a, b) => (a.name > b.name ? 1 : -1));
+];
 
 // backticks intentional to display as `code` block
 export const TRACKER_COMPONENTS = [
@@ -148,6 +156,12 @@ export const TRACKER_COMPONENTS = [
     type: `()=> void`,
   },
   {
+    name: `onChange`,
+    description: 'Updates text from edit name',
+    type: `(event: React.ChangeEvent<HTMLInputElement>) => void;`,
+  },
+
+  {
     name: `onPause`,
     description: 'Pauses the upload',
     type: `()=> void`,
@@ -181,10 +195,5 @@ export const TRACKER_COMPONENTS = [
     name: `showImage`,
     description: 'Indicates if an image should be shown',
     type: `boolean`,
-  },
-  {
-    name: `url`,
-    description: 'Used for src of image to be displayed',
-    type: `string`,
   },
 ];

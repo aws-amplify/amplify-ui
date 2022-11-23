@@ -1,41 +1,22 @@
 import React from 'react';
 import { translate } from '@aws-amplify/ui';
 import { UploadButtonProps } from '../types';
-import { Button, VisuallyHidden } from '../../../../primitives';
+import { Button } from '../../../../primitives';
 
 export function UploadButton({
-  hasMultipleFiles,
-  acceptedFileTypes,
-  onFileChange,
   className,
-  isLoading,
+  disabled,
+  onClick,
 }: UploadButtonProps): JSX.Element {
-  const hiddenInput = React.useRef<HTMLInputElement>();
-  const onClick = () => {
-    hiddenInput.current.click();
-    hiddenInput.current.value = null;
-  };
   return (
-    <>
-      <Button
-        disabled={isLoading}
-        className={className}
-        size="small"
-        onClick={onClick}
-        variation="primary"
-      >
-        {translate('Browse files')}
-      </Button>
-      <VisuallyHidden>
-        <input
-          type="file"
-          tabIndex={-1}
-          ref={hiddenInput}
-          onChange={onFileChange}
-          multiple={hasMultipleFiles}
-          accept={acceptedFileTypes?.join()}
-        />
-      </VisuallyHidden>
-    </>
+    <Button
+      disabled={disabled}
+      className={className}
+      size="small"
+      onClick={onClick}
+      variation="primary"
+    >
+      {translate('Browse files')}
+    </Button>
   );
 }
