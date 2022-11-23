@@ -25,6 +25,6 @@ export interface ChangePasswordProps {
   onError?: (error: Error) => void;
   /** custom password validations */
   validators?: ValidatorOptions[];
-  /** Custom component overrides */
+  /** custom component overrides */
   components?: ChangePasswordComponents;
 }
