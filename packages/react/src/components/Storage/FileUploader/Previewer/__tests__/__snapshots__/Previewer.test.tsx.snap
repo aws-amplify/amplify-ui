@@ -57,9 +57,7 @@ exports[`Previewer renders as expected 1`] = `
       <p
         class="amplify-text amplify-fileuploader__previewer__text"
       >
-        1
-         
-        files selected
+        1 files selected
       </p>
     </div>
     <div
