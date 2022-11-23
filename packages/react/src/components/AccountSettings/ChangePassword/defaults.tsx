@@ -6,12 +6,13 @@ import { AccountSettingsPasswordField } from '../types';
 import { ChangePasswordComponents } from './types';
 
 const DefaultPasswordField: AccountSettingsPasswordField = ({
+  label,
   validationErrors,
   ...rest
 }) => {
   return (
     <>
-      <PasswordField {...rest} />
+      <PasswordField label={label} {...rest} />
       <ValidationErrors errors={validationErrors} />
     </>
   );
