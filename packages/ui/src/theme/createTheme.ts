@@ -31,7 +31,7 @@ const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
  * const myOtherTheme = createTheme({}, myTheme);
  */
 export function createTheme(
-  theme?: Theme,
+  theme?: Theme | WebTheme,
   DefaultTheme: DefaultTheme | WebTheme = defaultTheme
 ): WebTheme {
   // merge theme and DefaultTheme to get a complete theme

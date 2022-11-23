@@ -2,11 +2,15 @@
 title: Headless
 metaTitle: Headless
 description: For advanced use cases you can run the Authenticator in a headless mode.
-supportedFrameworks: react|angular|vue
+supportedFrameworks: react|angular|vue|react-native
 ---
 
+import { useRouter } from 'next/router';
+import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
 import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
+import { DeveloperPreview } from '../DeveloperPreview';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -18,6 +22,136 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-<Fragment useCommonWebContent platforms={['web', 'flutter']}>
-  {({ platform }) => import(`./headless-usage.${platform}.mdx`)}
+<DeveloperPreview />
+
+<Fragment>
+  {({ platform }) => import(`./advanced/useAuthenticator.${platform}.mdx`)}
 </Fragment>
+
+## Access Auth State
+
+<Fragment>
+  {({ platform }) => import(`./advanced/current-route.${platform}.mdx`)}
+</Fragment>
+
+## Access Authenticated User
+
+<Fragment>
+  {({ platform }) => import(`./advanced/current-user.${platform}.mdx`)}
+</Fragment>
+
+## Trigger Transitions
+
+<Fragment>
+  {({ platform }) => import(`./advanced/trigger-transitions.${platform}.mdx`)}
+</Fragment>
+
+### Example
+
+Here's an example that uses the `toResetPassword` trigger transition, to create a custom button. Note that example uses the [Footer "slot" override](../authenticator/customization#headers--footers).
+
+<Fragment>
+  {({ platform }) => import(`./advanced/example.${platform}.mdx`)}
+</Fragment>
+
+## Full API
+
+<Fragment>
+  {({ platform }) => import(`./advanced/full-api.${platform}.mdx`)}
+</Fragment>
+
+<Tabs overflow="scroll">
+  <TabItem title="Access Contexts">
+
+    These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
+
+    <ResponsiveTable highlightOnHover>
+      <TableHead>
+        <TableRow>
+          <TableCell as="th">Name</TableCell>
+          <TableCell as="th">Description</TableCell>
+          <TableCell as="th">Type</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`user`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Current signed in user</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`AmplifyUser`</ResponsiveTableCell>
+        </TableRow>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`route`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Name of the auth flow user is in</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`string`</ResponsiveTableCell>
+        </TableRow>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`error`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Any error returned from service API call</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`string`</ResponsiveTableCell>
+        </TableRow>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`validationErrors`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Any form validation errors found. Maps each error message to respective input name.</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`Record<string, string>`</ResponsiveTableCell>
+        </TableRow>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`hasValidationErrors`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Whether there are any form validation errors</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`boolean`</ResponsiveTableCell>
+        </TableRow>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`isPending`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Whether service API call is in progress</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`boolean`</ResponsiveTableCell>
+        </TableRow>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`codeDeliveryDetail`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Provides detail on where confirm sign up code is sent to.</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`CodeDeliveryDetail`</ResponsiveTableCell>
+        </TableRow>
+      </TableBody>
+    </ResponsiveTable>
+    
+  </TabItem>
+  <TabItem title="Trigger Transition">
+
+These helper functions trigger transition to another `route`. Note that any invalid transition (e.g. `sign-in` to `authenticated` directly) will be no-op.
+
+    
+    <ResponsiveTable highlightOnHover>
+      <TableHead>
+        <TableRow>
+          <TableCell as="th">Name</TableCell>
+          <TableCell as="th">Description</TableCell>
+          <TableCell as="th">Type</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`toSignIn`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Transitions to `signIn`. Allowed from `signUp`, `confirmSignUp`, `confirmSignIn`, `setupTOTP`, `resetPassword`, and `confirmResetPassword`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
+        </TableRow>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`toSignUp`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Transitions to `signUp`. Allowed from `signIn`.</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
+        </TableRow>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`toResetPassword`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Transitions to `resetPassword`. Allowed from `signIn`.</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
+        </TableRow>
+        <Fragment>
+          {({ platform }) => platform === 'angular' || platform === 'vue' ? import(`./advanced/to-federated-sign-in.mdx`) : Promise.resolve(() => null)}
+        </Fragment>
+        <TableRow>
+          <ResponsiveTableCell label="Name">`skipVerification`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">Skips verification process. Allowed from `verifyUser` and `confirmVerifyUser`</ResponsiveTableCell>
+          <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
+        </TableRow>
+      </TableBody>
+    </ResponsiveTable>
+    
+  </TabItem>
+</Tabs>

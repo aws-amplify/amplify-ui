@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-native",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -19,7 +19,6 @@
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
-    "@react-native-picker/picker": "^2.4.8",
     "@testing-library/react-hooks": "^8.0.0",
     "@testing-library/react-native": "^11.1.0",
     "@types/react": "^17.0.2",
@@ -44,8 +43,8 @@
     "type-fest": "^2.3.4"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.0.0",
-    "@aws-amplify/ui-react-core": "2.0.0"
+    "@aws-amplify/ui": "5.1.1",
+    "@aws-amplify/ui-react-core": "2.1.1"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",

@@ -26,7 +26,7 @@ Array [
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
@@ -511,7 +511,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -621,7 +622,7 @@ Array [
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
@@ -1106,7 +1107,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -1156,7 +1158,7 @@ Array [
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
@@ -1649,7 +1651,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -1759,7 +1762,7 @@ Array [
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
@@ -2297,7 +2300,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -2381,7 +2385,7 @@ Array [
 ]
 `;
 
-exports[`SignUp renders as expected with social providers 1`] = `
+exports[`SignUp renders as expected with validationErrors 1`] = `
 Array [
   <Text
     accessibilityRole="header"
@@ -2407,7 +2411,7 @@ Array [
   <View
     style={
       Object {
-        "paddingBottom": 12,
+        "paddingBottom": 8,
       }
     }
   >
@@ -2459,6 +2463,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "opacity": 0.6,
             "paddingHorizontal": 8,
           }
         }
@@ -2467,12 +2472,12 @@ Array [
         <TextInput
           accessibilityState={
             Object {
-              "disabled": false,
+              "disabled": true,
             }
           }
           accessible={true}
           autoCapitalize="none"
-          editable={true}
+          editable={false}
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Username"
@@ -2491,6 +2496,35 @@ Array [
           }
         />
       </View>
+    </View>
+    <View
+      style={
+        Object {
+          "paddingHorizontal": 16,
+          "paddingVertical": 8,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "hsl(0, 100%, 20%)",
+            "paddingVertical": 1,
+          }
+        }
+      >
+        error
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "hsl(0, 100%, 20%)",
+            "paddingVertical": 1,
+          }
+        }
+      >
+        another error
+      </Text>
     </View>
     <View
       style={
@@ -2543,6 +2577,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "opacity": 0.6,
             "paddingHorizontal": 8,
           }
         }
@@ -2551,12 +2586,12 @@ Array [
         <TextInput
           accessibilityState={
             Object {
-              "disabled": false,
+              "disabled": true,
             }
           }
           accessible={true}
           autoCapitalize="none"
-          editable={true}
+          editable={false}
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Password"
@@ -2580,7 +2615,7 @@ Array [
           accessibilityRole="button"
           accessibilityState={
             Object {
-              "disabled": false,
+              "disabled": true,
             }
           }
           accessible={true}
@@ -2598,7 +2633,9 @@ Array [
           style={
             Array [
               Object {},
-              null,
+              Object {
+                "opacity": 0.6,
+              },
               null,
               undefined,
             ]
@@ -2682,6 +2719,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "opacity": 0.6,
             "paddingHorizontal": 8,
           }
         }
@@ -2690,12 +2728,12 @@ Array [
         <TextInput
           accessibilityState={
             Object {
-              "disabled": false,
+              "disabled": true,
             }
           }
           accessible={true}
           autoCapitalize="none"
-          editable={true}
+          editable={false}
           onBlur={[Function]}
           onChangeText={[Function]}
           placeholder="Confirm Password"
@@ -2719,7 +2757,7 @@ Array [
           accessibilityRole="button"
           accessibilityState={
             Object {
-              "disabled": false,
+              "disabled": true,
             }
           }
           accessible={true}
@@ -2737,7 +2775,9 @@ Array [
           style={
             Array [
               Object {},
-              null,
+              Object {
+                "opacity": 0.6,
+              },
               null,
               undefined,
             ]
@@ -2824,6 +2864,7 @@ Array [
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
+            "opacity": 0.6,
             "paddingHorizontal": 8,
           }
         }
@@ -2832,12 +2873,12 @@ Array [
         <TextInput
           accessibilityState={
             Object {
-              "disabled": false,
+              "disabled": true,
             }
           }
           accessible={true}
           autoCapitalize="none"
-          editable={true}
+          editable={false}
           keyboardType="phone-pad"
           onBlur={[Function]}
           onChangeText={[Function]}
@@ -2892,7 +2933,8 @@ Array [
         null,
         null,
         Object {
-          "margin": 16,
+          "marginHorizontal": 16,
+          "marginVertical": 12,
         },
       ]
     }
@@ -2910,7 +2952,7 @@ Array [
         ]
       }
     >
-      Create Account
+      Creating Account
     </Text>
   </View>,
   <View
