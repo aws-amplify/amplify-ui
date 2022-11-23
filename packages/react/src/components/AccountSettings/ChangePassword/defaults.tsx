@@ -17,7 +17,7 @@ const DefaultPasswordField: AccountSettingsPasswordField = ({
   );
 };
 
-const DEFAULTS: ChangePasswordComponents = {
+const DEFAULTS: Required<ChangePasswordComponents> = {
   CurrentPassword: DefaultPasswordField,
   NewPassword: DefaultPasswordField,
   ConfirmPassword: DefaultPasswordField,
