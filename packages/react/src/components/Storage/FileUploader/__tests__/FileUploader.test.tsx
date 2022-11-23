@@ -91,7 +91,7 @@ describe('File Uploader', () => {
     fireEvent.click(clickButton);
 
     expect(uploadFileSpy).toBeCalledWith({
-      completeCallback: expect.any(Function),
+      completeCallback: undefined,
       errorCallback: expect.any(Function),
       file: fakeFile,
       fileName: fakeFile.name,
@@ -134,7 +134,7 @@ describe('File Uploader', () => {
     fireEvent.click(clickButton);
 
     expect(uploadFileSpy).toBeCalledWith({
-      completeCallback: expect.any(Function),
+      completeCallback: undefined,
       errorCallback: expect.any(Function),
       file: fakeFile,
       fileName: fileName2,
@@ -562,7 +562,7 @@ describe('File Uploader', () => {
     });
 
     expect(uploadFileSpy).toBeCalledWith({
-      completeCallback: expect.any(Function),
+      completeCallback: undefined,
       errorCallback: expect.any(Function),
       file: fakeFile,
       fileName: fakeFile.name,

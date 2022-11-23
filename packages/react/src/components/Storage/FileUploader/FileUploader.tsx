@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { UploadTask, Storage } from '@aws-amplify/storage';
 import { translate, uploadFile } from '@aws-amplify/ui';
-import { FileState, FileStatus, FileUploaderProps } from './types';
+import { FileState, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
 import { ComponentClassNames, Text } from '../../../primitives';
 import { UploadButton } from './UploadButton';
@@ -67,7 +67,7 @@ export function FileUploader({
   });
 
   // Creates aggregate percentage to show during downloads
-  const percentage = Math.floor(
+  const aggregatePercentage = Math.floor(
     fileStatuses.reduce((prev, curr) => prev + (curr?.percentage ?? 0), 0) /
       fileStatuses.length
   );
@@ -83,10 +83,10 @@ export function FileUploader({
 
   useEffect(() => {
     // Loading ends when all files are at 100%
-    if (Math.floor(percentage) === 100) {
+    if (Math.floor(aggregatePercentage) === 100) {
       setLoading(false);
     }
-  }, [percentage]);
+  }, [aggregatePercentage]);
 
   useEffect(() => {
     setShowPreviewer(isPreviewerVisible);
@@ -103,18 +103,13 @@ export function FileUploader({
           const progressPercentage = Math.floor(
             (progress.loaded / progress.total) * 100
           );
-          const updatedStatus =
-            progressPercentage !== 100
-              ? {
-                  ...prevStatus,
-                  percentage: progressPercentage,
-                  fileState: 'loading' as FileState,
-                }
-              : {
-                  ...prevStatus,
-                  percentage: progressPercentage,
-                  fileState: 'success' as FileState,
-                };
+          const fileState: FileState =
+            progressPercentage !== 100 ? 'loading' : 'success';
+          const updatedStatus = {
+            ...prevStatus,
+            percentage: progressPercentage,
+            fileState,
+          };
 
           prevFileStatuses[index] = updatedStatus;
 
@@ -147,12 +142,6 @@ export function FileUploader({
     },
     [onError, setFileStatuses]
   );
-
-  const completeCallback = useCallback(() => {
-    return (event: { key: string }) => {
-      if (typeof onSuccess === 'function') onSuccess(event);
-    };
-  }, [onSuccess]);
 
   const onPause = useCallback(
     (index: number): (() => void) => {
@@ -200,7 +189,7 @@ export function FileUploader({
         isResumable,
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
-        completeCallback: completeCallback(),
+        completeCallback: onSuccess,
         ...rest,
       });
 
@@ -209,27 +198,22 @@ export function FileUploader({
       }
     });
 
-    setFileStatuses((prevFileStatuses) => {
-      const newFileStatuses = [...prevFileStatuses];
-      const updatedStatuses = newFileStatuses.map((status, index) => {
-        return {
-          ...status,
-          uploadTask: uploadTasksTemp?.[index],
-          fileState: status.fileState ?? 'loading',
-          percentage: status.percentage ?? 0,
-        };
-      });
-
-      return [...updatedStatuses];
-    });
+    setFileStatuses((prevFileStatuses) =>
+      prevFileStatuses.map((status, index) => ({
+        ...status,
+        uploadTask: uploadTasksTemp?.[index],
+        fileState: status.fileState ?? 'loading',
+        percentage: status.percentage ?? 0,
+      }))
+    );
   }, [
-    completeCallback,
-    errorCallback,
     fileStatuses,
-    level,
-    progressCallback,
     setFileStatuses,
+    level,
     isResumable,
+    progressCallback,
+    errorCallback,
+    onSuccess,
     rest,
   ]);
 
@@ -313,40 +297,44 @@ export function FileUploader({
     [fileStatuses, setFileStatuses]
   );
 
-  const updateEditStatus = useCallback(
-    (index: number, isCancelEdit: boolean): FileStatus[] => {
-      const newFileStatuses = [...fileStatuses];
-      const status = fileStatuses[index];
-      const [extension] = status.name.split('.').reverse();
-      const [fileExtension] = status.file.name.split('.').reverse();
-      const validExtension = fileExtension === extension ? null : 'error';
+  const updateFileState = useCallback(
+    (index: number, fileState: FileState) => {
+      setFileStatuses((prevFileStatuses) => {
+        const newFileStatuses = [...prevFileStatuses];
+        const status = newFileStatuses[index];
+        // Check if extension is valid before setting state
+        const [extension] = status.name.split('.').reverse();
+        const [fileExtension] = status.file.name.split('.').reverse();
+        const validExtension = fileExtension === extension ? null : 'error';
+        const updatedFileState =
+          fileState === null ? validExtension : fileState;
 
-      newFileStatuses[index] = {
-        ...status,
-        fileState: isCancelEdit ? validExtension : 'editing',
-      };
-
-      return newFileStatuses;
+        newFileStatuses[index] = {
+          ...status,
+          fileState: updatedFileState,
+        };
+        return newFileStatuses;
+      });
     },
-    [fileStatuses]
+    [setFileStatuses]
   );
 
   const onCancelEdit = useCallback(
     (index: number) => {
       return () => {
-        setFileStatuses(updateEditStatus(index, true));
+        updateFileState(index, null);
       };
     },
-    [setFileStatuses, updateEditStatus]
+    [updateFileState]
   );
 
   const onStartEdit = useCallback(
     (index: number) => {
       return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        setFileStatuses(updateEditStatus(index, false));
+        updateFileState(index, 'editing');
       };
     },
-    [setFileStatuses, updateEditStatus]
+    [updateFileState]
   );
 
   useEffect(() => {
@@ -376,7 +364,7 @@ export function FileUploader({
         onDrop={onDrop}
         onFileChange={onFileChange}
         onFileClick={onFileClick}
-        percentage={percentage}
+        aggregatePercentage={aggregatePercentage}
       >
         {fileStatuses?.map((status, index) => (
           <Tracker

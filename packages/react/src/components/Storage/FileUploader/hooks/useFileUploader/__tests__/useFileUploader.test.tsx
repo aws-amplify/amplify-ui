@@ -12,7 +12,7 @@ const commonUseFileLoaderArgs = {
   acceptedFileTypes: ['.png'],
   hasMultipleFiles: true,
   isLoading: false,
-  setAutoLoad: () => '',
+  setAutoLoad: () => null,
 };
 
 describe('useFileUploader', () => {

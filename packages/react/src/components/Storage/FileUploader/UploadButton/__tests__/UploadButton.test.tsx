@@ -2,11 +2,6 @@ import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { UploadButton } from '..';
-const ref = {
-  current: {
-    info: jest.fn(),
-  },
-} as unknown as React.MutableRefObject<HTMLInputElement>;
 
 describe('Uploader Button', () => {
   it('exists', () => {
