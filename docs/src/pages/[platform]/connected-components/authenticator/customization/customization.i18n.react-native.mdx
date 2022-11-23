@@ -1,0 +1,47 @@
+import { Fragment } from '@/components/Fragment';
+import { Alert } from '@aws-amplify/ui-react';
+
+The `Authenticator` ships with [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) for:
+
+- `en` – English (default)
+- `zh` – Chinese
+- `nl` – Dutch
+- `fr` – French
+- `de` – German
+- `id` – Indonesian
+- `it` – Italian
+- `ja` – Japanese
+- `kr` – Korean
+- `pl` – Polish
+- `pt` – Portuguese
+- `ru` – Russian
+- `es` – Spanish
+- `sv` – Swedish
+- `tr` – Turkish
+
+These [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) can be customized using the [Amplify JS' `I18n`](https://docs.amplify.aws/lib/utilities/i18n/q/platform/js/) module:
+
+<Fragment>{({ platform }) => import(`./i18n/i18n.${platform}.mdx`)}</Fragment>
+
+The list of available keys are available [here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts).
+
+### Confirm Sign Up Page Translations
+
+The confirm sign up page has a few specialized strings that can be translated.
+These include:
+
+```js
+`Your code is on the way. To log in, enter the code we emailed to`
+
+`Your code is on the way. To log in, enter the code we texted to`
+
+`Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.`
+
+`It may take a minute to arrive.`
+```
+
+<Alert role="none" variation="info" heading="Translations Needed 📖">
+  If you see any missing translations or would like to contribute a new
+  language, we greatly appreciate contributions to translations we have
+  [here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/dictionaries).
+</Alert>

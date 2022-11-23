@@ -12,8 +12,9 @@ export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
   ref
 ) => {
   const matchTestId = getTestId(testId, 'match');
-  const startIndex =
-    children?.toLocaleLowerCase().indexOf(query?.toLocaleLowerCase()) ?? -1;
+  const startIndex = children
+    ?.toLocaleLowerCase()
+    .indexOf(query?.toLocaleLowerCase());
 
   if (strHasLength(query) && startIndex !== -1) {
     const match = children.substring(startIndex, startIndex + query.length);

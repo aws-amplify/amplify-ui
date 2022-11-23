@@ -20,7 +20,9 @@ Object {
   "toResetPassword": [Function],
   "toSignIn": [Function],
   "toSignUp": [Function],
-  "unverifiedContactMethods": Array [],
+  "unverifiedContactMethods": Object {
+    "email": "test#example.com",
+  },
   "updateBlur": [Function],
   "updateForm": [Function],
   "user": Object {},

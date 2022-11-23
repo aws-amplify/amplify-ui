@@ -1,5 +1,35 @@
 # @aws-amplify/ui-react
 
+## 4.0.3
+
+### Patch Changes
+
+- [#3071](https://github.com/aws-amplify/amplify-ui/pull/3071) [`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(theme): update types for `ThemeProvider` to accept output of `createTheme`
+
+- Updated dependencies [[`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b)]:
+  - @aws-amplify/ui@5.1.1
+  - @aws-amplify/ui-react-core@2.1.1
+
+## 4.0.2
+
+### Patch Changes
+
+- [#3033](https://github.com/aws-amplify/amplify-ui/pull/3033) [`c9f67b1b0`](https://github.com/aws-amplify/amplify-ui/commit/c9f67b1b00f70419b4d623ecb282b5452bd67e15) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(Autocomplete): remove handler to open menu on focus to fix #3030
+
+- [#3019](https://github.com/aws-amplify/amplify-ui/pull/3019) [`0ff6cbc15`](https://github.com/aws-amplify/amplify-ui/commit/0ff6cbc152486ba04384de500d97b18e5db768ba) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: update Autocomplete filter to be case insensitive
+
+- Updated dependencies [[`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1), [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf)]:
+  - @aws-amplify/ui@5.1.0
+  - @aws-amplify/ui-react-core@2.1.0
+
+## 4.0.1
+
+### Patch Changes
+
+- [#3000](https://github.com/aws-amplify/amplify-ui/pull/3000) [`72c2c5d83`](https://github.com/aws-amplify/amplify-ui/commit/72c2c5d83163c158abacf1cabcbc6a78f5e7ae02) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Updates the useDataStore hook to generate the predicates according to the new syntax.
+
+- [#2964](https://github.com/aws-amplify/amplify-ui/pull/2964) [`ee4b37b6d`](https://github.com/aws-amplify/amplify-ui/commit/ee4b37b6dfc5b8263dfdb93602d9448a0b0b4709) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Fixes an issue where the Button loading spinner is not rendered unless the `loadingText` prop is supplied.
+
 ## 4.0.0
 
 ### Major Changes

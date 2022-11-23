@@ -1,5 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Radio applies theme and custom styles 1`] = `
+<View
+  accessibilityRole="radio"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      Object {
+        "margin": 10,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderRadius": 999,
+          "borderWidth": 2,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 20,
+          "width": 20,
+        },
+        Object {
+          "borderColor": "blue",
+          "borderWidth": 2,
+        },
+      ]
+    }
+    testID="amplify__radio-button__container"
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "hsl(190, 95%, 30%)",
+            "borderRadius": 999,
+          },
+          Object {
+            "height": 12,
+            "width": 12,
+          },
+          Object {
+            "backgroundColor": "green",
+          },
+        ]
+      }
+      testID="amplify__radio-button__dot"
+    />
+  </View>
+</View>
+`;
+
 exports[`Radio renders as expected when disabled 1`] = `
 <View
   accessibilityRole="radio"
@@ -31,7 +102,7 @@ exports[`Radio renders as expected when disabled 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#317d95",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
@@ -43,15 +114,19 @@ exports[`Radio renders as expected when disabled 1`] = `
         undefined,
       ]
     }
+    testID="amplify__radio-button__container"
   />
   <Text
     accessibilityRole="text"
     style={
       Array [
         Object {
-          "fontSize": 16,
-          "marginHorizontal": 4,
-          "marginVertical": 2,
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
         },
         undefined,
       ]
@@ -92,7 +167,7 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#317d95",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
@@ -104,21 +179,23 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
         undefined,
       ]
     }
+    testID="amplify__radio-button__container"
   >
     <View
       style={
         Array [
           Object {
-            "backgroundColor": "#317d95",
+            "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
           Object {
-            "height": 20,
-            "width": 20,
+            "height": 24,
+            "width": 24,
           },
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
@@ -126,9 +203,12 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
     style={
       Array [
         Object {
-          "fontSize": 16,
-          "marginHorizontal": 4,
-          "marginVertical": 2,
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
         },
         undefined,
       ]
@@ -169,7 +249,7 @@ exports[`Radio renders as expected when selected is false 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#317d95",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
@@ -181,15 +261,19 @@ exports[`Radio renders as expected when selected is false 1`] = `
         undefined,
       ]
     }
+    testID="amplify__radio-button__container"
   />
   <Text
     accessibilityRole="text"
     style={
       Array [
         Object {
-          "fontSize": 16,
-          "marginHorizontal": 4,
-          "marginVertical": 2,
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
         },
         undefined,
       ]
@@ -230,7 +314,7 @@ exports[`Radio renders as expected when selected is true 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#317d95",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
@@ -242,21 +326,23 @@ exports[`Radio renders as expected when selected is true 1`] = `
         undefined,
       ]
     }
+    testID="amplify__radio-button__container"
   >
     <View
       style={
         Array [
           Object {
-            "backgroundColor": "#317d95",
+            "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
           Object {
-            "height": 10,
-            "width": 10,
+            "height": 12,
+            "width": 12,
           },
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
@@ -264,9 +350,12 @@ exports[`Radio renders as expected when selected is true 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 16,
-          "marginHorizontal": 4,
-          "marginVertical": 2,
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
         },
         undefined,
       ]
@@ -307,7 +396,7 @@ exports[`Radio renders as expected when size is large 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#317d95",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
@@ -319,21 +408,23 @@ exports[`Radio renders as expected when size is large 1`] = `
         undefined,
       ]
     }
+    testID="amplify__radio-button__container"
   >
     <View
       style={
         Array [
           Object {
-            "backgroundColor": "#317d95",
+            "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
           Object {
-            "height": 12,
-            "width": 12,
+            "height": 14.399999999999999,
+            "width": 14.399999999999999,
           },
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
@@ -341,9 +432,12 @@ exports[`Radio renders as expected when size is large 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 16,
-          "marginHorizontal": 4,
-          "marginVertical": 2,
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
         },
         undefined,
       ]
@@ -384,7 +478,7 @@ exports[`Radio renders as expected when size is medium 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#317d95",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
@@ -396,21 +490,23 @@ exports[`Radio renders as expected when size is medium 1`] = `
         undefined,
       ]
     }
+    testID="amplify__radio-button__container"
   >
     <View
       style={
         Array [
           Object {
-            "backgroundColor": "#317d95",
+            "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
           Object {
-            "height": 10,
-            "width": 10,
+            "height": 12,
+            "width": 12,
           },
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
@@ -418,9 +514,12 @@ exports[`Radio renders as expected when size is medium 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 16,
-          "marginHorizontal": 4,
-          "marginVertical": 2,
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
         },
         undefined,
       ]
@@ -461,7 +560,7 @@ exports[`Radio renders as expected when size is small 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#317d95",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
@@ -473,21 +572,23 @@ exports[`Radio renders as expected when size is small 1`] = `
         undefined,
       ]
     }
+    testID="amplify__radio-button__container"
   >
     <View
       style={
         Array [
           Object {
-            "backgroundColor": "#317d95",
+            "backgroundColor": "hsl(190, 95%, 30%)",
             "borderRadius": 999,
           },
           Object {
-            "height": 8,
-            "width": 8,
+            "height": 9.6,
+            "width": 9.6,
           },
           undefined,
         ]
       }
+      testID="amplify__radio-button__dot"
     />
   </View>
   <Text
@@ -495,9 +596,12 @@ exports[`Radio renders as expected when size is small 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 16,
-          "marginHorizontal": 4,
-          "marginVertical": 2,
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
         },
         undefined,
       ]
@@ -538,7 +642,7 @@ exports[`Radio renders as expected with accessibilityRole 1`] = `
       Array [
         Object {
           "alignItems": "center",
-          "borderColor": "#317d95",
+          "borderColor": "hsl(210, 8%, 55%)",
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
@@ -550,6 +654,7 @@ exports[`Radio renders as expected with accessibilityRole 1`] = `
         undefined,
       ]
     }
+    testID="amplify__radio-button__container"
   />
 </View>
 `;

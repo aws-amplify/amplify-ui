@@ -7,15 +7,12 @@ import {
 
 import * as UIModule from '@aws-amplify/ui';
 
-import { COMPONENT_ROUTE_KEYS } from '../constants';
-import { AuthenticatorRouteComponentKey } from '../types';
 import {
   areSelectorDepsEqual,
   defaultComparator,
   getComparator,
-  getLegacyFields,
+  getMachineFields,
   getTotpSecretCodeCallback,
-  isComponentRouteKey,
 } from '../utils';
 
 const setupTOTPSpy = jest.spyOn(Auth, 'setupTOTP').mockImplementation();
@@ -86,21 +83,6 @@ describe('defaultComparator', () => {
   });
 });
 
-describe('isComponentRouteKey', () => {
-  it.each(COMPONENT_ROUTE_KEYS)('returns true for a %s value', (route) => {
-    const output = isComponentRouteKey(route);
-    expect(output).toBe(true);
-  });
-
-  it('returns false for a non-component route key value', () => {
-    const output = isComponentRouteKey(
-      'route' as AuthenticatorRouteComponentKey
-    );
-
-    expect(output).toBe(false);
-  });
-});
-
 describe('getTotpSecretCodeCallback', () => {
   const user = {} as AmplifyUser;
   it('returns a getTotpSecretCode function', () => {
@@ -118,17 +100,49 @@ describe('getTotpSecretCodeCallback', () => {
   });
 });
 
-describe('getLegacyFields', () => {
+describe('getMachineFields', () => {
   const state = {} as unknown as AuthMachineState;
   it('calls getSortedFormFields when route is a valid component route', () => {
-    getLegacyFields('signIn', state);
+    getMachineFields('signIn', state, {});
 
     expect(getSortedFormFieldsSpy).toHaveBeenCalledWith('signIn', state);
   });
 
   it('returns an empty array for a non-component route', () => {
-    const output = getLegacyFields('idle', state);
+    const output = getMachineFields('idle', state, {});
 
     expect(output).toHaveLength(0);
+  });
+
+  it('returns expected values for verifyUser route', () => {
+    const output = getMachineFields('verifyUser', state, {
+      email: 'test@example.com',
+    });
+
+    expect(output).toHaveLength(1);
+    expect(output).toStrictEqual([
+      {
+        label: 'test@example.com',
+        name: 'email',
+        value: 'test@example.com',
+        type: 'radio',
+      },
+    ]);
+  });
+
+  it('returns expected values for verifyUser route when contact method is empty', () => {
+    const output = getMachineFields('verifyUser', state, {});
+
+    expect(output).toHaveLength(0);
+    expect(output).toStrictEqual([]);
+  });
+
+  it('returns expected values for verifyUser route when contact method value is invalid', () => {
+    const output = getMachineFields('verifyUser', state, {
+      phone_number: null as unknown as string,
+    });
+
+    expect(output).toHaveLength(1);
+    expect(output).toStrictEqual([{}]);
   });
 });

@@ -93,21 +93,27 @@ export const authenticatorTextUtil = {
   getChangingText: () => translate(DefaultTexts.CHANGING_PASSWORD),
   getConfirmText: () => translate(DefaultTexts.CONFIRM),
   getConfirmingText: () => translate(DefaultTexts.CONFIRMING),
-  // TODO: add 'COPY' to DefaultTexts
-  getCopyText: () => translate('COPY'),
+  getCopyText: () => translate(DefaultTexts.UPPERCASE_COPY),
+  getHidePasswordText: () => translate(DefaultTexts.HIDE_PASSWORD),
+  getLoadingText: () => translate(DefaultTexts.LOADING),
   getResendCodeText: () => translate(DefaultTexts.RESEND_CODE),
   getSendCodeText: () => translate(DefaultTexts.SEND_CODE),
   getSendingText: () => translate(DefaultTexts.SENDING),
+  getShowPasswordText: () => translate(DefaultTexts.SHOW_PASSWORD),
   getSubmitText: () => translate(DefaultTexts.SUBMIT),
   getSubmittingText: () => translate(DefaultTexts.SUBMITTING),
-  getLoadingText: () => translate(DefaultTexts.LOADING),
 
   /** SignInSignUpTabs */
   getSignInTabText: () => translate(DefaultTexts.SIGN_IN_TAB),
   getSignUpTabText: () => translate(DefaultTexts.CREATE_ACCOUNT),
 
   /** SignIn */
-  getForgotPasswordText: () => translate(DefaultTexts.FORGOT_YOUR_PASSWORD),
+  getForgotPasswordText: (shortVersion?: boolean) =>
+    translate(
+      shortVersion
+        ? DefaultTexts.FORGOT_PASSWORD
+        : DefaultTexts.FORGOT_YOUR_PASSWORD
+    ),
   getSigningInText: () => translate(DefaultTexts.SIGNING_IN_BUTTON),
   getSignInText: () => translate(DefaultTexts.SIGN_IN_BUTTON),
 
@@ -127,6 +133,11 @@ export const authenticatorTextUtil = {
 
   /** SetupTOTP */
   getSetupTOTPText: () => translate(DefaultTexts.SETUP_TOTP),
+  // TODO: add defaultText for below
+  getSetupTOTPInstructionsText: () =>
+    translate(
+      'Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.'
+    ),
   // TODO: add defaultText for "COPIED"
   getCopiedText: () => translate('COPIED'),
 

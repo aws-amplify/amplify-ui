@@ -1,0 +1,1741 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessibilityRole="radiogroup"
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "hsl(190, 95%, 30%)",
+                "borderRadius": 999,
+              },
+              Object {
+                "height": 12,
+                "width": 12,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__dot"
+        />
+      </View>
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 1
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 2
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 3
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`RadioGroup renders as expected when direction is vertical 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessibilityRole="radiogroup"
+    style={
+      Object {
+        "flexDirection": "column",
+      }
+    }
+  >
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "hsl(190, 95%, 30%)",
+                "borderRadius": 999,
+              },
+              Object {
+                "height": 12,
+                "width": 12,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__dot"
+        />
+      </View>
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 1
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 2
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 3
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`RadioGroup renders as expected when size is large 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessibilityRole="radiogroup"
+    style={
+      Object {
+        "flexDirection": "column",
+      }
+    }
+  >
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 24,
+              "width": 24,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "hsl(190, 95%, 30%)",
+                "borderRadius": 999,
+              },
+              Object {
+                "height": 14.399999999999999,
+                "width": 14.399999999999999,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__dot"
+        />
+      </View>
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 1
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 24,
+              "width": 24,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 2
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 24,
+              "width": 24,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 3
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 24,
+              "width": 24,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`RadioGroup renders as expected when size is medium 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessibilityRole="radiogroup"
+    style={
+      Object {
+        "flexDirection": "column",
+      }
+    }
+  >
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "hsl(190, 95%, 30%)",
+                "borderRadius": 999,
+              },
+              Object {
+                "height": 12,
+                "width": 12,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__dot"
+        />
+      </View>
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 1
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 2
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 3
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`RadioGroup renders as expected when size is small 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessibilityRole="radiogroup"
+    style={
+      Object {
+        "flexDirection": "column",
+      }
+    }
+  >
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "hsl(190, 95%, 30%)",
+                "borderRadius": 999,
+              },
+              Object {
+                "height": 9.6,
+                "width": 9.6,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__dot"
+        />
+      </View>
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 1
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 2
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 3
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`RadioGroup renders default RadioGroup as expected 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "flexDirection": "column-reverse",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    accessibilityRole="radiogroup"
+    style={
+      Object {
+        "flexDirection": "column",
+      }
+    }
+  >
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "hsl(190, 95%, 30%)",
+                "borderRadius": 999,
+              },
+              Object {
+                "height": 12,
+                "width": 12,
+              },
+              undefined,
+            ]
+          }
+          testID="amplify__radio-button__dot"
+        />
+      </View>
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 1
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 2
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 3
+      </Text>
+    </View>
+    <View
+      accessibilityRole="radio"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": 0.6,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "borderColor": "hsl(210, 8%, 55%)",
+              "borderRadius": 999,
+              "borderWidth": 2,
+              "justifyContent": "center",
+            },
+            Object {
+              "height": 20,
+              "width": 20,
+            },
+            undefined,
+          ]
+        }
+        testID="amplify__radio-button__container"
+      />
+      <Text
+        accessibilityRole="text"
+        style={
+          Array [
+            Object {
+              "fontSize": 14,
+              "fontWeight": "400",
+              "lineHeight": 21,
+            },
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
+            undefined,
+          ]
+        }
+      >
+        Option 4
+      </Text>
+    </View>
+  </View>
+</View>
+`;

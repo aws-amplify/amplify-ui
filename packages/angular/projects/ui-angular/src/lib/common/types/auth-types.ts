@@ -1,6 +1,11 @@
-import { DefaultFormFieldOptions, AuthMachineState } from '@aws-amplify/ui';
+import {
+  DefaultFormFieldOptions,
+  AuthenticatorServiceFacade,
+} from '@aws-amplify/ui';
 
 // maps auth attribute to its repsective labels and placeholder
 export type AttributeInfoProvider = () => DefaultFormFieldOptions;
 
-export type AuthSubscriptionCallback = (state: AuthMachineState) => void;
+export type AuthSubscriptionCallback = (
+  state: AuthenticatorServiceFacade
+) => void;

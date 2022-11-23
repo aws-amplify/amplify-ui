@@ -16,7 +16,7 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   isPending: false,
   route: 'idle',
   socialProviders: [],
-  unverifiedContactMethods: [] as UseAuthenticator['unverifiedContactMethods'],
+  unverifiedContactMethods: { email: 'test#example.com' },
   user: {} as UseAuthenticator['user'],
   validationErrors:
     undefined as unknown as UseAuthenticator['validationErrors'],
