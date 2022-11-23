@@ -3,43 +3,69 @@
 .props-table-expander {
   box-shadow: unset;
   margin-bottom: var(--amplify-space-medium);
-  & .amplify-expander__trigger {
+  margin-top: 0;
+  .amplify-expander__trigger {
     cursor: pointer;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    padding: 0;
+    color: var(--amplify-colors-font-interactive);
+    font-weight: var(--amplify-font-weights-bold);
+    &:hover {
+      color: var(--amplify-colors-font-hover);
+      background: none;
+    }
+    &[data-state='open'] {
+      .amplify-expander__icon {
+        transform: rotate(0deg);
+      }
+    }
   }
 
-  & .amplify-expander__item {
+  .amplify-expander__icon {
+    margin-inline-end: var(--amplify-space-xs);
+    transform: rotate(-90deg);
+  }
+
+  .amplify-expander__item {
     box-shadow: unset;
-    border-radius: unset;
-    border-bottom-color: var(--amplify-components-table-data-border-color);
-    border-bottom-style: var(--amplify-components-table-data-border-style);
-    border-bottom-width: var(--amplify-components-table-data-border-color);
   }
 
-  & .amplify-expander__content {
+  .amplify-expander__content {
     padding-inline: unset;
   }
 
-  & .amplify-expander__content__text {
+  .amplify-expander__content__text {
     overflow-x: auto;
     padding-block: unset;
+  }
+  .amplify-expander__header:focus-within {
+    border-radius: var(--amplify-radii-medium);
+    box-shadow: 0 0 0 2px var(--amplify-colors-border-focus) inset;
   }
 }
 
 .docs-prop-table {
   table-layout: fixed;
-  & .amplify-table__th:nth-child(1) { width: 12rem; }
-  & .amplify-table__th:nth-child(2) { width: 30%; }
-  & .amplify-table__th:nth-child(3) { width: auto; }
+  .amplify-table__th:nth-child(1) {
+    width: 12rem;
+  }
+  .amplify-table__th:nth-child(2) {
+    width: 30%;
+  }
+  .amplify-table__th:nth-child(3) {
+    width: auto;
+  }
 }
 
 @media (max-width: $breakpoint-medium) {
   .props-table-expander {
-    & .amplify-expander__content {
+    .amplify-expander__content {
       padding-inline-start: unset;
       padding-inline-end: unset;
     }
 
-    & .amplify-expander__content__text {
+    .amplify-expander__content__text {
       padding-block-start: unset;
       padding-block-end: unset;
     }

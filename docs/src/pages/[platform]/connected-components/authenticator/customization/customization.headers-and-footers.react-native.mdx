@@ -1,0 +1,30 @@
+## Authenticator Container, Header & Footer Slots
+
+The Authenticator has several "slots" that you can customize to add messaging & functionality to meet your app's needs.
+
+The Authenticator itself has the following optional slots which are rendered on each subcomponent:
+- `Container` - default `Container` wraps the `Authenticator`, has keyboard aware behavior
+- `Footer` - renders below subcomponent content, no default provided
+- `Header` - renders above subcomponent content, no default provided
+
+```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/Slots/Example.tsx
+
+```
+
+## Subcomponent Header & Footer Slots
+
+Addtionally, the subcomponents themselves have `Header` and `Footer` slots specific to a subcomponent:
+- `Footer` - renders below subcomponent buttons, above top level `Footer`, no default provided
+- `Header` - renders above subcomponent content, below top level `Header`, default renders subcomponent title
+
+```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/ComponentSlots/Example.tsx
+
+```
+
+## Subcomponent Override Slots
+
+The `Authenticator` subcomponents can be overridden allowing for advanced use cases:
+
+```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/Component/Example.tsx
+
+```

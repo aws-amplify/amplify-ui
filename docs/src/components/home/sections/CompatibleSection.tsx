@@ -46,11 +46,14 @@ export const CompatibleSection = ({ platform }) => {
             UI-less, implementations that handle complex state management and
             leave the UI up to you.
           </HomeFeatureCard>
-          <HomeFeatureCard icon={MdOutlineFlashOff} title="Styling optional">
-            Don&lsquo;t like our style? Throw it out and use your own! Amplify
-            UI components use plain CSS so you have complete control over the
-            styling.
-          </HomeFeatureCard>
+          {platform === 'react-native' ? null : (
+            <HomeFeatureCard icon={MdOutlineFlashOff} title="Styling optional">
+              Don&lsquo;t like our style? Throw it out and use your own! Amplify
+              UI components use plain CSS so you have complete control over the
+              styling.
+            </HomeFeatureCard>
+          )}
+
           <HomeFeatureCard
             icon={SiTypescript}
             title="TypeScript & IntelliSense"

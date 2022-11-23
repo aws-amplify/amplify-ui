@@ -129,6 +129,52 @@ To include an Amplify UI package as a dependency add it to the `dependencies` fi
 
 > Only internal packages within the _packages_ directory are resolved in _metro.config.js_
 
+## Adding Dependencies with Native Modules or direct React usage required by `@aws-amplify/ui-react-native`
+
+Metro needs to be informed of the location of dependencies with native modules and dependencies that use React directly. Any new dependency added to `@aws-amplify/ui-react-native` with native modules or a dependency on React will need to be added to the `config.resolver.extraNodeModules` field of the _metro.config.js_ with the path to resolve, example:
+
+```
+config.resolver.extraNodeModules = {
+  'react-native': path.resolve(__dirname, 'node_modules/react-native'),
+}
+```
+
+## Using env variables
+
+Add a local _.env_ file, then copy/paste the contents of _.env.sample_ inside, updating the values as needed:
+
+```sh
+# .env
+GREETING='Hello World!'
+```
+
+### Adding `env` variables
+
+Add your variable name to _.env_ (and _.env.sample_ if committing) and to _./types/env.d.ts_ to appease typescript:
+
+```sh
+# .env
+GREETING='Hello World!'
+MY_ENV_VARIABLE=FOO
+```
+
+```ts
+// ./types/env.d.ts
+declare module '@env' {
+  export const GREETING: string;
+  export const MY_ENV_VARIABLE: string;
+}
+```
+
+To use your newly added env variable:
+
+```ts
+// *.tsx
+import { MY_ENV_VARIABLE } from '@env';
+```
+
+If the example app is not picking up changes to the values in _.env_ close Metro and reset the cache (see troubleshooting section).
+
 ## Troubleshooting
 
 ### Cleaning the Metro Cache

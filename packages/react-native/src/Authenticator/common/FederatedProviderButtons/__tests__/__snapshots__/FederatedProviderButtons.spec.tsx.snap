@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FederatedProviderButtons renders as expected 1`] = `
+<View
+  style={
+    Object {
+      "paddingVertical": 4,
+    }
+  }
+>
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Array [
+          Object {
+            "alignItems": "center",
+            "borderRadius": 4,
+            "borderWidth": 0.5,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "paddingVertical": 8,
+            "width": "100%",
+          },
+          Object {
+            "marginVertical": 8,
+          },
+        ],
+      ]
+    }
+  >
+    <Image
+      accessibilityRole="image"
+      source={
+        Object {
+          "testUri": "../../../src/assets/icons/amazonLogo.png",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "height": 20,
+            "resizeMode": "contain",
+            "tintColor": undefined,
+            "width": 20,
+          },
+          Object {
+            "paddingHorizontal": 16,
+          },
+        ]
+      }
+    />
+    <Text
+      accessibilityRole="text"
+      style={
+        Array [
+          Object {
+            "fontSize": 14,
+            "fontWeight": "400",
+            "lineHeight": 21,
+          },
+          Object {
+            "color": "hsl(210, 50%, 10%)",
+          },
+          Array [
+            Object {
+              "fontWeight": "400",
+            },
+            undefined,
+          ],
+        ]
+      }
+    >
+      Sign In with Amazon
+    </Text>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "hsl(0, 0%, 0%)",
+            "flex": 1,
+            "height": 0.5,
+          },
+          undefined,
+        ]
+      }
+      testID="amplify__divider__line"
+    />
+    <Text
+      accessibilityRole="text"
+      style={
+        Array [
+          Object {
+            "fontSize": 14,
+            "fontWeight": "400",
+            "lineHeight": 21,
+          },
+          Object {
+            "color": "hsl(210, 50%, 10%)",
+          },
+          Array [
+            Object {
+              "fontSize": 16,
+              "margin": 16,
+              "textAlign": "center",
+            },
+            Object {
+              "paddingVertical": 8,
+              "textAlign": "center",
+            },
+          ],
+        ]
+      }
+    >
+      Or
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "hsl(0, 0%, 0%)",
+            "flex": 1,
+            "height": 0.5,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
+</View>
+`;

@@ -1,21 +1,19 @@
 import {
-  ModelPredicate,
   PersistentModel,
-  ProducerModelPredicate,
+  RecursiveModelPredicateExtender,
+  RecursiveModelPredicate,
+  RecursiveModelPredicateAggregateExtender,
 } from '@aws-amplify/datastore';
 import { DataStorePredicateObject } from '../types/datastore';
-import { isFunction } from './utils';
 
 /**
  * Given an array of predicates, compose them in sequential order
  */
 const mergePredicates = <Model extends PersistentModel>(
-  predicates: ProducerModelPredicate<Model>[]
-): ProducerModelPredicate<Model> =>
-  predicates.reduce(
-    (previous, current) => (predicate) => current(previous(predicate)),
-    (predicate) => predicate
-  );
+  predicates: RecursiveModelPredicateExtender<Model>[]
+): RecursiveModelPredicateAggregateExtender<Model> => {
+  return (model) => predicates.map((predicate) => predicate(model));
+};
 
 /**
  * Creates a DataStore compatible predicate function from an object representation
@@ -23,7 +21,7 @@ const mergePredicates = <Model extends PersistentModel>(
  */
 export const createDataStorePredicate = <Model extends PersistentModel>(
   predicateObject: DataStorePredicateObject
-): ProducerModelPredicate<Model> => {
+): RecursiveModelPredicateExtender<Model> => {
   const {
     and: groupAnd,
     or: groupOr,
@@ -37,24 +35,26 @@ export const createDataStorePredicate = <Model extends PersistentModel>(
       createDataStorePredicate<Model>(condition)
     );
 
-    return (p: ModelPredicate<Model>) => p.and(mergePredicates(predicates));
-  } else if (Array.isArray(groupOr)) {
+    return (p: RecursiveModelPredicate<Model>) =>
+      p.and(mergePredicates(predicates));
+  }
+
+  if (Array.isArray(groupOr)) {
     const predicates = groupOr.map((condition) =>
       createDataStorePredicate<Model>(condition)
     );
 
-    return (p: ModelPredicate<Model>) => p.or(mergePredicates(predicates));
+    return (p: RecursiveModelPredicate<Model>) =>
+      p.or(mergePredicates(predicates));
   }
 
-  return (predicate: ModelPredicate<Model>) => {
-    if (isFunction(predicate[field])) {
-      return predicate[field].call(
-        predicate,
-        operator,
+  return (p: RecursiveModelPredicate<Model>) => {
+    if (p?.[field]?.[operator]) {
+      return (p[field][operator] as Function)(
         operand
-      ) as typeof predicate;
+      ) as RecursiveModelPredicate<Model>;
     }
 
-    return predicate;
+    return p;
   };
 };

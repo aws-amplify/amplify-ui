@@ -9,11 +9,12 @@
 
 .amplify-autocomplete {
   position: relative;
+  display: block;
 }
 
 .amplify-autocomplete__menu {
   position: absolute;
-  z-index: 99;
+  z-index: 999999;
 
   width: var(--amplify-components-autocomplete-menu-width);
   margin-block-start: var(

@@ -24,7 +24,7 @@ export const FRAMEWORK_DISPLAY_NAMES: Record<Framework, string> = {
 
 // React Native requires direct installation of dependencies with native modules
 export const REACT_NATIVE_DEPENDENCIES =
-  'react-native-safe-area-context @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill';
+  'react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill';
 
 export const FRAMEWORK_INSTALL_SCRIPTS = {
   react: 'npm i @aws-amplify/ui-react aws-amplify',

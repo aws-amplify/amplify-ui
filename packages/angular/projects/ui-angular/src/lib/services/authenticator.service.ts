@@ -6,8 +6,7 @@ import {
   AuthInterpreter,
   AuthMachineState,
   createAuthenticatorMachine,
-  getSendEventAliases,
-  getServiceContextFacade,
+  getServiceFacade,
 } from '@aws-amplify/ui';
 import { Event, interpret, Subscription } from 'xstate';
 import { AuthSubscriptionCallback } from '../common';
@@ -24,9 +23,8 @@ const logger = new Logger('state-machine');
 export class AuthenticatorService implements OnDestroy {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
-  private _sendEventAliases: ReturnType<typeof getSendEventAliases>;
   private _machineSubscription: Subscription;
-  private _facade: ReturnType<typeof getServiceContextFacade>;
+  private _facade: ReturnType<typeof getServiceFacade>;
 
   constructor() {
     const machine = createAuthenticatorMachine();
@@ -34,11 +32,14 @@ export class AuthenticatorService implements OnDestroy {
     const authService = interpret(machine).start();
 
     this._machineSubscription = authService.subscribe((state: unknown) => {
-      this._authState = state as AuthMachineState;
-      this._facade = getServiceContextFacade(state as AuthMachineState);
+      const newState = state as AuthMachineState;
+      this._authState = newState;
+      this._facade = getServiceFacade({
+        send: authService.send,
+        state: newState,
+      });
     });
 
-    this._sendEventAliases = getSendEventAliases(authService.send);
     this._authService = authService;
   }
 
@@ -87,27 +88,27 @@ export class AuthenticatorService implements OnDestroy {
    */
 
   public get initializeMachine() {
-    return this._sendEventAliases.initializeMachine;
+    return this._facade.initializeMachine;
   }
 
   public get updateForm() {
-    return this._sendEventAliases.updateForm;
+    return this._facade.updateForm;
   }
 
   public get updateBlur() {
-    return this._sendEventAliases.updateBlur;
+    return this._facade.updateBlur;
   }
 
   public get resendCode() {
-    return this._sendEventAliases.resendCode;
+    return this._facade.resendCode;
   }
 
   public get signOut() {
-    return this._sendEventAliases.signOut;
+    return this._facade.signOut;
   }
 
   public get submitForm() {
-    return this._sendEventAliases.submitForm;
+    return this._facade.submitForm;
   }
 
   /**
@@ -115,23 +116,23 @@ export class AuthenticatorService implements OnDestroy {
    */
 
   public get toFederatedSignIn() {
-    return this._sendEventAliases.toFederatedSignIn;
+    return this._facade.toFederatedSignIn;
   }
 
   public get toResetPassword() {
-    return this._sendEventAliases.toResetPassword;
+    return this._facade.toResetPassword;
   }
 
   public get toSignIn() {
-    return this._sendEventAliases.toSignIn;
+    return this._facade.toSignIn;
   }
 
   public get toSignUp() {
-    return this._sendEventAliases.toSignUp;
+    return this._facade.toSignUp;
   }
 
   public get skipVerification() {
-    return this._sendEventAliases.skipVerification;
+    return this._facade.skipVerification;
   }
 
   /**
@@ -155,26 +156,23 @@ export class AuthenticatorService implements OnDestroy {
 
   /** @deprecated For internal use only */
   public get slotContext() {
-    const slotContext = {
-      ...this._facade,
-      ...this._sendEventAliases,
-    };
-
     return {
-      ...slotContext,
-      $implicit: { ...slotContext },
+      ...this._facade,
+      $implicit: this._facade,
     };
   }
 
-  /** @deprecated For internal use only */
-  public subscribe(callback: AuthSubscriptionCallback) {
-    if (this._authService) {
-      return this._authService.subscribe(callback);
-    } else {
+  public subscribe(callback: AuthSubscriptionCallback): Subscription {
+    if (!this._authService) {
       logger.error(
         'Subscription attempted before machine was created. This is likely a bug on the library, please consider filing a bug.'
       );
     }
+
+    const subscription = this._authService.subscribe(() => {
+      callback(this._facade);
+    });
+    return subscription;
   }
 
   /** @deprecated For internal use only */

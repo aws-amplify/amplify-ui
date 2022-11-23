@@ -30,7 +30,7 @@ export type AuthenticatorLegacyFields = LegacyFormFieldOptions[];
  * Selector accepts current facade values and returns an array of
  * desired value(s) that should trigger re-render.
  */
-export type Selector = (
+export type UseAuthenticatorSelector = (
   context: AuthenticatorMachineContext
 ) => AuthenticatorMachineContext[AuthenticatorMachineContextKey][];
 
@@ -42,6 +42,6 @@ export interface UseAuthenticator extends AuthenticatorServiceFacade {
 }
 
 export type Comparator = (
-  currentFacade: AuthenticatorServiceFacade,
-  nextFacade: AuthenticatorServiceFacade
+  currentMachineContext: AuthenticatorMachineContext,
+  nextMachineContext: AuthenticatorMachineContext
 ) => boolean;

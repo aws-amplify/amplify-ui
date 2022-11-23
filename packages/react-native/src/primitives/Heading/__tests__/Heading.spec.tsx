@@ -1,36 +1,73 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { render, renderHook } from '@testing-library/react-native';
+
+import { useTheme } from '../../../theme';
 import Heading from '../Heading';
 import { HeadingProps } from '../types';
+import { getThemedStyles } from '../styles';
 
-const title = 'Test Heading';
 const levels: HeadingProps['level'][] = [1, 2, 3, 4, 5, 6];
 
 describe('Heading', () => {
   it('renders a level 6 Heading by default', () => {
-    const defaultHeading = TestRenderer.create(<Heading>{title}</Heading>);
-    const headingLevel6 = TestRenderer.create(
-      <Heading level={6}>{title}</Heading>
-    );
+    const title = 'Test Heading';
 
-    expect(defaultHeading.toJSON()).toEqual(headingLevel6.toJSON());
+    const { toJSON, getByText } = render(<Heading>{title}</Heading>);
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    const heading = getByText(title);
+
+    expect(heading.props.style).toStrictEqual([
+      themedStyle.text,
+      themedStyle[6],
+      undefined,
+    ]);
+
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it.each(levels)('renders a level %i Heading as expected', (level) => {
-    const heading = TestRenderer.create(
-      <Heading level={level}>{`Heading level ${level}`}</Heading>
+    const title = `Heading level ${level}`;
+
+    const { toJSON, getByText } = render(
+      <Heading level={level}>{title}</Heading>
     );
-    expect(heading.toJSON()).toMatchSnapshot();
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    const heading = getByText(title);
+
+    expect(heading.props.style).toStrictEqual([
+      themedStyle.text,
+      themedStyle[level ?? 6],
+      undefined,
+    ]);
+
+    expect(toJSON()).toMatchSnapshot();
   });
 
-  it('applies style props', () => {
+  it('applies theme and style props', () => {
     const customStyle = { color: 'red' };
+    const title = 'Styled Heading';
 
-    const styledHeading = TestRenderer.create(
+    const { toJSON, getByText } = render(
       <Heading style={customStyle}>{title}</Heading>
     );
 
-    expect(styledHeading.toJSON()).toMatchSnapshot();
-    expect(styledHeading.root.props.style).toBe(customStyle);
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    const heading = getByText(title);
+
+    expect(heading.props.style).toStrictEqual([
+      themedStyle.text,
+      themedStyle[6],
+      customStyle,
+    ]);
+
+    expect(toJSON()).toMatchSnapshot();
   });
 });

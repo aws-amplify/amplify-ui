@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Pressable, ViewStyle } from 'react-native';
 
-import { icons } from '../../assets';
-import { styles } from './styles';
-import { Label } from '../Label';
 import { CheckboxProps } from './types';
-import { getFlexDirectionFromLabelPosition } from '../Label/utils';
 import { Icon } from '../Icon';
+import { Label } from '../Label';
+import { getThemedStyles } from './styles';
+import { icons } from '../../assets';
+import { useTheme } from '../../theme';
 
 export default function Checkbox<T>({
   accessibilityRole = 'checkbox',
@@ -23,6 +23,8 @@ export default function Checkbox<T>({
   ...rest
 }: CheckboxProps<T>): JSX.Element {
   const [checked, setChecked] = useState(selected ?? false);
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme, labelPosition);
 
   const handleOnChange = useCallback(() => {
     onChange?.(value);
@@ -31,11 +33,10 @@ export default function Checkbox<T>({
 
   const containerStyle: ViewStyle = useMemo(
     () => ({
-      ...styles.container,
-      flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
-      opacity: disabled ? 0.6 : 1,
+      ...themedStyle.container,
+      ...(disabled && themedStyle.disabled),
     }),
-    [disabled, labelPosition]
+    [disabled, themedStyle]
   );
 
   return (

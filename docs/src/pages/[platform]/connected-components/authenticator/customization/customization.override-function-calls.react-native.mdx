@@ -1,0 +1,64 @@
+import { Fragment } from '@/components/Fragment';
+import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
+import { TableCell, TableBody, TableHead, TableRow, Alert } from '@aws-amplify/ui-react';
+
+## Override Function Calls
+
+You can override the call to `signUp`, `signIn`, `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
+To override a call you must create a new `services` object with an `async` `handle*` function that returns an `aws-amplify` `Auth.*` promise.
+
+The service object must then be passed into the `authenticator` component as a `services` prop. For example, let's imagine you'd like to lowercase the `username` and the `email` attributes during `signUp`.
+This would be overriden like so:
+
+<Alert role="none" variation="warning" heading="Sign Up Auto Sign In">
+  When overriding `signUp` you must include the `autoSignIn` key and set `enabled` to true, as show in the example below.
+</Alert>
+
+<Fragment>
+  {({ platform }) => import(`./overrides/username.${platform}.mdx`)}
+</Fragment>
+
+
+
+Each `handle*` function will return the neccessary values you'll need to make the call to the `Auth.*` function call. Here is a table of each override function name, and the values returned from `formData`.
+<ResponsiveTable labelWidth="10rem">
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Function Call</TableCell>
+      <TableCell as="th">Override Name</TableCell>
+      <TableCell as="th">formData Properties</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <ResponsiveTableCell label="Function Call">`Auth.signUp`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Override Name">`handleSignUp`</ResponsiveTableCell>
+      <ResponsiveTableCell label="formData Properties">`{username, password, attributes }`</ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Function Call">`Auth.signIn`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Override Name">`handleSignIn` </ResponsiveTableCell>
+      <ResponsiveTableCell label="formData Properties">`{username, password}`</ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Function Call">`Auth.confirmSignIn`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Override Name">`handleConfirmSignIn`</ResponsiveTableCell>
+      <ResponsiveTableCell label="formData Properties">`{user, code, mfaType}`</ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Function Call">`Auth.confirmSignUp`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Override Name">`handleConfirmSignUp`</ResponsiveTableCell>
+      <ResponsiveTableCell label="formData Properties">`{username, code}`</ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Function Call">`Auth.forgotPassword`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Override Name">`handleForgotPassword`</ResponsiveTableCell>
+      <ResponsiveTableCell label="formData Properties">`{username}`</ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Function Call">`Auth.forgotPasswordSubmit`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Override Name">`handleForgotPasswordSubmit`</ResponsiveTableCell>
+      <ResponsiveTableCell label="formData Properties">`{username, code, password}`</ResponsiveTableCell>
+    </TableRow>
+  </TableBody>
+</ResponsiveTable>

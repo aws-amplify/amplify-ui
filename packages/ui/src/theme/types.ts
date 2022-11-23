@@ -1,5 +1,5 @@
 import { PartialDeep } from 'type-fest';
-import { Tokens, WebTokens } from './tokens';
+import { DefaultTokens, Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
 
 export * from './tokens/types/designToken';
@@ -100,7 +100,7 @@ export interface Theme {
    * multiple themes on a page.
    */
   name: string;
-  tokens?: PartialDeep<Tokens>;
+  tokens?: Tokens;
   breakpoints?: PartialDeep<Breakpoints>;
   /**
    * Overrides allow you to change design tokens in different contexts, like
@@ -112,12 +112,11 @@ export interface Theme {
 }
 
 /**
- * A BaseTheme has all tokens and breakpoints required
+ * A DefaultTheme has all tokens and breakpoints required
  */
-export interface BaseTheme extends Theme {
-  tokens: Tokens;
+export interface DefaultTheme extends Pick<Theme, 'name' | 'overrides'> {
+  tokens: DefaultTokens;
   breakpoints: Breakpoints;
-  overrides?: Array<Override>;
 }
 
 /**
@@ -125,7 +124,10 @@ export interface BaseTheme extends Theme {
  * on the design tokens and all design tokens have added fields
  * to be used in Javascript/Typescript.
  */
-export interface WebTheme extends BaseTheme {
-  tokens: WebTokens;
+export interface WebTheme
+  extends Pick<Theme, 'breakpoints' | 'name' | 'overrides'> {
   cssText: string;
+  // property `components` is not specified on `WebTokens`,
+  // but is a required token property of `WebTheme`
+  tokens: WebTokens;
 }

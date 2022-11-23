@@ -55,10 +55,10 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       type={type}
       {...rest}
     >
-      {isLoading && loadingText ? (
+      {isLoading ? (
         <Flex as="span" className={ComponentClassNames.ButtonLoaderWrapper}>
           <Loader size={size} />
-          {loadingText}
+          {loadingText ? loadingText : null}
         </Flex>
       ) : (
         children

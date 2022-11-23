@@ -1,20 +1,17 @@
 import {
-  DesignToken,
-  WebDesignToken,
+  DesignTokenValues,
   LineHeightValue,
+  OutputVariantKey,
 } from './types/designToken';
 
-export type LineHeights = {
-  small: DesignToken<LineHeightValue>;
-  medium: DesignToken<LineHeightValue>;
-  large: DesignToken<LineHeightValue>;
-};
+type LineHeightSize = 'small' | 'medium' | 'large';
 
-export type WebLineHeights = {
-  [Property in keyof LineHeights]: WebDesignToken<LineHeightValue>;
-};
+export type LineHeights<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = DesignTokenValues<LineHeightSize, LineHeightValue, Output, Platform>;
 
-export const lineHeights: LineHeights = {
+export const lineHeights: LineHeights<'default'> = {
   small: { value: '1.25' },
   medium: { value: '1.5' },
   large: { value: '2' },
