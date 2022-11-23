@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { UploadTask, Storage } from '@aws-amplify/storage';
 import { translate, uploadFile } from '@aws-amplify/ui';
-import { FileState, FileStatus, FileUploaderProps } from './types';
+import { FileState, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
 import { ComponentClassNames, Text } from '../../../primitives';
 import { UploadButton } from './UploadButton';
@@ -295,36 +295,37 @@ export function FileUploader({
     [acceptedFileTypes, fileStatuses, setFileStatuses]
   );
 
-  const updateEditStatus = useCallback(
-    (index: number, isCancelEdit: boolean): FileStatus[] => {
-      const newFileStatuses = [...fileStatuses];
-      const status = fileStatuses[index];
-      newFileStatuses[index] = {
-        ...status,
-        fileState: isCancelEdit ? null : 'editing',
-      };
-
-      return newFileStatuses;
+  const updateFileState = useCallback(
+    (index: number, fileState: FileState) => {
+      setFileStatuses((prevFileStatuses) => {
+        const newFileStatuses = [...prevFileStatuses];
+        const status = newFileStatuses[index];
+        newFileStatuses[index] = {
+          ...status,
+          fileState: fileState,
+        };
+        return newFileStatuses;
+      });
     },
-    [fileStatuses]
+    [setFileStatuses]
   );
 
   const onCancelEdit = useCallback(
     (index: number) => {
       return () => {
-        setFileStatuses(updateEditStatus(index, true));
+        updateFileState(index, null);
       };
     },
-    [setFileStatuses, updateEditStatus]
+    [updateFileState]
   );
 
   const onStartEdit = useCallback(
     (index: number) => {
       return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        setFileStatuses(updateEditStatus(index, false));
+        updateFileState(index, 'editing');
       };
     },
-    [setFileStatuses, updateEditStatus]
+    [updateFileState]
   );
 
   useEffect(() => {

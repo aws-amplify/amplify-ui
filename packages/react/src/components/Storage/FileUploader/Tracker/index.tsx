@@ -49,7 +49,7 @@ export function Tracker({
   const { size } = file;
 
   const icon = hasImage ? <Image alt={file.name} src={url} /> : <IconFile />;
-  const isDeterminate = !isResumable || (isResumable && percentage > 0);
+  const isDeterminate = isResumable ? percentage > 0 : true;
 
   const showEditButton = fileState === null || fileState === 'error';
 
