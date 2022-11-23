@@ -4,6 +4,27 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as UIModule from '@aws-amplify/ui';
 
 import ChangePassword from '../ChangePassword';
+import { Button } from '../../../../primitives';
+import { ChangePasswordComponents } from '../types';
+
+const components: ChangePasswordComponents = {
+  CurrentPassword: (props) => (
+    <ChangePassword.CurrentPassword
+      {...props}
+      label="Custom Current Password"
+    />
+  ),
+  NewPassword: (props) => (
+    <ChangePassword.NewPassword {...props} label="Custom New Password" />
+  ),
+  ConfirmPassword: (props) => (
+    <ChangePassword.ConfirmPassword
+      {...props}
+      label="Custom Confirm Password"
+    />
+  ),
+  SubmitButton: (props) => <Button {...props}>Custom Submit Button</Button>,
+};
 
 const user = {} as unknown as UIModule.AmplifyUser;
 jest.mock('../../../../internal', () => ({
@@ -232,5 +253,61 @@ describe('ChangePassword', () => {
     expect(minLengthError).toBeDefined();
     expect(specialCharError).toBeDefined();
     expect(submitButton).toHaveAttribute('disabled');
+  });
+
+  it('renders as expected with component overrides', async () => {
+    const { container } = render(<ChangePassword components={components} />);
+    expect(container).toMatchSnapshot();
+  });
+
+  it('onSuccess is called with component overrides after successful password change', async () => {
+    changePasswordSpy.mockResolvedValue();
+
+    const onSuccess = jest.fn();
+    render(<ChangePassword components={components} onSuccess={onSuccess} />);
+
+    const submitButton = await screen.findByRole('button', {
+      name: 'Custom Submit Button',
+    });
+    fireEvent.submit(submitButton);
+
+    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+  });
+
+  it('calls changePassword with expected arguments and component overrides', async () => {
+    changePasswordSpy.mockResolvedValue();
+
+    render(<ChangePassword components={components} />);
+
+    const currentPassword = await screen.findByLabelText(
+      'Custom Current Password'
+    );
+    const newPassword = await screen.findByLabelText('Custom New Password');
+    const confirmPassword = await screen.findByLabelText(
+      'Custom Confirm Password'
+    );
+    const submitButton = await screen.findByRole('button', {
+      name: 'Custom Submit Button',
+    });
+
+    fireEvent.input(currentPassword, {
+      target: { name: 'currentPassword', value: 'oldpassword' },
+    });
+
+    fireEvent.input(newPassword, {
+      target: { name: 'newPassword', value: 'newpassword' },
+    });
+
+    fireEvent.input(confirmPassword, {
+      target: { name: 'confirmPassword', value: 'newpassword' },
+    });
+
+    fireEvent.submit(submitButton);
+
+    expect(changePasswordSpy).toBeCalledWith({
+      user,
+      currentPassword: 'oldpassword',
+      newPassword: 'newpassword',
+    });
   });
 });
