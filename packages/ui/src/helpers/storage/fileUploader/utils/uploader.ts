@@ -101,3 +101,11 @@ export const returnAcceptedFiles = (
     });
   });
 };
+export const isValidExtension = (
+  fileName: string,
+  fileName2: string
+): boolean => {
+  const extension = fileName.split('.').pop();
+  const fileExtension = fileName2.split('.').pop();
+  return fileExtension === extension;
+};

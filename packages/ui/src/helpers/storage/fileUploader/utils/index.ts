@@ -3,4 +3,5 @@ export {
   humanFileSize,
   checkMaxSize,
   returnAcceptedFiles,
+  isValidExtension,
 } from './uploader';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { UploadTask, Storage } from '@aws-amplify/storage';
-import { translate, uploadFile } from '@aws-amplify/ui';
+import { translate, uploadFile, isValidExtension } from '@aws-amplify/ui';
 import { FileState, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
 import { ComponentClassNames, Text } from '../../../primitives';
@@ -270,12 +270,6 @@ export function FileUploader({
   );
 
   // Tracker methods
-
-  const isValidExtension = (fileName: string, fileName2: string): boolean => {
-    const extension = fileName.split('.').pop();
-    const fileExtension = fileName2.split('.').pop();
-    return fileExtension === extension;
-  };
 
   const onSaveEdit = useCallback(
     (index: number) => {
