@@ -34,23 +34,15 @@ const ref = {
 } as unknown as React.MutableRefObject<HTMLInputElement>;
 
 const commonProps = {
+  aggregatePercentage: 0,
   acceptedFileTypes: ['.png'],
+  dropZone: <></>,
   fileStatuses: fileStatuses,
-  inDropZone: false,
-  isEditingName: [],
   isLoading: false,
   isSuccessful: false,
   hasMaxFilesError: false,
-  hasMultipleFiles: true,
   onClear: () => null,
-  onDragEnter: () => null,
-  onDragLeave: () => null,
-  onDragOver: () => null,
-  onDragStart: () => null,
-  onDrop: () => null,
-  onFileChange: () => null,
   onFileClick: () => null,
-  aggregatePercentage: 0,
 };
 
 describe('Previewer', () => {

@@ -11,7 +11,6 @@ exports[`Tracker exists 1`] = `
       <img
         alt="hello.png"
         class="amplify-image"
-        src=""
       />
     </div>
     <div

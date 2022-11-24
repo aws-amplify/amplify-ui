@@ -23,6 +23,11 @@ exports[`UploaderDrop exists 1`] = `
         />
       </svg>
     </span>
+    <p
+      class="amplify-text amplify-fileuploader__dropzone__text"
+    >
+      Drop files here or
+    </p>
   </div>
 </div>
 `;
