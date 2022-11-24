@@ -1,3 +1,84 @@
-## Change Password
+### Props
 
-TODO
+### Basic Usage
+
+`ChangePassword` has `onSuccess` handler that will be called after successful password change. You may use this callback to run any custom handling, such as navigating route or rendering confirmation messages.
+
+```jsx
+import React from 'react';
+import { ChangePassword } from '@aws-amplify/ui-react';
+
+function App() {
+  const handleSuccess = () => {
+    alert('password is successfully changed!')
+  }
+  
+  return (
+    <ChangePassword onSuccess={handleSuccess}/>
+  );
+}
+```
+
+### Custom Validation
+
+You can override the default custom password validator with your own. To do so, you can use the validators prop, which takes an array of ValidatorOptions, which is of type:
+
+```ts
+interface ValidatorOptions {
+  validationMode: 'onBlur' | 'onChange' | 'onTouched';
+  validator: (value: string) => boolean;
+  message: string;
+}
+```
+
+- `onBlur` validates password on every blur event
+- `onChange` validates password on every change event
+- `onTouched` validates password on first blur, and on every change event after the first blur.
+
+For example, following is a minLength validator that validates on every change:
+
+```js
+const minLength = {
+  validationMode: 'onChange',
+  validator: (password) => password.length >= 4,
+  message: 'Password must have length 4 or greater',
+};
+```
+
+You can pass multiple validators to ConfirmPassword to override the default validator:
+
+```jsx
+import React from 'react';
+import { ChangePassword } from '@aws-amplify/ui-react';
+
+function App() {
+  const minLength = {
+    validationMode: 'onChange',
+    validator: (password) => password.length >= 4,
+    message: 'Password must have length 4 or greater',
+  };
+  
+  const handleSuccess = () => {
+    alert('password is successfully changed!')
+  }
+  
+  return (
+    <ChangePassword onSuccess={handleSuccess} validators={[minLength]}/>
+  );
+}
+```
+
+### Component Overrides
+
+You can provide your own UI components to override parts of `ChangePassword`. It supports the following slots:
+
+#### `NewPassword`
+
+Password field for current ("old") password. 
+
+Props:
+
+
+
+
+
