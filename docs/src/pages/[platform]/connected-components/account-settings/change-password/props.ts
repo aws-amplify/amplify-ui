@@ -39,6 +39,11 @@ export const OVERRIDES = [
     type: `PasswordFieldProps`,
   },
   {
+    name: `Error?`,
+    description: 'Error alert that displays on delete user errors',
+    type: `ErrorComponentProps`,
+  },
+  {
     name: `SubmitButton?`,
     description: 'Submit button',
     type: `SubmitButtonProps`,
