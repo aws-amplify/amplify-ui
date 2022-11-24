@@ -9,7 +9,7 @@ export const DeveloperPreview = () => {
 
   return (
     <Alert variation="info" heading="Developer Preview">
-      Account Settings component is currently in developer preview.
+      Account Settings components are currently in developer preview.
     </Alert>
   );
 };
