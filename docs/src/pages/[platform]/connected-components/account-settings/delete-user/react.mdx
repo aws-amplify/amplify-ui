@@ -1,2 +1,163 @@
-## Delete User
-TODO
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { DELETE_USER, OVERRIDES, WARNING } from './props';
+
+### Props
+
+<ReactPropsTable props={DELETE_USER} />
+
+### Basic Usage
+
+`DeleteUser` has `onSuccess` handler that will be called after successful user account deletion. You may use this callback to run any custom handling, such as navigating route or rendering confirmation messages.
+
+```jsx
+import React from 'react';
+import { DeleteUser } from '@aws-amplify/ui-react';
+
+function App() {
+  const handleSuccess = () => {
+    alert('password is successfully changed!')
+  }
+  
+  return (
+    <DeleteUser onSuccess={handleSuccess}/>
+  );
+}
+```
+
+
+### Override default delete handler
+You can override the default deleteUser handler with handleDelete prop to add any custom cleanup handlers before or after account deletion.
+
+```jsx
+import React from 'react';
+
+import { Auth } from 'aws-amplify';
+import { DeleteUser } from '@aws-amplify/ui-react';
+
+function App() {
+  const handleSuccess = () => {
+    alert('password is successfully changed!')
+  }
+
+  const handleDelete = async () => {
+    console.log("Doing some clean up...");
+    console.log("Done!");
+    await Auth.deleteUser();
+  };  
+      
+  return (
+    <DeleteUser onSuccess={handleSuccess}/>
+  );
+}
+```
+
+### Component Overrides
+
+You can provide your own UI components to override parts of `DeleteUser`. It supports the following slots:
+
+<ReactPropsTable props={OVERRIDES} />
+
+
+
+#### Reusing default components
+
+Default components are accessible through `DeleteUser.COMPONENT_NAME` (e.g. `DeleteUser.NewPassword`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
+
+```jsx
+function App() {
+  const components = {
+    // reuse default component
+    SubmitButton: (props) => (
+      <DeleteUser.SubmitButton>Custom Submit Button</DeleteUser.SubmitButton>
+    ),
+  }
+
+  return (
+    <DeleteUser components={components} />
+  );
+}
+```
+
+#### Using your own component
+
+You can also provide your own custom to override components. 
+
+```jsx
+function App() {
+  const components = {
+    // use your own component
+    SubmitButton: (props) => (
+      <button {...props} type="submit">
+        Custom Button Text
+      </button>
+    )
+  };
+  
+  return (
+    <DeleteUser components={components} />
+  );
+}
+```
+
+Note that spreading props is necessary so that event listeners like `onChange`` or html attributes like `name`` are attached correctly. If you're providing your own custom components, make sure props are spread onto your component.
+
+#### Overriding warning component
+Warning component requires the following props:
+
+<ReactPropsTable props={WARNING} />
+
+The following example overrides the warning component to require users to type "delete" before they can delete their account.
+
+```jsx
+import React from 'react';
+import { 
+  Button,
+  DeleteUser,  
+  Flex,
+  Text,
+  TextField,
+} from '@aws-amplify/ui-react';
+
+function CustomWarning({onCancel, onConfirm, isDisabled}) {
+  const [value, setValue] = React.useState('');
+  
+  const handleChange = (event) => {
+    event.preventDefault();
+
+    const { value } = event.target;
+    setValue(value);
+  }
+
+  return (
+    <form onSubmit={onSubmit}>
+      <Flex direction="column">
+        <Text variation="warning">
+          Deleting your account is not reversable. Please type "delete" below if you want to confirm user deletion.
+        </Text>
+        <TextField 
+          label="Confirm Delete"
+          onChange={handleChange}
+          value={value}
+        />
+        <Button onClick={onCancel}>Back</Button>
+        <Button 
+          type="submit" 
+          isDisabled={isDisabled || value !== 'delete'}
+        > 
+          Submit
+        </Button>
+      </Flex>
+    </form>
+  )
+}
+
+function App() {
+  const components = {
+    SubmitButton: CustomWarning
+  };
+  
+  return (
+    <DeleteUser components={components} />
+  );
+}
+```
