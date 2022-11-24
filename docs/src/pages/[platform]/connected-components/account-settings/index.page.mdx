@@ -1,0 +1,24 @@
+---
+title: Account Settings
+description: Amplify UI provides account settings components to manage account settings.
+supportedFrameworks: all
+---
+
+import { Fragment } from '@/components/Fragment';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+## Account Settings
+
+TODO
+

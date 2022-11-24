@@ -132,7 +132,6 @@ export const connectedComponents: ComponentNavItem[] = [
     href: '/connected-components/account-settings',
     label: 'Account Settings',
     platforms: ['react'],
-    tertiary: true,
   },
   {
     href: '/connected-components/account-settings/change-password',
