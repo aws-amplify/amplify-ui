@@ -3,8 +3,11 @@ import { UploadTask, Storage } from '@aws-amplify/storage';
 import { translate, uploadFile } from '@aws-amplify/ui';
 import { FileState, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
-import { ComponentClassNames, VisuallyHidden } from '../../../primitives';
-import { UploadButton } from './UploadButton';
+import {
+  Button,
+  ComponentClassNames,
+  VisuallyHidden,
+} from '../../../primitives';
 import { Previewer } from './Previewer';
 import { UploadDropZone } from './UploadDropZone';
 import { Tracker } from './Tracker';
@@ -33,7 +36,7 @@ export function FileUploader({
 }: FileUploaderProps): JSX.Element {
   const {
     UploadDropZone = FileUploader.UploadDropZone,
-    UploadButton = FileUploader.UploadButton,
+    UploadButton = Button,
     Previewer = FileUploader.Previewer,
     Tracker = FileUploader.Tracker,
   } = components ?? {};
@@ -329,13 +332,17 @@ export function FileUploader({
     () => (
       <>
         <UploadButton
+          className={ComponentClassNames.FileUploaderDropZoneButton}
+          isDisabled={isLoading}
           onClick={() => {
             hiddenInput.current.click();
             hiddenInput.current.value = null;
           }}
-          isDisabled={isLoading}
-          className={ComponentClassNames.FileUploaderDropZoneButton}
-        />
+          size="small"
+          variation="primary"
+        >
+          {translate('Browse files')}
+        </UploadButton>
         <VisuallyHidden>
           <input
             type="file"
@@ -348,7 +355,7 @@ export function FileUploader({
         </VisuallyHidden>
       </>
     ),
-    [accept, hasMultipleFiles, onFileChange, UploadButton, isLoading]
+    [UploadButton, isLoading, onFileChange, hasMultipleFiles, accept]
   );
 
   if (showPreviewer) {
@@ -402,6 +409,6 @@ export function FileUploader({
 }
 
 FileUploader.UploadDropZone = UploadDropZone;
-FileUploader.UploadButton = UploadButton;
+FileUploader.UploadButton = Button;
 FileUploader.Previewer = Previewer;
 FileUploader.Tracker = Tracker;
