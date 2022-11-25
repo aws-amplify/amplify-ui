@@ -45,7 +45,7 @@ export const UPLOAD_BUTTON_COMPONENTS = [
     type: `string`,
   },
   {
-    name: `isLoading?`,
+    name: `isDisabled?`,
     description: 'Indicates if the file uploader is uploading',
     type: `boolean`,
   },
@@ -58,11 +58,6 @@ export const UPLOAD_BUTTON_COMPONENTS = [
 
 // backticks intentional to display as `code` block
 export const PREVIEWER_COMPONENTS = [
-  {
-    name: `acceptedFileTypes`,
-    description: 'List of file types allowed to be uploaded',
-    type: `string[]`,
-  },
   {
     name: `aggregatePercentage`,
     description: 'Total percentage of files uploaded',
@@ -86,11 +81,6 @@ export const PREVIEWER_COMPONENTS = [
   {
     name: `hasMaxFilesError`,
     description: 'Indicates if there is a max file size error',
-    type: `boolean`,
-  },
-  {
-    name: `inDropZone?`,
-    description: 'Indicates if files are in drop zone',
     type: `boolean`,
   },
   {

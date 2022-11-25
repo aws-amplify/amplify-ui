@@ -35,7 +35,6 @@ const ref = {
 
 const commonProps = {
   aggregatePercentage: 0,
-  acceptedFileTypes: ['.png'],
   dropZone: <></>,
   fileStatuses: fileStatuses,
   isLoading: false,

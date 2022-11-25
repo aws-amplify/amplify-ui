@@ -1,16 +1,15 @@
 import React from 'react';
 import { translate } from '@aws-amplify/ui';
-import { UploadButtonProps } from '../types';
-import { Button } from '../../../../primitives';
+import { Button, ButtonProps } from '../../../../primitives';
 
 export function UploadButton({
   className,
-  disabled,
+  isDisabled,
   onClick,
-}: UploadButtonProps): JSX.Element {
+}: ButtonProps): JSX.Element {
   return (
     <Button
-      disabled={disabled}
+      isDisabled={isDisabled}
       className={className}
       size="small"
       onClick={onClick}

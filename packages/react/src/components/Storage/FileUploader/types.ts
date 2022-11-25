@@ -7,12 +7,6 @@ export type SetShowPreviewer = (show: boolean) => void;
 type LevelInfo = 'public' | 'protected' | 'private';
 export type Files = File[];
 
-export interface UploadButtonProps extends ButtonProps {
-  className?: string;
-  disabled?: boolean;
-  onClick?: () => void;
-}
-
 export interface UploadDropZoneProps extends DragActionHandlers {
   children?: React.ReactNode;
   inDropZone?: boolean;
@@ -20,21 +14,18 @@ export interface UploadDropZoneProps extends DragActionHandlers {
 
 export interface FileUploaderProps {
   acceptedFileTypes: string[];
-  shouldAutoProceed?: boolean;
-  hasMultipleFiles?: boolean;
   components?: Components;
+  hasMultipleFiles?: boolean;
+  isPreviewerVisible?: boolean;
+  isResumable?: boolean;
   level: LevelInfo;
   maxFiles?: number;
-  maxhasMultipleFilesSize?: number;
-  isPreviewerVisible?: boolean;
   maxSize?: number;
-  onChange?: () => void;
   onError?: (error: string) => void;
   onSuccess?: (event: { key: string }) => void;
-  path?: string;
+  shouldAutoProceed?: boolean;
   showImages?: boolean;
   variation?: 'drop' | 'button';
-  isResumable?: boolean;
 }
 
 export interface IconProps {
@@ -43,12 +34,10 @@ export interface IconProps {
 }
 
 export interface PreviewerProps {
-  acceptedFileTypes: string[];
   aggregatePercentage: number;
   children?: React.ReactNode;
   dropZone: React.ReactNode;
   fileStatuses: FileStatuses;
-  inDropZone?: boolean;
   isLoading: boolean;
   isSuccessful: boolean;
   hasMaxFilesError: boolean;
@@ -64,7 +53,6 @@ export interface TrackerProps {
   name: string;
   onCancel: () => void;
   onCancelEdit?: () => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onPause: () => void;
   onResume: () => void;
   onSaveEdit: (value: string) => void;
@@ -99,7 +87,7 @@ export interface FileStateProps {
 }
 
 type UploadButtonComponent<Props = {}> = React.ComponentType<
-  Props & Partial<UploadButtonProps>
+  Props & Partial<ButtonProps>
 >;
 
 type UploadDropZoneComponent<Props = {}> = React.ComponentType<

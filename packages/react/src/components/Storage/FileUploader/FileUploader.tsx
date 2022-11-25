@@ -253,18 +253,6 @@ export function FileUploader({
     [fileStatuses, setFileStatuses]
   );
 
-  const onNameChange = useCallback(
-    (index: number) => {
-      return (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newFileStatuses = [...fileStatuses];
-        const name = event.target.value;
-        newFileStatuses[index].name = name;
-        setFileStatuses(newFileStatuses);
-      };
-    },
-    [fileStatuses, setFileStatuses]
-  );
-
   // Tracker methods
 
   const onSaveEdit = useCallback(
@@ -345,7 +333,7 @@ export function FileUploader({
             hiddenInput.current.click();
             hiddenInput.current.value = null;
           }}
-          disabled={isLoading}
+          isDisabled={isLoading}
           className={ComponentClassNames.FileUploaderDropZoneButton}
         />
         <VisuallyHidden>
@@ -366,14 +354,12 @@ export function FileUploader({
   if (showPreviewer) {
     return (
       <Previewer
-        acceptedFileTypes={acceptedFileTypes}
         dropZone={
           <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
             {uploadButton}
           </UploadDropZone>
         }
         fileStatuses={fileStatuses}
-        inDropZone={inDropZone}
         isLoading={isLoading}
         isSuccessful={isSuccessful}
         hasMaxFilesError={hasMaxFilesError}
@@ -392,7 +378,6 @@ export function FileUploader({
             name={status.name}
             onCancel={onFileCancel(index)}
             onCancelEdit={onCancelEdit(index)}
-            onChange={onNameChange(index)}
             onPause={onPause(index)}
             onResume={onResume(index)}
             onSaveEdit={onSaveEdit(index)}
