@@ -11,7 +11,6 @@ describe('Tracker', () => {
         file={fakeFile}
         hasImage={true}
         fileState={null}
-        onChange={() => {}}
         onCancel={() => {}}
         name={'hello.png'}
         onPause={() => {}}
@@ -34,7 +33,6 @@ describe('Tracker', () => {
         file={fakeFile}
         fileState={null}
         hasImage={true}
-        onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
         onPause={() => {}}
@@ -59,7 +57,6 @@ describe('Tracker', () => {
         file={fakeFile}
         fileState={null}
         hasImage={true}
-        onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
         onPause={() => {}}
@@ -84,7 +81,6 @@ describe('Tracker', () => {
         file={fakeFile}
         fileState={'error'}
         hasImage={true}
-        onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
         onPause={() => {}}
@@ -109,7 +105,6 @@ describe('Tracker', () => {
         file={fakeFile}
         fileState={'error'}
         hasImage={true}
-        onChange={() => {}}
         onCancel={() => {}}
         name={fileName}
         onPause={() => {}}
@@ -134,7 +129,6 @@ describe('Tracker', () => {
         file={fakeFile}
         fileState={'resume'}
         hasImage={true}
-        onChange={() => {}}
         onCancel={() => {}}
         isResumable={true}
         name={fileName}
