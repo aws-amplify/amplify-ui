@@ -4,6 +4,7 @@ export const ShowImagesExample = () => {
   return (
     <FileUploader
       showImages={false}
+      variation="drop"
       acceptedFileTypes={['image/*']}
       level="public"
       provider="fast" // IGNORE

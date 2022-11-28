@@ -1,18 +1,23 @@
+import * as React from 'react';
 import { FileUploader } from '@aws-amplify/ui-react';
 
 export const FileUploaderErrorExample = () => {
-  const onError = (event) => {
-    console.log(event);
+  const [message, setMessage] = React.useState('');
+  const onError = (error) => {
+    setMessage(`${error}`);
   };
 
   return (
-    <FileUploader
-      onError={onError}
-      isResumable={true}
-      variation="drop"
-      acceptedFileTypes={['image/*']}
-      level="public"
-      provider="error" // IGNORE
-    />
+    <>
+      <FileUploader
+        onError={onError}
+        isResumable={true}
+        variation="drop"
+        acceptedFileTypes={['image/*']}
+        level="public"
+        provider="error" // IGNORE
+      />
+      {message}
+    </>
   );
 };

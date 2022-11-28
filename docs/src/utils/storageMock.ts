@@ -59,20 +59,22 @@ export default class MyStorageProvider implements StorageProvider {
     const { progressCallback, resumable, errorCallback, completeCallback } =
       opt;
     let progress = 0;
+    let tick;
+    let interval;
 
     // a function that returns a function and will call
     // the callback function when it completes. This allows
     // the Promise version of this to resolve when it finishes.
-    const tickCreator = (cb?: () => void) => () => {
+    const tickCreator = (cb?: () => void, increment?: number) => () => {
       if (progress < 100) {
-        progress += 1;
+        progress += increment || 1;
         if (typeof progressCallback === 'function') {
           progressCallback({ loaded: progress, total: 100 });
         }
         if (networkError && progress >= 50) {
           clearInterval(interval);
           if (typeof errorCallback === 'function') {
-            errorCallback('Error!');
+            errorCallback(new Error('Upload failed'));
           }
         }
       } else {
@@ -86,10 +88,12 @@ export default class MyStorageProvider implements StorageProvider {
         }
       }
     };
-    let tick = tickCreator();
-    let interval = setInterval(tick, delay);
 
     if (resumable) {
+      // Resumable uploads files in chunks rather than streaming
+      // this will make the progress go in 4 chunks of 25%
+      tick = tickCreator(null, 25);
+      interval = setInterval(tick, delay);
       const uploadTask: UploadTask = {
         pause() {
           clearInterval(interval);
@@ -101,6 +105,9 @@ export default class MyStorageProvider implements StorageProvider {
         isInProgress: true,
       };
       return uploadTask;
+    } else {
+      tick = tickCreator();
+      interval = setInterval(tick, delay);
     }
 
     // We only support resumable uploads so we will never return a promise yet
