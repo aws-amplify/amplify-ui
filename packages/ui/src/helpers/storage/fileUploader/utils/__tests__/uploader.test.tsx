@@ -1,4 +1,9 @@
-import { returnAcceptedFiles, uploadFile, humanFileSize } from '../uploader';
+import {
+  returnAcceptedFiles,
+  uploadFile,
+  humanFileSize,
+  isValidExtension,
+} from '../uploader';
 import { Storage } from 'aws-amplify';
 
 const storageSpy = jest.spyOn(Storage, 'put');
@@ -94,6 +99,18 @@ describe('Uploader utils', () => {
       const message = humanFileSize(-1);
 
       expect(message).toEqual('-1 B');
+    });
+  });
+  describe('isValidExtension', () => {
+    it('returns back true if both extensions are the same', () => {
+      const isValid = isValidExtension('test.jpg', 'test2.jpg');
+
+      expect(isValid).toBeTruthy();
+    });
+    it('returns back false if both extensions are not the same', () => {
+      const isValid = isValidExtension('test.png', 'test2.jpg');
+
+      expect(isValid).toBeFalsy();
     });
   });
 });

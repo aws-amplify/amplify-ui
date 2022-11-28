@@ -51,7 +51,10 @@ export function Tracker({
   const icon = hasImage ? <Image alt={file.name} src={url} /> : <IconFile />;
   const isDeterminate = isResumable ? percentage > 0 : true;
 
-  const showEditButton = fileState === null || fileState === 'error';
+  const showEditButton =
+    fileState === null ||
+    (fileState === 'error' &&
+      errorMessage === translate('Extension not allowed'));
 
   const DisplayView = useCallback(
     () => (
@@ -99,6 +102,7 @@ export function Tracker({
             </Button>
           </>
         );
+      case 'resume':
       case 'loading':
         if (!isResumable) return null;
         return (

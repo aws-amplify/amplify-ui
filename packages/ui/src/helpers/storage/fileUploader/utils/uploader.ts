@@ -75,7 +75,7 @@ export function humanFileSize(bytes, si = false, dp = 1) {
 export const checkMaxSize = (maxSize: number, file: File): string | null => {
   if (!maxSize) return null;
   if (file.size > maxSize) {
-    return translate('Size above max ') + humanFileSize(maxSize, true);
+    return translate('Above max ') + humanFileSize(maxSize, true);
   }
   return null;
 };
@@ -100,4 +100,12 @@ export const returnAcceptedFiles = (
       return mimeType === validType;
     });
   });
+};
+export const isValidExtension = (
+  fileName: string,
+  fileName2: string
+): boolean => {
+  const extension = fileName.split('.').pop();
+  const fileExtension = fileName2.split('.').pop();
+  return fileExtension === extension;
 };

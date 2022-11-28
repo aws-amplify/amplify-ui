@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { UploadTask, Storage } from '@aws-amplify/storage';
-import { translate, uploadFile } from '@aws-amplify/ui';
+import { translate, uploadFile, isValidExtension } from '@aws-amplify/ui';
 import { FileState, FileUploaderProps } from './types';
 import { useFileUploader } from './hooks/useFileUploader';
 import {
@@ -263,10 +263,10 @@ export function FileUploader({
       return (value: string) => {
         // no empty file names
         if (value.trim().length === 0) return;
-        const [extension] = value.split('.').reverse();
-        const validExtension = acceptedFileTypes.includes('.' + extension);
+
         const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
+        const validExtension = isValidExtension(value, status.file.name);
         newFileStatuses[index] = {
           ...status,
           name: value,
@@ -279,7 +279,7 @@ export function FileUploader({
         setFileStatuses(newFileStatuses);
       };
     },
-    [acceptedFileTypes, fileStatuses, setFileStatuses]
+    [fileStatuses, setFileStatuses]
   );
 
   const updateFileState = useCallback(
@@ -287,9 +287,16 @@ export function FileUploader({
       setFileStatuses((prevFileStatuses) => {
         const newFileStatuses = [...prevFileStatuses];
         const status = newFileStatuses[index];
+        // Check if extension is valid before setting state
+        const validExtension = isValidExtension(status.name, status.file.name)
+          ? null
+          : 'error';
+        const updatedFileState =
+          fileState === null ? validExtension : fileState;
+
         newFileStatuses[index] = {
           ...status,
-          fileState: fileState,
+          fileState: updatedFileState,
         };
         return newFileStatuses;
       });
