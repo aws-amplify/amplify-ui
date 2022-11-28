@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -10,6 +10,7 @@
     },
     "./package.json": "./package.json",
     "./styles.css": "./dist/styles.css",
+    "./dist/styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css",
     "./tokens.ts": "./dist/react-native/tokens.ts"
   },

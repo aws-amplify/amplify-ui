@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.1.1
+
+### Patch Changes
+
+- [#3071](https://github.com/aws-amplify/amplify-ui/pull/3071) [`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(theme): update types for `ThemeProvider` to accept output of `createTheme`
+
 ## 5.1.0
 
 ### Minor Changes
