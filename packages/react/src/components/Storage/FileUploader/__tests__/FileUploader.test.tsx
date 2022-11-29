@@ -571,4 +571,62 @@ describe('File Uploader', () => {
       progressCallback: expect.any(Function),
     });
   });
+  it('wont count uploaded files to max files error limit', async () => {
+    const uploadTask = { pause: () => null, resume: () => null } as any;
+    const fileStatuses = [
+      {
+        ...fileStatus,
+        percentage: 100,
+        uploadTask,
+        fileState: 'success' as any,
+      },
+      {
+        ...fileStatus,
+        percentage: 0,
+        uploadTask,
+        fileState: '' as any,
+      },
+    ];
+    useFileUploaderSpy.mockReturnValue({
+      fileStatuses,
+      ...mockReturnUseFileUploader,
+    });
+
+    render(
+      <FileUploader {...commonProps} maxFiles={1} isPreviewerVisible={true} />
+    );
+
+    const uploadFilesText = await screen.findByText(/Upload 1 files/);
+
+    expect(uploadFilesText).toBeVisible();
+  });
+  it('will show max files error limit', async () => {
+    const uploadTask = { pause: () => null, resume: () => null } as any;
+    const fileStatuses = [
+      {
+        ...fileStatus,
+        percentage: 0,
+        uploadTask,
+        fileState: '' as any,
+      },
+      {
+        ...fileStatus,
+        percentage: 0,
+        uploadTask,
+        fileState: '' as any,
+      },
+    ];
+    useFileUploaderSpy.mockReturnValue({
+      fileStatuses,
+      ...mockReturnUseFileUploader,
+    });
+
+    render(
+      <FileUploader {...commonProps} maxFiles={1} isPreviewerVisible={true} />
+    );
+
+    const errorText = await screen.findByText(/Over Max files/);
+
+    expect(errorText).toBeVisible();
+  });
 });
