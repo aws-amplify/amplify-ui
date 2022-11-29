@@ -13,7 +13,7 @@ export default function FileUploaderEmail() {
       variation="drop"
       onSuccess={onSuccess}
       acceptedFileTypes={['image/*']}
-      storageLevel="public"
+      accessLevel="public"
       hasMultipleFiles={true}
       maxSize={100000000}
       maxFiles={3}

@@ -6,7 +6,7 @@ export const ShowImagesExample = () => {
       showImages={false}
       variation="drop"
       acceptedFileTypes={['image/*']}
-      storageLevel="public"
+      accessLevel="public"
       provider="fast" // IGNORE
     />
   );

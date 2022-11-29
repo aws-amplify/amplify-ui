@@ -5,7 +5,7 @@ export const PreviewerComponentsExample = () => {
     <FileUploader
       variation="drop"
       acceptedFileTypes={['image/*']}
-      storageLevel="public"
+      accessLevel="public"
       // components={{
       //   Previewer: ({ onFileClick, fileStatuses }) => {
       //     return (

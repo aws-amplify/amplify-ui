@@ -11,7 +11,7 @@ export const UploadButtonComponentsExample = () => {
   return (
     <FileUploader
       acceptedFileTypes={acceptedFileTypes}
-      storageLevel="public"
+      accessLevel="public"
       // components={{
       //   UploadButton: ({ onClick }) => {
       //     return (

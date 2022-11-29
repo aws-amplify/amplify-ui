@@ -14,7 +14,7 @@ export const FileUploaderErrorExample = () => {
         isResumable={true}
         variation="drop"
         acceptedFileTypes={['image/*']}
-        storageLevel="public"
+        accessLevel="public"
         provider="error" // IGNORE
       />
       {message}

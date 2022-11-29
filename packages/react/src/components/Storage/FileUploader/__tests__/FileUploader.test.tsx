@@ -22,7 +22,7 @@ const mockReturnUseFileUploader = {
 };
 
 const commonProps = {
-  storageLevel: 'public' as any,
+  accessLevel: 'public' as any,
   acceptedFileTypes: ['.png'],
   variation: 'drop' as any,
   isResumable: true,
@@ -481,7 +481,7 @@ describe('File Uploader', () => {
     render(
       <FileUploader
         {...commonProps}
-        // components={{ Tracker }}
+        // components={{ UploadTracker }}
         isPreviewerVisible={true}
       />
     );
@@ -502,7 +502,7 @@ describe('File Uploader', () => {
     render(
       <FileUploader
         {...commonProps}
-        // components={{ Previewer }}
+        // components={{ UploadPreviewer }}
         isPreviewerVisible={true}
       />
     );

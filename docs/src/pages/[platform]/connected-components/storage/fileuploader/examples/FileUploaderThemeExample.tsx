@@ -25,7 +25,7 @@ export const FileUploaderThemeExample = () => {
       <FileUploader
         variation="drop"
         acceptedFileTypes={['image/*']}
-        storageLevel="public"
+        accessLevel="public"
         hasMultipleFiles={true}
         maxSize={100000000}
         maxFiles={3}

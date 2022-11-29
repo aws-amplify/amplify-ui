@@ -5,7 +5,7 @@ export const TrackerComponentsExample = () => {
     <FileUploader
       variation="drop"
       acceptedFileTypes={['image/*']}
-      storageLevel="public"
+      accessLevel="public"
       // components={{
       //   Tracker: ({ file, percentage }) => {
       //     return (

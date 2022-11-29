@@ -5,7 +5,7 @@ export const FileUploaderComponentsExample = () => {
     <FileUploader
       variation="drop"
       acceptedFileTypes={['image/*']}
-      storageLevel="public"
+      accessLevel="public"
       // components={{
       //   UploadDropZone: ({ inDropZone, children, ...rest }) => {
       //     return (

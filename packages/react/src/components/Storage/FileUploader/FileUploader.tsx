@@ -30,13 +30,14 @@ export function FileUploader({
   onError,
   onSuccess,
   showImages = true,
-  storageLevel,
+  accessLevel,
   variation = 'drop',
   isResumable = false,
+  ...rest
 }: FileUploaderProps): JSX.Element {
-  if (!acceptedFileTypes || !storageLevel) {
+  if (!acceptedFileTypes || !accessLevel) {
     logger.warn(
-      'FileUploader requires storageLevel and acceptedFileTypes props'
+      'FileUploader requires accessLevel and acceptedFileTypes props'
     );
   }
 
@@ -181,11 +182,12 @@ export function FileUploader({
       const uploadTask = uploadFile({
         file: status.file,
         fileName: status.name,
-        level: storageLevel,
+        level: accessLevel,
         isResumable,
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
         completeCallback: onSuccess,
+        ...rest,
       });
 
       if (isUploadTask(uploadTask) && isResumable) {
@@ -207,8 +209,9 @@ export function FileUploader({
     isResumable,
     onSuccess,
     progressCallback,
+    rest,
     setFileStatuses,
-    storageLevel,
+    accessLevel,
   ]);
 
   const onFileChange = useCallback(

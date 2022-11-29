@@ -6,7 +6,7 @@ export const ResumableExample = () => {
       isResumable={true}
       variation="drop"
       acceptedFileTypes={['image/*']}
-      storageLevel="public"
+      accessLevel="public"
       provider="slow" // IGNORE
     />
   );

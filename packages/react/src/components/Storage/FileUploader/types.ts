@@ -16,7 +16,7 @@ export interface FileUploaderProps {
   hasMultipleFiles?: boolean;
   isPreviewerVisible?: boolean;
   isResumable?: boolean;
-  storageLevel: StorageAccessLevel;
+  accessLevel: StorageAccessLevel;
   maxFiles?: number;
   maxSize?: number;
   onError?: (error: string) => void;
