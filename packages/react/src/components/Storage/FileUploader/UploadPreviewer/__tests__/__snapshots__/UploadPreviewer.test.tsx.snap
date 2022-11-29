@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Previewer renders as expected 1`] = `
+exports[`UploadPreviewer renders as expected 1`] = `
 <div>
   <div
     class="amplify-fileuploader__previewer"
