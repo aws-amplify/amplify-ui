@@ -5,24 +5,24 @@ export const PreviewerComponentsExample = () => {
     <FileUploader
       variation="drop"
       acceptedFileTypes={['image/*']}
-      level="public"
-      components={{
-        Previewer: ({ onFileClick, fileStatuses }) => {
-          return (
-            <View padding="xl">
-              {fileStatuses.map((file, idx) => {
-                return (
-                  <View key={idx}>
-                    <Text>{file.name}</Text>
-                    <Text>{file.percentage}</Text>
-                  </View>
-                );
-              })}
-              <Button onClick={onFileClick}>Start Upload</Button>
-            </View>
-          );
-        },
-      }}
+      accessLevel="public"
+      // components={{
+      //   Previewer: ({ onFileClick, fileStatuses }) => {
+      //     return (
+      //       <View padding="xl">
+      //         {fileStatuses.map((file, idx) => {
+      //           return (
+      //             <View key={idx}>
+      //               <Text>{file.name}</Text>
+      //               <Text>{file.percentage}</Text>
+      //             </View>
+      //           );
+      //         })}
+      //         <Button onClick={onFileClick}>Start Upload</Button>
+      //       </View>
+      //     );
+      //   },
+      // }}
       provider="fast" // IGNORE
     />
   );

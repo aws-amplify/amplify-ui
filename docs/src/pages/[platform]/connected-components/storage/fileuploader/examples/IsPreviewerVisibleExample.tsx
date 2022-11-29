@@ -5,7 +5,7 @@ export const IsPreviewerVisibleExample = () => {
     <FileUploader
       isPreviewerVisible={true}
       acceptedFileTypes={['image/*']}
-      level="public"
+      accessLevel="public"
       provider="fast" // IGNORE
     />
   );

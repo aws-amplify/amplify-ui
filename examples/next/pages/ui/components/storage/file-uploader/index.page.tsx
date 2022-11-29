@@ -9,17 +9,15 @@ export default function FileUploaderEmail() {
     console.log('got back', event);
   };
   return (
-    <>
-      <FileUploader
-        variation="drop"
-        onSuccess={onSuccess}
-        acceptedFileTypes={['image/*']}
-        level="public"
-        hasMultipleFiles={true}
-        maxSize={100000000}
-        maxFiles={3}
-        isResumable={true}
-      />
-    </>
+    <FileUploader
+      variation="drop"
+      onSuccess={onSuccess}
+      acceptedFileTypes={['image/*']}
+      accessLevel="public"
+      hasMultipleFiles={true}
+      maxSize={100000000}
+      maxFiles={3}
+      isResumable={true}
+    />
   );
 }

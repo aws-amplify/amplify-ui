@@ -1,17 +1,19 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { UploadTask, Storage } from '@aws-amplify/storage';
 import { translate, uploadFile, isValidExtension } from '@aws-amplify/ui';
-import { FileState, FileUploaderProps } from './types';
-import { useFileUploader } from './hooks/useFileUploader';
+import { Logger } from 'aws-amplify';
+
 import {
-  Button,
+  Button as UploadButton,
   ComponentClassNames,
   VisuallyHidden,
 } from '../../../primitives';
+
+import { useFileUploader } from './hooks/useFileUploader';
 import { UploadPreviewer } from './UploadPreviewer';
 import { UploadDropZone } from './UploadDropZone';
 import { UploadTracker } from './UploadTracker';
-import { Logger } from 'aws-amplify';
+import { FileState, FileUploaderProps } from './types';
 
 const isUploadTask = (value: unknown): value is UploadTask =>
   typeof (value as UploadTask)?.resume === 'function';
@@ -21,28 +23,22 @@ const logger = new Logger('AmplifyUI:Storage');
 export function FileUploader({
   acceptedFileTypes,
   shouldAutoProceed = false,
-  components,
   isPreviewerVisible,
-  level,
   maxFiles,
   maxSize,
   hasMultipleFiles = true,
   onError,
   onSuccess,
   showImages = true,
+  accessLevel,
   variation = 'drop',
   isResumable = false,
   ...rest
 }: FileUploaderProps): JSX.Element {
-  const {
-    UploadDropZone = FileUploader.UploadDropZone,
-    UploadButton = Button,
-    UploadPreviewer = FileUploader.UploadPreviewer,
-    UploadTracker = FileUploader.UploadTracker,
-  } = components ?? {};
-
-  if (!acceptedFileTypes || !level) {
-    logger.warn('FileUploader requires level and acceptedFileTypes props');
+  if (!acceptedFileTypes || !accessLevel) {
+    logger.warn(
+      'FileUploader requires accessLevel and acceptedFileTypes props'
+    );
   }
 
   // File Previewer loading state
@@ -186,7 +182,7 @@ export function FileUploader({
       const uploadTask = uploadFile({
         file: status.file,
         fileName: status.name,
-        level,
+        level: accessLevel,
         isResumable,
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
@@ -208,14 +204,14 @@ export function FileUploader({
       }))
     );
   }, [
-    fileStatuses,
-    setFileStatuses,
-    level,
-    isResumable,
-    progressCallback,
     errorCallback,
+    fileStatuses,
+    isResumable,
     onSuccess,
+    progressCallback,
     rest,
+    setFileStatuses,
+    accessLevel,
   ]);
 
   const onFileChange = useCallback(
@@ -363,7 +359,7 @@ export function FileUploader({
         </VisuallyHidden>
       </>
     ),
-    [UploadButton, isLoading, onFileChange, hasMultipleFiles, accept]
+    [isLoading, onFileChange, hasMultipleFiles, accept]
   );
 
   if (showPreviewer) {
@@ -415,8 +411,3 @@ export function FileUploader({
     );
   }
 }
-
-FileUploader.UploadDropZone = UploadDropZone;
-FileUploader.UploadButton = Button;
-FileUploader.UploadPreviewer = UploadPreviewer;
-FileUploader.UploadTracker = UploadTracker;

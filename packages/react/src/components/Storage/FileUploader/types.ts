@@ -1,10 +1,9 @@
 import React from 'react';
-import { UploadTask } from '@aws-amplify/storage';
+import { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 import { DragActionHandlers } from './hooks/useFileUploader/types';
 import { ButtonProps } from '../../../primitives';
 
 export type SetShowPreviewer = (show: boolean) => void;
-type LevelInfo = 'public' | 'protected' | 'private';
 export type Files = File[];
 
 export interface UploadDropZoneProps extends DragActionHandlers {
@@ -14,11 +13,10 @@ export interface UploadDropZoneProps extends DragActionHandlers {
 
 export interface FileUploaderProps {
   acceptedFileTypes: string[];
-  components?: Components;
   hasMultipleFiles?: boolean;
   isPreviewerVisible?: boolean;
   isResumable?: boolean;
-  level: LevelInfo;
+  accessLevel: StorageAccessLevel;
   maxFiles?: number;
   maxSize?: number;
   onError?: (error: string) => void;

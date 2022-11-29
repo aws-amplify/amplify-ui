@@ -5,17 +5,17 @@ export const TrackerComponentsExample = () => {
     <FileUploader
       variation="drop"
       acceptedFileTypes={['image/*']}
-      level="public"
-      components={{
-        Tracker: ({ file, percentage }) => {
-          return (
-            <View padding="xl">
-              <Text textAlign="center">{file.name}</Text>
-              <Text textAlign="center">{percentage}</Text>
-            </View>
-          );
-        },
-      }}
+      accessLevel="public"
+      // components={{
+      //   Tracker: ({ file, percentage }) => {
+      //     return (
+      //       <View padding="xl">
+      //         <Text textAlign="center">{file.name}</Text>
+      //         <Text textAlign="center">{percentage}</Text>
+      //       </View>
+      //     );
+      //   },
+      // }}
       provider="fast" // IGNORE
     />
   );

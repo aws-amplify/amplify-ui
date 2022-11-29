@@ -5,22 +5,22 @@ export const FileUploaderComponentsExample = () => {
     <FileUploader
       variation="drop"
       acceptedFileTypes={['image/*']}
-      level="public"
-      components={{
-        UploadDropZone: ({ inDropZone, children, ...rest }) => {
-          return (
-            <View
-              padding="xl"
-              backgroundColor={
-                inDropZone ? 'brand.secondary.40' : 'brand.secondary.20'
-              }
-              {...rest}
-            >
-              <Text textAlign="center">Drop files here</Text>
-            </View>
-          );
-        },
-      }}
+      accessLevel="public"
+      // components={{
+      //   UploadDropZone: ({ inDropZone, children, ...rest }) => {
+      //     return (
+      //       <View
+      //         padding="xl"
+      //         backgroundColor={
+      //           inDropZone ? 'brand.secondary.40' : 'brand.secondary.20'
+      //         }
+      //         {...rest}
+      //       >
+      //         <Text textAlign="center">Drop files here</Text>
+      //       </View>
+      //     );
+      //   },
+      // }}
       provider="fast" // IGNORE
     />
   );
