@@ -5,7 +5,7 @@ export const AcceptedFileTypesExample = () => {
     <FileUploader
       acceptedFileTypes={['.gif', '.bmp', '.doc', '.jpeg', '.jpg']}
       variation="drop"
-      level="public"
+      storageLevel="public"
       provider="fast" // IGNORE
     />
   );

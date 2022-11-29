@@ -5,13 +5,13 @@ export const VariationExample = () => {
       <FileUploader
         variation="drop"
         acceptedFileTypes={['image/*']}
-        level="public"
+        storageLevel="public"
         provider="fast" // IGNORE
       />
       <FileUploader
         variation="button"
         acceptedFileTypes={['image/*']}
-        level="public"
+        storageLevel="public"
         provider="fast" // IGNORE
       />
     </>

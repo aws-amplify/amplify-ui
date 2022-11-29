@@ -6,7 +6,7 @@ export const MultipleExample = () => {
       hasMultipleFiles={false}
       variation="drop"
       acceptedFileTypes={['image/*']}
-      level="public"
+      storageLevel="public"
       provider="fast" // IGNORE
     />
   );

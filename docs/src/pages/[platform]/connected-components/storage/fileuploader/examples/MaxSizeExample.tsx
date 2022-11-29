@@ -6,7 +6,7 @@ export const MaxSizeExample = () => {
       maxSize={100000}
       variation="drop"
       acceptedFileTypes={['image/*']}
-      level="public"
+      storageLevel="public"
       provider="fast" // IGNORE
     />
   );

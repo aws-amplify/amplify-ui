@@ -3,7 +3,7 @@ export const DefaultFileUploaderExample = () => {
   return (
     <FileUploader
       acceptedFileTypes={['image/*']}
-      level="public"
+      storageLevel="public"
       provider="fast" // IGNORE
     />
   );

@@ -13,7 +13,7 @@ export const FileUploaderSuccessExample = () => {
         onSuccess={onSuccess}
         variation="drop"
         acceptedFileTypes={['image/*']}
-        level="public"
+        storageLevel="public"
         provider="fast" // IGNORE
       />
       {message}

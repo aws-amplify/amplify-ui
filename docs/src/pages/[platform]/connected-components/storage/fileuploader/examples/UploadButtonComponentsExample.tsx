@@ -11,16 +11,16 @@ export const UploadButtonComponentsExample = () => {
   return (
     <FileUploader
       acceptedFileTypes={acceptedFileTypes}
-      level="public"
-      components={{
-        UploadButton: ({ onClick }) => {
-          return (
-            <Button backgroundColor={'brand.primary.20'} onClick={onClick}>
-              <Text textAlign="center">Click Button Here</Text>
-            </Button>
-          );
-        },
-      }}
+      storageLevel="public"
+      // components={{
+      //   UploadButton: ({ onClick }) => {
+      //     return (
+      //       <Button backgroundColor={'brand.primary.20'} onClick={onClick}>
+      //         <Text textAlign="center">Click Button Here</Text>
+      //       </Button>
+      //     );
+      //   },
+      // }}
       provider="fast" // IGNORE
     />
   );

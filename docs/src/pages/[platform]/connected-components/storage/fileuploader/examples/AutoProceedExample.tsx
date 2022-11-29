@@ -5,7 +5,7 @@ export const AutoProceedExample = () => {
     <FileUploader
       shouldAutoProceed={true}
       acceptedFileTypes={['image/*']}
-      level="public"
+      storageLevel="public"
       provider="fast" // IGNORE
     />
   );
