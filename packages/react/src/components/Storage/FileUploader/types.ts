@@ -1,7 +1,7 @@
 import React from 'react';
 import { UploadTask } from '@aws-amplify/storage';
 import { DragActionHandlers } from './hooks/useFileUploader/types';
-import { ButtonProps } from 'src/primitives';
+import { ButtonProps } from '../../../primitives';
 
 export type SetShowPreviewer = (show: boolean) => void;
 type LevelInfo = 'public' | 'protected' | 'private';
@@ -105,6 +105,6 @@ type TrackerComponent<Props = {}> = React.ComponentType<
 export interface Components {
   UploadDropZone?: UploadDropZoneComponent;
   UploadButton?: UploadButtonComponent;
-  Previewer?: PreviewerComponent;
-  Tracker?: TrackerComponent;
+  UploadPreviewer?: PreviewerComponent;
+  UploadTracker?: TrackerComponent;
 }

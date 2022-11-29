@@ -470,7 +470,7 @@ describe('File Uploader', () => {
     ]);
   });
   it('shows the overridden Tracker component', async () => {
-    const Tracker = ({ name }) => <div>File Name: {name}</div>;
+    const UploadTracker = ({ name }) => <div>File Name: {name}</div>;
     const fileStatuses = [fileStatus];
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
@@ -479,7 +479,7 @@ describe('File Uploader', () => {
     render(
       <FileUploader
         {...commonProps}
-        components={{ Tracker }}
+        components={{ UploadTracker }}
         isPreviewerVisible={true}
       />
     );
@@ -489,7 +489,7 @@ describe('File Uploader', () => {
     ).toBeVisible();
   });
   it('shows the overridden Previewer component', async () => {
-    const Previewer = ({ fileStatuses }) => (
+    const UploadPreviewer = ({ fileStatuses }) => (
       <div>Preview: {fileStatuses[0].name} </div>
     );
     const fileStatuses = [fileStatus];
@@ -500,7 +500,7 @@ describe('File Uploader', () => {
     render(
       <FileUploader
         {...commonProps}
-        components={{ Previewer }}
+        components={{ UploadPreviewer }}
         isPreviewerVisible={true}
       />
     );

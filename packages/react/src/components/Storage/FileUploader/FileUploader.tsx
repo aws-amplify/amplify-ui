@@ -8,9 +8,9 @@ import {
   ComponentClassNames,
   VisuallyHidden,
 } from '../../../primitives';
-import { Previewer } from './Previewer';
+import { UploadPreviewer } from './UploadPreviewer';
 import { UploadDropZone } from './UploadDropZone';
-import { Tracker } from './Tracker';
+import { UploadTracker } from './UploadTracker';
 import { Logger } from 'aws-amplify';
 
 const isUploadTask = (value: unknown): value is UploadTask =>
@@ -37,8 +37,8 @@ export function FileUploader({
   const {
     UploadDropZone = FileUploader.UploadDropZone,
     UploadButton = Button,
-    Previewer = FileUploader.Previewer,
-    Tracker = FileUploader.Tracker,
+    UploadPreviewer = FileUploader.UploadPreviewer,
+    UploadTracker = FileUploader.UploadTracker,
   } = components ?? {};
 
   if (!acceptedFileTypes || !level) {
@@ -78,7 +78,9 @@ export function FileUploader({
       : fileStatuses.every((status) => status?.percentage === 100);
 
   // Displays if over max files
-  const hasMaxFilesError = fileStatuses.length > maxFiles;
+
+  const hasMaxFilesError =
+    fileStatuses.filter((file) => file.percentage !== 100).length > maxFiles;
 
   useEffect(() => {
     // Loading ends when all files are at 100%
@@ -367,7 +369,7 @@ export function FileUploader({
 
   if (showPreviewer) {
     return (
-      <Previewer
+      <UploadPreviewer
         dropZone={
           <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
             {uploadButton}
@@ -382,7 +384,7 @@ export function FileUploader({
         aggregatePercentage={aggregatePercentage}
       >
         {fileStatuses?.map((status, index) => (
-          <Tracker
+          <UploadTracker
             errorMessage={status?.fileErrors}
             file={status.file}
             fileState={status?.fileState}
@@ -400,7 +402,7 @@ export function FileUploader({
             isResumable={isResumable}
           />
         ))}
-      </Previewer>
+      </UploadPreviewer>
     );
   }
 
@@ -417,5 +419,5 @@ export function FileUploader({
 
 FileUploader.UploadDropZone = UploadDropZone;
 FileUploader.UploadButton = Button;
-FileUploader.Previewer = Previewer;
-FileUploader.Tracker = Tracker;
+FileUploader.UploadPreviewer = UploadPreviewer;
+FileUploader.UploadTracker = UploadTracker;

@@ -250,7 +250,7 @@ You can customize the File Uploader components to meet your needs, by using comp
 
 ### Component Overrides
 
-You can override parts of the FileUploder component by passing in a `components` prop. This can include the `UploadDropZone`, `UploadButton`, `Previewer` and the `Tracker` components.
+You can override parts of the FileUploder component by passing in a `components` prop. This can include the `UploadDropZone`, `UploadButton`, `UploadPreviewer` and the `UploadTracker` components.
 
 #### Upload Drop Zone
 
@@ -288,9 +288,9 @@ The `UploadButton` component controls the button used to select files for an upl
 
 <ReactPropsTable props={UPLOAD_BUTTON_COMPONENTS} />
 
-#### Previewer
+#### UploadPreviewer
 
-The `Preview` component controls the preview page that is shown before an upload begins.
+The `UploadPreview` component controls the preview page that is shown before an upload begins.
 
 <Example>
   <PreviewerComponentsExample />
@@ -301,14 +301,14 @@ The `Preview` component controls the preview page that is shown before an upload
   </ExampleCode>
 </Example>
 
-#### Previewer Props
+#### UploadPreviewer Props
 
 <ReactPropsTable props={PREVIEWER_COMPONENTS} />
 
 
-#### Tracker
+#### UploadTracker
 
-The `Tracker` component controls how the files added will look when being displayed inside the preview component.
+The `UploadTracker` component controls how the files added will look when being displayed inside the preview component.
 
 <Example>
   <TrackerComponentsExample />
@@ -319,7 +319,7 @@ The `Tracker` component controls how the files added will look when being displa
   </ExampleCode>
 </Example>
 
-#### Tracker Props
+#### UploadTracker Props
 
 <ReactPropsTable props={TRACKER_COMPONENTS} />
 
