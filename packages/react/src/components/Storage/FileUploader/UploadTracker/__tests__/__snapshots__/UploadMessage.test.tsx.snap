@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FileState exists 1`] = `
+exports[`UploadMessage exists 1`] = `
 <div>
   <p
     class="amplify-text amplify-fileuploader__file__status amplify-fileuploader__file__status--error"

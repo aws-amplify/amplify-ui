@@ -10,7 +10,7 @@ import {
   View,
 } from '../../../../primitives';
 
-export function Previewer({
+export function UploadPreviewer({
   aggregatePercentage,
   children,
   dropZone,

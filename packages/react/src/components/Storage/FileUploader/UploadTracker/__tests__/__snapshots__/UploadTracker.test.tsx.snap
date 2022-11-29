@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tracker exists 1`] = `
+exports[`UploadTracker exists 1`] = `
 <div>
   <div
     class="amplify-fileuploader__file"
@@ -94,7 +94,7 @@ exports[`Tracker exists 1`] = `
 </div>
 `;
 
-exports[`Tracker shows the file size 1`] = `
+exports[`UploadTracker shows the file size 1`] = `
 <span
   class="amplify-text amplify-fileuploader__file__size"
 >
@@ -102,7 +102,7 @@ exports[`Tracker shows the file size 1`] = `
 </span>
 `;
 
-exports[`Tracker shows the name of the file 1`] = `
+exports[`UploadTracker shows the name of the file 1`] = `
 <p
   class="amplify-text amplify-fileuploader__file__name"
 >

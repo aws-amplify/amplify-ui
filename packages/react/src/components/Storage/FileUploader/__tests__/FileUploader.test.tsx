@@ -470,7 +470,7 @@ describe('File Uploader', () => {
     ]);
   });
   it('shows the overridden Tracker component', async () => {
-    const Tracker = ({ name }) => <div>File Name: {name}</div>;
+    const UploadTracker = ({ name }) => <div>File Name: {name}</div>;
     const fileStatuses = [fileStatus];
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
@@ -479,7 +479,7 @@ describe('File Uploader', () => {
     render(
       <FileUploader
         {...commonProps}
-        components={{ Tracker }}
+        components={{ UploadTracker }}
         isPreviewerVisible={true}
       />
     );
@@ -489,7 +489,7 @@ describe('File Uploader', () => {
     ).toBeVisible();
   });
   it('shows the overridden Previewer component', async () => {
-    const Previewer = ({ fileStatuses }) => (
+    const UploadPreviewer = ({ fileStatuses }) => (
       <div>Preview: {fileStatuses[0].name} </div>
     );
     const fileStatuses = [fileStatus];
@@ -500,7 +500,7 @@ describe('File Uploader', () => {
     render(
       <FileUploader
         {...commonProps}
-        components={{ Previewer }}
+        components={{ UploadPreviewer }}
         isPreviewerVisible={true}
       />
     );
@@ -570,5 +570,63 @@ describe('File Uploader', () => {
       isResumable: true,
       progressCallback: expect.any(Function),
     });
+  });
+  it('wont count uploaded files to max files error limit', async () => {
+    const uploadTask = { pause: () => null, resume: () => null } as any;
+    const fileStatuses = [
+      {
+        ...fileStatus,
+        percentage: 100,
+        uploadTask,
+        fileState: 'success' as any,
+      },
+      {
+        ...fileStatus,
+        percentage: 0,
+        uploadTask,
+        fileState: '' as any,
+      },
+    ];
+    useFileUploaderSpy.mockReturnValue({
+      fileStatuses,
+      ...mockReturnUseFileUploader,
+    });
+
+    render(
+      <FileUploader {...commonProps} maxFiles={1} isPreviewerVisible={true} />
+    );
+
+    const uploadFilesText = await screen.findByText(/Upload 1 files/);
+
+    expect(uploadFilesText).toBeVisible();
+  });
+  it('will show max files error limit', async () => {
+    const uploadTask = { pause: () => null, resume: () => null } as any;
+    const fileStatuses = [
+      {
+        ...fileStatus,
+        percentage: 0,
+        uploadTask,
+        fileState: '' as any,
+      },
+      {
+        ...fileStatus,
+        percentage: 0,
+        uploadTask,
+        fileState: '' as any,
+      },
+    ];
+    useFileUploaderSpy.mockReturnValue({
+      fileStatuses,
+      ...mockReturnUseFileUploader,
+    });
+
+    render(
+      <FileUploader {...commonProps} maxFiles={1} isPreviewerVisible={true} />
+    );
+
+    const errorText = await screen.findByText(/Over Max files/);
+
+    expect(errorText).toBeVisible();
   });
 });

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { Tracker } from '..';
+import { UploadTracker } from '..';
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
-describe('Tracker', () => {
+describe('UploadTracker', () => {
   it('exists', async () => {
     const { container } = render(
-      <Tracker
+      <UploadTracker
         file={fakeFile}
         hasImage={true}
         fileState={null}
@@ -29,7 +29,7 @@ describe('Tracker', () => {
   it('shows the name of the file', async () => {
     const fileName = 'hello2.png';
     render(
-      <Tracker
+      <UploadTracker
         file={fakeFile}
         fileState={null}
         hasImage={true}
@@ -53,7 +53,7 @@ describe('Tracker', () => {
   it('shows the file size', async () => {
     const fileName = 'hello2.png';
     render(
-      <Tracker
+      <UploadTracker
         file={fakeFile}
         fileState={null}
         hasImage={true}
@@ -77,7 +77,7 @@ describe('Tracker', () => {
   it('shows the pencil icon if the error messages is for extension', async () => {
     const fileName = 'hello2.png';
     render(
-      <Tracker
+      <UploadTracker
         file={fakeFile}
         fileState={'error'}
         hasImage={true}
@@ -101,7 +101,7 @@ describe('Tracker', () => {
   it('does not show the pencil icon if the error messages is not for extension', async () => {
     const fileName = 'hello2.png';
     render(
-      <Tracker
+      <UploadTracker
         file={fakeFile}
         fileState={'error'}
         hasImage={true}
@@ -125,7 +125,7 @@ describe('Tracker', () => {
   it('shows pause button when file is in resume status', async () => {
     const fileName = 'hello2.png';
     render(
-      <Tracker
+      <UploadTracker
         file={fakeFile}
         fileState={'resume'}
         hasImage={true}
