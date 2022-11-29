@@ -8,26 +8,20 @@ type BaseDropZoneTokens<OutputType> = DesignTokenProperties<
   | 'borderColor'
   | 'borderRadius',
   OutputType
->
+>;
 
 export interface FileUploaderTokens<OutputType extends OutputVariantKey> {
   dropzone: DesignTokenProperties<
-    | 'gap'
-    | 'paddingBlock'
-    | 'paddingInline'
-    | 'textAlign'
-  > & BaseDropZoneTokens<OutputType> & {
-    _active: BaseDropZoneTokens<OutputType>;
+    'gap' | 'paddingBlock' | 'paddingInline' | 'textAlign'
+  > &
+    BaseDropZoneTokens<OutputType> & {
+      _active: BaseDropZoneTokens<OutputType>;
 
-    icon: DesignTokenProperties<
-      | 'fontSize'
-      | 'color',
-      OutputType
-    >;
+      icon: DesignTokenProperties<'fontSize' | 'color', OutputType>;
 
-    text: TypographyTokens<OutputType>;
-  };
-  
+      text: TypographyTokens<OutputType>;
+    };
+
   file: DesignTokenProperties<
     | 'alignItems'
     | 'backgroundColor'
@@ -40,23 +34,15 @@ export interface FileUploaderTokens<OutputType extends OutputVariantKey> {
     | 'paddingInline',
     OutputType
   > & {
-
     name: TypographyTokens<OutputType>;
     size: TypographyTokens<OutputType>;
     image: DesignTokenProperties<
-      | 'backgroundColor'
-      | 'borderRadius'
-      | 'color'
-      | 'height'
-      | 'width',
+      'backgroundColor' | 'borderRadius' | 'color' | 'height' | 'width',
       OutputType
     >;
   };
   loader: DesignTokenProperties<
-    | 'strokeWidth'
-    | 'strokeFilled'
-    | 'strokeEmpty'
-    | 'strokeLinecap',
+    'strokeWidth' | 'strokeFilled' | 'strokeEmpty' | 'strokeLinecap',
     OutputType
   >;
   previewer: DesignTokenProperties<
@@ -74,9 +60,7 @@ export interface FileUploaderTokens<OutputType extends OutputVariantKey> {
     text: TypographyTokens<OutputType>;
 
     body: DesignTokenProperties<
-      | 'gap'
-      | 'paddingInline'
-      | 'paddingBlock',
+      'gap' | 'paddingInline' | 'paddingBlock',
       OutputType
     >;
 
@@ -174,7 +158,7 @@ export const fileuploader: Required<FileUploaderTokens<'default'>> = {
     paddingBlock: { value: '{space.zero}' },
     paddingInline: { value: '{space.zero}' },
     maxHeight: { value: '40rem' },
-    maxWidth: { value: '30rem' },
+    maxWidth: { value: 'auto' },
 
     text: {
       fontSize: { value: '{fontSizes.medium}' },

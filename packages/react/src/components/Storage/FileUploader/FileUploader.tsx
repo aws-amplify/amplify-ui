@@ -16,7 +16,7 @@ import { Logger } from 'aws-amplify';
 const isUploadTask = (value: unknown): value is UploadTask =>
   typeof (value as UploadTask)?.resume === 'function';
 
-const logger = new Logger('AmplifyUI:Auth');
+const logger = new Logger('AmplifyUI:Storage');
 
 export function FileUploader({
   acceptedFileTypes,
@@ -30,7 +30,7 @@ export function FileUploader({
   onError,
   onSuccess,
   showImages = true,
-  variation = 'button',
+  variation = 'drop',
   isResumable = false,
   ...rest
 }: FileUploaderProps): JSX.Element {
@@ -346,7 +346,6 @@ export function FileUploader({
             hiddenInput.current.value = null;
           }}
           size="small"
-          variation="primary"
         >
           {translate('Browse files')}
         </UploadButton>
