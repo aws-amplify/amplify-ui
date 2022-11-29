@@ -45,6 +45,7 @@ function ChangePassword({
   onSuccess,
   onError,
   validators,
+  isDemo,
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
@@ -149,6 +150,11 @@ function ChangePassword({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { currentPassword, newPassword } = formValues;
+
+    if (isDemo) {
+      onSuccess?.();
+    }
+
     if (errorMessage) {
       setErrorMessage(null);
     }
@@ -170,7 +176,7 @@ function ChangePassword({
   }
 
   // Return null if user isn't authenticated in the first place
-  if (!user) {
+  if (!user && !isDemo) {
     logger.warn('<ChangePassword /> requires user to be authenticated.');
     return null;
   }

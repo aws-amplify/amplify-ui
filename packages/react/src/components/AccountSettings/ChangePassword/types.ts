@@ -12,4 +12,6 @@ export interface ChangePasswordProps {
   onError?: (error: Error) => void;
   /** custom password validations */
   validators?: ValidatorOptions[];
+  /** @internal if set to true, changePassword will mock `useAuth` and `Auth` API calls */
+  isDemo?: boolean;
 }
