@@ -434,7 +434,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fileuploader-previewer-padding-block: var(--amplify-space-zero);
         --amplify-components-fileuploader-previewer-padding-inline: var(--amplify-space-zero);
         --amplify-components-fileuploader-previewer-max-height: 40rem;
-        --amplify-components-fileuploader-previewer-max-width: 30rem;
+        --amplify-components-fileuploader-previewer-max-width: auto;
         --amplify-components-fileuploader-previewer-text-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-fileuploader-previewer-text-font-weight: var(--amplify-font-weights-bold);
         --amplify-components-fileuploader-previewer-text-color: var(--amplify-colors-font-primary);
