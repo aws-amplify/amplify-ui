@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UploadTracker exists 1`] = `
+<div>
+  <div
+    class="amplify-fileuploader__file"
+  >
+    <div
+      class="amplify-fileuploader__file__image"
+    >
+      <img
+        alt="hello.png"
+        class="amplify-image"
+      />
+    </div>
+    <div
+      class="amplify-fileuploader__file__main"
+    >
+      <p
+        class="amplify-text amplify-fileuploader__file__name"
+      >
+        hello.png
+      </p>
+    </div>
+    <span
+      class="amplify-text amplify-fileuploader__file__size"
+    >
+      5 B
+    </span>
+    <button
+      class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+      data-fullwidth="false"
+      data-size="small"
+      data-variation="link"
+      type="button"
+    >
+      <span
+        class="amplify-visually-hidden"
+      >
+        Edit file name 
+        hello.png
+      </span>
+      <span
+        aria-hidden="true"
+        class="amplify-icon"
+        style="width: 1em; height: 1em;"
+      >
+        <svg
+          fill="none"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3 21h3.75L17.81 9.94l-3.75-3.75L3 17.25V21zm2-2.92l9.06-9.06.92.92L5.92 19H5v-.92zM18.37 3.29a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83a.996.996 0 000-1.41l-2.34-2.34z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+    </button>
+    <button
+      class="amplify-button amplify-field-group__control amplify-button--small"
+      data-fullwidth="false"
+      data-size="small"
+      type="button"
+    >
+      <span
+        class="amplify-visually-hidden"
+      >
+        Remove file name 
+        hello.png
+      </span>
+      <span
+        aria-hidden="true"
+        class="amplify-icon"
+        style="width: 1em; height: 1em;"
+      >
+        <svg
+          fill="none"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`UploadTracker shows the file size 1`] = `
+<span
+  class="amplify-text amplify-fileuploader__file__size"
+>
+  5 B
+</span>
+`;
+
+exports[`UploadTracker shows the name of the file 1`] = `
+<p
+  class="amplify-text amplify-fileuploader__file__name"
+>
+  hello2.png
+</p>
+`;
