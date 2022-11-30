@@ -1,17 +1,17 @@
 import { InputEventType, ValidatorOptions } from '@aws-amplify/ui';
 import {
-  AccountSettingsError,
-  AccountSettingsPasswordField,
-  AccountSettingsSubmitButton,
+  ComponentError,
+  ComponentPasswordField,
+  ComponentSubmitButton,
   FormValues,
 } from '../types';
 
 export interface ChangePasswordComponents {
-  CurrentPassword?: AccountSettingsPasswordField;
-  NewPassword?: AccountSettingsPasswordField;
-  ConfirmPassword?: AccountSettingsPasswordField;
-  SubmitButton?: AccountSettingsSubmitButton;
-  Error?: AccountSettingsError;
+  CurrentPassword?: ComponentPasswordField;
+  NewPassword?: ComponentPasswordField;
+  ConfirmPassword?: ComponentPasswordField;
+  SubmitButton?: ComponentSubmitButton;
+  Error?: ComponentError;
 }
 
 export type ValidateParams = {
