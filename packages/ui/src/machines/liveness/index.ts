@@ -302,6 +302,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           waitForDisconnectEvent: {
+            entry: ['freezeStream'],
             after: {
               0: {
                 target: 'getLivenessResult',
@@ -346,7 +347,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         entry: 'callUserPermissionDeniedCallback',
       },
       timeout: {
-        entry: ['cleanUpResources', 'callUserTimeoutCallback'],
+        entry: ['cleanUpResources', 'callUserTimeoutCallback', 'freezeStream'],
       },
       error: {
         entry: ['cleanUpResources', 'callErrorCallback'],
@@ -666,6 +667,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           freshnessColorEl.hidden = true;
         }
         await context.livenessStreamProvider?.endStream();
+      },
+      freezeStream: async (context) => {
+        const {
+          videoAssociatedParams: { videoMediaStream, videoEl },
+        } = context;
+        // pause camera on last frame, then stop the stream
+        videoEl.pause();
+        videoMediaStream.getTracks().forEach(function (track) {
+          track.stop();
+        });
       },
     },
     guards: {

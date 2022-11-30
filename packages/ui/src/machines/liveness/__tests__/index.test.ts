@@ -68,18 +68,22 @@ describe('Liveness Machine', () => {
   const mockVideoEl = document.createElement('video');
   const mockCanvasEl = document.createElement('canvas');
   const mockFreshnessColorEl = document.createElement('canvas');
+  window.HTMLMediaElement.prototype.pause = () => jest.fn();
+
+  const mockVideoTrack = {
+    getSettings: () => ({
+      width: 640,
+      height: 480,
+      deviceId: mockCameraDevice.deviceId,
+      frameRate: 30,
+    }),
+    stop: jest.fn(),
+  } as any as MediaStreamTrack;
+
   const mockVideoMediaStream = {
-    getTracks: () => [
-      {
-        getSettings: () => ({
-          width: 640,
-          height: 480,
-          deviceId: mockCameraDevice.deviceId,
-          frameRate: 30,
-        }),
-      },
-    ],
+    getTracks: () => [mockVideoTrack],
   } as MediaStream;
+
   const mockFace: Face = {
     height: 100,
     width: 100,
