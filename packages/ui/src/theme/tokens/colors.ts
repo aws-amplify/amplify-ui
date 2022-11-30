@@ -225,7 +225,7 @@ export const colors: Colors<'default'> = {
     10: { value: 'hsl(210, 5%, 98%)' },
     20: { value: 'hsl(210, 5%, 94%)' },
     40: { value: 'hsl(210, 5%, 87%)' },
-    60: { value: 'hsl(210, 8%, 55%)' },
+    60: { value: 'hsl(210, 10%, 58%)' },
     80: { value: 'hsl(210, 10%, 40%)' },
     90: { value: 'hsl(210, 25%, 25%)' },
     100: { value: 'hsl(210, 50%, 10%)' },

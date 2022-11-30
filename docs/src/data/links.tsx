@@ -129,10 +129,40 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/connected-components/account-settings',
+    label: 'Account Settings',
+    platforms: ['react'],
+  },
+  {
+    href: '/connected-components/account-settings/change-password',
+    label: 'Change Password',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/connected-components/account-settings/delete-user',
+    label: 'Delete User',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/geo',
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
+  },
+  {
+    href: '/connected-components/storage',
+    label: 'Storage',
+    body: "Amplify UI Storage components allow you to store files in the cloud using Amplify's Storage category",
+    platforms: ['react'],
+  },
+  {
+    href: '/connected-components/storage/fileuploader',
+    label: 'File Uploader',
+    body: 'FileUploader component allows users to upload files to your Amplify backend.',
+    platforms: ['react'],
+    tertiary: true,
   },
   {
     href: '/connected-components/in-app-messaging',

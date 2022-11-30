@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "file-uploader",
+  "version": "0.0.1",
+  "scripts": {
+    "pull": "amplify pull --appId d3ui6q2qgxk9xs --envName dev"
+  }
+}

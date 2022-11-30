@@ -1,4 +1,3 @@
-export { default as ReactPropsTable } from './ReactPropsTable';
 export {
   IN_APP_MESSAGE_DISPLAY_PROPS,
   MESSAGE_COMPONENTS,
