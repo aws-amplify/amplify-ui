@@ -41,7 +41,7 @@ function ChangePassword({
   onSuccess,
   onError,
   validators,
-  components = {},
+  components,
 }: ChangePasswordProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = React.useState<string>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
@@ -121,7 +121,7 @@ function ChangePassword({
 
   /* Subcomponents */
   const { CurrentPassword, NewPassword, ConfirmPassword, SubmitButton, Error } =
-    React.useMemo(() => ({ ...DEFAULTS, ...components }), [components]);
+    React.useMemo(() => ({ ...DEFAULTS, ...(components || {}) }), [components]);
 
   /* Event Handlers */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
