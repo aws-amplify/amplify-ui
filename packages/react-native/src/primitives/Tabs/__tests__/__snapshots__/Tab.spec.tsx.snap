@@ -26,7 +26,7 @@ exports[`Tab can apply custom styling 1`] = `
         "paddingVertical": 12,
       },
       Object {
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderWidth": 1,
       },
       null,
@@ -105,7 +105,7 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
         "paddingVertical": 12,
       },
       Object {
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderWidth": 1,
       },
       null,
@@ -191,7 +191,7 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
         "paddingVertical": 12,
       },
       Object {
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderWidth": 1,
       },
       null,
@@ -247,7 +247,7 @@ exports[`Tab renders default Tab as expected 1`] = `
         "paddingVertical": 12,
       },
       Object {
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderWidth": 1,
       },
       null,
