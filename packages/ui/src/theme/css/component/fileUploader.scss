@@ -1,0 +1,218 @@
+.amplify-fileuploader {
+  &__dropzone {
+    background-color: var(
+      --amplify-components-fileuploader-dropzone-background-color
+    );
+    border-color: var(--amplify-components-fileuploader-dropzone-border-color);
+    border-radius: var(
+      --amplify-components-fileuploader-dropzone-border-radius
+    );
+    border-style: var(--amplify-components-fileuploader-dropzone-border-style);
+    border-width: var(--amplify-components-fileuploader-dropzone-border-width);
+    text-align: var(--amplify-components-fileuploader-dropzone-text-align);
+    padding-block: var(
+      --amplify-components-fileuploader-dropzone-padding-block
+    );
+    padding-inline: var(
+      --amplify-components-fileuploader-dropzone-padding-inline
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--amplify-components-fileuploader-dropzone-gap);
+
+    &--small {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    &--active {
+      border-color: var(
+        --amplify-components-fileuploader-dropzone-active-border-color
+      );
+      border-width: var(
+        --amplify-components-fileuploader-dropzone-active-border-width
+      );
+      background-color: var(
+        --amplify-components-fileuploader-dropzone-active-background-color
+      );
+    }
+
+    &__icon {
+      font-size: var(--amplify-components-fileuploader-dropzone-icon-font-size);
+      color: var(--amplify-components-fileuploader-dropzone-icon-color);
+    }
+
+    &__text {
+      color: var(--amplify-components-fileuploader-dropzone-text-color);
+      font-size: var(--amplify-components-fileuploader-dropzone-text-font-size);
+      font-weight: var(
+        --amplify-components-fileuploader-dropzone-text-font-weight
+      );
+    }
+  }
+
+  &__file {
+    position: relative;
+    border-width: var(--amplify-components-fileuploader-file-border-width);
+    border-style: var(--amplify-components-fileuploader-file-border-style);
+    border-color: var(--amplify-components-fileuploader-file-border-color);
+    border-radius: var(--amplify-components-fileuploader-file-border-radius);
+    display: flex;
+    flex-direction: row;
+    padding-inline: var(--amplify-components-fileuploader-file-padding-inline);
+    padding-block: var(--amplify-components-fileuploader-file-padding-block);
+    align-items: var(--amplify-components-fileuploader-file-align-items);
+    gap: var(--amplify-components-fileuploader-file-gap);
+
+    &__name {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-weight: var(--amplify-components-fileuploader-file-name-font-weight);
+      font-size: var(--amplify-components-fileuploader-file-name-font-size);
+      color: var(--amplify-components-fileuploader-file-name-color);
+    }
+
+    &__size {
+      font-weight: var(--amplify-components-fileuploader-file-size-font-weight);
+      font-size: var(--amplify-components-fileuploader-file-size-font-size);
+      color: var(--amplify-components-fileuploader-file-size-color);
+    }
+
+    &__main {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    &__image {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--amplify-components-fileuploader-file-image-width);
+      height: var(--amplify-components-fileuploader-file-image-height);
+      background-color: var(
+        --amplify-components-fileuploader-file-image-background-color
+      );
+      border-radius: var(
+        --amplify-components-fileuploader-file-image-border-radius
+      );
+      color: var(--amplify-components-fileuploader-file-image-color);
+      img {
+        max-height: 100%;
+      }
+    }
+
+    &__status {
+      &--error {
+        color: var(--amplify-colors-font-error);
+        font-size: var(--amplify-components-fileuploader-file-size-font-size);
+      }
+      &--success {
+        color: var(--amplify-colors-font-success);
+      }
+    }
+  }
+
+  &__loader {
+    stroke-linecap: var(
+      --amplify-components-fileuploader-loader-stroke-linecap
+    );
+    stroke: var(--amplify-components-fileuploader-loader-stroke-empty);
+    stroke-width: var(--amplify-components-fileuploader-loader-stroke-width);
+    height: var(--amplify-components-fileuploader-loader-stroke-width);
+
+    --amplify-components-loader-linear-stroke-filled: var(
+      --amplify-components-fileuploader-loader-stroke-filled
+    );
+
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  // Previewer
+  &__previewer {
+    display: block;
+
+    max-width: var(--amplify-components-fileuploader-previewer-max-width);
+    background-color: var(
+      --amplify-components-fileuploader-previewer-background-color
+    );
+    border-width: var(--amplify-components-fileuploader-previewer-border-width);
+    border-style: var(--amplify-components-fileuploader-previewer-border-style);
+    border-color: var(--amplify-components-fileuploader-previewer-border-color);
+    border-radius: var(
+      --amplify-components-fileuploader-previewer-border-radius
+    );
+
+    padding-inline: var(
+      --amplify-components-fileuploader-previewer-padding-inline
+    );
+    padding-block: var(
+      --amplify-components-fileuploader-previewer-padding-block
+    );
+
+    &__text {
+      font-weight: var(
+        --amplify-components-fileuploader-previewer-text-font-weight
+      );
+      font-size: var(
+        --amplify-components-fileuploader-previewer-text-font-size
+      );
+      color: var(--amplify-components-fileuploader-previewer-text-color);
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      max-height: var(--amplify-components-fileuploader-previewer-max-height);
+
+      max-width: var(--amplify-components-fileuploader-previewer-max-width);
+      overflow: auto;
+      gap: var(--amplify-components-fileuploader-previewer-body-gap);
+      padding-inline: var(
+        --amplify-components-fileuploader-previewer-body-padding-inline
+      );
+      padding-block: var(
+        --amplify-components-fileuploader-previewer-body-padding-block
+      );
+    }
+
+    &__footer {
+      max-width: var(--amplify-components-fileuploader-previewer-max-width);
+      border-top-width: var(
+        --amplify-components-fileuploader-previewer-footer-border-width
+      );
+      border-top-style: var(
+        --amplify-components-fileuploader-previewer-footer-border-style
+      );
+      border-top-color: var(
+        --amplify-components-fileuploader-previewer-footer-border-color
+      );
+
+      padding-inline: var(
+        --amplify-components-fileuploader-previewer-footer-padding-inline
+      );
+      padding-block: var(
+        --amplify-components-fileuploader-previewer-footer-padding-block
+      );
+
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: var(
+        --amplify-components-fileuploader-previewer-footer-justify-content
+      );
+
+      &__actions {
+        display: flex;
+        flex-direction: row;
+        gap: var(--amplify-space-small);
+      }
+    }
+  }
+}

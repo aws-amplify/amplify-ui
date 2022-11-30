@@ -20,8 +20,6 @@ const passwordField = {
   required: true,
 };
 const phoneField = {
-  dialCode: '999',
-  dialCodeList: ['123', '456'],
   name: 'phonenumber',
   type: 'tel',
 };
@@ -195,8 +193,6 @@ describe('getRouteTypedFields', () => {
     const expected = [
       passwordField,
       {
-        defaultDialCode: phoneField.dialCode,
-        dialCodes: phoneField.dialCodeList,
         name: phoneField.name,
         type: 'phone',
       },

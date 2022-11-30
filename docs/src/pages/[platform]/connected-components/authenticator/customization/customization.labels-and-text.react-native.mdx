@@ -1,0 +1,51 @@
+import { Expander, ExpanderItem, Text } from '@aws-amplify/ui-react';
+
+Using the same techniques as [Internationalization (I18n)](#internationalization-i18n), you can customize the labels and text of the components:
+
+<Expander type="single" isCollapsible>
+  <ExpanderItem title={<Text fontWeight="bold">Sign In</Text>} value="sign-in">
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      'Sign In': 'Login', // Tab header
+      'Sign in': 'Log in', // Button label
+      'Sign in to your account': 'Welcome Back!',
+      Username: 'Enter your username', // Username label
+      Password: 'Enter your password', // Password label
+      'Forgot your password?': 'Reset Password',
+    });
+    ```
+  </ExpanderItem>
+
+  <ExpanderItem title={<Text fontWeight="bold">Sign Up</Text>} value="sign-up">
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      'Create Account': 'Register', // Link text
+      'Create a new account': 'New User', // Header text
+      'Confirm Password': 'Confirm your password', // Confirm Password label
+      Email: 'Enter your email',
+      'Phone Number': 'Enter your phone number',
+    });
+    ```
+  </ExpanderItem>
+
+  <ExpanderItem title={<Text fontWeight="bold">Reset Password</Text>} value="reset-password">
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      'Reset your password': 'Forgot your password?',
+      'Enter your username': 'Username or Email',
+      'Send code': 'Reset my password',
+      'Back to Sign In': 'Back to Login',
+    });
+    ```
+  </ExpanderItem>
+
+  <ExpanderItem title={<Text fontWeight="bold">Setup TOTP</Text>} value="setup-totp">
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      Code: '2FA Code',
+      Confirm: 'Confirm 2FA',
+      'Back to Sign In': 'Back to Login',
+    });
+    ```
+  </ExpanderItem>
+</Expander>

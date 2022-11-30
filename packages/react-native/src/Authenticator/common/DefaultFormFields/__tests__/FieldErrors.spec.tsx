@@ -6,10 +6,18 @@ import { FieldErrors } from '../FieldErrors';
 describe('FieldErrors', () => {
   it('renders as expected', () => {
     const errors = ['error 1', 'error 2'];
-    const { toJSON } = render(<FieldErrors errors={errors} />);
-    expect(toJSON()).toMatchSnapshot();
+    const { toJSON, findByText } = render(
+      <FieldErrors
+        errors={errors}
+        errorStyle={{ color: 'red' }}
+        style={{ backgroundColor: 'black' }}
+      />
+    );
 
-    expect(toJSON()).toHaveLength(errors.length);
+    expect(findByText('error 1')).toBeDefined();
+    expect(findByText('error 2')).toBeDefined();
+
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('renders as expected with no errors', () => {

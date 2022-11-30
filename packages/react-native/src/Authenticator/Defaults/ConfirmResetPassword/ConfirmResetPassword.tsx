@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-import { Button, ErrorMessage } from '../../../primitives';
 import {
+  DefaultContent,
   DefaultFooter,
   DefaultTextFormFields,
   DefaultHeader,
@@ -10,7 +10,6 @@ import {
 import { useFieldValues } from '../../hooks';
 
 import { DefaultConfirmResetPasswordComponent } from '../types';
-import { styles } from './styles';
 
 const COMPONENT_NAME = 'ConfirmResetPassword';
 
@@ -22,16 +21,13 @@ const {
 } = authenticatorTextUtil;
 
 const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
-  error,
   fields,
-  Footer,
-  FormFields,
   handleBlur,
   handleChange,
   handleSubmit,
-  Header,
   isPending,
   resendCode,
+  ...rest
 }) => {
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -41,23 +37,26 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
     handleSubmit,
   });
 
+  const headerText = getResetYourPasswordText();
+  const primaryButtonText = isPending ? getSubmittingText() : getSubmitText();
+  const secondaryButtonText = getResendCodeText();
+
+  const buttons = useMemo(
+    () => ({
+      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      secondary: { children: secondaryButtonText, onPress: resendCode },
+    }),
+    [handleFormSubmit, primaryButtonText, resendCode, secondaryButtonText]
+  );
+
   return (
-    <>
-      <Header>{getResetYourPasswordText()}</Header>
-      <FormFields fields={fieldsWithHandlers} isPending={isPending} />
-      {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        variant="primary"
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-      >
-        {isPending ? getSubmittingText() : getSubmitText()}
-      </Button>
-      <Button onPress={resendCode} style={styles.buttonSecondary}>
-        {getResendCodeText()}
-      </Button>
-      <Footer />
-    </>
+    <DefaultContent
+      {...rest}
+      buttons={buttons}
+      headerText={headerText}
+      fields={fieldsWithHandlers}
+      isPending={isPending}
+    />
   );
 };
 

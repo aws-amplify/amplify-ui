@@ -29,7 +29,6 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     onChange,
     onClear,
     onClick,
-    onFocus,
     onSelect,
     onSubmit,
     renderOption,
@@ -46,7 +45,6 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     handleOnBlur,
     handleOnClear,
     handleOnClick,
-    handleOnFocus,
     handleOnChange,
     handleOnKeyDown,
     isControlled,
@@ -67,7 +65,6 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
     onChange,
     onClear,
     onClick,
-    onFocus,
     onSelect,
     onSubmit,
   });
@@ -145,7 +142,6 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
         onChange={handleOnChange}
         onClear={handleOnClear}
         onClick={handleOnClick}
-        onFocus={handleOnFocus}
         onKeyDown={handleOnKeyDown}
         ref={ref}
         value={composedValue}

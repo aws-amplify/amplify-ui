@@ -143,6 +143,4 @@ export interface UseAutocompleteProps extends Partial<AutocompleteProps> {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 
   onClick: React.MouseEventHandler<HTMLInputElement>;
-
-  onFocus: React.FocusEventHandler<HTMLInputElement>;
 }

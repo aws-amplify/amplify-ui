@@ -43,8 +43,8 @@ export type Components<Output> = Record<string, object> & {
   textField?: ComponentTheme<TextFieldStyles, Output>;
 };
 
-export type ColorMode = 'light' | 'dark' | 'system';
-type Override = Omit<Theme, 'overrides'> & {
+export type ColorMode = 'light' | 'dark' | 'system' | null;
+export type Override = Omit<Theme, 'overrides'> & {
   colorMode?: ColorMode;
 };
 
@@ -54,14 +54,17 @@ export type StrictTokens = ReactNativeTokens<'required'>;
 // Everything optional for custom themes
 export type Tokens = ReactNativeTokens<'optional'>;
 
+// omitted from custom themes until used in another component/publicly available
+type OmittedComponents = 'checkbox' | 'divider' | 'tabs';
+
 /**
- * A Theme just needs a name, all other properties are optional.
+ * A custom Theme with all properties optional.
  */
 export interface Theme {
   /**
    * Custom component styles
    */
-  components?: Components<'input'>;
+  components?: Omit<Components<'input'>, OmittedComponents>;
   /**
    * Component and component agnostic tokens.
    */

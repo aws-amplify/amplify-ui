@@ -1,15 +1,17 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "5.0.0",
+  "version": "5.2.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
     "./package.json": "./package.json",
     "./styles.css": "./dist/styles.css",
+    "./dist/styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css",
     "./tokens.ts": "./dist/react-native/tokens.ts"
   },
@@ -41,6 +43,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "csstype": "^3.1.1",
     "lodash": "4.17.21",
     "style-dictionary": "3.7.0",
     "tslib": "2.4.0"

@@ -2,13 +2,6 @@
 
 exports[`TextField doesn't render the errorMessage if error prop is false 1`] = `
 <View
-  accessibilityLabel="Label"
-  accessibilityState={
-    Object {
-      "disabled": undefined,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -17,14 +10,17 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
       undefined,
     ]
   }
+  testID="amplify__text-field-container"
 >
   <Text
+    accessibilityLabel="Label"
     accessibilityRole="text"
     style={
       Array [
         Object {
-          "fontSize": 16,
+          "fontSize": 14,
           "fontWeight": "400",
+          "lineHeight": 21,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -32,9 +28,8 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "fontSize": 16,
             "lineHeight": 21,
-            "paddingVertical": 12,
+            "padding": 4,
           },
           undefined,
         ],
@@ -44,30 +39,38 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
     Label
   </Text>
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
-        "padding": 16,
-        "width": "100%",
+        "paddingHorizontal": 8,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={true}
       placeholder="Placeholder"
+      placeholderTextColor="hsl(210, 10%, 40%)"
+      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           undefined,
         ]
@@ -80,13 +83,6 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
 
 exports[`TextField doesn't render the errorMessage if errorMessage prop is undefined 1`] = `
 <View
-  accessibilityLabel="Label"
-  accessibilityState={
-    Object {
-      "disabled": undefined,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -95,14 +91,17 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
       undefined,
     ]
   }
+  testID="amplify__text-field-container"
 >
   <Text
+    accessibilityLabel="Label"
     accessibilityRole="text"
     style={
       Array [
         Object {
-          "fontSize": 16,
+          "fontSize": 14,
           "fontWeight": "400",
+          "lineHeight": 21,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -110,9 +109,8 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "fontSize": 16,
             "lineHeight": 21,
-            "paddingVertical": 12,
+            "padding": 4,
           },
           undefined,
         ],
@@ -122,30 +120,38 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
     Label
   </Text>
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
-        "padding": 16,
-        "width": "100%",
+        "paddingHorizontal": 8,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={true}
       placeholder="Placeholder"
+      placeholderTextColor="hsl(210, 10%, 40%)"
+      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           undefined,
         ]
@@ -158,13 +164,6 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
 
 exports[`TextField renders as expected 1`] = `
 <View
-  accessibilityLabel="Label"
-  accessibilityState={
-    Object {
-      "disabled": undefined,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -173,14 +172,17 @@ exports[`TextField renders as expected 1`] = `
       undefined,
     ]
   }
+  testID="amplify__text-field-container"
 >
   <Text
+    accessibilityLabel="Label"
     accessibilityRole="text"
     style={
       Array [
         Object {
-          "fontSize": 16,
+          "fontSize": 14,
           "fontWeight": "400",
+          "lineHeight": 21,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -188,9 +190,8 @@ exports[`TextField renders as expected 1`] = `
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "fontSize": 16,
             "lineHeight": 21,
-            "paddingVertical": 12,
+            "padding": 4,
           },
           undefined,
         ],
@@ -200,30 +201,38 @@ exports[`TextField renders as expected 1`] = `
     Label
   </Text>
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
-        "padding": 16,
-        "width": "100%",
+        "paddingHorizontal": 8,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={true}
       placeholder="Placeholder"
+      placeholderTextColor="hsl(210, 10%, 40%)"
+      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           undefined,
         ]
@@ -236,13 +245,6 @@ exports[`TextField renders as expected 1`] = `
 
 exports[`TextField renders as expected as password field 1`] = `
 <View
-  accessibilityLabel="Label"
-  accessibilityState={
-    Object {
-      "disabled": undefined,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -251,14 +253,17 @@ exports[`TextField renders as expected as password field 1`] = `
       undefined,
     ]
   }
+  testID="amplify__text-field-container"
 >
   <Text
+    accessibilityLabel="Label"
     accessibilityRole="text"
     style={
       Array [
         Object {
-          "fontSize": 16,
+          "fontSize": 14,
           "fontWeight": "400",
+          "lineHeight": 21,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -266,9 +271,8 @@ exports[`TextField renders as expected as password field 1`] = `
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "fontSize": 16,
             "lineHeight": 21,
-            "paddingVertical": 12,
+            "padding": 4,
           },
           undefined,
         ],
@@ -278,31 +282,39 @@ exports[`TextField renders as expected as password field 1`] = `
     Label
   </Text>
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
-        "padding": 16,
-        "width": "100%",
+        "paddingHorizontal": 8,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={true}
       placeholder="Placeholder"
+      placeholderTextColor="hsl(210, 10%, 40%)"
       secureTextEntry={true}
+      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           undefined,
         ]
@@ -315,13 +327,6 @@ exports[`TextField renders as expected as password field 1`] = `
 
 exports[`TextField renders as expected when disabled 1`] = `
 <View
-  accessibilityLabel="Label"
-  accessibilityState={
-    Object {
-      "disabled": true,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -330,14 +335,17 @@ exports[`TextField renders as expected when disabled 1`] = `
       undefined,
     ]
   }
+  testID="amplify__text-field-container"
 >
   <Text
+    accessibilityLabel="Label"
     accessibilityRole="text"
     style={
       Array [
         Object {
-          "fontSize": 16,
+          "fontSize": 14,
           "fontWeight": "400",
+          "lineHeight": 21,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -345,9 +353,8 @@ exports[`TextField renders as expected when disabled 1`] = `
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "fontSize": 16,
             "lineHeight": 21,
-            "paddingVertical": 12,
+            "padding": 4,
           },
           undefined,
         ],
@@ -357,31 +364,39 @@ exports[`TextField renders as expected when disabled 1`] = `
     Label
   </Text>
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
         "opacity": 0.6,
-        "padding": 16,
-        "width": "100%",
+        "paddingHorizontal": 8,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={false}
       placeholder="Placeholder"
+      placeholderTextColor="hsl(210, 10%, 40%)"
+      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           undefined,
         ]
@@ -394,13 +409,6 @@ exports[`TextField renders as expected when disabled 1`] = `
 
 exports[`TextField renders as expected with error message 1`] = `
 <View
-  accessibilityLabel="Label"
-  accessibilityState={
-    Object {
-      "disabled": undefined,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -409,14 +417,17 @@ exports[`TextField renders as expected with error message 1`] = `
       undefined,
     ]
   }
+  testID="amplify__text-field-container"
 >
   <Text
+    accessibilityLabel="Label"
     accessibilityRole="text"
     style={
       Array [
         Object {
-          "fontSize": 16,
+          "fontSize": 14,
           "fontWeight": "400",
+          "lineHeight": 21,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -424,9 +435,8 @@ exports[`TextField renders as expected with error message 1`] = `
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "fontSize": 16,
             "lineHeight": 21,
-            "paddingVertical": 12,
+            "padding": 4,
           },
           undefined,
         ],
@@ -436,30 +446,38 @@ exports[`TextField renders as expected with error message 1`] = `
     Label
   </Text>
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
-        "padding": 16,
-        "width": "100%",
+        "paddingHorizontal": 8,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={true}
       placeholder="Placeholder"
+      placeholderTextColor="hsl(210, 10%, 40%)"
+      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           undefined,
         ]
@@ -472,8 +490,9 @@ exports[`TextField renders as expected with error message 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 16,
+          "fontSize": 14,
           "fontWeight": "400",
+          "lineHeight": 21,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",

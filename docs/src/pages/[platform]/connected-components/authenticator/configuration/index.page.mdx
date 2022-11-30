@@ -2,13 +2,14 @@
 title: Configuration
 metaTitle: Configuration
 description: How to setup and configure your Authenticator component.
-supportedFrameworks: react|angular|vue|flutter
+supportedFrameworks: all
 ---
 
 import { Fragment } from '@/components/Fragment';
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { DeveloperPreview } from '../DeveloperPreview';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -19,6 +20,8 @@ export async function getStaticPaths() {
 export async function getStaticProps() {
   return { props: {} }
 }
+
+<DeveloperPreview />
 
 <Alert role="none" heading="Wait!">
   Did you follow the [quick start instructions](/connected-components/authenticator#quick-start) to set up the Authenticator first?
@@ -33,7 +36,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
-    <Fragment useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./initialState.signIn.example.${platform}.mdx`)
       }
@@ -43,7 +46,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
     </Fragment>
-    <Fragment useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./initialState.signUp.example.${platform}.mdx`)
       }
@@ -53,7 +56,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
     </Fragment>
-    <Fragment useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./initialState.resetPassword.example.${platform}.mdx`)
       }
@@ -71,7 +74,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 
 <Alert role="none" heading="Zero Configuration">
 
-The Authenticator [automatically infers](#zero-configuration) `signUpAttributes` from `amplify pull`,
+The Authenticator [automatically infers](/connected-components/authenticator#step-1-configure-backend) `signUpAttributes` from `amplify pull`,
 but can be explicitly defined as seen below.
 
 </Alert>
@@ -86,7 +89,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
     <Fragment>
       {({ platform }) => import(`./signUpAttributes.default.${platform}.mdx`)}
     </Fragment>
-    <Fragment useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./signUpAttributes.default.example.${platform}.mdx`)
       }
@@ -96,7 +99,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
     <Fragment>
       {({ platform }) => import(`./signUpAttributes.all.${platform}.mdx`)}
     </Fragment>
-    <Fragment useCommonWebContent>
+    <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./signUpAttributes.all.example.${platform}.mdx`)
       }
@@ -104,9 +107,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   </TabItem>
 </Tabs>
 
-## Social Providers
-
-<Fragment useCommonWebContent>
+<Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
 </Fragment>
 
@@ -114,6 +115,6 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   {({ platform }) => import(`./variation.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native']}>
   {({ platform }) => import(`./hidesignup.${platform}.mdx`)}
 </Fragment>

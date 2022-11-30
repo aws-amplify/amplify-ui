@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { Storage } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
+import MyStorageProvider from '@/utils/storageMock';
 import { configure, trackPageVisit } from '@/utils/track';
 import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
@@ -46,6 +48,12 @@ if (typeof window === 'undefined') {
 
 function MyApp({ Component, pageProps }) {
   const [expanded, setExpanded] = React.useState(false);
+
+  Storage.addPluggable(new MyStorageProvider('fast', { delay: 10 }));
+  Storage.addPluggable(new MyStorageProvider('slow', { delay: 1000 }));
+  Storage.addPluggable(
+    new MyStorageProvider('error', { delay: 50, networkError: true })
+  );
 
   const {
     pathname,

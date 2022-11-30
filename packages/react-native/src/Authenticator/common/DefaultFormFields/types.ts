@@ -4,13 +4,15 @@ import { AuthenticatorFormFieldsComponent } from '@aws-amplify/ui-react-core';
 import { RadioFieldOptions, TextFieldOptionsType } from '../../hooks';
 
 export interface FieldErrorsProps {
-  style?: StyleProp<TextStyle>;
   errors: string[];
+  errorStyle?: StyleProp<TextStyle>;
+  style?: StyleProp<ViewStyle>;
 }
 
 export interface DefaultFormFieldsStyle {
   fieldContainerStyle?: StyleProp<ViewStyle>;
-  fieldErrorStyle?: FieldErrorsProps['style'];
+  fieldErrorsContainer?: FieldErrorsProps['style'];
+  fieldErrorStyle?: FieldErrorsProps['errorStyle'];
   fieldLabelStyle?: StyleProp<TextStyle>;
   fieldStyle?: StyleProp<TextStyle>;
   style?: StyleProp<ViewStyle>;

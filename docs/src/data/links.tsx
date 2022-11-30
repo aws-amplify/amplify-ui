@@ -108,24 +108,24 @@ export const connectedComponents: ComponentNavItem[] = [
     href: '/connected-components/authenticator',
     label: 'Authenticator',
     body: 'The Authenticator component adds complete authentication flows to your application with minimal boilerplate.',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/connected-components/authenticator/configuration',
     label: 'Configuration',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
     tertiary: true,
   },
   {
     href: '/connected-components/authenticator/customization',
     label: 'Customization',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
     tertiary: true,
   },
   {
     href: '/connected-components/authenticator/headless',
     label: 'Headless Usage',
-    platforms: ['react', 'vue', 'angular'],
+    platforms: ['react', 'vue', 'angular', 'react-native'],
     tertiary: true,
   },
   {
@@ -133,6 +133,19 @@ export const connectedComponents: ComponentNavItem[] = [
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
+  },
+  {
+    href: '/connected-components/storage',
+    label: 'Storage',
+    body: "Amplify UI Storage components allow you to store files in the cloud using Amplify's Storage category",
+    platforms: ['react'],
+  },
+  {
+    href: '/connected-components/storage/fileuploader',
+    label: 'File Uploader',
+    body: 'FileUploader component allows users to upload files to your Amplify backend.',
+    platforms: ['react'],
+    tertiary: true,
   },
   {
     href: '/connected-components/in-app-messaging',
@@ -497,7 +510,7 @@ export const theming: ComponentNavItem[] = [
   {
     href: '/theming',
     label: 'Overview',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/theming/responsive',
@@ -530,7 +543,7 @@ export const theming: ComponentNavItem[] = [
   {
     href: '/theming/dark-mode',
     label: 'Dark mode',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/theming/css-variables',

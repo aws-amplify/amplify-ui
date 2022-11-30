@@ -1,5 +1,43 @@
 # @aws-amplify/ui-react
 
+## 4.1.0
+
+### Minor Changes
+
+- [#3028](https://github.com/aws-amplify/amplify-ui/pull/3028) [`7f4248db4`](https://github.com/aws-amplify/amplify-ui/commit/7f4248db457639d1bb34c8318569ab047aa80c5e) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Added the FileUploader component. The File Uploader lets your users upload files to the cloud. For more information follow the instructions. https://ui.docs.amplify.aws/react/connected-components/storage/fileuploader
+
+### Patch Changes
+
+- [#3104](https://github.com/aws-amplify/amplify-ui/pull/3104) [`8e5e696f4`](https://github.com/aws-amplify/amplify-ui/commit/8e5e696f4d0ae61e74537cdfe4395005cc21ce12) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): adding types to exports in package json to support TS moduleResolution for node16/nodenext
+
+- [#3074](https://github.com/aws-amplify/amplify-ui/pull/3074) [`a5b8696bc`](https://github.com/aws-amplify/amplify-ui/commit/a5b8696bc41d8cb2ff2c6fc39f8fd1afc349955a) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix radio button sizing issue #2756
+
+- Updated dependencies [[`b416aca55`](https://github.com/aws-amplify/amplify-ui/commit/b416aca553649d37e2686c02f3223a77bf36ed98), [`8e5e696f4`](https://github.com/aws-amplify/amplify-ui/commit/8e5e696f4d0ae61e74537cdfe4395005cc21ce12), [`7f4248db4`](https://github.com/aws-amplify/amplify-ui/commit/7f4248db457639d1bb34c8318569ab047aa80c5e), [`a5b8696bc`](https://github.com/aws-amplify/amplify-ui/commit/a5b8696bc41d8cb2ff2c6fc39f8fd1afc349955a)]:
+  - @aws-amplify/ui@5.2.0
+  - @aws-amplify/ui-react-core@2.1.2
+
+## 4.0.3
+
+### Patch Changes
+
+- [#3071](https://github.com/aws-amplify/amplify-ui/pull/3071) [`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(theme): update types for `ThemeProvider` to accept output of `createTheme`
+
+- Updated dependencies [[`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b)]:
+  - @aws-amplify/ui@5.1.1
+  - @aws-amplify/ui-react-core@2.1.1
+
+## 4.0.2
+
+### Patch Changes
+
+- [#3033](https://github.com/aws-amplify/amplify-ui/pull/3033) [`c9f67b1b0`](https://github.com/aws-amplify/amplify-ui/commit/c9f67b1b00f70419b4d623ecb282b5452bd67e15) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(Autocomplete): remove handler to open menu on focus to fix #3030
+
+- [#3019](https://github.com/aws-amplify/amplify-ui/pull/3019) [`0ff6cbc15`](https://github.com/aws-amplify/amplify-ui/commit/0ff6cbc152486ba04384de500d97b18e5db768ba) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: update Autocomplete filter to be case insensitive
+
+- Updated dependencies [[`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1), [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf)]:
+  - @aws-amplify/ui@5.1.0
+  - @aws-amplify/ui-react-core@2.1.0
+
 ## 4.0.1
 
 ### Patch Changes

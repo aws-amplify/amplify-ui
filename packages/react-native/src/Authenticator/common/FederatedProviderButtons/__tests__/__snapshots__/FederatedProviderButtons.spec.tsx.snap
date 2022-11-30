@@ -33,7 +33,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
           "paddingVertical": 12,
         },
         Object {
-          "borderColor": "hsl(210, 8%, 55%)",
+          "borderColor": "hsl(210, 10%, 58%)",
           "borderWidth": 1,
         },
         null,
@@ -81,8 +81,9 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "400",
+            "lineHeight": 21,
           },
           Object {
             "color": "hsl(210, 50%, 10%)",
@@ -128,8 +129,9 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       style={
         Array [
           Object {
-            "fontSize": 16,
+            "fontSize": 14,
             "fontWeight": "400",
+            "lineHeight": 21,
           },
           Object {
             "color": "hsl(210, 50%, 10%)",

@@ -1,10 +1,13 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { Logger } from 'aws-amplify';
 
 import { SetupTOTP } from '..';
 import { GetTotpSecretCode } from '@aws-amplify/ui-react-core/dist/types/Authenticator/hooks';
+
+// use empty mockImplementation to turn off console output
+const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
 
 const code = {
   name: 'code',
@@ -34,13 +37,17 @@ const {
   getConfirmingText,
   getConfirmText,
   getSetupTOTPText,
+  getSetupTOTPInstructionsText,
 } = authenticatorTextUtil;
 
-const clipboardSetStringSpy = jest.spyOn(Clipboard, 'setString');
 const SECRET_KEY = 'secretKey';
 const mockGetTotpSecretCode = jest.fn().mockResolvedValue(SECRET_KEY);
 
 describe('SetupTOTP', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders as expected', async () => {
     const { toJSON, getAllByRole, getByText } = render(
       <SetupTOTP {...props} />
@@ -80,7 +87,7 @@ describe('SetupTOTP', () => {
     });
   });
 
-  it('renders correct text based on isPending', async () => {
+  it('shows the correct submit button based on isPending', async () => {
     const { queryByText } = render(<SetupTOTP {...props} isPending />);
 
     await waitFor(() => {
@@ -89,29 +96,36 @@ describe('SetupTOTP', () => {
     });
   });
 
-  it('renders as expected with secret code', async () => {
-    const { toJSON, getByTestId, queryByText } = render(
+  it('handles secret code generation as expected', async () => {
+    const { getByText, queryByText, rerender } = render(
       <SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />
     );
-    await waitFor(() => {
-      expect(toJSON()).toMatchSnapshot();
-
+    await waitFor(async () => {
+      expect(mockGetTotpSecretCode).toHaveBeenCalledTimes(1);
+      expect(getByText(getSetupTOTPInstructionsText())).toBeDefined();
       expect(queryByText(SECRET_KEY)).toBeDefined();
-      expect(getByTestId('amplify__copy-text-button')).toBeDefined();
+      expect(getByText(SECRET_KEY).props.selectable).toBe(true);
+      expect(errorSpy).not.toHaveBeenCalled();
+
+      rerender(
+        <SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />
+      );
+      await waitFor(() => {
+        expect(mockGetTotpSecretCode).toHaveBeenCalledTimes(1);
+        expect(errorSpy).not.toHaveBeenCalled();
+      });
     });
   });
 
-  it('calls clipboard setString on copy button press', async () => {
-    const { getByTestId } = render(
-      <SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />
-    );
+  it('handles secret code generation errors as expected', async () => {
+    mockGetTotpSecretCode.mockImplementationOnce(() => {
+      throw new Error('Mock Error');
+    });
 
+    render(<SetupTOTP {...props} getTotpSecretCode={mockGetTotpSecretCode} />);
     await waitFor(() => {
-      const copyTextButton = getByTestId('amplify__copy-text-button');
-
-      expect(copyTextButton).toBeDefined();
-      fireEvent(copyTextButton, 'press');
-      expect(clipboardSetStringSpy).toHaveBeenCalledTimes(1);
+      expect(mockGetTotpSecretCode).toHaveBeenCalledTimes(1);
+      expect(errorSpy).toHaveBeenCalledTimes(1);
     });
   });
 });
