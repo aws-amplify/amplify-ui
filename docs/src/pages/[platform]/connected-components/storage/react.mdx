@@ -1,0 +1,47 @@
+import { Tabs, TabItem, Alert } from '@aws-amplify/ui-react';
+import { InstallScripts } from '@/components/InstallScripts';
+
+Amplify UI Storage components allow users to upload and interact with files complete [authentication flows](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/)
+to your application with minimal boilerplate.
+
+## Quick start
+
+The Amplify UI Storage components work seamlessly with the [Amplify CLI](https://docs.amplify.aws/cli/start/install/)
+to **automatically** work with your backend.
+
+First, update `@aws-amplify/cli` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+if you're using a version before `6.4.0`:
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install -g @aws-amplify/cli@latest
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn global add @aws-amplify/cli@latest
+```
+
+</TabItem>
+</Tabs>
+
+
+
+Now that you have the Amplify CLI installed, you can set up your Amplify project by running `amplify init` in your project's root directory. 
+<Alert role="none" variation="info" heading="File Uploader Auth">
+  If you are looking to use the File Uploader component, you must also setup auth. Run `amplify add auth` after initilizing your project.
+</Alert>
+
+Then run `amplify add storage` and follow the prompts to add storage to your backend configuration.
+
+_If you have an existing backend, run `amplify pull` to sync your `aws-exports.js` with your cloud backend._
+
+You should now have an `aws-exports.js` file in your `src/` directory with your latest backend configuration.
+
+After setting up Amplify make sure to install the Amplify libraries.
+
+<InstallScripts />

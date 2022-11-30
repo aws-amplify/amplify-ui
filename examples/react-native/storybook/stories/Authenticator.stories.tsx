@@ -2,7 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { AuthChallengeName, CodeDeliveryDetails } from '@aws-amplify/ui';
 import { GetTotpSecretCode } from '@aws-amplify/ui-react-core/src/Authenticator/hooks';
-import { InnerContainer } from '@aws-amplify/ui-react-native/src/Authenticator/common';
+import {
+  InnerContainer,
+  DefaultContainer,
+} from '@aws-amplify/ui-react-native/src/Authenticator/common';
 import { Authenticator } from '@aws-amplify/ui-react-native';
 import noop from 'lodash/noop';
 
@@ -155,9 +158,11 @@ const verifyUserProps = {
 
 storiesOf('Authenticator', module)
   .addDecorator((Story: any) => (
-    <InnerContainer>
-      <Story />
-    </InnerContainer>
+    <DefaultContainer>
+      <InnerContainer>
+        <Story />
+      </InnerContainer>
+    </DefaultContainer>
   ))
   .add('ConfirmResetPassword', () => (
     <Authenticator.ConfirmResetPassword {...confirmResetPasswordProps} />

@@ -38,8 +38,8 @@ describe(`All pages on Sitemap`, () => {
       /** Check all the internal links */
       cy.get(`a[href^='/']`).each((el) => hrefOnSitemap(el, link, allLinks));
 
-      /** Check all the external links and internal links with hash */
-      cy.get(`a:not([href^='/']), a[href*='#']`).each((el) =>
+      /** Check all the external links */
+      cy.get(`a:not([href^='/'])`).each((el) =>
         hrefWorks(el, link, requestedLinks)
       );
     });

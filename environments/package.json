@@ -3,9 +3,9 @@
   "name": "environments",
   "version": "0.0.1",
   "scripts": {
-    "pull": "yarn auth pull && yarn geo pull && yarn datastore pull",
     "auth": "yarn --cwd auth/",
     "datastore": "yarn --cwd datastore/",
-    "geo": "yarn --cwd geo/"
+    "geo": "yarn --cwd geo/",
+    "storage": "yarn --cwd storage/"
   }
 }
