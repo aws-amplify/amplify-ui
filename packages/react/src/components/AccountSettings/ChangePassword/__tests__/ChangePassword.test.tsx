@@ -257,6 +257,21 @@ describe('ChangePassword', () => {
 
   it('renders as expected with component overrides', async () => {
     const { container } = render(<ChangePassword components={components} />);
+
+    expect(
+      await screen.findByLabelText('Custom Current Password')
+    ).toBeDefined();
+
+    expect(await screen.findByLabelText('Custom New Password')).toBeDefined();
+
+    expect(
+      await screen.findByLabelText('Custom Confirm Password')
+    ).toBeDefined();
+
+    expect(
+      await screen.findByRole('button', { name: 'Custom Submit Button' })
+    ).toBeDefined();
+
     expect(container).toMatchSnapshot();
   });
 
