@@ -1,16 +1,17 @@
-import { DesignToken, WebDesignToken, ShadowValue } from './types/designToken';
+import {
+  DesignTokenValues,
+  OutputVariantKey,
+  ShadowValue,
+} from './types/designToken';
 
-export type Shadows = {
-  small: DesignToken<ShadowValue>;
-  medium: DesignToken<ShadowValue>;
-  large: DesignToken<ShadowValue>;
-};
+type ShadowSize = 'small' | 'medium' | 'large';
 
-export type WebShadows = {
-  [Property in keyof Shadows]: WebDesignToken<ShadowValue>;
-};
+export type Shadows<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = DesignTokenValues<ShadowSize, ShadowValue, Output, Platform>;
 
-export const shadows: Shadows = {
+export const shadows: Shadows<'default'> = {
   small: {
     value: {
       offsetX: '0px',

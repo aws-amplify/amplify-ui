@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage applies theme and style props 1`] = `
+<View
+  accessibilityRole="alert"
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "hsl(0, 75%, 85%)",
+        "flexDirection": "row",
+        "paddingHorizontal": 8,
+        "paddingVertical": 32,
+      },
+      Object {
+        "backgroundColor": "blue",
+      },
+    ]
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/error.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 20,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 20,
+        },
+        Object {
+          "margin": 8,
+        },
+      ]
+    }
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "hsl(0, 100%, 20%)",
+          "flex": 1,
+          "paddingHorizontal": 8,
+        },
+        Object {
+          "color": "white",
+        },
+      ]
+    }
+  >
+    Themed ErrorMessage
+  </Text>
+</View>
+`;
+
+exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
+<View
+  accessibilityRole="alert"
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "hsl(0, 75%, 85%)",
+        "flexDirection": "row",
+        "paddingHorizontal": 8,
+        "paddingVertical": 32,
+      },
+      undefined,
+    ]
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/error.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 20,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 20,
+        },
+        Object {
+          "margin": 8,
+        },
+      ]
+    }
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "hsl(0, 100%, 20%)",
+          "flex": 1,
+          "paddingHorizontal": 8,
+        },
+        undefined,
+      ]
+    }
+  >
+    Default ErrorMessage
+  </Text>
+</View>
+`;

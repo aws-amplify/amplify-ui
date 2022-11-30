@@ -1,0 +1,11 @@
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import { Authenticator } from '@aws-amplify/ui-react';
+
+## Hide Sign Up
+
+The Authenticator has an option to hide the sign up page including the `Create Account` button.
+
+<Fragment>
+  {({ platform }) => import(`./hidesignup.default.${platform}.mdx`)}
+</Fragment>

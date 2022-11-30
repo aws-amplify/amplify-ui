@@ -11,7 +11,6 @@ Amplify.configure(awsExports);
 const formFields = {
   confirmVerifyUser: {
     confirmation_code: {
-      labelHidden: false,
       label: 'New Label',
       placeholder: 'Enter your Confirmation Code:',
       isRequired: false,

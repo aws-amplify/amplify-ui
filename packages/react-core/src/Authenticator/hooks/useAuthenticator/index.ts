@@ -1,2 +1,2 @@
 export { default as useAuthenticator } from './useAuthenticator';
-export { UseAuthenticator } from './types';
+export { UseAuthenticator, UseAuthenticatorSelector } from './types';

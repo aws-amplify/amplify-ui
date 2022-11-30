@@ -1,9 +1,12 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
+
+const { getConfirmText, getConfirmingText, getBackToSignInText } =
+  authenticatorTextUtil;
 
 export const ConfirmSignInFooter = (): JSX.Element => {
   const { isPending, toSignIn } = useAuthenticator((context) => [
@@ -19,9 +22,9 @@ export const ConfirmSignInFooter = (): JSX.Element => {
         variation="primary"
         fontWeight="normal"
         isLoading={isPending}
-        loadingText={translate('Confirming')}
+        loadingText={getConfirmingText()}
       >
-        {translate('Confirm')}
+        {getConfirmText()}
       </Button>
 
       <Button
@@ -31,7 +34,7 @@ export const ConfirmSignInFooter = (): JSX.Element => {
         fontWeight="normal"
         size="small"
       >
-        {translate('Back to Sign In')}
+        {getBackToSignInText()}
       </Button>
     </Flex>
   );

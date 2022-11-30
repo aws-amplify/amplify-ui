@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import Amplify from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 
 @Component({
@@ -14,7 +14,6 @@ export class SignInWithEmailComponent {
   public formFields = {
     confirmVerifyUser: {
       confirmation_code: {
-        labelHidden: false,
         label: 'New Label',
         placeholder: 'Enter your Confirmation Code:',
         isRequired: false,

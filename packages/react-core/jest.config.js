@@ -2,10 +2,14 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|tsx)',
 
-    // do not collect coverage from constants files
+    // do not collect coverage from:
+    // - constants files
     '!<rootDir>/src/**/*(c|C)onstants.ts',
-    // do not collect coverage from primary exports file
-    '!<rootDir>/src/index.ts',
+    // - __mock__ directories
+    '!<rootDir>/src/**/__mock__/*',
+    // - exports files
+    '!<rootDir>/src/index.ts', // primary
+    '!<rootDir>/src/Authenticator/index.ts', // Authenticator
   ],
   coverageThreshold: {
     global: {
@@ -17,6 +21,7 @@ module.exports = {
   },
   globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  moduleNameMapper: { '^react$': '<rootDir>/node_modules/react' },
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
 };
