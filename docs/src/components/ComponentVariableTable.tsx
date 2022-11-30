@@ -6,7 +6,9 @@ function extractClasses(themeObject) {
   const themeKeys = Object.keys(themeObject);
   let classNames = [];
   themeKeys.forEach((key) => {
-    if (themeObject[key]?.name) {
+    // 'value' is a special attribute, only design tokens will have 'value'
+    // however, there could be a 'name' in part of the object
+    if (themeObject[key]?.value) {
       classNames.push(themeObject[key].name);
     } else if (typeof themeObject[key] === 'object') {
       classNames = classNames.concat(extractClasses(themeObject[key]));
