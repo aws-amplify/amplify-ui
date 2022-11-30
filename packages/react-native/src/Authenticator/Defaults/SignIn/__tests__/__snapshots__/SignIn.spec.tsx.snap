@@ -74,7 +74,7 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(210, 8%, 55%)",
+            "borderColor": "hsl(210, 10%, 58%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
@@ -158,7 +158,7 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(210, 8%, 55%)",
+            "borderColor": "hsl(210, 10%, 58%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
@@ -490,7 +490,7 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(210, 8%, 55%)",
+            "borderColor": "hsl(210, 10%, 58%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
@@ -574,7 +574,7 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(210, 8%, 55%)",
+            "borderColor": "hsl(210, 10%, 58%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
@@ -856,7 +856,7 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(210, 8%, 55%)",
+            "borderColor": "hsl(210, 10%, 58%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
@@ -940,7 +940,7 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "hsl(210, 8%, 55%)",
+            "borderColor": "hsl(210, 10%, 58%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",

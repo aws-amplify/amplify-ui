@@ -97,7 +97,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(210, 8%, 55%)",
+                "borderColor": "hsl(210, 10%, 58%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -162,7 +162,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(210, 8%, 55%)",
+                "borderColor": "hsl(210, 10%, 58%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -409,7 +409,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(210, 8%, 55%)",
+                "borderColor": "hsl(210, 10%, 58%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
@@ -474,7 +474,7 @@ Array [
             Array [
               Object {
                 "alignItems": "center",
-                "borderColor": "hsl(210, 8%, 55%)",
+                "borderColor": "hsl(210, 10%, 58%)",
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",

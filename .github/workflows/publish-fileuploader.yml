@@ -1,0 +1,17 @@
+# Description: This workflow runs unit + e2e tests
+#
+# Triggered by: merge to `fileuploader/main` branch
+
+name: Publish / fileuploader
+
+on:
+  push:
+    branches: [fileuploader/release]
+
+jobs:
+  publish:
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: fileuploader
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
