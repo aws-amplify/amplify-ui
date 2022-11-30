@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert } from '../../../primitives';
-import { ComponentError } from '../types';
+import { ErrorComponent } from '../types';
 
-export const DefaultError: ComponentError = (props) => {
+export const DefaultError: ErrorComponent = (props) => {
   return <Alert variation="error" {...props} />;
 };

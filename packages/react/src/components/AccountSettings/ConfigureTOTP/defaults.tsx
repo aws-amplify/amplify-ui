@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Alert, Button, Image, TextField } from '../../../primitives';
 import {
-  ComponentError,
+  ErrorComponent,
   AccountSettingsImage,
-  ComponentSubmitButton,
+  SubmitButtonComponent,
   AccountSettingsTextField,
 } from '../types';
 
@@ -12,12 +12,12 @@ export const ConfirmationCode: AccountSettingsTextField = TextField;
 
 export const SecretKeyQRCode: AccountSettingsImage = Image;
 
-export const CopySecretKey: ComponentSubmitButton = Button;
+export const CopySecretKey: SubmitButtonComponent = Button;
 
-export const SubmitButton: ComponentSubmitButton = (props) => (
+export const SubmitButton: SubmitButtonComponent = (props) => (
   <Button type="submit" {...props} />
 );
 
-export const Error: ComponentError = (props) => {
+export const Error: ErrorComponent = (props) => {
   return <Alert variation="error" {...props} />;
 };

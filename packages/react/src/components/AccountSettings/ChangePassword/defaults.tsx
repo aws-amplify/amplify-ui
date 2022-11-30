@@ -2,10 +2,10 @@ import React from 'react';
 import { Button, PasswordField } from '../../../primitives';
 import { ValidationErrors } from '../../shared/ValidationErrors';
 import { DefaultError } from '../shared/Defaults';
-import { ComponentPasswordField } from '../types';
+import { PasswordFieldComponent } from '../types';
 import { ChangePasswordComponents } from './types';
 
-const DefaultPasswordField: ComponentPasswordField = ({
+const DefaultPasswordField: PasswordFieldComponent = ({
   label,
   validationErrors,
   ...rest
