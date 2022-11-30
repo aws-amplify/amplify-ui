@@ -47,19 +47,45 @@ To create a Link which opens in a new tab, use the `isExternal` prop. Under the 
 
 ### Routing Libraries
 
-You can use a Link with any React routing library that supports custom components. Below is an example using Link with React Router v5, in which the Link is passed to the `component` prop as a custom navigation component:
+You can use a Link with any React routing library that supports custom components. Below are examples for both React Router v5 and v6:
+
+#### React Router v5
+
+Pass the Amplify UI Link to React Router Link's `component` prop:
 
 <Example>
   <ExampleCode>
     ```jsx
-    import { Link, Flex, Heading } from '@aws-amplify/ui-react';
+    import { Heading, Link as AmplifyUiLink } from "@aws-amplify/ui-react";
 
     import {
-      BrowserRouter as Router,
+      BrowserRouter,
       Link as ReactRouterLink,
-      Routes,
       Route,
-    } from 'react-router-dom';
+      Switch,
+    } from "react-router-dom";
+
+    function App() {
+      return (
+        <BrowserRouter>
+          <ReactRouterLink to="/" component={AmplifyUiLink}>
+            Home
+          </ReactRouterLink>
+          <ReactRouterLink to="/about" component={AmplifyUiLink}>
+            About
+          </ReactRouterLink>
+
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      );
+    }
 
     function Home() {
       return <Heading level={2}>Home</Heading>;
@@ -69,26 +95,42 @@ You can use a Link with any React routing library that supports custom component
       return <Heading level={2}>About</Heading>;
     }
 
-    function Users() {
-      return <Heading level={2}>Users</Heading>;
-    }
+    export default App;
+    ```
+  </ExampleCode>
+</Example>
+
+#### React Router v6
+
+Since the React Router Link [no longer supports the `component` prop in v6](https://reactrouter.com/en/main/upgrading/v5#remove-link-component-prop), we recommend just passing an `href` to the Amplify UI Link :
+
+<Example>
+  <ExampleCode>
+    ```jsx
+    import { Heading, Link } from "@aws-amplify/ui-react";
+
+    import { BrowserRouter, Route, Routes } from "react-router-dom";
 
     function App() {
       return (
-        <Router>
-          <Flex>
-            <ReactRouterLink to="/" component={Link}>Home</ReactRouterLink>
-            <ReactRouterLink to="/about" component={Link}>About</ReactRouterLink>
-            <ReactRouterLink to="/users" component={Link}>Users</ReactRouterLink>
-          </Flex>
+        <BrowserRouter>
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
 
           <Routes>
-            <Route path="/about" element={<About />} />
-            <Route path="/users" element={<Users />} />
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
           </Routes>
-        </Router>
+        </BrowserRouter>
       );
+    }
+
+    function Home() {
+      return <Heading level={2}>Home</Heading>;
+    }
+
+    function About() {
+      return <Heading level={2}>About</Heading>;
     }
 
     export default App;
