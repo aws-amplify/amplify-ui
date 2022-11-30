@@ -2,12 +2,7 @@ name: 'CodeQL'
 
 on:
   push:
-    branches:
-      - main
-      - '*/main'
   pull_request:
-    # run against `main` and feature branches, e.g. `rna/main`
-    branches: ['main', '*/main']
 
 jobs:
   analyze:
