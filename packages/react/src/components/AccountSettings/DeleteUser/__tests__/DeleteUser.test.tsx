@@ -56,7 +56,7 @@ describe('ChangePassword', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it.only('calls deleteUser with expected arguments', async () => {
+  it('calls deleteUser with expected arguments', async () => {
     deleteUserSpy.mockResolvedValue();
 
     const onSuccess = jest.fn();
