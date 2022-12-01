@@ -13,7 +13,7 @@ import {
   useLivenessSelector,
 } from '../hooks';
 import { isMobileScreen } from '../utils/device';
-import { Text, Flex, View } from '../../../primitives';
+import { Text, Flex, View, Button } from '../../../primitives';
 import { CancelButton } from '../shared/CancelButton';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
@@ -24,11 +24,15 @@ export const selectErrorState = createLivenessSelector(
 
 export const LivenessCheck: React.FC = () => {
   const { tokens } = useTheme();
-  const [state] = useLivenessActor();
+  const [state, send] = useLivenessActor();
   const errorState = useLivenessSelector(selectErrorState);
 
   const isPermissionDenied = state.matches('permissionDenied');
   const isMobile = isMobileScreen();
+
+  const recheckCameraPermissions = () => {
+    send({ type: 'RETRY_CAMERA_CHECK' });
+  };
 
   return (
     <Flex
@@ -69,6 +73,13 @@ export const LivenessCheck: React.FC = () => {
                   'Connect a camera and allow camera permission in browser settings'
                 )}
           </Text>
+          <Button
+            variation="primary"
+            type="button"
+            onClick={recheckCameraPermissions}
+          >
+            {translate('Proceed')}
+          </Button>
           <View position="absolute" top="medium" right="medium">
             <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
           </View>

@@ -112,7 +112,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       cameraCheck: {
-        entry: ['setVideoConstraints', 'initializeFaceDetector'],
+        entry: [
+          'resetErrorState',
+          'setVideoConstraints',
+          'initializeFaceDetector',
+        ],
         invoke: {
           src: 'checkVirtualCameraAndGetStream',
           onDone: {
@@ -345,6 +349,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       permissionDenied: {
         entry: 'callUserPermissionDeniedCallback',
+        on: {
+          RETRY_CAMERA_CHECK: 'cameraCheck',
+        },
       },
       timeout: {
         entry: ['cleanUpResources', 'callUserTimeoutCallback', 'freezeStream'],
@@ -381,10 +388,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       setVideoConstraints: assign({
-        videoAssociatedParams: (context, event) => ({
-          ...context.videoAssociatedParams,
-          videoConstraints: event.data?.videoConstraints,
-        }),
+        videoAssociatedParams: (context, event) => {
+          return {
+            ...context.videoAssociatedParams,
+            videoConstraints:
+              event.data?.videoConstraints ||
+              context.videoAssociatedParams?.videoConstraints,
+          };
+        },
       }),
       updateVideoMediaStream: assign({
         videoAssociatedParams: (context, event) => ({
@@ -512,6 +523,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           startFace: undefined,
           endFace: undefined,
         }),
+      }),
+      resetErrorState: assign({
+        errorState: (_) => undefined,
       }),
       updateErrorStateForTimeout: assign({
         errorState: (_, event) => {

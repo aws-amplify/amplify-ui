@@ -23,6 +23,7 @@ export const enDict = {
     'Camera does not meet minimum specification',
   'Use a camera that can record at 15 frames per second or higher':
     'Use a camera that can record at 15 frames per second or higher',
+  Proceed: 'Proceed',
 
   // Liveness Flow
   'Connecting...': 'Connecting...',

@@ -21,6 +21,7 @@ export const defaultTexts = {
   LIVENESS_NO_CAMERA_MIN_SPEC: 'Camera does not meet minimum specification',
   LIVENESS_NO_CAMERA_MIN_SPEC_DESCRIPTION:
     'Use a camera that can record at 15 frames per second or higher',
+  LIVENESS_NO_CAMERA_CTA: 'Proceed',
 
   // Liveness Flow
   LIVENESS_CHECK_CONNECTING: 'Connecting...',

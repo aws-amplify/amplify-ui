@@ -337,6 +337,30 @@ describe('Liveness Machine', () => {
       await flushPromises();
       expect(service.state.value).toBe('permissionDenied');
     });
+
+    it('should reach cameraCheck state after retrying from the permissionDenied state', async () => {
+      mockNavigatorMediaDevices.getUserMedia.mockResolvedValueOnce({
+        getTracks: () => [
+          {
+            getSettings: () => ({
+              width: 640,
+              height: 480,
+              deviceId: mockCameraDevice.deviceId,
+              frameRate: 10,
+            }),
+          },
+        ],
+      } as MediaStream);
+      transitionToCameraCheck(service);
+
+      await flushPromises();
+      expect(service.state.value).toBe('permissionDenied');
+
+      service.send({
+        type: 'RETRY_CAMERA_CHECK',
+      });
+      expect(service.state.value).toBe('cameraCheck');
+    });
   });
 
   describe('waitForDOMAndCameraDetails', () => {
