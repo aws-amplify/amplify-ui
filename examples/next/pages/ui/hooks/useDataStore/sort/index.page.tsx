@@ -5,7 +5,6 @@ import '@aws-amplify/ui-react/styles.css';
 
 import { AuthSignOutButton } from '../AuthActions';
 import awsExports from '../aws-exports';
-import { User } from '../models';
 import Collection from './Collection';
 import { initializeTestData } from '../utils';
 
