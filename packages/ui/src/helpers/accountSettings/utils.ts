@@ -42,37 +42,3 @@ export const deleteUser = async () => {
     return Promise.reject(e);
   }
 };
-
-export const setupTOTP = async (user: AmplifyUser) => {
-  try {
-    logger.debug('calling Auth.setupTOTP');
-
-    const secretCode = await Auth.setupTOTP(user);
-    logger.debug('Auth.setupTOTP was successful');
-
-    return secretCode;
-  } catch (e) {
-    logger.error('Auth.setupTOTP failed with error', e);
-    return Promise.reject(e);
-  }
-};
-
-export const verifyTOTPToken = async ({
-  user,
-  code,
-}: {
-  user: AmplifyUser;
-  code: string;
-}) => {
-  try {
-    logger.debug('calling Auth.verifyTotpToken');
-
-    await Auth.verifyTotpToken(user, code);
-    logger.debug('Auth.verifyTotpToken was successful');
-
-    return Promise.resolve();
-  } catch (e) {
-    logger.error('Auth.verifyTotpToken failed with error', e);
-    return Promise.reject(e);
-  }
-};
