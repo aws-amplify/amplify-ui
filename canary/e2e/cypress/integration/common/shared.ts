@@ -5,16 +5,11 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { escapeRegExp } from 'lodash';
 
-let language = 'en-US';
-
 Given("I'm running the example {string}", (example: string) => {
   cy.visit(example, {
     // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
     onBeforeLoad(win) {
-      Object.defineProperty(win.navigator, 'language', { value: language });
-    },
-    onLoad(contentWindow) {
-      window = contentWindow;
+      Object.defineProperty(win.navigator, 'language', { value: 'en-US' });
     },
   });
 });
