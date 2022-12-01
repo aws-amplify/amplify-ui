@@ -106,4 +106,8 @@ function DeleteUser({
   );
 }
 
+DeleteUser.Error = DEFAULTS.Error;
+DeleteUser.SubmitButton = DEFAULTS.SubmitButton;
+DeleteUser.Warning = DEFAULTS.Warning;
+
 export default DeleteUser;
