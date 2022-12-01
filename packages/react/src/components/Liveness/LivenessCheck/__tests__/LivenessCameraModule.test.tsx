@@ -104,6 +104,7 @@ describe('LivenessCameraModule', () => {
         videoEl: expect.any(HTMLVideoElement),
         freshnessColorEl: expect.any(HTMLCanvasElement),
         canvasEl: expect.any(HTMLCanvasElement),
+        isMobile: true,
       },
     });
   });

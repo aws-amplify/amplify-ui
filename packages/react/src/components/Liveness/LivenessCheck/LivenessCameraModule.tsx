@@ -63,10 +63,11 @@ export const LivenessCameraModule = (
           videoEl: videoRef.current,
           canvasEl: canvasRef.current,
           freshnessColorEl: freshnessColorRef.current,
+          isMobile: isMobileScreen,
         },
       });
     }
-  }, [send, videoRef, isCameraReady]);
+  }, [send, videoRef, isCameraReady, isMobileScreen]);
 
   const timerCompleteHandler = () => {
     send({ type: 'START_RECORDING' });

@@ -28,6 +28,7 @@ export interface LivenessContext {
     videoMediaStream: MediaStream;
     videoRecorder: VideoRecorder;
     recordingStartTimestampMs: number;
+    isMobile: boolean | undefined;
   };
   ovalAssociatedParams: {
     faceDetector: FaceDetection;

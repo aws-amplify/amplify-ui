@@ -100,6 +100,7 @@ export const mockContext = (): LivenessContext => {
       videoMediaStream: mockVideoMediaStream,
       videoRecorder: mockVideoRecorder,
       recordingStartTimestampMs: 1,
+      isMobile: false,
     },
     ovalAssociatedParams: {
       faceDetector: mockBlazeFace,

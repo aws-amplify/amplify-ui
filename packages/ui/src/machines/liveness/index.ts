@@ -414,6 +414,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             ...context.videoAssociatedParams,
             videoEl: event.data?.videoEl,
             canvasEl: event.data?.canvasEl,
+            isMobile: event.data?.isMobile,
           };
         },
         freshnessColorAssociatedParams: (context, event) => ({
@@ -836,7 +837,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectFaceDistance(context) {
         const {
-          videoAssociatedParams: { videoEl, videoMediaStream },
+          videoAssociatedParams: { videoEl, videoMediaStream, isMobile },
           ovalAssociatedParams: { faceDetector },
           serverSessionInformation,
         } = context;
@@ -849,11 +850,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         });
 
         const isFaceFarEnoughBeforeRecording =
-          await isFaceDistanceBelowThreshold(
+          await isFaceDistanceBelowThreshold({
             faceDetector,
             videoEl,
-            ovalDetails
-          );
+            ovalDetails,
+            isMobile,
+          });
 
         return { isFaceFarEnoughBeforeRecording, ovalDetails };
       },
