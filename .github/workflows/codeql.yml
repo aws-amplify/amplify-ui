@@ -2,6 +2,8 @@ name: 'CodeQL'
 
 on:
   push:
+    branches: ['main', '*/main']
+
   pull_request:
 
 jobs:
@@ -26,6 +28,7 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
+          config-file: ./.github/codeql/codeql-config.yml
           queries: +security-and-quality
 
       - name: Autobuild
