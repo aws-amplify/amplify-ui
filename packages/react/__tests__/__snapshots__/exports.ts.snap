@@ -2,6 +2,7 @@
 
 exports[`@aws-amplify/ui-react exports should match snapshot 1`] = `
 Array [
+  "AccountSettings",
   "Alert",
   "AmplifyProvider",
   "Authenticator",
@@ -10,14 +11,12 @@ Array [
   "Button",
   "ButtonGroup",
   "Card",
-  "ChangePassword",
   "CheckboxField",
   "Collection",
   "ComponentClassNames",
   "ComponentClassObject",
   "ComponentPropsToStylePropsMap",
   "ComponentPropsToStylePropsMapKeys",
-  "DeleteUser",
   "Divider",
   "Expander",
   "ExpanderItem",
