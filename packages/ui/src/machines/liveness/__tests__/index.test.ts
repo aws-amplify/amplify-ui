@@ -136,7 +136,6 @@ describe('Liveness Machine', () => {
     await transitionToInitializeLivenessStream(service);
     await flushPromises(); // notRecording
 
-    service.send({ type: 'START_RECORDING' });
     service.send({
       type: 'SET_SESSION_INFO',
       data: {
@@ -144,10 +143,9 @@ describe('Liveness Machine', () => {
       },
     });
     jest.advanceTimersToNextTimer(); // waitForSessionInformation
-
-    jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording
-    await flushPromises();
+    await flushPromises(); // detectFaceDistanceBeforeRecording
     jest.advanceTimersToNextTimer(); // checkFaceDistanceBeforeRecording
+    service.send({ type: 'START_RECORDING' });
   }
 
   async function advanceMinFaceMatches() {
@@ -386,7 +384,6 @@ describe('Liveness Machine', () => {
       await transitionToInitializeLivenessStream(service);
       await flushPromises(); // notRecording
 
-      service.send({ type: 'START_RECORDING' });
       service.send({
         type: 'SET_SESSION_INFO',
         data: {
@@ -394,10 +391,9 @@ describe('Liveness Machine', () => {
         },
       });
       jest.advanceTimersToNextTimer(); // waitForSessionInformation
-
-      jest.advanceTimersToNextTimer(); // detectFaceDistanceBeforeRecording
-      await flushPromises();
+      await flushPromises(); // detectFaceDistanceBeforeRecording
       jest.advanceTimersToNextTimer(); // checkFaceDistanceBeforeRecording
+      service.send({ type: 'START_RECORDING' });
 
       expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
     });
