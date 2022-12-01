@@ -4,11 +4,11 @@ import { ErrorComponent, SubmitButtonComponent } from '../types';
 
 export interface WarningProps {
   /** called when end user cancels account deletion */
-  onCancel?: () => void;
+  onCancel: () => void;
   /** called when user acknowledges account deletion */
-  onConfirm?: () => void;
+  onConfirm: () => void;
   /** whether account deletion is in progress */
-  isDisabled?: boolean;
+  isDisabled: boolean;
 }
 
 export type WarningComponent<Props = {}> = React.ComponentType<
