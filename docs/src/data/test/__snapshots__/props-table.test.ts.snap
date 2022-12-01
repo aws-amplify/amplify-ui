@@ -1021,6 +1021,13 @@ exports[`Props Table 1`] = `
                         \\"description\\": \\"The label to show in the button when \`loading\` is true\\\\nIf no text is passed, it only shows the spinner\\",
                         \\"category\\": \\"ButtonProps\\",
                         \\"isOptional\\": true
+                    },
+                    \\"href\\": {
+                        \\"name\\": \\"href\\",
+                        \\"type\\": \\"string\\",
+                        \\"description\\": \\"a stringifier that returns a string containing the whole URL, and allows the href to be updated. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/href)\\",
+                        \\"category\\": \\"LinkOptions\\",
+                        \\"isOptional\\": true
                     }
                 }
             },
@@ -4471,6 +4478,13 @@ exports[`Props Table 1`] = `
                         \\"description\\": \\"The label to show in the button when \`loading\` is true\\\\nIf no text is passed, it only shows the spinner\\",
                         \\"category\\": \\"ButtonProps\\",
                         \\"isOptional\\": true
+                    },
+                    \\"href\\": {
+                        \\"name\\": \\"href\\",
+                        \\"type\\": \\"string\\",
+                        \\"description\\": \\"a stringifier that returns a string containing the whole URL, and allows the href to be updated. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/href)\\",
+                        \\"category\\": \\"LinkOptions\\",
+                        \\"isOptional\\": true
                     }
                 }
             },
@@ -4732,6 +4746,13 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"React.CSSProperties\\",
                         \\"description\\": \\"Accepts a JavaScript object with camelCased properties rather than a CSS string.\\\\nThis is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes. See: [React docs](https://reactjs.org/docs/dom-elements.html#style)\\",
                         \\"category\\": \\"ViewProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"href\\": {
+                        \\"name\\": \\"href\\",
+                        \\"type\\": \\"string\\",
+                        \\"description\\": \\"a stringifier that returns a string containing the whole URL, and allows the href to be updated. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/href)\\",
+                        \\"category\\": \\"LinkOptions\\",
                         \\"isOptional\\": true
                     }
                 }
@@ -11486,6 +11507,13 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"boolean\\",
                         \\"description\\": \\"When \`true\`, sets the \`isPressed\` state of the ToggleButton to \`true\` on initial render\\",
                         \\"category\\": \\"ToggleButtonProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"href\\": {
+                        \\"name\\": \\"href\\",
+                        \\"type\\": \\"string\\",
+                        \\"description\\": \\"a stringifier that returns a string containing the whole URL, and allows the href to be updated. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/href)\\",
+                        \\"category\\": \\"LinkOptions\\",
                         \\"isOptional\\": true
                     }
                 }
