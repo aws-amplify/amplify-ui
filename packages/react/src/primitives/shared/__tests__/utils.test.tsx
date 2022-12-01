@@ -1,4 +1,3 @@
-import { ViewProps } from '../../types';
 import { createTheme } from '@aws-amplify/ui';
 import {
   getConsecutiveIntArray,
@@ -9,25 +8,6 @@ import {
   Modifiers,
 } from '../utils';
 import { ComponentClassNames } from '../constants';
-
-const props: ViewProps = {
-  backgroundColor: 'blue',
-  border: '1px solid black',
-  borderRadius: '6px',
-  boxShadow: '3px 3px 5px 6px #ccc',
-  color: 'red',
-  height: '100px',
-  maxHeight: '200px',
-  maxWidth: '200px',
-  minHeight: '100px',
-  minWidth: '100px',
-  opacity: '80%',
-  padding: '6px',
-  width: '100px',
-  as: 'section',
-  ariaLabel: 'important section',
-  className: 'my-section',
-};
 
 const theme = createTheme();
 const { tokens } = theme;
