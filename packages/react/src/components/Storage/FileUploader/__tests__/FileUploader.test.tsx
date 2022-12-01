@@ -471,7 +471,7 @@ describe('File Uploader', () => {
   });
 
   it.skip('shows the overridden Tracker component', async () => {
-    const UploadTracker = ({ name }) => <div>File Name: {name}</div>;
+    // const UploadTracker = ({ name }) => <div>File Name: {name}</div>;
 
     const fileStatuses = [fileStatus];
     useFileUploaderSpy.mockReturnValue({
@@ -491,9 +491,9 @@ describe('File Uploader', () => {
     ).toBeVisible();
   });
   it.skip('shows the overridden Previewer component', async () => {
-    const UploadPreviewer = ({ fileStatuses }) => (
-      <div>Preview: {fileStatuses[0].name} </div>
-    );
+    // const UploadPreviewer = ({ fileStatuses }) => (
+    //   <div>Preview: {fileStatuses[0].name} </div>
+    // );
     const fileStatuses = [fileStatus];
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,

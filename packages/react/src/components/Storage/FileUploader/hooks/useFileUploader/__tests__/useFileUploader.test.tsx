@@ -223,8 +223,6 @@ describe('useFileUploader', () => {
       stopPropagation: () => null,
       dataTransfer: { dropEffect: '', files: [fakeFile] },
     } as any;
-    const eventPrevSpy = jest.spyOn(event, 'preventDefault');
-    const eventPropSpy = jest.spyOn(event, 'stopPropagation');
 
     const {
       current: { onDrop },
