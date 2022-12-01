@@ -1,1 +1,3 @@
-export { AccountSettings } from './AccountSettings';
+import AccountSettings from './AccountSettings';
+
+export default AccountSettings;
