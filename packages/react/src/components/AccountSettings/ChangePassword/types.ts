@@ -1,5 +1,18 @@
 import { InputEventType, ValidatorOptions } from '@aws-amplify/ui';
-import { FormValues } from '../types';
+import {
+  ErrorComponent,
+  PasswordFieldComponent,
+  SubmitButtonComponent,
+  FormValues,
+} from '../types';
+
+export interface ChangePasswordComponents {
+  CurrentPassword?: PasswordFieldComponent;
+  NewPassword?: PasswordFieldComponent;
+  ConfirmPassword?: PasswordFieldComponent;
+  SubmitButton?: SubmitButtonComponent;
+  Error?: ErrorComponent;
+}
 
 export type ValidateParams = {
   formValues: FormValues;
@@ -12,4 +25,6 @@ export interface ChangePasswordProps {
   onError?: (error: Error) => void;
   /** custom password validations */
   validators?: ValidatorOptions[];
+  /** custom component overrides */
+  components?: ChangePasswordComponents;
 }

@@ -2,10 +2,10 @@ import { translate } from '@aws-amplify/ui';
 import React from 'react';
 
 import { Card, Flex, Text, Button, Alert } from '../../../primitives';
-import { AccountSettingsError, AccountSettingsSubmitButton } from '../types';
+import { ErrorComponent, SubmitButtonComponent } from '../types';
 import { DeleteUserWarningProps } from './types';
 
-export const DefaultSubmitButton: AccountSettingsSubmitButton = ({
+export const DefaultSubmitButton: SubmitButtonComponent = ({
   children,
   ...rest
 }) => {
@@ -46,7 +46,7 @@ export const DefaultWarning = ({
   );
 };
 
-export const DefaultError: AccountSettingsError = ({ children, ...rest }) => {
+export const DefaultError: ErrorComponent = ({ children, ...rest }) => {
   return (
     <Alert variation="error" {...rest}>
       {children}
