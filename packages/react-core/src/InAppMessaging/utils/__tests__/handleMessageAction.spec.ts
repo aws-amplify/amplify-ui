@@ -40,7 +40,7 @@ describe('handleMessageAction', () => {
       expect(infoSpy).toHaveBeenCalledWith(`Handle action: ${action}`);
       expect(infoSpy).toHaveBeenCalledTimes(1);
       expect(warnSpy).toHaveBeenCalledWith(
-        `url must be of type string: ${invalidUrl}`
+        'url must be of type string. Received: null'
       );
       expect(warnSpy).toHaveBeenCalledTimes(1);
       expect(handleMessageLinkAction).not.toHaveBeenCalled();
@@ -56,7 +56,7 @@ describe('handleMessageAction', () => {
 
       expect(infoSpy).toHaveBeenCalledWith(`Handle action: ${action}`);
       expect(warnSpy).toHaveBeenCalledWith(
-        `url must be of type string: ${invalidUrl}`
+        'url must be of type string. Received: undefined'
       );
       expect(infoSpy).toHaveBeenCalledTimes(1);
       expect(warnSpy).toHaveBeenCalledTimes(1);

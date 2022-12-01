@@ -1,4 +1,3 @@
-import { ViewProps } from '../../types';
 import { createTheme } from '@aws-amplify/ui';
 import {
   getConsecutiveIntArray,
