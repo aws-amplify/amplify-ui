@@ -37,7 +37,7 @@ function CustomWarning({ onCancel, onConfirm, isDisabled }) {
 
 const components: DeleteUserComponents = {
   SubmitButton: (props) => <Button {...props}>Custom Delete Button</Button>,
-  Warning: (props) => <CustomWarning {...props} />,
+  Warning: CustomWarning,
   Error: ({ children }) => (
     <>
       <Heading>Custom Error Message</Heading>
