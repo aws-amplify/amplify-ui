@@ -1,5 +1,7 @@
-import { AmplifyUser } from '@aws-amplify/ui';
 import React from 'react';
+
+import { AmplifyUser } from '@aws-amplify/ui';
+
 import { ErrorComponent, SubmitButtonComponent } from '../types';
 
 export interface WarningProps {
