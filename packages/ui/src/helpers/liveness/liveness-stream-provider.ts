@@ -15,9 +15,10 @@ export interface StartLivenessStreamOutput {
   stream: WebSocket;
 }
 
+// FIXME: default endpoint to prod for now, remove this when sdk has the proper endpoints setup
 const ENDPOINT =
   process.env.NEXT_PUBLIC_STREAMING_API_URL ||
-  'wss://streaming-rekognition-gamma.us-east-1.amazonaws.com:443';
+  'wss://streaming-rekognition.us-east-1.amazonaws.com:443';
 const REGION = process.env.NEXT_PUBLIC_BACKEND_API_REGION || 'us-east-1';
 
 export interface Credentials {
