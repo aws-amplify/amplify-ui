@@ -4,11 +4,7 @@ import { deleteUser, translate, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
-import {
-  DefaultWarning,
-  DefaultError,
-  DefaultSubmitButton,
-} from './defaultComponents';
+import { DefaultWarning, DefaultError, DefaultSubmitButton } from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 
 const logger = getLogger('Auth');
