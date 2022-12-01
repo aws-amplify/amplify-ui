@@ -34,7 +34,9 @@ export const Toast: React.FC<ToastProps> = ({
         ) : null}
 
         {heading || !isToastWithIcon ? (
-          <View color="font.primary">{children}</View>
+          <Flex color="font.primary" textAlign="center" direction="column">
+            {children}
+          </Flex>
         ) : null}
       </Flex>
     </View>

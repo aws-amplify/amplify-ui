@@ -22,7 +22,7 @@ import { LivenessIconWithPopover } from '../shared/LivenessIconWithPopover';
 export const INSTRUCTIONS = [
   {
     desc: translate(
-      'Make sure your face is not covered with sunglasses or mask.'
+      'Make sure your face is not covered with sunglasses or a mask.'
     ),
   },
   {
@@ -82,7 +82,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
         >
           <View flex="1">
             <View className={ComponentClassNames.AlertHeading}>
-              {translate('Photosensitivity Warning')}
+              {translate('Photosensitivity warning')}
             </View>
             <View className={ComponentClassNames.AlertBody}>
               {translate(

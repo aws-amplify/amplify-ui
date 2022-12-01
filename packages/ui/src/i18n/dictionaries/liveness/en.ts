@@ -1,13 +1,13 @@
 export const enDict = {
   // Get Ready Screen
   'Begin check': 'Begin check',
-  'Photosensitivity Warning': 'Photosensitivity Warning',
+  'Photosensitivity warning': 'Photosensitivity warning',
   'This check displays colored lights. Use caution if you are photosensitive.':
     'This check displays colored lights. Use caution if you are photosensitive.',
   'Follow the instructions to complete the check: ':
     'Follow the instructions to complete the check: ',
-  'Make sure your face is not covered with sunglasses or mask.':
-    'Make sure your face is not covered with sunglasses or mask.',
+  'Make sure your face is not covered with sunglasses or a mask.':
+    'Make sure your face is not covered with sunglasses or a mask.',
   'Move to a well-lit place that is not dark or in direct sunlight.':
     'Move to a well-lit place that is not dark or in direct sunlight.',
   'When check starts, fit face in oval, and hold for colored lights.':
@@ -32,8 +32,9 @@ export const enDict = {
     'After countdown, move face to fit in oval',
   'Hold face in oval': 'Hold face in oval',
   'Verifying...': 'Verifying...',
-  'Check unsuccessful. Try again': 'Check unsuccessful. Try again',
+  'Check unsuccessful': 'Check unsuccessful',
   'Check successful': 'Check successful',
+  'Try again': 'Try again',
 
   // Illumination State
   'Lighting conditions normal': 'Lighting conditions normal',
@@ -48,12 +49,10 @@ export const enDict = {
   'Move face to fit in oval': 'Move face to fit in oval',
 
   // Error messages
-  'Check failed due to server issue. Try again':
-    'Check failed due to server issue. Try again',
-  'Check failed due to client issue. Try again':
-    'Check failed due to client issue. Try again',
-  'You must place your face inside the oval within 5 seconds':
-    'You must place your face inside the oval within 5 seconds',
+  'Check failed due to server issue': 'Check failed due to server issue',
+  'Check failed due to client issue': 'Check failed due to client issue',
+  'Place face inside oval within 5 seconds':
+    'Place face inside oval within 5 seconds',
   'Time out': 'Time out',
   'Internal server error': 'Internal server error',
   'Client error': 'Client error',

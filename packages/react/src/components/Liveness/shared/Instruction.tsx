@@ -15,7 +15,7 @@ import {
 } from '../hooks';
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
-import { Flex, Loader, View } from '../../../primitives';
+import { Flex, Loader, View, Button } from '../../../primitives';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -28,6 +28,9 @@ export const selectIlluminationState = createLivenessSelector(
 );
 export const selectIsFaceFarEnoughBeforeRecording = createLivenessSelector(
   (state) => state.context.isFaceFarEnoughBeforeRecording
+);
+export const selectOnuserCancel = createLivenessSelector(
+  (state) => state.context.componentProps.onUserCancel
 );
 
 export interface InstructionProps {}
@@ -42,6 +45,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
   const isFaceFarEnoughBeforeRecordingState = useLivenessSelector(
     selectIsFaceFarEnoughBeforeRecording
   );
+  const onUserCancel = useLivenessSelector(selectOnuserCancel);
 
   const isCheckFaceDetectedBeforeStart = state.matches(
     'checkFaceDetectedBeforeStart'
@@ -73,14 +77,24 @@ export const Instruction: React.FC<InstructionProps> = () => {
           heading = translate('Client error');
           break;
         default:
-          heading = null;
+          heading = isCheckFailed ? translate('Check unsuccessful') : null;
       }
 
       return (
         <Overlay backgroundColor="overlay.40">
           <Toast heading={heading} variation="error">
             {errorState && LivenessErrorStateStringMap[errorState]}
-            {isCheckFailed && translate('Check unsuccessful. Try again')}
+            <Flex justifyContent="center">
+              <Button
+                variation="primary"
+                type="button"
+                onClick={() => {
+                  onUserCancel();
+                }}
+              >
+                {translate('Try again')}
+              </Button>
+            </Flex>
           </Toast>
         </Overlay>
       );

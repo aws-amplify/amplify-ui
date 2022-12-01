@@ -97,9 +97,7 @@ describe('Instruction', () => {
 
     renderWithLivenessProvider(<Instruction />);
 
-    expect(
-      screen.getByText('Check unsuccessful. Try again')
-    ).toBeInTheDocument();
+    expect(screen.getByText('Check unsuccessful')).toBeInTheDocument();
   });
 
   it('should render not recording state if present', () => {

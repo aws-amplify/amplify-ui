@@ -313,13 +313,13 @@ export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
 
 export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.RUNTIME_ERROR]: translate(
-    'Check failed due to client issue. Try again'
+    'Check failed due to client issue'
   ),
   [LivenessErrorState.SERVER_ERROR]: translate(
-    'Check failed due to server issue. Try again'
+    'Check failed due to server issue'
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>(
-    'You must place your face inside the oval within 5 seconds'
+    'Place face inside oval within 5 seconds'
   ),
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: undefined,
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: undefined,

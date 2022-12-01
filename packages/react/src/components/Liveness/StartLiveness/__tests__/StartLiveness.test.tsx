@@ -44,7 +44,7 @@ describe('StartLiveness', () => {
       <StartLiveness beginLivenessCheck={mockBeginCheck} />
     );
 
-    expect(screen.getByText(/Photosensitivity Warning/)).toBeInTheDocument();
+    expect(screen.getByText(/Photosensitivity warning/)).toBeInTheDocument();
 
     INSTRUCTIONS.forEach(({ desc }) => {
       expect(screen.getByText(desc)).toBeInTheDocument();
