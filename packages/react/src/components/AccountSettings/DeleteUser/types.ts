@@ -23,9 +23,9 @@ export type DeleteUserState =
   | 'ERROR';
 
 export interface DeleteUserComponents {
-  Warning?: WarningComponent;
-  SubmitButton?: SubmitButtonComponent;
   Error?: ErrorComponent;
+  SubmitButton?: SubmitButtonComponent;
+  Warning?: WarningComponent;
 }
 
 export interface DeleteUserProps {
@@ -37,4 +37,7 @@ export interface DeleteUserProps {
 
   /** callback for unsuccessful user deletion  */
   onError?: (error: Error) => void;
+
+  /** custom component overrides */
+  components?: DeleteUserComponents;
 }
