@@ -4,7 +4,7 @@ import { Button, Flex } from '@aws-amplify/ui-react';
 export const HomeCTA = ({ children, href, ...rest }) => {
   return (
     <Flex justifyContent="center">
-      <NextLink href={href} passHref>
+      <NextLink href={href} passHref legacyBehavior>
         <Button
           as="a"
           size="large"

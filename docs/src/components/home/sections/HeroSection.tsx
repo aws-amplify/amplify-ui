@@ -59,12 +59,10 @@ export const HeroSection = () => {
               (and more!
               {FRAMEWORKS.map((framework) => (
                 <NextLink key={framework} href={`/${framework}`} scroll={false}>
-                  <a>
-                    <FrameworkLogo
-                      framework={framework}
-                      marginInlineStart="xxs"
-                    />
-                  </a>
+                  <FrameworkLogo
+                    framework={framework}
+                    marginInlineStart="xxs"
+                  />
                 </NextLink>
               ))}
               )

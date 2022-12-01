@@ -26,7 +26,7 @@ const FrameworkLink = ({
     : `/${framework}`;
 
   return (
-    <Link href={isDisabled ? '#' : href} passHref>
+    <Link href={isDisabled ? '#' : href} passHref legacyBehavior>
       <Button
         size="small"
         as="a"

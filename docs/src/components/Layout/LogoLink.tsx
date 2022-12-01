@@ -11,11 +11,14 @@ interface LogoLinkProps {
 
 export const LogoLink = ({ platform, onClick }: LogoLinkProps) => {
   return (
-    <Link href={`/${platform}`} passHref>
-      <a onClick={onClick} className="docs-logo-link">
-        <VisuallyHidden>Amplify UI Home</VisuallyHidden>
-        <Logo />
-      </a>
+    <Link
+      href={`/${platform}`}
+      passHref
+      onClick={onClick}
+      className="docs-logo-link"
+    >
+      <VisuallyHidden>Amplify UI Home</VisuallyHidden>
+      <Logo />
     </Link>
   );
 };

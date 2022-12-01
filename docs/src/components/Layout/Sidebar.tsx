@@ -67,10 +67,13 @@ const NavLink = ({
   }
 
   return (
-    <Link href={`/${platform}${href}`} passHref>
-      <a onClick={onClick} className={classNames}>
-        {children}
-      </a>
+    <Link
+      href={`/${platform}${href}`}
+      passHref
+      onClick={onClick}
+      className={classNames}
+    >
+      {children}
     </Link>
   );
 };
