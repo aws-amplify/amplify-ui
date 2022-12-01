@@ -12,6 +12,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   {
     className,
     children,
+    href,
     isFullWidth = false,
     isDisabled,
     isLoading,
@@ -45,12 +46,13 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   return (
     <View
       ref={ref}
-      as="button"
+      as={href ? 'a' : 'button'}
       className={componentClasses}
       data-fullwidth={isFullWidth}
       data-loading={isLoading}
       data-size={size}
       data-variation={variation}
+      href={href}
       isDisabled={isDisabled || isLoading}
       type={type}
       {...rest}

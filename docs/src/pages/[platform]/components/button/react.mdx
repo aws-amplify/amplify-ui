@@ -7,7 +7,7 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ThemeExample from '@/components/ThemeExample.mdx';
 
 import { ButtonDemo } from './demo';
-import { IconButtonExample, ButtonThemeExample } from './examples';
+import { ButtonLinkExample, ButtonThemeExample, IconButtonExample } from './examples';
 
 ## Demo
 
@@ -93,6 +93,22 @@ Use the `variation` prop to change the Button variation. Available options are `
 <Button variation="link">Link</Button>
 <Button variation="menu">Menu</Button>
 <Button>Default</Button>
+```
+
+</ExampleCode>
+</Example>
+
+### Link
+
+To use the Button as a link, pass a URL to the `href` prop. This will render an anchor element `<a>` with Button styling.  
+
+<Example>
+  <ButtonLinkExample />
+  
+<ExampleCode>
+
+```tsx file=./examples/ButtonLinkExample.tsx
+
 ```
 
 </ExampleCode>

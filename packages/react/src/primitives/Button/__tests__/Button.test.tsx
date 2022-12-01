@@ -131,8 +131,8 @@ describe('Button test suite', () => {
     render(<Button ref={ref}>{buttonText}</Button>);
 
     await screen.findByRole('button');
-    expect(ref.current.nodeName).toBe('BUTTON');
-    expect(ref.current.innerHTML).toBe(buttonText);
+    expect(ref.current?.nodeName).toBe('BUTTON');
+    expect(ref.current?.innerHTML).toBe(buttonText);
   });
 
   it('should set size and variation props correctly', async () => {
@@ -198,5 +198,25 @@ describe('Button test suite', () => {
     const button = await screen.findByRole('button');
     userEvent.click(button);
     expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('allows Button to be a link with href prop', async () => {
+    const linkText = 'This Button is a link';
+    const buttonText = 'This Button is not a link';
+
+    render(
+      <>
+        <Button href="https://ui.docs.amplify.aws/react/components/button">
+          {linkText}
+        </Button>
+        <Button>{buttonText}</Button>
+      </>
+    );
+
+    const link = await screen.findByText(linkText);
+    const button = await screen.findByText(buttonText);
+
+    expect(link.nodeName).toBe('A');
+    expect(button.nodeName).toBe('BUTTON');
   });
 });
