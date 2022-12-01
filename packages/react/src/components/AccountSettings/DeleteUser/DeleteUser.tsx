@@ -25,7 +25,7 @@ function DeleteUser({
 
   // subcomponents
   const { Error, SubmitButton, Warning } = React.useMemo(
-    () => ({ ...DEFAULTS, ...(components || {}) }),
+    () => ({ ...DEFAULTS, ...(components ?? {}) }),
     [components]
   );
 
