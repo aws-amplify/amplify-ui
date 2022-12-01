@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   FormFieldsArray,

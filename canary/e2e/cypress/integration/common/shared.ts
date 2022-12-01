@@ -2,11 +2,10 @@
 /// <reference types="cypress" />
 /// <reference types="../../support/commands" />
 
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { get, escapeRegExp } from 'lodash';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { escapeRegExp } from 'lodash';
 
 let language = 'en-US';
-let window = null;
 
 Given("I'm running the example {string}", (example: string) => {
   cy.visit(example, {

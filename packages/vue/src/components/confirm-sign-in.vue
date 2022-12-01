@@ -30,7 +30,7 @@ const { getBackToSignInText, getConfirmText, getChallengeText } =
   authenticatorTextUtil;
 
 // Computed Properties
-const confirmSignInHeading = computed(() => getChallengeText(challengeName!));
+const confirmSignInHeading = computed(() => getChallengeText(challengeName));
 const backSignInText = computed(() => getBackToSignInText());
 const confirmText = computed(() => getConfirmText());
 
