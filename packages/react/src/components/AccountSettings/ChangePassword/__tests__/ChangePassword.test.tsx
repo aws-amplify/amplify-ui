@@ -6,6 +6,7 @@ import * as UIModule from '@aws-amplify/ui';
 import ChangePassword from '../ChangePassword';
 import { Button } from '../../../../primitives';
 import { ChangePasswordComponents } from '../types';
+import { ComponentClassName } from '../../constants';
 
 const components: ChangePasswordComponents = {
   CurrentPassword: (props) => (
@@ -56,6 +57,11 @@ describe('ChangePassword', () => {
   it('renders as expected', () => {
     const { container } = render(<ChangePassword />);
     expect(container).toMatchSnapshot();
+
+    const changePassword = container.getElementsByClassName(
+      ComponentClassName.ChangePassword
+    );
+    expect(changePassword).toHaveLength(1);
   });
 
   it('calls changePassword with expected arguments', async () => {

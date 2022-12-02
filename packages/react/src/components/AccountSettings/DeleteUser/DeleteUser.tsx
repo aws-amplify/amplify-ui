@@ -4,6 +4,7 @@ import { deleteUser, translate, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
+import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 
@@ -87,7 +88,7 @@ function DeleteUser({
   }
 
   return (
-    <Flex direction="column">
+    <Flex className={ComponentClassName.DeleteUser} direction="column">
       <SubmitButton
         isDisabled={state === 'CONFIRMATION'}
         onClick={startConfirmation}
