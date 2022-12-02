@@ -1,7 +1,7 @@
 import { Flex } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 
-import { BasicExample } from './examples';
+import { BasicExample, CustomThemeExample } from './examples';
 
 ## Usage
 
@@ -17,7 +17,7 @@ export const App = () => (
 );
 ```
 
-Use the [default theme](./default-theme) to style the components in your app. You can either:
+After wrapping your application in the `ThemeProvider`, you have access to theme values in your components. To use the [default theme](./default-theme) to style the components in your app, you can either:
 1. Get the theme `tokens` through the `useTheme` hook (e.g., `tokens.colors.blue[80]`)
 2. Reference the theme `tokens` directly in style props (e.g., `"purple.80"`)
 
@@ -38,7 +38,16 @@ Use the [default theme](./default-theme) to style the components in your app. Yo
 To create and use your own custom theme, you may pass a [theme object](https://ui.docs.amplify.aws/react/theming#theme-object) to the `theme` prop on the `ThemeProvider`. 
 
 - [Theming overview](./theming)
-- [Demonstration](./default-theme/colors) of how to use the `theme` prop
+
+<Example>
+  <CustomThemeExample />
+
+  <ExampleCode>
+    ```tsx file=./examples/CustomThemeExample.tsx
+    ```
+    
+  </ExampleCode>
+</Example>
 
 ### colorMode
 
