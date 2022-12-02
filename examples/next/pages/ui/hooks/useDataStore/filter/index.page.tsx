@@ -1,4 +1,4 @@
-import { Amplify, DataStore, Hub } from 'aws-amplify';
+import { Amplify, DataStore } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import * as React from 'react';
 import '@aws-amplify/ui-react/styles.css';
@@ -14,24 +14,17 @@ Amplify.configure({
 });
 
 export default function App() {
-  const [isInitialized, setInitialized] = React.useState(false);
+  const [isInitialized, setIsInitialized] = React.useState(false);
   const initializeStarted = React.useRef(false);
 
   React.useEffect(() => {
-    (window as any).LOG_LEVEL = 'DEBUG';
-    Hub.listen('ui', (data) => {
-      console.log(data);
-    });
-    Hub.listen('datastore', (data) => {
-      console.log(data);
-    });
     const initializeTestUserData = async () => {
       if (initializeStarted.current) {
         return;
       }
       await DataStore.clear();
       await initializeTestData();
-      setInitialized(true);
+      setIsInitialized(true);
     };
 
     initializeTestUserData();
@@ -48,7 +41,7 @@ export default function App() {
         <main>
           <h1>Hello {user.username}</h1>
           <AuthSignOutButton>Sign out</AuthSignOutButton>
-          <CollectionAndRecord id="collectionWithFilter" />
+          <CollectionAndRecord />
         </main>
       )}
     </Authenticator>

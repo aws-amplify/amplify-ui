@@ -1,9 +1,10 @@
 Feature: useDataStore hook
 
-  The useDataStore hook works correctly
+  The useDataStore hook performs collection or single record queries against a DataStore model
+  The criteria for the query is a DataStore compatible predicate function created by the createDataStorePredicate util from an object representation
 
   @react
-  Scenario: DataStore filters work correctly
+  Scenario: DataStore filters work correctly for collections and single records
     Given I'm running the example "ui/hooks/useDataStore/filter"
     When I type my "email" with status "CONFIRMED"
     And I type my password
@@ -14,7 +15,7 @@ Feature: useDataStore hook
     And I don't see 'Test'
 
   @react
-  Scenario: DataStore sort works correctly
+  Scenario: DataStore sort and pagination work correctly
     Given I'm running the example "ui/hooks/useDataStore/sort"
     When I type my "email" with status "CONFIRMED"
     And I type my password
