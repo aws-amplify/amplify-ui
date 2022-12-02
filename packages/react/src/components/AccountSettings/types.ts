@@ -11,9 +11,11 @@ import {
  *
  * Note that `PrimitiveProps` is used to get native html types, like `onSubmit`.
  */
-type CommonPasswordFieldProps = PrimitiveProps<PasswordFieldProps, 'input'>;
-type CommonButtonProps = PrimitiveProps<ButtonProps, 'button'>;
-type CommonAlertProps = PrimitiveProps<AlertProps, 'div'>;
+type CommonPasswordFieldProps = Partial<
+  PrimitiveProps<PasswordFieldProps, 'input'>
+>;
+type CommonButtonProps = Partial<PrimitiveProps<ButtonProps, 'button'>>;
+type CommonAlertProps = Partial<PrimitiveProps<AlertProps, 'div'>>;
 
 /**
  * These are overridable component types (e.g. submit button).

@@ -121,7 +121,7 @@ function ChangePassword({
 
   /* Subcomponents */
   const { CurrentPassword, NewPassword, ConfirmPassword, SubmitButton, Error } =
-    React.useMemo(() => ({ ...DEFAULTS, ...(components || {}) }), [components]);
+    React.useMemo(() => ({ ...DEFAULTS, ...(components ?? {}) }), [components]);
 
   /* Event Handlers */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

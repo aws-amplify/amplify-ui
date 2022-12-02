@@ -1,22 +1,15 @@
-import { translate } from '@aws-amplify/ui';
 import React from 'react';
+import { translate } from '@aws-amplify/ui';
 
-import { Card, Flex, Text, Button, Alert } from '../../../primitives';
-import { ErrorComponent, SubmitButtonComponent } from '../types';
-import { DeleteUserWarningProps } from './types';
+import { Button, Card, Flex, Text } from '../../../primitives';
+import { DefaultError } from '../shared/Defaults';
+import { DeleteUserComponents, WarningComponent } from './types';
 
-export const DefaultSubmitButton: SubmitButtonComponent = ({
-  children,
-  ...rest
-}) => {
-  return <Button {...rest}>{children}</Button>;
-};
-
-export const DefaultWarning = ({
+const DefaultWarning: WarningComponent = ({
   onCancel,
   onConfirm,
   isDisabled,
-}: DeleteUserWarningProps): JSX.Element => {
+}) => {
   // translations
   // TODO: consolodiate translations to accountSettingsTextUtil
   const warningText = translate(
@@ -46,10 +39,10 @@ export const DefaultWarning = ({
   );
 };
 
-export const DefaultError: ErrorComponent = ({ children, ...rest }) => {
-  return (
-    <Alert variation="error" {...rest}>
-      {children}
-    </Alert>
-  );
+const DEFAULTS: Required<DeleteUserComponents> = {
+  Error: DefaultError,
+  SubmitButton: Button,
+  Warning: DefaultWarning,
 };
+
+export default DEFAULTS;

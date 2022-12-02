@@ -1,8 +1,16 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
 
+import { Button, Flex, Heading, Text } from '../../../../primitives';
+import { DeleteUserComponents } from '../types';
 import DeleteUser from '../DeleteUser';
 
 const user = {} as unknown as UIModule.AmplifyUser;
@@ -14,6 +22,29 @@ jest.mock('../../../../internal', () => ({
 }));
 
 const deleteUserSpy = jest.spyOn(UIModule, 'deleteUser');
+
+function CustomWarning({ onCancel, onConfirm, isDisabled }) {
+  return (
+    <Flex direction="column">
+      <Text variation="warning">Custom Warning Message</Text>
+      <Button onClick={onCancel}>Back</Button>
+      <Button variation="primary" onClick={onConfirm} isDisabled={isDisabled}>
+        Custom Confirm Button
+      </Button>
+    </Flex>
+  );
+}
+
+const components: DeleteUserComponents = {
+  SubmitButton: (props) => <Button {...props}>Custom Delete Button</Button>,
+  Warning: CustomWarning,
+  Error: ({ children }) => (
+    <>
+      <Heading>Custom Error Message</Heading>
+      <Text>{children}</Text>
+    </>
+  ),
+};
 
 describe('ChangePassword', () => {
   beforeEach(() => {
@@ -133,7 +164,88 @@ describe('ChangePassword', () => {
 
     fireEvent.click(confirmDeleteButton);
 
-    // submit handling is async, wait for error to be displayed
-    await waitFor(() => expect(screen.findByText('Mock Error')).toBeDefined());
+    expect(await screen.findByText('Mock Error')).toBeDefined();
+  });
+
+  it('renders as expected with components overrides', async () => {
+    const { container } = render(<DeleteUser components={components} />);
+
+    const submitButton = await screen.findByRole('button', {
+      name: 'Custom Delete Button',
+    });
+
+    expect(submitButton).toBeDefined();
+    expect(container).toMatchSnapshot();
+
+    fireEvent.click(submitButton);
+
+    expect(await screen.findByText('Custom Warning Message')).toBeDefined();
+  });
+
+  it('onSuccess is called with component overrides after successful user deletion', async () => {
+    deleteUserSpy.mockResolvedValue();
+
+    const onSuccess = jest.fn();
+    render(<DeleteUser components={components} onSuccess={onSuccess} />);
+
+    const deleteAccountButton = await screen.findByRole('button', {
+      name: 'Custom Delete Button',
+    });
+
+    fireEvent.click(deleteAccountButton);
+
+    const confirmDeleteButton = await screen.findByRole('button', {
+      name: 'Custom Confirm Button',
+    });
+
+    fireEvent.click(confirmDeleteButton);
+
+    // submit handling is async, wait for onSuccess to be called
+    // https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
+    await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
+  });
+
+  it('calls deleteUser with expected arguments and component overrides', async () => {
+    deleteUserSpy.mockResolvedValue();
+
+    const onSuccess = jest.fn();
+    render(<DeleteUser components={components} onSuccess={onSuccess} />);
+
+    const deleteAccountButton = await screen.findByRole('button', {
+      name: 'Custom Delete Button',
+    });
+
+    fireEvent.click(deleteAccountButton);
+
+    const confirmDeleteButton = await screen.findByRole('button', {
+      name: 'Custom Confirm Button',
+    });
+
+    fireEvent.click(confirmDeleteButton);
+
+    expect(deleteUserSpy).toBeCalledWith();
+    expect(deleteUserSpy).toBeCalledTimes(1);
+  });
+
+  it('error message is displayed with component overrides after unsuccessful submit', async () => {
+    deleteUserSpy.mockRejectedValue(new Error('Mock Error'));
+
+    render(<DeleteUser components={components} />);
+
+    const deleteAccountButton = await screen.findByRole('button', {
+      name: 'Custom Delete Button',
+    });
+
+    fireEvent.click(deleteAccountButton);
+
+    const confirmDeleteButton = await screen.findByRole('button', {
+      name: 'Custom Confirm Button',
+    });
+
+    fireEvent.click(confirmDeleteButton);
+
+    await screen.findByText('Mock Error');
+
+    expect(await screen.findByText('Custom Error Message')).toBeDefined();
   });
 });

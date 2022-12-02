@@ -16,3 +16,20 @@ exports[`ChangePassword renders as expected 1`] = `
   </div>
 </div>
 `;
+
+exports[`ChangePassword renders as expected with components overrides 1`] = `
+<div>
+  <div
+    class="amplify-flex"
+    style="flex-direction: column;"
+  >
+    <button
+      class="amplify-button amplify-field-group__control"
+      data-fullwidth="false"
+      type="button"
+    >
+      Custom Delete Button
+    </button>
+  </div>
+</div>
+`;

@@ -4,16 +4,13 @@ import { deleteUser, translate, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
-import {
-  DefaultWarning,
-  DefaultError,
-  DefaultSubmitButton,
-} from './defaultComponents';
+import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 
 const logger = getLogger('Auth');
 
 function DeleteUser({
+  components,
   onSuccess,
   onError,
   handleDelete,
@@ -25,6 +22,12 @@ function DeleteUser({
   const deleteAccountText = translate('Delete Account');
 
   const { user, isLoading } = useAuth();
+
+  // subcomponents
+  const { Error, SubmitButton, Warning } = React.useMemo(
+    () => ({ ...DEFAULTS, ...(components ?? {}) }),
+    [components]
+  );
 
   const startConfirmation = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -67,7 +70,7 @@ function DeleteUser({
     runDeleteUser();
   }, [runDeleteUser]);
 
-  /** Return null if user isn't authenticated in the first place */
+  // Return null if user isn't authenticated in the first place
   if (!user) {
     logger.warn('<DeleteUser /> requires user to be authenticated.');
     return null;
@@ -85,22 +88,26 @@ function DeleteUser({
 
   return (
     <Flex className="amplify-accountsettings-deleteuser" direction="column">
-      <DefaultSubmitButton
+      <SubmitButton
         isDisabled={state === 'CONFIRMATION'}
         onClick={startConfirmation}
       >
         {deleteAccountText}
-      </DefaultSubmitButton>
+      </SubmitButton>
       {state === 'CONFIRMATION' || state === 'DELETING' ? (
-        <DefaultWarning
+        <Warning
           onCancel={handleCancel}
           isDisabled={state === 'DELETING'}
           onConfirm={handleConfirmDelete}
         />
       ) : null}
-      {errorMessage ? <DefaultError>{errorMessage}</DefaultError> : null}
+      {errorMessage ? <Error>{errorMessage}</Error> : null}
     </Flex>
   );
 }
+
+DeleteUser.Error = DEFAULTS.Error;
+DeleteUser.SubmitButton = DEFAULTS.SubmitButton;
+DeleteUser.Warning = DEFAULTS.Warning;
 
 export default DeleteUser;

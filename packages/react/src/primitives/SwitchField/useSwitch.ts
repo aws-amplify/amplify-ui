@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 
 export const useSwitch = (props) => {
   const { onChange, isChecked, defaultChecked, isDisabled } = props;
