@@ -12,7 +12,7 @@ import {
  * Note that `PrimitiveProps` is used to get native html types, like `onSubmit`.
  */
 type PasswordFieldPrimitiveProps = PrimitiveProps<PasswordFieldProps, 'input'>;
-type ButtonPrimtiveProps = PrimitiveProps<ButtonProps, 'button'>;
+type ButtonPrimitiveProps = PrimitiveProps<ButtonProps, 'button'>;
 type AlertPrimitiveProps = PrimitiveProps<AlertProps, 'div'>;
 
 /*
@@ -25,10 +25,10 @@ type CommonPasswordFieldProps = Partial<PasswordFieldPrimitiveProps> &
 type CommonAlertProps = Partial<PrimitiveProps<AlertProps, 'div'>> &
   Required<Pick<AlertPrimitiveProps, 'children'>>;
 type CommonButtonProps<T = 'submit' | 'default'> =
-  Partial<ButtonPrimtiveProps> &
+  Partial<ButtonPrimitiveProps> &
     Required<
       Pick<
-        ButtonPrimtiveProps,
+        ButtonPrimitiveProps,
         'isDisabled' | (T extends 'submit' ? never : 'onClick')
       >
     >;
