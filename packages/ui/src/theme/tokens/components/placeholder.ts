@@ -1,26 +1,18 @@
-import {
-  BorderRadiusValue,
-  ColorValue,
-  DesignToken,
-  SpaceValue,
-  TransitionDurationValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface PlaceholderSizeTokens {
-  height: DesignToken<SpaceValue>;
-}
+type PlaceholderSizeTokens<Output> = DesignTokenProperties<'height', Output>;
 
-export interface PlaceholderTokens {
-  borderRadius: DesignToken<BorderRadiusValue>;
-  transitionDuration: DesignToken<TransitionDurationValue>;
-  startColor: DesignToken<ColorValue>;
-  endColor: DesignToken<ColorValue>;
-  small: PlaceholderSizeTokens;
-  default: PlaceholderSizeTokens;
-  large: PlaceholderSizeTokens;
-}
+export type PlaceholderTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    'borderRadius' | 'transitionDuration' | 'startColor' | 'endColor',
+    Output
+  > & {
+    small?: PlaceholderSizeTokens<Output>;
+    default?: PlaceholderSizeTokens<Output>;
+    large?: PlaceholderSizeTokens<Output>;
+  };
 
-export const placeholder: PlaceholderTokens = {
+export const placeholder: Required<PlaceholderTokens<'default'>> = {
   borderRadius: { value: '{radii.small.value}' },
   transitionDuration: { value: '{time.long.value}' },
 

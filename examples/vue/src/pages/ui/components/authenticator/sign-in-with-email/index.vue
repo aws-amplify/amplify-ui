@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Amplify, { Auth } from 'aws-amplify';
+import { Amplify, Auth } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
@@ -8,7 +8,6 @@ Amplify.configure(aws_exports);
 const formFields = {
   confirmVerifyUser: {
     confirmation_code: {
-      labelHidden: false,
       label: 'New Label',
       placeholder: 'Enter your Confirmation Code:',
       isRequired: false,

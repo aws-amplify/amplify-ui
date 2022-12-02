@@ -1,89 +1,59 @@
-import {
-  BackgroundColorValue,
-  BorderCollapseValue,
-  BorderColorValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  CaptionSideValue,
-  ColorValue,
-  DesignToken,
-  DisplayValue,
-  FontSizeValue,
-  FontWeightValue,
-  SpaceValue,
-  TextAlignValue,
-  VerticalAlignValue,
-  WordBreakValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface TableDefaultTokens {
-  display: DesignToken<DisplayValue>;
-  verticalAlign: DesignToken<VerticalAlignValue>;
-}
+type BaseTableTokens<Output> = DesignTokenProperties<
+  'display' | 'verticalAlign',
+  Output
+>;
 
-interface TableRowTokens extends TableDefaultTokens {
-  hover: TableRowHoverTokens;
-  striped: TableRowStripedTokens;
-}
+type TableCellTokens<Output> = DesignTokenProperties<
+  | 'borderColor'
+  | 'borderStyle'
+  | 'borderWidth'
+  | 'color'
+  | 'display'
+  | 'fontSize'
+  | 'fontWeight'
+  | 'padding'
+  | 'verticalAlign',
+  Output
+> & {
+  large?: TableCellSizeTokens<Output>;
+  small?: TableCellSizeTokens<Output>;
+};
 
-interface TableRowHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+type TableCellSizeTokens<Output> = DesignTokenProperties<
+  'fontSize' | 'padding',
+  Output
+>;
 
-interface TableRowStripedTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+type TableCaptionSizeTokens<Output> = DesignTokenProperties<'fontSize', Output>;
 
-interface TableCellTokens extends TableDefaultTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  color: DesignToken<ColorValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  fontWeight: DesignToken<FontWeightValue>;
-  padding: DesignToken<SpaceValue>;
-  large: TableCellSizeTokens;
-  small: TableCellSizeTokens;
-}
+export type TableTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'borderCollapse' | 'display' | 'width', Output> & {
+    head?: BaseTableTokens<Output>;
+    body?: BaseTableTokens<Output>;
+    foot?: BaseTableTokens<Output>;
+    row?: BaseTableTokens<Output> & {
+      hover?: DesignTokenProperties<'backgroundColor', Output>;
+      striped?: DesignTokenProperties<'backgroundColor', Output>;
+    };
+    header: TableCellTokens<Output>;
+    data: TableCellTokens<Output>;
+    caption?: DesignTokenProperties<
+      | 'captionSide'
+      | 'color'
+      | 'display'
+      | 'fontSize'
+      | 'textAlign'
+      | 'wordBreak',
+      Output
+    > & {
+      large?: TableCaptionSizeTokens<Output>;
+      small?: TableCaptionSizeTokens<Output>;
+    };
+  };
 
-interface TableHeaderTokens extends TableCellTokens {}
-
-interface TableDataTokens extends TableCellTokens {}
-
-interface TableCellSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  padding: DesignToken<SpaceValue>;
-}
-
-interface TableCaptionTokens {
-  captionSide: DesignToken<CaptionSideValue>;
-  color: DesignToken<ColorValue>;
-  display: DesignToken<DisplayValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  textAlign: DesignToken<TextAlignValue>;
-  wordBreak: DesignToken<WordBreakValue>;
-  large: TableCaptionSizeTokens;
-  small: TableCaptionSizeTokens;
-}
-
-interface TableCaptionSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-}
-
-export interface TableTokens {
-  borderCollapse: DesignToken<BorderCollapseValue>;
-  display: DesignToken<DisplayValue>;
-  width: DesignToken<SpaceValue>;
-  head: TableDefaultTokens;
-  body: TableDefaultTokens;
-  foot: TableDefaultTokens;
-  row: TableRowTokens;
-  header: TableHeaderTokens;
-  data: TableDataTokens;
-  caption: TableCaptionTokens;
-}
-
-export const table: TableTokens = {
+export const table: Required<TableTokens<'default'>> = {
   /**
    * Default table styles
    */

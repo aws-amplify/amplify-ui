@@ -9,7 +9,6 @@ import {
   TypeData,
 } from '../types/allTypesData';
 import { SyntaxKind } from 'typescript';
-import { sanitize } from './sanitize';
 
 export const getAllTypesData = () => {
   const project = new Project({
@@ -64,7 +63,7 @@ export const getAllTypesData = () => {
           ? typeInterface.getJsDocs()[0].getText()
           : '';
 
-        typeData.set('name', sanitize(heritageName));
+        typeData.set('name', heritageName);
         typeData.set('type', heritageType);
         typeData.set('description', heritageDescription);
         typeData.set('isOptional', true);
@@ -97,13 +96,11 @@ function setTypeData(
   const typeDescription = typeJsDocs[0]?.getTags().reduce(
     (descriptions, tag) => ({
       ...descriptions,
-      [tag.getTagName()]: sanitize(
-        tag
-          .getText()
-          .replace(`@${tag.getTagName()}\n`, '')
-          .replaceAll('*', '')
-          .trim()
-      ),
+      [tag.getTagName()]: tag
+        .getText()
+        .replace(`@${tag.getTagName()}\n`, '')
+        .replaceAll('*', '')
+        .trim(),
     }),
     {}
   ) as { description: string };
@@ -113,7 +110,7 @@ function setTypeData(
   const isOptional =
     typeProp.getChildrenOfKind(SyntaxKind.QuestionToken)[0]?.getText() === '?';
 
-  typeData.set('name', sanitize(typeName));
+  typeData.set('name', typeName);
   typeData.set('type', typeType);
   typeData.set('description', typeDescription);
   typeData.set('isOptional', isOptional);

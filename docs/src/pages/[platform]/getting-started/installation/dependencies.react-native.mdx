@@ -1,6 +1,13 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { InstallScripts } from '@/components/InstallScripts.tsx';
+import { Example, ExampleCode } from '@/components/Example';
 
-Install `@aws-amplify/ui-react-native` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+`@aws-amplify/ui-react-native` is compatible for usage with the React Native apps created using the [React Native CLI](https://github.com/react-native-community/cli) or [Expo](https://expo.dev/).
+
+<Tabs>
+<TabItem title="React Native CLI">
+
+Install `@aws-amplify/ui-react-native` and its dependencies with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
 
 <InstallScripts framework="react-native" />
 
@@ -8,3 +15,41 @@ For iOS, additionally run:
 ```
 npx pod-install
 ```
+
+> The AWS SDK requires React Native applications to polyfill `crypto.getRandomValues` and `URL`. Import the [`react-native-get-random-values`](https://github.com/LinusU/react-native-get-random-values) and [`react-native-url-polyfill`](https://github.com/charpeni/react-native-url-polyfill) polyfills and them to the top of your application's root entry point (in most React Native apps this will be the top level `index.js`).
+
+<Example>
+<ExampleCode>
+```jsx
+// index.js
+import 'react-native-url-polyfill/auto';
+import 'react-native-get-random-values';
+
+import { AppRegistry } from 'react-native';
+import App from './App';
+import { name as appName } from './app.json';
+
+AppRegistry.registerComponent(appName, () => App);
+```
+</ExampleCode>
+</Example>
+
+</TabItem>
+<TabItem title="Expo">
+
+Add `@aws-amplify/ui-react-native` and its dependencies using the [Expo CLI](https://expo.dev/tools#cli) to ensure installation of native module dependency versions compatible with your Expo app:
+
+<Example>
+<ExampleCode>
+```shell
+expo install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context @react-native-async-storage/async-storage @react-native-community/netinfo
+```
+</ExampleCode>
+</Example>
+
+</TabItem>
+</Tabs>
+
+
+
+

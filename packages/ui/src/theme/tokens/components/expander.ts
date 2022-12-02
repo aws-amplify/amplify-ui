@@ -1,98 +1,65 @@
-import {
-  AlignItemsValue,
-  AnimationDurationValue,
-  AnimationTimingFunctionValue,
-  BackgroundColorValue,
-  BorderRadiusValue,
-  BoxShadowValue,
-  ColorValue,
-  DesignToken,
-  DisplayValue,
-  JustifyContentValue,
-  RadiusValue,
-  SpaceValue,
-  TransitionDurationValue,
-  TransitionTimingFunctionValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface ExpanderItemFocusTokens {
-  boxShadow: DesignToken<BoxShadowValue>;
-}
+type ExpanderItemTokens<Output> = DesignTokenProperties<
+  | 'marginTop'
+  | 'boxShadow'
+  | 'borderBottomLeftRadius'
+  | 'borderBottomRightRadius'
+  | 'borderTopLeftRadius'
+  | 'borderTopRightRadius'
+  | 'borderStartStartRadius'
+  | 'borderStartEndRadius'
+  | 'borderEndStartRadius'
+  | 'borderEndEndRadius',
+  Output
+> & {
+  _focus?: DesignTokenProperties<'boxShadow', Output>;
+};
 
-interface ExpanderItemTokens {
-  marginTop: DesignToken<SpaceValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-  borderBottomLeftRadius: DesignToken<RadiusValue>;
-  borderBottomRightRadius: DesignToken<RadiusValue>;
-  borderTopLeftRadius: DesignToken<RadiusValue>;
-  borderTopRightRadius: DesignToken<RadiusValue>;
-  borderStartStartRadius: DesignToken<RadiusValue>;
-  borderStartEndRadius: DesignToken<RadiusValue>;
-  borderEndStartRadius: DesignToken<RadiusValue>;
-  borderEndEndRadius: DesignToken<RadiusValue>;
-  _focus: ExpanderItemFocusTokens;
-}
+type ExpanderTriggerTokens<Output> = DesignTokenProperties<
+  | 'minHeight'
+  | 'paddingInlineStart'
+  | 'paddingInlineEnd'
+  | 'alignItems'
+  | 'justifyContent',
+  Output
+> & {
+  _hover?: DesignTokenProperties<'backgroundColor', Output>;
+};
 
-interface ExpanderHeaderTokens {
-  boxShadow: DesignToken<BoxShadowValue>;
-}
+type ExpanderContentStateTokens<Output> = DesignTokenProperties<
+  'animationDuration' | 'animationTimingFunction',
+  Output
+>;
 
-interface ExpanderTriggerTokens {
-  minHeight: DesignToken<SpaceValue>;
-  paddingInlineStart: DesignToken<SpaceValue>;
-  paddingInlineEnd: DesignToken<SpaceValue>;
-  alignItems: DesignToken<AlignItemsValue>;
-  justifyContent: DesignToken<JustifyContentValue>;
-  _hover: ExpanderTriggerHoverTokens;
-}
+type ExpanderContentTokens<Output> = DesignTokenProperties<
+  'paddingInlineStart' | 'paddingInlineEnd',
+  Output
+> & {
+  text?: DesignTokenProperties<
+    'color' | 'paddingBlockStart' | 'paddingBlockEnd',
+    Output
+  >;
+  _open?: ExpanderContentStateTokens<Output>;
+  _closed?: ExpanderContentStateTokens<Output>;
+};
 
-interface ExpanderTriggerHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+export type ExpanderTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    'display' | 'backgroundColor' | 'borderRadius' | 'boxShadow' | 'width',
+    Output
+  > & {
+    content?: ExpanderContentTokens<Output>;
+    header?: DesignTokenProperties<'boxShadow', Output>;
+    item?: ExpanderItemTokens<Output>;
+    trigger?: ExpanderTriggerTokens<Output>;
+    icon?: DesignTokenProperties<
+      'transitionDuration' | 'transitionTimingFunction',
+      Output
+    >;
+  };
 
-interface ExpanderContentTokens {
-  paddingInlineStart: DesignToken<SpaceValue>;
-  paddingInlineEnd: DesignToken<SpaceValue>;
-  text: ExpanderContentTextTokens;
-  _open: ExpanderContentOpenTokens;
-  _closed: ExpanderContentClosedTokens;
-}
-
-interface ExpanderContentTextTokens {
-  color: DesignToken<ColorValue>;
-  paddingBlockStart: DesignToken<SpaceValue>;
-  paddingBlockEnd: DesignToken<SpaceValue>;
-}
-
-interface ExpanderContentOpenTokens {
-  animationDuration: DesignToken<AnimationDurationValue>;
-  animationTimingFunction: DesignToken<AnimationTimingFunctionValue>;
-}
-
-interface ExpanderContentClosedTokens {
-  animationDuration: DesignToken<AnimationDurationValue>;
-  animationTimingFunction: DesignToken<AnimationTimingFunctionValue>;
-}
-
-interface ExpanderIconTokens {
-  transitionDuration: DesignToken<TransitionDurationValue>;
-  transitionTimingFunction: DesignToken<TransitionTimingFunctionValue>;
-}
-
-export interface ExpanderTokens {
-  display: DesignToken<DisplayValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-  width: DesignToken<SpaceValue>;
-  item: ExpanderItemTokens;
-  header: ExpanderHeaderTokens;
-  trigger: ExpanderTriggerTokens;
-  content: ExpanderContentTokens;
-  icon: ExpanderIconTokens;
-}
-
-export const expander: ExpanderTokens = {
+export const expander: Required<ExpanderTokens<'default'>> = {
   display: { value: 'block' },
   backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.medium.value}' },

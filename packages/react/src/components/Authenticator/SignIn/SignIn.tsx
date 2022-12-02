@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate, hasTranslation } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
@@ -11,6 +11,9 @@ import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
+
+const { getSignInText, getSigningInText, getForgotPasswordText } =
+  authenticatorTextUtil;
 
 export function SignIn(): JSX.Element {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
@@ -37,7 +40,7 @@ export function SignIn(): JSX.Element {
         <Flex direction="column">
           <Flex as="fieldset" direction="column" isDisabled={isPending}>
             <VisuallyHidden>
-              <legend>{translate('Sign in')}</legend>
+              <legend>{getSignInText()}</legend>
             </VisuallyHidden>
             <FormFields />
           </Flex>
@@ -50,9 +53,9 @@ export function SignIn(): JSX.Element {
             type="submit"
             variation="primary"
             isLoading={isPending}
-            loadingText={translate('Signing in')}
+            loadingText={getSigningInText()}
           >
-            {translate('Sign in')}
+            {getSignInText()}
           </Button>
         </Flex>
       </form>
@@ -66,11 +69,6 @@ const DefaultFooter = () => {
     context.toResetPassword,
   ]);
 
-  // Support backwards compatibility for legacy key with trailing space
-  const forgotPasswordText = !hasTranslation('Forgot your password? ')
-    ? translate('Forgot your password?')
-    : translate('Forgot your password? ');
-
   return (
     <View data-amplify-footer="">
       <Button
@@ -79,7 +77,7 @@ const DefaultFooter = () => {
         size="small"
         variation="link"
       >
-        {forgotPasswordText}
+        {getForgotPasswordText()}
       </Button>
     </View>
   );

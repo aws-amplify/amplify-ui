@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "latest",
-    "aws-amplify": "^4.3.15",
+    "aws-amplify": "latest",
     "react": "latest",
     "react-dom": "latest"
   },

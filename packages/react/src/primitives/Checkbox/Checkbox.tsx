@@ -28,13 +28,12 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     labelPosition,
     onChange: onChangeProp,
     testId,
+    inputStyles,
     ..._rest
   },
   ref
 ) => {
-  const { baseStyleProps, flexContainerStyleProps, rest } =
-    splitPrimitiveProps(_rest);
-
+  const { styleProps, rest } = splitPrimitiveProps(_rest);
   // controlled way should always override uncontrolled way
   const initialChecked = checked !== undefined ? checked : defaultChecked;
 
@@ -131,8 +130,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       data-disabled={isDisabled}
       data-label-position={labelPosition}
       testId={testId}
-      {...baseStyleProps}
-      {...flexContainerStyleProps}
+      {...styleProps}
     >
       <VisuallyHidden>
         <Input
@@ -170,6 +168,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         data-focus={dataFocus}
         data-error={hasError}
         testId={buttonTestId}
+        {...inputStyles}
       >
         {renderedIcon}
       </Flex>

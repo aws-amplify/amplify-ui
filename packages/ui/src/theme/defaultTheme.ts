@@ -1,8 +1,8 @@
 import { tokens } from './tokens';
 import { breakpoints } from './breakpoints';
-import { BaseTheme } from './types';
+import { DefaultTheme } from './types';
 
-export const defaultTheme: BaseTheme = {
+export const defaultTheme: DefaultTheme = {
   tokens,
   breakpoints,
   name: 'default-theme',

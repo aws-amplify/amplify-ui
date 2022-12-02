@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
-import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
+import {
+  authenticatorTextUtil,
+  getFormDataFromEvent,
+  translate,
+} from '@aws-amplify/ui';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
 import { useAuthenticator } from '../composables/useAuth';
@@ -13,10 +17,14 @@ const useAuthShared = createSharedComposable(useAuthenticator);
 const { send, submitForm } = useAuthShared();
 const { error, isPending } = toRefs(useAuthShared());
 
+// Text Util
+const { getBackToSignInText, getResetYourPasswordText, getSendCodeText } =
+  authenticatorTextUtil;
+
 // Computed Properties
-const backSignInText = computed(() => translate('Back to Sign In'));
-const resetPasswordHeading = computed(() => translate('Reset your password'));
-const resetPasswordText = computed(() => translate('Send Code'));
+const backSignInText = computed(() => getBackToSignInText());
+const resetPasswordHeading = computed(() => getResetYourPasswordText());
+const sendCodeText = computed(() => getSendCodeText());
 
 // Methods
 const onResetPasswordSubmit = (e: Event): void => {
@@ -81,7 +89,7 @@ const onBackToSignInClicked = (): void => {
             :variation="'primary'"
             type="submit"
             :disabled="isPending"
-            >{{ resetPasswordText }}</amplify-button
+            >{{ sendCodeText }}</amplify-button
           >
           <amplify-button
             class="amplify-field-group__control amplify-authenticator__font"
