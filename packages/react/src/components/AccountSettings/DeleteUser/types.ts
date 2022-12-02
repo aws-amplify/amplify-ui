@@ -26,7 +26,7 @@ export type DeleteUserState =
 
 export interface DeleteUserComponents {
   Error?: ErrorComponent;
-  SubmitButton?: SubmitButtonComponent;
+  DeleteButton?: SubmitButtonComponent;
   Warning?: WarningComponent;
 }
 

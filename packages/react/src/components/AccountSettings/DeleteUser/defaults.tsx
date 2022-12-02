@@ -41,7 +41,7 @@ const DefaultWarning: WarningComponent = ({
 
 const DEFAULTS: Required<DeleteUserComponents> = {
   Error: DefaultError,
-  SubmitButton: Button,
+  DeleteButton: Button,
   Warning: DefaultWarning,
 };
 
