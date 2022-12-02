@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { screen, render, cleanup } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 
 import { ComponentClassNames } from '../../shared';
 import { Menu, MENU_ITEMS_GROUP_TEST_ID } from '../Menu';
 import { MenuItem, MENU_ITEM_TEST_ID } from '../MenuItem';
 import { MENU_TRIGGER_TEST_ID } from '../Menu';
-import userEvent from '@testing-library/user-event';
 
 // Needed because of the Radix Popper used by Menu
 // https://github.com/radix-ui/primitives/blob/main/packages/react/popper/src/Popper.tsx#L127

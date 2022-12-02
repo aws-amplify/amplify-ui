@@ -29,7 +29,7 @@ export const CopyButton = ({
     <CopyToClipboard text={copyText} onCopy={copy}>
       <Button
         className={className}
-        isLoading={copied}
+        isDisabled={copied}
         size={size}
         variation={variation}
       >

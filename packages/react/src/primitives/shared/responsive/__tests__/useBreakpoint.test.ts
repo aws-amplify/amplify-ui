@@ -1,7 +1,7 @@
 /** @jest-environment jsdom */
 
 import { useBreakpoint } from '../useBreakpoint';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import MatchMediaMock from 'jest-matchmedia-mock';
 import * as React from 'react';
 import { Breakpoints } from '../../../types/responsive';

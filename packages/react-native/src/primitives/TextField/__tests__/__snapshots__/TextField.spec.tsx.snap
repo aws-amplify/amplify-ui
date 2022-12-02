@@ -43,7 +43,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -124,7 +124,7 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -205,7 +205,7 @@ exports[`TextField renders as expected 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -286,7 +286,7 @@ exports[`TextField renders as expected as password field 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -368,7 +368,7 @@ exports[`TextField renders as expected when disabled 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -450,7 +450,7 @@ exports[`TextField renders as expected with error message 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
