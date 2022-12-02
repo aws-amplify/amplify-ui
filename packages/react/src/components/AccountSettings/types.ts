@@ -26,7 +26,7 @@ type CommonButtonProps = Partial<ButtonPrimtiveProps> &
 type CommonSubmitButtonProps = Partial<PrimitiveProps<ButtonProps, 'button'>>;
 type CommonAlertProps = Partial<PrimitiveProps<AlertProps, 'div'>>;
 
-/**
+/*
  * These are component override types.
  */
 export type PasswordFieldComponent<Props = {}> = React.ComponentType<
