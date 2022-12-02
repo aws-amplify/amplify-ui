@@ -1,4 +1,7 @@
+import { ScrollView } from '@aws-amplify/ui-react';
+
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { Example, ExampleCode } from '@/components/Example';
 import { DELETE_USER, OVERRIDES, WARNING } from './props';
 
 ### Props
@@ -8,6 +11,9 @@ import { DELETE_USER, OVERRIDES, WARNING } from './props';
 ### Basic Usage
 
 `DeleteUser` has `onSuccess` handler that will be called after successful user account deletion. You may use this callback to run any custom handling, such as navigating route or rendering confirmation messages.
+
+<Example>
+  <ExampleCode>
 
 ```jsx
 import React from 'react';
@@ -24,9 +30,14 @@ function App() {
 }
 ```
 
+  </ExampleCode>
+</Example>
 
 ### Override default delete handler
 You can override the default deleteUser handler with `handleDelete` prop to add any custom cleanup handlers before or after account deletion.
+
+<Example>
+  <ExampleCode>
 
 ```jsx
 import React from 'react';
@@ -51,6 +62,9 @@ function App() {
 }
 ```
 
+  </ExampleCode>
+</Example>
+
 ### Component Overrides
 
 You can provide your own UI components to override parts of `DeleteUser`. It supports the following slots:
@@ -58,10 +72,12 @@ You can provide your own UI components to override parts of `DeleteUser`. It sup
 <ReactPropsTable props={OVERRIDES} />
 
 
-
 #### Reusing default components
 
 Default components are accessible through `DeleteUser.COMPONENT_NAME` (e.g. `DeleteUser.NewPassword`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
+
+<Example>
+  <ExampleCode>
 
 ```jsx
 function App() {
@@ -78,9 +94,16 @@ function App() {
 }
 ```
 
+  </ExampleCode>
+</Example>
+
+
 #### Using your own component
 
 You can override parts of the `DeleteUser` component by passing in a `components` prop.
+
+<Example>
+  <ExampleCode>
 
 ```jsx
 function App() {
@@ -99,9 +122,12 @@ function App() {
 }
 ```
 
+  </ExampleCode>
+</Example>
+
 Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name` are attached correctly. If you're providing your own custom components, make sure props are spread onto it.
 
-#### Overriding warning component
+#### Overriding `Warning`` component
 
 Warning component requires the following props:
 
@@ -109,56 +135,14 @@ Warning component requires the following props:
 
 The following example overrides the warning component to require users to type "delete" before they can delete their account.
 
-```jsx
-import React from 'react';
-import { 
-  Button,
-  DeleteUser,  
-  Flex,
-  Text,
-  TextField,
-} from '@aws-amplify/ui-react';
-
-function CustomWarning({onCancel, onConfirm, isDisabled}) {
-  const [value, setValue] = React.useState('');
+<ScrollView height="600px">
+  <Example>
+    <ExampleCode>
   
-  const handleChange = (event) => {
-    event.preventDefault();
+```jsx{10-37,43} file=../../../../../../../examples/next/pages/ui/components/account-settings/delete-user-with-overrides/index.page.tsx#L1-L66
 
-    const { value } = event.target;
-    setValue(value);
-  }
-
-  return (
-    <form onSubmit={onSubmit}>
-      <Flex direction="column">
-        <Text variation="warning">
-          Deleting your account is not reversable. Please type "delete" below if you want to confirm user deletion.
-        </Text>
-        <TextField 
-          label="Confirm Delete"
-          onChange={handleChange}
-          value={value}
-        />
-        <Button onClick={onCancel}>Back</Button>
-        <Button 
-          type="submit" 
-          isDisabled={isDisabled || value !== 'delete'}
-        > 
-          Submit
-        </Button>
-      </Flex>
-    </form>
-  )
-}
-
-function App() {
-  const components = {
-    SubmitButton: CustomWarning
-  };
-  
-  return (
-    <DeleteUser components={components} />
-  );
-}
 ```
+
+    </ExampleCode>
+  </Example>
+</ScrollView>
