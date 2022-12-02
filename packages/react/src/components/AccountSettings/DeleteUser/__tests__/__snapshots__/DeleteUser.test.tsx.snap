@@ -3,7 +3,7 @@
 exports[`DeleteUser renders as expected 1`] = `
 <div>
   <div
-    class="amplify-flex"
+    class="amplify-flex amplify-accountsettings-deleteuser"
     style="flex-direction: column;"
   >
     <button
@@ -20,7 +20,7 @@ exports[`DeleteUser renders as expected 1`] = `
 exports[`DeleteUser renders as expected with components overrides 1`] = `
 <div>
   <div
-    class="amplify-flex"
+    class="amplify-flex amplify-accountsettings-deleteuser"
     style="flex-direction: column;"
   >
     <button

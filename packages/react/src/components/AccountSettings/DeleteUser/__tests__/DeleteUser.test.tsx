@@ -4,6 +4,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as UIModule from '@aws-amplify/ui';
 
 import { Button, Flex, Heading, Text } from '../../../../primitives';
+import { ComponentClassName } from '../../constants';
 import { DeleteUserComponents } from '../types';
 import DeleteUser from '../DeleteUser';
 
@@ -58,6 +59,11 @@ describe('DeleteUser', () => {
   it('renders as expected', () => {
     const { container } = render(<DeleteUser />);
     expect(container).toMatchSnapshot();
+
+    const deleteUser = container.getElementsByClassName(
+      ComponentClassName.DeleteUser
+    );
+    expect(deleteUser).toHaveLength(1);
   });
 
   it('calls deleteUser with expected arguments', async () => {
