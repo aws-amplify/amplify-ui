@@ -23,27 +23,37 @@ jest.mock('../../../../internal', () => ({
 
 const deleteUserSpy = jest.spyOn(UIModule, 'deleteUser');
 
-function CustomWarning({ onCancel, onConfirm, isDisabled }) {
+function CustomWarning({ onCancel, onConfirm }) {
   return (
     <Flex direction="column">
       <Text variation="warning">Custom Warning Message</Text>
       <Button onClick={onCancel}>Back</Button>
-      <Button variation="primary" onClick={onConfirm} isDisabled={isDisabled}>
+      <Button variation="primary" onClick={onConfirm}>
         Custom Confirm Button
       </Button>
     </Flex>
   );
 }
 
+const CustomDeleteButton = ({ onClick, isDisabled }) => {
+  return (
+    <Button isDisabled={isDisabled} onClick={onClick}>
+      Super special button
+    </Button>
+  );
+};
+
+const CustomError = ({ children }) => (
+  <>
+    <Heading>Custom Error Message</Heading>
+    <Text>{children}</Text>
+  </>
+);
+
 const components: DeleteUserComponents = {
-  DeleteButton: (props) => <Button {...props}>Custom Delete Button</Button>,
+  DeleteButton: CustomDeleteButton,
   Warning: CustomWarning,
-  Error: ({ children }) => (
-    <>
-      <Heading>Custom Error Message</Heading>
-      <Text>{children}</Text>
-    </>
-  ),
+  Error: CustomError,
 };
 
 describe('ChangePassword', () => {

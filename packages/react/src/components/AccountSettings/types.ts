@@ -13,6 +13,7 @@ import {
  */
 type PasswordFieldPrimitiveProps = PrimitiveProps<PasswordFieldProps, 'input'>;
 type ButtonPrimtiveProps = PrimitiveProps<ButtonProps, 'button'>;
+type AlertPrimitiveProps = PrimitiveProps<AlertProps, 'div'>;
 
 /*
  * These are common prop types for component overrides.
@@ -20,11 +21,13 @@ type ButtonPrimtiveProps = PrimitiveProps<ButtonProps, 'button'>;
  * Any essential props for overriding components are marked as required.
  */
 type CommonPasswordFieldProps = Partial<PasswordFieldPrimitiveProps> &
-  Required<Pick<PasswordFieldPrimitiveProps, 'onBlur' | 'onChange'>>;
+  Required<Pick<PasswordFieldPrimitiveProps, 'onBlur' | 'onChange' | 'name'>>;
 type CommonButtonProps = Partial<ButtonPrimtiveProps> &
-  Required<Pick<ButtonPrimtiveProps, 'onClick'>>;
-type CommonSubmitButtonProps = Partial<PrimitiveProps<ButtonProps, 'button'>>;
-type CommonAlertProps = Partial<PrimitiveProps<AlertProps, 'div'>>;
+  Required<Pick<ButtonPrimtiveProps, 'onClick' | 'isDisabled'>>;
+type CommonSubmitButtonProps = Partial<PrimitiveProps<ButtonProps, 'button'>> &
+  Required<Pick<ButtonPrimtiveProps, 'isDisabled'>>;
+type CommonAlertProps = Partial<PrimitiveProps<AlertProps, 'div'>> &
+  Required<Pick<AlertPrimitiveProps, 'children'>>;
 
 /**
  * These are component override types.

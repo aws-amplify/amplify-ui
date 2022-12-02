@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AmplifyUser } from '@aws-amplify/ui';
 
-import { ErrorComponent, SubmitButtonComponent } from '../types';
+import { ButtonComponent, ErrorComponent } from '../types';
 
 export interface WarningProps {
   /** called when end user cancels account deletion */
@@ -26,7 +26,7 @@ export type DeleteUserState =
 
 export interface DeleteUserComponents {
   Error?: ErrorComponent;
-  DeleteButton?: SubmitButtonComponent;
+  DeleteButton?: ButtonComponent;
   Warning?: WarningComponent;
 }
 
