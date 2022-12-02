@@ -25,7 +25,7 @@ function DeleteUser({
   const { user, isLoading } = useAuth();
 
   // subcomponents
-  const { Error, SubmitButton, Warning } = React.useMemo(
+  const { ErrorMessage, DeleteButton, Warning } = React.useMemo(
     () => ({ ...DEFAULTS, ...(components ?? {}) }),
     [components]
   );
@@ -89,12 +89,12 @@ function DeleteUser({
 
   return (
     <Flex className={ComponentClassName.DeleteUser} direction="column">
-      <SubmitButton
+      <DeleteButton
         isDisabled={state === 'CONFIRMATION'}
         onClick={startConfirmation}
       >
         {deleteAccountText}
-      </SubmitButton>
+      </DeleteButton>
       {state === 'CONFIRMATION' || state === 'DELETING' ? (
         <Warning
           onCancel={handleCancel}
@@ -102,13 +102,13 @@ function DeleteUser({
           onConfirm={handleConfirmDelete}
         />
       ) : null}
-      {errorMessage ? <Error>{errorMessage}</Error> : null}
+      {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
     </Flex>
   );
 }
 
-DeleteUser.Error = DEFAULTS.Error;
-DeleteUser.SubmitButton = DEFAULTS.SubmitButton;
+DeleteUser.ErrorMessage = DEFAULTS.ErrorMessage;
+DeleteUser.DeleteButton = DEFAULTS.DeleteButton;
 DeleteUser.Warning = DEFAULTS.Warning;
 
 export default DeleteUser;
