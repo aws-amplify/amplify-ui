@@ -177,7 +177,11 @@ function ChangePassword({
   }
 
   return (
-    <View as="form" className="amplify-changepassword" onSubmit={handleSubmit}>
+    <View
+      as="form"
+      className="amplify-accountsettings-changepassword"
+      onSubmit={handleSubmit}
+    >
       <Flex direction="column">
         <CurrentPassword
           autoComplete="current-password"

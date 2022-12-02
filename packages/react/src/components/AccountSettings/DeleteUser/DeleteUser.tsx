@@ -84,7 +84,7 @@ function DeleteUser({
   }
 
   return (
-    <Flex className="amplify-deleteuser" direction="column">
+    <Flex className="amplify-accountsettings-deleteuser" direction="column">
       <DefaultSubmitButton
         isDisabled={state === 'CONFIRMATION'}
         onClick={startConfirmation}
