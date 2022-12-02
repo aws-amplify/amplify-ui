@@ -33,7 +33,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
           "paddingVertical": 12,
         },
         Object {
-          "borderColor": "hsl(210, 8%, 55%)",
+          "borderColor": "hsl(210, 10%, 58%)",
           "borderWidth": 1,
         },
         null,

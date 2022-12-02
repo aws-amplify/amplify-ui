@@ -6,10 +6,9 @@ import {
   Card,
   Flex,
   Heading,
+  AccountSettings,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-
-import { DeleteUser } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
@@ -22,7 +21,7 @@ export default function App() {
           <Flex direction="column">
             <Card variation="outlined">
               <Heading>Delete Account:</Heading>
-              <DeleteUser />
+              <AccountSettings.DeleteUser />
             </Card>
             <Button onClick={signOut}>Sign Out</Button>
           </Flex>

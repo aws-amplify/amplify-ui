@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UploadPreviewer renders as expected 1`] = `
+<div>
+  <div
+    class="amplify-fileuploader__previewer"
+  >
+    <div
+      class="amplify-fileuploader__previewer__body"
+    >
+      <p
+        class="amplify-text amplify-fileuploader__previewer__text"
+      >
+        1 files selected
+      </p>
+    </div>
+    <div
+      class="amplify-fileuploader__previewer__footer"
+    >
+      <div />
+      <div
+        class="amplify-fileuploader__previewer__footer__actions"
+      >
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--small"
+          data-fullwidth="false"
+          data-size="small"
+          data-variation="primary"
+          type="button"
+        >
+          Upload
+           1 
+          files
+        </button>
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+          data-fullwidth="false"
+          data-size="small"
+          data-variation="link"
+          type="button"
+        >
+          Clear all
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
