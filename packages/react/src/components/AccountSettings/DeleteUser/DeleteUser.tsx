@@ -24,7 +24,7 @@ function DeleteUser({
   const { user, isLoading } = useAuth();
 
   // subcomponents
-  const { Error, DeleteButton, Warning } = React.useMemo(
+  const { ErrorMessage, DeleteButton, Warning } = React.useMemo(
     () => ({ ...DEFAULTS, ...(components ?? {}) }),
     [components]
   );
@@ -101,12 +101,12 @@ function DeleteUser({
           onConfirm={handleConfirmDelete}
         />
       ) : null}
-      {errorMessage ? <Error>{errorMessage}</Error> : null}
+      {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
     </Flex>
   );
 }
 
-DeleteUser.Error = DEFAULTS.Error;
+DeleteUser.ErrorMessage = DEFAULTS.ErrorMessage;
 DeleteUser.DeleteButton = DEFAULTS.DeleteButton;
 DeleteUser.Warning = DEFAULTS.Warning;
 

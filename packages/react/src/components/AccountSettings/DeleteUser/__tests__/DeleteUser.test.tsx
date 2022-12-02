@@ -37,7 +37,7 @@ const CustomDeleteButton = ({ onClick, isDisabled }) => {
   );
 };
 
-const CustomError = ({ children }) => (
+const CustomErrorMessage = ({ children }) => (
   <>
     <Heading>Custom Error Message</Heading>
     <Text>{children}</Text>
@@ -47,7 +47,7 @@ const CustomError = ({ children }) => (
 const components: DeleteUserComponents = {
   DeleteButton: CustomDeleteButton,
   Warning: CustomWarning,
-  Error: CustomError,
+  ErrorMessage: CustomErrorMessage,
 };
 
 describe('DeleteUser', () => {

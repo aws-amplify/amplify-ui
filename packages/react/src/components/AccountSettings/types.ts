@@ -49,7 +49,7 @@ export type SubmitButtonComponent<Props = {}> = React.ComponentType<
   Props & CommonButtonProps<'submit'>
 >;
 
-export type ErrorComponent<Props = {}> = React.ComponentType<
+export type ErrorMessageComponent<Props = {}> = React.ComponentType<
   Props & CommonAlertProps
 >;
 

@@ -120,8 +120,16 @@ function ChangePassword({
   const updatePasswordText = translate('Update password');
 
   /* Subcomponents */
-  const { CurrentPassword, NewPassword, ConfirmPassword, SubmitButton, Error } =
-    React.useMemo(() => ({ ...DEFAULTS, ...(components ?? {}) }), [components]);
+  const {
+    CurrentPassword,
+    NewPassword,
+    ConfirmPassword,
+    SubmitButton,
+    ErrorMessage,
+  } = React.useMemo(
+    () => ({ ...DEFAULTS, ...(components ?? {}) }),
+    [components]
+  );
 
   /* Event Handlers */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -208,7 +216,7 @@ function ChangePassword({
         <SubmitButton isDisabled={isDisabled} type="submit">
           {updatePasswordText}
         </SubmitButton>
-        {errorMessage ? <Error>{errorMessage}</Error> : null}
+        {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
       </Flex>
     </View>
   );
@@ -218,6 +226,6 @@ ChangePassword.CurrentPassword = DEFAULTS.CurrentPassword;
 ChangePassword.NewPassword = DEFAULTS.NewPassword;
 ChangePassword.ConfirmPassword = DEFAULTS.ConfirmPassword;
 ChangePassword.SubmitButton = DEFAULTS.SubmitButton;
-ChangePassword.Error = DEFAULTS.Error;
+ChangePassword.ErrorMessage = DEFAULTS.ErrorMessage;
 
 export default ChangePassword;

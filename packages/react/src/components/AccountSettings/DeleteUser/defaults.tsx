@@ -2,7 +2,7 @@ import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { Button, Card, Flex, Text } from '../../../primitives';
-import { DefaultError } from '../shared/Defaults';
+import { DefaultErrorMessage } from '../shared/Defaults';
 import { DeleteUserComponents, WarningComponent } from './types';
 
 const DefaultWarning: WarningComponent = ({
@@ -40,7 +40,7 @@ const DefaultWarning: WarningComponent = ({
 };
 
 const DEFAULTS: Required<DeleteUserComponents> = {
-  Error: DefaultError,
+  ErrorMessage: DefaultErrorMessage,
   DeleteButton: Button,
   Warning: DefaultWarning,
 };
