@@ -23,6 +23,13 @@ cp ./docs/.env.example ./docs/.env
 
 Then set values to the variables.
 
+### Test
+
+- Run `yarn test` to test.
+- If the snapshot test fails, run `yarn test -- -u`.
+
+Test runs after build.
+
 ### Creating a Page
 
 Page paths mirror their URLs. For example, `/react/connected-components/authenticator` is located at [docs/src/pages/[platform]/connected-components/authenticator/index.page.mdx](src/pages/[platform]/components/authenticator/index.page.mdx).

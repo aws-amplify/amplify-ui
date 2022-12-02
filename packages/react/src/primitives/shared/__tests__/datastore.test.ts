@@ -26,15 +26,13 @@ describe('createDataStorePredicate', () => {
     const namePredicate = jest.fn();
 
     const condition: any = {
-      name: namePredicate,
+      [namePredicateObject.field]: {
+        [namePredicateObject.operator]: namePredicate,
+      },
     };
 
     predicate(condition);
-
-    expect(namePredicate).toHaveBeenCalledWith(
-      namePredicateObject.operator,
-      namePredicateObject.operand
-    );
+    expect(namePredicate).toHaveBeenCalledWith(namePredicateObject.operand);
   });
 
   test('should generate a group predicate: or', () => {
@@ -44,34 +42,30 @@ describe('createDataStorePredicate', () => {
 
     const predicate = createDataStorePredicate<Post>(predicateObject);
 
+    console.log({ predicate: predicate.toString() });
+
     const namePredicate = jest.fn();
     const agePredicate = jest.fn();
 
     const condition: any = {
-      or: (p) =>
+      or: (p) => [
         p({
-          name: (operator, operand) => {
-            namePredicate(operator, operand);
-            return {
-              age: (operator, operand) => {
-                agePredicate(operator, operand);
-                return p;
-              },
-            };
+          [namePredicateObject.field]: {
+            [namePredicateObject.operator]: namePredicate,
           },
         }),
+        p({
+          [agePredicateObject.field]: {
+            [agePredicateObject.operator]: agePredicate,
+          },
+        }),
+      ],
     };
 
     predicate(condition);
 
-    expect(namePredicate).toHaveBeenCalledWith(
-      namePredicateObject.operator,
-      namePredicateObject.operand
-    );
-    expect(agePredicate).toHaveBeenCalledWith(
-      agePredicateObject.operator,
-      agePredicateObject.operand
-    );
+    expect(namePredicate).toHaveBeenCalledWith(namePredicateObject.operand);
+    expect(agePredicate).toHaveBeenCalledWith(agePredicateObject.operand);
   });
 
   test('should generate a group predicate: and', () => {
@@ -85,30 +79,24 @@ describe('createDataStorePredicate', () => {
     const agePredicate = jest.fn();
 
     const condition: any = {
-      and: (p) => {
+      and: (p) => [
         p({
-          name: (operator, operand) => {
-            namePredicate(operator, operand);
-            return {
-              age: (operator, operand) => {
-                agePredicate(operator, operand);
-              },
-            };
+          [namePredicateObject.field]: {
+            [namePredicateObject.operator]: namePredicate,
           },
-        });
-      },
+        }),
+        p({
+          [agePredicateObject.field]: {
+            [agePredicateObject.operator]: agePredicate,
+          },
+        }),
+      ],
     };
 
     predicate(condition);
 
-    expect(namePredicate).toHaveBeenCalledWith(
-      namePredicateObject.operator,
-      namePredicateObject.operand
-    );
-    expect(agePredicate).toHaveBeenCalledWith(
-      agePredicateObject.operator,
-      agePredicateObject.operand
-    );
+    expect(namePredicate).toHaveBeenCalledWith(namePredicateObject.operand);
+    expect(agePredicate).toHaveBeenCalledWith(agePredicateObject.operand);
   });
 
   test('should generate a nested predicate', () => {
@@ -127,33 +115,24 @@ describe('createDataStorePredicate', () => {
     const agePredicate = jest.fn();
 
     const condition: any = {
-      and: (p) => {
-        p({
-          name: (operator, operand) => {
-            namePredicate(operator, operand);
-            return {
-              or: (p) =>
-                p({
-                  age: (operator, operand) => {
-                    agePredicate(operator, operand);
-                    return p;
-                  },
-                }),
-            };
+      and: (andGroup) => {
+        andGroup({
+          [namePredicateObject.field]: {
+            [namePredicateObject.operator]: namePredicate,
+          },
+          or: (orGroup) => {
+            orGroup({
+              [agePredicateObject.field]: {
+                [agePredicateObject.operator]: agePredicate,
+              },
+            });
           },
         });
       },
     };
-
     predicate(condition);
 
-    expect(namePredicate).toHaveBeenCalledWith(
-      namePredicateObject.operator,
-      namePredicateObject.operand
-    );
-    expect(agePredicate).toHaveBeenCalledWith(
-      agePredicateObject.operator,
-      agePredicateObject.operand
-    );
+    expect(namePredicate).toHaveBeenCalledWith(namePredicateObject.operand);
+    expect(agePredicate).toHaveBeenCalledWith(agePredicateObject.operand);
   });
 });

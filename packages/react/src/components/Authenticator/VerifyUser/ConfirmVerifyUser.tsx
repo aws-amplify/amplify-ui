@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -10,6 +10,8 @@ import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+
+const { getAccountRecoveryInfoText, getSkipText } = authenticatorTextUtil;
 
 export const ConfirmVerifyUser = ({
   className,
@@ -46,7 +48,7 @@ export const ConfirmVerifyUser = ({
           <RemoteErrorMessage />
 
           <TwoButtonSubmitFooter
-            cancelButtonText={translate('Skip')}
+            cancelButtonText={getSkipText()}
             cancelButtonSendType="SKIP"
           />
           <Footer />
@@ -57,11 +59,7 @@ export const ConfirmVerifyUser = ({
 };
 
 ConfirmVerifyUser.Header = function Header() {
-  return (
-    <Heading level={3}>
-      {translate('Account recovery requires verified contact information')}
-    </Heading>
-  );
+  return <Heading level={3}>{getAccountRecoveryInfoText()}</Heading>;
 };
 
 ConfirmVerifyUser.Footer = function Footer(): JSX.Element {

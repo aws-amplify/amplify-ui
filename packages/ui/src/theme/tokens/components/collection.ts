@@ -1,47 +1,36 @@
-import {
-  PaginationButtonDisabledTokens,
-  PaginationButtonHoverTokens,
-} from './pagination';
-import { StateTokens } from './button';
-import {
-  BackgroundColorValue,
-  ColorValue,
-  DesignToken,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface PaginationTokens {
-  current: {
-    color: DesignToken<ColorValue>;
-    backgroundColor: DesignToken<BackgroundColorValue>;
-  };
-  button: {
-    color: DesignToken<ColorValue>;
-    _hover: PaginationButtonHoverTokens;
-    _disabled: PaginationButtonDisabledTokens;
-  };
-}
+type StateTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'color',
+  Output
+>;
 
-export interface SearchTokens {
-  input: {
-    color: DesignToken<ColorValue>;
+type PaginationTokens<Output> = {
+  current?: DesignTokenProperties<'color' | 'backgroundColor', Output>;
+  button?: DesignTokenProperties<'color', Output> & {
+    _hover?: DesignTokenProperties<'backgroundColor' | 'color', Output>;
+    _disabled?: DesignTokenProperties<'color', Output>;
   };
-  button: {
-    color: DesignToken<ColorValue>;
-    _active: StateTokens;
-    _disabled: StateTokens;
-    _focus: StateTokens;
-    _hover: StateTokens;
-  };
-}
+};
 
-export interface CollectionTokens {
-  pagination: PaginationTokens;
-  search: SearchTokens;
+type SearchTokens<Output> = {
+  input: DesignTokenProperties<'color', Output>;
+  button: DesignTokenProperties<'color', Output> & {
+    _active: StateTokens<Output>;
+    _disabled: StateTokens<Output>;
+    _focus: StateTokens<Output>;
+    _hover: StateTokens<Output>;
+  };
+};
+
+export interface CollectionTokens<Output extends OutputVariantKey> {
+  pagination: PaginationTokens<Output>;
+  search: SearchTokens<Output>;
 }
 
 //we are reusing the types from the nested components but new tokens need to be created that reference the previous tokens so that they can inherit the needed values but can be overwritten and only effect the collection component.
 //only a subset of the design tokens of the nested components are being exposed, this can be expanded later.
-export const collection: CollectionTokens = {
+export const collection: Required<CollectionTokens<'default'>> = {
   pagination: {
     current: {
       color: { value: '{components.pagination.current.color}' },

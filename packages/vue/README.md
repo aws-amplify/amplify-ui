@@ -1,3 +1,5 @@
+[![@aws-amplify/ui-vue Weekly Downloads stat badge](https://img.shields.io/npm/dw/@aws-amplify/ui-vue?label=Download&logo=Amplify)](https://www.npmjs.com/package/@aws-amplify/ui-vue) [![@aws-amplify/ui-vue version badge](https://img.shields.io/npm/v/@aws-amplify/ui-vue/latest?style=flat)](https://www.npmjs.com/package/@aws-amplify/ui-vue)
+
 # Amplify UI
 
 Amplify UI is an open-source UI library with cloud-connected components that are endlessly customizable, accessible, and can integrate into _any_ application. Amplify UI consists of:

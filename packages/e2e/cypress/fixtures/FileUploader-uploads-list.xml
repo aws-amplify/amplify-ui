@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>testbucket-dev</Name><Prefix>public/test.jpg</Prefix><KeyCount>1</KeyCount><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>public/test.jpg</Key><LastModified>2022-11-01T21:37:10.000Z</LastModified><ETag>&quot;abc123&quot;</ETag><Size>13</Size><StorageClass>STANDARD</StorageClass></Contents></ListBucketResult>

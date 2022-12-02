@@ -1,8 +1,12 @@
-import { cssNameTransform, defaultTheme, isDesignToken } from '@aws-amplify/ui';
+import {
+  cssNameTransform,
+  isDesignToken,
+  ComponentClassName,
+  WebTheme,
+} from '@aws-amplify/ui';
 
 import { ThemeStylePropKey } from '../types/theme';
 import { stylePropsToThemeKeys } from './constants';
-import { ComponentClassName } from './types';
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
@@ -64,7 +68,8 @@ export const classNameModifierByFlag = (
 
 export const getCSSVariableIfValueIsThemeKey = <Value>(
   propKey: ThemeStylePropKey,
-  value: Value
+  value: Value,
+  tokens: WebTheme['tokens']
 ): Value | string => {
   if (typeof value !== 'string') {
     return value;
@@ -76,13 +81,15 @@ export const getCSSVariableIfValueIsThemeKey = <Value>(
   if (value.includes(' ')) {
     return value
       .split(' ')
-      .map((val) => getCSSVariableIfValueIsThemeKey<string>(propKey, val))
+      .map((val) =>
+        getCSSVariableIfValueIsThemeKey<string>(propKey, val, tokens)
+      )
       .join(' ');
   }
   const path = value.split('.');
   const tokenKey = stylePropsToThemeKeys[propKey];
 
-  let tokenProps = defaultTheme.tokens[tokenKey];
+  let tokenProps = tokens[tokenKey];
 
   for (let i = 0; i < path.length; i++) {
     if (tokenProps) {
