@@ -13,6 +13,7 @@ import {
 
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
+import { ComponentClassName } from '../constants';
 import { FormValues, BlurredFields, ValidationError } from '../types';
 import { ChangePasswordProps, ValidateParams } from './types';
 import DEFAULTS from './defaults';
@@ -179,7 +180,7 @@ function ChangePassword({
   return (
     <View
       as="form"
-      className="amplify-accountsettings-changepassword"
+      className={ComponentClassName.ChangePassword}
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
