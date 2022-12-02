@@ -1,13 +1,21 @@
+import React from 'react';
+
 import { AmplifyUser } from '@aws-amplify/ui';
 
-export interface DeleteUserWarningProps {
+import { ErrorComponent, SubmitButtonComponent } from '../types';
+
+export interface WarningProps {
   /** called when end user cancels account deletion */
-  onCancel?: () => void;
+  onCancel: () => void;
   /** called when user acknowledges account deletion */
-  onConfirm?: () => void;
+  onConfirm: () => void;
   /** whether account deletion is in progress */
-  isDisabled?: boolean;
+  isDisabled: boolean;
 }
+
+export type WarningComponent<Props = {}> = React.ComponentType<
+  Props & WarningProps
+>;
 
 export type DeleteUserState =
   | 'IDLE'
@@ -15,6 +23,12 @@ export type DeleteUserState =
   | 'DELETING'
   | 'DONE'
   | 'ERROR';
+
+export interface DeleteUserComponents {
+  Error?: ErrorComponent;
+  SubmitButton?: SubmitButtonComponent;
+  Warning?: WarningComponent;
+}
 
 export interface DeleteUserProps {
   /** custom delete user service override */
@@ -25,4 +39,7 @@ export interface DeleteUserProps {
 
   /** callback for unsuccessful user deletion  */
   onError?: (error: Error) => void;
+
+  /** custom component overrides */
+  components?: DeleteUserComponents;
 }
