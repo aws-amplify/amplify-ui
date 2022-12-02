@@ -9,7 +9,7 @@ import {
   Card,
   Flex,
   Heading,
-  ChangePassword,
+  AccountSettings,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -26,7 +26,7 @@ export default function App() {
             <Card variation="outlined">
               <Flex direction="column">
                 <Heading>Change Password:</Heading>
-                <ChangePassword
+                <AccountSettings.ChangePassword
                   onSuccess={() => {
                     setIsSuccessful(true);
                   }}

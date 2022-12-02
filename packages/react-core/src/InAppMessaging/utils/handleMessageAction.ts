@@ -22,7 +22,7 @@ const handleMessageAction = ({
 
   if (action === 'LINK' || action === 'DEEP_LINK') {
     if (!isString(url)) {
-      logger.warn(`url must be of type string: ${url}`);
+      logger.warn(`url must be of type string. Received: ${url}`);
       return;
     }
 
