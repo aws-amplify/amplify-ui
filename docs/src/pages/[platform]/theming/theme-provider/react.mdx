@@ -1,3 +1,4 @@
+import { Flex } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 
 import { BasicExample } from './examples';
@@ -9,17 +10,21 @@ Import the `ThemeProvider` and wrap your application with it:
 ```jsx
 import { ThemeProvider } from '@aws-amplify/ui-react';
 
-export const App = (
+export const App = () => (
   <ThemeProvider>
     <YourApplication />
   </ThemeProvider>
 );
 ```
 
-Use the [default theme](./default-theme) to style the components in your app:
+Use the [default theme](./default-theme) to style the components in your app. You can either:
+1. Get the theme `tokens` through the `useTheme` hook (e.g., `tokens.colors.blue[80]`)
+2. Reference the theme `tokens` directly in style props (e.g., `"purple.80"`)
 
 <Example>
-  <BasicExample />
+  <Flex>
+    <BasicExample />
+  </Flex>
 
   <ExampleCode>
     ```tsx file=./examples/BasicExample.tsx
