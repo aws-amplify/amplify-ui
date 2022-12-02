@@ -38,7 +38,7 @@ function CustomWarning({ onCancel, onConfirm }) {
 const CustomDeleteButton = ({ onClick, isDisabled }) => {
   return (
     <Button isDisabled={isDisabled} onClick={onClick}>
-      Super special button
+      Custom Delete Button
     </Button>
   );
 };
@@ -56,7 +56,7 @@ const components: DeleteUserComponents = {
   Error: CustomError,
 };
 
-describe('ChangePassword', () => {
+describe('DeleteUser', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });

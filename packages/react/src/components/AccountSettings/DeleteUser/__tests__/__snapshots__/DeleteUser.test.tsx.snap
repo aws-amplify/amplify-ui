@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ChangePassword renders as expected 1`] = `
+exports[`DeleteUser renders as expected 1`] = `
 <div>
   <div
     class="amplify-flex"
@@ -17,7 +17,7 @@ exports[`ChangePassword renders as expected 1`] = `
 </div>
 `;
 
-exports[`ChangePassword renders as expected with components overrides 1`] = `
+exports[`DeleteUser renders as expected with components overrides 1`] = `
 <div>
   <div
     class="amplify-flex"
