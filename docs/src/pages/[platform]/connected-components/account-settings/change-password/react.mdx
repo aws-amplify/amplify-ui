@@ -1,5 +1,7 @@
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { Example, ExampleCode } from '@/components/Example';
 import { CHANGE_PASSWORD, OVERRIDES } from './props';
+
 
 ### Props
 
@@ -8,6 +10,9 @@ import { CHANGE_PASSWORD, OVERRIDES } from './props';
 ### Basic Usage
 
 `ChangePassword` has `onSuccess` handler that will be called after successful password change. You may use this callback to run any custom handling, such as navigating route or rendering confirmation messages.
+
+<Example>
+  <ExampleCode>
 
 ```jsx
 import React from 'react';
@@ -24,9 +29,15 @@ function App() {
 }
 ```
 
+  </ExampleCode>
+</Example>
+
 ### Custom Validation
 
 You can override the default custom password validator with your own. To do so, you can use the validators prop, which takes an array of ValidatorOptions, which is of type:
+
+<Example>
+  <ExampleCode>
 
 ```ts
 interface ValidatorOptions {
@@ -36,11 +47,17 @@ interface ValidatorOptions {
 }
 ```
 
+  </ExampleCode>
+</Example>
+
 - `onBlur` validates password on every blur event
 - `onChange` validates password on every change event
 - `onTouched` validates password on first blur, and on every change event after the first blur.
 
 For example, following is a minLength validator that validates on every change:
+
+<Example>
+  <ExampleCode>
 
 ```js
 const minLength = {
@@ -50,7 +67,13 @@ const minLength = {
 };
 ```
 
+  </ExampleCode>
+</Example>
+
 You can pass multiple validators to ConfirmPassword to override the default validator:
+
+<Example>
+  <ExampleCode>
 
 ```jsx
 import React from 'react';
@@ -73,6 +96,9 @@ function App() {
 }
 ```
 
+  </ExampleCode>
+</Example>
+
 ### Component Overrides
 
 You can provide your own UI components to override parts of `ChangePassword`. It supports the following slots:
@@ -82,6 +108,9 @@ You can provide your own UI components to override parts of `ChangePassword`. It
 #### Reusing default components
 
 Default components are accessible through `ChangePassword.COMPONENT_NAME` (e.g. `ChangePassword.NewPassword`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
+
+<Example>
+  <ExampleCode>
 
 ```jsx
 function App() {
@@ -101,9 +130,15 @@ function App() {
 }
 ```
 
+  </ExampleCode>
+</Example>
+
 #### Using your own component
 
 You can also provide your own custom to override components. 
+
+<Example>
+  <ExampleCode>
 
 ```jsx
 function App() {
@@ -124,6 +159,9 @@ function App() {
   );
 }
 ```
+
+  </ExampleCode>
+</Example>
 
 Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name`` are attached correctly. If you're providing your own custom components, make sure props are spread onto your input or button component.
 
