@@ -39,7 +39,7 @@ type CommonButtonProps<T extends 'submit' | 'default' = 'default'> =
 
 /*
  * These are component override types.
- * Usage of` Props` generic allows additional props passed on override components
+ * Usage of `Props` generic allows additional props passed on override components
  */
 export type PasswordFieldComponent<Props = {}> = React.ComponentType<
   Props & CommonPasswordFieldProps
