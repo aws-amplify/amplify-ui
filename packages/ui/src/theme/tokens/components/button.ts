@@ -63,7 +63,8 @@ export type ButtonTokens<Output extends OutputVariantKey> =
     | 'borderWidth'
     | 'borderStyle'
     | 'borderRadius'
-    | 'color'
+    | 'color',
+    Output
   > & {
     _hover?: StateTokens<Output>;
     _focus?: StateWithShadowTokens<Output>;
@@ -75,7 +76,7 @@ export type ButtonTokens<Output extends OutputVariantKey> =
     link?: LinkVariationTokens<Output>;
     small?: ButtonSizeTokens<Output>;
     large?: ButtonSizeTokens<Output>;
-    loaderWrapper: DesignTokenProperties<'alignItems' | 'gap', Output>;
+    loaderWrapper?: DesignTokenProperties<'alignItems' | 'gap', Output>;
   };
 
 export const button: Required<ButtonTokens<'default'>> = {
