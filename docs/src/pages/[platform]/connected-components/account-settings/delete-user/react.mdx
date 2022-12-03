@@ -113,10 +113,46 @@ Props:
 
     <ReactPropsTable props={DELETE_BUTTON} />
 
+You can reuse the `AccountSettings.DeleteUser.DeleteButton`:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
+const components  = {
+  DeleteButton: (props) => (
+    <AccountSettings.DeleteUser.DeleteButton {...props}>
+      My Custom Button
+    </AccountSettings.DeleteUser.DeleteButton>
+  )
+}
+```
+
+      </ExampleCode>
+    </Example>
+
+or use [button primitive](/components/button) directly:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { AccountSettings, Button } from '@aws-amplify/ui-react';
+
+const components  = {
+  DeleteButton: (props) => <Button {...props}>My Custom Button</Button>
+}
+```
+
+      </ExampleCode>
+    </Example>
+
 The following example replaces `DeleteButton` with native html button:
 
-<Example>
-  <ExampleCode>
+    <Example>
+      <ExampleCode>
 
 ```jsx
 function App() {
@@ -134,48 +170,11 @@ function App() {
 }
 ```
 
-  </ExampleCode>
-</Example>
-
-You can reuse the `AccountSettings.DeleteUser.DeleteButton`:
-
-<Example>
-  <ExampleCode>
-
-```jsx
-import { AccountSettings, Button } from '@aws-amplify/ui-react';
-
-const components  = {
-  DeleteButton: (props) => <Button {...props}>My Custom Button</Button>
-}
-```
-
-  </ExampleCode>
-</Example>
-
-or use button primitive directly:
-
-<Example>
-  <ExampleCode>
-
-```jsx
-import { AccountSettings, Button } from '@aws-amplify/ui-react';
-
-const components  = {
-  DeleteButton: (props) => (
-    <AccountSettings.DeleteUser.DeleteButton {...props}>
-      My Custom Button
-    </AccountSettings.DeleteUser.DeleteButton>
-  )
-}
-```
-
-  </ExampleCode>
-</Example>
+      </ExampleCode>
+    </Example>
 
   </ExpanderItem>
   <ExpanderItem title="ErrorMessage" value="error-message">
-
 
 Props:
 
@@ -212,7 +211,6 @@ function App() {
 
 Props:
 
-    <br />
     <ReactPropsTable props={WARNING} />
 
 The following example overrides the warning component to require users to type "delete" before they can delete their account.
