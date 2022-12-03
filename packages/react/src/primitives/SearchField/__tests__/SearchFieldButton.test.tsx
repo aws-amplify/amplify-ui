@@ -7,8 +7,6 @@ import { ComponentClassNames, ComponentText } from '../../shared/constants';
 const ariaLabelText = ComponentText.SearchField.searchButtonLabel;
 
 describe('SearchFieldButton component', () => {
-  const testId = 'testId';
-
   it('should render default classname for SearchFieldButton', async () => {
     render(<SearchFieldButton />);
 

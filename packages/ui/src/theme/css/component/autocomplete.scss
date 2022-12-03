@@ -46,6 +46,7 @@
 
   &__options {
     position: relative;
+    overscroll-behavior: contain;
     display: var(--amplify-components-autocomplete-menu-options-display);
     flex-direction: var(
       --amplify-components-autocomplete-menu-options-flex-direction
