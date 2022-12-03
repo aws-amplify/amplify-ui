@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
 
 import { Button, Flex, Heading, Text } from '../../../../primitives';
+import { ComponentClassName } from '../../constants';
 import { DeleteUserComponents } from '../types';
 import DeleteUser from '../DeleteUser';
 
@@ -23,30 +18,40 @@ jest.mock('../../../../internal', () => ({
 
 const deleteUserSpy = jest.spyOn(UIModule, 'deleteUser');
 
-function CustomWarning({ onCancel, onConfirm, isDisabled }) {
+function CustomWarning({ onCancel, onConfirm }) {
   return (
     <Flex direction="column">
       <Text variation="warning">Custom Warning Message</Text>
       <Button onClick={onCancel}>Back</Button>
-      <Button variation="primary" onClick={onConfirm} isDisabled={isDisabled}>
+      <Button variation="primary" onClick={onConfirm}>
         Custom Confirm Button
       </Button>
     </Flex>
   );
 }
 
-const components: DeleteUserComponents = {
-  SubmitButton: (props) => <Button {...props}>Custom Delete Button</Button>,
-  Warning: CustomWarning,
-  Error: ({ children }) => (
-    <>
-      <Heading>Custom Error Message</Heading>
-      <Text>{children}</Text>
-    </>
-  ),
+const CustomDeleteButton = ({ onClick, isDisabled }) => {
+  return (
+    <Button isDisabled={isDisabled} onClick={onClick}>
+      Custom Delete Button
+    </Button>
+  );
 };
 
-describe('ChangePassword', () => {
+const CustomErrorMessage = ({ children }) => (
+  <>
+    <Heading>Custom Error Message</Heading>
+    <Text>{children}</Text>
+  </>
+);
+
+const components: DeleteUserComponents = {
+  DeleteButton: CustomDeleteButton,
+  Warning: CustomWarning,
+  ErrorMessage: CustomErrorMessage,
+};
+
+describe('DeleteUser', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -54,6 +59,11 @@ describe('ChangePassword', () => {
   it('renders as expected', () => {
     const { container } = render(<DeleteUser />);
     expect(container).toMatchSnapshot();
+
+    const deleteUser = container.getElementsByClassName(
+      ComponentClassName.DeleteUser
+    );
+    expect(deleteUser).toHaveLength(1);
   });
 
   it('calls deleteUser with expected arguments', async () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, PasswordField } from '../../../primitives';
 import { ValidationErrors } from '../../shared/ValidationErrors';
-import { DefaultError } from '../shared/Defaults';
+import { DefaultErrorMessage } from '../shared/Defaults';
 import { PasswordFieldComponent } from '../types';
 import { ChangePasswordComponents } from './types';
 
@@ -23,7 +23,7 @@ const DEFAULTS: Required<ChangePasswordComponents> = {
   NewPassword: DefaultPasswordField,
   ConfirmPassword: DefaultPasswordField,
   SubmitButton: Button,
-  Error: DefaultError,
+  ErrorMessage: DefaultErrorMessage,
 };
 
 export default DEFAULTS;

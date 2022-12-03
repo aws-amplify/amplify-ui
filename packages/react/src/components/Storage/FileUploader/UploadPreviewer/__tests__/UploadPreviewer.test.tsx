@@ -27,11 +27,6 @@ const fileStatus2: FileStatus = {
 };
 const fileStatuses: FileStatuses = [fileStatus];
 const fileStatuses2: FileStatuses = [fileStatus, fileStatus2];
-const ref = {
-  current: {
-    info: jest.fn(),
-  },
-} as unknown as React.MutableRefObject<HTMLInputElement>;
 
 const commonProps = {
   aggregatePercentage: 0,

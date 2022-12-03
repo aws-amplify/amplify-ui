@@ -62,7 +62,7 @@ describe('ThemeProvider', () => {
   });
 
   it('takes direction prop and sets dir', () => {
-    const { debug, container } = render(
+    const { container } = render(
       <ThemeProvider direction="rtl">
         <App />
       </ThemeProvider>
@@ -75,7 +75,7 @@ describe('ThemeProvider', () => {
   });
 
   it('takes the colorMode prop and sets [data-amplify-color-mode]', () => {
-    const { debug, container } = render(
+    const { container } = render(
       <ThemeProvider colorMode="light">
         <App />
       </ThemeProvider>
