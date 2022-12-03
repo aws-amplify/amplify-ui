@@ -30,31 +30,46 @@ export const OVERRIDES = [
     type: `PasswordFieldProps`,
   },
   {
-    name: `Error?`,
+    name: `ErrorMessage?`,
     description: 'Error alert that displays on delete user errors',
-    type: `ErrorComponentProps`,
+    type: `ErrorMessageComponentProps`,
   },
   {
-    name: `SubmitButton?`,
-    description: 'Submit button',
-    type: `SubmitButtonProps`,
+    name: `DeleteButton?`,
+    description: 'Delete button',
+    type: `DeleteButtonProps`,
+  },
+];
+
+export const DELETE_BUTTON = [
+  {
+    name: `onClick`,
+    description:
+      'Click handler for the button. This must be attached to your button element',
+    type: `React.MouseEvent<HTMLButtonElement>`,
+  },
+  {
+    name: `isDisabled`,
+    description:
+      'Boolean representing whether account deletion is in progress. Your delete button should be disabled if this is set to true.',
+    type: `boolean`,
   },
 ];
 
 export const WARNING = [
   {
-    name: `onCancel?`,
+    name: `onCancel`,
     description:
       'Callback that is called when end user cancels account deletion',
     type: `() => void`,
   },
   {
-    name: `onConfirm?`,
+    name: `onConfirm`,
     description: 'Callback that is ccalled when user confirms account deletion',
     type: `() => void`,
   },
   {
-    name: `isDisabled?`,
+    name: `isDisabled`,
     description: 'Whether account deletion is in progress',
     type: `boolean`,
   },

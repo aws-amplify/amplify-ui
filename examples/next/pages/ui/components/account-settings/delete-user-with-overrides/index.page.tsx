@@ -9,7 +9,7 @@ import {
   AccountSettings,
   Text,
   TextField,
-  withAuthenticator, //IGNORE
+  withAuthenticator, // IGNORE
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 

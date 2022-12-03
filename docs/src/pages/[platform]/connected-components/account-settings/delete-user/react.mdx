@@ -1,8 +1,9 @@
-import { ScrollView } from '@aws-amplify/ui-react';
+import { Alert, Expander, ExpanderItem, ScrollView } from '@aws-amplify/ui-react';
 
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
-import { DELETE_USER, OVERRIDES, WARNING } from './props';
+import { DELETE_USER, OVERRIDES, WARNING, DELETE_BUTTON } from './props';
+import { ERROR_MESSAGE } from '../props';
 
 ### Props
 
@@ -17,7 +18,7 @@ import { DELETE_USER, OVERRIDES, WARNING } from './props';
 
 ```jsx
 import React from 'react';
-import { DeleteUser } from '@aws-amplify/ui-react';
+import { AccountSettings } from '@aws-amplify/ui-react';
 
 function App() {
   const handleSuccess = () => {
@@ -25,7 +26,7 @@ function App() {
   }
   
   return (
-    <DeleteUser onSuccess={handleSuccess}/>
+    <AccountSettings.DeleteUser onSuccess={handleSuccess} />
   );
 }
 ```
@@ -67,14 +68,14 @@ function App() {
 
 ### Component Overrides
 
-You can provide your own UI components to override parts of `DeleteUser`. It supports the following slots:
+You can override parts of the `DeleteUser` component by passing in a `components` prop. It supports the following slots:
 
 <ReactPropsTable props={OVERRIDES} />
 
 
 #### Reusing default components
 
-Default components are accessible through `DeleteUser.COMPONENT_NAME` (e.g. `DeleteUser.NewPassword`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
+Default components are accessible through `AccountSettings.DeleteUser.COMPONENT_NAME` (e.g. `AccountSettings.DeleteUser.DeleteButton`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
 
 <Example>
   <ExampleCode>
@@ -82,14 +83,13 @@ Default components are accessible through `DeleteUser.COMPONENT_NAME` (e.g. `Del
 ```jsx
 function App() {
   const components = {
-    // reuse default component
-    SubmitButton: (props) => (
-      <DeleteUser.SubmitButton {...props}>Custom Submit Button</DeleteUser.SubmitButton>
+    DeleteButton: (props) => (
+      <AccountSettings.DeleteUser.DeleteButton {...props}>Custom Submit Button</AccountSettings.DeleteUser.DeleteButton>
     ),
   }
 
   return (
-    <DeleteUser components={components} />
+    <AccountSettings.DeleteUser components={components} />
   );
 }
 ```
@@ -98,19 +98,29 @@ function App() {
 </Example>
 
 
-#### Using your own component
+<Alert variation="warning">
+Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name` are attached correctly. If you're providing your own custom components, make sure required props are spread onto it.
+</Alert>
 
-You can override parts of the `DeleteUser` component by passing in a `components` prop.
+#### Props and Examples
 
-<Example>
-  <ExampleCode>
+Here are the required props and examples for overriding each slot.
+
+<Expander type="single">
+  <ExpanderItem title="DeleteButton" value="delete-button">
+
+Props:
+
+    <br />
+    <ReactPropsTable props={DELETE_BUTTON} />
+
+Below example replace `DeleteButton` with native html button:
 
 ```jsx
 function App() {
   const components = {
-    // use your own component
-    SubmitButton: (props) => (
-      <button {...props} type="submit">
+    DeleteButton: ({ onClick, isDisabled }) => (
+      <button onClick={onClick} disabled={isDisabled}>
         Custom Button Text
       </button>
     )
@@ -122,27 +132,51 @@ function App() {
 }
 ```
 
-  </ExampleCode>
-</Example>
+You can also use the `AccountSettings.DeleteUser.DeleteButton` or [Button](/components/button) primitive:
 
-Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name` are attached correctly. If you're providing your own custom components, make sure props are spread onto it.
+  </ExpanderItem>
+  <ExpanderItem title="Warning" value="warning">
 
-#### Overriding `Warning`` component
 
-Warning component requires the following props:
+Props:
 
-<ReactPropsTable props={WARNING} />
+    <br />
+    <ReactPropsTable props={WARNING} />
 
 The following example overrides the warning component to require users to type "delete" before they can delete their account.
 
-<ScrollView height="600px">
-  <Example>
-    <ExampleCode>
+    <ScrollView height="600px">
+      <Example>
+        <ExampleCode>
   
-```jsx{10-37,43} file=../../../../../../../examples/next/pages/ui/components/account-settings/delete-user-with-overrides/index.page.tsx#L1-L66
+```jsx{10-37,48} file=../../../../../../../examples/next/pages/ui/components/account-settings/delete-user-with-overrides/index.page.tsx#L1-L72
 
 ```
 
-    </ExampleCode>
-  </Example>
-</ScrollView>
+        </ExampleCode>
+      </Example>
+    </ScrollView>
+  </ExpanderItem>
+  <ExpanderItem title="ErrorMessage" value="error-message">
+
+
+Props:
+
+    <br />
+    <ReactPropsTable props={WARNING} />
+
+The following example overrides the warning component to require users to type "delete" before they can delete their account.
+
+    <ScrollView height="600px">
+      <Example>
+        <ExampleCode>
+  
+```jsx{10-37,48} file=../../../../../../../examples/next/pages/ui/components/account-settings/delete-user-with-overrides/index.page.tsx#L1-L72
+
+```
+
+        </ExampleCode>
+      </Example>
+    </ScrollView>
+  </ExpanderItem>
+</Expander>
