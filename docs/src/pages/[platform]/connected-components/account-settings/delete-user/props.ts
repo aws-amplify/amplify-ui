@@ -34,9 +34,8 @@ export const OVERRIDES = [
     type: `ErrorMessageComponentProps`,
   },
   {
-    name: `Warning?`,
-    description:
-      'Warning component that asks end user to confirm account deletion',
+    name: `WarningView?`,
+    description: 'Warning view that asks end user to confirm account deletion',
     type: `PasswordFieldProps`,
   },
 ];
