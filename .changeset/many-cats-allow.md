@@ -3,4 +3,4 @@
 "@aws-amplify/ui-react": patch
 ---
 
-fix(primitives): fix radio button sizing issue #2756
+fix(primitives): fix default text color for alert primitive

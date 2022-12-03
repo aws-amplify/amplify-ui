@@ -4,6 +4,7 @@ import { deleteUser, translate, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
+import { ComponentClassName } from '../constants';
 import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 
@@ -24,7 +25,7 @@ function DeleteUser({
   const { user, isLoading } = useAuth();
 
   // subcomponents
-  const { Error, SubmitButton, Warning } = React.useMemo(
+  const { ErrorMessage, DeleteButton, Warning } = React.useMemo(
     () => ({ ...DEFAULTS, ...(components ?? {}) }),
     [components]
   );
@@ -87,13 +88,13 @@ function DeleteUser({
   }
 
   return (
-    <Flex direction="column">
-      <SubmitButton
+    <Flex className={ComponentClassName.DeleteUser} direction="column">
+      <DeleteButton
         isDisabled={state === 'CONFIRMATION'}
         onClick={startConfirmation}
       >
         {deleteAccountText}
-      </SubmitButton>
+      </DeleteButton>
       {state === 'CONFIRMATION' || state === 'DELETING' ? (
         <Warning
           onCancel={handleCancel}
@@ -101,13 +102,13 @@ function DeleteUser({
           onConfirm={handleConfirmDelete}
         />
       ) : null}
-      {errorMessage ? <Error>{errorMessage}</Error> : null}
+      {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
     </Flex>
   );
 }
 
-DeleteUser.Error = DEFAULTS.Error;
-DeleteUser.SubmitButton = DEFAULTS.SubmitButton;
+DeleteUser.ErrorMessage = DEFAULTS.ErrorMessage;
+DeleteUser.DeleteButton = DEFAULTS.DeleteButton;
 DeleteUser.Warning = DEFAULTS.Warning;
 
 export default DeleteUser;
