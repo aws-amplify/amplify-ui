@@ -1,6 +1,8 @@
 import { DesignTokenProperties } from './designToken';
 
 export type TypographyTokens<OutputType> = DesignTokenProperties<
-  'fontSize' | 'fontWeight' | 'color',
+  | 'fontSize'
+  | 'fontWeight'
+  | 'color',
   OutputType
 >;
