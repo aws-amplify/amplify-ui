@@ -2,7 +2,7 @@ export const DELETE_USER = [
   {
     name: `onSuccess?`,
     description:
-      'Callback that is called once user account is successfully deleted ',
+      'Callback that is called once user account is successfully deleted',
     type: `() => void`,
   },
   {
@@ -44,13 +44,12 @@ export const DELETE_BUTTON = [
   {
     name: `onClick`,
     description:
-      'Click handler for the button. This must be attached to your button element',
+      'Click handler for the button. This must be passed to your button element.',
     type: `React.MouseEventHandler<HTMLButtonElement>`,
   },
   {
     name: `isDisabled`,
-    description:
-      'Boolean representing whether account deletion is in progress. Your delete button should be disabled if this is set to true.',
+    description: 'Boolean whether delete button should be disabled',
     type: `boolean`,
   },
 ];
