@@ -58,7 +58,7 @@ function App() {
   };  
       
   return (
-    <DeleteUser onSuccess={handleSuccess} handleDelete={handleDelete} />
+    <AccountSettings.DeleteUser onSuccess={handleSuccess} handleDelete={handleDelete} />
   );
 }
 ```
@@ -111,10 +111,12 @@ Here are the required props and examples for overriding each slot.
 
 Props:
 
-    <br />
     <ReactPropsTable props={DELETE_BUTTON} />
 
-Below example replace `DeleteButton` with native html button:
+The following example replaces `DeleteButton` with native html button:
+
+<Example>
+  <ExampleCode>
 
 ```jsx
 function App() {
@@ -127,37 +129,87 @@ function App() {
   };
   
   return (
-    <DeleteUser components={components} />
+    <AccountSettings.DeleteUser components={components} />
   );
 }
 ```
 
-You can also use the `AccountSettings.DeleteUser.DeleteButton` or [Button](/components/button) primitive:
+  </ExampleCode>
+</Example>
+
+You can reuse the `AccountSettings.DeleteUser.DeleteButton`:
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import { AccountSettings, Button } from '@aws-amplify/ui-react';
+
+const components  = {
+  DeleteButton: (props) => <Button {...props}>My Custom Button</Button>
+}
+```
+
+  </ExampleCode>
+</Example>
+
+or use button primitive directly:
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import { AccountSettings, Button } from '@aws-amplify/ui-react';
+
+const components  = {
+  DeleteButton: (props) => (
+    <AccountSettings.DeleteUser.DeleteButton {...props}>
+      My Custom Button
+    </AccountSettings.DeleteUser.DeleteButton>
+  )
+}
+```
+
+  </ExampleCode>
+</Example>
 
   </ExpanderItem>
-  <ExpanderItem title="Warning" value="warning">
+  <ExpanderItem title="ErrorMessage" value="error-message">
 
 
 Props:
 
     <br />
-    <ReactPropsTable props={WARNING} />
+    <ReactPropsTable props={ERROR_MESSAGE} />
 
-The following example overrides the warning component to require users to type "delete" before they can delete their account.
+The following example overrides the error message component to require users to type "delete" before they can delete their account.
 
-    <ScrollView height="600px">
-      <Example>
-        <ExampleCode>
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { Heading, Text } from '@aws-amplify/ui-react';
+
+function App() {
+  const components = {
+    ErrorMessage: ({ children }) => (
+      <>
+        <Heading>Custom Error Message</Heading>
+        <Text variation="warning">{children}</Text>
+      </>
+    )
+  };
   
-```jsx{10-37,48} file=../../../../../../../examples/next/pages/ui/components/account-settings/delete-user-with-overrides/index.page.tsx#L1-L72
-
+  return (
+    <AccountSettings.DeleteUser components={components} />
+  );
+}
 ```
 
-        </ExampleCode>
-      </Example>
-    </ScrollView>
+      </ExampleCode>
+    </Example>
   </ExpanderItem>
-  <ExpanderItem title="ErrorMessage" value="error-message">
+  <ExpanderItem title="Warning" value="warning">
 
 
 Props:

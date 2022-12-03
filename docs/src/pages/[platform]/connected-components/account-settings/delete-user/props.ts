@@ -24,10 +24,9 @@ export const DELETE_USER = [
 
 export const OVERRIDES = [
   {
-    name: `Warning?`,
-    description:
-      'Warning component that asks end user to confirm account deletion',
-    type: `PasswordFieldProps`,
+    name: `DeleteButton?`,
+    description: 'Delete button',
+    type: `DeleteButtonProps`,
   },
   {
     name: `ErrorMessage?`,
@@ -35,9 +34,10 @@ export const OVERRIDES = [
     type: `ErrorMessageComponentProps`,
   },
   {
-    name: `DeleteButton?`,
-    description: 'Delete button',
-    type: `DeleteButtonProps`,
+    name: `Warning?`,
+    description:
+      'Warning component that asks end user to confirm account deletion',
+    type: `PasswordFieldProps`,
   },
 ];
 
@@ -46,7 +46,7 @@ export const DELETE_BUTTON = [
     name: `onClick`,
     description:
       'Click handler for the button. This must be attached to your button element',
-    type: `React.MouseEvent<HTMLButtonElement>`,
+    type: `React.MouseEventHandler<HTMLButtonElement>`,
   },
   {
     name: `isDisabled`,
