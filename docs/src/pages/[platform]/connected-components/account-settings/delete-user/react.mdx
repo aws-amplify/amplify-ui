@@ -99,7 +99,7 @@ function App() {
 
 
 <Alert variation="warning">
-Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name` are attached correctly. If you're providing your own custom components, make sure required props are spread onto it.
+Note that spreading props is necessary so that event listeners like `onClick` or html attributes like `type` are passed correctly. If you're providing your own custom components, make sure required props are passed onto your elements.
 </Alert>
 
 #### Props and Examples
@@ -179,7 +179,6 @@ const components  = {
 
 Props:
 
-    <br />
     <ReactPropsTable props={ERROR_MESSAGE} />
 
 The following example overrides the error message component with [`Heading`](/components/heading) and [`Text`](/components/text) primitives.
