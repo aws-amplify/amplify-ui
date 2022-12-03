@@ -3,9 +3,9 @@ import { translate } from '@aws-amplify/ui';
 
 import { Button, Card, Flex, Text } from '../../../primitives';
 import { DefaultErrorMessage } from '../shared/Defaults';
-import { DeleteUserComponents, WarningComponent } from './types';
+import { DeleteUserComponents, WarningViewComponent } from './types';
 
-const DefaultWarning: WarningComponent = ({
+const DefaultWarningView: WarningViewComponent = ({
   onCancel,
   onConfirm,
   isDisabled,
@@ -42,7 +42,7 @@ const DefaultWarning: WarningComponent = ({
 const DEFAULTS: Required<DeleteUserComponents> = {
   ErrorMessage: DefaultErrorMessage,
   DeleteButton: Button,
-  Warning: DefaultWarning,
+  WarningView: DefaultWarningView,
 };
 
 export default DEFAULTS;

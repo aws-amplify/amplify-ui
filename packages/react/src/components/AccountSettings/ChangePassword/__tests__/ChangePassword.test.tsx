@@ -9,17 +9,17 @@ import { ChangePasswordComponents } from '../types';
 import { ComponentClassName } from '../../constants';
 
 const components: ChangePasswordComponents = {
-  CurrentPassword: (props) => (
-    <ChangePassword.CurrentPassword
+  CurrentPasswordField: (props) => (
+    <ChangePassword.CurrentPasswordField
       {...props}
       label="Custom Current Password"
     />
   ),
-  NewPassword: (props) => (
-    <ChangePassword.NewPassword {...props} label="Custom New Password" />
+  NewPasswordField: (props) => (
+    <ChangePassword.NewPasswordField {...props} label="Custom New Password" />
   ),
-  ConfirmPassword: (props) => (
-    <ChangePassword.ConfirmPassword
+  ConfirmPasswordField: (props) => (
+    <ChangePassword.ConfirmPasswordField
       {...props}
       label="Custom Confirm Password"
     />

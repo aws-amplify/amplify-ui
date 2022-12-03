@@ -6,22 +6,22 @@ import { PasswordFieldComponent } from '../types';
 import { ChangePasswordComponents } from './types';
 
 const DefaultPasswordField: PasswordFieldComponent = ({
+  fieldValidationErrors,
   label,
-  validationErrors,
   ...rest
 }) => {
   return (
     <>
-      <PasswordField label={label} {...rest} />
-      <ValidationErrors errors={validationErrors} />
+      <PasswordField {...rest} label={label} />
+      <ValidationErrors errors={fieldValidationErrors} />
     </>
   );
 };
 
 const DEFAULTS: Required<ChangePasswordComponents> = {
-  CurrentPassword: DefaultPasswordField,
-  NewPassword: DefaultPasswordField,
-  ConfirmPassword: DefaultPasswordField,
+  CurrentPasswordField: DefaultPasswordField,
+  NewPasswordField: DefaultPasswordField,
+  ConfirmPasswordField: DefaultPasswordField,
   SubmitButton: Button,
   ErrorMessage: DefaultErrorMessage,
 };

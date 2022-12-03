@@ -21,10 +21,14 @@ type AlertPrimitiveProps = PrimitiveProps<AlertProps, 'div'>;
  * Any essential props for overriding components are marked as required.
  */
 type CommonPasswordFieldProps = Partial<PasswordFieldPrimitiveProps> &
-  Required<Pick<PasswordFieldPrimitiveProps, 'onBlur' | 'onChange' | 'name'>>;
+  Required<
+    Pick<PasswordFieldPrimitiveProps, 'onBlur' | 'onChange' | 'name'>
+  > & { fieldValidationErrors?: string[] };
+
 type CommonAlertProps = Partial<PrimitiveProps<AlertProps, 'div'>> &
   Required<Pick<AlertPrimitiveProps, 'children'>>;
-type CommonButtonProps<T = 'submit' | 'default'> =
+
+type CommonButtonProps<T extends 'submit' | 'default' = 'default'> =
   Partial<ButtonPrimitiveProps> &
     Required<
       Pick<
@@ -35,14 +39,14 @@ type CommonButtonProps<T = 'submit' | 'default'> =
 
 /*
  * These are component override types.
+ * Usage of` Props` generic allows additional props passed on override components
  */
 export type PasswordFieldComponent<Props = {}> = React.ComponentType<
-  // `Props` generic allows additional props passed on override components
-  Props & CommonPasswordFieldProps & { validationErrors?: string[] }
+  Props & CommonPasswordFieldProps
 >;
 
 export type ButtonComponent<Props = {}> = React.ComponentType<
-  Props & CommonButtonProps<'default'>
+  Props & CommonButtonProps
 >;
 
 export type SubmitButtonComponent<Props = {}> = React.ComponentType<
