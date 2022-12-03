@@ -1,6 +1,8 @@
-import { Alert } from '@aws-amplify/ui-react'
+import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
+
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
+import { ERROR_MESSAGE } from '../props';
 import { CHANGE_PASSWORD, OVERRIDES } from './props';
 
 
@@ -143,31 +145,76 @@ function App() {
 Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name` are attached correctly. If you're providing your own custom components, make sure required props are spread onto it.
 </Alert>
 
-#### Using your own component
+#### Props and Examples
 
-You can also provide your own custom to override components. 
+Here are the required props and examples for overriding each slot.
 
-<Example>
-  <ExampleCode>
+<Expander type="single">
+  <ExpanderItem title="PasswordFields" value="password-fields">
+
+`ChangePassword` has three password field that you can override: `CurrentPassword, `NewPassword`, and `NewPassword`. They all take the same props:
+
+    <ReactPropsTable props={ERROR_MESSAGE} />
+
+The following example overrides the error message component with [`Heading`](/components/heading) and [`Text`](/components/text) primitives.
+
+    <Example>
+      <ExampleCode>
 
 ```jsx
+import { Heading, Text } from '@aws-amplify/ui-react';
+
 function App() {
   const components = {
-    // use your own component
-    ConfirmPassword: ({ validationErrors, ...rest }) => (
+    ErrorMessage: ({ children }) => (
       <>
-        <input {...rest} type="password" />
-        {validationErrors.map((error) => (
-          <p key={error} role="alert">{error}</p>
-        ))}
+        <Heading>Custom Error Message</Heading>
+        <Text variation="warning">{children}</Text>
       </>
     )
   };
   
   return (
-    <AccountSettings.ChangePassword components={components} />
+    <AccountSettings.DeleteUser components={components} />
   );
 }
 ```
-  </ExampleCode>
-</Example>
+
+      </ExampleCode>
+    </Example>
+  </ExpanderItem>
+  <ExpanderItem title="ErrorMessage" value="error-message">
+
+
+Props:
+
+    <ReactPropsTable props={ERROR_MESSAGE} />
+
+The following example overrides the error message component with [`Heading`](/components/heading) and [`Text`](/components/text) primitives.
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { Heading, Text } from '@aws-amplify/ui-react';
+
+function App() {
+  const components = {
+    ErrorMessage: ({ children }) => (
+      <>
+        <Heading>Custom Error Message</Heading>
+        <Text variation="warning">{children}</Text>
+      </>
+    )
+  };
+  
+  return (
+    <AccountSettings.DeleteUser components={components} />
+  );
+}
+```
+
+      </ExampleCode>
+    </Example>
+  </ExpanderItem>
+</Expander>
