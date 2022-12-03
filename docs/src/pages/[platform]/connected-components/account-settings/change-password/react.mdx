@@ -1,3 +1,4 @@
+import { Alert } from '@aws-amplify/ui-react'
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
 import { CHANGE_PASSWORD, OVERRIDES } from './props';
@@ -16,7 +17,7 @@ import { CHANGE_PASSWORD, OVERRIDES } from './props';
 
 ```jsx
 import React from 'react';
-import { ChangePassword } from '@aws-amplify/ui-react';
+import { AccountSettings } from '@aws-amplify/ui-react';
 
 function App() {
   const handleSuccess = () => {
@@ -24,7 +25,7 @@ function App() {
   }
   
   return (
-    <ChangePassword onSuccess={handleSuccess}/>
+    <AccountSettings.ChangePassword onSuccess={handleSuccess}/>
   );
 }
 ```
@@ -77,7 +78,7 @@ You can pass multiple validators to ConfirmPassword to override the default vali
 
 ```jsx
 import React from 'react';
-import { ChangePassword } from '@aws-amplify/ui-react';
+import { AccountSettings } from '@aws-amplify/ui-react';
 
 function App() {
   const minLength = {
@@ -91,7 +92,7 @@ function App() {
   }
   
   return (
-    <ChangePassword onSuccess={handleSuccess} validators={[minLength]}/>
+    <AccountSettings.ChangePassword onSuccess={handleSuccess} validators={[minLength]}/>
   );
 }
 ```
@@ -107,7 +108,7 @@ You can provide your own UI components to override parts of `ChangePassword`. It
 
 #### Reusing default components
 
-Default components are accessible through `ChangePassword.COMPONENT_NAME` (e.g. `ChangePassword.NewPassword`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
+Default components are accessible through `AccountSettings.ChangePassword.COMPONENT_NAME` (e.g. `AccountSettings.ChangePassword.NewPassword`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
 
 <Example>
   <ExampleCode>
@@ -115,23 +116,32 @@ Default components are accessible through `ChangePassword.COMPONENT_NAME` (e.g. 
 ```jsx
 function App() {
   const components = {
-    // reuse default component
     NewPassword: (props) => (
-      <ChangePassword.NewPassword 
+      <ChangePassword.NewPasswordField
         {...props} 
-        label="Custom Label" 
+        label="Custom New Password Label" 
+      />
+    ),
+    NewPassword: (props) => (
+      <ChangePassword.ConfirmPasswordField
+        {...props} 
+        label="Custom Confirm Password Label" 
       />
     ),
   }
 
   return (
-    <ChangePassword components={components} />
+    <AccountSettings.ChangePassword components={components} />
   );
 }
 ```
 
   </ExampleCode>
 </Example>
+
+<Alert variation="warning">
+Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name` are attached correctly. If you're providing your own custom components, make sure required props are spread onto it.
+</Alert>
 
 #### Using your own component
 
@@ -155,12 +165,9 @@ function App() {
   };
   
   return (
-    <ChangePassword components={components} />
+    <AccountSettings.ChangePassword components={components} />
   );
 }
 ```
   </ExampleCode>
 </Example>
-
-Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name` are attached correctly. If you're providing your own custom components, make sure props are spread onto your input or button component.
-

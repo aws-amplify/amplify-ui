@@ -24,24 +24,24 @@ export const CHANGE_PASSWORD = [
 
 export const OVERRIDES = [
   {
-    name: `CurrentPassword?`,
+    name: `CurrentPasswordField?`,
     description: 'Password field for current password',
     type: `PasswordFieldProps`,
   },
   {
-    name: `NewPassword?`,
+    name: `NewPasswordField?`,
     description: 'Password field for new password',
     type: `PasswordFieldProps`,
   },
   {
-    name: `ConfirmPassword?`,
+    name: `ConfirmPasswordField?`,
     description: 'Password field for confirm password',
     type: `PasswordFieldProps`,
   },
   {
-    name: `Error?`,
+    name: `ErrorMessage?`,
     description: 'Error alert that displays on delete user errors',
-    type: `ErrorComponentProps`,
+    type: `ErrorMessageComponentProps`,
   },
   {
     name: `SubmitButton?`,
