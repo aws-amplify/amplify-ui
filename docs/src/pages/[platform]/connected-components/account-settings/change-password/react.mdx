@@ -3,7 +3,7 @@ import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
 import { ERROR_MESSAGE } from '../props';
-import { CHANGE_PASSWORD, OVERRIDES } from './props';
+import { CHANGE_PASSWORD, OVERRIDES, PASSWORD_FIELDS, SUBMIT_BUTTON } from './props';
 
 
 ### Props
@@ -119,15 +119,9 @@ Default components are accessible through `AccountSettings.ChangePassword.COMPON
 function App() {
   const components = {
     NewPassword: (props) => (
-      <ChangePassword.NewPasswordField
+      <AccountSettings.ChangePassword.NewPasswordField
         {...props} 
         label="Custom New Password Label" 
-      />
-    ),
-    NewPassword: (props) => (
-      <ChangePassword.ConfirmPasswordField
-        {...props} 
-        label="Custom Confirm Password Label" 
       />
     ),
   }
@@ -152,36 +146,72 @@ Here are the required props and examples for overriding each slot.
 <Expander type="single">
   <ExpanderItem title="PasswordFields" value="password-fields">
 
-`ChangePassword` has three password field that you can override: `CurrentPassword, `NewPassword`, and `NewPassword`. They all take the same props:
+`ChangePassword` has three password fields that you can override: `CurrentPassword`, `NewPassword`, and `NewPassword`. They all take the same props:
 
-    <ReactPropsTable props={ERROR_MESSAGE} />
+    <ReactPropsTable props={PASSWORD_FIELDS} />
 
-The following example overrides the error message component with [`Heading`](/components/heading) and [`Text`](/components/text) primitives.
 
-    <Example>
-      <ExampleCode>
+
+You can reuse the `AccountSettings.ChangePassword.<COMPONENT_NAME>`:
+
+  <Example>
+    <ExampleCode>
 
 ```jsx
-import { Heading, Text } from '@aws-amplify/ui-react';
-
 function App() {
   const components = {
-    ErrorMessage: ({ children }) => (
-      <>
-        <Heading>Custom Error Message</Heading>
-        <Text variation="warning">{children}</Text>
-      </>
-    )
-  };
-  
+    NewPassword: (props) => (
+      <AccountSettings.ChangePassword.NewPasswordField
+        {...props} 
+        label="Custom New Password Label" 
+      />
+    ),
+    ConfirmPasswordField: (props) => (
+      <AccountSettings.ChangePassword.ConfirmPasswordField
+        {...props} 
+        label="Custom Confirm Password Label" 
+      />
+    ),
+  }
+
   return (
-    <AccountSettings.DeleteUser components={components} />
+    <AccountSettings.ChangePassword components={components} />
   );
 }
 ```
 
       </ExampleCode>
     </Example>
+
+The following example overrides the `CurrentPasswordField` with native html:
+
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+function App() {
+  const components = {
+    CurrentPasswordField: ({ 
+      fieldValidationErrors,
+      name,
+      onBlur,
+      onChange
+    }) => (
+      <>
+        <input name={name} onBlur={onBlur} onChange={onChange} type="password" />
+        {fieldValidationErrors?.map((error) => (
+          <p key={error} role="alert">{error}</p>
+        ))}
+      </>
+    )
+  };
+}
+```
+
+    </ExampleCode>
+  </Example>
+
   </ExpanderItem>
   <ExpanderItem title="ErrorMessage" value="error-message">
 
@@ -209,7 +239,73 @@ function App() {
   };
   
   return (
-    <AccountSettings.DeleteUser components={components} />
+    <AccountSettings.ChangePassword components={components} />
+  );
+}
+```
+
+      </ExampleCode>
+    </Example>
+  </ExpanderItem>
+  <ExpanderItem title="SubmitButton" value="submit-button">
+
+Props:
+
+    <ReactPropsTable props={SUBMIT_BUTTON} />
+
+You can reuse the `AccountSettings.ChangePassword.SubmitButton`:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { AccountSettings, Button } from '@aws-amplify/ui-react';
+
+const components  = {
+  SubmitButton: (props) => (
+    <AccountSettings.ChangePassword.SubmitButton {...props}>
+      My Custom Button
+    </AccountSettings.ChangePassword.SubmitButton>
+  )
+}
+```
+
+      </ExampleCode>
+    </Example>
+
+or use [button primitive](/components/button) directly:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { AccountSettings, Button } from '@aws-amplify/ui-react';
+
+const components  = {
+  SubmitButton: (props) => <Button {...props}>My Custom Button</Button>
+}
+```
+
+      </ExampleCode>
+    </Example>
+
+The following example replaces `SubmitButton` with native html button:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+function App() {
+  const components = {
+    SubmitButton: ({ onClick, isDisabled }) => (
+      <button type="submit" onClick={onClick} disabled={isDisabled}>
+        Custom Button Text
+      </button>
+    )
+  };
+  
+  return (
+    <AccountSettings.ChangePassword components={components} />
   );
 }
 ```

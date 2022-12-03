@@ -2,7 +2,7 @@ export const CHANGE_PASSWORD = [
   {
     name: `onSuccess?`,
     description:
-      'Callback that is called once password is successfully updated ',
+      'Callback that is called once password is successfully updated',
     type: `() => void`,
   },
   {
@@ -47,5 +47,40 @@ export const OVERRIDES = [
     name: `SubmitButton?`,
     description: 'Submit button',
     type: `SubmitButtonProps`,
+  },
+];
+
+export const PASSWORD_FIELDS = [
+  {
+    name: `onBlur`,
+    description:
+      'Blur handler for the input. This must be passed to your input element.',
+    type: `React.FocusEventHandler<HTMLInputElement>`,
+  },
+  {
+    name: `onChange`,
+    description:
+      'Change handler for the input. This must be passed to your input element.',
+    type: `React.ChangeEventHandler<HTMLInputElement>`,
+  },
+  {
+    name: `name`,
+    description:
+      'HTML name for the input. This must be passed to your input element.',
+    type: `React.ChangeEventHandler<HTMLInputElement>`,
+  },
+  {
+    name: `fieldValidationErrors?`,
+    description: 'List of validation errors for the password field.',
+    type: `string[]`,
+  },
+];
+
+export const SUBMIT_BUTTON = [
+  {
+    name: `isDisabled`,
+    description:
+      'Boolean representing whether account deletion is in progress. Your delete button should be disabled if this is set to true.',
+    type: `boolean`,
   },
 ];
