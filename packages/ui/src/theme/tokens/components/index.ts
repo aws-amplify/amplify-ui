@@ -1,4 +1,5 @@
 import { AlertTokens, alert } from './alert';
+import { AutocompleteTokens, autocomplete } from './autocomplete';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
 import { button, ButtonTokens } from './button';
@@ -16,6 +17,7 @@ import { fieldgroup, FieldGroupTokens } from './fieldGroup';
 import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
 import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
+import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
 import { inappmessaging, InAppMessagingTokens } from './inAppMessaging';
@@ -46,56 +48,73 @@ import {
   ToggleButtonGroupTokens,
 } from './toggleButtonGroup';
 
-export interface ComponentTokens {
-  alert: AlertTokens;
-  authenticator: AuthenticatorTokens;
-  badge: BadgeTokens;
-  button: ButtonTokens;
-  card: CardTokens;
-  checkbox: CheckboxTokens;
-  checkboxfield: CheckboxFieldTokens;
-  collection: CollectionTokens;
-  copy: CopyTokens;
-  countrycodeselect: DialCodeSelectTokens;
-  divider: DividerTokens;
-  expander: ExpanderTokens;
-  field: FieldTokens;
-  fieldcontrol: FieldControlTokens;
-  fieldgroup: FieldGroupTokens;
-  fieldmessages: FieldMessagesTokens;
-  flex: FlexTokens;
-  heading: HeadingTokens;
-  icon: IconTokens;
-  image: ImageTokens;
-  inappmessaging: InAppMessagingTokens;
-  link: LinkTokens;
-  loader: LoaderTokens;
-  menu: MenuTokens;
-  pagination: PaginationTokens;
-  passwordfield: PasswordFieldTokens;
-  phonenumberfield: PhoneNumberFieldTokens;
-  placeholder: PlaceholderTokens;
-  radio: RadioTokens;
-  radiogroup: RadioGroupTokens;
-  rating: RatingTokens;
-  searchfield: SearchFieldTokens;
-  select: SelectTokens;
-  selectfield: SelectFieldTokens;
-  sliderfield: SliderFieldTokens;
-  stepperfield: StepperFieldTokens;
-  switchfield: SwitchFieldTokens;
-  table: TableTokens;
-  tabs: TabsTokens;
-  text: TextTokens;
-  textareafield: TextAreaFieldTokens;
-  textfield: TextFieldTokens;
-  togglebutton: ToggleButtonTokens;
-  togglebuttongroup: ToggleButtonGroupTokens;
-}
+import { OutputVariantKey } from '../types/designToken';
 
-export const components: ComponentTokens = {
+type BaseComponentTokens<Output extends OutputVariantKey> = {
+  alert?: AlertTokens<Output>;
+  authenticator?: AuthenticatorTokens<Output>;
+  autocomplete?: AutocompleteTokens<Output>;
+  badge?: BadgeTokens<Output>;
+  button?: ButtonTokens<Output>;
+  card?: CardTokens<Output>;
+  checkbox?: CheckboxTokens<Output>;
+  checkboxfield?: CheckboxFieldTokens<Output>;
+  collection?: CollectionTokens<Output>;
+  copy?: CopyTokens<Output>;
+  countrycodeselect?: DialCodeSelectTokens<Output>;
+  divider?: DividerTokens<Output>;
+  expander?: ExpanderTokens<Output>;
+  field?: FieldTokens<Output>;
+  fieldcontrol?: FieldControlTokens<Output>;
+  fieldgroup?: FieldGroupTokens<Output>;
+  fieldmessages?: FieldMessagesTokens<Output>;
+  flex?: FlexTokens<Output>;
+  heading?: HeadingTokens<Output>;
+  highlightmatch?: HighlightMatchTokens<Output>;
+  icon?: IconTokens<Output>;
+  image?: ImageTokens<Output>;
+  inappmessaging?: InAppMessagingTokens<Output>;
+  link?: LinkTokens<Output>;
+  loader?: LoaderTokens<Output>;
+  menu?: MenuTokens<Output>;
+  pagination?: PaginationTokens<Output>;
+  passwordfield?: PasswordFieldTokens<Output>;
+  phonenumberfield?: PhoneNumberFieldTokens<Output>;
+  placeholder?: PlaceholderTokens<Output>;
+  radio?: RadioTokens<Output>;
+  radiogroup?: RadioGroupTokens<Output>;
+  rating?: RatingTokens<Output>;
+  searchfield?: SearchFieldTokens<Output>;
+  select?: SelectTokens<Output>;
+  selectfield?: SelectFieldTokens<Output>;
+  sliderfield?: SliderFieldTokens<Output>;
+  stepperfield?: StepperFieldTokens<Output>;
+  switchfield?: SwitchFieldTokens<Output>;
+  table?: TableTokens<Output>;
+  tabs?: TabsTokens<Output>;
+  text?: TextTokens<Output>;
+  textareafield?: TextAreaFieldTokens<Output>;
+  textfield?: TextFieldTokens<Output>;
+  togglebutton?: ToggleButtonTokens<Output>;
+  togglebuttongroup?: ToggleButtonGroupTokens<Output>;
+};
+
+export type ComponentTokens = BaseComponentTokens<'optional'>;
+
+export type DefaultComponentTokens = Required<{
+  [Key in keyof ComponentTokens]: Required<BaseComponentTokens<'default'>[Key]>;
+}>;
+
+export type WebComponentTokens = Required<{
+  [Key in keyof ComponentTokens]: Required<
+    BaseComponentTokens<'required'>[Key]
+  >;
+}>;
+
+export const components: DefaultComponentTokens = {
   alert,
   authenticator,
+  autocomplete,
   badge,
   button,
   card,
@@ -113,6 +132,7 @@ export const components: ComponentTokens = {
   flex,
   heading,
   icon,
+  highlightmatch,
   image,
   inappmessaging,
   link,

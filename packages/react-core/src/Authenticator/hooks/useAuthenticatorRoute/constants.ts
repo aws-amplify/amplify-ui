@@ -18,8 +18,6 @@ import {
   VerifyUserMachineKey,
 } from './types';
 
-export const DEFAULT_TOTP_ISSUER = 'AWSCognito';
-
 export const EVENT_HANDLER_KEY_MAP: Record<
   FormEventHandlerMachineKey,
   FormEventHandlerPropKey
@@ -80,10 +78,11 @@ const SIGN_UP_MACHINE_KEYS: SignUpMachineKey[] = [
 const SETUP_TOTP_MACHINE_KEYS: SetupTOTPMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
   'toSignIn',
-  'user',
 ];
-const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] =
-  COMMON_ROUTE_MACHINE_KEYS;
+const VERIFY_USER_MACHINE_KEYS: VerifyUserMachineKey[] = [
+  ...COMMON_ROUTE_MACHINE_KEYS,
+  'skipVerification',
+];
 
 export const MACHINE_PROP_KEYS: Record<
   AuthenticatorRouteComponentKey,

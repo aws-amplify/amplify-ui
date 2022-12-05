@@ -27,7 +27,6 @@ const phone = {
   label: 'Phone',
   placeholder: 'Phone',
   type: 'phone' as const,
-  dialCodes: ['+1', '+7'],
 };
 
 const fields = [username, password, confirmPassword, phone];
@@ -52,13 +51,9 @@ const { getCreatingAccountText } = authenticatorTextUtil;
 
 describe('SignUp', () => {
   it('renders as expected', () => {
-    const { toJSON, getAllByRole, getByRole, queryByText } = render(
-      <SignUp {...props} />
-    );
+    const { toJSON, getAllByRole, queryByText } = render(<SignUp {...props} />);
     expect(toJSON()).toMatchSnapshot();
 
-    expect(getByRole('header')).toBeDefined();
-    expect(getAllByRole('tab')).toHaveLength(2);
     expect(queryByText(getCreatingAccountText())).toBe(null);
     expect(getAllByRole('text')).toHaveLength(fields.length);
   });

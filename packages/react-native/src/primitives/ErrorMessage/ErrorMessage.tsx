@@ -5,8 +5,9 @@ import { icons } from '../../assets';
 import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
 
+import { useTheme } from '../../theme';
+import { getThemedStyles } from './styles';
 import { ErrorMessageProps } from './types';
-import { styles } from './styles';
 
 export const CLOSE_BUTTON_TEST_ID =
   'authenticator--error-message--close-button';
@@ -18,16 +19,23 @@ export default function ErrorMessage({
   style,
   ...rest
 }: ErrorMessageProps): JSX.Element {
+  const theme = useTheme();
+  const themedStyle = getThemedStyles(theme);
+
   return (
-    <View {...rest} accessibilityRole="alert" style={[styles.container, style]}>
-      <Icon size={20} source={icons.error} style={styles.icon} />
-      <Text style={[styles.label, labelStyle]}>{children}</Text>
+    <View
+      {...rest}
+      accessibilityRole="alert"
+      style={[themedStyle.container, style]}
+    >
+      <Icon size={20} source={icons.error} style={themedStyle.icon} />
+      <Text style={[themedStyle.label, labelStyle]}>{children}</Text>
       {onDismiss ? (
         <IconButton
           onPress={onDismiss}
           size={20}
           source={icons.close}
-          style={styles.icon}
+          style={themedStyle.icon}
           testID={CLOSE_BUTTON_TEST_ID}
         />
       ) : null}

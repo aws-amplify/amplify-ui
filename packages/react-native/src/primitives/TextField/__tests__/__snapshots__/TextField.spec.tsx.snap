@@ -25,13 +25,19 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
         },
-        undefined,
+        Array [
+          Object {
+            "color": "hsl(210, 25%, 25%)",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "paddingVertical": 12,
+          },
+          undefined,
+        ],
       ]
     }
   >
@@ -41,14 +47,15 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "black",
+        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "padding": 8,
-        "width": "100%",
+        "lineHeight": 24,
+        "padding": 16,
       }
     }
+    testID="amplify__text-field__input-container"
   >
     <TextInput
       accessible={true}
@@ -95,13 +102,19 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
         },
-        undefined,
+        Array [
+          Object {
+            "color": "hsl(210, 25%, 25%)",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "paddingVertical": 12,
+          },
+          undefined,
+        ],
       ]
     }
   >
@@ -111,14 +124,15 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "black",
+        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "padding": 8,
-        "width": "100%",
+        "lineHeight": 24,
+        "padding": 16,
       }
     }
+    testID="amplify__text-field__input-container"
   >
     <TextInput
       accessible={true}
@@ -165,13 +179,19 @@ exports[`TextField renders as expected 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
         },
-        undefined,
+        Array [
+          Object {
+            "color": "hsl(210, 25%, 25%)",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "paddingVertical": 12,
+          },
+          undefined,
+        ],
       ]
     }
   >
@@ -181,14 +201,15 @@ exports[`TextField renders as expected 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "black",
+        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "padding": 8,
-        "width": "100%",
+        "lineHeight": 24,
+        "padding": 16,
       }
     }
+    testID="amplify__text-field__input-container"
   >
     <TextInput
       accessible={true}
@@ -235,13 +256,19 @@ exports[`TextField renders as expected as password field 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
         },
-        undefined,
+        Array [
+          Object {
+            "color": "hsl(210, 25%, 25%)",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "paddingVertical": 12,
+          },
+          undefined,
+        ],
       ]
     }
   >
@@ -251,14 +278,15 @@ exports[`TextField renders as expected as password field 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "black",
+        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "padding": 8,
-        "width": "100%",
+        "lineHeight": 24,
+        "padding": 16,
       }
     }
+    testID="amplify__text-field__input-container"
   >
     <TextInput
       accessible={true}
@@ -294,7 +322,6 @@ exports[`TextField renders as expected when disabled 1`] = `
     Array [
       Object {
         "alignItems": "flex-start",
-        "opacity": 0.6,
       },
       undefined,
     ]
@@ -307,13 +334,19 @@ exports[`TextField renders as expected when disabled 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
         },
-        undefined,
+        Array [
+          Object {
+            "color": "hsl(210, 25%, 25%)",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "paddingVertical": 12,
+          },
+          undefined,
+        ],
       ]
     }
   >
@@ -323,14 +356,16 @@ exports[`TextField renders as expected when disabled 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "black",
+        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "padding": 8,
-        "width": "100%",
+        "lineHeight": 24,
+        "opacity": 0.6,
+        "padding": 16,
       }
     }
+    testID="amplify__text-field__input-container"
   >
     <TextInput
       accessible={true}
@@ -377,13 +412,19 @@ exports[`TextField renders as expected with error message 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
         },
-        undefined,
+        Array [
+          Object {
+            "color": "hsl(210, 25%, 25%)",
+            "fontSize": 16,
+            "lineHeight": 21,
+            "paddingVertical": 12,
+          },
+          undefined,
+        ],
       ]
     }
   >
@@ -393,14 +434,15 @@ exports[`TextField renders as expected with error message 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "black",
+        "borderColor": "hsl(210, 8%, 55%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "padding": 8,
-        "width": "100%",
+        "lineHeight": 24,
+        "padding": 16,
       }
     }
+    testID="amplify__text-field__input-container"
   >
     <TextInput
       accessible={true}
@@ -426,8 +468,6 @@ exports[`TextField renders as expected with error message 1`] = `
         Object {
           "fontSize": 16,
           "fontWeight": "400",
-          "marginHorizontal": 4,
-          "marginVertical": 2,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",

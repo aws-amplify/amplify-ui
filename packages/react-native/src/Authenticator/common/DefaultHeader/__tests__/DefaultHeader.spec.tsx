@@ -17,9 +17,7 @@ describe('DefaultHeader', () => {
   });
 
   it('renders as expected without children', () => {
-    const { toJSON, getByRole } = render(<DefaultHeader />);
+    const { toJSON } = render(<DefaultHeader />);
     expect(toJSON()).toMatchSnapshot();
-
-    expect(getByRole('header')).toBeDefined();
   });
 });

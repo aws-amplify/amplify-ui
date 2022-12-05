@@ -3,155 +3,12 @@
 exports[`SignIn renders as expected 1`] = `
 Array [
   <View
-    accessibilityRole="tablist"
     style={
-      Array [
-        Object {
-          "flexDirection": "row",
-          "width": "100%",
-        },
-        Object {
-          "marginBottom": 8,
-        },
-      ]
+      Object {
+        "marginVertical": 12,
+      }
     }
   >
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            Object {
-              "opacity": 1,
-            },
-            Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
-            },
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
-              },
-            ],
-          ]
-        }
-      >
-        Sign In
-      </Text>
-    </View>
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            null,
-            null,
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              null,
-            ],
-          ]
-        }
-      >
-        Create Account
-      </Text>
-    </View>
-  </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "black",
-        },
-        Object {
-          "fontSize": 34,
-          "fontWeight": "300",
-          "lineHeight": 51,
-        },
-        undefined,
-      ]
-    }
-  />,
-  <View>
     <View
       accessibilityLabel="Username"
       accessibilityState={
@@ -165,10 +22,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Object {},
         ]
       }
     >
@@ -179,13 +33,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -195,14 +55,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -217,7 +78,7 @@ Array [
                 "flexGrow": 1,
                 "fontSize": 16,
               },
-              undefined,
+              Object {},
             ]
           }
         />
@@ -236,10 +97,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            Object {},
+          ],
         ]
       }
     >
@@ -250,13 +111,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -266,14 +133,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -289,7 +157,7 @@ Array [
                 "flexGrow": 1,
                 "fontSize": 16,
               },
-              undefined,
+              Object {},
             ]
           }
         />
@@ -314,8 +182,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -334,7 +204,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -343,6 +216,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -357,11 +231,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
-          "marginVertical": 8,
-          "paddingVertical": 12,
+          "marginVertical": 16,
         },
       ]
     }
@@ -370,21 +254,29 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          Object {},
         ]
       }
     >
       Sign in
     </Text>
   </View>,
-  <View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      }
+    }
+  >
     <View
+      accessibilityRole="button"
       accessible={true}
       collapsable={false}
       focusable={true}
@@ -399,10 +291,20 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {},
+          null,
           null,
           Object {
             "marginVertical": 8,
-            "paddingVertical": 12,
+            "minWidth": "50%",
           },
         ]
       }
@@ -411,15 +313,66 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
-            Object {
-              "color": "teal",
-            },
+            undefined,
           ]
         }
       >
-        Forgot your password?
+        Forgot Password?
+      </Text>
+    </View>
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {},
+          null,
+          null,
+          Object {
+            "marginVertical": 8,
+            "minWidth": "50%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+            undefined,
+          ]
+        }
+      >
+        Create Account
       </Text>
     </View>
   </View>,
@@ -428,23 +381,13 @@ Array [
 
 exports[`SignIn renders as expected when hideSignUp is true 1`] = `
 Array [
-  <Text
-    accessibilityRole="header"
+  <View
     style={
-      Array [
-        Object {
-          "color": "black",
-        },
-        Object {
-          "fontSize": 34,
-          "fontWeight": "300",
-          "lineHeight": 51,
-        },
-        undefined,
-      ]
+      Object {
+        "marginVertical": 12,
+      }
     }
-  />,
-  <View>
+  >
     <View
       accessibilityLabel="Username"
       accessibilityState={
@@ -458,10 +401,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Object {},
         ]
       }
     >
@@ -472,13 +412,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -488,14 +434,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -510,7 +457,7 @@ Array [
                 "flexGrow": 1,
                 "fontSize": 16,
               },
-              undefined,
+              Object {},
             ]
           }
         />
@@ -529,10 +476,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            Object {},
+          ],
         ]
       }
     >
@@ -543,13 +490,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -559,14 +512,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -582,7 +536,7 @@ Array [
                 "flexGrow": 1,
                 "fontSize": 16,
               },
-              undefined,
+              Object {},
             ]
           }
         />
@@ -607,8 +561,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -627,7 +583,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -636,6 +595,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -650,11 +610,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
-          "marginVertical": 8,
-          "paddingVertical": 12,
+          "marginVertical": 16,
         },
       ]
     }
@@ -663,58 +633,67 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          Object {},
         ]
       }
     >
       Sign in
     </Text>
   </View>,
-  <View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {},
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+          "minWidth": "50%",
+        },
+      ]
+    }
+  >
+    <Text
       style={
         Array [
-          null,
           Object {
-            "marginVertical": 8,
-            "paddingVertical": 12,
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Object {
-              "color": "teal",
-            },
-          ]
-        }
-      >
-        Forgot your password?
-      </Text>
-    </View>
+      Forgot Password?
+    </Text>
   </View>,
 ]
 `;
@@ -722,155 +701,12 @@ Array [
 exports[`SignIn renders as expected with an error 1`] = `
 Array [
   <View
-    accessibilityRole="tablist"
     style={
-      Array [
-        Object {
-          "flexDirection": "row",
-          "width": "100%",
-        },
-        Object {
-          "marginBottom": 8,
-        },
-      ]
+      Object {
+        "marginVertical": 12,
+      }
     }
   >
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            Object {
-              "opacity": 1,
-            },
-            Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
-            },
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
-              },
-            ],
-          ]
-        }
-      >
-        Sign In
-      </Text>
-    </View>
-    <View
-      accessibilityRole="tab"
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Array [
-          null,
-          Array [
-            Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
-              "flexBasis": 0,
-              "flexGrow": 1,
-              "padding": 12,
-            },
-            null,
-            null,
-            null,
-          ],
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Array [
-              Object {
-                "color": "#304050",
-                "fontSize": 16,
-                "fontWeight": "700",
-              },
-              undefined,
-              null,
-            ],
-          ]
-        }
-      >
-        Create Account
-      </Text>
-    </View>
-  </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "black",
-        },
-        Object {
-          "fontSize": 34,
-          "fontWeight": "300",
-          "lineHeight": 51,
-        },
-        undefined,
-      ]
-    }
-  />,
-  <View>
     <View
       accessibilityLabel="Username"
       accessibilityState={
@@ -884,10 +720,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Object {},
         ]
       }
     >
@@ -898,13 +731,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -914,14 +753,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -936,7 +776,7 @@ Array [
                 "flexGrow": 1,
                 "fontSize": 16,
               },
-              undefined,
+              Object {},
             ]
           }
         />
@@ -955,10 +795,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            Object {},
+          ],
         ]
       }
     >
@@ -969,13 +809,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -985,14 +831,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1008,7 +855,7 @@ Array [
                 "flexGrow": 1,
                 "fontSize": 16,
               },
-              undefined,
+              Object {},
             ]
           }
         />
@@ -1033,8 +880,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -1053,7 +902,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -1067,13 +919,14 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5bcbc",
+          "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
-          "paddingHorizontal": 4,
-          "paddingVertical": 16,
-          "width": "100%",
+          "paddingHorizontal": 8,
+          "paddingVertical": 32,
         },
-        undefined,
+        Object {
+          "marginVertical": 12,
+        },
       ]
     }
   >
@@ -1093,7 +946,7 @@ Array [
             "width": 20,
           },
           Object {
-            "margin": 4,
+            "margin": 8,
           },
         ]
       }
@@ -1102,10 +955,11 @@ Array [
       style={
         Array [
           Object {
+            "color": "hsl(0, 100%, 20%)",
             "flex": 1,
-            "paddingHorizontal": 4,
+            "paddingHorizontal": 8,
           },
-          undefined,
+          Object {},
         ]
       }
     >
@@ -1113,6 +967,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -1127,11 +982,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
-          "marginVertical": 8,
-          "paddingVertical": 12,
+          "marginVertical": 16,
         },
       ]
     }
@@ -1140,21 +1005,29 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          Object {},
         ]
       }
     >
       Sign in
     </Text>
   </View>,
-  <View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+      }
+    }
+  >
     <View
+      accessibilityRole="button"
       accessible={true}
       collapsable={false}
       focusable={true}
@@ -1169,10 +1042,20 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {},
+          null,
           null,
           Object {
             "marginVertical": 8,
-            "paddingVertical": 12,
+            "minWidth": "50%",
           },
         ]
       }
@@ -1181,15 +1064,66 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
-            Object {
-              "color": "teal",
-            },
+            undefined,
           ]
         }
       >
-        Forgot your password?
+        Forgot Password?
+      </Text>
+    </View>
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {},
+          null,
+          null,
+          Object {
+            "marginVertical": 8,
+            "minWidth": "50%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "hsl(190, 95%, 30%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
+            },
+            undefined,
+          ]
+        }
+      >
+        Create Account
       </Text>
     </View>
   </View>,

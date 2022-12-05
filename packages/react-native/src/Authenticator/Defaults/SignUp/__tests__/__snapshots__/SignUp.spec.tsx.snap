@@ -32,15 +32,31 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderWidth": 1,
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
+              "backgroundColor": "transparent",
+              "borderBottomColor": "hsl(210, 5%, 87%)",
+              "borderBottomWidth": 2,
+              "borderRadius": 0,
+              "borderWidth": 0,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
             },
             null,
             null,
@@ -53,11 +69,14 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(210, 50%, 10%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -86,23 +105,39 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderWidth": 1,
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
+              "backgroundColor": "transparent",
+              "borderBottomColor": "hsl(210, 5%, 87%)",
+              "borderBottomWidth": 2,
+              "borderRadius": 0,
+              "borderWidth": 0,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
             },
             Object {
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderBottomColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -113,19 +148,22 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(210, 50%, 10%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderBottomColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -135,22 +173,6 @@ Array [
       </Text>
     </View>
   </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "black",
-        },
-        Object {
-          "fontSize": 34,
-          "fontWeight": "300",
-          "lineHeight": 51,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -165,10 +187,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -179,13 +198,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -195,14 +220,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -236,10 +262,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -250,13 +276,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -266,14 +298,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -314,8 +347,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -334,7 +369,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -354,10 +392,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -368,13 +406,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -384,14 +428,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -432,8 +477,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -452,7 +499,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -460,143 +510,93 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "padding": 16,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
               },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
-              },
-              undefined,
+              Array [
+                Object {},
+                undefined,
+              ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "black",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -611,11 +611,22 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -624,13 +635,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
@@ -642,22 +652,6 @@ Array [
 
 exports[`SignUp renders as expected when hideSignIn is true 1`] = `
 Array [
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "black",
-        },
-        Object {
-          "fontSize": 34,
-          "fontWeight": "300",
-          "lineHeight": 51,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -672,10 +666,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -686,13 +677,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -702,14 +699,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -743,10 +741,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -757,13 +755,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -773,14 +777,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -821,8 +826,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -841,7 +848,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -861,10 +871,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -875,13 +885,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -891,14 +907,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -939,8 +956,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -959,7 +978,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -967,143 +989,93 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "padding": 16,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
               },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
-              },
-              undefined,
+              Array [
+                Object {},
+                undefined,
+              ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "black",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -1118,11 +1090,22 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -1131,13 +1114,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
@@ -1179,15 +1161,31 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderWidth": 1,
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
+              "backgroundColor": "transparent",
+              "borderBottomColor": "hsl(210, 5%, 87%)",
+              "borderBottomWidth": 2,
+              "borderRadius": 0,
+              "borderWidth": 0,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
             },
             null,
             null,
@@ -1200,11 +1198,14 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(210, 50%, 10%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -1233,23 +1234,39 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderWidth": 1,
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
+              "backgroundColor": "transparent",
+              "borderBottomColor": "hsl(210, 5%, 87%)",
+              "borderBottomWidth": 2,
+              "borderRadius": 0,
+              "borderWidth": 0,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
             },
             Object {
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderBottomColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -1260,19 +1277,22 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(210, 50%, 10%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderBottomColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -1282,22 +1302,6 @@ Array [
       </Text>
     </View>
   </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "black",
-        },
-        Object {
-          "fontSize": 34,
-          "fontWeight": "300",
-          "lineHeight": 51,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -1311,12 +1315,8 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "opacity": 0.6,
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -1327,13 +1327,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -1343,14 +1349,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "opacity": 0.6,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1383,12 +1391,11 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "opacity": 0.6,
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -1399,13 +1406,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -1415,14 +1428,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "opacity": 0.6,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1463,8 +1478,12 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
+              Object {
+                "opacity": 0.6,
+              },
               null,
-              null,
+              undefined,
             ]
           }
         >
@@ -1483,7 +1502,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -1502,12 +1524,11 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "opacity": 0.6,
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -1518,13 +1539,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -1534,14 +1561,16 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "opacity": 0.6,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -1582,8 +1611,12 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
+              Object {
+                "opacity": 0.6,
+              },
               null,
-              null,
+              undefined,
             ]
           }
         >
@@ -1602,7 +1635,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -1610,144 +1646,94 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": true,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-              "opacity": 0.6,
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "opacity": 0.6,
+            "padding": 16,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={false}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
               },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
-              },
-              undefined,
+              Array [
+                Object {},
+                undefined,
+              ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "black",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={false}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -1762,11 +1748,22 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -1775,13 +1772,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
@@ -1823,15 +1819,31 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderWidth": 1,
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
+              "backgroundColor": "transparent",
+              "borderBottomColor": "hsl(210, 5%, 87%)",
+              "borderBottomWidth": 2,
+              "borderRadius": 0,
+              "borderWidth": 0,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
             },
             null,
             null,
@@ -1844,11 +1856,14 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(210, 50%, 10%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -1877,23 +1892,39 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderWidth": 1,
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
+              "backgroundColor": "transparent",
+              "borderBottomColor": "hsl(210, 5%, 87%)",
+              "borderBottomWidth": 2,
+              "borderRadius": 0,
+              "borderWidth": 0,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
             },
             Object {
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderBottomColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -1904,19 +1935,22 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(210, 50%, 10%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderBottomColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -1926,22 +1960,6 @@ Array [
       </Text>
     </View>
   </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "black",
-        },
-        Object {
-          "fontSize": 34,
-          "fontWeight": "300",
-          "lineHeight": 51,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -1956,10 +1974,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -1970,13 +1985,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -1986,14 +2007,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2027,10 +2049,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -2041,13 +2063,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -2057,14 +2085,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2105,8 +2134,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -2125,7 +2156,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2145,10 +2179,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -2159,13 +2193,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -2175,14 +2215,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2223,8 +2264,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -2243,7 +2286,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2251,139 +2297,88 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "padding": 16,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
               },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
-              },
-              undefined,
+              Array [
+                Object {},
+                undefined,
+              ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "black",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
@@ -2393,11 +2388,10 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5bcbc",
+          "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
-          "paddingHorizontal": 4,
-          "paddingVertical": 16,
-          "width": "100%",
+          "paddingHorizontal": 8,
+          "paddingVertical": 32,
         },
         undefined,
       ]
@@ -2419,7 +2413,7 @@ Array [
             "width": 20,
           },
           Object {
-            "margin": 4,
+            "margin": 8,
           },
         ]
       }
@@ -2428,8 +2422,9 @@ Array [
       style={
         Array [
           Object {
+            "color": "hsl(0, 100%, 20%)",
             "flex": 1,
-            "paddingHorizontal": 4,
+            "paddingHorizontal": 8,
           },
           undefined,
         ]
@@ -2439,6 +2434,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -2453,11 +2449,22 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -2466,13 +2473,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
@@ -2514,15 +2520,31 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderWidth": 1,
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
+              "backgroundColor": "transparent",
+              "borderBottomColor": "hsl(210, 5%, 87%)",
+              "borderBottomWidth": 2,
+              "borderRadius": 0,
+              "borderWidth": 0,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
             },
             null,
             null,
@@ -2535,11 +2557,14 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(210, 50%, 10%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
@@ -2568,23 +2593,39 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderRadius": 4,
+            "justifyContent": "center",
+            "paddingHorizontal": 16,
+            "paddingVertical": 12,
+          },
+          Object {
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderWidth": 1,
+          },
+          null,
           null,
           Array [
             Object {
-              "backgroundColor": "#e1e1e1",
-              "borderTopColor": "#dcdee0",
-              "borderTopWidth": 2,
+              "backgroundColor": "transparent",
+              "borderBottomColor": "hsl(210, 5%, 87%)",
+              "borderBottomWidth": 2,
+              "borderRadius": 0,
+              "borderWidth": 0,
               "flexBasis": 0,
               "flexGrow": 1,
-              "padding": 12,
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
             },
             Object {
               "opacity": 1,
             },
             Object {
-              "backgroundColor": "#fff",
-              "borderTopColor": "#047d95",
-              "color": "#047d95",
+              "backgroundColor": "hsl(0, 0%, 100%)",
+              "borderBottomColor": "hsl(190, 95%, 30%)",
+              "color": "hsl(190, 95%, 30%)",
             },
             null,
           ],
@@ -2595,19 +2636,22 @@ Array [
         style={
           Array [
             Object {
-              "alignSelf": "center",
+              "color": "hsl(210, 50%, 10%)",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "textAlign": "center",
             },
             Array [
               Object {
-                "color": "#304050",
+                "color": "hsl(210, 25%, 25%)",
                 "fontSize": 16,
                 "fontWeight": "700",
               },
               undefined,
               Object {
-                "backgroundColor": "#fff",
-                "borderTopColor": "#047d95",
-                "color": "#047d95",
+                "backgroundColor": "hsl(0, 0%, 100%)",
+                "borderBottomColor": "hsl(190, 95%, 30%)",
+                "color": "hsl(190, 95%, 30%)",
               },
             ],
           ]
@@ -2617,22 +2661,6 @@ Array [
       </Text>
     </View>
   </View>,
-  <Text
-    accessibilityRole="header"
-    style={
-      Array [
-        Object {
-          "color": "black",
-        },
-        Object {
-          "fontSize": 34,
-          "fontWeight": "300",
-          "lineHeight": 51,
-        },
-        undefined,
-      ]
-    }
-  />,
   <View>
     <View
       accessibilityLabel="Username"
@@ -2647,10 +2675,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -2661,13 +2686,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -2677,14 +2708,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2718,10 +2750,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -2732,13 +2764,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -2748,14 +2786,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2796,8 +2835,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -2816,7 +2857,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2836,10 +2880,10 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
@@ -2850,13 +2894,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -2866,14 +2916,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -2914,8 +2965,10 @@ Array [
           onStartShouldSetResponder={[Function]}
           style={
             Array [
+              Object {},
               null,
               null,
+              undefined,
             ]
           }
         >
@@ -2934,7 +2987,10 @@ Array [
                   "tintColor": undefined,
                   "width": 16,
                 },
-                undefined,
+                Array [
+                  Object {},
+                  undefined,
+                ],
               ]
             }
           />
@@ -2942,143 +2998,93 @@ Array [
       </View>
     </View>
     <View
+      accessibilityLabel="Phone"
+      accessibilityState={
+        Object {
+          "disabled": false,
+        }
+      }
+      accessible={true}
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
+            "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     >
-      <View
+      <Text
+        accessibilityRole="text"
         style={
           Array [
             Object {
-              "flex": 1,
-              "height": 44,
-              "minWidth": 0,
+              "fontSize": 16,
+              "fontWeight": "400",
             },
-            undefined,
-          ]
-        }
-      >
-        <RNCPicker
-          items={
+            Object {
+              "color": "hsl(210, 50%, 10%)",
+            },
             Array [
               Object {
-                "label": "+1",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+1",
-              },
-              Object {
-                "label": "+7",
-                "testID": undefined,
-                "textColor": undefined,
-                "value": "+7",
-              },
-            ]
-          }
-          numberOfLines={1}
-          onChange={[Function]}
-          selectedIndex={0}
-          style={
-            Array [
-              Object {
-                "height": 216,
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
               },
               Array [
-                Object {
-                  "height": 44,
-                },
+                Object {},
                 undefined,
               ],
-            ]
-          }
-          testID="RNPicker"
-        />
-      </View>
-      <View
-        accessibilityLabel="Phone"
-        accessibilityState={
-          Object {
-            "disabled": false,
-          }
-        }
-        accessible={true}
-        style={
-          Array [
-            Object {
-              "alignItems": "flex-start",
-            },
-            Array [
-              undefined,
-              undefined,
             ],
           ]
         }
       >
-        <Text
-          accessibilityRole="text"
+        Phone
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "borderColor": "hsl(210, 8%, 55%)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "lineHeight": 24,
+            "padding": 16,
+          }
+        }
+        testID="amplify__text-field__input-container"
+      >
+        <TextInput
+          accessible={true}
+          autoCapitalize="none"
+          editable={true}
+          keyboardType="phone-pad"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          placeholder="Phone"
           style={
             Array [
               Object {
+                "flexGrow": 1,
                 "fontSize": 16,
-                "fontWeight": "400",
-                "marginHorizontal": 4,
-                "marginVertical": 2,
               },
-              Object {
-                "color": "hsl(210, 50%, 10%)",
-              },
-              undefined,
+              Array [
+                Object {},
+                undefined,
+              ],
             ]
           }
-        >
-          Phone
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "borderColor": "black",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "flexDirection": "row",
-              "padding": 8,
-              "width": "100%",
-            }
-          }
-        >
-          <TextInput
-            accessible={true}
-            autoCapitalize="none"
-            editable={true}
-            keyboardType="phone-pad"
-            onBlur={[Function]}
-            onChangeText={[Function]}
-            placeholder="Phone"
-            style={
-              Array [
-                Object {
-                  "flexGrow": 1,
-                  "fontSize": 16,
-                },
-                undefined,
-              ]
-            }
-          />
-        </View>
+        />
       </View>
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -3093,11 +3099,22 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -3106,13 +3123,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(210, 50%, 10%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >

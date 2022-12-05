@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "react-native": "dist/index.js",
@@ -28,15 +28,15 @@
     "test:watch": "yarn test --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "4.0.1",
+    "@aws-amplify/ui": "5.0.0",
     "@xstate/react": "3.0.1",
     "lodash": "4.17.21",
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
-    "aws-amplify": "next",
-    "react": ">= 16.8.0",
-    "react-dom": ">= 16.8.0"
+    "aws-amplify": ">= 5.0.1",
+    "react": ">= 16.14.0",
+    "react-dom": ">= 16.14.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.1",

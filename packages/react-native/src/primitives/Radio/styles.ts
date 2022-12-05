@@ -1,50 +1,68 @@
 import { StyleSheet } from 'react-native';
 
+import { StrictTheme } from '../../theme';
+import { RADIO_DOT_PROPORTION } from './getRadioDimensions';
 import { RadioStyles } from './types';
 
-const RADIO_COLOR = '#317d95';
-const ROUNDED_BORDER_RADIUS: number = 999;
+const ROUNDED_BORDER_RADIUS = 999;
 
-export const styles: RadioStyles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
-  disabled: {
-    opacity: 0.6,
-  },
-  radioContainer: {
-    alignItems: 'center',
-    borderColor: RADIO_COLOR,
-    borderRadius: ROUNDED_BORDER_RADIUS,
-    borderWidth: 2,
-    justifyContent: 'center',
-  },
-  radioDot: {
-    backgroundColor: RADIO_COLOR,
-    borderRadius: ROUNDED_BORDER_RADIUS,
-  },
-  radioContainerLarge: {
-    height: 24,
-    width: 24,
-  },
-  radioContainerMedium: {
-    height: 20,
-    width: 20,
-  },
-  radioContainerSmall: {
-    height: 16,
-    width: 16,
-  },
-  radioDotLarge: {
-    height: 12,
-    width: 12,
-  },
-  radioDotMedium: {
-    height: 10,
-    width: 10,
-  },
-  radioDotSmall: {
-    height: 8,
-    width: 8,
-  },
-});
+export const getThemedStyles = (theme: StrictTheme): Required<RadioStyles> => {
+  const {
+    components,
+    tokens: { colors, fontSizes, opacities, borderWidths },
+  } = theme;
+
+  return StyleSheet.create({
+    container: {
+      alignItems: 'center',
+      ...components?.radio?.container,
+    },
+    disabled: {
+      opacity: opacities[60],
+      ...components?.radio?.disabled,
+    },
+    radioContainer: {
+      alignItems: 'center',
+      borderColor: colors.border.primary,
+      borderRadius: ROUNDED_BORDER_RADIUS,
+      borderWidth: borderWidths.medium,
+      justifyContent: 'center',
+      ...components?.radio?.radioContainer,
+    },
+    radioDot: {
+      backgroundColor: colors.brand.primary[80],
+      borderRadius: ROUNDED_BORDER_RADIUS,
+      ...components?.radio?.radioDot,
+    },
+    radioContainerLarge: {
+      height: fontSizes.xl,
+      width: fontSizes.xl,
+      ...components?.radio?.radioContainerLarge,
+    },
+    radioContainerMedium: {
+      height: fontSizes.large,
+      width: fontSizes.large,
+      ...components?.radio?.radioContainerMedium,
+    },
+    radioContainerSmall: {
+      height: fontSizes.medium,
+      width: fontSizes.medium,
+      ...components?.radio?.radioContainerSmall,
+    },
+    radioDotLarge: {
+      height: fontSizes.xl * RADIO_DOT_PROPORTION,
+      width: fontSizes.xl * RADIO_DOT_PROPORTION,
+      ...components?.radio?.radioDotLarge,
+    },
+    radioDotMedium: {
+      height: fontSizes.large * RADIO_DOT_PROPORTION,
+      width: fontSizes.large * RADIO_DOT_PROPORTION,
+      ...components?.radio?.radioDotMedium,
+    },
+    radioDotSmall: {
+      height: fontSizes.medium * RADIO_DOT_PROPORTION,
+      width: fontSizes.medium * RADIO_DOT_PROPORTION,
+      ...components?.radio?.radioDotSmall,
+    },
+  });
+};

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { storiesOf } from '@storybook/react-native';
+import { Animated, Easing, StyleSheet } from 'react-native';
+
 import { Icon } from '@aws-amplify/ui-react-native/dist/primitives';
 import { icons } from '@aws-amplify/ui-react-native/dist/assets';
-import { Animated, Easing } from 'react-native';
 
 const source = icons.close;
 
@@ -39,8 +40,14 @@ const StatefulAnimatedIcon = () => {
 };
 
 storiesOf('Icon', module)
-  .add('default', () => <Icon size={20} source={source} />)
-  .add('animated', () => <StatefulAnimatedIcon />)
-  .add('with style', () => (
-    <Icon size={20} source={source} style={{ backgroundColor: 'lightgray' }} />
+  .add('Default', () => <Icon size={20} source={source} />)
+  .add('Animated', () => <StatefulAnimatedIcon />)
+  .add('Styled', () => (
+    <Icon size={20} source={source} style={styles.custom} />
   ));
+
+const styles = StyleSheet.create({
+  custom: {
+    backgroundColor: 'lightgray',
+  },
+});

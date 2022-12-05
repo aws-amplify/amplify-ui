@@ -19,7 +19,10 @@ const propsToCode = (
 </Heading>`;
 };
 
-const defaultHeadingProps = {};
+const defaultHeadingProps = {
+  value: 'Heading text',
+  level: 6,
+};
 
 export const HeadingDemo = () => {
   const { level, setLevel, isTruncated, setIsTruncated, value, setValue } =

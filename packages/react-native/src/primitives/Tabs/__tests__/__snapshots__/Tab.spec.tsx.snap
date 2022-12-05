@@ -17,15 +17,31 @@ exports[`Tab can apply custom styling 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderRadius": 4,
+        "justifyContent": "center",
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      },
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
+      null,
       null,
       Array [
         Object {
-          "backgroundColor": "#e1e1e1",
-          "borderTopColor": "#dcdee0",
-          "borderTopWidth": 2,
+          "backgroundColor": "transparent",
+          "borderBottomColor": "hsl(210, 5%, 87%)",
+          "borderBottomWidth": 2,
+          "borderRadius": 0,
+          "borderWidth": 0,
           "flexBasis": 0,
           "flexGrow": 1,
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         null,
         null,
@@ -41,11 +57,14 @@ exports[`Tab can apply custom styling 1`] = `
     style={
       Array [
         Object {
-          "alignSelf": "center",
+          "color": "hsl(210, 50%, 10%)",
+          "fontSize": 16,
+          "fontWeight": "700",
+          "textAlign": "center",
         },
         Array [
           Object {
-            "color": "#304050",
+            "color": "hsl(210, 25%, 25%)",
             "fontSize": 16,
             "fontWeight": "700",
           },
@@ -77,23 +96,39 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderRadius": 4,
+        "justifyContent": "center",
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      },
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
+      null,
       null,
       Array [
         Object {
-          "backgroundColor": "#e1e1e1",
-          "borderTopColor": "#dcdee0",
-          "borderTopWidth": 2,
+          "backgroundColor": "transparent",
+          "borderBottomColor": "hsl(210, 5%, 87%)",
+          "borderBottomWidth": 2,
+          "borderRadius": 0,
+          "borderWidth": 0,
           "flexBasis": 0,
           "flexGrow": 1,
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         Object {
           "opacity": 1,
         },
         Object {
-          "backgroundColor": "#fff",
-          "borderTopColor": "#047d95",
-          "color": "#047d95",
+          "backgroundColor": "hsl(0, 0%, 100%)",
+          "borderBottomColor": "hsl(190, 95%, 30%)",
+          "color": "hsl(190, 95%, 30%)",
         },
         null,
       ],
@@ -104,19 +139,22 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
     style={
       Array [
         Object {
-          "alignSelf": "center",
+          "color": "hsl(210, 50%, 10%)",
+          "fontSize": 16,
+          "fontWeight": "700",
+          "textAlign": "center",
         },
         Array [
           Object {
-            "color": "#304050",
+            "color": "hsl(210, 25%, 25%)",
             "fontSize": 16,
             "fontWeight": "700",
           },
           undefined,
           Object {
-            "backgroundColor": "#fff",
-            "borderTopColor": "#047d95",
-            "color": "#047d95",
+            "backgroundColor": "hsl(0, 0%, 100%)",
+            "borderBottomColor": "hsl(190, 95%, 30%)",
+            "color": "hsl(190, 95%, 30%)",
           },
         ],
       ]
@@ -144,15 +182,31 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderRadius": 4,
+        "justifyContent": "center",
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      },
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
+      null,
       null,
       Array [
         Object {
-          "backgroundColor": "#e1e1e1",
-          "borderTopColor": "#dcdee0",
-          "borderTopWidth": 2,
+          "backgroundColor": "transparent",
+          "borderBottomColor": "hsl(210, 5%, 87%)",
+          "borderBottomWidth": 2,
+          "borderRadius": 0,
+          "borderWidth": 0,
           "flexBasis": 0,
           "flexGrow": 1,
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         null,
         null,
@@ -184,15 +238,31 @@ exports[`Tab renders default Tab as expected 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderRadius": 4,
+        "justifyContent": "center",
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      },
+      Object {
+        "borderColor": "hsl(210, 8%, 55%)",
+        "borderWidth": 1,
+      },
+      null,
       null,
       Array [
         Object {
-          "backgroundColor": "#e1e1e1",
-          "borderTopColor": "#dcdee0",
-          "borderTopWidth": 2,
+          "backgroundColor": "transparent",
+          "borderBottomColor": "hsl(210, 5%, 87%)",
+          "borderBottomWidth": 2,
+          "borderRadius": 0,
+          "borderWidth": 0,
           "flexBasis": 0,
           "flexGrow": 1,
-          "padding": 12,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
         null,
         null,
@@ -205,11 +275,14 @@ exports[`Tab renders default Tab as expected 1`] = `
     style={
       Array [
         Object {
-          "alignSelf": "center",
+          "color": "hsl(210, 50%, 10%)",
+          "fontSize": 16,
+          "fontWeight": "700",
+          "textAlign": "center",
         },
         Array [
           Object {
-            "color": "#304050",
+            "color": "hsl(210, 25%, 25%)",
             "fontSize": 16,
             "fontWeight": "700",
           },

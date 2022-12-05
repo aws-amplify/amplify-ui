@@ -1,44 +1,36 @@
-import {
-  AlignItemsValue,
-  BackgroundColorValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  FontWeightValue,
-  JustifyContentValue,
-  SpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface AlertVariationTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+type AlertVariationTokens<OutputType> = DesignTokenProperties<
+  'backgroundColor' | 'color',
+  OutputType
+>;
 
-interface AlertIconTokens {
-  size: DesignToken<FontSizeValue>;
-}
+type AlertIconTokens<OutputType> = DesignTokenProperties<'size', OutputType>;
 
-interface AlertHeadingTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  fontWeight: DesignToken<FontWeightValue>;
-}
+type AlertHeadingTokens<OutputType> = DesignTokenProperties<
+  'fontSize' | 'fontWeight',
+  OutputType
+>;
 
-export interface AlertTokens {
-  alignItems: DesignToken<AlignItemsValue>;
-  justifyContent: DesignToken<JustifyContentValue>;
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  paddingBlock: DesignToken<SpaceValue>;
-  paddingInline: DesignToken<SpaceValue>;
-  icon: AlertIconTokens;
-  heading: AlertHeadingTokens;
-  info: AlertVariationTokens;
-  error: AlertVariationTokens;
-  warning: AlertVariationTokens;
-  success: AlertVariationTokens;
-}
+type AlertTokenKey =
+  | 'alignItems'
+  | 'justifyContent'
+  | 'color'
+  | 'backgroundColor'
+  | 'paddingBlock'
+  | 'paddingInline';
 
-export const alert: AlertTokens = {
+export type AlertTokens<OutputType extends OutputVariantKey> =
+  DesignTokenProperties<AlertTokenKey, OutputType> & {
+    icon?: AlertIconTokens<OutputType>;
+    heading?: AlertHeadingTokens<OutputType>;
+    info?: AlertVariationTokens<OutputType>;
+    error?: AlertVariationTokens<OutputType>;
+    warning?: AlertVariationTokens<OutputType>;
+    success?: AlertVariationTokens<OutputType>;
+  };
+
+export const alert: Required<AlertTokens<'default'>> = {
   // Default styles
   alignItems: { value: 'center' },
   justifyContent: { value: 'space-between' },

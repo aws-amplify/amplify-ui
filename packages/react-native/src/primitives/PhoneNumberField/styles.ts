@@ -1,30 +1,23 @@
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
+import { StrictTheme } from '../../theme';
 import { PhoneNumberFieldStyles } from './types';
 
-/*
-    arbitrary number based off of the legacy amplify react-native component
-    this value MUST be the same for picker and pickerItem
-*/
-const PICKER_HEIGHT = 44;
+export const getThemedStyles = (theme: StrictTheme): PhoneNumberFieldStyles => {
+  const { components } = theme;
 
-export const styles: PhoneNumberFieldStyles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  fieldStyle: {
-    flex: 1,
-  },
-  picker: {
-    flex: 1,
-    height: PICKER_HEIGHT,
-    /*
-       ensure that longer text values render without truncation
-		   as the selected value of the Picker on Android
-    */
-    minWidth: Platform.OS === 'android' ? 16 : 0,
-  },
-  pickerItem: { height: PICKER_HEIGHT },
-});
+  return StyleSheet.create({
+    container: {
+      ...components?.phoneNumberField?.container,
+    },
+    fieldContainer: {
+      ...components?.phoneNumberField?.fieldContainer,
+    },
+    field: {
+      ...components?.phoneNumberField?.field,
+    },
+    label: {
+      ...components?.phoneNumberField?.label,
+    },
+  });
+};

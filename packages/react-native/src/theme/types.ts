@@ -1,53 +1,95 @@
-import { PartialDeep } from 'type-fest';
-import { ReactNativeTokens } from '@aws-amplify/ui/src/theme/tokens';
-import baseTokens from '@aws-amplify/ui/dist/react-native/tokens';
+import { ReactNativeTokens } from '@aws-amplify/ui';
 
-import { LabelStyles } from '../primitives/Label/types';
+import {
+  ButtonStyles,
+  CheckboxStyles,
+  DividerStyles,
+  ErrorMessageStyles,
+  HeadingStyles,
+  IconStyles,
+  IconButtonStyles,
+  LabelStyles,
+  PasswordFieldStyles,
+  PhoneNumberFieldStyles,
+  RadioStyles,
+  RadioGroupStyles,
+  TabsStyles,
+  TextFieldStyles,
+} from '../primitives';
 
-export interface Tokens extends ReactNativeTokens {
-  components?: ComponentStyles;
-}
+// Util that takes a theme shape
+// and if it is an input of createTheme it can be the theme shape OR a function
+// that takes in base tokens as an argument and returns that shape.
+// If it is an output, it should be that shape.
+type ComponentTheme<ComponentType, Output> = Output extends 'output'
+  ? ComponentType
+  : ((tokens: StrictTheme['tokens']) => ComponentType) | ComponentType;
 
-type Override = Omit<StrictTheme, 'overrides'>;
+// TODO: make optional all the way down
+export type Components<Output> = Record<string, object> & {
+  button?: ComponentTheme<ButtonStyles, Output>;
+  checkbox?: ComponentTheme<CheckboxStyles, Output>;
+  divider?: ComponentTheme<DividerStyles, Output>;
+  errorMessage?: ComponentTheme<ErrorMessageStyles, Output>;
+  heading?: ComponentTheme<HeadingStyles, Output>;
+  icon?: ComponentTheme<IconStyles, Output>;
+  iconButton?: ComponentTheme<IconButtonStyles, Output>;
+  label?: ComponentTheme<LabelStyles, Output>;
+  passwordField?: ComponentTheme<PasswordFieldStyles, Output>;
+  phoneNumberField?: ComponentTheme<PhoneNumberFieldStyles, Output>;
+  radio?: ComponentTheme<RadioStyles, Output>;
+  radioGroup?: ComponentTheme<RadioGroupStyles, Output>;
+  tabs?: ComponentTheme<TabsStyles, Output>;
+  textField?: ComponentTheme<TextFieldStyles, Output>;
+};
 
 export type ColorMode = 'light' | 'dark' | 'system';
+type Override = Omit<Theme, 'overrides'> & {
+  colorMode?: ColorMode;
+};
+
+// re-name and export to align naming with `StrictTheme`
+export type StrictTokens = ReactNativeTokens<'required'>;
+
+// Everything optional for custom themes
+export type Tokens = ReactNativeTokens<'optional'>;
 
 /**
- * A Theme just needs a name.
- * Users can define any tokens they need, but they don't need a complete theme with all tokens.
+ * A Theme just needs a name, all other properties are optional.
  */
 export interface Theme {
-  colorMode?: ColorMode;
   /**
-   * The name of the theme.
+   * Custom component styles
    */
-  name: string;
+  components?: Components<'input'>;
   /**
    * Component and component agnostic tokens.
    */
-  tokens?: PartialDeep<Tokens>;
+  tokens?: Tokens;
   /**
-   * Overrides allow you to change design tokens in different contexts, like
-   * light and dark mode.
+   * Overrides allows switching between design tokens in different contexts,
+   * like light and dark mode.
    */
   overrides?: Override[];
+
+  spaceModifier?: number;
 }
 
-export interface ComponentStyles {
-  // TODO: add components
-  label: LabelStyles;
+export interface DefaultTheme {
+  tokens: ReactNativeTokens<'default'>;
 }
 
 /**
  * Fully built theme that has styling based
  * on the design tokens and all design tokens have added fields
  * to be used in Javascript/Typescript.
+ *
+ * `components` remains an optional property, it is only populated
+ * via custom themes.
  */
-export interface StrictTheme extends Theme {
-  colorMode: ColorMode;
-  tokens: Tokens;
+export interface StrictTheme {
+  tokens: StrictTokens;
+  components?: Components<'output'>;
+  overrides?: Override[];
+  spaceModifier?: number;
 }
-
-export const tokens: ReactNativeTokens = {
-  ...baseTokens,
-};

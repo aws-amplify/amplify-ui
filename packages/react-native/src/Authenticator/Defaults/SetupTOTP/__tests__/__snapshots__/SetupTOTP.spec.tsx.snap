@@ -7,12 +7,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -34,10 +34,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -48,13 +45,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -64,14 +67,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -99,11 +103,10 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5bcbc",
+          "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
-          "paddingHorizontal": 4,
-          "paddingVertical": 16,
-          "width": "100%",
+          "paddingHorizontal": 8,
+          "paddingVertical": 32,
         },
         undefined,
       ]
@@ -125,7 +128,7 @@ Array [
             "width": 20,
           },
           Object {
-            "margin": 4,
+            "margin": 8,
           },
         ]
       }
@@ -134,8 +137,9 @@ Array [
       style={
         Array [
           Object {
+            "color": "hsl(0, 100%, 20%)",
             "flex": 1,
-            "paddingHorizontal": 4,
+            "paddingHorizontal": 8,
           },
           undefined,
         ]
@@ -145,6 +149,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -159,11 +164,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -172,13 +187,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
@@ -186,6 +200,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -200,10 +215,19 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {},
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -212,11 +236,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >
@@ -233,12 +258,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -260,10 +285,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -274,13 +296,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -290,14 +318,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -320,6 +349,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -334,11 +364,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -347,13 +387,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
@@ -361,6 +400,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -375,10 +415,19 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {},
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -387,11 +436,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >
@@ -408,12 +458,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -435,10 +485,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -449,13 +496,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -465,14 +518,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -495,6 +549,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -509,11 +564,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -522,13 +587,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
@@ -536,6 +600,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -550,10 +615,19 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {},
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -562,11 +636,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >
@@ -583,12 +658,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -631,8 +706,10 @@ Array [
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          Object {},
           null,
           null,
+          undefined,
         ]
       }
       testID="amplify__copy-text-button"
@@ -674,10 +751,7 @@ Array [
           Object {
             "alignItems": "flex-start",
           },
-          Object {
-            "fontSize": 16,
-            "marginVertical": 4,
-          },
+          undefined,
         ]
       }
     >
@@ -688,13 +762,19 @@ Array [
             Object {
               "fontSize": 16,
               "fontWeight": "400",
-              "marginHorizontal": 4,
-              "marginVertical": 2,
             },
             Object {
               "color": "hsl(210, 50%, 10%)",
             },
-            undefined,
+            Array [
+              Object {
+                "color": "hsl(210, 25%, 25%)",
+                "fontSize": 16,
+                "lineHeight": 21,
+                "paddingVertical": 12,
+              },
+              undefined,
+            ],
           ]
         }
       >
@@ -704,14 +784,15 @@ Array [
         style={
           Object {
             "alignItems": "center",
-            "borderColor": "black",
+            "borderColor": "hsl(210, 8%, 55%)",
             "borderRadius": 4,
             "borderWidth": 1,
             "flexDirection": "row",
-            "padding": 8,
-            "width": "100%",
+            "lineHeight": 24,
+            "padding": 16,
           }
         }
+        testID="amplify__text-field__input-container"
       >
         <TextInput
           accessible={true}
@@ -734,6 +815,7 @@ Array [
     </View>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -748,11 +830,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -761,13 +853,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
@@ -775,6 +866,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -789,10 +881,19 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {},
+        null,
         null,
         Object {
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -801,11 +902,12 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
+            "color": "hsl(190, 95%, 30%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
-          Object {
-            "color": "teal",
-          },
+          undefined,
         ]
       }
     >

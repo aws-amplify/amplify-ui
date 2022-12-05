@@ -23,5 +23,5 @@ export interface PasswordFieldProps extends TextFieldProps {
 }
 
 export interface PasswordFieldStyles extends Partial<TextFieldStyles> {
-  icon: ImageStyle;
+  icon?: ImageStyle;
 }

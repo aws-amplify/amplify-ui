@@ -3,7 +3,11 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage, Tab, Tabs } from '../../../primitives';
 
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultSignUpComponent } from '../types';
@@ -56,11 +60,7 @@ const SignUp: DefaultSignUpComponent = ({
         validationErrors={validationErrors}
       />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-      <Button
-        onPress={handleFormSubmit}
-        style={styles.buttonPrimary}
-        textStyle={styles.buttonPrimaryLabel}
-      >
+      <Button onPress={handleFormSubmit} style={styles.buttonPrimary}>
         {isPending ? getCreatingAccountText() : getCreateAccountText()}
       </Button>
       <Footer />
@@ -69,7 +69,7 @@ const SignUp: DefaultSignUpComponent = ({
 };
 
 SignUp.Footer = DefaultFooter;
-SignUp.FormFields = DefaultFormFields;
+SignUp.FormFields = DefaultTextFormFields;
 SignUp.Header = DefaultHeader;
 
 SignUp.displayName = COMPONENT_NAME;

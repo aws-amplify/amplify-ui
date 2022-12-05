@@ -14,7 +14,6 @@ module.exports = withNextPluginPreval({
     DOCSEARCH_DOCS_APP_ID: process.env.DOCSEARCH_DOCS_APP_ID,
     DOCSEARCH_DOCS_API_KEY: process.env.DOCSEARCH_DOCS_API_KEY,
     DOCSEARCH_DOCS_INDEX_NAME: process.env.DOCSEARCH_DOCS_INDEX_NAME,
-    FF_REACT_NATIVE: process.env.FF_REACT_NATIVE,
   },
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
@@ -74,13 +73,9 @@ module.exports = withNextPluginPreval({
         permanent: true,
       },
       {
-        source: '/:platform(react|angular|vue)/components/storage',
-        destination: '/:platform/legacy-components/storage',
-        permanent: true,
-      },
-      {
-        source: '/:platform(react|angular|vue)/components/chatbot',
-        destination: '/:platform/legacy-components/chatbot',
+        source:
+          '/:platform(react|react-native)/components/in-app-messaging/:page*',
+        destination: '/:platform/connected-components/in-app-messaging/:page*',
         permanent: true,
       },
       {
@@ -140,7 +135,7 @@ module.exports = withNextPluginPreval({
        */
       {
         source:
-          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)/:page*',
+          '/:nav(connected-components|components|getting-started|guides|theming)/:page*',
         destination: '/react/:nav/:page*',
         permanent: true,
       },
@@ -150,7 +145,7 @@ module.exports = withNextPluginPreval({
        */
       {
         source:
-          '/:nav(legacy-components|connected-components|components|getting-started|guides|theming)',
+          '/:nav(connected-components|components|getting-started|guides|theming)',
         destination: '/react/:nav',
         permanent: true,
       },

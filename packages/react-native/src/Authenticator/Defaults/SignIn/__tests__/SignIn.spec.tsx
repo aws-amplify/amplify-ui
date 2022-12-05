@@ -39,16 +39,12 @@ const props = {
 
 describe('SignIn', () => {
   it('renders as expected', () => {
-    const { toJSON, getByRole, getAllByRole, getByText } = render(
-      <SignIn {...props} />
-    );
+    const { toJSON, getAllByRole, getByText } = render(<SignIn {...props} />);
     expect(toJSON()).toMatchSnapshot();
 
-    expect(getAllByRole('tab')).toHaveLength(2);
-    expect(getByRole('header')).toBeDefined();
     expect(getAllByRole('text')).toHaveLength(fields.length);
     expect(getByText(getSignInText())).toBeDefined();
-    expect(getByText(getForgotPasswordText())).toBeDefined();
+    expect(getByText(getForgotPasswordText(true))).toBeDefined();
   });
 
   it('renders as expected with an error', () => {

@@ -8,7 +8,11 @@ import { authenticatorTextUtil } from '@aws-amplify/ui';
 import { icons } from '../../../assets';
 import { Button, ErrorMessage, IconButton } from '../../../primitives';
 
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultSetupTOTPComponent } from '../types';
@@ -91,17 +95,13 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
       <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
+        variant="primary"
         onPress={handleFormSubmit}
         style={styles.buttonPrimary}
-        textStyle={styles.buttonPrimaryLabel}
       >
         {isPending ? getConfirmingText() : getConfirmText()}
       </Button>
-      <Button
-        onPress={toSignIn}
-        style={styles.buttonSecondary}
-        textStyle={styles.buttonSecondaryLabel}
-      >
+      <Button onPress={toSignIn} variant="link" style={styles.buttonSecondary}>
         {getBackToSignInText()}
       </Button>
       <Footer />
@@ -110,7 +110,7 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
 };
 
 SetupTOTP.Footer = DefaultFooter;
-SetupTOTP.FormFields = DefaultFormFields;
+SetupTOTP.FormFields = DefaultTextFormFields;
 SetupTOTP.Header = DefaultHeader;
 
 SetupTOTP.displayName = COMPONENT_NAME;

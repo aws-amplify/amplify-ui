@@ -2,7 +2,11 @@ import React from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage } from '../../../primitives';
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultConfirmResetPasswordComponent } from '../types';
@@ -43,17 +47,13 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
       <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
+        variant="primary"
         onPress={handleFormSubmit}
         style={styles.buttonPrimary}
-        textStyle={styles.buttonPrimaryLabel}
       >
         {isPending ? getSubmittingText() : getSubmitText()}
       </Button>
-      <Button
-        onPress={resendCode}
-        style={styles.buttonSecondary}
-        textStyle={styles.buttonSecondaryLabel}
-      >
+      <Button onPress={resendCode} style={styles.buttonSecondary}>
         {getResendCodeText()}
       </Button>
       <Footer />
@@ -62,7 +62,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
 };
 
 ConfirmResetPassword.Footer = DefaultFooter;
-ConfirmResetPassword.FormFields = DefaultFormFields;
+ConfirmResetPassword.FormFields = DefaultTextFormFields;
 ConfirmResetPassword.Header = DefaultHeader;
 
 ConfirmResetPassword.displayName = COMPONENT_NAME;

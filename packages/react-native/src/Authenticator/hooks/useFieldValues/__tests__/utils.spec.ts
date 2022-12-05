@@ -1,9 +1,31 @@
 import { Logger } from 'aws-amplify';
 import { TypedField } from '../../types';
 
-import { getSanitizedRadioFields, getSanitizedTextFields } from '../utils';
+import {
+  getRouteTypedFields,
+  getSanitizedRadioFields,
+  getSanitizedTextFields,
+} from '../utils';
 
 const warnSpy = jest.spyOn(Logger.prototype, 'warn');
+
+const idle = 'idle';
+const signIn = 'signIn';
+const verifyUser = 'verifyUser';
+
+const passwordField = {
+  type: 'password',
+  name: 'password',
+  label: 'Password',
+  required: true,
+};
+const phoneField = {
+  name: 'phonenumber',
+  type: 'tel',
+};
+const textField = { order: 3, name: 'username', isRequired: true };
+
+const radioField = { type: 'radio', name: 'email', value: 'hello@world.com' };
 
 describe('getSanitizedTextFields', () => {
   afterEach(() => {
@@ -40,7 +62,7 @@ describe('getSanitizedTextFields', () => {
     const validField: TypedField = { name: 'test', type: 'default' };
     const fields: TypedField[] = [
       validField,
-      { name: 'Password', type: 'radio', value: 'value' },
+      { name: 'Phone Number', type: 'radio', value: 'value' },
     ];
 
     const output = getSanitizedTextFields(fields, 'SignIn');
@@ -80,7 +102,7 @@ describe('getSanitizedRadioFields', () => {
 
   it('logs a warning and ignores the field when not a radio field', () => {
     const validField: TypedField = {
-      name: 'test',
+      name: 'email',
       type: 'radio',
       value: 'value',
     };
@@ -102,13 +124,13 @@ describe('getSanitizedRadioFields', () => {
 
   it('logs a warning and ignores the field when value is missing.', () => {
     const validField: TypedField = {
-      name: 'test',
+      name: 'email',
       type: 'radio',
       value: 'value',
     };
     const fields: TypedField[] = [
       validField,
-      { name: 'test', type: 'radio' } as TypedField,
+      { name: 'phone_number', type: 'radio' } as TypedField,
     ];
 
     const output = getSanitizedRadioFields(fields, 'VerifyUser');
@@ -124,13 +146,13 @@ describe('getSanitizedRadioFields', () => {
 
   it('logs a warning and ignores the field when a duplicate value is found.', () => {
     const validField: TypedField = {
-      name: 'test',
+      name: 'email',
       type: 'radio',
       value: 'testValue',
     };
     const fields: TypedField[] = [
       validField,
-      { name: 'test', type: 'radio', value: 'testValue' } as TypedField,
+      { name: 'email', type: 'radio', value: 'testValue' } as TypedField,
     ];
 
     const output = getSanitizedRadioFields(fields, 'VerifyUser');
@@ -142,5 +164,45 @@ describe('getSanitizedRadioFields', () => {
 
     expect(output).toHaveLength(1);
     expect(output).toStrictEqual([validField]);
+  });
+});
+
+describe('getRouteTypedFields', () => {
+  it('returns the expected value for a non-component route', () => {
+    const fields = getRouteTypedFields({ fields: [], route: idle });
+
+    expect(fields).toStrictEqual([]);
+    expect(fields).toHaveLength(0);
+  });
+
+  it('returns the expected result for the verifyUser route', () => {
+    const fields = getRouteTypedFields({
+      fields: [radioField],
+      route: verifyUser,
+    });
+
+    expect(fields).toStrictEqual([radioField]);
+  });
+
+  it('returns the expected value for varied fields', () => {
+    const fields = getRouteTypedFields({
+      fields: [passwordField, phoneField, textField],
+      route: signIn,
+    });
+
+    const expected = [
+      passwordField,
+      {
+        name: phoneField.name,
+        type: 'phone',
+      },
+      {
+        name: textField.name,
+        required: textField.isRequired,
+        type: 'default',
+      },
+    ];
+
+    expect(fields).toStrictEqual(expected);
   });
 });

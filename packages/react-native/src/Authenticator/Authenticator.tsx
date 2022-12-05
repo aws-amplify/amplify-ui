@@ -11,7 +11,7 @@ import {
 } from '@aws-amplify/ui-react-core';
 
 import { DefaultContainer, InnerContainer } from './common';
-import { TypedField, useRouteTypedFields } from './hooks';
+import { TypedField, getRouteTypedFields } from './hooks';
 import { AuthenticatorProps } from './types';
 
 import {
@@ -66,7 +66,7 @@ function Authenticator({
 
   const { Component, props } = useAuthenticatorRoute({ components });
 
-  const typedFields = useRouteTypedFields({ fields, route });
+  const typedFields = getRouteTypedFields({ fields, route });
 
   if (isAuthenticatedRoute(route)) {
     return children ? <>{children}</> : null;

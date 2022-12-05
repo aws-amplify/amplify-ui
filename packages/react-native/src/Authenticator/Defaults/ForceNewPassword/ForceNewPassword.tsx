@@ -2,7 +2,11 @@ import React from 'react';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button, ErrorMessage } from '../../../primitives';
-import { DefaultFooter, DefaultFormFields, DefaultHeader } from '../../common';
+import {
+  DefaultFooter,
+  DefaultTextFormFields,
+  DefaultHeader,
+} from '../../common';
 import { useFieldValues } from '../../hooks';
 
 import { DefaultForceNewPasswordComponent } from '../types';
@@ -39,17 +43,13 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
       <FormFields fields={fieldsWithHandlers} isPending={isPending} />
       {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       <Button
+        variant="primary"
         onPress={handleFormSubmit}
         style={styles.buttonPrimary}
-        textStyle={styles.buttonPrimaryLabel}
       >
         {isPending ? getChangingText() : getChangePasswordText()}
       </Button>
-      <Button
-        onPress={toSignIn}
-        style={styles.buttonSecondary}
-        textStyle={styles.buttonSecondaryLabel}
-      >
+      <Button onPress={toSignIn} variant="link" style={styles.buttonSecondary}>
         {getBackToSignInText()}
       </Button>
       <Footer />
@@ -58,7 +58,7 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
 };
 
 ForceNewPassword.Footer = DefaultFooter;
-ForceNewPassword.FormFields = DefaultFormFields;
+ForceNewPassword.FormFields = DefaultTextFormFields;
 ForceNewPassword.Header = DefaultHeader;
 
 ForceNewPassword.displayName = COMPONENT_NAME;

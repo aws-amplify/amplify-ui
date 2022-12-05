@@ -7,12 +7,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -25,6 +25,7 @@ Array [
   </Text>,
   <View />,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -39,11 +40,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -52,58 +63,69 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
       Confirm
     </Text>
   </View>,
-  <View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
       style={
         Array [
-          null,
           Object {
-            "marginVertical": 8,
-            "paddingVertical": 12,
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Object {
-              "color": "teal",
-            },
-          ]
-        }
-      >
-        Resend Code
-      </Text>
-    </View>
+      Resend Code
+    </Text>
   </View>,
 ]
 `;
@@ -115,12 +137,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -133,6 +155,7 @@ Array [
   </Text>,
   <View />,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -147,11 +170,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -160,58 +193,69 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
       Confirming
     </Text>
   </View>,
-  <View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
       style={
         Array [
-          null,
           Object {
-            "marginVertical": 8,
-            "paddingVertical": 12,
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Object {
-              "color": "teal",
-            },
-          ]
-        }
-      >
-        Resend Code
-      </Text>
-    </View>
+      Resend Code
+    </Text>
   </View>,
 ]
 `;
@@ -223,12 +267,12 @@ Array [
     style={
       Array [
         Object {
-          "color": "black",
+          "color": "hsl(210, 50%, 10%)",
         },
         Object {
-          "fontSize": 34,
+          "fontSize": 24,
           "fontWeight": "300",
-          "lineHeight": 51,
+          "lineHeight": 36,
         },
         undefined,
       ]
@@ -246,11 +290,10 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5bcbc",
+          "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
-          "paddingHorizontal": 4,
-          "paddingVertical": 16,
-          "width": "100%",
+          "paddingHorizontal": 8,
+          "paddingVertical": 32,
         },
         undefined,
       ]
@@ -272,7 +315,7 @@ Array [
             "width": 20,
           },
           Object {
-            "margin": 4,
+            "margin": 8,
           },
         ]
       }
@@ -281,8 +324,9 @@ Array [
       style={
         Array [
           Object {
+            "color": "hsl(0, 100%, 20%)",
             "flex": 1,
-            "paddingHorizontal": 4,
+            "paddingHorizontal": 8,
           },
           undefined,
         ]
@@ -292,6 +336,7 @@ Array [
     </Text>
   </View>,
   <View
+    accessibilityRole="button"
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -306,11 +351,21 @@ Array [
     onStartShouldSetResponder={[Function]}
     style={
       Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "backgroundColor": "hsl(190, 95%, 30%)",
+        },
+        null,
         null,
         Object {
-          "backgroundColor": "teal",
           "marginVertical": 8,
-          "paddingVertical": 12,
         },
       ]
     }
@@ -319,58 +374,69 @@ Array [
       style={
         Array [
           Object {
-            "alignSelf": "center",
-          },
-          Object {
-            "color": "white",
+            "color": "hsl(0, 0%, 100%)",
             "fontSize": 16,
-            "fontWeight": "bold",
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
       Confirm
     </Text>
   </View>,
-  <View>
-    <View
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+  <View
+    accessibilityRole="button"
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 4,
+          "justifyContent": "center",
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
+        },
+        Object {
+          "borderColor": "hsl(210, 8%, 55%)",
+          "borderWidth": 1,
+        },
+        null,
+        null,
+        Object {
+          "marginVertical": 8,
+        },
+      ]
+    }
+  >
+    <Text
       style={
         Array [
-          null,
           Object {
-            "marginVertical": 8,
-            "paddingVertical": 12,
+            "color": "hsl(210, 50%, 10%)",
+            "fontSize": 16,
+            "fontWeight": "700",
+            "textAlign": "center",
           },
+          undefined,
         ]
       }
     >
-      <Text
-        style={
-          Array [
-            Object {
-              "alignSelf": "center",
-            },
-            Object {
-              "color": "teal",
-            },
-          ]
-        }
-      >
-        Resend Code
-      </Text>
-    </View>
+      Resend Code
+    </Text>
   </View>,
 ]
 `;

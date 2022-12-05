@@ -36,8 +36,8 @@ import {
   MdTune,
   MdSystemUpdateAlt,
   MdCheckCircle,
+  MdHighlight,
 } from 'react-icons/md';
-import { IS_REACT_NATIVE_ENABLED } from '@/utils/featureFlags';
 
 export interface ComponentNavItem {
   href: string;
@@ -134,6 +134,12 @@ export const connectedComponents: ComponentNavItem[] = [
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
   },
+  {
+    href: '/connected-components/in-app-messaging',
+    label: 'In-App Messaging',
+    body: 'Amplify UI In-App Messaging provides UI components for displaying In-App Messages.',
+    platforms: ['react', 'react-native'],
+  },
 ];
 
 export const dataDisplayComponents: ComponentNavItem[] = [
@@ -178,6 +184,13 @@ export const feedbackComponents: ComponentNavItem[] = [
 ].sort(sortByLabel);
 
 export const inputComponents: ComponentNavItem[] = [
+  {
+    href: '/components/autocomplete',
+    label: 'Autocomplete',
+    body: `Autocomplete is a SearchField enhanced by a list of suggested options.`,
+    platforms: ['react'],
+    icon: MdSearch,
+  },
   {
     href: '/components/textareafield',
     label: 'TextArea Field',
@@ -331,6 +344,13 @@ export const utilityComponents: ComponentNavItem[] = [
     platforms: ['react'],
     icon: MdDisabledVisible,
   },
+  {
+    href: '/components/highlightmatch',
+    label: 'Highlight Match',
+    body: `HighlightMatch is used to highlight a substring of a text.`,
+    platforms: ['react'],
+    icon: MdHighlight,
+  },
 ].sort(sortByLabel);
 
 export const navigationComponents: ComponentNavItem[] = [
@@ -422,23 +442,17 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/introduction',
     label: 'Introduction',
-    platforms: IS_REACT_NATIVE_ENABLED
-      ? ['react', 'vue', 'angular', 'flutter', 'react-native']
-      : ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/getting-started/installation',
     label: 'Installation',
-    platforms: IS_REACT_NATIVE_ENABLED
-      ? ['react', 'vue', 'angular', 'flutter', 'react-native']
-      : ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/getting-started/usage',
     label: 'Usage',
-    platforms: IS_REACT_NATIVE_ENABLED
-      ? ['react', 'vue', 'angular', 'react-native']
-      : ['react', 'vue', 'angular'],
+    platforms: ['react', 'vue', 'angular', 'react-native'],
   },
   {
     href: '/getting-started/usage/create-react-app',
