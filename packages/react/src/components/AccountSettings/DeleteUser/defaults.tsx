@@ -2,6 +2,7 @@ import React from 'react';
 import { translate } from '@aws-amplify/ui';
 
 import { Button, Card, Flex, Text } from '../../../primitives';
+import { ButtonComponent } from '../types';
 import { DefaultErrorMessage } from '../shared/Defaults';
 import { DeleteUserComponents, WarningViewComponent } from './types';
 
@@ -27,7 +28,7 @@ const DefaultWarningView: WarningViewComponent = ({
             {cancelText}
           </Button>
           <Button
-            variation="primary"
+            variation="destructive"
             onClick={onConfirm}
             isDisabled={isDisabled}
           >
@@ -39,9 +40,13 @@ const DefaultWarningView: WarningViewComponent = ({
   );
 };
 
+const DefaultDeleteButton: ButtonComponent = (props) => (
+  <Button {...props} variation="warning" />
+);
+
 const DEFAULTS: Required<DeleteUserComponents> = {
   ErrorMessage: DefaultErrorMessage,
-  DeleteButton: Button,
+  DeleteButton: DefaultDeleteButton,
   WarningView: DefaultWarningView,
 };
 

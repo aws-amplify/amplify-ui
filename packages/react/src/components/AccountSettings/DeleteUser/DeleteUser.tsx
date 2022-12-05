@@ -90,7 +90,7 @@ function DeleteUser({
   return (
     <Flex className={ComponentClassName.DeleteUser} direction="column">
       <DeleteButton
-        isDisabled={state === 'CONFIRMATION'}
+        isDisabled={state === 'CONFIRMATION' || state === 'DELETING'}
         onClick={startConfirmation}
       >
         {deleteAccountText}
