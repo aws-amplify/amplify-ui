@@ -137,7 +137,6 @@ jobs:
   upload-files-on-error:
     #send video and screenshots on failure as an artifact to be checked later
     runs-on: ubuntu-latest
-    environment: ci
     needs: build
     if: ${{ failure() }}
     steps:
