@@ -146,6 +146,6 @@ jobs:
         with:
           name: build-and-runtime-test-cypress-error-files
           path: |
-            canary/e2e/cypress/videos/sign*
-            canary/e2e/cypress/screenshots/sign*
+            canary/e2e/cypress/videos/sign*/**
+            canary/e2e/cypress/screenshots/sign*/**
           retention-days: 5
