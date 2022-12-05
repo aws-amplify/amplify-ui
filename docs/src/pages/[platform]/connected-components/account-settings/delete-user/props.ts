@@ -58,7 +58,7 @@ export const WARNING = [
   {
     name: `onCancel`,
     description:
-      'Callback that is called when end user cancels account deletion',
+      'Callback function triggered when end user cancels account deletion',
     type: `() => void`,
   },
   {
