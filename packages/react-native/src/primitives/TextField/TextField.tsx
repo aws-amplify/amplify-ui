@@ -51,6 +51,7 @@ export default function TextField({
         </Label>
       ) : null}
       <View
+        accessible
         style={fieldContainerStyle}
         testID={INPUT_CONTAINER_TEST_ID}
       >
