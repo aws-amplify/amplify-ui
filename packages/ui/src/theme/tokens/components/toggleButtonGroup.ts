@@ -1,17 +1,14 @@
-import {
-  AlignContentValue,
-  AlignItemsValue,
-  DesignToken,
-  JustifyContentValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export interface ToggleButtonGroupTokens {
-  alignItems: DesignToken<AlignItemsValue>;
-  alignContent: DesignToken<AlignContentValue>;
-  justifyContent: DesignToken<JustifyContentValue>;
-}
+type ToggleButtonGroupTokenKey =
+  | 'alignItems'
+  | 'alignContent'
+  | 'justifyContent';
 
-export const togglebuttongroup: ToggleButtonGroupTokens = {
+export type ToggleButtonGroupTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<ToggleButtonGroupTokenKey, Output>;
+
+export const togglebuttongroup: Required<ToggleButtonGroupTokens<'default'>> = {
   alignItems: { value: 'center' },
   alignContent: { value: 'center' },
   justifyContent: { value: 'flex-start' },

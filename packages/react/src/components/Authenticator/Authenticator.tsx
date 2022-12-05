@@ -9,6 +9,7 @@ import {
   AuthenticatorProvider as Provider,
   useAuthenticator,
   UseAuthenticator,
+  useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 import {
   CustomComponentsContext,
@@ -34,20 +35,6 @@ export type AuthenticatorProps = Partial<
     }
 >;
 
-// Utility hook that sends init event to the parent provider
-function useInitMachine(data: AuthenticatorMachineOptions) {
-  const { route, initializeMachine } = useAuthenticator(({ route }) => [route]);
-
-  const hasInitialized = React.useRef(false);
-  React.useEffect(() => {
-    if (!hasInitialized.current && route === 'setup') {
-      initializeMachine(data);
-
-      hasInitialized.current = true;
-    }
-  }, [initializeMachine, route, data]);
-}
-
 // `AuthenticatorInternal` exists to give access to the context returned via `useAuthenticator`,
 // which allows the `Authenticator` to just return `children` if a user is authenticated.
 // Once the `Provider` is removed from the `Authenticator` component and exported as
@@ -69,7 +56,7 @@ export function AuthenticatorInternal({
     ({ route, signOut, user }) => [route, signOut, user]
   );
 
-  useInitMachine({
+  useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
     services,

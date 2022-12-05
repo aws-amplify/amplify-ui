@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { FieldDescription, QA_FIELD_DESCRIPTION } from '../FieldDescription';
 import { ComponentClassNames } from '../../shared/constants';

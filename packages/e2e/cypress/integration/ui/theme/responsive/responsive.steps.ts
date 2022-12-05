@@ -1,9 +1,4 @@
-import {
-  And,
-  Given,
-  Then,
-  When,
-} from '@badeball/cypress-cucumber-preprocessor';
+import { And, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const breakpoints = {
   base: 0,

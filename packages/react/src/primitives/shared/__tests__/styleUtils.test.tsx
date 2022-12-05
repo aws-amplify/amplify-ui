@@ -11,9 +11,8 @@ import {
   useTransformStyleProps,
 } from '../styleUtils';
 import {
-  BaseStyleProps,
+  AllStyleProps,
   ComponentPropsToStylePropsMap,
-  FlexContainerStyleProps,
   ViewProps,
 } from '../../types';
 import { Breakpoint } from '../../types/responsive';
@@ -50,12 +49,14 @@ const gridItemProps = {
 };
 
 const theme = createTheme();
+const { tokens } = theme;
 
 describe('convertStylePropsToStyleObj: ', () => {
   it('should convert style props to a style object', () => {
     const { propStyles } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
+      tokens,
     });
     Object.keys(ComponentPropsToStylePropsMap).forEach((prop) => {
       expect(propStyles[prop]).toBe(props[prop]);
@@ -76,6 +77,7 @@ describe('convertStylePropsToStyleObj: ', () => {
     const { propStyles } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
+      tokens,
     });
 
     expect(propStyles['backgroundColor']).toBeUndefined();
@@ -93,6 +95,7 @@ describe('convertStylePropsToStyleObj: ', () => {
     const { propStyles: baseStyle } = convertStylePropsToStyleObj({
       props,
       ...defaultStylePropsParams,
+      tokens,
     });
 
     expect(baseStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
@@ -106,6 +109,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       ...defaultStylePropsParams,
       breakpoint: 'medium',
+      tokens,
     });
 
     expect(mediumStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
@@ -119,6 +123,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       ...defaultStylePropsParams,
       breakpoint: 'large',
+      tokens,
     });
 
     expect(largeStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
@@ -140,6 +145,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       style: existingStyles,
       ...defaultStylePropsParams,
+      tokens,
     });
 
     expect(propStyles['backgroundColor']).toBe('red');
@@ -161,6 +167,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       style: existingStyles,
       ...defaultStylePropsParams,
+      tokens,
     });
 
     expect(propStyles['backgroundColor']).toBe('yellow');
@@ -182,6 +189,7 @@ describe('convertStylePropsToStyleObj: ', () => {
         props,
         style: {},
         ...defaultStylePropsParams,
+        tokens,
       });
 
       expect(propStyles['color']).toBe('var(--amplify-colors-red-10)');
@@ -199,6 +207,7 @@ describe('convertStylePropsToStyleObj: ', () => {
         props,
         style: {},
         ...defaultStylePropsParams,
+        tokens,
       });
 
       expect(propStyles['padding']).toBe(
@@ -215,6 +224,7 @@ describe('convertStylePropsToStyleObj: ', () => {
         props,
         style: {},
         ...defaultStylePropsParams,
+        tokens,
       });
 
       expect(propStyles['padding']).toBe('var(--amplify-space-large) 2px');
@@ -229,6 +239,7 @@ describe('convertStylePropsToStyleObj: ', () => {
         props,
         style: {},
         ...defaultStylePropsParams,
+        tokens,
       });
 
       expect(propStyles['padding']).toBe('foo');
@@ -243,6 +254,7 @@ describe('convertStylePropsToStyleObj: ', () => {
         props,
         style: {},
         ...defaultStylePropsParams,
+        tokens,
       });
 
       expect(propStyles['padding']).toBe('foo.bar');
@@ -257,6 +269,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       style: {},
       ...defaultStylePropsParams,
+      tokens,
     });
     expect(propStyles['color']).toBe('var(--amplify-colors-font-primary)');
   });
@@ -276,6 +289,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       style: {},
       ...defaultStylePropsParams,
+      tokens,
     });
     expect(propStyles['color']).toBe('var(--amplify-colors-font-primary)');
     expect(propStyles['backgroundColor']).toBe(
@@ -286,6 +300,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       ...defaultStylePropsParams,
       breakpoint: 'medium',
+      tokens,
     });
 
     expect(mediumStyle[ComponentPropsToStylePropsMap.color]).toBe(
@@ -299,6 +314,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       ...defaultStylePropsParams,
       breakpoint: 'large',
+      tokens,
     });
     expect(largeStyle[ComponentPropsToStylePropsMap.color]).toBe(
       'var(--amplify-colors-font-secondary)'
@@ -320,6 +336,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       style: {},
       ...defaultStylePropsParams,
+      tokens,
     });
 
     expect(propStyles['color']).toBe('var(--amplify-colors-font-primary)');
@@ -331,6 +348,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       ...defaultStylePropsParams,
       breakpoint: 'medium',
+      tokens,
     });
 
     expect(mediumStyle[ComponentPropsToStylePropsMap.color]).toBe('red');
@@ -342,6 +360,7 @@ describe('convertStylePropsToStyleObj: ', () => {
       props,
       ...defaultStylePropsParams,
       breakpoint: 'large',
+      tokens,
     });
     expect(largeStyle[ComponentPropsToStylePropsMap.color]).toBe('red');
     expect(largeStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
@@ -462,16 +481,14 @@ describe('useTransformStyleProps', () => {
 });
 
 describe('splitPrimitiveProps', () => {
-  it('should split props into base, flex and rest', () => {
-    const baseStyleProps: BaseStyleProps = {
+  it('should split props into style props and rest', () => {
+    const styleProps: AllStyleProps = {
       backgroundColor: 'yellow',
       alignSelf: 'baseline',
       area: 'auto',
       basis: 'content',
       border: '1px solid black',
       borderRadius: '2px',
-    };
-    const flexContainerStyleProps: FlexContainerStyleProps = {
       alignContent: 'space-around',
       alignItems: 'baseline',
       columnGap: '2rem',
@@ -489,18 +506,13 @@ describe('splitPrimitiveProps', () => {
       placeholder: 'Password',
     };
 
-    const {
-      baseStyleProps: resultBaseStyleProps,
-      flexContainerStyleProps: resultFlexContainerStyleProps,
-      rest: resultRest,
-    } = splitPrimitiveProps({
-      ...baseStyleProps,
-      ...flexContainerStyleProps,
-      ...restProps,
-    });
+    const { styleProps: resultStyleProps, rest: resultRest } =
+      splitPrimitiveProps({
+        ...styleProps,
+        ...restProps,
+      });
 
     expect(resultRest).toEqual(restProps);
-    expect(resultFlexContainerStyleProps).toEqual(flexContainerStyleProps);
-    expect(resultBaseStyleProps).toEqual(baseStyleProps);
+    expect(resultStyleProps).toEqual(styleProps);
   });
 });

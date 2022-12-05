@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {
+  AllStyleProps,
   BaseStyleProps,
   ComponentPropsToStylePropsMap,
   GridItemStyleProps,
@@ -17,6 +18,7 @@ import { useTheme } from '../../hooks';
 import { isEmptyString, isNullOrEmptyString } from './utils';
 import { FlexContainerStyleProps } from '../types/flex';
 import { ThemeStylePropKey } from '../types/theme';
+import { WebTheme } from '@aws-amplify/ui';
 
 export const isSpanPrimitiveValue = (
   spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
@@ -85,6 +87,7 @@ interface ConvertStylePropsToStyleObjParams {
   style?: React.CSSProperties;
   breakpoint: Breakpoint;
   breakpoints: Breakpoints;
+  tokens: WebTheme['tokens'];
 }
 export interface ConvertStylePropsToStyleObj {
   (params: ConvertStylePropsToStyleObjParams): {
@@ -103,6 +106,7 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   style = {},
   breakpoint,
   breakpoints,
+  tokens,
 }) => {
   const nonStyleProps = {};
   Object.keys(props)
@@ -121,6 +125,7 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
             breakpoint,
             breakpoints,
             propKey,
+            tokens,
           }),
         };
       }
@@ -137,6 +142,7 @@ export const useStyles = (
 } => {
   const {
     breakpoints: { values: breakpoints, defaultBreakpoint },
+    tokens,
   } = useTheme();
 
   const breakpoint = useBreakpoint({
@@ -153,129 +159,37 @@ export const useStyles = (
         style,
         breakpoint,
         breakpoints,
+        tokens,
       }),
-    [propStyles, style, breakpoints, breakpoint]
+    [propStyles, style, breakpoints, breakpoint, tokens]
   );
 };
 
-/**
- * Map of all the FlexContainerStyleProps type keys
- * The type requires all keys in order to ensure it remains
- * in sync with the FlexContainerStyleProps type.
- */
-const FlexContainerStylePropsMap: Required<{
-  [key in keyof FlexContainerStyleProps]: true;
-}> = {
-  alignContent: true,
-  alignItems: true,
-  direction: true,
-  gap: true,
-  justifyContent: true,
-  wrap: true,
-  columnGap: true,
-  rowGap: true,
-};
-
-/**
- * Map of all the BaseStylePropsMap type keys
- * The type requires all keys in order to ensure it remains
- * in sync with the BaseStylePropsMap type.
- */
-const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
-  alignSelf: true,
-  area: true,
-  backgroundColor: true,
-  backgroundImage: true,
-  basis: true,
-  border: true,
-  borderRadius: true,
-  bottom: true,
-  boxShadow: true,
-  color: true,
-  column: true,
-  columnEnd: true,
-  columnSpan: true,
-  columnStart: true,
-  display: true,
-  flex: true,
-  fontFamily: true,
-  fontSize: true,
-  fontStyle: true,
-  fontWeight: true,
-  grow: true,
-  height: true,
-  left: true,
-  letterSpacing: true,
-  lineHeight: true,
-  margin: true,
-  marginBlock: true,
-  marginBlockEnd: true,
-  marginBlockStart: true,
-  marginBottom: true,
-  marginInline: true,
-  marginInlineEnd: true,
-  marginInlineStart: true,
-  marginLeft: true,
-  marginRight: true,
-  marginTop: true,
-  maxHeight: true,
-  maxWidth: true,
-  minHeight: true,
-  minWidth: true,
-  opacity: true,
-  order: true,
-  overflow: true,
-  padding: true,
-  paddingBlock: true,
-  paddingBlockEnd: true,
-  paddingBlockStart: true,
-  paddingBottom: true,
-  paddingInline: true,
-  paddingInlineEnd: true,
-  paddingInlineStart: true,
-  paddingLeft: true,
-  paddingRight: true,
-  paddingTop: true,
-  position: true,
-  right: true,
-  row: true,
-  rowEnd: true,
-  rowSpan: true,
-  rowStart: true,
-  shrink: true,
-  textAlign: true,
-  textDecoration: true,
-  textTransform: true,
-  top: true,
-  transform: true,
-  transformOrigin: true,
-  width: true,
-  whiteSpace: true,
-};
-
 interface SplitProps<PrimitiveProps> {
-  flexContainerStyleProps: FlexContainerStyleProps;
-  baseStyleProps: BaseStyleProps;
+  styleProps: AllStyleProps;
   rest: Omit<
     PrimitiveProps,
     keyof FlexContainerStyleProps | keyof BaseStyleProps
   >;
 }
 
+/**
+ * This function splits props into style props and non-style props. This is used
+ * on Field primitives so we can apply style props on the wrapper element and
+ * the rest on the input.
+ * @param props this should be a destructured `rest` from the component's props
+ */
 export const splitPrimitiveProps = <PrimitiveProps>(
   props: PrimitiveProps
 ): SplitProps<PrimitiveProps> => {
   const splitProps: SplitProps<PrimitiveProps> = {
-    flexContainerStyleProps: {},
-    baseStyleProps: {},
+    styleProps: {},
     rest: {} as SplitProps<PrimitiveProps>['rest'],
   };
 
   Object.keys(props).forEach((prop) => {
-    if (prop in FlexContainerStylePropsMap) {
-      splitProps.flexContainerStyleProps[prop] = props[prop] as PrimitiveProps;
-    } else if (prop in BaseStylePropsMap) {
-      splitProps.baseStyleProps[prop] = props[prop] as PrimitiveProps;
+    if (prop in ComponentPropsToStylePropsMap) {
+      splitProps.styleProps[prop] = props[prop] as PrimitiveProps;
     } else {
       splitProps.rest[prop] = props[prop] as PrimitiveProps;
     }

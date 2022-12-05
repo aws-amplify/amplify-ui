@@ -1,0 +1,73 @@
+import { Tabs, TabItem, } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
+
+<Example>
+<ExampleCode>
+<Tabs>
+<TabItem title="InAppMessagingProvider/InAppMessageDisplay">
+
+```jsx
+import React, { useEffect } from 'react';
+import { Text } from 'react-native';
+
+import { Amplify, Notifications } from 'aws-amplify';
+import {
+  InAppMessageDisplay,
+  InAppMessagingProvider,
+} from '@aws-amplify/ui-react-native';
+
+import config from './aws-exports';
+
+const { InAppMessaging } = Notifications;
+
+Amplify.configure(config);
+
+function App() {
+  useEffect(() => {
+    // sync remote in-app messages
+    InAppMessaging.syncMessages();
+  }, []);
+
+  return (
+    <InAppMessagingProvider>
+      <InAppMessageDisplay />
+      <Text>In-App Messaging Example</Text>
+    </InAppMessagingProvider>
+  );
+}
+
+export default App;
+```
+
+</TabItem>
+<TabItem title="withInAppMessaging">
+
+```jsx
+import React, { useEffect } from 'react';
+import { Text } from 'react-native';
+
+import { Amplify, Notifications } from 'aws-amplify';
+import { withInAppMessaging } from '@aws-amplify/ui-react-native';
+
+import config from './aws-exports';
+
+const { InAppMessaging } = Notifications;
+
+Amplify.configure(config);
+
+function App() {
+  useEffect(() => {
+    // sync remote in-app messages
+    InAppMessaging.syncMessages();
+  }, []);
+
+  return <Text>In-App Messaging Example</Text>;
+}
+
+export default withInAppMessaging(App);
+```
+   
+</TabItem>
+</Tabs>
+</ExampleCode>
+</Example>

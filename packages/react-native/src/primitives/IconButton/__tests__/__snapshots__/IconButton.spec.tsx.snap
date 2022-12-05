@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IconButton applies theme and style props 1`] = `
+<View
+  accessibilityRole="button"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {},
+      null,
+      null,
+      Object {
+        "backgroundColor": "blue",
+      },
+    ]
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "uri": "icon.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 24,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 24,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`IconButton handles disabled state 1`] = `
+<View
+  accessibilityRole="button"
+  accessibilityState={
+    Object {
+      "disabled": true,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {},
+      Object {
+        "opacity": 0.6,
+      },
+      null,
+      undefined,
+    ]
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "uri": "icon.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 24,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 24,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`IconButton renders as expected 1`] = `
+<View
+  accessibilityRole="button"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {},
+      null,
+      null,
+      undefined,
+    ]
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "uri": "icon.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 24,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 24,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`IconButton renders as expected with custom icon style 1`] = `
+<View
+  accessibilityRole="button"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {},
+      null,
+      null,
+      undefined,
+    ]
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "uri": "icon.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 24,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 24,
+        },
+        Object {
+          "backgroundColor": "antiquewhite",
+        },
+      ]
+    }
+  />
+</View>
+`;

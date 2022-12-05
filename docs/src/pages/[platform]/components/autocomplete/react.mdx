@@ -1,0 +1,242 @@
+import { Autocomplete } from '@aws-amplify/ui-react';
+
+import { ComponentClassTable } from '@/components/ComponentClassTable';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { Example, ExampleCode } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
+import ThemeExample from '@/components/ThemeExample.mdx';
+import { AutocompleteDemo } from './demo';
+import { 
+  AutocompleteControlledExample,
+  AutocompleteCustomEmptyExample,
+  AutocompleteCustomFilteringExample,
+  AutocompleteCustomFooterExample,
+  AutocompleteCustomHeaderExample,
+  AutocompleteCustomLoadingExample,
+  AutocompleteCustomOptionExample,
+  AutocompleteLoadingStateExample,
+  AutocompletePlaceholderExample,
+  AutocompleteSizeExample,
+  AutocompleteVariationExample,
+  AutocompleteStylePropsExample,
+  AutocompleteThemeExample,
+  DefaultAutocompleteExample,
+} from './examples';
+
+## Demo
+
+<AutocompleteDemo />
+
+## Usage
+
+Import the `Autocomplete`, provide `options` for autocomplete and a `label` for accessibility/usability.
+
+<Example>
+  <DefaultAutocompleteExample />
+  <ExampleCode>
+    ```tsx file=./examples/DefaultAutocompleteExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Accessibility / Label behavior
+
+<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
+
+### Controlled component
+
+<Example>
+  <AutocompleteControlledExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteControlledExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+***Note***: When using Autocomplete in controlled way,  you are also responsible to set up `onClear` and `onSelect` event handlers
+in addition to `onChange` since the input value is under your control.
+
+### Placeholder
+
+Text that appears in `Autocomplete` when it has no value set.
+
+<Example>
+  <AutocompletePlaceholderExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompletePlaceholderExample.tsx
+
+    ```
+  </ExampleCode>
+</Example>
+
+### Sizes
+
+Use the `size` prop to change `Autocomplete` size. Available options are `small`, `large`, and none (default).
+
+<Example>
+  <AutocompleteSizeExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteSizeExample.tsx
+
+    ```
+  </ExampleCode>
+</Example>
+
+### Variations
+
+There are two variation styles available: default and `quiet`.
+
+<Example>
+  <AutocompleteVariationExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteVariationExample.tsx
+
+    ```
+  </ExampleCode>
+</Example>
+
+### Loading state
+
+By setting `isLoading` to `true`, `Autocomplete` will be in loading state.
+
+<Example>
+  <AutocompleteLoadingStateExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteLoadingStateExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Custom filtering
+
+By default, `Autocomplete` will filter against option `label`. You can customize the filtering behavior by providing `filteringOptions`.
+
+<Example>
+  <AutocompleteCustomFilteringExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteCustomFilteringExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+***Note***: When you create your own filtering logic, match highlighting will be disabled. If you want to enable it, 
+you can build a custom option and wrap the `label` with `HighlightMatch`. See [custom option example](#custom-option).
+
+### Custom option
+
+You can create a custom option by providing `renderOption`.
+
+<Example>
+  <AutocompleteCustomOptionExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteCustomOptionExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Custom menu
+
+You can customize the option menu by setting `menu`. The available slots accept a `ReactNode`.
+
+#### Custom header
+
+<Example>
+  <AutocompleteCustomHeaderExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteCustomHeaderExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+#### Custom footer
+
+<Example>
+  <AutocompleteCustomFooterExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteCustomFooterExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+#### Custom empty
+
+<Example>
+  <AutocompleteCustomEmptyExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteCustomEmptyExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+#### Custom loading
+
+<Example>
+  <AutocompleteCustomLoadingExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteCustomLoadingExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Styling
+
+<ThemeExample component="Autocomplete">
+  <Example>
+    <AutocompleteThemeExample />
+    <ExampleCode>
+      ```tsx file=./examples/AutocompleteThemeExample.tsx
+
+      ```
+    </ExampleCode>
+  </Example>
+</ThemeExample>
+
+### Target classes
+
+<ComponentStyleDisplay componentName="Autocomplete" />
+
+### Global styling
+
+To override styling on all Autocompletes, you can set the Amplify CSS variables with the built-in `.amplify-autocomplete` class.
+
+<Example>
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .amplify-autocomplete {
+      --amplify-components-autocomplete-menu-option-active-background-color: var(--amplify-colors-brand-secondary-80);
+    }
+    ```
+  </ExampleCode>
+</Example>
+
+### Local styling
+
+To override styling on a specific Autocomplete, you can use (in order of increasing specificity): a class selector and style props.
+
+_Using a class selector:_
+
+<Example>
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .my-autocomplete {
+      --amplify-components-autocomplete-menu-option-active-background-color: var(--amplify-colors-brand-secondary-80);
+    }
+    ```
+  </ExampleCode>
+</Example>
+
+_Using style props:_
+
+<Example>
+  <AutocompleteStylePropsExample />
+  <ExampleCode>
+    ```tsx file=./examples/AutocompleteStylePropsExample.tsx
+
+    ```
+  </ExampleCode>
+</Example>

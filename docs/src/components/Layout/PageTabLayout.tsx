@@ -3,20 +3,28 @@ import { useRouter } from 'next/router';
 
 import { Tabs, TabItem, View } from '@aws-amplify/ui-react';
 
-export const PageTabLayout = ({ tabComponents }) => {
+export const PageTabLayout = ({
+  tabComponents,
+}: {
+  tabComponents: [{ title: string; children: React.Component }];
+}) => {
   const {
     query: { tab = '', platform },
     pathname,
     push,
   } = useRouter();
+  const tabComponentsMap = tabComponents.map(({ title }) =>
+    title.toLocaleLowerCase()
+  );
 
-  const defaultIndex = tab === 'props' ? 1 : 0;
+  const getIndex = (tab: string) =>
+    tab === '' ? 0 : tabComponentsMap.indexOf(tab);
+  const defaultIndex = getIndex(tab as string);
   const [tabIndex, setTabIndex] = React.useState(defaultIndex);
-
   const changeURL = (index) => {
     push(
       {
-        pathname: index == 0 ? pathname.replace('/[tab]', '') : pathname,
+        pathname,
         query: {
           platform,
           ...(index != 0 && { tab: tabComponents[index].title.toLowerCase() }),
@@ -27,6 +35,10 @@ export const PageTabLayout = ({ tabComponents }) => {
     );
     setTabIndex(index);
   };
+
+  React.useEffect(() => {
+    setTabIndex(getIndex(tab as string));
+  }, [tab, getIndex]);
 
   return (
     <Tabs

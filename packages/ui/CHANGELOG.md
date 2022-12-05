@@ -1,5 +1,150 @@
 # @aws-amplify/ui
 
+## 5.2.0
+
+### Minor Changes
+
+- [#3028](https://github.com/aws-amplify/amplify-ui/pull/3028) [`7f4248db4`](https://github.com/aws-amplify/amplify-ui/commit/7f4248db457639d1bb34c8318569ab047aa80c5e) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Added the FileUploader component. The File Uploader lets your users upload files to the cloud. For more information follow the instructions. https://ui.docs.amplify.aws/react/connected-components/storage/fileuploader
+
+### Patch Changes
+
+- [#3001](https://github.com/aws-amplify/amplify-ui/pull/3001) [`b416aca55`](https://github.com/aws-amplify/amplify-ui/commit/b416aca553649d37e2686c02f3223a77bf36ed98) Thanks [@SilverLinings89](https://github.com/SilverLinings89)! - Add export dist/styles.css to fix missing export error. See issue #2999.
+
+- [#3104](https://github.com/aws-amplify/amplify-ui/pull/3104) [`8e5e696f4`](https://github.com/aws-amplify/amplify-ui/commit/8e5e696f4d0ae61e74537cdfe4395005cc21ce12) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): adding types to exports in package json to support TS moduleResolution for node16/nodenext
+
+- [#3074](https://github.com/aws-amplify/amplify-ui/pull/3074) [`a5b8696bc`](https://github.com/aws-amplify/amplify-ui/commit/a5b8696bc41d8cb2ff2c6fc39f8fd1afc349955a) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix radio button sizing issue #2756
+
+## 5.1.1
+
+### Patch Changes
+
+- [#3071](https://github.com/aws-amplify/amplify-ui/pull/3071) [`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(theme): update types for `ThemeProvider` to accept output of `createTheme`
+
+## 5.1.0
+
+### Minor Changes
+
+- [#3067](https://github.com/aws-amplify/amplify-ui/pull/3067) [`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1) Thanks [@joebuono](https://github.com/joebuono)! - feat: Add React Native Authenticator
+
+### Patch Changes
+
+- [#3013](https://github.com/aws-amplify/amplify-ui/pull/3013) [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fix autocomplete popup render issue in Safari and Firefox and bump its z-index
+
+## 5.0.0
+
+### Major Changes
+
+- [#2828](https://github.com/aws-amplify/amplify-ui/pull/2828) [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(next-release): render Authenticator field labels
+
+- [#2558](https://github.com/aws-amplify/amplify-ui/pull/2558) [`d90b148c0`](https://github.com/aws-amplify/amplify-ui/commit/d90b148c0e06b3321f4f05fad2b32ef52c04214d) Thanks [@reesscot](https://github.com/reesscot)! - chore: upgrade radix to 1.0
+
+  Fixes error messages during `npm install` related to React 18. See Migration guide for more information:
+  https://ui.docs.amplify.aws/react/getting-started/migration
+
+### Patch Changes
+
+- [#2877](https://github.com/aws-amplify/amplify-ui/pull/2877) [`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7) Thanks [@ErikCH](https://github.com/ErikCH)! - **BREAKING**: When overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. This is now required.
+
+  ```diff
+   async handleSignUp(formData) {
+    let { username, password, attributes } = formData;
+    // custom username
+    username = username.toLowerCase();
+    attributes.email = attributes.email.toLowerCase();
+    return Auth.signUp({
+      username,
+      password,
+      attributes,
+  +   autoSignIn: {
+  +     enabled: true
+  +   }
+    });
+  }
+
+  ```
+
+## 4.1.0
+
+### Minor Changes
+
+- [#2708](https://github.com/aws-amplify/amplify-ui/pull/2708) [`702a35738`](https://github.com/aws-amplify/amplify-ui/commit/702a3573850639c492c51ce10e27e194d720d5ac) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: add Autocomplete primitive
+
+  **Example**
+
+  ```jsx
+  // Uncontrolled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteUncontrolledExample = () => {
+    return <Autocomplete label="Uncontrolled autocomplete" options={options} />;
+  };
+  ```
+
+  ```jsx
+  // Controlled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteControlledExample = () => {
+    const [value, setValue] = React.useState('');
+
+    const onChange = (event) => {
+      setValue(event.target.value);
+    };
+
+    // Set up onSelect
+    const onSelect = (option) => {
+      const { label } = option;
+      setValue(label);
+    };
+
+    // Set up onClear
+    const onClear = () => {
+      setValue('');
+    };
+
+    return (
+      <Autocomplete
+        label="Controlled autocomplete"
+        options={options}
+        value={value}
+        onChange={onChange}
+        onClear={onClear}
+        onSelect={onSelect}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2881](https://github.com/aws-amplify/amplify-ui/pull/2881) [`0935da51a`](https://github.com/aws-amplify/amplify-ui/commit/0935da51ac04334e458339da2bf0ef72f248cf26) Thanks [@francisGolden](https://github.com/francisGolden)! - Fix italian grammar in translation and improve accuracy
+
 ## 4.0.1
 
 ### Patch Changes
