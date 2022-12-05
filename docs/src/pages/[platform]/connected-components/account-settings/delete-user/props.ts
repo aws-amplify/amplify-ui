@@ -7,7 +7,7 @@ export const DELETE_USER = [
   },
   {
     name: `onError?`,
-    description: 'Callback that is called when account deletion fails',
+    description: 'Callback function triggered when account deletion fails',
     type: `(error: Error) => void`,
   },
   {
