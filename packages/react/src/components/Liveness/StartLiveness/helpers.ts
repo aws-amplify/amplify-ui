@@ -1,24 +1,23 @@
-import { isIOS, isPortrait } from '../utils/device';
-
 export function getVideoConstraints(
   isMobileScreen: boolean,
   contentWidth: number
 ): MediaTrackConstraints | null {
   if (isMobileScreen) {
-    // opposite values of width/height for non ios are used because getMediaStream handles the aspect ratio on mobile
-    const idealHeight = isIOS() ? window.innerHeight : 480;
-    const idealWidth = isIOS() ? window.innerWidth : 640;
+    // We're requesting opposite values here because we've focused on
+    // portrait first.
+    const idealHeight = window.innerWidth;
+    const idealWidth = window.innerHeight;
 
     return {
       width: {
         min: 320,
         ideal: idealWidth,
-        max: isPortrait() ? window.innerHeight : window.innerWidth,
+        max: idealWidth,
       },
       height: {
         min: 240,
         ideal: idealHeight,
-        max: isPortrait() ? window.innerWidth : window.innerHeight,
+        max: idealHeight,
       },
       frameRate: { min: 15, ideal: 30, max: 30 },
       facingMode: 'user',

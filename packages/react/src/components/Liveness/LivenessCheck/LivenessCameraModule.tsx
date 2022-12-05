@@ -10,7 +10,7 @@ import {
   useMediaStreamInVideo,
 } from '../hooks';
 import { CancelButton, Instruction, RecordingIcon, Overlay } from '../shared';
-import { isFirefox, isAndroid } from '../utils/device';
+import { isFirefox, isAndroid, isIOS } from '../utils/device';
 import { Flex, Loader, Text, View } from '../../../primitives';
 
 export const selectVideoConstraints = createLivenessSelector(
@@ -50,10 +50,10 @@ export const LivenessCameraModule = (
   const isRecording = state.matches('recording');
 
   /**
-   * Temp fix: Firefox on Android returns opposite values you'd expect
+   * Temp fix: Firefox on Android + iOS returns opposite values you'd expect
    * from getUserMedia().
    */
-  const shouldFlipValues = isAndroid() && isFirefox();
+  const shouldFlipValues = (isAndroid() && isFirefox()) || isIOS();
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
@@ -103,8 +103,8 @@ export const LivenessCameraModule = (
       direction="column"
       alignItems="center"
       justifyContent="center"
+      position={isMobileScreen ? 'fixed' : 'relative'}
       {...(isMobileScreen && {
-        position: 'fixed',
         top: 0,
         left: 0,
         backgroundColor: 'black',
@@ -112,98 +112,105 @@ export const LivenessCameraModule = (
         width: '100%',
       })}
     >
-      <Flex direction="column" position="relative">
-        {!isCameraReady && centeredLoader}
+      {!isCameraReady && centeredLoader}
 
-        <View
-          as="canvas"
-          ref={freshnessColorRef}
-          height="100%"
-          width="100%"
-          position="fixed"
-          top={0}
-          left={0}
-          style={{
-            pointerEvents: 'none',
-            zIndex: 1,
-          }}
-          hidden
-        />
+      <View
+        as="canvas"
+        ref={freshnessColorRef}
+        height="100%"
+        width="100%"
+        position="fixed"
+        top={0}
+        left={0}
+        style={{
+          pointerEvents: 'none',
+          zIndex: 1,
+        }}
+        hidden
+      />
 
-        <video
-          ref={videoRef}
-          muted
-          autoPlay
-          playsInline
-          height={shouldFlipValues ? videoWidth : videoHeight}
-          width={shouldFlipValues ? videoHeight : videoWidth}
-          style={{ transform: 'scaleX(-1)' }}
-          onCanPlay={handleMediaPlay}
-          data-testid="video"
-        />
+      <video
+        ref={videoRef}
+        muted
+        autoPlay
+        playsInline
+        height={shouldFlipValues ? videoWidth : videoHeight}
+        width={shouldFlipValues ? videoHeight : videoWidth}
+        style={{ transform: 'scaleX(-1)' }}
+        onCanPlay={handleMediaPlay}
+        data-testid="video"
+      />
+      <Flex
+        direction="column"
+        position="absolute"
+        top={0}
+        left={0}
+        width="100%"
+        height="100%"
+        alignItems="center"
+        justifyContent="center"
+      >
         <View
           as="canvas"
           ref={canvasRef}
           height={shouldFlipValues ? videoWidth : videoHeight}
           width={shouldFlipValues ? videoHeight : videoWidth}
-          position="absolute"
-          top={0}
         />
+      </Flex>
 
-        {isRecording && (
-          <View
-            style={{ zIndex: 1 }}
-            position="absolute"
-            top="medium"
-            left="medium"
-          >
-            <RecordingIcon />
-          </View>
-        )}
-
+      {isRecording && (
         <View
-          style={{ zIndex: 2 }}
+          style={{ zIndex: 1 }}
           position="absolute"
           top="medium"
-          right="medium"
+          left="medium"
         >
-          <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
+          <RecordingIcon />
         </View>
-        {countDownRunning && (
-          <Overlay
-            style={{ zIndex: 1 }}
-            anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
-          >
-            <Instruction />
+      )}
 
-            {isNotRecording && (
-              <View
-                backgroundColor="background.primary"
-                borderRadius="100%"
-                padding="8px"
+      <View
+        style={{ zIndex: 2 }}
+        position="absolute"
+        top="medium"
+        right="medium"
+      >
+        <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
+      </View>
+      {countDownRunning && (
+        <Overlay
+          style={{ zIndex: 1 }}
+          anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
+        >
+          <Instruction />
+
+          {isNotRecording && (
+            <View
+              backgroundColor="background.primary"
+              borderRadius="100%"
+              padding="8px"
+            >
+              <CountdownCircleTimer
+                isPlaying={isNotRecording}
+                size={85}
+                strokeWidth={8}
+                duration={3}
+                rotation="counterclockwise"
+                // FIXME: colors is hard coded because it only allows a hex value
+                colors="#40aabf"
+                trailColor={`${tokens.colors.background.primary}`}
+                onComplete={timerCompleteHandler}
               >
-                <CountdownCircleTimer
-                  isPlaying={isNotRecording}
-                  size={85}
-                  strokeWidth={8}
-                  duration={3}
-                  rotation="counterclockwise"
-                  // FIXME: colors is hard coded because it only allows a hex value
-                  colors="#40aabf"
-                  trailColor={`${tokens.colors.background.primary}`}
-                  onComplete={timerCompleteHandler}
-                >
-                  {({ remainingTime }) => (
-                    <Text fontSize="xxxl" fontWeight="bold">
-                      {remainingTime}
-                    </Text>
-                  )}
-                </CountdownCircleTimer>
-              </View>
-            )}
-          </Overlay>
-        )}
-      </Flex>
+                {({ remainingTime }) => (
+                  <Text fontSize="xxxl" fontWeight="bold">
+                    {remainingTime}
+                  </Text>
+                )}
+              </CountdownCircleTimer>
+            </View>
+          )}
+        </Overlay>
+      )}
     </Flex>
   );
 };
