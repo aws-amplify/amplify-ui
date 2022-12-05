@@ -63,7 +63,7 @@ export const WARNING = [
   },
   {
     name: `onConfirm`,
-    description: 'Callback that is ccalled when user confirms account deletion',
+    description: 'Callback function triggered when user confirms account deletion',
     type: `() => void`,
   },
   {
