@@ -541,6 +541,11 @@ export const theming: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/theming/theme-provider',
+    label: 'ThemeProvider',
+    platforms: ['react'],
+  },
+  {
     href: '/theming/dark-mode',
     label: 'Dark mode',
     platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
