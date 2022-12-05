@@ -2,7 +2,7 @@ export const CHANGE_PASSWORD = [
   {
     name: `onSuccess?`,
     description:
-      'Callback that is called once password is successfully updated',
+      'Callback function triggered when password is successfully updated',
     type: `() => void`,
   },
   {
