@@ -11,7 +11,7 @@ type SwitchFieldTrackCheckedTokens<OutputType> = DesignTokenProperties<
 >;
 
 export type SwitchFieldTokens<OutputType extends OutputVariantKey> =
-  DesignTokenProperties<'fontSize'> & {
+  DesignTokenProperties<'fontSize', OutputType> & {
     _disabled?: DesignTokenProperties<'opacity', OutputType>;
     _focused?: DesignTokenProperties<'shadow', OutputType>;
     large?: SwitchFieldSizeTokens<OutputType>;
@@ -21,16 +21,16 @@ export type SwitchFieldTokens<OutputType extends OutputVariantKey> =
       'backgroundColor' | 'borderColor' | 'borderRadius' | 'width',
       OutputType
     > & {
-      checked: DesignTokenProperties<'transform', OutputType>;
-      transition: DesignTokenProperties<'duration', OutputType>;
+      checked?: DesignTokenProperties<'transform', OutputType>;
+      transition?: DesignTokenProperties<'duration', OutputType>;
     };
     track?: DesignTokenProperties<
       'backgroundColor' | 'borderRadius' | 'height' | 'width' | 'padding',
       OutputType
     > & {
-      checked: SwitchFieldTrackCheckedTokens<OutputType>;
-      transition: DesignTokenProperties<'duration', OutputType>;
-      _error: SwitchFieldTrackCheckedTokens<OutputType>;
+      checked?: SwitchFieldTrackCheckedTokens<OutputType>;
+      transition?: DesignTokenProperties<'duration', OutputType>;
+      _error?: SwitchFieldTrackCheckedTokens<OutputType>;
     };
   };
 

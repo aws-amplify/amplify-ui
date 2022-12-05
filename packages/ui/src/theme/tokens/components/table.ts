@@ -37,8 +37,8 @@ export type TableTokens<Output extends OutputVariantKey> =
       hover?: DesignTokenProperties<'backgroundColor', Output>;
       striped?: DesignTokenProperties<'backgroundColor', Output>;
     };
-    header: TableCellTokens<Output>;
-    data: TableCellTokens<Output>;
+    header?: TableCellTokens<Output>;
+    data?: TableCellTokens<Output>;
     caption?: DesignTokenProperties<
       | 'captionSide'
       | 'color'
