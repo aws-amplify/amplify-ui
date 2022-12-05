@@ -2,7 +2,7 @@ export const DELETE_USER = [
   {
     name: `onSuccess?`,
     description:
-      'Callback that is called once user account is successfully deleted',
+      'Callback function triggered once user account is successfully deleted',
     type: `() => void`,
   },
   {
