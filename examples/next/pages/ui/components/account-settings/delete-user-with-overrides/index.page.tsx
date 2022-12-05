@@ -30,8 +30,8 @@ function CustomWarning({ onCancel, onConfirm, isDisabled }) {
     <form>
       <Flex direction="column">
         <Text variation="warning">
-          Deleting your account is not reversable. Please type "delete" below if
-          you want to confirm user deletion.
+          Deleting your account is not reversable. Please type
+          &quot;delete&quot; below if you want to confirm user deletion.
         </Text>
         <TextField
           labelHidden
