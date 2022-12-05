@@ -6,7 +6,7 @@ type ButtonStateColorTokens<Output> = DesignTokenProperties<
 >;
 
 export type StepperFieldTokens<Output extends OutputVariantKey> =
-  DesignTokenProperties<'borderColor' | 'flexDirection'> & {
+  DesignTokenProperties<'borderColor' | 'flexDirection', Output> & {
     input?: DesignTokenProperties<'textAlign' | 'color' | 'fontSize', Output>;
     button?: DesignTokenProperties<'backgroundColor' | 'color', Output> & {
       _active?: ButtonStateColorTokens<Output>;

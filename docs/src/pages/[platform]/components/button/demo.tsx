@@ -48,6 +48,8 @@ const PropControls = (props) => {
         <option value="">Default</option>
         <option value="primary">Primary</option>
         <option value="link">Link</option>
+        <option value="warning">Warning</option>
+        <option value="destructive">Destructive</option>
       </SelectField>
 
       <SelectField

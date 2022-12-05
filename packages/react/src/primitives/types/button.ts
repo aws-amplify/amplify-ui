@@ -4,7 +4,12 @@ import { FlexContainerStyleProps } from './flex';
 
 export type ButtonSizes = Sizes;
 export type ButtonTypes = 'button' | 'reset' | 'submit';
-export type ButtonVariations = 'primary' | 'link' | 'menu';
+export type ButtonVariations =
+  | 'primary'
+  | 'link'
+  | 'menu'
+  | 'warning'
+  | 'destructive';
 
 export interface ButtonProps extends ViewProps, FlexContainerStyleProps {
   /**

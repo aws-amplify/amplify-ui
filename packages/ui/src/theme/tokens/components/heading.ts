@@ -8,8 +8,8 @@ type HeadingLevelTokens<Output> = DesignTokenProperties<
 type Level = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type HeadingTokens<Output extends OutputVariantKey> =
-  DesignTokenProperties<'color' | 'lineHeight'> &
-    Record<Level, HeadingLevelTokens<Output>>;
+  DesignTokenProperties<'color' | 'lineHeight', Output> &
+    Partial<Record<Level, HeadingLevelTokens<Output>>>;
 
 export const heading: Required<HeadingTokens<'default'>> = {
   color: { value: '{colors.font.primary.value}' },

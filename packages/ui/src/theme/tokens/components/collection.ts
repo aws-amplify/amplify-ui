@@ -14,18 +14,18 @@ type PaginationTokens<Output> = {
 };
 
 type SearchTokens<Output> = {
-  input: DesignTokenProperties<'color', Output>;
-  button: DesignTokenProperties<'color', Output> & {
-    _active: StateTokens<Output>;
-    _disabled: StateTokens<Output>;
-    _focus: StateTokens<Output>;
-    _hover: StateTokens<Output>;
+  input?: DesignTokenProperties<'color', Output>;
+  button?: DesignTokenProperties<'color', Output> & {
+    _active?: StateTokens<Output>;
+    _disabled?: StateTokens<Output>;
+    _focus?: StateTokens<Output>;
+    _hover?: StateTokens<Output>;
   };
 };
 
 export interface CollectionTokens<Output extends OutputVariantKey> {
-  pagination: PaginationTokens<Output>;
-  search: SearchTokens<Output>;
+  pagination?: PaginationTokens<Output>;
+  search?: SearchTokens<Output>;
 }
 
 //we are reusing the types from the nested components but new tokens need to be created that reference the previous tokens so that they can inherit the needed values but can be overwritten and only effect the collection component.
