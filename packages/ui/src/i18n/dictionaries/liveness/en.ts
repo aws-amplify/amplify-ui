@@ -16,14 +16,14 @@ export const enDict = {
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
 
   // Camera Permissions
-  'Connect a camera and allow camera permission in browser settings':
-    'Connect a camera and allow camera permission in browser settings',
-  'Camera not accessible': 'Camera not accessible',
-  'Camera does not meet minimum specification':
-    'Camera does not meet minimum specification',
-  'Use a camera that can record at 15 frames per second or higher':
-    'Use a camera that can record at 15 frames per second or higher',
-  Proceed: 'Proceed',
+  'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.':
+    'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.',
+  'Camera not accessible.': 'Camera not accessible.',
+  'Camera does not meet minimum specification.':
+    'Camera does not meet minimum specification.',
+  'Use a camera that can record at 15 frames per second or higher.':
+    'Use a camera that can record at 15 frames per second or higher.',
+  Retry: 'Retry',
 
   // Liveness Flow
   'Connecting...': 'Connecting...',
@@ -51,8 +51,8 @@ export const enDict = {
   // Error messages
   'Check failed due to server issue': 'Check failed due to server issue',
   'Check failed due to client issue': 'Check failed due to client issue',
-  'Place face inside oval within 5 seconds':
-    'Place face inside oval within 5 seconds',
+  'Face not detected within time limit. Try again and place face inside oval within 5 seconds.':
+    'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
   'Time out': 'Time out',
   'Internal server error': 'Internal server error',
   'Client error': 'Client error',

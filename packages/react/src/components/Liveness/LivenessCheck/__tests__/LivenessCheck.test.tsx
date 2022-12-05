@@ -42,8 +42,8 @@ describe('LivenessCheck', () => {
     expect(
       screen.getByRole('button', { name: 'Cancel Liveness check' })
     ).toBeInTheDocument();
-    expect(screen.getByText('Camera not accessible')).toBeInTheDocument();
-    expect(screen.getByText('Proceed')).toBeInTheDocument();
+    expect(screen.getByText('Camera not accessible.')).toBeInTheDocument();
+    expect(screen.getByText('Retry')).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
   });
 
@@ -59,7 +59,7 @@ describe('LivenessCheck', () => {
       screen.getByRole('button', { name: 'Cancel Liveness check' })
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Camera does not meet minimum specification')
+      screen.getByText('Camera does not meet minimum specification.')
     ).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
   });

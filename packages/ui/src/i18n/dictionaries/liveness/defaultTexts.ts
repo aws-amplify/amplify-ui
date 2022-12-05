@@ -16,12 +16,12 @@ export const defaultTexts = {
 
   // Camera Permissions
   LIVENESS_NO_CAMERA_DETECTED_DESCRIPTION:
-    'Connect a camera and allow camera permission in browser settings',
-  LIVENESS_NO_CAMERA_DETECTED: 'Camera not accessible',
-  LIVENESS_NO_CAMERA_MIN_SPEC: 'Camera does not meet minimum specification',
+    'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.',
+  LIVENESS_NO_CAMERA_DETECTED: 'Camera not accessible.',
+  LIVENESS_NO_CAMERA_MIN_SPEC: 'Camera does not meet minimum specification.',
   LIVENESS_NO_CAMERA_MIN_SPEC_DESCRIPTION:
-    'Use a camera that can record at 15 frames per second or higher',
-  LIVENESS_NO_CAMERA_CTA: 'Proceed',
+    'Use a camera that can record at 15 frames per second or higher.',
+  LIVENESS_NO_CAMERA_CTA: 'Retry',
 
   // Liveness Flow
   LIVENESS_CHECK_CONNECTING: 'Connecting...',
@@ -47,7 +47,8 @@ export const defaultTexts = {
 
   // Error messages
   LIVENESS_ERROR: 'Check encountered an error',
-  LIVENESS_TIMEOUT: 'Place face inside oval within 5 seconds',
+  LIVENESS_TIMEOUT:
+    'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
 
   LIVENESS_HINT_MULTIPLE_FACES_DETECTED: 'Multiple faces detected',
 };

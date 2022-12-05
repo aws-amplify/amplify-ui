@@ -319,7 +319,7 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
     'Check failed due to server issue'
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>(
-    'Place face inside oval within 5 seconds'
+    'Face not detected within time limit. Try again and place face inside oval within 5 seconds.'
   ),
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: undefined,
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: undefined,

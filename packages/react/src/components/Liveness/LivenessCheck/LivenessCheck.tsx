@@ -61,16 +61,16 @@ export const LivenessCheck: React.FC = () => {
             fontWeight={`${tokens.fontWeights.bold}`}
           >
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
-              ? translate('Camera does not meet minimum specification')
-              : translate('Camera not accessible')}
+              ? translate('Camera does not meet minimum specification.')
+              : translate('Camera not accessible.')}
           </Text>
           <Text color="inherit" maxWidth={300}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? translate(
-                  'Use a camera that can record at 15 frames per second or higher'
+                  'Use a camera that can record at 15 frames per second or higher.'
                 )
               : translate(
-                  'Connect a camera and allow camera permission in browser settings'
+                  'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.'
                 )}
           </Text>
           <Button
@@ -78,7 +78,7 @@ export const LivenessCheck: React.FC = () => {
             type="button"
             onClick={recheckCameraPermissions}
           >
-            {translate('Proceed')}
+            {translate('Retry')}
           </Button>
           <View position="absolute" top="medium" right="medium">
             <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
