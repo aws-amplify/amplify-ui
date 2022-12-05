@@ -7,7 +7,7 @@ export const CHANGE_PASSWORD = [
   },
   {
     name: `onError?`,
-    description: 'Callback that is called when change password fails',
+    description: 'Callback function triggered when change password fails',
     type: `(error: Error) => void`,
   },
   {
