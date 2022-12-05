@@ -9,7 +9,7 @@ import { AuthenticatorRoute } from './facade';
 /**
  * ConfirmSignIn
  */
-const getChallengeText = (challengeName: AuthChallengeName): string => {
+const getChallengeText = (challengeName?: AuthChallengeName): string => {
   switch (challengeName) {
     case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);
@@ -94,12 +94,14 @@ export const authenticatorTextUtil = {
   getConfirmText: () => translate(DefaultTexts.CONFIRM),
   getConfirmingText: () => translate(DefaultTexts.CONFIRMING),
   getCopyText: () => translate(DefaultTexts.UPPERCASE_COPY),
+  getHidePasswordText: () => translate(DefaultTexts.HIDE_PASSWORD),
+  getLoadingText: () => translate(DefaultTexts.LOADING),
   getResendCodeText: () => translate(DefaultTexts.RESEND_CODE),
   getSendCodeText: () => translate(DefaultTexts.SEND_CODE),
   getSendingText: () => translate(DefaultTexts.SENDING),
+  getShowPasswordText: () => translate(DefaultTexts.SHOW_PASSWORD),
   getSubmitText: () => translate(DefaultTexts.SUBMIT),
   getSubmittingText: () => translate(DefaultTexts.SUBMITTING),
-  getLoadingText: () => translate(DefaultTexts.LOADING),
 
   /** SignInSignUpTabs */
   getSignInTabText: () => translate(DefaultTexts.SIGN_IN_TAB),
@@ -131,6 +133,11 @@ export const authenticatorTextUtil = {
 
   /** SetupTOTP */
   getSetupTOTPText: () => translate(DefaultTexts.SETUP_TOTP),
+  // TODO: add defaultText for below
+  getSetupTOTPInstructionsText: () =>
+    translate(
+      'Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.'
+    ),
   // TODO: add defaultText for "COPIED"
   getCopiedText: () => translate('COPIED'),
 

@@ -25,22 +25,22 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       borderRadius: radii.small,
       borderWidth: borderWidths.small,
       flexDirection: 'row',
-      lineHeight: getLineHeight(fontSizes.medium),
-      padding: space.medium,
+      paddingHorizontal: space.xs,
       ...components?.textField?.fieldContainer,
     },
     field: {
-      flexGrow: 1,
+      color: colors.font.primary,
       fontSize: fontSizes.medium,
+      flexGrow: 1,
+      paddingVertical: space.small,
       // this is needed because of extra padding inside the input - in Android only
       ...(Platform.OS === 'android' && { padding: 0 }),
       ...components?.textField?.field,
     },
     label: {
-      fontSize: fontSizes.medium,
       color: colors.font.secondary,
-      paddingVertical: space.small,
       lineHeight: getLineHeight(fontSizes.small),
+      padding: space.xxs,
       ...components?.textField?.label,
     },
   });

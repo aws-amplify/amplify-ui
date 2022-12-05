@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo } from 'react';
 import { View } from 'react-native';
 
-import { Button, ErrorMessage } from '../../../primitives';
+import { Button, Label, ErrorMessage } from '../../../primitives';
 import { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
 import { StrictTheme, useTheme } from '../../../theme';
 
@@ -17,7 +17,7 @@ export default function DefaultContent<
   FieldsType extends TextFieldOptionsType | RadioFieldOptions
 >({
   body,
-  buttons: { primary, secondary },
+  buttons: { primary, links, secondary },
   error,
   fields,
   Footer,
@@ -25,48 +25,43 @@ export default function DefaultContent<
   isPending,
   Header,
   headerText,
+  validationErrors,
 }: DefaultContentProps<FieldsType>): JSX.Element {
   const themedStyles = useThemedStyles(getDefaultStyle);
 
-  const secondaryButtons = useMemo(
+  const linkButtons = useMemo(
     () =>
-      Array.isArray(secondary) ? (
-        <View style={themedStyles.buttonSecondaryContainer}>
-          {secondary.map((button) => (
+      links?.length ? (
+        <View style={themedStyles.linksContainer}>
+          {links.map((button) => (
             <Fragment key={`${button.children}`}>
-              <Button
-                {...button}
-                style={themedStyles.buttonSecondary}
-                variant="link"
-              />
+              <Button {...button} style={themedStyles.link} variant="link" />
             </Fragment>
           ))}
         </View>
-      ) : (
-        <Button
-          {...secondary}
-          style={themedStyles.buttonSecondary}
-          variant="link"
-        />
-      ),
-    [secondary, themedStyles]
+      ) : null,
+    [links, themedStyles]
   );
 
   return (
     <>
-      {headerText ? (
-        <Header style={themedStyles.header}>{headerText}</Header>
-      ) : (
-        <Header />
-      )}
-      {body ? body : null}
+      <Header style={themedStyles.header}>{headerText}</Header>
+      {body ? (
+        typeof body === 'string' ? (
+          <Label style={themedStyles.body}>{body}</Label>
+        ) : (
+          body
+        )
+      ) : null}
       <FormFields
-        fieldContainerStyle={themedStyles.fieldContainerStyle}
-        fieldErrorStyle={themedStyles.fieldErrorStyle}
-        fieldLabelStyle={themedStyles.fieldLabelStyle}
+        fieldContainerStyle={themedStyles.fieldContainer}
+        fieldErrorsContainer={themedStyles.fieldErrorsContainer}
+        fieldErrorStyle={themedStyles.fieldError}
+        fieldLabelStyle={themedStyles.fieldLabel}
         fieldStyle={themedStyles.fieldStyle}
         fields={fields}
         isPending={isPending}
+        validationErrors={validationErrors}
         style={themedStyles.formFields}
       />
       {error ? (
@@ -83,7 +78,14 @@ export default function DefaultContent<
         textStyle={themedStyles.buttonPrimaryLabel}
         style={themedStyles.buttonPrimary}
       />
-      {secondaryButtons}
+      {secondary ? (
+        <Button
+          {...secondary}
+          textStyle={themedStyles.buttonSecondaryLabel}
+          style={themedStyles.buttonSecondary}
+        />
+      ) : null}
+      {linkButtons}
       <Footer style={themedStyles.footer} />
     </>
   );

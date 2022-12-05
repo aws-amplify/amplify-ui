@@ -1,19 +1,15 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import { Amplify } from 'aws-amplify';
 
-import { Button } from '../../../ui';
-
-// replace with actual amplify config from environments
-// import config from '../../../aws-exports';
-
-Amplify.configure({});
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();
-  return <Button onPress={signOut}>Sign Out</Button>;
+  return <Button onPress={signOut} title="Sign Out" />;
 }
 
 function App() {

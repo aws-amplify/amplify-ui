@@ -63,7 +63,8 @@ export type ButtonTokens<Output extends OutputVariantKey> =
     | 'borderWidth'
     | 'borderStyle'
     | 'borderRadius'
-    | 'color'
+    | 'color',
+    Output
   > & {
     _hover?: StateTokens<Output>;
     _focus?: StateWithShadowTokens<Output>;
@@ -71,11 +72,13 @@ export type ButtonTokens<Output extends OutputVariantKey> =
     _loading?: StateTokens<Output>;
     _disabled?: StateTokens<Output>;
     primary?: PrimaryVariationTokens<Output>;
+    warning?: LinkVariationTokens<Output>;
+    destructive?: PrimaryVariationTokens<Output>;
     menu?: MenuVariationTokens<Output>;
     link?: LinkVariationTokens<Output>;
     small?: ButtonSizeTokens<Output>;
     large?: ButtonSizeTokens<Output>;
-    loaderWrapper: DesignTokenProperties<'alignItems' | 'gap', Output>;
+    loaderWrapper?: DesignTokenProperties<'alignItems' | 'gap', Output>;
   };
 
 export const button: Required<ButtonTokens<'default'>> = {
@@ -220,6 +223,73 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.disabled.value}' },
+    },
+  },
+
+  warning: {
+    backgroundColor: { value: 'transparent' },
+    borderColor: { value: '{colors.red.60}' },
+    borderWidth: { value: '{borderWidths.small}' },
+    color: { value: '{colors.red.60}' },
+    _hover: {
+      borderColor: { value: '{colors.red.80}' },
+      backgroundColor: { value: '{colors.red.10}' },
+      color: { value: '{colors.font.error}' },
+    },
+    _focus: {
+      borderColor: { value: '{colors.red.80}' },
+      backgroundColor: { value: '{colors.red.10}' },
+      color: { value: '{colors.red.80}' },
+      boxShadow: { value: '{components.fieldcontrol._error._focus.boxShadow}' },
+    },
+    _active: {
+      borderColor: { value: '{colors.red.100}' },
+      backgroundColor: { value: '{colors.red.20}' },
+      color: { value: '{colors.red.100}' },
+    },
+    _disabled: {
+      borderColor: { value: '{colors.border.tertiary}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.font.disabled}' },
+    },
+    _loading: {
+      borderColor: { value: '{colors.border.tertiary}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.font.disabled}' },
+    },
+  },
+
+  destructive: {
+    borderColor: { value: 'transparent' },
+    borderWidth: { value: '{borderWidths.small}' },
+    borderStyle: { value: 'solid' },
+    backgroundColor: { value: '{colors.red.60}' },
+    color: { value: '{colors.font.inverse}' },
+    _disabled: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.background.disabled}' },
+      color: { value: '{colors.font.disabled}' },
+    },
+    _loading: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.background.disabled}' },
+      color: { value: '{colors.font.disabled}' },
+    },
+    _hover: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.red.80}' },
+      color: { value: '{colors.font.inverse}' },
+    },
+    _focus: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.red.80}' },
+      color: { value: '{colors.font.inverse}' },
+      boxShadow: { value: '{components.fieldcontrol._error._focus.boxShadow}' },
+    },
+    _active: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.red.100}' },
+      color: { value: '{colors.font.inverse}' },
     },
   },
 

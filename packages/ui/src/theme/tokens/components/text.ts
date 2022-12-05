@@ -7,7 +7,9 @@ type BaseTextTokens<Output> = DesignTokenProperties<'color', Output>;
 
 export type TextTokens<Output extends OutputVariantKey> =
   BaseTextTokens<Output> &
-    Record<OrderVariantKey | InformationVariantKey, BaseTextTokens<Output>>;
+    Partial<
+      Record<OrderVariantKey | InformationVariantKey, BaseTextTokens<Output>>
+    >;
 
 export const text: Required<TextTokens<'default'>> = {
   // default styles

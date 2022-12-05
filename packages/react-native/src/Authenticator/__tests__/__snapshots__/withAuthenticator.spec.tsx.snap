@@ -1,24 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`withAuthenticator renders as expected 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "flex": 1,
-      "justifyContent": "center",
-    }
-  }
->
+<SafeAreaProvider>
   <View
+    onLayout={[Function]}
     style={
-      Object {
-        "paddingHorizontal": 12,
-        "width": "100%",
-      }
+      Array [
+        Array [
+          Object {
+            "alignContent": "center",
+            "backgroundColor": "hsl(0, 0%, 100%)",
+            "flex": 1,
+            "justifyContent": "center",
+          },
+          undefined,
+        ],
+        Object {
+          "paddingBottom": 0,
+        },
+      ]
     }
-  />
-</View>
+  >
+    <RCTScrollView
+      alwaysBounceVertical={false}
+      contentContainerStyle={
+        Array [
+          Object {
+            "alignContent": "center",
+            "flexGrow": 1,
+            "justifyContent": "center",
+            "paddingBottom": 44,
+            "paddingLeft": undefined,
+            "paddingRight": undefined,
+            "paddingTop": 47,
+          },
+          undefined,
+        ]
+      }
+      keyboardShouldPersistTaps="handled"
+      style={
+        Array [
+          Object {},
+          undefined,
+        ]
+      }
+    >
+      <View>
+        <View
+          style={
+            Object {
+              "marginHorizontal": 16,
+            }
+          }
+        />
+      </View>
+    </RCTScrollView>
+  </View>
+</SafeAreaProvider>
 `;
 
 exports[`withAuthenticator renders children when route is authenticated 1`] = `

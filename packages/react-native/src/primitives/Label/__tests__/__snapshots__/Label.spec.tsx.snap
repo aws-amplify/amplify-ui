@@ -6,8 +6,9 @@ exports[`Label applies accessibility role 1`] = `
   style={
     Array [
       Object {
-        "fontSize": 16,
+        "fontSize": 14,
         "fontWeight": "400",
+        "lineHeight": 21,
       },
       Object {
         "color": "hsl(210, 50%, 10%)",
@@ -27,8 +28,9 @@ exports[`Label renders a default Label 1`] = `
   style={
     Array [
       Object {
-        "fontSize": 16,
+        "fontSize": 14,
         "fontWeight": "400",
+        "lineHeight": 21,
       },
       Object {
         "color": "hsl(210, 50%, 10%)",
@@ -48,8 +50,9 @@ exports[`Label should apply theme and style props 1`] = `
   style={
     Array [
       Object {
-        "fontSize": 16,
+        "fontSize": 14,
         "fontWeight": "400",
+        "lineHeight": 21,
       },
       Object {
         "color": "hsl(210, 50%, 10%)",
@@ -71,8 +74,9 @@ exports[`Label should apply variant styles 1`] = `
   style={
     Array [
       Object {
-        "fontSize": 16,
+        "fontSize": 14,
         "fontWeight": "400",
+        "lineHeight": 21,
       },
       Object {
         "color": "hsl(130, 27%, 29%)",

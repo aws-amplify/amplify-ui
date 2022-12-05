@@ -2,12 +2,6 @@
 
 exports[`PhoneNumberField applies theming 1`] = `
 <View
-  accessibilityState={
-    Object {
-      "disabled": undefined,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -19,31 +13,41 @@ exports[`PhoneNumberField applies theming 1`] = `
       ],
     ]
   }
+  testID="amplify__text-field-container"
 >
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
-        "padding": 16,
+        "paddingHorizontal": 8,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={true}
       keyboardType="phone-pad"
+      placeholderTextColor="hsl(210, 10%, 40%)"
+      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           Array [
             Object {},
@@ -59,12 +63,6 @@ exports[`PhoneNumberField applies theming 1`] = `
 
 exports[`PhoneNumberField renders as expected 1`] = `
 <View
-  accessibilityState={
-    Object {
-      "disabled": undefined,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -76,31 +74,41 @@ exports[`PhoneNumberField renders as expected 1`] = `
       ],
     ]
   }
+  testID="amplify__text-field-container"
 >
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
-        "padding": 16,
+        "paddingHorizontal": 8,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={true}
       keyboardType="phone-pad"
+      placeholderTextColor="hsl(210, 10%, 40%)"
+      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           Array [
             Object {},
@@ -116,12 +124,6 @@ exports[`PhoneNumberField renders as expected 1`] = `
 
 exports[`PhoneNumberField renders as expected when disabled 1`] = `
 <View
-  accessibilityState={
-    Object {
-      "disabled": true,
-    }
-  }
-  accessible={true}
   style={
     Array [
       Object {
@@ -133,32 +135,42 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
       ],
     ]
   }
+  testID="amplify__text-field-container"
 >
   <View
+    accessible={true}
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 8%, 55%)",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
-        "lineHeight": 24,
         "opacity": 0.6,
-        "padding": 16,
+        "paddingHorizontal": 8,
       }
     }
     testID="amplify__text-field__input-container"
   >
     <TextInput
+      accessibilityState={
+        Object {
+          "disabled": true,
+        }
+      }
       accessible={true}
       autoCapitalize="none"
       editable={false}
       keyboardType="phone-pad"
+      placeholderTextColor="hsl(210, 10%, 40%)"
+      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
+            "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingVertical": 12,
           },
           Array [
             Object {},

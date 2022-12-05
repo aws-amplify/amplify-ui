@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { render } from '@testing-library/react-native';
 
 import * as UIReactCoreModule from '@aws-amplify/ui-react-core';
@@ -10,10 +10,15 @@ import {
 
 import { Authenticator } from '..';
 
+jest.mock('aws-amplify');
 jest.mock('@aws-amplify/ui-react-core');
 
 const CHILD_TEST_ID = 'child-test-id';
 const CHILD_CONTENT = 'Test Children';
+
+const CONTAINER_TEST_ID = 'container-test-id';
+const FOOTER_TEST_ID = 'footer-test-id';
+const HEADER_TEST_ID = 'header-test-id';
 
 function TestChildren() {
   return <Text testID={CHILD_TEST_ID}>{CHILD_CONTENT}</Text>;
@@ -21,6 +26,18 @@ function TestChildren() {
 const TestComponent = () => {
   return null;
 };
+
+function Container({ children }: { children: React.ReactNode }) {
+  return <View testID={CONTAINER_TEST_ID}>{children}</View>;
+}
+
+function Footer() {
+  return <View testID={FOOTER_TEST_ID} />;
+}
+
+function Header() {
+  return <View testID={HEADER_TEST_ID} />;
+}
 
 const useAuthenticatorInitMachineSpy = jest.spyOn(
   UIReactCoreModule,
@@ -40,7 +57,7 @@ type MockSelectorParam =
 
 describe('Authenticator', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
 
     useAuthenticatorRouteSpy.mockReturnValue({
       Component: TestComponent as any,
@@ -98,4 +115,20 @@ describe('Authenticator', () => {
       expect(container.instance).toBeNull();
     }
   );
+
+  it('renders with custom slot components as expected', () => {
+    useAuthenticatorSpy.mockReturnValueOnce({
+      route: 'signIn',
+    } as unknown as UseAuthenticator);
+
+    const { getByTestId, toJSON } = render(
+      <Authenticator Container={Container} Footer={Footer} Header={Header} />
+    );
+
+    expect(getByTestId(CONTAINER_TEST_ID)).toBeDefined();
+    expect(getByTestId(FOOTER_TEST_ID)).toBeDefined();
+    expect(getByTestId(HEADER_TEST_ID)).toBeDefined();
+
+    expect(toJSON()).toMatchSnapshot();
+  });
 });

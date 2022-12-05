@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import {
   AuthenticatorProvider as Provider,
@@ -52,6 +53,9 @@ const routePropSelector = ({
 function Authenticator({
   children,
   components: overrides,
+  Container = DefaultContainer,
+  Footer,
+  Header,
   ...options
 }: AuthenticatorProps): JSX.Element | null {
   useAuthenticatorInitMachine(options);
@@ -73,15 +77,20 @@ function Authenticator({
   }
 
   return (
-    <DefaultContainer>
-      <InnerContainer>
-        <Component {...props} fields={typedFields} />
-      </InnerContainer>
-    </DefaultContainer>
+    <SafeAreaProvider>
+      <Container>
+        {Header ? <Header /> : null}
+        <InnerContainer>
+          <Component {...props} fields={typedFields} />
+        </InnerContainer>
+        {Footer ? <Footer /> : null}
+      </Container>
+    </SafeAreaProvider>
   );
 }
 
 // assign slot components
+Authenticator.Container = DefaultContainer;
 Authenticator.Provider = Provider;
 Authenticator.ConfirmResetPassword = ConfirmResetPassword;
 Authenticator.ConfirmSignIn = ConfirmSignIn;

@@ -6,6 +6,7 @@ import { useTheme } from '../../theme';
 import { getThemedStyles } from './styles';
 import { TextFieldProps } from './types';
 
+export const TEXTFIELD_CONTAINER_TEST_ID = 'amplify__text-field-container';
 export const INPUT_CONTAINER_TEST_ID = 'amplify__text-field__input-container';
 
 export default function TextField({
@@ -38,21 +39,31 @@ export default function TextField({
 
   return (
     <View
-      accessible={accessible}
-      accessibilityLabel={accessibilityLabel ?? label}
-      accessibilityRole={accessibilityRole}
-      accessibilityState={{ disabled, ...accessibilityState }}
+      testID={TEXTFIELD_CONTAINER_TEST_ID}
       style={[themedStyle.container, style]}
     >
       {label ? (
-        <Label style={[themedStyle.label, labelStyle]}>{label}</Label>
+        <Label
+          accessibilityLabel={label}
+          style={[themedStyle.label, labelStyle]}
+        >
+          {label}
+        </Label>
       ) : null}
-      <View style={fieldContainerStyle} testID={INPUT_CONTAINER_TEST_ID}>
+      <View
+        style={fieldContainerStyle}
+        testID={INPUT_CONTAINER_TEST_ID}
+      >
         <TextInput
           {...rest}
           accessible={accessible}
+          accessibilityLabel={label ? undefined : accessibilityLabel}
+          accessibilityRole={accessibilityRole}
+          accessibilityState={{ disabled, ...accessibilityState }}
           autoCapitalize={autoCapitalize}
           editable={!disabled}
+          placeholderTextColor={theme.tokens.colors.font.tertiary}
+          selectionColor={theme.tokens.colors.font.primary}
           style={[themedStyle.field, fieldStyle]}
         />
         {endAccessory ?? null}
