@@ -53,7 +53,7 @@ function CustomWarning({ onCancel, onConfirm, isDisabled }) {
   );
 }
 
-const components = { Warning: CustomWarning };
+const components = { WarningView: CustomWarning };
 
 const signOut = () => {
   Auth.signOut();
