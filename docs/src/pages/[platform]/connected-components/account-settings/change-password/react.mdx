@@ -146,7 +146,7 @@ Here are the required props and examples for overriding each slot.
 <Expander type="single">
   <ExpanderItem title="PasswordFields" value="password-fields">
 
-`ChangePassword` has three password fields that you can override: `CurrentPassword`, `NewPassword`, and `NewPassword`. They all take the same props:
+`ChangePassword` has three password fields that you can override: `CurrentPassword`, `NewPassword`, and `ConfirmPassword`. They all take the same props:
 
     <ReactPropsTable props={PASSWORD_FIELDS} />
 
@@ -273,7 +273,7 @@ const components  = {
       </ExampleCode>
     </Example>
 
-or use [button primitive](/components/button) directly:
+or use [button](/components/button) primitive directly:
 
     <Example>
       <ExampleCode>
@@ -317,7 +317,7 @@ function App() {
 
 ### Theming
 
-`ChangePassword` component is built upon our robust [Amplify UI theming system](../../theming). To get started add a theme object and set the appropriate [design tokens](../../theming#design-tokens). You can then pass that `theme` to the `ThemeProvider` so the changes can take affect.
+`ChangePassword` component is built upon our robust [Amplify UI theming system](../../theming). To get started, add a theme object and set the appropriate [design tokens](../../theming#design-tokens). You can then pass that `theme` to the `ThemeProvider` so the changes can take affect.
 
 <Example>
   <ExampleCode>
@@ -337,7 +337,7 @@ const theme = {
     },
     radii: {
       small: { value: '2px' },
-      medium: { value: '2px' },
+      medium: { value: '3px' },
       large: { value: '4px' },
       xl: { value: '6px' },
     },
