@@ -122,9 +122,9 @@ function ChangePassword({
 
   /* Subcomponents */
   const {
-    CurrentPassword,
-    NewPassword,
-    ConfirmPassword,
+    CurrentPasswordField,
+    NewPasswordField,
+    ConfirmPasswordField,
     SubmitButton,
     ErrorMessage,
   } = React.useMemo(
@@ -192,7 +192,7 @@ function ChangePassword({
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <CurrentPassword
+        <CurrentPasswordField
           autoComplete="current-password"
           isRequired
           label={currentPasswordLabel}
@@ -200,23 +200,23 @@ function ChangePassword({
           onBlur={handleBlur}
           onChange={handleChange}
         />
-        <NewPassword
+        <NewPasswordField
           autoComplete="new-password"
+          fieldValidationErrors={validationError?.newPassword}
           isRequired
           label={newPasswordLabel}
           name="newPassword"
           onBlur={handleBlur}
           onChange={handleChange}
-          validationErrors={validationError?.newPassword}
         />
-        <ConfirmPassword
+        <ConfirmPasswordField
           autoComplete="new-password"
+          fieldValidationErrors={validationError?.confirmPassword}
           isRequired
           label={confirmPasswordLabel}
           name="confirmPassword"
           onBlur={handleBlur}
           onChange={handleChange}
-          validationErrors={validationError?.confirmPassword}
         />
         <SubmitButton isDisabled={isDisabled} type="submit">
           {updatePasswordText}
@@ -227,9 +227,9 @@ function ChangePassword({
   );
 }
 
-ChangePassword.CurrentPassword = DEFAULTS.CurrentPassword;
-ChangePassword.NewPassword = DEFAULTS.NewPassword;
-ChangePassword.ConfirmPassword = DEFAULTS.ConfirmPassword;
+ChangePassword.CurrentPasswordField = DEFAULTS.CurrentPasswordField;
+ChangePassword.NewPasswordField = DEFAULTS.NewPasswordField;
+ChangePassword.ConfirmPasswordField = DEFAULTS.ConfirmPasswordField;
 ChangePassword.SubmitButton = DEFAULTS.SubmitButton;
 ChangePassword.ErrorMessage = DEFAULTS.ErrorMessage;
 

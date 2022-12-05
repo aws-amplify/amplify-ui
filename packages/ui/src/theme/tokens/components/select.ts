@@ -3,18 +3,25 @@ import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 type SelectSizeTokens<Output> = DesignTokenProperties<'minWidth', Output>;
 
 export type SelectTokens<Output extends OutputVariantKey> =
-  DesignTokenProperties<'paddingInlineEnd' | 'whiteSpace' | 'minWidth'> & {
-    wrapper?: DesignTokenProperties<'cursor' | 'display' | 'flex' | 'position'>;
+  DesignTokenProperties<
+    'paddingInlineEnd' | 'whiteSpace' | 'minWidth',
+    Output
+  > & {
+    wrapper?: DesignTokenProperties<
+      'cursor' | 'display' | 'flex' | 'position',
+      Output
+    >;
     iconWrapper?: DesignTokenProperties<
       | 'alignItems'
       | 'position'
       | 'top'
       | 'right'
       | 'transform'
-      | 'pointerEvents'
+      | 'pointerEvents',
+      Output
     >;
-    option?: DesignTokenProperties<'backgroundColor' | 'color'> & {
-      _disabled?: DesignTokenProperties<'color'>;
+    option?: DesignTokenProperties<'backgroundColor' | 'color', Output> & {
+      _disabled?: DesignTokenProperties<'color', Output>;
     };
     small?: SelectSizeTokens<Output>;
     large?: SelectSizeTokens<Output>;

@@ -11,18 +11,18 @@ type BaseDropZoneTokens<OutputType> = DesignTokenProperties<
 >;
 
 export interface FileUploaderTokens<OutputType extends OutputVariantKey> {
-  dropzone: DesignTokenProperties<
+  dropzone?: DesignTokenProperties<
     'gap' | 'paddingBlock' | 'paddingInline' | 'textAlign'
   > &
     BaseDropZoneTokens<OutputType> & {
-      _active: BaseDropZoneTokens<OutputType>;
+      _active?: BaseDropZoneTokens<OutputType>;
 
-      icon: DesignTokenProperties<'fontSize' | 'color', OutputType>;
+      icon?: DesignTokenProperties<'fontSize' | 'color', OutputType>;
 
-      text: TypographyTokens<OutputType>;
+      text?: TypographyTokens<OutputType>;
     };
 
-  file: DesignTokenProperties<
+  file?: DesignTokenProperties<
     | 'alignItems'
     | 'backgroundColor'
     | 'borderColor'
@@ -34,18 +34,18 @@ export interface FileUploaderTokens<OutputType extends OutputVariantKey> {
     | 'paddingInline',
     OutputType
   > & {
-    name: TypographyTokens<OutputType>;
-    size: TypographyTokens<OutputType>;
-    image: DesignTokenProperties<
+    name?: TypographyTokens<OutputType>;
+    size?: TypographyTokens<OutputType>;
+    image?: DesignTokenProperties<
       'backgroundColor' | 'borderRadius' | 'color' | 'height' | 'width',
       OutputType
     >;
   };
-  loader: DesignTokenProperties<
+  loader?: DesignTokenProperties<
     'strokeWidth' | 'strokeFilled' | 'strokeEmpty' | 'strokeLinecap',
     OutputType
   >;
-  previewer: DesignTokenProperties<
+  previewer?: DesignTokenProperties<
     | 'backgroundColor'
     | 'borderColor'
     | 'borderRadius'
@@ -57,14 +57,14 @@ export interface FileUploaderTokens<OutputType extends OutputVariantKey> {
     | 'paddingInline',
     OutputType
   > & {
-    text: TypographyTokens<OutputType>;
+    text?: TypographyTokens<OutputType>;
 
-    body: DesignTokenProperties<
+    body?: DesignTokenProperties<
       'gap' | 'paddingInline' | 'paddingBlock',
       OutputType
     >;
 
-    footer: DesignTokenProperties<
+    footer?: DesignTokenProperties<
       | 'borderColor'
       | 'borderStyle'
       | 'borderWidth'

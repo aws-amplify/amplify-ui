@@ -20,7 +20,7 @@ const theme = {
   },
 };
 
-export const ColorsExample = () => {
+export const CustomThemeExample = () => {
   return (
     <ThemeProvider theme={theme}>
       <Card variation="outlined">
