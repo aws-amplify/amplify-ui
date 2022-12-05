@@ -4,7 +4,7 @@ import { AmplifyUser } from '@aws-amplify/ui';
 
 import { ButtonComponent, ErrorMessageComponent } from '../types';
 
-export interface WarningProps {
+export interface WarningViewProps {
   /** called when end user cancels account deletion */
   onCancel: () => void;
   /** called when user acknowledges account deletion */
@@ -13,8 +13,8 @@ export interface WarningProps {
   isDisabled: boolean;
 }
 
-export type WarningComponent<Props = {}> = React.ComponentType<
-  Props & WarningProps
+export type WarningViewComponent<Props = {}> = React.ComponentType<
+  Props & WarningViewProps
 >;
 
 export type DeleteUserState =
@@ -27,7 +27,7 @@ export type DeleteUserState =
 export interface DeleteUserComponents {
   ErrorMessage?: ErrorMessageComponent;
   DeleteButton?: ButtonComponent;
-  Warning?: WarningComponent;
+  WarningView?: WarningViewComponent;
 }
 
 export interface DeleteUserProps {

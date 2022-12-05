@@ -18,7 +18,7 @@ jest.mock('../../../../internal', () => ({
 
 const deleteUserSpy = jest.spyOn(UIModule, 'deleteUser');
 
-function CustomWarning({ onCancel, onConfirm }) {
+function CustomWarningView({ onCancel, onConfirm }) {
   return (
     <Flex direction="column">
       <Text variation="warning">Custom Warning Message</Text>
@@ -47,7 +47,7 @@ const CustomErrorMessage = ({ children }) => (
 
 const components: DeleteUserComponents = {
   DeleteButton: CustomDeleteButton,
-  Warning: CustomWarning,
+  WarningView: CustomWarningView,
   ErrorMessage: CustomErrorMessage,
 };
 
