@@ -1129,36 +1129,42 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
 const responseStreamActor = async (callback) => {
   const stream = await responseStream;
-  for await (const event of stream) {
-    if (isServerSesssionInformationEvent(event)) {
-      callback({
-        type: 'SET_SESSION_INFO',
-        data: {
-          sessionInfo: event.ServerSessionInformationEvent.SessionInformation,
-        },
-      });
-    } else if (isDisconnectionEvent(event)) {
-      callback({ type: 'DISCONNECT_EVENT' });
-    } else if (isValidationExceptionEvent(event)) {
-      callback({
-        type: 'SERVER_ERROR',
-        data: { ...event.ValidationException },
-      });
-    } else if (isInternalServerExceptionEvent(event)) {
-      callback({
-        type: 'SERVER_ERROR',
-        data: { ...event.InternalServerException },
-      });
-    } else if (isThrottlingExceptionEvent(event)) {
-      callback({
-        type: 'SERVER_ERROR',
-        data: { ...event.ThrottlingException },
-      });
-    } else if (isServiceQuotaExceededExceptionEvent(event)) {
-      callback({
-        type: 'SERVER_ERROR',
-        data: { ...event.ServiceQuotaExceededException },
-      });
+  try {
+    for await (const event of stream) {
+      if (isServerSesssionInformationEvent(event)) {
+        callback({
+          type: 'SET_SESSION_INFO',
+          data: {
+            sessionInfo: event.ServerSessionInformationEvent.SessionInformation,
+          },
+        });
+      } else if (isDisconnectionEvent(event)) {
+        callback({ type: 'DISCONNECT_EVENT' });
+      } else if (isValidationExceptionEvent(event)) {
+        callback({
+          type: 'SERVER_ERROR',
+          data: { ...event.ValidationException },
+        });
+      } else if (isInternalServerExceptionEvent(event)) {
+        callback({
+          type: 'SERVER_ERROR',
+          data: { ...event.InternalServerException },
+        });
+      } else if (isThrottlingExceptionEvent(event)) {
+        callback({
+          type: 'SERVER_ERROR',
+          data: { ...event.ThrottlingException },
+        });
+      } else if (isServiceQuotaExceededExceptionEvent(event)) {
+        callback({
+          type: 'SERVER_ERROR',
+          data: { ...event.ServiceQuotaExceededException },
+        });
+      }
     }
+  } catch (e) {
+    callback({
+      type: 'SERVER_ERROR',
+    });
   }
 };

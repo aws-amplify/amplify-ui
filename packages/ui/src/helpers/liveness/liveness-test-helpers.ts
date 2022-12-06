@@ -1,3 +1,4 @@
+import { PassThrough } from 'stream';
 import { ActorRef } from 'xstate';
 import { ClientSessionInformationEvent } from '@aws-sdk/client-rekognitionstreaming';
 import {
@@ -11,6 +12,8 @@ import {
   IlluminationState,
   LivenessContext,
 } from '../../types';
+
+const mockedStream = new PassThrough(); // TODO: a following PR after PR634 will be made to have the stream emit the proper mock data.
 
 export const testTimestampMs = 1640995200000;
 
@@ -69,7 +72,7 @@ export const mockLivenessStreamProvider: any = {
   sendClientInfo: jest.fn(),
   endStream: jest.fn(),
   stopVideo: jest.fn(),
-  getResponseStream: jest.fn(),
+  getResponseStream: jest.fn().mockResolvedValue([mockedStream]), // TODO: a following PR after PR634 will be made to have the stream emit the proper mock data.
   startRecordingLivenessVideo: jest.fn(),
   videoRecorder: mockVideoRecorder,
 };
