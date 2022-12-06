@@ -64,17 +64,14 @@ exports[`DefaultContainer renders as expected with children 1`] = `
             Object {
               "alignItems": "center",
               "backgroundColor": "transparent",
+              "borderColor": "hsl(210, 10%, 58%)",
               "borderRadius": 4,
+              "borderWidth": 1,
               "justifyContent": "center",
               "paddingHorizontal": 16,
               "paddingVertical": 12,
             },
-            Object {
-              "borderColor": "hsl(210, 10%, 58%)",
-              "borderWidth": 1,
-            },
-            null,
-            null,
+            undefined,
             undefined,
           ]
         }

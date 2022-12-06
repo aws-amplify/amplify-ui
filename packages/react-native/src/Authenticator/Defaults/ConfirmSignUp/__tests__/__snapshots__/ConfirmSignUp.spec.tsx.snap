@@ -69,17 +69,13 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "transparent",
+          "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
-        Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
-        },
-        null,
-        null,
+        undefined,
         Object {
           "marginHorizontal": 16,
           "marginVertical": 12,
@@ -122,17 +118,14 @@ Array [
         Object {
           "alignItems": "center",
           "backgroundColor": "transparent",
+          "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 4,
+          "borderWidth": 1,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
-        Object {
-          "borderColor": "hsl(210, 10%, 58%)",
-          "borderWidth": 1,
-        },
-        null,
-        null,
+        undefined,
         Object {
           "marginHorizontal": 16,
         },
@@ -227,17 +220,13 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "transparent",
+          "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
-        Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
-        },
-        null,
-        null,
+        undefined,
         Object {
           "marginHorizontal": 16,
           "marginVertical": 12,
@@ -280,17 +269,14 @@ Array [
         Object {
           "alignItems": "center",
           "backgroundColor": "transparent",
+          "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 4,
+          "borderWidth": 1,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
-        Object {
-          "borderColor": "hsl(210, 10%, 58%)",
-          "borderWidth": 1,
-        },
-        null,
-        null,
+        undefined,
         Object {
           "marginHorizontal": 16,
         },
@@ -438,17 +424,13 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "transparent",
+          "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
-        Object {
-          "backgroundColor": "hsl(190, 95%, 30%)",
-        },
-        null,
-        null,
+        undefined,
         Object {
           "marginHorizontal": 16,
           "marginVertical": 12,
@@ -491,17 +473,14 @@ Array [
         Object {
           "alignItems": "center",
           "backgroundColor": "transparent",
+          "borderColor": "hsl(210, 10%, 58%)",
           "borderRadius": 4,
+          "borderWidth": 1,
           "justifyContent": "center",
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
-        Object {
-          "borderColor": "hsl(210, 10%, 58%)",
-          "borderWidth": 1,
-        },
-        null,
-        null,
+        undefined,
         Object {
           "marginHorizontal": 16,
         },
