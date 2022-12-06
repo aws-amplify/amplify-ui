@@ -22,7 +22,7 @@ import { AccountSettings } from '@aws-amplify/ui-react';
 
 function App() {
   const handleSuccess = () => {
-    alert('password is successfully changed!')
+    alert('user has been successfully deleted')
   }
   
   return (
@@ -121,12 +121,18 @@ You can reuse the `AccountSettings.DeleteUser.DeleteButton`:
 ```jsx
 import { AccountSettings } from '@aws-amplify/ui-react';
 
-const components  = {
-  DeleteButton: (props) => (
-    <AccountSettings.DeleteUser.DeleteButton {...props}>
-      My Custom Button
-    </AccountSettings.DeleteUser.DeleteButton>
-  )
+function App() {
+  const components  = {
+    DeleteButton: (props) => (
+      <AccountSettings.DeleteUser.DeleteButton {...props}>
+        My Custom Button
+      </AccountSettings.DeleteUser.DeleteButton>
+    )
+  }
+
+  return (
+    <AccountSettings.DeleteUser components={components} />
+  );
 }
 ```
 
@@ -141,8 +147,14 @@ or use [button primitive](/components/button) directly:
 ```jsx
 import { AccountSettings, Button } from '@aws-amplify/ui-react';
 
-const components  = {
-  DeleteButton: (props) => <Button {...props}>My Custom Button</Button>
+function App() {
+  const components  = {
+    DeleteButton: (props) => <Button {...props}>My Custom Button</Button>
+  }
+
+  return (
+    <AccountSettings.DeleteUser components={components} />
+  );
 }
 ```
 
