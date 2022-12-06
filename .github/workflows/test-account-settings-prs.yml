@@ -7,7 +7,7 @@
 name: Test / Account Settings / PRs
 
 concurrency:
-  group: e2e-${{ github.event.pull_request.id }}
+  group: e2e-accountsettings-${{ github.event.pull_request.id }}
   cancel-in-progress: true
 
 on:
