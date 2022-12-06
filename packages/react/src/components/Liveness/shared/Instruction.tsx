@@ -71,7 +71,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
           heading = translate('Time out');
           break;
         case LivenessErrorState.SERVER_ERROR:
-          heading = translate('Internal server error');
+          heading = translate('Server Issue');
           break;
         case LivenessErrorState.RUNTIME_ERROR:
           heading = translate('Client error');

@@ -316,7 +316,7 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
     'Check failed due to client issue'
   ),
   [LivenessErrorState.SERVER_ERROR]: translate(
-    'Check failed due to server issue'
+    'Cannot complete Liveness check due to server issue'
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>(
     'Face not detected within time limit. Try again and place face inside oval within 5 seconds.'
