@@ -7,18 +7,18 @@ import {
 
 import { useFaceLivenessDetector } from '../providers';
 import { Flex, Button, Card } from '../../../primitives';
+import { LivenessComponents } from '../hooks/useCustomComponents/defaultComponents';
 
 const START_CLASS_NAME = 'liveness-detector-start';
 
 export interface StartLivenessProps {
   beginLivenessCheck: () => void;
-  photosensitiveWarning: JSX.Element;
-  livenessInstructions: JSX.Element;
+  components?: LivenessComponents;
 }
 
 export function StartLiveness(props: StartLivenessProps): JSX.Element {
-  const { beginLivenessCheck, photosensitiveWarning, livenessInstructions } =
-    props;
+  const { beginLivenessCheck, components } = props;
+  const { PhotosensitiveWarning, LivenessInstructions } = components;
   const { componentProps } = useFaceLivenessDetector();
 
   React.useEffect(() => {
@@ -47,8 +47,8 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
       data-testid={START_CLASS_NAME}
     >
       <Flex direction="column">
-        {photosensitiveWarning}
-        {livenessInstructions}
+        <PhotosensitiveWarning />
+        <LivenessInstructions />
         <Flex justifyContent="center">
           <Button
             variation="primary"

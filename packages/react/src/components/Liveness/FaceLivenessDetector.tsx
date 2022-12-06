@@ -97,8 +97,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
           {isStartView ? (
             <StartLiveness
               beginLivenessCheck={beginLivenessCheck}
-              photosensitiveWarning={components.PhotosensitiveWarning()}
-              livenessInstructions={components.LivenessInstructions()}
+              components={components}
             />
           ) : (
             <LivenessCheck />
