@@ -13,17 +13,27 @@ import { LivenessCheck } from './LivenessCheck';
 import { View, Flex } from '../../primitives';
 import { getVideoConstraints } from './StartLiveness/helpers';
 import { isMobileScreen } from './utils/device';
+import {
+  defaultComponents,
+  LivenessComponents,
+} from './hooks/useCustomComponents/defaultComponents';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
 export interface FaceLivenessDetectorProps
-  extends FaceLivenessDetectorPropsFromUi {}
+  extends FaceLivenessDetectorPropsFromUi {
+  components?: LivenessComponents;
+}
 
 export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   props
 ) => {
-  const { onUserCancel: onUserCancelFromProps, disableStartScreen = false } =
-    props;
+  const {
+    onUserCancel: onUserCancelFromProps,
+    disableStartScreen = false,
+    components: customComponents,
+  } = props;
+  const components = { ...defaultComponents, ...customComponents };
   const currElementRef = React.useRef<HTMLDivElement>(null);
 
   const onUserCancel = () => {
@@ -85,7 +95,11 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
       <FaceLivenessDetectorProvider componentProps={props} service={service}>
         <Flex direction="column" ref={currElementRef}>
           {isStartView ? (
-            <StartLiveness beginLivenessCheck={beginLivenessCheck} />
+            <StartLiveness
+              beginLivenessCheck={beginLivenessCheck}
+              photosensitiveWarning={components.PhotosensitiveWarning()}
+              livenessInstructions={components.LivenessInstructions()}
+            />
           ) : (
             <LivenessCheck />
           )}

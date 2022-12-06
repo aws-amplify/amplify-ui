@@ -5,47 +5,20 @@ import {
   LIVENESS_EVENT_GET_READY_SCREEN,
 } from '@aws-amplify/ui';
 
-import { DescriptionBullet } from '../shared';
 import { useFaceLivenessDetector } from '../providers';
-import {
-  Flex,
-  Button,
-  Collection,
-  Text,
-  View,
-  Card,
-  ComponentClassNames,
-} from '../../../primitives';
-import { useTheme } from '../../../hooks/useTheme';
-import { LivenessIconWithPopover } from '../shared/LivenessIconWithPopover';
-
-export const INSTRUCTIONS = [
-  {
-    desc: translate(
-      'Make sure your face is not covered with sunglasses or a mask.'
-    ),
-  },
-  {
-    desc: translate(
-      'Move to a well-lit place that is not dark or in direct sunlight.'
-    ),
-  },
-  {
-    desc: translate(
-      'When check starts, fit face in oval, and hold for colored lights.'
-    ),
-  },
-];
+import { Flex, Button, Card } from '../../../primitives';
 
 const START_CLASS_NAME = 'liveness-detector-start';
 
 export interface StartLivenessProps {
   beginLivenessCheck: () => void;
+  photosensitiveWarning: JSX.Element;
+  livenessInstructions: JSX.Element;
 }
 
 export function StartLiveness(props: StartLivenessProps): JSX.Element {
-  const { tokens } = useTheme();
-  const { beginLivenessCheck } = props;
+  const { beginLivenessCheck, photosensitiveWarning, livenessInstructions } =
+    props;
   const { componentProps } = useFaceLivenessDetector();
 
   React.useEffect(() => {
@@ -74,46 +47,8 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
       data-testid={START_CLASS_NAME}
     >
       <Flex direction="column">
-        <View flex="1">
-          <View color="font.tertiary" fontWeight="bold">
-            {translate<string>('Liveness check')}
-          </View>
-          <View color="font.tertiary">
-            {translate<string>(
-              'You will go through a face verification process to prove you are a real person.'
-            )}
-          </View>
-        </View>
-        <Flex
-          className={ComponentClassNames.Alert}
-          color={`${tokens.colors.orange[80]}`}
-          backgroundColor={`${tokens.colors.orange[20]}`}
-          alignItems="center"
-        >
-          <View flex="1">
-            <View className={ComponentClassNames.AlertHeading}>
-              {translate('Photosensitivity warning')}
-            </View>
-            <View className={ComponentClassNames.AlertBody}>
-              {translate(
-                'This check displays colored lights. Use caution if you are photosensitive.'
-              )}
-            </View>
-          </View>
-          <LivenessIconWithPopover />
-        </Flex>
-        <Text color="font.tertiary" fontWeight="bold">
-          {translate<string>('Follow the instructions to complete the check: ')}
-        </Text>
-        <Collection type="list" items={INSTRUCTIONS}>
-          {(item, index) => (
-            <DescriptionBullet
-              key={index + 1}
-              index={index + 1}
-              desc={item.desc}
-            />
-          )}
-        </Collection>
+        {photosensitiveWarning}
+        {livenessInstructions}
         <Flex justifyContent="center">
           <Button
             variation="primary"
