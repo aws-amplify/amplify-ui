@@ -1,7 +1,7 @@
 import Amplify from '@aws-amplify/core';
 import {
   RekognitionStreamingClient,
-  StartStreamingLivenessSessionCommand,
+  StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { LivenessStreamProvider } from '../liveness-stream-provider';
 import { VideoRecorder } from '../video-recorder';

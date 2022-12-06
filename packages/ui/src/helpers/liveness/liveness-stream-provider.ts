@@ -4,7 +4,7 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
   RekognitionStreamingClient,
-  StartStreamingLivenessSessionCommand,
+  StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { VideoRecorder } from './video-recorder';
 export interface StartLivenessStreamInput {
@@ -54,7 +54,10 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
 
     this._client = new RekognitionStreamingClient({
       credentials,
-      endpoint: ENDPOINT,
+      endpointProvider: () => {
+        const url = new URL(ENDPOINT);
+        return { url };
+      },
       region: REGION,
     });
 
@@ -114,7 +117,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     )();
 
     const response = await this._client.send(
-      new StartStreamingLivenessSessionCommand({
+      new StartFaceLivenessSessionCommand({
         ClientSDKVersion: '1.0.0',
         SessionId: this.sessionId,
         LivenessRequestStream: livenessRequestGenerator,
