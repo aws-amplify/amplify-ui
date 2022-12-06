@@ -1,109 +1,87 @@
-import {
-  AlignItemsValue,
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderRadiusValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  BoxShadowValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  FontWeightValue,
-  JustifyContentValue,
-  LineHeightValue,
-  SpaceValue,
-  TransitionDurationValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export interface StateTokens {
-  color: DesignToken<ColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-}
+type StateTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'color',
+  Output
+>;
 
-interface StateWithShadowTokens extends StateTokens {
-  boxShadow: DesignToken<BoxShadowValue>;
-}
+type StateWithShadowTokens<Output> = StateTokens<Output> &
+  DesignTokenProperties<'boxShadow', Output>;
 
-interface MenuStateDisabledTokens
-  extends Omit<StateTokens, 'borderColor' | 'backgroundColor'> {}
+type MenuStateTokens<Output> = Omit<StateTokens<Output>, 'borderColor'>;
 
-interface MenuStateTokens extends Omit<StateTokens, 'borderColor'> {}
-
-interface PrimaryVariationTokens {
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-  _disabled: StateTokens;
-  _loading: StateTokens;
-  _hover: StateTokens;
-  _focus: StateWithShadowTokens;
-  _active: StateTokens;
-}
-
-interface MenuVariationTokens {
-  borderWidth: DesignToken<BorderWidthValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  justifyContent: DesignToken<JustifyContentValue>;
-  _hover: MenuStateTokens;
-  _focus: MenuStateTokens;
-  _active: MenuStateTokens;
-  _disabled: MenuStateDisabledTokens;
-}
-
-interface LinkVariationTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  color: DesignToken<ColorValue>;
-  _hover: StateTokens;
-  _focus: StateWithShadowTokens;
-  _active: StateTokens;
-  _disabled: StateTokens;
-  _loading: StateTokens;
-}
-
-interface ButtonSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  paddingBlockStart: DesignToken<SpaceValue>;
-  paddingBlockEnd: DesignToken<SpaceValue>;
-  paddingInlineStart: DesignToken<SpaceValue>;
-  paddingInlineEnd: DesignToken<SpaceValue>;
-}
-export interface ButtonTokens {
-  fontWeight: DesignToken<FontWeightValue>;
-  transitionDuration: DesignToken<TransitionDurationValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  lineHeight: DesignToken<LineHeightValue>;
-  paddingBlockStart: DesignToken<SpaceValue>;
-  paddingBlockEnd: DesignToken<SpaceValue>;
-  paddingInlineStart: DesignToken<SpaceValue>;
-  paddingInlineEnd: DesignToken<SpaceValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  color: DesignToken<ColorValue>;
-  _hover: StateTokens;
-  _focus: StateWithShadowTokens;
-  _active: StateTokens;
-  _loading: StateTokens;
-  _disabled: StateTokens;
-  primary: PrimaryVariationTokens;
-  menu: MenuVariationTokens;
-  link: LinkVariationTokens;
-  small: ButtonSizeTokens;
-  large: ButtonSizeTokens;
-  loaderWrapper: {
-    alignItems: DesignToken<AlignItemsValue>;
-    gap: DesignToken<SpaceValue>;
+type PrimaryVariationTokens<Output> = StateTokens<Output> &
+  DesignTokenProperties<'borderStyle' | 'borderWidth', Output> & {
+    _disabled?: StateTokens<Output>;
+    _loading?: StateTokens<Output>;
+    _hover?: StateTokens<Output>;
+    _focus?: StateWithShadowTokens<Output>;
+    _active?: StateTokens<Output>;
   };
-}
 
-export const button: ButtonTokens = {
+type MenuVariationTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderWidth' | 'justifyContent',
+  Output
+> & {
+  _hover?: MenuStateTokens<Output>;
+  _focus?: MenuStateTokens<Output>;
+  _active?: MenuStateTokens<Output>;
+  _disabled?: Omit<StateTokens<Output>, 'borderColor' | 'backgroundColor'>;
+};
+
+type LinkVariationTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'borderWidth' | 'color',
+  Output
+> & {
+  _hover?: StateTokens<Output>;
+  _focus?: StateWithShadowTokens<Output>;
+  _active?: StateTokens<Output>;
+  _disabled?: StateTokens<Output>;
+  _loading?: StateTokens<Output>;
+};
+
+type ButtonSizeTokens<Output> = DesignTokenProperties<
+  | 'fontSize'
+  | 'paddingBlockStart'
+  | 'paddingBlockEnd'
+  | 'paddingInlineStart'
+  | 'paddingInlineEnd',
+  Output
+>;
+
+export type ButtonTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    | 'fontWeight'
+    | 'transitionDuration'
+    | 'fontSize'
+    | 'lineHeight'
+    | 'paddingBlockStart'
+    | 'paddingBlockEnd'
+    | 'paddingInlineStart'
+    | 'paddingInlineEnd'
+    | 'borderColor'
+    | 'borderWidth'
+    | 'borderStyle'
+    | 'borderRadius'
+    | 'color',
+    Output
+  > & {
+    _hover?: StateTokens<Output>;
+    _focus?: StateWithShadowTokens<Output>;
+    _active?: StateTokens<Output>;
+    _loading?: StateTokens<Output>;
+    _disabled?: StateTokens<Output>;
+    primary?: PrimaryVariationTokens<Output>;
+    warning?: LinkVariationTokens<Output>;
+    destructive?: PrimaryVariationTokens<Output>;
+    menu?: MenuVariationTokens<Output>;
+    link?: LinkVariationTokens<Output>;
+    small?: ButtonSizeTokens<Output>;
+    large?: ButtonSizeTokens<Output>;
+    loaderWrapper?: DesignTokenProperties<'alignItems' | 'gap', Output>;
+  };
+
+export const button: Required<ButtonTokens<'default'>> = {
   // shared styles
   fontWeight: { value: '{fontWeights.bold.value}' },
   transitionDuration: {
@@ -245,6 +223,73 @@ export const button: ButtonTokens = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.disabled.value}' },
+    },
+  },
+
+  warning: {
+    backgroundColor: { value: 'transparent' },
+    borderColor: { value: '{colors.red.60}' },
+    borderWidth: { value: '{borderWidths.small}' },
+    color: { value: '{colors.red.60}' },
+    _hover: {
+      borderColor: { value: '{colors.red.80}' },
+      backgroundColor: { value: '{colors.red.10}' },
+      color: { value: '{colors.font.error}' },
+    },
+    _focus: {
+      borderColor: { value: '{colors.red.80}' },
+      backgroundColor: { value: '{colors.red.10}' },
+      color: { value: '{colors.red.80}' },
+      boxShadow: { value: '{components.fieldcontrol._error._focus.boxShadow}' },
+    },
+    _active: {
+      borderColor: { value: '{colors.red.100}' },
+      backgroundColor: { value: '{colors.red.20}' },
+      color: { value: '{colors.red.100}' },
+    },
+    _disabled: {
+      borderColor: { value: '{colors.border.tertiary}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.font.disabled}' },
+    },
+    _loading: {
+      borderColor: { value: '{colors.border.tertiary}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.font.disabled}' },
+    },
+  },
+
+  destructive: {
+    borderColor: { value: 'transparent' },
+    borderWidth: { value: '{borderWidths.small}' },
+    borderStyle: { value: 'solid' },
+    backgroundColor: { value: '{colors.red.60}' },
+    color: { value: '{colors.font.inverse}' },
+    _disabled: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.background.disabled}' },
+      color: { value: '{colors.font.disabled}' },
+    },
+    _loading: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.background.disabled}' },
+      color: { value: '{colors.font.disabled}' },
+    },
+    _hover: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.red.80}' },
+      color: { value: '{colors.font.inverse}' },
+    },
+    _focus: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.red.80}' },
+      color: { value: '{colors.font.inverse}' },
+      boxShadow: { value: '{components.fieldcontrol._error._focus.boxShadow}' },
+    },
+    _active: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.red.100}' },
+      color: { value: '{colors.font.inverse}' },
     },
   },
 

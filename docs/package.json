@@ -10,16 +10,16 @@
     "flutter:clean": "rm -rf public/flutter/authenticator",
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
     "build": "yarn build:props-tables && next build",
-    "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables.ts",
+    "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables-data.ts",
     "lint": "next lint",
-    "postbuild": "yarn postbuild:previews && yarn postbuild:sitemap",
+    "postbuild": "yarn test && yarn postbuild:previews && yarn postbuild:sitemap",
     "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
     "start": "next start",
-    "test": "$_ run build"
+    "test": "jest"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "3.5.11",
+    "@aws-amplify/ui-react": "4.1.0",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -28,7 +28,7 @@
     "@mdx-js/react": "^2.1.0",
     "@moxy/next-compile-node-modules": "^2.1.1",
     "@xstate/inspect": "^0.4.1",
-    "aws-amplify": "latest",
+    "aws-amplify": "^5.0.1",
     "classnames": "^2.3.1",
     "countries-list": "^2.6.1",
     "dotenv": "^16.0.0",
@@ -58,6 +58,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^27",
     "@types/lodash": "^4.14.170",
     "@types/node": "^14.14.31",
     "@types/react": "17.0.47",
@@ -70,8 +71,11 @@
     "eslint": "^7.32.0",
     "eslint-config-next": "12.0.10",
     "globby": "^13.1.1",
+    "jest": "^27",
     "postcss": "^8.2.6",
+    "react-markdown": "^8.0.3",
     "sitemap-urls": "^3.0.0",
+    "ts-jest": "^27",
     "ts-morph": "^15.1.0"
   }
 }

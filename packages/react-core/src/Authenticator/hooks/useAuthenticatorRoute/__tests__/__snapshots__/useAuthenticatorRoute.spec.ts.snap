@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useAuthenticatorRoute returns the expected values for the confirmResetPassword route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "resendCode": [MockFunction],
+    "validationErrors": Object {},
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the confirmSignIn route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "challengeName": "CUSTOM_CHALLENGE",
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "toSignIn": [MockFunction],
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the confirmSignUp route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "codeDeliveryDetails": Object {},
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "resendCode": [MockFunction],
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the confirmVerifyUser route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "skipVerification": [MockFunction],
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the forceNewPassword route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "toSignIn": [MockFunction],
+    "validationErrors": Object {},
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the resetPassword route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "toSignIn": [MockFunction],
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the setupTOTP route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "error": "error",
+    "getTotpSecretCode": [MockFunction],
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "toSignIn": [MockFunction],
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the signIn route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "hideSignUp": false,
+    "isPending": false,
+    "toFederatedSignIn": [MockFunction],
+    "toResetPassword": [MockFunction],
+    "toSignUp": [MockFunction],
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the signUp route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "toSignIn": [MockFunction],
+    "validationErrors": Object {},
+  },
+}
+`;
+
+exports[`useAuthenticatorRoute returns the expected values for the verifyUser route 1`] = `
+Object {
+  "Component": [Function],
+  "props": Object {
+    "Footer": [Function],
+    "FormFields": [Function],
+    "Header": [Function],
+    "error": "error",
+    "handleBlur": [MockFunction],
+    "handleChange": [MockFunction],
+    "handleSubmit": [MockFunction],
+    "isPending": false,
+    "skipVerification": [MockFunction],
+  },
+}
+`;

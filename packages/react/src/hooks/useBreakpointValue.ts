@@ -14,6 +14,7 @@ export function useBreakpointValue<T>(
 ): T | string {
   const {
     breakpoints: { values: breakpoints },
+    tokens,
   } = useTheme();
 
   const breakpoint = useBreakpoint({
@@ -26,5 +27,6 @@ export function useBreakpointValue<T>(
     breakpoints,
     propKey: propKey as ThemeStylePropKey,
     values,
+    tokens,
   });
 }

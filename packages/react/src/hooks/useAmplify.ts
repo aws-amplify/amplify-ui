@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { Theme } from '@aws-amplify/ui';
+import { WebTheme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from '../components/ThemeProvider/AmplifyContext';
 import { getThemeFromContext } from './useTheme';
 
 interface UseAmplifyOutput {
-  theme: Theme;
+  theme: WebTheme;
 }
 
 export function useAmplify(): UseAmplifyOutput {

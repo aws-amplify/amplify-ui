@@ -26,7 +26,6 @@ export class SignUpWithEmailComponent implements OnInit {
   public formFields = {
     confirmSignUp: {
       confirmation_code: {
-        labelHidden: false,
         placeholder: 'Enter the code given',
         isRequired: true,
       },
@@ -47,6 +46,9 @@ export class SignUpWithEmailComponent implements OnInit {
         username,
         password,
         attributes,
+        autoSignIn: {
+          enabled: true,
+        },
       });
     },
   };

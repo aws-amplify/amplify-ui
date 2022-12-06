@@ -1,0 +1,102 @@
+.amplify-inappmessaging-messagelayout {
+  background-color: var(--amplify-colors-background-primary);
+  flex-direction: column;
+  flex-grow: 1;
+  gap: var(--amplify-space-xxxs);
+  max-width: 100%;
+  padding: var(--amplify-space-medium);
+  &__button {
+    border-width: 0;
+    width: 100%;
+    &,
+    &:active,
+    &:visited,
+    &:hover,
+    &:focus {
+      background-color: var(
+        --amplify-components-inappmessaging-button-background-color
+      );
+      border-radius: var(
+        --amplify-components-inappmessaging-button-border-radius
+      );
+      color: var(--amplify-components-inappmessaging-button-color);
+    }
+    &--dark,
+    &--light {
+      &:active,
+      &:visited {
+        filter: brightness(100%);
+      }
+    }
+    &--dark {
+      &:hover,
+      &:focus {
+        filter: brightness(120%);
+      }
+    }
+    &--light {
+      &:hover,
+      &:focus {
+        filter: brightness(80%);
+      }
+    }
+  }
+  &__close-button {
+    color: var(--amplify-colors-neutral-80);
+    &:active,
+    &:visited {
+      color: var(--amplify-colors-neutral-80);
+    }
+    &:hover,
+    &:focus {
+      color: var(--amplify-colors-neutral-100);
+    }
+  }
+  &__content {
+    flex-grow: 1;
+    overflow: hidden;
+    &--horizontal {
+      flex-direction: row;
+    }
+    &--vertical {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+  &__header {
+    flex-shrink: 0;
+    font-size: var(--amplify-components-inappmessaging-header-font-size);
+    font-weight: var(--amplify-components-inappmessaging-header-font-weight);
+  }
+  &__image-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      position: absolute;
+    }
+    &--horizontal {
+      max-width: 15%;
+      min-width: 15%;
+    }
+    &--vertical {
+      max-height: 40%;
+      min-height: 40%;
+    }
+  }
+  &__text-container {
+    flex-direction: column;
+    overflow-y: auto;
+    gap: var(--amplify-space-xxxs);
+    &--horizontal {
+      flex-grow: 1;
+    }
+    &--vertical {
+      flex-grow: 0;
+    }
+  }
+}

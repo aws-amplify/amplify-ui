@@ -33,6 +33,7 @@ import {
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
+
 import { defaultServices } from '../defaultServices';
 
 export type SignInMachineOptions = {
@@ -64,6 +65,7 @@ export function signInActor({ services }: SignInMachineOptions) {
       states: {
         init: {
           always: [
+            { target: 'autoSignIn.submit', cond: 'shouldAutoSubmit' },
             { target: 'autoSignIn', cond: 'shouldAutoSignIn' },
             { target: 'signIn' },
           ],
@@ -167,8 +169,43 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         autoSignIn: {
-          initial: 'submit',
+          initial: 'pending',
           states: {
+            pending: {
+              tags: ['pending'],
+              entry: ['clearError', 'sendUpdate'],
+              on: {
+                AUTO_SIGN_IN: [
+                  {
+                    cond: 'shouldSetupTOTP',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.setupTOTP',
+                  },
+                  {
+                    cond: 'shouldConfirmSignIn',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: '#signInActor.confirmSignIn',
+                  },
+                  {
+                    cond: 'shouldForceChangePassword',
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
+                    target: '#signInActor.forceNewPassword',
+                  },
+                  {
+                    actions: 'setUser',
+                    target: '#signInActor.resolved',
+                  },
+                ],
+                AUTO_SIGN_IN_FAILURE: {
+                  actions: 'setRemoteError',
+                  target: 'pending',
+                },
+              },
+            },
             submit: {
               tags: ['pending'],
               entry: ['clearError', 'sendUpdate'],
@@ -199,27 +236,14 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.resolved',
                   },
                 ],
-                onError: [
-                  {
-                    cond: 'shouldRedirectToConfirmSignUp',
-                    actions: ['setCredentials', 'setConfirmSignUpIntent'],
-                    target: '#signInActor.rejected',
-                  },
-                  {
-                    cond: 'shouldRedirectToConfirmResetPassword',
-                    actions: [
-                      'setUsernameAuthAttributes',
-                      'setConfirmResetPasswordIntent',
-                    ],
-                    target: '#signInActor.rejected',
-                  },
-                  {
-                    actions: 'setRemoteError',
-                    target: '#signInActor.signIn',
-                  },
-                ],
+                onError: {
+                  actions: 'setRemoteError',
+                  target: '#signInActor.signIn',
+                },
               },
             },
+            resolved: { always: '#signInActor.resolved' },
+            rejected: { always: '#signInActor.rejected' },
           },
         },
         confirmSignIn: {
@@ -440,9 +464,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         resolved: {
           type: 'final',
-          data: (context) => ({
-            user: context.user,
-          }),
+          data: (context) => ({ user: context.user }),
         },
         rejected: {
           type: 'final',
@@ -482,20 +504,14 @@ export function signInActor({ services }: SignInMachineOptions) {
         sendUpdate: sendUpdate(), // sendUpdate is a HOC
       },
       guards: {
-        shouldConfirmSignIn: (_, event): boolean => {
-          return isMfaChallengeName(getChallengeName(event));
-        },
         shouldAutoSignIn: (context) => {
           return context?.intent === 'autoSignIn';
         },
-        shouldRedirectToConfirmSignUp: (_, event): boolean => {
-          return event.data.code === 'UserNotConfirmedException';
+        shouldAutoSubmit: (context) => {
+          return context?.intent === 'autoSignInSubmit';
         },
-        shouldRedirectToConfirmResetPassword: (_, event): boolean => {
-          return event.data.code === 'PasswordResetRequiredException';
-        },
-        shouldSetupTOTP: (_, event): boolean => {
-          return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
+        shouldConfirmSignIn: (_, event): boolean => {
+          return isMfaChallengeName(getChallengeName(event));
         },
         shouldForceChangePassword: (_, event): boolean => {
           return isExpectedChallengeName(
@@ -503,10 +519,20 @@ export function signInActor({ services }: SignInMachineOptions) {
             'NEW_PASSWORD_REQUIRED'
           );
         },
+
+        shouldRedirectToConfirmResetPassword: (_, event): boolean => {
+          return event.data.code === 'PasswordResetRequiredException';
+        },
+        shouldRedirectToConfirmSignUp: (_, event): boolean => {
+          return event.data.code === 'UserNotConfirmedException';
+        },
         shouldRequestVerification: (_, event): boolean => {
           const { unverified, verified } = event.data;
 
           return isEmpty(verified) && !isEmpty(unverified);
+        },
+        shouldSetupTOTP: (_, event): boolean => {
+          return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
         },
       },
       services: {
