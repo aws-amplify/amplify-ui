@@ -1,5 +1,23 @@
 # @aws-amplify/ui
 
+## 5.3.0
+
+### Minor Changes
+
+- [#3108](https://github.com/aws-amplify/amplify-ui/pull/3108) [`3653c8f39`](https://github.com/aws-amplify/amplify-ui/commit/3653c8f3914e3dc51fbcc328e59326afb422aa68) Thanks [@wlee221](https://github.com/wlee221)! - Adds `ChangePassword` and `DeleteUser` Account Settings components. These components are standalone components that add account management flows after users authenticate.
+
+  These components are in developer preview. Please see https://ui.docs.amplify.aws/react/connected-components/account-settings to learn more.
+
+- [#3133](https://github.com/aws-amplify/amplify-ui/pull/3133) [`4b2dbeb18`](https://github.com/aws-amplify/amplify-ui/commit/4b2dbeb18c79175bc0bfe0cf50a0e9d0429544d6) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(button): add `warning` and `destructive` variations to the React Button component
+
+### Patch Changes
+
+- [#3120](https://github.com/aws-amplify/amplify-ui/pull/3120) [`145d0b5f5`](https://github.com/aws-amplify/amplify-ui/commit/145d0b5f596ff7c9f623898af0bb3836516c51fe) Thanks [@zchenwei](https://github.com/zchenwei)! - style: disable scroll chaining on Autocomplete menu to improve UX
+
+- [#3126](https://github.com/aws-amplify/amplify-ui/pull/3126) [`e3867e369`](https://github.com/aws-amplify/amplify-ui/commit/e3867e369b4aeb5b240916cb88105353483b9b7c) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix default text color for alert primitive
+
+- [#3129](https://github.com/aws-amplify/amplify-ui/pull/3129) [`0377bccfb`](https://github.com/aws-amplify/amplify-ui/commit/0377bccfbea55606d007ae914a5d7f202bf87478) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(theme): making all component tokens optional
+
 ## 5.2.0
 
 ### Minor Changes
