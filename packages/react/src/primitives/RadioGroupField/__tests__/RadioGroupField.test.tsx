@@ -10,6 +10,7 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
+import { getTestId } from '../../utils/testUtils';
 
 describe('RadioFieldGroup test suite', () => {
   const basicProps = { label: 'testLabel', name: 'testName', testId: 'testId' };
@@ -66,7 +67,7 @@ describe('RadioFieldGroup test suite', () => {
     render(<RadioGroupField {...basicProps} ref={ref}></RadioGroupField>);
 
     await screen.findByTestId(basicProps.testId);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('FIELDSET');
   });
 
   it('should render all flex style props', async () => {
@@ -141,7 +142,7 @@ describe('RadioFieldGroup test suite', () => {
     it('should render default classname', async () => {
       render(getRadioFieldGroup({ ...basicProps }));
       const radioGroup = await screen.findByRole('radiogroup');
-      expect(radioGroup).toHaveClass(ComponentClassNames.RadioGroup);
+      expect(radioGroup).toHaveClass(ComponentClassNames.RadioGroupField);
     });
 
     it('should work in uncontrolled way', () => {
@@ -223,6 +224,19 @@ describe('RadioFieldGroup test suite', () => {
       expect(radios[1]).toHaveAttribute('aria-invalid', 'true');
       expect(radios[2]).toHaveAttribute('aria-invalid', 'true');
     });
+
+    it('should render the RadioGroup as a fieldset that uses aria-labelledby instead of legend', async () => {
+      render(getRadioFieldGroup({ ...basicProps }));
+      const radioGroup = await screen.findByRole('radiogroup');
+
+      expect(radioGroup).toHaveAttribute('aria-labelledby');
+
+      const labelledBy = radioGroup.getAttribute('aria-labelledby');
+      const label = await screen.findByText(basicProps.label);
+      const labelId = label.getAttribute('id');
+
+      expect(labelledBy).toBe(labelId);
+    });
   });
 
   describe('Descriptive message', () => {
@@ -236,9 +250,13 @@ describe('RadioFieldGroup test suite', () => {
     });
 
     it('should map to descriptive text correctly', async () => {
+      const radioGroupTestId = getTestId(
+        basicProps.testId,
+        ComponentClassNames.RadioGroup
+      );
       const descriptiveText = 'Description';
       render(getRadioFieldGroup({ ...basicProps, descriptiveText }));
-      const radioGroup = await screen.findByRole('radiogroup');
+      const radioGroup = await screen.findByTestId(radioGroupTestId);
       expect(radioGroup).toHaveAccessibleDescription(descriptiveText);
     });
   });
