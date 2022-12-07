@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button, Icon, Label } from '../../../primitives';
-import { usePressableOverrideStyle } from '../../../theme/hooks';
+import { usePressableContainerStyles } from '../../../hooks';
 
 import { styles } from './styles';
 import { FederatedProviderButtonProps } from './types';
@@ -13,9 +13,9 @@ export default function FederatedProviderButton({
   textStyle,
   ...rest
 }: FederatedProviderButtonProps): JSX.Element {
-  const pressableStyle = usePressableOverrideStyle({
-    style,
-    themedStyle: styles.container,
+  const pressableStyle = usePressableContainerStyles({
+    containerStyle: styles.container,
+    overrideStyle: style,
   });
 
   return (

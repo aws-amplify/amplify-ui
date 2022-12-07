@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Pressable, Text, TextStyle, ViewStyle } from 'react-native';
-import { usePressableOverrideStyle } from '../../theme/hooks';
+import { usePressableContainerStyles } from '../../hooks';
 
 import { useTheme } from '../../theme';
 import { capitalize } from '../../utils';
@@ -28,9 +28,9 @@ export default function Button({
     [disabled, themedStyle, variant]
   );
 
-  const pressableStyle = usePressableOverrideStyle({
-    style,
-    themedStyle: containerStyle,
+  const pressableStyle = usePressableContainerStyles({
+    overrideStyle: style,
+    containerStyle,
     pressedStyle: themedStyle.pressed,
   });
 

@@ -9,7 +9,7 @@ import {
 import { useTheme } from '../../theme';
 import { Label } from '../Label';
 import { getFlexDirectionFromLabelPosition } from '../Label/utils';
-import { usePressableOverrideStyle } from '../../theme/hooks';
+import { usePressableContainerStyles } from '../../hooks';
 
 import { getThemedStyles } from './styles';
 import { RadioProps } from './types';
@@ -56,9 +56,9 @@ export default function Radio<T>({
     [disabled, labelPosition, themedStyle]
   );
 
-  const pressableStyle = usePressableOverrideStyle({
-    style,
-    themedStyle: containerStyle,
+  const pressableStyle = usePressableContainerStyles({
+    overrideStyle: style,
+    containerStyle,
     pressedStyle: themedStyle.pressed,
   });
 

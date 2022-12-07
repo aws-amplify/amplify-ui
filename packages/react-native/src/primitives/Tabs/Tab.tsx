@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
-import { usePressableOverrideStyle } from '../../theme/hooks';
+import { usePressableContainerStyles } from '../../hooks';
 import { Button } from '../Button';
 import { getThemedStyles } from './styles';
 import { TabProps } from './types';
@@ -29,9 +29,9 @@ export default function Tab({
     [selected, selectedStyles, themedStyle]
   );
 
-  const pressableStyle = usePressableOverrideStyle({
-    style,
-    themedStyle: containerStyle,
+  const pressableStyle = usePressableContainerStyles({
+    overrideStyle: style,
+    containerStyle,
     pressedStyle: themedStyle.pressed,
   });
 

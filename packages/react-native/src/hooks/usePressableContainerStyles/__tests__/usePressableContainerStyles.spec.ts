@@ -2,9 +2,9 @@ import { renderHook } from '@testing-library/react-native';
 import { ViewStyle } from 'react-native';
 
 import {
-  UsePressableOverrideStyleProps,
-  usePressableOverrideStyle,
-} from '../usePressableOverrideStyle';
+  UsePressableContainerStyleProps,
+  usePressableContainerStyles,
+} from '../usePressableContainerStyles';
 
 const style: ViewStyle = {
   backgroundColor: 'red',
@@ -16,15 +16,15 @@ const pressedStyle: ViewStyle = {
   opacity: 70,
 };
 
-describe('usePressableOverrideStyle', () => {
+describe('usePressableContainerStyles', () => {
   it('should apply styles correctly and return a style object', () => {
-    const props: UsePressableOverrideStyleProps = {
-      style,
-      themedStyle,
+    const props: UsePressableContainerStyleProps = {
+      overrideStyle: style,
+      containerStyle: themedStyle,
       pressedStyle,
     };
 
-    const { result } = renderHook(() => usePressableOverrideStyle(props));
+    const { result } = renderHook(() => usePressableContainerStyles(props));
 
     expect(result.current({ pressed: false })).toStrictEqual([
       { ...themedStyle },
@@ -34,13 +34,13 @@ describe('usePressableOverrideStyle', () => {
   });
 
   it('should apply pressed styles correctly and return a style object', () => {
-    const props: UsePressableOverrideStyleProps = {
-      style,
-      themedStyle,
+    const props: UsePressableContainerStyleProps = {
+      overrideStyle: style,
+      containerStyle: themedStyle,
       pressedStyle,
     };
 
-    const { result } = renderHook(() => usePressableOverrideStyle(props));
+    const { result } = renderHook(() => usePressableContainerStyles(props));
 
     expect(result.current({ pressed: true })).toStrictEqual([
       { ...themedStyle },
@@ -50,14 +50,14 @@ describe('usePressableOverrideStyle', () => {
   });
 
   it('should apply style function correctly and return a style object', () => {
-    const props: UsePressableOverrideStyleProps = {
-      style: () => {
+    const props: UsePressableContainerStyleProps = {
+      overrideStyle: () => {
         return style;
       },
-      themedStyle,
+      containerStyle: themedStyle,
     };
 
-    const { result } = renderHook(() => usePressableOverrideStyle(props));
+    const { result } = renderHook(() => usePressableContainerStyles(props));
 
     expect(result.current({ pressed: false })).toStrictEqual([
       { ...themedStyle },
