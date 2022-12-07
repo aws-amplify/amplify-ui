@@ -117,14 +117,14 @@ function SetupTOTP({
     navigator.clipboard.writeText(totpSecret.secretKey);
   }, [totpSecret]);
 
-  /** Return null if user isn't authenticated in the first place */
-  if (!user) {
-    logger.warn('<ConfigureTOTP /> requires user to be authenticated.');
+  /* Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
+  if (isLoading) {
     return null;
   }
 
-  /** Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
-  if (isLoading) {
+  /* Return null if user isn't authenticated in the first place */
+  if (!user) {
+    logger.warn('<SetupTOTP /> requires user to be authenticated.');
     return null;
   }
 
