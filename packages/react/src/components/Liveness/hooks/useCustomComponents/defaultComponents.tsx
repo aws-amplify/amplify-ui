@@ -12,9 +12,25 @@ import { LivenessIconWithPopover } from '../../shared/LivenessIconWithPopover';
 import { useTheme } from 'src/hooks/useTheme';
 
 export interface LivenessComponents {
+  LivenessHeader?: () => JSX.Element;
   PhotosensitiveWarning?: () => JSX.Element;
   LivenessInstructions?: () => JSX.Element;
 }
+
+export const LivenessHeader = (): JSX.Element => {
+  return (
+    <View flex="1">
+      <View color="font.tertiary" fontWeight="bold">
+        {translate<string>('Liveness check')}
+      </View>
+      <View color="font.tertiary">
+        {translate<string>(
+          'You will go through a face verification process to prove you are a real person.'
+        )}
+      </View>
+    </View>
+  );
+};
 
 export const PhotosensitiveWarning = (): JSX.Element => {
   const { tokens } = useTheme();
@@ -78,6 +94,7 @@ export const LivenessInstructions = (): JSX.Element => {
 };
 
 export const defaultComponents: LivenessComponents = {
+  LivenessHeader: LivenessHeader,
   PhotosensitiveWarning: PhotosensitiveWarning,
   LivenessInstructions: LivenessInstructions,
 };

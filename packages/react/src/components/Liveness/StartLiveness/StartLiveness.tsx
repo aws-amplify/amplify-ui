@@ -18,7 +18,8 @@ export interface StartLivenessProps {
 
 export function StartLiveness(props: StartLivenessProps): JSX.Element {
   const { beginLivenessCheck, components } = props;
-  const { PhotosensitiveWarning, LivenessInstructions } = components;
+  const { LivenessHeader, PhotosensitiveWarning, LivenessInstructions } =
+    components;
   const { componentProps } = useFaceLivenessDetector();
 
   React.useEffect(() => {
@@ -47,6 +48,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
       data-testid={START_CLASS_NAME}
     >
       <Flex direction="column">
+        <LivenessHeader />
         <PhotosensitiveWarning />
         <LivenessInstructions />
         <Flex justifyContent="center">
