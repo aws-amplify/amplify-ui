@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MFAOption renders as expected when mfaType is sms 1`] = `
+<div>
+  <label
+    class="amplify-flex amplify-radio"
+  >
+    <span
+      class="amplify-text amplify-radio__label"
+    >
+      <p
+        class="amplify-text"
+        style="font-weight: var(--amplify-font-weights-bold);"
+      >
+        Use SMS
+      </p>
+      <p
+        class="amplify-text"
+      >
+        Receive an SMS on your phone with a code
+      </p>
+    </span>
+    <input
+      aria-invalid="false"
+      class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+      name="default"
+      type="radio"
+      value="sms"
+    />
+    <span
+      aria-hidden="true"
+      class="amplify-flex amplify-radio__button"
+    />
+  </label>
+</div>
+`;
+
+exports[`MFAOption renders as expected when mfaType is totp 1`] = `
+<div>
+  <label
+    class="amplify-flex amplify-radio"
+  >
+    <span
+      class="amplify-text amplify-radio__label"
+    >
+      <p
+        class="amplify-text"
+        style="font-weight: var(--amplify-font-weights-bold);"
+      >
+        Use an app
+      </p>
+      <p
+        class="amplify-text"
+      >
+        Use an application on your phone. Applications include cloud-based TOTP (temporary one time password) apps such as Authy, Google Authenticator, and 1password.
+      </p>
+    </span>
+    <input
+      aria-invalid="false"
+      class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+      name="default"
+      type="radio"
+      value="totp"
+    />
+    <span
+      aria-hidden="true"
+      class="amplify-flex amplify-radio__button"
+    />
+  </label>
+</div>
+`;

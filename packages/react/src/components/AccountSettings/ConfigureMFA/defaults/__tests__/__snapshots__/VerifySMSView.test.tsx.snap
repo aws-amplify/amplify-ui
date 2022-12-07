@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerifySMSView renders as expected 1`] = `
+<div>
+  <form>
+    <div
+      class="amplify-flex"
+      style="flex-direction: column;"
+    >
+      <div
+        class="amplify-flex amplify-field amplify-textfield"
+      >
+        <label
+          class="amplify-label"
+          for="amplify-id-0"
+        >
+          Verification Code
+        </label>
+        <p
+          class="amplify-text amplify-field__description"
+          data-testid="qa-field-description"
+          id="amplify-id-1"
+        >
+          Please enter the verification code we sent to your phone number
+        </p>
+        <div
+          class="amplify-flex amplify-field-group amplify-field-group--horizontal"
+          data-orientation="horizontal"
+        >
+          <div
+            class="amplify-field-group__field-wrapper amplify-field-group__field-wrapper--horizontal"
+            data-orientation="horizontal"
+          >
+            <input
+              aria-describedby="amplify-id-1"
+              aria-invalid="false"
+              class="amplify-input amplify-field-group__control"
+              id="amplify-id-0"
+              name="code"
+              required=""
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="amplify-flex"
+        style="flex-direction: row; justify-content: space-between;"
+      >
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--link"
+          data-fullwidth="false"
+          data-variation="link"
+          type="submit"
+        >
+          Back
+        </button>
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--primary"
+          data-fullwidth="false"
+          data-variation="primary"
+          type="submit"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;

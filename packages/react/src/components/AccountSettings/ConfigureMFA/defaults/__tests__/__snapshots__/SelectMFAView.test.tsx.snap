@@ -1,0 +1,328 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectMFAView renders as expected with both sms and totp option 1`] = `
+<div>
+  <form>
+    <div
+      class="amplify-flex"
+      style="flex-direction: column;"
+    >
+      <div
+        class="amplify-flex amplify-alert"
+        role="alert"
+      >
+        <div
+          style="flex: 1;"
+        >
+          <div
+            class="amplify-alert__body"
+          >
+            You are about to change your multi-factor authentication device. This will invalidate your current device.
+          </div>
+        </div>
+      </div>
+      <p
+        class="amplify-text"
+      >
+        Multi-factor authentication (MFA) is an extra layer of security for your account.
+      </p>
+      <div
+        class="amplify-flex amplify-field amplify-radiogroupfield"
+      >
+        <label
+          class="amplify-label amplify-visually-hidden"
+          id="amplify-id-7"
+        >
+          MFA type
+        </label>
+        <div
+          aria-labelledby="amplify-id-7"
+          class="amplify-flex amplify-radiogroup"
+          id="amplify-id-6"
+          role="radiogroup"
+        >
+          <label
+            class="amplify-flex amplify-radio"
+          >
+            <span
+              class="amplify-text amplify-radio__label"
+            >
+              <p
+                class="amplify-text"
+                style="font-weight: var(--amplify-font-weights-bold);"
+              >
+                Use SMS
+              </p>
+              <p
+                class="amplify-text"
+              >
+                Receive an SMS on your phone with a code
+              </p>
+            </span>
+            <input
+              aria-invalid="false"
+              class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+              name="mfaType"
+              type="radio"
+              value="sms"
+            />
+            <span
+              aria-hidden="true"
+              class="amplify-flex amplify-radio__button"
+            />
+          </label>
+          <label
+            class="amplify-flex amplify-radio"
+          >
+            <span
+              class="amplify-text amplify-radio__label"
+            >
+              <p
+                class="amplify-text"
+                style="font-weight: var(--amplify-font-weights-bold);"
+              >
+                Use an app
+              </p>
+              <p
+                class="amplify-text"
+              >
+                Use an application on your phone. Applications include cloud-based TOTP (temporary one time password) apps such as Authy, Google Authenticator, and 1password.
+              </p>
+            </span>
+            <input
+              aria-invalid="false"
+              class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+              name="mfaType"
+              type="radio"
+              value="totp"
+            />
+            <span
+              aria-hidden="true"
+              class="amplify-flex amplify-radio__button"
+            />
+          </label>
+        </div>
+      </div>
+      <div
+        class="amplify-flex"
+        style="justify-content: space-between;"
+      >
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--link"
+          data-fullwidth="false"
+          data-variation="link"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--primary"
+          data-fullwidth="false"
+          data-variation="primary"
+          type="submit"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`SelectMFAView renders as expected with sms option 1`] = `
+<div>
+  <form>
+    <div
+      class="amplify-flex"
+      style="flex-direction: column;"
+    >
+      <div
+        class="amplify-flex amplify-alert"
+        role="alert"
+      >
+        <div
+          style="flex: 1;"
+        >
+          <div
+            class="amplify-alert__body"
+          >
+            You are about to change your multi-factor authentication device. This will invalidate your current device.
+          </div>
+        </div>
+      </div>
+      <p
+        class="amplify-text"
+      >
+        Multi-factor authentication (MFA) is an extra layer of security for your account.
+      </p>
+      <div
+        class="amplify-flex amplify-field amplify-radiogroupfield"
+      >
+        <label
+          class="amplify-label amplify-visually-hidden"
+          id="amplify-id-1"
+        >
+          MFA type
+        </label>
+        <div
+          aria-labelledby="amplify-id-1"
+          class="amplify-flex amplify-radiogroup"
+          id="amplify-id-0"
+          role="radiogroup"
+        >
+          <label
+            class="amplify-flex amplify-radio"
+          >
+            <span
+              class="amplify-text amplify-radio__label"
+            >
+              <p
+                class="amplify-text"
+                style="font-weight: var(--amplify-font-weights-bold);"
+              >
+                Use SMS
+              </p>
+              <p
+                class="amplify-text"
+              >
+                Receive an SMS on your phone with a code
+              </p>
+            </span>
+            <input
+              aria-invalid="false"
+              class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+              name="mfaType"
+              type="radio"
+              value="sms"
+            />
+            <span
+              aria-hidden="true"
+              class="amplify-flex amplify-radio__button"
+            />
+          </label>
+        </div>
+      </div>
+      <div
+        class="amplify-flex"
+        style="justify-content: space-between;"
+      >
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--link"
+          data-fullwidth="false"
+          data-variation="link"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--primary"
+          data-fullwidth="false"
+          data-variation="primary"
+          type="submit"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`SelectMFAView renders as expected with totp option 1`] = `
+<div>
+  <form>
+    <div
+      class="amplify-flex"
+      style="flex-direction: column;"
+    >
+      <div
+        class="amplify-flex amplify-alert"
+        role="alert"
+      >
+        <div
+          style="flex: 1;"
+        >
+          <div
+            class="amplify-alert__body"
+          >
+            You are about to change your multi-factor authentication device. This will invalidate your current device.
+          </div>
+        </div>
+      </div>
+      <p
+        class="amplify-text"
+      >
+        Multi-factor authentication (MFA) is an extra layer of security for your account.
+      </p>
+      <div
+        class="amplify-flex amplify-field amplify-radiogroupfield"
+      >
+        <label
+          class="amplify-label amplify-visually-hidden"
+          id="amplify-id-4"
+        >
+          MFA type
+        </label>
+        <div
+          aria-labelledby="amplify-id-4"
+          class="amplify-flex amplify-radiogroup"
+          id="amplify-id-3"
+          role="radiogroup"
+        >
+          <label
+            class="amplify-flex amplify-radio"
+          >
+            <span
+              class="amplify-text amplify-radio__label"
+            >
+              <p
+                class="amplify-text"
+                style="font-weight: var(--amplify-font-weights-bold);"
+              >
+                Use an app
+              </p>
+              <p
+                class="amplify-text"
+              >
+                Use an application on your phone. Applications include cloud-based TOTP (temporary one time password) apps such as Authy, Google Authenticator, and 1password.
+              </p>
+            </span>
+            <input
+              aria-invalid="false"
+              class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+              name="mfaType"
+              type="radio"
+              value="totp"
+            />
+            <span
+              aria-hidden="true"
+              class="amplify-flex amplify-radio__button"
+            />
+          </label>
+        </div>
+      </div>
+      <div
+        class="amplify-flex"
+        style="justify-content: space-between;"
+      >
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--link"
+          data-fullwidth="false"
+          data-variation="link"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--primary"
+          data-fullwidth="false"
+          data-variation="primary"
+          type="submit"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
