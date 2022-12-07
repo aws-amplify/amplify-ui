@@ -11,7 +11,7 @@ export interface VerifyTotpStatus {
 export interface ConfigureTOTPProps {
   /** TOTP issuer. Default to "AWSCognito" */
   totpIssuer?: string;
-  /** TOTP username. Default to `user.username`  */
+  /** TOTP username. Default to `user.username` */
   totpUsername?: string;
   /** callback once totp is successfully set up */
   onSuccess?: () => void;
