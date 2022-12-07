@@ -2,6 +2,8 @@ import React from 'react';
 import {
   AlertProps,
   ButtonProps,
+  TextFieldProps,
+  ImageProps,
   PasswordFieldProps,
   PrimitiveProps,
 } from '../../primitives/types';
@@ -14,6 +16,8 @@ import {
 type PasswordFieldPrimitiveProps = PrimitiveProps<PasswordFieldProps, 'input'>;
 type ButtonPrimitiveProps = PrimitiveProps<ButtonProps, 'button'>;
 type AlertPrimitiveProps = PrimitiveProps<AlertProps, 'div'>;
+type TextFieldPrimitiveProps = PrimitiveProps<TextFieldProps, 'input'>;
+type ImagePrimitiveProps = PrimitiveProps<ImageProps, 'img'>;
 
 /*
  * These are common prop types for component overrides.
@@ -37,6 +41,12 @@ type CommonButtonProps<T extends 'submit' | 'default' = 'default'> =
       >
     >;
 
+type CommonTextFieldProps = Partial<TextFieldPrimitiveProps> &
+  Required<Pick<TextFieldPrimitiveProps, 'name' | 'onChange'>>;
+
+type CommonImageProps = Partial<ImagePrimitiveProps> &
+  Required<Pick<ImagePrimitiveProps, 'src'>>;
+
 /*
  * These are component override types.
  * Usage of `Props` generic allows additional props passed on override components
@@ -55,6 +65,14 @@ export type SubmitButtonComponent<Props = {}> = React.ComponentType<
 
 export type ErrorMessageComponent<Props = {}> = React.ComponentType<
   Props & CommonAlertProps
+>;
+
+export type TextFieldComponent<Props = {}> = React.ComponentType<
+  Props & CommonTextFieldProps
+>;
+
+export type ImageComponent<Props = {}> = React.ComponentType<
+  Props & CommonImageProps
 >;
 
 /* Form specific types */
