@@ -41,6 +41,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -120,6 +121,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -181,6 +183,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
             "alignItems": "center",
             "flexDirection": "row",
           },
+          undefined,
           undefined,
         ]
       }
@@ -244,6 +247,7 @@ exports[`RadioGroup renders as expected when direction is horizontal 1`] = `
             "flexDirection": "row",
             "opacity": 0.6,
           },
+          undefined,
           undefined,
         ]
       }
@@ -331,6 +335,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -410,6 +415,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -471,6 +477,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
             "alignItems": "center",
             "flexDirection": "row",
           },
+          undefined,
           undefined,
         ]
       }
@@ -534,6 +541,7 @@ exports[`RadioGroup renders as expected when direction is vertical 1`] = `
             "flexDirection": "row",
             "opacity": 0.6,
           },
+          undefined,
           undefined,
         ]
       }
@@ -621,6 +629,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -700,6 +709,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -761,6 +771,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
             "alignItems": "center",
             "flexDirection": "row",
           },
+          undefined,
           undefined,
         ]
       }
@@ -824,6 +835,7 @@ exports[`RadioGroup renders as expected when size is large 1`] = `
             "flexDirection": "row",
             "opacity": 0.6,
           },
+          undefined,
           undefined,
         ]
       }
@@ -911,6 +923,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -990,6 +1003,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -1051,6 +1065,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
             "alignItems": "center",
             "flexDirection": "row",
           },
+          undefined,
           undefined,
         ]
       }
@@ -1114,6 +1129,7 @@ exports[`RadioGroup renders as expected when size is medium 1`] = `
             "flexDirection": "row",
             "opacity": 0.6,
           },
+          undefined,
           undefined,
         ]
       }
@@ -1201,6 +1217,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -1280,6 +1297,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -1341,6 +1359,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
             "alignItems": "center",
             "flexDirection": "row",
           },
+          undefined,
           undefined,
         ]
       }
@@ -1404,6 +1423,7 @@ exports[`RadioGroup renders as expected when size is small 1`] = `
             "flexDirection": "row",
             "opacity": 0.6,
           },
+          undefined,
           undefined,
         ]
       }
@@ -1491,6 +1511,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -1570,6 +1591,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
             "flexDirection": "row",
           },
           undefined,
+          undefined,
         ]
       }
     >
@@ -1631,6 +1653,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
             "alignItems": "center",
             "flexDirection": "row",
           },
+          undefined,
           undefined,
         ]
       }
@@ -1694,6 +1717,7 @@ exports[`RadioGroup renders default RadioGroup as expected 1`] = `
             "flexDirection": "row",
             "opacity": 0.6,
           },
+          undefined,
           undefined,
         ]
       }

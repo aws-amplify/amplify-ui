@@ -31,9 +31,8 @@ describe('IconButton', () => {
     const themedStyle = getThemedStyles(result.current);
 
     expect(button.props.style).toStrictEqual([
-      themedStyle.container,
-      themedStyle.disabled,
-      null,
+      { ...themedStyle.container, ...themedStyle.disabled },
+      undefined,
       undefined,
     ]);
     expect(toJSON()).toMatchSnapshot();
@@ -61,9 +60,10 @@ describe('IconButton', () => {
     const themedStyle = getThemedStyles(result.current);
 
     expect(getByRole('button').props.style).toStrictEqual([
-      themedStyle.container,
-      null,
-      null,
+      {
+        ...themedStyle.container,
+      },
+      undefined,
       customStyle,
     ]);
     expect(toJSON()).toMatchSnapshot();

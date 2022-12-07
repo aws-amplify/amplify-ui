@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, ViewStyle } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { render, renderHook } from '@testing-library/react-native';
 
 import { useTheme } from '../../../theme';
 import { Tab } from '..';
 import { getThemedStyles } from '../styles';
+import { getThemedStyles as getButtonThemedStyles } from '../../Button/styles';
 
 const customStyles = StyleSheet.create({
   tabStyle: {
@@ -35,14 +36,21 @@ describe('Tab', () => {
 
     const { result } = renderHook(() => useTheme());
     const themedStyle = getThemedStyles(result.current);
+    const buttonThemedStyle = getButtonThemedStyles(result.current);
 
     const tab = getByRole('tab');
-    // select second index as `Button` applies its own style first
-    expect((tab.props.style as ViewStyle[])[4]).toStrictEqual([
-      themedStyle.tab,
-      themedStyle.readonly,
-      themedStyle.selected,
-      null,
+    expect(tab.props.style).toStrictEqual([
+      { ...buttonThemedStyle.container, ...buttonThemedStyle.containerDefault },
+      undefined,
+      [
+        {
+          ...themedStyle.tab,
+          ...themedStyle.readonly,
+          ...themedStyle.selected,
+        },
+        undefined,
+        undefined,
+      ],
     ]);
   });
 
@@ -55,14 +63,13 @@ describe('Tab', () => {
 
     const { result } = renderHook(() => useTheme());
     const themedStyle = getThemedStyles(result.current);
+    const buttonThemedStyle = getButtonThemedStyles(result.current);
 
     const tab = getByRole('tab');
-    // select second index as `Button` applies its own style first
-    expect((tab.props.style as ViewStyle[])[4]).toStrictEqual([
-      themedStyle.tab,
-      null,
-      null,
-      customStyles.tabStyle,
+    expect(tab.props.style).toStrictEqual([
+      { ...buttonThemedStyle.container, ...buttonThemedStyle.containerDefault },
+      undefined,
+      [{ ...themedStyle.tab }, undefined, customStyles.tabStyle],
     ]);
   });
 });

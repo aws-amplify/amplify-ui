@@ -1,12 +1,9 @@
-import React, { useCallback } from 'react';
-import {
-  Pressable,
-  PressableStateCallbackType,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import React, { useMemo } from 'react';
+import { Pressable, ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
+import { usePressableContainerStyles } from '../../hooks';
+
 import { getThemedStyles } from './styles';
 import { Icon, iconSizes } from '../Icon';
 import { IconButtonProps } from './types';
@@ -24,19 +21,19 @@ export default function IconButton({
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 
-  const pressableStyle = useCallback(
-    ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
-      const pressedStateStyle =
-        typeof style === 'function' ? style({ pressed }) : style;
-      return [
-        themedStyle.container,
-        disabled ? themedStyle.disabled : null,
-        pressed ? themedStyle.pressed : null,
-        pressedStateStyle,
-      ];
-    },
-    [disabled, style, themedStyle]
+  const containerStyle: ViewStyle = useMemo(
+    (): ViewStyle => ({
+      ...themedStyle.container,
+      ...(disabled && themedStyle.disabled),
+    }),
+    [disabled, themedStyle]
   );
+
+  const pressableStyle = usePressableContainerStyles({
+    overrideStyle: style,
+    containerStyle,
+    pressedStyle: themedStyle.pressed,
+  });
 
   return (
     <Pressable
