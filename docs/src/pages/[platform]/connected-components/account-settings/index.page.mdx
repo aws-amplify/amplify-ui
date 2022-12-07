@@ -1,0 +1,61 @@
+---
+title: Account Settings
+description: Amplify UI provides account settings components to manage account settings.
+supportedFrameworks: react
+---
+
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Fragment } from '@/components/Fragment';
+import { InstallScripts } from '@/components/InstallScripts';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { DeveloperPreview } from './DeveloperPreview';
+
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<DeveloperPreview />
+
+Account Settings components are a set of standalone components that add [user management](https://docs.amplify.aws/lib/auth/manageusers/q/platform/js/) flows to your application with minimal boilerplate.
+
+<Alert variation="warning">
+  Account Settings components require end user to be authenticated. You can use the [`Authenticator`](/connected-components/authenticator) component to add authentication UI to your application.
+</Alert>
+
+## Quick Start
+
+### Step 1. Configure Backend
+
+Account settings components work seamlessly with the [Amplify CLI](https://docs.amplify.aws/cli/start/install/)
+to **automatically** work with your backend.
+
+First, update `@aws-amplify/cli` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+if you're using a version before `6.4.0`:
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install -g @aws-amplify/cli@latest
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn global add @aws-amplify/cli@latest
+```
+
+</TabItem>
+</Tabs>
+
+### Step 2. Install Dependencies
+
+<InstallScripts />

@@ -30,6 +30,10 @@ export const getThemedStyles = (
       opacity: opacities[100],
       ...components?.tabs?.readonly,
     },
+    pressed: {
+      opacity: opacities[60],
+      ...components?.tabs?.pressed,
+    },
     tabList: {
       flexDirection: 'row',
       width: '100%',

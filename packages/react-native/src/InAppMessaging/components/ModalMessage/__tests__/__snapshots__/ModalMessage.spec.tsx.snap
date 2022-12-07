@@ -62,8 +62,7 @@ exports[`ModalMessage renders a message as expected with an image 1`] = `
         style={
           Array [
             Object {},
-            null,
-            null,
+            undefined,
             Array [
               Object {
                 "alignSelf": "flex-start",
@@ -206,8 +205,7 @@ exports[`ModalMessage renders as expected in landscape mode 1`] = `
         style={
           Array [
             Object {},
-            null,
-            null,
+            undefined,
             Array [
               Object {
                 "alignSelf": "flex-start",
@@ -307,8 +305,7 @@ exports[`ModalMessage renders as expected in portrait mode 1`] = `
         style={
           Array [
             Object {},
-            null,
-            null,
+            undefined,
             Array [
               Object {
                 "alignSelf": "flex-start",

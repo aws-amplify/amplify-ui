@@ -43,6 +43,7 @@ export interface TabProps extends ButtonProps {
 }
 
 export interface TabsStyles {
+  pressed?: ViewStyle;
   readonly?: ViewStyle;
   selected?: ViewStyle;
   tabList?: ViewStyle;

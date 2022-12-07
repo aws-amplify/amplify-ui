@@ -7,7 +7,7 @@ import { useMessageImage } from '../../../hooks';
 
 import ModalMessage from '../ModalMessage';
 
-jest.mock('../../../../hooks');
+jest.mock('../../../../hooks/useDeviceOrientation');
 jest.mock('../../../hooks/useMessageImage');
 jest.mock('../../MessageWrapper', () => ({ MessageWrapper: 'MessageWrapper' }));
 

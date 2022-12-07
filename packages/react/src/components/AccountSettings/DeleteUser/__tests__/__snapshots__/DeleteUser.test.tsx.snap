@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeleteUser renders as expected 1`] = `
+<div>
+  <div
+    class="amplify-flex amplify-accountsettings-deleteuser"
+    style="flex-direction: column;"
+  >
+    <button
+      class="amplify-button amplify-field-group__control amplify-button--warning"
+      data-fullwidth="false"
+      data-variation="warning"
+      type="button"
+    >
+      Delete Account
+    </button>
+  </div>
+</div>
+`;
+
+exports[`DeleteUser renders as expected with components overrides 1`] = `
+<div>
+  <div
+    class="amplify-flex amplify-accountsettings-deleteuser"
+    style="flex-direction: column;"
+  >
+    <button
+      class="amplify-button amplify-field-group__control"
+      data-fullwidth="false"
+      type="button"
+    >
+      Custom Delete Button
+    </button>
+  </div>
+</div>
+`;
