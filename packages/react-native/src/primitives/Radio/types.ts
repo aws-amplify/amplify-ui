@@ -22,6 +22,7 @@ export type RadioDimensions = Pick<ViewStyle, 'height' | 'width'>;
 export interface RadioStyles {
   container?: ViewStyle;
   disabled?: ViewStyle;
+  pressed?: ViewStyle;
   radioContainer?: ViewStyle;
   radioContainerLarge?: RadioDimensions;
   radioContainerMedium?: RadioDimensions;

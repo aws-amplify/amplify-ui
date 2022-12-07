@@ -18,8 +18,7 @@ exports[`IconButton applies theme and style props 1`] = `
   style={
     Array [
       Object {},
-      null,
-      null,
+      undefined,
       Object {
         "backgroundColor": "blue",
       },
@@ -70,11 +69,10 @@ exports[`IconButton handles disabled state 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     Array [
-      Object {},
       Object {
         "opacity": 0.6,
       },
-      null,
+      undefined,
       undefined,
     ]
   }
@@ -119,8 +117,7 @@ exports[`IconButton renders as expected 1`] = `
   style={
     Array [
       Object {},
-      null,
-      null,
+      undefined,
       undefined,
     ]
   }
@@ -165,8 +162,7 @@ exports[`IconButton renders as expected with custom icon style 1`] = `
   style={
     Array [
       Object {},
-      null,
-      null,
+      undefined,
       undefined,
     ]
   }

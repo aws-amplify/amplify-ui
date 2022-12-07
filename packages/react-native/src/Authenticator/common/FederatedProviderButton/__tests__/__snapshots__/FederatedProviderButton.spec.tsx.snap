@@ -1,5 +1,98 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FederatedProviderButton applies style props 1`] = `
+<View
+  accessibilityRole="button"
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderColor": "hsl(210, 10%, 58%)",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "justifyContent": "center",
+        "paddingHorizontal": 16,
+        "paddingVertical": 12,
+      },
+      undefined,
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderRadius": 4,
+          "borderWidth": 0.5,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingVertical": 8,
+          "width": "100%",
+        },
+        undefined,
+        Object {
+          "backgroundColor": "blue",
+        },
+      ],
+    ]
+  }
+>
+  <Image
+    accessibilityRole="image"
+    source={
+      Object {
+        "testUri": "../../../src/assets/icons/amazonLogo.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 20,
+          "resizeMode": "contain",
+          "tintColor": undefined,
+          "width": 20,
+        },
+        Object {
+          "paddingHorizontal": 16,
+        },
+      ]
+    }
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Array [
+          Object {
+            "fontWeight": "400",
+          },
+          undefined,
+        ],
+      ]
+    }
+  >
+    Sign In with Amazon
+  </Text>
+</View>
+`;
+
 exports[`FederatedProviderButton renders default button as expected 1`] = `
 <View
   accessibilityRole="button"
@@ -20,17 +113,14 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
+        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      Object {
-        "borderColor": "hsl(210, 10%, 58%)",
-        "borderWidth": 1,
-      },
-      null,
-      null,
+      undefined,
       Array [
         Object {
           "alignItems": "center",
@@ -41,6 +131,7 @@ exports[`FederatedProviderButton renders default button as expected 1`] = `
           "paddingVertical": 8,
           "width": "100%",
         },
+        undefined,
         undefined,
       ],
     ]
