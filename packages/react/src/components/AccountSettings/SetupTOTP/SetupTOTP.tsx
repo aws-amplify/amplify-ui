@@ -13,6 +13,7 @@ import {
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import { FormValues } from '../types';
+import { ComponentClassName } from '../constants';
 import {
   ConfirmationCode,
   CopySecretKey,
@@ -131,7 +132,11 @@ function SetupTOTP({
   const { isVerifying, errorMessage } = verifyTotpStatus;
 
   return (
-    <View as="form" onSubmit={handleSubmit}>
+    <View
+      as="form"
+      className={ComponentClassName.SetupTOTP}
+      onSubmit={handleSubmit}
+    >
       <Flex direction="column" alignItems="center">
         {totpSecret?.qrCode ? (
           <SecretKeyQRCode

@@ -2,7 +2,9 @@
 
 exports[`SetupTOTP renders as expected 1`] = `
 <div>
-  <form>
+  <form
+    class="amplify-accountsettings-setuptotp"
+  >
     <div
       class="amplify-flex"
       style="flex-direction: column; align-items: center;"
