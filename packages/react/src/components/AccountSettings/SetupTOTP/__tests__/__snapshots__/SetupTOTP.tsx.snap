@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConfigureTOTP renders as expected 1`] = `
+exports[`SetupTOTP renders as expected 1`] = `
 <div>
   <form>
     <div
