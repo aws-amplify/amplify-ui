@@ -15,9 +15,9 @@ import { View, Flex } from '../../../primitives';
 import { ComponentClassName, FormValues } from '../types';
 import {
   ConfirmationCode,
-  CopySecretKey,
-  Error,
-  SecretKeyQRCode,
+  CopyButton,
+  ErrorMessage,
+  QRCodeImage,
   SubmitButton,
 } from './defaults';
 import { ConfigureTOTPProps, TotpSecret, VerifyTotpStatus } from './types';
@@ -138,19 +138,19 @@ function SetupTOTP({
     >
       <Flex direction="column" alignItems="center">
         {totpSecret?.qrCode ? (
-          <SecretKeyQRCode
+          <QRCodeImage
             src={totpSecret?.qrCode}
             alt="qr code"
             {...QR_CODE_DIMENSIONS}
           />
         ) : null}
-        <CopySecretKey
+        <CopyButton
           isDisabled={isVerifying}
           alignSelf="stretch"
           onClick={handleCopy}
         >
           {copyCodeText}
-        </CopySecretKey>
+        </CopyButton>
         <ConfirmationCode
           alignSelf="stretch"
           isRequired
@@ -170,7 +170,9 @@ function SetupTOTP({
         >
           {confirmText}
         </SubmitButton>
-        {errorMessage ? <Error width="100%">{errorMessage}</Error> : null}
+        {errorMessage ? (
+          <ErrorMessage width="100%">{errorMessage}</ErrorMessage>
+        ) : null}
       </Flex>
     </View>
   );
