@@ -8,6 +8,12 @@ import {
   PrimitiveProps,
 } from '../../primitives/types';
 
+export enum ComponentClassName {
+  ChangePassword = 'amplify-accountsettings-changepassword',
+  DeleteUser = 'amplify-accountsettings-deleteuser',
+  SetupTOTP = 'amplify-accountsettings-setuptotp',
+}
+
 /*
  * These are primitive prop types that account settings component use.
  *

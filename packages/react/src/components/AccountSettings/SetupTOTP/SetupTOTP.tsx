@@ -12,8 +12,7 @@ import {
 
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
-import { FormValues } from '../types';
-import { ComponentClassName } from '../constants';
+import { ComponentClassName, FormValues } from '../types';
 import {
   ConfirmationCode,
   CopySecretKey,
