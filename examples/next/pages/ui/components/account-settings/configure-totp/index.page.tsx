@@ -3,6 +3,8 @@ import React from 'react';
 import { Amplify } from 'aws-amplify';
 
 import {
+  AccountSettings,
+  Alert,
   Authenticator,
   Button,
   Card,
@@ -10,8 +12,6 @@ import {
   Heading,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-
-import { Alert, ConfigureTOTP } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
@@ -26,7 +26,7 @@ export default function App() {
             <Card variation="outlined">
               <Flex direction="column">
                 <Heading>Setup MFA:</Heading>
-                <ConfigureTOTP
+                <AccountSettings.SetupTOTP
                   onSuccess={() => {
                     setIsSuccessful(true);
                   }}
