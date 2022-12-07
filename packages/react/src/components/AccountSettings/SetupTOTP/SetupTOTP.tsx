@@ -25,7 +25,7 @@ import { QR_CODE_DIMENSIONS } from './constants';
 
 const logger = getLogger('Auth');
 
-function ConfigureTOTP({
+function SetupTOTP({
   totpIssuer = 'AWSCognito',
   totpUsername,
   onSuccess,
@@ -172,4 +172,4 @@ function ConfigureTOTP({
   );
 }
 
-export default ConfigureTOTP;
+export default SetupTOTP;

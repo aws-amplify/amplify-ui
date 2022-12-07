@@ -9,7 +9,7 @@ import {
 
 import * as UIModule from '@aws-amplify/ui';
 
-import ConfigureTOTP from '../ConfigureTOTP';
+import SetupTOTP from '../SetupTOTP';
 
 const user = { username: 'testuser' } as unknown as UIModule.AmplifyUser;
 jest.mock('../../../../internal', () => ({
@@ -22,21 +22,21 @@ jest.mock('../../../../internal', () => ({
 const setupTOTPSpy = jest.spyOn(UIModule, 'setupTOTP');
 const verifyTOTPToken = jest.spyOn(UIModule, 'verifyTOTPToken');
 
-describe('ConfigureTOTP', () => {
+describe('SetupTOTP', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders as expected', () => {
     setupTOTPSpy.mockResolvedValue('secretcode');
-    const { container } = render(<ConfigureTOTP />);
+    const { container } = render(<SetupTOTP />);
     expect(container).toMatchSnapshot();
   });
 
   it('calls setupTOTP with expected arguments', async () => {
     setupTOTPSpy.mockResolvedValue('secretcode');
 
-    render(<ConfigureTOTP />);
+    render(<SetupTOTP />);
 
     await screen.findByAltText('qr code');
     expect(setupTOTPSpy).toHaveBeenCalledWith(user);
@@ -49,7 +49,7 @@ describe('ConfigureTOTP', () => {
     const onSuccess = jest.fn();
 
     await act(async () => {
-      render(<ConfigureTOTP onSuccess={onSuccess} />);
+      render(<SetupTOTP onSuccess={onSuccess} />);
     });
 
     const submitButton = await screen.findByRole('button', {
@@ -68,7 +68,7 @@ describe('ConfigureTOTP', () => {
 
     const onError = jest.fn();
     await act(async () => {
-      render(<ConfigureTOTP onError={onError} />);
+      render(<SetupTOTP onError={onError} />);
     });
     const submitButton = await screen.findByRole('button', {
       name: 'Confirm',
@@ -87,7 +87,7 @@ describe('ConfigureTOTP', () => {
     const onError = jest.fn();
 
     await act(async () => {
-      render(<ConfigureTOTP onError={onError} />);
+      render(<SetupTOTP onError={onError} />);
     });
 
     const submitButton = await screen.findByRole('button', {
@@ -106,7 +106,7 @@ describe('ConfigureTOTP', () => {
 
     const onError = jest.fn();
     await act(async () => {
-      render(<ConfigureTOTP onError={onError} />);
+      render(<SetupTOTP onError={onError} />);
     });
 
     const submitButton = await screen.findByRole('button', {
