@@ -12,7 +12,7 @@ import {
 
 import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
-import { ComponentClassName, FormValues } from '../types';
+import { ComponentClassName } from '../types';
 import {
   ConfirmationCode,
   CopyButton,
@@ -31,7 +31,7 @@ function SetupTOTP({
   onSuccess,
   onError,
 }: ConfigureTOTPProps): JSX.Element | null {
-  const [formValues, setFormValues] = React.useState<FormValues>({ code: '' });
+  const [confirmationCode, setConfirmationCode] = React.useState<string>('');
   const [totpSecret, setTotpSecret] = React.useState<TotpSecret>(null);
   const [verifyTotpStatus, setVerifyTotpStatus] =
     React.useState<VerifyTotpStatus>({
@@ -74,8 +74,8 @@ function SetupTOTP({
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
-      const { name, value } = event.target;
-      setFormValues((prevFormValues) => ({ ...prevFormValues, [name]: value }));
+      const { value } = event.target;
+      setConfirmationCode(value);
     },
     []
   );
@@ -107,10 +107,9 @@ function SetupTOTP({
   const handleSubmit = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const { code } = formValues;
-      runVerifyTotpToken({ user, code });
+      runVerifyTotpToken({ user, code: confirmationCode });
     },
-    [user, formValues, runVerifyTotpToken]
+    [user, confirmationCode, runVerifyTotpToken]
   );
 
   const handleCopy = React.useCallback(() => {
@@ -158,14 +157,14 @@ function SetupTOTP({
           name="code"
           onChange={handleChange}
           placeholder="Code"
-          value={formValues.code}
+          value={confirmationCode}
           isDisabled={isVerifying}
         />
 
         <SubmitButton
           type="submit"
           variation="primary"
-          isDisabled={isVerifying || !formValues.code}
+          isDisabled={isVerifying ?? confirmationCode.length === 0}
           isFullWidth
         >
           {confirmText}
