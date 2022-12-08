@@ -41,8 +41,6 @@ function SetupTOTP({
 
   const { user, isLoading } = useAuth();
 
-  const hasInit = React.useRef(false);
-
   const generateQRCode = React.useCallback(
     async (currentUser: AmplifyUser): Promise<void> => {
       try {
@@ -60,11 +58,10 @@ function SetupTOTP({
   );
 
   React.useEffect(() => {
-    if (user && !hasInit.current) {
-      hasInit.current = true;
+    if (user && !totpSecret) {
       generateQRCode(user);
     }
-  }, [generateQRCode, user]);
+  }, [generateQRCode, totpSecret, user]);
 
   // translations
   const confirmText = translate('Confirm');
