@@ -144,6 +144,7 @@ describe('Radio', () => {
 
     expect(getByRole('radio').props.style).toStrictEqual([
       { ...themedStyle.container, flexDirection: 'row' },
+      undefined, // pressed styles
       customStyle,
     ]);
 

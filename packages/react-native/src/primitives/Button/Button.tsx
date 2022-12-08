@@ -1,12 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
-import {
-  Pressable,
-  PressableStateCallbackType,
-  StyleProp,
-  Text,
-  TextStyle,
-  ViewStyle,
-} from 'react-native';
+import React, { useMemo } from 'react';
+import { Pressable, Text, TextStyle, ViewStyle } from 'react-native';
+import { usePressableContainerStyles } from '../../hooks';
 
 import { useTheme } from '../../theme';
 import { capitalize } from '../../utils';
@@ -25,21 +19,20 @@ export default function Button({
   const theme = useTheme();
   const themedStyle = getThemedStyles(theme);
 
-  const pressableStyle = useCallback(
-    ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
-      const pressedStateStyle =
-        typeof style === 'function' ? style({ pressed }) : style;
-
-      return [
-        themedStyle.container,
-        themedStyle[`container${capitalize(variant)}`],
-        disabled ? themedStyle.disabled : null,
-        pressed ? themedStyle.pressed : null,
-        pressedStateStyle,
-      ];
-    },
-    [disabled, style, themedStyle, variant]
+  const containerStyle: ViewStyle = useMemo(
+    (): ViewStyle => ({
+      ...themedStyle.container,
+      ...themedStyle[`container${capitalize(variant)}`],
+      ...(disabled && themedStyle.disabled),
+    }),
+    [disabled, themedStyle, variant]
   );
+
+  const pressableStyle = usePressableContainerStyles({
+    overrideStyle: style,
+    containerStyle,
+    pressedStyle: themedStyle.pressed,
+  });
 
   const buttonTextStyle: TextStyle = useMemo(
     (): TextStyle => ({
