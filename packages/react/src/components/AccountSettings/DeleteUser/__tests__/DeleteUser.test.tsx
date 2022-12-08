@@ -4,7 +4,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as UIModule from '@aws-amplify/ui';
 
 import { Button, Flex, Heading, Text } from '../../../../primitives';
-import { ComponentClassName } from '../../constants';
+import { ComponentClassName } from '../../types';
 import { DeleteUserComponents } from '../types';
 import DeleteUser from '../DeleteUser';
 

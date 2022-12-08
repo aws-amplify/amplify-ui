@@ -3,10 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
 
-import ChangePassword from '../ChangePassword';
 import { Button } from '../../../../primitives';
+import ChangePassword from '../ChangePassword';
+import { ComponentClassName } from '../../types';
 import { ChangePasswordComponents } from '../types';
-import { ComponentClassName } from '../../constants';
 
 const components: ChangePasswordComponents = {
   CurrentPasswordField: (props) => (
