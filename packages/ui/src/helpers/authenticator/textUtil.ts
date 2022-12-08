@@ -9,7 +9,7 @@ import { AuthenticatorRoute } from './facade';
 /**
  * ConfirmSignIn
  */
-const getChallengeText = (challengeName: AuthChallengeName): string => {
+const getChallengeText = (challengeName?: AuthChallengeName): string => {
   switch (challengeName) {
     case 'SMS_MFA':
       return translate(DefaultTexts.CONFIRM_SMS);

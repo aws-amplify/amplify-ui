@@ -2,8 +2,6 @@ import React, { useCallback, useMemo } from 'react';
 import {
   GestureResponderEvent,
   Pressable,
-  PressableStateCallbackType,
-  StyleProp,
   View,
   ViewStyle,
 } from 'react-native';
@@ -11,6 +9,7 @@ import {
 import { useTheme } from '../../theme';
 import { Label } from '../Label';
 import { getFlexDirectionFromLabelPosition } from '../Label/utils';
+import { usePressableContainerStyles } from '../../hooks';
 
 import { getThemedStyles } from './styles';
 import { RadioProps } from './types';
@@ -48,20 +47,20 @@ export default function Radio<T>({
     [disabled, onChange, onPress, value]
   );
 
-  const containerStyle = useCallback(
-    ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
-      const containerStyle: ViewStyle = {
-        ...themedStyle.container,
-        flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
-        ...(disabled && themedStyle.disabled),
-      };
-
-      const pressedStateStyle =
-        typeof style === 'function' ? style({ pressed }) : style;
-      return [containerStyle, pressedStateStyle];
-    },
-    [disabled, labelPosition, style, themedStyle]
+  const containerStyle: ViewStyle = useMemo(
+    (): ViewStyle => ({
+      ...themedStyle.container,
+      flexDirection: getFlexDirectionFromLabelPosition(labelPosition),
+      ...(disabled && themedStyle.disabled),
+    }),
+    [disabled, labelPosition, themedStyle]
   );
+
+  const pressableStyle = usePressableContainerStyles({
+    overrideStyle: style,
+    containerStyle,
+    pressedStyle: themedStyle.pressed,
+  });
 
   const { radioContainerDimensions, radioDotDimensions } = useMemo(
     () => getRadioDimensions(size, themedStyle),
@@ -73,7 +72,7 @@ export default function Radio<T>({
       {...rest}
       accessibilityRole={accessibilityRole}
       onPress={handleOnChange}
-      style={containerStyle}
+      style={pressableStyle}
     >
       <View
         style={[

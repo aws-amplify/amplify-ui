@@ -203,6 +203,112 @@
       color: var(--amplify-components-button-link-active-color);
     }
   }
+  
+  &--destructive {
+    border-width: var(--amplify-components-button-destructive-border-width);
+    background-color: var(--amplify-components-button-destructive-background-color);
+    border-color: var(--amplify-components-button-destructive-border-color);
+    color: var(--amplify-components-button-destructive-color);
+
+    &:hover {
+      background-color: var(
+        --amplify-components-button-destructive-hover-background-color
+      );
+      border-color: var(--amplify-components-button-destructive-hover-border-color);
+      color: var(--amplify-components-button-destructive-hover-color);
+    }
+
+    &:focus {
+      background-color: var(
+        --amplify-components-button-destructive-focus-background-color
+      );
+      border-color: var(--amplify-components-button-destructive-focus-border-color);
+      color: var(--amplify-components-button-destructive-focus-color);
+      box-shadow: var(--amplify-components-button-destructive-focus-box-shadow);
+    }
+
+    &:active {
+      background-color: var(
+        --amplify-components-button-destructive-active-background-color
+      );
+      border-color: var(
+        --amplify-components-button-destructive-active-border-color
+      );
+      color: var(--amplify-components-button-destructive-active-color);
+    }
+
+    --amplify-internal-button-disabled-border-color: var(
+      --amplify-components-button-destructive-disabled-border-color
+    );
+    --amplify-internal-button-disabled-background-color: var(
+      --amplify-components-button-destructive-disabled-background-color
+    );
+    --amplify-internal-button-disabled-color: var(
+      --amplify-components-button-destructive-disabled-color
+    );
+    --amplify-internal-button-loading-background-color: var(
+      --amplify-components-button-destructive-loading-background-color
+    );
+    --amplify-internal-button-loading-border-color: var(
+      --amplify-components-button-destructive-loading-border-color
+    );
+    --amplify-internal-button-loading-color: var(
+      --amplify-components-button-destructive-loading-color
+    );
+  }
+  
+  &--warning {
+    background-color: var(--amplify-components-button-warning-background-color);
+    border-color: var(--amplify-components-button-warning-border-color);
+    border-width: var(--amplify-components-button-warning-border-width);
+    color: var(--amplify-components-button-warning-color);
+
+    --amplify-internal-button-disabled-text-decoration: none;
+    --amplify-internal-button-disabled-border-color: var(
+      --amplify-components-button-warning-disabled-border-color
+    );
+    --amplify-internal-button-disabled-background-color: var(
+      --amplify-components-button-warning-disabled-background-color
+    );
+    --amplify-internal-button-disabled-color: var(
+      --amplify-components-button-warning-disabled-color
+    );
+    --amplify-internal-button-loading-background-color: var(
+      --amplify-components-button-warning-loading-background-color
+    );
+    --amplify-internal-button-loading-border-color: var(
+      --amplify-components-button-warning-loading-border-color
+    );
+    --amplify-internal-button-loading-color: var(
+      --amplify-components-button-warning-loading-color
+    );
+    --amplify-internal-button-loading-text-decoration: none;
+
+    &:hover {
+      background-color: var(
+        --amplify-components-button-warning-hover-background-color
+      );
+      border-color: var(--amplify-components-button-warning-hover-border-color);
+      color: var(--amplify-components-button-warning-hover-color);
+    }
+
+    &:focus {
+      background-color: var(
+        --amplify-components-button-warning-focus-background-color
+      );
+      border-color: var(--amplify-components-button-warning-focus-border-color);
+      color: var(--amplify-components-button-warning-focus-color);
+      box-shadow: var(--amplify-components-button-warning-focus-box-shadow);
+    }
+
+    &:active {
+      background-color: var(
+        --amplify-components-button-warning-active-background-color
+      );
+      border-color: var(--amplify-components-button-warning-active-border-color);
+      color: var(--amplify-components-button-warning-active-color);
+    }
+  }
 
   &--small {
     font-size: var(--amplify-components-button-small-font-size);

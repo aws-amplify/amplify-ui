@@ -127,7 +127,7 @@ describe('useDataStoreCollection', () => {
       fakeDataStoreObserveQuery
     );
 
-    const { result, unmount } = renderHook(() =>
+    const { unmount } = renderHook(() =>
       useDataStoreCollection({
         model: fakeModel,
       })

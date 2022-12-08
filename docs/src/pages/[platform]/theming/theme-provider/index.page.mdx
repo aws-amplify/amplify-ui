@@ -1,0 +1,21 @@
+---
+title: ThemeProvider
+description: The ThemeProvider allows you to apply a Theme to your application.
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { FRAMEWORKS } from '@/data/frameworks';
+import { getCustomStaticPath } from "@/utils/getCustomStaticPath";
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>

@@ -20,17 +20,14 @@ exports[`Tab can apply custom styling 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
+        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      Object {
-        "borderColor": "hsl(210, 10%, 58%)",
-        "borderWidth": 1,
-      },
-      null,
-      null,
+      undefined,
       Array [
         Object {
           "backgroundColor": "transparent",
@@ -43,8 +40,7 @@ exports[`Tab can apply custom styling 1`] = `
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
-        null,
-        null,
+        undefined,
         Object {
           "backgroundColor": "lavender",
           "borderTopColor": "rebeccapurple",
@@ -99,38 +95,30 @@ exports[`Tab renders as expected when Tab is selected 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
+        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      Object {
-        "borderColor": "hsl(210, 10%, 58%)",
-        "borderWidth": 1,
-      },
-      null,
-      null,
+      undefined,
       Array [
-        Object {
-          "backgroundColor": "transparent",
-          "borderBottomColor": "hsl(210, 5%, 87%)",
-          "borderBottomWidth": 2,
-          "borderRadius": 0,
-          "borderWidth": 0,
-          "flexBasis": 0,
-          "flexGrow": 1,
-          "paddingHorizontal": 16,
-          "paddingVertical": 12,
-        },
-        Object {
-          "opacity": 1,
-        },
         Object {
           "backgroundColor": "hsl(0, 0%, 100%)",
           "borderBottomColor": "hsl(190, 95%, 30%)",
+          "borderBottomWidth": 2,
+          "borderRadius": 0,
+          "borderWidth": 0,
           "color": "hsl(190, 95%, 30%)",
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "opacity": 1,
+          "paddingHorizontal": 16,
+          "paddingVertical": 12,
         },
-        null,
+        undefined,
+        undefined,
       ],
     ]
   }
@@ -185,17 +173,14 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
+        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      Object {
-        "borderColor": "hsl(210, 10%, 58%)",
-        "borderWidth": 1,
-      },
-      null,
-      null,
+      undefined,
       Array [
         Object {
           "backgroundColor": "transparent",
@@ -208,9 +193,8 @@ exports[`Tab renders as expected with a component passed as children 1`] = `
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
-        null,
-        null,
-        null,
+        undefined,
+        undefined,
       ],
     ]
   }
@@ -241,17 +225,14 @@ exports[`Tab renders default Tab as expected 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "transparent",
+        "borderColor": "hsl(210, 10%, 58%)",
         "borderRadius": 4,
+        "borderWidth": 1,
         "justifyContent": "center",
         "paddingHorizontal": 16,
         "paddingVertical": 12,
       },
-      Object {
-        "borderColor": "hsl(210, 10%, 58%)",
-        "borderWidth": 1,
-      },
-      null,
-      null,
+      undefined,
       Array [
         Object {
           "backgroundColor": "transparent",
@@ -264,9 +245,8 @@ exports[`Tab renders default Tab as expected 1`] = `
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
-        null,
-        null,
-        null,
+        undefined,
+        undefined,
       ],
     ]
   }
