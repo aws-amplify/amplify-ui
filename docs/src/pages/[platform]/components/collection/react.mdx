@@ -22,6 +22,7 @@ import {
   LocalCollectionClassExample,
   PaginationCollectionExample,
   SearchCollectionExample,
+  SearchNoResultsFoundCollectionExample,
   StylingCollectionExample,
 } from './examples';
 
@@ -103,6 +104,21 @@ Collections can also be filtered, adding a `isSearchable` property. Pass a custo
   <ExampleCode>
 
 ```tsx file=./examples/SearchCollectionExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### No Results Found
+
+To handle the case when no results are found from the search, you can pass a custom `ReactNode` (includes `string`) to the `searchNoResultsFound` prop. By default, Collection renders the text "No results found".
+
+<Example>
+  <SearchNoResultsFoundCollectionExample />
+  <ExampleCode>
+
+```tsx file=./examples/SearchNoResultsFoundCollectionExample.tsx
 
 ```
 

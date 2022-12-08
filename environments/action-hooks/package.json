@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "action-hooks",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d1r9l08y32q5fb --envName dev"
-  }
-}

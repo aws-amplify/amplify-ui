@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Amplify from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import {
   Authenticator,
   AuthenticatorSignUpFormFields,
@@ -11,8 +11,8 @@ import {
 import '@aws-amplify/ui-vue/styles.css';
 
 import awsExports from './aws-exports';
-Amplify.configure(awsExports);
 import { toRefs } from 'vue';
+Amplify.configure(awsExports);
 
 const { validationErrors } = toRefs(useAuthenticator());
 

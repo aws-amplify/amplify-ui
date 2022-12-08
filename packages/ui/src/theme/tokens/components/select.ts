@@ -1,53 +1,33 @@
-import {
-  AlignItemsValue,
-  BackgroundColorValue,
-  CursorValue,
-  DesignToken,
-  DisplayValue,
-  FlexValue,
-  PointerEventsValue,
-  PositionValue,
-  SpaceValue,
-  TransformValue,
-  WhiteSpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface SelectWrapperTokens {
-  flex: DesignToken<FlexValue>;
-  display: DesignToken<DisplayValue>;
-  position: DesignToken<PositionValue>;
-  cursor: DesignToken<CursorValue>;
-}
+type SelectSizeTokens<Output> = DesignTokenProperties<'minWidth', Output>;
 
-interface SelectIconWrapperTokens {
-  alignItems: DesignToken<AlignItemsValue>;
-  position: DesignToken<PositionValue>;
-  top: DesignToken<SpaceValue>;
-  right: DesignToken<SpaceValue>;
-  transform: DesignToken<TransformValue>;
-  pointerEvents: DesignToken<PointerEventsValue>;
-}
+export type SelectTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<
+    'paddingInlineEnd' | 'whiteSpace' | 'minWidth',
+    Output
+  > & {
+    wrapper?: DesignTokenProperties<
+      'cursor' | 'display' | 'flex' | 'position',
+      Output
+    >;
+    iconWrapper?: DesignTokenProperties<
+      | 'alignItems'
+      | 'position'
+      | 'top'
+      | 'right'
+      | 'transform'
+      | 'pointerEvents',
+      Output
+    >;
+    option?: DesignTokenProperties<'backgroundColor' | 'color', Output> & {
+      _disabled?: DesignTokenProperties<'color', Output>;
+    };
+    small?: SelectSizeTokens<Output>;
+    large?: SelectSizeTokens<Output>;
+  };
 
-interface SelectOptionTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-
-interface SelectSizeTokens {
-  minWidth: DesignToken<SpaceValue>;
-}
-
-export interface SelectTokens {
-  paddingInlineEnd: DesignToken<SpaceValue>;
-  wrapper: SelectWrapperTokens;
-  iconWrapper: SelectIconWrapperTokens;
-  option: SelectOptionTokens;
-  whiteSpace: DesignToken<WhiteSpaceValue>;
-  minWidth: DesignToken<SpaceValue>;
-  small: SelectSizeTokens;
-  large: SelectSizeTokens;
-}
-
-export const select: SelectTokens = {
+export const select: Required<SelectTokens<'default'>> = {
   paddingInlineEnd: { value: '{space.xxl.value}' },
   // wrappers
   wrapper: {
@@ -67,6 +47,10 @@ export const select: SelectTokens = {
   // for Firefox only, to fix background color in darkmode
   option: {
     backgroundColor: { value: '{colors.background.primary.value}' },
+    color: { value: '{colors.font.primary.value}' },
+    _disabled: {
+      color: { value: '{colors.font.disabled.value}' },
+    },
   },
   whiteSpace: { value: 'nowrap' },
   minWidth: { value: '6.5rem' },

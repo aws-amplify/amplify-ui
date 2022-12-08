@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from 'vue';
+import { translate } from '@aws-amplify/ui';
+
 const show = ref(true);
+
+const dismissAriaLabel = translate('Dismiss alert');
 
 function close() {
   show.value = false;
@@ -10,10 +14,7 @@ function close() {
 <template>
   <div
     v-if="show"
-    class="
-      amplify-flex amplify-alert amplify-alert--error
-      amplify-authenticator__base
-    "
+    class="amplify-flex amplify-alert amplify-alert--error amplify-authenticator__base"
     data-variation="error"
     role="alert"
   >
@@ -21,6 +22,7 @@ function close() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="amplify-icon"
+        aria-hidden="true"
         viewBox="0 0 24 24"
         fill="currentColor"
       >
@@ -31,7 +33,8 @@ function close() {
       <div><slot></slot></div>
     </div>
     <amplify-button
-      class="amplify-field-group__control"
+      class="amplify-field-group__control amplify-alert__dismiss"
+      :aria-label="dismissAriaLabel"
       :fullwidth="false"
       :variation="'link'"
       type="button"
@@ -40,6 +43,7 @@ function close() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="amplify-icon"
+        aria-hidden="true"
         viewBox="0 0 24 24"
         fill="currentColor"
       >

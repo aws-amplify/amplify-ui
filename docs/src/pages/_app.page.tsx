@@ -1,12 +1,15 @@
 import * as React from 'react';
+import { Storage } from 'aws-amplify';
+import { useRouter } from 'next/router';
+import Script from 'next/script';
 
 import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
+import MyStorageProvider from '@/utils/storageMock';
 import { configure, trackPageVisit } from '@/utils/track';
+import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
-import Script from 'next/script';
 import { baseTheme } from '../theme';
-import { useCustomRouter } from '@/components/useCustomRouter';
 
 import { Head } from './Head';
 
@@ -18,12 +21,18 @@ require('prismjs/components/prism-dart');
 
 import '../styles/index.scss';
 import classNames from 'classnames';
+import { GlobalNav, NavMenuItem } from '@/components/Layout/GlobalNav';
+import {
+  LEFT_NAV_LINKS,
+  RIGHT_NAV_LINKS,
+  SOCIAL_LINKS,
+} from '@/data/globalnav';
 
 if (typeof window === 'undefined') {
   // suppress useLayoutEffect warnings when running outside a browser
-  // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
+  // See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85?permalink_comment_id=4150784#gistcomment-4150784
   // @ts-ignore Cannot assign to 'useLayoutEffect' because it is a read-only property.ts(2540)
-  React.useLayoutEffect = React.useEffect;
+  React.useLayoutEffect = () => {};
 } else {
   console.log(`
   _____           _ _ ___        _____ _____ 
@@ -40,10 +49,16 @@ if (typeof window === 'undefined') {
 function MyApp({ Component, pageProps }) {
   const [expanded, setExpanded] = React.useState(false);
 
+  Storage.addPluggable(new MyStorageProvider('fast', { delay: 10 }));
+  Storage.addPluggable(new MyStorageProvider('slow', { delay: 1000 }));
+  Storage.addPluggable(
+    new MyStorageProvider('error', { delay: 50, networkError: true })
+  );
+
   const {
     pathname,
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const isHomepage = pathname === '/' || pathname === '/[platform]';
 
@@ -55,6 +70,8 @@ function MyApp({ Component, pageProps }) {
     } else {
       localStorage.removeItem('colorMode');
     }
+    // Algolia search renders in a Portal so we need to do this
+    document.documentElement.setAttribute('data-amplify-color-mode', colorMode);
   };
 
   React.useEffect(() => {
@@ -62,10 +79,18 @@ function MyApp({ Component, pageProps }) {
     if (colorModePreference) {
       setColorMode(colorModePreference);
     }
+    document.documentElement.setAttribute(
+      'data-amplify-color-mode',
+      colorModePreference || 'system'
+    );
   }, []);
 
-  configure();
-  trackPageVisit();
+  React.useEffect(() => {
+    if (IS_PROD_STAGE) {
+      configure();
+      trackPageVisit();
+    }
+  }, [pathname]); // only track page visit if path has changed
 
   return (
     <>
@@ -73,6 +98,14 @@ function MyApp({ Component, pageProps }) {
 
       <div className={isHomepage ? `docs-home` : ''}>
         <ThemeProvider theme={baseTheme} colorMode={colorMode}>
+          {
+            <GlobalNav
+              rightLinks={RIGHT_NAV_LINKS as NavMenuItem[]}
+              leftLinks={LEFT_NAV_LINKS as NavMenuItem[]}
+              socialLinks={SOCIAL_LINKS as NavMenuItem[]}
+              currentSite="UI Library"
+            />
+          }
           <Header
             expanded={expanded}
             setExpanded={setExpanded}
@@ -96,8 +129,12 @@ function MyApp({ Component, pageProps }) {
           </main>
         </ThemeProvider>
       </div>
-      <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
-      <Script src="/scripts/shortbreadv2.js" />
+      {IS_PROD_STAGE && (
+        <>
+          <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+          <Script src="/scripts/shortbreadv2.js" />
+        </>
+      )}
     </>
   );
 }

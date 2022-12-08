@@ -4,7 +4,7 @@ import { choose } from 'xstate/lib/actions';
 import {
   AuthContext,
   AuthEvent,
-  CognitoUserAmplify,
+  AmplifyUser,
   AuthFormFields,
 } from '../../types';
 import { stopActor } from './actions';
@@ -30,6 +30,7 @@ export function createAuthenticatorMachine() {
         actorRef: undefined,
         hasSetup: false,
       },
+      predictableActionArguments: true,
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
         idle: {
@@ -206,6 +207,7 @@ export function createAuthenticatorMachine() {
         BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
+        AUTO_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
@@ -220,7 +222,7 @@ export function createAuthenticatorMachine() {
           },
         ]),
         setUser: assign({
-          user: (_, event) => event.data as CognitoUserAmplify,
+          user: (_, event) => event.data as AmplifyUser,
         }),
         setActorDoneData: assign({
           actorDoneData: (_, event) => ({
@@ -374,7 +376,12 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmSignUp',
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
-        shouldAutoSignIn: (_, event) => event.data?.intent === 'autoSignIn',
+        shouldAutoSignIn: (context, event) => {
+          return (
+            event.data?.intent === 'autoSignIn' ||
+            event.data?.intent === 'autoSignInSubmit'
+          );
+        },
         shouldSetup: (context) => context.hasSetup === false,
         // other context guards
         hasActor: (context) => !!context.actorRef,

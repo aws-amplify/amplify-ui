@@ -1,13 +1,24 @@
-// ignore_for_file: implementation_imports
+// Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_auth_plugin_interface/amplify_auth_plugin_interface.dart';
-
 import 'package:amplify_flutter/amplify_flutter.dart';
-export 'package:amplify_flutter/src/amplify_impl.dart';
 
+/// A stub of [Amplify] that holds the config in memory and
+/// does nothing else to register plugins.
 class AmplifyStub extends AmplifyClass {
   AmplifyConfig? _config;
 
@@ -27,34 +38,17 @@ class AmplifyStub extends AmplifyClass {
 
   @override
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
-    if (_isConfigured) {
-      throw const AmplifyAlreadyConfiguredException(
-        'Amplify has already been configured and adding plugins after configure is not supported.',
-        recoverySuggestion:
-            'Check if Amplify is already configured using Amplify.isConfigured.',
-      );
-    }
     try {
       if (plugin is AuthPluginInterface) {
         await Auth.addPlugin(plugin);
-        Hub.addChannel(HubChannel.Auth, plugin.streamController);
       } else {
         throw AmplifyException(
-          'The type of plugin ' +
-              plugin.runtimeType.toString() +
-              ' is not yet supported in Amplify.',
-          recoverySuggestion:
-              AmplifyExceptionMessages.missingRecoverySuggestion,
+          'The type of plugin ${plugin.runtimeType} is not yet supported.',
         );
       }
     } on Exception catch (e) {
-      safePrint('Amplify plugin was not added');
       throw AmplifyException(
-        'Amplify plugin ' +
-            plugin.runtimeType.toString() +
-            ' was not added successfully.',
-        recoverySuggestion: AmplifyExceptionMessages.missingRecoverySuggestion,
-        underlyingException: e.toString(),
+        'Amplify plugin ${plugin.runtimeType} was not added successfully.',
       );
     }
   }
@@ -65,24 +59,12 @@ class AmplifyStub extends AmplifyClass {
 
   @override
   Future<void> configure(String configuration) async {
-    // Validation #1
-    if (_isConfigured) {
-      throw const AmplifyAlreadyConfiguredException(
-        'Amplify has already been configured and re-configuration is not supported.',
-        recoverySuggestion:
-            'Check if Amplify is already configured using Amplify.isConfigured.',
-      );
-    }
-
-    // Validation #2. Try decoding the json string
     try {
       jsonDecode(configuration);
     } on FormatException catch (e) {
-      throw AmplifyException(
-          'The provided configuration is not a valid json. Check underlyingException.',
-          recoverySuggestion:
-              'Inspect your amplifyconfiguration.dart and ensure that the string is proper json',
-          underlyingException: e.toString());
+      throw const AmplifyException(
+        'The provided configuration is not a valid json.',
+      );
     }
 
     _isConfigured = true;
@@ -97,12 +79,19 @@ class AmplifyStub extends AmplifyClass {
     try {
       return AmplifyConfig.fromJson(jsonDecode(configuration));
     } on Exception catch (e) {
-      safePrint(
-        'There was an unexpected problem parsing the amplifyconfiguration.dart file: $e',
-      );
       return const AmplifyConfig();
     }
   }
 
   AmplifyStub() : super.protected();
+
+  @override
+  Future<void> configurePlatform(String config) async {
+    // no-op
+  }
+
+  @override
+  Future<void> reset() async {
+    // no-op
+  }
 }

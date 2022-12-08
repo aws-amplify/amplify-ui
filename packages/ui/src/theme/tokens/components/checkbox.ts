@@ -1,103 +1,66 @@
-import {
-  AlignItemsValue,
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderRadiusValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  BoxShadowValue,
-  ColorValue,
-  CursorValue,
-  DesignToken,
-  JustifyContentValue,
-  OpacityValue,
-  OutlineColorValue,
-  OutlineOffsetValue,
-  OutlineStyleValue,
-  OutlineWidthValue,
-  PositionValue,
-  SpaceValue,
-  TransformValue,
-  TransitionDurationValue,
-  TransitionPropertyValue,
-  TransitionTimingFunctionValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface DisableToken {
-  cursor: DesignToken<CursorValue>;
-}
+type ButtonFocusToken<Output> = DesignTokenProperties<
+  | 'outlineColor'
+  | 'outlineStyle'
+  | 'outlineWidth'
+  | 'outlineOffset'
+  | 'borderColor'
+  | 'boxShadow',
+  Output
+>;
 
-interface ButtonDisabledToken {
-  borderColor: DesignToken<BorderColorValue>;
-}
-interface ButtonErrorFocusToken {
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-}
-interface ButtonErrorToken {
-  borderColor: DesignToken<BorderColorValue>;
-  _focus: ButtonErrorFocusToken;
-}
-interface ButtonFocusToken {
-  outlineColor: DesignToken<OutlineColorValue>;
-  outlineStyle: DesignToken<OutlineStyleValue>;
-  outlineWidth: DesignToken<OutlineWidthValue>;
-  outlineOffset: DesignToken<OutlineOffsetValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-}
-interface BeforeToken {
-  width: DesignToken<SpaceValue>;
-  height: DesignToken<SpaceValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  borderColor: DesignToken<BorderColorValue>;
-}
-interface ButtonToken {
-  position: DesignToken<PositionValue>;
-  alignItems: DesignToken<AlignItemsValue>;
-  justifyContent: DesignToken<JustifyContentValue>;
-  color: DesignToken<ColorValue>;
-  before: BeforeToken;
-  _focus: ButtonFocusToken;
-  _disabled: ButtonDisabledToken;
-  _error: ButtonErrorToken;
-}
-interface IconCheckedDisabled {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
-interface IconCheckedToken {
-  opacity: DesignToken<OpacityValue>;
-  transform: DesignToken<TransformValue>;
-  _disabled: IconCheckedDisabled;
-}
-interface IconToken {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  opacity: DesignToken<OpacityValue>;
-  transform: DesignToken<TransformValue>;
-  transitionProperty: DesignToken<TransitionPropertyValue>;
-  transitionDuration: DesignToken<TransitionDurationValue>;
-  transitionTimingFunction: DesignToken<TransitionTimingFunctionValue>;
-  _checked: IconCheckedToken;
-}
-interface LabelDisabledToken {
-  color: DesignToken<ColorValue>;
-}
-interface LabelToken {
-  _disabled: LabelDisabledToken;
-}
-export interface CheckboxTokens {
-  cursor: DesignToken<CursorValue>;
-  alignItems: DesignToken<AlignItemsValue>;
-  _disabled: DisableToken;
-  button: ButtonToken;
-  icon: IconToken;
-  label: LabelToken;
-}
+type BeforeToken<Output> = DesignTokenProperties<
+  | 'width'
+  | 'height'
+  | 'borderWidth'
+  | 'borderRadius'
+  | 'borderStyle'
+  | 'borderColor',
+  Output
+>;
 
-export const checkbox: CheckboxTokens = {
+type ButtonToken<Output> = DesignTokenProperties<
+  'position' | 'alignItems' | 'justifyContent' | 'color',
+  Output
+> & {
+  before: BeforeToken<Output>;
+  _focus: ButtonFocusToken<Output>;
+  _disabled: DesignTokenProperties<'borderColor', Output>;
+  _error: DesignTokenProperties<'borderColor', Output> & {
+    _focus: DesignTokenProperties<'borderColor' | 'boxShadow', Output>;
+  };
+};
+
+type IconCheckedStateToken<Output> = DesignTokenProperties<
+  'opacity' | 'transform'
+> & {
+  _disabled?: DesignTokenProperties<'backgroundColor', Output>;
+};
+
+type IconToken<Output> = DesignTokenProperties<
+  | 'backgroundColor'
+  | 'borderRadius'
+  | 'opacity'
+  | 'transform'
+  | 'transitionProperty'
+  | 'transitionDuration'
+  | 'transitionTimingFunction',
+  Output
+> & {
+  _checked?: IconCheckedStateToken<Output>;
+  _indeterminate?: IconCheckedStateToken<Output>;
+};
+
+export type CheckboxTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'alignItems' | 'cursor', Output> & {
+    _disabled?: DesignTokenProperties<'cursor', Output>;
+    button?: ButtonToken<Output>;
+    icon?: IconToken<Output>;
+    label?: { _disabled?: DesignTokenProperties<'color', Output> };
+  };
+
+export const checkbox: Required<CheckboxTokens<'default'>> = {
   cursor: { value: 'pointer' },
   alignItems: { value: 'center' },
   _disabled: {
@@ -162,6 +125,13 @@ export const checkbox: CheckboxTokens = {
     transitionDuration: { value: '{time.short.value}' },
     transitionTimingFunction: { value: 'ease-in-out' },
     _checked: {
+      opacity: { value: '{opacities.100.value}' },
+      transform: { value: 'scale(1)' },
+      _disabled: {
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+      },
+    },
+    _indeterminate: {
       opacity: { value: '{opacities.100.value}' },
       transform: { value: 'scale(1)' },
       _disabled: {

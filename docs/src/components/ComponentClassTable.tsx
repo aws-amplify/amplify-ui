@@ -1,13 +1,12 @@
 import * as React from 'react';
 import {
-  Table,
   ComponentClassObject,
-  View,
   TableRow,
   TableBody,
   TableHead,
   TableCell,
 } from '@aws-amplify/ui-react';
+import { ResponsiveTable, ResponsiveTableCell } from './ResponsiveTable';
 
 export const ComponentClassTable = ({ componentName }) => {
   const targetClasses = React.useMemo(() => {
@@ -19,27 +18,27 @@ export const ComponentClassTable = ({ componentName }) => {
           value.components.includes(componentName)
         );
       })
-      .map((value: any) => (
+      .map((value: { className: string; description?: string }) => (
         <TableRow key={value.className}>
-          <TableCell>
+          <ResponsiveTableCell label="Class">
             <code>{value.className}</code>
-          </TableCell>
-          <TableCell>{value.description}</TableCell>
+          </ResponsiveTableCell>
+          <ResponsiveTableCell label="Description">
+            {value.description}
+          </ResponsiveTableCell>
         </TableRow>
       ));
   }, [componentName]);
 
   return (
-    <View className="docs-css-classes">
-      <Table variation="bordered">
-        <TableHead>
-          <TableRow>
-            <TableCell as="th">Class</TableCell>
-            <TableCell as="th">Description</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{targetClasses}</TableBody>
-      </Table>
-    </View>
+    <ResponsiveTable>
+      <TableHead>
+        <TableRow>
+          <TableCell as="th">Class</TableCell>
+          <TableCell as="th">Description</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>{targetClasses}</TableBody>
+    </ResponsiveTable>
   );
 };

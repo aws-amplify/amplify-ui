@@ -4,21 +4,28 @@ import {
   censorAllButFirstAndLast,
   censorPhoneNumber,
   ContactMethod,
-  getActorContext,
-  SignInContext,
   translate,
+  UnverifiedContactMethods,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
 import { Radio } from '../../../primitives/Radio';
 import { RadioGroupField } from '../../../primitives/RadioGroupField';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+
+const {
+  getSkipText,
+  getVerifyText,
+  getVerifyContactText,
+  getAccountRecoveryInfoText,
+} = authenticatorTextUtil;
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -40,24 +47,16 @@ const censorContactInformation = (
 };
 
 const generateRadioGroup = (
-  attributes: Record<string, string>
+  attributes: UnverifiedContactMethods
 ): JSX.Element[] => {
-  const radioButtons: JSX.Element[] = [];
-
-  for (const [key, value] of Object.entries(attributes)) {
-    const radio = (
-      <Radio name="unverifiedAttr" value={key} key={key}>
-        {censorContactInformation(
-          (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
-          value
-        )}
-      </Radio>
-    );
-
-    radioButtons.push(radio);
-  }
-
-  return radioButtons;
+  return Object.entries(attributes).map(([key, value]: [string, string]) => (
+    <Radio name="unverifiedAttr" value={key} key={key}>
+      {censorContactInformation(
+        (defaultFormFieldOptions[key] as { label: ContactMethod }).label,
+        value
+      )}
+    </Radio>
+  ));
 };
 
 export const VerifyUser = ({
@@ -70,27 +69,28 @@ export const VerifyUser = ({
     },
   } = useCustomComponents();
 
-  // TODO: expose unverifiedAttributes from `useAuthenticator`
-  const { _state, isPending } = useAuthenticator((context) => [
-    context.isPending,
-  ]);
+  const { isPending, unverifiedContactMethods } = useAuthenticator(
+    ({ isPending, unverifiedContactMethods }) => [
+      isPending,
+      unverifiedContactMethods,
+    ]
+  );
   const { handleChange, handleSubmit } = useFormHandlers();
-  const context = getActorContext(_state) as SignInContext;
 
   const footerSubmitText = isPending ? (
     <>Verifying&hellip;</>
   ) : (
-    <>{translate('Verify')}</>
+    <>{getVerifyText()}</>
   );
 
   const verificationRadioGroup = (
     <RadioGroupField
-      label={translate('Verify Contact')}
+      label={getVerifyContactText()}
       labelHidden
       name="verify_context"
       isDisabled={isPending}
     >
-      {generateRadioGroup(context.unverifiedAttributes)}
+      {generateRadioGroup(unverifiedContactMethods)}
     </RadioGroupField>
   );
 
@@ -111,7 +111,7 @@ export const VerifyUser = ({
           <RemoteErrorMessage />
 
           <TwoButtonSubmitFooter
-            cancelButtonText={translate('Skip')}
+            cancelButtonText={getSkipText()}
             cancelButtonSendType="SKIP"
             submitButtonText={footerSubmitText}
           />
@@ -123,11 +123,7 @@ export const VerifyUser = ({
 };
 
 VerifyUser.Header = function Header(): JSX.Element {
-  return (
-    <Heading level={3}>
-      {translate('Account recovery requires verified contact information')}
-    </Heading>
-  );
+  return <Heading level={3}>{getAccountRecoveryInfoText()}</Heading>;
 };
 
 VerifyUser.Footer = function Footer(): JSX.Element {

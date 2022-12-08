@@ -1,0 +1,8 @@
+import { Fragment } from '@/components/Fragment';
+
+The quickest way to get started is by wrapping your application with the Authenticator component.
+Once an end-user has created an account & signed in, the underlying component is rendered with access to the `user`.
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-example.${platform}.mdx`)}
+</Fragment>

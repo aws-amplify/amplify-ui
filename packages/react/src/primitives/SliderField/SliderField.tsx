@@ -29,6 +29,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
     emptyTrackColor,
     errorMessage,
     filledTrackColor,
+    formatValue,
     hasError = false,
     id,
     isDisabled,
@@ -54,8 +55,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
 
-  const { flexContainerStyleProps, baseStyleProps, rest } =
-    splitPrimitiveProps(_rest);
+  const { styleProps, rest } = splitPrimitiveProps(_rest);
 
   const isControlled = value !== undefined;
 
@@ -76,6 +76,17 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
     },
     [onChange]
   );
+
+  const renderedValue = React.useMemo(() => {
+    const formattedValue = isFunction(formatValue)
+      ? formatValue(currentValue)
+      : currentValue;
+    return typeof formatValue === 'string' ? (
+      <View as="span">{formattedValue}</View>
+    ) : (
+      formattedValue
+    );
+  }, [currentValue, formatValue]);
 
   const isVertical = orientation === 'vertical';
   const componentClasses = classNames(
@@ -99,8 +110,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
       )}
       testId={testId}
       data-size={size}
-      {...baseStyleProps}
-      {...flexContainerStyleProps}
+      {...styleProps}
     >
       <Label
         className={ComponentClassNames.SliderFieldLabel}
@@ -109,7 +119,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
         visuallyHidden={labelHidden}
       >
         <View as="span">{label}</View>
-        {!isValueHidden ? <View as="span">{currentValue}</View> : null}
+        {!isValueHidden ? renderedValue : null}
       </Label>
       <FieldDescription
         id={descriptionId}

@@ -1,11 +1,8 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import { PasswordField } from '../PasswordField';
 import { ComponentClassNames, ComponentText } from '../../shared/constants';
-
-const ariaLabelText = ComponentText.PasswordField;
 
 describe('PasswordField component', () => {
   const testId = 'PasswordFieldTestId';
@@ -39,8 +36,8 @@ describe('PasswordField component', () => {
     );
 
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('INPUT');
-    expect(showPasswordButtonRef.current.nodeName).toBe('BUTTON');
+    expect(ref.current?.nodeName).toBe('INPUT');
+    expect(showPasswordButtonRef.current?.nodeName).toBe('BUTTON');
   });
 
   it('should be password input type', async () => {
@@ -82,10 +79,10 @@ describe('PasswordField component', () => {
       />
     );
 
-    const button = await screen.findByRole('button');
+    const button = await screen.findByRole('switch');
     expect(button).toBeDefined();
     expect(button.getAttribute('aria-label')).toBe(
-      ariaLabelText.showPasswordButtonLabel
+      ComponentText.PasswordField.showPassword
     );
   });
 
@@ -101,61 +98,5 @@ describe('PasswordField component', () => {
 
     const button = screen.queryByRole('button');
     expect(button).toBeNull();
-  });
-
-  describe(' - ShowPasswordButton', () => {
-    it('should toggle button type and label when clicked', async () => {
-      render(
-        <PasswordField
-          label="Password"
-          descriptiveText="Required"
-          name="password"
-          placeholder="Password"
-        />
-      );
-
-      const button = await screen.findByRole('button');
-      const passwordField = await screen.findByPlaceholderText('Password');
-
-      expect(passwordField.getAttribute('type')).toBe('password');
-      expect(button.getAttribute('aria-label')).toBe(
-        ariaLabelText.showPasswordButtonLabel
-      );
-
-      userEvent.click(button);
-
-      expect(passwordField.getAttribute('type')).toBe('text');
-      expect(button.getAttribute('aria-label')).toBe(
-        ariaLabelText.hidePasswordButtonLabel
-      );
-
-      userEvent.click(button);
-
-      expect(passwordField.getAttribute('type')).toBe('password');
-      expect(button.getAttribute('aria-label')).toBe(
-        ariaLabelText.showPasswordButtonLabel
-      );
-    });
-  });
-
-  it('should be able to customize show/hide password button label', async () => {
-    const showPasswordButtonLabel = 'Show my password';
-    const hidePasswordButtonLabel = 'Hide my password';
-    render(
-      <PasswordField
-        label="Password"
-        name="password"
-        placeholder="Password"
-        showPasswordButtonLabel={showPasswordButtonLabel}
-        hidePasswordButtonLabel={hidePasswordButtonLabel}
-      />
-    );
-
-    const button = await screen.findByRole('button');
-    expect(button).toHaveAttribute('aria-label', showPasswordButtonLabel);
-
-    userEvent.click(button);
-
-    expect(button).toHaveAttribute('aria-label', hidePasswordButtonLabel);
   });
 });

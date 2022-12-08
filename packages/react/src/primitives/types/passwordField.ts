@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ButtonProps } from './button';
-import { TextInputFieldProps } from './textField';
+import { TextFieldProps } from './textField';
 
-export interface PasswordFieldProps extends TextInputFieldProps {
+export interface PasswordFieldProps extends TextFieldProps {
   /**
    * @description
    * For password fields, will hide the "show password" button
@@ -10,12 +10,30 @@ export interface PasswordFieldProps extends TextInputFieldProps {
   hideShowPassword?: boolean;
 
   /**
+   * @deprecated
+   * The hidePasswordButtonLabel prop is no longer in use, since the aria-label is now consistent between state changes.
    * @description
    * Set the `aria-label` for hide password button
    * @default
    * "Hide password"
    */
   hidePasswordButtonLabel?: string;
+
+  /**
+   * @description
+   * Sets the text read by screen readers when the password is hidden
+   * @default
+   * "Password is hidden"
+   */
+  passwordIsHiddenLabel?: string;
+
+  /**
+   * @description
+   * Sets the text read by screen readers when the password is shown
+   * @default
+   * "Password is shown"
+   */
+  passwordIsShownLabel?: string;
 
   /**
    * @description
@@ -51,12 +69,30 @@ export interface ShowPasswordButtonProps extends ButtonProps {
   fieldType: PasswordFieldType;
 
   /**
+   * @deprecated
+   * The hidePasswordButtonLabel prop is no longer in use, since the aria-label is now consistent between state changes.
    * @description
    * Set the `aria-label` for hide password button
    * @default
    * "Hide password"
    */
   hidePasswordButtonLabel?: string;
+
+  /**
+   * @description
+   * Sets the text read by screen readers when the password is hidden
+   * @default
+   * "Password is hidden"
+   */
+  passwordIsHiddenLabel?: string;
+
+  /**
+   * @description
+   * Sets the text read by screen readers when the password is shown
+   * @default
+   * "Password is shown"
+   */
+  passwordIsShownLabel?: string;
 
   /**
    * @description

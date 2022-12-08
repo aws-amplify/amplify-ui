@@ -4,6 +4,7 @@ import { Heading, Link, View, Flex } from '@aws-amplify/ui-react';
 import { AmplifyIcon, ServerIcon, LibraryIcon } from '@/components/Icons';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { HomeFeatureCard } from '../HomeFeatureCard';
+import { trackScroll } from '@/utils/track';
 
 export const AmplifySection = ({ platform }) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -12,6 +13,9 @@ export const AmplifySection = ({ platform }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  if (isVisible) {
+    trackScroll('Home#Amplify');
+  }
 
   return (
     <View

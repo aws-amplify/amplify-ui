@@ -1,6 +1,7 @@
 import { FlexProps } from './flex';
 import { InputProps } from './input';
 import { FieldProps, LabelPositions } from './field';
+import { BaseStyleProps } from './style';
 
 export interface CheckboxProps extends FlexProps, InputProps {
   /**
@@ -34,4 +35,17 @@ export interface CheckboxProps extends FlexProps, InputProps {
    * "start"
    */
   labelPosition?: LabelPositions;
+
+  /**
+   * @description
+   * Determines whether a checkbox is in indeterminate state
+   * @default false
+   */
+  isIndeterminate?: boolean;
+
+  /**
+   * @description
+   * Style props to be applied to the input element
+   */
+  inputStyles?: BaseStyleProps;
 }

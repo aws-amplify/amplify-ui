@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "cli-auth-with-email-and-phone",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d3gxjft4f5zi8z --envName dev"
-  }
-}

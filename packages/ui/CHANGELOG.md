@@ -1,5 +1,370 @@
 # @aws-amplify/ui
 
+## 5.3.0
+
+### Minor Changes
+
+- [#3108](https://github.com/aws-amplify/amplify-ui/pull/3108) [`3653c8f39`](https://github.com/aws-amplify/amplify-ui/commit/3653c8f3914e3dc51fbcc328e59326afb422aa68) Thanks [@wlee221](https://github.com/wlee221)! - Adds `ChangePassword` and `DeleteUser` Account Settings components. These components are standalone components that add account management flows after users authenticate.
+
+  These components are in developer preview. Please see https://ui.docs.amplify.aws/react/connected-components/account-settings to learn more.
+
+- [#3133](https://github.com/aws-amplify/amplify-ui/pull/3133) [`4b2dbeb18`](https://github.com/aws-amplify/amplify-ui/commit/4b2dbeb18c79175bc0bfe0cf50a0e9d0429544d6) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(button): add `warning` and `destructive` variations to the React Button component
+
+### Patch Changes
+
+- [#3120](https://github.com/aws-amplify/amplify-ui/pull/3120) [`145d0b5f5`](https://github.com/aws-amplify/amplify-ui/commit/145d0b5f596ff7c9f623898af0bb3836516c51fe) Thanks [@zchenwei](https://github.com/zchenwei)! - style: disable scroll chaining on Autocomplete menu to improve UX
+
+- [#3126](https://github.com/aws-amplify/amplify-ui/pull/3126) [`e3867e369`](https://github.com/aws-amplify/amplify-ui/commit/e3867e369b4aeb5b240916cb88105353483b9b7c) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix default text color for alert primitive
+
+- [#3129](https://github.com/aws-amplify/amplify-ui/pull/3129) [`0377bccfb`](https://github.com/aws-amplify/amplify-ui/commit/0377bccfbea55606d007ae914a5d7f202bf87478) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(theme): making all component tokens optional
+
+## 5.2.0
+
+### Minor Changes
+
+- [#3028](https://github.com/aws-amplify/amplify-ui/pull/3028) [`7f4248db4`](https://github.com/aws-amplify/amplify-ui/commit/7f4248db457639d1bb34c8318569ab047aa80c5e) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Added the FileUploader component. The File Uploader lets your users upload files to the cloud. For more information follow the instructions. https://ui.docs.amplify.aws/react/connected-components/storage/fileuploader
+
+### Patch Changes
+
+- [#3001](https://github.com/aws-amplify/amplify-ui/pull/3001) [`b416aca55`](https://github.com/aws-amplify/amplify-ui/commit/b416aca553649d37e2686c02f3223a77bf36ed98) Thanks [@SilverLinings89](https://github.com/SilverLinings89)! - Add export dist/styles.css to fix missing export error. See issue #2999.
+
+- [#3104](https://github.com/aws-amplify/amplify-ui/pull/3104) [`8e5e696f4`](https://github.com/aws-amplify/amplify-ui/commit/8e5e696f4d0ae61e74537cdfe4395005cc21ce12) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): adding types to exports in package json to support TS moduleResolution for node16/nodenext
+
+- [#3074](https://github.com/aws-amplify/amplify-ui/pull/3074) [`a5b8696bc`](https://github.com/aws-amplify/amplify-ui/commit/a5b8696bc41d8cb2ff2c6fc39f8fd1afc349955a) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix radio button sizing issue #2756
+
+## 5.1.1
+
+### Patch Changes
+
+- [#3071](https://github.com/aws-amplify/amplify-ui/pull/3071) [`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(theme): update types for `ThemeProvider` to accept output of `createTheme`
+
+## 5.1.0
+
+### Minor Changes
+
+- [#3067](https://github.com/aws-amplify/amplify-ui/pull/3067) [`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1) Thanks [@joebuono](https://github.com/joebuono)! - feat: Add React Native Authenticator
+
+### Patch Changes
+
+- [#3013](https://github.com/aws-amplify/amplify-ui/pull/3013) [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fix autocomplete popup render issue in Safari and Firefox and bump its z-index
+
+## 5.0.0
+
+### Major Changes
+
+- [#2828](https://github.com/aws-amplify/amplify-ui/pull/2828) [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(next-release): render Authenticator field labels
+
+- [#2558](https://github.com/aws-amplify/amplify-ui/pull/2558) [`d90b148c0`](https://github.com/aws-amplify/amplify-ui/commit/d90b148c0e06b3321f4f05fad2b32ef52c04214d) Thanks [@reesscot](https://github.com/reesscot)! - chore: upgrade radix to 1.0
+
+  Fixes error messages during `npm install` related to React 18. See Migration guide for more information:
+  https://ui.docs.amplify.aws/react/getting-started/migration
+
+### Patch Changes
+
+- [#2877](https://github.com/aws-amplify/amplify-ui/pull/2877) [`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7) Thanks [@ErikCH](https://github.com/ErikCH)! - **BREAKING**: When overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. This is now required.
+
+  ```diff
+   async handleSignUp(formData) {
+    let { username, password, attributes } = formData;
+    // custom username
+    username = username.toLowerCase();
+    attributes.email = attributes.email.toLowerCase();
+    return Auth.signUp({
+      username,
+      password,
+      attributes,
+  +   autoSignIn: {
+  +     enabled: true
+  +   }
+    });
+  }
+
+  ```
+
+## 4.1.0
+
+### Minor Changes
+
+- [#2708](https://github.com/aws-amplify/amplify-ui/pull/2708) [`702a35738`](https://github.com/aws-amplify/amplify-ui/commit/702a3573850639c492c51ce10e27e194d720d5ac) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: add Autocomplete primitive
+
+  **Example**
+
+  ```jsx
+  // Uncontrolled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteUncontrolledExample = () => {
+    return <Autocomplete label="Uncontrolled autocomplete" options={options} />;
+  };
+  ```
+
+  ```jsx
+  // Controlled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteControlledExample = () => {
+    const [value, setValue] = React.useState('');
+
+    const onChange = (event) => {
+      setValue(event.target.value);
+    };
+
+    // Set up onSelect
+    const onSelect = (option) => {
+      const { label } = option;
+      setValue(label);
+    };
+
+    // Set up onClear
+    const onClear = () => {
+      setValue('');
+    };
+
+    return (
+      <Autocomplete
+        label="Controlled autocomplete"
+        options={options}
+        value={value}
+        onChange={onChange}
+        onClear={onClear}
+        onSelect={onSelect}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2881](https://github.com/aws-amplify/amplify-ui/pull/2881) [`0935da51a`](https://github.com/aws-amplify/amplify-ui/commit/0935da51ac04334e458339da2bf0ef72f248cf26) Thanks [@francisGolden](https://github.com/francisGolden)! - Fix italian grammar in translation and improve accuracy
+
+## 4.0.1
+
+### Patch Changes
+
+- [#2751](https://github.com/aws-amplify/amplify-ui/pull/2751) [`05bb8c792`](https://github.com/aws-amplify/amplify-ui/commit/05bb8c79264e37c9d0592405f4a33e9a309de732) Thanks [@wlee221](https://github.com/wlee221)! - (Internal patch): Move `ComponentClassName` to `@aws-amplify/ui`
+
+- [#2637](https://github.com/aws-amplify/amplify-ui/pull/2637) [`5bd5e695a`](https://github.com/aws-amplify/amplify-ui/commit/5bd5e695a71e0cbef85a17f4ee1c851c84b4d51d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Add error state for SwitchField.
+
+  ```jsx
+  <SwitchField
+    label="I agree to the terms and conditions"
+    labelPosition="end"
+    isChecked={isChecked}
+    hasError={hasError}
+    errorMessage="Please agree to the terms and conditions"
+    onChange={(e) => {
+      setIsChecked(e.target.checked);
+    }}
+  />
+  ```
+
+- [#2781](https://github.com/aws-amplify/amplify-ui/pull/2781) [`6aa1132e7`](https://github.com/aws-amplify/amplify-ui/commit/6aa1132e760eef892021dbadafa63456c1c3a39d) Thanks [@reesscot](https://github.com/reesscot)! - fix: ensure TextField, TextAreaField, StepperField show full width
+
+- [#2767](https://github.com/aws-amplify/amplify-ui/pull/2767) [`ea1ea36a6`](https://github.com/aws-amplify/amplify-ui/commit/ea1ea36a650bd6677c97556b8c1e85705cd37a35) Thanks [@reesscot](https://github.com/reesscot)! - fix: issue where custom theme via ThemeProvider cannot override default font
+
+## 4.0.0
+
+### Major Changes
+
+- [#2702](https://github.com/aws-amplify/amplify-ui/pull/2702) [`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906) Thanks [@slaymance](https://github.com/slaymance)! - Make xstate core dependency of only framework libraries
+
+## 3.14.0
+
+### Minor Changes
+
+- [#2690](https://github.com/aws-amplify/amplify-ui/pull/2690) [`42143228f`](https://github.com/aws-amplify/amplify-ui/commit/42143228fd8e99500e05fee34cee3f8067189c4e) Thanks [@calebpollman](https://github.com/calebpollman)! - Bump @aws-amplify/ui minor version
+
+## 3.13.4
+
+### Patch Changes
+
+- [#2616](https://github.com/aws-amplify/amplify-ui/pull/2616) [`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react, ui): expose Authenticator types, add AmplifyUser interface
+
+## 3.13.3
+
+### Patch Changes
+
+- [#2569](https://github.com/aws-amplify/amplify-ui/pull/2569) [`e2429807b`](https://github.com/aws-amplify/amplify-ui/commit/e2429807bcc13b7c2dfe2c2947be8e790eea4d9d) Thanks [@wlee221](https://github.com/wlee221)! - Set `predictableActionArguments` to true in Authenticator state machine. This is an internal change only.
+
+## 3.13.2
+
+### Patch Changes
+
+- [#2544](https://github.com/aws-amplify/amplify-ui/pull/2544) [`35dae2a3d`](https://github.com/aws-amplify/amplify-ui/commit/35dae2a3d7ec392c60a7302e3673e59a0e42b7aa) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rwa): convert AuthChallengeNames enum to string union
+
+* [#2538](https://github.com/aws-amplify/amplify-ui/pull/2538) [`4a4b5c93d`](https://github.com/aws-amplify/amplify-ui/commit/4a4b5c93d37b66c845cbf20dac1e09e6e7931610) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rwa): update user lookup in getServiceFacade, authenticator util typing and useAuthenticator updates
+
+- [#2539](https://github.com/aws-amplify/amplify-ui/pull/2539) [`ba9818fb7`](https://github.com/aws-amplify/amplify-ui/commit/ba9818fb7acc727eaf7968aad8ff4dd1ab36327b) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug in Angular Authenticator that caused the Setup TOTP page to not show the correct totpIssuer and totpUsername in the QR code when overwritten by formFields. Refactored and added in Jest tests for Angular.
+
+## 3.13.1
+
+### Patch Changes
+
+- [#2514](https://github.com/aws-amplify/amplify-ui/pull/2514) [`b60fec2c4`](https://github.com/aws-amplify/amplify-ui/commit/b60fec2c451b31946f893efbf23710c7631db122) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add indeterminate icon svg
+
+## 3.13.0
+
+### Minor Changes
+
+- [#2300](https://github.com/aws-amplify/amplify-ui/pull/2300) [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding indeterminate state checkbox
+
+  Users can create an indeterminate `CheckboxField` by setting `isIndeterminate` prop to `true`.
+
+  **_Example_**
+
+  ```jsx
+  import * as React from 'react';
+
+  import { CheckboxField, Flex, View } from '@aws-amplify/ui-react';
+
+  export const CheckboxFieldIndeterminateExample = () => {
+    const [checkedItems, setCheckedItems] = React.useState([false, false]);
+    const checkedItemsRef = React.useRef(null);
+    const allChecked = checkedItems.every(Boolean);
+    const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+    if (isIndeterminate) {
+      checkedItemsRef.current = [...checkedItems];
+    }
+    const handleAllPetsChange = () => {
+      if (isIndeterminate) {
+        setCheckedItems([true, true]);
+      } else if (allChecked) {
+        setCheckedItems([false, false]);
+      } else if (checkedItemsRef.current) {
+        setCheckedItems(checkedItemsRef.current);
+      } else {
+        setCheckedItems([true, true]);
+      }
+    };
+
+    const handleCatChange = (e) => {
+      const newCheckedItems = [e.target.checked, checkedItems[1]];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    const handleDogChange = (e) => {
+      const newCheckedItems = [checkedItems[0], e.target.checked];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    return (
+      <Flex direction="column" gap="0">
+        <CheckboxField
+          name="all-pets"
+          label="All Pets"
+          value="allPets"
+          checked={allChecked}
+          isIndeterminate={isIndeterminate}
+          onChange={handleAllPetsChange}
+        />
+        <View paddingLeft="25px">
+          <CheckboxField
+            name="cat"
+            label="Cat"
+            value="cat"
+            checked={checkedItems[0]}
+            onChange={handleCatChange}
+          />
+          <CheckboxField
+            name="dog"
+            label="Dog"
+            value="dog"
+            checked={checkedItems[1]}
+            onChange={handleDogChange}
+          />
+        </View>
+      </Flex>
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2432](https://github.com/aws-amplify/amplify-ui/pull/2432) [`b3e6a97e8`](https://github.com/aws-amplify/amplify-ui/commit/b3e6a97e8e17f6b822af0387e3c543c50aea7c64) Thanks [@wlee221](https://github.com/wlee221)! - Bump xstate to ^4.33.0. This will resolve "No implementation found" warnings.
+
+* [#2431](https://github.com/aws-amplify/amplify-ui/pull/2431) [`1cfa1a054`](https://github.com/aws-amplify/amplify-ui/commit/1cfa1a054451a75738f4011c4200c34208285b5b) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - This change adds a base background color for the SearchField component's button.
+
+- [#2398](https://github.com/aws-amplify/amplify-ui/pull/2398) [`e25bc4269`](https://github.com/aws-amplify/amplify-ui/commit/e25bc42693cc4fa1cdcf7ad2fe7034ff44fbb18e) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: add missing token for default font size for SwitchField
+
+* [#2386](https://github.com/aws-amplify/amplify-ui/pull/2386) [`1f358d8fa`](https://github.com/aws-amplify/amplify-ui/commit/1f358d8fa18367020d0c41b74dcce1ba73974376) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Apply styling to disabled SelectField options in Firefox
+
+## 3.12.5
+
+### Patch Changes
+
+- [#2343](https://github.com/aws-amplify/amplify-ui/pull/2343) [`de1c874f2`](https://github.com/aws-amplify/amplify-ui/commit/de1c874f294a3b21cc9d7a97b310d2744d18b065) Thanks [@ErikCH](https://github.com/ErikCH)! - Added 'Dismiss alert' to the set of dictionary keys for the authenticator
+
+* [#2367](https://github.com/aws-amplify/amplify-ui/pull/2367) [`3c468a0f3`](https://github.com/aws-amplify/amplify-ui/commit/3c468a0f34fb8f747b925dd1a66a0f0f0117436a) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Add missing Authenticator translations for all available languages
+
+- [#2347](https://github.com/aws-amplify/amplify-ui/pull/2347) [`1fcfa3c02`](https://github.com/aws-amplify/amplify-ui/commit/1fcfa3c02dc8eedb2acdc7425be7311f5b1accef) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react): Fixes an issue where TextAreaField does not show line breaks properly in Firefox.
+
+* [#2371](https://github.com/aws-amplify/amplify-ui/pull/2371) [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7) Thanks [@cshfang](https://github.com/cshfang)! - fix(ui-react): Fixes an issue where the isTruncated prop of the Heading component was not properly applying a truncation.
+
+## 3.12.4
+
+### Patch Changes
+
+- [#2287](https://github.com/aws-amplify/amplify-ui/pull/2287) [`8418028a3`](https://github.com/aws-amplify/amplify-ui/commit/8418028a3218ea20ccb2ac949b1e6e33c57239e6) Thanks [@ErikCH](https://github.com/ErikCH)! - When first setting up TOTP with MFA the Authenticator is not returning the correct user object. This object did not contain the correct methods, and causes an error if you try to access those methods. This fix will now retrieve the correct user object when a user first sets up MFA TOTP.
+
+* [#2330](https://github.com/aws-amplify/amplify-ui/pull/2330) [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - ui-react(fix): Update StepperField disabled buttons styles, making them easier to see.
+
+- [#2304](https://github.com/aws-amplify/amplify-ui/pull/2304) [`d9dd9220c`](https://github.com/aws-amplify/amplify-ui/commit/d9dd9220c367bc476fddb36e89daff75d62e7f31) Thanks [@tmokmss](https://github.com/tmokmss)! - chore: add translation texts for Japanese
+
+## 3.12.3
+
+### Patch Changes
+
+- [#2242](https://github.com/aws-amplify/amplify-ui/pull/2242) [`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e) Thanks [@pedrodotmc](https://github.com/pedrodotmc)! - Add missing spanish translations
+
+* [#2261](https://github.com/aws-amplify/amplify-ui/pull/2261) [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58) Thanks [@retrQJS](https://github.com/retrQJS)! - Added Russian as an option for Authenticator
+
+## 3.12.2
+
+### Patch Changes
+
+- [#2273](https://github.com/aws-amplify/amplify-ui/pull/2273) [`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7) Thanks [@ErikCH](https://github.com/ErikCH)! - Added user-select property to 'text' for the amplify-input and the textArea primitives. This will help Ionic apps that set this property to none. In Webkit/Chromium-based browsers this is inherited and is causing inputs on those browsers to not work correctly.
+
+* [#2269](https://github.com/aws-amplify/amplify-ui/pull/2269) [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug that displayed "usernamed undefined" when using a lambda that autoconfirms the user during sign up. The sign up would fail and redirect the user to sign in with the "username undefined" error. The user then would have to sign in again. This patch will now assign the correct credentials during sign up for users that are auto confirmed.
+
+## 3.12.1
+
+### Patch Changes
+
+- [#2200](https://github.com/aws-amplify/amplify-ui/pull/2200) [`09d738a0f`](https://github.com/aws-amplify/amplify-ui/commit/09d738a0f9e1a67367b3bdb45bcb9644f20e2600) Thanks [@flogy](https://github.com/flogy)! - Fixed some German authenticator translations
+
 ## 3.12.0
 
 ### Minor Changes

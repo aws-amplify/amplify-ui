@@ -7,6 +7,7 @@ import {
   ContextProps,
 } from 'react-live';
 import * as AUI from '@aws-amplify/ui-react';
+import { trackClick } from '@/utils/track';
 
 const { View, Alert } = AUI;
 
@@ -55,6 +56,7 @@ const Error = () => {
 };
 
 const HomeEditor = () => {
+  const [edited, setEdited] = React.useState(false);
   return (
     <LiveProvider
       scope={{ ...AUI }}
@@ -73,11 +75,16 @@ const HomeEditor = () => {
         >
           <LiveEditor
             onKeyDown={(e) => {
-              // This makes sure the editor is not a focus trap
+              // This makes sure the editor is not a focus trap, allowing customers to 'tab' out of the editor
               if (e.keyCode === 9) {
                 // tab key
                 e.preventDefault();
                 e.target.blur();
+                return;
+              }
+              if (!edited) {
+                trackClick('HomeCodeEdit');
+                setEdited(true);
               }
             }}
           />

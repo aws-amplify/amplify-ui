@@ -10,17 +10,18 @@
     "start": "vite preview --port 3000"
   },
   "dependencies": {
-    "@aws-amplify/ui-vue": "^2.4.11",
+    "@aws-amplify/ui-vue": "^3.0.4",
     "aws-amplify": "latest",
     "vue": "^3.0.5",
     "vue-router": "4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.5",
+    "@types/node": "18.8.0",
     "@vue/compiler-sfc": "^3.0.5",
     "rimraf": "^3.0.2",
-    "vite": "^2.4.2",
-    "vite-plugin-pages": "^0.18.0",
-    "vue-tsc": "^0.3.0"
+    "vite": "^2.9.9",
+    "vite-plugin-pages": "^0.25.0",
+    "vue-tsc": "~0.40.10"
   }
 }

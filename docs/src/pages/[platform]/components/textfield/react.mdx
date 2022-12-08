@@ -12,6 +12,7 @@ import {
   TextAreaSizeExample,
   TextFieldAccessibilityExample,
   TextFieldDescriptiveTextExample,
+  TextFieldEventHandlersExample,
   TextFieldInnerComponentsExample,
   TextFieldOuterAndInnerComponentsExample,
   TextFieldOuterComponentsExample,
@@ -63,7 +64,7 @@ Import the `TextField` component and styles and provide a `label` for accessibil
 
 ### Sizes
 
-TextField sizes are designed to match styling of other field components such as buttons. There are three sizes: small, (default), and large.
+TextField sizes are designed to match styling of other field components such as Buttons. There are three sizes: small, (default), and large.
 
 <Example>
   <TextFieldSizeExample />
@@ -86,84 +87,6 @@ There are two variation styles available: default and `quiet`.
   ```
   </ExampleCode>
 
-</Example>
-
-### Multiline textarea
-
-To render a multi-line `textarea`, set the `isMultiline` prop to `true`.
-
-<Alert variation="warning" heading="Deprecated">
-  Multiline functionality has been moved to{' '}
-  <Link href="./textareafield">TextAreaField</Link> and will be removed in the
-  next major release. Please use{' '}
-  <Link href="./textareafield">TextAreaField</Link> instead of TextField for
-  multiline text fields.
-</Alert>
-
-<Example>
-  <DefaultTextAreaExample />
-  <ExampleCode>
-    ```jsx file=./examples/DefaultTextAreaExample.tsx
-    
-    ```
-
-  </ExampleCode>
-</Example>
-
-#### Resizeable
-
-For a resizeable multiline field, use `resize` prop. Common values are `horizontal`, `vertical`, `both`. See [MDN resize docs](https://developer.mozilla.org/en-US/docs/Web/CSS/resize) for supported values.
-
-<Example>
-  <TextAreaResizableExample />
-  <ExampleCode>
-    ```jsx file=./examples/TextAreaResizableExample.tsx
-
-    ```
-
-  </ExampleCode>
-</Example>
-
-#### Size
-
-To change the general size, use the `size` prop. Available options are `small`, none (default), and `large`.
-
-<Example>
-  <TextAreaSizeExample />
-  <ExampleCode>
-    ```jsx file=./examples/TextAreaSizeExample.tsx
-
-    ```
-
-  </ExampleCode>
-</Example>
-
-#### Rows
-
-To change the number of rows of text displayed, use the `rows` prop with desired number.
-
-<Example>
-  <TextAreaRowsExample />
-  <ExampleCode>
-    ```jsx file=./examples/TextAreaRowsExample.tsx
-
-    ```
-
-  </ExampleCode>
-</Example>
-
-#### Maximum length
-
-To enforce a maximum length of multiline text, use the `maxLength` prop.
-
-<Example>
-  <TextAreaMaxLengthExample />
-  <ExampleCode>
-    ```jsx file=./examples/TextAreaMaxLengthExample.tsx
-
-    ```
-
-  </ExampleCode>
 </Example>
 
 ### Outer components
@@ -265,12 +188,26 @@ There is no default styling for required fields. Customize the `label` or `descr
 
 ### Validation error styling
 
-Use the `hasError` and `errorMessage` fields to mark a TextField as having an validation error.
+Use the `hasError` and `errorMessage` props to mark a TextField as having a validation error.
 
 <Example>
   <TextFieldValidationErrorExample />
   <ExampleCode>
     ```jsx file=./examples/TextFieldValidationErrorExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Event handlers
+
+TextField provides several event handlers: `onSelect`, `onInput`, `onChange`, `onCopy`, `onPaste`, and `onCut`. Open the console to interact with the demo below. 
+
+<Example>
+  <TextFieldEventHandlersExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldEventHandlersExample.tsx
 
     ```
 
@@ -359,7 +296,7 @@ _Using a class selector:_
 
 _Using style props:_
 
-Flex styling props will be applied to the TextField wrapping Flex component, whereas other style props will be applied to the field. This allows us to change the layout of the label and field, while also styling the input field.
+All style props will be applied to the [`Flex`](flex) wrapper of the `TextField`. To style the `input` of the `TextField`, you can pass a `inputStyles` prop with the style props you want to apply to the input.
 
 <Example>
   <TextFieldStylePropsExample />

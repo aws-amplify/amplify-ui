@@ -20,7 +20,7 @@ import {
 
 <IconDemo />
 
-<Alert variation="info" heading="Note">
+<Alert variation="info" role="none" heading="Note">
 Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify UI does not include any icons other than the ones Amplify UI components like [Alert](/components/alert) and [Expander](/components/expander) use.
 </Alert>
 
@@ -40,14 +40,19 @@ Import the Icon component and styles.
 
 ### Built-in iconset
 
-<Alert variation="warning" heading="Deprecated">
+<Alert variation="warning" role="none" heading="Deprecated">
   The built-in icons were removed in version `3.0`. You can use the
   [react-icons](https://react-icons.github.io/react-icons) package or other
   React icon libraries in its place. 
-
-  `import {ICON_NAME} from '@aws-amplify/ui-react';` => `import {ICON_NAME} from 'react-icons/md';`
-
 </Alert>
+
+```jsx
+// Removed
+import {ICON_NAME} from '@aws-amplify/ui-react';
+
+// Suggested
+import {ICON_NAME} from 'react-icons/md';`
+```
 
 ## Custom icon
 
@@ -175,7 +180,10 @@ Use the `color` prop to change the Icon color. The fill of the path inside the S
 
 ## Accessibility
 
-Set an `aria-label` attribute for an Icon.
+The Icon component does not require a label by default because there are a number of ways to use an Icon in an accessible way:
+- You can set an `aria-label` attribute on the Icon
+- You can use a `<title></title>` element when passing SVG elements as the child of the Icon
+- You can use the Icon decoratively, when a label would be redundant.
 
 <Example>
   <AccessibilityIconExample />

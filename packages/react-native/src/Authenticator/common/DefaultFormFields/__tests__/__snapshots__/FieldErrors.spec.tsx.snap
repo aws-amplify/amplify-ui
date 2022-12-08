@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldErrors renders as expected 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "black",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    error 1
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "red",
+      }
+    }
+  >
+    error 2
+  </Text>
+</View>
+`;
+
+exports[`FieldErrors renders as expected with no errors 1`] = `null`;

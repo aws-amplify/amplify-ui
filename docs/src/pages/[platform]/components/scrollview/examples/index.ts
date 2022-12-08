@@ -1,3 +1,4 @@
+export { AccessibleScrollViewExample } from './AccessibleScrollViewExample';
 export { DefaultScrollViewExample } from './DefaultScrollViewExample';
 export { ScrollViewHorizontalExample } from './ScrollViewHorizontalExample';
 export { ScrollViewStylePropsExample } from './ScrollViewStylePropsExample';

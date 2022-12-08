@@ -1,4 +1,4 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('I see a popup about the marker appear', () => {
   cy.findByRole('heading', { name: 'Marker Information' }).should('exist');

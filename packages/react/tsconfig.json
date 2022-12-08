@@ -1,9 +1,4 @@
 {
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
-  },
   "compilerOptions": {
     "moduleResolution": "node",
     "baseUrl": ".",
@@ -12,6 +7,7 @@
     "jsx": "react-jsx",
     "rootDir": "./src",
     "outDir": "./dist",
+    "importHelpers": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "module": "esnext",

@@ -14,6 +14,10 @@ body:
       options:
         - label: I have [searched for duplicate or closed issues](https://github.com/aws-amplify/amplify-ui/issues?q=is%3Aissue+) and [discussions](https://github.com/aws-amplify/amplify-ui/discussions).
           required: true
+        - label: I have tried disabling all browser extensions or using a different browser
+          required: true
+        - label: I have tried deleting the node_modules folder and reinstalling my dependencies
+          required: true
         - label: I have read the guide for [submitting bug reports](https://github.com/aws-amplify/amplify-ui/blob/main/CONTRIBUTING.md#bug-reports).
           required: true
 
@@ -55,6 +59,16 @@ body:
       description: Specify your build system (Create React App / Next.js / Vite / Parcel / Webpack (4/5) etc).
     validations:
       required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
   - type: textarea
     attributes:
       label: Please describe your bug.

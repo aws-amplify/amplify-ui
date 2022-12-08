@@ -1,3 +1,8 @@
 .amplify-input {
   @include amplify-field-control;
+  // The user-select property has been added to fix
+  // a bug with Ionic apps that set this property to 'none'.
+  // This only affects Webkit/Chromium-based browsers that implement
+  // the property as inherited.
+  user-select: text;
 }

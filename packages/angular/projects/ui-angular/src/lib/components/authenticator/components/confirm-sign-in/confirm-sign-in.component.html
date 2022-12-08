@@ -9,7 +9,13 @@
     </amplify-slot>
     <amplify-base-form-fields route="confirmSignIn"></amplify-base-form-fields>
 
-    <button amplify-button variation="primary" fullWidth="true" type="submit">
+    <button
+      amplify-button
+      variation="primary"
+      fullWidth="true"
+      type="submit"
+      [isDisabled]="authenticator.isPending"
+    >
       {{ confirmText }}
     </button>
     <button

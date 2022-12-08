@@ -1,10 +1,30 @@
+import has from 'lodash/has';
+import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
 import kebabCase from 'lodash/kebabCase';
+
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
 
-import { DesignToken } from './tokens/types/designToken';
+import {
+  DesignToken,
+  ShadowValue,
+  WebDesignToken,
+} from './tokens/types/designToken';
+
+type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;
 
 export const CSS_VARIABLE_PREFIX = 'amplify';
+
+// Important: these properties should not be altered in
+// order to maintain the expected order of the CSS `box-shadow` property
+const SHADOW_PROPERTIES: ShadowPropertyKey[] = [
+  'offsetX',
+  'offsetY',
+  'blurRadius',
+  'spreadRadius',
+  'color',
+];
 
 function referenceValue(value: string) {
   if (usesReference(value)) {
@@ -14,27 +34,19 @@ function referenceValue(value: string) {
   return value;
 }
 
-export function cssValue(token: DesignToken) {
+export function cssValue(token: DesignToken<{ value: unknown }>) {
   const { value } = token;
-  if (typeof value === 'string') {
+  if (isString(value)) {
     return referenceValue(value);
   }
-  if (typeof value === 'object') {
+
+  if (isObject(value)) {
     if ('offsetX' in value) {
-      const {
-        offsetX = '',
-        offsetY = '',
-        blurRadius = '',
-        spreadRadius = '',
-        color = '',
-      } = value;
-      return [
-        referenceValue(offsetX),
-        referenceValue(offsetY),
-        referenceValue(blurRadius),
-        referenceValue(spreadRadius),
-        referenceValue(color),
-      ].join(' ');
+      return SHADOW_PROPERTIES.map((property) =>
+        // lookup property against `token` first for custom non-nested value, then lookup
+        // property against `value` for design token value, default to empty string
+        referenceValue(token[property] ?? value[property] ?? '')
+      ).join(' ');
     }
   }
 
@@ -47,4 +59,62 @@ interface NameTransformProps {
 
 export function cssNameTransform({ path = [] }: NameTransformProps): string {
   return `${kebabCase([CSS_VARIABLE_PREFIX, ...path].join(' '))}`;
+}
+
+/**
+ * Helper function to test if something is a design token or not.
+ * Used in the React component style props.
+ *
+ * @param value - thing to test if it is a design token or not
+ * @returns boolean
+ */
+export function isDesignToken(value: unknown): value is WebDesignToken {
+  return isObject(value) && has(value, 'value');
+}
+
+type SetupTokensProps = {
+  tokens: Record<string | number, any>;
+  path?: Array<string>;
+  setupToken: SetupToken;
+};
+
+export type SetupToken<ReturnType = any> = (args: {
+  token: BaseDesignToken;
+  path: Array<string>;
+}) => ReturnType;
+
+type BaseDesignToken = {
+  value: string | number;
+};
+
+/**
+ * Recursive function that will walk down the token object
+ * and perform the setupToken function on each token.
+ * Similar to what Style Dictionary does.
+ */
+export function setupTokens({
+  tokens,
+  path = [],
+  setupToken,
+}: SetupTokensProps): any {
+  if (has(tokens, 'value')) {
+    return setupToken({ token: tokens as BaseDesignToken, path });
+  }
+
+  const output = {};
+
+  for (const name in tokens) {
+    if (has(tokens, name)) {
+      const value = tokens[name];
+      const nextTokens = isObject(value) ? value : { value };
+
+      output[name] = setupTokens({
+        tokens: nextTokens,
+        path: path.concat(name),
+        setupToken,
+      });
+    }
+  }
+
+  return output;
 }

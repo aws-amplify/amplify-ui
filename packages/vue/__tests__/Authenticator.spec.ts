@@ -1,17 +1,14 @@
-import { mount } from '@vue/test-utils';
-import { Authenticator } from '../dist';
-import crypto from 'crypto';
-
-// This is needed for jest to get crypto module needed by nanoid
-Object.defineProperty(global.self, 'crypto', {
-  value: {
-    getRandomValues: (arr: Array<unknown>) => crypto.randomBytes(arr.length),
-  },
-});
+import Authenticator from '../src/components/authenticator.vue';
+import { components } from '../global-spec';
+import { render } from '@testing-library/vue';
 
 describe('Authenticator', () => {
   it('Authenticator Exists', () => {
-    const wrapper = mount(Authenticator);
+    const wrapper = render(Authenticator, {
+      global: {
+        components,
+      },
+    });
 
     expect(wrapper).toBeTruthy();
   });

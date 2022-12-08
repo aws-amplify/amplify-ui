@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { FlexProps } from './flex';
 import { GridProps } from './grid';
 import { BaseStyleProps } from './style';
@@ -50,6 +51,12 @@ export interface CollectionWrapperProps extends BaseStyleProps {
    * Search field placeholder
    */
   searchPlaceholder?: string;
+
+  /**
+   * @description
+   * Controls what is displayed when no results are found from the Collection search
+   */
+  searchNoResultsFound?: React.ReactNode;
 }
 
 export interface CollectionBaseProps<Item> {

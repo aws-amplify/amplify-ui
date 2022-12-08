@@ -1,5 +1,6 @@
 .amplify-switchfield {
   display: inline-block;
+  font-size: var(--amplify-components-switchfield-font-size);
   &--small {
     font-size: var(--amplify-components-switchfield-small-font-size);
   }
@@ -51,6 +52,9 @@
   }
   &--focused {
     box-shadow: var(--amplify-components-switchfield-focused-shadow);
+  }
+  &--error {
+    background-color: var(--amplify-components-switchfield-track-error-background-color);
   }
 }
 

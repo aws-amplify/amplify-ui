@@ -10,13 +10,14 @@ import { demoState } from '@/utils/demoState';
 
 const propsToCode = (props) => {
   const { caption, highlightOnHover, size, variation } = props;
-  return `
+  return (
+    `
 <Table
-  caption={${caption}}
-  highlightOnHover={${highlightOnHover}}
-  size={${size}}
-  variation={${variation}}
-  >
+  caption="${caption}"
+  highlightOnHover={${highlightOnHover}}` +
+    (size ? `\n  size="${size}"` : '') +
+    (variation ? `\n  variation="${variation}"` : '') +
+    `>
   <TableHead>
     <TableRow>
       <TableCell as="th">Citrus</TableCell>
@@ -42,7 +43,8 @@ const propsToCode = (props) => {
     </TableRow>
   </TableBody>
 </Table>
-  `;
+  `
+  );
 };
 
 const defaultTableProps = {

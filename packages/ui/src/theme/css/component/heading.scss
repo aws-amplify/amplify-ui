@@ -2,6 +2,12 @@
   color: var(--amplify-components-heading-color);
   line-height: var(--amplify-components-heading-line-height);
   display: block;
+
+  &--truncated {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .amplify-heading--1 {

@@ -4,7 +4,7 @@ export const SizeExample = () => (
   <Flex direction="column" gap="1rem">
     <Flex>
       <PhoneNumberField
-        defaultCountryCode="+1"
+        defaultDialCode="+1"
         label="Small"
         size="small"
         labelHidden
@@ -12,12 +12,12 @@ export const SizeExample = () => (
       <Button size="small">Small</Button>
     </Flex>
     <Flex>
-      <PhoneNumberField defaultCountryCode="+1" label="Default" labelHidden />
+      <PhoneNumberField defaultDialCode="+1" label="Default" labelHidden />
       <Button>Default</Button>
     </Flex>
     <Flex>
       <PhoneNumberField
-        defaultCountryCode="+1"
+        defaultDialCode="+1"
         label="Large"
         size="large"
         labelHidden

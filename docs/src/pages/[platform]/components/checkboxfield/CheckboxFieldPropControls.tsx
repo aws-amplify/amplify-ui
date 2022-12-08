@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import {
-  CheckboxField,
   CheckboxFieldProps,
   TextField,
   SelectField,
+  SwitchField,
   Flex,
 } from '@aws-amplify/ui-react';
 
@@ -14,6 +14,9 @@ export interface CheckboxFieldPropControlsProps extends CheckboxFieldProps {
   ) => void;
   setIsDisabled: (
     value: React.SetStateAction<CheckboxFieldProps['isDisabled']>
+  ) => void;
+  setIsIndeterminate: (
+    value: React.SetStateAction<CheckboxFieldProps['isIndeterminate']>
   ) => void;
   setLabel: (value: React.SetStateAction<CheckboxFieldProps['label']>) => void;
   setSize: (value: React.SetStateAction<CheckboxFieldProps['size']>) => void;
@@ -29,6 +32,8 @@ interface CheckboxFieldPropControlsInterface {
 export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
   isDisabled,
   setIsDisabled,
+  isIndeterminate,
+  setIsIndeterminate,
   label,
   setLabel,
   labelPosition,
@@ -75,12 +80,17 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
         <option value="top">top</option>
         <option value="bottom">bottom</option>
       </SelectField>
-      <CheckboxField
+      <SwitchField
         name="is-disabled"
-        value="true"
-        checked={isDisabled}
-        onChange={(e) => setIsDisabled(e.target.checked)}
         label="isDisabled"
+        isChecked={isDisabled}
+        onChange={(e) => setIsDisabled(e.target.checked)}
+      />
+      <SwitchField
+        name="is-indeterminate"
+        label="isIndeterminate"
+        isChecked={isIndeterminate}
+        onChange={(e) => setIsIndeterminate(e.target.checked)}
       />
     </Flex>
   );

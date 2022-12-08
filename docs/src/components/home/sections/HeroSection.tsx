@@ -1,7 +1,9 @@
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Button,
   Flex,
+  Grid,
   Heading,
   Icon,
   Text,
@@ -15,29 +17,22 @@ import {
   RiPencilRuler2Line,
 } from 'react-icons/ri';
 
-import { useCustomRouter } from '@/components/useCustomRouter';
-import { HomeFeatureCard } from '../HomeFeatureCard';
-import { FRAMEWORKS } from '@/data/frameworks';
+import { CardLink } from '@/components/CardLink';
+import { FRAMEWORKS, FRAMEWORK_INSTALL_SCRIPTS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
 
 export const HeroSection = () => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const showEditor = useBreakpointValue({
     base: false,
     large: true,
   });
 
-  const installScripts = {
-    react: `npm i @aws-amplify/ui-${platform} aws-amplify`,
-    vue: `npm i @aws-amplify/ui-${platform} aws-amplify`,
-    angular: `npm i @aws-amplify/ui-${platform} aws-amplify`,
-    flutter: 'flutter pub add amplify_authenticator',
-  };
-  const frameworkInstallScript = installScripts[platform.toString()];
+  const frameworkInstallScript = FRAMEWORK_INSTALL_SCRIPTS[platform.toString()];
 
   return (
     <View as="section" className="docs-hero">
@@ -48,8 +43,9 @@ export const HeroSection = () => {
           alignItems="center"
         >
           <Heading level={1} marginBlockEnd="0">
-            Don't just prototype. <br />
-            <strong>Connect your UI to the cloud.</strong>
+            Themeable, accessible components
+            <br />
+            <strong>Ready to connect to the cloud</strong>
           </Heading>
           <Text
             fontSize={{
@@ -76,40 +72,32 @@ export const HeroSection = () => {
             components that can connect directly to the cloud.
           </Text>
           {platform === 'react' ? (
-            <Flex direction={['column', 'column', 'row']}>
-              <HomeFeatureCard
+            <Grid gap="medium" templateColumns={['1fr', '1fr', '1fr 1fr 1fr']}>
+              <CardLink
+                variation="home"
                 title="Cloud connected"
-                as="a"
-                className="docs-home-hero-card"
                 href="#authentication"
-                icon={RiCloudWindyLine}
-              >
-                {/* Connect to the cloud in 30 seconds */}
-                We handle the hard stuff so you can focus on UI
-              </HomeFeatureCard>
-              <HomeFeatureCard
+                icon={<RiCloudWindyLine />}
+                desc="Focus on your UI and let us take care of the rest"
+              />
+              <CardLink
+                variation="home"
                 title="Build visually"
-                as="a"
-                className="docs-home-hero-card"
                 href="#figma"
-                icon={RiDragDropLine}
-              >
-                Compose in your IDE—or visually with Amplify Studio
-              </HomeFeatureCard>
-              <HomeFeatureCard
+                icon={<RiDragDropLine />}
+                desc="Compose in your IDE—or visually with Amplify Studio"
+              />
+              <CardLink
+                variation="home"
                 title="Styling your way"
-                as="a"
-                className="docs-home-hero-card"
                 href="#themeable"
-                icon={RiPencilRuler2Line}
-              >
-                Use plain CSS, design tokens, or with your favorite CSS-in-JS
-                library
-              </HomeFeatureCard>
-            </Flex>
+                icon={<RiPencilRuler2Line />}
+                desc="Use plain CSS, design tokens, or with your favorite CSS-in-JS library"
+              />
+            </Grid>
           ) : null}
 
-          <TerminalCommand command={frameworkInstallScript} />
+          <TerminalCommand command={frameworkInstallScript} variant="hero" />
 
           <Flex direction="row">
             <Button

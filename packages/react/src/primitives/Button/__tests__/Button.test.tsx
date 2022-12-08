@@ -15,14 +15,29 @@ describe('Button test suite', () => {
         <Button variation="link" testId="link">
           Link
         </Button>
+        <Button variation="menu" testId="menu">
+          Menu
+        </Button>
+        <Button variation="warning" testId="warning">
+          Warning
+        </Button>
+        <Button variation="destructive" testId="destructive">
+          Destructive
+        </Button>
       </div>
     );
 
     const primary = await screen.findByTestId('primary');
     const link = await screen.findByTestId('link');
+    const menu = await screen.findByTestId('menu');
+    const warning = await screen.findByTestId('warning');
+    const destructive = await screen.findByTestId('destructive');
 
     expect(primary.classList).toContain('amplify-button--primary');
     expect(link.classList).toContain('amplify-button--link');
+    expect(menu.classList).toContain('amplify-button--menu');
+    expect(warning.classList).toContain('amplify-button--warning');
+    expect(destructive.classList).toContain('amplify-button--destructive');
   });
 
   it('should add the disabled class with the disabled attribute', async () => {
@@ -182,6 +197,13 @@ describe('Button test suite', () => {
 
     const loader = await screen.findByRole('img');
     expect(loader).toHaveAttribute('data-size', 'small');
+  });
+
+  it('should render Loader correctly without loadingText and isLoading is set to true', async () => {
+    render(<Button isLoading />);
+
+    const loader = await screen.findByRole('img');
+    expect(loader).toHaveClass(ComponentClassNames.Loader);
   });
 
   it('should fire onClick function if the button is clicked on', async () => {

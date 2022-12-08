@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "auth-with-email-lambda-signup-trigger-environment",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d343e09nscxidh --envName staging"
-  }
-}

@@ -76,7 +76,7 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
       />
       <SwitchField
         label="isDeterminate"
-        defaultChecked={isDeterminate}
+        isChecked={isDeterminate}
         labelPosition="end"
         onChange={(event) => {
           setIsDeterminate(event.target.checked), setPercentage(undefined);
@@ -93,7 +93,7 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
       {isDeterminate ? (
         <SwitchField
           label="isPercentageLabelHidden"
-          defaultChecked={isPercentageTextHidden}
+          isChecked={isPercentageTextHidden}
           labelPosition="end"
           onChange={(event) => setIsPercentageTextHidden(event.target.checked)}
         />

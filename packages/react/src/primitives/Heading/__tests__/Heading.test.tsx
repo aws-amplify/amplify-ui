@@ -128,4 +128,20 @@ describe('Heading: ', () => {
     const heading = await screen.findByTestId('dataTest');
     expect(heading.dataset['demo']).toBe('true');
   });
+
+  it('should render the truncated class on Heading', async () => {
+    render(
+      <div>
+        <Heading testId="truncated" isTruncated={true}>
+          truncated
+        </Heading>
+      </div>
+    );
+
+    const truncated = await screen.findByTestId('truncated');
+
+    expect(truncated.classList).toContain(
+      `${ComponentClassNames['Heading']}--truncated`
+    );
+  });
 });

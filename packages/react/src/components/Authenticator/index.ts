@@ -1,3 +1,9 @@
-export { Authenticator } from './Authenticator';
-export { useAuthenticator } from './hooks';
-export { withAuthenticator } from './withAuthenticator';
+export { Authenticator, AuthenticatorProps } from './Authenticator';
+export {
+  withAuthenticator,
+  WithAuthenticatorOptions,
+  WithAuthenticatorProps,
+} from './withAuthenticator';
+
+// re-export shared `Authenticator` exports
+export { useAuthenticator, UseAuthenticator } from '@aws-amplify/ui-react-core';

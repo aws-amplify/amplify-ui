@@ -3,7 +3,8 @@
  * Based on Atom's One Light theme: https://github.com/atom/atom/tree/master/packages/one-light-syntax
  */
 
-code.prism-code {
+
+.docs-home code.prism-code {
   font-size: inherit;
 }
  
@@ -32,9 +33,16 @@ pre[class*='language-'] *::selection {
 /* Code blocks */
 pre[class*='language-'] {
   padding: var(--amplify-space-medium);
-  margin: 0 0 var(--amplify-space-large) 0;
   overflow: auto;
   border-radius: 0;
+  // 👇 this is important to get line highlights working when there is horizontal scroll
+  display: flex;
+  text-size-adjust: 100%;
+}
+
+// 👇 this is also important for the above reason
+code[class*='language-'] {
+  flex-grow: 2;
 }
 
 pre.language-shell code.language-shell::before {

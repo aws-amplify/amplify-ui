@@ -15,7 +15,7 @@
 
     <amplify-slot name="sign-up-button" [context]="context">
       <button
-        [disabled]="
+        [isDisabled]="
           authenticator.isPending || authenticator.hasValidationErrors
         "
         amplify-button

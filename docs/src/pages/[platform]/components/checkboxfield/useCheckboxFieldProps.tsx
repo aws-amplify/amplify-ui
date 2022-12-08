@@ -16,6 +16,9 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
   const [isDisabled, setIsDisabled] = React.useState<
     CheckboxFieldProps['isDisabled']
   >(initialValues.isDisabled);
+  const [isIndeterminate, setIsIndeterminate] = React.useState<
+    CheckboxFieldProps['isIndeterminate']
+  >(initialValues.isIndeterminate);
   const [label, setLabel] = React.useState<CheckboxFieldProps['label']>(
     initialValues.label
   );
@@ -36,13 +39,23 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
     demoState.set(CheckboxField.displayName, {
       checked,
       isDisabled,
+      isIndeterminate,
       label,
       name,
       size,
       value,
       labelPosition,
     });
-  }, [checked, isDisabled, label, name, size, value, labelPosition]);
+  }, [
+    checked,
+    isDisabled,
+    isIndeterminate,
+    label,
+    name,
+    size,
+    value,
+    labelPosition,
+  ]);
 
   return React.useMemo(
     () => ({
@@ -51,6 +64,8 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
       setChecked,
       isDisabled,
       setIsDisabled,
+      isIndeterminate,
+      setIsIndeterminate,
       label,
       setLabel,
       labelPosition,
@@ -67,6 +82,8 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
       setChecked,
       isDisabled,
       setIsDisabled,
+      isIndeterminate,
+      setIsIndeterminate,
       label,
       setLabel,
       labelPosition,

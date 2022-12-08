@@ -1,122 +1,123 @@
+import { demoState } from '@/utils/demoState';
 import { TextFieldProps } from '@aws-amplify/ui-react';
 import * as React from 'react';
-
-import { FieldControl } from '../shared/GetFieldControls';
-
-export type TextFieldDocsProps = Omit<TextFieldProps, '[key]'>;
+import { TextFieldPropControlsProps } from './TextFieldPropControls';
 
 interface UseTextFieldProps {
-  (initialValues: TextFieldDocsProps): FieldControl[];
+  (initialValues: TextFieldProps): TextFieldPropControlsProps;
 }
 
 export const useTextFieldProps: UseTextFieldProps = (initialValues) => {
-  return [
+  const [variation, setVariation] = React.useState<TextFieldProps['variation']>(
+    initialValues.variation
+  );
+  const [size, setSize] = React.useState<TextFieldProps['size']>(
+    initialValues.size
+  );
+  const [descriptiveText, setDescriptiveText] = React.useState<
+    TextFieldProps['descriptiveText']
+  >(initialValues.descriptiveText);
+  const [placeholder, setPlaceholder] = React.useState<
+    TextFieldProps['placeholder']
+  >(initialValues.placeholder);
+  const [label, setLabel] = React.useState<TextFieldProps['label']>(
+    initialValues.label
+  );
+  const [labelHidden, setLabelHidden] = React.useState<
+    TextFieldProps['labelHidden']
+  >(initialValues.labelHidden);
+  const [errorMessage, setErrorMessage] = React.useState<
+    TextFieldProps['errorMessage']
+  >(initialValues.errorMessage);
+  const [hasError, setHasError] = React.useState<TextFieldProps['hasError']>(
+    initialValues.hasError
+  );
+  const [isDisabled, setIsDisabled] = React.useState<
+    TextFieldProps['isDisabled']
+  >(initialValues.isDisabled);
+
+  React.useEffect(() => {
+    demoState.set('TextField', {
+      variation,
+      setVariation,
+      size,
+      setSize,
+      descriptiveText,
+      setDescriptiveText,
+      placeholder,
+      setPlaceholder,
+      label,
+      setLabel,
+      labelHidden,
+      setLabelHidden,
+      errorMessage,
+      setErrorMessage,
+      hasError,
+      setHasError,
+      isDisabled,
+      setIsDisabled,
+    });
+  }, [
+    variation,
+    setVariation,
+    size,
+    setSize,
+    descriptiveText,
+    setDescriptiveText,
+    placeholder,
+    setPlaceholder,
+    label,
+    setLabel,
+    labelHidden,
+    setLabelHidden,
+    errorMessage,
+    setErrorMessage,
+    hasError,
+    setHasError,
+    isDisabled,
+    setIsDisabled,
+  ]);
+
+  return React.useMemo(
+    () => ({
+      variation,
+      setVariation,
+      size,
+      setSize,
+      descriptiveText,
+      setDescriptiveText,
+      placeholder,
+      setPlaceholder,
+      label,
+      setLabel,
+      labelHidden,
+      setLabelHidden,
+      errorMessage,
+      setErrorMessage,
+      hasError,
+      setHasError,
+      isDisabled,
+      setIsDisabled,
+    }),
     [
-      ...React.useState<TextFieldDocsProps['autoComplete']>(
-        initialValues.autoComplete
-      ),
-      'autoComplete',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['defaultValue']>(
-        initialValues.defaultValue
-      ),
-      'defaultValue',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['descriptiveText']>(
-        initialValues.descriptiveText
-      ),
-      'descriptiveText',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['errorMessage']>(
-        initialValues.errorMessage
-      ),
-      'errorMessage',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['hasError']>(initialValues.hasError),
-      'hasError',
-      'checkbox',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['inputMode']>(
-        initialValues.inputMode
-      ),
-      'inputMode',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['isDisabled']>(
-        initialValues.isDisabled
-      ),
-      'isDisabled',
-      'checkbox',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['isReadOnly']>(
-        initialValues.isReadOnly
-      ),
-      'isReadOnly',
-      'checkbox',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['isRequired']>(
-        initialValues.isRequired
-      ),
-      'isRequired',
-      'checkbox',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['label']>(initialValues.label),
-      'label',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['labelHidden']>(
-        initialValues.labelHidden
-      ),
-      'labelHidden',
-      'checkbox',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['name']>(initialValues.name),
-      'name',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['placeholder']>(
-        initialValues.placeholder
-      ),
-      'placeholder',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['size']>(initialValues.size),
-      'size',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['type']>(initialValues.type),
-      'type',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['value']>(initialValues.value),
-      'value',
-      'text',
-    ],
-    [
-      ...React.useState<TextFieldDocsProps['variation']>(
-        initialValues.variation
-      ),
-      'variation',
-      'text',
-    ],
-  ];
+      variation,
+      setVariation,
+      size,
+      setSize,
+      descriptiveText,
+      setDescriptiveText,
+      placeholder,
+      setPlaceholder,
+      label,
+      setLabel,
+      labelHidden,
+      setLabelHidden,
+      errorMessage,
+      setErrorMessage,
+      hasError,
+      setHasError,
+      isDisabled,
+      setIsDisabled,
+    ]
+  );
 };

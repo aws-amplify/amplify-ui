@@ -1,23 +1,20 @@
-import { Flex, TextField } from '@aws-amplify/ui-react';
+import { TextField } from '@aws-amplify/ui-react';
+import * as React from 'react';
 
 export const TextFieldValidationErrorExample = () => {
+  const [hasError, setHasError] = React.useState(true);
+
+  const validateUsername = (e) => {
+    const containsDigit = /\d/.test(e.currentTarget.value);
+    setHasError(!containsDigit);
+  };
+
   return (
-    <Flex gap="1rem" direction="column">
-      <TextField
-        label="Password"
-        type="password"
-        defaultValue="1234"
-        hasError={true}
-        errorMessage="Password should not be 1234! 😱"
-      />
-      <TextField
-        label="Password"
-        type="password"
-        defaultValue="1234"
-        hasError={true}
-        variation="quiet"
-        errorMessage="Password should not be 1234! 😱"
-      />
-    </Flex>
+    <TextField
+      label="Username"
+      hasError={hasError}
+      errorMessage="Username must include at least one digit"
+      onChange={validateUsername}
+    />
   );
 };

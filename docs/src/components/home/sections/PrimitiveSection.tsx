@@ -31,6 +31,7 @@ import {
 import { HomeCTA } from '@/components/home/HomeCTA';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { upperFirst } from 'lodash';
+import { trackScroll } from '@/utils/track';
 
 const Center = ({ children }) => (
   <Flex justifyContent="center" alignItems="center" width="100%" height="100%">
@@ -188,6 +189,9 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  if (isVisible) {
+    trackScroll('Home#Primitive');
+  }
 
   return (
     <View
@@ -218,7 +222,7 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
             <Text className="docs-home-text">
               Amplify UI components are built with plain React and CSS to
               provide a solid foundation for building UIs and design systems.
-              These components are theme-able, responsive, composable, and
+              These components are themeable, responsive, composable, and
               accessible. They play nicely with other UI components or styling
               frameworks.
             </Text>

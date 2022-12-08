@@ -1,4 +1,4 @@
-import { And } from 'cypress-cucumber-preprocessor/steps';
+import { And } from '@badeball/cypress-cucumber-preprocessor';
 import { escapeRegExp } from 'lodash';
 
 And('I change the theme to {string}', (name) => {

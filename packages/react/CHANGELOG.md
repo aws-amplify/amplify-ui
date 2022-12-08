@@ -1,5 +1,606 @@
 # @aws-amplify/ui-react
 
+## 4.2.0
+
+### Minor Changes
+
+- [#3108](https://github.com/aws-amplify/amplify-ui/pull/3108) [`3653c8f39`](https://github.com/aws-amplify/amplify-ui/commit/3653c8f3914e3dc51fbcc328e59326afb422aa68) Thanks [@wlee221](https://github.com/wlee221)! - Adds `ChangePassword` and `DeleteUser` Account Settings components. These components are standalone components that add account management flows after users authenticate.
+
+  These components are in developer preview. Please see https://ui.docs.amplify.aws/react/connected-components/account-settings to learn more.
+
+- [#3133](https://github.com/aws-amplify/amplify-ui/pull/3133) [`4b2dbeb18`](https://github.com/aws-amplify/amplify-ui/commit/4b2dbeb18c79175bc0bfe0cf50a0e9d0429544d6) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(button): add `warning` and `destructive` variations to the React Button component
+
+### Patch Changes
+
+- [#3126](https://github.com/aws-amplify/amplify-ui/pull/3126) [`e3867e369`](https://github.com/aws-amplify/amplify-ui/commit/e3867e369b4aeb5b240916cb88105353483b9b7c) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix default text color for alert primitive
+
+- [#3129](https://github.com/aws-amplify/amplify-ui/pull/3129) [`0377bccfb`](https://github.com/aws-amplify/amplify-ui/commit/0377bccfbea55606d007ae914a5d7f202bf87478) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(theme): making all component tokens optional
+
+- Updated dependencies [[`3653c8f39`](https://github.com/aws-amplify/amplify-ui/commit/3653c8f3914e3dc51fbcc328e59326afb422aa68), [`145d0b5f5`](https://github.com/aws-amplify/amplify-ui/commit/145d0b5f596ff7c9f623898af0bb3836516c51fe), [`e3867e369`](https://github.com/aws-amplify/amplify-ui/commit/e3867e369b4aeb5b240916cb88105353483b9b7c), [`4b2dbeb18`](https://github.com/aws-amplify/amplify-ui/commit/4b2dbeb18c79175bc0bfe0cf50a0e9d0429544d6), [`0377bccfb`](https://github.com/aws-amplify/amplify-ui/commit/0377bccfbea55606d007ae914a5d7f202bf87478)]:
+  - @aws-amplify/ui@5.3.0
+  - @aws-amplify/ui-react-core@2.1.3
+
+## 4.1.0
+
+### Minor Changes
+
+- [#3028](https://github.com/aws-amplify/amplify-ui/pull/3028) [`7f4248db4`](https://github.com/aws-amplify/amplify-ui/commit/7f4248db457639d1bb34c8318569ab047aa80c5e) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Added the FileUploader component. The File Uploader lets your users upload files to the cloud. For more information follow the instructions. https://ui.docs.amplify.aws/react/connected-components/storage/fileuploader
+
+### Patch Changes
+
+- [#3104](https://github.com/aws-amplify/amplify-ui/pull/3104) [`8e5e696f4`](https://github.com/aws-amplify/amplify-ui/commit/8e5e696f4d0ae61e74537cdfe4395005cc21ce12) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): adding types to exports in package json to support TS moduleResolution for node16/nodenext
+
+- [#3074](https://github.com/aws-amplify/amplify-ui/pull/3074) [`a5b8696bc`](https://github.com/aws-amplify/amplify-ui/commit/a5b8696bc41d8cb2ff2c6fc39f8fd1afc349955a) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix radio button sizing issue #2756
+
+- Updated dependencies [[`b416aca55`](https://github.com/aws-amplify/amplify-ui/commit/b416aca553649d37e2686c02f3223a77bf36ed98), [`8e5e696f4`](https://github.com/aws-amplify/amplify-ui/commit/8e5e696f4d0ae61e74537cdfe4395005cc21ce12), [`7f4248db4`](https://github.com/aws-amplify/amplify-ui/commit/7f4248db457639d1bb34c8318569ab047aa80c5e), [`a5b8696bc`](https://github.com/aws-amplify/amplify-ui/commit/a5b8696bc41d8cb2ff2c6fc39f8fd1afc349955a)]:
+  - @aws-amplify/ui@5.2.0
+  - @aws-amplify/ui-react-core@2.1.2
+
+## 4.0.3
+
+### Patch Changes
+
+- [#3071](https://github.com/aws-amplify/amplify-ui/pull/3071) [`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(theme): update types for `ThemeProvider` to accept output of `createTheme`
+
+- Updated dependencies [[`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b)]:
+  - @aws-amplify/ui@5.1.1
+  - @aws-amplify/ui-react-core@2.1.1
+
+## 4.0.2
+
+### Patch Changes
+
+- [#3033](https://github.com/aws-amplify/amplify-ui/pull/3033) [`c9f67b1b0`](https://github.com/aws-amplify/amplify-ui/commit/c9f67b1b00f70419b4d623ecb282b5452bd67e15) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(Autocomplete): remove handler to open menu on focus to fix #3030
+
+- [#3019](https://github.com/aws-amplify/amplify-ui/pull/3019) [`0ff6cbc15`](https://github.com/aws-amplify/amplify-ui/commit/0ff6cbc152486ba04384de500d97b18e5db768ba) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: update Autocomplete filter to be case insensitive
+
+- Updated dependencies [[`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1), [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf)]:
+  - @aws-amplify/ui@5.1.0
+  - @aws-amplify/ui-react-core@2.1.0
+
+## 4.0.1
+
+### Patch Changes
+
+- [#3000](https://github.com/aws-amplify/amplify-ui/pull/3000) [`72c2c5d83`](https://github.com/aws-amplify/amplify-ui/commit/72c2c5d83163c158abacf1cabcbc6a78f5e7ae02) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Updates the useDataStore hook to generate the predicates according to the new syntax.
+
+- [#2964](https://github.com/aws-amplify/amplify-ui/pull/2964) [`ee4b37b6d`](https://github.com/aws-amplify/amplify-ui/commit/ee4b37b6dfc5b8263dfdb93602d9448a0b0b4709) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Fixes an issue where the Button loading spinner is not rendered unless the `loadingText` prop is supplied.
+
+## 4.0.0
+
+### Major Changes
+
+- [#2556](https://github.com/aws-amplify/amplify-ui/pull/2556) [`54794d44c`](https://github.com/aws-amplify/amplify-ui/commit/54794d44c9fc8affff8f8b30f82f17b897da84f7) Thanks [@reesscot](https://github.com/reesscot)! - BREAKING CHANGE: `isMultiline` prop removed from `TextField`. Replace any `TextField` components
+  using the `isMultiline` prop with the `TextAreaField` component.
+
+  ```diff
+  - <TextField
+  -  isMultiline
+  + <TextAreaField
+  ```
+
+- [#2636](https://github.com/aws-amplify/amplify-ui/pull/2636) [`d71836994`](https://github.com/aws-amplify/amplify-ui/commit/d71836994a5d2f5b0e524f1ab176a88db18dec46) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - BREAKING CHANGE: No longer splitting out Flex and Base style props on Field primitives.
+  Instead, removing all style props to be applied to the wrapper element, the rest will be applied to the input element.
+  Adding `inputStyles` prop where developers can send style props to the input element (or textarea, select)
+  For `TextAreaField`, destructuring the `resize` style prop because it makes sense to apply that to the textarea element.
+
+  ```diff
+  - <TextField
+  -   backgroundColor="red"
+  + <TextField
+  +   inputStyles={{backgroundColor: "red"}}
+  ```
+
+- [#2786](https://github.com/aws-amplify/amplify-ui/pull/2786) [`20a3c6103`](https://github.com/aws-amplify/amplify-ui/commit/20a3c6103aad0883aa14adecfe706d1a6998adce) Thanks [@reesscot](https://github.com/reesscot)! - BREAKING CHANGE: remove legacy exports `@aws-amplify/ui-react/legacy` and `@aws-amplify/ui-angular/legacy`.
+
+- [#2703](https://github.com/aws-amplify/amplify-ui/pull/2703) [`5ec150f4e`](https://github.com/aws-amplify/amplify-ui/commit/5ec150f4ee6fd5d0186fa3b8e55cc98089f4c80e) Thanks [@calebpollman](https://github.com/calebpollman)! - Remove useAuthenticator internal variables `_state` and `_send` (See #2685)
+
+- [#2772](https://github.com/aws-amplify/amplify-ui/pull/2772) [`4a22217e0`](https://github.com/aws-amplify/amplify-ui/commit/4a22217e0f92ef71baaffc4346bee9599db62c20) Thanks [@zchenwei](https://github.com/zchenwei)! - BREAKING CHANGE(react): bump up React minimum support version to 16.14.0 and update JSX transform
+
+- [#2828](https://github.com/aws-amplify/amplify-ui/pull/2828) [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(next-release): render Authenticator field labels
+
+- [#2558](https://github.com/aws-amplify/amplify-ui/pull/2558) [`d90b148c0`](https://github.com/aws-amplify/amplify-ui/commit/d90b148c0e06b3321f4f05fad2b32ef52c04214d) Thanks [@reesscot](https://github.com/reesscot)! - chore: upgrade radix to 1.0
+
+  Fixes error messages during `npm install` related to React 18. See Migration guide for more information:
+  https://ui.docs.amplify.aws/react/getting-started/migration
+
+- [#2735](https://github.com/aws-amplify/amplify-ui/pull/2735) [`fa3135add`](https://github.com/aws-amplify/amplify-ui/commit/fa3135add1346465db19b9d252ae26edaed70e3b) Thanks [@wlee221](https://github.com/wlee221)! - **Breaking**: We replaced following legacy Authenticator texts:
+
+  - `Forgot your password? ` with the trailing space is replaced by `Forgot your password`.
+
+  If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
+
+### Minor Changes
+
+- [#2962](https://github.com/aws-amplify/amplify-ui/pull/2962) [`11c7d9c60`](https://github.com/aws-amplify/amplify-ui/commit/11c7d9c602af211cd0b378742e8975f936d61fc5) Thanks [@calebpollman](https://github.com/calebpollman)! - Release In-App Messaging feature for React and React Native
+  PR: https://github.com/aws-amplify/amplify-ui/pull/2798
+
+### Patch Changes
+
+- [#2877](https://github.com/aws-amplify/amplify-ui/pull/2877) [`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7) Thanks [@ErikCH](https://github.com/ErikCH)! - **BREAKING**: When overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. This is now required.
+
+  ```diff
+   async handleSignUp(formData) {
+    let { username, password, attributes } = formData;
+    // custom username
+    username = username.toLowerCase();
+    attributes.email = attributes.email.toLowerCase();
+    return Auth.signUp({
+      username,
+      password,
+      attributes,
+  +   autoSignIn: {
+  +     enabled: true
+  +   }
+    });
+  }
+
+  ```
+
+- [#2827](https://github.com/aws-amplify/amplify-ui/pull/2827) [`74e01fc7a`](https://github.com/aws-amplify/amplify-ui/commit/74e01fc7aacbd6aefab1d7d54232e0c5f4a93b2a) Thanks [@wlee221](https://github.com/wlee221)! - deps(react): pin radix dependencies
+
+- Updated dependencies [[`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7), [`5ec150f4e`](https://github.com/aws-amplify/amplify-ui/commit/5ec150f4ee6fd5d0186fa3b8e55cc98089f4c80e), [`4a22217e0`](https://github.com/aws-amplify/amplify-ui/commit/4a22217e0f92ef71baaffc4346bee9599db62c20), [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a), [`d90b148c0`](https://github.com/aws-amplify/amplify-ui/commit/d90b148c0e06b3321f4f05fad2b32ef52c04214d)]:
+  - @aws-amplify/ui@5.0.0
+  - @aws-amplify/ui-react-core@2.0.0
+
+## 3.6.0
+
+### Minor Changes
+
+- [#2708](https://github.com/aws-amplify/amplify-ui/pull/2708) [`702a35738`](https://github.com/aws-amplify/amplify-ui/commit/702a3573850639c492c51ce10e27e194d720d5ac) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: add Autocomplete primitive
+
+  **Example**
+
+  ```jsx
+  // Uncontrolled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteUncontrolledExample = () => {
+    return <Autocomplete label="Uncontrolled autocomplete" options={options} />;
+  };
+  ```
+
+  ```jsx
+  // Controlled component
+  import { Autocomplete } from '@aws-amplify/ui-react';
+  import * as React from 'react';
+
+  const options = [
+    { id: 'apple', label: 'apple' },
+    { id: 'banana', label: 'banana' },
+    { id: 'cherry', label: 'cherry' },
+    { id: 'grape', label: 'grape' },
+    { id: 'kiwis', label: 'kiwis' },
+    { id: 'lemon', label: 'lemon' },
+    { id: 'mango', label: 'mango' },
+    { id: 'orange', label: 'orange' },
+    { id: 'strawberry', label: 'strawberry' },
+  ];
+
+  export const AutocompleteControlledExample = () => {
+    const [value, setValue] = React.useState('');
+
+    const onChange = (event) => {
+      setValue(event.target.value);
+    };
+
+    // Set up onSelect
+    const onSelect = (option) => {
+      const { label } = option;
+      setValue(label);
+    };
+
+    // Set up onClear
+    const onClear = () => {
+      setValue('');
+    };
+
+    return (
+      <Autocomplete
+        label="Controlled autocomplete"
+        options={options}
+        value={value}
+        onChange={onChange}
+        onClear={onClear}
+        onSelect={onSelect}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`702a35738`](https://github.com/aws-amplify/amplify-ui/commit/702a3573850639c492c51ce10e27e194d720d5ac), [`0935da51a`](https://github.com/aws-amplify/amplify-ui/commit/0935da51ac04334e458339da2bf0ef72f248cf26)]:
+  - @aws-amplify/ui@4.1.0
+  - @aws-amplify/ui-react-core@1.0.5
+
+## 3.5.11
+
+### Patch Changes
+
+- [#2871](https://github.com/aws-amplify/amplify-ui/pull/2871) [`6f999c10f`](https://github.com/aws-amplify/amplify-ui/commit/6f999c10fc89ae7cce5d63b38bf4393aa6fd5670) Thanks [@sreeramsama](https://github.com/sreeramsama)! - chore: upgrade maplibre-gl-js-amplify to v2.1.0 to support getSuggestions and getPlace
+
+- [#2868](https://github.com/aws-amplify/amplify-ui/pull/2868) [`d8d24f107`](https://github.com/aws-amplify/amplify-ui/commit/d8d24f107229942afa0bb3065ee302b6c885caa3) Thanks [@david-mcafee](https://github.com/david-mcafee)! - fix(data): update usage of internal DataStore types
+
+## 3.5.10
+
+### Patch Changes
+
+- [#2751](https://github.com/aws-amplify/amplify-ui/pull/2751) [`05bb8c792`](https://github.com/aws-amplify/amplify-ui/commit/05bb8c79264e37c9d0592405f4a33e9a309de732) Thanks [@wlee221](https://github.com/wlee221)! - (Internal patch): Move `ComponentClassName` to `@aws-amplify/ui`
+
+- [#2637](https://github.com/aws-amplify/amplify-ui/pull/2637) [`5bd5e695a`](https://github.com/aws-amplify/amplify-ui/commit/5bd5e695a71e0cbef85a17f4ee1c851c84b4d51d) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Add error state for SwitchField.
+
+  ```jsx
+  <SwitchField
+    label="I agree to the terms and conditions"
+    labelPosition="end"
+    isChecked={isChecked}
+    hasError={hasError}
+    errorMessage="Please agree to the terms and conditions"
+    onChange={(e) => {
+      setIsChecked(e.target.checked);
+    }}
+  />
+  ```
+
+- [#2781](https://github.com/aws-amplify/amplify-ui/pull/2781) [`6aa1132e7`](https://github.com/aws-amplify/amplify-ui/commit/6aa1132e760eef892021dbadafa63456c1c3a39d) Thanks [@reesscot](https://github.com/reesscot)! - fix: ensure TextField, TextAreaField, StepperField show full width
+
+- Updated dependencies [[`05bb8c792`](https://github.com/aws-amplify/amplify-ui/commit/05bb8c79264e37c9d0592405f4a33e9a309de732), [`5bd5e695a`](https://github.com/aws-amplify/amplify-ui/commit/5bd5e695a71e0cbef85a17f4ee1c851c84b4d51d), [`6aa1132e7`](https://github.com/aws-amplify/amplify-ui/commit/6aa1132e760eef892021dbadafa63456c1c3a39d), [`ea1ea36a6`](https://github.com/aws-amplify/amplify-ui/commit/ea1ea36a650bd6677c97556b8c1e85705cd37a35)]:
+  - @aws-amplify/ui@4.0.1
+  - @aws-amplify/ui-react-core@1.0.4
+
+## 3.5.9
+
+### Patch Changes
+
+- [#2746](https://github.com/aws-amplify/amplify-ui/pull/2746) [`2893da04b`](https://github.com/aws-amplify/amplify-ui/commit/2893da04b4616efc342f6973169d03fef0113c7b) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react-core): add missing value to AuthenticatorRouteComponentKey
+
+- Updated dependencies [[`2893da04b`](https://github.com/aws-amplify/amplify-ui/commit/2893da04b4616efc342f6973169d03fef0113c7b)]:
+  - @aws-amplify/ui-react-core@1.0.3
+
+## 3.5.8
+
+### Patch Changes
+
+- [#2702](https://github.com/aws-amplify/amplify-ui/pull/2702) [`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906) Thanks [@slaymance](https://github.com/slaymance)! - Make xstate core dependency of only framework libraries
+
+- Updated dependencies [[`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906)]:
+  - @aws-amplify/ui@4.0.0
+  - @aws-amplify/ui-react-core@1.0.2
+
+## 3.5.7
+
+### Patch Changes
+
+- [#2697](https://github.com/aws-amplify/amplify-ui/pull/2697) [`d1e40ad5a`](https://github.com/aws-amplify/amplify-ui/commit/d1e40ad5a82e7d4e6cfdb59a673fdaee8538e3b0) Thanks [@dehli](https://github.com/dehli)! - fix `federatedSignIn` bug
+
+## 3.5.6
+
+### Patch Changes
+
+- Updated dependencies [[`42143228f`](https://github.com/aws-amplify/amplify-ui/commit/42143228fd8e99500e05fee34cee3f8067189c4e)]:
+  - @aws-amplify/ui@3.14.0
+  - @aws-amplify/ui-react-core@1.0.1
+
+## 3.5.5
+
+### Patch Changes
+
+- [#2659](https://github.com/aws-amplify/amplify-ui/pull/2659) [`477a00593`](https://github.com/aws-amplify/amplify-ui/commit/477a005935f242b49e776d42054810bc5d115857) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(ui-react-core): merge ui-react-core in to main
+
+- [#2674](https://github.com/aws-amplify/amplify-ui/pull/2674) [`c43f51484`](https://github.com/aws-amplify/amplify-ui/commit/c43f514843085196fc70cee57a61cb9b5e652c74) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): add deprecation message to Expander onChange prop
+
+- Updated dependencies [[`477a00593`](https://github.com/aws-amplify/amplify-ui/commit/477a005935f242b49e776d42054810bc5d115857)]:
+  - @aws-amplify/ui-react-core@1.0.0
+
+## 3.5.4
+
+### Patch Changes
+
+- [#2623](https://github.com/aws-amplify/amplify-ui/pull/2623) [`8afed9306`](https://github.com/aws-amplify/amplify-ui/commit/8afed9306e2e7acc6ce42b20b9a9af2dd70f0ef1) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): fix withAuthenticator signOut function typing
+
+## 3.5.3
+
+### Patch Changes
+
+- [#2616](https://github.com/aws-amplify/amplify-ui/pull/2616) [`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react, ui): expose Authenticator types, add AmplifyUser interface
+
+- Updated dependencies [[`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6)]:
+  - @aws-amplify/ui@3.13.4
+
+## 3.5.2
+
+### Patch Changes
+
+- [#2586](https://github.com/aws-amplify/amplify-ui/pull/2586) [`6eb393d70`](https://github.com/aws-amplify/amplify-ui/commit/6eb393d70a9442b11233844ca1bfcf70146d52e7) Thanks [@calebpollman](https://github.com/calebpollman)! - increase flexibility of `withAuthenticator` typing
+
+- Updated dependencies [[`e2429807b`](https://github.com/aws-amplify/amplify-ui/commit/e2429807bcc13b7c2dfe2c2947be8e790eea4d9d)]:
+  - @aws-amplify/ui@3.13.3
+
+## 3.5.1
+
+### Patch Changes
+
+- [#2544](https://github.com/aws-amplify/amplify-ui/pull/2544) [`35dae2a3d`](https://github.com/aws-amplify/amplify-ui/commit/35dae2a3d7ec392c60a7302e3673e59a0e42b7aa) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rwa): convert AuthChallengeNames enum to string union
+
+* [#2538](https://github.com/aws-amplify/amplify-ui/pull/2538) [`4a4b5c93d`](https://github.com/aws-amplify/amplify-ui/commit/4a4b5c93d37b66c845cbf20dac1e09e6e7931610) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rwa): update user lookup in getServiceFacade, authenticator util typing and useAuthenticator updates
+
+- [#2539](https://github.com/aws-amplify/amplify-ui/pull/2539) [`ba9818fb7`](https://github.com/aws-amplify/amplify-ui/commit/ba9818fb7acc727eaf7968aad8ff4dd1ab36327b) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug in Angular Authenticator that caused the Setup TOTP page to not show the correct totpIssuer and totpUsername in the QR code when overwritten by formFields. Refactored and added in Jest tests for Angular.
+
+- Updated dependencies [[`35dae2a3d`](https://github.com/aws-amplify/amplify-ui/commit/35dae2a3d7ec392c60a7302e3673e59a0e42b7aa), [`4a4b5c93d`](https://github.com/aws-amplify/amplify-ui/commit/4a4b5c93d37b66c845cbf20dac1e09e6e7931610), [`ba9818fb7`](https://github.com/aws-amplify/amplify-ui/commit/ba9818fb7acc727eaf7968aad8ff4dd1ab36327b)]:
+  - @aws-amplify/ui@3.13.2
+
+## 3.5.0
+
+### Minor Changes
+
+- [#2459](https://github.com/aws-amplify/amplify-ui/pull/2459) [`8350d36e2`](https://github.com/aws-amplify/amplify-ui/commit/8350d36e217587e06632ea5704d8c51e70559edc) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Angular: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  Vue: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  React: Added 'dialCode' versions of all 'countryCode' props so that users can begin migrating away from the deprecated `countryCode`.
+
+  ```
+  countryCodeLabel => dialCodeLabel
+  countryCodeName => dialCodeName
+  onCountryCodeChange => onDialCodeChange
+  countryCodeRef => dialCodeRef
+  defaultCountryCode => defaultDialCode
+  ```
+
+### Patch Changes
+
+- [#2528](https://github.com/aws-amplify/amplify-ui/pull/2528) [`73c546fe8`](https://github.com/aws-amplify/amplify-ui/commit/73c546fe8023ffb5961eaca024ea0586e3dfba38) Thanks [@jacoblogan](https://github.com/jacoblogan)! - remove deprecation console warning from countryCode prop usage
+
+* [#2519](https://github.com/aws-amplify/amplify-ui/pull/2519) [`83f0f1e6b`](https://github.com/aws-amplify/amplify-ui/commit/83f0f1e6b1666ca4661b8f94384f015f3a67e15d) Thanks [@jacoblogan](https://github.com/jacoblogan)! - update authenticator to use the new dial code props
+
+- [#2513](https://github.com/aws-amplify/amplify-ui/pull/2513) [`0dd3e1698`](https://github.com/aws-amplify/amplify-ui/commit/0dd3e169827f6ce90412e1a061f5d1f5d36814e0) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: update to use the old JSX transform to support app running on React prior to 16.14.0 where the new JSX transform does not get backported
+
+- Updated dependencies [[`b60fec2c4`](https://github.com/aws-amplify/amplify-ui/commit/b60fec2c451b31946f893efbf23710c7631db122)]:
+  - @aws-amplify/ui@3.13.1
+
+## 3.4.1
+
+### Patch Changes
+
+- [#2450](https://github.com/aws-amplify/amplify-ui/pull/2450) [`ed41e28d1`](https://github.com/aws-amplify/amplify-ui/commit/ed41e28d1abb689f7c74d9f13b9da96a21806973) Thanks [@thaddmt](https://github.com/thaddmt)! - Fix location search bug
+
+* [#2469](https://github.com/aws-amplify/amplify-ui/pull/2469) [`322bc2ce7`](https://github.com/aws-amplify/amplify-ui/commit/322bc2ce7e8edd92b098c8f2dd65af3c99184c35) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react): hide svg icon images in a11y tree in Rating component so redundant text is not announced
+
+## 3.4.0
+
+### Minor Changes
+
+- [#2300](https://github.com/aws-amplify/amplify-ui/pull/2300) [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding indeterminate state checkbox
+
+  Users can create an indeterminate `CheckboxField` by setting `isIndeterminate` prop to `true`.
+
+  **_Example_**
+
+  ```jsx
+  import * as React from 'react';
+
+  import { CheckboxField, Flex, View } from '@aws-amplify/ui-react';
+
+  export const CheckboxFieldIndeterminateExample = () => {
+    const [checkedItems, setCheckedItems] = React.useState([false, false]);
+    const checkedItemsRef = React.useRef(null);
+    const allChecked = checkedItems.every(Boolean);
+    const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+
+    if (isIndeterminate) {
+      checkedItemsRef.current = [...checkedItems];
+    }
+    const handleAllPetsChange = () => {
+      if (isIndeterminate) {
+        setCheckedItems([true, true]);
+      } else if (allChecked) {
+        setCheckedItems([false, false]);
+      } else if (checkedItemsRef.current) {
+        setCheckedItems(checkedItemsRef.current);
+      } else {
+        setCheckedItems([true, true]);
+      }
+    };
+
+    const handleCatChange = (e) => {
+      const newCheckedItems = [e.target.checked, checkedItems[1]];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    const handleDogChange = (e) => {
+      const newCheckedItems = [checkedItems[0], e.target.checked];
+      if (!newCheckedItems.some(Boolean) || newCheckedItems.every(Boolean)) {
+        checkedItemsRef.current = null;
+      }
+      setCheckedItems(newCheckedItems);
+    };
+
+    return (
+      <Flex direction="column" gap="0">
+        <CheckboxField
+          name="all-pets"
+          label="All Pets"
+          value="allPets"
+          checked={allChecked}
+          isIndeterminate={isIndeterminate}
+          onChange={handleAllPetsChange}
+        />
+        <View paddingLeft="25px">
+          <CheckboxField
+            name="cat"
+            label="Cat"
+            value="cat"
+            checked={checkedItems[0]}
+            onChange={handleCatChange}
+          />
+          <CheckboxField
+            name="dog"
+            label="Dog"
+            value="dog"
+            checked={checkedItems[1]}
+            onChange={handleDogChange}
+          />
+        </View>
+      </Flex>
+    );
+  };
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`b3e6a97e8`](https://github.com/aws-amplify/amplify-ui/commit/b3e6a97e8e17f6b822af0387e3c543c50aea7c64), [`1cfa1a054`](https://github.com/aws-amplify/amplify-ui/commit/1cfa1a054451a75738f4011c4200c34208285b5b), [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40), [`e25bc4269`](https://github.com/aws-amplify/amplify-ui/commit/e25bc42693cc4fa1cdcf7ad2fe7034ff44fbb18e), [`1f358d8fa`](https://github.com/aws-amplify/amplify-ui/commit/1f358d8fa18367020d0c41b74dcce1ba73974376)]:
+  - @aws-amplify/ui@3.13.0
+
+## 3.3.0
+
+### Minor Changes
+
+- [#2333](https://github.com/aws-amplify/amplify-ui/pull/2333) [`48027c8ef`](https://github.com/aws-amplify/amplify-ui/commit/48027c8ef9ad6f0e737902c67af3e7fda96ee3ff) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui-react): Collection searchNoResultsFound
+
+  When no results are returned from searching a Collection, we render the text "No results found" by default
+
+  - Customer also has the option of passing their own `ReactNode` to the new `searchNoResultsFound` prop
+
+  ```jsx
+  <Collection
+    isSearchable
+    searchNoResultsFound={
+      <Flex justifyContent="center">
+        <Text color="purple.80" fontSize="1rem">
+          Nothing found, please try again
+        </Text>
+      </Flex>
+    }
+  >
+    {collectionItems}
+  </Collection>
+  ```
+
+### Patch Changes
+
+- [#2368](https://github.com/aws-amplify/amplify-ui/pull/2368) [`64fa669e2`](https://github.com/aws-amplify/amplify-ui/commit/64fa669e238a3fcdd7714169eaf1677c9d3d4a3a) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react): Hide decorative alert icons from screen readers.
+
+* [#2363](https://github.com/aws-amplify/amplify-ui/pull/2363) [`07e87534b`](https://github.com/aws-amplify/amplify-ui/commit/07e87534b2cef76bde0bb8d16738d659d4de80e1) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui-react): move `role="alert"` to parent element of Alert to allow for role overrides.
+
+  The Alert component currently has the ARIA `alert` role by default. This change allows us to override the role when the `alert` role does not match the use case.
+
+  ```
+  <Alert role="none">This is no longer an ARIA alert</Alert>
+  ```
+
+  Learn more about [using the alert role](https://ui.docs.amplify.aws/react/components/alert#accessibility) on our docs and the [W3's spec for the alert role](https://w3c.github.io/aria/#alert)
+
+- [#2355](https://github.com/aws-amplify/amplify-ui/pull/2355) [`19a7d31c4`](https://github.com/aws-amplify/amplify-ui/commit/19a7d31c406257e642b73060685f133f5655f00c) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui-react): ariaLabel is no longer required for Icon component
+
+  Please see the [Icon docs](https://ui.docs.amplify.aws/react/components/icon#accessibility) for various methods of creating accessible Icons.
+
+* [#2371](https://github.com/aws-amplify/amplify-ui/pull/2371) [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7) Thanks [@cshfang](https://github.com/cshfang)! - fix(ui-react): Fixes an issue where the isTruncated prop of the Heading component was not properly applying a truncation.
+
+* Updated dependencies [[`de1c874f2`](https://github.com/aws-amplify/amplify-ui/commit/de1c874f294a3b21cc9d7a97b310d2744d18b065), [`3c468a0f3`](https://github.com/aws-amplify/amplify-ui/commit/3c468a0f34fb8f747b925dd1a66a0f0f0117436a), [`1fcfa3c02`](https://github.com/aws-amplify/amplify-ui/commit/1fcfa3c02dc8eedb2acdc7425be7311f5b1accef), [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7)]:
+  - @aws-amplify/ui@3.12.5
+
+## 3.2.1
+
+### Patch Changes
+
+- [#2336](https://github.com/aws-amplify/amplify-ui/pull/2336) [`5ffdc40a0`](https://github.com/aws-amplify/amplify-ui/commit/5ffdc40a0ae45c8d1554e53e6b6a085231e6c34c) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui-react): Improve accessibility of Pagination current item button
+
+* [#2303](https://github.com/aws-amplify/amplify-ui/pull/2303) [`d0d01bf44`](https://github.com/aws-amplify/amplify-ui/commit/d0d01bf44cc036d4d69c605b49e160e78527ed10) Thanks [@joebuono](https://github.com/joebuono)! - ui-react(fix): Adds an accessible label for the Alert's dismiss button, which is configurable via the `dismissButtonLabel` prop
+
+  <Alert dismissButtonLabel="Custom dismiss button label" isDismissible>
+    Configure a custom aria label for the dismiss button
+  </Alert>
+
+- [#2323](https://github.com/aws-amplify/amplify-ui/pull/2323) [`2a1cdba15`](https://github.com/aws-amplify/amplify-ui/commit/2a1cdba156a7d5c2fb221b9c6814d90f0e132ddb) Thanks [@joebuono](https://github.com/joebuono)! - ui-react(fix): Update ShowPasswordButton to use role=“switch” and add additional screen reader context
+
+  - Keep consistent aria-label “Show password”
+  - Add a visually hidden aria-live region (polite) that updates based on the ShowPasswordButton checked state
+  - Add `passwordIsHiddenLabel` and `passwordIsShownLabel` props for screen readers
+
+* [#2330](https://github.com/aws-amplify/amplify-ui/pull/2330) [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - ui-react(fix): Update StepperField disabled buttons styles, making them easier to see.
+
+- [#2277](https://github.com/aws-amplify/amplify-ui/pull/2277) [`bc63b7c0c`](https://github.com/aws-amplify/amplify-ui/commit/bc63b7c0c036586e899c33484df1d5569ed48d03) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint src/primitives/shared
+
+- Updated dependencies [[`8418028a3`](https://github.com/aws-amplify/amplify-ui/commit/8418028a3218ea20ccb2ac949b1e6e33c57239e6), [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e), [`d9dd9220c`](https://github.com/aws-amplify/amplify-ui/commit/d9dd9220c367bc476fddb36e89daff75d62e7f31)]:
+  - @aws-amplify/ui@3.12.4
+
+## 3.2.0
+
+### Minor Changes
+
+- [#2268](https://github.com/aws-amplify/amplify-ui/pull/2268) [`556515238`](https://github.com/aws-amplify/amplify-ui/commit/5565152384e0ff99fe092b3f808a885bbd445541) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding `formatValue` prop on SliderField to allow formatting the value
+
+  **_Example_**
+
+  ```jsx
+  export const SliderFieldFormatValueExample = () => {
+    const formatValue = (value: number) => {
+      return `${value}%`;
+    };
+    return (
+      <SliderField
+        label="SliderField with formatted value"
+        defaultValue={50}
+        formatValue={formatValue}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#2265](https://github.com/aws-amplify/amplify-ui/pull/2265) [`44ed11890`](https://github.com/aws-amplify/amplify-ui/commit/44ed11890510206d981e3f67a7261f947168723e) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add deprecation tag to 'to' prop on Link primitive
+
+* [#2183](https://github.com/aws-amplify/amplify-ui/pull/2183) [`f52ac1060`](https://github.com/aws-amplify/amplify-ui/commit/f52ac1060b6b33086080158f047c89cee2de720e) Thanks [@wlee221](https://github.com/wlee221)! - Ensure hub listener is correctly attached on React 18 Strict Mode.
+
+* Updated dependencies [[`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e), [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58)]:
+  - @aws-amplify/ui@3.12.3
+
+## 3.1.0
+
+### Minor Changes
+
+- [#2262](https://github.com/aws-amplify/amplify-ui/pull/2262) [`a72cacec2`](https://github.com/aws-amplify/amplify-ui/commit/a72cacec20107a4a991683ab02863981ee325de4) Thanks [@hein-j](https://github.com/hein-j)! - Update internal type EscapeHatchProps to accept `unknown`, so that customers can set overrides of any type.
+
+### Patch Changes
+
+- [#2263](https://github.com/aws-amplify/amplify-ui/pull/2263) [`14d35db95`](https://github.com/aws-amplify/amplify-ui/commit/14d35db950c5ae00409ac483a32a0726e8caa2ee) Thanks [@slaymance](https://github.com/slaymance)! - Update to latest version of maplibre-gl-js-amplify to support maplibre-gl v2
+
+* [#2279](https://github.com/aws-amplify/amplify-ui/pull/2279) [`332671d65`](https://github.com/aws-amplify/amplify-ui/commit/332671d6565060285a5f3a0b3b61c528286bd062) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: bump maplibre-gl-js-amplify to fix dependabot and other security related issues
+
+* Updated dependencies [[`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7), [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a)]:
+  - @aws-amplify/ui@3.12.2
+
+## 3.0.4
+
+### Patch Changes
+
+- [#2228](https://github.com/aws-amplify/amplify-ui/pull/2228) [`60da225f8`](https://github.com/aws-amplify/amplify-ui/commit/60da225f84d51ba51d044c17853558b3514c9f41) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): directly return children from Authenticator
+
+## 3.0.3
+
+### Patch Changes
+
+- [#2204](https://github.com/aws-amplify/amplify-ui/pull/2204) [`cd46fde0b`](https://github.com/aws-amplify/amplify-ui/commit/cd46fde0ba966acc1aaa4b054f16c7a2abfcd7f8) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(type): adding enterKeyHint type missing from React 16
+
+- Updated dependencies [[`09d738a0f`](https://github.com/aws-amplify/amplify-ui/commit/09d738a0f9e1a67367b3bdb45bcb9644f20e2600)]:
+  - @aws-amplify/ui@3.12.1
+
 ## 3.0.2
 
 ### Patch Changes

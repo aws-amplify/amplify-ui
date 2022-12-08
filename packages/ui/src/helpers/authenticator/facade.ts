@@ -12,8 +12,69 @@ import {
   AuthEventData,
   AuthEventTypes,
   AuthMachineState,
+  CodeDeliveryDetails,
+  AmplifyUser,
+  ValidationError,
+  SocialProvider,
+  UnverifiedContactMethods,
 } from '../../types';
+
 import { getActorContext, getActorState } from './actor';
+
+export type AuthenticatorRoute =
+  | 'authenticated'
+  | 'confirmResetPassword'
+  | 'confirmSignIn'
+  | 'confirmSignUp'
+  | 'confirmVerifyUser'
+  | 'forceNewPassword'
+  | 'idle'
+  | 'resetPassword'
+  | 'setup'
+  | 'signOut'
+  | 'setupTOTP'
+  | 'signIn'
+  | 'signUp'
+  | 'transition'
+  | 'verifyUser';
+
+type AuthenticatorValidationErrors = ValidationError;
+type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
+
+interface AuthenticatorServiceContextFacade {
+  authStatus: AuthStatus;
+  codeDeliveryDetails: CodeDeliveryDetails;
+  error: string;
+  hasValidationErrors: boolean;
+  isPending: boolean;
+  route: AuthenticatorRoute;
+  socialProviders: SocialProvider[];
+  unverifiedContactMethods: UnverifiedContactMethods;
+  user: AmplifyUser;
+  validationErrors: AuthenticatorValidationErrors;
+}
+
+type SendEventAlias =
+  | 'initializeMachine'
+  | 'resendCode'
+  | 'signOut'
+  | 'submitForm'
+  | 'updateForm'
+  | 'updateBlur'
+  | 'toFederatedSignIn'
+  | 'toResetPassword'
+  | 'toSignIn'
+  | 'toSignUp'
+  | 'skipVerification';
+
+type AuthenticatorSendEventAliases = Record<
+  SendEventAlias,
+  (data?: AuthEventData) => void
+>;
+
+export interface AuthenticatorServiceFacade
+  extends AuthenticatorSendEventAliases,
+    AuthenticatorServiceContextFacade {}
 
 /**
  * Creates public facing auth helpers that abstracts out xstate implementation
@@ -26,7 +87,9 @@ import { getActorContext, getActorState } from './actor';
  * submit({ username, password})
  * ```
  */
-export const getSendEventAliases = (send: Sender<AuthEvent>) => {
+export const getSendEventAliases = (
+  send: Sender<AuthEvent>
+): AuthenticatorSendEventAliases => {
   const sendToMachine = (type: AuthEventTypes) => {
     // TODO If these were created during the creation of the machine & provider,
     // then invalid transitions could be caught via https://xstate.js.org/docs/guides/states.html#state-can-event
@@ -34,6 +97,7 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   };
 
   return {
+    initializeMachine: sendToMachine('INIT'),
     resendCode: sendToMachine('RESEND'),
     signOut: sendToMachine('SIGN_OUT'),
     submitForm: sendToMachine('SUBMIT'),
@@ -48,19 +112,31 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
     toSignIn: sendToMachine('SIGN_IN'),
     toSignUp: sendToMachine('SIGN_UP'),
     skipVerification: sendToMachine('SKIP'),
-  } as const;
+  };
 };
 
-export const getServiceContextFacade = (state: AuthMachineState) => {
-  const user = state.context?.user;
+export const getServiceContextFacade = (
+  state: AuthMachineState
+): AuthenticatorServiceContextFacade => {
+  const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
+  const {
+    codeDeliveryDetails,
+    remoteError: error,
+    unverifiedContactMethods,
+    validationError: validationErrors,
+  } = actorContext;
+
+  const { socialProviders } = state.context?.config ?? {};
+
+  // check for user in actorContext prior to state context. actorContext is more "up to date",
+  // but is not available on all states
+  const user = actorContext?.user ?? state.context?.user;
+
+  const hasValidationErrors =
+    validationErrors && Object.keys(validationErrors).length > 0;
+
   const actorState = getActorState(state);
-  const actorContext = getActorContext(state) as ActorContextWithForms;
-  const error = actorContext?.remoteError;
-  const validationErrors = { ...actorContext?.validationError };
-  const codeDeliveryDetails = actorContext?.codeDeliveryDetails;
-  const hasValidationErrors = Object.keys(validationErrors).length > 0;
-  const isPending =
-    state.hasTag('pending') || getActorState(state)?.hasTag('pending');
+  const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
   // Any additional idle states added beyond (idle, setup) should be updated inside the authStatus below as well
   const route = (() => {
@@ -73,8 +149,6 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
         return 'signOut';
       case state.matches('authenticated'):
         return 'authenticated';
-      case actorState?.matches('autoSignIn'):
-        return 'autoSignIn';
       case actorState?.matches('confirmSignUp'):
         return 'confirmSignUp';
       case actorState?.matches('confirmSignIn'):
@@ -95,6 +169,13 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
         return 'verifyUser';
       case actorState?.matches('confirmVerifyUser'):
         return 'confirmVerifyUser';
+      case state.matches('signIn.runActor'):
+        /**
+         * This route is needed for autoSignIn to capture both the
+         * autoSignIn.pending and the resolved states when the
+         * signIn actor is running.
+         */
+        return 'transition';
       default:
         console.debug(
           'Cannot infer `route` from Authenticator state:',
@@ -119,18 +200,26 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   })(route);
 
   return {
+    authStatus,
+    codeDeliveryDetails,
     error,
     hasValidationErrors,
     isPending,
     route,
-    authStatus,
+    socialProviders,
+    unverifiedContactMethods,
     user,
     validationErrors,
-    codeDeliveryDetails,
   };
 };
 
-export const getServiceFacade = ({ send, state }) => {
+export const getServiceFacade = ({
+  send,
+  state,
+}: {
+  send: Sender<AuthEvent>;
+  state: AuthMachineState;
+}): AuthenticatorServiceFacade => {
   const sendEventAliases = getSendEventAliases(send);
   const serviceContext = getServiceContextFacade(state);
 

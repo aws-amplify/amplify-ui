@@ -5,6 +5,8 @@ export interface MetaInfo {
       description?: string;
       metaTitle?: string;
       metaDescription?: string;
+      mdnUrl?: string;
+      htmlElement?: string;
       supportedFrameworks?: string;
       slug?: string;
     };

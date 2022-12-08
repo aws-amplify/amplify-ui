@@ -3,6 +3,15 @@ import { Sizes } from './base';
 import { FieldVariations } from './field';
 import { ViewProps } from './view';
 
+export type EnterKeyHint =
+  | 'enter'
+  | 'done'
+  | 'go'
+  | 'next'
+  | 'previous'
+  | 'search'
+  | 'send';
+
 export type InputMode =
   | 'none'
   | 'text'
@@ -50,10 +59,18 @@ export interface InputProps extends ViewProps {
 
   /**
    * @description
-   * Provides hint for virtual keyboard shown.
+   * Defines what action label (or icon) to present for the enter key on virtual keyboards.
+   * @see
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)
+   */
+  enterKeyHint?: EnterKeyHint;
+
+  /**
+   * @description
+   *  Provides hint for virtual keyboard shown
    * @see
    * [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode)
-   * @default: "text"
+   * @default "text"
    */
   inputMode?: InputMode;
 

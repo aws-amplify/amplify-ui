@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  AuthChallengeNames,
+  authenticatorTextUtil,
   getActorState,
   getFormDataFromEvent,
   SignInState,
@@ -25,16 +25,14 @@ const actorState = computed(() =>
 ) as ComputedRef<SignInState>;
 const challengeName = actorState.value.context.challengeName;
 
-let mfaType = 'SMS';
-
-if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
-  mfaType = 'TOTP';
-}
-const confirmSignInHeading = `Confirm ${mfaType} Code`;
+// Text Util
+const { getBackToSignInText, getConfirmText, getChallengeText } =
+  authenticatorTextUtil;
 
 // Computed Properties
-const backSignInText = computed(() => translate('Back to Sign In'));
-const confirmText = computed(() => translate('Confirm'));
+const confirmSignInHeading = computed(() => getChallengeText(challengeName));
+const backSignInText = computed(() => getBackToSignInText());
+const confirmText = computed(() => getConfirmText());
 
 // Methods
 const onInput = (e: Event): void => {

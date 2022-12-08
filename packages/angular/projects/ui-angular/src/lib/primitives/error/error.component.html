@@ -9,6 +9,7 @@
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="amplify-icon"
+      [attr.aria-hidden]="true"
       viewBox="0 0 24 24"
       fill="currentColor"
     >
@@ -20,7 +21,8 @@
   </div>
   <button
     amplify-button
-    class="amplify-field-group__control"
+    class="amplify-field-group__control amplify-alert__dismiss"
+    [attr.aria-label]="dismissAriaLabel"
     variation="link"
     [fullWidth]="false"
     (click)="close()"
@@ -28,6 +30,7 @@
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="amplify-icon"
+      [attr.aria-hidden]="true"
       viewBox="0 0 24 24"
       fill="currentColor"
     >

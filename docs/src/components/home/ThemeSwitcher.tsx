@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import {
   Card,
@@ -31,9 +32,9 @@ import {
 import { CgTerminal, CgLinear, CgCopyright } from 'react-icons/cg';
 
 import themePreval from './themes/index.preval';
-import { useCustomRouter } from '@/components/useCustomRouter';
 import { HomeCode } from '@/components/home/HomeCode';
 import { CodeHighlight } from '@/components/CodeHighlight';
+import { trackClick } from '@/utils/track';
 
 const colorKeys = [10, 20, 40, 60, 80, 90, 100];
 const scale = ['primary', 'secondary', 'tertiary', 'success', 'info', 'error'];
@@ -208,7 +209,7 @@ export const ThemeSwitcher = ({ colorMode }) => {
   const [theme, setTheme] = useState('default');
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const isMobile = useBreakpointValue({
     base: true,
@@ -227,6 +228,7 @@ export const ThemeSwitcher = ({ colorMode }) => {
         isSelectionRequired
         onChange={(value) => {
           setTheme(value as string);
+          trackClick('HomeThemeSwitch', { value });
         }}
       >
         <ToggleButton value="default" gap="xs">

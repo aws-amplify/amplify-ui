@@ -24,11 +24,12 @@ import {
   LoginFormExample,
   MaxLengthExample,
   PasswordFieldStyledPropsExample,
+  PasswordFieldThemeExample,
   RefExample,
   RequiredPasswordFieldExample,
+  ShowPasswordButtonExample,
   SignUpFormExample,
   SizeExample,
-  PasswordFieldThemeExample,
   ValidationErrorExample,
   VariationExample,
 } from './examples';
@@ -122,6 +123,27 @@ _Change password example: `current-password` and `new-password`_
   <ExampleCode>
 
 ```jsx file=./examples/LabelHiddenExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+#### ShowPasswordButton
+
+The ShowPasswordButton renders a `<button>` element with `role="switch"`. Its `aria-checked` attribute is set to `false` when the password is hidden, and `true` when the password is shown. 
+
+There are several optional props for customizing the accessibility of the ShowPasswordButton:
+
+- `showPasswordButtonLabel`: Sets the `aria-label` for the ShowPasswordButton (defaults to `"Show password"`)
+- `passwordIsHiddenLabel`: Sets the text read by screen readers when the password is hidden (defaults to `"Password is hidden"`)
+- `passwordIsShownLabel`: Sets the text read by screen readers when the password is shown (defaults to `"Password is shown"`)
+
+<Example>
+  <ShowPasswordButtonExample />
+  <ExampleCode>
+
+```jsx file=./examples/ShowPasswordButtonExample.tsx
 
 ```
 

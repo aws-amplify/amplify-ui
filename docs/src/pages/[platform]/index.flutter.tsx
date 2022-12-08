@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
 
-import { useCustomRouter } from '@/components/useCustomRouter';
 import {
   AmplifySection,
   AuthenticationSection,
@@ -9,7 +9,7 @@ import {
 const FlutterHomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   return (
     <>

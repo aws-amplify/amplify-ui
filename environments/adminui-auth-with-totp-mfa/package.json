@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "adminui-auth-with-totp-mfa-environment",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d1ldfls4rvd66e --envName staging"
-  }
-}

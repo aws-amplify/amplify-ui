@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Amplify, { Auth, I18n } from 'aws-amplify';
+import { Amplify, Auth, I18n } from 'aws-amplify';
 import {
   Authenticator,
   translations,
@@ -16,7 +16,6 @@ const { authStatus } = toRefs(useAuthenticator());
 const formFields = {
   confirmSignUp: {
     confirmation_code: {
-      labelHidden: false,
       placeholder: 'Enter the code given',
       isRequired: true,
     },
@@ -40,6 +39,9 @@ const services = {
       username,
       password,
       attributes,
+      autoSignIn: {
+        enabled: true,
+      },
     });
   },
 };

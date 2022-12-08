@@ -2,9 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
 import { Alert } from '../Alert';
-import { ComponentClassNames } from '../../shared/constants';
-import { ComponentPropsToStylePropsMap } from '../../types';
-import kebabCase from 'lodash/kebabCase';
+import { ComponentClassNames, ComponentText } from '../../shared/constants';
 
 describe('Alert: ', () => {
   it('can render Alert variations', async () => {
@@ -109,6 +107,59 @@ describe('Alert: ', () => {
 
     expect(notDismissible.childElementCount).toBe(1);
     expect(isDismissible.childElementCount).toBe(2);
+  });
+
+  it('should set aria-hidden to be true on decorative icons', async () => {
+    const { container } = render(
+      <div>
+        <Alert variation="info" isDismissible={true} testId="hasIcon">
+          Has Icon
+        </Alert>
+      </div>
+    );
+    const icons = container.querySelectorAll(`.${ComponentClassNames.Icon}`);
+    expect(icons.length).toEqual(2);
+    icons.forEach((icon) => {
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+    });
+  });
+
+  it('can configure an accessible label for the dismiss button', async () => {
+    const customDismissButtonLabel = 'Testing 123';
+    render(
+      <div>
+        <Alert isDismissible>Default dismiss button label</Alert>
+        <Alert isDismissible dismissButtonLabel={customDismissButtonLabel}>
+          Custom dismiss button label
+        </Alert>
+      </div>
+    );
+
+    const [defaultLabel, customLabel] = await screen.queryAllByRole('button');
+    expect(defaultLabel.getAttribute('aria-label')).toBe(
+      ComponentText.Alert.dismissButtonLabel
+    );
+    expect(customLabel.getAttribute('aria-label')).toBe(
+      customDismissButtonLabel
+    );
+  });
+
+  it('renders as an aria alert', async () => {
+    render(<Alert testId="ariaAlertID">Alert with an aria role</Alert>);
+
+    const alert = await screen.findByRole('alert');
+    expect(alert).toBeDefined();
+  });
+
+  it('can allow role override', async () => {
+    render(
+      <Alert role="none" testId="noAlertRole">
+        Alert with role overridden
+      </Alert>
+    );
+
+    const alert = await screen.findByTestId('noAlertRole');
+    expect(alert).toHaveAttribute('role', 'none');
   });
 
   it('can apply styling via props', async () => {

@@ -12,7 +12,8 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
     label,
     className,
     hideShowPassword = false,
-    hidePasswordButtonLabel,
+    passwordIsHiddenLabel,
+    passwordIsShownLabel,
     showPasswordButtonLabel,
     showPasswordButtonRef,
     size,
@@ -33,15 +34,15 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
   return (
     <TextField
       autoComplete={autoComplete}
-      isMultiline={false}
       outerEndComponent={
         hideShowPassword ? null : (
           <ShowPasswordButton
             fieldType={type}
             onClick={showPasswordOnClick}
+            passwordIsHiddenLabel={passwordIsHiddenLabel}
+            passwordIsShownLabel={passwordIsShownLabel}
             ref={showPasswordButtonRef}
             size={size}
-            hidePasswordButtonLabel={hidePasswordButtonLabel}
             showPasswordButtonLabel={showPasswordButtonLabel}
           />
         )

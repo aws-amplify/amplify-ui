@@ -1,3 +1,8 @@
+# Description: this workflow creates or updates the "Version Packages" PR.
+#
+# Triggered by: whenever a commit is merged onto main and there are
+#               new changesets to consume.
+
 name: Version Packages
 
 on:
@@ -12,7 +17,6 @@ permissions:
 jobs:
   version:
     runs-on: ubuntu-latest
-    environment: deployment
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -22,11 +26,11 @@ jobs:
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
-      - name: Setup Node.js LTS
+      - name: Setup Node.js 16
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
       - name: Install and build packages
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}

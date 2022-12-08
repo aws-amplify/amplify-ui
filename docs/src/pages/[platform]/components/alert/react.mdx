@@ -1,9 +1,10 @@
-import { Alert, Flex, View } from '@aws-amplify/ui-react';
+import { Alert, Flex, View, Badge, Link } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ThemeExample from '@/components/ThemeExample.mdx';
 import { AlertDemo } from './demo';
 import {
+  AccessibleAlert,
   DefaultAlertExample,
   AlertVariationsExample,
   AlertHeadingExample,
@@ -12,7 +13,11 @@ import {
   OnDismissAlertExample,
   AlertStylePropsExample,
   AlertThemeExample,
+  DismissButtonLabelExample,
+  RoleOverride
 } from './examples';
+
+<Badge variation="info">Usage note:</Badge> The Alert component has an ARIA `alert` role by default which has some <Link href="#accessibility">accessibility implications</Link>. 
 
 ## Demo
 
@@ -74,7 +79,7 @@ Use the `heading` prop to pass a heading to the Alert.
 
 ### Icon
 
-Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon). Use the `iconSize` prop to change the size of the icon. Available options include `small`, (default), and `large`.
+Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon). 
 
 <Example>
   <View>
@@ -275,19 +280,55 @@ _Using style props:_
 
 ## Accessibility
 
-According to [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role): "The `alert` role can be used to tell the user an element has been dynamically updated. Screen readers will instantly start reading out the updated content when the role is added.
+The Alert component in Amplify UI has the `alert` role by default.  The `alert` role is an assertive live region which means any changes to the content of the Alert or adding the Alert dynamically to the DOM will cause the Alert to be announced by a screen reader. **This can be disruptive** to screen reader users, so it is best used sparingly and only when the Alert content requires the user's immediate attention.
 
-The most important thing to know about the `alert` role is that it is for dynamic content. It is perfect for situations such as when a user fills out a form and JavaScript is used to add an error message - the alert would immediately read out the message. It should not be used on HTML where the user hasn't interacted with it."
+Please see the <Link isExternal={true} href="https://www.w3.org/WAI/ARIA/apg/example-index/alert/alert.html">ARIA Authoring Practices Guide for the `alert` role</Link> for more information and use cases.
 
-For Amplify UI, the `alert` ARIA role is not built-in because it depends on your use case. For example, if you're using the `error` variation, then you should consider passing in ARIA `role="alert"` as a prop:
+### Dynamic Alert
 
-```jsx
-<Alert role="alert" variation="error">
-  ARIA: alert role
-</Alert>
+The following code shows an example of dynamically displaying an Alert. A screenreader will announce the content of the Alert when it is visible.
+
+<Example>
+  <AccessibleAlert />
+  
+  <ExampleCode>
+
+```jsx file=./examples/AccessibleAlert.tsx
+
 ```
 
-However, if you're just displaying some information that isn't critical or time sensitive, then we would not recommend passing in the `alert` role.
+  </ExampleCode>
+</Example>
 
-For more information, check out the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role).
-    
+### Role override
+
+If you're displaying information that isn't critical or time sensitive, and only want the visual style of the Alert component without the accessibility side effects, you can override the role attribute like in the following example:
+
+<Example>
+  <RoleOverride />
+  
+  <ExampleCode>
+
+```jsx file=./examples/RoleOverride.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
+### Custom aria label
+
+You can configure a custom `aria-label` for the dismiss button using the `dismissButtonLabel` prop (defaults to `'Dismiss alert'`).
+
+<Example>
+  <DismissButtonLabelExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/DismissButtonLabelExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>

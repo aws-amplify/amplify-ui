@@ -23,7 +23,7 @@ const propsToCode = (props) => {
   </TabItem>
   <TabItem title="Tab 2">
     Tab content #2
-  </TabItem>,
+  </TabItem>
   <TabItem title="Disabled" isDisabled={true}>
     Cannot click
   </TabItem>

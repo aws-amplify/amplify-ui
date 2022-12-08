@@ -10,7 +10,13 @@
     <amplify-base-form-fields
       route="confirmVerifyUser"
     ></amplify-base-form-fields>
-    <button amplify-button variation="primary" fullWidth="true" type="submit">
+    <button
+      amplify-button
+      variation="primary"
+      fullWidth="true"
+      type="submit"
+      [isDisabled]="authenticator.isPending"
+    >
       {{ submitText }}
     </button>
 

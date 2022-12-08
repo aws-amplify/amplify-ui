@@ -1,5 +1,5 @@
 import { View, Grid } from '@aws-amplify/ui-react';
-import { CardLink } from '@/components/CardLink';
+import { CardLinkGroup, CardLink } from '@/components/CardLink';
 import { Fragment } from '@/components/Fragment';
 import { Example, ExampleCode } from '@/components/Example';
 import { LabelInputExample, CheckboxExample, NavRoleExample, AriaLiveExample, ThemeExample } from './examples';
@@ -43,20 +43,20 @@ Amplify UI also follows web standards as much as possible for our components, in
   </ExampleCode>
 </Example>
 
-<Grid gap="var(--amplify-space-large)" margin="var(--amplify-space-xl) 0" templateColumns={{ base: '1fr', large: '1fr 1fr' }}>
+<CardLinkGroup>
  <CardLink 
-  img={<MdEdit />}
+  icon={<MdEdit />}
   href="/react/components/textfield#accessibility--label-behavior"
   title="Accessible input labels"
   desc="Learn about making accessible labels for the TextField component" />
 <CardLink 
-  img={<MdOutlineCheckBox />}
+  icon={<MdOutlineCheckBox />}
   href="/react/components/checkboxfield#css-styling"
   title="Styling Checkbox inputs"
   desc="Various ways to style the CheckboxField" />
-</Grid>
+</CardLinkGroup>
 
-## Themable design tokens
+## Themeable design tokens
 
 Amplify UI uses design tokens for the color palette, which makes modifying the theme to meet your own color contrast goals more manageable. Amplify UI also provides tokens for properties such as border width and font size if you need to make your own customizations for higher contrast requirements.
 
@@ -73,13 +73,13 @@ The example below shows how to use Theming to supply higher contrast text and bo
 </Example>
 </View>
 
-<Grid gap="var(--amplify-space-large)" margin="var(--amplify-space-xl) 0" templateColumns={{ base: '1fr', large: '1fr 1fr' }}>
- <CardLink 
-  img={<MdOutlineAutoAwesome />}
-  href="/react/theming#getting-started"
-  title="Theming overview"
-  desc="Learn how to make a custom theme" />
-</Grid>
+<CardLinkGroup>
+  <CardLink 
+    icon={<MdOutlineAutoAwesome />}
+    href="/react/theming#getting-started"
+    title="Theming overview"
+    desc="Learn how to make a custom theme" />
+</CardLinkGroup>
 
 ## Enhancable primitives
 

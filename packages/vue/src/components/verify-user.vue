@@ -3,6 +3,7 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
+  authenticatorTextUtil,
   getActorState,
   SignInState,
   defaultFormFieldOptions,
@@ -25,15 +26,21 @@ const actorState: ComputedRef<SignInState> = computed(
   () => getActorState(state.value) as SignInState
 );
 
-const unverifiedAttributes = actorState.value.context.unverifiedAttributes;
+const { unverifiedContactMethods } = actorState.value.context;
+
+// Text Util
+const {
+  getAccountRecoveryInfoText,
+  getSkipText,
+  getVerifyText,
+  getVerifyContactText,
+} = authenticatorTextUtil;
 
 // Computed Properties
-const verifyHeading = computed(() =>
-  translate('Account recovery requires verified contact information')
-);
-const skipText = computed(() => translate('Skip'));
-const verifyText = computed(() => translate('Verify'));
-const verifyContactText = computed(() => translate('Verify Contact'));
+const verifyHeading = computed(() => getAccountRecoveryInfoText());
+const skipText = computed(() => getSkipText());
+const verifyText = computed(() => getVerifyText());
+const verifyContactText = computed(() => getVerifyContactText());
 
 // Methods
 const onInput = (e: Event): void => {
@@ -80,10 +87,7 @@ const onSkipClicked = (): void => {
             </base-heading>
           </slot>
           <base-wrapper
-            class="
-              amplify-flex amplify-field amplify-radiogroupfield
-              amplify-authenticator__column
-            "
+            class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
           >
             <base-label
               class="amplify-visually-hidden amplify-label"
@@ -92,26 +96,18 @@ const onSkipClicked = (): void => {
               {{ verifyContactText }}
             </base-label>
             <base-wrapper
-              class="
-                amplify-flex amplify-field amplify-radiogroupfield
-                amplify-authenticator__column
-              "
+              class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
               aria-labelledby="amplify-field-493c"
             >
               <base-label
                 class="amplify-flex amplify-radio"
                 data-amplify-verify-label
                 id="verify"
-                v-for="(value, key) in unverifiedAttributes"
+                v-for="(value, key) in unverifiedContactMethods"
                 :key="value"
               >
                 <base-input
-                  class="
-                    amplify-input
-                    amplify-field-group__control
-                    amplify-visually-hidden
-                    amplify-radio__input
-                  "
+                  class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
                   aria-invalid="false"
                   data-amplify-verify-input
                   id="verify"

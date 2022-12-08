@@ -12,6 +12,7 @@ import {
 import { HomeCTA } from '../HomeCTA';
 import { HomeFeatureCard } from '../HomeFeatureCard';
 import { useIntersectionObserver } from '@/components/useIntersection';
+import { trackScroll } from '@/utils/track';
 
 export const A11ySection = ({ platform }) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -20,6 +21,9 @@ export const A11ySection = ({ platform }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  if (isVisible) {
+    trackScroll('Home#Accessibility');
+  }
 
   return (
     <View

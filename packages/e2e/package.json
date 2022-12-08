@@ -5,27 +5,29 @@
   "private": true,
   "scripts": {
     "clean": "rimraf node_modules",
-    "dev": "TZ=UTC cypress open",
-    "test:examples": "TZ=UTC cypress run --spec features/ui/hooks/*.features,features/ui/components/**/*.features",
-    "test:authenticator": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
-    "test:hooks": "TZ=UTC cypress run --spec features/ui/hooks/*.features",
-    "test:geo": "TZ=UTC cypress run --spec features/ui/components/geo/*.features",
-    "test:theme": "TZ=UTC cypress run --spec features/ui/theme/*.features",
-    "test:guides": "TZ=UTC cypress run --spec features/ui/guides/*.feature"
+    "dev": "cypress open",
+    "test:examples": "cypress run --spec 'features/ui/hooks/*.feature','features/ui/components/**/*.feature'",
+    "test:authenticator": "cypress run --spec 'features/ui/components/authenticator/*.feature'",
+    "test:hooks": "cypress run --spec 'features/ui/hooks/*.feature'",
+    "test:geo": "cypress run --spec 'features/ui/components/geo/*.feature'",
+    "test:theme": "cypress run --spec 'features/ui/theme/*.feature'",
+    "test:guides": "cypress run --spec 'features/ui/guides/*.feature'"
   },
   "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": true,
-    "nonGlobalStepBaseDir": "cypress/integration",
-    "stepDefinitions": "features"
+    "filterSpecs": true,
+    "stepDefinitions": [
+      "cypress/integration/ui/[filepath]/*.steps.ts",
+      "cypress/integration/common/*.ts"
+    ]
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^3.12.0",
+    "@aws-amplify/ui": "^5.3.0",
+    "@badeball/cypress-cucumber-preprocessor": "^12.1.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.1.3",
+    "@testing-library/cypress": "^8.0.3",
     "aws-crt": "^1.10.6",
-    "@testing-library/cypress": "^7.0.6",
-    "@types/cypress-cucumber-preprocessor": "^4.0.0",
-    "cypress": "^8.5.0",
-    "cypress-cucumber-preprocessor": "^4.1.2",
-    "dotenv-safe": "^8.2.0",
+    "cypress": "^10.7.0",
+    "dotenv": "^16.0.2",
     "rimraf": "^3.0.2"
   }
 }

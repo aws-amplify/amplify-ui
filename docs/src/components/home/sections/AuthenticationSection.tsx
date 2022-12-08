@@ -16,6 +16,7 @@ import { CodeHighlight } from '@/components/CodeHighlight';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
 import { BrowserMock } from '@/components/home/BrowserMock';
+import { trackScroll } from '@/utils/track';
 
 // TODO: grab this code from actual examples so we don't need to keep these in sync
 const authenticatorCode = {
@@ -53,7 +54,7 @@ export default function App() {
   import { Authenticator } from "@aws-amplify/ui-vue";
   import "@aws-amplify/ui-vue/styles.css";
 
-  import Amplify from 'aws-amplify';
+  import { Amplify } from 'aws-amplify';
   import awsconfig from './aws-exports';
 
   Amplify.configure(awsconfig);
@@ -98,6 +99,32 @@ export default function App() {
     );
   }
 }`,
+  'react-native': `import React from 'react';
+import { Button } from 'react-native';
+
+import { Amplify } from 'aws-amplify';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+function SignOutButton() {
+  const { signOut } = useAuthenticator();
+  return <Button title="Sign Out" onPress={signOut} />;
+}
+
+function App() {
+  return (
+    <Authenticator.Provider>
+      <Authenticator>
+        <SignOutButton />
+      </Authenticator>
+    </Authenticator.Provider>
+  );
+}
+
+export default App;
+`,
 };
 
 const languages = {
@@ -105,6 +132,7 @@ const languages = {
   angular: 'javascript', // is this the best primsa language?
   vue: 'javascript',
   flutter: 'dart',
+  'react-native': 'jsx',
 };
 
 const fileName = {
@@ -112,6 +140,7 @@ const fileName = {
   angular: 'index.html',
   vue: 'index.vue',
   flutter: 'main.dart',
+  'react-native': 'App.jsx',
 };
 
 export const AuthenticationSection = ({ platform }) => {
@@ -121,6 +150,9 @@ export const AuthenticationSection = ({ platform }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
+  if (isVisible) {
+    trackScroll('Home#Authentication');
+  }
   const hiddenOnMobile = useBreakpointValue({
     base: false,
     medium: true,
@@ -168,7 +200,7 @@ export const AuthenticationSection = ({ platform }) => {
             <View flex="1">
               <FlutterAuthenticatorExample id="flutter-authenticator-home" />
             </View>
-          ) : (
+          ) : platform === 'react-native' ? null : (
             <BrowserMock flex="1" location="https://localhost">
               <Authenticator />
             </BrowserMock>

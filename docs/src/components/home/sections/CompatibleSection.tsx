@@ -7,6 +7,7 @@ import { HomeCTA } from '@/components/home/HomeCTA';
 import { HomeFeatureCard } from '@/components/home/HomeFeatureCard';
 import { useIntersectionObserver } from '@/components/useIntersection';
 import { useRef } from 'react';
+import { trackScroll } from '@/utils/track';
 
 export const CompatibleSection = ({ platform }) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -15,7 +16,9 @@ export const CompatibleSection = ({ platform }) => {
     freezeOnceVisible: true,
   });
   const isVisible = !!entry?.isIntersecting;
-
+  if (isVisible) {
+    trackScroll('Home#Compatible');
+  }
   return (
     <View
       ref={ref}
@@ -43,11 +46,14 @@ export const CompatibleSection = ({ platform }) => {
             UI-less, implementations that handle complex state management and
             leave the UI up to you.
           </HomeFeatureCard>
-          <HomeFeatureCard icon={MdOutlineFlashOff} title="Styling optional">
-            Don't like our style? Throw it out and use your own! Amplify UI
-            components use plain CSS so you have complete control over the
-            styling.
-          </HomeFeatureCard>
+          {platform === 'react-native' ? null : (
+            <HomeFeatureCard icon={MdOutlineFlashOff} title="Styling optional">
+              Don&lsquo;t like our style? Throw it out and use your own! Amplify
+              UI components use plain CSS so you have complete control over the
+              styling.
+            </HomeFeatureCard>
+          )}
+
           <HomeFeatureCard
             icon={SiTypescript}
             title="TypeScript & IntelliSense"
@@ -57,7 +63,7 @@ export const CompatibleSection = ({ platform }) => {
           </HomeFeatureCard>
         </Flex>
         <HomeCTA href={`/${platform}/getting-started/introduction`}>
-          Learn more about Amplify UI's design philosophy
+          Learn more about Amplify UI&lsquo;s design philosophy
         </HomeCTA>
       </Flex>
     </View>

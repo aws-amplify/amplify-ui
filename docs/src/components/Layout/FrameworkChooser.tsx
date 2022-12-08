@@ -1,9 +1,8 @@
 import { Flex, Button } from '@aws-amplify/ui-react';
-import { capitalize } from 'lodash';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { useCustomRouter } from '@/components/useCustomRouter';
-import { FRAMEWORKS } from '@/data/frameworks';
+import { FRAMEWORKS, FRAMEWORK_DISPLAY_NAMES } from '@/data/frameworks';
 import metaData from '@/data/pages.preval';
 import { FrameworkLogo } from '@/components/Logo';
 
@@ -19,7 +18,7 @@ const FrameworkLink = ({
   onClick,
   isDisabled,
 }: FrameworkLinkProps) => {
-  const { pathname, query } = useCustomRouter();
+  const { pathname, query } = useRouter();
   const isCurrent = query.platform === framework;
   const classNames = `docs-framework-link ${isCurrent ? 'current' : ''}`;
   const href = pathname.includes(platformPath)
@@ -27,15 +26,16 @@ const FrameworkLink = ({
     : `/${framework}`;
 
   return (
-    <Link href={href} passHref>
+    <Link href={isDisabled ? '#' : href} passHref>
       <Button
         size="small"
+        as="a"
         className={classNames}
         onClick={onClick}
         isDisabled={isDisabled}
       >
         <FrameworkLogo framework={framework} className="docs-framework-img" />
-        {capitalize(framework)}
+        {FRAMEWORK_DISPLAY_NAMES[framework]}
       </Button>
     </Link>
   );
@@ -46,7 +46,7 @@ interface FrameworkChooserProps {
 }
 
 export const FrameworkChooser = ({ onClick }: FrameworkChooserProps) => {
-  const { pathname } = useCustomRouter();
+  const { pathname } = useRouter();
 
   const {
     frontmatter: { supportedFrameworks = 'react' },

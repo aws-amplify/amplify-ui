@@ -1,15 +1,17 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Button } from '../../../primitives/Button';
 import { Flex } from '../../../primitives/Flex';
 import { View } from '../../../primitives/View';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields as DefaultFormFields } from '../shared/FormFields';
+
+const { getCreateAccountText, getCreatingAccountText } = authenticatorTextUtil;
 
 export function SignUp(): JSX.Element {
   const { hasValidationErrors, isPending } = useAuthenticator((context) => [
@@ -54,9 +56,9 @@ export function SignUp(): JSX.Element {
             type="submit"
             variation="primary"
             isLoading={isPending}
-            loadingText={translate('Creating Account')}
+            loadingText={getCreatingAccountText()}
           >
-            {translate('Create Account')}
+            {getCreateAccountText()}
           </Button>
         </Flex>
       </form>

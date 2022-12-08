@@ -1,12 +1,5 @@
-import {
-  Card,
-  Flex,
-  Grid,
-  Heading,
-  Icon,
-  View,
-  Text,
-} from '@aws-amplify/ui-react';
+import { useRouter } from 'next/router';
+import { Flex, Heading, Icon } from '@aws-amplify/ui-react';
 import {
   baseComponents,
   dataDisplayComponents,
@@ -17,52 +10,31 @@ import {
   utilityComponents,
 } from '@/data/links';
 
-import Link from 'next/link';
-import { useCustomRouter } from '@/components/useCustomRouter';
+import { CardLink, CardLinkGroup } from '@/components/CardLink';
 
 const ComponentGrid = ({ components }) => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   return (
-    <Grid
-      templateColumns={{ base: '1fr', large: '1fr 1fr' }}
-      gap="var(--amplify-space-large)"
-    >
+    <CardLinkGroup>
       {components.map(({ href, label, body, icon }) => (
-        <Link href={`/${platform}${href}`} key={href} passHref>
-          <Card className="docs-component-card">
-            <Flex alignItems="flex-start">
-              {icon ? (
-                <View
-                  as="span"
-                  padding="1rem"
-                  backgroundColor="brand.secondary.10"
-                  borderRadius="small"
-                >
-                  <Icon
-                    ariaLabel=""
-                    as={icon}
-                    fontSize="xl"
-                    color="brand.secondary.60"
-                  />
-                </View>
-              ) : null}
-              <View>
-                <Text fontWeight="bold">{label}</Text>
-                <Text className="docs-component-card-contents">{body}</Text>
-              </View>
-            </Flex>
-          </Card>
-        </Link>
+        <CardLink
+          variation="branded"
+          icon={icon ? <Icon ariaLabel="" as={icon} /> : null}
+          href={`/${platform}${href}`}
+          key={href}
+          title={label}
+          desc={body}
+        />
       ))}
-    </Grid>
+    </CardLinkGroup>
   );
 };
 
 const ComponentGridSection = ({ heading, components }) => {
-  const { query } = useCustomRouter();
+  const { query } = useRouter();
   const { platform = 'react' } = query;
 
   const platformComponents = components.filter((component) => {

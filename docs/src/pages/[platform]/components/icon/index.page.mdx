@@ -3,11 +3,26 @@ title: Icon
 description: Icon is used to display Scalable Vector Graphics (SVG).
 themeSource: packages/ui/src/theme/tokens/components/icon.ts
 reactSource: packages/react/src/primitives/Icon/Icon.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg
+htmlElement: svg
 supportedFrameworks: react
 ---
 
 import { Fragment } from '@/components/Fragment';
-import { PageTabLayout } from "@/components/Layout/PageTabLayout"
+import { PageTabLayout } from '@/components/Layout/PageTabLayout';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { PropsTableTab } from '@/components/propsTable/PropsTableTab';
+import data from '@/data/props-table.json';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
 
 <PageTabLayout 
   tabComponents={[{
@@ -16,7 +31,12 @@ import { PageTabLayout } from "@/components/Layout/PageTabLayout"
   },
   {
     title: "Props", 
-    children: <Fragment>{({ platform }) => import('./props-table.mdx')}</Fragment>
+    children: <PropsTableTab 
+                componentName={frontmatter.title} 
+                PropsData={data} 
+                htmlElement={frontmatter.htmlElement} 
+                mdnUrl={frontmatter.mdnUrl}
+              />
   }]}
 />
         

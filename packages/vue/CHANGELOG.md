@@ -1,5 +1,203 @@
 # @aws-amplify/ui-vue
 
+## 3.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`3653c8f39`](https://github.com/aws-amplify/amplify-ui/commit/3653c8f3914e3dc51fbcc328e59326afb422aa68), [`145d0b5f5`](https://github.com/aws-amplify/amplify-ui/commit/145d0b5f596ff7c9f623898af0bb3836516c51fe), [`e3867e369`](https://github.com/aws-amplify/amplify-ui/commit/e3867e369b4aeb5b240916cb88105353483b9b7c), [`4b2dbeb18`](https://github.com/aws-amplify/amplify-ui/commit/4b2dbeb18c79175bc0bfe0cf50a0e9d0429544d6), [`0377bccfb`](https://github.com/aws-amplify/amplify-ui/commit/0377bccfbea55606d007ae914a5d7f202bf87478)]:
+  - @aws-amplify/ui@5.3.0
+
+## 3.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`b416aca55`](https://github.com/aws-amplify/amplify-ui/commit/b416aca553649d37e2686c02f3223a77bf36ed98), [`8e5e696f4`](https://github.com/aws-amplify/amplify-ui/commit/8e5e696f4d0ae61e74537cdfe4395005cc21ce12), [`7f4248db4`](https://github.com/aws-amplify/amplify-ui/commit/7f4248db457639d1bb34c8318569ab047aa80c5e), [`a5b8696bc`](https://github.com/aws-amplify/amplify-ui/commit/a5b8696bc41d8cb2ff2c6fc39f8fd1afc349955a)]:
+  - @aws-amplify/ui@5.2.0
+
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b)]:
+  - @aws-amplify/ui@5.1.1
+
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1), [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf)]:
+  - @aws-amplify/ui@5.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- [#2828](https://github.com/aws-amplify/amplify-ui/pull/2828) [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(next-release): render Authenticator field labels
+
+- [#2735](https://github.com/aws-amplify/amplify-ui/pull/2735) [`fa3135add`](https://github.com/aws-amplify/amplify-ui/commit/fa3135add1346465db19b9d252ae26edaed70e3b) Thanks [@wlee221](https://github.com/wlee221)! - **Breaking**: We replaced following legacy Authenticator texts:
+
+  - `Send Code` in reset password screen is replaced by `Send code`.
+  - `Forgot your password? ` with the trailing space is replaced by `Forgot your password`.
+
+  If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
+
+### Patch Changes
+
+- [#2877](https://github.com/aws-amplify/amplify-ui/pull/2877) [`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7) Thanks [@ErikCH](https://github.com/ErikCH)! - **BREAKING**: When overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. This is now required.
+
+  ```diff
+   async handleSignUp(formData) {
+    let { username, password, attributes } = formData;
+    // custom username
+    username = username.toLowerCase();
+    attributes.email = attributes.email.toLowerCase();
+    return Auth.signUp({
+      username,
+      password,
+      attributes,
+  +   autoSignIn: {
+  +     enabled: true
+  +   }
+    });
+  }
+
+  ```
+
+- Updated dependencies [[`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7), [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a), [`d90b148c0`](https://github.com/aws-amplify/amplify-ui/commit/d90b148c0e06b3321f4f05fad2b32ef52c04214d)]:
+  - @aws-amplify/ui@5.0.0
+
+## 2.4.26
+
+### Patch Changes
+
+- Updated dependencies [[`702a35738`](https://github.com/aws-amplify/amplify-ui/commit/702a3573850639c492c51ce10e27e194d720d5ac), [`0935da51a`](https://github.com/aws-amplify/amplify-ui/commit/0935da51ac04334e458339da2bf0ef72f248cf26)]:
+  - @aws-amplify/ui@4.1.0
+
+## 2.4.25
+
+### Patch Changes
+
+- Updated dependencies [[`05bb8c792`](https://github.com/aws-amplify/amplify-ui/commit/05bb8c79264e37c9d0592405f4a33e9a309de732), [`5bd5e695a`](https://github.com/aws-amplify/amplify-ui/commit/5bd5e695a71e0cbef85a17f4ee1c851c84b4d51d), [`6aa1132e7`](https://github.com/aws-amplify/amplify-ui/commit/6aa1132e760eef892021dbadafa63456c1c3a39d), [`ea1ea36a6`](https://github.com/aws-amplify/amplify-ui/commit/ea1ea36a650bd6677c97556b8c1e85705cd37a35)]:
+  - @aws-amplify/ui@4.0.1
+
+## 2.4.24
+
+### Patch Changes
+
+- [#2702](https://github.com/aws-amplify/amplify-ui/pull/2702) [`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906) Thanks [@slaymance](https://github.com/slaymance)! - Make xstate core dependency of only framework libraries
+
+- [#2712](https://github.com/aws-amplify/amplify-ui/pull/2712) [`ea3afab68`](https://github.com/aws-amplify/amplify-ui/commit/ea3afab6893ca6e60ff42eb048a5f4f7b4750829) Thanks [@wlee221](https://github.com/wlee221)! - fix(vue): replace legacy `sr-only` with `amplify-visually-hidden`
+
+- Updated dependencies [[`1b1567c0c`](https://github.com/aws-amplify/amplify-ui/commit/1b1567c0c7788120ca4e7c4533228d2672dda906)]:
+  - @aws-amplify/ui@4.0.0
+
+## 2.4.23
+
+### Patch Changes
+
+- Updated dependencies [[`42143228f`](https://github.com/aws-amplify/amplify-ui/commit/42143228fd8e99500e05fee34cee3f8067189c4e)]:
+  - @aws-amplify/ui@3.14.0
+
+## 2.4.22
+
+### Patch Changes
+
+- [#2616](https://github.com/aws-amplify/amplify-ui/pull/2616) [`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react, ui): expose Authenticator types, add AmplifyUser interface
+
+- Updated dependencies [[`83bcc0844`](https://github.com/aws-amplify/amplify-ui/commit/83bcc0844eb1049ab49ff4f79280605ef31230d6)]:
+  - @aws-amplify/ui@3.13.4
+
+## 2.4.21
+
+### Patch Changes
+
+- Updated dependencies [[`e2429807b`](https://github.com/aws-amplify/amplify-ui/commit/e2429807bcc13b7c2dfe2c2947be8e790eea4d9d)]:
+  - @aws-amplify/ui@3.13.3
+
+## 2.4.20
+
+### Patch Changes
+
+- [#2544](https://github.com/aws-amplify/amplify-ui/pull/2544) [`35dae2a3d`](https://github.com/aws-amplify/amplify-ui/commit/35dae2a3d7ec392c60a7302e3673e59a0e42b7aa) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(rwa): convert AuthChallengeNames enum to string union
+
+* [#2539](https://github.com/aws-amplify/amplify-ui/pull/2539) [`ba9818fb7`](https://github.com/aws-amplify/amplify-ui/commit/ba9818fb7acc727eaf7968aad8ff4dd1ab36327b) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug in Angular Authenticator that caused the Setup TOTP page to not show the correct totpIssuer and totpUsername in the QR code when overwritten by formFields. Refactored and added in Jest tests for Angular.
+
+* Updated dependencies [[`35dae2a3d`](https://github.com/aws-amplify/amplify-ui/commit/35dae2a3d7ec392c60a7302e3673e59a0e42b7aa), [`4a4b5c93d`](https://github.com/aws-amplify/amplify-ui/commit/4a4b5c93d37b66c845cbf20dac1e09e6e7931610), [`ba9818fb7`](https://github.com/aws-amplify/amplify-ui/commit/ba9818fb7acc727eaf7968aad8ff4dd1ab36327b)]:
+  - @aws-amplify/ui@3.13.2
+
+## 2.4.19
+
+### Patch Changes
+
+- [#2459](https://github.com/aws-amplify/amplify-ui/pull/2459) [`8350d36e2`](https://github.com/aws-amplify/amplify-ui/commit/8350d36e217587e06632ea5704d8c51e70559edc) Thanks [@jacoblogan](https://github.com/jacoblogan)! - Angular: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  Vue: Add `amplify-dialcodeselect` class which contains the previous countrycodeselect styles
+  React: Added 'dialCode' versions of all 'countryCode' props so that users can begin migrating away from the deprecated `countryCode`.
+
+  ```
+  countryCodeLabel => dialCodeLabel
+  countryCodeName => dialCodeName
+  onCountryCodeChange => onDialCodeChange
+  countryCodeRef => dialCodeRef
+  defaultCountryCode => defaultDialCode
+  ```
+
+- Updated dependencies [[`b60fec2c4`](https://github.com/aws-amplify/amplify-ui/commit/b60fec2c451b31946f893efbf23710c7631db122)]:
+  - @aws-amplify/ui@3.13.1
+
+## 2.4.18
+
+### Patch Changes
+
+- [#2419](https://github.com/aws-amplify/amplify-ui/pull/2419) [`8def8dc6a`](https://github.com/aws-amplify/amplify-ui/commit/8def8dc6ab8cf2448f110b0a9d4309b43a561541) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - Hide decorative alert icons from screen readers.
+
+- Updated dependencies [[`b3e6a97e8`](https://github.com/aws-amplify/amplify-ui/commit/b3e6a97e8e17f6b822af0387e3c543c50aea7c64), [`1cfa1a054`](https://github.com/aws-amplify/amplify-ui/commit/1cfa1a054451a75738f4011c4200c34208285b5b), [`eae79ae15`](https://github.com/aws-amplify/amplify-ui/commit/eae79ae1529b9a920d704cb12e92addb352d0c40), [`e25bc4269`](https://github.com/aws-amplify/amplify-ui/commit/e25bc42693cc4fa1cdcf7ad2fe7034ff44fbb18e), [`1f358d8fa`](https://github.com/aws-amplify/amplify-ui/commit/1f358d8fa18367020d0c41b74dcce1ba73974376)]:
+  - @aws-amplify/ui@3.13.0
+
+## 2.4.17
+
+### Patch Changes
+
+- Updated dependencies [[`de1c874f2`](https://github.com/aws-amplify/amplify-ui/commit/de1c874f294a3b21cc9d7a97b310d2744d18b065), [`3c468a0f3`](https://github.com/aws-amplify/amplify-ui/commit/3c468a0f34fb8f747b925dd1a66a0f0f0117436a), [`1fcfa3c02`](https://github.com/aws-amplify/amplify-ui/commit/1fcfa3c02dc8eedb2acdc7425be7311f5b1accef), [`adc9ff6e3`](https://github.com/aws-amplify/amplify-ui/commit/adc9ff6e3c7d1408edb7de58c1858ddc4f47d1c7)]:
+  - @aws-amplify/ui@3.12.5
+
+## 2.4.16
+
+### Patch Changes
+
+- [#2339](https://github.com/aws-amplify/amplify-ui/pull/2339) [`12de8fa5b`](https://github.com/aws-amplify/amplify-ui/commit/12de8fa5b4a4ed3786a0ee9db9d3724e226e3698) Thanks [@ErikCH](https://github.com/ErikCH)! - Adds an accessible label for the Alert dismiss button, which is configurable via translation.
+
+- Updated dependencies [[`8418028a3`](https://github.com/aws-amplify/amplify-ui/commit/8418028a3218ea20ccb2ac949b1e6e33c57239e6), [`f067420b9`](https://github.com/aws-amplify/amplify-ui/commit/f067420b9a39807a46bd409dce17f2bcc297218e), [`d9dd9220c`](https://github.com/aws-amplify/amplify-ui/commit/d9dd9220c367bc476fddb36e89daff75d62e7f31)]:
+  - @aws-amplify/ui@3.12.4
+
+## 2.4.15
+
+### Patch Changes
+
+- Updated dependencies [[`bde5e7a48`](https://github.com/aws-amplify/amplify-ui/commit/bde5e7a48a144bf76f77b1b747dcc912ce8cec6e), [`74e8c8935`](https://github.com/aws-amplify/amplify-ui/commit/74e8c89354bd551723f62ac2a3b60e5222d92d58)]:
+  - @aws-amplify/ui@3.12.3
+
+## 2.4.14
+
+### Patch Changes
+
+- [#2296](https://github.com/aws-amplify/amplify-ui/pull/2296) [`8659e2f7e`](https://github.com/aws-amplify/amplify-ui/commit/8659e2f7efc986c9ec71cdc245de57fa425b0f5b) Thanks [@ErikCH](https://github.com/ErikCH)! - Vue library had a bug that was causing types to not show correctly. This fix corrects the package.json to point to the correct definition file.
+
+## 2.4.13
+
+### Patch Changes
+
+- [#2184](https://github.com/aws-amplify/amplify-ui/pull/2184) [`a8b77d484`](https://github.com/aws-amplify/amplify-ui/commit/a8b77d4849fe6df85b61c8af23a264d40f799de6) Thanks [@ErikCH](https://github.com/ErikCH)! - Cleaned Vue code. Updated jest to latest. Added in JSX. Updated how editor displays interface in .vue files.
+
+- Updated dependencies [[`90eb39280`](https://github.com/aws-amplify/amplify-ui/commit/90eb392806c7875d2659bd0bb52aa6b68b849ce7), [`3b2d6c2af`](https://github.com/aws-amplify/amplify-ui/commit/3b2d6c2afb51178ed6ba6312c29b368c522e460a)]:
+  - @aws-amplify/ui@3.12.2
+
+## 2.4.12
+
+### Patch Changes
+
+- Updated dependencies [[`09d738a0f`](https://github.com/aws-amplify/amplify-ui/commit/09d738a0f9e1a67367b3bdb45bcb9644f20e2600)]:
+  - @aws-amplify/ui@3.12.1
+
 ## 2.4.11
 
 ### Patch Changes

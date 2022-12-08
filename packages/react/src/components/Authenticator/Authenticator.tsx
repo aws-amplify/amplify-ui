@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
+import { AuthenticatorMachineOptions, AmplifyUser } from '@aws-amplify/ui';
 
-import { Provider, useAuthenticator } from './hooks/useAuthenticator';
+import {
+  AuthenticatorProvider as Provider,
+  useAuthenticator,
+  UseAuthenticator,
+  useAuthenticatorInitMachine,
+} from '@aws-amplify/ui-react-core';
 import {
   CustomComponentsContext,
   ComponentsProviderProps,
@@ -14,34 +19,22 @@ import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
 
+export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
-  AuthenticatorMachineOptions & ComponentsProviderProps & RouterProps
+  AuthenticatorMachineOptions &
+    ComponentsProviderProps &
+    RouterProps & {
+      children:
+        | React.ReactNode
+        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
+    }
 >;
 
-// Helper component that sends init event to the parent provider
-function InitMachine({
-  children,
-  ...data
-}: AuthenticatorMachineOptions & { children: React.ReactNode }) {
-  // TODO: `INIT` event should be removed so that `_send` doesn't need to be extracted
-  const { _send, route } = useAuthenticator(({ route }) => [route]);
-
-  const hasInitialized = React.useRef(false);
-  React.useEffect(() => {
-    if (!hasInitialized.current && route === 'setup') {
-      _send({ type: 'INIT', data });
-
-      hasInitialized.current = true;
-    }
-  }, [_send, route, data]);
-
-  return <>{children}</>;
-}
-
-/**
- * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
- */
-export function Authenticator({
+// `AuthenticatorInternal` exists to give access to the context returned via `useAuthenticator`,
+// which allows the `Authenticator` to just return `children` if a user is authenticated.
+// Once the `Provider` is removed from the `Authenticator` component and exported as
+// `AuthenticatorProvider`, this component should be renamed to `Authenticator`.
+export function AuthenticatorInternal({
   children,
   className,
   components: customComponents,
@@ -54,31 +47,58 @@ export function Authenticator({
   socialProviders,
   variation,
 }: AuthenticatorProps): JSX.Element {
-  const value = React.useMemo(
-    () => ({ components: { ...defaultComponents, ...customComponents } }),
-    [customComponents]
+  const { route, signOut, user } = useAuthenticator(
+    ({ route, signOut, user }) => [route, signOut, user]
   );
-  const machineProps = {
+
+  useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
     services,
     signUpAttributes,
     socialProviders,
     formFields,
-  };
+  });
+
+  const value = React.useMemo(
+    () => ({ components: { ...defaultComponents, ...customComponents } }),
+    [customComponents]
+  );
+
+  const isAuthenticatedRoute = route === 'authenticated' || route === 'signOut';
+  if (isAuthenticatedRoute) {
+    // `Authenticator` might not have user defined `children` for non SPA use cases.
+    if (!children) {
+      return null;
+    }
+
+    return (
+      <>
+        {typeof children === 'function'
+          ? children({ signOut, user }) // children is a render prop
+          : children}
+      </>
+    );
+  }
+
+  return (
+    <CustomComponentsContext.Provider value={value}>
+      <Router
+        className={className}
+        hideSignUp={hideSignUp}
+        variation={variation}
+      />
+    </CustomComponentsContext.Provider>
+  );
+}
+
+/**
+ * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
+ */
+export function Authenticator(props: AuthenticatorProps): JSX.Element {
   return (
     <Provider>
-      <CustomComponentsContext.Provider value={value}>
-        <InitMachine {...machineProps}>
-          <Router
-            className={className}
-            hideSignUp={hideSignUp}
-            variation={variation}
-          >
-            {children}
-          </Router>
-        </InitMachine>
-      </CustomComponentsContext.Provider>
+      <AuthenticatorInternal {...props} />
     </Provider>
   );
 }

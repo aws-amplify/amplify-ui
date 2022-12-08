@@ -1,0 +1,60 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+## useAuthenticator Hook
+
+`@aws-amplify/ui-react-native` ships with `useAuthenticator` React hook that can be used to access, modify, and update Authenticator's auth state. To use them, first wrap your application with [`<Authenticator.Provider>`](#authenticator-provider):
+
+```jsx
+import { Authenticator } from '@aws-amplify/ui-react-native';
+
+export default () => (
+  <Authenticator.Provider>
+    <App />
+  </Authenticator.Provider>
+);
+```
+
+Then, you can use `useAuthenticator` on your App:
+
+```jsx
+import { useAuthenticator } from '@aws-amplify/ui-react-native';
+
+const App = () => {
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+  // ...
+};
+```
+
+## Authenticator Provider
+
+In advanced use cases where usage of the [`useAuthenticator` hook](headless#useauthenticator-hook) outside the scope of the [`Authenticator`](../authenticator) is needed, wrap your application inside an `Authenticator.Provider`. The `Authenticator.Provider` guarantees that the [useAuthenticator hook](headless#useauthenticator-hook) is available throughout your application.
+
+```jsx
+import { View, Text } from 'react-native';
+import { Authenticator } from '@aws-amplify/ui-react-native';
+
+export default function App() {
+  return (
+    <Authenticator.Provider>
+      <View>
+        <Text>Your app here</Text>
+      </View>
+    </Authenticator.Provider>
+  );
+};
+```
+
+## Prevent Re-renders
+
+Using `useAuthenticator` hook at your `App` level is risky, because it'll trigger a re-render down its tree whenever any of its context changes value.
+
+To prevent undesired re-renders, you can pass a function to `useAuthenticator` that takes in Authenticator context and returns an array of desired context values. The hook will only trigger re-render if any of the array values change.
+
+For example, you can ensure `useAuthenticator` to only reevaluate when its `user` context changes:
+
+```jsx
+import { useAuthenticator } from '@aws-amplify/ui-react-native';
+
+// hook below is only reevaluated when `user` changes
+const { user, signOut } = useAuthenticator((context) => [context.user]);
+```
