@@ -42,7 +42,7 @@ describe('SetupTOTP', () => {
     expect(setupTOTPSpy).toHaveBeenCalledWith(user);
   });
 
-  it('onSuccess is called after successful totp verification', async () => {
+  it('calls onSuccess on successful totp verification', async () => {
     setupTOTPSpy.mockResolvedValue('secretcode');
     verifyTOTPToken.mockResolvedValue();
 
@@ -62,7 +62,7 @@ describe('SetupTOTP', () => {
     await waitFor(() => expect(onSuccess).toBeCalledTimes(1));
   });
 
-  it('onError is called after unsuccessful submit', async () => {
+  it('calls onError after unsuccessful submit', async () => {
     setupTOTPSpy.mockResolvedValue('secretCode');
     verifyTOTPToken.mockRejectedValue(new Error('Mock Error'));
 
@@ -80,7 +80,7 @@ describe('SetupTOTP', () => {
     await waitFor(() => expect(onError).toBeCalledTimes(1));
   });
 
-  it('error message is displayed after unsuccessful submit', async () => {
+  it('displays an error message on unsuccessful submit', async () => {
     setupTOTPSpy.mockResolvedValue('secretCode');
     verifyTOTPToken.mockRejectedValue(new Error('Mock Error'));
 
@@ -97,24 +97,6 @@ describe('SetupTOTP', () => {
     fireEvent.submit(submitButton);
 
     // submit handling is async, wait for error to be displayed
-    expect(await screen.findByText('Mock Error')).toBeDefined();
-  });
-
-  it('error message is displayed after unsuccessful submit', async () => {
-    setupTOTPSpy.mockResolvedValue('secretCode');
-    verifyTOTPToken.mockRejectedValue(new Error('Mock Error'));
-
-    const onError = jest.fn();
-    await act(async () => {
-      render(<SetupTOTP onError={onError} />);
-    });
-
-    const submitButton = await screen.findByRole('button', {
-      name: 'Confirm',
-    });
-
-    fireEvent.submit(submitButton);
-
     expect(await screen.findByText('Mock Error')).toBeDefined();
   });
 });
