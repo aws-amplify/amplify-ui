@@ -9,7 +9,7 @@ import {
   TextFieldComponent,
 } from '../types';
 
-export const ConfirmationCode: TextFieldComponent = (props) => (
+export const ConfirmationCodeField: TextFieldComponent = (props) => (
   <TextField {...props} />
 );
 

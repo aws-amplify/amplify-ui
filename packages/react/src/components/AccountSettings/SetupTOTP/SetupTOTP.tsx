@@ -14,7 +14,7 @@ import { useAuth } from '../../../internal';
 import { View, Flex } from '../../../primitives';
 import { ComponentClassName } from '../types';
 import {
-  ConfirmationCode,
+  ConfirmationCodeField,
   CopyButton,
   ErrorMessage,
   QRCodeImage,
@@ -147,7 +147,7 @@ function SetupTOTP({
         >
           {copyCodeText}
         </CopyButton>
-        <ConfirmationCode
+        <ConfirmationCodeField
           alignSelf="stretch"
           isRequired
           label="Confirmation Code"
