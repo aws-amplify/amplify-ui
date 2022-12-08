@@ -8,7 +8,8 @@ import {
 } from '../../utils/test-utils';
 import { useLivenessActor } from '../../hooks/useLivenessActor';
 import { getVideoConstraints } from '../helpers';
-import { StartLiveness, INSTRUCTIONS } from '../StartLiveness';
+import { StartLiveness } from '../StartLiveness';
+import { INSTRUCTIONS } from '../../hooks/useCustomComponents/defaultComponents';
 
 jest.mock('../../hooks/useLivenessActor');
 jest.mock('../../shared/CancelButton');

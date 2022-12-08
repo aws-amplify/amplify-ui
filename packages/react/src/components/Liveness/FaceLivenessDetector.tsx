@@ -13,10 +13,7 @@ import { LivenessCheck } from './LivenessCheck';
 import { View, Flex } from '../../primitives';
 import { getVideoConstraints } from './StartLiveness/helpers';
 import { isMobileScreen } from './utils/device';
-import {
-  defaultComponents,
-  LivenessComponents,
-} from './hooks/useCustomComponents/defaultComponents';
+import { LivenessComponents } from './hooks/useCustomComponents/defaultComponents';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
@@ -31,9 +28,8 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   const {
     onUserCancel: onUserCancelFromProps,
     disableStartScreen = false,
-    components: customComponents,
+    components,
   } = props;
-  const components = { ...defaultComponents, ...customComponents };
   const currElementRef = React.useRef<HTMLDivElement>(null);
 
   const onUserCancel = () => {

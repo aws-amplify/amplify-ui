@@ -9,7 +9,7 @@ import {
 } from '../../../../primitives';
 import { DescriptionBullet } from '../../shared';
 import { LivenessIconWithPopover } from '../../shared/LivenessIconWithPopover';
-import { useTheme } from 'src/hooks/useTheme';
+import { useTheme } from '../../../../hooks/useTheme';
 
 export interface LivenessComponents {
   LivenessHeader?: () => JSX.Element;
