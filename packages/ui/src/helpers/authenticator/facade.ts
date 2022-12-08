@@ -13,15 +13,16 @@ import {
   AuthEventTypes,
   AuthMachineState,
   CodeDeliveryDetails,
-  CognitoUserAmplify,
+  AmplifyUser,
   ValidationError,
+  SocialProvider,
+  UnverifiedContactMethods,
 } from '../../types';
 
 import { getActorContext, getActorState } from './actor';
 
-type AuthenticatorRoute =
+export type AuthenticatorRoute =
   | 'authenticated'
-  | 'autoSignIn'
   | 'confirmResetPassword'
   | 'confirmSignIn'
   | 'confirmSignUp'
@@ -34,6 +35,7 @@ type AuthenticatorRoute =
   | 'setupTOTP'
   | 'signIn'
   | 'signUp'
+  | 'transition'
   | 'verifyUser';
 
 type AuthenticatorValidationErrors = ValidationError;
@@ -46,11 +48,14 @@ interface AuthenticatorServiceContextFacade {
   hasValidationErrors: boolean;
   isPending: boolean;
   route: AuthenticatorRoute;
-  user: CognitoUserAmplify;
+  socialProviders: SocialProvider[];
+  unverifiedContactMethods: UnverifiedContactMethods;
+  user: AmplifyUser;
   validationErrors: AuthenticatorValidationErrors;
 }
 
 type SendEventAlias =
+  | 'initializeMachine'
   | 'resendCode'
   | 'signOut'
   | 'submitForm'
@@ -92,6 +97,7 @@ export const getSendEventAliases = (
   };
 
   return {
+    initializeMachine: sendToMachine('INIT'),
     resendCode: sendToMachine('RESEND'),
     signOut: sendToMachine('SIGN_OUT'),
     submitForm: sendToMachine('SUBMIT'),
@@ -112,13 +118,15 @@ export const getSendEventAliases = (
 export const getServiceContextFacade = (
   state: AuthMachineState
 ): AuthenticatorServiceContextFacade => {
-  const actorState = getActorState(state);
   const actorContext = (getActorContext(state) ?? {}) as ActorContextWithForms;
   const {
     codeDeliveryDetails,
     remoteError: error,
+    unverifiedContactMethods,
     validationError: validationErrors,
   } = actorContext;
+
+  const { socialProviders } = state.context?.config ?? {};
 
   // check for user in actorContext prior to state context. actorContext is more "up to date",
   // but is not available on all states
@@ -126,6 +134,8 @@ export const getServiceContextFacade = (
 
   const hasValidationErrors =
     validationErrors && Object.keys(validationErrors).length > 0;
+
+  const actorState = getActorState(state);
   const isPending = state.hasTag('pending') || actorState?.hasTag('pending');
 
   // Any additional idle states added beyond (idle, setup) should be updated inside the authStatus below as well
@@ -139,8 +149,6 @@ export const getServiceContextFacade = (
         return 'signOut';
       case state.matches('authenticated'):
         return 'authenticated';
-      case actorState?.matches('autoSignIn'):
-        return 'autoSignIn';
       case actorState?.matches('confirmSignUp'):
         return 'confirmSignUp';
       case actorState?.matches('confirmSignIn'):
@@ -161,6 +169,13 @@ export const getServiceContextFacade = (
         return 'verifyUser';
       case actorState?.matches('confirmVerifyUser'):
         return 'confirmVerifyUser';
+      case state.matches('signIn.runActor'):
+        /**
+         * This route is needed for autoSignIn to capture both the
+         * autoSignIn.pending and the resolved states when the
+         * signIn actor is running.
+         */
+        return 'transition';
       default:
         console.debug(
           'Cannot infer `route` from Authenticator state:',
@@ -191,6 +206,8 @@ export const getServiceContextFacade = (
     hasValidationErrors,
     isPending,
     route,
+    socialProviders,
+    unverifiedContactMethods,
     user,
     validationErrors,
   };

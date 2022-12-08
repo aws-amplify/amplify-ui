@@ -51,4 +51,20 @@ export const cats = [
     url: '/cats/13.jpg',
     alt: 'Hateful cat',
   },
+  {
+    url: '/cats/14.jpg',
+    alt: 'Boneless cat on an armchair',
+  },
+  {
+    url: '/cats/15.jpg',
+    alt: 'Fuzzy cat looking over snow',
+  },
+  {
+    url: '/cats/16.jpg',
+    alt: 'Stray calico napping in Singapore',
+  },
+  {
+    url: '/cats/17.jpg',
+    alt: 'Tabby napping like a boss in a cat cafe in Seattle',
+  },
 ];

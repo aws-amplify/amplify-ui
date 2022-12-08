@@ -1,5 +1,5 @@
 import { defaultTheme, Theme } from '@aws-amplify/ui-react';
-import { flipPalette, usePalette } from 'utils';
+import { flipPalette } from 'utils';
 
 export const theme: Theme = {
   name: 'listings-theme',

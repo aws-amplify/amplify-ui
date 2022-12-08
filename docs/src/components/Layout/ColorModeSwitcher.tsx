@@ -16,6 +16,7 @@ export const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
       isExclusive
       isSelectionRequired
       className="color-switcher"
+      alignItems="stretch"
     >
       <ToggleButton value="light" title="Light mode">
         <VisuallyHidden>Light mode</VisuallyHidden>

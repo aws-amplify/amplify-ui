@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import { useAuthenticator } from '../hooks/useAuthenticator';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { ConfirmSignUp } from '../ConfirmSignUp';
 import { ForceNewPassword } from '../ForceNewPassword';
 import { SetupTOTP } from '../SetupTOTP';
@@ -22,7 +22,7 @@ const getRouteComponent = (route: string): RouteComponent => {
     case 'authenticated':
     case 'idle':
     case 'setup':
-    case 'autoSignIn':
+    case 'transition':
       return RenderNothing;
     case 'confirmSignUp':
       return ConfirmSignUp;

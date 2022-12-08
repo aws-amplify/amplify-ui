@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider applies theme and style props 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "hsl(0, 0%, 0%)",
+          "flex": 1,
+          "height": 0.5,
+        },
+        Object {
+          "backgroundColor": "blue",
+        },
+      ]
+    }
+    testID="amplify__divider__line"
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Array [
+          Object {
+            "fontSize": 16,
+            "margin": 16,
+            "textAlign": "center",
+          },
+          Object {
+            "color": "red",
+          },
+        ],
+      ]
+    }
+  >
+    Divider label
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "hsl(0, 0%, 0%)",
+          "flex": 1,
+          "height": 0.5,
+        },
+        Object {
+          "backgroundColor": "blue",
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders as expected with label 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "hsl(0, 0%, 0%)",
+          "flex": 1,
+          "height": 0.5,
+        },
+        undefined,
+      ]
+    }
+    testID="amplify__divider__line"
+  />
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Array [
+          Object {
+            "fontSize": 16,
+            "margin": 16,
+            "textAlign": "center",
+          },
+          undefined,
+        ],
+      ]
+    }
+  >
+    Divider label
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "hsl(0, 0%, 0%)",
+          "flex": 1,
+          "height": 0.5,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`Divider renders as expected without label 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "hsl(0, 0%, 0%)",
+          "flex": 1,
+          "height": 0.5,
+        },
+        undefined,
+      ]
+    }
+    testID="amplify__divider__line"
+  />
+</View>
+`;

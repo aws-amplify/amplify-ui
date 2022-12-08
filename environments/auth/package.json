@@ -3,6 +3,9 @@
   "name": "environments-auth",
   "version": "0.0.1",
   "scripts": {
-    "pull": "../pull-environments.sh"
+    "pull": "../pull-environments.sh",
+    "pull:phone": "yarn pull -r us-east-1 -i \"\\./auth-with-((phone-and-sms-mfa)|(phone-number)|(totp-and-sms-mfa))\"",
+    "pull:email": "yarn pull -r us-east-2 -i \"\\./auth-with-email\"",
+    "pull:non-phone": "yarn pull -r us-east-2 -e \"\\./auth-with-((phone-and-sms-mfa)|(phone-number)|(totp-and-sms-mfa))\""
   }
 }

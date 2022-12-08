@@ -12,13 +12,5 @@ This backend is configured with Amplify Admin UI:
 External contributors can re-create this backend by running:
 
 ```shell
-amplify pull
-```
-
-Internal (Amplify UI team) contributors can use this backend directly by running:
-
-- NOTE: do _not_ pass in the `--yes` flag, as that can sometimes cause issues with the CLI not recognizing certain existing environment variables
-
-```shell
-amplify pull --appId d1r9l08y32q5fb --envName dev
+amplify init
 ```

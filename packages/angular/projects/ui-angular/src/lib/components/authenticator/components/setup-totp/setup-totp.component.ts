@@ -5,13 +5,21 @@ import {
   FormFieldsArray,
   getActorContext,
   getFormDataFromEvent,
-  getTotpCode,
+  getTotpCodeURL,
   SignInContext,
+  authenticatorTextUtil,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('SetupTotp');
+
+const {
+  getSetupTOTPText,
+  getCopyText,
+  getBackToSignInText,
+  getConfirmText,
+  getCopiedText,
+} = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-setup-totp',
@@ -19,14 +27,14 @@ const logger = new Logger('SetupTotp');
 })
 export class SetupTotpComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-setup-totp') dataAttr = '';
-  public headerText = translate('Setup TOTP');
+  public headerText = getSetupTOTPText();
   public qrCodeSource = '';
   public secretKey = '';
-  public copyTextLabel = translate('COPY');
+  public copyTextLabel = getCopyText();
 
   // translated texts
-  public backToSignInText = translate('Back to Sign In');
-  public confirmText = translate('Confirm');
+  public backToSignInText = getBackToSignInText();
+  public confirmText = getConfirmText();
   public sortedFormFields: FormFieldsArray;
 
   constructor(public authenticator: AuthenticatorService) {}
@@ -48,7 +56,7 @@ export class SetupTotpComponent implements OnInit {
       formFields?.setupTOTP?.QR ?? {};
     try {
       this.secretKey = await Auth.setupTOTP(user);
-      const totpCode = getTotpCode(totpIssuer, totpUsername, this.secretKey);
+      const totpCode = getTotpCodeURL(totpIssuer, totpUsername, this.secretKey);
 
       logger.info('totp code was generated:', totpCode);
       this.qrCodeSource = await QRCode.toDataURL(totpCode);
@@ -70,6 +78,6 @@ export class SetupTotpComponent implements OnInit {
 
   copyText(): void {
     navigator.clipboard.writeText(this.secretKey);
-    this.copyTextLabel = translate('COPIED');
+    this.copyTextLabel = getCopiedText();
   }
 }

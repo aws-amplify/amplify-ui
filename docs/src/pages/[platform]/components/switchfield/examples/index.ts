@@ -1,6 +1,7 @@
 export { DefaultSwitchFieldExample } from './DefaultSwitchFieldExample';
 export { DisabledSwitchFieldExample } from './DisabledSwitchFieldExample';
 export { SwitchFieldDefaultCheckedExample } from './SwitchFieldDefaultCheckedExample';
+export { SwitchFieldErrorExample } from './SwitchFieldErrorExample';
 export { SwitchFieldIsCheckedExample } from './SwitchFieldIsCheckedExample';
 export { SwitchFieldLabelExample } from './SwitchFieldLabelExample';
 export { SwitchFieldLabelHiddenExample } from './SwitchFieldLabelHiddenExample';
@@ -9,8 +10,8 @@ export { SwitchFieldNameExample } from './SwitchFieldNameExample';
 export { SwitchFieldOnChangeExample } from './SwitchFieldOnChangeExample';
 export { SwitchFieldSizeExample } from './SwitchFieldSizeExample';
 export { SwitchFieldStylePropsExample } from './SwitchFieldStylePropsExample';
+export { SwitchFieldThemeExample } from './SwitchFieldThemeExample';
 export { SwitchFieldThumbColorExample } from './SwitchFieldThumbColorExample';
 export { SwitchFieldTrackCheckedColorExample } from './SwitchFieldTrackCheckedColorExample';
 export { SwitchFieldTrackColorExample } from './SwitchFieldTrackColorExample';
 export { SwitchFieldValueExample } from './SwitchFieldValueExample';
-export { SwitchFieldThemeExample } from './SwitchFieldThemeExample';

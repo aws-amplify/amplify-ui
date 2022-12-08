@@ -37,3 +37,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Cypress
+/cypress/videos
+/cypress/screenshots
+
+# data
+/src/data/props-table.json

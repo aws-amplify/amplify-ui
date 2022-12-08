@@ -1,6 +1,10 @@
 import { ValidationError } from '../validator';
 import { AuthFormData, AuthFormFields } from '../form';
-import { AuthChallengeName, CognitoUserAmplify } from '../user';
+import {
+  AuthChallengeName,
+  AmplifyUser,
+  UnverifiedContactMethods,
+} from '../user';
 import { CodeDeliveryDetails as CognitoCodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
@@ -15,7 +19,7 @@ export interface ActorDoneData {
   /** String that indicates where authMachine should next transition to */
   intent?: string; // TODO: name it more intuitively -- e.g. targetState
   /** User returned by the actor it's done */
-  user?: CognitoUserAmplify;
+  user?: AmplifyUser;
 }
 
 /**
@@ -33,7 +37,7 @@ export interface AuthContext {
     passwordSettings?: PasswordSettings;
   };
   services?: Partial<typeof defaultServices>;
-  user?: CognitoUserAmplify;
+  user?: AmplifyUser;
   username?: string;
   password?: string;
   code?: string;
@@ -63,7 +67,7 @@ interface BaseFormContext {
   /** Error returned from remote service / API */
   remoteError?: string;
   /** Current user inteface the actor is working with */
-  user?: CognitoUserAmplify;
+  user?: AmplifyUser;
   /** Maps each input to its validation error, if any */
   validationError?: ValidationError;
   /** Maps each password validation rule */
@@ -81,26 +85,26 @@ export interface SignInContext extends BaseFormContext {
   formFields?: AuthFormFields;
   attributeToVerify?: string;
   redirectIntent?: string;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: UnverifiedContactMethods;
 }
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
   formFields: AuthFormFields;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: UnverifiedContactMethods;
 }
 
 export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
-  unverifiedAttributes?: Record<string, string>;
+  unverifiedContactMethods?: UnverifiedContactMethods;
   formFields?: AuthFormFields;
 }
 
 export interface SignOutContext {
   authAttributes?: Record<string, any>;
   challengeName?: AuthChallengeName;
-  unverifiedAttributes?: Record<string, string>;
-  user?: CognitoUserAmplify;
+  unverifiedContactMethods?: UnverifiedContactMethods;
+  user?: AmplifyUser;
   formFields?: AuthFormFields;
 }
 

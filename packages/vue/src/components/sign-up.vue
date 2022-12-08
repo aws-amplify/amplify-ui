@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
-import { translate, getFormDataFromEvent } from '@aws-amplify/ui';
+import {
+  authenticatorTextUtil,
+  getFormDataFromEvent,
+  translate,
+} from '@aws-amplify/ui';
 
 import FederatedSignIn from './federated-sign-in.vue';
 import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
@@ -16,9 +20,10 @@ const { hasValidationErrors, isPending, error } = toRefs(facadeValues);
 const attrs = useAttrs();
 const emit = defineEmits(['signUpSubmit']);
 
-// computed properties
-
-const createAccountLabel = computed(() => translate('Create Account'));
+// Text Util
+const { getCreateAccountText } = authenticatorTextUtil;
+// Computed Properties
+const createAccountLabel = computed(() => getCreateAccountText());
 
 // Methods
 

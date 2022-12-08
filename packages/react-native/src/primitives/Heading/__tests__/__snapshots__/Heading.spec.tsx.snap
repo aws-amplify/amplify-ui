@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Heading applies theme and style props 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "fontSize": 14,
+        "fontWeight": "900",
+        "lineHeight": 21,
+      },
+      Object {
+        "color": "red",
+      },
+    ]
+  }
+>
+  Styled Heading
+</Text>
+`;
+
+exports[`Heading renders a level 1 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "fontSize": 40,
+        "fontWeight": "100",
+        "lineHeight": 60,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 1
+</Text>
+`;
+
+exports[`Heading renders a level 2 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "fontSize": 32,
+        "fontWeight": "200",
+        "lineHeight": 48,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 2
+</Text>
+`;
+
+exports[`Heading renders a level 3 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "fontSize": 24,
+        "fontWeight": "300",
+        "lineHeight": 36,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 3
+</Text>
+`;
+
+exports[`Heading renders a level 4 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "fontSize": 20,
+        "fontWeight": "500",
+        "lineHeight": 30,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 4
+</Text>
+`;
+
+exports[`Heading renders a level 5 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "fontSize": 16,
+        "fontWeight": "700",
+        "lineHeight": 24,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 5
+</Text>
+`;
+
+exports[`Heading renders a level 6 Heading as expected 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "fontSize": 14,
+        "fontWeight": "900",
+        "lineHeight": 21,
+      },
+      undefined,
+    ]
+  }
+>
+  Heading level 6
+</Text>
+`;
+
+exports[`Heading renders a level 6 Heading by default 1`] = `
+<Text
+  accessibilityRole="header"
+  style={
+    Array [
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "fontSize": 14,
+        "fontWeight": "900",
+        "lineHeight": 21,
+      },
+      undefined,
+    ]
+  }
+>
+  Test Heading
+</Text>
+`;

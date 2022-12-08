@@ -66,6 +66,10 @@ export interface FormFieldOptions {
   autocomplete?: string;
 }
 
+export interface LegacyFormFieldOptions extends FormFieldOptions {
+  name: string;
+}
+
 /** Default formField values for each supported auth field */
 export type DefaultFormFieldOptions = Record<
   AuthFieldsWithDefaults,
@@ -80,6 +84,8 @@ export type PasswordPolicyRules =
   | 'REQUIRES_NUMBERS'
   | 'REQUIRES_SYMBOLS'
   | 'REQUIRES_UPPERCASE';
+
+// password setting directly coming from Amplify.Auth
 export interface PasswordSettings {
   passwordPolicyMinLength: number;
   passwordPolicyCharacters: Array<PasswordPolicyRules>;

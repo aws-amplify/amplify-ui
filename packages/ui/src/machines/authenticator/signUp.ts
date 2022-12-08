@@ -31,6 +31,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
     {
       id: 'signUpActor',
       initial: 'init',
+      predictableActionArguments: true,
       states: {
         init: {
           always: [
@@ -241,7 +242,15 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setCodeDeliveryDetails,
         setUser,
         sendUpdate: sendUpdate(), // sendUpdate is a HOC
-        setAutoSignInIntent: assign({ intent: (_) => 'autoSignIn' }),
+        setAutoSignInIntent: assign({
+          intent: (context) => {
+            if (context?.intent === 'confirmSignUp') {
+              return 'autoSignInSubmit';
+            } else {
+              return 'autoSignIn';
+            }
+          },
+        }),
       },
       services: {
         async confirmSignUp(context, event) {

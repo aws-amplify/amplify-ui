@@ -1,27 +1,32 @@
 import {
-  DesignToken,
-  WebDesignToken,
+  DesignTokenValues,
   FontSizeValue,
+  OutputVariantKey,
 } from './types/designToken';
 
-export type FontSizes = {
-  xxxs: DesignToken<FontSizeValue>;
-  xxs: DesignToken<FontSizeValue>;
-  xs: DesignToken<FontSizeValue>;
-  small: DesignToken<FontSizeValue>;
-  medium: DesignToken<FontSizeValue>;
-  large: DesignToken<FontSizeValue>;
-  xl: DesignToken<FontSizeValue>;
-  xxl: DesignToken<FontSizeValue>;
-  xxxl: DesignToken<FontSizeValue>;
-  xxxxl: DesignToken<FontSizeValue>;
-};
+type FontSize =
+  | 'xxxs'
+  | 'xxs'
+  | 'xs'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xl'
+  | 'xxl'
+  | 'xxxl'
+  | 'xxxxl';
 
-export type WebFontSizes = {
-  [Property in keyof FontSizes]: WebDesignToken<FontSizeValue>;
-};
+export type FontSizes<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = DesignTokenValues<
+  FontSize,
+  FontSizeValue<Platform, Output>,
+  Output,
+  Platform
+>;
 
-export const fontSizes: FontSizes = {
+export const fontSizes: FontSizes<'default'> = {
   xxxs: { value: '0.375rem' },
   xxs: { value: '0.5rem' },
   xs: { value: '0.75rem' },
