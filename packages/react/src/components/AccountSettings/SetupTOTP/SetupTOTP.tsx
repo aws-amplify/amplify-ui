@@ -164,7 +164,7 @@ function SetupTOTP({
         <SubmitButton
           type="submit"
           variation="primary"
-          isDisabled={isVerifying ?? confirmationCode.length === 0}
+          isDisabled={isVerifying || confirmationCode.length === 0}
           isFullWidth
         >
           {confirmText}
