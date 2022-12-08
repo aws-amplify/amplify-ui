@@ -14,7 +14,7 @@ export const AutoCompleteExample = () => {
         autoComplete="username"
         label="Phone Number"
         name="phone_number"
-        defaultCountryCode="+1"
+        defaultDialCode="+1"
       />
       <Button type="submit">Sign In</Button>
     </Flex>

@@ -1,5 +1,6 @@
-.globally-styled-textfield.amplify-phonenumberfield {
-  --amplify-components-field-border-color: rebeccapurple;
+.globally-styled-textfield.amplify-phonenumberfield,
+.globally-styled-textfield.amplify-dialcodeselect {
+  --amplify-components-fieldcontrol-border-color: rebeccapurple;
 }
 .custom-phonenumberfield-class .amplify-input,
 .custom-phonenumberfield-class .amplify-select {

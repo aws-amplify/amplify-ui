@@ -69,7 +69,7 @@ module.exports = {
         'src/components/**/*',
         'src/helpers/**/*',
         'src/hooks/**/*',
-        'src/primitives/+(shared|utils)/**/*',
+        'src/primitives/+(shared|utils|E*)/**/*',
         'src/studio',
         // 'src/primitives/**/*',
       ],

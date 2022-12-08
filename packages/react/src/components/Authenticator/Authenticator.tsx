@@ -1,14 +1,12 @@
 import * as React from 'react';
-import {
-  AuthenticatorMachineOptions,
-  CognitoUserAmplify,
-} from '@aws-amplify/ui';
+import { AuthenticatorMachineOptions, AmplifyUser } from '@aws-amplify/ui';
 
 import {
-  Provider,
+  AuthenticatorProvider as Provider,
   useAuthenticator,
   UseAuthenticator,
-} from './hooks/useAuthenticator';
+  useAuthenticatorInitMachine,
+} from '@aws-amplify/ui-react-core';
 import {
   CustomComponentsContext,
   ComponentsProviderProps,
@@ -21,33 +19,16 @@ import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
 
+export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
   AuthenticatorMachineOptions &
     ComponentsProviderProps &
     RouterProps & {
       children:
         | React.ReactNode
-        | ((props: {
-            signOut?: UseAuthenticator['signOut'];
-            user?: CognitoUserAmplify;
-          }) => JSX.Element);
+        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
     }
 >;
-
-// Utility hook that sends init event to the parent provider
-function useInitMachine(data: AuthenticatorMachineOptions) {
-  // TODO: `INIT` event should be removed so that `_send` doesn't need to be extracted
-  const { _send, route } = useAuthenticator(({ route }) => [route]);
-
-  const hasInitialized = React.useRef(false);
-  React.useEffect(() => {
-    if (!hasInitialized.current && route === 'setup') {
-      _send({ type: 'INIT', data });
-
-      hasInitialized.current = true;
-    }
-  }, [_send, route, data]);
-}
 
 // `AuthenticatorInternal` exists to give access to the context returned via `useAuthenticator`,
 // which allows the `Authenticator` to just return `children` if a user is authenticated.
@@ -70,7 +51,7 @@ export function AuthenticatorInternal({
     ({ route, signOut, user }) => [route, signOut, user]
   );
 
-  useInitMachine({
+  useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
     services,

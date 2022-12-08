@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useAuthenticator returns the expected values 1`] = `
+Object {
+  "authStatus": "authenticated",
+  "codeDeliveryDetails": Object {},
+  "error": undefined,
+  "fields": undefined,
+  "getTotpSecretCode": undefined,
+  "hasValidationErrors": false,
+  "initializeMachine": [Function],
+  "isPending": false,
+  "resendCode": [Function],
+  "route": "idle",
+  "signOut": [Function],
+  "skipVerification": [Function],
+  "socialProviders": Array [],
+  "submitForm": [Function],
+  "toFederatedSignIn": [Function],
+  "toResetPassword": [Function],
+  "toSignIn": [Function],
+  "toSignUp": [Function],
+  "unverifiedContactMethods": Object {
+    "email": "test#example.com",
+  },
+  "updateBlur": [Function],
+  "updateForm": [Function],
+  "user": Object {},
+  "validationErrors": undefined,
+}
+`;

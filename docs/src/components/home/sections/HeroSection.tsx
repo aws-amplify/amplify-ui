@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Button,
   Flex,
@@ -16,7 +17,6 @@ import {
   RiPencilRuler2Line,
 } from 'react-icons/ri';
 
-import { useCustomRouter } from '@/components/useCustomRouter';
 import { CardLink } from '@/components/CardLink';
 import { FRAMEWORKS, FRAMEWORK_INSTALL_SCRIPTS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
@@ -25,7 +25,7 @@ import { TerminalCommand } from '@/components/InstallScripts';
 export const HeroSection = () => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   const showEditor = useBreakpointValue({
     base: false,
@@ -97,7 +97,7 @@ export const HeroSection = () => {
             </Grid>
           ) : null}
 
-          <TerminalCommand command={frameworkInstallScript} />
+          <TerminalCommand command={frameworkInstallScript} variant="hero" />
 
           <Flex direction="row">
             <Button

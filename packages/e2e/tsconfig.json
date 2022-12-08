@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "http://localhost:3000/",
     "target": "esnext",
     "lib": ["esnext", "dom"],
     "types": ["cypress", "@testing-library/cypress"],

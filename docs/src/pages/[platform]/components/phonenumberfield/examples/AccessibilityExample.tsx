@@ -4,8 +4,8 @@ export const AccessibilityExample = () => (
   <PhoneNumberField
     label="Phone Number"
     labelHidden={true}
-    defaultCountryCode="+1"
+    defaultDialCode="+1"
     placeholder="Phone Number"
-    countryCodeLabel="Country code"
+    dialCodeLabel="Dial code"
   />
 );

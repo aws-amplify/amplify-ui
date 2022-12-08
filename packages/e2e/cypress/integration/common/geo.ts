@@ -1,4 +1,4 @@
-import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 When('I search for {string}', (searchTerm: string) => {
   cy.intercept(/.*places.*/).as('searchResults');
@@ -16,7 +16,11 @@ When('I clear the search results', () => {
   cy.findByRole('textbox', {
     name: /search/i,
   }).trigger('mouseenter');
-  cy.findByRole('button', { name: 'Clear' }).click();
+  /**
+   * Adding 'force' as the clear button is hidden until we hover on textbox,
+   * and the click action seems to happen before the hover thus failing the check for the clear button element.
+   */
+  cy.findByRole('button', { name: 'Clear' }).click({ force: true });
 });
 
 When('I click on a map marker', () => {

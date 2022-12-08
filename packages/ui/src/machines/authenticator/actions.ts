@@ -46,8 +46,8 @@ export const clearRequiredAttributes = assign({
 export const clearError = assign({ remoteError: (_) => '' });
 export const clearFormValues = assign({ formValues: (_) => ({}) });
 export const clearTouched = assign({ touched: (_) => ({}) });
-export const clearUnverifiedAttributes = assign({
-  unverifiedAttributes: (_) => undefined,
+export const clearUnverifiedContactMethods = assign({
+  unverifiedContactMethods: (_) => undefined,
 });
 export const clearUsername = assign({ username: (_) => undefined });
 export const clearValidationError = assign({ validationError: (_) => ({}) });
@@ -96,8 +96,8 @@ export const setRemoteError = assign({
   },
 });
 
-export const setUnverifiedAttributes = assign({
-  unverifiedAttributes: (_, event: AuthEvent) => event.data.unverified,
+export const setUnverifiedContactMethods = assign({
+  unverifiedContactMethods: (_, event: AuthEvent) => event.data.unverified,
 });
 
 export const setUser = assign({

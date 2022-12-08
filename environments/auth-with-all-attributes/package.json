@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "auth-with-all-attributes",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d16lgxd4fochae --envName dev"
-  }
-}

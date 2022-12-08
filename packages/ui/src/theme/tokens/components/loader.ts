@@ -1,57 +1,42 @@
-import {
-  AnimationDurationValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  SpaceValue,
-  StrokeEmptyValue,
-  StrokeFilledValue,
-  StrokeLinecapValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface LoaderSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  height: DesignToken<SpaceValue>;
-  width: DesignToken<SpaceValue>;
-}
+type LoaderSizeTokens<Output> = DesignTokenProperties<
+  'fontSize' | 'height' | 'width',
+  Output
+>;
 
-interface LoaderLinearSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  strokeWidth: DesignToken<SpaceValue>;
-}
+type LoaderLinearSizeTokens<Output> = DesignTokenProperties<
+  'fontSize' | 'strokeWidth',
+  Output
+>;
 
-interface LoaderLinearTokens {
-  width: DesignToken<SpaceValue>;
-  minWidth: DesignToken<SpaceValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  strokeWidth: DesignToken<SpaceValue>;
-  strokeFilled: DesignToken<StrokeFilledValue>;
-  strokeEmpty: DesignToken<StrokeEmptyValue>;
-  strokeLinecap: DesignToken<StrokeLinecapValue>;
-  animationDuration: DesignToken<AnimationDurationValue>;
-  small: LoaderLinearSizeTokens;
-  large: LoaderLinearSizeTokens;
-}
+type BaseLoaderTokens<Output> = DesignTokenProperties<
+  | 'animationDuration'
+  | 'fontSize'
+  | 'height'
+  | 'strokeEmpty'
+  | 'strokeFilled'
+  | 'strokeLinecap'
+  | 'width',
+  Output
+>;
 
-interface LoaderTextTokens {
-  fill: DesignToken<ColorValue>;
-}
+export type LoaderTokens<Output extends OutputVariantKey> =
+  BaseLoaderTokens<Output> & {
+    small?: LoaderSizeTokens<Output>;
+    large?: LoaderSizeTokens<Output>;
+    linear?: Omit<
+      BaseLoaderTokens<Output> &
+        DesignTokenProperties<'minWidth' | 'strokeWidth', Output> & {
+          small?: LoaderLinearSizeTokens<Output>;
+          large?: LoaderLinearSizeTokens<Output>;
+        },
+      Output extends 'default' ? 'height' : never
+    >;
+    text?: DesignTokenProperties<'fill', Output>;
+  };
 
-export interface LoaderTokens {
-  width: DesignToken<SpaceValue>;
-  height: DesignToken<SpaceValue>;
-  fontSize: DesignToken<FontSizeValue>;
-  strokeEmpty: DesignToken<StrokeEmptyValue>;
-  strokeFilled: DesignToken<StrokeFilledValue>;
-  strokeLinecap: DesignToken<StrokeLinecapValue>;
-  animationDuration: DesignToken<AnimationDurationValue>;
-  small: LoaderSizeTokens;
-  large: LoaderSizeTokens;
-  linear: LoaderLinearTokens;
-  text: LoaderTextTokens;
-}
-
-export const loader: LoaderTokens = {
+export const loader: Required<LoaderTokens<'default'>> = {
   width: { value: '{fontSizes.medium.value}' },
   height: { value: '{fontSizes.medium.value}' },
   fontSize: { value: '{fontSizes.xs.value}' },

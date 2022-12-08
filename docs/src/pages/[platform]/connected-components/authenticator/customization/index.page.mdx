@@ -6,18 +6,33 @@ supportedFrameworks: all
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { FRAMEWORKS } from '@/data/frameworks';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { DeveloperPreview } from '../DeveloperPreview';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<DeveloperPreview />
 
 <Fragment platforms={['flutter']}>
   {({ platform }) => import(`./customization.routing.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native']}>
   {({ platform }) =>
     import(`./customization.headers-and-footers.${platform}.mdx`)
   }
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native']}>
   {({ platform }) =>
     import(`./customization.override-function-calls.${platform}.mdx`)
   }
@@ -35,28 +50,19 @@ import { Fragment } from '@/components/Fragment';
   {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
 </Fragment>
 
-## Sign Up Fields
-
-<Fragment useCommonWebContent>
+<Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
 </Fragment>
 
-## Force New Password Fields
-
-The following example customizes the Force New Password screen by:
-
-- Re-using the default Force New Password form fields
-- Appending a custom "Zone Info" text field
-
-<Fragment>
+<Fragment  useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native']}>
   {({ platform }) => import(`./formfields/form-fields.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent>
+<Fragment useCommonWebContent platforms={['web','react-native']}>
   {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
 </Fragment>
 

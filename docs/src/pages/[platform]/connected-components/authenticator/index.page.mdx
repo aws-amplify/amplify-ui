@@ -7,6 +7,21 @@ supportedFrameworks: all
 import { Fragment } from '@/components/Fragment';
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { NextSteps } from './NextSteps';
+import { FRAMEWORKS } from '@/data/frameworks';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { DeveloperPreview } from './DeveloperPreview';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<DeveloperPreview />
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./intro.${platform}.mdx`)}
@@ -14,19 +29,19 @@ import { NextSteps } from './NextSteps';
 
 ## Quick start
 
-### 1. Configure backend
+### Step 1. Configure backend
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./quick-start-pull.${platform}.mdx`)}
 </Fragment>
 
-### 2. Install dependencies
+### Step 2. Install dependencies
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./quick-start-install.${platform}.mdx`)}
 </Fragment>
 
-### 3. Add the Authenticator
+### Step 3. Add the Authenticator
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}

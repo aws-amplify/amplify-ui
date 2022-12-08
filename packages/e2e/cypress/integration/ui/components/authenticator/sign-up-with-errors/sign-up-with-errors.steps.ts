@@ -1,4 +1,4 @@
-import { And } from 'cypress-cucumber-preprocessor/steps';
+import { And } from '@badeball/cypress-cucumber-preprocessor';
 
 And('I confirm {string} error is accessible', () => {
   // input field should be invalid

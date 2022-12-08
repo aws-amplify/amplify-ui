@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "name": "auth-with-totp-mfa-environment",
-  "version": "0.0.1",
-  "scripts": {
-    "pull": "amplify pull --appId d3cbhlqhrq2d8 --envName staging"
-  }
-}

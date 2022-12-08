@@ -83,4 +83,10 @@ export const frDict: AuthenticatorDictionary = {
   'User does not exist': "L'utilisateur n'existe pas",
   'Username cannot be empty': "Le nom d'utilisateur doit être renseigné",
   'Username/client id combination not found.': "L'utilisateur n'existe pas",
+  'We Emailed You': 'Nous vous avons envoyé un code',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Votre code est en route. Pour vous connecter entrez le code reçu sur cette adresse email',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Votre code est en route. Pour vous connecter entrez le code reçu sur ce numéro de téléphone',
+  'It may take a minute to arrive.': 'Cela peut prendre quelques minutes.',
 };

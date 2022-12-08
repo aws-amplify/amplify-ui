@@ -1,85 +1,54 @@
-import {
-  BackgroundColorValue,
-  BorderColorValue,
-  BorderRadiusValue,
-  BorderStyleValue,
-  BorderWidthValue,
-  BoxShadowValue,
-  DesignToken,
-  SpaceValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface SliderFieldTrackTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  height: DesignToken<SpaceValue>;
-  minWidth: DesignToken<SpaceValue>;
-}
+type SliderFieldThumbStateTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'boxShadow',
+  Output
+>;
 
-interface SliderFieldRangeTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  _disabled: SliderFieldRangeDisabledTokens;
-}
+type SliderFieldSizeTokens<Output> = {
+  track?: DesignTokenProperties<'height', Output>;
+  thumb?: DesignTokenProperties<'height' | 'width', Output>;
+};
 
-interface SliderFieldRangeDisabledTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-}
+export type SliderFieldTokens<Output extends OutputVariantKey> =
+  DesignTokenProperties<'paddingBlock', Output> & {
+    track?: DesignTokenProperties<
+      'backgroundColor' | 'borderRadius' | 'height' | 'minWidth',
+      Output
+    >;
+    range?: DesignTokenProperties<
+      'backgroundColor' | 'borderRadius',
+      Output
+    > & {
+      _disabled?: DesignTokenProperties<'backgroundColor', Output>;
+    };
+    thumb?: DesignTokenProperties<
+      | 'backgroundColor'
+      | 'borderColor'
+      | 'borderRadius'
+      | 'borderStyle'
+      | 'borderWidth'
+      | 'boxShadow'
+      | 'height'
+      | 'width',
+      Output
+    > & {
+      _disabled?: SliderFieldThumbStateTokens<Output> &
+        DesignTokenProperties<'boxShadow', Output>;
+      _hover?: Omit<
+        SliderFieldThumbStateTokens<Output>,
+        Output extends 'default' ? 'boxShadow' : never
+      >;
+      _focus?: Omit<
+        SliderFieldThumbStateTokens<Output>,
+        Output extends 'default' ? 'backgroundColor' : never
+      >;
+    };
+    small?: SliderFieldSizeTokens<Output>;
+    large?: SliderFieldSizeTokens<Output>;
+  };
 
-interface SliderFieldThumbTokens {
-  width: DesignToken<SpaceValue>;
-  height: DesignToken<SpaceValue>;
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-  borderRadius: DesignToken<BorderRadiusValue>;
-  borderWidth: DesignToken<BorderWidthValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  borderStyle: DesignToken<BorderStyleValue>;
-  _disabled: SliderFieldThumbDisabledTokens;
-  _hover: SliderFieldThumbHoverTokens;
-  _focus: SliderFieldThumbFocusTokens;
-}
-
-interface SliderFieldThumbDisabledTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-}
-
-interface SliderFieldThumbHoverTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderColor: DesignToken<BorderColorValue>;
-}
-
-interface SliderFieldThumbFocusTokens {
-  borderColor: DesignToken<BorderColorValue>;
-  boxShadow: DesignToken<BoxShadowValue>;
-}
-
-interface SliderFieldSizeTokens {
-  track: SliderFieldSizeTrackTokens;
-  thumb: SliderFieldSizeThumbTokens;
-}
-
-interface SliderFieldSizeTrackTokens {
-  height: DesignToken<SpaceValue>;
-}
-
-interface SliderFieldSizeThumbTokens {
-  height: DesignToken<SpaceValue>;
-  width: DesignToken<SpaceValue>;
-}
-
-export interface SliderFieldTokens {
-  paddingBlock: DesignToken<SpaceValue>;
-  track: SliderFieldTrackTokens;
-  range: SliderFieldRangeTokens;
-  thumb: SliderFieldThumbTokens;
-  small: SliderFieldSizeTokens;
-  large: SliderFieldSizeTokens;
-}
-
-export const sliderfield: SliderFieldTokens = {
+export const sliderfield: Required<SliderFieldTokens<'default'>> = {
   paddingBlock: { value: '{space.xs.value}' },
 
   // The track is the thin background of the slider

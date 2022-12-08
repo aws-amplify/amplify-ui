@@ -18,6 +18,22 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
+      AWS_ACCESS_KEY_ID_AUTH:
+        required: true
+      AWS_SECRET_ACCESS_KEY_AUTH:
+        required: true
+      AWS_ACCESS_KEY_ID_DATASTORE:
+        required: true
+      AWS_SECRET_ACCESS_KEY_DATASTORE:
+        required: true
+      AWS_ACCESS_KEY_ID_STORAGE:
+        required: true
+      AWS_SECRET_ACCESS_KEY_STORAGE:
+        required: true
+      AWS_ACCESS_KEY_ID_GEO:
+        required: true
+      AWS_SECRET_ACCESS_KEY_GEO:
+        required: true
       DOMAIN:
         required: true
       PHONE_NUMBER:
@@ -47,17 +63,19 @@ jobs:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
       - name: Restore cypress runner from Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Install packages
         uses: ./.github/actions/install-with-retries
         with:
@@ -68,17 +86,17 @@ jobs:
       - name: Cache cypress runner
         # create new cypress cache entry only if cypress cache missed and we installed a new one.
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
       - name: Cache packages/ui/dist
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ./packages/ui/dist
           key: ${{ runner.os }}-ui-${{ inputs.commit }}
       - name: Cache node_modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ./node_modules
@@ -98,36 +116,42 @@ jobs:
           - angular
           - vue
           - react
+          - react-native
+          - react-core
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore node_modules cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cache
         with:
           path: |
             ./node_modules
             **/node_modules
           key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Restore ui/dist cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
           key: ${{ runner.os }}-ui-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
@@ -136,6 +160,10 @@ jobs:
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
         run: yarn ui build
+
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' || matrix.package == 'react-native' }}
+        run: yarn react-core build
 
       - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != 'ui' }}
@@ -146,7 +174,7 @@ jobs:
         run: yarn react size
 
       - name: Cache ${{ matrix.package }}/dist
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
@@ -167,25 +195,25 @@ jobs:
 
     strategy:
       # Run each examples (e.g. `next-example`) which uses a library (e.g. `@aws-amplify/ui-react`)
-      # BUT, Exclude `@skip` tests in `main` and exclude `@todo-${{ package }}` tests in PRs
+      # BUT, Exclude `@todo-${{ package }}` tests in PRs
       # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
         include:
           - example: angular
             package: angular
-            tags: '@angular and not (@skip or @todo-angular)'
+            tags: '@angular and not @todo-angular'
 
           - example: next
             package: react
-            tags: '@react and not (@skip or @todo-react)'
+            tags: '@react and not @todo-react'
 
           - example: vue
             package: vue
-            tags: '@vue and not (@skip or @todo-vue)'
+            tags: '@vue and not @todo-vue'
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
           # always points to the target branch.
@@ -195,35 +223,41 @@ jobs:
           persist-credentials: false
 
       - name: Next.js Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Restore node_modules cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cache
         with:
           path: |
             ./node_modules
             **/node_modules
           key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Restore ui/dist cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
@@ -231,10 +265,12 @@ jobs:
 
       - name: Restore ${{ matrix.package }}/dist cache
         id: restore-package-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
@@ -243,6 +279,10 @@ jobs:
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
+
+      - name: Build react-core package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-core build
 
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
@@ -257,17 +297,48 @@ jobs:
 
       - name: Create or restore environments cache
         id: environments-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: environments/**/aws-exports.js
           key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Pull down AWS environments on cache miss
+      # Pulling phone environments from original account,
+      - name: Pull down Auth Phone AWS environments, on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments pull
+        run: yarn environments auth pull:phone
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Pull down Auth non-phone AWS environments, on cache miss
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments auth pull:non-phone
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
+
+      - name: Pull down Geo AWS environments, on cache miss
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments geo pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
+
+      - name: Pull down Storage AWS environments, on cache miss
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments storage pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE}}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE}}
+
+      - name: Pull down Datastore AWS environments, on cache miss
+        if: steps.environments-cache.outputs.cache-hit != 'true'
+        run: yarn environments datastore pull
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
 
       - name: Build ${{ matrix.example }} example
         run: yarn workspace ${{ matrix.example }}-example build
@@ -296,30 +367,35 @@ jobs:
       NODE_ENV: test
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
 
       - name: Restore cypress runner Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Install packages
         run: yarn install
 
       - name: Build ui package
         run: yarn ui build
+
+      - name: Build react-core package
+        run: yarn react-core build
 
       - name: Build react package
         run: yarn react build

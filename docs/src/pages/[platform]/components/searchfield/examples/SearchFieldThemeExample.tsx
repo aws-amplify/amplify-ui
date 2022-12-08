@@ -7,6 +7,7 @@ const theme: Theme = {
       searchfield: {
         button: {
           color: { value: '{colors.blue.80}' },
+          backgroundColor: { value: '{colors.blue.20}' },
           _focus: {
             backgroundColor: {
               value: '{colors.blue.60}',

@@ -8,7 +8,7 @@ import { Amplify } from 'aws-amplify';
  * Update this import to match the path to your aws-exports.js file:
  * import aws_exports from "./aws-exports";
  */
-import aws_exports from '../../../../environments/auth-with-email/src/aws-exports.js';
+import aws_exports from '../../../../environments/auth/auth-with-email/src/aws-exports';
 
 import './index.css';
 

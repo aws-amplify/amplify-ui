@@ -1,6 +1,6 @@
+import { IconType } from 'react-icons/lib';
 import {
   MdFormatSize,
-  MdOutlineCheckBox,
   MdTextFormat,
   MdOutlineImage,
   MdInsertEmoticon,
@@ -12,8 +12,6 @@ import {
   MdWarning,
   MdNotes,
   MdInput,
-  MdArrowDropDown,
-  MdArrowDropDownCircle,
   MdAddBox,
   MdSearch,
   MdPassword,
@@ -28,7 +26,6 @@ import {
   MdExpand,
   MdTableChart,
   MdMoreHoriz,
-  MdHideSource,
   MdLink,
   MdMenu,
   MdTab,
@@ -37,16 +34,18 @@ import {
   MdDisabledVisible,
   MdRefresh,
   MdTune,
-  MdSystemUpdate,
   MdSystemUpdateAlt,
   MdCheckCircle,
+  MdHighlight,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
   href: string;
   label: string;
-  body: string;
+  body?: string;
+  platforms: string[];
   tertiary?: boolean;
+  icon?: IconType;
 }
 
 const sortByLabel = (a: ComponentNavItem, b: ComponentNavItem) =>
@@ -104,29 +103,46 @@ export const baseComponents: ComponentNavItem[] = [
   },
 ].sort(sortByLabel);
 
-export const connectedComponents = [
+export const connectedComponents: ComponentNavItem[] = [
   {
     href: '/connected-components/authenticator',
     label: 'Authenticator',
     body: 'The Authenticator component adds complete authentication flows to your application with minimal boilerplate.',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/connected-components/authenticator/configuration',
     label: 'Configuration',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
     tertiary: true,
   },
   {
     href: '/connected-components/authenticator/customization',
     label: 'Customization',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
     tertiary: true,
   },
   {
     href: '/connected-components/authenticator/headless',
     label: 'Headless Usage',
-    platforms: ['react', 'vue', 'angular', 'flutter'],
+    platforms: ['react', 'vue', 'angular', 'react-native'],
+    tertiary: true,
+  },
+  {
+    href: '/connected-components/account-settings',
+    label: 'Account Settings',
+    platforms: ['react'],
+  },
+  {
+    href: '/connected-components/account-settings/change-password',
+    label: 'Change Password',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/connected-components/account-settings/delete-user',
+    label: 'Delete User',
+    platforms: ['react'],
     tertiary: true,
   },
   {
@@ -135,9 +151,28 @@ export const connectedComponents = [
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
     platforms: ['react'],
   },
+  {
+    href: '/connected-components/storage',
+    label: 'Storage',
+    body: "Amplify UI Storage components allow you to store files in the cloud using Amplify's Storage category",
+    platforms: ['react'],
+  },
+  {
+    href: '/connected-components/storage/fileuploader',
+    label: 'File Uploader',
+    body: 'FileUploader component allows users to upload files to your Amplify backend.',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/connected-components/in-app-messaging',
+    label: 'In-App Messaging',
+    body: 'Amplify UI In-App Messaging provides UI components for displaying In-App Messages.',
+    platforms: ['react', 'react-native'],
+  },
 ];
 
-export const dataDisplayComponents = [
+export const dataDisplayComponents: ComponentNavItem[] = [
   {
     href: '/components/badge',
     label: 'Badge',
@@ -178,7 +213,14 @@ export const feedbackComponents: ComponentNavItem[] = [
   },
 ].sort(sortByLabel);
 
-export const inputComponents = [
+export const inputComponents: ComponentNavItem[] = [
+  {
+    href: '/components/autocomplete',
+    label: 'Autocomplete',
+    body: `Autocomplete is a SearchField enhanced by a list of suggested options.`,
+    platforms: ['react'],
+    icon: MdSearch,
+  },
   {
     href: '/components/textareafield',
     label: 'TextArea Field',
@@ -272,7 +314,7 @@ export const inputComponents = [
   },
 ].sort(sortByLabel);
 
-export const layoutComponents = [
+export const layoutComponents: ComponentNavItem[] = [
   {
     href: '/components/card',
     label: 'Card',
@@ -324,13 +366,20 @@ export const layoutComponents = [
   },
 ].sort(sortByLabel);
 
-export const utilityComponents = [
+export const utilityComponents: ComponentNavItem[] = [
   {
     href: '/components/visuallyhidden',
     label: 'Visually Hidden',
     body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
     platforms: ['react'],
     icon: MdDisabledVisible,
+  },
+  {
+    href: '/components/highlightmatch',
+    label: 'Highlight Match',
+    body: `HighlightMatch is used to highlight a substring of a text.`,
+    platforms: ['react'],
+    icon: MdHighlight,
   },
 ].sort(sortByLabel);
 
@@ -358,7 +407,10 @@ export const navigationComponents: ComponentNavItem[] = [
   },
 ].sort(sortByLabel);
 
-export const primitiveComponents = [
+export const primitiveComponents: {
+  heading?: string;
+  components: ComponentNavItem[];
+}[] = [
   {
     components: [
       {
@@ -398,25 +450,11 @@ export const primitiveComponents = [
   },
 ];
 
-export const legacyComponents = [
-  {
-    href: '/legacy-components/chatbot',
-    label: 'Chatbot',
-    body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
-    platforms: ['react', 'vue', 'angular'],
-  },
-  {
-    href: '/legacy-components/storage',
-    label: 'Storage',
-    body: 'A set of components to help interact with S3 storage.',
-    platforms: ['react', 'vue', 'angular'],
-  },
-];
-
-export const guides = [
+export const guides: ComponentNavItem[] = [
   {
     href: '/guides',
     label: 'Overview',
+    platforms: ['react'],
   },
   {
     href: '/guides/css-in-js',
@@ -430,18 +468,21 @@ export const guides = [
   },
 ];
 
-export const gettingStarted = [
+export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/introduction',
     label: 'Introduction',
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/getting-started/installation',
     label: 'Installation',
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/getting-started/usage',
     label: 'Usage',
+    platforms: ['react', 'vue', 'angular', 'react-native'],
   },
   {
     href: '/getting-started/usage/create-react-app',
@@ -457,11 +498,18 @@ export const gettingStarted = [
   },
   {
     href: '/getting-started/figma',
+    platforms: ['react'],
     label: 'Figma',
   },
   {
     href: '/getting-started/accessibility',
     label: 'Accessibility',
+    platforms: ['react', 'vue', 'angular'],
+  },
+  {
+    href: '/getting-started/internationalization',
+    label: 'Internationalization (i18n)',
+    platforms: ['react'],
   },
   {
     href: '/getting-started/migration',
@@ -475,10 +523,11 @@ export const gettingStarted = [
   },
 ];
 
-export const theming = [
+export const theming: ComponentNavItem[] = [
   {
     href: '/theming',
     label: 'Overview',
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/theming/responsive',
@@ -509,8 +558,14 @@ export const theming = [
     tertiary: true,
   },
   {
+    href: '/theming/theme-provider',
+    label: 'ThemeProvider',
+    platforms: ['react'],
+  },
+  {
     href: '/theming/dark-mode',
     label: 'Dark mode',
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/theming/css-variables',

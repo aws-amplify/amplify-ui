@@ -4,9 +4,9 @@ import { FormFieldOptions, getErrors } from '@aws-amplify/ui';
 import { PasswordField } from '../../../primitives/PasswordField';
 import { PhoneNumberField } from '../../../primitives/PhoneNumberField';
 import { TextField } from '../../../primitives/TextField';
-import { useAuthenticator } from '../hooks/useAuthenticator';
-import { ValidationErrors } from './ValidationErrors';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { useStableId } from '../../../primitives/utils/useStableId';
+import { ValidationErrors } from '../../shared/ValidationErrors';
 
 export interface FormFieldProps extends Omit<FormFieldOptions, 'label'> {
   // label is a required prop for the UI field components used in FormField
@@ -39,13 +39,17 @@ export function FormField({
         <PhoneNumberField
           {...props}
           name={name}
-          defaultCountryCode={dialCode}
-          countryCodeName="country_code"
+          defaultDialCode={dialCode}
+          dialCodeName="country_code"
           autoComplete={autoComplete}
           hasError={hasError}
           aria-describedby={ariaDescribedBy}
         />
-        <ValidationErrors errors={errors} id={errorId} />
+        <ValidationErrors
+          dataAttr="data-amplify-sign-up-errors"
+          errors={errors}
+          id={errorId}
+        />
       </>
     );
   } else if (type === 'password') {
@@ -58,7 +62,11 @@ export function FormField({
           hasError={hasError}
           aria-describedby={ariaDescribedBy}
         />
-        <ValidationErrors errors={errors} id={errorId} />
+        <ValidationErrors
+          dataAttr="data-amplify-sign-up-errors"
+          errors={errors}
+          id={errorId}
+        />
       </>
     );
   } else {
@@ -72,7 +80,11 @@ export function FormField({
           type={type}
           aria-describedby={ariaDescribedBy}
         />
-        <ValidationErrors errors={errors} id={errorId} />
+        <ValidationErrors
+          dataAttr="data-amplify-sign-up-errors"
+          errors={errors}
+          id={errorId}
+        />
       </>
     );
   }

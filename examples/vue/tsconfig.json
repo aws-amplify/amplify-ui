@@ -16,7 +16,8 @@
     "baseUrl": "./",
     "paths": {
       "@environments/*": ["../../environments/*"]
-    }
+    },
+    "types": ["vite/client"]
   },
   "include": [
     "src/**/*.ts",

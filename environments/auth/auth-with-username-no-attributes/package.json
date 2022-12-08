@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "auth-with-username-no-attributes-environment",
+  "version": "0.0.1",
+  "scripts": {
+    "pull": "amplify pull --appId d19uoxfo0qrigq --envName staging"
+  }
+}

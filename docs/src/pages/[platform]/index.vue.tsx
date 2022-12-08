@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
 
-import { useCustomRouter } from '@/components/useCustomRouter';
 import {
   A11ySection,
   AmplifySection,
@@ -13,7 +13,7 @@ import {
 const VueHomePage = ({ colorMode }) => {
   const {
     query: { platform = 'react' },
-  } = useCustomRouter();
+  } = useRouter();
 
   return (
     <>

@@ -1,0 +1,101 @@
+A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of [design tokens](#design-tokens) and [overrides](#overrides).
+
+
+## Getting started
+
+Wrap your application in a `ThemeProvider` and pass in a `Theme` object
+
+```jsx
+import { ThemeProvider } from '@aws-amplify/ui-react-native';
+
+const theme = {
+  tokens: {
+    colors: {
+      font: {
+        primary: 'black'
+      }
+    }
+  }
+}
+
+export default function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      {/* ... */}
+    </ThemeProvider>
+  )
+}
+```
+
+## Theme Structure
+
+### Design Tokens
+
+Amplify UI uses [Design Tokens](https://www.designtokens.org/) for storing design decisions and is the primary way to theme the components.
+
+Amplify UI follows the [System UI Theme Specification](https://system-ui.com/theme/) with some modifications. The System UI Theme Specification outlines top-level namespaces for categorizing design token types. For example, colors go under the `colors` namespace. This specification is used by [Stitches](https://stitches.dev/docs/tokens), [Chakra-UI](https://chakra-ui.com/docs/styled-system/theme), and [Evergreen](https://evergreen.segment.com/introduction/theming).
+
+You can define as much or as little as you like in your theme. A simple might define the brand colors and not much else
+
+```javascript
+const theme = {
+  tokens: {
+    colors: {
+      brand: {
+        primary: {
+          10: '{colors.pink.10}',
+          20: '{colors.pink.20}',
+          40: '{colors.pink.40}',
+          60: '{colors.pink.60}',
+          80: '{colors.pink.80}',
+          90: '{colors.pink.90}',
+          100: '{colors.pink.100}',
+        }
+      }
+    }
+  }
+}
+```
+
+A full theme would look like this:
+
+```javascript
+const theme = {
+  tokens: {
+    colors: {},
+    fontSizes: {},
+  }
+}
+```
+
+### Overrides
+
+An override is a collection of design tokens that should take precedence in certain situations, like dark mode. Overrides are built into the theme configuration, but kept separate, so that token references and values can be resolved at runtime.
+
+```javascript
+const theme = {
+  tokens: {
+    colors: {
+      white: '#fff',
+      black: '#000',
+      background: {
+        // This will resolve to #fff in light mode
+        // and #000 in dark mode because of the override below
+        primary: '{colors.white}'
+      },
+      font: {
+        primary: '{colors.black}'
+      }
+    }
+  },
+  overrides: [{
+    colorMode: 'dark',
+    tokens: {
+      colors: {
+        white: '#000',
+        black: '#fff'
+      }
+    }
+  }]
+}
+```

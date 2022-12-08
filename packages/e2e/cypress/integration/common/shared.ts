@@ -2,7 +2,7 @@
 /// <reference types="cypress" />
 /// <reference types="../../support/commands" />
 
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
@@ -142,7 +142,6 @@ const typeInInputHandler = (field: string, value: string) => {
   cy.findInputField(field).type(value);
 };
 When('I type a new {string} with value {string}', typeInInputHandler);
-And('I type a new {string} with value {string}', typeInInputHandler);
 
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
@@ -325,8 +324,26 @@ When('I mock {string} event', (eventName: string) => {
     throw new Error('Hub is not available on the window.');
   }
 
-  Hub.dispatch('auth', { event: eventName });
+  Hub.dispatch('auth', { event: eventName, data: {} });
 });
+
+When(
+  'I mock {string} event with fixture {string}',
+  async (eventName: string, fixture: string) => {
+    if (!window) {
+      throw new Error('window has not been set in the Cypress tests');
+    }
+
+    const Hub = window['Hub'];
+    if (!Hub) {
+      throw new Error('Hub is not available on the window.');
+    }
+
+    cy.fixture(fixture).then((data) => {
+      Hub.dispatch('auth', { event: eventName, data });
+    });
+  }
+);
 
 Given('I spy {string} method', (path) => {
   const { obj, method } = getMethodFromWindow(path);
