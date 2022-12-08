@@ -89,7 +89,7 @@ function SetupTOTP({
 
         setVerifyTotpStatus({ isVerifying: false, errorMessage: null });
 
-        onSuccess?.(); // notify success to the parent
+        onSuccess?.();
       } catch (e) {
         const error = e as Error;
 
@@ -98,7 +98,7 @@ function SetupTOTP({
           errorMessage: error.message,
         });
 
-        onError?.(error); // notify error to the parent
+        onError?.(error);
       }
     },
     [onError, onSuccess]
@@ -117,12 +117,12 @@ function SetupTOTP({
     navigator.clipboard.writeText(totpSecret.secretKey);
   }, [totpSecret]);
 
-  /* Return null if Auth.getCurrentAuthenticatedUser is still in progress  */
+  // return null if Auth.getCurrentAuthenticatedUser is still in progress
   if (isLoading) {
     return null;
   }
 
-  /* Return null if user isn't authenticated in the first place */
+  // return null if user isn't authenticated in the first place
   if (!user) {
     logger.warn('<SetupTOTP /> requires user to be authenticated.');
     return null;
