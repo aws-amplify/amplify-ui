@@ -48,7 +48,7 @@ type CommonButtonProps<T extends 'submit' | 'default' = 'default'> =
     >;
 
 type CommonTextFieldProps = Partial<TextFieldPrimitiveProps> &
-  Required<Pick<TextFieldPrimitiveProps, 'name' | 'onChange'>>;
+  Required<Pick<TextFieldPrimitiveProps, 'name' | 'onChange' | 'label'>>;
 
 type CommonImageProps = Partial<ImagePrimitiveProps> &
   Required<Pick<ImagePrimitiveProps, 'src'>>;

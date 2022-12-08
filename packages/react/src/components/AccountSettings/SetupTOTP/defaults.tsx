@@ -9,8 +9,8 @@ import {
   TextFieldComponent,
 } from '../types';
 
-export const ConfirmationCode: TextFieldComponent = ({ label, ...rest }) => (
-  <TextField {...rest} label={label} />
+export const ConfirmationCode: TextFieldComponent = (props) => (
+  <TextField {...props} />
 );
 
 export const QRCodeImage: ImageComponent = Image;
