@@ -47,7 +47,7 @@ function SetupTOTP({
     async (currentUser: AmplifyUser): Promise<void> => {
       try {
         const secretKey = await setupTOTP(currentUser);
-        const username = totpUsername || currentUser?.username;
+        const username = totpUsername ?? currentUser?.username;
         const totpCode = getTotpCodeURL(totpIssuer, username, secretKey);
         const qrCode = await QRCode.toDataURL(totpCode);
 
