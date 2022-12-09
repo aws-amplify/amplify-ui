@@ -25,6 +25,7 @@ export const frDict: AuthenticatorDictionary = {
   'Enter your username': "Saisissez votre nom d'utilisateur",
   'Forgot your password?': 'Mot de passe oublié ? ',
   'Hide password': 'Masquer le mot de passe',
+  'It may take a minute to arrive': 'Cela peut prendre une minute',
   Loading: 'Chargement en cours',
   'New password': 'Nouveau mot de passe',
   Password: 'Mot de passe',
@@ -51,6 +52,9 @@ export const frDict: AuthenticatorDictionary = {
   Username: "Nom d'utilisateur",
   'Verify Contact': 'Vérifier le contact',
   Verify: 'Vérifier',
+  'We Sent A Code': 'Nous avons envoyé un code',
+  'We Texted You': 'Nous vous avons envoyé un SMS',
+  'Your code is on the way. To log in, enter the code we sent you': `Votre code est en cours d'envoi. Pour vous connecter, saisissez le code que nous vous avons envoyé`,
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
