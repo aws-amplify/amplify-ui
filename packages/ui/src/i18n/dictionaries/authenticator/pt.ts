@@ -25,6 +25,7 @@ export const ptDict: AuthenticatorDictionary = {
   'Enter your username': 'entre com seu nome de usuário',
   'Forgot your password?': 'Esqueceu sua senha? ',
   'Hide password': 'Esconder a senha',
+  'It may take a minute to arrive': 'Pode levar um minuto para chegar',
   Loading: 'Carregando',
   'New password': 'Nova Senha',
   Password: 'Senha',
@@ -51,4 +52,13 @@ export const ptDict: AuthenticatorDictionary = {
   Username: 'Nome do usuário',
   'Verify Contact': 'Verificar contato',
   Verify: 'Verificar',
+  'We Emailed You': 'Enviamos um e-mail para você',
+  'We Sent A Code': 'Enviamos um código',
+  'We Texted You': 'Enviamos um SMS para você',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Seu código está a caminho. Para fazer login, insira o código para o qual enviamos um e-mail',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Seu código está a caminho. Para fazer login, insira o código que enviamos para você',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Seu código está a caminho. Para fazer login, insira o código para o qual enviamos uma mensagem de texto',
 };
