@@ -25,6 +25,7 @@ export const plDict: AuthenticatorDictionary = {
   'Enter your username': 'Wprowadź swoją nazwę użytkownika',
   'Forgot your password?': 'Zapomniałeś hasła? ',
   'Hide password': 'Ukryj hasło',
+  'It may take a minute to arrive': 'Może to chwilę potrwać',
   Loading: 'Ładowanie',
   'New password': 'Nowe hasło',
   Password: 'Hasło',
@@ -62,4 +63,13 @@ export const plDict: AuthenticatorDictionary = {
   'Preferred Username': 'Preferowana nazwa użytkownika',
   Profile: 'Profil',
   Website: 'Strona internetowa',
+  'We Emailed You': 'Wysłaliśmy Ci wiadomość e-mail',
+  'We Sent A Code': 'Wysłaliśmy kod',
+  'We Texted You': 'Wysłaliśmy Ci wiadomość SMS',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Twój kod został wysłany. Aby się zalogować, wprowadź kod wysłany na adres e-mail',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Twój kod został wysłany. Aby się zalogować, wprowadź wysłany do Ciebie kod',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Twój kod został wysłany. Aby się zalogować, wprowadź kod wysłany do Ciebie w wiadomości SMS pod numer',
 };
