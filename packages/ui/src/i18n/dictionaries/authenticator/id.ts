@@ -25,6 +25,7 @@ export const idDict: AuthenticatorDictionary = {
   'Enter your username': 'Masukkan nama akun anda',
   'Forgot your password?': 'Lupa kata sandi? ',
   'Hide password': 'Sembunyikan kata sandi',
+  'It may take a minute to arrive': 'Mungkin perlu waktu satu menit untuk tiba',
   Loading: 'Memuat',
   'New password': 'Kata sandi baru',
   Password: 'Kata sandi',
@@ -51,6 +52,10 @@ export const idDict: AuthenticatorDictionary = {
   Username: 'Nama akun',
   'Verify Contact': 'Verifikasi Kontak',
   Verify: 'Verifikasi',
+  'We Sent A Code': 'Kami Mengirim Kode',
+  'We Texted You': 'Kami mengirim SMS kepada Anda',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Kode Anda segera hadir. Untuk masuk, masukkan kode yang kami kirimkan kepada Anda',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
