@@ -18,6 +18,7 @@ export const Toast: React.FC<ToastProps> = ({
       padding="small"
       borderRadius="medium"
       backgroundColor="background.primary"
+      maxWidth={{ base: '100%', small: '70%' }}
     >
       <Flex gap="xs" direction="column" alignItems="center">
         {isToastWithIcon || heading ? (
