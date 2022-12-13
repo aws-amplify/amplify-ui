@@ -130,7 +130,7 @@
       "name": "Authenticator",
       "path": "dist/esm/index.js",
       "import": "{ Authenticator }",
-      "limit": "100 kB"
+      "limit": "120 kB"
     },
     {
       "name": "Geo",
