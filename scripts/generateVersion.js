@@ -4,13 +4,19 @@
  */
 const path = require('path');
 const fs = require('fs-extra');
-const pkg = require(path.resolve('./package.json'));
 
-const { version } = pkg;
+const packages = [
+  'packages/angular/projects/ui-angular',
+  'packages/react',
+  'packages/react-native',
+  'packages/vue',
+];
 
-const outputPath = process.argv[2] || `./src/version.ts`;
+packages.forEach((package) => {
+  const { version } = require(`../${package}/package.json`);
 
-fs.writeFileSync(
-  path.resolve(outputPath),
-  `export const VERSION = '${version}';`
-);
+  fs.writeFileSync(
+    path.resolve(`${package}/src/version.ts`),
+    `export const VERSION = '${version}';\n`
+  );
+});
