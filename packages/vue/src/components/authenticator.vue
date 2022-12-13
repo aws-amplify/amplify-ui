@@ -21,6 +21,7 @@ import {
   getServiceFacade,
   listenToAuthHub,
   SocialProvider,
+  configureComponent,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -33,6 +34,7 @@ import ResetPassword from './reset-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
+import { VERSION } from '../version';
 
 const attrs = useAttrs();
 
@@ -109,6 +111,10 @@ unsubscribeMachine = service.subscribe((newState) => {
 
 onMounted(() => {
   unsubscribeHub = listenToAuthHub(service);
+  configureComponent({
+    packageName: '@aws-amplify/ui-vue',
+    version: VERSION,
+  });
 });
 
 onUnmounted(() => {
