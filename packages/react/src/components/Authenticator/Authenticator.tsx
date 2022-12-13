@@ -22,7 +22,7 @@ import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
-import { VERSION } from 'src/version';
+import { VERSION } from '../../version';
 
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
