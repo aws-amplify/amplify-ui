@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
-import { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native';
+import React, { useMemo } from 'react';
+import { ViewStyle } from 'react-native';
 
 import { useTheme } from '../../theme';
+import { usePressableContainerStyles } from '../../hooks';
 import { Button } from '../Button';
 import { getThemedStyles } from './styles';
 import { TabProps } from './types';
@@ -19,28 +20,26 @@ export default function Tab({
 
   const selectedStyles = selected ? themedStyle.selected : null;
 
-  const containerStyle = useCallback(
-    ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
-      const readonlyStyle = selected ? themedStyle.readonly : null;
-      const pressedStateStyle =
-        (typeof style === 'function' ? style({ pressed }) : style) ?? null;
-
-      // include `pressedStateStyle` last to override other styles
-      return [
-        themedStyle.tab,
-        readonlyStyle,
-        selectedStyles,
-        pressedStateStyle,
-      ];
-    },
-    [selected, selectedStyles, style, themedStyle]
+  const containerStyle: ViewStyle = useMemo(
+    (): ViewStyle => ({
+      ...themedStyle.tab,
+      ...(selected && themedStyle.readonly),
+      ...selectedStyles,
+    }),
+    [selected, selectedStyles, themedStyle]
   );
+
+  const pressableStyle = usePressableContainerStyles({
+    overrideStyle: style,
+    containerStyle,
+    pressedStyle: themedStyle.pressed,
+  });
 
   return (
     <Button
       {...rest}
       accessibilityRole="tab"
-      style={containerStyle}
+      style={pressableStyle}
       textStyle={[themedStyle.tabText, textStyle, selectedStyles]}
     >
       {children}

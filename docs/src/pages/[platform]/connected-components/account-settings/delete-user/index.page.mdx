@@ -1,0 +1,13 @@
+---
+title: DeleteUser
+metaTitle: DeleteUser
+description: DeleteUser component allows end users to delete their account permanently from their app.
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { DeveloperPreview } from '../DeveloperPreview';
+
+<DeveloperPreview />
+
+<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>

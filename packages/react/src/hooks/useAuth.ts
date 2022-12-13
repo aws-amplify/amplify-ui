@@ -1,19 +1,15 @@
 import * as React from 'react';
 
-import { Auth, CognitoUser } from '@aws-amplify/auth';
 import { Hub, HubCallback } from '@aws-amplify/core';
-
-// Exposes relevant CognitoUser properties
-interface AuthUser extends CognitoUser {
-  username: string;
-  attributes: Record<string, string>;
-}
+import { AmplifyUser } from '@aws-amplify/ui';
+import { Auth } from 'aws-amplify';
 
 export interface UseAuthResult {
-  user?: AuthUser;
+  user?: AmplifyUser;
   isLoading: boolean;
   error?: Error;
-  fetch?: () => void;
+  /** @deprecated Fetch is handled automatically, do not use this directly */
+  fetch?: () => Promise<void>;
 }
 
 /**
@@ -27,32 +23,75 @@ export const useAuth = (): UseAuthResult => {
     user: undefined,
   });
 
-  const handleAuth: HubCallback = ({ payload }) => {
-    switch (payload.event) {
-      case 'signIn':
-        return setResult({ user: payload.data as AuthUser, isLoading: false });
-      case 'signOut':
-        return setResult({ isLoading: false });
-      default:
-        break;
+  /**
+   * Hub events like `tokenRefresh` will not give back the user object.
+   * This util will be used to get current user after those events.
+   */
+  const fetchCurrentUser = React.useCallback(async () => {
+    setResult((prevResult) => ({ ...prevResult, isLoading: true }));
+
+    try {
+      // casting the result because `Auth.currentAuthenticateduser` returns `any`
+      const user = (await Auth.currentAuthenticatedUser()) as AmplifyUser;
+      setResult({ user, isLoading: false });
+    } catch (e) {
+      const error = e as Error;
+      setResult({ error, isLoading: false });
     }
+  }, []);
+
+  const handleAuth: HubCallback = React.useCallback(
+    ({ payload }) => {
+      switch (payload.event) {
+        // success events
+        case 'signIn':
+        case 'signUp':
+        case 'autoSignIn': {
+          setResult({ user: payload.data as AmplifyUser, isLoading: false });
+          break;
+        }
+        case 'signOut': {
+          setResult({ user: undefined, isLoading: false });
+          break;
+        }
+
+        // failure events
+        case 'tokenRefresh_failure':
+        case 'signIn_failure': {
+          setResult({ error: payload.data as Error, isLoading: false });
+          break;
+        }
+        case 'autoSignIn_failure': {
+          // autoSignIn just returns error message. Wrap it to an Error object
+          setResult({ error: new Error(payload.message), isLoading: false });
+          break;
+        }
+
+        // events that need another fetch
+        case 'tokenRefresh': {
+          fetchCurrentUser();
+          break;
+        }
+
+        default: {
+          // we do not handle other hub events like `configured`.
+          break;
+        }
+      }
+    },
+    [fetchCurrentUser]
+  );
+
+  React.useEffect(() => {
+    const unsubscribe = Hub.listen('auth', handleAuth, 'useAuth');
+    fetchCurrentUser(); // on init, see if user is already logged in
+
+    return unsubscribe;
+  }, [handleAuth, fetchCurrentUser]);
+
+  return {
+    ...result,
+    /** @deprecated Fetch is handled automatically, do not use this directly */
+    fetch: fetchCurrentUser,
   };
-
-  const fetch = () => {
-    setResult({ isLoading: true });
-
-    Auth.currentAuthenticatedUser()
-      .then((user: AuthUser) => setResult({ user, isLoading: false }))
-      .catch((error: Error) => setResult({ error, isLoading: false }));
-
-    // Handle Hub Auth events
-    Hub.listen('auth', handleAuth);
-
-    // Stop listening events on unmount
-    return () => Hub.remove('auth', handleAuth);
-  };
-
-  React.useEffect(fetch, []);
-
-  return { ...result, fetch };
 };
