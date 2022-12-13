@@ -555,7 +555,7 @@ export async function getFaceMatchState(
   return faceMatchState;
 }
 
-const FACE_DISTANCE_THRESHOLD = 0.4;
+const FACE_DISTANCE_THRESHOLD = 0.3;
 const MOBILE_FACE_DISTANCE_THRESHOLD = 0.3;
 
 export async function isFaceDistanceBelowThreshold({

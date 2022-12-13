@@ -197,7 +197,36 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       notRecording: {
         on: {
-          START_RECORDING: 'recording',
+          START_RECORDING: 'recording', // if countdown completes while face is far enough, start recording
+        },
+        initial: 'detectFaceDistanceAfterCountdown',
+        states: {
+          detectFaceDistanceAfterCountdown: {
+            invoke: {
+              src: 'detectFaceDistance',
+              onDone: {
+                target: 'checkFaceDistanceDuringCountdown',
+                actions: ['updateFaceDistanceAndOvalDetailsBeforeRecording'],
+              },
+            },
+          },
+          checkFaceDistanceDuringCountdown: {
+            after: {
+              0: {
+                target: 'failure',
+                cond: 'hasNotEnoughFaceDistanceBeforeRecording',
+              },
+              200: {
+                target: 'detectFaceDistanceAfterCountdown',
+              },
+            },
+          },
+          failure: {
+            type: 'final', // if face is too close during countdown go to onDone
+          },
+        },
+        onDone: {
+          target: 'detectFaceDistanceBeforeRecording', // if face is too close, go back to detecting face distance
         },
       },
       recording: {
@@ -735,6 +764,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       hasEnoughFaceDistanceBeforeRecording: (context) => {
         return context.isFaceFarEnoughBeforeRecording;
+      },
+      hasNotEnoughFaceDistanceBeforeRecording: (context) => {
+        return !context.isFaceFarEnoughBeforeRecording;
       },
       hasLivenessCheckSucceeded: (_, __, meta) => meta.state.event.data.isLive,
       hasFreshnessColorShown: (context) =>

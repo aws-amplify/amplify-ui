@@ -482,6 +482,7 @@ describe('Liveness Machine', () => {
         .mockResolvedValue([mockFace])
         .mockResolvedValueOnce([mockFace]) // first to pass detecting face before start
         .mockResolvedValueOnce([mockFace]) // second to pass face distance before start
+        .mockResolvedValueOnce([mockFace]) // third to pass face distance check after countdown
         .mockResolvedValueOnce([]); // not having face in view when recording begins
       mockedHelpers.estimateIllumination.mockImplementation(
         () => IlluminationState.BRIGHT
@@ -507,6 +508,7 @@ describe('Liveness Machine', () => {
         .mockResolvedValue([mockFace])
         .mockResolvedValueOnce([mockFace]) // first to pass detecting face before start
         .mockResolvedValueOnce([mockFace]) // second to pass face distance before start
+        .mockResolvedValueOnce([mockFace]) // third to pass face distance check after countdown
         .mockRejectedValue(error);
 
       await transitionToRecording(service);
