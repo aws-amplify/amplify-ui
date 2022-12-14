@@ -189,6 +189,10 @@ function ChangePassword({
     <View
       as="form"
       className={ComponentClassName.ChangePassword}
+      // React.FormEventHandler<HTMLFormElement> only expects void and does not accept Primose<void> as return type
+      // Looks like this is a place where React types should improve a bit
+      // It is okay to ignore the error in the use case
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
