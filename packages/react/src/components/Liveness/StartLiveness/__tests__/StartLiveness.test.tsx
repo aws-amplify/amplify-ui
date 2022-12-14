@@ -10,8 +10,10 @@ import { useLivenessActor } from '../../hooks/useLivenessActor';
 import { getVideoConstraints } from '../helpers';
 import { StartLiveness } from '../StartLiveness';
 import {
-  defaultComponents,
   INSTRUCTIONS,
+  defaultLivenessInstructionsHeader,
+  defaultPhotosensitiveWarningHeader,
+  defaultLivenessHeaderHeading,
 } from '../../hooks/useCustomComponents/defaultComponents';
 
 jest.mock('../../hooks/useLivenessActor');
@@ -63,7 +65,6 @@ describe('StartLiveness', () => {
     const photosensitiveWarning = 'Some warning related to photosensitivity';
     const livenessInstructions =
       'Some instructions to follow to use liveness face detector';
-    const livenessHeader = defaultComponents.LivenessHeader;
     renderWithLivenessProvider(
       <StartLiveness
         beginLivenessCheck={mockBeginCheck}
@@ -81,7 +82,15 @@ describe('StartLiveness', () => {
     expect(screen.getByText(photosensitiveWarning)).toBeInTheDocument();
     expect(screen.getByText(livenessInstructions)).toBeInTheDocument();
     // check for default liveness header component if no custom override
-    expect(screen.getByText('Liveness check')).toBeInTheDocument();
+    expect(screen.getByText(defaultLivenessHeaderHeading)).toBeInTheDocument();
+
+    // check that the default components are not present when custom overrides are provided
+    expect(
+      screen.queryByText(defaultPhotosensitiveWarningHeader)
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(defaultLivenessInstructionsHeader)
+    ).not.toBeInTheDocument();
 
     expect(
       screen.getByRole('button', { name: beginCheckBtnName })

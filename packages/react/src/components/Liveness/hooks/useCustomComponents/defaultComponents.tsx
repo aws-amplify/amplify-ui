@@ -17,20 +17,27 @@ export interface LivenessComponents {
   LivenessInstructions?: () => JSX.Element;
 }
 
+export const defaultLivenessHeaderHeading: string = 'Liveness check';
+export const defaultLivenessHeaderBody: string =
+  'You will go through a face verification process to prove you are a real person.';
+
 export const LivenessHeader = (): JSX.Element => {
   return (
     <View flex="1">
       <View color="font.tertiary" fontWeight="bold">
-        {translate<string>('Liveness check')}
+        {translate<string>(defaultLivenessHeaderHeading)}
       </View>
       <View color="font.tertiary">
-        {translate<string>(
-          'You will go through a face verification process to prove you are a real person.'
-        )}
+        {translate<string>(defaultLivenessHeaderBody)}
       </View>
     </View>
   );
 };
+
+export const defaultPhotosensitiveWarningHeader: string =
+  'Photosensitivity warning';
+export const defaultPhotosensitiveWarningBody: string =
+  'This check displays colored lights. Use caution if you are photosensitive.';
 
 export const PhotosensitiveWarning = (): JSX.Element => {
   const { tokens } = useTheme();
@@ -43,12 +50,10 @@ export const PhotosensitiveWarning = (): JSX.Element => {
     >
       <View flex="1">
         <View className={ComponentClassNames.AlertHeading}>
-          {translate('Photosensitivity warning')}
+          {translate(defaultPhotosensitiveWarningHeader)}
         </View>
         <View className={ComponentClassNames.AlertBody}>
-          {translate(
-            'This check displays colored lights. Use caution if you are photosensitive.'
-          )}
+          {translate(defaultPhotosensitiveWarningBody)}
         </View>
       </View>
       <LivenessIconWithPopover />
@@ -74,11 +79,14 @@ export const INSTRUCTIONS = [
   },
 ];
 
+export const defaultLivenessInstructionsHeader: string =
+  'Follow the instructions to complete the check: ';
+
 export const LivenessInstructions = (): JSX.Element => {
   return (
     <View>
       <Text color="font.tertiary">
-        {translate<string>('Follow the instructions to complete the check: ')}
+        {translate<string>(defaultLivenessInstructionsHeader)}
       </Text>
       <Collection type="list" items={INSTRUCTIONS}>
         {(item, index) => (
