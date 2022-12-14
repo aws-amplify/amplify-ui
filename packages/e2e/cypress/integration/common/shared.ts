@@ -367,6 +367,14 @@ Then('I will be redirected to the confirm forgot password page', () => {
   cy.findInputField('New Password').should('exist');
 });
 
+When('I type an invalid wrong complexity new password', () => {
+  cy.findInputField('New Password').type('inv');
+});
+
+When('I type an invalid no lower case new password', () => {
+  cy.findInputField('New Password').type('INV');
+});
+
 When('I type my new password', () => {
   cy.findInputField('New Password').type(Cypress.env('VALID_PASSWORD'));
 });
