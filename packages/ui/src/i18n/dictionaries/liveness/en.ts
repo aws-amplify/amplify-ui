@@ -28,8 +28,8 @@ export const enDict = {
   // Liveness Flow
   'Connecting...': 'Connecting...',
   'Move face in front of camera': 'Move face in front of camera',
-  'After countdown, move face to fit in oval':
-    'After countdown, move face to fit in oval',
+  'Hold position until countdown completes, then move face to fit in oval':
+    'Hold position until countdown completes, then move face to fit in oval',
   'Hold face in oval': 'Hold face in oval',
   'Verifying...': 'Verifying...',
   'Check unsuccessful': 'Check unsuccessful',
@@ -55,6 +55,8 @@ export const enDict = {
   'Face not detected within time limit. Try again and place face inside oval within 5 seconds.':
     'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
   'Time out': 'Time out',
+  'Try again and follow the on-screen instructions.':
+    'Try again and follow the on-screen instructions.',
   'Server Issue': 'Server Issue',
   'Client error': 'Client error',
   'Ensure only one face is in front of camera':

@@ -171,10 +171,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       waitForSessionInfo: {
         after: {
           0: {
-            target: 'detectFaceDistanceBeforeRecording',
+            target: 'setupFaceDistanceTimeout',
             cond: 'hasServerSessionInfo',
           },
           100: { target: 'waitForSessionInfo' },
+        },
+      },
+      setupFaceDistanceTimeout: {
+        entry: ['sendTimeoutAfterFaceDistanceDelay'],
+        always: {
+          target: 'detectFaceDistanceBeforeRecording',
         },
       },
       detectFaceDistanceBeforeRecording: {
@@ -231,6 +237,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       recording: {
         entry: [
+          'cancelFaceDistanceTimeout',
           'startRecording',
           'clearErrorState',
           'sendTimeoutAfterOvalDrawingDelay',
@@ -558,11 +565,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateErrorStateForTimeout: assign({
         errorState: (_, event) => {
-          if (event.data?.errorState === LivenessErrorState.SERVER_ERROR) {
-            return LivenessErrorState.SERVER_ERROR;
-          } else {
-            return LivenessErrorState.TIMEOUT;
-          }
+          return event.data?.errorState || LivenessErrorState.TIMEOUT;
         },
       }),
       updateErrorStateForRuntime: assign({
@@ -665,6 +668,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       cancelWaitForDisconnectTimeout: actions.cancel(
         'waitForDisconnectTimeout'
       ),
+      sendTimeoutAfterFaceDistanceDelay: actions.send(
+        {
+          type: 'TIMEOUT',
+          data: { errorState: LivenessErrorState.FACE_DISTANCE_TIMEOUT },
+        },
+        {
+          delay: 10000,
+          id: 'faceDistanceTimeout',
+        }
+      ),
+      cancelFaceDistanceTimeout: actions.cancel('faceDistanceTimeout'),
 
       // callbacks
       callUserPermissionDeniedCallback: assign({

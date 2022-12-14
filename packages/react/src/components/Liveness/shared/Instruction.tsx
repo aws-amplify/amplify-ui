@@ -68,6 +68,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
 
       switch (errorState) {
         case LivenessErrorState.TIMEOUT:
+        case LivenessErrorState.FACE_DISTANCE_TIMEOUT:
           heading = translate('Time out');
           break;
         case LivenessErrorState.SERVER_ERROR:
@@ -114,7 +115,11 @@ export const Instruction: React.FC<InstructionProps> = () => {
 
     if (isNotRecording) {
       return (
-        <Toast>{translate('After countdown, move face to fit in oval')}</Toast>
+        <Toast>
+          {translate(
+            'Hold position until countdown completes, then move face to fit in oval'
+          )}
+        </Toast>
       );
     }
 

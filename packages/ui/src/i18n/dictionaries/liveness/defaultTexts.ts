@@ -26,7 +26,8 @@ export const defaultTexts = {
   // Liveness Flow
   LIVENESS_CHECK_CONNECTING: 'Connecting...',
   LIVENESS_HINT_NO_FACE_DETECTED: 'Move face in front of camera',
-  LIVENESS_INSTRUCTION_FIT_OVAL: 'After countdown, move face to fit in oval',
+  LIVENESS_INSTRUCTION_FIT_OVAL:
+    'Hold position until countdown completes, then move face to fit in oval',
   LIVENESS_INSTRUCTION_HOLD_OVAL: 'Hold face in oval',
   LIVENESS_VERIFYING: 'Verifying...',
   LIVENESS_CHECK_FAILED: 'Check unsuccessful',
@@ -49,6 +50,8 @@ export const defaultTexts = {
   LIVENESS_ERROR: 'Check encountered an error',
   LIVENESS_TIMEOUT:
     'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
+  LIVENESS_FACE_DISTANCE_TIMEOUT:
+    'Try again and follow the on-screen instructions.',
 
   LIVENESS_HINT_MULTIPLE_FACES_DETECTED: 'Multiple faces detected',
 };
