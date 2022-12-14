@@ -9,7 +9,7 @@ import {
 /*
  * These are primitive prop types that account settings component use.
  *
- * Note that `PrimitiveProps` is used to get native html types, like `onSubmit`.
+ * Note that `PrimitivePropsWithoutRef` is used to get native html types, like `onSubmit`.
  */
 type PasswordFieldPrimitiveProps = PrimitivePropsWithoutRef<
   PasswordFieldProps,
