@@ -6,7 +6,7 @@ import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { RadioGroupContext, RadioGroupContextType } from './context';
-import { RadioGroupFieldProps, Primitive } from '../types';
+import { RadioGroupFieldProps, Primitive, ForwardRefPrimitive } from '../types';
 import { useStableId } from '../utils/useStableId';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex(div)')
@@ -104,6 +104,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/radiogroupfield)
  */
-export const RadioGroupField = React.forwardRef(RadioGroupFieldPrimitive);
+export const RadioGroupField: ForwardRefPrimitive<RadioGroupFieldProps, 'div'> =
+  React.forwardRef(RadioGroupFieldPrimitive);
 
 RadioGroupField.displayName = 'RadioGroupField';
