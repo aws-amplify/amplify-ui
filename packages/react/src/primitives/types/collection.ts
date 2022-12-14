@@ -2,17 +2,11 @@ import * as React from 'react';
 import { FlexProps } from './flex';
 import { GridProps } from './grid';
 import { BaseStyleProps } from './style';
-import { ElementType } from './view';
+import { ElementType, PrimitivePropsWithoutRef } from './view';
 
 export type CollectionType = 'list' | 'grid' | 'table';
 
 export interface CollectionWrapperProps extends BaseStyleProps {
-  /**
-   * @description
-   * Changes the type of HTML element rendered
-   */
-  as?: ElementType;
-
   /**
    * @description
    * Collection type. This will be used to determine collection wrapper component.
@@ -82,8 +76,14 @@ export interface CollectionBaseProps<Item> {
 }
 
 // @TODO Add TableCollectionProps
-export type ListCollectionProps<Item> = FlexProps & CollectionBaseProps<Item>;
-export type GridCollectionProps<Item> = GridProps & CollectionBaseProps<Item>;
+export type ListCollectionProps<
+  Item,
+  Element extends ElementType = 'div'
+> = PrimitivePropsWithoutRef<FlexProps & CollectionBaseProps<Item>, Element>;
+export type GridCollectionProps<
+  Item,
+  Element extends ElementType = 'div'
+> = PrimitivePropsWithoutRef<GridProps & CollectionBaseProps<Item>, Element>;
 
 export type CollectionProps<Item> = CollectionWrapperProps &
   (
