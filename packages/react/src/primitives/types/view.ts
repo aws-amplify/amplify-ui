@@ -13,28 +13,6 @@ type MergeProps<A, B> = A & Omit<B, keyof A>;
 
 export type ElementType = React.ElementType;
 
-/**
- * @description
- * Convert string element type to DOMElement Type
- * e.g. 'button' => HTMLButtonElement
- */
-// export type HTMLElementType<Element extends ElementType> =
-//   Element extends keyof JSX.IntrinsicElements
-//     ? React.ElementRef<Element>
-//     : HTMLElementTypeFromExoticComponentRef<Element>;
-
-/**
- * @description
- * Allows us to extract ElementType from `typeof Root` used in SliderField
- * e.g. React.ForwardRefExoticComponent<SliderProps & React.RefAttributes<HTMLSpanElement>> => HTMLSpanElement
- */
-// type HTMLElementTypeFromExoticComponentRef<Element extends ElementType> =
-//   Element extends React.ForwardRefExoticComponent<
-//     React.RefAttributes<infer DOMHTMLElement>
-//   >
-//     ? DOMHTMLElement
-//     : HTMLElement; // Fallback to HTMLElement if nothing else matches
-
 type AsProp<Element extends ElementType> = {
   /**
    * @description
@@ -66,8 +44,8 @@ export type PrimitivePropsWithoutRef<
       // exclude `ref?: LegacyRef` included in DetailedHTMLProps
       React.ComponentPropsWithoutRef<Element>
     >
-  : // If element is not Radix element or keyof JSX.IntrinsicElements
-    // Just add the `as` prop
+  : // If an element is not Radix element or keyof JSX.IntrinsicElements
+    // No need to merge, just add the `as` prop
     PrimitivePropsWithAs<React.ComponentPropsWithoutRef<Element>, Element>;
 
 export type PrimitivePropsWithRef<
