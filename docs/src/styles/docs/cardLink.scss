@@ -13,7 +13,9 @@
   &:hover {
     transform: translate3d(0, -2px, 0);
     .docs-cardLink-title {
-      --amplify-border-animation-offset: 100%;
+      text-shadow: 1px 1px var(--amplify-colors-background-primary);
+      background-size: 100% var(--amplify-border-widths-medium);
+      transition-delay: 0s;
     }
   }
 }
@@ -34,12 +36,12 @@
 }
 
 .docs-cardLink-title {
-  display: inline-block;
+  display: inline;
   font-weight: bold;
-  background: linear-gradient(var(--amplify-colors-font-primary) 0 0) 0 100% /
-    var(--amplify-border-animation-offset, 0)
-    var(--amplify-border-widths-medium) no-repeat;
-  transition: 0.5s;
+  background: linear-gradient(var(--amplify-colors-font-primary) 0 0) 0 100%
+    no-repeat;
+  background-size: 0% var(--amplify-border-widths-medium);
+  transition: background-size 0.5s ease-in-out 0.1s;
 }
 
 // Plain (default) variation

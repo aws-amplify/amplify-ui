@@ -129,6 +129,23 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/connected-components/account-settings',
+    label: 'Account Settings',
+    platforms: ['react'],
+  },
+  {
+    href: '/connected-components/account-settings/change-password',
+    label: 'Change Password',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/connected-components/account-settings/delete-user',
+    label: 'Delete User',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/geo',
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
@@ -539,6 +556,11 @@ export const theming: ComponentNavItem[] = [
     label: 'Sizes',
     platforms: ['react', 'vue', 'angular'],
     tertiary: true,
+  },
+  {
+    href: '/theming/theme-provider',
+    label: 'ThemeProvider',
+    platforms: ['react'],
   },
   {
     href: '/theming/dark-mode',

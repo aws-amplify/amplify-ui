@@ -1,0 +1,43 @@
+# Description: This workflow runs unit + e2e tests on PRs
+#   targeting `account-settings/main`.
+#
+# Triggered by:
+#   (1) maintainer pushes a commit to PRs targeting those branches.
+
+name: Test / Account Settings / PRs
+
+concurrency:
+  group: e2e-accountsettings-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    branches: [account-settings/main]
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@account-settings/main
+    with:
+      commit: ${{ github.event.pull_request.head.sha }}
+      repository: ${{ github.event.pull_request.head.repo.full_name }}
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} # TODO: Remove this
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} #TODO: Remove this
+      AWS_ACCESS_KEY_ID_AUTH: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+      AWS_SECRET_ACCESS_KEY_AUTH: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
+      AWS_ACCESS_KEY_ID_DATASTORE: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
+      AWS_SECRET_ACCESS_KEY_DATASTORE: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
+      AWS_ACCESS_KEY_ID_GEO: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+      AWS_SECRET_ACCESS_KEY_GEO: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
+      AWS_ACCESS_KEY_ID_STORAGE: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE }}
+      AWS_SECRET_ACCESS_KEY_STORAGE: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}

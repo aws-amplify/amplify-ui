@@ -21,6 +21,10 @@ export const getThemedStyles = (theme: StrictTheme): Required<RadioStyles> => {
       opacity: opacities[60],
       ...components?.radio?.disabled,
     },
+    pressed: {
+      opacity: opacities[60],
+      ...components?.radio?.pressed,
+    },
     radioContainer: {
       alignItems: 'center',
       borderColor: colors.border.primary,
