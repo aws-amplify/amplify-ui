@@ -32,8 +32,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "generate:version": "node ../../scripts/generateVersion.js",
-    "prebuild": "rimraf dist && yarn generate:version",
+    "prebuild": "rimraf dist",
     "build": "yarn run build:catalog && yarn run build:ts",
     "build:ts": "rollup --config",
     "build:catalog": "yarn ts scripts/generatePrimitiveCatalog.ts",
