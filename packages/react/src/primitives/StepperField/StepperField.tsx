@@ -9,7 +9,7 @@ import { Flex } from '../Flex';
 import { IconAdd, IconRemove } from '../Icon/internal';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { Primitive } from '../types/view';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { StepperFieldProps } from '../types/stepperField';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
@@ -175,6 +175,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/stepperfield)
  */
-export const StepperField = React.forwardRef(StepperFieldPrimitive);
+export const StepperField: ForwardRefPrimitive<StepperFieldProps, 'input'> =
+  React.forwardRef(StepperFieldPrimitive);
 
 StepperField.displayName = 'StepperField';

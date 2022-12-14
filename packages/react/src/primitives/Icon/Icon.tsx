@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { IconProps, Primitive } from '../types';
+import { ForwardRefPrimitive, IconProps, Primitive } from '../types';
 import { View } from '../View';
 
 const defaultViewBox = { minX: 0, minY: 0, width: 24, height: 24 };
@@ -57,6 +57,7 @@ const IconPrimitive: Primitive<IconProps, 'svg'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/icon)
  */
-export const Icon = React.forwardRef(IconPrimitive);
+export const Icon: ForwardRefPrimitive<IconProps, 'svg'> =
+  React.forwardRef(IconPrimitive);
 
 Icon.displayName = 'Icon';

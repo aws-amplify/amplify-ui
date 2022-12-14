@@ -5,7 +5,7 @@ import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
-import { RadioProps, Primitive } from '../types';
+import { RadioProps, Primitive, ForwardRefPrimitive } from '../types';
 import { Text } from '../Text';
 import { useRadioGroupContext } from '../RadioGroupField/context';
 
@@ -121,6 +121,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   );
 };
 
-export const Radio = React.forwardRef(RadioPrimitive);
+export const Radio: ForwardRefPrimitive<RadioProps, 'input'> =
+  React.forwardRef(RadioPrimitive);
 
 Radio.displayName = 'Radio';

@@ -11,7 +11,7 @@ const { passwordIsHidden, passwordIsShown, showPassword } =
 
 const ShowPasswordButtonPrimitive: Primitive<
   ShowPasswordButtonProps,
-  typeof Button
+  'button'
 > = (
   {
     fieldType,

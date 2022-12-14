@@ -9,7 +9,7 @@ import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { isFunction } from '../shared/utils';
 import { Label } from '../Label';
-import { Primitive } from '../types/view';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { SliderFieldProps } from '../types/sliderField';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { View } from '../View';
@@ -184,6 +184,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/sliderfield)
  */
-export const SliderField = React.forwardRef(SliderFieldPrimitive);
+export const SliderField: ForwardRefPrimitive<SliderFieldProps, typeof Root> =
+  React.forwardRef(SliderFieldPrimitive);
 
 SliderField.displayName = 'SliderField';

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
-import { Primitive, TableProps } from '../types';
+import { ForwardRefPrimitive, Primitive, TableProps } from '../types';
 import { View } from '../View';
 
 const TablePrimitive: Primitive<TableProps, 'table'> = (
@@ -48,6 +48,7 @@ const TablePrimitive: Primitive<TableProps, 'table'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/table)
  */
-export const Table = React.forwardRef(TablePrimitive);
+export const Table: ForwardRefPrimitive<TableProps, 'table'> =
+  React.forwardRef(TablePrimitive);
 
 Table.displayName = 'Table';

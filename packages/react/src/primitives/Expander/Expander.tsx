@@ -6,7 +6,7 @@ import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 import { ComponentClassNames } from '../shared/constants';
 import { ExpanderProps } from '../types/expander';
-import { Primitive } from '../types/view';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 
 const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
@@ -71,6 +71,7 @@ const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/expander)
  */
-export const Expander = React.forwardRef(ExpanderPrimitive);
+export const Expander: ForwardRefPrimitive<ExpanderProps, typeof Root> =
+  React.forwardRef(ExpanderPrimitive);
 
 Expander.displayName = 'Expander';

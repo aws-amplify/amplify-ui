@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { ComponentClassNames } from '../shared/constants';
 import { ExpanderItemProps } from '../types/expander';
 import { IconExpandMore } from '../Icon/internal';
-import { Primitive } from '../types/view';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
@@ -62,6 +62,7 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, typeof Item> = (
   );
 };
 
-export const ExpanderItem = React.forwardRef(ExpanderItemPrimitive);
+export const ExpanderItem: ForwardRefPrimitive<ExpanderItemProps, typeof Item> =
+  React.forwardRef(ExpanderItemPrimitive);
 
 ExpanderItem.displayName = 'ExpanderItem';

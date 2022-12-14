@@ -5,13 +5,14 @@ import { countryDialCodes } from '@aws-amplify/ui';
 
 import { CountryCodeSelect } from '../CountryCodeSelect';
 import { ComponentClassNames } from '../../shared/constants';
+import { DialCodeSelectProps, PrimitivePropsWithRef } from '../../types';
 
 describe('CountryCodeSelect', () => {
   const setup = async ({
     defaultValue = '+1',
     label = 'Country Code',
     ...rest
-  }: Partial<typeof CountryCodeSelect['defaultProps']>) => {
+  }: Partial<PrimitivePropsWithRef<DialCodeSelectProps, 'select'>>) => {
     render(
       <CountryCodeSelect label={label} defaultValue={defaultValue} {...rest} />
     );
@@ -270,7 +271,7 @@ describe('CountryCodeSelect', () => {
     await setup({ testId, ref });
 
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('SELECT');
+    expect(ref.current?.nodeName).toBe('SELECT');
   });
 
   it('should have a hidden label by default', async () => {

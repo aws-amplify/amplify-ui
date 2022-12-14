@@ -9,7 +9,12 @@ import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { TabsProps, TabItemProps, Primitive } from '../types';
+import {
+  TabsProps,
+  TabItemProps,
+  Primitive,
+  ForwardRefPrimitive,
+} from '../types';
 import { View } from '../View';
 
 const isTabsType = (child: any): child is React.Component<TabItemProps> => {
@@ -21,7 +26,7 @@ const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   );
 };
 
-const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
+const TabsPrimitive: Primitive<TabsProps, 'div'> = (
   {
     ariaLabel,
     children,
@@ -93,7 +98,7 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   );
 };
 
-const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
+const TabItemPrimitive: Primitive<TabItemProps, typeof RadixTab> = (
   { className, title, ...rest },
   ref
 ) => (
@@ -101,6 +106,8 @@ const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
     as={RadixTab}
     className={classNames(ComponentClassNames.TabItems, className)}
     ref={ref}
+    // To get around required "value" prop on Radix Trigger after we fix View typings
+    value={undefined}
     {...rest}
   >
     {title}
@@ -110,8 +117,10 @@ const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
-export const Tabs = React.forwardRef(TabsPrimitive);
-export const TabItem = React.forwardRef(TabItemPrimitive);
+export const Tabs: ForwardRefPrimitive<TabsProps, 'div'> =
+  React.forwardRef(TabsPrimitive);
+export const TabItem: ForwardRefPrimitive<TabItemProps, typeof RadixTab> =
+  React.forwardRef(TabItemPrimitive);
 
 Tabs.displayName = 'Tabs';
 TabItem.displayName = 'TabItem';

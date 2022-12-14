@@ -10,7 +10,7 @@ import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
 import { IconMenu } from '../Icon/internal';
 import { MenuButton } from './MenuButton';
-import { MenuProps, Primitive } from '../types';
+import { ForwardRefPrimitive, MenuProps, Primitive } from '../types';
 
 export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id';
 export const MENU_ITEMS_GROUP_TEST_ID = 'amplify-menu-items-group-test-id';
@@ -66,6 +66,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
  */
-export const Menu = React.forwardRef(MenuPrimitive);
+export const Menu: ForwardRefPrimitive<MenuProps, 'div'> =
+  React.forwardRef(MenuPrimitive);
 
 Menu.displayName = 'Menu';

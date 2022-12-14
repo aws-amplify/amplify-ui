@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
-import { HeadingProps, Primitive } from '../types';
+import { ForwardRefPrimitive, HeadingProps, Primitive } from '../types';
 import { View } from '../View';
 
 type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -47,6 +47,7 @@ const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/heading)
  */
-export const Heading = React.forwardRef(HeadingPrimitive);
+export const Heading: ForwardRefPrimitive<HeadingProps, HeadingTag> =
+  React.forwardRef(HeadingPrimitive);
 
 Heading.displayName = 'Heading';

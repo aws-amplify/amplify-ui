@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 
 import { ComponentClassNames } from '../../shared';
 import { Link } from '../Link';
-import { Text } from '../../Text/Text';
 import { Flex } from '../../Flex';
 import { Heading } from '../../Heading';
 
@@ -67,7 +66,7 @@ describe('Link: ', () => {
     render(<Link ref={ref}>{linkText}</Link>);
 
     await screen.findByText(linkText);
-    expect(ref.current.nodeName).toBe('A');
+    expect(ref.current?.nodeName).toBe('A');
   });
 
   it('can add the rel attribute to the rendered anchor tag', async () => {
@@ -78,11 +77,15 @@ describe('Link: ', () => {
   });
 
   it('can render the Link tag as other components', async () => {
-    render(<Link as={Text}>{linkText}</Link>);
-
+    render(
+      <Router>
+        <Link as={ReactRouterLink} to="">
+          {linkText}
+        </Link>
+      </Router>
+    );
     const link = await screen.findByText(linkText);
-    expect(link).toHaveClass(ComponentClassNames.Text);
-    expect(link.nodeName).toBe('P');
+    expect(link.nodeName).toBe('A');
   });
 
   it('can apply styling via props', async () => {
@@ -114,12 +117,5 @@ describe('Link: ', () => {
     userEvent.click(screen.getByText(/about/i), leftClick);
 
     expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
-  });
-
-  it('should call console.warn if "to" prop is used', async () => {
-    const spyWarn = jest.spyOn(console, 'warn');
-    render(<Link to="/test">Test</Link>);
-    expect(spyWarn).toHaveBeenCalled();
-    spyWarn.mockRestore();
   });
 });

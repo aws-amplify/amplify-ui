@@ -60,4 +60,7 @@ export interface TabItemProps extends BaseComponentProps, BaseStyleProps {
    * Make a Tab not clickable and its content not visible to the user. Defaults to false (i.e., visible).
    */
   isDisabled?: boolean;
+
+  // Override the required 'value' prop on Radix Trigger
+  value?: string;
 }

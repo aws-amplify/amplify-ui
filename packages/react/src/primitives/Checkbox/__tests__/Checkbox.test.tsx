@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import { Checkbox } from '../Checkbox';
 import { CheckboxProps } from '../../types/checkbox';
-import { PrimitiveProps } from '../../types/view';
+import { PrimitivePropsWithRef } from '../../types/view';
 import { ComponentClassNames } from '../../shared/constants';
 import {
   testFlexProps,
@@ -19,7 +19,9 @@ describe('Checkbox test suite', () => {
     testId: 'testId',
   };
 
-  const getCheckbox = (props: PrimitiveProps<CheckboxProps, 'input'>) => {
+  const getCheckbox = (
+    props: PrimitivePropsWithRef<CheckboxProps, 'input'>
+  ) => {
     return <Checkbox {...props} />;
   };
 
@@ -100,7 +102,7 @@ describe('Checkbox test suite', () => {
     render(<Checkbox ref={ref} {...basicProps} />);
 
     await screen.findByTestId(basicProps.testId);
-    expect(ref.current.nodeName).toBe('INPUT');
+    expect(ref.current?.nodeName).toBe('INPUT');
   });
 
   it('should render all flex style props', async () => {

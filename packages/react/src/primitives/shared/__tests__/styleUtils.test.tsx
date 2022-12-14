@@ -14,10 +14,11 @@ import {
   AllStyleProps,
   ComponentPropsToStylePropsMap,
   ViewProps,
+  PrimitivePropsWithoutRef,
 } from '../../types';
 import { Breakpoint } from '../../types/responsive';
 
-const props: ViewProps = {
+const props: PrimitivePropsWithoutRef<ViewProps, 'section'> = {
   backgroundColor: 'blue',
   border: '1px solid black',
   borderRadius: '6px',
@@ -65,7 +66,7 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 
   it('should ignore undefined, null or empty string style prop values', () => {
-    const props: ViewProps = {
+    const props: PrimitivePropsWithoutRef<ViewProps, 'section'> = {
       backgroundColor: undefined,
       // cast to `undefined` to allow robustness testing
       color: null as unknown as undefined,

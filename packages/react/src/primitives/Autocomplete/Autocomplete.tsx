@@ -13,6 +13,7 @@ import type {
   AutocompleteComboboxProps,
   AutocompleteProps,
   ComboBoxOption,
+  ForwardRefPrimitive,
   Primitive,
 } from '../types';
 
@@ -165,6 +166,7 @@ export const AutocompletePrimitive: Primitive<AutocompleteProps, 'input'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/autocomplete)
  */
-export const Autocomplete = React.forwardRef(AutocompletePrimitive);
+export const Autocomplete: ForwardRefPrimitive<AutocompleteProps, 'input'> =
+  React.forwardRef(AutocompletePrimitive);
 
 Autocomplete.displayName = 'Autocomplete';

@@ -7,7 +7,7 @@ import { Input } from '../Input';
 import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
-import { Primitive } from '../types/view';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { getTestId } from '../utils/testUtils';
 import { useStableId } from '../utils/useStableId';
 import { useCheckbox } from './useCheckbox';
@@ -176,6 +176,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   );
 };
 
-export const Checkbox = React.forwardRef(CheckboxPrimitive);
+export const Checkbox: ForwardRefPrimitive<CheckboxProps, 'input'> =
+  React.forwardRef(CheckboxPrimitive);
 
 Checkbox.displayName = 'Checkbox';
