@@ -2,10 +2,17 @@ import * as React from 'react';
 import { FlexProps } from './flex';
 import { GridProps } from './grid';
 import { BaseStyleProps } from './style';
+import { ElementType } from './view';
 
 export type CollectionType = 'list' | 'grid' | 'table';
 
 export interface CollectionWrapperProps extends BaseStyleProps {
+  /**
+   * @description
+   * Changes the type of HTML element rendered
+   */
+  as?: ElementType;
+
   /**
    * @description
    * Collection type. This will be used to determine collection wrapper component.

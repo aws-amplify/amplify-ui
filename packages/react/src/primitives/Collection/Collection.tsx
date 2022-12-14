@@ -13,8 +13,6 @@ import {
   CollectionProps,
   GridCollectionProps,
   ListCollectionProps,
-  ElementType,
-  PrimitivePropsWithAs,
 } from '../types';
 import { getItemsAtPage, itemHasText, getPageCount } from './utils';
 
@@ -61,7 +59,7 @@ const renderCollectionOrNoResultsFound = <Item,>(
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
  */
-export const Collection = <Item, Element extends ElementType>({
+export const Collection = <Item,>({
   className,
   isSearchable,
   isPaginated,
@@ -74,7 +72,7 @@ export const Collection = <Item, Element extends ElementType>({
   type = 'list',
   testId,
   ...rest
-}: PrimitivePropsWithAs<CollectionProps<Item>, ElementType>): JSX.Element => {
+}: CollectionProps<Item>): JSX.Element => {
   const [searchText, setSearchText] = React.useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
