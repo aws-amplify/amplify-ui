@@ -14,6 +14,7 @@ export const CLOSE_BUTTON_TEST_ID =
 
 export default function ErrorMessage({
   children,
+  iconStyle,
   labelStyle,
   onDismiss,
   style,
@@ -28,7 +29,11 @@ export default function ErrorMessage({
       accessibilityRole="alert"
       style={[themedStyle.container, style]}
     >
-      <Icon size={20} source={icons.error} style={themedStyle.icon} />
+      <Icon
+        size={20}
+        source={icons.error}
+        style={[themedStyle.icon, iconStyle]}
+      />
       <Text style={[themedStyle.label, labelStyle]}>{children}</Text>
       {onDismiss ? (
         <IconButton

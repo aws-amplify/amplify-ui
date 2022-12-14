@@ -40,7 +40,7 @@ export const OVERRIDES = [
   },
   {
     name: `ErrorMessage?`,
-    description: 'Error alert that displays on delete user errors',
+    description: 'Error alert that displays on change password errors',
     type: `ErrorMessageComponentProps`,
   },
   {
