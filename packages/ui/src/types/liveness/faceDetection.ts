@@ -10,6 +10,7 @@ export interface Face {
   probability?: number;
   rightEye: number[];
   leftEye: number[];
+  mouth: number[];
 }
 
 /**

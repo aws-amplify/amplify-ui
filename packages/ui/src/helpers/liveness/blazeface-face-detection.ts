@@ -61,6 +61,10 @@ export class BlazeFaceFaceDetection extends FaceDetection {
       const height = Math.abs(bottom - top);
       const rightEye = landmarks[0];
       const leftEye = landmarks[1];
+      // const nose = landmarks[2];
+      const mouth = landmarks[3];
+      // const rightEar = landmarks[4];
+      // const leftEar = landmarks[5];
 
       return {
         top,
@@ -71,6 +75,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
         probability: probability[0] as number,
         rightEye,
         leftEye,
+        mouth,
       };
     });
 

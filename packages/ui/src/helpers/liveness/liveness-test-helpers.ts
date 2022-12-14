@@ -61,6 +61,7 @@ export const mockFace: Face = {
   timestampMs: testTimestampMs,
   rightEye: [200, 200],
   leftEye: [200, 200],
+  mouth: [200, 200],
 };
 export const mockOvalDetails: LivenessOvalDetails = {
   height: 100,

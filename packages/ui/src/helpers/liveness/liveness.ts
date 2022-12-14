@@ -38,10 +38,20 @@ function getIntersectionOverUnion(
   const xB = Math.min(box1.right, box2.right);
   const yB = Math.min(box1.bottom, box2.bottom);
 
-  const intersectionArea = Math.max(0, xB - xA + 1) * Math.max(0, yB - yA + 1);
+  const intersectionArea = Math.abs(
+    Math.max(0, xB - xA) * Math.max(0, yB - yA)
+  );
 
-  const boxAArea = (box1.bottom - box1.top + 1) * (box1.right - box1.left + 1);
-  const boxBArea = (box2.bottom - box2.top + 1) * (box2.right - box2.left + 1);
+  if (intersectionArea === 0) {
+    return 0;
+  }
+
+  const boxAArea = Math.abs(
+    (box1.right - box1.left) * (box1.bottom - box1.top)
+  );
+  const boxBArea = Math.abs(
+    (box2.right - box2.left) * (box2.bottom - box2.top)
+  );
 
   return intersectionArea / (boxAArea + boxBArea - intersectionArea);
 }
@@ -194,12 +204,7 @@ export function getFaceMatchStateInLivenessOval(
   const minOvalY = ovalDetails.centerY - ovalDetails.height / 2;
   const maxOvalY = ovalDetails.centerY + ovalDetails.height / 2;
 
-  const faceBoundingBox: BoundingBox = {
-    left: minFaceX,
-    top: minFaceY,
-    right: maxFaceX,
-    bottom: maxFaceY,
-  };
+  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(face);
   const ovalBoundingBox: BoundingBox = {
     left: minOvalX,
     top: minOvalY,
@@ -212,7 +217,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  const intersectionThreshold = 0.5;
+  const intersectionThreshold = 0.6;
   const ovalMatchWidthThreshold = ovalDetails.width * 0.25;
   const ovalMatchHeightThreshold = ovalDetails.height * 0.25;
   const faceDetectionWidthThreshold = ovalDetails.width * 0.15;
@@ -241,6 +246,25 @@ export function getFaceMatchStateInLivenessOval(
   }
 
   return faceMatchState;
+}
+
+function generateBboxFromLandmarks(face: Face): BoundingBox {
+  const { leftEye, rightEye, mouth } = face;
+
+  const eyeCenter = [];
+  eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
+  eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
+  const ow = Math.abs(leftEye[0] - rightEye[0]) * 2.5;
+
+  const cx = (mouth[0] + eyeCenter[0]) / 2;
+  const cy = (mouth[1] + eyeCenter[1]) / 2;
+
+  const left = cx - ow / 2,
+    top = cy - ow / 2;
+  const width = ow,
+    height = ow;
+
+  return { left: left, top: top, right: left + width, bottom: top + height };
 }
 
 /**

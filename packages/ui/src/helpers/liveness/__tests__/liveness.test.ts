@@ -29,6 +29,7 @@ describe('Liveness Helper', () => {
       timestampMs: Date.now(),
       rightEye: [200, 200],
       leftEye: [200, 200],
+      mouth: [200, 200],
     };
 
     it('should return the correct oval details in landscape', () => {
@@ -82,16 +83,23 @@ describe('Liveness Helper', () => {
 
     it('should return correct state when MATCHED', () => {
       const face: Face = {
-        height: 250,
-        width: 150,
-        top: 160,
-        left: 208,
+        height: 236,
+        width: 315,
+        top: 163,
+        left: 148,
         timestampMs: Date.now(),
-        rightEye: [200, 200],
-        leftEye: [200, 200],
+        rightEye: [369, 223],
+        leftEye: [254, 220],
+        mouth: [304, 335],
+      };
+      const oval: LivenessOvalDetails = {
+        centerX: 310, // left: 286 - 157 / 2 = 207.5
+        centerY: 235, // top: 285 - 254 / 2 = 158
+        height: 460,
+        width: 284,
       };
 
-      const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
+      const actualState = getFaceMatchStateInLivenessOval(face, oval);
 
       expect(actualState).toEqual(FaceMatchState.MATCHED);
     });
@@ -105,6 +113,7 @@ describe('Liveness Helper', () => {
         timestampMs: Date.now(),
         rightEye: [200, 200],
         leftEye: [200, 200],
+        mouth: [200, 200],
       };
 
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
@@ -121,6 +130,7 @@ describe('Liveness Helper', () => {
         timestampMs: Date.now(),
         rightEye: [200, 200],
         leftEye: [200, 200],
+        mouth: [200, 200],
       };
 
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
@@ -137,6 +147,7 @@ describe('Liveness Helper', () => {
         timestampMs: Date.now(),
         rightEye: [200, 200],
         leftEye: [200, 200],
+        mouth: [200, 200],
       };
 
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
@@ -153,6 +164,7 @@ describe('Liveness Helper', () => {
         timestampMs: Date.now(),
         rightEye: [200, 200],
         leftEye: [200, 200],
+        mouth: [200, 200],
       };
 
       const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
