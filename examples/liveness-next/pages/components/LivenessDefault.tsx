@@ -12,7 +12,10 @@ import { GetLivenessResultCard } from './GetLivenessResultCard';
 
 import LivenessLogo from './LivenessLogo';
 
-export default function LivenessDefault({ disableStartScreen = false }) {
+export default function LivenessDefault({
+  disableStartScreen = false,
+  components = undefined,
+}) {
   const {
     getLivenessResponse,
     createLivenessSessionApiError,
@@ -57,6 +60,7 @@ export default function LivenessDefault({ disableStartScreen = false }) {
             onGetLivenessDetection={handleGetLivenessDetection}
             enableAnalytics={true}
             disableStartScreen={disableStartScreen}
+            components={components}
           />
 
           <GetLivenessResultCard getLivenessResponse={getLivenessResponse} />

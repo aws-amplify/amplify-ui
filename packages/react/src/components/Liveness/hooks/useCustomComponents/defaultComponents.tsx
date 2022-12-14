@@ -1,12 +1,6 @@
 import React from 'react';
 import { translate } from '@aws-amplify/ui';
-import {
-  Flex,
-  View,
-  ComponentClassNames,
-  Text,
-  Collection,
-} from '../../../../primitives';
+import { Flex, View, ComponentClassNames, Text } from '../../../../primitives';
 import { DescriptionBullet } from '../../shared';
 import { LivenessIconWithPopover } from '../../shared/LivenessIconWithPopover';
 import { useTheme } from '../../../../hooks/useTheme';
@@ -88,15 +82,27 @@ export const LivenessInstructions = (): JSX.Element => {
       <Text color="font.tertiary">
         {translate<string>(defaultLivenessInstructionsHeader)}
       </Text>
-      <Collection type="list" items={INSTRUCTIONS}>
-        {(item, index) => (
-          <DescriptionBullet
-            key={index + 1}
-            index={index + 1}
-            desc={item.desc}
-          />
+      <DescriptionBullet
+        key={0}
+        index={1}
+        desc={translate(
+          'Make sure your face is not covered with sunglasses or a mask.'
         )}
-      </Collection>
+      />
+      <DescriptionBullet
+        key={1}
+        index={2}
+        desc={translate(
+          'Move to a well-lit place that is not dark or in direct sunlight.'
+        )}
+      />
+      <DescriptionBullet
+        key={2}
+        index={3}
+        desc={translate(
+          'When check starts, fit face in oval, and hold for colored lights.'
+        )}
+      />
     </View>
   );
 };
