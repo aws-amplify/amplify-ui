@@ -6,12 +6,13 @@
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "scripts": {
+    "generate:version": "node ../../scripts/generateVersion.js",
     "build": "yarn dist && cp -a src/assets dist",
     "clean": "rimraf dist",
     "dev": "yarn dist --watch",
     "dist": "tsc --project tsconfig.dist.json",
     "lint": "tsc --noEmit && eslint src",
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist && yarn generate:version",
     "test": "jest --coverage --verbose",
     "test:watch": "yarn test --watch"
   },
