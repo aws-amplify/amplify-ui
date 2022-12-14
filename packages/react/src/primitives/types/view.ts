@@ -25,7 +25,7 @@ type RefProp<Element extends ElementType> = React.RefAttributes<
   React.ComponentRef<Element>
 >;
 
-type PrimitivePropsWithAs<
+export type PrimitivePropsWithAs<
   Props extends ViewProps,
   Element extends ElementType
 > = Omit<Props, 'as'> & AsProp<Element>;
