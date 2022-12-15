@@ -243,7 +243,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  const intersectionThreshold = 0.6;
+  const intersectionThreshold = 0.58;
   const ovalMatchWidthThreshold = ovalDetails.width * 0.25;
   const ovalMatchHeightThreshold = ovalDetails.height * 0.25;
   const faceDetectionWidthThreshold = ovalDetails.width * 0.15;
@@ -609,7 +609,7 @@ export async function getFaceMatchState(
 }
 
 const FACE_DISTANCE_THRESHOLD = 0.3;
-const REDUCED_THRESHOLD = 0.4;
+const REDUCED_THRESHOLD = 0.34;
 
 export async function isFaceDistanceBelowThreshold({
   faceDetector,
