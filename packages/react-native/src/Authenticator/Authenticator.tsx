@@ -11,9 +11,12 @@ import {
   UseAuthenticator,
 } from '@aws-amplify/ui-react-core';
 
+import { configureComponent } from '@aws-amplify/ui';
+
 import { DefaultContainer, InnerContainer } from './common';
 import { TypedField, getRouteTypedFields } from './hooks';
 import { AuthenticatorProps } from './types';
+import { VERSION } from '../version';
 
 import {
   ConfirmResetPassword,
@@ -58,6 +61,13 @@ function Authenticator({
   Header,
   ...options
 }: AuthenticatorProps): JSX.Element | null {
+  React.useEffect(() => {
+    configureComponent({
+      packageName: '@aws-amplify/ui-react-native',
+      version: VERSION,
+    });
+  }, []);
+
   useAuthenticatorInitMachine(options);
 
   const { fields, route } = useAuthenticator(routePropSelector);

@@ -1,5 +1,17 @@
 # @aws-amplify/ui-react-native
 
+## 1.1.4
+
+### Patch Changes
+
+- [#3164](https://github.com/aws-amplify/amplify-ui/pull/3164) [`7f99d8b1a`](https://github.com/aws-amplify/amplify-ui/commit/7f99d8b1a16b23c180c42a11a9bc992b5c4f2861) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react-native): update ErrorMessage style
+
+- [#2921](https://github.com/aws-amplify/amplify-ui/pull/2921) [`2d0799002`](https://github.com/aws-amplify/amplify-ui/commit/2d0799002dbfa843a1720c2384eadba942333f76) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui-react-native): Add utility hook for pressable styles
+
+- Updated dependencies [[`c31a9bf69`](https://github.com/aws-amplify/amplify-ui/commit/c31a9bf693b3507e8a2b9d0790423a9f64e533cf), [`1847840c0`](https://github.com/aws-amplify/amplify-ui/commit/1847840c00c0f9f7be31e9735c31bd596f4056e9)]:
+  - @aws-amplify/ui@5.3.1
+  - @aws-amplify/ui-react-core@2.1.4
+
 ## 1.1.3
 
 ### Patch Changes
