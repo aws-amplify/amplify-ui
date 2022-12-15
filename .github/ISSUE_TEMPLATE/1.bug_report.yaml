@@ -68,10 +68,10 @@ body:
       label: What browsers are you seeing the problem on?
       multiple: true
       options:
-        - Firefox
         - Chrome
-        - Safari
+        - Firefox
         - Microsoft Edge
+        - Safari
   - type: textarea
     attributes:
       label: Please describe your bug.
