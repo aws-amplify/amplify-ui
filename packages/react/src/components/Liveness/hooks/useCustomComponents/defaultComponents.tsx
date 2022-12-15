@@ -78,7 +78,7 @@ export const defaultLivenessInstructionsHeader: string =
 
 export const LivenessInstructions = (): JSX.Element => {
   return (
-    <View>
+    <Flex direction="column">
       <Text color="font.tertiary">
         {translate<string>(defaultLivenessInstructionsHeader)}
       </Text>
@@ -91,7 +91,7 @@ export const LivenessInstructions = (): JSX.Element => {
           />
         )}
       </Collection>
-    </View>
+    </Flex>
   );
 };
 
