@@ -1,5 +1,13 @@
 # @aws-amplify/ui
 
+## 5.3.1
+
+### Patch Changes
+
+- [#2907](https://github.com/aws-amplify/amplify-ui/pull/2907) [`c31a9bf69`](https://github.com/aws-amplify/amplify-ui/commit/c31a9bf693b3507e8a2b9d0790423a9f64e533cf) Thanks [@NivBraz](https://github.com/NivBraz)! - Added Hebrew as an option for Authenticator
+
+- [#3029](https://github.com/aws-amplify/amplify-ui/pull/3029) [`1847840c0`](https://github.com/aws-amplify/amplify-ui/commit/1847840c00c0f9f7be31e9735c31bd596f4056e9) Thanks [@hugobeaujour](https://github.com/hugobeaujour)! - chore: add translation texts for French
+
 ## 5.3.0
 
 ### Minor Changes
