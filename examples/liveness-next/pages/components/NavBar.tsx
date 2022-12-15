@@ -76,6 +76,10 @@ export default function NavBar({
               <Link href="/liveness-next-example/disable-start-screen">
                 Disable Start Screen
               </Link>
+
+              <Link href="/liveness-next-example/with-custom-components">
+                With Custom Components
+              </Link>
             </Flex>
           </Card>
         </View>

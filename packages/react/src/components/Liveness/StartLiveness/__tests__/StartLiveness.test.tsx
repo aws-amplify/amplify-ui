@@ -8,7 +8,13 @@ import {
 } from '../../utils/test-utils';
 import { useLivenessActor } from '../../hooks/useLivenessActor';
 import { getVideoConstraints } from '../helpers';
-import { StartLiveness, INSTRUCTIONS } from '../StartLiveness';
+import { StartLiveness } from '../StartLiveness';
+import {
+  INSTRUCTIONS,
+  defaultLivenessInstructionsHeader,
+  defaultPhotosensitiveWarningHeader,
+  defaultLivenessHeaderHeading,
+} from '../../hooks/useCustomComponents/defaultComponents';
 
 jest.mock('../../hooks/useLivenessActor');
 jest.mock('../../shared/CancelButton');
@@ -49,6 +55,42 @@ describe('StartLiveness', () => {
     INSTRUCTIONS.forEach(({ desc }) => {
       expect(screen.getByText(desc)).toBeInTheDocument();
     });
+
+    expect(
+      screen.getByRole('button', { name: beginCheckBtnName })
+    ).toBeInTheDocument();
+  });
+
+  it('should render the StartLiveness component with custom component override', () => {
+    const photosensitiveWarning = 'Some warning related to photosensitivity';
+    const livenessInstructions =
+      'Some instructions to follow to use liveness face detector';
+    renderWithLivenessProvider(
+      <StartLiveness
+        beginLivenessCheck={mockBeginCheck}
+        components={{
+          PhotosensitiveWarning: (): JSX.Element => {
+            return <span>{photosensitiveWarning}</span>;
+          },
+          LivenessInstructions: (): JSX.Element => {
+            return <span>{livenessInstructions}</span>;
+          },
+        }}
+      />
+    );
+
+    expect(screen.getByText(photosensitiveWarning)).toBeInTheDocument();
+    expect(screen.getByText(livenessInstructions)).toBeInTheDocument();
+    // check for default liveness header component if no custom override
+    expect(screen.getByText(defaultLivenessHeaderHeading)).toBeInTheDocument();
+
+    // check that the default components are not present when custom overrides are provided
+    expect(
+      screen.queryByText(defaultPhotosensitiveWarningHeader)
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(defaultLivenessInstructionsHeader)
+    ).not.toBeInTheDocument();
 
     expect(
       screen.getByRole('button', { name: beginCheckBtnName })
