@@ -69,7 +69,7 @@
     "react-generate-context": "1.0.1",
     "react-map-gl": "7.0.15",
     "tinycolor2": "1.4.2",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "aws-amplify": "5.x.x",
