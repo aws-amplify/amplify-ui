@@ -45,6 +45,36 @@ Feature: Sign In with Force New Password flow
     Then I click the "Change Password" button
     Then I see "+17755551212"
 
+  @angular @react @vue
+  Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters wrong password requirements
+    When I type my "username" with status "FORCE_CHANGE_PASSWORD"
+    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+    And I type my password
+    And I click the "Sign in" button
+    Then I should see the Force Change Password screen
+    And I type an invalid wrong complexity new password
+    And I confirm my password
+    Then I see "Password must have numbers"
+    Then I see "Password must have special characters"
+    Then I see "Password must have upper case letters"
+    Then I see "Password must have at least 8 characters"
+
+  @angular @react @vue
+  Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters password without lower case characters
+    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+    And I type my password
+    And I click the "Sign in" button
+    Then I should see the Force Change Password screen
+    And I type an invalid no lower case new password
+    And I confirm my password
+    Then I see "Password must have numbers"
+    Then I see "Password must have special characters"
+    Then I see "Password must have lower case letters"
+    Then I see "Password must have at least 8 characters"
+    And I confirm "Password must have numbers" error is accessible
+
   @angular @react @vue 
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters an invalid new password
     When I select my country code with status "FORCE_CHANGE_PASSWORD"
