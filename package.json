@@ -28,7 +28,8 @@
     "publish:studio": "yarn changeset publish --tag studio",
     "version:latest": "yarn changeset version && yarn generateVersions && yarn angular build",
     "publish:latest": "yarn changeset publish",
-    "generateVersions": "node scripts/generateVersion"
+    "generateVersions": "node scripts/generateVersion",
+    "bumpVersions": "yarn changeset version && yarn generateVersions"
   },
   "workspaces": {
     "packages": [
