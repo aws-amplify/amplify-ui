@@ -316,6 +316,7 @@ h4:hover > a .icon-link {
 @keyframes expand-out {
   0% {
     letter-spacing: calc(-1 * var(--amplify-space-xs));
+    transform: translateZ(-500px);
     opacity: var(--amplify-opacities-0);
   }
   50% {
