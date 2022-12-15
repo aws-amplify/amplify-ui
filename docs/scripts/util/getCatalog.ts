@@ -48,15 +48,7 @@ function getCatalog() {
   const catalog: Catalog = {} as Catalog;
   for (const [componentName, [node]] of source.getExportedDeclarations()) {
     let properties: Properties = {};
-    const typeName = node.getType().getText(node);
-    // if (typeName.startsWith('Primitive')) {
-    //   console.log(componentName);
-    // }
     if (isPrimitive(node)) {
-      console.log(componentName);
-      // if (componentName === 'RadioGroupField') {
-      //   console.log(node.getType().getText(node));
-      // }
       const [propsType] = node.getType().getTypeArguments();
       properties = getComponentProperties(
         propsType,

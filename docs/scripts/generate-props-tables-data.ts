@@ -198,6 +198,19 @@ function getPropertiesFromAllTypeData(sourceTypes: TypeFileName[]) {
   let targetProps: Properties;
 
   sourceTypes.forEach((type) => {
+    if (type === 'View') {
+      // as prop
+      targetProps = {
+        ...targetProps,
+        as: {
+          name: 'as',
+          type: 'React.ElementType',
+          description: 'Changes the type of HTML element rendered',
+          category: 'BaseComponentProps',
+          isOptional: true,
+        },
+      };
+    }
     if (!allTypeFilesInterfaceData.get(type)) return;
     for (const [propName, property] of allTypeFilesInterfaceData
       .get(type)
