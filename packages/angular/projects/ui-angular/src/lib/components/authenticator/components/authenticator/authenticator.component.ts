@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import {
   AuthenticatorMachineOptions,
+  configureComponent,
   defaultAuthHubHandler,
   listenToAuthHub,
   SocialProvider,
@@ -20,6 +21,7 @@ import {
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
+import { VERSION } from '../../../../../version';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -66,6 +68,11 @@ export class AuthenticatorComponent
       socialProviders,
       formFields,
     } = this;
+
+    configureComponent({
+      packageName: '@aws-amplify/ui-angular',
+      version: VERSION,
+    });
 
     const { authService, initializeMachine } = this.authenticator;
 
