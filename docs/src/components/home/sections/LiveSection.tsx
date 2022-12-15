@@ -34,7 +34,12 @@ export const LiveSection = ({ platform, ...rest }) => {
       ref={ref}
     >
       <View className="docs-home-subsection">
-        <Heading level={2}>Take it for a test drive</Heading>
+        <Heading
+          level={2}
+          className={classNames('expand-out', isVisible && 'shown')}
+        >
+          Take it for a test drive
+        </Heading>
       </View>
 
       <View className="docs-home-subsection">

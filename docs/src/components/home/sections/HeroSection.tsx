@@ -21,6 +21,7 @@ import { CardLink } from '@/components/CardLink';
 import { FRAMEWORKS, FRAMEWORK_INSTALL_SCRIPTS } from '@/data/frameworks';
 import { FrameworkLogo } from '@/components/Logo';
 import { TerminalCommand } from '@/components/InstallScripts';
+import classNames from 'classnames';
 
 export const HeroSection = () => {
   const {
@@ -42,7 +43,11 @@ export const HeroSection = () => {
           className="docs-home-subsection--thin"
           alignItems="center"
         >
-          <Heading level={1} marginBlockEnd="0">
+          <Heading
+            level={1}
+            marginBlockEnd="0"
+            className={classNames('expand-out', 'shown')}
+          >
             Themeable, accessible components
             <br />
             <strong>Ready to connect to the cloud</strong>
