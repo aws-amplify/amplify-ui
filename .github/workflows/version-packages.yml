@@ -8,7 +8,6 @@ name: Version Packages
 on:
   push:
     branches: [main]
-  pull_request:
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR
