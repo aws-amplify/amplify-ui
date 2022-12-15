@@ -384,7 +384,7 @@ describe('Liveness Machine', () => {
   });
 
   describe('detectFaceBeforeStart', () => {
-    it('should reach initializeLivenessStream state on face detected', async () => {
+    it('should reach detectFaceDistanceBeforeRecording state on face detected', async () => {
       transitionToCameraCheck(service);
       await flushPromises(); // waitForDOMAndCameraDetails
 
@@ -400,7 +400,7 @@ describe('Liveness Machine', () => {
       await flushPromises();
       jest.advanceTimersToNextTimer(); // checkFaceDetectedBeforeStart
 
-      expect(service.state.value).toEqual('initializeLivenessStream');
+      expect(service.state.value).toEqual('detectFaceDistanceBeforeRecording');
     });
   });
 

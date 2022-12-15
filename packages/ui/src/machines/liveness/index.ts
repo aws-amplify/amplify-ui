@@ -27,6 +27,7 @@ import {
   FreshnessColorDisplay,
 } from '../../helpers';
 import { v4 } from 'uuid';
+import { getStaticLivenessOvalDetails } from '../../helpers/liveness/liveness';
 import {
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,
@@ -150,10 +151,28 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       checkFaceDetectedBeforeStart: {
         after: {
           0: {
-            target: 'initializeLivenessStream',
+            target: 'detectFaceDistanceBeforeRecording',
             cond: 'hasSingleFaceBeforeStart',
           },
           100: { target: 'detectFaceBeforeStart' },
+        },
+      },
+      detectFaceDistanceBeforeRecording: {
+        invoke: {
+          src: 'detectFaceDistance',
+          onDone: {
+            target: 'checkFaceDistanceBeforeRecording',
+            actions: ['updateFaceDistanceBeforeRecording'],
+          },
+        },
+      },
+      checkFaceDistanceBeforeRecording: {
+        after: {
+          0: {
+            target: 'initializeLivenessStream',
+            cond: 'hasEnoughFaceDistanceBeforeRecording',
+          },
+          100: { target: 'detectFaceDistanceBeforeRecording' },
         },
       },
       initializeLivenessStream: {
@@ -171,48 +190,24 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       waitForSessionInfo: {
         after: {
           0: {
-            target: 'setupFaceDistanceTimeout',
+            target: 'notRecording',
             cond: 'hasServerSessionInfo',
           },
           100: { target: 'waitForSessionInfo' },
-        },
-      },
-      setupFaceDistanceTimeout: {
-        entry: ['sendTimeoutAfterFaceDistanceDelay'],
-        always: {
-          target: 'detectFaceDistanceBeforeRecording',
-        },
-      },
-      detectFaceDistanceBeforeRecording: {
-        invoke: {
-          src: 'detectFaceDistance',
-          onDone: {
-            target: 'checkFaceDistanceBeforeRecording',
-            actions: ['updateFaceDistanceAndOvalDetailsBeforeRecording'],
-          },
-        },
-      },
-      checkFaceDistanceBeforeRecording: {
-        after: {
-          0: {
-            target: 'notRecording',
-            cond: 'hasEnoughFaceDistanceBeforeRecording',
-          },
-          100: { target: 'detectFaceDistanceBeforeRecording' },
         },
       },
       notRecording: {
         on: {
           START_RECORDING: 'recording', // if countdown completes while face is far enough, start recording
         },
-        initial: 'detectFaceDistanceAfterCountdown',
+        initial: 'detectFaceDistanceDuringCountdown',
         states: {
-          detectFaceDistanceAfterCountdown: {
+          detectFaceDistanceDuringCountdown: {
             invoke: {
               src: 'detectFaceDistance',
               onDone: {
                 target: 'checkFaceDistanceDuringCountdown',
-                actions: ['updateFaceDistanceAndOvalDetailsBeforeRecording'],
+                actions: ['updateFaceDistanceBeforeRecording'],
               },
             },
           },
@@ -223,21 +218,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                 cond: 'hasNotEnoughFaceDistanceBeforeRecording',
               },
               200: {
-                target: 'detectFaceDistanceAfterCountdown',
+                target: 'detectFaceDistanceDuringCountdown',
               },
             },
           },
           failure: {
-            type: 'final', // if face is too close during countdown go to onDone
+            entry: 'sendTimeoutAfterFaceDistanceDelay',
+            type: 'final',
           },
-        },
-        onDone: {
-          target: 'detectFaceDistanceBeforeRecording', // if face is too close, go back to detecting face distance
         },
       },
       recording: {
         entry: [
-          'cancelFaceDistanceTimeout',
           'startRecording',
           'clearErrorState',
           'sendTimeoutAfterOvalDrawingDelay',
@@ -250,7 +242,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               onDone: {
                 target: 'checkFaceDetected',
                 actions: [
-                  'updateFaceDetailsPostDraw',
+                  'updateOvalAndFaceDetailsPostDraw',
                   'sendTimeoutAfterOvalMatchDelay',
                 ],
               },
@@ -508,19 +500,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return event.data.faceMatchState;
         },
       }),
-      updateFaceDistanceAndOvalDetailsBeforeRecording: assign({
+      updateFaceDistanceBeforeRecording: assign({
         isFaceFarEnoughBeforeRecording: (_, event) => {
           return event.data.isFaceFarEnoughBeforeRecording;
         },
-        ovalAssociatedParams: (context, event) => ({
-          ...context.ovalAssociatedParams,
-          ovalDetails: event.data.ovalDetails,
-        }),
       }),
-      updateFaceDetailsPostDraw: assign({
+      updateOvalAndFaceDetailsPostDraw: assign({
         ovalAssociatedParams: (context, event) => ({
           ...context.ovalAssociatedParams,
           initialFace: event.data.initialFace,
+          ovalDetails: event.data.ovalDetails,
         }),
         faceMatchAssociatedParams: (context, event) => ({
           ...context.faceMatchAssociatedParams,
@@ -674,7 +663,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           data: { errorState: LivenessErrorState.FACE_DISTANCE_TIMEOUT },
         },
         {
-          delay: 10000,
+          delay: 0,
           id: 'faceDistanceTimeout',
         }
       ),
@@ -897,16 +886,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectFaceDistance(context) {
         const {
-          videoAssociatedParams: { videoEl, videoMediaStream, isMobile },
+          videoAssociatedParams: { videoEl, videoMediaStream },
           ovalAssociatedParams: { faceDetector },
-          serverSessionInformation,
+          isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
 
         const { width, height } = videoMediaStream.getTracks()[0].getSettings();
-        const ovalDetails = getRandomLivenessOvalDetails({
+        const ovalDetails = getStaticLivenessOvalDetails({
           width,
           height,
-          sessionInformation: serverSessionInformation,
         });
 
         const isFaceFarEnoughBeforeRecording =
@@ -914,10 +902,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             faceDetector,
             videoEl,
             ovalDetails,
-            isMobile,
+            reduceThreshold: faceDistanceCheckBeforeRecording, // if this is the second face distance check reduce the threshold
           });
 
-        return { isFaceFarEnoughBeforeRecording, ovalDetails };
+        return { isFaceFarEnoughBeforeRecording };
       },
       async detectInitialFaceAndDrawOval(context) {
         const {
@@ -928,7 +916,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             videoMediaStream,
             recordingStartTimestampMs,
           },
-          ovalAssociatedParams: { faceDetector, ovalDetails },
+          faceMatchAssociatedParams: { startFace },
+          ovalAssociatedParams: { faceDetector },
+          serverSessionInformation,
         } = context;
 
         // initialize models
@@ -986,6 +976,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // generate oval details from initialFace and video dimensions
         const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+        const ovalDetails = getRandomLivenessOvalDetails({
+          width,
+          height,
+          sessionInformation: serverSessionInformation,
+        });
 
         // draw oval on canvas
         canvasEl.width = width;
@@ -1028,7 +1023,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
         });
 
-        return { faceMatchState, initialFace };
+        return { faceMatchState, ovalDetails, initialFace };
       },
       async detectFaceAndMatchOval(context) {
         const {

@@ -106,12 +106,38 @@ export function getRandomLivenessOvalDetails({
   height: number;
   sessionInformation: SessionInformation;
 }): LivenessOvalDetails {
-  const videoHeight = height;
-  let videoWidth = width;
   const randomScalingAttributes =
     getRandomScalingAttributes(sessionInformation);
 
-  const ovalRatio = randomScalingAttributes.width * 0.05 + 0.775;
+  return getStaticLivenessOvalDetails({
+    width,
+    height,
+    widthSeed: randomScalingAttributes.width,
+    centerXSeed: randomScalingAttributes.centerX,
+    centerYSeed: randomScalingAttributes.centerY,
+  });
+}
+
+/**
+ * Returns the details of a statically generated liveness oval based on the video dimensions
+ */
+export function getStaticLivenessOvalDetails({
+  width,
+  height,
+  widthSeed = 0.5,
+  centerXSeed = 0.5,
+  centerYSeed = 0.5,
+}: {
+  width: number;
+  height: number;
+  widthSeed?: number;
+  centerXSeed?: number;
+  centerYSeed?: number;
+}): LivenessOvalDetails {
+  const videoHeight = height;
+  let videoWidth = width;
+
+  const ovalRatio = widthSeed * 0.05 + 0.775;
 
   const minOvalCenterX = Math.floor((7 * width) / 16);
   const maxOvalCenterX = Math.floor((9 * width) / 16);
@@ -119,12 +145,12 @@ export function getRandomLivenessOvalDetails({
   const maxOvalCenterY = Math.floor((9 * height) / 16);
 
   const centerX = getScaledValueFromRandomSeed(
-    randomScalingAttributes.centerX,
+    centerXSeed,
     minOvalCenterX,
     maxOvalCenterX
   );
   const centerY = getScaledValueFromRandomSeed(
-    randomScalingAttributes.centerY,
+    centerYSeed,
     minOvalCenterY,
     maxOvalCenterY
   );
@@ -583,18 +609,18 @@ export async function getFaceMatchState(
 }
 
 const FACE_DISTANCE_THRESHOLD = 0.3;
-const MOBILE_FACE_DISTANCE_THRESHOLD = 0.3;
+const REDUCED_THRESHOLD = 0.4;
 
 export async function isFaceDistanceBelowThreshold({
   faceDetector,
   videoEl,
   ovalDetails,
-  isMobile = false,
+  reduceThreshold = false,
 }: {
   faceDetector: FaceDetection;
   videoEl: HTMLVideoElement;
   ovalDetails?: LivenessOvalDetails;
-  isMobile?: boolean;
+  reduceThreshold?: boolean;
 }) {
   const detectedFaces = await faceDetector.detectFaces(videoEl);
   let detectedFace: Face;
@@ -618,7 +644,7 @@ export async function isFaceDistanceBelowThreshold({
 
       distanceBelowThreshold =
         pupilDistance / width <
-        (isMobile ? MOBILE_FACE_DISTANCE_THRESHOLD : FACE_DISTANCE_THRESHOLD);
+        (reduceThreshold ? REDUCED_THRESHOLD : FACE_DISTANCE_THRESHOLD);
       break;
     }
     default: {
