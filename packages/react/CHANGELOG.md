@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 4.2.2
+
+### Patch Changes
+
+- [#2830](https://github.com/aws-amplify/amplify-ui/pull/2830) [`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(authenticator): adding package version to cognito user agent string
+
+- Updated dependencies [[`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca)]:
+  - @aws-amplify/ui@5.3.2
+  - @aws-amplify/ui-react-core@2.1.5
+
 ## 4.2.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.3.2
+
+### Patch Changes
+
+- [#2830](https://github.com/aws-amplify/amplify-ui/pull/2830) [`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(authenticator): adding package version to cognito user agent string
+
 ## 5.3.1
 
 ### Patch Changes
