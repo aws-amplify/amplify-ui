@@ -68,13 +68,13 @@ export const Instruction: React.FC<InstructionProps> = () => {
 
       switch (errorState) {
         case LivenessErrorState.TIMEOUT:
-        case LivenessErrorState.FACE_DISTANCE_TIMEOUT:
           heading = translate('Time out');
           break;
         case LivenessErrorState.SERVER_ERROR:
           heading = translate('Server Issue');
           break;
         case LivenessErrorState.RUNTIME_ERROR:
+        case LivenessErrorState.FACE_DISTANCE_TIMEOUT:
           heading = translate('Client error');
           break;
         default:

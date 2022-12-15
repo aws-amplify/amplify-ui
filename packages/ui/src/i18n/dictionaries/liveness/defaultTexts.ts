@@ -51,7 +51,7 @@ export const defaultTexts = {
   LIVENESS_TIMEOUT:
     'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
   LIVENESS_FACE_DISTANCE_TIMEOUT:
-    'Try again and follow the on-screen instructions.',
+    'Movement detected. Try again and hold position during countdown.',
 
   LIVENESS_HINT_MULTIPLE_FACES_DETECTED: 'Multiple faces detected',
 };

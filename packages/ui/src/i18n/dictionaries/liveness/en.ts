@@ -55,8 +55,8 @@ export const enDict = {
   'Face not detected within time limit. Try again and place face inside oval within 5 seconds.':
     'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
   'Time out': 'Time out',
-  'Try again and follow the on-screen instructions.':
-    'Try again and follow the on-screen instructions.',
+  'Movement detected. Try again and hold position during countdown.':
+    'Movement detected. Try again and hold position during countdown.',
   'Server Issue': 'Server Issue',
   'Client error': 'Client error',
   'Ensure only one face is in front of camera':

@@ -372,7 +372,7 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
     'Face not detected within time limit. Try again and place face inside oval within 5 seconds.'
   ),
   [LivenessErrorState.FACE_DISTANCE_TIMEOUT]: translate<string>(
-    'Try again and follow the on-screen instructions.'
+    'Movement detected. Try again and hold position during countdown.'
   ),
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: undefined,
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: undefined,
