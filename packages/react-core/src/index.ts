@@ -46,4 +46,4 @@ export {
 } from './InAppMessaging';
 
 // components/hooks/utils
-export { useHasValueUpdated, usePreviousValue } from './hooks';
+export { useAuth, useHasValueUpdated, usePreviousValue } from './hooks';
