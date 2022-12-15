@@ -10,7 +10,7 @@ exports[`ErrorMessage applies theme and style props 1`] = `
         "backgroundColor": "hsl(0, 75%, 85%)",
         "flexDirection": "row",
         "paddingHorizontal": 8,
-        "paddingVertical": 32,
+        "paddingVertical": 12,
       },
       Object {
         "backgroundColor": "blue",
@@ -33,9 +33,13 @@ exports[`ErrorMessage applies theme and style props 1`] = `
           "tintColor": undefined,
           "width": 20,
         },
-        Object {
-          "margin": 8,
-        },
+        Array [
+          Object {
+            "margin": 8,
+            "tintColor": "hsl(0, 100%, 20%)",
+          },
+          undefined,
+        ],
       ]
     }
   />
@@ -45,6 +49,7 @@ exports[`ErrorMessage applies theme and style props 1`] = `
         Object {
           "color": "hsl(0, 100%, 20%)",
           "flex": 1,
+          "fontSize": 16,
           "paddingHorizontal": 8,
         },
         Object {
@@ -68,7 +73,7 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
         "backgroundColor": "hsl(0, 75%, 85%)",
         "flexDirection": "row",
         "paddingHorizontal": 8,
-        "paddingVertical": 32,
+        "paddingVertical": 12,
       },
       undefined,
     ]
@@ -89,9 +94,13 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
           "tintColor": undefined,
           "width": 20,
         },
-        Object {
-          "margin": 8,
-        },
+        Array [
+          Object {
+            "margin": 8,
+            "tintColor": "hsl(0, 100%, 20%)",
+          },
+          undefined,
+        ],
       ]
     }
   />
@@ -101,6 +110,7 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
         Object {
           "color": "hsl(0, 100%, 20%)",
           "flex": 1,
+          "fontSize": 16,
           "paddingHorizontal": 8,
         },
         undefined,

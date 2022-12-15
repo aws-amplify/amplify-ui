@@ -66,8 +66,9 @@ export default function DefaultContent<
       />
       {error ? (
         <ErrorMessage
-          style={themedStyles.errorMessage}
+          iconStyle={themedStyles.errorMessageIcon}
           labelStyle={themedStyles.errorMessageLabel}
+          style={themedStyles.errorMessage}
         >
           {error}
         </ErrorMessage>
