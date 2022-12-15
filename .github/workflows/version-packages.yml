@@ -7,8 +7,7 @@ name: Version Packages
 
 on:
   push:
-    branches: [main]
-  pull_request:
+    branches: [main, fix-version-packages-poc]
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR
