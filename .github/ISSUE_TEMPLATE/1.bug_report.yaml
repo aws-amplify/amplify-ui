@@ -72,6 +72,8 @@ body:
         - Firefox
         - Microsoft Edge
         - Safari
+        - iOS (React Native)
+        - Android (React Native)
   - type: textarea
     attributes:
       label: Please describe your bug.
