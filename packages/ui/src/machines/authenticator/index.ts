@@ -303,6 +303,7 @@ export function createAuthenticatorMachine() {
               formValues: {},
               touched: {},
               validationError: {},
+              passwordSettings: context.config?.passwordSettings,
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
