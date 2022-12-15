@@ -48,8 +48,11 @@ body:
       multiple: true
       options:
         - Authenticator
-        - Chatbot
-        - Storage
+        - Account Settings
+        - Geo (MapView)
+        - In-App Messaging
+        - Primitive components
+        - Storage (File Uploader)
         - Other
     validations:
       required: true
