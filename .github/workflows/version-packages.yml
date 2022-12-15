@@ -39,6 +39,6 @@ jobs:
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
-          version: yarn changeset version && yarn generateVersions
+          version: yarn bumpVersions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
