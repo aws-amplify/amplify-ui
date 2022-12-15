@@ -1,0 +1,14 @@
+.amplify-liveness-fade-out {
+  animation-name: amplify-liveness-animation-fadeout;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes amplify-liveness-animation-fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

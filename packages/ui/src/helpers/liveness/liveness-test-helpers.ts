@@ -132,6 +132,7 @@ export const mockContext = (): LivenessContext => {
     shouldDisconnect: false,
     faceMatchStateBeforeStart: FaceMatchState.MATCHED,
     isFaceFarEnoughBeforeRecording: true,
+    isRecordingStopped: false,
   };
 };
 

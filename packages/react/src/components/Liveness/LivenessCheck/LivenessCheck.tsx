@@ -5,7 +5,6 @@ import {
   LivenessErrorState,
 } from '@aws-amplify/ui';
 
-import { useTheme } from '../../../hooks';
 import { LivenessCameraModule } from './LivenessCameraModule';
 import {
   createLivenessSelector,
@@ -21,11 +20,14 @@ const CHECK_CLASS_NAME = 'liveness-detector-check';
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
 );
+export const selectIsRecordingStopped = createLivenessSelector(
+  (state) => state.context.isRecordingStopped
+);
 
 export const LivenessCheck: React.FC = () => {
-  const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
   const errorState = useLivenessSelector(selectErrorState);
+  const isRecordingStopped = useLivenessSelector(selectIsRecordingStopped);
 
   const isPermissionDenied = state.matches('permissionDenied');
   const isMobile = isMobileScreen();
@@ -43,11 +45,13 @@ export const LivenessCheck: React.FC = () => {
       className={CHECK_CLASS_NAME}
     >
       {!isPermissionDenied ? (
-        <LivenessCameraModule isMobileScreen={isMobile} />
+        <LivenessCameraModule
+          isMobileScreen={isMobile}
+          isRecordingStopped={isRecordingStopped}
+        />
       ) : (
         <Flex
-          backgroundColor={`${tokens.colors.background.primary}`}
-          color={`${tokens.colors.font.primary}`}
+          backgroundColor="background.primary"
           direction="column"
           textAlign="center"
           alignItems="center"
@@ -55,16 +59,12 @@ export const LivenessCheck: React.FC = () => {
           width="100%"
           height={480}
         >
-          <Text
-            color="inherit"
-            fontSize={`${tokens.fontSizes.large}`}
-            fontWeight={`${tokens.fontWeights.bold}`}
-          >
+          <Text fontSize="large" fontWeight="bold">
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? translate('Camera does not meet minimum specification.')
               : translate('Camera not accessible.')}
           </Text>
-          <Text color="inherit" maxWidth={300}>
+          <Text maxWidth={300}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? translate(
                   'Use a camera that can record at 15 frames per second or higher.'

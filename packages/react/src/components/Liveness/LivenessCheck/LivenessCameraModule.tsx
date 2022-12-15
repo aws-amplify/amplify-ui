@@ -22,12 +22,13 @@ export const selectVideoStream = createLivenessSelector(
 
 export interface LivenessCameraModuleProps {
   isMobileScreen: boolean;
+  isRecordingStopped: boolean;
 }
 
 export const LivenessCameraModule = (
   props: LivenessCameraModuleProps
 ): JSX.Element => {
-  const { isMobileScreen } = props;
+  const { isMobileScreen, isRecordingStopped } = props;
 
   const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
@@ -54,6 +55,9 @@ export const LivenessCameraModule = (
    * from getUserMedia().
    */
   const shouldFlipValues = (isAndroid() && isFirefox()) || isIOS();
+
+  const mediaHeight = shouldFlipValues ? videoWidth : videoHeight;
+  const mediaWidth = shouldFlipValues ? videoHeight : videoWidth;
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
@@ -104,10 +108,10 @@ export const LivenessCameraModule = (
       alignItems="center"
       justifyContent="center"
       position={isMobileScreen ? 'fixed' : 'relative'}
+      backgroundColor="black"
       {...(isMobileScreen && {
         top: 0,
         left: 0,
-        backgroundColor: 'black',
         height: '100%',
         width: '100%',
       })}
@@ -134,11 +138,18 @@ export const LivenessCameraModule = (
         muted
         autoPlay
         playsInline
-        height={shouldFlipValues ? videoWidth : videoHeight}
-        width={shouldFlipValues ? videoHeight : videoWidth}
-        style={{ transform: 'scaleX(-1)' }}
+        style={{
+          transform: 'scaleX(-1)',
+          // Height and width are duplicated here in the style object to address
+          // a safari bug where video size resets with amplify class unset rule.
+          height: `${mediaHeight}px`,
+          width: `${mediaWidth}px`,
+        }}
+        height={mediaHeight}
+        width={mediaWidth}
         onCanPlay={handleMediaPlay}
         data-testid="video"
+        className={isRecordingStopped ? 'amplify-liveness-fade-out' : null}
       />
       <Flex
         direction="column"
@@ -149,12 +160,13 @@ export const LivenessCameraModule = (
         height="100%"
         alignItems="center"
         justifyContent="center"
+        className={isRecordingStopped ? 'amplify-liveness-fade-out' : null}
       >
         <View
           as="canvas"
           ref={canvasRef}
-          height={shouldFlipValues ? videoWidth : videoHeight}
-          width={shouldFlipValues ? videoHeight : videoWidth}
+          height={mediaHeight}
+          width={mediaWidth}
         />
       </Flex>
 

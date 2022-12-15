@@ -55,6 +55,7 @@ export interface LivenessContext {
   shouldDisconnect: boolean | undefined;
   faceMatchStateBeforeStart: FaceMatchState;
   isFaceFarEnoughBeforeRecording: boolean;
+  isRecordingStopped: boolean;
 }
 
 export type LivenessEventTypes =

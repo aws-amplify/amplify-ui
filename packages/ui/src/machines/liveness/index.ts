@@ -83,6 +83,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       shouldDisconnect: false,
       faceMatchStateBeforeStart: undefined,
       isFaceFarEnoughBeforeRecording: undefined,
+      isRecordingStopped: false,
     },
     on: {
       CANCEL: 'userCancel',
@@ -719,11 +720,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const {
           videoAssociatedParams: { videoMediaStream, videoEl },
         } = context;
-        // pause camera on last frame, then stop the stream
-        videoEl.pause();
-        videoMediaStream.getTracks().forEach(function (track) {
-          track.stop();
-        });
+        context.isRecordingStopped = true;
+        videoEl.onanimationend = () => {
+          videoMediaStream.getTracks().forEach(function (track) {
+            track.stop();
+          });
+        };
       },
     },
     guards: {

@@ -70,7 +70,9 @@ describe('LivenessCameraModule', () => {
     isCheckingCamera = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<LivenessCameraModule isMobileScreen={false} />);
+    renderWithLivenessProvider(
+      <LivenessCameraModule isMobileScreen={false} isRecordingStopped={false} />
+    );
 
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
   });
@@ -79,7 +81,9 @@ describe('LivenessCameraModule', () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<LivenessCameraModule isMobileScreen={true} />);
+    renderWithLivenessProvider(
+      <LivenessCameraModule isMobileScreen={true} isRecordingStopped={false} />
+    );
 
     const videoEl = screen.getByTestId('video');
 
@@ -113,7 +117,9 @@ describe('LivenessCameraModule', () => {
     isRecording = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<LivenessCameraModule isMobileScreen={false} />);
+    renderWithLivenessProvider(
+      <LivenessCameraModule isMobileScreen={false} isRecordingStopped={false} />
+    );
     const videoEl = screen.getByTestId('video');
     videoEl.dispatchEvent(new Event('canplay'));
 
