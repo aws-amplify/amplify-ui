@@ -39,6 +39,7 @@ export interface UseAuthenticator extends AuthenticatorServiceFacade {
 
   /** @deprecated For internal use only */
   QRFields: { totpIssuer?: string; totpUsername?: string };
+  /** @deprecated For internal use only */
   fields: AuthenticatorLegacyFields;
 }
 
