@@ -17,7 +17,6 @@ export interface LinkOptions {
 
   /**
    * @deprecated
-zchenwei marked this conversation as resolved.
    * The Link component's to prop will soon be deprecated.
    * Please see the Amplify UI documentation for using the Link component with routing libraries:
    * https://ui.docs.amplify.aws/react/components/link#routing-libraries

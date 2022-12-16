@@ -27,6 +27,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Children to be rendered inside the Alert component\\",
+                        \\"category\\": \\"AlertProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
                         \\"type\\": \\"'info' | 'error' | 'warning' | 'success'\\",
@@ -730,6 +737,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Children to be rendered inside the Badge component\\",
+                        \\"category\\": \\"BadgeProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
                         \\"type\\": \\"'info' | 'error' | 'warning' | 'success'\\",
@@ -887,6 +901,13 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
                         \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Children to be rendered inside the Button component\\",
+                        \\"category\\": \\"ButtonProps\\",
                         \\"isOptional\\": true
                     },
                     \\"isDisabled\\": {
@@ -3011,6 +3032,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"TextProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Children to be rendered inside the Text component\\",
+                        \\"category\\": \\"TextProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
                         \\"type\\": \\"| 'primary'\\\\n  | 'secondary'\\\\n  | 'tertiary'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'info'\\\\n  | 'success'\\",
@@ -3745,6 +3773,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"LinkOptions\\",
                         \\"isOptional\\": true
                     },
+                    \\"to\\": {
+                        \\"name\\": \\"to\\",
+                        \\"type\\": \\"string\\",
+                        \\"description\\": \\"The Link component's to prop will soon be deprecated.\\\\nPlease see the Amplify UI documentation for using the Link component with routing libraries:\\\\nhttps://ui.docs.amplify.aws/react/components/link#routing-libraries A string representation of the URL path\\",
+                        \\"category\\": \\"LinkOptions\\",
+                        \\"isOptional\\": true
+                    },
                     \\"href\\": {
                         \\"name\\": \\"href\\",
                         \\"type\\": \\"string\\",
@@ -4316,6 +4351,13 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
                         \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Children to be rendered inside the Button component\\",
+                        \\"category\\": \\"ButtonProps\\",
                         \\"isOptional\\": true
                     },
                     \\"isDisabled\\": {
@@ -10318,6 +10360,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"TextProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Children to be rendered inside the Text component\\",
+                        \\"category\\": \\"TextProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
                         \\"type\\": \\"| 'primary'\\\\n  | 'secondary'\\\\n  | 'tertiary'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'info'\\\\n  | 'success'\\",
@@ -11248,6 +11297,13 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"(value: string) => void\\",
                         \\"description\\": \\"Handles changes to the current value when using the ToggleButton as a controlled component\\",
                         \\"category\\": \\"ToggleButtonProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Children to be rendered inside the Button component\\",
+                        \\"category\\": \\"ButtonProps\\",
                         \\"isOptional\\": true
                     },
                     \\"isDisabled\\": {
