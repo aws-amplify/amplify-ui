@@ -49,8 +49,8 @@ export const enDict = {
   'Move face to fit in oval': 'Move face to fit in oval',
 
   // Error messages
-  'Cannot complete Liveness check due to server issue':
-    'Cannot complete Liveness check due to server issue',
+  'Cannot complete check due to server issue':
+    'Cannot complete check due to server issue',
   'Check failed due to client issue': 'Check failed due to client issue',
   'Face not detected within time limit. Try again and place face inside oval within 5 seconds.':
     'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
