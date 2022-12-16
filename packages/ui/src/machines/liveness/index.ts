@@ -888,7 +888,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectFaceDistance(context) {
         const {
-          videoAssociatedParams: { videoEl, videoMediaStream },
+          videoAssociatedParams: { videoEl, videoMediaStream, isMobile },
           ovalAssociatedParams: { faceDetector },
           isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
@@ -905,6 +905,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             videoEl,
             ovalDetails,
             reduceThreshold: faceDistanceCheckBeforeRecording, // if this is the second face distance check reduce the threshold
+            isMobile,
           });
 
         return { isFaceFarEnoughBeforeRecording };

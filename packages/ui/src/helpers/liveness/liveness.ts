@@ -610,17 +610,20 @@ export async function getFaceMatchState(
 
 const FACE_DISTANCE_THRESHOLD = 0.3;
 const REDUCED_THRESHOLD = 0.34;
+const REDUCED_THRESHOLD_MOBILE = 0.32;
 
 export async function isFaceDistanceBelowThreshold({
   faceDetector,
   videoEl,
   ovalDetails,
   reduceThreshold = false,
+  isMobile = false,
 }: {
   faceDetector: FaceDetection;
   videoEl: HTMLVideoElement;
   ovalDetails?: LivenessOvalDetails;
   reduceThreshold?: boolean;
+  isMobile?: boolean;
 }) {
   const detectedFaces = await faceDetector.detectFaces(videoEl);
   let detectedFace: Face;
@@ -644,7 +647,11 @@ export async function isFaceDistanceBelowThreshold({
 
       distanceBelowThreshold =
         pupilDistance / width <
-        (reduceThreshold ? REDUCED_THRESHOLD : FACE_DISTANCE_THRESHOLD);
+        (!reduceThreshold
+          ? FACE_DISTANCE_THRESHOLD
+          : isMobile
+          ? REDUCED_THRESHOLD_MOBILE
+          : REDUCED_THRESHOLD);
       break;
     }
     default: {
