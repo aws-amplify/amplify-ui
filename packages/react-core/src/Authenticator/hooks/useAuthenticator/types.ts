@@ -38,6 +38,7 @@ export interface UseAuthenticator extends AuthenticatorServiceFacade {
   getTotpSecretCode: () => Promise<string>;
 
   /** @deprecated For internal use only */
+  QRFields: { totpIssuer?: string; totpUsername?: string };
   fields: AuthenticatorLegacyFields;
 }
 
