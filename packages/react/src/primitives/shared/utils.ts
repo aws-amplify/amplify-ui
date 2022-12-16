@@ -34,7 +34,7 @@ export const getConsecutiveIntArray = (
   return Array.from({ length }, (_, idx) => idx + start);
 };
 
-export type Modifiers = string | number | null | boolean;
+export type Modifiers = string | number | null | undefined;
 
 /**
  * This helper function creates modifier class names that are used for our flat BEM styling
