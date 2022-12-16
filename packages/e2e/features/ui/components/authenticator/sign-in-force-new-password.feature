@@ -7,20 +7,6 @@ Feature: Sign In with Force New Password flow
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
 
-
-  @angular @react @vue 
-  Scenario: User is in a FORCE_CHANGE_PASSWORD state and gets an error that's translated
-    When I select my country code with status "FORCE_CHANGE_PASSWORD"
-    And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
-    And I type my password
-    And I click the "Sign in" button
-    Then I should see the Force Change Password screen
-    And I type a short password
-    And I confirm my short password
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with error fixture "force-change-password-phone-failure"
-    Then I click the "Change Password" button
-    Then I see "Your password is too short! Try a longer password!"
-
   @angular @react @vue 
   Scenario: Back to Sign In works in the FORCE_CHANGE_PASSWORD state
     When I select my country code with status "FORCE_CHANGE_PASSWORD"
@@ -47,13 +33,12 @@ Feature: Sign In with Force New Password flow
 
   @angular @react @vue
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters wrong password requirements
-    When I type my "username" with status "FORCE_CHANGE_PASSWORD"
     When I select my country code with status "FORCE_CHANGE_PASSWORD"
     And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     And I type my password
     And I click the "Sign in" button
     Then I should see the Force Change Password screen
-    And I type an invalid wrong complexity new password
+    And I type an invalid wrong complexity password
     And I confirm my password
     Then I see "Password must have numbers"
     Then I see "Password must have special characters"
@@ -67,7 +52,7 @@ Feature: Sign In with Force New Password flow
     And I type my password
     And I click the "Sign in" button
     Then I should see the Force Change Password screen
-    And I type an invalid no lower case new password
+    And I type an invalid no lower case password
     And I confirm my password
     Then I see "Password must have numbers"
     Then I see "Password must have special characters"
