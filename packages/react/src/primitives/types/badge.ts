@@ -7,6 +7,12 @@ export type BadgeSizes = Sizes;
 export interface BadgeProps extends ViewProps {
   /**
    * @description
+   * Children to be rendered inside the Badge component
+   */
+  children?: React.ReactNode;
+
+  /**
+   * @description
    * The variation property will affect the background color of the badge.
    */
   variation?: BadgeVariations;

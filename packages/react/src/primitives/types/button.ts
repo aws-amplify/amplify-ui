@@ -14,6 +14,12 @@ export type ButtonVariations =
 export interface ButtonProps extends ViewProps, FlexContainerStyleProps {
   /**
    * @description
+   * Children to be rendered inside the Button component
+   */
+  children?: React.ReactNode;
+
+  /**
+   * @description
    * If `true`, the button will be disabled.
    */
   isDisabled?: boolean;

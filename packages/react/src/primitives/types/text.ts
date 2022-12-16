@@ -18,6 +18,12 @@ export interface TextProps extends ViewProps {
 
   /**
    * @description
+   * Children to be rendered inside the Text component
+   */
+  children?: React.ReactNode;
+
+  /**
+   * @description
    * This should be the primary way to handle different styles of text. Lower-level
    * text styling attributes like color can be set directly, that should be more of an
    * escape hatch.

@@ -7,6 +7,12 @@ export type AlertVariations = 'info' | 'error' | 'warning' | 'success';
 export interface AlertProps extends FlexProps {
   /**
    * @description
+   * Children to be rendered inside the Alert component
+   */
+  children?: React.ReactNode;
+
+  /**
+   * @description
    * The variation property will affect the background color of the Alert.
    */
   variation?: AlertVariations;

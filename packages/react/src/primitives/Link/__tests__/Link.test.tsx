@@ -118,4 +118,11 @@ describe('Link: ', () => {
 
     expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
   });
+
+  it('should call console.warn if "to" prop is used', async () => {
+    const spyWarn = jest.spyOn(console, 'warn');
+    render(<Link to="/test">Test</Link>);
+    expect(spyWarn).toHaveBeenCalled();
+    spyWarn.mockRestore();
+  });
 });
