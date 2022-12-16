@@ -24,16 +24,7 @@ describe('@aws-amplify/ui-react/internal', () => {
 });
 
 describe('primitive catalog', () => {
-  it.each(Object.entries(PrimitiveCatalog))(
-    'should contain properties for %s primitive',
-    (name, primitive) => {
-      expect(Object.keys(primitive.properties).length).toBeGreaterThan(0);
-    }
-  );
-
-  it('should match primitives list snapshot', () => {
-    const sortedPrimitiveCatalogExports = Object.keys(PrimitiveCatalog).sort();
-
-    expect(sortedPrimitiveCatalogExports).toMatchSnapshot();
+  it('should match primitives catalog snapshot', () => {
+    expect(PrimitiveCatalog).toMatchSnapshot();
   });
 });
