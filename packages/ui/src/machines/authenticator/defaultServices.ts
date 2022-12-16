@@ -121,6 +121,8 @@ export const defaultServices = {
       }
     });
 
+    console.log(password_complexity);
+
     /**
      * Only return an error if there is at least one error.
      */

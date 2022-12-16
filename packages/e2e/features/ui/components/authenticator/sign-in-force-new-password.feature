@@ -58,7 +58,7 @@ Feature: Sign In with Force New Password flow
     Then I see "Password must have special characters"
     Then I see "Password must have lower case letters"
     Then I see "Password must have at least 8 characters"
-    And I confirm "Password must have numbers" error is accessible
+    And I confirm "Password must have numbers" error is accessible in password field
 
   @angular @react @vue 
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters an invalid new password
