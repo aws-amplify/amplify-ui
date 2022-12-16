@@ -4,7 +4,7 @@ import { deleteUser, translate, getLogger } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
 import { Flex } from '../../../primitives';
-import { ComponentClassName } from '../constants';
+import { ComponentClassName } from '../types';
 import DEFAULTS from './defaults';
 import { DeleteUserProps, DeleteUserState } from './types';
 
