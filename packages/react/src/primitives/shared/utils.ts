@@ -34,7 +34,7 @@ export const getConsecutiveIntArray = (
   return Array.from({ length }, (_, idx) => idx + start);
 };
 
-export type Modifiers = string | number | null;
+export type Modifiers = string | number | null | boolean;
 
 /**
  * This helper function creates modifier class names that are used for our flat BEM styling
@@ -45,8 +45,8 @@ export type Modifiers = string | number | null;
  */
 export const classNameModifier = (
   base: ComponentClassName,
-  modifier: Modifiers
-): string => {
+  modifier?: Modifiers
+): string | null => {
   return modifier ? `${base}--${modifier}` : null;
 };
 
@@ -61,8 +61,8 @@ export const classNameModifier = (
 export const classNameModifierByFlag = (
   base: ComponentClassName,
   modifier: Modifiers,
-  flag: boolean
-): string => {
+  flag?: boolean
+): string | null => {
   return flag ? `${base}--${modifier}` : null;
 };
 
@@ -94,7 +94,7 @@ export const getCSSVariableIfValueIsThemeKey = <Value>(
   for (let i = 0; i < path.length; i++) {
     if (tokenProps) {
       // overwrite tokenProps with next nested value of tokenProps
-      tokenProps = tokenProps[path[i]] as typeof tokenProps;
+      tokenProps = tokenProps[path[i] as keyof typeof tokenProps];
       continue;
     }
     break;
