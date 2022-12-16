@@ -94,7 +94,7 @@ export const getCSSVariableIfValueIsThemeKey = <Value>(
   for (let i = 0; i < path.length; i++) {
     if (tokenProps) {
       // overwrite tokenProps with next nested value of tokenProps
-      tokenProps = tokenProps[path[i]] as typeof tokenProps;
+      tokenProps = tokenProps[path[i] as keyof typeof tokenProps];
       continue;
     }
     break;
