@@ -21,8 +21,9 @@ export const getDefaultStyle = ({
     },
     buttonSecondaryLabel: {}, // themed value only
     errorMessage: {
-      marginVertical: space.small,
+      marginHorizontal: space.small,
     },
+    errorMessageIcon: {}, // themed value only
     errorMessageLabel: {}, // themed value only
     fieldContainer: {
       paddingHorizontal: space.small,

@@ -22,12 +22,14 @@
     "build:icons": "yarn react build:icons",
     "test": "yarn ui test && yarn react-core test && yarn react test && yarn react-native test && yarn e2e test",
     "prepare": "husky install",
-    "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn angular build",
+    "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn generateVersions && yarn angular build",
     "publish:next": "yarn changeset publish --tag next",
-    "version:studio": "yarn changeset version --snapshot studio-$(git rev-parse --short=7 HEAD) && yarn angular build",
+    "version:studio": "yarn changeset version --snapshot studio-$(git rev-parse --short=7 HEAD) && yarn generateVersions && yarn angular build",
     "publish:studio": "yarn changeset publish --tag studio",
-    "version:latest": "yarn changeset version && yarn angular build",
-    "publish:latest": "yarn changeset publish"
+    "version:latest": "yarn changeset version && yarn generateVersions && yarn angular build",
+    "publish:latest": "yarn changeset publish",
+    "generateVersions": "node scripts/generateVersion",
+    "bumpVersions": "yarn changeset version && yarn generateVersions"
   },
   "workspaces": {
     "packages": [
