@@ -2,6 +2,7 @@
 
 exports[`useAuthenticator returns the expected values 1`] = `
 Object {
+  "QRFields": undefined,
   "authStatus": "authenticated",
   "codeDeliveryDetails": Object {},
   "error": undefined,
