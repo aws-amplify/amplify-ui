@@ -16,9 +16,9 @@ Then('I will be redirected to the setup totp page', () => {
 
 Then('I check to see if QR code is correct', () => {
   cy.get('img').then(($el) => {
-    const imagePath = $el[0]?.currentSrc; // gives URL to image
+    const imagePath = $el[0]?.currentSrc;
     return qrcode.scan(imagePath).then((decode) => {
-      expect(decode.data).to.contain('otpauth://totp/My%20Web%20App'); // whatever qr is set to
+      expect(decode.data).to.contain('otpauth://totp/My%20Web%20App');
     });
   });
 });
