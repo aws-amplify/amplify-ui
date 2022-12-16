@@ -6,7 +6,7 @@ import {
   ENTER_KEY,
   ESCAPE_KEY,
 } from '../shared/constants';
-import { isFunction } from '../shared/utils';
+import { isFunction, strHasLength } from '../shared/utils';
 import { useStableId } from '../utils/useStableId';
 import type { ComboBoxOption, UseAutocompleteProps } from '../types';
 
@@ -29,7 +29,9 @@ export const useAutocomplete = ({
   const composedValue = isControlled ? value : internalValue;
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [activeOption, setActiveOption] = React.useState<ComboBoxOption>(null);
+  const [activeOption, setActiveOption] = React.useState<ComboBoxOption | null>(
+    null
+  );
 
   const isCustomFiltering = isFunction(optionFilter);
   const filteredOptions = React.useMemo(() => {
@@ -171,7 +173,7 @@ export const useAutocomplete = ({
   React.useEffect(() => {
     const autocompleteElement = document.getElementById(autocompleteId);
     const menuElement = document.getElementById(menuId);
-    if (menuElement && isMenuOpen) {
+    if (menuElement && isMenuOpen && autocompleteElement) {
       const { bottom } = menuElement.getBoundingClientRect();
       const { offsetParent, offsetTop } = autocompleteElement;
 
@@ -197,7 +199,9 @@ export const useAutocomplete = ({
   // and scroll each option into window viewport if necessary
   React.useEffect(() => {
     const listboxElement = document.getElementById(listboxId);
-    const activeOptionElement = document.getElementById(activeOptionId);
+    const activeOptionElement = strHasLength(activeOptionId)
+      ? document.getElementById(activeOptionId)
+      : null;
 
     if (activeOptionElement && listboxElement) {
       const { scrollTop, clientHeight } = listboxElement;
