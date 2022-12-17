@@ -36,8 +36,6 @@ export const useStepper = ({
   onIncrease,
   onStepChange,
 }: StepperFieldProps) => {
-  const isControlled = typeof controlledValue !== 'undefined';
-
   // Make sure max value is greater than or equal to min value
   max = Math.max(min, max);
 
@@ -84,7 +82,7 @@ export const useStepper = ({
 
         newValue = getCorrectSteppingValue(min, max, step, newValue);
 
-        if (!isControlled) {
+        if (!controlledValue) {
           setUncontrolledValue(newValue);
         }
 
@@ -94,14 +92,14 @@ export const useStepper = ({
 
         setInputValue(newValue);
       },
-      [min, max, step, isControlled, onStepChange]
+      [min, max, step, controlledValue, onStepChange]
     );
 
   const handleIncrease: React.MouseEventHandler<HTMLButtonElement> =
     React.useCallback(() => {
       // No need to check if the value will be outside the bounds
       // The button will be disabled if so
-      if (!isControlled) {
+      if (!controlledValue) {
         setUncontrolledValue(value + step);
       }
 
@@ -113,13 +111,13 @@ export const useStepper = ({
         onIncrease();
       }
       setInputValue(value + step);
-    }, [step, value, isControlled, onIncrease, onStepChange]);
+    }, [step, value, controlledValue, onIncrease, onStepChange]);
 
   const handleDecrease: React.MouseEventHandler<HTMLButtonElement> =
     React.useCallback(() => {
       // No need to check if the value will be outside the bounds
       // The button will be disabled if so
-      if (!isControlled) {
+      if (!controlledValue) {
         setUncontrolledValue(value - step);
       }
 
@@ -131,7 +129,7 @@ export const useStepper = ({
         onDecrease();
       }
       setInputValue(value - step);
-    }, [step, value, isControlled, onDecrease, onStepChange]);
+    }, [step, value, controlledValue, onDecrease, onStepChange]);
 
   // This aims to disable unwanted behaviors on React input[type='number']
   // When the input gets focused, rotating a wheel will change its value
