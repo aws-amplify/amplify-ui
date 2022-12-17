@@ -13,9 +13,29 @@ import {
   getComparator,
   getMachineFields,
   getTotpSecretCodeCallback,
+  getQRFields,
 } from '../utils';
+import { AuthActorContext } from '@aws-amplify/ui';
 
 const setupTOTPSpy = jest.spyOn(Auth, 'setupTOTP').mockImplementation();
+
+const totpIssuer = 'testIssuer';
+const totpUsername = 'testUsername';
+const mockActorReturnActorContextValues = {
+  formFields: {
+    setupTOTP: {
+      QR: {
+        totpIssuer,
+        totpUsername,
+      },
+    },
+  },
+} as unknown as AuthActorContext;
+
+const getActorContextSpy = jest.spyOn(UIModule, 'getActorContext');
+
+getActorContextSpy.mockReturnValue(mockActorReturnActorContextValues);
+
 const getSortedFormFieldsSpy = jest
   .spyOn(UIModule, 'getSortedFormFields')
   .mockImplementation(() => [['name', { required: true }]]);
@@ -144,5 +164,24 @@ describe('getMachineFields', () => {
 
     expect(output).toHaveLength(1);
     expect(output).toStrictEqual([{}]);
+  });
+
+  describe('getQRFields', () => {
+    const state = {} as unknown as AuthMachineState;
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('returns the correct QR issuers', () => {
+      getActorContextSpy.mockReturnValue(mockActorReturnActorContextValues);
+      const QRFields = getQRFields(state);
+      expect(QRFields).toEqual({ totpIssuer, totpUsername });
+    });
+    it('returns empty object if QR field is not present', () => {
+      getActorContextSpy.mockReturnValue({});
+      const QRFields = getQRFields(state);
+      expect(QRFields).toEqual({});
+    });
   });
 });
