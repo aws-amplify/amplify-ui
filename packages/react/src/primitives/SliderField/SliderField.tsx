@@ -64,7 +64,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   );
 
   const values = isControlled ? [value] : undefined;
-  const defaultValues = !isControlled ? [defaultValue] : undefined;
+  const defaultValues = !isControlled ? [defaultValue || 0] : undefined;
 
   const onValueChange = React.useCallback(
     (value: number[]) => {
@@ -79,7 +79,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
 
   const renderedValue = React.useMemo(() => {
     const formattedValue = isFunction(formatValue)
-      ? formatValue(currentValue)
+      ? formatValue(currentValue || 0)
       : currentValue;
     return typeof formatValue === 'string' ? (
       <View as="span">{formattedValue}</View>

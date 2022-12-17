@@ -36,7 +36,7 @@ export const useStepper = ({
   onIncrease,
   onStepChange,
 }: StepperFieldProps) => {
-  const isControlled = controlledValue !== undefined;
+  const isControlled = typeof controlledValue !== 'undefined';
 
   // Make sure max value is greater than or equal to min value
   max = Math.max(min, max);
@@ -50,11 +50,11 @@ export const useStepper = ({
 
   // Same for controlled components on the first render because users could provide invalid intial value.
   // It seems redundant afterwards but necessary for the first render
-  if (isControlled) {
+  if (controlledValue) {
     controlledValue = getCorrectSteppingValue(min, max, step, controlledValue);
   }
 
-  const value = isControlled ? controlledValue : uncontrolledValue;
+  const value = controlledValue || uncontrolledValue;
 
   const shouldDisableIncreaseButton =
     isDisabled || isReadOnly || value + step > max;

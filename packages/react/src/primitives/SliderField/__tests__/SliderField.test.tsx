@@ -66,7 +66,7 @@ describe('SliderField: ', () => {
       );
 
       await screen.findByTestId(testId);
-      expect(ref.current.nodeName).toBe('SPAN');
+      expect(ref.current?.nodeName).toBe('SPAN');
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
@@ -335,7 +335,7 @@ describe('SliderField: ', () => {
         />
       );
       const errorText = screen.queryByText(errorMessage);
-      expect(errorText.innerHTML).toContain(errorMessage);
+      expect(errorText?.innerHTML).toContain(errorMessage);
     });
   });
 
@@ -350,7 +350,7 @@ describe('SliderField: ', () => {
       );
 
       const descriptiveText = screen.queryByText('Description');
-      expect(descriptiveText.innerHTML).toContain('Description');
+      expect(descriptiveText?.innerHTML).toContain('Description');
     });
 
     it('should map to descriptive text correctly', async () => {
