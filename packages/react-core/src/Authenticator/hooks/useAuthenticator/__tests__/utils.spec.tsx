@@ -34,8 +34,6 @@ const mockActorReturnActorContextValues = {
 
 const getActorContextSpy = jest.spyOn(UIModule, 'getActorContext');
 
-getActorContextSpy.mockReturnValue(mockActorReturnActorContextValues);
-
 const getSortedFormFieldsSpy = jest
   .spyOn(UIModule, 'getSortedFormFields')
   .mockImplementation(() => [['name', { required: true }]]);
