@@ -59,7 +59,7 @@ export const itDict: AuthenticatorDictionary = {
   'Confirm Sign In': "Conferma l'accesso",
   'Create account': 'Crea account',
   'Enter your password': 'Inserisci la tua password',
-  'Forgot Password': 'Password dimenticata',
+  'Forgot Password?': 'Password dimenticata?',
   'Have an account? ': 'Già registrato?',
   'Incorrect username or password': 'Nome utente o password errati',
   'Invalid password format': 'Formato della password non valido',
