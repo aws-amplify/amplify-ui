@@ -50,7 +50,7 @@ export default function useFieldValues<FieldType extends TypedField>({
       return { ...field, onChange };
     }
 
-    const { name, label, labelHidden, ...rest } = field;
+    const { name, label, labelHidden, required, ...rest } = field;
 
     const onBlur: TextFieldOnBlur = (event) => {
       // call `onBlur` passed as text `field` option
@@ -70,13 +70,20 @@ export default function useFieldValues<FieldType extends TypedField>({
       setValues({ ...values, [name]: value });
     };
 
+    const getDisplayLabel = (): string | undefined => {
+      if (!label || labelHidden) return undefined;
+
+      return required ? `${label}*` : label;
+    };
+
     return {
       ...rest,
-      label: labelHidden ? undefined : label,
+      label: getDisplayLabel(),
       onBlur,
       onChangeText,
       name,
       value: values[name],
+      required,
     };
   }) as FieldType[];
 
@@ -96,7 +103,7 @@ export default function useFieldValues<FieldType extends TypedField>({
   const handleFormSubmit = () => {
     const submitValue = isRadioFieldComponent
       ? values
-      : fieldsWithHandlers.reduce((acc, { name, value, type }) => {
+      : fieldsWithHandlers.reduce((acc, { name, value = '', type }) => {
           /*
                 For phone numbers pass the first 3 charactes from value as dialCode until we support a dialCode picker
             */
