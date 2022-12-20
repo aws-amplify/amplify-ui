@@ -6,6 +6,29 @@ import { FRAMEWORKS, FRAMEWORK_DISPLAY_NAMES } from '@/data/frameworks';
 import metaData from '@/data/pages.preval';
 import { FrameworkLogo } from '@/components/Logo';
 
+const FrameworkButton = ({
+  isDisabled,
+  onClick,
+  classNames,
+  framework,
+}: {
+  isDisabled: boolean;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  classNames: string;
+  framework: string;
+}) => (
+  <Button
+    size="small"
+    as="a"
+    className={classNames}
+    onClick={onClick}
+    isDisabled={isDisabled}
+  >
+    <FrameworkLogo framework={framework} className="docs-framework-img" />
+    {FRAMEWORK_DISPLAY_NAMES[framework]}
+  </Button>
+);
+
 interface FrameworkLinkProps extends FrameworkChooserProps {
   framework: string;
   isDisabled: boolean;
@@ -25,18 +48,25 @@ const FrameworkLink = ({
     ? pathname.replace(platformPath, framework)
     : `/${framework}`;
 
+  if (isDisabled) {
+    return (
+      <FrameworkButton
+        classNames={classNames}
+        isDisabled={isDisabled}
+        framework={framework}
+        onClick={onClick}
+      />
+    );
+  }
+
   return (
     <Link href={href} passHref>
-      <Button
-        size="small"
-        as="a"
-        className={classNames}
-        onClick={onClick}
+      <FrameworkButton
+        classNames={classNames}
         isDisabled={isDisabled}
-      >
-        <FrameworkLogo framework={framework} className="docs-framework-img" />
-        {FRAMEWORK_DISPLAY_NAMES[framework]}
-      </Button>
+        framework={framework}
+        onClick={onClick}
+      />
     </Link>
   );
 };
