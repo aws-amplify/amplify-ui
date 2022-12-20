@@ -21,6 +21,19 @@ const ViewPrimitive = <Element extends ElementType = 'div'>(
 ) => {
   const { propStyles, nonStyleProps } = useStyles(rest, style);
 
+  // No need to do extra work on style props when it is not rendered as a HTML element
+  // e.g. <Image as={NextImage} src="" width={300} height={300} />, just let all props pass to NextImage
+  const _rest =
+    typeof as === 'string'
+      ? {
+          style: propStyles,
+          ...nonStyleProps,
+        }
+      : {
+          style,
+          ...rest,
+        };
+
   return React.createElement(
     as,
     {
@@ -28,8 +41,7 @@ const ViewPrimitive = <Element extends ElementType = 'div'>(
       'data-testid': testId,
       disabled: isDisabled,
       ref,
-      style: propStyles,
-      ...nonStyleProps,
+      ..._rest,
     },
     children
   );
