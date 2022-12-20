@@ -29,7 +29,10 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
       states: {
         init: {
           always: [
-            { target: 'confirmResetPassword', cond: 'shouldAutoConfirmReset' },
+            {
+              target: 'confirmResetPassword',
+              cond: 'shouldAutoConfirmReset',
+            },
             { target: 'resetPassword' },
           ],
         },
@@ -89,6 +92,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 valid: { entry: 'sendUpdate' },
                 invalid: { entry: 'sendUpdate' },
               },
+
               on: {
                 CHANGE: {
                   actions: 'handleInput',
@@ -98,6 +102,39 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                   actions: 'handleBlur',
                   target: '.pending',
                 },
+              },
+            },
+            sendConfirmPassword: {
+              tags: ['pending'],
+              entry: ['sendUpdate', 'clearError'],
+              initial: 'init',
+              states: {
+                init: {
+                  always: [
+                    {
+                      target: 'pending',
+                      cond: 'shouldAutoConfirmReset',
+                    },
+                    {
+                      target: 'valid',
+                    },
+                  ],
+                },
+                pending: {
+                  tags: ['pending'],
+                  entry: ['sendUpdate', 'clearError'],
+                  invoke: {
+                    src: 'resetPassword',
+                    onDone: {
+                      target: 'valid',
+                    },
+                    onError: {
+                      actions: ['setRemoteError'],
+                      target: 'valid',
+                    },
+                  },
+                },
+                valid: { entry: 'sendUpdate' },
               },
             },
             submission: {
