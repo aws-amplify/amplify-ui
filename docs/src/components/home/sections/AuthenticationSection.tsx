@@ -171,7 +171,10 @@ export const AuthenticationSection = ({ platform }) => {
     >
       <Flex direction="column">
         <Flex direction="column" className="docs-home-subsection--thin">
-          <Heading level={2}>
+          <Heading
+            level={2}
+            className={classNames('expand-out', isVisible && 'shown')}
+          >
             <strong>Authentication</strong> made easy
           </Heading>
           <Text className="docs-home-text">

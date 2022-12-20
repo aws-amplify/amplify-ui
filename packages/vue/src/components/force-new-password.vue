@@ -77,7 +77,7 @@ function onBlur(e: Event) {
       <base-form
         data-amplify-authenticator-forcenewpassword
         @input="onInput"
-        @blur="onBlur"
+        @blur.capture="onBlur"
         @submit.prevent="onForceNewPasswordSubmit"
       >
         <base-field-set

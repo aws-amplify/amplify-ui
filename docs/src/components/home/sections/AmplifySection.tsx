@@ -29,7 +29,10 @@ export const AmplifySection = ({ platform }) => {
       )}
     >
       <Flex direction="column" className="docs-home-subsection--thin">
-        <Heading level={2}>
+        <Heading
+          level={2}
+          className={classNames('expand-out', isVisible && 'shown')}
+        >
           Better <strong>together</strong> with AWS Amplify
         </Heading>
 

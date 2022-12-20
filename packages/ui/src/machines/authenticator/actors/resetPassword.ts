@@ -203,7 +203,10 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
             context.formValues,
             context.touched,
             context.passwordSettings,
-            [defaultServices.validateConfirmPassword]
+            [
+              defaultServices.validateFormPassword,
+              defaultServices.validateConfirmPassword,
+            ]
           );
         },
       },
