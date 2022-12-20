@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BannerMessage correctly handles a primaryButton prop 1`] = `
+exports[`BannerMessage correctly handles a primaryButton button prop 1`] = `
 <MessageWrapper
   style={
     Object {
@@ -186,7 +186,7 @@ exports[`BannerMessage correctly handles a primaryButton prop 1`] = `
 </MessageWrapper>
 `;
 
-exports[`BannerMessage correctly handles a secondaryButton prop 1`] = `
+exports[`BannerMessage correctly handles a secondaryButton button prop 1`] = `
 <MessageWrapper
   style={
     Object {

@@ -95,9 +95,7 @@ describe('BannerMessage', () => {
       const { getByTestId } = render(<BannerMessage {...props} />);
       const testElement = getByTestId(testID);
 
-      for (const [key, value] of Object.entries(expectedProps)) {
-        expect(testElement.props[key]).toEqual(value);
-      }
+      expect(testElement.children).toContain(expectedProps.children);
     }
   );
 
@@ -116,7 +114,7 @@ describe('BannerMessage', () => {
         testProps: { onAction, title: 'secondary button' },
       },
     ],
-  ])('correctly handles a %s prop', (key, testID, { testProps }) => {
+  ])('correctly handles a %s button prop', (key, testID, { testProps }) => {
     mockUseMessageImage.mockReturnValueOnce({
       hasRenderableImage: false,
       imageDimensions: { height: undefined, width: undefined },
