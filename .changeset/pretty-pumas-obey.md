@@ -1,5 +1,5 @@
 ---
-"@aws-amplify/ui": patch
+"@aws-amplify/ui": minor
 ---
 
-Enable password validation on resetPassword and forceNewPassword screen
+feat(Authenticator): Enable password validation on resetPassword and forceNewPassword screen
