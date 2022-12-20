@@ -89,8 +89,8 @@ describe('Badge: ', () => {
     render(<Badge ref={ref}>{badgeText}</Badge>);
 
     await screen.findByText(badgeText);
-    expect(ref.current.nodeName).toBe('SPAN');
-    expect(ref.current.innerHTML).toBe(badgeText);
+    expect(ref.current?.nodeName).toBe('SPAN');
+    expect(ref.current?.innerHTML).toBe(badgeText);
   });
 
   it('can render any arbitrary data-* attribute', async () => {

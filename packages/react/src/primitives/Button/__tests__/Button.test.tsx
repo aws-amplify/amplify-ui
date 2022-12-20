@@ -146,8 +146,8 @@ describe('Button test suite', () => {
     render(<Button ref={ref}>{buttonText}</Button>);
 
     await screen.findByRole('button');
-    expect(ref.current.nodeName).toBe('BUTTON');
-    expect(ref.current.innerHTML).toBe(buttonText);
+    expect(ref.current?.nodeName).toBe('BUTTON');
+    expect(ref.current?.innerHTML).toBe(buttonText);
   });
 
   it('should set size and variation props correctly', async () => {

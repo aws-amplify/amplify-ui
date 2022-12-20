@@ -61,6 +61,6 @@ describe('ButtonGroup: ', () => {
     render(getButtonGroup({ ref }));
 
     await screen.findAllByRole('group');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 });
