@@ -3,6 +3,7 @@ import {
   AmplifyUser,
   AuthenticatorServiceFacade,
   AuthMachineState,
+  AuthActorContext,
 } from '@aws-amplify/ui';
 
 import * as UIModule from '@aws-amplify/ui';
@@ -15,7 +16,6 @@ import {
   getTotpSecretCodeCallback,
   getQRFields,
 } from '../utils';
-import { AuthActorContext } from '@aws-amplify/ui';
 
 const setupTOTPSpy = jest.spyOn(Auth, 'setupTOTP').mockImplementation();
 
@@ -171,7 +171,7 @@ describe('getMachineFields', () => {
       jest.clearAllMocks();
     });
 
-    it('returns the correct QR issuers', () => {
+    it('returns the correct QR issuer and username', () => {
       getActorContextSpy.mockReturnValue(mockActorReturnActorContextValues);
       const QRFields = getQRFields(state);
       expect(QRFields).toEqual({ totpIssuer, totpUsername });
