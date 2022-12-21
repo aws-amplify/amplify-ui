@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import { CheckboxField, Flex, TextField } from '@aws-amplify/ui-react';
-import { getKey } from '../utils/getKey';
+import { addKey } from '../utils/getKey';
 
 type FieldValue = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -20,31 +20,33 @@ export interface GetFieldControlsProps {
 export const GetFieldControls = ({ fields }: GetFieldControlsProps) => {
   return (
     <Flex direction="column">
-      {fields.map(([value, setter, name, type = 'text']) =>
-        type === 'checkbox' ? (
-          <CheckboxField
-            key={getKey()}
-            name={name}
-            value={value as string}
-            checked={Boolean(value)}
-            label={name}
-            onChange={(event) => {
-              setter(event.target.checked);
-            }}
-          />
-        ) : (
-          <TextField
-            key={getKey()}
-            name={name}
-            placeholder={`Set ${name}`}
-            value={value}
-            label={name}
-            onChange={(event: React.BaseSyntheticEvent) => {
-              setter(event.target.value);
-            }}
-          />
-        )
-      )}
+      {fields
+        .map(addKey)
+        .map(({ el: [value, setter, name, type = 'text'], key }) =>
+          type === 'checkbox' ? (
+            <CheckboxField
+              key={key}
+              name={name}
+              value={value as string}
+              checked={Boolean(value)}
+              label={name}
+              onChange={(event) => {
+                setter(event.target.checked);
+              }}
+            />
+          ) : (
+            <TextField
+              key={key}
+              name={name}
+              placeholder={`Set ${name}`}
+              value={value}
+              label={name}
+              onChange={(event: React.BaseSyntheticEvent) => {
+                setter(event.target.value);
+              }}
+            />
+          )
+        )}
     </Flex>
   );
 };
