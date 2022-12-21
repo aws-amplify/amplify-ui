@@ -22,6 +22,7 @@ export const GetFieldControls = ({ fields }: GetFieldControlsProps) => {
       {fields.map(([value, setter, name, type = 'text']) =>
         type === 'checkbox' ? (
           <CheckboxField
+            key={name}
             name={name}
             value={value as string}
             checked={Boolean(value)}
@@ -32,6 +33,7 @@ export const GetFieldControls = ({ fields }: GetFieldControlsProps) => {
           />
         ) : (
           <TextField
+            key={name}
             name={name}
             placeholder={`Set ${name}`}
             value={value}
