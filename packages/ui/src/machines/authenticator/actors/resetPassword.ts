@@ -13,6 +13,7 @@ import {
   setFieldErrors,
   setRemoteError,
   setUsername,
+  resendCode,
 } from '../actions';
 import { defaultServices } from '../defaultServices';
 
@@ -32,6 +33,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
             {
               target: 'confirmResetPassword',
               cond: 'shouldAutoConfirmReset',
+              actions: 'resendCode',
             },
             { target: 'resetPassword' },
           ],
@@ -104,39 +106,6 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 },
               },
             },
-            sendConfirmPassword: {
-              tags: ['pending'],
-              entry: ['sendUpdate', 'clearError'],
-              initial: 'init',
-              states: {
-                init: {
-                  always: [
-                    {
-                      target: 'pending',
-                      cond: 'shouldAutoConfirmReset',
-                    },
-                    {
-                      target: 'valid',
-                    },
-                  ],
-                },
-                pending: {
-                  tags: ['pending'],
-                  entry: ['sendUpdate', 'clearError'],
-                  invoke: {
-                    src: 'resetPassword',
-                    onDone: {
-                      target: 'valid',
-                    },
-                    onError: {
-                      actions: ['setRemoteError'],
-                      target: 'valid',
-                    },
-                  },
-                },
-                valid: { entry: 'sendUpdate' },
-              },
-            },
             submission: {
               initial: 'idle',
               states: {
@@ -207,6 +176,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         handleInput,
         handleSubmit,
         handleBlur,
+        resendCode,
         setFieldErrors,
         setRemoteError,
         setUsername,

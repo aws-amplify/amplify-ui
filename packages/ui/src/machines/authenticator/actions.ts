@@ -1,3 +1,4 @@
+import { Auth } from 'aws-amplify';
 import { assign, stop } from 'xstate/lib/actions';
 
 import {
@@ -153,6 +154,13 @@ export const handleBlur = assign({
     };
   },
 });
+
+export const resendCode = async (context) => {
+  const { username } = context;
+  console.log('username', username);
+
+  return Auth.forgotPassword(username);
+};
 
 /**
  * This action occurs on the entry to a state where a form submit action
