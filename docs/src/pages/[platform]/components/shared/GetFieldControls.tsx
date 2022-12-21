@@ -38,7 +38,7 @@ export const GetFieldControls = ({ fields }: GetFieldControlsProps) => {
             placeholder={`Set ${name}`}
             value={value}
             label={name}
-            onChange={(event: React.BaseSyntheticEvent) => {
+            onChange={(event: React.ChangeEventHandler<HTMLInputElement>) => {
               setter(event.target.value);
             }}
           />
