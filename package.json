@@ -19,7 +19,6 @@
     "vue-example": "yarn workspace vue-example",
     "e2e": "yarn workspace e2e",
     "environments": "yarn workspace environments",
-    "build:icons": "yarn react build:icons",
     "test": "yarn ui test && yarn react-core test && yarn react test && yarn react-native test && yarn e2e test",
     "prepare": "husky install",
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn generateVersions && yarn angular build",
