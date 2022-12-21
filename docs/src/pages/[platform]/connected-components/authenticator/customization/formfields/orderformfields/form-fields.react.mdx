@@ -23,9 +23,11 @@ const formFields = {
    },
   }
 
+const signUpAttributes={['birthdate', 'family_name', 'preferred_username']}
+
 export default function App() {
   return (
-    <Authenticator formFields={formFields}>
+    <Authenticator formFields={formFields} signUpAttributes={signUpAttributes}>
       {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );

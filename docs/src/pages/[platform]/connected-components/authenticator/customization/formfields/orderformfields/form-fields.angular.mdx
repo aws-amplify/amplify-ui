@@ -1,7 +1,7 @@
 _app.component.html_
 
 ```html{1}
-<amplify-authenticator [formFields]="formFields">
+<amplify-authenticator [formFields]="formFields" [signUpAttributes]="signUpAttributes">
   <ng-template
     amplifySlot="authenticated"
     let-user="user"
@@ -29,6 +29,7 @@ export class AppComponent {
   constructor() {
     Amplify.configure(awsExports);
   }
+
   public formFields = {
     signUp: {
       email: {
@@ -52,4 +53,6 @@ export class AppComponent {
     },
   }
 }
+
+public signUpAttributes={['birthdate', 'family_name', 'preferred_username']}
 ```
