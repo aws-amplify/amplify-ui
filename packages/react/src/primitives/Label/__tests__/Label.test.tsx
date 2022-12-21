@@ -21,6 +21,6 @@ describe('Label component', () => {
 
     render(<Label ref={ref}>My label</Label>);
     await screen.findByText('My label');
-    expect(ref.current.nodeName).toBe('LABEL');
+    expect(ref.current?.nodeName).toBe('LABEL');
   });
 });
