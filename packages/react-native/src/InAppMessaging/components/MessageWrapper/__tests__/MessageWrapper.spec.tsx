@@ -1,5 +1,5 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 import { Text } from 'react-native';
 
 import MessageWrapper from '../MessageWrapper';
@@ -8,12 +8,12 @@ const Children = () => <Text>Children</Text>;
 
 describe('MessageWrapper', () => {
   it('renders as expected', () => {
-    const renderer = TestRenderer.create(
+    const { toJSON } = render(
       <MessageWrapper>
         <Children />
       </MessageWrapper>
     );
 
-    expect(renderer.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 });
