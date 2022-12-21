@@ -1,15 +1,7 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import { isFunction } from '../shared/utils';
-
-interface UseCheckbox {
-  dataChecked: boolean;
-  dataFocus: boolean;
-  onBlur: () => void;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onFocus: () => void;
-  setDataChecked: Dispatch<SetStateAction<boolean>>;
-}
+import { UseCheckbox } from '../types/checkbox';
 
 export const useCheckbox = (
   initialChecked: boolean,
