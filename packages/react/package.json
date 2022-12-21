@@ -42,7 +42,7 @@
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist node_modules",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
-    "lint": "tsc --noEmit --project tsconfig.dev.json && yarn eslint ./src --ext .js,.ts,.tsx",
+    "lint": "tsc --noEmit --project tsconfig.dev.json && eslint",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
