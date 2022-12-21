@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import { CheckboxField, Flex, TextField } from '@aws-amplify/ui-react';
+import { getKey } from '../utils/getKey';
 
 type FieldValue = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -19,10 +20,10 @@ export interface GetFieldControlsProps {
 export const GetFieldControls = ({ fields }: GetFieldControlsProps) => {
   return (
     <Flex direction="column">
-      {fields.map(([value, setter, name, type = 'text'], idx) =>
+      {fields.map(([value, setter, name, type = 'text']) =>
         type === 'checkbox' ? (
           <CheckboxField
-            key={`${name}-${idx}`}
+            key={getKey()}
             name={name}
             value={value as string}
             checked={Boolean(value)}
@@ -33,12 +34,12 @@ export const GetFieldControls = ({ fields }: GetFieldControlsProps) => {
           />
         ) : (
           <TextField
-            key={`${name}-${idx}`}
+            key={getKey()}
             name={name}
             placeholder={`Set ${name}`}
             value={value}
             label={name}
-            onChange={(event: React.ChangeEventHandler<HTMLInputElement>) => {
+            onChange={(event: React.BaseSyntheticEvent) => {
               setter(event.target.value);
             }}
           />
