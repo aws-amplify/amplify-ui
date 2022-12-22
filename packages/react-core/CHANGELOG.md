@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-core
 
+## 2.1.6
+
+### Patch Changes
+
+- [#3183](https://github.com/aws-amplify/amplify-ui/pull/3183) [`cbbf51f53`](https://github.com/aws-amplify/amplify-ui/commit/cbbf51f53c428dc378d8986ae27c3bf9e52f67ab) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed MFA totpIssuer and totpUsername so it displays correctly in QR code when scanned.
+
+- Updated dependencies [[`db8f019a7`](https://github.com/aws-amplify/amplify-ui/commit/db8f019a7737c4762ff19c1b03c7c06625277989)]:
+  - @aws-amplify/ui@5.4.1
+
 ## 2.1.5
 
 ### Patch Changes

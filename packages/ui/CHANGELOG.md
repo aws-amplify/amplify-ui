@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.4.1
+
+### Patch Changes
+
+- [#3153](https://github.com/aws-amplify/amplify-ui/pull/3153) [`db8f019a7`](https://github.com/aws-amplify/amplify-ui/commit/db8f019a7737c4762ff19c1b03c7c06625277989) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Add missing Authenticator translations
+
 ## 5.4.0
 
 ### Minor Changes
