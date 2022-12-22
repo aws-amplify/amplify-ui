@@ -11,4 +11,7 @@ export class SignInTOTPMFAComponent {
   constructor() {
     Amplify.configure(awsExports);
   }
+  public formFields = {
+    setupTOTP: { QR: { totpIssuer: 'My Web App' } },
+  };
 }
