@@ -25,7 +25,7 @@ export const itDict: AuthenticatorDictionary = {
   'Enter your username': 'Inserisci il tuo nome utente',
   'Forgot your password?': 'Password dimenticata?',
   'Hide password': 'Nascondi password',
-  'It may take a minute to arrive': "L'arrivo potrebbe richiedere un minuto",
+  'It may take a minute to arrive': "L'arrivo potrebbe richiedere qualche minuto",
   Loading: 'Caricamento in corso',
   'New password': 'Nuova password',
   Password: 'Password',
