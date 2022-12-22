@@ -71,6 +71,9 @@ export const INSTRUCTIONS = [
   {
     desc: 'When check starts, fit face in oval, and hold for colored lights.',
   },
+  {
+    desc: 'Maximize the display screen brightness level.',
+  },
 ];
 
 export const defaultLivenessInstructionsHeader: string =
