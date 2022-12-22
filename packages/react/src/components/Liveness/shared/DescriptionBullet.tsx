@@ -24,14 +24,14 @@ export const DescriptionBullet = (
         width="xl"
         height="xl"
       >
-        <Text fontSize="small" as="span" color="font.inverse">
+        <Text fontWeight="bold" as="span" color="font.inverse">
           {index}
         </Text>
       </Flex>
 
       <Flex direction="column" gap="xxs">
         {title && <Text fontWeight="bold">{title}</Text>}
-        <Text color="font.tertiary">{desc}</Text>
+        <Text color="font.primary">{desc}</Text>
       </Flex>
     </Flex>
   );

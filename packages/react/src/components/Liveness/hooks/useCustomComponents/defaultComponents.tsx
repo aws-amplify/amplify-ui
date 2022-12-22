@@ -24,10 +24,10 @@ export const defaultLivenessHeaderBody: string =
 export const LivenessHeader = (): JSX.Element => {
   return (
     <View flex="1">
-      <View color="font.tertiary" fontWeight="bold">
+      <View color="font.primary" fontWeight="bold">
         {translate<string>(defaultLivenessHeaderHeading)}
       </View>
-      <View color="font.tertiary">
+      <View color="font.primary">
         {translate<string>(defaultLivenessHeaderBody)}
       </View>
     </View>
@@ -82,7 +82,7 @@ export const defaultLivenessInstructionsHeader: string =
 export const LivenessInstructions = (): JSX.Element => {
   return (
     <Flex direction="column">
-      <Text color="font.tertiary">
+      <Text color="font.primary" fontWeight="bold">
         {translate<string>(defaultLivenessInstructionsHeader)}
       </Text>
       <Collection type="list" items={INSTRUCTIONS}>
