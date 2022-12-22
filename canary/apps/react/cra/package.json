@@ -52,7 +52,7 @@
       "limit": "281 kB"
     }
   ],
-  "overrides": {
+  "resolutions": {
     "@babel/plugin-transform-block-scoping": "7.20.5"
   }
 }
