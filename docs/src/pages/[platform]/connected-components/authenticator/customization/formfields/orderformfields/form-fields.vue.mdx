@@ -22,9 +22,15 @@ const formFields = {
       }
     },
 }
+
+
+
+// Adding the signUpAttributes prop is typically not needed since attributes are inferred via Zero Configuration.
+// For the sake of this example they have been explicitly added so you can copy and paste this into your own application and see it work. 
+const signUpAttributes={['birthdate', 'family_name', 'preferred_username']}
 </script>
 <template>
-  <authenticator :form-fields="formFields">
+  <authenticator :form-fields="formFields" :sign-up-attributes="signUpAttributes">
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>
