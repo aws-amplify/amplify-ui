@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, create, ReactTestRenderer } from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 import { useDeviceOrientation } from '../../../../hooks';
 import { useMessageImage } from '../../../hooks/useMessageImage';
@@ -14,8 +14,6 @@ jest.mock('../../MessageWrapper', () => ({ MessageWrapper: 'MessageWrapper' }));
 const baseProps = { layout: 'CAROUSEL' as const };
 
 describe('CarouselMessageItem', () => {
-  let carouselMessageItem: ReactTestRenderer;
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -34,11 +32,9 @@ describe('CarouselMessageItem', () => {
       isImageFetching: false,
     });
 
-    act(() => {
-      carouselMessageItem = create(<CarouselMessageItem {...baseProps} />);
-    });
+    const { toJSON } = render(<CarouselMessageItem {...baseProps} />);
 
-    expect(carouselMessageItem.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('returns null if message is not ready for rendering', () => {
@@ -47,10 +43,8 @@ describe('CarouselMessageItem', () => {
       imageDimensions: { height: null, width: null },
       isImageFetching: true,
     });
-    act(() => {
-      carouselMessageItem = create(<CarouselMessageItem {...baseProps} />);
-    });
+    const { toJSON } = render(<CarouselMessageItem {...baseProps} />);
 
-    expect(carouselMessageItem.toJSON()).toBeNull();
+    expect(toJSON()).toBeNull();
   });
 });

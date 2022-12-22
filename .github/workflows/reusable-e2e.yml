@@ -68,6 +68,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Restore cypress runner from Cache
         uses: actions/cache@v3
         id: restore-cypress-cache
@@ -132,7 +134,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Restore node_modules cache
         uses: actions/cache@v3
         id: restore-cache
@@ -235,7 +238,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Restore cypress runner Cache
         uses: actions/cache@v3
         id: restore-cypress-cache
@@ -378,7 +382,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Restore cypress runner Cache
         uses: actions/cache@v3
         id: restore-cypress-cache

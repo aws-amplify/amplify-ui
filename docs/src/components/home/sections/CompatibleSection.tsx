@@ -31,7 +31,11 @@ export const CompatibleSection = ({ platform }) => {
       )}
     >
       <Flex direction="column" className="docs-home-subsection">
-        <Heading level={2} textAlign="center">
+        <Heading
+          level={2}
+          textAlign="center"
+          className={classNames('expand-out', isVisible && 'shown')}
+        >
           <strong>Compatible</strong> with your front-end
         </Heading>
         <Flex

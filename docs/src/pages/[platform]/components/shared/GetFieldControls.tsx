@@ -19,9 +19,10 @@ export interface GetFieldControlsProps {
 export const GetFieldControls = ({ fields }: GetFieldControlsProps) => {
   return (
     <Flex direction="column">
-      {fields.map(([value, setter, name, type = 'text']) =>
+      {fields.map(([value, setter, name, type = 'text'], idx) =>
         type === 'checkbox' ? (
           <CheckboxField
+            key={`${name}-${idx}`}
             name={name}
             value={value as string}
             checked={Boolean(value)}
@@ -32,11 +33,12 @@ export const GetFieldControls = ({ fields }: GetFieldControlsProps) => {
           />
         ) : (
           <TextField
+            key={`${name}-${idx}`}
             name={name}
             placeholder={`Set ${name}`}
             value={value}
             label={name}
-            onChange={(event: any) => {
+            onChange={(event: React.BaseSyntheticEvent) => {
               setter(event.target.value);
             }}
           />

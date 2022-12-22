@@ -1,5 +1,23 @@
 # @aws-amplify/ui
 
+## 5.4.0
+
+### Minor Changes
+
+- [#3158](https://github.com/aws-amplify/amplify-ui/pull/3158) [`0bbb9980c`](https://github.com/aws-amplify/amplify-ui/commit/0bbb9980c55f212ce54c5449a2dcc64bfce6ca8f) Thanks [@nandanbhat](https://github.com/nandanbhat)! - feat(Authenticator): Enable password validation on resetPassword and forceNewPassword screen
+
+### Patch Changes
+
+- [#2830](https://github.com/aws-amplify/amplify-ui/pull/2830) [`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(authenticator): adding package version to cognito user agent string
+
+## 5.3.1
+
+### Patch Changes
+
+- [#2907](https://github.com/aws-amplify/amplify-ui/pull/2907) [`c31a9bf69`](https://github.com/aws-amplify/amplify-ui/commit/c31a9bf693b3507e8a2b9d0790423a9f64e533cf) Thanks [@NivBraz](https://github.com/NivBraz)! - Added Hebrew as an option for Authenticator
+
+- [#3029](https://github.com/aws-amplify/amplify-ui/pull/3029) [`1847840c0`](https://github.com/aws-amplify/amplify-ui/commit/1847840c00c0f9f7be31e9735c31bd596f4056e9) Thanks [@hugobeaujour](https://github.com/hugobeaujour)! - chore: add translation texts for French
+
 ## 5.3.0
 
 ### Minor Changes

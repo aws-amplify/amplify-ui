@@ -303,6 +303,32 @@ h4:hover > a .icon-link {
   }
 }
 
+.expand-out {
+  // Only expand things for people without reduced motion preference
+  @media (prefers-reduced-motion: no-preference) {
+    &.shown {
+      animation: expand-out calc(2 * var(--amplify-time-long))
+        cubic-bezier(0.2, 0.6, 0.3, 1) both;
+    }
+  }
+}
+
+@keyframes expand-out {
+  0% {
+    letter-spacing: calc(-1 * var(--amplify-space-xs));
+    // arbitrary number found through heuristic methods, without this transform the expansion is less smooth and less noticeable.
+    transform: translateZ(-500px);
+    opacity: var(--amplify-opacities-0);
+  }
+  50% {
+    opacity: var(--amplify-opacities-60);
+  }
+  100% {
+    transform: translateZ(0);
+    opacity: var(--amplify-opacities-1);
+  }
+}
+
 .video {
   @supports (aspect-ratio: 1) {
     aspect-ratio: 16 / 9;

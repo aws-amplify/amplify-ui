@@ -1,5 +1,5 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 import { useDeviceOrientation } from '../../../../hooks';
 import { useMessageImage } from '../../../hooks';
@@ -34,9 +34,9 @@ describe('FullScreenMessage', () => {
       isImageFetching: false,
     });
 
-    const renderer = TestRenderer.create(<FullScreenMessage {...baseProps} />);
+    const { toJSON } = render(<FullScreenMessage {...baseProps} />);
 
-    expect(renderer.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('returns null while an image is fetching', () => {
@@ -46,8 +46,8 @@ describe('FullScreenMessage', () => {
       isImageFetching: true,
     });
 
-    const renderer = TestRenderer.create(<FullScreenMessage {...baseProps} />);
+    const { toJSON } = render(<FullScreenMessage {...baseProps} />);
 
-    expect(renderer.toJSON()).toBeNull();
+    expect(toJSON()).toBeNull();
   });
 });
