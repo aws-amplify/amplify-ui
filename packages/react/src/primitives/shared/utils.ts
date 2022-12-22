@@ -41,13 +41,13 @@ export type Modifiers = string | number | null;
  * it takes in a base and modifier and returns the modified class if a modifier was passed in and null otherwise
  * @param base The base class of the output
  * @param modifier The modifier to add onto the base
- * @returns the modified class name or null
+ * @returns the modified class name or empty string
  */
 export const classNameModifier = (
   base: ComponentClassName,
-  modifier: Modifiers
+  modifier?: Modifiers
 ): string => {
-  return modifier ? `${base}--${modifier}` : null;
+  return modifier ? `${base}--${modifier}` : '';
 };
 
 /**
@@ -56,14 +56,14 @@ export const classNameModifier = (
  * @param base
  * @param modifier
  * @param flag
- * @returns the modified class name or null
+ * @returns the modified class name or empty string
  */
 export const classNameModifierByFlag = (
   base: ComponentClassName,
   modifier: Modifiers,
-  flag: boolean
+  flag?: boolean
 ): string => {
-  return flag ? `${base}--${modifier}` : null;
+  return flag ? `${base}--${modifier}` : '';
 };
 
 export const getCSSVariableIfValueIsThemeKey = <Value>(
@@ -94,7 +94,7 @@ export const getCSSVariableIfValueIsThemeKey = <Value>(
   for (let i = 0; i < path.length; i++) {
     if (tokenProps) {
       // overwrite tokenProps with next nested value of tokenProps
-      tokenProps = tokenProps[path[i]] as typeof tokenProps;
+      tokenProps = tokenProps[path[i] as keyof typeof tokenProps];
       continue;
     }
     break;

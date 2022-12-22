@@ -32,6 +32,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Install packages
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
         run: yarn --frozen-lockfile

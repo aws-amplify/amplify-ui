@@ -138,9 +138,9 @@ export interface AutocompleteProps extends SearchFieldProps {
 }
 
 export interface UseAutocompleteProps extends Partial<AutocompleteProps> {
-  onBlur: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 
-  onClick: React.MouseEventHandler<HTMLInputElement>;
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
 }

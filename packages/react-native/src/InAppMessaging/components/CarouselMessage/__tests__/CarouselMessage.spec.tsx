@@ -1,25 +1,53 @@
 import React, { ReactElement } from 'react';
-import { act, create, ReactTestRenderer } from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
-import { Carousel } from '../../../../primitives';
+import { IN_APP_MESSAGING_TEST_ID } from '../../../constants';
 import CarouselMessage from '../CarouselMessage';
+import { defaultStyle } from '../styles';
+import { ReactTestRendererJSON } from 'react-test-renderer';
 
 jest.mock('../../../../primitives', () => ({ Carousel: 'Carousel' }));
 jest.mock('../../MessageWrapper', () => ({ MessageWrapper: 'MessageWrapper' }));
 jest.mock('../CarouselMessageItem', () => 'CarouselMessageItem');
 
-const baseProps = { layout: 'CAROUSEL' as const, data: [] };
+const baseProps = {
+  layout: 'CAROUSEL' as const,
+  data: [],
+};
 
 describe('CarouselMessage', () => {
-  let carouselMessage: ReactTestRenderer;
-  let itemRenderer: ReactTestRenderer;
-
   it('renders as expected', () => {
-    act(() => {
-      carouselMessage = create(<CarouselMessage {...baseProps} />);
-    });
+    const { toJSON, getByTestId } = render(<CarouselMessage {...baseProps} />);
 
-    expect(carouselMessage.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
+
+    const carousel = getByTestId(IN_APP_MESSAGING_TEST_ID.CAROUSEL);
+    expect(carousel).toBeDefined();
+    expect(carousel.props.data).toStrictEqual(baseProps.data);
+    expect(carousel.props.indicatorActiveStyle).toContain(
+      defaultStyle.pageIndicatorActive
+    );
+    expect(carousel.props.indicatorInactiveStyle).toContain(
+      defaultStyle.pageIndicatorInactive
+    );
+  });
+
+  it('renders as expected with minimal props', () => {
+    const { toJSON, getByTestId } = render(
+      <CarouselMessage layout={baseProps.layout} />
+    );
+
+    expect(toJSON()).toMatchSnapshot();
+
+    const carousel = getByTestId(IN_APP_MESSAGING_TEST_ID.CAROUSEL);
+    expect(carousel).toBeDefined();
+    expect(carousel.props.data).toEqual([]);
+    expect(carousel.props.indicatorActiveStyle).toContain(
+      defaultStyle.pageIndicatorActive
+    );
+    expect(carousel.props.indicatorInactiveStyle).toContain(
+      defaultStyle.pageIndicatorInactive
+    );
   });
 
   it('allows style overrides', () => {
@@ -27,29 +55,38 @@ describe('CarouselMessage', () => {
       pageIndicatorActive: { backgroundColor: 'red' },
       pageIndicatorInactive: { backgroundColor: 'blue' },
     };
-    act(() => {
-      carouselMessage = create(
-        <CarouselMessage {...baseProps} style={overrides} />
-      );
-    });
+    const { toJSON, getByTestId } = render(
+      <CarouselMessage {...baseProps} style={overrides} />
+    );
 
-    expect(carouselMessage.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
+
+    const carousel = getByTestId(IN_APP_MESSAGING_TEST_ID.CAROUSEL);
+    expect(carousel.props.indicatorActiveStyle).toContain(
+      overrides.pageIndicatorActive
+    );
+    expect(carousel.props.indicatorInactiveStyle).toContain(
+      overrides.pageIndicatorInactive
+    );
   });
 
   it('renders items', () => {
-    act(() => {
-      carouselMessage = create(<CarouselMessage {...baseProps} />);
-    });
-    const carousel = carouselMessage.root.findByType(Carousel);
+    const { getByTestId } = render(<CarouselMessage {...baseProps} />);
+
+    const carousel = getByTestId(IN_APP_MESSAGING_TEST_ID.CAROUSEL);
+    const image = { src: 'image-src' };
     const Item = () =>
-      (carousel.props as { renderItem: (data) => ReactElement }).renderItem({
-        item: { image: { src: 'image-src' } },
+      (
+        carousel.props as { renderItem: (data: any) => ReactElement }
+      ).renderItem({
+        item: { image },
       });
+    const { toJSON } = render(<Item />);
+    const carouselMessageItem = toJSON();
+    expect(carouselMessageItem).toMatchSnapshot();
 
-    act(() => {
-      itemRenderer = create(<Item />);
-    });
-
-    expect(itemRenderer.toJSON()).toMatchSnapshot();
+    const { props } = toJSON() as ReactTestRendererJSON;
+    expect(props.layout).toEqual(baseProps.layout);
+    expect(props.image).toEqual({ src: 'image-src' });
   });
 });
