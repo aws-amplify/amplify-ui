@@ -43,5 +43,11 @@
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.2.1",
     "serve": "^13.0.2"
+  },
+  "resolutions": {
+    "@babel/plugin-transform-block-scoping": "7.20.5"
+  },
+  "overrides": {
+    "@babel/plugin-transform-block-scoping": "7.20.5"
   }
 }

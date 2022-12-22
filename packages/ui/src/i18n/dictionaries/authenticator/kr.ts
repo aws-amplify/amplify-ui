@@ -24,6 +24,7 @@ export const krDict: AuthenticatorDictionary = {
   'Enter your phone number': '전화번호 입력',
   'Enter your username': '아이디를 입력해주세요',
   'Hide password': '비밀번호 숨기기',
+  'It may take a minute to arrive': '도착하는 데 1분 정도 걸릴 수 있습니다',
   Loading: '로딩중',
   'New password': '새 비밀번호',
   Password: '비밀번호',
@@ -50,6 +51,15 @@ export const krDict: AuthenticatorDictionary = {
   Username: '아이디',
   'Verify Contact': '연락처 확인',
   Verify: '인증',
+  'We Emailed You': '이메일을 보냄',
+  'We Sent A Code': '코드를 보냄',
+  'We Texted You': '문자 메시지를 보냄',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    '코드가 전송 중입니다. 로그인하려면 이메일로 전송한 코드를 입력하세요',
+  'Your code is on the way. To log in, enter the code we sent you':
+    '코드가 전송 중입니다. 로그인하려면 전송한 코드를 입력하세요',
+  'Your code is on the way. To log in, enter the code we texted to':
+    '코드가 전송 중입니다. 로그인하려면 문자 메시지로 전송한 코드를 입력하세요',
 
   // Additional translations provided by customers
   Birthdate: '생년월일',

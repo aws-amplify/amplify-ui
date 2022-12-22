@@ -25,6 +25,7 @@ export const esDict: AuthenticatorDictionary = {
   'Enter your username': 'Ingrese el nombre de usuario',
   'Forgot your password?': '¿Olvidó su contraseña?',
   'Hide password': 'Ocultar contraseña',
+  'It may take a minute to arrive': 'Es posible que tarde un minuto en llegar',
   Loading: 'Cargando',
   'New password': 'Nueva contraseña',
   Password: 'Contraseña',
@@ -51,6 +52,15 @@ export const esDict: AuthenticatorDictionary = {
   Username: 'Nombre de usuario',
   'Verify Contact': 'Verificar contacto',
   Verify: 'Verificar',
+  'We Emailed You': 'Le hemos enviado un correo electrónico',
+  'We Sent A Code': 'Hemos enviado un código',
+  'We Texted You': 'Le hemos enviado un mensaje de texto',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'El código está en camino. Para iniciar sesión, escriba el código que hemos enviado por correo electrónico a',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'El código está en camino. Para iniciar sesión, escriba el código que le hemos enviado',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'El código está en camino. Para iniciar sesión, escriba el código que hemos enviado por mensaje de texto a',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':

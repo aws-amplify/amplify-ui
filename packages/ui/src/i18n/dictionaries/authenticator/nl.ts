@@ -25,6 +25,7 @@ export const nlDict: AuthenticatorDictionary = {
   'Enter your username': 'Vul je gebruikersnaam in',
   'Forgot your password?': 'Wachtwoord vergeten? ',
   'Hide password': 'Verberg wachtwoord',
+  'It may take a minute to arrive': 'Het kan even duren voordat deze aankomt',
   Loading: 'Laden',
   'New password': 'Nieuw wachtwoord',
   Password: 'Wachtwoord',
@@ -51,4 +52,13 @@ export const nlDict: AuthenticatorDictionary = {
   Username: 'Gebruikersnaam',
   'Verify Contact': 'Verifieer Contact',
   Verify: 'Verifieer',
+  'We Emailed You': 'We hebben u een e-mail gestuurd',
+  'We Sent A Code': 'We hebben een code gestuurd',
+  'We Texted You': 'We hebben u een sms gestuurd',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we gemaild hebben naar',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we u hebben gestuurd',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Uw code is onderweg. Om in te loggen, voer de code in die we hebben gestuurd naar',
 };

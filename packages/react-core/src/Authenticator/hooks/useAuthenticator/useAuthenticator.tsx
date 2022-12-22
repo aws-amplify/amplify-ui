@@ -11,6 +11,7 @@ import {
   getComparator,
   getMachineFields,
   getTotpSecretCodeCallback,
+  getQRFields,
 } from './utils';
 
 /**
@@ -43,6 +44,12 @@ export default function useAuthenticator(
   // `fields` from updating with current form state on value changes
   const serviceSnapshot = service.getSnapshot();
 
+  // legacy `QRFields` values only used for SetupTOTP page to retrieve issuer information, will be removed in future
+  const QRFields = useMemo(
+    () => getQRFields(serviceSnapshot as AuthMachineState),
+    [serviceSnapshot]
+  );
+
   // legacy `formFields` values required until form state is removed from state machine
   const fields = useMemo(
     () =>
@@ -62,5 +69,7 @@ export default function useAuthenticator(
     user,
     /** @deprecated For internal use only */
     fields,
+    /** @deprecated For internal use only */
+    QRFields,
   };
 }

@@ -25,7 +25,7 @@ I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {
   'Your code is on the way. To log in, enter the code we emailed to':
     'Enter this code:',
-  'It may take a minute to arrive.': 'It will take several minutes to arrive.',
+  'It may take a minute to arrive': 'It will take several minutes to arrive',
 });
 
 export default function AuthenticatorWithEmail() {
