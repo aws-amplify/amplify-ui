@@ -3,12 +3,7 @@ import { View } from 'react-native';
 
 import { getErrors } from '@aws-amplify/ui';
 
-import {
-  PasswordField,
-  PhoneNumberField,
-  TextField,
-} from '../../../primitives';
-
+import Field from './Field';
 import { FieldErrors } from './FieldErrors';
 import { DefaultTextFormFieldsComponent } from './types';
 
@@ -27,13 +22,6 @@ const DefaultTextFormFields: DefaultTextFormFieldsComponent = ({
 
     const hasError = errors?.length > 0;
 
-    const Field =
-      type === 'password'
-        ? PasswordField
-        : type === 'phone'
-        ? PhoneNumberField
-        : TextField;
-
     return (
       <Fragment key={name}>
         <Field
@@ -43,6 +31,7 @@ const DefaultTextFormFields: DefaultTextFormFieldsComponent = ({
           fieldStyle={fieldStyle}
           key={name}
           style={fieldContainerStyle}
+          type={type}
         />
         <FieldErrors
           errors={errors}
