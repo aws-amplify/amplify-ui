@@ -59,7 +59,7 @@ describe('FieldGroup component', () => {
     );
 
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
     expect(ref.current).toHaveClass(ComponentClassNames.FieldGroup);
   });
 

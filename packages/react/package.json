@@ -39,7 +39,7 @@
     "dev": "tsup --watch",
     "dev:build": "tsup",
     "clean": "rimraf dist node_modules",
-    "lint": "tsc --noEmit --project tsconfig.dev.json && yarn eslint ./src --ext .js,.ts,.tsx",
+    "lint": "tsc --noEmit --project tsconfig.dev.json && eslint",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",

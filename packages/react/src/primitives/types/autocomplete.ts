@@ -144,3 +144,26 @@ export interface UseAutocompleteProps extends Partial<AutocompleteProps> {
 
   onClick?: React.MouseEventHandler<HTMLInputElement>;
 }
+
+type SetStateAction<T> = React.Dispatch<React.SetStateAction<T>>;
+
+export interface UseAutocomplete {
+  activeOptionId: ComboBoxOption['id'];
+  autocompleteId: string;
+  composedValue: string;
+  filteredOptions: ComboBoxOption[];
+  handleOnBlur: React.FocusEventHandler<HTMLInputElement>;
+  handleOnClear: () => void;
+  handleOnClick: React.MouseEventHandler<HTMLInputElement>;
+  handleOnChange: React.ChangeEventHandler<HTMLInputElement>;
+  handleOnKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
+  isControlled: boolean;
+  isCustomFiltering: boolean;
+  isMenuOpen: boolean;
+  listboxId: string;
+  menuId: string;
+  optionBaseId: string;
+  setActiveOption: SetStateAction<ComboBoxOption>;
+  setIsMenuOpen: SetStateAction<boolean>;
+  setInternalValue: SetStateAction<string>;
+}

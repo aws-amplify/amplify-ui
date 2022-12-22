@@ -58,7 +58,7 @@ describe('Alert: ', () => {
       alertHeading.classList.contains(ComponentClassNames.AlertHeading)
     ).toBe(true);
     expect(
-      alertHeading.parentElement.parentElement.classList.contains(
+      alertHeading.parentElement?.parentElement?.classList.contains(
         ComponentClassNames.Alert
       )
     ).toBe(true);
@@ -85,10 +85,10 @@ describe('Alert: ', () => {
     expect(noIcon.childElementCount).toBe(1);
     expect(defaultAlert.childElementCount).toBe(1);
     expect(
-      hasIcon.firstElementChild.classList.contains(ComponentClassNames.Icon)
+      hasIcon.firstElementChild?.classList.contains(ComponentClassNames.Icon)
     ).toBe(true);
     expect(
-      noIcon.firstElementChild.classList.contains(ComponentClassNames.Icon)
+      noIcon.firstElementChild?.classList.contains(ComponentClassNames.Icon)
     ).toBe(false);
   });
 
@@ -195,7 +195,7 @@ describe('Alert: ', () => {
       render(<Alert ref={ref} testId={testId} />);
 
       await screen.findByTestId(testId);
-      expect(ref.current.nodeName).toBe('DIV');
+      expect(ref.current?.nodeName).toBe('DIV');
     });
 
     it('should forward ref to dismiss button DOM element', async () => {
@@ -203,7 +203,7 @@ describe('Alert: ', () => {
       render(<Alert buttonRef={ref} isDismissible />);
 
       await screen.findByRole('button');
-      expect(ref.current.nodeName).toBe('BUTTON');
+      expect(ref.current?.nodeName).toBe('BUTTON');
     });
   });
 });
