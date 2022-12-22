@@ -3,6 +3,10 @@ import { AuthenticatorFormFieldsComponent } from '@aws-amplify/ui-react-core';
 
 import { RadioFieldOptions, TextFieldOptionsType } from '../../hooks';
 
+export type FieldProps = Omit<TextFieldOptionsType, 'name'> & {
+  disabled: boolean;
+};
+
 export interface FieldErrorsProps {
   errors: string[];
   errorStyle?: StyleProp<TextStyle>;
