@@ -13,9 +13,9 @@ Feature: Sign In with Email
   @angular @react @vue
   Scenario: Sign in with force password reset calls forgot password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
-    Given I spy "Amplify.Auth.forgotPassword" method
     When I type my "email" with status "CONFIRMED"
     And I type my password
+    Given I spy "Amplify.Auth.forgotPassword" method
     And I click the "Sign in" button
     Then I see "Code *"
     And "Amplify.Auth.forgotPassword" method is called
