@@ -35,6 +35,7 @@ exports[`CarouselMessage allows style overrides 1`] = `
       ]
     }
     renderItem={[Function]}
+    testID="in-app-messaging--carousel"
   />
 </MessageWrapper>
 `;
@@ -70,6 +71,43 @@ exports[`CarouselMessage renders as expected 1`] = `
       ]
     }
     renderItem={[Function]}
+    testID="in-app-messaging--carousel"
+  />
+</MessageWrapper>
+`;
+
+exports[`CarouselMessage renders as expected with minimal props 1`] = `
+<MessageWrapper
+  disableSafeAreaView={true}
+>
+  <Carousel
+    data={Array []}
+    indicatorActiveStyle={
+      Array [
+        Object {
+          "backgroundColor": "#a1a1a1",
+          "borderRadius": 6,
+          "height": 12,
+          "margin": 4,
+          "width": 12,
+        },
+        undefined,
+      ]
+    }
+    indicatorInactiveStyle={
+      Array [
+        Object {
+          "backgroundColor": "#d8d8d8",
+          "borderRadius": 6,
+          "height": 12,
+          "margin": 4,
+          "width": 12,
+        },
+        undefined,
+      ]
+    }
+    renderItem={[Function]}
+    testID="in-app-messaging--carousel"
   />
 </MessageWrapper>
 `;

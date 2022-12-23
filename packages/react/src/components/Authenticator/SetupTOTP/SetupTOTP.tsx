@@ -16,7 +16,7 @@ import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const logger = new Logger('SetupTOTP-logger');
 
-type LegacyQRFields = { QR?: { totpIssuer?: string; totpUsername?: string } };
+type LegacyQRFields = { totpIssuer?: string; totpUsername?: string };
 
 const { getSetupTOTPText, getCopiedText, getLoadingText } =
   authenticatorTextUtil;
@@ -25,7 +25,7 @@ export const SetupTOTP = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  const { fields, getTotpSecretCode, isPending, user } = useAuthenticator(
+  const { getTotpSecretCode, isPending, user, QRFields } = useAuthenticator(
     (context) => [context.isPending]
   );
 
@@ -41,9 +41,8 @@ export const SetupTOTP = ({
   const [qrCode, setQrCode] = React.useState<string>();
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
   const [secretKey, setSecretKey] = React.useState<string>('');
-
   const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
-    (fields as LegacyQRFields)?.QR ?? {};
+    (QRFields as LegacyQRFields) ?? {};
 
   const generateQRCode = React.useCallback(async (): Promise<void> => {
     try {

@@ -6,7 +6,10 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import { IconProps } from '../Icon';
+
 export interface ErrorMessageProps extends ViewProps {
+  iconStyle?: IconProps['style'];
   labelStyle?: StyleProp<TextStyle>;
   onDismiss?: () => void;
 }

@@ -303,6 +303,7 @@ export function createAuthenticatorMachine() {
               formValues: {},
               touched: {},
               validationError: {},
+              passwordSettings: context.config?.passwordSettings,
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
@@ -338,6 +339,7 @@ export function createAuthenticatorMachine() {
               username: context.actorDoneData?.authAttributes?.username,
               formFields: context.config?.formFields,
               validationError: {},
+              passwordSettings: context.config?.passwordSettings,
             });
             return spawn(actor, { name: 'resetPasswordActor' });
           },

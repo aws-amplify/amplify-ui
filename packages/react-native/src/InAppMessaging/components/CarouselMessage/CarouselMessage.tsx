@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { MessageContentProps } from '@aws-amplify/ui-react-core';
 
 import { Carousel } from '../../../primitives';
+import { IN_APP_MESSAGING_TEST_ID } from '../../constants';
 
 import { MessageWrapper } from '../MessageWrapper';
 import CarouselMessageItem from './CarouselMessageItem';
@@ -36,6 +37,7 @@ export default function CarouselMessage(
         renderItem={renderItem}
         indicatorActiveStyle={indicatorStyle.active}
         indicatorInactiveStyle={indicatorStyle.inactive}
+        testID={IN_APP_MESSAGING_TEST_ID.CAROUSEL}
       />
     </MessageWrapper>
   );

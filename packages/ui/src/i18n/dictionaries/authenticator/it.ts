@@ -25,6 +25,7 @@ export const itDict: AuthenticatorDictionary = {
   'Enter your username': 'Inserisci il tuo nome utente',
   'Forgot your password?': 'Password dimenticata?',
   'Hide password': 'Nascondi password',
+  'It may take a minute to arrive': "L'arrivo potrebbe richiedere qualche minuto",
   Loading: 'Caricamento in corso',
   'New password': 'Nuova password',
   Password: 'Password',
@@ -51,6 +52,15 @@ export const itDict: AuthenticatorDictionary = {
   Username: 'Nome utente',
   'Verify Contact': 'Verifica contatto',
   Verify: 'Verifica',
+  'We Emailed You': "Ti abbiamo inviato un'e-mail",
+  'We Sent A Code': 'Ti abbiamo inviato un codice',
+  'We Texted You': 'Ti abbiamo inviato un SMS',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    "Il codice è in arrivo. Per effettuare l'accesso, immetti il codice che ti abbiamo inviato via e-mail",
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Il codice è in arrivo. Per accedere, immetti il codice che ti abbiamo inviato',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Il codice è in arrivo. Per accedere, immetti il codice che abbiamo inviato tramite SMS',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -59,7 +69,7 @@ export const itDict: AuthenticatorDictionary = {
   'Confirm Sign In': "Conferma l'accesso",
   'Create account': 'Crea account',
   'Enter your password': 'Inserisci la tua password',
-  'Forgot Password': 'Password dimenticata',
+  'Forgot Password?': 'Password dimenticata?',
   'Have an account? ': 'Già registrato?',
   'Incorrect username or password': 'Nome utente o password errati',
   'Invalid password format': 'Formato della password non valido',

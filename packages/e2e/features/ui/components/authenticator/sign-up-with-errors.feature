@@ -24,4 +24,4 @@ Scenario: Sign up with a new email & password without lower case characters
   Then I see "Password must have special characters"
   Then I see "Password must have lower case letters"
   Then I see "Password must have at least 8 characters"
-  And I confirm "Password must have numbers" error is accessible 
+  And I confirm "Password must have numbers" error is accessible in password field

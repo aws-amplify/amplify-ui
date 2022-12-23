@@ -34,21 +34,17 @@ const getDeliveryMessageText = (
   const isEmailMessage = DeliveryMedium === 'EMAIL';
   const isTextMessage = DeliveryMedium === 'SMS';
 
+  const arrivalMessage = translate(DefaultTexts.CODE_ARRIVAL);
+
   if (!(isEmailMessage || isTextMessage)) {
-    return translate(
-      'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
-    );
+    return `${translate(DefaultTexts.CODE_SENT)}. ${arrivalMessage}.`;
   }
 
-  const instructionMessage = translate(
-    `Your code is on the way. To log in, enter the code we ${
-      isEmailMessage ? 'emailed' : 'texted'
-    } to`
-  );
+  const instructionMessage = isEmailMessage
+    ? translate(DefaultTexts.CODE_EMAILED)
+    : translate(DefaultTexts.CODE_TEXTED);
 
-  const arrivalMessage = translate('It may take a minute to arrive.');
-
-  return `${instructionMessage} ${Destination}. ${arrivalMessage}`;
+  return `${instructionMessage} ${Destination}. ${arrivalMessage}.`;
 };
 
 const getDeliveryMethodText = (
@@ -59,10 +55,11 @@ const getDeliveryMethodText = (
   const isTextMessage = DeliveryMedium === 'SMS';
 
   if (!isEmailMessage && isTextMessage) {
-    // TODO: add this to default texts
-    return translate('We Sent A Code');
+    return translate(DefaultTexts.WE_SENT_CODE);
   }
-  return translate(`We ${isEmailMessage ? 'Emailed' : 'Texted'} You`);
+  return isEmailMessage
+    ? translate(DefaultTexts.WE_EMAILED)
+    : translate(DefaultTexts.WE_TEXTED);
 };
 
 /**

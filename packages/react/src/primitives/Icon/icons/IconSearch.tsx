@@ -1,13 +1,14 @@
-import classNames from 'classnames';
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { InternalIcon } from './types';
 
 /**
  * @internal For internal Amplify UI use only. May be removed in a future release.
  */
-export const IconSearch = (props) => {
+export const IconSearch: InternalIcon = (props) => {
   const { className, ...rest } = props;
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import TestRenderer from 'react-test-renderer';
+import { fireEvent, render } from '@testing-library/react-native';
 
 import { IN_APP_MESSAGING_TEST_ID } from '../../../constants';
 import { useDeviceOrientation } from '../../../../hooks';
@@ -36,9 +36,9 @@ describe('ModalMessage', () => {
       isImageFetching: false,
     });
 
-    const renderer = TestRenderer.create(<ModalMessage {...baseProps} />);
+    const { toJSON } = render(<ModalMessage {...baseProps} />);
 
-    expect(renderer.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('renders a message as expected with an image', () => {
@@ -55,16 +55,14 @@ describe('ModalMessage', () => {
     const src = 'asset.png';
     const props = { ...baseProps, image: { src } };
 
-    const renderer = TestRenderer.create(<ModalMessage {...props} />);
+    const { toJSON, getByTestId } = render(<ModalMessage {...props} />);
 
-    const image = renderer.root.findByProps({
-      testID: IN_APP_MESSAGING_TEST_ID.IMAGE,
-    });
+    const image = getByTestId(IN_APP_MESSAGING_TEST_ID.IMAGE);
 
     expect(image.props).toEqual(
       expect.objectContaining({ source: { uri: src } })
     );
-    expect(renderer.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('returns null while an image is fetching', () => {
@@ -78,9 +76,9 @@ describe('ModalMessage', () => {
       isImageFetching: true,
     });
 
-    const renderer = TestRenderer.create(<ModalMessage {...baseProps} />);
+    const { toJSON } = render(<ModalMessage {...baseProps} />);
 
-    expect(renderer.toJSON()).toBeNull();
+    expect(toJSON()).toBeNull();
   });
 
   it.each([
@@ -100,12 +98,32 @@ describe('ModalMessage', () => {
         expectedProps: { children: 'body content' },
       },
     ],
+  ])(
+    'correctly handles a %s prop',
+    (key, testID, { testProps, expectedProps }) => {
+      mockUseMessageImage.mockReturnValueOnce({
+        hasRenderableImage: false,
+        imageDimensions: { height: undefined, width: undefined },
+        isImageFetching: false,
+      });
+
+      const props = { ...baseProps, [key]: testProps };
+
+      const { getByTestId } = render(<ModalMessage {...props} />);
+      const testElement = getByTestId(testID);
+
+      for (const [key, value] of Object.entries(expectedProps)) {
+        expect(testElement.props[key]).toEqual(value);
+      }
+    }
+  );
+
+  it.each([
     [
       'primaryButton',
       IN_APP_MESSAGING_TEST_ID.PRIMARY_BUTTON,
       {
         testProps: { onAction, title: 'primary button' },
-        expectedProps: { children: 'primary button', onPress: onAction },
       },
     ],
     [
@@ -113,26 +131,27 @@ describe('ModalMessage', () => {
       IN_APP_MESSAGING_TEST_ID.SECONDARY_BUTTON,
       {
         testProps: { onAction, title: 'secondary button' },
-        expectedProps: { children: 'secondary button', onPress: onAction },
       },
     ],
-  ])(
-    'correctly handles a %s prop',
-    (key, testID, { testProps, expectedProps }) => {
-      mockUseMessageImage.mockReturnValueOnce({
-        hasRenderableImage: false,
-        imageDimensions: { height: null, width: null },
-        isImageFetching: false,
-      });
+  ])('correctly handles a %s prop', (key, testID, { testProps }) => {
+    mockUseMessageImage.mockReturnValueOnce({
+      hasRenderableImage: false,
+      imageDimensions: { height: undefined, width: undefined },
+      isImageFetching: false,
+    });
 
-      const props = { ...baseProps, [key]: testProps };
+    const props = { ...baseProps, [key]: testProps };
+    const { toJSON, getByRole, getByTestId, getByText, queryAllByRole } =
+      render(<ModalMessage {...props} />);
 
-      const renderer = TestRenderer.create(<ModalMessage {...props} />);
-      const testElement = renderer.root.findByProps({ testID });
+    expect(toJSON()).toMatchSnapshot();
+    expect(queryAllByRole('button')).toHaveLength(2);
+    expect(getByTestId(testID)).toBeDefined();
+    expect(getByTestId(IN_APP_MESSAGING_TEST_ID.CLOSE_BUTTON)).toBeDefined();
 
-      expect(testElement.props).toEqual(expect.objectContaining(expectedProps));
-    }
-  );
+    expect(getByRole('image')).toBeDefined();
+    expect(getByText(testProps.title)).toBeDefined();
+  });
 
   it('calls onClose when the close button is pressed', () => {
     mockUseMessageImage.mockReturnValueOnce({
@@ -141,15 +160,10 @@ describe('ModalMessage', () => {
       isImageFetching: false,
     });
 
-    const renderer = TestRenderer.create(<ModalMessage {...baseProps} />);
-    const closeButton = renderer.root.findByProps({
-      testID: IN_APP_MESSAGING_TEST_ID.CLOSE_BUTTON,
-    });
+    const { getByTestId } = render(<ModalMessage {...baseProps} />);
+    const closeButton = getByTestId(IN_APP_MESSAGING_TEST_ID.CLOSE_BUTTON);
 
-    TestRenderer.act(() => {
-      (closeButton.props as { onPress: () => void }).onPress();
-    });
-
+    fireEvent.press(closeButton);
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 });

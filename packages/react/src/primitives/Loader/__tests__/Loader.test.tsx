@@ -58,7 +58,7 @@ describe('Loader: ', () => {
     render(<Loader ref={ref} />);
 
     await screen.findByRole('img');
-    expect(ref.current.nodeName).toBe('svg');
+    expect(ref.current?.nodeName).toBe('svg');
   });
 
   it('should set size attribute', async () => {

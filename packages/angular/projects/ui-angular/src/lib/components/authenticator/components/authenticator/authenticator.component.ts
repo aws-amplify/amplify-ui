@@ -12,14 +12,16 @@ import {
 } from '@angular/core';
 import {
   AuthenticatorMachineOptions,
+  authenticatorTextUtil,
+  configureComponent,
   defaultAuthHubHandler,
   listenToAuthHub,
   SocialProvider,
-  authenticatorTextUtil,
 } from '@aws-amplify/ui';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
+import { VERSION } from '../../../../../version';
 
 const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 
@@ -68,6 +70,11 @@ export class AuthenticatorComponent
       socialProviders,
       formFields,
     } = this;
+
+    configureComponent({
+      packageName: '@aws-amplify/ui-angular',
+      version: VERSION,
+    });
 
     const { authService, initializeMachine } = this.authenticator;
 

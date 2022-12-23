@@ -1,5 +1,99 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Carousel calls the orientation handler on orientation change 1`] = `
+Array [
+  <RCTScrollView
+    bounces={false}
+    data={
+      Array [
+        Object {
+          "key": 1,
+          "str": "qux",
+        },
+      ]
+    }
+    decelerationRate="fast"
+    disableIntervalMomentum={true}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={true}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    onViewableItemsChanged={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    renderToHardwareTextureAndroid={true}
+    scrollEventThrottle={50}
+    showsHorizontalScrollIndicator={false}
+    showsVerticalScrollIndicator={false}
+    snapToAlignment="start"
+    snapToInterval={350}
+    stickyHeaderIndices={Array []}
+    viewabilityConfig={
+      Object {
+        "itemVisiblePercentThreshold": 60,
+      }
+    }
+    viewabilityConfigCallbackPairs={
+      Array [
+        Object {
+          "onViewableItemsChanged": [Function],
+          "viewabilityConfig": Object {
+            "itemVisiblePercentThreshold": 60,
+          },
+        },
+      ]
+    }
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "width": 350,
+            }
+          }
+        >
+          <Text>
+            qux
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>,
+  <CarouselPageIndicator
+    currentIndex={0}
+    numberOfItems={1}
+    style={
+      Object {
+        "bottom": 0,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+      }
+    }
+  />,
+]
+`;
+
 exports[`Carousel renders with just one item in the data 1`] = `
 Array [
   <RCTScrollView
