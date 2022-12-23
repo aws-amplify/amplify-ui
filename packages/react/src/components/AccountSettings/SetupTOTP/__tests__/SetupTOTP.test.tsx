@@ -8,15 +8,14 @@ import {
 } from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
+import * as ReactCoreModule from '@aws-amplify/ui-react-core';
 
 import SetupTOTP from '../SetupTOTP';
 
 const user = { username: 'testuser' } as unknown as UIModule.AmplifyUser;
-jest.mock('../../../../internal', () => ({
-  useAuth: () => ({
-    user,
-    isLoading: false,
-  }),
+jest.spyOn(ReactCoreModule, 'useAuth').mockImplementation(() => ({
+  user,
+  isLoading: false,
 }));
 
 const setupTOTPSpy = jest.spyOn(UIModule, 'setupTOTP');
