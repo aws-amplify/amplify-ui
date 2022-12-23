@@ -1,7 +1,7 @@
 import { Auth } from '@aws-amplify/auth';
 import { Hub } from '@aws-amplify/core';
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useAuth } from '../useAuth';
+import useAuth from '../useAuth';
 
 const currentAuthenticatedUserSpy = jest.spyOn(
   Auth,
