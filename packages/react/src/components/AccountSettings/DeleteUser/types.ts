@@ -17,13 +17,6 @@ export type WarningViewComponent<Props = {}> = React.ComponentType<
   Props & WarningViewProps
 >;
 
-export type DeleteUserState =
-  | 'IDLE'
-  | 'CONFIRMATION'
-  | 'DELETING'
-  | 'DONE'
-  | 'ERROR';
-
 export interface DeleteUserComponents {
   ErrorMessage?: ErrorMessageComponent;
   DeleteButton?: ButtonComponent;
