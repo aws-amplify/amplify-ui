@@ -11,6 +11,7 @@ export const usePagination = (
     hasMorePages,
     siblingCount = 1,
   } = props;
+  hasMorePages = !!hasMorePages;
 
   // The current page should not be less than 1
   initialPage = Math.max(initialPage, 1);

@@ -40,7 +40,7 @@ describe('Placeholder: ', () => {
     render(<Placeholder ref={ref} testId="placeholderId" />);
 
     await screen.findByTestId('placeholderId');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
   it('renders based on isLoaded prop', async () => {

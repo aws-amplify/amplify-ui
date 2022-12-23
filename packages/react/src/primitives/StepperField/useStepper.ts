@@ -50,11 +50,11 @@ export const useStepper = ({
 
   // Same for controlled components on the first render because users could provide invalid intial value.
   // It seems redundant afterwards but necessary for the first render
-  if (isControlled) {
+  if (controlledValue) {
     controlledValue = getCorrectSteppingValue(min, max, step, controlledValue);
   }
 
-  const value = isControlled ? controlledValue : uncontrolledValue;
+  const value = controlledValue ? controlledValue : uncontrolledValue;
 
   const shouldDisableIncreaseButton =
     isDisabled || isReadOnly || value + step > max;

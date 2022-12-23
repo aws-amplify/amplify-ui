@@ -18,14 +18,14 @@ export const usePaginationItems = (
   currentPage: number,
   totalPages: number,
   hasMorePages: boolean,
-  siblingCount: number,
+  siblingCount: number | undefined,
   currentPageLabel: string = ComponentText.PaginationItem.currentPageLabel,
   pageLabel: string = ComponentText.PaginationItem.pageLabel,
   previousLabel: string = ComponentText.PaginationItem.previousLabel,
   nextLabel: string = ComponentText.PaginationItem.nextLabel,
-  onNext: () => void,
-  onPrevious: () => void,
-  onChange: (newPageIdx: number, prevPageIdx) => void
+  onNext: (() => void) | undefined,
+  onPrevious: (() => void) | undefined,
+  onChange: (newPageIdx?: number, prevPageIdx?: number) => void
 ) => {
   const previousItem = (
     <PaginationItem

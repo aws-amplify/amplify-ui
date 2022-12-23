@@ -21,7 +21,10 @@ export const useSearchField = ({
   const composedValue = isControlled ? value : internalValue;
 
   const internalRef = React.useRef<HTMLInputElement>(null);
-  const composedRefs = useComposeRefsCallback({ externalRef, internalRef });
+  const composedRefs = useComposeRefsCallback<HTMLInputElement | null>({
+    externalRef,
+    internalRef,
+  });
 
   const onClearHandler = React.useCallback(() => {
     if (!isControlled) {
