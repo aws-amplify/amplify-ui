@@ -1,4 +1,6 @@
 // features
+export { useDeleteUser } from './AccountSettings';
+
 export {
   AuthenticatorComponentDefaults,
   AuthenticatorComponentDefaultProps,
