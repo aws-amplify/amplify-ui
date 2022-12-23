@@ -158,7 +158,7 @@ export const handleBlur = assign({
 export const resendCode = async (context) => {
   const { username } = context;
 
-  return Auth.forgotPassword(username);
+  return await Auth.forgotPassword(username);
 };
 
 /**
