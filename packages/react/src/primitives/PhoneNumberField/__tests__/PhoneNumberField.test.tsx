@@ -35,12 +35,14 @@ describe('PhoneNumberField primitive', () => {
   };
 
   const ReadOnlyFormTest = () => {
-    const inputRef = React.useRef(null);
-    const countryCodeRef = React.useRef(null);
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const countryCodeRef = React.useRef<HTMLSelectElement>(null);
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(`${countryCodeRef.current.value} ${inputRef.current.value}`);
+      console.log(
+        `${countryCodeRef.current?.value} ${inputRef.current?.value}`
+      );
     };
 
     return (
@@ -65,8 +67,8 @@ describe('PhoneNumberField primitive', () => {
     await setup({ ref, countryCodeRef });
 
     await screen.findByRole('textbox');
-    expect(ref.current.nodeName).toBe('INPUT');
-    expect(countryCodeRef.current.nodeName).toBe('SELECT');
+    expect(ref.current?.nodeName).toBe('INPUT');
+    expect(countryCodeRef.current?.nodeName).toBe('SELECT');
   });
 
   it('should render a country code selector with an accessible role', async () => {
@@ -214,12 +216,12 @@ describe('PhoneNumberField primitive', () => {
     };
 
     const DialCodeReadOnlyFormTest = () => {
-      const inputRef = React.useRef(null);
-      const dialCodeRef = React.useRef(null);
+      const inputRef = React.useRef<HTMLInputElement>(null);
+      const dialCodeRef = React.useRef<HTMLSelectElement>(null);
 
       const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(`${dialCodeRef.current.value} ${inputRef.current.value}`);
+        console.log(`${dialCodeRef.current?.value} ${inputRef.current?.value}`);
       };
 
       return (
@@ -244,8 +246,8 @@ describe('PhoneNumberField primitive', () => {
       await dialCodeSetup({ ref, dialCodeRef });
 
       await screen.findByRole('textbox');
-      expect(ref.current.nodeName).toBe('INPUT');
-      expect(dialCodeRef.current.nodeName).toBe('SELECT');
+      expect(ref.current?.nodeName).toBe('INPUT');
+      expect(dialCodeRef.current?.nodeName).toBe('SELECT');
     });
 
     it('should render a country code selector with an accessible role', async () => {

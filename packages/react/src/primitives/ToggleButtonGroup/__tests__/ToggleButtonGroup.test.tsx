@@ -190,6 +190,6 @@ describe('ToggleButtonGroup: ', () => {
     render(<ExclusiveSelectionGroup ref={ref} />);
 
     await screen.findByRole('group');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 });

@@ -39,7 +39,7 @@ describe('Tabs: ', () => {
     );
 
     await screen.findByTestId('tabsId');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
   it('should skip over null children', async () => {
@@ -145,7 +145,7 @@ describe('Tabs: ', () => {
       );
 
       await screen.findByRole('tab');
-      expect(ref.current.nodeName).toBe('BUTTON');
+      expect(ref.current?.nodeName).toBe('BUTTON');
     });
   });
 });
