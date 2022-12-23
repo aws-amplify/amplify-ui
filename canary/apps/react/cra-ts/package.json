@@ -56,11 +56,5 @@
       "path": "build/static/js/main.*.js",
       "limit": "281 kB"
     }
-  ],
-  "resolutions": {
-    "@babel/plugin-transform-block-scoping": "7.20.5"
-  },
-  "overrides": {
-    "@babel/plugin-transform-block-scoping": "7.20.5"
-  }
+  ]
 }
