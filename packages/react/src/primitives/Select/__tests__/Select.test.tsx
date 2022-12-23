@@ -110,7 +110,7 @@ describe('Select primitive test suite', () => {
     render(<Select ref={ref} testId={testId}></Select>);
 
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('SELECT');
+    expect(ref.current?.nodeName).toBe('SELECT');
   });
 
   it('should be able to pass through isDisabled and isRequired props', async () => {

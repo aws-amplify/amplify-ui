@@ -66,7 +66,7 @@ describe('SliderField: ', () => {
       );
 
       await screen.findByTestId(testId);
-      expect(ref.current.nodeName).toBe('SPAN');
+      expect(ref.current?.nodeName).toBe('SPAN');
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {

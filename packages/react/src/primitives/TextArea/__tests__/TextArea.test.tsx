@@ -36,7 +36,7 @@ describe('TextArea component', () => {
 
     render(<TextArea ref={ref} />);
     await screen.findByRole('textbox');
-    expect(ref.current.nodeName).toBe('TEXTAREA');
+    expect(ref.current?.nodeName).toBe('TEXTAREA');
   });
 
   it('should render the state attributes', async () => {

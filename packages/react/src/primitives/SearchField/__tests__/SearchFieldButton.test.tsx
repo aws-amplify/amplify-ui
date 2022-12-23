@@ -21,7 +21,7 @@ describe('SearchFieldButton component', () => {
 
     await screen.findByRole('button');
 
-    expect(ref.current.nodeName).toBe('BUTTON');
+    expect(ref.current?.nodeName).toBe('BUTTON');
   });
 
   it('should set correct ariaLabel', async () => {

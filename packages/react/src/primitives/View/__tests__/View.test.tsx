@@ -41,8 +41,8 @@ describe('View: ', () => {
     render(<View ref={ref}>{text}</View>);
 
     await screen.findByText(text);
-    expect(ref.current.nodeName).toBe('DIV');
-    expect(ref.current.innerHTML).toBe(text);
+    expect(ref.current?.nodeName).toBe('DIV');
+    expect(ref.current?.innerHTML).toBe(text);
   });
 
   it('can render a <button> HTML element', async () => {

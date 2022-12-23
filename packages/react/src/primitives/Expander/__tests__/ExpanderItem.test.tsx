@@ -137,6 +137,6 @@ describe('ExpanderItem: ', () => {
     );
 
     await screen.findByTestId(EXPANDER_ITEM_TEST_ID);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 });

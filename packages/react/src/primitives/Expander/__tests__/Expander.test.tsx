@@ -152,6 +152,6 @@ describe('Expander: ', () => {
     render(<UncontrolledExpander testId={testId} ref={ref} />);
 
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 });
