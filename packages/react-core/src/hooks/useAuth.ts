@@ -16,7 +16,7 @@ export interface UseAuthResult {
  * Amplify Auth React hook
  * @internal
  */
-export const useAuth = (): UseAuthResult => {
+const useAuth = (): UseAuthResult => {
   const [result, setResult] = React.useState<UseAuthResult>({
     error: undefined,
     isLoading: true,
@@ -95,3 +95,5 @@ export const useAuth = (): UseAuthResult => {
     fetch: fetchCurrentUser,
   };
 };
+
+export default useAuth;

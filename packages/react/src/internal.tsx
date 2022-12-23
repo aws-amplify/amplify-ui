@@ -1,4 +1,6 @@
-export * from './hooks/useAuth';
+// re-export `useAuth` for Studio usage
+export { useAuth } from '@aws-amplify/ui-react-core';
+
 export * from './hooks/useDataStore';
 export * from './hooks/useStorageURL';
 export * from './primitives/Icon/internal';
