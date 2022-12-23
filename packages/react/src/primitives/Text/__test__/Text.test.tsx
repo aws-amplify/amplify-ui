@@ -93,7 +93,7 @@ describe('Text: ', () => {
     render(<Text ref={ref}>{textText}</Text>);
 
     await screen.findByText(textText);
-    expect(ref.current.nodeName).toBe('P');
+    expect(ref.current?.nodeName).toBe('P');
   });
 
   it('can render a classname for Text', async () => {

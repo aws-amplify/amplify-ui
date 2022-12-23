@@ -103,6 +103,6 @@ describe('ToggleButton: ', () => {
     render(<ToggleButton ref={ref} />);
 
     await screen.findByRole('button');
-    expect(ref.current.nodeName).toBe('BUTTON');
+    expect(ref.current?.nodeName).toBe('BUTTON');
   });
 });
