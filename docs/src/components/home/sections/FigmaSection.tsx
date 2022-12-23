@@ -82,7 +82,10 @@ export const FigmaSection = () => {
       ref={ref}
     >
       <Flex className="docs-home-subsection" direction="column" gap="large">
-        <Heading level={2}>
+        <Heading
+          level={2}
+          className={classNames('expand-out', isVisible && 'shown')}
+        >
           Build UI <strong>visually</strong> in Figma
         </Heading>
         <Flex

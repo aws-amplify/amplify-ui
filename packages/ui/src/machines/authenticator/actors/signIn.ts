@@ -645,7 +645,10 @@ export function signInActor({ services }: SignInMachineOptions) {
             context.formValues,
             context.touched,
             context.passwordSettings,
-            [defaultServices.validateConfirmPassword]
+            [
+              defaultServices.validateFormPassword,
+              defaultServices.validateConfirmPassword,
+            ]
           );
         },
       },

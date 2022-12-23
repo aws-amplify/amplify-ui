@@ -1,5 +1,41 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.1
+
+### Patch Changes
+
+- [#3216](https://github.com/aws-amplify/amplify-ui/pull/3216) [`a4c5feea8`](https://github.com/aws-amplify/amplify-ui/commit/a4c5feea83057dc6fd615e2547c9456a81302060) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(rna): add Field component to address iOS TextInput secureTextEntry bug
+
+- Updated dependencies [[`db8f019a7`](https://github.com/aws-amplify/amplify-ui/commit/db8f019a7737c4762ff19c1b03c7c06625277989), [`cbbf51f53`](https://github.com/aws-amplify/amplify-ui/commit/cbbf51f53c428dc378d8986ae27c3bf9e52f67ab)]:
+  - @aws-amplify/ui@5.4.1
+  - @aws-amplify/ui-react-core@2.1.6
+
+## 1.2.0
+
+### Minor Changes
+
+- [#3158](https://github.com/aws-amplify/amplify-ui/pull/3158) [`0bbb9980c`](https://github.com/aws-amplify/amplify-ui/commit/0bbb9980c55f212ce54c5449a2dcc64bfce6ca8f) Thanks [@nandanbhat](https://github.com/nandanbhat)! - feat(Authenticator): Enable password validation on resetPassword and forceNewPassword screen
+
+### Patch Changes
+
+- [#2830](https://github.com/aws-amplify/amplify-ui/pull/2830) [`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(authenticator): adding package version to cognito user agent string
+
+- Updated dependencies [[`0bbb9980c`](https://github.com/aws-amplify/amplify-ui/commit/0bbb9980c55f212ce54c5449a2dcc64bfce6ca8f), [`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca)]:
+  - @aws-amplify/ui@5.4.0
+  - @aws-amplify/ui-react-core@2.1.5
+
+## 1.1.4
+
+### Patch Changes
+
+- [#3164](https://github.com/aws-amplify/amplify-ui/pull/3164) [`7f99d8b1a`](https://github.com/aws-amplify/amplify-ui/commit/7f99d8b1a16b23c180c42a11a9bc992b5c4f2861) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react-native): update ErrorMessage style
+
+- [#2921](https://github.com/aws-amplify/amplify-ui/pull/2921) [`2d0799002`](https://github.com/aws-amplify/amplify-ui/commit/2d0799002dbfa843a1720c2384eadba942333f76) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui-react-native): Add utility hook for pressable styles
+
+- Updated dependencies [[`c31a9bf69`](https://github.com/aws-amplify/amplify-ui/commit/c31a9bf693b3507e8a2b9d0790423a9f64e533cf), [`1847840c0`](https://github.com/aws-amplify/amplify-ui/commit/1847840c00c0f9f7be31e9735c31bd596f4056e9)]:
+  - @aws-amplify/ui@5.3.1
+  - @aws-amplify/ui-react-core@2.1.4
+
 ## 1.1.3
 
 ### Patch Changes

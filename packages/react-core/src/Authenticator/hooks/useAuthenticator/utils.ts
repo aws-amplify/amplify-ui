@@ -6,6 +6,7 @@ import {
   FormFieldsArray,
   getSortedFormFields,
   UnverifiedContactMethods,
+  getActorContext,
 } from '@aws-amplify/ui';
 import isString from 'lodash/isString';
 
@@ -51,6 +52,16 @@ export const getComparator =
     // Shallow compare the array values
     return areSelectorDepsEqual(currentSelectorDeps, nextSelectorDeps);
   };
+
+export const getQRFields = (
+  state: AuthMachineState
+): { totpIssuer?: string; totpUsername?: string } => {
+  const fields = getActorContext(state);
+
+  const QR = fields?.formFields?.setupTOTP?.QR ?? {};
+
+  return { ...QR };
+};
 
 export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
   async function getTotpSecretCode(): Promise<string> {

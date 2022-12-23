@@ -121,6 +121,6 @@ describe('Image: ', () => {
 
     render(<Image alt={altText} src="nonexistent.jpg" ref={ref} />);
     await screen.findByRole('img');
-    expect(ref.current.nodeName).toBe('IMG');
+    expect(ref.current?.nodeName).toBe('IMG');
   });
 });

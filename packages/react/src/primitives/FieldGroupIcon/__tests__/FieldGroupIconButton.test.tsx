@@ -21,7 +21,7 @@ describe('FieldGroupIconButton: ', () => {
     const ref = React.createRef<HTMLButtonElement>();
     render(<FieldGroupIconButton ref={ref} testId={testId} />);
     await screen.findAllByTestId(testId);
-    expect(ref.current.nodeName).toBe('BUTTON');
+    expect(ref.current?.nodeName).toBe('BUTTON');
   });
 
   it('should add the disabled button class to the underlying button element', async () => {

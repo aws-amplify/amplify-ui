@@ -25,6 +25,7 @@ export const zhDict: AuthenticatorDictionary = {
   'Enter your username': '输入用户名',
   'Forgot your password?': '忘记密码了？',
   'Hide password': '隐藏密码',
+  'It may take a minute to arrive': '可能需要一分钟才能到达',
   Loading: '正在加载',
   'New password': '新密码',
   Password: '密码',
@@ -51,6 +52,15 @@ export const zhDict: AuthenticatorDictionary = {
   Username: '用户名',
   'Verify Contact': '验证联系方式',
   Verify: '验证',
+  'We Emailed You': '我们给您发送了电子邮件',
+  'We Sent A Code': '我们发送了代码',
+  'We Texted You': '我们给您发送了短信',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    '您的代码正在发送中。要登录，请输入我们通过电子邮件发送给以下人员的代码：',
+  'Your code is on the way. To log in, enter the code we sent you':
+    '您的代码正在发送中。要登录，请输入我们发送给您的代码',
+  'Your code is on the way. To log in, enter the code we texted to':
+    '您的代码正在发送中。要登录，请输入我们通过短信发送给以下人员的代码：',
 
   // Additional translations provided by customers
   'Confirm a Code': '确认码',

@@ -1,5 +1,377 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ModalMessage correctly handles a primaryButton prop 1`] = `
+<MessageWrapper
+  style={
+    Object {
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#fff",
+          "elevation": 3,
+          "margin": 16,
+          "minHeight": "40%",
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 2,
+            "width": 2,
+          },
+          "shadowOpacity": 0.1,
+          "shadowRadius": 2,
+        },
+        Object {},
+        Object {},
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "padding": 12,
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        hitSlop={
+          Object {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {},
+            undefined,
+            Array [
+              Object {
+                "alignSelf": "flex-start",
+                "marginLeft": "auto",
+              },
+              undefined,
+            ],
+          ]
+        }
+        testID="in-app-messaging--close-button"
+      >
+        <Image
+          accessibilityRole="image"
+          source={
+            Object {
+              "testUri": "../../../src/assets/icons/close.png",
+            }
+          }
+          style={
+            Array [
+              Object {
+                "height": 20,
+                "resizeMode": "contain",
+                "tintColor": undefined,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginTop": "auto",
+          "paddingBottom": 4,
+          "paddingHorizontal": 4,
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "borderColor": "hsl(210, 10%, 58%)",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
+            },
+            undefined,
+            Array [
+              Object {},
+              Object {
+                "backgroundColor": "#e8e8e8",
+                "borderRadius": 4,
+                "flex": 1,
+                "margin": 8,
+                "padding": 12,
+              },
+              Object {},
+              Object {},
+            ],
+          ]
+        }
+        testID="in-app-messaging--primary-button"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "hsl(210, 50%, 10%)",
+                "fontSize": 16,
+                "fontWeight": "700",
+                "textAlign": "center",
+              },
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                  "textAlign": "center",
+                },
+                Object {},
+                Object {},
+              ],
+            ]
+          }
+        >
+          primary button
+        </Text>
+      </View>
+    </View>
+  </View>
+</MessageWrapper>
+`;
+
+exports[`ModalMessage correctly handles a secondaryButton prop 1`] = `
+<MessageWrapper
+  style={
+    Object {
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#fff",
+          "elevation": 3,
+          "margin": 16,
+          "minHeight": "40%",
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 2,
+            "width": 2,
+          },
+          "shadowOpacity": 0.1,
+          "shadowRadius": 2,
+        },
+        Object {},
+        Object {},
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "padding": 12,
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        hitSlop={
+          Object {
+            "bottom": 10,
+            "left": 10,
+            "right": 10,
+            "top": 10,
+          }
+        }
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {},
+            undefined,
+            Array [
+              Object {
+                "alignSelf": "flex-start",
+                "marginLeft": "auto",
+              },
+              undefined,
+            ],
+          ]
+        }
+        testID="in-app-messaging--close-button"
+      >
+        <Image
+          accessibilityRole="image"
+          source={
+            Object {
+              "testUri": "../../../src/assets/icons/close.png",
+            }
+          }
+          style={
+            Array [
+              Object {
+                "height": 20,
+                "resizeMode": "contain",
+                "tintColor": undefined,
+                "width": 20,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "marginTop": "auto",
+          "paddingBottom": 4,
+          "paddingHorizontal": 4,
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "borderColor": "hsl(210, 10%, 58%)",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "justifyContent": "center",
+              "paddingHorizontal": 16,
+              "paddingVertical": 12,
+            },
+            undefined,
+            Array [
+              Object {},
+              Object {
+                "backgroundColor": "#e8e8e8",
+                "borderRadius": 4,
+                "flex": 1,
+                "margin": 8,
+                "padding": 12,
+              },
+              Object {},
+              Object {},
+            ],
+          ]
+        }
+        testID="in-app-messaging--secondary-button"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "hsl(210, 50%, 10%)",
+                "fontSize": 16,
+                "fontWeight": "700",
+                "textAlign": "center",
+              },
+              Array [
+                Object {
+                  "fontSize": 16,
+                  "fontWeight": "400",
+                  "lineHeight": 24,
+                  "textAlign": "center",
+                },
+                Object {},
+                Object {},
+              ],
+            ]
+          }
+        >
+          secondary button
+        </Text>
+      </View>
+    </View>
+  </View>
+</MessageWrapper>
+`;
+
 exports[`ModalMessage renders a message as expected with an image 1`] = `
 <MessageWrapper
   style={

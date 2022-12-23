@@ -31,7 +31,10 @@ export const ThemingSection = ({ colorMode, platform }) => {
       )}
     >
       <Flex direction="column" className="docs-home-subsection--thin">
-        <Heading level={2}>
+        <Heading
+          level={2}
+          className={classNames('expand-out', isVisible && 'shown')}
+        >
           <strong>Theming</strong> controls to match your brand
         </Heading>
         <Text className="docs-home-text">

@@ -54,4 +54,5 @@ export const IN_APP_MESSAGING_TEST_ID = {
   IMAGE: 'in-app-messaging--image',
   PRIMARY_BUTTON: 'in-app-messaging--primary-button',
   SECONDARY_BUTTON: 'in-app-messaging--secondary-button',
+  CAROUSEL: 'in-app-messaging--carousel',
 };

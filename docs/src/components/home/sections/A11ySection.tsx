@@ -41,7 +41,10 @@ export const A11ySection = ({ platform }) => {
         className="docs-home-subsection--thin"
         textAlign="center"
       >
-        <Heading level={2}>
+        <Heading
+          level={2}
+          className={classNames('expand-out', isVisible && 'shown')}
+        >
           <strong>Accessibility</strong> built-in
         </Heading>
         <Text className="docs-home-text">
