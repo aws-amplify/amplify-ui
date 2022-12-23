@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
+import * as ReactCoreModule from '@aws-amplify/ui-react-core';
 
 import { Button } from '../../../../primitives';
 import ChangePassword from '../ChangePassword';
@@ -28,11 +29,9 @@ const components: ChangePasswordComponents = {
 };
 
 const user = {} as unknown as UIModule.AmplifyUser;
-jest.mock('../../../../internal', () => ({
-  useAuth: () => ({
-    user,
-    isLoading: false,
-  }),
+jest.spyOn(ReactCoreModule, 'useAuth').mockImplementation(() => ({
+  user,
+  isLoading: false,
 }));
 
 const changePasswordSpy = jest.spyOn(UIModule, 'changePassword');
