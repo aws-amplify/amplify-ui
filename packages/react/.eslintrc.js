@@ -1,3 +1,5 @@
+const { templateJoin } = require('@aws-amplify/ui-react-core');
+
 // TODO remove these once the full set of rules can be turned on for the repo
 // extensions that should be ran against the entire repo
 const sharedExtensions = [
@@ -6,6 +8,39 @@ const sharedExtensions = [
   // always extend last to override previous extensions
   'prettier',
 ];
+
+const primtivePatterns = templateJoin(
+  [
+    'shared',
+    'utils',
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    // skip P*|Q*|R*|S* until https://github.com/aws-amplify/amplify-ui/pull/3223 is merged
+    'P',
+    // 'Q',
+    // 'R',
+    // 'S',
+    // 'T',
+    // 'U',
+    // 'V',
+    // 'W',
+    // 'X',
+    // 'Y',
+    // 'Z'
+  ],
+  (value) => `|${value}*`
+);
 
 // rules that should be ran against the entire repo
 const sharedRules = {
@@ -69,8 +104,9 @@ module.exports = {
         'src/components/**/*',
         'src/helpers/**/*',
         'src/hooks/**/*',
-        'src/primitives/+(shared|utils|A*|B*|C*|D*|E*|F*|G*|H*|I*|J*|K*|L*|M*)/**/*',
+        `src/primitives/+(${primtivePatterns})/**/*`,
         'src/studio',
+        // |A*|B*|C*|D*|E*|F*|G*|H*|I*|J*|K*|L*|M*|T*
         // 'src/primitives/**/*',
       ],
       extends: [
@@ -146,3 +182,5 @@ module.exports = {
 
   rules: sharedRules,
 };
+
+['const', 'what', 'nuiasnce'].join('|');

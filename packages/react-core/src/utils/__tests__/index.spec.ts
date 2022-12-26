@@ -1,4 +1,4 @@
-import { areEmptyArrays, areEmptyObjects } from '..';
+import { areEmptyArrays, areEmptyObjects, templateJoin } from '..';
 
 const validArrays = [[], [], [], []];
 const invalidArrays = [[7]];
@@ -25,5 +25,12 @@ describe('areEmptyObjects', () => {
     const output = areEmptyObjects(...input);
 
     expect(output).toBe(expected);
+  });
+});
+
+describe('templateJoin', () => {
+  it('returns the expected value', () => {
+    const output = templateJoin(['one', 'two'], (value) => `^${value}^`);
+    expect(output).toBe('^one^^two^');
   });
 });
