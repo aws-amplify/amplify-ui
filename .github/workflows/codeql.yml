@@ -5,11 +5,18 @@ on:
     branches: ['main', '*/main']
 
   pull_request:
+    types: [opened, synchronize, labeled]
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    # We run codeql only if it's:
+    #   1) pull request not from a fork (ie. internal PR), or
+    #   2) pull request from a fork (ie. external PR) that was added "run-tests" label
+    if: |
+      (github.event.pull_request.head.repo.full_name == github.repository) ||
+      (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
     permissions:
       actions: read
       contents: read
@@ -21,6 +28,16 @@ jobs:
         language: [javascript]
 
     steps:
+      - name: Remove run-tests label, if applicable
+        if: github.event.label.name == 'run-tests'
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { issue: { number: issue_number }, repo: { owner, repo } } = context;
+            const label = 'run-tests';
+            github.issues.removeLabel({ owner, repo, issue_number, name: label });
+
       - name: Checkout
         uses: actions/checkout@v3
 
