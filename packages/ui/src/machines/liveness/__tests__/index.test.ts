@@ -219,12 +219,12 @@ describe('Liveness Machine', () => {
     expect(service.state.value).toBe('start');
   });
 
-  it('should reach userCancel state on CANCEL', async () => {
+  it('should reach start state on CANCEL', async () => {
     service.start();
     service.send('CANCEL');
     await flushPromises();
 
-    expect(service.state.value).toBe('userCancel');
+    expect(service.state.value).toBe('start');
     expect(mockcomponentProps.onUserCancel).toHaveBeenCalledTimes(1);
   });
 

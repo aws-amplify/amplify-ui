@@ -386,17 +386,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         entry: ['cleanUpResources', 'callUserTimeoutCallback', 'freezeStream'],
       },
       error: {
-        entry: ['cleanUpResources', 'callErrorCallback'],
-        type: 'final',
+        entry: [
+          'cleanUpResources',
+          'callErrorCallback',
+          'cancelOvalDrawingTimeout',
+          'cancelWaitForDisconnectTimeout',
+          'cancelOvalMatchTimeout',
+        ],
       },
       checkFailed: {},
       checkSucceeded: {
         entry: 'callSuccessCallback',
       },
       userCancel: {
-        entry: ['cleanUpResources', 'callUserCancelCallback'],
-        // always: [{ target: 'start' }],
-        type: 'final',
+        entry: ['cleanUpResources', 'callUserCancelCallback', 'resetContext'],
+        always: [{ target: 'start' }],
       },
     },
   },
@@ -727,6 +731,22 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           });
         };
       },
+      resetContext: assign({
+        challengeId: v4(),
+        maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
+        failedAttempts: 0,
+        componentProps: (context) => context.componentProps,
+        serverSessionInformation: (_) => undefined,
+        videoAssociatedParams: (_) => undefined,
+        ovalAssociatedParams: (_) => undefined,
+        errorState: (_) => null,
+        livenessStreamProvider: (_) => undefined,
+        responseStreamActorRef: (_) => undefined,
+        shouldDisconnect: false,
+        faceMatchStateBeforeStart: (_) => undefined,
+        isFaceFarEnoughBeforeRecording: (_) => undefined,
+        isRecordingStopped: false,
+      }),
     },
     guards: {
       shouldTimeoutOnFailedAttempts: (context) =>

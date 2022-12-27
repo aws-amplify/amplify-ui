@@ -36,7 +36,7 @@ export const selectOnuserCancel = createLivenessSelector(
 export interface InstructionProps {}
 
 export const Instruction: React.FC<InstructionProps> = () => {
-  const [state] = useLivenessActor();
+  const [state, send] = useLivenessActor();
 
   // NOTE: Do not change order of these selectors as the unit tests depend on this order
   const errorState = useLivenessSelector(selectErrorState);
@@ -45,8 +45,6 @@ export const Instruction: React.FC<InstructionProps> = () => {
   const isFaceFarEnoughBeforeRecordingState = useLivenessSelector(
     selectIsFaceFarEnoughBeforeRecording
   );
-  const onUserCancel = useLivenessSelector(selectOnuserCancel);
-
   const isCheckFaceDetectedBeforeStart = state.matches(
     'checkFaceDetectedBeforeStart'
   );
@@ -90,7 +88,9 @@ export const Instruction: React.FC<InstructionProps> = () => {
                 variation="primary"
                 type="button"
                 onClick={() => {
-                  onUserCancel();
+                  send({
+                    type: 'CANCEL',
+                  });
                 }}
               >
                 {translate('Try again')}
