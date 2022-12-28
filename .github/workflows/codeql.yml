@@ -11,12 +11,6 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    # We run codeql only if it's:
-    #   1) pull request not from a fork (ie. internal PR), or
-    #   2) pull request from a fork (ie. external PR) that was added "run-codeql" label
-    if: |
-      (github.event.pull_request.head.repo.full_name == github.repository) ||
-      (github.event.action == 'labeled' && github.event.label.name == 'run-codeql')
     permissions:
       actions: read
       contents: read
