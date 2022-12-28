@@ -17,7 +17,7 @@ have an `order` key that specifies which order it will be displayed on the page.
 
 In the example below the order will be set as `email`, `family_name`, `birthdate`, `preferred_username`, `password` and finally `confirm_password`.
 
-**Note:** Fields that do not have a `order` key will be displayed at the bottom of the Sign Up page. The `order` key can also be combined with other form field updates.
+**Note:** Fields that do not have a `order` key will be displayed at the bottom of the Sign Up page. The `order` key can also be combined with other form field updates. In addition, typically attributes added to the sign up page have already been inferred through [Zero Configuration](./configuration#sign-up-attributes). However, you can explicitly set the [sign up attributes prop](./configuration#sign-up-attributes) to add these to the sign up page if needed.
 
 <Fragment>
   {({ platform }) => import(`./orderformfields/form-fields.${platform}.mdx`)}

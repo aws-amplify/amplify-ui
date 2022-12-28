@@ -67,7 +67,7 @@ describe('Link: ', () => {
     render(<Link ref={ref}>{linkText}</Link>);
 
     await screen.findByText(linkText);
-    expect(ref.current.nodeName).toBe('A');
+    expect(ref.current?.nodeName).toBe('A');
   });
 
   it('can add the rel attribute to the rendered anchor tag', async () => {

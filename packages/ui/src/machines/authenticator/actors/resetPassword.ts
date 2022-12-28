@@ -13,6 +13,7 @@ import {
   setFieldErrors,
   setRemoteError,
   setUsername,
+  resendCode,
 } from '../actions';
 import { defaultServices } from '../defaultServices';
 
@@ -29,7 +30,11 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
       states: {
         init: {
           always: [
-            { target: 'confirmResetPassword', cond: 'shouldAutoConfirmReset' },
+            {
+              target: 'confirmResetPassword',
+              cond: 'shouldAutoConfirmReset',
+              actions: 'resendCode',
+            },
             { target: 'resetPassword' },
           ],
         },
@@ -89,6 +94,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 valid: { entry: 'sendUpdate' },
                 invalid: { entry: 'sendUpdate' },
               },
+
               on: {
                 CHANGE: {
                   actions: 'handleInput',
@@ -170,6 +176,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         handleInput,
         handleSubmit,
         handleBlur,
+        resendCode,
         setFieldErrors,
         setRemoteError,
         setUsername,

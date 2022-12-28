@@ -100,7 +100,7 @@ describe('Checkbox test suite', () => {
     render(<Checkbox ref={ref} {...basicProps} />);
 
     await screen.findByTestId(basicProps.testId);
-    expect(ref.current.nodeName).toBe('INPUT');
+    expect(ref.current?.nodeName).toBe('INPUT');
   });
 
   it('should render all flex style props', async () => {

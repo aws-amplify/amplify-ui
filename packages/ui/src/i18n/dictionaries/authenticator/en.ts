@@ -26,6 +26,7 @@ export const enDict: AuthenticatorDictionary = {
   'Forgot password?': 'Forgot password?',
   'Forgot your password?': 'Forgot your password?',
   'Hide password': 'Hide password',
+  'It may take a minute to arrive': 'It may take a minute to arrive',
   Loading: 'Loading',
   'New password': 'New password',
   Password: 'Password',
@@ -52,4 +53,13 @@ export const enDict: AuthenticatorDictionary = {
   Username: 'Username',
   'Verify Contact': 'Verify Contact',
   Verify: 'Verify',
+  'We Emailed You': 'We Emailed You',
+  'We Sent A Code': 'We Sent A Code',
+  'We Texted You': 'We Texted You',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Your code is on the way. To log in, enter the code we emailed to',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Your code is on the way. To log in, enter the code we sent you',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Your code is on the way. To log in, enter the code we texted to',
 };

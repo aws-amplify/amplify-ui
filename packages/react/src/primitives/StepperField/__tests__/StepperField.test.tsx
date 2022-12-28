@@ -97,7 +97,7 @@ describe('StepperField: ', () => {
       render(<StepperField label={label} ref={ref} />);
 
       await screen.findByLabelText(label);
-      expect(ref.current.nodeName).toBe('INPUT');
+      expect(ref.current?.nodeName).toBe('INPUT');
     });
 
     it('should render labeled input when id is provided', async () => {

@@ -52,7 +52,7 @@ describe('Flex: ', () => {
     render(<Flex ref={ref}>{flexText}</Flex>);
 
     await screen.findByText(flexText);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
   it('can render any arbitrary data-* attribute', async () => {

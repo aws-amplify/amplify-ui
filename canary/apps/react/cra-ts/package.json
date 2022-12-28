@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.2.1",
+    "@aws-amplify/ui-react": "latest",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -14,7 +14,7 @@
     "aws-amplify": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-scripts": "5.0.0",
+    "react-scripts": "^5.0.1",
     "typescript": "^4.5.5",
     "web-vitals": "^2.1.4"
   },

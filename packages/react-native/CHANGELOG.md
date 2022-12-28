@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.1
+
+### Patch Changes
+
+- [#3216](https://github.com/aws-amplify/amplify-ui/pull/3216) [`a4c5feea8`](https://github.com/aws-amplify/amplify-ui/commit/a4c5feea83057dc6fd615e2547c9456a81302060) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(rna): add Field component to address iOS TextInput secureTextEntry bug
+
+- Updated dependencies [[`db8f019a7`](https://github.com/aws-amplify/amplify-ui/commit/db8f019a7737c4762ff19c1b03c7c06625277989), [`cbbf51f53`](https://github.com/aws-amplify/amplify-ui/commit/cbbf51f53c428dc378d8986ae27c3bf9e52f67ab)]:
+  - @aws-amplify/ui@5.4.1
+  - @aws-amplify/ui-react-core@2.1.6
+
 ## 1.2.0
 
 ### Minor Changes

@@ -20,6 +20,6 @@ describe('TableCell primitive', () => {
     );
 
     await screen.findByTestId('testId');
-    expect(ref.current.nodeName).toBe('TD');
+    expect(ref.current?.nodeName).toBe('TD');
   });
 });

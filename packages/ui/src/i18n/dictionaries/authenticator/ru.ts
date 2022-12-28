@@ -25,6 +25,7 @@ export const ruDict: AuthenticatorDictionary = {
   'Enter your username': 'ввести ваш имя пользователя',
   'Forgot your password?': 'Забыли ваш пароль?',
   'Hide password': 'Скрывать пароль',
+  'It may take a minute to arrive': 'Доставка может занять некоторое время',
   Loading: 'Загрузка',
   'New password': 'Новый пароль',
   Password: 'Пароль',
@@ -51,4 +52,13 @@ export const ruDict: AuthenticatorDictionary = {
   Username: 'Имя пользователя',
   'Verify Contact': 'Проверить контакт',
   Verify: 'Проверить',
+  'We Emailed You': 'Мы отправили вам электронное письмо',
+  'We Sent A Code': 'Мы отправили код',
+  'We Texted You': 'Мы отправили вам текстовое сообщение',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Ваш код отправлен. Чтобы войти в систему, введите код, который мы отправили по электронной почте',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Ваш код отправлен. Чтобы войти в систему, введите код, который мы послали вам',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Ваш код отправлен. Чтобы войти в систему, введите код, который мы отправили текстовым сообщением',
 };

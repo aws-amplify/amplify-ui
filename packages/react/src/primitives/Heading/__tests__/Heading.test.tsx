@@ -119,8 +119,8 @@ describe('Heading: ', () => {
       </Heading>
     );
     await screen.findByRole('heading');
-    expect(ref.current.nodeName).toBe('H2');
-    expect(ref.current.innerHTML).toBe(headingText);
+    expect(ref.current?.nodeName).toBe('H2');
+    expect(ref.current?.innerHTML).toBe(headingText);
   });
 
   it('can render any arbitrary data-* attribute', async () => {

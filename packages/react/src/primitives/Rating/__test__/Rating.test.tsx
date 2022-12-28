@@ -43,7 +43,7 @@ describe('Rating: ', () => {
     render(<Rating testId="testId" ref={ref} />);
 
     await screen.findByTestId('testId');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
   it('should render the data-size attribute', async () => {

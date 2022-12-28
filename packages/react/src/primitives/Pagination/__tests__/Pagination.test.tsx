@@ -57,7 +57,7 @@ describe('Pagination component: ', () => {
     );
 
     await screen.findByRole('navigation');
-    expect(ref.current.nodeName).toBe('NAV');
+    expect(ref.current?.nodeName).toBe('NAV');
   });
 
   it('should disable previous page button but enable next page button if current page is the first page', async () => {

@@ -270,7 +270,7 @@ describe('CountryCodeSelect', () => {
     await setup({ testId, ref });
 
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('SELECT');
+    expect(ref.current?.nodeName).toBe('SELECT');
   });
 
   it('should have a hidden label by default', async () => {

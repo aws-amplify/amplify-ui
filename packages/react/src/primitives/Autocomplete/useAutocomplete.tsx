@@ -8,7 +8,11 @@ import {
 } from '../shared/constants';
 import { isFunction, strHasLength } from '../shared/utils';
 import { useStableId } from '../utils/useStableId';
-import type { ComboBoxOption, UseAutocompleteProps } from '../types';
+import type {
+  ComboBoxOption,
+  UseAutocomplete,
+  UseAutocompleteProps,
+} from '../types';
 
 const DEFAULT_KEYS = new Set([ARROW_DOWN, ARROW_UP, ENTER_KEY, ESCAPE_KEY]);
 
@@ -23,7 +27,7 @@ export const useAutocomplete = ({
   onClick,
   onSelect,
   onSubmit,
-}: UseAutocompleteProps) => {
+}: UseAutocompleteProps): UseAutocomplete => {
   const isControlled = value !== undefined;
   const [internalValue, setInternalValue] = React.useState(defaultValue);
   const composedValue = isControlled ? value : internalValue;

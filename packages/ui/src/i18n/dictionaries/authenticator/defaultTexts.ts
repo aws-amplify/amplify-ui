@@ -4,6 +4,12 @@ export const defaultTexts = {
   CHANGE_PASSWORD: 'Change Password',
   CHANGING_PASSWORD: 'Changing',
   CODE: 'Code',
+  CODE_ARRIVAL: 'It may take a minute to arrive',
+  CODE_EMAILED:
+    'Your code is on the way. To log in, enter the code we emailed to',
+  CODE_SENT: 'Your code is on the way. To log in, enter the code we sent you',
+  CODE_TEXTED:
+    'Your code is on the way. To log in, enter the code we texted to',
   CONFIRM_PASSWORD: 'Confirm Password',
   CONFIRM_RESET_PASSWORD_HEADING: 'Reset your Password',
   CONFIRM_SIGNUP_HEADING: 'Confirm Sign Up',
@@ -55,5 +61,8 @@ export const defaultTexts = {
   VERIFY_CONTACT: 'Verify Contact',
   VERIFY_HEADING: 'Account recovery requires verified contact information',
   VERIFY: 'Verify',
+  WE_EMAILED: 'We Emailed You',
+  WE_SENT_CODE: 'We Sent A Code',
+  WE_TEXTED: 'We Texted You',
   WEBSITE: 'Website',
 };

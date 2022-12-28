@@ -11,6 +11,16 @@ Feature: Sign In with Email
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
   @angular @react @vue
+  Scenario: Sign in with force password reset calls forgot password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
+    When I type my "email" with status "CONFIRMED"
+    And I type my password
+    Given I spy "Amplify.Auth.forgotPassword" method
+    And I click the "Sign in" button
+    Then I see "Code *"
+    And "Amplify.Auth.forgotPassword" method is called
+
+  @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     And I type my password
@@ -34,6 +44,7 @@ Feature: Sign In with Email
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Confirm" button
     Then I see "Sign out"
+
 
 
   @angular @react @vue
