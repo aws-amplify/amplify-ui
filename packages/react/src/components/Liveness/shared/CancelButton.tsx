@@ -5,6 +5,7 @@ import { useLivenessActor } from '../hooks';
 import { useFaceLivenessDetector } from '../providers';
 import { Button } from '../../../primitives';
 import { IconClose } from '../../../primitives/Icon/icons';
+import { LivenessClassNames } from '../types/classNames';
 
 export interface CancelButtonProps {
   sourceScreen: string;
@@ -37,7 +38,7 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
       variation="link"
       onClick={handleClick}
       size="large"
-      backgroundColor="background.primary"
+      className={LivenessClassNames.CancelButton}
       aria-label={translate('Cancel Liveness check')}
     >
       <IconClose aria-hidden="true" size="large" data-testid="close-icon" />

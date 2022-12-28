@@ -1,3 +1,16 @@
+.amplify-liveness__cancel-button {
+  background-color: var(--amplify-colors-background-primary);
+}
+
+.amplify-liveness__recording-icon {
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--amplify-colors-background-primary);
+  padding: var(--amplify-space-xxs);
+  gap: var(--amplify-space-xxs);
+  border-radius: var(--amplify-radii-small);
+}
+
 .amplify-liveness-fade-out {
   animation-name: amplify-liveness-animation-fadeout;
   animation-duration: 2s;
@@ -73,6 +86,39 @@
   background-color: var(--amplify-colors-background-primary);
   border-radius: 100%;
   padding: 8px;
+}
+
+.amplify-liveness-description-bullet {
+  flex-direction: row;
+  gap: var(--amplify-space-small);
+}
+
+.amplify-liveness-description-bullet__index-container {
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  background-color: var(--amplify-colors-brand-primary-80);
+  width: var(--amplify-space-xl);
+  height: var(--amplify-space-xl);
+}
+
+.amplify-liveness-description-bullet__index {
+  font-weight: var(--amplify-font-weights-bold);
+  color: var(--amplify-colors-font-inverse);
+}
+
+.amplify-liveness-description-bullet__message-container {
+  flex-direction: column;
+  gap: var(--amplify-space-xxs);
+}
+
+.amplify-liveness-description-bullet__message--title {
+  font-weight: var(--amplify-font-weights-bold);
+}
+
+.amplify-liveness-description-bullet__message--body {
+  color: var(--amplify-colors-font-primary);
 }
 
 @media (pointer: coarse) and (hover: none) {
