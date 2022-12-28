@@ -67,14 +67,11 @@
     "immer": "^9.0.6",
     "loader-utils": "2.0.4",
     "node-forge": "1.3.0",
-    "nth-check": "^2.0.1",
     "prismjs": "^1.25.0",
     "react-dev-utils": "^11.0.4",
     "shell-quote": "1.7.3",
-    "trim": "^0.0.3",
     "trim-newlines": "3.0.1",
-    "vscode-vue-languageservice": "0.27.26",
-    "ws": "^7.4.6"
+    "vscode-vue-languageservice": "0.27.26"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.4.1",
