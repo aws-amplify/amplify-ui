@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getDefaultPasswordValidators returns validators as expected for full Amplify config  1`] = `
+Array [
+  Object {
+    "message": "Password must have at least 8 characters",
+    "validationMode": "onTouched",
+    "validator": [Function],
+  },
+  Object {
+    "message": "Password must have lower case letters",
+    "validationMode": "onTouched",
+    "validator": [Function],
+  },
+  Object {
+    "message": "Password must have upper case letters",
+    "validationMode": "onTouched",
+    "validator": [Function],
+  },
+  Object {
+    "message": "Password must have numbers",
+    "validationMode": "onTouched",
+    "validator": [Function],
+  },
+  Object {
+    "message": "Password must have special characters",
+    "validationMode": "onTouched",
+    "validator": [Function],
+  },
+]
+`;
+
+exports[`getDefaultPasswordValidators returns validators as expected for partial Amplify config  1`] = `
+Array [
+  Object {
+    "message": "Password must have lower case letters",
+    "validationMode": "onTouched",
+    "validator": [Function],
+  },
+  Object {
+    "message": "Password must have upper case letters",
+    "validationMode": "onTouched",
+    "validator": [Function],
+  },
+]
+`;

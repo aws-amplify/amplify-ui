@@ -18,15 +18,14 @@ export class SignUpWithEmailComponent implements OnInit {
     I18n.putVocabulariesForLanguage('en', {
       'Your code is on the way. To log in, enter the code we emailed to':
         'Enter this code:',
-      'It may take a minute to arrive.':
-        'It will take several minutes to arrive.',
+      'It may take a minute to arrive':
+        'It will take several minutes to arrive',
     });
   }
 
   public formFields = {
     confirmSignUp: {
       confirmation_code: {
-        labelHidden: false,
         placeholder: 'Enter the code given',
         isRequired: true,
       },
@@ -47,6 +46,9 @@ export class SignUpWithEmailComponent implements OnInit {
         username,
         password,
         attributes,
+        autoSignIn: {
+          enabled: true,
+        },
       });
     },
   };

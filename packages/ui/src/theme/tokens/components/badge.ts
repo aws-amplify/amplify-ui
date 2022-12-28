@@ -1,45 +1,38 @@
-import {
-  BackgroundColorValue,
-  ColorValue,
-  DesignToken,
-  FontSizeValue,
-  FontWeightValue,
-  LineHeightValue,
-  RadiusValue,
-  SpaceValue,
-  TextAlignValue,
-} from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-interface BadgeVariationTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  color: DesignToken<ColorValue>;
-}
+type VariationKey = 'backgroundColor' | 'color';
 
-interface BadgeSizeTokens {
-  fontSize: DesignToken<FontSizeValue>;
-  paddingHorizontal: DesignToken<SpaceValue>;
-  paddingVertical: DesignToken<SpaceValue>;
-}
+type BadgeVariationTokens<OutputType> = DesignTokenProperties<
+  VariationKey,
+  OutputType
+>;
 
-export interface BadgeTokens {
-  backgroundColor: DesignToken<BackgroundColorValue>;
-  borderRadius: DesignToken<RadiusValue>;
-  color: DesignToken<ColorValue>;
-  error: BadgeVariationTokens;
-  fontSize: DesignToken<FontSizeValue>;
-  fontWeight: DesignToken<FontWeightValue>;
-  info: BadgeVariationTokens;
-  large: BadgeSizeTokens;
-  lineHeight: DesignToken<LineHeightValue>;
-  paddingHorizontal: DesignToken<SpaceValue>;
-  paddingVertical: DesignToken<SpaceValue>;
-  small: BadgeSizeTokens;
-  success: BadgeVariationTokens;
-  textAlign: DesignToken<TextAlignValue>;
-  warning: BadgeVariationTokens;
-}
+type SizeKey = 'fontSize' | 'paddingHorizontal' | 'paddingVertical';
 
-export const badge: BadgeTokens = {
+type BadgeSizeTokens<OutputType> = DesignTokenProperties<SizeKey, OutputType>;
+
+type BadgeKey =
+  | 'backgroundColor'
+  | 'borderRadius'
+  | 'color'
+  | 'fontSize'
+  | 'fontWeight'
+  | 'lineHeight'
+  | 'paddingHorizontal'
+  | 'paddingVertical'
+  | 'textAlign';
+
+export type BadgeTokens<OutputType extends OutputVariantKey> =
+  DesignTokenProperties<BadgeKey, OutputType> & {
+    error?: BadgeVariationTokens<OutputType>;
+    large?: BadgeSizeTokens<OutputType>;
+    small?: BadgeSizeTokens<OutputType>;
+    info?: BadgeVariationTokens<OutputType>;
+    success?: BadgeVariationTokens<OutputType>;
+    warning?: BadgeVariationTokens<OutputType>;
+  };
+
+export const badge: Required<BadgeTokens<'default'>> = {
   // Default styles
   color: { value: '{colors.font.primary.value}' },
   lineHeight: { value: 1 },

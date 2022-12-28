@@ -61,7 +61,7 @@ describe('CheckboxField test suite', () => {
     render(<CheckboxField {...basicProps} ref={ref} />);
 
     await screen.findByTestId(basicProps.testId);
-    expect(ref.current.nodeName).toBe('INPUT');
+    expect(ref.current?.nodeName).toBe('INPUT');
   });
 
   describe('Checkbox functionality', () => {

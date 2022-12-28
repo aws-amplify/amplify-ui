@@ -1,0 +1,285 @@
+import { Alert, Expander, ExpanderItem, ScrollView } from '@aws-amplify/ui-react';
+
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { Example, ExampleCode } from '@/components/Example';
+import { DELETE_USER, OVERRIDES, WARNING, DELETE_BUTTON } from './props';
+import { ERROR_MESSAGE } from '../props';
+
+### Props
+
+<ReactPropsTable props={DELETE_USER} />
+
+### Basic Usage
+
+`DeleteUser` has `onSuccess` handler that will be called after successful user account deletion. You may use this callback to run any custom handling, such as navigating route or rendering confirmation messages.
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import React from 'react';
+import { AccountSettings } from '@aws-amplify/ui-react';
+
+function App() {
+  const handleSuccess = () => {
+    alert('user has been successfully deleted')
+  }
+  
+  return (
+    <AccountSettings.DeleteUser onSuccess={handleSuccess} />
+  );
+}
+```
+
+  </ExampleCode>
+</Example>
+
+### Override default delete handler
+You can override the default deleteUser handler with `handleDelete` prop to add any custom cleanup handlers before or after account deletion.
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import React from 'react';
+
+import { Auth } from 'aws-amplify';
+import { DeleteUser } from '@aws-amplify/ui-react';
+
+function App() {
+  const handleSuccess = () => {
+    alert('password is successfully changed!')
+  }
+
+  const handleDelete = async () => {
+    console.log("Doing some clean up...");
+    console.log("Done!");
+    await Auth.deleteUser();
+  };  
+      
+  return (
+    <AccountSettings.DeleteUser onSuccess={handleSuccess} handleDelete={handleDelete} />
+  );
+}
+```
+
+  </ExampleCode>
+</Example>
+
+### Component Overrides
+
+You can override parts of the `DeleteUser` component by passing in a `components` prop. It supports the following slots:
+
+<ReactPropsTable props={OVERRIDES} />
+
+
+#### Reusing default components
+
+Default components are accessible through `AccountSettings.DeleteUser.COMPONENT_NAME` (e.g. `AccountSettings.DeleteUser.DeleteButton`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
+
+<Example>
+  <ExampleCode>
+
+```jsx
+function App() {
+  const components = {
+    DeleteButton: (props) => (
+      <AccountSettings.DeleteUser.DeleteButton {...props}>Custom Submit Button</AccountSettings.DeleteUser.DeleteButton>
+    ),
+  }
+
+  return (
+    <AccountSettings.DeleteUser components={components} />
+  );
+}
+```
+
+  </ExampleCode>
+</Example>
+
+
+<Alert variation="warning">
+Note that spreading props is necessary so that event listeners like `onClick` or html attributes like `type` are passed correctly. If you're providing your own custom components, make sure required props are passed onto your elements.
+</Alert>
+
+#### Props and Examples
+
+Here are the required props and examples for overriding each slot.
+
+<Expander type="single">
+  <ExpanderItem title="DeleteButton" value="delete-button">
+
+Props:
+
+    <ReactPropsTable props={DELETE_BUTTON} />
+
+You can reuse the `AccountSettings.DeleteUser.DeleteButton`:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
+function App() {
+  const components  = {
+    DeleteButton: (props) => (
+      <AccountSettings.DeleteUser.DeleteButton {...props}>
+        My Custom Button
+      </AccountSettings.DeleteUser.DeleteButton>
+    )
+  }
+
+  return (
+    <AccountSettings.DeleteUser components={components} />
+  );
+}
+```
+
+      </ExampleCode>
+    </Example>
+
+or use [button primitive](/components/button) directly:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { AccountSettings, Button } from '@aws-amplify/ui-react';
+
+function App() {
+  const components  = {
+    DeleteButton: (props) => <Button {...props}>My Custom Button</Button>
+  }
+
+  return (
+    <AccountSettings.DeleteUser components={components} />
+  );
+}
+```
+
+      </ExampleCode>
+    </Example>
+
+The following example replaces `DeleteButton` with native html button:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+function App() {
+  const components = {
+    DeleteButton: ({ onClick, isDisabled }) => (
+      <button onClick={onClick} disabled={isDisabled}>
+        Custom Button Text
+      </button>
+    )
+  };
+  
+  return (
+    <AccountSettings.DeleteUser components={components} />
+  );
+}
+```
+
+      </ExampleCode>
+    </Example>
+
+  </ExpanderItem>
+  <ExpanderItem title="ErrorMessage" value="error-message">
+
+Props:
+
+    <ReactPropsTable props={ERROR_MESSAGE} />
+
+The following example overrides the error message component with [`Heading`](/components/heading) and [`Text`](/components/text) primitives.
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { Heading, Text } from '@aws-amplify/ui-react';
+
+function App() {
+  const components = {
+    ErrorMessage: ({ children }) => (
+      <>
+        <Heading>Custom Error Message</Heading>
+        <Text variation="warning">{children}</Text>
+      </>
+    )
+  };
+  
+  return (
+    <AccountSettings.DeleteUser components={components} />
+  );
+}
+```
+
+      </ExampleCode>
+    </Example>
+  </ExpanderItem>
+  <ExpanderItem title="WarningView" value="warning-view">
+
+Props:
+
+    <ReactPropsTable props={WARNING} />
+
+The following example overrides the warning component to require users to type "delete" before they can delete their account.
+
+    <ScrollView height="600px">
+      <Example>
+        <ExampleCode>
+  
+```jsx{10-37,48} file=../../../../../../../examples/next/pages/ui/components/account-settings/delete-user-with-overrides/index.page.tsx#L1-L72
+
+```
+
+        </ExampleCode>
+      </Example>
+    </ScrollView>
+  </ExpanderItem>
+</Expander>
+
+### Theming
+
+`DeleteUser` component is built upon our robust [Amplify UI theming system](../../theming). To get started, add a theme object and set the appropriate [design tokens](../../theming#design-tokens). You can then pass that `theme` to the `ThemeProvider` so the changes can take affect.
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import { AccountSettings, Card, ThemeProvider } from '@aws-amplify/ui-react';
+
+const theme = {
+  name: 'custom-theme',
+  tokens: {
+    colors: {
+      border: {
+        primary: { value: '{colors.neutral.40}' },
+        secondary: { value: '{colors.neutral.20}' },
+        tertiary: { value: '{colors.neutral.10}' },
+      },
+    },
+    radii: {
+      small: { value: '2px' },
+      medium: { value: '3px' },
+      large: { value: '4px' },
+      xl: { value: '6px' },
+    },
+  },
+};
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Card width="800px">
+        <AccountSettings.DeleteUser />
+      </Card>
+    </ThemeProvider>
+  );
+}
+```
+
+  </ExampleCode>
+</Example>

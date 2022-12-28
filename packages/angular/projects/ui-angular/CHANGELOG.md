@@ -1,5 +1,149 @@
 # @aws-amplify/ui-angular
 
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`db8f019a7`](https://github.com/aws-amplify/amplify-ui/commit/db8f019a7737c4762ff19c1b03c7c06625277989)]:
+  - @aws-amplify/ui@5.4.1
+
+## 3.2.0
+
+### Minor Changes
+
+- [#3158](https://github.com/aws-amplify/amplify-ui/pull/3158) [`0bbb9980c`](https://github.com/aws-amplify/amplify-ui/commit/0bbb9980c55f212ce54c5449a2dcc64bfce6ca8f) Thanks [@nandanbhat](https://github.com/nandanbhat)! - feat(Authenticator): Enable password validation on resetPassword and forceNewPassword screen
+
+### Patch Changes
+
+- [#2830](https://github.com/aws-amplify/amplify-ui/pull/2830) [`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(authenticator): adding package version to cognito user agent string
+
+- Updated dependencies [[`0bbb9980c`](https://github.com/aws-amplify/amplify-ui/commit/0bbb9980c55f212ce54c5449a2dcc64bfce6ca8f), [`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca)]:
+  - @aws-amplify/ui@5.4.0
+
+## 3.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`c31a9bf69`](https://github.com/aws-amplify/amplify-ui/commit/c31a9bf693b3507e8a2b9d0790423a9f64e533cf), [`1847840c0`](https://github.com/aws-amplify/amplify-ui/commit/1847840c00c0f9f7be31e9735c31bd596f4056e9)]:
+  - @aws-amplify/ui@5.3.1
+
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`3653c8f39`](https://github.com/aws-amplify/amplify-ui/commit/3653c8f3914e3dc51fbcc328e59326afb422aa68), [`145d0b5f5`](https://github.com/aws-amplify/amplify-ui/commit/145d0b5f596ff7c9f623898af0bb3836516c51fe), [`e3867e369`](https://github.com/aws-amplify/amplify-ui/commit/e3867e369b4aeb5b240916cb88105353483b9b7c), [`4b2dbeb18`](https://github.com/aws-amplify/amplify-ui/commit/4b2dbeb18c79175bc0bfe0cf50a0e9d0429544d6), [`0377bccfb`](https://github.com/aws-amplify/amplify-ui/commit/0377bccfbea55606d007ae914a5d7f202bf87478)]:
+  - @aws-amplify/ui@5.3.0
+
+## 3.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`b416aca55`](https://github.com/aws-amplify/amplify-ui/commit/b416aca553649d37e2686c02f3223a77bf36ed98), [`8e5e696f4`](https://github.com/aws-amplify/amplify-ui/commit/8e5e696f4d0ae61e74537cdfe4395005cc21ce12), [`7f4248db4`](https://github.com/aws-amplify/amplify-ui/commit/7f4248db457639d1bb34c8318569ab047aa80c5e), [`a5b8696bc`](https://github.com/aws-amplify/amplify-ui/commit/a5b8696bc41d8cb2ff2c6fc39f8fd1afc349955a)]:
+  - @aws-amplify/ui@5.2.0
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`d062010f4`](https://github.com/aws-amplify/amplify-ui/commit/d062010f4690321129c1fb1f777a7df82898640b)]:
+  - @aws-amplify/ui@5.1.1
+
+## 3.1.0
+
+### Minor Changes
+
+- [#2817](https://github.com/aws-amplify/amplify-ui/pull/2817) [`01cf6d2f8`](https://github.com/aws-amplify/amplify-ui/commit/01cf6d2f8273d8aeea5efa60d2905bf00d2119a8) Thanks [@wlee221](https://github.com/wlee221)! - Expose `subscribe` from `AuthenticatorService`.
+
+  ```ts
+  @Component()
+  class MyComponent implements OnInit, OnDelete {
+    private unsubscribe: () => void;
+    constructor(private authenticator: Authenticator, private route: Router) {}
+
+    ngOnInit() {
+      this.unsubscribe = authenticator.subscribe(({ authStatus }) => {
+        if (authStatus === 'authenticated') {
+          this.router.navigate(['/admin']);
+        }
+      }).unsubscribe;
+    }
+
+    ngOnDelete() {
+      this.unsubscribe();
+    }
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`ce3378ee9`](https://github.com/aws-amplify/amplify-ui/commit/ce3378ee90c1545bb41551817bee8662629920c1), [`0234889ea`](https://github.com/aws-amplify/amplify-ui/commit/0234889eaf6dd8337e1140ee993be0380e80a5bf)]:
+  - @aws-amplify/ui@5.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- [#2786](https://github.com/aws-amplify/amplify-ui/pull/2786) [`20a3c6103`](https://github.com/aws-amplify/amplify-ui/commit/20a3c6103aad0883aa14adecfe706d1a6998adce) Thanks [@reesscot](https://github.com/reesscot)! - BREAKING CHANGE: remove legacy exports `@aws-amplify/ui-react/legacy` and `@aws-amplify/ui-angular/legacy`.
+
+- [#2580](https://github.com/aws-amplify/amplify-ui/pull/2580) [`468ad185a`](https://github.com/aws-amplify/amplify-ui/commit/468ad185a0486074637e56832b3353d6616a804d) Thanks [@wlee221](https://github.com/wlee221)! - **BREAKING**: Migrate Angular compiler to IVY, and drop support for View Engine. Please migrate to Angular 12+, and make sure you did not disable ivy in your `tsconfig.json`:
+
+  ```json
+  {
+    ...,
+    "angularCompilerOption": {
+      // REMOVE this line if you have it in your tsconfig.json
+      "enableIvy": false
+    }
+  }
+  ```
+
+  _Note:_ View Engine has already been [deprecated](https://blog.angular.io/angular-v12-is-now-available-32ed51fbfd49) in v12, and [fully removed](https://blog.angular.io/angular-v13-is-now-available-cce66f7bc296) in v13.
+
+- [#2580](https://github.com/aws-amplify/amplify-ui/pull/2580) [`468ad185a`](https://github.com/aws-amplify/amplify-ui/commit/468ad185a0486074637e56832b3353d6616a804d) Thanks [@wlee221](https://github.com/wlee221)! - **BREAKING**: Bump minimum supported Angular version to v12. If your application is on Angular 11 or before, please migrate to Angular 12+ as per [official guide](https://update.angular.io).
+
+  _Note_: Going forward, `@aws-amplify/ui-angular` will have the same version support as Angular's official LTS [support window](https://angular.io/guide/releases#actively-supported-versions). This means all major versions will be supported for 18 months, until we bump the minimum required version to the next one.
+
+- [#2735](https://github.com/aws-amplify/amplify-ui/pull/2735) [`fa3135add`](https://github.com/aws-amplify/amplify-ui/commit/fa3135add1346465db19b9d252ae26edaed70e3b) Thanks [@wlee221](https://github.com/wlee221)! - **Breaking**: We replaced following legacy Authenticator texts:
+
+  - `Confirmation Code` in confirm sign up screen is replaced by `Enter your Code`
+  - `Send Code` in reset password screen is replaced by `Send code`.
+  - `Send Code` in confirm reset password screen is replaced by `Submit`
+  - `Forgot your password? ` with the trailing space is replaced by `Forgot your password`.
+
+  If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
+
+### Patch Changes
+
+- [#2877](https://github.com/aws-amplify/amplify-ui/pull/2877) [`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7) Thanks [@ErikCH](https://github.com/ErikCH)! - **BREAKING**: When overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to enabled. This is now required.
+
+  ```diff
+   async handleSignUp(formData) {
+    let { username, password, attributes } = formData;
+    // custom username
+    username = username.toLowerCase();
+    attributes.email = attributes.email.toLowerCase();
+    return Auth.signUp({
+      username,
+      password,
+      attributes,
+  +   autoSignIn: {
+  +     enabled: true
+  +   }
+    });
+  }
+
+  ```
+
+- Updated dependencies [[`ab8942c54`](https://github.com/aws-amplify/amplify-ui/commit/ab8942c54d0d758d79521ba1a9bf06bf28e30bc7), [`82903f7bb`](https://github.com/aws-amplify/amplify-ui/commit/82903f7bbc0325e709fe48b851e8752cde3c309a), [`d90b148c0`](https://github.com/aws-amplify/amplify-ui/commit/d90b148c0e06b3321f4f05fad2b32ef52c04214d)]:
+  - @aws-amplify/ui@5.0.0
+
+## 2.4.26
+
+### Patch Changes
+
+- Updated dependencies [[`702a35738`](https://github.com/aws-amplify/amplify-ui/commit/702a3573850639c492c51ce10e27e194d720d5ac), [`0935da51a`](https://github.com/aws-amplify/amplify-ui/commit/0935da51ac04334e458339da2bf0ef72f248cf26)]:
+  - @aws-amplify/ui@4.1.0
+
 ## 2.4.25
 
 ### Patch Changes

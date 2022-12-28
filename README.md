@@ -45,6 +45,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | **Primitives**   | **React** | **Angular** | **Vue** |
 | :--------------- | :-------: | :---------: | :-----: |
 | Alert            |    ✅     |             |
+| Autocomplete     |    ✅     |             |
 | Badge            |    ✅     |             |
 | Button           |    ✅     |             |
 | Card             |    ✅     |             |
@@ -55,6 +56,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | Flex             |    ✅     |             |
 | Grid             |    ✅     |             |
 | Heading          |    ✅     |             |
+| HighlightMatch   |    ✅     |             |
 | Icon             |    ✅     |             |
 | Image            |    ✅     |             |
 | Link             |    ✅     |             |

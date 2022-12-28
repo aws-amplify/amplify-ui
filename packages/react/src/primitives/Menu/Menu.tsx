@@ -31,7 +31,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   ref
 ) => (
   <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
-    <DropdownMenuTrigger asChild={true}>
+    <DropdownMenuTrigger asChild>
       {trigger ?? (
         <MenuButton
           ariaLabel={ariaLabel}
@@ -46,7 +46,10 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
         </MenuButton>
       )}
     </DropdownMenuTrigger>
-    <DropdownMenuContent align={menuAlign} portalled={false}>
+    <DropdownMenuContent
+      align={menuAlign}
+      className={ComponentClassNames.MenuContentWrapper}
+    >
       <ButtonGroup
         className={classNames(ComponentClassNames.MenuContent, className)}
         ref={ref}

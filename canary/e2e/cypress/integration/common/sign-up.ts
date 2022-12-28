@@ -1,6 +1,6 @@
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress" />
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When } from 'cypress-cucumber-preprocessor/steps';
 
 Given('I click {string}', (text: string) => {
   cy.findByText(text).click();

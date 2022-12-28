@@ -1,0 +1,101 @@
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
+
+## Overview
+
+Amplify UI supports color modes/schemes, like Dark Mode, through theme overrides. Amplify UI Theme Overrides let you define different theme styles in different contexts, such as color mode.
+
+## ThemeProvider
+
+The `ThemeProvider` accepts a `colorMode` prop which can be `light`, `dark`, or `system`.
+
+<Alert role="none" variation="warning">
+
+If you have multiple `ThemeProvider`s in your application, make sure to store `colorMode` in the application's state or context and pass it to each `ThemeProvider` or else some parts of your app won't have the right color mode applied. Also, because the theme uses CSS variables which are inherited, your application can have some weird behavior with nested themes and color modes.
+
+</Alert>
+
+## Default Dark Mode
+
+Amplify UI comes with a default dark mode that you can use. Import the `defaultDarkModeOverride` and add it to the overrides array in your theme.
+
+If you want to honor your users' operating system preference for color mode, you can send the `useColorScheme` hook from React Native to the `colorMode` prop on the `ThemeProvider`. 
+
+```jsx
+import * as React from 'react';
+import { useColorScheme } from 'react-native';
+import { defaultDarkModeOverride, ThemeProvider } from '@aws-amplify/ui-react-native';
+
+const theme = {
+  overrides: [defaultDarkModeOverride],
+};
+
+export const DefaultDarkMode = () => {
+  const colorMode = useColorScheme();
+
+  return (
+    <ThemeProvider theme={theme} colorMode={colorMode}>
+      {/* ... */}
+    </ThemeProvider>
+  );
+};
+```
+
+You can also control the color mode in your application as well by keeping a state variable that is either `'light'` or `'dark'`.
+
+```jsx
+import * as React from 'react';
+import { Pressable, Text } from 'react-native';
+import { ThemeProvider } from '@aws-amplify/ui-react-native';
+
+const theme = {
+  overrides: [defaultDarkModeOverride],
+};
+
+export const CustomDarkModeExample = () => {
+  const [colorMode, setColorMode] = React.useState('light');
+
+  return (
+    // Note: color mode overrides are scoped to the ThemeProvider
+    // if you use multiple providers
+    <ThemeProvider theme={theme} colorMode={colorMode}>
+      <Pressable onPress={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}>
+        <Text>Change theme</Text>
+      </Pressable>
+    </ThemeProvider>
+  );
+};
+```
+
+## Custom dark mode
+
+You can create your own dark mode override as well. The dark mode override will be applied when `colorMode` on the `ThemeProvider` is set to `dark`. 
+
+```jsx
+const theme = {
+  overrides: [
+    {
+      colorMode: 'dark',
+      tokens: {
+        colors: {
+          font: {
+            primary: '{colors.pink.100}',
+            secondary: '{colors.pink.90}',
+            tertiary: '{colors.pink.80}',
+          },
+          background: {
+            primary: '{colors.purple.10}',
+            secondary: '{colors.purple.20}',
+            tertiary: '{colors.purple.40}',
+          },
+          border: {
+            primary: '{colors.pink.60}',
+            secondary: '{colors.pink.40}',
+            tertiary: '{colors.pink.20}',
+          },
+        },
+      },
+    },
+  ],
+};
+```

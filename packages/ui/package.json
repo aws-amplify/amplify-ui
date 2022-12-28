@@ -1,15 +1,19 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "4.0.1",
+  "version": "5.4.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
+    "./package.json": "./package.json",
     "./styles.css": "./dist/styles.css",
-    "./theme.css": "./dist/theme.css"
+    "./dist/styles.css": "./dist/styles.css",
+    "./theme.css": "./dist/theme.css",
+    "./tokens.ts": "./dist/react-native/tokens.ts"
   },
   "browser": {
     "./styles.css": "./dist/styles.css",
@@ -28,11 +32,10 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "yarn build:sd && yarn build:css && yarn build:js",
-    "build:css": "./scripts/generateCSS.js",
+    "build": "yarn build:css && yarn build:js",
+    "build:css": "ts-node --transpile-only ./scripts/generateCSS.ts",
     "build:js": "rollup --config",
     "build:dev:js": "tsup",
-    "build:sd": "ts-node --transpile-only sd.config.ts",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:sd && yarn build:css && yarn build:dev:js --watch",
     "dev:build": "yarn build:sd && yarn build:css && yarn build:dev:js",
@@ -40,12 +43,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "csstype": "^3.1.1",
     "lodash": "4.17.21",
-    "style-dictionary": "3.7.0",
-    "tslib": "2.4.0"
+    "style-dictionary": "3.7.1",
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x",
+    "aws-amplify": ">= 5.0.1",
     "xstate": "^4.33.6"
   },
   "peerDependenciesMeta": {
@@ -58,6 +62,7 @@
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
+    "@typescript-eslint/parser": "^5.20.0",
     "autoprefixer": "^10.3.1",
     "fs-extra": "^10.0.0",
     "glob": "^7.1.7",

@@ -39,7 +39,7 @@ describe('RadioField test suite', () => {
     );
 
     await screen.findByRole('radio');
-    expect(ref.current.nodeName).toBe('INPUT');
+    expect(ref.current?.nodeName).toBe('INPUT');
   });
 
   it('should be disabled if isDisabled passed', async () => {

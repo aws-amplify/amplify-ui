@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label applies accessibility role 1`] = `
+<Text
+  accessibilityRole="none"
+  style={
+    Array [
+      Object {
+        "fontSize": 14,
+        "fontWeight": "400",
+        "lineHeight": 21,
+      },
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      undefined,
+    ]
+  }
+  testID="labelID"
+>
+  Default Label
+</Text>
+`;
+
+exports[`Label renders a default Label 1`] = `
+<Text
+  accessibilityRole="text"
+  style={
+    Array [
+      Object {
+        "fontSize": 14,
+        "fontWeight": "400",
+        "lineHeight": 21,
+      },
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      undefined,
+    ]
+  }
+  testID="labelID"
+>
+  Default Label
+</Text>
+`;
+
+exports[`Label should apply theme and style props 1`] = `
+<Text
+  accessibilityRole="text"
+  style={
+    Array [
+      Object {
+        "fontSize": 14,
+        "fontWeight": "400",
+        "lineHeight": 21,
+      },
+      Object {
+        "color": "hsl(210, 50%, 10%)",
+      },
+      Object {
+        "color": "red",
+      },
+    ]
+  }
+  testID="labelID"
+>
+  Red Label
+</Text>
+`;
+
+exports[`Label should apply variant styles 1`] = `
+<Text
+  accessibilityRole="text"
+  style={
+    Array [
+      Object {
+        "fontSize": 14,
+        "fontWeight": "400",
+        "lineHeight": 21,
+      },
+      Object {
+        "color": "hsl(130, 27%, 29%)",
+      },
+      undefined,
+    ]
+  }
+  testID="labelID"
+>
+  Label
+</Text>
+`;

@@ -1,10 +1,15 @@
 import * as React from 'react';
-import { AuthenticatorMachineOptions, AmplifyUser } from '@aws-amplify/ui';
+import {
+  AuthenticatorMachineOptions,
+  AmplifyUser,
+  configureComponent,
+} from '@aws-amplify/ui';
 
 import {
   AuthenticatorProvider as Provider,
   useAuthenticator,
   UseAuthenticator,
+  useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
 import {
   CustomComponentsContext,
@@ -17,6 +22,7 @@ import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
+import { VERSION } from '../../version';
 
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
@@ -28,20 +34,6 @@ export type AuthenticatorProps = Partial<
         | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
     }
 >;
-
-// Utility hook that sends init event to the parent provider
-function useInitMachine(data: AuthenticatorMachineOptions) {
-  const { route, initializeMachine } = useAuthenticator(({ route }) => [route]);
-
-  const hasInitialized = React.useRef(false);
-  React.useEffect(() => {
-    if (!hasInitialized.current && route === 'setup') {
-      initializeMachine(data);
-
-      hasInitialized.current = true;
-    }
-  }, [initializeMachine, route, data]);
-}
 
 // `AuthenticatorInternal` exists to give access to the context returned via `useAuthenticator`,
 // which allows the `Authenticator` to just return `children` if a user is authenticated.
@@ -64,7 +56,7 @@ export function AuthenticatorInternal({
     ({ route, signOut, user }) => [route, signOut, user]
   );
 
-  useInitMachine({
+  useAuthenticatorInitMachine({
     initialState,
     loginMechanisms,
     services,
@@ -109,6 +101,13 @@ export function AuthenticatorInternal({
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/authenticator)
  */
 export function Authenticator(props: AuthenticatorProps): JSX.Element {
+  React.useEffect(() => {
+    configureComponent({
+      packageName: '@aws-amplify/ui-react',
+      version: VERSION,
+    });
+  }, []);
+
   return (
     <Provider>
       <AuthenticatorInternal {...props} />

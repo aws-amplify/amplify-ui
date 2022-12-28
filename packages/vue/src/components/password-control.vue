@@ -23,7 +23,6 @@ interface PropsInterface {
 }
 
 const props = withDefaults(defineProps<PropsInterface>(), {
-  labelHidden: true,
   required: true,
 });
 
@@ -67,7 +66,7 @@ export default {
   >
     <base-label
       class="amplify-label"
-      :class="classNames({ 'amplify-visually-hidden': labelHidden })"
+      :class="{ 'amplify-visually-hidden': labelHidden }"
       :for="'amplify-field-' + random"
     >
       {{ labelValue }}

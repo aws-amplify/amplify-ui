@@ -1,0 +1,11 @@
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>
+  {({ platform }) => import(`./amplify-cli.mdx`)}
+</Fragment>
+
+Now that you have the Amplify CLI installed, you can set up your Amplify project by running `amplify init` in your project's root directory. Then run `amplify add auth` and follow the prompts to add authentication to your backend configuration.
+
+_If you have an existing backend, run `amplify pull` to sync your `aws-exports.js` with your cloud backend._
+
+You should now have an `aws-exports.js` file in your `src/` directory with your latest backend configuration.

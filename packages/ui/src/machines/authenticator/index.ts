@@ -207,6 +207,7 @@ export function createAuthenticatorMachine() {
         BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
+        AUTO_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
@@ -302,6 +303,7 @@ export function createAuthenticatorMachine() {
               formValues: {},
               touched: {},
               validationError: {},
+              passwordSettings: context.config?.passwordSettings,
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
@@ -337,6 +339,7 @@ export function createAuthenticatorMachine() {
               username: context.actorDoneData?.authAttributes?.username,
               formFields: context.config?.formFields,
               validationError: {},
+              passwordSettings: context.config?.passwordSettings,
             });
             return spawn(actor, { name: 'resetPasswordActor' });
           },
@@ -375,7 +378,12 @@ export function createAuthenticatorMachine() {
           event.data?.intent === 'confirmSignUp',
         shouldRedirectToResetPassword: (_, event) =>
           event.data?.intent === 'confirmPasswordReset',
-        shouldAutoSignIn: (_, event) => event.data?.intent === 'autoSignIn',
+        shouldAutoSignIn: (context, event) => {
+          return (
+            event.data?.intent === 'autoSignIn' ||
+            event.data?.intent === 'autoSignInSubmit'
+          );
+        },
         shouldSetup: (context) => context.hasSetup === false,
         // other context guards
         hasActor: (context) => !!context.actorRef,

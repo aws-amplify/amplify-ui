@@ -1,6 +1,8 @@
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { FlexProps } from './flex';
 import { InputProps } from './input';
 import { FieldProps, LabelPositions } from './field';
+import { BaseStyleProps } from './style';
 
 export interface CheckboxProps extends FlexProps, InputProps {
   /**
@@ -41,4 +43,19 @@ export interface CheckboxProps extends FlexProps, InputProps {
    * @default false
    */
   isIndeterminate?: boolean;
+
+  /**
+   * @description
+   * Style props to be applied to the input element
+   */
+  inputStyles?: BaseStyleProps;
+}
+
+export interface UseCheckbox {
+  dataChecked: boolean;
+  dataFocus: boolean;
+  onBlur: () => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onFocus: () => void;
+  setDataChecked: Dispatch<SetStateAction<boolean>>;
 }

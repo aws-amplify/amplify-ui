@@ -2,7 +2,7 @@ import QRCode from 'qrcode';
 import * as React from 'react';
 
 import { Logger } from 'aws-amplify';
-import { getTotpCodeURL, translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil, getTotpCodeURL } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -16,13 +16,16 @@ import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const logger = new Logger('SetupTOTP-logger');
 
-type LegacyQRFields = { QR?: { totpIssuer?: string; totpUsername?: string } };
+type LegacyQRFields = { totpIssuer?: string; totpUsername?: string };
+
+const { getSetupTOTPText, getCopiedText, getLoadingText } =
+  authenticatorTextUtil;
 
 export const SetupTOTP = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  const { fields, getTotpSecretCode, isPending, user } = useAuthenticator(
+  const { getTotpSecretCode, isPending, user, QRFields } = useAuthenticator(
     (context) => [context.isPending]
   );
 
@@ -38,9 +41,8 @@ export const SetupTOTP = ({
   const [qrCode, setQrCode] = React.useState<string>();
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
   const [secretKey, setSecretKey] = React.useState<string>('');
-
   const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
-    (fields as LegacyQRFields)?.QR ?? {};
+    (QRFields as LegacyQRFields) ?? {};
 
   const generateQRCode = React.useCallback(async (): Promise<void> => {
     try {
@@ -65,7 +67,7 @@ export const SetupTOTP = ({
 
   const copyText = (): void => {
     navigator.clipboard.writeText(secretKey);
-    setCopyTextLabel(translate('COPIED'));
+    setCopyTextLabel(getCopiedText());
   };
 
   return (
@@ -83,7 +85,7 @@ export const SetupTOTP = ({
           <Flex direction="column">
             {/* TODO: Add spinner here instead of loading text... */}
             {isLoading ? (
-              <p>{translate('Loading')}&hellip;</p>
+              <p>{getLoadingText()}&hellip;</p>
             ) : (
               <img
                 data-amplify-qrcode
@@ -120,7 +122,7 @@ export const SetupTOTP = ({
 };
 
 SetupTOTP.Header = function Header(): JSX.Element {
-  return <Heading level={3}>{translate('Setup TOTP')}</Heading>;
+  return <Heading level={3}>{getSetupTOTPText()}</Heading>;
 };
 
 SetupTOTP.Footer = function Footer(): JSX.Element {

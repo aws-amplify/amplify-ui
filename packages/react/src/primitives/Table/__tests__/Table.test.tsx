@@ -199,6 +199,6 @@ describe('Table primitive', () => {
     render(<Table testId="testId" ref={ref} />);
 
     await screen.findByTestId('testId');
-    expect(ref.current.nodeName).toBe('TABLE');
+    expect(ref.current?.nodeName).toBe('TABLE');
   });
 });

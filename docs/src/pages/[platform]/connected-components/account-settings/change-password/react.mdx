@@ -1,0 +1,368 @@
+import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
+
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { Example, ExampleCode } from '@/components/Example';
+import { ERROR_MESSAGE } from '../props';
+import { CHANGE_PASSWORD, OVERRIDES, PASSWORD_FIELDS, SUBMIT_BUTTON } from './props';
+
+
+### Props
+
+<ReactPropsTable props={CHANGE_PASSWORD} />
+
+### Basic Usage
+
+`ChangePassword` has `onSuccess` handler that will be called after successful password change. You may use this callback to run any custom handling, such as navigating route or rendering confirmation messages.
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import React from 'react';
+import { AccountSettings } from '@aws-amplify/ui-react';
+
+function App() {
+  const handleSuccess = () => {
+    alert('password is successfully changed!')
+  }
+  
+  return (
+    <AccountSettings.ChangePassword onSuccess={handleSuccess}/>
+  );
+}
+```
+
+  </ExampleCode>
+</Example>
+
+### Custom Validation
+
+You can override the default password validator with your own custom validator. To do so, you can use the `validators` prop, which takes an array of `ValidatorOptions`:
+
+<Example>
+  <ExampleCode>
+
+```ts
+interface ValidatorOptions {
+  validationMode: 'onBlur' | 'onChange' | 'onTouched';
+  validator: (value: string) => boolean;
+  message: string;
+}
+```
+
+  </ExampleCode>
+</Example>
+
+- `onBlur` validates password on every blur event
+- `onChange` validates password on every change event
+- `onTouched` validates password on first blur, and on every change event after the first blur.
+
+For example, following is a minLength validator that validates on every change:
+
+<Example>
+  <ExampleCode>
+
+```js
+const minLength = {
+  validationMode: 'onChange',
+  validator: (password) => password.length >= 4,
+  message: 'Password must have length 4 or greater',
+};
+```
+
+  </ExampleCode>
+</Example>
+
+You can pass multiple validators to `ChangePassword` to override the default validator:
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import React from 'react';
+import { AccountSettings } from '@aws-amplify/ui-react';
+
+function App() {
+  const minLength = {
+    validationMode: 'onChange',
+    validator: (password) => password.length >= 4,
+    message: 'Password must have length 4 or greater',
+  };
+
+  const maxLength = {
+    validationMode: 'onChange',
+    validator: (password) => password.length <= 12,
+    message: 'Password must have length 12 or less',
+  };
+  
+  const handleSuccess = () => {
+    alert('password is successfully changed!')
+  }
+  
+  return (
+    <AccountSettings.ChangePassword 
+      onSuccess={handleSuccess} 
+      validators={[minLength, maxLength]}
+    />
+  );
+}
+```
+
+  </ExampleCode>
+</Example>
+
+### Component Overrides
+
+You can provide your own UI components to override parts of `ChangePassword`. It supports the following slots:
+
+<ReactPropsTable props={OVERRIDES} />
+
+#### Reusing default components
+
+Default components are accessible through `AccountSettings.ChangePassword.COMPONENT_NAME` (e.g. `AccountSettings.ChangePassword.NewPasswordField`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
+
+<Example>
+  <ExampleCode>
+
+```jsx
+function App() {
+  const components = {
+    NewPasswordField: (props) => (
+      <AccountSettings.ChangePassword.NewPasswordField
+        {...props} 
+        label="Custom New Password Label" 
+      />
+    ),
+  }
+
+  return (
+    <AccountSettings.ChangePassword components={components} />
+  );
+}
+```
+
+  </ExampleCode>
+</Example>
+
+<Alert variation="warning">
+Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name` are passed correctly. If you're providing your own custom components, make sure required props are passed onto your elements.
+</Alert>
+
+#### Props and Examples
+
+Here are the required props and examples for overriding each slot.
+
+<Expander type="single">
+  <ExpanderItem title="PasswordFields" value="password-fields">
+
+`ChangePassword` has three password fields that you can override: `CurrentPasswordField`, `NewPasswordField`, and `ConfirmPasswordField`. They all take the same props:
+
+    <ReactPropsTable props={PASSWORD_FIELDS} />
+
+
+
+You can reuse the `AccountSettings.ChangePassword.<COMPONENT_NAME>`:
+
+  <Example>
+    <ExampleCode>
+
+```jsx
+function App() {
+  const components = {
+    NewPasswordField: (props) => (
+      <AccountSettings.ChangePassword.NewPasswordField
+        {...props} 
+        label="Custom New Password Label" 
+      />
+    ),
+    ConfirmPasswordField: (props) => (
+      <AccountSettings.ChangePassword.ConfirmPasswordField
+        {...props} 
+        label="Custom Confirm Password Label" 
+      />
+    ),
+  }
+
+  return (
+    <AccountSettings.ChangePassword components={components} />
+  );
+}
+```
+
+      </ExampleCode>
+    </Example>
+
+The following example overrides the `CurrentPasswordField` with native html:
+
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+function App() {
+  const components = {
+    CurrentPasswordField: ({ 
+      fieldValidationErrors,
+      name,
+      onBlur,
+      onChange
+    }) => (
+      <>
+        <input name={name} onBlur={onBlur} onChange={onChange} type="password" />
+        {fieldValidationErrors?.map((error) => (
+          <p key={error} role="alert">{error}</p>
+        ))}
+      </>
+    )
+  };
+}
+```
+
+    </ExampleCode>
+  </Example>
+
+  </ExpanderItem>
+  <ExpanderItem title="ErrorMessage" value="error-message">
+
+
+Props:
+
+    <ReactPropsTable props={ERROR_MESSAGE} />
+
+The following example overrides the error message component with [`Heading`](/components/heading) and [`Text`](/components/text) primitives.
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { Heading, Text } from '@aws-amplify/ui-react';
+
+function App() {
+  const components = {
+    ErrorMessage: ({ children }) => (
+      <>
+        <Heading>Custom Error Message</Heading>
+        <Text variation="warning">{children}</Text>
+      </>
+    )
+  };
+  
+  return (
+    <AccountSettings.ChangePassword components={components} />
+  );
+}
+```
+
+      </ExampleCode>
+    </Example>
+  </ExpanderItem>
+  <ExpanderItem title="SubmitButton" value="submit-button">
+
+Props:
+
+    <ReactPropsTable props={SUBMIT_BUTTON} />
+
+You can reuse the `AccountSettings.ChangePassword.SubmitButton`:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
+const components  = {
+  SubmitButton: (props) => (
+    <AccountSettings.ChangePassword.SubmitButton {...props}>
+      My Custom Button
+    </AccountSettings.ChangePassword.SubmitButton>
+  )
+}
+```
+
+      </ExampleCode>
+    </Example>
+
+or use [button](/components/button) primitive directly:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+import { AccountSettings, Button } from '@aws-amplify/ui-react';
+
+const components  = {
+  SubmitButton: (props) => <Button {...props}>My Custom Button</Button>
+}
+```
+
+      </ExampleCode>
+    </Example>
+
+The following example replaces `SubmitButton` with native html button:
+
+    <Example>
+      <ExampleCode>
+
+```jsx
+function App() {
+  const components = {
+    SubmitButton: ({ onClick, isDisabled }) => (
+      <button type="submit" onClick={onClick} disabled={isDisabled}>
+        Custom Button Text
+      </button>
+    )
+  };
+  
+  return (
+    <AccountSettings.ChangePassword components={components} />
+  );
+}
+```
+
+      </ExampleCode>
+    </Example>
+  </ExpanderItem>
+</Expander>
+
+### Theming
+
+`ChangePassword` component is built upon our robust [Amplify UI theming system](../../theming). To get started, add a theme object and set the appropriate [design tokens](../../theming#design-tokens). You can then pass that `theme` to the `ThemeProvider` so the changes can take affect.
+
+<Example>
+  <ExampleCode>
+
+```jsx
+import { AccountSettings, Card, ThemeProvider } from '@aws-amplify/ui-react';
+
+const theme = {
+  name: 'custom-theme',
+  tokens: {
+    colors: {
+      border: {
+        primary: { value: '{colors.neutral.40}' },
+        secondary: { value: '{colors.neutral.20}' },
+        tertiary: { value: '{colors.neutral.10}' },
+      },
+    },
+    radii: {
+      small: { value: '2px' },
+      medium: { value: '3px' },
+      large: { value: '4px' },
+      xl: { value: '6px' },
+    },
+  },
+};
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Card width="800px">
+        <AccountSettings.ChangePassword />
+      </Card>
+    </ThemeProvider>
+  );
+}
+```
+
+  </ExampleCode>
+</Example>

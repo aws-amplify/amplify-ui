@@ -38,7 +38,7 @@ describe('ScrollView: ', () => {
     render(<ScrollView ref={ref} testId="test-id" />);
 
     await screen.findByTestId('test-id');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
   it('should set data-orientation correctly', async () => {

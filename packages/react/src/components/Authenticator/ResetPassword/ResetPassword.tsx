@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -10,6 +10,13 @@ import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { TwoButtonSubmitFooter } from '../shared/TwoButtonSubmitFooter';
 import { FormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
+
+const {
+  getBackToSignInText,
+  getSendingText,
+  getSendCodeText,
+  getResetYourPasswordText,
+} = authenticatorTextUtil;
 
 export const ResetPassword = ({
   className,
@@ -45,13 +52,13 @@ export const ResetPassword = ({
 
           <RemoteErrorMessage />
           <TwoButtonSubmitFooter
-            cancelButtonText={translate('Back to Sign In')}
+            cancelButtonText={getBackToSignInText()}
             cancelButtonSendType="SIGN_IN"
             submitButtonText={
               isPending ? (
-                <>{translate('Sending')}&hellip;</>
+                <>{getSendingText()}&hellip;</>
               ) : (
-                <>{translate('Send code')}</>
+                <>{getSendCodeText()}</>
               )
             }
           />
@@ -63,7 +70,7 @@ export const ResetPassword = ({
 };
 
 ResetPassword.Header = function Header(): JSX.Element {
-  return <Heading level={3}>{translate('Reset your password')}</Heading>;
+  return <Heading level={3}>{getResetYourPasswordText()}</Heading>;
 };
 
 ResetPassword.Footer = function Footer(): JSX.Element {

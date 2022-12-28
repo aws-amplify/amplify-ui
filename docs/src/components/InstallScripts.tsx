@@ -9,10 +9,8 @@ interface TerminalCommandProps {
   framework?: Framework;
   packageManager?: PackageManager;
   command?: string;
+  variant?: 'default' | 'hero';
 }
-
-// require exact versions for React Native
-const EXACT_VERSIONS_FLAG = '-E';
 
 const frameworkInstallScript = (
   framework: Framework,
@@ -22,7 +20,7 @@ const frameworkInstallScript = (
 
   const packageManagerPrefix = `${
     packageManager === 'npm' ? 'npm i' : 'yarn add'
-  } ${isReactNative ? EXACT_VERSIONS_FLAG : ''}`;
+  }`;
 
   const extraDependencies = `${
     isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''
@@ -35,13 +33,14 @@ export const TerminalCommand = ({
   framework,
   packageManager,
   command,
+  variant = 'default',
 }: TerminalCommandProps) => {
   const terminalCommand = command
     ? command
     : frameworkInstallScript(framework, packageManager);
 
   return (
-    <code className="install-code__container">
+    <code className={`install-code__container ${variant}`}>
       <p className="install-code__content">{terminalCommand}</p>
       <CopyButton
         className="install-code__button"

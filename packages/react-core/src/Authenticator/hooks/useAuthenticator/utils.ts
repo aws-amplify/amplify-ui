@@ -5,17 +5,16 @@ import {
   AuthMachineState,
   FormFieldsArray,
   getSortedFormFields,
+  UnverifiedContactMethods,
+  getActorContext,
 } from '@aws-amplify/ui';
+import isString from 'lodash/isString';
 
 import { areEmptyArrays, areEmptyObjects } from '../../../utils';
+import { AuthenticatorLegacyField, AuthenticatorLegacyFields } from '../types';
+import { isComponentRouteKey } from '../utils';
 
-import { COMPONENT_ROUTE_KEYS } from './constants';
-import {
-  AuthenticatorRouteComponentKey,
-  AuthenticatorLegacyFields,
-  Comparator,
-  Selector,
-} from './types';
+import { Comparator, UseAuthenticatorSelector } from './types';
 
 export const defaultComparator = (): false => false;
 
@@ -45,7 +44,7 @@ export function areSelectorDepsEqual<T>(
 }
 
 export const getComparator =
-  (selector: Selector): Comparator =>
+  (selector: UseAuthenticatorSelector): Comparator =>
   (currentFacade, nextFacade) => {
     const currentSelectorDeps = selector(currentFacade);
     const nextSelectorDeps = selector(nextFacade);
@@ -54,29 +53,55 @@ export const getComparator =
     return areSelectorDepsEqual(currentSelectorDeps, nextSelectorDeps);
   };
 
+export const getQRFields = (
+  state: AuthMachineState
+): { totpIssuer?: string; totpUsername?: string } => {
+  const fields = getActorContext(state);
+
+  const QR = fields?.formFields?.setupTOTP?.QR ?? {};
+
+  return { ...QR };
+};
+
 export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
   async function getTotpSecretCode(): Promise<string> {
     return await Auth.setupTOTP(user);
   };
-
-export const isComponentRouteKey = (
-  route: AuthenticatorRoute
-): route is AuthenticatorRouteComponentKey =>
-  COMPONENT_ROUTE_KEYS.some((componentRoute) => componentRoute === route);
 
 const flattenFormFields = (
   fields: FormFieldsArray
 ): AuthenticatorLegacyFields =>
   fields.flatMap(([name, options]) => ({ name, ...options }));
 
+const convertContactMethodsToFields = (
+  unverifiedContactMethods: UnverifiedContactMethods
+): AuthenticatorLegacyFields => {
+  return (
+    unverifiedContactMethods &&
+    Object.entries(unverifiedContactMethods).map(([name, value]) => {
+      const valueIsString = isString(value);
+      if (!valueIsString || !name) {
+        return {} as AuthenticatorLegacyField;
+      }
+      return { name, label: value, type: 'radio', value };
+    })
+  );
+};
+
 /**
- * Retrieves legacy form field values from state machine for routes that have fields
+ * Retrieves default and custom (RWA only, to be updated) form field values from state machine
+ * for subcomponent routes that render fields
  */
-export const getLegacyFields = (
+export const getMachineFields = (
   route: AuthenticatorRoute,
-  state: AuthMachineState
-): AuthenticatorLegacyFields =>
-  // verifyUser is a component route, but does not have form fields
-  isComponentRouteKey(route) && route !== 'verifyUser'
-    ? flattenFormFields(getSortedFormFields(route, state))
-    : [];
+  state: AuthMachineState,
+  unverifiedContactMethods: UnverifiedContactMethods
+): AuthenticatorLegacyFields => {
+  if (isComponentRouteKey(route)) {
+    return route === 'verifyUser'
+      ? convertContactMethodsToFields(unverifiedContactMethods)
+      : flattenFormFields(getSortedFormFields(route, state));
+  }
+
+  return [];
+};

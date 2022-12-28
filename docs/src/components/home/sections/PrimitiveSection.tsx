@@ -206,7 +206,10 @@ export const PrimitiveSection = ({ platform, ...rest }) => {
       ref={ref}
     >
       <Flex direction="column" gap="large" className="docs-home-subsection">
-        <Heading level={2}>
+        <Heading
+          level={2}
+          className={classNames('expand-out', isVisible && 'shown')}
+        >
           Speed up development with over <br />
           <strong>40 production-ready components</strong>
         </Heading>

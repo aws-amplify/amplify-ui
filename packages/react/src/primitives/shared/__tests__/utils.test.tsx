@@ -1,4 +1,4 @@
-import { ViewProps } from '../../types';
+import { createTheme } from '@aws-amplify/ui';
 import {
   getConsecutiveIntArray,
   strHasLength,
@@ -9,24 +9,8 @@ import {
 } from '../utils';
 import { ComponentClassNames } from '../constants';
 
-const props: ViewProps = {
-  backgroundColor: 'blue',
-  border: '1px solid black',
-  borderRadius: '6px',
-  boxShadow: '3px 3px 5px 6px #ccc',
-  color: 'red',
-  height: '100px',
-  maxHeight: '200px',
-  maxWidth: '200px',
-  minHeight: '100px',
-  minWidth: '100px',
-  opacity: '80%',
-  padding: '6px',
-  width: '100px',
-  as: 'section',
-  ariaLabel: 'important section',
-  className: 'my-section',
-};
+const theme = createTheme();
+const { tokens } = theme;
 
 describe('getConsecutiveIntArray: ', () => {
   it('should return an array of consecutive integer', () => {
@@ -71,11 +55,11 @@ describe('classNameModifier', () => {
     expect(classNameModifier(myClass, modifier)).toEqual(modifiedClassName);
   });
 
-  it('should return null without a modifier passed in', () => {
+  it('should return empty string without a modifier passed in', () => {
     // force undefined to be Modifiers type for exhaustive edge case test
     expect(
       classNameModifier(myClass, undefined as unknown as Modifiers)
-    ).toEqual(null);
+    ).toEqual('');
   });
 });
 
@@ -90,21 +74,21 @@ describe('classNameModifierByFlag', () => {
     );
   });
 
-  it('should return null with a false flag value passed in', () => {
-    expect(classNameModifierByFlag(myClass, modifier, false)).toEqual(null);
+  it('should return empty string with a false flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, false)).toEqual('');
   });
 });
 
 describe('getCSSVariableIfValueIsThemeKey', () => {
   it('should return CSS variable if value is a theme key', () => {
-    expect(getCSSVariableIfValueIsThemeKey('backgroundColor', 'red.10')).toBe(
-      'var(--amplify-colors-red-10)'
-    );
+    expect(
+      getCSSVariableIfValueIsThemeKey('backgroundColor', 'red.10', tokens)
+    ).toBe('var(--amplify-colors-red-10)');
   });
 
   it('should return value directly if it is not a theme key', () => {
-    expect(getCSSVariableIfValueIsThemeKey('backgroundColor', 'red')).toBe(
-      'red'
-    );
+    expect(
+      getCSSVariableIfValueIsThemeKey('backgroundColor', 'red', tokens)
+    ).toBe('red');
   });
 });
