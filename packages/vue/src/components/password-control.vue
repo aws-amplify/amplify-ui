@@ -56,12 +56,12 @@ export default {
 <template>
   <base-wrapper
     :class="
-      classNames(
+      [
         ComponentClassName.Flex,
         ComponentClassName.Field,
         ComponentClassName.TextField,
         ComponentClassName.PasswordField
-      )
+      ]
     "
   >
     <base-label
