@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { Flex, Text } from '../../../primitives';
-import { LivenessClassNames } from '../types/classNames';
 
 export interface DescriptionBulletProps {
   index: number;
@@ -15,22 +14,24 @@ export const DescriptionBullet = (
   const { index, title, desc } = props;
 
   return (
-    <Flex className={LivenessClassNames.DescriptionBullet}>
-      <Flex className={LivenessClassNames.DescriptionBulletIndexContainer}>
-        <Text as="span" className={LivenessClassNames.DescriptionBulletIndex}>
+    <Flex direction="row" gap="small">
+      <Flex
+        shrink={0}
+        alignItems="center"
+        justifyContent="center"
+        borderRadius="100%"
+        backgroundColor="brand.primary.80"
+        width="xl"
+        height="xl"
+      >
+        <Text fontWeight="bold" as="span" color="font.inverse">
           {index}
         </Text>
       </Flex>
 
-      <Flex className={LivenessClassNames.DescriptionBulletMessageContainer}>
-        {title && (
-          <Text className={LivenessClassNames.DescriptionBulletMessageTitle}>
-            {title}
-          </Text>
-        )}
-        <Text className={LivenessClassNames.DescriptionBulletMessageBody}>
-          {desc}
-        </Text>
+      <Flex direction="column" gap="xxs">
+        {title && <Text fontWeight="bold">{title}</Text>}
+        <Text color="font.primary">{desc}</Text>
       </Flex>
     </Flex>
   );

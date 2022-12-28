@@ -12,7 +12,6 @@ import {
 import { CancelButton, Instruction, RecordingIcon, Overlay } from '../shared';
 import { isFirefox, isAndroid, isIOS } from '../utils/device';
 import { Flex, Loader, Text, View } from '../../../primitives';
-import { LivenessClassNames } from '../types/classNames';
 
 export const selectVideoConstraints = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoConstraints
@@ -85,7 +84,10 @@ export const LivenessCameraModule = (
 
   const centeredLoader = (
     <View
-      className={LivenessClassNames.CameraModuleCenteredLoader}
+      position="absolute"
+      left="50%"
+      top="50%"
+      transform="translate(-50%,-50%)"
       data-testid="centered-loader"
     >
       <Loader size="large" />
@@ -101,13 +103,33 @@ export const LivenessCameraModule = (
   }
 
   return (
-    <Flex className={LivenessClassNames.CameraModule}>
+    <Flex
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      position={isMobileScreen ? 'fixed' : 'relative'}
+      backgroundColor="black"
+      {...(isMobileScreen && {
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: '100%',
+      })}
+    >
       {!isCameraReady && centeredLoader}
 
       <View
         as="canvas"
         ref={freshnessColorRef}
-        className={LivenessClassNames.CameraModuleCanvas}
+        height="100%"
+        width="100%"
+        position="fixed"
+        top={0}
+        left={0}
+        style={{
+          pointerEvents: 'none',
+          zIndex: 1,
+        }}
         hidden
       />
 
@@ -127,14 +149,18 @@ export const LivenessCameraModule = (
         width={mediaWidth}
         onCanPlay={handleMediaPlay}
         data-testid="video"
-        className={`${LivenessClassNames.CameraModuleVideo} ${
-          isRecordingStopped ? LivenessClassNames.FadeOut : null
-        }`}
+        className={isRecordingStopped ? 'amplify-liveness-fade-out' : null}
       />
       <Flex
-        className={`${LivenessClassNames.CameraModuleVideoContainer} ${
-          isRecordingStopped ? LivenessClassNames.FadeOut : null
-        }`}
+        direction="column"
+        position="absolute"
+        top={0}
+        left={0}
+        width="100%"
+        height="100%"
+        alignItems="center"
+        justifyContent="center"
+        className={isRecordingStopped ? 'amplify-liveness-fade-out' : null}
       >
         <View
           as="canvas"
@@ -145,24 +171,36 @@ export const LivenessCameraModule = (
       </Flex>
 
       {isRecording && (
-        <View className={LivenessClassNames.CameraModuleRecordingIconContainer}>
+        <View
+          style={{ zIndex: 1 }}
+          position="absolute"
+          top="medium"
+          left="medium"
+        >
           <RecordingIcon />
         </View>
       )}
 
-      <View className={LivenessClassNames.CameraModuleCancelButtonContainer}>
+      <View
+        style={{ zIndex: 2 }}
+        position="absolute"
+        top="medium"
+        right="medium"
+      >
         <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
       </View>
       {countDownRunning && (
         <Overlay
+          style={{ zIndex: 1 }}
           anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
-          className={LivenessClassNames.CameraModuleOverlayCountdown}
         >
           <Instruction />
 
           {isNotRecording && (
             <View
-              className={LivenessClassNames.CameraModuleCountdownTimerContainer}
+              backgroundColor="background.primary"
+              borderRadius="100%"
+              padding="8px"
             >
               <CountdownCircleTimer
                 isPlaying={isNotRecording}
