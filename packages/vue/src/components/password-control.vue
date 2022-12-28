@@ -55,14 +55,12 @@ export default {
 
 <template>
   <base-wrapper
-    :class="
-      [
-        ComponentClassName.Flex,
-        ComponentClassName.Field,
-        ComponentClassName.TextField,
-        ComponentClassName.PasswordField
-      ]
-    "
+    :class="[
+      ComponentClassName.Flex,
+      ComponentClassName.Field,
+      ComponentClassName.TextField,
+      ComponentClassName.PasswordField,
+    ]"
   >
     <base-label
       class="amplify-label"
@@ -83,12 +81,10 @@ export default {
         <base-input
           v-bind="$attrs"
           v-model="password"
-          :class="
-            classNames(
-              ComponentClassName.Input,
-              ComponentClassName.FieldGroupControl
-            )
-          "
+          :class="[
+            ComponentClassName.Input,
+            ComponentClassName.FieldGroupControl,
+          ]"
           :id="'amplify-field-' + random"
           data-amplify-password="true"
           :name="name"
