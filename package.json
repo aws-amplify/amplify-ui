@@ -59,8 +59,6 @@
     "**/@angular-devkit/build-angular/minimatch": "3.0.5",
     "**/serve/serve-handler/minimatch": "3.0.5",
     "@types/react": "17.0.47",
-    "ansi-html": "0.0.8",
-    "ansi-regex": "5.0.1",
     "async": "^3.2.2",
     "browserslist": "^4.16.15",
     "cssnano-preset-simple": "4.0.0",
