@@ -1,3 +1,5 @@
+name: POC / guides
+
 on: pull_request
 
 jobs:
