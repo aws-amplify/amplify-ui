@@ -1,0 +1,17 @@
+# Description: This workflow runs unit + e2e tests
+#
+# Triggered by: merge to `next-release/main` branch
+
+name: Publish / hotfix
+
+on:
+  push:
+    branches: [overflow-clip-poc]
+
+jobs:
+  publish:
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: hotfix
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
