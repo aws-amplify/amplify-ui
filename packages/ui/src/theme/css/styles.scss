@@ -55,6 +55,13 @@ select {
   box-sizing: border-box; /* set box-sizing after unset above */
 }
 
+// manually set amplify-image's `overflow` property to clip to
+// resolve chrome 108 breaking change with how it handles image:
+// https://developer.chrome.com/blog/overflow-replaced-elements/
+[amplify-image] {
+  overflow: clip;
+}
+
 // Layout
 // They are commonly used in other primitives
 // Move them to the top here makes it easy to override their styling
