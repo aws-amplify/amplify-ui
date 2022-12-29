@@ -2,6 +2,10 @@ name: POC / guides
 
 on: pull_request
 
+concurrency:
+  group: guides-poc
+  cancel-in-progress: true
+
 jobs:
   guides:
     runs-on: ubuntu-latest
