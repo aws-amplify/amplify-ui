@@ -118,7 +118,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
-          name: build-and-runtime-test-cypress-error-files
+          name: guides-cypress-error
           path: |
             packages/e2e/cypress/videos/**
             packages/e2e/cypress/screenshots/**
