@@ -30,7 +30,7 @@ Feature: Sign In with TOTP MFA
     And I click the "Sign In" button
     And I enter an invalid confirmation code
     And I click the "Confirm" button
-    Then I see 'Code mismatch'
+    Then I see 'Code mismatchhhhhhh'
 
   @angular @react @vue
   Scenario: Setup TOTP should only show one input code
