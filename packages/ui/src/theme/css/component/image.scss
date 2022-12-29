@@ -3,4 +3,8 @@
   max-width: var(--amplify-components-image-max-width);
   object-fit: var(--amplify-components-image-object-fit);
   object-position: var(--amplify-components-image-object-position);
+
+  // need to set overflow to clip to resolve chrome 108 breaking change:
+  // https://developer.chrome.com/blog/overflow-replaced-elements/
+  overflow: clip;
 }
