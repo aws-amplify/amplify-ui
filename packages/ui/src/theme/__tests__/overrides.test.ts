@@ -424,6 +424,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-link-focus-color: var(--amplify-colors-font-focus);
         --amplify-components-link-hover-color: var(--amplify-colors-font-hover);
         --amplify-components-link-visited-color: var(--amplify-colors-font-interactive);
+        --amplify-components-liveness-camera-module-background-color: var(--amplify-colors-black);
         --amplify-components-loader-width: var(--amplify-font-sizes-medium);
         --amplify-components-loader-height: var(--amplify-font-sizes-medium);
         --amplify-components-loader-font-size: var(--amplify-font-sizes-xs);

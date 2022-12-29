@@ -19,6 +19,7 @@ import { heading, HeadingTokens } from './heading';
 import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
 import { link, LinkTokens } from './link';
+import { liveness, LivenessTokens } from './liveness';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
 import { pagination, PaginationTokens } from './pagination';
@@ -67,6 +68,7 @@ export interface ComponentTokens {
   icon: IconTokens;
   image: ImageTokens;
   link: LinkTokens;
+  liveness: LivenessTokens;
   loader: LoaderTokens;
   menu: MenuTokens;
   pagination: PaginationTokens;
@@ -113,6 +115,7 @@ export const components: ComponentTokens = {
   icon,
   image,
   link,
+  liveness,
   loader,
   menu,
   pagination,
