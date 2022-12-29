@@ -5,8 +5,7 @@
 
 name: POC / Build and Runtime Test
 
-on:
-  pull_request:
+on: pull_request
 
 jobs:
   build:
