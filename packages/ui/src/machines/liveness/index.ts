@@ -610,7 +610,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           const {
             freshnessColorAssociatedParams: { freshnessColorEl },
           } = context;
-          freshnessColorEl.hidden = true;
+          freshnessColorEl.style.display = 'none';
           return LivenessErrorState.FRESHNESS_TIMEOUT;
         },
       }),
@@ -716,7 +716,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           freshnessColorAssociatedParams: { freshnessColorEl },
         } = context;
         if (freshnessColorEl) {
-          freshnessColorEl.hidden = true;
+          freshnessColorEl.style.display = 'none';
         }
         await context.livenessStreamProvider?.endStream();
       },

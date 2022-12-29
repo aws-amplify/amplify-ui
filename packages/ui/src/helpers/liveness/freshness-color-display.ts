@@ -79,7 +79,7 @@ export class FreshnessColorDisplay {
 
     let timeSinceLastColorChange =
       tickStartTime - this.timeLastFlatOrScrollChange;
-    freshnessColorEl.hidden = false;
+    freshnessColorEl.style.display = 'block';
 
     // This helper function only runs every 100ms
     // await this.matchFaceInOval(reject);
@@ -115,7 +115,7 @@ export class FreshnessColorDisplay {
 
       resolve(false);
     } else {
-      freshnessColorEl.hidden = true;
+      freshnessColorEl.style.display = 'none';
       resolve(true);
     }
   }
