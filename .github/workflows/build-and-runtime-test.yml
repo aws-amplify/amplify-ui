@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
-          name: build-and-runtime-test-cypress-error-files
+          name: canary-cypress-error-{{ matrix.path }}
           path: |
             canary/e2e/cypress/videos/**
             canary/e2e/cypress/screenshots/**
