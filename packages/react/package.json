@@ -94,7 +94,6 @@
     "@types/tinycolor2": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
-    "degit": "^2.8.4",
     "esbuild-register": "^3.3.3",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
