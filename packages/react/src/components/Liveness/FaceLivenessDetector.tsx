@@ -71,7 +71,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   }, [send, props]);
 
   React.useLayoutEffect(() => {
-    if (disableStartScreen) {
+    if (disableStartScreen && isStartView) {
       recordLivenessAnalyticsEvent(props, {
         event: LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
         attributes: { action: 'AttemptLiveness' },
@@ -80,7 +80,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
 
       beginLivenessCheck();
     }
-  }, [beginLivenessCheck, disableStartScreen, props]);
+  }, [beginLivenessCheck, disableStartScreen, props, isStartView]);
 
   return (
     <View

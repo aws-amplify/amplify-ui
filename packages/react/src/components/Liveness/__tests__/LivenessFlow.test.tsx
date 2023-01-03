@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { useActor } from '@xstate/react';
 
 import { FaceLivenessDetector, FaceLivenessDetectorProps } from '..';
@@ -37,9 +36,7 @@ describe('FaceLivenessDetector', () => {
 
   const mockVideoConstraints = {};
   mockGetVideoConstraints.mockReturnValue(mockVideoConstraints);
-  mockMatches.mockImplementation(() => {
-    return false;
-  });
+  mockMatches.mockReturnValue(false);
 
   const defaultProps: FaceLivenessDetectorProps = {
     sessionId: 'sessionId',
@@ -105,5 +102,17 @@ describe('FaceLivenessDetector', () => {
       <FaceLivenessDetector {...defaultProps} disableStartScreen={true} />
     );
     expect(screen.queryByTestId(livenessCheckTestId)).toBeInTheDocument();
+  });
+
+  it('should not show the instruction if disableStartScreen is true and xstate is at the start', async () => {
+    mockMatches.mockReturnValueOnce(true);
+    render(
+      <FaceLivenessDetector {...defaultProps} disableStartScreen={true} />
+    );
+
+    expect(mockActorSend).toHaveBeenCalledWith({
+      type: 'BEGIN',
+      data: { videoConstraints: {} },
+    });
   });
 });
