@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -39,7 +39,7 @@
     "dev": "tsup --watch",
     "dev:build": "tsup",
     "clean": "rimraf dist node_modules",
-    "lint": "tsc --noEmit --project tsconfig.dev.json && eslint",
+    "lint": "tsc --noEmit --project tsconfig.dev.json && eslint src --ext .js,.ts,.tsx",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
@@ -48,8 +48,8 @@
     "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.4.1",
-    "@aws-amplify/ui-react-core": "2.1.6",
+    "@aws-amplify/ui": "5.4.2",
+    "@aws-amplify/ui-react-core": "2.1.7",
     "@radix-ui/react-accordion": "1.0.0",
     "@radix-ui/react-direction": "1.0.0",
     "@radix-ui/react-dropdown-menu": "1.0.0",
@@ -94,7 +94,6 @@
     "@types/tinycolor2": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
-    "degit": "^2.8.4",
     "esbuild-register": "^3.3.3",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
