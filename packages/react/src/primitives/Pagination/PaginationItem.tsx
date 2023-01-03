@@ -24,15 +24,15 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
   ...rest
 }) => {
   const onChange = React.useCallback(() => {
-    if (onClick) onClick(page, currentPage);
+    onClick?.(page, currentPage);
   }, [page, currentPage, onClick]);
 
   const onPrevious = React.useCallback(() => {
-    if (onClick) onClick();
+    onClick?.();
   }, [onClick]);
 
   const onNext = React.useCallback(() => {
-    if (onClick) onClick();
+    onClick?.();
   }, [onClick]);
 
   const nextClasses = classNames(

@@ -24,7 +24,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   {
     ariaValuetext,
     className,
-    defaultValue,
+    defaultValue = 0,
     descriptiveText,
     emptyTrackColor,
     errorMessage,
@@ -58,7 +58,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
   const [currentValue, setCurrentValue] = React.useState(
-    value ? value : defaultValue || 0
+    value ? value : defaultValue
   );
 
   const values = value ? [value] : undefined;

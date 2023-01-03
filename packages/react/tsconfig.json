@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "module": "esnext",
-    "target": "es2015"
+    "target": "es2015",
+    "strict": false
   },
   "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
