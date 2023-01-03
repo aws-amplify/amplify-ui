@@ -9,7 +9,7 @@ import {
 } from '../../types';
 
 // gets password requirement from Amplify.configure data
-export const getPasswordRequirement = (): PasswordRequirement | null => {
+export const getPasswordRequirement = (): PasswordRequirement => {
   // need to cast to any because `Amplify.configure()` isn't typed properly
   const config = Amplify.configure() as any;
   const passwordSettings =
