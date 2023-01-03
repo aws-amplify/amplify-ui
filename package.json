@@ -70,7 +70,8 @@
     "prismjs": "^1.25.0",
     "react-dev-utils": "^11.0.4",
     "shell-quote": "1.7.3",
-    "trim-newlines": "3.0.1"
+    "trim-newlines": "3.0.1",
+    "json5": "^2.2.1"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.4.1",
