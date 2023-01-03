@@ -57,12 +57,14 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
 
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
+  const isControlled = value !== undefined;
+
   const [currentValue, setCurrentValue] = React.useState(
-    value ? value : defaultValue
+    isControlled ? value : defaultValue
   );
 
-  const values = value ? [value] : undefined;
-  const defaultValues = defaultValue ? [defaultValue] : undefined;
+  const values = isControlled ? [value] : undefined;
+  const defaultValues = !isControlled ? [defaultValue] : undefined;
 
   const onValueChange = React.useCallback(
     (value: number[]) => {

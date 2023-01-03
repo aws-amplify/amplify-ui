@@ -50,7 +50,7 @@ export const useStepper = ({
 
   // Same for controlled components on the first render because users could provide invalid initial value.
   // It seems redundant afterwards but necessary for the first render
-  const value = controlledValue
+  const value = isControlled
     ? getCorrectSteppingValue(min, max, step, controlledValue)
     : uncontrolledValue;
 
