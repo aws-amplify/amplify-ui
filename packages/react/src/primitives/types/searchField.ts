@@ -71,5 +71,5 @@ export interface SearchFieldButtonProps
 export interface UseSearchFieldProps extends Partial<SearchFieldProps> {
   externalRef?: React.ForwardedRef<HTMLInputElement>;
 
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
