@@ -2,10 +2,11 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { PhoneNumberField } from '../PhoneNumberField';
 import { Flex } from '../../Flex';
 import { Button } from '../../Button';
 import { ComponentClassNames } from '../../shared/constants';
+
+import { PhoneNumberField } from '../PhoneNumberField';
 
 const originalLog = console.log;
 console.log = jest.fn();
@@ -15,7 +16,7 @@ describe('PhoneNumberField primitive', () => {
     defaultCountryCode = '+1',
     label = 'Phone Number',
     ...rest
-  }: Partial<typeof PhoneNumberField['defaultProps']>) => {
+  }) => {
     render(
       <PhoneNumberField
         defaultCountryCode={defaultCountryCode}
@@ -195,7 +196,7 @@ describe('PhoneNumberField primitive', () => {
       label = 'Phone Number',
       dialCodeLabel = 'dial code',
       ...rest
-    }: Partial<typeof PhoneNumberField['defaultProps']>) => {
+    }) => {
       render(
         <PhoneNumberField
           defaultDialCode={defaultDialCode}
