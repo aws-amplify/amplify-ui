@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Amplify, { Auth, I18n } from 'aws-amplify';
+import { Amplify, Auth, I18n } from 'aws-amplify';
 import {
   Authenticator,
   translations,
@@ -16,7 +16,6 @@ const { authStatus } = toRefs(useAuthenticator());
 const formFields = {
   confirmSignUp: {
     confirmation_code: {
-      labelHidden: false,
       placeholder: 'Enter the code given',
       isRequired: true,
     },
@@ -27,7 +26,7 @@ I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {
   'Your code is on the way. To log in, enter the code we emailed to':
     'Enter this code:',
-  'It may take a minute to arrive.': 'It will take several minutes to arrive.',
+  'It may take a minute to arrive': 'It will take several minutes to arrive',
 });
 
 const services = {
@@ -40,6 +39,9 @@ const services = {
       username,
       password,
       attributes,
+      autoSignIn: {
+        enabled: true,
+      },
     });
   },
 };

@@ -69,7 +69,7 @@ module.exports = {
         'src/components/**/*',
         'src/helpers/**/*',
         'src/hooks/**/*',
-        'src/primitives/+(shared|utils|E*)/**/*',
+        'src/primitives/+(shared|utils|A*|B*|C*|D*|E*|F*|G*|H*|I*|J*|K*|L*|M*)/**/*',
         'src/studio',
         // 'src/primitives/**/*',
       ],
@@ -105,7 +105,7 @@ module.exports = {
           'error',
           { argsIgnorePattern: '_', varsIgnorePattern: '_' },
         ],
-        '@typescript-eslint/prefer-nullish-coalescing': 'error',
+        '@typescript-eslint/prefer-nullish-coalescing': 'warn', // FIXME: changing this to warn in staging repo, strict: true is not turned on in main repo either
         '@typescript-eslint/restrict-template-expressions': ['off'],
         '@typescript-eslint/unbound-method': 'error',
 

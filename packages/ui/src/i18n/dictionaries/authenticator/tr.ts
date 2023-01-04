@@ -25,6 +25,7 @@ export const trDict: AuthenticatorDictionary = {
   'Enter your username': 'Kullanıcı adınızı girin',
   'Forgot your password?': 'Şifrenizi mi unuttunuz?',
   'Hide password': 'Şifreyi gizle',
+  'It may take a minute to arrive': 'Kodun gelmesi bir dakika sürebilir',
   Loading: 'Yükleniyor',
   'New password': 'Yeni şifre',
   Password: 'Şifre',
@@ -51,6 +52,15 @@ export const trDict: AuthenticatorDictionary = {
   Username: 'Kullanıcı adı',
   'Verify Contact': 'Kişiyi Doğrula',
   Verify: 'Doğrula',
+  'We Emailed You': 'Size E-posta Gönderdik',
+  'We Sent A Code': 'Bir Kod Gönderdik',
+  'We Texted You': 'Size Mesaj Gönderdik',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz e-postadaki kodu girin',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Kodunuz yolda. Oturum açmak için, size gönderdiğimiz kodu girin',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Kodunuz yolda. Oturum açmak için, gönderdiğimiz mesajdaki kodu girin',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':

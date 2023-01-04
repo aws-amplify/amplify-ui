@@ -15,21 +15,27 @@ const breakpoints: Breakpoints = {
 
 describe('getValueAtCurrentBreakpoint', () => {
   it('should return string values directly', () => {
-    const result = getValueAtCurrentBreakpoint({
+    const { result } = renderHook(() => useTheme());
+    const { tokens } = result.current;
+    const output = getValueAtCurrentBreakpoint({
       breakpoint: 'base',
       breakpoints,
       values: '20px',
+      tokens,
     });
-    expect(result).toBe('20px');
+    expect(output).toBe('20px');
   });
 
   it('should return number values directly', () => {
-    const result = getValueAtCurrentBreakpoint({
+    const { result } = renderHook(() => useTheme());
+    const { tokens } = result.current;
+    const output = getValueAtCurrentBreakpoint({
       breakpoint: 'base',
       breakpoints,
       values: 0,
+      tokens,
     });
-    expect(result).toBe(0);
+    expect(output).toBe(0);
   });
 
   it('should return design token toString value directly', () => {
@@ -39,6 +45,7 @@ describe('getValueAtCurrentBreakpoint', () => {
       breakpoint: 'base',
       breakpoints,
       values: tokens.colors.red[10],
+      tokens,
     });
     expect(value).toBe(tokens.colors.red[10].toString());
   });
@@ -56,22 +63,26 @@ describe('getValueAtCurrentBreakpoint', () => {
       breakpoint: 'base',
       breakpoints,
       values,
+      tokens,
     });
     const smallResult = getValueAtCurrentBreakpoint({
       breakpoint: 'small',
       breakpoints,
       values,
+      tokens,
     });
     const mediumResult = getValueAtCurrentBreakpoint({
       breakpoint: 'medium',
       breakpoints,
       values,
+      tokens,
     });
     const largeResult = getValueAtCurrentBreakpoint({
       breakpoint: 'large',
       breakpoints,
       propKey: 'backgroundColor',
       values,
+      tokens,
     });
 
     expect(baseResult).toBe(values.base);
@@ -90,23 +101,27 @@ describe('getValueAtCurrentBreakpoint', () => {
       breakpoint: 'base',
       breakpoints,
       values,
+      tokens,
     });
     const smallResult = getValueAtCurrentBreakpoint({
       breakpoint: 'small',
       breakpoints,
       values,
+      tokens,
     });
     const mediumResult = getValueAtCurrentBreakpoint({
       breakpoint: 'medium',
       breakpoints,
       propKey: 'backgroundColor',
       values,
+      tokens,
     });
     const largeResult = getValueAtCurrentBreakpoint({
       breakpoint: 'large',
       breakpoints,
       propKey: 'backgroundColor',
       values,
+      tokens,
     });
     expect(baseResult).toBe(values[0]);
     expect(smallResult).toBe(values[1].toString());
@@ -115,6 +130,8 @@ describe('getValueAtCurrentBreakpoint', () => {
   });
 
   it('handles a breakpoint that resolves to a false value from values correctly', () => {
+    const { result } = renderHook(() => useTheme());
+    const { tokens } = result.current;
     const output = getValueAtCurrentBreakpoint({
       breakpoint: 'base',
       breakpoints,
@@ -122,6 +139,7 @@ describe('getValueAtCurrentBreakpoint', () => {
         base: false,
         medium: true,
       },
+      tokens,
     });
 
     expect(output).toBe(false);

@@ -4,13 +4,17 @@
 
 @import 'dist/theme';
 
-// Keeping these selector low (001) so it can be easily overridden
-html {
+// Allows both users with and without ThemeProvider to use or override default font
+// html => customers w/o ThemeProvider still get default font
+// [data-amplify-theme] => customers with ThemeProvider can override default font
+html,
+[data-amplify-theme] {
   font-family: var(--amplify-fonts-default-static);
 }
 
 @supports (font-variation-settings: normal) {
-  html {
+  html,
+  [data-amplify-theme] {
     font-family: var(--amplify-fonts-default-variable);
   }
 }
@@ -65,6 +69,7 @@ select {
 @import './component/fieldMessages.scss';
 @import './component/heading.scss';
 @import './component/icon.scss';
+@import './component/highlightMatch.scss';
 @import './component/input.scss';
 @import './component/textArea.scss';
 @import './component/image.scss';
@@ -75,6 +80,7 @@ select {
 
 // Composed components
 @import './component/alert.scss';
+@import './component/autocomplete.scss';
 @import './component/authenticator.scss';
 @import './component/card.scss';
 @import './component/collection.scss';
@@ -86,6 +92,7 @@ select {
 @import './component/field.scss';
 @import './component/fieldGroup.scss';
 @import './component/liveness.scss';
+@import './component/fileUploader.scss';
 @import './component/menu.scss';
 @import './component/pagination.scss';
 @import './component/passwordField.scss';
@@ -106,6 +113,12 @@ select {
 @import './component/textField.scss';
 @import './component/toggleButton.scss';
 @import './component/toggleButtonGroup.scss';
+// In-App Messaging components
+@import './component/inAppMessaging/backdrop.scss';
+@import './component/inAppMessaging/bannerMessage.scss';
+@import './component/inAppMessaging/fullScreenMessage.scss';
+@import './component/inAppMessaging/messageLayout.scss';
+@import './component/inAppMessaging/modalMessage.scss';
 
 // This comes after the field styles so it can override them
 @import './component/fieldModifiers.scss';

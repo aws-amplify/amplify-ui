@@ -2,7 +2,7 @@ export const RIGHT_NAV_LINKS = [
   {
     type: 'EXTERNAL',
     label: 'Pricing',
-    url: 'https://aws.amazon.com/amplify/pricing',
+    url: 'https://aws.amazon.com/amplify/pricing/',
     order: 6,
   },
   {
@@ -23,7 +23,7 @@ export const LEFT_NAV_LINKS = [
   {
     type: 'DEFAULT',
     label: 'Learn',
-    url: 'https://amplify.aws/learn',
+    url: 'https://amplify.aws/learn/',
     order: 2,
   },
   {
@@ -38,7 +38,7 @@ export const SOCIAL_LINKS = [
   {
     type: 'ICON',
     label: 'Discord',
-    url: 'https://discord.com/invite/amplify',
+    url: 'https://discord.com/invite/amplify/',
     order: 8,
     icon: 'DISCORD',
   },

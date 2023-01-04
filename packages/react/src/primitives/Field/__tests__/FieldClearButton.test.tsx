@@ -19,6 +19,6 @@ describe('FieldClearButton component', () => {
       <FieldClearButton ref={ref} className="custom-class" testId={testId} />
     );
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('BUTTON');
+    expect(ref.current?.nodeName).toBe('BUTTON');
   });
 });

@@ -1,20 +1,17 @@
 import {
-  DesignToken,
-  WebDesignToken,
+  DesignTokenValues,
   OutlineOffsetValue,
+  OutputVariantKey,
 } from './types/designToken';
 
-export type OutlineOffsets = {
-  small: DesignToken<OutlineOffsetValue>;
-  medium: DesignToken<OutlineOffsetValue>;
-  large: DesignToken<OutlineOffsetValue>;
-};
+type OutlineOffsetSize = 'small' | 'medium' | 'large';
 
-export type WebOutlineOffsets = {
-  [Property in keyof OutlineOffsets]: WebDesignToken<OutlineOffsetValue>;
-};
+export type OutlineOffsets<
+  Output extends OutputVariantKey = unknown,
+  Platform = unknown
+> = DesignTokenValues<OutlineOffsetSize, OutlineOffsetValue, Output, Platform>;
 
-export const outlineOffsets: OutlineOffsets = {
+export const outlineOffsets: OutlineOffsets<'default'> = {
   small: { value: '1px' },
   medium: { value: '2px' },
   large: { value: '3px' },

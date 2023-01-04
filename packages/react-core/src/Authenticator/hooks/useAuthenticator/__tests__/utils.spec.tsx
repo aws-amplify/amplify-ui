@@ -3,22 +3,37 @@ import {
   AmplifyUser,
   AuthenticatorServiceFacade,
   AuthMachineState,
+  AuthActorContext,
 } from '@aws-amplify/ui';
 
 import * as UIModule from '@aws-amplify/ui';
 
-import { COMPONENT_ROUTE_KEYS } from '../constants';
-import { AuthenticatorRouteComponentKey } from '../types';
 import {
   areSelectorDepsEqual,
   defaultComparator,
   getComparator,
-  getLegacyFields,
+  getMachineFields,
   getTotpSecretCodeCallback,
-  isComponentRouteKey,
+  getQRFields,
 } from '../utils';
 
 const setupTOTPSpy = jest.spyOn(Auth, 'setupTOTP').mockImplementation();
+
+const totpIssuer = 'testIssuer';
+const totpUsername = 'testUsername';
+const mockActorReturnActorContextValues = {
+  formFields: {
+    setupTOTP: {
+      QR: {
+        totpIssuer,
+        totpUsername,
+      },
+    },
+  },
+} as unknown as AuthActorContext;
+
+const getActorContextSpy = jest.spyOn(UIModule, 'getActorContext');
+
 const getSortedFormFieldsSpy = jest
   .spyOn(UIModule, 'getSortedFormFields')
   .mockImplementation(() => [['name', { required: true }]]);
@@ -66,7 +81,7 @@ describe('getComparator', () => {
 
     expect(
       comparator(
-        { route: 'autoSignIn' } as AuthenticatorServiceFacade,
+        { route: 'transition' } as AuthenticatorServiceFacade,
         { route: 'confirmSignIn' } as AuthenticatorServiceFacade
       )
     ).toBe(false);
@@ -83,21 +98,6 @@ describe('getComparator', () => {
 describe('defaultComparator', () => {
   it('returns false', () => {
     expect(defaultComparator()).toBe(false);
-  });
-});
-
-describe('isComponentRouteKey', () => {
-  it.each(COMPONENT_ROUTE_KEYS)('returns true for a %s value', (route) => {
-    const output = isComponentRouteKey(route);
-    expect(output).toBe(true);
-  });
-
-  it('returns false for a non-component route key value', () => {
-    const output = isComponentRouteKey(
-      'route' as AuthenticatorRouteComponentKey
-    );
-
-    expect(output).toBe(false);
   });
 });
 
@@ -118,17 +118,68 @@ describe('getTotpSecretCodeCallback', () => {
   });
 });
 
-describe('getLegacyFields', () => {
+describe('getMachineFields', () => {
   const state = {} as unknown as AuthMachineState;
   it('calls getSortedFormFields when route is a valid component route', () => {
-    getLegacyFields('signIn', state);
+    getMachineFields('signIn', state, {});
 
     expect(getSortedFormFieldsSpy).toHaveBeenCalledWith('signIn', state);
   });
 
   it('returns an empty array for a non-component route', () => {
-    const output = getLegacyFields('idle', state);
+    const output = getMachineFields('idle', state, {});
 
     expect(output).toHaveLength(0);
+  });
+
+  it('returns expected values for verifyUser route', () => {
+    const output = getMachineFields('verifyUser', state, {
+      email: 'test@example.com',
+    });
+
+    expect(output).toHaveLength(1);
+    expect(output).toStrictEqual([
+      {
+        label: 'test@example.com',
+        name: 'email',
+        value: 'test@example.com',
+        type: 'radio',
+      },
+    ]);
+  });
+
+  it('returns expected values for verifyUser route when contact method is empty', () => {
+    const output = getMachineFields('verifyUser', state, {});
+
+    expect(output).toHaveLength(0);
+    expect(output).toStrictEqual([]);
+  });
+
+  it('returns expected values for verifyUser route when contact method value is invalid', () => {
+    const output = getMachineFields('verifyUser', state, {
+      phone_number: null as unknown as string,
+    });
+
+    expect(output).toHaveLength(1);
+    expect(output).toStrictEqual([{}]);
+  });
+
+  describe('getQRFields', () => {
+    const state = {} as unknown as AuthMachineState;
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('returns the correct QR issuer and username', () => {
+      getActorContextSpy.mockReturnValue(mockActorReturnActorContextValues);
+      const QRFields = getQRFields(state);
+      expect(QRFields).toEqual({ totpIssuer, totpUsername });
+    });
+    it('returns empty object if QR field is not present', () => {
+      getActorContextSpy.mockReturnValue({});
+      const QRFields = getQRFields(state);
+      expect(QRFields).toEqual({});
+    });
   });
 });

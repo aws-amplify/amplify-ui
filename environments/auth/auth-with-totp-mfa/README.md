@@ -71,11 +71,5 @@ This environment was created differently than others due to a bug in the Amplify
 External contributors can re-create this backend by running:
 
 ```shell
-amplify pull
-```
-
-Internal (Amplify UI team) contributors can use this backend directly by running:
-
-```shell
-amplify pull --appId d3cbhlqhrq2d8 --envName staging
+amplify init
 ```

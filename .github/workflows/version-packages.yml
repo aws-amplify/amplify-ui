@@ -32,11 +32,15 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-      - name: Install and build packages
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Install packages
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
         run: yarn --frozen-lockfile
       - name: Create or update Version Packages PR
         if: ${{ steps.has-changesets.outputs.has-changesets == 'true' }}
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
+        with:
+          version: yarn bumpVersions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -26,7 +26,7 @@ export function recordAnalyticsEvent({
   attributes,
   metrics,
 }: AnalyticsEventOptions) {
-  Analytics.record(event, attributes, metrics).catch(() => {
+  Analytics.record({ name: event, attributes, metrics }).catch(() => {
     // no-op
   });
 }

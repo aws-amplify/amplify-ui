@@ -29,6 +29,7 @@ import {
   trDict,
   ruDict,
   defaultTexts,
+  heDict,
 } from './dictionaries';
 
 /**
@@ -91,4 +92,5 @@ export const translations: Record<string, Dict> = {
   sv: svDict,
   tr: trDict,
   ru: ruDict,
+  he: heDict,
 };

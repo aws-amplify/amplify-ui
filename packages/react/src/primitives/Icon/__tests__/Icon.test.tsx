@@ -59,7 +59,7 @@ describe('Icon component', () => {
     render(<Icon ref={ref} testId={iconTestId} pathData={pathData} />);
 
     await screen.findByTestId(iconTestId);
-    expect(ref.current.nodeName).toBe('svg');
+    expect(ref.current?.nodeName).toBe('svg');
   });
 
   it('can set viewBox attribute', async () => {

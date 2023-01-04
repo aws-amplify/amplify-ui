@@ -16,6 +16,6 @@ describe('Forward ref: ', () => {
       </Table>
     );
     await screen.findByRole('row');
-    expect(ref.current.nodeName).toBe('TR');
+    expect(ref.current?.nodeName).toBe('TR');
   });
 });

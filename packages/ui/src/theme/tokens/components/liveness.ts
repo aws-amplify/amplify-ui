@@ -1,10 +1,17 @@
-import { DesignToken, ColorValue } from '../types/designToken';
+import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export interface LivenessTokens {
-  cameraModule: { backgroundColor: DesignToken<ColorValue> };
-}
+type ModalTokenKey = 'backgroundColor';
 
-export const liveness: LivenessTokens = {
+type LivenessModalTokens<OutputType> = DesignTokenProperties<
+  ModalTokenKey,
+  OutputType
+>;
+
+export type LivenessTokens<OutputType extends OutputVariantKey> = {
+  cameraModule?: LivenessModalTokens<OutputType>;
+};
+
+export const liveness: Required<LivenessTokens<'default'>> = {
   cameraModule: {
     backgroundColor: { value: '{colors.black}' },
   },

@@ -30,6 +30,10 @@
     }
   }
 
+  & .amplify-expander__content__text > * {
+    margin-top: var(--amplify-space-medium);
+  }
+
   // MDX/markdown generated table styles
   & > table:not(.docs-responsiveTable) {
     border-collapse: collapse;

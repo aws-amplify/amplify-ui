@@ -19,11 +19,5 @@ This backend is configured with Amplify Admin UI:
 External contributors can re-create this backend by running:
 
 ```shell
-amplify pull
-```
-
-Internal (Amplify UI team) contributors can use this backend directly by running:
-
-```shell
-amplify pull --appId d1eu44alh31kyw --envName staging --yes
+amplify init
 ```

@@ -24,13 +24,13 @@ Then(
 );
 
 And('the {string} input is in {string}', (label: string, language: string) => {
-  cy.findByPlaceholderText(translations[language][label].trim());
+  cy.findByLabelText(translations[language][label].trim());
 });
 
 And(
   'the {string} input is in {string} and I type the wrong username or password',
   (label: string, language: string) => {
-    cy.findByPlaceholderText(translations[language][label].trim()).type(
+    cy.findByLabelText(translations[language][label].trim()).type(
       'UNKNOWN@UNKNOWN.com'
     );
   }

@@ -7,7 +7,9 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 export default function SignInTotpMfa() {
-  const formFields = { setupTOTP: { QR: { totpIssuer: 'My Web App' } } };
+  const formFields = {
+    setupTOTP: { QR: { totpIssuer: 'My Web App' } },
+  };
 
   return (
     <>

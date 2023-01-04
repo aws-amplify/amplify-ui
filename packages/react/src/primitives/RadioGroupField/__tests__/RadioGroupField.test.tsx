@@ -66,7 +66,7 @@ describe('RadioFieldGroup test suite', () => {
     render(<RadioGroupField {...basicProps} ref={ref}></RadioGroupField>);
 
     await screen.findByTestId(basicProps.testId);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
   it('should render all flex style props', async () => {

@@ -15,7 +15,7 @@ describe('ToggleButtonGroup: ', () => {
     const [value, setValue] = React.useState(['test-button-1']);
     return (
       <ToggleButtonGroup
-        onChange={(value: string[]) => setValue(value)}
+        onChange={(value) => setValue(value as string[])}
         ref={ref}
         value={value}
         {...props}
@@ -34,7 +34,7 @@ describe('ToggleButtonGroup: ', () => {
     const [value, setValue] = React.useState('test-button-1');
     return (
       <ToggleButtonGroup
-        onChange={(value: string) => setValue(value)}
+        onChange={(value) => setValue(value as string)}
         ref={ref}
         value={value}
         isExclusive
@@ -190,6 +190,6 @@ describe('ToggleButtonGroup: ', () => {
     render(<ExclusiveSelectionGroup ref={ref} />);
 
     await screen.findByRole('group');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 });

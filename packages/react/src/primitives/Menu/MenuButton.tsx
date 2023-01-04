@@ -22,7 +22,6 @@ export const MenuButton = React.forwardRef<
       isFullWidth = false,
       isDisabled,
       isLoading,
-      loadingText = '',
       size,
       style,
       type = 'button',
