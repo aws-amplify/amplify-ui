@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`amplify-checkbox renders as expected 1`] = `
+<div
+  id="root0"
+>
+  <div
+    class="amplify-flex amplify-field amplify-checkboxfield"
+  >
+    <label
+      class="amplify-flex amplify-checkbox"
+    >
+      <span
+        class="amplify-visually-hidden"
+      >
+        <input
+          aria-invalid="false"
+          class="
+          amplify-input
+          amplify-field-group__control
+          amplify-checkbox__input
+        "
+          name="checkbox"
+          type="checkbox"
+          value="value"
+        />
+      </span>
+      <span
+        aria-hidden="true"
+        class="amplify-flex amplify-checkbox__button"
+        data-checked="false"
+        data-error="false"
+        data-focus="false"
+      >
+        <svg
+          class="amplify-icon amplify-checkbox__icon"
+          data-checked="false"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+          />
+        </svg>
+      </span>
+      <span
+        class="amplify-text amplify-checkbox__label"
+      />
+    </label>
+    
+  </div>
+</div>
+`;

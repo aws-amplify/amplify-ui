@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`amplify-tabs renders as expected 1`] = `
+<div
+  id="root0"
+>
+  <amplify-tabs>
+    <div
+      aria-orientation="horizontal"
+      data-orientation="horizontal"
+      role="tablist"
+      style="outline: none"
+      tabindex="0"
+    >
+      <div
+        class="amplify-flex amplify-tabs"
+        data-indicator-position="top"
+        style="gap: 0px; justify-content: center"
+      >
+        
+        <div
+          aria-controls="radix-id-randomstring0-1-content-0"
+          aria-selected="true"
+          class="amplify-tabs-item"
+          data-orientation="horizontal"
+          data-spacing="equal"
+          data-state="active"
+          id="radix-id-randomstring1-1-trigger-0"
+          role="tab"
+          tabindex="0"
+        >
+           First Tab 
+        </div>
+        <div
+          aria-controls="radix-id-undefined-1-content-1"
+          aria-selected="false"
+          class="amplify-tabs-item"
+          data-orientation="horizontal"
+          data-spacing="equal"
+          data-state="inactive"
+          id="radix-id-undefined-1-trigger-1"
+          role="tab"
+          tabindex="1"
+        >
+           Second Tab 
+        </div>
+      </div>
+    </div>
+    <amplify-tab-item
+      style="display: block;"
+      title="First Tab"
+    >
+      <div
+        aria-labelledby="radix-id-randomstring1-1-trigger-0"
+        data-orientation="horizontal"
+        data-state="active"
+        id="radix-id-randomstring0-1-content-0"
+        role="tabpanel"
+      >
+        
+        
+      </div>
+    </amplify-tab-item>
+    <amplify-tab-item
+      style="display: block;"
+      title="Second Tab"
+    >
+      <div
+        aria-labelledby="radix-id-undefined-1-trigger-1"
+        data-orientation="horizontal"
+        data-state="inactive"
+        id="radix-id-undefined-1-content-1"
+        role="tabpanel"
+      >
+        
+      </div>
+    </amplify-tab-item>
+  </amplify-tabs>
+</div>
+`;
