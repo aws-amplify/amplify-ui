@@ -112,7 +112,7 @@ interface DialCodeRequired extends optionalPhoneNumberFieldProps {
 export type PhoneNumberFieldProps = CountryCodeRequired | DialCodeRequired;
 
 export interface DialCodeSelectProps extends SelectFieldProps {
-  defaultValue: string;
+  defaultValue?: string;
   dialCodeList?: Array<string>;
   isReadOnly?: boolean;
 }

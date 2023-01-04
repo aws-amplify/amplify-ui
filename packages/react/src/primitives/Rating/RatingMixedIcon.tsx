@@ -6,9 +6,9 @@ import { View } from '../View';
 import { StyleToken } from '../types/style';
 
 interface RatingMixedIconProps {
-  emptyColor: StyleToken<Property.Color>;
+  emptyColor?: StyleToken<Property.Color>;
   emptyIcon: JSX.Element;
-  fillColor: StyleToken<Property.Color>;
+  fillColor?: StyleToken<Property.Color>;
   fillIcon: JSX.Element;
   value: number;
 }

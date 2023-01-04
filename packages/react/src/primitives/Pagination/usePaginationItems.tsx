@@ -4,6 +4,20 @@ import { useRange, ELLIPSIS } from './useRange';
 import { PaginationItem } from './PaginationItem';
 import { ComponentText } from '../shared/constants';
 
+interface UsePaginationItemsProps {
+  currentPage: number;
+  totalPages: number;
+  hasMorePages: boolean;
+  siblingCount?: number;
+  currentPageLabel: string;
+  pageLabel: string;
+  previousLabel: string;
+  nextLabel: string;
+  onNext?: () => void;
+  onPrevious?: () => void;
+  onChange: (newPageIndex: number, prevPageIndex: number) => void;
+}
+
 /**
  * This hook will be used to get the pagination items to be rendered in the pagination primitive
  * @param currentPage current page number
@@ -14,19 +28,19 @@ import { ComponentText } from '../shared/constants';
  * @param onChange callback function triggered every time the page changes
  * @returns an array of pagination items
  */
-export const usePaginationItems = (
-  currentPage: number,
-  totalPages: number,
-  hasMorePages: boolean,
-  siblingCount: number,
-  currentPageLabel: string = ComponentText.PaginationItem.currentPageLabel,
-  pageLabel: string = ComponentText.PaginationItem.pageLabel,
-  previousLabel: string = ComponentText.PaginationItem.previousLabel,
-  nextLabel: string = ComponentText.PaginationItem.nextLabel,
-  onNext: () => void,
-  onPrevious: () => void,
-  onChange: (newPageIdx: number, prevPageIdx) => void
-) => {
+export const usePaginationItems = ({
+  currentPage,
+  totalPages,
+  hasMorePages,
+  siblingCount,
+  currentPageLabel = ComponentText.PaginationItem.currentPageLabel,
+  pageLabel = ComponentText.PaginationItem.pageLabel,
+  previousLabel = ComponentText.PaginationItem.previousLabel,
+  nextLabel = ComponentText.PaginationItem.nextLabel,
+  onNext,
+  onPrevious,
+  onChange,
+}: UsePaginationItemsProps) => {
   const previousItem = (
     <PaginationItem
       type="previous"
