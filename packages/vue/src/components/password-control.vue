@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import classNames from 'classnames';
 
 import { translate, ComponentClassName } from '@aws-amplify/ui';
 
@@ -70,14 +69,10 @@ export default {
       {{ labelValue }}
     </base-label>
     <base-wrapper
-      :class="
-        classNames(ComponentClassName.Flex, ComponentClassName.FieldGroup)
-      "
+      :class="[(ComponentClassName.Flex, ComponentClassName.FieldGroup)]"
     >
       <!-- FieldGroupFieldWrapper -->
-      <base-wrapper
-        :class="classNames(ComponentClassName.FieldGroupFieldWrapper)"
-      >
+      <base-wrapper :class="ComponentClassName.FieldGroupFieldWrapper">
         <base-input
           v-bind="$attrs"
           v-model="password"
@@ -100,13 +95,11 @@ export default {
         <!-- class="amplify-button amplify-field-group__control amplify-field__show-password amplify-button--fullwidth" -->
         <button
           :aria-label="showHideLabel"
-          :class="
-            classNames(
-              ComponentClassName.Button,
-              ComponentClassName.FieldGroupControl,
-              ComponentClassName.FieldShowPassword
-            )
-          "
+          :class="[
+            ComponentClassName.Button,
+            ComponentClassName.FieldGroupControl,
+            ComponentClassName.FieldShowPassword,
+          ]"
           data-fullwidth="false"
           type="button"
           @click="togglePasswordText"
