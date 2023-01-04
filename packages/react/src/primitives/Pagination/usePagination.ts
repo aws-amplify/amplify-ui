@@ -25,10 +25,10 @@ export const usePagination = (
   }, [sanitizedInitialPage, sanitizedTotalPages]);
 
   const onNext = React.useCallback(() => {
-    if (currentPage < totalPages) {
+    if (currentPage < sanitizedTotalPages) {
       setCurrentPage(currentPage + 1);
     }
-  }, [currentPage, totalPages]);
+  }, [currentPage, sanitizedTotalPages]);
 
   const onPrevious = React.useCallback(() => {
     if (currentPage > 1) {
@@ -48,6 +48,6 @@ export const usePagination = (
     onPrevious,
     // The sibling count should not be less than 1
     siblingCount: Math.max(siblingCount, 1),
-    totalPages,
+    totalPages: sanitizedTotalPages,
   };
 };

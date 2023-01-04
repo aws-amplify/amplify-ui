@@ -35,7 +35,7 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   }: TabsProps,
   ref
 ) => {
-  const childTabs = React.Children.map(children, (child) => {
+  const tabs = React.Children.map(children, (child) => {
     if (child === null) return {};
 
     // checking if the child is a whitespace character
@@ -84,7 +84,7 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
           })}
         </Flex>
       </List>
-      {childTabs.map((tab, index) => (
+      {tabs.map((tab, index) => (
         <Panel key={index} value={`${index}`}>
           {tab.children}
         </Panel>

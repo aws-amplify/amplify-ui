@@ -26,10 +26,9 @@ const primtivePatterns = templateJoin(
     'K',
     'L',
     'M',
-    // skip P*|Q*|R*|S* until https://github.com/aws-amplify/amplify-ui/pull/3223 is merged
     'P',
     'Q',
-    // 'R',
+    'R',
     'S',
     // 'T',
     // 'U',
@@ -106,7 +105,6 @@ module.exports = {
         'src/hooks/**/*',
         `src/primitives/+(${primtivePatterns})/**/*`,
         'src/studio',
-        // |A*|B*|C*|D*|E*|F*|G*|H*|I*|J*|K*|L*|M*|T*
         // 'src/primitives/**/*',
       ],
       extends: [
