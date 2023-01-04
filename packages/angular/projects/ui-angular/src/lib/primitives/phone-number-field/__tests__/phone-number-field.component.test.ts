@@ -3,7 +3,7 @@ import { render } from '@testing-library/angular';
 import { PhoneNumberFieldComponent } from '../phone-number-field.component';
 import { SelectComponent } from '../../select/select.component';
 
-describe('PhoneNumberField', () => {
+describe('amplify-phone-number-field', () => {
   it('renders as expected', async () => {
     const { container } = await render(PhoneNumberFieldComponent, {
       componentProperties: {

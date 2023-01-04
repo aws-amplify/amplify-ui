@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorComponent renders as expected 1`] = `
+exports[`amplify-error renders as expected 1`] = `
 <div
   id="root0"
 >

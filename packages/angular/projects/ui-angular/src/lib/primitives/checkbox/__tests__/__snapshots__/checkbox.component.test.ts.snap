@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CheckBox renders as expected 1`] = `
+exports[`amplify-checkbox renders as expected 1`] = `
 <div
   id="root0"
 >
