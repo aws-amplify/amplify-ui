@@ -172,7 +172,7 @@ interface SplitProps<PrimitiveProps> {
   >;
 }
 
-function isStyleKey(prop: any): prop is keyof AllStyleProps {
+function isStyleKey(prop: string): prop is keyof AllStyleProps {
   if (prop in ComponentPropsToStylePropsMap) {
     return true;
   }
