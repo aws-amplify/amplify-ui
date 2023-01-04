@@ -631,7 +631,7 @@ describe('File Uploader', () => {
 
     expect(errorText).toBeVisible();
   });
-  fit('returns from the progressCallback with a zero byte file with success ', async () => {
+  it('returns from the progressCallback with a zero byte file with success ', async () => {
     const mockProgress = { loaded: 0, total: 0 };
     const percentage = 100;
     uploadFileSpy.mockResolvedValue({} as never);
