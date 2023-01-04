@@ -28,7 +28,7 @@ const primtivePatterns = templateJoin(
     'M',
     // skip P*|Q*|R*|S* until https://github.com/aws-amplify/amplify-ui/pull/3223 is merged
     'P',
-    // 'Q',
+    'Q',
     // 'R',
     'S',
     // 'T',
