@@ -12,6 +12,8 @@ exports[`PasswordField renders as expected 1`] = `
     data-variation="default"
     style="font-weight: normal;"
     type="button"
-  />
+  >
+    My Button
+  </button>
 </div>
 `;
