@@ -97,9 +97,14 @@ export function FileUploader({
         setFileStatuses((prevFileStatuses) => {
           const prevStatus = { ...prevFileStatuses[index] };
 
-          const progressPercentage = Math.floor(
-            (progress.loaded / progress.total) * 100
-          );
+          /**
+           * When a file is zero bytes, the progress.total will equal zero.
+           * Therefore, this will prevent a divide by zero error.
+           */
+          const progressPercentage =
+            progress.total !== 0
+              ? Math.floor((progress.loaded / progress.total) * 100)
+              : 100;
           const fileState: FileState =
             progressPercentage !== 100 ? 'loading' : 'success';
           const updatedStatus = {
