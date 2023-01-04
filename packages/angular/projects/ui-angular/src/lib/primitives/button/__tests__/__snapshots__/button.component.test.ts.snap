@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PasswordField renders as expected 1`] = `
+<div
+  id="root0"
+>
+  <button
+    amplify-button=""
+    class="amplify-button amplify-button--default amplify-button--medium"
+    data-fullwidth="false"
+    data-size="medium"
+    data-variation="default"
+    style="font-weight: normal;"
+    type="button"
+  />
+</div>
+`;
