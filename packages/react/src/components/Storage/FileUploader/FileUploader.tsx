@@ -97,9 +97,10 @@ export function FileUploader({
         setFileStatuses((prevFileStatuses) => {
           const prevStatus = { ...prevFileStatuses[index] };
 
-          const progressPercentage = Math.floor(
-            (progress.loaded / progress.total) * 100
-          );
+          const progressPercentage =
+            progress.total !== 0
+              ? Math.floor((progress.loaded / progress.total) * 100)
+              : 100;
           const fileState: FileState =
             progressPercentage !== 100 ? 'loading' : 'success';
           const updatedStatus = {
