@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/angular';
+import { render } from '@testing-library/angular';
 
 import { PasswordFieldComponent } from '../password-field.component';
 
