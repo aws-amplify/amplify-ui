@@ -26,8 +26,6 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   const {
     className,
     descriptiveText,
-    // this is only required in useStepper hook but deconstruct here to remove its existence in rest
-    defaultValue,
     errorMessage,
     hasError = false,
     id,
@@ -38,7 +36,6 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     decreaseButtonLabel = ComponentText.StepperField.decreaseButtonLabel,
     label,
     labelHidden = false,
-    onStepChange,
     size,
     variation,
     testId,

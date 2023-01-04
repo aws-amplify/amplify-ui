@@ -21,6 +21,7 @@ const selectFieldChildren = ({
 }: SelectFieldChildrenProps) => {
   if (children) {
     if (options?.length) {
+      // eslint-disable-next-line no-console
       console.warn(
         'Amplify UI: <SelectField> component  defaults to rendering children over `options`. When using the `options` prop, omit children.'
       );
