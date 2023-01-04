@@ -69,6 +69,7 @@ module.exports = {
 
     // eslint rules either not in recommended rule set or overridden
     'comma-dangle': ['error', 'only-multiline'],
+    complexity: ['error', 9],
     'function-paren-newline': 'off',
     'generator-star-spacing': 'off',
     'global-require': 'off',

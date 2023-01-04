@@ -20,7 +20,8 @@
             "prefix": "amplify",
             "style": "camelCase"
           }
-        ]
+        ],
+        "complexity": ["error", 6]
       }
     },
     {

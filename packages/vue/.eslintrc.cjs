@@ -25,6 +25,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'vue/script-setup-uses-vars': 'error',
+    complexity: ['error', 5],
   },
   overrides: [
     {

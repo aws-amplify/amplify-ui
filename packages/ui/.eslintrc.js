@@ -11,6 +11,7 @@ module.exports = {
     allowImportExportEverywhere: true,
   },
   rules: {
+    complexity: ['error', 5],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-undef': 'off',
