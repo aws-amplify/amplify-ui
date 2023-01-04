@@ -23,7 +23,7 @@ export const MenuButton = React.forwardRef<
       isDisabled,
       isLoading,
       size,
-      style,
+      style = {},
       type = 'button',
       variation,
       testId,

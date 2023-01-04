@@ -265,7 +265,7 @@ describe('SelectField test suite', () => {
         </SelectField>
       );
       const errorText = await screen.queryByText(errorMessage);
-      expect(errorText.innerHTML).toContain(errorMessage);
+      expect(errorText?.innerHTML).toContain(errorMessage);
     });
   });
 
