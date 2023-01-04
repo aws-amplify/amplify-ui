@@ -1,4 +1,5 @@
 import 'jest-preset-angular/setup-jest';
+import '@testing-library/jest-dom';
 
 Object.defineProperty(window, 'CSS', { value: null });
 Object.defineProperty(document, 'doctype', {
