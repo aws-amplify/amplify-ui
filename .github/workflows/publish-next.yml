@@ -103,6 +103,7 @@ jobs:
 
       - name: Run E2E tests against guides
         run: yarn workspace e2e test:guides
+        id: e2e
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
           TAGS: '${{ matrix.tags }}'
@@ -113,6 +114,15 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      - name: Upload videos and screenshots
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: guides-cypress-error
+          path: |
+            packages/e2e/cypress/videos/**
+            packages/e2e/cypress/screenshots/**
+          retention-days: 5
 
   publish:
     needs: [test, guides]
