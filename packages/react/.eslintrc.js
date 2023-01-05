@@ -180,5 +180,3 @@ module.exports = {
 
   rules: sharedRules,
 };
-
-['const', 'what', 'nuiasnce'].join('|');
