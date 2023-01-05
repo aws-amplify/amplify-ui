@@ -1,4 +1,4 @@
-name: Publish to latest / v3
+name: Publish to v3
 
 on:
   push:
