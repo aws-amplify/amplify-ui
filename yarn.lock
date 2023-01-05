@@ -6677,6 +6677,14 @@
     "@svgr/hast-util-to-babel-ast" "^5.5.0"
     svg-parser "^2.0.2"
 
+"@testing-library/angular@^10.11.1":
+  version "10.11.1"
+  resolved "https://registry.npmjs.org/@testing-library/angular/-/angular-10.11.1.tgz#61ade294128b985d749ea48a171bb18b5e585051"
+  integrity sha512-JAMnsva5eIa0TRPj8aIIvCIrFklna6fmIcmoycE3WWIjvXXQ6OCY1Mh3D8NCnbSR6RlK3pRqrDYyz/K3WiUvLw==
+  dependencies:
+    "@testing-library/dom" "^8.0.0"
+    tslib "^2.0.0"
+
 "@testing-library/cypress@^8.0.3":
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-8.0.3.tgz#24ab34df34d7896866603ade705afbdd186e273c"

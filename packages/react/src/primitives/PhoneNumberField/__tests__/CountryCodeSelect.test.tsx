@@ -5,13 +5,14 @@ import { countryDialCodes } from '@aws-amplify/ui';
 
 import { CountryCodeSelect } from '../CountryCodeSelect';
 import { ComponentClassNames } from '../../shared/constants';
+import { DialCodeSelectProps } from '../../types';
 
 describe('CountryCodeSelect', () => {
   const setup = async ({
     defaultValue = '+1',
     label = 'Country Code',
     ...rest
-  }: Partial<typeof CountryCodeSelect['defaultProps']>) => {
+  }: DialCodeSelectProps & { ref?: React.Ref<HTMLSelectElement> }) => {
     render(
       <CountryCodeSelect label={label} defaultValue={defaultValue} {...rest} />
     );
@@ -22,7 +23,8 @@ describe('CountryCodeSelect', () => {
   };
 
   it('should render all country codes as options', async () => {
-    await setup({});
+    const label = 'test label';
+    await setup({ label });
     const $countryCodeOptions = await screen.findAllByRole('option');
     const countryCodeOptions = $countryCodeOptions.map(
       ($countryCodeOption) => $countryCodeOption.textContent
@@ -244,7 +246,8 @@ describe('CountryCodeSelect', () => {
   });
 
   it('should have "tel-country-code" as the default autocomplete attribute', async () => {
-    const { $countryCodeSelector } = await setup({});
+    const label = 'test label';
+    const { $countryCodeSelector } = await setup({ label });
 
     expect($countryCodeSelector).toHaveAttribute(
       'autocomplete',
@@ -255,7 +258,8 @@ describe('CountryCodeSelect', () => {
   it('should render classname for CountryCodeSelect', async () => {
     const className = 'test-class-name';
     const testId = 'CountryCodeSelectTestId';
-    await setup({ className, testId });
+    const label = 'test label';
+    await setup({ className, testId, label });
     const $countryCodeSelect = await screen.findByTestId(testId);
 
     expect($countryCodeSelect).toHaveClass(className);
@@ -267,7 +271,8 @@ describe('CountryCodeSelect', () => {
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLSelectElement>();
     const testId = 'CountryCodeSelectTestId';
-    await setup({ testId, ref });
+    const label = 'test label';
+    await setup({ testId, ref, label });
 
     await screen.findByTestId(testId);
     expect(ref.current?.nodeName).toBe('SELECT');

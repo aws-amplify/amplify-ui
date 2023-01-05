@@ -319,7 +319,7 @@ describe('StepperField: ', () => {
         <StepperField label="stepper" errorMessage={errorMessage} hasError />
       );
       const errorText = await screen.queryByText(errorMessage);
-      expect(errorText.innerHTML).toContain(errorMessage);
+      expect(errorText?.innerHTML).toContain(errorMessage);
     });
   });
 
@@ -328,7 +328,7 @@ describe('StepperField: ', () => {
       render(<StepperField label="stepper" descriptiveText="Description" />);
 
       const descriptiveText = await screen.queryByText('Description');
-      expect(descriptiveText.innerHTML).toContain('Description');
+      expect(descriptiveText?.innerHTML).toContain('Description');
     });
 
     it('should map to descriptive text correctly', async () => {

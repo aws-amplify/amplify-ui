@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`amplify-text-field renders as expected 1`] = `
+<div
+  id="root0"
+  style="display: contents;"
+>
+  <label
+    class="amplify-label"
+    for="input"
+  >
+     Input
+
+  </label>
+  <input
+    aria-invalid="false"
+    autocomplete="new-password"
+    class="amplify-input"
+    id="input"
+    name="undefined"
+    placeholder="Enter something"
+    required=""
+    type="text"
+  />
+</div>
+`;

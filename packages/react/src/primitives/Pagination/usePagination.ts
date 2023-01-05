@@ -8,7 +8,7 @@ export const usePagination = (
   let {
     currentPage: initialPage = 1,
     totalPages,
-    hasMorePages,
+    hasMorePages = false,
     siblingCount = 1,
   } = props;
 
