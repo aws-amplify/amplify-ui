@@ -61,7 +61,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     environment: ci
-    needs: build-test
     if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo
