@@ -71,7 +71,7 @@ export default {
       {{ labelValue }}
     </base-label>
     <base-wrapper
-      :class="[(ComponentClassName.Flex, ComponentClassName.FieldGroup)]"
+      :class="[ComponentClassName.Flex, ComponentClassName.FieldGroup]"
     >
       <!-- FieldGroupFieldWrapper -->
       <base-wrapper :class="ComponentClassName.FieldGroupFieldWrapper">
