@@ -15,6 +15,19 @@ describe('amplify-password-field', () => {
     expect(container).toMatchSnapshot();
   });
 
+  it('renders as expected when show password button is clicked', async () => {
+    const { container } = await render(PasswordFieldComponent, {
+      componentProperties: {
+        name: 'password',
+        label: 'Password',
+        fieldId: 'mockId',
+      },
+    });
+    const showPasswordButton = screen.getByRole('switch');
+    fireEvent.click(showPasswordButton);
+    expect(container).toMatchSnapshot();
+  });
+
   it('should render with default classnames', async () => {
     await render(
       `
