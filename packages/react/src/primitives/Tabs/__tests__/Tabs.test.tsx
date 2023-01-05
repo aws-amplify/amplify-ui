@@ -63,6 +63,7 @@ describe('Tabs: ', () => {
       </Tabs>
     );
     const tabs = await screen.findAllByRole('tab');
+    expect(tabs).toHaveLength(2);
     expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
   });
 
