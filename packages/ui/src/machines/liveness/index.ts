@@ -277,7 +277,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               0: {
                 target: 'flashFreshnessColors',
                 cond: 'hasFaceMatchedInOvalWithMinCount',
-                actions: ['updateEndFaceMatch', 'setupFlashFreshnessColors'],
+                actions: [
+                  'updateEndFaceMatch',
+                  'setupFlashFreshnessColors',
+                  'cancelOvalMatchTimeout',
+                  'cancelOvalDrawingTimeout',
+                ],
               },
               0.1: {
                 target: 'ovalMatching',
@@ -291,7 +296,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           flashFreshnessColors: {
-            entry: ['cancelOvalMatchTimeout'],
             invoke: {
               src: 'flashColors',
               onDone: [
