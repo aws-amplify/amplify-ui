@@ -53,6 +53,19 @@ describe('Tabs: ', () => {
     expect(tabs.children.length).toEqual(1);
   });
 
+  it('should work with defaultIndex and null children', async () => {
+    render(
+      <Tabs testId="tabsTest" defaultIndex={1}>
+        <TabItem title="Tab 1">Tab 1</TabItem>
+        {null}
+        {undefined}
+        <TabItem title="Tab 2">Tab 2</TabItem>
+      </Tabs>
+    );
+    const tabs = await screen.findAllByRole('tab');
+    expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
+  });
+
   it('should not log a warning for null children', async () => {
     const warningMessage =
       'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
