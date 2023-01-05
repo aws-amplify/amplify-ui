@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import * as UseHooks from '../hooks/useFileUploader';
 import { FileUploader } from '..';
 import * as UIModule from '@aws-amplify/ui';
@@ -37,11 +37,12 @@ const fileStatus = {
   fileState: null,
 };
 
-const uploadOneFile = 'Upload 1 files';
+const uploadOneFile = 'Upload 1 file';
 
 describe('File Uploader', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.resetModules();
   });
   it('exists', async () => {
     const { container } = render(<FileUploader {...commonProps} />);
@@ -598,7 +599,7 @@ describe('File Uploader', () => {
       <FileUploader {...commonProps} maxFiles={1} isPreviewerVisible={true} />
     );
 
-    const uploadFilesText = await screen.findByText(/Upload 1 files/);
+    const uploadFilesText = await screen.findByText(/Upload 1 file/);
 
     expect(uploadFilesText).toBeVisible();
   });
@@ -670,5 +671,91 @@ describe('File Uploader', () => {
     expect(setFileStatusMock.mock.results[0].value).toEqual([
       { fileState: 'success', percentage },
     ]);
+  });
+
+  it('will show correct singular form for files selected and upload files', async () => {
+    uploadFileSpy.mockResolvedValue({} as never);
+    const fileStatuses = [
+      {
+        ...fileStatus,
+        percentage: 0,
+        fileState: null,
+      },
+    ];
+
+    useFileUploaderSpy.mockReturnValue({
+      fileStatuses,
+      ...mockReturnUseFileUploader,
+    });
+    await render(<FileUploader {...commonProps} variation="button" />);
+
+    expect(await screen.findByText(/file selected/)).toBeVisible();
+    expect(await screen.findByText(/Upload 1 file/)).toBeVisible();
+  });
+
+  it('will show the correct singular form of files uploaded', async () => {
+    uploadFileSpy.mockResolvedValue({} as never);
+    const fileStatuses = [
+      {
+        ...fileStatus,
+        percentage: 100,
+        fileState: 'success' as any,
+      },
+    ];
+
+    useFileUploaderSpy.mockReturnValue({
+      fileStatuses,
+      ...mockReturnUseFileUploader,
+    });
+    render(<FileUploader {...commonProps} />);
+
+    expect(await screen.findByText(/file uploaded/)).toBeVisible();
+  });
+  it('will show the correct plural form of files uploaded', async () => {
+    uploadFileSpy.mockResolvedValue({} as never);
+    const fileStatuses = [
+      {
+        ...fileStatus,
+        percentage: 100,
+        fileState: 'success' as any,
+      },
+      {
+        ...fileStatus,
+        percentage: 100,
+        fileState: 'success' as any,
+      },
+    ];
+
+    useFileUploaderSpy.mockReturnValue({
+      fileStatuses,
+      ...mockReturnUseFileUploader,
+    });
+    render(<FileUploader {...commonProps} />);
+
+    expect(await screen.findByText(/files uploaded/)).toBeVisible();
+  });
+  it('will show correct plural form for files selected and upload files', async () => {
+    uploadFileSpy.mockResolvedValue({} as never);
+    const fileStatuses = [
+      {
+        ...fileStatus,
+        percentage: 0,
+        fileState: null,
+      },
+      {
+        ...fileStatus,
+        percentage: 0,
+        fileState: null,
+      },
+    ];
+
+    useFileUploaderSpy.mockReturnValue({
+      fileStatuses,
+      ...mockReturnUseFileUploader,
+    });
+    await render(<FileUploader {...commonProps} variation="button" />);
+
+    expect(await screen.findByText(/files selected/)).toBeVisible();
+    expect(await screen.findByText(/Upload 2 file/)).toBeVisible();
   });
 });
