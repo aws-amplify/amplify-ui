@@ -6,7 +6,11 @@ import { PasswordFieldComponent } from '../password-field.component';
 describe('amplify-password-field', () => {
   it('renders as expected', async () => {
     const { container } = await render(PasswordFieldComponent, {
-      componentProperties: { label: 'Password', fieldId: 'mockId' },
+      componentProperties: {
+        name: 'password',
+        label: 'Password',
+        fieldId: 'mockId',
+      },
     });
     expect(container).toMatchSnapshot();
   });
@@ -31,23 +35,23 @@ describe('amplify-password-field', () => {
     expect(passwordField).toHaveClass(ComponentClassName.PasswordField);
   });
 
-  it('should render label with expected classnames', async () => {
+  it('should render label with expected classname', async () => {
     await render(PasswordFieldComponent, {
-      componentProperties: { label: 'Password' },
+      componentProperties: { name: 'password', label: 'Password' },
     });
-
     const label = screen.getByText('Password');
-
     expect(label).toHaveClass(ComponentClassName.Label);
   });
 
   it('should hide label when labelHidden is true', async () => {
     await render(PasswordFieldComponent, {
-      componentProperties: { label: 'Password', labelHidden: true },
+      componentProperties: {
+        name: 'password',
+        label: 'Password',
+        labelHidden: true,
+      },
     });
-
     const label = screen.getByText('Password');
-
     expect(label).toHaveClass('amplify-visually-hidden');
   });
 
@@ -66,9 +70,9 @@ describe('amplify-password-field', () => {
     expect(input.id).toBe('mockId');
   });
 
-  it('should render input with autocomplete on by default', async () => {
+  it('should render input with autocomplete enabled by default', async () => {
     await render(PasswordFieldComponent, {
-      componentProperties: { label: 'Password' },
+      componentProperties: { name: 'password', label: 'Password' },
     });
     const input = screen.getByLabelText('Password');
     expect(input).toHaveAttribute('autocomplete', 'new-password');
@@ -76,7 +80,11 @@ describe('amplify-password-field', () => {
 
   it('should have aria-invalid when error is present', async () => {
     await render(PasswordFieldComponent, {
-      componentProperties: { label: 'Password', hasError: true },
+      componentProperties: {
+        name: 'password',
+        label: 'Password',
+        hasError: true,
+      },
     });
     const input = screen.getByLabelText('Password');
     expect(input).toHaveAttribute('aria-invalid', 'true');
@@ -84,15 +92,35 @@ describe('amplify-password-field', () => {
 
   it('should have aria-describedby when describedBy is present', async () => {
     await render(PasswordFieldComponent, {
-      componentProperties: { label: 'Password', describedBy: 'error-id' },
+      componentProperties: {
+        name: 'password',
+        label: 'Password',
+        describedBy: 'error-id',
+      },
     });
     const input = screen.getByLabelText('Password');
     expect(input).toHaveAttribute('aria-describedby', 'error-id');
   });
 
+  it('should require input when required is true', async () => {
+    await render(PasswordFieldComponent, {
+      componentProperties: {
+        name: 'password',
+        label: 'Password',
+        required: true,
+      },
+    });
+    const input = screen.getByLabelText('Password');
+    expect(input).toHaveAttribute('required');
+  });
+
   it('should disable input when disabled is true', async () => {
     await render(PasswordFieldComponent, {
-      componentProperties: { label: 'Password', disabled: true },
+      componentProperties: {
+        name: 'password',
+        label: 'Password',
+        disabled: true,
+      },
     });
     const input = screen.getByLabelText('Password');
     expect(input).toBeDisabled();
@@ -101,12 +129,12 @@ describe('amplify-password-field', () => {
   it('reflects default value', async () => {
     await render(PasswordFieldComponent, {
       componentProperties: {
+        name: 'password',
         label: 'Password',
         labelHidden: true,
         initialValue: 'initialvalue',
       },
     });
-
     const input = screen.getByLabelText('Password') as HTMLInputElement;
     expect(input.value).toBe('initialvalue');
   });
