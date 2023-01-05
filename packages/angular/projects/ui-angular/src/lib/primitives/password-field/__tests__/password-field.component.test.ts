@@ -126,7 +126,7 @@ describe('amplify-password-field', () => {
     expect(input).toBeDisabled();
   });
 
-  it.only('toggles input field type when show password button is clicked', async () => {
+  it('toggles input field type when show password button is clicked', async () => {
     await render(PasswordFieldComponent, {
       componentProperties: { name: 'password', label: 'Password' },
     });
