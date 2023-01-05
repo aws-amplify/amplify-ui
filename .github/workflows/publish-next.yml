@@ -3,7 +3,7 @@
 #
 # Triggered by: merge to `main`
 
-name: Test and Publish / next
+name: Test and Publish / v3-next
 
 concurrency:
   group: e2e-${{ github.sha }}
@@ -11,11 +11,11 @@ concurrency:
 
 on:
   push:
-    branches: [main]
+    branches: [ui-react/v3]
 
 jobs:
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml@main
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
@@ -114,7 +114,7 @@ jobs:
     needs: [test, guides]
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
-      dist-tag: next
+      dist-tag: v3-next
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
