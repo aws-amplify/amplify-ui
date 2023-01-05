@@ -12,8 +12,8 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  pull_request_target:
-    branches: [main, ui-svelte/main, ui-geo/main, ui-react@v2, studio-release]
+  pull_request:
+    branches: [ui-react/v3]
     types: [opened, synchronize, labeled]
 
 permissions:
@@ -40,7 +40,7 @@ jobs:
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml
     needs: setup
     with:
       commit: ${{ github.event.pull_request.head.sha }}
