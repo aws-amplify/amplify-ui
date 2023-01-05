@@ -60,4 +60,10 @@ export interface TabItemProps extends BaseComponentProps, BaseStyleProps {
    * Make a Tab not clickable and its content not visible to the user. Defaults to false (i.e., visible).
    */
   isDisabled?: boolean;
+
+  /**
+   * @description
+   * Accepts any number of TabItem components
+   */
+  children?: React.ReactNode;
 }
