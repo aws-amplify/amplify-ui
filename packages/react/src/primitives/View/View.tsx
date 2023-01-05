@@ -14,7 +14,7 @@ const ViewPrimitive = <Element extends ElementType = 'div'>(
     testId,
     ariaLabel,
     isDisabled,
-    style = {},
+    style,
     ...rest
   }: PrimitivePropsWithRef<ViewProps, Element>,
   ref?: React.ForwardedRef<HTMLElementType<Element>>

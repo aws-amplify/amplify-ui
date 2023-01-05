@@ -135,7 +135,7 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
 
 export const useStyles = (
   props: ViewProps,
-  style: React.CSSProperties
+  style?: React.CSSProperties
 ): {
   propStyles: React.CSSProperties;
   nonStyleProps: Partial<ViewProps>;
@@ -173,10 +173,7 @@ interface SplitProps<PrimitiveProps> {
 }
 
 function isStyleKey(prop: string): prop is keyof AllStyleProps {
-  if (prop in ComponentPropsToStylePropsMap) {
-    return true;
-  }
-  return false;
+  return prop in ComponentPropsToStylePropsMap;
 }
 
 /**
