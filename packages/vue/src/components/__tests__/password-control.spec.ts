@@ -143,14 +143,14 @@ describe('PasswordControl', () => {
       props: { name: 'password', label: 'Password' },
     });
     const input = screen.getByLabelText('Password');
-    const togglePwButton = screen.getByRole('switch');
+    const showPasswordButton = screen.getByRole('switch');
 
     expect(input).toHaveAttribute('type', 'password');
 
-    await fireEvent.click(togglePwButton);
+    await fireEvent.click(showPasswordButton);
     expect(input).toHaveAttribute('type', 'text');
 
-    await fireEvent.click(togglePwButton);
+    await fireEvent.click(showPasswordButton);
     expect(input).toHaveAttribute('type', 'password');
   });
 });
