@@ -21,6 +21,27 @@ describe('PasswordControl', () => {
     expect(container).toMatchSnapshot();
   });
 
+  it('should render as expected when showPassword button is clicked', async () => {
+    // to mock random id
+    jest.spyOn(global.Math, 'random').mockReturnValueOnce(0.3141592654);
+
+    const { container } = render(PasswordControl, {
+      global: { components },
+      props: {
+        name: 'password',
+        label: 'Password',
+        autocomplete: 'new-password',
+        hasError: false,
+      },
+    });
+
+    const showPasswordButton = screen.getByRole('switch');
+    await fireEvent.click(showPasswordButton);
+
+    expect(screen.getByLabelText('Hide password')).toBeDefined();
+    expect(container).toMatchSnapshot();
+  });
+
   it('should render with default classnames', () => {
     const { baseElement } = render(PasswordControl, {
       global: { components },
