@@ -28,7 +28,7 @@ export class PasswordFieldComponent {
 
   // re-export utilities so that template html can use them
   public classnames = classnames;
-  public ComponentClassname = ComponentClassName;
+  public ComponentClassName = ComponentClassName;
 
   togglePasswordText() {
     this.showPassword = !this.showPassword;

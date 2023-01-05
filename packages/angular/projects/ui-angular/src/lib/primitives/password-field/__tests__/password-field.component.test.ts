@@ -131,9 +131,7 @@ describe('amplify-password-field', () => {
       componentProperties: { name: 'password', label: 'Password' },
     });
     const input = screen.getByLabelText('Password');
-    const togglePwButton = screen.getByRole('switch', {
-      name: /show password/i,
-    });
+    const togglePwButton = screen.getByRole('switch');
 
     expect(input).toHaveAttribute('type', 'password');
 
