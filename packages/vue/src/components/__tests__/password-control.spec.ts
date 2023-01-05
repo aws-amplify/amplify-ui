@@ -1,6 +1,6 @@
 import PasswordControl from '../password-control.vue';
 import { components } from '../../../global-spec';
-import { render, screen } from '@testing-library/vue';
+import { fireEvent, render, screen } from '@testing-library/vue';
 import { ComponentClassName } from '@aws-amplify/ui';
 
 describe('PasswordControl', () => {
@@ -114,5 +114,22 @@ describe('PasswordControl', () => {
     });
     const input = screen.getByLabelText('Password');
     expect(input).toBeDisabled();
+  });
+
+  it('toggles input field type when show password button is clicked', async () => {
+    render(PasswordControl, {
+      global: { components },
+      props: { name: 'password', label: 'Password' },
+    });
+    const input = screen.getByLabelText('Password');
+    const togglePwButton = screen.getByRole('button');
+
+    expect(input).toHaveAttribute('type', 'password');
+
+    await fireEvent.click(togglePwButton);
+    expect(input).toHaveAttribute('type', 'text');
+
+    await fireEvent.click(togglePwButton);
+    expect(input).toHaveAttribute('type', 'password');
   });
 });

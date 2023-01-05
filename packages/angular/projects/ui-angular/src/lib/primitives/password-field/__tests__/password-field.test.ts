@@ -1,5 +1,5 @@
 import { ComponentClassName } from '@aws-amplify/ui';
-import { screen, render } from '@testing-library/angular';
+import { screen, render, fireEvent } from '@testing-library/angular';
 
 import { PasswordFieldComponent } from '../password-field.component';
 
@@ -124,6 +124,22 @@ describe('amplify-password-field', () => {
     });
     const input = screen.getByLabelText('Password');
     expect(input).toBeDisabled();
+  });
+
+  it('toggles input field type when show password button is clicked', async () => {
+    await render(PasswordFieldComponent, {
+      componentProperties: { name: 'password', label: 'Password' },
+    });
+    const input = screen.getByLabelText('Password');
+    const togglePwButton = screen.getByRole('button');
+
+    expect(input).toHaveAttribute('type', 'password');
+
+    fireEvent.click(togglePwButton);
+    expect(input).toHaveAttribute('type', 'text');
+
+    fireEvent.click(togglePwButton);
+    expect(input).toHaveAttribute('type', 'password');
   });
 
   it('reflects default value', async () => {

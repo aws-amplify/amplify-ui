@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { PasswordField } from '../PasswordField';
 import { ComponentClassNames, ComponentText } from '../../shared/constants';
@@ -98,5 +98,27 @@ describe('PasswordField component', () => {
 
     const button = screen.queryByRole('button');
     expect(button).toBeNull();
+  });
+
+  it('toggles input field type when show password button is clicked', async () => {
+    render(
+      <PasswordField
+        label="Password"
+        descriptiveText="Required"
+        name="password"
+        hideShowPassword={true}
+      />
+    );
+
+    const field = screen.getByLabelText('Password');
+    const button = screen.getByRole('button');
+
+    expect(field).toHaveAttribute('type', 'password');
+
+    fireEvent.click(button);
+    expect(field).toHaveAttribute('type', 'text');
+
+    fireEvent.click(button);
+    expect(field).toHaveAttribute('type', 'password');
   });
 });
