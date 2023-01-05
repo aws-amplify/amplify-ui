@@ -35,7 +35,7 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   }: TabsProps,
   ref
 ) => {
-  const tabs = React.Children.map(children, (child) => {
+  const tabs: Array<TabItemProps> = React.Children.map(children, (child) => {
     if (child === null) return {};
 
     // checking if the child is a whitespace character

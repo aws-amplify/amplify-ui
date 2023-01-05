@@ -10361,6 +10361,13 @@ exports[`Props Table 1`] = `
                         \\"description\\": \\"Make a Tab not clickable and its content not visible to the user. Defaults to false (i.e., visible).\\",
                         \\"category\\": \\"TabItemProps\\",
                         \\"isOptional\\": true
+                    },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Accepts any number of TabItem components\\",
+                        \\"category\\": \\"TabItemProps\\",
+                        \\"isOptional\\": true
                     }
                 }
             },

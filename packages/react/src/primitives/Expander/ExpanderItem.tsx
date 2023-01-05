@@ -16,7 +16,7 @@ export const EXPANDER_ICON_TEST_ID = 'expander-icon';
 export const EXPANDER_CONTENT_TEXT_TEST_ID = 'expander-content-text';
 
 const ExpanderItemPrimitive: Primitive<ExpanderItemProps, typeof Item> = (
-  { children, className, title, ..._rest },
+  { children, className, title, value, ..._rest },
   ref
 ) => {
   const triggerId = useStableId();
@@ -27,6 +27,7 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, typeof Item> = (
       className={classNames(ComponentClassNames.ExpanderItem, className)}
       data-testid={EXPANDER_ITEM_TEST_ID}
       ref={ref}
+      value={value}
       {...rest}
     >
       <Header
