@@ -38,7 +38,7 @@ describe('PasswordControl', () => {
     const showPasswordButton = screen.getByRole('switch');
     await fireEvent.click(showPasswordButton);
 
-    expect(screen.getByLabelText('Hide password')).toBeDefined();
+    expect(screen.getByLabelText('Hide password')).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
 
