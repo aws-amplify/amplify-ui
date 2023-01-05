@@ -19,7 +19,7 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   });
   return (
     <View
-      as={as ?? 'a'}
+      as={as ? as : 'a'}
       className={classNames(ComponentClassNames.Link, className)}
       ref={ref}
       rel={isExternal ? 'noopener noreferrer' : undefined}
