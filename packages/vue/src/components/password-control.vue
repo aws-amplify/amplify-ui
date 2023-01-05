@@ -13,8 +13,8 @@ const random = Math.floor(Math.random() * 999999);
 interface PropsInterface {
   name: string;
   label: string;
-  autocomplete: string;
-  hasError: boolean;
+  autocomplete?: string;
+  hasError?: boolean;
   labelHidden?: boolean;
   placeholder?: string | null;
   required?: boolean;
@@ -22,6 +22,8 @@ interface PropsInterface {
 }
 
 const props = withDefaults(defineProps<PropsInterface>(), {
+  autocomplete: 'new-password',
+  hasError: false,
   required: true,
 });
 
