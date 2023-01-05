@@ -25,6 +25,8 @@ describe('amplify-password-field', () => {
     });
     const showPasswordButton = screen.getByRole('switch');
     fireEvent.click(showPasswordButton);
+
+    expect(screen.getByLabelText('Hide password')).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
 

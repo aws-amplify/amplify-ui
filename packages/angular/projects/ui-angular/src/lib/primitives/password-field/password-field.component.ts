@@ -33,8 +33,8 @@ export class PasswordFieldComponent {
   togglePasswordText() {
     this.showPassword = !this.showPassword;
     this.showPasswordButtonlabel = this.showPassword
-      ? translate('Show password')
-      : translate('Hide password');
+      ? translate('Hide password')
+      : translate('Show password');
     this.type = this.showPassword ? 'text' : 'password';
   }
 }
