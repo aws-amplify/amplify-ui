@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import * as UseHooks from '../hooks/useFileUploader';
 import { FileUploader } from '..';
 import * as UIModule from '@aws-amplify/ui';
@@ -693,7 +693,7 @@ describe('File Uploader', () => {
     expect(await screen.findByText(/Upload 1 file/)).toBeVisible();
   });
 
-  it('will show the correct singular form of files uploaded', async () => {
+  it('will show the correct singular form of file uploaded', async () => {
     uploadFileSpy.mockResolvedValue({} as never);
     const fileStatuses = [
       {
