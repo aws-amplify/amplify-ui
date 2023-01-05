@@ -9,6 +9,7 @@
     "script:install": "yarn --cwd script",
     "setup:next": "yarn script:install && yarn updatePackage:next",
     "setup:next-release": "yarn script:install && yarn updatePackage:next-release",
+    "setup:v3-next": "yarn script:install && yarn updatePackage:v3-next",
     "test": "yarn --cwd e2e test",
     "updatePackage:next": "node script/changeCanaryPackageVersion.mjs next",
     "updatePackage:next-release": "node script/changeCanaryPackageVersion.mjs next-release",
