@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export interface UseComposeRefsCallbackProps<RefType> {
-  externalRef: React.ForwardedRef<RefType>;
+  externalRef?: React.ForwardedRef<RefType>;
   internalRef: React.MutableRefObject<RefType>;
 }
 
@@ -19,7 +19,7 @@ export function useComposeRefsCallback<RefType>({
       // Handle callback ref
       if (typeof externalRef === 'function') {
         externalRef(node);
-      } else if (externalRef !== null) {
+      } else if (externalRef) {
         externalRef.current = node;
       }
 
