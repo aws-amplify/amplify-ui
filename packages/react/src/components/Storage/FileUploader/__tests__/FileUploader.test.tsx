@@ -631,4 +631,44 @@ describe('File Uploader', () => {
 
     expect(errorText).toBeVisible();
   });
+  it('returns from the progressCallback with a zero byte file with success ', async () => {
+    const mockProgress = { loaded: 0, total: 0 };
+    const percentage = 100;
+    uploadFileSpy.mockResolvedValue({} as never);
+
+    const fileStatuses = [fileStatus];
+
+    const setFileStatusMock = jest.fn((callback: any) => {
+      return callback([{}]);
+    });
+    useFileUploaderSpy.mockReturnValue({
+      ...mockReturnUseFileUploader,
+      fileStatuses,
+      setFileStatuses: setFileStatusMock,
+    });
+    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+
+    const clickButton = await screen.findByRole('button', {
+      name: uploadOneFile,
+    });
+
+    uploadFileSpy.mockImplementation(
+      ({
+        completeCallback,
+        errorCallback,
+        file,
+        fileName,
+        level,
+        progressCallback,
+      }: any): any => {
+        // simulate progress callback
+        progressCallback(mockProgress);
+      }
+    );
+    await fireEvent.click(clickButton);
+
+    expect(setFileStatusMock.mock.results[0].value).toEqual([
+      { fileState: 'success', percentage },
+    ]);
+  });
 });
