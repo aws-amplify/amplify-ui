@@ -11,7 +11,7 @@
     "start": "vite preview --port 3000"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "latest",
+    "@aws-amplify/ui-react": "v3-latest",
     "aws-amplify": "^4",
     "react": "latest",
     "react-dom": "latest"
