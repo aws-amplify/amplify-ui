@@ -25083,6 +25083,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },

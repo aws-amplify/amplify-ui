@@ -11,7 +11,7 @@ export interface TabsProps extends FlexProps {
    * @description
    * The Tabs component only accepts TabItem components as children.
    */
-  children: React.ReactElement | React.ReactElement[];
+  children: React.ReactNode;
 
   /**
    * @description

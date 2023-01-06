@@ -10123,7 +10123,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"children\\": {
                         \\"name\\": \\"children\\",
-                        \\"type\\": \\"React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactElement<any, string | React.JSXElementConstructor<any>>[]\\",
+                        \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"The Tabs component only accepts TabItem components as children.\\",
                         \\"category\\": \\"TabsProps\\",
                         \\"isOptional\\": false
