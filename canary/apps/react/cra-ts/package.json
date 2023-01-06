@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.2.1",
+    "@aws-amplify/ui-react": "latest",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -11,7 +11,7 @@
     "@types/node": "^16.11.22",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "aws-amplify": "latest",
+    "aws-amplify": "^4",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "5.0.0",
