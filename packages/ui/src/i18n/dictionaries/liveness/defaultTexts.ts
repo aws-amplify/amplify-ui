@@ -10,6 +10,8 @@ export const defaultTexts = {
   LIVENESS_INSTRUCTION_2:
     'Move to a well-lit place that is not dark or in direct sunlight.',
   LIVENESS_INSTRUCTION_3:
+    'Increase the brightness of your display screen to max level possible.',
+  LIVENESS_INSTRUCTION_4:
     'When check starts, fit face in oval, and hold for colored lights.',
   LIVENESS_WARNING_POPOVER:
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
@@ -26,8 +28,7 @@ export const defaultTexts = {
   // Liveness Flow
   LIVENESS_CHECK_CONNECTING: 'Connecting...',
   LIVENESS_HINT_NO_FACE_DETECTED: 'Move face in front of camera',
-  LIVENESS_INSTRUCTION_FIT_OVAL:
-    'Hold position until countdown completes, then move face to fit in oval',
+  LIVENESS_INSTRUCTION_FIT_OVAL: 'Hold face position during countdown',
   LIVENESS_INSTRUCTION_HOLD_OVAL: 'Hold face in oval',
   LIVENESS_VERIFYING: 'Verifying...',
   LIVENESS_CHECK_FAILED: 'Check unsuccessful',

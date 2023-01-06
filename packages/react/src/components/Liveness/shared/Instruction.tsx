@@ -114,13 +114,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
     }
 
     if (isNotRecording) {
-      return (
-        <Toast>
-          {translate(
-            'Hold position until countdown completes, then move face to fit in oval'
-          )}
-        </Toast>
-      );
+      return <Toast>{translate('Hold face position during countdown')}</Toast>;
     }
 
     if (isWaitingForSessionInfo) {

@@ -107,9 +107,7 @@ describe('Instruction', () => {
     renderWithLivenessProvider(<Instruction />);
 
     expect(
-      screen.getByText(
-        'Hold position until countdown completes, then move face to fit in oval'
-      )
+      screen.getByText('Hold face position during countdown')
     ).toBeInTheDocument();
   });
 

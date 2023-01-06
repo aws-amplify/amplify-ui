@@ -10,6 +10,8 @@ export const enDict = {
     'Make sure your face is not covered with sunglasses or a mask.',
   'Move to a well-lit place that is not dark or in direct sunlight.':
     'Move to a well-lit place that is not dark or in direct sunlight.',
+  'Increase the brightness of your display screen to max level possible.':
+    'Increase the brightness of your display screen to max level possible.',
   'When check starts, fit face in oval, and hold for colored lights.':
     'When check starts, fit face in oval, and hold for colored lights.',
   'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.':
@@ -28,8 +30,7 @@ export const enDict = {
   // Liveness Flow
   'Connecting...': 'Connecting...',
   'Move face in front of camera': 'Move face in front of camera',
-  'Hold position until countdown completes, then move face to fit in oval':
-    'Hold position until countdown completes, then move face to fit in oval',
+  'Hold face position during countdown': 'Hold face position during countdown',
   'Hold face in oval': 'Hold face in oval',
   'Verifying...': 'Verifying...',
   'Check unsuccessful': 'Check unsuccessful',

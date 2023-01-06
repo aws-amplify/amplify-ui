@@ -69,10 +69,10 @@ export const INSTRUCTIONS = [
     desc: 'Move to a well-lit place that is not dark or in direct sunlight.',
   },
   {
-    desc: 'When check starts, fit face in oval, and hold for colored lights.',
+    desc: 'Increase the brightness of your display screen to max level possible.',
   },
   {
-    desc: 'Maximize the display screen brightness level.',
+    desc: 'When check starts, fit face in oval, and hold for colored lights.',
   },
 ];
 
