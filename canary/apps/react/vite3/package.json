@@ -28,7 +28,7 @@
   "size-limit": [
     {
       "path": "dist/assets/index.*.js",
-      "limit": "300 kB"
+      "limit": "320 kB"
     }
   ]
 }

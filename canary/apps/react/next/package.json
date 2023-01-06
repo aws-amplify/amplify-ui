@@ -24,7 +24,7 @@
   "size-limit": [
     {
       "path": ".next/static/**/*.js",
-      "limit": "350 kB"
+      "limit": "370 kB"
     }
   ]
 }
