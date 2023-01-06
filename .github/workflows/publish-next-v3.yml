@@ -11,7 +11,7 @@ concurrency:
 
 on:
   push:
-    branches: [main]
+    branches: [ui-react/v3]
 
 jobs:
   test:
