@@ -103,7 +103,7 @@ module.exports = {
         'src/components/**/*',
         'src/helpers/**/*',
         'src/hooks/**/*',
-        `src/primitives/+(${primtivePatterns})/**/*`,
+        `src/primitives/+(${primitivePatterns})/**/*`,
         'src/studio',
         // 'src/primitives/**/*',
       ],
