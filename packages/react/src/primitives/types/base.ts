@@ -25,7 +25,7 @@ export interface BaseComponentProps {
    * Support for the HTML `inert` attribute
    * https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
    */
-  inert?: string | null;
+  inert?: boolean;
 }
 
 export interface AriaProps {
