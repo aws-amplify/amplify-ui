@@ -135,4 +135,11 @@ describe('View: ', () => {
       )
     ).toBe('blue');
   });
+
+  it('should work with inert', async () => {
+    const testId = 'inertTest';
+    render(<View testId={testId} inert />);
+    const view = await screen.findByTestId(testId);
+    expect(view).toHaveAttribute('inert');
+  });
 });
