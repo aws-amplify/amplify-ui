@@ -1,5 +1,14 @@
 # @aws-amplify/ui-vue
 
+## 2.4.27
+
+### Patch Changes
+
+- [#3272](https://github.com/aws-amplify/amplify-ui/pull/3272) [`32dd56bf1`](https://github.com/aws-amplify/amplify-ui/commit/32dd56bf1e7cb45f356524997ac20df588e44a20) Thanks [@zchenwei](https://github.com/zchenwei)! - chore(authenticator): adding package version to cognito user agent string
+
+- Updated dependencies [[`36fb5147a`](https://github.com/aws-amplify/amplify-ui/commit/36fb5147a11c574c4fe1d8676ed74f6dd18ae8a1), [`32dd56bf1`](https://github.com/aws-amplify/amplify-ui/commit/32dd56bf1e7cb45f356524997ac20df588e44a20)]:
+  - @aws-amplify/ui@4.1.1
+
 ## 2.4.26
 
 ### Patch Changes
