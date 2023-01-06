@@ -9,7 +9,7 @@ const sharedExtensions = [
   'prettier',
 ];
 
-const primtivePatterns = templateJoin(
+const primitivePatterns = templateJoin(
   [
     'shared',
     'utils',
