@@ -69,11 +69,13 @@ jobs:
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 16
           cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Install and build packages
         run: yarn --frozen-lockfile && yarn build
       - name: Publish to @v3
