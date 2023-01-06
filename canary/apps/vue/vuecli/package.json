@@ -9,8 +9,8 @@
     "start": "serve dist -s -p 3000"
   },
   "dependencies": {
-    "@aws-amplify/ui-vue": "latest",
-    "aws-amplify": "latest",
+    "@aws-amplify/ui-vue": "v3-latest",
+    "aws-amplify": "^4",
     "core-js": "^3.6.5",
     "vue": "^3.0.0"
   },
