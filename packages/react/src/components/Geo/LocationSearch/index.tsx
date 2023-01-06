@@ -39,7 +39,7 @@ interface LocationSearchProps extends MaplibreGeocoderOptions {
   onError: (error) => void;
 }
 
-type eventTypes = 'clear' | 'loading' | 'result' | 'results' | 'error';
+type EventType = 'clear' | 'loading' | 'result' | 'results' | 'error';
 
 type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
