@@ -1,5 +1,15 @@
 # @aws-amplify/ui
 
+## 4.1.1
+
+### Patch Changes
+
+- [#3271](https://github.com/aws-amplify/amplify-ui/pull/3271) [`36fb5147a`](https://github.com/aws-amplify/amplify-ui/commit/36fb5147a11c574c4fe1d8676ed74f6dd18ae8a1) Thanks [@zchenwei](https://github.com/zchenwei)! - fix(react): Manually add `overflow: clip` to remediate chrome 108 breaking change.
+
+  Ref: https://developer.chrome.com/blog/overflow-replaced-elements/
+
+- [#3272](https://github.com/aws-amplify/amplify-ui/pull/3272) [`32dd56bf1`](https://github.com/aws-amplify/amplify-ui/commit/32dd56bf1e7cb45f356524997ac20df588e44a20) Thanks [@zchenwei](https://github.com/zchenwei)! - chore(authenticator): adding package version to cognito user agent string
+
 ## 4.1.0
 
 ### Minor Changes
