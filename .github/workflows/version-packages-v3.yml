@@ -40,6 +40,6 @@ jobs:
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
           title: 'Version Packages (ui-react/v3)'
-          version: yarn version:latest
+          version: yarn version:v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
