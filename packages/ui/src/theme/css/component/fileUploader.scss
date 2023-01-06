@@ -69,57 +69,53 @@
       display: flex;
       flex-direction: row;
       gap: var(--amplify-components-fileuploader-file-gap);
-      &__name {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-weight: var(
-          --amplify-components-fileuploader-file-name-font-weight
-        );
-        font-size: var(--amplify-components-fileuploader-file-name-font-size);
-        color: var(--amplify-components-fileuploader-file-name-color);
-      }
+    }
+    &__name {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-weight: var(--amplify-components-fileuploader-file-name-font-weight);
+      font-size: var(--amplify-components-fileuploader-file-name-font-size);
+      color: var(--amplify-components-fileuploader-file-name-color);
+    }
 
-      &__size {
-        font-weight: var(
-          --amplify-components-fileuploader-file-size-font-weight
-        );
+    &__size {
+      font-weight: var(--amplify-components-fileuploader-file-size-font-weight);
+      font-size: var(--amplify-components-fileuploader-file-size-font-size);
+      color: var(--amplify-components-fileuploader-file-size-color);
+    }
+
+    &__main {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    &__image {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--amplify-components-fileuploader-file-image-width);
+      height: var(--amplify-components-fileuploader-file-image-height);
+      background-color: var(
+        --amplify-components-fileuploader-file-image-background-color
+      );
+      border-radius: var(
+        --amplify-components-fileuploader-file-image-border-radius
+      );
+      color: var(--amplify-components-fileuploader-file-image-color);
+      img {
+        max-height: 100%;
+      }
+    }
+
+    &__status {
+      &--error {
+        color: var(--amplify-colors-font-error);
         font-size: var(--amplify-components-fileuploader-file-size-font-size);
-        color: var(--amplify-components-fileuploader-file-size-color);
       }
-
-      &__main {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-      }
-
-      &__image {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: var(--amplify-components-fileuploader-file-image-width);
-        height: var(--amplify-components-fileuploader-file-image-height);
-        background-color: var(
-          --amplify-components-fileuploader-file-image-background-color
-        );
-        border-radius: var(
-          --amplify-components-fileuploader-file-image-border-radius
-        );
-        color: var(--amplify-components-fileuploader-file-image-color);
-        img {
-          max-height: 100%;
-        }
-      }
-
-      &__status {
-        &--error {
-          color: var(--amplify-colors-font-error);
-          font-size: var(--amplify-components-fileuploader-file-size-font-size);
-        }
-        &--success {
-          color: var(--amplify-colors-font-success);
-        }
+      &--success {
+        color: var(--amplify-colors-font-success);
       }
     }
   }
