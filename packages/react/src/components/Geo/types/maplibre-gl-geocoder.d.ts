@@ -170,4 +170,22 @@ declare module 'maplibre-gl-geocoder' {
      */
     zoom?: number;
   };
+
+  export interface MaplibreGeocoderResults
+    extends GeoJSON.FeatureCollection<GeoJSON.Point> {
+    attribution: string;
+    query: string[];
+  }
+
+  export interface MaplibreGeocoderResult
+    extends GeoJSON.Feature<GeoJSON.Point> {
+    bbox: Bbox;
+    center: number[];
+    place_name: string;
+    place_type: string[];
+    relevance: number;
+    text: string;
+    address: string;
+    context: any[];
+  }
 }

@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import { MaplibreGeocoderOptions } from 'maplibre-gl-geocoder';
+import {
+  MaplibreGeocoderOptions,
+  MaplibreGeocoderResults,
+  MaplibreGeocoderResult,
+} from 'maplibre-gl-geocoder';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
@@ -28,11 +32,11 @@ interface LocationSearchProps extends MaplibreGeocoderOptions {
   /**
    * Fired when the geocoder returns a response
    */
-  onResults: (results) => void;
+  onResults: (results: MaplibreGeocoderResults) => void;
   /**
    * Fired when input is set
    */
-  onResult: (result) => void;
+  onResult: (result: MaplibreGeocoderResult) => void;
   /**
    * Emitted on error as string
    */
@@ -43,8 +47,8 @@ type EventType = 'clear' | 'loading' | 'result' | 'results' | 'error';
 
 type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
-  on: (eventType: eventTypes, callback: (event) => void) => void;
-  off: (eventType: eventTypes, callback: (event) => void) => void;
+  on: (eventType: EventType, callback: (event) => void) => void;
+  off: (eventType: EventType, callback: (event) => void) => void;
 };
 
 const LocationSearchControl = ({
