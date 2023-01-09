@@ -48,9 +48,9 @@ describe('Liveness Machine', () => {
     onGetLivenessDetection: jest.fn(),
     onError: jest.fn(),
     onSuccess: jest.fn(),
+    onFailure: jest.fn(),
     onUserCancel: jest.fn(),
     onUserPermissionDenied: jest.fn(),
-    onUserTimeout: jest.fn(),
   };
 
   const mockVideoConstaints: MediaTrackConstraints = {
@@ -450,7 +450,7 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual('timeout');
       expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
       await flushPromises();
-      expect(mockcomponentProps.onUserTimeout).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
     });
 
     it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and respect ovalMatchingTimeout', async () => {
@@ -475,7 +475,7 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual('timeout');
       expect(service.state.context.errorState).toBe(LivenessErrorState.TIMEOUT);
       await flushPromises();
-      expect(mockcomponentProps.onUserTimeout).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
     });
 
     it('should reach checkFaceDetected again if no face is detected', async () => {
@@ -693,7 +693,7 @@ describe('Liveness Machine', () => {
         LivenessErrorState.SERVER_ERROR
       );
       await flushPromises();
-      expect(mockcomponentProps.onUserTimeout).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
     });
 
     it('should reach checkSucceeded state after getLivenessResult', async () => {
@@ -719,6 +719,9 @@ describe('Liveness Machine', () => {
       expect(
         mockcomponentProps.onGetLivenessDetection as jest.Mock
       ).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onSuccess as jest.Mock).toHaveBeenCalledTimes(
+        1
+      );
     });
 
     it('should reach checkFailed state after getLivenessResult returns false', async () => {
@@ -739,6 +742,9 @@ describe('Liveness Machine', () => {
       expect(
         mockcomponentProps.onGetLivenessDetection as jest.Mock
       ).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onFailure as jest.Mock).toHaveBeenCalledTimes(
+        1
+      );
     });
 
     it('should reach error state after getLiveness returns error', async () => {

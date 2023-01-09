@@ -27,7 +27,10 @@ import {
   FreshnessColorDisplay,
 } from '../../helpers';
 import { v4 } from 'uuid';
-import { getStaticLivenessOvalDetails } from '../../helpers/liveness/liveness';
+import {
+  getStaticLivenessOvalDetails,
+  LivenessErrorStateStringMap,
+} from '../../helpers/liveness/liveness';
 import {
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,
@@ -398,7 +401,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           'cancelOvalMatchTimeout',
         ],
       },
-      checkFailed: {},
+      checkFailed: {
+        entry: 'callFailureCallback',
+      },
       checkSucceeded: {
         entry: 'callSuccessCallback',
       },
@@ -669,7 +674,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterFaceDistanceDelay: actions.send(
         {
           type: 'TIMEOUT',
-          data: { errorState: LivenessErrorState.FACE_DISTANCE_TIMEOUT },
+          data: { errorState: LivenessErrorState.FACE_DISTANCE_ERROR },
         },
         {
           delay: 0,
@@ -707,13 +712,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           attributes: { action: 'FailedWithTimeout' },
           metrics: { count: 1 },
         });
-        context.componentProps.onUserTimeout?.();
+        const error = new Error(
+          LivenessErrorStateStringMap[context.errorState]
+        );
+        error.name = context.errorState;
+        context.componentProps.onError?.(error);
       },
       callSuccessCallback: (context) => {
         context.componentProps.onSuccess?.();
       },
+      callFailureCallback: (context) => {
+        context.componentProps.onFailure?.();
+      },
       callErrorCallback: async (context, event) => {
-        context.componentProps.onError?.(event.data as Error);
+        const error = event.data as Error;
+        context.componentProps.onError?.(error);
       },
       cleanUpResources: async (context) => {
         const {
@@ -1230,9 +1243,10 @@ const responseStreamActor = async (callback) => {
         });
       }
     }
-  } catch (e) {
+  } catch (error) {
     callback({
       type: 'SERVER_ERROR',
+      data: { ...error },
     });
   }
 };

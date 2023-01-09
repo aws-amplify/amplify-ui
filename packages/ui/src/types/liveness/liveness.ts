@@ -22,11 +22,6 @@ export interface FaceLivenessDetectorProps {
   onUserPermissionDenied?: (error: Error) => void;
 
   /**
-   * Callback called when the flow times out after retry attempts
-   */
-  onUserTimeout?: () => void;
-
-  /**
    * Callback called when the user cancels the flow
    */
   onUserCancel?: (event?: CustomEvent) => void;
@@ -40,6 +35,11 @@ export interface FaceLivenessDetectorProps {
    * Callback called when the flow completes successfully
    */
   onSuccess?: () => void;
+
+  /**
+   * Callback called when the flow completes unsuccessfully
+   */
+  onFailure?: () => void;
 
   /**
    * Enable analytical events for the flow via Amplify Analytics
@@ -116,5 +116,5 @@ export enum LivenessErrorState {
   SERVER_ERROR = 'SERVER_ERROR',
   CAMERA_FRAMERATE_ERROR = 'CAMERA_FRAMERATE_ERROR',
   CAMERA_ACCESS_ERROR = 'CAMERA_ACCESS_ERROR',
-  FACE_DISTANCE_TIMEOUT = 'FACE_DISTANCE_TIMEOUT',
+  FACE_DISTANCE_ERROR = 'FACE_DISTANCE_ERROR',
 }

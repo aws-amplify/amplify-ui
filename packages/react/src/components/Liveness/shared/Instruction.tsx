@@ -72,7 +72,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
           heading = translate('Server Issue');
           break;
         case LivenessErrorState.RUNTIME_ERROR:
-        case LivenessErrorState.FACE_DISTANCE_TIMEOUT:
+        case LivenessErrorState.FACE_DISTANCE_ERROR:
           heading = translate('Client error');
           break;
         default:
