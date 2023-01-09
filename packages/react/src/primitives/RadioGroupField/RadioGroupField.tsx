@@ -5,8 +5,10 @@ import { ComponentClassNames } from '../shared/constants';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
+import { VisuallyHidden } from '../VisuallyHidden';
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import { RadioGroupFieldProps, Primitive } from '../types';
+import { getTestId } from '../utils/testUtils';
 import { useStableId } from '../utils/useStableId';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
@@ -29,15 +31,16 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
     onChange,
     name,
     size,
+    testId,
     value,
     ...rest
   },
   ref
 ) => {
   const fieldId = useStableId(id);
-  const labelId = useStableId();
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
+  const radioGroupTestId = getTestId(testId, ComponentClassNames.RadioGroup);
 
   const radioGroupContextValue: RadioGroupContextType = React.useMemo(
     () => ({
@@ -68,6 +71,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
 
   return (
     <Flex
+      as="fieldset"
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.RadioGroupField,
@@ -75,9 +79,12 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       )}
       data-size={size}
       ref={ref}
+      role="radiogroup"
+      testId={testId}
       {...rest}
     >
-      <Label id={labelId} visuallyHidden={labelHidden}>
+      <VisuallyHidden as="legend">{label}</VisuallyHidden>
+      <Label aria-hidden={true} visuallyHidden={labelHidden}>
         {label}
       </Label>
       <FieldDescription
@@ -87,10 +94,9 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       />
       <Flex
         aria-describedby={ariaDescribedBy}
-        aria-labelledby={labelId}
         className={ComponentClassNames.RadioGroup}
         id={fieldId}
-        role="radiogroup"
+        testId={radioGroupTestId}
       >
         <RadioGroupContext.Provider value={radioGroupContextValue}>
           {children}
