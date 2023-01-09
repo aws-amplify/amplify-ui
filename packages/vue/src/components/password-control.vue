@@ -61,6 +61,7 @@ export default {
       ComponentClassName.Field,
       ComponentClassName.TextField,
       ComponentClassName.PasswordField,
+      'amplify-authenticator__column', // TODO(breaking,parity): remove this
     ]"
   >
     <base-label
@@ -73,7 +74,6 @@ export default {
     <base-wrapper
       :class="[ComponentClassName.Flex, ComponentClassName.FieldGroup]"
     >
-      <!-- FieldGroupFieldWrapper -->
       <base-wrapper :class="ComponentClassName.FieldGroupFieldWrapper">
         <base-input
           v-bind="$attrs"
@@ -94,7 +94,6 @@ export default {
         />
       </base-wrapper>
       <base-wrapper :class="ComponentClassName.FieldGroupOuterEnd">
-        <!-- class="amplify-button amplify-field-group__control amplify-field__show-password amplify-button--fullwidth" -->
         <button
           :aria-label="showHideLabel"
           :aria-checked="showHideType !== 'password'"
