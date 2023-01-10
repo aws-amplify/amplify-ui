@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`amplify-error renders as expected 1`] = `
+<div
+  id="root0"
+>
+  <amplify-error>
+    
+    <div
+      class="amplify-flex amplify-alert amplify-alert--error"
+      data-variation="error"
+      role="alert"
+      style="align-items: center; justify-content: space-between"
+    >
+      <div
+        class="amplify-flex"
+        style="align-items: center"
+      >
+        <svg
+          aria-hidden="true"
+          class="amplify-icon"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+          />
+        </svg>
+        <div>
+          mock error
+        </div>
+      </div>
+      <button
+        amplify-button=""
+        aria-label="Dismiss alert"
+        class="amplify-button amplify-button--link amplify-button--medium"
+        data-fullwidth="false"
+        data-size="medium"
+        data-variation="link"
+        style="font-weight: normal;"
+        type="button"
+        variation="link"
+      >
+        <svg
+          aria-hidden="true"
+          class="amplify-icon"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          />
+        </svg>
+      </button>
+    </div>
+  </amplify-error>
+</div>
+`;

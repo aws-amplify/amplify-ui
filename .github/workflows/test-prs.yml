@@ -39,6 +39,13 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo } } = context;
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v3
   test:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
     needs: setup

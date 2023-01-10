@@ -25,7 +25,7 @@ const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
   },
   ref
 ) => {
-  const paginationItems = usePaginationItems(
+  const paginationItems = usePaginationItems({
     currentPage,
     totalPages,
     hasMorePages,
@@ -36,8 +36,8 @@ const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
     nextLabel,
     onNext,
     onPrevious,
-    onChange
-  );
+    onChange,
+  });
 
   return (
     <View

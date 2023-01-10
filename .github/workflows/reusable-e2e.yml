@@ -351,6 +351,7 @@ jobs:
         run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.example }} example
+        id: e2e
         run: yarn workspace e2e test:examples
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
@@ -362,6 +363,16 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: e2e-cypress-error-${{ matrix.package }}
+          path: |
+            packages/e2e/cypress/videos/**
+            packages/e2e/cypress/screenshots/**
+          retention-days: 5
   docs:
     # Only run docs tests if e2e tests pass
     needs: [setup, unit]
@@ -418,6 +429,7 @@ jobs:
 
       - name: Run E2E tests against docs
         run: yarn workspace e2e test:theme
+        id: e2e
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -425,3 +437,13 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: docs-e2e-cypress-error
+          path: |
+            packages/e2e/cypress/videos/**
+            packages/e2e/cypress/screenshots/**
+          retention-days: 5

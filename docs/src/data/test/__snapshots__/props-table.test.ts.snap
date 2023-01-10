@@ -27,6 +27,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -274,6 +281,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -730,6 +744,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -886,6 +907,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -1209,6 +1237,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -1358,6 +1393,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -1716,6 +1758,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"type\\": {
                         \\"name\\": \\"type\\",
                         \\"type\\": \\"'list' | 'grid' | 'table'\\",
@@ -1980,6 +2029,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"label\\": {
                         \\"name\\": \\"label\\",
                         \\"type\\": \\"string\\",
@@ -2143,6 +2199,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -2338,6 +2401,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -2501,6 +2571,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -2751,6 +2828,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -3088,6 +3172,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -3254,6 +3345,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -3410,6 +3508,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -3597,6 +3702,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -3801,6 +3913,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -3971,6 +4090,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -4165,6 +4291,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -4406,6 +4539,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -4654,6 +4794,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -4921,6 +5068,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -5140,6 +5294,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -5551,6 +5712,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -5986,6 +6154,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -6142,6 +6317,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -6498,6 +6680,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -6755,6 +6944,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -7005,6 +7201,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -7154,6 +7357,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -7568,6 +7778,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"label\\": {
                         \\"name\\": \\"label\\",
                         \\"type\\": \\"React.ReactNode\\",
@@ -7892,6 +8109,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -8369,6 +8593,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"label\\": {
                         \\"name\\": \\"label\\",
                         \\"type\\": \\"React.ReactNode\\",
@@ -8794,6 +9025,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"label\\": {
                         \\"name\\": \\"label\\",
                         \\"type\\": \\"React.ReactNode\\",
@@ -9184,6 +9422,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"caption\\": {
                         \\"name\\": \\"caption\\",
                         \\"type\\": \\"React.ReactNode\\",
@@ -9376,6 +9621,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -9516,6 +9768,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -9676,6 +9935,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -9819,6 +10085,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -9959,6 +10232,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -10107,6 +10387,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -10123,7 +10410,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"children\\": {
                         \\"name\\": \\"children\\",
-                        \\"type\\": \\"React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactElement<any, string | React.JSXElementConstructor<any>>[]\\",
+                        \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"The Tabs component only accepts TabItem components as children.\\",
                         \\"category\\": \\"TabsProps\\",
                         \\"isOptional\\": false
@@ -10348,6 +10635,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"title\\": {
                         \\"name\\": \\"title\\",
                         \\"type\\": \\"React.ReactNode\\",
@@ -10359,6 +10653,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"isDisabled\\",
                         \\"type\\": \\"boolean\\",
                         \\"description\\": \\"Make a Tab not clickable and its content not visible to the user. Defaults to false (i.e., visible).\\",
+                        \\"category\\": \\"TabItemProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"Accepts any number of TabItem components\\",
                         \\"category\\": \\"TabItemProps\\",
                         \\"isOptional\\": true
                     }
@@ -10490,6 +10791,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -10649,6 +10957,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -10976,6 +11291,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -11397,6 +11719,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -11673,6 +12002,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
                         \\"type\\": \\"React.CSSProperties\\",
@@ -11941,6 +12277,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"Base\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\n    https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"Base\\",
                         \\"isOptional\\": true
                     },
@@ -12467,6 +12810,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"testId\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Used to provide a \`data-testid\` attribute for testing purposes\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"inert\\": {
+                        \\"name\\": \\"inert\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"Support for the HTML \`inert\` attribute\\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },

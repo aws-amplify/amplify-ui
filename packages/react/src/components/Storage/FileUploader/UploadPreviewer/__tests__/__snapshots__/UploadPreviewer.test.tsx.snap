@@ -11,7 +11,7 @@ exports[`UploadPreviewer renders as expected 1`] = `
       <p
         class="amplify-text amplify-fileuploader__previewer__text"
       >
-        1 files selected
+        1 file selected
       </p>
     </div>
     <div
@@ -28,9 +28,7 @@ exports[`UploadPreviewer renders as expected 1`] = `
           data-variation="primary"
           type="button"
         >
-          Upload
-           1 
-          files
+          Upload 1 file
         </button>
         <button
           class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
