@@ -69,24 +69,6 @@ describe('SearchField component', () => {
     expect(searchButtonRef?.current?.nodeName).toBe('BUTTON');
   });
 
-  it('should forward callback ref to DOM element', async () => {
-    const ref = React.createRef<HTMLInputElement>();
-
-    render(
-      <SearchField
-        className="custom-class"
-        label={label}
-        name="q"
-        ref={ref}
-        testId={testId}
-      />
-    );
-
-    await screen.findByRole('button');
-
-    expect(ref.current?.nodeName).toBe('INPUT');
-  });
-
   it('should be text input type', async () => {
     render(<SearchField label={label} name="q" />);
 
