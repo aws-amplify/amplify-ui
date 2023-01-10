@@ -57,10 +57,11 @@ export const useStepper = ({
   min = Number.MIN_SAFE_INTEGER,
   isDisabled,
   isReadOnly,
+  onChange,
   onDecrease,
   onIncrease,
   onStepChange,
-}: StepperFieldProps): UseStepper => {
+}: StepperFieldProps & { onChange?: ChangeHandler }): UseStepper => {
   const isControlled = controlledValue !== undefined;
 
   // Make sure max value is greater than or equal to min value
@@ -90,9 +91,16 @@ export const useStepper = ({
   const [inputValue, setInputValue] = React.useState<InputValue>(value);
 
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> =
-    React.useCallback((event) => {
-      setInputValue(event.target.value);
-    }, []);
+    React.useCallback(
+      (event) => {
+        setInputValue(event.target.value);
+
+        if (typeof onChange === 'function') {
+          onChange(event);
+        }
+      },
+      [onChange]
+    );
 
   const handleOnBlur: React.FocusEventHandler<HTMLInputElement> =
     React.useCallback(
