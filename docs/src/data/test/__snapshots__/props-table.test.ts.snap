@@ -368,13 +368,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"InputProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"checked\\": {
-                        \\"name\\": \\"checked\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"If checked is provided, this will be a controlled checkbox or radio.\\",
-                        \\"category\\": \\"InputProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"enterKeyHint\\": {
                         \\"name\\": \\"enterKeyHint\\",
                         \\"type\\": \\"EnterKeyHint\\",
@@ -5388,13 +5381,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"InputProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"checked\\": {
-                        \\"name\\": \\"checked\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"If checked is provided, this will be a controlled checkbox or radio.\\",
-                        \\"category\\": \\"InputProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"enterKeyHint\\": {
                         \\"name\\": \\"enterKeyHint\\",
                         \\"type\\": \\"EnterKeyHint\\",
@@ -5810,13 +5796,6 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"autoComplete\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Specifies permissions for browser UA to autocomplete field. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)\\",
-                        \\"category\\": \\"InputProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"checked\\": {
-                        \\"name\\": \\"checked\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"If checked is provided, this will be a controlled checkbox or radio.\\",
                         \\"category\\": \\"InputProps\\",
                         \\"isOptional\\": true
                     },
@@ -7444,13 +7423,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"InputProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"checked\\": {
-                        \\"name\\": \\"checked\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"If checked is provided, this will be a controlled checkbox or radio.\\",
-                        \\"category\\": \\"InputProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"enterKeyHint\\": {
                         \\"name\\": \\"enterKeyHint\\",
                         \\"type\\": \\"EnterKeyHint\\",
@@ -8203,13 +8175,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"InputProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"checked\\": {
-                        \\"name\\": \\"checked\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"If checked is provided, this will be a controlled checkbox or radio.\\",
-                        \\"category\\": \\"InputProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"enterKeyHint\\": {
                         \\"name\\": \\"enterKeyHint\\",
                         \\"type\\": \\"EnterKeyHint\\",
@@ -8681,13 +8646,6 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"autoComplete\\",
                         \\"type\\": \\"string\\",
                         \\"description\\": \\"Specifies permissions for browser UA to autocomplete field. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)\\",
-                        \\"category\\": \\"InputProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"checked\\": {
-                        \\"name\\": \\"checked\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"If checked is provided, this will be a controlled checkbox or radio.\\",
                         \\"category\\": \\"InputProps\\",
                         \\"isOptional\\": true
                     },
@@ -11392,13 +11350,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"Input\\",
                         \\"isOptional\\": true
                     },
-                    \\"checked\\": {
-                        \\"name\\": \\"checked\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"If checked is provided, this will be a controlled checkbox or radio.\\",
-                        \\"category\\": \\"Input\\",
-                        \\"isOptional\\": true
-                    },
                     \\"enterKeyHint\\": {
                         \\"name\\": \\"enterKeyHint\\",
                         \\"type\\": \\"EnterKeyHint\\",
@@ -11485,7 +11436,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"TextFieldProps\\": {
                         \\"name\\": \\"TextFieldProps\\",
-                        \\"type\\": \\"extends TextFieldOptions, InputProps\\",
+                        \\"type\\": \\"extends TextFieldOptions,\\\\n    Omit<InputProps, 'checked'>\\",
                         \\"description\\": \\"\\",
                         \\"category\\": \\"TextField\\",
                         \\"isOptional\\": true
@@ -11509,6 +11460,13 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"number\\",
                         \\"description\\": \\"Controls height based on number of rows of text to display.\\",
                         \\"category\\": \\"TextArea\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"checked\\": {
+                        \\"name\\": \\"checked\\",
+                        \\"type\\": \\"boolean\\",
+                        \\"description\\": \\"If checked is provided, this will be a controlled checkbox or radio.\\",
+                        \\"category\\": \\"Input\\",
                         \\"isOptional\\": true
                     },
                     \\"FieldClearButtonProps\\": {

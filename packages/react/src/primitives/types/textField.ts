@@ -36,4 +36,6 @@ export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
   type?: InputProps['type'];
 }
 
-export interface TextFieldProps extends TextFieldOptions, InputProps {}
+export interface TextFieldProps
+  extends TextFieldOptions,
+    Omit<InputProps, 'checked'> {}
