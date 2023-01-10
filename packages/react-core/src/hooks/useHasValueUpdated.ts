@@ -1,5 +1,5 @@
 import usePreviousValue from './usePreviousValue';
-import isUndefined from 'lodash/isUndefined';
+import isUndefined from 'lodash/isUndefined.js';
 
 export default function useHasValueUpdated<Value>(
   value: Value,

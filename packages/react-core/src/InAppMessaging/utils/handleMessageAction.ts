@@ -1,5 +1,5 @@
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
-import isString from 'lodash/isString';
+import isString from 'lodash/isString.js';
 
 import { MessageAction } from '../types';
 

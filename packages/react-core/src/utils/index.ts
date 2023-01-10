@@ -1,5 +1,5 @@
-import isEmpty from 'lodash/isEmpty';
-import isObject from 'lodash/isObject';
+import isEmpty from 'lodash/isEmpty.js';
+import isObject from 'lodash/isObject.js';
 
 function isEmptyArray<T>(value: T): boolean {
   return Array.isArray(value) && isEmpty(value);
