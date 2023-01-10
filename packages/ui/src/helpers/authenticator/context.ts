@@ -1,7 +1,7 @@
 /**
  * This file contains helpers that process authenticator state machine context
  */
-import includes from 'lodash/includes';
+import includes from 'lodash/includes.js';
 
 import {
   LoginMechanismArray,

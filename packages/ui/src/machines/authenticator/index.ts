@@ -1,5 +1,5 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
-import { choose } from 'xstate/lib/actions';
+import { actions } from 'xstate';
 
 import {
   AuthContext,
@@ -12,6 +12,7 @@ import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
 import { createSignUpMachine } from './signUp';
 
+const { choose } = actions;
 const DEFAULT_COUNTRY_CODE = '+1';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {

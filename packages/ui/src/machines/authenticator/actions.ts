@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify';
-import { assign, stop } from 'xstate/lib/actions';
+import { actions } from 'xstate';
 
 import {
   ActorContextWithForms,
@@ -7,6 +7,8 @@ import {
   SignInContext,
   SignUpContext,
 } from '../../types';
+
+const { assign, stop } = actions;
 
 export const stopActor = (machineId: string) => {
   return stop(machineId);
