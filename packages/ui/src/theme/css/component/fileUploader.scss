@@ -60,6 +60,7 @@
     border-radius: var(--amplify-components-fileuploader-file-border-radius);
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding-inline: var(--amplify-components-fileuploader-file-padding-inline);
     padding-block: var(--amplify-components-fileuploader-file-padding-block);
     align-items: var(--amplify-components-fileuploader-file-align-items);

@@ -15,7 +15,7 @@ export default function FileUploaderEmail() {
       acceptedFileTypes={['image/*']}
       accessLevel="public"
       hasMultipleFiles={true}
-      maxSize={100}
+      maxSize={100000000}
       maxFiles={3}
       isResumable={true}
     />
