@@ -19,6 +19,13 @@ export interface BaseComponentProps {
    * Used to provide a `data-testid` attribute for testing purposes
    */
   testId?: string;
+
+  /**
+   * @description
+   * Support for the HTML `inert` attribute
+   * https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
+   */
+  inert?: boolean;
 }
 
 export interface AriaProps {

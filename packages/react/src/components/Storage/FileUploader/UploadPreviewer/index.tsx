@@ -26,6 +26,14 @@ export function UploadPreviewer({
     fileStatuses.filter((file) => file?.fileState === 'success').length;
 
   const remainingFilesLength = fileStatuses.length - getUploadedFilesLength();
+  const remainingFilesText = `${remainingFilesLength} ${
+    remainingFilesLength === 1 ? translate('file') : translate('files')
+  }`;
+  const uploadedFilesText = `${getUploadedFilesLength()} ${
+    getUploadedFilesLength() === 1
+      ? translate('file uploaded')
+      : translate('files uploaded')
+  }`;
 
   const isDisabled =
     fileStatuses.some((status) =>
@@ -40,9 +48,9 @@ export function UploadPreviewer({
         {dropZone}
         <Text className={ComponentClassNames.FileUploaderPreviewerText}>
           {isSuccessful ? (
-            <>{`${getUploadedFilesLength()} ${translate('files uploaded')}`}</>
+            uploadedFilesText
           ) : (
-            <>{`${remainingFilesLength} ${translate('files selected')}`}</>
+            <>{`${remainingFilesText} ${translate('selected')}`}</>
           )}
         </Text>
         {children}
@@ -76,9 +84,7 @@ export function UploadPreviewer({
                 variation="primary"
                 onClick={onFileClick}
               >
-                {translate('Upload')}
-                {` ${remainingFilesLength} `}
-                {translate('files')}
+                {`${translate('Upload')} ${remainingFilesText}`}
               </Button>
 
               <Button size="small" variation="link" onClick={onClear}>

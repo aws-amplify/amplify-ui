@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import { translate } from '@aws-amplify/ui';
+
+import { translate, ComponentClassName } from '@aws-amplify/ui';
 
 const showPassword = translate('Show password');
 const hidePassword = translate('Hide password');
@@ -12,8 +13,8 @@ const random = Math.floor(Math.random() * 999999);
 interface PropsInterface {
   name: string;
   label: string;
-  autocomplete: string;
-  hasError: boolean;
+  autocomplete?: string;
+  hasError?: boolean;
   labelHidden?: boolean;
   placeholder?: string | null;
   required?: boolean;
@@ -21,6 +22,8 @@ interface PropsInterface {
 }
 
 const props = withDefaults(defineProps<PropsInterface>(), {
+  autocomplete: 'new-password',
+  hasError: false,
   required: true,
 });
 
@@ -53,7 +56,13 @@ export default {
 
 <template>
   <base-wrapper
-    class="amplify-flex amplify-field amplify-textfield amplify-passwordfield amplify-authenticator__column"
+    :class="[
+      ComponentClassName.Flex,
+      ComponentClassName.Field,
+      ComponentClassName.TextField,
+      ComponentClassName.PasswordField,
+      'amplify-authenticator__column', // TODO(breaking,parity): remove this
+    ]"
   >
     <base-label
       class="amplify-label"
@@ -62,27 +71,40 @@ export default {
     >
       {{ labelValue }}
     </base-label>
-    <base-wrapper class="amplify-flex amplify-field-group">
-      <base-input
-        v-bind="$attrs"
-        v-model="password"
-        class="amplify-input amplify-field-group__control"
-        :id="'amplify-field-' + random"
-        data-amplify-password="true"
-        :name="name"
-        :autocomplete="autocomplete"
-        :required="required ?? true"
-        :placeholder="placeholderValue"
-        :type="showHideType"
-        :aria-invalid="hasError"
-        :aria-describedBy="describedBy"
-      />
-      <base-wrapper class="amplify-field-group__outer-end">
+    <base-wrapper
+      :class="[ComponentClassName.Flex, ComponentClassName.FieldGroup]"
+    >
+      <base-wrapper :class="ComponentClassName.FieldGroupFieldWrapper">
+        <base-input
+          v-bind="$attrs"
+          v-model="password"
+          :class="[
+            ComponentClassName.Input,
+            ComponentClassName.FieldGroupControl,
+          ]"
+          :id="'amplify-field-' + random"
+          data-amplify-password="true"
+          :name="name"
+          :autocomplete="autocomplete"
+          :required="required ?? true"
+          :placeholder="placeholderValue"
+          :type="showHideType"
+          :aria-invalid="hasError"
+          :aria-describedBy="describedBy"
+        />
+      </base-wrapper>
+      <base-wrapper :class="ComponentClassName.FieldGroupOuterEnd">
         <button
           :aria-label="showHideLabel"
-          class="amplify-button amplify-field-group__control amplify-field__show-password amplify-button--fullwidth"
+          :aria-checked="showHideType !== 'password'"
+          :class="[
+            ComponentClassName.Button,
+            ComponentClassName.FieldGroupControl,
+            ComponentClassName.FieldShowPassword,
+          ]"
           data-fullwidth="false"
           type="button"
+          role="switch"
           @click="togglePasswordText"
         >
           <svg
@@ -90,7 +112,7 @@ export default {
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 24 24"
-            class="amplify-icon"
+            :class="ComponentClassName.Icon"
           >
             <path
               d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
@@ -101,7 +123,7 @@ export default {
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 24 24"
-            class="amplify-icon"
+            :class="ComponentClassName.Icon"
           >
             <path
               d="M0 0h24v24H0zm0 0h24v24H0zm0 0h24v24H0zm0 0h24v24H0z"
