@@ -1,11 +1,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
+import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { ComponentClassNames } from '../shared/constants';
 import { MenuButton } from './MenuButton';
 import { MenuItemProps } from '../types';
 
+const { DropdownMenuItem } = Dropdown;
 export const MENU_ITEM_TEST_ID = 'amplify-menu-item-test-id';
 
 /**

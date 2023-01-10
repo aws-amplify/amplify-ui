@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Range, Root, Thumb, Track } from '@radix-ui/react-slider';
+import * as RadixSlider from '@radix-ui/react-slider';
 import * as React from 'react';
 
 import { classNameModifier } from '../shared/utils';
@@ -15,6 +15,7 @@ import { splitPrimitiveProps } from '../shared/styleUtils';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
 
+const { Range, Root, Thumb, Track } = RadixSlider;
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';
 export const SLIDER_TRACK_TEST_ID = 'slider-track';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Root } from '@radix-ui/react-accordion';
+import * as Accordion from '@radix-ui/react-accordion';
 import classNames from 'classnames';
 
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
@@ -9,6 +9,7 @@ import { ExpanderProps } from '../types/expander';
 import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 
+const { Root } = Accordion;
 const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
   {
     children,

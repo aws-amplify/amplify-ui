@@ -1,5 +1,5 @@
 import React from 'react';
-import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash/isEqual.js';
 
 import { Logger } from 'aws-amplify';
 import {

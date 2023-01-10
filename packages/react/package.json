@@ -2,15 +2,15 @@
   "name": "@aws-amplify/ui-react",
   "version": "4.3.1",
   "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/esm/index.mjs",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.js",
+      "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
     "./internal": {
-      "import": "./dist/esm/internal.js",
+      "import": "./dist/esm/internal.mjs",
       "require": "./dist/internal.js"
     },
     "./styles.css": "./dist/styles.css",
@@ -58,7 +58,6 @@
     "@xstate/react": "3.0.0",
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
-    "lodash": "4.17.21",
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
     "maplibre-gl-js-amplify": "3.0.0",
@@ -88,6 +87,7 @@
     "@testing-library/react-hooks": "^7.0.1",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^26.0.23",
+    "@types/lodash-es": "^4.17.6",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^17.0.2",
     "@types/testing-library__jest-dom": "^5.14.1",

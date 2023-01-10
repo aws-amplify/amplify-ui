@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { DirectionProvider } from '@radix-ui/react-direction';
+import * as RadixDirection from '@radix-ui/react-direction';
 
 import { createTheme, Theme, WebTheme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
 
+const { DirectionProvider } = RadixDirection;
 export type ColorMode = 'system' | 'light' | 'dark';
 export type Direction = 'ltr' | 'rtl';
 

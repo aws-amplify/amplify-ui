@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Item, Header, Trigger, Content } from '@radix-ui/react-accordion';
+import * as Accordion from '@radix-ui/react-accordion';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
@@ -10,6 +10,7 @@ import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
 
+const { Item, Header, Trigger, Content } = Accordion;
 export const EXPANDER_ITEM_TEST_ID = 'expander-item';
 export const EXPANDER_HEADER_TEST_ID = 'expander-header';
 export const EXPANDER_ICON_TEST_ID = 'expander-icon';

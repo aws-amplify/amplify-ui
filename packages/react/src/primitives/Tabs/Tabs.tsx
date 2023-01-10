@@ -1,16 +1,13 @@
 import classNames from 'classnames';
-import {
-  Root,
-  List,
-  Trigger as RadixTab,
-  Content as Panel,
-} from '@radix-ui/react-tabs';
+import * as RadixTabs from '@radix-ui/react-tabs';
 import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { TabsProps, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
+
+const { Root, List, Trigger: RadixTab, Content: Panel } = RadixTabs;
 
 const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   return (

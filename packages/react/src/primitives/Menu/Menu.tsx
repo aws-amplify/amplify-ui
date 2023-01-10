@@ -1,10 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-} from '@radix-ui/react-dropdown-menu';
+import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
 import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
@@ -12,6 +8,7 @@ import { IconMenu } from '../Icon/internal';
 import { MenuButton } from './MenuButton';
 import { MenuProps, Primitive } from '../types';
 
+const { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } = Dropdown;
 export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id';
 export const MENU_ITEMS_GROUP_TEST_ID = 'amplify-menu-items-group-test-id';
 

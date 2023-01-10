@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash/debounce.js';
 import * as React from 'react';
 
 import { Flex } from '../Flex';
