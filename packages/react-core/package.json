@@ -30,7 +30,7 @@
   "dependencies": {
     "@aws-amplify/ui": "5.4.1",
     "@xstate/react": "3.0.1",
-    "lodash": "^4.17.21",
+    "lodash": "4.17.21",
     "xstate": "^4.33.6"
   },
   "peerDependencies": {
