@@ -1,5 +1,48 @@
 # @aws-amplify/ui-react
 
+## 4.3.3
+
+### Patch Changes
+
+- [#3260](https://github.com/aws-amplify/amplify-ui/pull/3260) [`c335b347e`](https://github.com/aws-amplify/amplify-ui/commit/c335b347efd501aac55ccbea01a48a8248c92334) Thanks [@ErikCH](https://github.com/ErikCH)! - Added fix so zero byte size files will upload and not freeze the File Uploader component.
+
+- [#3223](https://github.com/aws-amplify/amplify-ui/pull/3223) [`7587566dd`](https://github.com/aws-amplify/amplify-ui/commit/7587566dd6d19c54898a77b7bba0c95e4a91bfe4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: fixing TS strict errors in these components:
+
+  - Pagination
+  - Rating
+  - SearchField
+  - SliderField
+  - StepperField
+  - SwitchField
+
+- [#3277](https://github.com/aws-amplify/amplify-ui/pull/3277) [`5b83174aa`](https://github.com/aws-amplify/amplify-ui/commit/5b83174aa20af2547597440b9ac4e9b96430c281) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(primitives): adds support inert prop on all React primitives
+
+  ```jsx
+  <View inert>
+  ```
+
+- [#3264](https://github.com/aws-amplify/amplify-ui/pull/3264) [`ae66ab51b`](https://github.com/aws-amplify/amplify-ui/commit/ae66ab51b61f21a84af3b029c94868229d4e0921) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: more TS strict fixes:
+
+  - styleUtils
+  - ExpanderItem
+  - Tabs
+  - View
+  - IconClose
+  - MenuButton
+
+- [#3269](https://github.com/aws-amplify/amplify-ui/pull/3269) [`09b4832fb`](https://github.com/aws-amplify/amplify-ui/commit/09b4832fb4ae8ce76992a9fcd4547e142fb76a6d) Thanks [@joebuono](https://github.com/joebuono)! - fix(react): Conditionally render deprecation warning if Link component's `to` prop is used without using `as` prop
+
+- [#3270](https://github.com/aws-amplify/amplify-ui/pull/3270) [`44d92b87f`](https://github.com/aws-amplify/amplify-ui/commit/44d92b87f81f20ef24e311085a57092ff19fb8a0) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(tabs): `null` and `undefined` children of `Tabs` will no longer show a Typescript error.
+  Also `null` children will no longer mess up the index of the tab array which affects the `defaultIndex` uncontrolled behavior.
+
+- [#3282](https://github.com/aws-amplify/amplify-ui/pull/3282) [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): remove order keys from formFields after sorting
+
+- [#3266](https://github.com/aws-amplify/amplify-ui/pull/3266) [`9efd2f4fa`](https://github.com/aws-amplify/amplify-ui/commit/9efd2f4fa1539816a515dd63935b53849350e3b9) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated file uploader component text to show singular and plural forms of upload and selected files
+
+- Updated dependencies [[`59321c9cc`](https://github.com/aws-amplify/amplify-ui/commit/59321c9cc15f8243edd6f5dd0113e7c396f7b488), [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9)]:
+  - @aws-amplify/ui@5.5.0
+  - @aws-amplify/ui-react-core@2.1.8
+
 ## 4.3.2
 
 ### Patch Changes
