@@ -159,7 +159,7 @@ export const trimNonPasswordValues = (formData: Record<string, string>) => {
 
   for (const [name, value] of Object.entries(formData)) {
     if (name === 'password') {
-      // do not modify password field.
+      // do not modify password field
       trimmedFormData[name] = value;
     } else {
       trimmedFormData[name] = value?.trim();
