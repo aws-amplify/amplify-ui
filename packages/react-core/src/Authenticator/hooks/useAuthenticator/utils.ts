@@ -7,8 +7,8 @@ import {
   getSortedFormFields,
   UnverifiedContactMethods,
   getActorContext,
+  isString,
 } from '@aws-amplify/ui';
-import isString from 'lodash/isString';
 
 import { areEmptyArrays, areEmptyObjects } from '../../../utils';
 import { AuthenticatorLegacyField, AuthenticatorLegacyFields } from '../types';
