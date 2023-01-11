@@ -1,4 +1,7 @@
-export const getTestId = (testId: string, component: string): string =>
+export const getTestId = (
+  testId?: string,
+  component?: string
+): string | undefined =>
   testId && component ? `${testId}-${component}` : undefined;
 
 export const errorMessageWrapper = (
