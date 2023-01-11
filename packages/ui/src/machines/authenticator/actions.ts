@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
 import { assign, stop } from 'xstate/lib/actions';
-import { trimNonPasswordValues } from '../../helpers';
+import { trimValues } from '../../helpers';
 
 import {
   ActorContextWithForms,
@@ -145,7 +145,7 @@ export const handleSubmit = assign({
       ...context['formValues'],
       ...event.data,
     };
-    return trimNonPasswordValues(formValues);
+    return trimValues(formValues, 'password');
   },
 });
 

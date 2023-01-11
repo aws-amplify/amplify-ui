@@ -154,16 +154,12 @@ export const getTotpCodeURL = (
     `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
   );
 
-export const trimNonPasswordValues = (formData: Record<string, string>) => {
-  const trimmedFormData: Record<string, string> = {};
-
-  for (const [name, value] of Object.entries(formData)) {
-    if (name === 'password') {
-      // do not modify password field.
-      trimmedFormData[name] = value;
-    } else {
-      trimmedFormData[name] = value?.trim();
-    }
-  }
-  return trimmedFormData;
+export const trimValues = (
+  formData: Record<string, string>,
+  ...ignoreList: string[]
+): Record<string, string> => {
+  return Object.entries(formData).reduce((trimmedFormData, [name, value]) => {
+    trimmedFormData[name] = ignoreList.includes(name) ? value : value?.trim();
+    return trimmedFormData;
+  }, {});
 };

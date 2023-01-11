@@ -1,4 +1,4 @@
-import { getTotpCodeURL, trimNonPasswordValues } from '../utils';
+import { getTotpCodeURL, trimValues } from '../utils';
 
 const SECRET_KEY = 'shhhhh';
 const USERNAME = 'username';
@@ -25,28 +25,28 @@ describe('getTotpCodeURL', () => {
   });
 });
 
-describe('trimNonPasswordValues', () => {
-  it('trims non-password values', () => {
+describe('trimValues', () => {
+  it('trims all values', () => {
     const formData = { username: ' username ', first_name: ' john ' };
-    const result = trimNonPasswordValues(formData);
+    const result = trimValues(formData);
 
     expect(result).toMatchObject({ username: 'username', first_name: 'john' });
   });
 
-  it('does not trim password value', () => {
-    const formData = { password: ' test ' };
-    const result = trimNonPasswordValues(formData);
+  it('does not trim ignored value', () => {
+    const formData = { password: ' test ', confirm_password: ' test ' };
+    const result = trimValues(formData, 'password', 'confirm_password');
 
     expect(result).toMatchObject(formData);
   });
 
-  it('trims every field except password', () => {
+  it('trims all values except ignored values', () => {
     const formData = {
       username: ' test ',
       password: ' password ',
       first_name: ' john ',
     };
-    const result = trimNonPasswordValues(formData);
+    const result = trimValues(formData, 'password');
 
     expect(result).toMatchObject({
       username: 'test',
