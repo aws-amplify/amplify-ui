@@ -28,7 +28,7 @@ const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
   },
   ref
 ) => {
-  const items = new Array(Math.ceil(maxValue)).fill(1).map((val, index) => {
+  const items = new Array(Math.ceil(maxValue)).fill(1).map((_, index) => {
     const currentIconIndex = index + 1;
     if (isIconFilled(currentIconIndex, value))
       return (
