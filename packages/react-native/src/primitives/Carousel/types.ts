@@ -7,6 +7,7 @@ export interface CarouselProps<T> {
   onClose?: () => void;
   renderItem: ListRenderItem<T>;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 export interface CarouselPageIndicatorProps {

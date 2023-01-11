@@ -57,9 +57,7 @@ export interface StepperFieldProps extends TextFieldProps {
 
   /**
    * @description
-   * TODO:
-   * Extends StepperField props from Omit<TextFieldProps, 'onChange'>, after removing [key: string]: any from the base type
-   * and rename onStepChange to onChange
+   * Event handler called with the current step value when it is updated
    */
   onStepChange?: (value: number) => void;
 

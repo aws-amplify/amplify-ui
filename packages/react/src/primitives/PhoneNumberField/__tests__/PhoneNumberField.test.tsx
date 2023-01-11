@@ -2,10 +2,11 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { PhoneNumberField } from '../PhoneNumberField';
 import { Flex } from '../../Flex';
 import { Button } from '../../Button';
 import { ComponentClassNames } from '../../shared/constants';
+
+import { PhoneNumberField } from '../PhoneNumberField';
 
 const originalLog = console.log;
 console.log = jest.fn();
@@ -15,7 +16,7 @@ describe('PhoneNumberField primitive', () => {
     defaultCountryCode = '+1',
     label = 'Phone Number',
     ...rest
-  }: Partial<typeof PhoneNumberField['defaultProps']>) => {
+  }) => {
     render(
       <PhoneNumberField
         defaultCountryCode={defaultCountryCode}
@@ -35,12 +36,14 @@ describe('PhoneNumberField primitive', () => {
   };
 
   const ReadOnlyFormTest = () => {
-    const inputRef = React.useRef(null);
-    const countryCodeRef = React.useRef(null);
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const countryCodeRef = React.useRef<HTMLSelectElement>(null);
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(`${countryCodeRef.current.value} ${inputRef.current.value}`);
+      console.log(
+        `${countryCodeRef.current?.value} ${inputRef.current?.value}`
+      );
     };
 
     return (
@@ -65,8 +68,8 @@ describe('PhoneNumberField primitive', () => {
     await setup({ ref, countryCodeRef });
 
     await screen.findByRole('textbox');
-    expect(ref.current.nodeName).toBe('INPUT');
-    expect(countryCodeRef.current.nodeName).toBe('SELECT');
+    expect(ref.current?.nodeName).toBe('INPUT');
+    expect(countryCodeRef.current?.nodeName).toBe('SELECT');
   });
 
   it('should render a country code selector with an accessible role', async () => {
@@ -193,7 +196,7 @@ describe('PhoneNumberField primitive', () => {
       label = 'Phone Number',
       dialCodeLabel = 'dial code',
       ...rest
-    }: Partial<typeof PhoneNumberField['defaultProps']>) => {
+    }) => {
       render(
         <PhoneNumberField
           defaultDialCode={defaultDialCode}
@@ -214,12 +217,12 @@ describe('PhoneNumberField primitive', () => {
     };
 
     const DialCodeReadOnlyFormTest = () => {
-      const inputRef = React.useRef(null);
-      const dialCodeRef = React.useRef(null);
+      const inputRef = React.useRef<HTMLInputElement>(null);
+      const dialCodeRef = React.useRef<HTMLSelectElement>(null);
 
       const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(`${dialCodeRef.current.value} ${inputRef.current.value}`);
+        console.log(`${dialCodeRef.current?.value} ${inputRef.current?.value}`);
       };
 
       return (
@@ -244,8 +247,8 @@ describe('PhoneNumberField primitive', () => {
       await dialCodeSetup({ ref, dialCodeRef });
 
       await screen.findByRole('textbox');
-      expect(ref.current.nodeName).toBe('INPUT');
-      expect(dialCodeRef.current.nodeName).toBe('SELECT');
+      expect(ref.current?.nodeName).toBe('INPUT');
+      expect(dialCodeRef.current?.nodeName).toBe('SELECT');
     });
 
     it('should render a country code selector with an accessible role', async () => {

@@ -1,6 +1,21 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 
-export const useSwitch = (props) => {
+type ChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
+
+interface UseSwitchProps {
+  onChange?: ChangeHandler;
+  isChecked?: boolean;
+  defaultChecked?: boolean;
+  isDisabled?: boolean;
+}
+interface UseSwitch {
+  isOn: boolean;
+  changeHandler: ChangeHandler;
+  isFocused: boolean;
+  setIsFocused: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const useSwitch = (props: UseSwitchProps): UseSwitch => {
   const { onChange, isChecked, defaultChecked, isDisabled } = props;
   const isControlled = typeof isChecked !== 'undefined';
   const [isOn, setIsOn] = useState(isControlled ? isChecked : defaultChecked);
@@ -13,7 +28,10 @@ export const useSwitch = (props) => {
         return;
       }
 
-      typeof onChange === 'function' && onChange(event);
+      if (typeof onChange === 'function') {
+        onChange(event);
+      }
+
       setIsOn(event.target.checked);
     },
     [onChange, isDisabled]

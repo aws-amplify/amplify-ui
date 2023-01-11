@@ -10,9 +10,15 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
+import { getTestId } from '../../utils/testUtils';
 
 describe('RadioFieldGroup test suite', () => {
   const basicProps = { label: 'testLabel', name: 'testName', testId: 'testId' };
+
+  const radioGroupTestId = getTestId(
+    basicProps.testId,
+    ComponentClassNames.RadioGroup
+  );
 
   const getRadioFieldGroup = ({
     label,
@@ -66,7 +72,7 @@ describe('RadioFieldGroup test suite', () => {
     render(<RadioGroupField {...basicProps} ref={ref}></RadioGroupField>);
 
     await screen.findByTestId(basicProps.testId);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('FIELDSET');
   });
 
   it('should render all flex style props', async () => {
@@ -93,32 +99,36 @@ describe('RadioFieldGroup test suite', () => {
   });
 
   describe('Label', () => {
+    it('should render visually-hidden legend element with label name', async () => {
+      render(getRadioFieldGroup({ ...basicProps }));
+
+      const labelElement = (await screen.findAllByText(
+        basicProps.label
+      )) as HTMLLabelElement[];
+      expect(labelElement[0].nodeName).toBe('LEGEND');
+    });
+
     it('should render expected label classname', async () => {
       render(getRadioFieldGroup({ ...basicProps }));
 
-      const labelElelment = (await screen.findByText(
+      const labelElement = (await screen.findAllByText(
         basicProps.label
-      )) as HTMLLabelElement;
-      expect(labelElelment).toHaveClass(ComponentClassNames.Label);
-    });
+      )) as HTMLLabelElement[];
 
-    it('should map to label correctly', async () => {
-      render(getRadioFieldGroup({ ...basicProps }));
-      const radioGroup = await screen.findByRole('radiogroup');
-      expect(radioGroup).toHaveAccessibleName(basicProps.label);
+      expect(labelElement[1]).toHaveClass(ComponentClassNames.Label);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(getRadioFieldGroup({ ...basicProps, labelHidden: true }));
 
-      const labelElelment = await screen.findByText(basicProps.label);
-      expect(labelElelment).toHaveClass('amplify-visually-hidden');
+      const labelElement = await screen.findAllByText(basicProps.label);
+      expect(labelElement[1]).toHaveClass('amplify-visually-hidden');
     });
   });
 
   describe('RadioGroup', () => {
-    const expectFunctionality = async (componet) => {
-      render(componet);
+    const expectFunctionality = async (component) => {
+      render(component);
       const radios = await screen.findAllByRole('radio');
       const html = radios[0];
       const css = radios[1];
@@ -140,7 +150,7 @@ describe('RadioFieldGroup test suite', () => {
 
     it('should render default classname', async () => {
       render(getRadioFieldGroup({ ...basicProps }));
-      const radioGroup = await screen.findByRole('radiogroup');
+      const radioGroup = await screen.findByTestId(radioGroupTestId);
       expect(radioGroup).toHaveClass(ComponentClassNames.RadioGroup);
     });
 
@@ -238,7 +248,7 @@ describe('RadioFieldGroup test suite', () => {
     it('should map to descriptive text correctly', async () => {
       const descriptiveText = 'Description';
       render(getRadioFieldGroup({ ...basicProps, descriptiveText }));
-      const radioGroup = await screen.findByRole('radiogroup');
+      const radioGroup = await screen.findByTestId(radioGroupTestId);
       expect(radioGroup).toHaveAccessibleDescription(descriptiveText);
     });
   });

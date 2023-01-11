@@ -40,7 +40,7 @@ describe('Switch Field', () => {
       render(<SwitchField testId="testId" label={label} ref={ref} />);
 
       await screen.findByLabelText(label);
-      expect(ref.current.nodeName).toBe('DIV');
+      expect(ref.current?.nodeName).toBe('DIV');
     });
 
     it('should set the data-size attribute', async () => {

@@ -19,6 +19,6 @@ const defaultValue: RadioGroupContextType = { name: 'default' };
 export const RadioGroupContext =
   React.createContext<RadioGroupContextType>(defaultValue);
 
-export const useRadioGroupContext = () => {
+export const useRadioGroupContext = (): RadioGroupContextType => {
   return useContext(RadioGroupContext);
 };

@@ -31,7 +31,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   ref
 ) => (
   <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
-    <DropdownMenuTrigger asChild={true}>
+    <DropdownMenuTrigger asChild>
       {trigger ?? (
         <MenuButton
           ariaLabel={ariaLabel}

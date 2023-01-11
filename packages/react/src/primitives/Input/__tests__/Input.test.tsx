@@ -73,7 +73,7 @@ describe('Input component', () => {
 
     render(<Input ref={ref} />);
     await screen.findByRole('textbox');
-    expect(ref.current.nodeName).toBe('INPUT');
+    expect(ref.current?.nodeName).toBe('INPUT');
   });
 
   it('should render the state attributes', async () => {

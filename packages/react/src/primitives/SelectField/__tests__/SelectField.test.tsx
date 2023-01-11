@@ -116,7 +116,7 @@ describe('SelectField test suite', () => {
       );
 
       await screen.findByRole(role);
-      expect(ref.current.nodeName).toBe('SELECT');
+      expect(ref.current?.nodeName).toBe('SELECT');
     });
 
     it('should render labeled select field when id is provided', async () => {
@@ -265,7 +265,7 @@ describe('SelectField test suite', () => {
         </SelectField>
       );
       const errorText = await screen.queryByText(errorMessage);
-      expect(errorText.innerHTML).toContain(errorMessage);
+      expect(errorText?.innerHTML).toContain(errorMessage);
     });
   });
 

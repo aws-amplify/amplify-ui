@@ -12,7 +12,7 @@ import { Flex } from '../Flex';
 import { TabsProps, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
 
-const isTabsType = (child: any): child is React.Component<TabItemProps> => {
+const isTabsType = (child: any): child is React.ReactElement<TabItemProps> => {
   return (
     child !== null &&
     typeof child === 'object' &&
@@ -35,24 +35,6 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   }: TabsProps,
   ref
 ) => {
-  const tabs = React.Children.map(children, (child) => {
-    if (child === null) return {};
-
-    // checking if the child is a whitespace character
-    if (typeof child === 'string' && /\s/.test(child)) {
-      return {};
-    }
-
-    if (!isTabsType(child)) {
-      console.warn(
-        'Amplify UI: <Tabs> component only accepts <TabItem> as children.'
-      );
-      return {};
-    }
-
-    return child.props;
-  });
-
   // mapping our props to Radix's props
   // value (currentIndex) and defaultValue (defaultIndex) must be strings
   // https://www.radix-ui.com/docs/primitives/components/tabs#api-reference
@@ -62,6 +44,13 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
     value: currentIndex != null ? currentIndex.toString() : undefined,
     onValueChange: onChange,
   };
+
+  // Remove null or undefined children or else they will mess up the index
+  // This is an issue when using defaultIndex
+  const nonNullChildren = React.Children.toArray(children).filter(
+    (child) => !!child
+  );
+
   return (
     <Root {...rootProps}>
       <List aria-label={ariaLabel}>
@@ -71,24 +60,34 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
           ref={ref}
           {...rest}
         >
-          {React.Children.map(children, (child, index) => {
-            if (!isTabsType(child)) {
-              return null;
+          {React.Children.map(nonNullChildren, (child, index) => {
+            if (isTabsType(child)) {
+              return React.cloneElement(child as React.ReactElement, {
+                ['data-spacing']: spacing,
+                key: index,
+                value: `${index}`,
+              });
             }
-
-            return React.cloneElement(child, {
-              ['data-spacing']: spacing,
-              key: index,
-              value: `${index}`,
-            });
           })}
         </Flex>
       </List>
-      {tabs.map((tab, index) => (
-        <Panel key={index} value={`${index}`}>
-          {tab.children}
-        </Panel>
-      ))}
+      {React.Children.map(nonNullChildren, (child, index) => {
+        if (isTabsType(child)) {
+          return (
+            <Panel key={index} value={`${index}`}>
+              {child.props.children}
+            </Panel>
+          );
+        } else {
+          // at this point the child defined (not null or undefined)
+          // it is NOT a TabItem, so log a message
+          if (child) {
+            console.warn(
+              'Amplify UI: <Tabs> component only accepts <TabItem> as children.'
+            );
+          }
+        }
+      })}
     </Root>
   );
 };

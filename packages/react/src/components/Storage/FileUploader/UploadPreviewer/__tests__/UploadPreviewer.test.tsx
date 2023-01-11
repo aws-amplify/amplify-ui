@@ -54,7 +54,7 @@ describe('UploadPreviewer', () => {
   it('has one file passed in and shows one selected ', async () => {
     render(<UploadPreviewer {...commonProps} fileStatuses={fileStatuses} />);
 
-    expect(await screen.findByText('1 files selected')).toBeVisible();
+    expect(await screen.findByText('1 file selected')).toBeVisible();
   });
   it('shows a disabled button when any file is in an edit state', async () => {
     render(
@@ -69,7 +69,7 @@ describe('UploadPreviewer', () => {
       />
     );
 
-    expect(await screen.findByText(/Upload 1 files/)).toBeDisabled();
+    expect(await screen.findByText(/Upload 1 file/)).toBeDisabled();
   });
   it('shows max files error alert when hasMaxFilesError is true', async () => {
     const { container } = render(
@@ -100,7 +100,7 @@ describe('UploadPreviewer', () => {
       />
     );
 
-    expect(await screen.findByText(/1 files uploaded/)).toBeVisible();
+    expect(await screen.findByText(/1 file uploaded/)).toBeVisible();
   });
   it('shows when loading an uploading with percentage', async () => {
     render(
@@ -125,7 +125,7 @@ describe('UploadPreviewer', () => {
     };
     render(<UploadPreviewer {...commonProps} fileStatuses={[fileStatus]} />);
 
-    expect(await screen.findByText(/Upload 1 files/)).toBeDisabled();
+    expect(await screen.findByText(/Upload 1 file/)).toBeDisabled();
   });
   it('shows disabled upload button when remaining files uploaded is zero', async () => {
     const fileStatus: FileStatus = {
@@ -144,7 +144,7 @@ describe('UploadPreviewer', () => {
   it('shows disabled upload button when max files is showing an error', async () => {
     render(<UploadPreviewer {...commonProps} hasMaxFilesError={true} />);
 
-    expect(await screen.findByText(/Upload 1 files/)).toBeDisabled();
+    expect(await screen.findByText(/Upload 1 file/)).toBeDisabled();
   });
   it('shows done when upload is completed', async () => {
     render(<UploadPreviewer {...commonProps} isSuccessful={true} />);

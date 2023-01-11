@@ -1,71 +1,73 @@
 import React from 'react';
-import { View } from 'react-native';
-import { act, create, ReactTestRenderer } from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 
 import CarouselPageIndicator from '../CarouselPageIndicator';
+import { ReactTestRendererJSON } from 'react-test-renderer';
+import {
+  DEFAULT_CAROUSEL_INDICATOR_ACTIVE_STYLE,
+  DEFAULT_CAROUSEL_INDICATOR_INACTIVE_STYLE,
+} from '../constants';
 
 describe('CarouselPageIndicator', () => {
-  let carouselPageIndicator: ReactTestRenderer;
-
   it('renders with multiple items', () => {
-    act(() => {
-      carouselPageIndicator = create(
-        <CarouselPageIndicator currentIndex={0} numberOfItems={3} />
-      );
-    });
-    const instance = carouselPageIndicator.root;
+    const { toJSON } = render(
+      <CarouselPageIndicator currentIndex={0} numberOfItems={3} />
+    );
 
-    expect(carouselPageIndicator.toJSON()).toMatchSnapshot();
-    expect(instance.findAllByType(View)).toHaveLength(3);
+    expect(toJSON()).toMatchSnapshot();
+
+    const { children } = toJSON() as ReactTestRendererJSON;
+    expect(children).toHaveLength(3);
   });
 
   it('renders with just one item', () => {
-    act(() => {
-      carouselPageIndicator = create(
-        <CarouselPageIndicator currentIndex={0} numberOfItems={1} />
-      );
-    });
-    const instance = carouselPageIndicator.root;
+    const { toJSON } = render(
+      <CarouselPageIndicator currentIndex={0} numberOfItems={1} />
+    );
 
-    expect(carouselPageIndicator.toJSON()).toMatchSnapshot();
-    expect(instance.findAllByType(View)).toHaveLength(1);
+    expect(toJSON()).toMatchSnapshot();
+    const { children } = toJSON() as ReactTestRendererJSON;
+    expect(children).toHaveLength(1);
   });
 
   it('handles null numberOfItems value', () => {
     // Ideally, this should not happen but, if it does, we should be able to handle gracefully
-    act(() => {
-      carouselPageIndicator = create(
-        <CarouselPageIndicator currentIndex={0} numberOfItems={null as any} />
-      );
-    });
+    const { toJSON } = render(
+      <CarouselPageIndicator currentIndex={0} numberOfItems={null as any} />
+    );
 
-    expect(carouselPageIndicator.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 
   it('renders indicator styles based on current index', () => {
-    act(() => {
-      carouselPageIndicator = create(
-        <CarouselPageIndicator currentIndex={1} numberOfItems={3} />
-      );
-    });
-    const instance = carouselPageIndicator.root;
-    const indicators = instance.findAllByType(View);
-    const activeIndicator = indicators[1];
+    const { toJSON } = render(
+      <CarouselPageIndicator currentIndex={1} numberOfItems={3} />
+    );
 
-    expect(carouselPageIndicator.toJSON()).toMatchSnapshot();
-    expect(indicators[0].props).toStrictEqual(indicators[2].props);
-    expect(indicators[0].props).not.toStrictEqual(activeIndicator.props);
-    expect(indicators[2].props).not.toStrictEqual(activeIndicator.props);
+    const { children } = toJSON() as ReactTestRendererJSON;
+
+    expect(toJSON()).toMatchSnapshot();
+
+    expect((children?.[0] as ReactTestRendererJSON).props.style).toStrictEqual([
+      DEFAULT_CAROUSEL_INDICATOR_INACTIVE_STYLE,
+      undefined,
+    ]);
+    expect((children?.[1] as ReactTestRendererJSON).props.style).toStrictEqual([
+      DEFAULT_CAROUSEL_INDICATOR_ACTIVE_STYLE,
+      undefined,
+    ]);
+    expect((children?.[2] as ReactTestRendererJSON).props.style).toStrictEqual([
+      DEFAULT_CAROUSEL_INDICATOR_INACTIVE_STYLE,
+      undefined,
+    ]);
   });
 
   it('handles null index value', () => {
     // Ideally, this should not happen but, if it does, we should be able to handle gracefully
-    act(() => {
-      carouselPageIndicator = create(
-        <CarouselPageIndicator currentIndex={null} numberOfItems={5} />
-      );
-    });
+    const { toJSON } = render(
+      <CarouselPageIndicator currentIndex={null} numberOfItems={5} />
+    );
 
-    expect(carouselPageIndicator.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 });

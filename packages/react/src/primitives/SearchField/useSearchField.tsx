@@ -7,6 +7,20 @@ import { useComposeRefsCallback } from '../../hooks/useComposeRefsCallback';
 
 const DEFAULT_KEYS = new Set([ESCAPE_KEY, ENTER_KEY]);
 
+type ClearHandler = React.MouseEventHandler<HTMLButtonElement>;
+type ClickHandler = React.MouseEventHandler<HTMLButtonElement>;
+type KeyDownHandler = React.KeyboardEventHandler<HTMLInputElement>;
+type ChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
+
+interface UseSearchField {
+  composedValue: string;
+  onClearHandler: ClearHandler;
+  onClick: ClickHandler;
+  onKeyDown: KeyDownHandler;
+  handleOnChange: ChangeHandler;
+  composedRefs: React.Ref<HTMLInputElement>;
+}
+
 export const useSearchField = ({
   defaultValue = '',
   value,
@@ -14,14 +28,17 @@ export const useSearchField = ({
   onClear,
   onSubmit,
   externalRef,
-}: UseSearchFieldProps) => {
+}: UseSearchFieldProps): UseSearchField => {
   const isControlled = value !== undefined;
   const [internalValue, setInternalValue] =
     React.useState<string>(defaultValue);
   const composedValue = isControlled ? value : internalValue;
 
   const internalRef = React.useRef<HTMLInputElement>(null);
-  const composedRefs = useComposeRefsCallback({ externalRef, internalRef });
+  const composedRefs = useComposeRefsCallback<HTMLInputElement | null>({
+    externalRef,
+    internalRef,
+  });
 
   const onClearHandler = React.useCallback(() => {
     if (!isControlled) {
@@ -42,7 +59,7 @@ export const useSearchField = ({
     [onSubmit]
   );
 
-  const onKeyDown = React.useCallback(
+  const onKeyDown: KeyDownHandler = React.useCallback(
     (event) => {
       const { key } = event;
 
@@ -61,7 +78,7 @@ export const useSearchField = ({
     [composedValue, onClearHandler, onSubmitHandler]
   );
 
-  const handleOnChange = React.useCallback(
+  const handleOnChange: ChangeHandler = React.useCallback(
     (event) => {
       if (!isControlled) {
         setInternalValue(event.target.value);

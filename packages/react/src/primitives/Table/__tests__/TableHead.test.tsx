@@ -14,6 +14,6 @@ describe('TableHead primitive', () => {
     );
 
     await screen.findByTestId('testId');
-    expect(ref.current.nodeName).toBe('THEAD');
+    expect(ref.current?.nodeName).toBe('THEAD');
   });
 });

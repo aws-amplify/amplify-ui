@@ -55,11 +55,11 @@ describe('classNameModifier', () => {
     expect(classNameModifier(myClass, modifier)).toEqual(modifiedClassName);
   });
 
-  it('should return null without a modifier passed in', () => {
+  it('should return empty string without a modifier passed in', () => {
     // force undefined to be Modifiers type for exhaustive edge case test
     expect(
       classNameModifier(myClass, undefined as unknown as Modifiers)
-    ).toEqual(null);
+    ).toEqual('');
   });
 });
 
@@ -74,8 +74,8 @@ describe('classNameModifierByFlag', () => {
     );
   });
 
-  it('should return null with a false flag value passed in', () => {
-    expect(classNameModifierByFlag(myClass, modifier, false)).toEqual(null);
+  it('should return empty string with a false flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, false)).toEqual('');
   });
 });
 

@@ -49,7 +49,7 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
         role="alert"
         {...rest}
       >
-        {hasIcon && <AlertIcon variation={variation} ariaHidden={true} />}
+        {hasIcon && <AlertIcon variation={variation} ariaHidden />}
         <View flex="1">
           {heading && (
             <View className={ComponentClassNames.AlertHeading}>{heading}</View>

@@ -41,8 +41,8 @@ describe('View: ', () => {
     render(<View ref={ref}>{text}</View>);
 
     await screen.findByText(text);
-    expect(ref.current.nodeName).toBe('DIV');
-    expect(ref.current.innerHTML).toBe(text);
+    expect(ref.current?.nodeName).toBe('DIV');
+    expect(ref.current?.innerHTML).toBe(text);
   });
 
   it('can render a <button> HTML element', async () => {
@@ -134,5 +134,12 @@ describe('View: ', () => {
         kebabCase(ComponentPropsToStylePropsMap.color)
       )
     ).toBe('blue');
+  });
+
+  it('should work with inert', async () => {
+    const testId = 'inertTest';
+    render(<View testId={testId} inert />);
+    const view = await screen.findByTestId(testId);
+    expect(view).toHaveAttribute('inert');
   });
 });

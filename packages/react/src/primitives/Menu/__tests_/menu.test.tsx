@@ -9,6 +9,8 @@ import { MENU_TRIGGER_TEST_ID } from '../Menu';
 // Needed because of the Radix Popper used by Menu
 // https://github.com/radix-ui/primitives/blob/main/packages/react/popper/src/Popper.tsx#L127
 const globalDOMRect = global.DOMRect;
+// disable eslint for this mock due to complexity
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 global.DOMRect = {
   ...global.DOMReact,
   fromRect: jest.fn().mockReturnValue({
@@ -27,23 +29,27 @@ const globalResizeObserver = global.ResizeObserver;
 global.ResizeObserver = class ResizeObserver {
   cb: any;
   constructor(cb: any) {
+    // disable eslint for this mock due to complexity
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.cb = cb;
   }
   observe() {
+    // disable eslint for this mock due to complexity
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     this.cb([{ borderBoxSize: { inlineSize: 0, blockSize: 0 } }]);
   }
   unobserve() {}
   disconnect() {}
 };
 
-describe('Menu: ', () => {
+describe('Menu', () => {
   afterAll(() => {
     // restore globals
     global.DOMRect = globalDOMRect;
     global.ResizeObserver = globalResizeObserver;
   });
 
-  it('should be uncontrolled by default', async () => {
+  it('should be uncontrolled by default', () => {
     render(
       <Menu>
         <MenuItem>Option 1</MenuItem>
@@ -52,11 +58,11 @@ describe('Menu: ', () => {
       </Menu>
     );
 
-    const menuItemsGroup = await screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID);
+    const menuItemsGroup = screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID);
     expect(menuItemsGroup).toBeNull();
   });
 
-  it('should be openable (controlled)', async () => {
+  it('should be openable (controlled)', () => {
     render(
       <Menu isOpen>
         <MenuItem>Option 1</MenuItem>
@@ -65,11 +71,11 @@ describe('Menu: ', () => {
       </Menu>
     );
 
-    const menuItemsGroup = await screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID);
+    const menuItemsGroup = screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID);
     expect(menuItemsGroup).toHaveClass(ComponentClassNames.MenuContent);
   });
 
-  it('should be closable (controlled)', async () => {
+  it('should be closable (controlled)', () => {
     render(
       <Menu isOpen={false}>
         <MenuItem>Option 1</MenuItem>
@@ -78,9 +84,7 @@ describe('Menu: ', () => {
       </Menu>
     );
 
-    const menuItemsGroupClosed = await screen.queryByTestId(
-      MENU_ITEMS_GROUP_TEST_ID
-    );
+    const menuItemsGroupClosed = screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID);
     expect(menuItemsGroupClosed).toBeNull();
   });
 
@@ -103,7 +107,7 @@ describe('Menu: ', () => {
       render(<Menu ref={ref} isOpen></Menu>);
 
       await screen.findByTestId(MENU_ITEMS_GROUP_TEST_ID);
-      expect(ref.current.nodeName).toBe('DIV');
+      expect(ref.current?.nodeName).toBe('DIV');
     });
 
     it('should set size attribute', async () => {

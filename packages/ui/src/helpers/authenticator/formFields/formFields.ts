@@ -35,11 +35,19 @@ export const getFormFields = (
   return formFields;
 };
 
+export const removeOrderKeys = (formFields: FormFieldsArray): FormFieldsArray =>
+  formFields.map((field) => {
+    const key = field[0];
+    // Drop order key to prevent passing to form field UI components
+    const values = { ...field[1], order: undefined };
+    return [key, values];
+  });
+
 /** Calls `getFormFields` above, then sorts it into an indexed array */
 export const getSortedFormFields = (
   route: FormFieldComponents,
   state: AuthMachineState
 ): FormFieldsArray => {
   const formFields = getFormFields(route, state);
-  return sortFormFields(formFields);
+  return removeOrderKeys(sortFormFields(formFields));
 };

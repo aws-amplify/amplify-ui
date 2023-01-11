@@ -1,5 +1,41 @@
 # @aws-amplify/ui
 
+## 5.5.0
+
+### Minor Changes
+
+- [#3242](https://github.com/aws-amplify/amplify-ui/pull/3242) [`59321c9cc`](https://github.com/aws-amplify/amplify-ui/commit/59321c9cc15f8243edd6f5dd0113e7c396f7b488) Thanks [@vitaliikravets](https://github.com/vitaliikravets)! - Add support of Ukrainian language to Authenticator
+
+### Patch Changes
+
+- [#3282](https://github.com/aws-amplify/amplify-ui/pull/3282) [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): remove order keys from formFields after sorting
+
+## 5.4.2
+
+### Patch Changes
+
+- [#3201](https://github.com/aws-amplify/amplify-ui/pull/3201) [`2912fe3af`](https://github.com/aws-amplify/amplify-ui/commit/2912fe3af6f29cde562a35e931bc2e3a0de470ed) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated logic so users will now receive a code, when they are displayed the reset password page that asks for a code after signing in. This occurs when the users are imported into Cognito.
+
+- [#3238](https://github.com/aws-amplify/amplify-ui/pull/3238) [`ea1b10a2c`](https://github.com/aws-amplify/amplify-ui/commit/ea1b10a2c802b08ee019669ba442d7446f23bd05) Thanks [@wlee221](https://github.com/wlee221)! - fix(react): Manually add `overflow: clip` to remediate chrome 108 breaking change.
+
+  Ref: https://developer.chrome.com/blog/overflow-replaced-elements/
+
+## 5.4.1
+
+### Patch Changes
+
+- [#3153](https://github.com/aws-amplify/amplify-ui/pull/3153) [`db8f019a7`](https://github.com/aws-amplify/amplify-ui/commit/db8f019a7737c4762ff19c1b03c7c06625277989) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Add missing Authenticator translations
+
+## 5.4.0
+
+### Minor Changes
+
+- [#3158](https://github.com/aws-amplify/amplify-ui/pull/3158) [`0bbb9980c`](https://github.com/aws-amplify/amplify-ui/commit/0bbb9980c55f212ce54c5449a2dcc64bfce6ca8f) Thanks [@nandanbhat](https://github.com/nandanbhat)! - feat(Authenticator): Enable password validation on resetPassword and forceNewPassword screen
+
+### Patch Changes
+
+- [#2830](https://github.com/aws-amplify/amplify-ui/pull/2830) [`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(authenticator): adding package version to cognito user agent string
+
 ## 5.3.1
 
 ### Patch Changes

@@ -93,6 +93,7 @@ jobs:
         working-directory: ./canary/apps/${{ matrix.path }}
       - name: Run E2E tests against ${{ matrix.example }} example
         run: yarn test
+        id: e2e
         working-directory: ./canary
         env:
           # Env values for testing flows
@@ -101,6 +102,15 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      - name: Upload videos and screenshots
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: canary-cypress-error-{{ matrix.path }}
+          path: |
+            canary/e2e/cypress/videos/**
+            canary/e2e/cypress/screenshots/**
+          retention-days: 5
 
   log-failure-metric:
     # Send a failure data point to metric BuildAndRuntimeTestFailure in github-workflows@ us-east-2, if it's a failure
@@ -133,18 +143,3 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
           AWS_REGION: us-east-2
-
-  upload-files-on-error:
-    #send video and screenshots on failure as an artifact to be checked later
-    runs-on: ubuntu-latest
-    needs: build
-    if: ${{ failure() }}
-    steps:
-      - name: Upload videos and screenshots
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-and-runtime-test-cypress-error-files
-          path: |
-            canary/e2e/cypress/videos/**
-            canary/e2e/cypress/screenshots/**
-          retention-days: 5

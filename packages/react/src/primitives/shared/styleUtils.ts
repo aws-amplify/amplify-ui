@@ -135,7 +135,7 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
 
 export const useStyles = (
   props: ViewProps,
-  style: React.CSSProperties
+  style?: React.CSSProperties
 ): {
   propStyles: React.CSSProperties;
   nonStyleProps: Partial<ViewProps>;
@@ -167,10 +167,13 @@ export const useStyles = (
 
 interface SplitProps<PrimitiveProps> {
   styleProps: AllStyleProps;
-  rest: Omit<
-    PrimitiveProps,
-    keyof FlexContainerStyleProps | keyof BaseStyleProps
+  rest: Partial<
+    Omit<PrimitiveProps, keyof FlexContainerStyleProps | keyof BaseStyleProps>
   >;
+}
+
+function isStyleKey(prop: string): prop is keyof AllStyleProps {
+  return prop in ComponentPropsToStylePropsMap;
 }
 
 /**
@@ -179,19 +182,29 @@ interface SplitProps<PrimitiveProps> {
  * the rest on the input.
  * @param props this should be a destructured `rest` from the component's props
  */
-export const splitPrimitiveProps = <PrimitiveProps>(
+export const splitPrimitiveProps = <
+  PrimitiveProps extends Record<string, unknown>
+>(
   props: PrimitiveProps
 ): SplitProps<PrimitiveProps> => {
   const splitProps: SplitProps<PrimitiveProps> = {
     styleProps: {},
-    rest: {} as SplitProps<PrimitiveProps>['rest'],
+    rest: {},
   };
 
   Object.keys(props).forEach((prop) => {
-    if (prop in ComponentPropsToStylePropsMap) {
-      splitProps.styleProps[prop] = props[prop] as PrimitiveProps;
+    if (isStyleKey(prop)) {
+      // we know it is a style key
+      // so we know we can assign the key in styleProps
+      splitProps.styleProps = {
+        ...splitProps.styleProps,
+        [prop]: props[prop],
+      };
     } else {
-      splitProps.rest[prop] = props[prop] as PrimitiveProps;
+      splitProps.rest = {
+        ...splitProps.rest,
+        [prop]: props[prop],
+      };
     }
   });
 

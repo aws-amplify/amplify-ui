@@ -25,6 +25,7 @@ export const jaDict: AuthenticatorDictionary = {
   'Enter your username': 'ユーザー名を入力 ',
   'Forgot your password?': 'パスワードを忘れましたか？ ',
   'Hide password': 'パスワードを非表示',
+  'It may take a minute to arrive': '到着するまでに 1 分かかることがあります。',
   Loading: 'ロード中',
   'New password': '新しいパスワード',
   Password: 'パスワード ',
@@ -51,6 +52,10 @@ export const jaDict: AuthenticatorDictionary = {
   Username: 'ユーザー名 ',
   'Verify Contact': '連絡先を確認',
   Verify: '確認',
+  'We Sent A Code': 'コードが送信されました',
+  'We Texted You': 'テキストが送信されました',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'コードが途中です。ログインするには、送信したコードを入力してください。',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':

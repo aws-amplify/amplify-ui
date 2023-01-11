@@ -39,7 +39,7 @@ describe('Tabs: ', () => {
     );
 
     await screen.findByTestId('tabsId');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
   it('should skip over null children', async () => {
@@ -50,7 +50,23 @@ describe('Tabs: ', () => {
       </Tabs>
     );
     const tabs = await screen.findByTestId('tabsTest');
-    expect(tabs.children.length).toEqual(1);
+    const panels = await screen.findAllByRole('tabpanel');
+    expect(tabs.children).toHaveLength(1);
+    expect(panels).toHaveLength(1);
+  });
+
+  it('should work with defaultIndex and null children', async () => {
+    render(
+      <Tabs testId="tabsTest" defaultIndex={1}>
+        <TabItem title="Tab 1">Tab 1</TabItem>
+        {null}
+        {undefined}
+        <TabItem title="Tab 2">Tab 2</TabItem>
+      </Tabs>
+    );
+    const tabs = await screen.findAllByRole('tab');
+    expect(tabs).toHaveLength(2);
+    expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
   });
 
   it('should not log a warning for null children', async () => {
@@ -145,7 +161,7 @@ describe('Tabs: ', () => {
       );
 
       await screen.findByRole('tab');
-      expect(ref.current.nodeName).toBe('BUTTON');
+      expect(ref.current?.nodeName).toBe('BUTTON');
     });
   });
 });
