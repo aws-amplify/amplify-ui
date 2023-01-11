@@ -40,7 +40,8 @@
     "dev:build": "tsup",
     "clean": "rimraf dist node_modules",
     "lint": "tsc --noEmit --project tsconfig.dev.json && eslint src --ext .js,.ts,.tsx",
-    "test": "yarn test:unit",
+    "test": "yarn test:unit && yarn test:esm",
+    "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
@@ -123,13 +124,13 @@
   "size-limit": [
     {
       "name": "Authenticator",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ Authenticator }",
       "limit": "120 kB"
     },
     {
       "name": "Geo",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ MapView, LocationSearch }",
       "limit": "330 kB"
     }
