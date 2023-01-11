@@ -78,28 +78,6 @@ describe('Instruction', () => {
     resetAllWhenMocks();
   });
 
-  it('should render errorState if present', () => {
-    errorState = LivenessErrorState.RUNTIME_ERROR;
-    mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(<Instruction />);
-
-    expect(
-      screen.getByText(
-        LivenessErrorStateStringMap[LivenessErrorState.RUNTIME_ERROR]
-      )
-    ).toBeInTheDocument();
-  });
-
-  it('should render check failed state if present', () => {
-    isCheckFailed = true;
-    mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(<Instruction />);
-
-    expect(screen.getByText('Check unsuccessful')).toBeInTheDocument();
-  });
-
   it('should render not recording state if present', () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();

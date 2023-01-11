@@ -399,6 +399,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           'cancelOvalDrawingTimeout',
           'cancelWaitForDisconnectTimeout',
           'cancelOvalMatchTimeout',
+          'freezeStream',
         ],
       },
       checkFailed: {

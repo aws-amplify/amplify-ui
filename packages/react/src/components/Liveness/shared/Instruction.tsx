@@ -4,8 +4,6 @@ import {
   IlluminationState,
   IlluminationStateStringMap,
   FaceMatchStateStringMap,
-  LivenessErrorState,
-  LivenessErrorStateStringMap,
 } from '@aws-amplify/ui';
 
 import {
@@ -15,7 +13,7 @@ import {
 } from '../hooks';
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
-import { Flex, Loader, View, Button } from '../../../primitives';
+import { Flex, Loader, View } from '../../../primitives';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -36,7 +34,7 @@ export const selectOnuserCancel = createLivenessSelector(
 export interface InstructionProps {}
 
 export const Instruction: React.FC<InstructionProps> = () => {
-  const [state, send] = useLivenessActor();
+  const [state] = useLivenessActor();
 
   // NOTE: Do not change order of these selectors as the unit tests depend on this order
   const errorState = useLivenessSelector(selectErrorState);
@@ -62,43 +60,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
 
   const getInstructionContent = () => {
     if (errorState || isCheckFailed) {
-      let heading: string = null;
-
-      switch (errorState) {
-        case LivenessErrorState.TIMEOUT:
-          heading = translate('Time out');
-          break;
-        case LivenessErrorState.SERVER_ERROR:
-          heading = translate('Server Issue');
-          break;
-        case LivenessErrorState.RUNTIME_ERROR:
-        case LivenessErrorState.FACE_DISTANCE_ERROR:
-          heading = translate('Client error');
-          break;
-        default:
-          heading = isCheckFailed ? translate('Check unsuccessful') : null;
-      }
-
-      return (
-        <Overlay backgroundColor="overlay.40">
-          <Toast heading={heading} variation="error">
-            {errorState && LivenessErrorStateStringMap[errorState]}
-            <Flex justifyContent="center">
-              <Button
-                variation="primary"
-                type="button"
-                onClick={() => {
-                  send({
-                    type: 'CANCEL',
-                  });
-                }}
-              >
-                {translate('Try again')}
-              </Button>
-            </Flex>
-          </Toast>
-        </Overlay>
-      );
+      return;
     }
 
     if (isCheckFaceDetectedBeforeStart) {

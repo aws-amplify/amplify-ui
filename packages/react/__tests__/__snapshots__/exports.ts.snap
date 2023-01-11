@@ -21,6 +21,8 @@ Array [
   "Expander",
   "ExpanderItem",
   "FaceLivenessDetector",
+  "FaceLivenessErrorModal",
+  "FaceLivenessFailureModal",
   "FieldGroupIcon",
   "FieldGroupIconButton",
   "FileUploader",

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   FaceLivenessDetector,
   View,
@@ -5,6 +6,8 @@ import {
   Loader,
   Icon,
   Text,
+  FaceLivenessErrorModal,
+  FaceLivenessFailureModal,
 } from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
@@ -24,6 +27,9 @@ export default function LivenessDefault({
     handleGetLivenessDetection,
     stopLiveness,
   } = useLiveness();
+
+  const [error, setError] = useState(undefined);
+  const [checkFailed, setCheckFailed] = useState(false);
 
   if (createLivenessSessionApiError) {
     return <div>Some error occured...</div>;
@@ -54,14 +60,43 @@ export default function LivenessDefault({
             <LivenessLogo />
           </Icon>
 
-          <FaceLivenessDetector
-            sessionId={createLivenessSessionApiData.sessionId}
-            onUserCancel={stopLiveness}
-            onGetLivenessDetection={handleGetLivenessDetection}
-            enableAnalytics={true}
-            disableStartScreen={disableStartScreen}
-            components={components}
-          />
+          <Flex direction="column" position="relative">
+            <FaceLivenessDetector
+              sessionId={createLivenessSessionApiData.sessionId}
+              onUserCancel={stopLiveness}
+              onGetLivenessDetection={handleGetLivenessDetection}
+              onError={(error) => {
+                setError(error);
+              }}
+              onFailure={() => {
+                setCheckFailed(true);
+              }}
+              enableAnalytics={true}
+              disableStartScreen={disableStartScreen}
+              components={components}
+            />
+            {error ? (
+              <View style={{ zIndex: '1' }}>
+                <FaceLivenessErrorModal
+                  error={error}
+                  onRetry={() => {
+                    setError(undefined);
+                    stopLiveness();
+                  }}
+                />
+              </View>
+            ) : null}
+            {checkFailed ? (
+              <View style={{ zIndex: '1' }}>
+                <FaceLivenessFailureModal
+                  onRetry={() => {
+                    setCheckFailed(false);
+                    stopLiveness();
+                  }}
+                />
+              </View>
+            ) : null}
+          </Flex>
 
           <GetLivenessResultCard getLivenessResponse={getLivenessResponse} />
         </Flex>
