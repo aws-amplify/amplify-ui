@@ -1,7 +1,6 @@
 // rollup.config.js
 import { defineConfig } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
-// import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import styles from 'rollup-plugin-styles';
 import externals from 'rollup-plugin-node-externals';
