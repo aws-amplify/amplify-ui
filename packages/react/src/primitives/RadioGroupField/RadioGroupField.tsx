@@ -84,7 +84,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       {...rest}
     >
       <VisuallyHidden as="legend">{label}</VisuallyHidden>
-      <Label aria-hidden={true} visuallyHidden={labelHidden}>
+      <Label aria-hidden visuallyHidden={labelHidden}>
         {label}
       </Label>
       <FieldDescription
