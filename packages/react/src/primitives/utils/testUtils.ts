@@ -1,3 +1,6 @@
+// To be used in unit tests to make it easier to display
+// specific error messages in the console when running
+// expect assertions in a loop
 export const errorMessageWrapper = (
   fn: () => void,
   message: string
