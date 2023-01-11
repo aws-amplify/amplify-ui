@@ -264,7 +264,7 @@ describe('useFieldValues', () => {
       fields: [
         {
           ...mockTextField,
-          label: `${mockTextField.label}*`,
+          label: `${mockTextField.label} *`,
           onBlur: expect.any(Function),
           onChangeText: expect.any(Function),
           value: mockValue,

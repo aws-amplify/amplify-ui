@@ -73,7 +73,10 @@ export default function useFieldValues<FieldType extends TypedField>({
     const getDisplayLabel = (): string | undefined => {
       if (!label || labelHidden) return undefined;
 
-      return required ? `${label}*` : label;
+      // if * is already appended through state machine manipulations
+      if (label.endsWith('*')) return label;
+
+      return required ? `${label} *` : label;
     };
 
     return {
