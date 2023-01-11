@@ -41,7 +41,7 @@ jobs:
         run: yarn global add @aws-amplify/cli
       - name: Get CLI versions
         id: cli-version
-        run: echo "::set-output name=version::$(amplify --version)"
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
       - name: Create or restore environments cache
         id: environments-cache
         uses: actions/cache@v3
