@@ -9,7 +9,7 @@ import { ExpanderProps } from '../types/expander';
 import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 
-const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
+const ExpanderPrimitive: Primitive<ExpanderProps, 'div'> = (
   {
     children,
     className,
