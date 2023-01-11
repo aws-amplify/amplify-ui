@@ -1,5 +1,16 @@
 # @aws-amplify/ui-vue
 
+## 3.1.3
+
+### Patch Changes
+
+- [#3278](https://github.com/aws-amplify/amplify-ui/pull/3278) [`44da5a29d`](https://github.com/aws-amplify/amplify-ui/commit/44da5a29d4f13ad6b381a21031b2d66c2a41ac06) Thanks [@wlee221](https://github.com/wlee221)! - chore(angular,vue): add back classnames removed in #2875
+
+- [#3282](https://github.com/aws-amplify/amplify-ui/pull/3282) [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): remove order keys from formFields after sorting
+
+- Updated dependencies [[`59321c9cc`](https://github.com/aws-amplify/amplify-ui/commit/59321c9cc15f8243edd6f5dd0113e7c396f7b488), [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9)]:
+  - @aws-amplify/ui@5.5.0
+
 ## 3.1.2
 
 ### Patch Changes
