@@ -372,6 +372,10 @@ Then('I will be redirected to the confirm forgot password page', () => {
   cy.findInputField('New Password').should('exist');
 });
 
+When('I type my username with untrimmed spaces', () => {
+  cy.findInputField('Username').type(` ${Cypress.env('USERNAME')}+CONFIRMED `);
+});
+
 When('I type an invalid wrong complexity new password', () => {
   cy.findInputField('New Password').type('inv');
 });
