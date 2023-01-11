@@ -11,7 +11,7 @@ import { isFunction } from '../shared/utils';
 import { Label } from '../Label';
 import { Primitive } from '../types/view';
 import { SliderFieldProps } from '../types/sliderField';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
 

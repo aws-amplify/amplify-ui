@@ -7,7 +7,7 @@ import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { Select } from '../Select';
 import { SelectFieldProps, Primitive } from '../types';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 
 interface SelectFieldChildrenProps {

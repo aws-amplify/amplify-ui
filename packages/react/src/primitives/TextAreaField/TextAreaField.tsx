@@ -6,7 +6,7 @@ import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { Primitive } from '../types';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { TextArea } from '../TextArea';
 import { TextAreaFieldProps } from '../types/textAreaField';
 import { useStableId } from '../utils/useStableId';
