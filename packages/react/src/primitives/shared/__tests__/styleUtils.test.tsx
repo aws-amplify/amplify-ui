@@ -9,11 +9,7 @@ import {
   useStyles,
   useTransformStyleProps,
 } from '../styleUtils';
-import {
-  AllStyleProps,
-  ComponentPropsToStylePropsMap,
-  ViewProps,
-} from '../../types';
+import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
 import { Breakpoint } from '../../types/responsive';
 
 const props: ViewProps = {
