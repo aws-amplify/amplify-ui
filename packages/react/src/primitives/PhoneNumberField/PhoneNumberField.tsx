@@ -27,7 +27,6 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     onDialCodeChange,
     onInput,
     size,
-    type,
     variation,
     ...rest
   },

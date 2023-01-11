@@ -25,12 +25,13 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
 ) => {
   const {
     className,
-    descriptiveText,
-    // this is only required in useStepper hook but deconstruct here to remove its existence in rest
+    // destructure to prevent `defaultValue` from being passed to underlying `Input` via `_rest`
     defaultValue,
+    descriptiveText,
     errorMessage,
     hasError = false,
     id,
+    inputStyles,
     isDisabled,
     isReadOnly,
     isRequired,
@@ -38,14 +39,13 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     decreaseButtonLabel = ComponentText.StepperField.decreaseButtonLabel,
     label,
     labelHidden = false,
+    // destructure to prevent `onStepChange` from being passed to underlying `Input` via `_rest`
     onStepChange,
     size,
-    variation,
     testId,
-    inputStyles,
-
     // this is only required in useStepper hook but deconstruct here to remove its existence in rest
     value: controlledValue,
+    variation,
     ..._rest
   } = props;
 
@@ -67,7 +67,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     setInputValue,
     shouldDisableDecreaseButton,
     shouldDisableIncreaseButton,
-  } = useStepper(props);
+  } = useStepper({ ...props, defaultValue, onStepChange });
 
   React.useEffect(() => {
     const isControlled = controlledValue !== undefined;

@@ -103,4 +103,20 @@ describe('useStepper: ', () => {
     );
     expect(result.current.value).toEqual(5);
   });
+
+  it('should call the onChange prop when provided', () => {
+    const onChange = jest.fn();
+    const { result } = renderHook(() =>
+      useStepper({
+        label,
+        value: 10,
+        onChange,
+      })
+    );
+    const mockMouseEvent = {
+      target: {},
+    } as React.ChangeEvent<HTMLInputElement>;
+    act(() => result.current.handleOnChange(mockMouseEvent));
+    expect(onChange).toBeCalledTimes(1);
+  });
 });

@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import isObject from 'lodash/isObject';
+import isString from 'lodash/isString';
 
 function isEmptyArray<T>(value: T): boolean {
   return Array.isArray(value) && isEmpty(value);
@@ -15,4 +16,14 @@ function isEmptyObject<T>(value: T): boolean {
 
 export function areEmptyObjects<T>(...values: T[]): boolean {
   return values.every(isEmptyObject);
+}
+
+export function templateJoin(
+  values: string[],
+  template: (value: string) => string
+): string {
+  return values.reduce(
+    (acc, curr) => `${acc}${isString(curr) ? template(curr) : ''}`,
+    ''
+  );
 }
