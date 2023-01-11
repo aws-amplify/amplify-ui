@@ -12,7 +12,7 @@ import { getTestId } from '../utils/testUtils';
 import { useStableId } from '../utils/useStableId';
 import { useCheckbox } from './useCheckbox';
 import { ComponentClassNames } from '../shared/constants';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
