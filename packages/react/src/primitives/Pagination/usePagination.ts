@@ -5,7 +5,7 @@ import { UsePaginationProps, UsePaginationResult } from '../types/pagination';
 export const usePagination = (
   props: UsePaginationProps
 ): UsePaginationResult => {
-  let {
+  const {
     currentPage: initialPage = 1,
     totalPages,
     hasMorePages = false,
@@ -13,21 +13,22 @@ export const usePagination = (
   } = props;
 
   // The current page should not be less than 1
-  initialPage = Math.max(initialPage, 1);
-  // The sibling count should not be less than 1
-  siblingCount = Math.max(siblingCount, 1);
+  const sanitizedInitialPage = Math.max(initialPage, 1);
+
   // The total pages should be always greater than current page
-  totalPages = Math.max(initialPage, totalPages);
-  const [currentPage, setCurrentPage] = React.useState(initialPage);
+  const sanitizedTotalPages = Math.max(sanitizedInitialPage, totalPages);
+  const [currentPage, setCurrentPage] = React.useState(sanitizedInitialPage);
 
   // Reset current page if initialPage or totalPages changes
-  React.useEffect(() => setCurrentPage(initialPage), [initialPage, totalPages]);
+  React.useEffect(() => {
+    setCurrentPage(sanitizedInitialPage);
+  }, [sanitizedInitialPage, sanitizedTotalPages]);
 
   const onNext = React.useCallback(() => {
-    if (currentPage < totalPages) {
+    if (currentPage < sanitizedTotalPages) {
       setCurrentPage(currentPage + 1);
     }
-  }, [currentPage, totalPages]);
+  }, [currentPage, sanitizedTotalPages]);
 
   const onPrevious = React.useCallback(() => {
     if (currentPage > 1) {
@@ -35,17 +36,18 @@ export const usePagination = (
     }
   }, [currentPage]);
 
-  const onChange = React.useCallback((newPage: number, prevPage: number) => {
+  const onChange = React.useCallback((newPage: number, _: number) => {
     setCurrentPage(newPage);
   }, []);
 
   return {
     currentPage,
-    totalPages,
     hasMorePages,
-    siblingCount,
+    onChange,
     onNext,
     onPrevious,
-    onChange,
+    // The sibling count should not be less than 1
+    siblingCount: Math.max(siblingCount, 1),
+    totalPages: sanitizedTotalPages,
   };
 };

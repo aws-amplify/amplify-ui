@@ -44,7 +44,6 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
     testId,
     thumbColor,
     trackSize,
-    dir,
     value,
     size,
     ..._rest

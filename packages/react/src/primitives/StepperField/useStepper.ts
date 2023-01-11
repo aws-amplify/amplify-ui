@@ -3,12 +3,37 @@ import * as React from 'react';
 import { StepperFieldProps } from '../types/stepperField';
 import { isFunction } from '../shared/utils';
 
-const getCorrectSteppingValue = (
-  min: number,
-  max: number,
-  step: number,
-  value: number
-) => {
+type ChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
+type ClickHandler = React.MouseEventHandler<HTMLButtonElement>;
+type FocusHandler = React.FocusEventHandler<HTMLInputElement>;
+type WheelHandler = React.WheelEventHandler<HTMLInputElement>;
+
+type InputValue = number | string;
+
+interface UseStepper
+  extends Required<Pick<StepperFieldProps, 'step' | 'value'>> {
+  inputValue: InputValue;
+  handleDecrease: ClickHandler;
+  handleIncrease: ClickHandler;
+  handleOnBlur: FocusHandler;
+  handleOnChange: ChangeHandler;
+  handleOnWheel: WheelHandler;
+  setInputValue: React.Dispatch<React.SetStateAction<InputValue>>;
+  shouldDisableDecreaseButton: boolean;
+  shouldDisableIncreaseButton: boolean;
+}
+
+const getCorrectSteppingValue = ({
+  max,
+  min,
+  step,
+  value,
+}: {
+  max: number;
+  min: number;
+  step: number;
+  value: number;
+}) => {
   // Round it to the closest step value
   // It will be based off min to be consistent with native input[type="number"]
   // This allows keyboard accessible
@@ -32,10 +57,11 @@ export const useStepper = ({
   min = Number.MIN_SAFE_INTEGER,
   isDisabled,
   isReadOnly,
+  onChange,
   onDecrease,
   onIncrease,
   onStepChange,
-}: StepperFieldProps) => {
+}: StepperFieldProps & { onChange?: ChangeHandler }): UseStepper => {
   const isControlled = controlledValue !== undefined;
 
   // Make sure max value is greater than or equal to min value
@@ -45,13 +71,13 @@ export const useStepper = ({
   // This allows to take over the input value and correct any invalid versus purely relying on the native uncontrolled input
   const [uncontrolledValue, setUncontrolledValue] = React.useState(() =>
     // This is required for users could provide any defaultValue
-    getCorrectSteppingValue(min, max, step, defaultValue)
+    getCorrectSteppingValue({ min, max, step, value: defaultValue })
   );
 
   // Same for controlled components on the first render because users could provide invalid initial value.
   // It seems redundant afterwards but necessary for the first render
   const value = isControlled
-    ? getCorrectSteppingValue(min, max, step, controlledValue)
+    ? getCorrectSteppingValue({ min, max, step, value: controlledValue })
     : uncontrolledValue;
 
   const shouldDisableIncreaseButton =
@@ -62,25 +88,37 @@ export const useStepper = ({
 
   // This is the exact value to be rendered on screen
   // It could be a string, like '-' or empty string when users clear the input
-  const [inputValue, setInputValue] = React.useState<number | string>(value);
+  const [inputValue, setInputValue] = React.useState<InputValue>(value);
 
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> =
-    React.useCallback((event) => {
-      setInputValue(event.target.value);
-    }, []);
+    React.useCallback(
+      (event) => {
+        setInputValue(event.target.value);
+
+        if (typeof onChange === 'function') {
+          onChange(event);
+        }
+      },
+      [onChange]
+    );
 
   const handleOnBlur: React.FocusEventHandler<HTMLInputElement> =
     React.useCallback(
       (event) => {
-        let newValue = parseFloat(event.target.value);
+        const parsedValue = parseFloat(event.target.value);
         // Though input[type='number'] has built-in validation to reject non-numerical entries
         // The entered value could still be empty string or minus '-'
         // in these cases, no need to do the following validation
-        if (isNaN(newValue)) {
+        if (isNaN(parsedValue)) {
           return;
         }
 
-        newValue = getCorrectSteppingValue(min, max, step, newValue);
+        const newValue = getCorrectSteppingValue({
+          min,
+          max,
+          step,
+          value: parsedValue,
+        });
 
         if (!isControlled) {
           setUncontrolledValue(newValue);

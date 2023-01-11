@@ -8792,7 +8792,7 @@ exports[`Props Table 1`] = `
                     \\"onStepChange\\": {
                         \\"name\\": \\"onStepChange\\",
                         \\"type\\": \\"(value: number) => void\\",
-                        \\"description\\": \\"TODO:\\\\nExtends StepperField props from Omit<TextFieldProps, 'onChange'>, after removing [key: string]: any from the base type\\\\nand rename onStepChange to onChange\\",
+                        \\"description\\": \\"Event handler called with the current step value when it is updated\\",
                         \\"category\\": \\"StepperFieldProps\\",
                         \\"isOptional\\": true
                     },
