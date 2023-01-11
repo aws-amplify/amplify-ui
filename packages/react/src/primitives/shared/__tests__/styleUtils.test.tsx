@@ -6,7 +6,6 @@ import {
   convertGridSpan,
   convertStylePropsToStyleObj,
   getGridSpan,
-  splitPrimitiveProps,
   useStyles,
   useTransformStyleProps,
 } from '../styleUtils';
