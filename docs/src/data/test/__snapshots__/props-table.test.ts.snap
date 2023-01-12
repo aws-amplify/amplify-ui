@@ -2251,13 +2251,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"ExpanderProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"onValueChange\\": {
-                        \\"name\\": \\"onValueChange\\",
-                        \\"type\\": \\"(value?: string | string[]) => void\\",
-                        \\"description\\": \\"Event handler called when the expanded state of an item changes\\",
-                        \\"category\\": \\"ExpanderProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"isCollapsible\\": {
                         \\"name\\": \\"isCollapsible\\",
                         \\"type\\": \\"boolean\\",
@@ -2265,11 +2258,11 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"ExpanderProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"disabled\\": {
-                        \\"name\\": \\"disabled\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"DefaultValue: false\\",
-                        \\"category\\": \\"AccordionImplProps\\",
+                    \\"onValueChange\\": {
+                        \\"name\\": \\"onValueChange\\",
+                        \\"type\\": \\"(value?: string | string[]) => void\\",
+                        \\"description\\": \\"Event handler called when the expanded state of an item changes\\",
+                        \\"category\\": \\"ExpanderProps\\",
                         \\"isOptional\\": true
                     }
                 }
