@@ -71,13 +71,13 @@ export default function NavBar({
                 </Icon>
               </Button>
 
-              <Link href="/liveness-next-example">With Start Screen</Link>
+              <Link href="/ui/components/liveness">With Start Screen</Link>
 
-              <Link href="/liveness-next-example/disable-start-screen">
+              <Link href="/ui/components/liveness/disable-start-screen">
                 Disable Start Screen
               </Link>
 
-              <Link href="/liveness-next-example/with-custom-components">
+              <Link href="/ui/components/liveness/with-custom-components">
                 With Custom Components
               </Link>
             </Flex>
