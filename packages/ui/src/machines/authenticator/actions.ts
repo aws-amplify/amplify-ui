@@ -145,7 +145,7 @@ export const handleSubmit = assign({
       ...context['formValues'],
       ...event.data,
     };
-    return trimValues(formValues, 'password');
+    return trimValues(formValues, 'password'); // do not trim password
   },
 });
 
