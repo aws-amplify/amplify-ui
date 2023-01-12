@@ -10,6 +10,9 @@
 name: Test and Publish / <BRANCH>
 
 on:
+  # You may change this to `pull_request` if you want to run this on a PRs.
+  # This can be useful for publishing hotfixes quickly to unblock customers,
+  # but otherwise, we recommend to use a release branch.
   push:
     branches: [<BRANCH>]
 
