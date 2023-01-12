@@ -1,2 +1,4 @@
 yarn.lock
 package-lock.json
+# .npmrc is used to disable lockfiles
+!.npmrc 

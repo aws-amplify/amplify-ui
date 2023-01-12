@@ -7,7 +7,7 @@ import { CheckboxFieldProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared';
 import { FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
-import { getTestId } from '../utils/testUtils';
+import { getTestId } from '../utils/getTestId';
 
 const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   {

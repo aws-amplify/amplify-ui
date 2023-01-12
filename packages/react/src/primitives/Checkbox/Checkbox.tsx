@@ -8,11 +8,11 @@ import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
 import { Primitive } from '../types/view';
-import { getTestId } from '../utils/testUtils';
+import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
 import { useCheckbox } from './useCheckbox';
 import { ComponentClassNames } from '../shared/constants';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
