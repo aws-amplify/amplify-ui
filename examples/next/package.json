@@ -15,9 +15,11 @@
     "next": "^11.1.3",
     "next-global-css": "^1.1.1",
     "react": "17",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "17",
     "react-icons": "^4.4.0",
-    "react-map-gl": "7.0.15"
+    "react-map-gl": "7.0.15",
+    "swr": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^15.12.4",
