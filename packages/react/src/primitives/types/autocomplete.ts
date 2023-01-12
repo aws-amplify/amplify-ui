@@ -148,7 +148,7 @@ export interface UseAutocompleteProps extends Partial<AutocompleteProps> {
 type SetStateAction<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export interface UseAutocomplete {
-  activeOptionId: ComboBoxOption['id'];
+  activeOptionId?: ComboBoxOption['id'];
   autocompleteId: string;
   composedValue: string;
   filteredOptions: ComboBoxOption[];
@@ -163,7 +163,7 @@ export interface UseAutocomplete {
   listboxId: string;
   menuId: string;
   optionBaseId: string;
-  setActiveOption: SetStateAction<ComboBoxOption>;
+  setActiveOption: SetStateAction<ComboBoxOption | null>;
   setIsMenuOpen: SetStateAction<boolean>;
   setInternalValue: SetStateAction<string>;
 }

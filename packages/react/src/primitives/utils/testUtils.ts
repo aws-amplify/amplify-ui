@@ -1,8 +1,6 @@
-export const getTestId = (
-  testId?: string,
-  component?: string
-): string | undefined =>
-  testId && component ? `${testId}-${component}` : undefined;
+// To be used in unit tests to make it easier to display
+// specific error messages in the console when running
+// expect assertions in a loop
 
 export const errorMessageWrapper = (
   fn: () => void,
