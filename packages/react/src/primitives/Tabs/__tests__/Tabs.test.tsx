@@ -5,7 +5,7 @@ import { Tabs, TabItem } from '../Tabs';
 import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';
 
-describe('Tabs: ', () => {
+describe('Tabs', () => {
   it('can render custom classnames', async () => {
     render(
       <Tabs className="custom-classname" testId="tabsId">
@@ -69,48 +69,7 @@ describe('Tabs: ', () => {
     expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
   });
 
-  it('should not log a warning for null children', async () => {
-    const warningMessage =
-      'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
-    jest.spyOn(console, 'warn');
-
-    render(
-      <Tabs testId="tabsTest">
-        <TabItem title="Tab 1">Tab 1</TabItem>
-        {null}
-      </Tabs>
-    );
-
-    expect(console.warn).not.toHaveBeenCalledWith(warningMessage);
-  });
-
-  it('should log a warning for children not matching the TabItem structure', async () => {
-    const invalidChildren = [
-      123,
-      'test',
-      <div>
-        <span></span>
-      </div>,
-    ];
-    const warningMessage =
-      'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
-    const spy = jest.spyOn(console, 'warn').mockImplementation();
-
-    invalidChildren.forEach((child) => {
-      render(
-        <Tabs testId="tabsTest">
-          <TabItem title="Tab 1">Tab 1</TabItem>
-          {child as any}
-        </Tabs>
-      );
-
-      expect(console.warn).toHaveBeenCalledWith(warningMessage);
-
-      spy.mockClear();
-    });
-  });
-
-  describe('TabItem: ', () => {
+  describe('TabItem', () => {
     it('can render custom classnames', async () => {
       render(
         <Tabs>

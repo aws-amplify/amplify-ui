@@ -10,7 +10,7 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { getTestId } from '../../utils/testUtils';
+import { getTestId } from '../../utils/getTestId';
 
 describe('RadioFieldGroup test suite', () => {
   const basicProps = { label: 'testLabel', name: 'testName', testId: 'testId' };

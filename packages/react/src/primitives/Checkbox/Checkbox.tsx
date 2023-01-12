@@ -8,7 +8,7 @@ import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
 import { Primitive } from '../types/view';
-import { getTestId } from '../utils/testUtils';
+import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
 import { useCheckbox } from './useCheckbox';
 import { ComponentClassNames } from '../shared/constants';
