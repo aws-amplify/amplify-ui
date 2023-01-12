@@ -7,7 +7,7 @@ import { ComponentClassNames, ComponentText } from '../../shared/constants';
 import { classNameModifier } from '../../shared/utils';
 import type { AutocompleteProps } from '../../types/autocomplete';
 
-describe('Autocomplete: ', () => {
+describe('Autocomplete:', () => {
   const label = 'Autocomplete';
   const testId = 'autocomplete-test-id';
   const options = [

@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 import { View } from '../View';
 import { ComponentPropsToStylePropsMap } from '../../types';
 
-describe('View: ', () => {
+describe('View:', () => {
   const viewText = 'Hello from inside a view';
 
   it('renders correct defaults', async () => {
@@ -83,11 +83,11 @@ describe('View: ', () => {
 
   it('can be disabled', async () => {
     render(
-      <View as="button" isDisabled={true}>
+      <View as="button" isDisabled>
         Click me!
       </View>
     );
-    const view = (await screen.findByRole('button')) as HTMLButtonElement;
+    const view = await screen.findByRole<HTMLButtonElement>('button');
     expect(view.disabled).toBe(true);
   });
 

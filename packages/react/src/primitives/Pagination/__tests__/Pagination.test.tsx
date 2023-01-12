@@ -10,7 +10,7 @@ import {
   PAGINATION_ELLIPSIS_TEST_ID,
 } from '../PaginationItem';
 
-describe('Pagination component: ', () => {
+describe('Pagination component:', () => {
   const id = 'my-pagination';
   it('should render pagination with provided props', async () => {
     const currentPage = 1;
@@ -114,7 +114,7 @@ describe('Pagination component: ', () => {
 
   it('should enable previous page button and next page button if current page is the last page and there are more pages', async () => {
     render(
-      <Pagination id={id} currentPage={5} totalPages={5} hasMorePages={true} />
+      <Pagination id={id} currentPage={5} totalPages={5} hasMorePages />
     );
 
     const previous = await screen.findByLabelText(
@@ -313,7 +313,7 @@ describe('Pagination component: ', () => {
     expect(page3).toHaveAttribute('aria-label', page3Label);
   });
 
-  describe('PaginationItem: ', () => {
+  describe('PaginationItem:', () => {
     it('should render page item with provided props', async () => {
       const mockOnClick = jest.fn();
       const page = 1;

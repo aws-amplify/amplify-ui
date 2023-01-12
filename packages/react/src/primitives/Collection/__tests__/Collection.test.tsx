@@ -163,7 +163,7 @@ describe('Collection component', () => {
 
   it('can render arbitrary attributes to items container', async () => {
     render(
-      <Collection data-demo={true} testId={testList} type="list" items={emojis}>
+      <Collection data-demo testId={testList} type="list" items={emojis}>
         {(item, index) => (
           <div key={index} aria-label={item.title}>
             {item.emoji}

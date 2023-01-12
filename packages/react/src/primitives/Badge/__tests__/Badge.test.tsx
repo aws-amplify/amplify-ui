@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { Badge } from '../Badge';
 import { ComponentClassNames } from '../../shared';
 
-describe('Badge: ', () => {
+describe('Badge:', () => {
   const badgeText = 'Badge primitive';
 
   it('can render badge variations', async () => {

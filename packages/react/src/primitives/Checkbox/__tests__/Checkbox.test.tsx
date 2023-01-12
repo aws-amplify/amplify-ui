@@ -30,21 +30,21 @@ describe('Checkbox test suite', () => {
           label="disabled"
           name="disabled"
           value="disabled"
-          isDisabled={true}
+          isDisabled
           testId="disabled"
         />
         <Checkbox
           label="error"
           name="error"
           value="error"
-          hasError={true}
+          hasError
           testId="error"
         />
         <Checkbox
           label="checked"
           name="checked"
           value="checked"
-          checked={true}
+          checked
           testId="checked"
         />
         <Checkbox

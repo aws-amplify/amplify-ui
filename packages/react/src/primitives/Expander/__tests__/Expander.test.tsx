@@ -7,7 +7,7 @@ import { ExpanderItem } from '../ExpanderItem';
 import { ExpanderProps } from '../../types/expander';
 import { ComponentClassNames } from '../../shared/constants';
 
-describe('Expander: ', () => {
+describe('Expander:', () => {
   const UncontrolledExpander = React.forwardRef<HTMLDivElement, ExpanderProps>(
     (props, ref) => {
       return (

@@ -47,7 +47,7 @@ describe('SetupTOTP', () => {
     });
   });
 
-  it('handles an undefined value when looking up its form field values', async () => {
+  it('handles an undefined value when looking up QR field values', async () => {
     await act(async () => {
       render(<SetupTOTP className="className" variation="default" />);
     });
@@ -60,7 +60,7 @@ describe('SetupTOTP', () => {
     );
   });
 
-  it('handles custom values passed as form field values', async () => {
+  it('handles custom values passed as QR field values', async () => {
     const customTotpIssuer = 'customTOTPIssuer';
     const customTotpUsername = 'customTotpUsername';
 

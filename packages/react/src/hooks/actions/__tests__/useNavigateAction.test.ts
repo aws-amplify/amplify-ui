@@ -17,7 +17,7 @@ import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 
 jest.mock('aws-amplify');
 
-describe('useNavigateHook: ', () => {
+describe('useNavigateHook:', () => {
   let windowSpy: jest.SpyInstance;
   const url = 'https://www.amazon.com/';
   const target = '_blank';
@@ -105,7 +105,7 @@ describe('useNavigateHook: ', () => {
   });
 
   it('Should call window.reload', () => {
-    const location = window.location;
+    const {location} = window;
     // reload is a read-only prop and thus cannot be simply spied on
     // https://stackoverflow.com/questions/55712640/jest-testing-window-location-reload
     // @ts-ignore
