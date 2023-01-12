@@ -9,7 +9,10 @@ import { ExpanderProps } from '../types/expander';
 import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 
-const { Root } = Accordion;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+const sanitizedAccordion = (Accordion as any).default ?? Accordion;
+const { Root } = sanitizedAccordion as typeof Accordion;
+
 const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
   {
     children,

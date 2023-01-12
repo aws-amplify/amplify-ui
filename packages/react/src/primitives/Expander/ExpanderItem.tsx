@@ -10,7 +10,11 @@ import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
 
-const { Item, Header, Trigger, Content } = Accordion;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+const sanitizedAccordion = (Accordion as any).default ?? Accordion;
+const { Item, Header, Trigger, Content } =
+  sanitizedAccordion as typeof Accordion;
+
 export const EXPANDER_ITEM_TEST_ID = 'expander-item';
 export const EXPANDER_HEADER_TEST_ID = 'expander-header';
 export const EXPANDER_ICON_TEST_ID = 'expander-icon';

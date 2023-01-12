@@ -7,7 +7,14 @@ import { Flex } from '../Flex';
 import { TabsProps, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
 
-const { Root, List, Trigger: RadixTab, Content: Panel } = RadixTabs;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+const sanitizedRadixTabs = (RadixTabs as any).default ?? RadixTabs;
+const {
+  Root,
+  List,
+  Trigger: RadixTab,
+  Content: Panel,
+} = sanitizedRadixTabs as typeof RadixTabs;
 
 const isTabsType = (child: any): child is React.ReactElement<TabItemProps> => {
   return (

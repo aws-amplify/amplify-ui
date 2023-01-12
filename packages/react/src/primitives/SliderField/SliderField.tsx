@@ -15,7 +15,11 @@ import { splitPrimitiveProps } from '../shared/styleUtils';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
 
-const { Range, Root, Thumb, Track } = RadixSlider;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+const sanitizedRadixSlider = (RadixSlider as any).default ?? RadixSlider;
+const { Range, Root, Thumb, Track } =
+  sanitizedRadixSlider as typeof RadixSlider;
+
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';
 export const SLIDER_TRACK_TEST_ID = 'slider-track';

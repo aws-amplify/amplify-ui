@@ -80,7 +80,6 @@
     }
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^7.0.8",
     "@svgr/core": "^5.5.0",
