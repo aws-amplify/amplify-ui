@@ -50,7 +50,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   const dataId = useStableId();
   React.useEffect(() => {
     const input = document.querySelector(`[data-id="${dataId}"]`);
-    if (input && isIndeterminate !== undefined) {
+    if (input && typeof isIndeterminate === 'boolean') {
       // HTMLInputElement does not have an `indeterminate` attribute
       (input as HTMLInputElement & { indeterminate: boolean }).indeterminate =
         isIndeterminate;

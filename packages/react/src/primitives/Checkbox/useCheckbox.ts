@@ -4,8 +4,8 @@ import { isFunction } from '../shared/utils';
 import { UseCheckbox } from '../types/checkbox';
 
 export const useCheckbox = (
-  initialChecked: boolean | undefined,
-  onChangeProp: React.ChangeEventHandler | undefined
+  initialChecked?: boolean,
+  onChangeProp?: React.ChangeEventHandler
 ): UseCheckbox => {
   const [dataChecked, setDataChecked] = useState(initialChecked);
   const [dataFocus, setDataFocus] = useState(false);
