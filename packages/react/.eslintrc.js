@@ -1,4 +1,7 @@
-const { templateJoin } = require('@aws-amplify/ui-react-core');
+// TODO remove when `primitivePatterns` is no longer required
+function templateJoin(values, template) {
+  return values.reduce((acc, curr) => `${acc}${template(curr)}`, '');
+}
 
 // TODO remove these once the full set of rules can be turned on for the repo
 // extensions that should be ran against the entire repo
