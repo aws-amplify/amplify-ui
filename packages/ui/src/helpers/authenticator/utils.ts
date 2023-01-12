@@ -154,12 +154,15 @@ export const getTotpCodeURL = (
     `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
   );
 
-export const trimValues = (
-  formData: Record<string, string>,
-  ...ignoreList: string[]
-): Record<string, string> => {
-  return Object.entries(formData).reduce((trimmedFormData, [name, value]) => {
-    trimmedFormData[name] = ignoreList.includes(name) ? value : value?.trim();
-    return trimmedFormData;
-  }, {});
-};
+export function trimValues<T extends Record<string, string>>(
+  values: T,
+  ...ignored: string[]
+): T {
+  return Object.entries(values).reduce(
+    (acc, [name, value]) => ({
+      ...acc,
+      [name]: ignored.includes(name) ? value : value?.trim(),
+    }),
+    {} as T
+  );
+}
