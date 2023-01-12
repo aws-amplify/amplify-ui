@@ -9,6 +9,9 @@ module.exports = {
     // config files
     '*.config.js',
     '.eslintrc.js',
+
+    // TODO remove once the full set of rules can be turned on for the repo
+    'src/react-shim.js',
     'jest.setup.ts',
   ],
   extends: [
