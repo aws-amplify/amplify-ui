@@ -23,12 +23,12 @@ const ToggleButtonGroupPrimitive: Primitive<
   },
   ref
 ) => {
-  const handleChange = useToggleButtonGroup(
+  const handleChange = useToggleButtonGroup({
     onChange,
     value,
     isExclusive,
-    isSelectionRequired
-  );
+    isSelectionRequired,
+  });
 
   return (
     <Flex

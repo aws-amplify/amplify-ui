@@ -14,6 +14,8 @@ export interface AutocompleteComboboxProps {
 }
 
 export interface ComboBoxOption {
+  [key: string]: string;
+
   /**
    * @description
    * Unique id for an option
@@ -25,8 +27,6 @@ export interface ComboBoxOption {
    * Label for an option
    */
   label: string;
-
-  [key: string]: string;
 }
 
 export interface AutocompleteOptionProps extends ViewProps {
