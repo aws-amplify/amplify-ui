@@ -8,7 +8,7 @@ import { Label } from '../Label';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import { RadioGroupFieldProps, Primitive } from '../types';
-import { getTestId } from '../utils/testUtils';
+import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
