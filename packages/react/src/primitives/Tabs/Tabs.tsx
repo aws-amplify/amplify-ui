@@ -9,17 +9,21 @@ import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { TabsProps, TabItemProps, Primitive } from '../types';
+import { TabsProps, TabsSpacing, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
 
-const isTabsType = (child: any): child is React.ReactElement<TabItemProps> => {
-  return (
-    child !== null &&
-    typeof child === 'object' &&
-    child.hasOwnProperty('props') &&
-    child.props.title != null
-  );
-};
+// `TabItemProps` does not include `data-apacing` or `value` but they are available
+// when using the `TabItemPrimitive` directly. In order to prevent TS errors when
+// passing those props to the `TabsItem` inside `Tabs` we extend `TabItemProps`
+interface ExtendedTabItemProps extends TabItemProps {
+  'data-spacing': TabsSpacing;
+  value: string;
+}
+
+const isExtendedTabItem = (
+  child: React.ReactFragment | React.ReactChild | React.ReactPortal
+): child is React.ReactElement<ExtendedTabItemProps> =>
+  React.isValidElement<TabItemProps>(child);
 
 const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   {
@@ -61,9 +65,9 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
           {...rest}
         >
           {React.Children.map(nonNullChildren, (child, index) => {
-            if (isTabsType(child)) {
-              return React.cloneElement(child as React.ReactElement, {
-                ['data-spacing']: spacing,
+            if (isExtendedTabItem(child)) {
+              return React.cloneElement(child, {
+                'data-spacing': spacing,
                 key: index,
                 value: `${index}`,
               });
@@ -72,20 +76,12 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
         </Flex>
       </List>
       {React.Children.map(nonNullChildren, (child, index) => {
-        if (isTabsType(child)) {
+        if (isExtendedTabItem(child)) {
           return (
             <Panel key={index} value={`${index}`}>
               {child.props.children}
             </Panel>
           );
-        } else {
-          // at this point the child defined (not null or undefined)
-          // it is NOT a TabItem, so log a message
-          if (child) {
-            console.warn(
-              'Amplify UI: <Tabs> component only accepts <TabItem> as children.'
-            );
-          }
         }
       })}
     </Root>
