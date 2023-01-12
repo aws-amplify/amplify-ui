@@ -201,14 +201,6 @@ export function drawLivenessOvalInCanvas(
 
   // clear the oval content from the rectangle
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-  // draw vertical dotted line in the middle of the oval
-  ctx.beginPath();
-  ctx.lineWidth = 1;
-  ctx.setLineDash([5, 3]);
-  ctx.moveTo(centerX, centerY - height / 2);
-  ctx.lineTo(centerX, centerY + height / 2);
-  ctx.stroke();
 }
 
 /**
