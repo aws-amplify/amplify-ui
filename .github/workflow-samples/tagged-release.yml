@@ -1,5 +1,5 @@
 # Description: This workflow runs unit + e2e tests, then publishes UI packages
-#              to a custom dist NPM tag of your choice. This is intened to run
+#              to a custom dist NPM tag of your choice. This is intended to run
 #              on release branches (e.g. `in-app-messaging/release`).
 #
 # Triggered by: This runs whenever you push a commit to the specified release branch.
