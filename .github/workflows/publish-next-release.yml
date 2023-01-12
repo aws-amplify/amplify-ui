@@ -2,11 +2,9 @@
 #
 # Triggered by: merge to `next-release/main` branch
 
-name: Publish / next-release
+name: POC / Publish / next-release
 
-on:
-  push:
-    branches: [next-release/main]
+on: pull_request
 
 jobs:
   test:
@@ -37,13 +35,13 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  publish:
-    needs: test
-    uses: ./.github/workflows/reusable-tagged-publish.yml
-    with:
-      dist-tag: next-release
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # publish:
+  #   needs: test
+  #   uses: ./.github/workflows/reusable-tagged-publish.yml
+  #   with:
+  #     dist-tag: next-release
+  #   secrets:
+  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
     runs-on: ubuntu-latest
