@@ -12,13 +12,17 @@ import { Flex } from '../Flex';
 import { TabsProps, TabsSpacing, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
 
-// `TabItemProps` does not include `data-apacing` or `value` but they are available
-// when using the `TabItemPrimitive` directly. In order to prevent TS errors when
-// passing those props to the `TabsItem` inside `Tabs` we extend `TabItemProps`
-interface ExtendedTabItemProps extends TabItemProps {
+/**
+ * `TabItemProps` does not include HTML data attributes, so `data-spacing` is added explicitly
+ * to the props of the return type of `isExtendedTabItem` to allow passing of `data-spacing`
+ * to `TabsItem` from inside `Tabs`.
+ * 
+ * Additionally, `value` is avaialble on the props of `TabItemPrimitive`, but is not present
+ * on `TabItemProps`. To mitigate this issue prefer usage of the props of `TabItemPrimitive`
+`*/
+type ExtendedTabItemProps = Parameters<typeof TabItemPrimitive>[0] & {
   'data-spacing': TabsSpacing;
-  value: string;
-}
+};
 
 const isExtendedTabItem = (
   child: React.ReactFragment | React.ReactChild | React.ReactPortal
