@@ -2251,13 +2251,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"ExpanderProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"onValueChange\\": {
-                        \\"name\\": \\"onValueChange\\",
-                        \\"type\\": \\"(value?: string | string[]) => void\\",
-                        \\"description\\": \\"Event handler called when the expanded state of an item changes\\",
-                        \\"category\\": \\"ExpanderProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"isCollapsible\\": {
                         \\"name\\": \\"isCollapsible\\",
                         \\"type\\": \\"boolean\\",
@@ -2265,11 +2258,11 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"ExpanderProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"disabled\\": {
-                        \\"name\\": \\"disabled\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"DefaultValue: false\\",
-                        \\"category\\": \\"AccordionImplProps\\",
+                    \\"onValueChange\\": {
+                        \\"name\\": \\"onValueChange\\",
+                        \\"type\\": \\"(value?: string | string[]) => void\\",
+                        \\"description\\": \\"Event handler called when the expanded state of an item changes\\",
+                        \\"category\\": \\"ExpanderProps\\",
                         \\"isOptional\\": true
                     }
                 }
@@ -7865,7 +7858,7 @@ exports[`Props Table 1`] = `
                     \\"autoComplete\\": {
                         \\"name\\": \\"autoComplete\\",
                         \\"type\\": \\"string\\",
-                        \\"description\\": \\"A string providing a hint for a user agent's autocomplete feature\\",
+                        \\"description\\": \\"A string providing a hint for a user agent's autocomplete feature\\",
                         \\"category\\": \\"SelectProps\\",
                         \\"isOptional\\": true
                     },
@@ -7879,7 +7872,7 @@ exports[`Props Table 1`] = `
                     \\"size\\": {
                         \\"name\\": \\"size\\",
                         \\"type\\": \\"'small' | 'large'\\",
-                        \\"description\\": \\"Changes the height and font size of the SelectField. Available options are ‘small’, none (default), and ‘large’\\",
+                        \\"description\\": \\"Changes the height and font size of the SelectField. Available options are ‘small’, none (default), and ‘large’\\",
                         \\"category\\": \\"SelectProps\\",
                         \\"isOptional\\": true
                     },
