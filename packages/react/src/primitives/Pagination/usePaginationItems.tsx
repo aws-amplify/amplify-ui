@@ -9,13 +9,13 @@ interface UsePaginationItemsProps {
   totalPages: number;
   hasMorePages: boolean;
   siblingCount?: number;
-  currentPageLabel: string;
-  pageLabel: string;
-  previousLabel: string;
-  nextLabel: string;
+  currentPageLabel?: string;
+  pageLabel?: string;
+  previousLabel?: string;
+  nextLabel?: string;
   onNext?: () => void;
   onPrevious?: () => void;
-  onChange: (newPageIndex: number, prevPageIndex: number) => void;
+  onChange?: (newPageIndex?: number, prevPageIndex?: number) => void;
 }
 
 /**

@@ -86,7 +86,7 @@ interface BasePaginationProps {
    * @description
    * Callback function triggered every time the page changes
    */
-  onChange?: (newPageIndex: number, prevPageIndex: number) => void;
+  onChange?: (newPageIndex?: number, prevPageIndex?: number) => void;
 }
 
 export interface PaginationProps extends BasePaginationProps, ViewProps {}
