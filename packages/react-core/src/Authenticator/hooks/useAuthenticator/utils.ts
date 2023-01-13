@@ -8,6 +8,7 @@ import {
   UnverifiedContactMethods,
   getActorContext,
 } from '@aws-amplify/ui';
+import isString from 'lodash/isString.js';
 
 import { areEmptyArrays, areEmptyObjects } from '../../../utils';
 import { AuthenticatorLegacyField, AuthenticatorLegacyFields } from '../types';
@@ -78,7 +79,8 @@ const convertContactMethodsToFields = (
   return (
     unverifiedContactMethods &&
     Object.entries(unverifiedContactMethods).map(([name, value]) => {
-      if (typeof value !== 'string' || !name) {
+      const valueIsString = isString(value);
+      if (!valueIsString || !name) {
         return {} as AuthenticatorLegacyField;
       }
       return { name, label: value, type: 'radio', value };
