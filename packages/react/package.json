@@ -135,19 +135,19 @@
     },
     {
       "name": "Storage - FileUploader",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ FileUploader }",
       "limit": "140 kB"
     },
     {
       "name": "AccountSettings",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ AccountSettings }",
       "limit": "60 kB"
     },
     {
       "name": "InAppMessaging",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ InAppMessagingProvider, InAppMessageDisplay }",
       "limit": "110 kB"
     }
