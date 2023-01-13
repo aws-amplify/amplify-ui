@@ -14,6 +14,8 @@ export interface AutocompleteComboboxProps {
 }
 
 export interface ComboBoxOption {
+  [key: string]: string;
+
   /**
    * @description
    * Unique id for an option
@@ -25,8 +27,6 @@ export interface ComboBoxOption {
    * Label for an option
    */
   label: string;
-
-  [key: string]: string;
 }
 
 export interface AutocompleteOptionProps extends ViewProps {
@@ -148,7 +148,7 @@ export interface UseAutocompleteProps extends Partial<AutocompleteProps> {
 type SetStateAction<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export interface UseAutocomplete {
-  activeOptionId: ComboBoxOption['id'];
+  activeOptionId?: ComboBoxOption['id'];
   autocompleteId: string;
   composedValue: string;
   filteredOptions: ComboBoxOption[];
@@ -163,7 +163,7 @@ export interface UseAutocomplete {
   listboxId: string;
   menuId: string;
   optionBaseId: string;
-  setActiveOption: SetStateAction<ComboBoxOption>;
+  setActiveOption: SetStateAction<ComboBoxOption | null>;
   setIsMenuOpen: SetStateAction<boolean>;
   setInternalValue: SetStateAction<string>;
 }

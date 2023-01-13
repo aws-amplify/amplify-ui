@@ -132,6 +132,24 @@
       "path": "dist/esm/index.mjs",
       "import": "{ MapView, LocationSearch }",
       "limit": "330 kB"
+    },
+    {
+      "name": "Storage - FileUploader",
+      "path": "dist/esm/index.js",
+      "import": "{ FileUploader }",
+      "limit": "140 kB"
+    },
+    {
+      "name": "AccountSettings",
+      "path": "dist/esm/index.js",
+      "import": "{ AccountSettings }",
+      "limit": "60 kB"
+    },
+    {
+      "name": "InAppMessaging",
+      "path": "dist/esm/index.js",
+      "import": "{ InAppMessagingProvider, InAppMessageDisplay }",
+      "limit": "110 kB"
     }
   ]
 }

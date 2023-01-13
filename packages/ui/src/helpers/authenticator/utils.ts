@@ -153,3 +153,16 @@ export const getTotpCodeURL = (
   encodeURI(
     `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
   );
+
+export function trimValues<T extends Record<string, string>>(
+  values: T,
+  ...ignored: string[]
+): T {
+  return Object.entries(values).reduce(
+    (acc, [name, value]) => ({
+      ...acc,
+      [name]: ignored.includes(name) ? value : value?.trim(),
+    }),
+    {} as T
+  );
+}

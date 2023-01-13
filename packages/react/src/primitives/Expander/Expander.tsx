@@ -7,14 +7,14 @@ import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { ComponentClassNames } from '../shared/constants';
 import { ExpanderProps } from '../types/expander';
 import { Primitive } from '../types/view';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 
 let sanitizedAccordion = { default: undefined, ...Accordion };
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 sanitizedAccordion = sanitizedAccordion.default ?? sanitizedAccordion;
 const { Root } = sanitizedAccordion;
 
-const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
+const ExpanderPrimitive: Primitive<ExpanderProps, 'div'> = (
   {
     children,
     className,

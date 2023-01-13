@@ -8,11 +8,11 @@ import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
 import { Primitive } from '../types/view';
-import { getTestId } from '../utils/testUtils';
+import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
 import { useCheckbox } from './useCheckbox';
 import { ComponentClassNames } from '../shared/constants';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
@@ -50,9 +50,11 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   const dataId = useStableId();
   React.useEffect(() => {
     const input = document.querySelector(`[data-id="${dataId}"]`);
-    // HTMLInputElement does not have an `indeterminate` attribute
-    (input as HTMLInputElement & { indeterminate: boolean }).indeterminate =
-      isIndeterminate;
+    if (input && typeof isIndeterminate === 'boolean') {
+      // HTMLInputElement does not have an `indeterminate` attribute
+      (input as HTMLInputElement & { indeterminate: boolean }).indeterminate =
+        isIndeterminate;
+    }
   }, [dataId, isIndeterminate]);
 
   const buttonTestId = getTestId(testId, ComponentClassNames.CheckboxButton);
