@@ -1,4 +1,4 @@
-import { getTotpCodeURL } from '../utils';
+import { getTotpCodeURL, trimValues } from '../utils';
 
 const SECRET_KEY = 'shhhhh';
 const USERNAME = 'username';
@@ -22,5 +22,36 @@ describe('getTotpCodeURL', () => {
     expect(customTotpCode).toBe(
       'otpauth://totp/issuer%20with%20spaces:username?secret=shhhhh&issuer=issuer%20with%20spaces'
     );
+  });
+});
+
+describe('trimValues', () => {
+  it('trims all values', () => {
+    const formData = { username: ' username ', first_name: ' john ' };
+    const result = trimValues(formData);
+
+    expect(result).toMatchObject({ username: 'username', first_name: 'john' });
+  });
+
+  it('does not trim ignored value', () => {
+    const formData = { password: ' test ', confirm_password: ' test ' };
+    const result = trimValues(formData, 'password', 'confirm_password');
+
+    expect(result).toMatchObject(formData);
+  });
+
+  it('trims all values except ignored values', () => {
+    const formData = {
+      username: ' test ',
+      password: ' password ',
+      first_name: ' john ',
+    };
+    const result = trimValues(formData, 'password');
+
+    expect(result).toMatchObject({
+      username: 'test',
+      password: ' password ',
+      first_name: 'john',
+    });
   });
 });

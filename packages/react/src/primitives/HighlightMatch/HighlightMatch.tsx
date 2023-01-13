@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { View } from '../View';
 import { strHasLength } from '../shared/utils';
-import { getTestId } from '../utils/testUtils';
+import { getTestId } from '../utils/getTestId';
 import { ComponentClassNames } from '../shared/constants';
 import type { HighlightMatchProps, Primitive } from '../types';
 
