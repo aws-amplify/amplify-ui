@@ -4,7 +4,6 @@ import {
   View,
   Flex,
   Loader,
-  Icon,
   Text,
   FaceLivenessErrorModal,
   FaceLivenessFailureModal,
@@ -12,8 +11,6 @@ import {
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import { GetLivenessResultCard } from './GetLivenessResultCard';
-
-import LivenessLogo from './LivenessLogo';
 
 export default function LivenessDefault({
   disableStartScreen = false,
@@ -35,6 +32,11 @@ export default function LivenessDefault({
     return <div>Some error occured...</div>;
   }
 
+  function onUserCancel() {
+    stopLiveness();
+    setError(undefined);
+  }
+
   return (
     <View maxWidth="640px" margin="0 auto">
       {createLivenessSessionApiLoading ? (
@@ -50,20 +52,10 @@ export default function LivenessDefault({
         >
           <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
 
-          <Icon
-            ariaLabel="Amplify UI Liveness"
-            margin="0 auto"
-            width="160"
-            height="52"
-            viewBox={{ width: 160, height: 52 }}
-          >
-            <LivenessLogo />
-          </Icon>
-
-          <Flex direction="column" position="relative">
+          <Flex gap="0" direction="column" position="relative">
             <FaceLivenessDetector
               sessionId={createLivenessSessionApiData.sessionId}
-              onUserCancel={stopLiveness}
+              onUserCancel={onUserCancel}
               onGetLivenessDetection={handleGetLivenessDetection}
               onError={(error) => {
                 setError(error);
