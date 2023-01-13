@@ -7,6 +7,8 @@ import { Flex } from '../Flex';
 import { TabsProps, TabsSpacing, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
 
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR),
+// the module will be imported as CommonJS module, in which we have to reference the `default`
 let sanitizedRadixTabs = { default: undefined, ...RadixTabs };
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 sanitizedRadixTabs = sanitizedRadixTabs.default ?? sanitizedRadixTabs;

@@ -15,6 +15,8 @@ import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
 
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR),
+// the module will be imported as CommonJS module, in which we have to reference the `default`
 let sanitizedRadixSlider = { default: undefined, ...RadixSlider };
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 sanitizedRadixSlider = sanitizedRadixSlider.default ?? sanitizedRadixSlider;
