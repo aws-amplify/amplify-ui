@@ -15,10 +15,10 @@ import { splitPrimitiveProps } from '../shared/styleUtils';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-const sanitizedRadixSlider = (RadixSlider as any).default ?? RadixSlider;
-const { Range, Root, Thumb, Track } =
-  sanitizedRadixSlider as typeof RadixSlider;
+let sanitizedRadixSlider = { default: undefined, ...RadixSlider };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+sanitizedRadixSlider = sanitizedRadixSlider.default ?? sanitizedRadixSlider;
+const { Range, Root, Thumb, Track } = sanitizedRadixSlider;
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';

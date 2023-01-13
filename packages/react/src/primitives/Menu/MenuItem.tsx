@@ -6,9 +6,10 @@ import { ComponentClassNames } from '../shared/constants';
 import { MenuButton } from './MenuButton';
 import { MenuItemProps } from '../types';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-const sanitizedDropdown = (Dropdown as any).default ?? Dropdown;
-const { DropdownMenuItem } = sanitizedDropdown as typeof Dropdown;
+let sanitizedDropdown = { default: undefined, ...Dropdown };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+sanitizedDropdown = sanitizedDropdown.default ?? sanitizedDropdown;
+const { DropdownMenuItem } = sanitizedDropdown;
 
 export const MENU_ITEM_TEST_ID = 'amplify-menu-item-test-id';
 

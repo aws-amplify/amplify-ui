@@ -7,14 +7,10 @@ import { Flex } from '../Flex';
 import { TabsProps, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-const sanitizedRadixTabs = (RadixTabs as any).default ?? RadixTabs;
-const {
-  Root,
-  List,
-  Trigger: RadixTab,
-  Content: Panel,
-} = sanitizedRadixTabs as typeof RadixTabs;
+let sanitizedRadixTabs = { default: undefined, ...RadixTabs };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+sanitizedRadixTabs = sanitizedRadixTabs.default ?? sanitizedRadixTabs;
+const { Root, List, Trigger: RadixTab, Content: Panel } = sanitizedRadixTabs;
 
 const isTabsType = (child: any): child is React.ReactElement<TabItemProps> => {
   return (

@@ -8,10 +8,11 @@ import { IconMenu } from '../Icon/internal';
 import { MenuButton } from './MenuButton';
 import { MenuProps, Primitive } from '../types';
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-const sanitizedDropdown = (Dropdown as any).default ?? Dropdown;
+let sanitizedDropdown = { default: undefined, ...Dropdown };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+sanitizedDropdown = sanitizedDropdown.default ?? sanitizedDropdown;
 const { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } =
-  sanitizedDropdown as typeof Dropdown;
+  sanitizedDropdown;
 
 export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id';
 export const MENU_ITEMS_GROUP_TEST_ID = 'amplify-menu-items-group-test-id';

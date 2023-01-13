@@ -5,11 +5,11 @@ import { createTheme, Theme, WebTheme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
 
+let sanitizedRadixDirection = { default: undefined, ...RadixDirection };
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const sanitizedRadixDirection =
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  (RadixDirection as any).default ?? RadixDirection;
-const { DirectionProvider } = sanitizedRadixDirection as typeof RadixDirection;
+sanitizedRadixDirection =
+  sanitizedRadixDirection.default ?? sanitizedRadixDirection;
+const { DirectionProvider } = sanitizedRadixDirection;
 
 export type ColorMode = 'system' | 'light' | 'dark';
 export type Direction = 'ltr' | 'rtl';
