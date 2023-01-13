@@ -5,7 +5,7 @@ import * as React from 'react';
 import { ComponentClassNames } from '../../shared';
 import { ToggleButton } from '../ToggleButton';
 
-describe('ToggleButton: ', () => {
+describe('ToggleButton:', () => {
   const ControlledToggleButton = () => {
     const [pressed, setPressed] = React.useState(false);
     return (

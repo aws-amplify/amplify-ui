@@ -31,7 +31,7 @@ const props: ViewProps = {
   className: 'my-section',
 };
 
-let breakpoints = defaultTheme.breakpoints.values;
+const breakpoints = defaultTheme.breakpoints.values;
 
 const defaultStylePropsParams = {
   breakpoint: 'base' as Breakpoint,
@@ -46,7 +46,7 @@ const gridItemProps = {
 const theme = createTheme();
 const { tokens } = theme;
 
-describe('convertStylePropsToStyleObj: ', () => {
+describe('convertStylePropsToStyleObj:', () => {
   it('should convert style props to a style object', () => {
     const { propStyles } = convertStylePropsToStyleObj({
       props,
@@ -364,7 +364,7 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 });
 
-describe('useStyleProps: ', () => {
+describe('useStyleProps:', () => {
   it('should return an object containing only the non style props', () => {
     const {
       result: {
@@ -399,13 +399,13 @@ describe('useStyleProps: ', () => {
       as: props.as,
     };
     const { result } = renderHook(() => useStyles(noStyleProps, {}));
-    const nonStyleProps = result.current.nonStyleProps;
+    const { nonStyleProps } = result.current;
     expect(nonStyleProps).toEqual(noStyleProps);
     expect(nonStyleProps).not.toBe(noStyleProps);
   });
 });
 
-describe('convertGridSpan: ', () => {
+describe('convertGridSpan:', () => {
   it('should return correct css value when passed valid number', () => {
     const param = 5;
     const result = convertGridSpan(param);
@@ -447,7 +447,7 @@ describe('convertGridSpan: ', () => {
   });
 });
 
-describe('getGridSpan: ', () => {
+describe('getGridSpan:', () => {
   it('should return auto when passed auto', () => {
     const param = 'auto';
     const result = getGridSpan(param);

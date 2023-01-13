@@ -12,7 +12,7 @@ import {
 } from '../Loader';
 import { ComponentClassNames } from '../../shared';
 
-describe('Loader: ', () => {
+describe('Loader:', () => {
   it('should render default and custom classname', async () => {
     const className = 'class-test';
     render(<Loader className={className} />);

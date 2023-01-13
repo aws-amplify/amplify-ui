@@ -45,9 +45,7 @@ describe('Select primitive test suite', () => {
       </Select>
     );
 
-    const select = (await screen.findByTestId(
-      'test-select'
-    )) as HTMLSelectElement;
+    const select = await screen.findByTestId('test-select');
     expect(select.nodeName).toBe('SELECT');
     expect(select.childNodes).toHaveLength(3);
     expect(select).toHaveAttribute('name', name);
@@ -94,7 +92,7 @@ describe('Select primitive test suite', () => {
   it('should render error classes for Select', async () => {
     render(
       <div>
-        <Select testId="error" hasError={true} />
+        <Select testId="error" hasError />
       </div>
     );
 
@@ -122,9 +120,7 @@ describe('Select primitive test suite', () => {
       </Select>
     );
 
-    const select = (await screen.findByTestId(
-      'test-select'
-    )) as HTMLSelectElement;
+    const select = await screen.findByTestId('test-select');
     expect(select).toBeDisabled();
     expect(select).toBeRequired();
   });
@@ -138,9 +134,9 @@ describe('Select primitive test suite', () => {
       </Select>
     );
 
-    const placeholderElement = (await screen.findByText(
+    const placeholderElement = await screen.findByText<HTMLOptionElement>(
       placeholder
-    )) as HTMLOptionElement;
+    );
     expect(placeholderElement.nodeName).toBe('OPTION');
     expect(placeholderElement).toHaveAttribute('value', '');
     expect(placeholderElement.selected).toBeTruthy();
@@ -148,21 +144,19 @@ describe('Select primitive test suite', () => {
 
   it('should be able to select an option as a controlled component', async () => {
     render(<SelectControlled />);
-    const select = (await screen.findByTestId(
-      'test-select'
-    )) as HTMLSelectElement;
-    const placeholderOption = screen.getByRole('option', {
+    const select = await screen.findByTestId<HTMLSelectElement>('test-select');
+    const placeholderOption = screen.getByRole<HTMLOptionElement>('option', {
       name: placeholder,
-    }) as HTMLOptionElement;
-    const optionOne = screen.getByRole('option', {
+    });
+    const optionOne = screen.getByRole<HTMLOptionElement>('option', {
       name: '1',
-    }) as HTMLOptionElement;
-    const optionTwo = screen.getByRole('option', {
+    });
+    const optionTwo = screen.getByRole<HTMLOptionElement>('option', {
       name: '2',
-    }) as HTMLOptionElement;
-    const optionThree = screen.getByRole('option', {
+    });
+    const optionThree = screen.getByRole<HTMLOptionElement>('option', {
       name: '3',
-    }) as HTMLOptionElement;
+    });
 
     expect(placeholderOption.selected).toBeTruthy();
 
@@ -190,21 +184,19 @@ describe('Select primitive test suite', () => {
         <option value="3">3</option>
       </Select>
     );
-    const select = (await screen.findByTestId(
-      'test-select'
-    )) as HTMLSelectElement;
-    const placeholderOption = screen.getByRole('option', {
+    const select = await screen.findByTestId<HTMLSelectElement>('test-select');
+    const placeholderOption = screen.getByRole<HTMLOptionElement>('option', {
       name: placeholder,
-    }) as HTMLOptionElement;
-    const optionOne = screen.getByRole('option', {
+    });
+    const optionOne = screen.getByRole<HTMLOptionElement>('option', {
       name: '1',
-    }) as HTMLOptionElement;
-    const optionTwo = screen.getByRole('option', {
+    });
+    const optionTwo = screen.getByRole<HTMLOptionElement>('option', {
       name: '2',
-    }) as HTMLOptionElement;
-    const optionThree = screen.getByRole('option', {
+    });
+    const optionThree = screen.getByRole<HTMLOptionElement>('option', {
       name: '3',
-    }) as HTMLOptionElement;
+    });
 
     expect(placeholderOption.selected).toBeTruthy();
 
@@ -234,9 +226,7 @@ describe('Select primitive test suite', () => {
       </Select>
     );
 
-    const select = (await screen.findByTestId(
-      'test-select'
-    )) as HTMLSelectElement;
+    const select = await screen.findByTestId('test-select');
 
     const icon = await screen.findByTestId('test-icon');
     expect(select.parentElement).toContainElement(icon);

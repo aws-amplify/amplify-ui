@@ -104,7 +104,7 @@ describe('RadioFieldGroup test suite', () => {
 
       const labelElement = (await screen.findAllByText(
         basicProps.label
-      )) as HTMLLabelElement[];
+      ));
       expect(labelElement[0].nodeName).toBe('LEGEND');
     });
 
@@ -113,7 +113,7 @@ describe('RadioFieldGroup test suite', () => {
 
       const labelElement = (await screen.findAllByText(
         basicProps.label
-      )) as HTMLLabelElement[];
+      ));
 
       expect(labelElement[1]).toHaveClass(ComponentClassNames.Label);
     });

@@ -3,16 +3,17 @@ module.exports = {
   root: true,
   ignorePatterns: [
     // top level directories
+    // NOTE: remove to turn on linting for test files
     '__tests__',
     'dist',
 
     // config files
     '*.config.js',
     '.eslintrc.js',
+    'jest.setup.ts',
 
     // TODO remove once the full set of rules can be turned on for the repo
     'src/react-shim.js',
-    'jest.setup.ts',
   ],
   extends: [
     'eslint:recommended',
