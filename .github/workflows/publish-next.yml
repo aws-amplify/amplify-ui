@@ -130,42 +130,42 @@ jobs:
   #   secrets:
   #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  build-test:
-    needs: publish
-    runs-on: ubuntu-latest
-    environment: ci
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v3
-        with:
-          path: canary/environments/**/aws-exports.js
-          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        working-directory: ./canary
-      - name: Setup canary apps against @next
-        run: yarn setup:next
-        working-directory: ./canary
-      - name: Run yarn install on each sample app
-        run: yarn install
-        working-directory: ./canary
-      - name: Run yarn build on each sample app
-        run: yarn build
-        working-directory: ./canary
+  # build-test:
+  #   needs: publish
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v3
+  #     - name: Add Amplify CLI
+  #       run: yarn global add @aws-amplify/cli
+  #     - name: Get CLI versions
+  #       id: cli-version
+  #       run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+  #     - name: Create or restore environments cache
+  #       id: environments-cache
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: canary/environments/**/aws-exports.js
+  #         key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+  #     - name: Pull down AWS environments
+  #       if: steps.environments-cache.outputs.cache-hit != 'true'
+  #       run: yarn pull
+  #       env:
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #       working-directory: ./canary
+  #     - name: Setup canary apps against @next
+  #       run: yarn setup:next
+  #       working-directory: ./canary
+  #     - name: Run yarn install on each sample app
+  #       run: yarn install
+  #       working-directory: ./canary
+  #     - name: Run yarn build on each sample app
+  #       run: yarn build
+  #       working-directory: ./canary
 
   # log-failure-metric:
   #   # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
