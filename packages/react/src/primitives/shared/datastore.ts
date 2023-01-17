@@ -3,6 +3,7 @@ import {
   RecursiveModelPredicateExtender,
   RecursiveModelPredicate,
   RecursiveModelPredicateAggregateExtender,
+  PredicateFieldType,
 } from '@aws-amplify/datastore';
 import { DataStorePredicateObject } from '../types/datastore';
 
@@ -49,8 +50,21 @@ export const createDataStorePredicate = <Model extends PersistentModel>(
   }
 
   return (p: RecursiveModelPredicate<Model>) => {
-    if (p?.[field]?.[operator]) {
-      return (p[field][operator] as Function)(
+    const fieldValue = field
+      ? (p?.[field] as RecursiveModelPredicate<
+          PredicateFieldType<Model[string]>
+        >)
+      : null;
+    const finalOperator =
+      operator && fieldValue
+        ? fieldValue?.[
+            operator as keyof RecursiveModelPredicate<
+              PredicateFieldType<Model[string]>
+            >
+          ]
+        : null;
+    if (finalOperator !== null) {
+      return (finalOperator as Function)(
         operand
       ) as RecursiveModelPredicate<Model>;
     }
