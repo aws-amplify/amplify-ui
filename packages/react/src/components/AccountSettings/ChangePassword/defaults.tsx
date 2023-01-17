@@ -13,7 +13,9 @@ const DefaultPasswordField: PasswordFieldComponent = ({
   return (
     <>
       <PasswordField {...rest} label={label} />
-      <ValidationErrors errors={fieldValidationErrors} />
+      {fieldValidationErrors ? (
+        <ValidationErrors errors={fieldValidationErrors} />
+      ) : null}
     </>
   );
 };
@@ -22,7 +24,7 @@ const DEFAULTS: Required<ChangePasswordComponents> = {
   CurrentPasswordField: DefaultPasswordField,
   NewPasswordField: DefaultPasswordField,
   ConfirmPasswordField: DefaultPasswordField,
-  SubmitButton: Button,
+  SubmitButton: (props) => <Button {...props} />,
   ErrorMessage: DefaultErrorMessage,
 };
 
