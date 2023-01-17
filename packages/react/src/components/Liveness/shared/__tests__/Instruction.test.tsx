@@ -37,17 +37,25 @@ describe('Instruction', () => {
   let errorState: LivenessErrorState = null;
   let faceMatchState: FaceMatchState = null;
   let illuminationState: IlluminationState = null;
+  let faceMatchStateBeforeStart: FaceMatchState = null;
+  let isFaceFarEnoughBeforeRecordingState: boolean = null;
 
   let isNotRecording = false;
   let isUploading = false;
   let isCheckSuccessful = false;
   let isCheckFailed = false;
+  let isCheckFaceDetectedBeforeStart = false;
+  let isCheckFaceDistanceBeforeRecording = false;
+  let isWaitingForSessionInfo = false;
+  let isFlashingFreshness = false;
 
   function mockStateMatchesAndSelectors() {
     mockUseLivenessSelector
       .mockReturnValueOnce(errorState)
       .mockReturnValueOnce(faceMatchState)
-      .mockReturnValueOnce(illuminationState);
+      .mockReturnValueOnce(illuminationState)
+      .mockReturnValueOnce(faceMatchStateBeforeStart)
+      .mockReturnValueOnce(isFaceFarEnoughBeforeRecordingState);
 
     when(mockActorState.matches)
       .calledWith('notRecording')
@@ -57,7 +65,15 @@ describe('Instruction', () => {
       .calledWith('checkSucceeded')
       .mockReturnValue(isCheckSuccessful)
       .calledWith('checkFailed')
-      .mockReturnValue(isCheckFailed);
+      .mockReturnValue(isCheckFailed)
+      .calledWith('checkFaceDetectedBeforeStart')
+      .mockReturnValue(isCheckFaceDetectedBeforeStart)
+      .calledWith('checkFaceDistanceBeforeRecording')
+      .mockReturnValue(isCheckFaceDistanceBeforeRecording)
+      .calledWith('waitForSessionInfo')
+      .mockReturnValue(isWaitingForSessionInfo)
+      .calledWith({ recording: 'flashFreshnessColors' })
+      .mockReturnValue(isFlashingFreshness);
   }
 
   beforeEach(() => {
@@ -68,14 +84,99 @@ describe('Instruction', () => {
     errorState = null;
     faceMatchState = null;
     illuminationState = null;
+    faceMatchStateBeforeStart = null;
+    isFaceFarEnoughBeforeRecordingState = null;
 
     isNotRecording = false;
     isUploading = false;
     isCheckSuccessful = false;
     isCheckFailed = false;
+    isCheckFaceDetectedBeforeStart = false;
+    isCheckFaceDistanceBeforeRecording = false;
+    isWaitingForSessionInfo = false;
+    isFlashingFreshness = false;
 
     jest.clearAllMocks();
     resetAllWhenMocks();
+  });
+
+  it('should render nothing if error', () => {
+    errorState = LivenessErrorState.FACE_DISTANCE_ERROR;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(
+      screen.queryByText('Hold face position during countdown')
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Move face in front of camera')
+    ).not.toBeInTheDocument();
+  });
+
+  it('should render nothing if failed', () => {
+    isCheckFailed = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(
+      screen.queryByText('Hold face position during countdown')
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Move face in front of camera')
+    ).not.toBeInTheDocument();
+  });
+
+  it('should render instruction to move only one face onto camera view if isCheckFaceDetectedBeforeStart is true', () => {
+    isCheckFaceDetectedBeforeStart = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(
+      screen.getByText('Move face in front of camera')
+    ).toBeInTheDocument();
+  });
+
+  it('should render instruction to about too many faces faceMatchStateBeforeStart is TOO_MANY', () => {
+    isCheckFaceDetectedBeforeStart = true;
+    faceMatchStateBeforeStart = FaceMatchState.TOO_MANY;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(
+      screen.getByText(FaceMatchStateStringMap[faceMatchStateBeforeStart])
+    ).toBeInTheDocument();
+  });
+
+  it('should render instruction to move face further away if checking face distance before recording is false', () => {
+    isCheckFaceDistanceBeforeRecording = true;
+    isFaceFarEnoughBeforeRecordingState = false;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(screen.getByText('Move face further away')).toBeInTheDocument();
+  });
+
+  it('should render connecting message if waiting for session info', () => {
+    isWaitingForSessionInfo = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(screen.getByText('Connecting...')).toBeInTheDocument();
+  });
+
+  it('should render hold face in oval message if flashing freshness colors', () => {
+    isFlashingFreshness = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(screen.getByText('Hold face in oval')).toBeInTheDocument();
   });
 
   it('should render not recording state if present', () => {

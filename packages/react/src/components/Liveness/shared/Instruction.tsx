@@ -4,6 +4,7 @@ import {
   IlluminationState,
   IlluminationStateStringMap,
   FaceMatchStateStringMap,
+  FaceMatchState,
 } from '@aws-amplify/ui';
 
 import {
@@ -30,6 +31,9 @@ export const selectIsFaceFarEnoughBeforeRecording = createLivenessSelector(
 export const selectOnuserCancel = createLivenessSelector(
   (state) => state.context.componentProps.onUserCancel
 );
+export const selectFaceMatchStateBeforeStart = createLivenessSelector(
+  (state) => state.context.faceMatchStateBeforeStart
+);
 
 export interface InstructionProps {}
 
@@ -40,6 +44,9 @@ export const Instruction: React.FC<InstructionProps> = () => {
   const errorState = useLivenessSelector(selectErrorState);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const illuminationState = useLivenessSelector(selectIlluminationState);
+  const faceMatchStateBeforeStart = useLivenessSelector(
+    selectFaceMatchStateBeforeStart
+  );
   const isFaceFarEnoughBeforeRecordingState = useLivenessSelector(
     selectIsFaceFarEnoughBeforeRecording
   );
@@ -64,6 +71,13 @@ export const Instruction: React.FC<InstructionProps> = () => {
     }
 
     if (isCheckFaceDetectedBeforeStart) {
+      if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
+        return (
+          <Toast>
+            {translate(FaceMatchStateStringMap[faceMatchStateBeforeStart])}
+          </Toast>
+        );
+      }
       return <Toast>{translate('Move face in front of camera')}</Toast>;
     }
 
