@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, PasswordField } from '../../../primitives';
 import { ValidationErrors } from '../../shared/ValidationErrors';
 import { DefaultErrorMessage } from '../shared/Defaults';
-import { PasswordFieldComponent } from '../types';
+import { PasswordFieldComponent, SubmitButtonComponent } from '../types';
 import { ChangePasswordComponents } from './types';
 
 const DefaultPasswordField: PasswordFieldComponent = ({
@@ -20,11 +20,15 @@ const DefaultPasswordField: PasswordFieldComponent = ({
   );
 };
 
+const DefaultSubmitButton: SubmitButtonComponent = (props) => (
+  <Button {...props} />
+);
+
 const DEFAULTS: Required<ChangePasswordComponents> = {
   CurrentPasswordField: DefaultPasswordField,
   NewPasswordField: DefaultPasswordField,
   ConfirmPasswordField: DefaultPasswordField,
-  SubmitButton: (props) => <Button {...props} />,
+  SubmitButton: DefaultSubmitButton,
   ErrorMessage: DefaultErrorMessage,
 };
 
