@@ -25,7 +25,7 @@ export class VideoRecorder {
     this._stream = stream;
     this._options = options;
     this._chunks = [];
-    this._recorder = new MediaRecorder(stream);
+    this._recorder = new MediaRecorder(stream, { bitsPerSecond: 1000000 });
 
     this._setupCallbacks();
   }
