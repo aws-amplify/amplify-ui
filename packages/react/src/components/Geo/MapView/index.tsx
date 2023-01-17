@@ -96,6 +96,9 @@ const MapView = forwardRef<MapRef, MapViewProps>(
         ref={ref}
         style={styleProps}
         transformRequest={transformRequest}
+        // workaround until type is fixed on react-map-gl
+        fog={props.fog ?? undefined}
+        terrain={props.terrain ?? undefined}
       />
     ) : null;
   }

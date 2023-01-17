@@ -34,7 +34,7 @@ export function UploadTracker({
   percentage,
   isResumable,
   showImage,
-}: TrackerProps): JSX.Element {
+}: TrackerProps): JSX.Element | null {
   const [tempName, setTempName] = React.useState(name);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const url = URL.createObjectURL(file);
@@ -90,7 +90,7 @@ export function UploadTracker({
               size="small"
               onClick={() => {
                 setTempName(name);
-                onCancelEdit();
+                onCancelEdit?.();
               }}
             >
               Cancel
