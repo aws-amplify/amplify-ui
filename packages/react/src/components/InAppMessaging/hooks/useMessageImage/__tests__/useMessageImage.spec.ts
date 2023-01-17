@@ -28,7 +28,7 @@ describe('useMessageImage', () => {
   it('handles loading an image in the happy path as expected', async () => {
     // set Image to mock succesful load
     global.Image = class {
-      onload;
+      onload: Function;
       constructor() {
         setTimeout(() => {
           this.onload();
@@ -52,7 +52,7 @@ describe('useMessageImage', () => {
   it('handles an image load error event as expected', async () => {
     // set Image to mock error
     global.Image = class {
-      onerror;
+      onerror: Function;
       constructor() {
         setTimeout(() => {
           this.onerror();
@@ -78,7 +78,7 @@ describe('useMessageImage', () => {
   it('handles an image load abort event as expected', async () => {
     // set Image to mock abort
     global.Image = class {
-      onabort;
+      onabort: Function;
       constructor() {
         setTimeout(() => {
           this.onabort();

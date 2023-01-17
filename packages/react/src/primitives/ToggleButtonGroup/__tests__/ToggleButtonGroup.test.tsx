@@ -7,7 +7,7 @@ import { ToggleButton } from '../../ToggleButton';
 import { ToggleButtonGroup } from '../ToggleButtonGroup';
 import { ToggleButtonGroupProps } from '../../types';
 
-describe('ToggleButtonGroup: ', () => {
+describe('ToggleButtonGroup:', () => {
   const MultipleSelectionGroup = React.forwardRef<
     HTMLDivElement,
     Pick<ToggleButtonGroupProps, 'isSelectionRequired'>

@@ -6,15 +6,10 @@ import {
   convertGridSpan,
   convertStylePropsToStyleObj,
   getGridSpan,
-  splitPrimitiveProps,
   useStyles,
   useTransformStyleProps,
 } from '../styleUtils';
-import {
-  AllStyleProps,
-  ComponentPropsToStylePropsMap,
-  ViewProps,
-} from '../../types';
+import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
 import { Breakpoint } from '../../types/responsive';
 
 const props: ViewProps = {
@@ -36,7 +31,7 @@ const props: ViewProps = {
   className: 'my-section',
 };
 
-let breakpoints = defaultTheme.breakpoints.values;
+const breakpoints = defaultTheme.breakpoints.values;
 
 const defaultStylePropsParams = {
   breakpoint: 'base' as Breakpoint,
@@ -51,7 +46,7 @@ const gridItemProps = {
 const theme = createTheme();
 const { tokens } = theme;
 
-describe('convertStylePropsToStyleObj: ', () => {
+describe('convertStylePropsToStyleObj:', () => {
   it('should convert style props to a style object', () => {
     const { propStyles } = convertStylePropsToStyleObj({
       props,
@@ -369,7 +364,7 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 });
 
-describe('useStyleProps: ', () => {
+describe('useStyleProps:', () => {
   it('should return an object containing only the non style props', () => {
     const {
       result: {
@@ -404,13 +399,13 @@ describe('useStyleProps: ', () => {
       as: props.as,
     };
     const { result } = renderHook(() => useStyles(noStyleProps, {}));
-    const nonStyleProps = result.current.nonStyleProps;
+    const { nonStyleProps } = result.current;
     expect(nonStyleProps).toEqual(noStyleProps);
     expect(nonStyleProps).not.toBe(noStyleProps);
   });
 });
 
-describe('convertGridSpan: ', () => {
+describe('convertGridSpan:', () => {
   it('should return correct css value when passed valid number', () => {
     const param = 5;
     const result = convertGridSpan(param);
@@ -452,7 +447,7 @@ describe('convertGridSpan: ', () => {
   });
 });
 
-describe('getGridSpan: ', () => {
+describe('getGridSpan:', () => {
   it('should return auto when passed auto', () => {
     const param = 'auto';
     const result = getGridSpan(param);
@@ -477,42 +472,5 @@ describe('useTransformStyleProps', () => {
       'column',
       getGridSpan(gridItemProps.columnSpan)
     );
-  });
-});
-
-describe('splitPrimitiveProps', () => {
-  it('should split props into style props and rest', () => {
-    const styleProps: AllStyleProps = {
-      backgroundColor: 'yellow',
-      alignSelf: 'baseline',
-      area: 'auto',
-      basis: 'content',
-      border: '1px solid black',
-      borderRadius: '2px',
-      alignContent: 'space-around',
-      alignItems: 'baseline',
-      columnGap: '2rem',
-      direction: 'column-reverse',
-      gap: '2rem',
-      justifyContent: 'space-around',
-      rowGap: '4rem',
-      wrap: 'nowrap',
-    };
-    const restProps = {
-      type: 'textarea',
-      rows: '4',
-      autoComplete: 'current-password',
-      name: 'password',
-      placeholder: 'Password',
-    };
-
-    const { styleProps: resultStyleProps, rest: resultRest } =
-      splitPrimitiveProps({
-        ...styleProps,
-        ...restProps,
-      });
-
-    expect(resultRest).toEqual(restProps);
-    expect(resultStyleProps).toEqual(styleProps);
   });
 });

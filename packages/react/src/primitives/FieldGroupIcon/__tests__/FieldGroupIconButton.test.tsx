@@ -4,7 +4,7 @@ import * as React from 'react';
 import { FieldGroupIconButton } from '../FieldGroupIconButton';
 import { ComponentClassNames } from '../../shared/constants';
 
-describe('FieldGroupIconButton: ', () => {
+describe('FieldGroupIconButton:', () => {
   it('should render default and custom classname', async () => {
     const className = 'custom-class';
     render(<FieldGroupIconButton className={className} />);
@@ -25,7 +25,7 @@ describe('FieldGroupIconButton: ', () => {
   });
 
   it('should add the disabled button class to the underlying button element', async () => {
-    render(<FieldGroupIconButton isDisabled={true} testId="disabled" />);
+    render(<FieldGroupIconButton isDisabled testId="disabled" />);
 
     const disabled = await screen.findByTestId('disabled');
 

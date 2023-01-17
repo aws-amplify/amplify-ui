@@ -13,7 +13,7 @@ import { Primitive } from '../types/view';
 import { StepperFieldProps } from '../types/stepperField';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 
 export const DECREASE_ICON = 'decrease-icon';

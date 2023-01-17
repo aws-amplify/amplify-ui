@@ -6,7 +6,7 @@ import { Heading } from '../Heading';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 
-describe('Heading: ', () => {
+describe('Heading:', () => {
   it('renders an h6 tag by default', async () => {
     render(<Heading testId="headingId"></Heading>);
 
@@ -132,7 +132,7 @@ describe('Heading: ', () => {
   it('should render the truncated class on Heading', async () => {
     render(
       <div>
-        <Heading testId="truncated" isTruncated={true}>
+        <Heading testId="truncated" isTruncated>
           truncated
         </Heading>
       </div>

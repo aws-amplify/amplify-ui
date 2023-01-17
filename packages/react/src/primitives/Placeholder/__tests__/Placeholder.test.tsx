@@ -5,7 +5,7 @@ import { Placeholder } from '../Placeholder';
 import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';
 
-describe('Placeholder: ', () => {
+describe('Placeholder:', () => {
   it('renders correct defaults', async () => {
     render(<Placeholder testId="placeholderId" />);
 
@@ -49,7 +49,7 @@ describe('Placeholder: ', () => {
         <Placeholder testId="placeholder1">
           <Text testId="text1">Should not render</Text>
         </Placeholder>
-        <Placeholder isLoaded={true} testId="placeholder2">
+        <Placeholder isLoaded testId="placeholder2">
           <Text testId="text2">Should render</Text>
         </Placeholder>
       </div>

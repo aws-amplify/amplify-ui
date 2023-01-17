@@ -3,9 +3,9 @@ import * as React from 'react';
 
 import { HighlightMatch } from '../HighlightMatch';
 import { ComponentClassNames } from '../../shared/constants';
-import { getTestId } from '../../utils/testUtils';
+import { getTestId } from '../../utils/getTestId';
 
-describe('HighlightMatch: ', () => {
+describe('HighlightMatch:', () => {
   const testId = 'highlight-match-test-id';
   const query = 'query';
 

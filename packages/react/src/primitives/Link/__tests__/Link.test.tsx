@@ -43,7 +43,7 @@ function About() {
   return <Heading level={2}>You are on the about page</Heading>;
 }
 
-describe('Link: ', () => {
+describe('Link:', () => {
   const linkText = 'My Link';
 
   it('renders correct defaults', async () => {
@@ -71,7 +71,7 @@ describe('Link: ', () => {
   });
 
   it('can add the rel attribute to the rendered anchor tag', async () => {
-    render(<Link isExternal={true}>{linkText}</Link>);
+    render(<Link isExternal>{linkText}</Link>);
 
     const link = await screen.findByText(linkText);
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');

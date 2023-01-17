@@ -12,7 +12,7 @@ runs:
       shell: bash
       run: |
         if (find .changeset -type f -name '*.md' ! -name 'README.md' | grep -q .) ; then
-            echo "::set-output name=has-changesets::true"
+            echo "has-changesets=true" >> $GITHUB_OUTPUT
         else
-            echo "::set-output name=has-changesets::false"
+            echo "has-changesets=false" >> $GITHUB_OUTPUT
         fi

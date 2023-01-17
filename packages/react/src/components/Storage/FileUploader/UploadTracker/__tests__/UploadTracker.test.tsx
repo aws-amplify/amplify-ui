@@ -9,7 +9,7 @@ describe('UploadTracker', () => {
     const { container } = render(
       <UploadTracker
         file={fakeFile}
-        hasImage={true}
+        hasImage
         fileState={null}
         onCancel={() => {}}
         name={'hello.png'}
@@ -20,7 +20,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        showImage={true}
+        showImage
       />
     );
 
@@ -32,7 +32,7 @@ describe('UploadTracker', () => {
       <UploadTracker
         file={fakeFile}
         fileState={null}
-        hasImage={true}
+        hasImage
         onCancel={() => {}}
         name={fileName}
         onPause={() => {}}
@@ -42,7 +42,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        showImage={true}
+        showImage
       />
     );
 
@@ -56,7 +56,7 @@ describe('UploadTracker', () => {
       <UploadTracker
         file={fakeFile}
         fileState={null}
-        hasImage={true}
+        hasImage
         onCancel={() => {}}
         name={fileName}
         onPause={() => {}}
@@ -66,7 +66,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        showImage={true}
+        showImage
       />
     );
 
@@ -80,7 +80,7 @@ describe('UploadTracker', () => {
       <UploadTracker
         file={fakeFile}
         fileState={'error'}
-        hasImage={true}
+        hasImage
         onCancel={() => {}}
         name={fileName}
         onPause={() => {}}
@@ -90,7 +90,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        showImage={true}
+        showImage
       />
     );
 
@@ -104,7 +104,7 @@ describe('UploadTracker', () => {
       <UploadTracker
         file={fakeFile}
         fileState={'error'}
-        hasImage={true}
+        hasImage
         onCancel={() => {}}
         name={fileName}
         onPause={() => {}}
@@ -114,7 +114,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        showImage={true}
+        showImage
       />
     );
 
@@ -128,9 +128,9 @@ describe('UploadTracker', () => {
       <UploadTracker
         file={fakeFile}
         fileState={'resume'}
-        hasImage={true}
+        hasImage
         onCancel={() => {}}
-        isResumable={true}
+        isResumable
         name={fileName}
         onPause={() => {}}
         onResume={() => {}}
@@ -139,7 +139,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        showImage={true}
+        showImage
       />
     );
 

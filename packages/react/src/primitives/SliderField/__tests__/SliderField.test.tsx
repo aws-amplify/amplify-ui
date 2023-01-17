@@ -26,7 +26,7 @@ window.ResizeObserver =
     unobserve: jest.fn(),
   }));
 
-describe('SliderField: ', () => {
+describe('SliderField:', () => {
   describe('Flex wrapper', () => {
     it('should render all flex style props', async () => {
       render(
@@ -71,7 +71,7 @@ describe('SliderField: ', () => {
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(
-        <SliderField defaultValue={0} label="slider" labelHidden={true} />
+        <SliderField defaultValue={0} label="slider" labelHidden />
       );
 
       const label = await screen.findByTestId(SLIDER_LABEL_TEST_ID);
@@ -161,7 +161,7 @@ describe('SliderField: ', () => {
       expect(slider).toHaveAttribute('aria-valuenow', '5');
     });
 
-    it('should set step ', async () => {
+    it('should set step', async () => {
       render(<SliderField defaultValue={0} label="slider" step={3} />);
       const slider = await screen.findByRole('slider');
       expect(slider).toHaveAttribute('aria-valuenow', '0');

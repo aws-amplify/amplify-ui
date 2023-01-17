@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { useSwitch } from '../useSwitch';
 
-describe('useSwitch: ', () => {
+describe('useSwitch:', () => {
   it('should return basic props correctly', () => {
     const { result } = renderHook(() => useSwitch({ defaultChecked: true }));
     expect(result.current.changeHandler).toBeDefined();

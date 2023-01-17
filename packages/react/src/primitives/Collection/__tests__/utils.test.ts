@@ -9,7 +9,7 @@ describe('getItemsAtPage', () => {
     expect(getItemsAtPage(items, 3, 3)).toStrictEqual([7, 8, 9]);
   });
 
-  it('should return no items if page is lower than 1 ', () => {
+  it('should return no items if page is lower than 1', () => {
     expect(getItemsAtPage(items, 0, 3)).toHaveLength(0);
     expect(getItemsAtPage(items, -3, 3)).toHaveLength(0);
     expect(getItemsAtPage(items, -10, 3)).toHaveLength(0);

@@ -9,7 +9,7 @@ import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
 import { Primitive, TextFieldProps } from '../types';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 
 const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {

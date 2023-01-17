@@ -18,7 +18,7 @@ describe('SelectField test suite', () => {
   const testId = 'test-select';
   const errorMessage = 'This is an error message';
   describe('Flex wrapper', () => {
-    it('should render default and custom classname ', async () => {
+    it('should render default and custom classname', async () => {
       render(
         <SelectField label={label} testId={testId} className={className}>
           <option value="1">1</option>
@@ -58,7 +58,7 @@ describe('SelectField test suite', () => {
 
       const labelElelment = (await screen.findByText(
         label
-      )) as HTMLLabelElement;
+      ));
       expect(labelElelment).toHaveClass(ComponentClassNames.Label);
     });
 
@@ -72,7 +72,7 @@ describe('SelectField test suite', () => {
       );
       const labelElelment = (await screen.findByText(
         label
-      )) as HTMLLabelElement;
+      ));
       const select = await screen.findByRole(role);
       expect(labelElelment).toHaveAttribute('for', select.id);
     });

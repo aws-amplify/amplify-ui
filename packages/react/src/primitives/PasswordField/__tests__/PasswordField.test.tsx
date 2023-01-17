@@ -60,7 +60,7 @@ describe('PasswordField component', () => {
         label="Password"
         descriptiveText="Required"
         name="password"
-        hideShowPassword={true}
+        hideShowPassword
         placeholder="Password"
         size="large"
       />
@@ -92,7 +92,7 @@ describe('PasswordField component', () => {
         label="Password"
         descriptiveText="Required"
         name="password"
-        hideShowPassword={true}
+        hideShowPassword
       />
     );
 
