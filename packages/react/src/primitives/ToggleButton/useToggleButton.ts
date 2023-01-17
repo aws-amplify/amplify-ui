@@ -7,7 +7,7 @@ type ClickHandler = React.MouseEventHandler<HTMLButtonElement>;
 
 type UseToggleButton = {
   handleClick: ClickHandler;
-  isPressed: boolean;
+  isPressed?: boolean;
 };
 
 export const useToggleButton = ({
@@ -18,7 +18,7 @@ export const useToggleButton = ({
   value,
 }: ToggleButtonProps): UseToggleButton => {
   const isControlled = isPressed !== undefined;
-  // Maintain internal selected state for unconrolled component
+  // Maintain internal selected state for uncontrolled component
   const [pressed, setPressed] = React.useState(defaultPressed);
   isPressed = isControlled ? isPressed : pressed;
   const handleClick: ClickHandler = React.useCallback(
