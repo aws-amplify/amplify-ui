@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-core
 
+## 2.1.9
+
+### Patch Changes
+
+- [#3265](https://github.com/aws-amplify/amplify-ui/pull/3265) [`08111e7e6`](https://github.com/aws-amplify/amplify-ui/commit/08111e7e60af5baf3b7e408f9545514c34e09078) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint primitives (P-S)
+
+- Updated dependencies [[`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd), [`01912077c`](https://github.com/aws-amplify/amplify-ui/commit/01912077c6d4fcdd3cbe9b6de2bb53fc490d0f41)]:
+  - @aws-amplify/ui@5.5.1
+
 ## 2.1.8
 
 ### Patch Changes
