@@ -34,20 +34,22 @@ function referenceValue(value: string) {
   return value;
 }
 
-export function cssValue(token: DesignToken<{ value: unknown }>) {
+export function cssValue(token: DesignToken<any>) {
   const { value } = token;
   if (isString(value)) {
     return referenceValue(value);
   }
 
-  if (isObject(value)) {
-    if ('offsetX' in value) {
-      return SHADOW_PROPERTIES.map((property) =>
-        // lookup property against `token` first for custom non-nested value, then lookup
-        // property against `value` for design token value, default to empty string
-        referenceValue(token[property] ?? value[property] ?? '')
-      ).join(' ');
-    }
+  if (isShadowToken(value) && isObject(value)) {
+    return SHADOW_PROPERTIES.map((property) => {
+      // lookup property against `token` first for custom non-nested value, then lookup
+      // property against `value` for design token value, default to empty string
+      if (isShadowToken(token) && isObject(token)) {
+        return referenceValue(token[property] ?? '');
+      } else {
+        return referenceValue(value[property] ?? '');
+      }
+    }).join(' ');
   }
 
   return value;
@@ -72,8 +74,12 @@ export function isDesignToken(value: unknown): value is WebDesignToken {
   return isObject(value) && has(value, 'value');
 }
 
+export function isShadowToken(value: unknown): value is ShadowValue {
+  return isObject(value) && has(value, 'offsetX');
+}
+
 type SetupTokensProps = {
-  tokens: Record<string | number, any>;
+  tokens?: Record<string | number, any>;
   path?: Array<string>;
   setupToken: SetupToken;
 };
@@ -101,7 +107,7 @@ export function setupTokens({
     return setupToken({ token: tokens as BaseDesignToken, path });
   }
 
-  const output = {};
+  const output: Record<string, any> = {};
 
   for (const name in tokens) {
     if (has(tokens, name)) {
