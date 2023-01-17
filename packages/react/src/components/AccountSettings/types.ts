@@ -31,8 +31,11 @@ type CommonAlertProps = Partial<PrimitiveProps<AlertProps, 'div'>> &
 type CommonButtonProps<T extends 'submit' | 'default' = 'default'> =
   Partial<ButtonPrimitiveProps> &
     Required<
-      Pick<ButtonPrimitiveProps, T extends 'submit' ? never : 'onClick'>
-    > & { isDisabled: boolean | null | undefined };
+      Pick<
+        ButtonPrimitiveProps,
+        'isDisabled' | (T extends 'submit' ? never : 'onClick')
+      >
+    >;
 
 /*
  * These are component override types.
