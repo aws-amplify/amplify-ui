@@ -50,7 +50,7 @@ export default function useFieldValues<FieldType extends TypedField>({
       return { ...field, onChange };
     }
 
-    const { name, label, labelHidden, required, ...rest } = field;
+    const { name, label, labelHidden, ...rest } = field;
 
     const onBlur: TextFieldOnBlur = (event) => {
       // call `onBlur` passed as text `field` option
@@ -70,23 +70,13 @@ export default function useFieldValues<FieldType extends TypedField>({
       setValues({ ...values, [name]: value });
     };
 
-    const getDisplayLabel = (): string | undefined => {
-      if (!label || labelHidden) return undefined;
-
-      // if * is already appended through state machine manipulations
-      if (label.endsWith('*')) return label;
-
-      return required ? `${label} *` : label;
-    };
-
     return {
       ...rest,
-      label: getDisplayLabel(),
+      label: labelHidden ? undefined : label,
       onBlur,
       onChangeText,
       name,
       value: values[name],
-      required,
     };
   }) as FieldType[];
 
