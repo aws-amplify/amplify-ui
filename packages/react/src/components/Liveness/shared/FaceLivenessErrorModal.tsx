@@ -26,15 +26,13 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
     case LivenessErrorState.TIMEOUT:
       heading = translate('Time out');
       break;
-    case LivenessErrorState.SERVER_ERROR:
-      heading = translate('Server Issue');
-      break;
     case LivenessErrorState.RUNTIME_ERROR:
     case LivenessErrorState.FACE_DISTANCE_ERROR:
       heading = translate('Client error');
       break;
+    case LivenessErrorState.SERVER_ERROR:
     default:
-      heading = null;
+      heading = translate('Server Issue');
   }
 
   return (

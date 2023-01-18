@@ -504,7 +504,8 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach error state after detectInitialFaceAndDrawOval error', async () => {
-      const error = new Error('some-error');
+      const error = new Error();
+      error.name = LivenessErrorState.RUNTIME_ERROR;
       mockBlazeFace.detectFaces
         .mockResolvedValue([mockFace])
         .mockResolvedValueOnce([mockFace]) // first to pass detecting face before start
@@ -526,13 +527,10 @@ describe('Liveness Machine', () => {
     it('should reach error state after receiving a server error from the websocket stream', async () => {
       await transitionToRecording(service);
 
-      const errorData = {
-        Code: 1,
-        Message: 'error',
-      };
+      const error = new Error('test');
       service.send({
         type: 'SERVER_ERROR',
-        data: errorData,
+        data: { error },
       });
       await flushPromises();
       jest.advanceTimersToNextTimer();
@@ -541,7 +539,8 @@ describe('Liveness Machine', () => {
         LivenessErrorState.SERVER_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockcomponentProps.onError).toHaveBeenCalledWith(errorData);
+      error.name = LivenessErrorState.SERVER_ERROR;
+      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
     });
 
     it('should reach checkFaceDetected state and send client sessionInformation', async () => {
@@ -748,7 +747,8 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach error state after getLiveness returns error', async () => {
-      const error = new Error('another-error');
+      const error = new Error();
+      error.name = LivenessErrorState.SERVER_ERROR;
       (
         mockcomponentProps.onGetLivenessDetection as jest.Mock
       ).mockRejectedValue(error);
@@ -762,7 +762,7 @@ describe('Liveness Machine', () => {
 
       expect(service.state.value).toEqual('error');
       expect(service.state.context.errorState).toBe(
-        LivenessErrorState.RUNTIME_ERROR
+        LivenessErrorState.SERVER_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
       expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);

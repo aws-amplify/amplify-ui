@@ -358,7 +358,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               onDone: 'checking',
               onError: {
                 target: '#livenessMachine.error',
-                actions: 'updateErrorStateForRuntime',
+                actions: 'updateErrorStateForServer',
               },
             },
           },
@@ -726,7 +726,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps.onFailure?.();
       },
       callErrorCallback: async (context, event) => {
-        const error = event.data as Error;
+        const errorMessage =
+          event.data.error?.message || event.data.error?.Message;
+        const error = new Error(errorMessage);
+        error.name = context.errorState;
         context.componentProps.onError?.(error);
       },
       cleanUpResources: async (context) => {
@@ -1225,29 +1228,29 @@ const responseStreamActor = async (callback) => {
       } else if (isValidationExceptionEvent(event)) {
         callback({
           type: 'SERVER_ERROR',
-          data: { ...event.ValidationException },
+          data: { error: { ...event.ValidationException } },
         });
       } else if (isInternalServerExceptionEvent(event)) {
         callback({
           type: 'SERVER_ERROR',
-          data: { ...event.InternalServerException },
+          data: { error: { ...event.InternalServerException } },
         });
       } else if (isThrottlingExceptionEvent(event)) {
         callback({
           type: 'SERVER_ERROR',
-          data: { ...event.ThrottlingException },
+          data: { error: { ...event.ThrottlingException } },
         });
       } else if (isServiceQuotaExceededExceptionEvent(event)) {
         callback({
           type: 'SERVER_ERROR',
-          data: { ...event.ServiceQuotaExceededException },
+          data: { error: { ...event.ServiceQuotaExceededException } },
         });
       }
     }
   } catch (error) {
     callback({
       type: 'SERVER_ERROR',
-      data: { ...error },
+      data: { error },
     });
   }
 };
