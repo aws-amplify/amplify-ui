@@ -84,12 +84,13 @@ export function getRandomScalingAttributes(
   sessionInformation: SessionInformation
 ) {
   const ovalScaleFactors =
-    sessionInformation.Challenge.FaceMovementAndLightChallenge.OvalScaleFactors;
+    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
+      ?.OvalScaleFactors;
 
   return {
-    centerX: ovalScaleFactors.CenterX,
-    centerY: ovalScaleFactors.CenterY,
-    width: ovalScaleFactors.Width,
+    centerX: ovalScaleFactors?.CenterX,
+    centerY: ovalScaleFactors?.CenterY,
+    width: ovalScaleFactors?.Width,
   };
 }
 
@@ -183,24 +184,29 @@ export function drawLivenessOvalInCanvas(
   const canvasHeight = canvas.height;
   const ctx = canvas.getContext('2d');
 
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  if (ctx) {
+    ctx?.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  // fill the canvas with a transparent rectangle
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    // fill the canvas with a transparent rectangle
 
-  // draw the oval path
-  ctx.beginPath();
-  ctx.ellipse(centerX, centerY, width / 2, height / 2, 0, 0, 2 * Math.PI);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-  // add stroke to the oval path
-  ctx.strokeStyle = 'white';
-  ctx.lineWidth = 8;
-  ctx.stroke();
-  ctx.clip();
+    // draw the oval path
+    ctx.beginPath();
+    ctx.ellipse(centerX, centerY, width / 2, height / 2, 0, 0, 2 * Math.PI);
 
-  // clear the oval content from the rectangle
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    // add stroke to the oval pat
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 8;
+    ctx.stroke();
+    ctx.clip();
+
+    // clear the oval content from the rectangle
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  } else {
+    throw new Error('Cannot find Canvas.');
+  }
 }
 
 /**
@@ -290,40 +296,44 @@ function generateBboxFromLandmarks(face: Face): BoundingBox {
  */
 export function estimateIllumination(
   videoEl: HTMLVideoElement
-): IlluminationState {
+): IlluminationState | undefined {
   const canvasEl = document.createElement('canvas');
   canvasEl.width = videoEl.videoWidth;
   canvasEl.height = videoEl.videoHeight;
 
   const ctx = canvasEl.getContext('2d');
-  ctx.drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
-  const frame = ctx.getImageData(0, 0, canvasEl.width, canvasEl.height).data;
+  if (ctx) {
+    ctx.drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
+    const frame = ctx.getImageData(0, 0, canvasEl.width, canvasEl.height).data;
 
-  // histogram
-  const MAX_SCALE = 8;
-  const hist = new Array(MAX_SCALE).fill(0);
+    // histogram
+    const MAX_SCALE = 8;
+    const hist = new Array(MAX_SCALE).fill(0);
 
-  for (let i = 0; i < frame.length; i++) {
-    const luma = Math.round(
-      frame[i++] * 0.2126 + frame[i++] * 0.7152 + frame[i++] * 0.0722
-    );
-    hist[luma % 32]++;
-  }
-
-  let ind = -1,
-    maxCount = 0;
-  for (let i = 0; i < MAX_SCALE; i++) {
-    if (hist[i] > maxCount) {
-      maxCount = hist[i];
-      ind = i;
+    for (let i = 0; i < frame.length; i++) {
+      const luma = Math.round(
+        frame[i++] * 0.2126 + frame[i++] * 0.7152 + frame[i++] * 0.0722
+      );
+      hist[luma % 32]++;
     }
+
+    let ind = -1,
+      maxCount = 0;
+    for (let i = 0; i < MAX_SCALE; i++) {
+      if (hist[i] > maxCount) {
+        maxCount = hist[i];
+        ind = i;
+      }
+    }
+
+    canvasEl.remove();
+
+    if (ind === 0) return IlluminationState.DARK;
+    if (ind === MAX_SCALE) return IlluminationState.BRIGHT;
+    return IlluminationState.NORMAL;
+  } else {
+    throw new Error('Cannot find Video Element.');
   }
-
-  canvasEl.remove();
-
-  if (ind === 0) return IlluminationState.DARK;
-  if (ind === MAX_SCALE) return IlluminationState.BRIGHT;
-  return IlluminationState.NORMAL;
 }
 
 /**
@@ -340,7 +350,10 @@ export const IlluminationStateStringMap: Record<IlluminationState, string> = {
   [IlluminationState.NORMAL]: translate('Lighting conditions normal'),
 };
 
-export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
+export const FaceMatchStateStringMap: Record<
+  FaceMatchState,
+  string | undefined
+> = {
   [FaceMatchState.CANT_IDENTIFY]: translate('Move face in front of camera'),
   [FaceMatchState.FACE_IDENTIFIED]: translate('Face detected'),
   [FaceMatchState.TOO_MANY]: translate(
@@ -353,7 +366,10 @@ export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
   [FaceMatchState.MATCHED]: undefined,
 };
 
-export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
+export const LivenessErrorStateStringMap: Record<
+  LivenessErrorState,
+  string | undefined
+> = {
   [LivenessErrorState.RUNTIME_ERROR]: translate(
     'Check failed due to client issue'
   ),
@@ -475,55 +491,64 @@ export function fillOverlayCanvasFractional({
   const canvasHeight = overlayCanvas.height;
   const ctx = overlayCanvas.getContext('2d');
 
-  // Because the canvas is set to to 100% we need to manually set the height for the canvas to use pixel values
-  ctx.canvas.width = window.innerWidth;
-  ctx.canvas.height = window.innerHeight;
+  if (ctx) {
+    // Because the canvas is set to to 100% we need to manually set the height for the canvas to use pixel values
+    ctx.canvas.width = window.innerWidth;
+    ctx.canvas.height = window.innerHeight;
 
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  // fill the complete canvas
-  fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
+    // fill the complete canvas
+    fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
 
-  // save the current state
-  ctx.save();
+    // save the current state
+    ctx.save();
 
-  // draw the rectangle path and fill it
-  ctx.beginPath();
-  ctx.rect(ovalCanvasX, ovalCanvasY, ovalCanvas.width, ovalCanvas.height);
-  ctx.clip();
+    // draw the rectangle path and fill it
+    ctx.beginPath();
+    ctx.rect(ovalCanvasX, ovalCanvasY, ovalCanvas.width, ovalCanvas.height);
+    ctx.clip();
 
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  ctx.globalAlpha = INITIAL_ALPHA;
-  fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
+    ctx.globalAlpha = INITIAL_ALPHA;
+    fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
 
-  // draw the oval path and fill it
-  ctx.beginPath();
-  ctx.ellipse(
-    updatedCenterX,
-    updatedCenterY,
-    width / 2,
-    height / 2,
-    0,
-    0,
-    2 * Math.PI
-  );
-  // add stroke to the oval path
-  ctx.strokeStyle = 'white';
-  ctx.lineWidth = 8;
-  ctx.stroke();
-  ctx.clip();
+    // draw the oval path and fill it
+    ctx.beginPath();
+    ctx.ellipse(
+      updatedCenterX,
+      updatedCenterY,
+      width / 2,
+      height / 2,
+      0,
+      0,
+      2 * Math.PI
+    );
+    // add stroke to the oval path
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 8;
+    ctx.stroke();
+    ctx.clip();
 
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-  ctx.globalAlpha = SECONDARY_ALPHA;
-  fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
+    ctx.globalAlpha = SECONDARY_ALPHA;
+    fillFractionalContext(ctx, prevColor, nextColor, heightFraction);
 
-  // restore the state
-  ctx.restore();
+    // restore the state
+    ctx.restore();
+  } else {
+    throw new Error('Cannot find Overlay Canvas.');
+  }
 }
 
-function fillFractionalContext(ctx, prevColor, nextColor, fraction) {
+function fillFractionalContext(
+  ctx: CanvasRenderingContext2D,
+  prevColor: string,
+  nextColor: string,
+  fraction: number
+) {
   const canvasWidth = ctx.canvas.width;
   const canvasHeight = ctx.canvas.height;
 
@@ -541,23 +566,38 @@ function fillFractionalContext(ctx, prevColor, nextColor, fraction) {
   }
 }
 
+export const isClientFreshnessColorSequence = (
+  obj: ClientFreshnessColorSequence | undefined
+): obj is ClientFreshnessColorSequence => !!obj;
+
 export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
 ): ClientFreshnessColorSequence[] {
   const colorSequenceFromSessionInfo =
-    sessionInformation.Challenge.FaceMovementAndLightChallenge.ColorSequences;
-  const colorSequences: ClientFreshnessColorSequence[] =
-    colorSequenceFromSessionInfo.map((colorSequence) => {
-      const colorArray = colorSequence.FreshnessColor.RGB;
-      const color = `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`;
-      return {
-        color,
-        downscrollDuration: colorSequence.DownscrollDuration,
-        flatDisplayDuration: colorSequence.FlatDisplayDuration,
-      };
-    });
+    sessionInformation.Challenge?.FaceMovementAndLightChallenge?.ColorSequences;
+  const colorSequences: (ClientFreshnessColorSequence | undefined)[] = [
+    ...(colorSequenceFromSessionInfo ? colorSequenceFromSessionInfo : []),
+  ].map(
+    ({
+      FreshnessColor,
+      DownscrollDuration: downscrollDuration,
+      FlatDisplayDuration: flatDisplayDuration,
+    }) => {
+      const colorArray = FreshnessColor?.RGB;
+      const color = colorArray
+        ? `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`
+        : '';
+      return color && downscrollDuration && flatDisplayDuration
+        ? {
+            color,
+            downscrollDuration,
+            flatDisplayDuration,
+          }
+        : undefined;
+    }
+  );
 
-  return colorSequences;
+  return colorSequences.filter(isClientFreshnessColorSequence);
 }
 
 export function getRGBArrayFromColorString(colorStr: string): number[] {
@@ -632,18 +672,20 @@ export async function isFaceDistanceBelowThreshold({
       detectedFace = detectedFaces[0];
 
       const { leftEye, rightEye } = detectedFace;
-      const { width } = ovalDetails;
+      const width = ovalDetails?.width;
       const pupilDistance = Math.sqrt(
         (rightEye[0] - leftEye[0]) ** 2 + (rightEye[1] - leftEye[1]) ** 2
       );
 
-      distanceBelowThreshold =
-        pupilDistance / width <
-        (!reduceThreshold
-          ? FACE_DISTANCE_THRESHOLD
-          : isMobile
-          ? REDUCED_THRESHOLD_MOBILE
-          : REDUCED_THRESHOLD);
+      if (width) {
+        distanceBelowThreshold =
+          pupilDistance / width <
+          (!reduceThreshold
+            ? FACE_DISTANCE_THRESHOLD
+            : isMobile
+            ? REDUCED_THRESHOLD_MOBILE
+            : REDUCED_THRESHOLD);
+      }
       break;
     }
     default: {
