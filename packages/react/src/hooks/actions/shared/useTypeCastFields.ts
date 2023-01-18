@@ -1,16 +1,18 @@
 import * as React from 'react';
 import {
   ModelInit,
+  PersistentModel,
   PersistentModelMetaData,
   Schema,
 } from '@aws-amplify/datastore';
 
 import { DataStoreActionFields, isAlreadyTyped } from './types';
+import { isString } from 'lodash';
 
-interface UseTypeCastFieldsProps<Model> {
+interface UseTypeCastFieldsProps<Model extends PersistentModel> {
   fields: DataStoreActionFields<Model>;
   modelName: string;
-  schema: Schema;
+  schema?: Schema;
 }
 
 type UseTypeCastFieldsReturn<Model> =
@@ -22,7 +24,7 @@ type UseTypeCastFieldsReturn<Model> =
  * datastore based on the schema type
  * @see: See https://docs.aws.amazon.com/appsync/latest/devguide/scalars.html
  */
-export const useTypeCastFields = <Model>({
+export const useTypeCastFields = <Model extends PersistentModel>({
   fields,
   modelName,
   schema,
@@ -32,9 +34,9 @@ export const useTypeCastFields = <Model>({
       return fields;
     }
 
-    const castFields = {} as UseTypeCastFieldsReturn<Model>;
-    Object.keys(fields).forEach((fieldName) => {
-      const field = fields[fieldName] as string;
+    const castFields = <UseTypeCastFieldsReturn<Model>>{};
+    Object.keys(fields).forEach((fieldName: string) => {
+      const field: unknown = fields[fieldName];
       switch (schema?.models[modelName]?.fields?.[fieldName]?.type) {
         case 'AWSTimestamp':
           castFields[fieldName] = Number(field);
@@ -43,7 +45,7 @@ export const useTypeCastFields = <Model>({
           castFields[fieldName] = Boolean(field);
           break;
         case 'Int':
-          castFields[fieldName] = parseInt(field);
+          castFields[fieldName] = isString(field) ? parseInt(field) : field;
           break;
         case 'Float':
           castFields[fieldName] = Number(field);
