@@ -14,6 +14,7 @@
     "module": "es2020",
     "esModuleInterop": true,
     "paths": {},
+    "strict": true,
     "lib": ["dom", "es2019", "dom.iterable"]
   },
   "angularCompilerOptions": {

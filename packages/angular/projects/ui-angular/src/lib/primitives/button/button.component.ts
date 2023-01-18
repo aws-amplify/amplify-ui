@@ -6,17 +6,17 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 })
 export class ButtonComponent implements OnInit {
   @Input() type: 'submit' | 'button' = 'button';
-  @Input() fullWidth: boolean | string = false;
-  @Input() isDisabled: boolean | string = false;
+  @Input() fullWidth: boolean = false;
+  @Input() isDisabled: boolean = false;
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
   @Input() variation: 'primary' | 'default' | 'link' = 'default';
   @Input() fontWeight: 'normal' | 'bold' | 'lighter' = 'normal';
 
-  @HostBinding('type') typeAttr: string;
-  @HostBinding('attr.data-fullwidth') fullWidthAttr: boolean | string;
-  @HostBinding('attr.data-size') sizeAttr: string;
-  @HostBinding('attr.data-variation') variationAttr: string;
-  @HostBinding('style.font-weight') fontWeightAttr: string;
+  @HostBinding('type') typeAttr: string = 'button';
+  @HostBinding('attr.data-fullwidth') fullWidthAttr: boolean = false;
+  @HostBinding('attr.data-size') sizeAttr: string = 'medium';
+  @HostBinding('attr.data-variation') variationAttr: string = 'default';
+  @HostBinding('style.font-weight') fontWeightAttr: string = 'normal';
 
   @HostBinding('attr.disabled') get getDisabled() {
     return this.isDisabled ? '' : null;
