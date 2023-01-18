@@ -44,8 +44,8 @@ export function cssValue(token: BaseDesignToken): string | number {
   if (isShadowToken(value)) {
     return SHADOW_PROPERTIES.map((property) => {
       return referenceValue(
-        // lookup property against `token` first for custom non-nested value, then lookup
-        // property against `value` for design token value, default to empty string
+       // lookup property against `token` first for custom non-nested value, then lookup
+       // property against `value` for design token value
         isShadowToken(token) ? token[property] : value[property]
       );
     }).join(' ');
