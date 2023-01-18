@@ -12,7 +12,7 @@ import { ComponentClassNames } from '../constants';
 const theme = createTheme();
 const { tokens } = theme;
 
-describe('getConsecutiveIntArray: ', () => {
+describe('getConsecutiveIntArray:', () => {
   it('should return an array of consecutive integer', () => {
     const array = getConsecutiveIntArray(1, 5);
     expect(array).toEqual([1, 2, 3, 4, 5]);
@@ -29,7 +29,7 @@ describe('getConsecutiveIntArray: ', () => {
   });
 });
 
-describe('strHasLength: ', () => {
+describe('strHasLength:', () => {
   it('should return false for none string types', () => {
     const noneStringTypes = [undefined, null, 1, true, {}, [], () => {}];
     noneStringTypes.forEach((type) => {

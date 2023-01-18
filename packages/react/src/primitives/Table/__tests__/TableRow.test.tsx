@@ -5,7 +5,7 @@ import { Table } from '../Table';
 import { TableBody } from '../TableBody';
 import { TableRow } from '../TableRow';
 
-describe('Forward ref: ', () => {
+describe('Forward ref:', () => {
   it('should forward ref to TableRow DOM element', async () => {
     const ref = React.createRef<HTMLTableRowElement>();
     render(

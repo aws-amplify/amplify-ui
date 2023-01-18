@@ -249,6 +249,10 @@ export const ComponentClassObject: ComponentClassNameItems = {
     className: ComponentClassName.FileUploaderFile,
     components: ['FileUploader'],
   },
+  FileUploaderFileWrapper: {
+    className: ComponentClassName.FileUploaderFileWrapper,
+    components: ['FileUploader'],
+  },
   FileUploaderFileName: {
     className: ComponentClassName.FileUploaderFileName,
     components: ['FileUploader'],
@@ -725,6 +729,8 @@ export const ComponentClassNames: ComponentClassNamesType = {
   FileUploaderDropZoneButton:
     ComponentClassObject.FileUploaderDropZoneButton.className,
   FileUploaderFile: ComponentClassObject.FileUploaderFile.className,
+  FileUploaderFileWrapper:
+    ComponentClassObject.FileUploaderFileWrapper.className,
   FileUploaderFileName: ComponentClassObject.FileUploaderFileName.className,
   FileUploaderLoader: ComponentClassObject.FileUploaderLoader.className,
   FileUploaderFileSize: ComponentClassObject.FileUploaderFileSize.className,

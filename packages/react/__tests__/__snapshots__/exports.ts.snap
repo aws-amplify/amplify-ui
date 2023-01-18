@@ -5549,9 +5549,6 @@ Object {
       "ariaValuetext": Object {
         "type": "string",
       },
-      "asChild": Object {
-        "type": "boolean",
-      },
       "autoCapitalize": Object {
         "type": "string",
       },
@@ -5620,9 +5617,6 @@ Object {
       },
       "dir": Object {
         "type": "string",
-      },
-      "disabled": Object {
-        "type": "boolean",
       },
       "display": Object {
         "type": "string",

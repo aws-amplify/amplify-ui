@@ -106,6 +106,7 @@ type ComponentClassNameKey =
   | 'FileUploaderDropZoneText'
   | 'FileUploaderDropZoneButton'
   | 'FileUploaderFile'
+  | 'FileUploaderFileWrapper'
   | 'FileUploaderFileName'
   | 'FileUploaderFileSize'
   | 'FileUploaderFileInfo'

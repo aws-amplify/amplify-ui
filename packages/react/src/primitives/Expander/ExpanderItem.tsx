@@ -22,7 +22,7 @@ export const EXPANDER_HEADER_TEST_ID = 'expander-header';
 export const EXPANDER_ICON_TEST_ID = 'expander-icon';
 export const EXPANDER_CONTENT_TEXT_TEST_ID = 'expander-content-text';
 
-const ExpanderItemPrimitive: Primitive<ExpanderItemProps, typeof Item> = (
+const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
   { children, className, title, value, ..._rest },
   ref
 ) => {

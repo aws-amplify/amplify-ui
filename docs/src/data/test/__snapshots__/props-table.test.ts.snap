@@ -2428,13 +2428,6 @@ exports[`Props Table 1`] = `
                         \\"description\\": \\"A unique value for the item.\\",
                         \\"category\\": \\"ExpanderItemProps\\",
                         \\"isOptional\\": false
-                    },
-                    \\"disabled\\": {
-                        \\"name\\": \\"disabled\\",
-                        \\"type\\": \\"boolean\\",
-                        \\"description\\": \\"DefaultValue: false\\",
-                        \\"category\\": \\"AccordionItemProps\\",
-                        \\"isOptional\\": true
                     }
                 }
             },
@@ -4315,17 +4308,17 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"MenuProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"onOpenChange\\": {
-                        \\"name\\": \\"onOpenChange\\",
-                        \\"type\\": \\"(isOpen: boolean) => void\\",
-                        \\"description\\": \\"Handle open and close event of menu\\",
-                        \\"category\\": \\"MenuProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"menuAlign\\": {
                         \\"name\\": \\"menuAlign\\",
                         \\"type\\": \\"\\\\\\"center\\\\\\" | \\\\\\"end\\\\\\" | \\\\\\"start\\\\\\"\\",
                         \\"description\\": \\"Alignment of menu against trigger Default: \\\\\\"start\\\\\\"\\",
+                        \\"category\\": \\"MenuProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"onOpenChange\\": {
+                        \\"name\\": \\"onOpenChange\\",
+                        \\"type\\": \\"(isOpen: boolean) => void\\",
+                        \\"description\\": \\"Handle open and close event of menu\\",
                         \\"category\\": \\"MenuProps\\",
                         \\"isOptional\\": true
                     },
@@ -5084,7 +5077,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"onChange\\": {
                         \\"name\\": \\"onChange\\",
-                        \\"type\\": \\"(newPageIndex: number, prevPageIndex: number) => void\\",
+                        \\"type\\": \\"(newPageIndex?: number, prevPageIndex?: number) => void\\",
                         \\"description\\": \\"Callback function triggered every time the page changes\\",
                         \\"category\\": \\"BasePaginationProps\\",
                         \\"isOptional\\": true
@@ -11784,7 +11777,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"onChange\\": {
                         \\"name\\": \\"onChange\\",
-                        \\"type\\": \\"(value: string) => void\\",
+                        \\"type\\": \\"(value?: string) => void\\",
                         \\"description\\": \\"Handles changes to the current value when using the ToggleButton as a controlled component\\",
                         \\"category\\": \\"ToggleButtonProps\\",
                         \\"isOptional\\": true

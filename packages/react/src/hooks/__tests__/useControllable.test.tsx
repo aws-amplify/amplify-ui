@@ -117,7 +117,7 @@ describe('useControllable', () => {
     );
     expect(container).toHaveTextContent('a different default value');
 
-    act(() => ref.current!.setHookValue('a value set inside the component'));
+    act(() => ref.current.setHookValue('a value set inside the component'));
     expect(container).toHaveTextContent('a value set inside the component');
 
     rerender(
@@ -144,7 +144,7 @@ describe('useControllable', () => {
     expect(container).toHaveTextContent('value two');
 
     act(() =>
-      ref.current!.setHookValue('a value set from inside the component')
+      ref.current.setHookValue('a value set from inside the component')
     );
     expect(container).toHaveTextContent('value two');
   });
@@ -156,15 +156,15 @@ describe('useControllable', () => {
     );
     expect(container).toHaveTextContent('the default value');
 
-    act(() => ref.current!.setHookValue('another value'));
+    act(() => ref.current.setHookValue('another value'));
     expect(container).toHaveTextContent('another value');
 
     act(() =>
-      ref.current!.setHookValue((oldState) => oldState + ' but modified')
+      ref.current.setHookValue((oldState) => oldState + ' but modified')
     );
     expect(container).toHaveTextContent('another value but modified');
 
-    act(() => ref.current!.setHookValue(undefined!));
+    act(() => ref.current.setHookValue(undefined!));
     expect(container).toHaveTextContent('');
   });
 });
