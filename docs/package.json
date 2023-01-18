@@ -12,7 +12,7 @@
     "build": "yarn build:props-tables && next build",
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables-data.ts",
     "lint": "next lint",
-    "postbuild": "yarn test && yarn postbuild:previews && yarn postbuild:sitemap",
+    "postbuild": "yarn postbuild:sitemap && yarn test && yarn postbuild:previews",
     "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
     "start": "next start",
