@@ -34,7 +34,7 @@ function referenceValue(value: string) {
   return value;
 }
 
-export function cssValue(token: DesignToken<any>) {
+export function cssValue(token: BaseDesignToken): string | number {
   const { value } = token;
   if (isString(value)) {
     return referenceValue(value);
@@ -42,13 +42,11 @@ export function cssValue(token: DesignToken<any>) {
 
   if (isShadowToken(value) && isObject(value)) {
     return SHADOW_PROPERTIES.map((property) => {
-      // lookup property against `token` first for custom non-nested value, then lookup
-      // property against `value` for design token value, default to empty string
-      if (isShadowToken(token) && isObject(token)) {
-        return referenceValue(token[property] ?? '');
-      } else {
-        return referenceValue(value[property] ?? '');
-      }
+      return referenceValue(
+        // lookup property against `token` first for custom non-nested value, then lookup
+        // property against `value` for design token value, default to empty string
+        isShadowToken(token) ? token[property] : value[property] ?? ''
+      );
     }).join(' ');
   }
 
