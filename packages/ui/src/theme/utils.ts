@@ -26,7 +26,8 @@ const SHADOW_PROPERTIES: ShadowPropertyKey[] = [
   'color',
 ];
 
-function referenceValue(value: string) {
+function referenceValue(value?: string) {
+  if (!value) return '';
   if (usesReference(value)) {
     const path = value.replace(/\{|\}/g, '').replace('.value', '').split('.');
     return `var(--${cssNameTransform({ path })})`;
@@ -40,12 +41,12 @@ export function cssValue(token: BaseDesignToken): string | number {
     return referenceValue(value);
   }
 
-  if (isShadowToken(value) && isObject(value)) {
+  if (isShadowToken(value)) {
     return SHADOW_PROPERTIES.map((property) => {
       return referenceValue(
         // lookup property against `token` first for custom non-nested value, then lookup
         // property against `value` for design token value, default to empty string
-        isShadowToken(token) ? token[property] : value[property] ?? ''
+        isShadowToken(token) ? token[property] : value[property]
       );
     }).join(' ');
   }
