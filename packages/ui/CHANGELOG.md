@@ -1,5 +1,13 @@
 # @aws-amplify/ui
 
+## 5.5.1
+
+### Patch Changes
+
+- [#3283](https://github.com/aws-amplify/amplify-ui/pull/3283) [`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd) Thanks [@wlee221](https://github.com/wlee221)! - Trim non-password fields on Authenticator forms. This will prevent unnecessary validation messages from showing up.
+
+- [#3284](https://github.com/aws-amplify/amplify-ui/pull/3284) [`01912077c`](https://github.com/aws-amplify/amplify-ui/commit/01912077c6d4fcdd3cbe9b6de2bb53fc490d0f41) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated text to be more verbose for the max file size error for the file uploader component.
+
 ## 5.5.0
 
 ### Minor Changes
