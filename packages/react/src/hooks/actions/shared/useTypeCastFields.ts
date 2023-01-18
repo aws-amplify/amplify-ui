@@ -7,7 +7,7 @@ import {
 } from '@aws-amplify/datastore';
 
 import { DataStoreActionFields, isAlreadyTyped } from './types';
-import { isString } from 'lodash/isString';
+import isString from 'lodash/isString';
 
 interface UseTypeCastFieldsProps<Model extends PersistentModel> {
   fields: DataStoreActionFields<Model>;
