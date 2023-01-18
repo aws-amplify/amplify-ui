@@ -17,7 +17,7 @@ function DeleteUser({
   handleDelete,
 }: DeleteUserProps): JSX.Element | null {
   const [state, setState] = React.useState<DeleteUserState>('IDLE');
-  const [errorMessage, setErrorMessage] = React.useState<string>(null);
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
   // translations
   const deleteAccountText = translate('Delete Account');
@@ -36,6 +36,9 @@ function DeleteUser({
   };
 
   const runDeleteUser = React.useCallback(async () => {
+    if (!user) {
+      return;
+    }
     setState('DELETING');
     if (errorMessage) {
       setErrorMessage(null);
