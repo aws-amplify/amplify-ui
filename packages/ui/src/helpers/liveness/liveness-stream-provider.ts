@@ -1,4 +1,4 @@
-import { Credentials } from '@aws-amplify/core';
+import { Credentials, getAmplifyUserAgent } from '@aws-amplify/core';
 import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
 import {
   ClientSessionInformationEvent,
@@ -59,6 +59,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         return { url };
       },
       region: REGION,
+      customUserAgent: getAmplifyUserAgent(),
     });
 
     this.responseStream = await this.startLivenessVideoConnection();
