@@ -146,8 +146,8 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   public async stopVideo() {
-    this.videoRecorder.dispatch(new Event('stopVideo'));
     await this.videoRecorder.stop();
+    this.videoRecorder.dispatch(new Event('stopVideo'));
   }
 
   public async endStream() {
