@@ -29,7 +29,7 @@ export const itDict: AuthenticatorDictionary = {
     "L'arrivo potrebbe richiedere qualche minuto",
   Loading: 'Caricamento in corso',
   'New password': 'Nuova password',
-  or: 'o',
+  or: 'oppure',
   Password: 'Password',
   'Phone Number': 'Numero di telefono',
   'Resend Code': 'Invia nuovamente il codice',
