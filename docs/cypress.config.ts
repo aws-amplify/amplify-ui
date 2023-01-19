@@ -9,7 +9,8 @@ export default defineConfig({
       on('task', {
         log: (message) => {
           console.log(message);
-          console.log(getHeapStatistics());
+          console.table(getHeapStatistics());
+          console.table(process.memoryUsage());
           return null;
         },
       });
