@@ -10,6 +10,7 @@ export default defineConfig({
         log: (message) => {
           console.log(message);
           console.log(getHeapStatistics());
+          console.log(process.memoryUsage());
           return null;
         },
       });
