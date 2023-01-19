@@ -7,7 +7,6 @@ import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import MyStorageProvider from '@/utils/storageMock';
 import { configure, trackPageVisit } from '@/utils/track';
-import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
 import { baseTheme } from '../theme';
 
@@ -86,10 +85,8 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   React.useEffect(() => {
-    if (IS_PROD_STAGE) {
-      configure();
-      trackPageVisit();
-    }
+    configure();
+    trackPageVisit();
   }, [pathname]); // only track page visit if path has changed
 
   return (
@@ -129,12 +126,8 @@ function MyApp({ Component, pageProps }) {
           </main>
         </ThemeProvider>
       </div>
-      {IS_PROD_STAGE && (
-        <>
-          <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
-          <Script src="/scripts/shortbreadv2.js" />
-        </>
-      )}
+      <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+      <Script src="/scripts/shortbreadv2.js" />
     </>
   );
 }
