@@ -28,6 +28,7 @@ export const ptDict: AuthenticatorDictionary = {
   'It may take a minute to arrive': 'Pode levar um minuto para chegar',
   Loading: 'Carregando',
   'New password': 'Nova Senha',
+  or: 'ou',
   Password: 'Senha',
   'Phone Number': 'Número de telefone',
   'Resend Code': 'Reenviar código',
