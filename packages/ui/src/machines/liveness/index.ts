@@ -26,7 +26,7 @@ import {
   isCameraDeviceVirtual,
   FreshnessColorDisplay,
 } from '../../helpers';
-import { v4 } from 'uuid';
+import { nanoid } from 'nanoid';
 import {
   getStaticLivenessOvalDetails,
   LivenessErrorStateStringMap,
@@ -59,7 +59,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     initial: 'start',
     predictableActionArguments: true,
     context: {
-      challengeId: v4(),
+      challengeId: nanoid(),
       maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
       failedAttempts: 0,
       componentProps: undefined,
@@ -753,7 +753,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         };
       },
       resetContext: assign({
-        challengeId: v4(),
+        challengeId: nanoid(),
         maxFailedAttempts: 0, // Set to 0 for now as we are not allowing front end based retries for streaming
         failedAttempts: 0,
         componentProps: (context) => context.componentProps,

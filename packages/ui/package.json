@@ -50,12 +50,10 @@
     "@tensorflow/tfjs-backend-webgl": "3.11.0",
     "@tensorflow/tfjs-converter": "3.11.0",
     "@tensorflow/tfjs-core": "3.11.0",
-    "aws-sdk-liveness": "2.1035.0-liveness.8",
-    "uuid": "^8.3.2",
-    "webrtc-adapter": "^8.1.0",
     "xstate": "^4.33.6",
     "csstype": "^3.1.1",
     "lodash": "4.17.21",
+    "nanoid": "3.1.31",
     "style-dictionary": "3.7.1",
     "tslib": "2.4.1"
   },

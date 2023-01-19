@@ -36,9 +36,6 @@ describe('Liveness Machine', () => {
     loadModels: jest.fn(),
     detectFaces: jest.fn(),
   };
-  const mockLivenessPredictionsProvider: any = {
-    putLivenessVideo: jest.fn(),
-  };
   const mockFreshnessColorDisplay: any = {
     displayColorTick: () => true,
   };
@@ -181,9 +178,6 @@ describe('Liveness Machine', () => {
     mockedHelpers.BlazeFaceFaceDetection.mockImplementation(
       () => mockBlazeFace
     );
-    mockedHelpers.LivenessPredictionsProvider.mockImplementation(
-      () => mockLivenessPredictionsProvider
-    );
     mockedHelpers.LivenessStreamProvider.mockImplementation(
       () => mockLivenessStreamProvider
     );
@@ -203,7 +197,6 @@ describe('Liveness Machine', () => {
     );
 
     mockBlazeFace.detectFaces.mockResolvedValue([mockFace]);
-    mockLivenessPredictionsProvider.putLivenessVideo.mockResolvedValue({});
 
     service = interpret(machine) as unknown as LivenessInterpreter;
   });
