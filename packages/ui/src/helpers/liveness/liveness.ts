@@ -587,7 +587,9 @@ export function getColorsSequencesFromSessionInformation(
       const color = colorArray
         ? `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`
         : '';
-      return color && downscrollDuration && flatDisplayDuration
+      return typeof color !== 'undefined' &&
+        typeof downscrollDuration !== 'undefined' &&
+        typeof flatDisplayDuration !== 'undefined'
         ? {
             color,
             downscrollDuration,
