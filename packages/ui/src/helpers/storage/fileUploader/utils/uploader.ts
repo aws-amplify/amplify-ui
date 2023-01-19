@@ -27,6 +27,7 @@ export function uploadFile({
       progressCallback,
       errorCallback,
       completeCallback,
+      contentType: file.type || 'binary/octet-stream',
       ...rest,
     });
   } else {
@@ -34,6 +35,7 @@ export function uploadFile({
       level,
       resumable: false,
       progressCallback,
+      contentType: file.type || 'binary/octet-stream',
       ...rest,
     }).then(completeCallback, errorCallback);
   }
