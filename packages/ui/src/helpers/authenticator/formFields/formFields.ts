@@ -57,8 +57,7 @@ export const getFormFields = (
   state: AuthMachineState
 ): FormFields => {
   const defaultFormFields = getDefaultFormFields(route, state);
-  const customFormFields =
-    getActorState(state).context?.formFields?.[route] || {};
+  const customFormFields = getCustomFormFields(route, state);
   const formFields = mergeFormFields(defaultFormFields, customFormFields);
   delete formFields['QR'];
   return applyTranslation(formFields);
