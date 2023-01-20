@@ -14,7 +14,7 @@ import { defaultFormFieldOptions } from '../constants';
 import { defaultFormFieldsGetters } from './defaults';
 import { applyTranslation, sortFormFields } from './util';
 
-/** Gets the default formFields for given route/route */
+// Gets the default formFields for given route
 export const getDefaultFormFields = (
   route: FormFieldComponents,
   state: AuthMachineState
