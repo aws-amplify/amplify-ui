@@ -38,7 +38,7 @@ export function createTheme(
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
-  const mergedTheme: DefaultTheme = deepExtend([{}, DefaultTheme, theme]);
+  const mergedTheme = deepExtend<DefaultTheme>([{}, DefaultTheme, theme]);
 
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:
@@ -56,7 +56,7 @@ export function createTheme(
   let cssText =
     `[data-amplify-theme="${name}"] {\n` +
     flattenProperties(tokens)
-      .map((token) => `${token.name}: ${token.value};`)
+      .map((token: WebDesignToken) => `${token.name}: ${token.value};`)
       .join('\n') +
     `\n}\n`;
 
@@ -74,7 +74,7 @@ export function createTheme(
         setupToken,
       });
       const customProperties = flattenProperties(tokens)
-        .map((token) => `${token.name}: ${token.value};`)
+        .map((token: WebDesignToken) => `${token.name}: ${token.value};`)
         .join('\n');
       // Overrides can have a selector, media query, breakpoint, or color mode
       // for creating the selector
