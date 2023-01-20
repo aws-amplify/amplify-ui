@@ -8,7 +8,7 @@ import {
 import { useThemeBreakpoint } from '../../../../hooks/useThemeBreakpoint';
 import { LivenessCheck } from '../LivenessCheck';
 import { useLivenessSelector, useLivenessActor } from '../../hooks';
-import { LivenessErrorState } from '@aws-amplify/ui';
+import { DefaultTexts, LivenessErrorState } from '@aws-amplify/ui';
 
 jest.mock('../../hooks');
 jest.mock('../../../../hooks/useThemeBreakpoint');
@@ -59,7 +59,7 @@ describe('LivenessCheck', () => {
       screen.getByRole('button', { name: 'Cancel Liveness check' })
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Camera does not meet minimum specification.')
+      screen.getByText(DefaultTexts.LIVENESS_NO_CAMERA_MIN_SPEC)
     ).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
   });

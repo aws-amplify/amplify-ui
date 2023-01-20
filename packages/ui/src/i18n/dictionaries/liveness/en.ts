@@ -21,10 +21,10 @@ export const enDict = {
   'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.':
     'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.',
   'Camera not accessible.': 'Camera not accessible.',
-  'Camera does not meet minimum specification.':
-    'Camera does not meet minimum specification.',
-  'Use a camera that can record at 15 frames per second or higher.':
-    'Use a camera that can record at 15 frames per second or higher.',
+  'Camera does not meet minimum specifications':
+    'Camera does not meet minimum specifications',
+  'Camera must support at least 320*240 resolution and 15 FPS frame rate.':
+    'Camera must support at least 320*240 resolution and 15 FPS frame rate.',
   Retry: 'Retry',
 
   // Liveness Flow
@@ -56,8 +56,9 @@ export const enDict = {
   'Face not detected within time limit. Try again and place face inside oval within 5 seconds.':
     'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
   'Time out': 'Time out',
-  'Movement detected. Try again and hold position during countdown.':
-    'Movement detected. Try again and hold position during countdown.',
+  'Check failed during countdown': 'Check failed during countdown',
+  'Ensure only one face is in front of camera and avoid moving closer during countdown.':
+    'Ensure only one face is in front of camera and avoid moving closer during countdown.',
   'Server Issue': 'Server Issue',
   'Client error': 'Client error',
   'Ensure only one face is in front of camera':

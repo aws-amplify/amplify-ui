@@ -26,8 +26,10 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
     case LivenessErrorState.TIMEOUT:
       heading = translate('Time out');
       break;
-    case LivenessErrorState.RUNTIME_ERROR:
     case LivenessErrorState.FACE_DISTANCE_ERROR:
+      heading = translate('Check failed during countdown');
+      break;
+    case LivenessErrorState.RUNTIME_ERROR:
       heading = translate('Client error');
       break;
     case LivenessErrorState.SERVER_ERROR:

@@ -20,9 +20,9 @@ export const defaultTexts = {
   LIVENESS_NO_CAMERA_DETECTED_DESCRIPTION:
     'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.',
   LIVENESS_NO_CAMERA_DETECTED: 'Camera not accessible.',
-  LIVENESS_NO_CAMERA_MIN_SPEC: 'Camera does not meet minimum specification.',
+  LIVENESS_NO_CAMERA_MIN_SPEC: 'Camera does not meet minimum specifications',
   LIVENESS_NO_CAMERA_MIN_SPEC_DESCRIPTION:
-    'Use a camera that can record at 15 frames per second or higher.',
+    'Camera must support at least 320*240 resolution and 15 FPS frame rate.',
   LIVENESS_NO_CAMERA_CTA: 'Retry',
 
   // Liveness Flow
@@ -51,8 +51,9 @@ export const defaultTexts = {
   LIVENESS_ERROR: 'Check encountered an error',
   LIVENESS_TIMEOUT:
     'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
+  LIVENESS_FACE_DISTANCE_ERROR_TITLE: 'Check failed during countdown',
   LIVENESS_FACE_DISTANCE_ERROR:
-    'Movement detected. Try again and hold position during countdown.',
+    'Ensure only one face is in front of camera and avoid moving closer during countdown.',
 
   LIVENESS_HINT_MULTIPLE_FACES_DETECTED: 'Multiple faces detected',
 };
