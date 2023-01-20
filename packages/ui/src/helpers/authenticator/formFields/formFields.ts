@@ -10,7 +10,7 @@ import {
 } from '../../../types';
 import { getActorState } from '../actor';
 import { defaultFormFieldsGetters } from './defaults';
-import { applyDefaults, applyTranslation, sortFormFields } from './util';
+import { mergeFormFields, applyTranslation, sortFormFields } from './util';
 
 /** Gets the default formFields for given route/route */
 export const getDefaultFormFields = (
@@ -30,7 +30,7 @@ export const getFormFields = (
   const defaultFormFields = getDefaultFormFields(route, state);
   const customFormFields =
     getActorState(state).context?.formFields?.[route] || {};
-  const formFields = applyDefaults(defaultFormFields, customFormFields);
+  const formFields = mergeFormFields(defaultFormFields, customFormFields);
   delete formFields['QR'];
   return formFields;
 };

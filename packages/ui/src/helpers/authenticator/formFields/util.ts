@@ -29,7 +29,7 @@ export const sortFormFields = (formFields: FormFields): FormFieldsArray => {
 };
 
 /** Applies defaultFormFields value into customFormFields */
-export const applyDefaults = (
+export const mergeFormFields = (
   defaultFormFields: FormFields,
   customFormFields: FormFields = {}
 ) => {
