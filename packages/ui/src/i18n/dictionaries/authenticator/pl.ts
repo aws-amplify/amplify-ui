@@ -28,6 +28,7 @@ export const plDict: AuthenticatorDictionary = {
   'It may take a minute to arrive': 'Może to chwilę potrwać',
   Loading: 'Ładowanie',
   'New password': 'Nowe hasło',
+  or: 'albo',
   Password: 'Hasło',
   'Phone Number': 'Numer telefonu',
   'Resend Code': 'Wyślij kod ponownie',
