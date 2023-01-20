@@ -5,6 +5,7 @@ test('Sitemap Snapshot', () => {
   const regex = new RegExp('(?<=<loc>).+?(?=</loc>)', 'gmi');
   const paths = sitemapData
     .match(regex)
-    .map((link) => link.replace(process.env.SITE_URL, ''));
+    .map((link) => link.replace(process.env.SITE_URL, ''))
+    .sort();
   expect(paths.join(', \n')).toMatchSnapshot();
 });
