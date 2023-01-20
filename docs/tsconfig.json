@@ -30,8 +30,8 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jestEnv.js"],
-  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "./cypress.config.ts"],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

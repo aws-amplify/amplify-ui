@@ -1,4 +1,4 @@
-const fs = require('fs');
+import * as fs from 'fs';
 
 test('Sitemap Snapshot', () => {
   const sitemapData = fs.readFileSync('./public/sitemap.xml', 'utf8');
