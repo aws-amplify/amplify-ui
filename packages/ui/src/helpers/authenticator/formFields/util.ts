@@ -27,15 +27,3 @@ export const sortFormFields = (formFields: FormFields): FormFieldsArray => {
     })
     .filter((formFieldEntry) => formFieldEntry[1] !== undefined);
 };
-
-/** Applies defaultFormFields value into customFormFields */
-export const applyDefaults = (
-  defaultFormFields: FormFields,
-  customFormFields: FormFields = {}
-) => {
-  let formFields = cloneDeep(defaultFormFields);
-  Object.keys(customFormFields).forEach((field) => {
-    formFields[field] = { ...formFields[field], ...customFormFields[field] };
-  });
-  return formFields;
-};
