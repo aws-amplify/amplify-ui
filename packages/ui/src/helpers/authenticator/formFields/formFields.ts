@@ -7,8 +7,10 @@ import {
   FormFields,
   FormFieldComponents,
   FormFieldsArray,
+  isAuthFieldsWithDefaults,
 } from '../../../types';
 import { getActorState } from '../actor';
+import { defaultFormFieldOptions } from '../constants';
 import { defaultFormFieldsGetters } from './defaults';
 import { mergeFormFields, applyTranslation, sortFormFields } from './util';
 
@@ -18,11 +20,38 @@ export const getDefaultFormFields = (
   state: AuthMachineState
 ): FormFields => {
   const formFieldGetter = defaultFormFieldsGetters[route];
-  const formFields: FormFields = formFieldGetter(state);
-  return applyTranslation(formFields);
+  return formFieldGetter(state);
 };
 
-/** Gets default formFields, then merges custom formFields into it */
+// Gets custom formFields, and applies default values
+const getCustomFormFields = (
+  route: FormFieldComponents,
+  state: AuthMachineState
+): FormFields => {
+  const customFormFields = getActorState(state).context?.formFields?.[route];
+
+  if (!customFormFields) {
+    return {};
+  }
+
+  return Object.entries(customFormFields).reduce(
+    (acc, [fieldName, customFormField]) => {
+      if (isAuthFieldsWithDefaults(fieldName)) {
+        // if this field is a known auth attribute that we have defaults for,
+        // apply default to miss any gaps that are not present in customFormField
+        const defaultOptions = defaultFormFieldOptions[fieldName];
+        const mergedOptions = { ...defaultOptions, ...customFormField };
+
+        return { ...acc, [fieldName]: mergedOptions };
+      } else {
+        // if this is not a known field,
+        return { ...acc, [fieldName]: customFormField };
+      }
+    },
+    {} as FormFields
+  );
+};
+
 export const getFormFields = (
   route: FormFieldComponents,
   state: AuthMachineState
@@ -32,7 +61,7 @@ export const getFormFields = (
     getActorState(state).context?.formFields?.[route] || {};
   const formFields = mergeFormFields(defaultFormFields, customFormFields);
   delete formFields['QR'];
-  return formFields;
+  return applyTranslation(formFields);
 };
 
 export const removeOrderKeys = (formFields: FormFieldsArray): FormFieldsArray =>
