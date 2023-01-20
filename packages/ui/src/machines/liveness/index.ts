@@ -587,7 +587,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
             attributes: { action: 'receivedSessionInfoEvent' },
             metrics: {
-              duration: streamConnectionOpenTimestamp - Date.now(),
+              duration: Date.now() - streamConnectionOpenTimestamp,
             },
           });
 
@@ -600,7 +600,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
             attributes: { action: 'receivedDisconnectEvent' },
             metrics: {
-              duration: streamConnectionOpenTimestamp - Date.now(),
+              duration: Date.now() - streamConnectionOpenTimestamp,
             },
           });
 
