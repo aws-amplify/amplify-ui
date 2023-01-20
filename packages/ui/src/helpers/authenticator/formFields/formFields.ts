@@ -35,17 +35,17 @@ const getCustomFormFields = (
   }
 
   return Object.entries(customFormFields).reduce(
-    (acc, [fieldName, customFormField]) => {
+    (acc, [fieldName, customOptions]) => {
       if (isAuthFieldsWithDefaults(fieldName)) {
         // if this field is a known auth attribute that we have defaults for,
-        // apply default to miss any gaps that are not present in customFormField
+        // apply default to miss any gaps that are not present in customOptions
         const defaultOptions = defaultFormFieldOptions[fieldName];
-        const mergedOptions = { ...defaultOptions, ...customFormField };
+        const mergedOptions = { ...defaultOptions, ...customOptions };
 
         return { ...acc, [fieldName]: mergedOptions };
       } else {
-        // if this is not a known field, use customFormField as is.
-        return { ...acc, [fieldName]: customFormField };
+        // if this is not a known field, use customOptions as is.
+        return { ...acc, [fieldName]: customOptions };
       }
     },
     {} as FormFields
