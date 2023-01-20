@@ -3,7 +3,7 @@ import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
-const { getSignInWithFederationText } = authenticatorTextUtil;
+const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
 @Component({
   selector: 'amplify-federated-sign-in',
@@ -18,6 +18,7 @@ export class FederatedSignInComponent implements OnInit {
   public shouldShowFederatedSignIn = false;
 
   // translated texts
+  public orText: string;
   public signInAmazonText: string;
   public signInAppleText: string;
   public signInFacebookText: string;
@@ -44,6 +45,7 @@ export class FederatedSignInComponent implements OnInit {
   private setFederatedTexts() {
     const { route } = this.authenticator;
 
+    this.orText = getOrText();
     this.signInAmazonText = getSignInWithFederationText(route, 'amazon');
     this.signInAppleText = getSignInWithFederationText(route, 'apple');
     this.signInFacebookText = getSignInWithFederationText(route, 'facebook');

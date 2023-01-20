@@ -34,6 +34,7 @@ export const defaultTexts = {
   NAME: 'Name',
   NICKNAME: 'Nickname',
   NEW_PASSWORD: 'New password',
+  OR: 'or',
   PASSWORD: 'Password',
   PHONE_NUMBER: 'Phone Number',
   PREFERRED_USERNAME: 'Preferred Username',
