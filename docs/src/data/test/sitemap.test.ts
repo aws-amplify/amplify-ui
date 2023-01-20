@@ -1,6 +1,10 @@
 const fs = require('fs');
 
 test('Sitemap Snapshot', () => {
-  const propsTableData = fs.readFileSync('./public/sitemap.xml', 'utf8');
-  expect(propsTableData).toMatchSnapshot();
+  const sitemapData = fs.readFileSync('./public/sitemap.xml', 'utf8');
+  const regex = new RegExp('(?<=<loc>).+?(?=</loc>)', 'gmi');
+  const paths = sitemapData
+    .match(regex)
+    .map((link) => link.replace(process.env.SITE_URL, ''));
+  expect(paths.join(', \n')).toMatchSnapshot();
 });

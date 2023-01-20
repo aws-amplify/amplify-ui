@@ -1,992 +1,118 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Sitemap Snapshot 1`] = `
-"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
-<urlset
-  xmlns=\\"http://www.sitemaps.org/schemas/sitemap/0.9\\"
-  xmlns:news=\\"http://www.google.com/schemas/sitemap-news/0.9\\"
-  xmlns:xhtml=\\"http://www.w3.org/1999/xhtml\\"
-  xmlns:mobile=\\"http://www.google.com/schemas/sitemap-mobile/1.0\\"
-  xmlns:image=\\"http://www.google.com/schemas/sitemap-image/1.1\\"
-  xmlns:video=\\"http://www.google.com/schemas/sitemap-video/1.1\\"
->
-  <url>
-    <loc>http://localhost:3000/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2022-05-19T16:24:03.254Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/flutter</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react-native</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/guides</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/theming</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/flutter/theming</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react-native/theming</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/theming</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/autocomplete</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/alert</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/badge</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/card</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/button</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/checkboxfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/collection</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/divider</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/expander</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/flex</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/grid</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/heading</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/highlightmatch</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/icon</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/image</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/link</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/loader</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/menu</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/pagination</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/passwordfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/phonenumberfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/placeholder</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/radiogroupfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/rating</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/scrollview</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/searchfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/selectfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/sliderfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/stepperfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/switchfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/table</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/tabs</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/text</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/textareafield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/textfield</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/togglebutton</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/view</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/components/visuallyhidden</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/connected-components/account-settings</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/connected-components/authenticator</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/flutter/connected-components/authenticator</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/connected-components/authenticator</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react-native/connected-components/authenticator</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/connected-components/authenticator</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/connected-components/geo</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/connected-components/in-app-messaging</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react-native/connected-components/in-app-messaging</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/connected-components/storage</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/getting-started/accessibility</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/getting-started/accessibility</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/getting-started/accessibility</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/getting-started/figma</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/getting-started/installation</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/flutter/getting-started/installation</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/getting-started/installation</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react-native/getting-started/installation</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/getting-started/installation</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/getting-started/internationalization</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/getting-started/introduction</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/flutter/getting-started/introduction</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/getting-started/introduction</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react-native/getting-started/introduction</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/getting-started/introduction</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/getting-started/migration</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/getting-started/migration</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/getting-started/migration</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/getting-started/troubleshooting</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/getting-started/troubleshooting</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/getting-started/troubleshooting</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/getting-started/usage</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/getting-started/usage</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react-native/getting-started/usage</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/getting-started/usage</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/guides/auth-protected</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/guides/css-in-js</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/guides/css-in-js</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/guides/css-in-js</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/theming/css-variables</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming/css-variables</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/theming/css-variables</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/theming/dark-mode</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/flutter/theming/dark-mode</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming/dark-mode</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react-native/theming/dark-mode</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/theming/dark-mode</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/theming/default-theme</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming/default-theme</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/theming/default-theme</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/theming/responsive</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming/responsive</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/theming/responsive</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming/style-props</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming/theme-provider</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react/connected-components/account-settings/change-password</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react/connected-components/account-settings/delete-user</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/angular/connected-components/authenticator/configuration</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/flutter/connected-components/authenticator/configuration</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react/connected-components/authenticator/configuration</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react-native/connected-components/authenticator/configuration</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/vue/connected-components/authenticator/configuration</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/angular/connected-components/authenticator/customization</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/flutter/connected-components/authenticator/customization</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react/connected-components/authenticator/customization</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react-native/connected-components/authenticator/customization</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/vue/connected-components/authenticator/customization</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/angular/connected-components/authenticator/headless</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react/connected-components/authenticator/headless</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react-native/connected-components/authenticator/headless</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/vue/connected-components/authenticator/headless</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react/connected-components/storage/fileuploader</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc
-      >http://localhost:3000/react/getting-started/usage/create-react-app</loc
-    >
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/getting-started/usage/nextjs</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/theming/default-theme/colors</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming/default-theme/colors</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/theming/default-theme/colors</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/theming/default-theme/sizes</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming/default-theme/sizes</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/theming/default-theme/sizes</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/angular/theming/default-theme/typography</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/react/theming/default-theme/typography</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-
-  <url>
-    <loc>http://localhost:3000/vue/theming/default-theme/typography</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <lastmod>2023-01-18T18:50:10.806Z</lastmod>
-  </url>
-</urlset>
-"
+"/, 
+/angular, 
+/flutter, 
+/react, 
+/react-native, 
+/vue, 
+/react/components, 
+/react/guides, 
+/angular/theming, 
+/flutter/theming, 
+/react/theming, 
+/react-native/theming, 
+/vue/theming, 
+/react/connected-components/account-settings, 
+/angular/connected-components/authenticator, 
+/flutter/connected-components/authenticator, 
+/react/connected-components/authenticator, 
+/vue/connected-components/authenticator, 
+/react/connected-components/geo, 
+/react/connected-components/in-app-messaging, 
+/react/connected-components/storage, 
+/react/components/alert, 
+/react/components/autocomplete, 
+/react/components/badge, 
+/react/components/button, 
+/react/components/card, 
+/react/components/checkboxfield, 
+/react/components/collection, 
+/react/components/divider, 
+/react/components/expander, 
+/react/components/flex, 
+/react/components/grid, 
+/react/components/heading, 
+/react/components/highlightmatch, 
+/react/components/icon, 
+/react/components/image, 
+/react/components/link, 
+/react/components/loader, 
+/react/components/menu, 
+/react/components/pagination, 
+/react/components/passwordfield, 
+/react/components/phonenumberfield, 
+/react/components/placeholder, 
+/react/components/radiogroupfield, 
+/react/components/rating, 
+/react/components/scrollview, 
+/react/components/searchfield, 
+/react/components/selectfield, 
+/react/components/sliderfield, 
+/react/components/stepperfield, 
+/react/components/switchfield, 
+/react/components/table, 
+/react/components/tabs, 
+/react/components/text, 
+/react/components/textareafield, 
+/react/components/textfield, 
+/react/components/togglebutton, 
+/react/components/view, 
+/react/components/visuallyhidden, 
+/react/guides/auth-protected, 
+/angular/guides/css-in-js, 
+/react/guides/css-in-js, 
+/vue/guides/css-in-js, 
+/angular/getting-started/accessibility, 
+/react/getting-started/accessibility, 
+/vue/getting-started/accessibility, 
+/react/getting-started/figma, 
+/angular/getting-started/installation, 
+/flutter/getting-started/installation, 
+/react/getting-started/installation, 
+/react-native/getting-started/installation, 
+/vue/getting-started/installation, 
+/react/getting-started/internationalization, 
+/angular/getting-started/introduction, 
+/flutter/getting-started/introduction, 
+/react/getting-started/introduction, 
+/react-native/getting-started/introduction, 
+/vue/getting-started/introduction, 
+/angular/getting-started/migration, 
+/react/getting-started/migration, 
+/vue/getting-started/migration, 
+/angular/getting-started/troubleshooting, 
+/react/getting-started/troubleshooting, 
+/vue/getting-started/troubleshooting, 
+/angular/getting-started/usage, 
+/react/getting-started/usage, 
+/react-native/getting-started/usage, 
+/vue/getting-started/usage, 
+/angular/theming/css-variables, 
+/react/theming/css-variables, 
+/vue/theming/css-variables, 
+/angular/theming/dark-mode, 
+/flutter/theming/dark-mode, 
+/react/theming/dark-mode, 
+/react-native/theming/dark-mode, 
+/vue/theming/dark-mode, 
+/angular/theming/default-theme, 
+/react/theming/default-theme, 
+/vue/theming/default-theme, 
+/angular/theming/responsive, 
+/react/theming/responsive, 
+/vue/theming/responsive, 
+/react/theming/style-props, 
+/react/theming/theme-provider, 
+/react/getting-started/usage/nextjs, 
+/angular/theming/default-theme/colors, 
+/react/theming/default-theme/colors, 
+/vue/theming/default-theme/colors, 
+/angular/theming/default-theme/sizes, 
+/react/theming/default-theme/sizes, 
+/vue/theming/default-theme/sizes, 
+/angular/theming/default-theme/typography, 
+/react/theming/default-theme/typography, 
+/vue/theming/default-theme/typography"
 `;
