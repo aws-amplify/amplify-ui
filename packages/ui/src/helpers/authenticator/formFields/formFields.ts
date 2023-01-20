@@ -44,7 +44,7 @@ const getCustomFormFields = (
 
         return { ...acc, [fieldName]: mergedOptions };
       } else {
-        // if this is not a known field,
+        // if this is not a known field, use customFormField as is.
         return { ...acc, [fieldName]: customFormField };
       }
     },
