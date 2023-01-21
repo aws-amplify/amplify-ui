@@ -6,10 +6,8 @@ import { BaseFormFieldsComponent } from '../base-form-fields/base-form-fields.co
 import { FormFieldComponent } from '../form-field/form-field.component';
 import { ButtonComponent } from '../../../../primitives/button/button.component';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import QRCode from 'qrcode';
-import { Auth } from 'aws-amplify';
+
 import { MockComponent } from 'ng-mocks';
-import { getTotpCodeURL } from '@aws-amplify/ui';
 
 const mockUser = { username: 'username' };
 const mockContext = {
@@ -18,16 +16,8 @@ const mockContext = {
   user: mockUser,
 };
 
-const DEFAULT_TOTP_ISSUER = 'AWSCognito';
-const SECRET_KEY = 'secretKey';
-
-const setupTOTPSpy = jest.spyOn(Auth, 'setupTOTP');
-
-const toDataURLSpy = jest.spyOn(QRCode, 'toDataURL');
-
 describe('SetupTotpComponent', () => {
   let fixture: ComponentFixture<SetupTotpComponent>;
-  let component: SetupTotpComponent;
 
   beforeEach(async () => {
     jest.resetAllMocks();
@@ -62,7 +52,6 @@ describe('SetupTotpComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(SetupTotpComponent);
-    component = fixture.componentInstance;
   });
 
   it('successfully mounts', () => {
