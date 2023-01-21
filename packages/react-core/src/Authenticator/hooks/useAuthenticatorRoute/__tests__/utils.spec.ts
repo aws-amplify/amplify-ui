@@ -37,7 +37,6 @@ type PropsResolver = (
 const {
   codeDeliveryDetails,
   error,
-  getTotpSecretCode,
   isPending,
   resendCode,
   route,
@@ -134,11 +133,7 @@ describe('props resolver functions', () => {
       resolveResetPasswordRoute,
       { error, isPending, toSignIn },
     ],
-    [
-      'SetupTOTP',
-      resolveSetupTOTPRoute,
-      { getTotpSecretCode, toSignIn, totpSecretCode },
-    ],
+    ['SetupTOTP', resolveSetupTOTPRoute, { toSignIn, totpSecretCode }],
     [
       'SignIn',
       resolveSignInRoute,

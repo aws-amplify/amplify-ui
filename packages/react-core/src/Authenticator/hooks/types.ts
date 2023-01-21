@@ -115,7 +115,6 @@ export type ResetPasswordBaseProps<FieldType = {}> = {
   ComponentSlots<FieldType>;
 
 export type SetupTOTPBaseProps<FieldType = {}> = {
-  getTotpSecretCode: UseAuthenticator['getTotpSecretCode'];
   toSignIn: UseAuthenticator['toSignIn'];
   totpSecretCode: UseAuthenticator['totpSecretCode'];
 } & CommonRouteProps &
