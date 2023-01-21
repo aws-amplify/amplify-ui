@@ -32,7 +32,7 @@ const {
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
-const { totpSecretCode = '', user } = actorState.value.context;
+const { totpSecretCode, user } = actorState.value.context;
 
 const formOverrides = context?.config?.formFields?.setupTOTP;
 const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
