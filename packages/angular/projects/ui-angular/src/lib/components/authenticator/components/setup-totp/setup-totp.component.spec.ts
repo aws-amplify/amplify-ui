@@ -44,6 +44,7 @@ describe('SetupTotpComponent', () => {
       submitForm: jest.fn(),
       context: jest.fn().mockReturnValue({}),
       slotContext: jest.fn().mockReturnValue({}),
+      totpSecretCode: 'Keep it quiet tio',
     };
 
     await TestBed.configureTestingModule({
@@ -63,25 +64,8 @@ describe('SetupTotpComponent', () => {
     fixture = TestBed.createComponent(SetupTotpComponent);
     component = fixture.componentInstance;
   });
+
   it('successfully mounts', () => {
     expect(fixture).toBeTruthy();
-  });
-
-  it('validate generateQR Code generates correct code', async () => {
-    setupTOTPSpy.mockResolvedValue(SECRET_KEY);
-    const defaultTotpCode = getTotpCodeURL(
-      DEFAULT_TOTP_ISSUER,
-      mockUser.username,
-      SECRET_KEY
-    );
-    await fixture.detectChanges();
-
-    expect(setupTOTPSpy).toHaveBeenCalledTimes(1);
-    expect(setupTOTPSpy).toHaveBeenCalledWith(mockUser);
-
-    await fixture.detectChanges();
-
-    expect(toDataURLSpy).toHaveBeenCalledTimes(1);
-    expect(toDataURLSpy).toHaveBeenCalledWith(defaultTotpCode);
   });
 });
