@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isDesignToken, WebTheme } from '@aws-amplify/ui';
 
 import {
   ComponentPropsToStylePropsMap,
@@ -6,6 +7,7 @@ import {
   GridSpanType,
   ResponsiveObject,
   ViewProps,
+  AllStylePropKey,
 } from '../types';
 
 import { getValueAtCurrentBreakpoint } from './responsive/utils';
@@ -13,9 +15,12 @@ import { useBreakpoint } from './responsive/useBreakpoint';
 import { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheme } from '../../hooks';
-import { isEmptyString, isNullOrEmptyString } from './utils';
-import { ThemeStylePropKey } from '../types/theme';
-import { WebTheme } from '@aws-amplify/ui';
+import {
+  getCSSVariableIfValueIsThemeKey,
+  isEmptyString,
+  isNullOrEmptyString,
+} from './utils';
+import { getStyleValue } from './getStyleValue';
 
 export const isSpanPrimitiveValue = (
   spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
@@ -32,8 +37,8 @@ export const getGridSpan = (spanValue: GridSpanType): string => {
 };
 
 export const convertGridSpan = (
-  spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
-): GridItemStyleProps['row'] | GridItemStyleProps['column'] => {
+  spanValue?: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
+): GridItemStyleProps['row'] | GridItemStyleProps['column'] | null => {
   // PropertyType
   if (isSpanPrimitiveValue(spanValue)) {
     return getGridSpan(spanValue);
@@ -44,14 +49,26 @@ export const convertGridSpan = (
   }
   // ResponsiveObject<PropertyType>
   if (typeof spanValue === 'object' && spanValue != null) {
-    const newObj: ResponsiveObject<string> = {};
-    Object.entries(spanValue).forEach(([key, value]) => {
-      newObj[key] = getGridSpan(value as GridSpanType);
-    });
+    let newObj: ResponsiveObject<string> = {};
+    Object.entries(spanValue).forEach(
+      ([key, value]: [string, GridSpanType]) => {
+        newObj = {
+          ...newObj,
+          [key]: getGridSpan(value),
+        };
+      }
+    );
     return newObj;
   }
   return null;
 };
+
+interface UseTransformStyleProps extends Record<string, any> {
+  row?: GridItemStyleProps['row'];
+  column?: GridItemStyleProps['column'];
+  rowSpan?: GridItemStyleProps['rowSpan'];
+  columnSpan?: GridItemStyleProps['columnSpan'];
+}
 
 /**
  * Transforms style props to another target prop
@@ -60,15 +77,15 @@ export const convertGridSpan = (
  * replace target prop values with calculated
  * E.g. rowSpan => row, columnSpan => column
  */
-export const useTransformStyleProps = (props: ViewProps): ViewProps => {
+export const useTransformStyleProps = (
+  props: UseTransformStyleProps
+): Record<string, any> => {
   const { rowSpan, columnSpan, row, column, ...rest } = props;
 
   const { rowFromSpanValue, columnFromSpanValue } = React.useMemo(() => {
     return {
-      rowFromSpanValue: convertGridSpan(rowSpan) as GridItemStyleProps['row'],
-      columnFromSpanValue: convertGridSpan(
-        columnSpan
-      ) as GridItemStyleProps['column'],
+      rowFromSpanValue: convertGridSpan(rowSpan),
+      columnFromSpanValue: convertGridSpan(columnSpan),
     };
   }, [rowSpan, columnSpan]);
 
@@ -80,7 +97,9 @@ export const useTransformStyleProps = (props: ViewProps): ViewProps => {
 };
 
 interface ConvertStylePropsToStyleObjParams {
-  props: ViewProps;
+  // we don't know what props we will get passed
+  // we will narrow down the type in the function
+  props: Record<string, unknown>;
   style?: React.CSSProperties;
   breakpoint: Breakpoint;
   breakpoints: Breakpoints;
@@ -92,6 +111,29 @@ export interface ConvertStylePropsToStyleObj {
     nonStyleProps: Partial<ViewProps>;
   };
 }
+
+const isComponentStyleProp = (key: string): key is AllStylePropKey => {
+  return key in ComponentPropsToStylePropsMap;
+};
+
+/**
+ * This takes an unknown value, which could be a:
+ * - design token: `color={tokens.colors.font.primary}`
+ * - string, which could be a:
+ *   - theme key: `color='font.primary'`
+ *   - plain style: `color='red'`
+ * - or a number: `padding={10}`
+ * @param value
+ * @param key
+ * @param tokens tokens object from the Theme
+ * @returns a string or a number
+ */
+// export const getStyleValue = (value: unknown, key: string, tokens: WebTheme['tokens']): string | number | null => {
+//   if (isDesignToken(value)) return value.toString();
+//   if (typeof value === 'string') return getCSSVariableIfValueIsThemeKey(key, value, tokens);
+//   if (typeof value === 'number') return value;
+//   return null;
+// }
 
 /**
  * Convert style props to CSS variables for React style prop
@@ -105,33 +147,49 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   breakpoints,
   tokens,
 }) => {
-  const nonStyleProps = {};
+  const nonStyleProps: Record<string, unknown> = {};
   Object.keys(props)
-    .filter((propKey) => props[propKey] != null)
-    .forEach((propKey: ThemeStylePropKey) => {
-      if (!(propKey in ComponentPropsToStylePropsMap)) {
-        nonStyleProps[propKey] = props[propKey] as ViewProps;
-      } else if (!isEmptyString(props[propKey])) {
-        const values = props[propKey] as ViewProps;
-        const reactStyleProp = ComponentPropsToStylePropsMap[propKey];
+    .filter((propKey) => props[propKey] !== null)
+    .forEach((propKey) => {
+      if (isComponentStyleProp(propKey)) {
+        const values = props[propKey];
+        if (!values || isEmptyString(values)) return;
 
-        style = {
-          ...style,
-          [reactStyleProp]: getValueAtCurrentBreakpoint({
-            values,
-            breakpoint,
-            breakpoints,
+        const reactStyleProp = ComponentPropsToStylePropsMap[propKey];
+        // short circuit the style prop here if it is a string or design token
+        // so we don't have to call getValueAtCurrentBreakpoint every time
+        let value: number | string | null = '';
+        if (isDesignToken(values)) {
+          value = values.toString();
+        } else if (typeof values === 'string') {
+          value = getCSSVariableIfValueIsThemeKey(propKey, values, tokens);
+        } else if (typeof values === 'number') {
+          value = values;
+        } else if (typeof values === 'object') {
+          // here values should be a responsive array or object
+          value = getStyleValue({
             propKey,
             tokens,
-          }),
+            value: getValueAtCurrentBreakpoint({
+              values,
+              breakpoint,
+              breakpoints,
+            }),
+          });
+        }
+        style = {
+          ...style,
+          [reactStyleProp]: value,
         };
+      } else if (typeof props[propKey] !== 'undefined') {
+        nonStyleProps[propKey] = props[propKey];
       }
     });
   return { propStyles: style, nonStyleProps };
 };
 
 export const useStyles = (
-  props: ViewProps,
+  props: Record<string, unknown>,
   style?: React.CSSProperties
 ): {
   propStyles: React.CSSProperties;

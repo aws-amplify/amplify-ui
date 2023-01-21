@@ -2,13 +2,14 @@
 // comes from https://github.com/iiroj/use-breakpoint/
 
 import { Breakpoint, GetMediaQueries } from '../../types/responsive';
+import { objectKeys } from '../utils';
 
 export const getMediaQueries: GetMediaQueries = ({ breakpoints }) => {
-  const sortedBreakpoints = Object.keys(breakpoints).sort(
+  const sortedBreakpoints = objectKeys(breakpoints).sort(
     (a, b) => breakpoints[b] - breakpoints[a]
   );
 
-  return (sortedBreakpoints as Array<Breakpoint>).map((breakpoint, index) => {
+  return sortedBreakpoints.map((breakpoint, index) => {
     let query = '';
 
     const minWidth = breakpoints[breakpoint];
