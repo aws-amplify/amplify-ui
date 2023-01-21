@@ -49,6 +49,7 @@ interface AuthenticatorServiceContextFacade {
   isPending: boolean;
   route: AuthenticatorRoute;
   socialProviders: SocialProvider[];
+  totpSecretCode: string | null;
   unverifiedContactMethods: UnverifiedContactMethods;
   user: AmplifyUser;
   validationErrors: AuthenticatorValidationErrors;
@@ -124,6 +125,7 @@ export const getServiceContextFacade = (
     remoteError: error,
     unverifiedContactMethods,
     validationError: validationErrors,
+    totpSecretCode = null,
   } = actorContext;
 
   const { socialProviders } = state.context?.config ?? {};
@@ -207,6 +209,7 @@ export const getServiceContextFacade = (
     isPending,
     route,
     socialProviders,
+    totpSecretCode,
     unverifiedContactMethods,
     user,
     validationErrors,

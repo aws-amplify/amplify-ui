@@ -120,6 +120,7 @@ Object {
     "handleSubmit": [MockFunction],
     "isPending": false,
     "toSignIn": [MockFunction],
+    "totpSecretCode": null,
   },
 }
 `;
