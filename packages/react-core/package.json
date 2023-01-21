@@ -18,12 +18,12 @@
     "LICENSE"
   ],
   "scripts": {
-    "clean": "rimraf dist node_modules",
-    "prebuild": "rimraf dist",
     "build": "rollup --config",
-    "build:esm": "tsc --project tsconfig.esm.json",
-    "dev": "yarn build:esm --watch",
+    "clean": "rimraf dist node_modules",
+    "dev:react-native": "yarn tsc --project tsconfig.react-native.json --watch",
+    "dev": "yarn tsc --project tsconfig.dev.json --watch",
     "lint": "tsc --noEmit && eslint src",
+    "prebuild": "rimraf dist",
     "test": "jest --coverage --verbose",
     "test:watch": "yarn test --watch"
   },

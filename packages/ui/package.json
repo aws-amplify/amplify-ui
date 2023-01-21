@@ -31,15 +31,14 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "yarn build:css && yarn build:js",
+    "build": "yarn build:css && yarn build:prod",
     "build:css": "ts-node --transpile-only ./scripts/generateCSS.ts",
-    "build:js": "rollup --config",
-    "build:dev:js": "tsup",
+    "build:prod": "rollup --config",
     "clean": "rimraf dist node_modules",
-    "dev": "yarn build:sd && yarn build:css && yarn build:dev:js --watch",
-    "dev:build": "yarn build:sd && yarn build:css && yarn build:dev:js",
+    "dev": "yarn build:css && tsc --project tsconfig.dev.json --watch",
+    "dev:react-native": "tsc --project tsconfig.react-native.json --watch",
     "lint": "tsc --noEmit",
+    "prebuild": "rimraf dist",
     "test": "jest"
   },
   "dependencies": {

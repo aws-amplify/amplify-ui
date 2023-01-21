@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "rootDir": "./src",
-    "outDir": "./dist",
     "importHelpers": true,
+    "jsx": "react",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "dist/esm",
     "skipLibCheck": true,
     "sourceMap": true,
-    "module": "esnext",
+    "rootDir": "./src",
     "target": "es2015"
   },
   "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"],

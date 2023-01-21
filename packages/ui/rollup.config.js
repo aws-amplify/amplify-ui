@@ -31,11 +31,7 @@ const config = defineConfig([
     },
     plugins: [
       externals(),
-      typescript({
-        outDir: 'dist/esm',
-        declaration: false,
-        sourceMap: false,
-      }),
+      typescript({ outDir: 'dist/esm', declaration: false, sourceMap: false }),
       terser(),
     ],
   },

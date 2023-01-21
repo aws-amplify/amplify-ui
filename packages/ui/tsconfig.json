@@ -5,25 +5,21 @@
     }
   },
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
-    "strict": false,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "sourceMap": true,
-    "declaration": true,
-    "outDir": "dist",
     "baseUrl": ".",
-    "types": ["webpack-env", "jest"],
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "declaration": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "dist/esm",
+    "paths": { "@/*": ["src/*"] },
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": false,
+    "target": "es5",
+    "types": ["webpack-env", "jest"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"]

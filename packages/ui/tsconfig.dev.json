@@ -1,6 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules"],
   "compilerOptions": {
     // rollup does not allow `declarationDir` to be assigned in the tsconfig
     "declarationDir": "dist/types"
