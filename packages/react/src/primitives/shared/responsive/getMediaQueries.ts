@@ -1,7 +1,7 @@
 // Inspiration for getMediaQueries and useBreakpoint
 // comes from https://github.com/iiroj/use-breakpoint/
 
-import { Breakpoint, GetMediaQueries } from '../../types/responsive';
+import { GetMediaQueries } from '../../types/responsive';
 import { objectKeys } from '../utils';
 
 export const getMediaQueries: GetMediaQueries = ({ breakpoints }) => {
@@ -13,9 +13,7 @@ export const getMediaQueries: GetMediaQueries = ({ breakpoints }) => {
     let query = '';
 
     const minWidth = breakpoints[breakpoint];
-    const nextBreakpoint = sortedBreakpoints[index - 1] as
-      | Breakpoint
-      | undefined;
+    const nextBreakpoint = sortedBreakpoints[index - 1];
     const maxWidth = nextBreakpoint ? breakpoints[nextBreakpoint] - 1 : null;
 
     if (minWidth >= 0) {
