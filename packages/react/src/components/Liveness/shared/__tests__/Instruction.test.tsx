@@ -199,13 +199,13 @@ describe('Instruction', () => {
     expect(screen.getByText('Verifying...')).toBeInTheDocument();
   });
 
-  it('should render check succeeded state if present', () => {
+  it('should not render check succeeded state if present', () => {
     isCheckSuccessful = true;
     mockStateMatchesAndSelectors();
 
     renderWithLivenessProvider(<Instruction />);
 
-    expect(screen.getByText('Check successful')).toBeInTheDocument();
+    expect(screen.queryByText('Check successful')).not.toBeInTheDocument();
   });
 
   it('should render illumination state if present', () => {

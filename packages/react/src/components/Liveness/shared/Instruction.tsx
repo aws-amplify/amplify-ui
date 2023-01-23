@@ -66,7 +66,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
   });
 
   const getInstructionContent = () => {
-    if (errorState || isCheckFailed) {
+    if (errorState || isCheckFailed || isCheckSuccessful) {
       return;
     }
 
@@ -116,17 +116,6 @@ export const Instruction: React.FC<InstructionProps> = () => {
               <View>{translate('Verifying...')}</View>
             </Flex>
           </Toast>
-        </Overlay>
-      );
-    }
-
-    if (isCheckSuccessful) {
-      return (
-        <Overlay
-          backgroundColor="overlay.40"
-          anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
-        >
-          <Toast variation="success">{translate('Check successful')}</Toast>
         </Overlay>
       );
     }

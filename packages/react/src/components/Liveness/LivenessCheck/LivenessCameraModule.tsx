@@ -50,6 +50,7 @@ export const LivenessCameraModule = (
   const isCheckingCamera = state.matches('cameraCheck');
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
+  const isCheckSucceeded = state.matches('checkSucceeded');
 
   /**
    * Temp fix: Firefox on Android + iOS returns opposite values you'd expect
@@ -148,9 +149,12 @@ export const LivenessCameraModule = (
         </View>
       )}
 
-      <View className={LivenessClassNames.CameraModuleCancelButtonContainer}>
-        <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
-      </View>
+      {!isCheckSucceeded && (
+        <View className={LivenessClassNames.CameraModuleCancelButtonContainer}>
+          <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
+        </View>
+      )}
+
       {countDownRunning && (
         <Overlay
           anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
