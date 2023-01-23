@@ -31,12 +31,14 @@ function getInternalPackages(root, internalPackagesDirectory) {
 
       return readdirSync(internalDirectoryRoot, {
         withFileTypes: true,
-      }).map(({ name }) => {
-        const packagePath = path.resolve(internalDirectoryRoot, name);
-        const packageName = require(`${packagePath}/package.json`).name;
+      })
+        .filter(({ name }) => name !== '.DS_Store')
+        .map(({ name }) => {
+          const packagePath = path.resolve(internalDirectoryRoot, name);
+          const packageName = require(`${packagePath}/package.json`).name;
 
-        return { packageName, packagePath };
-      });
+          return { packageName, packagePath };
+        });
     })
     .flat();
 }
