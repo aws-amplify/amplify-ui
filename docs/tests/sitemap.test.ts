@@ -7,7 +7,5 @@ test('Sitemap Snapshot', () => {
     .match(regex)
     .map((link) => link.replace(process.env.SITE_URL, ''))
     .sort();
-  console.log(sitemapData);
-  console.log(paths.join(', \n'));
   expect(paths.join(', \n')).toMatchSnapshot();
 });
