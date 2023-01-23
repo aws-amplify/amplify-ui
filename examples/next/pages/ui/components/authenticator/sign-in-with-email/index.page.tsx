@@ -3,34 +3,64 @@ import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
+import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
+
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 const formFields = {
-  signUp: {
-    email: {
-      order: 1,
-    },
-    family_name: {
-      order: 2,
-    },
-    preferred_username: {
-      order: 4,
-    },
-    birthdate: {
-      order: 3,
-    },
-    password: {
-      order: 5,
-    },
-    confirm_password: {
-      order: 6,
+  confirmVerifyUser: {
+    confirmation_code: {
+      label: 'New Label',
+      placeholder: 'Enter your Confirmation Code:',
+      isRequired: false,
     },
   },
 };
+
+const components = {
+  VerifyUser: {
+    Header() {
+      const { tokens } = useTheme();
+      return (
+        <Heading
+          padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+          level={3}
+        >
+          Enter Information:
+        </Heading>
+      );
+    },
+    Footer() {
+      return <Text>Footer Information</Text>;
+    },
+  },
+
+  ConfirmVerifyUser: {
+    Header() {
+      const { tokens } = useTheme();
+      return (
+        <Heading
+          padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+          level={3}
+        >
+          Enter Information:
+        </Heading>
+      );
+    },
+    Footer() {
+      return <Text>Footer Information</Text>;
+    },
+  },
+};
+
 export default function App() {
   return (
-    <Authenticator formFields={formFields} initialState="signUp">
+    <Authenticator
+      formFields={formFields}
+      components={components}
+      hideSignUp={true}
+    >
       {({ signOut, user }) => (
         <main>
           <h1>Hello {user.username}</h1>
