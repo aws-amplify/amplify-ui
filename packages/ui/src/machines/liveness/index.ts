@@ -331,7 +331,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initial: 'pending',
         states: {
           pending: {
-            entry: ['sendTimeoutAfterWaitingForDisconnect'],
+            entry: ['sendTimeoutAfterWaitingForDisconnect', 'pauseVideoStream'],
             invoke: {
               src: 'stopVideo',
               onDone: 'waitForDisconnectEvent',
@@ -342,7 +342,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           waitForDisconnectEvent: {
-            entry: ['freezeStream'],
             after: {
               0: {
                 target: 'getLivenessResult',
@@ -352,7 +351,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           getLivenessResult: {
-            entry: ['cancelWaitForDisconnectTimeout'],
+            entry: ['cancelWaitForDisconnectTimeout', 'freezeStream'],
             invoke: {
               src: 'getLiveness',
               onDone: 'checking',
@@ -746,11 +745,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoAssociatedParams: { videoMediaStream, videoEl },
         } = context;
         context.isRecordingStopped = true;
-        videoEl.onanimationend = () => {
-          videoMediaStream.getTracks().forEach(function (track) {
-            track.stop();
-          });
-        };
+        videoEl.pause();
+        videoMediaStream.getTracks().forEach(function (track) {
+          track.stop();
+        });
+      },
+      pauseVideoStream: async (context) => {
+        const {
+          videoAssociatedParams: { videoEl },
+        } = context;
+        context.isRecordingStopped = true;
+        videoEl.pause();
       },
       resetContext: assign({
         challengeId: nanoid(),

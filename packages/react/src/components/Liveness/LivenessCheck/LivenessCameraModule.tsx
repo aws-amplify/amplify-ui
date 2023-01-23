@@ -127,13 +127,11 @@ export const LivenessCameraModule = (
         width={mediaWidth}
         onCanPlay={handleMediaPlay}
         data-testid="video"
-        className={`${LivenessClassNames.CameraModuleVideo} ${
-          isRecordingStopped ? LivenessClassNames.FadeOut : null
-        }`}
+        className={LivenessClassNames.CameraModuleVideo}
       />
       <Flex
         className={`${LivenessClassNames.CameraModuleVideoContainer} ${
-          isRecordingStopped ? LivenessClassNames.FadeOut : null
+          isRecordingStopped ? LivenessClassNames.FadeOut : ''
         }`}
       >
         <View
