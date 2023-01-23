@@ -183,7 +183,7 @@ describe('getMachineFields', () => {
       expect(QRFields).toEqual({});
     });
 
-    it('returns an empty object getActorContextSpy return undefined', () => {
+    it('returns an empty object when getActorContext returns undefined', () => {
       getActorContextSpy.mockReturnValue(
         undefined as unknown as AuthActorContext
       );

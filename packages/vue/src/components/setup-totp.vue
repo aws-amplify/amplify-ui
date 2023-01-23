@@ -38,7 +38,7 @@ const formOverrides = context?.config?.formFields?.setupTOTP;
 const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
   formOverrides?.['QR'] ?? {};
 
-const totpCode =
+const totpCodeURL =
   typeof totpSecretCode === 'string' && typeof totpUsername === 'string'
     ? getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode)
     : null;
@@ -63,11 +63,11 @@ function copyText() {
 
 // lifecycle hooks
 onMounted(async () => {
-  if (!user || !totpCode) {
+  if (!user || !totpCodeURL) {
     return;
   }
   try {
-    qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCode);
+    qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCodeURL);
   } catch (error) {
     logger.error(error);
   } finally {
