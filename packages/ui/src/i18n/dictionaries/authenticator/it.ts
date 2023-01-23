@@ -25,9 +25,11 @@ export const itDict: AuthenticatorDictionary = {
   'Enter your username': 'Inserisci il tuo nome utente',
   'Forgot your password?': 'Password dimenticata?',
   'Hide password': 'Nascondi password',
-  'It may take a minute to arrive': "L'arrivo potrebbe richiedere qualche minuto",
+  'It may take a minute to arrive':
+    "L'arrivo potrebbe richiedere qualche minuto",
   Loading: 'Caricamento in corso',
   'New password': 'Nuova password',
+  or: 'oppure',
   Password: 'Password',
   'Phone Number': 'Numero di telefono',
   'Resend Code': 'Invia nuovamente il codice',
@@ -77,7 +79,6 @@ export const itDict: AuthenticatorDictionary = {
   'Lost your code?': 'Codice smarrito?',
   'New Password': 'Nuova password',
   'No account? ': 'Non hai un account?',
-  or: 'o',
   'Password attempts exceeded':
     'Il numero massimo di tentativi di accesso falliti è stato raggiunto',
   'Reset password': 'Reimposta password',

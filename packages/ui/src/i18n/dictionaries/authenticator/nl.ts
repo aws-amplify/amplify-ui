@@ -28,6 +28,7 @@ export const nlDict: AuthenticatorDictionary = {
   'It may take a minute to arrive': 'Het kan even duren voordat deze aankomt',
   Loading: 'Laden',
   'New password': 'Nieuw wachtwoord',
+  or: 'of',
   Password: 'Wachtwoord',
   'Phone Number': 'Telefoonnummer',
   'Resend Code': 'Verstuur code nogmaals',
