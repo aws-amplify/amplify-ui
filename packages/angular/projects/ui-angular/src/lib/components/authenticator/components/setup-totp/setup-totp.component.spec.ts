@@ -34,7 +34,7 @@ describe('SetupTotpComponent', () => {
       submitForm: jest.fn(),
       context: jest.fn().mockReturnValue({}),
       slotContext: jest.fn().mockReturnValue({}),
-      totpSecretCode: 'Keep it quiet tio',
+      totpSecretCode: 'Keep it quiet!',
     };
 
     await TestBed.configureTestingModule({
