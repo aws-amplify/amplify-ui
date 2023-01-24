@@ -30,6 +30,6 @@ export const FRAMEWORK_INSTALL_SCRIPTS = {
   react: '@aws-amplify/ui-react aws-amplify',
   vue: '@aws-amplify/ui-vue aws-amplify',
   angular: '@aws-amplify/ui-angular aws-amplify',
-  flutter: 'flutter pub add amplify_authenticator',
+  flutter: 'amplify_authenticator',
   'react-native': `@aws-amplify/ui-react-native aws-amplify ${REACT_NATIVE_DEPENDENCIES}`,
 };

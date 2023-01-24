@@ -105,7 +105,10 @@ export const HeroSection = () => {
           ) : null}
 
           {platform === 'flutter' ? (
-            <TerminalCommand command={frameworkInstallScript} variant="hero" />
+            <TerminalCommand
+              command={`flutter pub add ${frameworkInstallScript}`}
+              variant="hero"
+            />
           ) : (
             <Tabs>
               <TabItem title="npm">
