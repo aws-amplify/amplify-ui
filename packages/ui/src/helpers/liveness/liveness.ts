@@ -113,7 +113,7 @@ export function getRandomLivenessOvalDetails({
   return getStaticLivenessOvalDetails({
     width,
     height,
-    widthSeed: 1.0, // Testing with max value to force closest distance to camera
+    widthSeed: randomScalingAttributes.width,
     centerXSeed: randomScalingAttributes.centerX,
     centerYSeed: randomScalingAttributes.centerY,
   });
