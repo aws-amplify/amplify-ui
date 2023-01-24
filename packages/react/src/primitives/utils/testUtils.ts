@@ -1,3 +1,5 @@
+import { FlexContainerStyleProps } from '../types';
+
 // To be used in unit tests to make it easier to display
 // specific error messages in the console when running
 // expect assertions in a loop
@@ -20,4 +22,13 @@ ${message}
     console.error(error);
     throw new Error((error as Error).message);
   }
+};
+
+export const testFlexProps: FlexContainerStyleProps = {
+  direction: 'column-reverse',
+  gap: '10%',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  alignContent: 'space-between',
+  wrap: 'wrap',
 };
