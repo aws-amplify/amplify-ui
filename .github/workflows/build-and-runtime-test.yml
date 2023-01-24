@@ -7,7 +7,7 @@ name: Build and Runtime Test
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # Run every  minutes
+    - cron: '*/15 * * * *' # Run every 15 minutes
 
 jobs:
   build:
@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
-          name: canary-cypress-error-{{ matrix.path }}
+          name: canary-cypress-error-${{ matrix.path }}
           path: |
             canary/e2e/cypress/videos/**
             canary/e2e/cypress/screenshots/**
