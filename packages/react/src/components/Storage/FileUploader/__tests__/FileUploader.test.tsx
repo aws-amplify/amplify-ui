@@ -602,7 +602,7 @@ describe('File Uploader', () => {
 
     render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
 
-    const errorText = await screen.findByText(/Over Max files/);
+    const errorText = await screen.findByText(/Over 1 file limit/);
 
     expect(errorText).toBeVisible();
   });
