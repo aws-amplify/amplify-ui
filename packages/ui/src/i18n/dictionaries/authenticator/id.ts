@@ -28,6 +28,7 @@ export const idDict: AuthenticatorDictionary = {
   'It may take a minute to arrive': 'Mungkin perlu waktu satu menit untuk tiba',
   Loading: 'Memuat',
   'New password': 'Kata sandi baru',
+  or: 'atau',
   Password: 'Kata sandi',
   'Phone Number': 'Nomor telepon',
   'Resend Code': 'Kirim ulang kodenya',
@@ -80,7 +81,6 @@ export const idDict: AuthenticatorDictionary = {
   Name: 'Nama',
   'Network error': 'Galat jaringan',
   'No account? ': 'Tidak ada akun?',
-  or: 'atau',
   'Password did not conform with policy: Password not long enough':
     'Kata sandi tidak sesuai dengan aturan: Kata sandi kurang panjang',
   'Resend a Code': 'Renvoyer un code',
