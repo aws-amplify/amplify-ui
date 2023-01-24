@@ -6,6 +6,8 @@ import {
   Grid,
   Heading,
   Icon,
+  Tabs,
+  TabItem,
   Text,
   useBreakpointValue,
   View,
@@ -102,7 +104,24 @@ export const HeroSection = () => {
             </Grid>
           ) : null}
 
-          <TerminalCommand command={frameworkInstallScript} variant="hero" />
+          {platform === 'flutter' ? (
+            <TerminalCommand command={frameworkInstallScript} variant="hero" />
+          ) : (
+            <Tabs>
+              <TabItem title="npm">
+                <TerminalCommand
+                  command={`npm install ${frameworkInstallScript}`}
+                  variant="hero"
+                />
+              </TabItem>
+              <TabItem title="yarn">
+                <TerminalCommand
+                  command={`yarn add ${frameworkInstallScript}`}
+                  variant="hero"
+                />
+              </TabItem>
+            </Tabs>
+          )}
 
           <Flex direction="row">
             <Button
