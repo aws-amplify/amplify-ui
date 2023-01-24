@@ -10,6 +10,7 @@ export interface VideoRecorderOptions {
  */
 export class VideoRecorder {
   public videoStream: ReadableStream<Blob | string>;
+  public firstChunkTimestamp: number | undefined;
 
   private _recorder: MediaRecorder;
   private _stream: MediaStream;
@@ -38,6 +39,9 @@ export class VideoRecorder {
         start: (controller) => {
           this._recorder.ondataavailable = (e: BlobEvent) => {
             if (e.data && e.data.size > 0) {
+              if (this._chunks.length < 1) {
+                this.firstChunkTimestamp = Date.now();
+              }
               this._chunks.push(e.data);
               controller.enqueue(e.data);
             }

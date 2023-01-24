@@ -51,6 +51,7 @@ export const mockVideoRecorder: any = {
   stop: jest.fn(),
   getBlob: jest.fn(),
   destroy: jest.fn(),
+  firstChunkTimestamp: Date.now(),
   getState: () => 'idle',
 };
 export const mockFace: Face = {
