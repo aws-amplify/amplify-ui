@@ -37,14 +37,18 @@ const getCustomFormFields = (
   return Object.entries(customFormFields).reduce(
     (acc, [fieldName, customOptions]) => {
       if (route === 'signIn' && fieldName === 'username') {
-        // Unlike other screens, Authenticator.SignIn screen defaults to all login
-        // alias field name to "username", even it's a phone number. Check for that.
+        // Unlike other screens, Authenticator.SignIn screen defaults all login
+        // alias field names to "username", even it's a phone number or email.
+        // In this case, we get the default formFieldOptions based on loginMechanism.
         const defaultOptions = getAliasDefaultFormField(state);
 
-        return { ...acc, [fieldName]: defaultOptions };
+        // apply default to miss any gaps that are not present in customOptions
+        const mergedOptions = { ...defaultOptions, ...customOptions };
+
+        return { ...acc, [fieldName]: mergedOptions };
       } else if (isAuthFieldsWithDefaults(fieldName)) {
         // if this field is a known auth attribute that we have defaults for,
-        // apply default to miss any gaps that are not present in customOptions
+        // we apply defaults to customOptions.
         const defaultOptions = defaultFormFieldOptions[fieldName];
         const mergedOptions = { ...defaultOptions, ...customOptions };
 
