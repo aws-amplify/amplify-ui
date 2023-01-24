@@ -11,7 +11,7 @@ import {
 } from '../../../types';
 import { getActorState } from '../actor';
 import { defaultFormFieldOptions } from '../constants';
-import { defaultFormFieldsGetters } from './defaults';
+import { defaultFormFieldsGetters, getAliasDefaultFormField } from './defaults';
 import { applyTranslation, sortFormFields } from './util';
 
 // Gets the default formFields for given route
@@ -30,13 +30,19 @@ const getCustomFormFields = (
 ): FormFields => {
   const customFormFields = getActorState(state).context?.formFields?.[route];
 
-  if (!customFormFields) {
+  if (!customFormFields || Object.keys(customFormFields).length === 0) {
     return {};
   }
 
   return Object.entries(customFormFields).reduce(
     (acc, [fieldName, customOptions]) => {
-      if (isAuthFieldsWithDefaults(fieldName)) {
+      if (route === 'signIn' && fieldName === 'username') {
+        // Unlike other screens, Authenticator.SignIn screen defaults to all login
+        // alias field name to "username", even it's a phone number. Check for that.
+        const defaultOptions = getAliasDefaultFormField(state);
+
+        return { ...acc, [fieldName]: defaultOptions };
+      } else if (isAuthFieldsWithDefaults(fieldName)) {
         // if this field is a known auth attribute that we have defaults for,
         // apply default to miss any gaps that are not present in customOptions
         const defaultOptions = defaultFormFieldOptions[fieldName];
