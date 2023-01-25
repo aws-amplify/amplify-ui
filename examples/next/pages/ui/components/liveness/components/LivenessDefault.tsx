@@ -38,7 +38,7 @@ export default function LivenessDefault({
   }
 
   return (
-    <View maxWidth="640px" margin="0 auto">
+    <View maxWidth="704px" margin="0 auto">
       {createLivenessSessionApiLoading ? (
         <Flex justifyContent="center" alignItems="center">
           <Loader /> <Text as="span">Loading...</Text>

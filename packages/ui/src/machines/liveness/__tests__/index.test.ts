@@ -63,6 +63,8 @@ describe('Liveness Machine', () => {
     toJSON: () => ({}),
   };
   const mockVideoEl = document.createElement('video');
+  mockVideoEl.width = 640;
+  mockVideoEl.height = 480;
   const mockCanvasEl = document.createElement('canvas');
   const mockFreshnessColorEl = document.createElement('canvas');
   window.HTMLMediaElement.prototype.pause = () => jest.fn();

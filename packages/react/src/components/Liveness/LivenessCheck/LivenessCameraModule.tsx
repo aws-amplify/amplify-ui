@@ -58,8 +58,10 @@ export const LivenessCameraModule = (
    */
   const shouldFlipValues = (isAndroid() && isFirefox()) || isIOS();
 
-  const mediaHeight = shouldFlipValues ? videoWidth : videoHeight;
-  const mediaWidth = shouldFlipValues ? videoHeight : videoWidth;
+  let mediaHeight = shouldFlipValues ? videoWidth : videoHeight;
+  let mediaWidth = shouldFlipValues ? videoHeight : videoWidth;
+  mediaHeight = mediaHeight + mediaHeight * 0.1;
+  mediaWidth = mediaWidth + mediaWidth * 0.1;
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {

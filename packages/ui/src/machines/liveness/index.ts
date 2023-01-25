@@ -965,7 +965,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
 
-        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+        // const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+        const height = videoEl.height;
+        const width = videoEl.width;
         const ovalDetails = getStaticLivenessOvalDetails({
           width,
           height,
@@ -1050,16 +1052,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }
 
         // generate oval details from initialFace and video dimensions
-        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+        const height = videoEl.height;
+        const width = videoEl.width;
         const ovalDetails = getRandomLivenessOvalDetails({
-          width,
-          height,
+          width: videoEl.width,
+          height: videoEl.height,
           sessionInformation: serverSessionInformation,
         });
 
         // draw oval on canvas
-        canvasEl.width = width;
-        canvasEl.height = height;
+        canvasEl.width = videoEl.width;
+        canvasEl.height = videoEl.height;
         drawLivenessOvalInCanvas(canvasEl, ovalDetails);
         ovalDrawnTimestamp = Date.now();
         recordLivenessAnalyticsEvent(context.componentProps, {
@@ -1159,13 +1162,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoAssociatedParams: {
             videoMediaStream,
             recordingStartTimestampMs,
+            videoEl,
           },
           ovalAssociatedParams: { initialFace, ovalDetails },
           faceMatchAssociatedParams: { startFace, endFace },
           livenessStreamProvider,
         } = context;
 
-        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+        // const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+        const height = videoEl.height;
+        const width = videoEl.width;
 
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
