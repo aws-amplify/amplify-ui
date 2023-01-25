@@ -36,9 +36,12 @@ const getCustomFormFields = (
 
   return Object.entries(customFormFields).reduce(
     (acc, [fieldName, customOptions]) => {
-      if (route === 'signIn' && fieldName === 'username') {
-        // Unlike other screens, Authenticator.SignIn screen defaults all login
-        // alias field names to "username", even it's a phone number or email.
+      if (
+        (route === 'signIn' || route === 'resetPassword') &&
+        fieldName === 'username'
+      ) {
+        // Unlike other screens, `signIn` and `resetPassword` screens default login
+        // alias field names to "username", even if it's a phone number or email.
         // In this case, we get the default formFieldOptions based on loginMechanism.
         const defaultOptions = getAliasDefaultFormField(state);
 
