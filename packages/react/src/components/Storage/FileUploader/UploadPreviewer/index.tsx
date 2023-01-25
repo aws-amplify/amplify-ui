@@ -22,9 +22,7 @@ export function UploadPreviewer({
   onClear,
   onFileClick,
 }: PreviewerProps): JSX.Element {
-  const headingMaxFiles = `${translate('Over')} ${maxFiles} ${translate(
-    'file limit'
-  )}`;
+  const headingMaxFiles = `${translate('Cannot choose more than')} ${maxFiles}`;
   const getUploadedFilesLength = () =>
     fileStatuses.filter((file) => file?.fileState === 'success').length;
 

@@ -2,4 +2,4 @@
 '@aws-amplify/ui-react': patch
 ---
 
-Updated error text for over max files to be more explicit.
+fix: Updated error text for max file count to be more explicit.
