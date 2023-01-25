@@ -6,8 +6,6 @@ import {
   Grid,
   Heading,
   Icon,
-  Tabs,
-  TabItem,
   Text,
   useBreakpointValue,
   View,
