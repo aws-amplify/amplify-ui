@@ -110,20 +110,10 @@ export const HeroSection = () => {
               variant="hero"
             />
           ) : (
-            <Tabs>
-              <TabItem title="npm">
-                <TerminalCommand
-                  command={`npm install ${frameworkInstallScript}`}
-                  variant="hero"
-                />
-              </TabItem>
-              <TabItem title="yarn">
-                <TerminalCommand
-                  command={`yarn add ${frameworkInstallScript}`}
-                  variant="hero"
-                />
-              </TabItem>
-            </Tabs>
+            <TerminalCommand
+              command={`npm install ${frameworkInstallScript}`}
+              variant="hero"
+            />
           )}
 
           <Flex direction="row">
