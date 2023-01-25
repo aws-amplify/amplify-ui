@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 4.3.5
+
+### Patch Changes
+
+- [#3325](https://github.com/aws-amplify/amplify-ui/pull/3325) [`dd9de348a`](https://github.com/aws-amplify/amplify-ui/commit/dd9de348abcafdcd721600f543d58353957dac25) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Translate 'or' text for FederatedSignIn
+
+- Updated dependencies [[`57f1a3f43`](https://github.com/aws-amplify/amplify-ui/commit/57f1a3f438b8288ffda46764f7a87e1739e61313), [`dd9de348a`](https://github.com/aws-amplify/amplify-ui/commit/dd9de348abcafdcd721600f543d58353957dac25), [`4d652033e`](https://github.com/aws-amplify/amplify-ui/commit/4d652033e120daa82665b4bb4035b56fa8d33bf8)]:
+  - @aws-amplify/ui@5.5.2
+  - @aws-amplify/ui-react-core@2.1.10
+
 ## 4.3.4
 
 ### Patch Changes

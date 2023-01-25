@@ -10,7 +10,8 @@ applications:
             - nvm use 16
             - node -v
             - export FLUTTER_HOME=${HOME}/sdks/flutter
-            - git clone -b stable --depth 1 https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+            # pin to flutter v3.3.10
+            - git clone -b 3.3.10 --depth 1 https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             - export PATH="$PATH:${FLUTTER_HOME}/bin"
             # Skip cypress binary installation, as it's unneeded for docs and often fails transiently
             # https://docs.cypress.io/guides/references/advanced-installation#Skipping-installation
@@ -34,7 +35,7 @@ applications:
             - nvm install 16.13 # NodeJS 16.13+ is the latest version that Amplify Hosting supports
             - nvm use 16
             - npm install -g npm@7 # TODO: remove this line once update @angular-devkit packages.
-            - export NODE_OPTIONS="--max-old-space-size=8192"
+            - export NODE_OPTIONS="--max-old-space-size=32768"
             - npm install
             - npm install wait-on
             - npm install pm2
@@ -45,7 +46,7 @@ applications:
             - 'npx wait-on http://localhost:3000'
         test:
           commands:
-            - 'npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/report/mochawesome-report,overwrite=false,html=false,json=true,timestamp=mmddyyyy_HHMMss"'
+            - 'DEBUG=cypress:server:util:process_profiler npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/report/mochawesome-report,overwrite=false,html=false,json=true,timestamp=mmddyyyy_HHMMss"'
         postTest:
           commands:
             - npx mochawesome-merge cypress/report/mochawesome-report/mochawesome*.json > cypress/report/mochawesome.json

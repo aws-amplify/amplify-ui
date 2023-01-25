@@ -27,6 +27,7 @@ export const krDict: AuthenticatorDictionary = {
   'It may take a minute to arrive': '도착하는 데 1분 정도 걸릴 수 있습니다',
   Loading: '로딩중',
   'New password': '새 비밀번호',
+  or: '또는',
   Password: '비밀번호',
   'Phone Number': '전화번호',
   'Resend Code': '인증번호 재전송',

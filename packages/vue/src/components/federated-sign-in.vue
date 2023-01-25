@@ -27,7 +27,7 @@ const shouldShowFederatedSignIn =
   includeFacebook || includeGoogle || includeAmazon || includeApple;
 
 // Text Util
-const { getSignInWithFederationText } = authenticatorTextUtil;
+const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
 // Computed Properties
 
@@ -44,6 +44,7 @@ const signInWithFacebook = computed(() =>
 const signInWithGoogle = computed(() =>
   getSignInWithFederationText(route, 'google')
 );
+const orText = computed(() => getOrText());
 </script>
 
 <template>
@@ -138,7 +139,7 @@ const signInWithGoogle = computed(() =>
       class="amplify-divider amplify-divider--label amplify-divider--small"
       aria-orientation="horizontal"
       data-size="small"
-      data-label="or"
+      :data-label="orText"
     />
   </base-wrapper>
 </template>

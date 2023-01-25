@@ -1,5 +1,15 @@
 # @aws-amplify/ui
 
+## 5.5.2
+
+### Patch Changes
+
+- [#3330](https://github.com/aws-amplify/amplify-ui/pull/3330) [`57f1a3f43`](https://github.com/aws-amplify/amplify-ui/commit/57f1a3f438b8288ffda46764f7a87e1739e61313) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui): Fixes an issue where the input primitive doesn't render properly for calendar types.
+
+- [#3325](https://github.com/aws-amplify/amplify-ui/pull/3325) [`dd9de348a`](https://github.com/aws-amplify/amplify-ui/commit/dd9de348abcafdcd721600f543d58353957dac25) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Translate 'or' text for FederatedSignIn
+
+- [#3322](https://github.com/aws-amplify/amplify-ui/pull/3322) [`4d652033e`](https://github.com/aws-amplify/amplify-ui/commit/4d652033e120daa82665b4bb4035b56fa8d33bf8) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated functionality so all file uploader uploads will have the correct type matching the file.type.
+
 ## 5.5.1
 
 ### Patch Changes
