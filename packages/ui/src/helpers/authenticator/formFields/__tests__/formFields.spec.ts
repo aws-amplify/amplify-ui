@@ -51,14 +51,6 @@ const fields: FormFieldsArray = [
   ['phone_number', { order: 7, dialCode: '+44', labelHidden: true }],
 ];
 
-describe('removeOrderKeys', () => {
-  it('removes the order keys from the field values', () => {
-    const output = removeOrderKeys(fields);
-
-    expect(output[0][1].order).toBeUndefined();
-  });
-});
-
 const generateMockState = (
   formFields: AuthFormFields | undefined,
   usernameAlias: LoginMechanism
@@ -71,7 +63,15 @@ const generateMockState = (
   } as AuthMachineState;
 };
 
-describe.only('getCustomFormField', () => {
+describe('removeOrderKeys', () => {
+  it('removes the order keys from the field values', () => {
+    const output = removeOrderKeys(fields);
+
+    expect(output[0][1].order).toBeUndefined();
+  });
+});
+
+describe('getCustomFormField', () => {
   it('returns empty object if customFormFields is not present', () => {
     const state = generateMockState(undefined, 'email');
     const result = getCustomFormFields('signIn', state);
