@@ -2,7 +2,6 @@ import {
   AuthFormFields,
   AuthMachineState,
   FormFieldOptions,
-  FormFields,
   FormFieldsArray,
   LoginMechanism,
 } from '../../../../types';
