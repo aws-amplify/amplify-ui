@@ -1,12 +1,28 @@
 import * as React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import * as UseHooks from '../hooks/useFileUploader';
-import { FileUploader } from '..';
+import { UploadTask } from '@aws-amplify/storage';
+
 import * as UIModule from '@aws-amplify/ui';
-import { act } from 'react-dom/test-utils';
+
+import * as UseFileUploader from '../hooks/useFileUploader';
 import { ComponentClassNames } from '../../../../primitives';
+
+import { FileUploader } from '..';
+
+type CompleteCallback = (event: { key: string }) => void;
+type ErrorCallback = (error: string) => void;
+type ProgressCallback = (progress: { loaded: number; total: number }) => void;
+
+type UploadFileInput = {
+  completeCallback?: CompleteCallback;
+  errorCallback?: ErrorCallback;
+  progressCallback?: ProgressCallback;
+};
+
+type MockSetFileStatuses = React.Dispatch<React.SetStateAction<any>>;
+
 const uploadFileSpy = jest.spyOn(UIModule, 'uploadFile');
-const useFileUploaderSpy = jest.spyOn(UseHooks, 'useFileUploader');
+const useFileUploaderSpy = jest.spyOn(UseFileUploader, 'useFileUploader');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
 const mockReturnUseFileUploader = {
@@ -22,9 +38,9 @@ const mockReturnUseFileUploader = {
 };
 
 const commonProps = {
-  accessLevel: 'public' as any,
+  accessLevel: 'public' as const,
   acceptedFileTypes: ['.png'],
-  variation: 'drop' as any,
+  variation: 'drop' as const,
   isResumable: true,
 };
 
@@ -39,30 +55,39 @@ const fileStatus = {
 
 const uploadOneFile = 'Upload 1 file';
 
+const uploadTask = { pause: () => null, resume: () => null } as UploadTask;
+
+const setFileStatusMock = jest.fn((cb?: (params) => void) =>
+  typeof cb === 'function' ? cb([{}]) : undefined
+);
+
 describe('File Uploader', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
   });
-  it('exists', async () => {
+
+  it('exists', () => {
     const { container } = render(<FileUploader {...commonProps} />);
 
     expect(container).toMatchSnapshot();
   });
+
   it('shows a button when variation is set to button', async () => {
     render(<FileUploader {...commonProps} variation="button" />);
     const button = await screen.findByRole('button');
 
     expect(button).toBeTruthy();
   });
-  it('shows svg drop icon when variation is set to drop', async () => {
+
+  it('shows svg drop icon when variation is set to drop', () => {
     const { container } = render(<FileUploader {...commonProps} />);
     const svg = container.querySelector('svg');
 
     expect(svg).toBeInTheDocument();
   });
 
-  it('will not show Previewer on empty file target', async () => {
+  it('will not show Previewer on empty file target', () => {
     const { container } = render(
       <FileUploader {...commonProps} variation="button" />
     );
@@ -71,12 +96,12 @@ describe('File Uploader', () => {
     fireEvent.change(input, {
       target: { files: [] },
     });
-    const text = await screen.queryByText(/files selected/);
+    const text = screen.queryByText(/files selected/);
 
     expect(text).not.toBeInTheDocument();
   });
 
-  it('it calls uploadFile with expected arguments', async () => {
+  it('calls uploadFile with expected arguments', async () => {
     uploadFileSpy.mockResolvedValue({} as never);
     const { container } = render(<FileUploader {...commonProps} />);
 
@@ -93,14 +118,15 @@ describe('File Uploader', () => {
 
     expect(uploadFileSpy).toBeCalledWith({
       completeCallback: undefined,
-      errorCallback: expect.any(Function),
+      errorCallback: expect.any(Function) as (e: Error) => void,
       file: fakeFile,
       fileName: fakeFile.name,
       level: 'public',
       isResumable: true,
-      progressCallback: expect.any(Function),
+      progressCallback: expect.any(Function) as ProgressCallback,
     });
   });
+
   it('skips files that are already uploaded', async () => {
     uploadFileSpy.mockResolvedValue({} as never);
     const fileName2 = 'hello2.png';
@@ -108,7 +134,7 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 100,
-        fileState: 'success' as any,
+        fileState: 'success' as const,
       },
       {
         ...fileStatus,
@@ -136,23 +162,23 @@ describe('File Uploader', () => {
 
     expect(uploadFileSpy).toBeCalledWith({
       completeCallback: undefined,
-      errorCallback: expect.any(Function),
+      errorCallback: expect.any(Function) as ErrorCallback,
       file: fakeFile,
       fileName: fileName2,
       level: 'public',
       isResumable: true,
-      progressCallback: expect.any(Function),
+      progressCallback: expect.any(Function) as ProgressCallback,
     });
   });
+
   it('calls upload to pause when paused is clicked', async () => {
-    const uploadTask = { pause: () => null, resume: () => null } as any;
     const uploadTaskSpy = jest.spyOn(uploadTask, 'pause');
     const fileStatuses = [
       {
         ...fileStatus,
         percentage: 50,
         uploadTask,
-        fileState: 'loading' as any,
+        fileState: 'loading' as const,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -160,22 +186,22 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const button = await screen.findByText('pause');
-    await fireEvent.click(button);
+    fireEvent.click(button);
 
     expect(uploadTaskSpy).toBeCalled();
   });
+
   it('calls resume when resume is clicked', async () => {
-    const uploadTask = { pause: () => null, resume: () => null } as any;
     const uploadTaskSpy = jest.spyOn(uploadTask, 'resume');
     const fileStatuses = [
       {
         ...fileStatus,
         percentage: 50,
         uploadTask,
-        fileState: 'paused' as any,
+        fileState: 'paused' as const,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -183,47 +209,36 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const button = await screen.findByText('Resume');
-    await fireEvent.click(button);
+    fireEvent.click(button);
 
     expect(uploadTaskSpy).toBeCalled();
   });
+
   it('calls the errorCallback when there is an eror', async () => {
     const ERROR_MESSAGE = 'error!';
     uploadFileSpy.mockResolvedValue({} as never);
 
-    const fileStatuses = [fileStatus];
-
-    const setFileStatusMock = jest.fn((callback: any) => {
-      return callback([{}]);
-    });
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
-      setFileStatuses: setFileStatusMock,
+      fileStatuses: [fileStatus],
+      setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
-    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const clickButton = await screen.findByRole('button', {
       name: uploadOneFile,
     });
 
     uploadFileSpy.mockImplementation(
-      ({
-        completeCallback,
-        errorCallback,
-        file,
-        fileName,
-        level,
-        progressCallback,
-      }: any): any => {
+      ({ errorCallback }: UploadFileInput): any => {
         // simulate error
-        errorCallback(ERROR_MESSAGE);
+        errorCallback?.(ERROR_MESSAGE);
       }
     );
-    await fireEvent.click(clickButton);
+    fireEvent.click(clickButton);
 
     expect(setFileStatusMock.mock.results[0].value).toEqual([
       {
@@ -232,6 +247,7 @@ describe('File Uploader', () => {
       },
     ]);
   });
+
   it('calls the progressCallback during upload', async () => {
     const mockProgress = { loaded: 10, total: 100 };
     const percentage = Math.floor(
@@ -239,57 +255,44 @@ describe('File Uploader', () => {
     );
     uploadFileSpy.mockResolvedValue({} as never);
 
-    const fileStatuses = [fileStatus];
-
-    const setFileStatusMock = jest.fn((callback: any) => {
-      return callback([{}]);
-    });
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
-      setFileStatuses: setFileStatusMock,
+      fileStatuses: [fileStatus],
+      setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
-    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const clickButton = await screen.findByRole('button', {
       name: uploadOneFile,
     });
 
     uploadFileSpy.mockImplementation(
-      ({
-        completeCallback,
-        errorCallback,
-        file,
-        fileName,
-        level,
-        progressCallback,
-      }: any): any => {
+      ({ progressCallback }: UploadFileInput): any => {
         // simulate progress callback
-        progressCallback(mockProgress);
+        progressCallback?.(mockProgress);
       }
     );
-    await fireEvent.click(clickButton);
+    fireEvent.click(clickButton);
 
     expect(setFileStatusMock.mock.results[0].value).toEqual([
       { fileState: 'loading', percentage },
     ]);
   });
+
   it('calls the completeCallback after done uploading', async () => {
     const mockComplete = { key: 'mock-key' };
     uploadFileSpy.mockResolvedValue({} as never);
-
-    const fileStatuses = [fileStatus];
 
     const onSuccessMock = jest.fn();
 
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
+      fileStatuses: [fileStatus],
     });
     render(
       <FileUploader
         {...commonProps}
-        isPreviewerVisible={true}
+        isPreviewerVisible
         onSuccess={onSuccessMock}
       />
     );
@@ -299,123 +302,107 @@ describe('File Uploader', () => {
     });
 
     uploadFileSpy.mockImplementation(
-      ({
-        completeCallback,
-        errorCallback,
-        file,
-        fileName,
-        level,
-        progressCallback,
-      }: any): any => {
+      ({ completeCallback }: UploadFileInput): any => {
         // simulate complete callback
-        completeCallback(mockComplete);
+        completeCallback?.(mockComplete);
       }
     );
-    await fireEvent.click(clickButton);
+    fireEvent.click(clickButton);
 
     expect(onSuccessMock).toHaveBeenCalledWith(mockComplete);
   });
+
   it('clears all the files when clear all is clicked', async () => {
     uploadFileSpy.mockResolvedValue({} as never);
 
-    const fileStatuses = [fileStatus];
-
-    const setFileStatusMock = jest.fn();
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
-      setFileStatuses: setFileStatusMock,
+      fileStatuses: [fileStatus],
+      setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
-    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const clickButton = await screen.findByRole('button', {
       name: 'Clear all',
     });
 
-    await fireEvent.click(clickButton);
+    fireEvent.click(clickButton);
 
     expect(setFileStatusMock).toHaveBeenCalledWith([]);
   });
-  it('removes the file when cancel file is clicked', async () => {
-    const fileStatuses = [fileStatus];
-    const setFileStatusMock = jest.fn();
+
+  it('removes the file when cancel file is clicked', () => {
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
-      setFileStatuses: setFileStatusMock,
+      fileStatuses: [fileStatus],
+      setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
 
     const { container } = render(
-      <FileUploader {...commonProps} isPreviewerVisible={true} />
+      <FileUploader {...commonProps} isPreviewerVisible />
     );
 
     // click the cancel button for the file
-    const button = await container.querySelectorAll('button')[2];
-    await fireEvent.click(button);
+    const button = container.querySelectorAll('button')[2];
+    fireEvent.click(button);
 
     expect(setFileStatusMock).toHaveBeenCalledWith([]);
   });
-  it('updates file name after clicking the pencil and editing name', async () => {
+
+  it('updates file name after clicking the pencil and editing name', () => {
     const newFileName = 'newFile.png';
-    const setFileStatusMock = jest.fn();
+
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      setFileStatuses: setFileStatusMock,
       fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
+      setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
 
-    await act(async () => {
-      render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
-    });
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
-    const button = await screen.getAllByRole('button')[1];
-    await fireEvent.click(button);
+    const button = screen.getAllByRole('button')[1];
+    fireEvent.click(button);
     // input file name box
-    const input = (await screen.getByLabelText(
-      'file name'
-    )) as HTMLInputElement;
+    const input = screen.getByLabelText<HTMLInputElement>('file name');
 
     fireEvent.change(input, {
       target: { value: newFileName },
     });
 
     // click save button
-    const saveButton = await screen.getByRole('button', { name: 'Save' });
-    await fireEvent.click(saveButton);
+    const saveButton = screen.getByRole('button', { name: 'Save' });
+    fireEvent.click(saveButton);
 
     expect(setFileStatusMock).toHaveBeenCalledWith([
       { ...fileStatus, name: newFileName },
     ]);
   });
-  it('updates file name and checks extension shows error', async () => {
+
+  it('updates file name and checks extension shows error', () => {
     const badFileName = 'newFile.xls';
-    const setFileStatusMock = jest.fn();
+
     useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
-      setFileStatuses: setFileStatusMock,
       fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
+      setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
 
-    await act(async () => {
-      render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
-    });
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
-    const button = await screen.getAllByRole('button')[1];
-    await fireEvent.click(button);
+    const button = screen.getAllByRole('button')[1];
+    fireEvent.click(button);
     // input file name box
-    const input = (await screen.getByLabelText(
-      'file name'
-    )) as HTMLInputElement;
+    const input = screen.getByLabelText('file name');
 
-    await fireEvent.change(input, {
+    fireEvent.change(input, {
       target: { value: badFileName },
     });
 
     // click save button
-    const saveButton = await screen.getByRole('button', { name: 'Save' });
-    await fireEvent.click(saveButton);
+    const saveButton = screen.getByRole('button', { name: 'Save' });
+    fireEvent.click(saveButton);
 
     expect(setFileStatusMock).toHaveBeenCalledWith([
       {
@@ -426,42 +413,40 @@ describe('File Uploader', () => {
       },
     ]);
   });
-  it('updates file name and checks extension shows error if you save then cancel', async () => {
+
+  it('updates file name and checks extension shows error if you save then cancel', () => {
     const badFileName = 'newFile.xls';
-    const setFileStatusMock = jest.fn();
+
+    const setFileStatuses = jest.fn();
     useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
-      setFileStatuses: setFileStatusMock,
       fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
+      setFileStatuses,
     });
 
-    await act(async () => {
-      render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
-    });
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
-    const button = await screen.getAllByRole('button')[1];
-    await fireEvent.click(button);
+    const button = screen.getAllByRole('button')[1];
+    fireEvent.click(button);
     // input file name box
-    const input = (await screen.getByLabelText(
-      'file name'
-    )) as HTMLInputElement;
+    const input = screen.getByLabelText('file name');
 
-    await fireEvent.change(input, {
+    fireEvent.change(input, {
       target: { value: badFileName },
     });
 
     // click save button
-    const saveButton = await screen.getByRole('button', { name: 'Save' });
-    await fireEvent.click(saveButton);
+    const saveButton = screen.getByRole('button', { name: 'Save' });
+    fireEvent.click(saveButton);
 
     // click pencel icon again
-    await fireEvent.click(button);
+    fireEvent.click(button);
     // click cancel button
-    const cancelButton = await screen.getByRole('button', { name: 'Cancel' });
-    await fireEvent.click(cancelButton);
+    const cancelButton = screen.getByRole('button', { name: 'Cancel' });
+    fireEvent.click(cancelButton);
 
-    expect(setFileStatusMock).toHaveBeenCalledWith([
+    expect(setFileStatuses).toHaveBeenCalledWith([
       {
         ...fileStatus,
         name: badFileName,
@@ -474,16 +459,15 @@ describe('File Uploader', () => {
   it.skip('shows the overridden Tracker component', async () => {
     // const UploadTracker = ({ name }) => <div>File Name: {name}</div>;
 
-    const fileStatuses = [fileStatus];
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
+      fileStatuses: [fileStatus],
     });
     render(
       <FileUploader
         {...commonProps}
         // components={{ UploadTracker }}
-        isPreviewerVisible={true}
+        isPreviewerVisible
       />
     );
 
@@ -491,72 +475,66 @@ describe('File Uploader', () => {
       await screen.findByText(`File Name: ${fileStatus.name}`)
     ).toBeVisible();
   });
+
   it.skip('shows the overridden Previewer component', async () => {
     // const UploadPreviewer = ({ fileStatuses }) => (
     //   <div>Preview: {fileStatuses[0].name} </div>
     // );
-    const fileStatuses = [fileStatus];
+
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
+      fileStatuses: [fileStatus],
     });
     render(
       <FileUploader
         {...commonProps}
         // components={{ UploadPreviewer }}
-        isPreviewerVisible={true}
+        isPreviewerVisible
       />
     );
 
     expect(
-      await screen.findByText(`Preview: ${fileStatuses[0].name}`)
+      await screen.findByText(`Preview: ${fileStatus.name}`)
     ).toBeVisible();
   });
-  it('shows nothing in Tracker if showImages is false', async () => {
-    const fileStatuses = [fileStatus];
+
+  it('shows nothing in Tracker if showImages is false', () => {
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
+      fileStatuses: [fileStatus],
     });
+
     const { container } = render(
-      <FileUploader
-        {...commonProps}
-        showImages={false}
-        isPreviewerVisible={true}
-      />
+      <FileUploader {...commonProps} showImages={false} isPreviewerVisible />
     );
 
     expect(
       container.querySelector(`.${ComponentClassNames.FileUploaderFileImage}`)
     ).toBeNull();
   });
-  it('shows an image inside the tracker if showImages is true', async () => {
-    const fileStatuses = [fileStatus];
+
+  it('shows an image inside the tracker if showImages is true', () => {
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
+      fileStatuses: [fileStatus],
     });
     const { container } = render(
-      <FileUploader
-        {...commonProps}
-        showImages={true}
-        isPreviewerVisible={true}
-      />
+      <FileUploader {...commonProps} showImages isPreviewerVisible />
     );
 
     expect(
       container.querySelector(`.${ComponentClassNames.FileUploaderFileImage}`)
     ).toBeVisible();
   });
-  it('starts upload after file is selected if shouldAutoProceed is true', async () => {
-    const fileStatuses = [fileStatus];
+
+  it('starts upload after file is selected if shouldAutoProceed is true', () => {
     useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
-      fileStatuses,
+      fileStatuses: [fileStatus],
     });
 
     const { container } = render(
-      <FileUploader {...commonProps} shouldAutoProceed={true} />
+      <FileUploader {...commonProps} shouldAutoProceed />
     );
 
     const input = container.getElementsByTagName('input')[0];
@@ -566,28 +544,28 @@ describe('File Uploader', () => {
 
     expect(uploadFileSpy).toBeCalledWith({
       completeCallback: undefined,
-      errorCallback: expect.any(Function),
+      errorCallback: expect.any(Function) as ErrorCallback,
       file: fakeFile,
       fileName: fakeFile.name,
       level: 'public',
       isResumable: true,
-      progressCallback: expect.any(Function),
+      progressCallback: expect.any(Function) as ProgressCallback,
     });
   });
+
   it('wont count uploaded files to max files error limit', async () => {
-    const uploadTask = { pause: () => null, resume: () => null } as any;
     const fileStatuses = [
       {
         ...fileStatus,
         percentage: 100,
         uploadTask,
-        fileState: 'success' as any,
+        fileState: 'success' as const,
       },
       {
         ...fileStatus,
         percentage: 0,
         uploadTask,
-        fileState: '' as any,
+        fileState: 'error' as const,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -595,28 +573,26 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(
-      <FileUploader {...commonProps} maxFiles={1} isPreviewerVisible={true} />
-    );
+    render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
 
     const uploadFilesText = await screen.findByText(/Upload 1 file/);
 
     expect(uploadFilesText).toBeVisible();
   });
+
   it('will show max files error limit', async () => {
-    const uploadTask = { pause: () => null, resume: () => null } as any;
     const fileStatuses = [
       {
         ...fileStatus,
         percentage: 0,
         uploadTask,
-        fileState: '' as any,
+        fileState: 'success' as const,
       },
       {
         ...fileStatus,
         percentage: 0,
         uploadTask,
-        fileState: '' as any,
+        fileState: 'error' as const,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -624,49 +600,36 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(
-      <FileUploader {...commonProps} maxFiles={1} isPreviewerVisible={true} />
-    );
+    render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
 
     const errorText = await screen.findByText(/Over Max files/);
 
     expect(errorText).toBeVisible();
   });
-  it('returns from the progressCallback with a zero byte file with success ', async () => {
+
+  it('returns from the progressCallback with a zero byte file with success', async () => {
     const mockProgress = { loaded: 0, total: 0 };
     const percentage = 100;
     uploadFileSpy.mockResolvedValue({} as never);
 
-    const fileStatuses = [fileStatus];
-
-    const setFileStatusMock = jest.fn((callback: any) => {
-      return callback([{}]);
-    });
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses,
-      setFileStatuses: setFileStatusMock,
+      fileStatuses: [fileStatus],
+      setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
-    render(<FileUploader {...commonProps} isPreviewerVisible={true} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const clickButton = await screen.findByRole('button', {
       name: uploadOneFile,
     });
 
     uploadFileSpy.mockImplementation(
-      ({
-        completeCallback,
-        errorCallback,
-        file,
-        fileName,
-        level,
-        progressCallback,
-      }: any): any => {
+      ({ progressCallback }: UploadFileInput): any => {
         // simulate progress callback
-        progressCallback(mockProgress);
+        progressCallback?.(mockProgress);
       }
     );
-    await fireEvent.click(clickButton);
+    fireEvent.click(clickButton);
 
     expect(setFileStatusMock.mock.results[0].value).toEqual([
       { fileState: 'success', percentage },
@@ -687,7 +650,7 @@ describe('File Uploader', () => {
       fileStatuses,
       ...mockReturnUseFileUploader,
     });
-    await render(<FileUploader {...commonProps} variation="button" />);
+    render(<FileUploader {...commonProps} variation="button" />);
 
     expect(await screen.findByText(/file selected/)).toBeVisible();
     expect(await screen.findByText(/Upload 1 file/)).toBeVisible();
@@ -699,7 +662,7 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 100,
-        fileState: 'success' as any,
+        fileState: 'success' as const,
       },
     ];
 
@@ -711,18 +674,19 @@ describe('File Uploader', () => {
 
     expect(await screen.findByText(/file uploaded/)).toBeVisible();
   });
+
   it('will show the correct plural form of files uploaded', async () => {
     uploadFileSpy.mockResolvedValue({} as never);
     const fileStatuses = [
       {
         ...fileStatus,
         percentage: 100,
-        fileState: 'success' as any,
+        fileState: 'success' as const,
       },
       {
         ...fileStatus,
         percentage: 100,
-        fileState: 'success' as any,
+        fileState: 'success' as const,
       },
     ];
 
@@ -734,6 +698,7 @@ describe('File Uploader', () => {
 
     expect(await screen.findByText(/files uploaded/)).toBeVisible();
   });
+
   it('will show correct plural form for files selected and upload files', async () => {
     uploadFileSpy.mockResolvedValue({} as never);
     const fileStatuses = [
@@ -753,7 +718,7 @@ describe('File Uploader', () => {
       fileStatuses,
       ...mockReturnUseFileUploader,
     });
-    await render(<FileUploader {...commonProps} variation="button" />);
+    render(<FileUploader {...commonProps} variation="button" />);
 
     expect(await screen.findByText(/files selected/)).toBeVisible();
     expect(await screen.findByText(/Upload 2 file/)).toBeVisible();

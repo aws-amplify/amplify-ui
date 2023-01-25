@@ -23,7 +23,7 @@ describe('UploaderDrop', () => {
   it('shows correct class when inDropZone is true', async () => {
     const { container } = render(
       <UploadDropZone
-        inDropZone={true}
+        inDropZone
         onDragEnter={() => ''}
         onDragLeave={() => ''}
         onDragOver={() => ''}

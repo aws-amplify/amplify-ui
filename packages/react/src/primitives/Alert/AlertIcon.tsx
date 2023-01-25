@@ -10,7 +10,7 @@ import {
 } from '../Icon/internal';
 
 interface AlertIconProps {
-  variation: AlertVariations;
+  variation?: AlertVariations;
   ariaHidden?: boolean;
 }
 

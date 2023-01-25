@@ -7,17 +7,10 @@ Install the 3.x version of the `@aws-amplify/ui-angular` library and the 5.x ver
 
 <Tabs>
 <TabItem title="npm">
-
-```shell
-npm install aws-amplify@5.x @aws-amplify/ui-angular@3.x
-```
-
+<TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-angular@3.x" />
 </TabItem>
 <TabItem title="yarn">
-```shell
-yarn add aws-amplify@5.x @aws-amplify/ui-angular@3.x
-```
-
+<TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-angular@3.x" />
 </TabItem>
 </Tabs>
 
@@ -77,6 +70,53 @@ We replaced following legacy Authenticator texts:
 
 If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
 
+#### 5. `@aws-amplify/ui-angular@3.x` removes legacy component exports
+
+The following deprecated components imported from `@aws-amplify/ui-angular/legacy` are removed:
+
+- [AmplifyChatbot](https://github.com/aws-amplify/amplify-js/blob/v4-stable/packages/amplify-ui-components/src/components/amplify-chatbot/readme.md)
+- [AmplifyPhotoPicker](https://github.com/aws-amplify/amplify-js/blob/v4-stable/packages/amplify-ui-components/src/components/amplify-photo-picker/readme.md)
+- [AmplifyPicker](https://github.com/aws-amplify/amplify-js/blob/v4-stable/packages/amplify-ui-components/src/components/amplify-picker/readme.md)
+- [AmplifyS3Album](https://github.com/aws-amplify/amplify-js/tree/v4-stable/packages/amplify-ui-components/src/components/amplify-s3-album/readme.md)
+- [AmplifyS3Image](https://github.com/aws-amplify/amplify-js/blob/v4-stable/packages/amplify-ui-components/src/components/amplify-s3-image/readme.md)
+- [AmplifyS3ImagePicker](https://github.com/aws-amplify/amplify-js/blob/v4-stable/packages/amplify-ui-components/src/components/amplify-s3-image-picker/readme.md)
+- [AmplifyS3Text](https://github.com/aws-amplify/amplify-js/blob/v4-stable/packages/amplify-ui-components/src/components/amplify-s3-text/readme.md)
+- [AmplifyS3TextPicker](https://github.com/aws-amplify/amplify-js/blob/v4-stable/packages/amplify-ui-components/src/components/amplify-s3-text-picker/readme.md)
+
+If you wish to still use the legacy components, you can do so by installing `@aws-amplify@2.x` under an alias:
+
+<Tabs>
+<TabItem title="npm">
+<TerminalCommand command="npm install @aws-amplify/ui-angular-v2@npm:@aws-amplify/ui-angular@^2.4.27" />
+</TabItem>
+<TabItem title="yarn">
+<TerminalCommand command="yarn add @aws-amplify/ui-angular-v2@npm:@aws-amplify/ui-angular@^2.4.27" />
+</TabItem>
+</Tabs>
+
+Then you can use the legacy components by registering `LegacyAmplifyUiModule` in your `app.module.ts`:
+
+
+```ts{4,11}
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import { LegacyAmplifyUiModule } from '@aws-amplify/ui-angular-v2/legacy';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, AmplifyAuthenticatorModule, LegacyAmplifyUiModule],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+For more details on how to use the components, please see the [v1 documentation](https://github.com/aws-amplify/amplify-ui/tree/legacy/legacy/amplify-ui-angular).
+
 ## 1.x to 2.x
 ## Installation
 
@@ -84,17 +124,10 @@ Install the 2.x version of the `@aws-amplify/ui-angular` library.
 
 <Tabs>
 <TabItem title="npm">
-
-```shell
-npm install aws-amplify @aws-amplify/ui-angular@2.x
-```
-
+<TerminalCommand command="npm install aws-amplify @aws-amplify/ui-angular@2.x" />
 </TabItem>
 <TabItem title="yarn">
-```shell
-yarn add aws-amplify @aws-amplify/ui-angular@2.x
-```
-
+<TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-angular@2.x" />
 </TabItem>
 </Tabs>
 

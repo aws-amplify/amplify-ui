@@ -1,16 +1,16 @@
-/** @jest-environment jsdom */
-
-import { useBreakpoint } from '../useBreakpoint';
-import { renderHook } from '@testing-library/react-hooks';
-import MatchMediaMock from 'jest-matchmedia-mock';
 import * as React from 'react';
+import MatchMediaMock from 'jest-matchmedia-mock';
+import { renderHook } from '@testing-library/react-hooks';
+
 import { Breakpoints } from '../../../types/responsive';
 import { getMediaQueries } from '../getMediaQueries';
+import { useBreakpoint } from '../useBreakpoint';
 
 jest.mock('react', () => ({
-  ...(jest.requireActual('react') as typeof React),
+  ...jest.requireActual<typeof React>('react'),
   useDebugValue: jest.fn(),
 }));
+
 const mockUseDebugValue = React.useDebugValue as jest.Mock<
   typeof React.useDebugValue
 >;
@@ -26,31 +26,10 @@ const breakpoints: Breakpoints = {
 
 const defaultBreakpoint = 'base';
 
-let matchMedia: MatchMediaMock;
-let mediaQueries = getMediaQueries({ breakpoints });
-
-const testBreakpoints = (m) => {
-  it(`should return ${m.breakpoint} breakpoint`, () => {
-    matchMedia.useMediaQuery(m.query);
-    const { result } = renderHook(() =>
-      useBreakpoint({ breakpoints, defaultBreakpoint })
-    );
-    const breakpoint = result.current;
-
-    expect(breakpoint).toBe(m.breakpoint);
-    expect(mockUseDebugValue).toHaveBeenLastCalledWith(
-      m.breakpoint,
-      expect.any(Function)
-    );
-    if (m.breakpoint === 'base') {
-      expect(mockUseDebugValue).toHaveBeenCalledTimes(1);
-    } else {
-      expect(mockUseDebugValue).toHaveBeenCalledTimes(2);
-    }
-  });
-};
+const mediaQueries = getMediaQueries({ breakpoints });
 
 describe('useBreakpoint', () => {
+  let matchMedia: MatchMediaMock;
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
   });
@@ -69,7 +48,53 @@ describe('useBreakpoint', () => {
     expect(breakpoint).toBe('base');
   });
 
-  // Test going down and up the breakpoints
-  mediaQueries.forEach(testBreakpoints);
-  mediaQueries.reverse().forEach(testBreakpoints);
+  it.each(mediaQueries)(
+    `should return the $breakpoint breakpoint as expected`,
+    ({ query, breakpoint }) => {
+      matchMedia.useMediaQuery(query);
+      const { result } = renderHook(() =>
+        useBreakpoint({ breakpoints, defaultBreakpoint })
+      );
+      const resultBreakpoint = result.current;
+
+      expect(resultBreakpoint).toBe(breakpoint);
+      expect(mockUseDebugValue).toHaveBeenLastCalledWith(
+        breakpoint,
+        expect.any(Function)
+      );
+
+      if (breakpoint === 'base') {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(mockUseDebugValue).toHaveBeenCalledTimes(1);
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(mockUseDebugValue).toHaveBeenCalledTimes(2);
+      }
+    }
+  );
+
+  it.each(mediaQueries.reverse())(
+    `should return the $breakpoint breakpoint as expected (reverse order)`,
+    ({ query, breakpoint }) => {
+      matchMedia.useMediaQuery(query);
+      const { result } = renderHook(() =>
+        useBreakpoint({ breakpoints, defaultBreakpoint })
+      );
+      const resultBreakpoint = result.current;
+
+      expect(resultBreakpoint).toBe(breakpoint);
+      expect(mockUseDebugValue).toHaveBeenLastCalledWith(
+        breakpoint,
+        expect.any(Function)
+      );
+
+      if (breakpoint === 'base') {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(mockUseDebugValue).toHaveBeenCalledTimes(1);
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(mockUseDebugValue).toHaveBeenCalledTimes(2);
+      }
+    }
+  );
 });

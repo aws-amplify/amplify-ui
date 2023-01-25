@@ -1,5 +1,25 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.5
+
+### Patch Changes
+
+- [#3198](https://github.com/aws-amplify/amplify-ui/pull/3198) [`9cb6696a2`](https://github.com/aws-amplify/amplify-ui/commit/9cb6696a227b7c5b4ce36920c2093289fa45cc95) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react-native): Fixes an issue where undefined values end up in the state machine causing internal errors to be exposed to end users.
+
+- Updated dependencies [[`57f1a3f43`](https://github.com/aws-amplify/amplify-ui/commit/57f1a3f438b8288ffda46764f7a87e1739e61313), [`dd9de348a`](https://github.com/aws-amplify/amplify-ui/commit/dd9de348abcafdcd721600f543d58353957dac25), [`4d652033e`](https://github.com/aws-amplify/amplify-ui/commit/4d652033e120daa82665b4bb4035b56fa8d33bf8)]:
+  - @aws-amplify/ui@5.5.2
+  - @aws-amplify/ui-react-core@2.1.10
+
+## 1.2.4
+
+### Patch Changes
+
+- [#3283](https://github.com/aws-amplify/amplify-ui/pull/3283) [`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd) Thanks [@wlee221](https://github.com/wlee221)! - Trim non-password fields on Authenticator forms. This will prevent unnecessary validation messages from showing up.
+
+- Updated dependencies [[`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd), [`01912077c`](https://github.com/aws-amplify/amplify-ui/commit/01912077c6d4fcdd3cbe9b6de2bb53fc490d0f41), [`08111e7e6`](https://github.com/aws-amplify/amplify-ui/commit/08111e7e60af5baf3b7e408f9545514c34e09078)]:
+  - @aws-amplify/ui@5.5.1
+  - @aws-amplify/ui-react-core@2.1.9
+
 ## 1.2.3
 
 ### Patch Changes

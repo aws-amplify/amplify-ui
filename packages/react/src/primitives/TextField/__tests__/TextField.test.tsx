@@ -14,7 +14,7 @@ const testId = 'testId';
 
 describe('TextField component', () => {
   describe('wrapper Flex', () => {
-    it('should render default and custom classname ', async () => {
+    it('should render default and custom classname', async () => {
       const customClassName = 'my-textfield';
       render(
         <TextField
@@ -57,16 +57,16 @@ describe('TextField component', () => {
     });
   });
 
-  describe('Label ', () => {
+  describe('Label', () => {
     it('should render expected field classname', async () => {
       render(<TextField label="Field" />);
 
-      const label = (await screen.findByText('Field')) as HTMLLabelElement;
+      const label = await screen.findByText('Field');
       expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
-      render(<TextField label="Search" labelHidden={true} />);
+      render(<TextField label="Search" labelHidden />);
 
       const label = await screen.findByText('Search');
       expect(label).toHaveClass('amplify-visually-hidden');
@@ -137,7 +137,7 @@ describe('TextField component', () => {
     it('can set defaultValue', async () => {
       render(<TextField label="Field" defaultValue="test" />);
 
-      const field = (await screen.findByRole('textbox')) as HTMLInputElement;
+      const field = await screen.findByRole<HTMLTextAreaElement>('textbox');
       expect(field.value).toBe('test');
     });
 
@@ -146,11 +146,11 @@ describe('TextField component', () => {
         <TextField
           label="Field"
           id="testField"
-          hasError={true}
+          hasError
           errorMessage={'Error message'}
         />
       );
-      const field = (await screen.findByRole('textbox')) as HTMLInputElement;
+      const field = await screen.findByRole('textbox');
       expect(field).toHaveAttribute('aria-invalid');
     });
 
@@ -166,7 +166,7 @@ describe('TextField component', () => {
           onPaste={onPaste}
         />
       );
-      const field = (await screen.findByRole('textbox')) as HTMLInputElement;
+      const field = await screen.findByRole('textbox');
       userEvent.type(field, 'hello');
       userEvent.paste(field, 'there');
       expect(onChange).toHaveBeenCalled();
@@ -177,36 +177,36 @@ describe('TextField component', () => {
 
   describe('error messages', () => {
     const errorMessage = 'This is an error message';
-    it("don't show when hasError is false", async () => {
+    it("don't show when hasError is false", () => {
       render(
         <TextField label="Field" id="testField" errorMessage={errorMessage} />
       );
 
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText).not.toBeInTheDocument();
     });
 
-    it('show when hasError and errorMessage', async () => {
+    it('show when hasError and errorMessage', () => {
       render(
         <TextField
           label="Field"
           id="testField"
-          hasError={true}
+          hasError
           errorMessage={errorMessage}
         />
       );
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText?.innerHTML).toContain(errorMessage);
     });
   });
 
   describe('descriptive message', () => {
-    it('renders when descriptiveText is provided', async () => {
+    it('renders when descriptiveText is provided', () => {
       render(
         <TextField label="Field" id="testField" descriptiveText="Description" />
       );
 
-      const descriptiveText = await screen.queryByText('Description');
+      const descriptiveText = screen.queryByText('Description');
       expect(descriptiveText?.innerHTML).toContain('Description');
     });
 
@@ -220,7 +220,7 @@ describe('TextField component', () => {
         />
       );
 
-      const field = (await screen.findByRole('textbox')) as HTMLInputElement;
+      const field = await screen.findByRole('textbox');
       expect(field).toHaveAccessibleDescription(descriptiveText);
     });
   });

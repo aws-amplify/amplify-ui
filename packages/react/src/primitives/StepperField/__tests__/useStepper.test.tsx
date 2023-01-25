@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { useStepper } from '../useStepper';
 
-describe('useStepper: ', () => {
+describe('useStepper:', () => {
   const label = 'test-hook';
   it('should return basic props correctly', () => {
     const { result } = renderHook(() =>

@@ -7,9 +7,9 @@ import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { ComponentClassNames } from '../shared/constants';
 import { ExpanderProps } from '../types/expander';
 import { Primitive } from '../types/view';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 
-const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
+const ExpanderPrimitive: Primitive<ExpanderProps, 'div'> = (
   {
     children,
     className,

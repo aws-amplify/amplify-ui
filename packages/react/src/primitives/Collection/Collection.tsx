@@ -39,7 +39,7 @@ const GridCollection = <Item,>({
 );
 
 const renderCollectionOrNoResultsFound = <Item,>(
-  collection: JSX.Element,
+  collection: JSX.Element | null,
   items: Item[],
   searchNoResultsFound: React.ReactNode
 ) => {

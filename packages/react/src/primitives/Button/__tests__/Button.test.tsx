@@ -81,13 +81,13 @@ describe('Button test suite', () => {
   it('should render button states', async () => {
     render(
       <div>
-        <Button isFullWidth={true} testId="fullwidth">
+        <Button isFullWidth testId="fullwidth">
           Full Width
         </Button>
-        <Button isDisabled={true} testId="disabled">
+        <Button isDisabled testId="disabled">
           Disabled
         </Button>
-        <Button isLoading={true} testId="loading">
+        <Button isLoading testId="loading">
           Disabled
         </Button>
       </div>

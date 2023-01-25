@@ -63,18 +63,13 @@ export function UploadTracker({
           <Text className={ComponentClassNames.FileUploaderFileName}>
             {name}
           </Text>
-          <UploadMessage
-            fileState={fileState}
-            errorMessage={errorMessage}
-            percentage={percentage}
-          />
         </View>
         <Text as="span" className={ComponentClassNames.FileUploaderFileSize}>
           {humanFileSize(size, true)}
         </Text>
       </>
     ),
-    [errorMessage, fileState, name, percentage, size]
+    [name, size]
   );
 
   const Actions = useCallback(() => {
@@ -153,51 +148,58 @@ export function UploadTracker({
 
   return (
     <View className={ComponentClassNames.FileUploaderFile}>
-      {showImage ? (
-        <View className={ComponentClassNames.FileUploaderFileImage}>
-          {icon}
-        </View>
-      ) : null}
+      <View className={ComponentClassNames.FileUploaderFileWrapper}>
+        {showImage ? (
+          <View className={ComponentClassNames.FileUploaderFileImage}>
+            {icon}
+          </View>
+        ) : null}
 
-      {/* Main View */}
-      {fileState === 'editing' ? (
-        // Wrapping this text field in a form with onSubmit will allow keyboard
-        // users to press enter to save changes.
-        <View
-          as="form"
-          flex="1"
-          onSubmit={() => {
-            onSaveEdit(tempName);
-          }}
-        >
-          <TextField
-            maxLength={1024}
-            ref={inputRef}
-            label="file name"
-            size="small"
-            variation="quiet"
-            labelHidden
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setTempName(e.target.value);
+        {/* Main View */}
+        {fileState === 'editing' ? (
+          // Wrapping this text field in a form with onSubmit will allow keyboard
+          // users to press enter to save changes.
+          <View
+            as="form"
+            flex="1"
+            onSubmit={() => {
+              onSaveEdit(tempName);
             }}
-            value={tempName}
+          >
+            <TextField
+              maxLength={1024}
+              ref={inputRef}
+              label="file name"
+              size="small"
+              variation="quiet"
+              labelHidden
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setTempName(e.target.value);
+              }}
+              value={tempName}
+            />
+          </View>
+        ) : (
+          <DisplayView />
+        )}
+
+        <Actions />
+
+        {fileState === 'loading' ? (
+          <Loader
+            className={ComponentClassNames.FileUploaderLoader}
+            variation="linear"
+            percentage={percentage}
+            isDeterminate={isDeterminate}
+            isPercentageTextHidden
           />
-        </View>
-      ) : (
-        <DisplayView />
-      )}
-
-      <Actions />
-
-      {fileState === 'loading' ? (
-        <Loader
-          className={ComponentClassNames.FileUploaderLoader}
-          variation="linear"
-          percentage={percentage}
-          isDeterminate={isDeterminate}
-          isPercentageTextHidden
-        />
-      ) : null}
+        ) : null}
+      </View>
+      <UploadMessage
+        fileState={fileState}
+        errorMessage={errorMessage}
+        percentage={percentage}
+      />
     </View>
   );
 }

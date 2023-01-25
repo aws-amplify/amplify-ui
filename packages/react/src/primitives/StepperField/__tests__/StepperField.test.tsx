@@ -10,7 +10,7 @@ import {
 import { ComponentClassNames, ComponentText } from '../../shared/constants';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 
-describe('StepperField: ', () => {
+describe('StepperField:', () => {
   describe('Flex wrapper', () => {
     it('should render default and custom classname', async () => {
       const classname = 'test-class';
@@ -55,12 +55,12 @@ describe('StepperField: ', () => {
     it('should render expected field classname', async () => {
       render(<StepperField label="stepper" />);
 
-      const label = (await screen.findByText('stepper')) as HTMLLabelElement;
+      const label = (await screen.findByText('stepper'));
       expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
-      render(<StepperField label="stepper" labelHidden={true} />);
+      render(<StepperField label="stepper" labelHidden />);
 
       const label = await screen.findByText('stepper');
       expect(label).toHaveClass('amplify-visually-hidden');

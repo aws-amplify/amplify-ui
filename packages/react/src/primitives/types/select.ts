@@ -8,7 +8,7 @@ export type SelectVariation = 'quiet';
 export interface SelectProps extends ViewProps {
   /**
    * @description
-   * A string providing a hint for a user agent's autocomplete feature
+   * A string providing a hint for a user agent's autocomplete feature
    */
   autoComplete?: string;
 
@@ -32,7 +32,7 @@ export interface SelectProps extends ViewProps {
 
   /**
    * @description
-   * Changes the height and font size of the SelectField. Available options are ‘small’, none (default), and ‘large’
+   * Changes the height and font size of the SelectField. Available options are ‘small’, none (default), and ‘large’
    */
   size?: Sizes;
 

@@ -7,7 +7,7 @@ import { ComponentClassNames } from '../../shared/constants';
 describe('FieldDescription component', () => {
   it('should render if it has a "labelHidden" prop is `true`, as long as there\'s descriptiveText', async () => {
     const { queryByTestId } = render(
-      <FieldDescription descriptiveText="some description" labelHidden={true} />
+      <FieldDescription descriptiveText="some description" labelHidden />
     );
     const descriptionElement = queryByTestId(QA_FIELD_DESCRIPTION);
     expect(descriptionElement).toHaveClass(ComponentClassNames.VisuallyHidden);
@@ -28,7 +28,7 @@ describe('FieldDescription component', () => {
 
   it("should not render if there's no descriptiveText", async () => {
     const { queryByTestId } = render(
-      <FieldDescription descriptiveText="" labelHidden={true} />
+      <FieldDescription descriptiveText="" labelHidden />
     );
     const descriptionElement = queryByTestId(QA_FIELD_DESCRIPTION);
     expect(descriptionElement).toBeNull();

@@ -36,40 +36,38 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
     }
   }, [setDismissed, onDismiss, dismissed]);
 
-  return (
-    !dismissed && (
-      <Flex
-        className={classNames(
-          ComponentClassNames.Alert,
-          className,
-          classNameModifier(ComponentClassNames.Alert, variation)
+  return !dismissed ? (
+    <Flex
+      className={classNames(
+        ComponentClassNames.Alert,
+        className,
+        classNameModifier(ComponentClassNames.Alert, variation)
+      )}
+      data-variation={variation}
+      ref={ref}
+      role="alert"
+      {...rest}
+    >
+      {hasIcon && <AlertIcon variation={variation} ariaHidden />}
+      <View flex="1">
+        {heading && (
+          <View className={ComponentClassNames.AlertHeading}>{heading}</View>
         )}
-        data-variation={variation}
-        ref={ref}
-        role="alert"
-        {...rest}
-      >
-        {hasIcon && <AlertIcon variation={variation} ariaHidden />}
-        <View flex="1">
-          {heading && (
-            <View className={ComponentClassNames.AlertHeading}>{heading}</View>
-          )}
-          <View className={ComponentClassNames.AlertBody}>{children}</View>
-        </View>
-        {isDismissible && (
-          <Button
-            ariaLabel={dismissButtonLabel}
-            variation="link"
-            className={ComponentClassNames.AlertDismiss}
-            onClick={dismissAlert}
-            ref={buttonRef}
-          >
-            <IconClose aria-hidden="true" />
-          </Button>
-        )}
-      </Flex>
-    )
-  );
+        <View className={ComponentClassNames.AlertBody}>{children}</View>
+      </View>
+      {isDismissible && (
+        <Button
+          ariaLabel={dismissButtonLabel}
+          variation="link"
+          className={ComponentClassNames.AlertDismiss}
+          onClick={dismissAlert}
+          ref={buttonRef}
+        >
+          <IconClose aria-hidden="true" />
+        </Button>
+      )}
+    </Flex>
+  ) : null;
 };
 
 /**

@@ -75,4 +75,5 @@ Then you need to:
      DOCSEARCH_DOCS_APP_ID="R2IYF7ETH7"
      DOCSEARCH_DOCS_API_KEY="599cec31baffa4868cae4e79f180729b"
      DOCSEARCH_DOCS_INDEX_NAME="docsearch"
+     SITE_URL="https://localhost:5001" # can be any string
      ```

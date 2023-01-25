@@ -85,6 +85,15 @@ Feature: Sign In with Username
     And I click the "Sign in" button
     Then I see "Change Password"
 
+@angular @react @vue
+  Scenario: Sign in with untrimmed username
+    When I type my username with untrimmed spaces
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Sign out"
+    And I click the "Sign out" button
+    Then I see "Sign in"
+
   @angular @react @vue
   Scenario: Username field autocompletes username
     Then "Username" field autocompletes "username"

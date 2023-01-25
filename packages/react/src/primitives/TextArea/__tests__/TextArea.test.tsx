@@ -11,7 +11,7 @@ describe('TextArea component', () => {
 
     const textarea = (await screen.findByRole(
       'textbox'
-    )) as HTMLTextAreaElement;
+    ));
     expect(textarea).toHaveClass('custom-class');
     expect(textarea).toHaveClass(ComponentClassNames.Textarea);
   });
@@ -61,7 +61,7 @@ describe('TextArea component', () => {
 
     const textarea = (await screen.findByRole(
       'textbox'
-    )) as HTMLTextAreaElement;
+    ));
     expect(textarea).toHaveValue('test');
   });
 
@@ -71,15 +71,15 @@ describe('TextArea component', () => {
 
     const textarea = (await screen.findByRole(
       'textbox'
-    )) as HTMLTextAreaElement;
+    ));
     expect(textarea).toHaveValue('test');
   });
 
   it('show add aria-invalid attribute to textarea when hasError', async () => {
-    render(<TextArea id="testField" hasError={true} />);
+    render(<TextArea id="testField" hasError />);
     const textarea = (await screen.findByRole(
       'textbox'
-    )) as HTMLTextAreaElement;
+    ));
     expect(textarea).toHaveAttribute('aria-invalid', 'true');
   });
 
@@ -92,7 +92,7 @@ describe('TextArea component', () => {
     );
     const textarea = (await screen.findByRole(
       'textbox'
-    )) as HTMLTextAreaElement;
+    ));
     userEvent.type(textarea, 'hello');
     userEvent.paste(textarea, 'there');
     expect(onChange).toHaveBeenCalled();
