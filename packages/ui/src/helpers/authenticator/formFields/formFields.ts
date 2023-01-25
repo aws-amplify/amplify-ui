@@ -9,7 +9,7 @@ import {
   FormFieldsArray,
   isAuthFieldsWithDefaults,
 } from '../../../types';
-import { getActorState } from '../actor';
+import { getActorContext } from '../actor';
 import { defaultFormFieldOptions } from '../constants';
 import { defaultFormFieldsGetters, getAliasDefaultFormField } from './defaults';
 import { applyTranslation, sortFormFields } from './util';
@@ -24,11 +24,11 @@ export const getDefaultFormFields = (
 };
 
 // Gets custom formFields, and applies default values
-const getCustomFormFields = (
+export const getCustomFormFields = (
   route: FormFieldComponents,
   state: AuthMachineState
 ): FormFields => {
-  const customFormFields = getActorState(state).context?.formFields?.[route];
+  const customFormFields = getActorContext(state)?.formFields?.[route];
 
   if (!customFormFields || Object.keys(customFormFields).length === 0) {
     return {};
@@ -45,13 +45,12 @@ const getCustomFormFields = (
         // In this case, we get the default formFieldOptions based on loginMechanism.
         const defaultOptions = getAliasDefaultFormField(state);
 
-        // apply default to miss any gaps that are not present in customOptions
+        // apply default to fill any gaps that are not present in customOptions
         const mergedOptions = { ...defaultOptions, ...customOptions };
-
         return { ...acc, [fieldName]: mergedOptions };
       } else if (isAuthFieldsWithDefaults(fieldName)) {
         // if this field is a known auth attribute that we have defaults for,
-        // we apply defaults to customOptions.
+        // apply defaults to customOptions.
         const defaultOptions = defaultFormFieldOptions[fieldName];
         const mergedOptions = { ...defaultOptions, ...customOptions };
 
