@@ -11,38 +11,38 @@ Feature: Form Fields
 
   @angular @react @vue
   Scenario: Order of sign up inputs are backwards
-    When I click the "Create Account" tab 
+    When I click the "Create Account" tab
     Then I see "Please confirm your Password" as the "0" input
     Then I see "Enter your Password:" as the "1" input
     Then I see "Enter your Email" as the "2" input
 
   @angular @react @vue
-  Scenario: Sign in with replaced email placeholder 
+  Scenario: Sign in with replaced email placeholder
     Then I see placeholder "Enter your email"
 
   @angular @react @vue
-  Scenario: Sign in label is visibile 
+  Scenario: Sign in label is visibile
     When I see "Email"
     Then "Email" field does not have class "amplify-visually-hidden"
 
-  @angular @react @vue 
-  Scenario: Sign up with replaced password label 
-    When I click the "Create Account" tab 
+  @angular @react @vue
+  Scenario: Sign up with replaced password label
+    When I click the "Create Account" tab
     Then I see "Password:"
 
   @angular @react @vue
-  Scenario: Sign up with replaced password placeholder 
-    When I click the "Create Account" tab 
+  Scenario: Sign up with replaced password placeholder
+    When I click the "Create Account" tab
     Then I see placeholder "Enter your Password:"
 
   @angular @react @vue
-  Scenario: Sign up with not required password 
-    When I click the "Create Account" tab 
+  Scenario: Sign up with not required password
+    When I click the "Create Account" tab
     Then 'Password:' field does not have "required"
 
   @angular @react @vue
-  Scenario: Sign up with replaced confirm password placeholder and is visible 
-    When I click the "Create Account" tab 
+  Scenario: Sign up with replaced confirm password placeholder and is visible
+    When I click the "Create Account" tab
     Then I see "Confirm Password:"
     Then "Confirm Password:" field does not have class "amplify-visually-hidden"
 
@@ -61,7 +61,7 @@ Feature: Form Fields
     Then "Email" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your email:"
 
-  @angular @react @vue 
+  @angular @react @vue
   Scenario: Confirm Reset Password replaced placeholder, label and label is visible
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "verify-user-email"
     When I click the "Reset Password" button
@@ -91,4 +91,4 @@ Feature: Form Fields
     Then 'New Label' field does not have "required"
     Then I see "New Label"
     Then "New Label" field does not have class "amplify-visually-hidden"
-    Then I see placeholder "Enter your Confirmation Code:"   
+    Then I see placeholder "Enter your Confirmation Code:"
