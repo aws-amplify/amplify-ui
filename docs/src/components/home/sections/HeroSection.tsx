@@ -102,7 +102,17 @@ export const HeroSection = () => {
             </Grid>
           ) : null}
 
-          <TerminalCommand command={frameworkInstallScript} variant="hero" />
+          {platform === 'flutter' ? (
+            <TerminalCommand
+              command={`flutter pub add ${frameworkInstallScript}`}
+              variant="hero"
+            />
+          ) : (
+            <TerminalCommand
+              command={`npm install ${frameworkInstallScript}`}
+              variant="hero"
+            />
+          )}
 
           <Flex direction="row">
             <Button
