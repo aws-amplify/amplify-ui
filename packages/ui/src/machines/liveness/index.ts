@@ -954,9 +954,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
         } = context;
 
-        // const { width, height } = videoMediaStream.getTracks()[0].getSettings();
-        const height = videoEl.height;
-        const width = videoEl.width;
+        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
         const ovalDetails = getStaticLivenessOvalDetails({
           width,
           height,
@@ -1041,17 +1039,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         }
 
         // generate oval details from initialFace and video dimensions
-        const height = videoEl.height;
-        const width = videoEl.width;
+        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
         const ovalDetails = getRandomLivenessOvalDetails({
-          width: videoEl.width,
-          height: videoEl.height,
+          width,
+          height,
           sessionInformation: serverSessionInformation,
         });
 
         // draw oval on canvas
-        canvasEl.width = videoEl.width;
-        canvasEl.height = videoEl.height;
+        canvasEl.width = width;
+        canvasEl.height = height;
         drawLivenessOvalInCanvas(canvasEl, ovalDetails);
         ovalDrawnTimestamp = Date.now();
         recordLivenessAnalyticsEvent(context.componentProps, {
@@ -1151,16 +1148,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoAssociatedParams: {
             videoMediaStream,
             recordingStartTimestampMs,
-            videoEl,
           },
           ovalAssociatedParams: { initialFace, ovalDetails },
           faceMatchAssociatedParams: { startFace, endFace },
           livenessStreamProvider,
         } = context;
 
-        // const { width, height } = videoMediaStream.getTracks()[0].getSettings();
-        const height = videoEl.height;
-        const width = videoEl.width;
+        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
 
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
