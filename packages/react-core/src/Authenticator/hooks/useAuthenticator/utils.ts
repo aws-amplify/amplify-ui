@@ -55,13 +55,9 @@ export const getComparator =
 
 export const getQRFields = (
   state: AuthMachineState
-): { totpIssuer?: string; totpUsername?: string } => {
-  const fields = getActorContext(state);
-
-  const QR = fields?.formFields?.setupTOTP?.QR ?? {};
-
-  return { ...QR };
-};
+): { totpIssuer?: string; totpUsername?: string } => ({
+  ...getActorContext(state)?.formFields?.setupTOTP?.QR,
+});
 
 export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
   async function getTotpSecretCode(): Promise<string> {

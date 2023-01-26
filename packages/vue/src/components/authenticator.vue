@@ -427,7 +427,10 @@ const hasRouteComponent = computed(() => {
         </confirm-sign-in>
 
         <setup-totp
-          v-if="actorState?.matches('setupTOTP')"
+          v-if="
+            actorState?.matches('setupTOTP.edit') ||
+            actorState?.matches('setupTOTP.submit')
+          "
           @confirm-setup-totp-submit="onConfirmSetupTOTPSubmitI"
           ref="confirmSetupTOTPComponent"
         >
