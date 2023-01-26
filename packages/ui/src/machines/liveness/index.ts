@@ -238,22 +238,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           'clearErrorState',
           'sendTimeoutAfterOvalDrawingDelay',
         ],
-        initial: 'startRecording',
+        initial: 'checkRecordingStarted',
         states: {
-          startRecording: {
-            invoke: {
-              src: 'startRecording',
-              onDone: {
-                target: 'checkRecordingStarted',
-              },
-            },
-          },
           checkRecordingStarted: {
             after: {
               0: {
                 target: 'ovalDrawing',
                 cond: 'hasRecordingStarted',
-                actions: ['updateRecordingStartTimestampMs'],
               },
               100: { target: 'checkRecordingStarted' },
             },
@@ -493,12 +484,30 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           freshnessColorEl: event.data?.freshnessColorEl,
         }),
       }),
-      updateRecordingStartTimestampMs: assign({
+      startRecording: assign({
         videoAssociatedParams: (context) => {
+          recordLivenessAnalyticsEvent(context.componentProps, {
+            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
+            attributes: { action: 'AttemptLivenessCheck' },
+            metrics: { count: 1 },
+          });
+
+          if (!context.serverSessionInformation) {
+            throw new Error(
+              'Session information was not received from response stream'
+            );
+          }
+          if (
+            context.livenessStreamProvider.videoRecorder &&
+            context.livenessStreamProvider.videoRecorder.getState() !==
+              'recording'
+          ) {
+            context.livenessStreamProvider.startRecordingLivenessVideo();
+          }
+
           return {
             ...context.videoAssociatedParams,
-            recordingStartTimestampMs:
-              context.livenessStreamProvider.videoRecorder.firstChunkTimestamp,
+            recordingStartTimestampMs: Date.now(),
           };
         },
       }),
@@ -919,26 +928,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         responseStream = livenessStreamProvider.getResponseStream();
         return { livenessStreamProvider };
-      },
-      async startRecording(context) {
-        recordLivenessAnalyticsEvent(context.componentProps, {
-          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'AttemptLivenessCheck' },
-          metrics: { count: 1 },
-        });
-
-        if (!context.serverSessionInformation) {
-          throw new Error(
-            'Session information was not received from response stream'
-          );
-        }
-        if (
-          context.livenessStreamProvider.videoRecorder &&
-          context.livenessStreamProvider.videoRecorder.getState() !==
-            'recording'
-        ) {
-          context.livenessStreamProvider.startRecordingLivenessVideo();
-        }
       },
       async detectFace(context) {
         const {
