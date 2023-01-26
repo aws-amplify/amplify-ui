@@ -1,4 +1,4 @@
-import { isObject, isString, isUndefined } from '../typeGuards';
+import { isObject, isString, isUndefined } from '..';
 
 describe('isObject', () => {
   it('should return `true` for objects', () => {
@@ -28,6 +28,7 @@ describe('isString', () => {
   it('should return `true` for strings', () => {
     expect(isString('')).toStrictEqual(true);
     expect(isString('test')).toStrictEqual(true);
+    expect(isString(new String('test'))).toStrictEqual(true);
   });
 
   it('should return `false` for non-strings', () => {
@@ -35,13 +36,14 @@ describe('isString', () => {
     expect(isString(undefined)).toStrictEqual(false);
     expect(isString(true)).toStrictEqual(false);
     expect(isString(0)).toStrictEqual(false);
-    expect(isString(new String(''))).toStrictEqual(false);
+    expect(isString([1, 2, 3])).toStrictEqual(false);
   });
 });
 
 describe('isUndefined', () => {
   it('should return `true` for undefined values', function () {
     expect(isUndefined(undefined)).toStrictEqual(true);
+    expect(isUndefined(void 0)).toStrictEqual(true);
   });
 
   it('should return `false` for non-undefined values', function () {

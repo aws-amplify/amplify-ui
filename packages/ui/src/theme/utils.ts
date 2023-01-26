@@ -4,7 +4,7 @@ import kebabCase from 'lodash/kebabCase';
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
 
-import { isObject, isString } from '../helpers/typeGuards';
+import { isObject, isString } from '../utils';
 import {
   DesignToken,
   ShadowValue,
