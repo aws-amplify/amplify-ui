@@ -379,6 +379,7 @@ export function FileUploader({
         isLoading={isLoading}
         isSuccessful={isSuccessful}
         hasMaxFilesError={hasMaxFilesError}
+        maxFiles={maxFiles}
         onClear={onClear}
         onFileClick={onFileClick}
         aggregatePercentage={aggregatePercentage}

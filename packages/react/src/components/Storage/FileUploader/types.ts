@@ -39,6 +39,7 @@ export interface PreviewerProps {
   isLoading: boolean;
   isSuccessful: boolean;
   hasMaxFilesError: boolean;
+  maxFiles: number;
   onClear: () => void;
   onFileClick: () => void;
 }
