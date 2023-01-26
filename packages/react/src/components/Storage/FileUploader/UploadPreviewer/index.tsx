@@ -79,6 +79,9 @@ export function UploadPreviewer({
         <View className={ComponentClassName.FileUploaderPreviewerFooterActions}>
           {!isLoading && !isSuccessful && (
             <>
+              <Button size="small" variation="link" onClick={onClear}>
+                {translate('Clear all')}
+              </Button>
               <Button
                 disabled={isDisabled}
                 size="small"
@@ -86,10 +89,6 @@ export function UploadPreviewer({
                 onClick={onFileClick}
               >
                 {`${translate('Upload')} ${remainingFilesText}`}
-              </Button>
-
-              <Button size="small" variation="link" onClick={onClear}>
-                {translate('Clear all')}
               </Button>
             </>
           )}
