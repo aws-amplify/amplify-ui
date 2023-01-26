@@ -21,4 +21,4 @@ Also, test out the changes with the following frameworks/tools:
 | Rollup | ✅ | Works with ESM. Not support loading CJS build | 
 | esbuild | ✅ |   | 
 | Parcel | ✅ |   | 
-| Snowpack | ✅ | - Need `--polyfill-node` to fix JS incompatibility in dev mode, but is a known [issue](https://github.com/FredKSchott/snowpack/discussions/718) | 
+| Snowpack | ✅ | Need `--polyfill-node` to fix JS incompatibility in dev mode, but is a known [issue](https://github.com/FredKSchott/snowpack/discussions/718) | 
