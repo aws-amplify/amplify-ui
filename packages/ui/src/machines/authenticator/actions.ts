@@ -57,6 +57,10 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
 /**
  * "set" actions
  */
+export const setTotpSecretCode = assign({
+  totpSecretCode: (_, event: AuthEvent) => event.data,
+});
+
 export const setChallengeName = assign({
   challengeName: (_, event: AuthEvent) => event.data?.challengeName,
 });

@@ -98,13 +98,14 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
         }
       }
       break;
-    case 'autoSignIn_failure':
+    case 'autoSignIn_failure': {
       await waitForAutoSignInState(service);
       const currentActorState = getActorState(service.getSnapshot());
       if (currentActorState?.matches('autoSignIn')) {
         send({ type: 'AUTO_SIGN_IN_FAILURE', data: data.payload.data });
       }
       break;
+    }
     case 'signOut':
     case 'tokenRefresh_failure':
       if (state.matches('authenticated.idle')) {
@@ -133,6 +134,7 @@ const getHubEventHandler =
  */
 export const listenToAuthHub = (
   service: AuthInterpreter,
+  // angular passes its own `handler` param
   handler: AuthMachineHubHandler = defaultAuthHubHandler
 ) => {
   return Hub.listen(
