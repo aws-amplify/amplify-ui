@@ -602,7 +602,7 @@ describe('File Uploader', () => {
 
     render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
 
-    const errorText = await screen.findByText(/Over Max files/);
+    const errorText = await screen.findByText(/Cannot choose more than 1/);
 
     expect(errorText).toBeVisible();
   });
