@@ -4,9 +4,11 @@ import userEvent from '@testing-library/user-event';
 
 import {
   BLOCK_CLASS,
+  BODY_TEXT_TEST_ID,
   BUTTON_CLASS,
   CONTENT_CLASS,
   CONTENT_TEST_ID,
+  HEADER_TEXT_TEST_ID,
   IMAGE_CONTAINER_CLASS,
   IMAGE_CONTAINER_TEST_ID,
   MESSAGE_LAYOUT_TEST_ID,
@@ -213,5 +215,25 @@ describe('MessageLayout component', () => {
     expect(messageLayout).toHaveStyle(STYLES.container);
     expect(primaryButton).toHaveStyle(STYLES.primaryButton);
     expect(secondaryButton).toHaveStyle(STYLES.secondaryButton);
+  });
+
+  it('does not render header text if header content is missing', () => {
+    const { queryByTestId } = render(
+      <MessageLayout {...{ ...TEST_PROPS, header: undefined }} />
+    );
+
+    const headerText = queryByTestId(HEADER_TEXT_TEST_ID);
+
+    expect(headerText).toBeNull();
+  });
+
+  it('does not render body text if body content is missing', () => {
+    const { queryByTestId } = render(
+      <MessageLayout {...{ ...TEST_PROPS, body: undefined }} />
+    );
+
+    const bodyText = queryByTestId(BODY_TEXT_TEST_ID);
+
+    expect(bodyText).toBeNull();
   });
 });
