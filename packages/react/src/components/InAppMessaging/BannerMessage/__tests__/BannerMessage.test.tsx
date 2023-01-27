@@ -13,26 +13,21 @@ jest.mock('../../MessageLayout', () => ({
   MessageLayout: () => 'MessageLayout',
 }));
 
-const BANNER_ALIGNMENTS: BannerMessageProps['alignment'][] = [
-  'left',
-  'center',
-  'right',
-];
-const BANNER_POSITIONS: BannerMessageProps['position'][] = [
-  'top',
-  'middle',
-  'bottom',
-];
+type Alignment = BannerMessageProps['alignment'];
+type Position = BannerMessageProps['position'];
+type Locations = [Alignment, Position][];
+
+const BANNER_ALIGNMENTS: Alignment[] = ['left', 'center', 'right'];
+const BANNER_POSITIONS: Position[] = ['top', 'middle', 'bottom'];
+
 const BANNER_LOCATIONS = BANNER_ALIGNMENTS.reduce(
-  (
-    acc: [BannerMessageProps['alignment'], BannerMessageProps['position']][],
-    alignment
-  ) => {
+  (acc: Locations, alignment) => {
     BANNER_POSITIONS.forEach((position) => acc.push([alignment, position]));
     return acc;
   },
   []
 );
+
 const TEST_PROPS: BannerMessageProps = { layout: 'TOP_BANNER' };
 
 const mockUseMessageProps = useMessageProps as jest.Mock;
@@ -41,9 +36,7 @@ const mockUseBreakpointValue = useBreakpointValue as jest.Mock;
 describe('BannerMessage component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseMessageProps.mockReturnValue({
-      shouldRenderMessage: true,
-    });
+    mockUseMessageProps.mockReturnValue({ shouldRenderMessage: true });
     mockUseBreakpointValue.mockReturnValue(false);
   });
 
@@ -63,6 +56,10 @@ describe('BannerMessage component', () => {
   it.each(BANNER_LOCATIONS)(
     'should render with %s alignment and %s position',
     (alignment, position) => {
+      const isCenteredBanner = alignment === 'center' && position === 'middle';
+      const expectedClasses = isCenteredBanner
+        ? [`${BLOCK_CLASS}--${alignment}-${position}`]
+        : [`${BLOCK_CLASS}--${alignment}`, `${BLOCK_CLASS}--${position}`];
       render(
         <BannerMessage
           {...TEST_PROPS}
@@ -72,14 +69,7 @@ describe('BannerMessage component', () => {
       );
 
       const bannerMessage = screen.queryByRole('dialog');
-      if (alignment === 'center' && position === 'middle') {
-        expect(bannerMessage).toHaveClass(`${BLOCK_CLASS}--center-middle`);
-      } else {
-        expect(bannerMessage).toHaveClass(
-          `${BLOCK_CLASS}--${alignment}`,
-          `${BLOCK_CLASS}--${position}`
-        );
-      }
+      expect(bannerMessage).toHaveClass(...expectedClasses);
     }
   );
 

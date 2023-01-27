@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
-import get from 'lodash/get';
-import pickBy from 'lodash/pickBy';
+import get from 'lodash/get.js';
+import pickBy from 'lodash/pickBy.js';
 import { assign, createMachine, sendUpdate } from 'xstate';
 
 import { AuthEvent, SignUpContext } from '../../types';

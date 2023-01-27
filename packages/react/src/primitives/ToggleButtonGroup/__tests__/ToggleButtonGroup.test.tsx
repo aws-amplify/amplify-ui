@@ -7,46 +7,43 @@ import { ToggleButton } from '../../ToggleButton';
 import { ToggleButtonGroup } from '../ToggleButtonGroup';
 import { ToggleButtonGroupProps } from '../../types';
 
-describe('ToggleButtonGroup:', () => {
-  const MultipleSelectionGroup = React.forwardRef<
-    HTMLDivElement,
-    Pick<ToggleButtonGroupProps, 'isSelectionRequired'>
-  >((props, ref) => {
-    const [value, setValue] = React.useState(['test-button-1']);
-    return (
-      <ToggleButtonGroup
-        onChange={(value) => setValue(value as string[])}
-        ref={ref}
-        value={value}
-        {...props}
-      >
-        <ToggleButton value="test-button-1" />
-        <ToggleButton value="test-button-2" />
-        <ToggleButton value="test-button-3" />
-      </ToggleButtonGroup>
-    );
-  });
+type TestToggleButtonGroupProps = Omit<
+  ToggleButtonGroupProps,
+  'children' | 'onChange' | 'value'
+>;
 
-  const ExclusiveSelectionGroup = React.forwardRef<
-    HTMLDivElement,
-    Pick<ToggleButtonGroupProps, 'isSelectionRequired'>
-  >((props, ref) => {
-    const [value, setValue] = React.useState('test-button-1');
-    return (
-      <ToggleButtonGroup
-        onChange={(value) => setValue(value as string)}
-        ref={ref}
-        value={value}
-        isExclusive
-        {...props}
-      >
-        <ToggleButton value="test-button-1" />
-        <ToggleButton value="test-button-2" />
-        <ToggleButton value="test-button-3" />
-      </ToggleButtonGroup>
-    );
-  });
+function MultipleSelectionGroup(props: TestToggleButtonGroupProps) {
+  const [value, setValue] = React.useState(['test-button-1']);
+  return (
+    <ToggleButtonGroup
+      onChange={(value) => setValue(value as string[])}
+      value={value}
+      {...props}
+    >
+      <ToggleButton value="test-button-1" />
+      <ToggleButton value="test-button-2" />
+      <ToggleButton value="test-button-3" />
+    </ToggleButtonGroup>
+  );
+}
 
+function ExclusiveSelectionGroup(props: TestToggleButtonGroupProps) {
+  const [value, setValue] = React.useState('test-button-1');
+  return (
+    <ToggleButtonGroup
+      onChange={(value) => setValue(value as string)}
+      value={value}
+      isExclusive
+      {...props}
+    >
+      <ToggleButton value="test-button-1" />
+      <ToggleButton value="test-button-2" />
+      <ToggleButton value="test-button-3" />
+    </ToggleButtonGroup>
+  );
+}
+
+describe('ToggleButtonGroup', () => {
   it('should set basic props for both group and child button correctly', async () => {
     const testLabel = 'test-label';
     const testClass = 'test-class';
@@ -187,7 +184,13 @@ describe('ToggleButtonGroup:', () => {
 
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLDivElement>();
-    render(<ExclusiveSelectionGroup ref={ref} />);
+    render(
+      <ToggleButtonGroup onChange={jest.fn()} ref={ref} value="value">
+        <ToggleButton value="test-button-1" />
+        <ToggleButton value="test-button-2" />
+        <ToggleButton value="test-button-3" />
+      </ToggleButtonGroup>
+    );
 
     await screen.findByRole('group');
     expect(ref.current?.nodeName).toBe('DIV');

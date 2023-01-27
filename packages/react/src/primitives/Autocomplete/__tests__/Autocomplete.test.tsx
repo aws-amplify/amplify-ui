@@ -5,7 +5,10 @@ import * as React from 'react';
 import { Autocomplete } from '../Autocomplete';
 import { ComponentClassNames, ComponentText } from '../../shared/constants';
 import { classNameModifier } from '../../shared/utils';
-import type { AutocompleteProps } from '../../types/autocomplete';
+import type {
+  AutocompleteProps,
+  ComboBoxOption,
+} from '../../types/autocomplete';
 
 describe('Autocomplete:', () => {
   const label = 'Autocomplete';
@@ -24,7 +27,7 @@ describe('Autocomplete:', () => {
     };
 
     // It is your responsibility to set up onSelect
-    const onSelect = (option) => {
+    const onSelect = (option: ComboBoxOption) => {
       const { label } = option;
       setValue(label);
     };
@@ -47,7 +50,7 @@ describe('Autocomplete:', () => {
     );
   };
 
-  const testWorkflow = async (onSubmit: jest.Mock) => {
+  const expectWorkflow = async (onSubmit: jest.Mock) => {
     const textInput = await screen.findByRole('combobox');
     userEvent.type(textInput, 'Hello world!');
     // No options found
@@ -149,13 +152,13 @@ describe('Autocomplete:', () => {
     render(
       <Autocomplete label={label} options={options} onSubmit={onSubmit} />
     );
-    await testWorkflow(onSubmit);
+    await expectWorkflow(onSubmit);
   });
 
   it('should work in controlled way', async () => {
     const onSubmit = jest.fn();
     render(<ControlledAutocomplete onSubmit={onSubmit} />);
-    await testWorkflow(onSubmit);
+    await expectWorkflow(onSubmit);
   });
 
   it('should forward refs to DOM elements', async () => {
