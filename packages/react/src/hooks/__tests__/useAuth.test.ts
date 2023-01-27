@@ -1,6 +1,8 @@
 import { Auth } from '@aws-amplify/auth';
 import { Hub } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import { act, renderHook } from '@testing-library/react-hooks';
+
 import { useAuth } from '../useAuth';
 
 const currentAuthenticatedUserSpy = jest.spyOn(
@@ -11,8 +13,15 @@ const currentAuthenticatedUserSpy = jest.spyOn(
 // hub events that return valid user object
 const SUCCESS_EVENTS_WITH_USER = ['signIn', 'signUp', 'autoSignIn'];
 
+// hub events that need another fetch
+const RE_FETCH_EVENTS = ['tokenRefresh', 'updateUserAttributes'];
+
 // hub events that return error object
-const FAILURE_EVENTS_WITH_ERROR = ['tokenRefresh_failure', 'signIn_failure'];
+const FAILURE_EVENTS_WITH_ERROR = [
+  'tokenRefresh_failure',
+  'signIn_failure',
+  'updateUserAttributes_failure',
+];
 
 const mockCognitoUser = {
   username: 'johndoe',
@@ -21,6 +30,9 @@ const mockCognitoUser = {
     email: 'john@doe.com',
   },
 };
+
+// use empty mockImplementation to turn off console warnings
+jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
 describe('useAuth', () => {
   afterEach(() => jest.clearAllMocks());
@@ -70,7 +82,7 @@ describe('useAuth', () => {
 
   it.each(SUCCESS_EVENTS_WITH_USER)(
     'should receive a Cognito user on %s Hub event',
-    async () => {
+    async (event) => {
       currentAuthenticatedUserSpy.mockResolvedValue(undefined);
 
       const { result, waitForNextUpdate } = renderHook(() => useAuth());
@@ -79,9 +91,9 @@ describe('useAuth', () => {
 
       expect(result.current.user).toBe(undefined);
 
-      // Simulate Auth signIn Hub action
+      // Simulate Auth Hub action
       act(() => {
-        Hub.dispatch('auth', { event: 'signIn', data: mockCognitoUser });
+        Hub.dispatch('auth', { event, data: mockCognitoUser });
       });
 
       expect(result.current.user).toBe(mockCognitoUser);
@@ -105,19 +117,21 @@ describe('useAuth', () => {
     expect(result.current.user).toBeUndefined();
   });
 
-  it('invokes Auth.currentAuthenticatedUser on tokenRefresh event', async () => {
-    currentAuthenticatedUserSpy.mockResolvedValue(mockCognitoUser);
+  it.each(RE_FETCH_EVENTS)(
+    'invokes Auth.currentAuthenticatedUser on %s event',
+    async (event) => {
+      currentAuthenticatedUserSpy.mockResolvedValue(mockCognitoUser);
 
-    const { waitForNextUpdate } = renderHook(() => useAuth());
-    await waitForNextUpdate();
+      const { waitForNextUpdate } = renderHook(() => useAuth());
+      await waitForNextUpdate();
 
-    // Simulate Auth tokenRefresh Hub action
-    act(() => {
-      Hub.dispatch('auth', { event: 'tokenRefresh' });
-    });
-
-    expect(currentAuthenticatedUserSpy).toHaveBeenCalled();
-  });
+      // Simulate Auth Hub action
+      act(() => {
+        Hub.dispatch('auth', { event });
+      });
+      expect(currentAuthenticatedUserSpy).toHaveBeenCalled();
+    }
+  );
 
   it.each(FAILURE_EVENTS_WITH_ERROR)(
     'returns error on %s event',

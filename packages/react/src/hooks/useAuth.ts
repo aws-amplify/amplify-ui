@@ -57,7 +57,8 @@ export const useAuth = (): UseAuthResult => {
 
         // failure events
         case 'tokenRefresh_failure':
-        case 'signIn_failure': {
+        case 'signIn_failure':
+        case 'updateUserAttributes_failure': {
           setResult({ error: payload.data as Error, isLoading: false });
           break;
         }
@@ -68,7 +69,8 @@ export const useAuth = (): UseAuthResult => {
         }
 
         // events that need another fetch
-        case 'tokenRefresh': {
+        case 'tokenRefresh':
+        case 'updateUserAttributes': {
           fetchCurrentUser();
           break;
         }
