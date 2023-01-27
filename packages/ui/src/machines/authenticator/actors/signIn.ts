@@ -29,6 +29,7 @@ import {
   setFieldErrors,
   setRemoteError,
   setRequiredAttributes,
+  setTotpSecretCode,
   setUnverifiedContactMethods,
   setUser,
   setUsernameAuthAttributes,
@@ -372,9 +373,22 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         setupTOTP: {
-          initial: 'edit',
+          initial: 'getTotpSecretCode',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
+            getTotpSecretCode: {
+              invoke: {
+                src: 'getTotpSecretCode',
+                onDone: {
+                  target: 'edit',
+                  actions: 'setTotpSecretCode',
+                },
+                onError: {
+                  target: 'edit',
+                  actions: 'setRemoteError',
+                },
+              },
+            },
             edit: {
               entry: 'sendUpdate',
               on: {
@@ -498,6 +512,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         setCredentials,
         setFieldErrors,
         setRemoteError,
+        setTotpSecretCode,
         setUnverifiedContactMethods,
         setUser,
         setUsernameAuthAttributes,
@@ -605,6 +620,10 @@ export function signInActor({ services }: SignInMachineOptions) {
           } catch (err) {
             return Promise.reject(err);
           }
+        },
+        async getTotpSecretCode(context) {
+          const { user } = context;
+          return Auth.setupTOTP(user);
         },
         async verifyTotpToken(context) {
           const { formValues, user } = context;

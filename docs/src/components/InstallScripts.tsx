@@ -19,7 +19,7 @@ const frameworkInstallScript = (
   const isReactNative = framework === 'react-native';
 
   const packageManagerPrefix = `${
-    packageManager === 'npm' ? 'npm i' : 'yarn add'
+    packageManager === 'npm' ? 'npm install' : 'yarn add'
   }`;
 
   const extraDependencies = `${

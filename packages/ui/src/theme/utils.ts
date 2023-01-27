@@ -1,11 +1,10 @@
 import has from 'lodash/has.js';
-import isObject from 'lodash/isObject.js';
-import isString from 'lodash/isString.js';
 import kebabCase from 'lodash/kebabCase.js';
 
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference.js';
 
+import { isObject, isString } from '../utils';
 import {
   DesignToken,
   ShadowValue,

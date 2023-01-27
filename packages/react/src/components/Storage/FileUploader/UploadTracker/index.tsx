@@ -79,21 +79,21 @@ export function UploadTracker({
           <>
             <Button
               size="small"
-              variation="primary"
-              onClick={() => {
-                onSaveEdit(tempName);
-              }}
-            >
-              Save
-            </Button>
-            <Button
-              size="small"
               onClick={() => {
                 setTempName(name);
                 onCancelEdit();
               }}
             >
               Cancel
+            </Button>
+            <Button
+              size="small"
+              variation="primary"
+              onClick={() => {
+                onSaveEdit(tempName);
+              }}
+            >
+              Save
             </Button>
           </>
         );

@@ -10,7 +10,8 @@ applications:
             - nvm use 16
             - node -v
             - export FLUTTER_HOME=${HOME}/sdks/flutter
-            - git clone -b stable --depth 1 https://github.com/flutter/flutter.git ${FLUTTER_HOME}
+            # pin to flutter v3.3.10
+            - git clone -b 3.3.10 --depth 1 https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             - export PATH="$PATH:${FLUTTER_HOME}/bin"
             # Skip cypress binary installation, as it's unneeded for docs and often fails transiently
             # https://docs.cypress.io/guides/references/advanced-installation#Skipping-installation
