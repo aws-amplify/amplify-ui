@@ -1,5 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
-
+import isEmpty from 'lodash/isEmpty.js';
 import { isObject, isString } from '@aws-amplify/ui';
 
 function isEmptyArray<T>(value: T): boolean {

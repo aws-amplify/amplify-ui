@@ -25,6 +25,7 @@ const config = defineConfig([
     output: {
       dir: 'dist/esm',
       format: 'es',
+      entryFileNames: '[name].mjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
       sourcemap: false,
