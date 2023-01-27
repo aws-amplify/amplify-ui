@@ -110,7 +110,6 @@ export default class MyStorageProvider implements StorageProvider {
       interval = setInterval(tick, delay);
     }
 
-    // We only support resumable uploads so we will never return a promise yet
     return new Promise((resolve, reject) => {
       clearInterval(interval);
       tick = tickCreator(() => resolve({ key }));

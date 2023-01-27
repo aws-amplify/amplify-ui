@@ -57,6 +57,20 @@ export const UploadMessage = ({
           <IconError fontSize="xl" /> {errorMessage}
         </Text>
       );
+    case 'processing':
+      return (
+        <Text
+          className={classNames(
+            ComponentClassNames.FileUploaderFileStatus,
+            classNameModifier(
+              ComponentClassNames.FileUploaderFileStatus,
+              'processing'
+            )
+          )}
+        >
+          Processing
+        </Text>
+      );
     default:
       return null;
   }

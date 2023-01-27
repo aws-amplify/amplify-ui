@@ -13,12 +13,14 @@ import { useFileUploader } from './hooks/useFileUploader';
 import { UploadPreviewer } from './UploadPreviewer';
 import { UploadDropZone } from './UploadDropZone';
 import { UploadTracker } from './UploadTracker';
-import { FileState, FileUploaderProps } from './types';
+import { FileState, FileUploaderProps, isFileStatus } from './types';
 
 const isUploadTask = (value: unknown): value is UploadTask =>
   typeof (value as UploadTask)?.resume === 'function';
 
 const logger = new Logger('AmplifyUI:Storage');
+
+// type T = Awaited<Promise<PromiseLike<FileStatus>>>;
 
 export function FileUploader({
   acceptedFileTypes,
@@ -27,6 +29,7 @@ export function FileUploader({
   maxFiles,
   maxSize,
   hasMultipleFiles = true,
+  onBeforeUpload = (file) => file,
   onError,
   onSuccess,
   showImages = true,
@@ -184,16 +187,44 @@ export function FileUploader({
     const uploadTasksTemp: UploadTask[] = [];
     fileStatuses.forEach((status, i) => {
       if (status?.fileState === 'success') return;
-      const uploadTask = uploadFile({
-        file: status.file,
-        fileName: status.name,
-        level: accessLevel,
-        isResumable,
-        progressCallback: progressCallback(i),
-        errorCallback: errorCallback(i),
-        completeCallback: onSuccess,
-        ...rest,
-      });
+      let uploadTask;
+      // onBeforeUpload could return a promise or the file
+      // we have a default onBeforeUpload function so we don't need to check first
+      const _status = onBeforeUpload(status);
+      // if it is just a FileStatus, run uploadFile
+      if (isFileStatus(_status)) {
+        if (_status.fileState === 'error') return;
+        uploadTask = uploadFile({
+          file: _status.file,
+          fileName: _status.name,
+          level: accessLevel,
+          isResumable,
+          progressCallback: progressCallback(i),
+          errorCallback: errorCallback(i),
+          completeCallback: onSuccess,
+          ...rest,
+        });
+      } else {
+        // if it is a promise, set the status to 'processing'
+        status.fileState = 'processing';
+        // set processing state here
+        _status
+          .then((result) => {
+            uploadTask = uploadFile({
+              file: result.file,
+              fileName: result.name,
+              level: accessLevel,
+              isResumable,
+              progressCallback: progressCallback(i),
+              errorCallback: errorCallback(i),
+              completeCallback: onSuccess,
+              ...rest,
+            });
+          })
+          .catch(() => {
+            // TODO: set file state to error
+          });
+      }
 
       if (isUploadTask(uploadTask) && isResumable) {
         uploadTasksTemp.push(uploadTask);
@@ -217,6 +248,7 @@ export function FileUploader({
     rest,
     setFileStatuses,
     accessLevel,
+    onBeforeUpload,
   ]);
 
   const onFileChange = useCallback(

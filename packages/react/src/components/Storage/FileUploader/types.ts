@@ -19,12 +19,21 @@ export interface FileUploaderProps {
   accessLevel: StorageAccessLevel;
   maxFiles?: number;
   maxSize?: number;
+  // We might want to align our FileStatus interface more like this:
+  // https://uppy.io/docs/uppy/#File-Objects
+  // we also need to make sure users don't accidentally change internal state here
+  // like uploadProgress and stuff
+  onBeforeUpload?: (file: FileStatus) => FileStatus | Promise<FileStatus>;
   onError?: (error: string) => void;
   onSuccess?: (event: { key: string }) => void;
   shouldAutoProceed?: boolean;
   showImages?: boolean;
   variation?: 'drop' | 'button';
 }
+
+export const isFileStatus = (filestatus: unknown): filestatus is FileStatus => {
+  return typeof filestatus === 'object' && 'file' in filestatus;
+};
 
 export interface IconProps {
   className?: string;
@@ -77,6 +86,7 @@ export type FileState =
   | 'loading'
   | 'resume'
   | 'editing'
+  | 'processing'
   | null;
 export interface FileStateProps {
   fileState: FileState;

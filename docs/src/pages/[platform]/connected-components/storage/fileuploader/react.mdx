@@ -6,7 +6,7 @@ import FEATURE_FLAGS from '@/utils/featureFlags';
 import {UPLOAD_DROP_COMPONENTS, UPLOAD_BUTTON_COMPONENTS, PREVIEWER_COMPONENTS, TRACKER_COMPONENTS} from "./props"
 import { DefaultFileUploaderExample, AcceptedFileTypesExample, FileUploaderErrorExample, FileUploaderThemeExample, 
 FileUploaderComponentsExample, LevelExample, IsPreviewerVisibleExample, VariationExample, AutoProceedExample, MaxFilesExample, 
-MaxSizeExample, MultipleExample, ResumableExample, ShowImagesExample, FileUploaderSuccessExample, PreviewerComponentsExample, TrackerComponentsExample, UploadButtonComponentsExample } from './examples'
+MaxSizeExample, MultipleExample, ResumableExample, ShowImagesExample, FileUploaderSuccessExample, PreviewerComponentsExample, TrackerComponentsExample, UploadButtonComponentsExample, OnBeforeUploadExample } from './examples'
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 
 <Alert variation="info" heading="Developer Preview">
@@ -217,6 +217,23 @@ The `showImages` prop will display or hide the image preview after selecting a f
 ## Event Handling
 
 When an upload occurs there are two different events that can occur. It can complete and trigger a `onSuccess` callback that sends back a `key`. Or an `onError` callback can occur. 
+
+### Before Upload
+
+You can use the `onBeforeUpload` to update process files before they are uploaded. With this handlern you can do things like:
+* Perform custom validations like making sure a file is valid
+* Rename files with unique IDs
+* Perform image compression
+
+The `onBeforeUpload` function takes a `FileStatus` object and should return either a `FileStatus` object with any modifications OR a `Promise` that returns a `FileStatus` object on resolve or an error message on reject.
+
+<Example>
+  <OnBeforeUploadExample />
+  <ExampleCode>
+    ```jsx file=./examples/OnBeforeUploadExample.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ### Success
 

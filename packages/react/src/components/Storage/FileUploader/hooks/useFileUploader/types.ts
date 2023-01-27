@@ -1,3 +1,4 @@
+import React from 'react';
 import { FileStatuses } from '../../types';
 
 export interface DragActionHandlers {

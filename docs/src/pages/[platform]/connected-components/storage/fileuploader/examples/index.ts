@@ -16,3 +16,4 @@ export { MaxSizeExample } from './MaxSizeExample';
 export { MultipleExample } from './MultipleExample';
 export { ResumableExample } from './ResumableExample';
 export { ShowImagesExample } from './ShowImagesExample';
+export { OnBeforeUploadExample } from './OnBeforeUploadExample';
