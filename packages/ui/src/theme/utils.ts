@@ -1,8 +1,8 @@
-import has from 'lodash/has';
-import kebabCase from 'lodash/kebabCase';
+import has from 'lodash/has.js';
+import kebabCase from 'lodash/kebabCase.js';
 
 // internal style dictionary function
-import usesReference from 'style-dictionary/lib/utils/references/usesReference';
+import usesReference from 'style-dictionary/lib/utils/references/usesReference.js';
 
 import { isObject, isString } from '../utils';
 import {
