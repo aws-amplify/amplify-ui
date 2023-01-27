@@ -3,6 +3,8 @@ import { AuthenticatorDictionary } from './types';
 export const nlDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Accountherstel vereist geverifieerde contactgegevens',
+  'Attributes did not conform to the schema: email: The attribute is required\n':
+    'Attributen zijn niet conform het schema: email: Het attribuut is verplicht\n',
   'Back to Sign In': 'Terug naar inloggen',
   'Change Password': 'Wachtwoord wijzigen',
   Changing: 'Wordt aangepast',
@@ -21,17 +23,30 @@ export const nlDict: AuthenticatorDictionary = {
   Email: 'E-mail',
   'Enter your code': 'Vul je code in',
   'Enter your email': 'Vul je e-mail in',
+  'Enter your Password': 'Vul je wachtwoord in',
   'Enter your phone number': 'Vul je telefoonnummer in',
   'Enter your username': 'Vul je gebruikersnaam in',
+  'Enter your Username': 'Vul je gebruikersnaam in',
   'Forgot your password?': 'Wachtwoord vergeten? ',
   'Hide password': 'Verberg wachtwoord',
   'It may take a minute to arrive': 'Het kan even duren voordat deze aankomt',
   Loading: 'Laden',
   'New password': 'Nieuw wachtwoord',
+  'New Password': 'Nieuw Wachtwoord',
   or: 'of',
   Password: 'Wachtwoord',
+  'Password did not conform with policy: Password must have numeric characters':
+    'Wachtwoord voldoet niet aan de vereisten: Wachtwoord moet nummers bevatten',
+  'Password did not conform with policy: Password must have symbol characters':
+    'Wachtwoord voldoet niet aan de vereisten: Wachtwoord moet symbolen bevatten',
+  'Password did not conform with policy: Password must have uppercase characters':
+    'Wachtwoord voldoet niet aan de vereisten: Wachtwoord moet hoofdletters bevatten',
+  'Password did not conform with policy: Password not long enough':
+    'Wachtwoord voldoet niet aan de vereisten: Wachtwoord is niet lang genoeg',
   'Phone Number': 'Telefoonnummer',
+  'Please confirm your Password': 'Bevestig je wachtwoord',
   'Resend Code': 'Verstuur code nogmaals',
+  'Reset Password': 'Wachtwoord resetten',
   'Reset your password': 'Reset je wachtwoord',
   'Reset your Password': 'Wachtwoord resetten',
   'Send code': 'Verstuur code',
@@ -62,4 +77,5 @@ export const nlDict: AuthenticatorDictionary = {
     'Uw code is onderweg. Om in te loggen, voer de code in die we u hebben gestuurd',
   'Your code is on the way. To log in, enter the code we texted to':
     'Uw code is onderweg. Om in te loggen, voer de code in die we hebben gestuurd naar',
+  'Your passwords must match': 'Je wachtwoorden moeten overeenkomen',
 };
