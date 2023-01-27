@@ -1,0 +1,15 @@
+# Description: this workflow runs build and simple runtime tests on supported
+#              frameworks and their build systems.
+#
+# Triggered by: it runs every 15 minutes.
+
+name: POC / Build and Runtime Canary Test
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ci
+    steps:
+      - run: echo "hi"
