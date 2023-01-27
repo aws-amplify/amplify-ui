@@ -5,10 +5,10 @@
 #   (1) Internal PRs: contirubutor pushes a commit to PRs targeting protected branches.
 #   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting protected branches.
 
-name: Test / PRs
+name: POC / Test / PRs
 
 concurrency:
-  group: e2e-${{ github.event.pull_request.id }}
+  group: e2e-${{ github.event.pull_request.id }}-poc
   cancel-in-progress: true
 
 on:
@@ -47,7 +47,7 @@ jobs:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml@main
     needs: setup
     with:
       commit: ${{ github.event.pull_request.head.sha }}

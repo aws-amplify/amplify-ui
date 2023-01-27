@@ -3,19 +3,17 @@
 #
 # Triggered by: merge to `main`
 
-name: Test and Publish / next
+name: POC / Test and Publish / next
 
 concurrency:
   group: e2e-${{ github.sha }}
   cancel-in-progress: true
 
-on:
-  push:
-    branches: [main]
+on: pull_request
 
 jobs:
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml@main
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
@@ -64,14 +62,14 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
-      - name: Restore cypress runner Cache
-        uses: actions/cache@v3
-        id: restore-cypress-cache
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      # - name: Restore cypress runner Cache
+      #   uses: actions/cache@v3
+      #   id: restore-cypress-cache
+      #   with:
+      #     path: ~/.cache/Cypress
+      #     key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
       - name: Install packages
         run: yarn install
@@ -81,7 +79,7 @@ jobs:
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
       - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+        # if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments auth pull:email
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
@@ -122,16 +120,16 @@ jobs:
             packages/e2e/cypress/screenshots/**
           retention-days: 5
 
-  publish:
-    needs: [test, guides]
-    uses: ./.github/workflows/reusable-tagged-publish.yml
-    with:
-      dist-tag: next
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # publish:
+  #   needs: [test, guides]
+  #   uses: ./.github/workflows/reusable-tagged-publish.yml
+  #   with:
+  #     dist-tag: next
+  #   secrets:
+  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
-    needs: publish
+    needs: [test, guides]
     runs-on: ubuntu-latest
     environment: ci
     steps:
@@ -142,16 +140,16 @@ jobs:
       - name: Get CLI versions
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v3
-        with:
-          path: canary/environments/**/aws-exports.js
-          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      # - name: Create or restore environments cache
+      #   id: environments-cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: canary/environments/**/aws-exports.js
+      #     key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+        # if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
@@ -167,34 +165,34 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  log-failure-metric:
-    # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+  # log-failure-metric:
+  #   # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: build-test
+  #   if: ${{ failure() }}
+  #   steps:
+  #     - name: Log failure data point to metric PublishNextFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: PublishNextFailure
+  #         value: 1
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+  #         AWS_REGION: us-east-2
 
-  log-success-metric:
-    # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+  # log-success-metric:
+  #   # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: build-test
+  #   if: ${{ success() }}
+  #   steps:
+  #     - name: Log success data point to metric PublishNextFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: PublishNextFailure
+  #         value: 0
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+  #         AWS_REGION: us-east-2
