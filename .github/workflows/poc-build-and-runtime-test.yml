@@ -5,7 +5,9 @@
 
 name: POC / Build and Runtime Test
 
-on: pull_request
+on:
+  pull_request:
+    branches: [migrate-phone-envs/main]
 
 concurrency:
   group: build-and-runtime-test-${{ github.event.pull_request.id }}-poc
