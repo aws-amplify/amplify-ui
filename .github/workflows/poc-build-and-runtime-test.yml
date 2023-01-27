@@ -7,6 +7,10 @@ name: POC / Build and Runtime Test
 
 on: pull_request
 
+concurrency:
+  group: build-and-runtime-test-${{ github.event.pull_request.id }}-poc
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest

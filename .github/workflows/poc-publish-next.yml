@@ -6,14 +6,14 @@
 name: POC / Test and Publish / next
 
 concurrency:
-  group: e2e-${{ github.sha }}
+  group: publish-next-${{ github.event.pull_request.id }}-poc
   cancel-in-progress: true
 
 on: pull_request
 
 jobs:
   test:
-    uses: ./.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}

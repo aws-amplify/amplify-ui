@@ -15,6 +15,10 @@ on: pull_request
 permissions:
   contents: write # Used to push tags to GitHub
 
+concurrency:
+  group: publish-latest-${{ github.event.pull_request.id }}-poc
+  cancel-in-progress: true
+
 jobs:
   setup:
     runs-on: ubuntu-latest
