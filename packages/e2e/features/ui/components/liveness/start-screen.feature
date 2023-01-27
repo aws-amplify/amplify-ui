@@ -19,5 +19,5 @@ Feature: Liveness Start Screen
     Then I see "Follow the instructions to complete the check:"
     And I see "Make sure your face is not covered with sunglasses or a mask."
     And I see "Move to a well-lit place that is not dark or in direct sunlight."
-    And I see "Increase the brightness of your display screen to max level possible."
+    And I see "Increase the brightness of your display screen to maximum level possible."
     And I see "When check starts, fit face in oval, and hold for colored lights."

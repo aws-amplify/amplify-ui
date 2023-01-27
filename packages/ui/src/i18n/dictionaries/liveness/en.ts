@@ -10,8 +10,8 @@ export const enDict = {
     'Make sure your face is not covered with sunglasses or a mask.',
   'Move to a well-lit place that is not dark or in direct sunlight.':
     'Move to a well-lit place that is not dark or in direct sunlight.',
-  'Increase the brightness of your display screen to max level possible.':
-    'Increase the brightness of your display screen to max level possible.',
+  'Increase the brightness of your display screen to maximum level possible.':
+    'Increase the brightness of your display screen to maximum level possible.',
   'When check starts, fit face in oval, and hold for colored lights.':
     'When check starts, fit face in oval, and hold for colored lights.',
   'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.':
@@ -23,8 +23,8 @@ export const enDict = {
   'Camera not accessible.': 'Camera not accessible.',
   'Camera does not meet minimum specifications':
     'Camera does not meet minimum specifications',
-  'Camera must support at least 320*240 resolution and 15 FPS frame rate.':
-    'Camera must support at least 320*240 resolution and 15 FPS frame rate.',
+  'Camera must support at least 320*240 resolution and 15 frames per second.':
+    'Camera must support at least 320*240 resolution and 15 frames per second.',
   Retry: 'Retry',
 
   // Liveness Flow

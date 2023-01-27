@@ -10,7 +10,7 @@ export const defaultTexts = {
   LIVENESS_INSTRUCTION_2:
     'Move to a well-lit place that is not dark or in direct sunlight.',
   LIVENESS_INSTRUCTION_3:
-    'Increase the brightness of your display screen to max level possible.',
+    'Increase the brightness of your display screen to maximum level possible.',
   LIVENESS_INSTRUCTION_4:
     'When check starts, fit face in oval, and hold for colored lights.',
   LIVENESS_WARNING_POPOVER:
@@ -22,7 +22,7 @@ export const defaultTexts = {
   LIVENESS_NO_CAMERA_DETECTED: 'Camera not accessible.',
   LIVENESS_NO_CAMERA_MIN_SPEC: 'Camera does not meet minimum specifications',
   LIVENESS_NO_CAMERA_MIN_SPEC_DESCRIPTION:
-    'Camera must support at least 320*240 resolution and 15 FPS frame rate.',
+    'Camera must support at least 320*240 resolution and 15 frames per second.',
   LIVENESS_NO_CAMERA_CTA: 'Retry',
 
   // Liveness Flow

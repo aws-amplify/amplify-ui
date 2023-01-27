@@ -67,7 +67,7 @@ export const LivenessCheck: React.FC = () => {
           <Text maxWidth={300}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
               ? translate(
-                  'Camera must support at least 320*240 resolution and 15 FPS frame rate.'
+                  'Camera must support at least 320*240 resolution and 15 frames per second.'
                 )
               : translate(
                   'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.'
