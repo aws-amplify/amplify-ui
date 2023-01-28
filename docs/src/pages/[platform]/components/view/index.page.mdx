@@ -1,8 +1,8 @@
 ---
 title: View
 metaTitle: View
-description: View is the foundational component for Amplify UI primitives. While View renders a <div> by default, it can render any HTML element and supports styling via props.
-metaDescription: View is the foundational component for Amplify UI primitives. While View renders a <div> by default, it can render any HTML element and supports styling via props.
+description: View is the foundational component for Amplify UI primitives. While View renders a `<div>` by default, it can render any HTML element and supports styling via props.
+metaDescription: View is the foundational component for Amplify UI primitives. While View renders a `<div>` by default, it can render any HTML element and supports styling via props.
 reactSource: packages/react/src/primitives/View/View.tsx
 mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
 htmlElement: div
@@ -19,7 +19,7 @@ export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
-{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+{/** `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
   return { props: {} }

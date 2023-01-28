@@ -1,6 +1,6 @@
 ---
 title: Link
-description: Link renders an anchor element <a> by default and is primarily used for navigation.
+description: Link renders an anchor element `<a>` by default and is primarily used for navigation.
 ariaPattern: https://www.w3.org/WAI/ARIA/apg/patterns/link
 themeSource: packages/ui/src/theme/tokens/components/link.ts
 reactSource: packages/react/src/primitives/Link/Link.tsx
@@ -19,7 +19,7 @@ export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
-{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+{/** `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
   return { props: {} }
