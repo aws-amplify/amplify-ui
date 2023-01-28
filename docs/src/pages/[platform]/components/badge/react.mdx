@@ -1,4 +1,4 @@
-import { Fragment } from '@/components/Fragment'; 
+import { Fragment } from '@/components/Fragment';
 import { Badge, View } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -26,13 +26,10 @@ Import the Badge primitive and styles.
   <View>
     <DefaultBadgeExample />
   </View>
-  
+
   <ExampleCode>
-
-```jsx file=./examples/DefaultBadgeExample.tsx
-
-```
-
+    ```jsx file=./examples/DefaultBadgeExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -44,13 +41,10 @@ Use the `variation` prop to change the Badge variation. Available options are `i
   <View>
     <BadgeVariationExample />
   </View>
-  
+
   <ExampleCode>
-
-```jsx file=./examples/BadgeVariationExample.tsx
-
-```
-
+    ```jsx file=./examples/BadgeVariationExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -62,13 +56,10 @@ Use the `size` prop to change the Badge size. Available options are `small`, `la
   <View>
     <BadgeSizeExample />
   </View>
-  
+
   <ExampleCode>
-
-```tsx file=./examples/BadgeSizeExample.tsx
-
-```
-
+    ```tsx file=./examples/BadgeSizeExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -77,17 +68,14 @@ Use the `size` prop to change the Badge size. Available options are `small`, `la
 <ThemeExample component="Badge">
   <Example>
     <BadgeThemeExample />
-    
+
     <ExampleCode>
-
-    ```tsx file=./examples/BadgeThemeExample.tsx
-
-    ```
-
+      ```tsx file=./examples/BadgeThemeExample.tsx
+      ```
     </ExampleCode>
+
   </Example>
 </ThemeExample>
-
 
 ### Target classes
 
@@ -98,31 +86,27 @@ Use the `size` prop to change the Badge size. Available options are `small`, `la
 To override styling on all Badges, you can set the Amplify CSS variables or use the built-in `.amplify-badge` class.
 
 <ExampleCode>
-
-```css
-/* styles.css */
-[data-amplify-theme] {
-  --amplify-components-badge-background-color: yellow;
-}
-/* OR */
-.amplify-badge {
-  background-color: yellow;
-}
-```
-
+  ```css
+  /* styles.css */
+  [data-amplify-theme] {
+    --amplify-components-badge-background-color: yellow;
+  }
+  /* OR */
+  .amplify-badge {
+    background-color: yellow;
+  }
+  ```
 </ExampleCode>
 
 To replace the Badge styling, unset it:
 
 <ExampleCode>
-
-```css
-.amplify-badge {
-  all: unset;
-  /* Add your styling here*/
-}
-```
-
+  ```css
+  .amplify-badge {
+    all: unset;
+    /* Add your styling here*/
+  }
+  ```
 </ExampleCode>
 
 ### Local styling
@@ -135,26 +119,24 @@ _Using a class selector:_
   <View>
     <Badge className="flagged">13</Badge>
   </View>
-  
+
   <ExampleCode>
+    ```css
+    /* styles.css */
+    .flagged {
+      color: white;
+      background-color: crimson;
+      border-radius: 3px;
+    }
+    ```
+  </ExampleCode>
 
-```css
-/* styles.css */
-.flagged {
-  color: white;
-  background-color: crimson;
-  border-radius: 3px;
-}
-```
+  <ExampleCode>
+    ```jsx
+    import './styles.css';
 
-</ExampleCode>
-<ExampleCode>
-
-```jsx
-import './styles.css';
-
-<Badge className="flagged">13</Badge>;
-```
+    <Badge className="flagged">13</Badge>;
+    ```
 
   </ExampleCode>
 </Example>
@@ -175,10 +157,13 @@ _Using data attributes:_
 ```
 
 ```jsx
+import { Badge } from '@aws-amplify/ui-react';
 import './styles.css';
 
-<Badge variation="info">Purple background</Badge>
-<Badge size="large">Black border</Badge>
+<>
+  <Badge variation="info">Purple background</Badge>
+  <Badge size="large">Black border</Badge>
+</>
 ```
 
 _Using style props:_
@@ -187,13 +172,9 @@ _Using style props:_
   <View>
     <BadgeStyleProps />
   </View>
-  
+
   <ExampleCode>
-
-```jsx file=./examples/BadgeStyleProps.tsx
-
-```
-
+    ```jsx file=./examples/BadgeStyleProps.tsx
+    ```
   </ExampleCode>
 </Example>
-    

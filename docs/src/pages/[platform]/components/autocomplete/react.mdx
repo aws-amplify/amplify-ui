@@ -7,7 +7,7 @@ import { Fragment } from '@/components/Fragment';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
 import ThemeExample from '@/components/ThemeExample.mdx';
 import { AutocompleteDemo } from './demo';
-import { 
+import {
   AutocompleteControlledExample,
   AutocompleteCustomEmptyExample,
   AutocompleteCustomFilteringExample,
@@ -34,11 +34,10 @@ Import the `Autocomplete`, provide `options` for autocomplete and a `label` for 
 
 <Example>
   <DefaultAutocompleteExample />
+
   <ExampleCode>
     ```tsx file=./examples/DefaultAutocompleteExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -50,13 +49,14 @@ Import the `Autocomplete`, provide `options` for autocomplete and a `label` for 
 
 <Example>
   <AutocompleteControlledExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteControlledExample.tsx
     ```
   </ExampleCode>
 </Example>
 
-***Note***: When using Autocomplete in controlled way,  you are also responsible to set up `onClear` and `onSelect` event handlers
+**_Note_**: When using Autocomplete in controlled way, you are also responsible to set up `onClear` and `onSelect` event handlers
 in addition to `onChange` since the input value is under your control.
 
 ### Placeholder
@@ -65,9 +65,9 @@ Text that appears in `Autocomplete` when it has no value set.
 
 <Example>
   <AutocompletePlaceholderExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompletePlaceholderExample.tsx
-
     ```
   </ExampleCode>
 </Example>
@@ -78,9 +78,9 @@ Use the `size` prop to change `Autocomplete` size. Available options are `small`
 
 <Example>
   <AutocompleteSizeExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteSizeExample.tsx
-
     ```
   </ExampleCode>
 </Example>
@@ -91,9 +91,9 @@ There are two variation styles available: default and `quiet`.
 
 <Example>
   <AutocompleteVariationExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteVariationExample.tsx
-
     ```
   </ExampleCode>
 </Example>
@@ -104,6 +104,7 @@ By setting `isLoading` to `true`, `Autocomplete` will be in loading state.
 
 <Example>
   <AutocompleteLoadingStateExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteLoadingStateExample.tsx
     ```
@@ -116,13 +117,14 @@ By default, `Autocomplete` will filter against option `label`. You can customize
 
 <Example>
   <AutocompleteCustomFilteringExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteCustomFilteringExample.tsx
     ```
   </ExampleCode>
 </Example>
 
-***Note***: When you create your own filtering logic, match highlighting will be disabled. If you want to enable it, 
+**_Note_**: When you create your own filtering logic, match highlighting will be disabled. If you want to enable it,
 you can build a custom option and wrap the `label` with `HighlightMatch`. See [custom option example](#custom-option).
 
 ### Custom option
@@ -131,6 +133,7 @@ You can create a custom option by providing `renderOption`.
 
 <Example>
   <AutocompleteCustomOptionExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteCustomOptionExample.tsx
     ```
@@ -145,6 +148,7 @@ You can customize the option menu by setting `menu`. The available slots accept 
 
 <Example>
   <AutocompleteCustomHeaderExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteCustomHeaderExample.tsx
     ```
@@ -155,6 +159,7 @@ You can customize the option menu by setting `menu`. The available slots accept 
 
 <Example>
   <AutocompleteCustomFooterExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteCustomFooterExample.tsx
     ```
@@ -165,6 +170,7 @@ You can customize the option menu by setting `menu`. The available slots accept 
 
 <Example>
   <AutocompleteCustomEmptyExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteCustomEmptyExample.tsx
     ```
@@ -175,6 +181,7 @@ You can customize the option menu by setting `menu`. The available slots accept 
 
 <Example>
   <AutocompleteCustomLoadingExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteCustomLoadingExample.tsx
     ```
@@ -186,11 +193,12 @@ You can customize the option menu by setting `menu`. The available slots accept 
 <ThemeExample component="Autocomplete">
   <Example>
     <AutocompleteThemeExample />
+
     <ExampleCode>
       ```tsx file=./examples/AutocompleteThemeExample.tsx
-
       ```
     </ExampleCode>
+
   </Example>
 </ThemeExample>
 
@@ -234,9 +242,9 @@ _Using style props:_
 
 <Example>
   <AutocompleteStylePropsExample />
+
   <ExampleCode>
     ```tsx file=./examples/AutocompleteStylePropsExample.tsx
-
     ```
   </ExampleCode>
 </Example>
