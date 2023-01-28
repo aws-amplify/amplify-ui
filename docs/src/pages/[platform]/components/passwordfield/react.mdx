@@ -44,12 +44,10 @@ Import the `PasswordField` component and provide a `label` for accessibility/usa
 
 <Example>
   <DefaultPasswordFieldExample />
+
   <ExampleCode>
-
     ```jsx file=./examples/DefaultPasswordFieldExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -59,11 +57,10 @@ Use the `hideShowPassword` prop to hide the show password button.
 
 <Example>
   <HidePasswordFieldExample />
+
   <ExampleCode>
-
-    ``` jsx file=./examples/HidePasswordFieldExample.tsx
+    ```jsx file=./examples/HidePasswordFieldExample.tsx
     ```
-
   </ExampleCode>
 </Example>
 
@@ -79,12 +76,10 @@ _Signup form example: `new-password`_
 
 <Example>
   <SignUpFormExample />
+
   <ExampleCode>
-
     ```jsx file=./examples/SignUpFormExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -92,12 +87,10 @@ _Login form example: `current-password` (default)_
 
 <Example>
   <LoginFormExample />
+
   <ExampleCode>
-
     ```jsx file=./examples/LoginFormExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -105,12 +98,10 @@ _Change password example: `current-password` and `new-password`_
 
 <Example>
   <ChangePasswordFormExample />
+
   <ExampleCode>
-
     ```jsx file=./examples/ChangePasswordFormExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -120,18 +111,16 @@ _Change password example: `current-password` and `new-password`_
 
 <Example>
   <LabelHiddenExample />
+
   <ExampleCode>
-
-```jsx file=./examples/LabelHiddenExample.tsx
-
-```
-
+    ```jsx file=./examples/LabelHiddenExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
 #### ShowPasswordButton
 
-The ShowPasswordButton renders a `<button>` element with `role="switch"`. Its `aria-checked` attribute is set to `false` when the password is hidden, and `true` when the password is shown. 
+The ShowPasswordButton renders a `<button>` element with `role="switch"`. Its `aria-checked` attribute is set to `false` when the password is hidden, and `true` when the password is shown.
 
 There are several optional props for customizing the accessibility of the ShowPasswordButton:
 
@@ -141,12 +130,10 @@ There are several optional props for customizing the accessibility of the ShowPa
 
 <Example>
   <ShowPasswordButtonExample />
+
   <ExampleCode>
-
-```jsx file=./examples/ShowPasswordButtonExample.tsx
-
-```
-
+    ```jsx file=./examples/ShowPasswordButtonExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -156,12 +143,10 @@ Use the `size` prop to change the visual size of the PasswordField. Three sizes 
 
 <Example>
   <SizeExample />
+
   <ExampleCode>
-
     ```jsx file=./examples/SizeExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -171,12 +156,10 @@ There are two variation styles available: default and `quiet`.
 
 <Example>
   <VariationExample />
+
   <ExampleCode>
-
     ```jsx file=./examples/VariationExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -186,12 +169,10 @@ To provide additional descriptive text of requirements of the field, use the `de
 
 <Example>
   <DescriptiveTextExample />
+
   <ExampleCode>
-
     ```jsx file=./examples/DescriptiveTextExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -201,12 +182,10 @@ Use the `isRequired` prop to specify a required field.
 
 <Example>
   <IsRequiredExample />
+
   <ExampleCode>
-    
     ```jsx file=./examples/IsRequiredExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -214,12 +193,10 @@ There is no default styling for required fields. Customize the `label` or `descr
 
 <Example>
   <RequiredPasswordFieldExample />
+
   <ExampleCode>
-
     ```jsx file=./examples/RequiredPasswordFieldExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -229,12 +206,10 @@ Use the `hasError` and `errorMessage` fields to mark a PasswordField as having a
 
 <Example>
   <ValidationErrorExample />
+
   <ExampleCode>
-
     ```jsx file=./examples/ValidationErrorExample.tsx
-
     ```
-
   </ExampleCode>
 </Example>
 
@@ -248,23 +223,20 @@ The following is an example demonstrating use of the `ref` and `showPasswordButt
 
 <Example>
   <RefExample />
-<ExampleCode>
 
-```tsx file=./examples/refs.tsx
-
-```
-
-</ExampleCode>
+  <ExampleCode>
+    ```tsx file=./examples/refs.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <StandardHTMLAttributes component="PasswordField" link="input" element="<input>">
   <Example>
     <MaxLengthExample />
+
     <ExampleCode>
-
-    ```jsx file=./examples/MaxLengthExample.tsx
-    ```
-
+      ```jsx file=./examples/MaxLengthExample.tsx
+      ```
     </ExampleCode>
 
   </Example>
@@ -275,14 +247,12 @@ The following is an example demonstrating use of the `ref` and `showPasswordButt
 <ThemeExample component="PasswordField">
   <Example>
     <PasswordFieldThemeExample />
-    
+
     <ExampleCode>
-
-    ```tsx file=./examples/PasswordFieldThemeExample.tsx
-
-    ```
-
+      ```tsx file=./examples/PasswordFieldThemeExample.tsx
+      ```
     </ExampleCode>
+
   </Example>
 </ThemeExample>
 
@@ -295,24 +265,19 @@ The following is an example demonstrating use of the `ref` and `showPasswordButt
 To override styling on all TextField primitives, you can set the Amplify CSS variables or use the built-in `.amplify-textfield` class.
 
 <Example>
-  <PasswordField
-    label="Globally styled password field"
-    name="password"
-    className="globally-styled-textfield"
-  />
+  <PasswordField label="Globally styled password field" name="password" className="globally-styled-textfield" />
+
   <ExampleCode>
-
-```css
-/* styles.css */
-[data-amplify-theme] {
-  --amplify-components-field-border-color: var(--amplify-colors-purple-80);
-}
-/* OR */
-.amplify-passwordfield {
-  --amplify-components-field-border-color: var(--amplify-colors-purple-80);
-}
-```
-
+    ```css
+    /* styles.css */
+    [data-amplify-theme] {
+      --amplify-components-field-border-color: var(--amplify-colors-purple-80);
+    }
+    /* OR */
+    .amplify-passwordfield {
+      --amplify-components-field-border-color: var(--amplify-colors-purple-80);
+    }
+    ```
   </ExampleCode>
 </Example>
 
@@ -323,21 +288,16 @@ To override styling on a specific TextField, you can use a class selector or sty
 _Using a class selector:_
 
 <Example>
-  <PasswordField
-    className="custom-passwordfield-class"
-    label="Square password field"
-    name="password"
-  />
+  <PasswordField className="custom-passwordfield-class" label="Square password field" name="password" />
+
   <ExampleCode>
-
-```css
-/* styles.css */
-.custom-passwordfield-class .amplify-input,
-.custom-passwordfield-class .amplify-button {
-  border-radius: 0;
-}
-```
-
+    ```css
+    /* styles.css */
+    .custom-passwordfield-class .amplify-input,
+    .custom-passwordfield-class .amplify-button {
+      border-radius: 0;
+    }
+    ```
   </ExampleCode>
 </Example>
 
@@ -347,11 +307,9 @@ Flex styling props will be applied to the PasswordField wrapping Flex component,
 
 <Example>
   <PasswordFieldStyledPropsExample />
-  <ExampleCode>
 
+  <ExampleCode>
     ```jsx file=./examples/PasswordFieldStyledPropsExample.tsx
     ```
-
   </ExampleCode>
 </Example>
- 
