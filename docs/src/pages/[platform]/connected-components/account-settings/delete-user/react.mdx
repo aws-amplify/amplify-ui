@@ -1,4 +1,9 @@
-import { Alert, Expander, ExpanderItem, ScrollView } from '@aws-amplify/ui-react';
+import {
+  Alert,
+  Expander,
+  ExpanderItem,
+  ScrollView,
+} from '@aws-amplify/ui-react';
 
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
@@ -22,12 +27,10 @@ import { AccountSettings } from '@aws-amplify/ui-react';
 
 function App() {
   const handleSuccess = () => {
-    alert('user has been successfully deleted')
-  }
-  
-  return (
-    <AccountSettings.DeleteUser onSuccess={handleSuccess} />
-  );
+    alert('user has been successfully deleted');
+  };
+
+  return <AccountSettings.DeleteUser onSuccess={handleSuccess} />;
 }
 ```
 
@@ -35,6 +38,7 @@ function App() {
 </Example>
 
 ### Override default delete handler
+
 You can override the default deleteUser handler with `handleDelete` prop to add any custom cleanup handlers before or after account deletion.
 
 <Example>
@@ -44,21 +48,24 @@ You can override the default deleteUser handler with `handleDelete` prop to add 
 import React from 'react';
 
 import { Auth } from 'aws-amplify';
-import { DeleteUser } from '@aws-amplify/ui-react';
+import { AccountSettings, DeleteUser } from '@aws-amplify/ui-react';
 
 function App() {
   const handleSuccess = () => {
-    alert('password is successfully changed!')
-  }
+    alert('password is successfully changed!');
+  };
 
   const handleDelete = async () => {
-    console.log("Doing some clean up...");
-    console.log("Done!");
+    console.log('Doing some clean up...');
+    console.log('Done!');
     await Auth.deleteUser();
-  };  
-      
+  };
+
   return (
-    <AccountSettings.DeleteUser onSuccess={handleSuccess} handleDelete={handleDelete} />
+    <AccountSettings.DeleteUser
+      onSuccess={handleSuccess}
+      handleDelete={handleDelete}
+    />
   );
 }
 ```
@@ -72,7 +79,6 @@ You can override parts of the `DeleteUser` component by passing in a `components
 
 <ReactPropsTable props={OVERRIDES} />
 
-
 #### Reusing default components
 
 Default components are accessible through `AccountSettings.DeleteUser.COMPONENT_NAME` (e.g. `AccountSettings.DeleteUser.DeleteButton`) for your convenience. This is useful if you're interested in modifying just a small part of UI instead of overriding the whole component.
@@ -81,25 +87,28 @@ Default components are accessible through `AccountSettings.DeleteUser.COMPONENT_
   <ExampleCode>
 
 ```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
 function App() {
   const components = {
     DeleteButton: (props) => (
-      <AccountSettings.DeleteUser.DeleteButton {...props}>Custom Submit Button</AccountSettings.DeleteUser.DeleteButton>
+      <AccountSettings.DeleteUser.DeleteButton {...props}>
+        Custom Submit Button
+      </AccountSettings.DeleteUser.DeleteButton>
     ),
-  }
+  };
 
-  return (
-    <AccountSettings.DeleteUser components={components} />
-  );
+  return <AccountSettings.DeleteUser components={components} />;
 }
 ```
 
   </ExampleCode>
 </Example>
 
-
 <Alert variation="warning">
-Note that spreading props is necessary so that event listeners like `onClick` or html attributes like `type` are passed correctly. If you're providing your own custom components, make sure required props are passed onto your elements.
+  Note that spreading props is necessary so that event listeners like `onClick`
+  or html attributes like `type` are passed correctly. If you're providing your
+  own custom components, make sure required props are passed onto your elements.
 </Alert>
 
 #### Props and Examples
@@ -122,17 +131,15 @@ You can reuse the `AccountSettings.DeleteUser.DeleteButton`:
 import { AccountSettings } from '@aws-amplify/ui-react';
 
 function App() {
-  const components  = {
+  const components = {
     DeleteButton: (props) => (
       <AccountSettings.DeleteUser.DeleteButton {...props}>
         My Custom Button
       </AccountSettings.DeleteUser.DeleteButton>
-    )
-  }
+    ),
+  };
 
-  return (
-    <AccountSettings.DeleteUser components={components} />
-  );
+  return <AccountSettings.DeleteUser components={components} />;
 }
 ```
 
@@ -148,13 +155,11 @@ or use [button primitive](/components/button) directly:
 import { AccountSettings, Button } from '@aws-amplify/ui-react';
 
 function App() {
-  const components  = {
-    DeleteButton: (props) => <Button {...props}>My Custom Button</Button>
-  }
+  const components = {
+    DeleteButton: (props) => <Button {...props}>My Custom Button</Button>,
+  };
 
-  return (
-    <AccountSettings.DeleteUser components={components} />
-  );
+  return <AccountSettings.DeleteUser components={components} />;
 }
 ```
 
@@ -167,18 +172,18 @@ The following example replaces `DeleteButton` with native html button:
       <ExampleCode>
 
 ```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
 function App() {
   const components = {
     DeleteButton: ({ onClick, isDisabled }) => (
       <button onClick={onClick} disabled={isDisabled}>
         Custom Button Text
       </button>
-    )
+    ),
   };
-  
-  return (
-    <AccountSettings.DeleteUser components={components} />
-  );
+
+  return <AccountSettings.DeleteUser components={components} />;
 }
 ```
 
@@ -198,7 +203,7 @@ The following example overrides the error message component with [`Heading`](/co
       <ExampleCode>
 
 ```jsx
-import { Heading, Text } from '@aws-amplify/ui-react';
+import { AccountSettings, Heading, Text } from '@aws-amplify/ui-react';
 
 function App() {
   const components = {
@@ -207,17 +212,16 @@ function App() {
         <Heading>Custom Error Message</Heading>
         <Text variation="warning">{children}</Text>
       </>
-    )
+    ),
   };
-  
-  return (
-    <AccountSettings.DeleteUser components={components} />
-  );
+
+  return <AccountSettings.DeleteUser components={components} />;
 }
 ```
 
       </ExampleCode>
     </Example>
+
   </ExpanderItem>
   <ExpanderItem title="WarningView" value="warning-view">
 
@@ -230,7 +234,7 @@ The following example overrides the warning component to require users to type "
     <ScrollView height="600px">
       <Example>
         <ExampleCode>
-  
+
 ```jsx{10-37,48} file=../../../../../../../examples/next/pages/ui/components/account-settings/delete-user-with-overrides/index.page.tsx#L1-L72
 
 ```
@@ -238,6 +242,7 @@ The following example overrides the warning component to require users to type "
         </ExampleCode>
       </Example>
     </ScrollView>
+
   </ExpanderItem>
 </Expander>
 

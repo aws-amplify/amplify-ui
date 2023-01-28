@@ -3,8 +3,12 @@ import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
 import { ERROR_MESSAGE } from '../props';
-import { CHANGE_PASSWORD, OVERRIDES, PASSWORD_FIELDS, SUBMIT_BUTTON } from './props';
-
+import {
+  CHANGE_PASSWORD,
+  OVERRIDES,
+  PASSWORD_FIELDS,
+  SUBMIT_BUTTON,
+} from './props';
 
 ### Props
 
@@ -23,12 +27,10 @@ import { AccountSettings } from '@aws-amplify/ui-react';
 
 function App() {
   const handleSuccess = () => {
-    alert('password is successfully changed!')
-  }
-  
-  return (
-    <AccountSettings.ChangePassword onSuccess={handleSuccess}/>
-  );
+    alert('password is successfully changed!');
+  };
+
+  return <AccountSettings.ChangePassword onSuccess={handleSuccess} />;
 }
 ```
 
@@ -94,14 +96,14 @@ function App() {
     validator: (password) => password.length <= 12,
     message: 'Password must have length 12 or less',
   };
-  
+
   const handleSuccess = () => {
-    alert('password is successfully changed!')
-  }
-  
+    alert('password is successfully changed!');
+  };
+
   return (
-    <AccountSettings.ChangePassword 
-      onSuccess={handleSuccess} 
+    <AccountSettings.ChangePassword
+      onSuccess={handleSuccess}
       validators={[minLength, maxLength]}
     />
   );
@@ -125,19 +127,19 @@ Default components are accessible through `AccountSettings.ChangePassword.COMPON
   <ExampleCode>
 
 ```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
 function App() {
   const components = {
     NewPasswordField: (props) => (
       <AccountSettings.ChangePassword.NewPasswordField
-        {...props} 
-        label="Custom New Password Label" 
+        {...props}
+        label="Custom New Password Label"
       />
     ),
-  }
+  };
 
-  return (
-    <AccountSettings.ChangePassword components={components} />
-  );
+  return <AccountSettings.ChangePassword components={components} />;
 }
 ```
 
@@ -145,7 +147,9 @@ function App() {
 </Example>
 
 <Alert variation="warning">
-Note that spreading props is necessary so that event listeners like `onChange` or html attributes like `name` are passed correctly. If you're providing your own custom components, make sure required props are passed onto your elements.
+  Note that spreading props is necessary so that event listeners like `onChange`
+  or html attributes like `name` are passed correctly. If you're providing your
+  own custom components, make sure required props are passed onto your elements.
 </Alert>
 
 #### Props and Examples
@@ -159,33 +163,31 @@ Here are the required props and examples for overriding each slot.
 
     <ReactPropsTable props={PASSWORD_FIELDS} />
 
-
-
 You can reuse the `AccountSettings.ChangePassword.<COMPONENT_NAME>`:
 
   <Example>
     <ExampleCode>
 
 ```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
 function App() {
   const components = {
     NewPasswordField: (props) => (
       <AccountSettings.ChangePassword.NewPasswordField
-        {...props} 
-        label="Custom New Password Label" 
+        {...props}
+        label="Custom New Password Label"
       />
     ),
     ConfirmPasswordField: (props) => (
       <AccountSettings.ChangePassword.ConfirmPasswordField
-        {...props} 
-        label="Custom Confirm Password Label" 
+        {...props}
+        label="Custom Confirm Password Label"
       />
     ),
-  }
+  };
 
-  return (
-    <AccountSettings.ChangePassword components={components} />
-  );
+  return <AccountSettings.ChangePassword components={components} />;
 }
 ```
 
@@ -194,36 +196,42 @@ function App() {
 
 The following example overrides the `CurrentPasswordField` with native html:
 
-
     <Example>
       <ExampleCode>
 
 ```jsx
 function App() {
   const components = {
-    CurrentPasswordField: ({ 
+    CurrentPasswordField: ({
       fieldValidationErrors,
       name,
       onBlur,
-      onChange
+      onChange,
     }) => (
       <>
-        <input name={name} onBlur={onBlur} onChange={onChange} type="password" />
+        <input
+          name={name}
+          onBlur={onBlur}
+          onChange={onChange}
+          type="password"
+        />
         {fieldValidationErrors?.map((error) => (
-          <p key={error} role="alert">{error}</p>
+          <p key={error} role="alert">
+            {error}
+          </p>
         ))}
       </>
-    )
+    ),
   };
 }
 ```
 
     </ExampleCode>
+
   </Example>
 
   </ExpanderItem>
   <ExpanderItem title="ErrorMessage" value="error-message">
-
 
 Props:
 
@@ -235,7 +243,7 @@ The following example overrides the error message component with [`Heading`](/co
       <ExampleCode>
 
 ```jsx
-import { Heading, Text } from '@aws-amplify/ui-react';
+import { AccountSettings, Heading, Text } from '@aws-amplify/ui-react';
 
 function App() {
   const components = {
@@ -244,17 +252,16 @@ function App() {
         <Heading>Custom Error Message</Heading>
         <Text variation="warning">{children}</Text>
       </>
-    )
+    ),
   };
-  
-  return (
-    <AccountSettings.ChangePassword components={components} />
-  );
+
+  return <AccountSettings.ChangePassword components={components} />;
 }
 ```
 
       </ExampleCode>
     </Example>
+
   </ExpanderItem>
   <ExpanderItem title="SubmitButton" value="submit-button">
 
@@ -270,13 +277,13 @@ You can reuse the `AccountSettings.ChangePassword.SubmitButton`:
 ```jsx
 import { AccountSettings } from '@aws-amplify/ui-react';
 
-const components  = {
+const components = {
   SubmitButton: (props) => (
     <AccountSettings.ChangePassword.SubmitButton {...props}>
       My Custom Button
     </AccountSettings.ChangePassword.SubmitButton>
-  )
-}
+  ),
+};
 ```
 
       </ExampleCode>
@@ -290,9 +297,9 @@ or use [button](/components/button) primitive directly:
 ```jsx
 import { AccountSettings, Button } from '@aws-amplify/ui-react';
 
-const components  = {
-  SubmitButton: (props) => <Button {...props}>My Custom Button</Button>
-}
+const components = {
+  SubmitButton: (props) => <Button {...props}>My Custom Button</Button>,
+};
 ```
 
       </ExampleCode>
@@ -304,23 +311,24 @@ The following example replaces `SubmitButton` with native html button:
       <ExampleCode>
 
 ```jsx
+import { AccountSettings } from '@aws-amplify/ui-react';
+
 function App() {
   const components = {
     SubmitButton: ({ onClick, isDisabled }) => (
       <button type="submit" onClick={onClick} disabled={isDisabled}>
         Custom Button Text
       </button>
-    )
+    ),
   };
-  
-  return (
-    <AccountSettings.ChangePassword components={components} />
-  );
+
+  return <AccountSettings.ChangePassword components={components} />;
 }
 ```
 
       </ExampleCode>
     </Example>
+
   </ExpanderItem>
 </Expander>
 
