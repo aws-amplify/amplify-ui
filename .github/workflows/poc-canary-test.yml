@@ -78,7 +78,7 @@ jobs:
           working-directory: ./canary/e2e
           # If we got a cache hit on cypress runner, then we will skip cypress binary
           # installation. Otherwise, it will install cypress binary.
-          # skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+          skip-cypress-binary: 'false'
       # If cypress cache was missed, then we need to create new cache entry and upload it.
       # At this point, cypress runner should've been installed from the previous installation
       # step, so we go ahead and update the cache entry.
