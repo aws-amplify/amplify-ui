@@ -3,9 +3,13 @@
 #
 # Triggered by: it runs every 15 minutes.
 
-name: POC / Build and Runtime Canary Test
+name: POC / Build and Runtime Test
 
 on: pull_request
+
+concurrency:
+  group: poc-build-and-runtime-test-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
 
 jobs:
   build:
