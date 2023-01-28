@@ -1,4 +1,4 @@
-import { Fragment } from '@/components/Fragment'; 
+import { Fragment } from '@/components/Fragment';
 import {
   Button,
   Card,
@@ -36,12 +36,10 @@ Import the `Collection` component and provide your own repeating component as a 
 
 <Example>
   <DefaultCollectionExample />
+
   <ExampleCode>
-
-```tsx file=./examples/DefaultCollectionExample.tsx
-
-```
-
+    ```tsx file=./examples/DefaultCollectionExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -57,11 +55,8 @@ The `list` collection type can be customized with any of following Flex props: `
   <ListCollectionExample />
 
   <ExampleCode>
-
-```tsx file=./examples/ListCollectionExample.tsx
-
-```
-
+    ```tsx file=./examples/ListCollectionExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -71,12 +66,10 @@ The `grid` collection type can be customized with the following Grid props: `tem
 
 <Example>
   <GridCollectionExample />
+
   <ExampleCode>
-
-```tsx file=./examples/GridCollectionExample.tsx
-
-```
-
+    ```tsx file=./examples/GridCollectionExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -86,12 +79,10 @@ A Collection can be paginated by adding a special `isPaginated` property. Change
 
 <Example>
   <PaginationCollectionExample />
+
   <ExampleCode>
-
-```tsx file=./examples/PaginationCollectionExample.tsx
-
-```
-
+    ```tsx file=./examples/PaginationCollectionExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -101,12 +92,10 @@ Collections can also be filtered, adding a `isSearchable` property. Pass a custo
 
 <Example>
   <SearchCollectionExample />
+
   <ExampleCode>
-
-```tsx file=./examples/SearchCollectionExample.tsx
-
-```
-
+    ```tsx file=./examples/SearchCollectionExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -116,12 +105,10 @@ To handle the case when no results are found from the search, you can pass a cus
 
 <Example>
   <SearchNoResultsFoundCollectionExample />
+
   <ExampleCode>
-
-```tsx file=./examples/SearchNoResultsFoundCollectionExample.tsx
-
-```
-
+    ```tsx file=./examples/SearchNoResultsFoundCollectionExample.tsx
+    ```
   </ExampleCode>
 </Example>
 
@@ -130,14 +117,12 @@ To handle the case when no results are found from the search, you can pass a cus
 <ThemeExample component="Collection">
   <Example>
     <CollectionThemeExample />
-    
+
     <ExampleCode>
-
-    ```tsx file=./examples/CollectionThemeExample.tsx
-
-    ```
-
+      ```tsx file=./examples/CollectionThemeExample.tsx
+      ```
     </ExampleCode>
+
   </Example>
 </ThemeExample>
 
@@ -150,21 +135,20 @@ To handle the case when no results are found from the search, you can pass a cus
 To override the styling on all Collections you can use the built in `.amplify-collection` class.
 
 <Example>
-<StylingCollectionExample />
-<ExampleCode>
+  <StylingCollectionExample />
 
-```css
-.amplify-collection {
-  --amplify-components-collection-pagination-current-color: var(
-    --amplify-colors-brand-secondary-20
-  );
-  --amplify-components-collection-pagination-current-background-color: var(
-    --amplify-colors-teal-80
-  );
-}
-```
-
-</ExampleCode>
+  <ExampleCode>
+    ```css
+    .amplify-collection {
+      --amplify-components-collection-pagination-current-color: var(
+        --amplify-colors-brand-secondary-20
+      );
+      --amplify-components-collection-pagination-current-background-color: var(
+        --amplify-colors-teal-80
+      );
+    }
+    ```
+  </ExampleCode>
 </Example>
 
 ### Local Styling
@@ -175,31 +159,28 @@ _Using a class selector:_
 
 <Example>
   <LocalCollectionClassExample />
+
   <ExampleCode>
-
-```tsx file=./examples/LocalCollectionClassExample.tsx
-
-```
-
+    ```tsx file=./examples/LocalCollectionClassExample.tsx ```
   </ExampleCode>
+
   <ExampleCode>
+    ```css
+    .collection-local-styling-example {
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 5px;
+    }
 
-```css
-.collection-local-styling-example {
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 5px;
-}
+    .collection-local-styling-example .amplify-collection-items {
+      flex-wrap: wrap;
+      gap: 20px;
+    }
 
-.collection-local-styling-example .amplify-collection-items {
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.collection-local-styling-example .amplify-button {
-  background-color: var(--amplify-colors-neutral-60);
-}
-```
+    .collection-local-styling-example .amplify-button {
+      background-color: var(--amplify-colors-neutral-60);
+    }
+    ```
 
   </ExampleCode>
 </Example>
@@ -208,12 +189,9 @@ _Using style props:_
 
 <Example>
   <CollectionStylePropExample />
+
   <ExampleCode>
-
-```tsx file=./examples/CollectionStylePropExample.tsx
-
-```
-
+    ```tsx file=./examples/CollectionStylePropExample.tsx
+    ```
   </ExampleCode>
 </Example>
-    
