@@ -12,11 +12,13 @@ import {
 import { CloseIconButton } from '../CloseIconButton';
 import {
   BLOCK_CLASS,
+  BODY_TEXT_TEST_ID,
   BUTTON_CLASS,
   CLOSE_BUTTON_CLASS,
   CONTENT_CLASS,
   CONTENT_TEST_ID,
   HEADER_CLASS,
+  HEADER_TEXT_TEST_ID,
   IMAGE_CONTAINER_CLASS,
   IMAGE_CONTAINER_TEST_ID,
   MESSAGE_LAYOUT_TEST_ID,
@@ -81,7 +83,7 @@ export function MessageLayout({
           >
             <Image
               alt="In-App Message Image"
-              src={image?.src}
+              src={image.src}
               style={styles.image}
             />
           </Flex>
@@ -99,11 +101,16 @@ export function MessageLayout({
               isTruncated
               level={2}
               style={styles.header}
+              testId={HEADER_TEXT_TEST_ID}
             >
               {header.content}
             </Heading>
           )}
-          {body?.content && <Text style={styles.body}>{body.content}</Text>}
+          {body?.content && (
+            <Text style={styles.body} testId={BODY_TEXT_TEST_ID}>
+              {body.content}
+            </Text>
+          )}
         </Flex>
         {isHorizontal && <Flex alignItems="flex-start">{closeButton}</Flex>}
       </Flex>
@@ -118,7 +125,7 @@ export function MessageLayout({
               onClick={secondaryButton?.onAction}
               style={styles.secondaryButton}
             >
-              {secondaryButton?.title}
+              {secondaryButton.title}
             </Button>
           )}
           {hasPrimaryButton && (
@@ -130,7 +137,7 @@ export function MessageLayout({
               onClick={primaryButton?.onAction}
               style={styles.primaryButton}
             >
-              {primaryButton?.title}
+              {primaryButton.title}
             </Button>
           )}
         </ButtonGroup>
