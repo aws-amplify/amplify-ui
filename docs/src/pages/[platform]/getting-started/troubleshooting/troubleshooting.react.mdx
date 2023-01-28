@@ -1,4 +1,5 @@
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { TerminalCommand } from '@/components/InstallScripts';
 
 ## Webpack 5+
 
@@ -22,18 +23,10 @@ Webpack 4 already includes this polyfill.
 
 <Tabs>
 <TabItem title="npm">
-
-```shell
-npm install node-polyfill-webpack-plugin -D
-```
-
+<TerminalCommand command="npm install node-polyfill-webpack-plugin -D" />
 </TabItem>
 <TabItem title="yarn">
-
-```shell
-yarn add node-polyfill-webpack-plugin -D
-```
-
+<TerminalCommand command="yarn add node-polyfill-webpack-plugin -D" />
 </TabItem>
 </Tabs>
 

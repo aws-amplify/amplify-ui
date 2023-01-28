@@ -114,12 +114,12 @@ Object {
     "FormFields": [Function],
     "Header": [Function],
     "error": "error",
-    "getTotpSecretCode": [MockFunction],
     "handleBlur": [MockFunction],
     "handleChange": [MockFunction],
     "handleSubmit": [MockFunction],
     "isPending": false,
     "toSignIn": [MockFunction],
+    "totpSecretCode": null,
   },
 }
 `;

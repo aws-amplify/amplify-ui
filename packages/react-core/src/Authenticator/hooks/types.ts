@@ -6,6 +6,8 @@ import {
   LegacyFormFieldOptions,
 } from '@aws-amplify/ui';
 
+import { UseAuthenticator } from './useAuthenticator';
+
 export type AuthenticatorRouteComponentKey =
   | 'confirmResetPassword'
   | 'confirmSignIn'
@@ -31,8 +33,6 @@ export type AuthenticatorMachineContextKey = keyof AuthenticatorMachineContext;
 export type AuthenticatorRouteComponentName =
   Capitalize<AuthenticatorRouteComponentKey>;
 
-export type GetTotpSecretCode = () => Promise<string>;
-
 interface HeaderProps {
   children?: React.ReactNode;
 }
@@ -42,8 +42,8 @@ interface FooterProps {
 }
 
 type FormFieldsProps = {
-  isPending: AuthenticatorMachineContext['isPending'];
-  validationErrors?: AuthenticatorMachineContext['validationErrors'];
+  isPending: UseAuthenticator['isPending'];
+  validationErrors?: UseAuthenticator['validationErrors'];
 };
 
 export type FooterComponent<Props = {}> = React.ComponentType<
@@ -70,74 +70,74 @@ export interface ComponentSlots<FieldType = {}> {
  * Common component prop types used for both RWA and RNA implementations
  */
 export type CommonRouteProps = {
-  error?: AuthenticatorMachineContext['error'];
-  isPending: AuthenticatorMachineContext['isPending'];
-  handleBlur: AuthenticatorMachineContext['updateBlur'];
-  handleChange: AuthenticatorMachineContext['updateForm'];
-  handleSubmit: AuthenticatorMachineContext['submitForm'];
+  error?: UseAuthenticator['error'];
+  isPending: UseAuthenticator['isPending'];
+  handleBlur: UseAuthenticator['updateBlur'];
+  handleChange: UseAuthenticator['updateForm'];
+  handleSubmit: UseAuthenticator['submitForm'];
 };
 
 /**
  * Base Route component props
  */
 export type ConfirmResetPasswordBaseProps<FieldType = {}> = {
-  resendCode: AuthenticatorMachineContext['resendCode'];
-  validationErrors?: AuthenticatorMachineContext['validationErrors'];
+  resendCode: UseAuthenticator['resendCode'];
+  validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
 export type ConfirmSignInBaseProps<FieldType = {}> = {
   challengeName: AuthChallengeName;
-  toSignIn: AuthenticatorMachineContext['toSignIn'];
+  toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
 export type ConfirmSignUpBaseProps<FieldType = {}> = {
-  codeDeliveryDetails: AuthenticatorMachineContext['codeDeliveryDetails'];
-  resendCode: AuthenticatorMachineContext['resendCode'];
+  codeDeliveryDetails: UseAuthenticator['codeDeliveryDetails'];
+  resendCode: UseAuthenticator['resendCode'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
 export type ConfirmVerifyUserProps<FieldType = {}> = {
-  skipVerification: AuthenticatorMachineContext['skipVerification'];
+  skipVerification: UseAuthenticator['skipVerification'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
 export type ForceResetPasswordBaseProps<FieldType = {}> = {
-  toSignIn: AuthenticatorMachineContext['toSignIn'];
-  validationErrors?: AuthenticatorMachineContext['validationErrors'];
+  toSignIn: UseAuthenticator['toSignIn'];
+  validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
 export type ResetPasswordBaseProps<FieldType = {}> = {
-  toSignIn: AuthenticatorMachineContext['toSignIn'];
+  toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
 export type SetupTOTPBaseProps<FieldType = {}> = {
-  getTotpSecretCode: GetTotpSecretCode;
-  toSignIn: AuthenticatorMachineContext['toSignIn'];
+  toSignIn: UseAuthenticator['toSignIn'];
+  totpSecretCode: UseAuthenticator['totpSecretCode'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
 export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
-  toFederatedSignIn: AuthenticatorMachineContext['toFederatedSignIn'];
-  toResetPassword: AuthenticatorMachineContext['toResetPassword'];
-  toSignUp: AuthenticatorMachineContext['toSignUp'];
+  toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
+  toResetPassword: UseAuthenticator['toResetPassword'];
+  toSignUp: UseAuthenticator['toSignUp'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
 export type SignUpBaseProps<FieldType = {}> = {
   hideSignIn?: boolean;
-  toFederatedSignIn: AuthenticatorMachineContext['toFederatedSignIn'];
-  toSignIn: AuthenticatorMachineContext['toSignIn'];
-  validationErrors?: AuthenticatorMachineContext['validationErrors'];
+  toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
+  toSignIn: UseAuthenticator['toSignIn'];
+  validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
 export type VerifyUserProps<FieldType = {}> = {
-  skipVerification: AuthenticatorMachineContext['skipVerification'];
+  skipVerification: UseAuthenticator['skipVerification'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 

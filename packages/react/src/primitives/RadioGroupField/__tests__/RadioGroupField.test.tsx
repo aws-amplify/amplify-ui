@@ -10,54 +10,30 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { getTestId } from '../../utils/getTestId';
 
-describe('RadioFieldGroup test suite', () => {
-  const basicProps = { label: 'testLabel', name: 'testName', testId: 'testId' };
+const basicProps = { label: 'testLabel', name: 'testName', testId: 'testId' };
+const radioGroupTestId = `${basicProps.testId}-${ComponentClassNames.RadioGroup}`;
 
-  const radioGroupTestId = getTestId(
-    basicProps.testId,
-    ComponentClassNames.RadioGroup
+const RadioFieldGroup = ({ label, name, ...props }: RadioGroupFieldProps) => {
+  return (
+    <RadioGroupField label={label} name={name} {...props}>
+      <Radio value="html" testId="radio-button">
+        html
+      </Radio>
+      <Radio value="css" testId="radio-button">
+        css
+      </Radio>
+      <Radio value="javascript" testId="radio-button">
+        javascript
+      </Radio>
+    </RadioGroupField>
   );
+};
 
-  const getRadioFieldGroup = ({
-    label,
-    name,
-    ...props
-  }: RadioGroupFieldProps) => {
-    return (
-      <RadioGroupField label={label} name={name} {...props}>
-        <Radio value="html" testId="radio-button">
-          html
-        </Radio>
-        <Radio value="css" testId="radio-button">
-          css
-        </Radio>
-        <Radio value="javascript" testId="radio-button">
-          javascript
-        </Radio>
-      </RadioGroupField>
-    );
-  };
-
-  const ControlledRadioFieldGroup = () => {
-    const [value, setValue] = React.useState('html');
-    return (
-      <RadioGroupField
-        {...basicProps}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      >
-        <Radio value="html">html</Radio>
-        <Radio value="css">css</Radio>
-        <Radio value="javascript">javascript</Radio>
-      </RadioGroupField>
-    );
-  };
-
+describe('RadioFieldGroup', () => {
   it('should render default and custom classname', async () => {
     const className = 'class-test';
-    render(getRadioFieldGroup({ ...basicProps, className }));
+    render(RadioFieldGroup({ ...basicProps, className }));
 
     const radioField = await screen.findByTestId(basicProps.testId);
     expect(radioField).toHaveClass(
@@ -76,13 +52,13 @@ describe('RadioFieldGroup test suite', () => {
   });
 
   it('should render all flex style props', async () => {
-    render(getRadioFieldGroup({ ...basicProps, ...testFlexProps }));
+    render(RadioFieldGroup({ ...basicProps, ...testFlexProps }));
     const radioField = await screen.findByTestId(basicProps.testId);
     expectFlexContainerStyleProps(radioField);
   });
 
   it('should have no default labelPosition', async () => {
-    render(getRadioFieldGroup({ ...basicProps }));
+    render(RadioFieldGroup({ ...basicProps }));
     const radioField = await screen.findByTestId(basicProps.testId);
     expect(radioField.querySelector('.amplify-radio')).not.toHaveAttribute(
       'data-label-position'
@@ -90,7 +66,7 @@ describe('RadioFieldGroup test suite', () => {
   });
 
   it('should work with labelPosition', async () => {
-    render(getRadioFieldGroup({ ...basicProps, labelPosition: 'end' }));
+    render(RadioFieldGroup({ ...basicProps, labelPosition: 'end' }));
     const radioField = await screen.findByTestId(basicProps.testId);
     expect(radioField.querySelector('.amplify-radio')).toHaveAttribute(
       'data-label-position',
@@ -100,26 +76,21 @@ describe('RadioFieldGroup test suite', () => {
 
   describe('Label', () => {
     it('should render visually-hidden legend element with label name', async () => {
-      render(getRadioFieldGroup({ ...basicProps }));
+      render(RadioFieldGroup({ ...basicProps }));
 
-      const labelElement = (await screen.findAllByText(
-        basicProps.label
-      ));
+      const labelElement = await screen.findAllByText(basicProps.label);
       expect(labelElement[0].nodeName).toBe('LEGEND');
     });
 
     it('should render expected label classname', async () => {
-      render(getRadioFieldGroup({ ...basicProps }));
+      render(RadioFieldGroup({ ...basicProps }));
 
-      const labelElement = (await screen.findAllByText(
-        basicProps.label
-      ));
-
+      const labelElement = await screen.findAllByText(basicProps.label);
       expect(labelElement[1]).toHaveClass(ComponentClassNames.Label);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
-      render(getRadioFieldGroup({ ...basicProps, labelHidden: true }));
+      render(RadioFieldGroup({ ...basicProps, labelHidden: true }));
 
       const labelElement = await screen.findAllByText(basicProps.label);
       expect(labelElement[1]).toHaveClass('amplify-visually-hidden');
@@ -127,8 +98,15 @@ describe('RadioFieldGroup test suite', () => {
   });
 
   describe('RadioGroup', () => {
-    const expectFunctionality = async (component) => {
-      render(component);
+    it('should render default classname', async () => {
+      render(RadioFieldGroup({ ...basicProps }));
+      const radioGroup = await screen.findByTestId(radioGroupTestId);
+      expect(radioGroup).toHaveClass(ComponentClassNames.RadioGroup);
+    });
+
+    it('should work in uncontrolled way', async () => {
+      render(RadioFieldGroup({ ...basicProps, defaultValue: 'html' }));
+
       const radios = await screen.findAllByRole('radio');
       const html = radios[0];
       const css = radios[1];
@@ -146,26 +124,58 @@ describe('RadioFieldGroup test suite', () => {
       expect(html).not.toBeChecked();
       expect(css).not.toBeChecked();
       expect(javascript).toBeChecked();
-    };
-
-    it('should render default classname', async () => {
-      render(getRadioFieldGroup({ ...basicProps }));
-      const radioGroup = await screen.findByTestId(radioGroupTestId);
-      expect(radioGroup).toHaveClass(ComponentClassNames.RadioGroup);
     });
 
-    it('should work in uncontrolled way', () => {
-      expectFunctionality(
-        getRadioFieldGroup({ ...basicProps, defaultValue: 'html' })
+    it('should work in controlled way', async () => {
+      const { rerender } = render(
+        <RadioGroupField {...basicProps} value="html">
+          <Radio readOnly value="html">
+            html
+          </Radio>
+          <Radio readOnly value="css">
+            css
+          </Radio>
+          <Radio readOnly value="javascript">
+            javascript
+          </Radio>
+        </RadioGroupField>
       );
-    });
 
-    it('should work in controlled way', () => {
-      expectFunctionality(<ControlledRadioFieldGroup />);
+      const radios = await screen.findAllByRole('radio');
+      const html = radios[0];
+      const css = radios[1];
+      const javascript = radios[2];
+      expect(html).toBeChecked();
+      expect(css).not.toBeChecked();
+      expect(javascript).not.toBeChecked();
+
+      rerender(
+        <RadioGroupField {...basicProps} value="css">
+          <Radio value="html">html</Radio>
+          <Radio value="css">css</Radio>
+          <Radio value="javascript">javascript</Radio>
+        </RadioGroupField>
+      );
+
+      // userEvent.click(css);
+      expect(html).not.toBeChecked();
+      expect(css).toBeChecked();
+      expect(javascript).not.toBeChecked();
+
+      rerender(
+        <RadioGroupField {...basicProps} value="javascript">
+          <Radio value="html">html</Radio>
+          <Radio value="css">css</Radio>
+          <Radio value="javascript">javascript</Radio>
+        </RadioGroupField>
+      );
+      expect(html).not.toBeChecked();
+      expect(css).not.toBeChecked();
+      expect(javascript).toBeChecked();
     });
 
     it('should set size attribute', async () => {
-      render(getRadioFieldGroup({ ...basicProps, size: 'large' }));
+      render(RadioFieldGroup({ ...basicProps, size: 'large' }));
 
       const radioField = await screen.findByTestId(basicProps.testId);
       expect(radioField).toHaveAttribute('data-size', 'large');
@@ -177,7 +187,7 @@ describe('RadioFieldGroup test suite', () => {
     });
 
     it('should be disabled if isDisabled is passed', async () => {
-      render(getRadioFieldGroup({ ...basicProps, isDisabled: true }));
+      render(RadioFieldGroup({ ...basicProps, isDisabled: true }));
 
       const radios = await screen.findAllByRole('radio');
       const html = radios[0];
@@ -190,7 +200,7 @@ describe('RadioFieldGroup test suite', () => {
 
     it('should be read-only if isReadOnly is passed and defaultValue is provided', async () => {
       render(
-        getRadioFieldGroup({
+        RadioFieldGroup({
           ...basicProps,
           defaultValue: 'html',
           isReadOnly: true,
@@ -206,7 +216,7 @@ describe('RadioFieldGroup test suite', () => {
     });
 
     it('should be required if isRequired is passed', async () => {
-      render(getRadioFieldGroup({ ...basicProps, isRequired: true }));
+      render(RadioFieldGroup({ ...basicProps, isRequired: true }));
       const radios = await screen.findAllByRole('radio');
       const html = radios[0];
       const css = radios[1];
@@ -217,7 +227,7 @@ describe('RadioFieldGroup test suite', () => {
     });
 
     it('should set aria-hidden to be true on custom radio buttons', async () => {
-      render(getRadioFieldGroup({ ...basicProps }));
+      render(RadioFieldGroup({ ...basicProps }));
 
       const radioButtons = await screen.findAllByTestId('radio-button');
       expect(radioButtons[0]).toHaveAttribute('aria-hidden', 'true');
@@ -226,7 +236,7 @@ describe('RadioFieldGroup test suite', () => {
     });
 
     it('should set aria-invalid to be true on radio control when hasError is true', async () => {
-      render(getRadioFieldGroup({ ...basicProps, hasError: true }));
+      render(RadioFieldGroup({ ...basicProps, hasError: true }));
 
       const radios = await screen.findAllByRole('radio');
       expect(radios[0]).toHaveAttribute('aria-invalid', 'true');
@@ -238,16 +248,16 @@ describe('RadioFieldGroup test suite', () => {
   describe('Descriptive message', () => {
     const descriptiveText = 'This is a descriptive text.';
 
-    it('should render when descriptiveText is provided', async () => {
-      render(getRadioFieldGroup({ ...basicProps, descriptiveText }));
+    it('should render when descriptiveText is provided', () => {
+      render(RadioFieldGroup({ ...basicProps, descriptiveText }));
 
-      const descriptiveField = await screen.queryByText(descriptiveText);
+      const descriptiveField = screen.queryByText(descriptiveText);
       expect(descriptiveField).toContainHTML(descriptiveText);
     });
 
     it('should map to descriptive text correctly', async () => {
       const descriptiveText = 'Description';
-      render(getRadioFieldGroup({ ...basicProps, descriptiveText }));
+      render(RadioFieldGroup({ ...basicProps, descriptiveText }));
       const radioGroup = await screen.findByTestId(radioGroupTestId);
       expect(radioGroup).toHaveAccessibleDescription(descriptiveText);
     });
@@ -255,18 +265,16 @@ describe('RadioFieldGroup test suite', () => {
 
   describe('Error messages', () => {
     const errorMessage = 'This is an error message';
-    it('should not show when hasError is false', async () => {
-      render(getRadioFieldGroup({ ...basicProps }));
+    it('should not show when hasError is false', () => {
+      render(RadioFieldGroup({ ...basicProps }));
 
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText).not.toBeInTheDocument();
     });
 
-    it('should show when hasError and errorMessage', async () => {
-      render(
-        getRadioFieldGroup({ ...basicProps, hasError: true, errorMessage })
-      );
-      const errorText = await screen.queryByText(errorMessage);
+    it('should show when hasError and errorMessage', () => {
+      render(RadioFieldGroup({ ...basicProps, hasError: true, errorMessage }));
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText).toContainHTML(errorMessage);
     });
   });

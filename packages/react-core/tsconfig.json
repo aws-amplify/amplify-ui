@@ -9,7 +9,7 @@
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "importHelpers": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
