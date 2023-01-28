@@ -24,11 +24,11 @@ import {
 
 ## Usage
 
-Import the Radio and RadioGroupField components, and nest the Radio options inside the RadioGroupField. 
+Import the Radio and RadioGroupField components, and nest the Radio options inside the RadioGroupField.
 
-RadioGroupField requires both `label` and `name` for accessibility and form submission, respectively. Radio only requires the `value` prop, which will be submitted with form data. 
+RadioGroupField requires both `label` and `name` for accessibility and form submission, respectively. Radio only requires the `value` prop, which will be submitted with form data.
 
-You also have the option to set a Radio as pre-selected by passing its `value` to the `defaultValue` prop on the RadioGroupField. 
+You also have the option to set a Radio as pre-selected by passing its `value` to the `defaultValue` prop on the RadioGroupField.
 
 <Example>
   <BasicExample />
@@ -43,7 +43,7 @@ You also have the option to set a Radio as pre-selected by passing its `value` t
 
 ### Controlled component
 
-To manually control the RadioGroupField state, you can use the `value` and `onChange` props. 
+To manually control the RadioGroupField state, you can use the `value` and `onChange` props.
 
 <Example>
   <ControlledExample />
@@ -163,6 +163,7 @@ Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having 
     ```
 
     </ExampleCode>
+
   </Example>
 </ThemeExample>
 
@@ -181,15 +182,9 @@ To override styling on all Radio buttons, you can set the Amplify CSS variables 
   labelHidden
   className="global-radio-styling"
 >
-  <Radio value="a">
-    A
-  </Radio>
-  <Radio value="b">
-    B
-  </Radio>
-  <Radio value="c">
-    C
-  </Radio>
+  <Radio value="a">A</Radio>
+  <Radio value="b">B</Radio>
+  <Radio value="c">C</Radio>
 </RadioGroupField>
 
 ```css

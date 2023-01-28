@@ -1,4 +1,4 @@
-import { Fragment } from '@/components/Fragment'; 
+import { Fragment } from '@/components/Fragment';
 import { Flex, ToggleButton } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -159,6 +159,7 @@ In cases where you need to have at least one option on, you can set the `isSelec
     ```
 
     </ExampleCode>
+
   </Example>
 </ThemeExample>
 
@@ -171,7 +172,7 @@ In cases where you need to have at least one option on, you can set the `isSelec
 To override styling on all ToggleButtons, you can set the Amplify CSS variables or use the built-in `.amplify-togglebutton` class.
 
 <Example>
-  <ToggleButton className="my-togglebutton-global">{'Press me!'}</ToggleButton>
+  <ToggleButton className="my-togglebutton-global">Press me!</ToggleButton>
   <ExampleCode>
     ```css
     :root {
@@ -222,7 +223,7 @@ _Using data attributes:_
 
 <Example>
   <ToggleButton className="my-togglebutton-data-attribute" variation="primary">
-    {'Press me!'}
+    Press me!
   </ToggleButton>
   <ExampleCode>
     ```css

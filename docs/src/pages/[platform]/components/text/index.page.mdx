@@ -1,6 +1,6 @@
 ---
 title: Text
-description: Text is used to display text in an interface, and renders a <p> element by default.
+description: Text is used to display text in an interface, and renders a `<p>` element by default.
 themeSource: packages/ui/src/theme/tokens/components/text.ts
 reactSource: packages/react/src/primitives/Text/Text.tsx
 mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
-{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+{/**  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
   return { props: {} }

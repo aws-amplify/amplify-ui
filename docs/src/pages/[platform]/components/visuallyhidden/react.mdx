@@ -1,11 +1,12 @@
-import { Fragment } from '@/components/Fragment'; 
+import { Fragment } from '@/components/Fragment';
 import { Alert } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 
 import { DefaultVisuallyHiddenExample } from './examples';
 
-There are some common scenarios where you might need the VisuallyHidden primitive: 
+There are some common scenarios where you might need the VisuallyHidden primitive:
+
 - To provide an [accessible alternative to icon only buttons](#usage)
 - To provide additional context for screen reader users regarding interface interactions.
 - Combined with ARIA attributes such as `aria-live`, to announce context when a change in the interface occurs.
@@ -13,7 +14,9 @@ There are some common scenarios where you might need the VisuallyHidden primitiv
 Since the VisuallyHidden element is hidden using the CSS `clip` property, and not `display: none`, the element is still available to assistive technologies.
 
 <Alert role="none" variation="info" heading="Note">
- It's a good practice to consider if your VisuallyHidden content would be better served as visible for all; that way everyone benefits from the additional context.
+  It's a good practice to consider if your VisuallyHidden content would be
+  better served as visible for all; that way everyone benefits from the
+  additional context.
 </Alert>
 
 ## Usage
