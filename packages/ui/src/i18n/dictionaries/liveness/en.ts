@@ -63,4 +63,9 @@ export const enDict = {
   'Client error': 'Client error',
   'Ensure only one face is in front of camera':
     'Ensure only one face is in front of camera',
+  'Landscape orientation not supported': 'Landscape orientation not supported',
+  'Rotate your device to portrait (vertical) orientation':
+    'Rotate your device to portrait (vertical) orientation',
+  "Ensure your device remains in portrait orientation for the check's duration":
+    "Ensure your device remains in portrait orientation for the check's duration",
 };

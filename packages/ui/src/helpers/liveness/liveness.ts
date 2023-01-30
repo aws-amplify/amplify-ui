@@ -384,6 +384,7 @@ export const LivenessErrorStateStringMap: Record<
   ),
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: undefined,
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: undefined,
+  [LivenessErrorState.MOBILE_LANDSCAPE_ERROR]: undefined,
   [LivenessErrorState.FRESHNESS_TIMEOUT]:
     translate<string>('Hold face in oval'),
 };

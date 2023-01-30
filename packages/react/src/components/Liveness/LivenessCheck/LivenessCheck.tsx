@@ -11,7 +11,7 @@ import {
   useLivenessActor,
   useLivenessSelector,
 } from '../hooks';
-import { isMobileScreen } from '../utils/device';
+import { isMobileScreen, getLandscapeMediaQuery } from '../utils/device';
 import { Text, Flex, View, Button } from '../../../primitives';
 import { CancelButton } from '../shared/CancelButton';
 
@@ -36,20 +36,50 @@ export const LivenessCheck: React.FC = () => {
     send({ type: 'RETRY_CAMERA_CHECK' });
   };
 
-  return (
-    <Flex
-      direction="column"
-      position="relative"
-      data-amplify-liveness-detector-check=""
-      data-testid={CHECK_CLASS_NAME}
-      className={CHECK_CLASS_NAME}
-    >
-      {!isPermissionDenied ? (
-        <LivenessCameraModule
-          isMobileScreen={isMobile}
-          isRecordingStopped={isRecordingStopped}
+  React.useLayoutEffect(() => {
+    if (isMobile) {
+      const sendLandscapeWarning = (isLandscapeMatched: boolean) => {
+        if (isLandscapeMatched) {
+          send({ type: 'MOBILE_LANDSCAPE_WARNING' });
+        }
+      };
+
+      // Get orientation: landscape media query
+      const landscapeMediaQuery = getLandscapeMediaQuery();
+
+      // Send warning based on initial orientation
+      sendLandscapeWarning(landscapeMediaQuery.matches);
+
+      // Listen for future orientation changes and send warning
+      landscapeMediaQuery.addEventListener('change', (e) => {
+        sendLandscapeWarning(e.matches);
+      });
+
+      // Remove matchMedia event listener
+      return () => {
+        landscapeMediaQuery.removeEventListener('change', (e) =>
+          sendLandscapeWarning(e.matches)
+        );
+      };
+    }
+  }, [isMobile, send]);
+
+  const renderCheck = () => {
+    if (errorState === LivenessErrorState.MOBILE_LANDSCAPE_ERROR) {
+      return (
+        <Flex
+          backgroundColor="background.primary"
+          direction="column"
+          textAlign="center"
+          alignItems="center"
+          justifyContent="center"
+          position="absolute"
+          width="100%"
+          height={480}
         />
-      ) : (
+      );
+    } else if (isPermissionDenied) {
+      return (
         <Flex
           backgroundColor="background.primary"
           direction="column"
@@ -84,7 +114,26 @@ export const LivenessCheck: React.FC = () => {
             <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
           </View>
         </Flex>
-      )}
+      );
+    } else {
+      return (
+        <LivenessCameraModule
+          isMobileScreen={isMobile}
+          isRecordingStopped={isRecordingStopped}
+        />
+      );
+    }
+  };
+
+  return (
+    <Flex
+      direction="column"
+      position="relative"
+      data-amplify-liveness-detector-check=""
+      data-testid={CHECK_CLASS_NAME}
+      className={CHECK_CLASS_NAME}
+    >
+      {renderCheck()}
     </Flex>
   );
 };

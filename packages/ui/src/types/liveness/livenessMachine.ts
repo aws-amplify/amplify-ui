@@ -68,7 +68,8 @@ export type LivenessEventTypes =
   | 'DISCONNECT_EVENT'
   | 'SET_DOM_AND_CAMERA_DETAILS'
   | 'SERVER_ERROR'
-  | 'RETRY_CAMERA_CHECK';
+  | 'RETRY_CAMERA_CHECK'
+  | 'MOBILE_LANDSCAPE_WARNING';
 
 export type LivenessEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 

@@ -109,6 +109,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         target: 'error',
         actions: 'updateErrorStateForServer',
       },
+      MOBILE_LANDSCAPE_WARNING: {
+        target: 'mobileLandscapeWarning',
+        actions: 'updateErrorStateForServer',
+      },
     },
     states: {
       start: {
@@ -396,6 +400,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         on: {
           RETRY_CAMERA_CHECK: 'cameraCheck',
         },
+      },
+      mobileLandscapeWarning: {
+        entry: 'callMobileLandscapeWarningCallback',
+        always: [{ target: 'error' }],
       },
       timeout: {
         entry: ['cleanUpResources', 'callUserTimeoutCallback', 'freezeStream'],
@@ -712,6 +720,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           }
         },
       }),
+      callMobileLandscapeWarningCallback: assign({
+        errorState: (context) => {
+          return LivenessErrorState.MOBILE_LANDSCAPE_ERROR;
+        },
+      }),
       callUserCancelCallback: async (context) => {
         context.componentProps.onUserCancel?.();
       },
@@ -735,7 +748,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       callErrorCallback: async (context, event) => {
         const errorMessage =
-          event.data.error?.message || event.data.error?.Message;
+          event.data?.error?.message || event.data?.error?.Message;
         const error = new Error(errorMessage);
         error.name = context.errorState;
         context.componentProps.onError?.(error);
@@ -754,8 +767,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           videoAssociatedParams: { videoMediaStream, videoEl },
         } = context;
         context.isRecordingStopped = true;
-        videoEl.pause();
-        videoMediaStream.getTracks().forEach(function (track) {
+        videoEl?.pause();
+        videoMediaStream?.getTracks().forEach(function (track) {
           track.stop();
         });
       },

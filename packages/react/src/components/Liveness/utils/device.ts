@@ -27,5 +27,15 @@ export function isFirefox(): boolean {
 }
 
 export function isPortrait(): boolean {
-  return screen.orientation?.type?.includes('portrait') || true;
+  return window.matchMedia('(orientation: portrait)').matches;
+}
+
+/**
+ * Use window.matchMedia to direct landscape orientation
+ * screen.orientation is not supported in Safari so we will use
+ * media query detection to listen for changes instead.
+ * @returns MediaQueryList object
+ */
+export function getLandscapeMediaQuery(): MediaQueryList {
+  return window.matchMedia('(orientation: landscape)');
 }

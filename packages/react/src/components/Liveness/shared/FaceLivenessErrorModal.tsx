@@ -8,15 +8,14 @@ import {
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
 import { Flex, Button } from '../../../primitives';
+import { LandscapeErrorModal } from './LandscapeErrorModal';
 
 export interface FaceLivenessErrorModalProps {
   error: Error;
   onRetry: () => void;
 }
 
-export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
-  props
-) => {
+const renderToastErrorModal = (props: FaceLivenessErrorModalProps) => {
   const { error, onRetry } = props;
   const { name: errorState } = error;
 
@@ -49,4 +48,17 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
       </Toast>
     </Overlay>
   );
+};
+
+export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
+  props
+) => {
+  const { error, onRetry } = props;
+  const { name: errorState } = error;
+
+  if (errorState === LivenessErrorState.MOBILE_LANDSCAPE_ERROR) {
+    return <LandscapeErrorModal onRetry={onRetry} />;
+  } else {
+    return renderToastErrorModal(props);
+  }
 };

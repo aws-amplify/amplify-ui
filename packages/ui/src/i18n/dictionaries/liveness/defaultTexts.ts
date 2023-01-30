@@ -56,4 +56,9 @@ export const defaultTexts = {
     'Ensure only one face is in front of camera and avoid moving closer during countdown.',
 
   LIVENESS_HINT_MULTIPLE_FACES_DETECTED: 'Multiple faces detected',
+  LIVENESS_ORIENTATION_ERROR_TITLE: 'Landscape orientation not supported',
+  LIVENESS_ORIENTATION_LANDSCAPE:
+    'Rotate your device to portrait (vertical) orientation',
+  LIVENESS_ORIENTATION_PORTRAIT:
+    "Ensure your device remains in portrait orientation for the check's duration",
 };
