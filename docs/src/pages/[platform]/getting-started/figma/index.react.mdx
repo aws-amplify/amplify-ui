@@ -1,25 +1,41 @@
-
 import { Button, Link } from '@aws-amplify/ui-react';
 
-<iframe className="video" width="560" height="315" src="https://www.youtube.com/embed/kGvVG3hjpTU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe
+  className="video"
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/kGvVG3hjpTU"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
 
-Amplify Studio allows you to design components in Figma, visually bind those components to your data in Amplify Studio, and pull them into your application codebase. The Studio generated components are plain React components that compose the Amplify UI primitive components. Studio generated components can be easily extended or overridden so you never eject or throw them away. 
+Amplify Studio allows you to design components in Figma, visually bind those components to your data in Amplify Studio, and pull them into your application codebase. The Studio generated components are plain React components that compose the Amplify UI primitive components. Studio generated components can be easily extended or overridden so you never eject or throw them away.
 
 ## Figma file
 
-<Button as={Link} href="https://www.figma.com/community/file/1047600760128127424" isExternal>
+<Button
+  as={Link}
+  href="https://www.figma.com/community/file/1047600760128127424"
+  isExternal
+>
   Get the Figma file
 </Button>
 
-The Amplify UI Figma file for Amplify UI is not a typical design system Figma file. The main difference is it does not have all components Amplify UI offers and those components do not have all the variants you might expect to see (component states like hover for example). This is because this is not a normal Figma file. It is built to work with Amplify Studio's UI Builder functionality which lets you design components in Figma and generate usable and extensible React code you can use in your application. 
+The Amplify UI Figma file for Amplify UI is not a typical design system Figma file. The main difference is it does not have all components Amplify UI offers and those components do not have all the variants you might expect to see (component states like hover for example). This is because this is not a normal Figma file. It is built to work with Amplify Studio's UI Builder functionality which lets you design components in Figma and generate usable and extensible React code you can use in your application.
 
 ## Figma plugin
 
-<Button as={Link} href="https://www.figma.com/community/plugin/1040722185526429545/AWS-Amplify-Theme-Editor" isExternal>
+<Button
+  as={Link}
+  href="https://www.figma.com/community/plugin/1040722185526429545/AWS-Amplify-Theme-Editor"
+  isExternal
+>
   Get the Figma plugin
 </Button>
 
-The Amplify UI theme editor plugin allows you to create and edit an [Amplify UI theme](../theming) and save it to your Figma file. This theme is synced with your Amplify application and you can pull it into your app along with the generated UI components. 
+The Amplify UI theme editor plugin allows you to create and edit an [Amplify UI theme](../theming) and save it to your Figma file. This theme is synced with your Amplify application and you can pull it into your app along with the generated UI components.
 
 To install the Amplify Theme Editor:
 
@@ -29,8 +45,6 @@ To install the Amplify Theme Editor:
 1. Right-click an empty area of the canvas and select Plugins > Amplify Theme Editor or use the Figma quick actions menu by pressing command/control + / then typing "AWS Amplify"
 
 ## Figma to code
-
-
 
 [Learn more about Amplify Studio's Figma to code capabilities](https://docs.amplify.aws/console/uibuilder/figmatocode/)
 
@@ -67,4 +81,3 @@ You can use Amplify Studio to dynamically toggle between different component var
 When you run `amplify pull`, Amplify automatically generates JSX and TS versions of your Figma components. You cannot directly edit the code for these components as they will get overwritten on the next `pull`, but we have exposed mechanisms to extend the code.
 
 [Learn about extending Amplify Studio components](https://docs.amplify.aws/console/uibuilder/override/)
-

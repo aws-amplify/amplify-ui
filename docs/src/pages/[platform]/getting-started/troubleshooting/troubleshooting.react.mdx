@@ -22,12 +22,12 @@ Webpack 4 already includes this polyfill.
    as dev dependency:
 
 <Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install node-polyfill-webpack-plugin -D" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add node-polyfill-webpack-plugin -D" />
-</TabItem>
+  <TabItem title="npm">
+    <TerminalCommand command="npm install node-polyfill-webpack-plugin -D" />
+  </TabItem>
+  <TabItem title="yarn">
+    <TerminalCommand command="yarn add node-polyfill-webpack-plugin -D" />
+  </TabItem>
 </Tabs>
 
 2. Add the plugin to your `webpack.config.js` plugins list:\_
@@ -35,7 +35,7 @@ Webpack 4 already includes this polyfill.
 ```js
   plugins: [
     new NodePolyfillPlugin(), // Polyfill Node.js globals (e.g. global, process, etc)
-  ],
+  ]
 ```
 
 ## Vite
@@ -59,7 +59,7 @@ When working with a [Vite](https://vitejs.dev) project you must make a few modif
 **2.** Update the `vite.config.ts` and add in a resolve object inside the `defineConfig({})` as seen below.
 
 ```js
-...
+//...
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -75,22 +75,26 @@ export default defineConfig({
 
 **3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
 
-```js
-...
+```json
+{
   "compilerOptions": {
     "skipLibCheck": true,
-...
+  }
+}
 ```
 
 ## Create React App
 
 When using [Geo components](/connected-components/geo) and Create React App v5, users may experience the following error when rendering the `<MapView>` component in a production build:
+
 ```bash
 Uncaught ReferenceError: g is not defined
 ```
+
 The error is related to this [maplibre-gl issue](https://github.com/maplibre/maplibre-gl-js/issues/1011#issuecomment-1073112585) and surfaces due to the dropped support for Internet Explorer in `maplibre-gl` v2. To correct this error, you'll need to adjust your browser target for production to exclude Internet Explorer:
 
 **1.** In your `package.json` file of your Create React App, adjust the `browserslist.production` block from:
+
 ```json
 "browserslist": {
   "production": [
@@ -98,19 +102,22 @@ The error is related to this [maplibre-gl issue](https://github.com/maplibre/map
     "not dead",
     "not op_mini all"
   ],
-  ...
+  //...
 }
 ```
+
 to the following:
+
 ```json
 "browserslist": {
   "production": [
     "defaults",
     "not ie 11"
   ],
-  ...
+  //...
 }
 ```
+
 **2.** Rebuild your production application using `npx run build`.
 
 **3.** Run your production build using a tool like [serve](https://www.npmjs.com/package/serve) (`serve -s build`) and verify the `<MapView>` component renders without error.

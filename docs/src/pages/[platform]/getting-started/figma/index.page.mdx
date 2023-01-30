@@ -1,7 +1,7 @@
 ---
 title: Figma
 metaTitle: Figma to code
-description: Amplify Studio offers an integration with Figma, allowing you to generate clean React code by importing your Figma design file. 
+description: Amplify Studio offers an integration with Figma, allowing you to generate clean React code by importing your Figma design file.
 supportedFrameworks: react
 ---
 
@@ -12,10 +12,10 @@ export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
-{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+{/** `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
-  return { props: {} }
+  return { props: {} };
 }
 
 <Fragment>{({ platform }) => import(`./index.${platform}.mdx`)}</Fragment>

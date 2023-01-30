@@ -1,17 +1,19 @@
-import { Alert,  Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 
 ## 3.x to 4.x
+
 ### Installation
+
 Install the 4.x version of the `@aws-amplify/ui-react` library and the 5.x version of the `aws-amplify` library.
 
 <Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-react@4.x" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-react@4.x" />
-</TabItem>
+  <TabItem title="npm">
+    <TerminalCommand command="npm install aws-amplify@5.x @aws-amplify/ui-react@4.x" />
+  </TabItem>
+  <TabItem title="yarn">
+    <TerminalCommand command="yarn add aws-amplify@5.x @aws-amplify/ui-react@4.x" />
+  </TabItem>
 </Tabs>
 
 ### Update and usage
@@ -31,7 +33,8 @@ Replace any `TextField` components using the `isMultiline` prop with the `TextAr
 #### 2. `@aws-amplify/ui-react@4.x` moves text directionality support to ThemeProvider
 
 <Alert variation="info" heading="Note">
-  If you are NOT using `dir="rtl"` in your application, feel free to skip this item.
+  If you are NOT using `dir="rtl"` in your application, feel free to skip this
+  item.
 </Alert>
 
 `@aws-amplify/ui-react` has a dependency on Radix components for Menu, SliderField, Tabs, and Expander. There were a number of changes in the [July 21, 2022 release](https://www.radix-ui.com/docs/primitives/overview/releases#july-21-2022) of `radix-ui/*` packages, and the breaking change for `@aws-amplify/ui-react` was removal of support for the `dir` HTML attribute, and the addition of the `DirectionProvider`. In order to make the transition seamless for most of Amplify users, we've added the `DirectionProvider` with a default `direction` of `ltr` to the `ThemeProvider`.
@@ -42,6 +45,7 @@ If your application is using right to left directionality, the example below sho
 - <View dir="rtl">
 + <ThemeProvider direction="rtl">
 ```
+
 Also see: [Internationalization](/getting-started/internationalization)
 
 #### 3. `@aws-amplify/ui-react@4.x` removes legacy component exports
@@ -61,24 +65,25 @@ The following deprecated components imported from `@aws-amplify/ui-react/legacy`
 - [AmplifyS3TextPicker](https://github.com/aws-amplify/amplify-js/blob/v4-stable/packages/amplify-ui-components/src/components/amplify-s3-text-picker/readme.md)
 - withAuthenticator
 
-Depending on the v1 version of this package and re-exporting these components caused issues. If you still want to use these legacy components you can depend on the v1 version of this package with an npm alias in your dependencies: 
+Depending on the v1 version of this package and re-exporting these components caused issues. If you still want to use these legacy components you can depend on the v1 version of this package with an npm alias in your dependencies:
 
 `"@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9"`
 
 [Documentation for legacy components](https://github.com/aws-amplify/amplify-js/tree/v4-stable/packages/amplify-ui-components#readme)
 
-
 #### 4. `@aws-amplify/ui-react@4.x` adds `inputStyles` prop to Field primitives
 
-Before 4.0, Field components like `TextField` would try to intelligently apply certain style props onto the wrapper element and some on the input element. We felt this was a little too opaque to users, but we still want to allow you to style the input element directly. `@aws-amplify/ui-react@4.x` adds an `inputStyles` prop to Field components so you can apply style props directly on the input (or `textarea` or `select`) as well as on the wrapper element. 
+Before 4.0, Field components like `TextField` would try to intelligently apply certain style props onto the wrapper element and some on the input element. We felt this was a little too opaque to users, but we still want to allow you to style the input element directly. `@aws-amplify/ui-react@4.x` adds an `inputStyles` prop to Field components so you can apply style props directly on the input (or `textarea` or `select`) as well as on the wrapper element.
 
-Hopefully this change won't affect your code but will allow for more customization and control. 
+Hopefully this change won't affect your code but will allow for more customization and control.
 
 <Alert variation="info" heading="Note">
-  The TextAreaField component does apply 1 style prop directly on the `textarea` element: `resize`. We felt this one makes sense to apply direclty on the the `textarea` element and not the wrapper element.
+  The TextAreaField component does apply 1 style prop directly on the `textarea`
+  element: `resize`. We felt this one makes sense to apply direclty on the the
+  `textarea` element and not the wrapper element.
 </Alert>
 
-#### 5. `@aws-amplify/ui-react@4.x` moves automatic signin on signup logic to `aws-amplify`. 
+#### 5. `@aws-amplify/ui-react@4.x` moves automatic signin on signup logic to `aws-amplify`.
 
 If you are overriding `Auth.signUp`, update the override function call to include the `autoSignIn` option set to `enabled`. If this change is not made, users will not be automatically signed in on signup.
 
@@ -111,15 +116,16 @@ If you were using `I18n` to translate those keys, please update your translation
 ## 2.x to 3.x
 
 ### Installation
+
 Install the 3.x version of the `@aws-amplify/ui-react` library.
 
 <Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@3.x" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@3.x" />
-</TabItem>
+  <TabItem title="npm">
+    <TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@3.x" />
+  </TabItem>
+  <TabItem title="yarn">
+    <TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@3.x" />
+  </TabItem>
 </Tabs>
 
 ### Update and usage
@@ -142,17 +148,18 @@ Note: We did not remove the [Icon](/react/components/icon) component, which allo
 This export has been removed and should no longer be used.
 
 ## 1.x to 2.x
+
 ### Installation
 
 Install the 2.x version of the `@aws-amplify/ui-react` library.
 
 <Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@2.x" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@2.x" />
-</TabItem>
+  <TabItem title="npm">
+    <TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react@2.x" />
+  </TabItem>
+  <TabItem title="yarn">
+    <TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react@2.x" />
+  </TabItem>
 </Tabs>
 
 ### Update and Usage

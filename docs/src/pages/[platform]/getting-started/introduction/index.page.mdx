@@ -1,7 +1,9 @@
 ---
+
 title: Introduction
 description: What is Amplify UI?
 supportedFrameworks: all
+
 ---
 
 import { Alert } from '@aws-amplify/ui-react';
@@ -12,19 +14,19 @@ export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
-{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+{/** `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
-  return { props: {} }
+  return { props: {} };
 }
 
-Amplify UI is an open-source UI library that brings the simplicity and extensibility of AWS Amplify to UI development. It consists of connected components that simplify complex workflows like authentication and dynamic data, primitive components that form the building blocks of a UI, and themes to make Amplify UI fit any brand. **Extensibility and customization** are at the forefront of Amplify UI allowing easy integration into any application regardless of the front-end tech stack. 
+Amplify UI is an open-source UI library that brings the simplicity and extensibility of AWS Amplify to UI development. It consists of connected components that simplify complex workflows like authentication and dynamic data, primitive components that form the building blocks of a UI, and themes to make Amplify UI fit any brand. **Extensibility and customization** are at the forefront of Amplify UI allowing easy integration into any application regardless of the front-end tech stack.
 
 We want to take care of the details, like accessibility and cloud connectivity, so developers can focus on their product.
 
 ## Connected components
 
-Amplify UI connected components abstract away complex front-end code like authentication and dynamic data to provide an intuitive API. Connected components are built on top of primitive components and Amplify Libraries. 
+Amplify UI connected components abstract away complex front-end code like authentication and dynamic data to provide an intuitive API. Connected components are built on top of primitive components and Amplify Libraries.
 
 Connected components are completely customizable at every layer. Customize the look-and-feel with theming controls, override components and function calls, bring your own UI with a headless mode, or even go un-styled, giving you full control over state, layout, styling, and transitions.
 
@@ -38,7 +40,7 @@ Amplify UI primitive components are in the middle of the spectrum between 'headl
 
 All the styling is handled by plain CSS and themeable with CSS variables. However we do provide some extra styling utilities in React-like responsive style props, [ThemeProvider and useTheme hook](/react/theming), and [useBreakpointValue](/react/theming/responsive#usebreakpointvalue) for responsive values.
 
-Amplify UI primitive components adhere to WCAG (Web Content Accessibility Guidelines) and WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications) specifications for accessibility including color contrast for low-vision users, and accessible labels, keyboard navigation, and focus state management for keyboard-only users. 
+Amplify UI primitive components adhere to WCAG (Web Content Accessibility Guidelines) and WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications) specifications for accessibility including color contrast for low-vision users, and accessible labels, keyboard navigation, and focus state management for keyboard-only users.
 
 ## Tenets
 
@@ -56,7 +58,7 @@ We want to share as much as possible between platforms (like themes and schemas)
 
 ## Current status
 
-Currently, the [Authenticator](../connected-components/authenticator) is available for React, Angular, Vue, and Flutter. Primitive components are available for React, with Angular, Vue, and React Native coming soon. 
+Currently, the [Authenticator](../connected-components/authenticator) is available for React, Angular, Vue, and Flutter. Primitive components are available for React, with Angular, Vue, and React Native coming soon.
 
 > If you are an Angular or Vue developer and want to get started, they share the same CSS as React so with the right class names
 > (we use BEM syntax) you can at least get the styling and theming that React has!
@@ -65,11 +67,11 @@ Currently, the [Authenticator](../connected-components/authenticator) is availab
 
 Upcoming projects include
 
-* Native Android and iOS versions of the Authenticator (without webviews)
-* React Native Authenticator
-* Improved Storage components for React, Angular, and Vue
-* Primitives and theming for Angular and Vue
-* Data components and hooks for React
-* More primitives
+- Native Android and iOS versions of the Authenticator (without webviews)
+- React Native Authenticator
+- Improved Storage components for React, Angular, and Vue
+- Primitives and theming for Angular and Vue
+- Data components and hooks for React
+- More primitives
 
 If you would like to see something on our roadmap, [let us know on Github](https://github.com/aws-amplify/amplify-ui/discussions)
