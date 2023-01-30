@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "2.1.10",
+  "version": "2.1.11",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "react-native": "dist/index.js",
@@ -28,7 +28,7 @@
     "test:watch": "yarn test --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.2",
+    "@aws-amplify/ui": "5.5.3",
     "@xstate/react": "3.0.1",
     "lodash": "4.17.21",
     "xstate": "^4.33.6"
