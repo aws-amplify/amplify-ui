@@ -34,7 +34,8 @@ export const myTheme = {
 You can theme Amplify UI using CSS and CSS variables if you do not want to use the theme object structure. Amplify UI components use plain CSS so styling components can be done with CSS (or a pre-processor like [Sass](https://sass-lang.com/)). All of the design tokens defined in the Amplify theme are [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) which can be overridden:
 
 ```css
-:root, [data-amplify-theme] {
+:root,
+[data-amplify-theme] {
   --amplify-colors-font-primary: #333;
   /* you can also use references: */
   --amplify-colors-font-secondary: var(--amplify-colors-neutral-60);

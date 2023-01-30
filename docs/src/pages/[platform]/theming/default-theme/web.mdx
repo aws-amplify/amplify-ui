@@ -14,11 +14,12 @@ Amplify UI follows a consistent pattern when defining our default tokens for pro
     title="Colors" 
     desc="Tokens that define our default color palette" />
 
-  <CardLink 
+  <CardLink
     icon={<TypographyIcon />}
-    href="/react/theming/default-theme/typography" 
-    title="Typography" 
-    desc="Font families, font sizes, line heights and more" />
+    href="/react/theming/default-theme/typography"
+    title="Typography"
+    desc="Font families, font sizes, line heights and more"
+  />
 
   <CardLink 
     icon={<SizesIcon />}
@@ -49,6 +50,6 @@ If we use `space` as an example, we'd discover its token definition looks simila
   }
 ```
 
-All of our tokens follow this pattern: a top level namespace that is further defined by a scale, each which has their own unique value. In the case of our space design tokens, that scale is based on a size: small, medium, large, etc. Our [color tokens](/react/theming/default-theme/colors#neutral), on the other hand, are further defined by hue (red, blue, yellow, etc), and then by a numerical scale based on lightness (10-100). 
+All of our tokens follow this pattern: a top level namespace that is further defined by a scale, each which has their own unique value. In the case of our space design tokens, that scale is based on a size: small, medium, large, etc. Our [color tokens](/react/theming/default-theme/colors#neutral), on the other hand, are further defined by hue (red, blue, yellow, etc), and then by a numerical scale based on lightness (10-100).
 
 <Fragment>{({ platform }) => import(`./tokenUsage.${platform}.mdx`)}</Fragment>

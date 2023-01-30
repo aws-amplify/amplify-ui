@@ -54,14 +54,14 @@ These props change the look and/or behavior of certain Amplify components. Examp
 
 ```jsx
 import * as React from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 import { Button } from '@aws-amplify/ui-react';
 
 const StyledButton = styled(Button)`
-  color: blue
+  color: blue;
 `;
 
-<StyledButton variation="primary">Primary Button</StyledButton>
+<StyledButton variation="primary">Primary Button</StyledButton>;
 ```
 
 In the example above, the color of the button will be set to `blue`. Although the `primary` variation has a color value of white the Styled Components color value of blue will take precedence over the amplify-ui variation styling.
@@ -126,7 +126,7 @@ In the example above, the button color will be set to `blue` because the Styled 
 ```jsx
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
-import { View } from '@aws-amplify/ui-react';
+import { Text, View } from '@aws-amplify/ui-react';
 
 const useStyles = createUseStyles({
   styledText: {
@@ -134,10 +134,12 @@ const useStyles = createUseStyles({
   },
 });
 
-const classes = useStyles();
+export function JSSText(){
+  const classes = useStyles();
 
-//use the JSS create classes in the Amplify ui className
-<Text className={classes.styledText}>This is my JSS Text </Text>;
+  //use the JSS create classes in the Amplify ui className
+  return <Text className={classes.styledText}>This is my JSS Text </Text>;
+}
 ```
 
 ## Interactions
@@ -151,7 +153,7 @@ These are styling props that can be used directly on an Amplify component which 
 ```jsx
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
-import { View } from '@aws-amplify/ui-react';
+import { Text, View } from '@aws-amplify/ui-react';
 
 const useStyles = createUseStyles({
   styledText: {
@@ -159,14 +161,19 @@ const useStyles = createUseStyles({
   },
 });
 
-const classes = useStyles();
+export function JSSText(){
+  const classes = useStyles();
 
-<Text className={classes.styledText} color="red">
-  This is my JSS Text
-</Text>;
+  return (
+    <Text className={classes.styledText} color="red">
+      This is my JSS Text
+    </Text>
+  );
+}
 ```
 
 In the example above, the color of the view will be set to `red` because of the Amplify styling prop.
+
 ### Amplify variation props
 
 These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
@@ -182,11 +189,15 @@ const useStyles = createUseStyles({
   },
 });
 
-const classes = useStyles();
+export function JSSText(){
+  const classes = useStyles();
 
-<Button className={classes.styledButton} variation="primary">
-  Primary Button
-</Button>;
+  return (
+    <Button className={classes.styledButton} variation="primary">
+      Primary Button
+    </Button>
+  );
+}
 ```
 
 In the example above, the color of the button will be set to `blue`. Although the `primary` variation has a color value of white the JSS color value of blue will take precedence over the amplify-ui variation styling.
@@ -198,7 +209,7 @@ These are custom classnames added onto Amplify components and can be used with C
 ```jsx
 import * as React from 'react';
 import { createUseStyles } from 'react-jss';
-import { View } from '@aws-amplify/ui-react';
+import { Text, View } from '@aws-amplify/ui-react';
 
 const useStyles = createUseStyles({
   styledText: {
@@ -206,10 +217,12 @@ const useStyles = createUseStyles({
   },
 });
 
-const classes = useStyles();
-const classNames = `${classes.styledText} my-styled-text`;
+export function JSSText(){
+  const classes = useStyles();
+  const classNames = `${classes.styledText} my-styled-text`;
 
-<Text className={classNames}>This is my JSS Text </Text>;
+  return <Text className={classNames}>This is my JSS Text </Text>;
+}
 ```
 
 ```CSS
@@ -236,9 +249,11 @@ const useStyles = createUseStyles({
   },
 });
 
-const classes = useStyles();
+export function JSSButton(){
+  const classes = useStyles();
 
-<Button className={classes.styledButton}>Button</Button>;
+ return <Button className={classes.styledButton}>Button</Button>;
+}
 ```
 
 ```CSS

@@ -12,6 +12,7 @@ Import the `ThemeProvider` and wrap your application with it:
 
 ```jsx
 import { ThemeProvider } from '@aws-amplify/ui-react';
+import { YourApplication } from "./YourApplication";
 
 export const App = () => (
   <ThemeProvider>
@@ -21,6 +22,7 @@ export const App = () => (
 ```
 
 After wrapping your application in the `ThemeProvider`, you have access to all theme values in your components. To style the components in your app, you can either:
+
 1. Get the theme `tokens` through the `useTheme` hook (e.g., `tokens.colors.blue[80]`)
 2. Reference the theme `tokens` directly in style props (e.g., `"purple.80"`)
 
@@ -38,7 +40,7 @@ After wrapping your application in the `ThemeProvider`, you have access to all t
 
 ### theme
 
-To create and use your own custom theme, you may pass a [theme object](https://ui.docs.amplify.aws/react/theming#theme-object) to the `theme` prop on the `ThemeProvider`. 
+To create and use your own custom theme, you may pass a [theme object](https://ui.docs.amplify.aws/react/theming#theme-object) to the `theme` prop on the `ThemeProvider`.
 
 - [Theming overview](/theming)
 
@@ -56,30 +58,36 @@ To create and use your own custom theme, you may pass a [theme object](https://u
 
 The `ThemeProvider` accepts a `colorMode` prop which can be `light`, `dark`, or `system`.
 
-See the [Dark mode documentation](./dark-mode) for a detailed explanation of how to use the `colorMode` prop. 
+See the [Dark mode documentation](./dark-mode) for a detailed explanation of how to use the `colorMode` prop.
 
 ### nonce
 
-When you have a `Content-Security-Policy` ([CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) header defined, the browser will automatically block inline styles. 
+When you have a `Content-Security-Policy` ([CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)) header defined, the browser will automatically block inline styles.
 
 To safely allow inline styles when using strict CSP rules, you may pass a [nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) to the `nonce` prop on the `ThemeProvider`. This will add a nonce to the `<style>` tag rendered by the `ThemeProvider`. For example:
 
 **CSP rules**
+
 ```
 style-src css-cdn.example.com 'nonce-rAnd0m';
 ```
 
 **ThemeProvider**
+
 ```jsx
-<ThemeProvider nonce="rAnd0m">
-  {/* your app */}
-</ThemeProvider>
+import { ThemeProvider } from '@aws-amplify/ui-react';
+
+export const App = () => (
+  <ThemeProvider nonce="rAnd0m">{/* your app */}</ThemeProvider>
+);
 ```
 
 **HTML output**
+
 ```html
 <style nonce="rAnd0m">
-  :root, [data-amplify-theme] {
+  :root,
+  [data-amplify-theme] {
     --amplify-colors-white: hsl(0, 0%, 100%);
     /* etc */
   }
@@ -89,4 +97,4 @@ style-src css-cdn.example.com 'nonce-rAnd0m';
 </style>
 ```
 
-For more information, see the following documention on [allowing inline styles using a nonce](https://content-security-policy.com/examples/allow-inline-style). 
+For more information, see the following documention on [allowing inline styles using a nonce](https://content-security-policy.com/examples/allow-inline-style).

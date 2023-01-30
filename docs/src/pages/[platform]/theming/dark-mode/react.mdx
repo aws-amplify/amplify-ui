@@ -44,6 +44,7 @@ _Note: the Amplify UI theme and any overrides like dark mode are scoped to the T
       <DefaultDarkMode />
 
       <ExampleCode>
+
 ```jsx
 import * as React from 'react';
 import {
@@ -80,9 +81,10 @@ export const DefaultDarkMode = () => {
   );
 };
 ```
-        
+
       </ExampleCode>
     </Example>
+
   </TabItem>
   <TabItem title="TypeScript">
     <Example>
@@ -91,9 +93,10 @@ export const DefaultDarkMode = () => {
       <ExampleCode>
         ```tsx file=./examples/DefaultDarkMode.tsx
         ```
-        
+
       </ExampleCode>
     </Example>
+
   </TabItem>
 </Tabs>
 
@@ -160,26 +163,27 @@ export const CustomDarkModeExample = () => {
     ],
   };
 
-  return (
-    // Note: color mode overrides are scoped to the ThemeProvider
-    // if you use multiple providers
-    <ThemeProvider theme={theme} colorMode={colorMode}>
-      <Card>
-        <ToggleButtonGroup
-          value={colorMode}
-          isExclusive
-          onChange={(value) => setColorMode(value)}
-        >
-          <ToggleButton value="light">Light</ToggleButton>
-          <ToggleButton value="dark">Dark</ToggleButton>
-          <ToggleButton value="system">System</ToggleButton>
-        </ToggleButtonGroup>
-        <Text>Current color mode: {colorMode}</Text>
-      </Card>
-    </ThemeProvider>
-  );
-};
-```
+return (
+// Note: color mode overrides are scoped to the ThemeProvider
+// if you use multiple providers
+
+<ThemeProvider theme={theme} colorMode={colorMode}>
+  <Card>
+    <ToggleButtonGroup
+      value={colorMode}
+      isExclusive
+      onChange={(value) => setColorMode(value)}
+    >
+      <ToggleButton value="light">Light</ToggleButton>
+      <ToggleButton value="dark">Dark</ToggleButton>
+      <ToggleButton value="system">System</ToggleButton>
+    </ToggleButtonGroup>
+    <Text>Current color mode: {colorMode}</Text>
+  </Card>
+</ThemeProvider>
+); };
+
+````
       </ExampleCode>
     </Example>
   </TabItem>
@@ -190,7 +194,7 @@ export const CustomDarkModeExample = () => {
       <ExampleCode>
         ```tsx file=./examples/CustomDarkMode.tsx
         ```
-        
+
       </ExampleCode>
     </Example>
   </TabItem>
@@ -212,4 +216,4 @@ You can also write CSS variables directly to support color modes. If you are usi
 [data-amplify-color-mode='dark'] {
   --amplify-colors-background-primary: black;
 }
-```
+````

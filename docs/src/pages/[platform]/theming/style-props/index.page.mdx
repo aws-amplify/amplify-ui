@@ -36,33 +36,37 @@ export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
-{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+{/** `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
-  return { props: {} }
+  return { props: {} };
 }
 
 These style props are available on Amplify UI primitive components and can be used to modify the corresponding styles. This allows users to quickly make style adjustments without having to go through CSS or add a theme object. Style props override any conflicting CSS style sheet or theme styling.
 
 There are three ways of passing style props to a component:
-1. Pass any valid CSS property directly (e.g., backgroundColor="red")
-- This is useful for rapid prototyping or styling a component which differs from the main theme
-2. Use a design token from the Theme object by destructuring tokens from the `useTheme` hook (e.g., `backgroundColor={tokens.colors.red[40]}`)
-- This method utilizes [Amplify UI's theming capabilities](/theming), allowing for consistent design decisions as well as dynamic updates to the theme (e.g., light/dark mode).
-3. Use the shorthand syntax to reference design tokens without using the `useTheme` hook (e.g., `backgroundColor="red.40"`)
-- This is a convenient shorthand for method 2. However, not all design tokens have a shorthand mapping.
+
+1.  Pass any valid CSS property directly (e.g., backgroundColor="red")
+
+*   This is useful for rapid prototyping or styling a component which differs from the main theme
+
+2.  Use a design token from the Theme object by destructuring tokens from the `useTheme` hook (e.g., `backgroundColor={tokens.colors.red[40]}`)
+
+*   This method utilizes [Amplify UI's theming capabilities](/theming), allowing for consistent design decisions as well as dynamic updates to the theme (e.g., light/dark mode).
+
+3.  Use the shorthand syntax to reference design tokens without using the `useTheme` hook (e.g., `backgroundColor="red.40"`)
+
+*   This is a convenient shorthand for method 2. However, not all design tokens have a shorthand mapping.
 
 ## Background Styles
+
 <Example>
+  <BackgroundThemeTokenExample />
 
-<BackgroundThemeTokenExample/>
-<ExampleCode>
-
-```jsx file=./examples/BackgroundExamples.tsx
-
-```
-
-</ExampleCode>
+  <ExampleCode>
+    ```jsx file=./examples/BackgroundExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <BackgroundStyles />
@@ -70,12 +74,12 @@ There are three ways of passing style props to a component:
 ## Border Styles
 
 <Example className="example-styling-demo">
-<BorderThemeTokenExample/>
-<ExampleCode>
-```jsx file=./examples/BorderExamples.tsx
+  <BorderThemeTokenExample />
 
-```
-</ExampleCode>
+  <ExampleCode>
+    ```jsx file=./examples/BorderExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <BorderStyles />
@@ -83,11 +87,12 @@ There are three ways of passing style props to a component:
 ## Color Styles
 
 <Example>
-<ColorThemeTokenExample/>
-<ExampleCode>
-```jsx file=./examples/ColorExamples.tsx
-```
-</ExampleCode>
+  <ColorThemeTokenExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/ColorExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <ColorStyles />
@@ -95,11 +100,12 @@ There are three ways of passing style props to a component:
 ## Flex
 
 <Example>
-<FlexStylePropExample />
-<ExampleCode>
-```jsx file=./examples/FlexExamples.tsx
-```
-</ExampleCode>
+  <FlexStylePropExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/FlexExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <FlexStyles />
@@ -107,11 +113,12 @@ There are three ways of passing style props to a component:
 ## Grid
 
 <Example>
-<GridStylePropExample />
-<ExampleCode>
-```jsx file=./examples/GridExamples.tsx
-```
-</ExampleCode>
+  <GridStylePropExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/GridExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <GridStyles />
@@ -119,11 +126,12 @@ There are three ways of passing style props to a component:
 ## Margin and Padding
 
 <Example className="example-styling-demo">
-<MarginAndPaddingThemeTokenExample />
-<ExampleCode>
-```jsx file=./examples/MarginAndPaddingExamples.tsx
-```
-</ExampleCode>
+  <MarginAndPaddingThemeTokenExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/MarginAndPaddingExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <MarginAndPaddingStyles />
@@ -131,11 +139,12 @@ There are three ways of passing style props to a component:
 ## Position Styles
 
 <Example>
-<PositionThemeTokenExample />
-<ExampleCode>
-```jsx file=./examples/PositionExamples.tsx
-```
-</ExampleCode>
+  <PositionThemeTokenExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/PositionExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <PositionStyles />
@@ -143,11 +152,12 @@ There are three ways of passing style props to a component:
 ## Size Styles
 
 <Example className="example-styling-demo">
-<SizeThemeTokenExample />
-<ExampleCode>
-```jsx file=./examples/SizeExamples.tsx
-```
-</ExampleCode>
+  <SizeThemeTokenExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/SizeExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <SizeStyles />
@@ -155,11 +165,12 @@ There are three ways of passing style props to a component:
 ## Shadow Styles
 
 <Example className="example-styling-demo">
-<ShadowThemeTokenExample />
-<ExampleCode>
-```jsx file=./examples/ShadowExamples.tsx
-```
-</ExampleCode>
+  <ShadowThemeTokenExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/ShadowExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <ShadowStyles />
@@ -167,11 +178,12 @@ There are three ways of passing style props to a component:
 ## Typography Styles
 
 <Example>
-<TypographyThemeTokenExample />
-<ExampleCode>
-```jsx file=./examples/TypographyExamples.tsx
-```
-</ExampleCode>
+  <TypographyThemeTokenExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/TypographyExamples.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 <TypographyStyles />

@@ -19,12 +19,15 @@ If you have multiple `ThemeProvider`s in your application, make sure to store `c
 
 Amplify UI comes with a default dark mode that you can use. Import the `defaultDarkModeOverride` and add it to the overrides array in your theme.
 
-If you want to honor your users' operating system preference for color mode, you can send the `useColorScheme` hook from React Native to the `colorMode` prop on the `ThemeProvider`. 
+If you want to honor your users' operating system preference for color mode, you can send the `useColorScheme` hook from React Native to the `colorMode` prop on the `ThemeProvider`.
 
 ```jsx
 import * as React from 'react';
 import { useColorScheme } from 'react-native';
-import { defaultDarkModeOverride, ThemeProvider } from '@aws-amplify/ui-react-native';
+import {
+  defaultDarkModeOverride,
+  ThemeProvider,
+} from '@aws-amplify/ui-react-native';
 
 const theme = {
   overrides: [defaultDarkModeOverride],
@@ -59,7 +62,9 @@ export const CustomDarkModeExample = () => {
     // Note: color mode overrides are scoped to the ThemeProvider
     // if you use multiple providers
     <ThemeProvider theme={theme} colorMode={colorMode}>
-      <Pressable onPress={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}>
+      <Pressable
+        onPress={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
+      >
         <Text>Change theme</Text>
       </Pressable>
     </ThemeProvider>
@@ -69,7 +74,7 @@ export const CustomDarkModeExample = () => {
 
 ## Custom dark mode
 
-You can create your own dark mode override as well. The dark mode override will be applied when `colorMode` on the `ThemeProvider` is set to `dark`. 
+You can create your own dark mode override as well. The dark mode override will be applied when `colorMode` on the `ThemeProvider` is set to `dark`.
 
 ```jsx
 const theme = {

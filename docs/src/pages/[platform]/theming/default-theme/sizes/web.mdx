@@ -1,8 +1,9 @@
 import { Fragment } from '@/components/Fragment';
-import { 
+import {
   TokensSizeSpace,
   TokensSizeBorderWidths,
-  TokensSizeRadii } from '@/components/Theming/TokenGroups';
+  TokensSizeRadii,
+} from '@/components/Theming/TokenGroups';
 
 ## Space
 
@@ -12,7 +13,9 @@ import {
 
 ## Border Widths
 
-<Fragment>{({ platform }) => import(`./borderWidthUsage.${platform}.mdx`)}</Fragment>
+<Fragment>
+  {({ platform }) => import(`./borderWidthUsage.${platform}.mdx`)}
+</Fragment>
 
 <TokensSizeBorderWidths />
 

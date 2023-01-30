@@ -1,6 +1,5 @@
 A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of [design tokens](#design-tokens) and [overrides](#overrides).
 
-
 ## Getting started
 
 Wrap your application in a `ThemeProvider` and pass in a `Theme` object
@@ -12,18 +11,14 @@ const theme = {
   tokens: {
     colors: {
       font: {
-        primary: 'black'
-      }
-    }
-  }
-}
+        primary: 'black',
+      },
+    },
+  },
+};
 
 export default function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      {/* ... */}
-    </ThemeProvider>
-  )
+  return <ThemeProvider theme={theme}>{/* ... */}</ThemeProvider>;
 }
 ```
 
@@ -50,11 +45,11 @@ const theme = {
           80: '{colors.pink.80}',
           90: '{colors.pink.90}',
           100: '{colors.pink.100}',
-        }
-      }
-    }
-  }
-}
+        },
+      },
+    },
+  },
+};
 ```
 
 A full theme would look like this:
@@ -64,8 +59,8 @@ const theme = {
   tokens: {
     colors: {},
     fontSizes: {},
-  }
-}
+  },
+};
 ```
 
 ### Overrides
@@ -81,21 +76,23 @@ const theme = {
       background: {
         // This will resolve to #fff in light mode
         // and #000 in dark mode because of the override below
-        primary: '{colors.white}'
+        primary: '{colors.white}',
       },
       font: {
-        primary: '{colors.black}'
-      }
-    }
+        primary: '{colors.black}',
+      },
+    },
   },
-  overrides: [{
-    colorMode: 'dark',
-    tokens: {
-      colors: {
-        white: '#000',
-        black: '#fff'
-      }
-    }
-  }]
-}
+  overrides: [
+    {
+      colorMode: 'dark',
+      tokens: {
+        colors: {
+          white: '#000',
+          black: '#fff',
+        },
+      },
+    },
+  ],
+};
 ```
