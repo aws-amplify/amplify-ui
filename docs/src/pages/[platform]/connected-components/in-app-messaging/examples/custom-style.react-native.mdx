@@ -1,6 +1,9 @@
-import { Tabs, TabItem, } from '@aws-amplify/ui-react';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
-import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
+import {
+  ResponsiveTable,
+  ResponsiveTableCell,
+} from '@/components/ResponsiveTable';
 
 <Example>
 <ExampleCode>
@@ -22,40 +25,43 @@ const { InAppMessaging } = Notifications;
 Amplify.configure(config);
 
 const StyledModalMessage = (props) => (
-  <InAppMessageDisplay.ModalMessage
-    {...props}
-    style={{ container: { backgroundColor: 'antiquewhite' } }}
-  />
+
+{' '}
+
+<InAppMessageDisplay.ModalMessage
+  {...props}
+  style={{ container: { backgroundColor: 'antiquewhite' } }}
+/>
 );
 
 function App() {
-  const { displayMessage } = useInAppMessaging();
+const { displayMessage } = useInAppMessaging();
 
-  useEffect(() => {
-    // sync remote in-app messages
-    InAppMessaging.syncMessages();
-  }, []);
+useEffect(() => {
+// sync remote in-app messages
+InAppMessaging.syncMessages();
+}, []);
 
-  const displayStyledModalMessage = useCallback(
-    () =>
-      displayMessage({
-        content: [{ header: { content: 'Hello World!' } }],
-        id: 'styled message',
-        layout: 'MODAL',
-      }),
-    [displayMessage]
-  );
+const displayStyledModalMessage = useCallback(
+() =>
+displayMessage({
+content: [{ header: { content: 'Hello World!' } }],
+id: 'styled message',
+layout: 'MODAL',
+}),
+[displayMessage]
+);
 
-  // display message component on initial render
-  useEffect(displayStyledModalMessage, [displayStyledModalMessage]);
+// display message component on initial render
+useEffect(displayStyledModalMessage, [displayStyledModalMessage]);
 
-  return (
-    <Button 
-      onPress={displayStyledModalMessage} 
-      title="Display Custom Modal Message" 
-    />
-  );
-}
+return (
+
+<Button
+  onPress={displayStyledModalMessage}
+  title="Display Custom Modal Message"
+/>
+); }
 
 export default withInAppMessaging(App, {
   components: { ModalMessage: StyledModalMessage },
@@ -63,5 +69,3 @@ export default withInAppMessaging(App, {
 ```
 </ExampleCode>
 </Example>
-
-

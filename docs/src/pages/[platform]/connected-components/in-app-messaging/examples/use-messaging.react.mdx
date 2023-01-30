@@ -12,19 +12,21 @@ import '@aws-amplify/ui-react/styles.css';
 import { Home } from './src/Home';
 
 const MyInAppMessageDisplay = () => {
-  const { inAppMessage } = useInAppMessaging();
+const { inAppMessage } = useInAppMessaging();
 
-  // ...do something with inAppMessage
+// ...do something with inAppMessage
 };
 
 const App = () => {
-  return (
-    <InAppMessagingProvider>
-      <MyInAppMessageDisplay />
-      <Home />
-    </InAppMessagingProvider>
-  );
-};
+return (
+
+<InAppMessagingProvider>
+  <MyInAppMessageDisplay />
+  <Home />
+</InAppMessagingProvider>
+); };
+
 ```
 </ExampleCode>
 </Example>
+```

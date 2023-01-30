@@ -20,50 +20,50 @@ const { InAppMessaging } = Notifications;
 Amplify.configure(config);
 
 const CustomBannerMessage = (props) => {
-  return (
-    <View
-      style={{
+return (
+
+<View
+style={{
         alignItems: 'center',
         backgroundColor='teal',
         borderRadius: 4,
         padding: 16,
         position: 'absolute',
-      }}
-    >
-      <Text>{props.header.content}</Text>
-      <Button onPress={props.onClose} title="Close!" />
-    </View>
-  );
+      }} >
+<Text>{props.header.content}</Text>
+<Button onPress={props.onClose} title="Close!" />
+</View>
+);
 };
 
 function App() {
-  const { displayMessage } = useInAppMessaging();
+const { displayMessage } = useInAppMessaging();
 
-  useEffect(() => {
-    // sync remote in-app messages
-    InAppMessaging.syncMessages();
-  }, []);
+useEffect(() => {
+// sync remote in-app messages
+InAppMessaging.syncMessages();
+}, []);
 
-  const displayCustomBannerMessage = useCallback(
-    () =>
-      displayMessage({
-        content: [{ header: { content: 'Hello World!' } }],
-        id: 'Custom message',
-        layout: 'TOP_BANNER',
-      }),
-    [displayMessage]
-  );
+const displayCustomBannerMessage = useCallback(
+() =>
+displayMessage({
+content: [{ header: { content: 'Hello World!' } }],
+id: 'Custom message',
+layout: 'TOP_BANNER',
+}),
+[displayMessage]
+);
 
-  // display custom message component on initial render
-  useEffect(displayCustomBannerMessage, [displayCustomBannerMessage]);
+// display custom message component on initial render
+useEffect(displayCustomBannerMessage, [displayCustomBannerMessage]);
 
-  return (
-    <Button 
-      onPress={displayCustomBannerMessage}
-      title="Display Custom Banner Message"
-    />
-  );
-}
+return (
+
+<Button
+  onPress={displayCustomBannerMessage}
+  title="Display Custom Banner Message"
+/>
+); }
 
 export default withInAppMessaging(App, {
   components: { BannerMessage: CustomBannerMessage },
