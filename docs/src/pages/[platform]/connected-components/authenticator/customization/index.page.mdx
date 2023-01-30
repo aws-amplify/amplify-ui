@@ -1,8 +1,10 @@
 ---
+
 title: Customization
 metaTitle: Customization
 description: Override and customize your Authenticator.
 supportedFrameworks: all
+
 ---
 
 import { Fragment } from '@/components/Fragment';
@@ -14,10 +16,10 @@ export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
-{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+{/** `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
-  return { props: {} }
+  return { props: {} };
 }
 
 <DeveloperPreview />
@@ -54,7 +56,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
 </Fragment>
 
-<Fragment  useCommonWebContent platforms={['web', 'flutter']}>
+<Fragment useCommonWebContent platforms={['web', 'flutter']}>
   {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
 </Fragment>
 
@@ -62,7 +64,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./formfields/form-fields.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web','react-native']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native']}>
   {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
 </Fragment>
 

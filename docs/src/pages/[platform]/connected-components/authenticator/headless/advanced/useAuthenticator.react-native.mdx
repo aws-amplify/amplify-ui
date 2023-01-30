@@ -7,11 +7,13 @@ import { Tabs, TabItem } from '@aws-amplify/ui-react';
 ```jsx
 import { Authenticator } from '@aws-amplify/ui-react-native';
 
-export default () => (
+const App = () => (
   <Authenticator.Provider>
     <App />
   </Authenticator.Provider>
 );
+
+export default App;
 ```
 
 Then, you can use `useAuthenticator` on your App:
@@ -41,7 +43,7 @@ export default function App() {
       </View>
     </Authenticator.Provider>
   );
-};
+}
 ```
 
 ## Prevent Re-renders
@@ -55,6 +57,10 @@ For example, you can ensure `useAuthenticator` to only reevaluate when its `user
 ```jsx
 import { useAuthenticator } from '@aws-amplify/ui-react-native';
 
-// hook below is only reevaluated when `user` changes
+export default function App() {
 const { user, signOut } = useAuthenticator((context) => [context.user]);
+  return (
+    <> ... </>
+  );
+}
 ```

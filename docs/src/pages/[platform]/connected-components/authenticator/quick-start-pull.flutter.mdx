@@ -1,8 +1,6 @@
 import { Fragment } from '@/components/Fragment';
 
-<Fragment>
-  {({ platform }) => import(`./amplify-cli.mdx`)}
-</Fragment>
+<Fragment>{({ platform }) => import(`./amplify-cli.mdx`)}</Fragment>
 
 Then run `amplify pull` to sync your `amplifyconfiguration.json` with your cloud backend:
 
@@ -11,4 +9,3 @@ amplify pull
 ```
 
 This will update your `amplifyconfiguration.json` with your latest backend configuration for the Authenticator.
-

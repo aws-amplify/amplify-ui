@@ -15,16 +15,18 @@ export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
 }
 
-{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+{/** `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
-  return { props: {} }
+  return { props: {} };
 }
 
 <DeveloperPreview />
 
 <Alert role="none" heading="Wait!">
-  Did you follow the [quick start instructions](/connected-components/authenticator#quick-start) to set up the Authenticator first?
+  Did you follow the [quick start
+  instructions](/connected-components/authenticator#quick-start) to set up the
+  Authenticator first?
 </Alert>
 
 ## Initial State
@@ -36,26 +38,31 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
+
     <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./initialState.signIn.example.${platform}.mdx`)
       }
     </Fragment>
   </TabItem>
+
   <TabItem title="Sign Up">
     <Fragment>
       {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
     </Fragment>
+
     <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./initialState.signUp.example.${platform}.mdx`)
       }
     </Fragment>
   </TabItem>
+
   <TabItem title="Reset Password">
     <Fragment>
       {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
     </Fragment>
+
     <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./initialState.resetPassword.example.${platform}.mdx`)
@@ -73,32 +80,36 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
 ## Sign Up Attributes
 
 <Alert role="none" heading="Zero Configuration">
-
-The Authenticator [automatically infers](/connected-components/authenticator#step-1-configure-backend) `signUpAttributes` from `amplify pull`,
-but can be explicitly defined as seen below.
-
+  The Authenticator [automatically
+  infers](/connected-components/authenticator#step-1-configure-backend)
+  `signUpAttributes` from `amplify pull`, but can be explicitly defined as seen
+  below.
 </Alert>
 
-The Authenticator automatically renders _most_ [Cognito User Pools attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html),
+The Authenticator automatically renders *most* [Cognito User Pools attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html),
 with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, and `zoneinfo`. Because these are often app-specific, they can be customized via [Sign Up fields](customization#sign-up-fields).
 
 <Tabs>
   <TabItem title="Verification Attributes">
     By default, the Authenticator will still require any attributes required for
-    verification, such as `email`, _even if `signUpAttributes` is empty_:
+    verification, such as `email`, *even if `signUpAttributes` is empty*:
+
     <Fragment>
       {({ platform }) => import(`./signUpAttributes.default.${platform}.mdx`)}
     </Fragment>
+
     <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./signUpAttributes.default.example.${platform}.mdx`)
       }
     </Fragment>
   </TabItem>
+
   <TabItem title="All Attributes">
     <Fragment>
       {({ platform }) => import(`./signUpAttributes.all.${platform}.mdx`)}
     </Fragment>
+
     <Fragment platforms={['web', 'flutter']} useCommonWebContent>
       {({ platform }) =>
         import(`./signUpAttributes.all.example.${platform}.mdx`)

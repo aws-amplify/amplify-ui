@@ -16,13 +16,11 @@ export class UseAuthenticatorComponent {
     Amplify.configure(awsExports);
   }
 }
-
 ```
 
 _use-authenticator.component.html_
 
-
-```html{4-6} 
+```html{4-6}
 <amplify-authenticator>
   <ng-template amplifySlot="sign-in-footer">
     <div style="text-align: center">

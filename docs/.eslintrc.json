@@ -8,5 +8,11 @@
     "ecmaFeatures": {
       "jsx": true
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.angular.mdx"],
+      "settings": { "mdx/code-blocks": false }
+    }
+  ]
 }

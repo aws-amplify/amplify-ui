@@ -1,8 +1,6 @@
 import { Fragment } from '@/components/Fragment';
 
-<Fragment>
-  {({ platform }) => import(`./amplify-cli.mdx`)}
-</Fragment>
+<Fragment>{({ platform }) => import(`./amplify-cli.mdx`)}</Fragment>
 
 Now that you have the Amplify CLI installed, you can set up your Amplify project by running `amplify init` in your project's root directory. Then run `amplify add auth` and follow the prompts to add authentication to your backend configuration.
 

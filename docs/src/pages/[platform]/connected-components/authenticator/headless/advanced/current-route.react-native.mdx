@@ -16,10 +16,11 @@ You can use `useAuthenticator` hook to access `route` string that represents the
 - `authenticated`
 
 ```jsx
-import { useAuthenticator } from '@aws-amplify/ui-react-native';
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
+import { Home } from './Home';
 
 const App = () => {
-  const { route } = useAuthenticator(context => [context.route]);
+  const { route } = useAuthenticator((context) => [context.route]);
 
   // Use the value of route to decide which page to render
   return route === 'authenticated' ? <Home /> : <Authenticator />;
