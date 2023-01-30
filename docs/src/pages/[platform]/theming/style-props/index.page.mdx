@@ -1,7 +1,9 @@
 ---
+
 title: Style Props
 metaDescription: 'CSS Style Props that are available on every Amplify UI component'
 supportedFrameworks: react
+
 ---
 
 import { Example, ExampleCode } from '@/components/Example';
@@ -48,15 +50,15 @@ There are three ways of passing style props to a component:
 
 1.  Pass any valid CSS property directly (e.g., backgroundColor="red")
 
-*   This is useful for rapid prototyping or styling a component which differs from the main theme
+- This is useful for rapid prototyping or styling a component which differs from the main theme
 
 2.  Use a design token from the Theme object by destructuring tokens from the `useTheme` hook (e.g., `backgroundColor={tokens.colors.red[40]}`)
 
-*   This method utilizes [Amplify UI's theming capabilities](/theming), allowing for consistent design decisions as well as dynamic updates to the theme (e.g., light/dark mode).
+- This method utilizes [Amplify UI's theming capabilities](/theming), allowing for consistent design decisions as well as dynamic updates to the theme (e.g., light/dark mode).
 
 3.  Use the shorthand syntax to reference design tokens without using the `useTheme` hook (e.g., `backgroundColor="red.40"`)
 
-*   This is a convenient shorthand for method 2. However, not all design tokens have a shorthand mapping.
+- This is a convenient shorthand for method 2. However, not all design tokens have a shorthand mapping.
 
 ## Background Styles
 

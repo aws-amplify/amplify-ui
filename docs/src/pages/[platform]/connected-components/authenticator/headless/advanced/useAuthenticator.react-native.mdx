@@ -58,9 +58,7 @@ For example, you can ensure `useAuthenticator` to only reevaluate when its `user
 import { useAuthenticator } from '@aws-amplify/ui-react-native';
 
 export default function App() {
-const { user, signOut } = useAuthenticator((context) => [context.user]);
-  return (
-    <> ... </>
-  );
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+  return <> ... </>;
 }
 ```

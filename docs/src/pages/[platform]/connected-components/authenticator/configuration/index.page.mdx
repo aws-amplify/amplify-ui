@@ -1,8 +1,10 @@
 ---
+
 title: Configuration
 metaTitle: Configuration
 description: How to setup and configure your Authenticator component.
 supportedFrameworks: all
+
 ---
 
 import { Fragment } from '@/components/Fragment';
@@ -44,6 +46,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
         import(`./initialState.signIn.example.${platform}.mdx`)
       }
     </Fragment>
+
   </TabItem>
 
   <TabItem title="Sign Up">
@@ -56,6 +59,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
         import(`./initialState.signUp.example.${platform}.mdx`)
       }
     </Fragment>
+
   </TabItem>
 
   <TabItem title="Reset Password">
@@ -68,6 +72,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
         import(`./initialState.resetPassword.example.${platform}.mdx`)
       }
     </Fragment>
+
   </TabItem>
 </Tabs>
 
@@ -86,7 +91,7 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
   below.
 </Alert>
 
-The Authenticator automatically renders *most* [Cognito User Pools attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html),
+The Authenticator automatically renders _most_ [Cognito User Pools attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html),
 with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, and `zoneinfo`. Because these are often app-specific, they can be customized via [Sign Up fields](customization#sign-up-fields).
 
 <Tabs>
@@ -103,6 +108,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
         import(`./signUpAttributes.default.example.${platform}.mdx`)
       }
     </Fragment>
+
   </TabItem>
 
   <TabItem title="All Attributes">
@@ -115,6 +121,7 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
         import(`./signUpAttributes.all.example.${platform}.mdx`)
       }
     </Fragment>
+
   </TabItem>
 </Tabs>
 

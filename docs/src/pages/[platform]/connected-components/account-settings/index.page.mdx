@@ -1,7 +1,9 @@
 ---
+
 title: Account Settings
 description: Amplify UI provides account settings components to manage account settings.
 supportedFrameworks: react
+
 ---
 
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
@@ -11,13 +13,13 @@ import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import { DeveloperPreview } from './DeveloperPreview';
 
 export async function getStaticPaths() {
-  return getCustomStaticPath("react");
+  return getCustomStaticPath('react');
 }
 
-{/**  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
+{/** `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
-  return { props: {} }
+  return { props: {} };
 }
 
 <DeveloperPreview />

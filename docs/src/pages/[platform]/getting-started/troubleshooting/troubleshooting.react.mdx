@@ -33,9 +33,9 @@ Webpack 4 already includes this polyfill.
 2. Add the plugin to your `webpack.config.js` plugins list:\_
 
 ```js
-  plugins: [
-    new NodePolyfillPlugin(), // Polyfill Node.js globals (e.g. global, process, etc)
-  ]
+plugins: [
+  new NodePolyfillPlugin(), // Polyfill Node.js globals (e.g. global, process, etc)
+];
 ```
 
 ## Vite
@@ -63,14 +63,14 @@ When working with a [Vite](https://vitejs.dev) project you must make a few modif
 export default defineConfig({
   plugins: [react()],
   resolve: {
-      alias: [
+    alias: [
       {
         find: './runtimeConfig',
         replacement: './runtimeConfig.browser',
       },
-    ]
-  }
-})
+    ],
+  },
+});
 ```
 
 **3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
@@ -78,7 +78,7 @@ export default defineConfig({
 ```json
 {
   "compilerOptions": {
-    "skipLibCheck": true,
+    "skipLibCheck": true
   }
 }
 ```
