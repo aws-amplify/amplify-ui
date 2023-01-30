@@ -22,22 +22,27 @@ export async function getStaticPaths() {
 {/** `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" **/}
 
 export async function getStaticProps() {
-  return { props: {} }
+  return { props: {} };
 }
 
-<PageTabLayout 
-  tabComponents={[{
-    title: "Documentation", 
-    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
-  },
-  {
-    title: "Props", 
-    children: <PropsTableTab 
-                componentName={frontmatter.title} 
-                PropsData={data} 
-                htmlElement={frontmatter.htmlElement} 
-                mdnUrl={frontmatter.mdnUrl}
-              />
-  }]}
+<PageTabLayout
+  tabComponents={[
+    {
+      title: 'Documentation',
+      children: (
+        <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+      ),
+    },
+    {
+      title: 'Props',
+      children: (
+        <PropsTableTab
+          componentName={frontmatter.title}
+          PropsData={data}
+          htmlElement={frontmatter.htmlElement}
+          mdnUrl={frontmatter.mdnUrl}
+        />
+      ),
+    },
+  ]}
 />
-        
