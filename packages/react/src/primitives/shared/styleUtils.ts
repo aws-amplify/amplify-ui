@@ -105,6 +105,7 @@ interface ConvertStylePropsToStyleObjParams {
   breakpoints: Breakpoints;
   tokens: WebTheme['tokens'];
 }
+
 export interface ConvertStylePropsToStyleObj {
   (params: ConvertStylePropsToStyleObjParams): {
     propStyles: React.CSSProperties;
@@ -117,28 +118,8 @@ const isComponentStyleProp = (key: string): key is AllStylePropKey => {
 };
 
 /**
- * This takes an unknown value, which could be a:
- * - design token: `color={tokens.colors.font.primary}`
- * - string, which could be a:
- *   - theme key: `color='font.primary'`
- *   - plain style: `color='red'`
- * - or a number: `padding={10}`
- * @param value
- * @param key
- * @param tokens tokens object from the Theme
- * @returns a string or a number
- */
-// export const getStyleValue = (value: unknown, key: string, tokens: WebTheme['tokens']): string | number | null => {
-//   if (isDesignToken(value)) return value.toString();
-//   if (typeof value === 'string') return getCSSVariableIfValueIsThemeKey(key, value, tokens);
-//   if (typeof value === 'number') return value;
-//   return null;
-// }
-
-/**
  * Convert style props to CSS variables for React style prop
  * Note: Will filter out undefined, null, and empty string prop values
- * @returns CSSProperties styles
  */
 export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   props = {},

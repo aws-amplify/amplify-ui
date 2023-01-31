@@ -15,42 +15,6 @@ const breakpoints: Breakpoints = {
 };
 
 describe('getValueAtCurrentBreakpoint', () => {
-  // it('should return string values directly', () => {
-  //   const { result } = renderHook(() => useTheme());
-  //   const { tokens } = result.current;
-  //   const output = getValueAtCurrentBreakpoint({
-  //     breakpoint: 'base',
-  //     breakpoints,
-  //     values: '20px',
-  //     tokens,
-  //   });
-  //   expect(output).toBe('20px');
-  // });
-
-  // it('should return number values directly', () => {
-  //   const { result } = renderHook(() => useTheme());
-  //   const { tokens } = result.current;
-  //   const output = getValueAtCurrentBreakpoint({
-  //     breakpoint: 'base',
-  //     breakpoints,
-  //     values: 0,
-  //     tokens,
-  //   });
-  //   expect(output).toBe(0);
-  // });
-
-  // it('should return design token toString value directly', () => {
-  //   const { result } = renderHook(() => useTheme());
-  //   const { tokens } = result.current;
-  //   const value = getValueAtCurrentBreakpoint({
-  //     breakpoint: 'base',
-  //     breakpoints,
-  //     values: tokens.colors.red[10],
-  //     tokens,
-  //   });
-  //   expect(value).toBe(tokens.colors.red[10].toString());
-  // });
-
   it('should support object values syntax', () => {
     const { result } = renderHook(() => useTheme());
     const { tokens } = result.current;
@@ -120,8 +84,6 @@ describe('getValueAtCurrentBreakpoint', () => {
   });
 
   it('handles a breakpoint that resolves to a false value from values correctly', () => {
-    const { result } = renderHook(() => useTheme());
-    const { tokens } = result.current;
     const output = getValueAtCurrentBreakpoint({
       breakpoint: 'base',
       breakpoints,
