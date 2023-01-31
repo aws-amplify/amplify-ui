@@ -1,5 +1,4 @@
-import { Link, Flex, View } from '@aws-amplify/ui-react';
-import { Fragment } from '@/components/Fragment';
+import { Link, View } from '@aws-amplify/ui-react';
 import { ThemeAlert } from '@/components/ThemeAlert';
 import { GITHUB_REPO_FILE } from '@/data/links';
 import { DesignTokenIcon } from '@/components/Icons';

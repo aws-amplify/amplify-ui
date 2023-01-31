@@ -6,8 +6,9 @@ import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 ```tsx
 import { Authenticator } from '@aws-amplify/ui-react';
+import { App } from './App';
 
-export default () => (
+export const MyComponent = () => (
   <Authenticator.Provider>
     <App />
   </Authenticator.Provider>
@@ -71,6 +72,8 @@ For example, you can ensure `useAuthenticator` to only reevaluate when its `user
 ```tsx
 import { useAuthenticator } from '@aws-amplify/ui-react';
 
-// hook below is only reevaluated when `user` changes
-const { user, signOut } = useAuthenticator((context) => [context.user]);
+export const MyComponent = () => {
+  // hook below is only reevaluated when `user` changes
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+};
 ```
