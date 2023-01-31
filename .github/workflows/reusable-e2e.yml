@@ -295,27 +295,27 @@ jobs:
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
-      - name: Pull down Auth AWS environments, on cache miss
+      - name: Pull down Auth AWS environments
         run: yarn environments auth pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
 
-      - name: Pull down Geo AWS environments, on cache miss
+      - name: Pull down Geo AWS environments
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments geo pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
 
-      - name: Pull down Storage AWS environments, on cache miss
+      - name: Pull down Storage AWS environments
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments storage pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE}}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE}}
 
-      - name: Pull down Datastore AWS environments, on cache miss
+      - name: Pull down Datastore AWS environments
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments datastore pull
         env:
