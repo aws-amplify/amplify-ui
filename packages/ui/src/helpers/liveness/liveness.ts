@@ -113,7 +113,7 @@ export function getRandomLivenessOvalDetails({
   return getStaticLivenessOvalDetails({
     width,
     height,
-    widthSeed: randomScalingAttributes.width,
+    widthSeed: 1.15,
     centerXSeed: randomScalingAttributes.centerX,
     centerYSeed: randomScalingAttributes.centerY,
   });
@@ -125,7 +125,7 @@ export function getRandomLivenessOvalDetails({
 export function getStaticLivenessOvalDetails({
   width,
   height,
-  widthSeed = 0.5,
+  widthSeed = 1.0,
   centerXSeed = 0.5,
   centerYSeed = 0.5,
 }: {
@@ -138,7 +138,7 @@ export function getStaticLivenessOvalDetails({
   const videoHeight = height;
   let videoWidth = width;
 
-  const ovalRatio = widthSeed * 0.05 + 0.775;
+  const ovalRatio = widthSeed * 0.8;
 
   const minOvalCenterX = Math.floor((7 * width) / 16);
   const maxOvalCenterX = Math.floor((9 * width) / 16);
@@ -241,7 +241,8 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  const intersectionThreshold = 0.58;
+  console.log(intersection);
+  const intersectionThreshold = 0.65;
   const ovalMatchWidthThreshold = ovalDetails.width * 0.25;
   const ovalMatchHeightThreshold = ovalDetails.height * 0.25;
   const faceDetectionWidthThreshold = ovalDetails.width * 0.15;
@@ -273,20 +274,22 @@ export function getFaceMatchStateInLivenessOval(
 }
 
 function generateBboxFromLandmarks(face: Face): BoundingBox {
-  const { leftEye, rightEye, mouth } = face;
+  const { leftEye, rightEye } = face;
 
   const eyeCenter = [];
   eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
   eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
-  const ow = Math.abs(leftEye[0] - rightEye[0]) * 2.5;
 
-  const cx = (mouth[0] + eyeCenter[0]) / 2;
-  const cy = (mouth[1] + eyeCenter[1]) / 2;
+  const cx = eyeCenter[0];
+  const cy = eyeCenter[1];
+
+  const ow = Math.abs(leftEye[0] - rightEye[0]) * 2;
+  const oh = 1.618 * ow;
 
   const left = cx - ow / 2,
     top = cy - ow / 2;
   const width = ow,
-    height = ow;
+    height = oh;
 
   return { left: left, top: top, right: left + width, bottom: top + height };
 }
@@ -643,9 +646,9 @@ export async function getFaceMatchState(
   return faceMatchState;
 }
 
-const FACE_DISTANCE_THRESHOLD = 0.3;
-const REDUCED_THRESHOLD = 0.34;
-const REDUCED_THRESHOLD_MOBILE = 0.32;
+const FACE_DISTANCE_THRESHOLD = 0.35;
+const REDUCED_THRESHOLD = 0.4;
+const REDUCED_THRESHOLD_MOBILE = 0.37;
 
 export async function isFaceDistanceBelowThreshold({
   faceDetector,
