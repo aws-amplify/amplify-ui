@@ -16,7 +16,7 @@ When working with a [Vite](https://vitejs.dev) project you must make a few modif
 **2.** Update the `vite.config.ts` and add in a resolve object inside the `defineConfig({})` as seen below.
 
 ```js
-...
+// ...
 export default defineConfig({
   plugins: [vue()],
   resolve: {
@@ -32,9 +32,10 @@ export default defineConfig({
 
 **3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
 
-```js
-...
+```json
+{
   "compilerOptions": {
     "skipLibCheck": true,
-...
+  }
+}
 ```

@@ -42,6 +42,7 @@ import '@aws-amplify/ui-react/styles.css';
 When using the object syntax, you can specify a style for multiple viewpoint ranges. The example below shows setting a style of `orange` from `base` (0em) through `small`, and `yellow` from `medium` (48em) upwards.
 
 ```jsx
+import { View } from '@aws-amplify/ui-react';
 // View will be orange from 0 to 47em, then change to yellow from 48em upwards.
 <View backgroundColor={{ base: 'orange', medium: 'yellow' }} />
 ```
@@ -51,6 +52,7 @@ When using the object syntax, you can specify a style for multiple viewpoint ran
 Or you can use the object syntax to specify styling for each breakpoint individually
 
 ```jsx
+import { View } from '@aws-amplify/ui-react';
 // View background color and text color will change at each breakpoint
 <View
   color={{
@@ -103,16 +105,22 @@ Or you can use the object syntax to specify styling for each breakpoint individu
 When using the array syntax, specify each breakpoint styling in order from `base` up to `xxl`. If only a few styles are specified, all the breakpoints above will have the same style.
 
 ```jsx
-  <Text
-    as="span"
-    fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
-    lineHeight="normal"
-  >
-    {' 🐈 '}
-  </Text>
-  <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
-    {' 🐕 '}
-  </Text>
+import { Text } from '@aws-amplify/ui-react';
+
+export function myComponent(params) {
+  return <>
+    <Text
+      as="span"
+      fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
+      lineHeight="normal"
+    >
+      🐈
+    </Text>
+    <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
+      🐕
+    </Text>
+  </>
+}
 ```
 
 <Example>
@@ -121,10 +129,10 @@ When using the array syntax, specify each breakpoint styling in order from `base
     fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
     lineHeight="normal"
   >
-    {' 🐈 '}
+     🐈
   </Text>
   <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
-    {' 🐕 '}
+     🐕 
   </Text>
 </Example>
 
