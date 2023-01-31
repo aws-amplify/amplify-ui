@@ -20,14 +20,14 @@ When working with a [Vite](https://vitejs.dev) project you must make a few modif
 export default defineConfig({
   plugins: [vue()],
   resolve: {
-      alias: [
+    alias: [
       {
         find: './runtimeConfig',
         replacement: './runtimeConfig.browser',
       },
-    ]
-  }
-})
+    ],
+  },
+});
 ```
 
 **3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
@@ -35,7 +35,7 @@ export default defineConfig({
 ```json
 {
   "compilerOptions": {
-    "skipLibCheck": true,
+    "skipLibCheck": true
   }
 }
 ```

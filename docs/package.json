@@ -95,6 +95,7 @@
     "plugins": [
       "remark-preset-lint-consistent",
       "remark-preset-lint-recommended",
+      "remark-preset-prettier",
       [
         "remark-lint-list-item-indent",
         "space"

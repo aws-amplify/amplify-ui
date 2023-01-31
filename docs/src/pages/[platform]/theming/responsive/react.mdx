@@ -44,7 +44,7 @@ When using the object syntax, you can specify a style for multiple viewpoint ran
 ```jsx
 import { View } from '@aws-amplify/ui-react';
 // View will be orange from 0 to 47em, then change to yellow from 48em upwards.
-<View backgroundColor={{ base: 'orange', medium: 'yellow' }} />
+<View backgroundColor={{ base: 'orange', medium: 'yellow' }} />;
 ```
 
 <View backgroundColor={{ base: 'orange', medium: 'yellow' }} />
@@ -73,7 +73,7 @@ import { View } from '@aws-amplify/ui-react';
   }}
 >
   Hello
-</View>
+</View>;
 ```
 
 <Example>
@@ -108,18 +108,20 @@ When using the array syntax, specify each breakpoint styling in order from `base
 import { Text } from '@aws-amplify/ui-react';
 
 export function myComponent(params) {
-  return <>
-    <Text
-      as="span"
-      fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
-      lineHeight="normal"
-    >
-      🐈
-    </Text>
-    <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
-      🐕
-    </Text>
-  </>
+  return (
+    <>
+      <Text
+        as="span"
+        fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
+        lineHeight="normal"
+      >
+        🐈
+      </Text>
+      <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
+        🐕
+      </Text>
+    </>
+  );
 }
 ```
 
@@ -129,10 +131,10 @@ export function myComponent(params) {
     fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
     lineHeight="normal"
   >
-     🐈
+    🐈
   </Text>
   <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
-     🐕 
+    🐕
   </Text>
 </Example>
 
