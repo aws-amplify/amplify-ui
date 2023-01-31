@@ -302,7 +302,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
 
       - name: Pull down Geo AWS environments
-        if: steps.environmentsache-hit != 'true'
         run: yarn environments geo pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
