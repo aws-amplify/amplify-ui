@@ -154,6 +154,10 @@ When('I click the {string} tab', (label: string) => {
   }).click();
 });
 
+When('I click the {string}', (id: string) => {
+  cy.findByTestId(id).click();
+});
+
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
@@ -202,6 +206,10 @@ Then('I see {string}', (message: string) => {
   cy.findByRole('document')
     .contains(new RegExp(escapeRegExp(message), 'i'))
     .should('exist');
+});
+
+Then('I see {string} element', (id: string) => {
+  cy.findByTestId(id).should('exist');
 });
 
 Then('I see placeholder {string}', (message: string) => {

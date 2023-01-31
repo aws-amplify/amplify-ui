@@ -1,21 +1,21 @@
 export type AmplifyDependentResourcesAttributes = {
-  auth: {
-    livenessenv436747ae436747ae: {
-      IdentityPoolId: 'string';
-      IdentityPoolName: 'string';
-      UserPoolId: 'string';
-      UserPoolArn: 'string';
-      UserPoolName: 'string';
-      AppClientIDWeb: 'string';
-      AppClientID: 'string';
-      CreatedSNSRole: 'string';
-    };
-  };
-  analytics: {
-    LivenessClient: {
-      Region: 'string';
-      Id: 'string';
-      appName: 'string';
-    };
-  };
-};
+  "analytics": {
+    "LivenessClient": {
+      "Id": "string",
+      "Region": "string",
+      "appName": "string"
+    }
+  },
+  "auth": {
+    "livenessenv436747ae436747ae": {
+      "AppClientID": "string",
+      "AppClientIDWeb": "string",
+      "CreatedSNSRole": "string",
+      "IdentityPoolId": "string",
+      "IdentityPoolName": "string",
+      "UserPoolArn": "string",
+      "UserPoolId": "string",
+      "UserPoolName": "string"
+    }
+  }
+}

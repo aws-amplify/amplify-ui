@@ -15,7 +15,12 @@ Feature: Liveness Start Screen
     And I see the "Begin check" button
 
   @react
-  Scenario: THe start Screen has the instructions
+  Scenario: Click the pop-over icon and see the notes
+    Then I click the "popover-icon"
+    And I see "A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition."
+
+  @react
+  Scenario: The start Screen has the instructions
     Then I see "Follow the instructions to complete the check:"
     And I see "Make sure your face is not covered with sunglasses or a mask."
     And I see "Move to a well-lit place that is not dark or in direct sunlight."

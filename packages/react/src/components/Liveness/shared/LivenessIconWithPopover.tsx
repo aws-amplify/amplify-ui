@@ -43,6 +43,7 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
         onClick={() => setShouldShowPopover(!shouldShowPopover)}
         ref={wrapperRef}
         style={{ cursor: 'pointer' }}
+        testId="popover-icon"
       >
         <LivenessAlertIcon variation="info" />
         {shouldShowPopover && (

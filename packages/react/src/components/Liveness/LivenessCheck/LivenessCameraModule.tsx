@@ -165,6 +165,7 @@ export const LivenessCameraModule = (
           {isNotRecording && (
             <View
               className={LivenessClassNames.CameraModuleCountdownTimerContainer}
+              testId="liveness-camera-countdown-timer"
             >
               <CountdownCircleTimer
                 isPlaying={isNotRecording}
