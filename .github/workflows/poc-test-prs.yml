@@ -8,7 +8,7 @@
 name: POC / Test / PRs
 
 concurrency:
-  group: e2e-${{ github.event.pull_request.id }}
+  group: e2e-${{ github.event.pull_request.id }}-guides-poc
   cancel-in-progress: true
 
 on: pull_request
