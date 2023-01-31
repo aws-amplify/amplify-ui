@@ -35,6 +35,7 @@ const commonProps = {
   isLoading: false,
   isSuccessful: false,
   hasMaxFilesError: false,
+  maxFiles: 10,
   onClear: () => null,
   onFileClick: () => null,
 };
@@ -104,11 +105,7 @@ describe('UploadPreviewer', () => {
   });
   it('shows when loading an uploading with percentage', async () => {
     render(
-      <UploadPreviewer
-        {...commonProps}
-        isLoading
-        aggregatePercentage={23}
-      />
+      <UploadPreviewer {...commonProps} isLoading aggregatePercentage={23} />
     );
 
     expect(await screen.findByText(/Uploading: 23%/)).toBeVisible();

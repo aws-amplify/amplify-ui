@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Range, Root, Thumb, Track } from '@radix-ui/react-slider';
+import * as RadixSlider from '@radix-ui/react-slider';
 import * as React from 'react';
 
 import { classNameModifier } from '../shared/utils';
@@ -14,6 +14,13 @@ import { SliderFieldProps } from '../types/sliderField';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
+
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR),
+// the module will be imported as CommonJS module, in which we have to reference the `default`
+let sanitizedRadixSlider = { default: undefined, ...RadixSlider };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+sanitizedRadixSlider = sanitizedRadixSlider.default ?? sanitizedRadixSlider;
+const { Range, Root, Thumb, Track } = sanitizedRadixSlider;
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';

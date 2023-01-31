@@ -164,7 +164,7 @@ describe('Table primitive', () => {
     it('should render a caption with default class name', async () => {
       await setup({ caption: testCaption });
 
-      const $caption = await screen.getByText(testCaption);
+      const $caption = screen.getByText(testCaption);
 
       expect($caption).toHaveClass(ComponentClassNames.TableCaption);
     });

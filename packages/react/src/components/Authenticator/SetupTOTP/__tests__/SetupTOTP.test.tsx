@@ -2,7 +2,7 @@ import * as React from 'react';
 import { act, render } from '@testing-library/react';
 
 import * as UI from '@aws-amplify/ui';
-import { useAuthenticator } from '@aws-amplify/ui-react-core';
+import { useAuthenticator, UseAuthenticator } from '@aws-amplify/ui-react-core';
 
 import { SetupTOTP } from '..';
 
@@ -27,24 +27,21 @@ jest.mock('../../hooks/useCustomComponents', () => ({
 jest.mock('../../shared/FormFields', () => ({ FormFields: () => null }));
 
 const DEFAULT_TOTP_ISSUER = 'AWSCognito';
-const SECRET_KEY = 'secretKey';
+const SECRET_KEY = "Don't tell anyone";
 
-const mockUser = { username: 'username' };
+const user = { username: 'username' };
 
 const getTotpCodeURLSpy = jest.spyOn(UI, 'getTotpCodeURL');
 
 describe('SetupTOTP', () => {
-  let mockGetTotpSecretCode: jest.Mock;
   beforeEach(() => {
     jest.clearAllMocks();
 
-    mockGetTotpSecretCode = jest.fn().mockResolvedValue(SECRET_KEY);
-
     (useAuthenticator as jest.Mock).mockReturnValue({
       isPending: false,
-      user: mockUser,
-      getTotpSecretCode: mockGetTotpSecretCode,
-    });
+      user,
+      totpSecretCode: SECRET_KEY,
+    } as UseAuthenticator);
   });
 
   it('handles an undefined value when looking up QR field values', async () => {
@@ -55,7 +52,7 @@ describe('SetupTOTP', () => {
     expect(getTotpCodeURLSpy).toHaveBeenCalledTimes(1);
     expect(getTotpCodeURLSpy).toHaveBeenCalledWith(
       DEFAULT_TOTP_ISSUER,
-      mockUser.username,
+      user.username,
       SECRET_KEY
     );
   });
@@ -70,9 +67,9 @@ describe('SetupTOTP', () => {
         totpIssuer: customTotpIssuer,
         totpUsername: customTotpUsername,
       },
-      getTotpSecretCode: mockGetTotpSecretCode,
-      user: mockUser,
-    });
+      totpSecretCode: SECRET_KEY,
+      user,
+    } as UseAuthenticator);
 
     await act(async () => {
       render(<SetupTOTP className="className" variation="default" />);

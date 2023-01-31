@@ -100,7 +100,7 @@ describe('FieldGroup component', () => {
     expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroupHasInnerEnd);
   });
 
-  it('should render inner components when provided', async () => {
+  it('should render inner components when provided', () => {
     const innerStart = 'innerStart';
     const innerEnd = 'innerEnd';
 
@@ -114,8 +114,8 @@ describe('FieldGroup component', () => {
       </FieldGroup>
     );
 
-    const innerStartComponent = await screen.queryByText(innerStart);
-    const innerEndComponent = await screen.queryByText(innerEnd);
+    const innerStartComponent = screen.queryByText(innerStart);
+    const innerEndComponent = screen.queryByText(innerEnd);
 
     expect(innerStartComponent).not.toBeNull();
     expect(innerEndComponent).not.toBeNull();
@@ -127,7 +127,7 @@ describe('FieldGroup component', () => {
     );
   });
 
-  it('should render outer components when provided', async () => {
+  it('should render outer components when provided', () => {
     const outerStart = 'outerStart';
     const outerEnd = 'outerEnd';
 
@@ -141,8 +141,8 @@ describe('FieldGroup component', () => {
       </FieldGroup>
     );
 
-    const outerStartComponent = await screen.queryByText(outerStart);
-    const outerEndComponent = await screen.queryByText(outerEnd);
+    const outerStartComponent = screen.queryByText(outerStart);
+    const outerEndComponent = screen.queryByText(outerEnd);
 
     expect(outerStartComponent).not.toBeNull();
     expect(outerEndComponent).not.toBeNull();
@@ -154,7 +154,7 @@ describe('FieldGroup component', () => {
     );
   });
 
-  it('should render quiet class on outer components when variation is set to quiet', async () => {
+  it('should render quiet class on outer components when variation is set to quiet', () => {
     const outerStart = 'outerStart';
     const outerEnd = 'outerEnd';
     const variation = 'quiet';
@@ -170,8 +170,8 @@ describe('FieldGroup component', () => {
       </FieldGroup>
     );
 
-    const outerStartComponent = await screen.queryByText(outerStart);
-    const outerEndComponent = await screen.queryByText(outerEnd);
+    const outerStartComponent = screen.queryByText(outerStart);
+    const outerEndComponent = screen.queryByText(outerEnd);
 
     expect(outerStartComponent).not.toBeNull();
     expect(outerEndComponent).not.toBeNull();
