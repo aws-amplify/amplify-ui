@@ -1,4 +1,4 @@
-export default {
+const synthwaveTheme = {
   name: 'synthwave-theme',
   tokens: {
     colors: {
@@ -119,3 +119,5 @@ export default {
     },
   ],
 };
+
+export default synthwaveTheme;

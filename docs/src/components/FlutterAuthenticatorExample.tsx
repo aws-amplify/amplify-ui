@@ -117,21 +117,24 @@ export function FlutterAuthenticatorExample({
 function FlutterAuthenticatorLoader({ id }) {
   const [hasLoaded, setHasLoaded] = React.useState(false);
 
-  const onMessage = useCallback((event) => {
-    try {
-      if (event && event.data) {
-        const data = JSON.parse(event.data);
-        if (data['name'] === 'loaded' && data['id'] === id) {
-          console.log('loaded!');
-          setHasLoaded(true);
-          window.removeEventListener('message', onMessage);
+  const onMessage = useCallback(
+    (event) => {
+      try {
+        if (event && event.data) {
+          const data = JSON.parse(event.data);
+          if (data['name'] === 'loaded' && data['id'] === id) {
+            console.log('loaded!');
+            setHasLoaded(true);
+            window.removeEventListener('message', onMessage);
+          }
         }
+      } catch (error) {
+        // There might be other messages on the window and we don't want to barf
+        // console errors.
       }
-    } catch (error) {
-      // There might be other messages on the window and we don't want to barf
-      // console errors.
-    }
-  }, []);
+    },
+    [id]
+  );
 
   React.useEffect(() => {
     // the authenticator will post a message to the parent window when it has finished loading
