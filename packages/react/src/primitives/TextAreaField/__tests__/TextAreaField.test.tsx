@@ -131,6 +131,25 @@ describe('TextAreaField component', () => {
       expect(textArea).toHaveAttribute('data-variation', 'quiet');
     });
 
+    it('should render size classes for TextAreaField', async () => {
+      render(
+        <div>
+          <TextAreaField size="small" testId="small" label="small" />
+          <TextAreaField size="large" testId="large" label="large" />
+        </div>
+      );
+
+      const small = await screen.findByTestId('small');
+      const large = await screen.findByTestId('large');
+
+      expect(small.classList).toContain(
+        `${ComponentClassNames['Field']}--small`
+      );
+      expect(large.classList).toContain(
+        `${ComponentClassNames['Field']}--large`
+      );
+    });
+
     it('can set defaultValue', async () => {
       render(<TextAreaField label="Field" defaultValue="test" />);
 
