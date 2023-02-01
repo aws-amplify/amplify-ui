@@ -9,25 +9,21 @@ import { countryDialCodes } from '@aws-amplify/ui';
 export class PhoneNumberFieldComponent implements OnInit {
   @Input() autocomplete = 'new-password';
   @Input() disabled = false;
-  @Input() defaultCountryCode: string;
+  @Input() defaultCountryCode!: string;
   @Input() selectFieldId: string = `amplify-field-${nanoid(12)}`;
   @Input() textFieldId: string = `amplify-field-${nanoid(12)}`;
   @Input() initialValue = '';
   @Input() label = '';
-  @Input() name: string;
+  @Input() name!: string;
   @Input() placeholder = '';
   @Input() required = true;
-  @Input() type: string;
+  @Input() type: string = 'tel';
   @Input() labelHidden = false;
-  @Input() dialCodeList: Array<string>;
-  @Input() hasError: boolean;
-  @Input() describedBy: string;
+  @Input() dialCodeList: Array<string> = countryDialCodes;
+  @Input() hasError: boolean = false;
+  @Input() describedBy?: string;
 
   @HostBinding('style.display') display = 'contents';
 
-  public countryDialCodesValues: Array<string>;
-
-  ngOnInit(): void {
-    this.countryDialCodesValues = this.dialCodeList ?? countryDialCodes;
-  }
+  ngOnInit(): void {}
 }
