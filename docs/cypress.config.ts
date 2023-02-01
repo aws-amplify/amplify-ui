@@ -1,7 +1,6 @@
+import { getHeapStatistics } from 'v8';
 import { defineConfig } from 'cypress';
-import sitemapUrls from 'sitemap-urls';
 import { BASE_URL } from './cypress/data/constants';
-import fs from 'fs';
 
 export default defineConfig({
   e2e: {
@@ -10,6 +9,8 @@ export default defineConfig({
       on('task', {
         log: (message) => {
           console.log(message);
+          console.table(getHeapStatistics());
+          console.table(process.memoryUsage());
           return null;
         },
       });

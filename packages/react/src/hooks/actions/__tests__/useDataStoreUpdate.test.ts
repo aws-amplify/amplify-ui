@@ -108,7 +108,12 @@ describe('useAuthSignOutAction', () => {
     const {
       result: { current: action },
     } = renderHook(() => useDataStoreUpdateAction(updateActionArgs));
-    querySpy.mockImplementationOnce(() => Promise.resolve(undefined));
+    querySpy.mockImplementationOnce(
+      () =>
+        Promise.resolve(undefined) as unknown as ReturnType<
+          typeof DataStore['query']
+        >
+    );
 
     await action();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);

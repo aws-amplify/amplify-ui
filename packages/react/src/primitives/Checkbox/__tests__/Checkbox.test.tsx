@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Checkbox } from '../Checkbox';
@@ -11,7 +11,7 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 
-describe('Checkbox test suite', () => {
+describe('Checkbox', () => {
   const basicProps = {
     label: 'Subscribe',
     name: 'testName',
@@ -171,21 +171,6 @@ describe('Checkbox test suite', () => {
   });
 
   describe('Button test suite', () => {
-    let updateCheckedFunction;
-    const ControlledCheckbox = () => {
-      const [checked, setChecked] = React.useState(false);
-      updateCheckedFunction = setChecked;
-      return (
-        <Checkbox
-          {...basicProps}
-          onChange={(event) => {
-            setChecked(event.target.checked);
-          }}
-          checked={checked}
-        />
-      );
-    };
-
     it('should render basic props correctly', async () => {
       render(getCheckbox({ ...basicProps }));
 
@@ -199,7 +184,7 @@ describe('Checkbox test suite', () => {
     });
 
     it('should update the checked button with a change to the controlled value', async () => {
-      render(<ControlledCheckbox />);
+      const { rerender } = render(<Checkbox {...basicProps} checked={false} />);
 
       let button = await screen.findByTestId(
         `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
@@ -208,7 +193,8 @@ describe('Checkbox test suite', () => {
       expect(button).not.toHaveAttribute('data-disabled');
       expect(button).toHaveAttribute('data-focus', 'false');
       expect(button).toHaveClass(ComponentClassNames.CheckboxButton);
-      act(() => updateCheckedFunction(true));
+      // act(() => updateCheckedFunction(true));
+      rerender(<Checkbox {...basicProps} checked />);
       button = await screen.findByTestId(
         `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
       );

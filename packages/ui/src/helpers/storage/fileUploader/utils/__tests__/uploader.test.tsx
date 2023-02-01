@@ -57,6 +57,7 @@ describe('Uploader utils', () => {
         level: 'public',
         progressCallback: expect.any(Function),
         resumable: true,
+        contentType: 'image/png',
       });
     });
     it('calls isResumable false with storage put', () => {
@@ -75,7 +76,54 @@ describe('Uploader utils', () => {
         level: 'public',
         progressCallback: expect.any(Function),
         resumable: false,
+        contentType: 'image/png',
       });
+    });
+    it('calls uploadFile with contentType image/png', () => {
+      storageSpy.mockImplementation(() => Promise.resolve() as any);
+      uploadFile({
+        file: imageFile,
+        fileName: imageFile.name,
+        level: 'public',
+        progressCallback: () => '',
+        errorCallback: () => '',
+        completeCallback: () => '',
+        isResumable: false,
+      });
+
+      expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
+        level: 'public',
+        progressCallback: expect.any(Function),
+        resumable: false,
+        contentType: 'image/png',
+      });
+    });
+    it('calls uploadFile with contentType binary/octet-stream when file.type is undefined', () => {
+      storageSpy.mockImplementation(() => Promise.resolve() as any);
+
+      const imageFileTypeUndefined = new File(['hello2'], 'hello2.png', {
+        type: undefined,
+      });
+      uploadFile({
+        file: imageFileTypeUndefined,
+        fileName: imageFileTypeUndefined.name,
+        level: 'public',
+        progressCallback: () => '',
+        errorCallback: () => '',
+        completeCallback: () => '',
+        isResumable: false,
+      });
+
+      expect(storageSpy).toBeCalledWith(
+        imageFileTypeUndefined.name,
+        imageFileTypeUndefined,
+        {
+          level: 'public',
+          progressCallback: expect.any(Function),
+          resumable: false,
+          contentType: 'binary/octet-stream',
+        }
+      );
     });
   });
 

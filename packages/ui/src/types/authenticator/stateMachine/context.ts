@@ -76,6 +76,8 @@ interface BaseFormContext {
   codeDeliveryDetails?: CodeDeliveryDetails;
   /** Default country code for all phone number fields. */
   country_code?: string; // TODO: this one should be customizable as well
+  /** TOTP secret code */
+  totpSecretCode?: string;
 }
 
 // Actor context types

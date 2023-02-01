@@ -27,6 +27,7 @@ export const heDict: AuthenticatorDictionary = {
   'Hide password': 'הסתר סיסמא',
   Loading: 'טוען',
   'New password': 'סיסמא חדשה',
+  or: 'אוֹ',
   Password: 'סיסמא',
   'Phone Number': 'מספר טלפון',
   'Resend Code': 'שלח קוד שוב',

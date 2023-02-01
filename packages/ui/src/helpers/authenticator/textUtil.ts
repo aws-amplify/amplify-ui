@@ -93,6 +93,7 @@ export const authenticatorTextUtil = {
   getCopyText: () => translate(DefaultTexts.UPPERCASE_COPY),
   getHidePasswordText: () => translate(DefaultTexts.HIDE_PASSWORD),
   getLoadingText: () => translate(DefaultTexts.LOADING),
+  getOrText: () => translate(DefaultTexts.OR),
   getResendCodeText: () => translate(DefaultTexts.RESEND_CODE),
   getSendCodeText: () => translate(DefaultTexts.SEND_CODE),
   getSendingText: () => translate(DefaultTexts.SENDING),

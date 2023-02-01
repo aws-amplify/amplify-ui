@@ -1,16 +1,18 @@
 import classNames from 'classnames';
-import {
-  Root,
-  List,
-  Trigger as RadixTab,
-  Content as Panel,
-} from '@radix-ui/react-tabs';
+import * as RadixTabs from '@radix-ui/react-tabs';
 import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { TabsProps, TabsSpacing, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
+
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR),
+// the module will be imported as CommonJS module, in which we have to reference the `default`
+let sanitizedRadixTabs = { default: undefined, ...RadixTabs };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+sanitizedRadixTabs = sanitizedRadixTabs.default ?? sanitizedRadixTabs;
+const { Root, List, Trigger: RadixTab, Content: Panel } = sanitizedRadixTabs;
 
 /**
  * `TabItemProps` does not include HTML data attributes, so `data-spacing` is added explicitly

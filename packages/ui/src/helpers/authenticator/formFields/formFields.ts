@@ -7,32 +7,72 @@ import {
   FormFields,
   FormFieldComponents,
   FormFieldsArray,
+  isAuthFieldsWithDefaults,
 } from '../../../types';
-import { getActorState } from '../actor';
-import { defaultFormFieldsGetters } from './defaults';
-import { applyDefaults, applyTranslation, sortFormFields } from './util';
+import { getActorContext } from '../actor';
+import { defaultFormFieldOptions } from '../constants';
+import { defaultFormFieldsGetters, getAliasDefaultFormField } from './defaults';
+import { applyTranslation, sortFormFields } from './util';
 
-/** Gets the default formFields for given route/route */
+// Gets the default formFields for given route
 export const getDefaultFormFields = (
   route: FormFieldComponents,
   state: AuthMachineState
 ): FormFields => {
   const formFieldGetter = defaultFormFieldsGetters[route];
-  const formFields: FormFields = formFieldGetter(state);
-  return applyTranslation(formFields);
+  return formFieldGetter(state);
 };
 
-/** Gets default formFields, then merges custom formFields into it */
+// Gets custom formFields, and applies default values
+export const getCustomFormFields = (
+  route: FormFieldComponents,
+  state: AuthMachineState
+): FormFields => {
+  const customFormFields = getActorContext(state)?.formFields?.[route];
+
+  if (!customFormFields || Object.keys(customFormFields).length === 0) {
+    return {};
+  }
+
+  return Object.entries(customFormFields).reduce(
+    (acc, [fieldName, customOptions]) => {
+      if (
+        (route === 'signIn' || route === 'resetPassword') &&
+        fieldName === 'username'
+      ) {
+        // Unlike other screens, `signIn` and `resetPassword` screens default login
+        // alias field names to "username", even if it's a phone number or email.
+        // In this case, we get the default formFieldOptions based on loginMechanism.
+        const defaultOptions = getAliasDefaultFormField(state);
+
+        // apply default to fill any gaps that are not present in customOptions
+        const mergedOptions = { ...defaultOptions, ...customOptions };
+        return { ...acc, [fieldName]: mergedOptions };
+      } else if (isAuthFieldsWithDefaults(fieldName)) {
+        // if this field is a known auth attribute that we have defaults for,
+        // apply defaults to customOptions.
+        const defaultOptions = defaultFormFieldOptions[fieldName];
+        const mergedOptions = { ...defaultOptions, ...customOptions };
+
+        return { ...acc, [fieldName]: mergedOptions };
+      } else {
+        // if this is not a known field, use customOptions as is.
+        return { ...acc, [fieldName]: customOptions };
+      }
+    },
+    {} as FormFields
+  );
+};
+
 export const getFormFields = (
   route: FormFieldComponents,
   state: AuthMachineState
 ): FormFields => {
   const defaultFormFields = getDefaultFormFields(route, state);
-  const customFormFields =
-    getActorState(state).context?.formFields?.[route] || {};
-  const formFields = applyDefaults(defaultFormFields, customFormFields);
+  const customFormFields = getCustomFormFields(route, state);
+  const formFields: FormFields = { ...defaultFormFields, ...customFormFields };
   delete formFields['QR'];
-  return formFields;
+  return applyTranslation(formFields);
 };
 
 export const removeOrderKeys = (formFields: FormFieldsArray): FormFieldsArray =>
