@@ -1,6 +1,7 @@
-import { AuthFormData, PasswordSettings, Validator } from '../types';
-import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
+
+import { AuthFormData, PasswordSettings, Validator } from '../types';
+import { isEmpty } from '../utils';
 
 // Runs all validators given. Resolves if there are no error. Rejects otherwise.
 export const runValidators = async (

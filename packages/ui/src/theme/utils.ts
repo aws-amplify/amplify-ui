@@ -1,4 +1,3 @@
-import has from 'lodash/has';
 import kebabCase from 'lodash/kebabCase';
 
 // internal style dictionary function
@@ -69,11 +68,15 @@ export function cssNameTransform({ path = [] }: NameTransformProps): string {
  * @returns boolean
  */
 export function isDesignToken(value: unknown): value is WebDesignToken {
-  return isObject(value) && has(value, 'value');
+  return (
+    isObject(value) && Object.prototype.hasOwnProperty.call(value, 'value')
+  );
 }
 
 export function isShadowToken(value: unknown): value is ShadowValue {
-  return isObject(value) && has(value, 'offsetX');
+  return (
+    isObject(value) && Object.prototype.hasOwnProperty.call(value, 'offsetX')
+  );
 }
 
 type SetupTokensProps = {
@@ -101,14 +104,14 @@ export function setupTokens({
   path = [],
   setupToken,
 }: SetupTokensProps): any {
-  if (has(tokens, 'value')) {
+  if (Object.prototype.hasOwnProperty.call(tokens, 'value')) {
     return setupToken({ token: tokens as BaseDesignToken, path });
   }
 
   const output: Record<string, any> = {};
 
   for (const name in tokens) {
-    if (has(tokens, name)) {
+    if (Object.prototype.hasOwnProperty.call(tokens, name)) {
       const value = tokens[name];
       const nextTokens = isObject(value) ? value : { value };
 
