@@ -2,19 +2,17 @@ import * as React from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import classNames from 'classnames';
 
-import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
+import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { ComponentClassNames } from '../shared/constants';
 import { ExpanderProps } from '../types/expander';
 import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 
-// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR),
-// the module will be imported as CommonJS module, in which we have to reference the `default`
-let sanitizedAccordion = { default: undefined, ...Accordion };
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-sanitizedAccordion = sanitizedAccordion.default ?? sanitizedAccordion;
-const { Root } = sanitizedAccordion;
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
+// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
+const { Root } = sanitizeNamespaceImport(Accordion);
 
 const ExpanderPrimitive: Primitive<ExpanderProps, 'div'> = (
   {
