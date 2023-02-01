@@ -43,7 +43,8 @@ jobs:
         uses: actions/checkout@v3
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
-  test:
+
+  test-this-should-run-relative-path:
     uses: ./.github/workflows/reusable-e2e.yml
     needs: setup
     with:
