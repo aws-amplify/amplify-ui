@@ -12,8 +12,7 @@ import { AmplifyContext } from './AmplifyContext';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
-const { DirectionProvider } =
-  sanitizeNamespaceImport<typeof RadixDirection>(RadixDirection);
+const { DirectionProvider } = sanitizeNamespaceImport(RadixDirection);
 
 export type ColorMode = 'system' | 'light' | 'dark';
 export type Direction = 'ltr' | 'rtl';
