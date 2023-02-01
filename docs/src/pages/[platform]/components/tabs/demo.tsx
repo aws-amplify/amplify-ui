@@ -9,7 +9,6 @@ import { demoState } from '@/utils/demoState';
 const propsToCode = (props) => {
   return (
     `<Tabs` +
-    `\n  currentIndex="${props.currentIndex}"` +
     `${props.spacing ? `\n  spacing="${props.spacing}"` : ``}` +
     `\n  justifyContent="${props.justifyContent}"` +
     `${
@@ -44,7 +43,6 @@ const demoChildren = [
 ];
 
 const defaultTabsProps = {
-  currentIndex: 0,
   justifyContent: 'flex-start',
   children: demoChildren,
 };
@@ -60,8 +58,6 @@ export const TabsDemo = () => {
       propControls={<TabsPropControls {...tabsProps} />}
     >
       <Tabs
-        currentIndex={tabsProps.currentIndex}
-        onChange={(i) => tabsProps.setCurrentIndex(i)}
         spacing={tabsProps.spacing}
         justifyContent={tabsProps.justifyContent}
         indicatorPosition={tabsProps.indicatorPosition}
