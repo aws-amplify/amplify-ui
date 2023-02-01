@@ -43,7 +43,7 @@ export default function useMessageProps(
     }
 
     const payloadStyle = getPayloadStyle(props);
-    const overrideStyle = props.style;
+    const overrideStyle = props.style ?? {};
 
     return getMessageStyles({ styleParams: { payloadStyle, overrideStyle } });
   }, [props, shouldRenderMessage]);

@@ -20,10 +20,10 @@ describe('getButtonModifier', () => {
     let expected: MessageLayoutButtonModifier = 'light';
     // light by default
     expect(getButtonModifier({})).toBe(expected);
-    expect(getButtonModifier(null)).toBe(expected);
+    expect(getButtonModifier(undefined)).toBe(expected);
     expected = 'dark';
     // dark via default override
     expect(getButtonModifier({}, 'dark')).toBe(expected);
-    expect(getButtonModifier(null, 'dark')).toBe(expected);
+    expect(getButtonModifier(undefined, 'dark')).toBe(expected);
   });
 });

@@ -45,8 +45,8 @@ export function MessageLayout({
 }: MessageLayoutProps): JSX.Element {
   const buttonModifiers = React.useMemo(
     () => ({
-      primary: getButtonModifier(styles.primaryButton),
-      secondary: getButtonModifier(styles.secondaryButton),
+      primary: getButtonModifier(styles?.primaryButton),
+      secondary: getButtonModifier(styles?.secondaryButton),
     }),
     [styles]
   );
@@ -55,7 +55,7 @@ export function MessageLayout({
     <CloseIconButton
       className={CLOSE_BUTTON_CLASS}
       onClick={onClose}
-      style={styles.closeIconButton}
+      style={styles?.closeIconButton}
     />
   );
 
@@ -63,7 +63,7 @@ export function MessageLayout({
     <Flex
       className={BLOCK_CLASS}
       data-testid={MESSAGE_LAYOUT_TEST_ID}
-      style={styles.container}
+      style={styles?.container}
     >
       {!isHorizontal && <Flex justifyContent="flex-end">{closeButton}</Flex>}
       <Flex
@@ -83,8 +83,8 @@ export function MessageLayout({
           >
             <Image
               alt="In-App Message Image"
-              src={image.src}
-              style={styles.image}
+              src={image?.src}
+              style={styles?.image}
             />
           </Flex>
         )}
@@ -100,14 +100,14 @@ export function MessageLayout({
               className={HEADER_CLASS}
               isTruncated
               level={2}
-              style={styles.header}
+              style={styles?.header}
               testId={HEADER_TEXT_TEST_ID}
             >
               {header.content}
             </Heading>
           )}
           {body?.content && (
-            <Text style={styles.body} testId={BODY_TEXT_TEST_ID}>
+            <Text style={styles?.body} testId={BODY_TEXT_TEST_ID}>
               {body.content}
             </Text>
           )}
@@ -123,9 +123,9 @@ export function MessageLayout({
                 `${BUTTON_CLASS}--${buttonModifiers.secondary}`
               )}
               onClick={secondaryButton?.onAction}
-              style={styles.secondaryButton}
+              style={styles?.secondaryButton}
             >
-              {secondaryButton.title}
+              {secondaryButton?.title}
             </Button>
           )}
           {hasPrimaryButton && (
@@ -135,9 +135,9 @@ export function MessageLayout({
                 `${BUTTON_CLASS}--${buttonModifiers.primary}`
               )}
               onClick={primaryButton?.onAction}
-              style={styles.primaryButton}
+              style={styles?.primaryButton}
             >
-              {primaryButton.title}
+              {primaryButton?.title}
             </Button>
           )}
         </ButtonGroup>
