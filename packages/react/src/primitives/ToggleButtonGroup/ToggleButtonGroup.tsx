@@ -42,7 +42,7 @@ const ToggleButtonGroupPrimitive: Primitive<
           return React.cloneElement(child, {
             isPressed: isExclusive
               ? value === child.props.value
-              : value.includes(child.props.value),
+              : value.includes(child.props.value ?? ''),
             onChange: handleChange,
             size,
             variation,

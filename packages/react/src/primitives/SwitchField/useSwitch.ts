@@ -18,7 +18,9 @@ interface UseSwitch {
 export const useSwitch = (props: UseSwitchProps): UseSwitch => {
   const { onChange, isChecked, defaultChecked, isDisabled } = props;
   const isControlled = typeof isChecked !== 'undefined';
-  const [isOn, setIsOn] = useState(isControlled ? isChecked : defaultChecked);
+  const [isOn, setIsOn] = useState(
+    isControlled ? isChecked : defaultChecked ?? false
+  );
   const [isFocused, setIsFocused] = useState(false);
 
   const changeHandler = useCallback(

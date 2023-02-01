@@ -36,8 +36,8 @@ export const usePagination = (
     }
   }, [currentPage]);
 
-  const onChange = React.useCallback((newPage: number, _: number) => {
-    setCurrentPage(newPage);
+  const onChange = React.useCallback((newPageIndex?: number) => {
+    setCurrentPage(newPageIndex ?? 0);
   }, []);
 
   return {
