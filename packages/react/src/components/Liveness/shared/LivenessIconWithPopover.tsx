@@ -82,6 +82,7 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
               left={isMobileScreen ? -190 : -108}
               border={`1px solid ${tokens.colors.border.secondary}`}
               borderRadius={2}
+              data-testid="popover-text"
             >
               {translate(
                 'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.'

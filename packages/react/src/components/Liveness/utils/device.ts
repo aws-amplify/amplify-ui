@@ -3,7 +3,7 @@ function isNewerIpad() {
   // so check for maxTouchPoints also.
   return (
     /Macintosh/i.test(navigator.userAgent) &&
-    navigator.maxTouchPoints &&
+    !!navigator.maxTouchPoints &&
     navigator.maxTouchPoints > 1
   );
 }

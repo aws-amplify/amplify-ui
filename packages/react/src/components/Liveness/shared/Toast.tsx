@@ -26,6 +26,7 @@ export const Toast: React.FC<ToastProps> = ({
             gap="xs"
             alignItems="center"
             color={variation ? `font.${variation}` : 'font.primary'}
+            data-testid="toast-icon"
           >
             {isToastWithIcon ? (
               <LivenessAlertIcon variation={variation} />

@@ -7,7 +7,7 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      branches: 78, // fixme: temporarily reduced for merge the ui/liveness-main
+      branches: 80,
       functions: 70,
       lines: 91,
       statements: 91,
