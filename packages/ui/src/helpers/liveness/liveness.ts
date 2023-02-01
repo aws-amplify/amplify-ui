@@ -242,7 +242,7 @@ export function getFaceMatchStateInLivenessOval(
   );
 
   console.log(intersection);
-  const intersectionThreshold = 0.65;
+  const intersectionThreshold = 0.7;
   const ovalMatchWidthThreshold = ovalDetails.width * 0.25;
   const ovalMatchHeightThreshold = ovalDetails.height * 0.25;
   const faceDetectionWidthThreshold = ovalDetails.width * 0.15;
@@ -274,20 +274,23 @@ export function getFaceMatchStateInLivenessOval(
 }
 
 function generateBboxFromLandmarks(face: Face): BoundingBox {
-  const { leftEye, rightEye } = face;
+  const { leftEye, rightEye, nose } = face;
 
   const eyeCenter = [];
   eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
   eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
 
-  const cx = eyeCenter[0];
-  const cy = eyeCenter[1];
+  const cx = (nose[0] + eyeCenter[0]) / 2;
+  const cy = (nose[1] + eyeCenter[1]) / 2;
 
-  const ow = Math.abs(leftEye[0] - rightEye[0]) * 2;
+  const ow =
+    Math.sqrt(
+      (leftEye[0] - rightEye[0]) ** 2 + (leftEye[1] - rightEye[1]) ** 2
+    ) * 2;
   const oh = 1.618 * ow;
 
   const left = cx - ow / 2,
-    top = cy - ow / 2;
+    top = cy - oh / 2;
   const width = ow,
     height = oh;
 

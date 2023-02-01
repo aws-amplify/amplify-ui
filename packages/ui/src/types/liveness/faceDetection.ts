@@ -11,6 +11,7 @@ export interface Face {
   rightEye: number[];
   leftEye: number[];
   mouth: number[];
+  nose: number[];
 }
 
 /**

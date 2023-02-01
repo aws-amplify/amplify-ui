@@ -90,6 +90,7 @@ describe('Liveness Machine', () => {
     rightEye: [200, 200],
     leftEye: [200, 200],
     mouth: [200, 200],
+    nose: [200, 200],
   };
   const mockOvalDetails: LivenessOvalDetails = {
     height: 100,
