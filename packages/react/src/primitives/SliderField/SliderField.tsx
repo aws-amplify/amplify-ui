@@ -112,6 +112,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
       // Custom classnames will be added to Root below
       className={classNames(
         ComponentClassNames.Field,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.SliderField
       )}
       testId={testId}
