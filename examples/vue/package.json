@@ -10,7 +10,7 @@
     "start": "vite preview --port 3000"
   },
   "dependencies": {
-    "@aws-amplify/ui-vue": "^3.1.5",
+    "@aws-amplify/ui-vue": "^3.1.6",
     "aws-amplify": "latest",
     "vue": "^3.0.5",
     "vue-router": "4"

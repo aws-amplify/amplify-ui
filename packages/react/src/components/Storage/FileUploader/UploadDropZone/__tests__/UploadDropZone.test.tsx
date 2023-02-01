@@ -6,7 +6,7 @@ import { classNameModifier } from '../../../../../primitives/shared/utils';
 import { ComponentClassNames } from '../../../../../primitives';
 
 describe('UploaderDrop', () => {
-  it('exists', async () => {
+  it('exists', () => {
     const { container } = render(
       <UploadDropZone
         inDropZone={false}
@@ -20,7 +20,7 @@ describe('UploaderDrop', () => {
 
     expect(container).toMatchSnapshot();
   });
-  it('shows correct class when inDropZone is true', async () => {
+  it('shows correct class when inDropZone is true', () => {
     const { container } = render(
       <UploadDropZone
         inDropZone

@@ -1,16 +1,16 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "4.3.5",
+  "version": "4.3.6",
   "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/esm/index.mjs",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.js",
+      "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
     "./internal": {
-      "import": "./dist/esm/internal.js",
+      "import": "./dist/esm/internal.mjs",
       "require": "./dist/internal.js"
     },
     "./styles.css": "./dist/styles.css",
@@ -40,7 +40,8 @@
     "dev:build": "tsup",
     "clean": "rimraf dist node_modules",
     "lint": "tsc --noEmit --project tsconfig.dev.json && eslint src --ext .js,.ts,.tsx",
-    "test": "yarn test:unit",
+    "test": "yarn test:unit && yarn test:esm",
+    "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
@@ -48,8 +49,8 @@
     "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.2",
-    "@aws-amplify/ui-react-core": "2.1.10",
+    "@aws-amplify/ui": "5.5.3",
+    "@aws-amplify/ui-react-core": "2.1.11",
     "@radix-ui/react-accordion": "1.0.0",
     "@radix-ui/react-direction": "1.0.0",
     "@radix-ui/react-dropdown-menu": "1.0.0",
@@ -79,7 +80,6 @@
     }
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^7.0.8",
     "@svgr/core": "^5.5.0",
@@ -123,31 +123,31 @@
   "size-limit": [
     {
       "name": "Authenticator",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ Authenticator }",
       "limit": "120 kB"
     },
     {
       "name": "Geo",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ MapView, LocationSearch }",
       "limit": "330 kB"
     },
     {
       "name": "Storage - FileUploader",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ FileUploader }",
       "limit": "140 kB"
     },
     {
       "name": "AccountSettings",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ AccountSettings }",
       "limit": "60 kB"
     },
     {
       "name": "InAppMessaging",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ InAppMessagingProvider, InAppMessageDisplay }",
       "limit": "110 kB"
     }

@@ -15,6 +15,7 @@ import {
 } from '../../Flex/__tests__/Flex.test';
 import { ComponentClassNames } from '../../shared/constants';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
+
 // Jest uses JSDom, which apparently doesn't support the ResizeObserver API
 // This will get around that API reference error in Jest
 // We don't necessarily test its functionality since Radix should be responsible for that
@@ -70,9 +71,7 @@ describe('SliderField:', () => {
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
-      render(
-        <SliderField defaultValue={0} label="slider" labelHidden />
-      );
+      render(<SliderField defaultValue={0} label="slider" labelHidden />);
 
       const label = await screen.findByTestId(SLIDER_LABEL_TEST_ID);
       expect(label).toHaveClass('amplify-visually-hidden');
@@ -84,7 +83,7 @@ describe('SliderField:', () => {
       expect(label.id.startsWith(AUTO_GENERATED_ID_PREFIX)).toBeTruthy();
     });
 
-    it('should display value if isValueHidden is false', async () => {
+    it('should display value if isValueHidden is false', () => {
       render(<SliderField defaultValue={10} label="slider" />);
       const value = screen.queryByText('10');
       expect(value).toBeInTheDocument();
@@ -120,7 +119,7 @@ describe('SliderField:', () => {
       expect(heading).toHaveClass(ComponentClassNames.Heading);
     });
 
-    it('should not display value if isValueHidden is true', async () => {
+    it('should not display value if isValueHidden is true', () => {
       render(<SliderField defaultValue={10} label="slider" isValueHidden />);
       const value = screen.queryByText('10');
       expect(value).not.toBeInTheDocument();
@@ -312,7 +311,7 @@ describe('SliderField:', () => {
 
   describe('Error messages', () => {
     const errorMessage = 'This is an error message';
-    it('should not show when hasError is false', async () => {
+    it('should not show when hasError is false', () => {
       render(
         <SliderField
           defaultValue={0}
@@ -325,7 +324,7 @@ describe('SliderField:', () => {
       expect(errorText).not.toBeInTheDocument();
     });
 
-    it('show when hasError and errorMessage', async () => {
+    it('show when hasError and errorMessage', () => {
       render(
         <SliderField
           defaultValue={0}
@@ -340,7 +339,7 @@ describe('SliderField:', () => {
   });
 
   describe('descriptive message', () => {
-    it('should render descriptiveText if it is provided', async () => {
+    it('should render descriptiveText if it is provided', () => {
       render(
         <SliderField
           defaultValue={0}

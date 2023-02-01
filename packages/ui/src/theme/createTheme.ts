@@ -1,6 +1,6 @@
 // Internal Style Dictionary methods
-import deepExtend from 'style-dictionary/lib/utils/deepExtend';
-import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
+import deepExtend from 'style-dictionary/lib/utils/deepExtend.js';
+import flattenProperties from 'style-dictionary/lib/utils/flattenProperties.js';
 
 import { defaultTheme } from './defaultTheme';
 import { Theme, DefaultTheme, WebTheme, Override } from './types';

@@ -10,7 +10,9 @@ export const IMAGE_CONTAINER_CLASS = `${BLOCK_CLASS}__image-container`;
 export const TEXT_CONTAINER_CLASS = `${BLOCK_CLASS}__text-container`;
 
 // Test IDs
+export const BODY_TEXT_TEST_ID = 'inappmessaging-messagelayout-bodytext';
 export const CONTENT_TEST_ID = 'inappmessaging-messagelayout-content';
+export const HEADER_TEXT_TEST_ID = 'inappmessaging-messagelayout-headertext';
 export const IMAGE_CONTAINER_TEST_ID =
   'inappmessaging-messagelayout-imagecontainer';
 export const MESSAGE_LAYOUT_TEST_ID = 'inappmessaging-messagelayout';

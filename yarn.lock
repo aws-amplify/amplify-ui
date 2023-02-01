@@ -6026,19 +6026,6 @@
     magic-string "^0.25.7"
     resolve "^1.17.0"
 
-"@rollup/plugin-commonjs@^22.0.1":
-  version "22.0.2"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-22.0.2.tgz#ee8ca8415cda30d383b4096aad5222435b4b69b6"
-  integrity sha512-//NdP6iIwPbMTcazYsiBMbJW7gfmpHom33u1beiIoHDEM0Q9clvtQB1T0efvMqHeKsGohiHo97BCPCkBXdscwg==
-  dependencies:
-    "@rollup/pluginutils" "^3.1.0"
-    commondir "^1.0.1"
-    estree-walker "^2.0.1"
-    glob "^7.1.6"
-    is-reference "^1.2.1"
-    magic-string "^0.25.7"
-    resolve "^1.17.0"
-
 "@rollup/plugin-dynamic-import-vars@^1.4.0":
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-dynamic-import-vars/-/plugin-dynamic-import-vars-1.4.4.tgz#6c156f7437f4e3033d53c96ba970ab476cbf367f"
@@ -13248,6 +13235,13 @@ esbuild-register@^3.3.2, esbuild-register@^3.3.3:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/esbuild-register/-/esbuild-register-3.4.0.tgz#cdbd19fd24c2cc61bd9ab50c783217c6dffc859c"
   integrity sha512-EquMnCzCeHTMJIzThI5Le7MCUYkoX3Prk7/hpZ1mUAwHsvalmgTeXdip+SAId9QmKN0TgxPA90x3OWqAOpR16g==
+  dependencies:
+    debug "^4.3.4"
+
+esbuild-register@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/esbuild-register/-/esbuild-register-3.4.2.tgz#1e39ee0a77e8f320a9790e68c64c3559620b9175"
+  integrity sha512-kG/XyTDyz6+YDuyfB9ZoSIOOmgyFCH+xPRtsCa8W85HLRV5Csp+o3jWVbOSHgSLfyLc5DmP+KFDNwty4mEjC+Q==
   dependencies:
     debug "^4.3.4"
 

@@ -1,5 +1,6 @@
+import { isUndefined } from '@aws-amplify/ui';
+
 import usePreviousValue from './usePreviousValue';
-import isUndefined from 'lodash/isUndefined';
 
 export default function useHasValueUpdated<Value>(
   value: Value,

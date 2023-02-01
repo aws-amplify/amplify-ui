@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getCustomFormField applies defaults to fields with known auth attributes 1`] = `
+Object {
+  "email": Object {
+    "autocomplete": "username",
+    "isRequired": true,
+    "label": "Email",
+    "placeholder": "Mock Email Placeholder",
+    "type": "email",
+  },
+  "password": Object {
+    "autocomplete": "new-password",
+    "isRequired": true,
+    "label": "Password",
+    "placeholder": "Mock Password Placeholder",
+    "type": "password",
+  },
+  "username": Object {
+    "autocomplete": "username",
+    "isRequired": true,
+    "label": "Username",
+    "placeholder": "Mock Username Placeholder",
+    "type": "text",
+  },
+}
+`;
+
+exports[`getCustomFormField applies defaults to known auth fields on resetPassword with email loginMechanism 1`] = `
+Object {
+  "birthdate": Object {
+    "autocomplete": "bday",
+    "isRequired": true,
+    "label": "Mock Birthdate Label",
+    "placeholder": "Enter your Birthdate",
+    "type": "date",
+  },
+  "password": Object {
+    "autocomplete": "new-password",
+    "isRequired": true,
+    "label": "Mock Password Label",
+    "placeholder": "Enter your Password",
+    "type": "password",
+  },
+  "username": Object {
+    "autocomplete": "username",
+    "isRequired": true,
+    "label": "Mock Email Label",
+    "placeholder": "Enter your Email",
+    "type": "email",
+  },
+  "zoneinfo": Object {
+    "label": "Zone Info",
+    "placeholder": "Enter your Zone",
+    "type": "text",
+  },
+}
+`;

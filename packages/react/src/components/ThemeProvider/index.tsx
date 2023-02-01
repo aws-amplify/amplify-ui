@@ -1,9 +1,17 @@
 import * as React from 'react';
-import { DirectionProvider } from '@radix-ui/react-direction';
+import * as RadixDirection from '@radix-ui/react-direction';
 
 import { createTheme, Theme, WebTheme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
+
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR),
+// the module will be imported as CommonJS module, in which we have to reference the `default`
+let sanitizedRadixDirection = { default: undefined, ...RadixDirection };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+sanitizedRadixDirection =
+  sanitizedRadixDirection.default ?? sanitizedRadixDirection;
+const { DirectionProvider } = sanitizedRadixDirection;
 
 export type ColorMode = 'system' | 'light' | 'dark';
 export type Direction = 'ltr' | 'rtl';
