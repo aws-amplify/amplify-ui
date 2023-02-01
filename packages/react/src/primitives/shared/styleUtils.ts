@@ -50,12 +50,7 @@ export const convertGridSpan = (
   // ResponsiveObject<PropertyType>
   if (typeof spanValue === 'object' && spanValue != null) {
     return (Object.entries(spanValue) as Array<[string, GridSpanType]>).reduce(
-      (acc, [key, value]) => {
-        return {
-          ...acc,
-          [key]: getGridSpan(value),
-        };
-      },
+      (acc, [key, value]) => ({ ...acc, [key]: getGridSpan(value) }),
       {} as ResponsiveObject<string>
     );
     // let newObj: ResponsiveObject<string> = {};
