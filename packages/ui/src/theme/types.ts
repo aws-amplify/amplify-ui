@@ -125,7 +125,7 @@ export interface DefaultTheme extends Pick<Theme, 'name' | 'overrides'> {
  * to be used in Javascript/Typescript.
  */
 export interface WebTheme
-  extends Pick<Theme, 'breakpoints' | 'name' | 'overrides'> {
+  extends Pick<DefaultTheme, 'breakpoints' | 'name' | 'overrides'> {
   cssText: string;
   // property `components` is not specified on `WebTokens`,
   // but is a required token property of `WebTheme`

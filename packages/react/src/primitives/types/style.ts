@@ -607,8 +607,10 @@ export interface AllStyleProps
     GridContainerStyleProps,
     TextAreaStyleProps {}
 
+export type AllStylePropKey = keyof AllStyleProps;
+
 export type ComponentPropToStyleProp = Required<{
-  [key in keyof AllStyleProps]: keyof React.CSSProperties;
+  [key in AllStylePropKey]: keyof React.CSSProperties;
 }>;
 
 /**
