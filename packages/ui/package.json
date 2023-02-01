@@ -1,12 +1,12 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "5.5.2",
+  "version": "5.5.3",
   "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/esm/index.mjs",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.js",
+      "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
     "./package.json": "./package.json",
@@ -33,7 +33,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "yarn build:css && yarn build:js",
-    "build:css": "ts-node --transpile-only ./scripts/generateCSS.ts",
+    "build:css": "node -r esbuild-register ./scripts/generateCSS.ts",
     "build:js": "rollup --config",
     "build:dev:js": "tsup",
     "clean": "rimraf dist node_modules",
@@ -64,6 +64,7 @@
     "@types/webpack-env": "^1.16.2",
     "@typescript-eslint/parser": "^5.20.0",
     "autoprefixer": "^10.3.1",
+    "esbuild-register": "^3.4.2",
     "fs-extra": "^10.0.0",
     "glob": "^7.1.7",
     "globcat": "^1.3.4",

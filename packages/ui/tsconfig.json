@@ -1,14 +1,9 @@
 {
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
-  },
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
     "strict": false,
-    "jsx": "preserve",
+    "jsx": "react",
     "importHelpers": true,
     "moduleResolution": "node",
     "skipLibCheck": true,

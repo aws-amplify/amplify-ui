@@ -86,7 +86,7 @@ describe('PasswordField component', () => {
     );
   });
 
-  it('should be able to hide show password button', async () => {
+  it('should be able to hide show password button', () => {
     render(
       <PasswordField
         label="Password"
