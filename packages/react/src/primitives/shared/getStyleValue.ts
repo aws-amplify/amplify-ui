@@ -20,8 +20,7 @@ export const getStyleValue = ({
   value,
   propKey,
   tokens,
-}: GetStyleValueProps): string | number | null => {
-  if (typeof value === 'number') return value;
+}: GetStyleValueProps): string | null => {
   if (isDesignToken(value)) return value.toString();
   if (typeof value === 'string' && typeof propKey === 'string')
     return getCSSVariableIfValueIsThemeKey(propKey, value, tokens);
