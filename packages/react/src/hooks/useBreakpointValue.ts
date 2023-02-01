@@ -3,7 +3,7 @@ import { getValueAtCurrentBreakpoint } from '../primitives/shared/responsive/uti
 import { useBreakpoint } from '../primitives/shared/responsive/useBreakpoint';
 import { useTheme } from './useTheme';
 import { getStyleValue } from '../primitives/shared/getStyleValue';
-import { isDesignToken } from '@aws-amplify/ui';
+import { isDesignToken, isString } from '@aws-amplify/ui';
 
 interface UseBreakpointValue<T = unknown> {
   (
@@ -28,7 +28,7 @@ export const useBreakpointValue: UseBreakpointValue = (
 
   const breakpoint = useBreakpoint({
     breakpoints,
-    defaultBreakpoint: defaultBreakpoint,
+    defaultBreakpoint,
   });
 
   const value = getValueAtCurrentBreakpoint({
@@ -37,7 +37,7 @@ export const useBreakpointValue: UseBreakpointValue = (
     values,
   });
 
-  if (isDesignToken(value) || typeof value === 'string') {
+  if (isDesignToken(value) || isString(value)) {
     return getStyleValue({ value, propKey, tokens });
   } else {
     return value;

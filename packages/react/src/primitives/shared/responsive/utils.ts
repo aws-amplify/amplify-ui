@@ -51,14 +51,13 @@ const getClosestValueByBreakpoint = <Value = unknown>({
 const valueObjToBreakpoints = <Value>(
   obj: Record<string, Value>
 ): ValueBreakpoints<Value> => {
-  return objectKeys(obj)
-    .filter((key) => key in defaultTheme.breakpoints.values)
-    .reduce((acc, key) => {
-      return {
-        ...acc,
-        [key]: obj[key],
-      };
-    }, {});
+  return objectKeys(obj).reduce(
+    (acc, key) =>
+      key in defaultTheme.breakpoints.values
+        ? { ...acc, [key]: obj[key] }
+        : acc,
+    {}
+  );
 };
 
 export const getValueAtCurrentBreakpoint = <Value = string | number>({

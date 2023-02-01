@@ -49,16 +49,25 @@ export const convertGridSpan = (
   }
   // ResponsiveObject<PropertyType>
   if (typeof spanValue === 'object' && spanValue != null) {
-    let newObj: ResponsiveObject<string> = {};
-    Object.entries(spanValue).forEach(
-      ([key, value]: [string, GridSpanType]) => {
-        newObj = {
-          ...newObj,
+    return (Object.entries(spanValue) as Array<[string, GridSpanType]>).reduce(
+      (acc, [key, value]) => {
+        return {
+          ...acc,
           [key]: getGridSpan(value),
         };
-      }
+      },
+      {} as ResponsiveObject<string>
     );
-    return newObj;
+    // let newObj: ResponsiveObject<string> = {};
+    // Object.entries(spanValue).forEach(
+    //   ([key, value]: [string, GridSpanType]) => {
+    //     newObj = {
+    //       ...newObj,
+    //       [key]: getGridSpan(value),
+    //     };
+    //   }
+    // );
+    // return newObj;
   }
   return null;
 };

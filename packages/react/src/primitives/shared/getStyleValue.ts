@@ -1,4 +1,4 @@
-import { WebTheme, isDesignToken } from '@aws-amplify/ui';
+import { WebTheme, isDesignToken, isString } from '@aws-amplify/ui';
 import { getCSSVariableIfValueIsThemeKey } from './utils';
 
 interface GetStyleValueProps {
@@ -21,9 +21,15 @@ export const getStyleValue = ({
   propKey,
   tokens,
 }: GetStyleValueProps): string | null => {
-  if (isDesignToken(value)) return value.toString();
-  if (typeof value === 'string' && typeof propKey === 'string')
-    return getCSSVariableIfValueIsThemeKey(propKey, value, tokens);
-  if (typeof value === 'string') return value;
+  if (isDesignToken(value)) {
+    return value.toString();
+  }
+
+  if (isString(value)) {
+    return isString(propKey)
+      ? getCSSVariableIfValueIsThemeKey(propKey, value, tokens)
+      : value;
+  }
+
   return null;
 };
