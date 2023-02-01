@@ -30,8 +30,10 @@ export function getOverridesFromVariants<T>(
   const variantValuesFromProps: VariantValues = Object.keys(props)
     .filter((i) => variantValueKeys.includes(i) && props[i])
     .reduce((acc, key) => {
-      acc[key] = props[key];
-      return acc;
+      return {
+        ...acc,
+        [key]: props[key],
+      };
     }, {});
 
   const matchedVariants = variants.filter(({ variantValues }) => {
