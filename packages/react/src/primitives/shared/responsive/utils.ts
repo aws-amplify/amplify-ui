@@ -1,89 +1,91 @@
-import { isDesignToken, WebTheme } from '@aws-amplify/ui';
+import { defaultTheme } from '@aws-amplify/ui';
 
-import { getCSSVariableIfValueIsThemeKey } from '../../shared/utils';
-import { Breakpoint, Breakpoints } from '../../types/responsive';
-import { ThemeStylePropKey } from '../../types/theme';
+import { objectKeys } from '../../shared/utils';
+import {
+  Breakpoint,
+  Breakpoints,
+  ValueBreakpoints,
+} from '../../types/responsive';
 
-const getClosestValueByBreakpoint = <Value>({
+const getClosestValueByBreakpoint = <Value = unknown>({
   breakpoint,
   breakpoints,
-  propKey,
   values,
-  tokens,
 }: {
   breakpoint: Breakpoint;
   breakpoints: Breakpoints;
-  propKey: ThemeStylePropKey;
-  values: Record<string, Value>;
-  tokens: WebTheme['tokens'];
-}): string | Value => {
+  values: ValueBreakpoints<Value>;
+}): Value | null => {
+  const value = values[breakpoint];
+
   // Check if breakpoint exists in values
-  if (values[breakpoint] !== undefined) {
-    const value = values[breakpoint];
-    return isDesignToken(value)
-      ? value.toString()
-      : getCSSVariableIfValueIsThemeKey(propKey, value, tokens);
+  if (value !== undefined) {
+    return value;
   }
 
   // Otherwise use a lower breakpoint value
-  const breakpointsDesc = Object.keys(breakpoints).sort(
+  const breakpointsDesc = objectKeys(breakpoints).sort(
     (a, b) => breakpoints[b] - breakpoints[a]
   );
+
   const lowerBreakpoints = breakpointsDesc.slice(
     breakpointsDesc.indexOf(breakpoint)
   );
   for (const breakpoint of lowerBreakpoints) {
     // Check if breakpoint exists in values
-    if (values[breakpoint] !== undefined) {
-      const value = values[breakpoint];
-      return isDesignToken(value)
-        ? value.toString()
-        : getCSSVariableIfValueIsThemeKey(propKey, value, tokens);
+    const value = values[breakpoint];
+    if (value !== undefined) {
+      return value;
     }
   }
 
   return null;
 };
 
-export const getValueAtCurrentBreakpoint = <Value>({
+/**
+ * This takes an object and will return an object that only has the
+ * breakpoint keys
+ * @param obj
+ * @returns
+ */
+const valueObjToBreakpoints = <Value>(
+  obj: Record<string, Value>
+): ValueBreakpoints<Value> => {
+  return objectKeys(obj).reduce(
+    (acc, key) =>
+      key in defaultTheme.breakpoints.values
+        ? { ...acc, [key]: obj[key] }
+        : acc,
+    {}
+  );
+};
+
+export const getValueAtCurrentBreakpoint = <Value = string | number>({
   breakpoint,
   breakpoints,
-  propKey,
   values,
-  tokens,
 }: {
-  values: Record<string, Value> | Value[] | Value;
+  values: ValueBreakpoints<Value> | Value[];
   breakpoint: Breakpoint;
   breakpoints: Breakpoints;
-  propKey?: ThemeStylePropKey;
-  tokens: WebTheme['tokens'];
-}): string | Value => {
-  // if value is a DesignToken use its toString()
-  if (isDesignToken(values)) {
-    return values.toString();
-  }
+}): Value | string | number | null => {
+  let breakpointCompatValues: Partial<Record<Breakpoint, Value>> = {};
 
-  if (typeof values !== 'object') {
-    return getCSSVariableIfValueIsThemeKey(propKey, values, tokens);
-  }
-
-  let breakpointCompatValues = {};
-  const breakpointsAscending = Object.keys(breakpoints).sort(
+  const breakpointsAscending = objectKeys(breakpoints).sort(
     (a, b) => breakpoints[a] - breakpoints[b]
   );
+
   if (Array.isArray(values)) {
-    values.map((value, index) => {
+    values.forEach((value, index) => {
       breakpointCompatValues[breakpointsAscending[index]] = value;
     });
-  } else {
-    breakpointCompatValues = values;
+  } else if (typeof values === 'object') {
+    breakpointCompatValues = valueObjToBreakpoints(values);
   }
 
   return getClosestValueByBreakpoint<Value>({
     breakpoint,
     breakpoints,
-    propKey,
     values: breakpointCompatValues,
-    tokens,
   });
 };

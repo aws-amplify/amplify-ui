@@ -12,7 +12,9 @@ import {
 import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
 import { Breakpoint } from '../../types/responsive';
 
-const props: ViewProps = {
+type UnknownViewProps = ViewProps & Record<string, unknown>;
+
+const props: UnknownViewProps = {
   backgroundColor: 'blue',
   border: '1px solid black',
   borderRadius: '6px',
@@ -60,7 +62,7 @@ describe('convertStylePropsToStyleObj:', () => {
   });
 
   it('should ignore undefined, null or empty string style prop values', () => {
-    const props: ViewProps = {
+    const props: UnknownViewProps = {
       backgroundColor: undefined,
       // cast to `undefined` to allow robustness testing
       color: null as unknown as undefined,
@@ -130,7 +132,7 @@ describe('convertStylePropsToStyleObj:', () => {
   });
 
   it('should extend the passed in style object', () => {
-    const props: ViewProps = {
+    const props: UnknownViewProps = {
       backgroundColor: 'red',
     };
     const existingStyles: React.CSSProperties = {
@@ -148,7 +150,7 @@ describe('convertStylePropsToStyleObj:', () => {
   });
 
   it('should give precedence to the stylistic props over the passed in style object', () => {
-    const props: ViewProps = {
+    const props: UnknownViewProps = {
       color: 'red',
       fontWeight: 'bold',
       padding: 'large',
@@ -173,7 +175,7 @@ describe('convertStylePropsToStyleObj:', () => {
 
   describe('theme key props', () => {
     it('should handle theme key props', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         color: 'red.10',
         fontWeight: 'bold',
         padding: 'large',
@@ -194,7 +196,7 @@ describe('convertStylePropsToStyleObj:', () => {
     });
 
     it('should handle shorthand theme key props', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         padding: 'large large',
       };
 
@@ -211,7 +213,7 @@ describe('convertStylePropsToStyleObj:', () => {
     });
 
     it('should handle mixed shorthand theme key props', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         padding: 'large 2px',
       };
 
@@ -226,7 +228,7 @@ describe('convertStylePropsToStyleObj:', () => {
     });
 
     it('should ignore/not change unknown theme keys', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         padding: 'foo',
       };
 
@@ -241,7 +243,7 @@ describe('convertStylePropsToStyleObj:', () => {
     });
 
     it('should gracefully handle unknown nested theme keys', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         padding: 'foo.bar',
       };
 
@@ -378,7 +380,7 @@ describe('useStyleProps:', () => {
   });
 
   it('should return an empty object if only style props are passed in', () => {
-    const allStyleProps: ViewProps = {
+    const allStyleProps: UnknownViewProps = {
       color: 'red',
       backgroundColor: 'blue',
       fontWeight: 'bold',
@@ -392,7 +394,7 @@ describe('useStyleProps:', () => {
   });
 
   it('should return a copy of the original object if all non style props are passed in', () => {
-    const noStyleProps: ViewProps = {
+    const noStyleProps: UnknownViewProps = {
       // @ts-ignore next-line
       'data-variation': 'primary',
       ariaLabel: props.ariaLabel,
