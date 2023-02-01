@@ -2,19 +2,18 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
+import { sanitizeNamespaceImport } from '@aws-amplify/ui';
+
 import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
 import { IconMenu } from '../Icon/internal';
 import { MenuButton } from './MenuButton';
 import { MenuProps, Primitive } from '../types';
 
-// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR),
-// the module will be imported as CommonJS module, in which we have to reference the `default`
-let sanitizedDropdown = { default: undefined, ...Dropdown };
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-sanitizedDropdown = sanitizedDropdown.default ?? sanitizedDropdown;
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
+// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
 const { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } =
-  sanitizedDropdown;
+  sanitizeNamespaceImport(Dropdown);
 
 export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id';
 export const MENU_ITEMS_GROUP_TEST_ID = 'amplify-menu-items-group-test-id';
