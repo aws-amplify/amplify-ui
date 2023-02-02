@@ -13,7 +13,7 @@ export const useToggleButtonGroup = ({
   value,
   isExclusive = false,
   isSelectionRequired = false,
-}: UseToggleButtonParams): ((value?: string) => void) => {
+}: UseToggleButtonParams): ((value: string) => void) => {
   // Multiple selection
   const handleChange: ToggleButtonProps['onChange'] = React.useCallback(
     (buttonValue) => {
