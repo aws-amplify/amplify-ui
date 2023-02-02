@@ -5,10 +5,10 @@ import { MessagePayloadStyle } from '@aws-amplify/ui-react-core';
  */
 export interface MessageComponentStyles {
   body: React.CSSProperties;
-  closeIconButton?: React.CSSProperties;
+  closeIconButton: React.CSSProperties;
   container: React.CSSProperties;
   header: React.CSSProperties;
-  image?: React.CSSProperties;
+  image: React.CSSProperties;
   primaryButton: React.CSSProperties;
   secondaryButton: React.CSSProperties;
 }
