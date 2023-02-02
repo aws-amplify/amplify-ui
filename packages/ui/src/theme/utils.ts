@@ -1,16 +1,8 @@
-import has from 'lodash/has';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
-import kebabCase from 'lodash/kebabCase';
-
 // internal style dictionary function
-import usesReference from 'style-dictionary/lib/utils/references/usesReference';
+import usesReference from 'style-dictionary/lib/utils/references/usesReference.js';
 
-import {
-  DesignToken,
-  ShadowValue,
-  WebDesignToken,
-} from './tokens/types/designToken';
+import { isObject, isString, has, kebabCase } from '../utils';
+import { ShadowValue, WebDesignToken } from './tokens/types/designToken';
 
 type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;
 

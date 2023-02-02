@@ -17,16 +17,25 @@ jobs:
       fail-fast: false
       matrix:
         # Paths for each example app we want to test build on
-        path:
-          - angular/angularcli
-          - react/cra
-          - react/cra-ts
-          - react/next
-          - react/vite
-          - react/vite3
-          - vue/vite
-          - vue/vite3
-          - vue/vuecli
+        include:
+          - framework: angular
+            build-tool: angularcli
+          - framework: react
+            build-tool: cra
+          - framework: react
+            build-tool: cra-ts
+          - framework: react
+            build-tool: next
+          - framework: react
+            build-tool: vite
+          - framework: react
+            build-tool: vite3
+          - framework: vue
+            build-tool: vite
+          - framework: vue
+            build-tool: vite3
+          - framework: vue
+            build-tool: vuecli
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v3
@@ -36,22 +45,13 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           no-lockfile: true
-          working-directory: ./canary/apps/${{ matrix.path }}
+          working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Get CLI versions
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v3
-        with:
-          path: canary/environments/**/aws-exports.js
-          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
@@ -59,7 +59,7 @@ jobs:
         working-directory: ./canary
       - name: Build example app
         run: yarn build
-        working-directory: ./canary/apps/${{ matrix.path }}
+        working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
       # This steps attempts to restore cypress runner. It will not create any new
       # cache entries however, because cypress runner isn't available yet.
       - name: Restore cypress runner from Cache
@@ -88,10 +88,10 @@ jobs:
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Start ${{ matrix.example }} example
+      - name: Start ${{ matrix.framework }}/${{ matrix.build-tool }} example
         run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
-        working-directory: ./canary/apps/${{ matrix.path }}
-      - name: Run E2E tests against ${{ matrix.example }} example
+        working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
+      - name: Run E2E tests against ${{ matrix.framework }}/${{ matrix.build-tool }} example
         run: yarn test
         id: e2e
         working-directory: ./canary
@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
-          name: canary-cypress-error-${{ matrix.path }}
+          name: canary-cypress-error-${{ matrix.framework }}-${{ matrix.build-tool }}
           path: |
             canary/e2e/cypress/videos/**
             canary/e2e/cypress/screenshots/**

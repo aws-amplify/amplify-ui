@@ -6,8 +6,8 @@ import { SearchField } from '../SearchField';
 import { ComponentClassNames, ComponentText } from '../../shared/constants';
 
 const label = 'Search Amplify UI';
-const {searchButtonLabel} = ComponentText.SearchField;
-const {clearButtonLabel} = ComponentText.Fields;
+const { searchButtonLabel } = ComponentText.SearchField;
+const { clearButtonLabel } = ComponentText.Fields;
 
 const testId = 'SearchFieldTestId';
 const searchQuery = 'Amplify UI components';
@@ -69,24 +69,24 @@ describe('SearchField component', () => {
     expect(searchButtonRef?.current?.nodeName).toBe('BUTTON');
   });
 
-  it('should be text input type', async () => {
+  it('should be text input type', () => {
     render(<SearchField label={label} name="q" />);
 
     const searchField = screen.getByLabelText(label);
     expect(searchField.getAttribute('type')).toBe('text');
   });
 
-  it('should be able to set a size', async () => {
+  it('should be able to set a size', () => {
     render(<SearchField label={label} name="q" size="large" />);
 
-    const searchField = await screen.getByLabelText(label);
+    const searchField = screen.getByLabelText(label);
     expect(searchField.dataset['size']).toBe('large');
   });
 
-  it('should be able to set a quiet variation', async () => {
+  it('should be able to set a quiet variation', () => {
     render(<SearchField label={label} name="q" variation="quiet" />);
 
-    const searchField = await screen.getByLabelText(label);
+    const searchField = screen.getByLabelText(label);
     expect(searchField).toHaveAttribute('data-variation', 'quiet');
   });
 
@@ -115,9 +115,7 @@ describe('SearchField component', () => {
   it('should clear text for uncontrolled component when user types Esc', async () => {
     render(<SearchField label={label} name="q" />);
 
-    const searchField = (await screen.findByLabelText(
-      label
-    ));
+    const searchField = await screen.findByLabelText(label);
 
     userEvent.type(searchField, searchQuery);
     expect(searchField).toHaveValue(searchQuery);
@@ -129,9 +127,7 @@ describe('SearchField component', () => {
   it('should clear text for controlled component when user types Esc', async () => {
     render(<ControlledSearchField />);
 
-    const searchField = (await screen.findByLabelText(
-      label
-    ));
+    const searchField = await screen.findByLabelText(label);
 
     userEvent.type(searchField, searchQuery);
     expect(searchField).toHaveValue(searchQuery);
@@ -173,9 +169,7 @@ describe('SearchField component', () => {
     it('should clear text and refocus uncontrolled input when clicked', async () => {
       render(<SearchField label={label} name="q" />);
 
-      const searchField = (await screen.findByLabelText(
-        label
-      ));
+      const searchField = await screen.findByLabelText(label);
       userEvent.type(searchField, searchQuery);
 
       const clearButton = await screen.findByLabelText(clearButtonLabel);
@@ -189,9 +183,7 @@ describe('SearchField component', () => {
     it('should clear text and refocus controlled input when clicked', async () => {
       render(<ControlledSearchField />);
 
-      const searchField = (await screen.findByLabelText(
-        label
-      ));
+      const searchField = await screen.findByLabelText(label);
       userEvent.type(searchField, searchQuery);
 
       const clearButton = await screen.findByLabelText(clearButtonLabel);
@@ -212,14 +204,10 @@ describe('SearchField component', () => {
         />
       );
 
-      const searchField = (await screen.findByLabelText(
-        label
-      ));
+      const searchField = await screen.findByLabelText(label);
       userEvent.type(searchField, searchQuery);
 
-      const clearButton = (await screen.findByLabelText(
-        clearButtonLabel
-      ));
+      const clearButton = await screen.findByLabelText(clearButtonLabel);
       expect(clearButton).toHaveAttribute('aria-label', clearButtonLabel);
     });
   });

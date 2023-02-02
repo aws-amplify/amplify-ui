@@ -1,6 +1,8 @@
 import classNames from 'classnames';
-import { Range, Root, Thumb, Track } from '@radix-ui/react-slider';
+import * as RadixSlider from '@radix-ui/react-slider';
 import * as React from 'react';
+
+import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
@@ -14,6 +16,10 @@ import { SliderFieldProps } from '../types/sliderField';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
+
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
+// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
+const { Range, Root, Thumb, Track } = sanitizeNamespaceImport(RadixSlider);
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';

@@ -9,7 +9,8 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
-describe('SelectField test suite', () => {
+
+describe('SelectField', () => {
   const className = 'my-select';
   const descriptiveText = 'This is a descriptive text';
   const id = 'my-select';
@@ -56,9 +57,7 @@ describe('SelectField test suite', () => {
         </SelectField>
       );
 
-      const labelElelment = (await screen.findByText(
-        label
-      ));
+      const labelElelment = await screen.findByText(label);
       expect(labelElelment).toHaveClass(ComponentClassNames.Label);
     });
 
@@ -70,9 +69,7 @@ describe('SelectField test suite', () => {
           <option value="3">3</option>
         </SelectField>
       );
-      const labelElelment = (await screen.findByText(
-        label
-      ));
+      const labelElelment = await screen.findByText(label);
       const select = await screen.findByRole(role);
       expect(labelElelment).toHaveAttribute('for', select.id);
     });
@@ -215,7 +212,7 @@ describe('SelectField test suite', () => {
   });
 
   describe('Descriptive message', () => {
-    it('renders when descriptiveText is provided', async () => {
+    it('renders when descriptiveText is provided', () => {
       render(
         <SelectField label={label} descriptiveText={descriptiveText}>
           <option value="1">1</option>
@@ -224,7 +221,7 @@ describe('SelectField test suite', () => {
         </SelectField>
       );
 
-      const descriptiveField = await screen.queryByText(descriptiveText);
+      const descriptiveField = screen.queryByText(descriptiveText);
       expect(descriptiveField).toContainHTML(descriptiveText);
     });
 
@@ -243,7 +240,7 @@ describe('SelectField test suite', () => {
   });
 
   describe('Error messages', () => {
-    it("don't show when hasError is false", async () => {
+    it("don't show when hasError is false", () => {
       render(
         <SelectField label={label} errorMessage={errorMessage}>
           <option value="1">1</option>
@@ -252,11 +249,11 @@ describe('SelectField test suite', () => {
         </SelectField>
       );
 
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText).not.toBeInTheDocument();
     });
 
-    it('show when hasError and errorMessage', async () => {
+    it('show when hasError and errorMessage', () => {
       render(
         <SelectField label={label} errorMessage={errorMessage} hasError>
           <option value="1">1</option>
@@ -264,7 +261,7 @@ describe('SelectField test suite', () => {
           <option value="3">3</option>
         </SelectField>
       );
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText?.innerHTML).toContain(errorMessage);
     });
   });
@@ -286,11 +283,12 @@ describe('SelectField test suite', () => {
       });
     });
 
-    it('logs a warning to the console if the customer passes both children and options', async () => {
+    it('logs a warning to the console if the customer passes both children and options', () => {
       const warningMessage =
         'Amplify UI: <SelectField> component  defaults to rendering children over `options`. When using the `options` prop, omit children.';
-      const originalWarn = console.warn;
-      console.warn = jest.fn();
+
+      // add empty mockImplementation to prevent logging output to the console
+      const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
 
       const optionStrings = ['lions', 'tigers', 'bears'];
       render(
@@ -301,9 +299,7 @@ describe('SelectField test suite', () => {
         </SelectField>
       );
 
-      expect(console.warn).toHaveBeenCalledWith(warningMessage);
-
-      console.warn = originalWarn;
+      expect(consoleWarnSpy).toHaveBeenCalledWith(warningMessage);
     });
   });
 });

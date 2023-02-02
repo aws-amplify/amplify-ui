@@ -36,13 +36,13 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## Component Matrix
 
-| **Connected Components** | **React** | **React Native** | **Angular** | **Vue**    |
-| :----------------------- | :-------: | :--------------: | :---------: | :---------:|
-| Authenticator            |  ✅       |     🚧           |   ✅        |   ✅      |
-| In-App Messaging         |  ✅       |     ✅           |             |            |
-| Geo (MapView)            |  ✅       |                  |             |            |
-| Account Settings         |  🚧       |                  |             |            |
-| Storage (FileUploader)   |  🚧       |                  |             |            |
+| **Connected Components** | **React** | **React Native** | **Angular** | **Vue** |
+| :----------------------- | :-------: | :--------------: | :---------: | :-----: |
+| Authenticator            |    ✅     |        🚧        |     ✅      |   ✅    |
+| In-App Messaging         |    ✅     |        ✅        |             |         |
+| Geo (MapView)            |    ✅     |                  |             |         |
+| Account Settings         |    🚧     |                  |             |         |
+| Storage (FileUploader)   |    🚧     |                  |             |         |
 
 | **Primitives**   | **React** | **Angular** | **Vue** |
 | :--------------- | :-------: | :---------: | :-----: |

@@ -43,7 +43,7 @@ describe('Placeholder:', () => {
     expect(ref.current?.nodeName).toBe('DIV');
   });
 
-  it('renders based on isLoaded prop', async () => {
+  it('renders based on isLoaded prop', () => {
     render(
       <div>
         <Placeholder testId="placeholder1">
@@ -55,9 +55,9 @@ describe('Placeholder:', () => {
       </div>
     );
 
-    const placeholder1 = await screen.queryByTestId('placeholder1');
-    const text1 = await screen.queryByTestId('text1');
-    const placeholder2 = await screen.queryByTestId('placeholder2');
+    const placeholder1 = screen.queryByTestId('placeholder1');
+    const text1 = screen.queryByTestId('text1');
+    const placeholder2 = screen.queryByTestId('placeholder2');
 
     expect(placeholder1).toBeTruthy();
     expect(text1).toBeNull();

@@ -1,16 +1,22 @@
 import classNames from 'classnames';
-import {
-  Root,
-  List,
-  Trigger as RadixTab,
-  Content as Panel,
-} from '@radix-ui/react-tabs';
+import * as RadixTabs from '@radix-ui/react-tabs';
 import * as React from 'react';
+
+import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { TabsProps, TabsSpacing, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
+
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
+// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
+const {
+  Root,
+  List,
+  Trigger: RadixTab,
+  Content: Panel,
+} = sanitizeNamespaceImport(RadixTabs);
 
 /**
  * `TabItemProps` does not include HTML data attributes, so `data-spacing` is added explicitly

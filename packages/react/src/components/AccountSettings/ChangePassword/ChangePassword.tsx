@@ -1,5 +1,4 @@
 import React from 'react';
-import isEqual from 'lodash/isEqual';
 
 import { Logger } from 'aws-amplify';
 import {
@@ -9,6 +8,7 @@ import {
   getDefaultPasswordValidators,
   runFieldValidators,
   translate,
+  isEqual,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';

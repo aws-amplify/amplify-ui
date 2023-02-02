@@ -35,7 +35,7 @@ const mediaQueries: [
   breakpoints: defaultTheme.breakpoints.values,
 }).map((mediaQuery) => [mediaQuery.breakpoint, mediaQuery]);
 
-describe('useBreakpoint', () => {
+describe('useBreakpointValue', () => {
   let matchMedia: MatchMediaMock;
   beforeAll(() => {
     matchMedia = new MatchMediaMock();

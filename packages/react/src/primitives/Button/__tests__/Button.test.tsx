@@ -38,6 +38,12 @@ describe('Button test suite', () => {
     expect(menu.classList).toContain('amplify-button--menu');
     expect(warning.classList).toContain('amplify-button--warning');
     expect(destructive.classList).toContain('amplify-button--destructive');
+
+    expect(primary.classList).toContain(
+      `${ComponentClassNames['Button']}--primary`
+    );
+    expect(link.classList).toContain(`${ComponentClassNames['Button']}--link`);
+    expect(menu.classList).toContain(`${ComponentClassNames['Button']}--menu`);
   });
 
   it('should add the disabled class with the disabled attribute', async () => {
@@ -50,32 +56,6 @@ describe('Button test suite', () => {
     const disabled = await screen.findByTestId('disabled');
 
     expect(disabled).toHaveClass('amplify-button--disabled');
-  });
-
-  it('should render button variations', async () => {
-    render(
-      <div>
-        <Button variation="primary" testId="primary">
-          Primary
-        </Button>
-        <Button variation="link" testId="link">
-          Link
-        </Button>
-        <Button variation="menu" testId="menu">
-          Link
-        </Button>
-      </div>
-    );
-
-    const primary = await screen.findByTestId('primary');
-    const link = await screen.findByTestId('link');
-    const menu = await screen.findByTestId('menu');
-
-    expect(primary.classList).toContain(
-      `${ComponentClassNames['Button']}--primary`
-    );
-    expect(link.classList).toContain(`${ComponentClassNames['Button']}--link`);
-    expect(menu.classList).toContain(`${ComponentClassNames['Button']}--menu`);
   });
 
   it('should render button states', async () => {

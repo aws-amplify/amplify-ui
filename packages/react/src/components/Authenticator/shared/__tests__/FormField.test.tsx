@@ -29,7 +29,9 @@ describe('FormField', () => {
   it('renders as expected in the happy path', () => {
     // mocking ids so snapshots are consistent
     useStableIdSpy.mockReturnValue('mock-id-0');
-    useAuthenticatorSpy.mockReturnValue({ validationErrors: {} } as any);
+    useAuthenticatorSpy.mockReturnValue({
+      validationErrors: {},
+    } as UIReactCore.UseAuthenticator);
 
     const { container } = render(<FormField {...usernameFormFieldProps} />);
     expect(container).toMatchSnapshot();
@@ -39,7 +41,7 @@ describe('FormField', () => {
     useStableIdSpy.mockReturnValue('mock-id-0');
     useAuthenticatorSpy.mockReturnValue({
       validationErrors: { username: ERROR_MESSAGE },
-    } as any);
+    } as unknown as UIReactCore.UseAuthenticator);
 
     const { container } = render(<FormField {...usernameFormFieldProps} />);
     expect(container).toMatchSnapshot();
@@ -48,7 +50,7 @@ describe('FormField', () => {
   it('Invalid field is described by validation error', async () => {
     useAuthenticatorSpy.mockReturnValue({
       validationErrors: { username: ERROR_MESSAGE },
-    } as any);
+    } as unknown as UIReactCore.UseAuthenticator);
 
     const { container } = render(<FormField {...usernameFormFieldProps} />);
 
