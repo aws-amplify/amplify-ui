@@ -573,7 +573,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
+    render(
+      <FileUploader {...commonProps} maxFileCount={1} isPreviewerVisible />
+    );
 
     const uploadFilesText = await screen.findByText(/Upload 1 file/);
 
@@ -600,7 +602,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
+    render(
+      <FileUploader {...commonProps} maxFileCount={1} isPreviewerVisible />
+    );
 
     const errorText = await screen.findByText(/Cannot choose more than 1/);
 
