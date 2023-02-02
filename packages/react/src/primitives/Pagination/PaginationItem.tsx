@@ -68,7 +68,9 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
               )}
               size="small"
               variation="link"
-              onClick={onClick}
+              onClick={() => {
+                onClick();
+              }}
               ariaLabel={ariaLabel}
               {...rest}
             >
@@ -85,7 +87,9 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             size="small"
             variation="link"
             isDisabled={isDisabled}
-            onClick={onClick}
+            onClick={() => {
+              onClick();
+            }}
             ariaLabel={ariaLabel}
             {...rest}
           >
@@ -101,7 +105,9 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             size="small"
             variation="link"
             isDisabled={isDisabled}
-            onClick={onClick}
+            onClick={() => {
+              onClick();
+            }}
             ariaLabel={ariaLabel}
             {...rest}
           >
