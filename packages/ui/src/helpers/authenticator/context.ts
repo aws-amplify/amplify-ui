@@ -6,6 +6,7 @@ import {
   AuthContext,
   AuthMachineState,
 } from '../../types';
+import { includes } from '../../utils';
 
 export const getPrimaryAlias = (state: AuthMachineState) => {
   const loginMechanisms = state?.context.config?.loginMechanisms;

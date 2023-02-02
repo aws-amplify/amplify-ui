@@ -1,13 +1,8 @@
+type BreakpointKey = 'base' | 'small' | 'medium' | 'large' | 'xl' | 'xxl';
+
 export interface Breakpoints {
-  values: {
-    base: number;
-    small: number;
-    medium: number;
-    large: number;
-    xl: number;
-    xxl: number;
-  };
-  defaultBreakpoint: string;
+  values: Record<BreakpointKey, number>;
+  defaultBreakpoint: BreakpointKey;
 }
 
 // Breakpoint unit is in pixels
