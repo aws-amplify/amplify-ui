@@ -23,18 +23,6 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
   ariaLabel,
   ...rest
 }) => {
-  const onChange = React.useCallback(() => {
-    onClick?.(page, currentPage);
-  }, [page, currentPage, onClick]);
-
-  const onPrevious = React.useCallback(() => {
-    onClick?.();
-  }, [onClick]);
-
-  const onNext = React.useCallback(() => {
-    onClick?.();
-  }, [onClick]);
-
   const nextClasses = classNames(
     ComponentClassNames.PaginationItemButton,
     classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
@@ -80,7 +68,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
               )}
               size="small"
               variation="link"
-              onClick={onChange}
+              onClick={onClick}
               ariaLabel={ariaLabel}
               {...rest}
             >
@@ -97,7 +85,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             size="small"
             variation="link"
             isDisabled={isDisabled}
-            onClick={onNext}
+            onClick={onClick}
             ariaLabel={ariaLabel}
             {...rest}
           >
@@ -113,7 +101,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             size="small"
             variation="link"
             isDisabled={isDisabled}
-            onClick={onPrevious}
+            onClick={onClick}
             ariaLabel={ariaLabel}
             {...rest}
           >
