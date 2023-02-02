@@ -13,7 +13,7 @@ export const useThemeBreakpoint = (): Breakpoint => {
 
   const breakpoint = useBreakpoint({
     breakpoints,
-    defaultBreakpoint: defaultBreakpoint as Breakpoint,
+    defaultBreakpoint,
   });
 
   return breakpoint;
