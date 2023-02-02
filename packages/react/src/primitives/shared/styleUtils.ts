@@ -187,7 +187,7 @@ export const useStyles = (
 
   const breakpoint = useBreakpoint({
     breakpoints,
-    defaultBreakpoint: defaultBreakpoint as Breakpoint,
+    defaultBreakpoint,
   });
 
   const propStyles = useTransformStyleProps(props);
