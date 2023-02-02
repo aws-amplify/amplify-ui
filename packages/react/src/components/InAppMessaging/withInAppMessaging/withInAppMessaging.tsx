@@ -11,7 +11,7 @@ export default function withInAppMessaging<Props = {}>(
     return (
       <InAppMessagingProvider>
         <InAppMessageDisplay {...options} />
-        <Component {...props} />
+        <Component {...(props as Props & JSX.IntrinsicAttributes)} />
       </InAppMessagingProvider>
     );
   };
