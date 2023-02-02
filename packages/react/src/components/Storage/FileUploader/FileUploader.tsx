@@ -24,7 +24,7 @@ export function FileUploader({
   acceptedFileTypes,
   shouldAutoProceed = false,
   isPreviewerVisible,
-  maxFiles,
+  maxFileCount,
   maxSize,
   hasMultipleFiles = true,
   onError,
@@ -76,7 +76,8 @@ export function FileUploader({
   // Displays if over max files
 
   const hasMaxFilesError =
-    fileStatuses.filter((file) => file.percentage !== 100).length > maxFiles;
+    fileStatuses.filter((file) => file.percentage !== 100).length >
+    maxFileCount;
 
   useEffect(() => {
     // Loading ends when all files are at 100%
@@ -379,7 +380,7 @@ export function FileUploader({
         isLoading={isLoading}
         isSuccessful={isSuccessful}
         hasMaxFilesError={hasMaxFilesError}
-        maxFiles={maxFiles}
+        maxFileCount={maxFileCount}
         onClear={onClear}
         onFileClick={onFileClick}
         aggregatePercentage={aggregatePercentage}

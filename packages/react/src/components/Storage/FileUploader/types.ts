@@ -17,7 +17,7 @@ export interface FileUploaderProps {
   isPreviewerVisible?: boolean;
   isResumable?: boolean;
   accessLevel: StorageAccessLevel;
-  maxFiles?: number;
+  maxFileCount?: number;
   maxSize?: number;
   onError?: (error: string) => void;
   onSuccess?: (event: { key: string }) => void;
@@ -39,7 +39,7 @@ export interface PreviewerProps {
   isLoading: boolean;
   isSuccessful: boolean;
   hasMaxFilesError: boolean;
-  maxFiles: number;
+  maxFileCount: number;
   onClear: () => void;
   onFileClick: () => void;
 }
