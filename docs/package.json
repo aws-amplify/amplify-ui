@@ -11,7 +11,7 @@
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
     "build": "yarn build:props-tables && next build",
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables-data.ts",
-    "lint": "next lint",
+    "lint": "next lint && eslint . --ext ts,tsx,md,mdx",
     "postbuild": "yarn postbuild:sitemap && yarn test && yarn postbuild:previews",
     "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
@@ -72,12 +72,29 @@
     "esbuild-register": "^3.3.2",
     "eslint": "^7.32.0",
     "eslint-config-next": "12.0.10",
+    "eslint-plugin-mdx": "^2.0.5",
+    "eslint-plugin-prettier": "^4.2.1",
     "globby": "^13.1.1",
     "jest": "^27",
     "postcss": "^8.2.6",
     "react-markdown": "^8.0.3",
+    "remark-lint-list-item-indent": "^3.1.1",
+    "remark-preset-lint-consistent": "^5.1.1",
+    "remark-preset-lint-recommended": "^6.1.2",
+    "remark-preset-prettier": "^2.0.1",
     "sitemap-urls": "^3.0.0",
     "ts-jest": "^27",
     "ts-morph": "^15.1.0"
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-consistent",
+      "remark-preset-lint-recommended",
+      "remark-preset-prettier",
+      [
+        "remark-lint-list-item-indent",
+        "space"
+      ]
+    ]
   }
 }

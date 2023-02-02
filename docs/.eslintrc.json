@@ -1,3 +1,18 @@
 {
-  "extends": "next/core-web-vitals"
+  "plugins": ["prettier"],
+  "extends": ["next/core-web-vitals", "plugin:mdx/recommended", "prettier"],
+  "settings": { "mdx/code-blocks": true },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*.angular.mdx"],
+      "settings": { "mdx/code-blocks": false }
+    }
+  ]
 }
