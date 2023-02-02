@@ -31,5 +31,5 @@ export interface MessageLayoutProps
    * @description
    * Component styles - typically a combination of payload and override styles.
    */
-  styles: MessageComponentStyles | null;
+  styles: MessageComponentStyles;
 }

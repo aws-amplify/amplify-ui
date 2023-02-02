@@ -6,12 +6,15 @@ import {
   BLOCK_CLASS,
   BODY_TEXT_TEST_ID,
   BUTTON_CLASS,
+  BUTTON_GROUP_TEST_ID,
   CONTENT_CLASS,
   CONTENT_TEST_ID,
   HEADER_TEXT_TEST_ID,
   IMAGE_CONTAINER_CLASS,
   IMAGE_CONTAINER_TEST_ID,
   MESSAGE_LAYOUT_TEST_ID,
+  PRIMARY_BUTTON_TEST_ID,
+  SECONDARY_BUTTON_TEST_ID,
   TEXT_CONTAINER_CLASS,
   TEXT_CONTAINER_TEST_ID,
 } from '../constants';
@@ -43,23 +46,21 @@ const STYLES = {
 };
 const TEST_PROPS: MessageLayoutProps = {
   body: { content: BODY_CONTENT },
-  hasButtons: false,
-  hasPrimaryButton: false,
   hasRenderableImage: false,
-  hasSecondaryButton: false,
   header: { content: HEADER_CONTENT },
   image: { src: IMAGE_SRC },
   layout: 'TOP_BANNER',
   onClose: mockOnClose,
-  primaryButton: {
-    title: PRIMARY_BUTTON,
-    onAction: mockPrimaryButtonOnAction,
-  },
-  secondaryButton: {
-    title: SECONDARY_BUTTON,
-    onAction: mockSecondaryButtonOnAction,
-  },
   styles: STYLES,
+};
+
+const primaryButton = {
+  title: PRIMARY_BUTTON,
+  onAction: mockPrimaryButtonOnAction,
+};
+const secondaryButton = {
+  title: SECONDARY_BUTTON,
+  onAction: mockSecondaryButtonOnAction,
 };
 
 describe('MessageLayout component', () => {
@@ -132,26 +133,22 @@ describe('MessageLayout component', () => {
   });
 
   it('should render a primary button', () => {
-    render(<MessageLayout {...TEST_PROPS} hasButtons hasPrimaryButton />);
+    render(<MessageLayout {...TEST_PROPS} primaryButton={primaryButton} />);
 
-    const primaryButton = screen.queryByText(PRIMARY_BUTTON);
-    expect(primaryButton).toBeInTheDocument();
+    expect(screen.queryByText(PRIMARY_BUTTON)).toBeInTheDocument();
   });
 
   it('should render a secondary button', () => {
     render(
       <MessageLayout
         {...TEST_PROPS}
-        hasButtons
-        hasPrimaryButton
-        hasSecondaryButton
+        primaryButton={primaryButton}
+        secondaryButton={secondaryButton}
       />
     );
 
-    const primaryButton = screen.queryByText(PRIMARY_BUTTON);
-    const secondaryButton = screen.queryByText(SECONDARY_BUTTON);
-    expect(primaryButton).toBeInTheDocument();
-    expect(secondaryButton).toBeInTheDocument();
+    expect(screen.queryByText(PRIMARY_BUTTON)).toBeInTheDocument();
+    expect(screen.queryByText(SECONDARY_BUTTON)).toBeInTheDocument();
   });
 
   it('should apply the correct button modifiers', () => {
@@ -161,34 +158,32 @@ describe('MessageLayout component', () => {
     render(
       <MessageLayout
         {...TEST_PROPS}
-        hasButtons
-        hasPrimaryButton
-        hasSecondaryButton
+        primaryButton={primaryButton}
+        secondaryButton={secondaryButton}
       />
     );
 
-    const primaryButton = screen.getByText(PRIMARY_BUTTON);
-    const secondaryButton = screen.getByText(SECONDARY_BUTTON);
-    expect(primaryButton).toHaveClass(`${BUTTON_CLASS}--dark`);
-    expect(secondaryButton).toHaveClass(`${BUTTON_CLASS}--light`);
+    expect(screen.getByText(PRIMARY_BUTTON)).toHaveClass(
+      `${BUTTON_CLASS}--dark`
+    );
+    expect(screen.getByText(SECONDARY_BUTTON)).toHaveClass(
+      `${BUTTON_CLASS}--light`
+    );
   });
 
   it('should trigger the button onAction functions', () => {
     render(
       <MessageLayout
         {...TEST_PROPS}
-        hasButtons
-        hasPrimaryButton
-        hasSecondaryButton
+        primaryButton={primaryButton}
+        secondaryButton={secondaryButton}
       />
     );
 
-    const primaryButton = screen.getByText(PRIMARY_BUTTON);
-    const secondaryButton = screen.getByText(SECONDARY_BUTTON);
-    userEvent.click(primaryButton);
+    userEvent.click(screen.getByText(PRIMARY_BUTTON));
     expect(mockPrimaryButtonOnAction).toBeCalled();
     expect(mockSecondaryButtonOnAction).not.toBeCalled();
-    userEvent.click(secondaryButton);
+    userEvent.click(screen.getByText(SECONDARY_BUTTON));
     expect(mockSecondaryButtonOnAction).toBeCalled();
   });
 
@@ -196,13 +191,12 @@ describe('MessageLayout component', () => {
     render(
       <MessageLayout
         {...TEST_PROPS}
-        hasButtons
-        hasPrimaryButton
         hasRenderableImage
-        hasSecondaryButton
+        primaryButton={primaryButton}
+        secondaryButton={secondaryButton}
       />
     );
-    const [closeButton, secondaryButton, primaryButton] =
+    const [closeButton, secondaryButtonElement, primaryButtonElement] =
       screen.getAllByRole('button');
     const body = screen.getByText(BODY_CONTENT);
     const header = screen.getByText(HEADER_CONTENT);
@@ -213,8 +207,8 @@ describe('MessageLayout component', () => {
     expect(header).toHaveStyle(STYLES.header);
     expect(image).toHaveStyle(STYLES.image);
     expect(messageLayout).toHaveStyle(STYLES.container);
-    expect(primaryButton).toHaveStyle(STYLES.primaryButton);
-    expect(secondaryButton).toHaveStyle(STYLES.secondaryButton);
+    expect(primaryButtonElement).toHaveStyle(STYLES.primaryButton);
+    expect(secondaryButtonElement).toHaveStyle(STYLES.secondaryButton);
   });
 
   it('does not render header text if header content is missing', () => {
@@ -235,5 +229,25 @@ describe('MessageLayout component', () => {
     const bodyText = queryByTestId(BODY_TEXT_TEST_ID);
 
     expect(bodyText).toBeNull();
+  });
+
+  it('does not render a primary button if no primaryButton prop', () => {
+    const { queryByTestId } = render(<MessageLayout {...TEST_PROPS} />);
+
+    expect(queryByTestId(PRIMARY_BUTTON_TEST_ID)).toBeNull();
+  });
+
+  it('does not render a secondary button if no secondaryButton prop', () => {
+    const { queryByTestId } = render(<MessageLayout {...TEST_PROPS} />);
+
+    expect(queryByTestId(SECONDARY_BUTTON_TEST_ID)).toBeNull();
+  });
+
+  it('does not render any buttons or a button group', () => {
+    const { queryByTestId } = render(<MessageLayout {...TEST_PROPS} />);
+
+    expect(queryByTestId(BUTTON_GROUP_TEST_ID)).toBeNull();
+    expect(queryByTestId(PRIMARY_BUTTON_TEST_ID)).toBeNull();
+    expect(queryByTestId(SECONDARY_BUTTON)).toBeNull();
   });
 });
