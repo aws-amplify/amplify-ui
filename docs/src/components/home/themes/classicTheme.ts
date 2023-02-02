@@ -1,6 +1,6 @@
 import { defaultDarkModeOverride } from '@aws-amplify/ui-react';
 
-export default {
+const classicTheme = {
   name: 'classic-theme',
   tokens: {
     colors: {
@@ -39,3 +39,5 @@ export default {
   },
   overrides: [defaultDarkModeOverride],
 };
+
+export default classicTheme;

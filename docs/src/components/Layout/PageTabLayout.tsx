@@ -17,8 +17,10 @@ export const PageTabLayout = ({
     title.toLocaleLowerCase()
   );
 
-  const getIndex = (tab: string) =>
-    tab === '' ? 0 : tabComponentsMap.indexOf(tab);
+  const getIndex = React.useCallback(
+    (tab: string) => (tab === '' ? 0 : tabComponentsMap.indexOf(tab)),
+    [tabComponentsMap]
+  );
   const defaultIndex = getIndex(tab as string);
   const [tabIndex, setTabIndex] = React.useState(defaultIndex);
   const changeURL = (index) => {
