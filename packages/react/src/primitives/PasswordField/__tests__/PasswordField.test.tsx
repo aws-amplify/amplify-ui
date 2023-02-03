@@ -70,6 +70,21 @@ describe('PasswordField component', () => {
     expect(passwordField.dataset['size']).toBe('large');
   });
 
+  it('should render size classes for PasswordField', async () => {
+    render(
+      <div>
+        <PasswordField size="small" testId="small" label="small" />
+        <PasswordField size="large" testId="large" label="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+  });
+
   it('should have show password button', async () => {
     render(
       <PasswordField

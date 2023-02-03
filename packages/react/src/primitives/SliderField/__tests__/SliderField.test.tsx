@@ -174,6 +174,37 @@ describe('SliderField:', () => {
       expect(slider).toHaveAttribute('aria-valuenow', '0');
     });
 
+    it('should render size classes for SliderField', async () => {
+      render(
+        <div>
+          <SliderField
+            defaultValue={0}
+            size="small"
+            testId="small"
+            label="slider"
+            step={3}
+          />
+          <SliderField
+            defaultValue={0}
+            size="large"
+            testId="large"
+            label="slider"
+            step={3}
+          />
+        </div>
+      );
+
+      const small = await screen.findByTestId('small');
+      const large = await screen.findByTestId('large');
+
+      expect(small.classList).toContain(
+        `${ComponentClassNames['Field']}--small`
+      );
+      expect(large.classList).toContain(
+        `${ComponentClassNames['Field']}--large`
+      );
+    });
+
     describe('Root', () => {
       it('should render default and custom classname', async () => {
         const className = 'class-test';

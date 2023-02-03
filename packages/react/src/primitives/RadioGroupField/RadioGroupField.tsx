@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
@@ -74,6 +75,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       as="fieldset"
       className={classNames(
         ComponentClassNames.Field,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.RadioGroupField,
         className
       )}

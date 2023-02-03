@@ -172,6 +172,29 @@ describe('SelectField', () => {
     expect(select).toHaveAttribute('data-variation', 'quiet');
   });
 
+  it('should render size classes for SelectField', async () => {
+    render(
+      <div>
+        <SelectField label={label} testId="small" size="small">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </SelectField>
+        <SelectField label={label} testId="large" size="large">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </SelectField>
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+  });
+
   it('can set defaultValue', async () => {
     render(
       <SelectField label={label} defaultValue="1">
