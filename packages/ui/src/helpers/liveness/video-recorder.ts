@@ -41,6 +41,7 @@ export class VideoRecorder {
             if (e.data && e.data.size > 0) {
               if (this._chunks.length < 1) {
                 this.firstChunkTimestamp = Date.now();
+                console.log({ firstChunkReceived: this.firstChunkTimestamp });
               }
               this._chunks.push(e.data);
               controller.enqueue(e.data);

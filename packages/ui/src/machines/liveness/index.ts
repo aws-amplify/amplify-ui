@@ -237,11 +237,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       recording: {
-        entry: [
-          'startRecording',
-          'clearErrorState',
-          'sendTimeoutAfterOvalDrawingDelay',
-        ],
+        entry: ['startRecording', 'clearErrorState'],
         initial: 'checkRecordingStarted',
         states: {
           checkRecordingStarted: {
@@ -254,6 +250,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           ovalDrawing: {
+            entry: ['sendTimeoutAfterOvalDrawingDelay'],
             invoke: {
               src: 'detectInitialFaceAndDrawOval',
               onDone: {
@@ -1072,6 +1069,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
         });
 
+        console.log({ recordingStartTimestampMs });
+
         // Send client info for initial face position
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
@@ -1213,6 +1212,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         await livenessStreamProvider.stopVideo();
 
         const endStreamLivenessVideoTime = Date.now();
+        console.log({ endStreamLivenessVideoTime });
         recordLivenessAnalyticsEvent(context.componentProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'streamLivenessVideoEnd' },
