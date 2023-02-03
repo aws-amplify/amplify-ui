@@ -218,17 +218,16 @@ export function getFaceMatchStateInLivenessOval(
 ): FaceMatchState {
   let faceMatchState: FaceMatchState;
 
-  const minFaceX = face.left;
-  const maxFaceX = face.left + face.width;
-  const minFaceY = face.top;
-  const maxFaceY = face.top + face.height;
+  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(face);
+  const minFaceX = faceBoundingBox.left;
+  const maxFaceX = faceBoundingBox.right;
+  const minFaceY = faceBoundingBox.top;
+  const maxFaceY = faceBoundingBox.bottom;
 
   const minOvalX = ovalDetails.centerX - ovalDetails.width / 2;
   const maxOvalX = ovalDetails.centerX + ovalDetails.width / 2;
   const minOvalY = ovalDetails.centerY - ovalDetails.height / 2;
   const maxOvalY = ovalDetails.centerY + ovalDetails.height / 2;
-
-  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(face);
   const ovalBoundingBox: BoundingBox = {
     left: minOvalX,
     top: minOvalY,
@@ -241,8 +240,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  console.log({ face, faceBoundingBox, ovalBoundingBox });
-  console.log(intersection);
+  console.log({ intersection, face, faceBoundingBox, ovalBoundingBox });
   const intersectionThreshold = 0.7;
   const ovalMatchWidthThreshold = ovalDetails.width * 0.25;
   const ovalMatchHeightThreshold = ovalDetails.height * 0.25;
