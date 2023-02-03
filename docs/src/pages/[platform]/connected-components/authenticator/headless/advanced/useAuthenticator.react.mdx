@@ -1,8 +1,20 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+
+<Alert
+  variation="info"
+  isDismissible={false}
+  hasIcon={true}
+  heading=""
+  >
+  You must render the `Authenticator` UI component before using the `useAuthenticator` hook. This hook was designed to retrieve `Authenticator` UI specific state such as `route` and `user` and should not be used without the UI component.
+  <br/>
+  For a full example of `useAuthenticator`, see the [protected routes guide](./react/guides/auth-protected)
+</Alert>
+
 
 ## useAuthenticator Hook
 
-`@aws-amplify/ui-react` ships with `useAuthenticator` React hook that can be used to access, modify, and update Authenticator's auth state. To use them, first wrap your application with [`<Authenticator.Provider>`](#authenticator-provider):
+`@aws-amplify/ui-react` ships with `useAuthenticator` React hook that can be used to access, modify, and update Authenticator's auth state. To use them, you must render the Authenticator and wrap your application with [`<Authenticator.Provider>`](#authenticator-provider):
 
 ```tsx
 import { Authenticator } from '@aws-amplify/ui-react';
