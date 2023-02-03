@@ -241,6 +241,7 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
+  console.log({ face, faceBoundingBox, ovalBoundingBox });
   console.log(intersection);
   const intersectionThreshold = 0.7;
   const ovalMatchWidthThreshold = ovalDetails.width * 0.25;

@@ -919,6 +919,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           });
         }
 
+        console.log({
+          cameraSettings: realVideoDeviceStream
+            .getVideoTracks()[0]
+            .getSettings(),
+        });
+
         return { stream: realVideoDeviceStream };
       },
       async openLivenessStreamConnection(context) {

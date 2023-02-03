@@ -78,6 +78,7 @@ describe('Liveness Machine', () => {
   } as any as MediaStreamTrack;
 
   const mockVideoMediaStream = {
+    getVideoTracks: () => [mockVideoTrack],
     getTracks: () => [mockVideoTrack],
   } as MediaStream;
 
