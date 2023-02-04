@@ -1,36 +1,47 @@
 import { AuthenticatorRoute } from '@aws-amplify/ui';
 
-import { RenderNothing } from '../../../components';
 import {
   AuthenticatorMachineContext,
   AuthenticatorMachineContextKey,
-  AuthenticatorRouteComponentKey,
-  DefaultComponentType,
-  DefaultPropsType,
-  Defaults,
+  // AuthenticatorRouteComponentKey,
+  // DefaultComponentType,
+  // DefaultPropsType,
+  // Defaults,
+  // ConfirmSignInRouteProps,
+  // SignInRouteProps,
 } from '../newTypes';
-import { SignInBaseProps } from '../types';
 
 import {
-  UseAuthenticator,
+  // UseAuthenticator,
   UseAuthenticatorSelector,
 } from '../useAuthenticator';
 import { isComponentRouteKey } from '../utils';
 import {
+  // ADDITIONAL_PROP_KEYS,
   MACHINE_PROP_KEYS,
   EVENT_HANDLER_KEY_MAP,
   NEW_MACHINE_PROP_KEYS,
+  RouteMachineKeys,
+  // MachinePropKeys,
 } from './constants';
 import {
-  ConvertedMachineProps,
+  // ConvertedMachineProps,
   FormEventHandlerMachineKey,
   FormEventHandlerPropKey,
-  UseAuthenticatorRoute,
-  UseAuthenticatorRouteDefault,
-  UseAuthenticatorRouteProps,
+  // ConfirmSignInMachineProps,
+  // UseAuthenticatorRoute,
+  // UseAuthenticatorRouteDefault,
+  UseAuthenticatorRoutePropz,
+  //>SignInAdditionalProps,
+  // ConfirmSignInAdditionalProps,
   // Resolvers,
+  // NewAuthenticatorRoute,
+  NewAuthenticatorComponentRoute,
+  RoutePropsTranslators,
+  RouteSelectorProps,
   NewAuthenticatorRoute,
-  TransitionalRoute,
+  RouteSelectorPropz,
+  RouteAdditionalProps,
 } from './types';
 
 // only select `route` from machine context
@@ -51,42 +62,34 @@ export const getRouteMachineSelector = (
     ? createSelector(MACHINE_PROP_KEYS[route])
     : routeSelector;
 
-const isFormEventHandlerKey = (
-  key: AuthenticatorMachineContextKey
-): key is FormEventHandlerMachineKey =>
-  ['updateBlur', 'updateForm', 'submitForm'].includes(key);
+export type TranslatedWithHandlers = Record<
+  FormEventHandlerPropKey,
+  AuthenticatorMachineContext[FormEventHandlerMachineKey]
+> &
+  Omit<AuthenticatorMachineContext, FormEventHandlerMachineKey>;
 
-const convertEventHandlerKey = (
-  key: FormEventHandlerMachineKey
-): FormEventHandlerPropKey => EVENT_HANDLER_KEY_MAP[key];
+type TranslateHandlerParams = Partial<AuthenticatorMachineContext> &
+  Pick<AuthenticatorMachineContext, FormEventHandlerMachineKey>;
 
-const getConvertedMachineProps = (
-  route: AuthenticatorRouteComponentKey,
-  context: AuthenticatorMachineContext
-): ConvertedMachineProps => ({
-  ...MACHINE_PROP_KEYS[route].reduce(
-    (acc, key) => ({
-      ...acc,
-      [isFormEventHandlerKey(key) ? convertEventHandlerKey(key) : key]:
-        context[key],
-    }),
-    {} as ConvertedMachineProps
-  ),
-});
+function translateHandlers<Params extends TranslateHandlerParams>({
+  submitForm: handleSubmit,
+  updateBlur: handleBlur,
+  updateForm: handleChange,
+  ...rest
+}: Params) {
+  return { ...rest, handleBlur, handleChange, handleSubmit };
+}
 
-type Messy = {
-  [K in NewAuthenticatorRoute]: K extends 'signIn'
-    ? Pick<SignInBaseProps, 'hideSignUp'>
-    : void;
-};
-
-const additionalProps: Messy = {
+const NON_MACHINE_PROPS: RoutePropsTranslators = {
   // confirmResetPassword: { hideSignUp: false },
-  // confirmSignIn: { hideSignUp: false },
+  confirmSignIn: (machineProps) => ({
+    ...translateHandlers(machineProps),
+    challengeName: machineProps.user.challengeName!,
+  }),
   // confirmSignUp: { hideSignUp: false },
-  // confirmVerifyUser: { h?ideSignUp: false },
+  // confirmVerifyUser: translateHandlers,
   // forceNewPassword: { hideSignUp: false },
-  signIn: { hideSignUp: false },
+  signIn: (context) => ({ ...translateHandlers(context), hideSignUp: false }),
   // signUp: { hideSignUp: false },
   // resetPassword: { hideSignUp: false },
   // setupTOTP: { hideSignUp: false },
@@ -95,193 +98,34 @@ const additionalProps: Messy = {
   // authenticated: undefined,
   // signOut: undefined,
   // setup: undefined,
-  transition: undefined,
+  // transition: undefined,
 };
 
-// export type NewAuthenticatorComponentRoute = Exclude<
-//   NewAuthenticatorRoute,
-//   TransitionalRoute
-// >;
-
-function isTransitionalRoute(
+export function isComponentRoute(
   route: NewAuthenticatorRoute
-): route is TransitionalRoute {
-  return route === 'transition';
+): route is NewAuthenticatorComponentRoute {
+  return !['transition'].includes(route);
 }
 
-export function newGetConvertedMachineProps<R extends NewAuthenticatorRoute>(
-  route: R,
+function getRouteTranslator<T extends NewAuthenticatorComponentRoute>(
+  route: T
+) {
+  return NON_MACHINE_PROPS[route];
+}
+
+function getRouteMachineProps<T extends NewAuthenticatorComponentRoute>(
+  route: T,
   context: AuthenticatorMachineContext
-): UseAuthenticatorRouteProps[R] {
-  // if (isTransitionalRoute(route)) {
-  //   return undefined;
-  // }
-  return {
-    ...NEW_MACHINE_PROP_KEYS[route].reduce(
-      (acc, key) => ({
-        ...acc,
-        [isFormEventHandlerKey(key) ? convertEventHandlerKey(key) : key]:
-          context[key],
-      }),
-      {} as ConvertedMachineProps
-    ),
-    ...additionalProps[route],
-  };
-}
-
-// export function resolveConfirmResetPasswordRoute(
-//   props: UseAuthenticator
-// ): Resolvers['confirmResetPassword'] {
-//   return newGetConvertedMachineProps('confirmResetPassword', props);
-// }
-
-export function resolveConfirmResetPasswordRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['ConfirmResetPassword'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'ConfirmResetPassword', FieldType> {
-  return {
-    Component,
-    props: {
-      ...Component,
-      ...getConvertedMachineProps('confirmResetPassword', props),
-    },
-  };
-}
-
-export function resolveConfirmSignInRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['ConfirmSignIn'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'ConfirmSignIn', FieldType> {
-  const { user, ...machineProps } = getConvertedMachineProps(
-    'confirmSignIn',
-    props
+): RouteSelectorPropz[T] {
+  return NEW_MACHINE_PROP_KEYS[route].reduce(
+    (acc, key) => ({ ...acc, [key]: context[key] }),
+    {} as RouteSelectorPropz[T]
   );
-
-  // prior to the `confirmSignIn` route, `user.username` is populated
-  const challengeName = user.challengeName!;
-
-  return { Component, props: { ...Component, ...machineProps, challengeName } };
 }
 
-export function resolveConfirmSignUpRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['ConfirmSignUp'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'ConfirmSignUp', FieldType> {
-  return {
-    Component,
-    props: {
-      ...Component,
-      ...getConvertedMachineProps('confirmSignUp', props),
-    },
-  };
+export function resolveRouteProps<Route extends NewAuthenticatorComponentRoute>(
+  route: Route,
+  context: AuthenticatorMachineContext
+): UseAuthenticatorRoutePropz<Route> {
+  return getRouteTranslator(route)(getRouteMachineProps(route, context));
 }
-
-export function resolveConfirmVerifyUserRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['ConfirmVerifyUser'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'ConfirmVerifyUser', FieldType> {
-  return {
-    Component,
-    props: {
-      ...Component,
-      ...getConvertedMachineProps('confirmVerifyUser', props),
-    },
-  };
-}
-
-export function resolveForceNewPasswordRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['ForceNewPassword'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'ForceNewPassword', FieldType> {
-  return {
-    Component,
-    props: {
-      ...Component,
-      ...getConvertedMachineProps('forceNewPassword', props),
-    },
-  };
-}
-
-export function resolveResetPasswordRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['ResetPassword'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'ResetPassword', FieldType> {
-  return {
-    Component,
-    props: {
-      ...Component,
-      ...getConvertedMachineProps('resetPassword', props),
-    },
-  };
-}
-
-export function resolveSetupTOTPRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['SetupTOTP'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'SetupTOTP', FieldType> {
-  return {
-    Component,
-    props: {
-      ...Component,
-      ...getConvertedMachineProps('setupTOTP', props),
-    },
-  };
-}
-
-export function resolveSignInRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['SignIn'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'SignIn', FieldType> {
-  // default `hideSignUp` to false
-  const hideSignUp = false;
-
-  return {
-    Component,
-    props: {
-      ...Component,
-      ...getConvertedMachineProps('signIn', props),
-      hideSignUp,
-    },
-  };
-}
-
-export function resolveSignUpRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['SignUp'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'SignUp', FieldType> {
-  return {
-    Component,
-    props: { ...Component, ...getConvertedMachineProps('signUp', props) },
-  };
-}
-
-export function resolveVerifyUserRoute<FieldType = {}>(
-  Component: Defaults<FieldType>['VerifyUser'],
-  props: UseAuthenticator
-): UseAuthenticatorRoute<'VerifyUser', FieldType> {
-  return {
-    Component,
-    props: {
-      ...Component,
-      ...getConvertedMachineProps('verifyUser', props),
-    },
-  };
-}
-
-export function resolveDefault<
-  FieldType = {}
->(): UseAuthenticatorRouteDefault<FieldType> {
-  return {
-    Component: RenderNothing as DefaultComponentType<FieldType>,
-    props: {} as DefaultPropsType,
-  };
-}
-
-// export const resolvers: Pick<Resolvers, 'signIn' | 'transition'> = {
-//   // confirmResetPassword: (props) =>
-//   //   newGetConvertedMachineProps('confirmResetPassword', props),
-//   transition: (_) => undefined,
-//   signIn: (props) => ({
-//     ...newGetConvertedMachineProps('signIn', props),
-//   }),
-// };

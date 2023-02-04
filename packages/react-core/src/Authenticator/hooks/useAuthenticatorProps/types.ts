@@ -3,7 +3,7 @@
 import {
   AuthenticatorMachineContext,
   AuthenticatorMachineContextKey,
-  AuthenticatorRouteComponentKey,
+  // AuthenticatorRouteComponentKey,
   AuthenticatorRouteComponentName,
   CommonRouteProps,
   ConfirmResetPasswordRouteProps,
@@ -59,9 +59,9 @@ export type CommonRouteMachineProps =
   | ExtractMachineKey<CommonRouteProps>
   | FormEventHandlerMachineKey;
 
-export type NewCommonRouteMachineProps =
-  // | ExtractMachineKey<CommonRouteProps>
-  FormEventHandlerMachineKey;
+// export type NewCommonRouteMachineProps =
+//   // | ExtractMachineKey<CommonRouteProps>
+// FormEventHandlerMachineKey;
 
 /**
  * `route` sub-component machine selector key types
@@ -72,9 +72,15 @@ export type ConfirmResetPasswordMachineProps =
 
 export type ConfirmSignInMachineProps =
   | ExtractMachineKey<ConfirmSignInRouteProps>
-  | CommonRouteMachineProps
-  // ConfirmSignIn requires `user` to extract value needed for `challengeName`
-  | 'user';
+  | CommonRouteMachineProps;
+// ConfirmSignIn requires `user` to extract value needed for `challengeName`
+
+// export type ConfirmSignInAdditionalProps = keyof Pick<ConfirmSignInRouteProps, 'challengeName'>
+// string union
+type ExtractAdditionalPropsKeys<T> = Exclude<
+  keyof T,
+  keyof UseAuthenticator | FormEventHandlerPropKey
+>;
 
 export type ConfirmSignUpMachineProps =
   | ExtractMachineKey<ConfirmSignUpRouteProps>
@@ -100,10 +106,6 @@ export type SignInMachineProps =
   | ExtractMachineKey<SignInRouteProps>
   | CommonRouteMachineProps;
 
-export type NewSignInMachineProps = ExtractMachineKey<SignInRouteProps>;
-
-export type OtherSignInProps = Omit<SignInRouteProps, SignInMachineProps>;
-
 export type SignUpMachineProps =
   | ExtractMachineKey<SignUpRouteProps>
   | CommonRouteMachineProps;
@@ -127,7 +129,7 @@ export type ConvertedMachineProps = Omit<
 export type NewAuthenticatorRoute =
   // | 'authenticated'
   // | 'confirmResetPassword'
-  // | 'confirmSignIn'
+  | 'confirmSignIn'
   // | 'confirmSignUp'
   // | 'confirmVerifyUser'
   // | 'forceNewPassword'
@@ -141,50 +143,124 @@ export type NewAuthenticatorRoute =
   | 'transition';
 // | 'verifyUser';
 
-export type TransitionalRoute = Exclude<
-  NewAuthenticatorRoute,
-  AuthenticatorRouteComponentKey
->;
-// export type TransitionalRoute = 'transition';
-export type Resolvers = {
-  // confirmSignIn: (
-  //   props: UseAuthenticator
-  // ) => Required<ConfirmSignInRouteProps>;
-  // confirmSignUp: (
-  //   props: UseAuthenticator
-  // ) => Required<ConfirmSignUpRouteProps>;
-  // confirmResetPassword: (
-  //   props: UseAuthenticator
-  // ) => Required<ConfirmResetPasswordRouteProps>;
-  // confirmVerifyUser: (
-  //   props: UseAuthenticator
-  // ) => Required<ConfirmVerifyUserRouteProps>;
-  // forceNewPassword: (
-  //   props: UseAuthenticator
-  // ) => Required<ForceResetPasswordRouteProps>;
-  // resetPassword: (
-  //   props: UseAuthenticator
-  // ) => Required<ResetPasswordRouteProps>;
-  // setupTOTP: (props: UseAuthenticator) => Required<SetupTOTPRouteProps>;
-  // keep (props: UseAuthenticator) => hideSignUp in SignInRouteProps, it makes sense really, trust me. same with other UI props
-  // for (props: UseAuthenticator) => example, in `useSignInProps` you would need to manually declare the default `hideSignUp`
-  signIn: (props: UseAuthenticator) => Required<SignInRouteProps>;
-  // signUp: (props: UseAuthenticator) => Required<SignUpRouteProps>;
-  // verifyUser: (props: UseAuthenticator) => Required<VerifyUserRouteProps>;
-} & Record<TransitionalRoute, (props: UseAuthenticator) => void>;
-
-// export const hehe: Resolvers['authenticated'] = () => undefined;
-
-export type ExtractReturnProps<F extends (props: UseAuthenticator) => any> =
-  F extends (props: UseAuthenticator) => infer R ? R : never;
-
-export type UseAuthenticatorRouteProps = {
-  [Key in NewAuthenticatorRoute]: ExtractReturnProps<Resolvers[Key]>;
-};
+export type NewAuthenticatorComponentRoute =
+  // | 'confirmResetPassword'
+  | 'confirmSignIn'
+  // | 'confirmSignUp'
+  // | 'confirmVerifyUser'
+  // | 'forceNewPassword'
+  // | 'resetPassword'
+  // | 'setupTOTP'
+  | 'signIn';
+// | 'signUp'
+// | 'verifyUser';
 
 export type UseAuthenticatorPropsParams<R extends NewAuthenticatorRoute> = {
   route: R;
 };
+
+type RouteProp = { route: NewAuthenticatorRoute };
+export type UseAuthenticatorRouteProps = Record<NewAuthenticatorRoute, any> & {
+  confirmSignIn: ConfirmSignInRouteProps;
+  // confirmSignUp:
+  // confirmResetPassword:
+  confirmVerifyUser: ConfirmVerifyUserRouteProps;
+  // forceNewPassword:
+  // resetPassword:
+  // setupTOTP:
+  signIn: SignInRouteProps;
+  transition: RouteProp;
+};
+
+export type UseAuthenticatorRoutePropz<T extends NewAuthenticatorRoute> =
+  // T extends 'confirmResetPassword'
+  //   ? ConfirmResetPasswordMachineProps
+  //   :
+  T extends 'confirmSignIn'
+    ? ConfirmSignInRouteProps
+    : // : T extends 'confirmSignUp'
+    // ? ConfirmSignUpMachineProps
+    // : T extends 'confirmVerifyUser'
+    // ? ConfirmVerifyUserMachineProps
+    // : T extends 'forceNewPassword'
+    // ? ForceNewPasswordMachineProps
+    // : T extends 'resetPassword'
+    // ? ResetPasswordMachineProps
+    T extends 'signIn'
+    ? SignInRouteProps
+    : // : T extends 'signUp'
+      // ? SignUpMachineProps
+      // : T extends 'setupTOTP'
+      // ? SetupTOTPMachineProps
+      // : T extends 'verifyUser'
+      // ? VerifyUserMachineProps
+      { route: NewAuthenticatorRoute };
+
+// type Huh = UseAuthenticatorRoutePropz<'confirmSignIn'>;
+
+export type RouteMachinePropKeys = {
+  [K in NewAuthenticatorComponentRoute]:
+    | ExtractMachineKey<UseAuthenticatorRouteProps[K]>
+    | CommonRouteMachineProps;
+};
+
+export type RouteSelectorProps<K extends NewAuthenticatorComponentRoute> = Pick<
+  UseAuthenticator,
+  RouteMachinePropKeys[K]
+>;
+
+// type Huh = RouteSelectorProps<'confirmSignIn'>
+
+export type RouteSelectorPropz = {
+  [K in NewAuthenticatorComponentRoute]: RouteSelectorProps<K>;
+};
+
+// type Huhz = RouteSelectorPropz['confirmSignIn']
+
+export type RoutePropsTranslators = {
+  [K in NewAuthenticatorComponentRoute]: (
+    context: RouteSelectorProps<K>
+  ) => UseAuthenticatorRoutePropz<K>;
+};
+
+type RouteAdditionalPropz = {
+  confirmSignIn: Pick<
+    UseAuthenticatorRoutePropz<'confirmSignIn'>,
+    ExtractAdditionalPropsKeys<ConfirmSignInRouteProps>
+  >;
+  // confirmSignUp:
+  // confirmResetPassword:
+  // confirmVerifyUser: ExtractAdditionalPropsKeys<ConfirmVerifyUserMachineProps>;
+  // forceNewPassword:
+  // resetPassword:
+  // setupTOTP:
+  signIn: Pick<
+    UseAuthenticatorRoutePropz<'signIn'>,
+    ExtractAdditionalPropsKeys<SignInRouteProps>
+  >;
+  // signUp:
+  // verifyUser:
+};
+
+export type RouteAdditionalProps = {
+  [K in NewAuthenticatorComponentRoute]: (
+    context: RouteSelectorProps<K>
+  ) => RouteAdditionalPropz[K];
+};
+
+// export type AdditionalRouteProps = {
+//   [K in NewAuthenticatorComponentRoute]: K extends 'signIn'
+//     ? Pick<SignInRouteProps, SignInAdditionalProps>
+//     : K extends 'confirmSignIn'
+//     ? Pick<ConfirmSignInRouteProps, ConfirmSignInAdditionalProps>
+//     : void;
+// };
+
+export type TranslatedWithHandlers = Record<
+  FormEventHandlerPropKey,
+  AuthenticatorMachineContext[FormEventHandlerMachineKey]
+> &
+  Omit<AuthenticatorMachineContext, FormEventHandlerMachineKey>;
 
 // export type UseAuthenticatorRouteProps<R extends AuthenticatorRoute> =
 //   R extends AuthenticatorRouteComponentKey ? Resolvers[R] : undefined;
