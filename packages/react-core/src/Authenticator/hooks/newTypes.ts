@@ -75,6 +75,7 @@ export type CommonRouteProps = {
   handleBlur: UseAuthenticator['updateBlur'];
   handleChange: UseAuthenticator['updateForm'];
   handleSubmit: UseAuthenticator['submitForm'];
+  user: UseAuthenticator['user'];
 };
 
 /**
@@ -99,7 +100,7 @@ export type ConfirmVerifyUserRouteProps = {
   skipVerification: UseAuthenticator['skipVerification'];
 } & CommonRouteProps;
 
-export type ForceResetPasswordRouteProps = {
+export type ForceNewPasswordRouteProps = {
   toSignIn: UseAuthenticator['toSignIn'];
   validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps;
@@ -136,20 +137,7 @@ export interface DefaultProps {
   ConfirmSignUp: ConfirmSignUpRouteProps;
   ConfirmResetPassword: ConfirmResetPasswordRouteProps;
   ConfirmVerifyUser: ConfirmVerifyUserRouteProps;
-  ForceNewPassword: ForceResetPasswordRouteProps;
-  ResetPassword: ResetPasswordRouteProps;
-  SetupTOTP: SetupTOTPRouteProps;
-  SignIn: SignInRouteProps;
-  SignUp: SignUpRouteProps;
-  VerifyUser: VerifyUserRouteProps;
-}
-
-export interface AuthenticatorRouteProps {
-  ConfirmSignIn: ConfirmSignInRouteProps;
-  ConfirmSignUp: ConfirmSignUpRouteProps;
-  ConfirmResetPassword: ConfirmResetPasswordRouteProps;
-  ConfirmVerifyUser: ConfirmVerifyUserRouteProps;
-  ForceNewPassword: ForceResetPasswordRouteProps;
+  ForceNewPassword: ForceNewPasswordRouteProps;
   ResetPassword: ResetPasswordRouteProps;
   SetupTOTP: SetupTOTPRouteProps;
   SignIn: SignInRouteProps;

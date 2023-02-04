@@ -1,50 +1,22 @@
-// import { AuthenticatorRoute } from '@aws-amplify/ui';
-// import { useMemo } from 'react';
-import {
-  // UseAuthenticator,
-  useAuthenticator,
-} from '../useAuthenticator';
-// import { AuthenticatorRouteComponentKey } from '../newTypes';
+import { useMemo } from 'react';
+import { AuthenticatorRoute } from '@aws-amplify/ui';
 
-import {
-  // UseAuthenticatorRoute,
-  // UseAuthenticatorRouteDefault,
-  // UseAuthenticatorRouteParams,
-  UseAuthenticatorRouteProps,
-  NewAuthenticatorRoute,
-  NewAuthenticatorComponentRoute,
-  UseAuthenticatorRoutePropz,
-  // Resolvers,
-} from './types';
+import { useAuthenticator } from '../useAuthenticator';
+import { isComponentRouteKey } from '../utils';
 
-import {
-  getRouteMachineSelector,
-  // NewAuthenticatorComponentRoute,
-  // routeSelector,
-  // resolveConfirmResetPasswordRoute,
-  // resolveConfirmSignInRoute,
-  // resolveConfirmSignUpRoute,
-  // resolveConfirmVerifyUserRoute,
-  // resolveDefault,
-  // resolveForceNewPasswordRoute,
-  // resolveResetPasswordRoute,
-  // resolveSetupTOTPRoute,
-  // resolveSignInRoute,
-  // resolveSignUpRoute,
-  // resolveVerifyUserRoute,
-  resolveRouteProps,
-  isComponentRoute,
-} from './utils';
+import { UseAuthenticatorRouteProps } from './types';
+import { getRouteMachineSelector, resolveRouteProps } from './utils';
 
 export default function useAuthenticatorProps<
-  RouteKey extends NewAuthenticatorRoute
->({ route }: { route: RouteKey }): UseAuthenticatorRoutePropz<RouteKey> {
-  const selector = getRouteMachineSelector(route);
-  const machineProps = useAuthenticator(selector);
+  RouteKey extends AuthenticatorRoute
+>({ route }: { route: RouteKey }): UseAuthenticatorRouteProps<RouteKey> {
+  const selector = useMemo(() => getRouteMachineSelector(route), [route]);
 
-  if (!isComponentRoute(route)) {
-    return { route } as UseAuthenticatorRoutePropz<RouteKey>;
-  }
+  // all props
+  const selectedProps = useAuthenticator(selector);
 
-  return resolveRouteProps(route, machineProps);
+  // do not memoize, `selectedProps` does not maintain a stable reference
+  return isComponentRouteKey(route)
+    ? resolveRouteProps(route, selectedProps)
+    : ({ route } as UseAuthenticatorRouteProps<RouteKey>);
 }

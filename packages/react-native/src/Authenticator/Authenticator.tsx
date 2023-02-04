@@ -9,6 +9,7 @@ import {
   useAuthenticatorRoute,
   useAuthenticatorInitMachine,
   UseAuthenticator,
+  useAuthenticatorProps,
 } from '@aws-amplify/ui-react-core';
 
 import { configureComponent } from '@aws-amplify/ui';
@@ -79,6 +80,8 @@ function Authenticator({
   );
 
   const { Component, props } = useAuthenticatorRoute({ components });
+
+  const routeProps = useAuthenticatorProps({ route: 'transition' });
 
   const typedFields = getRouteTypedFields({ fields, route });
 

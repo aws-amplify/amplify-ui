@@ -6,6 +6,7 @@ export {
   UseAuthenticator,
   useAuthenticatorInitMachine,
   UseAuthenticatorRoute,
+  useAuthenticatorProps,
 } from './hooks';
 export {
   Overrides as AuthenticatorComponentOverrides,

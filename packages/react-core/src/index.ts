@@ -18,6 +18,7 @@ export {
   UseAuthenticator,
   useAuthenticatorInitMachine,
   UseAuthenticatorRoute,
+  useAuthenticatorProps,
 } from './Authenticator';
 
 export {

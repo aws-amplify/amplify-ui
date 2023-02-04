@@ -3,49 +3,23 @@ import { AuthenticatorRoute } from '@aws-amplify/ui';
 import {
   AuthenticatorMachineContext,
   AuthenticatorMachineContextKey,
-  // AuthenticatorRouteComponentKey,
-  // DefaultComponentType,
-  // DefaultPropsType,
-  // Defaults,
-  // ConfirmSignInRouteProps,
-  // SignInRouteProps,
-} from '../newTypes';
+  AuthenticatorRouteComponentKey,
+} from '../types';
 
-import {
-  // UseAuthenticator,
-  UseAuthenticatorSelector,
-} from '../useAuthenticator';
+import { UseAuthenticatorSelector } from '../useAuthenticator';
 import { isComponentRouteKey } from '../utils';
+import { ROUTE_SELECTOR_KEYS } from './constants';
 import {
-  // ADDITIONAL_PROP_KEYS,
-  MACHINE_PROP_KEYS,
-  EVENT_HANDLER_KEY_MAP,
-  NEW_MACHINE_PROP_KEYS,
-  RouteMachineKeys,
-  // MachinePropKeys,
-} from './constants';
-import {
-  // ConvertedMachineProps,
   FormEventHandlerMachineKey,
-  FormEventHandlerPropKey,
-  // ConfirmSignInMachineProps,
-  // UseAuthenticatorRoute,
-  // UseAuthenticatorRouteDefault,
-  UseAuthenticatorRoutePropz,
-  //>SignInAdditionalProps,
-  // ConfirmSignInAdditionalProps,
-  // Resolvers,
-  // NewAuthenticatorRoute,
-  NewAuthenticatorComponentRoute,
-  RoutePropsTranslators,
+  UseAuthenticatorRouteProps,
+  RoutePropsResolvers,
   RouteSelectorProps,
-  NewAuthenticatorRoute,
-  RouteSelectorPropz,
-  RouteAdditionalProps,
 } from './types';
 
 // only select `route` from machine context
-export const routeSelector: UseAuthenticatorSelector = ({ route }) => [route];
+const nonComponentRouteSelector: UseAuthenticatorSelector = ({ route }) => [
+  route,
+];
 
 const createSelector =
   (selectorKeys: AuthenticatorMachineContextKey[]): UseAuthenticatorSelector =>
@@ -59,73 +33,55 @@ export const getRouteMachineSelector = (
   route: AuthenticatorRoute
 ): UseAuthenticatorSelector =>
   isComponentRouteKey(route)
-    ? createSelector(MACHINE_PROP_KEYS[route])
-    : routeSelector;
+    ? createSelector(ROUTE_SELECTOR_KEYS[route])
+    : nonComponentRouteSelector;
 
-export type TranslatedWithHandlers = Record<
-  FormEventHandlerPropKey,
-  AuthenticatorMachineContext[FormEventHandlerMachineKey]
-> &
-  Omit<AuthenticatorMachineContext, FormEventHandlerMachineKey>;
-
-type TranslateHandlerParams = Partial<AuthenticatorMachineContext> &
+type TranslateHandlerProps = Partial<AuthenticatorMachineContext> &
   Pick<AuthenticatorMachineContext, FormEventHandlerMachineKey>;
 
-function translateHandlers<Params extends TranslateHandlerParams>({
+function translateHandlerProps<Props extends TranslateHandlerProps>({
   submitForm: handleSubmit,
   updateBlur: handleBlur,
   updateForm: handleChange,
   ...rest
-}: Params) {
+}: Props) {
   return { ...rest, handleBlur, handleChange, handleSubmit };
 }
 
-const NON_MACHINE_PROPS: RoutePropsTranslators = {
-  // confirmResetPassword: { hideSignUp: false },
-  confirmSignIn: (machineProps) => ({
-    ...translateHandlers(machineProps),
-    challengeName: machineProps.user.challengeName!,
+const PROPS_RESOLVERS: RoutePropsResolvers = {
+  confirmResetPassword: translateHandlerProps,
+  confirmSignIn: (props) => ({
+    ...translateHandlerProps(props),
+    challengeName: props.user.challengeName!,
   }),
-  // confirmSignUp: { hideSignUp: false },
-  // confirmVerifyUser: translateHandlers,
-  // forceNewPassword: { hideSignUp: false },
-  signIn: (context) => ({ ...translateHandlers(context), hideSignUp: false }),
-  // signUp: { hideSignUp: false },
-  // resetPassword: { hideSignUp: false },
-  // setupTOTP: { hideSignUp: false },
-  // verifyUser: { hideSignUp: false },
-  // idle: undefined,
-  // authenticated: undefined,
-  // signOut: undefined,
-  // setup: undefined,
-  // transition: undefined,
+  confirmSignUp: translateHandlerProps,
+  confirmVerifyUser: translateHandlerProps,
+  forceNewPassword: translateHandlerProps,
+  resetPassword: translateHandlerProps,
+  setupTOTP: translateHandlerProps,
+  signIn: (props) => ({ ...translateHandlerProps(props), hideSignUp: false }),
+  signUp: (props) => ({ ...translateHandlerProps(props), hideSignIn: false }),
+  verifyUser: translateHandlerProps,
 };
 
-export function isComponentRoute(
-  route: NewAuthenticatorRoute
-): route is NewAuthenticatorComponentRoute {
-  return !['transition'].includes(route);
-}
-
-function getRouteTranslator<T extends NewAuthenticatorComponentRoute>(
-  route: T
-) {
-  return NON_MACHINE_PROPS[route];
-}
-
-function getRouteMachineProps<T extends NewAuthenticatorComponentRoute>(
-  route: T,
+function filterUnselectedProps<Route extends AuthenticatorRouteComponentKey>(
+  route: Route,
   context: AuthenticatorMachineContext
-): RouteSelectorPropz[T] {
-  return NEW_MACHINE_PROP_KEYS[route].reduce(
+): RouteSelectorProps[Route] {
+  const selectedKeys = ROUTE_SELECTOR_KEYS[route];
+
+  return selectedKeys.reduce(
     (acc, key) => ({ ...acc, [key]: context[key] }),
-    {} as RouteSelectorPropz[T]
+    {} as RouteSelectorProps[Route]
   );
 }
 
-export function resolveRouteProps<Route extends NewAuthenticatorComponentRoute>(
+export function resolveRouteProps<Route extends AuthenticatorRouteComponentKey>(
   route: Route,
   context: AuthenticatorMachineContext
-): UseAuthenticatorRoutePropz<Route> {
-  return getRouteTranslator(route)(getRouteMachineProps(route, context));
+): UseAuthenticatorRouteProps<Route> {
+  const filteredProps = filterUnselectedProps(route, context);
+  const routePropsResolver = PROPS_RESOLVERS[route];
+
+  return routePropsResolver(filteredProps);
 }
