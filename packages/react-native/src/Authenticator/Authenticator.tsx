@@ -10,6 +10,7 @@ import {
   useAuthenticatorInitMachine,
   UseAuthenticator,
   useAuthenticatorProps,
+  isAuthenticatorComponentRouteKey,
 } from '@aws-amplify/ui-react-core';
 
 import { configureComponent } from '@aws-amplify/ui';
@@ -31,6 +32,7 @@ import {
   SignUp,
   VerifyUser,
 } from './Defaults';
+import { capitalize } from '../utils';
 
 const DEFAULTS = {
   ConfirmResetPassword,
@@ -79,9 +81,15 @@ function Authenticator({
     [overrides]
   );
 
-  const { Component, props } = useAuthenticatorRoute({ components });
+  const Component = isAuthenticatorComponentRouteKey(route)
+    ? components[capitalize(route)]
+    : (_: any) => null;
+  // @ts-ignore
+  console.log('+++Component', Component.Header);
+  // const { Component, props } = useAuthenticatorRoute({ components });
 
-  const routeProps = useAuthenticatorProps({ route: 'transition' });
+  const props = useAuthenticatorProps({ route });
+  // console.log('+++props', props);
 
   const typedFields = getRouteTypedFields({ fields, route });
 
@@ -94,7 +102,7 @@ function Authenticator({
       <Container>
         {Header ? <Header /> : null}
         <InnerContainer>
-          <Component {...props} fields={typedFields} />
+          <Component {...Component} {...props} fields={typedFields} />
         </InnerContainer>
         {Footer ? <Footer /> : null}
       </Container>

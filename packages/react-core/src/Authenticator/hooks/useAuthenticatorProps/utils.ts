@@ -17,24 +17,20 @@ import {
 } from './types';
 
 // only select `route` from machine context
-const nonComponentRouteSelector: UseAuthenticatorSelector = ({ route }) => [
-  route,
-];
+const routeOnlySelector: UseAuthenticatorSelector = ({ route }) => [route];
 
 const createSelector =
   (selectorKeys: AuthenticatorMachineContextKey[]): UseAuthenticatorSelector =>
-  (context) => {
-    const dependencies = selectorKeys.map((key) => context[key]);
-    // route should always be part of deps, so hook knows when route changes.
-    return [...dependencies, context.route];
-  };
+  (context) =>
+    // always include `route` in selector
+    [...selectorKeys.map((key) => context[key]), context.route];
 
 export const getRouteMachineSelector = (
   route: AuthenticatorRoute
 ): UseAuthenticatorSelector =>
   isComponentRouteKey(route)
     ? createSelector(ROUTE_SELECTOR_KEYS[route])
-    : nonComponentRouteSelector;
+    : routeOnlySelector;
 
 type TranslateHandlerProps = Partial<AuthenticatorMachineContext> &
   Pick<AuthenticatorMachineContext, FormEventHandlerMachineKey>;
@@ -70,7 +66,7 @@ function filterUnselectedProps<Route extends AuthenticatorRouteComponentKey>(
 ): RouteSelectorProps[Route] {
   const selectedKeys = ROUTE_SELECTOR_KEYS[route];
 
-  return selectedKeys.reduce(
+  return selectedKeys?.reduce(
     (acc, key) => ({ ...acc, [key]: context[key] }),
     {} as RouteSelectorProps[Route]
   );
@@ -83,5 +79,5 @@ export function resolveRouteProps<Route extends AuthenticatorRouteComponentKey>(
   const filteredProps = filterUnselectedProps(route, context);
   const routePropsResolver = PROPS_RESOLVERS[route];
 
-  return routePropsResolver(filteredProps);
+  return routePropsResolver?.(filteredProps);
 }

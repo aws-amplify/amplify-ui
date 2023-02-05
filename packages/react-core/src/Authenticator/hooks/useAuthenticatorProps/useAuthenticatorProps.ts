@@ -12,7 +12,7 @@ export default function useAuthenticatorProps<
 >({ route }: { route: RouteKey }): UseAuthenticatorRouteProps<RouteKey> {
   const selector = useMemo(() => getRouteMachineSelector(route), [route]);
 
-  // all props
+  // `useAuthenticator`
   const selectedProps = useAuthenticator(selector);
 
   // do not memoize, `selectedProps` does not maintain a stable reference
