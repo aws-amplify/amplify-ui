@@ -112,7 +112,6 @@ export class FreshnessColorDisplay {
         ovalDetails,
         heightFraction,
       });
-      console.log(`actualTime: ${Date.now()}`);
 
       resolve(false);
     } else {

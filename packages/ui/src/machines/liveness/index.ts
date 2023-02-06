@@ -245,6 +245,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               0: {
                 target: 'ovalDrawing',
                 cond: 'hasRecordingStarted',
+                actions: ['updateRecordingStartTimestampMs'],
               },
               100: { target: 'checkRecordingStarted' },
             },
@@ -489,6 +490,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           freshnessColorEl: event.data?.freshnessColorEl,
         }),
       }),
+      updateRecordingStartTimestampMs: assign({
+        videoAssociatedParams: (context) => {
+          return {
+            ...context.videoAssociatedParams,
+            recordingStartTimestampMs:
+              context.livenessStreamProvider.videoRecorder
+                .recorderStartTimestamp,
+          };
+        },
+      }),
       startRecording: assign({
         videoAssociatedParams: (context) => {
           recordLivenessAnalyticsEvent(context.componentProps, {
@@ -512,7 +523,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
           return {
             ...context.videoAssociatedParams,
-            recordingStartTimestampMs: Date.now(),
           };
         },
       }),
@@ -856,8 +866,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       hasRecordingStarted: (context) => {
         return (
-          context.livenessStreamProvider.videoRecorder.firstChunkTimestamp !==
-          undefined
+          context.livenessStreamProvider.videoRecorder
+            .recorderStartTimestamp !== undefined
         );
       },
     },
@@ -996,9 +1006,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             videoMediaStream,
             recordingStartTimestampMs,
           },
-          faceMatchAssociatedParams: { startFace },
           ovalAssociatedParams: { faceDetector },
           serverSessionInformation,
+          livenessStreamProvider,
         } = context;
 
         // initialize models
@@ -1011,6 +1021,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // detect face
         const startDetectTime = Date.now();
         const detectedFaces = await faceDetector.detectFaces(videoEl);
+        const timeToDetectFace = Date.now() - startDetectTime;
         let initialFace: Face;
         let faceMatchState: FaceMatchState;
         let illuminationState: IlluminationState;
@@ -1089,7 +1100,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           Challenge: {
             FaceMovementAndLightChallenge: {
               ChallengeId: challengeId,
-              VideoStartTimestamp: recordingStartTimestampMs,
+              VideoStartTimestamp:
+                livenessStreamProvider.videoRecorder.recorderStartTimestamp -
+                timeToDetectFace,
               InitialFace: {
                 InitialFaceDetectedTimestamp: initialFace.timestampMs,
                 BoundingBox: getBoundingBox({
