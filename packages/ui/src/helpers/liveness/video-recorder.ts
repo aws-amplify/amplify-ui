@@ -70,6 +70,7 @@ export class VideoRecorder {
           });
 
           this._recorder.onstop = () => {
+            console.log(`videoStopTime: ${Date.now()}`);
             resolve();
           };
         },

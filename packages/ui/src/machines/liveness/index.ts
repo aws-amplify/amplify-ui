@@ -1114,7 +1114,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         } = context;
 
         // detect face
+        const before = Date.now();
         const detectedFaces = await faceDetector.detectFaces(videoEl);
+        console.log(JSON.stringify({ timeToDetectFace: Date.now() - before }));
         let faceMatchState: FaceMatchState;
         let detectedFace: Face;
         let illuminationState: IlluminationState;

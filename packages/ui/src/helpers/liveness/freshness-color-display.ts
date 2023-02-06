@@ -112,6 +112,7 @@ export class FreshnessColorDisplay {
         ovalDetails,
         heightFraction,
       });
+      console.log(`actualTime: ${Date.now()}`);
 
       resolve(false);
     } else {
@@ -189,7 +190,11 @@ export class FreshnessColorDisplay {
     currColorIndex: number
   ) {
     const { livenessStreamProvider, challengeId } = this.context;
-    console.log({ colorTimestamp: tickStartTime, currColor, prevColor });
+    console.log({
+      colorTimestamp: tickStartTime,
+      currColor,
+      prevColor,
+    });
     livenessStreamProvider.sendClientInfo({
       DeviceInformation: undefined,
       Challenge: {

@@ -81,6 +81,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         // Video chunks blobs should be sent as video events
         if (value === 'stopVideo') {
           // sending an empty video chunk signals that we have ended sending video
+          console.log(`finalVideoChunk: ${Date.now()}`);
           yield {
             VideoEvent: {
               VideoChunk: [],
