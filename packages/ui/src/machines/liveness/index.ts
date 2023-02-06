@@ -44,7 +44,7 @@ import {
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
 
-export const MIN_FACE_MATCH_COUNT = 5;
+export const MIN_FACE_MATCH_COUNT = 2;
 
 // timer metrics variables
 let faceDetectedTimestamp: number;
