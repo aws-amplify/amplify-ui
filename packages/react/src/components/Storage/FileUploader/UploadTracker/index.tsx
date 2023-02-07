@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { translate } from '@aws-amplify/ui';
 import { humanFileSize } from '@aws-amplify/ui';
-import { TrackerProps } from '../types';
+import { FileState, TrackerProps } from '../types';
 import {
   View,
   Image,
@@ -52,8 +52,8 @@ export function UploadTracker({
   const isDeterminate = isResumable ? percentage > 0 : true;
 
   const showEditButton =
-    fileState === null ||
-    (fileState === 'error' &&
+    fileState === FileState.INIT ||
+    (fileState === FileState.ERROR &&
       errorMessage === translate('Extension not allowed'));
 
   const DisplayView = useCallback(
