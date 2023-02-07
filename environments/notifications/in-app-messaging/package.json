@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "in-app-messaging",
+  "name": "in-app-messaging-environment",
   "version": "0.0.1",
   "scripts": {
     "pull": "amplify pull --appId d19pc24nlvj2b3 --envName staging"
