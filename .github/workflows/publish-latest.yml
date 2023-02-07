@@ -10,9 +10,10 @@
 
 name: Test and Publish / latest
 
-on:
-  push:
-    branches: [main]
+# Disabled on staging repo
+# on:
+#   push:
+#     branches: [main]
 
 permissions:
   contents: write # Used to push tags to GitHub

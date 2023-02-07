@@ -5,9 +5,10 @@
 
 name: Build and Runtime Test
 
-on:
-  schedule:
-    - cron: '*/15 * * * *' # Run every 15 minutes
+# Disabled on staging repo
+# on:
+#   schedule:
+#     - cron: '*/15 * * * *' # Run every 15 minutes
 
 jobs:
   build:

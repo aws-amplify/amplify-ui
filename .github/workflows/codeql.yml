@@ -1,11 +1,12 @@
 name: 'CodeQL'
 
-on:
-  push:
-    branches: ['main', '*/main']
+# Re-enable it once we get the license to enable advanced security
+# on:
+#   push:
+#     branches: ['main', '*/main']
 
-  pull_request:
-    types: [opened, synchronize, labeled]
+#   pull_request:
+#     types: [opened, synchronize, labeled]
 
 jobs:
   analyze:
