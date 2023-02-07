@@ -11,6 +11,7 @@ import {
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import { GetLivenessResultCard } from './GetLivenessResultCard';
+import LivenessInlineResults from './LivenessInlineResults';
 
 export default function LivenessDefault({
   disableStartScreen = false,
@@ -52,21 +53,30 @@ export default function LivenessDefault({
         >
           <SessionIdAlert sessionId={createLivenessSessionApiData.sessionId} />
 
-          <Flex gap="0" direction="column" position="relative">
-            <FaceLivenessDetector
-              sessionId={createLivenessSessionApiData.sessionId}
+          {!!getLivenessResponse ? (
+            <LivenessInlineResults
+              getLivenessResponse={getLivenessResponse}
               onUserCancel={onUserCancel}
-              onGetLivenessDetection={handleGetLivenessDetection}
-              onError={(error) => {
-                setError(error);
-              }}
-              onFailure={() => {
-                setCheckFailed(true);
-              }}
-              enableAnalytics={true}
-              disableStartScreen={disableStartScreen}
-              components={components}
             />
+          ) : null}
+
+          <Flex gap="0" direction="column" position="relative">
+            {!getLivenessResponse ? (
+              <FaceLivenessDetector
+                sessionId={createLivenessSessionApiData.sessionId}
+                onUserCancel={onUserCancel}
+                onGetLivenessDetection={handleGetLivenessDetection}
+                onError={(error) => {
+                  setError(error);
+                }}
+                onFailure={() => {
+                  setCheckFailed(true);
+                }}
+                enableAnalytics={true}
+                disableStartScreen={disableStartScreen}
+                components={components}
+              />
+            ) : null}
             {error ? (
               <View style={{ zIndex: '1' }}>
                 <FaceLivenessErrorModal
@@ -89,8 +99,6 @@ export default function LivenessDefault({
               </View>
             ) : null}
           </Flex>
-
-          <GetLivenessResultCard getLivenessResponse={getLivenessResponse} />
         </Flex>
       )}
     </View>
