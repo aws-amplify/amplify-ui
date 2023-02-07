@@ -115,18 +115,10 @@ export function UploadTracker({
         return null;
       default:
         return (
-          <>
-            {showEditButton ? (
-              <Button onClick={onStartEdit} size="small" variation="link">
-                <VisuallyHidden>Edit file name {file.name}</VisuallyHidden>
-                <IconEdit aria-hidden fontSize="medium" />
-              </Button>
-            ) : null}
-            <Button size="small" onClick={onCancel}>
-              <VisuallyHidden>Remove file name {file.name}</VisuallyHidden>
-              <IconClose aria-hidden fontSize="medium" />
-            </Button>
-          </>
+          <Button size="small" onClick={onCancel}>
+            <VisuallyHidden>Remove file name {file.name}</VisuallyHidden>
+            <IconClose aria-hidden fontSize="medium" />
+          </Button>
         );
     }
   }, [
@@ -139,8 +131,6 @@ export function UploadTracker({
     onPause,
     onResume,
     onSaveEdit,
-    onStartEdit,
-    showEditButton,
     tempName,
   ]);
 
@@ -153,6 +143,12 @@ export function UploadTracker({
           <View className={ComponentClassNames.FileUploaderFileImage}>
             {icon}
           </View>
+        ) : null}
+        {showEditButton ? (
+          <Button onClick={onStartEdit} size="small" variation="link">
+            <VisuallyHidden>Edit file name {file.name}</VisuallyHidden>
+            <IconEdit aria-hidden fontSize="medium" />
+          </Button>
         ) : null}
 
         {/* Main View */}

@@ -16,20 +16,6 @@ exports[`UploadTracker exists 1`] = `
           class="amplify-image"
         />
       </div>
-      <div
-        class="amplify-fileuploader__file__main"
-      >
-        <p
-          class="amplify-text amplify-fileuploader__file__name"
-        >
-          hello.png
-        </p>
-      </div>
-      <span
-        class="amplify-text amplify-fileuploader__file__size"
-      >
-        5 B
-      </span>
       <button
         class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
         data-fullwidth="false"
@@ -62,6 +48,20 @@ exports[`UploadTracker exists 1`] = `
           </svg>
         </span>
       </button>
+      <div
+        class="amplify-fileuploader__file__main"
+      >
+        <p
+          class="amplify-text amplify-fileuploader__file__name"
+        >
+          hello.png
+        </p>
+      </div>
+      <span
+        class="amplify-text amplify-fileuploader__file__size"
+      >
+        5 B
+      </span>
       <button
         class="amplify-button amplify-field-group__control amplify-button--small"
         data-fullwidth="false"
