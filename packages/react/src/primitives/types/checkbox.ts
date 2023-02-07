@@ -52,10 +52,10 @@ export interface CheckboxProps extends FlexProps, InputProps {
 }
 
 export interface UseCheckbox {
-  dataChecked: boolean;
+  dataChecked?: boolean;
   dataFocus: boolean;
   onBlur: () => void;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onFocus: () => void;
-  setDataChecked: Dispatch<SetStateAction<boolean>>;
+  setDataChecked: Dispatch<SetStateAction<boolean | undefined>>;
 }

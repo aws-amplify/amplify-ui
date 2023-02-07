@@ -9,7 +9,7 @@ describe('Input component', () => {
   it('should render custom classname for Input', async () => {
     render(<Input className="custom-class" />);
 
-    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    const input = await screen.findByRole('textbox');
     expect(input).toHaveClass('custom-class');
     expect(input).toHaveClass(ComponentClassNames.Input);
   });
@@ -29,7 +29,7 @@ describe('Input component', () => {
   it('should render error classes for Input', async () => {
     render(
       <div>
-        <Input testId="error" hasError={true} />
+        <Input testId="error" hasError />
       </div>
     );
 
@@ -96,14 +96,14 @@ describe('Input component', () => {
   it('can set defaultChecked (uncontrolled)', async () => {
     render(<Input type="radio" defaultChecked />);
 
-    const radio = (await screen.findByRole('radio')) as HTMLInputElement;
+    const radio = await screen.findByRole('radio');
     expect(radio).toBeChecked();
   });
 
   it('can set defaultValue (uncontrolled)', async () => {
     render(<Input defaultValue="test" />);
 
-    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    const input = await screen.findByRole<HTMLInputElement>('textbox');
     expect(input.value).toBe('test');
   });
 
@@ -111,20 +111,20 @@ describe('Input component', () => {
     const onChange = jest.fn();
     render(<Input type="radio" checked onChange={onChange} />);
 
-    const radio = (await screen.findByRole('radio')) as HTMLInputElement;
+    const radio = await screen.findByRole('radio');
     expect(radio).toBeChecked();
   });
 
   it('can set value (controlled component)', async () => {
     render(<Input value="test" onChange={jest.fn()} />);
 
-    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    const input = await screen.findByRole<HTMLInputElement>('textbox');
     expect(input.value).toBe('test');
   });
 
   it('show add aria-invalid attribute to input when hasError', async () => {
-    render(<Input id="testField" hasError={true} />);
-    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    render(<Input id="testField" hasError />);
+    const input = await screen.findByRole('textbox');
     expect(input).toHaveAttribute('aria-invalid');
   });
 
@@ -133,7 +133,7 @@ describe('Input component', () => {
     const onInput = jest.fn();
     const onPaste = jest.fn();
     render(<Input onChange={onChange} onInput={onInput} onPaste={onPaste} />);
-    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    const input = await screen.findByRole('textbox');
     userEvent.type(input, 'hello');
     userEvent.paste(input, 'there');
     expect(onChange).toHaveBeenCalled();

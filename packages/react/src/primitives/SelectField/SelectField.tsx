@@ -1,13 +1,14 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { Select } from '../Select';
 import { SelectFieldProps, Primitive } from '../types';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 
 interface SelectFieldChildrenProps {
@@ -21,6 +22,7 @@ const selectFieldChildren = ({
 }: SelectFieldChildrenProps) => {
   if (children) {
     if (options?.length) {
+      // eslint-disable-next-line no-console
       console.warn(
         'Amplify UI: <SelectField> component  defaults to rendering children over `options`. When using the `options` prop, omit children.'
       );
@@ -65,6 +67,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.SelectField,
         className
       )}

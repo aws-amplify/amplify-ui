@@ -11,7 +11,7 @@ export interface TabsProps extends FlexProps {
    * @description
    * The Tabs component only accepts TabItem components as children.
    */
-  children: React.ReactElement | React.ReactElement[];
+  children: React.ReactNode;
 
   /**
    * @description
@@ -60,4 +60,10 @@ export interface TabItemProps extends BaseComponentProps, BaseStyleProps {
    * Make a Tab not clickable and its content not visible to the user. Defaults to false (i.e., visible).
    */
   isDisabled?: boolean;
+
+  /**
+   * @description
+   * Accepts any number of TabItem components
+   */
+  children?: React.ReactNode;
 }

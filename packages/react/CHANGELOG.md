@@ -1,5 +1,117 @@
 # @aws-amplify/ui-react
 
+## 4.3.6
+
+### Patch Changes
+
+- [#3349](https://github.com/aws-amplify/amplify-ui/pull/3349) [`8ae8e0b8c`](https://github.com/aws-amplify/amplify-ui/commit/8ae8e0b8c10f2459c28931805add8c05fea25e48) Thanks [@ErikCH](https://github.com/ErikCH)! - fix: Swapped save and cancel buttons.
+
+- [#3333](https://github.com/aws-amplify/amplify-ui/pull/3333) [`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): migrate totpSecretCode generation to state machine
+
+- [#3344](https://github.com/aws-amplify/amplify-ui/pull/3344) [`b85547545`](https://github.com/aws-amplify/amplify-ui/commit/b85547545b9611aee88331e25cf3abf34da13cf3) Thanks [@ErikCH](https://github.com/ErikCH)! - fix: Updated error text for max file count to be more explicit.
+
+- [#3287](https://github.com/aws-amplify/amplify-ui/pull/3287) [`412538be9`](https://github.com/aws-amplify/amplify-ui/commit/412538be9e37a8dec7cb5e57281895a5b3b63184) Thanks [@zchenwei](https://github.com/zchenwei)! - build: updates to support Node ESM
+
+  Confirmed that both #3155 and #3206 are fixed without having to apply any workaround
+
+  Also, test out the changes with the following frameworks/tools:
+
+  | Name               | Tested? | Notes                                                                                                                                         |
+  | ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Next.js@11, 12, 13 | ✅      |                                                                                                                                               |
+  | Gatsby             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Remix              | ✅      |                                                                                                                                               |
+  | Astro              | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | webpack            | ✅      |                                                                                                                                               |
+  | Vite               | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Rollup             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | esbuild            | ✅      |                                                                                                                                               |
+  | Parcel             | ✅      |                                                                                                                                               |
+  | Snowpack           | ✅      | Need `--polyfill-node` to fix JS incompatibility in dev mode, but is a known [issue](https://github.com/FredKSchott/snowpack/discussions/718) |
+
+- [#3350](https://github.com/aws-amplify/amplify-ui/pull/3350) [`db4ea4f1d`](https://github.com/aws-amplify/amplify-ui/commit/db4ea4f1d71144c53e165cd16bbdcedfa695a391) Thanks [@ErikCH](https://github.com/ErikCH)! - fix: Swap the upload button with the clear all button.
+
+- [#3327](https://github.com/aws-amplify/amplify-ui/pull/3327) [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148) Thanks [@wlee221](https://github.com/wlee221)! - fix(rwa): improve default behavior handling for custom formFields.
+
+  Previously, adding custom formFields for fields that are not in `signUpAttributes` configuration wouldn't get any default values, which could lead to broken UI.
+
+  This commit improves default handling by applying defaults to all known auth field (birthdate, first_name, etc) to custom formField options.
+
+- Updated dependencies [[`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc), [`412538be9`](https://github.com/aws-amplify/amplify-ui/commit/412538be9e37a8dec7cb5e57281895a5b3b63184), [`9ce2d01b0`](https://github.com/aws-amplify/amplify-ui/commit/9ce2d01b09e2f7aa0b218a97bb829a4210350a0a), [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148)]:
+  - @aws-amplify/ui-react-core@2.1.11
+  - @aws-amplify/ui@5.5.3
+
+## 4.3.5
+
+### Patch Changes
+
+- [#3325](https://github.com/aws-amplify/amplify-ui/pull/3325) [`dd9de348a`](https://github.com/aws-amplify/amplify-ui/commit/dd9de348abcafdcd721600f543d58353957dac25) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Translate 'or' text for FederatedSignIn
+
+- Updated dependencies [[`57f1a3f43`](https://github.com/aws-amplify/amplify-ui/commit/57f1a3f438b8288ffda46764f7a87e1739e61313), [`dd9de348a`](https://github.com/aws-amplify/amplify-ui/commit/dd9de348abcafdcd721600f543d58353957dac25), [`4d652033e`](https://github.com/aws-amplify/amplify-ui/commit/4d652033e120daa82665b4bb4035b56fa8d33bf8)]:
+  - @aws-amplify/ui@5.5.2
+  - @aws-amplify/ui-react-core@2.1.10
+
+## 4.3.4
+
+### Patch Changes
+
+- [#3279](https://github.com/aws-amplify/amplify-ui/pull/3279) [`4b051dbdb`](https://github.com/aws-amplify/amplify-ui/commit/4b051dbdb1d9ed476eacd091c2eae661e085c976) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui-react): Add fieldset and legend to RadioGroupField for improved accessibility
+
+- [#3283](https://github.com/aws-amplify/amplify-ui/pull/3283) [`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd) Thanks [@wlee221](https://github.com/wlee221)! - Trim non-password fields on Authenticator forms. This will prevent unnecessary validation messages from showing up.
+
+- [#3297](https://github.com/aws-amplify/amplify-ui/pull/3297) [`58b65b3e4`](https://github.com/aws-amplify/amplify-ui/commit/58b65b3e40094626d0edf5f1642f1c8872fa8f84) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint primitives (T - Z)
+
+- [#3284](https://github.com/aws-amplify/amplify-ui/pull/3284) [`01912077c`](https://github.com/aws-amplify/amplify-ui/commit/01912077c6d4fcdd3cbe9b6de2bb53fc490d0f41) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated text to be more verbose for the max file size error for the file uploader component.
+
+- [#3265](https://github.com/aws-amplify/amplify-ui/pull/3265) [`08111e7e6`](https://github.com/aws-amplify/amplify-ui/commit/08111e7e60af5baf3b7e408f9545514c34e09078) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react): lint primitives (P-S)
+
+- Updated dependencies [[`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd), [`01912077c`](https://github.com/aws-amplify/amplify-ui/commit/01912077c6d4fcdd3cbe9b6de2bb53fc490d0f41), [`08111e7e6`](https://github.com/aws-amplify/amplify-ui/commit/08111e7e60af5baf3b7e408f9545514c34e09078)]:
+  - @aws-amplify/ui@5.5.1
+  - @aws-amplify/ui-react-core@2.1.9
+
+## 4.3.3
+
+### Patch Changes
+
+- [#3260](https://github.com/aws-amplify/amplify-ui/pull/3260) [`c335b347e`](https://github.com/aws-amplify/amplify-ui/commit/c335b347efd501aac55ccbea01a48a8248c92334) Thanks [@ErikCH](https://github.com/ErikCH)! - Added fix so zero byte size files will upload and not freeze the File Uploader component.
+
+- [#3223](https://github.com/aws-amplify/amplify-ui/pull/3223) [`7587566dd`](https://github.com/aws-amplify/amplify-ui/commit/7587566dd6d19c54898a77b7bba0c95e4a91bfe4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: fixing TS strict errors in these components:
+
+  - Pagination
+  - Rating
+  - SearchField
+  - SliderField
+  - StepperField
+  - SwitchField
+
+- [#3277](https://github.com/aws-amplify/amplify-ui/pull/3277) [`5b83174aa`](https://github.com/aws-amplify/amplify-ui/commit/5b83174aa20af2547597440b9ac4e9b96430c281) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(primitives): adds support inert prop on all React primitives
+
+  ```jsx
+  <View inert>
+  ```
+
+- [#3264](https://github.com/aws-amplify/amplify-ui/pull/3264) [`ae66ab51b`](https://github.com/aws-amplify/amplify-ui/commit/ae66ab51b61f21a84af3b029c94868229d4e0921) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: more TS strict fixes:
+
+  - styleUtils
+  - ExpanderItem
+  - Tabs
+  - View
+  - IconClose
+  - MenuButton
+
+- [#3269](https://github.com/aws-amplify/amplify-ui/pull/3269) [`09b4832fb`](https://github.com/aws-amplify/amplify-ui/commit/09b4832fb4ae8ce76992a9fcd4547e142fb76a6d) Thanks [@joebuono](https://github.com/joebuono)! - fix(react): Conditionally render deprecation warning if Link component's `to` prop is used without using `as` prop
+
+- [#3270](https://github.com/aws-amplify/amplify-ui/pull/3270) [`44d92b87f`](https://github.com/aws-amplify/amplify-ui/commit/44d92b87f81f20ef24e311085a57092ff19fb8a0) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(tabs): `null` and `undefined` children of `Tabs` will no longer show a Typescript error.
+  Also `null` children will no longer mess up the index of the tab array which affects the `defaultIndex` uncontrolled behavior.
+
+- [#3282](https://github.com/aws-amplify/amplify-ui/pull/3282) [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): remove order keys from formFields after sorting
+
+- [#3266](https://github.com/aws-amplify/amplify-ui/pull/3266) [`9efd2f4fa`](https://github.com/aws-amplify/amplify-ui/commit/9efd2f4fa1539816a515dd63935b53849350e3b9) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated file uploader component text to show singular and plural forms of upload and selected files
+
+- Updated dependencies [[`59321c9cc`](https://github.com/aws-amplify/amplify-ui/commit/59321c9cc15f8243edd6f5dd0113e7c396f7b488), [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9)]:
+  - @aws-amplify/ui@5.5.0
+  - @aws-amplify/ui-react-core@2.1.8
+
 ## 4.3.2
 
 ### Patch Changes

@@ -8,7 +8,7 @@ import { Primitive, SearchFieldButtonProps } from '../types';
 const ariaLabelText = ComponentText.SearchField.searchButtonLabel;
 
 const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
-  (props, ref) => {
+  ({ size, ...props }, ref) => {
     return (
       <FieldGroupIconButton
         ariaLabel={ariaLabelText}
@@ -17,7 +17,7 @@ const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
         type="submit"
         {...props}
       >
-        <IconSearch size={props.size} />
+        <IconSearch size={size} />
       </FieldGroupIconButton>
     );
   };

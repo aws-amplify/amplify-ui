@@ -32,7 +32,7 @@ export const expectFlexContainerStyleProps = (element: HTMLElement): void => {
   });
 };
 
-describe('Flex: ', () => {
+describe('Flex:', () => {
   const flexText = 'Flex primitive';
 
   it('can apply styling via props', async () => {

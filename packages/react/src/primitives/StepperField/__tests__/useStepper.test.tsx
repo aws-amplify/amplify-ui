@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { useStepper } from '../useStepper';
 
-describe('useStepper: ', () => {
+describe('useStepper:', () => {
   const label = 'test-hook';
   it('should return basic props correctly', () => {
     const { result } = renderHook(() =>
@@ -102,5 +102,21 @@ describe('useStepper: ', () => {
       useStepper({ label, value: 1, min: 5, max: 10 })
     );
     expect(result.current.value).toEqual(5);
+  });
+
+  it('should call the onChange prop when provided', () => {
+    const onChange = jest.fn();
+    const { result } = renderHook(() =>
+      useStepper({
+        label,
+        value: 10,
+        onChange,
+      })
+    );
+    const mockMouseEvent = {
+      target: {},
+    } as React.ChangeEvent<HTMLInputElement>;
+    act(() => result.current.handleOnChange(mockMouseEvent));
+    expect(onChange).toBeCalledTimes(1);
   });
 });

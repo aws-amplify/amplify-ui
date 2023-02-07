@@ -61,3 +61,9 @@ export const authFieldsWithDefaults = [
 
 /** Input fields that we provide default fields with */
 export type AuthFieldsWithDefaults = typeof authFieldsWithDefaults[number];
+
+export const isAuthFieldsWithDefaults = (
+  field: string
+): field is AuthFieldsWithDefaults => {
+  return authFieldsWithDefaults.includes(field as AuthFieldsWithDefaults);
+};

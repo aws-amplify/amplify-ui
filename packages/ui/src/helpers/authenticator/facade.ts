@@ -49,6 +49,7 @@ interface AuthenticatorServiceContextFacade {
   isPending: boolean;
   route: AuthenticatorRoute;
   socialProviders: SocialProvider[];
+  totpSecretCode: string | null;
   unverifiedContactMethods: UnverifiedContactMethods;
   user: AmplifyUser;
   validationErrors: AuthenticatorValidationErrors;
@@ -124,6 +125,7 @@ export const getServiceContextFacade = (
     remoteError: error,
     unverifiedContactMethods,
     validationError: validationErrors,
+    totpSecretCode = null,
   } = actorContext;
 
   const { socialProviders } = state.context?.config ?? {};
@@ -153,7 +155,8 @@ export const getServiceContextFacade = (
         return 'confirmSignUp';
       case actorState?.matches('confirmSignIn'):
         return 'confirmSignIn';
-      case actorState?.matches('setupTOTP'):
+      case actorState?.matches('setupTOTP.edit'):
+      case actorState?.matches('setupTOTP.submit'):
         return 'setupTOTP';
       case actorState?.matches('signIn'):
         return 'signIn';
@@ -169,6 +172,7 @@ export const getServiceContextFacade = (
         return 'verifyUser';
       case actorState?.matches('confirmVerifyUser'):
         return 'confirmVerifyUser';
+      case actorState?.matches('setupTOTP.getTotpSecretCode'):
       case state.matches('signIn.runActor'):
         /**
          * This route is needed for autoSignIn to capture both the
@@ -207,6 +211,7 @@ export const getServiceContextFacade = (
     isPending,
     route,
     socialProviders,
+    totpSecretCode,
     unverifiedContactMethods,
     user,
     validationErrors,

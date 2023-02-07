@@ -14,12 +14,9 @@ export interface MessageComponentStyles {
 }
 
 export interface UseMessageProps {
-  hasButtons: boolean;
-  hasPrimaryButton: boolean;
   hasRenderableImage: boolean;
-  hasSecondaryButton: boolean;
   shouldRenderMessage: boolean;
-  styles: MessageComponentStyles | null;
+  styles: MessageComponentStyles;
 }
 
 export interface MessageStyleParams {
@@ -38,7 +35,7 @@ export interface StyleParams {
   /**
    * custom component style passed as style prop to message UI components
    */
-  overrideStyle: MessageOverrideStyle;
+  overrideStyle?: MessageOverrideStyle;
 }
 
 /**

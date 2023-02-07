@@ -18,14 +18,25 @@ export function UploadPreviewer({
   isLoading,
   isSuccessful,
   hasMaxFilesError,
+  maxFileCount,
   onClear,
   onFileClick,
 }: PreviewerProps): JSX.Element {
-  const headingMaxFiles = translate('Over Max files');
+  const headingMaxFiles = `${translate(
+    'Cannot choose more than'
+  )} ${maxFileCount}`;
   const getUploadedFilesLength = () =>
     fileStatuses.filter((file) => file?.fileState === 'success').length;
 
   const remainingFilesLength = fileStatuses.length - getUploadedFilesLength();
+  const remainingFilesText = `${remainingFilesLength} ${
+    remainingFilesLength === 1 ? translate('file') : translate('files')
+  }`;
+  const uploadedFilesText = `${getUploadedFilesLength()} ${
+    getUploadedFilesLength() === 1
+      ? translate('file uploaded')
+      : translate('files uploaded')
+  }`;
 
   const isDisabled =
     fileStatuses.some((status) =>
@@ -40,9 +51,9 @@ export function UploadPreviewer({
         {dropZone}
         <Text className={ComponentClassNames.FileUploaderPreviewerText}>
           {isSuccessful ? (
-            <>{`${getUploadedFilesLength()} ${translate('files uploaded')}`}</>
+            uploadedFilesText
           ) : (
-            <>{`${remainingFilesLength} ${translate('files selected')}`}</>
+            <>{`${remainingFilesText} ${translate('selected')}`}</>
           )}
         </Text>
         {children}
@@ -70,19 +81,16 @@ export function UploadPreviewer({
         <View className={ComponentClassName.FileUploaderPreviewerFooterActions}>
           {!isLoading && !isSuccessful && (
             <>
+              <Button size="small" variation="link" onClick={onClear}>
+                {translate('Clear all')}
+              </Button>
               <Button
                 disabled={isDisabled}
                 size="small"
                 variation="primary"
                 onClick={onFileClick}
               >
-                {translate('Upload')}
-                {` ${remainingFilesLength} `}
-                {translate('files')}
-              </Button>
-
-              <Button size="small" variation="link" onClick={onClear}>
-                {translate('Clear all')}
+                {`${translate('Upload')} ${remainingFilesText}`}
               </Button>
             </>
           )}

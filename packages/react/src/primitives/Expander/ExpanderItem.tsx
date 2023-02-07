@@ -1,22 +1,28 @@
 import * as React from 'react';
-import { Item, Header, Trigger, Content } from '@radix-ui/react-accordion';
+import * as Accordion from '@radix-ui/react-accordion';
 import classNames from 'classnames';
+
+import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
 import { ExpanderItemProps } from '../types/expander';
 import { IconExpandMore } from '../Icon/internal';
 import { Primitive } from '../types/view';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
+
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
+// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
+const { Item, Header, Trigger, Content } = sanitizeNamespaceImport(Accordion);
 
 export const EXPANDER_ITEM_TEST_ID = 'expander-item';
 export const EXPANDER_HEADER_TEST_ID = 'expander-header';
 export const EXPANDER_ICON_TEST_ID = 'expander-icon';
 export const EXPANDER_CONTENT_TEXT_TEST_ID = 'expander-content-text';
 
-const ExpanderItemPrimitive: Primitive<ExpanderItemProps, typeof Item> = (
-  { children, className, title, ..._rest },
+const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
+  { children, className, title, value, ..._rest },
   ref
 ) => {
   const triggerId = useStableId();
@@ -27,6 +33,7 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, typeof Item> = (
       className={classNames(ComponentClassNames.ExpanderItem, className)}
       data-testid={EXPANDER_ITEM_TEST_ID}
       ref={ref}
+      value={value}
       {...rest}
     >
       <Header

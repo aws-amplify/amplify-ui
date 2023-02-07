@@ -6,18 +6,15 @@ import {
   convertGridSpan,
   convertStylePropsToStyleObj,
   getGridSpan,
-  splitPrimitiveProps,
   useStyles,
   useTransformStyleProps,
 } from '../styleUtils';
-import {
-  AllStyleProps,
-  ComponentPropsToStylePropsMap,
-  ViewProps,
-} from '../../types';
+import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
 import { Breakpoint } from '../../types/responsive';
 
-const props: ViewProps = {
+type UnknownViewProps = ViewProps & Record<string, unknown>;
+
+const props: UnknownViewProps = {
   backgroundColor: 'blue',
   border: '1px solid black',
   borderRadius: '6px',
@@ -36,7 +33,7 @@ const props: ViewProps = {
   className: 'my-section',
 };
 
-let breakpoints = defaultTheme.breakpoints.values;
+const breakpoints = defaultTheme.breakpoints.values;
 
 const defaultStylePropsParams = {
   breakpoint: 'base' as Breakpoint,
@@ -51,7 +48,7 @@ const gridItemProps = {
 const theme = createTheme();
 const { tokens } = theme;
 
-describe('convertStylePropsToStyleObj: ', () => {
+describe('convertStylePropsToStyleObj:', () => {
   it('should convert style props to a style object', () => {
     const { propStyles } = convertStylePropsToStyleObj({
       props,
@@ -65,7 +62,7 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 
   it('should ignore undefined, null or empty string style prop values', () => {
-    const props: ViewProps = {
+    const props: UnknownViewProps = {
       backgroundColor: undefined,
       // cast to `undefined` to allow robustness testing
       color: null as unknown as undefined,
@@ -135,7 +132,7 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 
   it('should extend the passed in style object', () => {
-    const props: ViewProps = {
+    const props: UnknownViewProps = {
       backgroundColor: 'red',
     };
     const existingStyles: React.CSSProperties = {
@@ -153,7 +150,7 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 
   it('should give precedence to the stylistic props over the passed in style object', () => {
-    const props: ViewProps = {
+    const props: UnknownViewProps = {
       color: 'red',
       fontWeight: 'bold',
       padding: 'large',
@@ -178,7 +175,7 @@ describe('convertStylePropsToStyleObj: ', () => {
 
   describe('theme key props', () => {
     it('should handle theme key props', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         color: 'red.10',
         fontWeight: 'bold',
         padding: 'large',
@@ -199,7 +196,7 @@ describe('convertStylePropsToStyleObj: ', () => {
     });
 
     it('should handle shorthand theme key props', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         padding: 'large large',
       };
 
@@ -216,7 +213,7 @@ describe('convertStylePropsToStyleObj: ', () => {
     });
 
     it('should handle mixed shorthand theme key props', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         padding: 'large 2px',
       };
 
@@ -231,7 +228,7 @@ describe('convertStylePropsToStyleObj: ', () => {
     });
 
     it('should ignore/not change unknown theme keys', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         padding: 'foo',
       };
 
@@ -246,7 +243,7 @@ describe('convertStylePropsToStyleObj: ', () => {
     });
 
     it('should gracefully handle unknown nested theme keys', () => {
-      const props: ViewProps = {
+      const props: UnknownViewProps = {
         padding: 'foo.bar',
       };
 
@@ -369,7 +366,7 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 });
 
-describe('useStyleProps: ', () => {
+describe('useStyleProps:', () => {
   it('should return an object containing only the non style props', () => {
     const {
       result: {
@@ -383,7 +380,7 @@ describe('useStyleProps: ', () => {
   });
 
   it('should return an empty object if only style props are passed in', () => {
-    const allStyleProps: ViewProps = {
+    const allStyleProps: UnknownViewProps = {
       color: 'red',
       backgroundColor: 'blue',
       fontWeight: 'bold',
@@ -397,20 +394,20 @@ describe('useStyleProps: ', () => {
   });
 
   it('should return a copy of the original object if all non style props are passed in', () => {
-    const noStyleProps: ViewProps = {
+    const noStyleProps: UnknownViewProps = {
       // @ts-ignore next-line
       'data-variation': 'primary',
       ariaLabel: props.ariaLabel,
       as: props.as,
     };
     const { result } = renderHook(() => useStyles(noStyleProps, {}));
-    const nonStyleProps = result.current.nonStyleProps;
+    const { nonStyleProps } = result.current;
     expect(nonStyleProps).toEqual(noStyleProps);
     expect(nonStyleProps).not.toBe(noStyleProps);
   });
 });
 
-describe('convertGridSpan: ', () => {
+describe('convertGridSpan:', () => {
   it('should return correct css value when passed valid number', () => {
     const param = 5;
     const result = convertGridSpan(param);
@@ -452,7 +449,7 @@ describe('convertGridSpan: ', () => {
   });
 });
 
-describe('getGridSpan: ', () => {
+describe('getGridSpan:', () => {
   it('should return auto when passed auto', () => {
     const param = 'auto';
     const result = getGridSpan(param);
@@ -477,42 +474,5 @@ describe('useTransformStyleProps', () => {
       'column',
       getGridSpan(gridItemProps.columnSpan)
     );
-  });
-});
-
-describe('splitPrimitiveProps', () => {
-  it('should split props into style props and rest', () => {
-    const styleProps: AllStyleProps = {
-      backgroundColor: 'yellow',
-      alignSelf: 'baseline',
-      area: 'auto',
-      basis: 'content',
-      border: '1px solid black',
-      borderRadius: '2px',
-      alignContent: 'space-around',
-      alignItems: 'baseline',
-      columnGap: '2rem',
-      direction: 'column-reverse',
-      gap: '2rem',
-      justifyContent: 'space-around',
-      rowGap: '4rem',
-      wrap: 'nowrap',
-    };
-    const restProps = {
-      type: 'textarea',
-      rows: '4',
-      autoComplete: 'current-password',
-      name: 'password',
-      placeholder: 'Password',
-    };
-
-    const { styleProps: resultStyleProps, rest: resultRest } =
-      splitPrimitiveProps({
-        ...styleProps,
-        ...restProps,
-      });
-
-    expect(resultRest).toEqual(restProps);
-    expect(resultStyleProps).toEqual(styleProps);
   });
 });

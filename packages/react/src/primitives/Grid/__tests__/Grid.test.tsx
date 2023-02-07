@@ -70,7 +70,7 @@ export function expectGridItemStyleProps(element: HTMLElement): void {
   });
 }
 
-describe('Grid: ', () => {
+describe('Grid:', () => {
   const testId = 'gridPrimitive';
   const itemTestId = 'gridItem';
 
@@ -101,7 +101,7 @@ describe('Grid: ', () => {
     expect(view.dataset['demo']).toBe('true');
   });
 
-  describe('Grid items: ', () => {
+  describe('Grid items:', () => {
     const cardTestId = `${itemTestId}-card`;
 
     it('can apply Grid item styling via style prop', async () => {

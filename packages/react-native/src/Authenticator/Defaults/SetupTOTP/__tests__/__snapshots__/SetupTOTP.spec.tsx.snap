@@ -23,6 +23,51 @@ Array [
   >
     Setup TOTP
   </Text>,
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "flexWrap": "wrap",
+          "marginHorizontal": 8,
+          "paddingVertical": 4,
+        },
+      ]
+    }
+  >
+    Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    selectable={true}
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "flexWrap": "wrap",
+          "marginHorizontal": 8,
+          "paddingVertical": 4,
+        },
+      ]
+    }
+  >
+    Let's keep it hush hush
+  </Text>,
   <View
     style={
       Object {
@@ -301,6 +346,51 @@ Array [
     }
   >
     Setup TOTP
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "flexWrap": "wrap",
+          "marginHorizontal": 8,
+          "paddingVertical": 4,
+        },
+      ]
+    }
+  >
+    Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    selectable={true}
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "flexWrap": "wrap",
+          "marginHorizontal": 8,
+          "paddingVertical": 4,
+        },
+      ]
+    }
+  >
+    Let's keep it hush hush
   </Text>,
   <View
     style={
