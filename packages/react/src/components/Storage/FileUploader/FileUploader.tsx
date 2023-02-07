@@ -184,7 +184,7 @@ export function FileUploader({
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
     fileStatuses.forEach((status, i) => {
-      if (status?.fileState === 'success') return;
+      if (status?.fileState === FileState.SUCCESS) return;
       const uploadTask = uploadFile({
         file: status.file,
         fileName: status.name,
@@ -205,19 +205,22 @@ export function FileUploader({
       prevFileStatuses.map((status, index) => ({
         ...status,
         uploadTask: uploadTasksTemp?.[index],
-        fileState: status.fileState ?? FileState.LOADING,
+        fileState:
+          status.fileState === FileState.INIT
+            ? FileState.LOADING
+            : status.fileState,
         percentage: status.percentage ?? 0,
       }))
     );
   }, [
-    errorCallback,
     fileStatuses,
-    isResumable,
-    onSuccess,
-    progressCallback,
-    rest,
     setFileStatuses,
     accessLevel,
+    isResumable,
+    progressCallback,
+    errorCallback,
+    onSuccess,
+    rest,
   ]);
 
   const onFileChange = useCallback(
