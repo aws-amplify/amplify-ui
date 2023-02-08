@@ -38,10 +38,10 @@ export interface LivenessContext {
   faceMatchAssociatedParams: {
     illuminationState: IlluminationState;
     faceMatchState: FaceMatchState;
-    faceMatchCount: number;
     currentDetectedFace: Face;
     startFace: Face;
     endFace: Face;
+    initialFaceMatchTime: number;
   };
   freshnessColorAssociatedParams: {
     freshnessColorEl: HTMLCanvasElement;

@@ -2,7 +2,7 @@ import { interpret } from 'xstate';
 import { LivenessInterpreter } from '@aws-amplify/ui';
 import { setImmediate } from 'timers';
 
-import { livenessMachine, MIN_FACE_MATCH_COUNT } from '../';
+import { livenessMachine, MIN_FACE_MATCH_TIME } from '../';
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
@@ -104,6 +104,14 @@ describe('Liveness Machine', () => {
     ...livenessMachine.context,
     componentProps: mockcomponentProps,
     maxFailedAttempts: 1,
+    faceMatchAssociatedParams: {
+      illuminationState: IlluminationState.NORMAL,
+      faceMatchState: FaceMatchState.MATCHED,
+      currentDetectedFace: mockFace,
+      startFace: mockFace,
+      endFace: mockFace,
+      initialFaceMatchTime: Date.now() - 500,
+    },
   });
 
   let service: LivenessInterpreter;
@@ -151,10 +159,8 @@ describe('Liveness Machine', () => {
   }
 
   async function advanceMinFaceMatches() {
-    for (let i = 0; i <= MIN_FACE_MATCH_COUNT; i++) {
-      await flushPromises();
-      jest.advanceTimersToNextTimer();
-    }
+    await flushPromises();
+    jest.advanceTimersToNextTimer();
   }
 
   async function transitionToUploading(service) {
@@ -162,8 +168,8 @@ describe('Liveness Machine', () => {
     await flushPromises(); // checkFaceDetected
     jest.advanceTimersToNextTimer(); // ovalMatching
     await flushPromises(); // checkMatch
-    await advanceMinFaceMatches();
-    jest.advanceTimersToNextTimer(); // upload-pending
+    await advanceMinFaceMatches(); // detectFaceAndMatchOval
+    await flushPromises(); // flashFreshnessColors
   }
 
   beforeEach(() => {
@@ -580,9 +586,6 @@ describe('Liveness Machine', () => {
       expect(
         service.state.context.faceMatchAssociatedParams.faceMatchState
       ).toBe(FaceMatchState.MATCHED);
-      expect(service.state.context.faceMatchAssociatedParams.startFace).toBe(
-        mockFace
-      );
       expect(service.state.context.faceMatchAssociatedParams.endFace).toBe(
         mockFace
       );
@@ -630,15 +633,11 @@ describe('Liveness Machine', () => {
       expect(
         service.state.context.faceMatchAssociatedParams.faceMatchState
       ).toBe(FaceMatchState.TOO_CLOSE);
-      expect(
-        service.state.context.faceMatchAssociatedParams.faceMatchCount
-      ).toBe(0);
     });
   });
 
   describe('uploading', () => {
     it('should reach waitForDisconnectEvent state after stopping video', async () => {
-      Date.now = jest.fn(() => testTimestampMs);
       (
         mockcomponentProps.onGetLivenessDetection as jest.Mock
       ).mockResolvedValue({
@@ -658,7 +657,6 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach getLivenessResult state after receiving disconnect event', async () => {
-      Date.now = jest.fn(() => testTimestampMs);
       (
         mockcomponentProps.onGetLivenessDetection as jest.Mock
       ).mockResolvedValue({
@@ -681,8 +679,6 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach timeout state if disconnect event never arrives', async () => {
-      Date.now = jest.fn(() => testTimestampMs);
-
       await transitionToUploading(service);
       await flushPromises(); // stopVideo
       jest.advanceTimersToNextTimer(30000); // waitForDisconnect
@@ -695,7 +691,6 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach checkSucceeded state after getLivenessResult', async () => {
-      Date.now = jest.fn(() => testTimestampMs);
       (
         mockcomponentProps.onGetLivenessDetection as jest.Mock
       ).mockResolvedValue({
