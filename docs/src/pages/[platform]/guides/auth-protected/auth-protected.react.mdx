@@ -2,13 +2,13 @@ import { Image, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { ExampleCode } from '@/components/Example';
 import { TerminalCommand } from '@/components/InstallScripts';
 
-The [Amplify UI Authenticator](../connected-components/authenticator) component allows you to quickly scaffold out an end-to-end authentication flow, in just a few lines of code.
+The [Amplify UI Authenticator](/connected-components/authenticator) component allows you to quickly scaffold out an end-to-end authentication flow, in just a few lines of code.
 
-Typically, this can be accomplished by wrapping the entire application in the [withAuthenticator](../connected-components/authenticator#quick-start) higher-order component. This forces the entire application behind a login page.
+Typically, this can be accomplished by wrapping the entire application in the [withAuthenticator](/connected-components/authenticator#quick-start) higher-order component. This forces the entire application behind a login page.
 
 Let's imagine you needed a web application where the login page was in its own route, and that you needed a handful of selected routes to only be accessed by logged in users.
 
-This guide demonstrates that scenario while using the [Amplify UI Authenticator](../connected-components/authenticator) and the [Amplify CLI](https://docs.amplify.aws/cli/).
+This guide demonstrates that scenario while using the [Amplify UI Authenticator](/connected-components/authenticator) and the [Amplify CLI](https://docs.amplify.aws/cli/).
 
 > If you'd like to follow along, please use this example [Github repo](https://github.com/aws-amplify/amplify-ui/tree/main/guides/react/protected-routes). Additionally, you can watch this [video](https://youtu.be/6f635LVtwgk) that walks through this process, and includes a bonus section on how to create a lambda function with a custom authorizer.
 
@@ -157,7 +157,7 @@ This imports the newly created `aws-exports` file into your app and configures i
 
 Next, create a new `components` folder in the root of your application. In here create a new `Login` component.
 
-This component will display the `Authenticator` and allow you to create new users and log in. If you like to add additional configuration you can look at the [configuration documentation](../connected-components/authenticator).
+This component will display the `Authenticator` and allow you to create new users and log in. If you like to add additional configuration you can look at the [configuration documentation](/connected-components/authenticator).
 
 In addition, after a user logs in, it will redirected them to the last place they navigated to. This is a very helpful pattern when working with protected routes. If you'd like more information on this pattern please see the [React Router Auth documentation](https://v5.reactrouter.com/web/example/auth-workflow).
 
@@ -200,7 +200,7 @@ const { route } = useAuthenticator((context) => [context.route]);
 
 </ExampleCode>
 
-The [useAuthenticator](../connected-components/authenticator/headless#useauthenticator-hook) hook is used to access, modify, and update the Authenticator's auth state. In this example we destructure `useAuthenticator` and receive the `route`. The `route` can be used to tell if a route is `authenticated` or not. The `route` can also be set to `signIn`,`signOut`, and even `idle` or `setup` depending on where the user is during the authentication flow.
+The [useAuthenticator](/connected-components/authenticator/headless#useauthenticator-hook) hook is used to access, modify, and update the Authenticator's auth state. In this example we destructure `useAuthenticator` and receive the `route`. The `route` can be used to tell if a route is `authenticated` or not. The `route` can also be set to `signIn`,`signOut`, and even `idle` or `setup` depending on where the user is during the authentication flow.
 
 > You may have noticed that we passed into the `useAuthenticator` a context callback function: `(context) => [context.route]` This is very important as it will help prevent unneccessary re-renders of the application. Excluding it may also cause errors!
 
