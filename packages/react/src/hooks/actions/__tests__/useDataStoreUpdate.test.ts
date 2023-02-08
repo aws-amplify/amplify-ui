@@ -7,7 +7,7 @@ import {
   EVENT_ACTION_DATASTORE_UPDATE,
   UI_CHANNEL,
 } from '../constants';
-import { Todo } from '../testShared';
+import { Todo } from '../testModels/todo';
 import { useDataStoreUpdateAction } from '../useDataStoreUpdateAction';
 import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 
