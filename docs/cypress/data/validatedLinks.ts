@@ -8,6 +8,7 @@
 
 export const VALIDATED_LINKS = [
   'https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html',
+  'https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html',
   'https://github.com/aws-amplify/amplify-ui/issues/new/choose',
   'https://twitter.com/AWSAmplify',
 ];
