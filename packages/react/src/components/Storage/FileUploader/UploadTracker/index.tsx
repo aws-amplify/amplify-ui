@@ -64,12 +64,18 @@ export function UploadTracker({
             {name}
           </Text>
         </View>
+        {showEditButton ? (
+          <Button onClick={onStartEdit} size="small" variation="link">
+            <VisuallyHidden>Edit file name {file.name}</VisuallyHidden>
+            <IconEdit aria-hidden fontSize="medium" />
+          </Button>
+        ) : null}
         <Text as="span" className={ComponentClassNames.FileUploaderFileSize}>
           {humanFileSize(size, true)}
         </Text>
       </>
     ),
-    [name, size]
+    [file.name, name, onStartEdit, showEditButton, size]
   );
 
   const Actions = useCallback(() => {
@@ -143,12 +149,6 @@ export function UploadTracker({
           <View className={ComponentClassNames.FileUploaderFileImage}>
             {icon}
           </View>
-        ) : null}
-        {showEditButton ? (
-          <Button onClick={onStartEdit} size="small" variation="link">
-            <VisuallyHidden>Edit file name {file.name}</VisuallyHidden>
-            <IconEdit aria-hidden fontSize="medium" />
-          </Button>
         ) : null}
 
         {/* Main View */}
