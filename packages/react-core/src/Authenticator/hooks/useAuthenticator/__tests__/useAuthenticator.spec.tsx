@@ -20,17 +20,18 @@ const mockServiceFacade: AuthenticatorServiceFacade = {
   user: {} as UseAuthenticator['user'],
   validationErrors:
     undefined as unknown as UseAuthenticator['validationErrors'],
-  initializeMachine: jest.fn,
-  resendCode: jest.fn,
-  signOut: jest.fn,
-  submitForm: jest.fn,
-  updateForm: jest.fn,
-  updateBlur: jest.fn,
-  toFederatedSignIn: jest.fn,
-  toResetPassword: jest.fn,
-  toSignIn: jest.fn,
-  toSignUp: jest.fn,
-  skipVerification: jest.fn,
+  totpSecretCode: null,
+  initializeMachine: jest.fn(),
+  resendCode: jest.fn(),
+  signOut: jest.fn(),
+  submitForm: jest.fn(),
+  updateForm: jest.fn(),
+  updateBlur: jest.fn(),
+  toFederatedSignIn: jest.fn(),
+  toResetPassword: jest.fn(),
+  toSignIn: jest.fn(),
+  toSignUp: jest.fn(),
+  skipVerification: jest.fn(),
 };
 
 const getServiceFacadeSpy = jest
@@ -50,6 +51,7 @@ jest.mock('aws-amplify');
 
 jest.mock('../utils');
 const getComparatorSpy = jest.spyOn(utils, 'getComparator');
+const getQRFieldsSpy = jest.spyOn(utils, 'getQRFields');
 
 const Wrapper = ({ children }: { children?: React.ReactNode }) => (
   <AuthenticatorProvider>{children}</AuthenticatorProvider>
@@ -89,5 +91,34 @@ describe('useAuthenticator', () => {
     renderHook(useAuthenticator, { wrapper: Wrapper });
 
     expect(getComparatorSpy).not.toBeCalled();
+  });
+
+  it('calls getQRFields only for the setupTOTP route', () => {
+    getServiceFacadeSpy.mockReturnValueOnce({
+      ...mockServiceFacade,
+      route: 'signIn',
+    });
+
+    const { rerender } = renderHook(useAuthenticator, { wrapper: Wrapper });
+
+    expect(getQRFieldsSpy).toHaveBeenCalledTimes(0);
+
+    getServiceFacadeSpy.mockReturnValueOnce({
+      ...mockServiceFacade,
+      route: 'setupTOTP',
+    });
+
+    rerender();
+
+    expect(getQRFieldsSpy).toHaveBeenCalledTimes(1);
+
+    getServiceFacadeSpy.mockReturnValueOnce({
+      ...mockServiceFacade,
+      route: 'signOut',
+    });
+
+    rerender();
+
+    expect(getQRFieldsSpy).toHaveBeenCalledTimes(1);
   });
 });

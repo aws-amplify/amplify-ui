@@ -13,7 +13,7 @@ export const ValidationErrors = ({
   errors,
   id,
   dataAttr,
-}: ValidationErrorsProps): JSX.Element => {
+}: ValidationErrorsProps): JSX.Element | null => {
   if (!(errors?.length > 0)) return null;
 
   const dataAttrProp = dataAttr ? { [dataAttr]: true } : {};

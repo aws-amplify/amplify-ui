@@ -1,9 +1,18 @@
 import * as React from 'react';
-import { DirectionProvider } from '@radix-ui/react-direction';
+import * as RadixDirection from '@radix-ui/react-direction';
 
-import { createTheme, Theme, WebTheme } from '@aws-amplify/ui';
+import {
+  createTheme,
+  Theme,
+  WebTheme,
+  sanitizeNamespaceImport,
+} from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
+
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
+// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
+const { DirectionProvider } = sanitizeNamespaceImport(RadixDirection);
 
 export type ColorMode = 'system' | 'light' | 'dark';
 export type Direction = 'ltr' | 'rtl';

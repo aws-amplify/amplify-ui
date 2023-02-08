@@ -37,7 +37,6 @@ type PropsResolver = (
 const {
   codeDeliveryDetails,
   error,
-  getTotpSecretCode,
   isPending,
   resendCode,
   route,
@@ -47,6 +46,7 @@ const {
   toResetPassword,
   toSignIn,
   toSignUp,
+  totpSecretCode,
   updateBlur,
   updateForm,
   user,
@@ -96,7 +96,7 @@ describe('getRouteMachineSelector', () => {
       ],
     ],
     ['signUp', [...commonSelectorProps, toSignIn, validationErrors, route]],
-    ['setupTOTP', [...commonSelectorProps, toSignIn, route]],
+    ['setupTOTP', [...commonSelectorProps, toSignIn, totpSecretCode, route]],
     ['verifyUser', [...commonSelectorProps, skipVerification, route]],
   ])('returns the expected route selector for %s', (route, expected) => {
     const selector = getRouteMachineSelector(route as AuthenticatorRoute);
@@ -133,7 +133,7 @@ describe('props resolver functions', () => {
       resolveResetPasswordRoute,
       { error, isPending, toSignIn },
     ],
-    ['SetupTOTP', resolveSetupTOTPRoute, { getTotpSecretCode, toSignIn }],
+    ['SetupTOTP', resolveSetupTOTPRoute, { toSignIn, totpSecretCode }],
     [
       'SignIn',
       resolveSignInRoute,

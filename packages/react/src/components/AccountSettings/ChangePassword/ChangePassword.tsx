@@ -1,5 +1,4 @@
 import React from 'react';
-import isEqual from 'lodash/isEqual';
 
 import { Logger } from 'aws-amplify';
 import {
@@ -9,6 +8,7 @@ import {
   getDefaultPasswordValidators,
   runFieldValidators,
   translate,
+  isEqual,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../internal';
@@ -44,7 +44,7 @@ function ChangePassword({
   validators,
   components,
 }: ChangePasswordProps): JSX.Element | null {
-  const [errorMessage, setErrorMessage] = React.useState<string>(null);
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const [formValues, setFormValues] = React.useState<FormValues>({});
   const [validationError, setValidationError] = React.useState<ValidationError>(
     {}
@@ -158,6 +158,10 @@ function ChangePassword({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!user) {
+      return;
+    }
+
     const { currentPassword, newPassword } = formValues;
     if (errorMessage) {
       setErrorMessage(null);

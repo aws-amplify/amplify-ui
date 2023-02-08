@@ -361,7 +361,7 @@ describe('File Uploader', () => {
     render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
-    const button = screen.getAllByRole('button')[1];
+    const button = screen.getAllByRole('button')[0];
     fireEvent.click(button);
     // input file name box
     const input = screen.getByLabelText<HTMLInputElement>('file name');
@@ -391,7 +391,7 @@ describe('File Uploader', () => {
     render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
-    const button = screen.getAllByRole('button')[1];
+    const button = screen.getAllByRole('button')[0];
     fireEvent.click(button);
     // input file name box
     const input = screen.getByLabelText('file name');
@@ -573,7 +573,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
+    render(
+      <FileUploader {...commonProps} maxFileCount={1} isPreviewerVisible />
+    );
 
     const uploadFilesText = await screen.findByText(/Upload 1 file/);
 
@@ -600,9 +602,11 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
+    render(
+      <FileUploader {...commonProps} maxFileCount={1} isPreviewerVisible />
+    );
 
-    const errorText = await screen.findByText(/Over Max files/);
+    const errorText = await screen.findByText(/Cannot choose more than 1/);
 
     expect(errorText).toBeVisible();
   });

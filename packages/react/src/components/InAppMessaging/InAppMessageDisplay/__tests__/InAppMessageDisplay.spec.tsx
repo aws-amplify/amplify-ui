@@ -17,7 +17,7 @@ describe('InAppMessageDisplay', () => {
   });
 
   it('renders the expected component in the happy path', () => {
-    const Component = ({ layout }) => (
+    const Component = ({ layout }: { layout: string }) => (
       <View>
         <Text>{layout}</Text>
       </View>

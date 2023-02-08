@@ -28,6 +28,7 @@ export const svDict: AuthenticatorDictionary = {
   'It may take a minute to arrive': 'Det kan ta en minut att komma fram',
   Loading: 'Laddar',
   'New password': 'Nytt lösenord',
+  or: 'eller',
   Password: 'Lösenord',
   'Phone Number': 'Telefonnummer',
   'Resend Code': 'Skicka koden igen',
@@ -76,7 +77,6 @@ export const svDict: AuthenticatorDictionary = {
   'Lost your code? ': 'Förlorat koden? ',
   'New Password': 'Nytt lösenord',
   'No account? ': 'Inget konto? ',
-  or: 'eller',
   'Password attempts exceeded':
     'Maximalt antal felaktiga inloggningsförsök har uppnåtts',
   'Reset password': 'Återställ lösenord',

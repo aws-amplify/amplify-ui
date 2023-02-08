@@ -1,13 +1,13 @@
 /**
  * This file contains helpers that process authenticator state machine context
  */
-import includes from 'lodash/includes';
 
 import {
   LoginMechanismArray,
   AuthContext,
   AuthMachineState,
 } from '../../types';
+import { includes } from '../../utils';
 
 export const getPrimaryAlias = (state: AuthMachineState) => {
   const loginMechanisms = state?.context.config?.loginMechanisms;

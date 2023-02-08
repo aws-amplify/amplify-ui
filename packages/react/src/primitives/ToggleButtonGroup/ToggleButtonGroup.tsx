@@ -5,6 +5,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { Primitive, ToggleButtonProps, ToggleButtonGroupProps } from '../types';
 import { useToggleButtonGroup } from './useToggleButtonGroup';
+import { isString } from '@aws-amplify/ui';
 
 const ToggleButtonGroupPrimitive: Primitive<
   ToggleButtonGroupProps,
@@ -42,7 +43,8 @@ const ToggleButtonGroupPrimitive: Primitive<
           return React.cloneElement(child, {
             isPressed: isExclusive
               ? value === child.props.value
-              : value.includes(child.props.value),
+              : isString(child.props.value) &&
+                value.includes(child.props.value),
             onChange: handleChange,
             size,
             variation,

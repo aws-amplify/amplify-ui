@@ -85,7 +85,7 @@ export const usePaginationItems = ({
             page={item as number}
             currentPage={currentPage}
             currentPageLabel={currentPageLabel}
-            onClick={onChange}
+            onClick={() => onChange?.(item as number, currentPage)}
             /**
              * @todo We should consider how we would support interpolation in our string translations.
              * This works for "Go to page 31" or "translatedText {s}" as the supplied string

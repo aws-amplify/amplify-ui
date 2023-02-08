@@ -11777,7 +11777,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"onChange\\": {
                         \\"name\\": \\"onChange\\",
-                        \\"type\\": \\"(value?: string) => void\\",
+                        \\"type\\": \\"(value: string) => void\\",
                         \\"description\\": \\"Handles changes to the current value when using the ToggleButton as a controlled component\\",
                         \\"category\\": \\"ToggleButtonProps\\",
                         \\"isOptional\\": true

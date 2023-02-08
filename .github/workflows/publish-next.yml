@@ -20,8 +20,6 @@ jobs:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
     secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }} # TODO: Remove this
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} #TODO: Remove this
       AWS_ACCESS_KEY_ID_AUTH: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
       AWS_SECRET_ACCESS_KEY_AUTH: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
       AWS_ACCESS_KEY_ID_DATASTORE: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
@@ -83,7 +81,6 @@ jobs:
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
       - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments auth pull:email
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
@@ -144,20 +141,11 @@ jobs:
       - name: Get CLI versions
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v3
-        with:
-          path: canary/environments/**/aws-exports.js
-          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
         working-directory: ./canary
       - name: Setup canary apps against @next
         run: yarn setup:next

@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify';
-import { assign, stop } from 'xstate/lib/actions';
+import { actions } from 'xstate';
 import { trimValues } from '../../helpers';
 
 import {
@@ -8,6 +8,8 @@ import {
   SignInContext,
   SignUpContext,
 } from '../../types';
+
+const { assign, stop } = actions;
 
 export const stopActor = (machineId: string) => {
   return stop(machineId);
@@ -57,6 +59,10 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
 /**
  * "set" actions
  */
+export const setTotpSecretCode = assign({
+  totpSecretCode: (_, event: AuthEvent) => event.data,
+});
+
 export const setChallengeName = assign({
   challengeName: (_, event: AuthEvent) => event.data?.challengeName,
 });

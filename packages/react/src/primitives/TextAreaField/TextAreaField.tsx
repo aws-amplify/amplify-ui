@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
@@ -45,6 +46,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.TextAreaField,
         className
       )}
