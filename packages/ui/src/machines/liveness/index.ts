@@ -290,7 +290,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             after: {
               0: {
                 target: 'flashFreshnessColors',
-                cond: 'hasFaceMatchedInOvalWithMinCount',
+                cond: 'hasFaceMatchedInOvalWithMinTime',
                 actions: [
                   'updateEndFaceMatch',
                   'setupFlashFreshnessColors',
@@ -815,7 +815,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
     guards: {
       shouldTimeoutOnFailedAttempts: (context) =>
         context.failedAttempts >= context.maxFailedAttempts,
-      hasFaceMatchedInOvalWithMinCount: (context) => {
+      hasFaceMatchedInOvalWithMinTime: (context) => {
         const { faceMatchState, initialFaceMatchTime } =
           context.faceMatchAssociatedParams;
         const timeSinceInitialFaceMatch = Date.now() - initialFaceMatchTime;

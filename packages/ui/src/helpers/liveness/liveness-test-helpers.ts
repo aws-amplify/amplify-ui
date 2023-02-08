@@ -119,7 +119,7 @@ export const mockContext = (): LivenessContext => {
       currentDetectedFace: mockFace,
       startFace: mockFace,
       endFace: mockFace,
-      initialFaceMatchTime: Date.now(),
+      initialFaceMatchTime: Date.now() - 1000,
     },
     freshnessColorAssociatedParams: {
       freshnessColorEl: document.createElement('canvas'),
