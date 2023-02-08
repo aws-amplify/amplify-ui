@@ -2,4 +2,4 @@
 '@aws-amplify/ui-react': patch
 ---
 
-Moved edit icon inbetween picture and text
+Moved edit icon in between file name and size.
