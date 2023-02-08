@@ -3,6 +3,6 @@
   "name": "in-app-messaging-with-pinpoint-campaign-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d19pc24nlvj2b3 --envName staging"
+    "pull": "amplify pull --appId d1322eg7ntbei6 --envName staging"
   }
 }

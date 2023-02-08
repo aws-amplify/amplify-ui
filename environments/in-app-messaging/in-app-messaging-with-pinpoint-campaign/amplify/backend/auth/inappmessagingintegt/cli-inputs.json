@@ -1,11 +1,11 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "inappmessagingintegt_identitypool_f502ec1d",
+    "identityPoolName": "inappmessagingintegt_identitypool_526b12e1",
     "allowUnauthenticatedIdentities": true,
     "authSelections": "identityPoolOnly",
     "resourceName": "inappmessagingintegt",
-    "sharedId": "f502ec1d",
+    "sharedId": "526b12e1",
     "serviceName": "Cognito",
     "useDefault": "manual"
   }

@@ -1,11 +1,11 @@
 {
   "appName": "InAppMessagingIntegTests",
-  "roleName": "pinpointLambdaRole2b26b740",
-  "cloudformationPolicyName": "cloudformationPolicy2b26b740",
-  "cloudWatchPolicyName": "cloudWatchPolicy2b26b740",
-  "pinpointPolicyName": "pinpointPolicy2b26b740",
-  "authPolicyName": "pinpoint_amplify_2b26b740",
-  "unauthPolicyName": "pinpoint_amplify_2b26b740",
+  "roleName": "pinpointLambdaRole202f8ea3",
+  "cloudformationPolicyName": "cloudformationPolicy202f8ea3",
+  "cloudWatchPolicyName": "cloudWatchPolicy202f8ea3",
+  "pinpointPolicyName": "pinpointPolicy202f8ea3",
+  "authPolicyName": "pinpoint_amplify_202f8ea3",
+  "unauthPolicyName": "pinpoint_amplify_202f8ea3",
   "authRoleName": {
     "Ref": "AuthRoleName"
   },
@@ -18,5 +18,5 @@
       "Arn"
     ]
   },
-  "pinpointInAppMessagingPolicyName": "pinpointInAppMessagingPolicyName2b26b740"
+  "pinpointInAppMessagingPolicyName": "pinpointInAppMessagingPolicyName202f8ea3"
 }
