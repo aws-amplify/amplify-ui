@@ -1,5 +1,15 @@
 # @aws-amplify/ui
 
+## 5.5.4
+
+### Patch Changes
+
+- [#3380](https://github.com/aws-amplify/amplify-ui/pull/3380) [`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(theme): better typing for breakpoints for TS strict mode
+
+- [#3335](https://github.com/aws-amplify/amplify-ui/pull/3335) [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): ts strict for style prop utils
+
+  Refactored internal functions that handle style props and `useBreakpointValue` hook to be TS strict. Should have no customer impact.
+
 ## 5.5.3
 
 ### Patch Changes
