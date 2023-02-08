@@ -44,7 +44,7 @@ import {
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
 
-export const MIN_FACE_MATCH_COUNT = 2;
+export const MIN_FACE_MATCH_TIME = 500;
 
 // timer metrics variables
 let faceDetectedTimestamp: number;
@@ -69,10 +69,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       faceMatchAssociatedParams: {
         illuminationState: undefined,
         faceMatchState: undefined,
-        faceMatchCount: 0,
         currentDetectedFace: undefined,
         startFace: undefined,
         endFace: undefined,
+        initialFaceMatchTime: undefined,
       },
       freshnessColorAssociatedParams: {
         freshnessColorEl: undefined,
@@ -301,11 +301,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               0.1: {
                 target: 'ovalMatching',
                 cond: 'hasFaceMatchedInOval',
-                actions: 'increaseFaceMatchCountAndStartFace',
+                actions: 'setFaceMatchTimeAndStartFace',
               },
-              100: {
+              1: {
                 target: 'ovalMatching',
-                actions: 'resetFaceMatchCountAndStartFace',
+                cond: 'hasNotFaceMatchedInOval',
+                // actions: 'resetFaceMatchTimeAndStartFace',
               },
             },
           },
@@ -569,23 +570,31 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           endFace: context.faceMatchAssociatedParams.currentDetectedFace,
         }),
       }),
-      increaseFaceMatchCountAndStartFace: assign({
-        faceMatchAssociatedParams: (context) => ({
-          ...context.faceMatchAssociatedParams,
-          faceMatchCount: context.faceMatchAssociatedParams.faceMatchCount + 1,
-          startFace:
-            context.faceMatchAssociatedParams.faceMatchCount === 0
-              ? context.faceMatchAssociatedParams.currentDetectedFace
-              : context.faceMatchAssociatedParams.startFace,
-        }),
+      setFaceMatchTimeAndStartFace: assign({
+        faceMatchAssociatedParams: (context) => {
+          return {
+            ...context.faceMatchAssociatedParams,
+            startFace:
+              context.faceMatchAssociatedParams.startFace === undefined
+                ? context.faceMatchAssociatedParams.currentDetectedFace
+                : context.faceMatchAssociatedParams.startFace,
+            initialFaceMatchTime:
+              context.faceMatchAssociatedParams.initialFaceMatchTime ===
+              undefined
+                ? Date.now()
+                : context.faceMatchAssociatedParams.initialFaceMatchTime,
+          };
+        },
       }),
-      resetFaceMatchCountAndStartFace: assign({
-        faceMatchAssociatedParams: (context) => ({
-          ...context.faceMatchAssociatedParams,
-          faceMatchCount: 0,
-          startFace: undefined,
-          endFace: undefined,
-        }),
+      resetFaceMatchTimeAndStartFace: assign({
+        faceMatchAssociatedParams: (context) => {
+          return {
+            ...context.faceMatchAssociatedParams,
+            startFace: undefined,
+            endFace: undefined,
+            initialFaceMatchTime: undefined,
+          };
+        },
       }),
       resetErrorState: assign({
         errorState: (_) => undefined,
@@ -807,11 +816,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       shouldTimeoutOnFailedAttempts: (context) =>
         context.failedAttempts >= context.maxFailedAttempts,
       hasFaceMatchedInOvalWithMinCount: (context) => {
-        const { faceMatchState, faceMatchCount } =
+        const { faceMatchState, initialFaceMatchTime } =
           context.faceMatchAssociatedParams;
+        const timeSinceInitialFaceMatch = Date.now() - initialFaceMatchTime;
         const hasMatched =
           faceMatchState === FaceMatchState.MATCHED &&
-          faceMatchCount >= MIN_FACE_MATCH_COUNT;
+          timeSinceInitialFaceMatch >= MIN_FACE_MATCH_TIME;
 
         if (hasMatched) {
           recordLivenessAnalyticsEvent(context.componentProps, {
@@ -828,6 +838,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       hasFaceMatchedInOval: (context) => {
         return (
           context.faceMatchAssociatedParams.faceMatchState ===
+          FaceMatchState.MATCHED
+        );
+      },
+      hasNotFaceMatchedInOval: (context) => {
+        return (
+          context.faceMatchAssociatedParams.faceMatchState !==
           FaceMatchState.MATCHED
         );
       },

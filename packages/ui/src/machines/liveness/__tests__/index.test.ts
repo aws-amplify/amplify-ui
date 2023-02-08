@@ -2,7 +2,7 @@ import { interpret } from 'xstate';
 import { LivenessInterpreter } from '@aws-amplify/ui';
 import { setImmediate } from 'timers';
 
-import { livenessMachine, MIN_FACE_MATCH_COUNT } from '../';
+import { livenessMachine, MIN_FACE_MATCH_TIME } from '../';
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
@@ -151,10 +151,12 @@ describe('Liveness Machine', () => {
   }
 
   async function advanceMinFaceMatches() {
-    for (let i = 0; i <= MIN_FACE_MATCH_COUNT; i++) {
-      await flushPromises();
-      jest.advanceTimersToNextTimer();
-    }
+    // for (let i = 0; i <= MIN_FACE_MATCH_COUNT; i++) {
+    //   await flushPromises();
+    //   jest.advanceTimersToNextTimer();
+    // }
+    await flushPromises();
+    jest.advanceTimersToNextTimer();
   }
 
   async function transitionToUploading(service) {
@@ -630,9 +632,6 @@ describe('Liveness Machine', () => {
       expect(
         service.state.context.faceMatchAssociatedParams.faceMatchState
       ).toBe(FaceMatchState.TOO_CLOSE);
-      expect(
-        service.state.context.faceMatchAssociatedParams.faceMatchCount
-      ).toBe(0);
     });
   });
 
