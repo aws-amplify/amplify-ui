@@ -74,6 +74,7 @@
     "eslint-config-next": "12.0.10",
     "globby": "^13.1.1",
     "jest": "^27",
+    "jsdom": "^21.1.0",
     "postcss": "^8.2.6",
     "react-markdown": "^8.0.3",
     "sitemap-urls": "^3.0.0",
