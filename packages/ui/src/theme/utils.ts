@@ -65,7 +65,7 @@ export function isDesignToken(value: unknown): value is WebDesignToken {
   return isObject(value) && has(value, 'value');
 }
 
-export function isShadowToken(value: unknown): value is ShadowValue {
+export function isShadowToken(value: unknown): value is ShadowValue & object {
   return isObject(value) && has(value, 'offsetX');
 }
 
