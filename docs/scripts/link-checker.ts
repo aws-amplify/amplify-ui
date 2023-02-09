@@ -2,7 +2,7 @@ import https from 'https';
 import http from 'http';
 import process from 'process';
 import { JSDOM } from 'jsdom';
-import { VALIDATED_LINKS } from '../cypress/data/validatedLinks';
+import { IGNORED_LINKS } from '../src/data/ignoredLinks';
 import { sitePaths } from '../src/data/sitePaths';
 
 setTimeout(() => {
@@ -56,9 +56,9 @@ async function checkPage(pageUrl, pathIdx) {
 
 async function checkURL(urlOrPath, tagName, tagText, pageUrl) {
   const baseURL = 'http://localhost:3000';
-  if (VALIDATED_LINKS.includes(urlOrPath)) {
+  if (IGNORED_LINKS.includes(urlOrPath)) {
     console.log(
-      `⏭[SKIPPING...] ${urlOrPath} from ${tagName} tag "${tagText}" on ${pageUrl}, because it's pre-validated.`
+      `⏭[SKIPPING...] ${urlOrPath} from ${tagName} tag "${tagText}" on ${pageUrl}, because it is on the IGNORED_LINKS list.`
     );
   } else if (urlOrPath.includes('https')) {
     const request = await https.get(urlOrPath, ({ statusCode }) =>
