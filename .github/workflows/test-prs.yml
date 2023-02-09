@@ -47,7 +47,7 @@ jobs:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@refactor-link-checker # TODO: change back to main
     needs: setup
     with:
       commit: ${{ github.event.pull_request.head.sha }}
