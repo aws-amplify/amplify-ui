@@ -1,0 +1,22 @@
+{
+  "appName": "InAppMessagingIntegTests",
+  "roleName": "pinpointLambdaRole202f8ea3",
+  "cloudformationPolicyName": "cloudformationPolicy202f8ea3",
+  "cloudWatchPolicyName": "cloudWatchPolicy202f8ea3",
+  "pinpointPolicyName": "pinpointPolicy202f8ea3",
+  "authPolicyName": "pinpoint_amplify_202f8ea3",
+  "unauthPolicyName": "pinpoint_amplify_202f8ea3",
+  "authRoleName": {
+    "Ref": "AuthRoleName"
+  },
+  "unauthRoleName": {
+    "Ref": "UnauthRoleName"
+  },
+  "authRoleArn": {
+    "Fn::GetAtt": [
+      "AuthRole",
+      "Arn"
+    ]
+  },
+  "pinpointInAppMessagingPolicyName": "pinpointInAppMessagingPolicyName202f8ea3"
+}
