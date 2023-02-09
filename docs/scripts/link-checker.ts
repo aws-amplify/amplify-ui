@@ -23,7 +23,7 @@ testPaths.forEach(async (path, idx) => {
 });
 
 async function checkPage(pageUrl, pathIdx) {
-  const request = http
+  const request = await http
     .get(pageUrl, (response) => {
       let data = '';
 
@@ -37,20 +37,18 @@ async function checkPage(pageUrl, pathIdx) {
       });
 
       // Check all the urls
-      response.on('end', checkUrlOnPage(data));
+      response.on('end', () => checkUrlOnPage(data));
     })
     .on('error', (err) => {
       console.log('Error: ' + err.message);
     });
   request.end();
 
-  function checkUrlOnPage(data: string): () => void {
-    return () => {
-      const dom = new JSDOM(data);
-      dom.window.document.querySelectorAll('a').forEach(async (el) => {
-        await checkURL(el.href, el.tagName, el.text, pageUrl);
-      });
-    };
+  function checkUrlOnPage(data: string) {
+    const dom = new JSDOM(data);
+    dom.window.document.querySelectorAll('a').forEach(async (el) => {
+      await checkURL(el.href, el.tagName, el.text, pageUrl);
+    });
   }
 }
 
