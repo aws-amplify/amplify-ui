@@ -12,12 +12,10 @@ export function getVideoConstraints(
       width: {
         min: 320,
         ideal: idealWidth,
-        max: idealWidth,
       },
       height: {
         min: 240,
         ideal: idealHeight,
-        max: idealHeight,
       },
       frameRate: { min: 15, ideal: 30, max: 30 },
       facingMode: 'user',

@@ -31,12 +31,10 @@ describe('getVideoConstraints', () => {
       width: {
         min: 320,
         ideal: window.innerHeight,
-        max: window.innerHeight,
       },
       height: {
         min: 240,
         ideal: window.innerWidth,
-        max: window.innerWidth,
       },
       frameRate: { min: 15, ideal: 30, max: 30 },
       facingMode: 'user',
