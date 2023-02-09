@@ -1,23 +1,29 @@
 import https from 'https';
 import http from 'http';
-import * as fs from 'fs';
+import process from 'process';
 import { JSDOM } from 'jsdom';
 import { VALIDATED_LINKS } from '../cypress/data/validatedLinks';
+import { sitePaths } from '../src/data/sitePaths';
 
-const sitemapData = fs.readFileSync('./public/sitemap.xml', 'utf8');
-const linkRegex = new RegExp('(?<=>).+?(?=</loc)', 'gmi'); // This Regex is to match all the content between `>` and end with `</loc`.
-const paths = sitemapData
-  .match(linkRegex)
-  .map((link) => link.replace(process.env.SITE_URL, ''))
-  .sort();
+setTimeout(() => {
+  console.log('This will still run.');
+}, 500);
 
-/** TODO: need to remove .slice(0, 50) so that it can test all the pages */
-paths.slice(0, 50).forEach(async (path, idx) => {
+if (![3, 4].includes(process.argv.length)) {
+  console.error('Expected 3 or 4 arguments!');
+  process.exit(1);
+}
+
+const start = process.argv[2];
+const end = process.argv[3];
+const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start); // Divide the sitePaths array to prevent the socket hang up issue.
+
+testPaths.forEach(async (path, idx) => {
   await checkPage(path, idx);
 });
 
 async function checkPage(pageUrl, pathIdx) {
-  return await http
+  const request = await http
     .get(pageUrl, (response) => {
       let data = '';
 
@@ -41,6 +47,7 @@ async function checkPage(pageUrl, pathIdx) {
     .on('error', (err) => {
       console.log('Error: ' + err.message);
     });
+  request.end();
 }
 
 async function checkURL(urlOrPath, tagName, tagText, pageUrl) {
@@ -50,14 +57,16 @@ async function checkURL(urlOrPath, tagName, tagText, pageUrl) {
       `⏭[SKIPPING...] ${urlOrPath} from ${tagName} tag "${tagText}" on ${pageUrl}, because it's pre-validated.`
     );
   } else if (urlOrPath.includes('https')) {
-    await https.get(urlOrPath, ({ statusCode }) =>
+    const request = await https.get(urlOrPath, ({ statusCode }) =>
       returnStatus({ statusCode, url: urlOrPath })
     );
+    request.end();
   } else {
     const url = baseURL + urlOrPath.replace('about:blank', '');
-    await http.get(url, ({ statusCode }) =>
+    const request = await http.get(url, ({ statusCode }) =>
       returnStatus({ statusCode, url: urlOrPath })
     );
+    request.end();
   }
 
   function returnStatus({
