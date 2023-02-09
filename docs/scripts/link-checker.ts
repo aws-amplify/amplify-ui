@@ -23,7 +23,7 @@ testPaths.forEach(async (path, idx) => {
 });
 
 async function checkPage(pageUrl, pathIdx) {
-  const request = await http
+  const request = http
     .get(pageUrl, (response) => {
       let data = '';
 
@@ -36,18 +36,22 @@ async function checkPage(pageUrl, pathIdx) {
         data += chunk;
       });
 
-      // The whole response has been received. Print out the result.
-      response.on('end', () => {
-        const dom = new JSDOM(data);
-        dom.window.document.querySelectorAll('a').forEach(async (el) => {
-          await checkURL(el.href, el.tagName, el.text, pageUrl);
-        });
-      });
+      // Check all the urls
+      response.on('end', checkUrlOnPage(data));
     })
     .on('error', (err) => {
       console.log('Error: ' + err.message);
     });
   request.end();
+
+  function checkUrlOnPage(data: string): () => void {
+    return () => {
+      const dom = new JSDOM(data);
+      dom.window.document.querySelectorAll('a').forEach(async (el) => {
+        await checkURL(el.href, el.tagName, el.text, pageUrl);
+      });
+    };
+  }
 }
 
 async function checkURL(urlOrPath, tagName, tagText, pageUrl) {
