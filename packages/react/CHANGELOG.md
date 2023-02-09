@@ -1,5 +1,30 @@
 # @aws-amplify/ui-react
 
+## 4.3.7
+
+### Patch Changes
+
+- [#3379](https://github.com/aws-amplify/amplify-ui/pull/3379) [`cca6afecb`](https://github.com/aws-amplify/amplify-ui/commit/cca6afecbe68485d46e89f5a082b5c778209ccbe) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(primitives): ts strict fixes for primitives and primitive hooks
+
+  - usePagination
+  - useSwitch
+  - useToggleButtonGroup
+  - ToggleButtonGroup
+
+- [#3378](https://github.com/aws-amplify/amplify-ui/pull/3378) [`56947bcb7`](https://github.com/aws-amplify/amplify-ui/commit/56947bcb7c936cad5f8323929d869909eea35e01) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react): add missing size field classes to RadioGroupField, SelectField, TextAreaField and SliderField
+
+- [#3380](https://github.com/aws-amplify/amplify-ui/pull/3380) [`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(theme): better typing for breakpoints for TS strict mode
+
+- [#3377](https://github.com/aws-amplify/amplify-ui/pull/3377) [`6daf2e625`](https://github.com/aws-amplify/amplify-ui/commit/6daf2e6251fe4935d4f5f4b68a02b9cb6a236651) Thanks [@ErikCH](https://github.com/ErikCH)! - Renamed the maxFiles prop to maxFilesCount
+
+- [#3335](https://github.com/aws-amplify/amplify-ui/pull/3335) [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): ts strict for style prop utils
+
+  Refactored internal functions that handle style props and `useBreakpointValue` hook to be TS strict. Should have no customer impact.
+
+- Updated dependencies [[`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc), [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563)]:
+  - @aws-amplify/ui@5.5.4
+  - @aws-amplify/ui-react-core@2.1.12
+
 ## 4.3.6
 
 ### Patch Changes
