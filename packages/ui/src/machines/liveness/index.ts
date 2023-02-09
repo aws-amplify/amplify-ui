@@ -1037,7 +1037,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // detect face
         const startDetectTime = Date.now();
         const detectedFaces = await faceDetector.detectFaces(videoEl);
-        const timeToDetectFace = Date.now() - startDetectTime;
         let initialFace: Face;
         let faceMatchState: FaceMatchState;
         let illuminationState: IlluminationState;
@@ -1117,8 +1116,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             FaceMovementAndLightChallenge: {
               ChallengeId: challengeId,
               VideoStartTimestamp:
-                livenessStreamProvider.videoRecorder.recorderStartTimestamp -
-                timeToDetectFace,
+                livenessStreamProvider.videoRecorder.recorderStartTimestamp,
               InitialFace: {
                 InitialFaceDetectedTimestamp: initialFace.timestampMs,
                 BoundingBox: getBoundingBox({

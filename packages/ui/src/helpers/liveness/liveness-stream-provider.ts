@@ -136,7 +136,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   public async startRecordingLivenessVideo(): Promise<void> {
-    this.videoRecorder.start(100);
+    this.videoRecorder.start(200);
   }
 
   public sendClientInfo(clientInfo: ClientSessionInformationEvent) {
