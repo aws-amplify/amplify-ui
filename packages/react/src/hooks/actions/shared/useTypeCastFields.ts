@@ -1,5 +1,5 @@
 import * as React from 'react';
-import isString from 'lodash/isString';
+import { isString } from '@aws-amplify/ui';
 import {
   ModelInit,
   PersistentModel,
