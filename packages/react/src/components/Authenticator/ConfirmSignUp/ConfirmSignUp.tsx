@@ -97,6 +97,6 @@ const DefaultHeader = () => {
 
 ConfirmSignUp.Header = DefaultHeader;
 
-ConfirmSignUp.Footer = function Footer(): JSX.Element {
+ConfirmSignUp.Footer = function Footer(): JSX.Element | null {
   return null;
 };

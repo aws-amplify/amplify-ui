@@ -1,13 +1,15 @@
 import * as React from 'react';
 
-import { DefaultComponents } from './defaultComponents';
+import { DefaultComponents, defaultComponents } from './defaultComponents';
 
 export interface ComponentsProviderProps {
-  components?: DefaultComponents;
+  components: DefaultComponents;
 }
 
 export const CustomComponentsContext =
-  React.createContext<ComponentsProviderProps>(null);
+  React.createContext<ComponentsProviderProps>({
+    components: defaultComponents,
+  });
 
 export const useCustomComponents = (): ComponentsProviderProps => {
   const context = React.useContext(CustomComponentsContext);

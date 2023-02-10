@@ -9,22 +9,22 @@ import { ConfirmResetPassword, ResetPassword } from '../../ResetPassword';
 
 // use the very generic name of Components as this is a temporary interface and is not exported
 interface Components {
-  Footer?: () => React.ReactElement | null;
-  FormFields?: () => React.ReactElement | null;
-  Header?: () => React.ReactElement | null;
+  Footer: () => JSX.Element | null;
+  FormFields: () => JSX.Element | null;
+  Header: () => JSX.Element | null;
 }
 
 export interface DefaultComponents extends Omit<Components, 'FormFields'> {
-  ConfirmSignIn?: Omit<Components, 'FormFields'>;
-  ConfirmSignUp?: Omit<Components, 'FormFields'>;
-  ConfirmResetPassword?: Omit<Components, 'FormFields'>;
-  ConfirmVerifyUser?: Omit<Components, 'FormFields'>;
-  ForceNewPassword?: Pick<Components, 'FormFields'>;
-  ResetPassword?: Omit<Components, 'FormFields'>;
-  SetupTOTP?: Omit<Components, 'FormFields'>;
-  SignIn?: Omit<Components, 'FormFields'>;
-  SignUp?: Components;
-  VerifyUser?: Omit<Components, 'FormFields'>;
+  ConfirmSignIn: Omit<Components, 'FormFields'>;
+  ConfirmSignUp: Omit<Components, 'FormFields'>;
+  ConfirmResetPassword: Omit<Components, 'FormFields'>;
+  ConfirmVerifyUser: Omit<Components, 'FormFields'>;
+  ForceNewPassword: Pick<Components, 'FormFields'>;
+  ResetPassword: Omit<Components, 'FormFields'>;
+  SetupTOTP: Omit<Components, 'FormFields'>;
+  SignIn: Omit<Components, 'FormFields'>;
+  SignUp: Components;
+  VerifyUser: Omit<Components, 'FormFields'>;
 }
 
 export const defaultComponents: DefaultComponents = {
