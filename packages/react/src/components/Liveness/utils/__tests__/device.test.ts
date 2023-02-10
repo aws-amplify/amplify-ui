@@ -1,4 +1,11 @@
-import { isAndroid, isIOS, isMobileScreen, isPortrait } from '../device';
+import {
+  isAndroid,
+  isIOS,
+  isMobileScreen,
+  isPortrait,
+  getLandscapeMediaQuery,
+} from '../device';
+import { mockMatchMedia } from '../test-utils';
 
 const GOOGLE_PIXEL_FIREFOX =
   'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
@@ -81,5 +88,21 @@ describe('device', () => {
 
     (global.navigator as any).userAgent = IPHONE_12_SAFARI;
     expect(isAndroid()).toBe(false);
+  });
+});
+
+describe('orientation', () => {
+  it('is in portrait orientation', () => {
+    mockMatchMedia('(orientation: portrait)', true);
+    expect(isPortrait()).toBe(true);
+  });
+  it('is not in portrait orientation', () => {
+    mockMatchMedia('(orientation: portrait)', false);
+    expect(isPortrait()).toBe(false);
+  });
+  it('return MediaQueryList for landscape orientation when in landscape', () => {
+    mockMatchMedia('(orientation: landscape)', true);
+    expect(getLandscapeMediaQuery().matches).toBe(true);
+    expect(getLandscapeMediaQuery().media).toBe('(orientation: landscape)');
   });
 });
