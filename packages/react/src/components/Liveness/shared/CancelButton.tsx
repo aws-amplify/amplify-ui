@@ -41,7 +41,7 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
       className={LivenessClassNames.CancelButton}
       aria-label={translate('Cancel Liveness check')}
     >
-      <IconClose aria-hidden="true" size="large" data-testid="close-icon" />
+      <IconClose aria-hidden="true" data-testid="close-icon" />
     </Button>
   );
 };
