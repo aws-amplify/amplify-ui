@@ -42,3 +42,20 @@ export function getMockedFunction<T extends (...args: any[]) => any>(
 ): jest.MockedFunction<T> {
   return fn as jest.MockedFunction<T>;
 }
+
+export function mockMatchMedia(
+  mediaQuery: string = '',
+  matches: boolean = false
+): void {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation((query: string = mediaQuery) => ({
+      matches: matches,
+      media: query,
+      onchange: null,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+}

@@ -22,9 +22,6 @@ export function isIOS(): boolean {
 export function isAndroid(): boolean {
   return navigator.userAgent.indexOf('Android') != -1;
 }
-export function isFirefox(): boolean {
-  return navigator.userAgent.indexOf('Firefox') != -1;
-}
 
 export function isPortrait(): boolean {
   return window.matchMedia('(orientation: portrait)').matches;

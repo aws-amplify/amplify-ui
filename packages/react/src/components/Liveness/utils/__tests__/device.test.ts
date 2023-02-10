@@ -1,10 +1,4 @@
-import {
-  isAndroid,
-  isFirefox,
-  isIOS,
-  isMobileScreen,
-  isPortrait,
-} from '../device';
+import { isAndroid, isIOS, isMobileScreen, isPortrait } from '../device';
 
 const GOOGLE_PIXEL_FIREFOX =
   'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
@@ -87,13 +81,5 @@ describe('device', () => {
 
     (global.navigator as any).userAgent = IPHONE_12_SAFARI;
     expect(isAndroid()).toBe(false);
-  });
-
-  it('isFirefox', () => {
-    (global.navigator as any).userAgent = GOOGLE_PIXEL_CHROME;
-    expect(isFirefox()).toBe(false);
-
-    (global.navigator as any).userAgent = GOOGLE_PIXEL_FIREFOX;
-    expect(isFirefox()).toBe(true);
   });
 });

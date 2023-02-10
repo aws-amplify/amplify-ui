@@ -8,9 +8,9 @@ import {
   useLivenessSelector,
   createLivenessSelector,
   useMediaStreamInVideo,
+  useMediaDimensions,
 } from '../hooks';
 import { CancelButton, Instruction, RecordingIcon, Overlay } from '../shared';
-import { isFirefox, isAndroid, isIOS } from '../utils/device';
 import { Flex, Loader, Text, View } from '../../../primitives';
 import { LivenessClassNames } from '../types/classNames';
 
@@ -41,6 +41,12 @@ export const LivenessCameraModule = (
     videoStream,
     videoConstraints
   );
+
+  const { width: mediaWidth, height: mediaHeight } = useMediaDimensions(
+    videoWidth,
+    videoHeight
+  );
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const freshnessColorRef = useRef<HTMLDivElement | null>(null);
 
@@ -51,15 +57,6 @@ export const LivenessCameraModule = (
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
-
-  /**
-   * Temp fix: Firefox on Android + iOS returns opposite values you'd expect
-   * from getUserMedia().
-   */
-  const shouldFlipValues = (isAndroid() && isFirefox()) || isIOS();
-
-  const mediaHeight = shouldFlipValues ? videoWidth : videoHeight;
-  const mediaWidth = shouldFlipValues ? videoHeight : videoWidth;
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {

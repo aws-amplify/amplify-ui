@@ -3,9 +3,13 @@ import { render, screen } from '@testing-library/react';
 import { useActor } from '@xstate/react';
 
 import { FaceLivenessDetector, FaceLivenessDetectorProps } from '..';
-import { getMockedFunction } from '../utils/test-utils';
+import { getMockedFunction, mockMatchMedia } from '../utils/test-utils';
 import { getVideoConstraints } from '../StartLiveness/helpers';
-import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
+import {
+  useMediaStreamInVideo,
+  useLivenessActor,
+  useMediaDimensions,
+} from '../hooks';
 
 jest.mock('../../../styles.css', () => ({}));
 jest.mock('@xstate/react');
@@ -16,6 +20,7 @@ const mockUseActor = getMockedFunction(useActor);
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockGetVideoConstraints = getMockedFunction(getVideoConstraints);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
+const mockUseMediaDimensions = getMockedFunction(useMediaDimensions);
 const mockMatches = jest.fn().mockImplementation(() => {
   return true;
 });
@@ -33,6 +38,10 @@ describe('FaceLivenessDetector', () => {
     videoHeight: 100,
     videoWidth: 100,
   });
+  mockUseMediaDimensions.mockReturnValue({
+    width: 100,
+    height: 100,
+  });
 
   const mockVideoConstraints = {};
   mockGetVideoConstraints.mockReturnValue(mockVideoConstraints);
@@ -46,6 +55,10 @@ describe('FaceLivenessDetector', () => {
   };
   const livenessTestId = 'liveness-detector';
   const livenessCheckTestId = 'liveness-detector-check';
+
+  beforeAll(() => {
+    mockMatchMedia();
+  });
 
   afterEach(() => {
     jest.clearAllMocks();
