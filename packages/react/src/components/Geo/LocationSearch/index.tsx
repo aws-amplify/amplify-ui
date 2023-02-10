@@ -8,7 +8,6 @@ import {
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
-import noop from 'lodash/noop';
 
 const LOCATION_SEARCH_OPTIONS = {
   maplibregl,
@@ -24,23 +23,23 @@ interface LocationSearchProps extends MaplibreGeocoderOptions {
   /**
    * Emitted when the input is cleared
    */
-  onClear: () => void;
+  onClear?: () => void;
   /**
    * Emitted when the geocoder is looking up a query
    */
-  onLoading: (query) => void;
+  onLoading?: (query: string) => void;
   /**
    * Fired when the geocoder returns a response
    */
-  onResults: (results: MaplibreGeocoderResults) => void;
+  onResults?: (results: MaplibreGeocoderResults) => void;
   /**
    * Fired when input is set
    */
-  onResult: (result: MaplibreGeocoderResult) => void;
+  onResult?: (result: MaplibreGeocoderResult) => void;
   /**
    * Emitted on error as string
    */
-  onError: (error) => void;
+  onError?: (error: string) => void;
 }
 
 type EventType = 'clear' | 'loading' | 'result' | 'results' | 'error';
@@ -66,11 +65,11 @@ const LocationSearchControl = ({
 };
 
 const LocationSearchStandalone = ({
-  onLoading = noop,
-  onResult = noop,
-  onResults = noop,
-  onClear = noop,
-  onError = noop,
+  onLoading,
+  onResult,
+  onResults,
+  onClear,
+  onError,
   ...props
 }: LocationSearchProps) => {
   const geocoderRef = useRef(null);
