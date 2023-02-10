@@ -20,6 +20,7 @@ const ENDPOINT =
   process.env.NEXT_PUBLIC_STREAMING_API_URL ||
   'wss://streaming-rekognition.us-east-1.amazonaws.com:443';
 const REGION = process.env.NEXT_PUBLIC_BACKEND_API_REGION || 'us-east-1';
+export const TIME_SLICE = 200;
 
 export interface Credentials {
   accessKeyId: string;
@@ -136,7 +137,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   public async startRecordingLivenessVideo(): Promise<void> {
-    this.videoRecorder.start(200);
+    this.videoRecorder.start(TIME_SLICE);
   }
 
   public sendClientInfo(clientInfo: ClientSessionInformationEvent) {

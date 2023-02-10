@@ -27,6 +27,7 @@ import {
   FreshnessColorDisplay,
 } from '../../helpers';
 import { nanoid } from 'nanoid';
+import { TIME_SLICE } from '../../helpers/liveness/liveness-stream-provider';
 import {
   getStaticLivenessOvalDetails,
   LivenessErrorStateStringMap,
@@ -237,17 +238,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       recording: {
-        entry: ['startRecording', 'clearErrorState'],
+        entry: ['clearErrorState', 'startRecording'],
         initial: 'checkRecordingStarted',
         states: {
           checkRecordingStarted: {
             after: {
-              0: {
+              200: {
                 target: 'ovalDrawing',
                 cond: 'hasRecordingStarted',
                 actions: ['updateRecordingStartTimestampMs'],
               },
-              100: { target: 'checkRecordingStarted' },
+              201: { target: 'checkRecordingStarted' },
             },
           },
           ovalDrawing: {
@@ -493,11 +494,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateRecordingStartTimestampMs: assign({
         videoAssociatedParams: (context) => {
+          const {
+            recordingStartApiTimestamp,
+            recorderStartTimestamp,
+            firstChunkTimestamp,
+          } = context.livenessStreamProvider.videoRecorder;
+          const calculatedRecordingStart = firstChunkTimestamp - TIME_SLICE;
+          const mediaRecorderOnStartCalled = recorderStartTimestamp;
+          const timestamp = Math.max(
+            recordingStartApiTimestamp,
+            Math.min(calculatedRecordingStart, mediaRecorderOnStartCalled)
+          );
           return {
             ...context.videoAssociatedParams,
-            recordingStartTimestampMs:
-              context.livenessStreamProvider.videoRecorder
-                .recorderStartTimestamp,
+            recordingStartTimestampMs: timestamp,
           };
         },
       }),
@@ -882,8 +892,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       hasRecordingStarted: (context) => {
         return (
-          context.livenessStreamProvider.videoRecorder
-            .recorderStartTimestamp !== undefined
+          context.livenessStreamProvider.videoRecorder.firstChunkTimestamp !==
+          undefined
         );
       },
     },
@@ -1115,8 +1125,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           Challenge: {
             FaceMovementAndLightChallenge: {
               ChallengeId: challengeId,
-              VideoStartTimestamp:
-                livenessStreamProvider.videoRecorder.recorderStartTimestamp,
+              VideoStartTimestamp: recordingStartTimestampMs,
               InitialFace: {
                 InitialFaceDetectedTimestamp: initialFace.timestampMs,
                 BoundingBox: getBoundingBox({
