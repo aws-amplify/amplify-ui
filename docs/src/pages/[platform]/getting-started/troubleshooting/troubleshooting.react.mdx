@@ -82,6 +82,83 @@ export default defineConfig({
 ...
 ```
 
+## Astro
+
+When working with a [Astro](https://astro.build/) project you must make a few modifications. Please follow the steps below.
+<Tabs>
+  <TabItem title="JavaScript">
+**1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
+
+```html
+...
+<script>
+  window.global = window;
+  window.process = {
+    env: { DEBUG: undefined },
+  }
+  var exports = {};
+</script>
+```
+
+**2.** Update the `astro.config.mjs` to add in a resolve object inside the `defineConfig({})` as seen below.
+
+```js
+...
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ]
+  }
+})
+```
+  </TabItem>
+  <TabItem title="TypeScript">
+**1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
+
+```html
+...
+<script>
+  window.global = window;
+  window.process = {
+    env: { DEBUG: undefined },
+  } as unknown as NodeJS.Process;
+  var exports = {};
+</script>
+```
+
+**2.** Update the `astro.config.mjs` to add in a resolve object inside the `defineConfig({})` as seen below.
+
+```js
+...
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ]
+  }
+})
+```
+**3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
+
+```js
+...
+  "compilerOptions": {
+    "skipLibCheck": true,
+...
+```
+  </TabItem>
+</Tabs>
+
+
 ## Create React App
 
 When using [Geo components](/connected-components/geo) and Create React App v5, users may experience the following error when rendering the `<MapView>` component in a production build:
