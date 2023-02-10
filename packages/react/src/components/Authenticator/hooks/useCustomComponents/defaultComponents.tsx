@@ -9,9 +9,9 @@ import { ConfirmResetPassword, ResetPassword } from '../../ResetPassword';
 
 // use the very generic name of Components as this is a temporary interface and is not exported
 interface Components {
-  Footer?: () => JSX.Element;
-  FormFields?: () => JSX.Element;
-  Header?: () => JSX.Element;
+  Footer?: () => React.ReactElement | null;
+  FormFields?: () => React.ReactElement | null;
+  Header?: () => React.ReactElement | null;
 }
 
 export interface DefaultComponents extends Omit<Components, 'FormFields'> {
@@ -28,7 +28,7 @@ export interface DefaultComponents extends Omit<Components, 'FormFields'> {
 }
 
 export const defaultComponents: DefaultComponents = {
-  Header: (): JSX.Element => null,
+  Header: () => null,
   SignIn: {
     Header: SignIn.Header,
     Footer: SignIn.Footer,
@@ -69,5 +69,5 @@ export const defaultComponents: DefaultComponents = {
     Header: ResetPassword.Header,
     Footer: ResetPassword.Footer,
   },
-  Footer: (): JSX.Element => null,
+  Footer: () => null,
 };
