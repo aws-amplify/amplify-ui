@@ -187,6 +187,35 @@ describe('Autocomplete:', () => {
     expect(textInput).toHaveAttribute('data-size', 'large');
   });
 
+  it('should render size classes for Autocomplete', async () => {
+    render(
+      <div>
+        <Autocomplete
+          label={label}
+          options={options}
+          size="small"
+          testId="small"
+        />
+        <Autocomplete
+          label={label}
+          options={options}
+          size="large"
+          testId="large"
+        />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.firstChild).toHaveClass(
+      `${ComponentClassNames['Field']}--small`
+    );
+    expect(large.firstChild).toHaveClass(
+      `${ComponentClassNames['Field']}--large`
+    );
+  });
+
   it('should be able to set a quiet variation', async () => {
     render(<Autocomplete label={label} options={options} variation="quiet" />);
 

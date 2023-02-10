@@ -6,6 +6,7 @@ import type {
   Shadows,
   SpaceSizes,
 } from '@aws-amplify/ui';
+import { stylePropsToThemeKeys } from '../shared/constants';
 
 /**
  * Token keys for colors
@@ -238,6 +239,10 @@ export type TransformKeys<PropertyType> =
   | 'slideX.small'
   | 'slideX.medium'
   | 'slideX.large';
+
+export const isThemeStylePropKey = (key: string): key is ThemeStylePropKey => {
+  return key in stylePropsToThemeKeys;
+};
 
 export type ThemeStylePropKey =
   | 'backgroundColor'

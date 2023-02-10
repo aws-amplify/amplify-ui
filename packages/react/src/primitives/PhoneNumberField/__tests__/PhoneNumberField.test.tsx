@@ -133,6 +133,21 @@ describe('PhoneNumberField primitive', () => {
     expect(countryCodeSelector).toHaveAttribute('data-size', 'large');
   });
 
+  it('should render size classes for PhoneNumberField', async () => {
+    render(
+      <div>
+        <PhoneNumberField size="small" testId="small" label="small" />
+        <PhoneNumberField size="large" testId="large" label="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+  });
+
   it('should be able to set a variation', async () => {
     const { countryCodeSelector, phoneInput } = await setup({
       variation: 'quiet',

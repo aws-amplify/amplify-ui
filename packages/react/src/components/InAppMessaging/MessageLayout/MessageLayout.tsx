@@ -1,5 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { isEmpty } from '@aws-amplify/ui';
+import { MessageButtonProps } from '@aws-amplify/ui-react-core';
 
 import {
   Button,
@@ -14,6 +16,7 @@ import {
   BLOCK_CLASS,
   BODY_TEXT_TEST_ID,
   BUTTON_CLASS,
+  BUTTON_GROUP_TEST_ID,
   CLOSE_BUTTON_CLASS,
   CONTENT_CLASS,
   CONTENT_TEST_ID,
@@ -22,19 +25,21 @@ import {
   IMAGE_CONTAINER_CLASS,
   IMAGE_CONTAINER_TEST_ID,
   MESSAGE_LAYOUT_TEST_ID,
+  PRIMARY_BUTTON_TEST_ID,
+  SECONDARY_BUTTON_TEST_ID,
   TEXT_CONTAINER_CLASS,
   TEXT_CONTAINER_TEST_ID,
 } from './constants';
 import { MessageLayoutProps } from './types';
 import { getButtonModifier } from './utils';
 
+const isMessageButton = (button: unknown): button is MessageButtonProps =>
+  !isEmpty(button);
+
 export function MessageLayout({
   body,
   buttonSize,
-  hasButtons,
-  hasPrimaryButton,
   hasRenderableImage,
-  hasSecondaryButton,
   header,
   image,
   onClose,
@@ -58,6 +63,10 @@ export function MessageLayout({
       style={styles.closeIconButton}
     />
   );
+
+  const hasPrimaryButton = isMessageButton(primaryButton);
+  const hasSecondaryButton = isMessageButton(secondaryButton);
+  const hasButtons = hasPrimaryButton || hasSecondaryButton;
 
   return (
     <Flex
@@ -83,7 +92,7 @@ export function MessageLayout({
           >
             <Image
               alt="In-App Message Image"
-              src={image.src}
+              src={image?.src}
               style={styles.image}
             />
           </Flex>
@@ -115,15 +124,16 @@ export function MessageLayout({
         {isHorizontal && <Flex alignItems="flex-start">{closeButton}</Flex>}
       </Flex>
       {hasButtons && (
-        <ButtonGroup size={buttonSize}>
+        <ButtonGroup size={buttonSize} testId={BUTTON_GROUP_TEST_ID}>
           {hasSecondaryButton && (
             <Button
               className={classNames(
                 BUTTON_CLASS,
                 `${BUTTON_CLASS}--${buttonModifiers.secondary}`
               )}
-              onClick={secondaryButton?.onAction}
+              onClick={secondaryButton.onAction}
               style={styles.secondaryButton}
+              testId={SECONDARY_BUTTON_TEST_ID}
             >
               {secondaryButton.title}
             </Button>
@@ -134,8 +144,9 @@ export function MessageLayout({
                 BUTTON_CLASS,
                 `${BUTTON_CLASS}--${buttonModifiers.primary}`
               )}
-              onClick={primaryButton?.onAction}
+              onClick={primaryButton.onAction}
               style={styles.primaryButton}
+              testId={PRIMARY_BUTTON_TEST_ID}
             >
               {primaryButton.title}
             </Button>

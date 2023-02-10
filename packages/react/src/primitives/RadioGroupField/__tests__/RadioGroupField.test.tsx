@@ -186,6 +186,25 @@ describe('RadioFieldGroup', () => {
       expect(radioButtons[2]).toHaveAttribute('data-size', 'large');
     });
 
+    it('should render size classes for RadioGroupField', async () => {
+      render(
+        <>
+          <RadioFieldGroup {...basicProps} size="small" testId="small" />
+          <RadioFieldGroup {...basicProps} size="large" testId="large" />
+        </>
+      );
+
+      const small = await screen.findByTestId('small');
+      const large = await screen.findByTestId('large');
+
+      expect(small.classList).toContain(
+        `${ComponentClassNames['Field']}--small`
+      );
+      expect(large.classList).toContain(
+        `${ComponentClassNames['Field']}--large`
+      );
+    });
+
     it('should be disabled if isDisabled is passed', async () => {
       render(RadioFieldGroup({ ...basicProps, isDisabled: true }));
 

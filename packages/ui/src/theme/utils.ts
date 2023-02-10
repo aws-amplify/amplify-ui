@@ -1,15 +1,8 @@
-import has from 'lodash/has.js';
-import kebabCase from 'lodash/kebabCase.js';
-
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference.js';
 
-import { isObject, isString } from '../utils';
-import {
-  DesignToken,
-  ShadowValue,
-  WebDesignToken,
-} from './tokens/types/designToken';
+import { isObject, isString, has, kebabCase } from '../utils';
+import { ShadowValue, WebDesignToken } from './tokens/types/designToken';
 
 type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;
 
@@ -40,12 +33,12 @@ export function cssValue(token: BaseDesignToken): string | number {
     return referenceValue(value);
   }
 
-  if (isShadowToken(value)) {
+  if (isShadowTokenObject(value)) {
     return SHADOW_PROPERTIES.map((property) => {
       return referenceValue(
         // lookup property against `token` first for custom non-nested value, then lookup
         // property against `value` for design token value
-        isShadowToken(token) ? token[property] : value[property]
+        isShadowTokenObject(token) ? token[property] : value[property]
       );
     }).join(' ');
   }
@@ -72,7 +65,9 @@ export function isDesignToken(value: unknown): value is WebDesignToken {
   return isObject(value) && has(value, 'value');
 }
 
-export function isShadowToken(value: unknown): value is ShadowValue {
+export function isShadowTokenObject(
+  value: unknown
+): value is ShadowValue & object {
   return isObject(value) && has(value, 'offsetX');
 }
 

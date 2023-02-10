@@ -35,7 +35,7 @@ const commonProps = {
   isLoading: false,
   isSuccessful: false,
   hasMaxFilesError: false,
-  maxFiles: 10,
+  maxFileCount: 10,
   onClear: () => null,
   onFileClick: () => null,
 };
