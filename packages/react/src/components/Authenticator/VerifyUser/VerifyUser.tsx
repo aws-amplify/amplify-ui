@@ -63,11 +63,9 @@ export const VerifyUser = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  const {
-    components: {
-      VerifyUser: { Header = VerifyUser.Header, Footer = VerifyUser.Footer },
-    },
-  } = useCustomComponents();
+  const { VerifyUser: components } = useCustomComponents();
+  const Header = components?.Header ?? VerifyUser.Header;
+  const Footer = components?.Footer ?? VerifyUser.Footer;
 
   const { isPending, unverifiedContactMethods } = useAuthenticator(
     ({ isPending, unverifiedContactMethods }) => [
@@ -122,10 +120,10 @@ export const VerifyUser = ({
   );
 };
 
-VerifyUser.Header = function Header(): JSX.Element {
+VerifyUser.Header = function Header() {
   return <Heading level={3}>{getAccountRecoveryInfoText()}</Heading>;
 };
 
-VerifyUser.Footer = function Footer(): JSX.Element {
+VerifyUser.Footer = function Footer() {
   return null;
 };

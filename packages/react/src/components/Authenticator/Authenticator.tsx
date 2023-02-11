@@ -51,7 +51,7 @@ export function AuthenticatorInternal({
   services,
   socialProviders,
   variation,
-}: AuthenticatorProps): JSX.Element {
+}: AuthenticatorProps): JSX.Element | null {
   const { route, signOut, user } = useAuthenticator(
     ({ route, signOut, user }) => [route, signOut, user]
   );
@@ -66,7 +66,7 @@ export function AuthenticatorInternal({
   });
 
   const value = React.useMemo(
-    () => ({ components: { ...defaultComponents, ...customComponents } }),
+    () => ({ ...defaultComponents, ...customComponents }),
     [customComponents]
   );
 

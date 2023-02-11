@@ -11,9 +11,11 @@ import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 import { isSignInOrSignUpRoute } from '../utils';
 import { RouterProps } from './types';
 
-type RouteComponent = (props: Omit<RouterProps, 'children'>) => JSX.Element;
+type RouteComponent = (
+  props: Omit<RouterProps, 'children'>
+) => JSX.Element | null;
 
-function RenderNothing(): JSX.Element {
+function RenderNothing() {
   return null;
 }
 

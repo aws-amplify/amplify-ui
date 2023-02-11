@@ -20,14 +20,9 @@ export const ConfirmVerifyUser = ({
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
-  const {
-    components: {
-      ConfirmVerifyUser: {
-        Header = ConfirmVerifyUser.Header,
-        Footer = ConfirmVerifyUser.Footer,
-      },
-    },
-  } = useCustomComponents();
+  const { ConfirmVerifyUser: components } = useCustomComponents();
+  const Header = components?.Header ?? ConfirmVerifyUser.Header;
+  const Footer = components?.Footer ?? ConfirmVerifyUser.Footer;
 
   return (
     <RouteContainer className={className} variation={variation}>
@@ -62,6 +57,6 @@ ConfirmVerifyUser.Header = function Header() {
   return <Heading level={3}>{getAccountRecoveryInfoText()}</Heading>;
 };
 
-ConfirmVerifyUser.Footer = function Footer(): JSX.Element {
+ConfirmVerifyUser.Footer = function Footer() {
   return null;
 };

@@ -20,15 +20,10 @@ export function SignUp(): JSX.Element {
   ]);
   const { handleChange, handleBlur, handleSubmit } = useFormHandlers();
 
-  const {
-    components: {
-      SignUp: {
-        Header = SignUp.Header,
-        FormFields = SignUp.FormFields,
-        Footer = SignUp.Footer,
-      },
-    },
-  } = useCustomComponents();
+  const { SignUp: components } = useCustomComponents();
+  const Header = components?.Header ?? SignUp.Header;
+  const FormFields = components?.Footer ?? SignUp.FormFields;
+  const Footer = components?.Footer ?? SignUp.Footer;
 
   return (
     <View>
@@ -68,12 +63,12 @@ export function SignUp(): JSX.Element {
   );
 }
 
-SignUp.Header = function Header(): JSX.Element {
+SignUp.Header = function Header() {
   return null;
 };
 SignUp.FormFields = function FormFields() {
   return <DefaultFormFields />;
 };
-SignUp.Footer = function Footer(): JSX.Element {
+SignUp.Footer = function Footer() {
   return null;
 };

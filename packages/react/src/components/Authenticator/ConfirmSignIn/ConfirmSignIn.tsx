@@ -20,14 +20,9 @@ export const ConfirmSignIn = ({
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
-  const {
-    components: {
-      ConfirmSignIn: {
-        Header = ConfirmSignIn.Header,
-        Footer = ConfirmSignIn.Footer,
-      },
-    },
-  } = useCustomComponents();
+  const { ConfirmSignIn: components } = useCustomComponents();
+  const Header = components?.Header ?? ConfirmSignIn.Header;
+  const Footer = components?.Footer ?? ConfirmSignIn.Footer;
 
   return (
     <RouteContainer className={className} variation={variation}>
@@ -63,6 +58,6 @@ function Header() {
 }
 
 ConfirmSignIn.Header = Header;
-ConfirmSignIn.Footer = function Footer(): JSX.Element {
+ConfirmSignIn.Footer = function Footer() {
   return null;
 };

@@ -31,11 +31,9 @@ export const SetupTOTP = ({
 
   const { handleChange, handleSubmit } = useFormHandlers();
 
-  const {
-    components: {
-      SetupTOTP: { Header = SetupTOTP.Header, Footer = SetupTOTP.Footer },
-    },
-  } = useCustomComponents();
+  const { SetupTOTP: components } = useCustomComponents();
+  const Header = components?.Header ?? SetupTOTP.Header;
+  const Footer = components?.Footer ?? SetupTOTP.Footer;
 
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [qrCode, setQrCode] = React.useState<string>();
@@ -119,10 +117,10 @@ export const SetupTOTP = ({
   );
 };
 
-SetupTOTP.Header = function Header(): JSX.Element {
+SetupTOTP.Header = function Header() {
   return <Heading level={3}>{getSetupTOTPText()}</Heading>;
 };
 
-SetupTOTP.Footer = function Footer(): JSX.Element {
+SetupTOTP.Footer = function Footer() {
   return null;
 };

@@ -20,14 +20,9 @@ export const ConfirmResetPassword = ({
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
 
-  const {
-    components: {
-      ConfirmResetPassword: {
-        Header = ConfirmResetPassword.Header,
-        Footer = ConfirmResetPassword.Footer,
-      },
-    },
-  } = useCustomComponents();
+  const { ConfirmResetPassword: components } = useCustomComponents();
+  const Header = components?.Header ?? ConfirmResetPassword.Header;
+  const Footer = components?.Footer ?? ConfirmResetPassword.Footer;
 
   return (
     <RouteContainer className={className} variation={variation}>
@@ -58,12 +53,12 @@ export const ConfirmResetPassword = ({
   );
 };
 
-ConfirmResetPassword.Header = function Header(): JSX.Element {
+ConfirmResetPassword.Header = function Header() {
   const headerText = getResetYourPasswordText();
 
   return <Heading level={3}>{headerText}</Heading>;
 };
 
-ConfirmResetPassword.Footer = function Footer(): JSX.Element {
+ConfirmResetPassword.Footer = function Footer() {
   return null;
 };

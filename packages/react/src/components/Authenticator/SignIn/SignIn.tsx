@@ -19,11 +19,9 @@ export function SignIn(): JSX.Element {
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
-  const {
-    components: {
-      SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
-    },
-  } = useCustomComponents();
+  const { SignIn: components } = useCustomComponents();
+  const Header = components?.Header ?? SignIn.Header;
+  const Footer = components?.Footer ?? SignIn.Footer;
 
   return (
     <View>
@@ -84,6 +82,6 @@ const DefaultFooter = () => {
 };
 
 SignIn.Footer = DefaultFooter;
-SignIn.Header = function Header(): JSX.Element {
+SignIn.Header = function Header() {
   return null;
 };

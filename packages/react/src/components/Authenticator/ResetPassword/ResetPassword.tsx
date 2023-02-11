@@ -25,14 +25,9 @@ export const ResetPassword = ({
   const { isPending } = useAuthenticator((context) => [context.isPending]);
   const { handleChange, handleSubmit } = useFormHandlers();
 
-  const {
-    components: {
-      ResetPassword: {
-        Header = ResetPassword.Header,
-        Footer = ResetPassword.Footer,
-      },
-    },
-  } = useCustomComponents();
+  const { ResetPassword: components } = useCustomComponents();
+  const Header = components?.Header ?? ResetPassword.Header;
+  const Footer = components?.Footer ?? ResetPassword.Footer;
 
   return (
     <RouteContainer className={className} variation={variation}>
@@ -69,10 +64,10 @@ export const ResetPassword = ({
   );
 };
 
-ResetPassword.Header = function Header(): JSX.Element {
+ResetPassword.Header = function Header() {
   return <Heading level={3}>{getResetYourPasswordText()}</Heading>;
 };
 
-ResetPassword.Footer = function Footer(): JSX.Element {
+ResetPassword.Footer = function Footer() {
   return null;
 };

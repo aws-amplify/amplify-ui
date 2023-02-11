@@ -32,14 +32,9 @@ export function ConfirmSignUp({
   );
   const { handleChange, handleSubmit } = useFormHandlers();
 
-  const {
-    components: {
-      ConfirmSignUp: {
-        Header = ConfirmSignUp.Header,
-        Footer = ConfirmSignUp.Footer,
-      },
-    },
-  } = useCustomComponents();
+  const { ConfirmSignUp: components } = useCustomComponents();
+  const Header = components?.Header ?? ConfirmSignUp.Header;
+  const Footer = components?.Footer ?? ConfirmSignUp.Footer;
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
@@ -96,7 +91,6 @@ const DefaultHeader = () => {
 };
 
 ConfirmSignUp.Header = DefaultHeader;
-
-ConfirmSignUp.Footer = function Footer(): JSX.Element {
+ConfirmSignUp.Footer = function Footer() {
   return null;
 };

@@ -20,9 +20,7 @@ export function RouteContainer({
 }: RouteContainerProps): JSX.Element {
   const { route } = useAuthenticator(({ route }) => [route]);
 
-  const {
-    components: { Header, Footer },
-  } = useCustomComponents();
+  const { Header = () => null, Footer = () => null } = useCustomComponents();
 
   return (
     <View

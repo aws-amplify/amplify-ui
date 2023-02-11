@@ -24,11 +24,8 @@ export const ForceNewPassword = ({
   ]);
   const { handleBlur, handleChange, handleSubmit } = useFormHandlers();
 
-  const {
-    components: {
-      ForceNewPassword: { FormFields = ForceNewPassword.FormFields },
-    },
-  } = useCustomComponents();
+  const { ForceNewPassword: components } = useCustomComponents();
+  const FormFields = components?.FormFields ?? ForceNewPassword.FormFields;
 
   return (
     <RouteContainer className={className} variation={variation}>
