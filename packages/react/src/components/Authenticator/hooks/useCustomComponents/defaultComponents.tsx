@@ -27,7 +27,7 @@ export interface DefaultComponents extends Omit<Components, 'FormFields'> {
   VerifyUser?: Omit<Components, 'FormFields'>;
 }
 
-export const defaultComponents: Required<DefaultComponents> = {
+export const defaultComponents: DefaultComponents = {
   Header: () => null,
   SignIn: {
     Header: SignIn.Header,
