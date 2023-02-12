@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { Pressable, Text, TextStyle, ViewStyle } from 'react-native';
-import { usePressableContainerStyles } from '../../hooks';
+import { capitalize } from '@aws-amplify/ui';
 
+import { usePressableContainerStyles } from '../../hooks';
 import { useTheme } from '../../theme';
-import { capitalize } from '../../utils';
 import { getThemedStyles } from './styles';
 import { ButtonProps } from './types';
 
