@@ -59,3 +59,14 @@ export function isString(value: unknown): value is string {
 export function isUndefined(value: unknown): value is undefined {
   return value === undefined;
 }
+
+/**
+ *
+ * @param value capitalizes `value` and its type.
+ * @returns Capitalized `value`
+ */
+export function capitalize<T extends string>(value: T): Capitalize<T> {
+  return (
+    isString(value) ? value.charAt(0).toUpperCase() + value.slice(1) : ''
+  ) as Capitalize<T>;
+}
