@@ -54,6 +54,7 @@
     ]
   },
   "resolutions": {
+    "@sideway/formula": "^3.0.1",
     "@types/react": "17.0.47",
     "**/@angular-devkit/build-angular/minimatch": "3.0.5",
     "**/serve/serve-handler/minimatch": "3.0.5",

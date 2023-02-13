@@ -1,4 +1,4 @@
-import { capitalize } from '../../utils';
+import { capitalize } from '@aws-amplify/ui';
 
 import { RadioDimensions, RadioStyles, Size } from './types';
 
