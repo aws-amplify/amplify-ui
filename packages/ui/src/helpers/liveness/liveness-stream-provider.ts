@@ -1,4 +1,7 @@
-import { Credentials, getAmplifyUserAgent } from '@aws-amplify/core';
+import {
+  Credentials as AmplifyCredentials,
+  getAmplifyUserAgent,
+} from '@aws-amplify/core';
 import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
 import {
   ClientSessionInformationEvent,
@@ -47,7 +50,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   private async init() {
-    const credentials = await Credentials.get();
+    const credentials = await AmplifyCredentials.get();
 
     if (!credentials) {
       throw new Error('No credentials');
