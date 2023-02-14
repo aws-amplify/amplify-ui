@@ -39,9 +39,9 @@ const mockReturnUseFileUploader = {
 };
 
 const commonProps = {
-  accessLevel: 'public',
+  accessLevel: 'public' as const,
   acceptedFileTypes: ['.png'],
-  variation: 'drop',
+  variation: 'drop' as const,
   isResumable: true,
 };
 
