@@ -24,6 +24,7 @@ const CustomBannerMessage = (props) => {
       padding="xl"
       backgroundColor="teal.20"
       right="xl"
+      testId="custom-banner"
     >
       <Text fontWeight="bold">{props.header.content}</Text>
       <Button onClick={props.onClose}>Close!</Button>
@@ -49,8 +50,8 @@ function App() {
     [displayMessage]
   );
 
-  // display custom message component on initial render
-  useEffect(displayCustomBannerMessage, [displayCustomBannerMessage]);
+  // // display custom message component on initial render
+  // useEffect(displayCustomBannerMessage, [displayCustomBannerMessage]);
 
   return (
     <Button margin="medium" onClick={displayCustomBannerMessage}>
