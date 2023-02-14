@@ -1,4 +1,4 @@
-import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Then('I see the message on the banner with style override', () => {
   cy.findByRole('dialog').should('exist');

@@ -1,4 +1,4 @@
-import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 When('I click the x button on the banner', () => {
   cy.findByRole('button', { name: 'Dismiss message' }).click();
