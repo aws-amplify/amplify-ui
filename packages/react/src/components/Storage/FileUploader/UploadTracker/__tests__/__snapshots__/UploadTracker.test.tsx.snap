@@ -25,11 +25,6 @@ exports[`UploadTracker exists 1`] = `
           hello.png
         </p>
       </div>
-      <span
-        class="amplify-text amplify-fileuploader__file__size"
-      >
-        5 B
-      </span>
       <button
         class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
         data-fullwidth="false"
@@ -62,6 +57,11 @@ exports[`UploadTracker exists 1`] = `
           </svg>
         </span>
       </button>
+      <span
+        class="amplify-text amplify-fileuploader__file__size"
+      >
+        5 B
+      </span>
       <button
         class="amplify-button amplify-field-group__control amplify-button--small"
         data-fullwidth="false"

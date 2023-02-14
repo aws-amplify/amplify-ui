@@ -39,27 +39,26 @@ Webpack 4 already includes this polyfill.
 ```
 
 ## Vite
-
+<Tabs>
+  <TabItem title="TypeScript">
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
-**1.** Add the following script tag to the `index.html` file at the bottom of the `<body>` tag.
+**1.** Add the following script tag to the `index.html` file right before the `</body>` tag.
 
 ```html
-...
   <script>
     window.global = window;
     window.process = {
       env: { DEBUG: undefined },
-    };
+    }
     var exports = {};
   </script>
 </body>
 ```
 
-**2.** Update the `vite.config.ts` and add in a resolve object inside the `defineConfig({})` as seen below.
+**2.** Update the `vite.config.ts` and add a resolve alias inside the `defineConfig({})` as seen below.
 
-```js
-...
+```ts
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -72,7 +71,81 @@ export default defineConfig({
   }
 })
 ```
+**3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
 
+```json
+  "compilerOptions": {
+    "skipLibCheck": true,
+  }
+...
+```
+  </TabItem>
+  <TabItem title="JavaScript">
+When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
+
+**1.** Add the following script tag to the `index.html` file right before the `</body>` tag. This will only run on the client side and will polyfill Node globals.
+
+```html
+  <script>
+    window.global = window;
+    window.process = {
+      env: { DEBUG: undefined },
+    };
+    var exports = {};
+  </script>
+</body>
+```
+
+**2.** Update the `vite.config.js` and add a resolve alias inside the `defineConfig({})` as seen below.
+
+```js
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ]
+  }
+})
+```
+  </TabItem>
+</Tabs>
+
+## Astro
+
+When working with a [Astro](https://astro.build/) project you must make a few modifications. Please follow the steps below.
+<Tabs>
+  <TabItem title="TypeScript">
+**1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
+
+```html
+<script>
+  window.global = window;
+  window.process = {
+    env: { DEBUG: undefined },
+  } as unknown as NodeJS.Process;
+  var exports = {};
+</script>
+```
+
+**2.** Update the `astro.config.mjs` to add a resolve object inside the `defineConfig({})` as seen below.
+
+```js
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ]
+  }
+})
+```
 **3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
 
 ```js
@@ -81,6 +154,38 @@ export default defineConfig({
     "skipLibCheck": true,
 ...
 ```
+  </TabItem>
+  <TabItem title="JavaScript">
+**1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
+
+```html
+<script>
+  window.global = window;
+  window.process = {
+    env: { DEBUG: undefined },
+  }
+  var exports = {};
+</script>
+```
+
+**2.** Update the `astro.config.mjs` to add a resolve alias inside the `defineConfig({})` as seen below.
+
+```js
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ]
+  }
+})
+```
+  </TabItem>
+</Tabs>
+
 
 ## Create React App
 

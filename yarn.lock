@@ -6101,10 +6101,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@sideway/formula@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@sideway/formula/-/formula-3.0.0.tgz#fe158aee32e6bd5de85044be615bc08478a0a13c"
-  integrity sha512-vHe7wZ4NOXVfkoRb8T5otiENVlT7a3IAiw7H5M2+GO+9CDgcVUUsX1zalAztCmwyOr2RUTGJdgB+ZvSVqmdHmg==
+"@sideway/formula@^3.0.0", "@sideway/formula@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@sideway/formula/-/formula-3.0.1.tgz#80fcbcbaf7ce031e0ef2dd29b1bfc7c3f583611f"
+  integrity sha512-/poHZJJVjx3L+zVD6g9KgHfYnb443oi7wLu/XKojDviHy6HOEOA6z1Trk5aR1dGcmPenJEgb2sK2I80LeS3MIg==
 
 "@sideway/pinpoint@^2.0.0":
   version "2.0.0"
@@ -18818,10 +18818,10 @@ maplibre-gl-draw-circle@^0.1.1:
     "@turf/helpers" "^6.1.4"
     "@turf/length" "^6.0.2"
 
-maplibre-gl-js-amplify@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-3.0.0.tgz#ca681fd3c876dad9215c188021808790f2d51b61"
-  integrity sha512-mqDD0cJyc/JJ6mhMrbl6VU+/YHUKxHbI+22ZkXB34taYZR2+TBIwvHrcnb/p+Z4HilVC2NgY44ldpanZiHZX/g==
+maplibre-gl-js-amplify@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-3.0.2.tgz#ccb7f97e4ec31ca0c0dc287b11fb739d45131f86"
+  integrity sha512-zCnpB6jPKvROLa45yqNkliffrHWu6Z2hZCLVk098/BeWEJjU54eBTxEgezGkIKdD/qPTohq6tf9t/6SEWYsOQA==
   dependencies:
     "@mapbox/mapbox-gl-draw" "^1.3.0"
     "@maplibre/maplibre-gl-geocoder" "^1.5.0"
