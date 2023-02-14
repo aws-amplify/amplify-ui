@@ -1,5 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
-import isObject from 'lodash/isObject';
+import { isEmpty, isObject, isString } from '@aws-amplify/ui';
 
 function isEmptyArray<T>(value: T): boolean {
   return Array.isArray(value) && isEmpty(value);
@@ -10,9 +9,19 @@ export function areEmptyArrays<T>(...values: T[]): boolean {
 }
 
 function isEmptyObject<T>(value: T): boolean {
-  return isObject(value) && !Array.isArray(value) && isEmpty(value);
+  return isObject(value) && isEmpty(value);
 }
 
 export function areEmptyObjects<T>(...values: T[]): boolean {
   return values.every(isEmptyObject);
+}
+
+export function templateJoin(
+  values: string[],
+  template: (value: string) => string
+): string {
+  return values.reduce(
+    (acc, curr) => `${acc}${isString(curr) ? template(curr) : ''}`,
+    ''
+  );
 }

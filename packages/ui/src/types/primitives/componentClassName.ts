@@ -58,6 +58,7 @@ export enum ComponentClassName {
   FileUploaderDropZoneText = 'amplify-fileuploader__dropzone__text',
   FileUploaderDropZoneButton = 'amplify-fileuploader__dropzone__button',
   FileUploaderFile = 'amplify-fileuploader__file',
+  FileUploaderFileWrapper = 'amplify-fileuploader__file__wrapper',
   FileUploaderFileName = 'amplify-fileuploader__file__name',
   FileUploaderFileSize = 'amplify-fileuploader__file__size',
   FileUploaderFileInfo = 'amplify-fileuploader__file__info',

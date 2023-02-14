@@ -14,6 +14,6 @@ describe('TableFoot primitive', () => {
     );
 
     await screen.findByTestId('testId');
-    expect(ref.current.nodeName).toBe('TFOOT');
+    expect(ref.current?.nodeName).toBe('TFOOT');
   });
 });

@@ -70,7 +70,7 @@ export function expectGridItemStyleProps(element: HTMLElement): void {
   });
 }
 
-describe('Grid: ', () => {
+describe('Grid:', () => {
   const testId = 'gridPrimitive';
   const itemTestId = 'gridItem';
 
@@ -92,7 +92,7 @@ describe('Grid: ', () => {
     const ref = React.createRef<HTMLDivElement>();
     render(<Grid ref={ref} testId={testId}></Grid>);
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
   it('can render any arbitrary data-* attribute', async () => {
@@ -101,7 +101,7 @@ describe('Grid: ', () => {
     expect(view.dataset['demo']).toBe('true');
   });
 
-  describe('Grid items: ', () => {
+  describe('Grid items:', () => {
     const cardTestId = `${itemTestId}-card`;
 
     it('can apply Grid item styling via style prop', async () => {

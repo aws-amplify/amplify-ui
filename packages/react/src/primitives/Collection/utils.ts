@@ -7,7 +7,7 @@ export const getItemsAtPage = <T>(
   items: T[],
   page: number,
   itemsPerPage: number
-) => {
+): T[] => {
   if (page < 1 || itemsPerPage < 1) {
     return [];
   }
@@ -34,5 +34,7 @@ export const itemHasText = (item: unknown, text: string): boolean => {
 /**
  * Computes the amount of available pages
  */
-export const getPageCount = (totalItems: number, itemsPerPage: number) =>
-  Math.ceil(totalItems / itemsPerPage);
+export const getPageCount = (
+  totalItems: number,
+  itemsPerPage: number
+): number => Math.ceil(totalItems / itemsPerPage);

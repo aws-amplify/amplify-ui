@@ -96,7 +96,7 @@ export default function useFieldValues<FieldType extends TypedField>({
   const handleFormSubmit = () => {
     const submitValue = isRadioFieldComponent
       ? values
-      : fieldsWithHandlers.reduce((acc, { name, value, type }) => {
+      : fieldsWithHandlers.reduce((acc, { name, value = '', type }) => {
           /*
                 For phone numbers pass the first 3 charactes from value as dialCode until we support a dialCode picker
             */

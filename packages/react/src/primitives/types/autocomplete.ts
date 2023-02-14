@@ -14,6 +14,8 @@ export interface AutocompleteComboboxProps {
 }
 
 export interface ComboBoxOption {
+  [key: string]: string;
+
   /**
    * @description
    * Unique id for an option
@@ -25,8 +27,6 @@ export interface ComboBoxOption {
    * Label for an option
    */
   label: string;
-
-  [key: string]: string;
 }
 
 export interface AutocompleteOptionProps extends ViewProps {
@@ -138,9 +138,32 @@ export interface AutocompleteProps extends SearchFieldProps {
 }
 
 export interface UseAutocompleteProps extends Partial<AutocompleteProps> {
-  onBlur: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 
-  onClick: React.MouseEventHandler<HTMLInputElement>;
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
+}
+
+type SetStateAction<T> = React.Dispatch<React.SetStateAction<T>>;
+
+export interface UseAutocomplete {
+  activeOptionId?: ComboBoxOption['id'];
+  autocompleteId: string;
+  composedValue: string;
+  filteredOptions: ComboBoxOption[];
+  handleOnBlur: React.FocusEventHandler<HTMLInputElement>;
+  handleOnClear: () => void;
+  handleOnClick: React.MouseEventHandler<HTMLInputElement>;
+  handleOnChange: React.ChangeEventHandler<HTMLInputElement>;
+  handleOnKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
+  isControlled: boolean;
+  isCustomFiltering: boolean;
+  isMenuOpen: boolean;
+  listboxId: string;
+  menuId: string;
+  optionBaseId: string;
+  setActiveOption: SetStateAction<ComboBoxOption | null>;
+  setIsMenuOpen: SetStateAction<boolean>;
+  setInternalValue: SetStateAction<string>;
 }

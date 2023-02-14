@@ -14,7 +14,7 @@ const label = 'Field';
 const testId = 'testId';
 describe('TextAreaField component', () => {
   describe('wrapper Flex', () => {
-    it('should render default and custom classname ', async () => {
+    it('should render default and custom classname', async () => {
       const customClassName = 'my-textareafield';
       render(
         <TextAreaField
@@ -40,16 +40,16 @@ describe('TextAreaField component', () => {
     });
   });
 
-  describe('Label ', () => {
+  describe('Label', () => {
     it('should render expected field classname', async () => {
       render(<TextAreaField label="Field" />);
 
-      const label = (await screen.findByText('Field')) as HTMLLabelElement;
+      const label = await screen.findByText('Field');
       expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
-      render(<TextAreaField label="Search" labelHidden={true} />);
+      render(<TextAreaField label="Search" labelHidden />);
 
       const label = await screen.findByText('Search');
       expect(label).toHaveClass('amplify-visually-hidden');
@@ -131,10 +131,29 @@ describe('TextAreaField component', () => {
       expect(textArea).toHaveAttribute('data-variation', 'quiet');
     });
 
+    it('should render size classes for TextAreaField', async () => {
+      render(
+        <div>
+          <TextAreaField size="small" testId="small" label="small" />
+          <TextAreaField size="large" testId="large" label="large" />
+        </div>
+      );
+
+      const small = await screen.findByTestId('small');
+      const large = await screen.findByTestId('large');
+
+      expect(small.classList).toContain(
+        `${ComponentClassNames['Field']}--small`
+      );
+      expect(large.classList).toContain(
+        `${ComponentClassNames['Field']}--large`
+      );
+    });
+
     it('can set defaultValue', async () => {
       render(<TextAreaField label="Field" defaultValue="test" />);
 
-      const field = (await screen.findByRole('textbox')) as HTMLTextAreaElement;
+      const field = await screen.findByRole<HTMLTextAreaElement>('textbox');
       expect(field.value).toBe('test');
     });
 
@@ -143,17 +162,17 @@ describe('TextAreaField component', () => {
         <TextAreaField
           label="Field"
           id="testField"
-          hasError={true}
+          hasError
           errorMessage={'Error message'}
         />
       );
-      const field = (await screen.findByRole('textbox')) as HTMLTextAreaElement;
+      const field = await screen.findByRole('textbox');
       expect(field).toHaveAttribute('aria-invalid');
     });
 
     it('should set resize style property', async () => {
       render(<TextAreaField label="Field" resize="horizontal" />);
-      const field = (await screen.findByRole('textbox')) as HTMLTextAreaElement;
+      const field = await screen.findByRole('textbox');
       expect(field).toHaveStyle('resize: horizontal');
     });
 
@@ -169,7 +188,7 @@ describe('TextAreaField component', () => {
           onPaste={onPaste}
         />
       );
-      const field = (await screen.findByRole('textbox')) as HTMLTextAreaElement;
+      const field = await screen.findByRole('textbox');
       userEvent.type(field, 'hello');
       userEvent.paste(field, 'there');
       expect(onChange).toHaveBeenCalled();
@@ -180,7 +199,7 @@ describe('TextAreaField component', () => {
 
   describe('error messages', () => {
     const errorMessage = 'This is an error message';
-    it("don't show when hasError is false", async () => {
+    it("don't show when hasError is false", () => {
       render(
         <TextAreaField
           label="Field"
@@ -189,26 +208,26 @@ describe('TextAreaField component', () => {
         />
       );
 
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText).not.toBeInTheDocument();
     });
 
-    it('show when hasError and errorMessage', async () => {
+    it('show when hasError and errorMessage', () => {
       render(
         <TextAreaField
           label="Field"
           id="testField"
-          hasError={true}
+          hasError
           errorMessage={errorMessage}
         />
       );
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText?.innerHTML).toContain(errorMessage);
     });
   });
 
   describe('descriptive message', () => {
-    it('renders when descriptiveText is provided', async () => {
+    it('renders when descriptiveText is provided', () => {
       render(
         <TextAreaField
           label="Field"
@@ -217,7 +236,7 @@ describe('TextAreaField component', () => {
         />
       );
 
-      const descriptiveText = await screen.queryByText('Description');
+      const descriptiveText = screen.queryByText('Description');
       expect(descriptiveText?.innerHTML).toContain('Description');
     });
 
@@ -231,7 +250,7 @@ describe('TextAreaField component', () => {
         />
       );
 
-      const field = (await screen.findByRole('textbox')) as HTMLTextAreaElement;
+      const field = await screen.findByRole('textbox');
       expect(field).toHaveAccessibleDescription(descriptiveText);
     });
   });

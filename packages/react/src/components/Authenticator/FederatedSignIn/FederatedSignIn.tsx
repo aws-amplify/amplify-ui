@@ -9,7 +9,7 @@ import { Flex } from '../../../primitives/Flex';
 import { useAuthenticator } from '@aws-amplify/ui-react-core';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
-const { getSignInWithFederationText } = authenticatorTextUtil;
+const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
 export function FederatedSignIn(): JSX.Element {
   const { route, socialProviders } = useAuthenticator(
@@ -72,7 +72,7 @@ export function FederatedSignIn(): JSX.Element {
         }
       })}
 
-      <Divider size="small" label="or" />
+      <Divider size="small" label={getOrText()} />
     </Flex>
   );
 }

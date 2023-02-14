@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`amplify-form-select renders as expected 1`] = `
+<div
+  id="root0"
+>
+  <label
+    class="amplify-label amplify-visually-hidden"
+    for="mock-id-0"
+  >
+    Select
+  </label>
+  <div
+    class="amplify-select__wrapper"
+  >
+    <select
+      autocomplete="tel-country-code"
+      class="amplify-select amplify-field-group__control"
+      id="mock-id-0"
+      name="select"
+    >
+      
+    </select>
+    <div
+      class="amplify-flex amplify-select__icon-wrapper"
+      style="align-items: center; justify-content: center"
+    >
+      <svg
+        class="amplify-icon amplify-icon--large"
+        data-size="large"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;

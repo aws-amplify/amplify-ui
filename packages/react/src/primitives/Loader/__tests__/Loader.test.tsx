@@ -12,7 +12,7 @@ import {
 } from '../Loader';
 import { ComponentClassNames } from '../../shared';
 
-describe('Loader: ', () => {
+describe('Loader:', () => {
   it('should render default and custom classname', async () => {
     const className = 'class-test';
     render(<Loader className={className} />);
@@ -58,7 +58,7 @@ describe('Loader: ', () => {
     render(<Loader ref={ref} />);
 
     await screen.findByRole('img');
-    expect(ref.current.nodeName).toBe('svg');
+    expect(ref.current?.nodeName).toBe('svg');
   });
 
   it('should set size attribute', async () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import TestRenderer from 'react-test-renderer';
+import { render } from '@testing-library/react-native';
 import { useMessage } from '@aws-amplify/ui-react-core';
 
 import InAppMessageDisplay from '../InAppMessageDisplay';
@@ -24,8 +24,8 @@ describe('InAppMessageDisplay', () => {
 
     mockUseMessage.mockReturnValueOnce({ Component, props });
 
-    const inAppMessageDisplay = TestRenderer.create(<InAppMessageDisplay />);
+    const { toJSON } = render(<InAppMessageDisplay />);
 
-    expect(inAppMessageDisplay.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 });

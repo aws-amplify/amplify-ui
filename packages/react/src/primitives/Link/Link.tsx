@@ -7,11 +7,11 @@ import { View } from '../View';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 const LinkPrimitive: Primitive<LinkProps, 'a'> = (
-  { as = 'a', children, className, isExternal, to, ...rest },
+  { as, children, className, isExternal, to, ...rest },
   ref
 ) => {
   useDeprecationWarning({
-    shouldWarn: to != null,
+    shouldWarn: to != null && !as,
     message:
       "The Link component's to prop will soon be deprecated. " +
       'Please see the Amplify UI documentation for using the Link component with routing libraries: ' +
@@ -19,7 +19,7 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   });
   return (
     <View
-      as={as}
+      as={as ? as : 'a'}
       className={classNames(ComponentClassNames.Link, className)}
       ref={ref}
       rel={isExternal ? 'noopener noreferrer' : undefined}

@@ -10,7 +10,7 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 
-describe('ButtonGroup: ', () => {
+describe('ButtonGroup:', () => {
   const getButtonGroup = (
     props: Partial<PrimitivePropsWithRef<ButtonGroupProps, 'div'>>
   ) => {
@@ -61,6 +61,6 @@ describe('ButtonGroup: ', () => {
     render(getButtonGroup({ ref }));
 
     await screen.findAllByRole('group');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 });

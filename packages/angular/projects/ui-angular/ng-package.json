@@ -11,6 +11,7 @@
   },
   "allowedNonPeerDependencies": [
     "@aws-amplify/ui",
+    "classnames",
     "nanoid",
     "qrcode",
     "xstate"

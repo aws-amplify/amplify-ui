@@ -9,7 +9,7 @@
 
 export type EscapeHatchProps = {
   [elementHierarchy: string]: Record<string, unknown>;
-};
+} | null;
 
 export type VariantValues = { [key: string]: string };
 export type Variant = {

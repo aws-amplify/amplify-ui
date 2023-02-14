@@ -4,7 +4,7 @@ import * as React from 'react';
 import { FieldGroupIconButton } from '../FieldGroupIconButton';
 import { ComponentClassNames } from '../../shared/constants';
 
-describe('FieldGroupIconButton: ', () => {
+describe('FieldGroupIconButton:', () => {
   it('should render default and custom classname', async () => {
     const className = 'custom-class';
     render(<FieldGroupIconButton className={className} />);
@@ -21,11 +21,11 @@ describe('FieldGroupIconButton: ', () => {
     const ref = React.createRef<HTMLButtonElement>();
     render(<FieldGroupIconButton ref={ref} testId={testId} />);
     await screen.findAllByTestId(testId);
-    expect(ref.current.nodeName).toBe('BUTTON');
+    expect(ref.current?.nodeName).toBe('BUTTON');
   });
 
   it('should add the disabled button class to the underlying button element', async () => {
-    render(<FieldGroupIconButton isDisabled={true} testId="disabled" />);
+    render(<FieldGroupIconButton isDisabled testId="disabled" />);
 
     const disabled = await screen.findByTestId('disabled');
 

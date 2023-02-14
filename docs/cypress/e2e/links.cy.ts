@@ -30,7 +30,7 @@ describe(`All pages on Sitemap`, () => {
     });
   });
 
-  it('should succesfully load each url in the sitemap', () => {
+  it('should successfully load each url in the sitemap', () => {
     allLinks.forEach((link, idx) => {
       cy.task('log', `🧪[TESTING...] page #${idx} ${BASE_URL}/${link}`);
       cy.visit({ url: link || '/', qs: { cypress: true } });

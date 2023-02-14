@@ -1,7 +1,8 @@
 import React from 'react';
 import { fireEvent, render, renderHook } from '@testing-library/react-native';
+import { capitalize } from '@aws-amplify/ui';
+
 import { useTheme } from '../../../theme';
-import { capitalize } from '../../../utils';
 import { RADIO_DOT_PROPORTION } from '../getRadioDimensions';
 import Radio, { CONTAINER_TEST_ID, DOT_TEST_ID } from '../Radio';
 import { getThemedStyles } from '../styles';

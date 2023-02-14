@@ -249,6 +249,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [
@@ -387,6 +398,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [
@@ -837,6 +859,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [
@@ -975,6 +1008,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [
@@ -1371,6 +1415,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [
@@ -1512,6 +1567,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [
@@ -1963,6 +2029,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [
@@ -2101,6 +2178,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [
@@ -2202,10 +2290,10 @@ Array [
           "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
           "paddingHorizontal": 8,
-          "paddingVertical": 32,
+          "paddingVertical": 12,
         },
         Object {
-          "marginVertical": 12,
+          "marginHorizontal": 12,
         },
       ]
     }
@@ -2225,9 +2313,13 @@ Array [
             "tintColor": undefined,
             "width": 20,
           },
-          Object {
-            "margin": 8,
-          },
+          Array [
+            Object {
+              "margin": 8,
+              "tintColor": "hsl(0, 100%, 20%)",
+            },
+            Object {},
+          ],
         ]
       }
     />
@@ -2237,6 +2329,7 @@ Array [
           Object {
             "color": "hsl(0, 100%, 20%)",
             "flex": 1,
+            "fontSize": 16,
             "paddingHorizontal": 8,
           },
           Object {},
@@ -2637,6 +2730,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [
@@ -2778,6 +2882,17 @@ Array [
         </View>
       </View>
     </View>
+    <TextInput
+      accessibilityElementsHidden={true}
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "height": 0.1,
+          "width": 0.1,
+        }
+      }
+    />
     <View
       style={
         Array [

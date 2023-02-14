@@ -5,7 +5,7 @@ import { Placeholder } from '../Placeholder';
 import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';
 
-describe('Placeholder: ', () => {
+describe('Placeholder:', () => {
   it('renders correct defaults', async () => {
     render(<Placeholder testId="placeholderId" />);
 
@@ -40,24 +40,24 @@ describe('Placeholder: ', () => {
     render(<Placeholder ref={ref} testId="placeholderId" />);
 
     await screen.findByTestId('placeholderId');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
-  it('renders based on isLoaded prop', async () => {
+  it('renders based on isLoaded prop', () => {
     render(
       <div>
         <Placeholder testId="placeholder1">
           <Text testId="text1">Should not render</Text>
         </Placeholder>
-        <Placeholder isLoaded={true} testId="placeholder2">
+        <Placeholder isLoaded testId="placeholder2">
           <Text testId="text2">Should render</Text>
         </Placeholder>
       </div>
     );
 
-    const placeholder1 = await screen.queryByTestId('placeholder1');
-    const text1 = await screen.queryByTestId('text1');
-    const placeholder2 = await screen.queryByTestId('placeholder2');
+    const placeholder1 = screen.queryByTestId('placeholder1');
+    const text1 = screen.queryByTestId('text1');
+    const placeholder2 = screen.queryByTestId('placeholder2');
 
     expect(placeholder1).toBeTruthy();
     expect(text1).toBeNull();

@@ -23,6 +23,51 @@ Array [
   >
     Setup TOTP
   </Text>,
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "flexWrap": "wrap",
+          "marginHorizontal": 8,
+          "paddingVertical": 4,
+        },
+      ]
+    }
+  >
+    Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    selectable={true}
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "flexWrap": "wrap",
+          "marginHorizontal": 8,
+          "paddingVertical": 4,
+        },
+      ]
+    }
+  >
+    Let's keep it hush hush
+  </Text>,
   <View
     style={
       Object {
@@ -121,10 +166,10 @@ Array [
           "backgroundColor": "hsl(0, 75%, 85%)",
           "flexDirection": "row",
           "paddingHorizontal": 8,
-          "paddingVertical": 32,
+          "paddingVertical": 12,
         },
         Object {
-          "marginVertical": 12,
+          "marginHorizontal": 12,
         },
       ]
     }
@@ -144,9 +189,13 @@ Array [
             "tintColor": undefined,
             "width": 20,
           },
-          Object {
-            "margin": 8,
-          },
+          Array [
+            Object {
+              "margin": 8,
+              "tintColor": "hsl(0, 100%, 20%)",
+            },
+            Object {},
+          ],
         ]
       }
     />
@@ -156,6 +205,7 @@ Array [
           Object {
             "color": "hsl(0, 100%, 20%)",
             "flex": 1,
+            "fontSize": 16,
             "paddingHorizontal": 8,
           },
           Object {},
@@ -296,6 +346,51 @@ Array [
     }
   >
     Setup TOTP
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "flexWrap": "wrap",
+          "marginHorizontal": 8,
+          "paddingVertical": 4,
+        },
+      ]
+    }
+  >
+    Copy and paste the secret key below into an authenticator app and then enter the code in the text field below.
+  </Text>,
+  <Text
+    accessibilityRole="text"
+    selectable={true}
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Object {
+          "flexWrap": "wrap",
+          "marginHorizontal": 8,
+          "paddingVertical": 4,
+        },
+      ]
+    }
+  >
+    Let's keep it hush hush
   </Text>,
   <View
     style={

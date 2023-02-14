@@ -1,6 +1,4 @@
 import { Auth } from 'aws-amplify';
-import get from 'lodash/get';
-import pickBy from 'lodash/pickBy';
 import { assign, createMachine, sendUpdate } from 'xstate';
 
 import { AuthEvent, SignUpContext } from '../../types';
@@ -21,6 +19,7 @@ import {
   handleSubmit,
 } from './actions';
 import { defaultServices } from './defaultServices';
+import { get, pickBy } from '../../utils';
 
 export type SignUpMachineOptions = {
   services?: Partial<typeof defaultServices>;

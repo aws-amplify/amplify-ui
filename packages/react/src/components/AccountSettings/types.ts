@@ -31,10 +31,7 @@ type CommonAlertProps = Partial<PrimitiveProps<AlertProps, 'div'>> &
 type CommonButtonProps<T extends 'submit' | 'default' = 'default'> =
   Partial<ButtonPrimitiveProps> &
     Required<
-      Pick<
-        ButtonPrimitiveProps,
-        'isDisabled' | (T extends 'submit' ? never : 'onClick')
-      >
+      Pick<ButtonPrimitiveProps, T extends 'submit' ? never : 'onClick'>
     >;
 
 /*

@@ -3,6 +3,6 @@
   "name": "auth-with-phone-and-sms-mfa-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d3udf6rqwo8obv --envName staging"
+    "pull": "amplify pull --appId d1xz3uui039hi --envName staging"
   }
 }

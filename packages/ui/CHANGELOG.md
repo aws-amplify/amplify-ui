@@ -1,5 +1,110 @@
 # @aws-amplify/ui
 
+## 5.5.4
+
+### Patch Changes
+
+- [#3380](https://github.com/aws-amplify/amplify-ui/pull/3380) [`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(theme): better typing for breakpoints for TS strict mode
+
+- [#3335](https://github.com/aws-amplify/amplify-ui/pull/3335) [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): ts strict for style prop utils
+
+  Refactored internal functions that handle style props and `useBreakpointValue` hook to be TS strict. Should have no customer impact.
+
+## 5.5.3
+
+### Patch Changes
+
+- [#3333](https://github.com/aws-amplify/amplify-ui/pull/3333) [`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): migrate totpSecretCode generation to state machine
+
+- [#3287](https://github.com/aws-amplify/amplify-ui/pull/3287) [`412538be9`](https://github.com/aws-amplify/amplify-ui/commit/412538be9e37a8dec7cb5e57281895a5b3b63184) Thanks [@zchenwei](https://github.com/zchenwei)! - build: updates to support Node ESM
+
+  Confirmed that both #3155 and #3206 are fixed without having to apply any workaround
+
+  Also, test out the changes with the following frameworks/tools:
+
+  | Name               | Tested? | Notes                                                                                                                                         |
+  | ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Next.js@11, 12, 13 | ✅      |                                                                                                                                               |
+  | Gatsby             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Remix              | ✅      |                                                                                                                                               |
+  | Astro              | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | webpack            | ✅      |                                                                                                                                               |
+  | Vite               | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Rollup             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | esbuild            | ✅      |                                                                                                                                               |
+  | Parcel             | ✅      |                                                                                                                                               |
+  | Snowpack           | ✅      | Need `--polyfill-node` to fix JS incompatibility in dev mode, but is a known [issue](https://github.com/FredKSchott/snowpack/discussions/718) |
+
+- [#3291](https://github.com/aws-amplify/amplify-ui/pull/3291) [`9ce2d01b0`](https://github.com/aws-amplify/amplify-ui/commit/9ce2d01b09e2f7aa0b218a97bb829a4210350a0a) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui,ui-react-core): Add type guard utils
+
+- [#3327](https://github.com/aws-amplify/amplify-ui/pull/3327) [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148) Thanks [@wlee221](https://github.com/wlee221)! - fix(rwa): improve default behavior handling for custom formFields.
+
+  Previously, adding custom formFields for fields that are not in `signUpAttributes` configuration wouldn't get any default values, which could lead to broken UI.
+
+  This commit improves default handling by applying defaults to all known auth field (birthdate, first_name, etc) to custom formField options.
+
+## 5.5.2
+
+### Patch Changes
+
+- [#3330](https://github.com/aws-amplify/amplify-ui/pull/3330) [`57f1a3f43`](https://github.com/aws-amplify/amplify-ui/commit/57f1a3f438b8288ffda46764f7a87e1739e61313) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui): Fixes an issue where the input primitive doesn't render properly for calendar types.
+
+- [#3325](https://github.com/aws-amplify/amplify-ui/pull/3325) [`dd9de348a`](https://github.com/aws-amplify/amplify-ui/commit/dd9de348abcafdcd721600f543d58353957dac25) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Translate 'or' text for FederatedSignIn
+
+- [#3322](https://github.com/aws-amplify/amplify-ui/pull/3322) [`4d652033e`](https://github.com/aws-amplify/amplify-ui/commit/4d652033e120daa82665b4bb4035b56fa8d33bf8) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated functionality so all file uploader uploads will have the correct type matching the file.type.
+
+## 5.5.1
+
+### Patch Changes
+
+- [#3283](https://github.com/aws-amplify/amplify-ui/pull/3283) [`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd) Thanks [@wlee221](https://github.com/wlee221)! - Trim non-password fields on Authenticator forms. This will prevent unnecessary validation messages from showing up.
+
+- [#3284](https://github.com/aws-amplify/amplify-ui/pull/3284) [`01912077c`](https://github.com/aws-amplify/amplify-ui/commit/01912077c6d4fcdd3cbe9b6de2bb53fc490d0f41) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated text to be more verbose for the max file size error for the file uploader component.
+
+## 5.5.0
+
+### Minor Changes
+
+- [#3242](https://github.com/aws-amplify/amplify-ui/pull/3242) [`59321c9cc`](https://github.com/aws-amplify/amplify-ui/commit/59321c9cc15f8243edd6f5dd0113e7c396f7b488) Thanks [@vitaliikravets](https://github.com/vitaliikravets)! - Add support of Ukrainian language to Authenticator
+
+### Patch Changes
+
+- [#3282](https://github.com/aws-amplify/amplify-ui/pull/3282) [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): remove order keys from formFields after sorting
+
+## 5.4.2
+
+### Patch Changes
+
+- [#3201](https://github.com/aws-amplify/amplify-ui/pull/3201) [`2912fe3af`](https://github.com/aws-amplify/amplify-ui/commit/2912fe3af6f29cde562a35e931bc2e3a0de470ed) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated logic so users will now receive a code, when they are displayed the reset password page that asks for a code after signing in. This occurs when the users are imported into Cognito.
+
+- [#3238](https://github.com/aws-amplify/amplify-ui/pull/3238) [`ea1b10a2c`](https://github.com/aws-amplify/amplify-ui/commit/ea1b10a2c802b08ee019669ba442d7446f23bd05) Thanks [@wlee221](https://github.com/wlee221)! - fix(react): Manually add `overflow: clip` to remediate chrome 108 breaking change.
+
+  Ref: https://developer.chrome.com/blog/overflow-replaced-elements/
+
+## 5.4.1
+
+### Patch Changes
+
+- [#3153](https://github.com/aws-amplify/amplify-ui/pull/3153) [`db8f019a7`](https://github.com/aws-amplify/amplify-ui/commit/db8f019a7737c4762ff19c1b03c7c06625277989) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Add missing Authenticator translations
+
+## 5.4.0
+
+### Minor Changes
+
+- [#3158](https://github.com/aws-amplify/amplify-ui/pull/3158) [`0bbb9980c`](https://github.com/aws-amplify/amplify-ui/commit/0bbb9980c55f212ce54c5449a2dcc64bfce6ca8f) Thanks [@nandanbhat](https://github.com/nandanbhat)! - feat(Authenticator): Enable password validation on resetPassword and forceNewPassword screen
+
+### Patch Changes
+
+- [#2830](https://github.com/aws-amplify/amplify-ui/pull/2830) [`168185211`](https://github.com/aws-amplify/amplify-ui/commit/1681852112748717e44d199d0c62de83ab1541ca) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(authenticator): adding package version to cognito user agent string
+
+## 5.3.1
+
+### Patch Changes
+
+- [#2907](https://github.com/aws-amplify/amplify-ui/pull/2907) [`c31a9bf69`](https://github.com/aws-amplify/amplify-ui/commit/c31a9bf693b3507e8a2b9d0790423a9f64e533cf) Thanks [@NivBraz](https://github.com/NivBraz)! - Added Hebrew as an option for Authenticator
+
+- [#3029](https://github.com/aws-amplify/amplify-ui/pull/3029) [`1847840c0`](https://github.com/aws-amplify/amplify-ui/commit/1847840c00c0f9f7be31e9735c31bd596f4056e9) Thanks [@hugobeaujour](https://github.com/hugobeaujour)! - chore: add translation texts for French
+
 ## 5.3.0
 
 ### Minor Changes

@@ -6,7 +6,7 @@ import { Heading } from '../Heading';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 
-describe('Heading: ', () => {
+describe('Heading:', () => {
   it('renders an h6 tag by default', async () => {
     render(<Heading testId="headingId"></Heading>);
 
@@ -119,8 +119,8 @@ describe('Heading: ', () => {
       </Heading>
     );
     await screen.findByRole('heading');
-    expect(ref.current.nodeName).toBe('H2');
-    expect(ref.current.innerHTML).toBe(headingText);
+    expect(ref.current?.nodeName).toBe('H2');
+    expect(ref.current?.innerHTML).toBe(headingText);
   });
 
   it('can render any arbitrary data-* attribute', async () => {
@@ -132,7 +132,7 @@ describe('Heading: ', () => {
   it('should render the truncated class on Heading', async () => {
     render(
       <div>
-        <Heading testId="truncated" isTruncated={true}>
+        <Heading testId="truncated" isTruncated>
           truncated
         </Heading>
       </div>

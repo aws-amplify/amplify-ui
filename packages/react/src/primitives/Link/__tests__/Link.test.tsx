@@ -15,6 +15,14 @@ import {
   Route,
 } from 'react-router-dom';
 
+function Home() {
+  return <Heading level={2}>You are home</Heading>;
+}
+
+function About() {
+  return <Heading level={2}>You are on the about page</Heading>;
+}
+
 function SampleRoutingApp() {
   return (
     <Router>
@@ -35,15 +43,7 @@ function SampleRoutingApp() {
   );
 }
 
-function Home() {
-  return <Heading level={2}>You are home</Heading>;
-}
-
-function About() {
-  return <Heading level={2}>You are on the about page</Heading>;
-}
-
-describe('Link: ', () => {
+describe('Link:', () => {
   const linkText = 'My Link';
 
   it('renders correct defaults', async () => {
@@ -67,11 +67,11 @@ describe('Link: ', () => {
     render(<Link ref={ref}>{linkText}</Link>);
 
     await screen.findByText(linkText);
-    expect(ref.current.nodeName).toBe('A');
+    expect(ref.current?.nodeName).toBe('A');
   });
 
   it('can add the rel attribute to the rendered anchor tag', async () => {
-    render(<Link isExternal={true}>{linkText}</Link>);
+    render(<Link isExternal>{linkText}</Link>);
 
     const link = await screen.findByText(linkText);
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
@@ -105,7 +105,7 @@ describe('Link: ', () => {
     });
   });
 
-  it('can integrate with react-router-dom using the "to" prop', async () => {
+  it('can integrate with react-router-dom using the "to" prop', () => {
     render(<SampleRoutingApp />);
 
     expect(screen.getByText(/you are home/i)).toBeInTheDocument();
@@ -116,10 +116,17 @@ describe('Link: ', () => {
     expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
   });
 
-  it('should call console.warn if "to" prop is used', async () => {
+  it('should call console.warn if "to" prop is used without "as" prop', () => {
     const spyWarn = jest.spyOn(console, 'warn');
     render(<Link to="/test">Test</Link>);
     expect(spyWarn).toHaveBeenCalled();
+    spyWarn.mockRestore();
+  });
+
+  it('should not call console.warn if "to" prop is used with "as" prop', () => {
+    const spyWarn = jest.spyOn(console, 'warn');
+    render(<SampleRoutingApp />);
+    expect(spyWarn).not.toHaveBeenCalled();
     spyWarn.mockRestore();
   });
 });

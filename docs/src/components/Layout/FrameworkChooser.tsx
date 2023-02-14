@@ -25,18 +25,24 @@ const FrameworkLink = ({
     ? pathname.replace(platformPath, framework)
     : `/${framework}`;
 
-  return (
-    <Link href={isDisabled ? '#' : href} passHref>
-      <Button
-        size="small"
-        as="a"
-        className={classNames}
-        onClick={onClick}
-        isDisabled={isDisabled}
-      >
-        <FrameworkLogo framework={framework} className="docs-framework-img" />
-        {FRAMEWORK_DISPLAY_NAMES[framework]}
-      </Button>
+  const frameworkButton = (
+    <Button
+      size="small"
+      as="a"
+      className={classNames}
+      onClick={onClick}
+      isDisabled={isDisabled}
+    >
+      <FrameworkLogo framework={framework} className="docs-framework-img" />
+      {FRAMEWORK_DISPLAY_NAMES[framework]}
+    </Button>
+  );
+
+  return isDisabled ? (
+    frameworkButton
+  ) : (
+    <Link href={href} passHref>
+      {frameworkButton}
     </Link>
   );
 };

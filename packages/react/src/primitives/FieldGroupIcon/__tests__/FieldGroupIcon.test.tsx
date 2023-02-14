@@ -22,6 +22,6 @@ describe('FieldGroupIcon component', () => {
       <FieldGroupIcon ref={ref} className="custom-class" testId={testId} />
     );
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 });

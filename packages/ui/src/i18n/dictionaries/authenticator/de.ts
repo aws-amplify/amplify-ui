@@ -25,8 +25,11 @@ export const deDict: AuthenticatorDictionary = {
   'Enter your username': 'Geben Sie Ihren Benutzernamen ein',
   'Forgot your password?': 'Passwort vergessen? ',
   'Hide password': 'Passwort verbergen',
+  'It may take a minute to arrive':
+    'Es kann eine Minute dauern, bis er ankommt',
   Loading: 'Wird geladen',
   'New password': 'Neues Passwort',
+  or: 'oder',
   Password: 'Passwort',
   'Phone Number': 'Telefonnummer',
   'Resend Code': 'Code erneut senden',
@@ -51,6 +54,10 @@ export const deDict: AuthenticatorDictionary = {
   Username: 'Benutzername',
   'Verify Contact': 'Kontakt verifizieren',
   Verify: 'Verifizieren',
+  'We Sent A Code': 'Wir haben einen Code gesendet',
+  'We Texted You': 'Wir haben Ihnen eine SMS-Textur',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Ihr Code ist unterwegs. Um sich anzumelden, geben Sie den Code ein, den wir Ihnen gesendet haben',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -70,7 +77,6 @@ export const deDict: AuthenticatorDictionary = {
   'Lost your code? ': 'Code verloren? ',
   'New Password': 'Neues Passwort',
   'No account? ': 'Kein Account? ',
-  or: 'oder',
   'Password attempts exceeded':
     'Die maximale Anzahl der fehlerhaften Anmeldeversuche wurde erreicht',
   'Reset password': 'Passwort zurücksetzen',

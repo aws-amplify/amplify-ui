@@ -2,9 +2,6 @@ import * as React from 'react';
 import { Flex, SelectField, TabsProps } from '@aws-amplify/ui-react';
 
 export interface TabsPropControlsProps extends TabsProps {
-  setCurrentIndex: (
-    value: React.SetStateAction<TabsProps['currentIndex']>
-  ) => void;
   setSpacing: (value: React.SetStateAction<TabsProps['spacing']>) => void;
   setJustifyContent: (
     value: React.SetStateAction<TabsProps['justifyContent']>
@@ -19,8 +16,6 @@ interface TabsPropControlsInterface {
 }
 
 export const TabsPropControls: TabsPropControlsInterface = ({
-  currentIndex,
-  setCurrentIndex,
   spacing,
   setSpacing,
   justifyContent,
@@ -30,19 +25,6 @@ export const TabsPropControls: TabsPropControlsInterface = ({
 }) => {
   return (
     <Flex direction="column">
-      <SelectField
-        name="currentIndex"
-        label="Current Index"
-        value={currentIndex.toString()}
-        onChange={(event) =>
-          setCurrentIndex(+event.target.value as TabsProps['currentIndex'])
-        }
-      >
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-      </SelectField>
-
       <SelectField
         label="Spacing"
         name="spacing"

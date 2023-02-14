@@ -271,6 +271,32 @@ describe('useFieldValues', () => {
     });
   });
 
+  it('does not submit undefined values for fields', () => {
+    const textField = {
+      label: 'test',
+      type: 'default',
+      name: 'testDefault',
+    } as TextFieldOptionsType;
+    const phoneTextField = {
+      type: 'phone',
+      name: 'testPhone',
+    } as TextFieldOptionsType;
+    const { result } = renderHook(() =>
+      useFieldValues({
+        ...props,
+        fields: [textField, phoneTextField],
+      })
+    );
+
+    result.current.handleFormSubmit();
+    expect(props.handleSubmit).toHaveBeenCalledTimes(1);
+    expect(props.handleSubmit).toHaveBeenCalledWith({
+      country_code: '',
+      [textField.name]: '',
+      [phoneTextField.name]: '',
+    });
+  });
+
   it('submits the expected values for phone fields', () => {
     const phoneTextField = {
       type: 'phone',
@@ -294,7 +320,7 @@ describe('useFieldValues', () => {
     expect(props.handleSubmit).toHaveBeenCalledTimes(1);
     expect(props.handleSubmit).toHaveBeenCalledWith({
       country_code: mockValue.substring(0, 3),
-      [textField.name]: mockValue.substring(3, mockValue.length),
+      [phoneTextField.name]: mockValue.substring(3, mockValue.length),
     });
   });
 });

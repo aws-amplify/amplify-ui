@@ -5,7 +5,7 @@ import { Tabs, TabItem } from '../Tabs';
 import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';
 
-describe('Tabs: ', () => {
+describe('Tabs', () => {
   it('can render custom classnames', async () => {
     render(
       <Tabs className="custom-classname" testId="tabsId">
@@ -39,7 +39,7 @@ describe('Tabs: ', () => {
     );
 
     await screen.findByTestId('tabsId');
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 
   it('should skip over null children', async () => {
@@ -50,51 +50,26 @@ describe('Tabs: ', () => {
       </Tabs>
     );
     const tabs = await screen.findByTestId('tabsTest');
-    expect(tabs.children.length).toEqual(1);
+    const panels = await screen.findAllByRole('tabpanel');
+    expect(tabs.children).toHaveLength(1);
+    expect(panels).toHaveLength(1);
   });
 
-  it('should not log a warning for null children', async () => {
-    const warningMessage =
-      'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
-    jest.spyOn(console, 'warn');
-
+  it('should work with defaultIndex and null children', async () => {
     render(
-      <Tabs testId="tabsTest">
+      <Tabs testId="tabsTest" defaultIndex={1}>
         <TabItem title="Tab 1">Tab 1</TabItem>
         {null}
+        {undefined}
+        <TabItem title="Tab 2">Tab 2</TabItem>
       </Tabs>
     );
-
-    expect(console.warn).not.toHaveBeenCalledWith(warningMessage);
+    const tabs = await screen.findAllByRole('tab');
+    expect(tabs).toHaveLength(2);
+    expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
   });
 
-  it('should log a warning for children not matching the TabItem structure', async () => {
-    const invalidChildren = [
-      123,
-      'test',
-      <div>
-        <span></span>
-      </div>,
-    ];
-    const warningMessage =
-      'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
-    const spy = jest.spyOn(console, 'warn').mockImplementation();
-
-    invalidChildren.forEach((child) => {
-      render(
-        <Tabs testId="tabsTest">
-          <TabItem title="Tab 1">Tab 1</TabItem>
-          {child as any}
-        </Tabs>
-      );
-
-      expect(console.warn).toHaveBeenCalledWith(warningMessage);
-
-      spy.mockClear();
-    });
-  });
-
-  describe('TabItem: ', () => {
+  describe('TabItem', () => {
     it('can render custom classnames', async () => {
       render(
         <Tabs>
@@ -145,7 +120,7 @@ describe('Tabs: ', () => {
       );
 
       await screen.findByRole('tab');
-      expect(ref.current.nodeName).toBe('BUTTON');
+      expect(ref.current?.nodeName).toBe('BUTTON');
     });
   });
 });

@@ -14,10 +14,6 @@ on:
         required: true
         type: string
     secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
       AWS_ACCESS_KEY_ID_AUTH:
         required: true
       AWS_SECRET_ACCESS_KEY_AUTH:
@@ -68,6 +64,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Restore cypress runner from Cache
         uses: actions/cache@v3
         id: restore-cypress-cache
@@ -132,7 +130,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Restore node_modules cache
         uses: actions/cache@v3
         id: restore-cache
@@ -156,6 +155,8 @@ jobs:
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # unit test doesn't need cypress
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
@@ -235,7 +236,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
-
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Restore cypress runner Cache
         uses: actions/cache@v3
         id: restore-cypress-cache
@@ -275,6 +277,8 @@ jobs:
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: false
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
@@ -293,48 +297,27 @@ jobs:
 
       - name: Get CLI versions
         id: cli-version
-        run: echo "::set-output name=version::$(amplify --version)"
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v3
-        with:
-          path: environments/**/aws-exports.js
-          key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-
-      # Pulling phone environments from original account,
-      - name: Pull down Auth Phone AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments auth pull:phone
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Pull down Auth non-phone AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments auth pull:non-phone
+      - name: Pull down Auth AWS environments
+        run: yarn environments auth pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
 
-      - name: Pull down Geo AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+      - name: Pull down Geo AWS environments
         run: yarn environments geo pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
 
-      - name: Pull down Storage AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+      - name: Pull down Storage AWS environments
         run: yarn environments storage pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE}}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE}}
 
-      - name: Pull down Datastore AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+      - name: Pull down Datastore AWS environments
         run: yarn environments datastore pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
@@ -347,6 +330,7 @@ jobs:
         run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.example }} example
+        id: e2e
         run: yarn workspace e2e test:examples
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
@@ -358,8 +342,18 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: e2e-cypress-error-${{ matrix.package }}
+          path: |
+            packages/e2e/cypress/videos/**
+            packages/e2e/cypress/screenshots/**
+          retention-days: 5
+
   docs:
-    # Only run docs tests if e2e tests pass
     needs: [setup, unit]
     runs-on: ubuntu-latest
     environment: ci
@@ -378,6 +372,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore cypress runner Cache
         uses: actions/cache@v3
@@ -388,8 +384,22 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
+      - name: Restore node_modules cache
+        uses: actions/cache@v3
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
       - name: Install packages
-        run: yarn install
+        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: false
 
       - name: Build ui package
         run: yarn ui build
@@ -413,6 +423,7 @@ jobs:
 
       - name: Run E2E tests against docs
         run: yarn workspace e2e test:theme
+        id: e2e
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -420,3 +431,13 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: docs-e2e-cypress-error
+          path: |
+            packages/e2e/cypress/videos/**
+            packages/e2e/cypress/screenshots/**
+          retention-days: 5

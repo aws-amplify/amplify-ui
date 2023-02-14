@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`amplify-tab-item renders as expected 1`] = `
+<div
+  id="root0"
+  style="display: block;"
+>
+  <div
+    aria-labelledby="mock-id-1"
+    data-orientation="horizontal"
+    data-state="inactive"
+    id="mock-id-0"
+    role="tabpanel"
+    tabindex="0"
+  >
+    
+  </div>
+</div>
+`;

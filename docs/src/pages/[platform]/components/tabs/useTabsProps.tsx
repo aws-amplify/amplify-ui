@@ -9,9 +9,6 @@ interface UseTabsProps {
 }
 
 export const useTabsProps: UseTabsProps = (initialValues) => {
-  const [currentIndex, setCurrentIndex] = React.useState<
-    TabsProps['currentIndex']
-  >(initialValues.currentIndex);
   const [spacing, setSpacing] = React.useState<TabsProps['spacing']>(
     initialValues.spacing
   );
@@ -25,18 +22,15 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
 
   React.useEffect(() => {
     demoState.set(Tabs.displayName, {
-      currentIndex,
       spacing,
       justifyContent,
       indicatorPosition,
       children,
     });
-  }, [currentIndex, spacing, justifyContent, indicatorPosition, children]);
+  }, [spacing, justifyContent, indicatorPosition, children]);
 
   return React.useMemo(
     () => ({
-      currentIndex,
-      setCurrentIndex,
       spacing,
       setSpacing,
       children,
@@ -46,8 +40,6 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
       setIndicatorPosition,
     }),
     [
-      currentIndex,
-      setCurrentIndex,
       spacing,
       setSpacing,
       children,

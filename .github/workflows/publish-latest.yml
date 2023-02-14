@@ -51,17 +51,8 @@ jobs:
         run: yarn global add @aws-amplify/cli
       - name: Get CLI versions
         id: cli-version
-        run: echo "::set-output name=version::$(amplify --version)"
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v3
-        with:
-          path: canary/environments/**/aws-exports.js
-          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
       - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
@@ -93,6 +84,8 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Install packages
         uses: ./.github/actions/install-with-retries
         with:
