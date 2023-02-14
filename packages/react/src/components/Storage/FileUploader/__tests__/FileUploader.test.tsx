@@ -39,9 +39,9 @@ const mockReturnUseFileUploader = {
 };
 
 const commonProps = {
-  accessLevel: 'public' as const,
+  accessLevel: 'public',
   acceptedFileTypes: ['.png'],
-  variation: 'drop' as const,
+  variation: 'drop',
   isResumable: true,
 };
 
@@ -135,7 +135,7 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 100,
-        fileState: FileState.SUCCESS as const,
+        fileState: FileState.SUCCESS,
       },
       {
         ...fileStatus,
@@ -179,7 +179,7 @@ describe('File Uploader', () => {
         ...fileStatus,
         percentage: 50,
         uploadTask,
-        fileState: FileState.LOADING as const,
+        fileState: FileState.LOADING,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -202,7 +202,7 @@ describe('File Uploader', () => {
         ...fileStatus,
         percentage: 50,
         uploadTask,
-        fileState: FileState.PAUSED as const,
+        fileState: FileState.PAUSED,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -560,13 +560,13 @@ describe('File Uploader', () => {
         ...fileStatus,
         percentage: 100,
         uploadTask,
-        fileState: FileState.SUCCESS as const,
+        fileState: FileState.SUCCESS,
       },
       {
         ...fileStatus,
         percentage: 0,
         uploadTask,
-        fileState: FileState.ERROR as const,
+        fileState: FileState.ERROR,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -589,13 +589,13 @@ describe('File Uploader', () => {
         ...fileStatus,
         percentage: 0,
         uploadTask,
-        fileState: FileState.SUCCESS as const,
+        fileState: FileState.SUCCESS,
       },
       {
         ...fileStatus,
         percentage: 0,
         uploadTask,
-        fileState: FileState.ERROR as const,
+        fileState: FileState.ERROR,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -667,7 +667,7 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 100,
-        fileState: FileState.SUCCESS as const,
+        fileState: FileState.SUCCESS,
       },
     ];
 
@@ -686,12 +686,12 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 100,
-        fileState: FileState.SUCCESS as const,
+        fileState: FileState.SUCCESS,
       },
       {
         ...fileStatus,
         percentage: 100,
-        fileState: FileState.SUCCESS as const,
+        fileState: FileState.SUCCESS,
       },
     ];
 
