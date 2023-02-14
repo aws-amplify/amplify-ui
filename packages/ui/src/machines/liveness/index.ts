@@ -955,12 +955,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           });
         }
 
-        console.log({
-          cameraSettings: realVideoDeviceStream
-            .getVideoTracks()[0]
-            .getSettings(),
-        });
-
         return { stream: realVideoDeviceStream };
       },
       async openLivenessStreamConnection(context) {
@@ -1111,8 +1105,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
         });
 
-        console.log({ recordingStartTimestampMs });
-
         // Send client info for initial face position
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
@@ -1152,7 +1144,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // detect face
         const before = Date.now();
         const detectedFaces = await faceDetector.detectFaces(videoEl);
-        console.log(JSON.stringify({ timeToDetectFace: Date.now() - before }));
         let faceMatchState: FaceMatchState;
         let detectedFace: Face;
         let illuminationState: IlluminationState;
@@ -1256,7 +1247,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         await livenessStreamProvider.stopVideo();
 
         const endStreamLivenessVideoTime = Date.now();
-        console.log({ endStreamLivenessVideoTime });
         recordLivenessAnalyticsEvent(context.componentProps, {
           event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
           attributes: { action: 'streamLivenessVideoEnd' },

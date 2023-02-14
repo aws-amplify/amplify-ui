@@ -14,9 +14,6 @@ import {
   SessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
 
-let COUNTER = 0;
-let lastCall = Date.now();
-
 /**
  * Returns the random number between min and max
  * seeded with the provided random seed.
@@ -246,18 +243,6 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  console.log(
-    JSON.stringify({
-      intersection,
-      COUNTER,
-      time: Date.now() - lastCall,
-      face,
-      faceBoundingBox,
-      ovalBoundingBox,
-    })
-  );
-  COUNTER++;
-  lastCall = Date.now();
   const intersectionThreshold = 0.75;
   const ovalMatchWidthThreshold = ovalDetails.width * 0.25;
   const ovalMatchHeightThreshold = ovalDetails.height * 0.25;

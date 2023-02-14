@@ -189,11 +189,6 @@ export class FreshnessColorDisplay {
     currColorIndex: number
   ) {
     const { livenessStreamProvider, challengeId } = this.context;
-    console.log({
-      colorTimestamp: tickStartTime,
-      currColor,
-      prevColor,
-    });
     livenessStreamProvider.sendClientInfo({
       DeviceInformation: undefined,
       Challenge: {
