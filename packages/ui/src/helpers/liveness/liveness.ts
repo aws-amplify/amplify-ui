@@ -221,7 +221,10 @@ export function getFaceMatchStateInLivenessOval(
 ): FaceMatchState {
   let faceMatchState: FaceMatchState;
 
-  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(face);
+  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
+    face,
+    ovalDetails
+  );
   const minFaceX = faceBoundingBox.left;
   const maxFaceX = faceBoundingBox.right;
   const minFaceY = faceBoundingBox.top;
@@ -255,7 +258,7 @@ export function getFaceMatchStateInLivenessOval(
   );
   COUNTER++;
   lastCall = Date.now();
-  const intersectionThreshold = 0.7;
+  const intersectionThreshold = 0.75;
   const ovalMatchWidthThreshold = ovalDetails.width * 0.25;
   const ovalMatchHeightThreshold = ovalDetails.height * 0.25;
   const faceDetectionWidthThreshold = ovalDetails.width * 0.15;
@@ -286,21 +289,39 @@ export function getFaceMatchStateInLivenessOval(
   return faceMatchState;
 }
 
-function generateBboxFromLandmarks(face: Face): BoundingBox {
-  const { leftEye, rightEye, nose } = face;
+function generateBboxFromLandmarks(
+  face: Face,
+  oval: LivenessOvalDetails
+): BoundingBox {
+  const { leftEye, rightEye, nose, mouth } = face;
+  const { height: ovalHeight, centerY } = oval;
+  const ovalTop = centerY - ovalHeight / 2;
 
   const eyeCenter = [];
   eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
   eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
 
-  const cx = (nose[0] + eyeCenter[0]) / 2;
-  const cy = (nose[1] + eyeCenter[1]) / 2;
+  const pd = Math.sqrt(
+    (leftEye[0] - rightEye[0]) ** 2 + (leftEye[1] - rightEye[1]) ** 2
+  );
+  const fh = Math.sqrt(
+    (eyeCenter[0] - mouth[0]) ** 2 + (eyeCenter[1] - mouth[1]) ** 2
+  );
 
-  const ow =
-    Math.sqrt(
-      (leftEye[0] - rightEye[0]) ** 2 + (leftEye[1] - rightEye[1]) ** 2
-    ) * 2;
+  const alpha = 2.0,
+    gamma = 1.8;
+  const ow = (alpha * pd + gamma * fh) / 2;
   const oh = 1.618 * ow;
+
+  let cx: number, cy: number;
+
+  if (eyeCenter[1] <= (ovalTop + ovalHeight) / 2) {
+    cx = (eyeCenter[0] + nose[0]) / 2;
+    cy = (eyeCenter[1] + nose[1]) / 2;
+  } else {
+    cx = eyeCenter[0];
+    cy = eyeCenter[1];
+  }
 
   const left = cx - ow / 2,
     top = cy - oh / 2;
