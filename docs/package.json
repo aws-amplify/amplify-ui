@@ -75,6 +75,7 @@
     "globby": "^13.1.1",
     "jest": "^27",
     "postcss": "^8.2.6",
+    "puppeteer": "^19.7.0",
     "react-markdown": "^8.0.3",
     "sitemap-urls": "^3.0.0",
     "ts-jest": "^27",
