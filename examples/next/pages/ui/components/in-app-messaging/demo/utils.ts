@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Analytics } from 'aws-amplify';
 import {
   InAppMessage,
   InAppMessageAction,
@@ -19,6 +20,7 @@ export interface GetDemoMessageParams {
   primaryButtonAction: InAppMessageAction;
   secondaryButtonAction: InAppMessageAction;
   layout: InAppMessageLayout;
+  useAnalyticsActions: boolean;
 }
 
 export const ACTIONS: InAppMessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
@@ -110,6 +112,8 @@ export function useInAppDemo() {
     useState<GetDemoMessageParams['hasSecondaryButton']>(true);
   const [secondaryButtonAction, setSecondaryButtonAction] =
     useState<GetDemoMessageParams['secondaryButtonAction']>('CLOSE');
+  const [useAnalyticsActions, setUseAnalyticsActions] =
+    useState<GetDemoMessageParams['useAnalyticsActions']>(false);
 
   const handleAction = (
     type:
@@ -122,6 +126,7 @@ export function useInAppDemo() {
       | 'setPrimaryButtonAction'
       | 'setHasSecondaryButton'
       | 'setSecondaryButtonAction'
+      | 'setUseAnalyticsActions'
   ) =>
     function handler(value) {
       switch (type) {
@@ -152,6 +157,9 @@ export function useInAppDemo() {
         case 'setSecondaryButtonAction':
           setSecondaryButtonAction(value);
           break;
+        case 'setUseAnalyticsActions':
+          setUseAnalyticsActions(value);
+          break;
         default:
           return null;
       }
@@ -167,10 +175,15 @@ export function useInAppDemo() {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
+    useAnalyticsActions,
   });
 
   return {
     displayDemoMessage: () => {
+      if (useAnalyticsActions) {
+        Analytics.record({ name: layout });
+        return;
+      }
       displayMessage(demoMessage);
     },
     handleAction,
@@ -183,5 +196,6 @@ export function useInAppDemo() {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
+    useAnalyticsActions,
   };
 }
