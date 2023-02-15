@@ -9,7 +9,7 @@ import Example from '../features/Authenticator/Demo/Example';
 // import Example from '../features/Authenticator/Slots/Example';
 // import Example from '../features/Authenticator/Styles/Example';
 // import Example from '../features/Authenticator/Theming/DarkMode';
-// import { Demo as InAppDemo } from '../features/InAppMessaging';
+// import { Demo as Example } from '../features/InAppMessaging';
 
 const App = () => {
   return <Example />;
