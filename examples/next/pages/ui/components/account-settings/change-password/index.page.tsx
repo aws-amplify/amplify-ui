@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 
 import {
   Alert,
