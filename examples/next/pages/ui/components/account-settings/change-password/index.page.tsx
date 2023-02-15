@@ -21,28 +21,26 @@ function App({ signOut }) {
   const [isSuccessful, setIsSuccessful] = React.useState(false);
 
   return (
-    <Authenticator>
-      <Card width="800px">
-        <Flex direction="column">
-          <Card variation="outlined">
-            <Flex direction="column">
-              <Heading>Change Password:</Heading>
-              <AccountSettings.ChangePassword
-                onSuccess={() => {
-                  setIsSuccessful(true);
-                }}
-              />
-              {isSuccessful ? (
-                <Alert variation="success" isDismissible>
-                  Password has been changed succesfully.
-                </Alert>
-              ) : null}
-            </Flex>
-          </Card>
-          <Button onClick={signOut}>Sign Out</Button>
-        </Flex>
-      </Card>
-    </Authenticator>
+    <Card width="800px">
+      <Flex direction="column">
+        <Card variation="outlined">
+          <Flex direction="column">
+            <Heading>Change Password:</Heading>
+            <AccountSettings.ChangePassword
+              onSuccess={() => {
+                setIsSuccessful(true);
+              }}
+            />
+            {isSuccessful ? (
+              <Alert variation="success" isDismissible>
+                Password has been changed succesfully.
+              </Alert>
+            ) : null}
+          </Flex>
+        </Card>
+        <Button onClick={signOut}>Sign Out</Button>
+      </Flex>
+    </Card>
   );
 }
 
