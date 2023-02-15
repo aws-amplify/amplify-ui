@@ -3,16 +3,12 @@ import * as blazeface from '@tensorflow-models/blazeface';
 
 // TODO:: Figure out if we should lazy load these or not.
 import * as tfjsWasm from '@tensorflow/tfjs-backend-wasm';
-import '@tensorflow/tfjs-backend-webgl';
 import '@tensorflow/tfjs-backend-cpu';
 
-import { isWebAssemblySupported, isWebGLSupported } from './support';
+import { isWebAssemblySupported } from './support';
 import { FaceDetection, Face } from '../../types';
 
-type BlazeFaceModelBackend = 'wasm' | 'webgl' | 'cpu';
-
-const BASE_CDN_URL =
-  'https://models.edge.reventlov.rekognition.aws.dev/blazeface';
+type BlazeFaceModelBackend = 'wasm' | 'cpu';
 
 /**
  * The BlazeFace implementation of the FaceDetection interface.
@@ -25,18 +21,13 @@ export class BlazeFaceFaceDetection extends FaceDetection {
     if (isWebAssemblySupported()) {
       console.log('Loading WebAssembly backend');
       await this._loadWebAssemblyBackend();
-    } else if (isWebGLSupported()) {
-      console.log('Loading WebGL backend');
-      await this._loadWebGLBackend();
     } else {
       console.log('Loading CPU backend');
       await this._loadCPUBackend();
     }
 
     await tf.ready();
-    this._model = await blazeface.load({
-      modelUrl: `${BASE_CDN_URL}/model/model.json`,
-    });
+    this._model = await blazeface.load();
   }
 
   async detectFaces(videoEl: HTMLVideoElement): Promise<Face[]> {
@@ -84,14 +75,11 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   }
 
   private async _loadWebAssemblyBackend() {
-    tfjsWasm.setWasmPaths(`${BASE_CDN_URL}/wasm/`);
+    tfjsWasm.setWasmPaths(
+      `https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@${tfjsWasm.version_wasm}/dist/`
+    );
     await tf.setBackend('wasm');
     this.modelBackend = 'wasm';
-  }
-
-  private async _loadWebGLBackend() {
-    await tf.setBackend('webgl');
-    this.modelBackend = 'webgl';
   }
 
   private async _loadCPUBackend() {

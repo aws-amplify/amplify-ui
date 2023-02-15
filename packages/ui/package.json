@@ -58,6 +58,11 @@
     "tslib": "2.4.1"
   },
   "peerDependencies": {
+    "@tensorflow-models/blazeface": "0.0.7",
+    "@tensorflow/tfjs-backend-cpu": "3.11.0",
+    "@tensorflow/tfjs-backend-wasm": "3.11.0",
+    "@tensorflow/tfjs-converter": "3.11.0",
+    "@tensorflow/tfjs-core": "3.11.0",
     "aws-amplify": ">= 5.0.1",
     "xstate": "^4.33.6"
   },
@@ -67,6 +72,11 @@
     }
   },
   "devDependencies": {
+    "@tensorflow-models/blazeface": "0.0.7",
+    "@tensorflow/tfjs-backend-cpu": "3.11.0",
+    "@tensorflow/tfjs-backend-wasm": "3.11.0",
+    "@tensorflow/tfjs-converter": "3.11.0",
+    "@tensorflow/tfjs-core": "3.11.0",
     "@rollup/plugin-typescript": "^8.3.1",
     "@types/dom-mediacapture-record": "^1.0.10",
     "@types/jest": "^26.0.23",
