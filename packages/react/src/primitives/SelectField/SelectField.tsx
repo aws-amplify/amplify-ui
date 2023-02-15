@@ -1,6 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
@@ -66,6 +67,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.SelectField,
         className
       )}

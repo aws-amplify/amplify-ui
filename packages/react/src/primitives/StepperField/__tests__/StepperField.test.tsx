@@ -40,6 +40,25 @@ describe('StepperField:', () => {
       expect(stepperField).toHaveAttribute('data-size', 'small');
     });
 
+    it('should render size classes for StepperField', async () => {
+      render(
+        <div>
+          <StepperField label="stepper" testId="small" size="small" />
+          <StepperField label="stepper" testId="large" size="large" />
+        </div>
+      );
+
+      const small = await screen.findByTestId('small');
+      const large = await screen.findByTestId('large');
+
+      expect(small.classList).toContain(
+        `${ComponentClassNames['Field']}--small`
+      );
+      expect(large.classList).toContain(
+        `${ComponentClassNames['Field']}--large`
+      );
+    });
+
     it('should render all flex style props', async () => {
       render(
         <StepperField

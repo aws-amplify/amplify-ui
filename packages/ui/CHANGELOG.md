@@ -1,5 +1,23 @@
 # @aws-amplify/ui
 
+## 5.5.5
+
+### Patch Changes
+
+- [#3417](https://github.com/aws-amplify/amplify-ui/pull/3417) [`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae) Thanks [@calebpollman](https://github.com/calebpollman)! - Migrate `capitalize` util to UI package
+
+- [#3400](https://github.com/aws-amplify/amplify-ui/pull/3400) [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: ts strict fixes for createTheme
+
+## 5.5.4
+
+### Patch Changes
+
+- [#3380](https://github.com/aws-amplify/amplify-ui/pull/3380) [`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(theme): better typing for breakpoints for TS strict mode
+
+- [#3335](https://github.com/aws-amplify/amplify-ui/pull/3335) [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): ts strict for style prop utils
+
+  Refactored internal functions that handle style props and `useBreakpointValue` hook to be TS strict. Should have no customer impact.
+
 ## 5.5.3
 
 ### Patch Changes

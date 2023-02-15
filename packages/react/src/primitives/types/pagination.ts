@@ -140,5 +140,5 @@ export interface PaginationItemProps
    * @description
    * Triggered every time the item is clicked.
    */
-  onClick?: (newPageIndex?: number, prevPageIndex?: number) => void;
+  onClick?: () => void;
 }

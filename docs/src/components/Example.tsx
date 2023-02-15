@@ -35,6 +35,7 @@ export function ExampleCode({ children }) {
         className="example-copy-button"
         copyText={text}
         size="small"
+        variation="link"
       />
       <div ref={ref}>{children}</div>
     </div>

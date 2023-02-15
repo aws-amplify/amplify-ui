@@ -155,6 +155,8 @@ jobs:
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # unit test doesn't need cypress
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
@@ -275,6 +277,8 @@ jobs:
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: false
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
@@ -348,8 +352,8 @@ jobs:
             packages/e2e/cypress/videos/**
             packages/e2e/cypress/screenshots/**
           retention-days: 5
+
   docs:
-    # Only run docs tests if e2e tests pass
     needs: [setup, unit]
     runs-on: ubuntu-latest
     environment: ci
@@ -370,6 +374,7 @@ jobs:
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
       - name: Restore cypress runner Cache
         uses: actions/cache@v3
         id: restore-cypress-cache
@@ -379,8 +384,22 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
+      - name: Restore node_modules cache
+        uses: actions/cache@v3
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
       - name: Install packages
-        run: yarn install
+        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: false
 
       - name: Build ui package
         run: yarn ui build

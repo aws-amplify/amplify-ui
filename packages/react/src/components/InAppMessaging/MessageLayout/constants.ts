@@ -11,10 +11,15 @@ export const TEXT_CONTAINER_CLASS = `${BLOCK_CLASS}__text-container`;
 
 // Test IDs
 export const BODY_TEXT_TEST_ID = 'inappmessaging-messagelayout-bodytext';
+export const BUTTON_GROUP_TEST_ID = 'inappmessaging-messagelayout-buttongroup';
 export const CONTENT_TEST_ID = 'inappmessaging-messagelayout-content';
 export const HEADER_TEXT_TEST_ID = 'inappmessaging-messagelayout-headertext';
 export const IMAGE_CONTAINER_TEST_ID =
   'inappmessaging-messagelayout-imagecontainer';
 export const MESSAGE_LAYOUT_TEST_ID = 'inappmessaging-messagelayout';
+export const PRIMARY_BUTTON_TEST_ID =
+  'inappmessaging-messagelayout-primarybutton';
+export const SECONDARY_BUTTON_TEST_ID =
+  'inappmessaging-messagelayout-secondarybutton';
 export const TEXT_CONTAINER_TEST_ID =
   'inappmessaging-messagelayout-textcontainer';

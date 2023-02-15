@@ -135,4 +135,13 @@ function isEmptyObject<T>(value: T): boolean {
  */
 export function areEmptyObjects<T>(...values: T[]): boolean {
   return values.every(isEmptyObject);
+  
+ *
+ * @param value capitalizes `value` and its type.
+ * @returns Capitalized `value`
+ */
+export function capitalize<T extends string>(value: T): Capitalize<T> {
+  return (
+    isString(value) ? value.charAt(0).toUpperCase() + value.slice(1) : ''
+  ) as Capitalize<T>;
 }

@@ -23,5 +23,5 @@ export interface ToggleButtonProps extends ButtonProps {
    * @description
    * Handles changes to the current value when using the ToggleButton as a controlled component
    */
-  onChange?: (value?: string) => void;
+  onChange?: (value: string) => void;
 }

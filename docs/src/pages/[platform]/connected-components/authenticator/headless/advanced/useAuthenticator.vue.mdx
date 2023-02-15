@@ -1,3 +1,14 @@
+import { Alert } from '@aws-amplify/ui-react';
+
+<Alert
+  variation="info"
+  isDismissible={false}
+  hasIcon={true}
+  heading=""
+  >
+  You must render the `<authenticator>` UI component before using the `useAuthenticator` composable. `useAuthenticator` was designed to retrieve `<authenticator>` UI specific state such as `route` and `user` and should not be used without the UI component.
+</Alert>
+
 ## useAuthenticator
 
 `@aws-amplify/ui-vue` ships with `useAuthenticator` Vue composable that can be used to access, modify, and update Authenticator's auth state. To use them, make sure the `<authenticator>` is present in the component or parent component:

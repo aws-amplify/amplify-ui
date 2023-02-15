@@ -83,6 +83,21 @@ describe('SearchField component', () => {
     expect(searchField.dataset['size']).toBe('large');
   });
 
+  it('should render size classes for SearchField', async () => {
+    render(
+      <div>
+        <SearchField label={label} size="small" testId="small" />
+        <SearchField label={label} size="large" testId="large" />
+      </div>
+    );
+
+    const small = await screen.findByTestId('small');
+    const large = await screen.findByTestId('large');
+
+    expect(small.classList).toContain(`${ComponentClassNames['Field']}--small`);
+    expect(large.classList).toContain(`${ComponentClassNames['Field']}--large`);
+  });
+
   it('should be able to set a quiet variation', () => {
     render(<SearchField label={label} name="q" variation="quiet" />);
 

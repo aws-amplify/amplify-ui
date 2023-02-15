@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { View } from 'react-native';
+import { capitalize } from '@aws-amplify/ui';
 
 import { icons } from '../../../assets';
-import { capitalize } from '../../../utils';
 import { FederatedProviderButton } from '../FederatedProviderButton';
 import { Divider } from '../../../primitives';
 
