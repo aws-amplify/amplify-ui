@@ -10,6 +10,17 @@ on:
     - cron: '*/15 * * * *' # Run every 15 minutes
 
 jobs:
+  broken_link_checker_job:
+    runs-on: ubuntu-latest
+    name: Check for broken links
+    steps:
+      - name: Check for broken links
+        id: link-report
+        uses: celinekurpershoek/link-checker@v1.0.2
+        with:
+          url: 'https://dev.ui.docs.amplify.aws/'
+      - name: Get the result
+        run: echo "${{steps.link-report.outputs.result}}"
   build:
     runs-on: ubuntu-latest
     environment: ci
