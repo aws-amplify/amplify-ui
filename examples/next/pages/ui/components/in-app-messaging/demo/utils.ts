@@ -20,7 +20,7 @@ export interface GetDemoMessageParams {
   primaryButtonAction: InAppMessageAction;
   secondaryButtonAction: InAppMessageAction;
   layout: InAppMessageLayout;
-  useAnalyticsActions: boolean;
+  useAnalyticsEvents: boolean;
 }
 
 export const ACTIONS: InAppMessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
@@ -112,8 +112,8 @@ export function useInAppDemo() {
     useState<GetDemoMessageParams['hasSecondaryButton']>(true);
   const [secondaryButtonAction, setSecondaryButtonAction] =
     useState<GetDemoMessageParams['secondaryButtonAction']>('CLOSE');
-  const [useAnalyticsActions, setUseAnalyticsActions] =
-    useState<GetDemoMessageParams['useAnalyticsActions']>(false);
+  const [useAnalyticsEvents, setUseAnalyticsEvents] =
+    useState<GetDemoMessageParams['useAnalyticsEvents']>(false);
 
   const handleAction = (
     type:
@@ -126,7 +126,7 @@ export function useInAppDemo() {
       | 'setPrimaryButtonAction'
       | 'setHasSecondaryButton'
       | 'setSecondaryButtonAction'
-      | 'setUseAnalyticsActions'
+      | 'setUseAnalyticsEvents'
   ) =>
     function handler(value) {
       switch (type) {
@@ -157,8 +157,8 @@ export function useInAppDemo() {
         case 'setSecondaryButtonAction':
           setSecondaryButtonAction(value);
           break;
-        case 'setUseAnalyticsActions':
-          setUseAnalyticsActions(value);
+        case 'setUseAnalyticsEvents':
+          setUseAnalyticsEvents(value);
           break;
         default:
           return null;
@@ -175,12 +175,12 @@ export function useInAppDemo() {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
-    useAnalyticsActions,
+    useAnalyticsEvents,
   });
 
   return {
     displayDemoMessage: () => {
-      if (useAnalyticsActions) {
+      if (useAnalyticsEvents) {
         Analytics.record({ name: layout });
         return;
       }
@@ -196,6 +196,6 @@ export function useInAppDemo() {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
-    useAnalyticsActions,
+    useAnalyticsEvents,
   };
 }
