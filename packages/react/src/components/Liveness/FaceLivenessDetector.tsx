@@ -3,8 +3,6 @@ import { useActor, useInterpret } from '@xstate/react';
 import {
   livenessMachine,
   FaceLivenessDetectorProps as FaceLivenessDetectorPropsFromUi,
-  recordLivenessAnalyticsEvent,
-  LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
 } from '@aws-amplify/ui';
 
 import { FaceLivenessDetectorProvider } from './providers';
@@ -51,12 +49,6 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   const isStartView = state.matches('start') || state.matches('userCancel');
 
   const beginLivenessCheck = React.useCallback(() => {
-    recordLivenessAnalyticsEvent(props, {
-      event: LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
-      attributes: { action: 'BeginLivenessCheck' },
-      metrics: { count: 1 },
-    });
-
     const isMobile = isMobileScreen();
 
     const videoConstraints = getVideoConstraints(
@@ -68,19 +60,13 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
       type: 'BEGIN',
       data: { videoConstraints },
     });
-  }, [send, props]);
+  }, [send]);
 
   React.useLayoutEffect(() => {
     if (disableStartScreen && isStartView) {
-      recordLivenessAnalyticsEvent(props, {
-        event: LIVENESS_EVENT_DISABLED_GET_READY_SCREEN,
-        attributes: { action: 'AttemptLiveness' },
-        metrics: { count: 1 },
-      });
-
       beginLivenessCheck();
     }
-  }, [beginLivenessCheck, disableStartScreen, props, isStartView]);
+  }, [beginLivenessCheck, disableStartScreen, isStartView]);
 
   return (
     <View

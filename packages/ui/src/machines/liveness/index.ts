@@ -21,8 +21,6 @@ import {
   getRandomLivenessOvalDetails,
   LivenessStreamProvider,
   estimateIllumination,
-  recordLivenessAnalyticsEvent,
-  LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
   isCameraDeviceVirtual,
   FreshnessColorDisplay,
 } from '../../helpers';
@@ -437,12 +435,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateFailedAttempts: assign({
         failedAttempts: (context) => {
-          recordLivenessAnalyticsEvent(context.componentProps, {
-            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-            attributes: { action: 'Timeout' },
-            metrics: { count: 1 },
-          });
-
           return context.failedAttempts + 1;
         },
       }),
@@ -513,12 +505,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       startRecording: assign({
         videoAssociatedParams: (context) => {
-          recordLivenessAnalyticsEvent(context.componentProps, {
-            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-            attributes: { action: 'AttemptLivenessCheck' },
-            metrics: { count: 1 },
-          });
-
           if (!context.serverSessionInformation) {
             throw new Error(
               'Session information was not received from response stream'
@@ -537,13 +523,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      stopRecording: (context) => {
-        recordLivenessAnalyticsEvent(context.componentProps, {
-          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'Success' },
-          metrics: { count: 1 },
-        });
-      },
+      stopRecording: (context) => {},
       updateFaceMatchBeforeStartDetails: assign({
         faceMatchStateBeforeStart: (_, event) => {
           return event.data.faceMatchState;
@@ -625,27 +605,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       updateSessionInfo: assign({
         serverSessionInformation: (context, event) => {
-          recordLivenessAnalyticsEvent(context.componentProps, {
-            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-            attributes: { action: 'receivedSessionInfoEvent' },
-            metrics: {
-              duration: Date.now() - streamConnectionOpenTimestamp,
-            },
-          });
-
           return event.data.sessionInfo;
         },
       }),
       updateShouldDisconnect: assign({
         shouldDisconnect: (context) => {
-          recordLivenessAnalyticsEvent(context.componentProps, {
-            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-            attributes: { action: 'receivedDisconnectEvent' },
-            metrics: {
-              duration: Date.now() - streamConnectionOpenTimestamp,
-            },
-          });
-
           return true;
         },
       }),
@@ -729,12 +693,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       // callbacks
       callUserPermissionDeniedCallback: assign({
         errorState: (context, event) => {
-          recordLivenessAnalyticsEvent(context.componentProps, {
-            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-            attributes: { action: 'PermissionDenied' },
-            metrics: { count: 1 },
-          });
-
           context.componentProps.onUserPermissionDenied?.(
             new Error(event.data.message)
           );
@@ -755,11 +713,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps.onUserCancel?.();
       },
       callUserTimeoutCallback: async (context) => {
-        recordLivenessAnalyticsEvent(context.componentProps, {
-          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'FailedWithTimeout' },
-          metrics: { count: 1 },
-        });
         const error = new Error(
           LivenessErrorStateStringMap[context.errorState]
         );
@@ -833,16 +786,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           faceMatchState === FaceMatchState.MATCHED &&
           timeSinceInitialFaceMatch >= MIN_FACE_MATCH_TIME;
 
-        if (hasMatched) {
-          recordLivenessAnalyticsEvent(context.componentProps, {
-            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-            attributes: { action: 'FaceMatched' },
-            metrics: {
-              duration: Date.now() - ovalDrawnTimestamp,
-            },
-          });
-        }
-
         return hasMatched;
       },
       hasFaceMatchedInOval: (context) => {
@@ -912,11 +855,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .filter((device) => !isCameraDeviceVirtual(device));
 
         if (!realVideoDevices.length) {
-          recordLivenessAnalyticsEvent(context.componentProps, {
-            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-            attributes: { action: 'NoRealDeviceFound' },
-            metrics: { count: 1 },
-          });
           throw new Error('No real video devices found');
         }
 
@@ -929,11 +867,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           });
 
         if (tracksWithMoreThan15Fps.length < 1) {
-          recordLivenessAnalyticsEvent(context.componentProps, {
-            event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-            attributes: { action: 'NoDeviceWithSufficientFrameRate' },
-            metrics: { count: 1 },
-          });
           throw new Error('No camera found with more than 15 fps');
         }
 
@@ -964,13 +897,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         );
 
         streamConnectionOpenTimestamp = Date.now();
-        recordLivenessAnalyticsEvent(context.componentProps, {
-          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'openLivenessStreamConnection' },
-          metrics: {
-            count: 1,
-          },
-        });
 
         responseStream = livenessStreamProvider.getResponseStream();
         return { livenessStreamProvider };
@@ -1048,12 +974,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         switch (detectedFaces.length) {
           case 0: {
             // no face detected;
-            recordLivenessAnalyticsEvent(context.componentProps, {
-              event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-              attributes: { action: 'NoFaceDetected' },
-              metrics: { count: 1 },
-            });
-
             faceMatchState = FaceMatchState.CANT_IDENTIFY;
             illuminationState = estimateIllumination(videoEl);
             break;
@@ -1061,14 +981,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           case 1: {
             //exactly one face detected;
             faceDetectedTimestamp = Date.now();
-            recordLivenessAnalyticsEvent(context.componentProps, {
-              event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-              attributes: { action: 'FaceDetected' },
-              metrics: {
-                duration: faceDetectedTimestamp - startDetectTime,
-              },
-            });
-
             faceMatchState = FaceMatchState.FACE_IDENTIFIED;
             initialFace = detectedFaces[0];
             break;
@@ -1097,13 +1009,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         canvasEl.height = height;
         drawLivenessOvalInCanvas(canvasEl, ovalDetails);
         ovalDrawnTimestamp = Date.now();
-        recordLivenessAnalyticsEvent(context.componentProps, {
-          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'RenderOval' },
-          metrics: {
-            duration: ovalDrawnTimestamp - faceDetectedTimestamp,
-          },
-        });
 
         // Send client info for initial face position
         const flippedInitialFaceLeft =
@@ -1247,13 +1152,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         await livenessStreamProvider.stopVideo();
 
         const endStreamLivenessVideoTime = Date.now();
-        recordLivenessAnalyticsEvent(context.componentProps, {
-          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'streamLivenessVideoEnd' },
-          metrics: {
-            duration: endStreamLivenessVideoTime - recordingStartTimestampMs,
-          },
-        });
       },
       async getLiveness(context) {
         const {
@@ -1265,13 +1163,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // Get liveness result
         const { isLive } = await onGetLivenessDetection(sessionId);
-        recordLivenessAnalyticsEvent(context.componentProps, {
-          event: LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-          attributes: { action: 'getLivenessDetection' },
-          metrics: {
-            duration: Date.now(),
-          },
-        });
 
         return { isLive };
       },

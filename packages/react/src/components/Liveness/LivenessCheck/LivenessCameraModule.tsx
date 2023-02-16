@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import { LIVENESS_EVENT_LIVENESS_CHECK_SCREEN } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import {
@@ -148,7 +147,7 @@ export const LivenessCameraModule = (
 
       {!isCheckSucceeded && (
         <View className={LivenessClassNames.CameraModuleCancelButtonContainer}>
-          <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
+          <CancelButton />
         </View>
       )}
 

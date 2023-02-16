@@ -1,9 +1,5 @@
 import * as React from 'react';
-import {
-  translate,
-  LIVENESS_EVENT_LIVENESS_CHECK_SCREEN,
-  LivenessErrorState,
-} from '@aws-amplify/ui';
+import { translate, LivenessErrorState } from '@aws-amplify/ui';
 
 import { LivenessCameraModule } from './LivenessCameraModule';
 import {
@@ -111,7 +107,7 @@ export const LivenessCheck: React.FC = () => {
             {translate('Retry')}
           </Button>
           <View position="absolute" top="medium" right="medium">
-            <CancelButton sourceScreen={LIVENESS_EVENT_LIVENESS_CHECK_SCREEN} />
+            <CancelButton />
           </View>
         </Flex>
       );

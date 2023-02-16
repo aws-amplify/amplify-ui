@@ -42,15 +42,6 @@ export interface FaceLivenessDetectorProps {
   onFailure?: () => void;
 
   /**
-   * Enable analytical events for the flow via Amplify Analytics
-   * NOTE: The Amplify Analytics category needs to be configured for this to work
-   * read more here: https://docs.amplify.aws/lib/analytics/getting-started/q/platform/js/
-   *
-   * @default false
-   */
-  enableAnalytics?: boolean;
-
-  /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
    */
   disableStartScreen?: boolean;

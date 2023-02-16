@@ -1,30 +1,18 @@
 import * as React from 'react';
-import { translate, recordLivenessAnalyticsEvent } from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 import { useLivenessActor } from '../hooks';
-import { useFaceLivenessDetector } from '../providers';
 import { Button } from '../../../primitives';
 import { IconClose } from '../../../primitives/Icon/icons';
 import { LivenessClassNames } from '../types/classNames';
 
-export interface CancelButtonProps {
-  sourceScreen: string;
-}
+export interface CancelButtonProps {}
 
-export const CancelButton: React.FC<CancelButtonProps> = (props) => {
-  const { sourceScreen } = props;
-
-  const { componentProps } = useFaceLivenessDetector();
+export const CancelButton: React.FC<CancelButtonProps> = () => {
   const [state, send] = useLivenessActor();
   const isFinalState = state.done;
 
   const handleClick = () => {
-    recordLivenessAnalyticsEvent(componentProps, {
-      event: sourceScreen,
-      attributes: { action: 'Cancelled' },
-      metrics: { count: 1 },
-    });
-
     send({
       type: 'CANCEL',
     });

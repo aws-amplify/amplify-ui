@@ -28,7 +28,7 @@ describe('CancelButton', () => {
   });
 
   it('should render the component content appropriately', () => {
-    renderWithLivenessProvider(<CancelButton sourceScreen="screen" />);
+    renderWithLivenessProvider(<CancelButton />);
 
     expect(
       screen.getByRole('button', { name: cancelBtnName })
@@ -36,13 +36,13 @@ describe('CancelButton', () => {
   });
 
   it('should render the component content appropriately on mobile', () => {
-    renderWithLivenessProvider(<CancelButton sourceScreen="screen" />);
+    renderWithLivenessProvider(<CancelButton />);
 
     expect(screen.getByTestId('close-icon')).toBeInTheDocument();
   });
 
   it('should call the send method on cancel', () => {
-    renderWithLivenessProvider(<CancelButton sourceScreen="screen" />);
+    renderWithLivenessProvider(<CancelButton />);
 
     userEvent.click(screen.getByRole('button', { name: cancelBtnName }));
 

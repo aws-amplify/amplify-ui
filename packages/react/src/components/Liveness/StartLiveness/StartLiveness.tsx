@@ -1,11 +1,6 @@
 import * as React from 'react';
-import {
-  translate,
-  recordLivenessAnalyticsEvent,
-  LIVENESS_EVENT_GET_READY_SCREEN,
-} from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
-import { useFaceLivenessDetector } from '../providers';
 import { Flex, Button, Card } from '../../../primitives';
 import {
   defaultComponents,
@@ -24,27 +19,6 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
   const components = { ...defaultComponents, ...customComponents };
   const { LivenessHeader, PhotosensitiveWarning, LivenessInstructions } =
     components;
-
-  const { componentProps } = useFaceLivenessDetector();
-
-  React.useEffect(() => {
-    recordLivenessAnalyticsEvent(componentProps, {
-      event: LIVENESS_EVENT_GET_READY_SCREEN,
-      attributes: { action: 'AttemptLiveness' },
-      metrics: { count: 1 },
-    });
-    const pageLoadTime = Date.now();
-
-    return () => {
-      recordLivenessAnalyticsEvent(componentProps, {
-        event: LIVENESS_EVENT_GET_READY_SCREEN,
-        attributes: { action: 'TimeSpent' },
-        metrics: {
-          duration: Date.now() - pageLoadTime,
-        },
-      });
-    };
-  }, [componentProps]);
 
   return (
     <Card

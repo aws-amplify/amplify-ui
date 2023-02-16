@@ -72,7 +72,6 @@ export default function LivenessDefault({
                 onFailure={() => {
                   setCheckFailed(true);
                 }}
-                enableAnalytics={true}
                 disableStartScreen={disableStartScreen}
                 components={components}
               />
