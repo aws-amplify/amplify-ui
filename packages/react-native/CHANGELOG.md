@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.8
+
+### Patch Changes
+
+- [#3417](https://github.com/aws-amplify/amplify-ui/pull/3417) [`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae) Thanks [@calebpollman](https://github.com/calebpollman)! - Migrate `capitalize` util to UI package
+
+- Updated dependencies [[`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae), [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8)]:
+  - @aws-amplify/ui@5.5.5
+  - @aws-amplify/ui-react-core@2.1.13
+
 ## 1.2.7
 
 ### Patch Changes

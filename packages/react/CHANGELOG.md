@@ -1,5 +1,19 @@
 # @aws-amplify/ui-react
 
+## 4.3.8
+
+### Patch Changes
+
+- [#3422](https://github.com/aws-amplify/amplify-ui/pull/3422) [`3f787d41f`](https://github.com/aws-amplify/amplify-ui/commit/3f787d41f07455c74a56b8400341b93765719b77) Thanks [@reesscot](https://github.com/reesscot)! - chore: bump maplibre-gl-js-amplify to 3.0.2
+
+  Fixes [yarn installation warnings](https://github.com/aws-amplify/amplify-ui/issues/3393) regarding peer dependencies of `maplibre-gl-js-amplify` and [Infinite error loop after sign out when using maps](https://github.com/aws-amplify/amplify-ui/issues/3367).
+
+- [#3395](https://github.com/aws-amplify/amplify-ui/pull/3395) [`9e50d1225`](https://github.com/aws-amplify/amplify-ui/commit/9e50d12257794645315e7446974c4da2ae3fd0b7) Thanks [@ErikCH](https://github.com/ErikCH)! - Moved edit icon in between file name and size.
+
+- Updated dependencies [[`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae), [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8)]:
+  - @aws-amplify/ui@5.5.5
+  - @aws-amplify/ui-react-core@2.1.13
+
 ## 4.3.7
 
 ### Patch Changes
