@@ -12,6 +12,7 @@ export class VideoRecorder {
   public videoStream: ReadableStream<Blob | string>;
   public recordingStartApiTimestamp: number | undefined;
   public recorderStartTimestamp: number | undefined;
+  public recorderEndTimestamp: number | undefined;
   public firstChunkTimestamp: number | undefined;
 
   private _recorder: MediaRecorder;
@@ -75,7 +76,8 @@ export class VideoRecorder {
           });
 
           this._recorder.onstop = () => {
-            console.log(`videoStopTime: ${Date.now()}`);
+            this.recorderEndTimestamp = Date.now();
+            console.log(`videoStopTime: ${this.recorderEndTimestamp}`);
             resolve();
           };
         },

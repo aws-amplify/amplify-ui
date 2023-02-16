@@ -195,7 +195,7 @@ describe('Liveness Machine', () => {
     mockedHelpers.estimateIllumination.mockImplementation(
       () => IlluminationState.NORMAL
     );
-    mockedHelpers.getRandomLivenessOvalDetails.mockImplementation(
+    mockedHelpers.getOvalDetailsFromSessionInformation.mockImplementation(
       () => mockOvalDetails
     );
     mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(

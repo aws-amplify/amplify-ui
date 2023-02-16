@@ -96,6 +96,7 @@ describe('LivenessStreamProvider', () => {
       },
     ],
   } as MediaStream;
+  const mockVideoEl = document.createElement('video');
 
   beforeEach(() => {
     (VideoRecorder as jest.Mock).mockImplementation(() => mockVideoRecorder);
@@ -115,7 +116,8 @@ describe('LivenessStreamProvider', () => {
     test('happy case', () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
-        mockVideoMediaStream
+        mockVideoMediaStream,
+        mockVideoEl
       );
     });
   });
@@ -124,7 +126,8 @@ describe('LivenessStreamProvider', () => {
     test('happy case', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
-        mockVideoMediaStream
+        mockVideoMediaStream,
+        mockVideoEl
       );
       expect(await provider.getResponseStream()).toBeDefined();
     });
@@ -134,7 +137,8 @@ describe('LivenessStreamProvider', () => {
     test('happy case', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
-        mockVideoMediaStream
+        mockVideoMediaStream,
+        mockVideoEl
       );
       await provider.startRecordingLivenessVideo();
       expect(mockVideoRecorder.start).toHaveBeenCalledTimes(1);
@@ -145,7 +149,8 @@ describe('LivenessStreamProvider', () => {
     test('yield video chunk events', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
-        mockVideoMediaStream
+        mockVideoMediaStream,
+        mockVideoEl
       );
       const requestStream = (
         provider as any
@@ -160,7 +165,8 @@ describe('LivenessStreamProvider', () => {
     test('does not yield empty video chunks', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
-        mockVideoMediaStream
+        mockVideoMediaStream,
+        mockVideoEl
       );
       const requestStream = (
         provider as any
@@ -179,7 +185,8 @@ describe('LivenessStreamProvider', () => {
     test('happy case', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
-        mockVideoMediaStream
+        mockVideoMediaStream,
+        mockVideoEl
       );
       await provider.sendClientInfo(mockClientSessionInformationEvent);
 
@@ -191,7 +198,8 @@ describe('LivenessStreamProvider', () => {
     test('should stop sending video events and then dispatch an empty video chunk', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
-        mockVideoMediaStream
+        mockVideoMediaStream,
+        mockVideoEl
       );
       const response = await provider.stopVideo();
 
@@ -205,7 +213,8 @@ describe('LivenessStreamProvider', () => {
     test('should stop video and end the stream and return a promise if cancelled successfully', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
-        mockVideoMediaStream
+        mockVideoMediaStream,
+        mockVideoEl
       );
       const response = await provider.endStream();
 

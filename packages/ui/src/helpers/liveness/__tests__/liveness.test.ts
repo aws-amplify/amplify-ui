@@ -1,6 +1,5 @@
 import {
-  getRandomScalingAttributes,
-  getRandomLivenessOvalDetails,
+  getOvalDetailsFromSessionInformation,
   getFaceMatchStateInLivenessOval,
   isCameraDeviceVirtual,
 } from '../liveness';
@@ -8,69 +7,16 @@ import { Face, FaceMatchState, LivenessOvalDetails } from '../../../types';
 import { mockSessionInformation } from '../liveness-test-helpers';
 
 describe('Liveness Helper', () => {
-  describe('getRandomScalingAttributes', () => {
-    it('should parse sessionInformation and return oval scaling attributes', () => {
-      const randomScalingAttributes = getRandomScalingAttributes(
-        mockSessionInformation
-      );
-
-      expect(randomScalingAttributes.centerX).toBe(2);
-      expect(randomScalingAttributes.centerY).toBe(3);
-      expect(randomScalingAttributes.width).toBe(1);
-    });
-  });
-
-  describe('getRandomLivenessOvalDetails', () => {
-    const initialFace: Face = {
-      height: 163.01509,
-      width: 217.36107,
-      top: 185.12999,
-      left: 256.78488,
-      timestampMs: Date.now(),
-      rightEye: [200, 200],
-      leftEye: [200, 200],
-      mouth: [200, 200],
-      nose: [200, 200],
-    };
-
-    it('should return the correct oval details in landscape', () => {
-      const width = 640;
-      const height = 480;
-
-      const expectedOvalDetails: LivenessOvalDetails = {
-        height: 535,
-        width: 331,
-        centerX: 440,
-        centerY: 390,
-      };
-
-      const actualOvalDetails = getRandomLivenessOvalDetails({
-        width,
-        height,
+  describe('getOvalDetailsFromSessionInformation', () => {
+    it('should parse sessionInformation and return oval parameter attributes', () => {
+      const ovalParameters = getOvalDetailsFromSessionInformation({
         sessionInformation: mockSessionInformation,
       });
 
-      expect(actualOvalDetails).toEqual(expectedOvalDetails);
-    });
-
-    it('should return the correct oval details in portrait', () => {
-      const width = 480;
-      const height = 640;
-
-      const expectedOvalDetails: LivenessOvalDetails = {
-        height: 714,
-        width: 441,
-        centerX: 330,
-        centerY: 520,
-      };
-
-      const actualOvalDetails = getRandomLivenessOvalDetails({
-        width,
-        height,
-        sessionInformation: mockSessionInformation,
-      });
-
-      expect(actualOvalDetails).toEqual(expectedOvalDetails);
+      expect(ovalParameters.centerX).toBe(3);
+      expect(ovalParameters.centerY).toBe(4);
+      expect(ovalParameters.width).toBe(1);
+      expect(ovalParameters.height).toBe(2);
     });
   });
 

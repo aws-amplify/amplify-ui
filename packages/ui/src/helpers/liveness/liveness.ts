@@ -57,66 +57,24 @@ function getIntersectionOverUnion(
 }
 
 /**
- * Accepts sessionInformation as string and returns the 3 attributes
- * width: number;
- * centerX: number;
- * centerY: number;
- */
-export function getRandomScalingAttributesStr(sessionInformationStr: string) {
-  const sessionInfo = JSON.parse(sessionInformationStr);
-  const ovalScaleFactors =
-    sessionInfo.challenge.faceMovementAndLightChallenge.ovalScaleFactors;
-
-  return {
-    centerX: ovalScaleFactors.centerX,
-    centerY: ovalScaleFactors.centerY,
-    width: ovalScaleFactors.width,
-  };
-}
-
-/**
- * Accepts sessionInformation and returns the 3 attributes
- * width: number;
- * centerX: number;
- * centerY: number;
- */
-export function getRandomScalingAttributes(
-  sessionInformation: SessionInformation
-) {
-  const ovalScaleFactors =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.OvalScaleFactors;
-
-  return {
-    centerX: ovalScaleFactors?.CenterX,
-    centerY: ovalScaleFactors?.CenterY,
-    width: ovalScaleFactors?.Width,
-  };
-}
-
-/**
  * Returns the details of a randomly generated liveness oval
- * based on the video dimensions, initial face and the provided seed.
+ * from SDK
  */
-export function getRandomLivenessOvalDetails({
-  width,
-  height,
+export function getOvalDetailsFromSessionInformation({
   sessionInformation,
 }: {
-  width: number;
-  height: number;
   sessionInformation: SessionInformation;
 }): LivenessOvalDetails {
-  const randomScalingAttributes =
-    getRandomScalingAttributes(sessionInformation);
+  const ovalParameters =
+    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
+      ?.OvalParameters;
 
-  return getStaticLivenessOvalDetails({
-    width,
-    height,
-    widthSeed: 1.15,
-    centerXSeed: randomScalingAttributes.centerX,
-    centerYSeed: randomScalingAttributes.centerY,
-  });
+  return {
+    centerX: ovalParameters?.CenterX,
+    centerY: ovalParameters?.CenterY,
+    width: ovalParameters?.Width,
+    height: ovalParameters?.Height,
+  };
 }
 
 /**

@@ -38,13 +38,19 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
 
   private _reader: ReadableStreamDefaultReader;
   private _stream: MediaStream;
+  private videoEl: HTMLVideoElement;
   private _client: RekognitionStreamingClient;
   private initPromise: Promise<void>;
 
-  constructor(sessionId: string, stream: MediaStream) {
+  constructor(
+    sessionId: string,
+    stream: MediaStream,
+    videoEl: HTMLVideoElement
+  ) {
     super();
     this.sessionId = sessionId;
     this._stream = stream;
+    this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
     this.initPromise = this.init();
   }
@@ -127,6 +133,8 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         ClientSDKVersion: '1.0.0',
         SessionId: this.sessionId,
         LivenessRequestStream: livenessRequestGenerator,
+        VideoWidth: this.videoEl.videoWidth.toString(),
+        VideoHeight: this.videoEl.videoHeight.toString(),
       })
     );
     return response.LivenessResponseStream;

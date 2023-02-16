@@ -207,6 +207,12 @@ export const mockSessionInformation: SessionInformation = {
         CenterX: 2,
         CenterY: 3,
       },
+      OvalParameters: {
+        Width: 1,
+        Height: 2,
+        CenterX: 3,
+        CenterY: 4,
+      },
       LightChallengeType: 'SEQUENTIAL',
       ColorSequences: MOCK_COLOR_SEQUENCES,
     },

@@ -18,7 +18,7 @@ import {
   BlazeFaceFaceDetection,
   drawLivenessOvalInCanvas,
   getFaceMatchStateInLivenessOval,
-  getRandomLivenessOvalDetails,
+  getOvalDetailsFromSessionInformation,
   LivenessStreamProvider,
   estimateIllumination,
   isCameraDeviceVirtual,
@@ -893,7 +893,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async openLivenessStreamConnection(context) {
         const livenessStreamProvider = new LivenessStreamProvider(
           context.componentProps.sessionId,
-          context.videoAssociatedParams.videoMediaStream
+          context.videoAssociatedParams.videoMediaStream,
+          context.videoAssociatedParams.videoEl
         );
 
         streamConnectionOpenTimestamp = Date.now();
@@ -998,9 +999,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // generate oval details from initialFace and video dimensions
         const { width, height } = videoMediaStream.getTracks()[0].getSettings();
-        const ovalDetails = getRandomLivenessOvalDetails({
-          width,
-          height,
+        const ovalDetails = getOvalDetailsFromSessionInformation({
           sessionInformation: serverSessionInformation,
         });
 
@@ -1110,6 +1109,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
+
         const livenessActionDocument: ClientSessionInformationEvent = {
           DeviceInformation: {
             ClientSDKVersion: '1.0.0',
@@ -1143,13 +1143,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   left: ovalDetails.centerX - ovalDetails.width / 2,
                 }),
               },
+              VideoEndTimestamp: undefined,
             },
           },
         };
 
         livenessStreamProvider.sendClientInfo(livenessActionDocument);
 
-        await livenessStreamProvider.stopVideo();
+        livenessStreamProvider.stopVideo();
 
         const endStreamLivenessVideoTime = Date.now();
       },
