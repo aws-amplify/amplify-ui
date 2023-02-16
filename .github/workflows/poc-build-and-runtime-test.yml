@@ -5,9 +5,7 @@
 
 name: PoC / Build and Runtime Test
 
-on:
-  schedule:
-    - cron: '*/15 * * * *' # Run every 15 minutes
+on: pull_request
 
 jobs:
   broken_link_checker_job:
