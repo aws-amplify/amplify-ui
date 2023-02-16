@@ -4,7 +4,6 @@ import { Amplify } from 'aws-amplify';
 
 import {
   Alert,
-  Authenticator,
   Button,
   Card,
   Flex,
