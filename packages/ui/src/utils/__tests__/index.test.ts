@@ -2,9 +2,12 @@ import {
   areEmptyArrays,
   areEmptyObjects,
   capitalize,
+  has,
   isEmpty,
+  isMap,
   isNil,
   isObject,
+  isSet,
   isString,
   isUndefined,
 } from '..';
@@ -76,6 +79,42 @@ describe('isString', () => {
     expect(isString(true)).toStrictEqual(false);
     expect(isString(0)).toStrictEqual(false);
     expect(isString([1, 2, 3])).toStrictEqual(false);
+  });
+});
+
+describe('isSet', () => {
+  it('should return `true` for sets', () => {
+    expect(isSet(new Set())).toStrictEqual(true);
+  });
+
+  it('should return `false` for non-sets', () => {
+    expect(isSet('')).toStrictEqual(false);
+    expect(isSet(null)).toStrictEqual(false);
+    expect(isSet(undefined)).toStrictEqual(false);
+    expect(isSet(true)).toStrictEqual(false);
+    expect(isSet(0)).toStrictEqual(false);
+    expect(isSet([1, 2, 3])).toStrictEqual(false);
+    expect(isSet(new WeakSet())).toStrictEqual(false);
+    expect(isSet(new Map())).toStrictEqual(false);
+    expect(isSet(new Array())).toStrictEqual(false);
+  });
+});
+
+describe('isMap', () => {
+  it('should return `true` for maps', () => {
+    expect(isMap(new Map())).toStrictEqual(true);
+  });
+
+  it('should return `false` for non-maps', () => {
+    expect(isMap('')).toStrictEqual(false);
+    expect(isMap(null)).toStrictEqual(false);
+    expect(isMap(undefined)).toStrictEqual(false);
+    expect(isMap(true)).toStrictEqual(false);
+    expect(isMap(0)).toStrictEqual(false);
+    expect(isMap([1, 2, 3])).toStrictEqual(false);
+    expect(isMap(new WeakMap())).toStrictEqual(false);
+    expect(isMap(new Set())).toStrictEqual(false);
+    expect(isMap(new Array())).toStrictEqual(false);
   });
 });
 
@@ -181,5 +220,20 @@ describe('areEmptyObjects', () => {
     const output = areEmptyObjects(...input);
 
     expect(output).toBe(expected);
+  });
+});
+
+describe('has', () => {
+  it('should return `true` for objects that have the specified key', function () {
+    expect(has({ a: 1 }, 'a')).toStrictEqual(true);
+  });
+
+  it('should return `false` for objects that do not have the specified key', function () {
+    expect(has({ a: 1 }, 'b')).toStrictEqual(false);
+  });
+
+  it('should return `false` for nullish objects', function () {
+    expect(has(null, 'a')).toStrictEqual(false);
+    expect(has(undefined, 'a')).toStrictEqual(false);
   });
 });

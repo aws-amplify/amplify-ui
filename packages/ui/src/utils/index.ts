@@ -3,13 +3,10 @@
  * The ultimate goal is have replacement implementation to remove the entire dependency
  */
 export { default as isEqual } from 'lodash/isEqual.js';
-export { default as isEmpty } from 'lodash/isEmpty.js';
 export { default as debounce } from 'lodash/debounce.js';
-export { default as isNil } from 'lodash/isNil.js';
 export { default as includes } from 'lodash/includes.js';
 export { default as get } from 'lodash/get.js';
 export { default as pickBy } from 'lodash/pickBy.js';
-export { default as has } from 'lodash/has.js';
 export { default as kebabCase } from 'lodash/kebabCase.js';
 export { default as merge } from 'lodash/merge.js';
 
@@ -51,6 +48,30 @@ export function isString(value: unknown): value is string {
 }
 
 /**
+ * Checks if `value` is a Map
+ *
+ * @param {unknown} value The value to check
+ * @returns {boolean} Returns `true` if `value` is a Map, `false` otherwise
+ */
+export function isMap(value: unknown): value is Map<unknown, unknown> {
+  return (
+    isObject(value) && Object.prototype.toString.call(value) === '[object Map]'
+  );
+}
+
+/**
+ * Checks if `value` is a Set
+ *
+ * @param {unknown} value The value to check
+ * @returns {boolean} Returns `true` if `value` is a Set, `false` otherwise
+ */
+export function isSet<T>(value: unknown): value is Set<T> {
+  return (
+    isObject(value) && Object.prototype.toString.call(value) === '[object Set]'
+  );
+}
+
+/**
  * Checks if `value` is undefined
  *
  * @param {unknown} value The value to check
@@ -79,18 +100,14 @@ export function isNil(value: unknown): value is null | undefined {
 export function isEmpty<T>(value: T): boolean {
   if (value === null || value === undefined) return true;
 
-  const tag = Object.prototype.toString.call(value);
-  if (
-    typeof value === 'object' &&
-    (tag === '[object Map]' || tag === '[object Set]')
-  ) {
-    return !(value as any).size;
+  if (isObject(value) && (isMap(value) || isSet(value))) {
+    return !value.size;
   }
-  if (typeof value === 'object' && (tag === 'string' || Array.isArray(value))) {
-    return !(value as any).length;
+  if (isObject(value) && (isString(value) || Array.isArray(value))) {
+    return !value.length;
   }
   for (const key in value) {
-    if (Object.prototype.hasOwnProperty.call(value, key)) {
+    if (has(value, key)) {
       return false;
     }
   }
@@ -108,10 +125,10 @@ function isEmptyArray<T>(value: T): boolean {
 }
 
 /**
- * Checks if `value` is a collection of empty arrays
+ * Checks if all members of the `values` param are empty arrays
  *
- * @param {unknown} value The value to check
- * @returns {boolean} Returns `true` if `value` is empty, `false` otherwise
+ * @param {unknown} value The values to check
+ * @returns {boolean} Returns `true` if all members of `values` are empty, `false` otherwise
  */
 export function areEmptyArrays<T>(...values: T[]): boolean {
   return values.every(isEmptyArray);
@@ -128,15 +145,16 @@ function isEmptyObject<T>(value: T): boolean {
 }
 
 /**
- * Checks if `value` is a collection of empty objects
+ * Checks if all members of the `values` param are empty objects
  *
- * @param {unknown} value The value to check
- * @returns {boolean} Returns `true` if `value` is empty, `false` otherwise
+ * @param {unknown} value The values to check
+ * @returns {boolean} Returns `true` if all members of the `values` param are empty, `false` otherwise
  */
 export function areEmptyObjects<T>(...values: T[]): boolean {
   return values.every(isEmptyObject);
-  
- *
+}
+
+/*
  * @param value capitalizes `value` and its type.
  * @returns Capitalized `value`
  */
@@ -144,4 +162,11 @@ export function capitalize<T extends string>(value: T): Capitalize<T> {
   return (
     isString(value) ? value.charAt(0).toUpperCase() + value.slice(1) : ''
   ) as Capitalize<T>;
+}
+
+/*
+ * Checks if `key` is a direct property of `object`.
+ */
+export function has(object: unknown, key: string): boolean {
+  return object != null && Object.prototype.hasOwnProperty.call(object, key);
 }

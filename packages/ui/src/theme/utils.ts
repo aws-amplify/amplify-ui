@@ -62,9 +62,7 @@ export function cssNameTransform({ path = [] }: NameTransformProps): string {
  * @returns boolean
  */
 export function isDesignToken(value: unknown): value is WebDesignToken {
-  return (
-    isObject(value) && Object.prototype.hasOwnProperty.call(value, 'value')
-  );
+  return isObject(value) && has(value, 'value');
 }
 
 export function isShadowTokenObject(
@@ -98,14 +96,14 @@ export function setupTokens({
   path = [],
   setupToken,
 }: SetupTokensProps): any {
-  if (Object.prototype.hasOwnProperty.call(tokens, 'value')) {
+  if (has(tokens, 'value')) {
     return setupToken({ token: tokens as BaseDesignToken, path });
   }
 
   const output: Record<string, any> = {};
 
   for (const name in tokens) {
-    if (Object.prototype.hasOwnProperty.call(tokens, name)) {
+    if (has(tokens, name)) {
       const value = tokens[name];
       const nextTokens = isObject(value) ? value : { value };
 
