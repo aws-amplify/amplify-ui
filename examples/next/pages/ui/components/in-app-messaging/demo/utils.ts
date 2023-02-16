@@ -20,7 +20,7 @@ export interface GetDemoMessageParams {
   primaryButtonAction: InAppMessageAction;
   secondaryButtonAction: InAppMessageAction;
   layout: InAppMessageLayout;
-  useAnalyticsEvents: boolean;
+  useAnalyticEvents: boolean;
 }
 
 export const ACTIONS: InAppMessageAction[] = ['CLOSE', 'DEEP_LINK', 'LINK'];
@@ -112,8 +112,8 @@ export function useInAppDemo() {
     useState<GetDemoMessageParams['hasSecondaryButton']>(true);
   const [secondaryButtonAction, setSecondaryButtonAction] =
     useState<GetDemoMessageParams['secondaryButtonAction']>('CLOSE');
-  const [useAnalyticsEvents, setUseAnalyticsEvents] =
-    useState<GetDemoMessageParams['useAnalyticsEvents']>(false);
+  const [useAnalyticEvents, setUseAnalyticEvents] =
+    useState<GetDemoMessageParams['useAnalyticEvents']>(false);
 
   const handleAction = (
     type:
@@ -126,7 +126,7 @@ export function useInAppDemo() {
       | 'setPrimaryButtonAction'
       | 'setHasSecondaryButton'
       | 'setSecondaryButtonAction'
-      | 'setUseAnalyticsEvents'
+      | 'setUseAnalyticEvents'
   ) =>
     function handler(value) {
       switch (type) {
@@ -157,8 +157,8 @@ export function useInAppDemo() {
         case 'setSecondaryButtonAction':
           setSecondaryButtonAction(value);
           break;
-        case 'setUseAnalyticsEvents':
-          setUseAnalyticsEvents(value);
+        case 'setUseAnalyticEvents':
+          setUseAnalyticEvents(value);
           break;
         default:
           return null;
@@ -175,12 +175,12 @@ export function useInAppDemo() {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
-    useAnalyticsEvents,
+    useAnalyticEvents,
   });
 
   return {
     displayDemoMessage: () => {
-      if (useAnalyticsEvents) {
+      if (useAnalyticEvents) {
         Analytics.record({ name: layout });
         return;
       }
@@ -196,6 +196,6 @@ export function useInAppDemo() {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
-    useAnalyticsEvents,
+    useAnalyticEvents,
   };
 }

@@ -76,7 +76,7 @@ function Content({ colorMode, setColorMode }) {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
-    useAnalyticsEvents,
+    useAnalyticEvents,
   } = useInAppDemo();
 
   return (
@@ -107,9 +107,9 @@ function Content({ colorMode, setColorMode }) {
         >
           <View marginLeft="small" marginRight="small">
             <DemoCheckbox
-              checked={useAnalyticsEvents}
-              label="Use Analytics actions"
-              onChange={handleAction('setUseAnalyticsEvents')}
+              checked={useAnalyticEvents}
+              label="Use Analytic events"
+              onChange={handleAction('setUseAnalyticEvents')}
             />
             <DemoDivider />
             <DemoRadioGroup
@@ -120,29 +120,29 @@ function Content({ colorMode, setColorMode }) {
             />
             <DemoDivider />
             <DemoCheckbox
-              isDisabled={useAnalyticsEvents}
-              checked={!useAnalyticsEvents && hasHeader}
+              isDisabled={useAnalyticEvents}
+              checked={!useAnalyticEvents && hasHeader}
               label="Has Header"
               onChange={handleAction('setHasHeader')}
             />
             <DemoDivider />
             <DemoCheckbox
-              isDisabled={useAnalyticsEvents}
-              checked={!useAnalyticsEvents && hasMessage}
+              isDisabled={useAnalyticEvents}
+              checked={!useAnalyticEvents && hasMessage}
               label="Has Message"
               onChange={handleAction('setHasMessage')}
             />
             <DemoDivider />
             <DemoCheckbox
-              isDisabled={useAnalyticsEvents}
-              checked={!useAnalyticsEvents && hasImage}
+              isDisabled={useAnalyticEvents}
+              checked={!useAnalyticEvents && hasImage}
               label="Has Image"
               onChange={handleAction('setHasImage')}
             />
             <DemoDivider />
             <DemoRadioGroup
               data={ORIENTATIONS}
-              isDisabled={useAnalyticsEvents || !hasImage}
+              isDisabled={useAnalyticEvents || !hasImage}
               label="Image Orientation"
               onChange={handleAction('setImageOrientation')}
               value={imageOrientation}
@@ -150,23 +150,23 @@ function Content({ colorMode, setColorMode }) {
           </View>
           <View marginLeft="small" marginRight="small">
             <DemoCheckbox
-              checked={!useAnalyticsEvents && hasPrimaryButton}
+              checked={!useAnalyticEvents && hasPrimaryButton}
               label="Has Primary Button"
-              isDisabled={useAnalyticsEvents}
+              isDisabled={useAnalyticEvents}
               onChange={handleAction('setHasPrimaryButton')}
             />
             <DemoDivider />
             <DemoRadioGroup
               data={ACTIONS}
-              isDisabled={useAnalyticsEvents || !hasPrimaryButton}
+              isDisabled={useAnalyticEvents || !hasPrimaryButton}
               label="Primary Button Action"
               onChange={handleAction('setPrimaryButtonAction')}
               value={primaryButtonAction}
             />
             <DemoDivider />
             <DemoCheckbox
-              checked={!useAnalyticsEvents && hasSecondaryButton}
-              isDisabled={useAnalyticsEvents || !hasPrimaryButton}
+              checked={!useAnalyticEvents && hasSecondaryButton}
+              isDisabled={useAnalyticEvents || !hasPrimaryButton}
               label="Has Secondary Button"
               onChange={handleAction('setHasSecondaryButton')}
             />
@@ -174,7 +174,7 @@ function Content({ colorMode, setColorMode }) {
             <DemoRadioGroup
               data={ACTIONS}
               isDisabled={
-                useAnalyticsEvents || !hasPrimaryButton || !hasSecondaryButton
+                useAnalyticEvents || !hasPrimaryButton || !hasSecondaryButton
               }
               label="Secondary Button Action"
               onChange={handleAction('setSecondaryButtonAction')}
