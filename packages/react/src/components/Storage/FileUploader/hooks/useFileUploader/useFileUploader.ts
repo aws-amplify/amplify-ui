@@ -1,6 +1,6 @@
 import { checkMaxSize, returnAcceptedFiles } from '@aws-amplify/ui';
 import React, { useState } from 'react';
-import { Files, FileStatuses } from '../../types';
+import { Files, FileState, FileStatuses } from '../../types';
 import { UseFileUploader } from './types';
 
 export default function useFileUploader({
@@ -27,7 +27,7 @@ export default function useFileUploader({
       const errorFile = checkMaxSize(maxSize, file);
 
       statuses.unshift({
-        fileState: errorFile ? 'error' : null,
+        fileState: errorFile ? FileState.ERROR : FileState.INIT,
         fileErrors: errorFile,
         file,
         name: file.name,
