@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "4.3.7",
+  "version": "4.3.8",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -49,8 +49,8 @@
     "size": "yarn run size-limit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.4",
-    "@aws-amplify/ui-react-core": "2.1.12",
+    "@aws-amplify/ui": "5.5.5",
+    "@aws-amplify/ui-react-core": "2.1.13",
     "@radix-ui/react-accordion": "1.0.0",
     "@radix-ui/react-direction": "1.0.0",
     "@radix-ui/react-dropdown-menu": "1.0.0",
@@ -62,7 +62,7 @@
     "lodash": "4.17.21",
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
-    "maplibre-gl-js-amplify": "3.0.0",
+    "maplibre-gl-js-amplify": "3.0.2",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
     "react-map-gl": "7.0.15",

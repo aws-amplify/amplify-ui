@@ -1,4 +1,28 @@
-import { isObject, isString, isUndefined } from '..';
+import { capitalize, isObject, isString, isUndefined } from '..';
+
+describe('capitalize', () => {
+  it('capitalizes the given value', () => {
+    const value = 'value';
+    const expected = 'Value';
+
+    expect(capitalize(value)).toBe(expected);
+  });
+
+  it('returns an empty string when given an empty string', () => {
+    const value = '';
+    const expected = '';
+
+    expect(capitalize(value)).toBe(expected);
+  });
+
+  it.each([null, undefined])(
+    'returns an empty string when called with %s',
+    (value) => {
+      const expected = '';
+      expect(capitalize(value as unknown as string)).toBe(expected);
+    }
+  );
+});
 
 describe('isObject', () => {
   it('should return `true` for objects', () => {
