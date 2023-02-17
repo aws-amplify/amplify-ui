@@ -164,11 +164,7 @@ export class FreshnessColorDisplay {
     const timeSinceLastFaceMatchCheck =
       Date.now() - this.timeLastFaceMatchChecked;
     if (timeSinceLastFaceMatchCheck > FACE_MATCH_TICK_RATE) {
-      const faceMatchState = await getFaceMatchState(
-        faceDetector,
-        videoEl,
-        ovalDetails
-      );
+      const faceMatchState = await getFaceMatchState(faceDetector, videoEl);
 
       this.timeLastFaceMatchChecked = Date.now();
       if (faceMatchState === FaceMatchState.MATCHED) {

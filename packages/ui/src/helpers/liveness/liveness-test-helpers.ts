@@ -202,6 +202,18 @@ export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
 export const mockSessionInformation: SessionInformation = {
   Challenge: {
     FaceMovementAndLightChallenge: {
+      ChallengeConfig: {
+        BlazeFaceDetectionThreshold: 0.75,
+        FaceDistanceThreshold: 0.4000000059604645,
+        FaceDistanceThresholdMax: 0,
+        FaceDistanceThresholdMin: 0.4000000059604645,
+        FaceIouHeightThreshold: 0.15000000596046448,
+        FaceIouWidthThreshold: 0.15000000596046448,
+        OvalHeightWidthRatio: 1.6180000305175781,
+        OvalIouHeightThreshold: 0.25,
+        OvalIouThreshold: 0.699999988079071,
+        OvalIouWidthThreshold: 0.25,
+      },
       OvalScaleFactors: {
         Width: 1,
         CenterX: 2,

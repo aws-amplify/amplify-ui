@@ -1043,6 +1043,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const {
           videoAssociatedParams: { videoEl },
           ovalAssociatedParams: { faceDetector, ovalDetails },
+          serverSessionInformation,
         } = context;
 
         // detect face
@@ -1064,7 +1065,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             detectedFace = detectedFaces[0];
             faceMatchState = getFaceMatchStateInLivenessOval(
               detectedFace,
-              ovalDetails
+              ovalDetails,
+              serverSessionInformation
             );
             break;
           }

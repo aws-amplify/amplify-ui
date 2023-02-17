@@ -64,7 +64,11 @@ describe('Liveness Helper', () => {
         nose: [200, 200],
       };
 
-      const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
+      const actualState = getFaceMatchStateInLivenessOval(
+        face,
+        ovalDetails,
+        mockSessionInformation
+      );
 
       expect(actualState).toEqual(FaceMatchState.TOO_LEFT);
     });

@@ -172,9 +172,18 @@ export function drawLivenessOvalInCanvas(
  */
 export function getFaceMatchStateInLivenessOval(
   face: Face,
-  ovalDetails: LivenessOvalDetails
+  ovalDetails: LivenessOvalDetails,
+  sessionInformation: SessionInformation
 ): FaceMatchState {
   let faceMatchState: FaceMatchState;
+  const {
+    OvalIouThreshold,
+    OvalIouHeightThreshold,
+    OvalIouWidthThreshold,
+    FaceIouHeightThreshold,
+    FaceIouWidthThreshold,
+  } =
+    sessionInformation.Challenge.FaceMovementAndLightChallenge.ChallengeConfig;
 
   const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
     face,
@@ -201,11 +210,12 @@ export function getFaceMatchStateInLivenessOval(
     ovalBoundingBox
   );
 
-  const intersectionThreshold = 0.75;
-  const ovalMatchWidthThreshold = ovalDetails.width * 0.25;
-  const ovalMatchHeightThreshold = ovalDetails.height * 0.25;
-  const faceDetectionWidthThreshold = ovalDetails.width * 0.15;
-  const faceDetectionHeightThreshold = ovalDetails.height * 0.15;
+  const intersectionThreshold = OvalIouThreshold;
+  const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
+  const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
+  const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
+  const faceDetectionHeightThreshold =
+    ovalDetails.height * FaceIouHeightThreshold;
 
   if (
     intersection > intersectionThreshold &&
@@ -232,11 +242,28 @@ export function getFaceMatchStateInLivenessOval(
   return faceMatchState;
 }
 
+function getPupilDistanceAndFaceHeight(face: Face) {
+  const { leftEye, rightEye, mouth } = face;
+
+  const eyeCenter = [];
+  eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
+  eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
+
+  const pupilDistance = Math.sqrt(
+    (leftEye[0] - rightEye[0]) ** 2 + (leftEye[1] - rightEye[1]) ** 2
+  );
+  const faceHeight = Math.sqrt(
+    (eyeCenter[0] - mouth[0]) ** 2 + (eyeCenter[1] - mouth[1]) ** 2
+  );
+
+  return { pupilDistance, faceHeight };
+}
+
 function generateBboxFromLandmarks(
   face: Face,
   oval: LivenessOvalDetails
 ): BoundingBox {
-  const { leftEye, rightEye, nose, mouth } = face;
+  const { leftEye, rightEye, nose } = face;
   const { height: ovalHeight, centerY } = oval;
   const ovalTop = centerY - ovalHeight / 2;
 
@@ -244,12 +271,8 @@ function generateBboxFromLandmarks(
   eyeCenter[0] = (leftEye[0] + rightEye[0]) / 2;
   eyeCenter[1] = (leftEye[1] + rightEye[1]) / 2;
 
-  const pd = Math.sqrt(
-    (leftEye[0] - rightEye[0]) ** 2 + (leftEye[1] - rightEye[1]) ** 2
-  );
-  const fh = Math.sqrt(
-    (eyeCenter[0] - mouth[0]) ** 2 + (eyeCenter[1] - mouth[1]) ** 2
-  );
+  const { pupilDistance: pd, faceHeight: fh } =
+    getPupilDistanceAndFaceHeight(face);
 
   const alpha = 2.0,
     gamma = 1.8;
@@ -595,9 +618,8 @@ export function getRGBArrayFromColorString(colorStr: string): number[] {
 
 export async function getFaceMatchState(
   faceDetector: FaceDetection,
-  videoEl: HTMLVideoElement,
-  ovalDetails?: LivenessOvalDetails
-) {
+  videoEl: HTMLVideoElement
+): Promise<FaceMatchState> {
   const detectedFaces = await faceDetector.detectFaces(videoEl);
   let faceMatchState: FaceMatchState;
   let detectedFace: Face;
@@ -611,9 +633,7 @@ export async function getFaceMatchState(
     case 1: {
       //exactly one face detected, match face with oval;
       detectedFace = detectedFaces[0];
-      faceMatchState = ovalDetails
-        ? getFaceMatchStateInLivenessOval(detectedFace, ovalDetails)
-        : FaceMatchState.FACE_IDENTIFIED;
+      faceMatchState = FaceMatchState.FACE_IDENTIFIED;
       break;
     }
     default: {
@@ -657,15 +677,18 @@ export async function isFaceDistanceBelowThreshold({
       //exactly one face detected, match face with oval;
       detectedFace = detectedFaces[0];
 
-      const { leftEye, rightEye } = detectedFace;
       const width = ovalDetails?.width;
-      const pupilDistance = Math.sqrt(
-        (rightEye[0] - leftEye[0]) ** 2 + (rightEye[1] - leftEye[1]) ** 2
-      );
+      const { pupilDistance, faceHeight } =
+        getPupilDistanceAndFaceHeight(detectedFace);
+
+      const alpha = 2.0,
+        gamma = 1.8;
+      const calibratedPupilDistance =
+        (alpha * pupilDistance + gamma * faceHeight) / 2 / alpha;
 
       if (width) {
         distanceBelowThreshold =
-          pupilDistance / width <
+          calibratedPupilDistance / width <
           (!reduceThreshold
             ? FACE_DISTANCE_THRESHOLD
             : isMobile
