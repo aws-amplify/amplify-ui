@@ -24,6 +24,7 @@ export interface FileUploaderProps {
   shouldAutoProceed?: boolean;
   showImages?: boolean;
   variation?: 'drop' | 'button';
+  s3Key?: (file: FileStatus) => string;
 }
 
 export interface IconProps {

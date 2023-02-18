@@ -33,6 +33,7 @@ export function FileUploader({
   accessLevel,
   variation = 'drop',
   isResumable = false,
+  s3Key,
   ...rest
 }: FileUploaderProps): JSX.Element {
   if (!acceptedFileTypes || !accessLevel) {
@@ -187,7 +188,7 @@ export function FileUploader({
       if (status?.fileState === FileState.SUCCESS) return;
       const uploadTask = uploadFile({
         file: status.file,
-        fileName: status.name,
+        fileName: s3Key ? s3Key(status) : status.name,
         level: accessLevel,
         isResumable,
         progressCallback: progressCallback(i),
@@ -213,6 +214,7 @@ export function FileUploader({
       }))
     );
   }, [
+    s3Key,
     fileStatuses,
     setFileStatuses,
     accessLevel,
