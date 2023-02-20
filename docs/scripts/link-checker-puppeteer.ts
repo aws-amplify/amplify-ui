@@ -22,11 +22,12 @@ async function runArrayPromiseInOrder(arr: unknown[], fn) {
 }
 
 async function checkSitemapPath(pageUrl, pageIdx) {
-  // const pageUrl = process.argv[2];
-  // const pageIdx = process.argv[3];
-  const browser = await puppeteer.launch();
+  let browser = await puppeteer.launch({ args: ['--disable-dev-shm-usage'] });
+
   const page = await browser.newPage();
-  await page.goto(pageUrl, { waitUntil: 'domcontentloaded' });
+
+  await page.goto(pageUrl, { waitUntil: 'networkidle2' });
+  await page.waitForNetworkIdle({ idleTime: 1000 });
   console.log(`🧪[TESTING...] page #${pageIdx} ${pageUrl}`);
   await page.setViewport({ width: 1080, height: 1024 });
   const links = await page.evaluate(() => {
@@ -38,8 +39,9 @@ async function checkSitemapPath(pageUrl, pageIdx) {
       }))
       .filter(({ href }) => href);
   });
-
+  console.log(`🧮 ${links.length} links will be checked.`);
   await runArrayPromiseInOrder(links, checkLink);
+
   await page.close();
   await browser.close();
 
