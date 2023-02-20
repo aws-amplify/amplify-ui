@@ -17,7 +17,7 @@
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
     "start": "next start",
     "test": "jest",
-    "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts 0 50 && node --require esbuild-register ./scripts/link-checker-puppeteer.ts 50 100 && node --require esbuild-register ./scripts/link-checker-puppeteer.ts 100"
+    "test:links": "yarn install && node --require esbuild-register ./scripts/link-checker-puppeteer.ts 0 50 && node --require esbuild-register ./scripts/link-checker-puppeteer.ts 50 100 && node --require esbuild-register ./scripts/link-checker-puppeteer.ts 100"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "4.3.8",
