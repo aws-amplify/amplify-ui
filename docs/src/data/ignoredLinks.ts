@@ -7,6 +7,7 @@
  */
 
 export const IGNORED_LINKS = [
+  'https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html',
   'https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-inapp.html',
   'https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html',
   'https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html',
