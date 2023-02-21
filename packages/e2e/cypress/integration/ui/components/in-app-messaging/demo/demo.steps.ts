@@ -29,3 +29,8 @@ Then('I see banner as a modal', () => {
   cy.findByRole('dialog').should('exist');
   cy.findByRole('dialog').parent().should('have.css', 'inset', '0px');
 });
+
+When('{string} radio option is selected', (layoutType: string) => {
+  // cy.findByRole('input', { name: layoutType }).should('exist');
+  cy.findByText(layoutType).click();
+});
