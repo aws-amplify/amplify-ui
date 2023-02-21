@@ -63,13 +63,13 @@ export const PhotosensitiveWarning = (): JSX.Element => {
 
 export const INSTRUCTIONS = [
   {
+    desc: 'Increase the brightness of your display screen to maximum level possible.',
+  },
+  {
     desc: 'Make sure your face is not covered with sunglasses or a mask.',
   },
   {
     desc: 'Move to a well-lit place that is not dark or in direct sunlight.',
-  },
-  {
-    desc: 'Increase the brightness of your display screen to maximum level possible.',
   },
   {
     desc: 'When check starts, fit face in oval, and hold for colored lights.',
