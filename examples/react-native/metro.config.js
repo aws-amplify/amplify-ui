@@ -8,6 +8,9 @@ const INTERNAL_DEPENDENCY_FLAG = '*';
 // only 'packages' for now, but can be extended for use with other directories
 const INTERNAL_DIRECTORY_ROOTS = ['packages'];
 
+// internal packages used by the RN example
+const INTERNAL_USED_PACKAGES = ['ui', 'react-core', 'react-native'];
+
 const EXAMPLE_APP_PACKAGE_JSON = require('./package.json');
 const EXAMPLE_APP_ROOT = __dirname;
 
@@ -24,6 +27,9 @@ const dependencies = {
   ...EXAMPLE_APP_PACKAGE_JSON.devDependencies,
 };
 
+const filterUnusedInternalPackages = ({ name }) =>
+  INTERNAL_USED_PACKAGES.includes(name);
+
 function getInternalPackages(root, internalPackagesDirectory) {
   return internalPackagesDirectory
     .map((packageDirectory) => {
@@ -31,12 +37,14 @@ function getInternalPackages(root, internalPackagesDirectory) {
 
       return readdirSync(internalDirectoryRoot, {
         withFileTypes: true,
-      }).map(({ name }) => {
-        const packagePath = path.resolve(internalDirectoryRoot, name);
-        const packageName = require(`${packagePath}/package.json`).name;
+      })
+        .filter(filterUnusedInternalPackages)
+        .map(({ name }) => {
+          const packagePath = path.resolve(internalDirectoryRoot, name);
+          const packageName = require(`${packagePath}/package.json`).name;
 
-        return { packageName, packagePath };
-      });
+          return { packageName, packagePath };
+        });
     })
     .flat();
 }
