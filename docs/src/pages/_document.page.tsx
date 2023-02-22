@@ -23,7 +23,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
       style-src 'self' 'unsafe-inline';
       font-src 'self' data:;
       frame-src 'self' ${ANALYTICS_CSP.all.frame.join(' ')} *.youtube.com;
-      img-src 'self' blob: ${ANALYTICS_CSP.all.img.join(' ')};
+      img-src 'self' blob: data: ${ANALYTICS_CSP.all.img.join(' ')};
       connect-src 'self' *.shortbread.aws.dev ${ANALYTICS_CSP.all.connect.join(
         ' '
       )} https://*.algolia.net https://*.algolianet.com;
@@ -41,7 +41,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
       ...ANALYTICS_CSP.all.frame,
       ...ANALYTICS_CSP.prod.frame,
     ].join(' ')} *.youtube.com;
-    img-src 'self' blob: ${[
+    img-src 'self' blob: data: ${[
       ...ANALYTICS_CSP.all.img,
       ...ANALYTICS_CSP.prod.img,
     ].join(' ')};
