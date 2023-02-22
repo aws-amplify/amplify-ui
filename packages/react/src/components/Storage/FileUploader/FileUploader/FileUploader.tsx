@@ -7,13 +7,13 @@ import {
   Button as UploadButton,
   ComponentClassNames,
   VisuallyHidden,
-} from '../../../primitives';
+} from '../../../../primitives';
 
-import { useFileUploader } from './hooks/useFileUploader';
-import { UploadPreviewer } from './UploadPreviewer';
-import { UploadDropZone } from './UploadDropZone';
-import { UploadTracker } from './UploadTracker';
-import { FileState, FileUploaderProps } from './types';
+import { useFileUploader } from '../hooks/useFileUploader';
+import { UploadPreviewer } from '../UploadPreviewer';
+import { UploadDropZone } from '../UploadDropZone';
+import { UploadTracker } from '../UploadTracker';
+import { FileState, FileUploaderProps } from '../types';
 
 const isUploadTask = (value: unknown): value is UploadTask =>
   typeof (value as UploadTask)?.resume === 'function';

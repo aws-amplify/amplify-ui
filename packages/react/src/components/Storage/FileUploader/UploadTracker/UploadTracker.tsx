@@ -17,7 +17,7 @@ import {
   IconEdit,
   IconFile,
 } from '../../../../primitives/Icon/internal';
-import { UploadMessage } from './UploadMessage';
+import { UploadMessage } from '../UploadMessage';
 
 export function UploadTracker({
   errorMessage,
