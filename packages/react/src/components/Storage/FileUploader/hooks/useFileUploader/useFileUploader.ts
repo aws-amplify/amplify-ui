@@ -1,5 +1,6 @@
-import { checkMaxSize, returnAcceptedFiles } from '@aws-amplify/ui';
 import React, { useState } from 'react';
+import { checkMaxSize, returnAcceptedFiles } from '@aws-amplify/ui';
+
 import { Files, FileState, FileStatuses } from '../../types';
 import { UseFileUploader } from './types';
 

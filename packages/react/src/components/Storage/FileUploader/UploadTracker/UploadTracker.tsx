@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
-import { translate } from '@aws-amplify/ui';
-import { humanFileSize } from '@aws-amplify/ui';
-import { FileState, TrackerProps } from '../types';
+import { translate, humanFileSize } from '@aws-amplify/ui';
+
 import {
   View,
   Image,
@@ -17,7 +16,10 @@ import {
   IconEdit,
   IconFile,
 } from '../../../../primitives/Icon/internal';
+
+import { FileState } from '../types';
 import { UploadMessage } from '../UploadMessage';
+import { UploadTrackerProps } from './types';
 
 export function UploadTracker({
   errorMessage,
@@ -34,8 +36,8 @@ export function UploadTracker({
   percentage,
   isResumable,
   showImage,
-}: TrackerProps): JSX.Element {
-  const [tempName, setTempName] = React.useState(name);
+}: UploadTrackerProps): JSX.Element {
+  const [tempName, setTempName] = React.useState<string>(name);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const url = URL.createObjectURL(file);
 

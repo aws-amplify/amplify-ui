@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentClassName, translate } from '@aws-amplify/ui';
-import { FileState, PreviewerProps } from '../types';
+
 import {
   Alert,
   Button,
@@ -9,6 +9,9 @@ import {
   Text,
   View,
 } from '../../../../primitives';
+
+import { FileState } from '../types';
+import { UploadPreviewerProps } from './types';
 
 export function UploadPreviewer({
   aggregatePercentage,
@@ -21,7 +24,7 @@ export function UploadPreviewer({
   maxFileCount,
   onClear,
   onFileClick,
-}: PreviewerProps): JSX.Element {
+}: UploadPreviewerProps): JSX.Element {
   const headingMaxFiles = `${translate(
     'Cannot choose more than'
   )} ${maxFileCount}`;

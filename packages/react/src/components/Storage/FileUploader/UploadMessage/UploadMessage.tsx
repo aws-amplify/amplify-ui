@@ -1,16 +1,18 @@
 import React from 'react';
 import { translate } from '@aws-amplify/ui';
+import classNames from 'classnames';
+
+import { classNameModifier } from '../../../../primitives/shared/utils';
 import { Text, ComponentClassNames } from '../../../../primitives';
 import { IconCheck, IconError } from '../../../../primitives/Icon/internal';
-import { FileState, FileStateProps } from '../types';
-import classNames from 'classnames';
-import { classNameModifier } from '../../../../primitives/shared/utils';
+import { FileState } from '../types';
+import { UploadMessageProps } from './types';
 
 export const UploadMessage = ({
   fileState,
   errorMessage,
   percentage,
-}: FileStateProps): JSX.Element => {
+}: UploadMessageProps): JSX.Element => {
   switch (fileState) {
     case FileState.LOADING: {
       const text =

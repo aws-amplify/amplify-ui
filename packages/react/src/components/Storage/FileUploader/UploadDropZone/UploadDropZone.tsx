@@ -1,10 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import { UploadDropZoneProps } from '../types';
+import { translate } from '@aws-amplify/ui';
+
 import { View, ComponentClassNames, Text } from '../../../../primitives';
 import { classNameModifier } from '../../../../primitives/shared/utils';
 import { IconUpload } from '../../../../primitives/Icon/internal';
-import { translate } from '@aws-amplify/ui';
+import { UploadDropZoneProps } from './types';
 
 export function UploadDropZone({
   children,
