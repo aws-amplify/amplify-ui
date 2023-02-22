@@ -2,7 +2,7 @@
 #
 # Triggered by: newly opened, re-opened or transferred issues
 
-name: Label new issues
+name: Mark issues for triage
 
 on:
   issues:
@@ -22,7 +22,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-        # sanitize issue number and add label
+        # run bash script to sanitize issue number and add label
+        # first sanitize the ISSUE_NUMBER which is a assumed to be string representing an integer
+        # remove any newline characters with tr because awk only works with single lines of code and may have unexpected behavior if newline is present
+        # awk applies the int function to the input, converting it to an integer
+        # finally check if the resulting value, assigned to ISSUE_NUMBER_INT is positive
         run: |
           ISSUE_NUMBER_INT=$(echo "$ISSUE_NUMBER" | tr -d '\n' | awk '{print int($0)}')
           if [ "$ISSUE_NUMBER_INT" -le 0 ]; then
@@ -30,4 +34,3 @@ jobs:
             exit 1
           fi
           gh issue edit $ISSUE_NUMBER_INT --add-label 'pending-triage'
-
