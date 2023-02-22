@@ -20,27 +20,6 @@ When('I toggle {string} checkbox', (checkboxName: string) => {
   cy.findByText(checkboxName).click();
 });
 
-Then('I see banner at the top', () => {
-  cy.findByRole('dialog').should('exist');
-  cy.findByRole('dialog').should('have.css', 'top', '0px');
-});
-
-Then('I see banner at the bottom', () => {
-  cy.findByRole('dialog').should('exist');
-  cy.findByRole('dialog').should('have.css', 'bottom', '0px');
-});
-
-Then('I see banner in the middle', () => {
-  cy.findByRole('dialog').should('exist');
-  cy.findByRole('dialog').should('have.css', 'bottom', '0px');
-  cy.findByRole('dialog').should('have.css', 'bottom', '0px');
-});
-
-Then('I see banner as a modal', () => {
-  cy.findByRole('dialog').should('exist');
-  cy.findByRole('dialog').parent().should('have.css', 'inset', '0px');
-});
-
 When('I wait for pinpoint messages to sync', () => {
   const analyticsCampaignRegion = 'us-east-1';
   cy.intercept({
@@ -48,4 +27,23 @@ When('I wait for pinpoint messages to sync', () => {
     url: `https://pinpoint.${analyticsCampaignRegion}.amazonaws.com/**`,
   }).as('syncPinpointMessages');
   cy.wait('@syncPinpointMessages');
+});
+
+Then('the banner has an image', () => {
+  cy.findByRole('img', { name: 'In-App Message Image' }).should('exist');
+});
+
+Then('I see banner at the {string}', (position: string) => {
+  const expectedClass = `amplify-inappmessaging-bannermessage--${position}`;
+  cy.findByRole('dialog').should('exist').should('have.class', expectedClass);
+});
+
+Then('I see banner as a modal', () => {
+  const expectedClass = 'amplify-inappmessaging-modalmessage__dialog';
+  cy.findByRole('dialog').should('exist').should('have.class', expectedClass);
+});
+
+Then('I see banner as fullscreen', () => {
+  const expectedClass = 'amplify-inappmessaging-fullscreenmessage';
+  cy.findByRole('dialog').should('exist').should('have.class', expectedClass);
 });
