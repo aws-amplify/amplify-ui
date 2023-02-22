@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { UploadTask, Storage } from '@aws-amplify/storage';
-import { translate, uploadFile, isValidExtension } from '@aws-amplify/ui';
 import { Logger } from 'aws-amplify';
+import type { UploadTask } from '@aws-amplify/storage';
+import { Storage } from '@aws-amplify/storage';
+import { translate, uploadFile, isValidExtension } from '@aws-amplify/ui';
 
 import {
   Button as UploadButton,
@@ -13,10 +14,9 @@ import { useFileUploader } from '../hooks/useFileUploader';
 import { UploadPreviewer } from '../UploadPreviewer';
 import { UploadDropZone } from '../UploadDropZone';
 import { UploadTracker } from '../UploadTracker';
-import { FileState, FileUploaderProps } from '../types';
-
-const isUploadTask = (value: unknown): value is UploadTask =>
-  typeof (value as UploadTask)?.resume === 'function';
+import { FileState } from '../types';
+import { FileUploaderProps } from './types';
+import { isUploadTask } from './utils';
 
 const logger = new Logger('AmplifyUI:Storage');
 
