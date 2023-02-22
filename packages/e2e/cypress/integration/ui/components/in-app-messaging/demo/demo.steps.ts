@@ -33,17 +33,8 @@ Then('the banner has an image', () => {
   cy.findByRole('img', { name: 'In-App Message Image' }).should('exist');
 });
 
-Then('I see banner at the {string}', (position: string) => {
-  const expectedClass = `amplify-inappmessaging-bannermessage--${position}`;
-  cy.findByRole('dialog').should('exist').should('have.class', expectedClass);
-});
-
-Then('I see banner as a modal', () => {
-  const expectedClass = 'amplify-inappmessaging-modalmessage__dialog';
-  cy.findByRole('dialog').should('exist').should('have.class', expectedClass);
-});
-
-Then('I see banner as fullscreen', () => {
-  const expectedClass = 'amplify-inappmessaging-fullscreenmessage';
-  cy.findByRole('dialog').should('exist').should('have.class', expectedClass);
+Then('I see a {string} banner', (type: string) => {
+  cy.findByRole('dialog')
+    .should('exist')
+    .should('have.attr', 'data-testid', `inappmessaging-${type}`);
 });
