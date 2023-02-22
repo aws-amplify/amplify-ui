@@ -15,14 +15,25 @@ When('I click the {string} layout radio option', (radioOption: string) => {
   cy.findByText(radioOption).next().check({ force: true });
 });
 
-When('I uncheck {string} checkbox', (checkboxName: string) => {
+When('I toggle {string} checkbox', (checkboxName: string) => {
   // unable to uncheck so added click action instead
   cy.findByText(checkboxName).click();
 });
 
-Then('I see banner on the top', () => {
+Then('I see banner at the top', () => {
   cy.findByRole('dialog').should('exist');
   cy.findByRole('dialog').should('have.css', 'top', '0px');
+});
+
+Then('I see banner at the bottom', () => {
+  cy.findByRole('dialog').should('exist');
+  cy.findByRole('dialog').should('have.css', 'bottom', '0px');
+});
+
+Then('I see banner in the middle', () => {
+  cy.findByRole('dialog').should('exist');
+  cy.findByRole('dialog').should('have.css', 'bottom', '0px');
+  cy.findByRole('dialog').should('have.css', 'bottom', '0px');
 });
 
 Then('I see banner as a modal', () => {
@@ -30,7 +41,11 @@ Then('I see banner as a modal', () => {
   cy.findByRole('dialog').parent().should('have.css', 'inset', '0px');
 });
 
-When('{string} radio option is selected', (layoutType: string) => {
-  // cy.findByRole('input', { name: layoutType }).should('exist');
-  cy.findByText(layoutType).click();
+When('I wait for pinpoint messages to sync', () => {
+  const analyticsCampaignRegion = 'us-east-1';
+  cy.intercept({
+    method: 'GET',
+    url: `https://pinpoint.${analyticsCampaignRegion}.amazonaws.com/**`,
+  }).as('syncPinpointMessages');
+  cy.wait('@syncPinpointMessages');
 });
