@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentClassName, translate } from '@aws-amplify/ui';
-import { PreviewerProps } from '../types';
+import { FileState, PreviewerProps } from '../types';
 import {
   Alert,
   Button,
@@ -26,7 +26,7 @@ export function UploadPreviewer({
     'Cannot choose more than'
   )} ${maxFileCount}`;
   const getUploadedFilesLength = () =>
-    fileStatuses.filter((file) => file?.fileState === 'success').length;
+    fileStatuses.filter((file) => file?.fileState === FileState.SUCCESS).length;
 
   const remainingFilesLength = fileStatuses.length - getUploadedFilesLength();
   const remainingFilesText = `${remainingFilesLength} ${
@@ -40,7 +40,7 @@ export function UploadPreviewer({
 
   const isDisabled =
     fileStatuses.some((status) =>
-      ['error', 'editing'].includes(status?.fileState)
+      [FileState.ERROR, FileState.EDITING].includes(status?.fileState)
     ) ||
     remainingFilesLength === 0 ||
     hasMaxFilesError;

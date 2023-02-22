@@ -107,7 +107,7 @@ export function FileUploader({
               ? Math.floor((progress.loaded / progress.total) * 100)
               : 100;
           const fileState: FileState =
-            progressPercentage !== 100 ? 'loading' : 'success';
+            progressPercentage !== 100 ? FileState.LOADING : FileState.SUCCESS;
           const updatedStatus = {
             ...prevStatus,
             percentage: progressPercentage,
@@ -155,7 +155,7 @@ export function FileUploader({
         }
         const newFileStatuses = [...fileStatuses];
 
-        newFileStatuses[index] = { ...status, fileState: 'paused' };
+        newFileStatuses[index] = { ...status, fileState: FileState.PAUSED };
         setFileStatuses(newFileStatuses);
       };
     },
@@ -172,7 +172,7 @@ export function FileUploader({
         }
         const newFileStatuses = [...fileStatuses];
 
-        newFileStatuses[index] = { ...status, fileState: 'resume' };
+        newFileStatuses[index] = { ...status, fileState: FileState.RESUME };
         setFileStatuses(newFileStatuses);
       };
     },
@@ -184,7 +184,7 @@ export function FileUploader({
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
     fileStatuses.forEach((status, i) => {
-      if (status?.fileState === 'success') return;
+      if (status?.fileState === FileState.SUCCESS) return;
       const uploadTask = uploadFile({
         file: status.file,
         fileName: status.name,
@@ -205,19 +205,22 @@ export function FileUploader({
       prevFileStatuses.map((status, index) => ({
         ...status,
         uploadTask: uploadTasksTemp?.[index],
-        fileState: status.fileState ?? 'loading',
+        fileState:
+          status.fileState === FileState.INIT
+            ? FileState.LOADING
+            : status.fileState,
         percentage: status.percentage ?? 0,
       }))
     );
   }, [
-    errorCallback,
     fileStatuses,
-    isResumable,
-    onSuccess,
-    progressCallback,
-    rest,
     setFileStatuses,
     accessLevel,
+    isResumable,
+    progressCallback,
+    errorCallback,
+    onSuccess,
+    rest,
   ]);
 
   const onFileChange = useCallback(
@@ -274,7 +277,7 @@ export function FileUploader({
         newFileStatuses[index] = {
           ...status,
           name: value,
-          fileState: !validExtension ? 'error' : null,
+          fileState: !validExtension ? FileState.ERROR : FileState.INIT,
           fileErrors: validExtension
             ? undefined
             : translate('Extension not allowed'),
@@ -293,10 +296,10 @@ export function FileUploader({
         const status = newFileStatuses[index];
         // Check if extension is valid before setting state
         const validExtension = isValidExtension(status.name, status.file.name)
-          ? null
-          : 'error';
+          ? FileState.INIT
+          : FileState.ERROR;
         const updatedFileState =
-          fileState === null ? validExtension : fileState;
+          fileState === FileState.INIT ? validExtension : fileState;
 
         newFileStatuses[index] = {
           ...status,
@@ -311,7 +314,7 @@ export function FileUploader({
   const onCancelEdit = useCallback(
     (index: number) => {
       return () => {
-        updateFileState(index, null);
+        updateFileState(index, FileState.INIT);
       };
     },
     [updateFileState]
@@ -320,7 +323,7 @@ export function FileUploader({
   const onStartEdit = useCallback(
     (index: number) => {
       return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        updateFileState(index, 'editing');
+        updateFileState(index, FileState.EDITING);
       };
     },
     [updateFileState]
