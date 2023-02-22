@@ -2,7 +2,7 @@
 #
 # Triggered by: newly opened, re-opened or transferred issues
 
-name: Mark issues for triage
+name: Mark Issues for Triage
 
 on:
   issues:
