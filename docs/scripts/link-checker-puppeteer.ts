@@ -75,21 +75,26 @@ async function checkSitemapPath(pageUrl, pageIdx) {
     }: { href: string; tagName: string; tagText: string },
     linkIdx: number
   ) {
-    if (IGNORED_LINKS.includes(href)) {
-      console.log(
-        `⏭[SKIPPING...] link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page #${pageIdx} ${pageUrl}, because it is on the IGNORED_LINKS list.`
-      );
-    } else if (href.includes('https:')) {
-      const request = await https.get(href, async ({ statusCode = 0 }) => {
-        await returnStatus({ statusCode, href });
-      });
-      request.end();
-    } else {
-      const request = await http.get(href, async ({ statusCode = 0 }) => {
-        await returnStatus({ statusCode, href });
-      });
-      request.end();
-    }
+    return new Promise(async (res, rej) => {
+      if (IGNORED_LINKS.includes(href)) {
+        console.log(
+          `⏭[SKIPPING...] link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page #${pageIdx} ${pageUrl}, because it is on the IGNORED_LINKS list.`
+        );
+        res(0);
+      } else if (href.includes('https:')) {
+        const request = await https.get(href, async ({ statusCode = 0 }) => {
+          await returnStatus({ statusCode, href });
+          res(statusCode);
+        });
+        request.end();
+      } else {
+        const request = await http.get(href, async ({ statusCode = 0 }) => {
+          await returnStatus({ statusCode, href });
+          res(statusCode);
+        });
+        request.end();
+      }
+    });
 
     async function returnStatus({
       statusCode,
