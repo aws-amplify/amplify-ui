@@ -4,6 +4,14 @@ import puppeteer from 'puppeteer';
 import { IGNORED_LINKS } from '../src/data/ignoredLinks';
 import { sitePaths } from '../src/data/sitePaths';
 
+/**
+ * "uncaughtException" is to prevent Error: connect ECONNREFUSED
+ * More details: https://stackoverflow.com/questions/14168433/node-js-error-connect-econnrefused
+ */
+process.on('uncaughtException', function (err) {
+  console.log('ERROR::', err);
+});
+
 if (![3, 4].includes(process.argv.length)) {
   console.error('Expected 3 or 4 arguments!');
   process.exit(1);
@@ -15,6 +23,12 @@ const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
 
 runArrayPromiseInOrder(testPaths, checkSitemapPath);
 
+/**
+ * Asynchronous array loops
+ * More details: https://www.30secondsofcode.org/articles/s/javascript-async-array-loops#for-loops
+ * @param {array} arr - array to iterate
+ * @param {function} fn - callback function
+ */
 async function runArrayPromiseInOrder(arr: unknown[], fn) {
   for (const [i, item] of arr.entries()) {
     await fn(item, i);
@@ -22,7 +36,15 @@ async function runArrayPromiseInOrder(arr: unknown[], fn) {
 }
 
 async function checkSitemapPath(pageUrl, pageIdx) {
-  let browser = await puppeteer.launch({ args: ['--disable-dev-shm-usage'] });
+  let browser = await puppeteer.launch({
+    args: [
+      /**
+       * add '--disable-dev-shm-usage' to prevent "Error: Protocol error (Runtime.callFunctionOn): Target closed."
+       * More details: https://github.com/puppeteer/puppeteer/issues/1175#issuecomment-369728215
+       */
+      '--disable-dev-shm-usage',
+    ],
+  });
 
   const page = await browser.newPage();
 
@@ -51,25 +73,25 @@ async function checkSitemapPath(pageUrl, pageIdx) {
       tagName,
       tagText,
     }: { href: string; tagName: string; tagText: string },
-    linkIdx: string
+    linkIdx: number
   ) {
     if (IGNORED_LINKS.includes(href)) {
       console.log(
         `⏭[SKIPPING...] link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page #${pageIdx} ${pageUrl}, because it is on the IGNORED_LINKS list.`
       );
     } else if (href.includes('https:')) {
-      const request = await https.get(href, ({ statusCode = 0 }) => {
-        returnStatus({ statusCode, href });
+      const request = await https.get(href, async ({ statusCode = 0 }) => {
+        await returnStatus({ statusCode, href });
       });
       request.end();
     } else {
-      const request = await http.get(href, ({ statusCode = 0 }) => {
-        returnStatus({ statusCode, href });
+      const request = await http.get(href, async ({ statusCode = 0 }) => {
+        await returnStatus({ statusCode, href });
       });
       request.end();
     }
 
-    function returnStatus({
+    async function returnStatus({
       statusCode,
       href,
     }: {
@@ -95,7 +117,7 @@ async function checkSitemapPath(pageUrl, pageIdx) {
           console.log(
             `🔁 [Redirecting...] link #${linkIdx} ${href} to ${newHref}`
           );
-          checkLink({ href: newHref, tagName, tagText }, linkIdx);
+          await checkLink({ href: newHref, tagName, tagText }, linkIdx);
         }
       } else {
         throw new Error(
