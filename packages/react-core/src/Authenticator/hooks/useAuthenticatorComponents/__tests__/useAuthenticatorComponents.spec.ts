@@ -5,6 +5,7 @@ import { RenderNothing } from '../../../../components';
 import { COMPONENT_ROUTE_KEYS } from '../../constants';
 import { DEFAULTS, OVERRIDES } from '../__mock__/components';
 
+import { UseAuthenticatorComponentsParams } from '../types';
 import { useAuthenticatorComponents } from '..';
 
 describe('useAuthenticatorComponents', () => {
@@ -30,14 +31,28 @@ describe('useAuthenticatorComponents', () => {
   it('returns the expected override value for a component route', () => {
     const { ConfirmResetPassword } = OVERRIDES;
 
-    const { result } = renderHook(() =>
-      useAuthenticatorComponents({
-        defaults: DEFAULTS,
-        overrides: { ConfirmResetPassword },
-        route: 'confirmResetPassword',
-      })
+    const { result, rerender } = renderHook(
+      (next: UseAuthenticatorComponentsParams<any>) =>
+        useAuthenticatorComponents(next),
+      {
+        initialProps: {
+          defaults: DEFAULTS,
+          route: 'confirmResetPassword',
+        },
+      }
     );
+
+    expect(result.current).toStrictEqual(DEFAULTS['ConfirmResetPassword']);
+    expect(result.current).not.toStrictEqual(ConfirmResetPassword);
+
+    rerender({
+      defaults: DEFAULTS,
+      overrides: { ConfirmResetPassword },
+      route: 'confirmResetPassword',
+    });
+
     expect(result.current).toStrictEqual(ConfirmResetPassword);
+    expect(result.current).not.toStrictEqual(DEFAULTS['ConfirmResetPassword']);
   });
 
   it('returns the expected value when given an invalid route', () => {
