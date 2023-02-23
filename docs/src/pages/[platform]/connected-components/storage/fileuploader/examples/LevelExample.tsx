@@ -5,7 +5,7 @@ export const LevelExample = () => {
     <FileUploader
       variation="drop"
       acceptedFileTypes={['image/*']}
-      level="private"
+      accessLevel="private"
       provider="fast" // IGNORE
     />
   );
