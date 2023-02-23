@@ -16,7 +16,6 @@ When('I click the {string} layout radio option', (radioOption: string) => {
 });
 
 When('I toggle {string} checkbox', (checkboxName: string) => {
-  // unable to uncheck so added click action instead
   cy.findByText(checkboxName).click();
 });
 
