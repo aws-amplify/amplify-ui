@@ -365,21 +365,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             entry: ['cancelWaitForDisconnectTimeout', 'freezeStream'],
             invoke: {
               src: 'getLiveness',
-              onDone: 'checking',
               onError: {
                 target: '#livenessMachine.error',
                 actions: 'updateErrorStateForServer',
               },
             },
-          },
-          checking: {
-            always: [
-              {
-                target: '#livenessMachine.checkSucceeded',
-                cond: 'hasLivenessCheckSucceeded',
-              },
-              { target: '#livenessMachine.checkFailed' },
-            ],
           },
         },
       },
@@ -415,12 +405,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           'cancelOvalMatchTimeout',
           'freezeStream',
         ],
-      },
-      checkFailed: {
-        entry: 'callFailureCallback',
-      },
-      checkSucceeded: {
-        entry: 'callSuccessCallback',
       },
       userCancel: {
         entry: ['cleanUpResources', 'callUserCancelCallback', 'resetContext'],
@@ -693,15 +677,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       // callbacks
       callUserPermissionDeniedCallback: assign({
         errorState: (context, event) => {
-          context.componentProps.onUserPermissionDenied?.(
-            new Error(event.data.message)
-          );
+          let errorState: LivenessErrorState;
 
           if ((event.data.message as string).includes('15 fps')) {
-            return LivenessErrorState.CAMERA_FRAMERATE_ERROR;
+            errorState = LivenessErrorState.CAMERA_FRAMERATE_ERROR;
           } else {
-            return LivenessErrorState.CAMERA_ACCESS_ERROR;
+            errorState = LivenessErrorState.CAMERA_ACCESS_ERROR;
           }
+
+          const errorMessage = event.data.message || event.data.Message;
+          const error = new Error(errorMessage);
+          error.name = errorState;
+          context.componentProps.onError?.(error);
+
+          return errorState;
         },
       }),
       callMobileLandscapeWarningCallback: assign({
@@ -718,12 +707,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         );
         error.name = context.errorState;
         context.componentProps.onError?.(error);
-      },
-      callSuccessCallback: (context) => {
-        context.componentProps.onSuccess?.();
-      },
-      callFailureCallback: (context) => {
-        context.componentProps.onFailure?.();
       },
       callErrorCallback: async (context, event) => {
         const errorMessage =
@@ -1158,16 +1141,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async getLiveness(context) {
         const {
-          componentProps: { sessionId, onGetLivenessDetection },
+          componentProps: { sessionId, handleGetLivenessDetection },
           livenessStreamProvider,
         } = context;
 
         livenessStreamProvider.endStream();
 
         // Get liveness result
-        const { isLive } = await onGetLivenessDetection(sessionId);
-
-        return { isLive };
+        await handleGetLivenessDetection(sessionId);
       },
     },
   }

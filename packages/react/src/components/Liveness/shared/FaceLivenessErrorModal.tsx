@@ -58,6 +58,11 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
 
   if (errorState === LivenessErrorState.MOBILE_LANDSCAPE_ERROR) {
     return <LandscapeErrorModal onRetry={onRetry} />;
+  } else if (
+    errorState === LivenessErrorState.CAMERA_ACCESS_ERROR ||
+    errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
+  ) {
+    return null;
   } else {
     return renderToastErrorModal(props);
   }

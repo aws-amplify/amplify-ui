@@ -14,12 +14,7 @@ export interface FaceLivenessDetectorProps {
    * logic on confidence scores and not expose the score on client
    *
    */
-  onGetLivenessDetection: (sessionId: string) => Promise<GetLivenessResult>;
-
-  /**
-   * Callback called when the user denies any required permissions
-   */
-  onUserPermissionDenied?: (error: Error) => void;
+  handleGetLivenessDetection: (sessionId: string) => Promise<void>;
 
   /**
    * Callback called when the user cancels the flow
@@ -32,26 +27,9 @@ export interface FaceLivenessDetectorProps {
   onError?: (error: Error) => void;
 
   /**
-   * Callback called when the flow completes successfully
-   */
-  onSuccess?: () => void;
-
-  /**
-   * Callback called when the flow completes unsuccessfully
-   */
-  onFailure?: () => void;
-
-  /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
    */
   disableStartScreen?: boolean;
-}
-
-/**
- * The object to be returned as part of the onGetLivenessDetection callback
- */
-export interface GetLivenessResult {
-  isLive: boolean;
 }
 
 /**

@@ -42,12 +42,9 @@ describe('Liveness Machine', () => {
 
   const mockcomponentProps: FaceLivenessDetectorProps = {
     sessionId: 'some-sessionId',
-    onGetLivenessDetection: jest.fn(),
+    handleGetLivenessDetection: jest.fn(),
     onError: jest.fn(),
-    onSuccess: jest.fn(),
-    onFailure: jest.fn(),
     onUserCancel: jest.fn(),
-    onUserPermissionDenied: jest.fn(),
   };
 
   const mockVideoConstaints: MediaTrackConstraints = {
@@ -639,7 +636,7 @@ describe('Liveness Machine', () => {
   describe('uploading', () => {
     it('should reach waitForDisconnectEvent state after stopping video', async () => {
       (
-        mockcomponentProps.onGetLivenessDetection as jest.Mock
+        mockcomponentProps.handleGetLivenessDetection as jest.Mock
       ).mockResolvedValue({
         isLive: true,
       });
@@ -658,7 +655,7 @@ describe('Liveness Machine', () => {
 
     it('should reach getLivenessResult state after receiving disconnect event', async () => {
       (
-        mockcomponentProps.onGetLivenessDetection as jest.Mock
+        mockcomponentProps.handleGetLivenessDetection as jest.Mock
       ).mockResolvedValue({
         isLive: true,
       });
@@ -690,61 +687,11 @@ describe('Liveness Machine', () => {
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
     });
 
-    it('should reach checkSucceeded state after getLivenessResult', async () => {
-      (
-        mockcomponentProps.onGetLivenessDetection as jest.Mock
-      ).mockResolvedValue({
-        isLive: true,
-      });
-
-      await transitionToUploading(service);
-
-      await flushPromises(); // stopVideo
-      service.send({ type: 'DISCONNECT_EVENT' });
-      jest.advanceTimersToNextTimer(); // waitForDisconnect
-      await flushPromises(); // getLivenessResult
-
-      expect(service.state.value).toEqual('checkSucceeded');
-      expect(mockLivenessStreamProvider.endStream).toHaveBeenCalledTimes(1);
-      expect(mockLivenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
-        2
-      );
-      expect(
-        mockcomponentProps.onGetLivenessDetection as jest.Mock
-      ).toHaveBeenCalledTimes(1);
-      expect(mockcomponentProps.onSuccess as jest.Mock).toHaveBeenCalledTimes(
-        1
-      );
-    });
-
-    it('should reach checkFailed state after getLivenessResult returns false', async () => {
-      (
-        mockcomponentProps.onGetLivenessDetection as jest.Mock
-      ).mockResolvedValue({
-        isLive: false,
-      });
-
-      await transitionToUploading(service);
-
-      await flushPromises(); // stopVideo
-      service.send({ type: 'DISCONNECT_EVENT' });
-      jest.advanceTimersToNextTimer(); // waitForDisconnect
-      await flushPromises(); // getLivenessResult
-
-      expect(service.state.value).toEqual('checkFailed');
-      expect(
-        mockcomponentProps.onGetLivenessDetection as jest.Mock
-      ).toHaveBeenCalledTimes(1);
-      expect(mockcomponentProps.onFailure as jest.Mock).toHaveBeenCalledTimes(
-        1
-      );
-    });
-
     it('should reach error state after getLiveness returns error', async () => {
       const error = new Error();
       error.name = LivenessErrorState.SERVER_ERROR;
       (
-        mockcomponentProps.onGetLivenessDetection as jest.Mock
+        mockcomponentProps.handleGetLivenessDetection as jest.Mock
       ).mockRejectedValue(error);
 
       await transitionToUploading(service);

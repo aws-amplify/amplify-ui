@@ -99,7 +99,7 @@ export const mockContext = (): LivenessContext => {
     failedAttempts: 0,
     componentProps: {
       sessionId: 'foobar',
-      onGetLivenessDetection: jest.fn(),
+      handleGetLivenessDetection: jest.fn(),
     },
     videoAssociatedParams: {
       videoConstraints: mockVideoConstaints,

@@ -65,12 +65,14 @@ export default function LivenessDefault({
               <FaceLivenessDetector
                 sessionId={createLivenessSessionApiData.sessionId}
                 onUserCancel={onUserCancel}
-                onGetLivenessDetection={handleGetLivenessDetection}
+                handleGetLivenessDetection={async (sessionId) => {
+                  const response = await handleGetLivenessDetection(sessionId);
+                  if (!response.isLive) {
+                    setCheckFailed(true);
+                  }
+                }}
                 onError={(error) => {
                   setError(error);
-                }}
-                onFailure={() => {
-                  setCheckFailed(true);
                 }}
                 disableStartScreen={disableStartScreen}
                 components={components}
@@ -82,16 +84,6 @@ export default function LivenessDefault({
                   error={error}
                   onRetry={() => {
                     setError(undefined);
-                    stopLiveness();
-                  }}
-                />
-              </View>
-            ) : null}
-            {checkFailed ? (
-              <View style={{ zIndex: '1' }}>
-                <FaceLivenessFailureModal
-                  onRetry={() => {
-                    setCheckFailed(false);
                     stopLiveness();
                   }}
                 />

@@ -15,7 +15,7 @@ export function renderWithLivenessProvider(
 ): RenderWithLivenessLivenessProviderResult {
   const mockcomponentProps: FaceLivenessDetectorProps = {
     sessionId: 'sessionId',
-    onGetLivenessDetection: jest.fn(),
+    handleGetLivenessDetection: jest.fn(),
   };
   const mockService: LivenessInterpreter = {} as LivenessInterpreter;
 

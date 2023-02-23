@@ -42,16 +42,15 @@ export function useLiveness() {
     mutate();
   };
 
-  const handleGetLivenessDetection: FaceLivenessDetectorProps['onGetLivenessDetection'] =
-    async (sessionId) => {
-      const response = await API.get(
-        'SampleBackend',
-        `/liveness/${sessionId}`,
-        {}
-      );
-      setGetLivenessResponse(response);
-      return { isLive: response.isLive };
-    };
+  const handleGetLivenessDetection = async (sessionId) => {
+    const response = await API.get(
+      'SampleBackend',
+      `/liveness/${sessionId}`,
+      {}
+    );
+    setGetLivenessResponse(response);
+    return { isLive: response.isLive };
+  };
 
   return {
     isLivenessActive,

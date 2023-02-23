@@ -49,9 +49,7 @@ describe('FaceLivenessDetector', () => {
 
   const defaultProps: FaceLivenessDetectorProps = {
     sessionId: 'sessionId',
-    onGetLivenessDetection: async () => {
-      return { isLive: true };
-    },
+    handleGetLivenessDetection: async () => {},
   };
   const livenessTestId = 'liveness-detector';
   const livenessCheckTestId = 'liveness-detector-check';
