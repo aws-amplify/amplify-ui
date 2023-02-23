@@ -1,3 +1,4 @@
+import { DisplayText } from '../displayText';
 import { FileState } from '../types';
 
 export interface UploadTrackerProps {
@@ -15,4 +16,13 @@ export interface UploadTrackerProps {
   percentage: number;
   isResumable?: boolean;
   showImage: boolean;
+  displayText: Pick<
+    DisplayText,
+    | 'extensionNotAllowed'
+    | 'pause'
+    | 'resume'
+    | 'uploading'
+    | 'paused'
+    | 'uploadSuccessful'
+  >;
 }

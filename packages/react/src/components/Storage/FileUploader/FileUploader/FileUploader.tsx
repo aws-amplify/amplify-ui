@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Logger } from 'aws-amplify';
 import type { UploadTask } from '@aws-amplify/storage';
 import { Storage } from '@aws-amplify/storage';
-import { translate, uploadFile, isValidExtension } from '@aws-amplify/ui';
+import { uploadFile, isValidExtension } from '@aws-amplify/ui';
 
 import {
   Button as UploadButton,
@@ -17,6 +17,7 @@ import { UploadTracker } from '../UploadTracker';
 import { FileState } from '../types';
 import { FileUploaderProps } from './types';
 import { isUploadTask } from './utils';
+import { defaultDisplayText, DisplayText } from '../displayText';
 
 const logger = new Logger('AmplifyUI:Storage');
 
@@ -33,6 +34,7 @@ export function FileUploader({
   accessLevel,
   variation = 'drop',
   isResumable = false,
+  displayText: _displayText,
   ...rest
 }: FileUploaderProps): JSX.Element {
   if (!acceptedFileTypes || !accessLevel) {
@@ -40,6 +42,14 @@ export function FileUploader({
       'FileUploader requires accessLevel and acceptedFileTypes props'
     );
   }
+  // should probably type this as Required
+  // and make components we pass this to only accept the required version
+  const displayText: DisplayText = useMemo(() => {
+    return {
+      ...defaultDisplayText,
+      ..._displayText,
+    };
+  }, [_displayText]);
 
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
@@ -132,7 +142,7 @@ export function FileUploader({
           const updatedStatus = {
             ...prevStatus,
             fileState: 'error' as FileState,
-            fileErrors: translate(err.toString()),
+            fileErrors: displayText.error(err.toString()),
           };
 
           prevFileStatuses[index] = updatedStatus;
@@ -143,7 +153,7 @@ export function FileUploader({
         if (typeof onError === 'function') onError(err);
       };
     },
-    [onError, setFileStatuses]
+    [onError, setFileStatuses, displayText]
   );
 
   const onPause = useCallback(
@@ -280,13 +290,13 @@ export function FileUploader({
           fileState: !validExtension ? FileState.ERROR : FileState.INIT,
           fileErrors: validExtension
             ? undefined
-            : translate('Extension not allowed'),
+            : displayText.extensionNotAllowed,
         };
 
         setFileStatuses(newFileStatuses);
       };
     },
-    [fileStatuses, setFileStatuses]
+    [fileStatuses, setFileStatuses, displayText]
   );
 
   const updateFileState = useCallback(
@@ -354,7 +364,7 @@ export function FileUploader({
           }}
           size="small"
         >
-          {translate('Browse files')}
+          {displayText.browseFiles}
         </UploadButton>
         <VisuallyHidden>
           <input
@@ -368,17 +378,22 @@ export function FileUploader({
         </VisuallyHidden>
       </>
     ),
-    [isLoading, onFileChange, hasMultipleFiles, accept]
+    [isLoading, onFileChange, hasMultipleFiles, accept, displayText]
   );
 
   if (showPreviewer) {
     return (
       <UploadPreviewer
         dropZone={
-          <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
+          <UploadDropZone
+            {...dropZoneProps}
+            displayText={displayText}
+            inDropZone={inDropZone}
+          >
             {uploadButton}
           </UploadDropZone>
         }
+        displayText={displayText}
         fileStatuses={fileStatuses}
         isLoading={isLoading}
         isSuccessful={isSuccessful}
@@ -390,6 +405,7 @@ export function FileUploader({
       >
         {fileStatuses?.map((status, index) => (
           <UploadTracker
+            displayText={displayText}
             errorMessage={status?.fileErrors}
             file={status.file}
             fileState={status?.fileState}
@@ -415,7 +431,11 @@ export function FileUploader({
     return uploadButton;
   } else {
     return (
-      <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
+      <UploadDropZone
+        {...dropZoneProps}
+        displayText={displayText}
+        inDropZone={inDropZone}
+      >
         {uploadButton}
       </UploadDropZone>
     );

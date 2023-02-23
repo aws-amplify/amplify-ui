@@ -1,3 +1,4 @@
+import { DisplayText } from '../displayText';
 import { FileStatuses } from '../types';
 
 export interface UploadPreviewerProps {
@@ -11,4 +12,14 @@ export interface UploadPreviewerProps {
   maxFileCount: number;
   onClear: () => void;
   onFileClick: () => void;
+  displayText: Pick<
+    DisplayText,
+    | 'maxFilesError'
+    | 'remainingFiles'
+    | 'filesUploaded'
+    | 'uploading'
+    | 'clearButton'
+    | 'uploadButton'
+    | 'doneButton'
+  >;
 }
