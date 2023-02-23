@@ -45,7 +45,14 @@ async function checkSitemapPath(pageUrl, pageIdx) {
   await page.close();
   await browser.close();
 
-  async function checkLink({ href, tagName, tagText }, linkIdx) {
+  async function checkLink(
+    {
+      href,
+      tagName,
+      tagText,
+    }: { href: string; tagName: string; tagText: string },
+    linkIdx: string
+  ) {
     if (IGNORED_LINKS.includes(href)) {
       console.log(
         `⏭[SKIPPING...] link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page #${pageIdx} ${pageUrl}, because it is on the IGNORED_LINKS list.`
@@ -69,14 +76,27 @@ async function checkSitemapPath(pageUrl, pageIdx) {
       statusCode: number;
       href: string;
     }) {
-      if (
-        [200, 301, 303, /*Start To remove */ 308 /*End To remove*/].includes(
-          statusCode
-        )
-      ) {
+      if ([200, 301, 303, 308].includes(statusCode)) {
         console.log(
           `↩️ [RETURNING STATUS...] ${statusCode} for link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page #${pageIdx} ${pageUrl}`
         );
+
+        /**
+         * If 308, check if it's a internal direction (see docs/next.config.js redirects logic)
+         * If it's internal direction, after adding the platform, it should be 200
+         * Otherwise, the link needs to be updated
+         */
+        if (statusCode === 308) {
+          const hostNameRegex = /http(s)?:\/\/[^/]*/i;
+          const platform = pageUrl.replace(hostNameRegex, '').split('/')[1];
+          const newHref = `${
+            href.match(hostNameRegex)[0]
+          }/${platform}${href.replace(hostNameRegex, '')}`;
+          console.log(
+            `🔁 [Redirecting...] link #${linkIdx} ${href} to ${newHref}`
+          );
+          checkLink({ href: newHref, tagName, tagText }, linkIdx);
+        }
       } else {
         throw new Error(
           `❌ [RETURNING STATUS...] ${statusCode} for link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on  page #${pageIdx} ${pageUrl}`
