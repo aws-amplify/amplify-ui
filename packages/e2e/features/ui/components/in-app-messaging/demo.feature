@@ -50,7 +50,7 @@ Feature: In-App Messaging demo page to show banners with various configurations
     Then I see a "modal" banner
 
   @react
-  Scenario: Verify that fullscreen banner is shown on FULL_SCREEN analytic event
+  Scenario: Verify that the banner is shown as fullscreen
     When I click the "FULL_SCREEN" layout radio option
     And I click the "Display Demo Message" button
     Then I see a "fullscreen" banner
