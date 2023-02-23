@@ -8,9 +8,6 @@ const theme: Theme = {
       autocomplete: {
         // @ts-ignore
         menu: {
-          _empty: {
-            display: '',
-          },
           option: {
             _active: {
               backgroundColor: {
