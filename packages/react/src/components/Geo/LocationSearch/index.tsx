@@ -36,13 +36,9 @@ interface LocationSearchProps extends MaplibreGeocoderOptions {
    * Fired when input is set
    */
   onResult?: (result: MaplibreGeocoderResult) => void;
-  /**
-   * Emitted on error as string
-   */
-  onError?: (error: string) => void;
 }
 
-type EventType = 'clear' | 'loading' | 'result' | 'results' | 'error';
+type EventType = 'clear' | 'loading' | 'result' | 'results';
 
 type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
@@ -69,7 +65,6 @@ const LocationSearchStandalone = ({
   onResult,
   onResults,
   onClear,
-  onError,
   ...props
 }: LocationSearchProps) => {
   const geocoderRef = useRef(null);
@@ -86,16 +81,14 @@ const LocationSearchStandalone = ({
     map.on('loading', onLoading);
     map.on('results', onResults);
     map.on('clear', onClear);
-    map.on('error', onError);
 
     return () => {
       map.off('result', onResult);
       map.off('loading', onLoading);
       map.off('results', onResults);
       map.off('clear', onClear);
-      map.off('error', onError);
     };
-  }, [onResult, onLoading, onResults, onClear, onError, props]);
+  }, [onResult, onLoading, onResults, onClear, props]);
 
   return <div id={LOCATION_SEARCH_CONTAINER} ref={geocoderRef} />;
 };

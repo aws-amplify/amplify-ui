@@ -26,11 +26,6 @@ const onLocationSearchClear = () => {
   console.log('Clear event is firing');
 };
 
-const onLocationSearchError = (event) => {
-  console.log('Error event is firing');
-  console.log(event);
-};
-
 const onLocationSearchLoading = (event) => {
   console.log('Loading event is firing');
   console.log(event);
@@ -41,7 +36,6 @@ export default function StandaloneLocationSearch() {
     <LocationSearch
       onResult={onLocationSearchResult}
       onClear={onLocationSearchClear}
-      onError={onLocationSearchError}
       onLoading={onLocationSearchLoading}
       onResults={onLocationSearchResults}
       proximity={SAN_FRANCISCO}
