@@ -6,7 +6,11 @@ const theme: Theme = {
   tokens: {
     components: {
       autocomplete: {
+        // @ts-ignore
         menu: {
+          _empty: {
+            display: '',
+          },
           option: {
             _active: {
               backgroundColor: {

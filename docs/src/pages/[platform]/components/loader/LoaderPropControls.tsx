@@ -66,11 +66,13 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
       </SelectField>
       <TextField
         label="emptyColor"
+        // @ts-ignore
         value={emptyColor}
         onChange={(event) => setEmptyColor(event.target.value)}
       />
       <TextField
         label="filledColor"
+        // @ts-ignore
         value={filledColor}
         onChange={(event) => setFilledColor(event.target.value)}
       />
@@ -87,6 +89,7 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
           type="number"
           label="percentage"
           value={percentage}
+          // @ts-ignore
           onChange={(event) => setPercentage(event.target.value)}
         />
       ) : null}

@@ -68,6 +68,7 @@ export const IconPropControls: IconPropControlsInterface = ({
           <TextField
             value={viewBox.width}
             onChange={(event) =>
+              // @ts-ignore
               setViewBox({ width: event.target.value, height: viewBox.height })
             }
             label="viewBox width"
@@ -77,6 +78,7 @@ export const IconPropControls: IconPropControlsInterface = ({
           <TextField
             value={viewBox.height}
             onChange={(event) =>
+              // @ts-ignore
               setViewBox({ width: viewBox.width, height: event.target.value })
             }
             label="viewBox height"

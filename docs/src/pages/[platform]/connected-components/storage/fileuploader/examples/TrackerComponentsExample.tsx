@@ -16,6 +16,7 @@ export const TrackerComponentsExample = () => {
       //     );
       //   },
       // }}
+      // @ts-ignore
       provider="fast" // IGNORE
     />
   );

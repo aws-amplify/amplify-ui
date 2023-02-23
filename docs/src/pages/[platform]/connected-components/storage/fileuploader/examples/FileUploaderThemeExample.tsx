@@ -29,6 +29,7 @@ export const FileUploaderThemeExample = () => {
         hasMultipleFiles={true}
         maxSize={100000000}
         maxFileCount={3}
+        // @ts-ignore
         provider="fast" // IGNORE
       />
     </ThemeProvider>

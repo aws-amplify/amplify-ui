@@ -7,6 +7,7 @@ export const MaxFilesExample = () => {
       variation="drop"
       acceptedFileTypes={['image/*']}
       accessLevel="public"
+      // @ts-ignore
       provider="fast" // IGNORE
     />
   );

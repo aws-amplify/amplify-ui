@@ -6,6 +6,7 @@ export const AutoProceedExample = () => {
       shouldAutoProceed={true}
       acceptedFileTypes={['image/*']}
       accessLevel="public"
+      // @ts-ignore
       provider="fast" // IGNORE
     />
   );

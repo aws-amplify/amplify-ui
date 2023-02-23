@@ -21,6 +21,7 @@ export const UploadButtonComponentsExample = () => {
       //     );
       //   },
       // }}
+      // @ts-ignore
       provider="fast" // IGNORE
     />
   );

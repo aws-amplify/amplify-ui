@@ -5,6 +5,7 @@ const theme: Theme = {
   tokens: {
     components: {
       checkbox: {
+        // @ts-ignore
         button: {
           color: { value: '{colors.yellow.40}' },
           _focus: {

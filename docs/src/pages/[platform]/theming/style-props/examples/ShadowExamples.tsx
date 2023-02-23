@@ -13,7 +13,12 @@ export const ShadowStylePropExample = () => {
 export const ShadowThemeTokenExample = () => {
   const { tokens } = useTheme();
   return (
-    <Button boxShadow={tokens.shadows.large}>Shadow Styling Example</Button>
+    <Button
+      // @ts-ignore
+      boxShadow={tokens.shadows.large}
+    >
+      Shadow Styling Example
+    </Button>
   );
 };
 
