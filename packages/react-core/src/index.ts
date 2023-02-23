@@ -20,6 +20,9 @@ export {
   useAuthenticatorInitMachine,
   UseAuthenticatorRoute,
   useAuthenticatorProps,
+  AuthenticatorWebRouteComponentsDefaults,
+  AuthenticatorRouteComponentsDefaults,
+  AuthenticatorRouteComponentsOverrides,
 } from './Authenticator';
 
 export {
