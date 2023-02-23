@@ -1,4 +1,4 @@
-export const defaultDisplayText = {
+export const defaultFileUploaderDisplayText = {
   filesUploaded(count: number): string {
     return `${count} ${count === 1 ? 'file uploaded' : 'files uploaded'}`;
   },
@@ -32,4 +32,4 @@ export const defaultDisplayText = {
   },
 };
 
-export type DisplayText = typeof defaultDisplayText;
+export type FileUploaderDisplayText = typeof defaultFileUploaderDisplayText;

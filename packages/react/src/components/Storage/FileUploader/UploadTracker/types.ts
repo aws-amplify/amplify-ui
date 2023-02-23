@@ -1,4 +1,4 @@
-import { DisplayText } from '../displayText';
+import { FileUploaderDisplayText } from '../displayText';
 import { FileState } from '../types';
 
 export interface UploadTrackerProps {
@@ -17,7 +17,7 @@ export interface UploadTrackerProps {
   isResumable?: boolean;
   showImage: boolean;
   displayText: Pick<
-    DisplayText,
+    FileUploaderDisplayText,
     | 'extensionNotAllowed'
     | 'pause'
     | 'resume'

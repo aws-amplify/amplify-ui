@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import { UploadTracker } from '..';
 import { FileState } from '../../types';
+import { defaultFileUploaderDisplayText } from '../../displayText';
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
 describe('UploadTracker', () => {
@@ -11,6 +12,7 @@ describe('UploadTracker', () => {
       <UploadTracker
         file={fakeFile}
         hasImage
+        displayText={defaultFileUploaderDisplayText}
         fileState={FileState.INIT}
         onCancel={() => {}}
         name={'hello.png'}
@@ -31,6 +33,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
+        displayText={defaultFileUploaderDisplayText}
         file={fakeFile}
         fileState={FileState.INIT}
         hasImage
@@ -55,6 +58,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
+        displayText={defaultFileUploaderDisplayText}
         file={fakeFile}
         fileState={FileState.INIT}
         hasImage
@@ -79,6 +83,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
+        displayText={defaultFileUploaderDisplayText}
         file={fakeFile}
         fileState={FileState.ERROR}
         hasImage
@@ -103,6 +108,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
+        displayText={defaultFileUploaderDisplayText}
         file={fakeFile}
         fileState={FileState.ERROR}
         hasImage
@@ -127,6 +133,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
+        displayText={defaultFileUploaderDisplayText}
         file={fakeFile}
         fileState={FileState.RESUME}
         hasImage
@@ -144,7 +151,9 @@ describe('UploadTracker', () => {
       />
     );
 
-    const button = await screen.getByRole('button', { name: 'pause' });
+    const button = await screen.getByRole('button', {
+      name: defaultFileUploaderDisplayText.pause,
+    });
 
     expect(button).toBeVisible();
   });

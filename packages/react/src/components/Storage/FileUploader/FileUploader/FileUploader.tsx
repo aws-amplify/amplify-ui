@@ -17,7 +17,7 @@ import { UploadTracker } from '../UploadTracker';
 import { FileState } from '../types';
 import { FileUploaderProps } from './types';
 import { isUploadTask } from './utils';
-import { defaultDisplayText } from '../displayText';
+import { defaultFileUploaderDisplayText } from '../displayText';
 
 const logger = new Logger('AmplifyUI:Storage');
 
@@ -34,7 +34,7 @@ export function FileUploader({
   accessLevel,
   variation = 'drop',
   isResumable = false,
-  displayText: _displayText,
+  displayText: overrideDisplayText,
   ...rest
 }: FileUploaderProps): JSX.Element {
   if (!acceptedFileTypes || !accessLevel) {
@@ -45,10 +45,10 @@ export function FileUploader({
 
   const displayText = useMemo(() => {
     return {
-      ...defaultDisplayText,
-      ..._displayText,
+      ...defaultFileUploaderDisplayText,
+      ...overrideDisplayText,
     };
-  }, [_displayText]);
+  }, [overrideDisplayText]);
 
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
@@ -295,7 +295,7 @@ export function FileUploader({
         setFileStatuses(newFileStatuses);
       };
     },
-    [fileStatuses, setFileStatuses, displayText]
+    [fileStatuses, setFileStatuses, displayText.extensionNotAllowed]
   );
 
   const updateFileState = useCallback(
@@ -351,7 +351,7 @@ export function FileUploader({
 
   const accept = acceptedFileTypes?.join();
 
-  const uploadButton = useMemo(
+  const uploadButtonComponent = useMemo(
     () => (
       <>
         <UploadButton
@@ -381,18 +381,41 @@ export function FileUploader({
   );
 
   if (showPreviewer) {
+    const {
+      dropFiles,
+      filesUploaded,
+      clearButton,
+      remainingFiles,
+      uploading,
+      maxFilesError,
+      doneButton,
+      paused,
+      pause,
+      resume,
+      extensionNotAllowed,
+      uploadSuccessful,
+      uploadButton,
+    } = displayText;
     return (
       <UploadPreviewer
         dropZone={
           <UploadDropZone
             {...dropZoneProps}
-            displayText={displayText}
+            displayText={{ dropFiles }}
             inDropZone={inDropZone}
           >
-            {uploadButton}
+            {uploadButtonComponent}
           </UploadDropZone>
         }
-        displayText={displayText}
+        displayText={{
+          filesUploaded,
+          clearButton,
+          remainingFiles,
+          uploadButton,
+          uploading,
+          maxFilesError,
+          doneButton,
+        }}
         fileStatuses={fileStatuses}
         isLoading={isLoading}
         isSuccessful={isSuccessful}
@@ -404,7 +427,14 @@ export function FileUploader({
       >
         {fileStatuses?.map((status, index) => (
           <UploadTracker
-            displayText={displayText}
+            displayText={{
+              paused,
+              uploading,
+              pause,
+              resume,
+              extensionNotAllowed,
+              uploadSuccessful,
+            }}
             errorMessage={status?.fileErrors}
             file={status.file}
             fileState={status?.fileState}
@@ -427,15 +457,16 @@ export function FileUploader({
   }
 
   if (variation === 'button') {
-    return uploadButton;
+    return uploadButtonComponent;
   } else {
+    const { dropFiles } = displayText;
     return (
       <UploadDropZone
         {...dropZoneProps}
-        displayText={displayText}
+        displayText={{ dropFiles }}
         inDropZone={inDropZone}
       >
-        {uploadButton}
+        {uploadButtonComponent}
       </UploadDropZone>
     );
   }

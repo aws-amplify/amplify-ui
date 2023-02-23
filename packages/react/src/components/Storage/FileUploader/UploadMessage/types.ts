@@ -1,9 +1,12 @@
-import { DisplayText } from '../displayText';
+import { FileUploaderDisplayText } from '../displayText';
 import { FileState } from '../types';
 
 export interface UploadMessageProps {
   fileState: FileState;
   errorMessage: string;
   percentage?: number;
-  displayText: Pick<DisplayText, 'uploading' | 'paused' | 'uploadSuccessful'>;
+  displayText: Pick<
+    FileUploaderDisplayText,
+    'uploading' | 'paused' | 'uploadSuccessful'
+  >;
 }

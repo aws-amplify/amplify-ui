@@ -9,6 +9,7 @@ import { ComponentClassNames } from '../../../../primitives';
 
 import { FileUploader } from '..';
 import { FileState } from '../types';
+import { defaultFileUploaderDisplayText } from '../displayText';
 
 type CompleteCallback = (event: { key: string }) => void;
 type ErrorCallback = (error: string) => void;
@@ -189,7 +190,9 @@ describe('File Uploader', () => {
 
     render(<FileUploader {...commonProps} isPreviewerVisible />);
 
-    const button = await screen.findByText('pause');
+    const button = await screen.findByText(
+      defaultFileUploaderDisplayText.pause
+    );
     fireEvent.click(button);
 
     expect(uploadTaskSpy).toBeCalled();
@@ -212,7 +215,9 @@ describe('File Uploader', () => {
 
     render(<FileUploader {...commonProps} isPreviewerVisible />);
 
-    const button = await screen.findByText('Resume');
+    const button = await screen.findByText(
+      defaultFileUploaderDisplayText.resume
+    );
     fireEvent.click(button);
 
     expect(uploadTaskSpy).toBeCalled();
@@ -578,7 +583,9 @@ describe('File Uploader', () => {
       <FileUploader {...commonProps} maxFileCount={1} isPreviewerVisible />
     );
 
-    const uploadFilesText = await screen.findByText(/Upload 1 file/);
+    const uploadFilesText = await screen.findByText(
+      defaultFileUploaderDisplayText.uploadButton(1)
+    );
 
     expect(uploadFilesText).toBeVisible();
   });
@@ -727,5 +734,13 @@ describe('File Uploader', () => {
 
     expect(await screen.findByText(/files selected/)).toBeVisible();
     expect(await screen.findByText(/Upload 2 file/)).toBeVisible();
+  });
+
+  it('should use dsiplayText prop', async () => {
+    render(
+      <FileUploader {...commonProps} displayText={{ dropFiles: 'drop it' }} />
+    );
+
+    expect(await screen.findByText('drop it')).toBeVisible();
   });
 });

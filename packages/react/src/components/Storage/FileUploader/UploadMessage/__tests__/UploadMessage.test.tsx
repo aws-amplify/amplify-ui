@@ -3,11 +3,20 @@ import { render } from '@testing-library/react';
 
 import { UploadMessage } from '../UploadMessage';
 import { FileState } from '../../types';
+import { defaultFileUploaderDisplayText } from '../../displayText';
+
+const commonProps = {
+  displayText: defaultFileUploaderDisplayText,
+};
 
 describe('UploadMessage', () => {
   it('exists', async () => {
     const { container } = render(
-      <UploadMessage fileState={FileState.ERROR} errorMessage={''} />
+      <UploadMessage
+        {...commonProps}
+        fileState={FileState.ERROR}
+        errorMessage={''}
+      />
     );
 
     expect(container).toMatchSnapshot();
@@ -15,6 +24,7 @@ describe('UploadMessage', () => {
   it('displays loading message if fileState is loading', async () => {
     const { findByText } = render(
       <UploadMessage
+        {...commonProps}
         fileState={FileState.LOADING}
         percentage={10}
         errorMessage={''}
@@ -26,6 +36,7 @@ describe('UploadMessage', () => {
   it('displays paused message if fileState is paused', async () => {
     const { findByText } = render(
       <UploadMessage
+        {...commonProps}
         fileState={FileState.PAUSED}
         percentage={10}
         errorMessage={''}
@@ -36,7 +47,11 @@ describe('UploadMessage', () => {
   });
   it('displays upload success message if fileState is in success', async () => {
     const { findByText } = render(
-      <UploadMessage fileState={FileState.SUCCESS} errorMessage={''} />
+      <UploadMessage
+        {...commonProps}
+        fileState={FileState.SUCCESS}
+        errorMessage={''}
+      />
     );
 
     expect(await findByText('Uploaded successfully')).toBeVisible();
@@ -44,7 +59,11 @@ describe('UploadMessage', () => {
   it('displays error message if fileState is in error', async () => {
     const error = 'error message';
     const { findByText } = render(
-      <UploadMessage fileState={FileState.ERROR} errorMessage={error} />
+      <UploadMessage
+        {...commonProps}
+        fileState={FileState.ERROR}
+        errorMessage={error}
+      />
     );
 
     expect(await findByText(error)).toBeVisible();
