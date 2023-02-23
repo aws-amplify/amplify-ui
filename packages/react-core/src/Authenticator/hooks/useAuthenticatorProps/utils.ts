@@ -46,7 +46,7 @@ const PROPS_RESOLVERS: RoutePropsResolvers = {
   confirmResetPassword: translateHandlerProps,
   confirmSignIn: (props) => ({
     ...translateHandlerProps(props),
-    // `challengName` is always provided on `user` for the `confirmSignIn` route
+    // `challengeName` is always provided on `user` for the `confirmSignIn` route
     challengeName: props.user.challengeName!,
   }),
   confirmSignUp: translateHandlerProps,
