@@ -17,7 +17,7 @@ import { UploadTracker } from '../UploadTracker';
 import { FileState } from '../types';
 import { FileUploaderProps } from './types';
 import { isUploadTask } from './utils';
-import { defaultDisplayText, DisplayText } from '../displayText';
+import { defaultDisplayText } from '../displayText';
 
 const logger = new Logger('AmplifyUI:Storage');
 
@@ -42,9 +42,8 @@ export function FileUploader({
       'FileUploader requires accessLevel and acceptedFileTypes props'
     );
   }
-  // should probably type this as Required
-  // and make components we pass this to only accept the required version
-  const displayText: DisplayText = useMemo(() => {
+
+  const displayText = useMemo(() => {
     return {
       ...defaultDisplayText,
       ..._displayText,
