@@ -132,6 +132,7 @@ export function FileUploader({
     [setFileStatuses]
   );
 
+  const { error } = displayText;
   const errorCallback = useCallback(
     (index: number) => {
       return (err: string) => {
@@ -141,7 +142,7 @@ export function FileUploader({
           const updatedStatus = {
             ...prevStatus,
             fileState: 'error' as FileState,
-            fileErrors: displayText.error(err.toString()),
+            fileErrors: error(err.toString()),
           };
 
           prevFileStatuses[index] = updatedStatus;
@@ -152,7 +153,7 @@ export function FileUploader({
         if (typeof onError === 'function') onError(err);
       };
     },
-    [onError, setFileStatuses, displayText]
+    [onError, setFileStatuses, error]
   );
 
   const onPause = useCallback(
