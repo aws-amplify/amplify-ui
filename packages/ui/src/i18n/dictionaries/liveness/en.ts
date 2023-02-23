@@ -31,7 +31,8 @@ export const enDict = {
   'Connecting...': 'Connecting...',
   'Move face in front of camera': 'Move face in front of camera',
   'Hold face position during countdown': 'Hold face position during countdown',
-  'Hold face in oval': 'Hold face in oval',
+  'Hold face in oval for colored lights':
+    'Hold face in oval for colored lights',
   'Verifying...': 'Verifying...',
   'Check unsuccessful': 'Check unsuccessful',
   'Check successful': 'Check successful',
@@ -43,7 +44,7 @@ export const enDict = {
   'Move to brighter area': 'Move to brighter area',
 
   // Face Match State
-  'Move face further away': 'Move face further away',
+  'Move face farther away': 'Move face farther away',
   'Move face closer': 'Move face closer',
   'Move face right': 'Move face right',
   'Move face left': 'Move face left',
@@ -53,8 +54,8 @@ export const enDict = {
   'Cannot complete check due to server issue':
     'Cannot complete check due to server issue',
   'Check failed due to client issue': 'Check failed due to client issue',
-  'Face not detected within time limit. Try again and place face inside oval within 5 seconds.':
-    'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
+  "Face didn't fit inside oval in time limit. Try again and fit in oval within 5 seconds.":
+    "Face didn't fit inside oval in time limit. Try again and fit in oval within 5 seconds.",
   'Time out': 'Time out',
   'Check failed during countdown': 'Check failed during countdown',
   'Ensure only one face is in front of camera and avoid moving closer during countdown.':

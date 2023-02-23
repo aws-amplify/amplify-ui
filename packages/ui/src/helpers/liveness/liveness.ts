@@ -9,6 +9,7 @@ import {
 import { translate } from '../../i18n';
 import { FaceDetection } from '../../types/liveness/faceDetection';
 import { ClientFreshnessColorSequence } from '../../types/liveness/liveness-service-types';
+import { DefaultTexts } from '../../i18n/translations';
 import {
   ColorSequence,
   SessionInformation,
@@ -365,7 +366,9 @@ export const FaceMatchStateStringMap: Record<
   [FaceMatchState.TOO_MANY]: translate(
     'Ensure only one face is in front of camera'
   ),
-  [FaceMatchState.TOO_CLOSE]: translate('Move face further away'),
+  [FaceMatchState.TOO_CLOSE]: translate(
+    DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE
+  ),
   [FaceMatchState.TOO_FAR]: translate('Move face closer'),
   [FaceMatchState.TOO_LEFT]: translate('Move face right'),
   [FaceMatchState.TOO_RIGHT]: translate('Move face left'),
@@ -383,7 +386,7 @@ export const LivenessErrorStateStringMap: Record<
     'Cannot complete check due to server issue'
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>(
-    'Face not detected within time limit. Try again and place face inside oval within 5 seconds.'
+    "Face didn't fit inside oval in time limit. Try again and fit in oval within 5 seconds."
   ),
   [LivenessErrorState.FACE_DISTANCE_ERROR]: translate<string>(
     'Ensure only one face is in front of camera and avoid moving closer during countdown.'
@@ -391,8 +394,9 @@ export const LivenessErrorStateStringMap: Record<
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: undefined,
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: undefined,
   [LivenessErrorState.MOBILE_LANDSCAPE_ERROR]: undefined,
-  [LivenessErrorState.FRESHNESS_TIMEOUT]:
-    translate<string>('Hold face in oval'),
+  [LivenessErrorState.FRESHNESS_TIMEOUT]: translate<string>(
+    DefaultTexts.LIVENESS_INSTRUCTION_HOLD_OVAL
+  ),
 };
 
 export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [

@@ -29,7 +29,7 @@ export const defaultTexts = {
   LIVENESS_CHECK_CONNECTING: 'Connecting...',
   LIVENESS_HINT_NO_FACE_DETECTED: 'Move face in front of camera',
   LIVENESS_INSTRUCTION_FIT_OVAL: 'Hold face position during countdown',
-  LIVENESS_INSTRUCTION_HOLD_OVAL: 'Hold face in oval',
+  LIVENESS_INSTRUCTION_HOLD_OVAL: 'Hold face in oval for colored lights',
   LIVENESS_VERIFYING: 'Verifying...',
   LIVENESS_CHECK_FAILED: 'Check unsuccessful',
   LIVENESS_CHECK_SUCCEEDED: 'Check successful',
@@ -41,7 +41,7 @@ export const defaultTexts = {
   LIVENESS_HINT_LIGHTING_DARK: 'Move to brighter area',
 
   // Face Match State
-  LIVENESS_HINT_FACE_TOO_CLOSE: 'Move face further away',
+  LIVENESS_HINT_FACE_TOO_CLOSE: 'Move face farther away',
   LIVENESS_HINT_FACE_TOO_FAR: 'Move face closer',
   LIVENESS_HINT_FACE_TOO_LEFT: 'Move face right',
   LIVENESS_HINT_FACE_TOO_RIGHT: 'Move face left',
@@ -50,7 +50,7 @@ export const defaultTexts = {
   // Error messages
   LIVENESS_ERROR: 'Check encountered an error',
   LIVENESS_TIMEOUT:
-    'Face not detected within time limit. Try again and place face inside oval within 5 seconds.',
+    "Face didn't fit inside oval in time limit. Try again and fit in oval within 5 seconds.",
   LIVENESS_FACE_DISTANCE_ERROR_TITLE: 'Check failed during countdown',
   LIVENESS_FACE_DISTANCE_ERROR:
     'Ensure only one face is in front of camera and avoid moving closer during countdown.',

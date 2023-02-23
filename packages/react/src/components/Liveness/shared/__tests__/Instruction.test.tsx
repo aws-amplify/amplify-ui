@@ -8,6 +8,7 @@ import {
   FaceMatchStateStringMap,
   LivenessErrorState,
   LivenessErrorStateStringMap,
+  DefaultTexts,
 } from '@aws-amplify/ui';
 
 import {
@@ -158,7 +159,9 @@ describe('Instruction', () => {
 
     renderWithLivenessProvider(<Instruction />);
 
-    expect(screen.getByText('Move face further away')).toBeInTheDocument();
+    expect(
+      screen.getByText(DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE)
+    ).toBeInTheDocument();
   });
 
   it('should render connecting message if waiting for session info', () => {
@@ -176,7 +179,9 @@ describe('Instruction', () => {
 
     renderWithLivenessProvider(<Instruction />);
 
-    expect(screen.getByText('Hold face in oval')).toBeInTheDocument();
+    expect(
+      screen.getByText(DefaultTexts.LIVENESS_INSTRUCTION_HOLD_OVAL)
+    ).toBeInTheDocument();
   });
 
   it('should render not recording state if present', () => {

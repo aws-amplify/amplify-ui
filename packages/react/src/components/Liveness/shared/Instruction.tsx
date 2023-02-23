@@ -5,6 +5,7 @@ import {
   IlluminationStateStringMap,
   FaceMatchStateStringMap,
   FaceMatchState,
+  DefaultTexts,
 } from '@aws-amplify/ui';
 
 import {
@@ -86,7 +87,9 @@ export const Instruction: React.FC<InstructionProps> = () => {
       isCheckFaceDistanceBeforeRecording &&
       isFaceFarEnoughBeforeRecordingState === false
     ) {
-      return <Toast>{translate('Move face further away')}</Toast>;
+      return (
+        <Toast>{translate(DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE)}</Toast>
+      );
     }
 
     if (isNotRecording) {
@@ -125,7 +128,9 @@ export const Instruction: React.FC<InstructionProps> = () => {
     }
 
     if (isFlashingFreshness) {
-      return <Toast>{translate('Hold face in oval')}</Toast>;
+      return (
+        <Toast>{translate(DefaultTexts.LIVENESS_INSTRUCTION_HOLD_OVAL)}</Toast>
+      );
     }
 
     return FaceMatchStateStringMap[faceMatchState] ? (
