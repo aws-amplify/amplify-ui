@@ -1,10 +1,6 @@
 import {
   AuthEventData,
-  ValidationError,
-  CodeDeliveryDetails,
-  AuthenticatorRoute,
   AuthenticatorServiceFacade,
-  SocialProvider,
   AmplifyUser,
 } from '@aws-amplify/ui';
 
