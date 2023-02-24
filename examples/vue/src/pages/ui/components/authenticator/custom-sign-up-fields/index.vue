@@ -31,7 +31,9 @@ const services = {
   <authenticator initial-state="signUp" :services="services">
     <template v-slot:sign-up-fields>
       <authenticator-sign-up-form-fields />
-      <amplify-check-box :errorMessage="validationErrors.acknowledgement" />
+      <amplify-check-box
+        :errorMessage="validationErrors.acknowledgement as string"
+      />
     </template>
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
