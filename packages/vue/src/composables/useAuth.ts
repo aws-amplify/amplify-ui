@@ -1,58 +1,29 @@
 import { useActor } from '@xstate/vue';
-import { ref, reactive, Ref, watchEffect } from 'vue';
-import {
-  AuthenticatorServiceFacade,
-  AuthMachineSend,
-  AuthMachineState,
-  getServiceFacade,
-} from '@aws-amplify/ui';
+import { ref, reactive, Ref } from 'vue';
+import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
 import { facade } from './useUtils';
 import { InterpretService } from '@/components';
 
 const service = ref() as Ref<InterpretService>;
 
+/** @deprecated For internal use only */
 export const useAuth = (serv?: InterpretService) => {
   if (serv) {
     service.value = serv;
   }
   return useActor(service.value);
 };
-type UseAuthenticatorValue = AuthenticatorServiceFacade & {
-  state: AuthMachineState;
-  send: AuthMachineSend;
-};
 
-const useAuthenticatorValue = reactive<UseAuthenticatorValue>({
+const useAuthInternal = reactive<AuthenticatorServiceFacade>({
   ...facade,
-  state: {} as AuthMachineState,
-  send: {} as AuthMachineSend,
 });
 
-const useInternalAuthenticator = () => {
-  createValues();
-  watchEffect(() => {
-    createValues();
-  });
-  return useAuthenticatorValue;
-};
+export const useAuthenticator = () => useAuthInternal;
 
-export const useAuthenticator = useInternalAuthenticator;
-
-function createValues() {
-  if (!service.value) return;
-
-  const { state, send } = useAuth();
-
-  const facadeValues = getServiceFacade({
-    send,
-    state: state.value,
-  });
-
+export function updateValues(facadeValues: AuthenticatorServiceFacade) {
   for (const key of Object.keys(facade)) {
     //@ts-ignore
-    useAuthenticatorValue[key as keyof typeof useAuthenticatorValue] =
+    useAuthInternal[key as keyof typeof useAuthInternal] =
       facadeValues[key as keyof typeof facadeValues];
   }
-  useAuthenticatorValue.send = send;
-  useAuthenticatorValue.state = state.value;
 }
