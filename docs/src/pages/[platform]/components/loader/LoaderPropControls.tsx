@@ -8,6 +8,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 export interface LoaderPropControlsProps extends LoaderProps {
+  filledColor: string;
   setSize: (value: React.SetStateAction<LoaderProps['size']>) => void;
   setVariation: (value: React.SetStateAction<LoaderProps['variation']>) => void;
   setEmptyColor: (
