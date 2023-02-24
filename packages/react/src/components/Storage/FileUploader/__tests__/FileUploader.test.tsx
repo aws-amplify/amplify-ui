@@ -584,7 +584,7 @@ describe('File Uploader', () => {
     );
 
     const uploadFilesText = await screen.findByText(
-      defaultFileUploaderDisplayText.uploadButtonText(1)
+      defaultFileUploaderDisplayText.getUploadButtonText(1)
     );
 
     expect(uploadFilesText).toBeVisible();

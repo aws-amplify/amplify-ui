@@ -39,9 +39,9 @@ export function UploadTracker({
   extensionNotAllowedText,
   pauseText,
   resumeText,
-  pausedText,
+  getPausedText,
   uploadSuccessfulText,
-  uploadingText,
+  getUploadingText,
 }: UploadTrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState<string>(name);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -202,8 +202,8 @@ export function UploadTracker({
       </View>
       <UploadMessage
         uploadSuccessfulText={uploadSuccessfulText}
-        uploadingText={uploadingText}
-        pausedText={pausedText}
+        getUploadingText={getUploadingText}
+        getPausedText={getPausedText}
         fileState={fileState}
         errorMessage={errorMessage}
         percentage={percentage}

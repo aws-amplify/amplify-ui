@@ -1,22 +1,22 @@
 export const defaultFileUploaderDisplayText = {
-  filesUploadedText(count: number): string {
+  getFilesUploadedText(count: number): string {
     return `${count} ${count === 1 ? 'file uploaded' : 'files uploaded'}`;
   },
-  remainingFilesText(count: number): string {
+  getRemainingFilesText(count: number): string {
     return `${count} ${count === 1 ? 'file' : 'files'} selected`;
   },
-  uploadingText(percentage: number): string {
+  getUploadingText(percentage: number): string {
     return `Uploading${percentage > 0 ? `: ${percentage}%` : ''}`;
   },
-  uploadButtonText(count: number): string {
+  getUploadButtonText(count: number): string {
     return `Upload ${count} ${count === 1 ? 'file' : 'files'}`;
   },
-  maxFilesErrorText(count: number): string {
+  getMaxFilesErrorText(count: number): string {
     return `Cannot choose more than ${count} ${
       count === 1 ? 'file' : 'files'
     }. Remove files before updating`;
   },
-  errorText(message: string): string {
+  getErrorText(message: string): string {
     return message;
   },
   doneButtonText: 'Done',
@@ -27,7 +27,7 @@ export const defaultFileUploaderDisplayText = {
   pauseText: 'Pause',
   resumeText: 'Resume',
   uploadSuccessfulText: 'Uploaded successfully',
-  pausedText(percentage: number): string {
+  getPausedText(percentage: number): string {
     return `Paused: ${percentage}%`;
   },
 };

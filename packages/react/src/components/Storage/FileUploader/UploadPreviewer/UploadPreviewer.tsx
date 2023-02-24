@@ -24,15 +24,15 @@ export function UploadPreviewer({
   maxFileCount,
   onClear,
   onFileClick,
-  maxFilesErrorText,
-  remainingFilesText,
-  filesUploadedText,
-  uploadButtonText,
-  uploadingText,
+  getMaxFilesErrorText,
+  getRemainingFilesText,
+  getFilesUploadedText,
+  getUploadButtonText,
+  getUploadingText,
   clearButtonText,
   doneButtonText,
 }: UploadPreviewerProps): JSX.Element {
-  const headingMaxFiles = maxFilesErrorText(maxFileCount);
+  const headingMaxFiles = getMaxFilesErrorText(maxFileCount);
   const getUploadedFilesLength = () =>
     fileStatuses.filter((file) => file?.fileState === FileState.SUCCESS).length;
 
@@ -51,8 +51,8 @@ export function UploadPreviewer({
         {dropZone}
         <Text className={ComponentClassNames.FileUploaderPreviewerText}>
           {isSuccessful
-            ? filesUploadedText(getUploadedFilesLength())
-            : remainingFilesText(remainingFilesLength)}
+            ? getFilesUploadedText(getUploadedFilesLength())
+            : getRemainingFilesText(remainingFilesLength)}
         </Text>
         {children}
       </View>
@@ -61,7 +61,7 @@ export function UploadPreviewer({
         <View>
           {isLoading && (
             <>
-              <Text>{uploadingText(aggregatePercentage)}</Text>
+              <Text>{getUploadingText(aggregatePercentage)}</Text>
               <Loader
                 className={ComponentClassNames.FileUploaderLoader}
                 variation="linear"
@@ -85,7 +85,7 @@ export function UploadPreviewer({
                 variation="primary"
                 onClick={onFileClick}
               >
-                {uploadButtonText(remainingFilesLength)}
+                {getUploadButtonText(remainingFilesLength)}
               </Button>
             </>
           )}

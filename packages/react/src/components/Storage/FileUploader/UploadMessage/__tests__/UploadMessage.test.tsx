@@ -7,8 +7,8 @@ import { defaultFileUploaderDisplayText } from '../../displayText';
 
 const commonProps: {
   uploadSuccessfulText;
-  uploadingText;
-  pausedText;
+  getUploadingText;
+  getPausedText;
 } = defaultFileUploaderDisplayText;
 
 describe('UploadMessage', () => {

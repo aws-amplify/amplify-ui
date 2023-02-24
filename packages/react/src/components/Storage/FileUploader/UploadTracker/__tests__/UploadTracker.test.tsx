@@ -10,9 +10,9 @@ const commonProps: {
   extensionNotAllowedText;
   pauseText;
   resumeText;
-  pausedText;
+  getPausedText;
   uploadSuccessfulText;
-  uploadingText;
+  getUploadingText;
 } = defaultFileUploaderDisplayText;
 
 describe('UploadTracker', () => {

@@ -30,21 +30,21 @@ const fileStatuses: FileStatuses = [fileStatus];
 const fileStatuses2: FileStatuses = [fileStatus, fileStatus2];
 
 const {
-  maxFilesErrorText,
-  remainingFilesText,
-  filesUploadedText,
-  uploadButtonText,
-  uploadingText,
+  getMaxFilesErrorText,
+  getRemainingFilesText,
+  getFilesUploadedText,
+  getUploadButtonText,
+  getUploadingText,
   clearButtonText,
   doneButtonText,
 } = defaultFileUploaderDisplayText;
 
 const commonProps = {
-  maxFilesErrorText,
-  remainingFilesText,
-  filesUploadedText,
-  uploadButtonText,
-  uploadingText,
+  getMaxFilesErrorText,
+  getRemainingFilesText,
+  getFilesUploadedText,
+  getUploadButtonText,
+  getUploadingText,
   clearButtonText,
   doneButtonText,
   aggregatePercentage: 0,

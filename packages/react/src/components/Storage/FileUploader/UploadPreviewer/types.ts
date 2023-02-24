@@ -4,12 +4,12 @@ import { FileStatuses } from '../types';
 export interface UploadPreviewerProps
   extends Pick<
     FileUploaderDisplayText,
-    | 'maxFilesErrorText'
-    | 'remainingFilesText'
-    | 'filesUploadedText'
-    | 'uploadingText'
+    | 'getMaxFilesErrorText'
+    | 'getRemainingFilesText'
+    | 'getFilesUploadedText'
+    | 'getUploadingText'
     | 'clearButtonText'
-    | 'uploadButtonText'
+    | 'getUploadButtonText'
     | 'doneButtonText'
   > {
   aggregatePercentage: number;

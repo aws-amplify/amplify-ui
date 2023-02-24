@@ -4,7 +4,7 @@ import { FileState } from '../types';
 export interface UploadMessageProps
   extends Pick<
     FileUploaderDisplayText,
-    'uploadingText' | 'pausedText' | 'uploadSuccessfulText'
+    'getUploadingText' | 'getPausedText' | 'uploadSuccessfulText'
   > {
   fileState: FileState;
   errorMessage: string;

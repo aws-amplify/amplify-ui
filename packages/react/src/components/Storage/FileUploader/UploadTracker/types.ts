@@ -7,8 +7,8 @@ export interface UploadTrackerProps
     | 'extensionNotAllowedText'
     | 'pauseText'
     | 'resumeText'
-    | 'uploadingText'
-    | 'pausedText'
+    | 'getUploadingText'
+    | 'getPausedText'
     | 'uploadSuccessfulText'
   > {
   errorMessage: string;

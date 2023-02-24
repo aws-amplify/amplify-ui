@@ -46,25 +46,23 @@ export function FileUploader({
   const {
     dropFilesText,
     browseFilesText,
-    errorText,
-    filesUploadedText,
+    getErrorText,
+    getFilesUploadedText,
     clearButtonText,
-    remainingFilesText,
-    uploadingText,
-    maxFilesErrorText,
+    getRemainingFilesText,
+    getUploadingText,
+    getMaxFilesErrorText,
     doneButtonText,
-    pausedText,
+    getPausedText,
     pauseText,
     resumeText,
     extensionNotAllowedText,
     uploadSuccessfulText,
-    uploadButtonText,
-  } = useMemo(() => {
-    return {
-      ...defaultFileUploaderDisplayText,
-      ...overrideDisplayText,
-    };
-  }, [overrideDisplayText]);
+    getUploadButtonText,
+  } = {
+    ...defaultFileUploaderDisplayText,
+    ...overrideDisplayText,
+  };
 
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
@@ -157,7 +155,7 @@ export function FileUploader({
           const updatedStatus = {
             ...prevStatus,
             fileState: 'error' as FileState,
-            fileErrors: errorText(err.toString()),
+            fileErrors: getErrorText(err.toString()),
           };
 
           prevFileStatuses[index] = updatedStatus;
@@ -168,7 +166,7 @@ export function FileUploader({
         if (typeof onError === 'function') onError(err);
       };
     },
-    [onError, setFileStatuses, errorText]
+    [onError, setFileStatuses, getErrorText]
   );
 
   const onPause = useCallback(
@@ -406,12 +404,12 @@ export function FileUploader({
             {uploadButtonComponent}
           </UploadDropZone>
         }
-        filesUploadedText={filesUploadedText}
+        getFilesUploadedText={getFilesUploadedText}
         clearButtonText={clearButtonText}
-        remainingFilesText={remainingFilesText}
-        uploadButtonText={uploadButtonText}
-        uploadingText={uploadingText}
-        maxFilesErrorText={maxFilesErrorText}
+        getRemainingFilesText={getRemainingFilesText}
+        getUploadButtonText={getUploadButtonText}
+        getUploadingText={getUploadingText}
+        getMaxFilesErrorText={getMaxFilesErrorText}
         doneButtonText={doneButtonText}
         fileStatuses={fileStatuses}
         isLoading={isLoading}
@@ -425,8 +423,8 @@ export function FileUploader({
         {fileStatuses?.map((status, index) => (
           <UploadTracker
             pauseText={pauseText}
-            pausedText={pausedText}
-            uploadingText={uploadingText}
+            getPausedText={getPausedText}
+            getUploadingText={getUploadingText}
             resumeText={resumeText}
             extensionNotAllowedText={extensionNotAllowedText}
             uploadSuccessfulText={uploadSuccessfulText}
