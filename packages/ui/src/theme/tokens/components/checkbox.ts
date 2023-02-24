@@ -24,11 +24,11 @@ type ButtonToken<Output> = DesignTokenProperties<
   'position' | 'alignItems' | 'justifyContent' | 'color',
   Output
 > & {
-  before: BeforeToken<Output>;
-  _focus: ButtonFocusToken<Output>;
-  _disabled: DesignTokenProperties<'borderColor', Output>;
-  _error: DesignTokenProperties<'borderColor', Output> & {
-    _focus: DesignTokenProperties<'borderColor' | 'boxShadow', Output>;
+  before?: BeforeToken<Output>;
+  _focus?: ButtonFocusToken<Output>;
+  _disabled?: DesignTokenProperties<'borderColor', Output>;
+  _error?: DesignTokenProperties<'borderColor', Output> & {
+    _focus?: DesignTokenProperties<'borderColor' | 'boxShadow', Output>;
   };
 };
 
