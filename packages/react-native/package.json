@@ -39,8 +39,7 @@
     "react-native": "^0.68.1",
     "react-native-safe-area-context": "^4.2.5",
     "react-test-renderer": "^17.0.2",
-    "rimraf": "^3.0.2",
-    "type-fest": "^2.3.4"
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.5.5",
