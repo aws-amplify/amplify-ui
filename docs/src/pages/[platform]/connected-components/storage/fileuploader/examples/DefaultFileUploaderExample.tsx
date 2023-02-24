@@ -1,5 +1,4 @@
 import { FileUploader } from '@aws-amplify/ui-react'; // IGNORE
-
 export const DefaultFileUploaderExample = () => {
   return (
     <FileUploader
