@@ -6,13 +6,22 @@ import { FileState } from '../../types';
 import { defaultFileUploaderDisplayText } from '../../displayText';
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
+const commonProps: {
+  extensionNotAllowedText;
+  pauseText;
+  resumeText;
+  pausedText;
+  uploadSuccessfulText;
+  uploadingText;
+} = defaultFileUploaderDisplayText;
+
 describe('UploadTracker', () => {
   it('exists', async () => {
     const { container } = render(
       <UploadTracker
+        {...commonProps}
         file={fakeFile}
         hasImage
-        displayText={defaultFileUploaderDisplayText}
         fileState={FileState.INIT}
         onCancel={() => {}}
         name={'hello.png'}
@@ -33,7 +42,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        displayText={defaultFileUploaderDisplayText}
+        {...commonProps}
         file={fakeFile}
         fileState={FileState.INIT}
         hasImage
@@ -58,7 +67,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        displayText={defaultFileUploaderDisplayText}
+        {...commonProps}
         file={fakeFile}
         fileState={FileState.INIT}
         hasImage
@@ -83,7 +92,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        displayText={defaultFileUploaderDisplayText}
+        {...commonProps}
         file={fakeFile}
         fileState={FileState.ERROR}
         hasImage
@@ -108,7 +117,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        displayText={defaultFileUploaderDisplayText}
+        {...commonProps}
         file={fakeFile}
         fileState={FileState.ERROR}
         hasImage
@@ -133,7 +142,7 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        displayText={defaultFileUploaderDisplayText}
+        {...commonProps}
         file={fakeFile}
         fileState={FileState.RESUME}
         hasImage
@@ -152,7 +161,7 @@ describe('UploadTracker', () => {
     );
 
     const button = await screen.getByRole('button', {
-      name: defaultFileUploaderDisplayText.pause,
+      name: defaultFileUploaderDisplayText.pauseText,
     });
 
     expect(button).toBeVisible();

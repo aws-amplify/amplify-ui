@@ -24,15 +24,19 @@ export function UploadPreviewer({
   maxFileCount,
   onClear,
   onFileClick,
-  displayText,
+  maxFilesErrorText,
+  remainingFilesText,
+  filesUploadedText,
+  uploadButtonText,
+  uploadingText,
+  clearButtonText,
+  doneButtonText,
 }: UploadPreviewerProps): JSX.Element {
-  const headingMaxFiles = displayText.maxFilesError(maxFileCount);
+  const headingMaxFiles = maxFilesErrorText(maxFileCount);
   const getUploadedFilesLength = () =>
     fileStatuses.filter((file) => file?.fileState === FileState.SUCCESS).length;
 
   const remainingFilesLength = fileStatuses.length - getUploadedFilesLength();
-  const remainingFilesText = displayText.remainingFiles(remainingFilesLength);
-  const uploadedFilesText = displayText.filesUploaded(getUploadedFilesLength());
 
   const isDisabled =
     fileStatuses.some((status) =>
@@ -46,7 +50,9 @@ export function UploadPreviewer({
       <View className={ComponentClassNames.FileUploaderPreviewerBody}>
         {dropZone}
         <Text className={ComponentClassNames.FileUploaderPreviewerText}>
-          {isSuccessful ? uploadedFilesText : remainingFilesText}
+          {isSuccessful
+            ? filesUploadedText(getUploadedFilesLength())
+            : remainingFilesText(remainingFilesLength)}
         </Text>
         {children}
       </View>
@@ -55,7 +61,7 @@ export function UploadPreviewer({
         <View>
           {isLoading && (
             <>
-              <Text>{displayText.uploading(aggregatePercentage)}</Text>
+              <Text>{uploadingText(aggregatePercentage)}</Text>
               <Loader
                 className={ComponentClassNames.FileUploaderLoader}
                 variation="linear"
@@ -71,7 +77,7 @@ export function UploadPreviewer({
           {!isLoading && !isSuccessful && (
             <>
               <Button size="small" variation="link" onClick={onClear}>
-                {displayText.clearButton}
+                {clearButtonText}
               </Button>
               <Button
                 disabled={isDisabled}
@@ -79,13 +85,13 @@ export function UploadPreviewer({
                 variation="primary"
                 onClick={onFileClick}
               >
-                {displayText.uploadButton(remainingFilesLength)}
+                {uploadButtonText(remainingFilesLength)}
               </Button>
             </>
           )}
           {isSuccessful && (
             <Button size="small" onClick={onClear}>
-              {displayText.doneButton}
+              {doneButtonText}
             </Button>
           )}
         </View>

@@ -11,20 +11,22 @@ export const UploadMessage = ({
   fileState,
   errorMessage,
   percentage,
-  displayText,
+  uploadSuccessfulText,
+  uploadingText,
+  pausedText,
 }: UploadMessageProps): JSX.Element => {
   switch (fileState) {
     case FileState.LOADING: {
       return (
         <Text className={ComponentClassNames.FileUploaderFileStatus}>
-          {displayText.uploading(percentage)}
+          {uploadingText(percentage)}
         </Text>
       );
     }
     case FileState.PAUSED:
       return (
         <Text className={ComponentClassNames.FileUploaderFileStatus}>
-          {displayText.paused(percentage)}
+          {pausedText(percentage)}
         </Text>
       );
     case FileState.SUCCESS:
@@ -38,7 +40,7 @@ export const UploadMessage = ({
             )
           )}
         >
-          <IconCheck fontSize="xl" /> {displayText.uploadSuccessful}
+          <IconCheck fontSize="xl" /> {uploadSuccessfulText}
         </Text>
       );
     case FileState.ERROR:

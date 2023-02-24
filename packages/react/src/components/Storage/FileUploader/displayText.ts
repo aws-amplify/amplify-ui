@@ -1,33 +1,33 @@
 export const defaultFileUploaderDisplayText = {
-  filesUploaded(count: number): string {
+  filesUploadedText(count: number): string {
     return `${count} ${count === 1 ? 'file uploaded' : 'files uploaded'}`;
   },
-  remainingFiles(count: number): string {
+  remainingFilesText(count: number): string {
     return `${count} ${count === 1 ? 'file' : 'files'} selected`;
   },
-  uploading(percentage: number): string {
+  uploadingText(percentage: number): string {
     return `Uploading${percentage > 0 ? `: ${percentage}%` : ''}`;
   },
-  uploadButton(count: number): string {
+  uploadButtonText(count: number): string {
     return `Upload ${count} ${count === 1 ? 'file' : 'files'}`;
   },
-  maxFilesError(count: number): string {
+  maxFilesErrorText(count: number): string {
     return `Cannot choose more than ${count} ${
       count === 1 ? 'file' : 'files'
     }. Remove files before updating`;
   },
-  error(message: string): string {
+  errorText(message: string): string {
     return message;
   },
-  doneButton: 'Done',
-  clearButton: 'Clear all',
-  extensionNotAllowed: 'Extension not allowed',
-  browseFiles: 'Browse files',
-  dropFiles: 'Drop files here or',
-  pause: 'Pause',
-  resume: 'Resume',
-  uploadSuccessful: 'Uploaded successfully',
-  paused(percentage: number): string {
+  doneButtonText: 'Done',
+  clearButtonText: 'Clear all',
+  extensionNotAllowedText: 'Extension not allowed',
+  browseFilesText: 'Browse files',
+  dropFilesText: 'Drop files here or',
+  pauseText: 'Pause',
+  resumeText: 'Resume',
+  uploadSuccessfulText: 'Uploaded successfully',
+  pausedText(percentage: number): string {
     return `Paused: ${percentage}%`;
   },
 };

@@ -191,7 +191,7 @@ describe('File Uploader', () => {
     render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const button = await screen.findByText(
-      defaultFileUploaderDisplayText.pause
+      defaultFileUploaderDisplayText.pauseText
     );
     fireEvent.click(button);
 
@@ -216,7 +216,7 @@ describe('File Uploader', () => {
     render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const button = await screen.findByText(
-      defaultFileUploaderDisplayText.resume
+      defaultFileUploaderDisplayText.resumeText
     );
     fireEvent.click(button);
 
@@ -584,7 +584,7 @@ describe('File Uploader', () => {
     );
 
     const uploadFilesText = await screen.findByText(
-      defaultFileUploaderDisplayText.uploadButton(1)
+      defaultFileUploaderDisplayText.uploadButtonText(1)
     );
 
     expect(uploadFilesText).toBeVisible();
@@ -738,7 +738,10 @@ describe('File Uploader', () => {
 
   it('should use dsiplayText prop', async () => {
     render(
-      <FileUploader {...commonProps} displayText={{ dropFiles: 'drop it' }} />
+      <FileUploader
+        {...commonProps}
+        displayText={{ dropFilesText: 'drop it' }}
+      />
     );
 
     expect(await screen.findByText('drop it')).toBeVisible();

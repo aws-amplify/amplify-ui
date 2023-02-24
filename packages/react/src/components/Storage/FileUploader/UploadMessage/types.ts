@@ -1,12 +1,12 @@
 import { FileUploaderDisplayText } from '../displayText';
 import { FileState } from '../types';
 
-export interface UploadMessageProps {
+export interface UploadMessageProps
+  extends Pick<
+    FileUploaderDisplayText,
+    'uploadingText' | 'pausedText' | 'uploadSuccessfulText'
+  > {
   fileState: FileState;
   errorMessage: string;
   percentage?: number;
-  displayText: Pick<
-    FileUploaderDisplayText,
-    'uploading' | 'paused' | 'uploadSuccessful'
-  >;
 }

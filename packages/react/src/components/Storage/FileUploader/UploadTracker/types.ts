@@ -1,7 +1,16 @@
 import { FileUploaderDisplayText } from '../displayText';
 import { FileState } from '../types';
 
-export interface UploadTrackerProps {
+export interface UploadTrackerProps
+  extends Pick<
+    FileUploaderDisplayText,
+    | 'extensionNotAllowedText'
+    | 'pauseText'
+    | 'resumeText'
+    | 'uploadingText'
+    | 'pausedText'
+    | 'uploadSuccessfulText'
+  > {
   errorMessage: string;
   file: File;
   fileState: FileState;
@@ -16,13 +25,4 @@ export interface UploadTrackerProps {
   percentage: number;
   isResumable?: boolean;
   showImage: boolean;
-  displayText: Pick<
-    FileUploaderDisplayText,
-    | 'extensionNotAllowed'
-    | 'pause'
-    | 'resume'
-    | 'uploading'
-    | 'paused'
-    | 'uploadSuccessful'
-  >;
 }

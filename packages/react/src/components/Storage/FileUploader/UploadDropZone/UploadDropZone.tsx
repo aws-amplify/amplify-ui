@@ -14,7 +14,7 @@ export function UploadDropZone({
   onDragLeave,
   onDrop,
   onDragOver,
-  displayText,
+  dropFilesText,
 }: UploadDropZoneProps): JSX.Element {
   return (
     <View
@@ -34,7 +34,7 @@ export function UploadDropZone({
         className={ComponentClassNames.FileUploaderDropZoneIcon}
       />
       <Text className={ComponentClassNames.FileUploaderDropZoneText}>
-        {displayText.dropFiles}
+        {dropFilesText}
       </Text>
       {children}
     </View>

@@ -6,8 +6,10 @@ import { classNameModifier } from '../../../../../primitives/shared/utils';
 import { ComponentClassNames } from '../../../../../primitives';
 import { defaultFileUploaderDisplayText } from '../../displayText';
 
+const { dropFilesText } = defaultFileUploaderDisplayText;
+
 const commonProps = {
-  displayText: defaultFileUploaderDisplayText,
+  dropFilesText,
   onDragEnter: () => '',
   onDragLeave: () => '',
   onDragOver: () => '',

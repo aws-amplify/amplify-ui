@@ -5,9 +5,11 @@ import { UploadMessage } from '../UploadMessage';
 import { FileState } from '../../types';
 import { defaultFileUploaderDisplayText } from '../../displayText';
 
-const commonProps = {
-  displayText: defaultFileUploaderDisplayText,
-};
+const commonProps: {
+  uploadSuccessfulText;
+  uploadingText;
+  pausedText;
+} = defaultFileUploaderDisplayText;
 
 describe('UploadMessage', () => {
   it('exists', async () => {

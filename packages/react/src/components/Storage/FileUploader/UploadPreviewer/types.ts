@@ -1,7 +1,17 @@
 import { FileUploaderDisplayText } from '../displayText';
 import { FileStatuses } from '../types';
 
-export interface UploadPreviewerProps {
+export interface UploadPreviewerProps
+  extends Pick<
+    FileUploaderDisplayText,
+    | 'maxFilesErrorText'
+    | 'remainingFilesText'
+    | 'filesUploadedText'
+    | 'uploadingText'
+    | 'clearButtonText'
+    | 'uploadButtonText'
+    | 'doneButtonText'
+  > {
   aggregatePercentage: number;
   children?: React.ReactNode;
   dropZone: React.ReactNode;
@@ -12,14 +22,4 @@ export interface UploadPreviewerProps {
   maxFileCount: number;
   onClear: () => void;
   onFileClick: () => void;
-  displayText: Pick<
-    FileUploaderDisplayText,
-    | 'maxFilesError'
-    | 'remainingFiles'
-    | 'filesUploaded'
-    | 'uploading'
-    | 'clearButton'
-    | 'uploadButton'
-    | 'doneButton'
-  >;
 }

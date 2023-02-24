@@ -36,7 +36,12 @@ export function UploadTracker({
   percentage,
   isResumable,
   showImage,
-  displayText,
+  extensionNotAllowedText,
+  pauseText,
+  resumeText,
+  pausedText,
+  uploadSuccessfulText,
+  uploadingText,
 }: UploadTrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState<string>(name);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -56,8 +61,7 @@ export function UploadTracker({
 
   const showEditButton =
     fileState === FileState.INIT ||
-    (fileState === FileState.ERROR &&
-      errorMessage === displayText.extensionNotAllowed);
+    (fileState === FileState.ERROR && errorMessage === extensionNotAllowedText);
 
   const DisplayView = useCallback(
     () => (
@@ -111,13 +115,13 @@ export function UploadTracker({
         if (!isResumable) return null;
         return (
           <Button onClick={onPause} size="small" variation="link">
-            {displayText.pause}
+            {pauseText}
           </Button>
         );
       case FileState.PAUSED:
         return (
           <Button onClick={onResume} size="small" variation="link">
-            {displayText.resume}
+            {resumeText}
           </Button>
         );
       case FileState.SUCCESS:
@@ -131,7 +135,8 @@ export function UploadTracker({
         );
     }
   }, [
-    displayText,
+    pauseText,
+    resumeText,
     file.name,
     fileState,
     isResumable,
@@ -196,7 +201,9 @@ export function UploadTracker({
         ) : null}
       </View>
       <UploadMessage
-        displayText={displayText}
+        uploadSuccessfulText={uploadSuccessfulText}
+        uploadingText={uploadingText}
+        pausedText={pausedText}
         fileState={fileState}
         errorMessage={errorMessage}
         percentage={percentage}
