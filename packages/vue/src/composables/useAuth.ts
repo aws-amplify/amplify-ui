@@ -20,7 +20,7 @@ const useAuthInternal = reactive<AuthenticatorServiceFacade>({
 
 export const useAuthenticator = () => useAuthInternal;
 
-export function updateValues(facadeValues: AuthenticatorServiceFacade) {
+export function updateAuthValues(facadeValues: AuthenticatorServiceFacade) {
   for (const key of Object.keys(facade)) {
     //@ts-ignore
     useAuthInternal[key as keyof typeof useAuthInternal] =

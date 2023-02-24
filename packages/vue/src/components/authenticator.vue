@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuth, updateValues } from '../composables/useAuth';
+import { useAuth, updateAuthValues } from '../composables/useAuth';
 import {
   ref,
   toRefs,
@@ -112,7 +112,7 @@ unsubscribeMachine = service.subscribe((newState) => {
     state: newState,
   });
 
-  updateValues(facadeValues);
+  updateAuthValues(facadeValues);
 }).unsubscribe;
 
 onMounted(() => {

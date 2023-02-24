@@ -2,7 +2,7 @@ import { facade } from '../useUtils';
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
 
 import { InterpretService } from '@/components';
-import { useAuthenticator, useAuth, updateValues } from '..';
+import { useAuthenticator, useAuth, updateAuthValues } from '..';
 
 // test setup
 jest.mock('@xstate/vue', () => ({
@@ -19,14 +19,14 @@ describe('useAuth composables', () => {
     const value = useAuth('5' as unknown as InterpretService);
     expect(value).toBe('5');
   });
-  it('updateValues updates useAuthenticator', () => {
+  it('updateAuthValues updates useAuthenticator', () => {
     const errorText = 'error text';
     const newFacade: AuthenticatorServiceFacade = {
       ...facade,
       error: errorText,
     };
 
-    updateValues(newFacade);
+    updateAuthValues(newFacade);
     const { error } = useAuthenticator();
     expect(error).toBe(errorText);
   });
