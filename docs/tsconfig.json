@@ -31,12 +31,7 @@
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": [
-    "node_modules",
-    "./cypress.config.ts",
-    "./cypress/e2e/*.ts",
-    "./scripts/**/*.ts"
-  ],
+  "exclude": ["node_modules", "./cypress.config.ts", "./cypress/e2e/*.ts"],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
