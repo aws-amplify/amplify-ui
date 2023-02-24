@@ -19,7 +19,7 @@ export const Footer = () => {
         <Button
           as={Link}
           variation="link"
-          // @ts-ignore
+          // @ts-ignore // IGNORE
           href={GITHUB_REPO}
           isExternal
           gap="xs"
@@ -30,7 +30,7 @@ export const Footer = () => {
         <Button
           as={Link}
           variation="link"
-          // @ts-ignore
+          // @ts-ignore // IGNORE
           href={DISCORD}
           isExternal
           gap="xs"

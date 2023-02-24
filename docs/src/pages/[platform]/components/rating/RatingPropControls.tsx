@@ -38,7 +38,7 @@ export const RatingPropControls: RatingPropControlsInterface = ({
         label="value"
         value={value}
         placeholder="Set Value"
-        // @ts-ignore
+        // @ts-ignore // IGNORE
         onChange={(event) => setValue(event.target.value)}
       />
 
@@ -46,7 +46,7 @@ export const RatingPropControls: RatingPropControlsInterface = ({
         label="maxValue"
         value={maxValue}
         placeholder="Set Max Value"
-        // @ts-ignore
+        // @ts-ignore // IGNORE
         onChange={(event) => setMaxValue(event.target.value)}
       />
 
@@ -69,7 +69,7 @@ export const RatingPropControls: RatingPropControlsInterface = ({
 
       <TextField
         label="fillColor"
-        // @ts-ignore
+        // @ts-ignore // IGNORE
         value={fillColor}
         placeholder="Set Fill Color"
         onChange={(event) => setFillColor(event.target.value)}
@@ -77,7 +77,7 @@ export const RatingPropControls: RatingPropControlsInterface = ({
 
       <TextField
         label="emptyColor"
-        // @ts-ignore
+        // @ts-ignore // IGNORE
         value={emptyColor}
         placeholder="Set Empty Color"
         onChange={(event) => setEmptyColor(event.target.value)}

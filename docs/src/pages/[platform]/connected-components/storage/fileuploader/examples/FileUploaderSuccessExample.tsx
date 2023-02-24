@@ -14,7 +14,7 @@ export const FileUploaderSuccessExample = () => {
         variation="drop"
         acceptedFileTypes={['image/*']}
         accessLevel="public"
-        // @ts-ignore
+        // @ts-ignore // IGNORE
         provider="fast" // IGNORE
       />
       {message}

@@ -6,7 +6,7 @@ const theme: Theme = {
   tokens: {
     components: {
       autocomplete: {
-        // @ts-ignore
+        // @ts-ignore // IGNORE
         menu: {
           option: {
             _active: {

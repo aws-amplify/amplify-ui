@@ -12,7 +12,7 @@ export const HighlightExample = () => (
       <TableRow>
         <TableCell
           as="th"
-          // @ts-ignore
+          // @ts-ignore // IGNORE
           colspan="2"
         >
           Not highlighted

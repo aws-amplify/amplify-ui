@@ -6,7 +6,7 @@ export const LevelExample = () => {
       variation="drop"
       acceptedFileTypes={['image/*']}
       accessLevel="private"
-      // @ts-ignore
+      // @ts-ignore // IGNORE
       provider="fast" // IGNORE
     />
   );

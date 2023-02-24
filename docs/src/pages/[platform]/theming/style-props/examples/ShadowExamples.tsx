@@ -14,7 +14,7 @@ export const ShadowThemeTokenExample = () => {
   const { tokens } = useTheme();
   return (
     <Button
-      // @ts-ignore
+      // @ts-ignore // IGNORE
       boxShadow={tokens.shadows.large}
     >
       Shadow Styling Example

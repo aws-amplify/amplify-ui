@@ -7,7 +7,7 @@ export const ResumableExample = () => {
       variation="drop"
       acceptedFileTypes={['image/*']}
       accessLevel="public"
-      // @ts-ignore
+      // @ts-ignore // IGNORE
       provider="slow" // IGNORE
     />
   );

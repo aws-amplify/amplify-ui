@@ -7,7 +7,7 @@ interface UseFlexContainerStyleProps {
   (initialValues: FlexContainerStyleProps): FieldControl[];
 }
 
-// @ts-ignore
+// @ts-ignore // IGNORE
 export const useFlexContainerStyleProps: UseFlexContainerStyleProps = (
   initialValues
 ) => {
