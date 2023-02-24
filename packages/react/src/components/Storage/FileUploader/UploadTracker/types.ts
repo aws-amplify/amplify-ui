@@ -1,6 +1,16 @@
+import { FileUploaderDisplayText } from '../displayText';
 import { FileState } from '../types';
 
-export interface UploadTrackerProps {
+export interface UploadTrackerProps
+  extends Pick<
+    FileUploaderDisplayText,
+    | 'extensionNotAllowedText'
+    | 'pauseText'
+    | 'resumeText'
+    | 'getUploadingText'
+    | 'getPausedText'
+    | 'uploadSuccessfulText'
+  > {
   errorMessage: string;
   file: File;
   fileState: FileState;

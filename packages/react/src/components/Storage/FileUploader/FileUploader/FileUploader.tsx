@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Logger } from 'aws-amplify';
 import type { UploadTask } from '@aws-amplify/storage';
 import { Storage } from '@aws-amplify/storage';
-import { translate, uploadFile, isValidExtension } from '@aws-amplify/ui';
+import { uploadFile, isValidExtension } from '@aws-amplify/ui';
 
 import {
   Button as UploadButton,
@@ -17,6 +17,7 @@ import { UploadTracker } from '../UploadTracker';
 import { FileState } from '../types';
 import { FileUploaderProps } from './types';
 import { isUploadTask } from './utils';
+import { defaultFileUploaderDisplayText } from '../displayText';
 
 const logger = new Logger('AmplifyUI:Storage');
 
@@ -33,6 +34,7 @@ export function FileUploader({
   accessLevel,
   variation = 'drop',
   isResumable = false,
+  displayText: overrideDisplayText,
   ...rest
 }: FileUploaderProps): JSX.Element {
   if (!acceptedFileTypes || !accessLevel) {
@@ -40,6 +42,27 @@ export function FileUploader({
       'FileUploader requires accessLevel and acceptedFileTypes props'
     );
   }
+
+  const {
+    dropFilesText,
+    browseFilesText,
+    getErrorText,
+    getFilesUploadedText,
+    clearButtonText,
+    getRemainingFilesText,
+    getUploadingText,
+    getMaxFilesErrorText,
+    doneButtonText,
+    getPausedText,
+    pauseText,
+    resumeText,
+    extensionNotAllowedText,
+    uploadSuccessfulText,
+    getUploadButtonText,
+  } = {
+    ...defaultFileUploaderDisplayText,
+    ...overrideDisplayText,
+  };
 
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
@@ -132,7 +155,7 @@ export function FileUploader({
           const updatedStatus = {
             ...prevStatus,
             fileState: 'error' as FileState,
-            fileErrors: translate(err.toString()),
+            fileErrors: getErrorText(err.toString()),
           };
 
           prevFileStatuses[index] = updatedStatus;
@@ -143,7 +166,7 @@ export function FileUploader({
         if (typeof onError === 'function') onError(err);
       };
     },
-    [onError, setFileStatuses]
+    [onError, setFileStatuses, getErrorText]
   );
 
   const onPause = useCallback(
@@ -278,15 +301,13 @@ export function FileUploader({
           ...status,
           name: value,
           fileState: !validExtension ? FileState.ERROR : FileState.INIT,
-          fileErrors: validExtension
-            ? undefined
-            : translate('Extension not allowed'),
+          fileErrors: validExtension ? undefined : extensionNotAllowedText,
         };
 
         setFileStatuses(newFileStatuses);
       };
     },
-    [fileStatuses, setFileStatuses]
+    [fileStatuses, setFileStatuses, extensionNotAllowedText]
   );
 
   const updateFileState = useCallback(
@@ -342,7 +363,7 @@ export function FileUploader({
 
   const accept = acceptedFileTypes?.join();
 
-  const uploadButton = useMemo(
+  const uploadButtonComponent = useMemo(
     () => (
       <>
         <UploadButton
@@ -354,7 +375,7 @@ export function FileUploader({
           }}
           size="small"
         >
-          {translate('Browse files')}
+          {browseFilesText}
         </UploadButton>
         <VisuallyHidden>
           <input
@@ -368,17 +389,28 @@ export function FileUploader({
         </VisuallyHidden>
       </>
     ),
-    [isLoading, onFileChange, hasMultipleFiles, accept]
+    [isLoading, onFileChange, hasMultipleFiles, accept, browseFilesText]
   );
 
   if (showPreviewer) {
     return (
       <UploadPreviewer
         dropZone={
-          <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
-            {uploadButton}
+          <UploadDropZone
+            {...dropZoneProps}
+            dropFilesText={dropFilesText}
+            inDropZone={inDropZone}
+          >
+            {uploadButtonComponent}
           </UploadDropZone>
         }
+        getFilesUploadedText={getFilesUploadedText}
+        clearButtonText={clearButtonText}
+        getRemainingFilesText={getRemainingFilesText}
+        getUploadButtonText={getUploadButtonText}
+        getUploadingText={getUploadingText}
+        getMaxFilesErrorText={getMaxFilesErrorText}
+        doneButtonText={doneButtonText}
         fileStatuses={fileStatuses}
         isLoading={isLoading}
         isSuccessful={isSuccessful}
@@ -390,6 +422,12 @@ export function FileUploader({
       >
         {fileStatuses?.map((status, index) => (
           <UploadTracker
+            pauseText={pauseText}
+            getPausedText={getPausedText}
+            getUploadingText={getUploadingText}
+            resumeText={resumeText}
+            extensionNotAllowedText={extensionNotAllowedText}
+            uploadSuccessfulText={uploadSuccessfulText}
             errorMessage={status?.fileErrors}
             file={status.file}
             fileState={status?.fileState}
@@ -412,11 +450,15 @@ export function FileUploader({
   }
 
   if (variation === 'button') {
-    return uploadButton;
+    return uploadButtonComponent;
   } else {
     return (
-      <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
-        {uploadButton}
+      <UploadDropZone
+        {...dropZoneProps}
+        dropFilesText={dropFilesText}
+        inDropZone={inDropZone}
+      >
+        {uploadButtonComponent}
       </UploadDropZone>
     );
   }

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { translate, humanFileSize } from '@aws-amplify/ui';
+import { humanFileSize } from '@aws-amplify/ui';
 
 import {
   View,
@@ -36,6 +36,12 @@ export function UploadTracker({
   percentage,
   isResumable,
   showImage,
+  extensionNotAllowedText,
+  pauseText,
+  resumeText,
+  getPausedText,
+  uploadSuccessfulText,
+  getUploadingText,
 }: UploadTrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState<string>(name);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -55,8 +61,7 @@ export function UploadTracker({
 
   const showEditButton =
     fileState === FileState.INIT ||
-    (fileState === FileState.ERROR &&
-      errorMessage === translate('Extension not allowed'));
+    (fileState === FileState.ERROR && errorMessage === extensionNotAllowedText);
 
   const DisplayView = useCallback(
     () => (
@@ -110,13 +115,13 @@ export function UploadTracker({
         if (!isResumable) return null;
         return (
           <Button onClick={onPause} size="small" variation="link">
-            {translate('pause')}
+            {pauseText}
           </Button>
         );
       case FileState.PAUSED:
         return (
           <Button onClick={onResume} size="small" variation="link">
-            {translate('Resume')}
+            {resumeText}
           </Button>
         );
       case FileState.SUCCESS:
@@ -130,6 +135,8 @@ export function UploadTracker({
         );
     }
   }, [
+    pauseText,
+    resumeText,
     file.name,
     fileState,
     isResumable,
@@ -194,6 +201,9 @@ export function UploadTracker({
         ) : null}
       </View>
       <UploadMessage
+        uploadSuccessfulText={uploadSuccessfulText}
+        getUploadingText={getUploadingText}
+        getPausedText={getPausedText}
         fileState={fileState}
         errorMessage={errorMessage}
         percentage={percentage}

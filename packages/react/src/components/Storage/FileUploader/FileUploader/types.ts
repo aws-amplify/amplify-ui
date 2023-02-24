@@ -1,4 +1,5 @@
 import { StorageAccessLevel } from '@aws-amplify/storage';
+import { FileUploaderDisplayText } from '../displayText';
 
 export interface FileUploaderProps {
   acceptedFileTypes: string[];
@@ -13,4 +14,5 @@ export interface FileUploaderProps {
   shouldAutoProceed?: boolean;
   showImages?: boolean;
   variation?: 'drop' | 'button';
+  displayText?: Partial<FileUploaderDisplayText>;
 }

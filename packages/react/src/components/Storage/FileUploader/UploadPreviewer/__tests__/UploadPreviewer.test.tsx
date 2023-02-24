@@ -5,6 +5,7 @@ import { UploadPreviewer } from '..';
 
 import { FileState, FileStatus, FileStatuses } from '../../types';
 import { ComponentClassNames } from '../../../../../primitives';
+import { defaultFileUploaderDisplayText } from '../../displayText';
 
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const fakeFile2 = new File(['goodbye'], 'goodbye.png', {
@@ -28,7 +29,24 @@ const fileStatus2: FileStatus = {
 const fileStatuses: FileStatuses = [fileStatus];
 const fileStatuses2: FileStatuses = [fileStatus, fileStatus2];
 
+const {
+  getMaxFilesErrorText,
+  getRemainingFilesText,
+  getFilesUploadedText,
+  getUploadButtonText,
+  getUploadingText,
+  clearButtonText,
+  doneButtonText,
+} = defaultFileUploaderDisplayText;
+
 const commonProps = {
+  getMaxFilesErrorText,
+  getRemainingFilesText,
+  getFilesUploadedText,
+  getUploadButtonText,
+  getUploadingText,
+  clearButtonText,
+  doneButtonText,
   aggregatePercentage: 0,
   dropZone: <></>,
   fileStatuses: fileStatuses,
