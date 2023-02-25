@@ -16,6 +16,16 @@ type BlazeFaceModelBackend = 'wasm' | 'cpu';
 export class BlazeFaceFaceDetection extends FaceDetection {
   private _model: blazeface.BlazeFaceModel;
   modelBackend: BlazeFaceModelBackend;
+  blazefaceModelUrl: string | undefined;
+  tfjsWasmPath: string;
+
+  constructor(tfjsWasmPath?: string, blazefaceModelUrl?: string) {
+    super();
+    this.blazefaceModelUrl = blazefaceModelUrl;
+    this.tfjsWasmPath =
+      tfjsWasmPath ||
+      `https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@${tfjsWasm.version_wasm}/dist/`;
+  }
 
   async loadModels() {
     if (isWebAssemblySupported()) {
@@ -26,8 +36,16 @@ export class BlazeFaceFaceDetection extends FaceDetection {
       await this._loadCPUBackend();
     }
 
-    await tf.ready();
-    this._model = await blazeface.load();
+    try {
+      await tf.ready();
+      this._model = await blazeface.load({
+        modelUrl: this.blazefaceModelUrl,
+      });
+    } catch (e) {
+      throw new Error(
+        'There was an error loading the blazeface model. If you are using a custom blazeface model url ensure that it is a fully qualified url that returns a json file.'
+      );
+    }
   }
 
   async detectFaces(videoEl: HTMLVideoElement): Promise<Face[]> {
@@ -75,11 +93,15 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   }
 
   private async _loadWebAssemblyBackend() {
-    tfjsWasm.setWasmPaths(
-      `https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@${tfjsWasm.version_wasm}/dist/`
-    );
-    await tf.setBackend('wasm');
-    this.modelBackend = 'wasm';
+    try {
+      tfjsWasm.setWasmPaths(this.tfjsWasmPath);
+      await tf.setBackend('wasm');
+      this.modelBackend = 'wasm';
+    } catch (e) {
+      throw new Error(
+        'There was an error loading the TFJS WASM backend. If you are using a custom WASM path ensure that it ends with "/" and that it is not the full URL as @tensorflow/tfjs-backend-wasm will append the wasm binary file name. Read more: https://github.com/tensorflow/tfjs/blob/master/tfjs-backend-wasm/src/backend_wasm.ts#L475.'
+      );
+    }
   }
 
   private async _loadCPUBackend() {

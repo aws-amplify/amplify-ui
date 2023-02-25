@@ -27,6 +27,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
     onUserCancel: onUserCancelFromProps,
     disableStartScreen = false,
     components,
+    options,
   } = props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
 
@@ -40,6 +41,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
     context: {
       componentProps: {
         ...props,
+        options: options || {},
         onUserCancel,
       },
     },

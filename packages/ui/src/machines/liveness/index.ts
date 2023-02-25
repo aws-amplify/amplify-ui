@@ -440,7 +440,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       initializeFaceDetector: assign({
         ovalAssociatedParams: (context) => {
-          const faceDetector = new BlazeFaceFaceDetection();
+          const { componentProps } = context;
+          const { blazefaceModelUrl, tfjsWasmPath } = componentProps.options;
+
+          const faceDetector = new BlazeFaceFaceDetection(
+            tfjsWasmPath,
+            blazefaceModelUrl
+          );
           faceDetector.triggerModelLoading();
 
           return {

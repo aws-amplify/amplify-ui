@@ -45,6 +45,7 @@ describe('Liveness Machine', () => {
     handleGetLivenessDetection: jest.fn(),
     onError: jest.fn(),
     onUserCancel: jest.fn(),
+    options: {},
   };
 
   const mockVideoConstaints: MediaTrackConstraints = {

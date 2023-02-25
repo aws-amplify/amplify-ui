@@ -30,6 +30,26 @@ export interface FaceLivenessDetectorProps {
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
    */
   disableStartScreen?: boolean;
+
+  /**
+   * Optional parameter for advanced options for the component
+   */
+  options?: FaceLivenessDetectorOptions;
+}
+
+export interface FaceLivenessDetectorOptions {
+  /**
+   * overrides the TFJS Wasm backend binary CDN path
+   * default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/.
+   * When overriding this path ensure that the wasm version matches the version of @tensorflow/tfjs-backend-wasm installed by npm
+   */
+  tfjsWasmPath?: string;
+
+  /**
+   * overrides the Blazeface model and weights bin CDN URL
+   * default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file
+   */
+  blazefaceModelUrl?: string;
 }
 
 /**
