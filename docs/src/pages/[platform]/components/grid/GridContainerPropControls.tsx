@@ -55,74 +55,62 @@ export const GridContainerPropControls: GridContainerPropControls = ({
     <Flex direction="column">
       <TextField
         label="autoColumns"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setAutoColumns(event.target.value)}
+        onChange={(event) => setAutoColumns(event.target.value)}
         value={autoColumns as string}
       />
       <TextField
         label="autoFlow"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setAutoFlow(event.target.value)}
+        onChange={(event) => setAutoFlow(event.target.value)}
         value={autoFlow as number}
       />
       <TextField
         label="autoRows"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setAutoRows(event.target.value)}
+        onChange={(event) => setAutoRows(event.target.value)}
         value={autoRows as string}
       />
       <TextField
         label="columnGap"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setColumnGap(event.target.value)}
+        onChange={(event) => setColumnGap(event.target.value)}
         value={columnGap as string}
       />
       <TextField
         label="gap"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setGap(event.target.value)}
+        onChange={(event) => setGap(event.target.value)}
         value={gap as string}
       />
       <TextField
         label="rowGap"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setRowGap(event.target.value)}
+        onChange={(event) => setRowGap(event.target.value)}
         value={rowGap as string}
       />
       <TextField
         label="templateAreas"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setTemplateAreas(event.target.value)}
+        onChange={(event) => setTemplateAreas(event.target.value)}
         value={templateAreas as string}
       />
       <TextField
         label="templateColumns"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setTemplateColumns(event.target.value)}
+        onChange={(event) => setTemplateColumns(event.target.value)}
         value={templateColumns as string}
       />
       <TextField
         label="templateRows"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setTemplateRows(event.target.value)}
+        onChange={(event) => setTemplateRows(event.target.value)}
         value={templateRows as string}
       />
       <TextField
         label="alignItems"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setAlignItems(event.target.value)}
+        onChange={(event) => setAlignItems(event.target.value)}
         value={alignItems as string}
       />
       <TextField
         label="alignContent"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setAlignContent(event.target.value)}
+        onChange={(event) => setAlignContent(event.target.value)}
         value={alignContent as string}
       />
       <TextField
         label="justifyContent"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setJustifyContent(event.target.value)}
+        onChange={(event) => setJustifyContent(event.target.value)}
         value={justifyContent as string}
       />
     </Flex>

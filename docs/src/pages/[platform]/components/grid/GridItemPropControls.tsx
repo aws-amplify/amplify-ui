@@ -38,26 +38,22 @@ export const GridItemPropControls: GridItemPropControls = ({
     <Flex direction="column">
       <TextField
         label="columnStart"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setColumnStart(event.target.value)}
+        onChange={(event) => setColumnStart(event.target.value)}
         value={columnStart as string}
       />
       <TextField
         label="columnEnd"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setColumnEnd(event.target.value)}
+        onChange={(event) => setColumnEnd(event.target.value)}
         value={columnEnd as string}
       />
       <TextField
         label="rowStart"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setRowStart(event.target.value)}
+        onChange={(event) => setRowStart(event.target.value)}
         value={rowStart as number}
       />
       <TextField
         label="rowEnd"
-        // @ts-ignore // IGNORE
-        onInput={(event) => setRowEnd(event.target.value)}
+        onChange={(event) => setRowEnd(event.target.value)}
         value={rowEnd as string}
       />
     </Flex>
