@@ -6,7 +6,7 @@ import { InterpretService } from '@/components';
 
 const service = ref() as Ref<InterpretService>;
 
-/** @deprecated For internal use only */
+/** @deprecated */
 export const useAuth = (serv?: InterpretService) => {
   if (serv) {
     service.value = serv;
