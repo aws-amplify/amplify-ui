@@ -8,6 +8,7 @@ import * as UseFileUploader from '../hooks/useFileUploader';
 import { ComponentClassNames } from '../../../../primitives';
 
 import { FileUploader } from '..';
+import { FileState } from '../types';
 
 type CompleteCallback = (event: { key: string }) => void;
 type ErrorCallback = (error: string) => void;
@@ -50,7 +51,7 @@ const fileStatus = {
   fileErrors: undefined,
   name: 'hello.png',
   file: fakeFile,
-  fileState: null,
+  fileState: FileState.INIT,
 };
 
 const uploadOneFile = 'Upload 1 file';
@@ -134,12 +135,12 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 100,
-        fileState: 'success' as const,
+        fileState: FileState.SUCCESS,
       },
       {
         ...fileStatus,
         name: fileName2,
-        fileState: null,
+        fileState: FileState.INIT,
       },
     ];
 
@@ -178,7 +179,7 @@ describe('File Uploader', () => {
         ...fileStatus,
         percentage: 50,
         uploadTask,
-        fileState: 'loading' as const,
+        fileState: FileState.LOADING,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -201,7 +202,7 @@ describe('File Uploader', () => {
         ...fileStatus,
         percentage: 50,
         uploadTask,
-        fileState: 'paused' as const,
+        fileState: FileState.PAUSED,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -243,7 +244,7 @@ describe('File Uploader', () => {
     expect(setFileStatusMock.mock.results[0].value).toEqual([
       {
         fileErrors: ERROR_MESSAGE,
-        fileState: 'error',
+        fileState: FileState.ERROR,
       },
     ]);
   });
@@ -275,7 +276,7 @@ describe('File Uploader', () => {
     fireEvent.click(clickButton);
 
     expect(setFileStatusMock.mock.results[0].value).toEqual([
-      { fileState: 'loading', percentage },
+      { fileState: FileState.LOADING, percentage },
     ]);
   });
 
@@ -354,14 +355,14 @@ describe('File Uploader', () => {
 
     useFileUploaderSpy.mockReturnValue({
       ...mockReturnUseFileUploader,
-      fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
+      fileStatuses: [{ ...fileStatus, fileState: FileState.EDITING }],
       setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
 
     render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
-    const button = screen.getAllByRole('button')[1];
+    const button = screen.getAllByRole('button')[0];
     fireEvent.click(button);
     // input file name box
     const input = screen.getByLabelText<HTMLInputElement>('file name');
@@ -384,14 +385,14 @@ describe('File Uploader', () => {
 
     useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
-      fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
+      fileStatuses: [{ ...fileStatus, fileState: FileState.EDITING }],
       setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
 
     render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
-    const button = screen.getAllByRole('button')[1];
+    const button = screen.getAllByRole('button')[0];
     fireEvent.click(button);
     // input file name box
     const input = screen.getByLabelText('file name');
@@ -409,7 +410,7 @@ describe('File Uploader', () => {
         ...fileStatus,
         name: badFileName,
         fileErrors: 'Extension not allowed',
-        fileState: 'error',
+        fileState: FileState.ERROR,
       },
     ]);
   });
@@ -420,7 +421,7 @@ describe('File Uploader', () => {
     const setFileStatuses = jest.fn();
     useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
-      fileStatuses: [{ ...fileStatus, fileState: 'editing' }],
+      fileStatuses: [{ ...fileStatus, fileState: FileState.EDITING }],
       setFileStatuses,
     });
 
@@ -451,7 +452,7 @@ describe('File Uploader', () => {
         ...fileStatus,
         name: badFileName,
         fileErrors: 'Extension not allowed',
-        fileState: 'error',
+        fileState: FileState.ERROR,
       },
     ]);
   });
@@ -559,13 +560,13 @@ describe('File Uploader', () => {
         ...fileStatus,
         percentage: 100,
         uploadTask,
-        fileState: 'success' as const,
+        fileState: FileState.SUCCESS,
       },
       {
         ...fileStatus,
         percentage: 0,
         uploadTask,
-        fileState: 'error' as const,
+        fileState: FileState.ERROR,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -573,7 +574,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
+    render(
+      <FileUploader {...commonProps} maxFileCount={1} isPreviewerVisible />
+    );
 
     const uploadFilesText = await screen.findByText(/Upload 1 file/);
 
@@ -586,13 +589,13 @@ describe('File Uploader', () => {
         ...fileStatus,
         percentage: 0,
         uploadTask,
-        fileState: 'success' as const,
+        fileState: FileState.SUCCESS,
       },
       {
         ...fileStatus,
         percentage: 0,
         uploadTask,
-        fileState: 'error' as const,
+        fileState: FileState.ERROR,
       },
     ];
     useFileUploaderSpy.mockReturnValue({
@@ -600,7 +603,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} maxFiles={1} isPreviewerVisible />);
+    render(
+      <FileUploader {...commonProps} maxFileCount={1} isPreviewerVisible />
+    );
 
     const errorText = await screen.findByText(/Cannot choose more than 1/);
 
@@ -632,7 +637,7 @@ describe('File Uploader', () => {
     fireEvent.click(clickButton);
 
     expect(setFileStatusMock.mock.results[0].value).toEqual([
-      { fileState: 'success', percentage },
+      { fileState: FileState.SUCCESS, percentage },
     ]);
   });
 
@@ -642,7 +647,7 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 0,
-        fileState: null,
+        fileState: FileState.INIT,
       },
     ];
 
@@ -662,7 +667,7 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 100,
-        fileState: 'success' as const,
+        fileState: FileState.SUCCESS,
       },
     ];
 
@@ -681,12 +686,12 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 100,
-        fileState: 'success' as const,
+        fileState: FileState.SUCCESS,
       },
       {
         ...fileStatus,
         percentage: 100,
-        fileState: 'success' as const,
+        fileState: FileState.SUCCESS,
       },
     ];
 
@@ -705,12 +710,12 @@ describe('File Uploader', () => {
       {
         ...fileStatus,
         percentage: 0,
-        fileState: null,
+        fileState: FileState.INIT,
       },
       {
         ...fileStatus,
         percentage: 0,
-        fileState: null,
+        fileState: FileState.INIT,
       },
     ];
 

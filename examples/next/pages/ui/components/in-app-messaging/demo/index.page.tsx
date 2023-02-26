@@ -76,6 +76,7 @@ function Content({ colorMode, setColorMode }) {
     layout,
     primaryButtonAction,
     secondaryButtonAction,
+    useAnalyticEvents,
   } = useInAppDemo();
 
   return (
@@ -105,6 +106,12 @@ function Content({ colorMode, setColorMode }) {
           }}
         >
           <View marginLeft="small" marginRight="small">
+            <DemoCheckbox
+              checked={useAnalyticEvents}
+              label="Use Analytic events"
+              onChange={handleAction('setUseAnalyticEvents')}
+            />
+            <DemoDivider />
             <DemoRadioGroup
               data={LAYOUTS}
               label="Layout"
@@ -113,26 +120,29 @@ function Content({ colorMode, setColorMode }) {
             />
             <DemoDivider />
             <DemoCheckbox
-              checked={hasHeader}
+              isDisabled={useAnalyticEvents}
+              checked={!useAnalyticEvents && hasHeader}
               label="Has Header"
               onChange={handleAction('setHasHeader')}
             />
             <DemoDivider />
             <DemoCheckbox
-              checked={hasMessage}
+              isDisabled={useAnalyticEvents}
+              checked={!useAnalyticEvents && hasMessage}
               label="Has Message"
               onChange={handleAction('setHasMessage')}
             />
             <DemoDivider />
             <DemoCheckbox
-              checked={hasImage}
+              isDisabled={useAnalyticEvents}
+              checked={!useAnalyticEvents && hasImage}
               label="Has Image"
               onChange={handleAction('setHasImage')}
             />
             <DemoDivider />
             <DemoRadioGroup
               data={ORIENTATIONS}
-              isDisabled={!hasImage}
+              isDisabled={useAnalyticEvents || !hasImage}
               label="Image Orientation"
               onChange={handleAction('setImageOrientation')}
               value={imageOrientation}
@@ -140,29 +150,32 @@ function Content({ colorMode, setColorMode }) {
           </View>
           <View marginLeft="small" marginRight="small">
             <DemoCheckbox
-              checked={hasPrimaryButton}
+              checked={!useAnalyticEvents && hasPrimaryButton}
               label="Has Primary Button"
+              isDisabled={useAnalyticEvents}
               onChange={handleAction('setHasPrimaryButton')}
             />
             <DemoDivider />
             <DemoRadioGroup
               data={ACTIONS}
-              isDisabled={!hasPrimaryButton}
+              isDisabled={useAnalyticEvents || !hasPrimaryButton}
               label="Primary Button Action"
               onChange={handleAction('setPrimaryButtonAction')}
               value={primaryButtonAction}
             />
             <DemoDivider />
             <DemoCheckbox
-              checked={hasSecondaryButton}
-              isDisabled={!hasPrimaryButton}
+              checked={!useAnalyticEvents && hasSecondaryButton}
+              isDisabled={useAnalyticEvents || !hasPrimaryButton}
               label="Has Secondary Button"
               onChange={handleAction('setHasSecondaryButton')}
             />
             <DemoDivider />
             <DemoRadioGroup
               data={ACTIONS}
-              isDisabled={!hasPrimaryButton || !hasSecondaryButton}
+              isDisabled={
+                useAnalyticEvents || !hasPrimaryButton || !hasSecondaryButton
+              }
               label="Secondary Button Action"
               onChange={handleAction('setSecondaryButtonAction')}
               value={secondaryButtonAction}

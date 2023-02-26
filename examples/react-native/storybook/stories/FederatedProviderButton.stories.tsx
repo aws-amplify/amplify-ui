@@ -4,7 +4,7 @@ import { SocialProvider } from '@aws-amplify/ui';
 import { storiesOf } from '@storybook/react-native';
 import { FederatedProviderButton } from '@aws-amplify/ui-react-native/dist/Authenticator/common';
 import { icons } from '@aws-amplify/ui-react-native/dist/assets';
-import { capitalize } from '@aws-amplify/ui-react-native/src/utils';
+import { capitalize } from '@aws-amplify/ui';
 
 const providers: SocialProvider[] = ['amazon', 'apple', 'facebook', 'google'];
 

@@ -109,7 +109,7 @@ describe('Alert:', () => {
     expect(isDismissible.childElementCount).toBe(2);
   });
 
-  it('should set aria-hidden to be true on decorative icons', async () => {
+  it('should set aria-hidden to be true on decorative icons', () => {
     const { container } = render(
       <div>
         <Alert variation="info" isDismissible testId="hasIcon">
@@ -124,7 +124,7 @@ describe('Alert:', () => {
     });
   });
 
-  it('can configure an accessible label for the dismiss button', async () => {
+  it('can configure an accessible label for the dismiss button', () => {
     const customDismissButtonLabel = 'Testing 123';
     render(
       <div>
@@ -135,7 +135,7 @@ describe('Alert:', () => {
       </div>
     );
 
-    const [defaultLabel, customLabel] = await screen.queryAllByRole('button');
+    const [defaultLabel, customLabel] = screen.queryAllByRole('button');
     expect(defaultLabel.getAttribute('aria-label')).toBe(
       ComponentText.Alert.dismissButtonLabel
     );

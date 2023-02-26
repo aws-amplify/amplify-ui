@@ -1,16 +1,17 @@
 import { Auth } from 'aws-amplify';
 import {
   AmplifyUser,
+  areEmptyArrays,
+  areEmptyObjects,
   AuthenticatorRoute,
   AuthMachineState,
   FormFieldsArray,
   getSortedFormFields,
   UnverifiedContactMethods,
   getActorContext,
+  isString,
 } from '@aws-amplify/ui';
-import isString from 'lodash/isString';
 
-import { areEmptyArrays, areEmptyObjects } from '../../../utils';
 import { AuthenticatorLegacyField, AuthenticatorLegacyFields } from '../types';
 import { isComponentRouteKey } from '../utils';
 

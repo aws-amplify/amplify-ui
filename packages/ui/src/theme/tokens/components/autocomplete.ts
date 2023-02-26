@@ -11,11 +11,11 @@ export type AutocompleteTokens<OutputType extends OutputVariantKey> = {
     | 'width',
     OutputType
   > & {
-    options: DesignTokenProperties<
+    options?: DesignTokenProperties<
       'display' | 'flexDirection' | 'maxHeight',
       OutputType
     >;
-    option: DesignTokenProperties<
+    option?: DesignTokenProperties<
       | 'backgroundColor'
       | 'color'
       | 'cursor'
@@ -24,14 +24,14 @@ export type AutocompleteTokens<OutputType extends OutputVariantKey> = {
       | 'transitionTimingFunction',
       OutputType
     > & {
-      _active: DesignTokenProperties<'backgroundColor' | 'color', OutputType>;
+      _active?: DesignTokenProperties<'backgroundColor' | 'color', OutputType>;
     };
-    _empty: DesignTokenProperties<'display', OutputType>;
-    _loading: DesignTokenProperties<
+    _empty?: DesignTokenProperties<'display', OutputType>;
+    _loading?: DesignTokenProperties<
       'alignItems' | 'display' | 'gap',
       OutputType
     >;
-    spaceShared: DesignTokenProperties<
+    spaceShared?: DesignTokenProperties<
       'paddingBlock' | 'paddingInline',
       OutputType
     >;

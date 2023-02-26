@@ -1,11 +1,14 @@
-import { Theme } from '@aws-amplify/ui';
+import { WebTheme } from '@aws-amplify/ui';
 
-export type Breakpoints = Theme['breakpoints']['values'];
-export type Breakpoint = keyof Theme['breakpoints']['values'];
+export type Breakpoints = WebTheme['breakpoints']['values'];
+export type Breakpoint = keyof WebTheme['breakpoints']['values'];
+export type ValueBreakpoints<Value = unknown> = Partial<
+  Record<Breakpoint, Value>
+>;
 export interface MediaQueryBreakpoint {
   breakpoint: Breakpoint;
   query: string;
-  maxWidth: number;
+  maxWidth: number | null;
   minWidth: number;
 }
 

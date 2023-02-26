@@ -1,3 +1,14 @@
+import { Alert } from '@aws-amplify/ui-react';
+
+<Alert
+  variation="info"
+  isDismissible={false}
+  hasIcon={true}
+  heading=""
+  >
+  You must render the `<amplify-authenticator>` UI component before using `AuthenticatorService`. `AuthenticatorService` was designed to retrieve `<amplify-authenticator>` UI specific state such as `route` and `user` and should not be used without the UI component.
+</Alert>
+
 ## Authenticator Service
 
 `@aws-amplify/ui-angular` ships with `AuthenticatorService` Angular service that can be used to access, modify, and update Authenticator's auth state. To use them, first inject the service into your component:

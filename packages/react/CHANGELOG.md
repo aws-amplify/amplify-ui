@@ -1,5 +1,85 @@
 # @aws-amplify/ui-react
 
+## 4.3.8
+
+### Patch Changes
+
+- [#3422](https://github.com/aws-amplify/amplify-ui/pull/3422) [`3f787d41f`](https://github.com/aws-amplify/amplify-ui/commit/3f787d41f07455c74a56b8400341b93765719b77) Thanks [@reesscot](https://github.com/reesscot)! - chore: bump maplibre-gl-js-amplify to 3.0.2
+
+  Fixes [yarn installation warnings](https://github.com/aws-amplify/amplify-ui/issues/3393) regarding peer dependencies of `maplibre-gl-js-amplify` and [Infinite error loop after sign out when using maps](https://github.com/aws-amplify/amplify-ui/issues/3367).
+
+- [#3395](https://github.com/aws-amplify/amplify-ui/pull/3395) [`9e50d1225`](https://github.com/aws-amplify/amplify-ui/commit/9e50d12257794645315e7446974c4da2ae3fd0b7) Thanks [@ErikCH](https://github.com/ErikCH)! - Moved edit icon in between file name and size.
+
+- Updated dependencies [[`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae), [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8)]:
+  - @aws-amplify/ui@5.5.5
+  - @aws-amplify/ui-react-core@2.1.13
+
+## 4.3.7
+
+### Patch Changes
+
+- [#3379](https://github.com/aws-amplify/amplify-ui/pull/3379) [`cca6afecb`](https://github.com/aws-amplify/amplify-ui/commit/cca6afecbe68485d46e89f5a082b5c778209ccbe) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(primitives): ts strict fixes for primitives and primitive hooks
+
+  - usePagination
+  - useSwitch
+  - useToggleButtonGroup
+  - ToggleButtonGroup
+
+- [#3378](https://github.com/aws-amplify/amplify-ui/pull/3378) [`56947bcb7`](https://github.com/aws-amplify/amplify-ui/commit/56947bcb7c936cad5f8323929d869909eea35e01) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react): add missing size field classes to RadioGroupField, SelectField, TextAreaField and SliderField
+
+- [#3380](https://github.com/aws-amplify/amplify-ui/pull/3380) [`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(theme): better typing for breakpoints for TS strict mode
+
+- [#3377](https://github.com/aws-amplify/amplify-ui/pull/3377) [`6daf2e625`](https://github.com/aws-amplify/amplify-ui/commit/6daf2e6251fe4935d4f5f4b68a02b9cb6a236651) Thanks [@ErikCH](https://github.com/ErikCH)! - Renamed the maxFiles prop to maxFilesCount
+
+- [#3335](https://github.com/aws-amplify/amplify-ui/pull/3335) [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): ts strict for style prop utils
+
+  Refactored internal functions that handle style props and `useBreakpointValue` hook to be TS strict. Should have no customer impact.
+
+- Updated dependencies [[`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc), [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563)]:
+  - @aws-amplify/ui@5.5.4
+  - @aws-amplify/ui-react-core@2.1.12
+
+## 4.3.6
+
+### Patch Changes
+
+- [#3349](https://github.com/aws-amplify/amplify-ui/pull/3349) [`8ae8e0b8c`](https://github.com/aws-amplify/amplify-ui/commit/8ae8e0b8c10f2459c28931805add8c05fea25e48) Thanks [@ErikCH](https://github.com/ErikCH)! - fix: Swapped save and cancel buttons.
+
+- [#3333](https://github.com/aws-amplify/amplify-ui/pull/3333) [`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): migrate totpSecretCode generation to state machine
+
+- [#3344](https://github.com/aws-amplify/amplify-ui/pull/3344) [`b85547545`](https://github.com/aws-amplify/amplify-ui/commit/b85547545b9611aee88331e25cf3abf34da13cf3) Thanks [@ErikCH](https://github.com/ErikCH)! - fix: Updated error text for max file count to be more explicit.
+
+- [#3287](https://github.com/aws-amplify/amplify-ui/pull/3287) [`412538be9`](https://github.com/aws-amplify/amplify-ui/commit/412538be9e37a8dec7cb5e57281895a5b3b63184) Thanks [@zchenwei](https://github.com/zchenwei)! - build: updates to support Node ESM
+
+  Confirmed that both #3155 and #3206 are fixed without having to apply any workaround
+
+  Also, test out the changes with the following frameworks/tools:
+
+  | Name               | Tested? | Notes                                                                                                                                         |
+  | ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Next.js@11, 12, 13 | ✅      |                                                                                                                                               |
+  | Gatsby             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Remix              | ✅      |                                                                                                                                               |
+  | Astro              | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | webpack            | ✅      |                                                                                                                                               |
+  | Vite               | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Rollup             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | esbuild            | ✅      |                                                                                                                                               |
+  | Parcel             | ✅      |                                                                                                                                               |
+  | Snowpack           | ✅      | Need `--polyfill-node` to fix JS incompatibility in dev mode, but is a known [issue](https://github.com/FredKSchott/snowpack/discussions/718) |
+
+- [#3350](https://github.com/aws-amplify/amplify-ui/pull/3350) [`db4ea4f1d`](https://github.com/aws-amplify/amplify-ui/commit/db4ea4f1d71144c53e165cd16bbdcedfa695a391) Thanks [@ErikCH](https://github.com/ErikCH)! - fix: Swap the upload button with the clear all button.
+
+- [#3327](https://github.com/aws-amplify/amplify-ui/pull/3327) [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148) Thanks [@wlee221](https://github.com/wlee221)! - fix(rwa): improve default behavior handling for custom formFields.
+
+  Previously, adding custom formFields for fields that are not in `signUpAttributes` configuration wouldn't get any default values, which could lead to broken UI.
+
+  This commit improves default handling by applying defaults to all known auth field (birthdate, first_name, etc) to custom formField options.
+
+- Updated dependencies [[`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc), [`412538be9`](https://github.com/aws-amplify/amplify-ui/commit/412538be9e37a8dec7cb5e57281895a5b3b63184), [`9ce2d01b0`](https://github.com/aws-amplify/amplify-ui/commit/9ce2d01b09e2f7aa0b218a97bb829a4210350a0a), [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148)]:
+  - @aws-amplify/ui-react-core@2.1.11
+  - @aws-amplify/ui@5.5.3
+
 ## 4.3.5
 
 ### Patch Changes

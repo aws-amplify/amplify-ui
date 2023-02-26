@@ -16,7 +16,7 @@ export function withBackdrop<Props>(
         <Backdrop {...options} />
         <Flex className="amplify-inappmessaging-backdrop-content-container">
           <View className="amplify-inappmessaging-backdrop-content">
-            <Content {...props} />
+            <Content {...(props as Props & JSX.IntrinsicAttributes)} />
           </View>
         </Flex>
       </>

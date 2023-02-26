@@ -2,6 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { UploadTracker } from '..';
+import { FileState } from '../../types';
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
 describe('UploadTracker', () => {
@@ -10,7 +11,7 @@ describe('UploadTracker', () => {
       <UploadTracker
         file={fakeFile}
         hasImage
-        fileState={null}
+        fileState={FileState.INIT}
         onCancel={() => {}}
         name={'hello.png'}
         onPause={() => {}}
@@ -31,7 +32,7 @@ describe('UploadTracker', () => {
     render(
       <UploadTracker
         file={fakeFile}
-        fileState={null}
+        fileState={FileState.INIT}
         hasImage
         onCancel={() => {}}
         name={fileName}
@@ -55,7 +56,7 @@ describe('UploadTracker', () => {
     render(
       <UploadTracker
         file={fakeFile}
-        fileState={null}
+        fileState={FileState.INIT}
         hasImage
         onCancel={() => {}}
         name={fileName}
@@ -79,7 +80,7 @@ describe('UploadTracker', () => {
     render(
       <UploadTracker
         file={fakeFile}
-        fileState={'error'}
+        fileState={FileState.ERROR}
         hasImage
         onCancel={() => {}}
         name={fileName}
@@ -103,7 +104,7 @@ describe('UploadTracker', () => {
     render(
       <UploadTracker
         file={fakeFile}
-        fileState={'error'}
+        fileState={FileState.ERROR}
         hasImage
         onCancel={() => {}}
         name={fileName}
@@ -127,7 +128,7 @@ describe('UploadTracker', () => {
     render(
       <UploadTracker
         file={fakeFile}
-        fileState={'resume'}
+        fileState={FileState.RESUME}
         hasImage
         onCancel={() => {}}
         isResumable

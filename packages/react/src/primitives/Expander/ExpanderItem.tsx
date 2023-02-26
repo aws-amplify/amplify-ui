@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Item, Header, Trigger, Content } from '@radix-ui/react-accordion';
+import * as Accordion from '@radix-ui/react-accordion';
 import classNames from 'classnames';
+
+import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
 import { ExpanderItemProps } from '../types/expander';
@@ -9,6 +11,10 @@ import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
+
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
+// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
+const { Item, Header, Trigger, Content } = sanitizeNamespaceImport(Accordion);
 
 export const EXPANDER_ITEM_TEST_ID = 'expander-item';
 export const EXPANDER_HEADER_TEST_ID = 'expander-header';

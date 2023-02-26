@@ -1,5 +1,34 @@
 # @aws-amplify/ui-angular
 
+## 3.2.8
+
+### Patch Changes
+
+- Updated dependencies [[`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae), [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8)]:
+  - @aws-amplify/ui@5.5.5
+
+## 3.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc), [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563)]:
+  - @aws-amplify/ui@5.5.4
+
+## 3.2.6
+
+### Patch Changes
+
+- [#3333](https://github.com/aws-amplify/amplify-ui/pull/3333) [`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): migrate totpSecretCode generation to state machine
+
+- [#3327](https://github.com/aws-amplify/amplify-ui/pull/3327) [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148) Thanks [@wlee221](https://github.com/wlee221)! - fix(rwa): improve default behavior handling for custom formFields.
+
+  Previously, adding custom formFields for fields that are not in `signUpAttributes` configuration wouldn't get any default values, which could lead to broken UI.
+
+  This commit improves default handling by applying defaults to all known auth field (birthdate, first_name, etc) to custom formField options.
+
+- Updated dependencies [[`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc), [`412538be9`](https://github.com/aws-amplify/amplify-ui/commit/412538be9e37a8dec7cb5e57281895a5b3b63184), [`9ce2d01b0`](https://github.com/aws-amplify/amplify-ui/commit/9ce2d01b09e2f7aa0b218a97bb829a4210350a0a), [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148)]:
+  - @aws-amplify/ui@5.5.3
+
 ## 3.2.5
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import * as React from 'react';
 const serializeTheme = (theme: WebTheme) => JSON.stringify(theme, null, 2);
 
 describe('useTheme', () => {
-  it('should return a theme object when provided through theme', async () => {
+  it('should return a theme object when provided through theme', () => {
     const customTheme = {
       name: 'my-theme',
       tokens: {

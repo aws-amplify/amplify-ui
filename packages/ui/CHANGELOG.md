@@ -1,5 +1,56 @@
 # @aws-amplify/ui
 
+## 5.5.5
+
+### Patch Changes
+
+- [#3417](https://github.com/aws-amplify/amplify-ui/pull/3417) [`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae) Thanks [@calebpollman](https://github.com/calebpollman)! - Migrate `capitalize` util to UI package
+
+- [#3400](https://github.com/aws-amplify/amplify-ui/pull/3400) [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: ts strict fixes for createTheme
+
+## 5.5.4
+
+### Patch Changes
+
+- [#3380](https://github.com/aws-amplify/amplify-ui/pull/3380) [`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(theme): better typing for breakpoints for TS strict mode
+
+- [#3335](https://github.com/aws-amplify/amplify-ui/pull/3335) [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): ts strict for style prop utils
+
+  Refactored internal functions that handle style props and `useBreakpointValue` hook to be TS strict. Should have no customer impact.
+
+## 5.5.3
+
+### Patch Changes
+
+- [#3333](https://github.com/aws-amplify/amplify-ui/pull/3333) [`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): migrate totpSecretCode generation to state machine
+
+- [#3287](https://github.com/aws-amplify/amplify-ui/pull/3287) [`412538be9`](https://github.com/aws-amplify/amplify-ui/commit/412538be9e37a8dec7cb5e57281895a5b3b63184) Thanks [@zchenwei](https://github.com/zchenwei)! - build: updates to support Node ESM
+
+  Confirmed that both #3155 and #3206 are fixed without having to apply any workaround
+
+  Also, test out the changes with the following frameworks/tools:
+
+  | Name               | Tested? | Notes                                                                                                                                         |
+  | ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Next.js@11, 12, 13 | ✅      |                                                                                                                                               |
+  | Gatsby             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Remix              | ✅      |                                                                                                                                               |
+  | Astro              | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | webpack            | ✅      |                                                                                                                                               |
+  | Vite               | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Rollup             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | esbuild            | ✅      |                                                                                                                                               |
+  | Parcel             | ✅      |                                                                                                                                               |
+  | Snowpack           | ✅      | Need `--polyfill-node` to fix JS incompatibility in dev mode, but is a known [issue](https://github.com/FredKSchott/snowpack/discussions/718) |
+
+- [#3291](https://github.com/aws-amplify/amplify-ui/pull/3291) [`9ce2d01b0`](https://github.com/aws-amplify/amplify-ui/commit/9ce2d01b09e2f7aa0b218a97bb829a4210350a0a) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui,ui-react-core): Add type guard utils
+
+- [#3327](https://github.com/aws-amplify/amplify-ui/pull/3327) [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148) Thanks [@wlee221](https://github.com/wlee221)! - fix(rwa): improve default behavior handling for custom formFields.
+
+  Previously, adding custom formFields for fields that are not in `signUpAttributes` configuration wouldn't get any default values, which could lead to broken UI.
+
+  This commit improves default handling by applying defaults to all known auth field (birthdate, first_name, etc) to custom formField options.
+
 ## 5.5.2
 
 ### Patch Changes

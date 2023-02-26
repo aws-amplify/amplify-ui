@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get.js';
 import { createMachine, sendUpdate } from 'xstate';
+
 import {
   AuthChallengeName,
   AuthEvent,
@@ -34,8 +34,8 @@ import {
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
-
 import { defaultServices } from '../defaultServices';
+import { isEmpty } from '../../../utils';
 
 export type SignInMachineOptions = {
   services?: Partial<typeof defaultServices>;
