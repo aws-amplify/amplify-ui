@@ -24,7 +24,6 @@ const logger = new Logger('AmplifyUI:Storage');
 export function FileUploader({
   acceptedFileTypes,
   shouldAutoProceed = false,
-  isPreviewerVisible,
   maxFileCount,
   maxSize,
   hasMultipleFiles = true,
@@ -108,10 +107,6 @@ export function FileUploader({
       setLoading(false);
     }
   }, [aggregatePercentage]);
-
-  useEffect(() => {
-    setShowPreviewer(isPreviewerVisible);
-  }, [setShowPreviewer, isPreviewerVisible]);
 
   // Previewer Methods
 

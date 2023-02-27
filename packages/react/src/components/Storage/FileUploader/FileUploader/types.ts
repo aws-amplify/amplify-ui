@@ -4,7 +4,6 @@ import { FileUploaderDisplayText } from '../displayText';
 export interface FileUploaderProps {
   acceptedFileTypes: string[];
   hasMultipleFiles?: boolean;
-  isPreviewerVisible?: boolean;
   isResumable?: boolean;
   accessLevel: StorageAccessLevel;
   maxFileCount?: number;
