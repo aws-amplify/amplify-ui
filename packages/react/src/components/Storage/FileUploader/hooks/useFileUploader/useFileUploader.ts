@@ -9,13 +9,11 @@ export default function useFileUploader({
   acceptedFileTypes,
   hasMultipleFiles,
   isLoading,
-  setAutoLoad,
 }: {
   maxSize: number;
   acceptedFileTypes: string[];
   hasMultipleFiles: boolean;
   isLoading: boolean;
-  setAutoLoad: React.Dispatch<React.SetStateAction<boolean>>;
 }): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
@@ -95,7 +93,6 @@ export default function useFileUploader({
     const addedFilesLength = addTargetFiles([...files]);
     if (addedFilesLength > 0) {
       setShowPreviewer(true);
-      setAutoLoad(true);
     }
     setInDropZone(false);
   };

@@ -65,7 +65,6 @@ export function FileUploader({
 
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
-  const [autoLoad, setAutoLoad] = useState(false);
 
   const {
     addTargetFiles,
@@ -80,7 +79,6 @@ export function FileUploader({
     acceptedFileTypes,
     hasMultipleFiles,
     isLoading,
-    setAutoLoad,
   });
 
   // Creates aggregate percentage to show during downloads
@@ -197,7 +195,9 @@ export function FileUploader({
     [fileStatuses, setFileStatuses]
   );
 
-  const onFileClick = useCallback(() => {
+  const startUpload = useCallback(() => {
+    if (hasMaxFilesError) return;
+
     // start upload
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
@@ -238,6 +238,7 @@ export function FileUploader({
     progressCallback,
     errorCallback,
     onSuccess,
+    hasMaxFilesError,
     rest,
   ]);
 
@@ -253,7 +254,6 @@ export function FileUploader({
       // only show previewer if the added files are great then 0
       if (addedFilesLength > 0) {
         setShowPreviewer(true);
-        setAutoLoad(true);
       }
     },
     [addTargetFiles, setShowPreviewer]
@@ -345,15 +345,6 @@ export function FileUploader({
     [updateFileState]
   );
 
-  useEffect(() => {
-    if (shouldAutoUpload && autoLoad && !hasMaxFilesError) {
-      onFileClick();
-    } else {
-      return;
-    }
-    setAutoLoad(false);
-  }, [shouldAutoUpload, onFileClick, autoLoad, hasMaxFilesError]);
-
   const hiddenInput = React.useRef<HTMLInputElement>();
 
   const accept = acceptedFileTypes?.join();
@@ -412,7 +403,7 @@ export function FileUploader({
         hasMaxFilesError={hasMaxFilesError}
         maxFileCount={maxFileCount}
         onClear={onClear}
-        onFileClick={onFileClick}
+        onFileClick={startUpload}
         aggregatePercentage={aggregatePercentage}
       >
         {fileStatuses?.map((status, index) => (
@@ -436,6 +427,8 @@ export function FileUploader({
             onResume={onResume(index)}
             onSaveEdit={onSaveEdit(index)}
             onStartEdit={onStartEdit(index)}
+            startUpload={startUpload}
+            shouldAutoLoad={shouldAutoUpload}
             percentage={status.percentage}
             isResumable={isResumable}
           />

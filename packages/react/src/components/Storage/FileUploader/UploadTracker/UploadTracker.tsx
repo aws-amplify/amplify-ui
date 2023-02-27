@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { humanFileSize } from '@aws-amplify/ui';
 
 import {
@@ -42,6 +42,8 @@ export function UploadTracker({
   getPausedText,
   uploadSuccessfulText,
   getUploadingText,
+  startUpload,
+  shouldAutoLoad,
 }: UploadTrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState<string>(name);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -62,6 +64,12 @@ export function UploadTracker({
   const showEditButton =
     fileState === FileState.INIT ||
     (fileState === FileState.ERROR && errorMessage === extensionNotAllowedText);
+
+  useEffect(() => {
+    if (shouldAutoLoad && fileState === FileState.INIT) {
+      startUpload();
+    }
+  });
 
   const DisplayView = useCallback(
     () => (
