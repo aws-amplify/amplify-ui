@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
-import { isFunction } from '../shared/utils';
 import { UseCheckbox } from '../types/checkbox';
 
 export const useCheckbox = (

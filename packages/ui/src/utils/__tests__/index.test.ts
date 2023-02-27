@@ -4,6 +4,7 @@ import {
   capitalize,
   has,
   isEmpty,
+  isFunction,
   isMap,
   isNil,
   isObject,
@@ -44,149 +45,149 @@ describe('capitalize', () => {
 
 describe('isObject', () => {
   it('should return `true` for objects', () => {
-    expect(isObject(new Number(0))).toStrictEqual(true);
-    expect(isObject(new String(''))).toStrictEqual(true);
-    expect(isObject(new Date())).toStrictEqual(true);
-    expect(isObject(new Error())).toStrictEqual(true);
-    expect(isObject({})).toStrictEqual(true);
-    expect(isObject({ test: 1 })).toStrictEqual(true);
-    expect(isObject(Object(false))).toStrictEqual(true);
-    expect(isObject(Object(0))).toStrictEqual(true);
-    expect(isObject(Object('test'))).toStrictEqual(true);
+    expect(isObject(new Number(0))).toBe(true);
+    expect(isObject(new String(''))).toBe(true);
+    expect(isObject(new Date())).toBe(true);
+    expect(isObject(new Error())).toBe(true);
+    expect(isObject({})).toBe(true);
+    expect(isObject({ test: 1 })).toBe(true);
+    expect(isObject(Object(false))).toBe(true);
+    expect(isObject(Object(0))).toBe(true);
+    expect(isObject(Object('test'))).toBe(true);
   });
 
   it('should return `false` for non-objects', () => {
-    expect(isObject(null)).toStrictEqual(false);
-    expect(isObject(undefined)).toStrictEqual(false);
-    expect(isObject(true)).toStrictEqual(false);
-    expect(isObject(0)).toStrictEqual(false);
-    expect(isObject('test')).toStrictEqual(false);
-    expect(isObject([1, 2, 3])).toStrictEqual(false);
-    expect(isObject(() => {})).toStrictEqual(false);
+    expect(isObject(null)).toBe(false);
+    expect(isObject(undefined)).toBe(false);
+    expect(isObject(true)).toBe(false);
+    expect(isObject(0)).toBe(false);
+    expect(isObject('test')).toBe(false);
+    expect(isObject([1, 2, 3])).toBe(false);
+    expect(isObject(() => {})).toBe(false);
   });
 });
 
 describe('isString', () => {
   it('should return `true` for strings', () => {
-    expect(isString('')).toStrictEqual(true);
-    expect(isString('test')).toStrictEqual(true);
-    expect(isString(new String('test'))).toStrictEqual(true);
+    expect(isString('')).toBe(true);
+    expect(isString('test')).toBe(true);
+    expect(isString(new String('test'))).toBe(true);
   });
 
   it('should return `false` for non-strings', () => {
-    expect(isString(null)).toStrictEqual(false);
-    expect(isString(undefined)).toStrictEqual(false);
-    expect(isString(true)).toStrictEqual(false);
-    expect(isString(0)).toStrictEqual(false);
-    expect(isString([1, 2, 3])).toStrictEqual(false);
+    expect(isString(null)).toBe(false);
+    expect(isString(undefined)).toBe(false);
+    expect(isString(true)).toBe(false);
+    expect(isString(0)).toBe(false);
+    expect(isString([1, 2, 3])).toBe(false);
   });
 });
 
 describe('isSet', () => {
   it('should return `true` for sets', () => {
-    expect(isSet(new Set())).toStrictEqual(true);
+    expect(isSet(new Set())).toBe(true);
   });
 
   it('should return `false` for non-sets', () => {
-    expect(isSet('')).toStrictEqual(false);
-    expect(isSet(null)).toStrictEqual(false);
-    expect(isSet(undefined)).toStrictEqual(false);
-    expect(isSet(true)).toStrictEqual(false);
-    expect(isSet(0)).toStrictEqual(false);
-    expect(isSet([1, 2, 3])).toStrictEqual(false);
-    expect(isSet(new WeakSet())).toStrictEqual(false);
-    expect(isSet(new Map())).toStrictEqual(false);
-    expect(isSet(new Array())).toStrictEqual(false);
+    expect(isSet('')).toBe(false);
+    expect(isSet(null)).toBe(false);
+    expect(isSet(undefined)).toBe(false);
+    expect(isSet(true)).toBe(false);
+    expect(isSet(0)).toBe(false);
+    expect(isSet([1, 2, 3])).toBe(false);
+    expect(isSet(new WeakSet())).toBe(false);
+    expect(isSet(new Map())).toBe(false);
+    expect(isSet(new Array())).toBe(false);
   });
 });
 
 describe('isMap', () => {
   it('should return `true` for maps', () => {
-    expect(isMap(new Map())).toStrictEqual(true);
+    expect(isMap(new Map())).toBe(true);
   });
 
   it('should return `false` for non-maps', () => {
-    expect(isMap('')).toStrictEqual(false);
-    expect(isMap(null)).toStrictEqual(false);
-    expect(isMap(undefined)).toStrictEqual(false);
-    expect(isMap(true)).toStrictEqual(false);
-    expect(isMap(0)).toStrictEqual(false);
-    expect(isMap([1, 2, 3])).toStrictEqual(false);
-    expect(isMap(new WeakMap())).toStrictEqual(false);
-    expect(isMap(new Set())).toStrictEqual(false);
-    expect(isMap(new Array())).toStrictEqual(false);
+    expect(isMap('')).toBe(false);
+    expect(isMap(null)).toBe(false);
+    expect(isMap(undefined)).toBe(false);
+    expect(isMap(true)).toBe(false);
+    expect(isMap(0)).toBe(false);
+    expect(isMap([1, 2, 3])).toBe(false);
+    expect(isMap(new WeakMap())).toBe(false);
+    expect(isMap(new Set())).toBe(false);
+    expect(isMap(new Array())).toBe(false);
   });
 });
 
 describe('isUndefined', () => {
-  it('should return `true` for undefined values', function () {
-    expect(isUndefined(undefined)).toStrictEqual(true);
-    expect(isUndefined(void 0)).toStrictEqual(true);
+  it('should return `true` for undefined values', () => {
+    expect(isUndefined(undefined)).toBe(true);
+    expect(isUndefined(void 0)).toBe(true);
   });
 
-  it('should return `false` for non-undefined values', function () {
-    expect(isUndefined(null)).toStrictEqual(false);
-    expect(isUndefined(true)).toStrictEqual(false);
-    expect(isUndefined('')).toStrictEqual(false);
-    expect(isUndefined(0)).toStrictEqual(false);
-    expect(isUndefined([1, 2, 3])).toStrictEqual(false);
-    expect(isUndefined(new Number(0))).toStrictEqual(false);
-    expect(isUndefined(new String(''))).toStrictEqual(false);
-    expect(isUndefined(new Date())).toStrictEqual(false);
-    expect(isUndefined(new Error())).toStrictEqual(false);
-    expect(isUndefined({})).toStrictEqual(false);
+  it('should return `false` for non-undefined values', () => {
+    expect(isUndefined(null)).toBe(false);
+    expect(isUndefined(true)).toBe(false);
+    expect(isUndefined('')).toBe(false);
+    expect(isUndefined(0)).toBe(false);
+    expect(isUndefined([1, 2, 3])).toBe(false);
+    expect(isUndefined(new Number(0))).toBe(false);
+    expect(isUndefined(new String(''))).toBe(false);
+    expect(isUndefined(new Date())).toBe(false);
+    expect(isUndefined(new Error())).toBe(false);
+    expect(isUndefined({})).toBe(false);
   });
 });
 
 describe('isNil', () => {
-  it('should return `true` for nullish values', function () {
-    expect(isNil(null)).toStrictEqual(true);
-    expect(isNil(undefined)).toStrictEqual(true);
-    expect(isNil(void 0)).toStrictEqual(true);
+  it('should return `true` for nullish values', () => {
+    expect(isNil(null)).toBe(true);
+    expect(isNil(undefined)).toBe(true);
+    expect(isNil(void 0)).toBe(true);
   });
 
-  it('should return `false` for non-nullish values', function () {
-    expect(isNil(true)).toStrictEqual(false);
-    expect(isNil('')).toStrictEqual(false);
-    expect(isNil(0)).toStrictEqual(false);
-    expect(isNil([1, 2, 3])).toStrictEqual(false);
-    expect(isNil(new Number(0))).toStrictEqual(false);
-    expect(isNil(new String(''))).toStrictEqual(false);
-    expect(isNil(new Date())).toStrictEqual(false);
-    expect(isNil(new Error())).toStrictEqual(false);
-    expect(isNil({})).toStrictEqual(false);
-    expect(isNil(NaN)).toStrictEqual(false);
+  it('should return `false` for non-nullish values', () => {
+    expect(isNil(true)).toBe(false);
+    expect(isNil('')).toBe(false);
+    expect(isNil(0)).toBe(false);
+    expect(isNil([1, 2, 3])).toBe(false);
+    expect(isNil(new Number(0))).toBe(false);
+    expect(isNil(new String(''))).toBe(false);
+    expect(isNil(new Date())).toBe(false);
+    expect(isNil(new Error())).toBe(false);
+    expect(isNil({})).toBe(false);
+    expect(isNil(NaN)).toBe(false);
   });
 });
 
 describe('isEmpty', () => {
-  it('should return `true` for empty values', function () {
-    expect(isEmpty(null)).toStrictEqual(true);
-    expect(isEmpty(undefined)).toStrictEqual(true);
-    expect(isEmpty(true)).toStrictEqual(true);
-    expect(isEmpty(void 0)).toStrictEqual(true);
-    expect(isEmpty(NaN)).toStrictEqual(true);
-    expect(isEmpty(0)).toStrictEqual(true);
-    expect(isEmpty('')).toStrictEqual(true);
-    expect(isEmpty([])).toStrictEqual(true);
-    expect(isEmpty(new Number(0))).toStrictEqual(true);
-    expect(isEmpty(new String(''))).toStrictEqual(true);
-    expect(isEmpty(new Date())).toStrictEqual(true);
-    expect(isEmpty(new Array())).toStrictEqual(true);
-    expect(isEmpty(new Map())).toStrictEqual(true);
-    expect(isEmpty(new Set())).toStrictEqual(true);
-    expect(isEmpty(new Error())).toStrictEqual(true);
-    expect(isEmpty({})).toStrictEqual(true);
-    expect(isEmpty(new Map([]))).toStrictEqual(true);
-    expect(isEmpty(new Set([]))).toStrictEqual(true);
+  it('should return `true` for empty values', () => {
+    expect(isEmpty(null)).toBe(true);
+    expect(isEmpty(undefined)).toBe(true);
+    expect(isEmpty(true)).toBe(true);
+    expect(isEmpty(void 0)).toBe(true);
+    expect(isEmpty(NaN)).toBe(true);
+    expect(isEmpty(0)).toBe(true);
+    expect(isEmpty('')).toBe(true);
+    expect(isEmpty([])).toBe(true);
+    expect(isEmpty(new Number(0))).toBe(true);
+    expect(isEmpty(new String(''))).toBe(true);
+    expect(isEmpty(new Date())).toBe(true);
+    expect(isEmpty(new Array())).toBe(true);
+    expect(isEmpty(new Map())).toBe(true);
+    expect(isEmpty(new Set())).toBe(true);
+    expect(isEmpty(new Error())).toBe(true);
+    expect(isEmpty({})).toBe(true);
+    expect(isEmpty(new Map([]))).toBe(true);
+    expect(isEmpty(new Set([]))).toBe(true);
   });
 
-  it('should return `false` for non-empty values', function () {
-    expect(isEmpty([1, 2, 3])).toStrictEqual(false);
-    expect(isEmpty('test')).toStrictEqual(false);
-    expect(isEmpty({ test: 1 })).toStrictEqual(false);
-    expect(isEmpty({ length: 0 })).toStrictEqual(false);
-    expect(isEmpty({ size: 0 })).toStrictEqual(false);
+  it('should return `false` for non-empty values', () => {
+    expect(isEmpty([1, 2, 3])).toBe(false);
+    expect(isEmpty('test')).toBe(false);
+    expect(isEmpty({ test: 1 })).toBe(false);
+    expect(isEmpty({ length: 0 })).toBe(false);
+    expect(isEmpty({ size: 0 })).toBe(false);
     expect(
       isEmpty(
         new Map([
@@ -194,11 +195,11 @@ describe('isEmpty', () => {
           ['key2', 'value2'],
         ])
       )
-    ).toStrictEqual(false);
+    ).toBe(false);
+    expect(isEmpty(new Set([1, 2, 3]))).toBe(false);
+    expect(isEmpty(new Array([]))).toBe(false);
+    expect(isEmpty(new Array([1, 2, 3]))).toBe(false);
   });
-  expect(isEmpty(new Set([1, 2, 3]))).toStrictEqual(false);
-  expect(isEmpty(new Array([]))).toStrictEqual(false);
-  expect(isEmpty(new Array([1, 2, 3]))).toStrictEqual(false);
 });
 
 describe('areEmptyArrays', () => {
@@ -224,16 +225,39 @@ describe('areEmptyObjects', () => {
 });
 
 describe('has', () => {
-  it('should return `true` for objects that have the specified key', function () {
-    expect(has({ a: 1 }, 'a')).toStrictEqual(true);
+  it('should return `true` for objects that have the specified key', () => {
+    expect(has({ a: 1 }, 'a')).toBe(true);
   });
 
-  it('should return `false` for objects that do not have the specified key', function () {
-    expect(has({ a: 1 }, 'b')).toStrictEqual(false);
+  it('should return `false` for objects that do not have the specified key', () => {
+    expect(has({ a: 1 }, 'b')).toBe(false);
   });
 
-  it('should return `false` for nullish objects', function () {
-    expect(has(null, 'a')).toStrictEqual(false);
-    expect(has(undefined, 'a')).toStrictEqual(false);
+  it('should return `false` for nullish objects', () => {
+    expect(has(null, 'a')).toBe(false);
+    expect(has(undefined, 'a')).toBe(false);
   });
+
+  it('should return `false` for booleans passed as the value param', () => {
+    expect(has(false, 'a')).toBe(false);
+    expect(has(true, 'a')).toBe(false);
+  });
+
+  it('should return `false` when the value param is an array', () => {
+    expect(has([1, 2, 3], 'a')).toBe(false);
+    expect(has([], 'a')).toBe(false);
+  });
+});
+
+describe('isFunction', () => {
+  it('returns `true` when the value param is a function', () => {
+    expect(isFunction(() => null)).toBe(true);
+  });
+
+  it.each(['string', null, undefined, true, false])(
+    'returns `false` when the value param is %s',
+    (value) => {
+      expect(isFunction(value)).toBe(false);
+    }
+  );
 });
