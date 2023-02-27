@@ -14,16 +14,16 @@ export const useAuth = (serv?: InterpretService) => {
   return useActor(service.value);
 };
 
-const useAuthInternal = reactive<AuthenticatorServiceFacade>({
+const stateAuth = reactive<AuthenticatorServiceFacade>({
   ...facade,
 });
 
-export const useAuthenticator = () => useAuthInternal;
+export const useAuthenticator = () => stateAuth;
 
 export function updateAuthValues(facadeValues: AuthenticatorServiceFacade) {
   for (const key of Object.keys(facade)) {
     //@ts-ignore
-    useAuthInternal[key as keyof typeof useAuthInternal] =
+    stateAuth[key as keyof typeof stateAuth] =
       facadeValues[key as keyof typeof facadeValues];
   }
 }
