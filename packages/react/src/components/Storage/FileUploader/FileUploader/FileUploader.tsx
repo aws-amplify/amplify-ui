@@ -25,7 +25,7 @@ export function FileUploader({
   acceptedFileTypes,
   shouldAutoUpload = false,
   maxFileCount,
-  maxSize,
+  maxFileSize,
   hasMultipleFiles = true,
   onError,
   onSuccess,
@@ -75,7 +75,7 @@ export function FileUploader({
     showPreviewer,
     ...dropZoneProps
   } = useFileUploader({
-    maxSize,
+    maxFileSize,
     acceptedFileTypes,
     hasMultipleFiles,
     isLoading,

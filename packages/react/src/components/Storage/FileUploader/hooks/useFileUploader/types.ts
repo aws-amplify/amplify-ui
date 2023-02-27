@@ -8,7 +8,7 @@ export interface DragActionHandlers {
   onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
 }
 
-export interface UseFileUploader extends DragActionHandlers {
+export interface UseFileUploaderReturn extends DragActionHandlers {
   showPreviewer?: boolean;
   setShowPreviewer?: React.Dispatch<React.SetStateAction<boolean>>;
   fileStatuses: FileStatuses;
@@ -16,4 +16,15 @@ export interface UseFileUploader extends DragActionHandlers {
   inDropZone?: boolean;
   setInDropZone?: React.Dispatch<React.SetStateAction<boolean>>;
   addTargetFiles?: (targetFiles: File[]) => number;
+}
+
+export interface UseFileUploaderProps {
+  maxFileSize: number;
+  acceptedFileTypes: string[];
+  hasMultipleFiles: boolean;
+  isLoading: boolean;
+}
+
+export interface UseFileUploader {
+  (props: UseFileUploaderProps): UseFileUploaderReturn;
 }

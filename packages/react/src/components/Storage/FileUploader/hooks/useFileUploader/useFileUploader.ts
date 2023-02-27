@@ -4,17 +4,12 @@ import { checkMaxSize, returnAcceptedFiles } from '@aws-amplify/ui';
 import { Files, FileState, FileStatuses } from '../../types';
 import { UseFileUploader } from './types';
 
-export default function useFileUploader({
-  maxSize,
+export const useFileUploader: UseFileUploader = ({
+  maxFileSize,
   acceptedFileTypes,
   hasMultipleFiles,
   isLoading,
-}: {
-  maxSize: number;
-  acceptedFileTypes: string[];
-  hasMultipleFiles: boolean;
-  isLoading: boolean;
-}): UseFileUploader {
+}) => {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
 
@@ -23,7 +18,7 @@ export default function useFileUploader({
   const updateFileStatusArray = (files: Files, fileStatuses: FileStatuses) => {
     const statuses = [...fileStatuses];
     [...files].forEach((file) => {
-      const errorFile = checkMaxSize(maxSize, file);
+      const errorFile = checkMaxSize(maxFileSize, file);
 
       statuses.unshift({
         fileState: errorFile ? FileState.ERROR : FileState.INIT,
@@ -111,4 +106,6 @@ export default function useFileUploader({
     fileStatuses,
     setFileStatuses,
   };
-}
+};
+
+export default useFileUploader;

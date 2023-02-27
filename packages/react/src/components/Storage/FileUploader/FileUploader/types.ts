@@ -7,7 +7,7 @@ export interface FileUploaderProps {
   isResumable?: boolean;
   accessLevel: StorageAccessLevel;
   maxFileCount?: number;
-  maxSize?: number;
+  maxFileSize?: number;
   onError?: (error: string) => void;
   onSuccess?: (event: { key: string }) => void;
   shouldAutoUpload?: boolean;

@@ -10,7 +10,7 @@ jest.mock('aws-amplify');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
 const input = {
-  maxSize: 200,
+  maxFileSize: 200,
   acceptedFileTypes: ['.png'],
   hasMultipleFiles: true,
   isLoading: false,
@@ -225,7 +225,7 @@ describe('useFileUploader', () => {
       useFileUploader({
         ...input,
         hasMultipleFiles: false,
-        maxSize: 1,
+        maxFileSize: 1,
       })
     );
 
