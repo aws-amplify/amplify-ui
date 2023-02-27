@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
 import {
   ARROW_DOWN,
@@ -6,7 +7,7 @@ import {
   ENTER_KEY,
   ESCAPE_KEY,
 } from '../shared/constants';
-import { isFunction, strHasLength } from '../shared/utils';
+import { strHasLength } from '../shared/utils';
 import { useStableId } from '../utils/useStableId';
 import type {
   ComboBoxOption,
