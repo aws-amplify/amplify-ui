@@ -5,7 +5,7 @@ import { FeatureFlagSection } from '@/components/FeatureFlagSection';
 import FEATURE_FLAGS from '@/utils/featureFlags';
 import {UPLOAD_DROP_COMPONENTS, UPLOAD_BUTTON_COMPONENTS, PREVIEWER_COMPONENTS, TRACKER_COMPONENTS} from "./props"
 import { DefaultFileUploaderExample, AcceptedFileTypesExample, FileUploaderErrorExample, FileUploaderThemeExample, 
-FileUploaderComponentsExample, LevelExample, IsPreviewerVisibleExample, VariationExample, AutoProceedExample, MaxFilesExample, 
+FileUploaderComponentsExample, LevelExample, VariationExample, AutoUploadExample, MaxFilesExample,
 MaxSizeExample, MultipleExample, ResumableExample, ShowImagesExample, FileUploaderSuccessExample, PreviewerComponentsExample, TrackerComponentsExample, UploadButtonComponentsExample } from './examples'
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 
@@ -101,15 +101,15 @@ The `variation` prop can be added to show a `button` or as a `drop` area when th
 </Example>
 
 
-### Start Upload After Selection
+### Automatically Upload
 
-The `shouldAutoProceed` prop will automatically start the upload after a file is selected. The default is `false`.
+The `shouldAutoUpload` prop will automatically start the upload after a file is selected. The default is `false`.
 
 <Example>
-  <AutoProceedExample />
+  <AutoUploadExample />
   
   <ExampleCode>
-    ```jsx file=./examples/AutoProceedExample.tsx
+    ```jsx file=./examples/AutoUploadExample.tsx
     ```
   </ExampleCode>
 </Example>

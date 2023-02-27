@@ -23,7 +23,7 @@ const logger = new Logger('AmplifyUI:Storage');
 
 export function FileUploader({
   acceptedFileTypes,
-  shouldAutoProceed = false,
+  shouldAutoUpload = false,
   maxFileCount,
   maxSize,
   hasMultipleFiles = true,
@@ -346,13 +346,13 @@ export function FileUploader({
   );
 
   useEffect(() => {
-    if (shouldAutoProceed && autoLoad && !hasMaxFilesError) {
+    if (shouldAutoUpload && autoLoad && !hasMaxFilesError) {
       onFileClick();
     } else {
       return;
     }
     setAutoLoad(false);
-  }, [shouldAutoProceed, onFileClick, autoLoad, hasMaxFilesError]);
+  }, [shouldAutoUpload, onFileClick, autoLoad, hasMaxFilesError]);
 
   const hiddenInput = React.useRef<HTMLInputElement>();
 

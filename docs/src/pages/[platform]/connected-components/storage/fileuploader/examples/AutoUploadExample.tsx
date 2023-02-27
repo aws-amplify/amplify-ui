@@ -1,9 +1,9 @@
 import { FileUploader } from '@aws-amplify/ui-react';
 
-export const AutoProceedExample = () => {
+export const AutoUploadExample = () => {
   return (
     <FileUploader
-      shouldAutoProceed={true}
+      shouldAutoUpload={true}
       acceptedFileTypes={['image/*']}
       accessLevel="public"
       provider="fast" // IGNORE
