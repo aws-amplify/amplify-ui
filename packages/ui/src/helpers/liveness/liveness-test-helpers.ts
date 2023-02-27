@@ -53,6 +53,7 @@ export const mockVideoRecorder: any = {
   destroy: jest.fn(),
   recordingStartApiTimestamp: Date.now(),
   recorderStartTimestamp: Date.now(),
+  recorderEndTimestamp: Date.now(),
   firstChunkTimestamp: Date.now(),
   getState: () => 'idle',
 };
@@ -77,6 +78,7 @@ export const mockLivenessStreamProvider: any = {
   sendClientInfo: jest.fn(),
   endStream: jest.fn(),
   stopVideo: jest.fn(),
+  dispatchStopVideoEvent: jest.fn(),
   getResponseStream: jest.fn().mockResolvedValue([mockedStream]), // TODO: a following PR after PR634 will be made to have the stream emit the proper mock data.
   startRecordingLivenessVideo: jest.fn(),
   videoRecorder: mockVideoRecorder,

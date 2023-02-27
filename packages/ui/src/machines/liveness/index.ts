@@ -1087,10 +1087,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async stopVideo(context) {
         const {
           challengeId,
-          videoAssociatedParams: {
-            videoMediaStream,
-            recordingStartTimestampMs,
-          },
+          videoAssociatedParams: { videoMediaStream },
           ovalAssociatedParams: { initialFace, ovalDetails },
           faceMatchAssociatedParams: { startFace, endFace },
           livenessStreamProvider,
@@ -1100,6 +1097,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         const flippedInitialFaceLeft =
           width - initialFace.left - initialFace.width;
+
+        await livenessStreamProvider.stopVideo();
 
         const livenessActionDocument: ClientSessionInformationEvent = {
           DeviceInformation: {
@@ -1134,16 +1133,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   left: ovalDetails.centerX - ovalDetails.width / 2,
                 }),
               },
-              VideoEndTimestamp: undefined,
+              VideoEndTimestamp:
+                livenessStreamProvider.videoRecorder.recorderEndTimestamp,
             },
           },
         };
 
         livenessStreamProvider.sendClientInfo(livenessActionDocument);
 
-        livenessStreamProvider.stopVideo();
-
-        const endStreamLivenessVideoTime = Date.now();
+        await livenessStreamProvider.dispatchStopVideoEvent();
       },
       async getLiveness(context) {
         const {

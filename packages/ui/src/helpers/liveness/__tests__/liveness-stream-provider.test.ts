@@ -195,15 +195,26 @@ describe('LivenessStreamProvider', () => {
   });
 
   describe('stopVideo', () => {
-    test('should stop sending video events and then dispatch an empty video chunk', async () => {
+    test('should stop sending video events', async () => {
       const provider = new LivenessStreamProvider(
         'sessionId',
         mockVideoMediaStream,
         mockVideoEl
       );
       const response = await provider.stopVideo();
-
       expect(mockVideoRecorder.stop).toHaveBeenCalled();
+      expect(response).toBeUndefined();
+    });
+  });
+
+  describe('dispatchStopVideoEvent', () => {
+    test('should dispatch an empty video chunk', async () => {
+      const provider = new LivenessStreamProvider(
+        'sessionId',
+        mockVideoMediaStream,
+        mockVideoEl
+      );
+      const response = await provider.dispatchStopVideoEvent();
       expect(mockVideoRecorder.dispatch).toHaveBeenCalledTimes(2);
       expect(response).toBeUndefined();
     });

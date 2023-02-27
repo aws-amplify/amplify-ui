@@ -649,6 +649,9 @@ describe('Liveness Machine', () => {
         uploading: 'waitForDisconnectEvent',
       });
       expect(mockLivenessStreamProvider.stopVideo).toHaveBeenCalledTimes(1);
+      expect(
+        mockLivenessStreamProvider.dispatchStopVideoEvent
+      ).toHaveBeenCalledTimes(1);
       expect(mockLivenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
         2
       );
