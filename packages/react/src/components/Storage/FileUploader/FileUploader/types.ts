@@ -10,7 +10,7 @@ export interface FileUploaderProps {
   maxSize?: number;
   onError?: (error: string) => void;
   onSuccess?: (event: { key: string }) => void;
-  shouldAutoProceed?: boolean;
+  shouldAutoUpload?: boolean;
   showImages?: boolean;
   variation?: 'drop' | 'button';
   displayText?: Partial<FileUploaderDisplayText>;

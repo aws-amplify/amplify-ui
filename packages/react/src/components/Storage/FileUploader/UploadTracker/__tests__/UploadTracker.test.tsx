@@ -32,6 +32,8 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
+        handleUploadFile={() => {}}
+        shouldAutoLoad={false}
         showImage
       />
     );
@@ -55,6 +57,8 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
+        handleUploadFile={() => {}}
+        shouldAutoLoad={false}
         showImage
       />
     );
@@ -80,6 +84,8 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
+        handleUploadFile={() => {}}
+        shouldAutoLoad={false}
         showImage
       />
     );
@@ -105,6 +111,8 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
+        handleUploadFile={() => {}}
+        shouldAutoLoad={false}
         showImage
       />
     );
@@ -130,6 +138,8 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
+        handleUploadFile={() => {}}
+        shouldAutoLoad={false}
         showImage
       />
     );
@@ -156,6 +166,8 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
+        handleUploadFile={() => {}}
+        shouldAutoLoad={false}
         showImage
       />
     );

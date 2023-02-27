@@ -521,14 +521,14 @@ describe('File Uploader', () => {
     ).toBeVisible();
   });
 
-  it('starts upload after file is selected if shouldAutoProceed is true', () => {
+  it('starts upload after file is selected if shouldAutoUpload is true', () => {
     useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
       fileStatuses: [fileStatus],
     });
 
     const { container } = render(
-      <FileUploader {...commonProps} shouldAutoProceed />
+      <FileUploader {...commonProps} shouldAutoUpload />
     );
 
     const input = container.getElementsByTagName('input')[0];
