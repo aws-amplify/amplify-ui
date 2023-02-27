@@ -139,7 +139,8 @@ describe('getComponentButtonStyle', () => {
       const unpressedStyle = { backgroundColor: 'fuschia' };
       const overrideStyle = {
         primaryButton: {
-          container: ({ pressed }) => (pressed ? pressedStyle : unpressedStyle),
+          container: ({ pressed }: { pressed: boolean }) =>
+            pressed ? pressedStyle : unpressedStyle,
         },
       };
       const styleParams = {
