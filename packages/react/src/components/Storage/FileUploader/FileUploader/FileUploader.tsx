@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Logger } from 'aws-amplify';
 import type { UploadTask } from '@aws-amplify/storage';
 import { Storage } from '@aws-amplify/storage';
-import { uploadFile, isValidExtension } from '@aws-amplify/ui';
+import { isValidExtension, uploadFile } from '@aws-amplify/ui';
 
 import {
   Button as UploadButton,
@@ -195,7 +195,7 @@ export function FileUploader({
     [fileStatuses, setFileStatuses]
   );
 
-  const startUpload = useCallback(() => {
+  const handleUploadFile = useCallback(() => {
     if (hasMaxFilesError) return;
 
     // start upload
@@ -403,7 +403,7 @@ export function FileUploader({
         hasMaxFilesError={hasMaxFilesError}
         maxFileCount={maxFileCount}
         onClear={onClear}
-        onFileClick={startUpload}
+        onFileClick={handleUploadFile}
         aggregatePercentage={aggregatePercentage}
       >
         {fileStatuses?.map((status, index) => (
@@ -427,7 +427,7 @@ export function FileUploader({
             onResume={onResume(index)}
             onSaveEdit={onSaveEdit(index)}
             onStartEdit={onStartEdit(index)}
-            startUpload={startUpload}
+            handleUploadFile={handleUploadFile}
             shouldAutoLoad={shouldAutoUpload}
             percentage={status.percentage}
             isResumable={isResumable}

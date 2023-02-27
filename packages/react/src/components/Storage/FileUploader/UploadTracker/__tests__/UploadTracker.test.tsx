@@ -32,7 +32,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        startUpload={() => {}}
+        handleUploadFile={() => {}}
         shouldAutoLoad={false}
         showImage
       />
@@ -57,7 +57,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        startUpload={() => {}}
+        handleUploadFile={() => {}}
         shouldAutoLoad={false}
         showImage
       />
@@ -84,7 +84,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        startUpload={() => {}}
+        handleUploadFile={() => {}}
         shouldAutoLoad={false}
         showImage
       />
@@ -111,7 +111,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        startUpload={() => {}}
+        handleUploadFile={() => {}}
         shouldAutoLoad={false}
         showImage
       />
@@ -138,7 +138,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        startUpload={() => {}}
+        handleUploadFile={() => {}}
         shouldAutoLoad={false}
         showImage
       />
@@ -166,7 +166,7 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        startUpload={() => {}}
+        handleUploadFile={() => {}}
         shouldAutoLoad={false}
         showImage
       />

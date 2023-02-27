@@ -22,7 +22,7 @@ export interface UploadTrackerProps
   onResume: () => void;
   onSaveEdit: (value: string) => void;
   onStartEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  startUpload: () => void;
+  handleUploadFile: () => void;
   percentage: number;
   isResumable?: boolean;
   showImage: boolean;

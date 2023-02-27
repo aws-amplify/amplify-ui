@@ -42,7 +42,7 @@ export function UploadTracker({
   getPausedText,
   uploadSuccessfulText,
   getUploadingText,
-  startUpload,
+  handleUploadFile,
   shouldAutoLoad,
 }: UploadTrackerProps): JSX.Element {
   const [tempName, setTempName] = React.useState<string>(name);
@@ -67,9 +67,9 @@ export function UploadTracker({
 
   useEffect(() => {
     if (shouldAutoLoad && fileState === FileState.INIT) {
-      startUpload();
+      handleUploadFile();
     }
-  });
+  }, [shouldAutoLoad, fileState, handleUploadFile]);
 
   const DisplayView = useCallback(
     () => (
