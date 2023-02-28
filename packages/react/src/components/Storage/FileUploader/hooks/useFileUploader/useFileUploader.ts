@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { checkMaxSize, returnAcceptedFiles } from '@aws-amplify/ui';
 
 import { Files, FileState, FileStatuses } from '../../types';
-import { UseFileUploader } from './types';
+import { UseFileUploader, UseFileUploaderProps } from './types';
 
-export const useFileUploader: UseFileUploader = ({
+export function useFileUploader({
   maxFileSize,
   acceptedFileTypes,
   allowMultipleFiles,
   isLoading,
-}) => {
+}: UseFileUploaderProps): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
 
@@ -106,6 +106,6 @@ export const useFileUploader: UseFileUploader = ({
     fileStatuses,
     setFileStatuses,
   };
-};
+}
 
 export default useFileUploader;
