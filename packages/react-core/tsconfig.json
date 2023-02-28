@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
@@ -10,7 +11,7 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2015"
+    "target": "es6"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
