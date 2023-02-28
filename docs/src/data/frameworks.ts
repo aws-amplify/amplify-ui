@@ -1,24 +1,30 @@
 export type Framework =
+  | 'android'
   | 'angular'
   | 'flutter'
   | 'react'
   | 'react-native'
+  | 'swift'
   | 'vue';
 export type Frameworks = Framework[];
 
 export const FRAMEWORKS: Frameworks = [
+  'android',
   'angular',
   'flutter',
   'react',
   'react-native',
+  'swift',
   'vue',
 ];
 
 export const FRAMEWORK_DISPLAY_NAMES: Record<Framework, string> = {
+  android: 'Android',
   angular: 'Angular',
   flutter: 'Flutter',
   react: 'React',
   'react-native': 'React Native',
+  swift: 'Swift',
   vue: 'Vue',
 };
 

@@ -146,6 +146,12 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/connected-components/liveness',
+    label: 'Liveness',
+    body: 'Amplify UI provides a UI component for detecting whether the person in front of the camera is live.',
+    platforms: ['react', 'android', 'swift'],
+  },
+  {
     href: '/connected-components/geo',
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
@@ -472,12 +478,28 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/introduction',
     label: 'Introduction',
-    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
+    platforms: [
+      'react',
+      'vue',
+      'angular',
+      'flutter',
+      'react-native',
+      'android',
+      'swift',
+    ],
   },
   {
     href: '/getting-started/installation',
     label: 'Installation',
-    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
+    platforms: [
+      'react',
+      'vue',
+      'angular',
+      'flutter',
+      'react-native',
+      'android',
+      'swift',
+    ],
   },
   {
     href: '/getting-started/usage',

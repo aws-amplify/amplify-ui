@@ -12,6 +12,8 @@ import AngularHomePage from './index.angular';
 import FlutterHomePage from './index.flutter';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import SwiftHomePage from './index.swift';
+import AndroidHomePage from './index.android';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(FRAMEWORKS);
@@ -63,6 +65,12 @@ const HomePage = ({ colorMode }) => {
       break;
     case 'react-native':
       pageContent = <ReactNativeHomePage colorMode={colorMode} />;
+      break;
+    case 'android':
+      pageContent = <AndroidHomePage colorMode={colorMode} />;
+      break;
+    case 'swift':
+      pageContent = <SwiftHomePage colorMode={colorMode} />;
       break;
     default:
       pageContent = <ReactHomePage colorMode={colorMode} />;
