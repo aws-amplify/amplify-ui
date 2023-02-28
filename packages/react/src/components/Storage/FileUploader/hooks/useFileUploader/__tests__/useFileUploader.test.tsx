@@ -10,9 +10,9 @@ jest.mock('aws-amplify');
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
 const input = {
-  maxSize: 200,
+  maxFileSize: 200,
   acceptedFileTypes: ['.png'],
-  hasMultipleFiles: true,
+  allowMultipleFiles: true,
   isLoading: false,
   setAutoLoad: () => null,
 };
@@ -85,11 +85,11 @@ describe('useFileUploader', () => {
     expect(result.current.fileStatuses.length).toEqual(1);
   });
 
-  it('returns 1 and updates file statuses when not hasMultipleFiles and target length is 1', () => {
+  it('returns 1 and updates file statuses when not allowMultipleFiles and target length is 1', () => {
     const { result } = renderHook(() =>
       useFileUploader({
         ...input,
-        hasMultipleFiles: false,
+        allowMultipleFiles: false,
       })
     );
 
@@ -104,11 +104,11 @@ describe('useFileUploader', () => {
     expect(result.current.fileStatuses.length).toEqual(1);
   });
 
-  it('returns 1 and updates file statutuses when not hasMultipleFiles and target length > 1', () => {
+  it('returns 1 and updates file statutuses when not allowMultipleFiles and target length > 1', () => {
     const { result } = renderHook(() =>
       useFileUploader({
         ...input,
-        hasMultipleFiles: false,
+        allowMultipleFiles: false,
       })
     );
 
@@ -224,8 +224,8 @@ describe('useFileUploader', () => {
     const { result } = renderHook(() =>
       useFileUploader({
         ...input,
-        hasMultipleFiles: false,
-        maxSize: 1,
+        allowMultipleFiles: false,
+        maxFileSize: 1,
       })
     );
 

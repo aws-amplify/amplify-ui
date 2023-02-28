@@ -2,19 +2,14 @@ import React, { useState } from 'react';
 import { checkMaxSize, returnAcceptedFiles } from '@aws-amplify/ui';
 
 import { Files, FileState, FileStatuses } from '../../types';
-import { UseFileUploader } from './types';
+import { UseFileUploader, UseFileUploaderProps } from './types';
 
-export default function useFileUploader({
-  maxSize,
+export function useFileUploader({
+  maxFileSize,
   acceptedFileTypes,
-  hasMultipleFiles,
+  allowMultipleFiles,
   isLoading,
-}: {
-  maxSize: number;
-  acceptedFileTypes: string[];
-  hasMultipleFiles: boolean;
-  isLoading: boolean;
-}): UseFileUploader {
+}: UseFileUploaderProps): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
 
@@ -23,7 +18,7 @@ export default function useFileUploader({
   const updateFileStatusArray = (files: Files, fileStatuses: FileStatuses) => {
     const statuses = [...fileStatuses];
     [...files].forEach((file) => {
-      const errorFile = checkMaxSize(maxSize, file);
+      const errorFile = checkMaxSize(maxFileSize, file);
 
       statuses.unshift({
         fileState: errorFile ? FileState.ERROR : FileState.INIT,
@@ -42,17 +37,17 @@ export default function useFileUploader({
     if (!targets) return 0;
 
     // If not multiple and files already selected return
-    if (!hasMultipleFiles && fileStatuses.length > 0)
+    if (!allowMultipleFiles && fileStatuses.length > 0)
       return fileStatuses.length;
 
     // if not multiple and only 1 file selected save
-    if (!hasMultipleFiles && targets.length == 1) {
+    if (!allowMultipleFiles && targets.length == 1) {
       updateFileStatusArray([...targets], fileStatuses);
       return targets.length;
     }
 
     // if not multiple save just the first target into the array
-    if (!hasMultipleFiles && targets.length > 1) {
+    if (!allowMultipleFiles && targets.length > 1) {
       updateFileStatusArray([targets[0]], fileStatuses);
       return 1;
     }
@@ -112,3 +107,5 @@ export default function useFileUploader({
     setFileStatuses,
   };
 }
+
+export default useFileUploader;

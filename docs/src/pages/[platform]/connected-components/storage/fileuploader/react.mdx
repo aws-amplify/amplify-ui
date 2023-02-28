@@ -5,8 +5,8 @@ import { FeatureFlagSection } from '@/components/FeatureFlagSection';
 import FEATURE_FLAGS from '@/utils/featureFlags';
 import {UPLOAD_DROP_COMPONENTS, UPLOAD_BUTTON_COMPONENTS, PREVIEWER_COMPONENTS, TRACKER_COMPONENTS} from "./props"
 import { DefaultFileUploaderExample, AcceptedFileTypesExample, FileUploaderErrorExample, FileUploaderThemeExample, 
-FileUploaderComponentsExample, LevelExample, VariationExample, AutoUploadExample, MaxFilesExample,
-MaxSizeExample, MultipleExample, ResumableExample, ShowImagesExample, FileUploaderSuccessExample, PreviewerComponentsExample, TrackerComponentsExample, UploadButtonComponentsExample } from './examples'
+FileUploaderComponentsExample, LevelExample, VariationExample, AutoUploadExample, MaxFileCountExample,
+MaxFileSizeExample, ResumableExample, ShowImagesExample, FileUploaderSuccessExample, PreviewerComponentsExample, TrackerComponentsExample, UploadButtonComponentsExample } from './examples'
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 
 <Alert variation="info" heading="Developer Preview">
@@ -124,10 +124,10 @@ The following props set limits on what the File Uploader will accept.
 The `maxFileCount` prop accepts how many files at one time you can select to upload.  The default is unlimited.
 
 <Example>
-  <MaxFilesExample />
+  <MaxFileCountExample />
   
   <ExampleCode>
-    ```jsx file=./examples/MaxFilesExample.tsx
+    ```jsx file=./examples/MaxFileCountExample.tsx
     ```
   </ExampleCode>
 </Example>
@@ -137,28 +137,13 @@ The `maxFileCount` prop accepts how many files at one time you can select to upl
 
 ### Max Size Per File
 
-The `maxSize` prop sets a maximum file size the uploader will accept in bytes. The default is unlimited.
+The `maxFileSize` prop sets a maximum file size the uploader will accept in bytes. The default is unlimited.
 
 <Example>
-  <MaxSizeExample />
+  <MaxFileSizeExample />
   
   <ExampleCode>
-    ```jsx file=./examples/MaxSizeExample.tsx
-    ```
-  </ExampleCode>
-</Example>
-
-
-
-### Allow Multiple Files
-
-The `hasMultipleFiles` prop allows you to select more then one file for upload. The default is set as `true`. 
-
-<Example>
-  <MultipleExample />
-  
-  <ExampleCode>
-    ```jsx file=./examples/MultipleExample.tsx
+    ```jsx file=./examples/MaxFileSizeExample.tsx
     ```
   </ExampleCode>
 </Example>

@@ -25,8 +25,7 @@ export function FileUploader({
   acceptedFileTypes,
   shouldAutoUpload = false,
   maxFileCount,
-  maxSize,
-  hasMultipleFiles = true,
+  maxFileSize,
   onError,
   onSuccess,
   showImages = true,
@@ -63,6 +62,10 @@ export function FileUploader({
     ...overrideDisplayText,
   };
 
+  const allowMultipleFiles =
+    maxFileCount === undefined ||
+    (typeof maxFileCount === 'number' && maxFileCount > 1);
+
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
 
@@ -75,9 +78,9 @@ export function FileUploader({
     showPreviewer,
     ...dropZoneProps
   } = useFileUploader({
-    maxSize,
+    maxFileSize,
     acceptedFileTypes,
-    hasMultipleFiles,
+    allowMultipleFiles,
     isLoading,
   });
 
@@ -369,13 +372,13 @@ export function FileUploader({
             tabIndex={-1}
             ref={hiddenInput}
             onChange={onFileChange}
-            multiple={hasMultipleFiles}
+            multiple={allowMultipleFiles}
             accept={accept}
           />
         </VisuallyHidden>
       </>
     ),
-    [isLoading, onFileChange, hasMultipleFiles, accept, browseFilesText]
+    [isLoading, onFileChange, allowMultipleFiles, accept, browseFilesText]
   );
 
   if (showPreviewer) {
