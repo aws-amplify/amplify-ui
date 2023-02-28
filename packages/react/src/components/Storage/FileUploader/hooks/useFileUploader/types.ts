@@ -21,7 +21,7 @@ export interface UseFileUploaderReturn extends DragActionHandlers {
 export interface UseFileUploaderProps {
   maxFileSize: number;
   acceptedFileTypes: string[];
-  hasMultipleFiles: boolean;
+  allowMultipleFiles: boolean;
   isLoading: boolean;
 }
 

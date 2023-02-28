@@ -7,7 +7,7 @@ import { UseFileUploader } from './types';
 export const useFileUploader: UseFileUploader = ({
   maxFileSize,
   acceptedFileTypes,
-  hasMultipleFiles,
+  allowMultipleFiles,
   isLoading,
 }) => {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
@@ -37,17 +37,17 @@ export const useFileUploader: UseFileUploader = ({
     if (!targets) return 0;
 
     // If not multiple and files already selected return
-    if (!hasMultipleFiles && fileStatuses.length > 0)
+    if (!allowMultipleFiles && fileStatuses.length > 0)
       return fileStatuses.length;
 
     // if not multiple and only 1 file selected save
-    if (!hasMultipleFiles && targets.length == 1) {
+    if (!allowMultipleFiles && targets.length == 1) {
       updateFileStatusArray([...targets], fileStatuses);
       return targets.length;
     }
 
     // if not multiple save just the first target into the array
-    if (!hasMultipleFiles && targets.length > 1) {
+    if (!allowMultipleFiles && targets.length > 1) {
       updateFileStatusArray([targets[0]], fileStatuses);
       return 1;
     }

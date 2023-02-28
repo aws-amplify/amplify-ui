@@ -150,21 +150,6 @@ The `maxFileSize` prop sets a maximum file size the uploader will accept in byte
 
 
 
-### Allow Multiple Files
-
-The `hasMultipleFiles` prop allows you to select more then one file for upload. The default is set as `true`. 
-
-<Example>
-  <MultipleExample />
-  
-  <ExampleCode>
-    ```jsx file=./examples/MultipleExample.tsx
-    ```
-  </ExampleCode>
-</Example>
-
-
-
 ### Allow Resuming of Files
 
 The `isResumable` prop allows uploads to be paused and resumed. Resumable uploads use [multipart upload](https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html) to break the files into chunks before upload. The progress of the upload won't be continuous because it uploads a chunk at a time. The default is `false`.

@@ -14,7 +14,6 @@ export default function FileUploaderEmail() {
       onSuccess={onSuccess}
       acceptedFileTypes={['image/*']}
       accessLevel="public"
-      hasMultipleFiles={true}
       maxFileSize={100000000}
       maxFileCount={3}
       isResumable={true}
