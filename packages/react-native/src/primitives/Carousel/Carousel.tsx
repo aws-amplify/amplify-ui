@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
-  EventSubscription,
   FlatList,
   ListRenderItemInfo,
   ScaledSize,
@@ -64,13 +63,13 @@ export default function Carousel<T>(
     const subscription = Dimensions.addEventListener(
       'change',
       orientationHandler
-    ) as unknown as EventSubscription;
+    );
 
     // Clean up listener. Dimensions.removeEventListener is deprecated as of React Native 0.65 but it is technically
     // available so try to remove via a `EmitterSubscription` first before falling back to `removeEventListener`
     return () => {
       if (isFunction(subscription?.remove)) {
-        subscription?.remove();
+        subscription.remove();
       } else {
         Dimensions.removeEventListener('change', orientationHandler);
       }
