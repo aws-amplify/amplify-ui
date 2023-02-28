@@ -12,6 +12,5 @@ export { AutoUploadExample } from './AutoUploadExample';
 export { VariationExample } from './VariationExample';
 export { MaxFileCountExample } from './MaxFileCountExample';
 export { MaxFileSizeExample } from './MaxFileSizeExample';
-export { MultipleExample } from './MultipleExample';
 export { ResumableExample } from './ResumableExample';
 export { ShowImagesExample } from './ShowImagesExample';
