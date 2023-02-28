@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
-import { isFunction } from '../shared/utils';
 import { ToggleButtonProps } from '../types';
 
 type ClickHandler = React.MouseEventHandler<HTMLButtonElement>;
