@@ -1,22 +1,16 @@
 {
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
-  },
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
-    "jsx": "react",
     "importHelpers": true,
+    "jsx": "react",
+    "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "outDir": "dist",
     "skipLibCheck": true,
     "strict": true,
-    "target": "es6"
+    "target": "es2015"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]

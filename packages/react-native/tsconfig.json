@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "declaration": true,
-    "downlevelIteration": true,
     "esModuleInterop": true,
+    "importHelpers": true,
     "jsx": "react-native",
     "noImplicitAny": true,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
-    "noEmitOnError": true,
     "outDir": "./dist",
     "rootDir": "src",
     "skipLibCheck": true,

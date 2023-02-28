@@ -75,8 +75,7 @@
     "rollup-plugin-node-externals": "^4.1.1",
     "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.35.2",
-    "ts-jest": "^27.0.3",
-    "ts-node": "^10.2.1"
+    "ts-jest": "^27.0.3"
   },
   "sideEffects": [
     "dist/**/*.css"

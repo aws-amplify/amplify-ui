@@ -1,24 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
-    "strict": false,
-    "jsx": "react",
+    "baseUrl": ".",
+    "declaration": true,
+    "esModuleInterop": true,
     "importHelpers": true,
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "module": "esnext",
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "sourceMap": true,
-    "declaration": true,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "types": ["webpack-env", "jest"],
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "strict": false,
+    "target": "es2015"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"]
