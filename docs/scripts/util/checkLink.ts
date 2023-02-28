@@ -20,9 +20,14 @@ export async function checkLink(
   linkIdx: number
 ) {
   return new Promise(async (res, rej) => {
-    if (IGNORED_LINKS.includes(href) || requestedUrl.has(href)) {
+    if (!href) {
       console.log(
-        `⏭[SKIPPING...] link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page #${pageIdx} ${pageUrl}, because it is on the IGNORED_LINKS list or have already requested.`
+        `⚠️[WARNING...] page #${pageIdx} link #${linkIdx} "${tagName}" tag "${tagText}" doesn't have a href.`
+      );
+      res(0);
+    } else if (IGNORED_LINKS.includes(href) || requestedUrl.has(href)) {
+      console.log(
+        `⏭[SKIPPING...] page #${pageIdx} link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page ${pageUrl}, because it is on the IGNORED_LINKS list or have already requested.`
       );
       res(0);
     } else if (href.includes('https:')) {

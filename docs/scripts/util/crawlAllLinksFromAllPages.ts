@@ -24,13 +24,13 @@ export async function crawlAllLinksFromAllPages(allPages: string[]) {
     console.log(`🐝 [VISITING...] page #${pageIdx} ${pageUrl}`);
     await page.setViewport({ width: 1080, height: 1024 });
     const links = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('a'))
-        .map(({ href, tagName, text }) => ({
+      return Array.from(document.querySelectorAll('a')).map(
+        ({ href, tagName, text }) => ({
           href,
           tagName,
           tagText: text,
-        }))
-        .filter(({ href }) => href);
+        })
+      );
     });
 
     allPagesPaths.set(pageIdx, { pageUrl, links });
