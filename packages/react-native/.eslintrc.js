@@ -23,7 +23,7 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: { jsx: true },
     ecmaVersion: 12,
-    project: ['./tsconfig.json'],
+    project: ['tsconfig.json'],
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
@@ -36,13 +36,8 @@ module.exports = {
     {
       files: ['**/*.spec.*', '**/*.test.*'],
       parser: '@typescript-eslint/parser',
-      parserOptions: {
-        project: ['./tsconfig.json'],
-      },
       plugins: ['@typescript-eslint', 'jest'],
       rules: {
-        // Turn the original rule off for test files, turn on the jest rule
-        '@typescript-eslint/unbound-method': 'off',
         'jest/unbound-method': 'error',
         '@typescript-eslint/no-unsafe-assignment': 'off',
       },
@@ -53,19 +48,19 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 2,
     '@typescript-eslint/member-ordering': 'error',
     '@typescript-eslint/no-extra-semi': 'error',
-    '@typescript-eslint/no-floating-promises': ['off'],
+    '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/no-unused-expressions': [
       'error',
       { allowTernary: true },
     ],
-    '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/no-use-before-define': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
       { argsIgnorePattern: '_', varsIgnorePattern: '_' },
     ],
     '@typescript-eslint/prefer-nullish-coalescing': 'error',
-    '@typescript-eslint/restrict-template-expressions': ['off'],
-    '@typescript-eslint/unbound-method': 'error',
+    '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/unbound-method': 'off',
 
     // eslint rules either not in recommended rule set or overridden
     'comma-dangle': ['error', 'only-multiline'],
@@ -89,13 +84,13 @@ module.exports = {
     // react rules either not in recommended rule set or overridden
     'react/destructuring-assignment': ['error', 'always'],
     'react/jsx-boolean-value': 'error',
-    'react/jsx-no-constructed-context-values': ['error'],
+    'react/jsx-no-constructed-context-values': 'error',
     'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
     'react/jsx-props-no-spreading': 'off',
     'react/jsx-wrap-multilines': ['error', { declaration: 'ignore' }],
     'react/no-array-index-key': 'off',
-    'react/no-danger': ['error'],
-    'react/no-unused-prop-types': ['error'],
+    'react/no-danger': 'error',
+    'react/no-unused-prop-types': 'error',
     'react/prop-types': 'off',
     'react/static-property-placement': ['error', 'static public field'],
 

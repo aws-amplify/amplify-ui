@@ -8,6 +8,7 @@ import {
   View,
   ViewToken,
 } from 'react-native';
+import { isFunction } from '@aws-amplify/ui';
 
 import CarouselPageIndicator from './CarouselPageIndicator';
 import { VIEWABILITY_CONFIG } from './constants';
@@ -68,7 +69,7 @@ export default function Carousel<T>(
     // Clean up listener. Dimensions.removeEventListener is deprecated as of React Native 0.65 but it is technically
     // available so try to remove via a `EmitterSubscription` first before falling back to `removeEventListener`
     return () => {
-      if (typeof subscription?.remove === 'function') {
+      if (isFunction(subscription?.remove)) {
         subscription?.remove();
       } else {
         Dimensions.removeEventListener('change', orientationHandler);
