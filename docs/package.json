@@ -78,6 +78,7 @@
     "react-markdown": "^8.0.3",
     "sitemap-urls": "^3.0.0",
     "ts-jest": "^27",
-    "ts-morph": "^15.1.0"
+    "ts-morph": "^15.1.0",
+    "ts-node": "^10.9.1"
   }
 }
