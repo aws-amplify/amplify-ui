@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
 type ChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
 
@@ -28,7 +29,7 @@ export const useSwitch = (props: UseSwitchProps): UseSwitch => {
         return;
       }
 
-      if (typeof onChange === 'function') {
+      if (isFunction(onChange)) {
         onChange(event);
       }
 

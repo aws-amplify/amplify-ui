@@ -6,7 +6,7 @@
     "downlevelIteration": true,
     "esModuleInterop": true,
     "jsx": "react-native",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "module": "es2015",
     "moduleResolution": "node",
     "noEmitOnError": true,
