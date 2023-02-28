@@ -125,8 +125,7 @@ export const LivenessCheck: React.FC = () => {
     <Flex
       direction="column"
       position="relative"
-      data-amplify-liveness-detector-check=""
-      data-testid={CHECK_CLASS_NAME}
+      testId={CHECK_CLASS_NAME}
       className={CHECK_CLASS_NAME}
     >
       {renderCheck()}

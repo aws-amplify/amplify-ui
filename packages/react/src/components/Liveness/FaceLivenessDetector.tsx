@@ -71,11 +71,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   }, [beginLivenessCheck, disableStartScreen, isStartView]);
 
   return (
-    <View
-      data-amplify-liveness-detector=""
-      className={DETECTOR_CLASS_NAME}
-      data-testid={DETECTOR_CLASS_NAME}
-    >
+    <View className={DETECTOR_CLASS_NAME} testId={DETECTOR_CLASS_NAME}>
       <FaceLivenessDetectorProvider componentProps={props} service={service}>
         <Flex direction="column" ref={currElementRef}>
           {isStartView ? (

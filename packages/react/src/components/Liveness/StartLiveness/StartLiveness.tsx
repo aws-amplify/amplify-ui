@@ -21,11 +21,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
     components;
 
   return (
-    <Card
-      data-amplify-liveness-detector-start=""
-      className={START_CLASS_NAME}
-      data-testid={START_CLASS_NAME}
-    >
+    <Card className={START_CLASS_NAME} data-testid={START_CLASS_NAME}>
       <Flex direction="column">
         <LivenessHeader />
         <PhotosensitiveWarning />
