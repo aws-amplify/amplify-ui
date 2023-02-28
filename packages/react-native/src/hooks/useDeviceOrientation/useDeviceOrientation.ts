@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Dimensions, EventSubscription } from 'react-native';
 
+import { isFunction } from '@aws-amplify/ui';
+
 export type DeviceOrientation = 'portrait' | 'landscape';
 const getDeviceOrientation = (): DeviceOrientation => {
   const { height, width } = Dimensions.get('screen');
@@ -35,7 +37,7 @@ export default function useDeviceOrientation(): {
     ) as unknown as EventSubscription;
 
     return () => {
-      if (typeof subscription?.remove === 'function') {
+      if (isFunction(subscription?.remove)) {
         subscription.remove();
       } else {
         Dimensions.removeEventListener('change', handler);

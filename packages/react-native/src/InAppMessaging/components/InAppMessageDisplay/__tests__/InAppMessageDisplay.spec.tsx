@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { render } from '@testing-library/react-native';
-import { useMessage } from '@aws-amplify/ui-react-core';
+import { MessageLayout, useMessage } from '@aws-amplify/ui-react-core';
 
 import InAppMessageDisplay from '../InAppMessageDisplay';
 
@@ -15,7 +15,7 @@ describe('InAppMessageDisplay', () => {
   });
 
   it('renders the expected component in the happy path', () => {
-    const Component = ({ layout }) => (
+    const Component = ({ layout }: { layout: MessageLayout }) => (
       <View>
         <Text>{layout}</Text>
       </View>
