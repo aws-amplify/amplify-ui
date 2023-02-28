@@ -5,14 +5,6 @@ import {
   runArrayPromiseInOrder,
 } from './util';
 
-/**
- * "uncaughtException" is to prevent Error: connect ECONNREFUSED
- * More details: https://stackoverflow.com/questions/14168433/node-js-error-connect-econnrefused
- */
-process.on('uncaughtException', function (err) {
-  console.log('ERROR::', err);
-});
-
 if (![3, 4].includes(process.argv.length)) {
   console.error('Expected 3 or 4 arguments!');
   process.exit(1);
@@ -21,6 +13,12 @@ if (![3, 4].includes(process.argv.length)) {
 const start = process.argv[2];
 const end = process.argv[3];
 const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start); // Divide the sitePaths array to prevent the socket hang up issue.
+
+try {
+  main();
+} catch (err) {
+  process.exit(1);
+}
 
 async function main() {
   const allPagesPaths = await crawlAllLinksFromAllPages(testPaths);
@@ -39,5 +37,3 @@ async function main() {
     console.log(`#${pageIdx}, ${pageUrl} has ${links.length} links`);
   });
 }
-
-main();

@@ -15,15 +15,7 @@ export async function crawlAllLinksFromAllPages(allPages: string[]) {
   return allPagesPaths;
 
   async function checkSitemapPath(pageUrl: string, pageIdx: string) {
-    let browser = await puppeteer.launch({
-      args: [
-        /**
-         * add '--disable-dev-shm-usage' to prevent "Error: Protocol error (Runtime.callFunctionOn): Target closed."
-         * More details: https://github.com/puppeteer/puppeteer/issues/1175#issuecomment-369728215
-         */
-        '--disable-dev-shm-usage',
-      ],
-    });
+    let browser = await puppeteer.launch();
 
     const page = await browser.newPage();
 
@@ -40,8 +32,7 @@ export async function crawlAllLinksFromAllPages(allPages: string[]) {
         }))
         .filter(({ href }) => href);
     });
-    // console.log(`🧮 ${links.length} links will be checked.`);
-    // await runArrayPromiseInOrder(links, checkLink);
+
     allPagesPaths.set(pageIdx, { pageUrl, links });
 
     await page.close();
