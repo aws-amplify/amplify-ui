@@ -67,6 +67,7 @@ export interface FileStatus extends Partial<FileStateProps> {
   fileErrors?: string;
   name?: string;
   file?: File;
+  id: number;
 }
 
 export type FileStatuses = FileStatus[];

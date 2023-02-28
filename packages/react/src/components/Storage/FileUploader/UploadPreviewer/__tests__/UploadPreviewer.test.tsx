@@ -18,12 +18,14 @@ const fileStatus: FileStatus = {
   name: 'hello.png',
   percentage: 0,
   uploadTask: undefined,
+  id: 0,
 };
 
 const fileStatus2: FileStatus = {
   ...fileStatus,
   file: fakeFile2,
   name: 'hello.png',
+  id: 1,
 };
 const fileStatuses: FileStatuses = [fileStatus];
 const fileStatuses2: FileStatuses = [fileStatus, fileStatus2];
@@ -92,6 +94,7 @@ describe('UploadPreviewer', () => {
       name: 'hello.png',
       percentage: 0,
       uploadTask: undefined,
+      id: 0,
     };
     render(
       <UploadPreviewer
@@ -119,6 +122,7 @@ describe('UploadPreviewer', () => {
       name: 'hello.png',
       percentage: 0,
       uploadTask: undefined,
+      id: 0,
     };
     render(<UploadPreviewer {...commonProps} fileStatuses={[fileStatus]} />);
 
@@ -133,6 +137,7 @@ describe('UploadPreviewer', () => {
       name: 'hello.png',
       percentage: 0,
       uploadTask: undefined,
+      id: 0,
     };
     render(<UploadPreviewer {...commonProps} fileStatuses={[fileStatus]} />);
 

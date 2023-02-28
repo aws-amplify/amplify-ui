@@ -18,21 +18,26 @@ export default function useFileUploader({
 }): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
+  const [id, setId] = useState(0);
 
   const [inDropZone, setInDropZone] = useState(false);
 
   const updateFileStatusArray = (files: Files, fileStatuses: FileStatuses) => {
     const statuses = [...fileStatuses];
+    let _id = id;
     [...files].forEach((file) => {
       const errorFile = checkMaxSize(maxSize, file);
+      _id++;
 
       statuses.unshift({
         fileState: errorFile ? FileState.ERROR : FileState.INIT,
         fileErrors: errorFile,
         file,
         name: file.name,
+        id: _id,
       });
     });
+    setId(_id);
     setFileStatuses(statuses);
   };
 

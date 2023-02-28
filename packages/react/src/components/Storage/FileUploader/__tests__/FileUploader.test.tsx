@@ -52,6 +52,7 @@ const fileStatus = {
   name: 'hello.png',
   file: fakeFile,
   fileState: FileState.INIT,
+  id: 0,
 };
 
 const uploadOneFile = 'Upload 1 file';
@@ -141,6 +142,7 @@ describe('File Uploader', () => {
         ...fileStatus,
         name: fileName2,
         fileState: FileState.INIT,
+        id: 1,
       },
     ];
 

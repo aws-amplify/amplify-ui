@@ -93,11 +93,9 @@ export function FileUploader({
   // Previewer Methods
 
   const progressCallback = useCallback(
-    (index: number) => {
+    (id: number) => {
       return (progress: { loaded: number; total: number }) => {
         setFileStatuses((prevFileStatuses) => {
-          const prevStatus = { ...prevFileStatuses[index] };
-
           /**
            * When a file is zero bytes, the progress.total will equal zero.
            * Therefore, this will prevent a divide by zero error.
@@ -108,15 +106,12 @@ export function FileUploader({
               : 100;
           const fileState: FileState =
             progressPercentage !== 100 ? FileState.LOADING : FileState.SUCCESS;
-          const updatedStatus = {
-            ...prevStatus,
-            percentage: progressPercentage,
-            fileState,
-          };
 
-          prevFileStatuses[index] = updatedStatus;
-
-          return [...prevFileStatuses];
+          return prevFileStatuses.map((file) =>
+            file.id === id
+              ? { ...file, percentage: progressPercentage, fileState }
+              : file
+          );
         });
       };
     },
@@ -124,20 +119,18 @@ export function FileUploader({
   );
 
   const errorCallback = useCallback(
-    (index: number) => {
+    (id: number) => {
       return (err: string) => {
         setFileStatuses((prevFileStatuses) => {
-          const prevStatus = { ...prevFileStatuses[index] };
-
-          const updatedStatus = {
-            ...prevStatus,
-            fileState: 'error' as FileState,
-            fileErrors: translate(err.toString()),
-          };
-
-          prevFileStatuses[index] = updatedStatus;
-
-          return [...prevFileStatuses];
+          return prevFileStatuses.map((file) =>
+            file.id === id
+              ? {
+                  ...file,
+                  fileState: 'error' as FileState,
+                  fileErrors: translate(err.toString()),
+                }
+              : file
+          );
         });
         setLoading(false);
         if (typeof onError === 'function') onError(err);
@@ -146,52 +139,53 @@ export function FileUploader({
     [onError, setFileStatuses]
   );
 
-  const onPause = useCallback(
-    (index: number): (() => void) => {
+  const updatePauseResume = useCallback(
+    (id: number, fileState: FileState): (() => void) => {
       return function () {
-        const status = fileStatuses[index];
-        if (isUploadTask(status.uploadTask)) {
-          status.uploadTask.pause();
+        const { uploadTask } = fileStatuses.find((file) => file.id === id);
+        if (isUploadTask(uploadTask)) {
+          if (fileState === FileState.PAUSED) {
+            uploadTask.pause();
+          } else {
+            uploadTask.resume();
+          }
         }
-        const newFileStatuses = [...fileStatuses];
-
-        newFileStatuses[index] = { ...status, fileState: FileState.PAUSED };
+        const newFileStatuses = fileStatuses.map((file) =>
+          file.id === id ? { ...file, fileState } : file
+        );
         setFileStatuses(newFileStatuses);
       };
     },
     [fileStatuses, setFileStatuses]
   );
 
-  const onResume = useCallback(
-    (index: number): (() => void) => {
-      return function () {
-        const status = fileStatuses[index];
-
-        if (isUploadTask(status.uploadTask)) {
-          status.uploadTask.resume();
-        }
-        const newFileStatuses = [...fileStatuses];
-
-        newFileStatuses[index] = { ...status, fileState: FileState.RESUME };
-        setFileStatuses(newFileStatuses);
-      };
+  const onPause = useCallback(
+    (id: number) => {
+      return updatePauseResume(id, FileState.PAUSED);
     },
-    [fileStatuses, setFileStatuses]
+    [updatePauseResume]
+  );
+
+  const onResume = useCallback(
+    (id: number) => {
+      return updatePauseResume(id, FileState.RESUME);
+    },
+    [updatePauseResume]
   );
 
   const onFileClick = useCallback(() => {
     // start upload
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
-    fileStatuses.forEach((status, i) => {
+    fileStatuses.forEach((status) => {
       if (status?.fileState === FileState.SUCCESS) return;
       const uploadTask = uploadFile({
         file: status.file,
         fileName: status.name,
         level: accessLevel,
         isResumable,
-        progressCallback: progressCallback(i),
-        errorCallback: errorCallback(i),
+        progressCallback: progressCallback(status.id),
+        errorCallback: errorCallback(status.id),
         completeCallback: onSuccess,
         ...rest,
       });
@@ -247,16 +241,18 @@ export function FileUploader({
   }, [setFileStatuses, setShowPreviewer]);
 
   const onFileCancel = useCallback(
-    (index: number) => {
+    (id: number) => {
       return () => {
-        const { fileState, uploadTask } = fileStatuses[index];
+        const { fileState, uploadTask } = fileStatuses.find(
+          (file) => file.id === id
+        );
 
         if (fileState === 'loading' && isUploadTask(uploadTask)) {
           // if downloading use uploadTask and stop download
           Storage.cancel(uploadTask);
           setLoading(false);
         }
-        const updatedFiles = fileStatuses.filter((_, i) => i !== index);
+        const updatedFiles = fileStatuses.filter((file) => file.id !== id);
         setFileStatuses(updatedFiles);
       };
     },
@@ -266,22 +262,28 @@ export function FileUploader({
   // Tracker methods
 
   const onSaveEdit = useCallback(
-    (index: number) => {
+    (id: number) => {
       return (value: string) => {
         // no empty file names
         if (value.trim().length === 0) return;
 
-        const newFileStatuses = [...fileStatuses];
-        const status = fileStatuses[index];
-        const validExtension = isValidExtension(value, status.file.name);
-        newFileStatuses[index] = {
-          ...status,
-          name: value,
-          fileState: !validExtension ? FileState.ERROR : FileState.INIT,
-          fileErrors: validExtension
-            ? undefined
-            : translate('Extension not allowed'),
-        };
+        const {
+          file: { name },
+        } = fileStatuses.find((file) => file.id === id);
+        const validExtension = isValidExtension(value, name);
+
+        const newFileStatuses = fileStatuses.map((file) =>
+          file.id === id
+            ? {
+                ...file,
+                name: value,
+                fileState: !validExtension ? FileState.ERROR : FileState.INIT,
+                fileErrors: validExtension
+                  ? undefined
+                  : translate('Extension not allowed'),
+              }
+            : file
+        );
 
         setFileStatuses(newFileStatuses);
       };
@@ -290,40 +292,47 @@ export function FileUploader({
   );
 
   const updateFileState = useCallback(
-    (index: number, fileState: FileState) => {
+    (id: number, fileState: FileState) => {
       setFileStatuses((prevFileStatuses) => {
-        const newFileStatuses = [...prevFileStatuses];
-        const status = newFileStatuses[index];
+        const {
+          file: { name },
+          name: statusName,
+        } = prevFileStatuses.find((file) => file.id === id);
         // Check if extension is valid before setting state
-        const validExtension = isValidExtension(status.name, status.file.name)
+
+        const validExtension = isValidExtension(statusName, name)
           ? FileState.INIT
           : FileState.ERROR;
+
         const updatedFileState =
           fileState === FileState.INIT ? validExtension : fileState;
 
-        newFileStatuses[index] = {
-          ...status,
-          fileState: updatedFileState,
-        };
-        return newFileStatuses;
+        return prevFileStatuses.map((file) =>
+          file.id === id
+            ? {
+                ...file,
+                fileState: updatedFileState,
+              }
+            : file
+        );
       });
     },
     [setFileStatuses]
   );
 
   const onCancelEdit = useCallback(
-    (index: number) => {
+    (id: number) => {
       return () => {
-        updateFileState(index, FileState.INIT);
+        updateFileState(id, FileState.INIT);
       };
     },
     [updateFileState]
   );
 
   const onStartEdit = useCallback(
-    (index: number) => {
+    (id: number) => {
       return (_: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        updateFileState(index, FileState.EDITING);
+        updateFileState(id, FileState.EDITING);
       };
     },
     [updateFileState]
@@ -388,21 +397,21 @@ export function FileUploader({
         onFileClick={onFileClick}
         aggregatePercentage={aggregatePercentage}
       >
-        {fileStatuses?.map((status, index) => (
+        {fileStatuses?.map((status) => (
           <UploadTracker
             errorMessage={status?.fileErrors}
             file={status.file}
             fileState={status?.fileState}
             hasImage={status.file?.type.startsWith('image/')}
             showImage={showImages}
-            key={index}
+            key={status.id}
             name={status.name}
-            onCancel={onFileCancel(index)}
-            onCancelEdit={onCancelEdit(index)}
-            onPause={onPause(index)}
-            onResume={onResume(index)}
-            onSaveEdit={onSaveEdit(index)}
-            onStartEdit={onStartEdit(index)}
+            onCancel={onFileCancel(status.id)}
+            onCancelEdit={onCancelEdit(status.id)}
+            onPause={onPause(status.id)}
+            onResume={onResume(status.id)}
+            onSaveEdit={onSaveEdit(status.id)}
+            onStartEdit={onStartEdit(status.id)}
             percentage={status.percentage}
             isResumable={isResumable}
           />
