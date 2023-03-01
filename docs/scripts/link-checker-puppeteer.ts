@@ -10,10 +10,13 @@ if (![3, 4].includes(process.argv.length)) {
   process.exit(1);
 }
 
+/**
+ * Divide the sitePaths array so that we can easily run a smaller portion if needed.
+ * e.g. to run the first 10 links. run `yarn docs node --require esbuild-register ./scripts/link-checker-puppeteer.ts 0 10`
+ */
 const start = process.argv[2];
 const end = process.argv[3];
-const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start); // Divide the sitePaths array to prevent the socket hang up issue.
-
+const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
 try {
   main();
 } catch (err) {
@@ -33,7 +36,11 @@ async function main() {
     }
   );
 
-  [...allPagesPaths].map(([pageIdx, { pageUrl, links }]) => {
-    console.log(`#${pageIdx}, ${pageUrl} has ${links.length} links`);
-  });
+  const allPagePaths = [...allPagesPaths].map(
+    ([pageIdx, { pageUrl, links }]) => ({
+      pageUrl,
+      numberOfLinks: links.length,
+    })
+  );
+  console.table(allPagePaths);
 }
