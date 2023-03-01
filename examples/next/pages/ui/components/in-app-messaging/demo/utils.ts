@@ -114,14 +114,17 @@ export function useInAppDemo() {
     useState<GetDemoMessageParams['hasSecondaryButton']>(true);
   const [secondaryButtonAction, setSecondaryButtonAction] =
     useState<GetDemoMessageParams['secondaryButtonAction']>('CLOSE');
+
   const [useAnalyticEvents, setUseAnalyticEvents] =
     useState<GetDemoMessageParams['useAnalyticEvents']>(false);
+  const [syncMessages, setSyncMessages] = useState<boolean>(false);
 
   useEffect(() => {
-    if (useAnalyticEvents) {
+    if (syncMessages) {
+      console.log('syncing...');
       InAppMessaging.syncMessages();
     }
-  }, [useAnalyticEvents]);
+  }, [syncMessages]);
 
   const handleAction = (
     type:
@@ -167,6 +170,7 @@ export function useInAppDemo() {
           break;
         case 'setUseAnalyticEvents':
           setUseAnalyticEvents(value);
+          if (!syncMessages) setSyncMessages(true);
           break;
         default:
           return null;
