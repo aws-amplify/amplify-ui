@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
 import { ESCAPE_KEY, ENTER_KEY } from '../shared/constants';
-import { isFunction } from '../shared/utils';
 import { UseSearchFieldProps } from '../types';
 import { useComposeRefsCallback } from '../../hooks/useComposeRefsCallback';
 

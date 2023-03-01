@@ -3,6 +3,7 @@ import {
   AuthenticatorMachineOptions,
   AmplifyUser,
   configureComponent,
+  isFunction,
 } from '@aws-amplify/ui';
 
 import {
@@ -79,7 +80,7 @@ export function AuthenticatorInternal({
 
     return (
       <>
-        {typeof children === 'function'
+        {isFunction(children)
           ? children({ signOut, user }) // children is a render prop
           : children}
       </>
