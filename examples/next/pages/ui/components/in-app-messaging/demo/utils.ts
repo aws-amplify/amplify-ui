@@ -121,7 +121,6 @@ export function useInAppDemo() {
 
   useEffect(() => {
     if (syncMessages) {
-      console.log('syncing...');
       InAppMessaging.syncMessages();
     }
   }, [syncMessages]);
