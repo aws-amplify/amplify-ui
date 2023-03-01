@@ -50,8 +50,8 @@ function App() {
     [displayMessage]
   );
 
-  // // display custom message component on initial render
-  // useEffect(displayCustomBannerMessage, [displayCustomBannerMessage]);
+  // display custom message component on initial render
+  useEffect(displayCustomBannerMessage, [displayCustomBannerMessage]);
 
   return (
     <Button margin="medium" onClick={displayCustomBannerMessage}>

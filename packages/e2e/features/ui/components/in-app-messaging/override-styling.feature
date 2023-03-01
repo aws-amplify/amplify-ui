@@ -9,5 +9,5 @@ Feature: In-App Messaging with style overrides on the default banner
   Scenario: Verify that message is displayed on the banner with style override
     When I click the "Display Custom Modal Message" button
     Then I see the message on the banner with style override
-    When I click the x button on the banner
+    When I dismiss the banner
     Then I do not see the banner

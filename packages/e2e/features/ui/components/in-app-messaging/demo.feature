@@ -13,7 +13,7 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I click the "Display Demo Message" button
     Then I see a "top" banner
     And the banner has 2 buttons
-    When I click the x button on the banner
+    When I dismiss the banner
     Then I do not see the banner
 
   @react
@@ -22,13 +22,13 @@ Feature: In-App Messaging demo page to show banners with various configurations
     And I click the "Display Demo Message" button
     Then I see a "top" banner
     And the banner has 1 buttons
-    When I click the x button on the banner
+    When I dismiss the banner
     Then I do not see the banner
     When I toggle "Has Primary Button" checkbox
     And I click the "Display Demo Message" button
     Then I see a "top" banner
     And the banner has 0 buttons
-    When I click the x button on the banner
+    When I dismiss the banner
     Then I do not see the banner
 
   @react

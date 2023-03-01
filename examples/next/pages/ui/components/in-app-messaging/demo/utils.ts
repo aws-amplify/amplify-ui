@@ -118,7 +118,9 @@ export function useInAppDemo() {
     useState<GetDemoMessageParams['useAnalyticEvents']>(false);
 
   useEffect(() => {
-    InAppMessaging.syncMessages();
+    if (useAnalyticEvents) {
+      InAppMessaging.syncMessages();
+    }
   }, [useAnalyticEvents]);
 
   const handleAction = (

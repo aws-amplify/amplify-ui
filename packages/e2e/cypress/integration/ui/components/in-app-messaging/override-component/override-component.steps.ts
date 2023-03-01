@@ -1,6 +1,6 @@
 import { Then } from '@badeball/cypress-cucumber-preprocessor';
 
-Then('I see the message on the custom component', () => {
+Then('I see the custom component', () => {
   cy.get('[data-testid="custom-banner"]').should('exist');
 });
 

@@ -31,11 +31,3 @@ Do you want to allow guests and unauthenticated users to send analytics events?
 Authentication can be configured to preference.
 
 Run `amplify push` deploy the resource and update the In-App Messaging channel in the cloud. Pinpoint resources like Campaign can be set up at the url returned after running `amplify push`.
-
-## Using this Backend
-
-External contributors can re-create this backend by running:
-
-```shell
-amplify init
-```
