@@ -529,6 +529,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           ...context.ovalAssociatedParams,
           initialFace: event.data.initialFace,
           ovalDetails: event.data.ovalDetails,
+          scaleFactor: event.data.scaleFactor,
         }),
         faceMatchAssociatedParams: (context, event) => ({
           ...context.faceMatchAssociatedParams,
@@ -917,6 +918,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         } = context;
 
         const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+
         const ovalDetails = getStaticLivenessOvalDetails({
           width,
           height,
@@ -992,10 +994,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           sessionInformation: serverSessionInformation,
         });
 
-        // draw oval on canvas
-        canvasEl.width = width;
-        canvasEl.height = height;
-        drawLivenessOvalInCanvas(canvasEl, ovalDetails);
+        // Get width/height of video element so we can compute scaleFactor
+        // and set canvas width/height.
+        const { width: videoScaledWidth, height: videoScaledHeight } =
+          videoEl.getBoundingClientRect();
+
+        canvasEl.width = videoScaledWidth;
+        canvasEl.height = videoScaledHeight;
+
+        // Compute scaleFactor which is how much our video element is scaled
+        // vs the intrinsic video resolution
+        const scaleFactor = videoScaledWidth / videoEl.videoWidth;
+
+        // Draw oval in canvas using ovalDetails and scaleFactor
+        drawLivenessOvalInCanvas(canvasEl, ovalDetails, scaleFactor);
         ovalDrawnTimestamp = Date.now();
 
         // Send client info for initial face position
@@ -1026,12 +1038,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
         });
 
-        return { faceMatchState, ovalDetails, initialFace };
+        return {
+          faceMatchState,
+          ovalDetails,
+          scaleFactor,
+          initialFace,
+        };
       },
       async detectFaceAndMatchOval(context) {
         const {
-          videoAssociatedParams: { videoEl },
-          ovalAssociatedParams: { faceDetector, ovalDetails },
+          videoAssociatedParams: { videoEl, canvasEl },
+          ovalAssociatedParams: { faceDetector, ovalDetails, scaleFactor },
           serverSessionInformation,
         } = context;
 

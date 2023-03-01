@@ -135,7 +135,8 @@ export function getStaticLivenessOvalDetails({
  */
 export function drawLivenessOvalInCanvas(
   canvas: HTMLCanvasElement,
-  oval: LivenessOvalDetails
+  oval: LivenessOvalDetails,
+  scaleFactor: number
 ) {
   const { centerX, centerY, width, height } = oval;
 
@@ -147,9 +148,11 @@ export function drawLivenessOvalInCanvas(
     ctx?.clearRect(0, 0, canvasWidth, canvasHeight);
 
     // fill the canvas with a transparent rectangle
-
     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+    // Set the transform to scale and center on canvas
+    ctx.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
 
     // draw the oval path
     ctx.beginPath();
@@ -160,6 +163,9 @@ export function drawLivenessOvalInCanvas(
     ctx.lineWidth = 8;
     ctx.stroke();
     ctx.clip();
+
+    // Restore default canvas transform matrix
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
 
     // clear the oval content from the rectangle
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -177,6 +183,7 @@ export function getFaceMatchStateInLivenessOval(
   sessionInformation: SessionInformation
 ): FaceMatchState {
   let faceMatchState: FaceMatchState;
+
   const {
     OvalIouThreshold,
     OvalIouHeightThreshold,
@@ -295,7 +302,12 @@ function generateBboxFromLandmarks(
   const width = ow,
     height = oh;
 
-  return { left: left, top: top, right: left + width, bottom: top + height };
+  return {
+    left: left,
+    top: top,
+    right: left + width,
+    bottom: top + height,
+  };
 }
 
 /**
@@ -476,6 +488,7 @@ interface FillOverlayCanvasFractionalInput {
   ovalCanvas: HTMLCanvasElement;
   ovalDetails: any;
   heightFraction: number;
+  scaleFactor: number;
 }
 
 const INITIAL_ALPHA = 0.9;
@@ -488,6 +501,7 @@ export function fillOverlayCanvasFractional({
   ovalCanvas,
   ovalDetails,
   heightFraction,
+  scaleFactor,
 }: FillOverlayCanvasFractionalInput) {
   const boudingRect = ovalCanvas.getBoundingClientRect();
   const ovalCanvasX = boudingRect.x;
@@ -495,8 +509,8 @@ export function fillOverlayCanvasFractional({
 
   const { centerX, centerY, width, height } = ovalDetails;
 
-  const updatedCenterX = centerX + ovalCanvasX;
-  const updatedCenterY = centerY + ovalCanvasY;
+  const updatedCenterX = centerX * scaleFactor + ovalCanvasX;
+  const updatedCenterY = centerY * scaleFactor + ovalCanvasY;
 
   const canvasWidth = overlayCanvas.width;
   const canvasHeight = overlayCanvas.height;
@@ -530,8 +544,8 @@ export function fillOverlayCanvasFractional({
     ctx.ellipse(
       updatedCenterX,
       updatedCenterY,
-      width / 2,
-      height / 2,
+      (width * scaleFactor) / 2,
+      (height * scaleFactor) / 2,
       0,
       0,
       2 * Math.PI

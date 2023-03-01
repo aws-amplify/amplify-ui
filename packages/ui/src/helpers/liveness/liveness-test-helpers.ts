@@ -116,6 +116,7 @@ export const mockContext = (): LivenessContext => {
       faceDetector: mockBlazeFace,
       initialFace: mockFace,
       ovalDetails: mockOvalDetails,
+      scaleFactor: 1,
     },
     faceMatchAssociatedParams: {
       illuminationState: IlluminationState.NORMAL,

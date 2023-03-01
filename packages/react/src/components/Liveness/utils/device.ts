@@ -19,9 +19,6 @@ export function isIOS(): boolean {
   const isIOS = isNewerIpad() || navigator.userAgent.indexOf('like Mac') != -1;
   return isIOS;
 }
-export function isAndroid(): boolean {
-  return navigator.userAgent.indexOf('Android') != -1;
-}
 
 export function isPortrait(): boolean {
   return window.matchMedia('(orientation: portrait)').matches;

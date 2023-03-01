@@ -1,5 +1,4 @@
 import {
-  isAndroid,
   isIOS,
   isMobileScreen,
   isPortrait,
@@ -47,6 +46,9 @@ describe('device', () => {
     (global.navigator as any).userAgent = GOOGLE_PIXEL_CHROME;
     expect(isMobileScreen()).toBe(true);
 
+    (global.navigator as any).userAgent = GOOGLE_PIXEL_FIREFOX;
+    expect(isMobileScreen()).toBe(true);
+
     (global.navigator as any).userAgent = IPHONE_12_SAFARI;
     expect(isMobileScreen()).toBe(true);
 
@@ -77,17 +79,6 @@ describe('device', () => {
 
     (global.navigator as any).userAgent = GOOGLE_PIXEL_CHROME;
     expect(isIOS()).toBe(false);
-  });
-
-  it('isAndroid', () => {
-    (global.navigator as any).userAgent = GOOGLE_PIXEL_CHROME;
-    expect(isAndroid()).toBe(true);
-
-    (global.navigator as any).userAgent = GOOGLE_PIXEL_FIREFOX;
-    expect(isAndroid()).toBe(true);
-
-    (global.navigator as any).userAgent = IPHONE_12_SAFARI;
-    expect(isAndroid()).toBe(false);
   });
 });
 

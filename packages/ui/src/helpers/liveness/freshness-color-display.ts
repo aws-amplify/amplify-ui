@@ -60,7 +60,7 @@ export class FreshnessColorDisplay {
   private async displayNextColorTick(resolve, reject) {
     const {
       freshnessColorAssociatedParams: { freshnessColorEl },
-      ovalAssociatedParams: { ovalDetails },
+      ovalAssociatedParams: { ovalDetails, scaleFactor },
       videoAssociatedParams: { canvasEl },
     } = this.context;
     const tickStartTime = Date.now();
@@ -111,6 +111,7 @@ export class FreshnessColorDisplay {
         ovalCanvas: canvasEl,
         ovalDetails,
         heightFraction,
+        scaleFactor,
       });
 
       resolve(false);

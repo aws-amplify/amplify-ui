@@ -10,7 +10,6 @@ import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
 import { View, Flex } from '../../primitives';
 import { getVideoConstraints } from './StartLiveness/helpers';
-import { isMobileScreen } from './utils/device';
 import { LivenessComponents } from './hooks/useCustomComponents/defaultComponents';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
@@ -51,12 +50,7 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   const isStartView = state.matches('start') || state.matches('userCancel');
 
   const beginLivenessCheck = React.useCallback(() => {
-    const isMobile = isMobileScreen();
-
-    const videoConstraints = getVideoConstraints(
-      isMobile,
-      currElementRef.current.clientWidth
-    );
+    const videoConstraints = getVideoConstraints();
 
     send({
       type: 'BEGIN',

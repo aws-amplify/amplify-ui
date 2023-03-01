@@ -3,7 +3,7 @@ export enum LivenessClassNames {
   CameraModuleCenteredLoader = 'amplify-liveness-camera-module__centered-loader',
   CameraModuleCanvas = 'amplify-liveness-camera-module__canvas',
   CameraModuleVideo = 'amplify-liveness-camera-module__video',
-  CameraModuleVideoContainer = 'amplify-liveness-camera-module__video-container',
+
   CameraModuleRecordingIconContainer = 'amplify-liveness-camera-module__recording-icon-container',
   CameraModuleCancelButtonContainer = 'amplify-liveness-camera-module__cancel-button-container',
   CameraModuleOverlayCountdown = 'amplify-liveness-camera-module__overlay--countdown',
@@ -16,5 +16,7 @@ export enum LivenessClassNames {
   DescriptionBulletMessageTitle = 'amplify-liveness-description-bullet__message--title',
   DescriptionBulletMessageBody = 'amplify-liveness-description-bullet__message--body',
   FadeOut = 'amplify-liveness-fade-out',
+  OvalCanvas = 'amplify-liveness-oval-canvas',
   RecordingIcon = 'amplify-liveness__recording-icon',
+  VideoContainer = 'amplify-liveness-video-container',
 }

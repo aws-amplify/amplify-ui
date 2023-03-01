@@ -7,8 +7,8 @@ import {
   useLivenessSelector,
   createLivenessSelector,
   useMediaStreamInVideo,
-  useMediaDimensions,
 } from '../hooks';
+
 import { CancelButton, Instruction, RecordingIcon, Overlay } from '../shared';
 import { Flex, Loader, Text, View } from '../../../primitives';
 import { LivenessClassNames } from '../types/classNames';
@@ -36,26 +36,27 @@ export const LivenessCameraModule = (
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
 
-  const { videoRef, videoHeight, videoWidth } = useMediaStreamInVideo(
+  const { videoRef, videoWidth, videoHeight } = useMediaStreamInVideo(
     videoStream,
     videoConstraints
   );
 
-  const { width: mediaWidth, height: mediaHeight } = useMediaDimensions(
-    videoWidth,
-    videoHeight
-  );
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const freshnessColorRef = useRef<HTMLDivElement | null>(null);
+  const videoContainerRef = useRef<HTMLDivElement | null>(null);
 
   const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
-
   const isCheckingCamera = state.matches('cameraCheck');
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
+
+  const [mediaWidth, setMediaWidth] = useState<number>(videoWidth);
+  const [mediaHeight, setMediaHeight] = useState<number>(videoHeight);
+  const [aspectRatio, setAspectRatio] = useState<number>(
+    videoWidth / videoHeight
+  );
 
   React.useLayoutEffect(() => {
     if (isCameraReady) {
@@ -69,7 +70,18 @@ export const LivenessCameraModule = (
         },
       });
     }
-  }, [send, videoRef, isCameraReady, isMobileScreen]);
+
+    /** TODO: Refactor setMediaWidth/Height and setAspectRatio into hook  */
+    if (videoContainerRef.current) {
+      setMediaWidth(videoContainerRef.current.getBoundingClientRect().width);
+      setMediaHeight(videoContainerRef.current.getBoundingClientRect().height);
+    }
+    if (videoRef.current) {
+      setAspectRatio(
+        videoRef.current.videoWidth / videoRef.current.videoHeight
+      );
+    }
+  }, [send, videoRef, isCameraReady, isMobileScreen, mediaWidth, mediaHeight]);
 
   const timerCompleteHandler = () => {
     send({ type: 'START_RECORDING' });
@@ -107,37 +119,42 @@ export const LivenessCameraModule = (
         className={LivenessClassNames.CameraModuleCanvas}
         hidden
       />
-
-      <video
-        ref={videoRef}
-        muted
-        autoPlay
-        playsInline
+      <div
+        className={LivenessClassNames.VideoContainer}
+        ref={videoContainerRef}
         style={{
-          transform: 'scaleX(-1)',
-          // Height and width are duplicated here in the style object to address
-          // a safari bug where video size resets with amplify class unset rule.
-          height: `${mediaHeight}px`,
-          width: `${mediaWidth}px`,
+          aspectRatio: `${aspectRatio}`,
         }}
-        height={mediaHeight}
-        width={mediaWidth}
-        onCanPlay={handleMediaPlay}
-        data-testid="video"
-        className={LivenessClassNames.CameraModuleVideo}
-      />
-      <Flex
-        className={`${LivenessClassNames.CameraModuleVideoContainer} ${
-          isRecordingStopped ? LivenessClassNames.FadeOut : ''
-        }`}
       >
-        <View
-          as="canvas"
-          ref={canvasRef}
-          height={mediaHeight}
+        <video
+          ref={videoRef}
+          muted
+          autoPlay
+          playsInline
+          style={{
+            transform: 'scaleX(-1)',
+            // Height and width are duplicated here in the style object to address
+            // a safari bug where video size resets with amplify class unset rule.
+          }}
           width={mediaWidth}
+          height={mediaHeight}
+          onCanPlay={handleMediaPlay}
+          data-testid="video"
+          className={LivenessClassNames.CameraModuleVideo}
         />
-      </Flex>
+        <Flex
+          className={`${LivenessClassNames.OvalCanvas} ${
+            isRecordingStopped ? LivenessClassNames.FadeOut : ''
+          }`}
+        >
+          <View
+            as="canvas"
+            width={mediaWidth}
+            height={mediaHeight}
+            ref={canvasRef}
+          />
+        </Flex>
+      </div>
 
       {isRecording && (
         <View className={LivenessClassNames.CameraModuleRecordingIconContainer}>

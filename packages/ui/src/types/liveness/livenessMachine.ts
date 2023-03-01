@@ -34,6 +34,7 @@ export interface LivenessContext {
     faceDetector: FaceDetection;
     initialFace: Face;
     ovalDetails: LivenessOvalDetails;
+    scaleFactor: number;
   };
   faceMatchAssociatedParams: {
     illuminationState: IlluminationState;
