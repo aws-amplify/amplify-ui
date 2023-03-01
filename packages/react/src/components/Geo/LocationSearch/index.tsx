@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import { LocationSearchProps } from 'maplibre-gl-geocoder';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
+import { LocationSearchProps } from '../types/maplibre-gl-geocoder';
 
 const LOCATION_SEARCH_OPTIONS = {
   maplibregl,

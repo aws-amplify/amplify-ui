@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
 import { AutocompleteOption } from './AutocompleteOption';
 import { AutocompleteMenu } from './AutocompleteMenu';
@@ -7,7 +8,6 @@ import { useAutocomplete } from './useAutocomplete';
 import { HighlightMatch } from '../HighlightMatch/HighlightMatch';
 import { SearchField } from '../SearchField';
 import { View } from '../View';
-import { isFunction } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import type {
   AutocompleteComboboxProps,

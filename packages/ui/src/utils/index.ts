@@ -1,16 +1,4 @@
 /**
- * We re-export any lodash imports to avoid appending .js extension across codebase
- * The ultimate goal is have replacement implementation to remove the entire dependency
- */
-export { default as isEqual } from 'lodash/isEqual.js';
-export { default as debounce } from 'lodash/debounce.js';
-export { default as includes } from 'lodash/includes.js';
-export { default as get } from 'lodash/get.js';
-export { default as pickBy } from 'lodash/pickBy.js';
-export { default as kebabCase } from 'lodash/kebabCase.js';
-export { default as merge } from 'lodash/merge.js';
-
-/**
  * Some libraries may not follow Node ES module spec and could be loaded as CommonJS modules,
  * To ensure the interoperability between ESM and CJS, modules from those libraries have to be loaded via namespace import
  * And sanitized by the function below because unlike ESM namespace, CJS namespace set `module.exports` object on the `default` key
@@ -147,16 +135,18 @@ function isEmptyObject<T>(value: T): boolean {
 /**
  * Checks if all members of the `values` param are empty objects
  *
- * @param {unknown} value The values to check
+ * @param {unknown} values The values to check
  * @returns {boolean} Returns `true` if all members of the `values` param are empty, `false` otherwise
  */
 export function areEmptyObjects<T>(...values: T[]): boolean {
   return values.every(isEmptyObject);
 }
 
-/*
- * @param value capitalizes `value` and its type.
- * @returns Capitalized `value`
+/**
+ * Capitalizes `value` and its return type
+ *
+ * @param {string} value string to capitalize
+ * @returns {string} capitalized string
  */
 export function capitalize<T extends string>(value: T): Capitalize<T> {
   return (
@@ -164,9 +154,23 @@ export function capitalize<T extends string>(value: T): Capitalize<T> {
   ) as Capitalize<T>;
 }
 
-/*
- * Checks if `key` is a direct property of `object`.
+/**
+ * Checks if `key` is a direct property of `value`
+ *
+ * @param {unknown} value `object` potentially containing property
+ * @param {string} key property key
+ * @returns whether `key` param is a property of the `obj` param
  */
-export function has(object: unknown, key: string): boolean {
-  return object != null && Object.prototype.hasOwnProperty.call(object, key);
+export function has(value: unknown, key: string): boolean {
+  return value != null && Object.prototype.hasOwnProperty.call(value, key);
+}
+
+/**
+ * Checks if `value` is a function
+ *
+ * @param {unknown} value param to check
+ * @returns {boolean} whether `value` is a function
+ */
+export function isFunction(value: unknown): value is Function {
+  return typeof value === 'function';
 }

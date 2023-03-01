@@ -2,14 +2,13 @@ import classNames from 'classnames';
 import * as RadixSlider from '@radix-ui/react-slider';
 import * as React from 'react';
 
-import { sanitizeNamespaceImport } from '@aws-amplify/ui';
+import { isFunction, sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
-import { isFunction } from '../shared/utils';
 import { Label } from '../Label';
 import { Primitive } from '../types/view';
 import { SliderFieldProps } from '../types/sliderField';

@@ -1,5 +1,25 @@
 # @aws-amplify/ui-react
 
+## 4.3.9
+
+### Patch Changes
+
+- [#3396](https://github.com/aws-amplify/amplify-ui/pull/3396) [`18d7a717b`](https://github.com/aws-amplify/amplify-ui/commit/18d7a717b20b5fcd4c1bfd7c9ff9f7f662d455ca) Thanks [@ErikCH](https://github.com/ErikCH)! - Refactored file status in File uploader
+
+- [#3472](https://github.com/aws-amplify/amplify-ui/pull/3472) [`e08e62234`](https://github.com/aws-amplify/amplify-ui/commit/e08e6223473f56cbbc2d0ce4bab85ebd1caf020c) Thanks [@wlee221](https://github.com/wlee221)! - fix(ui): use lodash imports directly
+
+- [#3482](https://github.com/aws-amplify/amplify-ui/pull/3482) [`e283f14ca`](https://github.com/aws-amplify/amplify-ui/commit/e283f14cadf54c6f6ab7e729151ea5fe97776c6a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): migrate isFunction util to ui package
+
+- [#3471](https://github.com/aws-amplify/amplify-ui/pull/3471) [`528c39191`](https://github.com/aws-amplify/amplify-ui/commit/528c391914c456cdedc209b96d16a7f04afc7ae8) Thanks [@reesscot](https://github.com/reesscot)! - fix(react): fix missing `maplibre-gl-geocoder` ts strict error
+
+  ```
+  node_modules/@aws-amplify/ui-react/dist/types/components/Geo/LocationSearch/index.d.ts:2:37 - error TS2307: Cannot find module 'maplibre-gl-geocoder' or its corresponding type declarations.
+  ```
+
+- Updated dependencies [[`3c5fef84c`](https://github.com/aws-amplify/amplify-ui/commit/3c5fef84cb6ad0cb830416e70028c0bb313dd99c), [`e08e62234`](https://github.com/aws-amplify/amplify-ui/commit/e08e6223473f56cbbc2d0ce4bab85ebd1caf020c), [`12d166209`](https://github.com/aws-amplify/amplify-ui/commit/12d166209b91ee94661e586a2f77e9fbf75b3d64), [`e283f14ca`](https://github.com/aws-amplify/amplify-ui/commit/e283f14cadf54c6f6ab7e729151ea5fe97776c6a), [`d28e31c36`](https://github.com/aws-amplify/amplify-ui/commit/d28e31c36a243d04737b6c13ce0307495680498a), [`c3116b894`](https://github.com/aws-amplify/amplify-ui/commit/c3116b89470587c127d53a5cb370b2574bde553a)]:
+  - @aws-amplify/ui@5.5.6
+  - @aws-amplify/ui-react-core@2.1.14
+
 ## 4.3.8
 
 ### Patch Changes

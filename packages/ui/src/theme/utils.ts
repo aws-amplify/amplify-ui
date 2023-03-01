@@ -1,7 +1,8 @@
+import kebabCase from 'lodash/kebabCase.js';
 // internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference.js';
 
-import { isObject, isString, has, kebabCase } from '../utils';
+import { isObject, isString, has } from '../utils';
 import { ShadowValue, WebDesignToken } from './tokens/types/designToken';
 
 type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;

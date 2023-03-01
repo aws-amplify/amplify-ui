@@ -142,7 +142,7 @@ const SecondaryNav = (props) => {
   const isReactNative = platform === 'react-native';
 
   return (
-    <Expander type="multiple" value={value} onChange={setValue}>
+    <Expander type="multiple" value={value} onValueChange={setValue}>
       <ExpanderItem
         title={
           <ExpanderTitle Icon={MdOutlineChecklist} text="Getting started" />

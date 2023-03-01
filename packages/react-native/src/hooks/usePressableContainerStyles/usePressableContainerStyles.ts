@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { isFunction } from '@aws-amplify/ui';
 import {
   PressableProps,
   PressableStateCallbackType,
@@ -35,10 +36,9 @@ export const usePressableContainerStyles = ({
 }: PressableStateCallbackType) => StyleProp<ViewStyle>) => {
   return useCallback(
     ({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> => {
-      const pressedOverrideStyle =
-        typeof overrideStyle === 'function'
-          ? overrideStyle({ pressed })
-          : overrideStyle;
+      const pressedOverrideStyle = isFunction(overrideStyle)
+        ? overrideStyle({ pressed })
+        : overrideStyle;
       return [
         containerStyle,
         pressed ? pressedStyle : undefined,

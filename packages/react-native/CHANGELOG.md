@@ -1,5 +1,21 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.9
+
+### Patch Changes
+
+- [#3483](https://github.com/aws-amplify/amplify-ui/pull/3483) [`d7cc72c72`](https://github.com/aws-amplify/amplify-ui/commit/d7cc72c72844733d42a9504aa2ae1f2249abc178) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react-native): add TS noImplicitAny for dist build
+
+- [#3473](https://github.com/aws-amplify/amplify-ui/pull/3473) [`12d166209`](https://github.com/aws-amplify/amplify-ui/commit/12d166209b91ee94661e586a2f77e9fbf75b3d64) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): remove type-fest
+
+- [#3486](https://github.com/aws-amplify/amplify-ui/pull/3486) [`eb9df76f0`](https://github.com/aws-amplify/amplify-ui/commit/eb9df76f0b46aa577965740b476b18d070ccb276) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react-native): remove extraneous optional chaining
+
+- [#3446](https://github.com/aws-amplify/amplify-ui/pull/3446) [`ef40fcc76`](https://github.com/aws-amplify/amplify-ui/commit/ef40fcc7673a1d1ed7c7a006fa34d3d5b029956f) Thanks [@calebpollman](https://github.com/calebpollman)! - refactor(ui-react-native): update default keyboardVerticalOffset handling of RNA DefaultContainer
+
+- Updated dependencies [[`3c5fef84c`](https://github.com/aws-amplify/amplify-ui/commit/3c5fef84cb6ad0cb830416e70028c0bb313dd99c), [`e08e62234`](https://github.com/aws-amplify/amplify-ui/commit/e08e6223473f56cbbc2d0ce4bab85ebd1caf020c), [`12d166209`](https://github.com/aws-amplify/amplify-ui/commit/12d166209b91ee94661e586a2f77e9fbf75b3d64), [`e283f14ca`](https://github.com/aws-amplify/amplify-ui/commit/e283f14cadf54c6f6ab7e729151ea5fe97776c6a), [`d28e31c36`](https://github.com/aws-amplify/amplify-ui/commit/d28e31c36a243d04737b6c13ce0307495680498a), [`c3116b894`](https://github.com/aws-amplify/amplify-ui/commit/c3116b89470587c127d53a5cb370b2574bde553a)]:
+  - @aws-amplify/ui@5.5.6
+  - @aws-amplify/ui-react-core@2.1.14
+
 ## 1.2.8
 
 ### Patch Changes
