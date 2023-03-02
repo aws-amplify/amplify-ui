@@ -36,11 +36,11 @@ async function main() {
     }
   );
 
-  const allPagePaths = [...allPagesPaths].map(
+  const allPagesPathsNum = [...allPagesPaths].map(
     ([pageIdx, { pageUrl, links }]) => ({
       pageUrl,
       numberOfLinks: links.length,
     })
   );
-  console.table(allPagePaths);
+  console.table(allPagesPathsNum);
 }
