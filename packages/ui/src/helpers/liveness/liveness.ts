@@ -217,8 +217,8 @@ export function getFaceMatchStateInLivenessOval(
   const minFaceY = faceBoundingBox.top;
   const maxFaceY = faceBoundingBox.bottom;
 
-  const minOvalX = ovalDetails.centerX - ovalDetails.width / 2;
-  const maxOvalX = ovalDetails.centerX + ovalDetails.width / 2;
+  const minOvalX = ovalDetails.flippedCenterX - ovalDetails.width / 2;
+  const maxOvalX = ovalDetails.flippedCenterX + ovalDetails.width / 2;
   const minOvalY = ovalDetails.centerY - ovalDetails.height / 2;
   const maxOvalY = ovalDetails.centerY + ovalDetails.height / 2;
   const ovalBoundingBox: BoundingBox = {
