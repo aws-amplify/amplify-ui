@@ -1,0 +1,25 @@
+{
+  "name": "@aws-amplify/ui-react-liveness",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-amplify/amplify-ui",
+    "directory": "packages/react-liveness"
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "scripts": {},
+  "dependencies": {}
+}
