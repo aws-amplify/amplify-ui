@@ -6,7 +6,9 @@ import {
   LiveContext,
   ContextProps,
 } from 'react-live';
-import * as AUI from '@aws-amplify/ui-react';
+// We are importing directly from the dist
+// so we ONLY pull in the primitives, to reduce side effects
+import { primitives as AUI } from '@aws-amplify/ui-react';
 import { trackClick } from '@/utils/track';
 
 const { View, Alert } = AUI;
