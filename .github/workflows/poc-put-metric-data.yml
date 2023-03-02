@@ -30,4 +30,4 @@ jobs:
         with:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-      - run: aws cloudwatch put-metric-data --metric-name test --namespace POC --value 1
+      - run: aws cloudwatch put-metric-data --metric-name test --namespace POC --value 3
