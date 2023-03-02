@@ -6,8 +6,7 @@ import {
   LiveContext,
   ContextProps,
 } from 'react-live';
-// We are importing directly from the dist
-// so we ONLY pull in the primitives, to reduce side effects
+// only import the primitives to prevent importing sideEffects
 import { primitives as AUI } from '@aws-amplify/ui-react';
 import { trackClick } from '@/utils/track';
 
