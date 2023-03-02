@@ -1,22 +1,14 @@
 import { sitePaths } from '../src/data/sitePaths';
-import {
-  checkLink,
-  crawlAllLinksFromAllPages,
-  runArrayPromiseInOrder,
-} from './util';
-
-if (![3, 4].includes(process.argv.length)) {
-  console.error('Expected 3 or 4 arguments!');
-  process.exit(1);
-}
+import { checkLink, crawlAllLinks, runArrayPromiseInOrder } from './util';
 
 /**
  * Divide the sitePaths array so that we can easily run a smaller portion if needed.
  * e.g. to run the first 10 links. run `yarn docs node --require esbuild-register ./scripts/link-checker-puppeteer.ts 0 10`
  */
-const start = process.argv[2];
+const start = process.argv[2] ?? 0;
 const end = process.argv[3];
 const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
+
 try {
   main();
 } catch (err) {
@@ -24,7 +16,7 @@ try {
 }
 
 async function main() {
-  const allPagesPaths = await crawlAllLinksFromAllPages(testPaths);
+  const allPagesPaths = await crawlAllLinks(testPaths);
 
   await runArrayPromiseInOrder(
     [...allPagesPaths],

@@ -1,16 +1,15 @@
 import puppeteer from 'puppeteer';
 import { runArrayPromiseInOrder } from '.';
 
-export async function crawlAllLinksFromAllPages(allPages: string[]) {
-  type AllPagesPaths = Map<
-    string,
-    {
-      pageUrl: string;
-      links: { href: string; tagName: string; tagText: string }[];
-    }
-  >;
+type Links = {
+  pageUrl: string;
+  links: { href: string; tagName: string; tagText: string }[];
+};
+type AllPagesPaths = Map<string, Links>;
+
+export async function crawlAllLinks(pages: string[]) {
   const allPagesPaths: AllPagesPaths = new Map();
-  await runArrayPromiseInOrder(allPages, checkSitemapPath);
+  await runArrayPromiseInOrder(pages, checkSitemapPath);
 
   return allPagesPaths;
 
