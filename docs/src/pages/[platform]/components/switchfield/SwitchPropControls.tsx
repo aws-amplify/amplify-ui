@@ -58,7 +58,7 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
       <TextField
         placeholder="Set thumb color"
         name="thumbColor"
-        value={thumbColor}
+        value={thumbColor as string}
         onChange={(event: any) => {
           setThumbColor(event.target.value);
         }}
@@ -67,7 +67,7 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
       <TextField
         placeholder="Set track color"
         name="trackColor"
-        value={trackColor}
+        value={trackColor as string}
         onChange={(event: any) => {
           setTrackColor(event.target.value);
         }}
@@ -76,7 +76,7 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
       <TextField
         placeholder="Set checked track color"
         name="trackCheckedColor"
-        value={trackCheckedColor}
+        value={trackCheckedColor as string}
         onChange={(event: any) => {
           setTrackCheckedColor(event.target.value);
         }}

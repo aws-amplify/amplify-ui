@@ -23,6 +23,7 @@ export const PreviewerComponentsExample = () => {
       //     );
       //   },
       // }}
+      // @ts-ignore // IGNORE
       provider="fast" // IGNORE
     />
   );
