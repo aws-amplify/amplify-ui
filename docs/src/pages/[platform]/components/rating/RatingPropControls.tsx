@@ -38,14 +38,14 @@ export const RatingPropControls: RatingPropControlsInterface = ({
         label="value"
         value={value}
         placeholder="Set Value"
-        onChange={(event) => setValue(event.target.value)}
+        onChange={(event) => setValue(parseInt(event.target.value))}
       />
 
       <TextField
         label="maxValue"
         value={maxValue}
         placeholder="Set Max Value"
-        onChange={(event) => setMaxValue(event.target.value)}
+        onChange={(event) => setMaxValue(parseInt(event.target.value))}
       />
 
       <SelectField
@@ -67,14 +67,14 @@ export const RatingPropControls: RatingPropControlsInterface = ({
 
       <TextField
         label="fillColor"
-        value={fillColor}
+        value={fillColor as string}
         placeholder="Set Fill Color"
         onChange={(event) => setFillColor(event.target.value)}
       />
 
       <TextField
         label="emptyColor"
-        value={emptyColor}
+        value={emptyColor as string}
         placeholder="Set Empty Color"
         onChange={(event) => setEmptyColor(event.target.value)}
       />
