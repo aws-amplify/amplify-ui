@@ -30,15 +30,9 @@ export async function checkLink(
         `⏭[SKIPPING...] page #${pageIdx} link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page ${pageUrl}, because it is on the IGNORED_LINKS list or have already requested.`
       );
       res(0);
-    } else if (href.includes('https:')) {
-      const request = await https.get(href, async ({ statusCode = 0 }) => {
-        await returnStatus({ statusCode, href });
-        requestedUrl.add(href);
-        res(statusCode);
-      });
-      request.end();
     } else {
-      const request = await http.get(href, async ({ statusCode = 0 }) => {
+      const { get } = href.includes('https:') ? https : http;
+      const request = await get(href, async ({ statusCode = 0 }) => {
         await returnStatus({ statusCode, href });
         requestedUrl.add(href);
         res(statusCode);
