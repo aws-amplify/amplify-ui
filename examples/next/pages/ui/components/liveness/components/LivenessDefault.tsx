@@ -14,7 +14,7 @@ import { GetLivenessResultCard } from './GetLivenessResultCard';
 import LivenessInlineResults from './LivenessInlineResults';
 
 export default function LivenessDefault({
-  disableStartScreen = false,
+  disableInstructionScreen = false,
   components = undefined,
 }) {
   const {
@@ -65,8 +65,10 @@ export default function LivenessDefault({
               <FaceLivenessDetector
                 sessionId={createLivenessSessionApiData.sessionId}
                 onUserCancel={onUserCancel}
-                handleGetLivenessDetection={async (sessionId) => {
-                  const response = await handleGetLivenessDetection(sessionId);
+                onAnalysisComplete={async () => {
+                  const response = await handleGetLivenessDetection(
+                    createLivenessSessionApiData.sessionId
+                  );
                   if (!response.isLive) {
                     setCheckFailed(true);
                   }
@@ -74,7 +76,7 @@ export default function LivenessDefault({
                 onError={(error) => {
                   setError(error);
                 }}
-                disableStartScreen={disableStartScreen}
+                disableInstructionScreen={disableInstructionScreen}
                 components={components}
               />
             ) : null}

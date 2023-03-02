@@ -8,18 +8,15 @@ export interface FaceLivenessDetectorProps {
   sessionId: string;
 
   /**
-   * Callback called when the API request to Liveness for GetStreamingLivenessSessionResults
-   * is to be made. This callback is required to be passed to
-   * proxy the call to Liveness through their backend to encapsulate business
-   * logic on confidence scores and not expose the score on client
-   *
+   * Callback that signals when the liveness session has completed analysis.
+   * At this point a request can be made to GetFaceLivenessSessionResults.
    */
-  handleGetLivenessDetection: (sessionId: string) => Promise<void>;
+  onAnalysisComplete: () => Promise<void>;
 
   /**
    * Callback called when the user cancels the flow
    */
-  onUserCancel?: (event?: CustomEvent) => void;
+  onUserCancel?: () => void;
 
   /**
    * Callback called when there is error occured on any step
@@ -29,27 +26,27 @@ export interface FaceLivenessDetectorProps {
   /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
    */
-  disableStartScreen?: boolean;
+  disableInstructionScreen?: boolean;
 
   /**
    * Optional parameter for advanced options for the component
    */
-  options?: FaceLivenessDetectorOptions;
+  config?: FaceLivenessDetectorConfig;
 }
 
-export interface FaceLivenessDetectorOptions {
+export interface FaceLivenessDetectorConfig {
   /**
-   * overrides the TFJS Wasm backend binary CDN path
+   * overrides the Wasm backend binary CDN path
    * default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/.
    * When overriding this path ensure that the wasm version matches the version of @tensorflow/tfjs-backend-wasm installed by npm
    */
-  tfjsWasmPath?: string;
+  binaryPath?: string;
 
   /**
    * overrides the Blazeface model and weights bin CDN URL
    * default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file
    */
-  blazefaceModelUrl?: string;
+  faceModelUrl?: string;
 }
 
 /**

@@ -16,14 +16,14 @@ type BlazeFaceModelBackend = 'wasm' | 'cpu';
 export class BlazeFaceFaceDetection extends FaceDetection {
   private _model: blazeface.BlazeFaceModel;
   modelBackend: BlazeFaceModelBackend;
-  blazefaceModelUrl: string | undefined;
-  tfjsWasmPath: string;
+  faceModelUrl: string | undefined;
+  binaryPath: string;
 
-  constructor(tfjsWasmPath?: string, blazefaceModelUrl?: string) {
+  constructor(binaryPath?: string, faceModelUrl?: string) {
     super();
-    this.blazefaceModelUrl = blazefaceModelUrl;
-    this.tfjsWasmPath =
-      tfjsWasmPath ||
+    this.faceModelUrl = faceModelUrl;
+    this.binaryPath =
+      binaryPath ||
       `https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@${tfjsWasm.version_wasm}/dist/`;
   }
 
@@ -39,7 +39,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
     try {
       await tf.ready();
       this._model = await blazeface.load({
-        modelUrl: this.blazefaceModelUrl,
+        modelUrl: this.faceModelUrl,
       });
     } catch (e) {
       throw new Error(
@@ -94,7 +94,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
 
   private async _loadWebAssemblyBackend() {
     try {
-      tfjsWasm.setWasmPaths(this.tfjsWasmPath);
+      tfjsWasm.setWasmPaths(this.binaryPath);
       await tf.setBackend('wasm');
       this.modelBackend = 'wasm';
     } catch (e) {

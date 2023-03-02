@@ -40,7 +40,7 @@ describe('FaceLivenessDetector', () => {
 
   const defaultProps: FaceLivenessDetectorProps = {
     sessionId: 'sessionId',
-    handleGetLivenessDetection: async () => {},
+    onAnalysisComplete: async () => {},
   };
   const livenessTestId = 'liveness-detector';
   const livenessCheckTestId = 'liveness-detector-check';
@@ -99,17 +99,17 @@ describe('FaceLivenessDetector', () => {
   });
   */
 
-  it('should show the check screen if disableStartScreen is true', () => {
+  it('should show the check screen if disableInstructionScreen is true', () => {
     render(
-      <FaceLivenessDetector {...defaultProps} disableStartScreen={true} />
+      <FaceLivenessDetector {...defaultProps} disableInstructionScreen={true} />
     );
     expect(screen.queryByTestId(livenessCheckTestId)).toBeInTheDocument();
   });
 
-  it('should not show the instruction if disableStartScreen is true and xstate is at the start', async () => {
+  it('should not show the instruction if disableInstructionScreen is true and xstate is at the start', async () => {
     mockMatches.mockReturnValueOnce(true);
     render(
-      <FaceLivenessDetector {...defaultProps} disableStartScreen={true} />
+      <FaceLivenessDetector {...defaultProps} disableInstructionScreen={true} />
     );
 
     expect(mockActorSend).toHaveBeenCalledWith({

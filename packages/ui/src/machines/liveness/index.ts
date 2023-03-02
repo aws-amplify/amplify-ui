@@ -441,11 +441,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       initializeFaceDetector: assign({
         ovalAssociatedParams: (context) => {
           const { componentProps } = context;
-          const { blazefaceModelUrl, tfjsWasmPath } = componentProps.options;
+          const { faceModelUrl, binaryPath } = componentProps.config;
 
           const faceDetector = new BlazeFaceFaceDetection(
-            tfjsWasmPath,
-            blazefaceModelUrl
+            binaryPath,
+            faceModelUrl
           );
           faceDetector.triggerModelLoading();
 
@@ -1162,14 +1162,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async getLiveness(context) {
         const {
-          componentProps: { sessionId, handleGetLivenessDetection },
+          componentProps: { sessionId, onAnalysisComplete },
           livenessStreamProvider,
         } = context;
 
         livenessStreamProvider.endStream();
 
         // Get liveness result
-        await handleGetLivenessDetection(sessionId);
+        await onAnalysisComplete();
       },
     },
   }

@@ -22,26 +22,15 @@ export interface FaceLivenessDetectorProps
 export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   props
 ) => {
-  const {
-    onUserCancel: onUserCancelFromProps,
-    disableStartScreen = false,
-    components,
-    options,
-  } = props;
+  const { disableInstructionScreen = false, components, config } = props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
-
-  const onUserCancel = () => {
-    const event = new CustomEvent('userCancel', { cancelable: true });
-    onUserCancelFromProps?.(event);
-  };
 
   const service = useInterpret(livenessMachine, {
     devTools: process.env.NODE_ENV === 'development',
     context: {
       componentProps: {
         ...props,
-        options: options || {},
-        onUserCancel,
+        config: config || {},
       },
     },
   });
@@ -59,10 +48,10 @@ export const FaceLivenessDetector: React.FC<FaceLivenessDetectorProps> = (
   }, [send]);
 
   React.useLayoutEffect(() => {
-    if (disableStartScreen && isStartView) {
+    if (disableInstructionScreen && isStartView) {
       beginLivenessCheck();
     }
-  }, [beginLivenessCheck, disableStartScreen, isStartView]);
+  }, [beginLivenessCheck, disableInstructionScreen, isStartView]);
 
   return (
     <View className={DETECTOR_CLASS_NAME} testId={DETECTOR_CLASS_NAME}>

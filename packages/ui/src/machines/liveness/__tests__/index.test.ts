@@ -42,10 +42,10 @@ describe('Liveness Machine', () => {
 
   const mockcomponentProps: FaceLivenessDetectorProps = {
     sessionId: 'some-sessionId',
-    handleGetLivenessDetection: jest.fn(),
+    onAnalysisComplete: jest.fn(),
     onError: jest.fn(),
     onUserCancel: jest.fn(),
-    options: {},
+    config: {},
   };
 
   const mockVideoConstaints: MediaTrackConstraints = {
@@ -636,9 +636,7 @@ describe('Liveness Machine', () => {
 
   describe('uploading', () => {
     it('should reach waitForDisconnectEvent state after stopping video', async () => {
-      (
-        mockcomponentProps.handleGetLivenessDetection as jest.Mock
-      ).mockResolvedValue({
+      (mockcomponentProps.onAnalysisComplete as jest.Mock).mockResolvedValue({
         isLive: true,
       });
 
@@ -658,9 +656,7 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach getLivenessResult state after receiving disconnect event', async () => {
-      (
-        mockcomponentProps.handleGetLivenessDetection as jest.Mock
-      ).mockResolvedValue({
+      (mockcomponentProps.onAnalysisComplete as jest.Mock).mockResolvedValue({
         isLive: true,
       });
 
@@ -694,9 +690,9 @@ describe('Liveness Machine', () => {
     it('should reach error state after getLiveness returns error', async () => {
       const error = new Error();
       error.name = LivenessErrorState.SERVER_ERROR;
-      (
-        mockcomponentProps.handleGetLivenessDetection as jest.Mock
-      ).mockRejectedValue(error);
+      (mockcomponentProps.onAnalysisComplete as jest.Mock).mockRejectedValue(
+        error
+      );
 
       await transitionToUploading(service);
 

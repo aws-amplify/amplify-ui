@@ -27,7 +27,7 @@ Amplify.configure({
 const App = () => {
   return (
     <Layout>
-      <LivenessDefault disableStartScreen={true} />
+      <LivenessDefault disableInstructionScreen={true} />
     </Layout>
   );
 };

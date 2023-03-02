@@ -45,7 +45,7 @@ export default function LivenessCard() {
           >
             <FaceLivenessDetector
               sessionId={createLivenessSessionApiData.sessionId}
-              handleGetLivenessDetection={handleGetLivenessDetection}
+              onAnalysisComplete={handleGetLivenessDetection}
               onUserCancel={handleUserExit}
             />
           </Card>
