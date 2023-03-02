@@ -1,0 +1,8 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "jsx": "react-native",
+    "skipLibCheck": true,
+    "target": "esnext"
+  }
+}

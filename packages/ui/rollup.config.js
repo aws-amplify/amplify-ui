@@ -1,41 +1,43 @@
-// rollup.config.js
 import { defineConfig } from 'rollup';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import externals from 'rollup-plugin-node-externals';
 
+// common config settings
+const input = ['src/index.ts'];
+const sourceMap = false;
+const tsconfig = 'tsconfig.dist.json';
+
+const esmOutputDir = 'dist/esm';
+
 const config = defineConfig([
   // CJS config
   {
-    input: ['src/index.ts'],
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-      sourcemap: false,
-    },
+    input,
+    output: { dir: 'dist', format: 'cjs' },
     plugins: [
       externals(),
-      typescript({ declarationDir: 'dist/types', sourceMap: false }),
+      typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
       terser(),
     ],
   },
   // ESM config
   {
-    input: ['src/index.ts'],
+    input,
     output: {
-      dir: 'dist/esm',
+      dir: esmOutputDir,
       format: 'es',
       entryFileNames: '[name].mjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
-      sourcemap: false,
     },
     plugins: [
       externals(),
       typescript({
-        outDir: 'dist/esm',
+        outDir: esmOutputDir,
         declaration: false,
-        sourceMap: false,
+        sourceMap,
+        tsconfig,
       }),
       terser(),
     ],

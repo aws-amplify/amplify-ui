@@ -1,18 +1,5 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "declaration": true,
-    "esModuleInterop": true,
-    "importHelpers": true,
-    "jsx": "react",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "es6"
-  },
+  "extends": "../configs/ts/react.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

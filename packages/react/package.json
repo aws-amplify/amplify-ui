@@ -39,7 +39,7 @@
     "dev": "tsup --watch",
     "dev:build": "tsup",
     "clean": "rimraf dist node_modules",
-    "lint": "tsc --noEmit --project tsconfig.dev.json && eslint src --ext .js,.ts,.tsx",
+    "lint": "tsc --noEmit && eslint src --ext .js,.ts,.tsx",
     "test": "yarn test:unit && yarn test:esm",
     "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
     "test:watch": "yarn test:unit:watch",
