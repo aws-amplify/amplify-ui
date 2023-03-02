@@ -17,7 +17,7 @@
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
     "start": "next start",
     "test": "jest",
-    "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts 0"
+    "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "4.3.9",
