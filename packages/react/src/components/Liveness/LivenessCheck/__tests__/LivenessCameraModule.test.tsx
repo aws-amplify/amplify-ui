@@ -11,7 +11,6 @@ import {
   useLivenessActor,
   useLivenessSelector,
   useMediaStreamInVideo,
-  useMediaDimensions,
 } from '../../hooks';
 import {
   LivenessCameraModule,
@@ -27,7 +26,6 @@ jest.mock('../../shared/Instruction');
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 const mockUseMediaStreamInVideo = getMockedFunction(useMediaStreamInVideo);
-const mockUseMediaDimensions = getMockedFunction(useMediaDimensions);
 
 describe('LivenessCameraModule', () => {
   const mockActorState: any = {
@@ -57,10 +55,6 @@ describe('LivenessCameraModule', () => {
       videoRef: { current: document.createElement('video') },
       videoHeight: 100,
       videoWidth: 100,
-    });
-    mockUseMediaDimensions.mockReturnValue({
-      width: 100,
-      height: 100,
     });
   });
 

@@ -52,6 +52,9 @@ export const LivenessCameraModule = (
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
 
+  // Android/Firefox and iOS flip the values of width/height returned from
+  // getUserMedia, so we'll reset these in useLayoutEffect with the videoRef
+  // element's intrinsic videoWidth and videoHeight attributes
   const [mediaWidth, setMediaWidth] = useState<number>(videoWidth);
   const [mediaHeight, setMediaHeight] = useState<number>(videoHeight);
   const [aspectRatio, setAspectRatio] = useState<number>(
@@ -71,17 +74,14 @@ export const LivenessCameraModule = (
       });
     }
 
-    /** TODO: Refactor setMediaWidth/Height and setAspectRatio into hook  */
-    if (videoContainerRef.current) {
-      setMediaWidth(videoContainerRef.current.getBoundingClientRect().width);
-      setMediaHeight(videoContainerRef.current.getBoundingClientRect().height);
-    }
     if (videoRef.current) {
+      setMediaWidth(videoRef.current.videoWidth);
+      setMediaHeight(videoRef.current.videoHeight);
       setAspectRatio(
         videoRef.current.videoWidth / videoRef.current.videoHeight
       );
     }
-  }, [send, videoRef, isCameraReady, isMobileScreen, mediaWidth, mediaHeight]);
+  }, [send, videoRef, isCameraReady, isMobileScreen]);
 
   const timerCompleteHandler = () => {
     send({ type: 'START_RECORDING' });
@@ -131,11 +131,7 @@ export const LivenessCameraModule = (
           muted
           autoPlay
           playsInline
-          style={{
-            transform: 'scaleX(-1)',
-            // Height and width are duplicated here in the style object to address
-            // a safari bug where video size resets with amplify class unset rule.
-          }}
+          style={{ transform: 'scaleX(-1)' }}
           width={mediaWidth}
           height={mediaHeight}
           onCanPlay={handleMediaPlay}
@@ -147,12 +143,7 @@ export const LivenessCameraModule = (
             isRecordingStopped ? LivenessClassNames.FadeOut : ''
           }`}
         >
-          <View
-            as="canvas"
-            width={mediaWidth}
-            height={mediaHeight}
-            ref={canvasRef}
-          />
+          <View as="canvas" width="100%" height="100%" ref={canvasRef} />
         </Flex>
       </div>
 
