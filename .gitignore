@@ -20,5 +20,3 @@ aws-exports.ts
 
 # flutter assets are built with `yarn flutter:build` and should not be checked in to source control
 **/public/flutter/**/
-
-.cache/
