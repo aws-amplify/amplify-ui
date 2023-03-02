@@ -14,7 +14,7 @@ export async function crawlAllLinks(pages: string[]) {
   return allPagesPaths;
 
   async function checkSitemapPath(pageUrl: string, pageIdx: string) {
-    let browser = await puppeteer.launch();
+    const browser = await puppeteer.launch();
 
     const page = await browser.newPage();
 
