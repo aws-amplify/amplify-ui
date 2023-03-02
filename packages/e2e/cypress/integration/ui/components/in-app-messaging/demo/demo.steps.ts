@@ -32,8 +32,8 @@ Then('the banner has an image', () => {
   cy.findByRole('img', { name: 'In-App Message Image' }).should('exist');
 });
 
-Then('I see a {string} banner', (type: string) => {
+Then('I see banner as a {string} dialog', (type: string) => {
   cy.findByRole('dialog')
     .should('exist')
-    .should('have.attr', 'data-testid', `inappmessaging-${type}`);
+    .should('have.attr', 'data-testid', `inappmessaging-${type}-dialog`);
 });
