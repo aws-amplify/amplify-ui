@@ -1,10 +1,30 @@
 {
   "auth": {
-    "authwithemail": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
+    "authwithemail24754f67": {
+      "customAuth": false,
       "dependsOn": [],
-      "customAuth": false
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
     }
   }
 }
