@@ -94,6 +94,7 @@ describe('Liveness Machine', () => {
   const mockOvalDetails: LivenessOvalDetails = {
     height: 100,
     width: 100,
+    flippedCenterX: 50,
     centerX: 50,
     centerY: 50,
   };
@@ -563,10 +564,10 @@ describe('Liveness Machine', () => {
           clientInfo.Challenge.FaceMovementAndLightChallenge.InitialFace
             .BoundingBox
         ).toStrictEqual({
-          Height: 0.20833333333333334,
-          Left: 0.609375,
+          Height: 0,
+          Left: 0.6875,
           Top: 0.4166666666666667,
-          Width: 0.15625,
+          Width: 0,
         })
       );
     });

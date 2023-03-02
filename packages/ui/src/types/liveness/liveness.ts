@@ -63,6 +63,7 @@ export interface BoundingBox {
  * The details of the generated liveness oval
  */
 export interface LivenessOvalDetails {
+  flippedCenterX: number;
   centerX: number;
   centerY: number;
   width: number;

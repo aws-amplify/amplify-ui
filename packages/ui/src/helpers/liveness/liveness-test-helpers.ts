@@ -71,6 +71,7 @@ export const mockFace: Face = {
 export const mockOvalDetails: LivenessOvalDetails = {
   height: 100,
   width: 100,
+  flippedCenterX: 50,
   centerX: 50,
   centerY: 50,
 };

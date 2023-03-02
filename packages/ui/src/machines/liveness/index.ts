@@ -4,6 +4,7 @@ import {
   getFaceMatchState,
   getBoundingBox,
   isFaceDistanceBelowThreshold,
+  generateBboxFromLandmarks,
 } from '../../helpers/liveness/liveness';
 
 import {
@@ -988,12 +989,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return { faceMatchState, illuminationState };
         }
 
-        // generate oval details from initialFace and video dimensions
-        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
-        const ovalDetails = getOvalDetailsFromSessionInformation({
-          sessionInformation: serverSessionInformation,
-        });
-
         // Get width/height of video element so we can compute scaleFactor
         // and set canvas width/height.
         const { width: videoScaledWidth, height: videoScaledHeight } =
@@ -1005,6 +1000,23 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // Compute scaleFactor which is how much our video element is scaled
         // vs the intrinsic video resolution
         const scaleFactor = videoScaledWidth / videoEl.videoWidth;
+
+        // generate oval details from initialFace and video dimensions
+        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+        const ovalDetails = getOvalDetailsFromSessionInformation({
+          sessionInformation: serverSessionInformation,
+          videoWidth: videoEl.width,
+        });
+
+        // renormalize initial face
+        const renormalizedFace = generateBboxFromLandmarks(
+          initialFace,
+          ovalDetails
+        );
+        initialFace.top = renormalizedFace.top;
+        initialFace.left = renormalizedFace.left;
+        initialFace.height = renormalizedFace.bottom - renormalizedFace.top;
+        initialFace.width = renormalizedFace.right - renormalizedFace.left;
 
         // Draw oval in canvas using ovalDetails and scaleFactor
         drawLivenessOvalInCanvas(canvasEl, ovalDetails, scaleFactor);

@@ -11,6 +11,7 @@ describe('Liveness Helper', () => {
     it('should parse sessionInformation and return oval parameter attributes', () => {
       const ovalParameters = getOvalDetailsFromSessionInformation({
         sessionInformation: mockSessionInformation,
+        videoWidth: 1,
       });
 
       expect(ovalParameters.centerX).toBe(3);
@@ -25,6 +26,7 @@ describe('Liveness Helper', () => {
       height: 254,
       width: 157,
       centerY: 285, // top: 285 - 254 / 2 = 158
+      flippedCenterX: 286, // left: 286 - 157 / 2 = 207.5
       centerX: 286, // left: 286 - 157 / 2 = 207.5
     };
 

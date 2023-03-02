@@ -63,14 +63,20 @@ function getIntersectionOverUnion(
  */
 export function getOvalDetailsFromSessionInformation({
   sessionInformation,
+  videoWidth,
 }: {
   sessionInformation: SessionInformation;
+  videoWidth: number;
 }): LivenessOvalDetails {
   const ovalParameters =
     sessionInformation?.Challenge?.FaceMovementAndLightChallenge
       ?.OvalParameters;
 
+  // We need to include a flippedCenterX for visualizing the oval on a flipped camera view
+  // The camera view we show the customer is flipped to making moving left and right more obvious
+  // The video stream sent to the liveness service is not flipped
   return {
+    flippedCenterX: videoWidth - ovalParameters?.CenterX,
     centerX: ovalParameters?.CenterX,
     centerY: ovalParameters?.CenterY,
     width: ovalParameters?.Width,
@@ -123,6 +129,7 @@ export function getStaticLivenessOvalDetails({
   const ovalHeight = 1.618 * ovalWidth;
 
   return {
+    flippedCenterX: Math.floor(videoWidth - centerX),
     centerX: Math.floor(centerX),
     centerY: Math.floor(centerY),
     width: Math.floor(ovalWidth),
@@ -138,7 +145,7 @@ export function drawLivenessOvalInCanvas(
   oval: LivenessOvalDetails,
   scaleFactor: number
 ) {
-  const { centerX, centerY, width, height } = oval;
+  const { flippedCenterX, centerY, width, height } = oval;
 
   const canvasWidth = canvas.width;
   const canvasHeight = canvas.height;
@@ -156,7 +163,15 @@ export function drawLivenessOvalInCanvas(
 
     // draw the oval path
     ctx.beginPath();
-    ctx.ellipse(centerX, centerY, width / 2, height / 2, 0, 0, 2 * Math.PI);
+    ctx.ellipse(
+      flippedCenterX,
+      centerY,
+      width / 2,
+      height / 2,
+      0,
+      0,
+      2 * Math.PI
+    );
 
     // add stroke to the oval pat
     ctx.strokeStyle = 'white';
@@ -267,7 +282,7 @@ function getPupilDistanceAndFaceHeight(face: Face) {
   return { pupilDistance, faceHeight };
 }
 
-function generateBboxFromLandmarks(
+export function generateBboxFromLandmarks(
   face: Face,
   oval: LivenessOvalDetails
 ): BoundingBox {
@@ -486,7 +501,7 @@ interface FillOverlayCanvasFractionalInput {
   prevColor: string;
   nextColor: string;
   ovalCanvas: HTMLCanvasElement;
-  ovalDetails: any;
+  ovalDetails: LivenessOvalDetails;
   heightFraction: number;
   scaleFactor: number;
 }
@@ -507,9 +522,9 @@ export function fillOverlayCanvasFractional({
   const ovalCanvasX = boudingRect.x;
   const ovalCanvasY = boudingRect.y;
 
-  const { centerX, centerY, width, height } = ovalDetails;
+  const { flippedCenterX, centerY, width, height } = ovalDetails;
 
-  const updatedCenterX = centerX * scaleFactor + ovalCanvasX;
+  const updatedCenterX = flippedCenterX * scaleFactor + ovalCanvasX;
   const updatedCenterY = centerY * scaleFactor + ovalCanvasY;
 
   const canvasWidth = overlayCanvas.width;
