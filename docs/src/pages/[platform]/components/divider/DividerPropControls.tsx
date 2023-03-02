@@ -7,6 +7,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 export interface DividerPropControlsProps extends DividerOptions {
+  setLabel: (value: React.SetStateAction<DividerOptions['label']>) => void;
   setSize: (value: React.SetStateAction<DividerOptions['size']>) => void;
   setOrientation: (
     value: React.SetStateAction<DividerOptions['orientation']>
