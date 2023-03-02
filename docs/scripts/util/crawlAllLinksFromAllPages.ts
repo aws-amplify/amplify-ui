@@ -12,6 +12,8 @@ export async function crawlAllLinksFromAllPages(allPages: string[]) {
   const allPagesPaths: AllPagesPaths = new Map();
   await runArrayPromiseInOrder(allPages, checkSitemapPath);
 
+  return allPagesPaths;
+
   async function checkSitemapPath(pageUrl: string, pageIdx: string) {
     let browser = await puppeteer.launch();
 
@@ -35,7 +37,5 @@ export async function crawlAllLinksFromAllPages(allPages: string[]) {
 
     await page.close();
     await browser.close();
-
-    return allPagesPaths;
   }
 }
