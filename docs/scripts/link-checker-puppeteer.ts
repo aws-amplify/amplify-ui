@@ -26,6 +26,11 @@ try {
 async function main() {
   const allPagesPaths = await crawlAllLinksFromAllPages(testPaths);
 
+  /**
+   * Sequentially check each link on each page
+   * 1) to prevent sockets or other resource from using up
+   * 2) to have a nice log in order
+   */
   await runArrayPromiseInOrder(
     [...allPagesPaths],
     async ([pageIdx, { pageUrl, links }]) => {
