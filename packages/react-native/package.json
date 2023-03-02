@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-native",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -39,12 +39,11 @@
     "react-native": "^0.68.1",
     "react-native-safe-area-context": "^4.2.5",
     "react-test-renderer": "^17.0.2",
-    "rimraf": "^3.0.2",
-    "type-fest": "^2.3.4"
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.5",
-    "@aws-amplify/ui-react-core": "2.1.13"
+    "@aws-amplify/ui": "5.5.6",
+    "@aws-amplify/ui-react-core": "2.1.14"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
 export interface UseComposeRefsCallbackProps<RefType> {
   externalRef?: React.ForwardedRef<RefType>;
@@ -17,7 +18,7 @@ export function useComposeRefsCallback<RefType>({
   return React.useCallback(
     (node) => {
       // Handle callback ref
-      if (typeof externalRef === 'function') {
+      if (isFunction(externalRef)) {
         externalRef(node);
       } else if (externalRef) {
         externalRef.current = node;
