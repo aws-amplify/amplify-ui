@@ -2,6 +2,15 @@ import https from 'https';
 import http from 'http';
 import { IGNORED_LINKS } from '../../src/data/ignoredLinks';
 
+type ErrorLink = {
+  href: string;
+  linkIdx: number;
+  pageIdx: number;
+  pageUrl: string;
+  statusCode: number;
+  tagName: string;
+  tagText: string;
+};
 const requestedUrl: Set<string> = new Set();
 export async function checkLink(
   {
@@ -17,7 +26,8 @@ export async function checkLink(
     pageIdx: string;
     pageUrl: string;
   },
-  linkIdx: number
+  linkIdx: number,
+  errorLinks: Set<ErrorLink | unknown>
 ) {
   return new Promise(async (res, rej) => {
     if (!href) {
@@ -69,11 +79,21 @@ export async function checkLink(
         );
         await checkLink(
           { href: newHref, tagName, tagText, pageIdx, pageUrl },
-          linkIdx
+          linkIdx,
+          errorLinks
         );
       }
     } else {
-      throw new Error(
+      errorLinks.add({
+        href,
+        linkIdx,
+        pageIdx,
+        pageUrl,
+        statusCode,
+        tagName,
+        tagText,
+      });
+      console.error(
         `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
       );
     }

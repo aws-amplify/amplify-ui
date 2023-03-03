@@ -17,13 +17,20 @@ try {
 
 async function main() {
   const allPagesPaths = await crawlAllLinks(testPaths);
+  const errorLinks = new Set();
 
   await runArrayPromiseInOrder(
     Array.from(allPagesPaths),
     async ([pageIdx, { pageUrl, links }]) => {
       await runArrayPromiseInOrder(
         links.map((link) => ({ ...link, pageIdx, pageUrl })),
-        checkLink
+        async ({ href, tagName, tagText, pageIdx, pageUrl }, linkIdx) => {
+          await checkLink(
+            { href, tagName, tagText, pageIdx, pageUrl },
+            linkIdx,
+            errorLinks
+          );
+        }
       );
     }
   );
@@ -35,4 +42,17 @@ async function main() {
     })
   );
   console.table(allPagePaths);
+
+  if (errorLinks.size) {
+    Array.from(errorLinks).forEach(
+      ({ statusCode, pageIdx, linkIdx, href, tagName, tagText, pageUrl }) => {
+        console.error(
+          `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
+        );
+      }
+    );
+    throw new Error(`${errorLinks.size} broken links found`);
+  } else {
+    console.log('🎉 All links look good!');
+  }
 }
