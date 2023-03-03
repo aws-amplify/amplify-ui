@@ -11,10 +11,7 @@ concurrency:
   group: e2e-${{ github.event.pull_request.id }}
   cancel-in-progress: true
 
-on:
-  pull_request_target:
-    branches: [main]
-    types: [opened, synchronize, labeled]
+on: pull_request
 
 permissions:
   pull-requests: write # used to remove label
@@ -47,7 +44,7 @@ jobs:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml
     needs: setup
     with:
       commit: ${{ github.event.pull_request.head.sha }}
