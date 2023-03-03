@@ -86,7 +86,7 @@ async function returnStatus({
      * Otherwise, the link needs to be updated
      */
     if (statusCode === 308) {
-      const hostNameRegex = /http(s)?:\/\/[^/]*/i;
+      const hostNameRegex = '/http(s)?://[^/]*/i';
       const platform = pageUrl.replace(hostNameRegex, '').split('/')[1];
       const newHref = `${
         href.match(hostNameRegex)[0]
