@@ -9,143 +9,141 @@ concurrency:
   group: e2e-${{ github.sha }}
   cancel-in-progress: true
 
-on:
-  push:
-    branches: [main]
+on: pull_request
 
 jobs:
-  test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
-    with:
-      commit: ${{ github.sha }}
-      repository: ${{ github.repository }}
-    secrets:
-      AWS_ACCESS_KEY_ID_AUTH: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-      AWS_SECRET_ACCESS_KEY_AUTH: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
-      AWS_ACCESS_KEY_ID_DATASTORE: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
-      AWS_SECRET_ACCESS_KEY_DATASTORE: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
-      AWS_ACCESS_KEY_ID_GEO: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
-      AWS_SECRET_ACCESS_KEY_GEO: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
-      AWS_ACCESS_KEY_ID_STORAGE: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE }}
-      AWS_SECRET_ACCESS_KEY_STORAGE: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE }}
-      DOMAIN: ${{ secrets.DOMAIN }}
-      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-      USERNAME: ${{ secrets.USERNAME }}
-      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-      SITE_URL: ${{ secrets.SITE_URL }}
-      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
-      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
-      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+  # test:
+  #   uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+  #   with:
+  #     commit: ${{ github.sha }}
+  #     repository: ${{ github.repository }}
+  #   secrets:
+  #     AWS_ACCESS_KEY_ID_AUTH: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
+  #     AWS_SECRET_ACCESS_KEY_AUTH: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
+  #     AWS_ACCESS_KEY_ID_DATASTORE: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
+  #     AWS_SECRET_ACCESS_KEY_DATASTORE: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
+  #     AWS_ACCESS_KEY_ID_GEO: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
+  #     AWS_SECRET_ACCESS_KEY_GEO: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
+  #     AWS_ACCESS_KEY_ID_STORAGE: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE }}
+  #     AWS_SECRET_ACCESS_KEY_STORAGE: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE }}
+  #     DOMAIN: ${{ secrets.DOMAIN }}
+  #     PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+  #     USERNAME: ${{ secrets.USERNAME }}
+  #     NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+  #     VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+  #     SITE_URL: ${{ secrets.SITE_URL }}
+  #     DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+  #     DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+  #     DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  guides:
-    runs-on: ubuntu-latest
-    environment: ci
-    env:
-      NODE_ENV: test
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - path: ./guides/react/protected-routes
-            tags: '@guides and not @todo-guides'
+  # guides:
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   env:
+  #     NODE_ENV: test
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       include:
+  #         - path: ./guides/react/protected-routes
+  #           tags: '@guides and not @todo-guides'
 
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
+  #   steps:
+  #     - name: Checkout Amplify UI
+  #       uses: actions/checkout@v3
+  #       with:
+  #         persist-credentials: false
 
-      - name: Setup Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+  #     - name: Setup Node.js 16
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
+  #         cache: 'yarn'
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
-      - name: Restore cypress runner Cache
-        uses: actions/cache@v3
-        id: restore-cypress-cache
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+  #     - name: Restore cypress runner Cache
+  #       uses: actions/cache@v3
+  #       id: restore-cypress-cache
+  #       with:
+  #         path: ~/.cache/Cypress
+  #         key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Install packages
-        run: yarn install
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+  #     - name: Install packages
+  #       run: yarn install
+  #     - name: Add Amplify CLI
+  #       run: yarn global add @aws-amplify/cli
+  #     - name: Get CLI versions
+  #       id: cli-version
+  #       run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-      # Amplify CLI does not support headless pull with temporary credentials
-      # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/5275.
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
-      - name: Pull down AWS environments
-        run: yarn pull
-        working-directory: ./canary
-      - name: Delete AWS Profile
-        run: rm -rf ~/.aws
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v1
+  #       with:
+  #         aws-region: us-east-2
+  #         role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+  #     # Amplify CLI does not support headless pull with temporary credentials
+  #     # when useProfile is false.
+  #     # See: https://github.com/aws-amplify/amplify-cli/issues/5275.
+  #     - name: Create temp AWS profile
+  #       run: |
+  #         aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+  #         aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+  #         aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+  #         aws configure set default.region $AWS_REGION
+  #     - name: Pull down AWS environments
+  #       run: yarn pull
+  #       working-directory: ./canary
+  #     - name: Delete AWS Profile
+  #       run: rm -rf ~/.aws
 
-      - name: Install guides
-        run: yarn install
-        working-directory: ${{ matrix.path }}
+  #     - name: Install guides
+  #       run: yarn install
+  #       working-directory: ${{ matrix.path }}
 
-      - name: Build guides
-        run: yarn build
-        working-directory: ${{ matrix.path }}
+  #     - name: Build guides
+  #       run: yarn build
+  #       working-directory: ${{ matrix.path }}
 
-      - name: Start guides site
-        run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
-        working-directory: ${{ matrix.path }}
+  #     - name: Start guides site
+  #       run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+  #       working-directory: ${{ matrix.path }}
 
-      - name: Run E2E tests against guides
-        run: yarn workspace e2e test:guides
-        id: e2e
-        env:
-          # Override on the default value in `cypress.json` with framework-specific tag
-          TAGS: '${{ matrix.tags }}'
+  #     - name: Run E2E tests against guides
+  #       run: yarn workspace e2e test:guides
+  #       id: e2e
+  #       env:
+  #         # Override on the default value in `cypress.json` with framework-specific tag
+  #         TAGS: '${{ matrix.tags }}'
 
-          # Env values for testing flows
-          DOMAIN: ${{ secrets.DOMAIN }}
-          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-          USERNAME: ${{ secrets.USERNAME }}
-          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-      - name: Upload videos and screenshots
-        uses: actions/upload-artifact@v3
-        if: ${{ failure() && steps.e2e.outcome != 'success' }}
-        with:
-          name: guides-cypress-error
-          path: |
-            packages/e2e/cypress/videos/**
-            packages/e2e/cypress/screenshots/**
-          retention-days: 5
+  #         # Env values for testing flows
+  #         DOMAIN: ${{ secrets.DOMAIN }}
+  #         PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+  #         USERNAME: ${{ secrets.USERNAME }}
+  #         NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+  #         VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+  #     - name: Upload videos and screenshots
+  #       uses: actions/upload-artifact@v3
+  #       if: ${{ failure() && steps.e2e.outcome != 'success' }}
+  #       with:
+  #         name: guides-cypress-error
+  #         path: |
+  #           packages/e2e/cypress/videos/**
+  #           packages/e2e/cypress/screenshots/**
+  #         retention-days: 5
 
-  publish:
-    needs: [test, guides]
-    uses: ./.github/workflows/reusable-tagged-publish.yml
-    with:
-      dist-tag: next
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # publish:
+  #   needs: [test, guides]
+  #   uses: ./.github/workflows/reusable-tagged-publish.yml
+  #   with:
+  #     dist-tag: next
+  #   secrets:
+  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
-    needs: publish
+    # needs: publish
     runs-on: ubuntu-latest
     environment: ci
     steps:
@@ -179,34 +177,34 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  log-failure-metric:
-    # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+  # log-failure-metric:
+  #   # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: build-test
+  #   if: ${{ failure() }}
+  #   steps:
+  #     - name: Log failure data point to metric PublishNextFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: PublishNextFailure
+  #         value: 1
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+  #         AWS_REGION: us-east-2
 
-  log-success-metric:
-    # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+  # log-success-metric:
+  #   # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: build-test
+  #   if: ${{ success() }}
+  #   steps:
+  #     - name: Log success data point to metric PublishNextFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: PublishNextFailure
+  #         value: 0
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+  #         AWS_REGION: us-east-2
