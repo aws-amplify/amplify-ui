@@ -6,9 +6,13 @@ IFS='|'
 dir=$1
 region=$2
 
+echo "$AWS_PROFILE"
+
 # In development, AWS_PROFILE will be set explicitly. In CI,
 # it will use the default aws profile.
-[ "$AWS_PROFILE" ] || AWS_PROFILE="default"
+[ -z "$AWS_PROFILE" ] && AWS_PROFILE="default"
+
+echo "$AWS_PROFILE"
 
 # We set `useProfile` to true, because Amplify CLI does not support headless
 # pull with temporary credentials when `useProfile` is set to false.
