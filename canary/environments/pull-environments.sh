@@ -5,8 +5,8 @@ IFS='|'
 # In development, AWS_PROFILE should be set. In CI, it's not.
 [ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false"
 
-# We set `useProfile` to true, because Amplify CLI does not support
-# headless pull with IAM roles when `useProfile` is set to false.
+# We set `useProfile` to true, because Amplify CLI does not support headless
+# pull with temporary credentials when `useProfile` is set to false.
 # See https://github.com/aws-amplify/amplify-cli/issues/5275.
 AWSCLOUDFORMATIONCONFIG="{\
 \"configLevel\":\"project\",\
