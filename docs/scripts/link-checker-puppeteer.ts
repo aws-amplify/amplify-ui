@@ -19,7 +19,7 @@ async function main() {
   const allPagesPaths = await crawlAllLinks(testPaths);
 
   await runArrayPromiseInOrder(
-    [...allPagesPaths],
+    Array.from(allPagesPaths),
     async ([pageIdx, { pageUrl, links }]) => {
       await runArrayPromiseInOrder(
         links.map((link) => ({ ...link, pageIdx, pageUrl })),
@@ -28,7 +28,7 @@ async function main() {
     }
   );
 
-  const allPagePaths = [...allPagesPaths].map(
+  const allPagePaths = Array.from(allPagesPaths).map(
     ([pageIdx, { pageUrl, links }]) => ({
       pageUrl,
       numberOfLinks: links.length,
