@@ -622,4 +622,6 @@ export const ANDROID_REFERENCE =
 export const JS_REFERENCE = 'https://aws-amplify.github.io/amplify-js/api/';
 
 export const GITHUB_REPO = `${GITHUB}/amplify-ui/`;
+export const ANDROID_GITHUB_REPO = `${GITHUB}/amplify-ui-android/`;
+export const SWIFT_GITHUB_REPO = `${GITHUB}/amplify-ui-swift/`;
 export const GITHUB_REPO_FILE = `${GITHUB_REPO}/blob/main/`;

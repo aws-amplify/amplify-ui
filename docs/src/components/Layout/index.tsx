@@ -1,10 +1,16 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
+import { useRouter } from 'next/router';
 import { Heading, Link, Text, View, useTheme } from '@aws-amplify/ui-react';
 
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
-import { GITHUB_REPO, GITHUB_REPO_FILE } from '@/data/links';
+import {
+  GITHUB_REPO,
+  ANDROID_GITHUB_REPO,
+  SWIFT_GITHUB_REPO,
+  GITHUB_REPO_FILE,
+} from '@/data/links';
 import {
   DesignTokenIcon,
   ReactIcon,
@@ -70,6 +76,11 @@ export default function Page({
     return () => window.removeEventListener('load', scrollToHash);
   }, []);
 
+  const {
+    query: { platform: framework = 'react' },
+  } = useRouter();
+  const githubRepo = getGitHubRepo(framework as string);
+
   return (
     <>
       <div className="docs-content">
@@ -120,7 +131,7 @@ export default function Page({
               ) : null}
               <Link
                 className="docs-component-link"
-                href={`${GITHUB_REPO}issues/new/choose`}
+                href={`${githubRepo}issues/new/choose`}
                 isExternal
               >
                 <GithubIcon
@@ -143,4 +154,13 @@ export default function Page({
       ) : null}
     </>
   );
+}
+
+function getGitHubRepo(framework = 'react') {
+  if (framework === 'android') {
+    return ANDROID_GITHUB_REPO;
+  } else if (framework === 'swift') {
+    return SWIFT_GITHUB_REPO;
+  }
+  return GITHUB_REPO;
 }

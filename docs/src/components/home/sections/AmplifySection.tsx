@@ -61,7 +61,11 @@ export const AmplifySection = ({ platform }) => {
           <br />
           <Link
             href={`https://docs.amplify.aws/lib/q/platform/${
-              platform !== 'flutter' ? 'js' : platform
+              !['android', 'flutter', 'swift'].includes(platform)
+                ? 'js'
+                : platform === 'swift'
+                ? 'ios'
+                : platform
             }/`}
           >
             Learn more about Amplify Libraries
