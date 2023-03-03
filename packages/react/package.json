@@ -70,7 +70,7 @@
     "tslib": "2.4.1"
   },
   "peerDependencies": {
-    "aws-amplify": "5.x.x",
+    "aws-amplify": ">= 5.0.1",
     "react": ">= 16.14.0",
     "react-dom": ">= 16.14.0"
   },
