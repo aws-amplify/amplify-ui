@@ -2,7 +2,6 @@ import { isString } from '@aws-amplify/ui';
 import * as React from 'react';
 import { isFunction } from '@aws-amplify/ui';
 
-import { isFunction } from '../shared/utils';
 import { ToggleButtonGroupProps } from '../types';
 
 type UseToggleButtonParams = Pick<
