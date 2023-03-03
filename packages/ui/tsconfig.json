@@ -1,5 +1,5 @@
 {
-  "extends": "../configs/ts/base.json",
+  "extends": "../configs/ts/tsconfig.base.json",
   "compilerOptions": {
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "noImplicitAny": false,

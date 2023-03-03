@@ -1,5 +1,5 @@
 {
-  "extends": "../configs/ts/react-native.json",
+  "extends": "../configs/ts/tsconfig.react-native.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src"
