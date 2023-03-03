@@ -153,8 +153,6 @@ describe('Liveness Machine', () => {
     await flushPromises(); // detectFaceDistanceBeforeRecording
     jest.advanceTimersToNextTimer(); // checkFaceDistanceBeforeRecording
     service.send({ type: 'START_RECORDING' });
-    await flushPromises(); // startRecording
-    jest.advanceTimersToNextTimer(); // checkRecordingStarted
   }
 
   async function advanceMinFaceMatches() {
@@ -164,9 +162,9 @@ describe('Liveness Machine', () => {
 
   async function transitionToUploading(service) {
     await transitionToRecording(service);
-    await flushPromises(); // checkFaceDetected
-    jest.advanceTimersToNextTimer(); // ovalMatching
-    await flushPromises(); // checkMatch
+    await flushPromises(); // detectInitialFaceAndDrawOval
+    jest.advanceTimersToNextTimer(); // checkFaceDetected
+    jest.advanceTimersToNextTimer(); // checkRecordingStarted
     await advanceMinFaceMatches(); // detectFaceAndMatchOval
     await flushPromises(); // flashFreshnessColors
   }
@@ -421,8 +419,6 @@ describe('Liveness Machine', () => {
       await flushPromises(); // detectFaceDistanceBeforeRecording
       jest.advanceTimersToNextTimer(); // checkFaceDistanceBeforeRecording
       service.send({ type: 'START_RECORDING' });
-      await flushPromises(); // startRecording
-      jest.advanceTimersToNextTimer(); // checkRecordingStarted
 
       expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
     });
@@ -443,9 +439,6 @@ describe('Liveness Machine', () => {
         mockVideoMediaStream
       );
       expect(
-        service.state.context.videoAssociatedParams.recordingStartTimestampMs
-      ).toBeDefined();
-      expect(
         service.state.context.livenessStreamProvider.getResponseStream
       ).toHaveBeenCalledTimes(1);
       expect(service.state.context.errorState).toBeNull();
@@ -459,12 +452,15 @@ describe('Liveness Machine', () => {
 
     it('should reach ovalMatching state after detectInitialFaceAndDrawOval success and respect ovalMatchingTimeout', async () => {
       await transitionToRecording(service);
-
       await flushPromises();
+
       expect(service.state.value).toEqual({ recording: 'checkFaceDetected' });
 
-      jest.advanceTimersToNextTimer();
-      expect(service.state.value).toEqual({ recording: 'ovalMatching' });
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
+      expect(service.state.value).toEqual({
+        recording: 'ovalMatching',
+      });
       expect(
         service.state.context.faceMatchAssociatedParams.faceMatchState
       ).toBe(FaceMatchState.FACE_IDENTIFIED);
@@ -547,10 +543,12 @@ describe('Liveness Machine', () => {
       expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
     });
 
-    it('should reach checkFaceDetected state and send client sessionInformation', async () => {
+    it('should reach ovalMatching state and send client sessionInformation', async () => {
       await transitionToRecording(service);
       await flushPromises();
-      expect(service.state.value).toEqual({ recording: 'checkFaceDetected' });
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
+      expect(service.state.value).toEqual({ recording: 'ovalMatching' });
       expect(
         expect(mockLivenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
           1
@@ -574,8 +572,9 @@ describe('Liveness Machine', () => {
 
     it('should reach flashFreshnessColors state after detectFaceAndMatchOval success', async () => {
       await transitionToRecording(service);
-      await flushPromises(); // checkFaceDetected
-      jest.advanceTimersToNextTimer(); // ovalMatching
+      await flushPromises(); // detectInitialFaceAndDrawOval
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
 
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
 
@@ -592,9 +591,9 @@ describe('Liveness Machine', () => {
 
     it('should reach waitForDisconnect state after flashFreshnessColors', async () => {
       await transitionToRecording(service);
-      await flushPromises(); // checkFaceDetected
-      jest.advanceTimersToNextTimer(); // ovalMatching
-      await flushPromises(); // checkMatch
+      await flushPromises(); // detectInitialFaceAndDrawOval
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
       await advanceMinFaceMatches(); // detectFaceAndMatchOval
       await flushPromises(); // flashFreshnessColors
 
@@ -621,8 +620,9 @@ describe('Liveness Machine', () => {
       );
 
       await transitionToRecording(service);
-      await flushPromises(); // checkFaceDetected
-      jest.advanceTimersToNextTimer(); // ovalMatching
+      await flushPromises(); // detectInitialFaceAndDrawOval
+      jest.advanceTimersToNextTimer(); // checkFaceDetected
+      jest.advanceTimersToNextTimer(); // checkRecordingStarted
 
       await flushPromises();
       expect(service.state.value).toEqual({ recording: 'checkMatch' });

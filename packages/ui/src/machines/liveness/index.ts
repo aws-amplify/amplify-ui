@@ -238,18 +238,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       recording: {
         entry: ['clearErrorState', 'startRecording'],
-        initial: 'checkRecordingStarted',
+        initial: 'ovalDrawing',
         states: {
-          checkRecordingStarted: {
-            after: {
-              200: {
-                target: 'ovalDrawing',
-                cond: 'hasRecordingStarted',
-                actions: ['updateRecordingStartTimestampMs'],
-              },
-              201: { target: 'checkRecordingStarted' },
-            },
-          },
           ovalDrawing: {
             entry: ['sendTimeoutAfterOvalDrawingDelay'],
             invoke: {
@@ -270,10 +260,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checkFaceDetected: {
             after: {
               0: {
-                target: 'ovalMatching',
+                target: 'checkRecordingStarted',
                 cond: 'hasSingleFace',
               },
               100: { target: 'ovalDrawing' },
+            },
+          },
+          checkRecordingStarted: {
+            after: {
+              0: {
+                target: 'ovalMatching',
+                cond: 'hasRecordingStarted',
+                actions: ['updateRecordingStartTimestampMs'],
+              },
+              100: { target: 'checkRecordingStarted' },
             },
           },
           ovalMatching: {
@@ -478,16 +478,55 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateRecordingStartTimestampMs: assign({
         videoAssociatedParams: (context) => {
           const {
+            challengeId,
+            videoAssociatedParams: { videoMediaStream },
+            ovalAssociatedParams: { initialFace },
+            livenessStreamProvider,
+          } = context;
+          const {
             recordingStartApiTimestamp,
             recorderStartTimestamp,
             firstChunkTimestamp,
-          } = context.livenessStreamProvider.videoRecorder;
+          } = livenessStreamProvider.videoRecorder;
           const calculatedRecordingStart = firstChunkTimestamp - TIME_SLICE;
           const mediaRecorderOnStartCalled = recorderStartTimestamp;
           const timestamp = Math.max(
             recordingStartApiTimestamp,
             Math.min(calculatedRecordingStart, mediaRecorderOnStartCalled)
           );
+
+          // Send client info for initial face position
+          const { width, height } = videoMediaStream
+            .getTracks()[0]
+            .getSettings();
+          const flippedInitialFaceLeft =
+            width - initialFace.left - initialFace.width;
+
+          context.livenessStreamProvider.sendClientInfo({
+            DeviceInformation: {
+              ClientSDKVersion: '1.0.0',
+              VideoHeight: height,
+              VideoWidth: width,
+            },
+            Challenge: {
+              FaceMovementAndLightChallenge: {
+                ChallengeId: challengeId,
+                VideoStartTimestamp: timestamp,
+                InitialFace: {
+                  InitialFaceDetectedTimestamp: initialFace.timestampMs,
+                  BoundingBox: getBoundingBox({
+                    deviceHeight: height,
+                    deviceWidth: width,
+                    height: initialFace.height,
+                    width: initialFace.width,
+                    top: initialFace.top,
+                    left: flippedInitialFaceLeft,
+                  }),
+                },
+              },
+            },
+          });
+
           return {
             ...context.videoAssociatedParams,
             recordingStartTimestampMs: timestamp,
@@ -1002,7 +1041,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const scaleFactor = videoScaledWidth / videoEl.videoWidth;
 
         // generate oval details from initialFace and video dimensions
-        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
         const ovalDetails = getOvalDetailsFromSessionInformation({
           sessionInformation: serverSessionInformation,
           videoWidth: videoEl.width,
@@ -1021,34 +1059,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // Draw oval in canvas using ovalDetails and scaleFactor
         drawLivenessOvalInCanvas(canvasEl, ovalDetails, scaleFactor);
         ovalDrawnTimestamp = Date.now();
-
-        // Send client info for initial face position
-        const flippedInitialFaceLeft =
-          width - initialFace.left - initialFace.width;
-        context.livenessStreamProvider.sendClientInfo({
-          DeviceInformation: {
-            ClientSDKVersion: '1.0.0',
-            VideoHeight: height,
-            VideoWidth: width,
-          },
-          Challenge: {
-            FaceMovementAndLightChallenge: {
-              ChallengeId: challengeId,
-              VideoStartTimestamp: recordingStartTimestampMs,
-              InitialFace: {
-                InitialFaceDetectedTimestamp: initialFace.timestampMs,
-                BoundingBox: getBoundingBox({
-                  deviceHeight: height,
-                  deviceWidth: width,
-                  height: initialFace.height,
-                  width: initialFace.width,
-                  top: initialFace.top,
-                  left: flippedInitialFaceLeft,
-                }),
-              },
-            },
-          },
-        });
 
         return {
           faceMatchState,
