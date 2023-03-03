@@ -5,7 +5,7 @@
 #   (1) Internal PRs: contirubutor pushes a commit to PRs targeting protected branches.
 #   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting protected branches.
 
-name: Test / PRs
+name: POC / Test / PRs
 
 concurrency:
   group: e2e-${{ github.event.pull_request.id }}
