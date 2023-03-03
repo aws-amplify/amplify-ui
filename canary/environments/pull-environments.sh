@@ -2,8 +2,9 @@
 set -e
 IFS='|'
 
-# In development, AWS_PROFILE should be set. In CI, it's not.
-[ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false"
+# In development, AWS_PROFILE will be set explicitly. In CI,
+# we set it explicitly to default.
+[ -z "$AWS_PROFILE" ] && AWS_PROFILE="default"
 
 # We set `useProfile` to true, because Amplify CLI does not support headless
 # pull with temporary credentials when `useProfile` is set to false.
