@@ -27,7 +27,7 @@ export async function checkLink(
       res(0);
     } else if (IGNORED_LINKS.includes(href) || requestedUrl.has(href)) {
       console.log(
-        `⏭[SKIPPING...] page #${pageIdx} link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page ${pageUrl}, because it is on the IGNORED_LINKS list or have already requested.`
+        `⏭[SKIPPING...] page #${pageIdx} link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page ${pageUrl}, because it is on the IGNORED_LINKS list or have already been requested.`
       );
       res(0);
     } else {
