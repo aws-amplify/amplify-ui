@@ -3,8 +3,6 @@ import { AuthenticatorDictionary } from './types';
 export const nlDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     'Accountherstel vereist geverifieerde contactgegevens',
-  'Attributes did not conform to the schema: email: The attribute is required\n':
-    'Attributen zijn niet conform het schema: email: Het attribuut is verplicht\n',
   'Back to Sign In': 'Terug naar inloggen',
   'Change Password': 'Wachtwoord wijzigen',
   Changing: 'Wordt aangepast',
@@ -35,14 +33,6 @@ export const nlDict: AuthenticatorDictionary = {
   'New Password': 'Nieuw Wachtwoord',
   or: 'of',
   Password: 'Wachtwoord',
-  'Password did not conform with policy: Password must have numeric characters':
-    'Wachtwoord voldoet niet aan de vereisten: Wachtwoord moet nummers bevatten',
-  'Password did not conform with policy: Password must have symbol characters':
-    'Wachtwoord voldoet niet aan de vereisten: Wachtwoord moet symbolen bevatten',
-  'Password did not conform with policy: Password must have uppercase characters':
-    'Wachtwoord voldoet niet aan de vereisten: Wachtwoord moet hoofdletters bevatten',
-  'Password did not conform with policy: Password not long enough':
-    'Wachtwoord voldoet niet aan de vereisten: Wachtwoord is niet lang genoeg',
   'Phone Number': 'Telefoonnummer',
   'Please confirm your Password': 'Bevestig je wachtwoord',
   'Resend Code': 'Verstuur code nogmaals',
