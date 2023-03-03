@@ -6,28 +6,18 @@ IFS='|'
 dir=$1
 region=$2
 
-# In development, AWS_PROFILE should be set. In CI, it's not.
-[ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false"
+# In development, AWS_PROFILE will be set explicitly. In CI,
+# it will use the default aws profile.
+[ "$AWS_PROFILE" ] || AWS_PROFILE="default"
 
-FRONTENDCONFIG="{\
-\"SourceDir\":\"src\",\
-\"DistributionDir\":\"dist\",\
-\"BuildCommand\":\"npm run-script build\",\
-\"StartCommand\":\"npm run-script start\"\
-}"
-FRONTEND="{\
-\"frontend\":\"javascript\",\
-\"framework\":\"none\",\
-\"config\":$FRONTENDCONFIG}"
-AMPLIFY="{\
-\"defaultEditor\":\"code\",\
-}"
+# We will always set `useProfile` to true, because there is a
+# known bug with running headless pull with AWS environment
+# variables when `useProfile` set to true.
+# See https://github.com/aws-amplify/amplify-cli/issues/5275.
 AWSCLOUDFORMATIONCONFIG="{\
 \"configLevel\":\"project\",\
-\"useProfile\":$useProfile,\
+\"useProfile\":\"true\",\
 \"profileName\":\"$AWS_PROFILE\",\
-\"accessKeyId\":\"$AWS_ACCESS_KEY_ID\",\
-\"secretAccessKey\":\"$AWS_SECRET_ACCESS_KEY\",\
 \"region\":\""$region\""\
 }"
 PROVIDERS="{\
@@ -35,4 +25,6 @@ PROVIDERS="{\
 
 cd $dir
 
-echo y | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS
+# `--yes` flag is to added to say yes to the CLI prompts.
+# See https://github.com/aws-amplify/amplify-cli/issues/5275.
+yarn pull --providers $PROVIDERS --yes
