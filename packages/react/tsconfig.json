@@ -2,7 +2,6 @@
   "extends": "../configs/ts/react.json",
   "compilerOptions": {
     "noImplicitAny": false,
-    "skipLibCheck": true,
     "strict": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
