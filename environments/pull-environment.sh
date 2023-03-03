@@ -10,8 +10,8 @@ region=$2
 # it will use the default aws profile.
 [ "$AWS_PROFILE" ] || AWS_PROFILE="default"
 
-# We will always set `useProfile` to true, because Amplify CLI does 
-# not support headless pull without profile yet.
+# We set `useProfile` to true, because Amplify CLI does not support
+# headless pull with IAM roles when `useProfile` is set to false.
 # See https://github.com/aws-amplify/amplify-cli/issues/5275.
 AWSCLOUDFORMATIONCONFIG="{\
 \"configLevel\":\"project\",\
