@@ -31,7 +31,7 @@ export function BannerMessage(props: BannerMessageProps): JSX.Element | null {
         [`${BLOCK_CLASS}--full-width`]: shouldBeFullWidth,
       })}
       role="dialog"
-      testId={`inappmessaging-${position}-dialog`}
+      testId={`inappmessaging-${position}banner-dialog`}
     >
       <MessageLayout
         {...props}
