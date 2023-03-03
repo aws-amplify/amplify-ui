@@ -48,7 +48,7 @@ export const useToggleButtonGroup = ({
     (buttonValue: string | undefined) => void
   >(
     (buttonValue) => {
-      if (!isFunction(onChange) || Array.isArray(value)) {
+      if (!isFunction(onChange)) {
         return;
       }
       onChange(
