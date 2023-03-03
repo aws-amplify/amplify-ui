@@ -24,7 +24,7 @@ async function main() {
    * 2) to have a nice log in order
    */
   await runArrayPromiseInOrder(
-    [...allPagesPaths],
+    Array.from(allPagesPaths),
     async ([pageIdx, { pageUrl, links }]) => {
       await runArrayPromiseInOrder(
         links.map((link) => ({ ...link, pageIdx, pageUrl })),
@@ -33,7 +33,7 @@ async function main() {
     }
   );
 
-  const allPagesPathsNum = [...allPagesPaths].map(
+  const allPagesPathsNum = Array.from(allPagesPaths).map(
     ([pageIdx, { pageUrl, links }]) => ({
       pageUrl,
       numberOfLinks: links.length,
