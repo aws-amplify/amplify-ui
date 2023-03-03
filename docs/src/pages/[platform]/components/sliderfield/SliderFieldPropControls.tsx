@@ -128,7 +128,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
       />
       <TextField
         label="emptyTrackColor"
-        value={emptyTrackColor}
+        value={emptyTrackColor as string}
         placeholder="e.g., gray"
         onChange={(event) =>
           setEmptyTrackColor(
@@ -138,7 +138,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
       />
       <TextField
         label="filledTrackColor"
-        value={filledTrackColor}
+        value={filledTrackColor as string}
         placeholder="e.g., blue"
         onChange={(event) =>
           setFilledTrackColor(
@@ -148,7 +148,7 @@ export const SliderFieldPropControls: SliderFieldPropControlsInterface = ({
       />
       <TextField
         label="thumbColor"
-        value={thumbColor}
+        value={thumbColor as string}
         placeholder="e.g., red"
         onChange={(event) =>
           setThumbColor(event.target.value as SliderFieldProps['thumbColor'])

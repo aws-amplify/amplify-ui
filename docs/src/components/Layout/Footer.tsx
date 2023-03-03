@@ -19,6 +19,7 @@ export const Footer = () => {
         <Button
           as={Link}
           variation="link"
+          // @ts-ignore // IGNORE
           href={GITHUB_REPO}
           isExternal
           gap="xs"
@@ -26,7 +27,14 @@ export const Footer = () => {
           <GithubIcon ariaLabel="" />
           Contribute on GitHub
         </Button>
-        <Button as={Link} variation="link" href={DISCORD} isExternal gap="xs">
+        <Button
+          as={Link}
+          variation="link"
+          // @ts-ignore // IGNORE
+          href={DISCORD}
+          isExternal
+          gap="xs"
+        >
           <DiscordIcon ariaLabel="" />
           Discuss on Discord
         </Button>

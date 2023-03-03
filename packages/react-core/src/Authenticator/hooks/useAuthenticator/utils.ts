@@ -1,6 +1,8 @@
 import { Auth } from 'aws-amplify';
 import {
   AmplifyUser,
+  areEmptyArrays,
+  areEmptyObjects,
   AuthenticatorRoute,
   AuthMachineState,
   FormFieldsArray,
@@ -10,7 +12,6 @@ import {
   isString,
 } from '@aws-amplify/ui';
 
-import { areEmptyArrays, areEmptyObjects } from '../../../utils';
 import { AuthenticatorLegacyField, AuthenticatorLegacyFields } from '../types';
 import { isComponentRouteKey } from '../utils';
 

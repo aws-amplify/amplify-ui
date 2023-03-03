@@ -1,0 +1,36 @@
+# Description: This workflow automatically adds a `pending-triage` label to issues that need attention
+#
+# Triggered by: newly opened, re-opened or transferred issues
+
+name: Mark Issues for Triage
+
+on:
+  issues:
+    types: [opened, reopened, transferred]
+
+jobs:
+  label_issues:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - name: Add pending-triage label
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        # run bash script to sanitize issue number and add label
+        # first sanitize the ISSUE_NUMBER which is a assumed to be string representing an integer
+        # remove any newline characters with tr because awk only works with single lines of code and may have unexpected behavior if newline is present
+        # awk applies the int function to the input, converting it to an integer
+        # finally check if the resulting value, assigned to ISSUE_NUMBER_INT is positive
+        run: |
+          ISSUE_NUMBER_INT=$(echo "$ISSUE_NUMBER" | tr -d '\n' | awk '{print int($0)}')
+          if [ "$ISSUE_NUMBER_INT" -le 0 ]; then
+            echo "Issue number must be a positive integer"
+            exit 1
+          fi
+          gh issue edit $ISSUE_NUMBER_INT --add-label 'pending-triage'

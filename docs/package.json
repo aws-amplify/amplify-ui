@@ -9,7 +9,7 @@
     "postflutter:build": "yarn flutter:copy",
     "flutter:clean": "rm -rf public/flutter/authenticator",
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
-    "build": "yarn build:props-tables && next build",
+    "build": "yarn build:props-tables && NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables-data.ts",
     "lint": "next lint",
     "postbuild": "yarn postbuild:sitemap && yarn test && yarn postbuild:previews",
@@ -19,7 +19,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "4.3.8",
+    "@aws-amplify/ui-react": "4.3.9",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -78,6 +78,7 @@
     "react-markdown": "^8.0.3",
     "sitemap-urls": "^3.0.0",
     "ts-jest": "^27",
-    "ts-morph": "^15.1.0"
+    "ts-morph": "^15.1.0",
+    "ts-node": "^10.9.1"
   }
 }

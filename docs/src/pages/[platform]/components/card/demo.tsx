@@ -12,6 +12,7 @@ import {
   SelectField,
   CardProps,
   useTheme,
+  CardVariations,
 } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
@@ -51,7 +52,7 @@ const PropControls = (props) => {
 
 export const CardDemo = () => {
   const { tokens } = useTheme();
-  const [variation, setVariation] = React.useState<CardProps>('');
+  const [variation, setVariation] = React.useState<CardVariations>();
   const props = { variation, setVariation };
   return (
     <Demo code={propsToCode(props)} propControls={<PropControls {...props} />}>
