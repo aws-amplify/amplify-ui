@@ -14,7 +14,7 @@ echo "$AWS_PROFILE"
 
 # We set `useProfile` to true, because Amplify CLI does not support headless
 # pull with temporary credentials when `useProfile` is set to false.
-# See https://github.com/aws-amplify/amplify-cli/issues/5275.
+# See https://github.com/aws-amplify/amplify-cli/issues/11009.
 AWSCLOUDFORMATIONCONFIG="{\
 \"configLevel\":\"project\",\
 \"useProfile\":\"true\",\
