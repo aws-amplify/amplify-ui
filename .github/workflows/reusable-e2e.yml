@@ -294,7 +294,7 @@ jobs:
       - name: Configure auth credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-east-2
+          aws-region: us-east-1
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
 
       # Amplify CLI does not support headless pull with temporary credentials
@@ -313,7 +313,7 @@ jobs:
       - name: Configure geo credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-east-2
+          aws-region: us-east-1
           role-to-assume: ${{ secrets.GEO_E2E_ROLE_ARN }}
 
       - name: Create temp AWS profile
@@ -329,7 +329,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-east-2
+          aws-region: us-east-1
           role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
 
       - name: Create temp AWS profile
@@ -345,7 +345,7 @@ jobs:
       - name: Configure datastore credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-east-2
+          aws-region: us-east-1
           role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
 
       - name: Create temp AWS profile
