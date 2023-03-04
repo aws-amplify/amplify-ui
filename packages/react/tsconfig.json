@@ -1,5 +1,5 @@
 {
-  "extends": "../configs/ts/react.json",
+  "extends": "../configs/ts/tsconfig.react.json",
   "compilerOptions": {
     "noImplicitAny": false,
     "strict": false

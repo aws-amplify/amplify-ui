@@ -1,5 +1,5 @@
 {
-  "extends": "../configs/ts/react.json",
+  "extends": "../configs/ts/tsconfig.react.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

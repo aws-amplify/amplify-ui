@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    // https://www.typescriptlang.org/tsconfig#allowSyntheticDefaultImports
+    "allowSyntheticDefaultImports": true,
+    
+    // https://www.typescriptlang.org/tsconfig#baseUrl
+    "baseUrl": ".",
+    
+    // https://www.typescriptlang.org/tsconfig#declaration
+    "declaration": true,
+    
+    // https://www.typescriptlang.org/tsconfig#esModuleInterop
+    "esModuleInterop": true,
+    
+    // https://www.typescriptlang.org/tsconfig#importHelpers
+    "importHelpers": true,
+    
+    // https://www.typescriptlang.org/tsconfig#module
+    "module": "esnext",
+    
+    // https://www.typescriptlang.org/tsconfig#moduleResolution
+    "moduleResolution": "node",
+    
+    // https://www.typescriptlang.org/tsconfig#strict
+    "strict": true,
+    
+    // https://www.typescriptlang.org/tsconfig#target
+    "target": "es6"
+  }
+}
