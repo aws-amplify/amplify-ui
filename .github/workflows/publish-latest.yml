@@ -15,6 +15,7 @@ on:
     branches: [main]
 
 permissions:
+  id-token: write # This is required for requesting the JWT
   contents: write # Used to push tags to GitHub
 
 jobs:
