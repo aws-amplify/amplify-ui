@@ -3,40 +3,38 @@
 #
 # Triggered by: merge to `main`
 
-name: Test and Publish / next
+name: POC / Test and Publish / next
 
 concurrency:
   group: e2e-${{ github.sha }}
   cancel-in-progress: true
 
-on:
-  push:
-    branches: [main]
+on: pull_request
 
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read # This is required for actions/checkout
 
 jobs:
-  test:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
-    with:
-      commit: ${{ github.sha }}
-      repository: ${{ github.repository }}
-    secrets:
-      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-      DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
-      GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
-      STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
-      DOMAIN: ${{ secrets.DOMAIN }}
-      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-      USERNAME: ${{ secrets.USERNAME }}
-      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-      SITE_URL: ${{ secrets.SITE_URL }}
-      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
-      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
-      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+  #   test:
+  #     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+  #     with:
+  #       commit: ${{ github.sha }}
+  #       repository: ${{ github.repository }}
+  #     secrets:
+  #       AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+  #       DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+  #       GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
+  #       STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+  #       DOMAIN: ${{ secrets.DOMAIN }}
+  #       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+  #       USERNAME: ${{ secrets.USERNAME }}
+  #       NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+  #       VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+  #       SITE_URL: ${{ secrets.SITE_URL }}
+  #       DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+  #       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+  #       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   guides:
     runs-on: ubuntu-latest
@@ -135,16 +133,16 @@ jobs:
             packages/e2e/cypress/screenshots/**
           retention-days: 5
 
-  publish:
-    needs: [test, guides]
-    uses: ./.github/workflows/reusable-tagged-publish.yml
-    with:
-      dist-tag: next
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # publish:
+  #   needs: [test, guides]
+  #   uses: ./.github/workflows/reusable-tagged-publish.yml
+  #   with:
+  #     dist-tag: next
+  #   secrets:
+  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
-    needs: publish
+    # needs: publish
     runs-on: ubuntu-latest
     environment: ci
     steps:
@@ -191,34 +189,34 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  log-failure-metric:
-    # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+  # log-failure-metric:
+  #   # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: build-test
+  #   if: ${{ failure() }}
+  #   steps:
+  #     - name: Log failure data point to metric PublishNextFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: PublishNextFailure
+  #         value: 1
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+  #         AWS_REGION: us-east-2
 
-  log-success-metric:
-    # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+  # log-success-metric:
+  #   # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: build-test
+  #   if: ${{ success() }}
+  #   steps:
+  #     - name: Log success data point to metric PublishNextFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: PublishNextFailure
+  #         value: 0
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+  #         AWS_REGION: us-east-2
