@@ -299,7 +299,7 @@ jobs:
 
       # Amplify CLI does not support headless pull with temporary credentials
       # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/5275.
       - name: Create temp AWS Profile
         run: |
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
