@@ -1,5 +1,6 @@
 import { sitePaths } from '../src/data/sitePaths';
 import { checkLink, crawlAllLinks, runArrayPromiseInOrder } from './util';
+import type { LinkInfo } from './util';
 
 /**
  * Divide the sitePaths array so that we can easily run a smaller portion if needed.
@@ -10,13 +11,14 @@ const end = process.argv[3];
 const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
 
 try {
-  main();
+  runLinkChecker();
 } catch (err) {
   process.exit(1);
 }
 
-async function main() {
+async function runLinkChecker() {
   const allPagesPaths = await crawlAllLinks(testPaths);
+  const errorLinks: Set<LinkInfo> = new Set();
 
   /**
    * Sequentially check each link on each page
@@ -28,7 +30,8 @@ async function main() {
     async ([pageIdx, { pageUrl, links }]) => {
       await runArrayPromiseInOrder(
         links.map((link) => ({ ...link, pageIdx, pageUrl })),
-        checkLink
+        checkLink,
+        errorLinks
       );
     }
   );
@@ -40,4 +43,21 @@ async function main() {
     })
   );
   console.table(allPagesPathsNum);
+
+  reportResult(errorLinks);
+}
+
+function reportResult(errorLinks: Set<LinkInfo>) {
+  if (errorLinks.size) {
+    Array.from(errorLinks).forEach(
+      ({ statusCode, pageIdx, linkIdx, href, tagName, tagText, pageUrl }) => {
+        console.error(
+          `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
+        );
+      }
+    );
+    throw new Error(`${errorLinks.size} broken links found`);
+  } else {
+    console.log('🎉 All links look good!');
+  }
 }

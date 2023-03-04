@@ -4,8 +4,8 @@
  * @param {array} arr - array to iterate
  * @param {function} fn - callback function
  */
-export async function runArrayPromiseInOrder(arr: unknown[], fn) {
+export async function runArrayPromiseInOrder(arr: unknown[], fn, options?) {
   for (const [i, item] of arr.entries()) {
-    await fn(item, i);
+    await fn(item, i, options);
   }
 }
