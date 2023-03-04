@@ -97,7 +97,6 @@ jobs:
           aws configure set default.region $AWS_REGION
       - name: Pull down AWS environments
         run: yarn environments auth pull:email
-        working-directory: ./canary
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
 
