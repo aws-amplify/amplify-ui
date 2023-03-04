@@ -67,7 +67,7 @@ jobs:
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
       # Amplify CLI does not support headless pull with temporary credentials
       # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/5275.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
       - name: Create temp AWS profile
         run: |
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
