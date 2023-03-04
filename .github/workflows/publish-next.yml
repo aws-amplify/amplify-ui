@@ -92,7 +92,7 @@ jobs:
           aws configure set aws_session_token $AWS_SESSION_TOKEN && \
           aws configure set default.region $AWS_REGION
       - name: Pull down AWS environments
-        run: yarn pull
+        run: yarn environments auth pull:email
         working-directory: ./canary
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
