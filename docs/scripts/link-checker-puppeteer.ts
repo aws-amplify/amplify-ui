@@ -37,7 +37,8 @@ async function runLinkChecker() {
       numberOfLinks: links.length,
     })
   );
-  console.table(allPagePaths);
+
+  await console.table(allPagePaths);
 
   reportResult(errorLinks);
 }
