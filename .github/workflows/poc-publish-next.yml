@@ -3,7 +3,7 @@
 #
 # Triggered by: merge to `main`
 
-name: Test and Publish / next
+name: POC / Test and Publish / next
 
 concurrency:
   group: e2e-${{ github.sha }}
