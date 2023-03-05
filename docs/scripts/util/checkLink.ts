@@ -26,43 +26,40 @@ export async function checkLink(
     pageIdx: number;
     pageUrl: string;
   },
-  linkIdx: number,
-  errorLinks: Set<LinkInfo | unknown>
-) {
+  linkIdx: number
+): Promise<LinkInfo> {
   return new Promise(async (res, rej) => {
     if (!href) {
       console.log(
         `⚠️[WARNING...] page #${pageIdx} link #${linkIdx} "${tagName}" tag "${tagText}" doesn't have a href.`
       );
-      res(0);
+      res({ href, linkIdx, pageIdx, pageUrl, tagName, tagText, statusCode: 0 });
     } else if (IGNORED_LINKS.includes(href) || requestedUrl.has(href)) {
       console.log(
         `⏭[SKIPPING...] page #${pageIdx} link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page ${pageUrl}, because it is on the IGNORED_LINKS list or have already requested.`
       );
-      res(0);
+      res({ href, linkIdx, pageIdx, pageUrl, tagName, tagText, statusCode: 0 });
     } else {
       const { get } = href.includes('https:') ? https : http;
       const request = await get(href, async ({ statusCode = 0 }) => {
-        await returnStatus({
-          href,
-          linkIdx,
-          pageIdx,
-          pageUrl,
-          statusCode,
-          tagName,
-          tagText,
-          errorLinks,
-        });
+        statusCode =
+          (
+            await returnStatus({
+              href,
+              linkIdx,
+              pageIdx,
+              pageUrl,
+              statusCode,
+              tagName,
+              tagText,
+            })
+          )?.statusCode || statusCode;
         requestedUrl.add(href);
-        res(statusCode);
+        res({ href, linkIdx, pageIdx, pageUrl, tagName, tagText, statusCode });
       });
       request.end();
     }
   });
-}
-
-interface ReturnStatusArgs extends LinkInfo {
-  errorLinks: Set<LinkInfo | unknown>;
 }
 
 async function returnStatus({
@@ -73,8 +70,7 @@ async function returnStatus({
   statusCode,
   tagName,
   tagText,
-  errorLinks,
-}: ReturnStatusArgs) {
+}: LinkInfo): Promise<LinkInfo> {
   if ([200, 301, 303, 308].includes(statusCode)) {
     console.log(
       `↩️ [RETURNING STATUS...] ${statusCode} page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on page ${pageUrl}`
@@ -92,22 +88,12 @@ async function returnStatus({
         href.match(hostNameRegex)[0]
       }/${platform}${href.replace(hostNameRegex, '')}`;
       console.log(`🔁 [Redirecting...] link #${linkIdx} ${href} to ${newHref}`);
-      await checkLink(
+      return await checkLink(
         { href: newHref, tagName, tagText, pageIdx, pageUrl },
-        linkIdx,
-        errorLinks
+        linkIdx
       );
     }
   } else {
-    errorLinks.add({
-      href,
-      linkIdx,
-      pageIdx,
-      pageUrl,
-      statusCode,
-      tagName,
-      tagText,
-    });
     console.error(
       `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
     );

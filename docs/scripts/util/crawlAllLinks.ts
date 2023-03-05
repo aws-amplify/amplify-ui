@@ -1,28 +1,17 @@
 import puppeteer from 'puppeteer';
 import { PromisePool } from '@supercharge/promise-pool';
 
-type Links = {
-  pageUrl: string;
-  links: { href: string; tagName: string; tagText: string }[];
-};
-type AllPagesPaths = Map<number, Links>;
-
 export async function crawlAllLinks(pages: string[]) {
-  const allPagesPaths: AllPagesPaths = new Map();
-  await PromisePool.withConcurrency(10)
+  const { results: allPagesPaths } = await PromisePool.withConcurrency(10)
     .for(pages)
     .process(async (pageUrl, pageIdx, pool) => {
-      await checkSitemapPath(pageUrl, pageIdx, allPagesPaths);
+      return await checkSitemapPath(pageUrl, pageIdx);
     });
 
   return allPagesPaths;
 }
 
-async function checkSitemapPath(
-  pageUrl: string,
-  pageIdx: number,
-  allPagesPaths: AllPagesPaths
-) {
+async function checkSitemapPath(pageUrl: string, pageIdx: number) {
   let browser = await puppeteer.launch();
 
   const page = await browser.newPage();
@@ -41,8 +30,8 @@ async function checkSitemapPath(
     );
   });
 
-  allPagesPaths.set(pageIdx, { pageUrl, links });
-
   await page.close();
   await browser.close();
+
+  return { pageUrl, links };
 }
