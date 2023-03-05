@@ -5,7 +5,7 @@ import { IGNORED_LINKS } from '../../src/data/ignoredLinks';
 export type LinkInfo = {
   href: string;
   linkIdx: number;
-  pageIdx: string;
+  pageIdx: number;
   pageUrl: string;
   statusCode: number;
   tagName: string;
@@ -23,7 +23,7 @@ export async function checkLink(
     href: string;
     tagName: string;
     tagText: string;
-    pageIdx: string;
+    pageIdx: number;
     pageUrl: string;
   },
   linkIdx: number,

@@ -1,22 +1,26 @@
 import puppeteer from 'puppeteer';
-import { runArrayPromiseInOrder } from '.';
+import { PromisePool } from '@supercharge/promise-pool';
 
 type Links = {
   pageUrl: string;
   links: { href: string; tagName: string; tagText: string }[];
 };
-type AllPagesPaths = Map<string, Links>;
+type AllPagesPaths = Map<number, Links>;
 
 export async function crawlAllLinks(pages: string[]) {
   const allPagesPaths: AllPagesPaths = new Map();
-  await runArrayPromiseInOrder(pages, checkSitemapPath, allPagesPaths);
+  await PromisePool.withConcurrency(10)
+    .for(pages)
+    .process(async (pageUrl, pageIdx, pool) => {
+      await checkSitemapPath(pageUrl, pageIdx, allPagesPaths);
+    });
 
   return allPagesPaths;
 }
 
 async function checkSitemapPath(
   pageUrl: string,
-  pageIdx: string,
+  pageIdx: number,
   allPagesPaths: AllPagesPaths
 ) {
   let browser = await puppeteer.launch();

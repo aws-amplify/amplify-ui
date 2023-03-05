@@ -1,5 +1,6 @@
+import { PromisePool } from '@supercharge/promise-pool';
 import { sitePaths } from '../src/data/sitePaths';
-import { checkLink, crawlAllLinks, runArrayPromiseInOrder } from './util';
+import { checkLink, crawlAllLinks } from './util';
 import type { LinkInfo } from './util';
 
 /**
@@ -20,16 +21,19 @@ async function runLinkChecker() {
   const allPagesPaths = await crawlAllLinks(testPaths);
   const errorLinks: Set<LinkInfo> = new Set();
 
-  await runArrayPromiseInOrder(
-    Array.from(allPagesPaths),
-    async ([pageIdx, { pageUrl, links }]) => {
-      await runArrayPromiseInOrder(
-        links.map((link) => ({ ...link, pageIdx, pageUrl })),
-        checkLink,
-        errorLinks
-      );
-    }
-  );
+  await PromisePool.withConcurrency(10)
+    .for(Array.from(allPagesPaths))
+    .process(async ([pageIdx, { pageUrl, links }], i, pool) => {
+      await PromisePool.withConcurrency(10)
+        .for(links)
+        .process(async ({ href, tagName, tagText }, linkIdx, pool) => {
+          await checkLink(
+            { href, tagName, tagText, pageUrl, pageIdx },
+            linkIdx,
+            errorLinks
+          );
+        });
+    });
 
   const allPagePaths = Array.from(allPagesPaths).map(
     ([pageIdx, { pageUrl, links }]) => ({
