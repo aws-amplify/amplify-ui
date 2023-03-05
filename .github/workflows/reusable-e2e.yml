@@ -198,25 +198,25 @@ jobs:
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
 
-      - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-      - name: Create temp AWS Profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
-      - name: Pull down Auth AWS environments
-        run: yarn environments auth pull
+      # - name: Configure auth credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # - name: Create temp AWS Profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
+      # - name: Pull down Auth AWS environments
+      #   run: yarn environments auth pull
+
       - name: Configure geo credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.GEO_E2E_ROLE_ARN }}
-
       - name: Pull down Geo AWS environments
         run: yarn environments geo pull
       - name: Configure AWS Credentials
