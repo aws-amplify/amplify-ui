@@ -35,9 +35,6 @@ export async function checkLink(
       );
       res({ href, linkIdx, pageIdx, pageUrl, tagName, tagText, statusCode: 0 });
     } else if (IGNORED_LINKS.includes(href) || requestedUrl.has(href)) {
-      console.log(
-        `⏭[SKIPPING...] page #${pageIdx} link #${linkIdx} ${href} from ${tagName} tag "${tagText}" on page ${pageUrl}, because it is on the IGNORED_LINKS list or have already requested.`
-      );
       res({ href, linkIdx, pageIdx, pageUrl, tagName, tagText, statusCode: 0 });
     } else {
       const { get } = href.includes('https:') ? https : http;
@@ -72,10 +69,6 @@ async function returnStatus({
   tagText,
 }: LinkInfo): Promise<LinkInfo> {
   if ([200, 301, 303, 308].includes(statusCode)) {
-    console.log(
-      `↩️ [RETURNING STATUS...] ${statusCode} page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on page ${pageUrl}`
-    );
-
     /**
      * If 308, check if it's a internal direction (see docs/next.config.js redirects logic)
      * If it's internal direction, after adding the platform, it should be 200
@@ -87,7 +80,6 @@ async function returnStatus({
       const newHref = `${
         href.match(hostNameRegex)[0]
       }/${platform}${href.replace(hostNameRegex, '')}`;
-      console.log(`🔁 [Redirecting...] link #${linkIdx} ${href} to ${newHref}`);
       return await checkLink(
         { href: newHref, tagName, tagText, pageIdx, pageUrl },
         linkIdx
