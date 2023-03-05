@@ -180,7 +180,6 @@ jobs:
 
   pull-all-envs:
     # Only run e2e tests if unit tests pass
-    needs: [setup, unit]
     runs-on: ubuntu-latest
     environment: ci
     env:
