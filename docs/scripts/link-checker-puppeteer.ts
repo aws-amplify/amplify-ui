@@ -1,5 +1,6 @@
+import { PromisePool } from '@supercharge/promise-pool';
 import { sitePaths } from '../src/data/sitePaths';
-import { checkLink, crawlAllLinks, runArrayPromiseInOrder } from './util';
+import { checkLink, crawlAllLinks } from './util';
 import type { LinkInfo } from './util';
 
 /**
@@ -18,46 +19,53 @@ try {
 
 async function runLinkChecker() {
   const allPagesPaths = await crawlAllLinks(testPaths);
-  const errorLinks: Set<LinkInfo> = new Set();
 
-  /**
-   * Sequentially check each link on each page
-   * 1) to prevent sockets or other resource from using up
-   * 2) to have a nice log in order
-   */
-  await runArrayPromiseInOrder(
-    Array.from(allPagesPaths),
-    async ([pageIdx, { pageUrl, links }]) => {
-      await runArrayPromiseInOrder(
-        links.map((link) => ({ ...link, pageIdx, pageUrl })),
-        checkLink,
-        errorLinks
-      );
-    }
-  );
+  const { results } = await PromisePool.withConcurrency(10)
+    .for(allPagesPaths)
+    .process(async (pagePaths, pageIdx, pool) => {
+      const { pageUrl, links } = pagePaths;
+      const { results } = await PromisePool.withConcurrency(10)
+        .for(links)
+        .process(async ({ href, tagName, tagText }, linkIdx, pool) => {
+          return await checkLink(
+            { href, tagName, tagText, pageUrl, pageIdx },
+            linkIdx
+          );
+        });
+      return { pageUrl, links: results };
+    });
 
-  const allPagesPathsNum = Array.from(allPagesPaths).map(
-    ([pageIdx, { pageUrl, links }]) => ({
+  const allPagesPathsNum = allPagesPaths.map((pagePaths) => {
+    const { pageUrl, links } = pagePaths;
+    return {
       pageUrl,
       numberOfLinks: links.length,
-    })
-  );
+    };
+  });
 
   await console.table(allPagesPathsNum);
 
-  reportResult(errorLinks);
+  const links = results.reduce((acc, curr) => [...acc, ...curr.links], []);
+  reportResult(links);
 }
 
-function reportResult(errorLinks: Set<LinkInfo>) {
-  if (errorLinks.size) {
-    Array.from(errorLinks).forEach(
+function reportResult(links: LinkInfo[]) {
+  const errorLinks = links.filter((link) => {
+    const isInternalRedirection =
+      link.statusCode === 308 && link.href.includes('http://localhost:3000');
+    const goodStatusCode = [0, 200, 301, 303];
+    return !goodStatusCode.includes(link.statusCode) && !isInternalRedirection;
+  });
+
+  if (errorLinks.length) {
+    errorLinks.forEach(
       ({ statusCode, pageIdx, linkIdx, href, tagName, tagText, pageUrl }) => {
         console.error(
           `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
         );
       }
     );
-    throw new Error(`${errorLinks.size} broken links found`);
+    throw new Error(`${errorLinks.length} broken links found`);
   } else {
     console.log('🎉 All links look good!');
   }

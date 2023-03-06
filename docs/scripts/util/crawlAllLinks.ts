@@ -1,25 +1,19 @@
 import puppeteer from 'puppeteer';
-import { runArrayPromiseInOrder } from '.';
-
-type Links = {
-  pageUrl: string;
-  links: { href: string; tagName: string; tagText: string }[];
-};
-type AllPagesPaths = Map<string, Links>;
+import { PromisePool } from '@supercharge/promise-pool';
 
 export async function crawlAllLinks(pages: string[]) {
-  const allPagesPaths: AllPagesPaths = new Map();
-  await runArrayPromiseInOrder(pages, checkSitemapPath, allPagesPaths);
+  const { results: allPagesPaths } = await PromisePool.withConcurrency(10)
+    .for(pages)
+    .process(async (pageUrl, pageIdx, pool) => {
+      return await checkSitemapPath(pageUrl, pageIdx);
+    });
 
   return allPagesPaths;
 }
 
-async function checkSitemapPath(
-  pageUrl: string,
-  pageIdx: string,
-  allPagesPaths: AllPagesPaths
-) {
-  const browser = await puppeteer.launch();
+async function checkSitemapPath(pageUrl: string, pageIdx: number) {
+  let browser = await puppeteer.launch();
+
   const page = await browser.newPage();
 
   await page.goto(pageUrl, { waitUntil: 'networkidle2' });
@@ -36,8 +30,8 @@ async function checkSitemapPath(
     );
   });
 
-  allPagesPaths.set(pageIdx, { pageUrl, links });
-
   await page.close();
   await browser.close();
+
+  return { pageUrl, links };
 }
