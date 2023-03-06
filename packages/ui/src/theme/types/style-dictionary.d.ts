@@ -19,8 +19,8 @@ declare module 'style-dictionary/lib/utils/deepExtend.js' {
 declare module 'style-dictionary/lib/utils/flattenProperties.js' {
   // based on the typing specified by style-dictionary:
   // https://github.com/amzn/style-dictionary/blob/main/lib/utils/flattenProperties.js#L16-L24
-  export default function flattenProperties(
+  export default function flattenProperties<T, K = T extends Array<infer TK> ? TK : never>(
     properties: object,
-    acc?: Array<any>
-  ): Array<any>;
+    acc?: Array<K>
+  ): Array<K>;
 }
