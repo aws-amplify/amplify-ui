@@ -65,6 +65,7 @@ function reportResult(links: LinkInfo[]) {
         );
       }
     );
+    throw new Error(`${errorLinks.length} broken links found`);
   } else {
     console.log('🎉 All links look good!');
   }
