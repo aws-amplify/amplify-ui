@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import { RenderNothing } from '../../../../components';
 import { COMPONENT_ROUTE_KEYS } from '../../constants';
-import { DEFAULTS } from '../../__mock__/components';
+import { DEFAULTS } from '../../__mocks__/components';
 import { mockUseAuthenticatorOutput } from '../../useAuthenticator/__mock__/useAuthenticator';
 import { useAuthenticator } from '../../useAuthenticator';
 
