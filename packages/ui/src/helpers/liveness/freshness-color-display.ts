@@ -61,7 +61,7 @@ export class FreshnessColorDisplay {
     const {
       freshnessColorAssociatedParams: { freshnessColorEl },
       ovalAssociatedParams: { ovalDetails, scaleFactor },
-      videoAssociatedParams: { canvasEl },
+      videoAssociatedParams: { canvasEl, videoEl },
     } = this.context;
     const tickStartTime = Date.now();
 
@@ -108,7 +108,7 @@ export class FreshnessColorDisplay {
         overlayCanvas: freshnessColorEl,
         prevColor: this.prevColorSequence.color,
         nextColor: this.currColorSequence.color,
-        ovalCanvas: canvasEl,
+        videoEl: videoEl,
         ovalDetails,
         heightFraction,
         scaleFactor,

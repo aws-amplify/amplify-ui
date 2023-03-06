@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import classNames from 'classnames';
 
 import { useTheme } from '../../../hooks';
 import {
@@ -43,7 +44,6 @@ export const LivenessCameraModule = (
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const freshnessColorRef = useRef<HTMLDivElement | null>(null);
-  const videoContainerRef = useRef<HTMLDivElement | null>(null);
 
   const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
@@ -110,18 +110,22 @@ export const LivenessCameraModule = (
   }
 
   return (
-    <Flex className={LivenessClassNames.CameraModule}>
+    <Flex
+      className={classNames(
+        LivenessClassNames.CameraModule,
+        isMobileScreen && `${LivenessClassNames.CameraModule}--mobile`
+      )}
+    >
       {!isCameraReady && centeredLoader}
 
       <View
         as="canvas"
         ref={freshnessColorRef}
-        className={LivenessClassNames.CameraModuleCanvas}
+        className={LivenessClassNames.FreshnessCanvas}
         hidden
       />
       <div
-        className={LivenessClassNames.VideoContainer}
-        ref={videoContainerRef}
+        className={LivenessClassNames.VideoAnchor}
         style={{
           aspectRatio: `${aspectRatio}`,
         }}
@@ -139,59 +143,67 @@ export const LivenessCameraModule = (
           className={LivenessClassNames.CameraModuleVideo}
         />
         <Flex
-          className={`${LivenessClassNames.OvalCanvas} ${
-            isRecordingStopped ? LivenessClassNames.FadeOut : ''
-          }`}
+          className={classNames(
+            LivenessClassNames.OvalCanvas,
+            isMobileScreen && `${LivenessClassNames.OvalCanvas}--mobile`,
+            isRecordingStopped && LivenessClassNames.FadeOut
+          )}
         >
           <View as="canvas" width="100%" height="100%" ref={canvasRef} />
         </Flex>
-      </div>
 
-      {isRecording && (
-        <View className={LivenessClassNames.CameraModuleRecordingIconContainer}>
-          <RecordingIcon />
-        </View>
-      )}
+        {isRecording && (
+          <View
+            className={LivenessClassNames.CameraModuleRecordingIconContainer}
+          >
+            <RecordingIcon />
+          </View>
+        )}
 
-      {!isCheckSucceeded && (
-        <View className={LivenessClassNames.CameraModuleCancelButtonContainer}>
-          <CancelButton />
-        </View>
-      )}
+        {!isCheckSucceeded && (
+          <View
+            className={LivenessClassNames.CameraModuleCancelButtonContainer}
+          >
+            <CancelButton />
+          </View>
+        )}
 
-      {countDownRunning && (
-        <Overlay
-          anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
-          className={LivenessClassNames.CameraModuleOverlayCountdown}
-        >
-          <Instruction />
+        {countDownRunning && (
+          <Overlay
+            anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
+            className={LivenessClassNames.CameraModuleOverlayCountdown}
+          >
+            <Instruction />
 
-          {isNotRecording && (
-            <View
-              className={LivenessClassNames.CameraModuleCountdownTimerContainer}
-              testId="liveness-camera-countdown-timer"
-            >
-              <CountdownCircleTimer
-                isPlaying={isNotRecording}
-                size={85}
-                strokeWidth={8}
-                duration={3}
-                rotation="counterclockwise"
-                // FIXME: colors is hard coded because it only allows a hex value
-                colors="#40aabf"
-                trailColor={`${tokens.colors.background.primary}`}
-                onComplete={timerCompleteHandler}
+            {isNotRecording && (
+              <View
+                className={
+                  LivenessClassNames.CameraModuleCountdownTimerContainer
+                }
+                testId="liveness-camera-countdown-timer"
               >
-                {({ remainingTime }) => (
-                  <Text fontSize="xxxl" fontWeight="bold">
-                    {remainingTime}
-                  </Text>
-                )}
-              </CountdownCircleTimer>
-            </View>
-          )}
-        </Overlay>
-      )}
+                <CountdownCircleTimer
+                  isPlaying={isNotRecording}
+                  size={85}
+                  strokeWidth={8}
+                  duration={3}
+                  rotation="counterclockwise"
+                  // FIXME: colors is hard coded because it only allows a hex value
+                  colors="#40aabf"
+                  trailColor={`${tokens.colors.background.primary}`}
+                  onComplete={timerCompleteHandler}
+                >
+                  {({ remainingTime }) => (
+                    <Text fontSize="xxxl" fontWeight="bold">
+                      {remainingTime}
+                    </Text>
+                  )}
+                </CountdownCircleTimer>
+              </View>
+            )}
+          </Overlay>
+        )}
+      </div>
     </Flex>
   );
 };

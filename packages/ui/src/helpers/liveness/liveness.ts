@@ -143,12 +143,14 @@ export function getStaticLivenessOvalDetails({
 export function drawLivenessOvalInCanvas(
   canvas: HTMLCanvasElement,
   oval: LivenessOvalDetails,
-  scaleFactor: number
+  scaleFactor: number,
+  isMobile: boolean,
+  videoEl: HTMLVideoElement
 ) {
   const { flippedCenterX, centerY, width, height } = oval;
 
-  const canvasWidth = canvas.width;
-  const canvasHeight = canvas.height;
+  const { width: canvasWidth, height: canvasHeight } =
+    canvas.getBoundingClientRect();
   const ctx = canvas.getContext('2d');
 
   if (ctx) {
@@ -158,8 +160,18 @@ export function drawLivenessOvalInCanvas(
     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-    // Set the transform to scale and center on canvas
-    ctx.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
+    // On mobile our canvas is the width/height of the full screen.
+    // We need to calculate horizontal and vertical translation to reposition
+    // our canvas drawing so the oval is still placed relative to the dimensions
+    // of the video element.
+    const baseDims = { width: videoEl.videoWidth, height: videoEl.videoHeight };
+
+    const translate = {
+      x: (canvasWidth - baseDims.width * scaleFactor) / 2,
+      y: (canvasHeight - baseDims.height * scaleFactor) / 2,
+    };
+    // Set the transform to scale
+    ctx.setTransform(scaleFactor, 0, 0, scaleFactor, translate.x, translate.y);
 
     // draw the oval path
     ctx.beginPath();
@@ -500,7 +512,7 @@ interface FillOverlayCanvasFractionalInput {
   overlayCanvas: HTMLCanvasElement;
   prevColor: string;
   nextColor: string;
-  ovalCanvas: HTMLCanvasElement;
+  videoEl: HTMLVideoElement;
   ovalDetails: LivenessOvalDetails;
   heightFraction: number;
   scaleFactor: number;
@@ -513,19 +525,17 @@ export function fillOverlayCanvasFractional({
   overlayCanvas,
   prevColor,
   nextColor,
-  ovalCanvas,
+  videoEl,
   ovalDetails,
   heightFraction,
   scaleFactor,
 }: FillOverlayCanvasFractionalInput) {
-  const boudingRect = ovalCanvas.getBoundingClientRect();
-  const ovalCanvasX = boudingRect.x;
-  const ovalCanvasY = boudingRect.y;
+  const { x: videoX, y: videoY } = videoEl.getBoundingClientRect();
 
   const { flippedCenterX, centerY, width, height } = ovalDetails;
 
-  const updatedCenterX = flippedCenterX * scaleFactor + ovalCanvasX;
-  const updatedCenterY = centerY * scaleFactor + ovalCanvasY;
+  const updatedCenterX = flippedCenterX * scaleFactor + videoX;
+  const updatedCenterY = centerY * scaleFactor + videoY;
 
   const canvasWidth = overlayCanvas.width;
   const canvasHeight = overlayCanvas.height;
@@ -546,7 +556,7 @@ export function fillOverlayCanvasFractional({
 
     // draw the rectangle path and fill it
     ctx.beginPath();
-    ctx.rect(ovalCanvasX, ovalCanvasY, ovalCanvas.width, ovalCanvas.height);
+    ctx.rect(0, 0, canvasWidth, canvasHeight);
     ctx.clip();
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);

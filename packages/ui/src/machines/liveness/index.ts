@@ -983,6 +983,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             canvasEl,
             videoMediaStream,
             recordingStartTimestampMs,
+            isMobile,
           },
           ovalAssociatedParams: { faceDetector },
           serverSessionInformation,
@@ -1033,8 +1034,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { width: videoScaledWidth, height: videoScaledHeight } =
           videoEl.getBoundingClientRect();
 
-        canvasEl.width = videoScaledWidth;
-        canvasEl.height = videoScaledHeight;
+        if (isMobile) {
+          canvasEl.width = window.innerWidth;
+          canvasEl.height = window.innerHeight;
+        } else {
+          canvasEl.width = videoScaledWidth;
+          canvasEl.height = videoScaledHeight;
+        }
 
         // Compute scaleFactor which is how much our video element is scaled
         // vs the intrinsic video resolution
@@ -1057,7 +1063,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initialFace.width = renormalizedFace.right - renormalizedFace.left;
 
         // Draw oval in canvas using ovalDetails and scaleFactor
-        drawLivenessOvalInCanvas(canvasEl, ovalDetails, scaleFactor);
+        drawLivenessOvalInCanvas(
+          canvasEl,
+          ovalDetails,
+          scaleFactor,
+          isMobile,
+          videoEl
+        );
         ovalDrawnTimestamp = Date.now();
 
         return {
