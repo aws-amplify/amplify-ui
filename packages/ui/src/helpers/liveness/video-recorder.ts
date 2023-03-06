@@ -104,7 +104,6 @@ export class VideoRecorder {
 
           this._recorder.onstop = () => {
             this.recorderEndTimestamp = Date.now();
-            console.log(`videoStopTime: ${this.recorderEndTimestamp}`);
             resolve();
           };
         },

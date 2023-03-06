@@ -29,10 +29,8 @@ export class BlazeFaceFaceDetection extends FaceDetection {
 
   async loadModels() {
     if (isWebAssemblySupported()) {
-      console.log('Loading WebAssembly backend');
       await this._loadWebAssemblyBackend();
     } else {
-      console.log('Loading CPU backend');
       await this._loadCPUBackend();
     }
 
