@@ -7,7 +7,6 @@ import {
   AuthContext,
   AuthMachineState,
 } from '../../types';
-import { includes } from '../../utils';
 
 export const getPrimaryAlias = (state: AuthMachineState) => {
   const loginMechanisms = state?.context.config?.loginMechanisms;
@@ -22,7 +21,7 @@ export const getPrimaryAlias = (state: AuthMachineState) => {
 export const getConfiguredAliases = (context: AuthContext) => {
   const loginMechanisms = context.config?.loginMechanisms;
   const aliases = loginMechanisms.filter((mechanism) =>
-    includes(LoginMechanismArray, mechanism)
+    LoginMechanismArray.includes(mechanism)
   );
 
   const [primaryAlias, ...secondaryAliases] = aliases;

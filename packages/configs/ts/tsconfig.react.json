@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    // https://www.typescriptlang.org/tsconfig#jsx
+    "jsx": "react"
+  }
+}

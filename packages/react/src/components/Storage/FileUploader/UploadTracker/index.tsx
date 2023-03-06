@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { translate } from '@aws-amplify/ui';
 import { humanFileSize } from '@aws-amplify/ui';
-import { TrackerProps } from '../types';
+import { FileState, TrackerProps } from '../types';
 import {
   View,
   Image,
@@ -41,7 +41,7 @@ export function UploadTracker({
 
   // Focus the input after pressing the edit button
   React.useEffect(() => {
-    if (fileState === 'editing' && inputRef.current) {
+    if (fileState === FileState.EDITING && inputRef.current) {
       inputRef.current.focus();
     }
   }, [fileState]);
@@ -52,8 +52,8 @@ export function UploadTracker({
   const isDeterminate = isResumable ? percentage > 0 : true;
 
   const showEditButton =
-    fileState === null ||
-    (fileState === 'error' &&
+    fileState === FileState.INIT ||
+    (fileState === FileState.ERROR &&
       errorMessage === translate('Extension not allowed'));
 
   const DisplayView = useCallback(
@@ -64,17 +64,23 @@ export function UploadTracker({
             {name}
           </Text>
         </View>
+        {showEditButton ? (
+          <Button onClick={onStartEdit} size="small" variation="link">
+            <VisuallyHidden>Edit file name {file.name}</VisuallyHidden>
+            <IconEdit aria-hidden fontSize="medium" />
+          </Button>
+        ) : null}
         <Text as="span" className={ComponentClassNames.FileUploaderFileSize}>
           {humanFileSize(size, true)}
         </Text>
       </>
     ),
-    [name, size]
+    [file.name, name, onStartEdit, showEditButton, size]
   );
 
   const Actions = useCallback(() => {
     switch (fileState) {
-      case 'editing':
+      case FileState.EDITING:
         return (
           <>
             <Button
@@ -97,36 +103,28 @@ export function UploadTracker({
             </Button>
           </>
         );
-      case 'resume':
-      case 'loading':
+      case FileState.RESUME:
+      case FileState.LOADING:
         if (!isResumable) return null;
         return (
           <Button onClick={onPause} size="small" variation="link">
             {translate('pause')}
           </Button>
         );
-      case 'paused':
+      case FileState.PAUSED:
         return (
           <Button onClick={onResume} size="small" variation="link">
             {translate('Resume')}
           </Button>
         );
-      case 'success':
+      case FileState.SUCCESS:
         return null;
       default:
         return (
-          <>
-            {showEditButton ? (
-              <Button onClick={onStartEdit} size="small" variation="link">
-                <VisuallyHidden>Edit file name {file.name}</VisuallyHidden>
-                <IconEdit aria-hidden fontSize="medium" />
-              </Button>
-            ) : null}
-            <Button size="small" onClick={onCancel}>
-              <VisuallyHidden>Remove file name {file.name}</VisuallyHidden>
-              <IconClose aria-hidden fontSize="medium" />
-            </Button>
-          </>
+          <Button size="small" onClick={onCancel}>
+            <VisuallyHidden>Remove file name {file.name}</VisuallyHidden>
+            <IconClose aria-hidden fontSize="medium" />
+          </Button>
         );
     }
   }, [
@@ -139,8 +137,6 @@ export function UploadTracker({
     onPause,
     onResume,
     onSaveEdit,
-    onStartEdit,
-    showEditButton,
     tempName,
   ]);
 
@@ -156,7 +152,7 @@ export function UploadTracker({
         ) : null}
 
         {/* Main View */}
-        {fileState === 'editing' ? (
+        {fileState === FileState.EDITING ? (
           // Wrapping this text field in a form with onSubmit will allow keyboard
           // users to press enter to save changes.
           <View
@@ -185,7 +181,7 @@ export function UploadTracker({
 
         <Actions />
 
-        {fileState === 'loading' ? (
+        {fileState === FileState.LOADING ? (
           <Loader
             className={ComponentClassNames.FileUploaderLoader}
             variation="linear"

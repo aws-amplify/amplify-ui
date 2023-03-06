@@ -40,14 +40,15 @@ export const TerminalCommand = ({
     : frameworkInstallScript(framework, packageManager);
 
   return (
-    <code className={`install-code__container ${variant}`}>
-      <p className="install-code__content">{terminalCommand}</p>
+    <div className={`install-code__container ${variant}`}>
+      <code className="install-code__content">{terminalCommand}</code>
       <CopyButton
         className="install-code__button"
         copyText={terminalCommand}
+        size="small"
         variation="link"
       />
-    </code>
+    </div>
   );
 };
 

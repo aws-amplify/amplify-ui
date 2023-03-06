@@ -14,6 +14,7 @@ type EvtName =
 describe(`All pages on Sitemap`, () => {
   let allLinks = [];
   const requestedLinks: Set<string> = new Set();
+  const requestLinkNumberPage: { [key: string]: number } = {};
 
   before(() => {
     cy.request('sitemap.xml').then((response) => {
@@ -34,15 +35,22 @@ describe(`All pages on Sitemap`, () => {
     allLinks.forEach((link, idx) => {
       cy.task('log', `🧪[TESTING...] page #${idx} ${BASE_URL}/${link}`);
       cy.visit({ url: link || '/', qs: { cypress: true } });
-
+      requestLinkNumberPage[link] = 0;
       /** Check all the internal links */
-      cy.get(`a[href^='/']`).each((el) => hrefOnSitemap(el, link, allLinks));
+      cy.get(`a[href^='/']`).each((el) => {
+        requestLinkNumberPage[link]++;
+        hrefOnSitemap(el, link, allLinks);
+      });
 
       /** Check all the external links */
-      cy.get(`a:not([href^='/'])`).each((el) =>
-        hrefWorks(el, link, requestedLinks)
-      );
+      cy.get(`a:not([href^='/'])`).each((el) => {
+        requestLinkNumberPage[link]++;
+        hrefWorks(el, link, requestedLinks);
+      });
     });
+    cy.task('log', `🎉 ${allLinks.length} pages tested.`);
+    cy.task('log', `Here are numbers of links tested on each page`);
+    cy.task('logTable', requestLinkNumberPage);
   });
 });
 

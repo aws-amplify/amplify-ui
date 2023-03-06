@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { isFunction } from '@aws-amplify/ui';
 import {
   MessageComponentBaseProps,
   MessageLayout,
@@ -64,10 +65,9 @@ export const getComponentButtonStyle = ({
 
       // pass `pressed` to containerOverrideStyle and evaluate if the consumer passed a function for custom
       // button style
-      const containerOverrideFinalStyle =
-        typeof containerOverrideStyle === 'function'
-          ? containerOverrideStyle({ pressed })
-          : containerOverrideStyle;
+      const containerOverrideFinalStyle = isFunction(containerOverrideStyle)
+        ? containerOverrideStyle({ pressed })
+        : containerOverrideStyle;
 
       return [
         pressedOpacity,

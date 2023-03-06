@@ -71,14 +71,16 @@ export interface FileStatus extends Partial<FileStateProps> {
 
 export type FileStatuses = FileStatus[];
 
-export type FileState =
-  | 'paused'
-  | 'success'
-  | 'error'
-  | 'loading'
-  | 'resume'
-  | 'editing'
-  | null;
+export enum FileState {
+  PAUSED = 'paused',
+  SUCCESS = 'success',
+  ERROR = 'error',
+  LOADING = 'loading',
+  RESUME = 'resume',
+  EDITING = 'editing',
+  INIT = 'init',
+}
+
 export interface FileStateProps {
   fileState: FileState;
   errorMessage: string;

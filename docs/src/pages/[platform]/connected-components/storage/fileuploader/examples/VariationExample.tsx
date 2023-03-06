@@ -6,12 +6,14 @@ export const VariationExample = () => {
         variation="drop"
         acceptedFileTypes={['image/*']}
         accessLevel="public"
+        // @ts-ignore // IGNORE
         provider="fast" // IGNORE
       />
       <FileUploader
         variation="button"
         acceptedFileTypes={['image/*']}
         accessLevel="public"
+        // @ts-ignore // IGNORE
         provider="fast" // IGNORE
       />
     </>

@@ -1,5 +1,6 @@
-import React from 'react';
-
+/**
+ * `Authenticator` Example and Demo Apps
+ */
 import Example from '../features/Authenticator/Demo/Example';
 // import Example from '../features/Authenticator/Basic/Example';
 // import Example from '../features/Authenticator/Component/Example';
@@ -8,11 +9,16 @@ import Example from '../features/Authenticator/Demo/Example';
 // import Example from '../features/Authenticator/LabelHidden/Example';
 // import Example from '../features/Authenticator/Slots/Example';
 // import Example from '../features/Authenticator/Styles/Example';
-// import Example from '../features/Authenticator/Theming/DarkMode';
-// import { Demo as InAppDemo } from '../features/InAppMessaging';
 
-const App = () => {
-  return <Example />;
-};
+/**
+ * `InAppMessaging` Example and Demo Apps
+ */
+// import Example from '../features/InAppMessaging/Demo/Example';
 
-export default App;
+/**
+ * `Theming` Example and Demo Apps
+ */
+// import Example from '../features/Theming/Basic/Example';
+// import Example from '../features/Theming/DarkMode/Example';
+
+export default Example;
