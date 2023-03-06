@@ -1,5 +1,5 @@
 import { StyleSheet, ViewStyle } from 'react-native';
-import { StrictTheme } from 'src/theme';
+import { StrictTheme } from '../../../theme';
 
 import { ContainerStyles, InnerContainerStyles } from './types';
 

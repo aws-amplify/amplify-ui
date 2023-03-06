@@ -7,7 +7,7 @@ import {
   INVALID_OVERRIDES,
   INVALID_SIGN_IN_OVERRIDES,
   OVERRIDES,
-} from '../__mock__/components';
+} from '../__mocks__/components';
 
 describe('isComponentRouteKey', () => {
   it.each(COMPONENT_ROUTE_KEYS)('returns true for a %s value', (route) => {
