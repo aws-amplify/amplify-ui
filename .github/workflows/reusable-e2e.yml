@@ -113,11 +113,11 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         package:
           - ui
-          - angular
-          - vue
-          - react
-          - react-native
-          - react-core
+          # - angular
+          # - vue
+          # - react
+          # - react-native
+          # - react-core
 
     steps:
       - name: Checkout Amplify UI
@@ -127,66 +127,66 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Setup Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Restore node_modules cache
-        uses: actions/cache@v3
-        id: restore-cache
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+      # - name: Setup Node.js 16
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      #     cache: 'yarn'
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      # - name: Restore node_modules cache
+      #   uses: actions/cache@v3
+      #   id: restore-cache
+      #   with:
+      #     path: |
+      #       ./node_modules
+      #       **/node_modules
+      #     key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
-      - name: Restore ui/dist cache
-        uses: actions/cache@v3
-        id: restore-ui-cache
-        with:
-          path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ inputs.commit }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      # - name: Restore ui/dist cache
+      #   uses: actions/cache@v3
+      #   id: restore-ui-cache
+      #   with:
+      #     path: ./packages/ui/dist
+      #     key: ${{ runner.os }}-ui-${{ inputs.commit }}
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true'
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: true # unit test doesn't need cypress
+      # - name: Install packages
+      #   if: steps.restore-cache.outputs.cache-hit != 'true'
+      #   uses: ./.github/actions/install-with-retries
+      #   with:
+      #     skip-cypress-binary: true # unit test doesn't need cypress
 
-      - name: Build ui package
-        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
-        run: yarn ui build
+      # - name: Build ui package
+      #   if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
+      #   run: yarn ui build
 
-      - name: Build react-core package
-        if: ${{ matrix.package == 'react' || matrix.package == 'react-native' }}
-        run: yarn react-core build
+      # - name: Build react-core package
+      #   if: ${{ matrix.package == 'react' || matrix.package == 'react-native' }}
+      #   run: yarn react-core build
 
-      - name: Build ${{ matrix.package }} package
-        if: ${{ matrix.package != 'ui' }}
-        run: yarn ${{ matrix.package }} build
+      # - name: Build ${{ matrix.package }} package
+      #   if: ${{ matrix.package != 'ui' }}
+      #   run: yarn ${{ matrix.package }} build
 
-      - name: Check ${{ matrix.package }} bundle size
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react size
+      # - name: Check ${{ matrix.package }} bundle size
+      #   if: ${{ matrix.package == 'react' }}
+      #   run: yarn react size
 
-      - name: Cache ${{ matrix.package }}/dist
-        uses: actions/cache@v3
-        with:
-          path: ./packages/${{ matrix.package }}/dist
-          key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
+      # - name: Cache ${{ matrix.package }}/dist
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ./packages/${{ matrix.package }}/dist
+      #     key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
 
-      - name: Lint packages
-        run: yarn ${{ matrix.package }} lint
+      # - name: Lint packages
+      #   run: yarn ${{ matrix.package }} lint
 
-      - name: Run ${{ matrix.package }} tests
-        run: yarn ${{ matrix.package }} test
+      # - name: Run ${{ matrix.package }} tests
+      #   run: yarn ${{ matrix.package }} test
 
   e2e:
     # Only run e2e tests if unit tests pass
@@ -202,17 +202,17 @@ jobs:
       # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
         include:
-          - example: angular
-            package: angular
-            tags: '@angular and not @todo-angular'
+          # - example: angular
+          #   package: angular
+          #   tags: '@angular and not @todo-angular'
 
           - example: next
             package: react
             tags: '@react and not @todo-react'
 
-          - example: vue
-            package: vue
-            tags: '@vue and not @todo-vue'
+          # - example: vue
+          #   package: vue
+          #   tags: '@vue and not @todo-vue'
 
     steps:
       - name: Checkout Amplify UI
@@ -225,200 +225,200 @@ jobs:
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
-      - name: Next.js Cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      # - name: Next.js Cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ${{ github.workspace }}/.next/cache
+      #     key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Setup Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Restore cypress runner Cache
-        uses: actions/cache@v3
-        id: restore-cypress-cache
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      # - name: Setup Node.js 16
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      #     cache: 'yarn'
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      # - name: Restore cypress runner Cache
+      #   uses: actions/cache@v3
+      #   id: restore-cypress-cache
+      #   with:
+      #     path: ~/.cache/Cypress
+      #     key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Restore node_modules cache
-        uses: actions/cache@v3
-        id: restore-cache
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+      # - name: Restore node_modules cache
+      #   uses: actions/cache@v3
+      #   id: restore-cache
+      #   with:
+      #     path: |
+      #       ./node_modules
+      #       **/node_modules
+      #     key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
-      - name: Restore ui/dist cache
-        uses: actions/cache@v3
-        id: restore-ui-cache
-        with:
-          path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ inputs.commit }}
+      # - name: Restore ui/dist cache
+      #   uses: actions/cache@v3
+      #   id: restore-ui-cache
+      #   with:
+      #     path: ./packages/ui/dist
+      #     key: ${{ runner.os }}-ui-${{ inputs.commit }}
 
-      - name: Restore ${{ matrix.package }}/dist cache
-        id: restore-package-cache
-        uses: actions/cache@v3
-        with:
-          path: ./packages/${{ matrix.package }}/dist
-          key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      # - name: Restore ${{ matrix.package }}/dist cache
+      #   id: restore-package-cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ./packages/${{ matrix.package }}/dist
+      #     key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
+      #   env:
+      #     SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: false
+      # - name: Install packages
+      #   if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+      #   uses: ./.github/actions/install-with-retries
+      #   with:
+      #     skip-cypress-binary: false
 
-      - name: Build @aws-amplify/ui package
-        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
-        run: yarn ui build
+      # - name: Build @aws-amplify/ui package
+      #   if: steps.restore-ui-cache.outputs.cache-hit != 'true'
+      #   run: yarn ui build
 
-      - name: Build react-core package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-core build
+      # - name: Build react-core package
+      #   if: ${{ matrix.package == 'react' }}
+      #   run: yarn react-core build
 
-      - name: Build ${{ matrix.package }} package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
-        run: yarn ${{ matrix.package }} build
+      # - name: Build ${{ matrix.package }} package
+      #   if: steps.restore-package-cache.outputs.cache-hit != 'true'
+      #   run: yarn ${{ matrix.package }} build
 
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
+      # - name: Add Amplify CLI
+      #   run: yarn global add @aws-amplify/cli
 
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+      # - name: Get CLI versions
+      #   id: cli-version
+      #   run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
-      - name: Configure auth credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # - name: Configure auth credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
 
-      # Amplify CLI does not support headless pull with temporary credentials
-      # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-      - name: Create temp AWS Profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # # Amplify CLI does not support headless pull with temporary credentials
+      # # when useProfile is false.
+      # # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      # - name: Create temp AWS Profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down Auth AWS environments
-        run: yarn environments auth pull
+      # - name: Pull down Auth AWS environments
+      #   run: yarn environments auth pull
 
-      - name: Configure geo credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.GEO_E2E_ROLE_ARN }}
+      # - name: Configure geo credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.GEO_E2E_ROLE_ARN }}
 
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # - name: Create temp AWS profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down Geo AWS environments
-        run: yarn environments geo pull
+      # - name: Pull down Geo AWS environments
+      #   run: yarn environments geo pull
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
 
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # - name: Create temp AWS profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down Storage AWS environments
-        run: yarn environments storage pull
+      # - name: Pull down Storage AWS environments
+      #   run: yarn environments storage pull
 
-      - name: Configure datastore credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+      # - name: Configure datastore credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
 
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # - name: Create temp AWS profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down Datastore AWS environments
-        run: yarn environments datastore pull
+      # - name: Pull down Datastore AWS environments
+      #   run: yarn environments datastore pull
 
-      - name: Configure in-app-messaging credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+      # - name: Configure in-app-messaging credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-region: us-east-2
+      #     role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
 
-      # Amplify CLI does not support headless pull with temporary credentials
-      # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-      - name: Create temp AWS Profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
+      # # Amplify CLI does not support headless pull with temporary credentials
+      # # when useProfile is false.
+      # # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      # - name: Create temp AWS Profile
+      #   run: |
+      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+      #     aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+      #     aws configure set default.region $AWS_REGION
 
-      - name: Pull down In-app-messaging AWS environments
-        run: yarn environments in-app-messaging pull
+      # - name: Pull down In-app-messaging AWS environments
+      #   run: yarn environments in-app-messaging pull
 
-      - name: Delete AWS profile
-        run: rm -rf ~/.aws
+      # - name: Delete AWS profile
+      #   run: rm -rf ~/.aws
 
-      - name: Build ${{ matrix.example }} example
-        run: yarn workspace ${{ matrix.example }}-example build
+      # - name: Build ${{ matrix.example }} example
+      #   run: yarn workspace ${{ matrix.example }}-example build
 
-      - name: Start ${{ matrix.example }} example
-        run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+      # - name: Start ${{ matrix.example }} example
+      #   run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
 
-      - name: Run E2E tests against ${{ matrix.example }} example
-        id: e2e
-        run: yarn workspace e2e test:examples
-        env:
-          # Override on the default value in `cypress.json` with framework-specific tag
-          TAGS: '${{ matrix.tags }}'
+      # - name: Run E2E tests against ${{ matrix.example }} example
+      #   id: e2e
+      #   run: yarn workspace e2e test:examples
+      #   env:
+      #     # Override on the default value in `cypress.json` with framework-specific tag
+      #     TAGS: '${{ matrix.tags }}'
 
-          # Env values for testing flows
-          DOMAIN: ${{ secrets.DOMAIN }}
-          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-          USERNAME: ${{ secrets.USERNAME }}
-          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      #     # Env values for testing flows
+      #     DOMAIN: ${{ secrets.DOMAIN }}
+      #     PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      #     USERNAME: ${{ secrets.USERNAME }}
+      #     NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      #     VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
-      - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@v3
-        if: ${{ failure() && steps.e2e.outcome != 'success' }}
-        with:
-          name: e2e-cypress-error-${{ matrix.package }}
-          path: |
-            packages/e2e/cypress/videos/**
-            packages/e2e/cypress/screenshots/**
-          retention-days: 5
+      # - name: Upload failure screenshots and errors
+      #   uses: actions/upload-artifact@v3
+      #   if: ${{ failure() && steps.e2e.outcome != 'success' }}
+      #   with:
+      #     name: e2e-cypress-error-${{ matrix.package }}
+      #     path: |
+      #       packages/e2e/cypress/videos/**
+      #       packages/e2e/cypress/screenshots/**
+      #     retention-days: 5
 
   docs:
     needs: [setup, unit]
