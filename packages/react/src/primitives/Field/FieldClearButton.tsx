@@ -11,8 +11,8 @@ const FieldClearButtonPrimitive: Primitive<FieldClearButtonProps, 'button'> = (
   { ariaLabel = ariaLabelText, size, ...rest },
   ref
 ) => (
-  <FieldGroupIconButton ariaLabel={ariaLabel} ref={ref} {...rest}>
-    <IconClose size={size} />
+  <FieldGroupIconButton ariaLabel={ariaLabel} size={size} ref={ref} {...rest}>
+    <IconClose />
   </FieldGroupIconButton>
 );
 

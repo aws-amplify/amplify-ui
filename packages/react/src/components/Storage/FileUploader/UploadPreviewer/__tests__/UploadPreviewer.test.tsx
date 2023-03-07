@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import { UploadPreviewer } from '..';
 
-import { FileStatus, FileStatuses } from '../../types';
+import { FileState, FileStatus, FileStatuses } from '../../types';
 import { ComponentClassNames } from '../../../../../primitives';
 
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
@@ -14,7 +14,7 @@ const fileStatus: FileStatus = {
   errorMessage: '',
   file: fakeFile,
   fileErrors: '',
-  fileState: null,
+  fileState: FileState.INIT,
   name: 'hello.png',
   percentage: 0,
   uploadTask: undefined,
@@ -64,7 +64,7 @@ describe('UploadPreviewer', () => {
         fileStatuses={[
           {
             ...fileStatus,
-            fileState: 'editing',
+            fileState: FileState.EDITING,
           },
         ]}
       />
@@ -88,7 +88,7 @@ describe('UploadPreviewer', () => {
       errorMessage: '',
       file: fakeFile,
       fileErrors: '',
-      fileState: 'success',
+      fileState: FileState.SUCCESS,
       name: 'hello.png',
       percentage: 0,
       uploadTask: undefined,
@@ -115,7 +115,7 @@ describe('UploadPreviewer', () => {
       errorMessage: 'error',
       file: fakeFile,
       fileErrors: '',
-      fileState: 'error',
+      fileState: FileState.ERROR,
       name: 'hello.png',
       percentage: 0,
       uploadTask: undefined,
@@ -129,7 +129,7 @@ describe('UploadPreviewer', () => {
       errorMessage: 'error',
       file: fakeFile,
       fileErrors: '',
-      fileState: 'success',
+      fileState: FileState.SUCCESS,
       name: 'hello.png',
       percentage: 0,
       uploadTask: undefined,

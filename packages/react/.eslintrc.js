@@ -44,7 +44,7 @@ module.exports = {
       files: ['**/*.spec.*', '**/*.test.*'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        project: ['./tsconfig.dev.json'],
+        project: ['./tsconfig.json'],
       },
       plugins: ['@typescript-eslint', 'jest'],
       rules: {

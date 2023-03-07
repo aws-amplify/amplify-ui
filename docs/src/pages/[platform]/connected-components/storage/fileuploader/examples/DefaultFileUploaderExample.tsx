@@ -4,6 +4,7 @@ export const DefaultFileUploaderExample = () => {
     <FileUploader
       acceptedFileTypes={['image/*']}
       accessLevel="public"
+      // @ts-ignore // IGNORE
       provider="fast" // IGNORE
     />
   );

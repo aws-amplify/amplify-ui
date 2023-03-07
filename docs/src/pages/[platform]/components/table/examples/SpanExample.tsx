@@ -6,20 +6,32 @@ export const SpanExample = () => (
       <TableRow>
         <TableCell />
         <TableCell />
-        <TableCell colspan="2" />
+        <TableCell
+          // @ts-ignore // IGNORE
+          colspan="2"
+        />
       </TableRow>
       <TableRow>
-        <TableCell rowspan="3" />
+        <TableCell
+          // @ts-ignore // IGNORE
+          rowspan="3"
+        />
         <TableCell />
         <TableCell />
-        <TableCell rowspan="3" />
+        <TableCell
+          // @ts-ignore // IGNORE
+          rowspan="3"
+        />
       </TableRow>
       <TableRow>
         <TableCell />
         <TableCell />
       </TableRow>
       <TableRow>
-        <TableCell colspan="3" />
+        <TableCell
+          // @ts-ignore // IGNORE
+          colspan="3"
+        />
       </TableRow>
     </TableBody>
   </Table>

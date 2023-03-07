@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { KeyboardAvoidingView, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { useDeviceOrientation } from '../../../hooks';
 import { useTheme } from '../../../theme';
 import { platform } from '../../../utils';
 
@@ -17,10 +16,6 @@ const BEHAVIOR = platform.IS_IOS ? 'padding' : 'height';
 // otherwise dismiss
 const KEYBOARD_SHOULD_PERSIST_TAPS = 'handled';
 
-// TEMPORARY: value to prevent initial `TextField` from being pushed too high
-// in default use case
-const KEYBOARD_VERTICAL_OFFSET = platform.IS_IOS ? -160 : -80;
-
 export default function DefaultContainer({
   alwaysBounceVertical = ALWAYS_BOUNCE_VERTICAL,
   behavior = BEHAVIOR,
@@ -33,13 +28,7 @@ export default function DefaultContainer({
   ...rest
 }: ContainerProps): JSX.Element | null {
   const theme = useTheme();
-  const { isPortraitMode } = useDeviceOrientation();
   const insets = useSafeAreaInsets();
-
-  const verticalOffset =
-    keyboardVerticalOffset ?? isPortraitMode
-      ? KEYBOARD_VERTICAL_OFFSET
-      : undefined;
 
   const themedStyle = useMemo(() => {
     const { bottom, left, right, top } = insets;
@@ -54,7 +43,7 @@ export default function DefaultContainer({
   return (
     <KeyboardAvoidingView
       behavior={behavior}
-      keyboardVerticalOffset={verticalOffset}
+      keyboardVerticalOffset={keyboardVerticalOffset}
       style={[themedStyle.keyboardAvoidingView, keyboardAvoidingViewStyle]}
     >
       <ScrollView

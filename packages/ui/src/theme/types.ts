@@ -1,4 +1,4 @@
-import { PartialDeep } from 'type-fest';
+import { PartialDeep } from '../types';
 import { DefaultTokens, Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
 
