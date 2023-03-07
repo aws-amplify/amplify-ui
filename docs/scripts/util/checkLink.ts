@@ -78,7 +78,6 @@ async function returnStatus({
      * Otherwise, the link needs to be updated
      */
     if (statusCode === 308) {
-      console.log('🔥 page #', pageIdx, 'link: ', href);
       const hostNameRegex = RegExp(`http(s)?:\/\/[^/]*`, 'i'); // matches everything between http(s)?: to "/", which is the hostname. e.g., "https://github.com/".
       const platform = pageUrl.replace(hostNameRegex, '').split('/')[1];
       const newHref = `${
