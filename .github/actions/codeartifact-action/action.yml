@@ -1,0 +1,41 @@
+name: 'Return AWS CodeArtifact configuration'
+description: 'Returns the AWS CodeArtifact repository endpoint and token post configuring credentials'
+inputs:
+  role-to-assume:
+    description: 'The role to assume when configuring AWS CodeArtifact'
+    required: true
+  domain:
+    description: 'The AWS CodeArtifact domain'
+    required: true
+  repository:
+    description: 'The AWS CodeArtifact repository'
+    required: true
+outputs:
+  repository-endpoint:
+    description: 'The AWS CodeArtifact repository endpoint'
+    value: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
+
+  repository-token:
+    description: 'The AWS CodeArtifact authorization token'
+    value: ${{ steps.configure-codeartifact.outputs.repository-token }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@master
+      with:
+        role-to-assume: ${{ inputs.role-to-assume }}
+        aws-region: us-east-1
+
+    - name: Configure CodeArtifact
+      id: configure-codeartifact
+      shell: bash
+      run: |
+        ENDPOINT=`aws codeartifact get-repository-endpoint --domain $DOMAIN --repository $REPOSITORY --format npm --query repositoryEndpoint --output text`
+        NPM_TOKEN=`aws codeartifact get-authorization-token --domain $DOMAIN --query authorizationToken --output text`
+
+        echo "::set-output name=repository-endpoint::$ENDPOINT"
+        echo "::set-output name=repository-token::$NPM_TOKEN"
+      env:
+        DOMAIN: ${{ inputs.domain }}
+        REPOSITORY: ${{ inputs.repository }}
