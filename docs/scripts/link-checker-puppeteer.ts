@@ -3,7 +3,7 @@ import { sitePaths } from '../src/data/sitePaths';
 import { checkLink, crawlAllLinks } from './util';
 import type { LinkInfo } from './util';
 import {
-  defaultGoodStatusCode,
+  defaultGoodStatusCodes,
   promisePoolConcurrency,
 } from './data/constants';
 
@@ -14,6 +14,28 @@ import {
 const start = process.argv[2] ?? 0;
 const end = process.argv[3];
 const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
+
+function reportResult(links: LinkInfo[]) {
+  const errorLinks = links.filter((link) => {
+    const isInternalRedirection =
+      link.statusCode === 308 && link.href.includes('http://localhost:3000');
+    const goodStatusCodes = [0, ...defaultGoodStatusCodes];
+    return !goodStatusCodes.includes(link.statusCode) && !isInternalRedirection;
+  });
+
+  if (errorLinks.length) {
+    errorLinks.forEach(
+      ({ statusCode, pageIdx, linkIdx, href, tagName, tagText, pageUrl }) => {
+        console.error(
+          `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
+        );
+      }
+    );
+    throw new Error(`${errorLinks.length} broken links found`);
+  } else {
+    console.log('🎉 All links look good!');
+  }
+}
 
 async function runLinkChecker() {
   const allPagesPaths = await crawlAllLinks(testPaths);
@@ -47,28 +69,6 @@ async function runLinkChecker() {
 
   const links = results.reduce((acc, curr) => [...acc, ...curr.links], []);
   reportResult(links);
-}
-
-function reportResult(links: LinkInfo[]) {
-  const errorLinks = links.filter((link) => {
-    const isInternalRedirection =
-      link.statusCode === 308 && link.href.includes('http://localhost:3000');
-    const goodStatusCode = [0, ...defaultGoodStatusCode];
-    return !goodStatusCode.includes(link.statusCode) && !isInternalRedirection;
-  });
-
-  if (errorLinks.length) {
-    errorLinks.forEach(
-      ({ statusCode, pageIdx, linkIdx, href, tagName, tagText, pageUrl }) => {
-        console.error(
-          `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
-        );
-      }
-    );
-    throw new Error(`${errorLinks.length} broken links found`);
-  } else {
-    console.log('🎉 All links look good!');
-  }
 }
 
 try {
