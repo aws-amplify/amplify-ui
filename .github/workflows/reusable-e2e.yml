@@ -14,21 +14,15 @@ on:
         required: true
         type: string
     secrets:
-      AWS_ACCESS_KEY_ID_AUTH:
+      AUTH_E2E_ROLE_ARN:
         required: true
-      AWS_SECRET_ACCESS_KEY_AUTH:
+      GEO_E2E_ROLE_ARN:
         required: true
-      AWS_ACCESS_KEY_ID_DATASTORE:
+      STORAGE_E2E_ROLE_ARN:
         required: true
-      AWS_SECRET_ACCESS_KEY_DATASTORE:
+      DATASTORE_E2E_ROLE_ARN:
         required: true
-      AWS_ACCESS_KEY_ID_STORAGE:
-        required: true
-      AWS_SECRET_ACCESS_KEY_STORAGE:
-        required: true
-      AWS_ACCESS_KEY_ID_GEO:
-        required: true
-      AWS_SECRET_ACCESS_KEY_GEO:
+      IN_APP_MESSAGING_E2E_ROLE_ARN:
         required: true
       DOMAIN:
         required: true
@@ -299,29 +293,94 @@ jobs:
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
+      - name: Configure auth credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
       - name: Pull down Auth AWS environments
         run: yarn environments auth pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
+
+      - name: Configure geo credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.GEO_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
 
       - name: Pull down Geo AWS environments
         run: yarn environments geo pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
 
       - name: Pull down Storage AWS environments
         run: yarn environments storage pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE}}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE}}
+
+      - name: Configure datastore credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
 
       - name: Pull down Datastore AWS environments
         run: yarn environments datastore pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
+
+      - name: Configure in-app-messaging credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down In-app-messaging AWS environments
+        run: yarn environments in-app-messaging pull
+
+      - name: Delete AWS profile
+        run: rm -rf ~/.aws
 
       - name: Build ${{ matrix.example }} example
         run: yarn workspace ${{ matrix.example }}-example build

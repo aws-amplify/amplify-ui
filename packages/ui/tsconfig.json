@@ -1,17 +1,10 @@
 {
+  "extends": "../configs/ts/tsconfig.base.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "declaration": true,
-    "esModuleInterop": true,
-    "importHelpers": true,
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "strict": false,
-    "target": "es6"
+    "noImplicitAny": false,
+    "strict": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"]
+  "exclude": ["node_modules"]
 }

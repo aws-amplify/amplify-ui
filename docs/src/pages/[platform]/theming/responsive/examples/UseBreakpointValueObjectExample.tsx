@@ -1,4 +1,8 @@
-import { Alert, useBreakpointValue } from '@aws-amplify/ui-react';
+import {
+  Alert,
+  AlertVariations,
+  useBreakpointValue,
+} from '@aws-amplify/ui-react';
 
 export const UseBreakpointValueObjectExample = () => {
   const variation = useBreakpointValue({
@@ -6,7 +10,7 @@ export const UseBreakpointValueObjectExample = () => {
     small: 'warning',
     medium: 'error',
     large: 'success',
-  });
+  }) as AlertVariations;
 
   return <Alert variation={variation}>Responsive Alert</Alert>;
 };
