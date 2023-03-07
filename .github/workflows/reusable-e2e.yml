@@ -73,6 +73,14 @@ jobs:
         with:
           # only install binary if cypress cache missed
           skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+      - name: Restore Puppeteer runner from Cache
+        uses: actions/cache@v3
+        id: restore-puppeteer-cache
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
@@ -82,6 +90,13 @@ jobs:
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+      - name: Cache Puppeteer runner
+        # create new puppeteer cache entry only if puppeteer cache missed and we installed a new one.
+        if: steps.restore-puppeteer-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
       - name: Cache packages/ui/dist
         uses: actions/cache@v3
         with:
@@ -443,6 +458,15 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
+      - name: Restore Puppeteer runner cache
+        uses: actions/cache@v3
+        id: restore-puppeteer-cache
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
       - name: Restore node_modules cache
         uses: actions/cache@v3
         id: restore-cache
@@ -455,7 +479,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-puppeteer-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: false
@@ -479,6 +503,10 @@ jobs:
 
       - name: Start docs site
         run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+
+      - name: Run Docs link checker
+        run: yarn docs test:links
+        id: link-checker
 
       - name: Run E2E tests against docs
         run: yarn workspace e2e test:theme
