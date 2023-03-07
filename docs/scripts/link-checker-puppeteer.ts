@@ -2,6 +2,10 @@ import { PromisePool } from '@supercharge/promise-pool';
 import { sitePaths } from '../src/data/sitePaths';
 import { checkLink, crawlAllLinks } from './util';
 import type { LinkInfo } from './util';
+import {
+  defaultGoodStatusCode,
+  promisePoolConcurrency,
+} from './data/constants';
 
 /**
  * Divide the sitePaths array so that we can easily run a smaller portion if needed.
@@ -20,11 +24,13 @@ try {
 async function runLinkChecker() {
   const allPagesPaths = await crawlAllLinks(testPaths);
 
-  const { results } = await PromisePool.withConcurrency(10)
+  const { results } = await PromisePool.withConcurrency(promisePoolConcurrency)
     .for(allPagesPaths)
     .process(async (pagePaths, pageIdx, pool) => {
       const { pageUrl, links } = pagePaths;
-      const { results } = await PromisePool.withConcurrency(10)
+      const { results } = await PromisePool.withConcurrency(
+        promisePoolConcurrency
+      )
         .for(links)
         .process(async ({ href, tagName, tagText }, linkIdx, pool) => {
           return await checkLink(
@@ -53,7 +59,7 @@ function reportResult(links: LinkInfo[]) {
   const errorLinks = links.filter((link) => {
     const isInternalRedirection =
       link.statusCode === 308 && link.href.includes('http://localhost:3000');
-    const goodStatusCode = [0, 200, 301, 303];
+    const goodStatusCode = [0, ...defaultGoodStatusCode];
     return !goodStatusCode.includes(link.statusCode) && !isInternalRedirection;
   });
 

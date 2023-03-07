@@ -1,6 +1,7 @@
 import https from 'https';
 import http from 'http';
 import { IGNORED_LINKS } from '../../src/data/ignoredLinks';
+import { defaultGoodStatusCode } from '../data/constants';
 
 export type LinkInfo = {
   href: string;
@@ -12,7 +13,8 @@ export type LinkInfo = {
   tagText: string;
 };
 const requestedUrl: Set<string> = new Set();
-export async function checkLink(
+
+export function checkLink(
   {
     href,
     tagName,
@@ -27,32 +29,33 @@ export async function checkLink(
     pageUrl: string;
   },
   linkIdx: number
-): Promise<LinkInfo> {
+): Promise<LinkInfo>;
+
+export async function checkLink(
+  { href, tagName, tagText, pageIdx, pageUrl },
+  linkIdx
+) {
   return new Promise(async (res, rej) => {
+    const linkData = { href, linkIdx, pageIdx, pageUrl, tagName, tagText };
     if (!href) {
       console.log(
         `⚠️[WARNING...] page #${pageIdx} link #${linkIdx} "${tagName}" tag "${tagText}" doesn't have a href.`
       );
-      res({ href, linkIdx, pageIdx, pageUrl, tagName, tagText, statusCode: 0 });
+      res({ ...linkData, statusCode: 0 });
     } else if (IGNORED_LINKS.includes(href) || requestedUrl.has(href)) {
-      res({ href, linkIdx, pageIdx, pageUrl, tagName, tagText, statusCode: 0 });
+      res({ ...linkData, statusCode: 0 });
     } else {
       const { get } = href.includes('https:') ? https : http;
       const request = await get(href, async ({ statusCode = 0 }) => {
         statusCode =
           (
             await returnStatus({
-              href,
-              linkIdx,
-              pageIdx,
-              pageUrl,
+              ...linkData,
               statusCode,
-              tagName,
-              tagText,
             })
           )?.statusCode || statusCode;
         requestedUrl.add(href);
-        res({ href, linkIdx, pageIdx, pageUrl, tagName, tagText, statusCode });
+        res({ ...linkData, statusCode });
       });
       request.end();
     }
@@ -68,13 +71,14 @@ async function returnStatus({
   tagName,
   tagText,
 }: LinkInfo): Promise<LinkInfo> {
-  if ([200, 301, 303, 308].includes(statusCode)) {
+  if ([...defaultGoodStatusCode, 308].includes(statusCode)) {
     /**
      * If 308, check if it's a internal direction (see docs/next.config.js redirects logic)
      * If it's internal direction, after adding the platform, it should be 200
      * Otherwise, the link needs to be updated
      */
     if (statusCode === 308) {
+      console.log('🔥 page #', pageIdx, 'link: ', href);
       const hostNameRegex = RegExp(`http(s)?:\/\/[^/]*`, 'i'); // matches everything between http(s)?: to "/", which is the hostname. e.g., "https://github.com/".
       const platform = pageUrl.replace(hostNameRegex, '').split('/')[1];
       const newHref = `${
