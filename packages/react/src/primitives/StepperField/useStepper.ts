@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
 import { StepperFieldProps } from '../types/stepperField';
-import { isFunction } from '../shared/utils';
 
 type ChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
 type ClickHandler = React.MouseEventHandler<HTMLButtonElement>;
@@ -95,7 +95,7 @@ export const useStepper = ({
       (event) => {
         setInputValue(event.target.value);
 
-        if (typeof onChange === 'function') {
+        if (isFunction(onChange)) {
           onChange(event);
         }
       },

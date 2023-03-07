@@ -120,6 +120,7 @@ export const HeroSection = () => {
               variation="primary"
               className="docs-home-cta"
               as="a"
+              // @ts-ignore // IGNORE
               href={`/${platform}/getting-started/installation`}
             >
               Get started building
@@ -130,6 +131,7 @@ export const HeroSection = () => {
                 size="large"
                 className="docs-home-cta"
                 as="a"
+                // @ts-ignore // IGNORE
                 href="#live"
               >
                 Or try it out

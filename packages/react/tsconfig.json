@@ -1,18 +1,9 @@
 {
+  "extends": "../configs/ts/tsconfig.react.json",
   "compilerOptions": {
-    "moduleResolution": "node",
-    "baseUrl": ".",
-    "declaration": true,
-    "esModuleInterop": true,
-    "jsx": "react",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "importHelpers": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "module": "esnext",
-    "target": "es2015"
+    "noImplicitAny": false,
+    "strict": false
   },
-  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"],
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
 }

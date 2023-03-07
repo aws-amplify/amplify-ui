@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { isFunction } from '@aws-amplify/ui';
 
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { classNameModifier } from '../shared/utils';
@@ -9,7 +10,6 @@ import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon/internal';
-import { isFunction } from '../shared/utils';
 
 const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
   {

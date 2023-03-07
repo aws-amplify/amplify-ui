@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { PhoneNumberField, PhoneNumberFieldProps } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
-import { PhoneNumberFieldPropControls } from './PhoneNumberFieldPropControls';
+import {
+  PhoneNumberFieldPropControls,
+  PhoneNumberFieldPropControlsProps,
+} from './PhoneNumberFieldPropControls';
 import { usePhoneNumberFieldProps } from './usePhoneNumberFieldProps';
 import { demoState } from '@/utils/demoState';
 import { getPropString } from '../utils/getPropString';
@@ -38,10 +41,11 @@ const defaultPhoneNumberFieldProps: PhoneNumberFieldProps = {
 };
 
 export const PhoneNumberFieldDemo = () => {
-  const phoneNumberFieldProps = usePhoneNumberFieldProps(
-    (demoState.get(PhoneNumberField.displayName) as PhoneNumberFieldProps) ||
-      defaultPhoneNumberFieldProps
-  );
+  const phoneNumberFieldProps: PhoneNumberFieldPropControlsProps =
+    usePhoneNumberFieldProps(
+      (demoState.get(PhoneNumberField.displayName) as PhoneNumberFieldProps) ||
+        defaultPhoneNumberFieldProps
+    );
 
   return (
     <Demo

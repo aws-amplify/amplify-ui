@@ -6,6 +6,7 @@ export const IsPreviewerVisibleExample = () => {
       isPreviewerVisible={true}
       acceptedFileTypes={['image/*']}
       accessLevel="public"
+      // @ts-ignore // IGNORE
       provider="fast" // IGNORE
     />
   );

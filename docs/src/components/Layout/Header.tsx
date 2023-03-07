@@ -69,6 +69,7 @@ export const Header = ({
               variation="link"
               size="small"
               as={Link}
+              // @ts-ignore // IGNORE
               href={GITHUB_REPO}
               isExternal
               color="font.tertiary"
