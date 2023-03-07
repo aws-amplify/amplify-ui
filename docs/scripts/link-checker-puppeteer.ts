@@ -15,12 +15,6 @@ const start = process.argv[2] ?? 0;
 const end = process.argv[3];
 const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
 
-try {
-  runLinkChecker();
-} catch (err) {
-  process.exit(1);
-}
-
 async function runLinkChecker() {
   const allPagesPaths = await crawlAllLinks(testPaths);
 
@@ -75,4 +69,10 @@ function reportResult(links: LinkInfo[]) {
   } else {
     console.log('🎉 All links look good!');
   }
+}
+
+try {
+  runLinkChecker();
+} catch (err) {
+  process.exit(1);
 }
