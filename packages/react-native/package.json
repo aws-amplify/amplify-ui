@@ -6,14 +6,16 @@
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "yarn dist && cp -a src/assets dist",
+    "build": "yarn build:dist && cp -a src/assets dist",
+    "build:dist": "tsc --project tsconfig.dist.json",
     "clean": "rimraf dist",
-    "dev": "yarn dist --watch",
-    "dist": "tsc --project tsconfig.dist.json",
-    "lint": "tsc --noEmit && eslint src",
+    "dev": "yarn build:dist --watch",
+    "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
-    "test": "jest --coverage --verbose",
-    "test:watch": "yarn test --watch"
+    "test": "yarn test:unit",
+    "test:unit": "jest",
+    "test:unit:watch": "yarn test:unit --watch",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
