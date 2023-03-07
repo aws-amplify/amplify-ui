@@ -28,25 +28,21 @@ describe('getValueAtCurrentBreakpoint', () => {
       breakpoint: 'base',
       breakpoints,
       values,
-      tokens,
     });
     const smallResult = getValueAtCurrentBreakpoint({
       breakpoint: 'small',
       breakpoints,
       values,
-      tokens,
     });
     const mediumResult = getValueAtCurrentBreakpoint({
       breakpoint: 'medium',
       breakpoints,
       values,
-      tokens,
     });
     const largeResult = getValueAtCurrentBreakpoint({
       breakpoint: 'large',
       breakpoints,
       values,
-      tokens,
     });
 
     expect(baseResult).toBe(values.base);
@@ -65,25 +61,21 @@ describe('getValueAtCurrentBreakpoint', () => {
       breakpoint: 'base',
       breakpoints,
       values,
-      tokens,
     });
     const smallResult = getValueAtCurrentBreakpoint({
       breakpoint: 'small',
       breakpoints,
       values,
-      tokens,
     });
     const mediumResult = getValueAtCurrentBreakpoint({
       breakpoint: 'medium',
       breakpoints,
       values,
-      tokens,
     });
     const largeResult = getValueAtCurrentBreakpoint({
       breakpoint: 'large',
       breakpoints,
       values,
-      tokens,
     });
     expect(baseResult).toBe(values[0]);
     expect(smallResult).toEqual(values[1]);
@@ -92,8 +84,6 @@ describe('getValueAtCurrentBreakpoint', () => {
   });
 
   it('handles a breakpoint that resolves to a false value from values correctly', () => {
-    const { result } = renderHook(() => useTheme());
-    const { tokens } = result.current;
     const output = getValueAtCurrentBreakpoint({
       breakpoint: 'base',
       breakpoints,
@@ -101,7 +91,6 @@ describe('getValueAtCurrentBreakpoint', () => {
         base: false,
         medium: true,
       },
-      tokens,
     });
 
     expect(output).toBe(false);
