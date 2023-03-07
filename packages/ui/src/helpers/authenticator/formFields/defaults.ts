@@ -31,8 +31,8 @@ const getDefaultFormField = (
   return options;
 };
 
-/** Helper function that returns default form field for configured primary alias */
-const getAliasDefaultFormField = (
+// Helper function that returns default form field for configured primary alias
+export const getAliasDefaultFormField = (
   state: AuthMachineState
 ): FormFieldOptions => {
   const primaryAlias = getPrimaryAlias(state);

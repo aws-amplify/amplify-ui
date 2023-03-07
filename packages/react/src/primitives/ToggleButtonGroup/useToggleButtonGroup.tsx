@@ -1,13 +1,19 @@
 import * as React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
-import { isFunction } from '../shared/utils';
 import { ToggleButtonProps, ToggleButtonGroupProps } from '../types';
-export const useToggleButtonGroup = (
-  onChange: ToggleButtonGroupProps['onChange'],
-  value: ToggleButtonGroupProps['value'],
+
+type UseToggleButtonParams = Pick<
+  ToggleButtonGroupProps,
+  'onChange' | 'value' | 'isExclusive' | 'isSelectionRequired'
+>;
+
+export const useToggleButtonGroup = ({
+  onChange,
+  value,
   isExclusive = false,
-  isSelectionRequired = false
-) => {
+  isSelectionRequired = false,
+}: UseToggleButtonParams): ((value: string) => void) => {
   // Multiple selection
   const handleChange: ToggleButtonProps['onChange'] = React.useCallback(
     (buttonValue) => {

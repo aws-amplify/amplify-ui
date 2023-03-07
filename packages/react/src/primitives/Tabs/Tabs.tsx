@@ -1,25 +1,39 @@
 import classNames from 'classnames';
-import {
-  Root,
-  List,
-  Trigger as RadixTab,
-  Content as Panel,
-} from '@radix-ui/react-tabs';
+import * as RadixTabs from '@radix-ui/react-tabs';
 import * as React from 'react';
+
+import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { TabsProps, TabItemProps, Primitive } from '../types';
+import { TabsProps, TabsSpacing, TabItemProps, Primitive } from '../types';
 import { View } from '../View';
 
-const isTabsType = (child: any): child is React.Component<TabItemProps> => {
-  return (
-    child !== null &&
-    typeof child === 'object' &&
-    child.hasOwnProperty('props') &&
-    child.props.title != null
-  );
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
+// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
+const {
+  Root,
+  List,
+  Trigger: RadixTab,
+  Content: Panel,
+} = sanitizeNamespaceImport(RadixTabs);
+
+/**
+ * `TabItemProps` does not include HTML data attributes, so `data-spacing` is added explicitly
+ * to the props of the return type of `isExtendedTabItem` to allow passing of `data-spacing`
+ * to `TabsItem` from inside `Tabs`.
+ * 
+ * Additionally, `value` is avaialble on the props of `TabItemPrimitive`, but is not present
+ * on `TabItemProps`. To mitigate this issue prefer usage of the props of `TabItemPrimitive`
+`*/
+type ExtendedTabItemProps = Parameters<typeof TabItemPrimitive>[0] & {
+  'data-spacing': TabsSpacing;
 };
+
+const isExtendedTabItem = (
+  child: React.ReactFragment | React.ReactChild | React.ReactPortal
+): child is React.ReactElement<ExtendedTabItemProps> =>
+  React.isValidElement<TabItemProps>(child);
 
 const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   {
@@ -35,24 +49,6 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   }: TabsProps,
   ref
 ) => {
-  const tabs = React.Children.map(children, (child) => {
-    if (child === null) return {};
-
-    // checking if the child is a whitespace character
-    if (typeof child === 'string' && /\s/.test(child)) {
-      return {};
-    }
-
-    if (!isTabsType(child)) {
-      console.warn(
-        'Amplify UI: <Tabs> component only accepts <TabItem> as children.'
-      );
-      return {};
-    }
-
-    return child.props;
-  });
-
   // mapping our props to Radix's props
   // value (currentIndex) and defaultValue (defaultIndex) must be strings
   // https://www.radix-ui.com/docs/primitives/components/tabs#api-reference
@@ -62,6 +58,13 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
     value: currentIndex != null ? currentIndex.toString() : undefined,
     onValueChange: onChange,
   };
+
+  // Remove null or undefined children or else they will mess up the index
+  // This is an issue when using defaultIndex
+  const nonNullChildren = React.Children.toArray(children).filter(
+    (child) => !!child
+  );
+
   return (
     <Root {...rootProps}>
       <List aria-label={ariaLabel}>
@@ -71,24 +74,26 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
           ref={ref}
           {...rest}
         >
-          {React.Children.map(children, (child, index) => {
-            if (!isTabsType(child)) {
-              return null;
+          {React.Children.map(nonNullChildren, (child, index) => {
+            if (isExtendedTabItem(child)) {
+              return React.cloneElement(child, {
+                'data-spacing': spacing,
+                key: index,
+                value: `${index}`,
+              });
             }
-
-            return React.cloneElement(child, {
-              ['data-spacing']: spacing,
-              key: index,
-              value: `${index}`,
-            });
           })}
         </Flex>
       </List>
-      {tabs.map((tab, index) => (
-        <Panel key={index} value={`${index}`}>
-          {tab.children}
-        </Panel>
-      ))}
+      {React.Children.map(nonNullChildren, (child, index) => {
+        if (isExtendedTabItem(child)) {
+          return (
+            <Panel key={index} value={`${index}`}>
+              {child.props.children}
+            </Panel>
+          );
+        }
+      })}
     </Root>
   );
 };

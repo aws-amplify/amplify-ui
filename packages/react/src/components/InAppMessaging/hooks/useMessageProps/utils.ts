@@ -50,7 +50,7 @@ export function getMessageStyles({
       ...overrideStyle?.body,
     },
     // close button style - not defined in payload, override only
-    closeIconButton: overrideStyle?.closeIconButton,
+    closeIconButton: overrideStyle?.closeIconButton ?? {},
     // message container style
     container: {
       ...payloadStyle?.container,
@@ -62,7 +62,7 @@ export function getMessageStyles({
       ...overrideStyle?.header,
     },
     // image style - not defined in payload, override only
-    image: overrideStyle?.image,
+    image: overrideStyle?.image ?? {},
     // message primary button style
     primaryButton: {
       ...payloadStyle?.primaryButton,

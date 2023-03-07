@@ -10,11 +10,13 @@
 
 name: Test and Publish / latest
 
-on:
-  push:
-    branches: [main]
+# Disabled on staging repo
+# on:
+#   push:
+#     branches: [main]
 
 permissions:
+  id-token: write # This is required for requesting the JWT
   contents: write # Used to push tags to GitHub
 
 jobs:
@@ -47,26 +49,37 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Get CLI versions
         id: cli-version
-        run: echo "::set-output name=version::$(amplify --version)"
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v3
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          path: canary/environments/**/aws-exports.js
-          key: ${{ runner.os }}-canary-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('canary/environments/**/amplify/**') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
       - name: Pull down AWS environments
-        if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
         working-directory: ./canary
+      - name: Delete AWS Profile
+        run: rm -rf ~/.aws
       - name: Setup canary apps against @next
         run: yarn setup:next
         working-directory: ./canary

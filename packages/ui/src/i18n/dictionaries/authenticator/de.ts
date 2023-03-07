@@ -29,6 +29,7 @@ export const deDict: AuthenticatorDictionary = {
     'Es kann eine Minute dauern, bis er ankommt',
   Loading: 'Wird geladen',
   'New password': 'Neues Passwort',
+  or: 'oder',
   Password: 'Passwort',
   'Phone Number': 'Telefonnummer',
   'Resend Code': 'Code erneut senden',
@@ -65,6 +66,10 @@ export const deDict: AuthenticatorDictionary = {
   'Confirm Sign In': 'Anmeldung bestätigen',
   'Create account': 'Hier registrieren',
   'Enter your password': 'Geben Sie Ihr Passwort ein',
+  'Enter your Password': 'Geben Sie Ihre Passwort ein',
+  'Enter your Email': 'Geben Sie Ihre E-Mail',
+  'Sign Up with Facebook': 'Mit Facebook registrieren',
+  'Sign Up with Google': 'Mit Google registrieren',
   'Forgot Password': 'Passwort vergessen',
   'Have an account? ': 'Schon registriert? ',
   'Incorrect username or password':
@@ -76,7 +81,6 @@ export const deDict: AuthenticatorDictionary = {
   'Lost your code? ': 'Code verloren? ',
   'New Password': 'Neues Passwort',
   'No account? ': 'Kein Account? ',
-  or: 'oder',
   'Password attempts exceeded':
     'Die maximale Anzahl der fehlerhaften Anmeldeversuche wurde erreicht',
   'Reset password': 'Passwort zurücksetzen',

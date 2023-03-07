@@ -3,6 +3,7 @@ import {
   AuthenticatorMachineOptions,
   AmplifyUser,
   configureComponent,
+  isFunction,
 } from '@aws-amplify/ui';
 
 import {
@@ -27,12 +28,12 @@ import { VERSION } from '../../version';
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
   AuthenticatorMachineOptions &
-  ComponentsProviderProps &
-  RouterProps & {
-    children:
-    | React.ReactNode
-    | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
-  }
+    ComponentsProviderProps &
+    RouterProps & {
+      children:
+        | React.ReactNode
+        | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
+    }
 >;
 
 // `AuthenticatorInternal` exists to give access to the context returned via `useAuthenticator`,
@@ -79,7 +80,7 @@ export function AuthenticatorInternal({
 
     return (
       <>
-        {typeof children === 'function'
+        {isFunction(children)
           ? children({ signOut, user }) // children is a render prop
           : children}
       </>

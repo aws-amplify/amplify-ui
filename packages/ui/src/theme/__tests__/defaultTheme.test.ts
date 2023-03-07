@@ -451,7 +451,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fileuploader-file-padding-block: var(--amplify-space-xs);
         --amplify-components-fileuploader-file-padding-inline: var(--amplify-space-small);
         --amplify-components-fileuploader-file-gap: var(--amplify-space-small);
-        --amplify-components-fileuploader-file-align-items: center;
+        --amplify-components-fileuploader-file-align-items: baseline;
         --amplify-components-fileuploader-file-name-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-fileuploader-file-name-font-weight: var(--amplify-font-weights-bold);
         --amplify-components-fileuploader-file-name-color: var(--amplify-colors-font-primary);

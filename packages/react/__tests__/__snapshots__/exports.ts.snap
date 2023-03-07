@@ -425,6 +425,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -1016,6 +1019,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "innerEndComponent": Object {
         "type": "string",
       },
@@ -1597,6 +1603,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -2140,6 +2149,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -2687,6 +2699,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -3197,6 +3212,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -3767,6 +3785,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -4166,6 +4187,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "isDisabled": Object {
         "type": "boolean",
@@ -4612,6 +4636,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -5017,9 +5044,6 @@ Object {
       "ariaValuetext": Object {
         "type": "string",
       },
-      "asChild": Object {
-        "type": "boolean",
-      },
       "autoCapitalize": Object {
         "type": "string",
       },
@@ -5089,9 +5113,6 @@ Object {
       "dir": Object {
         "type": "string",
       },
-      "disabled": Object {
-        "type": "boolean",
-      },
       "display": Object {
         "type": "string",
       },
@@ -5124,6 +5145,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -5528,9 +5552,6 @@ Object {
       "ariaValuetext": Object {
         "type": "string",
       },
-      "asChild": Object {
-        "type": "boolean",
-      },
       "autoCapitalize": Object {
         "type": "string",
       },
@@ -5600,9 +5621,6 @@ Object {
       "dir": Object {
         "type": "string",
       },
-      "disabled": Object {
-        "type": "boolean",
-      },
       "display": Object {
         "type": "string",
       },
@@ -5635,6 +5653,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -6137,6 +6158,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -6663,6 +6687,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -7196,6 +7223,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -7724,6 +7754,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -8236,6 +8269,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -8741,6 +8777,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -9458,6 +9497,9 @@ Object {
       },
       "in2": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "intercept": Object {
         "type": "string",
@@ -10360,6 +10402,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -10888,6 +10933,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -11630,6 +11678,9 @@ Object {
       },
       "in2": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "intercept": Object {
         "type": "string",
@@ -12550,6 +12601,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -13109,6 +13163,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -13472,6 +13529,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "isDisabled": Object {
         "type": "boolean",
@@ -13930,6 +13990,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -14520,6 +14583,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "innerEndComponent": Object {
         "type": "string",
@@ -15201,6 +15267,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "innerEndComponent": Object {
         "type": "string",
       },
@@ -15784,6 +15853,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -16334,6 +16406,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -16925,6 +17000,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -17483,6 +17561,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -17999,6 +18080,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -18577,6 +18661,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "innerEndComponent": Object {
         "type": "string",
@@ -19201,6 +19288,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -19780,6 +19870,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "innerEndComponent": Object {
         "type": "string",
@@ -20435,6 +20528,9 @@ Object {
       "increaseButtonLabel": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "innerEndComponent": Object {
         "type": "string",
       },
@@ -21056,6 +21152,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -21635,6 +21734,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -22152,6 +22254,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -22656,6 +22761,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -23165,6 +23273,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -23664,6 +23775,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -24159,6 +24273,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -24656,6 +24773,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -25086,6 +25206,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -25172,6 +25295,9 @@ Object {
       },
       "indicatorPosition": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -25684,6 +25810,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -26229,6 +26358,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",
@@ -26856,6 +26988,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "innerEndComponent": Object {
         "type": "string",
       },
@@ -27481,6 +27616,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -28028,6 +28166,9 @@ Object {
       "id": Object {
         "type": "string",
       },
+      "inert": Object {
+        "type": "boolean",
+      },
       "inputMode": Object {
         "type": "string",
       },
@@ -28554,6 +28695,9 @@ Object {
       },
       "id": Object {
         "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
       },
       "inputMode": Object {
         "type": "string",

@@ -2,12 +2,14 @@
   display: flex;
   flex: 1;
   align-items: center;
-  padding: var(--amplify-space-xs);
+  padding: var(--amplify-space-medium);
+  background-color: var(--amplify-colors-background-secondary);
 }
 
 .install-code__content {
   flex: 1;
   margin-inline-end: var(--amplify-space-small);
+  padding: 0;
   overflow-x: auto;
   white-space: nowrap;
   

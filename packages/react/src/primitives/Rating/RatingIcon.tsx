@@ -7,7 +7,7 @@ import { StyleToken } from '../types/style';
 
 interface RatingIconProps {
   icon: JSX.Element;
-  fill: StyleToken<Property.Color>;
+  fill?: StyleToken<Property.Color>;
   className: string;
 }
 

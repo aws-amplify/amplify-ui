@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Alert } from '../Alert';
 import { ComponentClassNames, ComponentText } from '../../shared/constants';
 
-describe('Alert: ', () => {
+describe('Alert:', () => {
   it('can render Alert variations', async () => {
     render(
       <div>
@@ -96,7 +96,7 @@ describe('Alert: ', () => {
     render(
       <div>
         <Alert testId="notDismissible">Not dismissible by default</Alert>
-        <Alert isDismissible={true} testId="isDismissible">
+        <Alert isDismissible testId="isDismissible">
           Is dismissible
         </Alert>
       </div>
@@ -109,10 +109,10 @@ describe('Alert: ', () => {
     expect(isDismissible.childElementCount).toBe(2);
   });
 
-  it('should set aria-hidden to be true on decorative icons', async () => {
+  it('should set aria-hidden to be true on decorative icons', () => {
     const { container } = render(
       <div>
-        <Alert variation="info" isDismissible={true} testId="hasIcon">
+        <Alert variation="info" isDismissible testId="hasIcon">
           Has Icon
         </Alert>
       </div>
@@ -124,7 +124,7 @@ describe('Alert: ', () => {
     });
   });
 
-  it('can configure an accessible label for the dismiss button', async () => {
+  it('can configure an accessible label for the dismiss button', () => {
     const customDismissButtonLabel = 'Testing 123';
     render(
       <div>
@@ -135,7 +135,7 @@ describe('Alert: ', () => {
       </div>
     );
 
-    const [defaultLabel, customLabel] = await screen.queryAllByRole('button');
+    const [defaultLabel, customLabel] = screen.queryAllByRole('button');
     expect(defaultLabel.getAttribute('aria-label')).toBe(
       ComponentText.Alert.dismissButtonLabel
     );
@@ -188,7 +188,7 @@ describe('Alert: ', () => {
     expect(alert.dataset['demo']).toBe('true');
   });
 
-  describe('Forward ref: ', () => {
+  describe('Forward ref:', () => {
     it('should forward ref to container DOM element', async () => {
       const testId = 'alert';
       const ref = React.createRef<HTMLDivElement>();

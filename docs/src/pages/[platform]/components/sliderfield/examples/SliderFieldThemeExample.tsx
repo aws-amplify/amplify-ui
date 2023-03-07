@@ -17,6 +17,7 @@ const theme: Theme = {
           _focus: {
             borderColor: { value: '{colors.green.80}' },
             boxShadow: {
+              // @ts-ignore //IGNORE
               value: {
                 spreadRadius: '3px',
                 color: '{colors.green.20}',

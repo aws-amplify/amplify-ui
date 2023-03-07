@@ -176,8 +176,17 @@ describe('getMachineFields', () => {
       const QRFields = getQRFields(state);
       expect(QRFields).toEqual({ totpIssuer, totpUsername });
     });
-    it('returns empty object if QR field is not present', () => {
+
+    it('returns an empty object if no QRfields are present', () => {
       getActorContextSpy.mockReturnValue({});
+      const QRFields = getQRFields(state);
+      expect(QRFields).toEqual({});
+    });
+
+    it('returns an empty object when getActorContext returns undefined', () => {
+      getActorContextSpy.mockReturnValue(
+        undefined as unknown as AuthActorContext
+      );
       const QRFields = getQRFields(state);
       expect(QRFields).toEqual({});
     });

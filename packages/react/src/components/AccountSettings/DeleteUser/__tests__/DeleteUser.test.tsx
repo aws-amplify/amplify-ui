@@ -3,22 +3,27 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import * as UIModule from '@aws-amplify/ui';
 
-import { Button, Flex, Heading, Text } from '../../../../primitives';
+import {
+  Button,
+  ButtonProps,
+  Flex,
+  Heading,
+  Text,
+} from '../../../../primitives';
 import { ComponentClassName } from '../../constants';
-import { DeleteUserComponents } from '../types';
+import { DeleteUserComponents, WarningViewProps } from '../types';
 import DeleteUser from '../DeleteUser';
 
-const user = {} as unknown as UIModule.AmplifyUser;
 jest.mock('../../../../internal', () => ({
   useAuth: () => ({
-    user,
+    user: {} as unknown as UIModule.AmplifyUser,
     isLoading: false,
   }),
 }));
 
 const deleteUserSpy = jest.spyOn(UIModule, 'deleteUser');
 
-function CustomWarningView({ onCancel, onConfirm }) {
+function CustomWarningView({ onCancel, onConfirm }: WarningViewProps) {
   return (
     <Flex direction="column">
       <Text variation="warning">Custom Warning Message</Text>
@@ -30,7 +35,7 @@ function CustomWarningView({ onCancel, onConfirm }) {
   );
 }
 
-const CustomDeleteButton = ({ onClick, isDisabled }) => {
+const CustomDeleteButton = ({ onClick, isDisabled }: ButtonProps) => {
   return (
     <Button isDisabled={isDisabled} onClick={onClick}>
       Custom Delete Button

@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { useStepper } from '../useStepper';
 
-describe('useStepper: ', () => {
+describe('useStepper:', () => {
   const label = 'test-hook';
   it('should return basic props correctly', () => {
     const { result } = renderHook(() =>
@@ -56,5 +56,67 @@ describe('useStepper: ', () => {
     act(() => result.current.handleOnBlur(mockFocusEvent));
     // the real value will be updated when the input loses focus
     expect(result.current.value).toBe(-10);
+  });
+
+  it('should handle onIncrease', () => {
+    const onIncrease = jest.fn();
+    const { result } = renderHook(() =>
+      useStepper({
+        label,
+        value: 10,
+        onIncrease,
+      })
+    );
+    const mockMouseEvent = {
+      target: {},
+    } as React.MouseEvent<HTMLButtonElement>;
+    act(() => result.current.handleIncrease(mockMouseEvent));
+    expect(onIncrease).toBeCalledTimes(1);
+  });
+
+  it('should handle onDecrease', () => {
+    const onDecrease = jest.fn();
+    const { result } = renderHook(() =>
+      useStepper({
+        label,
+        value: 10,
+        onDecrease,
+      })
+    );
+    const mockMouseEvent = {
+      target: {},
+    } as React.MouseEvent<HTMLButtonElement>;
+    act(() => result.current.handleDecrease(mockMouseEvent));
+    expect(onDecrease).toBeCalledTimes(1);
+  });
+
+  it('should return a valid value if above max', () => {
+    const { result } = renderHook(() =>
+      useStepper({ label, value: 10, min: 0, max: 5 })
+    );
+    expect(result.current.value).toEqual(5);
+  });
+
+  it('should return a valid value if below min', () => {
+    const { result } = renderHook(() =>
+      useStepper({ label, value: 1, min: 5, max: 10 })
+    );
+    expect(result.current.value).toEqual(5);
+  });
+
+  it('should call the onChange prop when provided', () => {
+    const onChange = jest.fn();
+    const { result } = renderHook(() =>
+      useStepper({
+        label,
+        value: 10,
+        onChange,
+      })
+    );
+    const mockMouseEvent = {
+      target: {},
+    } as React.ChangeEvent<HTMLInputElement>;
+    act(() => result.current.handleOnChange(mockMouseEvent));
+    expect(onChange).toBeCalledTimes(1);
   });
 });

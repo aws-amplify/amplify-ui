@@ -14,6 +14,7 @@ const getTotpSecretCode = jest.fn();
 const hasValidationErrors = false;
 const initializeMachine = jest.fn();
 const isPending = false;
+const QRFields = null;
 const resendCode = jest.fn();
 const route = 'idle';
 const skipVerification = jest.fn();
@@ -24,6 +25,7 @@ const toFederatedSignIn = jest.fn();
 const toResetPassword = jest.fn();
 const toSignIn = jest.fn();
 const toSignUp = jest.fn();
+const totpSecretCode = null;
 const unverifiedContactMethods = {};
 const updateBlur = jest.fn();
 const updateForm = jest.fn();
@@ -53,6 +55,7 @@ export const mockMachineContext: AuthenticatorMachineContext = {
   socialProviders,
   toFederatedSignIn,
   toResetPassword,
+  totpSecretCode,
   unverifiedContactMethods,
   validationErrors,
 };
@@ -61,4 +64,5 @@ export const mockUseAuthenticatorOutput: UseAuthenticator = {
   ...mockMachineContext,
   fields,
   getTotpSecretCode,
-} as unknown as UseAuthenticator;
+  QRFields,
+};

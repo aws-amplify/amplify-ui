@@ -7,6 +7,7 @@
     "datastore": "yarn --cwd datastore/",
     "geo": "yarn --cwd geo/",
     "liveness": "yarn --cwd liveness/",
-    "storage": "yarn --cwd storage/"
+    "storage": "yarn --cwd storage/",
+    "in-app-messaging": "yarn --cwd in-app-messaging/"
   }
 }

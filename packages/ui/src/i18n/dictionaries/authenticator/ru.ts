@@ -28,6 +28,7 @@ export const ruDict: AuthenticatorDictionary = {
   'It may take a minute to arrive': 'Доставка может занять некоторое время',
   Loading: 'Загрузка',
   'New password': 'Новый пароль',
+  or: 'или',
   Password: 'Пароль',
   'Phone Number': 'Номер телефона',
   'Resend Code': 'Отправь еще раз Код',

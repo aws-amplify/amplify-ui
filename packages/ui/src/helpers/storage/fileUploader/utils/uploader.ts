@@ -18,8 +18,9 @@ export function uploadFile({
   isResumable?: boolean;
   progressCallback: (progress: { loaded: number; total: number }) => void;
   errorCallback: (err: string) => void;
-  completeCallback: (event) => void;
+  completeCallback: (event: { key?: string }) => void;
 }) {
+  const contentType = file.type || 'binary/octet-stream';
   if (isResumable === true) {
     return Storage.put(fileName, file, {
       level,
@@ -27,6 +28,7 @@ export function uploadFile({
       progressCallback,
       errorCallback,
       completeCallback,
+      contentType,
       ...rest,
     });
   } else {
@@ -34,6 +36,7 @@ export function uploadFile({
       level,
       resumable: false,
       progressCallback,
+      contentType,
       ...rest,
     }).then(completeCallback, errorCallback);
   }
@@ -48,7 +51,7 @@ export function uploadFile({
  *
  * @return Formatted string.
  */
-export function humanFileSize(bytes, si = false, dp = 1) {
+export function humanFileSize(bytes: number, si = false, dp = 1) {
   const thresh = si ? 1000 : 1024;
 
   if (Math.abs(bytes) < thresh) {
@@ -75,7 +78,7 @@ export function humanFileSize(bytes, si = false, dp = 1) {
 export const checkMaxSize = (maxSize: number, file: File): string | null => {
   if (!maxSize) return null;
   if (file.size > maxSize) {
-    return translate('Above max ') + humanFileSize(maxSize, true);
+    return translate('File size must be below ') + humanFileSize(maxSize, true);
   }
   return null;
 };

@@ -30,13 +30,13 @@ From the monorepo root run the following commands:
 yarn && yarn build
 ```
 
-1. Install CocoaPod dependencies:
+2. Install CocoaPod dependencies:
 
 ```bash
 yarn react-native-example ios:pod-install
 ```
 
-1. Build and install the Example App:
+3. Build and install the Example App:
 
 ```bash
 yarn react-native-example ios
@@ -50,7 +50,7 @@ yarn react-native-example ios
 yarn && yarn build
 ```
 
-1. Build and install the Example App:
+2. Build and install the Example App:
 
 ```bash
 yarn react-native-example android
@@ -70,19 +70,19 @@ All of the below commands should be run from the monorepo root.
 yarn react-native dev
 ```
 
-1. To optionally develop against `@aws-amplify/ui`:
+2. To optionally develop against `@aws-amplify/ui`:
 
 ```bash
-yarn ui dev
+yarn ui build
 ```
 
-1. Run:
+3. Run:
 
 ```bash
 yarn react-native-example dev
 ```
 
-1. Open the app on the iOS simulator or Android emulator.
+4. Open the app on the iOS simulator or Android emulator.
 
 ## Storybook
 

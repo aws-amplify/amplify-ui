@@ -23,11 +23,6 @@ module.exports = withNextPluginPreval({
 
   swcMinify: true,
 
-  // don't want to fix typescript errors right now...
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-
   async headers() {
     return [
       {

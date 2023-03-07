@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
-import { Logger } from 'aws-amplify';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
 
 import { Label } from '../../../primitives';
@@ -18,8 +17,6 @@ import { styles } from './styles';
 
 const COMPONENT_NAME = 'SetupTOTP';
 
-const logger = new Logger('Authenticator');
-
 const {
   getBackToSignInText,
   getConfirmingText,
@@ -30,12 +27,12 @@ const {
 
 const SetupTOTP: DefaultSetupTOTPComponent = ({
   fields,
-  getTotpSecretCode,
   handleBlur,
   handleChange,
   handleSubmit,
   isPending,
   toSignIn,
+  totpSecretCode,
   ...rest
 }) => {
   const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
@@ -46,37 +43,20 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
     handleSubmit,
   });
 
-  const [secretKey, setSecretKey] = useState<string | null>(null);
-
-  const getSecretKey = useCallback(async () => {
-    try {
-      const newSecretKey = await getTotpSecretCode();
-      setSecretKey(newSecretKey);
-    } catch (error) {
-      logger.error(error);
-    }
-  }, [getTotpSecretCode]);
-
-  useEffect(() => {
-    if (!secretKey) {
-      getSecretKey();
-    }
-  }, [getSecretKey, secretKey]);
-
   const headerText = getSetupTOTPText();
   const primaryButtonText = isPending ? getConfirmingText() : getConfirmText();
   const secondaryButtonText = getBackToSignInText();
 
-  const body = secretKey ? (
+  const body = (
     <>
       <Label style={styles.secretKeyText}>
         {getSetupTOTPInstructionsText()}
       </Label>
       <Label selectable style={styles.secretKeyText}>
-        {secretKey}
+        {totpSecretCode}
       </Label>
     </>
-  ) : null;
+  );
 
   const buttons = useMemo(
     () => ({
