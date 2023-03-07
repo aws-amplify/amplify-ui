@@ -14,6 +14,50 @@ export type LinkInfo = {
 };
 const requestedUrl: Set<string> = new Set();
 
+async function returnStatus({
+  href,
+  linkIdx,
+  pageIdx,
+  pageUrl,
+  statusCode,
+  tagName,
+  tagText,
+}: LinkInfo): Promise<LinkInfo> {
+  if ([...defaultGoodStatusCodes, 308].includes(statusCode)) {
+    /**
+     * If 301 and from 'https://docs.amplify.aws/', add a "/" and check again
+     * because 'https://docs.amplify.aws/' adds a "/" and return a 301 to all the links not ending with "/"
+     * e.g. https://docs.amplify.aws/lib/auth/getarted/q/platform/js should return 404
+     */
+    if (statusCode === 301 && href.startsWith('https://docs.amplify.aws/')) {
+      return await checkLink(
+        { href: `${href}/`, tagName, tagText, pageIdx, pageUrl },
+        linkIdx
+      );
+    }
+    /**
+     * If 308, check if it's a internal direction (see docs/next.config.js redirects logic)
+     * If it's internal direction, after adding the platform, it should be 200
+     * Otherwise, the link needs to be updated
+     */
+    if (statusCode === 308) {
+      const hostNameRegex = RegExp(`http(s)?:\/\/[^/]*`, 'i'); // matches everything between http(s)?: to "/", which is the hostname. e.g., "https://github.com/".
+      const platform = pageUrl.replace(hostNameRegex, '').split('/')[1];
+      const newHref = `${
+        href.match(hostNameRegex)[0]
+      }/${platform}${href.replace(hostNameRegex, '')}`;
+      return await checkLink(
+        { href: newHref, tagName, tagText, pageIdx, pageUrl },
+        linkIdx
+      );
+    }
+  } else {
+    console.error(
+      `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
+    );
+  }
+}
+
 export function checkLink(
   {
     href,
@@ -60,37 +104,4 @@ export async function checkLink(
       request.end();
     }
   });
-}
-
-async function returnStatus({
-  href,
-  linkIdx,
-  pageIdx,
-  pageUrl,
-  statusCode,
-  tagName,
-  tagText,
-}: LinkInfo): Promise<LinkInfo> {
-  if ([...defaultGoodStatusCodes, 308].includes(statusCode)) {
-    /**
-     * If 308, check if it's a internal direction (see docs/next.config.js redirects logic)
-     * If it's internal direction, after adding the platform, it should be 200
-     * Otherwise, the link needs to be updated
-     */
-    if (statusCode === 308) {
-      const hostNameRegex = RegExp(`http(s)?:\/\/[^/]*`, 'i'); // matches everything between http(s)?: to "/", which is the hostname. e.g., "https://github.com/".
-      const platform = pageUrl.replace(hostNameRegex, '').split('/')[1];
-      const newHref = `${
-        href.match(hostNameRegex)[0]
-      }/${platform}${href.replace(hostNameRegex, '')}`;
-      return await checkLink(
-        { href: newHref, tagName, tagText, pageIdx, pageUrl },
-        linkIdx
-      );
-    }
-  } else {
-    console.error(
-      `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
-    );
-  }
 }
