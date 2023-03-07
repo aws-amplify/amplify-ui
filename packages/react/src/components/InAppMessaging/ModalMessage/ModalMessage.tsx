@@ -26,6 +26,7 @@ export function ModalMessage(props: ModalMessageProps): JSX.Element | null {
           [`${DIALOG_CLASS}--full-width`]: shouldBeFullWidth,
         })}
         role="dialog"
+        testId="inappmessaging-modal-dialog"
       >
         <MessageLayout {...props} {...messageProps} styles={styles} />
       </Flex>

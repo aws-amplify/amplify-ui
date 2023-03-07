@@ -6,6 +6,7 @@
     "auth": "yarn --cwd auth/",
     "datastore": "yarn --cwd datastore/",
     "geo": "yarn --cwd geo/",
-    "storage": "yarn --cwd storage/"
+    "storage": "yarn --cwd storage/",
+    "in-app-messaging": "yarn --cwd in-app-messaging/"
   }
 }
