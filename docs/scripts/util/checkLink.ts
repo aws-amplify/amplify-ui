@@ -1,7 +1,7 @@
 import https from 'https';
 import http from 'http';
 import { IGNORED_LINKS } from '../../src/data/ignoredLinks';
-import { defaultGoodStatusCode } from '../data/constants';
+import { defaultGoodStatusCodes } from '../data/constants';
 
 export type LinkInfo = {
   href: string;
@@ -71,7 +71,7 @@ async function returnStatus({
   tagName,
   tagText,
 }: LinkInfo): Promise<LinkInfo> {
-  if ([...defaultGoodStatusCode, 308].includes(statusCode)) {
+  if ([...defaultGoodStatusCodes, 308].includes(statusCode)) {
     /**
      * If 308, check if it's a internal direction (see docs/next.config.js redirects logic)
      * If it's internal direction, after adding the platform, it should be 200
