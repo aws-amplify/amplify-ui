@@ -47,7 +47,6 @@
     "@tensorflow-models/blazeface": "0.0.7",
     "@tensorflow/tfjs-backend-cpu": "3.11.0",
     "@tensorflow/tfjs-backend-wasm": "3.11.0",
-    "@tensorflow/tfjs-backend-webgl": "3.11.0",
     "@tensorflow/tfjs-converter": "3.11.0",
     "@tensorflow/tfjs-core": "3.11.0",
     "xstate": "^4.33.6",
