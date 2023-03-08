@@ -35,8 +35,8 @@
       "environments",
       "examples/*",
       "packages/*",
-      "packages/configs/eslint",
-      "packages/angular/projects/ui-angular"
+      "packages/angular/projects/ui-angular",
+      "packages/configs/eslint"
     ],
     "nohoist": [
       "**/@radix-ui",
