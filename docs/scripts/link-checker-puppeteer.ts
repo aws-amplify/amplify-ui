@@ -3,8 +3,8 @@ import { sitePaths } from '../src/data/sitePaths';
 import { checkLink, crawlAllLinks } from './util';
 import type { LinkInfo } from './util';
 import {
-  defaultGoodStatusCodes,
-  promisePoolConcurrency,
+  DEFAULT_GOOD_STATUS_CODES,
+  PROMISE_POOL_CONCURRENCY,
 } from './data/constants';
 
 /**
@@ -19,7 +19,7 @@ function reportResult(links: LinkInfo[]) {
   const errorLinks = links.filter((link) => {
     const isInternalRedirection =
       link.statusCode === 308 && link.href.includes('http://localhost:3000');
-    const goodStatusCodes = [0, ...defaultGoodStatusCodes];
+    const goodStatusCodes = [0, ...DEFAULT_GOOD_STATUS_CODES];
     return !goodStatusCodes.includes(link.statusCode) && !isInternalRedirection;
   });
 
@@ -40,12 +40,14 @@ function reportResult(links: LinkInfo[]) {
 async function runLinkChecker() {
   const allPagesPaths = await crawlAllLinks(testPaths);
 
-  const { results } = await PromisePool.withConcurrency(promisePoolConcurrency)
+  const { results } = await PromisePool.withConcurrency(
+    PROMISE_POOL_CONCURRENCY
+  )
     .for(allPagesPaths)
     .process(async (pagePaths, pageIdx, pool) => {
       const { pageUrl, links } = pagePaths;
       const { results } = await PromisePool.withConcurrency(
-        promisePoolConcurrency
+        PROMISE_POOL_CONCURRENCY
       )
         .for(links)
         .process(async ({ href, tagName, tagText }, linkIdx, pool) => {

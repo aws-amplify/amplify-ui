@@ -80,7 +80,6 @@
     "lint-staged": ">=10",
     "prettier": "2.4.1",
     "rimraf": "^3.0.2",
-    "tsup": "^5.11.9",
     "turbo": "^1.2.8",
     "typescript": "^4.6.3",
     "wait-on": "^6.0.0"

@@ -19,13 +19,15 @@
   ],
   "scripts": {
     "clean": "rimraf dist node_modules",
-    "prebuild": "rimraf dist",
     "build": "rollup --config",
-    "build:esm": "tsc --project tsconfig.esm.json",
-    "dev": "yarn build:esm --watch",
-    "lint": "tsc --noEmit && eslint src",
-    "test": "jest --coverage --verbose",
-    "test:watch": "yarn test --watch"
+    "dev": "yarn build --watch",
+    "lint": "yarn typecheck && eslint src",
+    "prebuild": "rimraf dist",
+    "test": "yarn test:unit && yarn test:esm",
+    "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core\"'",
+    "test:unit": "jest",
+    "test:unit:watch": "yarn test:unit --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.5.6",

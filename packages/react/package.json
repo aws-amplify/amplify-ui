@@ -32,21 +32,18 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "yarn run build:catalog && yarn run build:ts",
-    "build:ts": "rollup --config",
-    "build:catalog": "yarn ts scripts/generatePrimitiveCatalog.ts",
-    "dev": "tsup --watch",
-    "dev:build": "tsup",
+    "build": "yarn build:catalog && yarn build:rollup",
+    "build:catalog": "yarn node -r esbuild-register scripts/generatePrimitiveCatalog.ts",
+    "build:rollup": "rollup --config",
     "clean": "rimraf dist node_modules",
+    "dev": "yarn build:rollup --watch",
     "lint": "tsc --noEmit && eslint src --ext .js,.ts,.tsx",
+    "prebuild": "rimraf dist",
+    "size": "yarn size-limit",
     "test": "yarn test:unit && yarn test:esm",
     "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
-    "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
-    "test:unit:watch": "jest --watch",
-    "ts": "node -r esbuild-register",
-    "size": "yarn run size-limit"
+    "test:unit:watch": "yarn test:unit --watch"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.5.6",
