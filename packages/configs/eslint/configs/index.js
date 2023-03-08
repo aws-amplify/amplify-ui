@@ -14,6 +14,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    complexity: 'off',
     '@typescript-eslint/explicit-module-boundary-types': 2,
     '@typescript-eslint/member-ordering': 'error',
     '@typescript-eslint/no-extra-semi': 'error',
