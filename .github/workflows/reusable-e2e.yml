@@ -458,15 +458,6 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Restore Puppeteer runner cache
-        uses: actions/cache@v3
-        id: restore-puppeteer-cache
-        with:
-          path: ~/.cache/puppeteer
-          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-
       - name: Restore node_modules cache
         uses: actions/cache@v3
         id: restore-cache
@@ -506,7 +497,6 @@ jobs:
 
       - name: Run Docs link checker
         run: yarn docs test:links
-        id: link-checker
 
       - name: Run E2E tests against docs
         run: yarn workspace e2e test:theme
