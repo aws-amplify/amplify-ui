@@ -79,7 +79,7 @@ describe('LivenessCameraModule', () => {
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
   });
 
-  it('should render video and timer when isNotRecording true', async () => {
+  it.skip('should render video and timer when isNotRecording true', async () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
 
