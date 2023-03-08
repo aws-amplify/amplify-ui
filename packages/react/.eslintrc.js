@@ -68,7 +68,7 @@ module.exports = {
       'error',
       { argsIgnorePattern: '_', varsIgnorePattern: '_' },
     ],
-    '@typescript-eslint/prefer-nullish-coalescing': 'warn',
+    '@typescript-eslint/prefer-nullish-coalescing': 'error',
     '@typescript-eslint/restrict-template-expressions': ['off'],
     '@typescript-eslint/unbound-method': 'error',
 
