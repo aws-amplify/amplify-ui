@@ -68,11 +68,6 @@ jobs:
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Install packages
-        uses: ./.github/actions/install-with-retries
-        with:
-          # only install binary if cypress cache missed
-          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
       - name: Restore Puppeteer runner from Cache
         uses: actions/cache@v3
         id: restore-puppeteer-cache
@@ -81,6 +76,11 @@ jobs:
           key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          # only install binary if cypress cache missed
+          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
