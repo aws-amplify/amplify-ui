@@ -5,14 +5,11 @@ import {
   WebTheme,
 } from '@aws-amplify/ui';
 
-import { ThemeStylePropKey } from '../types/theme';
+import { isThemeStylePropKey } from '../types/theme';
 import { stylePropsToThemeKeys } from './constants';
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
-
-export const isFunction = (fn: unknown): fn is Function =>
-  typeof fn === 'function';
 
 export const isEmptyString = (value: unknown): boolean =>
   typeof value === 'string' && value.length === 0;
@@ -41,13 +38,13 @@ export type Modifiers = string | number | null;
  * it takes in a base and modifier and returns the modified class if a modifier was passed in and null otherwise
  * @param base The base class of the output
  * @param modifier The modifier to add onto the base
- * @returns the modified class name or null
+ * @returns the modified class name or empty string
  */
 export const classNameModifier = (
   base: ComponentClassName,
-  modifier: Modifiers
+  modifier?: Modifiers
 ): string => {
-  return modifier ? `${base}--${modifier}` : null;
+  return modifier ? `${base}--${modifier}` : '';
 };
 
 /**
@@ -56,21 +53,28 @@ export const classNameModifier = (
  * @param base
  * @param modifier
  * @param flag
- * @returns the modified class name or null
+ * @returns the modified class name or empty string
  */
 export const classNameModifierByFlag = (
   base: ComponentClassName,
   modifier: Modifiers,
-  flag: boolean
+  flag?: boolean
 ): string => {
-  return flag ? `${base}--${modifier}` : null;
+  return flag ? `${base}--${modifier}` : '';
 };
 
-export const getCSSVariableIfValueIsThemeKey = <Value>(
-  propKey: ThemeStylePropKey,
-  value: Value,
+/**
+ * TS helper function to make using Object.keys more typesafe
+ */
+export const objectKeys = <Obj extends object>(obj: Obj): (keyof Obj)[] => {
+  return Object.keys(obj) as (keyof Obj)[];
+};
+
+export const getCSSVariableIfValueIsThemeKey = <Value = unknown>(
+  propKey: string,
+  value: string,
   tokens: WebTheme['tokens']
-): Value | string => {
+): Value | string | null => {
   if (typeof value !== 'string') {
     return value;
   }
@@ -81,27 +85,29 @@ export const getCSSVariableIfValueIsThemeKey = <Value>(
   if (value.includes(' ')) {
     return value
       .split(' ')
-      .map((val) =>
-        getCSSVariableIfValueIsThemeKey<string>(propKey, val, tokens)
-      )
+      .map((val) => getCSSVariableIfValueIsThemeKey(propKey, val, tokens))
       .join(' ');
   }
-  const path = value.split('.');
-  const tokenKey = stylePropsToThemeKeys[propKey];
 
-  let tokenProps = tokens[tokenKey];
-
-  for (let i = 0; i < path.length; i++) {
-    if (tokenProps) {
-      // overwrite tokenProps with next nested value of tokenProps
-      tokenProps = tokenProps[path[i]] as typeof tokenProps;
-      continue;
+  if (isThemeStylePropKey(propKey)) {
+    const path = value.split('.');
+    const tokenKey = stylePropsToThemeKeys[propKey];
+    let tokenProps = tokens[tokenKey];
+    for (let i = 0; i < path.length; i++) {
+      if (tokenProps) {
+        // overwrite tokenProps with next nested value of tokenProps
+        tokenProps = tokenProps[path[i] as keyof typeof tokenProps];
+        continue;
+      }
+      break;
     }
-    break;
+
+    return isDesignToken(tokenProps)
+      ? `var(--${cssNameTransform({
+          path: [stylePropsToThemeKeys[propKey], ...path],
+        })})`
+      : value;
   }
-  return isDesignToken(tokenProps)
-    ? `var(--${cssNameTransform({
-        path: [stylePropsToThemeKeys[propKey], ...path],
-      })})`
-    : value;
+
+  return value;
 };

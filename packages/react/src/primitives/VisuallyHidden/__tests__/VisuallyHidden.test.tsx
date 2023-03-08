@@ -19,6 +19,6 @@ describe('VisuallyHidden test suite', () => {
     render(<VisuallyHidden ref={ref}>{hiddenContent}</VisuallyHidden>);
 
     await screen.findByText(hiddenContent);
-    expect(ref.current.nodeName).toBe('SPAN');
+    expect(ref.current?.nodeName).toBe('SPAN');
   });
 });

@@ -5,6 +5,7 @@ on:
     branches: ['main', '*/main']
 
   pull_request:
+    types: [opened, synchronize, labeled]
 
 jobs:
   analyze:
@@ -14,6 +15,7 @@ jobs:
       actions: read
       contents: read
       security-events: write
+      pull-requests: write # used to remove label
 
     strategy:
       fail-fast: false
@@ -21,6 +23,16 @@ jobs:
         language: [javascript]
 
     steps:
+      - name: Remove run-codeql label, if applicable
+        if: github.event.label.name == 'run-codeql'
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { issue: { number: issue_number }, repo: { owner, repo } } = context;
+            const label = 'run-codeql';
+            github.issues.removeLabel({ owner, repo, issue_number, name: label });
+
       - name: Checkout
         uses: actions/checkout@v3
 

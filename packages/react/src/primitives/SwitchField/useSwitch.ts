@@ -1,9 +1,25 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
-export const useSwitch = (props) => {
+type ChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
+
+interface UseSwitchProps {
+  onChange?: ChangeHandler;
+  isChecked?: boolean;
+  defaultChecked?: boolean;
+  isDisabled?: boolean;
+}
+interface UseSwitch {
+  isOn: boolean;
+  changeHandler: ChangeHandler;
+  isFocused: boolean;
+  setIsFocused: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const useSwitch = (props: UseSwitchProps): UseSwitch => {
   const { onChange, isChecked, defaultChecked, isDisabled } = props;
   const isControlled = typeof isChecked !== 'undefined';
-  const [isOn, setIsOn] = useState(isControlled ? isChecked : defaultChecked);
+  const [isOn, setIsOn] = useState(isControlled ? isChecked : !!defaultChecked);
   const [isFocused, setIsFocused] = useState(false);
 
   const changeHandler = useCallback(
@@ -13,7 +29,10 @@ export const useSwitch = (props) => {
         return;
       }
 
-      typeof onChange === 'function' && onChange(event);
+      if (isFunction(onChange)) {
+        onChange(event);
+      }
+
       setIsOn(event.target.checked);
     },
     [onChange, isDisabled]

@@ -49,8 +49,8 @@ describe('Card component', () => {
     );
 
     await screen.findByTestId(testId);
-    expect(ref.current.nodeName).toBe('DIV');
-    expect(ref.current.innerHTML).toBe(cardContent);
+    expect(ref.current?.nodeName).toBe('DIV');
+    expect(ref.current?.innerHTML).toBe(cardContent);
   });
 
   it('can render any arbitrary data-* attribute', async () => {

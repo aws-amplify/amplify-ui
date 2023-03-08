@@ -1,12 +1,12 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "2.1.3",
+  "version": "2.1.14",
   "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/esm/index.mjs",
   "react-native": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
+      "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
     "./package.json": "./package.json"
@@ -19,16 +19,18 @@
   ],
   "scripts": {
     "clean": "rimraf dist node_modules",
-    "prebuild": "rimraf dist",
     "build": "rollup --config",
-    "build:esm": "tsc --project tsconfig.esm.json",
-    "dev": "yarn build:esm --watch",
-    "lint": "tsc --noEmit && eslint src",
-    "test": "jest --coverage --verbose",
-    "test:watch": "yarn test --watch"
+    "dev": "yarn build --watch",
+    "lint": "yarn typecheck && eslint src",
+    "prebuild": "rimraf dist",
+    "test": "yarn test:unit && yarn test:esm",
+    "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core\"'",
+    "test:unit": "jest",
+    "test:unit:watch": "yarn test:unit --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.3.0",
+    "@aws-amplify/ui": "5.5.6",
     "@xstate/react": "3.0.1",
     "lodash": "4.17.21",
     "xstate": "^4.33.6"
@@ -38,14 +40,12 @@
     "react": ">= 16.14.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.13",
-    "@types/react-native": "^0.63.45",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
@@ -65,7 +65,6 @@
     "rollup": "^2.70.0",
     "rollup-plugin-node-externals": "^4.1.1",
     "ts-jest": "^27.1.3",
-    "ts-node": "^10.2.1",
     "typescript": "^4.3.2"
   },
   "sideEffects": false

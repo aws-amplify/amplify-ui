@@ -85,10 +85,6 @@ done
 # max number of parallel tasks at a time
 numParallelTasks=8 # Future improvement: could set this to # of logical cores in localdevice
 
-if [ "$NODE_ENV" = "test" ]; then
-  numParallelTasks=1 # GitHub actions has trouble handling parallel executions
-fi
-
 # Get the path to this shell file relative to cwd
 # (1) bash_source[0] contains the filename of this shell relative to cwd
 #     (e.g. `../pull-environments.sh`)

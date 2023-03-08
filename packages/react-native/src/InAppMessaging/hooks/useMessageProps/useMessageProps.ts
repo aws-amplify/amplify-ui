@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from '@aws-amplify/ui';
 import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core';
 
 import { useMessageImage } from '../useMessageImage';

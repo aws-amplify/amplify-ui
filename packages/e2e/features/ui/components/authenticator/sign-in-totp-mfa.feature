@@ -12,6 +12,8 @@ Feature: Sign In with TOTP MFA
     And I type my password
     And I click the "Sign in" button
     Then I will be redirected to the setup totp page
+    Then I check to see if QR code is correct
+    Then I see the "Confirm" button
 
   @angular @react @vue
   Scenario: Redirect to sign in page

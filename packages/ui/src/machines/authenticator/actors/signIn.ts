@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get.js';
 import { createMachine, sendUpdate } from 'xstate';
+
 import {
   AuthChallengeName,
   AuthEvent,
@@ -29,12 +29,13 @@ import {
   setFieldErrors,
   setRemoteError,
   setRequiredAttributes,
+  setTotpSecretCode,
   setUnverifiedContactMethods,
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
-
 import { defaultServices } from '../defaultServices';
+import { isEmpty } from '../../../utils';
 
 export type SignInMachineOptions = {
   services?: Partial<typeof defaultServices>;
@@ -372,9 +373,22 @@ export function signInActor({ services }: SignInMachineOptions) {
           },
         },
         setupTOTP: {
-          initial: 'edit',
+          initial: 'getTotpSecretCode',
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
+            getTotpSecretCode: {
+              invoke: {
+                src: 'getTotpSecretCode',
+                onDone: {
+                  target: 'edit',
+                  actions: 'setTotpSecretCode',
+                },
+                onError: {
+                  target: 'edit',
+                  actions: 'setRemoteError',
+                },
+              },
+            },
             edit: {
               entry: 'sendUpdate',
               on: {
@@ -498,6 +512,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         setCredentials,
         setFieldErrors,
         setRemoteError,
+        setTotpSecretCode,
         setUnverifiedContactMethods,
         setUser,
         setUsernameAuthAttributes,
@@ -606,6 +621,10 @@ export function signInActor({ services }: SignInMachineOptions) {
             return Promise.reject(err);
           }
         },
+        async getTotpSecretCode(context) {
+          const { user } = context;
+          return Auth.setupTOTP(user);
+        },
         async verifyTotpToken(context) {
           const { formValues, user } = context;
           const { confirmation_code } = formValues;
@@ -645,7 +664,10 @@ export function signInActor({ services }: SignInMachineOptions) {
             context.formValues,
             context.touched,
             context.passwordSettings,
-            [defaultServices.validateConfirmPassword]
+            [
+              defaultServices.validateFormPassword,
+              defaultServices.validateConfirmPassword,
+            ]
           );
         },
       },

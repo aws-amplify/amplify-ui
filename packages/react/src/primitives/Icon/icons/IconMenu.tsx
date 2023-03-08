@@ -2,12 +2,13 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { ComponentClassNames } from '../../shared';
+import { InternalIcon } from './types';
 import { View } from '../../View';
 
 /**
  * @internal For internal Amplify UI use only. May be removed in a future release.
  */
-export const IconMenu = (props) => {
+export const IconMenu: InternalIcon = (props) => {
   const { className, ...rest } = props;
 
   return (

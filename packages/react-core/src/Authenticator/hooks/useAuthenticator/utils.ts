@@ -1,15 +1,17 @@
 import { Auth } from 'aws-amplify';
 import {
   AmplifyUser,
+  areEmptyArrays,
+  areEmptyObjects,
   AuthenticatorRoute,
   AuthMachineState,
   FormFieldsArray,
   getSortedFormFields,
   UnverifiedContactMethods,
+  getActorContext,
+  isString,
 } from '@aws-amplify/ui';
-import isString from 'lodash/isString';
 
-import { areEmptyArrays, areEmptyObjects } from '../../../utils';
 import { AuthenticatorLegacyField, AuthenticatorLegacyFields } from '../types';
 import { isComponentRouteKey } from '../utils';
 
@@ -51,6 +53,12 @@ export const getComparator =
     // Shallow compare the array values
     return areSelectorDepsEqual(currentSelectorDeps, nextSelectorDeps);
   };
+
+export const getQRFields = (
+  state: AuthMachineState
+): { totpIssuer?: string; totpUsername?: string } => ({
+  ...getActorContext(state)?.formFields?.setupTOTP?.QR,
+});
 
 export const getTotpSecretCodeCallback = (user: AmplifyUser) =>
   async function getTotpSecretCode(): Promise<string> {

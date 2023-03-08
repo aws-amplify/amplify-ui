@@ -6,7 +6,7 @@ import { Text } from '../Text';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 
-describe('Text: ', () => {
+describe('Text', () => {
   const textText = 'This is a Text primitive';
 
   it('renders correct defaults', async () => {
@@ -75,7 +75,7 @@ describe('Text: ', () => {
   it('should render the truncated class on Text', async () => {
     render(
       <div>
-        <Text testId="truncated" isTruncated={true}>
+        <Text testId="truncated" isTruncated>
           truncated
         </Text>
       </div>
@@ -93,7 +93,7 @@ describe('Text: ', () => {
     render(<Text ref={ref}>{textText}</Text>);
 
     await screen.findByText(textText);
-    expect(ref.current.nodeName).toBe('P');
+    expect(ref.current?.nodeName).toBe('P');
   });
 
   it('can render a classname for Text', async () => {
@@ -111,7 +111,7 @@ describe('Text: ', () => {
   });
 
   it('can set the data-truncate attribute', async () => {
-    render(<Text isTruncated={true}>{textText}</Text>);
+    render(<Text isTruncated>{textText}</Text>);
 
     const text = await screen.findByText(textText);
     expect(text.dataset['truncate']).toBe('true');

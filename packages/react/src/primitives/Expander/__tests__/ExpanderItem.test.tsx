@@ -11,7 +11,7 @@ import {
 } from '../ExpanderItem';
 import { ComponentClassNames } from '../../shared/constants';
 
-describe('ExpanderItem: ', () => {
+describe('ExpanderItem:', () => {
   it('should render default and custom classnames', async () => {
     const className = 'class-test';
     render(
@@ -137,6 +137,6 @@ describe('ExpanderItem: ', () => {
     );
 
     await screen.findByTestId(EXPANDER_ITEM_TEST_ID);
-    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current?.nodeName).toBe('DIV');
   });
 });

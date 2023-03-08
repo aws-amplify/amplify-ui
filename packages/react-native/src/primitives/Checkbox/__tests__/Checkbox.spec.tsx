@@ -6,7 +6,6 @@ import Checkbox from '../Checkbox';
 import { useTheme } from '../../../theme';
 import { getThemedStyles } from '../styles';
 import { icons } from '../../../assets';
-import { IconStyles } from '../../Icon/types';
 
 const onChange = jest.fn();
 const testID = 'checkboxTestID';
@@ -106,9 +105,7 @@ describe('Checkbox', () => {
       undefined,
     ]);
 
-    const iconStyle = (
-      getByRole('image').props.style as IconStyles
-    )[0] as ImageStyle;
+    const iconStyle = (getByRole('image').props.style as ImageStyle[])[0];
     expect(iconStyle.height).toBe(customSize);
     expect(iconStyle.width).toBe(customSize);
   });
@@ -121,9 +118,7 @@ describe('Checkbox', () => {
 
     expect(toJSON()).toMatchSnapshot();
 
-    const checkboxStyle = (
-      getByTestId(testID).props.style as IconStyles
-    )[0] as ViewStyle;
+    const checkboxStyle = (getByTestId(testID).props.style as ViewStyle[])[0];
     expect(checkboxStyle.flexDirection).toBe('column');
   });
 

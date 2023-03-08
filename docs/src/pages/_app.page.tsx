@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Storage } from 'aws-amplify';
+import { Storage, Amplify } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 
@@ -7,9 +7,9 @@ import { ThemeProvider, ColorMode, defaultTheme } from '@aws-amplify/ui-react';
 
 import MyStorageProvider from '@/utils/storageMock';
 import { configure, trackPageVisit } from '@/utils/track';
-import { IS_PROD_STAGE } from '@/utils/stage';
 import { Header } from '@/components/Layout/Header';
 import { baseTheme } from '../theme';
+import { mockConfig } from '../mockConfig';
 
 import { Head } from './Head';
 
@@ -44,16 +44,16 @@ if (typeof window === 'undefined') {
   ✨ you can explore the Amplify UI theme object by typing \`theme\` in the console.
  `);
   window['theme'] = defaultTheme;
-}
-
-function MyApp({ Component, pageProps }) {
-  const [expanded, setExpanded] = React.useState(false);
-
+  Amplify.configure(mockConfig);
   Storage.addPluggable(new MyStorageProvider('fast', { delay: 10 }));
   Storage.addPluggable(new MyStorageProvider('slow', { delay: 1000 }));
   Storage.addPluggable(
     new MyStorageProvider('error', { delay: 50, networkError: true })
   );
+}
+
+function MyApp({ Component, pageProps }) {
+  const [expanded, setExpanded] = React.useState(false);
 
   const {
     pathname,
@@ -86,10 +86,8 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   React.useEffect(() => {
-    if (IS_PROD_STAGE) {
-      configure();
-      trackPageVisit();
-    }
+    configure();
+    trackPageVisit();
   }, [pathname]); // only track page visit if path has changed
 
   return (
@@ -129,12 +127,8 @@ function MyApp({ Component, pageProps }) {
           </main>
         </ThemeProvider>
       </div>
-      {IS_PROD_STAGE && (
-        <>
-          <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
-          <Script src="/scripts/shortbreadv2.js" />
-        </>
-      )}
+      <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+      <Script src="/scripts/shortbreadv2.js" />
     </>
   );
 }

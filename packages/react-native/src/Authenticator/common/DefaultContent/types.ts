@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { ImageStyle, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import {
   AuthenticatorComponentDefaultProps,
@@ -24,6 +24,7 @@ export interface DefaultContentStyle {
   buttonSecondary?: ViewStyle;
   buttonSecondaryLabel?: TextStyle;
   errorMessage?: ViewStyle;
+  errorMessageIcon?: ImageStyle;
   errorMessageLabel?: TextStyle;
   fieldErrorsContainer?: ViewStyle;
   fieldContainer?: ViewStyle;

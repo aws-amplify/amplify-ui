@@ -7,8 +7,7 @@ import {
 } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
-export interface PhoneNumberFieldPropControlsProps
-  extends PhoneNumberFieldProps {
+export type PhoneNumberFieldPropControlsProps = PhoneNumberFieldProps & {
   setLabel: (
     value: React.SetStateAction<PhoneNumberFieldProps['label']>
   ) => void;
@@ -43,7 +42,7 @@ export interface PhoneNumberFieldPropControlsProps
   setDefaultDialCode: (
     value: React.SetStateAction<PhoneNumberFieldProps['defaultDialCode']>
   ) => void;
-}
+};
 
 interface PhoneNumberFieldPropControlsInterface {
   (props: PhoneNumberFieldPropControlsProps): JSX.Element;

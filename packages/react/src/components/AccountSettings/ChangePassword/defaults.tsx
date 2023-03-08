@@ -13,7 +13,9 @@ const DefaultPasswordField: PasswordFieldComponent = ({
   return (
     <>
       <PasswordField {...rest} label={label} />
-      <ValidationErrors errors={fieldValidationErrors} />
+      {fieldValidationErrors ? (
+        <ValidationErrors errors={fieldValidationErrors} />
+      ) : null}
     </>
   );
 };

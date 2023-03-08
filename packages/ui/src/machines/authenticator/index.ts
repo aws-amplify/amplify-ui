@@ -1,5 +1,5 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
-import { choose } from 'xstate/lib/actions';
+import { actions } from 'xstate';
 
 import {
   AuthContext,
@@ -12,6 +12,7 @@ import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
 import { createSignUpMachine } from './signUp';
 
+const { choose } = actions;
 const DEFAULT_COUNTRY_CODE = '+1';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
@@ -303,6 +304,7 @@ export function createAuthenticatorMachine() {
               formValues: {},
               touched: {},
               validationError: {},
+              passwordSettings: context.config?.passwordSettings,
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
               formFields: context.config?.formFields,
@@ -338,6 +340,7 @@ export function createAuthenticatorMachine() {
               username: context.actorDoneData?.authAttributes?.username,
               formFields: context.config?.formFields,
               validationError: {},
+              passwordSettings: context.config?.passwordSettings,
             });
             return spawn(actor, { name: 'resetPasswordActor' });
           },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import TestRenderer from 'react-test-renderer';
-import { useMessage } from '@aws-amplify/ui-react-core';
+import { render } from '@testing-library/react-native';
+import { MessageLayout, useMessage } from '@aws-amplify/ui-react-core';
 
 import InAppMessageDisplay from '../InAppMessageDisplay';
 
@@ -15,7 +15,7 @@ describe('InAppMessageDisplay', () => {
   });
 
   it('renders the expected component in the happy path', () => {
-    const Component = ({ layout }) => (
+    const Component = ({ layout }: { layout: MessageLayout }) => (
       <View>
         <Text>{layout}</Text>
       </View>
@@ -24,8 +24,8 @@ describe('InAppMessageDisplay', () => {
 
     mockUseMessage.mockReturnValueOnce({ Component, props });
 
-    const inAppMessageDisplay = TestRenderer.create(<InAppMessageDisplay />);
+    const { toJSON } = render(<InAppMessageDisplay />);
 
-    expect(inAppMessageDisplay.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 });

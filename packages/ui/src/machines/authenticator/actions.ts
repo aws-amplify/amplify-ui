@@ -1,4 +1,6 @@
-import { assign, stop } from 'xstate/lib/actions';
+import { Auth } from 'aws-amplify';
+import { actions } from 'xstate';
+import { trimValues } from '../../helpers';
 
 import {
   ActorContextWithForms,
@@ -6,6 +8,8 @@ import {
   SignInContext,
   SignUpContext,
 } from '../../types';
+
+const { assign, stop } = actions;
 
 export const stopActor = (machineId: string) => {
   return stop(machineId);
@@ -55,6 +59,10 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
 /**
  * "set" actions
  */
+export const setTotpSecretCode = assign({
+  totpSecretCode: (_, event: AuthEvent) => event.data,
+});
+
 export const setChallengeName = assign({
   challengeName: (_, event: AuthEvent) => event.data?.challengeName,
 });
@@ -138,10 +146,13 @@ export const handleInput = assign({
 });
 
 export const handleSubmit = assign({
-  formValues: (context, event: AuthEvent) => ({
-    ...context['formValues'],
-    ...event.data,
-  }),
+  formValues: (context, event: AuthEvent) => {
+    const formValues = {
+      ...context['formValues'],
+      ...event.data,
+    };
+    return trimValues(formValues, 'password'); // do not trim password
+  },
 });
 
 export const handleBlur = assign({
@@ -153,6 +164,12 @@ export const handleBlur = assign({
     };
   },
 });
+
+export const resendCode = async (context) => {
+  const { username } = context;
+
+  return await Auth.forgotPassword(username);
+};
 
 /**
  * This action occurs on the entry to a state where a form submit action

@@ -41,6 +41,7 @@ async function generateSitemap() {
             <lastmod>2022-05-19T16:24:03.254Z</lastmod>
           </url>
         ${pages
+          .sort()
           .map((path) => {
             const route = path === '/index' ? '' : path;
 

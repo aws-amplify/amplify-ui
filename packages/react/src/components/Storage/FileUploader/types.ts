@@ -17,7 +17,7 @@ export interface FileUploaderProps {
   isPreviewerVisible?: boolean;
   isResumable?: boolean;
   accessLevel: StorageAccessLevel;
-  maxFiles?: number;
+  maxFileCount?: number;
   maxSize?: number;
   onError?: (error: string) => void;
   onSuccess?: (event: { key: string }) => void;
@@ -39,6 +39,7 @@ export interface PreviewerProps {
   isLoading: boolean;
   isSuccessful: boolean;
   hasMaxFilesError: boolean;
+  maxFileCount: number;
   onClear: () => void;
   onFileClick: () => void;
 }
@@ -70,14 +71,16 @@ export interface FileStatus extends Partial<FileStateProps> {
 
 export type FileStatuses = FileStatus[];
 
-export type FileState =
-  | 'paused'
-  | 'success'
-  | 'error'
-  | 'loading'
-  | 'resume'
-  | 'editing'
-  | null;
+export enum FileState {
+  PAUSED = 'paused',
+  SUCCESS = 'success',
+  ERROR = 'error',
+  LOADING = 'loading',
+  RESUME = 'resume',
+  EDITING = 'editing',
+  INIT = 'init',
+}
+
 export interface FileStateProps {
   fileState: FileState;
   errorMessage: string;

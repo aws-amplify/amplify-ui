@@ -44,12 +44,15 @@ body:
   - type: dropdown
     attributes:
       label: Which UI component?
-      description: Select one of our UI components below. If the bug report is for any of our primitives, please select Other.
+      description: Select one of our UI components below.
       multiple: true
       options:
         - Authenticator
-        - Chatbot
-        - Storage
+        - Account Settings
+        - Geo (MapView)
+        - In-App Messaging
+        - Primitive components
+        - Storage (File Uploader)
         - Other
     validations:
       required: true
@@ -65,10 +68,12 @@ body:
       label: What browsers are you seeing the problem on?
       multiple: true
       options:
-        - Firefox
         - Chrome
-        - Safari
+        - Firefox
         - Microsoft Edge
+        - Safari
+        - iOS (React Native)
+        - Android (React Native)
   - type: textarea
     attributes:
       label: Please describe your bug.

@@ -1,6 +1,8 @@
-import { Dimensions, EventSubscription, ScaledSize } from 'react-native';
+import { Dimensions, EventSubscription } from 'react-native';
 import { renderHook } from '@testing-library/react-hooks';
-import useDeviceOrientation from '../useDeviceOrientation';
+import useDeviceOrientation, {
+  DeviceOrientation,
+} from '../useDeviceOrientation';
 
 const dimensions = {
   landscape: { height: 100, width: 300 },
@@ -74,7 +76,7 @@ describe('useDeviceOrientation', () => {
     'returns the expected values when the device is in %s mode',
     (deviceOrientation, isLandscapeMode, isPortraitMode) => {
       getSpy.mockImplementation(
-        (_: string) => dimensions[deviceOrientation] as ScaledSize
+        (_: string) => dimensions[deviceOrientation as DeviceOrientation]
       );
 
       const { result } = renderHook(() => useDeviceOrientation());

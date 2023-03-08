@@ -25,8 +25,10 @@ export const svDict: AuthenticatorDictionary = {
   'Enter your username': 'Ange ditt användarnamn',
   'Forgot your password?': 'Glömt ditt lösenord? ',
   'Hide password': 'Dölj lösenord',
+  'It may take a minute to arrive': 'Det kan ta en minut att komma fram',
   Loading: 'Laddar',
   'New password': 'Nytt lösenord',
+  or: 'eller',
   Password: 'Lösenord',
   'Phone Number': 'Telefonnummer',
   'Resend Code': 'Skicka koden igen',
@@ -51,6 +53,14 @@ export const svDict: AuthenticatorDictionary = {
   Username: 'Användarnamn',
   'Verify Contact': 'Verifiera kontakt',
   Verify: 'Verifiera',
+  'We Sent A Code': 'Vi skickade en kod',
+  'We Texted You': 'Vi sms:ade dig',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Din kod är på väg. För att logga in, ange koden vi mejlade till',
+  'Your code is on the way. To log in, enter the code we sent you':
+    'Din kod är på väg. För att logga in, ange koden vi skickade till dig',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Din kod är på väg. För att logga in, ange koden vi sms:ade till',
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -67,7 +77,6 @@ export const svDict: AuthenticatorDictionary = {
   'Lost your code? ': 'Förlorat koden? ',
   'New Password': 'Nytt lösenord',
   'No account? ': 'Inget konto? ',
-  or: 'eller',
   'Password attempts exceeded':
     'Maximalt antal felaktiga inloggningsförsök har uppnåtts',
   'Reset password': 'Återställ lösenord',

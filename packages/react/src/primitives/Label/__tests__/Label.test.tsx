@@ -11,7 +11,7 @@ describe('Label component', () => {
       </Label>
     );
 
-    const label = (await screen.findByText('My label')) as HTMLLabelElement;
+    const label = await screen.findByText<HTMLLabelElement>('My label');
     expect(label).toHaveClass('my-test-label');
     expect(label.htmlFor).toBe('my-label');
   });
@@ -21,6 +21,6 @@ describe('Label component', () => {
 
     render(<Label ref={ref}>My label</Label>);
     await screen.findByText('My label');
-    expect(ref.current.nodeName).toBe('LABEL');
+    expect(ref.current?.nodeName).toBe('LABEL');
   });
 });

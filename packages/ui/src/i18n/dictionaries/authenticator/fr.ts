@@ -25,8 +25,10 @@ export const frDict: AuthenticatorDictionary = {
   'Enter your username': "Saisissez votre nom d'utilisateur",
   'Forgot your password?': 'Mot de passe oublié ? ',
   'Hide password': 'Masquer le mot de passe',
+  'It may take a minute to arrive': 'Cela peut prendre une minute',
   Loading: 'Chargement en cours',
   'New password': 'Nouveau mot de passe',
+  or: 'ou',
   Password: 'Mot de passe',
   'Phone Number': 'Numéro de téléphone',
   'Resend Code': 'Renvoyer le code',
@@ -51,6 +53,9 @@ export const frDict: AuthenticatorDictionary = {
   Username: "Nom d'utilisateur",
   'Verify Contact': 'Vérifier le contact',
   Verify: 'Vérifier',
+  'We Sent A Code': 'Nous avons envoyé un code',
+  'We Texted You': 'Nous vous avons envoyé un SMS',
+  'Your code is on the way. To log in, enter the code we sent you': `Votre code est en cours d'envoi. Pour vous connecter, saisissez le code que nous vous avons envoyé`,
 
   // Additional translations provided by customers
   'An account with the given email already exists.':
@@ -71,7 +76,6 @@ export const frDict: AuthenticatorDictionary = {
   'Network error': 'Erreur réseau',
   'New Password': 'Nouveau mot de passe',
   'No account? ': 'Pas de compte ? ',
-  or: 'ou',
   'Resend a Code': 'Renvoyer un code',
   'Reset password': 'Réinitialisez votre mot de passe',
   Send: 'Envoyer',
@@ -83,4 +87,10 @@ export const frDict: AuthenticatorDictionary = {
   'User does not exist': "L'utilisateur n'existe pas",
   'Username cannot be empty': "Le nom d'utilisateur doit être renseigné",
   'Username/client id combination not found.': "L'utilisateur n'existe pas",
+  'We Emailed You': 'Nous vous avons envoyé un code',
+  'Your code is on the way. To log in, enter the code we emailed to':
+    'Votre code est en route. Pour vous connecter entrez le code reçu sur cette adresse email',
+  'Your code is on the way. To log in, enter the code we texted to':
+    'Votre code est en route. Pour vous connecter entrez le code reçu sur ce numéro de téléphone',
+  'It may take a minute to arrive.': 'Cela peut prendre quelques minutes.',
 };

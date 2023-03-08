@@ -16,7 +16,7 @@ import { RouteContainer, RouteProps } from '../RouteContainer';
 
 const logger = new Logger('SetupTOTP-logger');
 
-type LegacyQRFields = { QR?: { totpIssuer?: string; totpUsername?: string } };
+type LegacyQRFields = { totpIssuer?: string; totpUsername?: string };
 
 const { getSetupTOTPText, getCopiedText, getLoadingText } =
   authenticatorTextUtil;
@@ -25,8 +25,8 @@ export const SetupTOTP = ({
   className,
   variation,
 }: RouteProps): JSX.Element => {
-  const { fields, getTotpSecretCode, isPending, user } = useAuthenticator(
-    (context) => [context.isPending]
+  const { totpSecretCode, isPending, user, QRFields } = useAuthenticator(
+    (context) => [context.isPending, context.totpSecretCode]
   );
 
   const { handleChange, handleSubmit } = useFormHandlers();
@@ -40,16 +40,13 @@ export const SetupTOTP = ({
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [qrCode, setQrCode] = React.useState<string>();
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
-  const [secretKey, setSecretKey] = React.useState<string>('');
 
   const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
-    (fields as LegacyQRFields)?.QR ?? {};
+    (QRFields as LegacyQRFields) ?? {};
 
   const generateQRCode = React.useCallback(async (): Promise<void> => {
     try {
-      const newSecretKey = await getTotpSecretCode();
-      setSecretKey(newSecretKey);
-      const totpCode = getTotpCodeURL(totpIssuer, totpUsername, newSecretKey);
+      const totpCode = getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode);
       const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
       setQrCode(qrCodeImageSource);
@@ -58,7 +55,7 @@ export const SetupTOTP = ({
     } finally {
       setIsLoading(false);
     }
-  }, [getTotpSecretCode, totpIssuer, totpUsername]);
+  }, [totpIssuer, totpUsername, totpSecretCode]);
 
   React.useEffect(() => {
     if (!qrCode) {
@@ -67,7 +64,7 @@ export const SetupTOTP = ({
   }, [generateQRCode, qrCode]);
 
   const copyText = (): void => {
-    navigator.clipboard.writeText(secretKey);
+    navigator.clipboard.writeText(totpSecretCode);
     setCopyTextLabel(getCopiedText());
   };
 
@@ -97,7 +94,7 @@ export const SetupTOTP = ({
               />
             )}
             <Flex data-amplify-copy>
-              <div>{secretKey}</div>
+              <div>{totpSecretCode}</div>
               <Flex data-amplify-copy-svg onClick={copyText}>
                 <div data-amplify-copy-tooltip>{copyTextLabel}</div>
                 <svg

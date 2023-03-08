@@ -12,7 +12,7 @@ import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 
 jest.mock('aws-amplify');
 
-describe('useStateMutationAction: ', () => {
+describe('useStateMutationAction:', () => {
   it('should update state correctly', () => {
     const prevState = 'none';
     const newState = 'block';

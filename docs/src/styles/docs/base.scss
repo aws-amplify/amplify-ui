@@ -5,7 +5,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('/fonts/Inter.var.woff2?v=3.19') format('woff2');
+  src: url('/fonts/Inter.var.woff2') format('woff2');
   font-named-instance: 'Regular';
 }
 
@@ -14,7 +14,7 @@
   font-style: italic;
   font-weight: 100 900;
   font-display: swap;
-  src: url('/fonts/Inter-italic.var.woff2?v=3.19') format('woff2');
+  src: url('/fonts/Inter-italic.var.woff2') format('woff2');
   font-named-instance: 'Italic';
 }
 
@@ -23,8 +23,8 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/Inter-Regular.woff2?v=3.19') format('woff2'),
-    url('/fonts/Inter-Regular.woff?v=3.19') format('woff');
+  src: url('/fonts/Inter-Regular.woff2') format('woff2'),
+    url('/fonts/Inter-Regular.woff') format('woff');
 }
 
 @font-face {
@@ -300,6 +300,32 @@ h4:hover > a .icon-link {
       opacity: 1;
       transform: translateX(0);
     }
+  }
+}
+
+.expand-out {
+  // Only expand things for people without reduced motion preference
+  @media (prefers-reduced-motion: no-preference) {
+    &.shown {
+      animation: expand-out calc(2 * var(--amplify-time-long))
+        cubic-bezier(0.2, 0.6, 0.3, 1) both;
+    }
+  }
+}
+
+@keyframes expand-out {
+  0% {
+    letter-spacing: calc(-1 * var(--amplify-space-xs));
+    // arbitrary number found through heuristic methods, without this transform the expansion is less smooth and less noticeable.
+    transform: translateZ(-500px);
+    opacity: var(--amplify-opacities-0);
+  }
+  50% {
+    opacity: var(--amplify-opacities-60);
+  }
+  100% {
+    transform: translateZ(0);
+    opacity: var(--amplify-opacities-1);
   }
 }
 

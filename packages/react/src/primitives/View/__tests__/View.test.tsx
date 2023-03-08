@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 import { View } from '../View';
 import { ComponentPropsToStylePropsMap } from '../../types';
 
-describe('View: ', () => {
+describe('View:', () => {
   const viewText = 'Hello from inside a view';
 
   it('renders correct defaults', async () => {
@@ -41,8 +41,8 @@ describe('View: ', () => {
     render(<View ref={ref}>{text}</View>);
 
     await screen.findByText(text);
-    expect(ref.current.nodeName).toBe('DIV');
-    expect(ref.current.innerHTML).toBe(text);
+    expect(ref.current?.nodeName).toBe('DIV');
+    expect(ref.current?.innerHTML).toBe(text);
   });
 
   it('can render a <button> HTML element', async () => {
@@ -83,11 +83,11 @@ describe('View: ', () => {
 
   it('can be disabled', async () => {
     render(
-      <View as="button" isDisabled={true}>
+      <View as="button" isDisabled>
         Click me!
       </View>
     );
-    const view = (await screen.findByRole('button')) as HTMLButtonElement;
+    const view = await screen.findByRole<HTMLButtonElement>('button');
     expect(view.disabled).toBe(true);
   });
 
@@ -134,5 +134,12 @@ describe('View: ', () => {
         kebabCase(ComponentPropsToStylePropsMap.color)
       )
     ).toBe('blue');
+  });
+
+  it('should work with inert', async () => {
+    const testId = 'inertTest';
+    render(<View testId={testId} inert />);
+    const view = await screen.findByTestId(testId);
+    expect(view).toHaveAttribute('inert');
   });
 });

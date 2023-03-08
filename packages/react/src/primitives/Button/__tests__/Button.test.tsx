@@ -38,6 +38,12 @@ describe('Button test suite', () => {
     expect(menu.classList).toContain('amplify-button--menu');
     expect(warning.classList).toContain('amplify-button--warning');
     expect(destructive.classList).toContain('amplify-button--destructive');
+
+    expect(primary.classList).toContain(
+      `${ComponentClassNames['Button']}--primary`
+    );
+    expect(link.classList).toContain(`${ComponentClassNames['Button']}--link`);
+    expect(menu.classList).toContain(`${ComponentClassNames['Button']}--menu`);
   });
 
   it('should add the disabled class with the disabled attribute', async () => {
@@ -52,42 +58,16 @@ describe('Button test suite', () => {
     expect(disabled).toHaveClass('amplify-button--disabled');
   });
 
-  it('should render button variations', async () => {
-    render(
-      <div>
-        <Button variation="primary" testId="primary">
-          Primary
-        </Button>
-        <Button variation="link" testId="link">
-          Link
-        </Button>
-        <Button variation="menu" testId="menu">
-          Link
-        </Button>
-      </div>
-    );
-
-    const primary = await screen.findByTestId('primary');
-    const link = await screen.findByTestId('link');
-    const menu = await screen.findByTestId('menu');
-
-    expect(primary.classList).toContain(
-      `${ComponentClassNames['Button']}--primary`
-    );
-    expect(link.classList).toContain(`${ComponentClassNames['Button']}--link`);
-    expect(menu.classList).toContain(`${ComponentClassNames['Button']}--menu`);
-  });
-
   it('should render button states', async () => {
     render(
       <div>
-        <Button isFullWidth={true} testId="fullwidth">
+        <Button isFullWidth testId="fullwidth">
           Full Width
         </Button>
-        <Button isDisabled={true} testId="disabled">
+        <Button isDisabled testId="disabled">
           Disabled
         </Button>
-        <Button isLoading={true} testId="loading">
+        <Button isLoading testId="loading">
           Disabled
         </Button>
       </div>
@@ -146,8 +126,8 @@ describe('Button test suite', () => {
     render(<Button ref={ref}>{buttonText}</Button>);
 
     await screen.findByRole('button');
-    expect(ref.current.nodeName).toBe('BUTTON');
-    expect(ref.current.innerHTML).toBe(buttonText);
+    expect(ref.current?.nodeName).toBe('BUTTON');
+    expect(ref.current?.innerHTML).toBe(buttonText);
   });
 
   it('should set size and variation props correctly', async () => {

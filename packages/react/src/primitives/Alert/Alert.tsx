@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { isFunction } from '@aws-amplify/ui';
 
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { classNameModifier } from '../shared/utils';
@@ -9,7 +10,6 @@ import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon/internal';
-import { isFunction } from '../shared/utils';
 
 const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
   {
@@ -36,40 +36,38 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
     }
   }, [setDismissed, onDismiss, dismissed]);
 
-  return (
-    !dismissed && (
-      <Flex
-        className={classNames(
-          ComponentClassNames.Alert,
-          className,
-          classNameModifier(ComponentClassNames.Alert, variation)
+  return !dismissed ? (
+    <Flex
+      className={classNames(
+        ComponentClassNames.Alert,
+        className,
+        classNameModifier(ComponentClassNames.Alert, variation)
+      )}
+      data-variation={variation}
+      ref={ref}
+      role="alert"
+      {...rest}
+    >
+      {hasIcon && <AlertIcon variation={variation} ariaHidden />}
+      <View flex="1">
+        {heading && (
+          <View className={ComponentClassNames.AlertHeading}>{heading}</View>
         )}
-        data-variation={variation}
-        ref={ref}
-        role="alert"
-        {...rest}
-      >
-        {hasIcon && <AlertIcon variation={variation} ariaHidden={true} />}
-        <View flex="1">
-          {heading && (
-            <View className={ComponentClassNames.AlertHeading}>{heading}</View>
-          )}
-          <View className={ComponentClassNames.AlertBody}>{children}</View>
-        </View>
-        {isDismissible && (
-          <Button
-            ariaLabel={dismissButtonLabel}
-            variation="link"
-            className={ComponentClassNames.AlertDismiss}
-            onClick={dismissAlert}
-            ref={buttonRef}
-          >
-            <IconClose aria-hidden="true" />
-          </Button>
-        )}
-      </Flex>
-    )
-  );
+        <View className={ComponentClassNames.AlertBody}>{children}</View>
+      </View>
+      {isDismissible && (
+        <Button
+          ariaLabel={dismissButtonLabel}
+          variation="link"
+          className={ComponentClassNames.AlertDismiss}
+          onClick={dismissAlert}
+          ref={buttonRef}
+        >
+          <IconClose aria-hidden="true" />
+        </Button>
+      )}
+    </Flex>
+  ) : null;
 };
 
 /**

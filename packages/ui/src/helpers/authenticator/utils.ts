@@ -4,11 +4,21 @@
  */
 
 import { Hub } from 'aws-amplify';
-import { waitFor } from 'xstate/lib/waitFor';
+import { appendToCognitoUserAgent } from '@aws-amplify/auth';
+import { waitFor } from 'xstate/lib/waitFor.js';
 
 import { AuthInterpreter, AuthMachineHubHandler } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS } from './constants';
 import { getActorState } from './actor';
+
+type ConfigureOptions = { packageName: string; version: string };
+export const configureComponent = ({
+  packageName,
+  version,
+}: ConfigureOptions) => {
+  // "@aws-amplify/ui-react" + "/" + "3.5.10"
+  appendToCognitoUserAgent(`${packageName}/${version}`);
+};
 
 // replaces all characters in a string with '*', except for the first and last char
 export const censorAllButFirstAndLast = (value: string): string => {
@@ -88,13 +98,14 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
         }
       }
       break;
-    case 'autoSignIn_failure':
+    case 'autoSignIn_failure': {
       await waitForAutoSignInState(service);
       const currentActorState = getActorState(service.getSnapshot());
       if (currentActorState?.matches('autoSignIn')) {
         send({ type: 'AUTO_SIGN_IN_FAILURE', data: data.payload.data });
       }
       break;
+    }
     case 'signOut':
     case 'tokenRefresh_failure':
       if (state.matches('authenticated.idle')) {
@@ -123,6 +134,7 @@ const getHubEventHandler =
  */
 export const listenToAuthHub = (
   service: AuthInterpreter,
+  // angular passes its own `handler` param
   handler: AuthMachineHubHandler = defaultAuthHubHandler
 ) => {
   return Hub.listen(
@@ -143,3 +155,16 @@ export const getTotpCodeURL = (
   encodeURI(
     `otpauth://totp/${issuer}:${username}?secret=${secret}&issuer=${issuer}`
   );
+
+export function trimValues<T extends Record<string, string>>(
+  values: T,
+  ...ignored: string[]
+): T {
+  return Object.entries(values).reduce(
+    (acc, [name, value]) => ({
+      ...acc,
+      [name]: ignored.includes(name) ? value : value?.trim(),
+    }),
+    {} as T
+  );
+}
