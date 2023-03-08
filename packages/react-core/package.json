@@ -20,13 +20,13 @@
   "scripts": {
     "clean": "rimraf dist node_modules",
     "build": "rollup --config",
+    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core\"'",
     "dev": "yarn build --watch",
     "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
-    "test": "yarn test:unit && yarn test:esm",
-    "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core\"'",
-    "test:unit": "jest",
-    "test:unit:watch": "yarn test:unit --watch",
+    "test": "jest",
+    "test:ci": "yarn test && yarn check:esm",
+    "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
