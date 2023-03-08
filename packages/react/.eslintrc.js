@@ -11,9 +11,6 @@ module.exports = {
     '*.config.js',
     '.eslintrc.js',
     'jest.setup.ts',
-
-    // TODO remove once the full set of rules can be turned on for the repo
-    'src/react-shim.js',
   ],
   extends: [
     'eslint:recommended',
@@ -44,7 +41,7 @@ module.exports = {
       files: ['**/*.spec.*', '**/*.test.*'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        project: ['./tsconfig.dev.json'],
+        project: ['./tsconfig.json'],
       },
       plugins: ['@typescript-eslint', 'jest'],
       rules: {

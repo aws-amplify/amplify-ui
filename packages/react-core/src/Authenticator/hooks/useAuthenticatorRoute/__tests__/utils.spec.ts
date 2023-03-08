@@ -6,7 +6,7 @@ import {
 } from '../../types';
 import { UseAuthenticator } from '../../useAuthenticator/types';
 
-import { DEFAULTS } from '../../__mock__/components';
+import { DEFAULTS } from '../../__mocks__/components';
 import {
   mockMachineContext,
   mockUseAuthenticatorOutput,

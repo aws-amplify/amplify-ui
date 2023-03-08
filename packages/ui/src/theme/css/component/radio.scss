@@ -3,6 +3,10 @@
   justify-content: var(--amplify-components-radio-justify-content);
   gap: inherit;
   flex-direction: row-reverse;
+  // https://github.com/aws-amplify/amplify-ui/issues/3165
+  // without a relatively positioned element in the ancestor tree,
+  // focusing the hidden input might break some interfaces
+  position: relative;
   &--disabled {
     cursor: var(--amplify-components-radio-disabled-cursor);
   }

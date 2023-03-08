@@ -27,7 +27,7 @@ const radioField = {
   onChange: jest.fn,
 } as RadioFieldOptions;
 
-const mockfields = [];
+const mockfields = [] as TypedField[];
 const props: UseFieldValuesParams<TypedField> = {
   componentName: 'SignIn',
   fields: mockfields,

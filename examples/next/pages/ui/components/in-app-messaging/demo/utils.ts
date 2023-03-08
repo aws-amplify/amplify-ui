@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Analytics } from 'aws-amplify';
+import { useState, useEffect } from 'react';
+import { Analytics, Notifications } from 'aws-amplify';
 import {
   InAppMessage,
   InAppMessageAction,
@@ -39,6 +39,8 @@ const PORTRAIT_IMAGE =
 const LANDSCAPE_IMAGE =
   'https://images.unsplash.com/photo-1504858700536-882c978a3464?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80';
 const URL = 'https://ui.docs.amplify.aws/';
+
+const { InAppMessaging } = Notifications;
 
 const getButton = (
   action: InAppMessageAction,
@@ -112,8 +114,16 @@ export function useInAppDemo() {
     useState<GetDemoMessageParams['hasSecondaryButton']>(true);
   const [secondaryButtonAction, setSecondaryButtonAction] =
     useState<GetDemoMessageParams['secondaryButtonAction']>('CLOSE');
+
   const [useAnalyticEvents, setUseAnalyticEvents] =
     useState<GetDemoMessageParams['useAnalyticEvents']>(false);
+  const [syncMessages, setSyncMessages] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (syncMessages) {
+      InAppMessaging.syncMessages();
+    }
+  }, [syncMessages]);
 
   const handleAction = (
     type:
@@ -159,6 +169,7 @@ export function useInAppDemo() {
           break;
         case 'setUseAnalyticEvents':
           setUseAnalyticEvents(value);
+          if (!syncMessages) setSyncMessages(true);
           break;
         default:
           return null;
