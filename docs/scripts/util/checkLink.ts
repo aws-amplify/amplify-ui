@@ -49,9 +49,6 @@ async function returnStatus({
       const newHref = `${
         href.match(hostNameRegex)[0]
       }/${platform}${href.replace(hostNameRegex, '')}`;
-      console.log(
-        `🔁 [REDIRECTING...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
-      );
       return await checkLink(
         { href: newHref, tagName, tagText, pageIdx, pageUrl },
         linkIdx
