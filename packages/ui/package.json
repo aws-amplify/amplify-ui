@@ -31,16 +31,18 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "yarn build:css && yarn build:js",
+    "build": "yarn build:css && yarn build:dist",
     "build:css": "node -r esbuild-register ./scripts/generateCSS.ts",
-    "build:js": "rollup --config",
-    "build:dev:js": "tsup",
+    "build:dist": "rollup --config",
     "clean": "rimraf dist node_modules",
-    "dev": "yarn build:sd && yarn build:css && yarn build:dev:js --watch",
-    "dev:build": "yarn build:sd && yarn build:css && yarn build:dev:js",
-    "lint": "tsc --noEmit",
-    "test": "jest"
+    "dev": "yarn build --watch",
+    "lint": "yarn typecheck",
+    "prebuild": "rimraf dist",
+    "test": "yarn test:unit && yarn test:esm",
+    "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui\"'",
+    "test:unit": "jest",
+    "test:unit:watch": "yarn test:unit --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "csstype": "^3.1.1",

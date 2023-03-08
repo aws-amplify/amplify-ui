@@ -11,9 +11,6 @@ module.exports = {
     '*.config.js',
     '.eslintrc.js',
     'jest.setup.ts',
-
-    // TODO remove once the full set of rules can be turned on for the repo
-    'src/react-shim.js',
   ],
   extends: [
     'eslint:recommended',
