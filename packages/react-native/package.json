@@ -13,6 +13,7 @@
     "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
     "test": "jest",
+    "test:ci": "yarn test",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
