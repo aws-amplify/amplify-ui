@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import CountdownCircleTimer from 'react-countdown-circle-timer';
 import classNames from 'classnames';
 
 import { useTheme } from '../../../hooks';
@@ -182,7 +182,7 @@ export const LivenessCameraModule = (
                 }
                 testId="liveness-camera-countdown-timer"
               >
-                <CountdownCircleTimer
+                <CountdownCircleTimer.CountdownCircleTimer
                   isPlaying={isNotRecording}
                   size={85}
                   strokeWidth={8}
@@ -198,7 +198,7 @@ export const LivenessCameraModule = (
                       {remainingTime}
                     </Text>
                   )}
-                </CountdownCircleTimer>
+                </CountdownCircleTimer.CountdownCircleTimer>
               </View>
             )}
           </Overlay>
