@@ -110,6 +110,7 @@ jobs:
           - react
           - react-native
           - react-core
+          - configs/eslint
 
     steps:
       - name: Checkout Amplify UI
