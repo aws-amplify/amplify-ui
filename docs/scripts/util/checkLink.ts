@@ -1,7 +1,10 @@
 import https from 'https';
 import http from 'http';
 import { IGNORED_LINKS } from '../../src/data/ignoredLinks';
-import { defaultGoodStatusCodes } from '../data/constants';
+import {
+  DEFAULT_GOOD_STATUS_CODES,
+  DOCS_AMPLIFY_HOST,
+} from '../data/constants';
 
 export type LinkInfo = {
   href: string;
@@ -23,13 +26,13 @@ async function returnStatus({
   tagName,
   tagText,
 }: LinkInfo): Promise<LinkInfo> {
-  if ([...defaultGoodStatusCodes, 308].includes(statusCode)) {
+  if ([...DEFAULT_GOOD_STATUS_CODES, 308].includes(statusCode)) {
     /**
      * If 301 and from 'https://docs.amplify.aws/', add a "/" and check again
      * because 'https://docs.amplify.aws/' adds a "/" and return a 301 to all the links not ending with "/"
      * e.g. https://docs.amplify.aws/lib/auth/getarted/q/platform/js should return 404
      */
-    if (statusCode === 301 && href.startsWith('https://docs.amplify.aws/')) {
+    if (statusCode === 301 && href.startsWith(DOCS_AMPLIFY_HOST)) {
       return await checkLink(
         { href: `${href}/`, tagName, tagText, pageIdx, pageUrl },
         linkIdx

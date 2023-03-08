@@ -1,10 +1,10 @@
 import puppeteer from 'puppeteer';
 import { PromisePool } from '@supercharge/promise-pool';
-import { promisePoolConcurrency } from '../data/constants';
+import { PROMISE_POOL_CONCURRENCY } from '../data/constants';
 
 export async function crawlAllLinks(pages: string[]) {
   const { results: allPagesPaths } = await PromisePool.withConcurrency(
-    promisePoolConcurrency
+    PROMISE_POOL_CONCURRENCY
   )
     .for(pages)
     .process(async (pageUrl, pageIdx, pool) => {
