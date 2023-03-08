@@ -408,7 +408,7 @@ export const FaceMatchStateStringMap: Record<
   [FaceMatchState.TOO_CLOSE]: translate(
     DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE
   ),
-  [FaceMatchState.TOO_FAR]: translate('Move face closer'),
+  [FaceMatchState.TOO_FAR]: translate('Move face closer and fill oval'),
   [FaceMatchState.TOO_LEFT]: translate('Move face right'),
   [FaceMatchState.TOO_RIGHT]: translate('Move face left'),
   [FaceMatchState.MATCHED]: undefined,
@@ -425,7 +425,7 @@ export const LivenessErrorStateStringMap: Record<
     'Cannot complete check due to server issue'
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>(
-    "Face didn't fit inside oval in time limit. Try again and fit in oval within 5 seconds."
+    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 5 seconds."
   ),
   [LivenessErrorState.FACE_DISTANCE_ERROR]: translate<string>(
     'Ensure only one face is in front of camera and avoid moving closer during countdown.'

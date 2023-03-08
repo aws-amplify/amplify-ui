@@ -12,7 +12,7 @@ export const defaultTexts = {
   LIVENESS_INSTRUCTION_3:
     'Increase the brightness of your display screen to maximum level possible.',
   LIVENESS_INSTRUCTION_4:
-    'When check starts, fit face in oval, and hold for colored lights.',
+    'Fill onscreen oval with your face and hold for colored lights.',
   LIVENESS_WARNING_POPOVER:
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
 
@@ -42,7 +42,7 @@ export const defaultTexts = {
 
   // Face Match State
   LIVENESS_HINT_FACE_TOO_CLOSE: 'Move face farther away',
-  LIVENESS_HINT_FACE_TOO_FAR: 'Move face closer',
+  LIVENESS_HINT_FACE_TOO_FAR: 'Move face closer and fill oval',
   LIVENESS_HINT_FACE_TOO_LEFT: 'Move face right',
   LIVENESS_HINT_FACE_TOO_RIGHT: 'Move face left',
   LIVENESS_HINT_MOVE_FACE_INSTRUCTION: 'Move face to fit in oval',
@@ -50,7 +50,7 @@ export const defaultTexts = {
   // Error messages
   LIVENESS_ERROR: 'Check encountered an error',
   LIVENESS_TIMEOUT:
-    "Face didn't fit inside oval in time limit. Try again and fit in oval within 5 seconds.",
+    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 5 seconds.",
   LIVENESS_FACE_DISTANCE_ERROR_TITLE: 'Check failed during countdown',
   LIVENESS_FACE_DISTANCE_ERROR:
     'Ensure only one face is in front of camera and avoid moving closer during countdown.',

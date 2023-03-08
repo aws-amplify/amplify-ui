@@ -72,7 +72,7 @@ export const INSTRUCTIONS = [
     desc: 'Move to a well-lit place that is not dark or in direct sunlight.',
   },
   {
-    desc: 'When check starts, fit face in oval, and hold for colored lights.',
+    desc: 'Fill onscreen oval with your face and hold for colored lights.',
   },
 ];
 

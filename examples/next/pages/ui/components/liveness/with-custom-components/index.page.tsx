@@ -70,7 +70,7 @@ const App = () => {
                     sunlight.
                   </li>
                   <li>
-                    When check starts, fit face in oval, and hold for colored
+                    Fill onscreen oval with your face and hold for colored
                     lights.
                   </li>
                 </ol>
