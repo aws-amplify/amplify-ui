@@ -28,9 +28,9 @@ async function returnStatus({
 }: LinkInfo): Promise<LinkInfo> {
   if ([...DEFAULT_GOOD_STATUS_CODES, 308].includes(statusCode)) {
     /**
-     * If 301 and from 'https://docs.amplify.aws/', add a "/" and check again
-     * because 'https://docs.amplify.aws/' adds a "/" and return a 301 to all the links not ending with "/"
-     * e.g. https://docs.amplify.aws/lib/auth/getarted/q/platform/js should return 404
+     * If 301 and from 'https://docs.amplify.aws/', add a "/" and check again.
+     * Because 'https://docs.amplify.aws/' adds a "/" and return a 301 to all the links not ending with "/".
+     * e.g. https://docs.amplify.aws/lib/auth/getarted/q/platform/js returns 301 but we should catch it as 404.
      */
     if (statusCode === 301 && href.startsWith(DOCS_AMPLIFY_HOST)) {
       return await checkLink(
