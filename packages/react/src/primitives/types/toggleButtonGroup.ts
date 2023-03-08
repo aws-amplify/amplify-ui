@@ -34,5 +34,5 @@ export interface ToggleButtonGroupProps
    * @description
    * Handles changes to the current value when using the ToggleButtonGroup as a controlled component
    */
-  onChange: (value: string | string[]) => void;
+  onChange: (value: string | (string | undefined)[] | undefined) => void;
 }
