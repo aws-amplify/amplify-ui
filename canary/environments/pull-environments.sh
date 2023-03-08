@@ -2,8 +2,9 @@
 set -e
 IFS='|'
 
-# In development, AWS_PROFILE should be set. In CI, it's not.
-[ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false";
+# In development, AWS_PROFILE will be set explicitly. In CI,
+# we set it explicitly to default.
+[ -z "$AWS_PROFILE" ] && AWS_PROFILE="default"
 
 FRONTENDCONFIG="{\
 \"SourceDir\":\"src\",\
@@ -14,26 +15,25 @@ FRONTENDCONFIG="{\
 FRONTEND="{\
 \"frontend\":\"javascript\",\
 \"framework\":\"none\",\
-\"config\":$FRONTENDCONFIG\
-}"
+\"config\":$FRONTENDCONFIG}"
 AMPLIFY="{\
 \"defaultEditor\":\"code\",\
 }"
+
+# We set `useProfile` to true, because Amplify CLI does not support headless
+# pull with temporary credentials when `useProfile` is set to false.
+# See https://github.com/aws-amplify/amplify-cli/issues/11009.
 AWSCLOUDFORMATIONCONFIG="{\
 \"configLevel\":\"project\",\
-\"useProfile\":$useProfile,\
+\"useProfile\":\"true\",\
 \"profileName\":\"$AWS_PROFILE\",\
-\"accessKeyId\":\"$AWS_ACCESS_KEY_ID\",\
-\"secretAccessKey\":\"$AWS_SECRET_ACCESS_KEY\",\
-\"region\":\"us-east-2\"\
+\"region\":\""$region\""\
 }"
 PROVIDERS="{\
-\"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
-}"
+\"awscloudformation\":$AWSCLOUDFORMATIONCONFIG}"
 
-# Pull the backend for each environment
-  echo `pwd`
-for dir in ./environments/*/ ; do
+echo $(pwd)
+for dir in ./environments/*/; do
   if ! [ -f "$dir/package.json" ]; then
     echo "If $dir is an environment, ensure the a package.json file exists with a \"pull\" command that pulls the environment (see the README)."
     continue
@@ -42,12 +42,9 @@ for dir in ./environments/*/ ; do
   cd $dir
   echo $dir
 
-  # 'echo y' is used to answer "Yes" to the prompt "Do you plan on modifying this backend?"
+  # 'echo n' is used to answer "No" to the prompt "Do you plan on modifying this backend?"
   # See https://github.com/aws-amplify/amplify-cli/issues/5275
-  echo y | yarn --cwd environments/ pull \
-    --amplify $AMPLIFY \
-    --frontend $FRONTEND \
-    --providers $PROVIDERS
+  echo n | yarn pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS
 
   cd -
 done

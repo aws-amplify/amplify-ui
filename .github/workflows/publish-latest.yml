@@ -15,6 +15,7 @@ on:
     branches: [main]
 
 permissions:
+  id-token: write # This is required for requesting the JWT
   contents: write # Used to push tags to GitHub
 
 jobs:
@@ -59,12 +60,25 @@ jobs:
       - name: Get CLI versions
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
       - name: Pull down AWS environments
         run: yarn pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
         working-directory: ./canary
+      - name: Delete AWS Profile
+        run: rm -rf ~/.aws
       - name: Setup canary apps against @next
         run: yarn setup:next
         working-directory: ./canary

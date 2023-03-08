@@ -13,6 +13,10 @@ on:
   push:
     branches: [main]
 
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
 jobs:
   test:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
@@ -20,14 +24,11 @@ jobs:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
     secrets:
-      AWS_ACCESS_KEY_ID_AUTH: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-      AWS_SECRET_ACCESS_KEY_AUTH: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
-      AWS_ACCESS_KEY_ID_DATASTORE: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
-      AWS_SECRET_ACCESS_KEY_DATASTORE: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
-      AWS_ACCESS_KEY_ID_GEO: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
-      AWS_SECRET_ACCESS_KEY_GEO: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
-      AWS_ACCESS_KEY_ID_STORAGE: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE }}
-      AWS_SECRET_ACCESS_KEY_STORAGE: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE }}
+      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+      GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
+      STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+      IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
       USERNAME: ${{ secrets.USERNAME }}
@@ -80,11 +81,25 @@ jobs:
       - name: Get CLI versions
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
       - name: Pull down AWS environments
         run: yarn environments auth pull:email
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
+      - name: Delete AWS Profile
+        run: rm -rf ~/.aws
 
       - name: Install guides
         run: yarn install
@@ -148,12 +163,25 @@ jobs:
       - name: Get CLI versions
         id: cli-version
         run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
       - name: Pull down AWS environments
         run: yarn pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
         working-directory: ./canary
+      - name: Delete AWS Profile
+        run: rm -rf ~/.aws
       - name: Setup canary apps against @next
         run: yarn setup:next
         working-directory: ./canary

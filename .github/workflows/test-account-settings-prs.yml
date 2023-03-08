@@ -22,14 +22,11 @@ jobs:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
     secrets:
-      AWS_ACCESS_KEY_ID_AUTH: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-      AWS_SECRET_ACCESS_KEY_AUTH: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
-      AWS_ACCESS_KEY_ID_DATASTORE: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
-      AWS_SECRET_ACCESS_KEY_DATASTORE: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
-      AWS_ACCESS_KEY_ID_GEO: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
-      AWS_SECRET_ACCESS_KEY_GEO: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
-      AWS_ACCESS_KEY_ID_STORAGE: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE }}
-      AWS_SECRET_ACCESS_KEY_STORAGE: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE }}
+      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+      GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
+      STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+      IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
       USERNAME: ${{ secrets.USERNAME }}
