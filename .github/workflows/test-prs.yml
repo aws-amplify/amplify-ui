@@ -35,7 +35,7 @@ jobs:
       - name: Remove run-tests label, if applicable
         if: always() && github.event.label.name == 'run-tests'
         env:
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_NUMBER: ${{ github.event.pull_request.number }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.repository }}
           LABEL_NAME: 'run-tests'
@@ -43,8 +43,8 @@ jobs:
          with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { issue_number, owner, repo, label_name } = process.env
-            github.rest.issues.removeLabel({ owner, repo, issue_number, name: label_name })
+            const { ISSUE_NUMBER, REPO_OWNER, REPO_NAME, LABEL_NAME } = process.env
+            github.rest.issues.removeLabel({ owner: REPO_OWNER, repo: REPO_NAME, issue_number: ISSUE_NUMBER, name: LABEL_NAME })
   dependency-review:
     runs-on: ubuntu-latest
     steps:
