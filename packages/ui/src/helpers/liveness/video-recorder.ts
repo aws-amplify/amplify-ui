@@ -1,13 +1,9 @@
-import { Hub } from 'aws-amplify';
-
 /**
  * The options for the video recorder.
  */
 export interface VideoRecorderOptions {
   // TODO:: add options
 }
-
-const DEBUG = process.env.NEXT_PUBLIC_DEBUG === 'TRUE';
 
 /**
  * Helper wrapper class over the native MediaRecorder.
@@ -49,19 +45,6 @@ export class VideoRecorder {
               if (this._chunks.length === 0) {
                 this.firstChunkTimestamp = Date.now();
               }
-              if (DEBUG) {
-                console.log(
-                  `chunk sent #${this._chunks.length}: ${JSON.stringify({
-                    size: e.data.size,
-                    time: Date.now(),
-                  })}`
-                );
-                Hub.dispatch('LivenessSampleApp', {
-                  event: 'chunkEvent',
-                  data: { size: e.data.size },
-                  message: 'Chunk sent',
-                });
-              }
               this._chunks.push(e.data);
               controller.enqueue(e.data);
             }
@@ -81,16 +64,6 @@ export class VideoRecorder {
             'clientSesssionInfo',
             (e: MessageEvent) => {
               controller.enqueue(e.data.clientInfo);
-              if (DEBUG) {
-                console.log(
-                  `Client Info sent: ${JSON.stringify(e.data.clientInfo)}`
-                );
-                Hub.dispatch('LivenessSampleApp', {
-                  event: 'clientInfoEvent',
-                  data: { clientInfo: e.data.clientInfo },
-                  message: 'Client info sent',
-                });
-              }
             }
           );
 
