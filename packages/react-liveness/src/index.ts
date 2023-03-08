@@ -1,0 +1,1 @@
+export const pretendExport = 'hehe';
