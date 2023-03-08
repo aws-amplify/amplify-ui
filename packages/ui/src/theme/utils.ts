@@ -1,16 +1,9 @@
-import has from 'lodash/has';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
-import kebabCase from 'lodash/kebabCase';
-
+import kebabCase from 'lodash/kebabCase.js';
 // internal style dictionary function
-import usesReference from 'style-dictionary/lib/utils/references/usesReference';
+import usesReference from 'style-dictionary/lib/utils/references/usesReference.js';
 
-import {
-  DesignToken,
-  ShadowValue,
-  WebDesignToken,
-} from './tokens/types/designToken';
+import { isObject, isString, has } from '../utils';
+import { ShadowValue, WebDesignToken } from './tokens/types/designToken';
 
 type ShadowPropertyKey = keyof Exclude<ShadowValue, string>;
 
@@ -26,7 +19,8 @@ const SHADOW_PROPERTIES: ShadowPropertyKey[] = [
   'color',
 ];
 
-function referenceValue(value: string) {
+function referenceValue(value?: string) {
+  if (!value) return '';
   if (usesReference(value)) {
     const path = value.replace(/\{|\}/g, '').replace('.value', '').split('.');
     return `var(--${cssNameTransform({ path })})`;
@@ -34,20 +28,20 @@ function referenceValue(value: string) {
   return value;
 }
 
-export function cssValue(token: DesignToken<{ value: unknown }>) {
+export function cssValue(token: BaseDesignToken): string | number {
   const { value } = token;
   if (isString(value)) {
     return referenceValue(value);
   }
 
-  if (isObject(value)) {
-    if ('offsetX' in value) {
-      return SHADOW_PROPERTIES.map((property) =>
+  if (isShadowTokenObject(value)) {
+    return SHADOW_PROPERTIES.map((property) => {
+      return referenceValue(
         // lookup property against `token` first for custom non-nested value, then lookup
-        // property against `value` for design token value, default to empty string
-        referenceValue(token[property] ?? value[property] ?? '')
-      ).join(' ');
-    }
+        // property against `value` for design token value
+        isShadowTokenObject(token) ? token[property] : value[property]
+      );
+    }).join(' ');
   }
 
   return value;
@@ -72,8 +66,14 @@ export function isDesignToken(value: unknown): value is WebDesignToken {
   return isObject(value) && has(value, 'value');
 }
 
+export function isShadowTokenObject(
+  value: unknown
+): value is ShadowValue & object {
+  return isObject(value) && has(value, 'offsetX');
+}
+
 type SetupTokensProps = {
-  tokens: Record<string | number, any>;
+  tokens?: Record<string | number, any>;
   path?: Array<string>;
   setupToken: SetupToken;
 };
@@ -101,7 +101,7 @@ export function setupTokens({
     return setupToken({ token: tokens as BaseDesignToken, path });
   }
 
-  const output = {};
+  const output: Record<string, any> = {};
 
   for (const name in tokens) {
     if (has(tokens, name)) {

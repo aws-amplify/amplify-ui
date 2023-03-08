@@ -65,7 +65,7 @@ describe('CheckboxField test suite', () => {
   });
 
   describe('Checkbox functionality', () => {
-    const expectFunctionality = async (component) => {
+    const expectFunctionality = async (component: JSX.Element) => {
       render(component);
 
       const checkbox = await screen.findByTestId(
@@ -78,27 +78,27 @@ describe('CheckboxField test suite', () => {
       userEvent.click(checkbox);
       expect(input).not.toBeChecked();
     };
-    it('should work in uncontrolled way', async () => {
+    it('should work in uncontrolled way', () => {
       expectFunctionality(getCheckboxField({ ...basicProps }));
     });
 
-    it('should work in controlled way', async () => {
+    it('should work in controlled way', () => {
       expectFunctionality(<ControlledCheckboxField />);
     });
   });
 
   describe('Error messages', () => {
     const errorMessage = 'This is an error message';
-    it('should not show when hasError is false', async () => {
+    it('should not show when hasError is false', () => {
       render(getCheckboxField({ ...basicProps }));
 
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText).not.toBeInTheDocument();
     });
 
-    it('should show when hasError and errorMessage', async () => {
+    it('should show when hasError and errorMessage', () => {
       render(getCheckboxField({ ...basicProps, hasError: true, errorMessage }));
-      const errorText = await screen.queryByText(errorMessage);
+      const errorText = screen.queryByText(errorMessage);
       expect(errorText).toContainHTML(errorMessage);
     });
   });

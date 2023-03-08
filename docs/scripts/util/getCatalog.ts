@@ -1,6 +1,6 @@
 import path from 'path';
-
 import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
+
 import { getAllTypesData } from './getAllTypesData';
 import { capitalizeString } from '../../src/utils/capitalizeString';
 import {
@@ -10,7 +10,7 @@ import {
   Properties,
   Catalog,
 } from '../types/catalog';
-import { TypeFileName } from 'scripts/types/allTypesData';
+import { TypeFileName } from '../types/allTypesData';
 
 const { allTypeFilesInterfaceData, allTypeFilesTypeData } = getAllTypesData();
 
@@ -137,8 +137,10 @@ function getCatalogComponentProperty(
     })
     .join(' ');
 
+  //@ts-ignore
   const category = propDeclaration.getAncestors()[0]?.getName
-    ? propDeclaration.getAncestors()[0].getName()
+    ? //@ts-ignore
+      propDeclaration.getAncestors()[0].getName()
     : (capitalizeString(getCategory(name, componentName)) as Category);
 
   const type =
@@ -171,10 +173,10 @@ function overwriteType(type, name, componentName) {
 
   const definedInTypeFile = [
     ...(allTypeFilesTypeData.get(componentName)?.values() || []),
-    ...allTypeFilesTypeData.get('Base').values(),
-    ...allTypeFilesTypeData.get('Field').values(),
-    ...allTypeFilesTypeData.get('Text').values(),
-    ...allTypeFilesTypeData.get('Button').values(),
+    ...(allTypeFilesTypeData.get('Base')?.values() || []),
+    ...(allTypeFilesTypeData.get('Field')?.values() || []),
+    ...(allTypeFilesTypeData.get('Text')?.values() || []),
+    ...(allTypeFilesTypeData.get('Button')?.values() || []),
   ].find((val) => {
     return (
       val &&

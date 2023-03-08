@@ -24,6 +24,7 @@ const CustomBannerMessage = (props) => {
       padding="xl"
       backgroundColor="teal.20"
       right="xl"
+      testId="custom-banner"
     >
       <Text fontWeight="bold">{props.header.content}</Text>
       <Button onClick={props.onClose}>Close!</Button>

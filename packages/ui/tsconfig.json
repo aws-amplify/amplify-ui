@@ -1,30 +1,10 @@
 {
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
-  },
+  "extends": "../configs/ts/tsconfig.base.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
-    "strict": false,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "sourceMap": true,
-    "declaration": true,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "types": ["webpack-env", "jest", "dom-mediacapture-record"],
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "noImplicitAny": false,
+    "strict": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"]
+  "exclude": ["node_modules"]
 }

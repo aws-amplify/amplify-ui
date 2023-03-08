@@ -9,7 +9,7 @@ import { MediaQueryBreakpoint } from '../../primitives/types/responsive';
 import { defaultTheme } from '@aws-amplify/ui';
 
 jest.mock('react', () => ({
-  ...(jest.requireActual('react') as typeof React),
+  ...jest.requireActual<typeof React>('react'),
   useDebugValue: jest.fn(),
 }));
 const mockUseDebugValue = React.useDebugValue as jest.Mock<
@@ -35,7 +35,7 @@ const mediaQueries: [
   breakpoints: defaultTheme.breakpoints.values,
 }).map((mediaQuery) => [mediaQuery.breakpoint, mediaQuery]);
 
-describe('useBreakpoint', () => {
+describe('useBreakpointValue', () => {
   let matchMedia: MatchMediaMock;
   beforeAll(() => {
     matchMedia = new MatchMediaMock();

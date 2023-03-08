@@ -1,3 +1,4 @@
+import React from 'react';
 import { MessageLayoutButtonModifier } from '../types';
 import { getButtonModifier } from '../utils';
 
@@ -20,10 +21,14 @@ describe('getButtonModifier', () => {
     let expected: MessageLayoutButtonModifier = 'light';
     // light by default
     expect(getButtonModifier({})).toBe(expected);
-    expect(getButtonModifier(null)).toBe(expected);
+    expect(getButtonModifier(null as unknown as React.CSSProperties)).toBe(
+      expected
+    );
     expected = 'dark';
     // dark via default override
     expect(getButtonModifier({}, 'dark')).toBe(expected);
-    expect(getButtonModifier(null, 'dark')).toBe(expected);
+    expect(
+      getButtonModifier(null as unknown as React.CSSProperties, 'dark')
+    ).toBe(expected);
   });
 });

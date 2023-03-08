@@ -3,6 +3,6 @@
   "name": "auth-with-totp-and-sms-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d37ggz5w8y1r2k --envName staging"
+    "pull": "amplify pull --appId d3ba9ay5udguc5 --envName staging"
   }
 }

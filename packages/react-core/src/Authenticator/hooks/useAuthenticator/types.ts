@@ -35,12 +35,14 @@ export type UseAuthenticatorSelector = (
 ) => AuthenticatorMachineContext[AuthenticatorMachineContextKey][];
 
 export interface UseAuthenticator extends AuthenticatorServiceFacade {
+  /** @deprecated For internal use only */
+  fields: AuthenticatorLegacyFields;
+
+  /** @deprecated For internal use only */
   getTotpSecretCode: () => Promise<string>;
 
   /** @deprecated For internal use only */
-  QRFields: { totpIssuer?: string; totpUsername?: string };
-  /** @deprecated For internal use only */
-  fields: AuthenticatorLegacyFields;
+  QRFields: { totpIssuer?: string; totpUsername?: string } | null;
 }
 
 export type Comparator = (

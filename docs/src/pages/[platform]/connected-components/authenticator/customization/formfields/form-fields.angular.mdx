@@ -1,18 +1,3 @@
-_app.component.html_
-
-```html{1}
-<amplify-authenticator [formFields]="formFields">
-  <ng-template
-    amplifySlot="authenticated"
-    let-user="user"
-    let-signOut="signOut"
-  >
-    <h2>Welcome, {{ user.username }}!</h2>
-    <button (click)="signOut()">Sign Out</button>
-  </ng-template>
-</amplify-authenticator>
-```
-
 _app.component.ts_
 
 ```js
@@ -39,4 +24,19 @@ export class AppComponent {
     },
   };
 }
+```
+
+_app.component.html_
+
+```html{1}
+<amplify-authenticator [formFields]="formFields">
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h2>Welcome, {{ user.username }}!</h2>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>
 ```

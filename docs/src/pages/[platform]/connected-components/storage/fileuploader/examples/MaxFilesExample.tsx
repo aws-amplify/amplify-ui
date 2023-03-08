@@ -3,10 +3,11 @@ import { FileUploader } from '@aws-amplify/ui-react';
 export const MaxFilesExample = () => {
   return (
     <FileUploader
-      maxFiles={3}
+      maxFileCount={3}
       variation="drop"
       acceptedFileTypes={['image/*']}
       accessLevel="public"
+      // @ts-ignore // IGNORE
       provider="fast" // IGNORE
     />
   );

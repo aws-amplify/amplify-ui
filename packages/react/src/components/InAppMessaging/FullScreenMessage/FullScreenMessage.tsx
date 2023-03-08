@@ -29,6 +29,7 @@ export function FullScreenMessage(
         [`${BLOCK_CLASS}--fullscreen`]: shouldBeFullScreen,
       })}
       role="dialog"
+      testId="inappmessaging-fullscreen-dialog"
     >
       <MessageLayout {...props} {...messageProps} styles={styles} />
     </Flex>

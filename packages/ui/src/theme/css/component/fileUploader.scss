@@ -59,12 +59,18 @@
     border-color: var(--amplify-components-fileuploader-file-border-color);
     border-radius: var(--amplify-components-fileuploader-file-border-radius);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding-inline: var(--amplify-components-fileuploader-file-padding-inline);
     padding-block: var(--amplify-components-fileuploader-file-padding-block);
     align-items: var(--amplify-components-fileuploader-file-align-items);
-    gap: var(--amplify-components-fileuploader-file-gap);
 
+    &__wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--amplify-components-fileuploader-file-gap);
+    }
     &__name {
       text-overflow: ellipsis;
       overflow: hidden;

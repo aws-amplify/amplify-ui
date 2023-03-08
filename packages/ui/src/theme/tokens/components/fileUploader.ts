@@ -119,7 +119,7 @@ export const fileuploader: Required<FileUploaderTokens<'default'>> = {
     paddingBlock: { value: '{space.xs}' },
     paddingInline: { value: '{space.small}' },
     gap: { value: '{space.small}' },
-    alignItems: { value: 'center' },
+    alignItems: { value: 'baseline' },
 
     name: {
       fontSize: { value: '{fontSizes.medium}' },

@@ -1,16 +1,16 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "4.3.2",
+  "version": "4.3.9",
   "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/esm/index.mjs",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.js",
+      "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
     "./internal": {
-      "import": "./dist/esm/internal.js",
+      "import": "./dist/esm/internal.mjs",
       "require": "./dist/internal.js"
     },
     "./styles.css": "./dist/styles.css",
@@ -32,24 +32,22 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "yarn run build:catalog && yarn run build:ts",
-    "build:ts": "rollup --config",
-    "build:catalog": "yarn ts scripts/generatePrimitiveCatalog.ts",
-    "dev": "tsup --watch",
-    "dev:build": "tsup",
+    "build": "yarn build:catalog && yarn build:rollup",
+    "build:catalog": "yarn node -r esbuild-register scripts/generatePrimitiveCatalog.ts",
+    "build:rollup": "rollup --config",
     "clean": "rimraf dist node_modules",
-    "lint": "tsc --noEmit --project tsconfig.dev.json && eslint src --ext .js,.ts,.tsx",
-    "test": "yarn test:unit",
-    "test:watch": "yarn test:unit:watch",
+    "dev": "yarn build:rollup --watch",
+    "lint": "tsc --noEmit && eslint src --ext .js,.ts,.tsx",
+    "prebuild": "rimraf dist",
+    "size": "yarn size-limit",
+    "test": "yarn test:unit && yarn test:esm",
+    "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
     "test:unit": "jest",
-    "test:unit:watch": "jest --watch",
-    "ts": "node -r esbuild-register",
-    "size": "yarn run size-limit"
+    "test:unit:watch": "yarn test:unit --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.4.2",
-    "@aws-amplify/ui-react-core": "2.1.7",
+    "@aws-amplify/ui": "5.5.6",
+    "@aws-amplify/ui-react-core": "2.1.14",
     "@radix-ui/react-accordion": "1.0.0",
     "@radix-ui/react-direction": "1.0.0",
     "@radix-ui/react-dropdown-menu": "1.0.0",
@@ -61,7 +59,7 @@
     "lodash": "4.17.21",
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
-    "maplibre-gl-js-amplify": "3.0.0",
+    "maplibre-gl-js-amplify": "3.0.2",
     "qrcode": "1.5.0",
     "react-countdown-circle-timer": "^2.5.4",
     "react-generate-context": "1.0.1",
@@ -70,7 +68,7 @@
     "tslib": "2.4.1"
   },
   "peerDependencies": {
-    "aws-amplify": "5.x.x",
+    "aws-amplify": ">= 5.0.1",
     "react": ">= 16.14.0",
     "react-dom": ">= 16.14.0"
   },
@@ -90,6 +88,7 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^26.0.23",
     "@types/jest-when": "^3.5.0",
+    "@types/mapbox__mapbox-gl-draw": "^1.3.3",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^17.0.2",
     "@types/testing-library__jest-dom": "^5.14.1",
@@ -126,15 +125,33 @@
   "size-limit": [
     {
       "name": "Authenticator",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ Authenticator }",
       "limit": "120 kB"
     },
     {
       "name": "Geo",
-      "path": "dist/esm/index.js",
+      "path": "dist/esm/index.mjs",
       "import": "{ MapView, LocationSearch }",
       "limit": "330 kB"
+    },
+    {
+      "name": "Storage - FileUploader",
+      "path": "dist/esm/index.mjs",
+      "import": "{ FileUploader }",
+      "limit": "140 kB"
+    },
+    {
+      "name": "AccountSettings",
+      "path": "dist/esm/index.mjs",
+      "import": "{ AccountSettings }",
+      "limit": "60 kB"
+    },
+    {
+      "name": "InAppMessaging",
+      "path": "dist/esm/index.mjs",
+      "import": "{ InAppMessagingProvider, InAppMessageDisplay }",
+      "limit": "110 kB"
     }
   ]
 }

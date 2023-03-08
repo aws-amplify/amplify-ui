@@ -9,11 +9,11 @@ import { ComponentPropsToStylePropsMap } from '../../types';
 const altText = 'Cool cat';
 const src = 'http://localhost/cat.jpg';
 
-describe('Image: ', () => {
+describe('Image:', () => {
   it('renders <img> with alt and expected classname', async () => {
     render(<Image id="cool_cat" src={src} alt={altText} />);
 
-    const image = (await screen.findByAltText(altText)) as HTMLImageElement;
+    const image = await screen.findByAltText<HTMLImageElement>(altText);
     expect(image.nodeName).toBe('IMG');
     expect(image.src).toBe(src);
     expect(image.className).toContain(ComponentClassNames.Image);
@@ -33,7 +33,7 @@ describe('Image: ', () => {
         sizes={sizes}
       />
     );
-    const image = (await screen.findByTestId('dataTest')) as HTMLImageElement;
+    const image = await screen.findByTestId<HTMLImageElement>('dataTest');
 
     expect(image).toBeDefined();
     expect(image.sizes).toBe(sizes);

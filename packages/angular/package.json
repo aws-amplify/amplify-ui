@@ -28,6 +28,8 @@
     "@angular/platform-browser": "~12.2.16",
     "@angular/platform-browser-dynamic": "~12.2.16",
     "@angular/router": "~12.2.16",
+    "@testing-library/angular": "^10.11.1",
+    "@testing-library/jest-dom": "^5.14.1",
     "@types/jest": "^27.0.2",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",

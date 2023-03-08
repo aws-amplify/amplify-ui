@@ -29,8 +29,10 @@ export const Head = () => {
   const homepagePaths = ['/', '/[platform]'];
 
   const pageTitle = homepagePaths.includes(pathname)
-    ? `${metaTitle} on ${capitalizeString(platform)}`
-    : `${metaTitle ?? title} | Amplify UI for ${capitalizeString(platform)}`;
+    ? `${metaTitle} on ${capitalizeString(platform as string)}`
+    : `${metaTitle ?? title} | Amplify UI for ${capitalizeString(
+        platform as string
+      )}`;
 
   const _description = metaDescription || description;
 

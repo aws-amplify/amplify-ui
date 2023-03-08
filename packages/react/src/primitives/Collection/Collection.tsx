@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
 import * as React from 'react';
+import debounce from 'lodash/debounce.js';
 
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
@@ -39,7 +39,7 @@ const GridCollection = <Item,>({
 );
 
 const renderCollectionOrNoResultsFound = <Item,>(
-  collection: JSX.Element,
+  collection: JSX.Element | null,
   items: Item[],
   searchNoResultsFound: React.ReactNode
 ) => {

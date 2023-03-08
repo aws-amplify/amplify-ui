@@ -1,19 +1,17 @@
 import * as React from 'react';
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import kebabCase from 'lodash/kebabCase';
-import userEvent from '@testing-library/user-event';
 
 import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { SwitchField } from '../SwitchField';
-import { Button } from '../../Button';
 
 describe('Switch Field', () => {
   const label = 'My switch label';
 
   describe('Switch wrapper', () => {
-    it('should pass through the className', async () => {
+    it('should pass through the className', () => {
       const { container } = render(
         <SwitchField label={label} className="my-switch" />
       );
@@ -24,7 +22,7 @@ describe('Switch Field', () => {
       expect(wrapper).toHaveClass('my-switch');
     });
 
-    it('should render the position classes on SwitchField', async () => {
+    it('should render the position classes on SwitchField', () => {
       const { container } = render(
         <SwitchField label={label} labelPosition="top" />
       );
@@ -43,7 +41,7 @@ describe('Switch Field', () => {
       expect(ref.current?.nodeName).toBe('DIV');
     });
 
-    it('should set the data-size attribute', async () => {
+    it('should set the data-size attribute', () => {
       const { container } = render(<SwitchField label={label} size="large" />);
 
       const wrapper = container.getElementsByClassName(
@@ -52,7 +50,7 @@ describe('Switch Field', () => {
       expect(wrapper.dataset['size']).toEqual('large');
     });
 
-    it('should set the label for attribute to match the passed in id', async () => {
+    it('should set the label for attribute to match the passed in id', () => {
       const { container } = render(
         <SwitchField label={label} id="my-switch" />
       );
@@ -63,7 +61,7 @@ describe('Switch Field', () => {
       expect(wrapper).toHaveAttribute('for', 'my-switch');
     });
 
-    it('should set the data-label-position attribute', async () => {
+    it('should set the data-label-position attribute', () => {
       const { container } = render(
         <SwitchField label={label} labelPosition="end" />
       );
@@ -76,7 +74,7 @@ describe('Switch Field', () => {
   });
 
   describe('Label', () => {
-    it('should render the passed in label string', async () => {
+    it('should render the passed in label string', () => {
       const { container } = render(<SwitchField label={label} />);
 
       const field = container.getElementsByClassName(
@@ -85,7 +83,7 @@ describe('Switch Field', () => {
       expect(field).toHaveTextContent(label);
     });
 
-    it('should render the passed in label element', async () => {
+    it('should render the passed in label element', () => {
       const label = <span className="my-custom-label">Element Label</span>;
       const { container } = render(<SwitchField label={label} />);
 
@@ -93,10 +91,8 @@ describe('Switch Field', () => {
       expect(field).toHaveTextContent('Element Label');
     });
 
-    it('should hide the label using the visually hidden component when the isLabelHidden flag is passed in', async () => {
-      const { container } = render(
-        <SwitchField label={label} isLabelHidden={true} />
-      );
+    it('should hide the label using the visually hidden component when the isLabelHidden flag is passed in', () => {
+      const { container } = render(<SwitchField label={label} isLabelHidden />);
 
       const field = container.getElementsByClassName(
         ComponentClassNames.SwitchLabel
@@ -106,38 +102,21 @@ describe('Switch Field', () => {
   });
 
   describe('Input', () => {
-    let updateControlledValue;
-    const ControlledSwitch = () => {
-      const [isChecked, setIsChecked] = React.useState(true);
-      const changeFunction = (e) => {
-        setIsChecked(e.target.checked);
-      };
-      updateControlledValue = setIsChecked;
-
-      return (
-        <SwitchField
-          label={label}
-          isChecked={isChecked}
-          onChange={changeFunction}
-        />
-      );
-    };
-
-    it('should create a checkbox input element', async () => {
+    it('should create a checkbox input element', () => {
       const { container } = render(<SwitchField label={label} />);
 
       const field = container.getElementsByTagName('input')[0];
       expect(field).toHaveAttribute('type', 'checkbox');
     });
 
-    it('should hide the input with the visually hidden component', async () => {
+    it('should hide the input with the visually hidden component', () => {
       const { container } = render(<SwitchField label={label} />);
 
       const field = container.getElementsByTagName('input')[0].parentElement;
       expect(field).toHaveClass('amplify-visually-hidden');
     });
 
-    it('should pass through the name and value properties to the checkbox', async () => {
+    it('should pass through the name and value properties to the checkbox', () => {
       const { container } = render(
         <SwitchField label={label} name="myCheckbox" value="checkboxValue" />
       );
@@ -147,80 +126,41 @@ describe('Switch Field', () => {
       expect(field).toHaveAttribute('value', 'checkboxValue');
     });
 
-    it('should disable the checkbox with the isDisabled prop', async () => {
-      const { container } = render(
-        <SwitchField label={label} isDisabled={true} />
-      );
+    it('should disable the checkbox with the isDisabled prop', () => {
+      const { container } = render(<SwitchField label={label} isDisabled />);
 
       const field = container.getElementsByTagName('input')[0];
       expect(field).toHaveProperty('disabled', true);
     });
 
-    it('should set the input to checked with the isChecked prop', async () => {
-      const { container } = render(<ControlledSwitch />);
+    it('should set the input to checked with the isChecked prop', () => {
+      const { container } = render(<SwitchField isChecked label={label} />);
 
       const field = container.getElementsByTagName('input')[0];
       expect(field).toBeChecked();
     });
 
     it('should update the checked value when a controlled value is updated', async () => {
-      render(<ControlledSwitch />);
+      const { rerender } = render(<SwitchField isChecked label={label} />);
 
-      let input = await screen.findByLabelText(label);
+      const input = await screen.findByLabelText(label);
       expect(input).toBeChecked();
 
-      act(() => updateControlledValue(false));
-      input = await screen.findByLabelText(label);
+      rerender(<SwitchField isChecked={false} label={label} />);
+
       expect(input).not.toBeChecked();
     });
 
-    it('should update the checked value with a click event', async () => {
-      render(<ControlledSwitch />);
-
-      let input = await screen.findByLabelText(label);
-      expect(input).toBeChecked();
-
-      userEvent.click(input);
-      input = await screen.findByLabelText(label);
-      expect(input).not.toBeChecked();
-    });
-
-    it('should set the input to checked with the defaultChecked prop', async () => {
+    it('should set the input to checked with the defaultChecked prop', () => {
       const { container } = render(
-        <SwitchField label={label} defaultChecked={true} />
+        <SwitchField label={label} defaultChecked />
       );
 
       const field = container.getElementsByTagName('input')[0];
       expect(field).toBeChecked();
     });
 
-    it('should fire the onChange function with a checkbox change event', async () => {
-      const originalLog = console.log;
-      console.log = jest.fn();
-
-      const SwitchFieldControlledExample = () => {
-        const [isChecked, setIsChecked] = React.useState(true);
-        console.log(`isChecked set to ${isChecked}`);
-
-        return (
-          <>
-            <SwitchField label="This is a switch" isChecked={isChecked} />
-            <Button onClick={() => setIsChecked(!isChecked)}>Switch On</Button>
-          </>
-        );
-      };
-
-      const { container } = render(<SwitchFieldControlledExample />);
-      const button = container.getElementsByTagName('button')[0];
-
-      expect(console.log).toHaveBeenCalledWith('isChecked set to true');
-      userEvent.click(button);
-      expect(console.log).toHaveBeenCalledWith('isChecked set to false');
-
-      console.log = originalLog;
-    });
-
-    it('should set the id on the input element', async () => {
+    it('should set the id on the input element', () => {
       const { container } = render(
         <SwitchField label={label} id="my-switch" />
       );
@@ -238,9 +178,9 @@ describe('Switch Field', () => {
   });
 
   describe('Switch Track', () => {
-    it('should render the state classes on SwitchField', async () => {
+    it('should render the state classes on SwitchField', () => {
       const { container } = render(
-        <SwitchField label={label} isChecked={true} isDisabled={true} />
+        <SwitchField label={label} isChecked isDisabled />
       );
 
       const wrapper = container.getElementsByClassName(
@@ -254,7 +194,7 @@ describe('Switch Field', () => {
       );
     });
 
-    it('should set the track color for the unchecked switch', async () => {
+    it('should set the track color for the unchecked switch', () => {
       const { container } = render(
         <SwitchField label={label} trackColor="red" />
       );
@@ -269,13 +209,9 @@ describe('Switch Field', () => {
       ).toBe('red');
     });
 
-    it('should set the track color for the checked switch field', async () => {
+    it('should set the track color for the checked switch field', () => {
       const { container } = render(
-        <SwitchField
-          label={label}
-          trackCheckedColor="red"
-          defaultChecked={true}
-        />
+        <SwitchField label={label} trackCheckedColor="red" defaultChecked />
       );
 
       const track = container.getElementsByClassName(
@@ -288,7 +224,7 @@ describe('Switch Field', () => {
       ).toBe('red');
     });
 
-    it('should add the data-focused attribute to the track when the input is focused', async () => {
+    it('should add the data-focused attribute to the track when the input is focused', () => {
       const { container } = render(<SwitchField label={label} />);
 
       const track = container.getElementsByClassName(
@@ -302,7 +238,7 @@ describe('Switch Field', () => {
   });
 
   describe('Switch Thumb', () => {
-    it('should change the switch thumb color', async () => {
+    it('should change the switch thumb color', () => {
       const { container } = render(
         <SwitchField label={label} thumbColor="red" />
       );

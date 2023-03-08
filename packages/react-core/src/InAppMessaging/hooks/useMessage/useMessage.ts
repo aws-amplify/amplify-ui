@@ -3,7 +3,7 @@ import {
   InAppMessageInteractionEvent,
   Notifications,
 } from '@aws-amplify/notifications';
-import isNil from 'lodash/isNil';
+import { isNil } from '@aws-amplify/ui';
 
 import { RenderNothing } from '../../../components';
 import { useInAppMessaging } from '../useInAppMessaging';

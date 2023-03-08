@@ -1,7 +1,14 @@
 import * as React from 'react';
+import { isFunction } from '@aws-amplify/ui';
 
-import { isFunction } from '../shared/utils';
 import { ToggleButtonProps } from '../types';
+
+type ClickHandler = React.MouseEventHandler<HTMLButtonElement>;
+
+type UseToggleButton = {
+  handleClick: ClickHandler;
+  isPressed?: boolean;
+};
 
 export const useToggleButton = ({
   isPressed,
@@ -9,13 +16,13 @@ export const useToggleButton = ({
   onClick,
   onChange,
   value,
-}: ToggleButtonProps) => {
+}: ToggleButtonProps): UseToggleButton => {
   const isControlled = isPressed !== undefined;
-  // Maintain internal selected state for unconrolled component
+  // Maintain internal selected state for uncontrolled component
   const [pressed, setPressed] = React.useState(defaultPressed);
   isPressed = isControlled ? isPressed : pressed;
-  const handleClick = React.useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick: ClickHandler = React.useCallback(
+    (event) => {
       if (isFunction(onClick)) {
         onClick(event);
       }

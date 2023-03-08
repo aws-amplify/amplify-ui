@@ -11,7 +11,7 @@ import {
 } from '../ExpanderItem';
 import { ComponentClassNames } from '../../shared/constants';
 
-describe('ExpanderItem: ', () => {
+describe('ExpanderItem:', () => {
   it('should render default and custom classnames', async () => {
     const className = 'class-test';
     render(

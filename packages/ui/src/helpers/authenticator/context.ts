@@ -1,7 +1,6 @@
 /**
  * This file contains helpers that process authenticator state machine context
  */
-import includes from 'lodash/includes';
 
 import {
   LoginMechanismArray,
@@ -22,7 +21,7 @@ export const getPrimaryAlias = (state: AuthMachineState) => {
 export const getConfiguredAliases = (context: AuthContext) => {
   const loginMechanisms = context.config?.loginMechanisms;
   const aliases = loginMechanisms.filter((mechanism) =>
-    includes(LoginMechanismArray, mechanism)
+    LoginMechanismArray.includes(mechanism)
   );
 
   const [primaryAlias, ...secondaryAliases] = aliases;

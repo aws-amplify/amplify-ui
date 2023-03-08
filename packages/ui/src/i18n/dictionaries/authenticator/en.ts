@@ -29,6 +29,7 @@ export const enDict: AuthenticatorDictionary = {
   'It may take a minute to arrive': 'It may take a minute to arrive',
   Loading: 'Loading',
   'New password': 'New password',
+  or: 'or',
   Password: 'Password',
   'Phone Number': 'Phone Number',
   'Resend Code': 'Resend Code',

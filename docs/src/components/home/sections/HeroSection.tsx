@@ -102,7 +102,17 @@ export const HeroSection = () => {
             </Grid>
           ) : null}
 
-          <TerminalCommand command={frameworkInstallScript} variant="hero" />
+          {platform === 'flutter' ? (
+            <TerminalCommand
+              command={`flutter pub add ${frameworkInstallScript}`}
+              variant="hero"
+            />
+          ) : (
+            <TerminalCommand
+              command={`npm install ${frameworkInstallScript}`}
+              variant="hero"
+            />
+          )}
 
           <Flex direction="row">
             <Button
@@ -110,6 +120,7 @@ export const HeroSection = () => {
               variation="primary"
               className="docs-home-cta"
               as="a"
+              // @ts-ignore // IGNORE
               href={`/${platform}/getting-started/installation`}
             >
               Get started building
@@ -120,6 +131,7 @@ export const HeroSection = () => {
                 size="large"
                 className="docs-home-cta"
                 as="a"
+                // @ts-ignore // IGNORE
                 href="#live"
               >
                 Or try it out

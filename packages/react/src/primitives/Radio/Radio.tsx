@@ -71,6 +71,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
       )}
       data-disabled={shouldBeDisabled}
       data-label-position={labelPosition}
+      height={height}
       width={width}
       bottom={bottom}
       top={top}

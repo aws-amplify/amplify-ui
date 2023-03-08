@@ -1,5 +1,79 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.9
+
+### Patch Changes
+
+- [#3483](https://github.com/aws-amplify/amplify-ui/pull/3483) [`d7cc72c72`](https://github.com/aws-amplify/amplify-ui/commit/d7cc72c72844733d42a9504aa2ae1f2249abc178) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react-native): add TS noImplicitAny for dist build
+
+- [#3473](https://github.com/aws-amplify/amplify-ui/pull/3473) [`12d166209`](https://github.com/aws-amplify/amplify-ui/commit/12d166209b91ee94661e586a2f77e9fbf75b3d64) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): remove type-fest
+
+- [#3486](https://github.com/aws-amplify/amplify-ui/pull/3486) [`eb9df76f0`](https://github.com/aws-amplify/amplify-ui/commit/eb9df76f0b46aa577965740b476b18d070ccb276) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react-native): remove extraneous optional chaining
+
+- [#3446](https://github.com/aws-amplify/amplify-ui/pull/3446) [`ef40fcc76`](https://github.com/aws-amplify/amplify-ui/commit/ef40fcc7673a1d1ed7c7a006fa34d3d5b029956f) Thanks [@calebpollman](https://github.com/calebpollman)! - refactor(ui-react-native): update default keyboardVerticalOffset handling of RNA DefaultContainer
+
+- Updated dependencies [[`3c5fef84c`](https://github.com/aws-amplify/amplify-ui/commit/3c5fef84cb6ad0cb830416e70028c0bb313dd99c), [`e08e62234`](https://github.com/aws-amplify/amplify-ui/commit/e08e6223473f56cbbc2d0ce4bab85ebd1caf020c), [`12d166209`](https://github.com/aws-amplify/amplify-ui/commit/12d166209b91ee94661e586a2f77e9fbf75b3d64), [`e283f14ca`](https://github.com/aws-amplify/amplify-ui/commit/e283f14cadf54c6f6ab7e729151ea5fe97776c6a), [`d28e31c36`](https://github.com/aws-amplify/amplify-ui/commit/d28e31c36a243d04737b6c13ce0307495680498a), [`c3116b894`](https://github.com/aws-amplify/amplify-ui/commit/c3116b89470587c127d53a5cb370b2574bde553a)]:
+  - @aws-amplify/ui@5.5.6
+  - @aws-amplify/ui-react-core@2.1.14
+
+## 1.2.8
+
+### Patch Changes
+
+- [#3417](https://github.com/aws-amplify/amplify-ui/pull/3417) [`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae) Thanks [@calebpollman](https://github.com/calebpollman)! - Migrate `capitalize` util to UI package
+
+- Updated dependencies [[`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae), [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8)]:
+  - @aws-amplify/ui@5.5.5
+  - @aws-amplify/ui-react-core@2.1.13
+
+## 1.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc), [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563)]:
+  - @aws-amplify/ui@5.5.4
+  - @aws-amplify/ui-react-core@2.1.12
+
+## 1.2.6
+
+### Patch Changes
+
+- [#3333](https://github.com/aws-amplify/amplify-ui/pull/3333) [`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): migrate totpSecretCode generation to state machine
+
+- Updated dependencies [[`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc), [`412538be9`](https://github.com/aws-amplify/amplify-ui/commit/412538be9e37a8dec7cb5e57281895a5b3b63184), [`9ce2d01b0`](https://github.com/aws-amplify/amplify-ui/commit/9ce2d01b09e2f7aa0b218a97bb829a4210350a0a), [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148)]:
+  - @aws-amplify/ui-react-core@2.1.11
+  - @aws-amplify/ui@5.5.3
+
+## 1.2.5
+
+### Patch Changes
+
+- [#3198](https://github.com/aws-amplify/amplify-ui/pull/3198) [`9cb6696a2`](https://github.com/aws-amplify/amplify-ui/commit/9cb6696a227b7c5b4ce36920c2093289fa45cc95) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react-native): Fixes an issue where undefined values end up in the state machine causing internal errors to be exposed to end users.
+
+- Updated dependencies [[`57f1a3f43`](https://github.com/aws-amplify/amplify-ui/commit/57f1a3f438b8288ffda46764f7a87e1739e61313), [`dd9de348a`](https://github.com/aws-amplify/amplify-ui/commit/dd9de348abcafdcd721600f543d58353957dac25), [`4d652033e`](https://github.com/aws-amplify/amplify-ui/commit/4d652033e120daa82665b4bb4035b56fa8d33bf8)]:
+  - @aws-amplify/ui@5.5.2
+  - @aws-amplify/ui-react-core@2.1.10
+
+## 1.2.4
+
+### Patch Changes
+
+- [#3283](https://github.com/aws-amplify/amplify-ui/pull/3283) [`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd) Thanks [@wlee221](https://github.com/wlee221)! - Trim non-password fields on Authenticator forms. This will prevent unnecessary validation messages from showing up.
+
+- Updated dependencies [[`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd), [`01912077c`](https://github.com/aws-amplify/amplify-ui/commit/01912077c6d4fcdd3cbe9b6de2bb53fc490d0f41), [`08111e7e6`](https://github.com/aws-amplify/amplify-ui/commit/08111e7e60af5baf3b7e408f9545514c34e09078)]:
+  - @aws-amplify/ui@5.5.1
+  - @aws-amplify/ui-react-core@2.1.9
+
+## 1.2.3
+
+### Patch Changes
+
+- [#3282](https://github.com/aws-amplify/amplify-ui/pull/3282) [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): remove order keys from formFields after sorting
+
+- Updated dependencies [[`59321c9cc`](https://github.com/aws-amplify/amplify-ui/commit/59321c9cc15f8243edd6f5dd0113e7c396f7b488), [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9)]:
+  - @aws-amplify/ui@5.5.0
+  - @aws-amplify/ui-react-core@2.1.8
+
 ## 1.2.2
 
 ### Patch Changes

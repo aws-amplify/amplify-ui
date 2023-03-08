@@ -4,7 +4,7 @@
       "addmissingownerfields": true,
       "improvepluralization": false,
       "validatetypenamereservedwords": true,
-      "useexperimentalpipelinedtransformer": false,
+      "useexperimentalpipelinedtransformer": true,
       "enableiterativegsiupdates": true,
       "secondarykeyasgsi": true,
       "skipoverridemutationinputtypes": true,
@@ -18,7 +18,8 @@
       "enablecaseinsensitivity": true,
       "useinclusiveterminology": true,
       "breakcirculardependency": true,
-      "forcealiasattributes": false
+      "forcealiasattributes": false,
+      "useenabledmfas": true
     },
     "codegen": {
       "useappsyncmodelgenplugin": true,
@@ -46,5 +47,8 @@
     "project": {
       "overrides": true
     }
+  },
+  "debug": {
+    "shareProjectConfig": false
   }
 }
