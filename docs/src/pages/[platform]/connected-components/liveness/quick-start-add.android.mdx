@@ -1,0 +1,145 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { ExampleCode } from '@/components/Example';
+
+### Step 2. Install dependencies
+
+The FaceLivenessDetector component is built using [Jetpack Compose](https://developer.android.com/jetpack/compose). Enable Jetpack Compose by adding the following to the `android` section of your **app**'s `build.gradle` file:
+
+```groovy
+buildFeatures {
+    compose true
+}
+composeOptions {
+   kotlinCompilerExtensionVersion '1.2.0'
+}
+```
+
+Add the following dependencies to your **app**'s `build.gradle` file and click "Sync Now" when prompted:
+
+```groovy
+dependencies {
+
+    // Amplify Core dependency
+    implementation 'com.amplifyframework:core:2.2.2'
+
+    // Amplify Auth dependency
+    implementation 'com.amplifyframework:aws-auth-cognito:2.2.2'
+    
+    // Amplify Predictions dependency. FaceLivenessDetector uses Amplify
+    // Predictions under the hood.
+    implementation 'com.amplifyframework:aws-predictions:2.2.2'
+    
+    // FaceLivenessDetector dependency
+    implementation 'com.amplifyframework:ui-liveness:1.0.0'
+    
+    // Jetpack Compose dependencies
+    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation 'androidx.compose.ui:ui:1.3.3'
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.3.3'
+
+    // Material3 dependency for theming the FaceLivenessDetector
+    implementation 'androidx.compose.material3:material3:1.0.1'
+}
+```
+
+### Step 3. Initialize Amplify Auth and Predictions
+
+In the `onCreate` of your `Application` class, add the Auth and Predictions plugins before calling `Amplify.configure`.
+
+<Tabs justifyContent="flex-start">
+  <TabItem title="Kotlin">
+    <ExampleCode>
+    ```kotlin
+    // Add these lines to include the Auth and Predictions plugins.
+    Amplify.addPlugin(AWSCognitoAuthPlugin())
+    Amplify.addPlugin(AWSPredictionsPlugin())
+    Amplify.configure(applicationContext)
+    ```
+    </ExampleCode>
+  </TabItem>
+  <TabItem title="Java">
+    <ExampleCode>
+    ```java
+    // Add these lines to include the Auth and Predictions plugins.
+    Amplify.addPlugin(new AWSCognitoAuthPlugin());
+    Amplify.addPlugin(new AWSPredictionsPlugin());
+    Amplify.configure(getApplicationContext());
+    ```
+    </ExampleCode>
+  </TabItem>
+  <TabItem title="RxJava">
+      <ExampleCode>
+      ```java
+      // Add these lines to include the Auth and Predictions plugins.
+      RxAmplify.addPlugin(new AWSCognitoAuthPlugin());
+      RxAmplify.addPlugin(new AWSPredictionsPlugin());
+      RxAmplify.configure(getApplicationContext());
+      ```
+      </ExampleCode>
+    </TabItem>
+</Tabs>
+
+### Step 4. Request camera permissions
+
+The FaceLivenessDetector component requires access to the camera on the user's device in order to perform the liveness check. Before displaying the FaceLivenessDetector, prompt the user to grant camera permission. Please follow these guides for examples of requesting camera permission using either [Android](https://developer.android.com/training/permissions/requesting) or [Jetpack Compose](https://google.github.io/accompanist/permissions/).
+
+### Step 5. Add the FaceLivenessDetector
+
+<Tabs justifyContent="flex-start">
+  <TabItem title="Kotlin">
+    In the `onCreate` of your app's `MainActivity`, add the following code to display the FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the liveness session:
+    <ExampleCode>
+    ```kotlin
+    setContent {
+        FaceLivenessDetector(
+            sessionId = <session ID>,
+            onComplete = {
+                 Log.i("MyApp", "Liveness flow is complete")
+                 // The Liveness flow is complete and the liveness session
+                 // results are ready. Use your backend to retrieve the
+                 // results for the liveness session.
+            },
+            onError = { error ->
+                 Log.e("MyApp", "Error during Liveness flow", error)
+                 // An error occurred during the Liveness flow, such as
+                 // time out or missing the required permissions.
+            }
+        )
+    }
+    ```
+    </ExampleCode>
+  </TabItem>
+  <TabItem title="Java">
+    The FaceLivenessDetector component must be created in Kotlin but can still be used in a Java-based app. First, create a new Kotlin file called `MyView` and add the following code to create the FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the liveness session:
+    <ExampleCode>
+    ```kotlin
+    object MyView {
+        fun setViewContent(activity: ComponentActivity) {
+            activity.setContent {
+                FaceLivenessDetector(
+                    sessionId = <session ID>,
+                    onComplete = {
+                        Log.i("MyApp", "Liveness flow is complete")
+                        // The Liveness flow is complete and the liveness
+                        // session results are ready. Use your backend to
+                        // retrieve the results for the liveness session.
+                    },
+                    onError = { error ->
+                        Log.e("MyApp", "Error during Liveness flow", error)
+                        // An error occurred during the Liveness flow, such
+                        // as time out or missing the required permissions.
+                    }
+                )
+            }
+        }
+    }
+    ```
+    </ExampleCode>
+    In the `onCreate` of your app's `MainActivity`, add the following code to display the FaceLivenessDetector:
+    <ExampleCode>
+    ```java
+    MyView.setViewContent(this);
+    ```
+    </ExampleCode>
+  </TabItem>
+</Tabs>
