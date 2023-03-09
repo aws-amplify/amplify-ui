@@ -35,15 +35,16 @@
     "build": "yarn build:catalog && yarn build:rollup",
     "build:catalog": "yarn node -r esbuild-register scripts/generatePrimitiveCatalog.ts",
     "build:rollup": "rollup --config",
+    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
-    "lint": "tsc --noEmit && eslint src --ext .js,.ts,.tsx",
+    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
-    "test": "yarn test:unit && yarn test:esm",
-    "test:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
-    "test:unit": "jest",
-    "test:unit:watch": "yarn test:unit --watch"
+    "test": "jest",
+    "test:ci": "yarn test && yarn check:esm",
+    "test:watch": "yarn test --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.5.7",

@@ -12,9 +12,9 @@
     "dev": "yarn build:dist --watch",
     "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
-    "test": "yarn test:unit",
-    "test:unit": "jest",
-    "test:unit:watch": "yarn test:unit --watch",
+    "test": "jest",
+    "test:ci": "yarn test",
+    "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

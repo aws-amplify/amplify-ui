@@ -28,10 +28,9 @@
     "dev": "vite build --watch",
     "clean": "rimraf dist node_modules",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "test": "yarn test:unit",
-    "test:watch": "yarn test:unit:watch",
-    "test:unit": "jest",
-    "test:unit:watch": "jest --watch"
+    "test": "jest",
+    "test:ci": "yarn test",
+    "test:watch": "yarn test --watch"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.5.7",
