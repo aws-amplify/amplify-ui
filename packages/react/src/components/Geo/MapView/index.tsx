@@ -28,7 +28,7 @@ interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
  * [maplibre-gl-js](https://visgl.github.io/react-map-gl/) to provide an interactive map using
  * [Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) powered by
  * [Amazon Location Service](https://aws.amazon.com/location/). Since `MapView` is a wrapper of the
- * [react-map-gl default Map](https://visgl.github.io/react-map-gl/docs/api-reference/map), it accepts the same
+ * [react-map-gl default Map](https://visgl.github.io/react-map-gl/docs/api-reference/map/), it accepts the same
  * properties except `transformRequest` which is set by Amplify.
  *
  * [📖 Docs](https://ui.docs.amplify.aws/react/connected-components/geo#mapview)
