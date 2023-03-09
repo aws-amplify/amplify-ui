@@ -157,7 +157,7 @@ export function drawLivenessOvalInCanvas(
     ctx?.clearRect(0, 0, canvasWidth, canvasHeight);
 
     // fill the canvas with a transparent rectangle
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 1.0)';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // On mobile our canvas is the width/height of the full screen.
