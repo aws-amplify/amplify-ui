@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-core
 
+## 2.1.15
+
+### Patch Changes
+
+- [#3497](https://github.com/aws-amplify/amplify-ui/pull/3497) [`5249a450d`](https://github.com/aws-amplify/amplify-ui/commit/5249a450dcd07487188fc57d5b6b04dbf52e1970) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(tsconfig): add configs directory and ts configuration
+
+- Updated dependencies [[`a55aa4584`](https://github.com/aws-amplify/amplify-ui/commit/a55aa4584dd9aba4e97d4e36acc289238710d30e), [`6501852a7`](https://github.com/aws-amplify/amplify-ui/commit/6501852a7916cc2afb90bfb52461877c1e637b99), [`50fbe91de`](https://github.com/aws-amplify/amplify-ui/commit/50fbe91defab6172c09eb03c71671a5cc5f4d265), [`5249a450d`](https://github.com/aws-amplify/amplify-ui/commit/5249a450dcd07487188fc57d5b6b04dbf52e1970)]:
+  - @aws-amplify/ui@5.5.7
+
 ## 2.1.14
 
 ### Patch Changes
