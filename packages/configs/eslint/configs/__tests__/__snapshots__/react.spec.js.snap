@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`react config has the expected configuration 1`] = `
+Object {
+  "extends": Array [
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "amplify-ui",
+  ],
+  "parserOptions": Object {
+    "ecmaFeatures": Object {
+      "jsx": true,
+    },
+  },
+  "plugins": Array [
+    "react",
+    "react-hooks",
+  ],
+  "rules": Object {
+    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react/destructuring-assignment": Array [
+      "error",
+      "always",
+    ],
+    "react/jsx-boolean-value": "error",
+    "react/jsx-no-constructed-context-values": "error",
+    "react/jsx-no-useless-fragment": Array [
+      "error",
+      Object {
+        "allowExpressions": true,
+      },
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-wrap-multilines": Array [
+      "error",
+      Object {
+        "declaration": "ignore",
+      },
+    ],
+    "react/no-array-index-key": "off",
+    "react/no-danger": "error",
+    "react/no-unused-prop-types": "error",
+    "react/prop-types": "off",
+    "react/static-property-placement": Array [
+      "error",
+      "static public field",
+    ],
+  },
+  "settings": Object {
+    "react": Object {
+      "version": "detect",
+    },
+  },
+}
+`;
