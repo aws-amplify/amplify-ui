@@ -4,7 +4,7 @@ import {
   MaplibreGeocoderOptions,
   MaplibreGeocoderResults,
   MaplibreGeocoderResult,
-} from 'maplibre-gl-geocoder';
+} from '../types/maplibre-gl-geocoder';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';

@@ -9,17 +9,18 @@
     "postflutter:build": "yarn flutter:copy",
     "flutter:clean": "rm -rf public/flutter/authenticator",
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
-    "build": "yarn build:props-tables && next build",
+    "build": "yarn build:props-tables && NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables-data.ts",
     "lint": "next lint",
     "postbuild": "yarn postbuild:sitemap && yarn test && yarn postbuild:previews",
     "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "4.3.7",
+    "@aws-amplify/ui-react": "4.3.10",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -28,7 +29,7 @@
     "@mdx-js/react": "^2.1.0",
     "@moxy/next-compile-node-modules": "^2.1.1",
     "@xstate/inspect": "^0.4.1",
-    "aws-amplify": "^5.0.1",
+    "aws-amplify": "latest",
     "classnames": "^2.3.1",
     "countries-list": "^2.6.1",
     "dotenv": "^16.0.0",
@@ -59,6 +60,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
+    "@supercharge/promise-pool": "^2.4.0",
     "@types/jest": "^27",
     "@types/lodash": "^4.14.170",
     "@types/node": "^14.14.31",
@@ -75,9 +77,11 @@
     "globby": "^13.1.1",
     "jest": "^27",
     "postcss": "^8.2.6",
+    "puppeteer": "^19.7.2",
     "react-markdown": "^8.0.3",
     "sitemap-urls": "^3.0.0",
     "ts-jest": "^27",
-    "ts-morph": "^15.1.0"
+    "ts-morph": "^15.1.0",
+    "ts-node": "^10.9.1"
   }
 }

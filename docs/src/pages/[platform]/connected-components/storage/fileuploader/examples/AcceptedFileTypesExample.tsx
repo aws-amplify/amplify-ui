@@ -6,6 +6,7 @@ export const AcceptedFileTypesExample = () => {
       acceptedFileTypes={['.gif', '.bmp', '.doc', '.jpeg', '.jpg']}
       variation="drop"
       accessLevel="public"
+      // @ts-ignore // IGNORE
       provider="fast" // IGNORE
     />
   );

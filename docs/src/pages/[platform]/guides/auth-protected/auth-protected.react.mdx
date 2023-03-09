@@ -23,7 +23,7 @@ _Example Screenshot of App_
   src="/example-auth-routes.png"
 />
 
-### Setup
+## Setup
 
 To get started we'll need to create a new React application, by following these steps:
 
@@ -31,66 +31,45 @@ To get started we'll need to create a new React application, by following these 
 ```bash
 npx create-react-app new-auth-app
 cd new-auth-app
-
-````
-
+```
 </ExampleCode>
 
 Next, install the Amplify libraries and React Router.
 
-<ExampleCode>
-
 <Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify react-router-dom@6" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add @aws-amplify/ui-react aws-amplify react-router-dom@6" />
-</TabItem>
+  <TabItem title="npm">
+    <TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify react-router-dom@6" />
+  </TabItem>
+  <TabItem title="yarn">
+    <TerminalCommand command="yarn add @aws-amplify/ui-react aws-amplify react-router-dom@6" />
+  </TabItem>
 </Tabs>
-
-</ExampleCode>
 
 To add authentication to your application we'll need to install the Amplify CLI. This tool gives us a command line utility to add AWS services.
 
-<ExampleCode>
-
 <Tabs>
-<TabItem title="npm">
-
-<TerminalCommand command="npm install -g @aws-amplify/cli" />
-
-</TabItem>
-<TabItem title="yarn">
-
-<TerminalCommand command="yarn global add @aws-amplify/cli" />
-
-</TabItem>
+  <TabItem title="npm">
+    <TerminalCommand command="npm install -g @aws-amplify/cli" />
+  </TabItem>
+  <TabItem title="yarn">
+    <TerminalCommand command="yarn global add @aws-amplify/cli" />
+  </TabItem>
 </Tabs>
-
-</ExampleCode>
 
 After this, run the `amplify init` command. This will setup your application so it can communicate with your AWS account.
 
 <ExampleCode>
 ```bash
 amplify init
-````
-
+```
 </ExampleCode>
 
-Next, add authentication, and follow the prompts below:
+Next, add authentication, and follow the prompts:
 
 <ExampleCode>
 ```bash
 amplify add auth
-
-? Do you want to use the default authentication and security configuration? Default configuration
-? How do you want users to be able to sign in? Email
-? Do you want to configure advanced settings? No, I am done.
-
-````
-
+```
 </ExampleCode>
 
 Finally, run the `push` command to deploy your new AWS backend.
@@ -98,14 +77,12 @@ Finally, run the `push` command to deploy your new AWS backend.
 <ExampleCode>
 ```bash
 amplify push
-````
-
+```
 </ExampleCode>
 
 Last thing you should do is copy and paste the following CSS into your `App.css` file:
 
 <ExampleCode>
-
 ```css
 /* App.css */
 #root {
@@ -126,7 +103,6 @@ nav {
   margin-top: 2rem;
 }
 ```
-
 </ExampleCode>
 
 Feel free to modify it, this will help with the look and feel of your example application.
@@ -148,9 +124,7 @@ import "./index.css";
 
 Amplify.configure(awsExports);
 ...
-
-````
-
+```
 </ExampleCode>
 
 This imports the newly created `aws-exports` file into your app and configures it with Amplify.
@@ -196,8 +170,7 @@ Let's take a look at this line in more detail:
 <ExampleCode>
 ```js
 const { route } = useAuthenticator((context) => [context.route]);
-````
-
+```
 </ExampleCode>
 
 The [useAuthenticator](../connected-components/authenticator/headless#useauthenticator-hook) hook is used to access, modify, and update the Authenticator's auth state. In this example we destructure `useAuthenticator` and receive the `route`. The `route` can be used to tell if a route is `authenticated` or not. The `route` can also be set to `signIn`,`signOut`, and even `idle` or `setup` depending on where the user is during the authentication flow.

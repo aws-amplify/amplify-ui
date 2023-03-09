@@ -9,7 +9,7 @@ import {
 } from '../../types';
 
 // gets password requirement from Amplify.configure data
-export const getPasswordRequirement = (): PasswordRequirement => {
+export const getPasswordRequirement = (): PasswordRequirement | null => {
   // need to cast to any because `Amplify.configure()` isn't typed properly
   const config = Amplify.configure() as any;
   const passwordSettings =
@@ -159,12 +159,16 @@ export const runFieldValidators = ({
 }): string[] => {
   if (!value) return [];
 
-  return validators.reduce((prevErrors, validatorSpec) => {
-    const { validator, validationMode, message } = validatorSpec;
+  return validators.reduce(
+    (prevErrors: string[], validatorSpec: ValidatorOptions) => {
+      const { validator, validationMode, message } = validatorSpec;
 
-    if (shouldValidate({ validationMode, eventType, hasBlurred })) {
-      const hasError = !validator(value);
-      return hasError ? [...prevErrors, message] : prevErrors;
-    }
-  }, []);
+      if (shouldValidate({ validationMode, eventType, hasBlurred })) {
+        const hasError = !validator(value);
+        return hasError ? [...prevErrors, message] : prevErrors;
+      }
+      return prevErrors;
+    },
+    []
+  );
 };

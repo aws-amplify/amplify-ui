@@ -11,9 +11,6 @@ import { stylePropsToThemeKeys } from './constants';
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
 
-export const isFunction = (fn: unknown): fn is Function =>
-  typeof fn === 'function';
-
 export const isEmptyString = (value: unknown): boolean =>
   typeof value === 'string' && value.length === 0;
 

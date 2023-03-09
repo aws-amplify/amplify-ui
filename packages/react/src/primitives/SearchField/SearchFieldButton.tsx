@@ -13,11 +13,12 @@ const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
       <FieldGroupIconButton
         ariaLabel={ariaLabelText}
         className={ComponentClassNames.SearchFieldSearch}
+        size={size}
         ref={ref}
         type="submit"
         {...props}
       >
-        <IconSearch size={size} />
+        <IconSearch />
       </FieldGroupIconButton>
     );
   };

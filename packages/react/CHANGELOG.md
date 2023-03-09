@@ -1,5 +1,57 @@
 # @aws-amplify/ui-react
 
+## 4.3.10
+
+### Patch Changes
+
+- [#3511](https://github.com/aws-amplify/amplify-ui/pull/3511) [`6501852a7`](https://github.com/aws-amplify/amplify-ui/commit/6501852a7916cc2afb90bfb52461877c1e637b99) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix hidden inputs breaking some interfaces by adding `position:relative` to Radio and Checkbox primitives
+
+  fixes #3165
+
+- [#3504](https://github.com/aws-amplify/amplify-ui/pull/3504) [`b4a2d1992`](https://github.com/aws-amplify/amplify-ui/commit/b4a2d19927dae0de52eb2fc4e0adfe872dd43f53) Thanks [@reesscot](https://github.com/reesscot)! - fix: ts strict errors in paginationitem
+
+- [#3497](https://github.com/aws-amplify/amplify-ui/pull/3497) [`5249a450d`](https://github.com/aws-amplify/amplify-ui/commit/5249a450dcd07487188fc57d5b6b04dbf52e1970) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(tsconfig): add configs directory and ts configuration
+
+- [#3454](https://github.com/aws-amplify/amplify-ui/pull/3454) [`b151efd85`](https://github.com/aws-amplify/amplify-ui/commit/b151efd85d05da0e9eb3aec9960e45a0d11c631b) Thanks [@reesscot](https://github.com/reesscot)! - fix: TS Strict errors on toggleButton primitive
+
+- Updated dependencies [[`a55aa4584`](https://github.com/aws-amplify/amplify-ui/commit/a55aa4584dd9aba4e97d4e36acc289238710d30e), [`6501852a7`](https://github.com/aws-amplify/amplify-ui/commit/6501852a7916cc2afb90bfb52461877c1e637b99), [`50fbe91de`](https://github.com/aws-amplify/amplify-ui/commit/50fbe91defab6172c09eb03c71671a5cc5f4d265), [`5249a450d`](https://github.com/aws-amplify/amplify-ui/commit/5249a450dcd07487188fc57d5b6b04dbf52e1970)]:
+  - @aws-amplify/ui@5.5.7
+  - @aws-amplify/ui-react-core@2.1.15
+
+## 4.3.9
+
+### Patch Changes
+
+- [#3396](https://github.com/aws-amplify/amplify-ui/pull/3396) [`18d7a717b`](https://github.com/aws-amplify/amplify-ui/commit/18d7a717b20b5fcd4c1bfd7c9ff9f7f662d455ca) Thanks [@ErikCH](https://github.com/ErikCH)! - Refactored file status in File uploader
+
+- [#3472](https://github.com/aws-amplify/amplify-ui/pull/3472) [`e08e62234`](https://github.com/aws-amplify/amplify-ui/commit/e08e6223473f56cbbc2d0ce4bab85ebd1caf020c) Thanks [@wlee221](https://github.com/wlee221)! - fix(ui): use lodash imports directly
+
+- [#3482](https://github.com/aws-amplify/amplify-ui/pull/3482) [`e283f14ca`](https://github.com/aws-amplify/amplify-ui/commit/e283f14cadf54c6f6ab7e729151ea5fe97776c6a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): migrate isFunction util to ui package
+
+- [#3471](https://github.com/aws-amplify/amplify-ui/pull/3471) [`528c39191`](https://github.com/aws-amplify/amplify-ui/commit/528c391914c456cdedc209b96d16a7f04afc7ae8) Thanks [@reesscot](https://github.com/reesscot)! - fix(react): fix missing `maplibre-gl-geocoder` ts strict error
+
+  ```
+  node_modules/@aws-amplify/ui-react/dist/types/components/Geo/LocationSearch/index.d.ts:2:37 - error TS2307: Cannot find module 'maplibre-gl-geocoder' or its corresponding type declarations.
+  ```
+
+- Updated dependencies [[`3c5fef84c`](https://github.com/aws-amplify/amplify-ui/commit/3c5fef84cb6ad0cb830416e70028c0bb313dd99c), [`e08e62234`](https://github.com/aws-amplify/amplify-ui/commit/e08e6223473f56cbbc2d0ce4bab85ebd1caf020c), [`12d166209`](https://github.com/aws-amplify/amplify-ui/commit/12d166209b91ee94661e586a2f77e9fbf75b3d64), [`e283f14ca`](https://github.com/aws-amplify/amplify-ui/commit/e283f14cadf54c6f6ab7e729151ea5fe97776c6a), [`d28e31c36`](https://github.com/aws-amplify/amplify-ui/commit/d28e31c36a243d04737b6c13ce0307495680498a), [`c3116b894`](https://github.com/aws-amplify/amplify-ui/commit/c3116b89470587c127d53a5cb370b2574bde553a)]:
+  - @aws-amplify/ui@5.5.6
+  - @aws-amplify/ui-react-core@2.1.14
+
+## 4.3.8
+
+### Patch Changes
+
+- [#3422](https://github.com/aws-amplify/amplify-ui/pull/3422) [`3f787d41f`](https://github.com/aws-amplify/amplify-ui/commit/3f787d41f07455c74a56b8400341b93765719b77) Thanks [@reesscot](https://github.com/reesscot)! - chore: bump maplibre-gl-js-amplify to 3.0.2
+
+  Fixes [yarn installation warnings](https://github.com/aws-amplify/amplify-ui/issues/3393) regarding peer dependencies of `maplibre-gl-js-amplify` and [Infinite error loop after sign out when using maps](https://github.com/aws-amplify/amplify-ui/issues/3367).
+
+- [#3395](https://github.com/aws-amplify/amplify-ui/pull/3395) [`9e50d1225`](https://github.com/aws-amplify/amplify-ui/commit/9e50d12257794645315e7446974c4da2ae3fd0b7) Thanks [@ErikCH](https://github.com/ErikCH)! - Moved edit icon in between file name and size.
+
+- Updated dependencies [[`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae), [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8)]:
+  - @aws-amplify/ui@5.5.5
+  - @aws-amplify/ui-react-core@2.1.13
+
 ## 4.3.7
 
 ### Patch Changes

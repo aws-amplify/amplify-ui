@@ -1,5 +1,43 @@
 # @aws-amplify/ui
 
+## 5.5.7
+
+### Patch Changes
+
+- [#3476](https://github.com/aws-amplify/amplify-ui/pull/3476) [`a55aa4584`](https://github.com/aws-amplify/amplify-ui/commit/a55aa4584dd9aba4e97d4e36acc289238710d30e) Thanks [@buremer](https://github.com/buremer)! - Add missing dutch translations
+
+- [#3511](https://github.com/aws-amplify/amplify-ui/pull/3511) [`6501852a7`](https://github.com/aws-amplify/amplify-ui/commit/6501852a7916cc2afb90bfb52461877c1e637b99) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix hidden inputs breaking some interfaces by adding `position:relative` to Radio and Checkbox primitives
+
+  fixes #3165
+
+- [#3503](https://github.com/aws-amplify/amplify-ui/pull/3503) [`50fbe91de`](https://github.com/aws-amplify/amplify-ui/commit/50fbe91defab6172c09eb03c71671a5cc5f4d265) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix: TS strict errors in ui/helpers
+
+- [#3497](https://github.com/aws-amplify/amplify-ui/pull/3497) [`5249a450d`](https://github.com/aws-amplify/amplify-ui/commit/5249a450dcd07487188fc57d5b6b04dbf52e1970) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(tsconfig): add configs directory and ts configuration
+
+## 5.5.6
+
+### Patch Changes
+
+- [#3470](https://github.com/aws-amplify/amplify-ui/pull/3470) [`3c5fef84c`](https://github.com/aws-amplify/amplify-ui/commit/3c5fef84cb6ad0cb830416e70028c0bb313dd99c) Thanks [@reesscot](https://github.com/reesscot)! - fix(ui): make theme design tokens optional for checkbox and autocomplete
+
+- [#3472](https://github.com/aws-amplify/amplify-ui/pull/3472) [`e08e62234`](https://github.com/aws-amplify/amplify-ui/commit/e08e6223473f56cbbc2d0ce4bab85ebd1caf020c) Thanks [@wlee221](https://github.com/wlee221)! - fix(ui): use lodash imports directly
+
+- [#3473](https://github.com/aws-amplify/amplify-ui/pull/3473) [`12d166209`](https://github.com/aws-amplify/amplify-ui/commit/12d166209b91ee94661e586a2f77e9fbf75b3d64) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): remove type-fest
+
+- [#3482](https://github.com/aws-amplify/amplify-ui/pull/3482) [`e283f14ca`](https://github.com/aws-amplify/amplify-ui/commit/e283f14cadf54c6f6ab7e729151ea5fe97776c6a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): migrate isFunction util to ui package
+
+- [#3448](https://github.com/aws-amplify/amplify-ui/pull/3448) [`d28e31c36`](https://github.com/aws-amplify/amplify-ui/commit/d28e31c36a243d04737b6c13ce0307495680498a) Thanks [@milespop](https://github.com/milespop)! - Add new translations for de dictionary
+
+- [#3479](https://github.com/aws-amplify/amplify-ui/pull/3479) [`c3116b894`](https://github.com/aws-amplify/amplify-ui/commit/c3116b89470587c127d53a5cb370b2574bde553a) Thanks [@laboone](https://github.com/laboone)! - Add some new translations for ja dictionary
+
+## 5.5.5
+
+### Patch Changes
+
+- [#3417](https://github.com/aws-amplify/amplify-ui/pull/3417) [`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae) Thanks [@calebpollman](https://github.com/calebpollman)! - Migrate `capitalize` util to UI package
+
+- [#3400](https://github.com/aws-amplify/amplify-ui/pull/3400) [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: ts strict fixes for createTheme
+
 ## 5.5.4
 
 ### Patch Changes

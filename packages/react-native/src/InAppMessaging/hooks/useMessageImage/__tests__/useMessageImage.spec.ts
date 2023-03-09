@@ -60,7 +60,7 @@ describe('useMessageImage', () => {
 
     (prefetchNetworkImage as jest.Mock).mockResolvedValue('loaded');
     (Image.getSize as jest.Mock).mockImplementationOnce(
-      (_, __, onError: (error) => void) => {
+      (_, __, onError: (error: string) => void) => {
         onError(error);
       }
     );

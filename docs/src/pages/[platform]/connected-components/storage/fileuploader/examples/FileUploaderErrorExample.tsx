@@ -15,6 +15,7 @@ export const FileUploaderErrorExample = () => {
         variation="drop"
         acceptedFileTypes={['image/*']}
         accessLevel="public"
+        // @ts-ignore // IGNORE
         provider="error" // IGNORE
       />
       {message}
