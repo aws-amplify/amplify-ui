@@ -14,6 +14,11 @@ import {
   ColorSequence,
   SessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
+import {
+  FACE_DISTANCE_THRESHOLD,
+  REDUCED_THRESHOLD,
+  REDUCED_THRESHOLD_MOBILE,
+} from './constants';
 
 /**
  * Returns the random number between min and max
@@ -682,10 +687,6 @@ export async function getFaceMatchState(
 
   return faceMatchState;
 }
-
-const FACE_DISTANCE_THRESHOLD = 0.35;
-const REDUCED_THRESHOLD = 0.4;
-const REDUCED_THRESHOLD_MOBILE = 0.37;
 
 export async function isFaceDistanceBelowThreshold({
   faceDetector,
