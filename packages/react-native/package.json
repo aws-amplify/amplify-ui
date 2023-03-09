@@ -1,19 +1,21 @@
 {
   "name": "@aws-amplify/ui-react-native",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "yarn dist && cp -a src/assets dist",
+    "build": "yarn build:dist && cp -a src/assets dist",
+    "build:dist": "tsc --project tsconfig.dist.json",
     "clean": "rimraf dist",
-    "dev": "yarn dist --watch",
-    "dist": "tsc --project tsconfig.dist.json",
-    "lint": "tsc --noEmit && eslint src",
+    "dev": "yarn build:dist --watch",
+    "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
-    "test": "jest --coverage --verbose",
-    "test:watch": "yarn test --watch"
+    "test": "jest",
+    "test:ci": "yarn test",
+    "test:watch": "yarn test --watch",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -24,16 +26,9 @@
     "@types/react": "^17.0.2",
     "@types/react-native": "^0.67.6",
     "@types/react-test-renderer": "^17.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.20.0",
-    "@typescript-eslint/parser": "^5.20.0",
     "babel-jest": "^28.0.3",
     "eslint": "^8.14.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "^26.1.4",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.4.0",
+    "eslint-config-amplify-ui": "0.0.0",
     "metro-react-native-babel-preset": "^0.70.2",
     "react": "^17.0.2",
     "react-native": "^0.68.1",
@@ -42,8 +37,8 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.6",
-    "@aws-amplify/ui-react-core": "2.1.14"
+    "@aws-amplify/ui": "5.5.7",
+    "@aws-amplify/ui-react-core": "2.1.15"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",

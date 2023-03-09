@@ -16,10 +16,11 @@
     "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
     "postbuild:sitemap": "node --require esbuild-register ./scripts/generate-sitemap-robotstxt.ts",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "4.3.9",
+    "@aws-amplify/ui-react": "4.3.10",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -59,6 +60,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
+    "@supercharge/promise-pool": "^2.4.0",
     "@types/jest": "^27",
     "@types/lodash": "^4.14.170",
     "@types/node": "^14.14.31",
@@ -75,6 +77,7 @@
     "globby": "^13.1.1",
     "jest": "^27",
     "postcss": "^8.2.6",
+    "puppeteer": "^19.7.2",
     "react-markdown": "^8.0.3",
     "sitemap-urls": "^3.0.0",
     "ts-jest": "^27",

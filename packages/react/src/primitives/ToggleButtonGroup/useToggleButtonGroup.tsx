@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { isFunction } from '@aws-amplify/ui';
+import { isFunction, isString } from '@aws-amplify/ui';
 
-import { ToggleButtonProps, ToggleButtonGroupProps } from '../types';
+import { ToggleButtonGroupProps } from '../types';
 
 type UseToggleButtonParams = Pick<
   ToggleButtonGroupProps,
@@ -13,16 +13,18 @@ export const useToggleButtonGroup = ({
   value,
   isExclusive = false,
   isSelectionRequired = false,
-}: UseToggleButtonParams): ((value: string) => void) => {
+}: UseToggleButtonParams): ((value: string | undefined) => void) => {
   // Multiple selection
-  const handleChange: ToggleButtonProps['onChange'] = React.useCallback(
+  const handleChange = React.useCallback<
+    (buttonValue: string | undefined) => void
+  >(
     (buttonValue) => {
       if (!isFunction(onChange) || !Array.isArray(value)) {
         return;
       }
 
-      const index = value.indexOf(buttonValue);
-      let newValue: string[];
+      const index = isString(buttonValue) ? value.indexOf(buttonValue) : -1;
+      let newValue: Array<string | undefined>;
 
       const shouldToggleOff = index >= 0;
       if (shouldToggleOff) {
@@ -42,19 +44,19 @@ export const useToggleButtonGroup = ({
   );
 
   // Exclusive selection
-  const handleExclusiveChange: ToggleButtonProps['onChange'] =
-    React.useCallback(
-      (buttonValue) => {
-        if (!isFunction(onChange)) {
-          return;
-        }
-
-        onChange(
-          value === buttonValue && !isSelectionRequired ? null : buttonValue
-        );
-      },
-      [onChange, value, isSelectionRequired]
-    );
+  const handleExclusiveChange = React.useCallback<
+    (buttonValue: string | undefined) => void
+  >(
+    (buttonValue) => {
+      if (!isFunction(onChange)) {
+        return;
+      }
+      onChange(
+        value === buttonValue && !isSelectionRequired ? undefined : buttonValue
+      );
+    },
+    [onChange, value, isSelectionRequired]
+  );
 
   return isExclusive ? handleExclusiveChange : handleChange;
 };

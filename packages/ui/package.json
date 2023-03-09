@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "5.5.6",
+  "version": "5.5.7",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -31,16 +31,18 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "yarn build:css && yarn build:js",
+    "build": "yarn build:css && yarn build:dist",
     "build:css": "node -r esbuild-register ./scripts/generateCSS.ts",
-    "build:js": "rollup --config",
-    "build:dev:js": "tsup",
+    "build:dist": "rollup --config",
+    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui\"'",
     "clean": "rimraf dist node_modules",
-    "dev": "yarn build:sd && yarn build:css && yarn build:dev:js --watch",
-    "dev:build": "yarn build:sd && yarn build:css && yarn build:dev:js",
-    "lint": "tsc --noEmit",
-    "test": "jest"
+    "dev": "yarn build --watch",
+    "lint": "yarn typecheck",
+    "prebuild": "rimraf dist",
+    "test": "jest",
+    "test:ci": "yarn test && yarn check:esm",
+    "test:watch": "yarn test --watch",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "csstype": "^3.1.1",
