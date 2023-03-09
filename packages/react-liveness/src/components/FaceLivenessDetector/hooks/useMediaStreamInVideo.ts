@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { isObject } from '@aws-amplify/ui';
 
 export interface UseMediaStreamInVideo {
   videoRef: React.MutableRefObject<HTMLVideoElement | null>;
@@ -21,10 +22,13 @@ export function useMediaStreamInVideo(
 
   useEffect(() => {
     if (stream) {
-      videoRef.current = { srcObject: stream } as HTMLVideoElement;
+      if (isObject(videoRef.current)) {
+        videoRef.current.srcObject = stream;
+      }
       const { height: streamHeight, width: streamWidth } = stream
         .getTracks()[0]
         .getSettings();
+
       setVideoHeight(streamHeight);
       setVideoWidth(streamWidth);
     }
