@@ -396,10 +396,7 @@ export const IlluminationStateStringMap: Record<IlluminationState, string> = {
   [IlluminationState.NORMAL]: translate('Lighting conditions normal'),
 };
 
-export const FaceMatchStateStringMap: Record<
-  FaceMatchState,
-  string | undefined
-> = {
+export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
   [FaceMatchState.CANT_IDENTIFY]: translate('Move face in front of camera'),
   [FaceMatchState.FACE_IDENTIFIED]: translate('Face detected'),
   [FaceMatchState.TOO_MANY]: translate(
@@ -414,10 +411,7 @@ export const FaceMatchStateStringMap: Record<
   [FaceMatchState.MATCHED]: undefined,
 };
 
-export const LivenessErrorStateStringMap: Record<
-  LivenessErrorState,
-  string | undefined
-> = {
+export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.RUNTIME_ERROR]: translate(
     'Check failed due to client issue'
   ),

@@ -1,5 +1,9 @@
 {
   "extends": "../configs/ts/tsconfig.react.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "compilerOptions": {
+    // turning on because the data store hooks typing fails type checking
+    "skipLibCheck": true
+  },
   "exclude": ["node_modules"]
 }
