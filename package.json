@@ -16,7 +16,6 @@
     "angular-example": "yarn workspace angular-example",
     "docs": "yarn workspace docs",
     "next-example": "yarn workspace next-example",
-    "liveness-next-example": "yarn workspace liveness-next-example",
     "react-example": "yarn workspace next-example",
     "react-native-example": "yarn workspace react-native-example",
     "vue-example": "yarn workspace vue-example",
