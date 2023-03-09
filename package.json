@@ -41,7 +41,8 @@
       "environments",
       "examples/*",
       "packages/*",
-      "packages/angular/projects/ui-angular"
+      "packages/angular/projects/ui-angular",
+      "packages/configs/eslint"
     ],
     "nohoist": [
       "**/next",

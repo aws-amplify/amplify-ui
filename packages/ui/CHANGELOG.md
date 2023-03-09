@@ -1,5 +1,19 @@
 # @aws-amplify/ui
 
+## 5.5.7
+
+### Patch Changes
+
+- [#3476](https://github.com/aws-amplify/amplify-ui/pull/3476) [`a55aa4584`](https://github.com/aws-amplify/amplify-ui/commit/a55aa4584dd9aba4e97d4e36acc289238710d30e) Thanks [@buremer](https://github.com/buremer)! - Add missing dutch translations
+
+- [#3511](https://github.com/aws-amplify/amplify-ui/pull/3511) [`6501852a7`](https://github.com/aws-amplify/amplify-ui/commit/6501852a7916cc2afb90bfb52461877c1e637b99) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix hidden inputs breaking some interfaces by adding `position:relative` to Radio and Checkbox primitives
+
+  fixes #3165
+
+- [#3503](https://github.com/aws-amplify/amplify-ui/pull/3503) [`50fbe91de`](https://github.com/aws-amplify/amplify-ui/commit/50fbe91defab6172c09eb03c71671a5cc5f4d265) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix: TS strict errors in ui/helpers
+
+- [#3497](https://github.com/aws-amplify/amplify-ui/pull/3497) [`5249a450d`](https://github.com/aws-amplify/amplify-ui/commit/5249a450dcd07487188fc57d5b6b04dbf52e1970) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(tsconfig): add configs directory and ts configuration
+
 ## 5.5.6
 
 ### Patch Changes
