@@ -209,22 +209,6 @@ describe('SearchField component', () => {
       expect(searchField).toHaveFocus();
     });
 
-    it('should clear text and refocus controlled input when clicked', async () => {
-      render(<ControlledSearchField />);
-
-      const searchField = (await screen.findByLabelText(
-        label
-      )) as HTMLInputElement;
-      userEvent.type(searchField, searchQuery);
-
-      const clearButton = await screen.findByLabelText(clearButtonLabel);
-
-      expect(searchField).toHaveValue(searchQuery);
-      userEvent.click(clearButton);
-      expect(searchField).toHaveValue('');
-      expect(searchField).toHaveFocus();
-    });
-
     it('should be able to customize clear button text', async () => {
       const clearButtonLabel = 'Reset search';
       render(

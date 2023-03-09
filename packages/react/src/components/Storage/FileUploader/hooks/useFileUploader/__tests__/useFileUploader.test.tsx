@@ -51,6 +51,7 @@ describe('useFileUploader', () => {
     const {
       current: { addTargetFiles },
     } = result;
+
     const numOfFiles = addTargetFiles?.([fakeFile]);
 
     expect(numOfFiles).toEqual(0);
@@ -227,6 +228,7 @@ describe('useFileUploader', () => {
         maxSize: 1,
       })
     );
+
     uploadCheckMaxSizeSpy.mockReturnValue('error 1b');
 
     const {
@@ -262,6 +264,7 @@ describe('useFileUploader', () => {
     const {
       current: { addTargetFiles },
     } = result;
+
     const numOfFiles = addTargetFiles?.([fakeFile, fakeFileHTML]);
 
     expect(numOfFiles).toEqual(1);

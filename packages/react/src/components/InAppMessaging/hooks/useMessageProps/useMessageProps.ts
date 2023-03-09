@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react';
+
 import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core';
 
 import { useMessageImage } from '../useMessageImage';

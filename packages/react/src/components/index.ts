@@ -4,4 +4,3 @@ export * from './Geo';
 export * from './Storage';
 export * from './InAppMessaging';
 export * from './ThemeProvider';
-export * from './Liveness';

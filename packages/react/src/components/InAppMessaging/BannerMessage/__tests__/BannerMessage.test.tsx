@@ -27,6 +27,7 @@ const BANNER_LOCATIONS = BANNER_ALIGNMENTS.reduce(
   },
   []
 );
+
 const TEST_PROPS: BannerMessageProps = { layout: 'TOP_BANNER' };
 
 const mockUseMessageProps = useMessageProps as jest.Mock;
