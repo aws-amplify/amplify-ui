@@ -1,14 +1,12 @@
-.amplify-liveness__cancel-button {
-  background-color: var(--amplify-colors-background-primary);
+.amplify-liveness-cancel-container {
+  z-index: 2;
+  position: absolute;
+  top: var(--amplify-space-medium);
+  right: var(--amplify-space-medium);
 }
 
-.amplify-liveness__recording-icon {
-  flex-direction: column;
-  align-items: center;
+.amplify-liveness-cancel-button {
   background-color: var(--amplify-colors-background-primary);
-  padding: var(--amplify-space-xxs);
-  gap: var(--amplify-space-xxs);
-  border-radius: var(--amplify-radii-small);
 }
 
 .amplify-liveness-fade-out {
@@ -44,7 +42,7 @@
   width: 100%;
 }
 
-.amplify-liveness-camera-module__video {
+.amplify-liveness-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -62,7 +60,7 @@
   z-index: 1;
 }
 
-.amplify-liveness-camera-module__centered-loader {
+.amplify-liveness-loader {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -88,28 +86,30 @@
   width: 100%;
 }
 
-.amplify-liveness-camera-module__recording-icon-container {
+.amplify-liveness-recording-icon-container {
   z-index: 1;
   position: absolute;
   top: var(--amplify-space-medium);
   left: var(--amplify-space-medium);
 }
 
-.amplify-liveness-camera-module__cancel-button-container {
-  z-index: 2;
-  position: absolute;
-  top: var(--amplify-space-medium);
-  right: var(--amplify-space-medium);
+.amplify-liveness-recording-icon {
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--amplify-colors-background-primary);
+  padding: var(--amplify-space-xxs);
+  gap: var(--amplify-space-xxs);
+  border-radius: var(--amplify-radii-small);
 }
 
-.amplify-liveness-camera-module__overlay--countdown {
+.amplify-liveness-instruction-overlay {
   z-index: 1;
 }
 
-.amplify-liveness-camera-module__countdown-timer-container {
+.amplify-liveness-countdown-container {
   background-color: var(--amplify-colors-background-primary);
   border-radius: 100%;
-  padding: 8px;
+  padding: var(--amplify-space-xs);
 }
 
 .amplify-liveness-description-bullet {
@@ -117,7 +117,7 @@
   gap: var(--amplify-space-small);
 }
 
-.amplify-liveness-description-bullet__index-container {
+.amplify-liveness-description-bullet__index {
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
@@ -127,20 +127,7 @@
   height: var(--amplify-space-xl);
 }
 
-.amplify-liveness-description-bullet__index {
+.amplify-liveness-description-bullet__index__text {
   font-weight: var(--amplify-font-weights-bold);
   color: var(--amplify-colors-font-inverse);
-}
-
-.amplify-liveness-description-bullet__message-container {
-  flex-direction: column;
-  gap: var(--amplify-space-xxs);
-}
-
-.amplify-liveness-description-bullet__message--title {
-  font-weight: var(--amplify-font-weights-bold);
-}
-
-.amplify-liveness-description-bullet__message--body {
-  color: var(--amplify-colors-font-primary);
 }

@@ -113,9 +113,7 @@ describe('Pagination component:', () => {
   });
 
   it('should enable previous page button and next page button if current page is the last page and there are more pages', async () => {
-    render(
-      <Pagination id={id} currentPage={5} totalPages={5} hasMorePages />
-    );
+    render(<Pagination id={id} currentPage={5} totalPages={5} hasMorePages />);
 
     const previous = await screen.findByLabelText(
       ComponentText.PaginationItem.previousLabel

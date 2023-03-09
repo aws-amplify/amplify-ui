@@ -27,12 +27,11 @@ export interface LivenessCameraModuleProps {
 }
 
 const centeredLoader = (
-  <View
-    className={LivenessClassNames.CameraModuleCenteredLoader}
+  <Loader
+    size="large"
+    className={LivenessClassNames.Loader}
     data-testid="centered-loader"
-  >
-    <Loader size="large" />
-  </View>
+  />
 );
 
 export const LivenessCameraModule = (
@@ -126,7 +125,7 @@ export const LivenessCameraModule = (
         className={LivenessClassNames.FreshnessCanvas}
         hidden
       />
-      <div
+      <View
         className={LivenessClassNames.VideoAnchor}
         style={{
           aspectRatio: `${aspectRatio}`,
@@ -142,7 +141,7 @@ export const LivenessCameraModule = (
           height={mediaHeight}
           onCanPlay={handleMediaPlay}
           data-testid="video"
-          className={LivenessClassNames.CameraModuleVideo}
+          className={LivenessClassNames.Video}
         />
         <Flex
           className={classNames(
@@ -155,17 +154,13 @@ export const LivenessCameraModule = (
         </Flex>
 
         {isRecording && (
-          <View
-            className={LivenessClassNames.CameraModuleRecordingIconContainer}
-          >
+          <View className={LivenessClassNames.RecordingIconContainer}>
             <RecordingIcon />
           </View>
         )}
 
         {!isCheckSucceeded && (
-          <View
-            className={LivenessClassNames.CameraModuleCancelButtonContainer}
-          >
+          <View className={LivenessClassNames.CancelContainer}>
             <CancelButton />
           </View>
         )}
@@ -173,15 +168,13 @@ export const LivenessCameraModule = (
         {countDownRunning && (
           <Overlay
             anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
-            className={LivenessClassNames.CameraModuleOverlayCountdown}
+            className={LivenessClassNames.InstructionOverlay}
           >
             <Instruction />
 
             {isNotRecording && (
               <View
-                className={
-                  LivenessClassNames.CameraModuleCountdownTimerContainer
-                }
+                className={LivenessClassNames.CountdownContainer}
                 testId="liveness-camera-countdown-timer"
               >
                 <CountdownCircleTimer.CountdownCircleTimer
@@ -205,7 +198,7 @@ export const LivenessCameraModule = (
             )}
           </Overlay>
         )}
-      </div>
+      </View>
     </Flex>
   );
 };
