@@ -9,7 +9,9 @@ describe('TextArea component', () => {
   it('should render custom classname for TextArea', async () => {
     render(<TextArea className="custom-class" />);
 
-    const textarea = await screen.findByRole('textbox');
+    const textarea = (await screen.findByRole(
+      'textbox'
+    ));
     expect(textarea).toHaveClass('custom-class');
     expect(textarea).toHaveClass(ComponentClassNames.Textarea);
   });
@@ -57,7 +59,9 @@ describe('TextArea component', () => {
   it('can set defaultValue (uncontrolled)', async () => {
     render(<TextArea defaultValue="test" />);
 
-    const textarea = await screen.findByRole('textbox');
+    const textarea = (await screen.findByRole(
+      'textbox'
+    ));
     expect(textarea).toHaveValue('test');
   });
 
@@ -65,13 +69,17 @@ describe('TextArea component', () => {
     // onChange added to silence console error
     render(<TextArea value="test" onChange={() => {}} />);
 
-    const textarea = await screen.findByRole('textbox');
+    const textarea = (await screen.findByRole(
+      'textbox'
+    ));
     expect(textarea).toHaveValue('test');
   });
 
   it('show add aria-invalid attribute to textarea when hasError', async () => {
     render(<TextArea id="testField" hasError />);
-    const textarea = await screen.findByRole('textbox');
+    const textarea = (await screen.findByRole(
+      'textbox'
+    ));
     expect(textarea).toHaveAttribute('aria-invalid', 'true');
   });
 
@@ -82,7 +90,9 @@ describe('TextArea component', () => {
     render(
       <TextArea onChange={onChange} onInput={onInput} onPaste={onPaste} />
     );
-    const textarea = await screen.findByRole('textbox');
+    const textarea = (await screen.findByRole(
+      'textbox'
+    ));
     userEvent.type(textarea, 'hello');
     userEvent.paste(textarea, 'there');
     expect(onChange).toHaveBeenCalled();

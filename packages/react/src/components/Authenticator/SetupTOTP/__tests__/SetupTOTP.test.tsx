@@ -34,7 +34,6 @@ const user = { username: 'username' };
 const getTotpCodeURLSpy = jest.spyOn(UI, 'getTotpCodeURL');
 
 describe('SetupTOTP', () => {
-  let mockGetTotpSecretCode: jest.Mock;
   beforeEach(() => {
     jest.clearAllMocks();
 

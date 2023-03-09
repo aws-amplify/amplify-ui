@@ -73,6 +73,7 @@ describe('File Uploader', () => {
 
     expect(container).toMatchSnapshot();
   });
+
   it('shows a button when variation is set to button', async () => {
     render(<FileUploader {...commonProps} variation="button" />);
     const button = await screen.findByRole('button');
@@ -475,6 +476,7 @@ describe('File Uploader', () => {
       await screen.findByText(`File Name: ${fileStatus.name}`)
     ).toBeVisible();
   });
+
   it.skip('shows the overridden Previewer component', async () => {
     // const UploadPreviewer = ({ fileStatuses }) => (
     //   <div>Preview: {fileStatuses[0].name} </div>

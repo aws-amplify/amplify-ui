@@ -13,6 +13,7 @@ interface AlertIconProps {
   variation?: AlertVariations;
   ariaHidden?: boolean;
 }
+
 /**
  * @internal For internal Amplify UI use only. May be removed in a future release.
  */
