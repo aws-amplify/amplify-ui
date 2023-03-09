@@ -6,17 +6,17 @@ import { MapView } from '../index';
 
 import { act } from 'react-dom/test-utils';
 
-jest.mock("maplibre-gl-js-amplify", () => ({
+jest.mock('maplibre-gl-js-amplify', () => ({
   AmplifyMapLibreRequest: jest.fn().mockImplementation(() => {
     return {
       amplifyTransformRequest: true,
       transformRequest: (url, resourceType) => {
-        if (resourceType === "Style" && !url.includes("://")) {
+        if (resourceType === 'Style' && !url.includes('://')) {
           url = `https://maps.geo.us-east-2.amazonaws.com/maps/v0/maps/${url}/style-descriptor`;
         }
-        if (new URL(url).hostname.endsWith(".amazonaws.com")) {
+        if (new URL(url).hostname.endsWith('.amazonaws.com')) {
           return {
-            url: "https://maps.geo.us-east-2.amazonaws.com/maps/v0/maps/map5df169f7-staging/style-descriptor",
+            url: 'https://maps.geo.us-east-2.amazonaws.com/maps/v0/maps/map5df169f7-staging/style-descriptor',
           };
         }
       },
@@ -24,6 +24,7 @@ jest.mock("maplibre-gl-js-amplify", () => ({
   }),
 }));
 
+// Mock react-map-gl to check just that ReactMapGL component is rendered, and not what it actually renders.
 jest.mock('react-map-gl', () => () => {
   return <div data-testid="react-map-gl-mock" />;
 });
