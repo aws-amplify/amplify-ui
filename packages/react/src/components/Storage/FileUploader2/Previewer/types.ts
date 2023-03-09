@@ -1,7 +1,7 @@
 import { FileUploaderDisplayText } from '../displayText';
 import { FileStatuses } from '../types';
 
-export interface UploadPreviewerProps
+export interface PreviewerProps
   extends Pick<
     FileUploaderDisplayText,
     | 'getMaxFilesErrorText'

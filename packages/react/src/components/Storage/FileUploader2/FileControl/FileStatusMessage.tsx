@@ -5,16 +5,16 @@ import { classNameModifier } from '../../../../primitives/shared/utils';
 import { Text, ComponentClassNames } from '../../../../primitives';
 import { IconCheck, IconError } from '../../../../primitives/Icon/internal';
 import { FileState } from '../types';
-import { UploadMessageProps } from './types';
+import { FileStatusMessageProps } from './types';
 
-export const UploadMessage = ({
+export const FileStatusMessage = ({
   fileState,
   errorMessage,
   percentage,
   uploadSuccessfulText,
   getUploadingText,
   getPausedText,
-}: UploadMessageProps): JSX.Element => {
+}: FileStatusMessageProps): JSX.Element => {
   switch (fileState) {
     case FileState.LOADING: {
       return (

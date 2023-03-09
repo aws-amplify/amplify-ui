@@ -1,7 +1,7 @@
 import { FileUploaderDisplayText } from '../displayText';
 import { FileState } from '../types';
 
-export interface UploadTrackerProps
+export interface FileControlProps
   extends Pick<
     FileUploaderDisplayText,
     | 'extensionNotAllowedText'
@@ -27,4 +27,36 @@ export interface UploadTrackerProps
   isResumable?: boolean;
   showImage: boolean;
   shouldAutoLoad: boolean;
+}
+
+export interface FileStatusMessageProps
+  extends Pick<
+    FileUploaderDisplayText,
+    'getUploadingText' | 'getPausedText' | 'uploadSuccessfulText'
+  > {
+  fileState: FileState;
+  errorMessage: string;
+  percentage?: number;
+}
+
+export interface FileDetailsProps {
+  file: File;
+  onStartEdit: React.MouseEventHandler<HTMLButtonElement>;
+  fileState: FileState;
+  extensionNotAllowedText: string;
+  errorMessage: string;
+  displayName: string;
+}
+
+export interface FileThumbnailProps {
+  hasImage: boolean;
+  showImage: boolean;
+  file: File;
+  url: string;
+}
+
+export interface FileActionsProps {
+  fileState: FileState;
+  file: File;
+  onCancel: () => void;
 }

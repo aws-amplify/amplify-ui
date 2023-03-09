@@ -11,9 +11,9 @@ import {
 } from '../../../../primitives';
 
 import { useFileUploader } from '../hooks/useFileUploader';
-import { UploadPreviewer } from '../UploadPreviewer';
-import { UploadDropZone } from '../UploadDropZone';
-import { UploadTracker } from '../UploadTracker';
+import { Previewer } from '../Previewer';
+import { DropZone } from '../DropZone';
+import { FileControl } from '../FileControl';
 import { FileState } from '../types';
 import { FileUploaderProps } from './types';
 import { isUploadTask } from './utils';
@@ -379,15 +379,15 @@ export function FileUploader2({
 
   if (showPreviewer) {
     return (
-      <UploadPreviewer
+      <Previewer
         dropZone={
-          <UploadDropZone
+          <DropZone
             {...dropZoneProps}
             dropFilesText={dropFilesText}
             inDropZone={inDropZone}
           >
             {uploadButtonComponent}
-          </UploadDropZone>
+          </DropZone>
         }
         getFilesUploadedText={getFilesUploadedText}
         clearButtonText={clearButtonText}
@@ -406,7 +406,7 @@ export function FileUploader2({
         aggregatePercentage={aggregatePercentage}
       >
         {fileStatuses?.map((status, index) => (
-          <UploadTracker
+          <FileControl
             pauseText={pauseText}
             getPausedText={getPausedText}
             getUploadingText={getUploadingText}
@@ -432,7 +432,7 @@ export function FileUploader2({
             isResumable={isResumable}
           />
         ))}
-      </UploadPreviewer>
+      </Previewer>
     );
   }
 
@@ -440,13 +440,13 @@ export function FileUploader2({
     return uploadButtonComponent;
   } else {
     return (
-      <UploadDropZone
+      <DropZone
         {...dropZoneProps}
         dropFilesText={dropFilesText}
         inDropZone={inDropZone}
       >
         {uploadButtonComponent}
-      </UploadDropZone>
+      </DropZone>
     );
   }
 }

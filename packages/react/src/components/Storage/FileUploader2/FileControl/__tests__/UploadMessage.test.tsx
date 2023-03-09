@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { UploadMessage } from '../UploadMessage';
+import { FileStatusMessage } from '../FileStatusMessage';
 import { FileState } from '../../types';
 import { defaultFileUploaderDisplayText } from '../../displayText';
 
@@ -14,7 +14,7 @@ const commonProps: {
 describe('UploadMessage', () => {
   it('exists', async () => {
     const { container } = render(
-      <UploadMessage
+      <FileStatusMessage
         {...commonProps}
         fileState={FileState.ERROR}
         errorMessage={''}
@@ -25,7 +25,7 @@ describe('UploadMessage', () => {
   });
   it('displays loading message if fileState is loading', async () => {
     const { findByText } = render(
-      <UploadMessage
+      <FileStatusMessage
         {...commonProps}
         fileState={FileState.LOADING}
         percentage={10}
@@ -37,7 +37,7 @@ describe('UploadMessage', () => {
   });
   it('displays paused message if fileState is paused', async () => {
     const { findByText } = render(
-      <UploadMessage
+      <FileStatusMessage
         {...commonProps}
         fileState={FileState.PAUSED}
         percentage={10}
@@ -49,7 +49,7 @@ describe('UploadMessage', () => {
   });
   it('displays upload success message if fileState is in success', async () => {
     const { findByText } = render(
-      <UploadMessage
+      <FileStatusMessage
         {...commonProps}
         fileState={FileState.SUCCESS}
         errorMessage={''}
@@ -61,7 +61,7 @@ describe('UploadMessage', () => {
   it('displays error message if fileState is in error', async () => {
     const error = 'error message';
     const { findByText } = render(
-      <UploadMessage
+      <FileStatusMessage
         {...commonProps}
         fileState={FileState.ERROR}
         errorMessage={error}

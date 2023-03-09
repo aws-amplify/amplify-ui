@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import { View, ComponentClassNames, Text } from '../../../../primitives';
 import { classNameModifier } from '../../../../primitives/shared/utils';
 import { IconUpload } from '../../../../primitives/Icon/internal';
-import { UploadDropZoneProps } from './types';
+import { DropZoneProps } from './types';
 
-export function UploadDropZone({
+export function DropZone({
   children,
   inDropZone,
   onDragStart,
@@ -15,7 +15,7 @@ export function UploadDropZone({
   onDrop,
   onDragOver,
   dropFilesText,
-}: UploadDropZoneProps): JSX.Element {
+}: DropZoneProps): JSX.Element {
   return (
     <View
       className={classNames(

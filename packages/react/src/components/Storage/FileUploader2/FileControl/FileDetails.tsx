@@ -9,15 +9,7 @@ import {
 } from '../../../../primitives';
 import { FileState } from '../types';
 import { humanFileSize } from '@aws-amplify/ui';
-
-interface FileDetailsProps {
-  file: File;
-  onStartEdit: React.MouseEventHandler<HTMLButtonElement>;
-  fileState: FileState;
-  extensionNotAllowedText: string;
-  errorMessage: string;
-  displayName: string;
-}
+import { FileDetailsProps } from './types';
 
 export const FileDetails = ({
   file,

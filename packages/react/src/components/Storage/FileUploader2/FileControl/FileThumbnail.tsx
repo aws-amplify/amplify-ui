@@ -2,13 +2,7 @@ import React from 'react';
 
 import { View, Image, ComponentClassNames } from '../../../../primitives';
 import { IconFile } from '../../../../primitives/Icon/internal';
-
-interface FileThumbnailProps {
-  hasImage: boolean;
-  showImage: boolean;
-  file: File;
-  url: string;
-}
+import { FileThumbnailProps } from './types';
 
 export const FileThumbnail = ({
   hasImage,

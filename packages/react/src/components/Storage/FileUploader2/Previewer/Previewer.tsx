@@ -11,9 +11,9 @@ import {
 } from '../../../../primitives';
 
 import { FileState } from '../types';
-import { UploadPreviewerProps } from './types';
+import { PreviewerProps } from './types';
 
-export function UploadPreviewer({
+export function Previewer({
   aggregatePercentage,
   children,
   dropZone,
@@ -31,7 +31,7 @@ export function UploadPreviewer({
   getUploadingText,
   clearButtonText,
   doneButtonText,
-}: UploadPreviewerProps): JSX.Element {
+}: PreviewerProps): JSX.Element {
   const headingMaxFiles = getMaxFilesErrorText(maxFileCount);
   const getUploadedFilesLength = () =>
     fileStatuses.filter((file) => file?.fileState === FileState.SUCCESS).length;

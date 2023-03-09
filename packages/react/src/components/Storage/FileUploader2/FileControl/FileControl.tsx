@@ -3,13 +3,13 @@ import React, { useEffect } from 'react';
 import { View, Loader, ComponentClassNames } from '../../../../primitives';
 
 import { FileState } from '../types';
-import { UploadMessage } from '../UploadMessage';
-import { UploadTrackerProps } from './types';
+import { FileStatusMessage } from './FileStatusMessage';
 import { FileActions } from './FileActions';
 import { FileDetails } from './FileDetails';
 import { FileThumbnail } from './FileThumbnail';
+import { FileControlProps } from './types';
 
-export function UploadTracker({
+export function FileControl({
   errorMessage,
   file,
   fileState,
@@ -32,7 +32,7 @@ export function UploadTracker({
   getUploadingText,
   handleUploadFile,
   shouldAutoLoad,
-}: UploadTrackerProps): JSX.Element {
+}: FileControlProps): JSX.Element {
   // const inputRef = React.useRef<HTMLInputElement>(null);
   const url = URL.createObjectURL(file);
 
@@ -83,7 +83,7 @@ export function UploadTracker({
           />
         ) : null}
       </View>
-      <UploadMessage
+      <FileStatusMessage
         uploadSuccessfulText={uploadSuccessfulText}
         getUploadingText={getUploadingText}
         getPausedText={getPausedText}
