@@ -12,6 +12,33 @@ const SAN_FRANCISCO = {
   longitude: -122.431,
 };
 
+const onLocationSearchResult = (event) => {
+  console.log('Result event is firing');
+  console.log(event);
+};
+
+const onLocationSearchResults = (event) => {
+  console.log('Results event is firing');
+  console.log(event);
+};
+
+const onLocationSearchClear = () => {
+  console.log('Clear event is firing');
+};
+
+const onLocationSearchLoading = (event) => {
+  console.log('Loading event is firing');
+  console.log(event);
+};
+
 export default function StandaloneLocationSearch() {
-  return <LocationSearch proximity={SAN_FRANCISCO} />;
+  return (
+    <LocationSearch
+      onResult={onLocationSearchResult}
+      onClear={onLocationSearchClear}
+      onLoading={onLocationSearchLoading}
+      onResults={onLocationSearchResults}
+      proximity={SAN_FRANCISCO}
+    />
+  );
 }

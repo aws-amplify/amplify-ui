@@ -26,7 +26,7 @@ async function returnStatus({
   tagName,
   tagText,
 }: LinkInfo): Promise<LinkInfo> {
-  if ([...DEFAULT_GOOD_STATUS_CODES, 308].includes(statusCode)) {
+  if ([...DEFAULT_GOOD_STATUS_CODES, 301, 308].includes(statusCode)) {
     /**
      * If 301 and from 'https://docs.amplify.aws/', add a "/" and check again.
      * Because 'https://docs.amplify.aws/' adds a "/" and return a 301 to all the links not ending with "/".
