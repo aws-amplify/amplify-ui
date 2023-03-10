@@ -185,8 +185,8 @@ jobs:
       - name: Lint packages
         run: yarn ${{ matrix.package }} lint
 
-      - name: Run ${{ matrix.package }} tests
-        run: yarn ${{ matrix.package }} test
+      - name: Run ${{ matrix.package }} CI tests
+        run: yarn ${{ matrix.package }} test:ci
 
   e2e:
     # Only run e2e tests if unit tests pass
