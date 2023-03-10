@@ -116,6 +116,7 @@ export const LivenessCameraModule = (
         LivenessClassNames.CameraModule,
         isMobileScreen && `${LivenessClassNames.CameraModule}--mobile`
       )}
+      border={`1px solid ${tokens.colors.border.primary}`} // FIXME: this only makes sense in light mode
     >
       {!isCameraReady && centeredLoader}
 

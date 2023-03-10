@@ -190,9 +190,9 @@ export function drawLivenessOvalInCanvas(
       2 * Math.PI
     );
 
-    // add stroke to the oval pat
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = 8;
+    // add stroke to the oval path
+    ctx.strokeStyle = '#AEB3B7';
+    ctx.lineWidth = 3;
     ctx.stroke();
     ctx.clip();
 
@@ -264,10 +264,6 @@ export function getFaceMatchStateInLivenessOval(
     Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
   ) {
     faceMatchState = FaceMatchState.MATCHED;
-  } else if (minOvalX > minFaceX && maxOvalX > maxFaceX) {
-    faceMatchState = FaceMatchState.TOO_LEFT;
-  } else if (minFaceX > minOvalX && maxFaceX > maxOvalX) {
-    faceMatchState = FaceMatchState.TOO_RIGHT;
   } else if (
     minOvalY - minFaceY > faceDetectionHeightThreshold ||
     maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
@@ -403,7 +399,7 @@ export const IlluminationStateStringMap: Record<IlluminationState, string> = {
 
 export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
   [FaceMatchState.CANT_IDENTIFY]: translate('Move face in front of camera'),
-  [FaceMatchState.FACE_IDENTIFIED]: translate('Face detected'),
+  [FaceMatchState.FACE_IDENTIFIED]: translate('Move face closer and fill oval'),
   [FaceMatchState.TOO_MANY]: translate(
     'Ensure only one face is in front of camera'
   ),
