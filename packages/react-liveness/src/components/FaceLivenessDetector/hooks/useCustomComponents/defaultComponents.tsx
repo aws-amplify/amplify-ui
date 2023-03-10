@@ -7,6 +7,7 @@ import {
   Text,
   Collection,
   useTheme,
+  Image,
 } from '@aws-amplify/ui-react';
 import { DescriptionBullet } from '../../shared';
 import { LivenessIconWithPopover } from '../../shared/LivenessIconWithPopover';
@@ -85,6 +86,11 @@ export const LivenessInstructions = (): JSX.Element => {
       <Text color="font.primary" fontWeight="bold">
         {translate<string>(defaultLivenessInstructionsHeader)}
       </Text>
+      <Image
+        alt="Oval Instruction Example"
+        src="/ovalInstruction.png"
+        width="100%"
+      />
       <Collection type="list" items={INSTRUCTIONS}>
         {(item, index) => (
           <DescriptionBullet
