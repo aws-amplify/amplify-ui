@@ -20,11 +20,16 @@ export const DescriptionBullet = (
           as="span"
           className={LivenessClassNames.DescriptionBulletIndexText}
         >
-          {index}
+          {index}.
         </Text>
       </Flex>
 
-      <Text as="span" className={LivenessClassNames.DescriptionBulletMessage}>
+      <Text
+        as="span"
+        display={'flex'}
+        style={{ alignItems: 'center' }}
+        className={LivenessClassNames.DescriptionBulletMessage}
+      >
         {desc}
       </Text>
     </Flex>
