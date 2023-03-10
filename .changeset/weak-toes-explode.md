@@ -1,5 +1,4 @@
 ---
-'next-example': patch
 '@aws-amplify/ui-react': patch
 ---
 
