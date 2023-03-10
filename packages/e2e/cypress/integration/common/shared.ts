@@ -455,3 +455,12 @@ And('I confirm {string} error is accessible in new password field', () => {
     });
   });
 });
+
+Then(
+  'I hit the {string} key on {string} button',
+  (key: string, name: string) => {
+    cy.findByRole('button', {
+      name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+    }).type(`{${key}}`, { force: true });
+  }
+);

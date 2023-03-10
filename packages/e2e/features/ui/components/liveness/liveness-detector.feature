@@ -4,6 +4,13 @@ Feature: Liveness Detector
 
   Background:
     Given I'm running the example "ui/components/liveness"
+
+  @react
+  Scenario: Navigate with keyboard only
+      Then I hit the "enter" key on "Begin check" button
+      And I click the "close-icon"
+      # TODO: Change this to use keyboard navigation, at this time it doesnt work the same way begin check does
+      Then I see the "Begin check" button
   
   @react
   Scenario: See camera module and close with the close icon
