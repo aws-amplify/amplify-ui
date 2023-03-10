@@ -26,7 +26,7 @@ export const Toast: React.FC<ToastProps> = ({
       borderRadius="medium"
       backgroundColor="background.primary"
       maxWidth={{ base: '100%', small: '70%' }}
-      border={`1px solid ${tokens.colors.border.primary}`} // this only makes sense in light mode
+      border={`1px solid ${tokens.colors.border.primary}`} // // FIXME: this only makes sense in light mode
     >
       <Flex gap="xs" direction="column" alignItems="center">
         {isToastWithIcon || heading ? (
