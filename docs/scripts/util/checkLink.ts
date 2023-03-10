@@ -100,7 +100,7 @@ export async function checkLink(
               ...linkData,
               statusCode,
             })
-          )?.statusCode || statusCode;
+          )?.statusCode ?? statusCode;
         requestedUrl.add(href);
         res({ ...linkData, statusCode });
       });
