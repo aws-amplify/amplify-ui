@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { translate, DefaultTexts } from '@aws-amplify/ui';
 import {
   Flex,
   View,
@@ -63,16 +63,16 @@ export const PhotosensitiveWarning = (): JSX.Element => {
 
 export const INSTRUCTIONS = [
   {
-    desc: 'Increase the brightness of your display screen to maximum level possible.',
+    desc: DefaultTexts.LIVENESS_INSTRUCTION_OVAL,
   },
   {
-    desc: 'Make sure your face is not covered with sunglasses or a mask.',
+    desc: DefaultTexts.LIVENESS_INSTRUCTION_BRIGHTNESS,
   },
   {
-    desc: 'Move to a well-lit place that is not dark or in direct sunlight.',
+    desc: DefaultTexts.LIVENESS_INSTRUCTION_COVER,
   },
   {
-    desc: 'Fill onscreen oval with your face and hold for colored lights.',
+    desc: DefaultTexts.LIVENESS_INSTRUCTION_LIGHT,
   },
 ];
 
