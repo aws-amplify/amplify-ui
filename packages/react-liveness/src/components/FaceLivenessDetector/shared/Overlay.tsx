@@ -3,7 +3,7 @@ import { Flex, FlexProps } from '@aws-amplify/ui-react';
 
 interface AnchorOrigin {
   horizontal: 'start' | 'center' | 'end';
-  vertical: 'start' | 'center' | 'end';
+  vertical: 'start' | 'center' | 'end' | 'space-between';
 }
 
 interface OverlayProps extends FlexProps {
@@ -25,7 +25,7 @@ export const Overlay: React.FC<OverlayProps> = ({
       justifyContent={anchorOrigin.vertical}
       width="100%"
       height="100%"
-      padding="medium"
+      padding="xl"
       {...rest}
     >
       {children}

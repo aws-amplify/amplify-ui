@@ -167,7 +167,7 @@ export const LivenessCameraModule = (
 
         {countDownRunning && (
           <Overlay
-            anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
+            anchorOrigin={{ horizontal: 'center', vertical: 'space-between' }}
             className={LivenessClassNames.InstructionOverlay}
           >
             <Instruction />
