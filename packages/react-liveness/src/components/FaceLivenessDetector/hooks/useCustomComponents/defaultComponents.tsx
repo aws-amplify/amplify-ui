@@ -64,7 +64,13 @@ export const PhotosensitiveWarning = (): JSX.Element => {
 
 export const INSTRUCTIONS = [
   {
-    desc: DefaultTexts.LIVENESS_INSTRUCTION_OVAL,
+    desc: (
+      <div>
+        When an oval appears,{' '}
+        <strong>completely fill the oval with your face</strong> within 5
+        seconds.
+      </div>
+    ),
   },
   {
     desc: DefaultTexts.LIVENESS_INSTRUCTION_BRIGHTNESS,
@@ -93,11 +99,9 @@ export const LivenessInstructions = (): JSX.Element => {
       />
       <Collection type="list" items={INSTRUCTIONS}>
         {(item, index) => (
-          <DescriptionBullet
-            key={index + 1}
-            index={index + 1}
-            desc={translate(item.desc)}
-          />
+          <DescriptionBullet key={index + 1} index={index + 1}>
+            {translate(item.desc)}
+          </DescriptionBullet>
         )}
       </Collection>
     </Flex>
