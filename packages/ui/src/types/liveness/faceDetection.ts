@@ -19,7 +19,15 @@ export interface Face {
  * to be implemented for different libraries.
  */
 export abstract class FaceDetection {
-  modelLoadingPromise: Promise<void>;
+  modelLoadingPromise!: Promise<void>;
+
+  /**
+   * Triggers the `loadModels` method and stores
+   * the corresponding promise to be awaited later.
+   */
+  triggerModelLoading(): void {
+    this.modelLoadingPromise = this.loadModels();
+  }
 
   /**
    * Loads the face detection models.
@@ -31,12 +39,4 @@ export abstract class FaceDetection {
    * @param videoEl The video element to detect faces in.
    */
   abstract detectFaces(videoEl: HTMLVideoElement): Promise<Face[]>;
-
-  /**
-   * Triggers the `loadModels` method and stores
-   * the corresponding promise to be awaited later.
-   */
-  triggerModelLoading() {
-    this.modelLoadingPromise = this.loadModels();
-  }
 }

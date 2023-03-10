@@ -1,72 +1,82 @@
 import {
-  DisconnectionEvent,
   FaceMovementAndLightServerChallenge,
   LivenessResponseStream,
   OvalScaleFactors,
   ServerChallenge,
-  ServerSessionInformationEvent,
   SessionInformation,
-  ValidationException,
 } from '@aws-sdk/client-rekognitionstreaming';
 
 export const isServerSesssionInformationEvent = (
-  event: any
-): event is LivenessResponseStream.ServerSessionInformationEventMember => {
-  return !!event?.ServerSessionInformationEvent;
+  value: unknown
+): value is LivenessResponseStream.ServerSessionInformationEventMember => {
+  return !!(value as LivenessResponseStream.ServerSessionInformationEventMember)
+    ?.ServerSessionInformationEvent;
 };
 
-export const isSessionInformation = (
-  object: any
-): object is SessionInformation => {
-  return isServerChallenge(object?.Challenge);
-};
-
-export const isServerChallenge = (object: any): object is ServerChallenge => {
-  return isFaceMovementAndLightChallenge(object?.FaceMovementAndLightChallenge);
-};
-
-export const isFaceMovementAndLightChallenge = (
-  object: any
-): object is FaceMovementAndLightServerChallenge => {
-  return isOvalScaleFactors(object?.OvalScaleFactors);
-};
-
-export const isOvalScaleFactors = (object: any): object is OvalScaleFactors => {
+export const isOvalScaleFactors = (
+  value: unknown
+): value is OvalScaleFactors => {
+  const { CenterX, CenterY, Width } = value as OvalScaleFactors;
   return (
-    typeof object.Width === 'number' &&
-    typeof object.CenterX === 'number' &&
-    typeof object.CenterY === 'number'
+    typeof Width === 'number' &&
+    typeof CenterX === 'number' &&
+    typeof CenterY === 'number'
   );
 };
 
+export const isFaceMovementAndLightChallenge = (
+  value: unknown
+): value is FaceMovementAndLightServerChallenge => {
+  return isOvalScaleFactors(
+    (value as FaceMovementAndLightServerChallenge)?.OvalScaleFactors
+  );
+};
+
+export const isServerChallenge = (value: unknown): value is ServerChallenge => {
+  return isFaceMovementAndLightChallenge(
+    (value as ServerChallenge)?.FaceMovementAndLightChallenge
+  );
+};
+
+export const isSessionInformation = (
+  value: unknown
+): value is SessionInformation => {
+  return isServerChallenge((value as SessionInformation)?.Challenge);
+};
+
 export const isDisconnectionEvent = (
-  event: any
-): event is LivenessResponseStream.DisconnectionEventMember => {
-  return !!event?.DisconnectionEvent;
+  value: unknown
+): value is LivenessResponseStream.DisconnectionEventMember => {
+  return !!(value as LivenessResponseStream.DisconnectionEventMember)
+    ?.DisconnectionEvent;
 };
 
 export const isValidationExceptionEvent = (
-  event: any
-): event is LivenessResponseStream.ValidationExceptionMember => {
-  return !!event?.ValidationException;
+  value: unknown
+): value is LivenessResponseStream.ValidationExceptionMember => {
+  return !!(value as LivenessResponseStream.ValidationExceptionMember)
+    ?.ValidationException;
 };
 
 export const isInternalServerExceptionEvent = (
-  event: any
-): event is LivenessResponseStream.InternalServerExceptionMember => {
-  return !!event?.InternalServerException;
+  value: unknown
+): value is LivenessResponseStream.InternalServerExceptionMember => {
+  return !!(value as LivenessResponseStream.InternalServerExceptionMember)
+    ?.InternalServerException;
 };
 
 export const isThrottlingExceptionEvent = (
-  event: any
-): event is LivenessResponseStream.ThrottlingExceptionMember => {
-  return !!event?.ThrottlingException;
+  value: unknown
+): value is LivenessResponseStream.ThrottlingExceptionMember => {
+  return !!(value as LivenessResponseStream.ThrottlingExceptionMember)
+    ?.ThrottlingException;
 };
 
 export const isServiceQuotaExceededExceptionEvent = (
-  event: any
-): event is LivenessResponseStream.ServiceQuotaExceededExceptionMember => {
-  return !!event?.ServiceQuotaExceededException;
+  value: unknown
+): value is LivenessResponseStream.ServiceQuotaExceededExceptionMember => {
+  return !!(value as LivenessResponseStream.ServiceQuotaExceededExceptionMember)
+    ?.ServiceQuotaExceededException;
 };
 
 export const isInvalidSignatureRegionException = (

@@ -1,3 +1,4 @@
+/* eslint-disable  */
 import { FreshnessColorDisplay } from '../freshness-color-display';
 import {
   mockContext,

@@ -35,7 +35,7 @@ describe('VideoRecorder', () => {
     expect(mockMediaRecorder.start).toHaveBeenCalledTimes(1);
   });
 
-  it('should stop the recording on stop', async () => {
+  it('should stop the recording on stop', () => {
     mockMediaRecorder.state = 'recording';
 
     const videoRecorder = new VideoRecorder(stream);

@@ -68,11 +68,11 @@ export interface BoundingBox {
  * The details of the generated liveness oval
  */
 export interface LivenessOvalDetails {
-  flippedCenterX: number;
-  centerX: number;
-  centerY: number;
-  width: number;
-  height: number;
+  flippedCenterX: number | undefined;
+  centerX: number | undefined;
+  centerY: number | undefined;
+  width: number | undefined;
+  height: number | undefined;
 }
 
 /**

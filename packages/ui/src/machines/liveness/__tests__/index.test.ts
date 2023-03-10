@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import { interpret } from 'xstate';
 import { LivenessInterpreter } from '@aws-amplify/ui';
 import { setImmediate } from 'timers';

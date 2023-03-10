@@ -1,4 +1,11 @@
 import { ActorRef, Interpreter, State } from 'xstate';
+import {
+  ValidationException,
+  InternalServerException,
+  ThrottlingException,
+  ServiceQuotaExceededException,
+  SessionInformation,
+} from '@aws-sdk/client-rekognitionstreaming';
 
 import {
   FaceLivenessDetectorProps,
@@ -13,7 +20,39 @@ import {
   FreshnessColorDisplay,
 } from '../../helpers';
 import { Face, FaceDetection } from './faceDetection';
-import { SessionInformation } from '@aws-sdk/client-rekognitionstreaming';
+
+export interface FaceMatchAssociatedParams {
+  illuminationState: IlluminationState;
+  faceMatchState: FaceMatchState;
+  currentDetectedFace: Face;
+  startFace: Face;
+  endFace: Face;
+  initialFaceMatchTime: number;
+}
+
+export interface FreshnessColorAssociatedParams {
+  freshnessColorEl: HTMLCanvasElement;
+  freshnessColors: string[];
+  freshnessColorsComplete: boolean;
+  freshnessColorDisplay: FreshnessColorDisplay;
+}
+
+export interface OvalAssociatedParams {
+  faceDetector: FaceDetection;
+  initialFace: Face;
+  ovalDetails: LivenessOvalDetails;
+  scaleFactor: number;
+}
+
+export interface VideoAssociatedParams {
+  videoConstraints: MediaTrackConstraints;
+  videoEl: HTMLVideoElement;
+  canvasEl: HTMLCanvasElement;
+  videoMediaStream: MediaStream;
+  videoRecorder: VideoRecorder;
+  recordingStartTimestampMs: number;
+  isMobile: boolean | undefined;
+}
 
 export interface LivenessContext {
   maxFailedAttempts: number;
@@ -21,35 +60,10 @@ export interface LivenessContext {
   componentProps: FaceLivenessDetectorProps;
   serverSessionInformation: SessionInformation;
   challengeId: string;
-  videoAssociatedParams: {
-    videoConstraints: MediaTrackConstraints;
-    videoEl: HTMLVideoElement;
-    canvasEl: HTMLCanvasElement;
-    videoMediaStream: MediaStream;
-    videoRecorder: VideoRecorder;
-    recordingStartTimestampMs: number;
-    isMobile: boolean | undefined;
-  };
-  ovalAssociatedParams: {
-    faceDetector: FaceDetection;
-    initialFace: Face;
-    ovalDetails: LivenessOvalDetails;
-    scaleFactor: number;
-  };
-  faceMatchAssociatedParams: {
-    illuminationState: IlluminationState;
-    faceMatchState: FaceMatchState;
-    currentDetectedFace: Face;
-    startFace: Face;
-    endFace: Face;
-    initialFaceMatchTime: number;
-  };
-  freshnessColorAssociatedParams: {
-    freshnessColorEl: HTMLCanvasElement;
-    freshnessColors: string[];
-    freshnessColorsComplete: boolean;
-    freshnessColorDisplay: FreshnessColorDisplay;
-  };
+  videoAssociatedParams: VideoAssociatedParams;
+  ovalAssociatedParams: OvalAssociatedParams;
+  faceMatchAssociatedParams: FaceMatchAssociatedParams;
+  freshnessColorAssociatedParams: FreshnessColorAssociatedParams;
   errorState: LivenessErrorState | null;
   livenessStreamProvider: LivenessStreamProvider;
   responseStreamActorRef: ActorRef<any>;
@@ -88,3 +102,28 @@ export type LivenessInterpreter = Interpreter<
   any,
   any
 >;
+
+export interface StreamActorCallback {
+  (params: { type: 'DISCONNECT_EVENT' }): void;
+  (params: { type: 'SERVER_ERROR'; data: { error: Error } }): void;
+  (params: {
+    type: 'SERVER_ERROR';
+    data: { error: ValidationException };
+  }): void;
+  (params: {
+    type: 'SERVER_ERROR';
+    data: { error: InternalServerException };
+  }): void;
+  (params: {
+    type: 'SERVER_ERROR';
+    data: { error: ThrottlingException };
+  }): void;
+  (params: {
+    type: 'SERVER_ERROR';
+    data: { error: ServiceQuotaExceededException };
+  }): void;
+  (params: {
+    type: 'SET_SESSION_INFO';
+    data: { sessionInfo: SessionInformation | undefined };
+  }): void;
+}

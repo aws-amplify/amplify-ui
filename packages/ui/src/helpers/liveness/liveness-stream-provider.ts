@@ -10,6 +10,7 @@ import {
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { VideoRecorder } from './video-recorder';
+
 export interface StartLivenessStreamInput {
   sessionId: string;
 }
@@ -18,28 +19,41 @@ export interface StartLivenessStreamOutput {
   stream: WebSocket;
 }
 
-// FIXME: default endpoint to prod for now, remove this when sdk has the proper endpoints setup
-const ENDPOINT =
-  process.env.NEXT_PUBLIC_STREAMING_API_URL ||
-  'wss://streaming-rekognition.us-east-1.amazonaws.com:443';
-export const TIME_SLICE = 1000;
-
 export interface Credentials {
   accessKeyId: string;
   secretAccessKey: string;
   sessionToken: string;
 }
 
+// FIXME: default endpoint to prod for now, remove this when sdk has the proper endpoints setup
+const ENDPOINT =
+  process.env.NEXT_PUBLIC_STREAMING_API_URL ??
+  'wss://streaming-rekognition.us-east-1.amazonaws.com:443';
+export const TIME_SLICE = 1000;
+
+function isBlob(obj: unknown): obj is Blob {
+  return (obj as Blob).arrayBuffer !== undefined;
+}
+
+function isClientSessionInformationEvent(
+  obj: unknown
+): obj is ClientSessionInformationEvent {
+  return (
+    (obj as ClientSessionInformationEvent).DeviceInformation !== undefined ||
+    (obj as ClientSessionInformationEvent).Challenge !== undefined
+  );
+}
+
 export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
   public sessionId: string;
   public region: string;
   public videoRecorder: VideoRecorder;
-  public responseStream: AsyncIterable<LivenessResponseStream>;
+  public responseStream!: AsyncIterable<LivenessResponseStream>;
 
-  private _reader: ReadableStreamDefaultReader;
-  private _stream: MediaStream;
+  private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
-  private _client: RekognitionStreamingClient;
+  private _client!: RekognitionStreamingClient;
+  private _stream: MediaStream;
   private initPromise: Promise<void>;
 
   constructor(
@@ -57,8 +71,44 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     this.initPromise = this.init();
   }
 
+  public async getResponseStream(): Promise<
+    AsyncIterable<LivenessResponseStream>
+  > {
+    await this.initPromise;
+    return this.responseStream;
+  }
+
+  public startRecordingLivenessVideo(): void {
+    this.videoRecorder.start(TIME_SLICE);
+  }
+
+  public sendClientInfo(clientInfo: ClientSessionInformationEvent): void {
+    this.videoRecorder.dispatch(
+      new MessageEvent('clientSesssionInfo', {
+        data: { clientInfo },
+      })
+    );
+  }
+
+  public async stopVideo(): Promise<void> {
+    await this.videoRecorder.stop();
+  }
+
+  public dispatchStopVideoEvent(): void {
+    this.videoRecorder.dispatch(new Event('stopVideo'));
+  }
+
+  public async endStream(): Promise<undefined> {
+    if (this.videoRecorder.getState() === 'recording') {
+      await this.stopVideo();
+      this.dispatchStopVideoEvent();
+    }
+    await this._reader.cancel();
+    return this._reader.closed;
+  }
+
   private async init() {
-    const credentials = await AmplifyCredentials.get();
+    const credentials = (await AmplifyCredentials.get()) as Credentials;
 
     if (!credentials) {
       throw new Error('No credentials');
@@ -85,6 +135,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     this._reader = stream.getReader();
     return async function* () {
       while (true) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const { done, value } = await current._reader.read();
         if (done) {
           return;
@@ -101,7 +152,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
           };
         } else if (isBlob(value)) {
           const buffer = await value.arrayBuffer();
-          var chunk = new Uint8Array(buffer);
+          const chunk = new Uint8Array(buffer);
           if (chunk.length > 0) {
             yield {
               VideoEvent: {
@@ -138,52 +189,6 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         VideoHeight: this.videoEl.videoHeight.toString(),
       })
     );
-    return response.LivenessResponseStream;
+    return response.LivenessResponseStream!;
   }
-
-  public async getResponseStream(): Promise<
-    AsyncIterable<LivenessResponseStream>
-  > {
-    await this.initPromise;
-    return this.responseStream;
-  }
-
-  public async startRecordingLivenessVideo(): Promise<void> {
-    this.videoRecorder.start(TIME_SLICE);
-  }
-
-  public sendClientInfo(clientInfo: ClientSessionInformationEvent) {
-    this.videoRecorder.dispatch(
-      new MessageEvent('clientSesssionInfo', {
-        data: { clientInfo },
-      })
-    );
-  }
-
-  public async stopVideo() {
-    await this.videoRecorder.stop();
-  }
-
-  public async dispatchStopVideoEvent() {
-    this.videoRecorder.dispatch(new Event('stopVideo'));
-  }
-
-  public async endStream() {
-    if (this.videoRecorder.getState() === 'recording') {
-      await this.stopVideo();
-      this.dispatchStopVideoEvent();
-    }
-    await this._reader.cancel();
-    return this._reader.closed;
-  }
-}
-
-function isBlob(obj: any): obj is Blob {
-  return (obj as Blob).arrayBuffer !== undefined;
-}
-
-function isClientSessionInformationEvent(
-  obj: any
-): obj is ClientSessionInformationEvent {
-  return obj.DeviceInformation !== undefined || obj.Challenge !== undefined;
 }

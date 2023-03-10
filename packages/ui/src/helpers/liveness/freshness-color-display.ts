@@ -19,14 +19,14 @@ export class FreshnessColorDisplay {
   private freshnessColorsSequence: ClientFreshnessColorSequence[]; // Array of color sequence from Rekognition
   private context: LivenessContext;
 
-  private stageIndex: number; // current stage index of color scrolling (black flat, red scrolling, etc)
-  private stage: COLOR_STAGE; // SCROLLING or FLAT
-  private currColorIndex: number; // current index of the colorSequence array that we are in
-  private currColorSequence: ClientFreshnessColorSequence; // the current color sequence used for flat display and the prev color when scrolling
-  private prevColorSequence: ClientFreshnessColorSequence; // the prev color, during flat display curr === prev and during scroll it is the prev indexed color
-  private timeLastFlatOrScrollChange: number;
-  private timeFaceMatched: number;
-  private timeLastFaceMatchChecked: number;
+  private stageIndex!: number; // current stage index of color scrolling (black flat, red scrolling, etc)
+  private stage!: COLOR_STAGE; // SCROLLING or FLAT
+  private currColorIndex!: number; // current index of the colorSequence array that we are in
+  private currColorSequence!: ClientFreshnessColorSequence; // the current color sequence used for flat display and the prev color when scrolling
+  private prevColorSequence!: ClientFreshnessColorSequence; // the prev color, during flat display curr === prev and during scroll it is the prev indexed color
+  private timeLastFlatOrScrollChange!: number;
+  private timeFaceMatched!: number;
+  private timeLastFaceMatchChecked!: number;
   private isFirstTick: boolean;
 
   constructor(
@@ -36,6 +36,14 @@ export class FreshnessColorDisplay {
     this.context = context;
     this.freshnessColorsSequence = freshnessColorsSequence;
     this.isFirstTick = true;
+  }
+
+  public async displayColorTick(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.displayNextColorTick(resolve, reject);
+      }, Math.min(TICK_RATE));
+    });
   }
 
   private init(): void {
@@ -48,20 +56,14 @@ export class FreshnessColorDisplay {
     this.timeLastFaceMatchChecked = Date.now();
   }
 
-  public async displayColorTick(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      setTimeout(
-        () => this.displayNextColorTick(resolve, reject),
-        Math.min(TICK_RATE)
-      );
-    });
-  }
-
-  private async displayNextColorTick(resolve, reject) {
+  private displayNextColorTick(
+    resolve: (params: any) => void,
+    _: (params: any) => void
+  ) {
     const {
       freshnessColorAssociatedParams: { freshnessColorEl },
       ovalAssociatedParams: { ovalDetails, scaleFactor },
-      videoAssociatedParams: { canvasEl, videoEl },
+      videoAssociatedParams: { videoEl },
     } = this.context;
     const tickStartTime = Date.now();
 
@@ -69,20 +71,17 @@ export class FreshnessColorDisplay {
     if (this.isFirstTick) {
       this.init();
       this.isFirstTick = false;
-      this.sendColorStartTime(
-        tickStartTime,
-        this.currColorSequence.color,
-        this.currColorSequence.color,
-        this.stageIndex
-      );
+      this.sendColorStartTime({
+        tickStartTime: tickStartTime,
+        currColor: this.currColorSequence.color,
+        prevColor: this.currColorSequence.color,
+        currColorIndex: this.stageIndex,
+      });
     }
 
     let timeSinceLastColorChange =
       tickStartTime - this.timeLastFlatOrScrollChange;
     freshnessColorEl.style.display = 'block';
-
-    // This helper function only runs every 100ms
-    // await this.matchFaceInOval(reject);
 
     // Every 10 ms tick we will check if the threshold for flat or scrolling, if so we will try to go to the next stage
     if (
@@ -146,19 +145,19 @@ export class FreshnessColorDisplay {
 
     this.timeLastFlatOrScrollChange = Date.now();
     if (this.currColorSequence) {
-      this.sendColorStartTime(
-        tickStartTime,
-        this.currColorSequence.color,
-        this.prevColorSequence.color,
-        this.stageIndex
-      );
+      this.sendColorStartTime({
+        tickStartTime: tickStartTime,
+        currColor: this.currColorSequence.color,
+        prevColor: this.prevColorSequence.color,
+        currColorIndex: this.stageIndex,
+      });
     }
   }
 
   // Every 100 ms we  will check if the face is still in the oval
-  private async matchFaceInOval(reject) {
+  private async matchFaceInOval(reject: () => void) {
     const {
-      ovalAssociatedParams: { faceDetector, ovalDetails },
+      ovalAssociatedParams: { faceDetector },
       videoAssociatedParams: { videoEl },
     } = this.context;
 
@@ -179,12 +178,17 @@ export class FreshnessColorDisplay {
     }
   }
 
-  private sendColorStartTime(
-    tickStartTime: number,
-    currColor: string,
-    prevColor: string,
-    currColorIndex: number
-  ) {
+  private sendColorStartTime({
+    tickStartTime,
+    currColor,
+    prevColor,
+    currColorIndex,
+  }: {
+    tickStartTime: number;
+    currColor: string;
+    prevColor: string;
+    currColorIndex: number;
+  }) {
     const { livenessStreamProvider, challengeId } = this.context;
     livenessStreamProvider.sendClientInfo({
       DeviceInformation: undefined,

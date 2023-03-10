@@ -14,6 +14,7 @@ import {
   FaceMatchState,
   LivenessErrorState,
   IlluminationState,
+  StreamActorCallback,
 } from '../../types';
 import {
   BlazeFaceFaceDetection,
@@ -1065,13 +1066,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initialFace.width = renormalizedFace.right - renormalizedFace.left;
 
         // Draw oval in canvas using ovalDetails and scaleFactor
-        drawLivenessOvalInCanvas(
-          canvasEl,
-          ovalDetails,
+        drawLivenessOvalInCanvas({
+          canvas: canvasEl,
+          oval: ovalDetails,
           scaleFactor,
-          isMobile,
-          videoEl
-        );
+          videoEl,
+        });
         ovalDrawnTimestamp = Date.now();
 
         return {
@@ -1211,7 +1211,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   }
 );
 
-const responseStreamActor = async (callback) => {
+const responseStreamActor = async (callback: StreamActorCallback) => {
   const stream = await responseStream;
   try {
     for await (const event of stream) {
