@@ -42,6 +42,7 @@ describe('Liveness Machine', () => {
 
   const mockcomponentProps: FaceLivenessDetectorProps = {
     sessionId: 'some-sessionId',
+    region: 'us-east-1',
     onAnalysisComplete: jest.fn(),
     onError: jest.fn(),
     onUserCancel: jest.fn(),

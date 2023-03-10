@@ -14,6 +14,11 @@ export interface FaceLivenessDetectorProps {
   onAnalysisComplete: () => Promise<void>;
 
   /**
+   * The AWS region to stream the video to, for current regional support see the documentation here: FIXME LINK
+   */
+  region: string;
+
+  /**
    * Callback called when the user cancels the flow
    */
   onUserCancel?: () => void;

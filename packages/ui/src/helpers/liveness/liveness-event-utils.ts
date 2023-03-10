@@ -68,3 +68,12 @@ export const isServiceQuotaExceededExceptionEvent = (
 ): event is LivenessResponseStream.ServiceQuotaExceededExceptionMember => {
   return !!event?.ServiceQuotaExceededException;
 };
+
+export const isInvalidSignatureRegionException = (
+  error: any
+): error is Error => {
+  return (
+    error.name === 'InvalidSignatureException' &&
+    (error.message as string).includes('valid region')
+  );
+};

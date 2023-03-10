@@ -22,7 +22,6 @@ export interface StartLivenessStreamOutput {
 const ENDPOINT =
   process.env.NEXT_PUBLIC_STREAMING_API_URL ||
   'wss://streaming-rekognition.us-east-1.amazonaws.com:443';
-const REGION = process.env.NEXT_PUBLIC_BACKEND_API_REGION || 'us-east-1';
 export const TIME_SLICE = 1000;
 
 export interface Credentials {
@@ -33,6 +32,7 @@ export interface Credentials {
 
 export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
   public sessionId: string;
+  public region: string;
   public videoRecorder: VideoRecorder;
   public responseStream: AsyncIterable<LivenessResponseStream>;
 
@@ -44,11 +44,13 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
 
   constructor(
     sessionId: string,
+    region: string,
     stream: MediaStream,
     videoEl: HTMLVideoElement
   ) {
     super();
     this.sessionId = sessionId;
+    this.region = region;
     this._stream = stream;
     this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
@@ -68,7 +70,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         const url = new URL(ENDPOINT);
         return { url };
       },
-      region: REGION,
+      region: this.region,
       customUserAgent: getAmplifyUserAgent(),
     });
 

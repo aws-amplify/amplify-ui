@@ -102,6 +102,7 @@ export const mockContext = (): LivenessContext => {
     failedAttempts: 0,
     componentProps: {
       sessionId: 'foobar',
+      region: 'us-east-1',
       onAnalysisComplete: jest.fn(),
     },
     videoAssociatedParams: {

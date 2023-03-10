@@ -38,6 +38,7 @@ import {
   isInternalServerExceptionEvent,
   isServerSesssionInformationEvent,
   isDisconnectionEvent,
+  isInvalidSignatureRegionException,
 } from '../../helpers/liveness/liveness-event-utils';
 import {
   ClientSessionInformationEvent,
@@ -923,6 +924,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async openLivenessStreamConnection(context) {
         const livenessStreamProvider = new LivenessStreamProvider(
           context.componentProps.sessionId,
+          context.componentProps.region,
           context.videoAssociatedParams.videoMediaStream,
           context.videoAssociatedParams.videoEl
         );
@@ -1245,9 +1247,16 @@ const responseStreamActor = async (callback) => {
       }
     }
   } catch (error) {
+    let returnedError = error;
+    if (isInvalidSignatureRegionException(error)) {
+      returnedError = new Error(
+        'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
+      );
+    }
+
     callback({
       type: 'SERVER_ERROR',
-      data: { error },
+      data: { error: returnedError },
     });
   }
 };
