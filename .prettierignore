@@ -4,3 +4,5 @@
 dist
 *.mdx
 *.d.ts
+# ignore the below README as prettier breaks the formatting of escaped characters
+packages/configs/README.md
