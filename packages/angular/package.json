@@ -8,6 +8,8 @@
     "start": "ng serve",
     "build": "ng build --configuration production",
     "test": "jest",
+    "test:ci": "yarn test",
+    "test:watch": "yarn test --watch",
     "lint": "ng lint"
   },
   "license": "Apache-2.0",

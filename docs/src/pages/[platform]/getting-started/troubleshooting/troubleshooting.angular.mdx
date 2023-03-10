@@ -1,6 +1,13 @@
+import { TabItem, Tabs } from '@aws-amplify/ui-react';
+
 ### Global and Process Shim
 
-Angular 6+ no longer include shims for 'global' or 'process'. Add the following to your `src/polyfills.ts`:
+Angular 6+ does not include shims for `global` or `process`. Follow the instructions below to resolve `global` or `process` reference errors.
+
+<Tabs>
+<TabItem title="Angular 15">
+
+First, create `src/polyfills.ts` and add the following:
 
 ```ts
 (window as any).global = window;
@@ -8,6 +15,43 @@ Angular 6+ no longer include shims for 'global' or 'process'. Add the following 
   env: { DEBUG: undefined },
 };
 ```
+
+Then, open your `angular.json` file, and add `src/polyfills.ts` to `polyfills` array(s) in your `angular.json`. These  arrays are located in `projects.<project-name>.architect.<task-name>.options`.
+
+```json{3}
+"polyfills": [
+  "zone.js",
+  "src/polyfills.ts"
+],
+```
+
+And finally, make sure to add `src/polyfills` to `files` in your `tsconfig`:
+
+```json{4}
+{
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+}
+```
+
+  </TabItem>
+
+  <TabItem title="Angular 7-14">
+
+Add the following to your `src/polyfills.ts`:
+
+```ts
+(window as any).global = window;
+(window as any).process = {
+  env: { DEBUG: undefined },
+};
+```
+
+  </TabItem>
+</Tabs>
+
 
 ### Unhandled Promise rejection console errors
 
