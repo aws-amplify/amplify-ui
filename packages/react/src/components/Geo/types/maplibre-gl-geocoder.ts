@@ -177,7 +177,6 @@ export interface MaplibreGeocoderResults
 }
 
 export interface MaplibreGeocoderResult extends GeoJSON.Feature<GeoJSON.Point> {
-  bbox: Bbox;
   center: number[];
   place_name: string;
   place_type: string[];

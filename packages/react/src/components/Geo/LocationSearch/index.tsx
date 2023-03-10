@@ -19,52 +19,41 @@ const LOCATION_SEARCH_OPTIONS = {
 
 const LOCATION_SEARCH_CONTAINER = 'geocoder-container';
 
+type OnClear = () => void;
+type OnLoading = (query: string) => void;
+type OnResult = (result: MaplibreGeocoderResult) => void;
+type OnResults = (results: MaplibreGeocoderResults) => void;
+
 interface LocationSearchProps extends MaplibreGeocoderOptions {
   /**
    * Emitted when the input is cleared
    */
-  onClear?: () => void;
+  onClear?: OnClear;
   /**
    * Emitted when the geocoder is looking up a query
    */
-  onLoading?: (query: string) => void;
+  onLoading?: OnLoading;
   /**
    * Fired when the geocoder returns a response
    */
-  onResults?: (results: MaplibreGeocoderResults) => void;
+  onResults?: OnResults;
   /**
    * Fired when input is set
    */
-  onResult?: (result: MaplibreGeocoderResult) => void;
+  onResult?: OnResult;
 }
 
-type ClearEventCallbackType = (
-  eventType: 'clear',
-  callback: () => void
-) => void;
-type LoadingEventCallbackType = (
-  eventType: 'loading',
-  callback: (query: string) => void
-) => void;
-type ResultEventCallbackType = (
-  eventType: 'result',
-  callback: (result: MaplibreGeocoderResult) => void
-) => void;
-type ResultsEventCallbackType = (
-  eventType: 'results',
-  callback: (results: MaplibreGeocoderResults) => void
-) => void;
-
-type EventCallbackType =
-  | ClearEventCallbackType
-  | LoadingEventCallbackType
-  | ResultEventCallbackType
-  | ResultsEventCallbackType;
+interface EventCallback {
+  (event: 'clear', callback: OnClear): void;
+  (event: 'loading', callback: OnLoading): void;
+  (event: 'result', callback: OnResult): void;
+  (event: 'results', callback: OnResults): void;
+}
 
 type AmplifyLocationSearch = IControl & {
   addTo: (container: string) => void;
-  on: EventCallbackType;
-  off: EventCallbackType;
+  on: EventCallback;
+  off: EventCallback;
 };
 
 const LocationSearchControl = ({
