@@ -1,3 +1,1 @@
-.pretend-class {
-  background-color: purple;
-}
+@import '../../ui/dist/styles.css';
