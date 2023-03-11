@@ -53,46 +53,6 @@ describe('Liveness Helper', () => {
     //   expect(actualState).toEqual(FaceMatchState.MATCHED);
     // });
 
-    it('should return correct state when TOO_LEFT', () => {
-      const face: Face = {
-        height: 250,
-        width: 150,
-        top: 160,
-        left: 150,
-        timestampMs: Date.now(),
-        rightEye: [200, 200],
-        leftEye: [200, 200],
-        mouth: [200, 200],
-        nose: [200, 200],
-      };
-
-      const actualState = getFaceMatchStateInLivenessOval(
-        face,
-        ovalDetails,
-        mockSessionInformation
-      );
-
-      expect(actualState).toEqual(FaceMatchState.TOO_LEFT);
-    });
-
-    // it('should return correct state when TOO_RIGHT', () => {
-    //   const face: Face = {
-    //     height: 250,
-    //     width: 150,
-    //     top: 160,
-    //     left: 250,
-    //     timestampMs: Date.now(),
-    //     rightEye: [200, 200],
-    //     leftEye: [200, 200],
-    //     mouth: [200, 200],
-    //     nose: [200, 200],
-    //   };
-
-    //   const actualState = getFaceMatchStateInLivenessOval(face, ovalDetails);
-
-    //   expect(actualState).toEqual(FaceMatchState.TOO_RIGHT);
-    // });
-
     // it('should return correct state when TOO_CLOSE', () => {
     //   const face: Face = {
     //     height: 320,

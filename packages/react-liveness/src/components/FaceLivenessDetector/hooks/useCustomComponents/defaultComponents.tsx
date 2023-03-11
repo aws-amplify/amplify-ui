@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from '@aws-amplify/ui';
+import { translate, DefaultTexts } from '@aws-amplify/ui';
 import {
   Flex,
   View,
@@ -7,6 +7,7 @@ import {
   Text,
   Collection,
   useTheme,
+  Image,
 } from '@aws-amplify/ui-react';
 import { DescriptionBullet } from '../../shared';
 import { LivenessIconWithPopover } from '../../shared/LivenessIconWithPopover';
@@ -63,16 +64,22 @@ export const PhotosensitiveWarning = (): JSX.Element => {
 
 export const INSTRUCTIONS = [
   {
-    desc: 'Increase the brightness of your display screen to maximum level possible.',
+    desc: (
+      <div>
+        When an oval appears,{' '}
+        <strong>completely fill the oval with your face</strong> within 5
+        seconds.
+      </div>
+    ),
   },
   {
-    desc: 'Make sure your face is not covered with sunglasses or a mask.',
+    desc: DefaultTexts.LIVENESS_INSTRUCTION_BRIGHTNESS,
   },
   {
-    desc: 'Move to a well-lit place that is not dark or in direct sunlight.',
+    desc: DefaultTexts.LIVENESS_INSTRUCTION_COVER,
   },
   {
-    desc: 'Fill onscreen oval with your face and hold for colored lights.',
+    desc: DefaultTexts.LIVENESS_INSTRUCTION_LIGHT,
   },
 ];
 
@@ -85,13 +92,16 @@ export const LivenessInstructions = (): JSX.Element => {
       <Text color="font.primary" fontWeight="bold">
         {translate<string>(defaultLivenessInstructionsHeader)}
       </Text>
+      <Image
+        alt="Oval Instruction Example"
+        src="/ovalInstruction.png"
+        width="100%"
+      />
       <Collection type="list" items={INSTRUCTIONS}>
         {(item, index) => (
-          <DescriptionBullet
-            key={index + 1}
-            index={index + 1}
-            desc={translate(item.desc)}
-          />
+          <DescriptionBullet key={index + 1} index={index + 1}>
+            {translate(item.desc as string)}
+          </DescriptionBullet>
         )}
       </Collection>
     </Flex>

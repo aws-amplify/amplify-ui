@@ -5,14 +5,14 @@ export const defaultTexts = {
   LIVENESS_WARNING_CONTENT:
     'This check displays colored lights. Use caution if you are photosensitive.',
   LIVENESS_CHECK_DESCRIPTION: 'Follow the instructions to complete the check: ',
-  LIVENESS_INSTRUCTION_1:
+  LIVENESS_INSTRUCTION_COVER:
     'Make sure your face is not covered with sunglasses or a mask.',
-  LIVENESS_INSTRUCTION_2:
-    'Move to a well-lit place that is not dark or in direct sunlight.',
-  LIVENESS_INSTRUCTION_3:
-    'Increase the brightness of your display screen to maximum level possible.',
-  LIVENESS_INSTRUCTION_4:
-    'Fill onscreen oval with your face and hold for colored lights.',
+  LIVENESS_INSTRUCTION_LIGHT:
+    'Move to a well-lit place that is not in direct sunlight.',
+  LIVENESS_INSTRUCTION_BRIGHTNESS:
+    'Set your screen display to maximum brightness.',
+  LIVENESS_INSTRUCTION_OVAL:
+    'When an oval appears, completely fill the oval with your face within 5 seconds.',
   LIVENESS_WARNING_POPOVER:
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
 

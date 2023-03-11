@@ -196,9 +196,9 @@ export function drawLivenessOvalInCanvas({
       2 * Math.PI
     );
 
-    // add stroke to the oval pat
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = 8;
+    // add stroke to the oval path
+    ctx.strokeStyle = '#AEB3B7';
+    ctx.lineWidth = 3;
     ctx.stroke();
     ctx.clip();
 
@@ -210,6 +210,78 @@ export function drawLivenessOvalInCanvas({
   } else {
     throw new Error('Cannot find Canvas.');
   }
+}
+
+/**
+ * Returns the state of the provided face with respect to the provided liveness oval.
+ */
+export function getFaceMatchStateInLivenessOval(
+  face: Face,
+  ovalDetails: LivenessOvalDetails,
+  sessionInformation: SessionInformation
+): FaceMatchState {
+  let faceMatchState: FaceMatchState;
+
+  const {
+    OvalIouThreshold,
+    OvalIouHeightThreshold,
+    OvalIouWidthThreshold,
+    FaceIouHeightThreshold,
+    FaceIouWidthThreshold,
+  } =
+    sessionInformation.Challenge.FaceMovementAndLightChallenge.ChallengeConfig;
+
+  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
+    face,
+    ovalDetails
+  );
+  const minFaceX = faceBoundingBox.left;
+  const maxFaceX = faceBoundingBox.right;
+  const minFaceY = faceBoundingBox.top;
+  const maxFaceY = faceBoundingBox.bottom;
+
+  const minOvalX = ovalDetails.flippedCenterX - ovalDetails.width / 2;
+  const maxOvalX = ovalDetails.flippedCenterX + ovalDetails.width / 2;
+  const minOvalY = ovalDetails.centerY - ovalDetails.height / 2;
+  const maxOvalY = ovalDetails.centerY + ovalDetails.height / 2;
+  const ovalBoundingBox: BoundingBox = {
+    left: minOvalX,
+    top: minOvalY,
+    right: maxOvalX,
+    bottom: maxOvalY,
+  };
+
+  const intersection = getIntersectionOverUnion(
+    faceBoundingBox,
+    ovalBoundingBox
+  );
+
+  const intersectionThreshold = OvalIouThreshold;
+  const ovalMatchWidthThreshold = ovalDetails.width * OvalIouWidthThreshold;
+  const ovalMatchHeightThreshold = ovalDetails.height * OvalIouHeightThreshold;
+  const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
+  const faceDetectionHeightThreshold =
+    ovalDetails.height * FaceIouHeightThreshold;
+
+  if (
+    intersection > intersectionThreshold &&
+    Math.abs(minOvalX - minFaceX) < ovalMatchWidthThreshold &&
+    Math.abs(maxOvalX - maxFaceX) < ovalMatchWidthThreshold &&
+    Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
+  ) {
+    faceMatchState = FaceMatchState.MATCHED;
+  } else if (
+    minOvalY - minFaceY > faceDetectionHeightThreshold ||
+    maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
+    (minOvalX - minFaceX > faceDetectionWidthThreshold &&
+      maxFaceX - maxOvalX > faceDetectionWidthThreshold)
+  ) {
+    faceMatchState = FaceMatchState.TOO_CLOSE;
+  } else {
+    faceMatchState = FaceMatchState.TOO_FAR;
+  }
+
+  return faceMatchState;
 }
 
 function getPupilDistanceAndFaceHeight(face: Face) {
@@ -273,85 +345,6 @@ export function generateBboxFromLandmarks(
 }
 
 /**
- * Returns the state of the provided face with respect to the provided liveness oval.
- */
-export function getFaceMatchStateInLivenessOval(
-  face: Face,
-  ovalDetails: LivenessOvalDetails,
-  sessionInformation: SessionInformation
-): FaceMatchState {
-  let faceMatchState: FaceMatchState;
-
-  const {
-    OvalIouThreshold,
-    OvalIouHeightThreshold,
-    OvalIouWidthThreshold,
-    FaceIouHeightThreshold,
-    FaceIouWidthThreshold,
-  } =
-    sessionInformation.Challenge!.FaceMovementAndLightChallenge!
-      .ChallengeConfig!;
-
-  const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
-    face,
-    ovalDetails
-  );
-  const minFaceX = faceBoundingBox.left;
-  const maxFaceX = faceBoundingBox.right;
-  const minFaceY = faceBoundingBox.top;
-  const maxFaceY = faceBoundingBox.bottom;
-
-  const minOvalX = ovalDetails.flippedCenterX! - ovalDetails.width! / 2;
-  const maxOvalX = ovalDetails.flippedCenterX! + ovalDetails.width! / 2;
-  const minOvalY = ovalDetails.centerY! - ovalDetails.height! / 2;
-  const maxOvalY = ovalDetails.centerY! + ovalDetails.height! / 2;
-  const ovalBoundingBox: BoundingBox = {
-    left: minOvalX,
-    top: minOvalY,
-    right: maxOvalX,
-    bottom: maxOvalY,
-  };
-
-  const intersection = getIntersectionOverUnion(
-    faceBoundingBox,
-    ovalBoundingBox
-  );
-
-  const intersectionThreshold = OvalIouThreshold;
-  const ovalMatchWidthThreshold = ovalDetails.width! * OvalIouWidthThreshold!;
-  const ovalMatchHeightThreshold =
-    ovalDetails.height! * OvalIouHeightThreshold!;
-  const faceDetectionWidthThreshold =
-    ovalDetails.width! * FaceIouWidthThreshold!;
-  const faceDetectionHeightThreshold =
-    ovalDetails.height! * FaceIouHeightThreshold!;
-
-  if (
-    intersection > intersectionThreshold! &&
-    Math.abs(minOvalX - minFaceX) < ovalMatchWidthThreshold &&
-    Math.abs(maxOvalX - maxFaceX) < ovalMatchWidthThreshold &&
-    Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
-  ) {
-    faceMatchState = FaceMatchState.MATCHED;
-  } else if (minOvalX > minFaceX && maxOvalX > maxFaceX) {
-    faceMatchState = FaceMatchState.TOO_LEFT;
-  } else if (minFaceX > minOvalX && maxFaceX > maxOvalX) {
-    faceMatchState = FaceMatchState.TOO_RIGHT;
-  } else if (
-    minOvalY - minFaceY > faceDetectionHeightThreshold ||
-    maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
-    (minOvalX - minFaceX > faceDetectionWidthThreshold &&
-      maxFaceX - maxOvalX > faceDetectionWidthThreshold)
-  ) {
-    faceMatchState = FaceMatchState.TOO_CLOSE;
-  } else {
-    faceMatchState = FaceMatchState.TOO_FAR;
-  }
-
-  return faceMatchState;
-}
-
-/**
  * Returns the illumination state in the provided video frame.
  */
 export function estimateIllumination(
@@ -412,7 +405,7 @@ export const IlluminationStateStringMap: Record<IlluminationState, string> = {
 
 export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
   [FaceMatchState.CANT_IDENTIFY]: translate('Move face in front of camera'),
-  [FaceMatchState.FACE_IDENTIFIED]: translate('Face detected'),
+  [FaceMatchState.FACE_IDENTIFIED]: translate('Move face closer and fill oval'),
   [FaceMatchState.TOO_MANY]: translate(
     'Ensure only one face is in front of camera'
   ),
