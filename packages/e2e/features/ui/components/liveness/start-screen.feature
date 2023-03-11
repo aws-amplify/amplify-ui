@@ -23,6 +23,6 @@ Feature: Liveness Start Screen
   Scenario: The start Screen has the instructions
     Then I see "Follow the instructions to complete the check:"
     And I see "Make sure your face is not covered with sunglasses or a mask."
-    And I see "Move to a well-lit place that is not dark or in direct sunlight."
-    And I see "Increase the brightness of your display screen to maximum level possible."
-    And I see "Fill onscreen oval with your face and hold for colored lights."
+    And I see "Move to a well-lit place that is not in direct sunlight."
+    And I see "Set your screen display to maximum brightness."
+    And I see "When an oval appears, completely fill the oval with your face within 5 seconds."

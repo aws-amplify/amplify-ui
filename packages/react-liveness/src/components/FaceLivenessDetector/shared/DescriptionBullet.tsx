@@ -5,13 +5,13 @@ import { LivenessClassNames } from '../types/classNames';
 
 export interface DescriptionBulletProps {
   index: number;
-  desc: string;
+  children: string | React.ReactNode;
 }
 
 export const DescriptionBullet = (
   props: DescriptionBulletProps
 ): JSX.Element => {
-  const { index, desc } = props;
+  const { index, children } = props;
 
   return (
     <Flex className={LivenessClassNames.DescriptionBullet}>
@@ -20,12 +20,17 @@ export const DescriptionBullet = (
           as="span"
           className={LivenessClassNames.DescriptionBulletIndexText}
         >
-          {index}
+          {index}.
         </Text>
       </Flex>
 
-      <Text as="span" className={LivenessClassNames.DescriptionBulletMessage}>
-        {desc}
+      <Text
+        as="span"
+        display={'flex'}
+        style={{ alignItems: 'center' }}
+        className={LivenessClassNames.DescriptionBulletMessage}
+      >
+        {children}
       </Text>
     </Flex>
   );

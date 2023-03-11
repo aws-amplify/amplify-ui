@@ -8,12 +8,12 @@ export const enDict = {
     'Follow the instructions to complete the check: ',
   'Make sure your face is not covered with sunglasses or a mask.':
     'Make sure your face is not covered with sunglasses or a mask.',
-  'Move to a well-lit place that is not dark or in direct sunlight.':
-    'Move to a well-lit place that is not dark or in direct sunlight.',
-  'Increase the brightness of your display screen to maximum level possible.':
-    'Increase the brightness of your display screen to maximum level possible.',
-  'Fill onscreen oval with your face and hold for colored lights.':
-    'Fill onscreen oval with your face and hold for colored lights.',
+  'Move to a well-lit place that is not in direct sunlight.':
+    'Move to a well-lit place that is not in direct sunlight.',
+  'Set your screen display to maximum brightness.':
+    'Set your screen display to maximum brightness.',
+  'When an oval appears, completely fill the oval with your face within 5 seconds.':
+    'When an oval appears, completely fill the oval with your face within 5 seconds.',
   'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.':
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
 
