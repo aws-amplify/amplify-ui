@@ -33,8 +33,8 @@ export function isWebGLSupported(): boolean {
 
   const canvas = document.createElement('canvas');
   const context =
-    canvas.getContext('webgl', WEBGL_ATTRIBUTES) ||
-    canvas.getContext('experimental-webgl', WEBGL_ATTRIBUTES) ||
+    canvas.getContext('webgl', WEBGL_ATTRIBUTES) ??
+    canvas.getContext('experimental-webgl', WEBGL_ATTRIBUTES) ??
     canvas.getContext('webgl2', WEBGL_ATTRIBUTES);
 
   return !!context;

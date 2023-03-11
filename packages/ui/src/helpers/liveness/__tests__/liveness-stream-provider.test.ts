@@ -1,8 +1,6 @@
-import Amplify from '@aws-amplify/core';
-import {
-  RekognitionStreamingClient,
-  StartFaceLivenessSessionCommand,
-} from '@aws-sdk/client-rekognitionstreaming';
+/* eslint-disable  */
+import { Amplify } from '@aws-amplify/core';
+import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming';
 import { LivenessStreamProvider } from '../liveness-stream-provider';
 import { VideoRecorder } from '../video-recorder';
 import { mockClientSessionInformationEvent } from '../liveness-test-helpers';
@@ -35,7 +33,7 @@ describe('LivenessStreamProvider', () => {
         cancel: jest.fn().mockResolvedValueOnce(undefined),
         read: () => {
           return {
-            then: (success) => {
+            then: (success: (params: any) => void) => {
               if (SWITCH) {
                 const blob = new Blob([]);
                 return success({ done: true, value: blob });
@@ -55,7 +53,7 @@ describe('LivenessStreamProvider', () => {
       return {
         read: () => {
           return {
-            then: (success) => {
+            then: (success: (params: any) => void) => {
               if (SWITCH) {
                 const blob = new Blob([]);
                 return success({ done: true, value: blob });

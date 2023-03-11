@@ -100,7 +100,7 @@ export const LivenessInstructions = (): JSX.Element => {
       <Collection type="list" items={INSTRUCTIONS}>
         {(item, index) => (
           <DescriptionBullet key={index + 1} index={index + 1}>
-            {translate(item.desc)}
+            {translate(item.desc as string)}
           </DescriptionBullet>
         )}
       </Collection>
