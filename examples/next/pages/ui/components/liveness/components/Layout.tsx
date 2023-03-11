@@ -6,7 +6,7 @@ import {
   defaultDarkModeOverride,
 } from '@aws-amplify/ui-react';
 import type { Theme, ColorMode } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import '@aws-amplify/ui-react-liveness/styles.css';
 
 import '../style.css';
 import NavBar from './NavBar';

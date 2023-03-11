@@ -8,8 +8,16 @@
       "types": "./dist/types/index.d.ts",
       "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
-    }
+    },
+    "./styles.css": "./dist/styles.css"
   },
+  "browser": {
+    "./styles.css": "./dist/styles.css"
+  },
+  "types": "dist/types/index.d.ts",
+  "sideEffects": [
+    "dist/**/*.css"
+  ],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
