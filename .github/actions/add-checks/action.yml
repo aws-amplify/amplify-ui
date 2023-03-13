@@ -29,7 +29,7 @@ runs:
             name: NAME
             owner: OWNER,
             repo: REPO,
-            head_sha: HEAD_SHA,
+            head-sha: HEAD_SHA,
             status: 'completed',
             conclusion: 'success'
           })

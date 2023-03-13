@@ -24,4 +24,4 @@ jobs:
           name: 'POC check'
           repo: 'amplify-ui'
           owner: 'aws-amplify'
-          head_sha: ${{ github.event.pull_request.head.sha }}
+          head-sha: ${{ github.event.pull_request.head.sha }}
