@@ -8,6 +8,16 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Add checks on PR
         uses: ./.github/actions/add-checks
         with:
