@@ -14,6 +14,7 @@ export function renderWithLivenessProvider(
   ui: JSX.Element
 ): RenderWithLivenessLivenessProviderResult {
   const mockComponentProps: FaceLivenessDetectorProps = {
+    region: 'us-east-1',
     sessionId: 'sessionId',
     onAnalysisComplete: jest.fn(),
   };

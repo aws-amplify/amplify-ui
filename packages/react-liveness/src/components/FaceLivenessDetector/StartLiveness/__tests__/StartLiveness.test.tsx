@@ -49,8 +49,11 @@ describe('StartLiveness', () => {
 
     expect(screen.getByText(/Photosensitivity warning/)).toBeInTheDocument();
 
-    INSTRUCTIONS.forEach(({ desc }) => {
-      expect(screen.getByText(desc)).toBeInTheDocument();
+    INSTRUCTIONS.forEach(({ desc }, index) => {
+      // currently the first index of INSTRUCTIONS is HTML
+      if (index > 0) {
+        expect(screen.getByText(desc as string)).toBeInTheDocument();
+      }
     });
 
     expect(

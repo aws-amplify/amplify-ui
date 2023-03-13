@@ -39,6 +39,7 @@ describe('FaceLivenessDetector', () => {
   mockMatches.mockReturnValue(false);
 
   const defaultProps: FaceLivenessDetectorProps = {
+    region: 'us-east-1',
     sessionId: 'sessionId',
     onAnalysisComplete: async () => {},
   };
@@ -47,10 +48,6 @@ describe('FaceLivenessDetector', () => {
 
   beforeAll(() => {
     mockMatchMedia();
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
   });
 
   it('should render the flow by default', () => {

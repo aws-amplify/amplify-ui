@@ -5,12 +5,12 @@ import { DescriptionBullet } from '../DescriptionBullet';
 
 describe('DescriptionBullet', () => {
   it('should render the component content appropriately', () => {
-    const desc = 'some-desc';
+    const children = 'some-desc';
     const index = 2;
 
-    render(<DescriptionBullet desc={desc} index={index} />);
+    render(<DescriptionBullet index={index}>{children}</DescriptionBullet>);
 
-    expect(screen.getByText(desc)).toBeInTheDocument();
-    expect(screen.getByText(index)).toBeInTheDocument();
+    expect(screen.getByText(children)).toBeInTheDocument();
+    expect(screen.getByText(`${index}.`)).toBeInTheDocument();
   });
 });
