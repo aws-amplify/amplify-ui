@@ -4,8 +4,7 @@ name: POC / Test checks
 
 on: pull_request
 
-permissions:
-  checks: write
+permissions: write-all
 
 jobs:
   setup:
