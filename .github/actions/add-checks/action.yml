@@ -1,0 +1,40 @@
+name: 'Add Status Checks'
+description: 'Add status check on a specified head-sha'
+inputs:
+  name:
+    description: 'Name of status check'
+    required: true
+  status:
+    description: >-
+      Status of check with possible values of 'queued', 'in_progress', 'completed'
+    required: true
+  head-sha:
+    description: 'The commit ID to add the checks to'
+    required: true
+  conclusion:
+    description: >-
+      Conclusion of status check with possible values of 'action_required',
+      'cancelled', 'failure', 'neutral', 'success', 'skipped', 'stale', 'timed_out'.
+      This is only required if status is 'completed'.
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/github-script@v6
+      env:
+        name: ${{ inputs.name }}
+        head_sha: ${{ inputs.head-sha }}
+        status: ${{ inputs.status }}
+        conclusion: ${{ inputs.conclusion }}
+      with:
+        script: |
+          const { name, head_sha, status, conclusion } = process.env;
+          const { owner, repo } = context.repo;
+          github.rest.checks.create({
+            name,
+            owner,
+            repo,
+            head_sha,
+            status,
+            conclusion: conclusion.length > 0 ? conclusion : undefined
+          });
