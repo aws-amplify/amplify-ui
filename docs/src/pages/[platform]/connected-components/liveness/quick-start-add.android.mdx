@@ -87,12 +87,13 @@ The FaceLivenessDetector component requires access to the camera on the user's d
 
 <Tabs justifyContent="flex-start">
   <TabItem title="Kotlin">
-    In the `onCreate` of your app's `MainActivity`, add the following code to display the FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the liveness session:
+    In the `onCreate` of your app's `MainActivity`, add the following code to display the FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the liveness session and replacing `<region>` with the region you would like to use for the liveness check. The list of supported regions is in the [Amazon Rekognition Liveness guide](TODO-ADD-LINK).
     <ExampleCode>
     ```kotlin
     setContent {
         FaceLivenessDetector(
             sessionId = <session ID>,
+            region = <region>,
             onComplete = {
                  Log.i("MyApp", "Liveness flow is complete")
                  // The Liveness flow is complete and the liveness session
@@ -110,7 +111,7 @@ The FaceLivenessDetector component requires access to the camera on the user's d
     </ExampleCode>
   </TabItem>
   <TabItem title="Java">
-    The FaceLivenessDetector component must be created in Kotlin but can still be used in a Java-based app. First, create a new Kotlin file called `MyView` and add the following code to create the FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the liveness session:
+    The FaceLivenessDetector component must be created in Kotlin but can still be used in a Java-based app. First, create a new Kotlin file called `MyView` and add the following code to create the FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the liveness session and replacing `<region>` with the region you would like to use for the liveness check. The list of supported regions is in the [Amazon Rekognition Liveness guide](TODO-ADD-LINK).
     <ExampleCode>
     ```kotlin
     object MyView {
@@ -118,6 +119,7 @@ The FaceLivenessDetector component requires access to the camera on the user's d
             activity.setContent {
                 FaceLivenessDetector(
                     sessionId = <session ID>,
+                    region = <region>,
                     onComplete = {
                         Log.i("MyApp", "Liveness flow is complete")
                         // The Liveness flow is complete and the liveness
