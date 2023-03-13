@@ -1,0 +1,17 @@
+# Description: This workflow adds a check on PR.
+
+name: POC / Test checks
+
+on: pull_request
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add checks on PR
+        uses: ./.github/actions/add-checks
+        with:
+          name: 'POC check'
+          repo: 'amplify-ui'
+          owner: 'aws-amplify'
+          head_sha: ${{ github.event.pull_request.head.sha }}

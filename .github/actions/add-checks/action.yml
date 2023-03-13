@@ -1,0 +1,35 @@
+name: 'Add checks'
+description: 'Add status check to a PR.'
+inputs:
+  name:
+    description: 'name of check'
+    required: true
+  repo:
+    description: 'repo name'
+    required: true
+  owner:
+    description: 'repo owner'
+    required: true
+  head-sha:
+    description: 'head-sha'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/github-script@v6
+      env:
+        NAME: ${{ inputs.name }}
+        REPO: ${{ inputs.repo }}
+        OWNER: ${{ inputs.owner }}
+        HEAD_SHA: ${{ inputs.head-sha }}
+      with:
+        script: |
+          const { NAME, REPO, OWNER, HEAD_SHA } = process.env;
+          github.rest.checks.create({
+            name: NAME
+            owner: OWNER,
+            repo: REPO,
+            head_sha: HEAD_SHA,
+            status: 'completed',
+            conclusion: 'success'
+          })
