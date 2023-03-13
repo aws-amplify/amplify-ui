@@ -4,6 +4,9 @@ name: POC / Test checks
 
 on: pull_request
 
+permissions:
+  checks: write
+
 jobs:
   setup:
     runs-on: ubuntu-latest
