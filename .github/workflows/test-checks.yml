@@ -25,3 +25,5 @@ jobs:
           repo: 'amplify-ui'
           owner: 'aws-amplify'
           head-sha: ${{ github.event.pull_request.head.sha }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
