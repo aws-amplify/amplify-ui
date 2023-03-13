@@ -23,6 +23,7 @@ runs:
         OWNER: ${{ inputs.owner }}
         HEAD_SHA: ${{ inputs.head-sha }}
       with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const { NAME, REPO, OWNER, HEAD_SHA } = process.env;
           github.rest.checks.create({
