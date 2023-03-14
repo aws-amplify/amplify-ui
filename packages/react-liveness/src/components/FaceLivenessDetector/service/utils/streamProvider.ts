@@ -9,7 +9,7 @@ import {
   RekognitionStreamingClient,
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
-import { VideoRecorder } from './video-recorder';
+import { VideoRecorder } from './videoRecorder';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -56,6 +56,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   private _stream: MediaStream;
   private initPromise: Promise<void>;
 
+  // eslint-disable-next-line max-params
   constructor(
     sessionId: string,
     region: string,

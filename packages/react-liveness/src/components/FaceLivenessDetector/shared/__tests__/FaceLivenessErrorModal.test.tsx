@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
+import { DefaultTexts } from '@aws-amplify/ui';
+
+import { LivenessErrorState, LivenessErrorStateStringMap } from '../../service';
 import { FaceLivenessErrorModal } from '../FaceLivenessErrorModal';
-import {
-  DefaultTexts,
-  LivenessErrorState,
-  LivenessErrorStateStringMap,
-} from '@aws-amplify/ui';
 
 describe('FaceLivenessErrorModal', () => {
   it('should render the component content appropriately', () => {

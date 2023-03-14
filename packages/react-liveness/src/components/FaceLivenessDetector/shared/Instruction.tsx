@@ -1,12 +1,12 @@
 import * as React from 'react';
+import { translate, DefaultTexts } from '@aws-amplify/ui';
+
 import {
-  translate,
   IlluminationState,
   IlluminationStateStringMap,
   FaceMatchStateStringMap,
   FaceMatchState,
-  DefaultTexts,
-} from '@aws-amplify/ui';
+} from '../service';
 
 import {
   useLivenessActor,

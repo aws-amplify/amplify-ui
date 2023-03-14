@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { PassThrough } from 'stream';
 import { ActorRef } from 'xstate';
-import { ClientSessionInformationEvent } from '@aws-sdk/client-rekognitionstreaming';
 import {
+  ClientSessionInformationEvent,
   ColorSequence,
   SessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';

@@ -1,7 +1,7 @@
 import { useSelector } from '@xstate/react';
-import { LivenessMachineState } from '@aws-amplify/ui';
 
 import { useFaceLivenessDetector } from '../providers';
+import { LivenessMachineState } from '../service';
 
 export type LivenessSelectorFn<T> = (state: LivenessMachineState) => T;
 

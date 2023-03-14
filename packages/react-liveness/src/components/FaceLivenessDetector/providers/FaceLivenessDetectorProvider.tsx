@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  LivenessInterpreter,
-  FaceLivenessDetectorProps,
-} from '@aws-amplify/ui';
+import { LivenessInterpreter, FaceLivenessDetectorProps } from '../service';
 
 interface FaceLivenessDetectorContextType {
   componentProps: FaceLivenessDetectorProps;

@@ -80,10 +80,10 @@ export const isServiceQuotaExceededExceptionEvent = (
 };
 
 export const isInvalidSignatureRegionException = (
-  error: any
+  error: unknown
 ): error is Error => {
+  const { message, name } = error as Error;
   return (
-    error.name === 'InvalidSignatureException' &&
-    (error.message as string).includes('valid region')
+    name === 'InvalidSignatureException' && message.includes('valid region')
   );
 };

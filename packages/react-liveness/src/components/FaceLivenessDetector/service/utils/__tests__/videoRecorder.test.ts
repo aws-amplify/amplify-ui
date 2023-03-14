@@ -1,4 +1,7 @@
-import { VideoRecorder } from '../video-recorder';
+import 'web-streams-polyfill';
+import 'blob-polyfill';
+
+import { VideoRecorder } from '../videoRecorder';
 
 const mockMediaRecorder = {
   start: jest.fn(),

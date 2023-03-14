@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { translate, LivenessErrorState } from '@aws-amplify/ui';
+
+import { translate } from '@aws-amplify/ui';
 import { Text, Flex, View, Button } from '@aws-amplify/ui-react';
 
+import { LivenessErrorState } from '../service';
 import { LivenessCameraModule } from './LivenessCameraModule';
 import {
   createLivenessSelector,

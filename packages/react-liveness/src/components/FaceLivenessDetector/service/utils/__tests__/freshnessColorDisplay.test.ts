@@ -1,11 +1,13 @@
 /* eslint-disable  */
-import { FreshnessColorDisplay } from '../freshness-color-display';
+import 'jest-canvas-mock';
+
+import { FreshnessColorDisplay } from '../freshnessColorDisplay';
 import {
   mockContext,
   mockSessionInformation,
   mockSessionInformationNoFlatColors,
   MOCK_COLOR_SEQUENCES,
-} from '../liveness-test-helpers';
+} from '../__mocks__/testUtils';
 import { getColorsSequencesFromSessionInformation } from '../liveness';
 
 const mockMediaRecorder = {

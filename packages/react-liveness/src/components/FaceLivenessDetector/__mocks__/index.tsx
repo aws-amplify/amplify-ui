@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render, RenderResult } from '@testing-library/react';
-import { LivenessInterpreter } from '@aws-amplify/ui';
+import { LivenessInterpreter } from '../service';
 
 import { FaceLivenessDetectorProvider } from '../providers';
 import { FaceLivenessDetectorProps } from '../FaceLivenessDetector';

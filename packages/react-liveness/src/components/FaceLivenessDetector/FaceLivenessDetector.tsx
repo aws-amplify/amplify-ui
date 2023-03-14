@@ -3,7 +3,7 @@ import { useActor, useInterpret } from '@xstate/react';
 import {
   livenessMachine,
   FaceLivenessDetectorProps as FaceLivenessDetectorPropsFromUi,
-} from '@aws-amplify/ui';
+} from './service';
 import { View, Flex } from '@aws-amplify/ui-react';
 
 import { FaceLivenessDetectorProvider } from './providers';

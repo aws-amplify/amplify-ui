@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { screen } from '@testing-library/react';
 import { when, resetAllWhenMocks } from 'jest-when';
+
+import { DefaultTexts } from '@aws-amplify/ui';
+
 import {
   IlluminationState,
   IlluminationStateStringMap,
   FaceMatchState,
   FaceMatchStateStringMap,
   LivenessErrorState,
-  DefaultTexts,
-} from '@aws-amplify/ui';
+} from '../../service';
 
 import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
 import { useLivenessActor, useLivenessSelector } from '../../hooks';

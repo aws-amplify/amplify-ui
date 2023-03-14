@@ -1,27 +1,27 @@
 /* eslint-disable */
 // @ts-nocheck
 import { interpret } from 'xstate';
-import { LivenessInterpreter } from '@aws-amplify/ui';
 import { setImmediate } from 'timers';
 
-import { livenessMachine, MIN_FACE_MATCH_TIME } from '../';
+import { livenessMachine, MIN_FACE_MATCH_TIME } from '..';
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
   Face,
   LivenessErrorState,
+  LivenessInterpreter,
   LivenessOvalDetails,
   IlluminationState,
-} from '../../../types';
-import * as helpers from '../../../helpers';
+} from '../../types';
+import * as helpers from '../../utils';
 import {
   mockLivenessStreamProvider,
   mockSessionInformation,
   mockVideoRecorder,
-} from '../../../helpers/liveness/liveness-test-helpers';
+} from '../../utils/__mocks__/testUtils';
 
 jest.useFakeTimers();
-jest.mock('../../../helpers');
+jest.mock('../../utils');
 
 const mockedHelpers = helpers as jest.Mocked<typeof helpers>;
 const flushPromises = () => new Promise(setImmediate);

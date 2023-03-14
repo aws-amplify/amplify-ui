@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import { createMachine, assign, actions, send, spawn } from 'xstate';
 import {
   getColorsSequencesFromSessionInformation,
@@ -5,7 +7,7 @@ import {
   getBoundingBox,
   isFaceDistanceBelowThreshold,
   generateBboxFromLandmarks,
-} from '../../helpers/liveness/liveness';
+} from '../utils/liveness';
 
 import {
   Face,
@@ -15,7 +17,7 @@ import {
   LivenessErrorState,
   IlluminationState,
   StreamActorCallback,
-} from '../../types';
+} from '../types';
 import {
   BlazeFaceFaceDetection,
   drawLivenessOvalInCanvas,
@@ -25,13 +27,13 @@ import {
   estimateIllumination,
   isCameraDeviceVirtual,
   FreshnessColorDisplay,
-} from '../../helpers';
+} from '../utils';
 import { nanoid } from 'nanoid';
-import { TIME_SLICE } from '../../helpers/liveness/liveness-stream-provider';
+import { TIME_SLICE } from '../utils/streamProvider';
 import {
   getStaticLivenessOvalDetails,
   LivenessErrorStateStringMap,
-} from '../../helpers/liveness/liveness';
+} from '../utils/liveness';
 import {
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,
@@ -40,7 +42,7 @@ import {
   isServerSesssionInformationEvent,
   isDisconnectionEvent,
   isInvalidSignatureRegionException,
-} from '../../helpers/liveness/liveness-event-utils';
+} from '../utils/eventUtils';
 import {
   ClientSessionInformationEvent,
   LivenessResponseStream,

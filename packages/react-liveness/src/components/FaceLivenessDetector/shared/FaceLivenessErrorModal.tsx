@@ -1,11 +1,9 @@
 import React from 'react';
 
-import {
-  translate,
-  LivenessErrorState,
-  LivenessErrorStateStringMap,
-} from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 import { Flex, Button } from '@aws-amplify/ui-react';
+
+import { LivenessErrorState, LivenessErrorStateStringMap } from '../service';
 
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';

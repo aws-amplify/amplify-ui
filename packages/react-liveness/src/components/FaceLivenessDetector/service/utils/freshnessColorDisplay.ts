@@ -3,9 +3,9 @@ import {
   getFaceMatchState,
   getRGBArrayFromColorString,
 } from './liveness';
-import { LivenessContext } from '../../types/liveness/livenessMachine';
-import { FaceMatchState } from '../../types/liveness/liveness';
-import { ClientFreshnessColorSequence } from '../../types/liveness/liveness-service-types';
+import { LivenessContext } from '../types/machine';
+import { FaceMatchState } from '../types/liveness';
+import { ClientFreshnessColorSequence } from '../types/service';
 
 const TICK_RATE = 10; // ms -- the rate at which we will render/check colors
 const FACE_MATCH_TICK_RATE = 100; // ms -- the rate at which we will check for faceMatch during freshness

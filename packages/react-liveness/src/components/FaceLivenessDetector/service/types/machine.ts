@@ -18,7 +18,7 @@ import {
   VideoRecorder,
   LivenessStreamProvider,
   FreshnessColorDisplay,
-} from '../../helpers';
+} from '../utils';
 import { Face, FaceDetection } from './faceDetection';
 
 export interface FaceMatchAssociatedParams {
