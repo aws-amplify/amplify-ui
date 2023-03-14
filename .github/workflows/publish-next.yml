@@ -18,8 +18,22 @@ permissions:
   contents: read # This is required for actions/checkout
 
 jobs:
-  test:
+  setup-cache:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  unit:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
+    needs: setup-cache
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  e2e:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    needs: unit
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
@@ -137,7 +151,7 @@ jobs:
           retention-days: 5
 
   publish:
-    needs: [test, guides]
+    needs: [e2e, guides]
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
       dist-tag: next
