@@ -1,0 +1,4354 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CSS Variables Table 1`] = `
+"[
+    {
+        \\"variable\\": \\"--amplify-border-widths-large\\",
+        \\"value\\": \\"3px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-border-widths-medium\\",
+        \\"value\\": \\"2px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-border-widths-small\\",
+        \\"value\\": \\"1px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-background-disabled\\",
+        \\"value\\": \\"var(--amplify-colors-background-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-background-error\\",
+        \\"value\\": \\"var(--amplify-colors-red-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-background-info\\",
+        \\"value\\": \\"var(--amplify-colors-blue-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-background-primary\\",
+        \\"value\\": \\"var(--amplify-colors-white)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-background-quaternary\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-background-secondary\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-background-success\\",
+        \\"value\\": \\"var(--amplify-colors-green-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-background-tertiary\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-background-warning\\",
+        \\"value\\": \\"var(--amplify-colors-orange-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-black\\",
+        \\"value\\": \\"hsl(0, 0%, 0%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-blue-10\\",
+        \\"value\\": \\"hsl(220, 95%, 95%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-blue-100\\",
+        \\"value\\": \\"hsl(220, 100%, 15%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-blue-20\\",
+        \\"value\\": \\"hsl(220, 85%, 85%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-blue-40\\",
+        \\"value\\": \\"hsl(220, 70%, 70%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-blue-60\\",
+        \\"value\\": \\"hsl(220, 50%, 50%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-blue-80\\",
+        \\"value\\": \\"hsl(220, 95%, 30%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-blue-90\\",
+        \\"value\\": \\"hsl(220, 100%, 20%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-border-disabled\\",
+        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-border-error\\",
+        \\"value\\": \\"var(--amplify-colors-red-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-border-focus\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-border-pressed\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-border-primary\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-border-secondary\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-40)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-border-tertiary\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-primary-10\\",
+        \\"value\\": \\"var(--amplify-colors-teal-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-primary-100\\",
+        \\"value\\": \\"var(--amplify-colors-teal-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-primary-20\\",
+        \\"value\\": \\"var(--amplify-colors-teal-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-primary-40\\",
+        \\"value\\": \\"var(--amplify-colors-teal-40)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-primary-60\\",
+        \\"value\\": \\"var(--amplify-colors-teal-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-primary-80\\",
+        \\"value\\": \\"var(--amplify-colors-teal-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-primary-90\\",
+        \\"value\\": \\"var(--amplify-colors-teal-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-secondary-10\\",
+        \\"value\\": \\"var(--amplify-colors-purple-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-secondary-100\\",
+        \\"value\\": \\"var(--amplify-colors-purple-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-secondary-20\\",
+        \\"value\\": \\"var(--amplify-colors-purple-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-secondary-40\\",
+        \\"value\\": \\"var(--amplify-colors-purple-40)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-secondary-60\\",
+        \\"value\\": \\"var(--amplify-colors-purple-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-secondary-80\\",
+        \\"value\\": \\"var(--amplify-colors-purple-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-brand-secondary-90\\",
+        \\"value\\": \\"var(--amplify-colors-purple-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-active\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-disabled\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-error\\",
+        \\"value\\": \\"var(--amplify-colors-red-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-focus\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-hover\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-info\\",
+        \\"value\\": \\"var(--amplify-colors-blue-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-interactive\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-inverse\\",
+        \\"value\\": \\"var(--amplify-colors-white)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-primary\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-secondary\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-success\\",
+        \\"value\\": \\"var(--amplify-colors-green-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-tertiary\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-font-warning\\",
+        \\"value\\": \\"var(--amplify-colors-orange-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-green-10\\",
+        \\"value\\": \\"hsl(130, 60%, 95%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-green-100\\",
+        \\"value\\": \\"hsl(130, 22%, 23%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-green-20\\",
+        \\"value\\": \\"hsl(130, 60%, 90%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-green-40\\",
+        \\"value\\": \\"hsl(130, 44%, 63%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-green-60\\",
+        \\"value\\": \\"hsl(130, 43%, 46%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-green-80\\",
+        \\"value\\": \\"hsl(130, 33%, 37%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-green-90\\",
+        \\"value\\": \\"hsl(130, 27%, 29%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-neutral-10\\",
+        \\"value\\": \\"hsl(210, 5%, 98%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-neutral-100\\",
+        \\"value\\": \\"hsl(210, 50%, 10%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-neutral-20\\",
+        \\"value\\": \\"hsl(210, 5%, 94%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-neutral-40\\",
+        \\"value\\": \\"hsl(210, 5%, 87%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-neutral-60\\",
+        \\"value\\": \\"hsl(210, 10%, 58%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-neutral-80\\",
+        \\"value\\": \\"hsl(210, 10%, 40%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-neutral-90\\",
+        \\"value\\": \\"hsl(210, 25%, 25%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-orange-10\\",
+        \\"value\\": \\"hsl(30, 75%, 95%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-orange-100\\",
+        \\"value\\": \\"hsl(30, 100%, 15%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-orange-20\\",
+        \\"value\\": \\"hsl(30, 75%, 85%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-orange-40\\",
+        \\"value\\": \\"hsl(30, 75%, 75%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-orange-60\\",
+        \\"value\\": \\"hsl(30, 50%, 50%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-orange-80\\",
+        \\"value\\": \\"hsl(30, 95%, 30%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-orange-90\\",
+        \\"value\\": \\"hsl(30, 100%, 20%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-overlay-10\\",
+        \\"value\\": \\"hsla(0, 0%, 0%, 0.1)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-overlay-20\\",
+        \\"value\\": \\"hsla(0, 0%, 0%, 0.2)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-overlay-30\\",
+        \\"value\\": \\"hsla(0, 0%, 0%, 0.3)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-overlay-40\\",
+        \\"value\\": \\"hsla(0, 0%, 0%, 0.4)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-overlay-50\\",
+        \\"value\\": \\"hsla(0, 0%, 0%, 0.5)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-overlay-60\\",
+        \\"value\\": \\"hsla(0, 0%, 0%, 0.6)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-overlay-70\\",
+        \\"value\\": \\"hsla(0, 0%, 0%, 0.7)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-overlay-80\\",
+        \\"value\\": \\"hsla(0, 0%, 0%, 0.8)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-overlay-90\\",
+        \\"value\\": \\"hsla(0, 0%, 0%, 0.9)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-pink-10\\",
+        \\"value\\": \\"hsl(340, 95%, 95%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-pink-100\\",
+        \\"value\\": \\"hsl(340, 100%, 15%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-pink-20\\",
+        \\"value\\": \\"hsl(340, 90%, 85%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-pink-40\\",
+        \\"value\\": \\"hsl(340, 70%, 70%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-pink-60\\",
+        \\"value\\": \\"hsl(340, 50%, 50%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-pink-80\\",
+        \\"value\\": \\"hsl(340, 95%, 30%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-pink-90\\",
+        \\"value\\": \\"hsl(340, 100%, 20%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-purple-10\\",
+        \\"value\\": \\"hsl(300, 95%, 95%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-purple-100\\",
+        \\"value\\": \\"hsl(300, 100%, 15%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-purple-20\\",
+        \\"value\\": \\"hsl(300, 85%, 85%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-purple-40\\",
+        \\"value\\": \\"hsl(300, 70%, 70%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-purple-60\\",
+        \\"value\\": \\"hsl(300, 50%, 50%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-purple-80\\",
+        \\"value\\": \\"hsl(300, 95%, 30%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-purple-90\\",
+        \\"value\\": \\"hsl(300, 100%, 20%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-red-10\\",
+        \\"value\\": \\"hsl(0, 75%, 95%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-red-100\\",
+        \\"value\\": \\"hsl(0, 100%, 15%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-red-20\\",
+        \\"value\\": \\"hsl(0, 75%, 85%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-red-40\\",
+        \\"value\\": \\"hsl(0, 75%, 75%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-red-60\\",
+        \\"value\\": \\"hsl(0, 50%, 50%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-red-80\\",
+        \\"value\\": \\"hsl(0, 95%, 30%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-red-90\\",
+        \\"value\\": \\"hsl(0, 100%, 20%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-shadow-primary\\",
+        \\"value\\": \\"hsla(210, 50%, 10%, 0.25)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-shadow-secondary\\",
+        \\"value\\": \\"hsla(210, 50%, 10%, 0.15)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-shadow-tertiary\\",
+        \\"value\\": \\"hsla(210, 50%, 10%, 0.05)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-teal-10\\",
+        \\"value\\": \\"hsl(190, 75%, 95%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-teal-100\\",
+        \\"value\\": \\"hsl(190, 100%, 15%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-teal-20\\",
+        \\"value\\": \\"hsl(190, 75%, 85%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-teal-40\\",
+        \\"value\\": \\"hsl(190, 70%, 70%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-teal-60\\",
+        \\"value\\": \\"hsl(190, 50%, 50%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-teal-80\\",
+        \\"value\\": \\"hsl(190, 95%, 30%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-teal-90\\",
+        \\"value\\": \\"hsl(190, 100%, 20%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-transparent\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-white\\",
+        \\"value\\": \\"hsl(0, 0%, 100%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-yellow-10\\",
+        \\"value\\": \\"hsl(60, 75%, 95%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-yellow-100\\",
+        \\"value\\": \\"hsl(60, 100%, 15%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-yellow-20\\",
+        \\"value\\": \\"hsl(60, 75%, 85%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-yellow-40\\",
+        \\"value\\": \\"hsl(60, 75%, 75%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-yellow-60\\",
+        \\"value\\": \\"hsl(60, 50%, 50%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-yellow-80\\",
+        \\"value\\": \\"hsl(60, 95%, 30%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-yellow-90\\",
+        \\"value\\": \\"hsl(60, 100%, 20%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-error-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-heading-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-heading-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-icon-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-info-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-info-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-justify-content\\",
+        \\"value\\": \\"space-between\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-success-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-success-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-warning-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-alert-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-container-width-max\\",
+        \\"value\\": \\"30rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-footer-padding-bottom\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-form-padding\\",
+        \\"value\\": \\"var(--amplify-space-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-max-width\\",
+        \\"value\\": \\"60rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-modal-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-50)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-modal-height\\",
+        \\"value\\": \\"var(--amplify-space-relative-full)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-modal-left\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-modal-top\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-modal-width\\",
+        \\"value\\": \\"var(--amplify-space-relative-full)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-or-container-color\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-or-container-or-line-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-router-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-router-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-router-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-router-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-router-box-shadow\\",
+        \\"value\\": \\"var(--amplify-shadows-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-authenticator-state-inactive-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-empty-display\\",
+        \\"value\\": \\"flex\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-loading-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-loading-display\\",
+        \\"value\\": \\"flex\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-loading-gap\\",
+        \\"value\\": \\"var(--amplify-space-xxxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-margin-block-start\\",
+        \\"value\\": \\"var(--amplify-space-xxxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-option-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-option-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-white)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-option-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-option-color\\",
+        \\"value\\": \\"currentcolor\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-option-cursor\\",
+        \\"value\\": \\"pointer\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-option-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-short)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-option-transition-property\\",
+        \\"value\\": \\"background-color, color\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-option-transition-timing-function\\",
+        \\"value\\": \\"ease\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-options-display\\",
+        \\"value\\": \\"flex\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-options-flex-direction\\",
+        \\"value\\": \\"column\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-options-max-height\\",
+        \\"value\\": \\"300px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-space-shared-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-space-shared-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-autocomplete-menu-width\\",
+        \\"value\\": \\"100%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-error-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-semibold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-info-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-info-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-large-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-large-padding-horizontal\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-large-padding-vertical\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-line-height\\",
+        \\"value\\": \\"1\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-padding-horizontal\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-padding-vertical\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-small-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-small-padding-horizontal\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-small-padding-vertical\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-success-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-success-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-text-align\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-warning-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-badge-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-active-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-active)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-border-style\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-border-width\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-active-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-disabled-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-focus-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-focus-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-error-focus-box-shadow)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-hover-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-loading-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-loading-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-destructive-loading-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-disabled-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-focus-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-box-shadow)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-font-size\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-hover-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-large-font-size\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-large-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-large-padding-block-end\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-large-padding-block-end)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-large-padding-block-start\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-large-padding-block-start)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-large-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-large-padding-inline-end)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-large-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-large-padding-inline-start)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-line-height\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-line-height)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-active-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-active)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-border-width\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-interactive)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-disabled-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-disabled-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-focus-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-focus-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-box-shadow)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-hover-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-hover)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-loading-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-loading-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-link-loading-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-loader-wrapper-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-loader-wrapper-gap\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-loading-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-loading-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-loading-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-border-width\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-menu-justify-content\\",
+        \\"value\\": \\"start\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-padding-block-end\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-padding-block-end)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-padding-block-start\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-padding-block-start)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-padding-inline-end)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-padding-inline-start)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-active-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-disabled-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-focus-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-focus-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-box-shadow)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-hover-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-loading-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-loading-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-primary-loading-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-small-font-size\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-small-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-small-padding-block-end\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-small-padding-block-end)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-small-padding-block-start\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-small-padding-block-start)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-small-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-small-padding-inline-end)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-small-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-small-padding-inline-start)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-transition-duration\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-transition-duration)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-active-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-disabled-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-focus-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-error-focus-box-shadow)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-hover-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-red-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-loading-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-loading-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-warning-loading-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-border-width\\",
+        \\"value\\": \\"0\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-box-shadow\\",
+        \\"value\\": \\"none\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-elevated-background-color\\",
+        \\"value\\": \\"var(--amplify-components-card-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-elevated-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-elevated-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-elevated-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-elevated-border-width\\",
+        \\"value\\": \\"0\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-elevated-box-shadow\\",
+        \\"value\\": \\"var(--amplify-shadows-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-outlined-background-color\\",
+        \\"value\\": \\"var(--amplify-components-card-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-outlined-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-outlined-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-outlined-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-outlined-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-outlined-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-card-box-shadow)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-card-padding\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-before-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-before-border-radius\\",
+        \\"value\\": \\"20%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-before-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-before-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-before-height\\",
+        \\"value\\": \\"100%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-before-width\\",
+        \\"value\\": \\"100%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-error-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-error-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-error-focus-box-shadow\\",
+        \\"value\\": \\"0px 0px 0px 2px var(--amplify-colors-border-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-focus-box-shadow\\",
+        \\"value\\": \\"0px 0px 0px 2px var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-focus-outline-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-focus-outline-offset\\",
+        \\"value\\": \\"var(--amplify-outline-offsets-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-focus-outline-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-focus-outline-width\\",
+        \\"value\\": \\"var(--amplify-outline-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-justify-content\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-button-position\\",
+        \\"value\\": \\"relative\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-cursor\\",
+        \\"value\\": \\"pointer\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-disabled-cursor\\",
+        \\"value\\": \\"not-allowed\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-border-radius\\",
+        \\"value\\": \\"20%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-checked-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-checked-opacity\\",
+        \\"value\\": \\"var(--amplify-opacities-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-checked-transform\\",
+        \\"value\\": \\"scale(1)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-indeterminate-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-indeterminate-opacity\\",
+        \\"value\\": \\"var(--amplify-opacities-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-indeterminate-transform\\",
+        \\"value\\": \\"scale(1)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-opacity\\",
+        \\"value\\": \\"var(--amplify-opacities-0)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-transform\\",
+        \\"value\\": \\"scale(0)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-short)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-transition-property\\",
+        \\"value\\": \\"all\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-icon-transition-timing-function\\",
+        \\"value\\": \\"ease-in-out\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkbox-label-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkboxfield-align-content\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkboxfield-align-items\\",
+        \\"value\\": \\"flex-start\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkboxfield-flex-direction\\",
+        \\"value\\": \\"column\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-checkboxfield-justify-content\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-pagination-button-color\\",
+        \\"value\\": \\"var(--amplify-components-pagination-button-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-pagination-button-disabled-color\\",
+        \\"value\\": \\"var(--amplify-components-pagination-button-disabled-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-pagination-button-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-components-pagination-button-hover-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-pagination-button-hover-color\\",
+        \\"value\\": \\"var(--amplify-components-pagination-button-hover-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-pagination-current-background-color\\",
+        \\"value\\": \\"var(--amplify-components-pagination-current-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-pagination-current-color\\",
+        \\"value\\": \\"var(--amplify-components-pagination-current-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-active-background-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-active-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-active-border-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-active-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-active-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-active-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-disabled-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-disabled-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-disabled-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-disabled-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-focus-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-focus-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-focus-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-focus-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-hover-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-hover-border-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-hover-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-button-hover-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-button-hover-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-collection-search-input-color\\",
+        \\"value\\": \\"var(--amplify-components-searchfield-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-copy-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-copy-gap\\",
+        \\"value\\": \\"var(--amplify-space-relative-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-copy-svg-path-fill\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-copy-tool-tip-bottom\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-copy-tool-tip-color\\",
+        \\"value\\": \\"var(--amplify-colors-teal-100)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-copy-tool-tip-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-countrycodeselect-height\\",
+        \\"value\\": \\"var(--amplify-space-relative-full)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-label-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-label-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-label-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-label-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-large-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-opacity\\",
+        \\"value\\": \\"var(--amplify-opacities-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-divider-small-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-box-shadow\\",
+        \\"value\\": \\"var(--amplify-shadows-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-content-closed-animation-duration\\",
+        \\"value\\": \\"var(--amplify-time-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-content-closed-animation-timing-function\\",
+        \\"value\\": \\"cubic-bezier(0.87, 0, 0.13, 1)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-content-open-animation-duration\\",
+        \\"value\\": \\"var(--amplify-time-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-content-open-animation-timing-function\\",
+        \\"value\\": \\"cubic-bezier(0.87, 0, 0.13, 1)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-content-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-content-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-content-text-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-content-text-padding-block-end\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-content-text-padding-block-start\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-display\\",
+        \\"value\\": \\"block\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-header-box-shadow\\",
+        \\"value\\": \\"0 1px 0  var(--amplify-colors-overlay-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-icon-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-icon-transition-timing-function\\",
+        \\"value\\": \\"cubic-bezier(0.87, 0, 0.13, 1)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-border-bottom-left-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-border-bottom-right-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-border-end-end-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-border-end-start-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-border-start-end-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-border-start-start-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-border-top-left-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-border-top-right-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-box-shadow\\",
+        \\"value\\": \\"var(--amplify-shadows-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-focus-box-shadow\\",
+        \\"value\\": \\"0 0 0 2px var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-item-margin-top\\",
+        \\"value\\": \\"1px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-trigger-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-trigger-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-trigger-justify-content\\",
+        \\"value\\": \\"space-between\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-trigger-min-height\\",
+        \\"value\\": \\"3rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-trigger-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-trigger-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-expander-width\\",
+        \\"value\\": \\"100%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-field-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-field-gap\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-field-label-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-field-large-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-field-large-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-field-small-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-field-small-gap\\",
+        \\"value\\": \\"var(--amplify-space-xxxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-disabled-cursor\\",
+        \\"value\\": \\"not-allowed\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-error-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-error-focus-box-shadow\\",
+        \\"value\\": \\"0px 0px 0px 1px var(--amplify-colors-border-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-focus-box-shadow\\",
+        \\"value\\": \\"0px 0px 0px 1px var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-large-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-large-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-large-padding-block-end\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-large-padding-block-start\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-large-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-large-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-line-height\\",
+        \\"value\\": \\"var(--amplify-line-heights-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-outline-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-outline-offset\\",
+        \\"value\\": \\"var(--amplify-outline-offsets-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-outline-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-outline-width\\",
+        \\"value\\": \\"var(--amplify-outline-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-padding-block-end\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-padding-block-start\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-quiet-border-block-start\\",
+        \\"value\\": \\"none\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-quiet-border-inline-end\\",
+        \\"value\\": \\"none\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-quiet-border-inline-start\\",
+        \\"value\\": \\"none\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-quiet-border-radius\\",
+        \\"value\\": \\"0\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-quiet-border-style\\",
+        \\"value\\": \\"none\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-quiet-error-border-block-end-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-quiet-error-focus-box-shadow\\",
+        \\"value\\": \\"0px 1px 0px  var(--amplify-colors-border-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-quiet-focus-border-block-end-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-quiet-focus-box-shadow\\",
+        \\"value\\": \\"0px 1px 0px  var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-small-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-small-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-small-padding-block-end\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-small-padding-block-start\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-small-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-small-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldcontrol-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldgroup-gap\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldgroup-outer-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldgroup-vertical-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldmessages-description-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldmessages-description-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldmessages-description-font-style\\",
+        \\"value\\": \\"italic\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldmessages-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldmessages-error-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-active-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-pressed)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-active-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-fileuploader-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-active-border-style\\",
+        \\"value\\": \\"var(--amplify-components-fileuploader-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-active-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-border-style\\",
+        \\"value\\": \\"dashed\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-icon-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-icon-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-text-align\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-text-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-text-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-dropzone-text-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-align-items\\",
+        \\"value\\": \\"baseline\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-image-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-image-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-image-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-image-height\\",
+        \\"value\\": \\"var(--amplify-space-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-image-width\\",
+        \\"value\\": \\"var(--amplify-space-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-name-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-name-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-name-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-size-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-size-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-file-size-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-normal)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-loader-stroke-empty\\",
+        \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-loader-stroke-filled\\",
+        \\"value\\": \\"var(--amplify-components-loader-stroke-filled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-loader-stroke-linecap\\",
+        \\"value\\": \\"round\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-loader-stroke-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-body-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-body-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-body-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-footer-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-footer-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-footer-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-footer-justify-content\\",
+        \\"value\\": \\"space-between\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-footer-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-footer-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-max-height\\",
+        \\"value\\": \\"40rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-max-width\\",
+        \\"value\\": \\"auto\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-text-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-text-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fileuploader-previewer-text-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-flex-align-content\\",
+        \\"value\\": \\"normal\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-flex-align-items\\",
+        \\"value\\": \\"stretch\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-flex-flex-wrap\\",
+        \\"value\\": \\"nowrap\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-flex-gap\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-flex-justify-content\\",
+        \\"value\\": \\"normal\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-1-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxxxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-1-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-light)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-2-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-2-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-normal)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-3-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-3-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-4-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-4-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-semibold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-5-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-5-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-6-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-6-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-extrabold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-heading-line-height\\",
+        \\"value\\": \\"var(--amplify-line-heights-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-highlightmatch-highlighted-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-icon-height\\",
+        \\"value\\": \\"1em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-icon-line-height\\",
+        \\"value\\": \\"1\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-image-height\\",
+        \\"value\\": \\"auto\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-image-max-width\\",
+        \\"value\\": \\"100%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-image-object-fit\\",
+        \\"value\\": \\"initial\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-image-object-position\\",
+        \\"value\\": \\"initial\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-banner-height\\",
+        \\"value\\": \\"150px \\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-banner-width\\",
+        \\"value\\": \\"400px \\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-button-background-color\\",
+        \\"value\\": \\"#e8e8e8\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-button-border-radius\\",
+        \\"value\\": \\"5px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-button-color\\",
+        \\"value\\": \\"black\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-dialog-height\\",
+        \\"value\\": \\"50vh\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-dialog-min-height\\",
+        \\"value\\": \\"400px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-dialog-min-width\\",
+        \\"value\\": \\"400px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-dialog-width\\",
+        \\"value\\": \\"30vw\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-header-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-inappmessaging-header-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-extrabold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-link-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-active)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-link-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-interactive)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-link-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-link-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-hover)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-link-visited-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-interactive)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-animation-duration\\",
+        \\"value\\": \\"1s\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-height\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-large-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-large-height\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-large-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-animation-duration\\",
+        \\"value\\": \\"1s\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-large-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-large-stroke-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-min-width\\",
+        \\"value\\": \\"5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-small-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-small-stroke-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-stroke-empty\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-stroke-filled\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-stroke-linecap\\",
+        \\"value\\": \\"round\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-stroke-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-linear-width\\",
+        \\"value\\": \\"100%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-small-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-small-height\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-small-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-stroke-empty\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-stroke-filled\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-stroke-linecap\\",
+        \\"value\\": \\"round\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-text-fill\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-loader-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-box-shadow\\",
+        \\"value\\": \\"var(--amplify-shadows-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-flex-direction\\",
+        \\"value\\": \\"column\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-gap\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-item-min-height\\",
+        \\"value\\": \\"2.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-item-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-item-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-large-height\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-large-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-max-width\\",
+        \\"value\\": \\"30rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-min-width\\",
+        \\"value\\": \\"14rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-small-height\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-menu-small-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-button-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-button-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-button-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-button-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-button-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-button-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-button-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-button-transition-property\\",
+        \\"value\\": \\"background-color\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-current-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-current-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-40)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-current-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-current-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-current-justify-content\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-ellipsis-align-items\\",
+        \\"value\\": \\"baseline\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-ellipsis-justify-content\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-ellipsis-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-ellipsis-padding-inline-start\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-item-container-margin-left\\",
+        \\"value\\": \\"var(--amplify-space-xxxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-item-container-margin-right\\",
+        \\"value\\": \\"var(--amplify-space-xxxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-item-shared-border-radius\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-item-shared-height\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-pagination-item-shared-min-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-active-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-active-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-active-border-color\\",
+        \\"value\\": \\"var(--amplify-components-button-active-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-active-color\\",
+        \\"value\\": \\"var(--amplify-components-button-active-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-color\\",
+        \\"value\\": \\"var(--amplify-components-button-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-disabled-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-components-button-disabled-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-disabled-color\\",
+        \\"value\\": \\"var(--amplify-components-button-disabled-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-focus-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-components-button-focus-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-focus-color\\",
+        \\"value\\": \\"var(--amplify-components-button-focus-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-hover-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-hover-border-color\\",
+        \\"value\\": \\"var(--amplify-components-button-hover-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-button-hover-color\\",
+        \\"value\\": \\"var(--amplify-components-button-hover-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-passwordfield-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-phonenumberfield-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-phonenumberfield-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-phonenumberfield-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-phonenumberfield-font-size\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-placeholder-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-placeholder-default-height\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-placeholder-end-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-placeholder-large-height\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-placeholder-small-height\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-placeholder-start-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-placeholder-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-long)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-border-radius\\",
+        \\"value\\": \\"50%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-box-sizing\\",
+        \\"value\\": \\"border-box\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-checked-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-checked-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-error-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-error-focus-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-error-focus-box-shadow)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-focus-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-box-shadow)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-height\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-justify-content\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-large-height\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-large-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-outline-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-outline-offset\\",
+        \\"value\\": \\"var(--amplify-outline-offsets-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-outline-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-outline-width\\",
+        \\"value\\": \\"var(--amplify-outline-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-padding\\",
+        \\"value\\": \\"var(--amplify-border-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-small-height\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-small-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-transition-property\\",
+        \\"value\\": \\"all\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-button-width\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-disabled-cursor\\",
+        \\"value\\": \\"not-allowed\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-gap\\",
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-justify-content\\",
+        \\"value\\": \\"flex-start\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-label-color\\",
+        \\"value\\": \\"var(--amplify-components-text-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radio-label-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radiogroup-label-color\\",
+        \\"value\\": \\"var(--amplify-components-field-label-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radiogroup-radio-background-color\\",
+        \\"value\\": \\"var(--amplify-components-radio-button-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radiogroup-radio-border-color\\",
+        \\"value\\": \\"var(--amplify-components-radio-button-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radiogroup-radio-border-width\\",
+        \\"value\\": \\"var(--amplify-components-radio-button-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radiogroup-radio-checked-color\\",
+        \\"value\\": \\"var(--amplify-components-radio-button-checked-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-radiogroup-radio-label-color\\",
+        \\"value\\": \\"var(--amplify-components-radio-label-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-rating-default-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-rating-empty-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-rating-filled-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-secondary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-rating-large-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-rating-small-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-active-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-active-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-active-border-color\\",
+        \\"value\\": \\"var(--amplify-components-button-active-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-active-color\\",
+        \\"value\\": \\"var(--amplify-components-button-active-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-color\\",
+        \\"value\\": \\"var(--amplify-components-button-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-disabled-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-components-button-disabled-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-disabled-color\\",
+        \\"value\\": \\"var(--amplify-components-button-disabled-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-focus-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-components-button-focus-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-focus-color\\",
+        \\"value\\": \\"var(--amplify-components-button-focus-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-hover-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-hover-border-color\\",
+        \\"value\\": \\"var(--amplify-components-button-hover-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-button-hover-color\\",
+        \\"value\\": \\"var(--amplify-components-button-hover-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-searchfield-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-icon-wrapper-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-icon-wrapper-pointer-events\\",
+        \\"value\\": \\"none\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-icon-wrapper-position\\",
+        \\"value\\": \\"absolute\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-icon-wrapper-right\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-icon-wrapper-top\\",
+        \\"value\\": \\"50%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-icon-wrapper-transform\\",
+        \\"value\\": \\"translateY(-50%)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-large-min-width\\",
+        \\"value\\": \\"7.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-min-width\\",
+        \\"value\\": \\"6.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-option-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-option-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-option-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-small-min-width\\",
+        \\"value\\": \\"5.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-white-space\\",
+        \\"value\\": \\"nowrap\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-wrapper-cursor\\",
+        \\"value\\": \\"pointer\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-wrapper-display\\",
+        \\"value\\": \\"block\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-wrapper-flex\\",
+        \\"value\\": \\"1\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-wrapper-position\\",
+        \\"value\\": \\"relative\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-selectfield-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-selectfield-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-selectfield-flex-direction\\",
+        \\"value\\": \\"column\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-selectfield-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-selectfield-font-size\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-selectfield-label-color\\",
+        \\"value\\": \\"var(--amplify-components-field-label-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-large-thumb-height\\",
+        \\"value\\": \\"1.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-large-thumb-width\\",
+        \\"value\\": \\"1.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-large-track-height\\",
+        \\"value\\": \\"0.625rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-range-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-range-border-radius\\",
+        \\"value\\": \\"9999px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-range-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-small-thumb-height\\",
+        \\"value\\": \\"1rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-small-thumb-width\\",
+        \\"value\\": \\"1rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-small-track-height\\",
+        \\"value\\": \\"0.25rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-border-radius\\",
+        \\"value\\": \\"50%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-box-shadow\\",
+        \\"value\\": \\"var(--amplify-shadows-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-disabled-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-disabled-box-shadow\\",
+        \\"value\\": \\"none\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-focus-box-shadow\\",
+        \\"value\\": \\"0 0 0 2px var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-height\\",
+        \\"value\\": \\"1.25rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-hover-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-thumb-width\\",
+        \\"value\\": \\"1.25rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-track-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-quaternary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-track-border-radius\\",
+        \\"value\\": \\"9999px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-track-height\\",
+        \\"value\\": \\"0.375rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-sliderfield-track-min-width\\",
+        \\"value\\": \\"10rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-active-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-active-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-active-color\\",
+        \\"value\\": \\"var(--amplify-components-button-active-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-color\\",
+        \\"value\\": \\"var(--amplify-components-button-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-disabled-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-disabled-color\\",
+        \\"value\\": \\"var(--amplify-components-button-disabled-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-focus-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-focus-color\\",
+        \\"value\\": \\"var(--amplify-components-button-focus-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-components-button-hover-background-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-button-hover-color\\",
+        \\"value\\": \\"var(--amplify-components-button-hover-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-flex-direction\\",
+        \\"value\\": \\"column\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-input-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-input-font-size\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-stepperfield-input-text-align\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-disabled-opacity\\",
+        \\"value\\": \\"var(--amplify-opacities-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-focused-shadow\\",
+        \\"value\\": \\"0px 0px 0px 2px var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-label-padding\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-large-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-small-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-thumb-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-thumb-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-thumb-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xxxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-thumb-checked-transform\\",
+        \\"value\\": \\"var(--amplify-transforms-slide-x-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-thumb-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-thumb-width\\",
+        \\"value\\": \\"var(--amplify-space-relative-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-track-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-quaternary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-track-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xxxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-track-checked-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-track-error-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-track-height\\",
+        \\"value\\": \\"var(--amplify-space-relative-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-track-padding\\",
+        \\"value\\": \\"var(--amplify-outline-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-track-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-short)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-track-width\\",
+        \\"value\\": \\"var(--amplify-space-relative-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-body-display\\",
+        \\"value\\": \\"table-row-group\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-body-vertical-align\\",
+        \\"value\\": \\"middle\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-border-collapse\\",
+        \\"value\\": \\"collapse\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-caption-caption-side\\",
+        \\"value\\": \\"bottom\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-caption-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-caption-display\\",
+        \\"value\\": \\"table-caption\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-caption-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-caption-large-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-caption-small-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-caption-text-align\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-caption-word-break\\",
+        \\"value\\": \\"break-all\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-display\\",
+        \\"value\\": \\"table-cell\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-normal)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-large-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-large-padding\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-padding\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-small-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-small-padding\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-data-vertical-align\\",
+        \\"value\\": \\"middle\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-display\\",
+        \\"value\\": \\"table\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-foot-display\\",
+        \\"value\\": \\"table-footer-group\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-foot-vertical-align\\",
+        \\"value\\": \\"middle\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-head-display\\",
+        \\"value\\": \\"table-header-group\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-head-vertical-align\\",
+        \\"value\\": \\"middle\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-display\\",
+        \\"value\\": \\"table-cell\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-large-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-large-padding\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-padding\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-small-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-small-padding\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-header-vertical-align\\",
+        \\"value\\": \\"middle\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-row-display\\",
+        \\"value\\": \\"table-row\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-row-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-row-striped-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-row-vertical-align\\",
+        \\"value\\": \\"middle\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-table-width\\",
+        \\"value\\": \\"100%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-gap\\",
+        \\"value\\": \\"0\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-active-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-active-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-interactive)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-interactive)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-disabled-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-hover)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-padding-horizontal\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-padding-vertical\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-text-align\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-tabs-item-transition-duration\\",
+        \\"value\\": \\"var(--amplify-time-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-text-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-text-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-text-info-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-text-primary-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-text-secondary-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-text-success-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-text-tertiary-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-text-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-textareafield-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-textareafield-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-textareafield-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-textfield-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-textfield-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-textfield-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-textfield-font-size\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-50)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-50)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-50)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-pressed-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-pressed-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-pressed-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-pressed-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-pressed-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-link-pressed-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-90)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-pressed-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-pressed-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-pressed)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-pressed-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-pressed-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-30)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-transparent)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-focus-box-shadow\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-box-shadow)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-overlay-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-80)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-focus-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-focus-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-hover-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-hover-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-hover-box-shadow\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-60)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebutton-primary-pressed-hover-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebuttongroup-align-content\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebuttongroup-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-togglebuttongroup-justify-content\\",
+        \\"value\\": \\"flex-start\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-large\\",
+        \\"value\\": \\"1.25rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-medium\\",
+        \\"value\\": \\"1rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-small\\",
+        \\"value\\": \\"0.875rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-xl\\",
+        \\"value\\": \\"1.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-xs\\",
+        \\"value\\": \\"0.75rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-xxl\\",
+        \\"value\\": \\"2rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-xxs\\",
+        \\"value\\": \\"0.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-xxxl\\",
+        \\"value\\": \\"2.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-xxxs\\",
+        \\"value\\": \\"0.375rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-sizes-xxxxl\\",
+        \\"value\\": \\"3rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-weights-black\\",
+        \\"value\\": \\"900\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-weights-bold\\",
+        \\"value\\": \\"700\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-weights-extrabold\\",
+        \\"value\\": \\"800\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-weights-hairline\\",
+        \\"value\\": \\"100\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-weights-light\\",
+        \\"value\\": \\"300\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-weights-medium\\",
+        \\"value\\": \\"500\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-weights-normal\\",
+        \\"value\\": \\"400\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-weights-semibold\\",
+        \\"value\\": \\"600\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-font-weights-thin\\",
+        \\"value\\": \\"200\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-fonts-default-static\\",
+        \\"value\\": \\"'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',\\\\n        'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-fonts-default-variable\\",
+        \\"value\\": \\"'InterVariable', 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont,\\\\n        'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',\\\\n        sans-serif\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-line-heights-large\\",
+        \\"value\\": \\"2\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-line-heights-medium\\",
+        \\"value\\": \\"1.5\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-line-heights-small\\",
+        \\"value\\": \\"1.25\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-0\\",
+        \\"value\\": \\"0\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-10\\",
+        \\"value\\": \\"0.1\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-100\\",
+        \\"value\\": \\"1\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-20\\",
+        \\"value\\": \\"0.2\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-30\\",
+        \\"value\\": \\"0.3\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-40\\",
+        \\"value\\": \\"0.4\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-50\\",
+        \\"value\\": \\"0.5\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-60\\",
+        \\"value\\": \\"0.6\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-70\\",
+        \\"value\\": \\"0.7\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-80\\",
+        \\"value\\": \\"0.8\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-opacities-90\\",
+        \\"value\\": \\"0.9\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-outline-offsets-large\\",
+        \\"value\\": \\"3px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-outline-offsets-medium\\",
+        \\"value\\": \\"2px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-outline-offsets-small\\",
+        \\"value\\": \\"1px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-outline-widths-large\\",
+        \\"value\\": \\"3px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-outline-widths-medium\\",
+        \\"value\\": \\"2px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-outline-widths-small\\",
+        \\"value\\": \\"1px\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-radii-large\\",
+        \\"value\\": \\"1rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-radii-medium\\",
+        \\"value\\": \\"0.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-radii-small\\",
+        \\"value\\": \\"0.25rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-radii-xl\\",
+        \\"value\\": \\"2rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-radii-xs\\",
+        \\"value\\": \\"0.125rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-radii-xxl\\",
+        \\"value\\": \\"4rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-radii-xxxl\\",
+        \\"value\\": \\"8rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-shadows-large\\",
+        \\"value\\": \\"0px 4px 12px  var(--amplify-colors-shadow-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-shadows-medium\\",
+        \\"value\\": \\"0px 2px 6px  var(--amplify-colors-shadow-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-shadows-small\\",
+        \\"value\\": \\"0px 2px 4px  var(--amplify-colors-shadow-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-large\\",
+        \\"value\\": \\"1.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-medium\\",
+        \\"value\\": \\"1rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-full\\",
+        \\"value\\": \\"100%\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-large\\",
+        \\"value\\": \\"1.5em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-medium\\",
+        \\"value\\": \\"1em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-small\\",
+        \\"value\\": \\"0.75em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-xl\\",
+        \\"value\\": \\"2.0em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-xs\\",
+        \\"value\\": \\"0.5em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-xxl\\",
+        \\"value\\": \\"3.0em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-xxs\\",
+        \\"value\\": \\"0.375em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-xxxl\\",
+        \\"value\\": \\"4.5em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-relative-xxxs\\",
+        \\"value\\": \\"0.25em\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-small\\",
+        \\"value\\": \\"0.75rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-xl\\",
+        \\"value\\": \\"2.0rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-xs\\",
+        \\"value\\": \\"0.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-xxl\\",
+        \\"value\\": \\"3.0rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-xxs\\",
+        \\"value\\": \\"0.375rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-xxxl\\",
+        \\"value\\": \\"4.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-xxxs\\",
+        \\"value\\": \\"0.25rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-space-zero\\",
+        \\"value\\": \\"0\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-time-long\\",
+        \\"value\\": \\"500ms\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-time-medium\\",
+        \\"value\\": \\"250ms\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-time-short\\",
+        \\"value\\": \\"100ms\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-transforms-slide-x-large\\",
+        \\"value\\": \\"translateX(2em)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-transforms-slide-x-medium\\",
+        \\"value\\": \\"translateX(1em)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-transforms-slide-x-small\\",
+        \\"value\\": \\"translateX(0.5em)\\"
+    }
+]"
+`;

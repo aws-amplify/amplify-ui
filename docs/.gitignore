@@ -40,3 +40,4 @@ yarn-error.log*
 
 # data
 /src/data/props-table.json
+/src/data/cssvars-table.json
