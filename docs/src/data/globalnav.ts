@@ -32,6 +32,12 @@ export const LEFT_NAV_LINKS = [
     url: 'https://ui.docs.amplify.aws/',
     order: 3,
   },
+  {
+    type: 'DEFAULT',
+    label: 'Contribute',
+    url: 'https://docs.amplify.aws/contribute/',
+    order: 4,
+  },
 ];
 
 export const SOCIAL_LINKS = [
