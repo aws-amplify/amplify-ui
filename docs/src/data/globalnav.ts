@@ -35,7 +35,7 @@ export const LEFT_NAV_LINKS = [
   {
     type: 'DEFAULT',
     label: 'Contribute',
-    url: 'https://docs.amplify.aws/contribute',
+    url: 'https://docs.amplify.aws/contribute/',
     order: 4,
   },
 ];
