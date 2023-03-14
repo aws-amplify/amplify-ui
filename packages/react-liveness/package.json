@@ -50,8 +50,16 @@
   "dependencies": {
     "@aws-amplify/ui": "5.5.7",
     "@aws-amplify/ui-react": "4.3.10",
+    "@aws-sdk/client-rekognitionstreaming": "^3.266.3",
+    "@tensorflow/tfjs-backend-cpu": "3.11.0",
+    "@tensorflow/tfjs-backend-wasm": "3.11.0",
+    "@tensorflow/tfjs-converter": "3.11.0",
+    "@tensorflow/tfjs-core": "3.11.0",
+    "@tensorflow-models/blazeface": "0.0.7",
     "@xstate/react": "3.0.0",
     "classnames": "2.3.1",
+    "nanoid": "3.1.31",
+    "xstate": "^4.33.6",
     "react-countdown-circle-timer": "^2.5.4"
   },
   "devDependencies": {
@@ -64,9 +72,11 @@
     "@types/react": "^17.0.2",
     "@types/jest": "^26.0.23",
     "@types/jest-when": "^3.5.0",
+    "blob-polyfill": "^7.0.20220408",
     "eslint": "^8.13.0",
     "eslint-config-amplify-ui": "0.0.0",
     "jest": "^27.0.4",
+    "jest-canvas-mock": "^2.4.0",
     "jest-when": "^3.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -75,6 +85,7 @@
     "rollup-plugin-node-externals": "^4.1.1",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
-    "ts-jest": "^27.0.3"
+    "ts-jest": "^27.0.3",
+    "web-streams-polyfill": "^3.2.1"
   }
 }

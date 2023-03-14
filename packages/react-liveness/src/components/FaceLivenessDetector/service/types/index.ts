@@ -1,3 +1,3 @@
 export * from './faceDetection';
 export * from './liveness';
-export * from './livenessMachine';
+export * from './machine';

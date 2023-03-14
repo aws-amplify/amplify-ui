@@ -1,11 +1,14 @@
 /* eslint-disable  */
+import 'web-streams-polyfill';
+import 'blob-polyfill';
+
 import { Amplify } from '@aws-amplify/core';
 import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming';
-import { LivenessStreamProvider } from '../liveness-stream-provider';
-import { VideoRecorder } from '../video-recorder';
-import { mockClientSessionInformationEvent } from '../liveness-test-helpers';
+import { LivenessStreamProvider } from '../streamProvider';
+import { VideoRecorder } from '../videoRecorder';
+import { mockClientSessionInformationEvent } from '../__mocks__/testUtils';
 
-jest.mock('../video-recorder');
+jest.mock('../videoRecorder');
 jest.mock('@aws-sdk/client-rekognitionstreaming');
 jest.mock('@aws-amplify/core');
 const mockGet = jest.fn().mockImplementation(() => {

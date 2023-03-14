@@ -34,7 +34,6 @@ import {
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
-
 import { defaultServices } from '../defaultServices';
 import { isEmpty } from '../../../utils';
 

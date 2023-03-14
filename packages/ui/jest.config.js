@@ -7,8 +7,4 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     },
   },
-  moduleNameMapper: {
-    'react-dom/server': '<rootDir>/node_modules/react-dom/server.browser.js',
-  },
-  setupFiles: ['./jest.setup.js'],
 };

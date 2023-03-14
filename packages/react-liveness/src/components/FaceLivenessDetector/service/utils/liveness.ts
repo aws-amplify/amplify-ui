@@ -1,3 +1,5 @@
+// @ts-nocheck
+/* eslint-disable */
 import {
   LivenessOvalDetails,
   IlluminationState,
@@ -5,11 +7,10 @@ import {
   FaceMatchState,
   BoundingBox,
   LivenessErrorState,
-} from '../../types';
-import { translate } from '../../i18n';
-import { FaceDetection } from '../../types/liveness/faceDetection';
-import { ClientFreshnessColorSequence } from '../../types/liveness/liveness-service-types';
-import { DefaultTexts } from '../../i18n/translations';
+} from '../types';
+import { DefaultTexts, translate } from '@aws-amplify/ui';
+import { FaceDetection } from '../types/faceDetection';
+import { ClientFreshnessColorSequence } from '../types/service';
 import {
   ColorSequence,
   SessionInformation,
@@ -498,27 +499,6 @@ export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
   },
 ];
 
-export enum FreshnessColor {
-  BLACK = 'rgb_0_0_0',
-  BLUE = 'rgb_0_0_255',
-  CYAN = 'rgb_0_255_255',
-  LIME = 'rgb_0_255_0',
-  RED = 'rgb_255_0_0',
-  VIOLET = 'rgb_255_0_255',
-  WHITE = 'rgb_255_255_255',
-  YELLOW = 'rgb_255_255_0',
-}
-
-interface FillOverlayCanvasFractionalInput {
-  overlayCanvas: HTMLCanvasElement;
-  prevColor: string;
-  nextColor: string;
-  videoEl: HTMLVideoElement;
-  ovalDetails: LivenessOvalDetails;
-  heightFraction: number;
-  scaleFactor: number;
-}
-
 const INITIAL_ALPHA = 0.9;
 const SECONDARY_ALPHA = 0.75;
 
@@ -548,6 +528,16 @@ function fillFractionalContext({
       canvasHeight * (1 - fraction)
     );
   }
+}
+
+interface FillOverlayCanvasFractionalInput {
+  overlayCanvas: HTMLCanvasElement;
+  prevColor: string;
+  nextColor: string;
+  videoEl: HTMLVideoElement;
+  ovalDetails: LivenessOvalDetails;
+  heightFraction: number;
+  scaleFactor: number;
 }
 
 export function fillOverlayCanvasFractional({

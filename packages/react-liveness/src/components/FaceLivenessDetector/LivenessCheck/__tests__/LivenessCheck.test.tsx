@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { screen } from '@testing-library/react';
+import { DefaultTexts } from '@aws-amplify/ui';
 import { useThemeBreakpoint } from '@aws-amplify/ui-react/internal';
 
+import { LivenessErrorState } from '../../service';
 import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
 import { LivenessCheck } from '../LivenessCheck';
 import { useLivenessSelector, useLivenessActor } from '../../hooks';
-import { DefaultTexts, LivenessErrorState } from '@aws-amplify/ui';
 
 jest.mock('../../hooks');
 jest.mock('@aws-amplify/ui-react/internal');
