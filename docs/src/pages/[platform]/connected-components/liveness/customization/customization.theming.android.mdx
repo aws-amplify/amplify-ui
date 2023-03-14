@@ -1,0 +1,118 @@
+import { TokenItem, TokenPath, TokenMeta } from '@/components/Theming/TokenList';
+import { ColorBlock } from '@/components/Theming/TokenBlocks';
+
+The FaceLivenessDetector component supports [Material3 theming](https://developer.android.com/jetpack/compose/designsystems/material3#material-theming), allowing you to theme the FaceLivenessDetector to match the look and feel of your app. The pictures below show which parts of the FaceLivenessDetector are themeable and the Material3 value used to theme each one:
+
+Todo: Add pictures of the FaceLivenessDetector and point out the Material3 value to theme each part
+
+To theme the FaceLivenessDetector component according to your app's theme, wrap the FaceLivenessDetector in your app's theme:
+
+```kotlin
+MyTheme {
+   FaceLivenessDetector(...)
+}
+```
+
+Amplify UI Liveness provides a Material3 color scheme for light mode and dark mode.
+
+**Light mode:**
+
+<ul className="docs-tokenGroup docs-tokenGroup--list">
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-teal-80)"} />
+        <TokenPath path={["android", "primary"]} />
+        <TokenMeta>{"Color(0xFF047D95)"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-white)"} />
+        <TokenPath path={["android", "onPrimary"]} />
+        <TokenMeta>{"Color.White"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-white)"} />
+        <TokenPath path={["android", "background"]} />
+        <TokenMeta>{"Color.White"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-black)"} />
+        <TokenPath path={["android", "onBackground"]} />
+        <TokenMeta>{"Color.Black"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-white)"} />
+        <TokenPath path={["android", "surface"]} />
+        <TokenMeta>{"Color.White"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-black)"} />
+        <TokenPath path={["android", "onSurface"]} />
+        <TokenMeta>{"Color.Black"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-orange-20)"} />
+        <TokenPath path={["android", "errorContainer"]} />
+        <TokenMeta>{"Color(0xFFF5D9BC)"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-orange-80)"} />
+        <TokenPath path={["android", "onErrorContainer"]} />
+        <TokenMeta>{"Color(0xFF663300)"}</TokenMeta>
+    </TokenItem>
+</ul>
+
+**Dark mode:**
+
+<ul className="docs-tokenGroup docs-tokenGroup--list">
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-teal-40)"} />
+        <TokenPath path={["android", "primary"]} />
+        <TokenMeta>{"Color(0xFF7DD6E8)"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-neutral-100)"} />
+        <TokenPath path={["android", "onPrimary"]} />
+        <TokenMeta>{"Color(0xFF0D1926)"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-neutral-100)"} />
+        <TokenPath path={["android", "background"]} />
+        <TokenMeta>{"Color(0xFF0D1926)"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-white)"} />
+        <TokenPath path={["android", "onBackground"]} />
+        <TokenMeta>{"Color.White"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-neutral-100)"} />
+        <TokenPath path={["android", "surface"]} />
+        <TokenMeta>{"Color(0xFF0D1926)"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-white)"} />
+        <TokenPath path={["android", "onSurface"]} />
+        <TokenMeta>{"Color.White"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-orange-80)"} />
+        <TokenPath path={["android", "errorContainer"]} />
+        <TokenMeta>{"Color(0xFF663300)"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-orange-20)"} />
+        <TokenPath path={["android", "onErrorContainer"]} />
+        <TokenMeta>{"Color(0xFFEFBF8F)"}</TokenMeta>
+    </TokenItem>
+</ul>
+
+To theme the FaceLivenessDetector component using the Amplify UI Liveness color scheme, wrap the FaceLivenessDetector in a MaterialTheme and pass `LivenessColorScheme` for the theme's color scheme:
+
+```kotlin
+MaterialTheme(
+    colorScheme = LivenessColorScheme.default()
+) {
+    FaceLivenessDetector(...)
+}
+```
+
+If no theme is provided, the FaceLivenessDetector component uses the default MaterialTheme values.
