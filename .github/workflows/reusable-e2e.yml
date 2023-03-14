@@ -277,7 +277,6 @@ jobs:
           retention-days: 5
 
   docs:
-    needs: [setup, unit]
     runs-on: ubuntu-latest
     environment: ci
     env:
