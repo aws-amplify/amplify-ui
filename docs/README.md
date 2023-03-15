@@ -23,7 +23,7 @@ cp ./docs/.env.example ./docs/.env
 
 Then set values to the variables.
 
-Note, if you're not using `nvm`, you'll need to use Node.js 16 and set env var with: `export NODE_OPTIONS=--openssl-legacy-provider`
+Note, if you're not using `nvm`, you'll need to set the environment variable: `export NODE_OPTIONS=--openssl-legacy-provider`
 
 ### Test
 
