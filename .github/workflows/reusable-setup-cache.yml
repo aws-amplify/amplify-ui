@@ -1,5 +1,4 @@
-# Description: this is a utility reusable workflow that sets up
-#              cache used for testing.
+# Description: this is a reusable workflow that sets up cache for unit and e2e testss.
 
 on:
   workflow_call:
