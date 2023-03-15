@@ -58,6 +58,7 @@
     "@sideway/formula": "^3.0.1",
     "@types/react": "17.0.47",
     "**/@angular-devkit/build-angular/minimatch": "3.0.5",
+    "**/@angular-devkit/build-angular/webpack": "^5.76.0",
     "**/serve/serve-handler/minimatch": "3.0.5",
     "browserslist": "^4.16.15",
     "cssnano-simple": "3.0.2",
@@ -73,7 +74,8 @@
     "shell-quote": "1.7.3",
     "trim-newlines": "3.0.1",
     "json5": "^2.2.1",
-    "webpack": "^5.76.0"
+    "docs/next-plugin-preval/webpack": "^5.76.0",
+    "**/@size-limit/webpack/webpack": "^5.76.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.4.1",
