@@ -8,9 +8,11 @@ import { LivenessStreamProvider } from '../streamProvider';
 import { VideoRecorder } from '../videoRecorder';
 import { mockClientSessionInformationEvent } from '../__mocks__/testUtils';
 
-jest.mock('../videoRecorder');
 jest.mock('@aws-sdk/client-rekognitionstreaming');
-jest.mock('@aws-amplify/core');
+jest.mock('@aws-amplify/analytics');
+jest.mock('aws-amplify');
+jest.mock('../videoRecorder');
+
 const mockGet = jest.fn().mockImplementation(() => {
   return {
     accessKeyId: 'accessKeyId',

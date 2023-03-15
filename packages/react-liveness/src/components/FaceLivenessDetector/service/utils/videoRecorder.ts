@@ -1,9 +1,13 @@
+import { Hub } from 'aws-amplify';
+
 /**
  * The options for the video recorder.
  */
 export interface VideoRecorderOptions {
   // TODO:: add options
 }
+
+const DEBUG = process.env.NEXT_PUBLIC_DEBUG === 'TRUE';
 
 /**
  * Helper wrapper class over the native MediaRecorder.
@@ -84,6 +88,20 @@ export class VideoRecorder {
               if (this._chunks.length === 0) {
                 this.firstChunkTimestamp = Date.now();
               }
+              if (DEBUG) {
+                // eslint-disable-next-line no-console
+                console.log(
+                  `chunk sent #${this._chunks.length}: ${JSON.stringify({
+                    size: e.data.size,
+                    time: Date.now(),
+                  })}`
+                );
+                Hub.dispatch('LivenessSampleApp', {
+                  event: 'chunkEvent',
+                  data: { size: e.data.size },
+                  message: 'Chunk sent',
+                });
+              }
               this._chunks.push(e.data);
               controller.enqueue(e.data);
             }
@@ -102,6 +120,19 @@ export class VideoRecorder {
           this._recorder.addEventListener('clientSesssionInfo', (e: any) => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
             controller.enqueue(e.data.clientInfo);
+            if (DEBUG) {
+              // eslint-disable-next-line no-console
+              console.log(
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                `Client Info sent: ${JSON.stringify(e.data.clientInfo)}`
+              );
+              Hub.dispatch('LivenessSampleApp', {
+                event: 'clientInfoEvent',
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+                data: { clientInfo: e.data.clientInfo },
+                message: 'Client info sent',
+              });
+            }
           });
 
           this._recorder.addEventListener('stopVideo', () => {
