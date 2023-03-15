@@ -1,0 +1,73 @@
+# Description: this is a reusable workflow that sets up cache for unit and e2e testss.
+
+on:
+  workflow_call:
+    inputs:
+      commit:
+        # commit to run tests against
+        required: true
+        type: string
+      repository:
+        # repository to run tests against (possibly a fork of amplify-ui)
+        required: true
+        type: string
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          persist-credentials: false
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Restore cypress runner from Cache
+        uses: actions/cache@v3
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      - name: Restore Puppeteer runner from Cache
+        uses: actions/cache@v3
+        id: restore-puppeteer-cache
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          # only install binary if cypress cache missed
+          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+      - name: Build ui package
+        run: yarn ui build
+      - name: Cache cypress runner
+        # create new cypress cache entry only if cypress cache missed and we installed a new one.
+        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+      - name: Cache packages/ui/dist
+        uses: actions/cache@v3
+        with:
+          path: ./packages/ui/dist
+          key: ${{ runner.os }}-ui-${{ inputs.commit }}
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}

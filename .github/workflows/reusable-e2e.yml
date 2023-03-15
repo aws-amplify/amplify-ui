@@ -1,4 +1,4 @@
-# Description: this is a reusable workflow that runs unit and e2e tests.
+# Description: this is a reusable workflow that runs e2e tests.
 #
 # See `./test-prs.yml` to see an example usage.
 
@@ -44,153 +44,8 @@ on:
         required: true
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.commit }}
-          repository: ${{ inputs.repository }}
-          persist-credentials: false
-      - name: Setup Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Restore cypress runner from Cache
-        uses: actions/cache@v3
-        id: restore-cypress-cache
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Restore Puppeteer runner from Cache
-        uses: actions/cache@v3
-        id: restore-puppeteer-cache
-        with:
-          path: ~/.cache/puppeteer
-          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Install packages
-        uses: ./.github/actions/install-with-retries
-        with:
-          # only install binary if cypress cache missed
-          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
-      - name: Build ui package
-        run: yarn ui build
-      - name: Cache cypress runner
-        # create new cypress cache entry only if cypress cache missed and we installed a new one.
-        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
-      - name: Cache packages/ui/dist
-        uses: actions/cache@v3
-        with:
-          path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ inputs.commit }}
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
-  unit:
-    needs: setup
-    runs-on: ubuntu-latest
-    env:
-      NODE_ENV: test
-
-    strategy:
-      matrix:
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        package:
-          - ui
-          - angular
-          - vue
-          - react
-          - react-native
-          - react-core
-
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.commit }}
-          repository: ${{ inputs.repository }}
-          persist-credentials: false
-
-      - name: Setup Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Restore node_modules cache
-        uses: actions/cache@v3
-        id: restore-cache
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
-
-      - name: Restore ui/dist cache
-        uses: actions/cache@v3
-        id: restore-ui-cache
-        with:
-          path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ inputs.commit }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-
-      - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true'
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: true # unit test doesn't need cypress
-
-      - name: Build ui package
-        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
-        run: yarn ui build
-
-      - name: Build react-core package
-        if: ${{ matrix.package == 'react' || matrix.package == 'react-native' }}
-        run: yarn react-core build
-
-      - name: Build ${{ matrix.package }} package
-        if: ${{ matrix.package != 'ui' }}
-        run: yarn ${{ matrix.package }} build
-
-      - name: Check ${{ matrix.package }} bundle size
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react size
-
-      - name: Cache ${{ matrix.package }}/dist
-        uses: actions/cache@v3
-        with:
-          path: ./packages/${{ matrix.package }}/dist
-          key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
-
-      - name: Lint packages
-        run: yarn ${{ matrix.package }} lint
-
-      - name: Run ${{ matrix.package }} CI tests
-        run: yarn ${{ matrix.package }} test:ci
-
   e2e:
     # Only run e2e tests if unit tests pass
-    needs: [setup, unit]
     runs-on: ubuntu-latest
     environment: ci
     env:
@@ -240,6 +95,7 @@ jobs:
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
       - name: Restore cypress runner Cache
         uses: actions/cache@v3
         id: restore-cypress-cache
@@ -421,7 +277,6 @@ jobs:
           retention-days: 5
 
   docs:
-    needs: [setup, unit]
     runs-on: ubuntu-latest
     environment: ci
     env:
