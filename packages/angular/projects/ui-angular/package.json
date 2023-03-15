@@ -5,7 +5,8 @@
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
     "lint": "yarn --cwd ../../ lint",
-    "test": "yarn --cwd ../../ test"
+    "test": "yarn --cwd ../../ test",
+    "test:ci": "yarn --cwd ../../ test:ci"
   },
   "license": "Apache-2.0",
   "repository": {

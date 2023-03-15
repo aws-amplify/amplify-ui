@@ -257,7 +257,9 @@
             {
               "Action": [
                 "geo:SearchPlaceIndexForPosition",
-                "geo:SearchPlaceIndexForText"
+                "geo:SearchPlaceIndexForText",
+                "geo:SearchPlaceIndexForPosition",
+                "geo:GetPlace"
               ],
               "Effect": "Allow",
               "Resource": {
@@ -331,5 +333,5 @@
       }
     }
   },
-  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.1\",\"stackType\":\"geo-PlaceIndex\",\"metadata\":{}}"
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.6.0\",\"stackType\":\"geo-PlaceIndex\",\"metadata\":{}}"
 }

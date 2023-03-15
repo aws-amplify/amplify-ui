@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 4.4.0
+
+### Minor Changes
+
+- [#2227](https://github.com/aws-amplify/amplify-ui/pull/2227) [`df064a275`](https://github.com/aws-amplify/amplify-ui/commit/df064a275b56b2f7e717a2431f792554b0496e0a) Thanks [@crnkyunicorn](https://github.com/crnkyunicorn)! - Updated the standalone LocationSearch component to pass through events from the underlying maplibre library and included example code in the Geo example
+
+### Patch Changes
+
+- [#3538](https://github.com/aws-amplify/amplify-ui/pull/3538) [`28338f8fe`](https://github.com/aws-amplify/amplify-ui/commit/28338f8febf57a6db38712b80f56e0bd49d4cda0) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: bump `maplibre-gl-js-amplify` to 3.0.5
+
 ## 4.3.10
 
 ### Patch Changes
