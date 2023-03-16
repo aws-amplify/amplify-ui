@@ -220,6 +220,30 @@ to the following:
 
 **3.** Run your production build using a tool like [serve](https://www.npmjs.com/package/serve) (`serve -s build`) and verify the `<MapView>` component renders without error.
 
+### Create React App Version 4
+
+Create React App Version 4 is not officially supported by Amplify UI. When you use it, you may get the following error
+
+> ./node_modules/@aws-amplify/ui-react/dist/esm/components/../*.mjs
+>
+> Can’t import the named export ‘Amplify’ from non EcmaScript module (only default export is available)
+
+To resolve the error, you may either (1) upgrade to Create React App version 5 ([Migration Guide](https://github.com/facebook/create-react-app/blob/main/CHANGELOG.md#migrating-from-40x-to-500)), or (2) to over-write the webpack config by using tools like [React App Rewired](https://github.com/timarney/react-app-rewired), [Craco](https://craco.js.org/docs/configuration/webpack/), using the following line:
+
+```JavaScript
+{
+  module: {
+    rules: [
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }
+    ]
+  }
+}
+```
+
 ## Jest
 
 As of v2.15.0 of `@aws-amplify/ui-react` which included the release of Geo components, users of the Jest testing framework may run into the following error when attempting to run tests:
