@@ -238,7 +238,7 @@ Create React App v4 is not officially supported by Amplify UI. When you use it, 
  Can’t import the named export ‘Amplify’ from non EcmaScript module (only default export is available)
 ```
 
-To resolve the error, you may either (1) upgrade to Create React App version 5 ([Migration Guide](https://github.com/facebook/create-react-app/blob/main/CHANGELOG.md#migrating-from-40x-to-500)), or (2) to overwrite the webpack config by using tools like [React App Rewired](https://github.com/timarney/react-app-rewired), [Craco](https://craco.js.org/docs/configuration/webpack/), using the following line:
+To resolve the error, you may either (1) upgrade to Create React App version 5 ([Migration Guide](https://github.com/facebook/create-react-app/blob/main/CHANGELOG.md#migrating-from-40x-to-500)), or (2) override the webpack config using tools like [React App Rewired](https://github.com/timarney/react-app-rewired), [Craco](https://craco.js.org/docs/configuration/webpack/) to add the following rule:
 
 ```JavaScript
 {
