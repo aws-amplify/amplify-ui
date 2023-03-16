@@ -579,7 +579,7 @@ export const theming: ComponentNavItem[] = [
   },
 ];
 
-export const DISCORD = 'https://discord.gg/amplify';
+export const DISCORD = 'https://discord.com/invite/amplify';
 export const COMMUNITY = 'https://amplify.aws/community';
 export const COMMUNITY_EVENTS = 'https://amplify.aws/community/events';
 export const COMMUNITY_POSTS = 'https://amplify.aws/community/posts';
