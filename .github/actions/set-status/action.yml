@@ -2,7 +2,7 @@ name: 'Set Status'
 description: 'Set status on a specified head-sha'
 inputs:
   context:
-    description: 'String label of the status'
+    description: 'Name of the status'
     required: true
   description:
     description: 'Short description of the status'
