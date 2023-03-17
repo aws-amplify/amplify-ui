@@ -267,7 +267,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@v3
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: e2e-cypress-error-${{ matrix.package }}
@@ -367,7 +367,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        uses: actions/upload-artifact@v3
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: docs-e2e-cypress-error
