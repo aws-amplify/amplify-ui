@@ -3,8 +3,9 @@ name: Run E2E on Fork
 permissions:
   statuses: write # This is required for running set-status actions
 
+# This is to let only one instance of this workflow run against the same PR.
 concurrency:
-  group: run-e2e-${{ github.event.workflow_run.head_branch }}-${{ github.event.sender.login }}
+  group: run-e2e-${{ github.event.workflow_run.head_branch }}-${{ github.event.sender.login }} # This is to make the group name unique for a PR.
   cancel-in-progress: true
 
 on:
@@ -17,6 +18,8 @@ jobs:
   # check if approver has write/admin permissions
   check-write-access:
     runs-on: ubuntu-latest
+    # check if receive-fork-review workflow completed successfully
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: 'Get user permissions to check if it is either "write" or "admin"'
         id: get-permissions
@@ -24,7 +27,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            var { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
               owner: context.repo.owner,
               repo: context.repo.repo,
               username: '${{ github.event.sender.login }}'
@@ -40,28 +43,26 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       commit_id: ${{ steps.read-artifact.outputs.result }}
-    # check if receive-fork-review workflow completed successfully
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: 'Download artifact'
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
         with:
           script: |
-            var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
                run_id: ${{github.event.workflow_run.id }},
             });
-            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+            const matchArtifact = artifacts.data.artifacts.filter((artifact) => {
               return artifact.name == "commit"
             })[0];
-            var download = await github.rest.actions.downloadArtifact({
+            const download = await github.rest.actions.downloadArtifact({
                owner: context.repo.owner,
                repo: context.repo.repo,
                artifact_id: matchArtifact.id,
                archive_format: 'zip',
             });
-            var fs = require('fs');
+            const fs = require('fs');
             fs.writeFileSync('${{github.workspace}}/commit.zip', Buffer.from(download.data));
       - run: unzip commit.zip
       - name: 'Read from artifact zip'
@@ -70,9 +71,11 @@ jobs:
         with:
           result-encoding: string
           script: |
-            var fs = require('fs');
-            var commit_id = fs.readFileSync('./commit_id', 'utf-8');
-            return commit_id.replace(/(\r\n|\n|\r)/gm, "");
+            const fs = require('fs');
+            const commit_id = fs.readFileSync('./commit_id', 'utf-8');
+            return commit_id
+              .replace(/(\r\n|\n|\r)/gm, '') // remove last new line character
+              .replace(/[^A-Za-z0-9]/g, ''); // remove non-alphanumeric characters
       # create status
       - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
       - name: Set status to commit sha
