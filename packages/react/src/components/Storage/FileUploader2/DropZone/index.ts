@@ -1,1 +1,0 @@
-export { DropZone } from './DropZone';
