@@ -1,0 +1,28 @@
+name: Receive Fork Review
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  approved:
+    # only run the workflow on forks and when a PR is reviewed and approved
+    if: |
+      (github.event.pull_request.head.repo.full_name != github.repository) &&
+      (github.event.review.state == 'approved')
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This PR is approved and e2e tests will begin running."
+  build:
+    needs: approved
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Save commit ID
+        run: |
+          mkdir -p ./commit
+          echo ${{ github.event.review.commit_id }} > ./commit/commit_id
+      - uses: actions/upload-artifact@v2
+        with:
+          name: commit
+          path: commit/
