@@ -1,5 +1,8 @@
 name: Run E2E on Fork
 
+permissions:
+  statuses: write # This is required for running set-status actions
+
 concurrency:
   group: run-e2e-${{ github.event.workflow_run.head_branch }}-${{ github.event.sender.login }}
   cancel-in-progress: true
