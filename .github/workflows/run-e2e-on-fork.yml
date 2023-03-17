@@ -26,7 +26,6 @@ jobs:
               repo: context.repo.repo,
               username: '${{ github.event.sender.login }}'
             })
-            console.log('data.permission:', data.permission);
             return data.permission;
       - name: 'Fail this workflow if user does not have write permissions'
         if: ${{ steps.get-permissions.outputs.result != 'write' && steps.get-permissions.outputs.result != 'admin' }}
