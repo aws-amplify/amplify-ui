@@ -6,7 +6,7 @@ on:
 
 jobs:
   approved:
-    # only run the workflow on forks and when a PR is reviewed and approved
+    # only run the workflow when PR is from a fork and when the PR is reviewed and approved
     if: |
       (github.event.pull_request.head.repo.full_name != github.repository) &&
       (github.event.review.state == 'approved')
