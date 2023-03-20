@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { View, Loader, ComponentClassNames } from '../../../../primitives';
 
@@ -16,16 +16,16 @@ export function FileControl({
   // onSaveEdit,
   displayName,
   errorMessage,
-  extensionNotAllowedText,
+  // extensionNotAllowedText,
   getPausedText,
   getUploadingText,
   isImage,
   loaderIsDeterminate,
   onRemove,
   onStartEdit,
-  pauseText,
+  // pauseText,
   progress,
-  resumeText,
+  // resumeText,
   showThumbnails,
   size,
   status,
@@ -36,8 +36,8 @@ export function FileControl({
   const showEditButton = false;
 
   return (
-    <View className={ComponentClassNames.FileUploaderFile}>
-      <View className={ComponentClassNames.FileUploaderFileWrapper}>
+    <View className={ComponentClassNames.StorageManagerFile}>
+      <View className={ComponentClassNames.StorageManagerFileWrapper}>
         {showThumbnails ? (
           <FileThumbnail isImage={isImage} fileName={displayName} url={url} />
         ) : null}
@@ -51,7 +51,7 @@ export function FileControl({
 
         {status === FileState.LOADING ? (
           <Loader
-            className={ComponentClassNames.FileUploaderLoader}
+            className={ComponentClassNames.StorageManagerLoader}
             variation="linear"
             percentage={progress}
             isDeterminate={loaderIsDeterminate}

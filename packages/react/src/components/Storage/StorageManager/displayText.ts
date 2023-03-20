@@ -1,4 +1,4 @@
-export const defaultFileUploaderDisplayText = {
+export const defaultStorageManagerDisplayText = {
   getFilesUploadedText(count: number): string {
     return `${count} ${count === 1 ? 'file uploaded' : 'files uploaded'}`;
   },
@@ -32,4 +32,4 @@ export const defaultFileUploaderDisplayText = {
   },
 };
 
-export type FileUploaderDisplayText = typeof defaultFileUploaderDisplayText;
+export type StorageManagerDisplayText = typeof defaultStorageManagerDisplayText;

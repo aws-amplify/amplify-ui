@@ -18,8 +18,8 @@ export const UploadDetails = ({
 }: UploadDetailsProps): JSX.Element => {
   return (
     <>
-      <View className={ComponentClassNames.FileUploaderFileMain}>
-        <Text className={ComponentClassNames.FileUploaderFileName}>
+      <View className={ComponentClassNames.StorageManagerFileMain}>
+        <Text className={ComponentClassNames.StorageManagerFileName}>
           {displayName}
         </Text>
       </View>
@@ -29,7 +29,7 @@ export const UploadDetails = ({
           <IconEdit aria-hidden fontSize="medium" />
         </Button>
       ) : null}
-      <Text as="span" className={ComponentClassNames.FileUploaderFileSize}>
+      <Text as="span" className={ComponentClassNames.StorageManagerFileSize}>
         {humanFileSize(fileSize, true)}
       </Text>
     </>

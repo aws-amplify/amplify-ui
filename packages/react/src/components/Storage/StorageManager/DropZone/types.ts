@@ -1,7 +1,7 @@
-import { FileUploaderDisplayText } from '../displayText';
+import { StorageManagerDisplayText } from '../displayText';
 
 export interface DropZoneProps
-  extends Pick<FileUploaderDisplayText, 'dropFilesText'> {
+  extends Pick<StorageManagerDisplayText, 'dropFilesText'> {
   browseFilesText: string;
   children?: React.ReactNode;
   isLoading?: boolean;

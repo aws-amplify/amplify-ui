@@ -12,7 +12,7 @@ export const FileThumbnail = ({
   const thumbnail = isImage ? <Image alt={fileName} src={url} /> : <IconFile />;
 
   return (
-    <View className={ComponentClassNames.FileUploaderFileImage}>
+    <View className={ComponentClassNames.StorageManagerFileImage}>
       {thumbnail}
     </View>
   );

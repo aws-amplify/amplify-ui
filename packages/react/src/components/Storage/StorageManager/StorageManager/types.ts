@@ -1,8 +1,7 @@
 import { StorageAccessLevel } from '@aws-amplify/storage';
-import { ReactNode } from 'react';
-import { FileUploaderDisplayText } from '../displayText';
+import { StorageManagerDisplayText } from '../displayText';
 
-export interface FileUploaderProps {
+export interface StorageManagerProps {
   acceptedFileTypes: string[];
   isResumable?: boolean;
   accessLevel: StorageAccessLevel;
@@ -12,6 +11,5 @@ export interface FileUploaderProps {
   onSuccess?: (event: { key: string }) => void;
   shouldAutoUpload?: boolean;
   showThumbnails?: boolean;
-  displayText?: Partial<FileUploaderDisplayText>;
-  children: ReactNode;
+  displayText?: Partial<StorageManagerDisplayText>;
 }

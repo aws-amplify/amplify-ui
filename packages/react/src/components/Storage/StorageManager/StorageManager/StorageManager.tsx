@@ -2,43 +2,43 @@ import * as React from 'react';
 
 import { Container } from './Container';
 import { DropZone } from '../DropZone';
-import { defaultFileUploaderDisplayText } from '../displayText';
+import { defaultStorageManagerDisplayText } from '../displayText';
 import { FileList } from '../FileList/FileList';
 import { StorageFiles, FileState } from '../types';
-import { FileUploaderProps } from './types';
+import { StorageManagerProps } from './types';
 
-function FileUploader({
-  acceptedFileTypes, // passed directly to file input && to limit uploads
-  accessLevel, // used on upload
+function StorageManager({
+  // acceptedFileTypes, // passed directly to file input && to limit uploads
+  // accessLevel, // used on upload
   displayText: overrideDisplayText, // UI only
   isResumable, // used on upload / determines if edit is shown
-  maxFileCount, // used on upload
-  maxFileSize, // used on add file to set error
-  onError, // customer handler to fire on error
-  onSuccess, // customer handler to fire on success
-  shouldAutoUpload, // used on upload
+  // maxFileCount, // used on upload
+  // maxFileSize, // used on add file to set error
+  // onError, // customer handler to fire on error
+  // onSuccess, // customer handler to fire on success
+  // shouldAutoUpload, // used on upload
   showThumbnails, //
-}: FileUploaderProps) {
-  // const { uploads, addFiles } = useFileUploader();
+}: StorageManagerProps): JSX.Element {
+  // const { uploads, addFiles } = useStorageManager();
   // const [files, setFiles] =
   const {
     dropFilesText,
     browseFilesText,
-    getErrorText,
-    getFilesUploadedText,
-    clearButtonText,
-    getRemainingFilesText,
+    // getErrorText,
+    // getFilesUploadedText,
+    // clearButtonText,
+    // getRemainingFilesText,
     getUploadingText,
-    getMaxFilesErrorText,
-    doneButtonText,
+    // getMaxFilesErrorText,
+    // doneButtonText,
     getPausedText,
     pauseText,
     resumeText,
     extensionNotAllowedText,
     uploadSuccessfulText,
-    getUploadButtonText,
+    // getUploadButtonText,
   } = {
-    ...defaultFileUploaderDisplayText,
+    ...defaultStorageManagerDisplayText,
     ...overrideDisplayText,
   };
 
@@ -78,13 +78,13 @@ function FileUploader({
   ];
 
   return (
-    <FileUploader.Container>
-      <FileUploader.DropZone
+    <Container>
+      <DropZone
         dropFilesText={dropFilesText}
         onChange={(file) => console.log('dropped!', file)}
         browseFilesText={browseFilesText}
       />
-      <FileUploader.FileList
+      <FileList
         extensionNotAllowedText={extensionNotAllowedText}
         files={files}
         getPausedText={getPausedText}
@@ -95,12 +95,12 @@ function FileUploader({
         showThumbnails={showThumbnails}
         uploadSuccessfulText={uploadSuccessfulText}
       />
-    </FileUploader.Container>
+    </Container>
   );
 }
 
-FileUploader.Container = Container;
-FileUploader.DropZone = DropZone;
-FileUploader.FileList = FileList;
+StorageManager.Container = Container;
+StorageManager.DropZone = DropZone;
+StorageManager.FileList = FileList;
 
-export { FileUploader };
+export { StorageManager };

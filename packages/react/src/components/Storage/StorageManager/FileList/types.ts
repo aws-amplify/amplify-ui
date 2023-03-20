@@ -1,9 +1,9 @@
-import { FileUploaderDisplayText } from '../displayText';
+import { StorageManagerDisplayText } from '../displayText';
 import { FileState, StorageFile } from '../types';
 
 export interface FileListProps
   extends Pick<
-    FileUploaderDisplayText,
+    StorageManagerDisplayText,
     | 'extensionNotAllowedText'
     | 'pauseText'
     | 'resumeText'
@@ -18,7 +18,7 @@ export interface FileListProps
 
 export interface FileControlProps
   extends Pick<
-    FileUploaderDisplayText,
+    StorageManagerDisplayText,
     | 'extensionNotAllowedText'
     | 'pauseText'
     | 'resumeText'
@@ -45,7 +45,7 @@ export interface FileControlProps
 
 export interface FileStatusMessageProps
   extends Pick<
-    FileUploaderDisplayText,
+    StorageManagerDisplayText,
     'getUploadingText' | 'getPausedText' | 'uploadSuccessfulText'
   > {
   status: FileState;

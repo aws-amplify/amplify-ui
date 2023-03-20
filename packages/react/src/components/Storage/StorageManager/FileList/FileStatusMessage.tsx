@@ -18,14 +18,14 @@ export const FileStatusMessage = ({
   switch (status) {
     case FileState.LOADING: {
       return (
-        <Text className={ComponentClassNames.FileUploaderFileStatus}>
+        <Text className={ComponentClassNames.StorageManagerFileStatus}>
           {getUploadingText(percentage)}
         </Text>
       );
     }
     case FileState.PAUSED:
       return (
-        <Text className={ComponentClassNames.FileUploaderFileStatus}>
+        <Text className={ComponentClassNames.StorageManagerFileStatus}>
           {getPausedText(percentage)}
         </Text>
       );
@@ -33,9 +33,9 @@ export const FileStatusMessage = ({
       return (
         <Text
           className={classNames(
-            ComponentClassNames.FileUploaderFileStatus,
+            ComponentClassNames.StorageManagerFileStatus,
             classNameModifier(
-              ComponentClassNames.FileUploaderFileStatus,
+              ComponentClassNames.StorageManagerFileStatus,
               'success'
             )
           )}
@@ -47,9 +47,9 @@ export const FileStatusMessage = ({
       return (
         <Text
           className={classNames(
-            ComponentClassNames.FileUploaderFileStatus,
+            ComponentClassNames.StorageManagerFileStatus,
             classNameModifier(
-              ComponentClassNames.FileUploaderFileStatus,
+              ComponentClassNames.StorageManagerFileStatus,
               'error'
             )
           )}

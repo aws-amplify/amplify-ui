@@ -14,17 +14,18 @@ export function FileList({
   resumeText,
   showThumbnails,
   uploadSuccessfulText,
-}: FileListProps) {
+}: FileListProps): JSX.Element {
   return (
-    <View className={ComponentClassNames.FileUploaderPreviewer}>
-      <View className={ComponentClassNames.FileUploaderPreviewerBody}>
-        <Text className={ComponentClassNames.FileUploaderPreviewerText}>
+    <View className={ComponentClassNames.StorageManagerPreviewer}>
+      <View className={ComponentClassNames.StorageManagerPreviewerBody}>
+        <Text className={ComponentClassNames.StorageManagerPreviewerText}>
           {/* {isSuccessful
           ? getFilesUploadedText(getUploadedFilesLength())
           : getRemainingFilesText(remainingFilesLength)} */}
         </Text>
         {files.map((storageFile) => {
-          const { file, status, progress, error, name, isImage } = storageFile;
+          const { file, status, progress, error, name, isImage, id } =
+            storageFile;
 
           // const url = file ? URL.createObjectURL(file) : '';
           const url = '';
@@ -54,6 +55,7 @@ export function FileList({
               getPausedText={getPausedText}
               getUploadingText={getUploadingText}
               isImage={isImage}
+              key={id}
               loaderIsDeterminate={loaderIsDeterminate}
               onRemove={() => console.log(`onRemove ${name}`)}
               onStartEdit={() => console.log(`onStartEdit ${name}`)}
@@ -74,13 +76,13 @@ export function FileList({
 }
 
 {
-  /* <View className={ComponentClassNames.FileUploaderPreviewerFooter}>
+  /* <View className={ComponentClassNames.StorageManagerPreviewerFooter}>
 <View>
   {isLoading && (
     <>
       <Text>{getUploadingText(aggregatePercentage)}</Text>
       <Loader
-        className={ComponentClassNames.FileUploaderLoader}
+        className={ComponentClassNames.StorageManagerLoader}
         variation="linear"
         percentage={aggregatePercentage}
         isPercentageTextHidden
@@ -90,7 +92,7 @@ export function FileList({
   )}
 </View>
 
-<View className={ComponentClassName.FileUploaderPreviewerFooterActions}>
+<View className={ComponentClassName.StorageManagerPreviewerFooterActions}>
   {!isLoading && !isSuccessful && (
     <>
       <Button size="small" variation="link" onClick={onClear}>

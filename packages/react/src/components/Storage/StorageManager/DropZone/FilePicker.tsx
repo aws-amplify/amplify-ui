@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Button,
   ComponentClassNames,
@@ -7,18 +7,19 @@ import {
 } from '../../../../primitives';
 
 export function FilePicker({
+  browseFilesText,
   onFileChange,
 }: {
   browseFilesText: string;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
+}): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>();
 
   // @todo disable dropzone if uploading files?
   return (
     <View style={{ display: 'flex' }}>
       <Button
-        className={ComponentClassNames.FileUploaderDropZoneButton}
+        className={ComponentClassNames.StorageManagerDropZoneButton}
         // isDisabled={isLoading}
         onClick={() => {
           hiddenInput.current.click();
@@ -26,7 +27,7 @@ export function FilePicker({
         }}
         size="small"
       >
-        Browse Files
+        {browseFilesText}
       </Button>
       <VisuallyHidden>
         <input
