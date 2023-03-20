@@ -37,29 +37,25 @@ runs:
         result-encoding: string
         script: |
           const { status_context, description, state, sha, target_url, owner, repo } = process.env;
-          try {
-            if (state.length == 0) {
-              throw new Error('"state" input cannot be empty.');
-            }
-
-            if (!["error", "failure", "pending", "success"].includes(state)) {
-              throw new Error('"state" must be a string input with possible value of 'error', 'failure', 'pending', 'success'.');
-            }
-
-            if (context.length <= 0) {
-              throw new Error('"context" input cannot be empty.');
-            }
-
-            if (sha.length <= 0) {
-              throw new Error('"sha" input cannot be empty.');
-            }
-
-            if (!input_string.match(/^[0-9a-z]+$/)) {
-              throw new Error('"sha" must be an alphanumeric string.');
-            }
-          } catch (e) {
-            core.setFailed(e.message);
-            return;
+          const inputValidationErrors = [];
+          if (state.length === 0) {
+            inputValidationErrors.push('"state" input cannot be empty.');
+          }
+          if (!["error", "failure", "pending", "success"].includes(state)) {
+            inputValidationErrors.push('"state" must be a string input with possible value of "error", "failure", "pending", "success".');
+          }
+          if (context.length === 0) {
+            inputValidationErrors.push('"context" input cannot be empty.');
+          }
+          if (sha.length === 0) {
+            inputValidationErrors.push('"sha" input cannot be empty.');
+          }
+          if (!sha.match(/^[0-9a-z]+$/)) {
+            inputValidationErrors.push('"sha" must be an alphanumeric string.');
+          }
+          if (inputValidationErrors.length > 0) {
+            inputValidationErrors.forEach(core.error);
+            process.exit(1);
           }
           github.rest.repos.createCommitStatus({
             owner,
