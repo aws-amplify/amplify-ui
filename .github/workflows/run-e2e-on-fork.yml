@@ -45,9 +45,11 @@ jobs:
             });
             return data.permission;
       - name: 'Fail this workflow if user does not have write permissions'
+        env:
+          PERMISSION: ${{ steps.get-permissions.outputs.result }}
         if: ${{ steps.get-permissions.outputs.result != 'write' && steps.get-permissions.outputs.result != 'admin' }}
         run: |
-          echo "${{ steps.get-permissions.outputs.result }}"
+          echo "Insufficient permission: $PERMISSION"
           exit 1
   setup:
     needs: check-write-access
