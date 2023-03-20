@@ -80,7 +80,8 @@ jobs:
             });
             const fs = require('fs');
             fs.writeFileSync('${{github.workspace}}/commit.zip', Buffer.from(data));
-      - run: unzip commit.zip
+      - name: Unzip commit.zip
+        run: unzip commit.zip
       - name: 'Read from artifact zip'
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
         id: read-artifact
