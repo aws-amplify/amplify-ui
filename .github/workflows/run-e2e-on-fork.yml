@@ -1,3 +1,9 @@
+# Description: This workflow runs e2e tests on PRs from forks when
+#              approver has write/admin permissions and
+#              'Receive Fork Review' workflow has completed successfully
+#
+# Triggered by: maintainer approves PR from forks
+
 name: Run E2E on Fork
 
 permissions:
@@ -66,14 +72,14 @@ jobs:
             const matchArtifact = artifacts.data.artifacts.filter((artifact) => {
               return artifact.name == "commit"
             })[0];
-            const download = await github.rest.actions.downloadArtifact({
+            const { data } = await github.rest.actions.downloadArtifact({
                owner,
                repo,
                artifact_id: matchArtifact.id,
                archive_format: 'zip',
             });
             const fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/commit.zip', Buffer.from(download.data));
+            fs.writeFileSync('${{github.workspace}}/commit.zip', Buffer.from(data));
       - run: unzip commit.zip
       - name: 'Read from artifact zip'
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
