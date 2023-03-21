@@ -1,0 +1,23 @@
+# Description: This workflow runs dependency review on PRs.
+#
+# Triggered by: Every commit on the PR.
+
+name: Test / Dependency Review
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+concurrency:
+  group: deps-review-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v3
