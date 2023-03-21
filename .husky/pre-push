@@ -1,6 +1,6 @@
 #!/bin/sh
 while read local_ref local_sha remote_ref remote_sha; do
-  # Check if the local branch name starts with "docs-release-pr", in which case exist successfully
+  # Check if the local branch name starts with "docs-release-pr", in which case exit successfully
   if [[ "$local_ref" =~ ^refs/heads/docs-release-pr-.* ]]; then
     exit 0
   fi
