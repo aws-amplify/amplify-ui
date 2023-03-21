@@ -5,7 +5,7 @@
 name: Test / Fork / Unit
 
 concurrency:
-  group: e2e-${{ github.event.pull_request.id }}
+  group: unit-fork-${{ github.event.pull_request.id }}
   cancel-in-progress: true
 
 on:
