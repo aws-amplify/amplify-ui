@@ -8,10 +8,7 @@ concurrency:
   group: unit-fork-${{ github.event.pull_request.id }}
   cancel-in-progress: true
 
-on:
-  pull_request:
-    branches: [approval-based-workflow/main]
-    types: [opened, synchronize]
+on: pull_request
 
 jobs:
   setup-cache:
