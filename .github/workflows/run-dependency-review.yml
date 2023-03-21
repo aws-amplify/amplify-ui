@@ -4,10 +4,7 @@
 
 name: Test / Dependency Review
 
-on:
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize]
+on: pull_request
 
 concurrency:
   group: deps-review-${{ github.event.pull_request.id }}
