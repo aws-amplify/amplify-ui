@@ -50,7 +50,7 @@ export interface FileStatusMessageProps
   > {
   status: FileState;
   errorMessage: string;
-  percentage?: number;
+  percentage: number;
 }
 
 export interface UploadDetailsProps {

@@ -6,10 +6,10 @@ export const checkMaxFileSize = ({
   getFileSizeErrorText,
 }: {
   file: File;
-  maxFileSize: number;
+  maxFileSize?: number;
   getFileSizeErrorText: (sizeText: string) => string;
 }): string => {
-  if (!maxFileSize) return '';
+  if (maxFileSize === undefined) return '';
   if (file.size > maxFileSize) {
     return getFileSizeErrorText(humanFileSize(maxFileSize, true));
   }

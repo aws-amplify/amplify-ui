@@ -19,8 +19,8 @@ function StorageManager({
   isResumable = false, // used on upload / determines if edit is shown
   // maxFileCount, // used on upload
   maxFileSize, // used on add file to set error
-  // onError, // customer handler to fire on error
-  // onSuccess, // customer handler to fire on success
+  onUploadError, // customer handler to fire on error
+  onUploadSuccess, // customer handler to fire on success
   shouldAutoUpload, // used on upload
   showThumbnails = true, //
 }: StorageManagerProps): JSX.Element {
@@ -79,6 +79,7 @@ function StorageManager({
 
         const onError = (error) => {
           console.error('something broke', error);
+          onUploadError?.(error);
         };
 
         if (isResumable) {

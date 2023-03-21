@@ -15,7 +15,7 @@ export function FilePicker({
   browseFilesText: string;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }): JSX.Element {
-  const hiddenInput = React.useRef<HTMLInputElement>();
+  const hiddenInput = React.useRef<HTMLInputElement>(null);
 
   // @todo disable dropzone if uploading files?
   return (
@@ -24,8 +24,10 @@ export function FilePicker({
         className={ComponentClassNames.StorageManagerDropZoneButton}
         // isDisabled={isLoading}
         onClick={() => {
-          hiddenInput.current.click();
-          hiddenInput.current.value = null;
+          if (hiddenInput.current) {
+            hiddenInput.current.click();
+            hiddenInput.current.value = '';
+          }
         }}
         size="small"
       >

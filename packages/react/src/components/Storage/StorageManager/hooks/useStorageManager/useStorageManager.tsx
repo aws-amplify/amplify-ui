@@ -26,7 +26,7 @@ type Action =
   | {
       type: StorageManagerActionTypes.SET_UPLOADING;
       id: string;
-      uploadTask: UploadTask;
+      uploadTask?: UploadTask;
     }
   | {
       type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS;
@@ -86,12 +86,12 @@ function reducer(
       const files = action.payload;
 
       const newUploads: StorageFiles = files.map((file) => {
-        const errorText = action.getFileErrorMessage?.(file);
+        const errorText = action.getFileErrorMessage(file);
 
         return {
           id: uuid(),
           file,
-          error: errorText ? errorText : undefined,
+          error: errorText,
           name: file.name,
           status: errorText ? FileState.ERROR : FileState.READY,
           isImage: file.type.startsWith('image/'),

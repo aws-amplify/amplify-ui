@@ -14,7 +14,7 @@ export function FileList({
   resumeText,
   showThumbnails,
   uploadSuccessfulText,
-}: FileListProps): JSX.Element {
+}: FileListProps): JSX.Element | null {
   if (files.length < 1) {
     return null;
   }

@@ -20,8 +20,8 @@ export interface StorageManagerProps {
    * Maximum file size in bytes
    */
   maxFileSize?: number;
-  onError?: (error: string) => void;
-  onSuccess?: (event: { key: string }) => void;
+  onUploadError?: (error: string) => void;
+  onUploadSuccess?: (event: { key: string }) => void;
   shouldAutoUpload?: boolean;
   showThumbnails?: boolean;
   displayText?: Partial<StorageManagerDisplayText>;

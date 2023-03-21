@@ -14,7 +14,7 @@ export const FileStatusMessage = ({
   percentage,
   status,
   uploadSuccessfulText,
-}: FileStatusMessageProps): JSX.Element => {
+}: FileStatusMessageProps): JSX.Element | null => {
   switch (status) {
     case FileState.LOADING: {
       return (

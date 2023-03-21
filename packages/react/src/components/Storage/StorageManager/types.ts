@@ -18,7 +18,7 @@ export interface StorageFile {
   progress: number;
   task?: UploadTask;
   s3Key?: string;
-  error?: string;
+  error: string;
   isImage: boolean;
 }
 
