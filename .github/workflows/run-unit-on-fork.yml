@@ -15,6 +15,8 @@ on:
 
 jobs:
   setup-cache:
+    # only run the workflow when PR is from a fork
+    if: (github.event.pull_request.head.repo.full_name != github.repository)
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
     with:
       commit: ${{ github.sha }}
