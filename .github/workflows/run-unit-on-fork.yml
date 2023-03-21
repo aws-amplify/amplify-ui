@@ -10,20 +10,20 @@ concurrency:
 
 on:
   pull_request:
-    branches: [main]
+    branches: [approval-based-workflow/main]
     types: [opened, synchronize]
 
 jobs:
   setup-cache:
     # only run the workflow when PR is from a fork
     if: (github.event.pull_request.head.repo.full_name != github.repository)
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    uses: ./.github/workflows/reusable-setup-cache.yml
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
+    uses: ./.github/workflows/reusable-unit.yml
     needs: setup-cache
     with:
       commit: ${{ github.sha }}
