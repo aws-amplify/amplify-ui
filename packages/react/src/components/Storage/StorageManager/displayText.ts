@@ -2,6 +2,9 @@ export const defaultStorageManagerDisplayText = {
   getFilesUploadedText(count: number): string {
     return `${count} ${count === 1 ? 'file uploaded' : 'files uploaded'}`;
   },
+  getFileSizeErrorText(sizeText: string): string {
+    return `File size must be below ${sizeText}`;
+  },
   getRemainingFilesText(count: number): string {
     return `${count} ${count === 1 ? 'file' : 'files'} selected`;
   },

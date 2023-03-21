@@ -9,7 +9,9 @@ import {
 export function FilePicker({
   browseFilesText,
   onFileChange,
+  acceptedFileTypes,
 }: {
+  acceptedFileTypes: string[];
   browseFilesText: string;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }): JSX.Element {
@@ -36,7 +38,7 @@ export function FilePicker({
           ref={hiddenInput}
           onChange={onFileChange}
           // multiple={allowMultipleFiles}
-          // accept={accept}
+          accept={acceptedFileTypes.join(',')}
         />
       </VisuallyHidden>
     </View>

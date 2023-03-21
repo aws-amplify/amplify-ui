@@ -12,6 +12,7 @@ export function DropZone({
   isLoading = false,
   dropFilesText,
   browseFilesText,
+  acceptedFileTypes,
 }: DropZoneProps): JSX.Element {
   const [inDropZone, setInDropZone] = useState(false);
 
@@ -45,8 +46,8 @@ export function DropZone({
     event.preventDefault();
     event.stopPropagation();
     if (isLoading) return false;
-    onChange(event);
     setInDropZone(false);
+    onChange(event);
   };
 
   return (
@@ -72,7 +73,11 @@ export function DropZone({
       <Text className={ComponentClassNames.StorageManagerDropZoneText}>
         {dropFilesText}
       </Text>
-      <FilePicker onFileChange={onChange} browseFilesText={browseFilesText} />
+      <FilePicker
+        onFileChange={onChange}
+        browseFilesText={browseFilesText}
+        acceptedFileTypes={acceptedFileTypes}
+      />
     </View>
   );
 }

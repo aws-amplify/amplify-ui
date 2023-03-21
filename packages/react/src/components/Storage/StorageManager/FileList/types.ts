@@ -40,7 +40,7 @@ export interface FileControlProps
   showThumbnails: boolean;
   size: number;
   status: FileState;
-  url: string;
+  thumbnailUrl: string;
 }
 
 export interface FileStatusMessageProps

@@ -7,7 +7,7 @@ export enum FileState {
   LOADING = 'loading',
   RESUME = 'resume',
   EDITING = 'editing',
-  INIT = 'init',
+  READY = 'ready',
 }
 
 export interface StorageFile {

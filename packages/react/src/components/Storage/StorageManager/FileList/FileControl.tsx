@@ -26,11 +26,11 @@ export function FileControl({
   // pauseText,
   progress,
   // resumeText,
-  showThumbnails,
+  showThumbnails = true,
   size,
   status,
   uploadSuccessfulText,
-  url,
+  thumbnailUrl,
 }: FileControlProps): JSX.Element {
   // @TODO add back edit capabilities
   const showEditButton = false;
@@ -39,7 +39,11 @@ export function FileControl({
     <View className={ComponentClassNames.StorageManagerFile}>
       <View className={ComponentClassNames.StorageManagerFileWrapper}>
         {showThumbnails ? (
-          <FileThumbnail isImage={isImage} fileName={displayName} url={url} />
+          <FileThumbnail
+            isImage={isImage}
+            fileName={displayName}
+            url={thumbnailUrl}
+          />
         ) : null}
 
         <UploadDetails

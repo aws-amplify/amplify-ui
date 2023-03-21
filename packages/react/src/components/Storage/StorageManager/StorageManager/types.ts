@@ -3,9 +3,22 @@ import { StorageManagerDisplayText } from '../displayText';
 
 export interface StorageManagerProps {
   acceptedFileTypes: string[];
+  /**
+   * Determines if upload can be paused/resumed
+   */
   isResumable?: boolean;
+  /**
+   * Access level for file uploads
+   * @see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
+   */
   accessLevel: StorageAccessLevel;
+  /**
+   * Maximum total files to upload in one batch
+   */
   maxFileCount?: number;
+  /**
+   * Maximum file size in bytes
+   */
   maxFileSize?: number;
   onError?: (error: string) => void;
   onSuccess?: (event: { key: string }) => void;

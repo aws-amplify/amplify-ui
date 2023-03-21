@@ -15,6 +15,10 @@ export function FileList({
   showThumbnails,
   uploadSuccessfulText,
 }: FileListProps): JSX.Element {
+  if (files.length < 1) {
+    return null;
+  }
+
   return (
     <View className={ComponentClassNames.StorageManagerPreviewer}>
       <View className={ComponentClassNames.StorageManagerPreviewerBody}>
@@ -27,8 +31,8 @@ export function FileList({
           const { file, status, progress, error, name, isImage, id } =
             storageFile;
 
-          // const url = file ? URL.createObjectURL(file) : '';
-          const url = '';
+          const thumbnailUrl = file && isImage ? URL.createObjectURL(file) : '';
+
           // @TODO: Add back when adding editing functionality
 
           // // Focus the input after pressing the edit button
@@ -39,8 +43,7 @@ export function FileList({
           //   }
           // }, [fileState]);
 
-          const loaderIsDeterminate = isResumable ? progress > 0 : true; // not important to fcustomers
-          // const isImage = file.type.startsWith('image/'); // move to state
+          const loaderIsDeterminate = isResumable ? progress > 0 : true;
           // const showEditButton =
           //   status === FileState.INIT ||
           //   (status === FileState.ERROR && error === extensionNotAllowedText);
@@ -66,7 +69,7 @@ export function FileList({
               size={file.size}
               status={status}
               uploadSuccessfulText={uploadSuccessfulText}
-              url={url}
+              thumbnailUrl={thumbnailUrl}
             />
           );
         })}
