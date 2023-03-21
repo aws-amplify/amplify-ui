@@ -1,0 +1,5 @@
+---
+"@aws-amplify/ui": patch
+---
+
+fix: export Korean tranlsations to ko key. The kr key is going to be deprecated.
