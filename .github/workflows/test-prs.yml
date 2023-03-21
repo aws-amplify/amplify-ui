@@ -46,15 +46,6 @@ jobs:
             const { ISSUE_NUMBER, REPO_OWNER, REPO_NAME, LABEL_NAME } = process.env
             github.rest.issues.removeLabel({ owner: REPO_OWNER, repo: REPO_NAME, issue_number: ISSUE_NUMBER, name: LABEL_NAME })
 
-  dependency-review:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: 'Checkout Repository'
-        uses: actions/checkout@v3
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v3
-
   setup-cache:
     needs: setup
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
