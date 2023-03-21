@@ -1,0 +1,1 @@
+export { useStorageManager } from './useStorageManager';

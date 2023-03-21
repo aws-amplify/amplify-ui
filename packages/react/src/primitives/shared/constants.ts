@@ -548,6 +548,78 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['StepperField'],
     description: 'Class applied to the StepperField input',
   },
+  StorageManagerDropZone: {
+    className: ComponentClassName.StorageManagerDropZone,
+    components: ['StorageManager'],
+  },
+  StorageManagerDropZoneIcon: {
+    className: ComponentClassName.StorageManagerDropZoneIcon,
+    components: ['StorageManager'],
+  },
+  StorageManagerDropZoneText: {
+    className: ComponentClassName.StorageManagerDropZoneText,
+    components: ['StorageManager'],
+  },
+  StorageManagerDropZoneButton: {
+    className: ComponentClassName.StorageManagerDropZoneButton,
+    components: ['StorageManager'],
+  },
+  StorageManagerFile: {
+    className: ComponentClassName.StorageManagerFile,
+    components: ['StorageManager'],
+  },
+  StorageManagerFileWrapper: {
+    className: ComponentClassName.StorageManagerFileWrapper,
+    components: ['StorageManager'],
+  },
+  StorageManagerFileName: {
+    className: ComponentClassName.StorageManagerFileName,
+    components: ['StorageManager'],
+  },
+  StorageManagerLoader: {
+    className: ComponentClassName.StorageManagerLoader,
+    components: ['StorageManager'],
+  },
+  StorageManagerFileSize: {
+    className: ComponentClassName.StorageManagerFileSize,
+    components: ['StorageManager'],
+  },
+  StorageManagerFileInfo: {
+    className: ComponentClassName.StorageManagerFileInfo,
+    components: ['StorageManager'],
+  },
+  StorageManagerFileImage: {
+    className: ComponentClassName.StorageManagerFileImage,
+    components: ['StorageManager'],
+  },
+  StorageManagerFileMain: {
+    className: ComponentClassName.StorageManagerFileMain,
+    components: ['StorageManager'],
+  },
+  StorageManagerFileStatus: {
+    className: ComponentClassName.StorageManagerFileStatus,
+    components: ['StorageManager'],
+  },
+  StorageManagerPreviewer: {
+    className: ComponentClassName.StorageManagerPreviewer,
+    components: ['StorageManager'],
+  },
+  StorageManagerPreviewerText: {
+    className: ComponentClassName.StorageManagerPreviewerText,
+    components: ['StorageManager'],
+  },
+  StorageManagerPreviewerBody: {
+    className: ComponentClassName.StorageManagerPreviewerBody,
+    components: ['StorageManager'],
+  },
+  StorageManagerPreviewerFooter: {
+    className: ComponentClassName.StorageManagerPreviewerFooter,
+    components: ['StorageManager'],
+  },
+  StorageManagerPreviewerFooterActions: {
+    className: ComponentClassName.StorageManagerPreviewerFooterActions,
+    components: ['StorageManager'],
+  },
   SwitchField: {
     className: ComponentClassName.SwitchField,
     components: ['SwitchField'],
@@ -800,6 +872,35 @@ export const ComponentClassNames: ComponentClassNamesType = {
   StepperFieldButtonIncrease:
     ComponentClassObject.StepperFieldButtonIncrease.className,
   StepperFieldInput: ComponentClassObject.StepperFieldInput.className,
+  StorageManagerDropZone: ComponentClassObject.StorageManagerDropZone.className,
+  StorageManagerDropZoneIcon:
+    ComponentClassObject.StorageManagerDropZoneIcon.className,
+  StorageManagerDropZoneText:
+    ComponentClassObject.StorageManagerDropZoneText.className,
+  StorageManagerDropZoneButton:
+    ComponentClassObject.StorageManagerDropZoneButton.className,
+  StorageManagerFile: ComponentClassObject.StorageManagerFile.className,
+  StorageManagerFileWrapper:
+    ComponentClassObject.StorageManagerFileWrapper.className,
+  StorageManagerFileName: ComponentClassObject.StorageManagerFileName.className,
+  StorageManagerLoader: ComponentClassObject.StorageManagerLoader.className,
+  StorageManagerFileSize: ComponentClassObject.StorageManagerFileSize.className,
+  StorageManagerFileInfo: ComponentClassObject.StorageManagerFileInfo.className,
+  StorageManagerFileImage:
+    ComponentClassObject.StorageManagerFileImage.className,
+  StorageManagerFileMain: ComponentClassObject.StorageManagerFileMain.className,
+  StorageManagerFileStatus:
+    ComponentClassObject.StorageManagerFileStatus.className,
+  StorageManagerPreviewer:
+    ComponentClassObject.StorageManagerPreviewer.className,
+  StorageManagerPreviewerText:
+    ComponentClassObject.StorageManagerPreviewerText.className,
+  StorageManagerPreviewerBody:
+    ComponentClassObject.StorageManagerPreviewerBody.className,
+  StorageManagerPreviewerFooter:
+    ComponentClassObject.StorageManagerPreviewerFooter.className,
+  StorageManagerPreviewerFooterActions:
+    ComponentClassObject.StorageManagerPreviewerFooterActions.className,
   SwitchField: ComponentClassObject.SwitchField.className,
   SwitchLabel: ComponentClassObject.SwitchLabel.className,
   SwitchThumb: ComponentClassObject.SwitchThumb.className,
