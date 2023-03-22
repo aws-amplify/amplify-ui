@@ -25,13 +25,17 @@ jobs:
     steps:
       - name: Remove run-codeql label, if applicable
         if: github.event.label.name == 'run-codeql'
-        uses: actions/github-script@0.3.0
+        env:
+          ISSUE_NUMBER: ${{ github.event.pull_request.number }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          LABEL_NAME: 'run-codeql'
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975 # v6.4.0 https://github.com/actions/github-script/commit/98814c53be79b1d30f795b907e553d8679345975
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { issue: { number: issue_number }, repo: { owner, repo } } = context;
-            const label = 'run-codeql';
-            github.issues.removeLabel({ owner, repo, issue_number, name: label });
+            const { ISSUE_NUMBER, REPO_OWNER, REPO_NAME, LABEL_NAME } = process.env
+            github.rest.issues.removeLabel({ owner: REPO_OWNER, repo: REPO_NAME, issue_number: ISSUE_NUMBER, name: LABEL_NAME })
 
       - name: Checkout
         uses: actions/checkout@v3

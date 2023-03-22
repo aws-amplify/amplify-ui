@@ -12,6 +12,8 @@ import {
   GithubIcon,
 } from '@/components/Icons';
 
+const nextRootSelector = '#__next';
+
 export default function Page({
   children,
   frontmatter = {},
@@ -35,9 +37,9 @@ export default function Page({
     const updateHeaders = debounce(() => {
       setHeadings(
         [
-          ...document
-            .querySelector('#__next')
-            .querySelectorAll('h2[id],h3[id]'),
+          ...document.querySelectorAll(
+            `${nextRootSelector} h2[id], ${nextRootSelector} h3[id]`
+          ),
         ].map((node: HTMLElement) => ({
           id: node.id,
           label: node.innerText,
@@ -49,7 +51,7 @@ export default function Page({
 
     const observer = new MutationObserver(updateHeaders);
 
-    observer.observe(document.querySelector('#__next'), {
+    observer.observe(document.querySelector(nextRootSelector), {
       childList: true,
       subtree: true,
     });

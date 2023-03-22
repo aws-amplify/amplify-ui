@@ -20,7 +20,7 @@ type ModelFields<Type> = {
   [Property in keyof Type]: string | number | boolean;
 };
 
-export type DataStoreActionFields<Model> =
+export type DataStoreActionFields<Model extends PersistentModel> =
   | ModelInit<Model, PersistentModelMetaData<Model>>
   | ModelFields<ModelInit<Model, PersistentModelMetaData<Model>>>;
 
@@ -39,9 +39,9 @@ export interface UseDataStoreActionOptions<Model extends PersistentModel> {
   schema?: Schema;
 }
 
-export function isAlreadyTyped<Model>(
+export function isAlreadyTyped<Model extends PersistentModel>(
   fields: DataStoreActionFields<Model>,
-  schema: Schema
+  schema?: Schema
 ): fields is ModelInit<Model, PersistentModelMetaData<Model>> {
   return !schema;
 }
