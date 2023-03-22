@@ -1,52 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import { View, ComponentClassNames, Text } from '../../../../primitives';
 import { classNameModifier } from '../../../../primitives/shared/utils';
 import { IconUpload } from '../../../../primitives/Icon/internal';
 import { DropZoneProps } from './types';
+import { useDropZone } from './useDropZone';
 
 export function DropZone({
   onChange,
-  isLoading = false,
   displayText,
   children,
 }: DropZoneProps): JSX.Element {
-  const [inDropZone, setInDropZone] = useState(false);
-  const { dropFilesText, browseFilesText } = displayText;
-  const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
-    event.dataTransfer.clearData();
-  };
-  const onDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
-  const onDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (isLoading) {
-      return false;
-    }
-    setInDropZone(false);
-  };
+  const {
+    inDropZone,
+    onDragEnter,
+    onDragLeave,
+    onDragOver,
+    onDragStart,
+    onDrop,
+  } = useDropZone({ onChange });
 
-  const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (isLoading) {
-      return false;
-    }
-    setInDropZone(true);
-    event.dataTransfer.dropEffect = 'copy';
-  };
-
-  const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (isLoading) return false;
-    setInDropZone(false);
-    onChange(event);
-  };
+  const { dropFilesText } = displayText;
 
   return (
     <View
