@@ -1,0 +1,57 @@
+{
+  "skipLegacyWorkersInjection": true,
+  "apps": {
+    "ios.debug": {
+      "type": "ios.app",
+      "binaryPath": "../../examples/react-native/ios/build/Build/Products/Debug-iphonesimulator/ReactNative.app",
+      "build": "xcodebuild -workspace ../../examples/react-native/ios/ReactNative.xcworkspace -scheme ReactNative -configuration Debug -sdk iphonesimulator -arch x86_64 -derivedDataPath ../../examples/react-native/ios/build"
+    },
+    "ios.release": {
+      "type": "ios.app",
+      "binaryPath": "../../examples/react-native/ios/build/Build/Products/Release-iphonesimulator/ReactNative.app",
+      "build": "xcodebuild -workspace ../../examples/react-native/ios/ReactNative.xcworkspace -scheme ReactNative -configuration Release -sdk iphonesimulator -arch x86_64 -derivedDataPath ../../examples/react-native/ios/build"
+    },
+    "android.debug": {
+      "type": "android.apk",
+      "binaryPath": "../../examples/react-native/android/app/build/outputs/apk/debug/app-debug.apk",
+      "build": "cd ../../examples/react-native/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ../../.."
+    },
+    "android.release": {
+      "type": "android.apk",
+      "binaryPath": "../../examples/react-native/android/app/build/outputs/apk/release/app-release.apk",
+      "build": "cd ../../examples/react-native/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ../../.."
+    }
+  },
+  "devices": {
+    "simulator": {
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 13"
+      }
+    },
+    "emulator": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Galaxy_Nexus_API_31"
+      }
+    }
+  },
+  "configurations": {
+    "ios.simulator.debug": {
+      "device": "simulator",
+      "app": "ios.debug"
+    },
+    "ios.simulator.release": {
+      "device": "simulator",
+      "app": "ios.release"
+    },
+    "android.emulator.debug": {
+      "device": "emulator",
+      "app": "android.debug"
+    },
+    "android.emulator.release": {
+      "device": "emulator",
+      "app": "android.release"
+    }
+  }
+}
