@@ -67,7 +67,7 @@ export const INSTRUCTIONS = [
     desc: (
       <div>
         When an oval appears,{' '}
-        <strong>completely fill the oval with your face</strong> within 5
+        <strong>completely fill the oval with your face</strong> within 8
         seconds.
       </div>
     ),
