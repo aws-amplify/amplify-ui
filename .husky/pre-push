@@ -1,15 +1,15 @@
 #!/bin/sh
-while read local_ref local_sha remote_ref remote_sha; do
+while read local_ref; do
   # Check if the local branch name starts with "docs-release-pr", in which case exit successfully
   if [[ "$local_ref" =~ ^refs/heads/docs-release-pr-.* ]]; then
     exit 0
   fi
   
-  # Get the list of changed files in this commit
-  changed_files="$(git diff --name-only "${local_sha}" "${remote_sha}")"
+  # get a list of all changed files between the local and upstream main branches
+  changed_files=$(git diff --name-only main..HEAD --no-merges)
 
-  # Check if any of the changed files are in the angular, react, react-native, ui or vue packages
-  if echo "${changed_files}" | grep -E '^packages/angular/|^packages/react/|^packages/react-core/|^packages/react-native/|^packages/ui/|^packages/vue/'; then
+  # Check if any of the changed files are in the src folder of the angular, react, react-core, react-native, ui or vue packages
+  if echo "${changed_files}" | grep -E '^packages/(angular/projects/ui-angular|react|react-core|react-native|ui|vue)/src/'; then
     # Check if a changeset file is present and has .md extension
     if echo "${changed_files}" | grep -E '^\.changeset/.*\.md$'; then
       exit 0
