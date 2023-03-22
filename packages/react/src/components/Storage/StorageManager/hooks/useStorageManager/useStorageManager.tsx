@@ -13,6 +13,8 @@ enum StorageManagerActionTypes {
   ADD_FILES = 'ADD_FILES',
   SET_UPLOADING = 'SET_UPLOADING',
   SET_UPLOAD_PROGRESS = 'SET_UPLOAD_PROGRESS',
+  SET_UPLOAD_SUCCESS = 'SET_UPLOAD_SUCCESS',
+  REMOVE_UPLOAD = 'REMOVE_UPLOAD',
 }
 
 type GetFileErrorMessage = (file: File) => string;
@@ -32,6 +34,14 @@ type Action =
       type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS;
       id: string;
       progress: number;
+    }
+  | {
+      type: StorageManagerActionTypes.SET_UPLOAD_SUCCESS;
+      id: string;
+    }
+  | {
+      type: StorageManagerActionTypes.REMOVE_UPLOAD;
+      id: string;
     };
 
 interface AddFilesActionParams {
@@ -74,6 +84,20 @@ export const setUploadProgressAction = ({
     type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS,
     id,
     progress,
+  };
+};
+
+export const setUploadSuccessAction = ({ id }: { id: string }): Action => {
+  return {
+    type: StorageManagerActionTypes.SET_UPLOAD_SUCCESS,
+    id,
+  };
+};
+
+export const removeUploadAction = ({ id }: { id: string }): Action => {
+  return {
+    type: StorageManagerActionTypes.REMOVE_UPLOAD,
+    id,
   };
 };
 
@@ -150,6 +174,43 @@ function reducer(
         files: newFiles,
       };
     }
+    case StorageManagerActionTypes.SET_UPLOAD_SUCCESS: {
+      const { id } = action;
+      const { files } = state;
+
+      const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
+        if (currentFile.id === id) {
+          return [
+            ...files,
+            {
+              ...currentFile,
+              status: FileState.SUCCESS,
+            },
+          ];
+        }
+        return [...files, currentFile];
+      }, []);
+      return {
+        ...state,
+        files: newFiles,
+      };
+    }
+    case StorageManagerActionTypes.REMOVE_UPLOAD: {
+      const { id } = action;
+      const { files } = state;
+
+      const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
+        if (currentFile.id === id) {
+          // remove by not returning currentFile
+          return [...files];
+        }
+        return [...files, currentFile];
+      }, []);
+      return {
+        ...state,
+        files: newFiles,
+      };
+    }
   }
 }
 
@@ -160,6 +221,8 @@ interface UseStorageManager {
   }) => void;
   setUploadingFile: (params: { id: string; uploadTask?: UploadTask }) => void;
   setUploadProgress: (params: { id: string; progress: number }) => void;
+  setUploadSuccess: (params: { id: string }) => void;
+  removeUpload: (params: { id: string }) => void;
   files: StorageFiles;
 }
 
@@ -194,8 +257,18 @@ export function useStorageManager(
     dispatch(setUploadProgressAction({ id, progress }));
   };
 
+  const setUploadSuccess: UseStorageManager['setUploadSuccess'] = ({ id }) => {
+    dispatch(setUploadSuccessAction({ id }));
+  };
+
+  const removeUpload: UseStorageManager['removeUpload'] = ({ id }) => {
+    dispatch(removeUploadAction({ id }));
+  };
+
   return {
+    removeUpload,
     setUploadProgress,
+    setUploadSuccess,
     setUploadingFile,
     addFiles,
     files,

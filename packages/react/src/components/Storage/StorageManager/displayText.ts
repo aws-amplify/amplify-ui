@@ -23,7 +23,7 @@ export const defaultStorageManagerDisplayText = {
     return message;
   },
   doneButtonText: 'Done',
-  clearButtonText: 'Clear all',
+  clearAllButtonText: 'Clear all',
   extensionNotAllowedText: 'Extension not allowed',
   browseFilesText: 'Browse files',
   dropFilesText: 'Drop files here or',

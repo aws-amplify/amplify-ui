@@ -10,12 +10,11 @@ import { FilePicker } from './FilePicker';
 export function DropZone({
   onChange,
   isLoading = false,
-  dropFilesText,
-  browseFilesText,
+  displayText,
   acceptedFileTypes,
 }: DropZoneProps): JSX.Element {
   const [inDropZone, setInDropZone] = useState(false);
-
+  const { dropFilesText, browseFilesText } = displayText;
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.clearData();
   };

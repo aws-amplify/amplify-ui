@@ -1,5 +1,5 @@
 import { Storage } from 'aws-amplify';
-import { StorageAccessLevel } from '@aws-amplify/storage';
+import { StorageAccessLevel, PutResult } from '@aws-amplify/storage';
 import { translate } from '../../../../i18n';
 
 export function uploadFile({
@@ -17,8 +17,8 @@ export function uploadFile({
   level: StorageAccessLevel;
   isResumable?: boolean;
   progressCallback: (progress: { loaded: number; total: number }) => void;
-  errorCallback: (err: string) => void;
-  completeCallback: (event: { key?: string }) => void;
+  errorCallback: (error: string) => void;
+  completeCallback: (event: PutResult) => void;
 }) {
   const contentType = file.type || 'binary/octet-stream';
   if (isResumable === true) {

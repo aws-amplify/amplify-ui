@@ -6,7 +6,7 @@ interface ContainerProps {
   className: string;
 }
 
-export function Container({
+export function FileListContainer({
   children,
   className,
 }: ContainerProps): JSX.Element {

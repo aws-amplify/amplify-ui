@@ -1,13 +1,14 @@
 import type { UploadTask } from '@aws-amplify/storage';
 
 export enum FileState {
-  PAUSED = 'paused',
-  SUCCESS = 'success',
-  ERROR = 'error',
-  LOADING = 'loading',
-  RESUME = 'resume',
-  EDITING = 'editing',
   READY = 'ready',
+  EDITING = 'editing',
+  LOADING = 'loading',
+  PAUSED = 'paused',
+  RESUME = 'resume',
+  ERROR = 'error',
+  SUCCESS = 'success',
+  UPLOADED = 'uploaded',
 }
 
 export interface StorageFile {

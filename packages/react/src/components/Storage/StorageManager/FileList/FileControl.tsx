@@ -17,8 +17,6 @@ export function FileControl({
   displayName,
   errorMessage,
   // extensionNotAllowedText,
-  getPausedText,
-  getUploadingText,
   isImage,
   loaderIsDeterminate,
   onRemove,
@@ -29,12 +27,12 @@ export function FileControl({
   showThumbnails = true,
   size,
   status,
-  uploadSuccessfulText,
+  displayText,
   thumbnailUrl,
 }: FileControlProps): JSX.Element {
   // @TODO add back edit capabilities
   const showEditButton = false;
-
+  const { getPausedText, getUploadingText, uploadSuccessfulText } = displayText;
   return (
     <View className={ComponentClassNames.StorageManagerFile}>
       <View className={ComponentClassNames.StorageManagerFileWrapper}>
@@ -62,11 +60,12 @@ export function FileControl({
             isPercentageTextHidden
           />
         ) : null}
-
-        <FileRemoveButton
-          altText={`Remove file${displayName}`}
-          onClick={onRemove}
-        />
+        {status === FileState.READY ? (
+          <FileRemoveButton
+            altText={`Remove file${displayName}`}
+            onClick={onRemove}
+          />
+        ) : null}
       </View>
       <FileStatusMessage
         uploadSuccessfulText={uploadSuccessfulText}

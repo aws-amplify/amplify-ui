@@ -1,31 +1,30 @@
 import { StorageManagerDisplayText } from '../displayText';
 import { FileState, StorageFile } from '../types';
 
-export interface FileListProps
-  extends Pick<
-    StorageManagerDisplayText,
-    | 'extensionNotAllowedText'
-    | 'pauseText'
-    | 'resumeText'
-    | 'getUploadingText'
-    | 'getPausedText'
-    | 'uploadSuccessfulText'
-  > {
+export interface FileListProps {
+  displayText: StorageManagerDisplayText;
   files: StorageFile[];
   isResumable: boolean;
+  onRemoveUpload: (id: string) => void;
   showThumbnails: boolean;
 }
 
-export interface FileControlProps
-  extends Pick<
-    StorageManagerDisplayText,
-    | 'extensionNotAllowedText'
-    | 'pauseText'
-    | 'resumeText'
-    | 'getUploadingText'
-    | 'getPausedText'
-    | 'uploadSuccessfulText'
-  > {
+// interface ComponentFileListProps extends Omit<FileListProps, 'displayText'> {
+// }
+
+interface FileListFooter {
+  hasMaxFilesError: boolean;
+  displayText: StorageManagerDisplayText;
+  allUploadsPercentage: number;
+  allUploadsSuccessful: boolean;
+  aggregatePercentage: number;
+  isLoading: boolean;
+  isSuccessful: boolean;
+  fileCount: number;
+}
+
+export interface FileControlProps {
+  displayText: StorageManagerDisplayText;
   displayName: string;
   errorMessage: string;
   isImage: boolean;
