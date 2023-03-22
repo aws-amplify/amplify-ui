@@ -37,7 +37,7 @@ fs.copyFile(
 );
 
 fs.copyFile(
-  './templates/components/react/cra/index.js',
+  './templates/components/react/cra/index-react-18.js',
   './templates/cra-template-react-js/template/src/index.js',
   (err) => {
     if (err) throw err;
@@ -46,7 +46,7 @@ fs.copyFile(
 );
 
 cp.exec(
-  `npx create-react-app react-${args.react ?? '18'}-cra-5-js${
+  `npx create-react-app ./mega-apps/react-${args.react ?? '18'}-cra-5-js${
     args.npm ? ' --use-npm' : ''
   } --template file:./templates/cra-template-react-${args.js ? 'js' : 'ts'}`,
   (error, stdout, stderr) => {
