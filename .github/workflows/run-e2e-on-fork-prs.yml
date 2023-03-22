@@ -62,7 +62,7 @@ jobs:
         env:
           owner: ${{ github.event.repository.owner.login }}
           repo: ${{ github.event.repository.name }}
-          run_id: ${{github.event.workflow_run.id }}
+          run_id: ${{ github.event.workflow_run.id }}
         with:
           script: |
             const { owner, repo, run_id } = process.env;
