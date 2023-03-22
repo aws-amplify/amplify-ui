@@ -1,0 +1,9 @@
+{
+  "package": {
+    "dependencies": {
+      "@aws-amplify/ui-react": "latest",
+      "aws-amplify": "latest",
+      "web-vitals": "^2.1.4"
+    }
+  }
+}
