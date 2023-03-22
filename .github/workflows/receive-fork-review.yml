@@ -1,0 +1,29 @@
+# Description: This workflow verifies that the PR is from a fork and is approved.
+#
+# Triggered by: PR is reviewed
+
+name: Receive Fork Review
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  fetch-commit:
+    # only run the workflow when PR is from a fork and when the PR is reviewed and approved
+    if: |
+      (github.event.pull_request.head.repo.full_name != github.repository) &&
+      (github.event.review.state == 'approved')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      # This is intended to pass commit ID to run-e2e-on-fork workflow.
+      # Reference: https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+      - name: Save commit ID
+        run: |
+          mkdir -p ./commit
+          echo ${{ github.event.review.commit_id }} > ./commit/commit_id
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        with:
+          name: commit
+          path: commit/

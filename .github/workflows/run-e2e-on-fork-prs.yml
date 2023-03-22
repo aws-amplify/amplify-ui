@@ -1,0 +1,169 @@
+# Description: This workflow runs e2e tests on PRs from forks when
+#              approver has write/admin permissions and
+#              'Receive Fork Review' workflow has completed successfully
+#
+# Triggered by: maintainer approves PR from forks
+
+name: Test / Fork / E2E
+
+permissions:
+  statuses: write # This is required for running set-status actions
+
+# This is to let only one instance of this workflow run against the same PR.
+concurrency:
+  group: run-e2e-${{ github.event.workflow_run.head_branch }}-${{ github.event.sender.login }} # This is to make the group name unique for a PR.
+  cancel-in-progress: true
+
+on:
+  workflow_run:
+    workflows: [Receive Fork Review]
+    types:
+      - completed
+
+jobs:
+  # check if approver has write/admin permissions
+  check-write-access:
+    runs-on: ubuntu-latest
+    # check if receive-fork-review workflow completed successfully
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Get user permissions to check if it is either "write" or "admin"
+        id: get-permissions
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        env:
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          username: ${{ github.event.sender.login }}
+        with:
+          result-encoding: string
+          script: |
+            const { owner, repo, username } = process.env;
+            const { data: { permission } } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner,
+              repo,
+              username
+            });
+            return permission;
+      - name: Fail this workflow if user does not have write permissions
+        env:
+          PERMISSION: ${{ steps.get-permissions.outputs.result }}
+        if: ${{ steps.get-permissions.outputs.result != 'write' && steps.get-permissions.outputs.result != 'admin' }}
+        run: |
+          echo "Insufficient permission: $PERMISSION"
+          exit 1
+  setup:
+    needs: check-write-access
+    runs-on: ubuntu-latest
+    outputs:
+      commit_id: ${{ steps.read-artifact.outputs.result }}
+    steps:
+      - name: Download artifact
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        env:
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          run_id: ${{ github.event.workflow_run.id }}
+        with:
+          script: |
+            const { owner, repo, run_id } = process.env;
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner,
+               repo,
+               run_id,
+            });
+            const matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "commit"
+            })[0];
+            const { data } = await github.rest.actions.downloadArtifact({
+               owner,
+               repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            const fs = require('fs');
+            fs.writeFileSync('${{github.workspace}}/commit.zip', Buffer.from(data));
+      - name: Unzip commit.zip
+        run: unzip commit.zip
+      - name: Read from artifact zip
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        id: read-artifact
+        with:
+          result-encoding: string
+          script: |
+            const fs = require('fs');
+            const commit_id = fs.readFileSync('./commit_id', 'utf-8');
+            return commit_id
+              .replace(/(\r\n|\n|\r)/gm, '') // remove last new line character
+              .replace(/[^A-Za-z0-9]/g, ''); // remove non-alphanumeric characters
+      # create status
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - name: Set status to commit sha
+        uses: ./.github/actions/set-status
+        with:
+          sha: ${{ steps.read-artifact.outputs.result }}
+          state: 'pending'
+          context: 'Run E2E tests'
+          description: 'E2E tests are now running'
+          # URL below is a link to the current workflow run to allow users to see the status of the workflow.
+          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
+
+  setup-cache:
+    needs: setup
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    with:
+      commit: ${{ needs.setup.outputs.commit_id }}
+      repository: ${{ github.repository }}
+
+  e2e:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    needs: [setup, setup-cache]
+    with:
+      commit: ${{ needs.setup.outputs.commit_id }}
+      repository: ${{ github.repository }}
+    secrets:
+      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+      GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
+      STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+      IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+
+  # update status on success
+  update-success-status:
+    if: ${{ success() }}
+    needs: [setup, e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - name: Update status when E2E tests are successful
+        uses: ./.github/actions/set-status
+        with:
+          sha: ${{ needs.setup.outputs.commit_id }}
+          state: 'success'
+          context: 'Run E2E tests'
+          description: 'E2E tests have finished running'
+          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
+
+  # update status on failure
+  update-failure-status:
+    if: ${{ failure() }}
+    needs: [setup, e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - name: Update status when E2E tests are not successful
+        uses: ./.github/actions/set-status
+        with:
+          sha: ${{ needs.setup.outputs.commit_id }}
+          state: 'failure'
+          context: 'Run E2E tests'
+          description: 'E2E tests have failed'
+          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
