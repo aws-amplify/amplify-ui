@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  Alert,
   Button,
   ComponentClassNames,
   Loader,
@@ -15,13 +16,18 @@ import { FileListProps } from './types';
 export function FileList({
   displayText,
   files,
+  hasMaxFilesError,
   isResumable,
   onRemoveUpload,
   showThumbnails,
+  maxFileCount,
 }: FileListProps): JSX.Element | null {
   if (files.length < 1) {
     return null;
   }
+
+  const { getMaxFilesErrorText } = displayText;
+  const headingMaxFiles = getMaxFilesErrorText(maxFileCount);
 
   return (
     <View className={'amplify-filemanager--filelist'}>
@@ -75,6 +81,9 @@ export function FileList({
           />
         );
       })}
+      {hasMaxFilesError && (
+        <Alert variation="error" heading={headingMaxFiles} />
+      )}
     </View>
   );
 }

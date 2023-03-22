@@ -1,4 +1,4 @@
-.amplify-fileuploader {
+.amplify-storagemanager {
   &__dropzone {
     background-color: var(
       --amplify-components-fileuploader-dropzone-background-color
@@ -142,9 +142,20 @@
 
   // Previewer
   &__previewer {
-    display: block;
-
+    display: flex;
+    flex-direction: column;
     max-width: var(--amplify-components-fileuploader-previewer-max-width);
+    max-height: var(--amplify-components-fileuploader-previewer-max-height);
+
+    overflow: auto;
+    gap: var(--amplify-components-fileuploader-previewer-body-gap);
+    padding-inline: var(
+      --amplify-components-fileuploader-previewer-body-padding-inline
+    );
+    padding-block: var(
+      --amplify-components-fileuploader-previewer-body-padding-block
+    );
+
     background-color: var(
       --amplify-components-fileuploader-previewer-background-color
     );
@@ -155,13 +166,6 @@
       --amplify-components-fileuploader-previewer-border-radius
     );
 
-    padding-inline: var(
-      --amplify-components-fileuploader-previewer-padding-inline
-    );
-    padding-block: var(
-      --amplify-components-fileuploader-previewer-padding-block
-    );
-
     &__text {
       font-weight: var(
         --amplify-components-fileuploader-previewer-text-font-weight
@@ -170,55 +174,6 @@
         --amplify-components-fileuploader-previewer-text-font-size
       );
       color: var(--amplify-components-fileuploader-previewer-text-color);
-    }
-
-    &__body {
-      display: flex;
-      flex-direction: column;
-      max-height: var(--amplify-components-fileuploader-previewer-max-height);
-
-      max-width: var(--amplify-components-fileuploader-previewer-max-width);
-      overflow: auto;
-      gap: var(--amplify-components-fileuploader-previewer-body-gap);
-      padding-inline: var(
-        --amplify-components-fileuploader-previewer-body-padding-inline
-      );
-      padding-block: var(
-        --amplify-components-fileuploader-previewer-body-padding-block
-      );
-    }
-
-    &__footer {
-      max-width: var(--amplify-components-fileuploader-previewer-max-width);
-      border-top-width: var(
-        --amplify-components-fileuploader-previewer-footer-border-width
-      );
-      border-top-style: var(
-        --amplify-components-fileuploader-previewer-footer-border-style
-      );
-      border-top-color: var(
-        --amplify-components-fileuploader-previewer-footer-border-color
-      );
-
-      padding-inline: var(
-        --amplify-components-fileuploader-previewer-footer-padding-inline
-      );
-      padding-block: var(
-        --amplify-components-fileuploader-previewer-footer-padding-block
-      );
-
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      justify-content: var(
-        --amplify-components-fileuploader-previewer-footer-justify-content
-      );
-
-      &__actions {
-        display: flex;
-        flex-direction: row;
-        gap: var(--amplify-space-small);
-      }
     }
   }
 }

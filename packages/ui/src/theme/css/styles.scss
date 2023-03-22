@@ -91,7 +91,6 @@ select {
 @import './component/expander.scss';
 @import './component/field.scss';
 @import './component/fieldGroup.scss';
-@import './component/fileUploader.scss';
 @import './component/menu.scss';
 @import './component/pagination.scss';
 @import './component/passwordField.scss';
@@ -118,6 +117,8 @@ select {
 @import './component/inAppMessaging/fullScreenMessage.scss';
 @import './component/inAppMessaging/messageLayout.scss';
 @import './component/inAppMessaging/modalMessage.scss';
+// StorageManager component
+@import './component/StorageManager/storageManager.scss';
 
 // This comes after the field styles so it can override them
 @import './component/fieldModifiers.scss';

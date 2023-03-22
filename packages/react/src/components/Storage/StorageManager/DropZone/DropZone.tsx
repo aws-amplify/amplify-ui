@@ -5,13 +5,12 @@ import { View, ComponentClassNames, Text } from '../../../../primitives';
 import { classNameModifier } from '../../../../primitives/shared/utils';
 import { IconUpload } from '../../../../primitives/Icon/internal';
 import { DropZoneProps } from './types';
-import { FilePicker } from './FilePicker';
 
 export function DropZone({
   onChange,
   isLoading = false,
   displayText,
-  acceptedFileTypes,
+  children,
 }: DropZoneProps): JSX.Element {
   const [inDropZone, setInDropZone] = useState(false);
   const { dropFilesText, browseFilesText } = displayText;
@@ -72,11 +71,7 @@ export function DropZone({
       <Text className={ComponentClassNames.StorageManagerDropZoneText}>
         {dropFilesText}
       </Text>
-      <FilePicker
-        onFileChange={onChange}
-        browseFilesText={browseFilesText}
-        acceptedFileTypes={acceptedFileTypes}
-      />
+      {children}
     </View>
   );
 }

@@ -6,7 +6,7 @@ export const defaultStorageManagerDisplayText = {
     return `File size must be below ${sizeText}`;
   },
   getRemainingFilesText(count: number): string {
-    return `${count} ${count === 1 ? 'file' : 'files'} selected`;
+    return `${count} ${count === 1 ? 'file' : 'files'} uploading`;
   },
   getUploadingText(percentage: number): string {
     return `Uploading${percentage > 0 ? `: ${percentage}%` : ''}`;

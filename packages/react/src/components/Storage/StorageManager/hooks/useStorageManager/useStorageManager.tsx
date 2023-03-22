@@ -1,5 +1,5 @@
 import React from 'react';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 
 import { UploadTask } from '@aws-amplify/storage';
 
@@ -15,6 +15,7 @@ enum StorageManagerActionTypes {
   SET_UPLOAD_PROGRESS = 'SET_UPLOAD_PROGRESS',
   SET_UPLOAD_SUCCESS = 'SET_UPLOAD_SUCCESS',
   REMOVE_UPLOAD = 'REMOVE_UPLOAD',
+  REMOVE_ALL_UPLOADS = 'REMOVE_UPLOADS',
 }
 
 type GetFileErrorMessage = (file: File) => string;
@@ -113,7 +114,7 @@ function reducer(
         const errorText = action.getFileErrorMessage(file);
 
         return {
-          id: uuid(),
+          id: nanoid(),
           file,
           error: errorText,
           name: file.name,

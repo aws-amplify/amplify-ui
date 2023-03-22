@@ -5,24 +5,25 @@ import {
   View,
   VisuallyHidden,
 } from '../../../../primitives';
+import { StorageManagerDisplayText } from '../displayText';
 
 export function FilePicker({
-  browseFilesText,
   onFileChange,
   acceptedFileTypes,
+  allowMultipleFiles,
+  displayText,
 }: {
   acceptedFileTypes: string[];
-  browseFilesText: string;
+  displayText: StorageManagerDisplayText;
+  allowMultipleFiles: boolean;
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>(null);
-
-  // @todo disable dropzone if uploading files?
+  const { browseFilesText } = displayText;
   return (
-    <View style={{ display: 'flex' }}>
+    <View>
       <Button
         className={ComponentClassNames.StorageManagerDropZoneButton}
-        // isDisabled={isLoading}
         onClick={() => {
           if (hiddenInput.current) {
             hiddenInput.current.click();
@@ -39,7 +40,7 @@ export function FilePicker({
           tabIndex={-1}
           ref={hiddenInput}
           onChange={onFileChange}
-          // multiple={allowMultipleFiles}
+          multiple={allowMultipleFiles}
           accept={acceptedFileTypes.join(',')}
         />
       </VisuallyHidden>

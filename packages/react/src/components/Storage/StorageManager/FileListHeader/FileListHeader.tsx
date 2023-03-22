@@ -15,12 +15,12 @@ export function FileListHeader({
   displayText,
   allUploadsSuccessful,
 }: FileListHeaderProps): JSX.Element {
-  const { getFilesUploadedText } = displayText;
+  const { getFilesUploadedText, getRemainingFilesText } = displayText;
   return (
     <Text className={ComponentClassNames.StorageManagerPreviewerText}>
       {allUploadsSuccessful
         ? getFilesUploadedText(fileCount)
-        : getFilesUploadedText(remainingFilesCount)}
+        : getRemainingFilesText(remainingFilesCount)}
     </Text>
   );
 }

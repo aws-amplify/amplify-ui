@@ -7,6 +7,8 @@ export interface FileListProps {
   isResumable: boolean;
   onRemoveUpload: (id: string) => void;
   showThumbnails: boolean;
+  hasMaxFilesError: boolean;
+  maxFileCount: number;
 }
 
 // interface ComponentFileListProps extends Omit<FileListProps, 'displayText'> {
