@@ -1,4 +1,5 @@
-import { exec } from 'child_process';
+import fs from 'fs';
+import cp from 'child_process';
 import { getArgs } from './utils/getArgs';
 
 type Args = {
@@ -17,18 +18,34 @@ if (args.npm && !['true', 'false', true].includes(args.npm)) {
   console.log('npm must be "true" or "false".');
 }
 
-exec(
-  `cp ./environments/src/aws-exports.js ./templates/cra-template-react-js/template/src/aws-exports.js`,
-  (error, stdout, stderr) => {
-    console.log(stdout);
-    console.log(stderr);
-    if (error !== null) {
-      console.log(`exec error: ${error}`);
-    }
+fs.copyFile(
+  './environments/src/aws-exports.js',
+  './templates/cra-template-react-js/template/src/aws-exports.js',
+  (err) => {
+    if (err) throw err;
+    console.log('Copied aws-exports.js to template');
   }
 );
 
-exec(
+fs.copyFile(
+  './templates/components/react/App.js',
+  './templates/cra-template-react-js/template/src/App.js',
+  (err) => {
+    if (err) throw err;
+    console.log('Copied App.js to template');
+  }
+);
+
+fs.copyFile(
+  './templates/components/react/cra/index.js',
+  './templates/cra-template-react-js/template/src/index.js',
+  (err) => {
+    if (err) throw err;
+    console.log('Copied index.js to template');
+  }
+);
+
+cp.exec(
   `npx create-react-app react-${args.react ?? '18'}-cra-5-js${
     args.npm ? ' --use-npm' : ''
   } --template file:./templates/cra-template-react-${args.js ? 'js' : 'ts'}`,
