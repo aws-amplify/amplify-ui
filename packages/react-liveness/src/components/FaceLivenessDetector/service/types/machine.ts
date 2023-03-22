@@ -24,6 +24,7 @@ import { Face, FaceDetection } from './faceDetection';
 export interface FaceMatchAssociatedParams {
   illuminationState: IlluminationState;
   faceMatchState: FaceMatchState;
+  faceMatchPercentage: number;
   currentDetectedFace: Face;
   startFace: Face;
   endFace: Face;

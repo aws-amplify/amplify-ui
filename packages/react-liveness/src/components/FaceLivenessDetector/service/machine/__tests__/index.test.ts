@@ -109,6 +109,7 @@ describe('Liveness Machine', () => {
     faceMatchAssociatedParams: {
       illuminationState: IlluminationState.NORMAL,
       faceMatchState: FaceMatchState.MATCHED,
+      matchPercentage: 100,
       currentDetectedFace: mockFace,
       startFace: mockFace,
       endFace: mockFace,
@@ -198,9 +199,11 @@ describe('Liveness Machine', () => {
     mockedHelpers.getOvalDetailsFromSessionInformation.mockImplementation(
       () => mockOvalDetails
     );
-    mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(
-      () => FaceMatchState.MATCHED
-    );
+    mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(() => {
+      const faceMatchState = FaceMatchState.MATCHED;
+      const faceMatchPercentage = 100;
+      return { faceMatchState, faceMatchPercentage };
+    });
 
     mockedHelpers.FreshnessColorDisplay.mockImplementation(
       () => mockFreshnessColorDisplay
@@ -618,9 +621,11 @@ describe('Liveness Machine', () => {
     });
 
     it('should reach checkMatch state after detectFaceAndMatchOval does not match', async () => {
-      mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(
-        () => FaceMatchState.TOO_CLOSE
-      );
+      mockedHelpers.getFaceMatchStateInLivenessOval.mockImplementation(() => {
+        const faceMatchState = FaceMatchState.TOO_CLOSE;
+        const faceMatchPercentage = 0;
+        return { faceMatchState, faceMatchPercentage };
+      });
 
       await transitionToRecording(service);
       await flushPromises(); // detectInitialFaceAndDrawOval

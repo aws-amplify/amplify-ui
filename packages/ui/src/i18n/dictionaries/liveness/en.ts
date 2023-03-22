@@ -12,8 +12,8 @@ export const enDict = {
     'Move to a well-lit place that is not in direct sunlight.',
   'Set your screen display to maximum brightness.':
     'Set your screen display to maximum brightness.',
-  'When an oval appears, completely fill the oval with your face within 5 seconds.':
-    'When an oval appears, completely fill the oval with your face within 5 seconds.',
+  'When an oval appears, completely fill the oval with your face within 8 seconds.':
+    'When an oval appears, completely fill the oval with your face within 8 seconds.',
   'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.':
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
 
@@ -31,8 +31,7 @@ export const enDict = {
   'Connecting...': 'Connecting...',
   'Move face in front of camera': 'Move face in front of camera',
   'Hold face position during countdown': 'Hold face position during countdown',
-  'Hold face in oval for colored lights':
-    'Hold face in oval for colored lights',
+  'Hold still': 'Hold still',
   'Verifying...': 'Verifying...',
   'Check unsuccessful': 'Check unsuccessful',
   'Check successful': 'Check successful',
@@ -44,8 +43,8 @@ export const enDict = {
   'Move to brighter area': 'Move to brighter area',
 
   // Face Match State
-  'Move face farther away': 'Move face farther away',
-  'Move face closer and fill oval': 'Move face closer and fill oval',
+  'Move back': 'Move back',
+  'Move closer': 'Move closer',
   'Move face right': 'Move face right',
   'Move face left': 'Move face left',
   'Move face to fit in oval': 'Move face to fit in oval',
@@ -54,8 +53,8 @@ export const enDict = {
   'Cannot complete check due to server issue':
     'Cannot complete check due to server issue',
   'Check failed due to client issue': 'Check failed due to client issue',
-  "Face didn't fill oval within time limit. Try again and completely fill oval with face within 5 seconds.":
-    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 5 seconds.",
+  "Face didn't fill oval within time limit. Try again and completely fill oval with face within 8 seconds.":
+    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 8 seconds.",
   'Time out': 'Time out',
   'Check failed during countdown': 'Check failed during countdown',
   'Ensure only one face is in front of camera and avoid moving closer during countdown.':

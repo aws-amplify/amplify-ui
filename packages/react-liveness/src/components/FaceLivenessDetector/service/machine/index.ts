@@ -5,6 +5,8 @@ import {
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
   getBoundingBox,
+  getIntersectionOverUnion,
+  getOvalBoundingBox,
   isFaceDistanceBelowThreshold,
   generateBboxFromLandmarks,
 } from '../utils/liveness';
@@ -76,6 +78,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       faceMatchAssociatedParams: {
         illuminationState: undefined,
         faceMatchState: undefined,
+        faceMatchPercentage: 0,
         currentDetectedFace: undefined,
         startFace: undefined,
         endFace: undefined,
@@ -588,6 +591,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         faceMatchAssociatedParams: (context, event) => ({
           ...context.faceMatchAssociatedParams,
           faceMatchState: event.data.faceMatchState,
+          faceMatchPercentage: event.data.faceMatchPercentage,
           illuminationState: event.data.illuminationState,
           currentDetectedFace: event.data.detectedFace,
         }),
@@ -698,7 +702,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalMatchDelay: actions.send(
         { type: 'TIMEOUT' },
         {
-          delay: 5000,
+          delay: 8000,
           id: 'ovalMatchTimeout',
         }
       ),
@@ -1102,7 +1106,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async detectFaceAndMatchOval(context) {
         const {
           videoAssociatedParams: { videoEl, canvasEl },
-          ovalAssociatedParams: { faceDetector, ovalDetails, scaleFactor },
+          ovalAssociatedParams: {
+            faceDetector,
+            ovalDetails,
+            scaleFactor,
+            initialFace,
+          },
           serverSessionInformation,
         } = context;
 
@@ -1110,8 +1119,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const before = Date.now();
         const detectedFaces = await faceDetector.detectFaces(videoEl);
         let faceMatchState: FaceMatchState;
+        let faceMatchPercentage: number = 0;
         let detectedFace: Face;
         let illuminationState: IlluminationState;
+
+        const initialFaceBoundingBox = generateBboxFromLandmarks(
+          initialFace,
+          ovalDetails
+        );
+
+        const { ovalBoundingBox } = getOvalBoundingBox(ovalDetails);
+
+        const initialFaceIntersection = getIntersectionOverUnion(
+          initialFaceBoundingBox,
+          ovalBoundingBox
+        );
 
         switch (detectedFaces.length) {
           case 0: {
@@ -1123,11 +1145,18 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           case 1: {
             //exactly one face detected, match face with oval;
             detectedFace = detectedFaces[0];
-            faceMatchState = getFaceMatchStateInLivenessOval(
+            const {
+              faceMatchState: faceMatchStateInLivenessOval,
+              faceMatchPercentage: faceMatchPercentageInLivenessOval,
+            } = getFaceMatchStateInLivenessOval(
               detectedFace,
               ovalDetails,
+              initialFaceIntersection,
               serverSessionInformation
             );
+
+            faceMatchState = faceMatchStateInLivenessOval;
+            faceMatchPercentage = faceMatchPercentageInLivenessOval;
             break;
           }
           default: {
@@ -1137,7 +1166,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           }
         }
 
-        return { faceMatchState, illuminationState, detectedFace };
+        return {
+          faceMatchState,
+          faceMatchPercentage,
+          illuminationState,
+          detectedFace,
+        };
       },
       async flashColors(context) {
         const {

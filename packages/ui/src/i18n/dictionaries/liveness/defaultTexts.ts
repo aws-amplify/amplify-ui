@@ -12,7 +12,7 @@ export const defaultTexts = {
   LIVENESS_INSTRUCTION_BRIGHTNESS:
     'Set your screen display to maximum brightness.',
   LIVENESS_INSTRUCTION_OVAL:
-    'When an oval appears, completely fill the oval with your face within 5 seconds.',
+    'When an oval appears, completely fill the oval with your face within 8 seconds.',
   LIVENESS_WARNING_POPOVER:
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
 
@@ -29,7 +29,7 @@ export const defaultTexts = {
   LIVENESS_CHECK_CONNECTING: 'Connecting...',
   LIVENESS_HINT_NO_FACE_DETECTED: 'Move face in front of camera',
   LIVENESS_INSTRUCTION_FIT_OVAL: 'Hold face position during countdown',
-  LIVENESS_INSTRUCTION_HOLD_OVAL: 'Hold face in oval for colored lights',
+  LIVENESS_INSTRUCTION_HOLD_OVAL: 'Hold still',
   LIVENESS_VERIFYING: 'Verifying...',
   LIVENESS_CHECK_FAILED: 'Check unsuccessful',
   LIVENESS_CHECK_SUCCEEDED: 'Check successful',
@@ -41,8 +41,8 @@ export const defaultTexts = {
   LIVENESS_HINT_LIGHTING_DARK: 'Move to brighter area',
 
   // Face Match State
-  LIVENESS_HINT_FACE_TOO_CLOSE: 'Move face farther away',
-  LIVENESS_HINT_FACE_TOO_FAR: 'Move face closer and fill oval',
+  LIVENESS_HINT_FACE_TOO_CLOSE: 'Move back',
+  LIVENESS_HINT_FACE_TOO_FAR: 'Move closer',
   LIVENESS_HINT_FACE_TOO_LEFT: 'Move face right',
   LIVENESS_HINT_FACE_TOO_RIGHT: 'Move face left',
   LIVENESS_HINT_MOVE_FACE_INSTRUCTION: 'Move face to fit in oval',
@@ -50,7 +50,7 @@ export const defaultTexts = {
   // Error messages
   LIVENESS_ERROR: 'Check encountered an error',
   LIVENESS_TIMEOUT:
-    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 5 seconds.",
+    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 8 seconds.",
   LIVENESS_FACE_DISTANCE_ERROR_TITLE: 'Check failed during countdown',
   LIVENESS_FACE_DISTANCE_ERROR:
     'Ensure only one face is in front of camera and avoid moving closer during countdown.',

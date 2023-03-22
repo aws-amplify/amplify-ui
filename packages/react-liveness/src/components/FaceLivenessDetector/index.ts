@@ -6,7 +6,3 @@ export {
   FaceLivenessErrorModal,
   FaceLivenessErrorModalProps,
 } from './shared/FaceLivenessErrorModal';
-export {
-  FaceLivenessFailureModal,
-  FaceLivenessFailureModalProps,
-} from './shared/FaceLivenessFailureModal';

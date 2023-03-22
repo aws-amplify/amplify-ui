@@ -11,9 +11,11 @@ export enum LivenessClassNames {
   FreshnessCanvas = 'amplify-liveness-freshness-canvas',
   InstructionOverlay = 'amplify-liveness-instruction-overlay',
   Loader = 'amplify-liveness-loader',
+  MatchIndicator = 'amplify-liveness-match-indicator',
   OvalCanvas = 'amplify-liveness-oval-canvas',
   RecordingIconContainer = 'amplify-liveness-recording-icon-container',
   RecordingIcon = 'amplify-liveness-recording-icon',
+  Toast = 'amplify-liveness-toast',
   Video = 'amplify-liveness-video',
   VideoAnchor = 'amplify-liveness-video-anchor',
 }

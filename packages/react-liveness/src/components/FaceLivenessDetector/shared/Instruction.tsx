@@ -127,12 +127,21 @@ export const Instruction: React.FC<InstructionProps> = () => {
 
     if (isFlashingFreshness) {
       return (
-        <Toast>{translate(DefaultTexts.LIVENESS_INSTRUCTION_HOLD_OVAL)}</Toast>
+        <Toast size="large" variation="primary">
+          {translate(DefaultTexts.LIVENESS_INSTRUCTION_HOLD_OVAL)}
+        </Toast>
       );
     }
 
     return FaceMatchStateStringMap[faceMatchState] ? (
-      <Toast>{FaceMatchStateStringMap[faceMatchState]}</Toast>
+      <Toast
+        size="large"
+        variation={
+          faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
+        }
+      >
+        {FaceMatchStateStringMap[faceMatchState]}
+      </Toast>
     ) : null;
   };
 

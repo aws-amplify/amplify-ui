@@ -11,7 +11,13 @@ import {
   UseMediaStreamInVideo,
 } from '../hooks';
 
-import { CancelButton, Instruction, RecordingIcon, Overlay } from '../shared';
+import {
+  CancelButton,
+  Instruction,
+  RecordingIcon,
+  Overlay,
+  MatchIndicator,
+} from '../shared';
 import { LivenessClassNames } from '../types/classNames';
 
 export const selectVideoConstraints = createLivenessSelector(
@@ -19,6 +25,9 @@ export const selectVideoConstraints = createLivenessSelector(
 );
 export const selectVideoStream = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoMediaStream
+);
+export const selectFaceMatchPercentage = createLivenessSelector(
+  (state) => state.context.faceMatchAssociatedParams.faceMatchPercentage
 );
 
 export interface LivenessCameraModuleProps {
@@ -44,6 +53,7 @@ export const LivenessCameraModule = (
 
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
+  const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
 
   const { videoRef, videoWidth, videoHeight } = useMediaStreamInVideo(
     videoStream,
@@ -59,6 +69,9 @@ export const LivenessCameraModule = (
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
+  const isFlashingFreshness = state.matches({
+    recording: 'flashFreshnessColors',
+  });
 
   // Android/Firefox and iOS flip the values of width/height returned from
   // getUserMedia, so we'll reset these in useLayoutEffect with the videoRef
@@ -116,7 +129,6 @@ export const LivenessCameraModule = (
         LivenessClassNames.CameraModule,
         isMobileScreen && `${LivenessClassNames.CameraModule}--mobile`
       )}
-      border={`1px solid ${tokens.colors.border.primary}`} // FIXME: this only makes sense in light mode
     >
       {!isCameraReady && centeredLoader}
 
@@ -168,10 +180,17 @@ export const LivenessCameraModule = (
 
         {countDownRunning && (
           <Overlay
-            anchorOrigin={{ horizontal: 'center', vertical: 'space-between' }}
+            anchorOrigin={{
+              horizontal: 'center',
+              vertical:
+                isRecording && !isFlashingFreshness ? 'start' : 'space-between',
+            }}
             className={LivenessClassNames.InstructionOverlay}
           >
             <Instruction />
+            {isRecording && !isFlashingFreshness ? (
+              <MatchIndicator percentage={faceMatchPercentage} />
+            ) : null}
 
             {isNotRecording && (
               <View

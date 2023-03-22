@@ -124,6 +124,7 @@ export const mockContext = (): LivenessContext => {
     faceMatchAssociatedParams: {
       illuminationState: IlluminationState.NORMAL,
       faceMatchState: FaceMatchState.MATCHED,
+      faceMatchPercentage: 100,
       currentDetectedFace: mockFace,
       startFace: mockFace,
       endFace: mockFace,

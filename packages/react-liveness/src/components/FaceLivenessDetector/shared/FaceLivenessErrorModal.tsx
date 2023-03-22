@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { translate } from '@aws-amplify/ui';
-import { Flex, Button } from '@aws-amplify/ui-react';
+import { Flex, Button, Text } from '@aws-amplify/ui-react';
+import { AlertIcon } from '@aws-amplify/ui-react/internal';
 
 import { LivenessErrorState, LivenessErrorStateStringMap } from '../service';
 
@@ -37,7 +38,16 @@ const renderToastErrorModal = (props: FaceLivenessErrorModalProps) => {
 
   return (
     <Overlay backgroundColor="overlay.40">
-      <Toast heading={heading} variation="error">
+      <Toast>
+        <Flex
+          gap="xs"
+          alignItems="center"
+          justifyContent="center"
+          color="font.error"
+        >
+          <AlertIcon ariaHidden variation="error" />
+          <Text fontWeight="bold">{heading}</Text>
+        </Flex>
         {errorState &&
           LivenessErrorStateStringMap[errorState as LivenessErrorState]}
         <Flex justifyContent="center">

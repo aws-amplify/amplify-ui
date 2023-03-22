@@ -33,10 +33,38 @@ function getScaledValueFromRandomSeed(
   return randomSeed * (max - min) + min;
 }
 
+interface OvalBoundingBox {
+  ovalBoundingBox: BoundingBox;
+  minOvalX: number;
+  maxOvalX: number;
+  minOvalY: number;
+  maxOvalY: number;
+}
+
+/**
+ * Returns the bounding box details from an oval
+ */
+export function getOvalBoundingBox(
+  ovalDetails: LivenessOvalDetails
+): OvalBoundingBox {
+  const minOvalX = ovalDetails.flippedCenterX - ovalDetails.width / 2;
+  const maxOvalX = ovalDetails.flippedCenterX + ovalDetails.width / 2;
+  const minOvalY = ovalDetails.centerY - ovalDetails.height / 2;
+  const maxOvalY = ovalDetails.centerY + ovalDetails.height / 2;
+  const ovalBoundingBox: BoundingBox = {
+    left: minOvalX,
+    top: minOvalY,
+    right: maxOvalX,
+    bottom: maxOvalY,
+  };
+
+  return { ovalBoundingBox, minOvalX, maxOvalX, minOvalY, maxOvalY };
+}
+
 /**
  * Returns the ratio of intersection and union of two bounding boxes.
  */
-function getIntersectionOverUnion(
+export function getIntersectionOverUnion(
   box1: BoundingBox,
   box2: BoundingBox
 ): number {
@@ -213,14 +241,20 @@ export function drawLivenessOvalInCanvas({
   }
 }
 
+interface FaceMatchStateInLivenessOval {
+  faceMatchState: FaceMatchState;
+  faceMatchPercentage: number;
+}
+
 /**
  * Returns the state of the provided face with respect to the provided liveness oval.
  */
 export function getFaceMatchStateInLivenessOval(
   face: Face,
   ovalDetails: LivenessOvalDetails,
+  initialFaceIntersection: number,
   sessionInformation: SessionInformation
-): FaceMatchState {
+): FaceMatchStateInLivenessOval {
   let faceMatchState: FaceMatchState;
 
   const {
@@ -241,16 +275,8 @@ export function getFaceMatchStateInLivenessOval(
   const minFaceY = faceBoundingBox.top;
   const maxFaceY = faceBoundingBox.bottom;
 
-  const minOvalX = ovalDetails.flippedCenterX - ovalDetails.width / 2;
-  const maxOvalX = ovalDetails.flippedCenterX + ovalDetails.width / 2;
-  const minOvalY = ovalDetails.centerY - ovalDetails.height / 2;
-  const maxOvalY = ovalDetails.centerY + ovalDetails.height / 2;
-  const ovalBoundingBox: BoundingBox = {
-    left: minOvalX,
-    top: minOvalY,
-    right: maxOvalX,
-    bottom: maxOvalY,
-  };
+  const { ovalBoundingBox, minOvalX, minOvalY, maxOvalX, maxOvalY } =
+    getOvalBoundingBox(ovalDetails);
 
   const intersection = getIntersectionOverUnion(
     faceBoundingBox,
@@ -263,6 +289,20 @@ export function getFaceMatchStateInLivenessOval(
   const faceDetectionWidthThreshold = ovalDetails.width * FaceIouWidthThreshold;
   const faceDetectionHeightThreshold =
     ovalDetails.height * FaceIouHeightThreshold;
+
+  /** From Science
+   * p=max(min(1,0.75∗(si​−s0​)/(st​−s0​)+0.25)),0)
+   */
+  const faceMatchPercentage =
+    Math.max(
+      Math.min(
+        1,
+        (0.75 * (intersection - initialFaceIntersection)) /
+          (intersectionThreshold - initialFaceIntersection) +
+          0.25
+      ),
+      0
+    ) * 100;
 
   if (
     intersection > intersectionThreshold &&
@@ -282,7 +322,7 @@ export function getFaceMatchStateInLivenessOval(
     faceMatchState = FaceMatchState.TOO_FAR;
   }
 
-  return faceMatchState;
+  return { faceMatchState, faceMatchPercentage };
 }
 
 function getPupilDistanceAndFaceHeight(face: Face) {
@@ -406,14 +446,14 @@ export const IlluminationStateStringMap: Record<IlluminationState, string> = {
 
 export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
   [FaceMatchState.CANT_IDENTIFY]: translate('Move face in front of camera'),
-  [FaceMatchState.FACE_IDENTIFIED]: translate('Move face closer and fill oval'),
+  [FaceMatchState.FACE_IDENTIFIED]: translate('Move closer'),
   [FaceMatchState.TOO_MANY]: translate(
     'Ensure only one face is in front of camera'
   ),
   [FaceMatchState.TOO_CLOSE]: translate(
     DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE
   ),
-  [FaceMatchState.TOO_FAR]: translate('Move face closer and fill oval'),
+  [FaceMatchState.TOO_FAR]: translate('Move closer'),
   [FaceMatchState.TOO_LEFT]: translate('Move face right'),
   [FaceMatchState.TOO_RIGHT]: translate('Move face left'),
   [FaceMatchState.MATCHED]: '',
@@ -427,7 +467,7 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
     'Cannot complete check due to server issue'
   ),
   [LivenessErrorState.TIMEOUT]: translate<string>(
-    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 5 seconds."
+    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 8 seconds."
   ),
   [LivenessErrorState.FACE_DISTANCE_ERROR]: translate<string>(
     'Ensure only one face is in front of camera and avoid moving closer during countdown.'
