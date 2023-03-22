@@ -13,7 +13,7 @@ on: pull_request
 jobs:
   setup-cache:
     # only run the workflow when PR is from a fork
-    if: (github.event.pull_request.head.repo.full_name != github.repository)
+    if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
     uses: ./.github/workflows/reusable-setup-cache.yml
     with:
       commit: ${{ github.sha }}
