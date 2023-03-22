@@ -1,23 +1,28 @@
 #!/bin/sh
-while read local_ref; do
-  # Check if the local branch name starts with "docs-release-pr", in which case exit successfully
-  if [[ "$local_ref" =~ ^refs/heads/docs-release-pr-.* ]]; then
-    exit 0
-  fi
-  
-  # get a list of all changed files between the local and upstream main branches
-  changed_files=$(git diff --name-only main..HEAD --no-merges)
 
-  # Check if any of the changed files are in the src folder of the angular, react, react-core, react-native, ui or vue packages
-  if echo "${changed_files}" | grep -E '^packages/(angular/projects/ui-angular|react|react-core|react-native|ui|vue)/src/'; then
-    # Check if a changeset file is present and has .md extension
-    if echo "${changed_files}" | grep -E '^\.changeset/.*\.md$'; then
-      exit 0
-    else
-      echo "ERROR: These changes should result in a version bump but no changeset was found! \nPlease add a changeset file by running yarn changeset."
-      exit 1
-    fi
+# Fail fast, exit immediately on any error
+set -e
+
+# Get the name of the current branch
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Check if the local branch name starts with "docs-release-pr" or "changeset-release/main", in which case exit successfully
+if [[ "$current_branch" =~ ^(docs-release-pr-.*|changeset-release/main)$ ]]; then
+  exit 0
+fi
+
+# Get the list of all changed files between the local and upstream main branches
+changed_files=$(git diff --name-only main..HEAD --no-merges)
+
+# Check if any of the changed files are in the src folder of the angular, react, react-core, react-native, ui or vue packages
+if echo "${changed_files}" | grep -E '^packages/(angular/projects/ui-angular|react|react-core|react-native|ui|vue)/src/'; then
+  # Check if a changeset file is present and has .md extension
+  if echo "${changed_files}" | grep -E '^\.changeset/.*\.md$'; then
+    exit 0
+  else
+    echo "ERROR: These changes should result in a version bump but no changeset was found! \nPlease add a changeset file by running yarn changeset."
+    exit 1
   fi
-done
+fi
 
 exit 0
