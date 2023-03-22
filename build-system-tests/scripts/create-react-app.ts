@@ -37,7 +37,7 @@ fs.copyFile(
 );
 
 fs.copyFile(
-  './templates/components/react/cra/index-react-18.js',
+  './templates/components/react/cra/index-react-16.js',
   './templates/cra-template-react-js/template/src/index.js',
   (err) => {
     if (err) throw err;
