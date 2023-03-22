@@ -42,11 +42,11 @@ jobs:
             build-tool: vuecli
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v3
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
           persist-credentials: false
       - name: Setup Node.js 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c #v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16
           cache: 'yarn'
@@ -87,7 +87,7 @@ jobs:
       # This steps attempts to restore cypress runner. It will not create any new
       # cache entries however, because cypress runner isn't available yet.
       - name: Restore cypress runner from Cache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 #v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
@@ -106,7 +106,7 @@ jobs:
       # step, so we go ahead and update the cache entry.
       - name: Cache cypress runner
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 #v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
@@ -127,7 +127,7 @@ jobs:
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
       - name: Upload videos and screenshots
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce #v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         if: ${{ failure() && steps.e2e.outcome != 'success' }}
         with:
           name: canary-cypress-error-${{ matrix.framework }}-${{ matrix.build-tool }}

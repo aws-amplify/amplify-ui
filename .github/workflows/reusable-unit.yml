@@ -30,14 +30,14 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@v3
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
           ref: ${{ inputs.commit }}
           repository: ${{ inputs.repository }}
           persist-credentials: false
 
       - name: Setup Node.js 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c #v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: 16
           cache: 'yarn'
@@ -45,7 +45,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore node_modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 #v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         id: restore-cache
         with:
           path: |
@@ -56,7 +56,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Restore ui/dist cache
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 #v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
@@ -87,7 +87,7 @@ jobs:
         run: yarn react size
 
       - name: Cache ${{ matrix.package }}/dist
-        uses: actions/cache@v3
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 #v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: ./packages/${{ matrix.package }}/dist
           key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
