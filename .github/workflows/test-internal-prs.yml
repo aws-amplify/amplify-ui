@@ -133,3 +133,37 @@ jobs:
       DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+
+  update-success-status:
+    if: ${{ success() }}
+    needs: [setup, e2e, codeql, dependency-review]
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write # This is required for running set-status actions
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - name: Update status when tests are successful
+        uses: ./.github/actions/set-status
+        with:
+          sha: ${{ github.sha }}
+          state: 'success'
+          context: 'Run PR checks'
+          description: 'PR checks have finished running'
+          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
+
+  update-failure-status:
+    if: ${{ failure() }}
+    needs: [setup, e2e, codeql, dependency-review]
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write # This is required for running set-status actions
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - name: Update status when tests are not successful
+        uses: ./.github/actions/set-status
+        with:
+          sha: ${{ github.sha }}
+          state: 'failure'
+          context: 'Run PR checks'
+          description: 'PR checks have failed'
+          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
