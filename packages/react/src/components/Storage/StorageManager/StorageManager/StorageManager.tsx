@@ -18,6 +18,7 @@ import { UploadTask } from '@aws-amplify/storage';
 function StorageManager({
   acceptedFileTypes,
   accessLevel,
+  defaultFiles,
   displayText: overrideDisplayText,
   isResumable = false,
   maxFileCount,
@@ -35,7 +36,7 @@ function StorageManager({
     setUploadProgress,
     setUploadSuccess,
     setUploadResumed,
-  } = useStorageManager();
+  } = useStorageManager(defaultFiles);
 
   useUploadFiles({
     accessLevel,
@@ -133,7 +134,7 @@ function StorageManager({
     files.filter((file) => file.progress < 100).length > maxFileCount;
 
   const uploadedFilesLength = files.filter(
-    (file) => file?.status === FileStatus.SUCCESS
+    (file) => file?.status === FileStatus.UPLOADED
   ).length;
 
   const remainingFilesCount = files.length - uploadedFilesLength;

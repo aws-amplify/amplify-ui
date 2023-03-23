@@ -1,5 +1,6 @@
 import { StorageAccessLevel } from '@aws-amplify/storage';
 import { StorageManagerDisplayText } from '../displayText';
+import { DefaultFile } from '../types';
 
 export interface StorageManagerProps {
   acceptedFileTypes: string[];
@@ -25,4 +26,5 @@ export interface StorageManagerProps {
   shouldAutoUpload?: boolean;
   showThumbnails?: boolean;
   displayText?: Partial<StorageManagerDisplayText>;
+  defaultFiles?: Array<DefaultFile>;
 }

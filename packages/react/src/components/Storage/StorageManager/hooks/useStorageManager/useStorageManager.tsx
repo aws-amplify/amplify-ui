@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 import { UploadTask } from '@aws-amplify/storage';
 
-import { StorageFiles, FileStatus } from '../../types';
+import { StorageFiles, FileStatus, DefaultFile } from '../../types';
 
 interface UseStorageManagerState {
   files: StorageFiles;
@@ -238,14 +238,23 @@ export interface UseStorageManager {
 }
 
 export function useStorageManager(
-  initialUploads: StorageFiles = []
+  defaultFiles: Array<DefaultFile> = []
 ): UseStorageManager {
   const [{ files }, dispatch] = React.useReducer<
     (
       prevState: UseStorageManagerState,
       action: Action
     ) => UseStorageManagerState
-  >(reducer, { files: initialUploads });
+  >(reducer, {
+    files: defaultFiles.map((file) => {
+      return {
+        ...file,
+        id: nanoid(),
+        name: file.s3Key,
+        status: FileStatus.UPLOADED,
+      };
+    }) as StorageFiles,
+  });
 
   const addFiles: UseStorageManager['addFiles'] = ({
     files,

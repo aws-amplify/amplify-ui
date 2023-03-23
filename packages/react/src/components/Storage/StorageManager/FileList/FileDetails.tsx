@@ -15,7 +15,7 @@ export const UploadDetails = ({
         </Text>
       </View>
       <Text as="span" className={ComponentClassNames.StorageManagerFileSize}>
-        {humanFileSize(fileSize, true)}
+        {fileSize ? humanFileSize(fileSize, true) : ''}
       </Text>
     </>
   );

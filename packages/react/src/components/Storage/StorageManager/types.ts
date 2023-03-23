@@ -13,7 +13,7 @@ export enum FileStatus {
 
 export interface StorageFile {
   id: string;
-  file: File;
+  file?: File;
   name: string;
   status: FileStatus;
   progress: number;
@@ -24,3 +24,5 @@ export interface StorageFile {
 }
 
 export type StorageFiles = StorageFile[];
+
+export type DefaultFile = Pick<StorageFile, 's3Key'>;

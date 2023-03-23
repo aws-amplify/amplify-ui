@@ -66,7 +66,7 @@ export function FileList({
             onResume={handleResumeUpload}
             progress={progress}
             showThumbnails={showThumbnails}
-            size={file.size}
+            size={file?.size}
             status={status}
             thumbnailUrl={thumbnailUrl}
           />

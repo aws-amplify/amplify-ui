@@ -30,7 +30,7 @@ export interface FileControlProps {
   onResume: () => void;
   progress: number;
   showThumbnails: boolean;
-  size: number;
+  size?: number;
   status: FileStatus;
   thumbnailUrl: string;
 }
@@ -47,7 +47,7 @@ export interface FileStatusMessageProps
 
 export interface UploadDetailsProps {
   displayName: string;
-  fileSize: number;
+  fileSize?: number;
 }
 
 export interface FileThumbnailProps {
