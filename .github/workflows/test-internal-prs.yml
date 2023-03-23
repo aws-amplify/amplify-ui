@@ -62,7 +62,7 @@ jobs:
     needs: setup
     steps:
       - name: 'Checkout Repository'
-        uses: actions/checkout@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
 
@@ -79,7 +79,7 @@ jobs:
         language: [javascript]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@d23060145bc9131d50558d5d4185494a20208101
@@ -92,7 +92,7 @@ jobs:
         uses: github/codeql-action/autobuild@d23060145bc9131d50558d5d4185494a20208101
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@d23060145bc9131d50558d5d4185494a20208101
         with:
           category: '/language:${{ matrix.language }}'
 
