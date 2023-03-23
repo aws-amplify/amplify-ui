@@ -23,8 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     # check if receive-fork-review workflow completed successfully
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    permissions:
-      statuses: write # This is required for running set-status actions
     steps:
       - name: Get user permissions to check if it is either "write" or "admin"
         id: get-permissions
@@ -53,6 +51,8 @@ jobs:
   setup:
     needs: check-write-access
     runs-on: ubuntu-latest
+    permissions:
+      statuses: write # This is required for running set-status actions
     outputs:
       commit_id: ${{ steps.read-commit-id.outputs.result }}
       pr_number: ${{ steps.read-pr-number.outputs.result }}
