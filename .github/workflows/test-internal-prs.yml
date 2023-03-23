@@ -59,7 +59,7 @@ jobs:
     needs: setup
     steps:
       - name: 'Checkout Repository'
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
 
@@ -76,7 +76,7 @@ jobs:
         language: [javascript]
     steps:
       - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@d23060145bc9131d50558d5d4185494a20208101 # v2.12.5 https://github.com/github/codeql-action/commit/d23060145bc9131d50558d5d4185494a20208101
@@ -138,7 +138,7 @@ jobs:
     permissions:
       statuses: write # This is required for running set-status actions
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Update status when tests are successful
         uses: ./.github/actions/set-status
         with:
@@ -155,7 +155,7 @@ jobs:
     permissions:
       statuses: write # This is required for running set-status actions
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Update status when tests are not successful
         uses: ./.github/actions/set-status
         with:

@@ -63,7 +63,7 @@ jobs:
         env:
           owner: ${{ github.event.repository.owner.login }}
           repo: ${{ github.event.repository.name }}
-          run_id: ${{github.event.workflow_run.id }}
+          run_id: ${{ github.event.workflow_run.id }}
         with:
           script: |
             const { owner, repo, run_id } = process.env;
@@ -106,7 +106,7 @@ jobs:
             const pr_number = fs.readFileSync('./pr_number', 'utf-8');
             return pr_number
               .replace(/(\r\n|\n|\r)/gm, '') // remove last new line character
-              .replace(/[^0-9]/g, ''); // remove non-alphanumeric characters
+              .replace(/[^0-9]/g, ''); // remove non-numeric characters
       - name: Read base sha from artifact
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
         id: read-base-sha
@@ -119,7 +119,7 @@ jobs:
               .replace(/(\r\n|\n|\r)/gm, '') // remove last new line character
               .replace(/[^A-Za-z0-9]/g, ''); // remove non-alphanumeric characters
 
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Set status to commit sha
         uses: ./.github/actions/set-status
         with:
@@ -136,7 +136,7 @@ jobs:
     permissions:
       actions: read
       contents: read
-      security-events: write
+      security-events: write # required to write security findings
     strategy:
       fail-fast: false
       matrix:
@@ -157,7 +157,7 @@ jobs:
             github.rest.issues.removeLabel({ owner: REPO_OWNER, repo: REPO_NAME, issue_number: ISSUE_NUMBER, name: LABEL_NAME })
 
       - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
           ref: ${{ needs.setup.outputs.commit_id }}
 
@@ -184,7 +184,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repository'
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
           commit: ${{ needs.setup.outputs.commit_id }}
           repository: ${{ github.repository }}
@@ -231,7 +231,7 @@ jobs:
     permissions:
       statuses: write # This is required for running set-status actions
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Update status when tests are successful
         uses: ./.github/actions/set-status
         with:
@@ -249,7 +249,7 @@ jobs:
     permissions:
       statuses: write # This is required for running set-status actions
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Update status when PR tests are not successful
         uses: ./.github/actions/set-status
         with:
