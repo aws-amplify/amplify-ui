@@ -66,6 +66,35 @@ jobs:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
 
+  codeql:
+    needs: setup
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write # to write security event to the PR
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@d23060145bc9131d50558d5d4185494a20208101
+        with:
+          languages: ${{ matrix.language }}
+          config-file: ./.github/codeql/codeql-config.yml
+          queries: +security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@d23060145bc9131d50558d5d4185494a20208101
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: '/language:${{ matrix.language }}'
   setup-cache:
     needs: setup
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
