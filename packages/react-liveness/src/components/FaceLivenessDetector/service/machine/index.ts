@@ -78,7 +78,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       faceMatchAssociatedParams: {
         illuminationState: undefined,
         faceMatchState: undefined,
-        faceMatchPercentage: 0,
+        /**
+         * faceMatchPercentage is a starting point we set as a baseline
+         * for what we want our progress bar to visually start at. This correlates
+         * to the formula we use to calculate the faceMatchPercentage
+         * in getFaceMatchStateInLivenessOval
+         */
+        faceMatchPercentage: 25,
         currentDetectedFace: undefined,
         startFace: undefined,
         endFace: undefined,
