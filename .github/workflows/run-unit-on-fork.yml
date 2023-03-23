@@ -1,0 +1,30 @@
+# Description: This workflow runs unit test on PRs created from forks.
+#
+# Triggered by: Every commit on the PR.
+
+name: Test / Fork / Unit
+
+concurrency:
+  group: unit-fork-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  setup-cache:
+    # only run the workflow when PR is from a fork
+    if: ${{ github.event.pull_request.head.repo.full_name != github.repository }} 
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  unit:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
+    needs: setup-cache
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
