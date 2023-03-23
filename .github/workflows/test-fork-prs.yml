@@ -11,7 +11,11 @@ concurrency:
   group: test-fork-prs-${{ github.event.workflow_run.head_branch }}-${{ github.event.sender.login }} # This is to make the group name unique for a PR.
   cancel-in-progress: true
 
-on: pull_request
+on:
+  workflow_run:
+    workflows: [Receive Fork Review]
+    types:
+      - completed
 
 jobs:
   # check if approver has write/admin permissions
