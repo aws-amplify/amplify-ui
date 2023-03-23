@@ -19,15 +19,21 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    # We run tests only if it's:
-    #   1) pull request not from a fork (ie. internal PR), or
-    #   2) pull request from a fork (ie. external PR) that was added "run-tests" label
+    # We run tests only if
+    #   (1) this pr is not from a fork, and
+    #   (2) it's either 'opened' or 'synchronize' action or 'labeled' action with 'run-tests' label.
     if: |
-      (github.event.pull_request.head.repo.full_name == github.repository) ||
-      (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
+      github.event.pull_request.head.repo.full_name == github.repository && (
+        github.event.action == 'opened' ||  
+        github.event.action == 'synchronize' || 
+        (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
+      )
+    permissions:
+      pull-requests: write # used to remove label
+      statuses: write # This is required for running set-status actions
     steps:
       - name: Remove run-tests label, if applicable
-        if: always() && github.event.label.name == 'run-tests'
+        if: github.event.label.name == 'run-tests'
         env:
           ISSUE_NUMBER: ${{ github.event.pull_request.number }}
           REPO_OWNER: ${{ github.repository_owner }}
@@ -39,6 +45,17 @@ jobs:
           script: |
             const { ISSUE_NUMBER, REPO_OWNER, REPO_NAME, LABEL_NAME } = process.env
             github.rest.issues.removeLabel({ owner: REPO_OWNER, repo: REPO_NAME, issue_number: ISSUE_NUMBER, name: LABEL_NAME })
+      - name: Checkout Repository
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f #v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+      - name: Set status to commit sha
+        uses: ./.github/actions/set-status
+        with:
+          sha: ${{ github.sha }}
+          state: 'pending'
+          context: 'Run PR checks'
+          description: 'PR checks are now running'
+          # URL below is a link to the current workflow run to allow users to see the status of the workflow.
+          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
 
   dependency-review:
     runs-on: ubuntu-latest
