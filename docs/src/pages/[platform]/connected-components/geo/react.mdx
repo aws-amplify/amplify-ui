@@ -8,6 +8,10 @@ Amplify UI Geo is powered by
 
 ### Quick Start
 
+<Alert variation="info" heading="Create React App setup">
+There's a known issue for users of Create React App v4 where the default prod `browserslist` configuration causes build errors when building for production. See the [Create React App Troubleshooting Guide](/getting-started/troubleshooting#create-react-app) to configure Create React App for use with the MapView UI component.
+</Alert>
+
 > Prerequisites:
 >
 > 1. Install`@aws-amplify/ui-react`with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/). ( e.g. `npm install @aws-amplify/ui-react`)
@@ -69,7 +73,7 @@ state to be handled by the component._
 
 ### Animation and Native Map Methods
 
-You may want to access the [native maplibre-gl map object](https://maplibre.org/maplibre-gl-js-docs/api/map/) from within the component that renders `<MapView>` (to animate a viewport transition with `flyTo`, for example). To accomplish this, you can pass your own ref to `<MapView>` using [React's `useRef` hook](https://reactjs.org/docs/hooks-reference.html#useref) which will contain the `map` object:
+You may want to access the [native maplibre-gl map object](https://maplibre.org/maplibre-gl-js-docs/api/map/) from within the component that renders `<MapView>` (to animate a viewport transition with `flyTo`, for example). To accomplish this, you can pass your own ref to `<MapView>` using [React's `useRef` hook](https://legacy.reactjs.org/docs/hooks-reference.html#useref) which will contain the `map` object:
 
 <Fragment platforms={['react']}>
   {({ platform }) => import(`./fragments/map-ref.${platform}.mdx`)}

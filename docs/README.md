@@ -23,6 +23,8 @@ cp ./docs/.env.example ./docs/.env
 
 Then set values to the variables.
 
+Note, if you're not using `nvm`, you'll need to set the environment variable: `export NODE_OPTIONS=--openssl-legacy-provider`
+
 ### Test
 
 - Run `yarn test` to test.

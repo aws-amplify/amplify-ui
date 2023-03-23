@@ -5,7 +5,7 @@ export type TodoMetaData = {
 };
 
 export class Todo {
-  readonly id: string;
+  readonly id!: string;
   readonly name: string;
   readonly description?: string;
   readonly createdAt?: string;

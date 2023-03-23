@@ -6,7 +6,7 @@ import {
   useDataStoreCollection,
   useDataStoreItem,
 } from '../useDataStore';
-import { Todo } from '../actions/testShared';
+import { Todo } from '../actions/testModels/todo';
 
 jest.mock('@aws-amplify/datastore');
 
