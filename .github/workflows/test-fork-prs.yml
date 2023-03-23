@@ -4,7 +4,7 @@
 #
 # Triggered by: maintainer approves PR from forks
 
-name: POC / Test / Fork PRs
+name: Test / Fork PRs
 
 # This is to let only one instance of this workflow run against the same PR.
 concurrency:
@@ -196,13 +196,13 @@ jobs:
 
   setup-cache:
     needs: setup
-    uses: ./.github/workflows/reusable-setup-cache.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
     with:
       commit: ${{ needs.setup.outputs.commit_id }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: ./.github/workflows/reusable-e2e.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
     needs: [setup, setup-cache]
     with:
       commit: ${{ needs.setup.outputs.commit_id }}
