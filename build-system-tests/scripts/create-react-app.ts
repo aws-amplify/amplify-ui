@@ -21,6 +21,7 @@ if (args.npm && !['true', 'false', true].includes(args.npm)) {
 const reactVersion = args.react ?? '18';
 const buildTool = args.npm ? 'npm' : 'yarn';
 const language = args.js ? 'js' : 'ts';
+const fileType = language === 'js' ? 'js' : 'tsx';
 
 console.log(
   `Reacting app react-${reactVersion}-cra-5-${language} with ${buildTool}...`
@@ -41,18 +42,29 @@ const filesToCopy = {
     dist: '../templates/cra-template-react-js/template/src/aws-exports.js',
   },
   app: {
-    src: '../templates/components/react/App.js',
-    dist: '../templates/cra-template-react-js/template/src/App.js',
+    src: `../templates/components/react/App.js`,
+    dist: `../templates/cra-template-react-js/template/src/App.${fileType}`,
   },
   index: {
-    src: `../templates/components/react/cra/index-react-${reactVersion}.js`,
-    dist: '../templates/cra-template-react-js/template/src/index.js',
+    src: `../templates/components/react/cra/index-react-${reactVersion}.${fileType}`,
+    dist: `../templates/cra-template-react-js/template/src/index.${fileType}`,
   },
 };
 
 if (reactVersion) {
   packageJson.package.dependencies['react'] = reactVersion;
   packageJson.package.dependencies['react-dom'] = reactVersion;
+}
+
+if (language === 'ts') {
+  packageJson.package.dependencies['@types/node'] = '16'; // TODO: need to make it dynamic
+  packageJson.package.dependencies['@types/react'] = reactVersion;
+  packageJson.package.dependencies['@types/react-dom'] = reactVersion;
+  packageJson.package.dependencies['typescript'] = 'latest';
+  filesToCopy['tsconfig'] = {
+    src: '../templates/components/template-tsconfig.json',
+    dist: '../templates/cra-template-react-js/template/tsconfig.json',
+  };
 }
 
 fs.writeFileSync(
@@ -74,7 +86,7 @@ Object.entries(filesToCopy).forEach(([fileName, val]) => {
 cp.exec(
   `npx create-react-app ./mega-apps/react-${reactVersion}-cra-5-${language}${
     args.npm ? ' --use-npm' : ''
-  } --template file:./templates/cra-template-react-${language}`,
+  } --template file:./templates/cra-template-react-js`,
   (error, stdout, stderr) => {
     console.log(stdout);
     console.log(stderr);
