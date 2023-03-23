@@ -85,7 +85,9 @@ export const translations: Record<string, Dict> = {
   id: idDict,
   it: itDict,
   ja: jaDict,
+  // TODO: remove kr in next major release
   kr: krDict,
+  ko: krDict,
   nl: nlDict,
   pl: plDict,
   pt: ptDict,
