@@ -123,8 +123,6 @@ jobs:
           state: 'pending'
           context: 'Run PR checks'
           description: 'PR checks are now running'
-          # URL below is a link to the current workflow run to allow users to see the status of the workflow.
-          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
 
   codeql:
     needs: setup
