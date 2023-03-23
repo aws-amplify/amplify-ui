@@ -192,13 +192,13 @@ jobs:
 
   setup-cache:
     needs: setup
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    uses: ./.github/workflows/reusable-setup-cache.yml
     with:
       commit: ${{ needs.setup.outputs.commit_id }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml
     needs: [setup, setup-cache]
     with:
       commit: ${{ needs.setup.outputs.commit_id }}
