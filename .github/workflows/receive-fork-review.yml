@@ -26,7 +26,7 @@ jobs:
           echo ${{ github.event.pull_request.base.sha }} > ./commit/base_sha
           echo ${{ github.event.review.commit_id }} > ./commit/commit_id
           echo ${{ github.event.pull_request.number }} > ./commit/pr_number
-      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: commit
           path: commit/
