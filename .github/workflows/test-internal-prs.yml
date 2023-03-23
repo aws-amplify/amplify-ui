@@ -50,7 +50,7 @@ jobs:
       - name: Set status to commit sha
         uses: ./.github/actions/set-status
         with:
-          sha: ${{ github.sha }}
+          sha: ${{ github.event.pull_request.head.sha }}
           state: 'pending'
           context: 'Run PR checks'
           description: 'PR checks are now running'
@@ -100,14 +100,14 @@ jobs:
     needs: setup
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
     with:
-      commit: ${{ github.sha }}
+      commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
   unit:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
     needs: setup-cache
     with:
-      commit: ${{ github.sha }}
+      commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
   e2e:
@@ -145,7 +145,7 @@ jobs:
       - name: Update status when tests are successful
         uses: ./.github/actions/set-status
         with:
-          sha: ${{ github.sha }}
+          sha: ${{ github.event.pull_request.head.sha }}
           state: 'success'
           context: 'Run PR checks'
           description: 'PR checks have finished running'
@@ -162,7 +162,7 @@ jobs:
       - name: Update status when tests are not successful
         uses: ./.github/actions/set-status
         with:
-          sha: ${{ github.sha }}
+          sha: ${{ github.event.pull_request.head.sha }}
           state: 'failure'
           context: 'Run PR checks'
           description: 'PR checks have failed'
