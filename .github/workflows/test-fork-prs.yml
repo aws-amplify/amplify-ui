@@ -119,7 +119,7 @@ jobs:
               .replace(/(\r\n|\n|\r)/gm, '') // remove last new line character
               .replace(/[^A-Za-z0-9]/g, ''); // remove non-alphanumeric characters
 
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c #v3.3.0 https://github.com/actions/checkout/commit/ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Set status to commit sha
         uses: ./.github/actions/set-status
         with:
