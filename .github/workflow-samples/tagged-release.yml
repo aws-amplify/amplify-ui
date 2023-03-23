@@ -26,12 +26,14 @@ jobs:
 
   unit:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@<BRANCH>
+    needs: setup-cache
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   e2e:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@<BRANCH>
+    needs: unit
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
