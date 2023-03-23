@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import cp from 'child_process';
-import { getArgs } from './utils/getArgs';
+import { createFolder, getArgs, removeFolder } from './utils';
 
 type Args = {
   react?: string;
@@ -11,20 +11,28 @@ type Args = {
 const args = getArgs() as Args;
 
 if (args.js && !['true', 'false', true].includes(args.js)) {
-  throw new Error('js must be "true" or "false".');
+  throw new Error('❌ js must be "true" or "false".');
 }
 
 if (args.npm && !['true', 'false', true].includes(args.npm)) {
-  throw new Error('npm must be "true" or "false".');
+  throw new Error('❌ npm must be "true" or "false".');
 }
+
+const templateSrcPath = path.join(
+  __dirname,
+  '../templates/cra-template-react/template/src'
+);
+const templateSrcName = 'template/src';
+removeFolder(templateSrcPath, templateSrcName);
+createFolder(templateSrcPath, templateSrcName);
 
 const reactVersion = args.react ?? '18';
 const buildTool = args.npm ? 'npm' : 'yarn';
 const language = args.js ? 'js' : 'ts';
-const fileType = language === 'js' ? 'js' : 'tsx';
+const fileType = language === 'ts' ? 'tsx' : 'js';
 
 console.log(
-  `Reacting app react-${reactVersion}-cra-5-${language} with ${buildTool}...`
+  `👷‍ Creating app react-${reactVersion}-cra-5-${language} with ${buildTool}...`
 );
 
 const packageJson = {
@@ -39,15 +47,17 @@ const packageJson = {
 const filesToCopy = {
   'aws-export': {
     src: '../environments/src/aws-exports.js',
-    dist: '../templates/cra-template-react-js/template/src/aws-exports.js',
+    dist: '../templates/cra-template-react/template/src/aws-exports.js',
   },
   app: {
     src: `../templates/components/react/App.js`,
-    dist: `../templates/cra-template-react-js/template/src/App.${fileType}`,
+    dist: `../templates/cra-template-react/template/src/App.${fileType}`,
   },
   index: {
-    src: `../templates/components/react/cra/index-react-${reactVersion}.${fileType}`,
-    dist: `../templates/cra-template-react-js/template/src/index.${fileType}`,
+    src: `../templates/components/react/cra/index-react-${reactVersion}.${
+      reactVersion === '18' && fileType === 'tsx' ? 'tsx' : 'js'
+    }`,
+    dist: `../templates/cra-template-react/template/src/index.${fileType}`,
   },
 };
 
@@ -63,13 +73,16 @@ if (language === 'ts') {
   packageJson.package.dependencies['typescript'] = 'latest';
   filesToCopy['tsconfig'] = {
     src: '../templates/components/template-tsconfig.json',
-    dist: '../templates/cra-template-react-js/template/tsconfig.json',
+    dist: '../templates/cra-template-react/template/tsconfig.json',
   };
 }
 
-fs.writeFileSync(
-  path.join(__dirname, '../templates/cra-template-react-js', `./template.json`),
-  JSON.stringify(packageJson, null, 4)
+fs.writeFile(
+  path.join(__dirname, '../templates/cra-template-react', `./template.json`),
+  JSON.stringify(packageJson, null, 4),
+  (err) => {
+    if (err) throw err;
+  }
 );
 
 Object.entries(filesToCopy).forEach(([fileName, val]) => {
@@ -86,7 +99,7 @@ Object.entries(filesToCopy).forEach(([fileName, val]) => {
 cp.exec(
   `npx create-react-app ./mega-apps/react-${reactVersion}-cra-5-${language}${
     args.npm ? ' --use-npm' : ''
-  } --template file:./templates/cra-template-react-js`,
+  } --template file:./templates/cra-template-react`,
   (error, stdout, stderr) => {
     console.log(stdout);
     console.log(stderr);
