@@ -1,6 +1,6 @@
 export function getArgs() {
   const args = {};
-  console.log(process.argv);
+
   process.argv.slice(2, process.argv.length).forEach((arg) => {
     // long arg
     if (arg.slice(0, 2) === '--') {

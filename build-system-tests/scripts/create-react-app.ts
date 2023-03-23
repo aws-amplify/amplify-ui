@@ -30,10 +30,12 @@ const reactVersion = args.react ?? '18';
 const buildTool = args.npm ? 'npm' : 'yarn';
 const language = args.js ? 'js' : 'ts';
 const fileType = language === 'ts' ? 'tsx' : 'js';
+const appName = `react-${reactVersion}-cra-5-${language}`;
+const appPath = `./mega-apps/${appName}`;
 
-console.log(
-  `👷‍ Creating app react-${reactVersion}-cra-5-${language} with ${buildTool}...`
-);
+removeFolder(appPath, appName);
+createFolder('./mega-apps/', 'mega-apps');
+console.log(`👷‍ Creating app ${appName} with ${buildTool}...`);
 
 const packageJson = {
   package: {
@@ -97,7 +99,7 @@ Object.entries(filesToCopy).forEach(([fileName, val]) => {
 });
 
 cp.exec(
-  `npx create-react-app ./mega-apps/react-${reactVersion}-cra-5-${language}${
+  `npx create-react-app ./mega-apps/${appName}${
     args.npm ? ' --use-npm' : ''
   } --template file:./templates/cra-template-react`,
   (error, stdout, stderr) => {
