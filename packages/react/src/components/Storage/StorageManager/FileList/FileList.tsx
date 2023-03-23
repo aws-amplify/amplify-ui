@@ -1,15 +1,7 @@
 import React from 'react';
 
-import {
-  Alert,
-  Button,
-  ComponentClassNames,
-  Loader,
-  Text,
-  View,
-} from '../../../../primitives';
-import { StorageManagerDisplayText } from '../displayText';
-import { FileState } from '../types';
+import { Alert, View } from '../../../../primitives';
+import { FileStatus } from '../types';
 import { FileControl } from './FileControl';
 import { FileListProps } from './types';
 
@@ -19,6 +11,8 @@ export function FileList({
   hasMaxFilesError,
   isResumable,
   onRemoveUpload,
+  onResume,
+  onPause,
   showThumbnails,
   maxFileCount,
 }: FileListProps): JSX.Element | null {
@@ -32,35 +26,29 @@ export function FileList({
   return (
     <View className={'amplify-filemanager--filelist'}>
       {files.map((storageFile) => {
-        const { file, status, progress, error, name, isImage, id } =
+        const { file, status, progress, error, name, isImage, id, uploadTask } =
           storageFile;
 
         const thumbnailUrl = file && isImage ? URL.createObjectURL(file) : '';
 
-        // @TODO: Add back when adding editing functionality
-
-        // // Focus the input after pressing the edit button
-        // const inputRef = React.useRef<HTMLInputElement>(null);
-        // useEffect(() => {
-        //   if (fileState === FileState.EDITING && inputRef.current) {
-        //     inputRef.current.focus();
-        //   }
-        // }, [fileState]);
-
         const loaderIsDeterminate = isResumable ? progress > 0 : true;
-        // const showEditButton =
-        //   status === FileState.INIT ||
-        //   (status === FileState.ERROR && error === extensionNotAllowedText);
-        // const onStartEdit = () => console.log('edit me');
+        const isUploading = status === FileStatus.LOADING;
         // const onCancel = () => console.log('cancel');
 
         const onRemove = () => {
-          if (status === FileState.READY) {
+          if (status === FileStatus.READY) {
             onRemoveUpload(id);
           }
-          if (status === FileState.UPLOADED) {
+          if (status === FileStatus.UPLOADED) {
             // handle DELETE existing file here
           }
+        };
+
+        const handlePauseUpload = () => {
+          onPause({ id, uploadTask });
+        };
+        const handleResumeUpload = () => {
+          onResume({ id, uploadTask });
         };
 
         return (
@@ -69,10 +57,13 @@ export function FileList({
             errorMessage={error}
             displayText={displayText}
             isImage={isImage}
+            isUploading={isUploading}
+            isResumable={isResumable}
             key={id}
             loaderIsDeterminate={loaderIsDeterminate}
             onRemove={onRemove}
-            onStartEdit={() => console.log(`onStartEdit ${name}`)}
+            onPause={handlePauseUpload}
+            onResume={handleResumeUpload}
             progress={progress}
             showThumbnails={showThumbnails}
             size={file.size}

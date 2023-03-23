@@ -1,6 +1,6 @@
 import type { UploadTask } from '@aws-amplify/storage';
 
-export enum FileState {
+export enum FileStatus {
   READY = 'ready',
   EDITING = 'editing',
   LOADING = 'loading',
@@ -15,9 +15,9 @@ export interface StorageFile {
   id: string;
   file: File;
   name: string;
-  status: FileState;
+  status: FileStatus;
   progress: number;
-  task?: UploadTask;
+  uploadTask?: UploadTask;
   s3Key?: string;
   error: string;
   isImage: boolean;

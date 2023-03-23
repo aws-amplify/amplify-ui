@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { View, Loader, ComponentClassNames } from '../../../../primitives';
+import {
+  View,
+  Loader,
+  ComponentClassNames,
+  Button,
+} from '../../../../primitives';
 
-import { FileState } from '../types';
+import { FileStatus } from '../types';
 import { FileStatusMessage } from './FileStatusMessage';
 import { FileRemoveButton } from './FileRemoveButton';
 import { UploadDetails } from './FileDetails';
@@ -10,29 +15,29 @@ import { FileThumbnail } from './FileThumbnail';
 import { FileControlProps } from './types';
 
 export function FileControl({
-  // onCancelEdit,
-  // onPause,
-  // onResume,
-  // onSaveEdit,
+  onPause,
+  onResume,
   displayName,
   errorMessage,
-  // extensionNotAllowedText,
   isImage,
+  isResumable,
   loaderIsDeterminate,
   onRemove,
-  onStartEdit,
-  // pauseText,
   progress,
-  // resumeText,
   showThumbnails = true,
   size,
   status,
   displayText,
   thumbnailUrl,
 }: FileControlProps): JSX.Element {
-  // @TODO add back edit capabilities
-  const showEditButton = false;
-  const { getPausedText, getUploadingText, uploadSuccessfulText } = displayText;
+  const {
+    getPausedText,
+    getUploadingText,
+    uploadSuccessfulText,
+    pauseText,
+    resumeText,
+  } = displayText;
+
   return (
     <View className={ComponentClassNames.StorageManagerFile}>
       <View className={ComponentClassNames.StorageManagerFileWrapper}>
@@ -43,15 +48,8 @@ export function FileControl({
             url={thumbnailUrl}
           />
         ) : null}
-
-        <UploadDetails
-          showEditButton={showEditButton}
-          displayName={displayName}
-          onClick={onStartEdit}
-          fileSize={size}
-        />
-
-        {status === FileState.LOADING ? (
+        <UploadDetails displayName={displayName} fileSize={size} />
+        {status === FileStatus.LOADING ? (
           <Loader
             className={ComponentClassNames.StorageManagerLoader}
             variation="linear"
@@ -60,7 +58,19 @@ export function FileControl({
             isPercentageTextHidden
           />
         ) : null}
-        {status === FileState.READY ? (
+        {isResumable &&
+        (status === FileStatus.LOADING || status === FileStatus.PAUSED) ? (
+          status === FileStatus.PAUSED ? (
+            <Button onClick={onResume} size="small" variation="link">
+              {resumeText}
+            </Button>
+          ) : (
+            <Button onClick={onPause} size="small" variation="link">
+              {pauseText}
+            </Button>
+          )
+        ) : null}
+        {status === FileStatus.READY ? (
           <FileRemoveButton
             altText={`Remove file${displayName}`}
             onClick={onRemove}

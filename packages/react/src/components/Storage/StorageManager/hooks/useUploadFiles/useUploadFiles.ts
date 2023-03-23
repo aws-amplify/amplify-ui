@@ -2,10 +2,11 @@ import * as React from 'react';
 
 import { uploadFile } from '@aws-amplify/ui';
 
-import { FileState } from '../../types';
+import { FileStatus } from '../../types';
 
 import { StorageManagerProps } from '../../StorageManager/types';
 import { UseStorageManager } from '../useStorageManager';
+import { UploadTask } from '@aws-amplify/storage';
 
 export interface UseUploadFilesProps
   extends Pick<
@@ -34,7 +35,7 @@ export function useUploadFiles({
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
-      (file) => file.status === FileState.READY
+      (file) => file.status === FileStatus.READY
     );
 
     if (filesReadyToUpload.length > maxFileCount) {
@@ -65,8 +66,16 @@ export function useUploadFiles({
       };
 
       if (isResumable) {
-        // @TODO: get UploadTask later on
-        throw new Error('not implemented yet');
+        const uploadTask = uploadFile({
+          file,
+          fileName: name,
+          isResumable: true,
+          level: accessLevel,
+          completeCallback: onComplete,
+          progressCallback: onProgress,
+          errorCallback: onError,
+        }) as UploadTask; // @todo: fix type returned from uploadFile
+        setUploadingFile({ id, uploadTask });
       } else {
         uploadFile({
           file,
@@ -77,11 +86,8 @@ export function useUploadFiles({
           progressCallback: onProgress,
           errorCallback: onError,
         });
+        setUploadingFile({ id });
       }
-      setUploadingFile({ id });
-
-      // dispatch action to save upload task here:
-      // dispatch(uploadTask)
     }
   }, [
     files,

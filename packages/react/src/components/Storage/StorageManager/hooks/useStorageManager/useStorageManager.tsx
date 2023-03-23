@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 import { UploadTask } from '@aws-amplify/storage';
 
-import { StorageFiles, FileState } from '../../types';
+import { StorageFiles, FileStatus } from '../../types';
 
 interface UseStorageManagerState {
   files: StorageFiles;
@@ -13,7 +13,7 @@ enum StorageManagerActionTypes {
   ADD_FILES = 'ADD_FILES',
   SET_UPLOADING = 'SET_UPLOADING',
   SET_UPLOAD_PROGRESS = 'SET_UPLOAD_PROGRESS',
-  SET_UPLOAD_SUCCESS = 'SET_UPLOAD_SUCCESS',
+  SET_UPLOAD_STATUS = 'SET_UPLOAD_STATUS',
   REMOVE_UPLOAD = 'REMOVE_UPLOAD',
   REMOVE_ALL_UPLOADS = 'REMOVE_UPLOADS',
 }
@@ -37,8 +37,9 @@ type Action =
       progress: number;
     }
   | {
-      type: StorageManagerActionTypes.SET_UPLOAD_SUCCESS;
+      type: StorageManagerActionTypes.SET_UPLOAD_STATUS;
       id: string;
+      status: FileStatus;
     }
   | {
       type: StorageManagerActionTypes.REMOVE_UPLOAD;
@@ -88,10 +89,17 @@ export const setUploadProgressAction = ({
   };
 };
 
-export const setUploadSuccessAction = ({ id }: { id: string }): Action => {
+export const setUploadStatusAction = ({
+  id,
+  status,
+}: {
+  id: string;
+  status: FileStatus;
+}): Action => {
   return {
-    type: StorageManagerActionTypes.SET_UPLOAD_SUCCESS,
+    type: StorageManagerActionTypes.SET_UPLOAD_STATUS,
     id,
+    status,
   };
 };
 
@@ -118,7 +126,7 @@ function reducer(
           file,
           error: errorText,
           name: file.name,
-          status: errorText ? FileState.ERROR : FileState.READY,
+          status: errorText ? FileStatus.ERROR : FileStatus.READY,
           isImage: file.type.startsWith('image/'),
           progress: -1,
         };
@@ -141,7 +149,7 @@ function reducer(
             ...files,
             {
               ...currentFile,
-              status: FileState.LOADING,
+              status: FileStatus.LOADING,
               progress: 0,
               uploadTask: uploadTask ? uploadTask : undefined,
             },
@@ -175,8 +183,8 @@ function reducer(
         files: newFiles,
       };
     }
-    case StorageManagerActionTypes.SET_UPLOAD_SUCCESS: {
-      const { id } = action;
+    case StorageManagerActionTypes.SET_UPLOAD_STATUS: {
+      const { id, status } = action;
       const { files } = state;
 
       const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
@@ -185,7 +193,7 @@ function reducer(
             ...files,
             {
               ...currentFile,
-              status: FileState.SUCCESS,
+              status,
             },
           ];
         }
@@ -223,6 +231,8 @@ export interface UseStorageManager {
   setUploadingFile: (params: { id: string; uploadTask?: UploadTask }) => void;
   setUploadProgress: (params: { id: string; progress: number }) => void;
   setUploadSuccess: (params: { id: string }) => void;
+  setUploadResumed: (params: { id: string }) => void;
+  setUploadPaused: (params: { id: string }) => void;
   removeUpload: (params: { id: string }) => void;
   files: StorageFiles;
 }
@@ -259,7 +269,15 @@ export function useStorageManager(
   };
 
   const setUploadSuccess: UseStorageManager['setUploadSuccess'] = ({ id }) => {
-    dispatch(setUploadSuccessAction({ id }));
+    dispatch(setUploadStatusAction({ id, status: FileStatus.SUCCESS }));
+  };
+
+  const setUploadPaused: UseStorageManager['setUploadPaused'] = ({ id }) => {
+    dispatch(setUploadStatusAction({ id, status: FileStatus.PAUSED }));
+  };
+
+  const setUploadResumed: UseStorageManager['setUploadPaused'] = ({ id }) => {
+    dispatch(setUploadStatusAction({ id, status: FileStatus.LOADING }));
   };
 
   const removeUpload: UseStorageManager['removeUpload'] = ({ id }) => {
@@ -268,7 +286,9 @@ export function useStorageManager(
 
   return {
     removeUpload,
+    setUploadPaused,
     setUploadProgress,
+    setUploadResumed,
     setUploadSuccess,
     setUploadingFile,
     addFiles,

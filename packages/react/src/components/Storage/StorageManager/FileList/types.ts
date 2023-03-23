@@ -1,11 +1,14 @@
+import type { UploadTask } from '@aws-amplify/storage';
 import { StorageManagerDisplayText } from '../displayText';
-import { FileState, StorageFile } from '../types';
+import { FileStatus, StorageFile } from '../types';
 
 export interface FileListProps {
   displayText: StorageManagerDisplayText;
   files: StorageFile[];
   isResumable: boolean;
   onRemoveUpload: (id: string) => void;
+  onPause: (params: { id: string; uploadTask: UploadTask }) => void;
+  onResume: (params: { id: string; uploadTask: UploadTask }) => void;
   showThumbnails: boolean;
   hasMaxFilesError: boolean;
   maxFileCount: number;
@@ -14,33 +17,21 @@ export interface FileListProps {
 // interface ComponentFileListProps extends Omit<FileListProps, 'displayText'> {
 // }
 
-interface FileListFooter {
-  hasMaxFilesError: boolean;
-  displayText: StorageManagerDisplayText;
-  allUploadsPercentage: number;
-  allUploadsSuccessful: boolean;
-  aggregatePercentage: number;
-  isLoading: boolean;
-  isSuccessful: boolean;
-  fileCount: number;
-}
-
 export interface FileControlProps {
   displayText: StorageManagerDisplayText;
   displayName: string;
   errorMessage: string;
   isImage: boolean;
+  isResumable: boolean;
+  isUploading: boolean;
   loaderIsDeterminate: boolean;
-  // onCancelEdit?: () => void;
-  // onPause: () => void;
   onRemove: () => void;
-  // onResume: () => void;
-  // onSaveEdit: (value: string) => void;
-  onStartEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onPause: () => void;
+  onResume: () => void;
   progress: number;
   showThumbnails: boolean;
   size: number;
-  status: FileState;
+  status: FileStatus;
   thumbnailUrl: string;
 }
 
@@ -49,15 +40,13 @@ export interface FileStatusMessageProps
     StorageManagerDisplayText,
     'getUploadingText' | 'getPausedText' | 'uploadSuccessfulText'
   > {
-  status: FileState;
+  status: FileStatus;
   errorMessage: string;
   percentage: number;
 }
 
 export interface UploadDetailsProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
   displayName: string;
-  showEditButton: boolean;
   fileSize: number;
 }
 

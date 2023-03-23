@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Container } from './Container';
+import { Container } from '../Container/Container';
 import { DropZone } from '../DropZone';
 import { defaultStorageManagerDisplayText } from '../displayText';
 import { FileList } from '../FileList/FileList';
-import { FileState } from '../types';
+import { FileStatus } from '../types';
 import { StorageManagerProps } from './types';
 import { useStorageManager } from '../hooks/useStorageManager';
 import { checkMaxFileSize } from '../utils/checkMaxFileSize';
@@ -13,6 +13,7 @@ import { ComponentClassNames } from '../../../../primitives';
 import { FileListHeader } from '../FileListHeader';
 import { FilePicker } from '../DropZone/FilePicker';
 import { useUploadFiles } from '../hooks/useUploadFiles';
+import { UploadTask } from '@aws-amplify/storage';
 
 function StorageManager({
   acceptedFileTypes,
@@ -26,24 +27,26 @@ function StorageManager({
   showThumbnails = true,
 }: StorageManagerProps): JSX.Element {
   const {
-    files,
     addFiles,
+    files,
+    removeUpload,
     setUploadingFile,
+    setUploadPaused,
     setUploadProgress,
     setUploadSuccess,
-    removeUpload,
+    setUploadResumed,
   } = useStorageManager();
 
   useUploadFiles({
-    files,
     accessLevel,
-    setUploadingFile,
-    setUploadProgress,
-    setUploadSuccess,
+    files,
     isResumable,
     maxFileCount,
     onUploadError,
     onUploadSuccess,
+    setUploadingFile,
+    setUploadProgress,
+    setUploadSuccess,
   });
 
   const allowMultipleFiles =
@@ -97,6 +100,28 @@ function StorageManager({
     removeUpload({ id });
   };
 
+  const onPauseUpload = ({
+    id,
+    uploadTask,
+  }: {
+    id: string;
+    uploadTask: UploadTask;
+  }) => {
+    uploadTask.pause();
+    setUploadPaused({ id });
+  };
+
+  const onResumeUpload = ({
+    id,
+    uploadTask,
+  }: {
+    id: string;
+    uploadTask: UploadTask;
+  }) => {
+    uploadTask.resume();
+    setUploadResumed({ id });
+  };
+
   // checks if all downloads completed to 100%
   const allUploadsSuccessful =
     files.length === 0
@@ -108,7 +133,7 @@ function StorageManager({
     files.filter((file) => file.progress < 100).length > maxFileCount;
 
   const uploadedFilesLength = files.filter(
-    (file) => file?.status === FileState.SUCCESS
+    (file) => file?.status === FileStatus.SUCCESS
   ).length;
 
   const remainingFilesCount = files.length - uploadedFilesLength;
@@ -146,6 +171,8 @@ function StorageManager({
         files={files}
         isResumable={isResumable}
         onRemoveUpload={onRemoveUpload}
+        onResume={onResumeUpload}
+        onPause={onPauseUpload}
         showThumbnails={showThumbnails}
         hasMaxFilesError={hasMaxFilesError}
         maxFileCount={maxFileCount}
