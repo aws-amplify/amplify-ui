@@ -215,7 +215,7 @@ function reducer(
   }
 }
 
-interface UseStorageManager {
+export interface UseStorageManager {
   addFiles: (params: {
     files: File[];
     getFileErrorMessage: GetFileErrorMessage;

@@ -1,1 +1,1 @@
-export { useStorageManager } from './useStorageManager';
+export { useStorageManager, UseStorageManager } from './useStorageManager';
