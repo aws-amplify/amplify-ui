@@ -95,6 +95,7 @@ jobs:
         uses: github/codeql-action/analyze@v2
         with:
           category: '/language:${{ matrix.language }}'
+
   setup-cache:
     needs: setup
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
@@ -115,6 +116,8 @@ jobs:
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
+    permissions:
+      id-token: write # This is required for requesting the JWT
     secrets:
       AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
       DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
