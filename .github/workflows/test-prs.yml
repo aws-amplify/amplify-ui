@@ -2,7 +2,7 @@
 #              other protected branches listed below.
 #
 # Triggered by:
-#   (1) Internal PRs: contirubutor pushes a commit to PRs targeting protected branches.
+#   (1) Internal PRs: contributor pushes a commit to PRs targeting protected branches.
 #   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting protected branches.
 
 name: Test / PRs
