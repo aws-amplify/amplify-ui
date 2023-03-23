@@ -136,7 +136,7 @@ jobs:
     permissions:
       actions: read
       contents: read
-      security-events: write
+      security-events: write # required to write security findings
     strategy:
       fail-fast: false
       matrix:
