@@ -22,7 +22,7 @@ jobs:
   check-write-access:
     runs-on: ubuntu-latest
     # check if receive-fork-review workflow completed successfully
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       statuses: write # This is required for running set-status actions
     steps:
