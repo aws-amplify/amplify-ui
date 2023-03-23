@@ -5,16 +5,13 @@
 #   (2) On every commit to the PR
 #   (3) Adding run-tests label to the PR
 
-name: Test / Internal PRs
+name: POC / Test / Internal PRs
 
 concurrency:
   group: test-internal-prs-${{ github.event.pull_request.id }}
   cancel-in-progress: true
 
-on:
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize, labeled]
+on: pull_request
 
 jobs:
   setup:

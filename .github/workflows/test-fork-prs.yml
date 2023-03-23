@@ -4,18 +4,14 @@
 #
 # Triggered by: maintainer approves PR from forks
 
-name: Test / Fork PRs
+name: POC / Test / Fork PRs
 
 # This is to let only one instance of this workflow run against the same PR.
 concurrency:
   group: test-fork-prs-${{ github.event.workflow_run.head_branch }}-${{ github.event.sender.login }} # This is to make the group name unique for a PR.
   cancel-in-progress: true
 
-on:
-  workflow_run:
-    workflows: [Receive Fork Review]
-    types:
-      - completed
+on: pull_request
 
 jobs:
   # check if approver has write/admin permissions
