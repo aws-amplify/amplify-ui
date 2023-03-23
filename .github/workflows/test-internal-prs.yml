@@ -1,14 +1,14 @@
-# Description: This workflow runs unit + e2e tests on PRs targeting `main` and
-#              other protected branches listed below.
+# Description: This workflow runs test suite against PRs that are not from forks.
 #
 # Triggered by:
-#   (1) Internal PRs: contirubutor pushes a commit to PRs targeting protected branches.
-#   (2) Fork PRs: maintainer adds "run-test" label to PRs targeting protected branches.
+#   (1) Opening a pull request
+#   (2) On every commit to the PR
+#   (3) Adding run-tests label to the PR
 
-name: Test / PRs
+name: Test / Internal PRs
 
 concurrency:
-  group: e2e-${{ github.event.pull_request.id }}
+  group: test-internal-prs-${{ github.event.pull_request.id }}
   cancel-in-progress: true
 
 on:
