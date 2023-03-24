@@ -1,6 +1,4 @@
 # Description: this workflow runs build mega-apps that have all the connected components.
-#
-# Triggered by: it runs every 15 minutes.
 
 name: Mega App Canary
 
