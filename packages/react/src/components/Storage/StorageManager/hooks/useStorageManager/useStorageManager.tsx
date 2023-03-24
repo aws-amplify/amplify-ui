@@ -229,7 +229,10 @@ function createReducer(onFilesChange?: OnFilesChange) {
     action: Action
   ): UseStorageManagerState {
     const newState = reducer(state, action);
-    if (typeof onFilesChange === 'function') {
+    if (
+      typeof onFilesChange === 'function' &&
+      action.type !== 'SET_UPLOAD_PROGRESS'
+    ) {
       onFilesChange(
         newState.files.map(({ file, name, status }) => ({
           file,
