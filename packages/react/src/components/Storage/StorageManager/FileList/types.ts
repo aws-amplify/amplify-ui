@@ -6,16 +6,14 @@ export interface FileListProps {
   displayText: StorageManagerDisplayText;
   files: StorageFile[];
   isResumable: boolean;
-  onRemoveUpload: (id: string) => void;
+  onCancelUpload: (params: { id: string; uploadTask: UploadTask }) => void;
+  onDeleteUpload: (params: { id: string }) => void;
   onPause: (params: { id: string; uploadTask: UploadTask }) => void;
   onResume: (params: { id: string; uploadTask: UploadTask }) => void;
   showThumbnails: boolean;
   hasMaxFilesError: boolean;
   maxFileCount: number;
 }
-
-// interface ComponentFileListProps extends Omit<FileListProps, 'displayText'> {
-// }
 
 export interface FileControlProps {
   displayText: StorageManagerDisplayText;

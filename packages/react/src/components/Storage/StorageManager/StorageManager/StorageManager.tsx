@@ -1,19 +1,19 @@
 import * as React from 'react';
+import { UploadTask } from '@aws-amplify/storage';
 
-import { Container } from '../Container/Container';
-import { DropZone, useDropZone } from '../DropZone';
-import { defaultStorageManagerDisplayText } from '../displayText';
-import { FileList } from '../FileList/FileList';
-import { FileStatus } from '../types';
-import { StorageManagerProps } from './types';
-import { useStorageManager } from '../hooks/useStorageManager';
 import { checkMaxFileSize } from '../utils/checkMaxFileSize';
-import { filterAllowedFiles } from '../utils/filterAllowedFiles';
 import { ComponentClassNames } from '../../../../primitives';
+import { Container } from '../Container/Container';
+import { defaultStorageManagerDisplayText } from '../displayText';
+import { DropZone, useDropZone } from '../DropZone';
+import { FileList } from '../FileList/FileList';
 import { FileListHeader } from '../FileListHeader';
 import { FilePicker } from '../DropZone/FilePicker';
+import { FileStatus } from '../types';
+import { filterAllowedFiles } from '../utils/filterAllowedFiles';
+import { StorageManagerProps } from './types';
+import { useStorageManager } from '../hooks/useStorageManager';
 import { useUploadFiles } from '../hooks/useUploadFiles';
-import { UploadTask } from '@aws-amplify/storage';
 
 function StorageManager({
   acceptedFileTypes,
@@ -114,10 +114,6 @@ function StorageManager({
     });
   };
 
-  const onRemoveUpload = (id: string) => {
-    removeUpload({ id });
-  };
-
   const onPauseUpload = ({
     id,
     uploadTask,
@@ -138,6 +134,27 @@ function StorageManager({
   }) => {
     uploadTask.resume();
     setUploadResumed({ id });
+  };
+
+  const onCancelUpload = ({
+    id,
+    uploadTask,
+  }: {
+    id: string;
+    uploadTask: UploadTask;
+  }) => {
+    // At this time we don't know if the delete
+    // permissions are enabled (required to cancel upload),
+    // so we do a pause instead and remove from files
+    uploadTask.pause();
+    removeUpload({ id });
+  };
+
+  const onDeleteUpload = ({ id }: { id: string }) => {
+    // At this time we don't know if the delete
+    // permissions are enabled, so we do a soft delete
+    // from file list, but don't remove from storage
+    removeUpload({ id });
   };
 
   // checks if all downloads completed to 100%
@@ -188,7 +205,8 @@ function StorageManager({
         displayText={displayText}
         files={files}
         isResumable={isResumable}
-        onRemoveUpload={onRemoveUpload}
+        onCancelUpload={onCancelUpload}
+        onDeleteUpload={onDeleteUpload}
         onResume={onResumeUpload}
         onPause={onPauseUpload}
         showThumbnails={showThumbnails}

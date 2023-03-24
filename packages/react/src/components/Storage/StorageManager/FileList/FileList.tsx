@@ -10,7 +10,8 @@ export function FileList({
   files,
   hasMaxFilesError,
   isResumable,
-  onRemoveUpload,
+  onCancelUpload,
+  onDeleteUpload,
   onResume,
   onPause,
   showThumbnails,
@@ -30,17 +31,18 @@ export function FileList({
           storageFile;
 
         const thumbnailUrl = file && isImage ? URL.createObjectURL(file) : '';
-
         const loaderIsDeterminate = isResumable ? progress > 0 : true;
         const isUploading = status === FileStatus.UPLOADING;
-        // const onCancel = () => console.log('cancel');
 
         const onRemove = () => {
-          if (status === FileStatus.QUEUED) {
-            onRemoveUpload(id);
-          }
-          if (status === FileStatus.UPLOADED) {
-            // handle DELETE existing file here
+          if (
+            isResumable &&
+            (status === FileStatus.UPLOADING || status === FileStatus.PAUSED) &&
+            uploadTask
+          ) {
+            onCancelUpload({ id, uploadTask });
+          } else {
+            onDeleteUpload({ id });
           }
         };
 

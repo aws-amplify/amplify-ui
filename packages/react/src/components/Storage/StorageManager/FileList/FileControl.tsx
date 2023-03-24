@@ -70,12 +70,10 @@ export function FileControl({
             </Button>
           )
         ) : null}
-        {status === FileStatus.QUEUED ? (
-          <FileRemoveButton
-            altText={`Remove file${displayName}`}
-            onClick={onRemove}
-          />
-        ) : null}
+        <FileRemoveButton
+          altText={`Remove file ${displayName}`}
+          onClick={onRemove}
+        />
       </View>
       <FileStatusMessage
         uploadSuccessfulText={uploadSuccessfulText}
