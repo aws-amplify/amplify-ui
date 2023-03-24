@@ -27,7 +27,7 @@ removeFolder(templateSrcPath, templateSrcName);
 createFolder(templateSrcPath, templateSrcName);
 
 const reactVersion = args.react ?? '18';
-const buildTool = args.npm ? 'npm' : 'yarn';
+const pkgManager = args.npm ? 'npm' : 'yarn';
 const language = args.js ? 'js' : 'ts';
 const fileType = language === 'ts' ? 'tsx' : 'js';
 const appName = `react-${reactVersion}-cra-5-${language}`;
@@ -35,7 +35,7 @@ const appPath = `./mega-apps/${appName}`;
 
 removeFolder(appPath, appName);
 createFolder('./mega-apps/', 'mega-apps');
-console.log(`👷‍ Creating app ${appName} with ${buildTool}...`);
+console.log(`👷‍ Creating app ${appName} with ${pkgManager}...`);
 
 const packageJson = {
   package: {
