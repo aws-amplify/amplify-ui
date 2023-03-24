@@ -1,5 +1,4 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
 
 import { UploadTask } from '@aws-amplify/storage';
 
@@ -122,7 +121,7 @@ function reducer(
         const errorText = action.getFileErrorMessage(file);
 
         return {
-          id: nanoid(),
+          id: file.name,
           file,
           error: errorText,
           name: file.name,
@@ -276,7 +275,7 @@ export function useStorageManager(
     files: defaultFiles.map((file) => {
       return {
         ...file,
-        id: nanoid(),
+        id: file.s3Key,
         name: file.s3Key,
         status: FileStatus.UPLOADED,
       };

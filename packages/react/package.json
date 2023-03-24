@@ -61,7 +61,6 @@
     "mapbox-gl": "1.13.1",
     "maplibre-gl": "2.1.9",
     "maplibre-gl-js-amplify": "3.0.5",
-    "nanoid": "^4.0.1",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
     "react-map-gl": "7.0.15",
