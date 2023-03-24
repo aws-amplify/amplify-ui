@@ -6,6 +6,10 @@ import { ContainerProps } from '../FileListContainer/FileListContainer';
 import { FileListHeaderProps } from '../FileListHeader/FileListHeader';
 import { DefaultFile, StorageFile } from '../types';
 
+export type OnFilesChange = (
+  files: Array<Pick<StorageFile, 'file' | 'name' | 'status'>>
+) => void;
+
 export interface StorageManagerProps {
   acceptedFileTypes: string[];
   /**
@@ -32,8 +36,8 @@ export interface StorageManagerProps {
   displayText?: Partial<StorageManagerDisplayText>;
   defaultFiles?: Array<DefaultFile>;
   processFile?: (
-    storageFile: Pick<StorageFile, 'file' | 'name'>
-  ) => Pick<StorageFile, 'file' | 'name'>;
+    storageFile: Required<Pick<StorageFile, 'file' | 'name'>>
+  ) => Required<Pick<StorageFile, 'file' | 'name'>>;
   components?: {
     Container?: (props: ContainerProps) => JSX.Element;
     DropZone?: (props: DropZoneProps) => JSX.Element;
@@ -41,4 +45,6 @@ export interface StorageManagerProps {
     FilePicker?: (props: FilePickerProps) => JSX.Element;
     FileListHeader?: (props: FileListHeaderProps) => JSX.Element;
   };
+  provider?: string;
+  onFilesChange?: OnFilesChange;
 }

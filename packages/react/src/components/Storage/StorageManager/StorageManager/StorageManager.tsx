@@ -28,6 +28,8 @@ function StorageManager({
   showThumbnails = true,
   processFile,
   components,
+  provider,
+  onFilesChange,
 }: StorageManagerProps): JSX.Element {
   const Components = {
     Container,
@@ -66,7 +68,7 @@ function StorageManager({
     setUploadProgress,
     setUploadSuccess,
     setUploadResumed,
-  } = useStorageManager(defaultFiles);
+  } = useStorageManager(defaultFiles, onFilesChange);
 
   const dropZoneProps = useDropZone({
     onChange: (event: React.DragEvent<HTMLDivElement>) => {
@@ -97,6 +99,7 @@ function StorageManager({
     setUploadProgress,
     setUploadSuccess,
     processFile,
+    provider,
   });
 
   const onFilePickerChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -10,6 +10,7 @@ export function uploadFile({
   errorCallback,
   completeCallback,
   isResumable = false,
+  provider,
   ...rest
 }: {
   file: File;
@@ -19,6 +20,7 @@ export function uploadFile({
   progressCallback: (progress: { loaded: number; total: number }) => void;
   errorCallback: (error: string) => void;
   completeCallback: (event: PutResult) => void;
+  provider?: string;
 }) {
   const contentType = file.type || 'binary/octet-stream';
   if (isResumable === true) {
@@ -29,6 +31,7 @@ export function uploadFile({
       errorCallback,
       completeCallback,
       contentType,
+      provider,
       ...rest,
     });
   } else {
@@ -37,6 +40,7 @@ export function uploadFile({
       resumable: false,
       progressCallback,
       contentType,
+      provider,
       ...rest,
     }).then(completeCallback, errorCallback);
   }

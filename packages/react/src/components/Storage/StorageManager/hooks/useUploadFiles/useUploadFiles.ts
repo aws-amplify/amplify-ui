@@ -17,6 +17,7 @@ export interface UseUploadFilesProps
       | 'onUploadError'
       | 'maxFileCount'
       | 'processFile'
+      | 'provider'
     >,
     Pick<
       UseStorageManager,
@@ -34,6 +35,7 @@ export function useUploadFiles({
   onUploadSuccess,
   maxFileCount,
   processFile,
+  provider,
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -67,33 +69,37 @@ export function useUploadFiles({
         onUploadError?.(error as string); // fixme
       };
 
-      const processedFile =
-        typeof processFile === 'function'
-          ? processFile({ file, name })
-          : { file, name };
+      if (file) {
+        const processedFile =
+          typeof processFile === 'function'
+            ? processFile({ file, name })
+            : { file, name };
 
-      if (isResumable) {
-        const uploadTask = uploadFile({
-          file: processedFile.file,
-          fileName: processedFile.name,
-          isResumable: true,
-          level: accessLevel,
-          completeCallback: onComplete,
-          progressCallback: onProgress,
-          errorCallback: onError,
-        }) as UploadTask; // @todo: fix type returned from uploadFile
-        setUploadingFile({ id, uploadTask });
-      } else {
-        uploadFile({
-          file: processedFile.file,
-          fileName: processedFile.name,
-          isResumable: false,
-          level: accessLevel,
-          completeCallback: onComplete,
-          progressCallback: onProgress,
-          errorCallback: onError,
-        });
-        setUploadingFile({ id });
+        if (isResumable) {
+          const uploadTask = uploadFile({
+            file: processedFile.file,
+            fileName: processedFile.name,
+            isResumable: true,
+            level: accessLevel,
+            completeCallback: onComplete,
+            progressCallback: onProgress,
+            errorCallback: onError,
+            provider,
+          }) as unknown as UploadTask; // @todo: fix type returned from uploadFile
+          setUploadingFile({ id, uploadTask });
+        } else {
+          uploadFile({
+            file: processedFile.file,
+            fileName: processedFile.name,
+            isResumable: false,
+            level: accessLevel,
+            completeCallback: onComplete,
+            progressCallback: onProgress,
+            errorCallback: onError,
+            provider,
+          });
+          setUploadingFile({ id });
+        }
       }
     }
   }, [
@@ -107,5 +113,6 @@ export function useUploadFiles({
     maxFileCount,
     setUploadSuccess,
     processFile,
+    provider,
   ]);
 }

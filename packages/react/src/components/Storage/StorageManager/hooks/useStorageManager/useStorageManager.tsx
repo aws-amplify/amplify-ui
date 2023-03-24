@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import { UploadTask } from '@aws-amplify/storage';
 
 import { StorageFiles, FileStatus, DefaultFile } from '../../types';
+import { OnFilesChange } from '../../StorageManager/types';
 
 interface UseStorageManagerState {
   files: StorageFiles;
@@ -223,6 +224,25 @@ function reducer(
   }
 }
 
+function createReducer(onFilesChange?: OnFilesChange) {
+  return function (
+    state: UseStorageManagerState,
+    action: Action
+  ): UseStorageManagerState {
+    const newState = reducer(state, action);
+    if (typeof onFilesChange === 'function') {
+      onFilesChange(
+        newState.files.map(({ file, name, status }) => ({
+          file,
+          name,
+          status,
+        }))
+      );
+    }
+    return newState;
+  };
+}
+
 export interface UseStorageManager {
   addFiles: (params: {
     files: File[];
@@ -238,8 +258,13 @@ export interface UseStorageManager {
 }
 
 export function useStorageManager(
-  defaultFiles: Array<DefaultFile> = []
+  defaultFiles: Array<DefaultFile> = [],
+  onFilesChange?: OnFilesChange
 ): UseStorageManager {
+  const reducer = React.useMemo(() => {
+    return createReducer(onFilesChange);
+  }, [onFilesChange]);
+
   const [{ files }, dispatch] = React.useReducer<
     (
       prevState: UseStorageManagerState,
