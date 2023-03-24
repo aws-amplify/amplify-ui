@@ -35,17 +35,17 @@ export function FileUploader({
   isResumable = false,
   ...rest
 }: FileUploaderProps): JSX.Element {
+  useEffect(() => {
+    logger.warn(
+      'FileUploader has exited Dev Preview and was renamed to StorageManager with some API changes. Please migrate to the StorageManager component, as the FileUploader component is no longer supported and will be removed in a future major release.'
+    );
+  }, []);
+
   if (!acceptedFileTypes || !accessLevel) {
     logger.warn(
       'FileUploader requires accessLevel and acceptedFileTypes props'
     );
   }
-
-  React.useEffect(() => {
-    logger.warn(
-      'FileUploader has exited Dev Preview and was renamed to StorageManager with some API changes. Please migrate to the StorageManager component, as the FileUploader component is no longer supported and will be removed in a future major release.'
-    );
-  }, []);
 
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
