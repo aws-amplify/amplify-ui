@@ -2,14 +2,14 @@ export enum ChallengeType {
   FACE_MOVEMENT = 'FACE_MOVEMENT',
 }
 
-export interface OvalScaleFactors {
+export interface OvalParameters {
   width: number;
   centerX: number;
   centerY: number;
 }
 
 export interface ClientFaceMovementAndLightChallenge {
-  ovalScaleFactors: OvalScaleFactors;
+  ovalParameters: OvalParameters;
 }
 
 export interface ClientChallenge {
@@ -83,12 +83,6 @@ export interface ServerChallenge {
   faceMovementAndLightChallenge: ServerFaceMovementAndLightChallenge;
 }
 
-export interface DeviceInformation {
-  videoHeight: number;
-  videoWidth: number;
-}
-
 export interface ClientSessionInformation {
-  deviceInformation: DeviceInformation;
   challenge: ServerChallenge;
 }

@@ -38,10 +38,7 @@ function isBlob(obj: unknown): obj is Blob {
 function isClientSessionInformationEvent(
   obj: unknown
 ): obj is ClientSessionInformationEvent {
-  return (
-    (obj as ClientSessionInformationEvent).DeviceInformation !== undefined ||
-    (obj as ClientSessionInformationEvent).Challenge !== undefined
-  );
+  return (obj as ClientSessionInformationEvent).Challenge !== undefined;
 }
 
 export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
@@ -165,7 +162,6 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         } else if (isClientSessionInformationEvent(value)) {
           yield {
             ClientSessionInformationEvent: {
-              DeviceInformation: value.DeviceInformation,
               Challenge: value.Challenge,
             },
           };
@@ -183,7 +179,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
 
     const response = await this._client.send(
       new StartFaceLivenessSessionCommand({
-        ClientSDKVersion: '1.0.0',
+        ChallengeVersions: 'FaceMovementAndLightChallenge_1.0.0',
         SessionId: this.sessionId,
         LivenessRequestStream: livenessRequestGenerator,
         VideoWidth: this.videoEl.videoWidth.toString(),

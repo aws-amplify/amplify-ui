@@ -221,11 +221,6 @@ export const mockSessionInformation: SessionInformation = {
         OvalIouThreshold: 0.699999988079071,
         OvalIouWidthThreshold: 0.25,
       },
-      OvalScaleFactors: {
-        Width: 1,
-        CenterX: 2,
-        CenterY: 3,
-      },
       OvalParameters: {
         Width: 1,
         Height: 2,
@@ -300,10 +295,23 @@ export const MOCK_NO_FLAT_COLOR_SEQUENCES: ColorSequence[] = [
 export const mockSessionInformationNoFlatColors: SessionInformation = {
   Challenge: {
     FaceMovementAndLightChallenge: {
-      OvalScaleFactors: {
+      ChallengeConfig: {
+        BlazeFaceDetectionThreshold: 0.75,
+        FaceDistanceThreshold: 0.4000000059604645,
+        FaceDistanceThresholdMax: 0,
+        FaceDistanceThresholdMin: 0.4000000059604645,
+        FaceIouHeightThreshold: 0.15000000596046448,
+        FaceIouWidthThreshold: 0.15000000596046448,
+        OvalHeightWidthRatio: 1.6180000305175781,
+        OvalIouHeightThreshold: 0.25,
+        OvalIouThreshold: 0.699999988079071,
+        OvalIouWidthThreshold: 0.25,
+      },
+      OvalParameters: {
         Width: 1,
-        CenterX: 2,
-        CenterY: 3,
+        Height: 2,
+        CenterX: 3,
+        CenterY: 4,
       },
       LightChallengeType: 'SEQUENTIAL',
       ColorSequences: MOCK_NO_FLAT_COLOR_SEQUENCES,
@@ -313,7 +321,6 @@ export const mockSessionInformationNoFlatColors: SessionInformation = {
 
 export const mockClientSessionInformationEvent: ClientSessionInformationEvent =
   {
-    DeviceInformation: undefined,
     Challenge: {
       FaceMovementAndLightChallenge: {
         ChallengeId: 'challengeId',

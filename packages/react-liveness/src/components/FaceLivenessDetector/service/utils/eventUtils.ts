@@ -1,7 +1,7 @@
 import {
   FaceMovementAndLightServerChallenge,
   LivenessResponseStream,
-  OvalScaleFactors,
+  OvalParameters,
   ServerChallenge,
   SessionInformation,
 } from '@aws-sdk/client-rekognitionstreaming';
@@ -13,10 +13,8 @@ export const isServerSesssionInformationEvent = (
     ?.ServerSessionInformationEvent;
 };
 
-export const isOvalScaleFactors = (
-  value: unknown
-): value is OvalScaleFactors => {
-  const { CenterX, CenterY, Width } = value as OvalScaleFactors;
+export const isOvalParameters = (value: unknown): value is OvalParameters => {
+  const { CenterX, CenterY, Width } = value as OvalParameters;
   return (
     typeof Width === 'number' &&
     typeof CenterX === 'number' &&
@@ -27,8 +25,8 @@ export const isOvalScaleFactors = (
 export const isFaceMovementAndLightChallenge = (
   value: unknown
 ): value is FaceMovementAndLightServerChallenge => {
-  return isOvalScaleFactors(
-    (value as FaceMovementAndLightServerChallenge)?.OvalScaleFactors
+  return isOvalParameters(
+    (value as FaceMovementAndLightServerChallenge)?.OvalParameters
   );
 };
 

@@ -191,7 +191,6 @@ export class FreshnessColorDisplay {
   }) {
     const { livenessStreamProvider, challengeId } = this.context;
     livenessStreamProvider.sendClientInfo({
-      DeviceInformation: undefined,
       Challenge: {
         FaceMovementAndLightChallenge: {
           ChallengeId: challengeId,

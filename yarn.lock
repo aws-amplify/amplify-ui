@@ -1016,13 +1016,13 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/abort-controller@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/abort-controller/-/abort-controller-3.266.3.tgz#572f0ebd1a42237a3ea71dd783112c0f29c4981e"
-  integrity sha512-v6DNpcq7KuGR6VDkUhyj0NYazM6iiYgHwJiAwXRqUHPGdw9A/HtfCkvlJMzhQruTcngZi0LHLHdMZZUuzl4NTQ==
+"@aws-sdk/abort-controller@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/abort-controller/-/abort-controller-3.298.1.tgz#046f5d696e52ec36fc1647d0b8e7f47e3e34f557"
+  integrity sha512-l16R3W3dwIlkWs4e4vYmFg3IcI63t4jFBtADX/3oDJdFq9oKZrzFIKUb+VItObZtNVda9kxH9tZt5ww1WsfOmA==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/chunked-blob-reader-native@3.6.1":
   version "3.6.1"
@@ -1543,52 +1543,52 @@
     "@aws-sdk/util-waiter" "3.6.1"
     tslib "^2.0.0"
 
-"@aws-sdk/client-rekognitionstreaming@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/client-rekognitionstreaming/-/client-rekognitionstreaming-3.266.3.tgz#c14bfbbf340b39ff75c95af5250770ea9e4d5748"
-  integrity sha512-Xw4AlT8/BeEi8Sz2ayybEBi4Q8Gecz6I6chbDwhC5uHONWifHt4lUOM7lPkLnMXaUNrDB8f5htz1hhcq3Br10A==
+"@aws-sdk/client-rekognitionstreaming@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/client-rekognitionstreaming/-/client-rekognitionstreaming-3.298.1.tgz#1a81fe9863bcc9162fc7c9b0a1b91225dddecd11"
+  integrity sha512-tSIxSb080VDSJPG/6fbD5ngMNNW5tT/NrUgty1i52gFzlIXtzt9bQZVg3SYUpO4WaxCPtQ6MxyPJV7tIGkuktA==
   dependencies:
     "@aws-crypto/sha256-browser" "2.0.0"
     "@aws-crypto/sha256-js" "2.0.0"
-    "@aws-sdk/client-sts" "^3.266.3"
-    "@aws-sdk/config-resolver" "^3.266.3"
-    "@aws-sdk/credential-provider-node" "^3.266.3"
-    "@aws-sdk/eventstream-handler-node" "^3.266.3"
-    "@aws-sdk/eventstream-serde-browser" "^3.266.3"
-    "@aws-sdk/eventstream-serde-config-resolver" "^3.266.3"
-    "@aws-sdk/eventstream-serde-node" "^3.266.3"
-    "@aws-sdk/fetch-http-handler" "^3.266.3"
-    "@aws-sdk/hash-node" "^3.266.3"
-    "@aws-sdk/invalid-dependency" "^3.266.3"
-    "@aws-sdk/middleware-content-length" "^3.266.3"
-    "@aws-sdk/middleware-endpoint" "^3.266.3"
-    "@aws-sdk/middleware-eventstream" "^3.266.3"
-    "@aws-sdk/middleware-host-header" "^3.266.3"
-    "@aws-sdk/middleware-logger" "^3.266.3"
-    "@aws-sdk/middleware-recursion-detection" "^3.266.3"
-    "@aws-sdk/middleware-retry" "^3.266.3"
-    "@aws-sdk/middleware-serde" "^3.266.3"
-    "@aws-sdk/middleware-signing" "^3.266.3"
-    "@aws-sdk/middleware-stack" "^3.266.3"
-    "@aws-sdk/middleware-user-agent" "^3.266.3"
-    "@aws-sdk/middleware-websocket" "^3.266.3"
-    "@aws-sdk/node-config-provider" "^3.266.3"
-    "@aws-sdk/node-http-handler" "^3.266.3"
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/smithy-client" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/url-parser" "^3.266.3"
-    "@aws-sdk/util-base64" "^3.266.3"
-    "@aws-sdk/util-body-length-browser" "^3.266.3"
-    "@aws-sdk/util-body-length-node" "^3.266.3"
-    "@aws-sdk/util-defaults-mode-browser" "^3.266.3"
-    "@aws-sdk/util-defaults-mode-node" "^3.266.3"
-    "@aws-sdk/util-endpoints" "^3.266.3"
-    "@aws-sdk/util-retry" "^3.266.3"
-    "@aws-sdk/util-user-agent-browser" "^3.266.3"
-    "@aws-sdk/util-user-agent-node" "^3.266.3"
-    "@aws-sdk/util-utf8" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/client-sts" "^3.298.1"
+    "@aws-sdk/config-resolver" "^3.298.1"
+    "@aws-sdk/credential-provider-node" "^3.298.1"
+    "@aws-sdk/eventstream-handler-node" "^3.298.1"
+    "@aws-sdk/eventstream-serde-browser" "^3.298.1"
+    "@aws-sdk/eventstream-serde-config-resolver" "^3.298.1"
+    "@aws-sdk/eventstream-serde-node" "^3.298.1"
+    "@aws-sdk/fetch-http-handler" "^3.298.1"
+    "@aws-sdk/hash-node" "^3.298.1"
+    "@aws-sdk/invalid-dependency" "^3.298.1"
+    "@aws-sdk/middleware-content-length" "^3.298.1"
+    "@aws-sdk/middleware-endpoint" "^3.298.1"
+    "@aws-sdk/middleware-eventstream" "^3.298.1"
+    "@aws-sdk/middleware-host-header" "^3.298.1"
+    "@aws-sdk/middleware-logger" "^3.298.1"
+    "@aws-sdk/middleware-recursion-detection" "^3.298.1"
+    "@aws-sdk/middleware-retry" "^3.298.1"
+    "@aws-sdk/middleware-serde" "^3.298.1"
+    "@aws-sdk/middleware-signing" "^3.298.1"
+    "@aws-sdk/middleware-stack" "^3.298.1"
+    "@aws-sdk/middleware-user-agent" "^3.298.1"
+    "@aws-sdk/middleware-websocket" "^3.298.1"
+    "@aws-sdk/node-config-provider" "^3.298.1"
+    "@aws-sdk/node-http-handler" "^3.298.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/smithy-client" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/url-parser" "^3.298.1"
+    "@aws-sdk/util-base64" "^3.298.1"
+    "@aws-sdk/util-body-length-browser" "^3.298.1"
+    "@aws-sdk/util-body-length-node" "^3.298.1"
+    "@aws-sdk/util-defaults-mode-browser" "^3.298.1"
+    "@aws-sdk/util-defaults-mode-node" "^3.298.1"
+    "@aws-sdk/util-endpoints" "^3.298.1"
+    "@aws-sdk/util-retry" "^3.298.1"
+    "@aws-sdk/util-user-agent-browser" "^3.298.1"
+    "@aws-sdk/util-user-agent-node" "^3.298.1"
+    "@aws-sdk/util-utf8" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/client-s3@3.6.1":
   version "3.6.1"
@@ -1642,43 +1642,43 @@
     fast-xml-parser "^3.16.0"
     tslib "^2.0.0"
 
-"@aws-sdk/client-sso-oidc@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/client-sso-oidc/-/client-sso-oidc-3.266.3.tgz#610cfda60edbb031d27fe6df15f88b43fd7c7fa3"
-  integrity sha512-uVgmidmpt+TLgfIAc4tE5UM7yU422Z17ZRU0AziE44bB9k6dpWN2lMCVxISebpVPSgCTx5hC13xMXWW9FUfNLw==
+"@aws-sdk/client-sso-oidc@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/client-sso-oidc/-/client-sso-oidc-3.298.1.tgz#43ebd1ab4a045054ec9a118a96dcc0f8c90516c4"
+  integrity sha512-Ud7YMsm1WSoGjv7ECIVoob07GlnbDtJeXhA8AdalY6R0nZ9SIhuVTmfPOcLL132jR829uSX8s1w8cncVQxXijg==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/config-resolver" "^3.266.3"
-    "@aws-sdk/fetch-http-handler" "^3.266.3"
-    "@aws-sdk/hash-node" "^3.266.3"
-    "@aws-sdk/invalid-dependency" "^3.266.3"
-    "@aws-sdk/middleware-content-length" "^3.266.3"
-    "@aws-sdk/middleware-endpoint" "^3.266.3"
-    "@aws-sdk/middleware-host-header" "^3.266.3"
-    "@aws-sdk/middleware-logger" "^3.266.3"
-    "@aws-sdk/middleware-recursion-detection" "^3.266.3"
-    "@aws-sdk/middleware-retry" "^3.266.3"
-    "@aws-sdk/middleware-serde" "^3.266.3"
-    "@aws-sdk/middleware-stack" "^3.266.3"
-    "@aws-sdk/middleware-user-agent" "^3.266.3"
-    "@aws-sdk/node-config-provider" "^3.266.3"
-    "@aws-sdk/node-http-handler" "^3.266.3"
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/smithy-client" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/url-parser" "^3.266.3"
-    "@aws-sdk/util-base64" "^3.266.3"
-    "@aws-sdk/util-body-length-browser" "^3.266.3"
-    "@aws-sdk/util-body-length-node" "^3.266.3"
-    "@aws-sdk/util-defaults-mode-browser" "^3.266.3"
-    "@aws-sdk/util-defaults-mode-node" "^3.266.3"
-    "@aws-sdk/util-endpoints" "^3.266.3"
-    "@aws-sdk/util-retry" "^3.266.3"
-    "@aws-sdk/util-user-agent-browser" "^3.266.3"
-    "@aws-sdk/util-user-agent-node" "^3.266.3"
-    "@aws-sdk/util-utf8" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/config-resolver" "^3.298.1"
+    "@aws-sdk/fetch-http-handler" "^3.298.1"
+    "@aws-sdk/hash-node" "^3.298.1"
+    "@aws-sdk/invalid-dependency" "^3.298.1"
+    "@aws-sdk/middleware-content-length" "^3.298.1"
+    "@aws-sdk/middleware-endpoint" "^3.298.1"
+    "@aws-sdk/middleware-host-header" "^3.298.1"
+    "@aws-sdk/middleware-logger" "^3.298.1"
+    "@aws-sdk/middleware-recursion-detection" "^3.298.1"
+    "@aws-sdk/middleware-retry" "^3.298.1"
+    "@aws-sdk/middleware-serde" "^3.298.1"
+    "@aws-sdk/middleware-stack" "^3.298.1"
+    "@aws-sdk/middleware-user-agent" "^3.298.1"
+    "@aws-sdk/node-config-provider" "^3.298.1"
+    "@aws-sdk/node-http-handler" "^3.298.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/smithy-client" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/url-parser" "^3.298.1"
+    "@aws-sdk/util-base64" "^3.298.1"
+    "@aws-sdk/util-body-length-browser" "^3.298.1"
+    "@aws-sdk/util-body-length-node" "^3.298.1"
+    "@aws-sdk/util-defaults-mode-browser" "^3.298.1"
+    "@aws-sdk/util-defaults-mode-node" "^3.298.1"
+    "@aws-sdk/util-endpoints" "^3.298.1"
+    "@aws-sdk/util-retry" "^3.298.1"
+    "@aws-sdk/util-user-agent-browser" "^3.298.1"
+    "@aws-sdk/util-user-agent-node" "^3.298.1"
+    "@aws-sdk/util-utf8" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/client-sso@3.186.0":
   version "3.186.0"
@@ -1717,43 +1717,43 @@
     "@aws-sdk/util-utf8-node" "3.186.0"
     tslib "^2.3.1"
 
-"@aws-sdk/client-sso@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/client-sso/-/client-sso-3.266.3.tgz#0d066a10daecc62757aac93fc7dd01b3f590ba5b"
-  integrity sha512-b+oFM2CwidnCHco+9vMhfiBpdIo3JcexcFZNEKWoxQWYHtZW49E4l7sdOJBdIHbOQ+Vz9TbmqCCBk4THovLtlg==
+"@aws-sdk/client-sso@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/client-sso/-/client-sso-3.298.1.tgz#fa2fcf93b50c738049a1435be7751942708cdf05"
+  integrity sha512-Lc5RqpJVLBgTSqaQY18B2+WQw99U+7BFGMkLa9pkgCojJknPjaL9F84X2Kh3oYuIy+z8el1e/oyIyxwPJIbkXw==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/config-resolver" "^3.266.3"
-    "@aws-sdk/fetch-http-handler" "^3.266.3"
-    "@aws-sdk/hash-node" "^3.266.3"
-    "@aws-sdk/invalid-dependency" "^3.266.3"
-    "@aws-sdk/middleware-content-length" "^3.266.3"
-    "@aws-sdk/middleware-endpoint" "^3.266.3"
-    "@aws-sdk/middleware-host-header" "^3.266.3"
-    "@aws-sdk/middleware-logger" "^3.266.3"
-    "@aws-sdk/middleware-recursion-detection" "^3.266.3"
-    "@aws-sdk/middleware-retry" "^3.266.3"
-    "@aws-sdk/middleware-serde" "^3.266.3"
-    "@aws-sdk/middleware-stack" "^3.266.3"
-    "@aws-sdk/middleware-user-agent" "^3.266.3"
-    "@aws-sdk/node-config-provider" "^3.266.3"
-    "@aws-sdk/node-http-handler" "^3.266.3"
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/smithy-client" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/url-parser" "^3.266.3"
-    "@aws-sdk/util-base64" "^3.266.3"
-    "@aws-sdk/util-body-length-browser" "^3.266.3"
-    "@aws-sdk/util-body-length-node" "^3.266.3"
-    "@aws-sdk/util-defaults-mode-browser" "^3.266.3"
-    "@aws-sdk/util-defaults-mode-node" "^3.266.3"
-    "@aws-sdk/util-endpoints" "^3.266.3"
-    "@aws-sdk/util-retry" "^3.266.3"
-    "@aws-sdk/util-user-agent-browser" "^3.266.3"
-    "@aws-sdk/util-user-agent-node" "^3.266.3"
-    "@aws-sdk/util-utf8" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/config-resolver" "^3.298.1"
+    "@aws-sdk/fetch-http-handler" "^3.298.1"
+    "@aws-sdk/hash-node" "^3.298.1"
+    "@aws-sdk/invalid-dependency" "^3.298.1"
+    "@aws-sdk/middleware-content-length" "^3.298.1"
+    "@aws-sdk/middleware-endpoint" "^3.298.1"
+    "@aws-sdk/middleware-host-header" "^3.298.1"
+    "@aws-sdk/middleware-logger" "^3.298.1"
+    "@aws-sdk/middleware-recursion-detection" "^3.298.1"
+    "@aws-sdk/middleware-retry" "^3.298.1"
+    "@aws-sdk/middleware-serde" "^3.298.1"
+    "@aws-sdk/middleware-stack" "^3.298.1"
+    "@aws-sdk/middleware-user-agent" "^3.298.1"
+    "@aws-sdk/node-config-provider" "^3.298.1"
+    "@aws-sdk/node-http-handler" "^3.298.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/smithy-client" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/url-parser" "^3.298.1"
+    "@aws-sdk/util-base64" "^3.298.1"
+    "@aws-sdk/util-body-length-browser" "^3.298.1"
+    "@aws-sdk/util-body-length-node" "^3.298.1"
+    "@aws-sdk/util-defaults-mode-browser" "^3.298.1"
+    "@aws-sdk/util-defaults-mode-node" "^3.298.1"
+    "@aws-sdk/util-endpoints" "^3.298.1"
+    "@aws-sdk/util-retry" "^3.298.1"
+    "@aws-sdk/util-user-agent-browser" "^3.298.1"
+    "@aws-sdk/util-user-agent-node" "^3.298.1"
+    "@aws-sdk/util-utf8" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/client-sts@3.186.0":
   version "3.186.0"
@@ -1797,47 +1797,47 @@
     fast-xml-parser "3.19.0"
     tslib "^2.3.1"
 
-"@aws-sdk/client-sts@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/client-sts/-/client-sts-3.266.3.tgz#8644ee9701cf1dac67b4397e80bc20ccc41ab459"
-  integrity sha512-iVWrnpEw/srctO18khBJEyAR9X2vKBo0621Hhf2gqtzY+ZBDOumjqNzAbHNGe9EnxWzVa/bxCNKbnkZ5H0dU5w==
+"@aws-sdk/client-sts@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/client-sts/-/client-sts-3.298.1.tgz#137e7e3bfad958efd85e31d021106b28cec63bc3"
+  integrity sha512-ZbMNhSe40AHdLcbjFEOa0nAgJIr7qRw4KHqqowOqVc/fXTbxBkTlm2Pg+0x7QXp84hbhbR4h/LYYQsofT+k2xw==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/config-resolver" "^3.266.3"
-    "@aws-sdk/credential-provider-node" "^3.266.3"
-    "@aws-sdk/fetch-http-handler" "^3.266.3"
-    "@aws-sdk/hash-node" "^3.266.3"
-    "@aws-sdk/invalid-dependency" "^3.266.3"
-    "@aws-sdk/middleware-content-length" "^3.266.3"
-    "@aws-sdk/middleware-endpoint" "^3.266.3"
-    "@aws-sdk/middleware-host-header" "^3.266.3"
-    "@aws-sdk/middleware-logger" "^3.266.3"
-    "@aws-sdk/middleware-recursion-detection" "^3.266.3"
-    "@aws-sdk/middleware-retry" "^3.266.3"
-    "@aws-sdk/middleware-sdk-sts" "^3.266.3"
-    "@aws-sdk/middleware-serde" "^3.266.3"
-    "@aws-sdk/middleware-signing" "^3.266.3"
-    "@aws-sdk/middleware-stack" "^3.266.3"
-    "@aws-sdk/middleware-user-agent" "^3.266.3"
-    "@aws-sdk/node-config-provider" "^3.266.3"
-    "@aws-sdk/node-http-handler" "^3.266.3"
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/smithy-client" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/url-parser" "^3.266.3"
-    "@aws-sdk/util-base64" "^3.266.3"
-    "@aws-sdk/util-body-length-browser" "^3.266.3"
-    "@aws-sdk/util-body-length-node" "^3.266.3"
-    "@aws-sdk/util-defaults-mode-browser" "^3.266.3"
-    "@aws-sdk/util-defaults-mode-node" "^3.266.3"
-    "@aws-sdk/util-endpoints" "^3.266.3"
-    "@aws-sdk/util-retry" "^3.266.3"
-    "@aws-sdk/util-user-agent-browser" "^3.266.3"
-    "@aws-sdk/util-user-agent-node" "^3.266.3"
-    "@aws-sdk/util-utf8" "^3.266.3"
-    fast-xml-parser "4.0.11"
-    tslib "^2.3.1"
+    "@aws-sdk/config-resolver" "^3.298.1"
+    "@aws-sdk/credential-provider-node" "^3.298.1"
+    "@aws-sdk/fetch-http-handler" "^3.298.1"
+    "@aws-sdk/hash-node" "^3.298.1"
+    "@aws-sdk/invalid-dependency" "^3.298.1"
+    "@aws-sdk/middleware-content-length" "^3.298.1"
+    "@aws-sdk/middleware-endpoint" "^3.298.1"
+    "@aws-sdk/middleware-host-header" "^3.298.1"
+    "@aws-sdk/middleware-logger" "^3.298.1"
+    "@aws-sdk/middleware-recursion-detection" "^3.298.1"
+    "@aws-sdk/middleware-retry" "^3.298.1"
+    "@aws-sdk/middleware-sdk-sts" "^3.298.1"
+    "@aws-sdk/middleware-serde" "^3.298.1"
+    "@aws-sdk/middleware-signing" "^3.298.1"
+    "@aws-sdk/middleware-stack" "^3.298.1"
+    "@aws-sdk/middleware-user-agent" "^3.298.1"
+    "@aws-sdk/node-config-provider" "^3.298.1"
+    "@aws-sdk/node-http-handler" "^3.298.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/smithy-client" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/url-parser" "^3.298.1"
+    "@aws-sdk/util-base64" "^3.298.1"
+    "@aws-sdk/util-body-length-browser" "^3.298.1"
+    "@aws-sdk/util-body-length-node" "^3.298.1"
+    "@aws-sdk/util-defaults-mode-browser" "^3.298.1"
+    "@aws-sdk/util-defaults-mode-node" "^3.298.1"
+    "@aws-sdk/util-endpoints" "^3.298.1"
+    "@aws-sdk/util-retry" "^3.298.1"
+    "@aws-sdk/util-user-agent-browser" "^3.298.1"
+    "@aws-sdk/util-user-agent-node" "^3.298.1"
+    "@aws-sdk/util-utf8" "^3.298.1"
+    fast-xml-parser "4.1.2"
+    tslib "^2.5.0"
 
 "@aws-sdk/client-textract@3.6.1":
   version "3.6.1"
@@ -1934,16 +1934,16 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/config-resolver@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/config-resolver/-/config-resolver-3.266.3.tgz#7fab00e389da5013045dfe66f31aa460f35c6ebe"
-  integrity sha512-MTGY4XhsXVRhlHIZI1U2ZvncUEO5c89DXR4eWpwZjHumZHtzfY3H84izvzkpFvYB+hfJY86sZBfWn2SH1qnwBQ==
+"@aws-sdk/config-resolver@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/config-resolver/-/config-resolver-3.298.1.tgz#345acde401b05b707d8939018b477be66c7b5246"
+  integrity sha512-30iJDNiOgd++1fw4Okkb0rNWImZJNPEsrWRxwGzj6dE8dcQzg2Xfj54B0PXR7Zcbxp7BACBrzRvHTdujoEpgFw==
   dependencies:
-    "@aws-sdk/signature-v4" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/util-config-provider" "^3.266.3"
-    "@aws-sdk/util-middleware" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/signature-v4" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-config-provider" "^3.298.1"
+    "@aws-sdk/util-middleware" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/credential-provider-cognito-identity@3.6.1":
   version "3.6.1"
@@ -1973,14 +1973,14 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/credential-provider-env@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-env/-/credential-provider-env-3.266.3.tgz#14851c60542971b873f845ec920961968a105531"
-  integrity sha512-CPtomH8kGOTmckWRmgKeylHxnCLJj1UwMX/3dorOXZko+cRax32mFfYPfenih7vE3yLO4pU1P25fMVg68B9NMA==
+"@aws-sdk/credential-provider-env@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-env/-/credential-provider-env-3.298.1.tgz#f7bb503935813c65ad55afca169523032285c84e"
+  integrity sha512-wiDecyNYVVxoYFMYHiFaiEvz7yRfr/eZTUgM2TKORjr6Qy5VttWvstmFPuxwniUuqqp+6407aHYB+yYNynDCrg==
   dependencies:
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/credential-provider-imds@3.186.0":
   version "3.186.0"
@@ -2002,16 +2002,16 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/credential-provider-imds@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-imds/-/credential-provider-imds-3.266.3.tgz#f4c73367d2ae4389609789d74744f3e22ea5060a"
-  integrity sha512-i80FFLDiCvswAzs0HirkXbs3lTodFO4V6GsOsSX7KEZGMWYKW0s9AaEXA8QDthsmrvNLC7D1xBPVcKPrgMPPcw==
+"@aws-sdk/credential-provider-imds@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-imds/-/credential-provider-imds-3.298.1.tgz#1e2454a560448fee26dba66b2cf59d200658fcb3"
+  integrity sha512-H4B9zC9gVLcSF+cqHU78FT2ExxWC8DXWT5OdSKgYZaf3nuo7UoA8kG8cCXPWj3g2nl6tyaQNI0gVghoNIlMERQ==
   dependencies:
-    "@aws-sdk/node-config-provider" "^3.266.3"
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/url-parser" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/node-config-provider" "^3.298.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/url-parser" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/credential-provider-ini@3.186.0":
   version "3.186.0"
@@ -2037,20 +2037,20 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/credential-provider-ini@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-ini/-/credential-provider-ini-3.266.3.tgz#7b350809d7629362dd6a4de038e4f2cb21f1a52a"
-  integrity sha512-fkRfWoFuPrMSG9O6D9hdQViZDjpD5Rw1gcosBs1loHBF2fmjdAdGmt/BaWoWg96QBV25nLAkmXvq6uHw2gFoQg==
+"@aws-sdk/credential-provider-ini@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-ini/-/credential-provider-ini-3.298.1.tgz#691f414ecb4d1191d739306dd957955f790df04a"
+  integrity sha512-0XLKoPqKWZBFgc1LLtXT8e+t1NLERj+Aws2vu/xtEvkMEry4EL7jm2/DfHHVQ0WDj9vD+2bF0jcjEcJqMReAnw==
   dependencies:
-    "@aws-sdk/credential-provider-env" "^3.266.3"
-    "@aws-sdk/credential-provider-imds" "^3.266.3"
-    "@aws-sdk/credential-provider-process" "^3.266.3"
-    "@aws-sdk/credential-provider-sso" "^3.266.3"
-    "@aws-sdk/credential-provider-web-identity" "^3.266.3"
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/shared-ini-file-loader" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/credential-provider-env" "^3.298.1"
+    "@aws-sdk/credential-provider-imds" "^3.298.1"
+    "@aws-sdk/credential-provider-process" "^3.298.1"
+    "@aws-sdk/credential-provider-sso" "^3.298.1"
+    "@aws-sdk/credential-provider-web-identity" "^3.298.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/shared-ini-file-loader" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/credential-provider-node@3.186.0":
   version "3.186.0"
@@ -2082,21 +2082,21 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/credential-provider-node@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-node/-/credential-provider-node-3.266.3.tgz#9e433b89d9c947a4c9dd64d21f1eb02d9a5bc446"
-  integrity sha512-V1Q9BxRA154SiCGc+Pcv7sBl5Nplnr8/5VkJ0FhwYCK+te0LKGBl81PBgs0sIOmcmGF9r4z99WDh0IQaWs8xOQ==
+"@aws-sdk/credential-provider-node@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-node/-/credential-provider-node-3.298.1.tgz#a5ff855bdf8b9cf6b9c9ea12ed9f820ae49d37e0"
+  integrity sha512-NEaox5YcVV0pss/e9EA4AUyuD6H4LjxS/d4ZNF6tiWUeIca4H1NTx1o6YLEY/hWWw7LzgYeHfL9KF9vQ9aA4/A==
   dependencies:
-    "@aws-sdk/credential-provider-env" "^3.266.3"
-    "@aws-sdk/credential-provider-imds" "^3.266.3"
-    "@aws-sdk/credential-provider-ini" "^3.266.3"
-    "@aws-sdk/credential-provider-process" "^3.266.3"
-    "@aws-sdk/credential-provider-sso" "^3.266.3"
-    "@aws-sdk/credential-provider-web-identity" "^3.266.3"
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/shared-ini-file-loader" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/credential-provider-env" "^3.298.1"
+    "@aws-sdk/credential-provider-imds" "^3.298.1"
+    "@aws-sdk/credential-provider-ini" "^3.298.1"
+    "@aws-sdk/credential-provider-process" "^3.298.1"
+    "@aws-sdk/credential-provider-sso" "^3.298.1"
+    "@aws-sdk/credential-provider-web-identity" "^3.298.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/shared-ini-file-loader" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/credential-provider-process@3.186.0":
   version "3.186.0"
@@ -2119,15 +2119,15 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/credential-provider-process@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-process/-/credential-provider-process-3.266.3.tgz#4a22c169c97b74f27277467a2eb7c20fa02eed80"
-  integrity sha512-r/52N/m9XrLRnnoeJQNH3dLltZndfVAIJUbNIDopUTBnBCdnF8eTwRnTPo5FF3qSPlJl3zbh4/KZ7DNei0HMmA==
+"@aws-sdk/credential-provider-process@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-process/-/credential-provider-process-3.298.1.tgz#14c731f1e4e6bcbd86053c08fe2f0b14fba1f8ca"
+  integrity sha512-TApvTJAYUBisiVdtzbELiMc5zQhpiHnMCyo0P8HHyj8RK95eXogrktFY4xOPd24swqzUI0viNTWLEokFpeM+AA==
   dependencies:
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/shared-ini-file-loader" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/shared-ini-file-loader" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/credential-provider-sso@3.186.0":
   version "3.186.0"
@@ -2140,17 +2140,17 @@
     "@aws-sdk/types" "3.186.0"
     tslib "^2.3.1"
 
-"@aws-sdk/credential-provider-sso@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-sso/-/credential-provider-sso-3.266.3.tgz#9c8e735f03ed80c3b5d314dc10b24e76fcdc647e"
-  integrity sha512-fXN6SgdKa12T7sdNjd31Gmwu12PSlmTSt3ntpdyLozJxpe5PM25FAZ5ZERQ0CX/UCqX3mJ+xHbJdiCN5qVyjYA==
+"@aws-sdk/credential-provider-sso@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-sso/-/credential-provider-sso-3.298.1.tgz#c9eac15cb3eeab8f2e21c05e9f4c37457dbe30dc"
+  integrity sha512-c9/VDNA0DE4xaFpcrvYZEHsOQPogfMBv1nxL8yXbmAR6cI+qGhE6Hkhnoxd5s8H4mMtFKGUfJANV7gNVEsbd8Q==
   dependencies:
-    "@aws-sdk/client-sso" "^3.266.3"
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/shared-ini-file-loader" "^3.266.3"
-    "@aws-sdk/token-providers" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/client-sso" "^3.298.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/shared-ini-file-loader" "^3.298.1"
+    "@aws-sdk/token-providers" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/credential-provider-web-identity@3.186.0":
   version "3.186.0"
@@ -2161,14 +2161,14 @@
     "@aws-sdk/types" "3.186.0"
     tslib "^2.3.1"
 
-"@aws-sdk/credential-provider-web-identity@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-web-identity/-/credential-provider-web-identity-3.266.3.tgz#ab6220a60b6307f60ef3150bb8a88ced9d8cf7de"
-  integrity sha512-k/8LK3+qCzEk/QjQy//6jtvm8AwN9bbaEF+GkeayN0VJYTRkKCzxICe5+Wcnopf0juMuxvYvaFgXKzSAn4JIxg==
+"@aws-sdk/credential-provider-web-identity@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/credential-provider-web-identity/-/credential-provider-web-identity-3.298.1.tgz#e2a55f3645fee6634cbd6c098a78d2bf3a0ada39"
+  integrity sha512-76qIVzPgsneftkaWT/OQGQ76R6RE4U/QE09ysyPISygvq5BLFZuVwG7fOMJC+GeqOFeG3/dmdDSsZPgYay3bAw==
   dependencies:
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/eventstream-codec@3.186.0":
   version "3.186.0"
@@ -2180,15 +2180,15 @@
     "@aws-sdk/util-hex-encoding" "3.186.0"
     tslib "^2.3.1"
 
-"@aws-sdk/eventstream-codec@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-codec/-/eventstream-codec-3.266.3.tgz#eb686329a906c19c2be1f58e4dcd2d5bffcdc25b"
-  integrity sha512-bU5qFzEMndAsWxhryiHrpjiHsloYlFi13DNqYzrMcrZXBWe27yxhPFwoolNeglhC7PGkBjvwX5Z1UBvJitdpuA==
+"@aws-sdk/eventstream-codec@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-codec/-/eventstream-codec-3.298.1.tgz#8d8262e560fd06f6f31c7f6ee169218ced7ca1be"
+  integrity sha512-xzmEYkK3ViY9rvnB872JvexzPd5FVk6m4OVde6AlIwBUa5PLndG8NYxFl0wcJ+eex2wXkMVXlmco1WV0+ESVdg==
   dependencies:
     "@aws-crypto/crc32" "3.0.0"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/util-hex-encoding" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-hex-encoding" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/eventstream-handler-node@3.186.0":
   version "3.186.0"
@@ -2199,14 +2199,14 @@
     "@aws-sdk/types" "3.186.0"
     tslib "^2.3.1"
 
-"@aws-sdk/eventstream-handler-node@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-handler-node/-/eventstream-handler-node-3.266.3.tgz#e827d0605c3741d6957361f7f244b4192874ed3b"
-  integrity sha512-D+1s/agJ6HQ8Yd4281HPrfotzelyvas+QCke1xda6m9zdqRMR019coH14YET5662voRLdR+p+zt5pZPlNKn07w==
+"@aws-sdk/eventstream-handler-node@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-handler-node/-/eventstream-handler-node-3.298.1.tgz#962f931447ecd6fbc9997edf93fce23148c1cb7d"
+  integrity sha512-xwYTKhWS6tySly7HRZq6tlup4+lDvj8VSd3RlzVbYtW2uPuqM+WKkzJJ494pGGr2Gwgb32MuZSt2dEbdfpqx1g==
   dependencies:
-    "@aws-sdk/eventstream-codec" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/eventstream-codec" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/eventstream-marshaller@3.6.1":
   version "3.6.1"
@@ -2237,14 +2237,14 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/eventstream-serde-browser@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-serde-browser/-/eventstream-serde-browser-3.266.3.tgz#dc8d6b0c2cb2ac79bb8ba3e0baeec597580e5bf4"
-  integrity sha512-jVuw6vLs57CyU6rDuUsWBt18r9jdHpnzpq/Q5J+ckeiZLEroPKgY90zDNHZ4/MNNpjzWJgyHJDyvs1LtoMWx2g==
+"@aws-sdk/eventstream-serde-browser@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-serde-browser/-/eventstream-serde-browser-3.298.1.tgz#7988bddd8cd1159987b020e69a7e27d5dddf2413"
+  integrity sha512-nHtdK03cOXg/I4lENUHIfe1V2VSLV/dTpZ7GPs/b+bi1Pc0gfCPCAjtHy627QQ2unVeRgTR8egiBaczAu43Y4w==
   dependencies:
-    "@aws-sdk/eventstream-serde-universal" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/eventstream-serde-universal" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/eventstream-serde-config-resolver@3.186.0":
   version "3.186.0"
@@ -2262,13 +2262,13 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/eventstream-serde-config-resolver@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-serde-config-resolver/-/eventstream-serde-config-resolver-3.266.3.tgz#0810896b83d1662235669045ba402426667401b4"
-  integrity sha512-q+Kp65wNlHpR9QHRDUID+eS1zH2j3jyk9t1oR7FK1YjXOgGeytwVbBJ/ERl0v+uMLhFsokaNXRzFbAkVnE7rIg==
+"@aws-sdk/eventstream-serde-config-resolver@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-serde-config-resolver/-/eventstream-serde-config-resolver-3.298.1.tgz#a6c4144daf32c35b03c0a6608db5d8bb6f864987"
+  integrity sha512-Mezo1w5eqZ+zQU3ZSIPdI+7NHV1xCZmEQKJK+1wJXtooaT6nU4Ii8cm0zGhCCNINXLZVG/ojPKLNRfWq3IIfYw==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/eventstream-serde-node@3.186.0":
   version "3.186.0"
@@ -2289,14 +2289,14 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/eventstream-serde-node@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-serde-node/-/eventstream-serde-node-3.266.3.tgz#220983359d77e7dc47fc5146ad5152e2d995a01b"
-  integrity sha512-0SBpUfWAJThKQb+FHGGNEwibnPMqkce16uTQwybmu32q1fmHba6i00ICZ8aX6WYgj9fsR0gxmM3sbNcRAUpcnw==
+"@aws-sdk/eventstream-serde-node@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-serde-node/-/eventstream-serde-node-3.298.1.tgz#6524314a8c04f249ba0b58dc8c6090aaacf06b46"
+  integrity sha512-y49syhzckc80/PI0NbsghwEWpICTl9caCz5UB6di/Ve0aTCHPRPRoynRsYHfL7QlyP+FC4bVDPreBXQTqyD4Cg==
   dependencies:
-    "@aws-sdk/eventstream-serde-universal" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/eventstream-serde-universal" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/eventstream-serde-universal@3.186.0":
   version "3.186.0"
@@ -2316,14 +2316,14 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/eventstream-serde-universal@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-serde-universal/-/eventstream-serde-universal-3.266.3.tgz#0c968fe253217402a6bf8ff82dce08e21cdef00d"
-  integrity sha512-kI7Pvo9BMMbhaay5gZ1OUdb5eZB/FS2NkQz/NI7fPGW6tVG4p/63Qe4MqIVaT75vg/vz2yCeGT2XWi8P/0GpPQ==
+"@aws-sdk/eventstream-serde-universal@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/eventstream-serde-universal/-/eventstream-serde-universal-3.298.1.tgz#16eb262d18ce7588af8466b09727088bb2ac143a"
+  integrity sha512-Kz5LXPjXivSSLXvjjt5CVYUMjc28/hel0Tg7JXZDL/MBmhHtZJlpqNsffqpkqoCZkjdqDhgTHH1zprYcm6o9AA==
   dependencies:
-    "@aws-sdk/eventstream-codec" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/eventstream-codec" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/fetch-http-handler@3.186.0":
   version "3.186.0"
@@ -2347,16 +2347,16 @@
     "@aws-sdk/util-base64-browser" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/fetch-http-handler@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/fetch-http-handler/-/fetch-http-handler-3.266.3.tgz#79ce7152518ae1dcfe1364947eb2b6a2ce9c34db"
-  integrity sha512-S/zLXzdTM+5JlHHZaiPaAyXlN3JCWPB8J/+n6ASOE/D6SFLJVY+1kxriplcP5bFu7dKXtZJ1g0/uZk1yZfLqTw==
+"@aws-sdk/fetch-http-handler@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/fetch-http-handler/-/fetch-http-handler-3.298.1.tgz#4acba8f1fcf4b5818df8a6138894ae2474709161"
+  integrity sha512-BPz9iBJKo2i6Ld2b3jQArxs0lcRiTzan4NHt6icMm6GFled20A6cKg4o65Shf0jQR99+LuZc0w0xc/EbHNHmNA==
   dependencies:
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/querystring-builder" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/util-base64" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/querystring-builder" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-base64" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/hash-blob-browser@3.6.1":
   version "3.6.1"
@@ -2386,15 +2386,15 @@
     "@aws-sdk/util-buffer-from" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/hash-node@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/hash-node/-/hash-node-3.266.3.tgz#e06d0275c0ed502d4f348b2fd684220bc034faac"
-  integrity sha512-U7C4r9ahBuAmP4unbYaIlg3r/yW97/UgIjlkZ6nIO7eJdaOrrPcXq0pLIT92bm3P6W39PYktSk1b6y+zR14Vyg==
+"@aws-sdk/hash-node@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/hash-node/-/hash-node-3.298.1.tgz#c6c8403e90fa272faf1ac6948f07dd42a5e7c85f"
+  integrity sha512-qL+q3IyNc69Iso2Uaw8zWeUZUuDRfD4VdI8L88s1j0iwfpDOfToBS9+/ZMczaR6NtoHAb5jQx6hGlRVxzmcU8w==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/util-buffer-from" "^3.266.3"
-    "@aws-sdk/util-utf8" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-buffer-from" "^3.298.1"
+    "@aws-sdk/util-utf8" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/hash-stream-node@3.6.1":
   version "3.6.1"
@@ -2420,13 +2420,13 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/invalid-dependency@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/invalid-dependency/-/invalid-dependency-3.266.3.tgz#997071c7d3b97d0af0acda34f079f85b9ef5698c"
-  integrity sha512-cwSjnZuL1d7MsPn2/5oPGoOxvNwaoqPP9FzgTLlaDNyjwEDnqEBGwl4eAKQbmFGQdBmeuCd5GlKDfjcw4UzwFw==
+"@aws-sdk/invalid-dependency@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/invalid-dependency/-/invalid-dependency-3.298.1.tgz#fa6928c235d77d3fc9e8aff3c25c977a55ed9e2e"
+  integrity sha512-0dv9owxJnh9n34CQ5Qv1rSuYKp8ozP+r4N2QyVNo0qY0MShASPFZiJn/9dfewyn+4Bsa5wb7ey3v4bInj/8PXQ==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/is-array-buffer@3.186.0":
   version "3.186.0"
@@ -2442,12 +2442,12 @@
   dependencies:
     tslib "^1.8.0"
 
-"@aws-sdk/is-array-buffer@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/is-array-buffer/-/is-array-buffer-3.266.3.tgz#b258087f323db81f032b1b38e8eaf38799fefc7e"
-  integrity sha512-Ul2HvssfA91eQ3XjQ0XKLIG1l00YJ6hE1RRAQ5m3047kdiu1lGmu3F7F9e9+Y8Ygu3bIvazY6ttJ4eRbYMXSBQ==
+"@aws-sdk/is-array-buffer@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/is-array-buffer/-/is-array-buffer-3.298.1.tgz#5af4dcb2873144a85fbb509f17250719ed092b9e"
+  integrity sha512-t7lEG1gKJwjv8ELzblPwCRCmYp8uaA1/xDi8Fg0MQTzCe+fi4UTLrn/lZTiWILCKyTUtIz65bsoNaDpCmCMxzw==
   dependencies:
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/md5-js@3.6.1":
   version "3.6.1"
@@ -2496,28 +2496,28 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/middleware-content-length@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-content-length/-/middleware-content-length-3.266.3.tgz#60e7ea0964493dce9125766b7b0fae978b5d6161"
-  integrity sha512-qfC5WLdjs5WIy/zZjPfM6YyCRwmIfQSi8Z6LGq816KQgEm23km3lnoC08mMRyEXogBHA3csTaUrTHzdfoPwkfA==
+"@aws-sdk/middleware-content-length@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-content-length/-/middleware-content-length-3.298.1.tgz#2f629a33f375ce3fd59e35e59803a0461184aba5"
+  integrity sha512-id2FPX3rhfrqV1EWjtKzhL/HHxfR0JKNmQ6N5QbwB6jJRam6sget9S7PJTsmDAtWahnM+d5JzbM4QLxr7gPXxg==
   dependencies:
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
-"@aws-sdk/middleware-endpoint@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-endpoint/-/middleware-endpoint-3.266.3.tgz#d7719899ac9c18e0450f4eb306128660556bd34f"
-  integrity sha512-gEFGpDoCwSYx3DmbnaCtOYeuoTVZ+dhvZCS46InXHAqghp99hPFTz59PoJXy9JC4PeezBZK+fbB7+q98mphMgw==
+"@aws-sdk/middleware-endpoint@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-endpoint/-/middleware-endpoint-3.298.1.tgz#08c53630be1ea4bd8f6f28fac958c6abbbc5acdb"
+  integrity sha512-CP4FQTsLgxzgQ1cmOibw8XgfXjz1sJrx9oV0YXdvngI3Rgvhei5pJwmGfC7HFTfh2vJj3YsKeUT5jCNLfO7aqQ==
   dependencies:
-    "@aws-sdk/middleware-serde" "^3.266.3"
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/signature-v4" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/url-parser" "^3.266.3"
-    "@aws-sdk/util-config-provider" "^3.266.3"
-    "@aws-sdk/util-middleware" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/middleware-serde" "^3.298.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/signature-v4" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/url-parser" "^3.298.1"
+    "@aws-sdk/util-config-provider" "^3.298.1"
+    "@aws-sdk/util-middleware" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/middleware-eventstream@3.186.0":
   version "3.186.0"
@@ -2528,14 +2528,14 @@
     "@aws-sdk/types" "3.186.0"
     tslib "^2.3.1"
 
-"@aws-sdk/middleware-eventstream@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-eventstream/-/middleware-eventstream-3.266.3.tgz#c70c401e2bbd5689d02c09cd59a07d9c431ab434"
-  integrity sha512-dewrHtnwvWlCHzfFmVcPuGrEe96j0AzyHurlhAZIzRx9Y2c3QC219X5AzdBwa+VbuThDvwMwR942NgZCjyVnSw==
+"@aws-sdk/middleware-eventstream@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-eventstream/-/middleware-eventstream-3.298.1.tgz#e50b19cf92f1a9fa485e43c245c3fb4e8a9eb4a5"
+  integrity sha512-84ZuA0upKNYgdXXRbEZBYZTflYKhER8KqJz/qHflGzQmkNIHrpze7biP0LaY4w69cTvIi9+picJJZ1q7SCgy/Q==
   dependencies:
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/middleware-expect-continue@3.6.1":
   version "3.6.1"
@@ -2574,14 +2574,14 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/middleware-host-header@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-host-header/-/middleware-host-header-3.266.3.tgz#c47e22baf79e6f48b80a1a11c9029ab4e4609e7d"
-  integrity sha512-7wOk6WbWrbrofycTOArCinDQc3NfF+3mfBGPoKUBaImYflP9E6wLOAGvSW4rAwoygEBDr3+S40241MGOrWnAJw==
+"@aws-sdk/middleware-host-header@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-host-header/-/middleware-host-header-3.298.1.tgz#98a6970a373d3b29f198c098fe94f4bf353cad4a"
+  integrity sha512-KP5tHjTkB9mAA/bBoiiVDwqCobxRUet7DFX4gY9mgDJTfBYkuPQ6IVtG4uThX2oVwtAN3/+w28SXFEpFA2TLVQ==
   dependencies:
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/middleware-location-constraint@3.6.1":
   version "3.6.1"
@@ -2607,13 +2607,13 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/middleware-logger@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-logger/-/middleware-logger-3.266.3.tgz#fdaea512526f96f2edaa54e9fa57de37e98bf5f0"
-  integrity sha512-Y9jB2CTptAR69vm4qY/AW7Id2PAcb8Pn0rZFk2T3rmJS0vTOJ/rKiez9NdieycEWrCbKKUKMXCtxPR2zZTX8Lg==
+"@aws-sdk/middleware-logger@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-logger/-/middleware-logger-3.298.1.tgz#f4c3c08cba5d4a01196cbcd0eec18c5bd997371c"
+  integrity sha512-0KHPbG/ss14SALKED3cZHrhseBDuoH4C9h4pjxf8vyJm+ILqePwwG1LcQNpYUJ/OnsGTYKMalYIPdMS2DBMmSw==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/middleware-recursion-detection@3.186.0":
   version "3.186.0"
@@ -2624,14 +2624,14 @@
     "@aws-sdk/types" "3.186.0"
     tslib "^2.3.1"
 
-"@aws-sdk/middleware-recursion-detection@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-recursion-detection/-/middleware-recursion-detection-3.266.3.tgz#a759d16041dbc7216990174f2605133a2bbffddb"
-  integrity sha512-C0GNB8igyu4oxur0ruVf6SkS5sXnAcBNMdWVC41GxyUiHJ+qSbWMXqS+tl3vhzQDMIMQrMhujmyducU/Nw6m2Q==
+"@aws-sdk/middleware-recursion-detection@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-recursion-detection/-/middleware-recursion-detection-3.298.1.tgz#1f699b86ab658eaf1364a6228d2c9165a2f0064d"
+  integrity sha512-XJKNniaMXgRMlU3Np2BttALz68jZO/U8my5L9kZ/sifhsjxEG6FHo2sXOZPDQtQS+uqZ8p4fy1Wikz0x/zAyxg==
   dependencies:
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/middleware-retry@3.186.0":
   version "3.186.0"
@@ -2657,17 +2657,17 @@
     tslib "^1.8.0"
     uuid "^3.0.0"
 
-"@aws-sdk/middleware-retry@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-retry/-/middleware-retry-3.266.3.tgz#203521e7518553195f7b6a6e77c97a24325f7fc5"
-  integrity sha512-YFP7Gb2sut8NbDWfIkbnBedD9vd6cdBx1zjQB5jhxz/0WaZHRYZRzpj0cYf3HnfGmQLrPbUzrphnU/GpZ4AeJw==
+"@aws-sdk/middleware-retry@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-retry/-/middleware-retry-3.298.1.tgz#b7eadec0de01e0b70e3b3f784f7cf52cf214a4ce"
+  integrity sha512-H993mW1pXIPBWMDTiotm4hHjejhXcWlCDUhuHtHg7WER+i0F17+51UXIvNr2sUQv5sw40/p1rPXpTGrpalPgDA==
   dependencies:
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/service-error-classification" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/util-middleware" "^3.266.3"
-    "@aws-sdk/util-retry" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/service-error-classification" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-middleware" "^3.298.1"
+    "@aws-sdk/util-retry" "^3.298.1"
+    tslib "^2.5.0"
     uuid "^8.3.2"
 
 "@aws-sdk/middleware-sdk-s3@3.6.1":
@@ -2692,17 +2692,17 @@
     "@aws-sdk/types" "3.186.0"
     tslib "^2.3.1"
 
-"@aws-sdk/middleware-sdk-sts@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-sdk-sts/-/middleware-sdk-sts-3.266.3.tgz#6f19e78422878f2474286453cff3a0131a1cdc50"
-  integrity sha512-RQMJtBcV83huXorvJmg5UqarET/Qang7Yrfuz+Z59EoMDudzRmAGEtNcqVKN+4cvuR00dJNdQ7pxA80oTRqVAQ==
+"@aws-sdk/middleware-sdk-sts@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-sdk-sts/-/middleware-sdk-sts-3.298.1.tgz#c638712bd7e461152ddace5ce806728ca816d790"
+  integrity sha512-oIIZOXKADDnLHel2i4KIxtVlRcJw+lMAMohrA+83YVEyGE3RC7qeEiMq7iNUBx0ZXpUOBgPnIgCOZFOxTeFjYQ==
   dependencies:
-    "@aws-sdk/middleware-signing" "^3.266.3"
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/signature-v4" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/middleware-signing" "^3.298.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/signature-v4" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/middleware-serde@3.186.0":
   version "3.186.0"
@@ -2720,13 +2720,13 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/middleware-serde@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-serde/-/middleware-serde-3.266.3.tgz#3c6f2066f5300756bc734db8bcbfb73f7a56ebb5"
-  integrity sha512-/0yHIwLtzhsf69RXyzePKSNRgc356blqDds3OlineftJ+H1KrpTWzGYKNeu3iwScJckWrolGctIqnEWLXUhV4Q==
+"@aws-sdk/middleware-serde@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-serde/-/middleware-serde-3.298.1.tgz#125e18f9160a7654faf0863b234b5952fc26d930"
+  integrity sha512-z3Wli6O0trKfBbyc1SfenhTYiyhRrxzAtMEDhjj5vUNMThXDzWSd7q4LX05JfOvZ8QVISdcjc4h1BHEheiq4rw==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/middleware-signing@3.186.0":
   version "3.186.0"
@@ -2750,17 +2750,17 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/middleware-signing@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-signing/-/middleware-signing-3.266.3.tgz#1f21768f1c9486f7858e7f1086ab855d093cd5b8"
-  integrity sha512-YQRzawA7HTJNO+HFtqBK86JYsUSQ7ee+4NeO6OvaFoJtyZhbCSgcte3Q+s7PblMpxUEZTJ6xhORfXkiFeegnbw==
+"@aws-sdk/middleware-signing@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-signing/-/middleware-signing-3.298.1.tgz#7b0e93f5603560644a91dd1dd9c06d666578534a"
+  integrity sha512-9FF6PI4O4GUxEpaRIVkT5NZuufBfvcp24pxALttvxduEetXXJUw9H1B+zC+m+9WO0MmRRxRbXiYhTaYUvZDaxg==
   dependencies:
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/signature-v4" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/util-middleware" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/signature-v4" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-middleware" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/middleware-ssec@3.6.1":
   version "3.6.1"
@@ -2784,12 +2784,12 @@
   dependencies:
     tslib "^1.8.0"
 
-"@aws-sdk/middleware-stack@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-stack/-/middleware-stack-3.266.3.tgz#7dd0c9cee588c21f75b63eaaff43b5eb52f68623"
-  integrity sha512-vwM+cJMLCFEHdYAQ8r2jqzYl5ZoNRsMrdHfmfrZ3dqe3zhU78VwdlnSaAMe4x68gfJMG7ftfFTU0FHH72vlIYg==
+"@aws-sdk/middleware-stack@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-stack/-/middleware-stack-3.298.1.tgz#aeea8ca13232ee5874700884f47edf7b487752eb"
+  integrity sha512-f4xcPUHt3frwNNWsyUW1GdMLoEDus/uvySWU5CglSSalVY6twXRlFug5Pk2l3H7i7yrnvYcSIFC6fltGfzPEsw==
   dependencies:
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/middleware-user-agent@3.186.0":
   version "3.186.0"
@@ -2809,29 +2809,30 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/middleware-user-agent@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-user-agent/-/middleware-user-agent-3.266.3.tgz#d8c23f40af50bf42d6ea3622b724b45a50ef0c17"
-  integrity sha512-xaZ08EY68qzZY0fOfw46KhSpMlsRk4MKbfKgwP1E7spNpiWTEEkLq7VrCEHi/V9yjURFGhsBriZsizXe1OWRmw==
+"@aws-sdk/middleware-user-agent@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-user-agent/-/middleware-user-agent-3.298.1.tgz#60b7483845c19507b39764a07a5f049fa32eafa8"
+  integrity sha512-rVn09F0MXdLWD+UkcaEnrdGrGotCFP587WYkMqfLmvGKHOlMl/M0/OezAfNYnegIIG9Fxq3cFAtgEFNLNXX/fw==
   dependencies:
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-endpoints" "^3.298.1"
+    tslib "^2.5.0"
 
-"@aws-sdk/middleware-websocket@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-websocket/-/middleware-websocket-3.266.3.tgz#47e1e7cf3fbec0febe9548015ae3d60e17274a81"
-  integrity sha512-7/6+RO+cSTfcqSEGQc6iFsMG0yPkOoYIn2U8CG2IwxOLxXFeecdy529Z2AZFHUSsIdw3hPDJOdm3eVHdWyiPPg==
+"@aws-sdk/middleware-websocket@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/middleware-websocket/-/middleware-websocket-3.298.1.tgz#a22a12f5b4c9cb8de8d7db03651a8a7a4b6c55ba"
+  integrity sha512-E4BShQgdmsSLcAooXCFsKYuTCqozkvT6TnECN/W5YS0jfNRnq4cDGY9qHjBgCtv15eauk7HvUUdkI7qZWt9eHw==
   dependencies:
-    "@aws-sdk/eventstream-serde-browser" "^3.266.3"
-    "@aws-sdk/fetch-http-handler" "^3.266.3"
-    "@aws-sdk/middleware-signing" "^3.266.3"
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/signature-v4" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/util-format-url" "^3.266.3"
-    "@aws-sdk/util-hex-encoding" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/eventstream-serde-browser" "^3.298.1"
+    "@aws-sdk/fetch-http-handler" "^3.298.1"
+    "@aws-sdk/middleware-signing" "^3.298.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/signature-v4" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-format-url" "^3.298.1"
+    "@aws-sdk/util-hex-encoding" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/node-config-provider@3.186.0":
   version "3.186.0"
@@ -2853,15 +2854,15 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/node-config-provider@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/node-config-provider/-/node-config-provider-3.266.3.tgz#c406b5af0dc483204d2c5b54c3031115df717c6c"
-  integrity sha512-/5bz9PpU5MZYmsOzBFhz96T15vMrbFw1EH7aoMxvNquYOyoEQL+xUnhaeJ+0smxKr4dtgbvFpZBVK/0LLYojmQ==
+"@aws-sdk/node-config-provider@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/node-config-provider/-/node-config-provider-3.298.1.tgz#30b5aeaf7be80f78b17169b94d79dce4e0448085"
+  integrity sha512-7ePOuEEoe417yHfLcGX17XreEIkkFpfpqKSXBZVxGraPu1veE5o+Smb3rrcyCeljyTYlSqVSwVHXLCD9Aa9syw==
   dependencies:
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/shared-ini-file-loader" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/shared-ini-file-loader" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/node-http-handler@3.186.0":
   version "3.186.0"
@@ -2885,16 +2886,16 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/node-http-handler@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/node-http-handler/-/node-http-handler-3.266.3.tgz#0348d221fc9ad76f1fd982d7fc17c6d15b31f141"
-  integrity sha512-4FyHmC8afq7x/Iwx147yt7FdxOlWC6w+CkwbvkeD5ybj4u5v167Dbd5wT+MHkxrwQpjtv67NTJifEkITGyvZWw==
+"@aws-sdk/node-http-handler@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/node-http-handler/-/node-http-handler-3.298.1.tgz#8859f64822dc00a1e60e5b87ef4e81bc1224b1e9"
+  integrity sha512-Id/id2BTQNWv/5Ip3hx2rOiV53c41WWEY+ngxp6WJMlidsMiB8ae2nXqlFj/nNDCb0xQApStOASw8mFZ0s+m1Q==
   dependencies:
-    "@aws-sdk/abort-controller" "^3.266.3"
-    "@aws-sdk/protocol-http" "^3.266.3"
-    "@aws-sdk/querystring-builder" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/abort-controller" "^3.298.1"
+    "@aws-sdk/protocol-http" "^3.298.1"
+    "@aws-sdk/querystring-builder" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/property-provider@3.186.0":
   version "3.186.0"
@@ -2912,13 +2913,13 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/property-provider@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/property-provider/-/property-provider-3.266.3.tgz#98323357a7e5c4597f5f8b3ad0220ecf1159e915"
-  integrity sha512-NAWfdX6jqtK98axF0E/gX33iU7XvtTo6DWekFIPONT6849K8qIFOnicHrlpDt32R4Uikq8ZjCFsMfk05dUGsUw==
+"@aws-sdk/property-provider@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/property-provider/-/property-provider-3.298.1.tgz#9da797b4c4965d6838bc0a89b5233a2e6674e5ed"
+  integrity sha512-x1W3W5f+bdbFws+bHyVbvP/mqlN+2UMctaJXsRSBrB0F0Zp/Yk2z1+zD0yYh4kj1K9q6f1R0kAeGaJYv1NtLMg==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/protocol-http@3.186.0":
   version "3.186.0"
@@ -2936,13 +2937,13 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/protocol-http@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/protocol-http/-/protocol-http-3.266.3.tgz#7c394b3b9800f72b91a2320a62b96a28ee19c010"
-  integrity sha512-xAi/BjUZJZwNmBfOwYnoLTDl1kP3hrl8/vejxGxHGOBFO4P718TbmgrRyPmgGvAnP2G5QaraCSgilma3CaJiqw==
+"@aws-sdk/protocol-http@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/protocol-http/-/protocol-http-3.298.1.tgz#2c6e8c5e4760203225d3bdd65b8675baf80ed559"
+  integrity sha512-bhDYoWy53LqYg4C+hunmilzlW9+8hKMr3O3hs1A+s5UieehaOn+RfoFg5ouDX5XmzZKrfZigopleOJczoTMhxw==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/querystring-builder@3.186.0":
   version "3.186.0"
@@ -2962,14 +2963,14 @@
     "@aws-sdk/util-uri-escape" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/querystring-builder@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/querystring-builder/-/querystring-builder-3.266.3.tgz#d8152a6ab23df16393bdd593dca2253a100d7953"
-  integrity sha512-6HDhZcciZbOM2/R+KiqtMHUeW7IAewbsGdF7suC6KEvFfKg7F/6XAMvCNn0MA8z35b2V8OVXYDtuTVvD7aZ3oA==
+"@aws-sdk/querystring-builder@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/querystring-builder/-/querystring-builder-3.298.1.tgz#693eff6575f53ce38cec08d1c075ef9389394968"
+  integrity sha512-mUGI5MsMqbyw/Ijt4uisNygxz+v0z3OQDgsQ7IRn9gBKY9LnLfYNNzEacXt02fWooH5oAVLX5zvOozTjhW0A/A==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/util-uri-escape" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-uri-escape" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/querystring-parser@3.186.0":
   version "3.186.0"
@@ -2987,13 +2988,13 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/querystring-parser@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/querystring-parser/-/querystring-parser-3.266.3.tgz#f77ed9903836e58219d64069220ca6f1929cdb41"
-  integrity sha512-SUvrmHX5r+JC13eFXTOaeEErIYtxhvdX24FfnI4+XuuhddnNrW8y0nGG1OaWtq8u/8p9nHFDU1YKeg6mVM6oiA==
+"@aws-sdk/querystring-parser@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/querystring-parser/-/querystring-parser-3.298.1.tgz#d1ed3f35ec1763578126590229f010cf0eee6d58"
+  integrity sha512-cJ6lvDTTp8hRf9OTC9LvP2wafXsrGHDeCoGBLFDj0AyhrsLfhOvhgfJxNEyq52xhOzu3gkTidhQJlpGdBLomPg==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/s3-request-presigner@3.6.1":
   version "3.6.1"
@@ -3018,10 +3019,10 @@
   resolved "https://registry.yarnpkg.com/@aws-sdk/service-error-classification/-/service-error-classification-3.6.1.tgz#296fe62ac61338341e8a009c9a2dab013a791903"
   integrity sha512-kZ7ZhbrN1f+vrSRkTJvXsu7BlOyZgym058nPA745+1RZ1Rtv4Ax8oknf2RvJyj/1qRUi8LBaAREjzQ3C8tmLBA==
 
-"@aws-sdk/service-error-classification@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/service-error-classification/-/service-error-classification-3.266.3.tgz#7c0a8a919db947b9f2cfc943b2362a5abd5ffa33"
-  integrity sha512-IZi8+mlNyjXHr4nwjWrXC/aXfA4ARhPJ9EsnD8LwJRKrAvlcAP8M3FecPvdFhb8TB+mOkHJSp59uVQqFOOLHBw==
+"@aws-sdk/service-error-classification@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/service-error-classification/-/service-error-classification-3.298.1.tgz#691b6aa2e0b7bb632f32763c86cd012a61ebffef"
+  integrity sha512-a11FfYQbaGi9+ZolLqMDs7Z7Fey+qMaOMQhAeZt+cMUxw9fU5gJU8e/q6G1ntf8/xuH3dSDQXksAKuc6/qaXOg==
 
 "@aws-sdk/shared-ini-file-loader@3.186.0":
   version "3.186.0"
@@ -3038,13 +3039,13 @@
   dependencies:
     tslib "^1.8.0"
 
-"@aws-sdk/shared-ini-file-loader@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/shared-ini-file-loader/-/shared-ini-file-loader-3.266.3.tgz#7c5bb7593218757dc6d6c59f309f5ab1e489e816"
-  integrity sha512-hTOo5GJfIFCAfO7WvekAiKN/D9zho9sdFGNK0b8shX3m/U9NuXnw2uqE8/WTbPYt+kXtKKOuGzWcqksXhZWyAw==
+"@aws-sdk/shared-ini-file-loader@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/shared-ini-file-loader/-/shared-ini-file-loader-3.298.1.tgz#f0cb569ddd0ca82b176e11404cb9e3fe81187106"
+  integrity sha512-fj4FwR88VWd6m5yvFp8bP+m77MRUmhd3IvOjlc8vJWlmVEPNnWIgB6Wws9bjoGMs93lwqc5h+qZNqyW1qg+bVA==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/signature-v4@3.186.0":
   version "3.186.0"
@@ -3069,18 +3070,18 @@
     "@aws-sdk/util-uri-escape" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/signature-v4@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/signature-v4/-/signature-v4-3.266.3.tgz#a5cb9088c0092c0a0729efa4ffb12ee23bbce08b"
-  integrity sha512-ymjhwbigLxgJ5+PP2ZYAWmVfDhsxsnawl6Bsvl3Wkf5xNM+jHfHyjDu5JhOvTtsxyFTC2xD/fevyXsUaxGza9w==
+"@aws-sdk/signature-v4@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/signature-v4/-/signature-v4-3.298.1.tgz#92dddf127faed8b4ccf7b97f49dbdd0c13cf0f69"
+  integrity sha512-beY2spXcUcmvhuSYCIT40BYy+NOK83prN3dA5SnrI+7YAJGrHGm6K4aa959bNtgE8DYBczoOKOf4wn3r7wfmew==
   dependencies:
-    "@aws-sdk/is-array-buffer" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    "@aws-sdk/util-hex-encoding" "^3.266.3"
-    "@aws-sdk/util-middleware" "^3.266.3"
-    "@aws-sdk/util-uri-escape" "^3.266.3"
-    "@aws-sdk/util-utf8" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/is-array-buffer" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    "@aws-sdk/util-hex-encoding" "^3.298.1"
+    "@aws-sdk/util-middleware" "^3.298.1"
+    "@aws-sdk/util-uri-escape" "^3.298.1"
+    "@aws-sdk/util-utf8" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/smithy-client@3.186.0":
   version "3.186.0"
@@ -3100,27 +3101,27 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/smithy-client@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/smithy-client/-/smithy-client-3.266.3.tgz#20b3b4e549f75e4fdef28df4718ff6e49c9c1228"
-  integrity sha512-/QAUcmyUuK16xRzyn/1L0CdvubFxVKJOywQGmcpqEo5SkUeMDlu6pAkMnYetZt1q2XJ+y+uclbBLX9RmDWm22A==
+"@aws-sdk/smithy-client@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/smithy-client/-/smithy-client-3.298.1.tgz#df05f79771a7586dc7506ff94f89e1434971fe7f"
+  integrity sha512-3XDtWJTe6scZpyxSMBjVNddpCaQVUwlue6FpM+YNsrmd+sPVGodCXWJZ+Fcahu0p8gdUyxRFGCPxKQPvazYaJQ==
   dependencies:
-    "@aws-sdk/middleware-stack" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/middleware-stack" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
-"@aws-sdk/token-providers@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/token-providers/-/token-providers-3.266.3.tgz#4d3b432dee009abff69936abb23b5df4a0fcfe5e"
-  integrity sha512-hcMy5frQzaKcq7p5+u7miFtqDwQHiEza/gSh8+YYBNE4ggA4gy7c4MRsJi1hA2vjdexdGJjU/P6HDBofpTgBAw==
+"@aws-sdk/token-providers@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/token-providers/-/token-providers-3.298.1.tgz#4f0441a0439e6093a9d3fceec129e9b2ac1c67a3"
+  integrity sha512-DEjLaavOkaw7StOQ6F1m1xvpT9sAUt/IwcrPwBgyYJODNhtNub2PbIBLbl20Qx51Msx0Cum56bdGKVI6tY7F4Q==
   dependencies:
-    "@aws-sdk/client-sso-oidc" "^3.266.3"
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/shared-ini-file-loader" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/client-sso-oidc" "^3.298.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/shared-ini-file-loader" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
-"@aws-sdk/types@3.186.0", "@aws-sdk/types@3.6.1", "@aws-sdk/types@^3.1.0", "@aws-sdk/types@^3.110.0", "@aws-sdk/types@^3.222.0", "@aws-sdk/types@^3.229.0", "@aws-sdk/types@^3.266.3":
+"@aws-sdk/types@3.186.0", "@aws-sdk/types@3.6.1", "@aws-sdk/types@^3.1.0", "@aws-sdk/types@^3.110.0", "@aws-sdk/types@^3.222.0", "@aws-sdk/types@^3.229.0", "@aws-sdk/types@^3.298.1":
   version "3.266.3"
   resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/types/-/types-3.266.3.tgz#b3be0b78636c9d375d339c22c7167cf3c549f12f"
   integrity sha512-PELF2v6p88ckA8ezlCKhj+ta5qeC6ijuWO79dMQ57OgGhHNmivD8d3ZhEdth2ueorQARjBHPcamAmGgCmYsHsg==
@@ -3155,14 +3156,14 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/url-parser@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/url-parser/-/url-parser-3.266.3.tgz#d4a4530bde26136dbdae4d71308065a8f656f3d1"
-  integrity sha512-vaHaVv/t/EATIt99uu4T9ZgmHFwq1Xt5EHDTXV8lYA3AOx6v8JIdWvNQGzGZydzdNBv6UpIidG9hCl63UFMlNg==
+"@aws-sdk/url-parser@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/url-parser/-/url-parser-3.298.1.tgz#dadf804a7b98689ca2e4ec473c48491d5afecc48"
+  integrity sha512-cyyI/thHXdCLwuzXIlh42bd3pG931eKDVlEbmdzo2mFZc0vNakUb4t4H6aBkS2iL1wce0kRt4fB5p4+9+Opv0w==
   dependencies:
-    "@aws-sdk/querystring-parser" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/querystring-parser" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-arn-parser@3.6.1":
   version "3.6.1"
@@ -3201,13 +3202,13 @@
     "@aws-sdk/util-buffer-from" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/util-base64@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-base64/-/util-base64-3.266.3.tgz#26ef7545df24a220479deed0e3233db0afb4eb6f"
-  integrity sha512-mreIrju/Lx1YG8n7/YopGh2SZfl+ibWGbpnHEuFv9QIbPPAuv2ZtQFhVrOOGGdvEVBn7WvUWT/OHe+cy3pusPA==
+"@aws-sdk/util-base64@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-base64/-/util-base64-3.298.1.tgz#4153b3357e0c627af3a834f8e9452ee7606990eb"
+  integrity sha512-z2YRKRHMHjlmdG7GMJTPEx38xHL+L9GTcjcX5pHRZqHJusRDNLTcGhpkIDL41XZfhLmckEu7MHoSK0Fym4ld5g==
   dependencies:
-    "@aws-sdk/util-buffer-from" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/util-buffer-from" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-body-length-browser@3.186.0":
   version "3.186.0"
@@ -3223,12 +3224,12 @@
   dependencies:
     tslib "^1.8.0"
 
-"@aws-sdk/util-body-length-browser@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-body-length-browser/-/util-body-length-browser-3.266.3.tgz#d868a834ad550b66afb80afa3d448a9bc0f1abc5"
-  integrity sha512-WlZkbGy/LumQ3qxQAoNzWZ86R90WCjCWrDYozKiA+ou1KN8bWvPWmHEAOgDp79LjerjyX3a2SZzDF2v0KbcfdQ==
+"@aws-sdk/util-body-length-browser@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-body-length-browser/-/util-body-length-browser-3.298.1.tgz#33a9ff3979bf5154dbf1b12493e8e3bc5938ff5f"
+  integrity sha512-t06eoMFR9gfdC2VH1zPkmE/+Zt3DlODazZxwci7OUQeOY4yfQAZOg/OsZ5QL6uz0DUgn2xuAZrBKilbRprSdfg==
   dependencies:
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-body-length-node@3.186.0":
   version "3.186.0"
@@ -3244,12 +3245,12 @@
   dependencies:
     tslib "^1.8.0"
 
-"@aws-sdk/util-body-length-node@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-body-length-node/-/util-body-length-node-3.266.3.tgz#5225b598eac976bbc3d380c9c1809ea64274ff67"
-  integrity sha512-FQbRl0HB2ghjz4dE0YeenydCNN7ZYoSd7maOtids9OrWwfIvkDLoE5Pq+PvG48jEjyfb+iI3shQ2t/zLQwTOWg==
+"@aws-sdk/util-body-length-node@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-body-length-node/-/util-body-length-node-3.298.1.tgz#e07d31f4e7983b7d9ed4f30298e5eb3b6c067f08"
+  integrity sha512-V6kij10K/DAnRPCy6gKGgwE6OxxmYxvj0DOFi/5tI8W7XW433iu+edbDzwMYPS9WGJan2hhVK9Kd29AGtfRLng==
   dependencies:
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-buffer-from@3.186.0":
   version "3.186.0"
@@ -3267,13 +3268,13 @@
     "@aws-sdk/is-array-buffer" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/util-buffer-from@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-buffer-from/-/util-buffer-from-3.266.3.tgz#b51d5154ba7f97754d710d656d58a82ac8b67056"
-  integrity sha512-AUP0yW6AnLfG4QaiOJZC7SwkAa2LkGXlyDUS1W11msL5rUSXQ9e0eQDjDWJj6UWxdx2TitCz59UwmQ6ruzqeGQ==
+"@aws-sdk/util-buffer-from@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-buffer-from/-/util-buffer-from-3.298.1.tgz#c6fe03c98afbeb49d0e1eb832ced0b4513a8d0fe"
+  integrity sha512-ADeCOs1jrEDNLp2XJ7ZmCDkkHOPT3tepiT6JKGdyLvy0jddX2+bnk6qd/VfC1r1DQP7UJaz9pO+VF3HCVtRDeA==
   dependencies:
-    "@aws-sdk/is-array-buffer" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/is-array-buffer" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-config-provider@3.186.0":
   version "3.186.0"
@@ -3282,12 +3283,12 @@
   dependencies:
     tslib "^2.3.1"
 
-"@aws-sdk/util-config-provider@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-config-provider/-/util-config-provider-3.266.3.tgz#4d27dfbf0ad3e9b739d0e380e2dfbc5ea853202a"
-  integrity sha512-8gpdi9c0UYx+X6zdRO8KJ7pVqnDwBqOUkUAF76OQor+LUUAts+Sv82VjFPhvpHSaFXIzMc/xQvq3Dlvxr2eyCA==
+"@aws-sdk/util-config-provider@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-config-provider/-/util-config-provider-3.298.1.tgz#1c6d7cf0a7888af5904db34e67a514138b413445"
+  integrity sha512-vl07h67Du2XSNW2PS2vVpfEi7oBz7xHifJEF9XwkIcvc9Cy7m5xZObCvVeyyo9fqmk1X1TCISUwRWb0dlxDMDw==
   dependencies:
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-create-request@3.6.1":
   version "3.6.1"
@@ -3309,15 +3310,15 @@
     bowser "^2.11.0"
     tslib "^2.3.1"
 
-"@aws-sdk/util-defaults-mode-browser@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-defaults-mode-browser/-/util-defaults-mode-browser-3.266.3.tgz#3441b5e7dab24727df9e56b6265a0c00f0c9fd65"
-  integrity sha512-Bilf3/wEu3LNhIcG9Tuzcy9OhBd+kXI/0SliOdW1LtZgbKrHJ0XYfo6oYpfm7Dz8xq7CtJOBwSm1+/dTpsZ75A==
+"@aws-sdk/util-defaults-mode-browser@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-defaults-mode-browser/-/util-defaults-mode-browser-3.298.1.tgz#c36797ded7d4191ada2c864720d1b8d639bd3d93"
+  integrity sha512-tO272T5wj4IMrvr0FsuV0aJspsnO9Rqg3aEQR4gCPb+M7AsFdiWWAkgQo05kGlI3WWLXP+mKwGc/c9L/BBLm3Q==
   dependencies:
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
     bowser "^2.11.0"
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-defaults-mode-node@3.186.0":
   version "3.186.0"
@@ -3331,25 +3332,25 @@
     "@aws-sdk/types" "3.186.0"
     tslib "^2.3.1"
 
-"@aws-sdk/util-defaults-mode-node@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-defaults-mode-node/-/util-defaults-mode-node-3.266.3.tgz#8723c89bb29fd6f6bd6c0df54d33e132339c6b5d"
-  integrity sha512-2bTCUeKoq+flGXUEUiHhA+x79cbW5DqDQuVMRMxQkXxl/JTH41m6K3aUHWQeWqbAh9D/amPi1cifd1///riyYA==
+"@aws-sdk/util-defaults-mode-node@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-defaults-mode-node/-/util-defaults-mode-node-3.298.1.tgz#f509e6655ab00f54a1f75956e7a93e2fa734cb60"
+  integrity sha512-YQ9Nm7wI096mzOJo8YS3NIHh3LuJV/lqim76ehGEXKvGU2U4sTKpFR1Spfu3zsw4/O0q6VqS3LGJxx1G/pte4w==
   dependencies:
-    "@aws-sdk/config-resolver" "^3.266.3"
-    "@aws-sdk/credential-provider-imds" "^3.266.3"
-    "@aws-sdk/node-config-provider" "^3.266.3"
-    "@aws-sdk/property-provider" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/config-resolver" "^3.298.1"
+    "@aws-sdk/credential-provider-imds" "^3.298.1"
+    "@aws-sdk/node-config-provider" "^3.298.1"
+    "@aws-sdk/property-provider" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
-"@aws-sdk/util-endpoints@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-endpoints/-/util-endpoints-3.266.3.tgz#1095a995443eaa7f1a378d62df9bba903346bff3"
-  integrity sha512-hF0FrTyxcVxxFeEqLCs+y31FZzGkL/WZeivU30w9xEgBRYhoqOsmoXGpuQaYaIVEyuaWyHzhNEar14GH6OF0uQ==
+"@aws-sdk/util-endpoints@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-endpoints/-/util-endpoints-3.298.1.tgz#0da62b8fd344990c1eef99d23b2ef5784eaff5e5"
+  integrity sha512-EY8QiCJga0jky0msptHWxmEFRgkbNGz++6eCHlTI4yKOfIAsveII4K2QR5LWAwS5rP+W3hl8uy8/S+hS1o9XLw==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-format-url@3.6.1":
   version "3.6.1"
@@ -3360,14 +3361,14 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/util-format-url@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-format-url/-/util-format-url-3.266.3.tgz#5649b7c097453cd5369f9227c044fdca6f2c7f03"
-  integrity sha512-HnipXHe9hcdlS6wpe6akf5eA6gpBK5X6dY7vzHGJBVmvfI6M+FTKCuT+h0TCA15oM1JOAt9koqyhmkwGlJDMAg==
+"@aws-sdk/util-format-url@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-format-url/-/util-format-url-3.298.1.tgz#e0d16439c31c1e19d618e06cf46c0ee46cc1c700"
+  integrity sha512-5/CmZ5cnyrQ/QAPdOykxhZvCYc7PAD90Wz8cqKCfYy0Nw4yu7mWTDXSU2JXiwHWFY8c/IxO4HwROHen8sZRRmA==
   dependencies:
-    "@aws-sdk/querystring-builder" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/querystring-builder" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-hex-encoding@3.186.0":
   version "3.186.0"
@@ -3383,12 +3384,12 @@
   dependencies:
     tslib "^1.8.0"
 
-"@aws-sdk/util-hex-encoding@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-hex-encoding/-/util-hex-encoding-3.266.3.tgz#1dfe3484a002ab6ebb8302390807fa4a02b12b6c"
-  integrity sha512-g7PMka7S3s5RVbiRmflOllzb+WenUje6uiPf6PGCZ4MeHOmy05u3PSOfXvhEBDDuMdP34mbfJmQwpCgwhrkq+Q==
+"@aws-sdk/util-hex-encoding@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-hex-encoding/-/util-hex-encoding-3.298.1.tgz#e378860dd5c9d2da62877cf3dcaf4396b8e70963"
+  integrity sha512-ggxAmS/BvQ67MrvwhKyORZeg/ESfB9Dm+RtxCj1HOHwj2YBRvD5VE9Gm1+eqCcdqFb5RnSCAZPbiwXtMiLsmaw==
   dependencies:
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-locate-window@^3.0.0":
   version "3.208.0"
@@ -3404,20 +3405,20 @@
   dependencies:
     tslib "^2.3.1"
 
-"@aws-sdk/util-middleware@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-middleware/-/util-middleware-3.266.3.tgz#3a954898c62254d746f7f5fd8fa90e2993e895a1"
-  integrity sha512-lqNbhaI3677qpjCh0QrEzcAHtbNVrItKy7ky0fgzYLmIg0RkZwVUo60GJRnLwGEIB5BxslhRP68bg6qBOiVSsw==
+"@aws-sdk/util-middleware@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-middleware/-/util-middleware-3.298.1.tgz#d62ff005d2edd26720ebf2ca015615daf225442a"
+  integrity sha512-qR5j7Q7gXHxd9NVY7LNY2zxHtXHw2fNLXY/96sFBmZMvQH1AjgNzYfrmCZ6y1/m7oy5hXO9xSC7tHfgOS1/Mug==
   dependencies:
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
-"@aws-sdk/util-retry@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-retry/-/util-retry-3.266.3.tgz#02536ada758421f1141415b615a3a68639b06349"
-  integrity sha512-MEJJMEwBoO2ZFtuCyUjhnSQrUsHz6paTtSndJkEMWnauEG7LKByE/hRiA0i0re7tnUy1Q4ewMzZLG2/Kla2rXg==
+"@aws-sdk/util-retry@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-retry/-/util-retry-3.298.1.tgz#497983d4d0c4ecafefe84228c0c72c1fd9658f7d"
+  integrity sha512-2Ze6MOpLr+Av9HtlDqBF53FDjdTZ6c5BAAvDi30e3+3lYZg792B6zHZsVRGpW+uU+lDUbWb/aVjrka9iUOWAlw==
   dependencies:
-    "@aws-sdk/service-error-classification" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/service-error-classification" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-uri-escape@3.186.0":
   version "3.186.0"
@@ -3433,12 +3434,12 @@
   dependencies:
     tslib "^1.8.0"
 
-"@aws-sdk/util-uri-escape@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-uri-escape/-/util-uri-escape-3.266.3.tgz#dc169560cfa5b4a8c66aa22a78b21151ac06bc85"
-  integrity sha512-JHPJPyq1Q45ViBOjaxi1/AlrqoNbz83bl57GuZ2+lSukVtqV/z3qij2M0bNCbNCSRs6RoY/w+NobbKtO+Qh9cg==
+"@aws-sdk/util-uri-escape@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-uri-escape/-/util-uri-escape-3.298.1.tgz#885d820ec84a03f019f1202549d9b5b78ab6fb7f"
+  integrity sha512-fvITdTJpLCbphKiB2tr6K6rPEzXz3xsSlkf6atdj+MrkPAC52wPa/R72CSDwbxvCOxZDID8JDNgd10TmUSoP/A==
   dependencies:
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-user-agent-browser@3.186.0":
   version "3.186.0"
@@ -3458,14 +3459,14 @@
     bowser "^2.11.0"
     tslib "^1.8.0"
 
-"@aws-sdk/util-user-agent-browser@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-user-agent-browser/-/util-user-agent-browser-3.266.3.tgz#7f871676628edb0223db211324abec9b07ff0077"
-  integrity sha512-U5rl9LN43f+niY6ziLsSLd7BYQk+H5upsBDYYxKaXrnrRQaxlQXpbkxGBOpdPToWtIfxE04Yk9+UgWFXPrfH5g==
+"@aws-sdk/util-user-agent-browser@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-user-agent-browser/-/util-user-agent-browser-3.298.1.tgz#19424fc127274b70688b8400235f864681e581a9"
+  integrity sha512-Ug+9Aqrj484ltjJgwhTmE45Uoefvt8uqnCMvJMQQCVj3aNt8anb3bKQSZO0LpQNn2EhFVidPXBHcU5U0Esri1g==
   dependencies:
-    "@aws-sdk/types" "^3.266.3"
+    "@aws-sdk/types" "^3.298.1"
     bowser "^2.11.0"
-    tslib "^2.3.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-user-agent-node@3.186.0":
   version "3.186.0"
@@ -3485,14 +3486,14 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/util-user-agent-node@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-user-agent-node/-/util-user-agent-node-3.266.3.tgz#b54d606800cbfa352cabc8903aaa08cb3f2c51f2"
-  integrity sha512-neULl7aXO41sBoCOPjtEViF2r+QRrsskH8OOLWjKTyHEzU7nOq2GPWK0HNVjq4aRuApNtWl95+knOu0MhvkSxQ==
+"@aws-sdk/util-user-agent-node@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-user-agent-node/-/util-user-agent-node-3.298.1.tgz#dff8a8263c68a33d31a034aaa7ed2551704fa8d4"
+  integrity sha512-thSkTaVvqmCWL4IvGvj6ILG/vfYjSnHkJjIiGX8GVXEN/w+8jiGYmjXZepY17I+nuxJP8N9hRyepcxaE2HT+jg==
   dependencies:
-    "@aws-sdk/node-config-provider" "^3.266.3"
-    "@aws-sdk/types" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/node-config-provider" "^3.298.1"
+    "@aws-sdk/types" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-utf8-browser@3.186.0":
   version "3.186.0"
@@ -3538,13 +3539,13 @@
     "@aws-sdk/util-buffer-from" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/util-utf8@^3.266.3":
-  version "3.266.3"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-utf8/-/util-utf8-3.266.3.tgz#0f9c8795cbdc7b543057266100cde1423aaecee9"
-  integrity sha512-1pTw8xytDG34TjkCrorUzYajCpPPQOgsUwCvJjX4G5I+/OBi6HR/mXb90Bng59hnrUYgKjoAV0J2j2Qcf+6gkg==
+"@aws-sdk/util-utf8@^3.298.1":
+  version "3.298.1"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/@aws-sdk/util-utf8/-/util-utf8-3.298.1.tgz#d470fb4afa44b8d0be2c42308065131dbf38891b"
+  integrity sha512-mFtU90QJ7LT6mYhWZwVoGAC79PJdmQjTFFfzepjCnkcVv5MGAkbdjWyDYHSNWBbxlHhEf6qQlfk00l1JP4hnNg==
   dependencies:
-    "@aws-sdk/util-buffer-from" "^3.266.3"
-    tslib "^2.3.1"
+    "@aws-sdk/util-buffer-from" "^3.298.1"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-waiter@3.6.1":
   version "3.6.1"
@@ -15408,10 +15409,10 @@ fast-xml-parser@3.19.0:
   resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-3.19.0.tgz#cb637ec3f3999f51406dd8ff0e6fc4d83e520d01"
   integrity sha512-4pXwmBplsCPv8FOY1WRakF970TjNGnGnfbOnLqjlYvMiF1SR3yOHyxMR/YCXpPTOspNF5gwudqktIP4VsWkvBg==
 
-fast-xml-parser@4.0.11:
-  version "4.0.11"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/fast-xml-parser/-/fast-xml-parser-4.0.11.tgz#42332a9aca544520631c8919e6ea871c0185a985"
-  integrity sha512-4aUg3aNRR/WjQAcpceODG1C3x3lFANXRo8+1biqfieHmg9pyMt7qB4lQV/Ta6sJCTbA5vfD8fnA8S54JATiFUA==
+fast-xml-parser@4.1.2:
+  version "4.1.2"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/fast-xml-parser/-/fast-xml-parser-4.1.2.tgz#5a98c18238d28a57bbdfa9fe4cda01211fff8f4a"
+  integrity sha512-CDYeykkle1LiA/uqQyNwYpFbyF6Axec6YapmpUP+/RHWIoR1zKjocdvNaTsxCxZzQ6v9MLXaSYm9Qq0thv0DHg==
   dependencies:
     strnum "^1.0.5"
 
@@ -27608,6 +27609,11 @@ tslib@^1.10.0, tslib@^1.11.1, tslib@^1.13.0, tslib@^1.8.0, tslib@^1.8.1, tslib@^
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+
+tslib@^2.5.0:
+  version "2.5.0"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/tslib/-/tslib-2.5.0.tgz#42bfed86f5787aeb41d031866c8f402429e0fddf"
+  integrity sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==
 
 tslint@~6.1.0:
   version "6.1.3"

@@ -519,11 +519,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             width - initialFace.left - initialFace.width;
 
           context.livenessStreamProvider.sendClientInfo({
-            DeviceInformation: {
-              ClientSDKVersion: '1.0.0',
-              VideoHeight: height,
-              VideoWidth: width,
-            },
             Challenge: {
               FaceMovementAndLightChallenge: {
                 ChallengeId: challengeId,
@@ -1212,11 +1207,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         await livenessStreamProvider.stopVideo();
 
         const livenessActionDocument: ClientSessionInformationEvent = {
-          DeviceInformation: {
-            ClientSDKVersion: '1.0.0',
-            VideoHeight: height,
-            VideoWidth: width,
-          },
           Challenge: {
             FaceMovementAndLightChallenge: {
               ChallengeId: challengeId,
