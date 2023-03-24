@@ -1,6 +1,6 @@
 import React from 'react';
-import { ComponentClassName } from '@aws-amplify/ui';
-
+import { ComponentClassName, translate } from '@aws-amplify/ui';
+import { FileState, PreviewerProps } from '../types';
 import {
   Alert,
   Button,
@@ -9,9 +9,6 @@ import {
   Text,
   View,
 } from '../../../../primitives';
-
-import { FileState } from '../types';
-import { UploadPreviewerProps } from './types';
 
 export function UploadPreviewer({
   aggregatePercentage,
@@ -24,19 +21,22 @@ export function UploadPreviewer({
   maxFileCount,
   onClear,
   onFileClick,
-  getMaxFilesErrorText,
-  getRemainingFilesText,
-  getFilesUploadedText,
-  getUploadButtonText,
-  getUploadingText,
-  clearButtonText,
-  doneButtonText,
-}: UploadPreviewerProps): JSX.Element {
-  const headingMaxFiles = getMaxFilesErrorText(maxFileCount);
+}: PreviewerProps): JSX.Element {
+  const headingMaxFiles = `${translate(
+    'Cannot choose more than'
+  )} ${maxFileCount}`;
   const getUploadedFilesLength = () =>
     fileStatuses.filter((file) => file?.fileState === FileState.SUCCESS).length;
 
   const remainingFilesLength = fileStatuses.length - getUploadedFilesLength();
+  const remainingFilesText = `${remainingFilesLength} ${
+    remainingFilesLength === 1 ? translate('file') : translate('files')
+  }`;
+  const uploadedFilesText = `${getUploadedFilesLength()} ${
+    getUploadedFilesLength() === 1
+      ? translate('file uploaded')
+      : translate('files uploaded')
+  }`;
 
   const isDisabled =
     fileStatuses.some((status) =>
@@ -50,9 +50,11 @@ export function UploadPreviewer({
       <View className={ComponentClassNames.FileUploaderPreviewerBody}>
         {dropZone}
         <Text className={ComponentClassNames.FileUploaderPreviewerText}>
-          {isSuccessful
-            ? getFilesUploadedText(getUploadedFilesLength())
-            : getRemainingFilesText(remainingFilesLength)}
+          {isSuccessful ? (
+            uploadedFilesText
+          ) : (
+            <>{`${remainingFilesText} ${translate('selected')}`}</>
+          )}
         </Text>
         {children}
       </View>
@@ -61,7 +63,10 @@ export function UploadPreviewer({
         <View>
           {isLoading && (
             <>
-              <Text>{getUploadingText(aggregatePercentage)}</Text>
+              <Text>
+                {translate('Uploading')}
+                {aggregatePercentage > 0 ? `: ${aggregatePercentage}%` : ''}
+              </Text>
               <Loader
                 className={ComponentClassNames.FileUploaderLoader}
                 variation="linear"
@@ -77,7 +82,7 @@ export function UploadPreviewer({
           {!isLoading && !isSuccessful && (
             <>
               <Button size="small" variation="link" onClick={onClear}>
-                {clearButtonText}
+                {translate('Clear all')}
               </Button>
               <Button
                 disabled={isDisabled}
@@ -85,13 +90,13 @@ export function UploadPreviewer({
                 variation="primary"
                 onClick={onFileClick}
               >
-                {getUploadButtonText(remainingFilesLength)}
+                {`${translate('Upload')} ${remainingFilesText}`}
               </Button>
             </>
           )}
           {isSuccessful && (
             <Button size="small" onClick={onClear}>
-              {doneButtonText}
+              {translate('Done')}
             </Button>
           )}
         </View>

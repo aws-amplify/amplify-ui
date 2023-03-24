@@ -3,23 +3,12 @@ import { render, screen } from '@testing-library/react';
 
 import { UploadTracker } from '..';
 import { FileState } from '../../types';
-import { defaultFileUploaderDisplayText } from '../../displayText';
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
-
-const commonProps: {
-  extensionNotAllowedText;
-  pauseText;
-  resumeText;
-  getPausedText;
-  uploadSuccessfulText;
-  getUploadingText;
-} = defaultFileUploaderDisplayText;
 
 describe('UploadTracker', () => {
   it('exists', async () => {
     const { container } = render(
       <UploadTracker
-        {...commonProps}
         file={fakeFile}
         hasImage
         fileState={FileState.INIT}
@@ -32,8 +21,6 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        handleUploadFile={() => {}}
-        shouldAutoLoad={false}
         showImage
       />
     );
@@ -44,7 +31,6 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        {...commonProps}
         file={fakeFile}
         fileState={FileState.INIT}
         hasImage
@@ -57,8 +43,6 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        handleUploadFile={() => {}}
-        shouldAutoLoad={false}
         showImage
       />
     );
@@ -71,7 +55,6 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        {...commonProps}
         file={fakeFile}
         fileState={FileState.INIT}
         hasImage
@@ -84,8 +67,6 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        handleUploadFile={() => {}}
-        shouldAutoLoad={false}
         showImage
       />
     );
@@ -98,7 +79,6 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        {...commonProps}
         file={fakeFile}
         fileState={FileState.ERROR}
         hasImage
@@ -111,8 +91,6 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        handleUploadFile={() => {}}
-        shouldAutoLoad={false}
         showImage
       />
     );
@@ -125,7 +103,6 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        {...commonProps}
         file={fakeFile}
         fileState={FileState.ERROR}
         hasImage
@@ -138,8 +115,6 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        handleUploadFile={() => {}}
-        shouldAutoLoad={false}
         showImage
       />
     );
@@ -152,7 +127,6 @@ describe('UploadTracker', () => {
     const fileName = 'hello2.png';
     render(
       <UploadTracker
-        {...commonProps}
         file={fakeFile}
         fileState={FileState.RESUME}
         hasImage
@@ -166,15 +140,11 @@ describe('UploadTracker', () => {
         onSaveEdit={() => null}
         onStartEdit={() => null}
         onCancelEdit={() => null}
-        handleUploadFile={() => {}}
-        shouldAutoLoad={false}
         showImage
       />
     );
 
-    const button = await screen.getByRole('button', {
-      name: defaultFileUploaderDisplayText.pauseText,
-    });
+    const button = await screen.getByRole('button', { name: 'pause' });
 
     expect(button).toBeVisible();
   });

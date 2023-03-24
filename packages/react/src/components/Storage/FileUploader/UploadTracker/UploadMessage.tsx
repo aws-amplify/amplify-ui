@@ -1,32 +1,32 @@
 import React from 'react';
-import classNames from 'classnames';
-
-import { classNameModifier } from '../../../../primitives/shared/utils';
+import { translate } from '@aws-amplify/ui';
 import { Text, ComponentClassNames } from '../../../../primitives';
 import { IconCheck, IconError } from '../../../../primitives/Icon/internal';
-import { FileState } from '../types';
-import { UploadMessageProps } from './types';
+import { FileState, FileStateProps } from '../types';
+import classNames from 'classnames';
+import { classNameModifier } from '../../../../primitives/shared/utils';
 
 export const UploadMessage = ({
   fileState,
   errorMessage,
   percentage,
-  uploadSuccessfulText,
-  getUploadingText,
-  getPausedText,
-}: UploadMessageProps): JSX.Element => {
+}: FileStateProps): JSX.Element | null => {
   switch (fileState) {
     case FileState.LOADING: {
+      const text =
+        percentage && percentage > 0
+          ? `${translate('Uploading')}: ${percentage}%`
+          : translate('Uploading');
       return (
         <Text className={ComponentClassNames.FileUploaderFileStatus}>
-          {getUploadingText(percentage)}
+          {text}
         </Text>
       );
     }
     case FileState.PAUSED:
       return (
         <Text className={ComponentClassNames.FileUploaderFileStatus}>
-          {getPausedText(percentage)}
+          {translate('Paused')}: {percentage}%
         </Text>
       );
     case FileState.SUCCESS:
@@ -40,7 +40,7 @@ export const UploadMessage = ({
             )
           )}
         >
-          <IconCheck fontSize="xl" /> {uploadSuccessfulText}
+          <IconCheck fontSize="xl" /> {translate('Uploaded successfully')}
         </Text>
       );
     case FileState.ERROR:

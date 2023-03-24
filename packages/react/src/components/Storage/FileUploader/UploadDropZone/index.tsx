@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-
+import { UploadDropZoneProps } from '../types';
 import { View, ComponentClassNames, Text } from '../../../../primitives';
 import { classNameModifier } from '../../../../primitives/shared/utils';
 import { IconUpload } from '../../../../primitives/Icon/internal';
-import { UploadDropZoneProps } from './types';
+import { translate } from '@aws-amplify/ui';
 
 export function UploadDropZone({
   children,
@@ -14,7 +14,6 @@ export function UploadDropZone({
   onDragLeave,
   onDrop,
   onDragOver,
-  dropFilesText,
 }: UploadDropZoneProps): JSX.Element {
   return (
     <View
@@ -34,7 +33,7 @@ export function UploadDropZone({
         className={ComponentClassNames.FileUploaderDropZoneIcon}
       />
       <Text className={ComponentClassNames.FileUploaderDropZoneText}>
-        {dropFilesText}
+        {translate('Drop files here or')}
       </Text>
       {children}
     </View>
