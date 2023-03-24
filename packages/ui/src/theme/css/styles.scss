@@ -118,6 +118,7 @@ select {
 @import './component/inAppMessaging/messageLayout.scss';
 @import './component/inAppMessaging/modalMessage.scss';
 // StorageManager component
+@import './component/fileUploader.scss';
 @import './component/StorageManager/storageManager.scss';
 
 // This comes after the field styles so it can override them
