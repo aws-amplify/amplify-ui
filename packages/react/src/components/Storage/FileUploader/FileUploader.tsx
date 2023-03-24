@@ -1,38 +1,38 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import { UploadTask, Storage } from '@aws-amplify/storage';
+import { translate, uploadFile, isValidExtension } from '@aws-amplify/ui';
 import { Logger } from 'aws-amplify';
-import type { UploadTask } from '@aws-amplify/storage';
-import { Storage } from '@aws-amplify/storage';
-import { isValidExtension, uploadFile } from '@aws-amplify/ui';
 
 import {
   Button as UploadButton,
   ComponentClassNames,
   VisuallyHidden,
-} from '../../../../primitives';
+} from '../../../primitives';
 
-import { useFileUploader } from '../hooks/useFileUploader';
-import { UploadPreviewer } from '../UploadPreviewer';
-import { UploadDropZone } from '../UploadDropZone';
-import { UploadTracker } from '../UploadTracker';
-import { FileState } from '../types';
-import { FileUploaderProps } from './types';
-import { isUploadTask } from './utils';
-import { defaultFileUploaderDisplayText } from '../displayText';
+import { useFileUploader } from './hooks/useFileUploader';
+import { UploadPreviewer } from './UploadPreviewer';
+import { UploadDropZone } from './UploadDropZone';
+import { UploadTracker } from './UploadTracker';
+import { FileState, FileUploaderProps } from './types';
+
+const isUploadTask = (value: unknown): value is UploadTask =>
+  typeof (value as UploadTask)?.resume === 'function';
 
 const logger = new Logger('AmplifyUI:Storage');
 
 export function FileUploader({
   acceptedFileTypes,
-  shouldAutoUpload = false,
+  shouldAutoProceed = false,
+  isPreviewerVisible,
   maxFileCount,
-  maxFileSize,
+  maxSize,
+  hasMultipleFiles = true,
   onError,
   onSuccess,
   showImages = true,
   accessLevel,
   variation = 'drop',
   isResumable = false,
-  displayText: overrideDisplayText,
   ...rest
 }: FileUploaderProps): JSX.Element {
   if (!acceptedFileTypes || !accessLevel) {
@@ -41,33 +41,9 @@ export function FileUploader({
     );
   }
 
-  const {
-    dropFilesText,
-    browseFilesText,
-    getErrorText,
-    getFilesUploadedText,
-    clearButtonText,
-    getRemainingFilesText,
-    getUploadingText,
-    getMaxFilesErrorText,
-    doneButtonText,
-    getPausedText,
-    pauseText,
-    resumeText,
-    extensionNotAllowedText,
-    uploadSuccessfulText,
-    getUploadButtonText,
-  } = {
-    ...defaultFileUploaderDisplayText,
-    ...overrideDisplayText,
-  };
-
-  const allowMultipleFiles =
-    maxFileCount === undefined ||
-    (typeof maxFileCount === 'number' && maxFileCount > 1);
-
   // File Previewer loading state
   const [isLoading, setLoading] = useState(false);
+  const [autoLoad, setAutoLoad] = useState(false);
 
   const {
     addTargetFiles,
@@ -78,10 +54,11 @@ export function FileUploader({
     showPreviewer,
     ...dropZoneProps
   } = useFileUploader({
-    maxFileSize,
+    maxSize,
     acceptedFileTypes,
-    allowMultipleFiles,
+    hasMultipleFiles,
     isLoading,
+    setAutoLoad,
   });
 
   // Creates aggregate percentage to show during downloads
@@ -108,6 +85,10 @@ export function FileUploader({
       setLoading(false);
     }
   }, [aggregatePercentage]);
+
+  useEffect(() => {
+    setShowPreviewer(isPreviewerVisible);
+  }, [setShowPreviewer, isPreviewerVisible]);
 
   // Previewer Methods
 
@@ -151,7 +132,7 @@ export function FileUploader({
           const updatedStatus = {
             ...prevStatus,
             fileState: 'error' as FileState,
-            fileErrors: getErrorText(err.toString()),
+            fileErrors: translate(err.toString()),
           };
 
           prevFileStatuses[index] = updatedStatus;
@@ -162,7 +143,7 @@ export function FileUploader({
         if (typeof onError === 'function') onError(err);
       };
     },
-    [onError, setFileStatuses, getErrorText]
+    [onError, setFileStatuses]
   );
 
   const onPause = useCallback(
@@ -198,9 +179,7 @@ export function FileUploader({
     [fileStatuses, setFileStatuses]
   );
 
-  const handleUploadFile = useCallback(() => {
-    if (hasMaxFilesError) return;
-
+  const onFileClick = useCallback(() => {
     // start upload
     setLoading(true);
     const uploadTasksTemp: UploadTask[] = [];
@@ -241,7 +220,6 @@ export function FileUploader({
     progressCallback,
     errorCallback,
     onSuccess,
-    hasMaxFilesError,
     rest,
   ]);
 
@@ -257,6 +235,7 @@ export function FileUploader({
       // only show previewer if the added files are great then 0
       if (addedFilesLength > 0) {
         setShowPreviewer(true);
+        setAutoLoad(true);
       }
     },
     [addTargetFiles, setShowPreviewer]
@@ -299,13 +278,15 @@ export function FileUploader({
           ...status,
           name: value,
           fileState: !validExtension ? FileState.ERROR : FileState.INIT,
-          fileErrors: validExtension ? undefined : extensionNotAllowedText,
+          fileErrors: validExtension
+            ? undefined
+            : translate('Extension not allowed'),
         };
 
         setFileStatuses(newFileStatuses);
       };
     },
-    [fileStatuses, setFileStatuses, extensionNotAllowedText]
+    [fileStatuses, setFileStatuses]
   );
 
   const updateFileState = useCallback(
@@ -348,11 +329,20 @@ export function FileUploader({
     [updateFileState]
   );
 
+  useEffect(() => {
+    if (shouldAutoProceed && autoLoad && !hasMaxFilesError) {
+      onFileClick();
+    } else {
+      return;
+    }
+    setAutoLoad(false);
+  }, [shouldAutoProceed, onFileClick, autoLoad, hasMaxFilesError]);
+
   const hiddenInput = React.useRef<HTMLInputElement>();
 
   const accept = acceptedFileTypes?.join();
 
-  const uploadButtonComponent = useMemo(
+  const uploadButton = useMemo(
     () => (
       <>
         <UploadButton
@@ -364,7 +354,7 @@ export function FileUploader({
           }}
           size="small"
         >
-          {browseFilesText}
+          {translate('Browse files')}
         </UploadButton>
         <VisuallyHidden>
           <input
@@ -372,51 +362,34 @@ export function FileUploader({
             tabIndex={-1}
             ref={hiddenInput}
             onChange={onFileChange}
-            multiple={allowMultipleFiles}
+            multiple={hasMultipleFiles}
             accept={accept}
           />
         </VisuallyHidden>
       </>
     ),
-    [isLoading, onFileChange, allowMultipleFiles, accept, browseFilesText]
+    [isLoading, onFileChange, hasMultipleFiles, accept]
   );
 
   if (showPreviewer) {
     return (
       <UploadPreviewer
         dropZone={
-          <UploadDropZone
-            {...dropZoneProps}
-            dropFilesText={dropFilesText}
-            inDropZone={inDropZone}
-          >
-            {uploadButtonComponent}
+          <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
+            {uploadButton}
           </UploadDropZone>
         }
-        getFilesUploadedText={getFilesUploadedText}
-        clearButtonText={clearButtonText}
-        getRemainingFilesText={getRemainingFilesText}
-        getUploadButtonText={getUploadButtonText}
-        getUploadingText={getUploadingText}
-        getMaxFilesErrorText={getMaxFilesErrorText}
-        doneButtonText={doneButtonText}
         fileStatuses={fileStatuses}
         isLoading={isLoading}
         isSuccessful={isSuccessful}
         hasMaxFilesError={hasMaxFilesError}
         maxFileCount={maxFileCount}
         onClear={onClear}
-        onFileClick={handleUploadFile}
+        onFileClick={onFileClick}
         aggregatePercentage={aggregatePercentage}
       >
         {fileStatuses?.map((status, index) => (
           <UploadTracker
-            pauseText={pauseText}
-            getPausedText={getPausedText}
-            getUploadingText={getUploadingText}
-            resumeText={resumeText}
-            extensionNotAllowedText={extensionNotAllowedText}
-            uploadSuccessfulText={uploadSuccessfulText}
             errorMessage={status?.fileErrors}
             file={status.file}
             fileState={status?.fileState}
@@ -430,8 +403,6 @@ export function FileUploader({
             onResume={onResume(index)}
             onSaveEdit={onSaveEdit(index)}
             onStartEdit={onStartEdit(index)}
-            handleUploadFile={handleUploadFile}
-            shouldAutoLoad={shouldAutoUpload}
             percentage={status.percentage}
             isResumable={isResumable}
           />
@@ -441,15 +412,11 @@ export function FileUploader({
   }
 
   if (variation === 'button') {
-    return uploadButtonComponent;
+    return uploadButton;
   } else {
     return (
-      <UploadDropZone
-        {...dropZoneProps}
-        dropFilesText={dropFilesText}
-        inDropZone={inDropZone}
-      >
-        {uploadButtonComponent}
+      <UploadDropZone {...dropZoneProps} inDropZone={inDropZone}>
+        {uploadButton}
       </UploadDropZone>
     );
   }

@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
+import { translate } from '@aws-amplify/ui';
 import { humanFileSize } from '@aws-amplify/ui';
-
+import { FileState, TrackerProps } from '../types';
 import {
   View,
   Image,
@@ -16,10 +17,7 @@ import {
   IconEdit,
   IconFile,
 } from '../../../../primitives/Icon/internal';
-
-import { FileState } from '../types';
-import { UploadMessage } from '../UploadMessage';
-import { UploadTrackerProps } from './types';
+import { UploadMessage } from './UploadMessage';
 
 export function UploadTracker({
   errorMessage,
@@ -36,16 +34,8 @@ export function UploadTracker({
   percentage,
   isResumable,
   showImage,
-  extensionNotAllowedText,
-  pauseText,
-  resumeText,
-  getPausedText,
-  uploadSuccessfulText,
-  getUploadingText,
-  handleUploadFile,
-  shouldAutoLoad,
-}: UploadTrackerProps): JSX.Element {
-  const [tempName, setTempName] = React.useState<string>(name);
+}: TrackerProps): JSX.Element | null {
+  const [tempName, setTempName] = React.useState(name);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const url = URL.createObjectURL(file);
 
@@ -63,13 +53,8 @@ export function UploadTracker({
 
   const showEditButton =
     fileState === FileState.INIT ||
-    (fileState === FileState.ERROR && errorMessage === extensionNotAllowedText);
-
-  useEffect(() => {
-    if (shouldAutoLoad && fileState === FileState.INIT) {
-      handleUploadFile();
-    }
-  }, [shouldAutoLoad, fileState, handleUploadFile]);
+    (fileState === FileState.ERROR &&
+      errorMessage === translate('Extension not allowed'));
 
   const DisplayView = useCallback(
     () => (
@@ -102,7 +87,7 @@ export function UploadTracker({
               size="small"
               onClick={() => {
                 setTempName(name);
-                onCancelEdit();
+                onCancelEdit?.();
               }}
             >
               Cancel
@@ -123,13 +108,13 @@ export function UploadTracker({
         if (!isResumable) return null;
         return (
           <Button onClick={onPause} size="small" variation="link">
-            {pauseText}
+            {translate('pause')}
           </Button>
         );
       case FileState.PAUSED:
         return (
           <Button onClick={onResume} size="small" variation="link">
-            {resumeText}
+            {translate('Resume')}
           </Button>
         );
       case FileState.SUCCESS:
@@ -143,8 +128,6 @@ export function UploadTracker({
         );
     }
   }, [
-    pauseText,
-    resumeText,
     file.name,
     fileState,
     isResumable,
@@ -209,9 +192,6 @@ export function UploadTracker({
         ) : null}
       </View>
       <UploadMessage
-        uploadSuccessfulText={uploadSuccessfulText}
-        getUploadingText={getUploadingText}
-        getPausedText={getPausedText}
         fileState={fileState}
         errorMessage={errorMessage}
         percentage={percentage}
