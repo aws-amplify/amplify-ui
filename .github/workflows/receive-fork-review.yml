@@ -6,6 +6,7 @@ name: Receive Fork Review
 
 on:
   pull_request_review:
+    branches: [main]
     types: [submitted]
 
 jobs:
@@ -16,13 +17,15 @@ jobs:
       (github.event.review.state == 'approved')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
-      # This is intended to pass commit ID to run-e2e-on-fork workflow.
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+      # This is intended to pass commit id, base_sha, and pr number to run-e2e-on-fork workflow.
       # Reference: https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
-      - name: Save commit ID
+      - name: Save commit ID, base sha, and pull request number
         run: |
           mkdir -p ./commit
+          echo ${{ github.event.pull_request.base.sha }} > ./commit/base_sha
           echo ${{ github.event.review.commit_id }} > ./commit/commit_id
+          echo ${{ github.event.pull_request.number }} > ./commit/pr_number
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         with:
           name: commit
