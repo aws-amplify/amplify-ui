@@ -9,7 +9,6 @@ import { ComponentClassNames } from '../../../../primitives';
 
 import { FileUploader } from '..';
 import { FileState } from '../types';
-import { defaultFileUploaderDisplayText } from '../displayText';
 
 type CompleteCallback = (event: { key: string }) => void;
 type ErrorCallback = (error: string) => void;
@@ -188,11 +187,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
-    const button = await screen.findByText(
-      defaultFileUploaderDisplayText.pauseText
-    );
+    const button = await screen.findByText('pause');
     fireEvent.click(button);
 
     expect(uploadTaskSpy).toBeCalled();
@@ -213,11 +210,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
-    const button = await screen.findByText(
-      defaultFileUploaderDisplayText.resumeText
-    );
+    const button = await screen.findByText('Resume');
     fireEvent.click(button);
 
     expect(uploadTaskSpy).toBeCalled();
@@ -232,7 +227,7 @@ describe('File Uploader', () => {
       fileStatuses: [fileStatus],
       setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
-    render(<FileUploader {...commonProps} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const clickButton = await screen.findByRole('button', {
       name: uploadOneFile,
@@ -266,7 +261,7 @@ describe('File Uploader', () => {
       fileStatuses: [fileStatus],
       setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
-    render(<FileUploader {...commonProps} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const clickButton = await screen.findByRole('button', {
       name: uploadOneFile,
@@ -295,7 +290,13 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
       fileStatuses: [fileStatus],
     });
-    render(<FileUploader {...commonProps} onSuccess={onSuccessMock} />);
+    render(
+      <FileUploader
+        {...commonProps}
+        isPreviewerVisible
+        onSuccess={onSuccessMock}
+      />
+    );
 
     const clickButton = await screen.findByRole('button', {
       name: uploadOneFile,
@@ -320,7 +321,7 @@ describe('File Uploader', () => {
       fileStatuses: [fileStatus],
       setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
-    render(<FileUploader {...commonProps} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const clickButton = await screen.findByRole('button', {
       name: 'Clear all',
@@ -338,7 +339,9 @@ describe('File Uploader', () => {
       setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
 
-    const { container } = render(<FileUploader {...commonProps} />);
+    const { container } = render(
+      <FileUploader {...commonProps} isPreviewerVisible />
+    );
 
     // click the cancel button for the file
     const button = container.querySelectorAll('button')[2];
@@ -356,7 +359,7 @@ describe('File Uploader', () => {
       setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
 
-    render(<FileUploader {...commonProps} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
     const button = screen.getAllByRole('button')[0];
@@ -386,7 +389,7 @@ describe('File Uploader', () => {
       setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
 
-    render(<FileUploader {...commonProps} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
     const button = screen.getAllByRole('button')[0];
@@ -422,7 +425,7 @@ describe('File Uploader', () => {
       setFileStatuses,
     });
 
-    render(<FileUploader {...commonProps} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     // click pencel icon
     const button = screen.getAllByRole('button')[1];
@@ -465,6 +468,7 @@ describe('File Uploader', () => {
       <FileUploader
         {...commonProps}
         // components={{ UploadTracker }}
+        isPreviewerVisible
       />
     );
 
@@ -486,6 +490,7 @@ describe('File Uploader', () => {
       <FileUploader
         {...commonProps}
         // components={{ UploadPreviewer }}
+        isPreviewerVisible
       />
     );
 
@@ -501,7 +506,7 @@ describe('File Uploader', () => {
     });
 
     const { container } = render(
-      <FileUploader {...commonProps} showImages={false} />
+      <FileUploader {...commonProps} showImages={false} isPreviewerVisible />
     );
 
     expect(
@@ -514,21 +519,23 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
       fileStatuses: [fileStatus],
     });
-    const { container } = render(<FileUploader {...commonProps} showImages />);
+    const { container } = render(
+      <FileUploader {...commonProps} showImages isPreviewerVisible />
+    );
 
     expect(
       container.querySelector(`.${ComponentClassNames.FileUploaderFileImage}`)
     ).toBeVisible();
   });
 
-  it('starts upload after file is selected if shouldAutoUpload is true', () => {
+  it('starts upload after file is selected if shouldAutoProceed is true', () => {
     useFileUploaderSpy.mockReturnValueOnce({
       ...mockReturnUseFileUploader,
       fileStatuses: [fileStatus],
     });
 
     const { container } = render(
-      <FileUploader {...commonProps} shouldAutoUpload />
+      <FileUploader {...commonProps} shouldAutoProceed />
     );
 
     const input = container.getElementsByTagName('input')[0];
@@ -567,11 +574,11 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} maxFileCount={1} />);
-
-    const uploadFilesText = await screen.findByText(
-      defaultFileUploaderDisplayText.getUploadButtonText(1)
+    render(
+      <FileUploader {...commonProps} maxFileCount={1} isPreviewerVisible />
     );
+
+    const uploadFilesText = await screen.findByText(/Upload 1 file/);
 
     expect(uploadFilesText).toBeVisible();
   });
@@ -596,7 +603,9 @@ describe('File Uploader', () => {
       ...mockReturnUseFileUploader,
     });
 
-    render(<FileUploader {...commonProps} maxFileCount={1} />);
+    render(
+      <FileUploader {...commonProps} maxFileCount={1} isPreviewerVisible />
+    );
 
     const errorText = await screen.findByText(/Cannot choose more than 1/);
 
@@ -613,7 +622,7 @@ describe('File Uploader', () => {
       fileStatuses: [fileStatus],
       setFileStatuses: setFileStatusMock as MockSetFileStatuses,
     });
-    render(<FileUploader {...commonProps} />);
+    render(<FileUploader {...commonProps} isPreviewerVisible />);
 
     const clickButton = await screen.findByRole('button', {
       name: uploadOneFile,
@@ -718,16 +727,5 @@ describe('File Uploader', () => {
 
     expect(await screen.findByText(/files selected/)).toBeVisible();
     expect(await screen.findByText(/Upload 2 file/)).toBeVisible();
-  });
-
-  it('should use dsiplayText prop', async () => {
-    render(
-      <FileUploader
-        {...commonProps}
-        displayText={{ dropFilesText: 'drop it' }}
-      />
-    );
-
-    expect(await screen.findByText('drop it')).toBeVisible();
   });
 });

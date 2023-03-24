@@ -4,30 +4,32 @@ import { render } from '@testing-library/react';
 import { UploadDropZone } from '..';
 import { classNameModifier } from '../../../../../primitives/shared/utils';
 import { ComponentClassNames } from '../../../../../primitives';
-import { defaultFileUploaderDisplayText } from '../../displayText';
-
-const { dropFilesText } = defaultFileUploaderDisplayText;
-
-const commonProps = {
-  dropFilesText,
-  onDragEnter: () => '',
-  onDragLeave: () => '',
-  onDragOver: () => '',
-  onDragStart: () => '',
-  onDrop: () => '',
-};
 
 describe('UploaderDrop', () => {
   it('exists', () => {
     const { container } = render(
-      <UploadDropZone {...commonProps} inDropZone={false} />
+      <UploadDropZone
+        inDropZone={false}
+        onDragEnter={() => ''}
+        onDragLeave={() => ''}
+        onDragOver={() => ''}
+        onDragStart={() => ''}
+        onDrop={() => ''}
+      />
     );
 
     expect(container).toMatchSnapshot();
   });
   it('shows correct class when inDropZone is true', () => {
     const { container } = render(
-      <UploadDropZone {...commonProps} inDropZone />
+      <UploadDropZone
+        inDropZone
+        onDragEnter={() => ''}
+        onDragLeave={() => ''}
+        onDragOver={() => ''}
+        onDragStart={() => ''}
+        onDrop={() => ''}
+      />
     );
     const activeClass = container.getElementsByClassName(
       classNameModifier(ComponentClassNames.FileUploaderDropZone, 'active')

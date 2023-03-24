@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
 import { checkMaxSize, returnAcceptedFiles } from '@aws-amplify/ui';
-
+import React, { useState } from 'react';
 import { Files, FileState, FileStatuses } from '../../types';
-import { UseFileUploader, UseFileUploaderProps } from './types';
+import { UseFileUploader } from './types';
 
-export function useFileUploader({
-  maxFileSize,
+export default function useFileUploader({
+  maxSize,
   acceptedFileTypes,
-  allowMultipleFiles,
+  hasMultipleFiles,
   isLoading,
-}: UseFileUploaderProps): UseFileUploader {
+  setAutoLoad,
+}: {
+  maxSize: number;
+  acceptedFileTypes: string[];
+  hasMultipleFiles: boolean;
+  isLoading: boolean;
+  setAutoLoad: React.Dispatch<React.SetStateAction<boolean>>;
+}): UseFileUploader {
   const [fileStatuses, setFileStatuses] = useState<FileStatuses>([]);
   const [showPreviewer, setShowPreviewer] = useState(false);
 
@@ -18,7 +24,7 @@ export function useFileUploader({
   const updateFileStatusArray = (files: Files, fileStatuses: FileStatuses) => {
     const statuses = [...fileStatuses];
     [...files].forEach((file) => {
-      const errorFile = checkMaxSize(maxFileSize, file);
+      const errorFile = checkMaxSize(maxSize, file);
 
       statuses.unshift({
         fileState: errorFile ? FileState.ERROR : FileState.INIT,
@@ -37,17 +43,17 @@ export function useFileUploader({
     if (!targets) return 0;
 
     // If not multiple and files already selected return
-    if (!allowMultipleFiles && fileStatuses.length > 0)
+    if (!hasMultipleFiles && fileStatuses.length > 0)
       return fileStatuses.length;
 
     // if not multiple and only 1 file selected save
-    if (!allowMultipleFiles && targets.length == 1) {
+    if (!hasMultipleFiles && targets.length == 1) {
       updateFileStatusArray([...targets], fileStatuses);
       return targets.length;
     }
 
     // if not multiple save just the first target into the array
-    if (!allowMultipleFiles && targets.length > 1) {
+    if (!hasMultipleFiles && targets.length > 1) {
       updateFileStatusArray([targets[0]], fileStatuses);
       return 1;
     }
@@ -88,6 +94,7 @@ export function useFileUploader({
     const addedFilesLength = addTargetFiles([...files]);
     if (addedFilesLength > 0) {
       setShowPreviewer(true);
+      setAutoLoad(true);
     }
     setInDropZone(false);
   };
@@ -107,5 +114,3 @@ export function useFileUploader({
     setFileStatuses,
   };
 }
-
-export default useFileUploader;
