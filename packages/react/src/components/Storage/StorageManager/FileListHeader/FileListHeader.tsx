@@ -2,7 +2,7 @@ import React from 'react';
 import { StorageManagerDisplayText } from '../displayText';
 import { ComponentClassNames, Text } from '../../../../primitives';
 
-interface FileListHeaderProps {
+export interface FileListHeaderProps {
   fileCount: number;
   remainingFilesCount: number;
   displayText: StorageManagerDisplayText;

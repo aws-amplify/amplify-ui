@@ -1,6 +1,10 @@
 import { StorageAccessLevel } from '@aws-amplify/storage';
 import { StorageManagerDisplayText } from '../displayText';
-import { DefaultFile } from '../types';
+import { DropZoneProps, FilePickerProps } from '../DropZone/types';
+import { FileListProps } from '../FileList/types';
+import { ContainerProps } from '../FileListContainer/FileListContainer';
+import { FileListHeaderProps } from '../FileListHeader/FileListHeader';
+import { DefaultFile, StorageFile } from '../types';
 
 export interface StorageManagerProps {
   acceptedFileTypes: string[];
@@ -27,4 +31,14 @@ export interface StorageManagerProps {
   showThumbnails?: boolean;
   displayText?: Partial<StorageManagerDisplayText>;
   defaultFiles?: Array<DefaultFile>;
+  processFile?: (
+    storageFile: Pick<StorageFile, 'file' | 'name'>
+  ) => Pick<StorageFile, 'file' | 'name'>;
+  components?: {
+    Container?: (props: ContainerProps) => JSX.Element;
+    DropZone?: (props: DropZoneProps) => JSX.Element;
+    FileList?: (props: FileListProps) => JSX.Element;
+    FilePicker?: (props: FilePickerProps) => JSX.Element;
+    FileListHeader?: (props: FileListHeaderProps) => JSX.Element;
+  };
 }

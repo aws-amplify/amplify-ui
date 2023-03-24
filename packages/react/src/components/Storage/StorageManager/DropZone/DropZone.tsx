@@ -5,22 +5,17 @@ import { View, ComponentClassNames, Text } from '../../../../primitives';
 import { classNameModifier } from '../../../../primitives/shared/utils';
 import { IconUpload } from '../../../../primitives/Icon/internal';
 import { DropZoneProps } from './types';
-import { useDropZone } from './useDropZone';
 
 export function DropZone({
-  onChange,
+  inDropZone,
+  onDragEnter,
+  onDragLeave,
+  onDragOver,
+  onDragStart,
+  onDrop,
   displayText,
   children,
 }: DropZoneProps): JSX.Element {
-  const {
-    inDropZone,
-    onDragEnter,
-    onDragLeave,
-    onDragOver,
-    onDragStart,
-    onDrop,
-  } = useDropZone({ onChange });
-
   const { dropFilesText } = displayText;
 
   return (

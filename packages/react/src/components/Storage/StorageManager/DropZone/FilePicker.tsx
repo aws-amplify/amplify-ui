@@ -5,19 +5,14 @@ import {
   View,
   VisuallyHidden,
 } from '../../../../primitives';
-import { StorageManagerDisplayText } from '../displayText';
+import { FilePickerProps } from './types';
 
 export function FilePicker({
   onFileChange,
   acceptedFileTypes,
   allowMultipleFiles,
   displayText,
-}: {
-  acceptedFileTypes: string[];
-  displayText: StorageManagerDisplayText;
-  allowMultipleFiles: boolean;
-  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}): JSX.Element {
+}: FilePickerProps): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>(null);
   const { browseFilesText } = displayText;
   return (

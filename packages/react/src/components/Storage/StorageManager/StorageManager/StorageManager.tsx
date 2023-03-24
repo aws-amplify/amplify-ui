@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Container } from '../Container/Container';
-import { DropZone } from '../DropZone';
+import { DropZone, useDropZone } from '../DropZone';
 import { defaultStorageManagerDisplayText } from '../displayText';
 import { FileList } from '../FileList/FileList';
 import { FileStatus } from '../types';
@@ -26,29 +26,17 @@ function StorageManager({
   onUploadError,
   onUploadSuccess,
   showThumbnails = true,
+  processFile,
+  components,
 }: StorageManagerProps): JSX.Element {
-  const {
-    addFiles,
-    files,
-    removeUpload,
-    setUploadingFile,
-    setUploadPaused,
-    setUploadProgress,
-    setUploadSuccess,
-    setUploadResumed,
-  } = useStorageManager(defaultFiles);
-
-  useUploadFiles({
-    accessLevel,
-    files,
-    isResumable,
-    maxFileCount,
-    onUploadError,
-    onUploadSuccess,
-    setUploadingFile,
-    setUploadProgress,
-    setUploadSuccess,
-  });
+  const Components = {
+    Container,
+    DropZone,
+    FileList,
+    FilePicker,
+    FileListHeader,
+    ...components,
+  };
 
   const allowMultipleFiles =
     maxFileCount === undefined ||
@@ -69,21 +57,47 @@ function StorageManager({
     });
   };
 
-  const onDropZoneChange = (event: React.DragEvent<HTMLDivElement>) => {
-    const { files } = event.dataTransfer;
-    if (!files || files.length === 0) {
-      return;
-    }
+  const {
+    addFiles,
+    files,
+    removeUpload,
+    setUploadingFile,
+    setUploadPaused,
+    setUploadProgress,
+    setUploadSuccess,
+    setUploadResumed,
+  } = useStorageManager(defaultFiles);
 
-    const filteredFiles = filterAllowedFiles(
-      Array.from(files),
-      acceptedFileTypes
-    );
-    addFiles({
-      files: filteredFiles,
-      getFileErrorMessage: getMaxFileSizeErrorMessage,
-    });
-  };
+  const dropZoneProps = useDropZone({
+    onChange: (event: React.DragEvent<HTMLDivElement>) => {
+      const { files } = event.dataTransfer;
+      if (!files || files.length === 0) {
+        return;
+      }
+
+      const filteredFiles = filterAllowedFiles(
+        Array.from(files),
+        acceptedFileTypes
+      );
+      addFiles({
+        files: filteredFiles,
+        getFileErrorMessage: getMaxFileSizeErrorMessage,
+      });
+    },
+  });
+
+  useUploadFiles({
+    accessLevel,
+    files,
+    isResumable,
+    maxFileCount,
+    onUploadError,
+    onUploadSuccess,
+    setUploadingFile,
+    setUploadProgress,
+    setUploadSuccess,
+    processFile,
+  });
 
   const onFilePickerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
@@ -142,32 +156,32 @@ function StorageManager({
   const hasFiles = files.length > 0;
 
   return (
-    <Container
+    <Components.Container
       className={`${ComponentClassNames.StorageManager} ${
         hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
       }`}
     >
-      <DropZone
+      <Components.DropZone
+        {...dropZoneProps}
         acceptedFileTypes={acceptedFileTypes}
         displayText={displayText}
-        onChange={onDropZoneChange}
       >
-        <FilePicker
+        <Components.FilePicker
           onFileChange={onFilePickerChange}
           displayText={displayText}
           acceptedFileTypes={acceptedFileTypes}
           allowMultipleFiles={allowMultipleFiles}
         />
-      </DropZone>
+      </Components.DropZone>
       {hasFiles ? (
-        <FileListHeader
+        <Components.FileListHeader
           allUploadsSuccessful={allUploadsSuccessful}
           displayText={displayText}
           fileCount={files.length}
           remainingFilesCount={remainingFilesCount}
         />
       ) : null}
-      <FileList
+      <Components.FileList
         displayText={displayText}
         files={files}
         isResumable={isResumable}
@@ -178,7 +192,7 @@ function StorageManager({
         hasMaxFilesError={hasMaxFilesError}
         maxFileCount={maxFileCount}
       />
-    </Container>
+    </Components.Container>
   );
 }
 

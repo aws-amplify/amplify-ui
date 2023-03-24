@@ -16,6 +16,7 @@ export interface UseUploadFilesProps
       | 'onUploadSuccess'
       | 'onUploadError'
       | 'maxFileCount'
+      | 'processFile'
     >,
     Pick<
       UseStorageManager,
@@ -32,6 +33,7 @@ export function useUploadFiles({
   onUploadError,
   onUploadSuccess,
   maxFileCount,
+  processFile,
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -62,13 +64,18 @@ export function useUploadFiles({
         };
 
       const onError = (error) => {
-        onUploadError?.(error); // fixme
+        onUploadError?.(error as string); // fixme
       };
+
+      const processedFile =
+        typeof processFile === 'function'
+          ? processFile({ file, name })
+          : { file, name };
 
       if (isResumable) {
         const uploadTask = uploadFile({
-          file,
-          fileName: name,
+          file: processedFile.file,
+          fileName: processedFile.name,
           isResumable: true,
           level: accessLevel,
           completeCallback: onComplete,
@@ -78,8 +85,8 @@ export function useUploadFiles({
         setUploadingFile({ id, uploadTask });
       } else {
         uploadFile({
-          file,
-          fileName: name,
+          file: processedFile.file,
+          fileName: processedFile.name,
           isResumable: false,
           level: accessLevel,
           completeCallback: onComplete,
@@ -99,5 +106,6 @@ export function useUploadFiles({
     onUploadSuccess,
     maxFileCount,
     setUploadSuccess,
+    processFile,
   ]);
 }

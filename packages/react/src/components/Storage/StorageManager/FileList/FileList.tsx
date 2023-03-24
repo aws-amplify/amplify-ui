@@ -24,7 +24,7 @@ export function FileList({
   const headingMaxFiles = getMaxFilesErrorText(maxFileCount);
 
   return (
-    <View className={'amplify-filemanager--filelist'}>
+    <View className={'amplify-storagemanager--filelist'}>
       {files.map((storageFile) => {
         const { file, status, progress, error, name, isImage, id, uploadTask } =
           storageFile;
