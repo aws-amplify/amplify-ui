@@ -47,10 +47,14 @@ export function FileList({
         };
 
         const handlePauseUpload = () => {
-          onPause({ id, uploadTask });
+          if (uploadTask) {
+            onPause({ id, uploadTask });
+          }
         };
         const handleResumeUpload = () => {
-          onResume({ id, uploadTask });
+          if (uploadTask) {
+            onResume({ id, uploadTask });
+          }
         };
 
         return (

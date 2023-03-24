@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Logger } from 'aws-amplify';
 import { UploadTask } from '@aws-amplify/storage';
 
 import { checkMaxFileSize } from '../utils/checkMaxFileSize';
@@ -14,6 +15,8 @@ import { filterAllowedFiles } from '../utils/filterAllowedFiles';
 import { StorageManagerProps } from './types';
 import { useStorageManager } from '../hooks/useStorageManager';
 import { useUploadFiles } from '../hooks/useUploadFiles';
+
+const logger = new Logger('Storage.StorageManager');
 
 function StorageManager({
   acceptedFileTypes,
@@ -31,6 +34,12 @@ function StorageManager({
   provider,
   onFilesChange,
 }: StorageManagerProps): JSX.Element {
+  if (!acceptedFileTypes || !accessLevel || !maxFileCount) {
+    logger.warn(
+      'FileUploader requires accessLevel, acceptedFileTypes and maxFileCount props'
+    );
+  }
+
   const Components = {
     Container,
     DropZone,
