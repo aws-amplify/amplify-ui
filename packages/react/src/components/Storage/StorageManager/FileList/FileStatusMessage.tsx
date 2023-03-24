@@ -16,7 +16,7 @@ export const FileStatusMessage = ({
   uploadSuccessfulText,
 }: FileStatusMessageProps): JSX.Element | null => {
   switch (status) {
-    case FileStatus.LOADING: {
+    case FileStatus.UPLOADING: {
       return (
         <Text className={ComponentClassNames.StorageManagerFileStatus}>
           {getUploadingText(percentage)}
@@ -29,7 +29,7 @@ export const FileStatusMessage = ({
           {getPausedText(percentage)}
         </Text>
       );
-    case FileStatus.SUCCESS:
+    case FileStatus.UPLOADED:
       return (
         <Text
           className={classNames(

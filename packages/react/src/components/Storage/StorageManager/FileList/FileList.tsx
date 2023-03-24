@@ -32,11 +32,11 @@ export function FileList({
         const thumbnailUrl = file && isImage ? URL.createObjectURL(file) : '';
 
         const loaderIsDeterminate = isResumable ? progress > 0 : true;
-        const isUploading = status === FileStatus.LOADING;
+        const isUploading = status === FileStatus.UPLOADING;
         // const onCancel = () => console.log('cancel');
 
         const onRemove = () => {
-          if (status === FileStatus.READY) {
+          if (status === FileStatus.QUEUED) {
             onRemoveUpload(id);
           }
           if (status === FileStatus.UPLOADED) {

@@ -49,7 +49,7 @@ export function FileControl({
           />
         ) : null}
         <UploadDetails displayName={displayName} fileSize={size} />
-        {status === FileStatus.LOADING ? (
+        {status === FileStatus.UPLOADING ? (
           <Loader
             className={ComponentClassNames.StorageManagerLoader}
             variation="linear"
@@ -59,7 +59,7 @@ export function FileControl({
           />
         ) : null}
         {isResumable &&
-        (status === FileStatus.LOADING || status === FileStatus.PAUSED) ? (
+        (status === FileStatus.UPLOADING || status === FileStatus.PAUSED) ? (
           status === FileStatus.PAUSED ? (
             <Button onClick={onResume} size="small" variation="link">
               {resumeText}
@@ -70,7 +70,7 @@ export function FileControl({
             </Button>
           )
         ) : null}
-        {status === FileStatus.READY ? (
+        {status === FileStatus.QUEUED ? (
           <FileRemoveButton
             altText={`Remove file${displayName}`}
             onClick={onRemove}

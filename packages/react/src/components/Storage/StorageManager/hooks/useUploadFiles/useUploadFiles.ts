@@ -39,7 +39,7 @@ export function useUploadFiles({
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
-      (file) => file.status === FileStatus.READY
+      (file) => file.status === FileStatus.QUEUED
     );
 
     if (filesReadyToUpload.length > maxFileCount) {

@@ -12,11 +12,10 @@ interface UseStorageManagerState {
 
 enum StorageManagerActionTypes {
   ADD_FILES = 'ADD_FILES',
-  SET_UPLOADING = 'SET_UPLOADING',
+  SET_STATUS = 'SET_STATUS',
+  SET_STATUS_UPLOADING = 'SET_STATUS_UPLOADING',
   SET_UPLOAD_PROGRESS = 'SET_UPLOAD_PROGRESS',
-  SET_UPLOAD_STATUS = 'SET_UPLOAD_STATUS',
   REMOVE_UPLOAD = 'REMOVE_UPLOAD',
-  REMOVE_ALL_UPLOADS = 'REMOVE_UPLOADS',
 }
 
 type GetFileErrorMessage = (file: File) => string;
@@ -24,11 +23,16 @@ type GetFileErrorMessage = (file: File) => string;
 type Action =
   | {
       type: StorageManagerActionTypes.ADD_FILES;
-      payload: File[];
+      files: File[];
       getFileErrorMessage: GetFileErrorMessage;
     }
   | {
-      type: StorageManagerActionTypes.SET_UPLOADING;
+      type: StorageManagerActionTypes.SET_STATUS;
+      id: string;
+      status: FileStatus;
+    }
+  | {
+      type: StorageManagerActionTypes.SET_STATUS_UPLOADING;
       id: string;
       uploadTask?: UploadTask;
     }
@@ -36,11 +40,6 @@ type Action =
       type: StorageManagerActionTypes.SET_UPLOAD_PROGRESS;
       id: string;
       progress: number;
-    }
-  | {
-      type: StorageManagerActionTypes.SET_UPLOAD_STATUS;
-      id: string;
-      status: FileStatus;
     }
   | {
       type: StorageManagerActionTypes.REMOVE_UPLOAD;
@@ -57,7 +56,7 @@ export const addFilesAction = ({
 }: AddFilesActionParams): Action => {
   return {
     type: StorageManagerActionTypes.ADD_FILES,
-    payload: files,
+    files,
     getFileErrorMessage,
   };
 };
@@ -70,7 +69,7 @@ export const setUploadingFileAction = ({
   uploadTask: UploadTask | undefined;
 }): Action => {
   return {
-    type: StorageManagerActionTypes.SET_UPLOADING,
+    type: StorageManagerActionTypes.SET_STATUS_UPLOADING,
     id,
     uploadTask,
   };
@@ -98,7 +97,7 @@ export const setUploadStatusAction = ({
   status: FileStatus;
 }): Action => {
   return {
-    type: StorageManagerActionTypes.SET_UPLOAD_STATUS,
+    type: StorageManagerActionTypes.SET_STATUS,
     id,
     status,
   };
@@ -117,7 +116,7 @@ function reducer(
 ): UseStorageManagerState {
   switch (action.type) {
     case StorageManagerActionTypes.ADD_FILES: {
-      const files = action.payload;
+      const { files } = action;
 
       const newUploads: StorageFiles = files.map((file) => {
         const errorText = action.getFileErrorMessage(file);
@@ -127,7 +126,7 @@ function reducer(
           file,
           error: errorText,
           name: file.name,
-          status: errorText ? FileStatus.ERROR : FileStatus.READY,
+          status: errorText ? FileStatus.ERROR : FileStatus.QUEUED,
           isImage: file.type.startsWith('image/'),
           progress: -1,
         };
@@ -140,7 +139,7 @@ function reducer(
         files: newFiles,
       };
     }
-    case StorageManagerActionTypes.SET_UPLOADING: {
+    case StorageManagerActionTypes.SET_STATUS_UPLOADING: {
       const { id, uploadTask } = action;
       const { files } = state;
 
@@ -150,7 +149,7 @@ function reducer(
             ...files,
             {
               ...currentFile,
-              status: FileStatus.LOADING,
+              status: FileStatus.UPLOADING,
               progress: 0,
               uploadTask: uploadTask ? uploadTask : undefined,
             },
@@ -184,7 +183,7 @@ function reducer(
         files: newFiles,
       };
     }
-    case StorageManagerActionTypes.SET_UPLOAD_STATUS: {
+    case StorageManagerActionTypes.SET_STATUS: {
       const { id, status } = action;
       const { files } = state;
 
@@ -303,7 +302,7 @@ export function useStorageManager(
   };
 
   const setUploadSuccess: UseStorageManager['setUploadSuccess'] = ({ id }) => {
-    dispatch(setUploadStatusAction({ id, status: FileStatus.SUCCESS }));
+    dispatch(setUploadStatusAction({ id, status: FileStatus.UPLOADED }));
   };
 
   const setUploadPaused: UseStorageManager['setUploadPaused'] = ({ id }) => {
@@ -311,7 +310,7 @@ export function useStorageManager(
   };
 
   const setUploadResumed: UseStorageManager['setUploadPaused'] = ({ id }) => {
-    dispatch(setUploadStatusAction({ id, status: FileStatus.LOADING }));
+    dispatch(setUploadStatusAction({ id, status: FileStatus.UPLOADING }));
   };
 
   const removeUpload: UseStorageManager['removeUpload'] = ({ id }) => {
