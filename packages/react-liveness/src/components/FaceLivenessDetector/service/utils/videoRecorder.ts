@@ -18,6 +18,7 @@ export class VideoRecorder {
   public recorderStartTimestamp: number | undefined;
   public recorderEndTimestamp: number | undefined;
   public firstChunkTimestamp: number | undefined;
+  public recorderStarted!: Promise<void>;
 
   private _recorder: MediaRecorder | null;
   private _stream: MediaStream;
@@ -76,79 +77,82 @@ export class VideoRecorder {
   private _setupCallbacks() {
     // Creates a Readablestream of video chunks. Waits to receive a clientSessionInfo event before pushing
     //  a livenessActionDocument to the ReadableStream and finally closing the ReadableStream
-    this._recorderStopped = new Promise((resolve) => {
-      this.videoStream = new ReadableStream({
-        start: (controller) => {
-          if (!this._recorder) {
-            return;
-          }
+    this.videoStream = new ReadableStream({
+      start: (controller) => {
+        if (!this._recorder) {
+          return;
+        }
 
-          this._recorder.ondataavailable = (e: BlobEvent) => {
-            if (e.data && e.data.size > 0) {
-              if (this._chunks.length === 0) {
-                this.firstChunkTimestamp = Date.now();
-              }
-              if (DEBUG) {
-                // eslint-disable-next-line no-console
-                console.log(
-                  `chunk sent #${this._chunks.length}: ${JSON.stringify({
-                    size: e.data.size,
-                    time: Date.now(),
-                  })}`
-                );
-                Hub.dispatch('LivenessSampleApp', {
-                  event: 'chunkEvent',
-                  data: { size: e.data.size },
-                  message: 'Chunk sent',
-                });
-              }
-              this._chunks.push(e.data);
-              controller.enqueue(e.data);
+        this._recorder.ondataavailable = (e: BlobEvent) => {
+          if (e.data && e.data.size > 0) {
+            if (this._chunks.length === 0) {
+              this.firstChunkTimestamp = Date.now();
             }
-          };
-
-          this._recorder.onstart = () => {
-            this.recorderStartTimestamp = Date.now();
-          };
-
-          this._recorder.onerror = () => {
-            if (this.getState() !== 'stopped') {
-              this.stop();
-            }
-          };
-
-          this._recorder.addEventListener('clientSesssionInfo', (e: any) => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-            controller.enqueue(e.data.clientInfo);
             if (DEBUG) {
               // eslint-disable-next-line no-console
               console.log(
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                `Client Info sent: ${JSON.stringify(e.data.clientInfo)}`
+                `chunk sent #${this._chunks.length}: ${JSON.stringify({
+                  size: e.data.size,
+                  time: Date.now(),
+                })}`
               );
               Hub.dispatch('LivenessSampleApp', {
-                event: 'clientInfoEvent',
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-                data: { clientInfo: e.data.clientInfo },
-                message: 'Client info sent',
+                event: 'chunkEvent',
+                data: { size: e.data.size },
+                message: 'Chunk sent',
               });
             }
-          });
+            this._chunks.push(e.data);
+            controller.enqueue(e.data);
+          }
+        };
 
-          this._recorder.addEventListener('stopVideo', () => {
-            controller.enqueue('stopVideo');
-          });
+        this._recorder.addEventListener('clientSesssionInfo', (e: any) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+          controller.enqueue(e.data.clientInfo);
+          if (DEBUG) {
+            // eslint-disable-next-line no-console
+            console.log(
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+              `Client Info sent: ${JSON.stringify(e.data.clientInfo)}`
+            );
+            Hub.dispatch('LivenessSampleApp', {
+              event: 'clientInfoEvent',
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+              data: { clientInfo: e.data.clientInfo },
+              message: 'Client info sent',
+            });
+          }
+        });
 
-          this._recorder.addEventListener('endStream', () => {
-            controller.close();
-          });
+        this._recorder.addEventListener('stopVideo', () => {
+          controller.enqueue('stopVideo');
+        });
 
-          this._recorder.onstop = () => {
-            this.recorderEndTimestamp = Date.now();
-            resolve();
-          };
-        },
-      });
+        this._recorder.addEventListener('endStream', () => {
+          controller.close();
+        });
+      },
     });
+
+    this.recorderStarted = new Promise((resolve) => {
+      this._recorder!.onstart = () => {
+        this.recorderStartTimestamp = Date.now();
+        resolve();
+      };
+    });
+
+    this._recorderStopped = new Promise((resolve) => {
+      this._recorder!.onstop = () => {
+        this.recorderEndTimestamp = Date.now();
+        resolve();
+      };
+    });
+
+    this._recorder!.onerror = () => {
+      if (this.getState() !== 'stopped') {
+        this.stop();
+      }
+    };
   }
 }

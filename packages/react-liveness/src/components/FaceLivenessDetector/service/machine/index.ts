@@ -499,16 +499,17 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             ovalAssociatedParams: { initialFace },
             livenessStreamProvider,
           } = context;
-          const {
-            recordingStartApiTimestamp,
-            recorderStartTimestamp,
-            firstChunkTimestamp,
-          } = livenessStreamProvider.videoRecorder;
-          const calculatedRecordingStart = firstChunkTimestamp - TIME_SLICE;
-          const mediaRecorderOnStartCalled = recorderStartTimestamp;
-          const timestamp = Math.max(
-            recordingStartApiTimestamp,
-            Math.min(calculatedRecordingStart, mediaRecorderOnStartCalled)
+          const { recordingStartApiTimestamp, recorderStartTimestamp } =
+            livenessStreamProvider.videoRecorder;
+
+          /**
+           * This calculation is provided by Science team after doing analysis
+           * of unreliable .onstart() (recorderStartTimestamp) timestamp that is
+           * returned from mediaRecorder.
+           */
+          const timestamp = Math.round(
+            0.73 * (recorderStartTimestamp - recordingStartApiTimestamp) +
+              recordingStartApiTimestamp
           );
 
           // Send client info for initial face position
@@ -1003,14 +1004,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectInitialFaceAndDrawOval(context) {
         const {
-          challengeId,
-          videoAssociatedParams: {
-            videoEl,
-            canvasEl,
-            videoMediaStream,
-            recordingStartTimestampMs,
-            isMobile,
-          },
+          videoAssociatedParams: { videoEl, canvasEl, isMobile },
           ovalAssociatedParams: { faceDetector },
           serverSessionInformation,
           livenessStreamProvider,
@@ -1019,12 +1013,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         // initialize models
         try {
           await faceDetector.modelLoadingPromise;
+          await livenessStreamProvider.videoRecorder.recorderStarted;
         } catch (err) {
           console.log({ err });
         }
 
         // detect face
-        const startDetectTime = Date.now();
         const detectedFaces = await faceDetector.detectFaces(videoEl);
         let initialFace: Face;
         let faceMatchState: FaceMatchState;
@@ -1106,18 +1100,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async detectFaceAndMatchOval(context) {
         const {
-          videoAssociatedParams: { videoEl, canvasEl },
-          ovalAssociatedParams: {
-            faceDetector,
-            ovalDetails,
-            scaleFactor,
-            initialFace,
-          },
+          videoAssociatedParams: { videoEl },
+          ovalAssociatedParams: { faceDetector, ovalDetails, initialFace },
           serverSessionInformation,
         } = context;
 
         // detect face
-        const before = Date.now();
         const detectedFaces = await faceDetector.detectFaces(videoEl);
         let faceMatchState: FaceMatchState;
         let faceMatchPercentage: number = 0;
@@ -1246,7 +1234,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async getLiveness(context) {
         const {
-          componentProps: { sessionId, onAnalysisComplete },
+          componentProps: { onAnalysisComplete },
           videoAssociatedParams: { videoMediaStream },
           livenessStreamProvider,
         } = context;
