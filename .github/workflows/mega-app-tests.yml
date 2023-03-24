@@ -19,27 +19,24 @@ jobs:
       matrix:
         # Paths for each example app we want to test build on
         include:
-          - framework: react18
+          - framework: angular
+            build-tool: angularcli
+          - framework: react
             build-tool: cra
-            language: ts
-            node: 16
-            pkgManager: npm
-          - framework: react18
-            build-tool: cra
-            language: js
-            node: 16
-            pkgManager: npm
-          - framework: react16
-            build-tool: cra
-            language: ts
-            node: 16
-            pkgManager: npm
-          - framework: react16
-            build-tool: cra
-            language: js
-            node: 16
-            pkgManager: npm
-
+          - framework: react
+            build-tool: cra-ts
+          - framework: react
+            build-tool: next
+          - framework: react
+            build-tool: vite
+          - framework: react
+            build-tool: vite3
+          - framework: vue
+            build-tool: vite
+          - framework: vue
+            build-tool: vite3
+          - framework: vue
+            build-tool: vuecli
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v3
