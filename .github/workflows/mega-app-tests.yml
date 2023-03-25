@@ -20,24 +20,12 @@ jobs:
       matrix:
         # Paths for each example app we want to test build on
         include:
-          - framework: angular
-            build-tool: angularcli
           - framework: react
+            framework-version: 18
             build-tool: cra
-          - framework: react
-            build-tool: cra-ts
-          - framework: react
-            build-tool: next
-          - framework: react
-            build-tool: vite
-          - framework: react
-            build-tool: vite3
-          - framework: vue
-            build-tool: vite
-          - framework: vue
-            build-tool: vite3
-          - framework: vue
-            build-tool: vuecli
+            build-tool-version: 5
+            pkg-manager: npm
+            language: ts
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v3
@@ -47,14 +35,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'yarn'
+          cache: 'yarn' # TODO: dynamic this
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Install canary package
-        uses: ./.github/actions/install-with-retries
-        with:
-          no-lockfile: true
-          working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Get CLI versions
@@ -76,40 +59,12 @@ jobs:
           aws configure set default.region $AWS_REGION
       - name: Pull down AWS environments
         run: yarn pull
-        working-directory: ./canary
+        working-directory: ./build-system-tests/environments
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
-      - name: Build example app
-        run: yarn build
-        working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
-      # This steps attempts to restore cypress runner. It will not create any new
-      # cache entries however, because cypress runner isn't available yet.
-      - name: Restore cypress runner from Cache
-        uses: actions/cache@v3
-        id: restore-cypress-cache
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Install e2e packages
-        uses: ./.github/actions/install-with-retries
-        with:
-          working-directory: ./canary/e2e
-          # If we got a cache hit on cypress runner, then we will skip cypress binary
-          # installation. Otherwise, it will install cypress binary.
-          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
-      # If cypress cache was missed, then we need to create new cache entry and upload it.
-      # At this point, cypress runner should've been installed from the previous installation
-      # step, so we go ahead and update the cache entry.
-      - name: Cache cypress runner
-        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Start ${{ matrix.framework }}/${{ matrix.build-tool }} example
-        run: yarn build
-        working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
+      - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
+        run: node --require esbuild-register ./scripts/create-react-app.ts
+        working-directory: ./build-system-tests
+      - name: Build MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
+        run: yarn --cwd mega-apps/react-18-cra-5-ts build
+        working-directory: ./build-system-tests
