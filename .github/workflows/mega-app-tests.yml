@@ -41,7 +41,7 @@ jobs:
       - name: Install build-system-tests package
         uses: ./.github/actions/install-with-retries
         with:
-          working-directory: ./canary/build-system-tests
+          working-directory: ./build-system-tests
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Get CLI versions
