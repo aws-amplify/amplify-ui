@@ -4,12 +4,12 @@ import cp from 'child_process';
 import { createFolder, getArgs, removeFolder } from './utils';
 
 const getDirectories = (source) =>
-  fs
-    .readdirSync(source, { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory())
-    .map((dirent) => dirent.name);
+  fs.readdirSync(source, { withFileTypes: true }).map((dirent) => dirent.name);
 
-getDirectories(path.join(__dirname));
+const dirsEnv = getDirectories(path.join(__dirname, '../environments'));
+const dirsSrc = getDirectories(path.join(__dirname, '../environments/src'));
+console.log(dirsEnv.join('🎄\n'));
+console.log(dirsSrc.join('🌴\n'));
 
 type Args = {
   react?: string;
