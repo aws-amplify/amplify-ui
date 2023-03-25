@@ -1,45 +1,35 @@
+import type { UploadTask } from '@aws-amplify/storage';
 import { StorageManagerDisplayText } from '../displayText';
-import { FileState, StorageFile } from '../types';
+import { FileStatus, StorageFile } from '../types';
 
-export interface FileListProps
-  extends Pick<
-    StorageManagerDisplayText,
-    | 'extensionNotAllowedText'
-    | 'pauseText'
-    | 'resumeText'
-    | 'getUploadingText'
-    | 'getPausedText'
-    | 'uploadSuccessfulText'
-  > {
+export interface FileListProps {
+  displayText: StorageManagerDisplayText;
   files: StorageFile[];
   isResumable: boolean;
+  onCancelUpload: (params: { id: string; uploadTask: UploadTask }) => void;
+  onDeleteUpload: (params: { id: string }) => void;
+  onPause: (params: { id: string; uploadTask: UploadTask }) => void;
+  onResume: (params: { id: string; uploadTask: UploadTask }) => void;
   showThumbnails: boolean;
+  hasMaxFilesError: boolean;
+  maxFileCount: number;
 }
 
-export interface FileControlProps
-  extends Pick<
-    StorageManagerDisplayText,
-    | 'extensionNotAllowedText'
-    | 'pauseText'
-    | 'resumeText'
-    | 'getUploadingText'
-    | 'getPausedText'
-    | 'uploadSuccessfulText'
-  > {
+export interface FileControlProps {
+  displayText: StorageManagerDisplayText;
   displayName: string;
   errorMessage: string;
   isImage: boolean;
+  isResumable: boolean;
+  isUploading: boolean;
   loaderIsDeterminate: boolean;
-  // onCancelEdit?: () => void;
-  // onPause: () => void;
   onRemove: () => void;
-  // onResume: () => void;
-  // onSaveEdit: (value: string) => void;
-  onStartEdit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onPause: () => void;
+  onResume: () => void;
   progress: number;
   showThumbnails: boolean;
-  size: number;
-  status: FileState;
+  size?: number;
+  status: FileStatus;
   thumbnailUrl: string;
 }
 
@@ -48,16 +38,14 @@ export interface FileStatusMessageProps
     StorageManagerDisplayText,
     'getUploadingText' | 'getPausedText' | 'uploadSuccessfulText'
   > {
-  status: FileState;
+  status: FileStatus;
   errorMessage: string;
   percentage: number;
 }
 
 export interface UploadDetailsProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
   displayName: string;
-  showEditButton: boolean;
-  fileSize: number;
+  fileSize?: number;
 }
 
 export interface FileThumbnailProps {

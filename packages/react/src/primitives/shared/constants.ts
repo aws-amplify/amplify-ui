@@ -548,6 +548,10 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['StepperField'],
     description: 'Class applied to the StepperField input',
   },
+  StorageManager: {
+    className: ComponentClassName.StorageManager,
+    components: ['StorageManager'],
+  },
   StorageManagerDropZone: {
     className: ComponentClassName.StorageManagerDropZone,
     components: ['StorageManager'],
@@ -606,18 +610,6 @@ export const ComponentClassObject: ComponentClassNameItems = {
   },
   StorageManagerPreviewerText: {
     className: ComponentClassName.StorageManagerPreviewerText,
-    components: ['StorageManager'],
-  },
-  StorageManagerPreviewerBody: {
-    className: ComponentClassName.StorageManagerPreviewerBody,
-    components: ['StorageManager'],
-  },
-  StorageManagerPreviewerFooter: {
-    className: ComponentClassName.StorageManagerPreviewerFooter,
-    components: ['StorageManager'],
-  },
-  StorageManagerPreviewerFooterActions: {
-    className: ComponentClassName.StorageManagerPreviewerFooterActions,
     components: ['StorageManager'],
   },
   SwitchField: {
@@ -872,6 +864,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   StepperFieldButtonIncrease:
     ComponentClassObject.StepperFieldButtonIncrease.className,
   StepperFieldInput: ComponentClassObject.StepperFieldInput.className,
+  StorageManager: ComponentClassObject.StorageManager.className,
   StorageManagerDropZone: ComponentClassObject.StorageManagerDropZone.className,
   StorageManagerDropZoneIcon:
     ComponentClassObject.StorageManagerDropZoneIcon.className,
@@ -895,12 +888,6 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.StorageManagerPreviewer.className,
   StorageManagerPreviewerText:
     ComponentClassObject.StorageManagerPreviewerText.className,
-  StorageManagerPreviewerBody:
-    ComponentClassObject.StorageManagerPreviewerBody.className,
-  StorageManagerPreviewerFooter:
-    ComponentClassObject.StorageManagerPreviewerFooter.className,
-  StorageManagerPreviewerFooterActions:
-    ComponentClassObject.StorageManagerPreviewerFooterActions.className,
   SwitchField: ComponentClassObject.SwitchField.className,
   SwitchLabel: ComponentClassObject.SwitchLabel.className,
   SwitchThumb: ComponentClassObject.SwitchThumb.className,

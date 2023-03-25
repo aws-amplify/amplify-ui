@@ -1,115 +1,64 @@
 import * as React from 'react';
+import { Logger } from 'aws-amplify';
+import { UploadTask } from '@aws-amplify/storage';
 
-import { uploadFile } from '@aws-amplify/ui';
-
-import { Container } from './Container';
-import { DropZone } from '../DropZone';
+import { checkMaxFileSize } from '../utils/checkMaxFileSize';
+import { ComponentClassNames } from '../../../../primitives';
+import { Container } from '../Container/Container';
 import { defaultStorageManagerDisplayText } from '../displayText';
+import { DropZone, useDropZone } from '../DropZone';
 import { FileList } from '../FileList/FileList';
-import { FileState } from '../types';
+import { FileListHeader } from '../FileListHeader';
+import { FilePicker } from '../DropZone/FilePicker';
+import { FileStatus } from '../types';
+import { filterAllowedFiles } from '../utils/filterAllowedFiles';
 import { StorageManagerProps } from './types';
 import { useStorageManager } from '../hooks/useStorageManager';
-import { checkMaxFileSize } from '../utils/checkMaxFileSize';
-import { filterAllowedFiles } from '../utils/filterAllowedFiles';
+import { useUploadFiles } from '../hooks/useUploadFiles';
+
+const logger = new Logger('Storage.StorageManager');
 
 function StorageManager({
-  acceptedFileTypes, // passed directly to file input && to limit uploads
-  accessLevel, // used on upload
-  displayText: overrideDisplayText, // UI only
-  isResumable = false, // used on upload / determines if edit is shown
-  // maxFileCount, // used on upload
-  maxFileSize, // used on add file to set error
-  onUploadError, // customer handler to fire on error
-  onUploadSuccess, // customer handler to fire on success
-  shouldAutoUpload, // used on upload
-  showThumbnails = true, //
+  acceptedFileTypes,
+  accessLevel,
+  defaultFiles,
+  displayText: overrideDisplayText,
+  isResumable = false,
+  maxFileCount,
+  maxFileSize,
+  onUploadError,
+  onUploadSuccess,
+  showThumbnails = true,
+  processFile,
+  components,
+  provider,
+  onFilesChange,
 }: StorageManagerProps): JSX.Element {
-  // const { uploads, addFiles } = useStorageManager();
-  // const [files, setFiles] =
-  const {
-    dropFilesText,
-    browseFilesText,
-    // getErrorText,
-    // getFilesUploadedText,
-    // clearButtonText,
-    // getRemainingFilesText,
-    getFileSizeErrorText,
-    getUploadingText,
-    // getMaxFilesErrorText,
-    // doneButtonText,
-    getPausedText,
-    pauseText,
-    resumeText,
-    extensionNotAllowedText,
-    uploadSuccessfulText,
-    // getUploadButtonText,
-  } = {
+  if (!acceptedFileTypes || !accessLevel || !maxFileCount) {
+    logger.warn(
+      'FileUploader requires accessLevel, acceptedFileTypes and maxFileCount props'
+    );
+  }
+
+  const Components = {
+    Container,
+    DropZone,
+    FileList,
+    FilePicker,
+    FileListHeader,
+    ...components,
+  };
+
+  const allowMultipleFiles =
+    maxFileCount === undefined ||
+    (typeof maxFileCount === 'number' && maxFileCount > 1);
+
+  const displayText = {
     ...defaultStorageManagerDisplayText,
     ...overrideDisplayText,
   };
 
-  const { files, addFiles, setUploadingFile, setUploadProgress } =
-    useStorageManager();
-
-  React.useEffect(() => {
-    if (shouldAutoUpload) {
-      const filesReadyToUpload = files.filter(
-        (file) => file.status === FileState.READY
-      );
-      for (const { file, name, id } of filesReadyToUpload) {
-        const onComplete = () => {
-          // console.log('done!');
-        };
-
-        const onProgress: (progress: {
-          loaded: number;
-          total: number;
-        }) => void = (progress) => {
-          /**
-           * When a file is zero bytes, the progress.total will equal zero.
-           * Therefore, this will prevent a divide by zero error.
-           */
-          const progressPercentage =
-            progress.total !== 0
-              ? Math.floor((progress.loaded / progress.total) * 100)
-              : 100;
-          console.log('progress', progressPercentage);
-          setUploadProgress({ id, progress: progressPercentage });
-        };
-
-        const onError = (error) => {
-          console.error('something broke', error);
-          onUploadError?.(error);
-        };
-
-        if (isResumable) {
-          // @TODO: get UploadTask later on
-          throw new Error('not implemented yet');
-        } else {
-          uploadFile({
-            file,
-            fileName: name,
-            isResumable: false,
-            level: accessLevel,
-            completeCallback: onComplete,
-            progressCallback: onProgress,
-            errorCallback: onError,
-          });
-        }
-        setUploadingFile({ id });
-
-        // dispatch action to save upload task here:
-        // dispatch(uploadTask)
-      }
-    }
-  }, [
-    files,
-    accessLevel,
-    isResumable,
-    setUploadProgress,
-    setUploadingFile,
-    shouldAutoUpload,
-  ]);
+  const { getFileSizeErrorText } = displayText;
 
   const getMaxFileSizeErrorMessage = (file: File): string => {
     return checkMaxFileSize({
@@ -119,16 +68,19 @@ function StorageManager({
     });
   };
 
-  const isDragEvent = (
-    event: unknown
-  ): event is React.DragEvent<HTMLDivElement> => {
-    return !!(event as React.DragEvent<HTMLDivElement>)?.dataTransfer;
-  };
+  const {
+    addFiles,
+    files,
+    removeUpload,
+    setUploadingFile,
+    setUploadPaused,
+    setUploadProgress,
+    setUploadSuccess,
+    setUploadResumed,
+  } = useStorageManager(defaultFiles, onFilesChange);
 
-  const onDropZoneChange = (
-    event: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>
-  ) => {
-    if (isDragEvent(event)) {
+  const dropZoneProps = useDropZone({
+    onChange: (event: React.DragEvent<HTMLDivElement>) => {
       const { files } = event.dataTransfer;
       if (!files || files.length === 0) {
         return;
@@ -142,44 +94,142 @@ function StorageManager({
         files: filteredFiles,
         getFileErrorMessage: getMaxFileSizeErrorMessage,
       });
-    } else {
-      const { files } = event.target;
-      if (!files || files.length === 0) {
-        return;
-      }
+    },
+  });
 
-      addFiles({
-        files: Array.from(files),
-        getFileErrorMessage: getMaxFileSizeErrorMessage,
-      });
+  useUploadFiles({
+    accessLevel,
+    files,
+    isResumable,
+    maxFileCount,
+    onUploadError,
+    onUploadSuccess,
+    setUploadingFile,
+    setUploadProgress,
+    setUploadSuccess,
+    processFile,
+    provider,
+  });
+
+  const onFilePickerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.target;
+    if (!files || files.length === 0) {
+      return;
     }
+
+    addFiles({
+      files: Array.from(files),
+      getFileErrorMessage: getMaxFileSizeErrorMessage,
+    });
   };
 
+  const onPauseUpload = ({
+    id,
+    uploadTask,
+  }: {
+    id: string;
+    uploadTask: UploadTask;
+  }) => {
+    uploadTask.pause();
+    setUploadPaused({ id });
+  };
+
+  const onResumeUpload = ({
+    id,
+    uploadTask,
+  }: {
+    id: string;
+    uploadTask: UploadTask;
+  }) => {
+    uploadTask.resume();
+    setUploadResumed({ id });
+  };
+
+  const onCancelUpload = ({
+    id,
+    uploadTask,
+  }: {
+    id: string;
+    uploadTask: UploadTask;
+  }) => {
+    // At this time we don't know if the delete
+    // permissions are enabled (required to cancel upload),
+    // so we do a pause instead and remove from files
+    uploadTask.pause();
+    removeUpload({ id });
+  };
+
+  const onDeleteUpload = ({ id }: { id: string }) => {
+    // At this time we don't know if the delete
+    // permissions are enabled, so we do a soft delete
+    // from file list, but don't remove from storage
+    removeUpload({ id });
+  };
+
+  // checks if all downloads completed to 100%
+  const allUploadsSuccessful =
+    files.length === 0
+      ? false
+      : files.every((status) => status?.progress === 100);
+
+  // Displays if over max files
+  const hasMaxFilesError =
+    files.filter((file) => file.progress < 100).length > maxFileCount;
+
+  const uploadedFilesLength = files.filter(
+    (file) => file?.status === FileStatus.UPLOADED
+  ).length;
+
+  const remainingFilesCount = files.length - uploadedFilesLength;
+
+  const hasFiles = files.length > 0;
+
   return (
-    <Container>
-      <DropZone
-        dropFilesText={dropFilesText}
-        onChange={onDropZoneChange}
-        browseFilesText={browseFilesText}
+    <Components.Container
+      className={`${ComponentClassNames.StorageManager} ${
+        hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
+      }`}
+    >
+      <Components.DropZone
+        {...dropZoneProps}
         acceptedFileTypes={acceptedFileTypes}
-      />
-      <FileList
-        extensionNotAllowedText={extensionNotAllowedText}
+        displayText={displayText}
+      >
+        <Components.FilePicker
+          onFileChange={onFilePickerChange}
+          displayText={displayText}
+          acceptedFileTypes={acceptedFileTypes}
+          allowMultipleFiles={allowMultipleFiles}
+        />
+      </Components.DropZone>
+      {hasFiles ? (
+        <Components.FileListHeader
+          allUploadsSuccessful={allUploadsSuccessful}
+          displayText={displayText}
+          fileCount={files.length}
+          remainingFilesCount={remainingFilesCount}
+        />
+      ) : null}
+      <Components.FileList
+        displayText={displayText}
         files={files}
-        getPausedText={getPausedText}
-        getUploadingText={getUploadingText}
         isResumable={isResumable}
-        pauseText={pauseText}
-        resumeText={resumeText}
+        onCancelUpload={onCancelUpload}
+        onDeleteUpload={onDeleteUpload}
+        onResume={onResumeUpload}
+        onPause={onPauseUpload}
         showThumbnails={showThumbnails}
-        uploadSuccessfulText={uploadSuccessfulText}
+        hasMaxFilesError={hasMaxFilesError}
+        maxFileCount={maxFileCount}
       />
-    </Container>
+    </Components.Container>
   );
 }
 
 StorageManager.Container = Container;
 StorageManager.DropZone = DropZone;
 StorageManager.FileList = FileList;
+StorageManager.FileListHeader = FileListHeader;
+StorageManager.FilePicker = FilePicker;
 
 export { StorageManager };

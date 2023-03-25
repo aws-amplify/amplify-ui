@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { classNameModifier } from '../../../../primitives/shared/utils';
 import { Text, ComponentClassNames } from '../../../../primitives';
 import { IconCheck, IconError } from '../../../../primitives/Icon/internal';
-import { FileState } from '../types';
+import { FileStatus } from '../types';
 import { FileStatusMessageProps } from './types';
 
 export const FileStatusMessage = ({
@@ -16,20 +16,20 @@ export const FileStatusMessage = ({
   uploadSuccessfulText,
 }: FileStatusMessageProps): JSX.Element | null => {
   switch (status) {
-    case FileState.LOADING: {
+    case FileStatus.UPLOADING: {
       return (
         <Text className={ComponentClassNames.StorageManagerFileStatus}>
           {getUploadingText(percentage)}
         </Text>
       );
     }
-    case FileState.PAUSED:
+    case FileStatus.PAUSED:
       return (
         <Text className={ComponentClassNames.StorageManagerFileStatus}>
           {getPausedText(percentage)}
         </Text>
       );
-    case FileState.SUCCESS:
+    case FileStatus.UPLOADED:
       return (
         <Text
           className={classNames(
@@ -43,7 +43,7 @@ export const FileStatusMessage = ({
           <IconCheck fontSize="xl" /> {uploadSuccessfulText}
         </Text>
       );
-    case FileState.ERROR:
+    case FileStatus.ERROR:
       return (
         <Text
           className={classNames(

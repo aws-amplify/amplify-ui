@@ -1,124 +1,86 @@
 import React from 'react';
 
-import { ComponentClassNames, Text, View } from '../../../../primitives';
+import { Alert, View } from '../../../../primitives';
+import { FileStatus } from '../types';
 import { FileControl } from './FileControl';
 import { FileListProps } from './types';
 
 export function FileList({
-  extensionNotAllowedText,
+  displayText,
   files,
-  getPausedText,
-  getUploadingText,
+  hasMaxFilesError,
   isResumable,
-  pauseText,
-  resumeText,
+  onCancelUpload,
+  onDeleteUpload,
+  onResume,
+  onPause,
   showThumbnails,
-  uploadSuccessfulText,
+  maxFileCount,
 }: FileListProps): JSX.Element | null {
   if (files.length < 1) {
     return null;
   }
 
+  const { getMaxFilesErrorText } = displayText;
+  const headingMaxFiles = getMaxFilesErrorText(maxFileCount);
+
   return (
-    <View className={ComponentClassNames.StorageManagerPreviewer}>
-      <View className={ComponentClassNames.StorageManagerPreviewerBody}>
-        <Text className={ComponentClassNames.StorageManagerPreviewerText}>
-          {/* {isSuccessful
-          ? getFilesUploadedText(getUploadedFilesLength())
-          : getRemainingFilesText(remainingFilesLength)} */}
-        </Text>
-        {files.map((storageFile) => {
-          const { file, status, progress, error, name, isImage, id } =
-            storageFile;
+    <View className={'amplify-storagemanager--filelist'}>
+      {files.map((storageFile) => {
+        const { file, status, progress, error, name, isImage, id, uploadTask } =
+          storageFile;
 
-          const thumbnailUrl = file && isImage ? URL.createObjectURL(file) : '';
+        const thumbnailUrl = file && isImage ? URL.createObjectURL(file) : '';
+        const loaderIsDeterminate = isResumable ? progress > 0 : true;
+        const isUploading = status === FileStatus.UPLOADING;
 
-          // @TODO: Add back when adding editing functionality
+        const onRemove = () => {
+          if (
+            isResumable &&
+            (status === FileStatus.UPLOADING || status === FileStatus.PAUSED) &&
+            uploadTask
+          ) {
+            onCancelUpload({ id, uploadTask });
+          } else {
+            onDeleteUpload({ id });
+          }
+        };
 
-          // // Focus the input after pressing the edit button
-          // const inputRef = React.useRef<HTMLInputElement>(null);
-          // useEffect(() => {
-          //   if (fileState === FileState.EDITING && inputRef.current) {
-          //     inputRef.current.focus();
-          //   }
-          // }, [fileState]);
+        const handlePauseUpload = () => {
+          if (uploadTask) {
+            onPause({ id, uploadTask });
+          }
+        };
+        const handleResumeUpload = () => {
+          if (uploadTask) {
+            onResume({ id, uploadTask });
+          }
+        };
 
-          const loaderIsDeterminate = isResumable ? progress > 0 : true;
-          // const showEditButton =
-          //   status === FileState.INIT ||
-          //   (status === FileState.ERROR && error === extensionNotAllowedText);
-          // const onStartEdit = () => console.log('edit me');
-          // const onCancel = () => console.log('cancel');
-
-          return (
-            <FileControl
-              displayName={name}
-              errorMessage={error}
-              extensionNotAllowedText={extensionNotAllowedText}
-              getPausedText={getPausedText}
-              getUploadingText={getUploadingText}
-              isImage={isImage}
-              key={id}
-              loaderIsDeterminate={loaderIsDeterminate}
-              onRemove={() => console.log(`onRemove ${name}`)}
-              onStartEdit={() => console.log(`onStartEdit ${name}`)}
-              pauseText={pauseText}
-              progress={progress}
-              resumeText={resumeText}
-              showThumbnails={showThumbnails}
-              size={file.size}
-              status={status}
-              uploadSuccessfulText={uploadSuccessfulText}
-              thumbnailUrl={thumbnailUrl}
-            />
-          );
-        })}
-      </View>
+        return (
+          <FileControl
+            displayName={name}
+            errorMessage={error}
+            displayText={displayText}
+            isImage={isImage}
+            isUploading={isUploading}
+            isResumable={isResumable}
+            key={id}
+            loaderIsDeterminate={loaderIsDeterminate}
+            onRemove={onRemove}
+            onPause={handlePauseUpload}
+            onResume={handleResumeUpload}
+            progress={progress}
+            showThumbnails={showThumbnails}
+            size={file?.size}
+            status={status}
+            thumbnailUrl={thumbnailUrl}
+          />
+        );
+      })}
+      {hasMaxFilesError && (
+        <Alert variation="error" heading={headingMaxFiles} />
+      )}
     </View>
   );
-}
-
-{
-  /* <View className={ComponentClassNames.StorageManagerPreviewerFooter}>
-<View>
-  {isLoading && (
-    <>
-      <Text>{getUploadingText(aggregatePercentage)}</Text>
-      <Loader
-        className={ComponentClassNames.StorageManagerLoader}
-        variation="linear"
-        percentage={aggregatePercentage}
-        isPercentageTextHidden
-        isDeterminate
-      />
-    </>
-  )}
-</View>
-
-<View className={ComponentClassName.StorageManagerPreviewerFooterActions}>
-  {!isLoading && !isSuccessful && (
-    <>
-      <Button size="small" variation="link" onClick={onClear}>
-        {clearButtonText}
-      </Button>
-      <Button
-        disabled={isDisabled}
-        size="small"
-        variation="primary"
-        onClick={onFileClick}
-      >
-        {getUploadButtonText(remainingFilesLength)}
-      </Button>
-    </>
-  )}
-  {isSuccessful && (
-    <Button size="small" onClick={onClear}>
-      {doneButtonText}
-    </Button>
-  )}
-</View>
-{hasMaxFilesError && (
-  <Alert variation="error" heading={headingMaxFiles} />
-)}
-</View> */
 }

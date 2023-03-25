@@ -1,25 +1,25 @@
 import type { UploadTask } from '@aws-amplify/storage';
 
-export enum FileState {
+export enum FileStatus {
+  QUEUED = 'queued',
+  UPLOADING = 'uploading',
   PAUSED = 'paused',
-  SUCCESS = 'success',
   ERROR = 'error',
-  LOADING = 'loading',
-  RESUME = 'resume',
-  EDITING = 'editing',
-  READY = 'ready',
+  UPLOADED = 'uploaded',
 }
 
 export interface StorageFile {
   id: string;
-  file: File;
+  file?: File;
   name: string;
-  status: FileState;
+  status: FileStatus;
   progress: number;
-  task?: UploadTask;
+  uploadTask?: UploadTask;
   s3Key?: string;
   error: string;
   isImage: boolean;
 }
 
 export type StorageFiles = StorageFile[];
+
+export type DefaultFile = Pick<StorageFile, 's3Key'>;
