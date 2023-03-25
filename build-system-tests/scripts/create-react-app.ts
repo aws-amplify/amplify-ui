@@ -3,6 +3,14 @@ import path from 'path';
 import cp from 'child_process';
 import { createFolder, getArgs, removeFolder } from './utils';
 
+const getDirectories = (source) =>
+  fs
+    .readdirSync(source, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
+getDirectories(path.join(__dirname));
+
 type Args = {
   react?: string;
   npm?: string | true;
