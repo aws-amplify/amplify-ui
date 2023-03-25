@@ -7,8 +7,9 @@ permissions:
   contents: read # This is required for actions/checkout
 
 on:
-  schedule:
-    - cron: '*/15 * * * *' # Run every 15 minutes
+  push:
+    branches:
+      - 'mega-app-canary'
 
 jobs:
   build:
