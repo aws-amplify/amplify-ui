@@ -8,11 +8,9 @@
 #   - https://www.npmjs.com/package/@aws-amplify/ui-vue
 #   - https://www.npmjs.com/package/@aws-amplify/ui-angular
 
-name: Test and Publish / latest
+name: POC / Test and Publish / latest
 
-on:
-  push:
-    branches: [main]
+on: pull_request
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -89,66 +87,66 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  publish:
-    runs-on: ubuntu-latest
-    environment: deployment
-    needs: build-test
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-        with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
-          fetch-depth: 0
-      - name: Setup Node.js 16
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Install packages
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: true # publishing doesn't need cypress
-      - name: Build packages
-        run: yarn build
-      - name: Publish to @latest
-        uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
-        with:
-          publish: yarn publish:latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  # publish:
+  #   runs-on: ubuntu-latest
+  #   environment: deployment
+  #   needs: build-test
+  #   if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+  #       with:
+  #         # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+  #         fetch-depth: 0
+  #     - name: Setup Node.js 16
+  #       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+  #       with:
+  #         node-version: 16
+  #         cache: 'yarn'
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+  #     - name: Install packages
+  #       uses: ./.github/actions/install-with-retries
+  #       with:
+  #         skip-cypress-binary: true # publishing doesn't need cypress
+  #     - name: Build packages
+  #       run: yarn build
+  #     - name: Publish to @latest
+  #       uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
+  #       with:
+  #         publish: yarn publish:latest
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  log-failure-metric:
-    # Send a failure data point to metric PublishLatestFailure in github-workflows@ us-east-2
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: publish
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric PublishLatestFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishLatestFailure
-          value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+  # log-failure-metric:
+  #   # Send a failure data point to metric PublishLatestFailure in github-workflows@ us-east-2
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: publish
+  #   if: ${{ failure() }}
+  #   steps:
+  #     - name: Log failure data point to metric PublishLatestFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: PublishLatestFailure
+  #         value: 1
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+  #         AWS_REGION: us-east-2
 
-  log-success-metric:
-    # Send a success data point to metric PublishLatestFailure in github-workflows@ us-east-2
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: publish
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric PublishLatestFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishLatestFailure
-          value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+  # log-success-metric:
+  #   # Send a success data point to metric PublishLatestFailure in github-workflows@ us-east-2
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: publish
+  #   if: ${{ success() }}
+  #   steps:
+  #     - name: Log success data point to metric PublishLatestFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: PublishLatestFailure
+  #         value: 0
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
+  #         AWS_REGION: us-east-2
