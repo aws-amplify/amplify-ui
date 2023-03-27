@@ -45,7 +45,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Set status to commit sha
-        uses: ./amplify-ui/.github/actions/set-status
+        uses: ./.github/actions/set-status
         with:
           sha: ${{ github.event.pull_request.head.sha }}
           state: 'pending'
@@ -140,7 +140,7 @@ jobs:
     steps:
       - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Update status when tests are successful
-        uses: ./amplify-ui/.github/actions/set-status
+        uses: ./.github/actions/set-status
         with:
           sha: ${{ github.event.pull_request.head.sha }}
           state: 'success'
@@ -157,7 +157,7 @@ jobs:
     steps:
       - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Update status when tests are not successful
-        uses: ./amplify-ui/.github/actions/set-status
+        uses: ./.github/actions/set-status
         with:
           sha: ${{ github.event.pull_request.head.sha }}
           state: 'failure'
