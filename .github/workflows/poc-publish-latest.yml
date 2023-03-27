@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     environment: ci
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
+    # if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
