@@ -8,8 +8,6 @@ const getDirectories = (source) =>
 
 const dirsEnv = getDirectories(path.join(__dirname, '../environments'));
 const dirsSrc = getDirectories(path.join(__dirname, '../environments/src'));
-console.log(dirsEnv.join('🎄\n'));
-console.log(dirsSrc.join('🌴\n'));
 
 type Args = {
   react?: string;
@@ -110,11 +108,9 @@ cp.exec(
   `npx create-react-app ./mega-apps/${appName}${
     args.npm ? ' --use-npm' : ''
   } --template file:./templates/cra-template-react`,
-  (error, stdout, stderr) => {
+  (err, stdout, stderr) => {
     console.log(stdout);
-    console.log(stderr);
-    if (error !== null) {
-      console.log(`exec error: ${error}`);
-    }
+    if (stderr) throw stderr;
+    if (err) throw err;
   }
 );
