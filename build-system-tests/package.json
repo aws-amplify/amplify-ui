@@ -5,5 +5,8 @@
   "devDependencies": {
     "esbuild": "^0.17.13",
     "esbuild-register": "^3.4.2"
+  },
+  "scripts": {
+    "pull": "./environments/pull-environments.sh"
   }
 }
