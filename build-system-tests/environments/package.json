@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "pull": "amplify pull --appId d2ek4lzondrx53 --envName dev"
+  }
+}
