@@ -26,6 +26,24 @@ jobs:
             build-tool-version: 5
             pkg-manager: npm
             language: ts
+          - framework: react
+            framework-version: 18
+            build-tool: cra
+            build-tool-version: 5
+            pkg-manager: npm
+            language: js
+          - framework: react
+            framework-version: 16
+            build-tool: cra
+            build-tool-version: 5
+            pkg-manager: npm
+            language: ts
+          - framework: react
+            framework-version: 16
+            build-tool: cra
+            build-tool-version: 5
+            pkg-manager: npm
+            language: js
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v3
