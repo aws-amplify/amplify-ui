@@ -78,7 +78,8 @@ if (language === 'ts') {
   packageJson.package.dependencies['@types/node'] = '16'; // TODO: need to make it dynamic
   packageJson.package.dependencies['@types/react'] = reactVersion;
   packageJson.package.dependencies['@types/react-dom'] = reactVersion;
-  packageJson.package.dependencies['typescript'] = 'latest';
+  packageJson.package.dependencies['typescript'] = '^4' /* 'latest' */; // TODO: test latest TS once this issue is resolved https://github.com/facebook/create-react-app/issues/13080
+
   filesToCopy['tsconfig'] = {
     src: '../templates/components/template-tsconfig.json',
     dist: '../templates/cra-template-react/template/tsconfig.json',
