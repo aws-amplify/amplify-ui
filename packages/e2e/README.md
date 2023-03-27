@@ -4,15 +4,34 @@
 
 ## Getting Started
 
-To run existing tests on your desired `framework`:
+To run existing tests on `angular`, `react` or `vue` framework:
 
 _prerequisite_: You must create populate `packages/e2e/.env` values in order for tests to run successfully against the examples. The values you need to populate are specified in [`packages/e2e/.env.example`](./.env.example). Please see [Creating test users](#creating-test-users) to see our conventions.
 
 1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
 1. Run `yarn setup`
-1. Run `yarn [framework] dev` (e.g. `yarn react build`)
+1. Run `yarn [framework] build` (e.g. `yarn react build`)
 1. Run `yarn [framework]-example dev` (e.g. `yarn react-example dev`)
 1. Run `yarn e2e dev`
+
+To run existing tests on `react-native` framework:
+
+<b>iOS</b>
+
+1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
+1. Run `yarn setup`
+1. Run `yarn react-native-example ios:pod-install`
+1. Run `yarn react-native-example ios`
+1. Run `yarn e2e detox:build:ios`
+1. Run `yarn e2e detox:e2e:ios`
+
+<b>Android</b>
+
+1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
+1. Run `yarn setup`
+1. Run `yarn react-native-example android`
+1. Run `yarn e2e detox:build:android`
+1. Run `yarn e2e detox:e2e:android`
 
 ## Contributing
 
