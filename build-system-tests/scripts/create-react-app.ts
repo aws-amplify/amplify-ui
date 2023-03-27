@@ -111,7 +111,7 @@ cp.exec(
   } --template file:./templates/cra-template-react`,
   (err, stdout, stderr) => {
     console.log(stdout);
-    if (stderr) throw stderr;
+    console.log(stderr);
     if (err) throw err;
   }
 );
