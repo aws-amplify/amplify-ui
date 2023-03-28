@@ -6,7 +6,8 @@ import * as blazeface from '@tensorflow-models/blazeface';
 import * as tfjsWasm from '@tensorflow/tfjs-backend-wasm';
 import '@tensorflow/tfjs-backend-cpu';
 
-import { LoadWithRetries } from './LoadWithRetries';
+import { jitteredExponentialRetry } from '@aws-amplify/core';
+
 import { isWebAssemblySupported } from './support';
 import { FaceDetection, Face } from '../types';
 
@@ -38,11 +39,11 @@ export class BlazeFaceFaceDetection extends FaceDetection {
 
     try {
       await tf.ready();
-      this._model = await LoadWithRetries(() =>
-        blazeface.load({
+      this._model = await jitteredExponentialRetry(blazeface.load, [
+        {
           modelUrl: this.faceModelUrl,
-        })
-      );
+        },
+      ]);
     } catch (e) {
       throw new Error(
         'There was an error loading the blazeface model. If you are using a custom blazeface model url ensure that it is a fully qualified url that returns a json file.'
@@ -97,7 +98,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   private async _loadWebAssemblyBackend() {
     try {
       tfjsWasm.setWasmPaths(this.binaryPath);
-      await LoadWithRetries(async () => {
+      await jitteredExponentialRetry(async () => {
         const success = await tf.setBackend('wasm');
         if (!success) {
           throw new Error(`Initialization of backend wasm failed`);
