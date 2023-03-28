@@ -40,7 +40,7 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   publish:
-    needs: test # remove this line if you're skipping test job.
+    # needs: test # remove this line if you're skipping test job.
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
       dist-tag: storagemanager
