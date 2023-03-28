@@ -103,7 +103,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
         if (!success) {
           throw new Error(`Initialization of backend wasm failed`);
         }
-      });
+      }, []);
       this.modelBackend = 'wasm';
     } catch (e) {
       throw new Error(
