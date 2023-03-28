@@ -18,120 +18,127 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        framework: react
+        framework-version: [16, 18]
+        build-tool: cra
+        build-tool-version: 5
+        pkg-manager: [npm, yarn]
+        language: [ts, js]
+        node-version: [16, 18]
         # Paths for each example app we want to test build on
-        include:
-          - framework: react
-            framework-version: 18
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: npm
-            language: ts
-            node-version: 16
-          - framework: react
-            framework-version: 18
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: npm
-            language: js
-            node-version: 16
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: npm
-            language: ts
-            node-version: 16
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: npm
-            language: js
-            node-version: 16
-          - framework: react
-            framework-version: 18
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: yarn
-            language: ts
-            node-version: 16
-          - framework: react
-            framework-version: 18
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: yarn
-            language: js
-            node-version: 16
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: yarn
-            language: ts
-            node-version: 16
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: yarn
-            language: js
-            node-version: 16
-          - framework: react
-            framework-version: 18
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: react
-            framework-version: 18
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: npm
-            language: js
-            node-version: 18
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: npm
-            language: js
-            node-version: 18
-          - framework: react
-            framework-version: 18
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: yarn
-            language: ts
-            node-version: 18
-          - framework: react
-            framework-version: 18
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: yarn
-            language: js
-            node-version: 18
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: yarn
-            language: ts
-            node-version: 18
-          - framework: react
-            framework-version: 16
-            build-tool: cra
-            build-tool-version: 5
-            pkg-manager: yarn
-            language: js
-            node-version: 18
+        # include:
+        # - framework: react
+        #   framework-version: 18
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: npm
+        #   language: ts
+        #   node-version: 16
+        # - framework: react
+        #   framework-version: 18
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: npm
+        #   language: js
+        #   node-version: 16
+        # - framework: react
+        #   framework-version: 16
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: npm
+        #   language: ts
+        #   node-version: 16
+        # - framework: react
+        #   framework-version: 16
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: npm
+        #   language: js
+        #   node-version: 16
+        # - framework: react
+        #   framework-version: 18
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: yarn
+        #   language: ts
+        #   node-version: 16
+        # - framework: react
+        #   framework-version: 18
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: yarn
+        #   language: js
+        #   node-version: 16
+        # - framework: react
+        #   framework-version: 16
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: yarn
+        #   language: ts
+        #   node-version: 16
+        # - framework: react
+        #   framework-version: 16
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: yarn
+        #   language: js
+        #   node-version: 16
+        # - framework: react
+        #   framework-version: 18
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: npm
+        #   language: ts
+        #   node-version: 18
+        # - framework: react
+        #   framework-version: 18
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: npm
+        #   language: js
+        #   node-version: 18
+        # - framework: react
+        #   framework-version: 16
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: npm
+        #   language: ts
+        #   node-version: 18
+        # - framework: react
+        #   framework-version: 16
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: npm
+        #   language: js
+        #   node-version: 18
+        # - framework: react
+        #   framework-version: 18
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: yarn
+        #   language: ts
+        #   node-version: 18
+        # - framework: react
+        #   framework-version: 18
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: yarn
+        #   language: js
+        #   node-version: 18
+        # - framework: react
+        #   framework-version: 16
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: yarn
+        #   language: ts
+        #   node-version: 18
+        # - framework: react
+        #   framework-version: 16
+        #   build-tool: cra
+        #   build-tool-version: 5
+        #   pkg-manager: yarn
+        #   language: js
+        #   node-version: 18
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v3
