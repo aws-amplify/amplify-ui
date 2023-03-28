@@ -6,15 +6,15 @@ name: Receive Fork Review
 
 on:
   pull_request_review:
-    branches: [main]
     types: [submitted]
 
 jobs:
   fetch-commit:
-    # only run the workflow when PR is from a fork and when the PR is reviewed and approved
+    # only run the workflow when PR is from a fork and when the PR is reviewed and approved, and is targeting `main`.
     if: |
       (github.event.pull_request.head.repo.full_name != github.repository) &&
-      (github.event.review.state == 'approved')
+      (github.event.review.state == 'approved') &&
+      (github.event.pull_request.base.ref == 'main')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
