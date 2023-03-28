@@ -18,10 +18,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        framework: react
+        framework: [react]
         framework-version: [16, 18]
-        build-tool: cra
-        build-tool-version: 5
+        build-tool: [cra]
+        build-tool-version: [5]
         pkg-manager: [npm, yarn]
         language: [ts, js]
         node-version: [16, 18]
