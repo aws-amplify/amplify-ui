@@ -186,7 +186,7 @@ jobs:
       - name: 'Checkout Repository'
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
-          commit: ${{ needs.setup.outputs.commit_id }}
+          ref: ${{ needs.setup.outputs.commit_id }}
           repository: ${{ github.repository }}
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
@@ -204,6 +204,10 @@ jobs:
   e2e:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
     needs: [setup, setup-cache]
+    permissions:
+      pull-requests: write # used to remove label
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
     with:
       commit: ${{ needs.setup.outputs.commit_id }}
       repository: ${{ github.repository }}
