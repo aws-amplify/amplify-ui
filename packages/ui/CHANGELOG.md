@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.5.9
+
+### Patch Changes
+
+- [#3588](https://github.com/aws-amplify/amplify-ui/pull/3588) [`5ee48f997`](https://github.com/aws-amplify/amplify-ui/commit/5ee48f99780ba5df889c1d66f24a0ebc9f601125) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui): Add select primitive icon default color
+
 ## 5.5.8
 
 ### Patch Changes
