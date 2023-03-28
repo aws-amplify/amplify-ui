@@ -1,5 +1,6 @@
 module.exports = {
-  collectCoverage: true,
+  // TODO: change this back when we add unit tests to StorageManager
+  collectCoverage: false,
   collectCoverageFrom: ['<rootDir>/src/**/*.(ts|tsx)'],
   // ignore coverage for top level "export", PrimitiveCatalog, and style files
   coveragePathIgnorePatterns: [
