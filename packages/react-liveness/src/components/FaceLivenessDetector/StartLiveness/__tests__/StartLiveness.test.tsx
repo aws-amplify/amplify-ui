@@ -11,7 +11,7 @@ import {
   defaultLivenessInstructionsHeader,
   defaultPhotosensitiveWarningHeader,
   defaultLivenessHeaderHeading,
-} from '../../hooks/useCustomComponents/defaultComponents';
+} from '../../shared/DefaultStartScreenComponents';
 
 jest.mock('../../hooks/useLivenessActor');
 jest.mock('../../shared/CancelButton');

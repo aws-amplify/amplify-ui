@@ -5,7 +5,7 @@ import { Flex, Button, Card } from '@aws-amplify/ui-react';
 import {
   defaultComponents,
   LivenessComponents,
-} from '../hooks/useCustomComponents/defaultComponents';
+} from '../shared/DefaultStartScreenComponents';
 
 const START_CLASS_NAME = 'liveness-detector-start';
 

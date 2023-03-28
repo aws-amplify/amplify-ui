@@ -1,16 +1,9 @@
 import React from 'react';
 import { translate, DefaultTexts } from '@aws-amplify/ui';
-import {
-  Flex,
-  View,
-  ComponentClassNames,
-  Text,
-  Collection,
-  useTheme,
-  Image,
-} from '@aws-amplify/ui-react';
-import { DescriptionBullet } from '../../shared';
-import { LivenessIconWithPopover } from '../../shared/LivenessIconWithPopover';
+import { Flex, View, ComponentClassNames, Text } from '@aws-amplify/ui-react';
+import { GoodFitIllustration, TooFarIllustration, StartScreenFigure } from './';
+import { LivenessIconWithPopover } from './LivenessIconWithPopover';
+import { LivenessClassNames } from '../types/classNames';
 
 export interface LivenessComponents {
   LivenessHeader?: React.ComponentType;
@@ -41,12 +34,11 @@ export const defaultPhotosensitiveWarningBody: string =
   'This check displays colored lights. Use caution if you are photosensitive.';
 
 export const PhotosensitiveWarning = (): JSX.Element => {
-  const { tokens } = useTheme();
   return (
     <Flex
       className={ComponentClassNames.Alert}
-      color={`${tokens.colors.orange[80]}`}
-      backgroundColor={`${tokens.colors.orange[20]}`}
+      color="orange.80"
+      backgroundColor="orange.20"
       alignItems="center"
     >
       <View flex="1">
@@ -65,11 +57,11 @@ export const PhotosensitiveWarning = (): JSX.Element => {
 export const INSTRUCTIONS = [
   {
     desc: (
-      <div>
+      <span>
         When an oval appears,{' '}
         <strong>completely fill the oval with your face</strong> within 8
         seconds.
-      </div>
+      </span>
     ),
   },
   {
@@ -92,18 +84,26 @@ export const LivenessInstructions = (): JSX.Element => {
       <Text color="font.primary" fontWeight="bold">
         {translate<string>(defaultLivenessInstructionsHeader)}
       </Text>
-      <Image
-        alt="Oval Instruction Example"
-        src="/ovalInstruction.png"
-        width="100%"
-      />
-      <Collection type="list" items={INSTRUCTIONS}>
-        {(item, index) => (
-          <DescriptionBullet key={index + 1} index={index + 1}>
-            {translate(item.desc as string)}
-          </DescriptionBullet>
-        )}
-      </Collection>
+      <Flex className={LivenessClassNames.Figures}>
+        <StartScreenFigure variation="success" caption="Good fit">
+          <GoodFitIllustration title="Ilustration of a person's face, perfectly fitting inside of an oval." />
+        </StartScreenFigure>
+        <StartScreenFigure variation="error" caption="Too far">
+          <TooFarIllustration title="Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval." />
+        </StartScreenFigure>
+      </Flex>
+      <Flex as="ol" className={LivenessClassNames.InstructionList}>
+        {INSTRUCTIONS.map((item, index) => {
+          return (
+            <Flex as="li" key={index + 1}>
+              <Text as="span" aria-hidden="true">
+                {index + 1}.
+              </Text>
+              <Text as="span">{translate(item.desc as string)}</Text>
+            </Flex>
+          );
+        })}
+      </Flex>
     </Flex>
   );
 };

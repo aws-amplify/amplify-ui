@@ -10,7 +10,7 @@ import { FaceLivenessDetectorProvider } from './providers';
 import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
 import { getVideoConstraints } from './StartLiveness/helpers';
-import { LivenessComponents } from './hooks/useCustomComponents/defaultComponents';
+import { LivenessComponents } from './shared/DefaultStartScreenComponents';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
