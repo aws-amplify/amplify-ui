@@ -20,7 +20,7 @@
     "@angular/platform-browser": "~12.2.16",
     "@angular/platform-browser-dynamic": "~12.2.16",
     "@angular/router": "~12.2.16",
-    "@aws-amplify/ui-angular": "^3.2.11",
+    "@aws-amplify/ui-angular": "^3.2.12",
     "aws-amplify": "latest",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

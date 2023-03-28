@@ -1,5 +1,19 @@
 # @aws-amplify/ui-react
 
+## 4.4.2
+
+### Patch Changes
+
+- [#3317](https://github.com/aws-amplify/amplify-ui/pull/3317) [`7f1392bcf`](https://github.com/aws-amplify/amplify-ui/commit/7f1392bcf00807d62bf0e1d3eb2c2d6f51e161a9) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(types): better typing of studio code for TS strict mode
+
+  - getOverridesFromVariants
+  - useNavigateAction
+  - useTypeCastFields
+
+- Updated dependencies [[`5ee48f997`](https://github.com/aws-amplify/amplify-ui/commit/5ee48f99780ba5df889c1d66f24a0ebc9f601125)]:
+  - @aws-amplify/ui@5.5.9
+  - @aws-amplify/ui-react-core@2.1.17
+
 ## 4.4.1
 
 ### Patch Changes
