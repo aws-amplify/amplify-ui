@@ -9,6 +9,7 @@
     "react": "yarn workspace @aws-amplify/ui-react",
     "react-auth": "yarn workspace @aws-amplify/ui-react-auth",
     "react-core": "yarn workspace @aws-amplify/ui-react-core",
+    "react-core-auth": "yarn workspace @aws-amplify/ui-react-core-auth",
     "react-native": "yarn workspace @aws-amplify/ui-react-native",
     "ui": "yarn workspace @aws-amplify/ui",
     "vue": "yarn workspace @aws-amplify/ui-vue",
