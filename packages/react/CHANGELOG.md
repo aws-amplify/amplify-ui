@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 4.4.3
+
+### Patch Changes
+
+- [#3609](https://github.com/aws-amplify/amplify-ui/pull/3609) [`47b39c57a`](https://github.com/aws-amplify/amplify-ui/commit/47b39c57afcbae6d6d90f13646ee974efcade3af) Thanks [@sreeramsama](https://github.com/sreeramsama)! - Revert feature that add optional event handling on Geo LocationSearch component
+
 ## 4.4.2
 
 ### Patch Changes
