@@ -42,6 +42,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
   // NOTE: Do not change order of these selectors as the unit tests depend on this order
   const errorState = useLivenessSelector(selectErrorState);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
+
   const illuminationState = useLivenessSelector(selectIlluminationState);
   const faceMatchStateBeforeStart = useLivenessSelector(
     selectFaceMatchStateBeforeStart
@@ -55,6 +56,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
   const isCheckFaceDistanceBeforeRecording = state.matches(
     'checkFaceDistanceBeforeRecording'
   );
+  const isRecording = state.matches('recording');
   const isNotRecording = state.matches('notRecording');
   const isWaitingForSessionInfo = state.matches('waitForSessionInfo');
   const isUploading = state.matches('uploading');
@@ -69,60 +71,64 @@ export const Instruction: React.FC<InstructionProps> = () => {
       return;
     }
 
-    if (isCheckFaceDetectedBeforeStart) {
-      if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
+    if (!isRecording) {
+      if (isCheckFaceDetectedBeforeStart) {
+        if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
+          return (
+            <Toast>
+              {translate(FaceMatchStateStringMap[faceMatchStateBeforeStart]!)}
+            </Toast>
+          );
+        }
+        return <Toast>{translate('Move face in front of camera')}</Toast>;
+      }
+
+      // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
+      if (
+        isCheckFaceDistanceBeforeRecording &&
+        isFaceFarEnoughBeforeRecordingState === false
+      ) {
         return (
-          <Toast>
-            {translate(FaceMatchStateStringMap[faceMatchStateBeforeStart]!)}
-          </Toast>
+          <Toast>{translate(DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE)}</Toast>
         );
       }
-      return <Toast>{translate('Move face in front of camera')}</Toast>;
-    }
 
-    // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
-    if (
-      isCheckFaceDistanceBeforeRecording &&
-      isFaceFarEnoughBeforeRecordingState === false
-    ) {
-      return (
-        <Toast>{translate(DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE)}</Toast>
-      );
-    }
+      if (isNotRecording) {
+        return (
+          <Toast>{translate('Hold face position during countdown')}</Toast>
+        );
+      }
 
-    if (isNotRecording) {
-      return <Toast>{translate('Hold face position during countdown')}</Toast>;
-    }
-
-    if (isWaitingForSessionInfo) {
-      return (
-        <Toast>
-          <Flex alignItems="center" gap="xs">
-            <Loader />
-            <View>{translate('Connecting...')}</View>
-          </Flex>
-        </Toast>
-      );
-    }
-
-    if (isUploading) {
-      return (
-        <Overlay
-          backgroundColor="overlay.40"
-          anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
-        >
+      if (isWaitingForSessionInfo) {
+        return (
           <Toast>
             <Flex alignItems="center" gap="xs">
               <Loader />
-              <View>{translate('Verifying...')}</View>
+              <View>{translate('Connecting...')}</View>
             </Flex>
           </Toast>
-        </Overlay>
-      );
-    }
+        );
+      }
 
-    if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
-      return <Toast>{IlluminationStateStringMap[illuminationState]}</Toast>;
+      if (isUploading) {
+        return (
+          <Overlay
+            backgroundColor="overlay.40"
+            anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
+          >
+            <Toast>
+              <Flex alignItems="center" gap="xs">
+                <Loader />
+                <View>{translate('Verifying...')}</View>
+              </Flex>
+            </Toast>
+          </Overlay>
+        );
+      }
+
+      if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
+        return <Toast>{IlluminationStateStringMap[illuminationState]}</Toast>;
+      }
     }
 
     if (isFlashingFreshness) {
@@ -133,16 +139,26 @@ export const Instruction: React.FC<InstructionProps> = () => {
       );
     }
 
-    return FaceMatchStateStringMap[faceMatchState] ? (
-      <Toast
-        size="large"
-        variation={
-          faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
-        }
-      >
-        {FaceMatchStateStringMap[faceMatchState]}
-      </Toast>
-    ) : null;
+    if (isRecording && !isFlashingFreshness) {
+      // During face matching, we want to only show the TOO_CLOSE or
+      // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
+      // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
+      // we are defaulting to the TOO_FAR text (for now).
+      return (
+        <Toast
+          size="large"
+          variation={
+            faceMatchState === FaceMatchState.TOO_CLOSE ? 'error' : 'primary'
+          }
+        >
+          {faceMatchState === FaceMatchState.TOO_CLOSE
+            ? FaceMatchStateStringMap[FaceMatchState.TOO_CLOSE]
+            : FaceMatchStateStringMap[FaceMatchState.TOO_FAR]}
+        </Toast>
+      );
+    }
+
+    return null;
   };
 
   const instructionContent = getInstructionContent();

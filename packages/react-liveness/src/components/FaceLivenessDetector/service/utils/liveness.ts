@@ -454,8 +454,6 @@ export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
     DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE
   ),
   [FaceMatchState.TOO_FAR]: translate('Move closer'),
-  [FaceMatchState.TOO_LEFT]: translate('Move face right'),
-  [FaceMatchState.TOO_RIGHT]: translate('Move face left'),
   [FaceMatchState.MATCHED]: '',
 };
 

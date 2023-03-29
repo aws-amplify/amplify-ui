@@ -89,8 +89,6 @@ export enum IlluminationState {
  */
 export enum FaceMatchState {
   MATCHED = 'MATCHED',
-  TOO_LEFT = 'TOO LEFT',
-  TOO_RIGHT = 'TOO RIGHT',
   TOO_FAR = 'TOO FAR',
   TOO_CLOSE = 'TOO CLOSE',
   CANT_IDENTIFY = 'CANNOT IDENTIFY',

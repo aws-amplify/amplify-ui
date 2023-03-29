@@ -40,6 +40,7 @@ describe('Instruction', () => {
   let isFaceFarEnoughBeforeRecordingState: boolean | null = null;
 
   let isNotRecording = false;
+  let isRecording = false;
   let isUploading = false;
   let isCheckSuccessful = false;
   let isCheckFailed = false;
@@ -59,6 +60,8 @@ describe('Instruction', () => {
     when(mockActorState.matches)
       .calledWith('notRecording')
       .mockReturnValue(isNotRecording)
+      .calledWith('recording')
+      .mockReturnValue(isRecording)
       .calledWith('uploading')
       .mockReturnValue(isUploading)
       .calledWith('checkSucceeded')
@@ -87,6 +90,7 @@ describe('Instruction', () => {
     isFaceFarEnoughBeforeRecordingState = null;
 
     isNotRecording = false;
+    isRecording = false;
     isUploading = false;
     isCheckSuccessful = false;
     isCheckFailed = false;
@@ -233,14 +237,51 @@ describe('Instruction', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('should render face match state if present', () => {
+  it('should render TOO_CLOSE text if faceMatchState = TOO_CLOSE and recording', () => {
     faceMatchState = FaceMatchState.TOO_CLOSE;
+    isRecording = true;
     mockStateMatchesAndSelectors();
 
     renderWithLivenessProvider(<Instruction />);
 
     expect(
       screen.getByText(FaceMatchStateStringMap[FaceMatchState.TOO_CLOSE])
+    ).toBeInTheDocument();
+  });
+
+  it('should render TOO_FAR text if faceMatchState = TOO_FAR and recording', () => {
+    faceMatchState = FaceMatchState.TOO_FAR;
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(
+      screen.getByText(FaceMatchStateStringMap[FaceMatchState.TOO_FAR])
+    ).toBeInTheDocument();
+  });
+
+  it('should render TOO_FAR text if faceMatchState = CANT_IDENTIFY and recording', () => {
+    faceMatchState = FaceMatchState.CANT_IDENTIFY;
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(
+      screen.getByText(FaceMatchStateStringMap[FaceMatchState.TOO_FAR])
+    ).toBeInTheDocument();
+  });
+
+  it('should render TOO_FAR text if faceMatchState = FACE_IDENTIFIED and recording', () => {
+    faceMatchState = FaceMatchState.FACE_IDENTIFIED;
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+
+    renderWithLivenessProvider(<Instruction />);
+
+    expect(
+      screen.getByText(FaceMatchStateStringMap[FaceMatchState.TOO_FAR])
     ).toBeInTheDocument();
   });
 
