@@ -1,4 +1,3 @@
-import { OnFilesChange } from '../../StorageManager/types';
 import { FileStatus, StorageFiles } from '../../types';
 import {
   Action,
@@ -117,28 +116,4 @@ export function storageManagerStateReducer(
       };
     }
   }
-}
-
-export function createStorageManagerStateReducer(
-  onFilesChange?: OnFilesChange
-) {
-  return function (
-    state: UseStorageManagerState,
-    action: Action
-  ): UseStorageManagerState {
-    const newState = storageManagerStateReducer(state, action);
-    if (
-      typeof onFilesChange === 'function' &&
-      action.type !== 'SET_UPLOAD_PROGRESS'
-    ) {
-      onFilesChange(
-        newState.files.map(({ file, name, status }) => ({
-          file,
-          name,
-          status,
-        }))
-      );
-    }
-    return newState;
-  };
 }

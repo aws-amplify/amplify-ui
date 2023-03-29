@@ -6,10 +6,6 @@ import { ContainerProps } from '../FileListContainer/FileListContainer';
 import { FileListHeaderProps } from '../FileListHeader/FileListHeader';
 import { DefaultFile, StorageFile } from '../types';
 
-export type OnFilesChange = (
-  files: Array<Pick<StorageFile, 'file' | 'name' | 'status'>>
-) => void;
-
 export interface StorageManagerProps {
   /**
    * List of accepted File types
@@ -51,10 +47,6 @@ export interface StorageManagerProps {
    * Maximum file size in bytes
    */
   maxFileSize?: number;
-  /**
-   * Handle files list changes
-   */
-  onFilesChange?: OnFilesChange;
   /**
    * Monitor upload errors
    */
