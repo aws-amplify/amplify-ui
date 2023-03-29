@@ -42,7 +42,7 @@ export const useDataStoreCreateAction = <Model extends PersistentModel>({
         AMPLIFY_SYMBOL
       );
 
-      const item = await DataStore.save(new model(fields!));
+      const item = await DataStore.save(new model(fields));
 
       Hub.dispatch(
         UI_CHANNEL,

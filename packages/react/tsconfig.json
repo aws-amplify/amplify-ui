@@ -1,8 +1,7 @@
 {
   "extends": "../configs/ts/tsconfig.react.json",
   "compilerOptions": {
-    "noImplicitAny": false,
-    "strict": true
+    "noImplicitAny": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]

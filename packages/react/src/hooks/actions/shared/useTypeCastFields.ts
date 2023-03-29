@@ -15,9 +15,10 @@ interface UseTypeCastFieldsProps<Model extends PersistentModel> {
   schema?: Schema;
 }
 
-type UseTypeCastFieldsReturn<Model extends PersistentModel> =
-  | ModelInit<Model, PersistentModelMetaData<Model>>
-  | undefined;
+type UseTypeCastFieldsReturn<Model extends PersistentModel> = ModelInit<
+  Model,
+  PersistentModelMetaData<Model>
+>;
 
 /**
  * Optimistically casts field string values to types required by
@@ -39,19 +40,19 @@ export const useTypeCastFields = <Model extends PersistentModel>({
       const field: unknown = fields[fieldName];
       switch (schema?.models[modelName]?.fields?.[fieldName]?.type) {
         case 'AWSTimestamp':
-          castFields![fieldName] = Number(field);
+          castFields[fieldName] = Number(field);
           break;
         case 'Boolean':
-          castFields![fieldName] = Boolean(field);
+          castFields[fieldName] = Boolean(field);
           break;
         case 'Int':
-          castFields![fieldName] = isString(field) ? parseInt(field) : field;
+          castFields[fieldName] = isString(field) ? parseInt(field) : field;
           break;
         case 'Float':
-          castFields![fieldName] = Number(field);
+          castFields[fieldName] = Number(field);
           break;
         default:
-          castFields![fieldName] = field;
+          castFields[fieldName] = field;
           break;
       }
     });
