@@ -70,6 +70,8 @@ const LocationSearchControl = ({
   return null;
 };
 
+const LocationSearchMountingPoint = () => {};
+
 const LocationSearchStandalone = ({
   onLoading,
   onResult,
@@ -77,7 +79,7 @@ const LocationSearchStandalone = ({
   onClear,
   ...props
 }: LocationSearchProps) => {
-  const geocoderRef = useRef(null);
+  const geocoderRef = useRef<AmplifyLocationSearch | null>(null);
 
   useEffect(() => {
     const map = createAmplifyGeocoder(
@@ -87,20 +89,36 @@ const LocationSearchStandalone = ({
 
     map.addTo(`#${LOCATION_SEARCH_CONTAINER}`);
 
-    map.on('result', onResult);
-    map.on('loading', onLoading);
-    map.on('results', onResults);
-    map.on('clear', onClear);
+    if (onResult) {
+      map.on('result', onResult);
+    }
+    if (onLoading) {
+      map.on('loading', onLoading);
+    }
+    if (onResults) {
+      map.on('results', onResults);
+    }
+    if (onClear) {
+      map.on('clear', onClear);
+    }
 
     return () => {
-      map.off('result', onResult);
-      map.off('loading', onLoading);
-      map.off('results', onResults);
-      map.off('clear', onClear);
+      if (onResult) {
+        map.off('result', onResult);
+      }
+      if (onLoading) {
+        map.off('loading', onLoading);
+      }
+      if (onResults) {
+        map.off('results', onResults);
+      }
+      if (onClear) {
+        map.off('clear', onClear);
+      }
     };
   }, [onResult, onLoading, onResults, onClear, props]);
 
-  return <div id={LOCATION_SEARCH_CONTAINER} ref={geocoderRef} />;
+  return <div id={LOCATION_SEARCH_CONTAINER} />;
 };
 
 /**
