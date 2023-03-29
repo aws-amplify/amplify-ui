@@ -3,6 +3,7 @@ import CountdownCircleTimer from 'react-countdown-circle-timer';
 import classNames from 'classnames';
 
 import { Flex, Loader, Text, View, useTheme } from '@aws-amplify/ui-react';
+import { FaceMatchState } from '../service';
 import {
   useLivenessActor,
   useLivenessSelector,
@@ -30,6 +31,10 @@ export const selectFaceMatchPercentage = createLivenessSelector(
   (state) => state.context.faceMatchAssociatedParams.faceMatchPercentage
 );
 
+export const selectFaceMatchState = createLivenessSelector(
+  (state) => state.context.faceMatchAssociatedParams.faceMatchState
+);
+
 export interface LivenessCameraModuleProps {
   isMobileScreen: boolean;
   isRecordingStopped: boolean;
@@ -54,6 +59,7 @@ export const LivenessCameraModule = (
   const videoStream = useLivenessSelector(selectVideoStream);
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
+  const faceMatchState = useLivenessSelector(selectFaceMatchState);
 
   const { videoRef, videoWidth, videoHeight } = useMediaStreamInVideo(
     videoStream,
@@ -188,7 +194,14 @@ export const LivenessCameraModule = (
             className={LivenessClassNames.InstructionOverlay}
           >
             <Instruction />
-            {isRecording && !isFlashingFreshness ? (
+            {/* 
+              We only want to show the MatchIndicator when we're recording
+              and when the face is in either the too far state, or the 
+              initial face identified state
+            */}
+            {isRecording &&
+            (faceMatchState === FaceMatchState.TOO_FAR ||
+              faceMatchState === FaceMatchState.FACE_IDENTIFIED) ? (
               <MatchIndicator percentage={faceMatchPercentage} />
             ) : null}
 
