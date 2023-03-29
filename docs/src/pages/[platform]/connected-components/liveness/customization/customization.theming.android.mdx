@@ -8,6 +8,21 @@ Todo: Add pictures of the FaceLivenessDetector and point out the Material3 value
 To theme the FaceLivenessDetector component according to your app's theme, wrap the FaceLivenessDetector in your app's theme:
 
 ```kotlin
+@Composable
+fun MyTheme(
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        // Override colorScheme with custom colors
+        colorScheme = LivenessColorScheme.default(),
+        // Override shapes with custom shapes
+        shapes = MaterialTheme.shapes,
+        // Override typography with custom typography
+        typography = MaterialTheme.typography,
+        content = content
+    )
+}
+
 MyTheme {
    FaceLivenessDetector(...)
 }
@@ -47,6 +62,16 @@ Amplify UI Liveness provides a Material3 color scheme for light mode and dark mo
         <ColorBlock value={"var(--amplify-colors-black)"} />
         <TokenPath path={["android", "onSurface"]} />
         <TokenMeta>{"Color.Black"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-red-80)"} />
+        <TokenPath path={["android", "error"]} />
+        <TokenMeta>{"Color(0xFF950404)"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-white)"} />
+        <TokenPath path={["android", "onError"]} />
+        <TokenMeta>{"Color.White"}</TokenMeta>
     </TokenItem>
     <TokenItem namespace={"colors"} key={"android"}>
         <ColorBlock value={"var(--amplify-colors-orange-20)"} />
@@ -92,6 +117,16 @@ Amplify UI Liveness provides a Material3 color scheme for light mode and dark mo
         <ColorBlock value={"var(--amplify-colors-white)"} />
         <TokenPath path={["android", "onSurface"]} />
         <TokenMeta>{"Color.White"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-red-20)"} />
+        <TokenPath path={["android", "error"]} />
+        <TokenMeta>{"Color(0xFFF5BCBC)"}</TokenMeta>
+    </TokenItem>
+    <TokenItem namespace={"colors"} key={"android"}>
+        <ColorBlock value={"var(--amplify-colors-black)"} />
+        <TokenPath path={["android", "onError"]} />
+        <TokenMeta>{"Color.Black"}</TokenMeta>
     </TokenItem>
     <TokenItem namespace={"colors"} key={"android"}>
         <ColorBlock value={"var(--amplify-colors-orange-80)"} />
