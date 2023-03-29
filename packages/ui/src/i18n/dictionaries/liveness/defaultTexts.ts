@@ -50,7 +50,7 @@ export const defaultTexts = {
   // Error messages
   LIVENESS_ERROR: 'Check encountered an error',
   LIVENESS_TIMEOUT:
-    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 8 seconds.",
+    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds.",
   LIVENESS_FACE_DISTANCE_ERROR_TITLE: 'Check failed during countdown',
   LIVENESS_FACE_DISTANCE_ERROR:
     'Ensure only one face is in front of camera and avoid moving closer during countdown.',

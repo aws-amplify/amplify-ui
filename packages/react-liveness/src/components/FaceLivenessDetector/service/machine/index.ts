@@ -704,7 +704,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalMatchDelay: actions.send(
         { type: 'TIMEOUT' },
         {
-          delay: 8000,
+          delay: 7000,
           id: 'ovalMatchTimeout',
         }
       ),

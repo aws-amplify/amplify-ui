@@ -53,8 +53,8 @@ export const enDict = {
   'Cannot complete check due to server issue':
     'Cannot complete check due to server issue',
   'Check failed due to client issue': 'Check failed due to client issue',
-  "Face didn't fill oval within time limit. Try again and completely fill oval with face within 8 seconds.":
-    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 8 seconds.",
+  "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds.":
+    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds.",
   'Time out': 'Time out',
   'Check failed during countdown': 'Check failed during countdown',
   'Ensure only one face is in front of camera and avoid moving closer during countdown.':
