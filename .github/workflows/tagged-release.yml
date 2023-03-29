@@ -1,13 +1,8 @@
-# Description: This workflow runs unit + e2e tests, then publishes UI packages
-#              to a custom dist NPM tag of your choice. This is intended to run
-#              on release branches (e.g. `in-app-messaging/release`).
+# Description: This workflow runs unit + e2e tests on `fileuploader/main`.
 #
-# Triggered by: This runs whenever you push a commit to the specified release branch.
-#
-# To use: replace <BRANCH> with your release branch name. Replace <TAG> with
-#         your NPM tag name.
+# Triggered by: merge to `fileuploader/main` branch
 
-name: Test and Publish / fileuploader/main
+name: Test and Publish / Storage Manager
 
 on:
   # You may change this to `pull_request` if you want to run this on a PRs.
