@@ -1,12 +1,12 @@
 import * as React from 'react';
+import type { UploadTask } from '@aws-amplify/storage';
 
-import { uploadFile } from '@aws-amplify/ui';
+import { uploadFile } from '../../utils/uploadFile';
 
 import { FileStatus } from '../../types';
 
 import { StorageManagerProps } from '../../StorageManager/types';
 import { UseStorageManager } from '../useStorageManager';
-import { UploadTask } from '@aws-amplify/storage';
 
 export interface UseUploadFilesProps
   extends Pick<
@@ -85,7 +85,7 @@ export function useUploadFiles({
             progressCallback: onProgress,
             errorCallback: onError,
             provider,
-          }) as unknown as UploadTask; // @todo: fix type returned from uploadFile
+          }) as unknown as UploadTask;
           setUploadingFile({ id, uploadTask });
         } else {
           uploadFile({

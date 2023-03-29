@@ -1,5 +1,17 @@
 import { useState } from 'react';
-import { UseDropZoneProps, UseDropZoneReturn } from './types';
+
+export interface UseDropZoneProps {
+  onChange: (event: React.DragEvent<HTMLDivElement>) => void;
+}
+
+export interface UseDropZoneReturn {
+  onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
+  inDropZone: boolean;
+}
 
 export function useDropZone({ onChange }: UseDropZoneProps): UseDropZoneReturn {
   const [inDropZone, setInDropZone] = useState(false);

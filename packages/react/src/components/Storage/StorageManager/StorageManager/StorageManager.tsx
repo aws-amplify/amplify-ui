@@ -6,15 +6,14 @@ import { checkMaxFileSize } from '../utils/checkMaxFileSize';
 import { ComponentClassNames } from '../../../../primitives';
 import { Container } from '../Container/Container';
 import { defaultStorageManagerDisplayText } from '../displayText';
-import { DropZone, useDropZone } from '../DropZone';
+import { DropZone } from '../DropZone';
 import { FileList } from '../FileList/FileList';
 import { FileListHeader } from '../FileListHeader';
 import { FilePicker } from '../DropZone/FilePicker';
 import { FileStatus } from '../types';
 import { filterAllowedFiles } from '../utils/filterAllowedFiles';
 import { StorageManagerProps } from './types';
-import { useStorageManager } from '../hooks/useStorageManager';
-import { useUploadFiles } from '../hooks/useUploadFiles';
+import { useStorageManager, useUploadFiles, useDropZone } from '../hooks';
 
 const logger = new Logger('Storage.StorageManager');
 
