@@ -3,9 +3,8 @@ import React from 'react';
 import { UploadTask } from '@aws-amplify/storage';
 
 import { StorageFiles, FileStatus, DefaultFile } from '../../types';
-import { OnFilesChange } from '../../StorageManager/types';
 import { Action, GetFileErrorMessage, UseStorageManagerState } from './types';
-import { createStorageManagerStateReducer } from './reducer';
+import { storageManagerStateReducer } from './reducer';
 import {
   addFilesAction,
   removeUploadAction,
@@ -29,19 +28,14 @@ export interface UseStorageManager {
 }
 
 export function useStorageManager(
-  defaultFiles: Array<DefaultFile> = [],
-  onFilesChange?: OnFilesChange
+  defaultFiles: Array<DefaultFile> = []
 ): UseStorageManager {
-  const reducer = React.useMemo(() => {
-    return createStorageManagerStateReducer(onFilesChange);
-  }, [onFilesChange]);
-
   const [{ files }, dispatch] = React.useReducer<
     (
       prevState: UseStorageManagerState,
       action: Action
     ) => UseStorageManagerState
-  >(reducer, {
+  >(storageManagerStateReducer, {
     files: defaultFiles.map((file) => {
       return {
         ...file,
