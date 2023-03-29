@@ -27,6 +27,7 @@ export const ResetPassword = ({
 
   const {
     components: {
+      // @ts-ignore
       ResetPassword: {
         Header = ResetPassword.Header,
         Footer = ResetPassword.Footer,
@@ -74,5 +75,6 @@ ResetPassword.Header = function Header(): JSX.Element {
 };
 
 ResetPassword.Footer = function Footer(): JSX.Element {
+  // @ts-ignore
   return null;
 };

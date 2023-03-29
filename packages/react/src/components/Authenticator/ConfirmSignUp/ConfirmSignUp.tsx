@@ -34,6 +34,7 @@ export function ConfirmSignUp({
 
   const {
     components: {
+      // @ts-ignore
       ConfirmSignUp: {
         Header = ConfirmSignUp.Header,
         Footer = ConfirmSignUp.Footer,
@@ -98,5 +99,6 @@ const DefaultHeader = () => {
 ConfirmSignUp.Header = DefaultHeader;
 
 ConfirmSignUp.Footer = function Footer(): JSX.Element {
+  // @ts-ignore
   return null;
 };
