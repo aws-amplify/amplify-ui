@@ -2,13 +2,15 @@ import React from 'react';
 
 interface TooFarIllustrationProps {
   title: string;
+  testId?: string;
 }
 
 export const TooFarIllustration: React.FC<TooFarIllustrationProps> = ({
   title,
+  testId,
 }) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150">
+    <svg width="150" height="150" data-testid={testId}>
       <title>{title}</title>
       <defs>
         <linearGradient id="a" x1="50%" x2="50%" y1="0%" y2="100%">

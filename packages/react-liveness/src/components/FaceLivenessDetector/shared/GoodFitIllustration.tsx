@@ -2,13 +2,15 @@ import React from 'react';
 
 interface GoodFitIllustrationProps {
   title: string;
+  testId?: string;
 }
 
 export const GoodFitIllustration: React.FC<GoodFitIllustrationProps> = ({
   title,
+  testId,
 }) => {
   return (
-    <svg width="150" height="150">
+    <svg width="150" height="150" data-testid={testId}>
       <title>{title}</title>
       <g fill="none" fillRule="evenodd" transform="translate(0 -.001)">
         <path
