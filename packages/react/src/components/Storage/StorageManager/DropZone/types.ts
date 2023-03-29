@@ -13,19 +13,6 @@ export interface DropZoneProps {
   inDropZone: boolean;
 }
 
-export interface UseDropZoneProps {
-  onChange: (event: React.DragEvent<HTMLDivElement>) => void;
-}
-
-export interface UseDropZoneReturn {
-  onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
-  inDropZone: boolean;
-}
-
 export interface FilePickerProps {
   acceptedFileTypes: string[];
   displayText: StorageManagerDisplayText;
