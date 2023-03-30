@@ -66,7 +66,7 @@ export function useUploadFiles({
         };
 
       const onError = (error: string) => {
-        onUploadError?.(error); // fixme
+        onUploadError?.(error);
       };
 
       if (file) {
