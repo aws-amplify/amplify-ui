@@ -39,8 +39,8 @@ export function useStorageManager(
     files: defaultFiles.map((file) => {
       return {
         ...file,
-        id: file.s3Key,
-        name: file.s3Key,
+        id: file.key,
+        key: file.key,
         status: FileStatus.UPLOADED,
       };
     }) as StorageFiles,

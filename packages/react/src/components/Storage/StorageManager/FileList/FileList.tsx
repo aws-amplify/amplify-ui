@@ -27,7 +27,7 @@ export function FileList({
   return (
     <View className={'amplify-storagemanager--filelist'}>
       {files.map((storageFile) => {
-        const { file, status, progress, error, name, isImage, id, uploadTask } =
+        const { file, status, progress, error, key, isImage, id, uploadTask } =
           storageFile;
 
         const thumbnailUrl = file && isImage ? URL.createObjectURL(file) : '';
@@ -59,7 +59,7 @@ export function FileList({
 
         return (
           <FileControl
-            displayName={name}
+            displayName={key}
             errorMessage={error}
             displayText={displayText}
             isImage={isImage}

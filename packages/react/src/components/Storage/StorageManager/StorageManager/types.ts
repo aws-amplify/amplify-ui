@@ -52,15 +52,15 @@ export interface StorageManagerProps {
    */
   onUploadError?: (error: string) => void;
   /**
-   * Monitor upload sucess
+   * Monitor upload success
    */
   onUploadSuccess?: (event: { key: string }) => void;
   /**
    * Process file before upload
    */
   processFile?: (
-    storageFile: Required<Pick<StorageFile, 'file' | 'name'>>
-  ) => Required<Pick<StorageFile, 'file' | 'name'>>;
+    storageFile: Required<Pick<StorageFile, 'file' | 'key'>>
+  ) => Required<Pick<StorageFile, 'file' | 'key'>>;
   /**
    * Determines if thumbnails show for image files
    */
