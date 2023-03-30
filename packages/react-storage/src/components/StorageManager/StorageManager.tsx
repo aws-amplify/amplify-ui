@@ -1,19 +1,23 @@
 import * as React from 'react';
 import { Logger } from 'aws-amplify';
-import { UploadTask } from '@aws-amplify/storage';
 
-import { checkMaxFileSize } from '../utils/checkMaxFileSize';
+import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames } from '@aws-amplify/ui-react';
-import { Container } from '../Container/Container';
-import { defaultStorageManagerDisplayText } from '../displayText';
-import { DropZone } from '../DropZone';
-import { FileList } from '../FileList/FileList';
-import { FileListHeader } from '../FileListHeader';
-import { FilePicker } from '../DropZone/FilePicker';
-import { FileStatus } from '../types';
-import { filterAllowedFiles } from '../utils/filterAllowedFiles';
-import { StorageManagerProps } from './types';
-import { useStorageManager, useUploadFiles, useDropZone } from '../hooks';
+
+import { useStorageManager, useUploadFiles, useDropZone } from './hooks';
+import { FileStatus, StorageManagerProps } from './types';
+import {
+  Container,
+  DropZone,
+  FileList,
+  FileListHeader,
+  FilePicker,
+} from './ui/';
+import {
+  checkMaxFileSize,
+  defaultStorageManagerDisplayText,
+  filterAllowedFiles,
+} from './utils';
 
 const logger = new Logger('Storage.StorageManager');
 

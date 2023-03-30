@@ -1,5 +1,5 @@
 import React from 'react';
-import { StorageManagerDisplayText } from '../displayText';
+import { StorageManagerDisplayText } from '../../utils/displayText';
 import { ComponentClassNames, Text } from '@aws-amplify/ui-react';
 
 export interface FileListHeaderProps {

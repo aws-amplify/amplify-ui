@@ -1,4 +1,4 @@
-import { StorageManagerDisplayText } from '../displayText';
+import { StorageManagerDisplayText } from '../../utils/displayText';
 
 export interface DropZoneProps {
   acceptedFileTypes: string[];

@@ -5,7 +5,7 @@ import { uploadFile } from '../../utils/uploadFile';
 
 import { FileStatus } from '../../types';
 
-import { StorageManagerProps } from '../../StorageManager/types';
+import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
 
 export interface UseUploadFilesProps

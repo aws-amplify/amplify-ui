@@ -7,7 +7,7 @@ import {
   Button,
 } from '@aws-amplify/ui-react';
 
-import { FileStatus } from '../types';
+import { FileStatus } from '../../types';
 import { FileStatusMessage } from './FileStatusMessage';
 import { FileRemoveButton } from './FileRemoveButton';
 import { UploadDetails } from './FileDetails';
