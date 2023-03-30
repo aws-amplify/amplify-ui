@@ -163,6 +163,10 @@
   background: var(--amplify-colors-white);
   position: relative;
   overflow: hidden;
+  /* 
+    This translateZ transform fixes in issue in Safari where the bar::after
+    element doesn't appear clipped from overflow: hidden here */
+  transform: translateZ(0);
   border: 1px solid var(--amplify-colors-border-tertiary);
 }
 
