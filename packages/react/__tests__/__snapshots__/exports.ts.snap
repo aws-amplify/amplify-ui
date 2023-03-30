@@ -51,7 +51,6 @@ Array [
   "SelectField",
   "SliderField",
   "StepperField",
-  "StorageManager",
   "SwitchField",
   "TabItem",
   "Table",

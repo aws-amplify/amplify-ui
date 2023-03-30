@@ -1,10 +1,11 @@
-import { Amplify, Storage } from 'aws-amplify';
-import { StorageManager, withAuthenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-export function StorageManagerEmail() {
+export function StorageManagerExample() {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
@@ -15,4 +16,4 @@ export function StorageManagerEmail() {
     />
   );
 }
-export default withAuthenticator(StorageManagerEmail);
+export default withAuthenticator(StorageManagerExample);

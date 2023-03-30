@@ -1,9 +1,6 @@
 import * as React from 'react'; // IGNORE
-import {
-  StorageManager,
-  ToggleButtonGroup,
-  ToggleButton,
-} from '@aws-amplify/ui-react'; // IGNORE
+import { ToggleButtonGroup, ToggleButton } from '@aws-amplify/ui-react'; // IGNORE
+import { StorageManager } from '@aws-amplify/ui-react-storage'; // IGNORE
 
 const dictionary = {
   // use default strings for english
@@ -55,6 +52,7 @@ export const StorageManageri18nExample = () => {
       <ToggleButtonGroup
         value={language}
         isExclusive
+        // @ts-ignore // IGNORE
         onChange={(value) => setLanguage(value)}
       >
         <ToggleButton value="en">En</ToggleButton>
