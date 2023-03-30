@@ -51,7 +51,6 @@ Array [
   "SelectField",
   "SliderField",
   "StepperField",
-  "StorageManager",
   "SwitchField",
   "TabItem",
   "Table",
@@ -69,6 +68,8 @@ Array [
   "ToggleButtonGroup",
   "View",
   "VisuallyHidden",
+  "classNameModifier",
+  "classNameModifierByFlag",
   "components",
   "createTheme",
   "defaultDarkModeOverride",
@@ -88,6 +89,8 @@ Array [
 
 exports[`@aws-amplify/ui-react/internal exports should match snapshot 1`] = `
 Array [
+  "ComponentClassNames",
+  "ComponentClassObject",
   "IconAdd",
   "IconCheck",
   "IconCheckCircle",
@@ -110,6 +113,8 @@ Array [
   "IconVisibilityOff",
   "IconWarning",
   "PrimitiveCatalog",
+  "classNameModifier",
+  "classNameModifierByFlag",
   "createDataStorePredicate",
   "findChildOverrides",
   "getOverrideProps",

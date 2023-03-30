@@ -92,6 +92,7 @@ exports[`Sitemap Snapshot 1`] = `
 /react/connected-components/in-app-messaging, 
 /react/connected-components/storage, 
 /react/connected-components/storage/fileuploader, 
+/react/connected-components/storage/storagemanager, 
 /react/getting-started/accessibility, 
 /react/getting-started/figma, 
 /react/getting-started/installation, 

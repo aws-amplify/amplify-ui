@@ -11,15 +11,14 @@ export enum FileStatus {
 export interface StorageFile {
   id: string;
   file?: File;
-  name: string;
   status: FileStatus;
   progress: number;
   uploadTask?: UploadTask;
-  s3Key?: string;
+  key: string;
   error: string;
   isImage: boolean;
 }
 
 export type StorageFiles = StorageFile[];
 
-export type DefaultFile = Pick<StorageFile, 's3Key'>;
+export type DefaultFile = Pick<StorageFile, 'key'>;

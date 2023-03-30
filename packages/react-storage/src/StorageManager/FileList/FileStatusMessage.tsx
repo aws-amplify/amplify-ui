@@ -1,9 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { classNameModifier } from '../../../../primitives/shared/utils';
 import { Text, ComponentClassNames } from '@aws-amplify/ui-react';
-import { IconCheck, IconError } from '../../../../primitives/Icon/internal';
+import {
+  IconCheck,
+  IconError,
+  classNameModifier,
+} from '@aws-amplify/ui-react/internal';
 import { FileStatus } from '../types';
 import { FileStatusMessageProps } from './types';
 

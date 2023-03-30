@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconClose } from '../../../../primitives/Icon/internal';
+import { IconClose } from '@aws-amplify/ui-react/internal';
 import { Button, VisuallyHidden } from '@aws-amplify/ui-react';
 import { FileRemoveButtonProps } from './types';
 

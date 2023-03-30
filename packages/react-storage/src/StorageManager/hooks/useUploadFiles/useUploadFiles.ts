@@ -46,8 +46,8 @@ export function useUploadFiles({
       return;
     }
 
-    for (const { file, name, id } of filesReadyToUpload) {
-      const onComplete: (event: { key: string }) => void = (event) => {
+    for (const { file, key, id } of filesReadyToUpload) {
+      const onComplete: (event: { key?: string }) => void = (event) => {
         onUploadSuccess?.(event);
         setUploadSuccess({ id });
       };
@@ -65,20 +65,20 @@ export function useUploadFiles({
           setUploadProgress({ id, progress: progressPercentage });
         };
 
-      const onError = (error) => {
-        onUploadError?.(error as string); // fixme
+      const onError = (error: string) => {
+        onUploadError?.(error); // fixme
       };
 
       if (file) {
         const processedFile =
           typeof processFile === 'function'
-            ? processFile({ file, name })
-            : { file, name };
+            ? processFile({ file, key })
+            : { file, key };
 
         if (isResumable) {
           const uploadTask = uploadFile({
             file: processedFile.file,
-            fileName: processedFile.name,
+            fileName: processedFile.key,
             isResumable: true,
             level: accessLevel,
             completeCallback: onComplete,
@@ -90,7 +90,7 @@ export function useUploadFiles({
         } else {
           uploadFile({
             file: processedFile.file,
-            fileName: processedFile.name,
+            fileName: processedFile.key,
             isResumable: false,
             level: accessLevel,
             completeCallback: onComplete,

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { View, Image, ComponentClassNames } from '@aws-amplify/ui-react';
-import { IconFile } from '../../../../primitives/Icon/internal';
+import { IconFile } from '@aws-amplify/ui-react/internal';
 import { FileThumbnailProps } from './types';
 
 export const FileThumbnail = ({

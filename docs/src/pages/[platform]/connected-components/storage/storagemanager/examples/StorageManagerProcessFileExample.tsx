@@ -1,15 +1,15 @@
-import { StorageManager } from '@aws-amplify/ui-react'; // IGNORE
+import { StorageManager } from '@aws-amplify/ui-react-storage'; // IGNORE
 export const StorageManagerProcessFileExample = () => {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
       accessLevel="public"
       maxFileCount={10}
-      processFile={({ file, name }) => {
-        const ext = name.split('.').pop();
+      processFile={({ file, key }) => {
+        const ext = key.split('.').pop();
         return {
           file,
-          name: `${Date.now()}.${ext}`,
+          key: `${Date.now()}.${ext}`,
         };
       }}
       onUploadSuccess={({ key }) => {

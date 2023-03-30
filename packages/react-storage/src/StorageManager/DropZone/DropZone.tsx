@@ -2,8 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { View, ComponentClassNames, Text } from '@aws-amplify/ui-react';
-import { classNameModifier } from '../../../../primitives/shared/utils';
-import { IconUpload } from '../../../../primitives/Icon/internal';
+import { IconUpload, classNameModifier } from '@aws-amplify/ui-react/internal';
 import { DropZoneProps } from './types';
 
 export function DropZone({
