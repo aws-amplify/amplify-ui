@@ -8,7 +8,7 @@ interface UploadFileProps {
   isResumable?: boolean;
   progressCallback: (progress: { loaded: number; total: number }) => void;
   errorCallback: (error: string) => void;
-  completeCallback: (event: { key: string }) => void;
+  completeCallback: (event: { key?: string }) => void;
   provider?: string;
 }
 
@@ -29,12 +29,18 @@ export function uploadFile({
   if (isResumable === true) {
     return Storage.put(fileName, file, {
       level,
-      resumable: isResumable,
+      resumable: true,
       progressCallback,
       errorCallback,
       completeCallback,
       contentType,
-      provider,
+      /**
+       * This type cast is required because storage _S3ProviderPutConfig['provider']
+       * type only allows `AWSS3` which is not accurate.
+       * https://github.com/aws-amplify/amplify-js/blob/main/packages/storage/src/types/AWSS3Provider.ts#L59
+       */
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      provider: provider as unknown as any,
       ...rest,
     });
   } else {
