@@ -17,11 +17,12 @@ import {
   selectVideoConstraints,
   selectVideoStream,
 } from '../LivenessCameraModule';
+import { getDisplayText } from '../../utils/getDisplayText';
 
 jest.mock('../../hooks');
 jest.mock('../../hooks/useLivenessSelector');
 jest.mock('../../shared/CancelButton');
-jest.mock('../../shared/Instruction');
+jest.mock('../../shared/Hint');
 
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
@@ -36,6 +37,9 @@ describe('LivenessCameraModule', () => {
   let isCheckingCamera = false;
   let isNotRecording = false;
   let isRecording = false;
+
+  const { hintDisplayText, streamDisplayText } = getDisplayText(undefined);
+  const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
   function mockStateMatchesAndSelectors() {
     when(mockActorState.matches)
@@ -73,7 +77,12 @@ describe('LivenessCameraModule', () => {
     mockStateMatchesAndSelectors();
 
     renderWithLivenessProvider(
-      <LivenessCameraModule isMobileScreen={false} isRecordingStopped={false} />
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+      />
     );
 
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
@@ -84,7 +93,12 @@ describe('LivenessCameraModule', () => {
     mockStateMatchesAndSelectors();
 
     renderWithLivenessProvider(
-      <LivenessCameraModule isMobileScreen={true} isRecordingStopped={false} />
+      <LivenessCameraModule
+        isMobileScreen={true}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+      />
     );
 
     const videoEl = screen.getByTestId('video');
@@ -92,14 +106,14 @@ describe('LivenessCameraModule', () => {
     expect(screen.getByTestId('centered-loader')).toBeInTheDocument();
     expect(videoEl).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Cancel Liveness check' })
+      screen.getByRole('button', { name: cancelLivenessCheckText })
     ).toBeInTheDocument();
 
     videoEl.dispatchEvent(new Event('canplay'));
 
     expect(screen.queryByTestId('centered-loader')).not.toBeInTheDocument();
     expect(screen.getByLabelText('Countdown timer')).toBeInTheDocument();
-    expect(screen.getByText('Instruction')).toBeInTheDocument();
+    expect(screen.getByText('Hint')).toBeInTheDocument();
 
     await waitFor(() => expect(mockActorSend).toHaveBeenCalledTimes(1), {
       timeout: 5000,
@@ -120,12 +134,18 @@ describe('LivenessCameraModule', () => {
     mockStateMatchesAndSelectors();
 
     renderWithLivenessProvider(
-      <LivenessCameraModule isMobileScreen={false} isRecordingStopped={false} />
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+      />
     );
     const videoEl = screen.getByTestId('video');
     videoEl.dispatchEvent(new Event('canplay'));
 
     expect(screen.getByTestId('rec-icon')).toBeInTheDocument();
+    expect(screen.getByText(recordingIndicatorText)).toBeInTheDocument();
   });
 
   it('should create appropriate selectors', () => {

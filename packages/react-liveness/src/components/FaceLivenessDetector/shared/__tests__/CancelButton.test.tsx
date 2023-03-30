@@ -14,7 +14,7 @@ describe('CancelButton', () => {
   const mockActorState: any = {};
   const mockActorSend = jest.fn();
 
-  const cancelBtnName = 'Cancel Liveness check';
+  const buttonAriaLabel = 'Cancel Liveness check';
 
   beforeEach(() => {
     mockUseLivenessActor.mockReturnValue([mockActorState, mockActorSend]);
@@ -25,23 +25,23 @@ describe('CancelButton', () => {
   });
 
   it('should render the component content appropriately', () => {
-    renderWithLivenessProvider(<CancelButton />);
+    renderWithLivenessProvider(<CancelButton ariaLabel={buttonAriaLabel} />);
 
     expect(
-      screen.getByRole('button', { name: cancelBtnName })
+      screen.getByRole('button', { name: buttonAriaLabel })
     ).toBeInTheDocument();
   });
 
   it('should render the component content appropriately on mobile', () => {
-    renderWithLivenessProvider(<CancelButton />);
+    renderWithLivenessProvider(<CancelButton ariaLabel={buttonAriaLabel} />);
 
     expect(screen.getByTestId('close-icon')).toBeInTheDocument();
   });
 
   it('should call the send method on cancel', () => {
-    renderWithLivenessProvider(<CancelButton />);
+    renderWithLivenessProvider(<CancelButton ariaLabel={buttonAriaLabel} />);
 
-    userEvent.click(screen.getByRole('button', { name: cancelBtnName }));
+    userEvent.click(screen.getByRole('button', { name: buttonAriaLabel }));
 
     expect(mockActorSend).toHaveBeenCalledWith({
       type: 'CANCEL',

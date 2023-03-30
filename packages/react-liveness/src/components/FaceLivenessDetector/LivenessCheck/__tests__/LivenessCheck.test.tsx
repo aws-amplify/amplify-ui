@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { screen } from '@testing-library/react';
-import { DefaultTexts } from '@aws-amplify/ui';
 import { useThemeBreakpoint } from '@aws-amplify/ui-react/internal';
 
 import { LivenessErrorState } from '../../service';
 import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
 import { LivenessCheck } from '../LivenessCheck';
 import { useLivenessSelector, useLivenessActor } from '../../hooks';
+import { getDisplayText } from '../../utils/getDisplayText';
 
 jest.mock('../../hooks');
 jest.mock('@aws-amplify/ui-react/internal');
@@ -16,6 +16,19 @@ jest.mock('../LivenessCameraModule');
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseThemeBreakpoint = getMockedFunction(useThemeBreakpoint);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
+
+const { hintDisplayText, cameraDisplayText, streamDisplayText } =
+  getDisplayText(undefined);
+
+const {
+  cameraMinSpecificationsHeadingText,
+  cameraMinSpecificationsMessageText,
+  cameraNotFoundHeadingText,
+  cameraNotFoundMessageText,
+  retryCameraPermissionsText,
+} = cameraDisplayText;
+
+const { cancelLivenessCheckText } = streamDisplayText;
 
 describe('LivenessCheck', () => {
   const mockActorState: any = {
@@ -35,13 +48,22 @@ describe('LivenessCheck', () => {
   it('should render the component content on desktop with permissionDenied true', () => {
     mockActorState.matches.mockReturnValue(true);
 
-    renderWithLivenessProvider(<LivenessCheck />);
+    renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+      />
+    );
 
     expect(
-      screen.getByRole('button', { name: 'Cancel Liveness check' })
+      screen.getByRole('button', {
+        name: cancelLivenessCheckText,
+      })
     ).toBeInTheDocument();
-    expect(screen.getByText('Camera not accessible.')).toBeInTheDocument();
-    expect(screen.getByText('Retry')).toBeInTheDocument();
+    expect(screen.getByText(cameraNotFoundHeadingText)).toBeInTheDocument();
+    expect(screen.getByText(cameraNotFoundMessageText)).toBeInTheDocument();
+    expect(screen.getByText(retryCameraPermissionsText)).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
   });
 
@@ -51,13 +73,24 @@ describe('LivenessCheck', () => {
       LivenessErrorState.CAMERA_FRAMERATE_ERROR
     );
 
-    renderWithLivenessProvider(<LivenessCheck />);
+    renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+      />
+    );
 
     expect(
-      screen.getByRole('button', { name: 'Cancel Liveness check' })
+      screen.getByRole('button', {
+        name: cancelLivenessCheckText,
+      })
     ).toBeInTheDocument();
     expect(
-      screen.getByText(DefaultTexts.LIVENESS_NO_CAMERA_MIN_SPEC)
+      screen.getByText(cameraMinSpecificationsHeadingText)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(cameraMinSpecificationsMessageText)
     ).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
   });
@@ -66,9 +99,17 @@ describe('LivenessCheck', () => {
     mockActorState.matches.mockReturnValue(false);
     mockUseThemeBreakpoint.mockReturnValue('base');
 
-    renderWithLivenessProvider(<LivenessCheck />);
+    renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+      />
+    );
 
-    expect(screen.queryByText('Camera not accessible')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(cameraNotFoundHeadingText)
+    ).not.toBeInTheDocument();
     expect(screen.getByText('LivenessCameraModule')).toBeInTheDocument();
   });
 });

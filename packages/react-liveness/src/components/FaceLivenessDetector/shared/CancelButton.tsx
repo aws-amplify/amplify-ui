@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { translate } from '@aws-amplify/ui';
 import { Button } from '@aws-amplify/ui-react';
 import { IconClose } from '@aws-amplify/ui-react/internal';
 
 import { useLivenessActor } from '../hooks';
 import { LivenessClassNames } from '../types/classNames';
 
-export interface CancelButtonProps {}
+export interface CancelButtonProps {
+  ariaLabel: string;
+}
 
-export const CancelButton: React.FC<CancelButtonProps> = () => {
+export const CancelButton: React.FC<CancelButtonProps> = ({ ariaLabel }) => {
   const [state, send] = useLivenessActor();
   const isFinalState = state.done;
 
@@ -28,7 +29,7 @@ export const CancelButton: React.FC<CancelButtonProps> = () => {
       onClick={handleClick}
       size="large"
       className={LivenessClassNames.CancelButton}
-      aria-label={translate('Cancel Liveness check')}
+      aria-label={ariaLabel}
     >
       <IconClose aria-hidden="true" data-testid="close-icon" />
     </Button>

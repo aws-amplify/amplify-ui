@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { translate } from '@aws-amplify/ui';
 import { Text, Flex, View, Button } from '@aws-amplify/ui-react';
 
 import { LivenessErrorState } from '../service';
@@ -12,6 +11,11 @@ import {
 } from '../hooks';
 import { isMobileScreen, getLandscapeMediaQuery } from '../utils/device';
 import { CancelButton } from '../shared/CancelButton';
+import {
+  HintDisplayText,
+  CameraDisplayText,
+  StreamDisplayText,
+} from '../displayText';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 
@@ -22,7 +26,17 @@ export const selectIsRecordingStopped = createLivenessSelector(
   (state) => state.context.isRecordingStopped
 );
 
-export const LivenessCheck: React.FC = () => {
+interface LivenessCheckProps {
+  hintDisplayText: Required<HintDisplayText>;
+  cameraDisplayText: Required<CameraDisplayText>;
+  streamDisplayText: Required<StreamDisplayText>;
+}
+
+export const LivenessCheck: React.FC<LivenessCheckProps> = ({
+  hintDisplayText,
+  cameraDisplayText,
+  streamDisplayText,
+}: LivenessCheckProps) => {
   const [state, send] = useLivenessActor();
   const errorState = useLivenessSelector(selectErrorState);
   const isRecordingStopped = useLivenessSelector(selectIsRecordingStopped);
@@ -33,6 +47,16 @@ export const LivenessCheck: React.FC = () => {
   const recheckCameraPermissions = () => {
     send({ type: 'RETRY_CAMERA_CHECK' });
   };
+
+  const {
+    cameraMinSpecificationsHeadingText,
+    cameraMinSpecificationsMessageText,
+    cameraNotFoundHeadingText,
+    cameraNotFoundMessageText,
+    retryCameraPermissionsText,
+  } = cameraDisplayText;
+
+  const { cancelLivenessCheckText } = streamDisplayText;
 
   React.useLayoutEffect(() => {
     if (isMobile) {
@@ -89,27 +113,23 @@ export const LivenessCheck: React.FC = () => {
         >
           <Text fontSize="large" fontWeight="bold">
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
-              ? translate('Camera does not meet minimum specifications')
-              : translate('Camera not accessible.')}
+              ? cameraMinSpecificationsHeadingText
+              : cameraNotFoundHeadingText}
           </Text>
           <Text maxWidth={300}>
             {errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
-              ? translate(
-                  'Camera must support at least 320*240 resolution and 15 frames per second.'
-                )
-              : translate(
-                  'Check that camera is connected and camera permissions are enabled in settings before retrying.'
-                )}
+              ? cameraMinSpecificationsMessageText
+              : cameraNotFoundMessageText}
           </Text>
           <Button
             variation="primary"
             type="button"
             onClick={recheckCameraPermissions}
           >
-            {translate('Retry')}
+            {retryCameraPermissionsText}
           </Button>
           <View position="absolute" top="medium" right="medium">
-            <CancelButton />
+            <CancelButton ariaLabel={cancelLivenessCheckText}></CancelButton>
           </View>
         </Flex>
       );
@@ -118,6 +138,8 @@ export const LivenessCheck: React.FC = () => {
         <LivenessCameraModule
           isMobileScreen={isMobile}
           isRecordingStopped={isRecordingStopped}
+          streamDisplayText={streamDisplayText}
+          hintDisplayText={hintDisplayText}
         />
       );
     }

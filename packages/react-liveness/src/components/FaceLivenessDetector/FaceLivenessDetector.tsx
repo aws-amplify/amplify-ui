@@ -10,20 +10,34 @@ import { FaceLivenessDetectorProvider } from './providers';
 import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
 import { getVideoConstraints } from './StartLiveness/helpers';
-import { LivenessComponents } from './shared/DefaultStartScreenComponents';
+import { StartScreenComponents } from './shared/DefaultStartScreenComponents';
+import { LivenessDisplayText } from './displayText';
+import { getDisplayText } from './utils/getDisplayText';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
 export interface FaceLivenessDetectorProps
   extends FaceLivenessDetectorPropsFromUi {
-  components?: LivenessComponents;
+  components?: StartScreenComponents;
+  displayText?: LivenessDisplayText;
 }
 
 export default function FaceLivenessDetector(
   props: FaceLivenessDetectorProps
 ): JSX.Element {
-  const { disableInstructionScreen = false, components, config } = props;
+  const {
+    disableInstructionScreen = false,
+    components,
+    config,
+    displayText,
+  } = props;
   const currElementRef = React.useRef<HTMLDivElement>(null);
+  const {
+    hintDisplayText,
+    cameraDisplayText,
+    instructionDisplayText,
+    streamDisplayText,
+  } = getDisplayText(displayText);
 
   const service = useInterpret(livenessMachine, {
     devTools: process.env.NODE_ENV === 'development',
@@ -61,9 +75,14 @@ export default function FaceLivenessDetector(
             <StartLiveness
               beginLivenessCheck={beginLivenessCheck}
               components={components}
+              instructionDisplayText={instructionDisplayText}
             />
           ) : (
-            <LivenessCheck />
+            <LivenessCheck
+              hintDisplayText={hintDisplayText}
+              cameraDisplayText={cameraDisplayText}
+              streamDisplayText={streamDisplayText}
+            />
           )}
         </Flex>
       </FaceLivenessDetectorProvider>

@@ -1,10 +1,22 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { DefaultTexts } from '@aws-amplify/ui';
-
-import { LivenessErrorState, LivenessErrorStateStringMap } from '../../service';
+import { LivenessErrorState } from '../../service';
 import { FaceLivenessErrorModal } from '../FaceLivenessErrorModal';
+import { defaultErrorDisplayText } from '../../displayText';
+import { mockMatchMedia } from '../../__mocks__';
+
+const {
+  serverHeaderText,
+  serverMessageText,
+  timeoutHeaderText,
+  timeoutMessageText,
+  clientHeaderText,
+  clientMessageText,
+  tryAgainText,
+  landscapeHeaderText,
+  landscapeMessageText,
+} = defaultErrorDisplayText;
 
 describe('FaceLivenessErrorModal', () => {
   it('should render the component content appropriately', () => {
@@ -12,11 +24,8 @@ describe('FaceLivenessErrorModal', () => {
     error.name = LivenessErrorState.SERVER_ERROR;
     render(<FaceLivenessErrorModal error={error} onRetry={() => {}} />);
 
-    expect(
-      screen.getByText(
-        LivenessErrorStateStringMap[LivenessErrorState.SERVER_ERROR]
-      )
-    ).toBeInTheDocument();
+    expect(screen.getByText(serverHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(serverMessageText)).toBeInTheDocument();
   });
 
   it('should render the timeout message appropriately', () => {
@@ -24,9 +33,8 @@ describe('FaceLivenessErrorModal', () => {
     error.name = LivenessErrorState.TIMEOUT;
     render(<FaceLivenessErrorModal error={error} onRetry={() => {}} />);
 
-    expect(
-      screen.getByText(LivenessErrorStateStringMap[LivenessErrorState.TIMEOUT])
-    ).toBeInTheDocument();
+    expect(screen.getByText(timeoutHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(timeoutMessageText)).toBeInTheDocument();
   });
 
   it('should render the runtime error message appropriately', () => {
@@ -34,48 +42,25 @@ describe('FaceLivenessErrorModal', () => {
     error.name = LivenessErrorState.RUNTIME_ERROR;
     render(<FaceLivenessErrorModal error={error} onRetry={() => {}} />);
 
-    expect(
-      screen.getByText(
-        LivenessErrorStateStringMap[LivenessErrorState.RUNTIME_ERROR]
-      )
-    ).toBeInTheDocument();
-  });
-
-  it('should render the timeout message appropriately', () => {
-    const error = new Error();
-    error.name = LivenessErrorState.TIMEOUT;
-    render(<FaceLivenessErrorModal error={error} onRetry={() => {}} />);
-
-    expect(
-      screen.getByText(LivenessErrorStateStringMap[LivenessErrorState.TIMEOUT])
-    ).toBeInTheDocument();
+    expect(screen.getByText(clientHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(clientMessageText)).toBeInTheDocument();
   });
 
   it('should render the null error type message appropriately', () => {
     const error = new Error();
     render(<FaceLivenessErrorModal error={error} onRetry={() => {}} />);
 
-    expect(screen.getByText('Try again')).toBeInTheDocument();
+    expect(screen.getByText(tryAgainText)).toBeInTheDocument();
   });
 
   it('should render the orientation error component appropriately', () => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation((query) => ({
-        matches: false,
-        media: query,
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      })),
-    });
+    mockMatchMedia('(orientation: landscape)', true);
 
     const error = new Error();
     error.name = LivenessErrorState.MOBILE_LANDSCAPE_ERROR;
     render(<FaceLivenessErrorModal error={error} onRetry={() => {}} />);
 
-    expect(
-      screen.getByText(DefaultTexts.LIVENESS_ORIENTATION_ERROR_TITLE)
-    ).toBeInTheDocument();
+    expect(screen.getByText(landscapeHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(landscapeMessageText)).toBeInTheDocument();
   });
 });

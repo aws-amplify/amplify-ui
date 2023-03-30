@@ -6,12 +6,7 @@ import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
 import { useLivenessActor } from '../../hooks/useLivenessActor';
 import { getVideoConstraints } from '../helpers';
 import { StartLiveness } from '../StartLiveness';
-import {
-  INSTRUCTIONS,
-  defaultLivenessInstructionsHeader,
-  defaultPhotosensitiveWarningHeader,
-  defaultLivenessHeaderHeading,
-} from '../../shared/DefaultStartScreenComponents';
+import { getDisplayText } from '../../utils/getDisplayText';
 
 jest.mock('../../hooks/useLivenessActor');
 jest.mock('../../shared/CancelButton');
@@ -32,7 +27,9 @@ describe('StartLiveness', () => {
     });
   };
 
-  const beginCheckBtnName = 'Begin check';
+  const { instructionDisplayText } = getDisplayText(undefined);
+
+  const { instructionsBeginCheckText } = instructionDisplayText;
 
   beforeEach(() => {
     mockUseLivenessActor.mockReturnValue([mockActorState, mockActorSend]);
@@ -44,20 +41,37 @@ describe('StartLiveness', () => {
 
   it('should render the StartLiveness component and content appropriately', () => {
     renderWithLivenessProvider(
-      <StartLiveness beginLivenessCheck={mockBeginCheck} />
+      <StartLiveness
+        instructionDisplayText={instructionDisplayText}
+        beginLivenessCheck={mockBeginCheck}
+      />
     );
-
-    expect(screen.getByText(/Photosensitivity warning/)).toBeInTheDocument();
-
-    INSTRUCTIONS.forEach(({ desc }, index) => {
-      // currently the first index of INSTRUCTIONS is HTML
-      if (index > 0) {
-        expect(screen.getByText(desc as string)).toBeInTheDocument();
-      }
-    });
+    expect(
+      screen.getByText(instructionDisplayText.photosensitivyWarningHeadingText)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(instructionDisplayText.photosensitivyWarningBodyText)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(instructionDisplayText.instructionListHeadingText)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(instructionDisplayText.instructionListStepOneText)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(instructionDisplayText.instructionListStepTwoText)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(instructionDisplayText.instructionListStepThreeText)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(instructionDisplayText.instructionListStepFourText)
+    ).toBeInTheDocument();
 
     expect(
-      screen.getByRole('button', { name: beginCheckBtnName })
+      screen.getByRole('button', {
+        name: instructionsBeginCheckText,
+      })
     ).toBeInTheDocument();
   });
 
@@ -68,11 +82,12 @@ describe('StartLiveness', () => {
     renderWithLivenessProvider(
       <StartLiveness
         beginLivenessCheck={mockBeginCheck}
+        instructionDisplayText={instructionDisplayText}
         components={{
           PhotosensitiveWarning: (): JSX.Element => {
             return <span>{photosensitiveWarning}</span>;
           },
-          LivenessInstructions: (): JSX.Element => {
+          Instructions: (): JSX.Element => {
             return <span>{livenessInstructions}</span>;
           },
         }}
@@ -82,18 +97,22 @@ describe('StartLiveness', () => {
     expect(screen.getByText(photosensitiveWarning)).toBeInTheDocument();
     expect(screen.getByText(livenessInstructions)).toBeInTheDocument();
     // check for default liveness header component if no custom override
-    expect(screen.getByText(defaultLivenessHeaderHeading)).toBeInTheDocument();
+    expect(
+      screen.getByText(instructionDisplayText.instructionsHeaderHeadingText)
+    ).toBeInTheDocument();
 
     // check that the default components are not present when custom overrides are provided
     expect(
-      screen.queryByText(defaultPhotosensitiveWarningHeader)
+      screen.queryByText(
+        instructionDisplayText.photosensitivyWarningHeadingText
+      )
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(defaultLivenessInstructionsHeader)
+      screen.queryByText(instructionDisplayText.instructionListHeadingText)
     ).not.toBeInTheDocument();
 
     expect(
-      screen.getByRole('button', { name: beginCheckBtnName })
+      screen.getByRole('button', { name: instructionsBeginCheckText })
     ).toBeInTheDocument();
   });
 
@@ -102,10 +121,15 @@ describe('StartLiveness', () => {
     mockGetVideoConstraints.mockReturnValue(mockVideoConstraints);
 
     renderWithLivenessProvider(
-      <StartLiveness beginLivenessCheck={mockBeginCheck} />
+      <StartLiveness
+        beginLivenessCheck={mockBeginCheck}
+        instructionDisplayText={instructionDisplayText}
+      />
     );
 
-    userEvent.click(screen.getByRole('button', { name: beginCheckBtnName }));
+    userEvent.click(
+      screen.getByRole('button', { name: instructionsBeginCheckText })
+    );
 
     expect(mockActorSend).toHaveBeenCalledWith({
       type: 'BEGIN',

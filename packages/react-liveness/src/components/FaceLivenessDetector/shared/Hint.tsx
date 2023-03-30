@@ -1,12 +1,8 @@
 import * as React from 'react';
-import { translate, DefaultTexts } from '@aws-amplify/ui';
 
-import {
-  IlluminationState,
-  IlluminationStateStringMap,
-  FaceMatchStateStringMap,
-  FaceMatchState,
-} from '../service';
+import { Flex, Loader, View } from '@aws-amplify/ui-react';
+
+import { IlluminationState, FaceMatchState } from '../service';
 
 import {
   useLivenessActor,
@@ -15,7 +11,7 @@ import {
 } from '../hooks';
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
-import { Flex, Loader, View } from '@aws-amplify/ui-react';
+import { HintDisplayText } from '../displayText';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -34,9 +30,11 @@ export const selectFaceMatchStateBeforeStart = createLivenessSelector(
   (state) => state.context.faceMatchStateBeforeStart
 );
 
-export interface InstructionProps {}
+export interface HintProps {
+  hintDisplayText: Required<HintDisplayText>;
+}
 
-export const Instruction: React.FC<InstructionProps> = () => {
+export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   const [state] = useLivenessActor();
 
   // NOTE: Do not change order of these selectors as the unit tests depend on this order
@@ -65,21 +63,33 @@ export const Instruction: React.FC<InstructionProps> = () => {
     recording: 'flashFreshnessColors',
   });
 
+  const FaceMatchStateStringMap: Record<FaceMatchState, string | undefined> = {
+    [FaceMatchState.CANT_IDENTIFY]: hintDisplayText.hintCanNotIdentifyText,
+    [FaceMatchState.FACE_IDENTIFIED]: hintDisplayText.hintTooFarText,
+    [FaceMatchState.TOO_MANY]: hintDisplayText.hintTooManyFacesText,
+    [FaceMatchState.TOO_CLOSE]: hintDisplayText.hintTooCloseText,
+    [FaceMatchState.TOO_FAR]: hintDisplayText.hintTooFarText,
+    [FaceMatchState.MATCHED]: undefined,
+  };
+
+  const IlluminationStateStringMap: Record<IlluminationState, string> = {
+    [IlluminationState.BRIGHT]: hintDisplayText.hintIlluminationTooBrightText,
+    [IlluminationState.DARK]: hintDisplayText.hintIlluminationTooDarkText,
+    [IlluminationState.NORMAL]: hintDisplayText.hintIlluminationNormalText,
+  };
+
   const getInstructionContent = () => {
     if (errorState || isCheckFailed || isCheckSuccessful) {
       return;
     }
-
     if (!isRecording) {
       if (isCheckFaceDetectedBeforeStart) {
         if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {
           return (
-            <Toast>
-              {translate(FaceMatchStateStringMap[faceMatchStateBeforeStart]!)}
-            </Toast>
+            <Toast>{FaceMatchStateStringMap[faceMatchStateBeforeStart]}</Toast>
           );
         }
-        return <Toast>{translate('Move face in front of camera')}</Toast>;
+        return <Toast>{hintDisplayText.hintMoveFaceFrontOfCameraText}</Toast>;
       }
 
       // Specifically checking for false here because initially the value is undefined and we do not want to show the instruction
@@ -87,14 +97,12 @@ export const Instruction: React.FC<InstructionProps> = () => {
         isCheckFaceDistanceBeforeRecording &&
         isFaceFarEnoughBeforeRecordingState === false
       ) {
-        return (
-          <Toast>{translate(DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE)}</Toast>
-        );
+        return <Toast>{hintDisplayText.hintTooCloseText}</Toast>;
       }
 
       if (isNotRecording) {
         return (
-          <Toast>{translate('Hold face position during countdown')}</Toast>
+          <Toast>{hintDisplayText.hintHoldFacePositionCountdownText}</Toast>
         );
       }
 
@@ -103,7 +111,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
           <Toast>
             <Flex alignItems="center" gap="xs">
               <Loader />
-              <View>{translate('Connecting...')}</View>
+              <View>{hintDisplayText.hintConnectingText}</View>
             </Flex>
           </Toast>
         );
@@ -118,7 +126,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
             <Toast>
               <Flex alignItems="center" gap="xs">
                 <Loader />
-                <View>{translate('Verifying...')}</View>
+                <View>{hintDisplayText.hintVerifyingText}</View>
               </Flex>
             </Toast>
           </Overlay>
@@ -133,7 +141,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
     if (isFlashingFreshness) {
       return (
         <Toast size="large" variation="primary">
-          {translate(DefaultTexts.LIVENESS_INSTRUCTION_HOLD_OVAL)}
+          {hintDisplayText.hintHoldFaceForFreshnessText}
         </Toast>
       );
     }

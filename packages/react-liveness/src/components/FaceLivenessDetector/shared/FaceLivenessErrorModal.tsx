@@ -1,39 +1,61 @@
 import React from 'react';
 
-import { translate } from '@aws-amplify/ui';
 import { Flex, Button, Text } from '@aws-amplify/ui-react';
 import { AlertIcon } from '@aws-amplify/ui-react/internal';
 
-import { LivenessErrorState, LivenessErrorStateStringMap } from '../service';
+import { LivenessErrorState } from '../service';
 
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
 import { LandscapeErrorModal } from './LandscapeErrorModal';
+import { defaultErrorDisplayText, ErrorDisplayText } from '../displayText';
 
 export interface FaceLivenessErrorModalProps {
   error: Error;
+  displayText?: Partial<ErrorDisplayText>;
   onRetry: () => void;
 }
 
-const renderToastErrorModal = (props: FaceLivenessErrorModalProps) => {
-  const { error, onRetry } = props;
+const renderToastErrorModal = (props: {
+  error: Error;
+  displayText: ErrorDisplayText;
+  onRetry: () => void;
+}) => {
+  const { error, onRetry, displayText } = props;
   const { name: errorState } = error;
 
+  const {
+    timeoutHeaderText,
+    timeoutMessageText,
+    faceDistanceHeaderText,
+    faceDistanceMessageText,
+    clientHeaderText,
+    clientMessageText,
+    serverHeaderText,
+    serverMessageText,
+    tryAgainText,
+  } = displayText;
+
   let heading: string;
+  let message: string;
 
   switch (errorState) {
     case LivenessErrorState.TIMEOUT:
-      heading = translate('Time out');
+      heading = timeoutHeaderText;
+      message = timeoutMessageText;
       break;
     case LivenessErrorState.FACE_DISTANCE_ERROR:
-      heading = translate('Check failed during countdown');
+      heading = faceDistanceHeaderText;
+      message = faceDistanceMessageText;
       break;
     case LivenessErrorState.RUNTIME_ERROR:
-      heading = translate('Client error');
+      heading = clientHeaderText;
+      message = clientMessageText;
       break;
     case LivenessErrorState.SERVER_ERROR:
     default:
-      heading = translate('Server Issue');
+      heading = serverHeaderText;
+      message = serverMessageText;
   }
 
   return (
@@ -48,11 +70,10 @@ const renderToastErrorModal = (props: FaceLivenessErrorModalProps) => {
           <AlertIcon ariaHidden variation="error" />
           <Text fontWeight="bold">{heading}</Text>
         </Flex>
-        {errorState &&
-          LivenessErrorStateStringMap[errorState as LivenessErrorState]}
+        {message}
         <Flex justifyContent="center">
           <Button variation="primary" type="button" onClick={onRetry}>
-            {translate('Try again')}
+            {tryAgainText}
           </Button>
         </Flex>
       </Toast>
@@ -63,17 +84,41 @@ const renderToastErrorModal = (props: FaceLivenessErrorModalProps) => {
 export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
   props
 ) => {
-  const { error, onRetry } = props;
+  const { error, onRetry, displayText: overrideErrorDisplayText } = props;
   const { name: errorState } = error;
 
+  const displayText: ErrorDisplayText = {
+    ...defaultErrorDisplayText,
+    ...overrideErrorDisplayText,
+  };
+
+  const {
+    landscapeHeaderText,
+    portraitMessageText,
+    landscapeMessageText,
+    tryAgainText,
+  } = displayText;
+
   if (errorState === LivenessErrorState.MOBILE_LANDSCAPE_ERROR) {
-    return <LandscapeErrorModal onRetry={onRetry} />;
+    return (
+      <LandscapeErrorModal
+        header={landscapeHeaderText}
+        portraitMessage={portraitMessageText}
+        landscapeMessage={landscapeMessageText}
+        tryAgainText={tryAgainText}
+        onRetry={onRetry}
+      />
+    );
   } else if (
     errorState === LivenessErrorState.CAMERA_ACCESS_ERROR ||
     errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
   ) {
     return null;
   } else {
-    return renderToastErrorModal(props);
+    return renderToastErrorModal({
+      error,
+      onRetry,
+      displayText,
+    });
   }
 };

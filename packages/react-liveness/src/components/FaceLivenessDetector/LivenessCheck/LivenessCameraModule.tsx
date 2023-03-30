@@ -11,10 +11,11 @@ import {
   useMediaStreamInVideo,
   UseMediaStreamInVideo,
 } from '../hooks';
+import { HintDisplayText, StreamDisplayText } from '../displayText';
 
 import {
   CancelButton,
-  Instruction,
+  Hint,
   RecordingIcon,
   Overlay,
   MatchIndicator,
@@ -30,7 +31,6 @@ export const selectVideoStream = createLivenessSelector(
 export const selectFaceMatchPercentage = createLivenessSelector(
   (state) => state.context.faceMatchAssociatedParams.faceMatchPercentage
 );
-
 export const selectFaceMatchState = createLivenessSelector(
   (state) => state.context.faceMatchAssociatedParams.faceMatchState
 );
@@ -38,6 +38,8 @@ export const selectFaceMatchState = createLivenessSelector(
 export interface LivenessCameraModuleProps {
   isMobileScreen: boolean;
   isRecordingStopped: boolean;
+  streamDisplayText: Required<StreamDisplayText>;
+  hintDisplayText: Required<HintDisplayText>;
 }
 
 const centeredLoader = (
@@ -51,7 +53,14 @@ const centeredLoader = (
 export const LivenessCameraModule = (
   props: LivenessCameraModuleProps
 ): JSX.Element => {
-  const { isMobileScreen, isRecordingStopped } = props;
+  const {
+    isMobileScreen,
+    isRecordingStopped,
+    streamDisplayText,
+    hintDisplayText,
+  } = props;
+
+  const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
   const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
@@ -174,13 +183,13 @@ export const LivenessCameraModule = (
 
         {isRecording && (
           <View className={LivenessClassNames.RecordingIconContainer}>
-            <RecordingIcon />
+            <RecordingIcon>{recordingIndicatorText}</RecordingIcon>
           </View>
         )}
 
         {!isCheckSucceeded && (
           <View className={LivenessClassNames.CancelContainer}>
-            <CancelButton />
+            <CancelButton ariaLabel={cancelLivenessCheckText}></CancelButton>
           </View>
         )}
 
@@ -193,7 +202,8 @@ export const LivenessCameraModule = (
             }}
             className={LivenessClassNames.InstructionOverlay}
           >
-            <Instruction />
+            <Hint hintDisplayText={hintDisplayText} />
+
             {/* 
               We only want to show the MatchIndicator when we're recording
               and when the face is in either the too far state, or the 

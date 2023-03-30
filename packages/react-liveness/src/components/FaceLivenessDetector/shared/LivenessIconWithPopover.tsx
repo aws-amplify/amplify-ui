@@ -4,15 +4,16 @@
  */
 
 import * as React from 'react';
-import { translate } from '@aws-amplify/ui';
 
 import { Flex, useTheme } from '@aws-amplify/ui-react';
 import { AlertIcon, useThemeBreakpoint } from '@aws-amplify/ui-react/internal';
 
-export interface LivenessIconWithPopoverProps {}
+export interface LivenessIconWithPopoverProps {
+  children: string;
+}
 
 export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
-  () => {
+  ({ children }) => {
     const { tokens } = useTheme();
     const breakpoint = useThemeBreakpoint();
     const [shouldShowPopover, setShouldShowPopover] = React.useState(false);
@@ -82,9 +83,7 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
               borderRadius={2}
               data-testid="popover-text"
             >
-              {translate(
-                'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.'
-              )}
+              {children}
             </Flex>
           </>
         )}

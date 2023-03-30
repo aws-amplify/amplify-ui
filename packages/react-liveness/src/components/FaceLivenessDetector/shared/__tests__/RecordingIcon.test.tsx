@@ -5,9 +5,11 @@ import { RecordingIcon } from '../RecordingIcon';
 
 describe('RecordingIcon', () => {
   it('should render the component content appropriately', () => {
-    render(<RecordingIcon />);
+    const indicatorText = 'Rec';
+
+    render(<RecordingIcon>{indicatorText}</RecordingIcon>);
 
     expect(screen.getByTestId('rec-icon')).toBeInTheDocument();
-    expect(screen.getByText('Rec')).toBeInTheDocument();
+    expect(screen.getByText(indicatorText)).toBeInTheDocument();
   });
 });

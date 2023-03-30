@@ -1,39 +1,45 @@
 import React from 'react';
-import { translate, DefaultTexts } from '@aws-amplify/ui';
 import { Flex, View, ComponentClassNames, Text } from '@aws-amplify/ui-react';
 import { GoodFitIllustration, TooFarIllustration, StartScreenFigure } from './';
 import { LivenessIconWithPopover } from './LivenessIconWithPopover';
 import { LivenessClassNames } from '../types/classNames';
 
-export interface LivenessComponents {
-  LivenessHeader?: React.ComponentType;
+export interface StartScreenComponents {
+  Header?: React.ComponentType;
   PhotosensitiveWarning?: React.ComponentType;
-  LivenessInstructions?: React.ComponentType;
+  Instructions?: React.ComponentType;
 }
 
-export const defaultLivenessHeaderHeading: string = 'Liveness check';
-export const defaultLivenessHeaderBody: string =
-  'You will go through a face verification process to prove that you are a real person.';
+interface DefaultHeaderProps {
+  headingText: string;
+  bodyText: string;
+}
 
-export const LivenessHeader = (): JSX.Element => {
+export const DefaultHeader = ({
+  headingText,
+  bodyText,
+}: DefaultHeaderProps): JSX.Element => {
   return (
     <View flex="1">
       <View color="font.primary" fontWeight="bold">
-        {translate<string>(defaultLivenessHeaderHeading)}
+        {headingText}
       </View>
-      <View color="font.primary">
-        {translate<string>(defaultLivenessHeaderBody)}
-      </View>
+      <View color="font.primary">{bodyText}</View>
     </View>
   );
 };
 
-export const defaultPhotosensitiveWarningHeader: string =
-  'Photosensitivity warning';
-export const defaultPhotosensitiveWarningBody: string =
-  'This check displays colored lights. Use caution if you are photosensitive.';
+interface DefaultPhotosensitiveWarningProps {
+  headingText: string;
+  bodyText: string;
+  infoText: string;
+}
 
-export const PhotosensitiveWarning = (): JSX.Element => {
+export const DefaultPhotosensitiveWarning = ({
+  headingText,
+  bodyText,
+  infoText,
+}: DefaultPhotosensitiveWarningProps): JSX.Element => {
   return (
     <Flex
       className={ComponentClassNames.Alert}
@@ -42,68 +48,56 @@ export const PhotosensitiveWarning = (): JSX.Element => {
       alignItems="center"
     >
       <View flex="1">
-        <View className={ComponentClassNames.AlertHeading}>
-          {translate(defaultPhotosensitiveWarningHeader)}
-        </View>
-        <View className={ComponentClassNames.AlertBody}>
-          {translate(defaultPhotosensitiveWarningBody)}
-        </View>
+        <View className={ComponentClassNames.AlertHeading}>{headingText}</View>
+        <View className={ComponentClassNames.AlertBody}>{bodyText}</View>
       </View>
-      <LivenessIconWithPopover />
+      <LivenessIconWithPopover>{infoText}</LivenessIconWithPopover>
     </Flex>
   );
 };
 
-export const INSTRUCTIONS = [
-  {
-    desc: DefaultTexts.LIVENESS_INSTRUCTION_OVAL,
-  },
-  {
-    desc: DefaultTexts.LIVENESS_INSTRUCTION_BRIGHTNESS,
-  },
-  {
-    desc: DefaultTexts.LIVENESS_INSTRUCTION_COVER,
-  },
-  {
-    desc: DefaultTexts.LIVENESS_INSTRUCTION_LIGHT,
-  },
-];
+interface DefaultInstructionsProps {
+  headingText: string;
+  goodFitCaptionText: string;
+  goodFitAltText: string;
+  tooFarCaptionText: string;
+  tooFarAltText: string;
+  steps: string[];
+}
 
-export const defaultLivenessInstructionsHeader: string =
-  'Follow these instructions to complete the check: ';
-
-export const LivenessInstructions = (): JSX.Element => {
+export const DefaultInstructions = ({
+  headingText,
+  goodFitCaptionText,
+  goodFitAltText,
+  tooFarCaptionText,
+  tooFarAltText,
+  steps,
+}: DefaultInstructionsProps): JSX.Element => {
   return (
     <Flex direction="column">
       <Text color="font.primary" fontWeight="bold">
-        {translate<string>(defaultLivenessInstructionsHeader)}
+        {headingText}
       </Text>
       <Flex className={LivenessClassNames.Figures}>
-        <StartScreenFigure variation="success" caption="Good fit">
-          <GoodFitIllustration title="Ilustration of a person's face, perfectly fitting inside of an oval." />
+        <StartScreenFigure variation="success" caption={goodFitCaptionText}>
+          <GoodFitIllustration title={goodFitAltText} />
         </StartScreenFigure>
-        <StartScreenFigure variation="error" caption="Too far">
-          <TooFarIllustration title="Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval." />
+        <StartScreenFigure variation="error" caption={tooFarCaptionText}>
+          <TooFarIllustration title={tooFarAltText} />
         </StartScreenFigure>
       </Flex>
       <Flex as="ol" className={LivenessClassNames.InstructionList}>
-        {INSTRUCTIONS.map((item, index) => {
+        {steps.map((item, index) => {
           return (
             <Flex as="li" key={index + 1}>
               <Text as="span" aria-hidden="true">
                 {index + 1}.
               </Text>
-              <Text as="span">{translate(item.desc)}</Text>
+              <Text as="span">{item}</Text>
             </Flex>
           );
         })}
       </Flex>
     </Flex>
   );
-};
-
-export const defaultComponents: LivenessComponents = {
-  LivenessHeader: LivenessHeader,
-  PhotosensitiveWarning: PhotosensitiveWarning,
-  LivenessInstructions: LivenessInstructions,
 };

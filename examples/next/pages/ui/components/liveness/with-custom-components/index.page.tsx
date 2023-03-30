@@ -7,7 +7,6 @@ import awsExports from '@environments/liveness/src/aws-exports';
 import LivenessDefault from '../components/LivenessDefault';
 import Layout from '../components/Layout';
 import { Alert, Card, Heading, View, Text } from '@aws-amplify/ui-react';
-import { translate } from '@aws-amplify/ui';
 
 Amplify.configure({
   ...awsExports,
@@ -32,7 +31,7 @@ const App = () => {
       <LivenessDefault
         disableInstructionScreen={false}
         components={{
-          LivenessHeader: () => {
+          Header: () => {
             return (
               <View flex="1">
                 <Heading>Face liveness check</Heading>
@@ -56,7 +55,7 @@ const App = () => {
               </Alert>
             );
           },
-          LivenessInstructions: (): JSX.Element => {
+          Instructions: (): JSX.Element => {
             return (
               <Card variation="elevated">
                 Instructions to follow to use liveness face detector

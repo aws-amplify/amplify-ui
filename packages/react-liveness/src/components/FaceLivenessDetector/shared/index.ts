@@ -1,5 +1,5 @@
 export * from './CancelButton';
-export * from './Instruction';
+export * from './Hint';
 export * from './MatchIndicator';
 export * from './Overlay';
 export * from './RecordingIcon';

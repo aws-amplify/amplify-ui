@@ -3,7 +3,11 @@ import React from 'react';
 import { Text, Flex, Icon } from '@aws-amplify/ui-react';
 import { LivenessClassNames } from '../types/classNames';
 
-export const RecordingIcon: React.FC = () => {
+interface RecordingIconProps {
+  children: string;
+}
+
+export const RecordingIcon: React.FC<RecordingIconProps> = ({ children }) => {
   return (
     <Flex className={LivenessClassNames.RecordingIcon}>
       <Flex data-testid="rec-icon" justifyContent="center">
@@ -12,7 +16,7 @@ export const RecordingIcon: React.FC = () => {
         </Icon>
       </Flex>
       <Text as="span" fontWeight="bold">
-        Rec
+        {children}
       </Text>
     </Flex>
   );

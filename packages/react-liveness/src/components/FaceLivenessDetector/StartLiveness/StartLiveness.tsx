@@ -1,41 +1,78 @@
 import * as React from 'react';
-import { translate } from '@aws-amplify/ui';
 import { Flex, Button, Card } from '@aws-amplify/ui-react';
 
+import { InstructionDisplayText } from '../displayText';
 import {
-  defaultComponents,
-  LivenessComponents,
+  DefaultHeader,
+  DefaultPhotosensitiveWarning,
+  DefaultInstructions,
+  StartScreenComponents,
 } from '../shared/DefaultStartScreenComponents';
 
 const START_CLASS_NAME = 'liveness-detector-start';
 
 export interface StartLivenessProps {
   beginLivenessCheck: () => void;
-  components?: LivenessComponents;
+  components?: StartScreenComponents;
+  instructionDisplayText: Required<InstructionDisplayText>;
 }
 
 export function StartLiveness(props: StartLivenessProps): JSX.Element {
-  const { beginLivenessCheck, components: customComponents } = props;
-  const components = {
-    ...defaultComponents,
-    ...customComponents,
-  } as Required<LivenessComponents>;
-  const { LivenessHeader, PhotosensitiveWarning, LivenessInstructions } =
-    components;
+  const {
+    beginLivenessCheck,
+    components: customComponents,
+    instructionDisplayText,
+  } = props;
 
   return (
     <Card className={START_CLASS_NAME} data-testid={START_CLASS_NAME}>
       <Flex direction="column">
-        <LivenessHeader />
-        <PhotosensitiveWarning />
-        <LivenessInstructions />
+        {customComponents?.Header ? (
+          <customComponents.Header />
+        ) : (
+          <DefaultHeader
+            headingText={instructionDisplayText.instructionsHeaderHeadingText}
+            bodyText={instructionDisplayText.instructionsHeaderBodyText}
+          />
+        )}
+
+        {customComponents?.PhotosensitiveWarning ? (
+          <customComponents.PhotosensitiveWarning />
+        ) : (
+          <DefaultPhotosensitiveWarning
+            headingText={
+              instructionDisplayText.photosensitivyWarningHeadingText
+            }
+            bodyText={instructionDisplayText.photosensitivyWarningBodyText}
+            infoText={instructionDisplayText.photosensitivyWarningInfoText}
+          />
+        )}
+
+        {customComponents?.Instructions ? (
+          <customComponents.Instructions />
+        ) : (
+          <DefaultInstructions
+            headingText={instructionDisplayText.instructionListHeadingText}
+            goodFitCaptionText={instructionDisplayText.goodFitCaptionText}
+            goodFitAltText={instructionDisplayText.goodFitAltText}
+            tooFarCaptionText={instructionDisplayText.tooFarCaptionText}
+            tooFarAltText={instructionDisplayText.tooFarAltText}
+            steps={[
+              instructionDisplayText.instructionListStepOneText,
+              instructionDisplayText.instructionListStepTwoText,
+              instructionDisplayText.instructionListStepThreeText,
+              instructionDisplayText.instructionListStepFourText,
+            ]}
+          />
+        )}
+
         <Flex justifyContent="center">
           <Button
             variation="primary"
             type="button"
             onClick={beginLivenessCheck}
           >
-            {translate('Begin check')}
+            {instructionDisplayText.instructionsBeginCheckText}
           </Button>
         </Flex>
       </Flex>

@@ -8,7 +8,6 @@ import {
   BoundingBox,
   LivenessErrorState,
 } from '../types';
-import { DefaultTexts, translate } from '@aws-amplify/ui';
 import { FaceDetection } from '../types/faceDetection';
 import { ClientFreshnessColorSequence } from '../types/service';
 import {
@@ -438,44 +437,15 @@ export function isCameraDeviceVirtual(device: MediaDeviceInfo): boolean {
   return device.label.toLowerCase().includes('virtual');
 }
 
-export const IlluminationStateStringMap: Record<IlluminationState, string> = {
-  [IlluminationState.BRIGHT]: translate('Move to dimmer area'),
-  [IlluminationState.DARK]: translate('Move to brighter area'),
-  [IlluminationState.NORMAL]: translate('Lighting conditions normal'),
-};
-
-export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
-  [FaceMatchState.CANT_IDENTIFY]: translate('Move face in front of camera'),
-  [FaceMatchState.FACE_IDENTIFIED]: translate('Move closer'),
-  [FaceMatchState.TOO_MANY]: translate(
-    'Ensure only one face is in front of camera'
-  ),
-  [FaceMatchState.TOO_CLOSE]: translate(
-    DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE
-  ),
-  [FaceMatchState.TOO_FAR]: translate('Move closer'),
-  [FaceMatchState.MATCHED]: '',
-};
-
 export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
-  [LivenessErrorState.RUNTIME_ERROR]: translate(
-    'Check failed due to client issue'
-  ),
-  [LivenessErrorState.SERVER_ERROR]: translate(
-    'Cannot complete check due to server issue'
-  ),
-  [LivenessErrorState.TIMEOUT]: translate<string>(
-    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds."
-  ),
-  [LivenessErrorState.FACE_DISTANCE_ERROR]: translate<string>(
-    'Avoid moving closer during countdown and ensure only one face is in front of camera.'
-  ),
-  [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: '',
-  [LivenessErrorState.CAMERA_ACCESS_ERROR]: '',
-  [LivenessErrorState.MOBILE_LANDSCAPE_ERROR]: '',
-  [LivenessErrorState.FRESHNESS_TIMEOUT]: translate<string>(
-    DefaultTexts.LIVENESS_INSTRUCTION_HOLD_OVAL
-  ),
+  [LivenessErrorState.RUNTIME_ERROR]: 'RUNTIME_ERROR',
+  [LivenessErrorState.SERVER_ERROR]: 'SERVER_ERROR',
+  [LivenessErrorState.TIMEOUT]: 'TIMEOUT',
+  [LivenessErrorState.FACE_DISTANCE_ERROR]: 'FACE_DISTANCE_ERROR',
+  [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: 'CAMERA_FRAMERATE_ERROR',
+  [LivenessErrorState.CAMERA_ACCESS_ERROR]: 'CAMERA_ACCESS_ERROR',
+  [LivenessErrorState.MOBILE_LANDSCAPE_ERROR]: 'MOBILE_LANDSCAPE_ERROR',
+  [LivenessErrorState.FRESHNESS_TIMEOUT]: 'FRESHNESS_TIMEOUT',
 };
 
 export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [

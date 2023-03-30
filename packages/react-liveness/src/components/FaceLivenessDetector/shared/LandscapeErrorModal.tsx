@@ -1,16 +1,20 @@
 import * as React from 'react';
-import { DefaultTexts, translate } from '@aws-amplify/ui';
 
 import { Flex, Button, Text } from '@aws-amplify/ui-react';
 import { getLandscapeMediaQuery } from '../utils/device';
 interface LandscapeErrorModalProps {
   onRetry: () => void;
+  header: string;
+  portraitMessage: string;
+  landscapeMessage: string;
+  tryAgainText: string;
 }
 
 export const LandscapeErrorModal: React.FC<LandscapeErrorModalProps> = (
   props
 ) => {
-  const { onRetry } = props;
+  const { onRetry, header, portraitMessage, landscapeMessage, tryAgainText } =
+    props;
   const [isLandscape, setIsLandscape] = React.useState<boolean | undefined>(
     true
   );
@@ -46,17 +50,13 @@ export const LandscapeErrorModal: React.FC<LandscapeErrorModalProps> = (
       height={isLandscape ? 'auto' : 480}
     >
       <Text fontSize="large" fontWeight="bold">
-        {translate(DefaultTexts.LIVENESS_ORIENTATION_ERROR_TITLE)}
+        {header}
       </Text>
-      <Text>
-        {isLandscape
-          ? translate(DefaultTexts.LIVENESS_ORIENTATION_LANDSCAPE)
-          : translate(DefaultTexts.LIVENESS_ORIENTATION_PORTRAIT)}
-      </Text>
+      <Text>{isLandscape ? landscapeMessage : portraitMessage}</Text>
       {!isLandscape ? (
         <Flex justifyContent="center">
           <Button variation="primary" type="button" onClick={onRetry}>
-            {translate('Try again')}
+            {tryAgainText}
           </Button>
         </Flex>
       ) : null}

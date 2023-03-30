@@ -2,24 +2,21 @@ import * as React from 'react';
 import { screen } from '@testing-library/react';
 import { when, resetAllWhenMocks } from 'jest-when';
 
-import { DefaultTexts } from '@aws-amplify/ui';
-
 import {
   IlluminationState,
-  IlluminationStateStringMap,
   FaceMatchState,
-  FaceMatchStateStringMap,
   LivenessErrorState,
 } from '../../service';
 
 import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
 import { useLivenessActor, useLivenessSelector } from '../../hooks';
 import {
-  Instruction,
+  Hint,
   selectErrorState,
   selectFaceMatchState,
   selectIlluminationState,
-} from '../Instruction';
+} from '../Hint';
+import { getDisplayText } from '../../utils/getDisplayText';
 
 jest.mock('../../hooks');
 jest.mock('../../hooks/useLivenessSelector');
@@ -27,7 +24,7 @@ jest.mock('../../hooks/useLivenessSelector');
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 
-describe('Instruction', () => {
+describe('Hint', () => {
   const mockActorState: any = {
     matches: jest.fn(),
   };
@@ -48,6 +45,8 @@ describe('Instruction', () => {
   let isCheckFaceDistanceBeforeRecording = false;
   let isWaitingForSessionInfo = false;
   let isFlashingFreshness = false;
+
+  const { hintDisplayText } = getDisplayText(undefined);
 
   function mockStateMatchesAndSelectors() {
     mockUseLivenessSelector
@@ -107,13 +106,13 @@ describe('Instruction', () => {
     errorState = LivenessErrorState.FACE_DISTANCE_ERROR;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.queryByText('Hold face position during countdown')
+      screen.queryByText(hintDisplayText.hintHoldFacePositionCountdownText)
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText('Move face in front of camera')
+      screen.queryByText(hintDisplayText.hintMoveFaceFrontOfCameraText)
     ).not.toBeInTheDocument();
   });
 
@@ -121,48 +120,48 @@ describe('Instruction', () => {
     isCheckFailed = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.queryByText('Hold face position during countdown')
+      screen.queryByText(hintDisplayText.hintHoldFacePositionCountdownText)
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText('Move face in front of camera')
+      screen.queryByText(hintDisplayText.hintMoveFaceFrontOfCameraText)
     ).not.toBeInTheDocument();
   });
 
-  it('should render instruction to move only one face onto camera view if isCheckFaceDetectedBeforeStart is true', () => {
+  it('should render hint to move only one face onto camera view if isCheckFaceDetectedBeforeStart is true', () => {
     isCheckFaceDetectedBeforeStart = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText('Move face in front of camera')
+      screen.getByText(hintDisplayText.hintMoveFaceFrontOfCameraText)
     ).toBeInTheDocument();
   });
 
-  it('should render instruction to about too many faces faceMatchStateBeforeStart is TOO_MANY', () => {
+  it('should render hint to about too many faces faceMatchStateBeforeStart is TOO_MANY', () => {
     isCheckFaceDetectedBeforeStart = true;
     faceMatchStateBeforeStart = FaceMatchState.TOO_MANY;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText(FaceMatchStateStringMap[faceMatchStateBeforeStart])
+      screen.getByText(hintDisplayText.hintTooManyFacesText)
     ).toBeInTheDocument();
   });
 
-  it('should render instruction to move face further away if checking face distance before recording is false', () => {
+  it('should render hint to move face further away if checking face distance before recording is false', () => {
     isCheckFaceDistanceBeforeRecording = true;
     isFaceFarEnoughBeforeRecordingState = false;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText(DefaultTexts.LIVENESS_HINT_FACE_TOO_CLOSE)
+      screen.getByText(hintDisplayText.hintTooCloseText)
     ).toBeInTheDocument();
   });
 
@@ -170,19 +169,21 @@ describe('Instruction', () => {
     isWaitingForSessionInfo = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
-    expect(screen.getByText('Connecting...')).toBeInTheDocument();
+    expect(
+      screen.getByText(hintDisplayText.hintConnectingText)
+    ).toBeInTheDocument();
   });
 
   it('should render hold face in oval message if flashing freshness colors', () => {
     isFlashingFreshness = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText(DefaultTexts.LIVENESS_INSTRUCTION_HOLD_OVAL)
+      screen.getByText(hintDisplayText.hintHoldFaceForFreshnessText)
     ).toBeInTheDocument();
   });
 
@@ -190,10 +191,10 @@ describe('Instruction', () => {
     isNotRecording = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText('Hold face position during countdown')
+      screen.getByText(hintDisplayText.hintHoldFacePositionCountdownText)
     ).toBeInTheDocument();
   });
 
@@ -201,16 +202,18 @@ describe('Instruction', () => {
     isUploading = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
-    expect(screen.getByText('Verifying...')).toBeInTheDocument();
+    expect(
+      screen.getByText(hintDisplayText.hintVerifyingText)
+    ).toBeInTheDocument();
   });
 
   it('should not render check succeeded state if present', () => {
     isCheckSuccessful = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(screen.queryByText('Check successful')).not.toBeInTheDocument();
   });
@@ -219,10 +222,10 @@ describe('Instruction', () => {
     illuminationState = IlluminationState.DARK;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText(IlluminationStateStringMap[IlluminationState.DARK])
+      screen.getByText(hintDisplayText.hintIlluminationTooDarkText)
     ).toBeInTheDocument();
   });
 
@@ -230,10 +233,10 @@ describe('Instruction', () => {
     illuminationState = IlluminationState.NORMAL;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.queryByText(IlluminationStateStringMap[IlluminationState.NORMAL])
+      screen.queryByText(hintDisplayText.hintIlluminationNormalText)
     ).not.toBeInTheDocument();
   });
 
@@ -242,10 +245,10 @@ describe('Instruction', () => {
     isRecording = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText(FaceMatchStateStringMap[FaceMatchState.TOO_CLOSE])
+      screen.getByText(hintDisplayText.hintTooCloseText)
     ).toBeInTheDocument();
   });
 
@@ -254,10 +257,10 @@ describe('Instruction', () => {
     isRecording = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText(FaceMatchStateStringMap[FaceMatchState.TOO_FAR])
+      screen.getByText(hintDisplayText.hintTooFarText)
     ).toBeInTheDocument();
   });
 
@@ -266,10 +269,10 @@ describe('Instruction', () => {
     isRecording = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText(FaceMatchStateStringMap[FaceMatchState.TOO_FAR])
+      screen.getByText(hintDisplayText.hintTooFarText)
     ).toBeInTheDocument();
   });
 
@@ -278,10 +281,10 @@ describe('Instruction', () => {
     isRecording = true;
     mockStateMatchesAndSelectors();
 
-    renderWithLivenessProvider(<Instruction />);
+    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText(FaceMatchStateStringMap[FaceMatchState.TOO_FAR])
+      screen.getByText(hintDisplayText.hintTooFarText)
     ).toBeInTheDocument();
   });
 
