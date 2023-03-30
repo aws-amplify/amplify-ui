@@ -236,6 +236,13 @@ export const inputComponents: ComponentNavItem[] = [
     icon: MdInput,
   },
   {
+    href: '/components/field',
+    label: 'Field',
+    body: ``,
+    platforms: ['react'],
+    icon: MdInput,
+  },
+  {
     href: '/components/selectfield',
     label: 'Select Field',
     body: 'The SelectField primitive allows you to create a drop-down list.',
