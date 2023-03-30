@@ -27,11 +27,11 @@ function StorageManager({
   maxFileSize,
   onUploadError,
   onUploadSuccess,
+  onFileRemove,
   showThumbnails = true,
   processFile,
   components,
   provider,
-  onFilesChange,
 }: StorageManagerProps): JSX.Element {
   if (!acceptedFileTypes || !accessLevel || !maxFileCount) {
     logger.warn(
@@ -76,7 +76,7 @@ function StorageManager({
     setUploadProgress,
     setUploadSuccess,
     setUploadResumed,
-  } = useStorageManager(defaultFiles, onFilesChange);
+  } = useStorageManager(defaultFiles);
 
   const dropZoneProps = useDropZone({
     onChange: (event: React.DragEvent<HTMLDivElement>) => {
@@ -163,6 +163,10 @@ function StorageManager({
     // permissions are enabled, so we do a soft delete
     // from file list, but don't remove from storage
     removeUpload({ id });
+    if (typeof onFileRemove === 'function') {
+      const { key } = files.find((file) => file.id === id);
+      onFileRemove({ key });
+    }
   };
 
   // checks if all downloads completed to 100%

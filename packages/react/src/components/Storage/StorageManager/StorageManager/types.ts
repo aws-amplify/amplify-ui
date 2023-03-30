@@ -48,6 +48,10 @@ export interface StorageManagerProps {
    */
   maxFileSize?: number;
   /**
+   * When a file is removed
+   */
+  onFileRemove?: (file: { key: string }) => void;
+  /**
    * Monitor upload errors
    */
   onUploadError?: (error: string) => void;
