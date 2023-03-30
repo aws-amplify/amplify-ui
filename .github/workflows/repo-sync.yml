@@ -1,0 +1,33 @@
+name: Repo Sync
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # everyday at 4:00 AM UTC
+  workflow_dispatch:
+
+jobs:
+  repo-sync:
+    name: Repo Sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Sync repo to branch
+        uses: repo-sync/github-sync@v2
+        with:
+          source_repo: aws-amplify/amplify-ui
+          source_branch: main
+          destination_branch: pr/repo-sync
+          github_token: ${{ secrets.WORKFLOW_PERSONAL_TOKEN }}
+      - name: Create pull request
+        uses: repo-sync/pull-request@v2
+        id: open-pr
+        with:
+          source_branch: pr/repo-sync
+          destination_branch: main
+          pr_title: 'Sync amplify-ui to amplify-ui-staging'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Auto approve pull request
+        uses: hmarr/auto-approve-action@v2
+        with:
+          pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
+          github-token: ${{ secrets.PERSONAL_TOKEN }}

@@ -1,0 +1,79 @@
+name: Publish to @liveness-mobile-testing
+
+on:
+  push:
+    branches: [liveness-mobile-testing]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ci
+    permissions:
+      id-token: write
+      contents: write
+    # We only publish if the previous workflow run (Tests) was successful
+    # and the previous workflow was called from main branch.
+    #
+    # Note that we check against workflow_run.head_branch instead of github.ref
+    # because workflow_run is always run on main, even if it's triggered from
+    # another branch.
+    #
+    # https://github.community/t/workflow-run-not-working-as-expected/139342
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'liveness-mobile-testing')
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          ref: 'liveness-mobile-testing'
+
+      - name: Configure CodeArtifact
+        id: configure-codeartifact
+        uses: ./.github/actions/codeartifact-action
+        with:
+          role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
+          domain: amplify-ui-liveness
+          repository: amplify-ui
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+          registry-url: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
+          always-auth: true
+
+      - name: Install and build packages
+        run: yarn --frozen-lockfile --prefer-offline && yarn build
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
+
+      - name: Add changeset that bumps all public packages
+        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
+        run: cp .github/changeset-presets/bump-versions.md .changeset
+
+      - name: Run changeset version to liveness-mobile-testing tag
+        run: yarn version:liveness-mobile-testing
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # CodeArtifact
+      - name: Login to CodeArtifact
+        run: |
+          CODEARTIFACT_REGISTRY=${REGISTRY_ENDPOINT#"https://"}
+
+          yarn config set registry $REGISTRY_ENDPOINT
+          echo "//$CODEARTIFACT_REGISTRY:_authToken=$NPM_TOKEN" >> .npmrc
+          echo "//$CODEARTIFACT_REGISTRY:always-auth=true" >> .npmrc
+        env:
+          REGISTRY_ENDPOINT: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
+          NPM_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
+      - name: Publish to liveness-mobile-testing tag for CodeArtifact
+        run: yarn publish:liveness-mobile-testing
+
+      # Trigger sample app build
+      - name: Trigger build for sample app
+        run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
+        env:
+          ENDPOINT: ${{ secrets.LIVENESS_MOBILE_TESTING_SAMPLE_APP_BUILD_TRIGGER }}

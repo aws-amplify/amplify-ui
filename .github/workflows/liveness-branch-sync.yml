@@ -1,0 +1,26 @@
+name: Liveness Branch Sync
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  branch-sync:
+    name: Branch Sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Sync branches
+        uses: repo-sync/pull-request@v2
+        id: open-pr
+        with:
+          source_branch: main
+          destination_branch: liveness-main
+          pr_title: 'Sync branch main to liveness-main'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Auto approve pull request
+        uses: hmarr/auto-approve-action@v2
+        with:
+          pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
+          github-token: ${{ secrets.PERSONAL_TOKEN }}

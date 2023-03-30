@@ -1,8 +1,9 @@
 name: 'CodeQL'
 
-on:
-  push:
-    branches: ['main']
+# Re-enable it once we get the license to enable advanced security
+# on:
+#   push:
+#     branches: ['main']
 
 jobs:
   analyze:

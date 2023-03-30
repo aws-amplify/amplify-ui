@@ -9,9 +9,10 @@ concurrency:
   group: e2e-${{ github.sha }}
   cancel-in-progress: true
 
-on:
-  push:
-    branches: [main]
+# Disabled on staging repo
+# on:
+#   push:
+#     branches: [main]
 
 permissions:
   id-token: write # This is required for requesting the JWT
