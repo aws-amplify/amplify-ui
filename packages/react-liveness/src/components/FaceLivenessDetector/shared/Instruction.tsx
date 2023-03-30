@@ -42,7 +42,6 @@ export const Instruction: React.FC<InstructionProps> = () => {
   // NOTE: Do not change order of these selectors as the unit tests depend on this order
   const errorState = useLivenessSelector(selectErrorState);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
-
   const illuminationState = useLivenessSelector(selectIlluminationState);
   const faceMatchStateBeforeStart = useLivenessSelector(
     selectFaceMatchStateBeforeStart
@@ -143,8 +142,9 @@ export const Instruction: React.FC<InstructionProps> = () => {
       // During face matching, we want to only show the TOO_CLOSE or
       // TOO_FAR texts. If FaceMatchState matches TOO_CLOSE, we'll show
       // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
-      // we are defaulting to the TOO_FAR text (for now).
-      return (
+      // we are defaulting to the TOO_FAR text (for now). For MATCHED state,
+      // we don't want to show any toasts.
+      return faceMatchState !== FaceMatchState.MATCHED ? (
         <Toast
           size="large"
           variation={
@@ -155,7 +155,7 @@ export const Instruction: React.FC<InstructionProps> = () => {
             ? FaceMatchStateStringMap[FaceMatchState.TOO_CLOSE]
             : FaceMatchStateStringMap[FaceMatchState.TOO_FAR]}
         </Toast>
-      );
+      ) : null;
     }
 
     return null;
