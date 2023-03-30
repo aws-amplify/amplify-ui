@@ -151,6 +151,7 @@
   display: block;
   width: min(70%, 200px);
   position: relative;
+  --amplify-liveness-match-indicator-transition: transform 0.2s linear;
 }
 
 .amplify-liveness-match-indicator__bar {
@@ -173,7 +174,7 @@
   top: 50%;
   left: 0;
   transform: translate(var(--percentage), 0);
-  transition: transform 0.2s ease-out;
+  transition: var(--amplify-liveness-match-indicator-transition);
 }
 
 .amplify-liveness-match-indicator__bar:after {
@@ -184,7 +185,7 @@
   background: var(--amplify-colors-brand-primary-40);
   left: -100%;
   transform: translate(var(--percentage), 0);
-  transition: transform 0.3s ease-out;
+  transition: var(--amplify-liveness-match-indicator-transition);
 }
 
 .amplify-liveness-match-indicator__pin:after {
