@@ -4,21 +4,22 @@ export const defaultTexts = {
   LIVENESS_WARNING: 'Photosensitivity warning',
   LIVENESS_WARNING_CONTENT:
     'This check displays colored lights. Use caution if you are photosensitive.',
-  LIVENESS_CHECK_DESCRIPTION: 'Follow the instructions to complete the check: ',
+  LIVENESS_CHECK_DESCRIPTION:
+    'Follow these instructions to complete the check: ',
   LIVENESS_INSTRUCTION_COVER:
     'Make sure your face is not covered with sunglasses or a mask.',
   LIVENESS_INSTRUCTION_LIGHT:
     'Move to a well-lit place that is not in direct sunlight.',
   LIVENESS_INSTRUCTION_BRIGHTNESS:
-    'Set your screen display to maximum brightness.',
+    'Increase your screen to its to maximum brightness.',
   LIVENESS_INSTRUCTION_OVAL:
-    'When an oval appears, completely fill the oval with your face within 8 seconds.',
+    'When an oval appears, fill the oval with your face within 7 seconds.',
   LIVENESS_WARNING_POPOVER:
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
 
   // Camera Permissions
   LIVENESS_NO_CAMERA_DETECTED_DESCRIPTION:
-    'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.',
+    'Check that camera is connected and camera permissions are enabled in settings before retrying.',
   LIVENESS_NO_CAMERA_DETECTED: 'Camera not accessible.',
   LIVENESS_NO_CAMERA_MIN_SPEC: 'Camera does not meet minimum specifications',
   LIVENESS_NO_CAMERA_MIN_SPEC_DESCRIPTION:
@@ -53,12 +54,12 @@ export const defaultTexts = {
     "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds.",
   LIVENESS_FACE_DISTANCE_ERROR_TITLE: 'Check failed during countdown',
   LIVENESS_FACE_DISTANCE_ERROR:
-    'Ensure only one face is in front of camera and avoid moving closer during countdown.',
+    'Avoid moving closer during countdown and ensure only one face is in front of camera.',
 
   LIVENESS_HINT_MULTIPLE_FACES_DETECTED: 'Multiple faces detected',
   LIVENESS_ORIENTATION_ERROR_TITLE: 'Landscape orientation not supported',
   LIVENESS_ORIENTATION_LANDSCAPE:
     'Rotate your device to portrait (vertical) orientation',
   LIVENESS_ORIENTATION_PORTRAIT:
-    "Ensure your device remains in portrait orientation for the check's duration",
+    "Ensure your device remains in portrait (vertical) orientation for the check's duration",
 };

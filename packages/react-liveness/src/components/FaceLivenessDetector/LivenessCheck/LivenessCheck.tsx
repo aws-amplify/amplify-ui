@@ -98,7 +98,7 @@ export const LivenessCheck: React.FC = () => {
                   'Camera must support at least 320*240 resolution and 15 frames per second.'
                 )
               : translate(
-                  'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.'
+                  'Check that camera is connected and camera permissions are enabled in settings before retrying.'
                 )}
           </Text>
           <Button

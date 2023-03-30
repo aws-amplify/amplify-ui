@@ -25,6 +25,6 @@ Feature: Liveness Detector
       And I see "connecting"
       And I see "Hold face position during countdown"
       And I see "liveness-camera-countdown-timer" element
-      And I see "Ensure only one face is in front of camera and avoid moving closer during countdown."
+      And I see "Avoid moving closer during countdown and ensure only one face is in front of camera."
       And I click the "Try again" button
       Then I see the "Begin check" button

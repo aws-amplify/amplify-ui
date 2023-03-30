@@ -13,7 +13,7 @@ export interface LivenessComponents {
 
 export const defaultLivenessHeaderHeading: string = 'Liveness check';
 export const defaultLivenessHeaderBody: string =
-  'You will go through a face verification process to prove you are a real person.';
+  'You will go through a face verification process to prove that you are a real person.';
 
 export const LivenessHeader = (): JSX.Element => {
   return (
@@ -56,13 +56,7 @@ export const PhotosensitiveWarning = (): JSX.Element => {
 
 export const INSTRUCTIONS = [
   {
-    desc: (
-      <span>
-        When an oval appears,{' '}
-        <strong>completely fill the oval with your face</strong> within 8
-        seconds.
-      </span>
-    ),
+    desc: DefaultTexts.LIVENESS_INSTRUCTION_OVAL,
   },
   {
     desc: DefaultTexts.LIVENESS_INSTRUCTION_BRIGHTNESS,
@@ -76,7 +70,7 @@ export const INSTRUCTIONS = [
 ];
 
 export const defaultLivenessInstructionsHeader: string =
-  'Follow the instructions to complete the check: ';
+  'Follow these instructions to complete the check: ';
 
 export const LivenessInstructions = (): JSX.Element => {
   return (
@@ -99,7 +93,7 @@ export const LivenessInstructions = (): JSX.Element => {
               <Text as="span" aria-hidden="true">
                 {index + 1}.
               </Text>
-              <Text as="span">{translate(item.desc as string)}</Text>
+              <Text as="span">{translate(item.desc)}</Text>
             </Flex>
           );
         })}

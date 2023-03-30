@@ -37,8 +37,8 @@ const App = () => {
               <View flex="1">
                 <Heading>Face liveness check</Heading>
                 <Text>
-                  You will go through a face verification process to prove you
-                  are a real person.
+                  You will go through a face verification process to prove that
+                  you are a real person.
                 </Text>
               </View>
             );

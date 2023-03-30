@@ -4,22 +4,22 @@ export const enDict = {
   'Photosensitivity warning': 'Photosensitivity warning',
   'This check displays colored lights. Use caution if you are photosensitive.':
     'This check displays colored lights. Use caution if you are photosensitive.',
-  'Follow the instructions to complete the check: ':
-    'Follow the instructions to complete the check: ',
+  'Follow these instructions to complete the check: ':
+    'Follow these instructions to complete the check: ',
   'Make sure your face is not covered with sunglasses or a mask.':
     'Make sure your face is not covered with sunglasses or a mask.',
   'Move to a well-lit place that is not in direct sunlight.':
     'Move to a well-lit place that is not in direct sunlight.',
-  'Set your screen display to maximum brightness.':
-    'Set your screen display to maximum brightness.',
-  'When an oval appears, completely fill the oval with your face within 8 seconds.':
-    'When an oval appears, completely fill the oval with your face within 8 seconds.',
+  'Increase your screen to its to maximum brightness.':
+    'Increase your screen to its to maximum brightness.',
+  'When an oval appears, fill the oval with your face within 7 seconds.':
+    'When an oval appears, fill the oval with your face within 7 seconds.',
   'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.':
     'A small percentage of individuals may experience epileptic seizures when exposed to colored lights. Use caution if you, or anyone in your family, have an epileptic condition.',
 
   // Camera Permissions
-  'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.':
-    'Make sure camera is connected, and camera permissions allowed in system settings, before retrying.',
+  'Check that camera is connected and camera permissions are enabled in settings before retrying.':
+    'Check that camera is connected and camera permissions are enabled in settings before retrying.',
   'Camera not accessible.': 'Camera not accessible.',
   'Camera does not meet minimum specifications':
     'Camera does not meet minimum specifications',
@@ -57,8 +57,8 @@ export const enDict = {
     "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds.",
   'Time out': 'Time out',
   'Check failed during countdown': 'Check failed during countdown',
-  'Ensure only one face is in front of camera and avoid moving closer during countdown.':
-    'Ensure only one face is in front of camera and avoid moving closer during countdown.',
+  'Avoid moving closer during countdown and ensure only one face is in front of camera.':
+    'Avoid moving closer during countdown and ensure only one face is in front of camera.',
   'Server Issue': 'Server Issue',
   'Client error': 'Client error',
   'Ensure only one face is in front of camera':
@@ -66,6 +66,6 @@ export const enDict = {
   'Landscape orientation not supported': 'Landscape orientation not supported',
   'Rotate your device to portrait (vertical) orientation':
     'Rotate your device to portrait (vertical) orientation',
-  "Ensure your device remains in portrait orientation for the check's duration":
-    "Ensure your device remains in portrait orientation for the check's duration",
+  "Ensure your device remains in portrait (vertical) orientation for the check's duration":
+    "Ensure your device remains in portrait (vertical) orientation for the check's duration",
 };

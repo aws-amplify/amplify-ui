@@ -468,7 +468,7 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
     "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds."
   ),
   [LivenessErrorState.FACE_DISTANCE_ERROR]: translate<string>(
-    'Ensure only one face is in front of camera and avoid moving closer during countdown.'
+    'Avoid moving closer during countdown and ensure only one face is in front of camera.'
   ),
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: '',
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: '',
