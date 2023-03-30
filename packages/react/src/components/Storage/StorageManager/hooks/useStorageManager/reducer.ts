@@ -20,7 +20,7 @@ export function storageManagerStateReducer(
           id: file.name,
           file,
           error: errorText,
-          name: file.name,
+          key: file.name,
           status: errorText ? FileStatus.ERROR : FileStatus.QUEUED,
           isImage: file.type.startsWith('image/'),
           progress: -1,
