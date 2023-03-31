@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
+import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames } from '@aws-amplify/ui-react';
 
 import { FileList } from '../FileList';
@@ -15,6 +16,7 @@ const mockFile: StorageFile = {
   error: '',
   isImage: false,
   key: '',
+  uploadTask: {} as UploadTask,
 };
 
 const mockOnCancelUpload = jest.fn();
@@ -103,5 +105,19 @@ describe('FileList', () => {
   it('renders nothing when there are no files', () => {
     const { container } = render(<FileList {...fileListProps} files={[]} />);
     expect(container).toMatchInlineSnapshot(`<div />`);
+  });
+
+  it('should call onDeleteUpload when remove button is clicked', () => {
+    const { getByText } = render(<FileList {...fileListProps} />);
+    const removeButton = getByText('Remove file');
+    fireEvent.click(removeButton);
+    expect(mockOnDeleteUpload).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call onPause when pause button is clicked', () => {
+    const { getByText } = render(<FileList {...fileListProps} isResumable />);
+    const pauseButton = getByText(defaultStorageManagerDisplayText.pauseText);
+    fireEvent.click(pauseButton);
+    expect(mockOnPause).toHaveBeenCalledTimes(1);
   });
 });
