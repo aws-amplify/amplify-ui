@@ -116,5 +116,6 @@ export function useUploadFiles({
     setUploadSuccess,
     processFile,
     provider,
+    path,
   ]);
 }

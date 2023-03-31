@@ -81,6 +81,14 @@ describe('FileStatusMessage', () => {
 
   it('renders nothing when status is null', () => {
     const { container } = render(<FileStatusMessage {...defaultProps} />);
-    expect(container).toMatchInlineSnapshot(`<div />`);
+    expect(container).toMatchInlineSnapshot(`
+      <div>
+        <p
+          class="amplify-text amplify-storagemanager__file__status"
+        >
+          Uploading... 50%
+        </p>
+      </div>
+    `);
   });
 });
