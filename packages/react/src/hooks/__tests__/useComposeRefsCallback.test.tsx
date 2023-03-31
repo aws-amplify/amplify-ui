@@ -7,7 +7,9 @@ import {
 
 const externalRef = React.createRef<HTMLInputElement>();
 const internalRef: UseComposeRefsCallbackProps<HTMLInputElement>['internalRef'] =
-  React.useRef<HTMLInputElement>(document.createElement('input'));
+  {
+    current: document.createElement('input'),
+  };
 
 let externalRefCallbackNode: HTMLInputElement | null;
 const externalRefCallback: UseComposeRefsCallbackProps<HTMLInputElement>['externalRef'] =

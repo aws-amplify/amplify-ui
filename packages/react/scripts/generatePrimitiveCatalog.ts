@@ -118,10 +118,21 @@ const getCatalogComponentProperty = (
   } else if (propType.isUnion()) {
     const hasNumber = propType
       .getUnionTypes()
-      .every((prop) => prop.isNumber() || prop.isNumberLiteral());
+      .filter((prop) => !prop.isNull() && !prop.isUndefined()) // Filter out null and undefined since union types aren't supported in Studio
+      .every((prop) => {
+        return prop.isNumber() || prop.isNumberLiteral();
+      });
+
+    const hasBoolean = propType
+      .getUnionTypes()
+      .filter((prop) => !prop.isNull() && !prop.isUndefined())
+      .every((prop) => {
+        return prop.isBoolean() || prop.isBooleanLiteral();
+      });
 
     const hasString = propType
       .getUnionTypes()
+      .filter((prop) => !prop.isNull() && !prop.isUndefined())
       .some((prop) => prop.isStringLiteral() || prop.isString());
 
     if (hasNumber) {
@@ -133,6 +144,12 @@ const getCatalogComponentProperty = (
     if (hasString) {
       return {
         type: 'string',
+      };
+    }
+
+    if (hasBoolean) {
+      return {
+        type: 'boolean',
       };
     }
   }
