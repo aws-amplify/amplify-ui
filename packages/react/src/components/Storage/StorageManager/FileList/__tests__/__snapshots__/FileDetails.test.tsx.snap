@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileDetails renders as expected 1`] = `
+<div>
+  <div
+    class="amplify-storagemanager__file__main"
+  >
+    <p
+      class="amplify-text amplify-storagemanager__file__name"
+    >
+      Test
+    </p>
+  </div>
+  <span
+    class="amplify-text amplify-storagemanager__file__size"
+  >
+    100 B
+  </span>
+</div>
+`;

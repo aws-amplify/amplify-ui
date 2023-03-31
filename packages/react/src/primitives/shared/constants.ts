@@ -576,6 +576,10 @@ export const ComponentClassObject: ComponentClassNameItems = {
     className: ComponentClassName.StorageManagerFileWrapper,
     components: ['StorageManager'],
   },
+  StorageManagerFileList: {
+    className: ComponentClassName.StorageManagerFileList,
+    components: ['StorageManager'],
+  },
   StorageManagerFileName: {
     className: ComponentClassName.StorageManagerFileName,
     components: ['StorageManager'],
@@ -875,6 +879,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   StorageManagerFile: ComponentClassObject.StorageManagerFile.className,
   StorageManagerFileWrapper:
     ComponentClassObject.StorageManagerFileWrapper.className,
+  StorageManagerFileList: ComponentClassObject.StorageManagerFileList.className,
   StorageManagerFileName: ComponentClassObject.StorageManagerFileName.className,
   StorageManagerLoader: ComponentClassObject.StorageManagerLoader.className,
   StorageManagerFileSize: ComponentClassObject.StorageManagerFileSize.className,

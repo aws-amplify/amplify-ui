@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Alert, View } from '@aws-amplify/ui-react';
+
 import { FileStatus } from '../../types';
 import { FileControl } from './FileControl';
 import { FileListProps } from './types';
@@ -25,7 +26,7 @@ export function FileList({
   const headingMaxFiles = getMaxFilesErrorText(maxFileCount);
 
   return (
-    <View className={'amplify-storagemanager--filelist'}>
+    <View className={ComponentClassNames.StorageManagerFileList}>
       {files.map((storageFile) => {
         const { file, status, progress, error, key, isImage, id, uploadTask } =
           storageFile;

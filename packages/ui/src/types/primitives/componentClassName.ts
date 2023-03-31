@@ -128,6 +128,7 @@ export enum ComponentClassName {
   StorageManagerDropZoneButton = 'amplify-storagemanager__dropzone__button',
   StorageManagerFile = 'amplify-storagemanager__file',
   StorageManagerFileWrapper = 'amplify-storagemanager__file__wrapper',
+  StorageManagerFileList = 'amplify-storagemanager__file__list',
   StorageManagerFileName = 'amplify-storagemanager__file__name',
   StorageManagerFileSize = 'amplify-storagemanager__file__size',
   StorageManagerFileInfo = 'amplify-storagemanager__file__info',
