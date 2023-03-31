@@ -20,6 +20,12 @@ describe('createDataStorePredicate', () => {
     operand: '25',
   };
 
+  const booleanPredicateObject = {
+    field: 'isActive',
+    operator: 'eq',
+    operand: true,
+  };
+
   test('should generate a simple predicate', () => {
     const predicate = createDataStorePredicate<Post>(namePredicateObject);
 
@@ -33,6 +39,21 @@ describe('createDataStorePredicate', () => {
 
     predicate(condition);
     expect(namePredicate).toHaveBeenCalledWith(namePredicateObject.operand);
+  });
+
+  test('should generate a simple boolean predicate', () => {
+    const predicate = createDataStorePredicate<Post>(booleanPredicateObject);
+
+    const booleanPredicate = jest.fn();
+
+    const condition: any = {
+      [booleanPredicateObject.field]: {
+        [booleanPredicateObject.operator]: booleanPredicate,
+      },
+    };
+
+    predicate(condition);
+    expect(booleanPredicate).toHaveBeenCalledWith(booleanPredicateObject.operand);
   });
 
   test('should generate a group predicate: or', () => {
