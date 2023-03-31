@@ -47,10 +47,9 @@ export interface FieldClearButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
 export interface FieldDescriptionProps
   extends TextProps,
-    Pick<FieldProps, 'descriptiveText' | 'labelHidden'> {}
+    Pick<FieldProps, 'labelHidden'> {}
 export interface FieldErrorMessageProps
   extends TextProps,
-    Pick<FieldProps, 'errorMessage'>,
     Pick<InputProps, 'hasError'> {}
 
 export type FieldVariations = 'quiet';

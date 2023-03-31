@@ -9,7 +9,6 @@ import {
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { FieldDescription } from './FieldDescription';
 
 interface FieldPrimitiveProps extends FlexContainerStyleProps, ViewProps {
   /**
@@ -20,14 +19,7 @@ interface FieldPrimitiveProps extends FlexContainerStyleProps, ViewProps {
 }
 
 const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
-  const {
-    className,
-    size,
-    testId,
-    // variation,
-    children,
-    ...rest
-  } = props;
+  const { className, size, testId, children, ...rest } = props;
 
   return (
     <Flex
@@ -40,7 +32,6 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
       testId={testId}
       ref={ref}
       {...rest}
-      // {...styleProps}
     >
       {children}
     </Flex>
@@ -50,8 +41,6 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/textfield)
  */
-const Field = React.forwardRef(FieldPrimitive);
-
-Field.Description = FieldDescription;
+export const Field = React.forwardRef(FieldPrimitive);
 
 Field.displayName = 'Field';
