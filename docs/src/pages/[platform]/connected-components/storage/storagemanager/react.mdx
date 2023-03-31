@@ -3,13 +3,14 @@ import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
-import { STORAGE_MANAGER, FILE_PICKER, DROPZONE_PROPS } from './props';
+import { STORAGE_MANAGER, FILE_PICKER, DROPZONE_PROPS, DISPLAY_TEXT } from './props';
 import {
   DefaultStorageManagerExample,
   StorageManagerComponentOverridesExample,
   StorageManagerThemeExample,
   StorageManageri18nExample,
   StorageManagerProcessFileExample,
+  StorageManagerDisplayTextExample,
 } from './examples'
 
 <Alert role="none" heading="Wait!">
@@ -17,6 +18,8 @@ import {
 </Alert>
 
 ## Basic Usage
+
+
 
 <Alert>
   The uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
@@ -56,10 +59,31 @@ To use the StorageManager component import it into your React application with t
 
 ## Event Handling
 
+The StorageManager component has several event handlers: `onUploadSuccess`, `onUploadError`, and `onFileRemove`
 
 ## Customization
 
+### Text and labels
+
+All text in the StorageManager component is customizable with the `displayText` prop. 
+
+<Example>
+  <StorageManagerDisplayTextExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerDisplayTextExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Expander isCollapsible>
+  <ExpanderItem title="Display text props" value="display-text">
+    <ReactPropsTable props={DISPLAY_TEXT} />
+  </ExpanderItem>
+</Expander>
+
 ### Internationalization
+
+You can use the `displayText` prop to also support different languages. Use an open source library like i18next, react-intl, or make your own:
 
 <Example>
   <StorageManageri18nExample />
@@ -71,6 +95,10 @@ To use the StorageManager component import it into your React application with t
 
 ### Component overrides
 
+Don't like how things look? Use your own components inside the StorageManager! You can pass your own components with the `components` prop. The available components to override are: `Container`, `FileList`, `FileListHeader`, `DropZone`, and `FilePicker`. 
+
+_You can even use a completely different UI kit like MUI, Chakra, or your own design system!_
+
 <Example>
   <StorageManagerComponentOverridesExample />
   <ExampleCode>
@@ -79,7 +107,7 @@ To use the StorageManager component import it into your React application with t
   </ExampleCode>
 </Example>
 
-<Expander>
+<Expander type="multiple">
   <ExpanderItem title="FilePicker props" value="filepicker">
     <ReactPropsTable props={FILE_PICKER} />
   </ExpanderItem>

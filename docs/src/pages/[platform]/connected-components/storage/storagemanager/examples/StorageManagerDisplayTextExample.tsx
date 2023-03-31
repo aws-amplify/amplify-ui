@@ -6,9 +6,12 @@ export const StorageManagerDisplayTextExample = () => {
       accessLevel="public"
       maxFileCount={1}
       displayText={{
-        dropFilesText: 'drop filez here',
+        // some text are plain strings
+        dropFilesText: 'drag-and-drop here',
+        browseFilesText: 'Open file picker',
+        // others are functions that take an argument
         getFilesUploadedText(count) {
-          return `${count} filez uploaded`;
+          return `${count} images uploaded`;
         },
       }}
       provider="fast" // IGNORE

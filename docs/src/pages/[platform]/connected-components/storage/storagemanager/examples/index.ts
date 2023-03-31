@@ -3,3 +3,4 @@ export { StorageManagerComponentOverridesExample } from './StorageManagerCompone
 export { StorageManagerThemeExample } from './StorageManagerThemeExample';
 export { StorageManageri18nExample } from './StorageManageri18nExample';
 export { StorageManagerProcessFileExample } from './StorageManagerProcessFileExample';
+export { StorageManagerDisplayTextExample } from './StorageManagerDisplayTextExample';

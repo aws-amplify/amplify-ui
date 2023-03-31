@@ -130,8 +130,83 @@ export const DROPZONE_PROPS = [
 
 export const DISPLAY_TEXT = [
   {
-    name: 'doneButtonText?',
+    name: 'getFilesUploadedText?',
     description: '',
+    type: `(count: number) => string`,
+  },
+  {
+    name: 'getFileSizeErrorText?',
+    description: '',
+    type: `(sizeText: string) => string`,
+  },
+  {
+    name: 'getRemainingFilesText?',
+    description: '',
+    type: `(count: number) => string`,
+  },
+  {
+    name: 'getUploadingText?',
+    description: '',
+    type: `(percentage: number) => string`,
+  },
+  {
+    name: 'getUploadButtonText?',
+    description: '',
+    type: `(count: number) => string`,
+  },
+  {
+    name: 'getMaxFilesErrorText?',
+    description: '',
+    type: `(count: number) => string`,
+  },
+  {
+    name: 'getErrorText?',
+    description: '',
+    type: `(message: string) => string`,
+  },
+  {
+    name: 'getPausedText?',
+    description: '',
+    type: `(percentage: string) => string`,
+  },
+  {
+    name: 'doneButtonText?',
+    description: 'Default: "Done"',
+    type: `string`,
+  },
+  {
+    name: 'clearAllButtonText?',
+    description: 'Default: "Clear all"',
+    type: `string`,
+  },
+  {
+    name: 'extensionNotAllowedText?',
+    description: 'Default: "Extension not allowed"',
+    type: `string`,
+  },
+  {
+    name: 'browseFilesText?',
+    description: 'Default: "Browse files"',
+    type: `string`,
+  },
+  {
+    name: 'dropFilesText?',
+    description: 'Default: "Drop files here or"',
+    type: `string`,
+  },
+  {
+    name: 'pauseText?',
+    description: 'Default: "Pause"',
+    type: `string`,
+  },
+  {
+    name: 'resumeText?',
+    description: 'Default: "Resume"',
+    type: `string`,
+  },
+  {
+    name: 'uploadSuccessfulText?',
+    description: 'Default: "Uploaded successfully"',
     type: `string`,
   },
 ];
