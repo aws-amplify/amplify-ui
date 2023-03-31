@@ -41,7 +41,7 @@ describe('FileList', () => {
   });
 
   it('renders as expected', () => {
-    const { container, getByText } = render(<FileList {...fileListProps} />);
+    const { container } = render(<FileList {...fileListProps} />);
 
     expect(container).toMatchSnapshot();
 
@@ -58,8 +58,10 @@ describe('FileList', () => {
     ).toHaveLength(fileListProps.files.length);
 
     expect(
-      getByText(defaultStorageManagerDisplayText.pauseText)
-    ).not.toBeInTheDocument();
+      container.getElementsByClassName(
+        `${ComponentClassNames.StorageManagerFileStatus}`
+      )
+    ).toHaveLength(1);
   });
 
   it('renders as expected when upload is resumable', () => {
