@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Text, ComponentClassNames } from '@aws-amplify/ui-react';
 import { IconCheck, IconError } from '@aws-amplify/ui-react/internal';
 import { classNameModifier } from '@aws-amplify/ui';
-import { FileStatus } from '../types';
+import { FileStatus } from '../../types';
 import { FileStatusMessageProps } from './types';
 
 export const FileStatusMessage = ({

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { View } from '@aws-amplify/ui-react';
 
-interface ContainerProps {
+export interface ContainerProps {
   children: React.ReactNode;
   className: string;
 }

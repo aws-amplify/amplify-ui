@@ -1,10 +1,33 @@
-import { StorageAccessLevel } from '@aws-amplify/storage';
-import { StorageManagerDisplayText } from '../displayText';
-import { DropZoneProps, FilePickerProps } from '../DropZone/types';
-import { FileListProps } from '../FileList/types';
-import { ContainerProps } from '../FileListContainer/FileListContainer';
-import { FileListHeaderProps } from '../FileListHeader/FileListHeader';
-import { DefaultFile, StorageFile } from '../types';
+import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
+
+import { DropZoneProps, FilePickerProps } from './ui/DropZone';
+import { FileListProps } from './ui/FileList';
+import { ContainerProps } from './ui/Container';
+import { FileListHeaderProps } from './ui/FileListHeader';
+import { StorageManagerDisplayText } from './utils';
+
+export enum FileStatus {
+  QUEUED = 'queued',
+  UPLOADING = 'uploading',
+  PAUSED = 'paused',
+  ERROR = 'error',
+  UPLOADED = 'uploaded',
+}
+
+export interface StorageFile {
+  id: string;
+  file?: File;
+  status: FileStatus;
+  progress: number;
+  uploadTask?: UploadTask;
+  key: string;
+  error: string;
+  isImage: boolean;
+}
+
+export type StorageFiles = StorageFile[];
+
+export type DefaultFile = Pick<StorageFile, 'key'>;
 
 export interface StorageManagerProps {
   /**
@@ -30,7 +53,7 @@ export interface StorageManagerProps {
   /**
    * List of default files already uploaded
    */
-  defaultFiles?: Array<DefaultFile>;
+  defaultFiles?: DefaultFile[];
   /**
    * Overrides default display text
    */

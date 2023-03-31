@@ -2,7 +2,7 @@ import { checkMaxFileSize } from '../checkMaxFileSize';
 
 const imageFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
-const getFileSizeErrorText = (sizeText) => `Error over ${sizeText}`;
+const getFileSizeErrorText = (sizeText: string) => `Error over ${sizeText}`;
 
 describe('checkMaxFileSize', () => {
   it('returns empty string if maxFileSize is undefined', () => {

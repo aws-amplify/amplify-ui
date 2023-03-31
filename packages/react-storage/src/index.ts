@@ -1,1 +1,1 @@
-export * from './StorageManager';
+export { StorageManager, StorageManagerProps } from './components';

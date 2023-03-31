@@ -1,6 +1,6 @@
 import type { UploadTask } from '@aws-amplify/storage';
-import { StorageManagerDisplayText } from '../displayText';
-import { FileStatus, StorageFile } from '../types';
+import { StorageManagerDisplayText } from '../../utils/displayText';
+import { FileStatus, StorageFile } from '../../types';
 
 export interface FileListProps {
   displayText: StorageManagerDisplayText;
