@@ -11,8 +11,7 @@ const uploadingText = 'Uploading...';
 const uploadingPausedText = 'Uploading paused...';
 const uploadSuccessful = 'Upload successful!';
 const errorUploading = 'Error';
-const defaultProps: FileStatusMessageProps = {
-  status: FileStatus.UPLOADING,
+const defaultProps: Omit<FileStatusMessageProps, 'status'> = {
   errorMessage: errorUploading,
   percentage: 50,
   getUploadingText: (percentage: number) => `${uploadingText} ${percentage}%`,
@@ -79,8 +78,10 @@ describe('FileStatusMessage', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('renders nothing when status is null', () => {
-    const { container } = render(<FileStatusMessage {...defaultProps} />);
+  it('renders nothing when status is queued', () => {
+    const { container } = render(
+      <FileStatusMessage {...defaultProps} status={FileStatus.QUEUED} />
+    );
     expect(container).toMatchInlineSnapshot(`<div />`);
   });
 });
