@@ -49,11 +49,8 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
-import { Hub } from 'aws-amplify';
 
 export const MIN_FACE_MATCH_TIME = 500;
-
-const DEBUG = process.env.NEXT_PUBLIC_DEBUG === 'TRUE';
 
 // timer metrics variables
 let faceDetectedTimestamp: number;
@@ -931,19 +928,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           });
         }
 
-        if (DEBUG) {
-          const deviceInfo = {
-            deviceName: realVideoDevices[0].label,
-            userAgent: navigator.userAgent,
-          };
-          console.log(`device info: ${JSON.stringify(deviceInfo)}`);
-          Hub.dispatch('LivenessSampleApp', {
-            event: 'deviceEvent',
-            data: deviceInfo,
-            message: 'Device info',
-          });
-        }
-
         return { stream: realVideoDeviceStream };
       },
       async openLivenessStreamConnection(context) {
@@ -1235,31 +1219,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async getLiveness(context) {
         const {
           componentProps: { onAnalysisComplete },
-          videoAssociatedParams: { videoMediaStream },
           livenessStreamProvider,
         } = context;
 
         livenessStreamProvider.endStream();
-
-        if (DEBUG) {
-          const debugInfo = {
-            recorderStartTimestamp:
-              livenessStreamProvider.videoRecorder.recorderStartTimestamp,
-            recordingStartApiTimestamp:
-              livenessStreamProvider.videoRecorder.recordingStartApiTimestamp,
-            recorderEndTimestamp:
-              livenessStreamProvider.videoRecorder.recorderEndTimestamp,
-            firstChunkTimestamp:
-              livenessStreamProvider.videoRecorder.firstChunkTimestamp,
-            videoStream: videoMediaStream.getVideoTracks()[0].getSettings(),
-          };
-          console.log(`debug info: ${JSON.stringify(debugInfo)}`);
-          Hub.dispatch('LivenessSampleApp', {
-            event: 'debugEvent',
-            data: debugInfo,
-            message: 'Debug info',
-          });
-        }
 
         // Get liveness result
         await onAnalysisComplete();
