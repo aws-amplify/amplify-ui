@@ -15,7 +15,11 @@ import {
   HintDisplayText,
   CameraDisplayText,
   StreamDisplayText,
+  ErrorDisplayText,
+  defaultErrorDisplayText,
 } from '../displayText';
+import { LandscapeErrorModal } from '../shared/LandscapeErrorModal';
+import { CheckScreenComponents } from '../shared/FaceLivenessErrorModal';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 
@@ -30,12 +34,16 @@ interface LivenessCheckProps {
   hintDisplayText: Required<HintDisplayText>;
   cameraDisplayText: Required<CameraDisplayText>;
   streamDisplayText: Required<StreamDisplayText>;
+  errorDisplayText: Required<ErrorDisplayText>;
+  components?: CheckScreenComponents;
 }
 
 export const LivenessCheck: React.FC<LivenessCheckProps> = ({
   hintDisplayText,
   cameraDisplayText,
   streamDisplayText,
+  errorDisplayText,
+  components,
 }: LivenessCheckProps) => {
   const [state, send] = useLivenessActor();
   const errorState = useLivenessSelector(selectErrorState);
@@ -88,6 +96,16 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
 
   const renderCheck = () => {
     if (errorState === LivenessErrorState.MOBILE_LANDSCAPE_ERROR) {
+      const displayText: Required<ErrorDisplayText> = {
+        ...defaultErrorDisplayText,
+        ...errorDisplayText,
+      };
+      const {
+        landscapeHeaderText,
+        portraitMessageText,
+        landscapeMessageText,
+        tryAgainText,
+      } = displayText;
       return (
         <Flex
           backgroundColor="background.primary"
@@ -97,8 +115,19 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
           justifyContent="center"
           position="absolute"
           width="100%"
-          height={480}
-        />
+        >
+          <LandscapeErrorModal
+            header={landscapeHeaderText}
+            portraitMessage={portraitMessageText}
+            landscapeMessage={landscapeMessageText}
+            tryAgainText={tryAgainText}
+            onRetry={() => {
+              send({
+                type: 'CANCEL',
+              })
+            }}
+          />
+        </Flex>
       );
     } else if (isPermissionDenied) {
       return (
@@ -140,6 +169,8 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
           isRecordingStopped={isRecordingStopped}
           streamDisplayText={streamDisplayText}
           hintDisplayText={hintDisplayText}
+          errorDisplayText={errorDisplayText}
+          components={components}
         />
       );
     }

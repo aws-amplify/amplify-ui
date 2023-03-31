@@ -11,7 +11,7 @@ import {
   useMediaStreamInVideo,
   UseMediaStreamInVideo,
 } from '../hooks';
-import { HintDisplayText, StreamDisplayText } from '../displayText';
+import { ErrorDisplayText, HintDisplayText, StreamDisplayText } from '../displayText';
 
 import {
   CancelButton,
@@ -19,8 +19,10 @@ import {
   RecordingIcon,
   Overlay,
   MatchIndicator,
+  selectErrorState,
 } from '../shared';
 import { LivenessClassNames } from '../types/classNames';
+import { CheckScreenComponents, FaceLivenessErrorModal, renderErrorModal } from '../shared/FaceLivenessErrorModal';
 
 export const selectVideoConstraints = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoConstraints
@@ -40,6 +42,8 @@ export interface LivenessCameraModuleProps {
   isRecordingStopped: boolean;
   streamDisplayText: Required<StreamDisplayText>;
   hintDisplayText: Required<HintDisplayText>;
+  errorDisplayText: Required<ErrorDisplayText>;
+  components?: CheckScreenComponents;
 }
 
 const centeredLoader = (
@@ -58,9 +62,13 @@ export const LivenessCameraModule = (
     isRecordingStopped,
     streamDisplayText,
     hintDisplayText,
+    errorDisplayText,
+    components: customComponents,
   } = props;
 
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
+
+  const { ErrorView = FaceLivenessErrorModal } = (customComponents ?? {});
 
   const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
@@ -69,6 +77,7 @@ export const LivenessCameraModule = (
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
+  const errorState = useLivenessSelector(selectErrorState);
   const showMatchIndicatorStates = [
     FaceMatchState.TOO_FAR,
     FaceMatchState.CANT_IDENTIFY,
@@ -209,13 +218,23 @@ export const LivenessCameraModule = (
           >
             <Hint hintDisplayText={hintDisplayText} />
 
+            {errorState &&
+              <ErrorView
+                onRetry={() => {
+                  send({ type: 'CANCEL' });
+                }}
+              >
+                {renderErrorModal({ errorState, overrideErrorDisplayText: errorDisplayText })}
+              </ErrorView>
+            }
+
             {/* 
               We only want to show the MatchIndicator when we're recording
               and when the face is in either the too far state, or the 
               initial face identified state
             */}
             {isRecording &&
-            showMatchIndicatorStates.includes(faceMatchState) ? (
+              showMatchIndicatorStates.includes(faceMatchState) ? (
               <MatchIndicator percentage={faceMatchPercentage} />
             ) : null}
 

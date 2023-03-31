@@ -82,6 +82,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     if (errorState || isCheckFailed || isCheckSuccessful) {
       return;
     }
+
     if (!isRecording) {
       if (isCheckFaceDetectedBeforeStart) {
         if (faceMatchStateBeforeStart === FaceMatchState.TOO_MANY) {

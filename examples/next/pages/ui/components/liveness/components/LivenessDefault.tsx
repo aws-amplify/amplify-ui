@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
 import {
   FaceLivenessDetector,
-  FaceLivenessErrorModal,
 } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
@@ -75,17 +74,6 @@ export default function LivenessDefault({
                 disableInstructionScreen={disableInstructionScreen}
                 components={components}
               />
-            ) : null}
-            {error ? (
-              <View style={{ zIndex: '1' }}>
-                <FaceLivenessErrorModal
-                  error={error}
-                  onRetry={() => {
-                    setError(undefined);
-                    stopLiveness();
-                  }}
-                />
-              </View>
             ) : null}
           </Flex>
         </Flex>

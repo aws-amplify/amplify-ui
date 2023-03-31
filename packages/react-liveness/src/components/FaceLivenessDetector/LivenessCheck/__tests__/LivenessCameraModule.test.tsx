@@ -38,7 +38,7 @@ describe('LivenessCameraModule', () => {
   let isNotRecording = false;
   let isRecording = false;
 
-  const { hintDisplayText, streamDisplayText } = getDisplayText(undefined);
+  const { hintDisplayText, streamDisplayText, errorDisplayText } = getDisplayText(undefined);
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
   function mockStateMatchesAndSelectors() {
@@ -82,6 +82,7 @@ describe('LivenessCameraModule', () => {
         isRecordingStopped={false}
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
       />
     );
 
@@ -98,6 +99,7 @@ describe('LivenessCameraModule', () => {
         isRecordingStopped={false}
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
       />
     );
 
@@ -139,6 +141,7 @@ describe('LivenessCameraModule', () => {
         isRecordingStopped={false}
         hintDisplayText={hintDisplayText}
         streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
       />
     );
     const videoEl = screen.getByTestId('video');

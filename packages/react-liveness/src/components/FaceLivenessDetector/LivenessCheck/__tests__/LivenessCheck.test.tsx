@@ -7,6 +7,8 @@ import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
 import { LivenessCheck } from '../LivenessCheck';
 import { useLivenessSelector, useLivenessActor } from '../../hooks';
 import { getDisplayText } from '../../utils/getDisplayText';
+import { defaultErrorDisplayText } from '../../displayText';
+import { mockMatchMedia } from '../../__mocks__';
 
 jest.mock('../../hooks');
 jest.mock('@aws-amplify/ui-react/internal');
@@ -17,7 +19,12 @@ const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseThemeBreakpoint = getMockedFunction(useThemeBreakpoint);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 
-const { hintDisplayText, cameraDisplayText, streamDisplayText } =
+const {
+  landscapeHeaderText,
+  landscapeMessageText
+} = defaultErrorDisplayText;
+
+const { hintDisplayText, cameraDisplayText, streamDisplayText, errorDisplayText } =
   getDisplayText(undefined);
 
 const {
@@ -53,6 +60,7 @@ describe('LivenessCheck', () => {
         hintDisplayText={hintDisplayText}
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
       />
     );
 
@@ -78,6 +86,7 @@ describe('LivenessCheck', () => {
         hintDisplayText={hintDisplayText}
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
       />
     );
 
@@ -104,6 +113,7 @@ describe('LivenessCheck', () => {
         hintDisplayText={hintDisplayText}
         cameraDisplayText={cameraDisplayText}
         streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
       />
     );
 
@@ -111,5 +121,26 @@ describe('LivenessCheck', () => {
       screen.queryByText(cameraNotFoundHeadingText)
     ).not.toBeInTheDocument();
     expect(screen.getByText('LivenessCameraModule')).toBeInTheDocument();
+  });
+
+  it('should render the component content for mobile landscape errors', () => {
+    mockMatchMedia('(orientation: landscape)', true);
+    mockActorState.matches.mockReturnValue(true);
+    mockUseLivenessSelector.mockReturnValue(
+      LivenessErrorState.MOBILE_LANDSCAPE_ERROR
+    );
+
+    renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+      />
+    );
+
+    expect(screen.getByText(landscapeHeaderText)).toBeInTheDocument();
+    expect(screen.getByText(landscapeMessageText)).toBeInTheDocument();
+    expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
   });
 });

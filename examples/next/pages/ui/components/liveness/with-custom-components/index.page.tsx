@@ -76,6 +76,17 @@ const App = () => {
               </Card>
             );
           },
+          ErrorView: ({ error, children }) => {
+            return (
+              <View flex="1" backgroundColor="white">
+                <Heading color="black">My Custom Error Modal</Heading>
+                <Text color="black">
+                  Hey there was an error: {error}
+                </Text>
+                {children}
+              </View>
+            );
+          },
         }}
       />
     </Layout>

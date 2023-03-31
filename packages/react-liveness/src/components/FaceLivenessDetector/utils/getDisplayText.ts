@@ -5,6 +5,7 @@ import {
   CameraDisplayText,
   InstructionDisplayText,
   StreamDisplayText,
+  ErrorDisplayText,
 } from '../displayText';
 
 interface LivenessDisplayTextInterface {
@@ -12,6 +13,7 @@ interface LivenessDisplayTextInterface {
   cameraDisplayText: Required<CameraDisplayText>;
   instructionDisplayText: Required<InstructionDisplayText>;
   streamDisplayText: Required<StreamDisplayText>;
+  errorDisplayText: Required<ErrorDisplayText>;
 }
 
 /**
@@ -65,6 +67,18 @@ export function getDisplayText(
     hintIlluminationTooDarkText,
     hintIlluminationNormalText,
     hintHoldFaceForFreshnessText,
+    timeoutHeaderText,
+    timeoutMessageText,
+    faceDistanceHeaderText,
+    faceDistanceMessageText,
+    clientHeaderText,
+    clientMessageText,
+    serverHeaderText,
+    serverMessageText,
+    landscapeHeaderText,
+    landscapeMessageText,
+    portraitMessageText,
+    tryAgainText,
   } = displayText;
 
   const hintDisplayText: Required<HintDisplayText> = {
@@ -114,10 +128,26 @@ export function getDisplayText(
     recordingIndicatorText,
   };
 
+  const errorDisplayText: Required<ErrorDisplayText> = {
+    timeoutHeaderText,
+    timeoutMessageText,
+    faceDistanceHeaderText,
+    faceDistanceMessageText,
+    clientHeaderText,
+    clientMessageText,
+    serverHeaderText,
+    serverMessageText,
+    landscapeHeaderText,
+    landscapeMessageText,
+    portraitMessageText,
+    tryAgainText,
+  };
+
   return {
     hintDisplayText,
     cameraDisplayText,
     instructionDisplayText,
     streamDisplayText,
+    errorDisplayText,
   };
 }

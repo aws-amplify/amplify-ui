@@ -64,6 +64,9 @@ export const defaultErrorDisplayText = {
   tryAgainText: 'Try again',
 };
 
+export type ErrorDisplayTextFoo = typeof defaultErrorDisplayText;
+export type ErrorDisplayText = Partial<ErrorDisplayTextFoo>;
+
 export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   instructionsHeaderHeadingText: 'Liveness check',
   instructionsHeaderBodyText:
@@ -111,12 +114,12 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
+  ...defaultErrorDisplayText,
 };
-
-export type ErrorDisplayText = typeof defaultErrorDisplayText;
 
 export interface LivenessDisplayText
   extends HintDisplayText,
     CameraDisplayText,
     InstructionDisplayText,
+    ErrorDisplayText,
     StreamDisplayText {}

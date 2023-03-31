@@ -7,22 +7,23 @@ import { LivenessErrorState } from '../service';
 
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
-import { LandscapeErrorModal } from './LandscapeErrorModal';
 import { defaultErrorDisplayText, ErrorDisplayText } from '../displayText';
 
+export interface CheckScreenComponents {
+  ErrorView?: React.ComponentType<FaceLivenessErrorModalProps>;
+}
+
 export interface FaceLivenessErrorModalProps {
-  error: Error;
+  children: React.ReactNode;
   displayText?: Partial<ErrorDisplayText>;
   onRetry: () => void;
 }
 
 const renderToastErrorModal = (props: {
-  error: Error;
-  displayText: ErrorDisplayText;
-  onRetry: () => void;
+  error: LivenessErrorState;
+  displayText: Required<ErrorDisplayText>;
 }) => {
-  const { error, onRetry, displayText } = props;
-  const { name: errorState } = error;
+  const { error: errorState, displayText } = props;
 
   const {
     timeoutHeaderText,
@@ -33,7 +34,6 @@ const renderToastErrorModal = (props: {
     clientMessageText,
     serverHeaderText,
     serverMessageText,
-    tryAgainText,
   } = displayText;
 
   let heading: string;
@@ -59,18 +59,62 @@ const renderToastErrorModal = (props: {
   }
 
   return (
+    <>
+      <Flex
+        gap="xs"
+        alignItems="center"
+        justifyContent="center"
+        color="font.error"
+      >
+        <AlertIcon ariaHidden variation="error" />
+        <Text fontWeight="bold">{heading}</Text>
+      </Flex>
+      {message}
+    </>
+  );
+};
+
+export const renderErrorModal = ({ errorState, overrideErrorDisplayText }: {
+  errorState: LivenessErrorState;
+  overrideErrorDisplayText?: ErrorDisplayText;
+}): JSX.Element | null => {
+  const displayText: Required<ErrorDisplayText> = {
+    ...defaultErrorDisplayText,
+    ...overrideErrorDisplayText,
+  };
+
+  if (
+    errorState === LivenessErrorState.CAMERA_ACCESS_ERROR ||
+    errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR ||
+    errorState === LivenessErrorState.MOBILE_LANDSCAPE_ERROR
+  ) {
+    return null;
+  } else {
+    return renderToastErrorModal({
+      error: errorState,
+      displayText,
+    });
+  }
+}
+
+export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
+  props
+) => {
+  const { children, onRetry, displayText: overrideErrorDisplayText } = props;
+
+  const displayText: ErrorDisplayText = {
+    ...defaultErrorDisplayText,
+    ...overrideErrorDisplayText,
+  };
+
+  const {
+    tryAgainText,
+  } = displayText;
+
+  return (
     <Overlay backgroundColor="overlay.40">
       <Toast>
-        <Flex
-          gap="xs"
-          alignItems="center"
-          justifyContent="center"
-          color="font.error"
-        >
-          <AlertIcon ariaHidden variation="error" />
-          <Text fontWeight="bold">{heading}</Text>
-        </Flex>
-        {message}
+        {children}
         <Flex justifyContent="center">
           <Button variation="primary" type="button" onClick={onRetry}>
             {tryAgainText}
@@ -79,46 +123,4 @@ const renderToastErrorModal = (props: {
       </Toast>
     </Overlay>
   );
-};
-
-export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
-  props
-) => {
-  const { error, onRetry, displayText: overrideErrorDisplayText } = props;
-  const { name: errorState } = error;
-
-  const displayText: ErrorDisplayText = {
-    ...defaultErrorDisplayText,
-    ...overrideErrorDisplayText,
-  };
-
-  const {
-    landscapeHeaderText,
-    portraitMessageText,
-    landscapeMessageText,
-    tryAgainText,
-  } = displayText;
-
-  if (errorState === LivenessErrorState.MOBILE_LANDSCAPE_ERROR) {
-    return (
-      <LandscapeErrorModal
-        header={landscapeHeaderText}
-        portraitMessage={portraitMessageText}
-        landscapeMessage={landscapeMessageText}
-        tryAgainText={tryAgainText}
-        onRetry={onRetry}
-      />
-    );
-  } else if (
-    errorState === LivenessErrorState.CAMERA_ACCESS_ERROR ||
-    errorState === LivenessErrorState.CAMERA_FRAMERATE_ERROR
-  ) {
-    return null;
-  } else {
-    return renderToastErrorModal({
-      error,
-      onRetry,
-      displayText,
-    });
-  }
 };

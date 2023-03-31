@@ -13,12 +13,15 @@ import { getVideoConstraints } from './StartLiveness/helpers';
 import { StartScreenComponents } from './shared/DefaultStartScreenComponents';
 import { LivenessDisplayText } from './displayText';
 import { getDisplayText } from './utils/getDisplayText';
+import { CheckScreenComponents } from './shared/FaceLivenessErrorModal';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
+type FaceLivenessDetectorComponents = StartScreenComponents & CheckScreenComponents;
+
 export interface FaceLivenessDetectorProps
   extends FaceLivenessDetectorPropsFromUi {
-  components?: StartScreenComponents;
+  components?: FaceLivenessDetectorComponents;
   displayText?: LivenessDisplayText;
 }
 
@@ -37,6 +40,7 @@ export default function FaceLivenessDetector(
     cameraDisplayText,
     instructionDisplayText,
     streamDisplayText,
+    errorDisplayText
   } = getDisplayText(displayText);
 
   const service = useInterpret(livenessMachine, {
@@ -82,6 +86,8 @@ export default function FaceLivenessDetector(
               hintDisplayText={hintDisplayText}
               cameraDisplayText={cameraDisplayText}
               streamDisplayText={streamDisplayText}
+              errorDisplayText={errorDisplayText}
+              components={components}
             />
           )}
         </Flex>
