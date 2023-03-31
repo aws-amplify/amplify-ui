@@ -150,6 +150,10 @@ jobs:
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
 
+      - name: Build react-storage package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-storage build
+
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
 
@@ -340,6 +344,9 @@ jobs:
 
       - name: Build react package
         run: yarn react build
+        
+      - name: Build react-storage package
+        run: yarn react-storage build
 
       - name: Build docs package
         run: yarn docs build
