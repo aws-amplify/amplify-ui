@@ -2,24 +2,16 @@ import * as React from 'react';
 import classNames from 'classnames';
 import {
   Primitive,
-  FieldProps,
   FlexContainerStyleProps,
   ViewProps,
   InputSizes,
 } from '../types';
-import { useStableId } from '../utils/useStableId';
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
-import { FieldDescription } from './FieldDescription';
-import { FieldErrorMessage } from './FieldErrorMessage';
 import { Flex } from '../Flex';
-import { Label } from '../Label';
+import { FieldDescription } from './FieldDescription';
 
-interface FieldPrimitiveProps
-  extends FieldProps,
-    FlexContainerStyleProps,
-    ViewProps {
-  hasError?: boolean;
+interface FieldPrimitiveProps extends FlexContainerStyleProps, ViewProps {
   /**
    * @description
    * Changes the font-size, padding, and height of the field.
@@ -30,12 +22,6 @@ interface FieldPrimitiveProps
 const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
   const {
     className,
-    descriptiveText,
-    errorMessage,
-    hasError = false,
-    id,
-    label,
-    labelHidden = false,
     size,
     testId,
     // variation,
@@ -43,16 +29,11 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
     ...rest
   } = props;
 
-  const fieldId = useStableId(id);
-  const descriptionId = useStableId();
-  // const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
-
   return (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
         classNameModifier(ComponentClassNames.Field, size),
-        ComponentClassNames.TextField,
         className
       )}
       data-size={size}
@@ -61,16 +42,7 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
       {...rest}
       // {...styleProps}
     >
-      <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
-        {label}
-      </Label>
-      <FieldDescription
-        id={descriptionId}
-        labelHidden={labelHidden}
-        descriptiveText={descriptiveText}
-      />
       {children}
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
   );
 };
@@ -78,6 +50,8 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/textfield)
  */
-export const Field = React.forwardRef(FieldPrimitive);
+const Field = React.forwardRef(FieldPrimitive);
+
+Field.Description = FieldDescription;
 
 Field.displayName = 'Field';

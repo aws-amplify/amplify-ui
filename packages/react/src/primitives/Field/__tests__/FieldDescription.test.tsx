@@ -7,7 +7,7 @@ import { ComponentClassNames } from '../../shared/constants';
 describe('FieldDescription component', () => {
   it('should render if it has a "labelHidden" prop is `true`, as long as there\'s descriptiveText', () => {
     const { queryByTestId } = render(
-      <FieldDescription descriptiveText="some description" labelHidden />
+      <FieldDescription labelHidden>some description</FieldDescription>
     );
     const descriptionElement = queryByTestId(QA_FIELD_DESCRIPTION);
     expect(descriptionElement).toHaveClass(ComponentClassNames.VisuallyHidden);
@@ -15,10 +15,7 @@ describe('FieldDescription component', () => {
 
   it('should not be hidden if it has a "labelHidden" prop is `false`', () => {
     const { getByTestId } = render(
-      <FieldDescription
-        descriptiveText="some description"
-        labelHidden={false}
-      />
+      <FieldDescription labelHidden={false}>some description</FieldDescription>
     );
     const descriptionElement = getByTestId(QA_FIELD_DESCRIPTION);
     expect(descriptionElement).not.toHaveClass(
@@ -27,9 +24,7 @@ describe('FieldDescription component', () => {
   });
 
   it("should not render if there's no descriptiveText", () => {
-    const { queryByTestId } = render(
-      <FieldDescription descriptiveText="" labelHidden />
-    );
+    const { queryByTestId } = render(<FieldDescription labelHidden />);
     const descriptionElement = queryByTestId(QA_FIELD_DESCRIPTION);
     expect(descriptionElement).toBeNull();
   });

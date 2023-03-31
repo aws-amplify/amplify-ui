@@ -1,6 +1,8 @@
 .amplify-field {
   font-size: var(--amplify-components-field-font-size);
   gap: var(--amplify-components-field-gap);
+  flex-direction: var(--amplify-components-field-flex-direction);
+  
   &--small {
     font-size: var(--amplify-components-field-small-font-size);
     gap: var(--amplify-components-field-small-gap);

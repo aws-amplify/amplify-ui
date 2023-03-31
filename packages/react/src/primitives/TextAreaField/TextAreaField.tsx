@@ -57,11 +57,9 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
       </Label>
-      <FieldDescription
-        id={descriptionId}
-        labelHidden={labelHidden}
-        descriptiveText={descriptiveText}
-      />
+      <FieldDescription id={descriptionId} labelHidden={labelHidden}>
+        {descriptiveText}
+      </FieldDescription>
       <TextArea
         aria-describedby={ariaDescribedBy}
         hasError={hasError}
@@ -73,7 +71,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         {...rest}
         {...inputStyles}
       />
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage hasError={hasError}>{errorMessage}</FieldErrorMessage>
     </Flex>
   );
 };

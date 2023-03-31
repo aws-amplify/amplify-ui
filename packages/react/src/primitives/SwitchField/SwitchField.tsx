@@ -128,7 +128,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
           ></View>
         </View>
       </Label>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage hasError={hasError}>{errorMessage}</FieldErrorMessage>
     </Flex>
   );
 };

@@ -8,11 +8,11 @@ import { ComponentClassNames } from '../shared/constants';
 export const QA_FIELD_DESCRIPTION = 'qa-field-description';
 
 export const FieldDescription: React.FC<FieldDescriptionProps> = ({
-  descriptiveText,
+  children,
   labelHidden,
   ...rest
 }) =>
-  descriptiveText ? (
+  children ? (
     <Text
       data-testid={QA_FIELD_DESCRIPTION}
       className={classNames(ComponentClassNames.FieldDescription, {
@@ -20,7 +20,7 @@ export const FieldDescription: React.FC<FieldDescriptionProps> = ({
       })}
       {...rest}
     >
-      {descriptiveText}
+      {children}
     </Text>
   ) : null;
 

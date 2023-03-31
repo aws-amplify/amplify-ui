@@ -4,13 +4,13 @@ import { Text } from '../Text';
 import { ComponentClassNames } from '../shared/constants';
 
 export const FieldErrorMessage: React.FC<FieldErrorMessageProps> = ({
-  errorMessage,
+  children,
   hasError,
   ...rest
 }) => {
-  return hasError && errorMessage ? (
+  return hasError && children ? (
     <Text className={ComponentClassNames.FieldErrorMessage} {...rest}>
-      {errorMessage}
+      {children}
     </Text>
   ) : null;
 };

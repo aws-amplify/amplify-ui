@@ -6,8 +6,8 @@ import { ComponentClassNames } from '../../shared/constants';
 
 describe('Field component', () => {
   it('should render children', () => {
-    const { getByLabelText } = render(<Field label="test" />);
+    const { getByTestId } = render(<Field testId="test">Test</Field>);
 
-    expect(getByLabelText('test')).toHaveClass(ComponentClassNames.Field);
+    expect(getByTestId('test')).toHaveClass(ComponentClassNames.Field);
   });
 });

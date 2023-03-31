@@ -89,11 +89,9 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       <Label aria-hidden visuallyHidden={labelHidden}>
         {label}
       </Label>
-      <FieldDescription
-        id={descriptionId}
-        labelHidden={labelHidden}
-        descriptiveText={descriptiveText}
-      />
+      <FieldDescription id={descriptionId} labelHidden={labelHidden}>
+        {descriptiveText}
+      </FieldDescription>
       <Flex
         aria-describedby={ariaDescribedBy}
         className={ComponentClassNames.RadioGroup}
@@ -104,7 +102,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
           {children}
         </RadioGroupContext.Provider>
       </Flex>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage hasError={hasError}>{errorMessage}</FieldErrorMessage>
     </Flex>
   );
 };

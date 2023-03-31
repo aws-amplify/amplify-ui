@@ -92,11 +92,9 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
       </Label>
-      <FieldDescription
-        id={descriptionId}
-        labelHidden={labelHidden}
-        descriptiveText={descriptiveText}
-      />
+      <FieldDescription id={descriptionId} labelHidden={labelHidden}>
+        {descriptiveText}
+      </FieldDescription>
       <FieldGroup
         outerStartComponent={
           <FieldGroupIconButton
@@ -167,7 +165,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
           {...rest}
         />
       </FieldGroup>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage hasError={hasError}>{errorMessage}</FieldErrorMessage>
     </Flex>
   );
 };

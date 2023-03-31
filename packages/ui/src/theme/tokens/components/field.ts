@@ -1,7 +1,7 @@
 import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 type FieldSizeTokens<Output> = DesignTokenProperties<
-  'fontSize' | 'gap',
+  'fontSize' | 'gap' | 'flexDirection',
   Output
 >;
 
@@ -16,6 +16,7 @@ export const field: Required<FieldTokens<'default'>> = {
   // default styles
   gap: { value: '{space.xs.value}' },
   fontSize: { value: '{fontSizes.medium.value}' },
+  flexDirection: { value: 'column' },
 
   // Adjust base fontSize and gap for small and large sizes
   small: {

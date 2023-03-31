@@ -53,11 +53,9 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
       </Label>
-      <FieldDescription
-        id={descriptionId}
-        labelHidden={labelHidden}
-        descriptiveText={descriptiveText}
-      />
+      <FieldDescription id={descriptionId} labelHidden={labelHidden}>
+        {descriptiveText}
+      </FieldDescription>
       <FieldGroup
         outerStartComponent={outerStartComponent}
         outerEndComponent={outerEndComponent}
@@ -76,7 +74,7 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
           {...rest}
         />
       </FieldGroup>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage hasError={hasError}>{errorMessage}</FieldErrorMessage>
     </Flex>
   );
 };

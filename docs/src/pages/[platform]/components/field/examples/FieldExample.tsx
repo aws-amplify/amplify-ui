@@ -1,9 +1,17 @@
-import { Field } from '@aws-amplify/ui-react';
+import {
+  Field,
+  Label,
+  FieldDescription,
+  FieldErrorMessage,
+} from '@aws-amplify/ui-react';
 
 export const FieldExample = () => {
   return (
-    <Field label="Test">
-      <input type="text" />
+    <Field>
+      <Label htmlFor="email-input">My label</Label>
+      <FieldDescription id="email-input-desc">Description</FieldDescription>
+      <input type="text" id="email-input" aria-describedby="email-input-desc" />
+      <FieldErrorMessage hasError>Error!</FieldErrorMessage>
     </Field>
   );
 };
