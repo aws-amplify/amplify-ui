@@ -7,14 +7,15 @@ import { IconUpload } from '@aws-amplify/ui-react/internal';
 import { DropZoneProps } from './types';
 
 export function DropZone({
+  children,
+  displayText,
   inDropZone,
   onDragEnter,
   onDragLeave,
   onDragOver,
   onDragStart,
   onDrop,
-  displayText,
-  children,
+  testId,
 }: DropZoneProps): JSX.Element {
   const { dropFilesText } = displayText;
 
@@ -28,6 +29,7 @@ export function DropZone({
           ),
         ComponentClassNames.StorageManagerDropZone
       )}
+      data-testid={testId}
       onDragStart={onDragStart}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}

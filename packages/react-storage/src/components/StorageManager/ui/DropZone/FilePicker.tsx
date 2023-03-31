@@ -8,23 +8,26 @@ import {
 import { FilePickerProps } from './types';
 
 export function FilePicker({
-  onFileChange,
   acceptedFileTypes,
   allowMultipleFiles,
   displayText,
+  onFileChange,
 }: FilePickerProps): JSX.Element {
   const hiddenInput = React.useRef<HTMLInputElement>(null);
   const { browseFilesText } = displayText;
+
+  function handleClick() {
+    if (hiddenInput.current) {
+      hiddenInput.current.click();
+      hiddenInput.current.value = '';
+    }
+  }
+
   return (
     <View>
       <Button
         className={ComponentClassNames.StorageManagerDropZoneButton}
-        onClick={() => {
-          if (hiddenInput.current) {
-            hiddenInput.current.click();
-            hiddenInput.current.value = '';
-          }
-        }}
+        onClick={handleClick}
         size="small"
       >
         {browseFilesText}

@@ -1,16 +1,15 @@
 import { StorageManagerDisplayText } from '../../utils/displayText';
 
 export interface DropZoneProps {
-  acceptedFileTypes: string[];
   children?: React.ReactNode;
   displayText: StorageManagerDisplayText;
-  isLoading?: boolean;
-  onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
+  inDropZone: boolean;
   onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
   onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
   onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
   onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
-  inDropZone: boolean;
+  testId?: string;
 }
 
 export interface FilePickerProps {

@@ -199,11 +199,7 @@ function StorageManager({
         hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
       }`}
     >
-      <Components.DropZone
-        {...dropZoneProps}
-        acceptedFileTypes={acceptedFileTypes}
-        displayText={displayText}
-      >
+      <Components.DropZone {...dropZoneProps} displayText={displayText}>
         <Components.FilePicker
           onFileChange={onFilePickerChange}
           displayText={displayText}
