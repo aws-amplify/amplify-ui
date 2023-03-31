@@ -36,6 +36,7 @@ function StorageManager({
   processFile,
   components,
   provider,
+  path,
 }: StorageManagerProps): JSX.Element {
   if (!acceptedFileTypes || !accessLevel || !maxFileCount) {
     logger.warn(
@@ -112,6 +113,7 @@ function StorageManager({
     setUploadSuccess,
     processFile,
     provider,
+    path,
   });
 
   const onFilePickerChange = (event: React.ChangeEvent<HTMLInputElement>) => {

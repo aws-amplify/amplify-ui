@@ -97,4 +97,11 @@ export interface StorageManagerProps {
    * @see https://docs.amplify.aws/lib/storage/custom-plugin/q/platform/js/
    */
   provider?: string;
+
+  /**
+   * A path to put files in the s3 bucket.
+   * This will be prepended to the key sent to
+   * s3 for each file.
+   */
+  path?: string;
 }
