@@ -42,7 +42,7 @@ export const TwoButtonSubmitFooter = (
   ) : (
     <>{getSubmitText()}</>
   );
-  const submitText = submitButtonText || defaultSubmitText;
+  const submitText = submitButtonText ?? defaultSubmitText;
 
   return (
     <Flex direction="column">

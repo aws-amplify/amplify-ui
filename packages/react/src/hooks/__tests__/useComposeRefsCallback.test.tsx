@@ -1,14 +1,19 @@
 import * as React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import { useComposeRefsCallback } from '../useComposeRefsCallback';
+import {
+  useComposeRefsCallback,
+  UseComposeRefsCallbackProps,
+} from '../useComposeRefsCallback';
 
 const externalRef = React.createRef<HTMLInputElement>();
-const internalRef = React.createRef<HTMLInputElement>();
+const internalRef: UseComposeRefsCallbackProps<HTMLInputElement>['internalRef'] =
+  React.useRef<HTMLInputElement>(document.createElement('input'));
 
-let externalRefCallbackNode: HTMLInputElement;
-const externalRefCallback = (node: HTMLInputElement) => {
-  externalRefCallbackNode = node;
-};
+let externalRefCallbackNode: HTMLInputElement | null;
+const externalRefCallback: UseComposeRefsCallbackProps<HTMLInputElement>['externalRef'] =
+  (node: HTMLInputElement | null) => {
+    externalRefCallbackNode = node;
+  };
 
 describe('useComposeRefsCallback', () => {
   it('should compose both internal RefObject and external RefObject', () => {

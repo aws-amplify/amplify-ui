@@ -277,7 +277,7 @@ export function FileUploader({
 
         const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
-        const validExtension = isValidExtension(value, status!.file!.name);
+        const validExtension = isValidExtension(value, status.file!.name);
         newFileStatuses[index] = {
           ...status,
           name: value,
@@ -354,7 +354,7 @@ export function FileUploader({
           isDisabled={isLoading}
           onClick={() => {
             hiddenInput?.current?.click();
-            hiddenInput!.current!.value = '';
+            hiddenInput.current!.value = '';
           }}
           size="small"
         >

@@ -43,7 +43,7 @@ const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
       return (
         <RatingIcon
           key={index.toString()}
-          icon={emptyIcon || icon}
+          icon={emptyIcon ?? icon}
           fill={emptyColor}
           className="amplify-rating-icon-empty"
         />
@@ -53,7 +53,7 @@ const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
         <RatingMixedIcon
           key={index.toString()}
           fillIcon={icon}
-          emptyIcon={emptyIcon || icon}
+          emptyIcon={emptyIcon ?? icon}
           value={value}
           fillColor={fillColor}
           emptyColor={emptyColor}
