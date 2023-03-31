@@ -69,6 +69,11 @@ export const LivenessCameraModule = (
   const videoConstraints = useLivenessSelector(selectVideoConstraints);
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
+  const showMatchIndicatorStates = [
+    FaceMatchState.TOO_FAR,
+    FaceMatchState.CANT_IDENTIFY,
+    FaceMatchState.FACE_IDENTIFIED,
+  ];
 
   const { videoRef, videoWidth, videoHeight } = useMediaStreamInVideo(
     videoStream,
@@ -210,8 +215,7 @@ export const LivenessCameraModule = (
               initial face identified state
             */}
             {isRecording &&
-            (faceMatchState === FaceMatchState.TOO_FAR ||
-              faceMatchState === FaceMatchState.FACE_IDENTIFIED) ? (
+            showMatchIndicatorStates.includes(faceMatchState) ? (
               <MatchIndicator percentage={faceMatchPercentage} />
             ) : null}
 
