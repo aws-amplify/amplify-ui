@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { humanFileSize } from '@aws-amplify/ui';
+import { ComponentClassNames } from '@aws-amplify/ui-react';
 
 import { UploadDetails } from '../FileDetails';
 import { UploadDetailsProps } from '../types';
-import { ComponentClassNames } from '../../../../../primitives/shared/constants';
+import { humanFileSize } from '../../../utils';
 
 const fileDetailsProps: UploadDetailsProps = {
   displayName: 'Test',
@@ -40,7 +40,7 @@ describe('FileDetails', () => {
 
     expect(await findByText(fileDetailsProps.displayName)).toBeVisible();
     expect(
-      await findByText(humanFileSize(fileDetailsProps.fileSize, true))
+      await findByText(humanFileSize(fileDetailsProps.fileSize!, true))
     ).toBeVisible();
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Alert, View } from '@aws-amplify/ui-react';
+import { Alert, ComponentClassNames, View } from '@aws-amplify/ui-react';
 
 import { FileStatus } from '../../types';
 import { FileControl } from './FileControl';

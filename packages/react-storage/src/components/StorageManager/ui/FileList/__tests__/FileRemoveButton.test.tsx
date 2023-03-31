@@ -2,9 +2,10 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ComponentClassNames } from '@aws-amplify/ui-react';
+
 import { FileRemoveButton } from '../FileRemoveButton';
 import { FileRemoveButtonProps } from '../types';
-import { ComponentClassNames } from '../../../../../primitives/shared/constants';
 
 const onClick = jest.fn();
 const fileRemoveButtonProps: FileRemoveButtonProps = {

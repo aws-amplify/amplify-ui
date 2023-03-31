@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
+import { ComponentClassNames } from '@aws-amplify/ui-react';
+
 import { FileList } from '../FileList';
 import { FileListProps } from '../types';
-import { ComponentClassNames } from '../../../../../primitives/shared/constants';
-import { FileStatus, StorageFile } from '../../types';
-import { defaultStorageManagerDisplayText } from '../../displayText';
+import { FileStatus, StorageFile } from '../../../types';
+import { defaultStorageManagerDisplayText } from '../../../utils';
 
 const mockFile: StorageFile = {
   id: 'test',
-  name: '',
   status: FileStatus.UPLOADING,
   progress: 0,
   error: '',
   isImage: false,
+  key: '',
 };
 
 const fileListProps: FileListProps = {
@@ -50,7 +51,7 @@ describe('FileList', () => {
 
   it('renders an alert in case of error', () => {
     const { container } = render(
-      <FileList {...fileListProps} hasMaxFilesError={true} />
+      <FileList {...fileListProps} hasMaxFilesError />
     );
 
     expect(container).toMatchSnapshot();

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
+import { ComponentClassNames } from '@aws-amplify/ui-react';
+
 import { FileControlProps } from '../types';
-import { ComponentClassNames } from '../../../../../primitives/shared/constants';
 import { FileControl } from '../FileControl';
-import { FileStatus } from '../../types';
-import { defaultStorageManagerDisplayText } from '../../displayText';
+import { FileStatus } from '../../../types';
+import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
 
 const fileControlProps: FileControlProps = {
   displayText: defaultStorageManagerDisplayText,

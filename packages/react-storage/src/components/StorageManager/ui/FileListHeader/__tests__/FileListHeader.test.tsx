@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
+import { ComponentClassNames } from '@aws-amplify/ui-react';
+
 import { FileListHeader, FileListHeaderProps } from '../FileListHeader';
-import { defaultStorageManagerDisplayText } from '../../displayText';
-import { ComponentClassNames } from '../../../../../primitives/shared/constants';
+import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
 
 const headerProps: FileListHeaderProps = {
   fileCount: 2,

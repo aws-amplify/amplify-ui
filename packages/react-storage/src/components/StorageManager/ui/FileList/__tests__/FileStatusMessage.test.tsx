@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
+import { ComponentClassNames } from '@aws-amplify/ui-react';
+
 import { FileStatusMessage } from '../FileStatusMessage';
 import { FileStatusMessageProps } from '../types';
-import { FileStatus } from '../../types';
-import { ComponentClassNames } from '../../../../../primitives/shared/constants';
+import { FileStatus } from '../../../types';
 
 const uploadingText = 'Uploading...';
 const uploadingPausedText = 'Uploading paused...';
 const uploadSuccessful = 'Upload successful!';
 const errorUploading = 'Error';
 const defaultProps: FileStatusMessageProps = {
-  status: null,
+  status: FileStatus.UPLOADING,
   errorMessage: errorUploading,
   percentage: 50,
   getUploadingText: (percentage: number) => `${uploadingText} ${percentage}%`,

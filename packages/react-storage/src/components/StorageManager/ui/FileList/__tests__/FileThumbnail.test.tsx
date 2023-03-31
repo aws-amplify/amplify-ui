@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
+import { ComponentClassNames } from '@aws-amplify/ui-react';
+
 import { FileThumbnail } from '../FileThumbnail';
 import { FileThumbnailProps } from '../types';
-import { ComponentClassNames } from '../../../../../primitives/shared/constants';
 
 const thumbnailProps: FileThumbnailProps = {
   fileName: 'test',
