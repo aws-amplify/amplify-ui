@@ -1,0 +1,248 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileControl renders as expected when file is uploading 1`] = `
+<div>
+  <div
+    class="amplify-storagemanager__file"
+  >
+    <div
+      class="amplify-storagemanager__file__wrapper"
+    >
+      <div
+        class="amplify-storagemanager__file__main"
+      >
+        <p
+          class="amplify-text amplify-storagemanager__file__name"
+        >
+          fileName
+        </p>
+      </div>
+      <span
+        class="amplify-text amplify-storagemanager__file__size"
+      />
+      <svg
+        class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
+        data-variation="linear"
+        role="img"
+      >
+        <g>
+          <line
+            data-testid="linear-empty"
+            style="stroke: undefined;"
+            x1="0"
+            x2="100%"
+            y1="50%"
+            y2="50%"
+          />
+          <line
+            data-testid="linear-filled"
+            x1="0"
+            x2="100%"
+            y1="50%"
+            y2="50%"
+          />
+        </g>
+      </svg>
+      <button
+        class="amplify-button amplify-field-group__control amplify-button--small"
+        data-fullwidth="false"
+        data-size="small"
+        type="button"
+      >
+        <span
+          class="amplify-visually-hidden"
+        >
+          Remove file fileName
+        </span>
+        <span
+          aria-hidden="true"
+          class="amplify-icon"
+          style="width: 1em; height: 1em;"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <p
+      class="amplify-text amplify-storagemanager__file__status"
+    >
+      Uploading
+    </p>
+  </div>
+</div>
+`;
+
+exports[`FileControl renders as expected when uploading is paused 1`] = `
+<div>
+  <div
+    class="amplify-storagemanager__file"
+  >
+    <div
+      class="amplify-storagemanager__file__wrapper"
+    >
+      <div
+        class="amplify-storagemanager__file__main"
+      >
+        <p
+          class="amplify-text amplify-storagemanager__file__name"
+        >
+          fileName
+        </p>
+      </div>
+      <span
+        class="amplify-text amplify-storagemanager__file__size"
+      />
+      <button
+        class="amplify-button amplify-field-group__control amplify-button--small"
+        data-fullwidth="false"
+        data-size="small"
+        type="button"
+      >
+        <span
+          class="amplify-visually-hidden"
+        >
+          Remove file fileName
+        </span>
+        <span
+          aria-hidden="true"
+          class="amplify-icon"
+          style="width: 1em; height: 1em;"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <p
+      class="amplify-text amplify-storagemanager__file__status"
+    >
+      Paused: 0%
+    </p>
+  </div>
+</div>
+`;
+
+exports[`FileControl renders thumbnails 1`] = `
+<div>
+  <div
+    class="amplify-storagemanager__file"
+  >
+    <div
+      class="amplify-storagemanager__file__wrapper"
+    >
+      <div
+        class="amplify-storagemanager__file__image"
+      >
+        <span
+          class="amplify-icon"
+          style="width: 1em; height: 1em;"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </div>
+      <div
+        class="amplify-storagemanager__file__main"
+      >
+        <p
+          class="amplify-text amplify-storagemanager__file__name"
+        >
+          fileName
+        </p>
+      </div>
+      <span
+        class="amplify-text amplify-storagemanager__file__size"
+      />
+      <svg
+        class="amplify-loader amplify-loader--linear amplify-storagemanager__loader"
+        data-variation="linear"
+        role="img"
+      >
+        <g>
+          <line
+            data-testid="linear-empty"
+            style="stroke: undefined;"
+            x1="0"
+            x2="100%"
+            y1="50%"
+            y2="50%"
+          />
+          <line
+            data-testid="linear-filled"
+            x1="0"
+            x2="100%"
+            y1="50%"
+            y2="50%"
+          />
+        </g>
+      </svg>
+      <button
+        class="amplify-button amplify-field-group__control amplify-button--small"
+        data-fullwidth="false"
+        data-size="small"
+        type="button"
+      >
+        <span
+          class="amplify-visually-hidden"
+        >
+          Remove file fileName
+        </span>
+        <span
+          aria-hidden="true"
+          class="amplify-icon"
+          style="width: 1em; height: 1em;"
+        >
+          <svg
+            fill="none"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <p
+      class="amplify-text amplify-storagemanager__file__status"
+    >
+      Uploading
+    </p>
+  </div>
+</div>
+`;

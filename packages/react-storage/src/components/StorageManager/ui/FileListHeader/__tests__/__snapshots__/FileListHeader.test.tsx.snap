@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileListHeader renders as expected when uploads are in progress 1`] = `
+<div>
+  <p
+    class="amplify-text amplify-storagemanager__previewer__text"
+  >
+    1 file uploading
+  </p>
+</div>
+`;
+
+exports[`FileListHeader renders as expected when uploads are successful 1`] = `
+<div>
+  <p
+    class="amplify-text amplify-storagemanager__previewer__text"
+  >
+    2 files uploaded
+  </p>
+</div>
+`;

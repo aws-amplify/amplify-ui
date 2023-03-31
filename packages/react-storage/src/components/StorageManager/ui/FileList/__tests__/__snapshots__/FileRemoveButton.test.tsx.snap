@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileRemoveButton renders as expected 1`] = `
+<div>
+  <button
+    class="amplify-button amplify-field-group__control amplify-button--small"
+    data-fullwidth="false"
+    data-size="small"
+    type="button"
+  >
+    <span
+      class="amplify-visually-hidden"
+    >
+      Alt text
+    </span>
+    <span
+      aria-hidden="true"
+      class="amplify-icon"
+      style="width: 1em; height: 1em;"
+    >
+      <svg
+        fill="none"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+          fill="currentColor"
+        />
+      </svg>
+    </span>
+  </button>
+</div>
+`;

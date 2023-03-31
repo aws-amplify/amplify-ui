@@ -1,0 +1,225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileList renders an alert in case of error 1`] = `
+<div>
+  <div
+    class="amplify-storagemanager__file__list"
+  >
+    <div
+      class="amplify-storagemanager__file"
+    >
+      <div
+        class="amplify-storagemanager__file__wrapper"
+      >
+        <div
+          class="amplify-storagemanager__file__main"
+        >
+          <p
+            class="amplify-text amplify-storagemanager__file__name"
+          />
+        </div>
+        <span
+          class="amplify-text amplify-storagemanager__file__size"
+        />
+        <svg
+          class="amplify-loader amplify-loader--linear amplify-loader--determinate amplify-storagemanager__loader"
+          data-variation="linear"
+          role="img"
+        >
+          <g>
+            <line
+              data-testid="linear-empty"
+              style="stroke: undefined;"
+              x1="0"
+              x2="100%"
+              y1="50%"
+              y2="50%"
+            />
+            <line
+              data-testid="linear-filled"
+              style="stroke: none;"
+              x1="0"
+              x2="0%"
+              y1="50%"
+              y2="50%"
+            />
+            <text
+              aria-live="polite"
+              class="amplify-loader__percentage-text amplify-visually-hidden"
+              x="-1%"
+              y="200%"
+            >
+              0%
+            </text>
+          </g>
+        </svg>
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--small"
+          data-fullwidth="false"
+          data-size="small"
+          type="button"
+        >
+          <span
+            class="amplify-visually-hidden"
+          >
+            Remove file 
+          </span>
+          <span
+            aria-hidden="true"
+            class="amplify-icon"
+            style="width: 1em; height: 1em;"
+          >
+            <svg
+              fill="none"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <p
+        class="amplify-text amplify-storagemanager__file__status"
+      >
+        Uploading
+      </p>
+    </div>
+    <div
+      class="amplify-flex amplify-alert amplify-alert--error"
+      data-variation="error"
+      role="alert"
+    >
+      <span
+        aria-hidden="true"
+        class="amplify-icon amplify-alert__icon"
+        style="width: 1em; height: 1em;"
+      >
+        <svg
+          fill="none"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+      <div
+        style="flex: 1;"
+      >
+        <div
+          class="amplify-alert__heading"
+        >
+          Cannot choose more than 0 files. Remove files before updating
+        </div>
+        <div
+          class="amplify-alert__body"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`FileList renders as expected 1`] = `
+<div>
+  <div
+    class="amplify-storagemanager__file__list"
+  >
+    <div
+      class="amplify-storagemanager__file"
+    >
+      <div
+        class="amplify-storagemanager__file__wrapper"
+      >
+        <div
+          class="amplify-storagemanager__file__main"
+        >
+          <p
+            class="amplify-text amplify-storagemanager__file__name"
+          />
+        </div>
+        <span
+          class="amplify-text amplify-storagemanager__file__size"
+        />
+        <svg
+          class="amplify-loader amplify-loader--linear amplify-loader--determinate amplify-storagemanager__loader"
+          data-variation="linear"
+          role="img"
+        >
+          <g>
+            <line
+              data-testid="linear-empty"
+              style="stroke: undefined;"
+              x1="0"
+              x2="100%"
+              y1="50%"
+              y2="50%"
+            />
+            <line
+              data-testid="linear-filled"
+              style="stroke: none;"
+              x1="0"
+              x2="0%"
+              y1="50%"
+              y2="50%"
+            />
+            <text
+              aria-live="polite"
+              class="amplify-loader__percentage-text amplify-visually-hidden"
+              x="-1%"
+              y="200%"
+            >
+              0%
+            </text>
+          </g>
+        </svg>
+        <button
+          class="amplify-button amplify-field-group__control amplify-button--small"
+          data-fullwidth="false"
+          data-size="small"
+          type="button"
+        >
+          <span
+            class="amplify-visually-hidden"
+          >
+            Remove file 
+          </span>
+          <span
+            aria-hidden="true"
+            class="amplify-icon"
+            style="width: 1em; height: 1em;"
+          >
+            <svg
+              fill="none"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <p
+        class="amplify-text amplify-storagemanager__file__status"
+      >
+        Uploading
+      </p>
+    </div>
+  </div>
+</div>
+`;

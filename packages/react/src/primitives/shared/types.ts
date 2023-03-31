@@ -177,6 +177,7 @@ type ComponentClassNameKey =
   | 'StorageManagerDropZoneButton'
   | 'StorageManagerFile'
   | 'StorageManagerFileWrapper'
+  | 'StorageManagerFileList'
   | 'StorageManagerFileName'
   | 'StorageManagerFileSize'
   | 'StorageManagerFileInfo'
