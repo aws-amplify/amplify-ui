@@ -34,17 +34,16 @@ dependencies {
 }
 ```
 
-### Step 3. Initialize Amplify Auth and Predictions
+### Step 3. Initialize Amplify Auth
 
-In the `onCreate` of your `Application` class, add the Auth and Predictions plugins before calling `Amplify.configure`.
+In the `onCreate` of your `Application` class, add the Auth plugin before calling `Amplify.configure`.
 
 <Tabs justifyContent="flex-start">
   <TabItem title="Kotlin">
     <ExampleCode>
     ```kotlin
-    // Add these lines to include the Auth and Predictions plugins.
+    // Add these lines to include the Auth plugin.
     Amplify.addPlugin(AWSCognitoAuthPlugin())
-    Amplify.addPlugin(AWSPredictionsPlugin())
     Amplify.configure(applicationContext)
     ```
     </ExampleCode>
@@ -52,9 +51,8 @@ In the `onCreate` of your `Application` class, add the Auth and Predictions plug
   <TabItem title="Java">
     <ExampleCode>
     ```java
-    // Add these lines to include the Auth and Predictions plugins.
+    // Add these lines to include the Auth plugin.
     Amplify.addPlugin(new AWSCognitoAuthPlugin());
-    Amplify.addPlugin(new AWSPredictionsPlugin());
     Amplify.configure(getApplicationContext());
     ```
     </ExampleCode>
@@ -63,9 +61,8 @@ In the `onCreate` of your `Application` class, add the Auth and Predictions plug
       Follow the [Amplify Android documentation](https://docs.amplify.aws/lib/project-setup/rxjava/q/platform/android/#installation) to start using Amplify for RxJava (RxAmplify).
       <ExampleCode>
       ```java
-      // Add these lines to include the Auth and Predictions plugins.
+      // Add these lines to include the Auth plugin.
       RxAmplify.addPlugin(new AWSCognitoAuthPlugin());
-      RxAmplify.addPlugin(new AWSPredictionsPlugin());
       RxAmplify.configure(getApplicationContext());
       ```
       </ExampleCode>
