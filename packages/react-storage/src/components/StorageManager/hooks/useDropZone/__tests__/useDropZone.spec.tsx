@@ -30,6 +30,7 @@ describe('useDropZone', () => {
     expect(event.preventDefault).toBeCalled();
     expect(event.stopPropagation).toBeCalled();
     expect(event.dataTransfer.dropEffect).toEqual('copy');
+    expect(result.current.inDropZone).toBe(true);
   });
 
   it('clears the data when drag event begins', () => {
