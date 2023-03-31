@@ -1,9 +1,9 @@
 import { FileUploader } from '@aws-amplify/ui-react';
 
-export const IsPreviewerVisibleExample = () => {
+export const AutoUploadExample = () => {
   return (
     <FileUploader
-      isPreviewerVisible={true}
+      shouldAutoProceed={true}
       acceptedFileTypes={['image/*']}
       accessLevel="public"
       // @ts-ignore // IGNORE

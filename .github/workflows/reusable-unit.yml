@@ -27,6 +27,7 @@ jobs:
           - react
           - react-native
           - react-core
+          - react-storage
 
     steps:
       - name: Checkout Amplify UI

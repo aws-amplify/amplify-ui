@@ -165,6 +165,13 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/connected-components/storage/storagemanager',
+    label: 'Storage Manager',
+    body: 'StorageManager component allows users to upload and manage files in your Amplify backend.',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/in-app-messaging',
     label: 'In-App Messaging',
     body: 'Amplify UI In-App Messaging provides UI components for displaying In-App Messages.',

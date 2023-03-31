@@ -1,9 +1,9 @@
 import { FileUploader } from '@aws-amplify/ui-react';
 
-export const MaxSizeExample = () => {
+export const MaxFileCountExample = () => {
   return (
     <FileUploader
-      maxSize={100000}
+      maxFileCount={3}
       variation="drop"
       acceptedFileTypes={['image/*']}
       accessLevel="public"
