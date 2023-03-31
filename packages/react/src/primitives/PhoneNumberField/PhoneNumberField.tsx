@@ -33,11 +33,11 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   ref
 ) => {
   // Merge all dial/country code values in preparation of countryCode values being removed preferring dial code values
-  const codeName = dialCodeName || countryCodeName;
-  const codeLabel = dialCodeLabel || countryCodeLabel;
-  const defaultCode = defaultDialCode || defaultCountryCode;
-  const onCodeChange = onDialCodeChange || onCountryCodeChange;
-  const codeRef = dialCodeRef || countryCodeRef;
+  const codeName = dialCodeName ?? countryCodeName;
+  const codeLabel = dialCodeLabel ?? countryCodeLabel;
+  const defaultCode = defaultDialCode ?? defaultCountryCode;
+  const onCodeChange = onDialCodeChange ?? onCountryCodeChange;
+  const codeRef = dialCodeRef ?? countryCodeRef;
 
   return (
     <TextField

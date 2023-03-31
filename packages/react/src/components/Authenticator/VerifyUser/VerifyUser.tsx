@@ -65,6 +65,7 @@ export const VerifyUser = ({
 }: RouteProps): JSX.Element => {
   const {
     components: {
+      // @ts-ignore
       VerifyUser: { Header = VerifyUser.Header, Footer = VerifyUser.Footer },
     },
   } = useCustomComponents();
@@ -127,5 +128,6 @@ VerifyUser.Header = function Header(): JSX.Element {
 };
 
 VerifyUser.Footer = function Footer(): JSX.Element {
+  // @ts-ignore
   return null;
 };
