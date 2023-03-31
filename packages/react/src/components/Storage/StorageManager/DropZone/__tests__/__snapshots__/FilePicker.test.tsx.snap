@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilePicker renders correctly 1`] = `
+<div>
+  <div>
+    <button
+      class="amplify-button amplify-field-group__control amplify-button--small amplify-storagemanager__dropzone__button"
+      data-fullwidth="false"
+      data-size="small"
+      type="button"
+    >
+      Browse files
+    </button>
+    <span
+      class="amplify-visually-hidden"
+    >
+      <input
+        accept="image/*,.pdf"
+        id="myfile"
+        multiple=""
+        tabindex="-1"
+        type="file"
+      />
+    </span>
+  </div>
+</div>
+`;
