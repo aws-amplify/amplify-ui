@@ -1,0 +1,27 @@
+# Description: This workflow runs unit test on PRs created from forks.
+#
+# Triggered by: Every commit on the PR.
+
+name: POC / Test / Fork / Unit
+
+concurrency:
+  group: unit-fork-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+on: pull_request
+
+jobs:
+  setup-cache:
+    # only run the workflow when PR is from a fork
+    # if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+    uses: ./.github/workflows/reusable-setup-cache.yml
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  unit:
+    uses: ./.github/workflows/reusable-unit.yml
+    needs: setup-cache
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
