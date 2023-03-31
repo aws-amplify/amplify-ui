@@ -18,6 +18,7 @@ export interface UseUploadFilesProps
       | 'maxFileCount'
       | 'processFile'
       | 'provider'
+      | 'path'
     >,
     Pick<
       UseStorageManager,
@@ -36,6 +37,7 @@ export function useUploadFiles({
   maxFileCount,
   processFile,
   provider,
+  path = '',
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -78,7 +80,7 @@ export function useUploadFiles({
         if (isResumable) {
           const uploadTask = uploadFile({
             file: processedFile.file,
-            fileName: processedFile.key,
+            fileName: path + processedFile.key,
             isResumable: true,
             level: accessLevel,
             completeCallback: onComplete,
@@ -90,7 +92,7 @@ export function useUploadFiles({
         } else {
           uploadFile({
             file: processedFile.file,
-            fileName: processedFile.key,
+            fileName: path + processedFile.key,
             isResumable: false,
             level: accessLevel,
             completeCallback: onComplete,
