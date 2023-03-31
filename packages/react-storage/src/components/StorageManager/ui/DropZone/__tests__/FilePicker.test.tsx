@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { ComponentClassNames } from '@aws-amplify/ui-react';
 
@@ -36,8 +36,35 @@ describe('FilePicker', () => {
     );
   });
 
-  // Note: We are unable to write unit tests for onFileChange handler.
-  // When we fire a click event on the hidden input it would normally open
-  // the browser dialog and only after choosing a file would the onFileChange handler
-  // be called. This makes it impossible to test onFileChange in a unit testing environment.
+  it('should trigger hidden input onChange', async () => {
+    const mockOnFileChange = jest.fn();
+    const { findByRole } = render(
+      <FilePicker
+        acceptedFileTypes={[`image/*`, `.pdf`]}
+        allowMultipleFiles
+        displayText={defaultStorageManagerDisplayText}
+        onFileChange={mockOnFileChange}
+      />
+    );
+
+    const filePickerButton = await findByRole('button');
+
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+
+    fireEvent.click(filePickerButton);
+    expect(hiddenInput).toHaveValue('');
+
+    const mockFile = new File(['hello'], 'hello.png', { type: 'image/png' });
+    fireEvent.change(hiddenInput, { target: { files: [mockFile] } });
+    expect(mockOnFileChange).toHaveBeenCalledTimes(1);
+    expect(mockOnFileChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'change',
+      })
+    );
+  });
 });
