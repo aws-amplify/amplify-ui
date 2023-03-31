@@ -6,10 +6,13 @@ export const StorageManagerProcessFileExample = () => {
       accessLevel="public"
       maxFileCount={10}
       processFile={({ file, key }) => {
-        const ext = key.split('.').pop();
+        const fileParts = key.split('.');
+        const ext = fileParts.pop();
         return {
           file,
-          key: `${Date.now()}.${ext}`,
+          // This will prepend a unix timestamp
+          // to ensure all files uploaded are unique
+          key: `${Date.now()}${fileParts.join('.')}.${ext}`,
         };
       }}
       onUploadSuccess={({ key }) => {
