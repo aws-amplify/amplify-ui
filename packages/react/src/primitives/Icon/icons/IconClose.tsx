@@ -14,8 +14,8 @@ export const IconClose: InternalIcon = (props) => {
   return (
     <View
       as="span"
-      width={size || '1em'}
-      height={size || '1em'}
+      width={size ?? '1em'}
+      height={size ?? '1em'}
       className={classNames(ComponentClassNames.Icon, className)}
       {...rest}
     >

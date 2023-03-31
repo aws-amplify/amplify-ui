@@ -12,7 +12,7 @@ const globalDOMRect = global.DOMRect;
 // disable eslint for this mock due to complexity
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 global.DOMRect = {
-  ...global.DOMReact,
+  ...(global.DOMRect as any),
   fromRect: jest.fn().mockReturnValue({
     x: 200,
     y: 200,

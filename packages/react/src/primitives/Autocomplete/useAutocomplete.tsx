@@ -49,7 +49,7 @@ export const useAutocomplete = ({
     const filter = isCustomFiltering
       ? (option: ComboBoxOption) => optionFilter(option, composedValue)
       : defaultFilter;
-    return options?.filter(filter) || [];
+    return options?.filter(filter) ?? [];
   }, [composedValue, optionFilter, isCustomFiltering, options]);
 
   const autocompleteId = useStableId();
@@ -60,7 +60,7 @@ export const useAutocomplete = ({
     (option) => option === activeOption
   );
   const activeOptionId =
-    activeOption?.id ||
+    activeOption?.id ??
     (activeIndex !== -1 ? `${optionBaseId}-option-${activeIndex}` : undefined);
 
   const handleOnBlur: React.FocusEventHandler<HTMLInputElement> =

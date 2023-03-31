@@ -5,8 +5,8 @@ import { DefaultComponents } from './defaultComponents';
 export interface ComponentsProviderProps {
   components?: DefaultComponents;
 }
-
 export const CustomComponentsContext =
+  // @ts-ignore
   React.createContext<ComponentsProviderProps>(null);
 
 export const useCustomComponents = (): ComponentsProviderProps => {

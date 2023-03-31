@@ -22,6 +22,7 @@ export const ConfirmSignIn = ({
 
   const {
     components: {
+      // @ts-ignore
       ConfirmSignIn: {
         Header = ConfirmSignIn.Header,
         Footer = ConfirmSignIn.Footer,
@@ -64,5 +65,6 @@ function Header() {
 
 ConfirmSignIn.Header = Header;
 ConfirmSignIn.Footer = function Footer(): JSX.Element {
+  // @ts-ignore
   return null;
 };
