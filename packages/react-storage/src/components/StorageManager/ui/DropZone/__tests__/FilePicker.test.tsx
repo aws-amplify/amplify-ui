@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { defaultStorageManagerDisplayText } from '../../displayText';
-import { classNameModifier } from '../../../../../primitives/shared/utils';
-import { ComponentClassNames } from '../../../../../primitives';
+import { render, screen } from '@testing-library/react';
+
+import { ComponentClassNames } from '@aws-amplify/ui-react';
+
 import { FilePicker } from '../FilePicker';
-import userEvent from '@testing-library/user-event';
+import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
 
 describe('FilePicker', () => {
   it('renders correctly', () => {
     const { container } = render(
       <FilePicker
         acceptedFileTypes={[`image/*`, `.pdf`]}
-        allowMultipleFiles={true}
+        allowMultipleFiles
         displayText={defaultStorageManagerDisplayText}
         onFileChange={() => {}}
       />
@@ -21,11 +21,10 @@ describe('FilePicker', () => {
   });
 
   it('shows correct classname', async () => {
-    const testId = 'dropzone';
     render(
       <FilePicker
         acceptedFileTypes={[`image/*`, `.pdf`]}
-        allowMultipleFiles={true}
+        allowMultipleFiles
         displayText={defaultStorageManagerDisplayText}
         onFileChange={() => {}}
       />

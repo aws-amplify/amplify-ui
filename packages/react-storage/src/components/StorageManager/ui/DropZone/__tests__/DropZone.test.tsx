@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import { defaultStorageManagerDisplayText } from '../../displayText';
+
+import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { classNameModifier } from '@aws-amplify/ui';
+
+import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
 import { DropZone } from '../DropZone';
-import { classNameModifier } from '../../../../../primitives/shared/utils';
-import { ComponentClassNames } from '../../../../../primitives';
 
 describe('DropZone', () => {
   it('renders correctly', () => {

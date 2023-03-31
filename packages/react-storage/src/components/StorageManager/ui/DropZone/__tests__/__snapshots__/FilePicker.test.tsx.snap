@@ -16,7 +16,6 @@ exports[`FilePicker renders correctly 1`] = `
     >
       <input
         accept="image/*,.pdf"
-        id="myfile"
         multiple=""
         tabindex="-1"
         type="file"
