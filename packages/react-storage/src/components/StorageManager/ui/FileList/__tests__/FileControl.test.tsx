@@ -90,7 +90,7 @@ describe('FileControl', () => {
 
   it('renders thumbnails', () => {
     const { container } = render(
-      <FileControl {...fileControlProps} showThumbnails={true} />
+      <FileControl {...fileControlProps} showThumbnails />
     );
 
     expect(

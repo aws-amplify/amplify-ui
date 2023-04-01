@@ -32,9 +32,7 @@ describe('FileThumbnail', () => {
   });
 
   it('renders an image', () => {
-    const { container } = render(
-      <FileThumbnail {...thumbnailProps} isImage={true} />
-    );
+    const { container } = render(<FileThumbnail {...thumbnailProps} isImage />);
     expect(
       container.getElementsByClassName(
         `${ComponentClassNames.StorageManagerFileImage}`
