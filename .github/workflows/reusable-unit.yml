@@ -79,6 +79,10 @@ jobs:
         if: ${{ matrix.package == 'react' || matrix.package == 'react-native' }}
         run: yarn react-core build
 
+      - name: Build react package
+        if: ${{ matrix.package == 'react-storage'}}
+        run: yarn react build
+
       - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != 'ui' }}
         run: yarn ${{ matrix.package }} build
