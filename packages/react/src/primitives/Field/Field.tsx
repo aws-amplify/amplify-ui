@@ -9,6 +9,9 @@ import {
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
+import { FieldDescription } from './FieldDescription';
+import { FieldErrorMessage } from './FieldErrorMessage';
+import { Label } from '../Label';
 
 interface FieldPrimitiveProps extends FlexContainerStyleProps, ViewProps {
   /**
@@ -38,9 +41,26 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
   );
 };
 
+// type FieldComponent = React.ForwardRefExoticComponent<
+//   Primitive<FieldPrimitiveProps, 'div'>
+// > & {
+//   Description: typeof FieldDescription;
+//   ErrorMessage: typeof FieldErrorMessage;
+//   Label: typeof Label;
+// };
+
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/textfield)
  */
-export const Field = React.forwardRef(FieldPrimitive);
+const Field = React.forwardRef(FieldPrimitive);
 
 Field.displayName = 'Field';
+
+// This makes typescript happy to add static sub-components
+const FieldNamespace = Object.assign(Field, {
+  Description: FieldDescription,
+  ErrorMessage: FieldErrorMessage,
+  Label: Label,
+});
+
+export { FieldNamespace as Field };
