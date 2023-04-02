@@ -13,3 +13,7 @@ When('I select a file with file name {string}', (fileName: string) => {
     { force: true }
   );
 });
+
+When('I click the "Remove file" button', () => {
+  cy.contains('button', 'Remove file').click();
+});

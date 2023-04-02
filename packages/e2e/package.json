@@ -10,6 +10,7 @@
     "test:authenticator": "cypress run --spec 'features/ui/components/authenticator/*.feature'",
     "test:hooks": "cypress run --spec 'features/ui/hooks/*.feature'",
     "test:geo": "cypress run --spec 'features/ui/components/geo/*.feature'",
+    "test:storage": "cypress run --spec 'features/ui/components/storage/storage-manager/*.feature'",
     "test:theme": "cypress run --spec 'features/ui/theme/*.feature'",
     "test:guides": "cypress run --spec 'features/ui/guides/*.feature'"
   },

@@ -12,7 +12,7 @@ export function StorageManagerExample() {
       accessLevel="private"
       maxFileCount={3}
       isResumable
-      showThumbnails={true}
+      showThumbnails
     />
   );
 }
