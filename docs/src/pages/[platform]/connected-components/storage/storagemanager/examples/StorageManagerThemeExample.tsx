@@ -1,5 +1,5 @@
-import { ThemeProvider } from '@aws-amplify/ui-react'; // IGNORE
-import { StorageManager } from '@aws-amplify/ui-react-storage'; // IGNORE
+import { ThemeProvider } from '@aws-amplify/ui-react';
+import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 const theme = {
   name: 'my-theme',

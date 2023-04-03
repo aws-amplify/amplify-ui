@@ -1,6 +1,6 @@
-import * as React from 'react'; // IGNORE
-import { ToggleButtonGroup, ToggleButton } from '@aws-amplify/ui-react'; // IGNORE
-import { StorageManager } from '@aws-amplify/ui-react-storage'; // IGNORE
+import * as React from 'react';
+import { ToggleButtonGroup, ToggleButton } from '@aws-amplify/ui-react';
+import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 const dictionary = {
   // use default strings for english

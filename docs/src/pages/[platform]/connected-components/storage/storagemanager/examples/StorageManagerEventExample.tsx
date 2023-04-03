@@ -1,5 +1,5 @@
-import { StorageManager } from '@aws-amplify/ui-react-storage'; // IGNORE
-import * as React from 'react'; // IGNORE
+import * as React from 'react';
+import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 export const StorageManagerEventExample = () => {
   // NOTE: you will need to keep a ref of the files because

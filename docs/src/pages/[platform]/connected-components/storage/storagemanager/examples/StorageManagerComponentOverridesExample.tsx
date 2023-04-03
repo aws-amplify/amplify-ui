@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   Card,
-  View,
   VisuallyHidden,
   Button,
   Flex,

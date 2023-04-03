@@ -1,4 +1,5 @@
-import { StorageManager } from '@aws-amplify/ui-react-storage'; // IGNORE
+import { StorageManager } from '@aws-amplify/ui-react-storage';
+
 export const StorageManagerProcessFileExample = () => {
   return (
     <StorageManager
