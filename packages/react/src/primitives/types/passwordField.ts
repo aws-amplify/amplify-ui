@@ -57,6 +57,12 @@ export interface PasswordFieldProps extends TextFieldProps {
    * Forwarded ref for access to show password button DOM element
    */
   showPasswordButtonRef?: React.Ref<HTMLButtonElement>;
+
+  /**
+   * @description
+   * Indicates that Field is in error state.
+   */
+  hasError?: boolean;
 }
 
 export type PasswordFieldType = 'password' | 'text';
@@ -101,4 +107,10 @@ export interface ShowPasswordButtonProps extends ButtonProps {
    * "Show password"
    */
   showPasswordButtonLabel?: string;
+
+  /**
+   * @description
+   * Indicates that Field is in error state.
+   */
+  hasError?: boolean;
 }
