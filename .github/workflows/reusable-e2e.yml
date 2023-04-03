@@ -148,7 +148,7 @@ jobs:
 
       - name: Build react package
         if: ${{ matrix.package == 'react-storage' }}
-        run: yarn react-core build
+        run: yarn react build
 
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
