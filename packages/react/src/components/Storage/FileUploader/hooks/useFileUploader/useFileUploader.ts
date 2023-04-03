@@ -28,7 +28,7 @@ export default function useFileUploader({
 
       statuses.unshift({
         fileState: errorFile ? FileState.ERROR : FileState.INIT,
-        fileErrors: errorFile,
+        fileErrors: errorFile!,
         file,
         name: file.name,
       });

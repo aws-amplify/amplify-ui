@@ -8,6 +8,7 @@
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "react-auth": "yarn workspace @aws-amplify/ui-react-auth",
+    "react-storage": "yarn workspace @aws-amplify/ui-react-storage",
     "react-core": "yarn workspace @aws-amplify/ui-react-core",
     "react-core-auth": "yarn workspace @aws-amplify/ui-react-core-auth",
     "react-native": "yarn workspace @aws-amplify/ui-react-native",

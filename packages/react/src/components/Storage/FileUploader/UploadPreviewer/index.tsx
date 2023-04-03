@@ -40,7 +40,7 @@ export function UploadPreviewer({
 
   const isDisabled =
     fileStatuses.some((status) =>
-      [FileState.ERROR, FileState.EDITING].includes(status?.fileState)
+      [FileState.ERROR, FileState.EDITING].includes(status?.fileState!)
     ) ||
     remainingFilesLength === 0 ||
     hasMaxFilesError;

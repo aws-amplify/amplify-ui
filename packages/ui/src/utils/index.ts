@@ -174,3 +174,5 @@ export function has(value: unknown, key: string): boolean {
 export function isFunction(value: unknown): value is Function {
   return typeof value === 'function';
 }
+
+export { classNameModifier, classNameModifierByFlag } from './classname';

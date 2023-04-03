@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "2.1.16",
+  "version": "2.1.17",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "react-native": "dist/index.js",
@@ -30,7 +30,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.8",
+    "@aws-amplify/ui": "5.5.9",
     "@xstate/react": "3.0.1",
     "lodash": "4.17.21",
     "xstate": "^4.33.6"
