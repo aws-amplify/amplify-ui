@@ -1,25 +1,25 @@
 .amplify-storagemanager {
   &__dropzone {
     background-color: var(
-      --amplify-components-fileuploader-dropzone-background-color
+      --amplify-components-storagemanager-dropzone-background-color
     );
-    border-color: var(--amplify-components-fileuploader-dropzone-border-color);
+    border-color: var(--amplify-components-storagemanager-dropzone-border-color);
     border-radius: var(
-      --amplify-components-fileuploader-dropzone-border-radius
+      --amplify-components-storagemanager-dropzone-border-radius
     );
-    border-style: var(--amplify-components-fileuploader-dropzone-border-style);
-    border-width: var(--amplify-components-fileuploader-dropzone-border-width);
-    text-align: var(--amplify-components-fileuploader-dropzone-text-align);
+    border-style: var(--amplify-components-storagemanager-dropzone-border-style);
+    border-width: var(--amplify-components-storagemanager-dropzone-border-width);
+    text-align: var(--amplify-components-storagemanager-dropzone-text-align);
     padding-block: var(
-      --amplify-components-fileuploader-dropzone-padding-block
+      --amplify-components-storagemanager-dropzone-padding-block
     );
     padding-inline: var(
-      --amplify-components-fileuploader-dropzone-padding-inline
+      --amplify-components-storagemanager-dropzone-padding-inline
     );
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--amplify-components-fileuploader-dropzone-gap);
+    gap: var(--amplify-components-storagemanager-dropzone-gap);
 
     &--small {
       flex-direction: row;
@@ -28,61 +28,67 @@
 
     &--active {
       border-color: var(
-        --amplify-components-fileuploader-dropzone-active-border-color
+        --amplify-components-storagemanager-dropzone-active-border-color
       );
       border-width: var(
-        --amplify-components-fileuploader-dropzone-active-border-width
+        --amplify-components-storagemanager-dropzone-active-border-width
       );
       background-color: var(
-        --amplify-components-fileuploader-dropzone-active-background-color
+        --amplify-components-storagemanager-dropzone-active-background-color
       );
     }
 
     &__icon {
-      font-size: var(--amplify-components-fileuploader-dropzone-icon-font-size);
-      color: var(--amplify-components-fileuploader-dropzone-icon-color);
+      font-size: var(--amplify-components-storagemanager-dropzone-icon-font-size);
+      color: var(--amplify-components-storagemanager-dropzone-icon-color);
     }
 
     &__text {
-      color: var(--amplify-components-fileuploader-dropzone-text-color);
-      font-size: var(--amplify-components-fileuploader-dropzone-text-font-size);
+      color: var(--amplify-components-storagemanager-dropzone-text-color);
+      font-size: var(--amplify-components-storagemanager-dropzone-text-font-size);
       font-weight: var(
-        --amplify-components-fileuploader-dropzone-text-font-weight
+        --amplify-components-storagemanager-dropzone-text-font-weight
       );
     }
+  }
+  
+  &__file__list {
+    display: flex;
+    flex-direction: var(--amplify-components-storagemanager-filelist-flex-direction);
+    gap: var(--amplify-components-storagemanager-filelist-gap);
   }
 
   &__file {
     position: relative;
-    border-width: var(--amplify-components-fileuploader-file-border-width);
-    border-style: var(--amplify-components-fileuploader-file-border-style);
-    border-color: var(--amplify-components-fileuploader-file-border-color);
-    border-radius: var(--amplify-components-fileuploader-file-border-radius);
+    border-width: var(--amplify-components-storagemanager-file-border-width);
+    border-style: var(--amplify-components-storagemanager-file-border-style);
+    border-color: var(--amplify-components-storagemanager-file-border-color);
+    border-radius: var(--amplify-components-storagemanager-file-border-radius);
     display: flex;
     flex-direction: column;
-    padding-inline: var(--amplify-components-fileuploader-file-padding-inline);
-    padding-block: var(--amplify-components-fileuploader-file-padding-block);
-    align-items: var(--amplify-components-fileuploader-file-align-items);
+    padding-inline: var(--amplify-components-storagemanager-file-padding-inline);
+    padding-block: var(--amplify-components-storagemanager-file-padding-block);
+    align-items: var(--amplify-components-storagemanager-file-align-items);
 
     &__wrapper {
       width: 100%;
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: var(--amplify-components-fileuploader-file-gap);
+      gap: var(--amplify-components-storagemanager-file-gap);
     }
     &__name {
       text-overflow: ellipsis;
       overflow: hidden;
-      font-weight: var(--amplify-components-fileuploader-file-name-font-weight);
-      font-size: var(--amplify-components-fileuploader-file-name-font-size);
-      color: var(--amplify-components-fileuploader-file-name-color);
+      font-weight: var(--amplify-components-storagemanager-file-name-font-weight);
+      font-size: var(--amplify-components-storagemanager-file-name-font-size);
+      color: var(--amplify-components-storagemanager-file-name-color);
     }
 
     &__size {
-      font-weight: var(--amplify-components-fileuploader-file-size-font-weight);
-      font-size: var(--amplify-components-fileuploader-file-size-font-size);
-      color: var(--amplify-components-fileuploader-file-size-color);
+      font-weight: var(--amplify-components-storagemanager-file-size-font-weight);
+      font-size: var(--amplify-components-storagemanager-file-size-font-size);
+      color: var(--amplify-components-storagemanager-file-size-color);
     }
 
     &__main {
@@ -96,15 +102,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: var(--amplify-components-fileuploader-file-image-width);
-      height: var(--amplify-components-fileuploader-file-image-height);
+      width: var(--amplify-components-storagemanager-file-image-width);
+      height: var(--amplify-components-storagemanager-file-image-height);
       background-color: var(
-        --amplify-components-fileuploader-file-image-background-color
+        --amplify-components-storagemanager-file-image-background-color
       );
       border-radius: var(
-        --amplify-components-fileuploader-file-image-border-radius
+        --amplify-components-storagemanager-file-image-border-radius
       );
-      color: var(--amplify-components-fileuploader-file-image-color);
+      color: var(--amplify-components-storagemanager-file-image-color);
       img {
         max-height: 100%;
       }
@@ -113,7 +119,7 @@
     &__status {
       &--error {
         color: var(--amplify-colors-font-error);
-        font-size: var(--amplify-components-fileuploader-file-size-font-size);
+        font-size: var(--amplify-components-storagemanager-file-size-font-size);
       }
       &--success {
         color: var(--amplify-colors-font-success);
@@ -123,14 +129,14 @@
 
   &__loader {
     stroke-linecap: var(
-      --amplify-components-fileuploader-loader-stroke-linecap
+      --amplify-components-storagemanager-loader-stroke-linecap
     );
-    stroke: var(--amplify-components-fileuploader-loader-stroke-empty);
-    stroke-width: var(--amplify-components-fileuploader-loader-stroke-width);
-    height: var(--amplify-components-fileuploader-loader-stroke-width);
+    stroke: var(--amplify-components-storagemanager-loader-stroke-empty);
+    stroke-width: var(--amplify-components-storagemanager-loader-stroke-width);
+    height: var(--amplify-components-storagemanager-loader-stroke-width);
 
     --amplify-components-loader-linear-stroke-filled: var(
-      --amplify-components-fileuploader-loader-stroke-filled
+      --amplify-components-storagemanager-loader-stroke-filled
     );
 
     overflow: hidden;
@@ -144,36 +150,36 @@
   &__previewer {
     display: flex;
     flex-direction: column;
-    max-width: var(--amplify-components-fileuploader-previewer-max-width);
-    max-height: var(--amplify-components-fileuploader-previewer-max-height);
+    max-width: var(--amplify-components-storagemanager-previewer-max-width);
+    max-height: var(--amplify-components-storagemanager-previewer-max-height);
 
     overflow: auto;
-    gap: var(--amplify-components-fileuploader-previewer-body-gap);
+    gap: var(--amplify-components-storagemanager-previewer-body-gap);
     padding-inline: var(
-      --amplify-components-fileuploader-previewer-body-padding-inline
+      --amplify-components-storagemanager-previewer-body-padding-inline
     );
     padding-block: var(
-      --amplify-components-fileuploader-previewer-body-padding-block
+      --amplify-components-storagemanager-previewer-body-padding-block
     );
 
     background-color: var(
-      --amplify-components-fileuploader-previewer-background-color
+      --amplify-components-storagemanager-previewer-background-color
     );
-    border-width: var(--amplify-components-fileuploader-previewer-border-width);
-    border-style: var(--amplify-components-fileuploader-previewer-border-style);
-    border-color: var(--amplify-components-fileuploader-previewer-border-color);
+    border-width: var(--amplify-components-storagemanager-previewer-border-width);
+    border-style: var(--amplify-components-storagemanager-previewer-border-style);
+    border-color: var(--amplify-components-storagemanager-previewer-border-color);
     border-radius: var(
-      --amplify-components-fileuploader-previewer-border-radius
+      --amplify-components-storagemanager-previewer-border-radius
     );
 
     &__text {
       font-weight: var(
-        --amplify-components-fileuploader-previewer-text-font-weight
+        --amplify-components-storagemanager-previewer-text-font-weight
       );
       font-size: var(
-        --amplify-components-fileuploader-previewer-text-font-size
+        --amplify-components-storagemanager-previewer-text-font-size
       );
-      color: var(--amplify-components-fileuploader-previewer-text-color);
+      color: var(--amplify-components-storagemanager-previewer-text-color);
     }
   }
 }
