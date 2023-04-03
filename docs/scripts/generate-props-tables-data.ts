@@ -53,6 +53,7 @@ async function createAllPropsTablesData(): Promise<
     const componentsWithChildren: { [key in ComponentName]?: ComponentName[] } =
       {
         Expander: ['ExpanderItem'],
+        Field: ['FieldDescription', 'FieldErrorMessage', 'FieldLabel'],
         Menu: ['MenuButton', 'MenuItem'],
         RadioGroupField: ['Radio'],
         Tabs: ['TabItem'],
