@@ -8,7 +8,7 @@ export { TrackerComponentsExample } from './TrackerComponentsExample';
 export { PreviewerComponentsExample } from './PreviewerComponentsExample';
 export { UploadButtonComponentsExample } from './UploadButtonComponentsExample';
 export { LevelExample } from './LevelExample';
-export { AutoUploadExample } from './AutoUploadExample';
+export { AutoProceedExample } from './AutoProceedExample';
 export { VariationExample } from './VariationExample';
 export { MaxFileCountExample } from './MaxFileCountExample';
 export { MaxFileSizeExample } from './MaxFileSizeExample';
