@@ -101,7 +101,7 @@ jobs:
       repository: ${{ github.repository }}
 
   unit:
-    uses: ./.github/workflows/reusable-unit.yml@main
+    uses: ./.github/workflows/reusable-unit.yml
     needs: setup-cache
     with:
       commit: ${{ github.event.pull_request.head.sha }}
