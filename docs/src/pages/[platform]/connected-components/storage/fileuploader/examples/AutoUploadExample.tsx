@@ -1,6 +1,6 @@
 import { FileUploader } from '@aws-amplify/ui-react';
 
-export const AutoUploadExample = () => {
+export const AutoProceedExample = () => {
   return (
     <FileUploader
       shouldAutoProceed={true}
