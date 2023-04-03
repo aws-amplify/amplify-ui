@@ -10,7 +10,11 @@ export const HighlightExample = () => (
   <Table highlightOnHover={true}>
     <TableHead>
       <TableRow>
-        <TableCell as="th" colspan="2">
+        <TableCell
+          as="th"
+          // @ts-ignore // IGNORE
+          colspan="2"
+        >
           Not highlighted
         </TableCell>
       </TableRow>

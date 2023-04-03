@@ -1,3 +1,3 @@
 global.navigator = {
-  ClientDevice_Browser: jest.fn().mockImplementation(() => Promise.resolve()),
+  ClientDevice_Browser: jest.fn(Promise.resolve),
 };

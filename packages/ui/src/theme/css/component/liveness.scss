@@ -1,14 +1,12 @@
-.amplify-liveness__cancel-button {
-  background-color: var(--amplify-colors-background-primary);
+.amplify-liveness-cancel-container {
+  z-index: 2;
+  position: absolute;
+  top: var(--amplify-space-medium);
+  right: var(--amplify-space-medium);
 }
 
-.amplify-liveness__recording-icon {
-  flex-direction: column;
-  align-items: center;
+.amplify-liveness-cancel-button {
   background-color: var(--amplify-colors-background-primary);
-  padding: var(--amplify-space-xxs);
-  gap: var(--amplify-space-xxs);
-  border-radius: var(--amplify-radii-small);
 }
 
 .amplify-liveness-fade-out {
@@ -33,10 +31,19 @@
   background-color: var(
     --amplify-components-liveness-camera-module-background-color
   );
+  border: 1px solid var(--amplify-colors-neutral-40);
   position: relative;
 }
 
-.amplify-liveness-camera-module__video {
+.amplify-liveness-camera-module--mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.amplify-liveness-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -44,7 +51,7 @@
   height: 100%;
 }
 
-.amplify-liveness-camera-module__canvas {
+.amplify-liveness-freshness-canvas {
   height: 100%;
   width: 100%;
   position: fixed;
@@ -54,7 +61,7 @@
   z-index: 1;
 }
 
-.amplify-liveness-camera-module__centered-loader {
+.amplify-liveness-loader {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -71,75 +78,168 @@
   align-items: center;
   justify-content: center;
 }
+.amplify-liveness-oval-canvas--mobile {
+  position: fixed;
+}
 
-.amplify-liveness-video-container {
+.amplify-liveness-video-anchor {
   position: relative;
   width: 100%;
 }
 
-.amplify-liveness-camera-module__recording-icon-container {
+.amplify-liveness-recording-icon-container {
   z-index: 1;
   position: absolute;
   top: var(--amplify-space-medium);
   left: var(--amplify-space-medium);
 }
 
-.amplify-liveness-camera-module__cancel-button-container {
-  z-index: 2;
-  position: absolute;
-  top: var(--amplify-space-medium);
-  right: var(--amplify-space-medium);
+.amplify-liveness-recording-icon {
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--amplify-colors-background-primary);
+  padding: var(--amplify-space-xxs);
+  gap: var(--amplify-space-xxs);
+  border-radius: var(--amplify-radii-small);
 }
 
-.amplify-liveness-camera-module__overlay--countdown {
+.amplify-liveness-instruction-overlay {
   z-index: 1;
 }
 
-.amplify-liveness-camera-module__countdown-timer-container {
+.amplify-liveness-countdown-container {
   background-color: var(--amplify-colors-background-primary);
   border-radius: 100%;
-  padding: 8px;
+  padding: var(--amplify-space-xs);
 }
 
-.amplify-liveness-description-bullet {
-  flex-direction: row;
-  gap: var(--amplify-space-small);
-}
-
-.amplify-liveness-description-bullet__index-container {
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100%;
-  background-color: var(--amplify-colors-brand-primary-80);
-  width: var(--amplify-space-xl);
-  height: var(--amplify-space-xl);
-}
-
-.amplify-liveness-description-bullet__index {
-  font-weight: var(--amplify-font-weights-bold);
-  color: var(--amplify-colors-font-inverse);
-}
-
-.amplify-liveness-description-bullet__message-container {
+.amplify-liveness-instruction-list {
   flex-direction: column;
-  gap: var(--amplify-space-xxs);
+  li {
+    display: flex;
+  }
 }
 
-.amplify-liveness-description-bullet__message--title {
-  font-weight: var(--amplify-font-weights-bold);
+.amplify-liveness-toast {
+  background-color: var(--amplify-colors-background-primary);
 }
-
-.amplify-liveness-description-bullet__message--body {
+.amplify-liveness-toast__message {
   color: var(--amplify-colors-font-primary);
 }
 
-@media (pointer: coarse) and (hover: none) {
-  .amplify-liveness-camera-module {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+.amplify-liveness-toast--large {
+  font-size: var(--amplify-font-sizes-xl);
+}
+
+.amplify-liveness-toast--primary {
+  background-color: var(--amplify-colors-brand-primary-80);
+
+  .amplify-liveness-toast__message {
+    color: var(--amplify-colors-font-inverse);
   }
+}
+
+.amplify-liveness-toast--error {
+  background-color: var(--amplify-colors-red-80);
+
+  .amplify-liveness-toast__message {
+    color: var(--amplify-colors-font-inverse);
+  }
+}
+
+.amplify-liveness-match-indicator {
+  display: block;
+  width: min(70%, 200px);
+  position: relative;
+  --amplify-liveness-match-indicator-transition: transform 0.2s linear;
+}
+
+.amplify-liveness-match-indicator__bar {
+  --percentage: 0;
+  display: block;
+  width: 100%;
+  height: var(--amplify-space-medium);
+  border-radius: var(--amplify-radii-medium);
+  background: var(--amplify-colors-white);
+  position: relative;
+  overflow: hidden;
+  /* 
+    This translateZ transform fixes in issue in Safari where the bar::after
+    element doesn't appear clipped from overflow: hidden here */
+  transform: translateZ(0);
+  border: 1px solid var(--amplify-colors-border-tertiary);
+}
+
+.amplify-liveness-match-indicator__pin {
+  --percentage: 0;
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(var(--percentage), 0);
+  transition: var(--amplify-liveness-match-indicator-transition);
+}
+
+.amplify-liveness-match-indicator__bar:after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: var(--amplify-colors-brand-primary-40);
+  left: -100%;
+  transform: translate(var(--percentage), 0);
+  transition: var(--amplify-liveness-match-indicator-transition);
+}
+
+.amplify-liveness-match-indicator__pin:after {
+  --height: var(--amplify-space-xl);
+  position: absolute;
+  content: '';
+  width: var(--amplify-space-small);
+  height: var(--height);
+  border-radius: var(--amplify-radii-medium);
+  background: var(--amplify-colors-brand-primary-80);
+  left: 0;
+  top: 0;
+  transform: translate(-50%, calc(var(--height) / 2 * -1));
+}
+.amplify-liveness-figures {
+  flex-wrap: wrap;
+}
+.amplify-liveness-figure {
+  flex-direction: column;
+  gap: 0;
+}
+.amplify-liveness-figure__caption {
+  padding: var(--amplify-space-xxs);
+}
+.amplify-liveness-figure__caption--success {
+  background-color: var(--amplify-colors-background-success);
+  color: var(--amplify-colors-font-success);
+}
+.amplify-liveness-figure__caption--error {
+  background-color: var(--amplify-colors-background-error);
+  color: var(--amplify-colors-font-error);
+}
+.amplify-liveness-figure__image {
+  background-color: #fff;
+  border: 1px solid var(--amplify-colors-border-primary);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  svg {
+    display: block;
+  }
+}
+.amplify-liveness-figure__image--success {
+  border-color: var(--amplify-colors-green-90);
+}
+.amplify-liveness-figure__image--error {
+  border-color: var(--amplify-colors-border-error);
+}
+.amplify-liveness-figure__icon {
+  position: absolute;
+  left: 0;
+  top: 0;
 }

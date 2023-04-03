@@ -2,7 +2,7 @@ import { renderHook, act } from '@testing-library/react-hooks';
 
 import { useToggleButton } from '../useToggleButton';
 
-describe('useToggleButton: ', () => {
+describe('useToggleButton:', () => {
   it('should return correct props for uncontrolled ToggleButton', () => {
     const { result } = renderHook(() =>
       useToggleButton({ defaultPressed: false })

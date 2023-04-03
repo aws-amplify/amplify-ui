@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { FaceLivenessDetectorProps } from '@aws-amplify/ui-react';
 import { API } from 'aws-amplify';
 import useSWR from 'swr';
 

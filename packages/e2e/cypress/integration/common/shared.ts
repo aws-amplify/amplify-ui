@@ -380,6 +380,10 @@ Then('I will be redirected to the confirm forgot password page', () => {
   cy.findInputField('New Password').should('exist');
 });
 
+When('I type my username with untrimmed spaces', () => {
+  cy.findInputField('Username').type(` ${Cypress.env('USERNAME')}+CONFIRMED `);
+});
+
 When('I type an invalid wrong complexity new password', () => {
   cy.findInputField('New Password').type('inv');
 });
@@ -451,3 +455,12 @@ And('I confirm {string} error is accessible in new password field', () => {
     });
   });
 });
+
+Then(
+  'I hit the {string} key on {string} button',
+  (key: string, name: string) => {
+    cy.findByRole('button', {
+      name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+    }).type(`{${key}}`, { force: true });
+  }
+);

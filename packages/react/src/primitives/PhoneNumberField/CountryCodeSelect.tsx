@@ -35,7 +35,7 @@ const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
         ComponentClassNames.DialCodeSelect,
         className
       )}
-      labelHidden={true}
+      labelHidden
       ref={ref}
       {...props}
     >

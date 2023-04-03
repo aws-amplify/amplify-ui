@@ -1,10 +1,6 @@
-import {
-  FaceLivenessDetector,
-  Button,
-  Card,
-  Flex,
-  View,
-} from '@aws-amplify/ui-react';
+import { Button, Card, Flex, View } from '@aws-amplify/ui-react';
+import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
+
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import { GetLivenessResultCard } from './GetLivenessResultCard';

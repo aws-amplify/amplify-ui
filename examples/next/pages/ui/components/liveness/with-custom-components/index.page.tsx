@@ -7,7 +7,6 @@ import awsExports from '@environments/liveness/src/aws-exports';
 import LivenessDefault from '../components/LivenessDefault';
 import Layout from '../components/Layout';
 import { Alert, Card, Heading, View, Text } from '@aws-amplify/ui-react';
-import { translate } from '@aws-amplify/ui';
 
 Amplify.configure({
   ...awsExports,
@@ -32,13 +31,13 @@ const App = () => {
       <LivenessDefault
         disableInstructionScreen={false}
         components={{
-          LivenessHeader: () => {
+          Header: () => {
             return (
               <View flex="1">
                 <Heading>Face liveness check</Heading>
                 <Text>
-                  You will go through a face verification process to prove you
-                  are a real person.
+                  You will go through a face verification process to prove that
+                  you are a real person.
                 </Text>
               </View>
             );
@@ -56,7 +55,7 @@ const App = () => {
               </Alert>
             );
           },
-          LivenessInstructions: (): JSX.Element => {
+          Instructions: (): JSX.Element => {
             return (
               <Card variation="elevated">
                 Instructions to follow to use liveness face detector
@@ -70,11 +69,22 @@ const App = () => {
                     sunlight.
                   </li>
                   <li>
-                    When check starts, fit face in oval, and hold for colored
+                    Fill onscreen oval with your face and hold for colored
                     lights.
                   </li>
                 </ol>
               </Card>
+            );
+          },
+          ErrorView: ({ error, children }) => {
+            return (
+              <View flex="1" backgroundColor="white">
+                <Heading color="black">My Custom Error Modal</Heading>
+                <Text color="black">
+                  Hey there was an error: {error}
+                </Text>
+                {children}
+              </View>
             );
           },
         }}

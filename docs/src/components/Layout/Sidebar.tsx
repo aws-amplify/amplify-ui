@@ -140,13 +140,9 @@ const SecondaryNav = (props) => {
 
   const isFlutter = platform === 'flutter';
   const isReactNative = platform === 'react-native';
-  const isAndroid = platform === 'android';
-  const isSwift = platform === 'swift';
-  const isGuidesHidden = isFlutter || isReactNative || isAndroid || isSwift;
-  const isThemingHidden = isAndroid || isSwift;
 
   return (
-    <Expander type="multiple" value={value} onChange={setValue}>
+    <Expander type="multiple" value={value} onValueChange={setValue}>
       <ExpanderItem
         title={
           <ExpanderTitle Icon={MdOutlineChecklist} text="Getting started" />
@@ -188,22 +184,19 @@ const SecondaryNav = (props) => {
         ))}
       </ExpanderItem>
 
-      {/* Swift and Android don't have guides at this time */}
-      {isGuidesHidden ? null : (
-        <ExpanderItem
-          title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
-          value="theming"
-        >
-          {theming.map(({ label, ...rest }) => (
-            <NavLink key={label} {...rest} onClick={props.onClick}>
-              {label}
-            </NavLink>
-          ))}
-        </ExpanderItem>
-      )}
+      <ExpanderItem
+        title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
+        value="theming"
+      >
+        {theming.map(({ label, ...rest }) => (
+          <NavLink key={label} {...rest} onClick={props.onClick}>
+            {label}
+          </NavLink>
+        ))}
+      </ExpanderItem>
 
-      {/* Flutter, React Native, Swift, and Android don't have guides at this time */}
-      {isGuidesHidden ? null : (
+      {/* Flutter and React Native don't have guides at this time */}
+      {isFlutter || isReactNative ? null : (
         <ExpanderItem
           title={<ExpanderTitle Icon={MdOutlineArticle} text="Guides" />}
           value="guides"

@@ -66,12 +66,12 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
       </SelectField>
       <TextField
         label="emptyColor"
-        value={emptyColor}
+        value={emptyColor as string}
         onChange={(event) => setEmptyColor(event.target.value)}
       />
       <TextField
         label="filledColor"
-        value={filledColor}
+        value={filledColor as string}
         onChange={(event) => setFilledColor(event.target.value)}
       />
       <SwitchField
@@ -87,7 +87,7 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
           type="number"
           label="percentage"
           value={percentage}
-          onChange={(event) => setPercentage(event.target.value)}
+          onChange={(event) => setPercentage(parseInt(event.target.value))}
         />
       ) : null}
       {isDeterminate ? (

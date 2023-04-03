@@ -1,5 +1,114 @@
 # @aws-amplify/ui
 
+## 5.5.7
+
+### Patch Changes
+
+- [#3476](https://github.com/aws-amplify/amplify-ui/pull/3476) [`a55aa4584`](https://github.com/aws-amplify/amplify-ui/commit/a55aa4584dd9aba4e97d4e36acc289238710d30e) Thanks [@buremer](https://github.com/buremer)! - Add missing dutch translations
+
+- [#3511](https://github.com/aws-amplify/amplify-ui/pull/3511) [`6501852a7`](https://github.com/aws-amplify/amplify-ui/commit/6501852a7916cc2afb90bfb52461877c1e637b99) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix hidden inputs breaking some interfaces by adding `position:relative` to Radio and Checkbox primitives
+
+  fixes #3165
+
+- [#3503](https://github.com/aws-amplify/amplify-ui/pull/3503) [`50fbe91de`](https://github.com/aws-amplify/amplify-ui/commit/50fbe91defab6172c09eb03c71671a5cc5f4d265) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix: TS strict errors in ui/helpers
+
+- [#3497](https://github.com/aws-amplify/amplify-ui/pull/3497) [`5249a450d`](https://github.com/aws-amplify/amplify-ui/commit/5249a450dcd07487188fc57d5b6b04dbf52e1970) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(tsconfig): add configs directory and ts configuration
+
+## 5.5.6
+
+### Patch Changes
+
+- [#3470](https://github.com/aws-amplify/amplify-ui/pull/3470) [`3c5fef84c`](https://github.com/aws-amplify/amplify-ui/commit/3c5fef84cb6ad0cb830416e70028c0bb313dd99c) Thanks [@reesscot](https://github.com/reesscot)! - fix(ui): make theme design tokens optional for checkbox and autocomplete
+
+- [#3472](https://github.com/aws-amplify/amplify-ui/pull/3472) [`e08e62234`](https://github.com/aws-amplify/amplify-ui/commit/e08e6223473f56cbbc2d0ce4bab85ebd1caf020c) Thanks [@wlee221](https://github.com/wlee221)! - fix(ui): use lodash imports directly
+
+- [#3473](https://github.com/aws-amplify/amplify-ui/pull/3473) [`12d166209`](https://github.com/aws-amplify/amplify-ui/commit/12d166209b91ee94661e586a2f77e9fbf75b3d64) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): remove type-fest
+
+- [#3482](https://github.com/aws-amplify/amplify-ui/pull/3482) [`e283f14ca`](https://github.com/aws-amplify/amplify-ui/commit/e283f14cadf54c6f6ab7e729151ea5fe97776c6a) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui): migrate isFunction util to ui package
+
+- [#3448](https://github.com/aws-amplify/amplify-ui/pull/3448) [`d28e31c36`](https://github.com/aws-amplify/amplify-ui/commit/d28e31c36a243d04737b6c13ce0307495680498a) Thanks [@milespop](https://github.com/milespop)! - Add new translations for de dictionary
+
+- [#3479](https://github.com/aws-amplify/amplify-ui/pull/3479) [`c3116b894`](https://github.com/aws-amplify/amplify-ui/commit/c3116b89470587c127d53a5cb370b2574bde553a) Thanks [@laboone](https://github.com/laboone)! - Add some new translations for ja dictionary
+
+## 5.5.5
+
+### Patch Changes
+
+- [#3417](https://github.com/aws-amplify/amplify-ui/pull/3417) [`0c8fa2ac2`](https://github.com/aws-amplify/amplify-ui/commit/0c8fa2ac2b89e7617bbc601f29cc9cbf902d08ae) Thanks [@calebpollman](https://github.com/calebpollman)! - Migrate `capitalize` util to UI package
+
+- [#3400](https://github.com/aws-amplify/amplify-ui/pull/3400) [`d214551f0`](https://github.com/aws-amplify/amplify-ui/commit/d214551f0edb001878f7a04b4206c57a677ecfa8) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore: ts strict fixes for createTheme
+
+## 5.5.4
+
+### Patch Changes
+
+- [#3380](https://github.com/aws-amplify/amplify-ui/pull/3380) [`bebe7b1cb`](https://github.com/aws-amplify/amplify-ui/commit/bebe7b1cb6a5efe1111eae237fedfabdd07ca7fc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(theme): better typing for breakpoints for TS strict mode
+
+- [#3335](https://github.com/aws-amplify/amplify-ui/pull/3335) [`7435b53fd`](https://github.com/aws-amplify/amplify-ui/commit/7435b53fd1a3303e2db0b74bf69b67fe41687563) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - chore(react): ts strict for style prop utils
+
+  Refactored internal functions that handle style props and `useBreakpointValue` hook to be TS strict. Should have no customer impact.
+
+## 5.5.3
+
+### Patch Changes
+
+- [#3333](https://github.com/aws-amplify/amplify-ui/pull/3333) [`4ba0fb5c1`](https://github.com/aws-amplify/amplify-ui/commit/4ba0fb5c13484a36c8f44be5eb41313bf3d676cc) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): migrate totpSecretCode generation to state machine
+
+- [#3287](https://github.com/aws-amplify/amplify-ui/pull/3287) [`412538be9`](https://github.com/aws-amplify/amplify-ui/commit/412538be9e37a8dec7cb5e57281895a5b3b63184) Thanks [@zchenwei](https://github.com/zchenwei)! - build: updates to support Node ESM
+
+  Confirmed that both #3155 and #3206 are fixed without having to apply any workaround
+
+  Also, test out the changes with the following frameworks/tools:
+
+  | Name               | Tested? | Notes                                                                                                                                         |
+  | ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Next.js@11, 12, 13 | ✅      |                                                                                                                                               |
+  | Gatsby             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Remix              | ✅      |                                                                                                                                               |
+  | Astro              | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | webpack            | ✅      |                                                                                                                                               |
+  | Vite               | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | Rollup             | ✅      | Works with ESM. Not support loading CJS build                                                                                                 |
+  | esbuild            | ✅      |                                                                                                                                               |
+  | Parcel             | ✅      |                                                                                                                                               |
+  | Snowpack           | ✅      | Need `--polyfill-node` to fix JS incompatibility in dev mode, but is a known [issue](https://github.com/FredKSchott/snowpack/discussions/718) |
+
+- [#3291](https://github.com/aws-amplify/amplify-ui/pull/3291) [`9ce2d01b0`](https://github.com/aws-amplify/amplify-ui/commit/9ce2d01b09e2f7aa0b218a97bb829a4210350a0a) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui,ui-react-core): Add type guard utils
+
+- [#3327](https://github.com/aws-amplify/amplify-ui/pull/3327) [`13d0882a8`](https://github.com/aws-amplify/amplify-ui/commit/13d0882a8fe3a9ef63e4b217c5f67cef2c75e148) Thanks [@wlee221](https://github.com/wlee221)! - fix(rwa): improve default behavior handling for custom formFields.
+
+  Previously, adding custom formFields for fields that are not in `signUpAttributes` configuration wouldn't get any default values, which could lead to broken UI.
+
+  This commit improves default handling by applying defaults to all known auth field (birthdate, first_name, etc) to custom formField options.
+
+## 5.5.2
+
+### Patch Changes
+
+- [#3330](https://github.com/aws-amplify/amplify-ui/pull/3330) [`57f1a3f43`](https://github.com/aws-amplify/amplify-ui/commit/57f1a3f438b8288ffda46764f7a87e1739e61313) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui): Fixes an issue where the input primitive doesn't render properly for calendar types.
+
+- [#3325](https://github.com/aws-amplify/amplify-ui/pull/3325) [`dd9de348a`](https://github.com/aws-amplify/amplify-ui/commit/dd9de348abcafdcd721600f543d58353957dac25) Thanks [@joebuono](https://github.com/joebuono)! - fix(ui): Translate 'or' text for FederatedSignIn
+
+- [#3322](https://github.com/aws-amplify/amplify-ui/pull/3322) [`4d652033e`](https://github.com/aws-amplify/amplify-ui/commit/4d652033e120daa82665b4bb4035b56fa8d33bf8) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated functionality so all file uploader uploads will have the correct type matching the file.type.
+
+## 5.5.1
+
+### Patch Changes
+
+- [#3283](https://github.com/aws-amplify/amplify-ui/pull/3283) [`98a632137`](https://github.com/aws-amplify/amplify-ui/commit/98a63213766d598ed6a64a06b53fffc408d547fd) Thanks [@wlee221](https://github.com/wlee221)! - Trim non-password fields on Authenticator forms. This will prevent unnecessary validation messages from showing up.
+
+- [#3284](https://github.com/aws-amplify/amplify-ui/pull/3284) [`01912077c`](https://github.com/aws-amplify/amplify-ui/commit/01912077c6d4fcdd3cbe9b6de2bb53fc490d0f41) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated text to be more verbose for the max file size error for the file uploader component.
+
+## 5.5.0
+
+### Minor Changes
+
+- [#3242](https://github.com/aws-amplify/amplify-ui/pull/3242) [`59321c9cc`](https://github.com/aws-amplify/amplify-ui/commit/59321c9cc15f8243edd6f5dd0113e7c396f7b488) Thanks [@vitaliikravets](https://github.com/vitaliikravets)! - Add support of Ukrainian language to Authenticator
+
+### Patch Changes
+
+- [#3282](https://github.com/aws-amplify/amplify-ui/pull/3282) [`9b09654a7`](https://github.com/aws-amplify/amplify-ui/commit/9b09654a7e47ab70fb6d6b31f06de0289f25bbe9) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(authenticator): remove order keys from formFields after sorting
+
 ## 5.4.2
 
 ### Patch Changes

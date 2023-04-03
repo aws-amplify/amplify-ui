@@ -1,4 +1,5 @@
 import {
+  AllOperators,
   PersistentModel,
   RecursiveModelPredicateExtender,
   RecursiveModelPredicate,
@@ -14,6 +15,13 @@ const mergePredicates = <Model extends PersistentModel>(
 ): RecursiveModelPredicateAggregateExtender<Model> => {
   return (model) => predicates.map((predicate) => predicate(model));
 };
+
+function isModelKey<Model>(field: unknown): field is keyof Model {
+  return !!field;
+}
+
+const isOperatorKey = (operator: unknown): operator is keyof AllOperators =>
+  !!operator;
 
 /**
  * Creates a DataStore compatible predicate function from an object representation
@@ -49,7 +57,11 @@ export const createDataStorePredicate = <Model extends PersistentModel>(
   }
 
   return (p: RecursiveModelPredicate<Model>) => {
-    if (p?.[field]?.[operator]) {
+    if (
+      isModelKey(field) &&
+      isOperatorKey(operator) &&
+      p?.[field]?.[operator]
+    ) {
       return (p[field][operator] as Function)(
         operand
       ) as RecursiveModelPredicate<Model>;

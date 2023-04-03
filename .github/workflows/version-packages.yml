@@ -5,9 +5,10 @@
 
 name: Version Packages
 
-on:
-  push:
-    branches: [main]
+# Disabled on staging repo
+# on:
+#   push:
+#     branches: [main]
 
 permissions:
   contents: write # Used to commit to "Version Packages" PR

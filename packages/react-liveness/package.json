@@ -2,14 +2,22 @@
   "name": "@aws-amplify/ui-react-liveness",
   "version": "0.0.1",
   "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/esm/index.mjs",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.js",
+      "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
-    }
+    },
+    "./styles.css": "./dist/styles.css"
   },
+  "browser": {
+    "./styles.css": "./dist/styles.css"
+  },
+  "types": "dist/types/index.d.ts",
+  "sideEffects": [
+    "dist/**/*.css"
+  ],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -20,6 +28,74 @@
     "dist",
     "LICENSE"
   ],
-  "scripts": {},
-  "dependencies": {}
+  "scripts": {
+    "build": "yarn build:rollup",
+    "build:rollup": "rollup --config",
+    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-liveness\"'",
+    "clean": "rimraf dist node_modules",
+    "dev": "yarn build:rollup --watch",
+    "lint": "yarn typecheck && eslint src",
+    "prebuild": "rimraf dist",
+    "size": "yarn size-limit",
+    "test": "jest",
+    "test:ci": "yarn test && yarn check:esm",
+    "test:watch": "yarn test --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "aws-amplify": ">= 5.0.1",
+    "react": ">= 16.14.0",
+    "react-dom": ">= 16.14.0"
+  },
+  "dependencies": {
+    "@aws-amplify/ui": "5.5.7",
+    "@aws-amplify/ui-react": "4.3.10",
+    "@aws-sdk/client-rekognitionstreaming": "^3.298.1",
+    "@tensorflow/tfjs-backend-cpu": "3.11.0",
+    "@tensorflow/tfjs-backend-wasm": "3.11.0",
+    "@tensorflow/tfjs-converter": "3.11.0",
+    "@tensorflow/tfjs-core": "3.11.0",
+    "@tensorflow-models/blazeface": "0.0.7",
+    "@xstate/react": "3.0.0",
+    "classnames": "2.3.1",
+    "nanoid": "3.1.31",
+    "xstate": "^4.33.6",
+    "react-countdown-circle-timer": "^2.5.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@size-limit/preset-big-lib": "^7.0.8",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.1",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/react": "^17.0.2",
+    "@types/jest": "^26.0.23",
+    "@types/jest-when": "^3.5.0",
+    "blob-polyfill": "^7.0.20220408",
+    "eslint": "^8.13.0",
+    "eslint-config-amplify-ui": "0.0.0",
+    "jest": "^27.0.4",
+    "jest-canvas-mock": "^2.4.0",
+    "jest-when": "^3.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.70.0",
+    "rollup-plugin-node-externals": "^4.1.1",
+    "rollup-plugin-styles": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "size-limit": "^7.0.8",
+    "ts-jest": "^27.0.3",
+    "web-streams-polyfill": "^3.2.1"
+  },
+  "size-limit": [
+    {
+      "name": "FaceLivenessDetector",
+      "path": "dist/esm/index.mjs",
+      "import": "{ FaceLivenessDetector }",
+      "limit": "275 kB"
+    }
+  ]
 }

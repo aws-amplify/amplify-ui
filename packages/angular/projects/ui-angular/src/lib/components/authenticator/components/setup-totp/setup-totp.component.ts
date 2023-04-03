@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import QRCode from 'qrcode';
-import { Auth, Logger } from 'aws-amplify';
+import { Logger } from 'aws-amplify';
 import {
   FormFieldsArray,
   getActorContext,
@@ -29,7 +29,7 @@ export class SetupTotpComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-setup-totp') dataAttr = '';
   public headerText = getSetupTOTPText();
   public qrCodeSource = '';
-  public secretKey = '';
+  public totpSecretCode = '';
   public copyTextLabel = getCopyText();
 
   // translated texts
@@ -48,15 +48,19 @@ export class SetupTotpComponent implements OnInit {
   }
 
   async generateQRCode() {
-    // TODO: This should be handled in core.
-    const state = this.authenticator.authState;
-    const actorContext = getActorContext(state) as SignInContext;
-    const { user, formFields } = actorContext;
+    const { authState: state, totpSecretCode, user } = this.authenticator;
+    const { formFields } = getActorContext(state) as SignInContext;
     const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
       formFields?.setupTOTP?.QR ?? {};
+
+    this.totpSecretCode = totpSecretCode;
+
     try {
-      this.secretKey = await Auth.setupTOTP(user);
-      const totpCode = getTotpCodeURL(totpIssuer, totpUsername, this.secretKey);
+      const totpCode = getTotpCodeURL(
+        totpIssuer,
+        totpUsername,
+        this.totpSecretCode
+      );
 
       logger.info('totp code was generated:', totpCode);
       this.qrCodeSource = await QRCode.toDataURL(totpCode);
@@ -77,7 +81,7 @@ export class SetupTotpComponent implements OnInit {
   }
 
   copyText(): void {
-    navigator.clipboard.writeText(this.secretKey);
+    navigator.clipboard.writeText(this.totpSecretCode);
     this.copyTextLabel = getCopiedText();
   }
 }

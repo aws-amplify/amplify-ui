@@ -1,16 +1,10 @@
 import { useState } from 'react';
+import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
 import {
   FaceLivenessDetector,
-  View,
-  Flex,
-  Loader,
-  Text,
-  FaceLivenessErrorModal,
-  FaceLivenessFailureModal,
-} from '@aws-amplify/ui-react';
+} from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
-import { GetLivenessResultCard } from './GetLivenessResultCard';
 import LivenessInlineResults from './LivenessInlineResults';
 
 export default function LivenessDefault({
@@ -64,6 +58,7 @@ export default function LivenessDefault({
             {!getLivenessResponse ? (
               <FaceLivenessDetector
                 sessionId={createLivenessSessionApiData.sessionId}
+                region={'us-east-1'}
                 onUserCancel={onUserCancel}
                 onAnalysisComplete={async () => {
                   const response = await handleGetLivenessDetection(
@@ -79,17 +74,6 @@ export default function LivenessDefault({
                 disableInstructionScreen={disableInstructionScreen}
                 components={components}
               />
-            ) : null}
-            {error ? (
-              <View style={{ zIndex: '1' }}>
-                <FaceLivenessErrorModal
-                  error={error}
-                  onRetry={() => {
-                    setError(undefined);
-                    stopLiveness();
-                  }}
-                />
-              </View>
             ) : null}
           </Flex>
         </Flex>

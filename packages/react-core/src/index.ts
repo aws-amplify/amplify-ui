@@ -47,3 +47,4 @@ export {
 
 // components/hooks/utils
 export { useHasValueUpdated, usePreviousValue } from './hooks';
+export { templateJoin } from './utils';

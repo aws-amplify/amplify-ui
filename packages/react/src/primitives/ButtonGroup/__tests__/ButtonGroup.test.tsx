@@ -10,7 +10,7 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 
-describe('ButtonGroup: ', () => {
+describe('ButtonGroup:', () => {
   const getButtonGroup = (
     props: Partial<PrimitivePropsWithRef<ButtonGroupProps, 'div'>>
   ) => {

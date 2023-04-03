@@ -14,9 +14,15 @@ on:
         required: true
         type: string
     secrets:
-      AWS_ACCESS_KEY_ID:
+      AUTH_E2E_ROLE_ARN:
         required: true
-      AWS_SECRET_ACCESS_KEY:
+      GEO_E2E_ROLE_ARN:
+        required: true
+      STORAGE_E2E_ROLE_ARN:
+        required: true
+      DATASTORE_E2E_ROLE_ARN:
+        required: true
+      IN_APP_MESSAGING_E2E_ROLE_ARN:
         required: true
       AWS_ACCESS_KEY_ID_AUTH:
         required: true
@@ -159,6 +165,8 @@ jobs:
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true # unit test doesn't need cypress
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
@@ -185,8 +193,8 @@ jobs:
       - name: Lint packages
         run: yarn ${{ matrix.package }} lint
 
-      - name: Run ${{ matrix.package }} tests
-        run: yarn ${{ matrix.package }} test
+      - name: Run ${{ matrix.package }} CI tests
+        run: yarn ${{ matrix.package }} test:ci
 
   e2e:
     # Only run e2e tests if unit tests pass
@@ -279,6 +287,8 @@ jobs:
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: false
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
@@ -297,52 +307,96 @@ jobs:
 
       - name: Get CLI versions
         id: cli-version
-        run: echo "::set-output name=version::$(amplify --version)"
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
-      - name: Create or restore environments cache
-        id: environments-cache
-        uses: actions/cache@v3
+      - name: Configure auth credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          path: environments/**/aws-exports.js
-          key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
 
-      # Pulling phone environments from original account,
-      - name: Pull down Auth Phone AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments auth pull:phone
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
 
-      - name: Pull down Auth non-phone AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments auth pull:non-phone
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_AUTH }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_AUTH }}
+      - name: Pull down Auth AWS environments
+        run: yarn environments auth pull
 
-      - name: Pull down Geo AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+      - name: Configure geo credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.GEO_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Geo AWS environments
         run: yarn environments geo pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_GEO }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_GEO }}
 
-      - name: Pull down Storage AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Storage AWS environments
         run: yarn environments storage pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_STORAGE}}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_STORAGE}}
 
-      - name: Pull down Datastore AWS environments, on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
+      - name: Configure datastore credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Datastore AWS environments
         run: yarn environments datastore pull
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DATASTORE }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_DATASTORE }}
+
+      - name: Configure in-app-messaging credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down In-app-messaging AWS environments
+        run: yarn environments in-app-messaging pull
+
+      - name: Delete AWS profile
+        run: rm -rf ~/.aws
 
       - name: Build ${{ matrix.example }} example
         run: yarn workspace ${{ matrix.example }}-example build
@@ -351,6 +405,7 @@ jobs:
         run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.example }} example
+        id: e2e
         run: yarn workspace e2e test:examples
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
@@ -362,8 +417,18 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: e2e-cypress-error-${{ matrix.package }}
+          path: |
+            packages/e2e/cypress/videos/**
+            packages/e2e/cypress/screenshots/**
+          retention-days: 5
+
   docs:
-    # Only run docs tests if e2e tests pass
     needs: [setup, unit]
     runs-on: ubuntu-latest
     environment: ci
@@ -393,8 +458,22 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
+      - name: Restore node_modules cache
+        uses: actions/cache@v3
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
       - name: Install packages
-        run: yarn install
+        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: false
 
       - name: Build ui package
         run: yarn ui build
@@ -418,6 +497,7 @@ jobs:
 
       - name: Run E2E tests against docs
         run: yarn workspace e2e test:theme
+        id: e2e
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -425,3 +505,13 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: docs-e2e-cypress-error
+          path: |
+            packages/e2e/cypress/videos/**
+            packages/e2e/cypress/screenshots/**
+          retention-days: 5

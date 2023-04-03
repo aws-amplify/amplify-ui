@@ -10,10 +10,13 @@ import {
 } from '../Icon/internal';
 
 interface AlertIconProps {
-  variation: AlertVariations;
+  variation?: AlertVariations;
   ariaHidden?: boolean;
 }
 
+/**
+ * @internal For internal Amplify UI use only. May be removed in a future release.
+ */
 export const AlertIcon: React.FC<AlertIconProps> = ({
   variation,
   ariaHidden,

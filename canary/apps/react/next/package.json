@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "latest",
+    "@aws-amplify/ui-react": "liveness",
+    "@aws-amplify/ui-react-liveness": "liveness",
     "aws-amplify": "latest",
     "next": "12.0.10",
     "react": "latest",
@@ -24,7 +25,7 @@
   "size-limit": [
     {
       "path": ".next/static/**/*.js",
-      "limit": "350 kB"
+      "limit": "500 kB"
     }
   ]
 }

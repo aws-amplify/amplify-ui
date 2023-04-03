@@ -83,6 +83,10 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade?.codeDeliveryDetails;
   }
 
+  public get totpSecretCode() {
+    return this._facade?.totpSecretCode;
+  }
+
   /**
    * Service facades
    */

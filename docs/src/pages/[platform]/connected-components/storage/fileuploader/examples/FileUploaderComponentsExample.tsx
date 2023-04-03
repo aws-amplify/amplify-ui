@@ -21,6 +21,7 @@ export const FileUploaderComponentsExample = () => {
       //     );
       //   },
       // }}
+      // @ts-ignore // IGNORE
       provider="fast" // IGNORE
     />
   );

@@ -146,6 +146,23 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/connected-components/account-settings',
+    label: 'Account Settings',
+    platforms: ['react'],
+  },
+  {
+    href: '/connected-components/account-settings/change-password',
+    label: 'Change Password',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/connected-components/account-settings/delete-user',
+    label: 'Delete User',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/liveness',
     label: 'Liveness',
     body: 'Amplify UI provides a UI component for detecting whether the person in front of the camera is live.',
@@ -484,28 +501,12 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/introduction',
     label: 'Introduction',
-    platforms: [
-      'react',
-      'vue',
-      'angular',
-      'flutter',
-      'react-native',
-      'android',
-      'swift',
-    ],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/getting-started/installation',
     label: 'Installation',
-    platforms: [
-      'react',
-      'vue',
-      'angular',
-      'flutter',
-      'react-native',
-      'android',
-      'swift',
-    ],
+    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
   },
   {
     href: '/getting-started/usage',

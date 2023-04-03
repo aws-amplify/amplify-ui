@@ -14,6 +14,6 @@ Testing upload image feature
     Given I intercept '{ "method": "PUT", "url": "**/test.jpg?partNumber**"  }' with fixture "FileUploader-uploads.xml"
     Given I intercept '{ "method": "POST", "url": "**/test.jpg?uploadId**"  }' with fixture "FileUploader-uploads-complete.xml"
     Given I intercept '{ "method": "GET", "url": "**/?list-type=2**"  }' with fixture "FileUploader-uploads-list.xml"
-    Then I click the 'Upload 1 files' button
+    Then I click the 'Upload 1 file' button
     Then I see "Uploaded successfully"
 

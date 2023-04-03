@@ -1,19 +1,24 @@
 import classNames from 'classnames';
-import { Range, Root, Thumb, Track } from '@radix-ui/react-slider';
+import * as RadixSlider from '@radix-ui/react-slider';
 import * as React from 'react';
+
+import { isFunction, sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
-import { isFunction } from '../shared/utils';
 import { Label } from '../Label';
 import { Primitive } from '../types/view';
 import { SliderFieldProps } from '../types/sliderField';
-import { splitPrimitiveProps } from '../shared/styleUtils';
+import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
+
+// Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
+// We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
+const { Range, Root, Thumb, Track } = sanitizeNamespaceImport(RadixSlider);
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';
@@ -24,7 +29,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   {
     ariaValuetext,
     className,
-    defaultValue,
+    defaultValue = 0,
     descriptiveText,
     emptyTrackColor,
     errorMessage,
@@ -43,7 +48,6 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
     testId,
     thumbColor,
     trackSize,
-    dir,
     value,
     size,
     ..._rest
@@ -106,6 +110,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
       // Custom classnames will be added to Root below
       className={classNames(
         ComponentClassNames.Field,
+        classNameModifier(ComponentClassNames.Field, size),
         ComponentClassNames.SliderField
       )}
       testId={testId}
