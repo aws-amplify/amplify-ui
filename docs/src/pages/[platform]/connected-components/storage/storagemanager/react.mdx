@@ -108,8 +108,8 @@ The StorageManager component has several event handlers: `onUploadSuccess`, `onU
   </ExampleCode>
 </Example>
 
-<Alert variation="info" heading="Use a Ref">
-Because `onUploadSuccess` is called once per file in a callback, if you want to keep track of all the files uploaded you will need to keep a [ref](https://react.dev/reference/react/useRef) of all the files. 
+<Alert variation="warning" heading="Use a Ref">
+Be careful setting state in the `onUploadSuccess` because that function is bound when the upload _starts_. Make sure to use the previous state argument rather than the current state in the component.
 </Alert>
 
 ## Customization
