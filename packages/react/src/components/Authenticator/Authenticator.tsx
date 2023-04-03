@@ -75,6 +75,7 @@ export function AuthenticatorInternal({
   if (isAuthenticatedRoute) {
     // `Authenticator` might not have user defined `children` for non SPA use cases.
     if (!children) {
+      // @ts-ignore
       return null;
     }
 
@@ -90,9 +91,9 @@ export function AuthenticatorInternal({
   return (
     <CustomComponentsContext.Provider value={value}>
       <Router
-        className={className}
-        hideSignUp={hideSignUp}
-        variation={variation}
+        className={className!}
+        hideSignUp={hideSignUp!}
+        variation={variation!}
       />
     </CustomComponentsContext.Provider>
   );

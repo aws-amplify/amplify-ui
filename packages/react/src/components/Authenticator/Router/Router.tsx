@@ -14,6 +14,7 @@ import { RouterProps } from './types';
 type RouteComponent = (props: Omit<RouterProps, 'children'>) => JSX.Element;
 
 function RenderNothing(): JSX.Element {
+  // @ts-ignore
   return null;
 }
 
@@ -63,6 +64,7 @@ export function Router({
   return (
     <RouterChildren
       className={className}
+      // @ts-ignore
       hideSignUp={isSignInOrSignUpRoute(route) ? hideSignUp : undefined}
       variation={variation}
     />

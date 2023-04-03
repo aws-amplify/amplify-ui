@@ -54,7 +54,7 @@ export function FileUploader({
     showPreviewer,
     ...dropZoneProps
   } = useFileUploader({
-    maxSize,
+    maxSize: maxSize!,
     acceptedFileTypes,
     hasMultipleFiles,
     isLoading,
@@ -77,6 +77,7 @@ export function FileUploader({
 
   const hasMaxFilesError =
     fileStatuses.filter((file) => file.percentage !== 100).length >
+    // @ts-ignore
     maxFileCount;
 
   useEffect(() => {
@@ -87,6 +88,7 @@ export function FileUploader({
   }, [aggregatePercentage]);
 
   useEffect(() => {
+    // @ts-ignore
     setShowPreviewer(isPreviewerVisible);
   }, [setShowPreviewer, isPreviewerVisible]);
 
@@ -186,12 +188,13 @@ export function FileUploader({
     fileStatuses.forEach((status, i) => {
       if (status?.fileState === FileState.SUCCESS) return;
       const uploadTask = uploadFile({
-        file: status.file,
-        fileName: status.name,
+        file: status.file!,
+        fileName: status.name!,
         level: accessLevel,
         isResumable,
         progressCallback: progressCallback(i),
         errorCallback: errorCallback(i),
+        // @ts-ignore
         completeCallback: onSuccess,
         ...rest,
       });
@@ -231,9 +234,10 @@ export function FileUploader({
 
       const { files } = event.target;
       // Spread files here because a I need a File[] instead, it's easier to iterate through
-      const addedFilesLength = addTargetFiles([...files]);
+      const addedFilesLength = addTargetFiles!([...files]);
       // only show previewer if the added files are great then 0
       if (addedFilesLength > 0) {
+        // @ts-ignore
         setShowPreviewer(true);
         setAutoLoad(true);
       }
@@ -242,7 +246,7 @@ export function FileUploader({
   );
 
   const onClear = useCallback(() => {
-    setShowPreviewer(false);
+    setShowPreviewer!(false);
     setFileStatuses([]);
   }, [setFileStatuses, setShowPreviewer]);
 
@@ -273,7 +277,7 @@ export function FileUploader({
 
         const newFileStatuses = [...fileStatuses];
         const status = fileStatuses[index];
-        const validExtension = isValidExtension(value, status.file.name);
+        const validExtension = isValidExtension(value, status.file!.name);
         newFileStatuses[index] = {
           ...status,
           name: value,
@@ -295,7 +299,7 @@ export function FileUploader({
         const newFileStatuses = [...prevFileStatuses];
         const status = newFileStatuses[index];
         // Check if extension is valid before setting state
-        const validExtension = isValidExtension(status.name, status.file.name)
+        const validExtension = isValidExtension(status.name!, status.file!.name)
           ? FileState.INIT
           : FileState.ERROR;
         const updatedFileState =
@@ -338,7 +342,7 @@ export function FileUploader({
     setAutoLoad(false);
   }, [shouldAutoProceed, onFileClick, autoLoad, hasMaxFilesError]);
 
-  const hiddenInput = React.useRef<HTMLInputElement>();
+  const hiddenInput = React.useRef<HTMLInputElement>(null);
 
   const accept = acceptedFileTypes?.join();
 
@@ -349,8 +353,8 @@ export function FileUploader({
           className={ComponentClassNames.FileUploaderDropZoneButton}
           isDisabled={isLoading}
           onClick={() => {
-            hiddenInput.current.click();
-            hiddenInput.current.value = null;
+            hiddenInput?.current?.click();
+            hiddenInput.current!.value = '';
           }}
           size="small"
         >
@@ -383,27 +387,27 @@ export function FileUploader({
         isLoading={isLoading}
         isSuccessful={isSuccessful}
         hasMaxFilesError={hasMaxFilesError}
-        maxFileCount={maxFileCount}
+        maxFileCount={maxFileCount!}
         onClear={onClear}
         onFileClick={onFileClick}
         aggregatePercentage={aggregatePercentage}
       >
         {fileStatuses?.map((status, index) => (
           <UploadTracker
-            errorMessage={status?.fileErrors}
-            file={status.file}
-            fileState={status?.fileState}
-            hasImage={status.file?.type.startsWith('image/')}
+            errorMessage={status?.fileErrors!}
+            file={status.file!}
+            fileState={status?.fileState!}
+            hasImage={status.file?.type.startsWith('image/')!}
             showImage={showImages}
             key={index}
-            name={status.name}
+            name={status.name!}
             onCancel={onFileCancel(index)}
             onCancelEdit={onCancelEdit(index)}
             onPause={onPause(index)}
             onResume={onResume(index)}
             onSaveEdit={onSaveEdit(index)}
             onStartEdit={onStartEdit(index)}
-            percentage={status.percentage}
+            percentage={status.percentage!}
             isResumable={isResumable}
           />
         ))}

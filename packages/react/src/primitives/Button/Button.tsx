@@ -31,7 +31,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     classNameModifierByFlag(
       ComponentClassNames.Button,
       'disabled',
-      isDisabled || isLoading || rest['disabled']
+      isDisabled ?? isLoading ?? rest['disabled']
     ),
     classNameModifierByFlag(ComponentClassNames.Button, 'loading', isLoading),
     classNameModifierByFlag(
@@ -51,7 +51,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       data-loading={isLoading}
       data-size={size}
       data-variation={variation}
-      isDisabled={isDisabled || isLoading}
+      isDisabled={isDisabled ?? isLoading}
       type={type}
       {...rest}
     >

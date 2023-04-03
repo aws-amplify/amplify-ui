@@ -15,9 +15,10 @@ interface UseTypeCastFieldsProps<Model extends PersistentModel> {
   schema?: Schema;
 }
 
-type UseTypeCastFieldsReturn<Model> =
-  | ModelInit<Model, PersistentModelMetaData<Model>>
-  | undefined;
+type UseTypeCastFieldsReturn<Model extends PersistentModel> = ModelInit<
+  Model,
+  PersistentModelMetaData<Model>
+>;
 
 /**
  * Optimistically casts field string values to types required by
