@@ -1,9 +1,10 @@
 import { FileUploader } from '@aws-amplify/ui-react';
 
-export const IsPreviewerVisibleExample = () => {
+export const MaxFileCountExample = () => {
   return (
     <FileUploader
-      isPreviewerVisible={true}
+      maxFileCount={3}
+      variation="drop"
       acceptedFileTypes={['image/*']}
       accessLevel="public"
       // @ts-ignore // IGNORE
