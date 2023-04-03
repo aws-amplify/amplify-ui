@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "4.4.3",
-    "@aws-amplify/ui-react-storage": "0.0.1",
+    "@aws-amplify/ui-react-storage": "1.0.0",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
