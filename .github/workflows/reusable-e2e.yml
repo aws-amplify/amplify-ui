@@ -143,16 +143,16 @@ jobs:
         run: yarn ui build
 
       - name: Build react-core package
-        if: ${{ matrix.package == 'react' }}
+        if: ${{ matrix.package == 'react' || matrix.package == 'react-storage' }}
+        run: yarn react-core build
+
+      - name: Build react package
+        if: ${{ matrix.package == 'react-storage' }}
         run: yarn react-core build
 
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
-
-      - name: Build react-storage package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-storage build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
@@ -344,7 +344,7 @@ jobs:
 
       - name: Build react package
         run: yarn react build
-        
+
       - name: Build react-storage package
         run: yarn react-storage build
 
