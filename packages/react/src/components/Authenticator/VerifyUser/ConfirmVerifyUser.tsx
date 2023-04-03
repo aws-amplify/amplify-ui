@@ -22,6 +22,7 @@ export const ConfirmVerifyUser = ({
 
   const {
     components: {
+      // @ts-ignore
       ConfirmVerifyUser: {
         Header = ConfirmVerifyUser.Header,
         Footer = ConfirmVerifyUser.Footer,
@@ -62,6 +63,6 @@ ConfirmVerifyUser.Header = function Header() {
   return <Heading level={3}>{getAccountRecoveryInfoText()}</Heading>;
 };
 
-ConfirmVerifyUser.Footer = function Footer(): JSX.Element {
+ConfirmVerifyUser.Footer = function Footer(): JSX.Element | null {
   return null;
 };

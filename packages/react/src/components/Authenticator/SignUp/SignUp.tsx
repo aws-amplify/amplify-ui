@@ -22,6 +22,7 @@ export function SignUp(): JSX.Element {
 
   const {
     components: {
+      // @ts-ignore
       SignUp: {
         Header = SignUp.Header,
         FormFields = SignUp.FormFields,
@@ -69,11 +70,13 @@ export function SignUp(): JSX.Element {
 }
 
 SignUp.Header = function Header(): JSX.Element {
+  // @ts-ignore
   return null;
 };
 SignUp.FormFields = function FormFields() {
   return <DefaultFormFields />;
 };
 SignUp.Footer = function Footer(): JSX.Element {
+  // @ts-ignore
   return null;
 };

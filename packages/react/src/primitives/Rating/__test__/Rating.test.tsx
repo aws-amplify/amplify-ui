@@ -55,8 +55,8 @@ describe('Rating', () => {
 
     const emptyIcon = container.getElementsByClassName(
       'amplify-rating-icon-empty'
-    )[0];
-    expect((emptyIcon['style'] as React.CSSProperties).color).toBe('red');
+    )[0] as HTMLElement;
+    expect(emptyIcon.style.color).toBe('red');
   });
 
   it('should render the filled icon color', () => {
@@ -66,8 +66,8 @@ describe('Rating', () => {
 
     const filledIcon = container.getElementsByClassName(
       'amplify-rating-icon-filled'
-    )[0];
-    expect((filledIcon['style'] as React.CSSProperties).color).toBe('blue');
+    )[0] as HTMLElement;
+    expect(filledIcon.style.color).toBe('blue');
   });
 
   it('should render filled icons when the value prop is used', () => {

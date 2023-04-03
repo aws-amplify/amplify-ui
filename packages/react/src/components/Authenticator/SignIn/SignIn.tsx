@@ -21,6 +21,7 @@ export function SignIn(): JSX.Element {
 
   const {
     components: {
+      // @ts-ignore
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
   } = useCustomComponents();
@@ -85,5 +86,6 @@ const DefaultFooter = () => {
 
 SignIn.Footer = DefaultFooter;
 SignIn.Header = function Header(): JSX.Element {
+  // @ts-ignore
   return null;
 };
