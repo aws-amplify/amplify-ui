@@ -1,3 +1,3 @@
 export { useDropZone } from './useDropZone';
-export { useStorageManager } from './useStorageManager';
+export { useStorageManager, UseStorageManager } from './useStorageManager';
 export { useUploadFiles } from './useUploadFiles';

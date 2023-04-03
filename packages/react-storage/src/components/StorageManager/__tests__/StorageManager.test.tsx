@@ -5,6 +5,7 @@ import { Logger } from 'aws-amplify';
 import { ComponentClassNames } from '@aws-amplify/ui-react';
 import { Storage } from 'aws-amplify';
 
+import * as StorageHooks from '../hooks';
 import { StorageManager } from '../StorageManager';
 import { StorageManagerProps } from '../types';
 import { defaultStorageManagerDisplayText } from '../utils';
@@ -51,7 +52,7 @@ describe('StorageManager', () => {
 
     expect(
       container.getElementsByClassName(
-        `${ComponentClassNames.StorageManagerDropZoneButton}`
+        `${ComponentClassNames.StorageManagerFilePicker}`
       )
     ).toHaveLength(1);
 
@@ -154,5 +155,39 @@ describe('StorageManager', () => {
     render(<StorageManager {...storeManagerProps} maxFileCount={0} />);
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should trigger hidden input onChange', async () => {
+    const mockAddFiles = jest.fn();
+    jest.spyOn(StorageHooks, 'useStorageManager').mockReturnValue({
+      addFiles: mockAddFiles,
+      files: [],
+    } as unknown as StorageHooks.UseStorageManager);
+
+    const { findByRole } = render(<StorageManager {...storeManagerProps} />);
+
+    const filePickerButton = await findByRole('button');
+
+    expect(filePickerButton).toBeInTheDocument();
+
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+
+    fireEvent.click(filePickerButton);
+
+    expect(hiddenInput).toHaveValue('');
+
+    const mockFile = new File(['hello'], 'hello.png', { type: 'image/png' });
+
+    fireEvent.change(hiddenInput, { target: { files: [mockFile] } });
+
+    expect(mockAddFiles).toHaveBeenCalledTimes(1);
+    expect(mockAddFiles).toHaveBeenCalledWith({
+      files: [mockFile],
+      getFileErrorMessage: expect.any(Function),
+    });
   });
 });

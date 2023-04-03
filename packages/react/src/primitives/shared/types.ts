@@ -174,7 +174,7 @@ type ComponentClassNameKey =
   | 'StorageManagerDropZone'
   | 'StorageManagerDropZoneIcon'
   | 'StorageManagerDropZoneText'
-  | 'StorageManagerDropZoneButton'
+  | 'StorageManagerFilePicker'
   | 'StorageManagerFile'
   | 'StorageManagerFileWrapper'
   | 'StorageManagerFileList'

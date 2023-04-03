@@ -564,8 +564,8 @@ export const ComponentClassObject: ComponentClassNameItems = {
     className: ComponentClassName.StorageManagerDropZoneText,
     components: ['StorageManager'],
   },
-  StorageManagerDropZoneButton: {
-    className: ComponentClassName.StorageManagerDropZoneButton,
+  StorageManagerFilePicker: {
+    className: ComponentClassName.StorageManagerFilePicker,
     components: ['StorageManager'],
   },
   StorageManagerFile: {
@@ -874,8 +874,8 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.StorageManagerDropZoneIcon.className,
   StorageManagerDropZoneText:
     ComponentClassObject.StorageManagerDropZoneText.className,
-  StorageManagerDropZoneButton:
-    ComponentClassObject.StorageManagerDropZoneButton.className,
+  StorageManagerFilePicker:
+    ComponentClassObject.StorageManagerFilePicker.className,
   StorageManagerFile: ComponentClassObject.StorageManagerFile.className,
   StorageManagerFileWrapper:
     ComponentClassObject.StorageManagerFileWrapper.className,

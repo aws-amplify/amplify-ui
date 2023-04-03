@@ -46,42 +46,36 @@ export const STORAGE_MANAGER = [
   {
     name: `components?.Container?`,
     description: 'The container the StorageManager is wrapped in.',
-    type: `(props: ContainerProps) => JSX.Element;`,
+    type: `React.ComponentType<ContainerProps>`,
   },
   {
     name: `components?.DropZone?`,
     description: 'The dropzone element which contains the FilePicker',
-    type: `(props: DropZoneProps) => JSX.Element;`,
+    type: `React.ComponentType<DropZoneProps>`,
   },
   {
     name: `components?.FilePicker?`,
     description: 'The button that opens the file picker menu.',
-    type: `(props: FilePickerProps) => JSX.Element;`,
+    type: `React.ComponentType<FilePickerProps>`,
   },
   {
     name: `components?.FileList?`,
     description: 'The list of files that is being uploaded.',
-    type: `(props: FileListProps) => JSX.Element;`,
+    type: `React.ComponentType<FileListProps>`,
   },
   {
     name: `components?.FileListHeader?`,
     description: 'The heading above the list of files',
-    type: `(props: FileListHeaderProps) => JSX.Element;`,
+    type: `React.ComponentType<FileListHeaderProps>`,
   },
 ];
 
 export const FILE_PICKER = [
-  acceptedFileTypes,
-  displayText,
+  children,
   {
-    name: 'allowMultipleFiles',
+    name: 'onClick',
     description: '',
-    type: `boolean`,
-  },
-  {
-    name: 'onFileChange',
-    description: 'Event handler that will go on a file input',
-    type: `(event: React.ChangeEvent<HTMLInputElement>) => void`,
+    type: `React.MouseEventHandler<HTMLButtonElement>`,
   },
 ];
 

@@ -1,9 +1,12 @@
 import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 
-import { DropZoneProps, FilePickerProps } from './ui/DropZone';
-import { FileListProps } from './ui/FileList';
-import { ContainerProps } from './ui/Container';
-import { FileListHeaderProps } from './ui/FileListHeader';
+import {
+  ContainerProps,
+  DropZoneProps,
+  FileListHeaderProps,
+  FileListProps,
+  FilePickerProps,
+} from './ui';
 import { StorageManagerDisplayText } from './utils';
 
 export enum FileStatus {
@@ -44,11 +47,11 @@ export interface StorageManagerProps {
    * Component overrides
    */
   components?: {
-    Container?: (props: ContainerProps) => JSX.Element;
-    DropZone?: (props: DropZoneProps) => JSX.Element;
-    FileList?: (props: FileListProps) => JSX.Element;
-    FilePicker?: (props: FilePickerProps) => JSX.Element;
-    FileListHeader?: (props: FileListHeaderProps) => JSX.Element;
+    Container?: React.ComponentType<ContainerProps>;
+    DropZone?: React.ComponentType<DropZoneProps>;
+    FileList?: React.ComponentType<FileListProps>;
+    FilePicker?: React.ComponentType<FilePickerProps>;
+    FileListHeader?: React.ComponentType<FileListHeaderProps>;
   };
   /**
    * List of default files already uploaded

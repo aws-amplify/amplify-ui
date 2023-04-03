@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Logger } from 'aws-amplify';
 
 import { UploadTask } from '@aws-amplify/storage';
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
 
 import { useStorageManager, useUploadFiles, useDropZone } from './hooks';
 import { FileStatus, StorageManagerProps } from './types';
@@ -12,7 +12,7 @@ import {
   FileList,
   FileListHeader,
   FilePicker,
-} from './ui/';
+} from './ui';
 import {
   checkMaxFileSize,
   defaultStorageManagerDisplayText,
@@ -195,6 +195,14 @@ function StorageManager({
 
   const hasFiles = files.length > 0;
 
+  const hiddenInput = React.useRef<HTMLInputElement>(null);
+  function handleClick() {
+    if (hiddenInput.current) {
+      hiddenInput.current.click();
+      hiddenInput.current.value = '';
+    }
+  }
+
   return (
     <Components.Container
       className={`${ComponentClassNames.StorageManager} ${
@@ -202,12 +210,21 @@ function StorageManager({
       }`}
     >
       <Components.DropZone {...dropZoneProps} displayText={displayText}>
-        <Components.FilePicker
-          onFileChange={onFilePickerChange}
-          displayText={displayText}
-          acceptedFileTypes={acceptedFileTypes}
-          allowMultipleFiles={allowMultipleFiles}
-        />
+        <>
+          <Components.FilePicker onClick={handleClick}>
+            {displayText.browseFilesText}
+          </Components.FilePicker>
+          <VisuallyHidden>
+            <input
+              type="file"
+              tabIndex={-1}
+              ref={hiddenInput}
+              onChange={onFilePickerChange}
+              multiple={allowMultipleFiles}
+              accept={acceptedFileTypes.join(',')}
+            />
+          </VisuallyHidden>
+        </>
       </Components.DropZone>
       {hasFiles ? (
         <Components.FileListHeader

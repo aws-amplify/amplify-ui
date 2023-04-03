@@ -31,26 +31,24 @@ exports[`StorageManager renders as expected 1`] = `
       >
         Drop files here or
       </p>
-      <div>
-        <button
-          class="amplify-button amplify-field-group__control amplify-button--small amplify-storagemanager__dropzone__button"
-          data-fullwidth="false"
-          data-size="small"
-          type="button"
-        >
-          Browse files
-        </button>
-        <span
-          class="amplify-visually-hidden"
-        >
-          <input
-            accept=""
-            multiple=""
-            tabindex="-1"
-            type="file"
-          />
-        </span>
-      </div>
+      <button
+        class="amplify-button amplify-field-group__control amplify-button--small amplify-storagemanager__file__picker"
+        data-fullwidth="false"
+        data-size="small"
+        type="button"
+      >
+        Browse files
+      </button>
+      <span
+        class="amplify-visually-hidden"
+      >
+        <input
+          accept=""
+          multiple=""
+          tabindex="-1"
+          type="file"
+        />
+      </span>
     </div>
   </div>
 </div>

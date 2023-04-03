@@ -39,20 +39,11 @@ export const StorageManagerComponentOverridesExample = () => {
             </Flex>
           );
         },
-        FilePicker({ onFileChange }) {
-          const ref = React.useRef(null);
-          const handleClick = () => {
-            ref.current?.click();
-          };
+        FilePicker({ onClick }) {
           return (
-            <>
-              <VisuallyHidden>
-                <input multiple ref={ref} type="file" onChange={onFileChange} />
-              </VisuallyHidden>
-              <Button variation="primary" onClick={handleClick}>
-                Browse Files
-              </Button>
-            </>
+            <Button variation="primary" onClick={onClick}>
+              Browse Files
+            </Button>
           );
         },
         FileList({ files, onCancelUpload, onDeleteUpload }) {

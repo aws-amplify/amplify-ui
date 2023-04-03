@@ -11,10 +11,3 @@ export interface DropZoneProps {
   onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
   testId?: string;
 }
-
-export interface FilePickerProps {
-  acceptedFileTypes: string[];
-  displayText: StorageManagerDisplayText;
-  allowMultipleFiles: boolean;
-  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
