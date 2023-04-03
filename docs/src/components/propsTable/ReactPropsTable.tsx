@@ -8,6 +8,7 @@ import {
   ResponsiveTable,
   ResponsiveTableCell,
 } from '@/components/ResponsiveTable';
+import { CodeHighlight } from '../CodeHighlight';
 
 interface PropMetaData {
   name: string;
@@ -26,7 +27,9 @@ const Row = ({ description, name, type }: PropMetaData) => (
   <TableRow key={`${name}:${description}:${type}`}>
     <ResponsiveTableCell label="Name">{name}</ResponsiveTableCell>
     <ResponsiveTableCell label="Description">{description}</ResponsiveTableCell>
-    <ResponsiveTableCell label="Type">{type}</ResponsiveTableCell>
+    <ResponsiveTableCell label="Type">
+      <CodeHighlight code={type} language="typescript" />
+    </ResponsiveTableCell>
   </TableRow>
 );
 

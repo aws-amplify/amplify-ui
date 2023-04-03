@@ -3415,6 +3415,270 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"center\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-active-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-pressed)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-active-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-fileuploader-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-active-border-style\\",
+        \\"value\\": \\"var(--amplify-components-fileuploader-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-active-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-border-style\\",
+        \\"value\\": \\"dashed\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-icon-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-icon-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-text-align\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-text-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-text-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-text-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-align-items\\",
+        \\"value\\": \\"baseline\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-image-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-image-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-image-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-image-height\\",
+        \\"value\\": \\"var(--amplify-space-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-image-width\\",
+        \\"value\\": \\"var(--amplify-space-xxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-name-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-name-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-name-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-size-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-size-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-file-size-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-normal)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-filelist-flex-direction\\",
+        \\"value\\": \\"column\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-filelist-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-loader-stroke-empty\\",
+        \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-loader-stroke-filled\\",
+        \\"value\\": \\"var(--amplify-components-loader-stroke-filled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-loader-stroke-linecap\\",
+        \\"value\\": \\"round\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-loader-stroke-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-body-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-body-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-body-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-justify-content\\",
+        \\"value\\": \\"space-between\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-max-height\\",
+        \\"value\\": \\"40rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-max-width\\",
+        \\"value\\": \\"auto\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-zero)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-text-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-text-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-previewer-text-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-switchfield-disabled-opacity\\",
         \\"value\\": \\"var(--amplify-opacities-60)\\"
     },
