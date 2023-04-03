@@ -1,6 +1,1 @@
-export {
-  FaceLivenessDetector,
-  FaceLivenessDetectorProps,
-  FaceLivenessErrorModal,
-  FaceLivenessErrorModalProps,
-} from './components';
+export { FaceLivenessDetector, FaceLivenessDetectorProps } from './components';

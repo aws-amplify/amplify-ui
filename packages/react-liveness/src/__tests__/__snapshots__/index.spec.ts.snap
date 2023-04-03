@@ -3,6 +3,5 @@
 exports[`exports should match the expected snapshot 1`] = `
 Array [
   "FaceLivenessDetector",
-  "FaceLivenessErrorModal",
 ]
 `;
