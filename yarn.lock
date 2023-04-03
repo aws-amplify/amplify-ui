@@ -642,6 +642,26 @@
     events "^3.1.0"
     tslib "^1.8.0"
 
+"@aws-amplify/ui-react-core@2.1.16":
+  version "2.1.16"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react-core/-/ui-react-core-2.1.16.tgz#54506f5143992537ddd1ca3f47f8d6d08820b16b"
+  integrity sha512-iD/MmJbxAxDoqGJYP/zcGy8VQa84YhyBszEwUSQZRohshwsAjrwrh8afHt/pIkbPjO0MbYl4o61G68Mm8W9P1w==
+  dependencies:
+    "@aws-amplify/ui" "5.5.8"
+    "@xstate/react" "3.0.1"
+    lodash "4.17.21"
+    xstate "^4.33.6"
+
+"@aws-amplify/ui@5.5.8":
+  version "5.5.8"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-5.5.8.tgz#0fa2912afc1d2147e2e4321f6368d50ce1e6a619"
+  integrity sha512-8e0tiNf1F5qm1wO7nzH5XRm2qHDC16/PJf5SE77l0gzdy7NLiKeMjsjjsXx8VkYcAxRmRvsDMHZKYozmBtp7Ag==
+  dependencies:
+    csstype "^3.1.1"
+    lodash "4.17.21"
+    style-dictionary "3.7.1"
+    tslib "2.4.1"
+
 "@aws-amplify/xr@latest":
   version "4.0.15"
   resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-4.0.15.tgz#34d94a80f8e4c8c21bd349e74651723f8f480aa7"
