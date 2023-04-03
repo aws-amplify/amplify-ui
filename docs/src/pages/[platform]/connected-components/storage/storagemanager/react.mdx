@@ -11,21 +11,20 @@ import {
   StorageManageri18nExample,
   StorageManagerProcessFileExample,
   StorageManagerDisplayTextExample,
+  StorageManagerFileTypesExample,
+  StorageManagerResumableExample,
+  StorageManagerEventExample,
 } from './examples'
 
-<Alert role="none" heading="Wait!">
-  Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
-</Alert>
+<DefaultStorageManagerExample />
 
 ## Basic Usage
 
-
-
-<Alert>
-  The uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
+<Alert variation="warning" heading="Wait!">
+  Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
 </Alert>
 
-To use the StorageManager component import it into your React application with the included styles. At a minimum you must include the `accessLevel`, `acceptedFileTypes`, and `maxFileCount` props.
+To use the StorageManager component import it into your React application with the included styles. At a minimum you must include the `accessLevel`, `acceptedFileTypes`, and `maxFileCount` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'public' | 'private' | 'protected'`.
 
 <Example>
   <DefaultStorageManagerExample />
@@ -35,19 +34,50 @@ To use the StorageManager component import it into your React application with t
   </ExampleCode>
 </Example>
 
+<Alert variation="info">
+  The uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
+</Alert>
+
 ### Props
 
 <ReactPropsTable props={STORAGE_MANAGER} />
 
 ## Setting Limits
 
-### Resumable
+You can limit what users upload with these 3 props:
 
-<Alert type="info">
-  A resumable upload will upload the file in chunks. You will typically want to do this only when the expected files are larger than 1mb.
-</Alert>
+* `maxFileSize`: sets a maximum file size the uploader will accept in bytes. The default is unlimited.
+* `maxFileCount`: accepts how many files at one time you can select to upload.
+* `acceptedFileTypes`: an array of file type strings that follow the [HTML `accept` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept).
 
-## Modify file and name
+<Example>
+  <StorageManagerFileTypesExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerFileTypesExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+## Pausable / Resumable Uploads
+
+A resumable upload will upload the file in chunks. This allows users to pause an upload and resume it at a later time. You will typically want to do this only when the expected files are larger than the chunk size, which is 5mb.
+
+<Example>
+  <StorageManagerResumableExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerResumableExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Pre-upload Processing
+
+You might want to process or modify the file(s) and/or file name(s) before they are uploaded. Some common use cases for this are:
+
+1. Rename the file to be ensure uniqueness by adding a timestamp or has to the file name.
+1. Performing file optimizations like removing unnecessary metadata.
+1. Performing custom file validations like reading the contents of a file to ensure it is in the proper structure.
 
 <Example>
   <StorageManagerProcessFileExample />
@@ -60,6 +90,18 @@ To use the StorageManager component import it into your React application with t
 ## Event Handling
 
 The StorageManager component has several event handlers: `onUploadSuccess`, `onUploadError`, and `onFileRemove`
+
+<Example>
+  <StorageManagerEventExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerEventExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Alert variation="info" heading="Use a Ref">
+Because `onUploadSuccess` is called once per file in a callback, if you want to keep track of all the files uploaded you will need to keep a [ref](https://react.dev/reference/react/useRef) of all the files. 
+</Alert>
 
 ## Customization
 

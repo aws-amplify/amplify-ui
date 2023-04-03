@@ -4,10 +4,13 @@ import { StorageManager } from '@aws-amplify/ui-react-storage'; // IGNORE
 const theme = {
   name: 'my-theme',
   tokens: {
+    borderWidths: {
+      small: '2px',
+    },
     components: {
-      fileuploader: {
+      storagemanager: {
         dropzone: {
-          borderColor: 'red',
+          borderColor: '{colors.brand.primary.60}',
         },
       },
     },
