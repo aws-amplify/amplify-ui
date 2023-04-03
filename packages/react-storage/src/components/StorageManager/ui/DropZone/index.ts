@@ -1,3 +1,2 @@
 export { DropZone } from './DropZone';
-export { FilePicker } from './FilePicker';
-export { DropZoneProps, FilePickerProps } from './types';
+export { DropZoneProps } from './types';

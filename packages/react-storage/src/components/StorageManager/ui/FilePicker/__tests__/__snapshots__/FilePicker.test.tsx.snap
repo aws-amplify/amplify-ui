@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilePicker renders correctly 1`] = `
+<div>
+  <button
+    class="amplify-button amplify-field-group__control amplify-button--small amplify-storagemanager__file__picker"
+    data-fullwidth="false"
+    data-size="small"
+    type="button"
+  >
+    Pick a file, any file.
+  </button>
+</div>
+`;
