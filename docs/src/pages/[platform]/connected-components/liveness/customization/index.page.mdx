@@ -1,0 +1,38 @@
+---
+title: Customization
+metaTitle: Customization
+description: Customize your FaceLivenessDetector
+supportedFrameworks: react|android|swift
+---
+
+import { Fragment } from '@/components/Fragment';
+import { FRAMEWORKS } from '@/data/frameworks';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+## Start View
+
+<Fragment>
+  {({ platform }) => import(`./customization.start-view.${platform}.mdx`)}
+</Fragment>
+
+## Internationalization (I18n)
+
+<Fragment>
+  {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
+</Fragment>
+
+## Theming
+
+<Fragment>
+  {({ platform }) => import(`./customization.theming.${platform}.mdx`)}
+</Fragment>

@@ -1,0 +1,15 @@
+The FaceLivenessDetector contains an initial (start) view with instructions and information about the liveness check for the end user. By default, the start view is shown before the liveness check. The start view can be disabled, allowing you to provide your own start view before the FaceLivenessDetector component is displayed in the app:
+
+```kotlin
+FaceLivenessDetector(
+    sessionId = <session ID>,
+    region = <region>,
+    disableStartView = true,
+    onComplete = {
+        Log.i("MyApp", "Liveness flow is complete")
+    },
+    onError = { error ->
+        Log.e("MyApp", "Error during Liveness flow", error)
+    }
+)
+```
