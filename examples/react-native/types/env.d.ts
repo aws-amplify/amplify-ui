@@ -1,3 +1,3 @@
 declare module '@env' {
-  export const GREETING: string;
+  export const EXAMPLE_APP_NAME: string;
 }
