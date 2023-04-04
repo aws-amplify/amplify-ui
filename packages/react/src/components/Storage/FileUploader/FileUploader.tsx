@@ -39,7 +39,7 @@ export function FileUploader({
   useDeprecationWarning({
     shouldWarn: true,
     message:
-      'FileUploader has exited Dev Preview and was renamed to StorageManager with some API changes. Please migrate to the StorageManager component, as the FileUploader component is no longer supported and will be removed in a future major release. https://dev.ui.docs.amplify.aws/react/connected-components/storage/storagemanager',
+      'FileUploader has exited Dev Preview and was renamed to StorageManager with some API changes. Please migrate to the StorageManager component, as the FileUploader component is no longer supported and will be removed in a future major release. https://ui.docs.amplify.aws/react/connected-components/storage/storagemanager',
   });
 
   if (!acceptedFileTypes || !accessLevel) {
