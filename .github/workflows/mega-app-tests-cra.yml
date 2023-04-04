@@ -20,12 +20,12 @@ jobs:
       matrix:
         framework: [react]
         framework-version: [16, 'latest']
-        build-tool: [cra]
-        build-tool-version: [5]
         pkg-manager: [npm]
         language: [ts]
         node-version: [16, 18]
         include:
+          - build-tool: cra
+            build-tool-version: 5
           - framework: react
             framework-version: latest
             build-tool: cra
