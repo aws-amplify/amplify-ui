@@ -10,3 +10,9 @@ Feature: Upload a file to S3 with public access level settings
     And I see "default.jpg"
     And I see "Uploaded successfully"
    
+  @react
+  Scenario: I should not be able to upload more files
+    Then I see "Browse files"
+    And I select a file with file name "test.jpg" and another file with file name "test2.jpg"
+    Then I see "Cannot choose more than 1 file. Remove files before updating"
+    And I don't see "2 files uploaded"
