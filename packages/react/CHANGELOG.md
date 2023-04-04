@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 4.5.1
+
+### Patch Changes
+
+- [#3657](https://github.com/aws-amplify/amplify-ui/pull/3657) [`fefc4cb3d`](https://github.com/aws-amplify/amplify-ui/commit/fefc4cb3df12d344792b33ad100c6252c9fa2819) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding in missing changeset from previous release.
+
+- Updated dependencies [[`fefc4cb3d`](https://github.com/aws-amplify/amplify-ui/commit/fefc4cb3df12d344792b33ad100c6252c9fa2819)]:
+  - @aws-amplify/ui@5.5.10
+  - @aws-amplify/ui-react-core@2.1.18
+
 ## 4.5.0
 
 ### Minor Changes
