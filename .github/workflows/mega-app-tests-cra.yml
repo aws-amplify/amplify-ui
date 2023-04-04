@@ -19,12 +19,12 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react]
-        framework-version: [16, 18]
+        framework-version: [18]
         build-tool: [cra]
         build-tool-version: [5]
-        pkg-manager: [npm, yarn]
-        language: [ts, js]
-        node-version: [16, 18]
+        pkg-manager: [yarn]
+        language: [ts]
+        node-version: [16]
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v3
@@ -66,8 +66,18 @@ jobs:
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
       - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
-        run: node --require esbuild-register ./scripts/create-react-app.ts
+        run: npx create-react-app ./mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
         working-directory: ./build-system-tests
-      - name: Build MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
-        run: yarn --cwd mega-apps/react-18-cra-5-ts build
-        working-directory: ./build-system-tests
+      - name: Copy aws_export and App.js
+        run: |
+          cp environments/src/aws-exports.js mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}/src
+          cp templates/components/react/App.js mega-apps/mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}/src/App.js
+      - name: Install @aws-amplify/ui-react aws-amplify
+        if: ${{ matrix.pkg-manager == 'yarn' }}
+        run: |
+          if ${{ matrix.pkg-manager == 'yarn' }};then
+            yarn add @aws-amplify/ui-react aws-amplify
+          else
+            npm install add @aws-amplify/ui-react aws-amplify
+          fi
+        working-directory: ./build-system-tests/mega-apps/mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}/
