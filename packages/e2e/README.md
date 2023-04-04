@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-To run existing tests on `angular`, `react` or `vue` framework:
+To run existing tests on `angular`, `react` , `react-native` or `vue` framework:
 
 _prerequisite_: You must create populate `packages/e2e/.env` values in order for tests to run successfully against the examples. The values you need to populate are specified in [`packages/e2e/.env.example`](./.env.example). Please see [Creating test users](#creating-test-users) to see our conventions.
 
@@ -73,6 +73,7 @@ To run existing tests on `react-native` framework:
 
      - `@angular` for `@aws-amplify/ui-angular`
      - `@react` for `@aws-amplify/ui-react`
+     - `@react-native` for `@aws-amplify/ui-react-native`
      - `@vue` for `@aws-amplify/ui-vue`
 
      This will ensure automated documentation marks these as supported features.
