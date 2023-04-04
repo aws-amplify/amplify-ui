@@ -28,7 +28,7 @@ jobs:
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
       DEPENDENCIES: react@${{ matrix.framework-version }} react-dom@${{ matrix.framework-version }} @aws-amplify/ui-react aws-amplify
-      DEP_TYPES: '@types/react${{ matrix.framework-version }} @types/react-dom${{ matrix.framework-version }}'
+      DEP_TYPES: '@types/react@${{ matrix.framework-version }} @types/react-dom@${{ matrix.framework-version }}'
 
     steps:
       - name: Checkout Amplify UI
@@ -96,9 +96,15 @@ jobs:
       - name: Install @aws-amplify/ui-react aws-amplify and build
         run: |
           if ${{ matrix.pkg-manager == 'yarn' }};then
+            if ${{ matrix.language == 'ts' }};then
+              yarn add $DEP_TYPES
+            fi
             yarn add $DEPENDENCIES
             yarn build
           else
+            if ${{ matrix.language == 'ts' }};then
+              npm install $DEP_TYPES
+            fi
             npm install $DEPENDENCIES
             npm run build
           fi
