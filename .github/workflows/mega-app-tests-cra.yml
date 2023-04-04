@@ -26,12 +26,20 @@ jobs:
         language: [ts]
         node-version: [16, 18]
         include:
-          - node-version: 18
-            framework-version: 'latest'
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: 5
+            pkg-manager: npm
             language: js
-          - node-version: 18
-            framework-version: 'latest'
+            node-version: 18
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: 5
             pkg-manager: 'yarn'
+            language: ts
+            node-version: 18
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
       DEPENDENCIES: react@${{ matrix.framework-version }} react-dom@${{ matrix.framework-version }} @aws-amplify/ui-react aws-amplify
@@ -77,7 +85,7 @@ jobs:
         working-directory: build-system-tests
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
-      - name: Create MegaApp $MEGA_APP_NAME
+      - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
         run: |
           if ${{ matrix.language == 'js' }};then
             npx create-react-app mega-apps/$MEGA_APP_NAME
