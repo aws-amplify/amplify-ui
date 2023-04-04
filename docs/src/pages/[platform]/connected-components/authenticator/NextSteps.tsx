@@ -23,9 +23,9 @@ export function NextSteps() {
       />
       <CardLink
         icon={<MdFlipToFront />}
-        title="Headless usage"
-        href={`/${platform}/connected-components/authenticator/headless`}
-        desc="How to run the Authenticator in a headless mode"
+        title="Advanced usage"
+        href={`/${platform}/connected-components/authenticator/advanced`}
+        desc="Access Authenticator UI component state outside of the UI component"
       />
     </CardLinkGroup>
   );
