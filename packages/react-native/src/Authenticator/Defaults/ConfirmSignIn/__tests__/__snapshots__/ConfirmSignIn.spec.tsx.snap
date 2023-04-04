@@ -96,7 +96,6 @@ Array [
           onChangeText={[Function]}
           placeholder="Code"
           placeholderTextColor="hsl(210, 10%, 40%)"
-          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
@@ -375,7 +374,6 @@ Array [
           onChangeText={[Function]}
           placeholder="Code"
           placeholderTextColor="hsl(210, 10%, 40%)"
-          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
