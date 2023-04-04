@@ -222,6 +222,13 @@ export const feedbackComponents: ComponentNavItem[] = [
 
 export const inputComponents: ComponentNavItem[] = [
   {
+    href: '/components/field',
+    label: 'Field',
+    body: ``,
+    platforms: ['react'],
+    icon: MdInput,
+  },
+  {
     href: '/components/autocomplete',
     label: 'Autocomplete',
     body: `Autocomplete is a SearchField enhanced by a list of suggested options.`,

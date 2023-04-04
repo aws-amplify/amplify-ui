@@ -49,11 +49,18 @@ function getCatalog() {
   for (const [componentName, [node]] of source.getExportedDeclarations()) {
     let properties: Properties = {};
     if (isPrimitive(node)) {
-      const [propsType] = node.getType().getTypeArguments();
-      properties = getComponentProperties(
-        propsType,
-        componentName as ComponentName
-      );
+      if (componentName === 'Field') {
+        properties = getComponentProperties(
+          node.getType().getIntersectionTypes()[0].getTypeArguments()[0],
+          componentName
+        );
+      } else {
+        const [propsType] = node.getType().getTypeArguments();
+        properties = getComponentProperties(
+          propsType,
+          componentName as ComponentName
+        );
+      }
     } else if (isCallableNode(node)) {
       const [signature] = node.getType().getCallSignatures();
 

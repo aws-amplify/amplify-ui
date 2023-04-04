@@ -9,6 +9,8 @@ export type ComponentName =
   | 'Divider'
   | 'Expander'
   | 'ExpanderItem'
+  | 'Field'
+  | 'Field.Description'
   | 'FieldGroupIcon'
   | 'FieldGroupIconButton'
   | 'Flex'

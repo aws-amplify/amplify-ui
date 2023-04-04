@@ -126,11 +126,9 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
         <View as="span">{label}</View>
         {!isValueHidden ? renderedValue : null}
       </Label>
-      <FieldDescription
-        id={descriptionId}
-        labelHidden={labelHidden}
-        descriptiveText={descriptiveText}
-      />
+      <FieldDescription id={descriptionId} labelHidden={labelHidden}>
+        {descriptiveText}
+      </FieldDescription>
       <FieldGroup
         className={ComponentClassNames.SliderFieldGroup}
         id={fieldId}
@@ -181,7 +179,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
           />
         </Root>
       </FieldGroup>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage hasError={hasError}>{errorMessage}</FieldErrorMessage>
     </Flex>
   );
 };

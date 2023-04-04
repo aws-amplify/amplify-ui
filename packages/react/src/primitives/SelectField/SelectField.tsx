@@ -78,11 +78,9 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
       </Label>
-      <FieldDescription
-        id={descriptionId}
-        labelHidden={labelHidden}
-        descriptiveText={descriptiveText}
-      />
+      <FieldDescription id={descriptionId} labelHidden={labelHidden}>
+        {descriptiveText}
+      </FieldDescription>
       <Select
         aria-describedby={ariaDescribedBy}
         hasError={hasError}
@@ -94,7 +92,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
       >
         {selectFieldChildren({ children, options })}
       </Select>
-      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
+      <FieldErrorMessage hasError={hasError}>{errorMessage}</FieldErrorMessage>
     </Flex>
   );
 };

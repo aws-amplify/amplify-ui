@@ -1,18 +1,19 @@
 import * as React from 'react';
-import { FieldErrorMessageProps } from '../types/field';
+import { Primitive, FieldErrorMessageProps } from '../types';
 import { Text } from '../Text';
 import { ComponentClassNames } from '../shared/constants';
 
-export const FieldErrorMessage: React.FC<FieldErrorMessageProps> = ({
-  errorMessage,
-  hasError,
-  ...rest
-}) => {
-  return hasError && errorMessage ? (
-    <Text className={ComponentClassNames.FieldErrorMessage} {...rest}>
-      {errorMessage}
+const FieldErrorMessagePrimitive: Primitive<FieldErrorMessageProps, 'p'> = (
+  { children, hasError, ...rest },
+  ref
+) => {
+  return hasError && children ? (
+    <Text className={ComponentClassNames.FieldErrorMessage} ref={ref} {...rest}>
+      {children}
     </Text>
   ) : null;
 };
+
+export const FieldErrorMessage = React.forwardRef(FieldErrorMessagePrimitive);
 
 FieldErrorMessage.displayName = 'FieldErrorMessage';

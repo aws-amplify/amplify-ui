@@ -8,6 +8,7 @@ export { CheckboxField } from './CheckboxField';
 export { Collection } from './Collection';
 export { Divider } from './Divider';
 export { Expander, ExpanderItem } from './Expander';
+export { Field } from './Field';
 export { FieldGroupIcon, FieldGroupIconButton } from './FieldGroupIcon';
 export { Flex } from './Flex';
 export { Grid } from './Grid';

@@ -170,10 +170,21 @@ if (!source) {
  */
 for (const [componentName, [node]] of source.getExportedDeclarations()) {
   let properties = {};
+  // if (componentName === 'Field') {
+  //   node.getType().getIntersectionTypes().forEach(t => {
+  //     console.log(t.getTypeArguments()[0].getProperties().length);
+  //   });
+  // }
 
   if (isPrimitive(node)) {
-    const [propsType] = node.getType().getTypeArguments();
-    properties = getComponentProperties(propsType);
+    if (componentName === 'Field') {
+      properties = getComponentProperties(
+        node.getType().getIntersectionTypes()[0].getTypeArguments()[0]
+      );
+    } else {
+      const [propsType] = node.getType().getTypeArguments();
+      properties = getComponentProperties(propsType);
+    }
   } else if (isCallableNode(node)) {
     const [signature] = node.getType().getCallSignatures();
 
