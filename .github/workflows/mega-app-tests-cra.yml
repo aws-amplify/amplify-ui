@@ -104,7 +104,7 @@ jobs:
           else
             cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
             if ${{ matrix.framework-version == '16' }};then
-              cp templates/components/react/cra/index-react-${{ matrix.framework-version }}.js mega-apps/$MEGA_APP_NAME/src/index.tsx
+              cp templates/components/react/cra/index-react-16.js mega-apps/$MEGA_APP_NAME/src/index.tsx
             fi
           fi
         working-directory: build-system-tests
