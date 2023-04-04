@@ -22,9 +22,16 @@ jobs:
         framework-version: [16, 'latest']
         build-tool: [cra]
         build-tool-version: [5]
-        pkg-manager: [yarn, npm]
-        language: [ts, js]
+        pkg-manager: [npm]
+        language: [ts]
         node-version: [16, 18]
+        include:
+          - node-version: 18
+            framework-version: 'latest'
+            language: js
+          - node-version: 18
+            framework-version: 'latest'
+            pkg-manager: 'yarn'
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
       DEPENDENCIES: react@${{ matrix.framework-version }} react-dom@${{ matrix.framework-version }} @aws-amplify/ui-react aws-amplify
