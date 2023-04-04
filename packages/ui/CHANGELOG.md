@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.5.10
+
+### Patch Changes
+
+- [#3657](https://github.com/aws-amplify/amplify-ui/pull/3657) [`fefc4cb3d`](https://github.com/aws-amplify/amplify-ui/commit/fefc4cb3df12d344792b33ad100c6252c9fa2819) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding in missing changeset from previous release.
+
 ## 5.5.9
 
 ### Patch Changes
