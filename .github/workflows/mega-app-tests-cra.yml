@@ -25,6 +25,9 @@ jobs:
         pkg-manager: [yarn]
         language: [js]
         node-version: [16]
+    env:
+      MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
+
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v3
@@ -62,23 +65,25 @@ jobs:
           aws configure set default.region $AWS_REGION
       - name: Pull down AWS environments
         run: yarn pull
-        working-directory: ./build-system-tests/
+        working-directory: build-system-tests
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
-      - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
-        run: npx create-react-app mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
-        working-directory: ./build-system-tests
+      - name: Create MegaApp $MEGA_APP_NAME
+        run: npx create-react-app mega-apps/$MEGA_APP_NAME
+        working-directory: build-system-tests
       - name: Copy aws_export and App.js
         run: |
-          cp environments/src/aws-exports.js mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}/src
-          cp templates/components/react/App.js mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}/src/App.js
-        working-directory: ./build-system-tests
-      - name: Install @aws-amplify/ui-react aws-amplify
+          cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src
+          cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.js
+        working-directory: build-system-tests
+      - name: Install @aws-amplify/ui-react aws-amplify and build
         if: ${{ matrix.pkg-manager == 'yarn' }}
         run: |
           if ${{ matrix.pkg-manager == 'yarn' }};then
             yarn add @aws-amplify/ui-react aws-amplify
+            yarn build
           else
-            npm install add @aws-amplify/ui-react aws-amplify
+            npm install @aws-amplify/ui-react aws-amplify
+            npm run build
           fi
-        working-directory: ./build-system-tests/mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}/
+        working-directory: build-system-tests/mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
