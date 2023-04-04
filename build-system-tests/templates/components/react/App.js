@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Amplify, Notifications } from 'aws-amplify';
 import {
+  AccountSettings,
   Authenticator,
   FileUploader,
   MapView,
@@ -15,6 +16,9 @@ Amplify.configure(awsconfig);
 const { InAppMessaging } = Notifications;
 
 export default function Home() {
+  const handleSuccess = () => {
+    alert('password is successfully changed!');
+  };
   useEffect(() => {
     // sync remote in-app messages
     InAppMessaging.syncMessages();
@@ -35,6 +39,7 @@ export default function Home() {
           </main>
         )}
       </Authenticator>
+      <AccountSettings.ChangePassword onSuccess={handleSuccess} />
       <MapView />
     </>
   );
