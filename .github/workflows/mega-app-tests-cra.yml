@@ -83,26 +83,26 @@ jobs:
           cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src
           if ${{ matrix.language == 'js' }};then
             cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.js
-            if ${{ matrix.framework-version == '16' }};then
+            if ${{ matrix.framework-version != '18' }};then
               cp templates/components/react/cra/index-react-16.js mega-apps/$MEGA_APP_NAME/src/index.js
             fi
           else
-            cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.ts
-            if ${{ matrix.framework-version == '16' }};then
-              cp templates/components/react/cra/index-react-16.js mega-apps/$MEGA_APP_NAME/src/index.tsx
+            cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
+            if ${{ matrix.framework-version != '18' }};then
+              cp templates/components/react/cra/index-react-${{ matrix.framework-version }}.js mega-apps/$MEGA_APP_NAME/src/index.tsx
             fi
           fi
         working-directory: build-system-tests
       - name: Install @aws-amplify/ui-react aws-amplify and build
         run: |
           if ${{ matrix.pkg-manager == 'yarn' }};then
-            if ${{ matrix.language == 'ts' }};then
+            if ${{ matrix.framework-version != '18' && matrix.language == 'ts' }};then
               yarn add $DEP_TYPES
             fi
             yarn add $DEPENDENCIES
             yarn build
           else
-            if ${{ matrix.language == 'ts' }};then
+            if ${{ matrix.framework-version != '18' && matrix.language == 'ts' }};then
               npm install $DEP_TYPES
             fi
             npm install $DEPENDENCIES
