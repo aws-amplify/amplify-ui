@@ -28,6 +28,7 @@ export interface DefaultComponents extends Omit<Components, 'FormFields'> {
 }
 
 export const defaultComponents: DefaultComponents = {
+  // @ts-ignore
   Header: (): JSX.Element => null,
   SignIn: {
     Header: SignIn.Header,
@@ -60,6 +61,7 @@ export const defaultComponents: DefaultComponents = {
   },
   ConfirmVerifyUser: {
     Header: ConfirmVerifyUser.Header,
+    // @ts-ignore
     Footer: ConfirmVerifyUser.Footer,
   },
   ForceNewPassword: {
@@ -69,5 +71,6 @@ export const defaultComponents: DefaultComponents = {
     Header: ResetPassword.Header,
     Footer: ResetPassword.Footer,
   },
+  // @ts-ignore
   Footer: (): JSX.Element => null,
 };

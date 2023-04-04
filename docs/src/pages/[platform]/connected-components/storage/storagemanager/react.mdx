@@ -1,0 +1,186 @@
+import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
+
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { Example, ExampleCode } from '@/components/Example';
+import { STORAGE_MANAGER, FILE_PICKER, DROPZONE_PROPS, DISPLAY_TEXT } from './props';
+import {
+  DefaultStorageManagerExample,
+  StorageManagerComponentOverridesExample,
+  StorageManagerThemeExample,
+  StorageManageri18nExample,
+  StorageManagerProcessFileExample,
+  StorageManagerDisplayTextExample,
+  StorageManagerFileTypesExample,
+  StorageManagerResumableExample,
+  StorageManagerEventExample,
+} from './examples'
+
+<DefaultStorageManagerExample />
+
+## Basic Usage
+
+<Alert variation="warning" heading="Wait!">
+  Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
+</Alert>
+
+To use the StorageManager component import it into your React application with the included styles. 
+
+<ExampleCode>
+```jsx
+import { StorageManager } from '@aws-amplify/ui-react-storage';
+import '@aws-amplify/ui-react/styles.css';
+```
+</ExampleCode>
+
+At a minimum you must include the `accessLevel`, `acceptedFileTypes`, and `maxFileCount` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'public' | 'private' | 'protected'`.
+
+<Example>
+  <DefaultStorageManagerExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultStorageManagerExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Alert variation="info">
+  The uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
+</Alert>
+
+### Props
+
+<ReactPropsTable props={STORAGE_MANAGER} />
+
+## Setting Limits
+
+You can limit what users upload with these 3 props:
+
+* `maxFileSize`: sets a maximum file size the uploader will accept in bytes. The default is unlimited.
+* `maxFileCount`: accepts how many files at one time you can select to upload.
+* `acceptedFileTypes`: an array of file type strings that follow the [HTML `accept` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept).
+
+<Example>
+  <StorageManagerFileTypesExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerFileTypesExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+## Pausable / Resumable Uploads
+
+A resumable upload will upload the file in chunks. This allows users to pause an upload and resume it at a later time. You will typically want to do this only when the expected files are larger than the chunk size, which is 5MB.
+
+<Example>
+  <StorageManagerResumableExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerResumableExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Pre-upload Processing
+
+You might want to process or modify the file(s) and/or file name(s) before they are uploaded. Some common use cases for this are:
+
+1. Rename the file to be ensure uniqueness by adding a timestamp or has to the file name.
+1. Performing file optimizations like removing unnecessary metadata.
+1. Performing custom file validations like reading the contents of a file to ensure it is in the proper structure.
+
+<Example>
+  <StorageManagerProcessFileExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerProcessFileExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Event Handling
+
+The StorageManager component has several event handlers: `onUploadSuccess`, `onUploadError`, and `onFileRemove`
+
+<Example>
+  <StorageManagerEventExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerEventExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Alert variation="warning" heading="Use a Ref">
+Be careful setting state in the `onUploadSuccess` because that function is bound when the upload _starts_. Make sure to use the previous state argument rather than the current state in the component.
+</Alert>
+
+## Customization
+
+### Text and labels
+
+All text in the StorageManager component is customizable with the `displayText` prop. 
+
+<Example>
+  <StorageManagerDisplayTextExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerDisplayTextExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Expander isCollapsible>
+  <ExpanderItem title="Display text props" value="display-text">
+    <ReactPropsTable props={DISPLAY_TEXT} />
+  </ExpanderItem>
+</Expander>
+
+### Internationalization
+
+You can use the `displayText` prop to also support different languages. Use an open source library like i18next, react-intl, or make your own:
+
+<Example>
+  <StorageManageri18nExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManageri18nExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Component overrides
+
+Don't like how things look? Use your own components inside the StorageManager! You can pass your own components with the `components` prop. The available components to override are: `Container`, `FileList`, `FileListHeader`, `DropZone`, and `FilePicker`. 
+
+_You can even use a completely different UI kit like MUI, Chakra, or your own design system!_
+
+<Example>
+  <StorageManagerComponentOverridesExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerComponentOverridesExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Expander type="multiple">
+  <ExpanderItem title="FilePicker props" value="filepicker">
+    <ReactPropsTable props={FILE_PICKER} />
+  </ExpanderItem>
+  <ExpanderItem title="DropZone props" value="dropzone">
+    <ReactPropsTable props={DROPZONE_PROPS} />
+  </ExpanderItem>
+</Expander>
+
+
+### Theming
+
+<Example>
+  <StorageManagerThemeExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerThemeExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+### Target Classes
+
+If you like, you can target classes directly or use CSS variables to make changes to the look and feel of the File Uploader. 
+
+<ComponentStyleDisplay componentName="StorageManager" />
