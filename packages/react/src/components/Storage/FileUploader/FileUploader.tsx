@@ -14,6 +14,7 @@ import { UploadPreviewer } from './UploadPreviewer';
 import { UploadDropZone } from './UploadDropZone';
 import { UploadTracker } from './UploadTracker';
 import { FileState, FileUploaderProps } from './types';
+import { useDeprecationWarning } from '../../../hooks/useDeprecationWarning';
 
 const isUploadTask = (value: unknown): value is UploadTask =>
   typeof (value as UploadTask)?.resume === 'function';
@@ -35,11 +36,11 @@ export function FileUploader({
   isResumable = false,
   ...rest
 }: FileUploaderProps): JSX.Element {
-  useEffect(() => {
-    logger.warn(
-      'FileUploader has exited Dev Preview and was renamed to StorageManager with some API changes. Please migrate to the StorageManager component, as the FileUploader component is no longer supported and will be removed in a future major release.'
-    );
-  }, []);
+  useDeprecationWarning({
+    shouldWarn: true,
+    message:
+      'FileUploader has exited Dev Preview and was renamed to StorageManager with some API changes. Please migrate to the StorageManager component, as the FileUploader component is no longer supported and will be removed in a future major release. https://ui.docs.amplify.aws/react/connected-components/storage/storagemanager',
+  });
 
   if (!acceptedFileTypes || !accessLevel) {
     logger.warn(
