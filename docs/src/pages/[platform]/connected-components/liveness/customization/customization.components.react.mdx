@@ -1,0 +1,76 @@
+## Components
+
+Liveness component allows overriding some UI components using the `components` prop.
+
+The following code snippet demonstrates how to pass in custom HTML rendering functions:
+
+- Custom Header
+- Custom Photo Sensitivity Warning
+- Custom Instruction List
+- Custom Error View
+
+```jsx
+<FaceLivenessDetector
+  sessionId={createLivenessApiData.sessionId}
+  region='us-east-1'
+  handleGetLivenessDetection={handleGetLivenessDetection}
+  components={{
+    Header: () => {
+      return (
+        <View flex="1">
+          <Heading>Face liveness check</Heading>
+          <Text>
+            You will go through a face verification process to prove that
+            you are a real person.
+          </Text>
+        </View>
+      );
+    },
+    PhotosensitiveWarning: (): JSX.Element => {
+      return (
+        <Alert
+          variation="warning"
+          isDismissible={false}
+          hasIcon={true}
+          heading="Caution"
+        >
+          This check displays colored lights. Use caution if you are
+          photosensitive.
+        </Alert>
+      );
+    },
+    Instructions: (): JSX.Element => {
+      return (
+        <Card variation="elevated">
+          Instructions to follow to use liveness face detector
+          <ol>
+            <li>
+              Make sure your face is not covered with sunglasses or a
+              mask.
+            </li>
+            <li>
+              Move to a well-lit place that is not dark or in direct
+              sunlight.
+            </li>
+            <li>
+              Fill onscreen oval with your face and hold for colored
+              lights.
+            </li>
+          </ol>
+        </Card>
+      );
+    },
+    ErrorView: ({ error, children }) => {
+      return (
+        <View flex="1" backgroundColor="white">
+          <Heading color="black">My Custom Error View</Heading>
+          <Text color="black">
+            There was an error: {error}
+          </Text>
+          {children}
+        </View>
+      );
+    },
+  }}
+/>
+```

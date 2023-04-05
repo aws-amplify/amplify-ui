@@ -1,1 +1,13 @@
-Todo: Add internationalization info
+The text in the FaceLivenessDetector component is defined as string resources in the component's [displayText.ts file](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/displayText.ts). These values can be translated/overwritten by following the example below:
+
+```jsx
+<FaceLivenessDetector
+  sessionId={createLivenessApiData.sessionId}
+  region='us-east-1'
+  handleGetLivenessDetection={handleGetLivenessDetection}
+  displayText={{ 
+    instructionsHeaderHeadingText: 'My custom header',
+    instructionsHeaderBodyText: 'My custom body'
+  }}
+/>
+```

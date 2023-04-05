@@ -1,9 +1,87 @@
-Todo: Add setup instructions to the sections below and add or remove sections as needed.
+import { Fragment } from '@/components/Fragment';
+import { InstallScripts } from '@/components/InstallScripts';
 
 ### Step 2. Install dependencies
 
-### Step 3. Initialize Amplify Auth
+<InstallScripts component='liveness' />
 
-### Step 4. Request camera permissions
+### Step 3. Initialize Amplify
 
-### Step 5. Add the FaceLivenessDetector
+```jsx
+import React from 'react';
+import { ThemeProvider } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+import awsexports from './aws-exports';
+
+Amplify.configure(awsexports);
+
+export default function App() {
+  return (
+    <ThemeProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+### Step 4. Add the FaceLivenessDetector
+
+To get started you will need to make a request to your backend to receive a `sessionId` and pass that to the `FaceLivenessDetector` component.
+
+Once a valid sessionId, region, and callback has been passed, the FaceLivenessDetector component will take care of streaming video and presenting liveness challenges.
+
+```jsx
+export default function App() {
+  const [loading, setLoading] = React.useState(true);
+  const [createLivenessApiData, setCreateLivenessApiData] =
+    React.useState(null);
+
+  React.useEffect(() => {
+    const fetchCreateLiveness = async () => {
+      const response = await fetch("/api/create");
+      const data = await response.json();
+
+      setCreateLivenessApiData(data);
+      setLoading(false);
+    };
+
+    fetchCreateLiveness();
+  }, []);
+
+  const handleGetLivenessDetection = async (sessionId) => {
+    /*
+     * This should be replaced with your own backend API
+     */
+    const response = await fetch(`/api/get?sessionId=${sessionId}`);
+    const data = await response.json();
+
+    /*
+     * Note: The isLive flag is not returned from the GetFaceLivenessSession API
+     * This should be returned from your backend based on the score that you
+     * get in response. Based on the return value of your API you can determine what to render next.
+     * Any next steps from an authorization perspective should happen in your backend and you should not rely
+     * on this value for any auth related decisions.
+     */
+    if (data.isLive) {
+      console.log("User is live");
+    } else {
+      console.log("User is not live");
+    }
+  };
+
+  return (
+    <ThemeProvider>
+      {loading ? (
+        <Loader />
+      ) : (
+        <FaceLivenessDetector
+          sessionId={createLivenessApiData.sessionId}
+          region={"us-east-1"}
+          handleGetLivenessDetection={handleGetLivenessDetection}
+        />
+      )}
+    </ThemeProvider>
+  );
+}
+```
+

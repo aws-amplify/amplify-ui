@@ -6,8 +6,10 @@ supportedFrameworks: react|android|swift
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { Example } from '@/components/Example';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { CustomizationTable } from './CustomizationTable';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -18,6 +20,10 @@ export async function getStaticPaths() {
 export async function getStaticProps() {
   return { props: {} }
 }
+
+<Example>
+  <CustomizationTable />
+</Example>
 
 ## Start View
 
@@ -35,4 +41,8 @@ export async function getStaticProps() {
 
 <Fragment>
   {({ platform }) => import(`./customization.theming.${platform}.mdx`)}
+</Fragment>
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./customization.components.${platform}.mdx`)}
 </Fragment>
