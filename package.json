@@ -62,7 +62,6 @@
     ]
   },
   "resolutions": {
-    "@aws-sdk/types": "^3.229.0",
     "@sideway/formula": "^3.0.1",
     "@types/react": "17.0.47",
     "**/@angular-devkit/build-angular/minimatch": "3.0.5",
