@@ -16,6 +16,8 @@ const displayText = {
   type: `StorageManagerDisplayText`,
 };
 
+const eventHandler = `(file: {key: string}) => void;`;
+
 export const STORAGE_MANAGER = [
   {
     name: `acceptedFileTypes`,
@@ -32,6 +34,42 @@ export const STORAGE_MANAGER = [
     name: `maxFileCount`,
     description: '',
     type: 'integer',
+  },
+  {
+    name: `maxFileSize?`,
+    description: '',
+    type: 'integer',
+  },
+  {
+    name: `onUploadStart?`,
+    description: 'Called when a file starts uploading',
+    type: eventHandler,
+  },
+  {
+    name: `onUploadSuccess?`,
+    description: 'Called when a file successfully uploads',
+    type: eventHandler,
+  },
+  {
+    name: `onUploadError?`,
+    description: 'Called when a error happens uploading a file',
+    type: `(error: string, file: {key: string}) => void;`,
+  },
+  {
+    name: `onFileRemove?`,
+    description: 'Called when a file is removed',
+    type: eventHandler,
+  },
+  {
+    name: `processFile?`,
+    description:
+      'Called immediately before uploading a file to allow you to edit the key or the file itself.',
+    type: `(file: {key: string, file: Blob}) => {key: string, file: Blob};`,
+  },
+  {
+    name: `path?`,
+    description: 'Path in s3 to put the file under',
+    type: `string`,
   },
   {
     name: `defaultFiles?`,

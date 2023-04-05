@@ -80,11 +80,15 @@ export interface StorageManagerProps {
   /**
    * Monitor upload errors
    */
-  onUploadError?: (error: string) => void;
+  onUploadError?: (error: string, file: { key: string }) => void;
   /**
    * Monitor upload success
    */
   onUploadSuccess?: (event: { key?: string }) => void;
+  /**
+   * When a file begins uploading
+   */
+  onUploadStart?: (event: { key?: string }) => void;
   /**
    * Process file before upload
    */
