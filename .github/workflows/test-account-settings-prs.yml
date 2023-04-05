@@ -16,8 +16,22 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  test:
+  setup-cache:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@account-settings/main
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  unit:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@account-settings/main
+    needs: setup-cache
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  e2e:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@account-settings/main
+    needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}

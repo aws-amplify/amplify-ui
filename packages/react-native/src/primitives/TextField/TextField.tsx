@@ -27,7 +27,7 @@ export default function TextField({
   ...rest
 }: TextFieldProps): JSX.Element {
   const theme = useTheme();
-  const themedStyle = getThemedStyles(theme);
+  const themedStyle = useMemo(() => getThemedStyles(theme), [theme]);
 
   const fieldContainerStyle: ViewStyle = useMemo(
     () => ({
@@ -64,7 +64,6 @@ export default function TextField({
           autoCapitalize={autoCapitalize}
           editable={!disabled}
           placeholderTextColor={theme.tokens.colors.font.tertiary}
-          selectionColor={theme.tokens.colors.font.primary}
           style={[themedStyle.field, fieldStyle]}
         />
         {endAccessory ?? null}

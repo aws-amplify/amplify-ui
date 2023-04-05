@@ -1,0 +1,264 @@
+# Description: This workflow runs test suite against fork PRs when approver
+#              has write/admin permissions and 'Receive Fork Review' workflow
+#              has completed successfully.
+#
+# Triggered by: maintainer approves PR from forks
+
+name: Test / Fork PRs
+
+# This is to let only one instance of this workflow run against the same PR.
+concurrency:
+  group: test-fork-prs-${{ github.event.workflow_run.head_branch }}-${{ github.event.sender.login }} # This is to make the group name unique for a PR.
+  cancel-in-progress: true
+
+on:
+  workflow_run:
+    workflows: [Receive Fork Review]
+    types:
+      - completed
+
+jobs:
+  # check if approver has write/admin permissions
+  check-write-access:
+    runs-on: ubuntu-latest
+    # check if receive-fork-review workflow completed successfully
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Get user permissions to check if it is either "write" or "admin"
+        id: get-permissions
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        env:
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          username: ${{ github.event.sender.login }}
+        with:
+          result-encoding: string
+          script: |
+            const { owner, repo, username } = process.env;
+            const { data: { permission } } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner,
+              repo,
+              username
+            });
+            return permission;
+      - name: Fail this workflow if user does not have write permissions
+        env:
+          PERMISSION: ${{ steps.get-permissions.outputs.result }}
+        if: ${{ steps.get-permissions.outputs.result != 'write' && steps.get-permissions.outputs.result != 'admin' }}
+        run: |
+          echo "Insufficient permission: $PERMISSION"
+          exit 1
+  setup:
+    needs: check-write-access
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write # This is required for running set-status actions
+    outputs:
+      commit_id: ${{ steps.read-commit-id.outputs.result }}
+      pr_number: ${{ steps.read-pr-number.outputs.result }}
+      base_sha: ${{ steps.read-base-sha.outputs.result }}
+    steps:
+      - name: Download artifact
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        env:
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          run_id: ${{ github.event.workflow_run.id }}
+        with:
+          script: |
+            const { owner, repo, run_id } = process.env;
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner,
+               repo,
+               run_id,
+            });
+            const matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "commit"
+            })[0];
+            const { data } = await github.rest.actions.downloadArtifact({
+               owner,
+               repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            const fs = require('fs');
+            fs.writeFileSync('${{github.workspace}}/commit.zip', Buffer.from(data));
+      - name: Unzip commit.zip
+        run: unzip commit.zip
+      - name: Read commit id from artifact zip
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        id: read-commit-id
+        with:
+          result-encoding: string
+          script: |
+            const fs = require('fs');
+            const commit_id = fs.readFileSync('./commit_id', 'utf-8');
+            return commit_id
+              .replace(/(\r\n|\n|\r)/gm, '') // remove last new line character
+              .replace(/[^A-Za-z0-9]/g, ''); // remove non-alphanumeric characters
+      - name: Read PR number from artifact
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        id: read-pr-number
+        with:
+          result-encoding: string
+          script: |
+            const fs = require('fs');
+            const pr_number = fs.readFileSync('./pr_number', 'utf-8');
+            return pr_number
+              .replace(/(\r\n|\n|\r)/gm, '') // remove last new line character
+              .replace(/[^0-9]/g, ''); // remove non-numeric characters
+      - name: Read base sha from artifact
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        id: read-base-sha
+        with:
+          result-encoding: string
+          script: |
+            const fs = require('fs');
+            const base_sha = fs.readFileSync('./base_sha', 'utf-8');
+            return base_sha
+              .replace(/(\r\n|\n|\r)/gm, '') // remove last new line character
+              .replace(/[^A-Za-z0-9]/g, ''); // remove non-alphanumeric characters
+
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+      - name: Set status to commit sha
+        uses: aws-amplify/amplify-ui/.github/actions/set-status@main
+        with:
+          sha: ${{ steps.read-commit-id.outputs.result }}
+          state: 'pending'
+          context: 'Run PR checks'
+          description: 'PR checks are now running'
+          # URL below is a link to the current workflow run to allow users to see the status of the workflow.
+          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
+
+  codeql:
+    needs: setup
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write # required to write security findings
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript]
+    steps:
+      - name: Remove run-codeql label, if applicable
+        if: github.event.label.name == 'run-codeql'
+        env:
+          ISSUE_NUMBER: ${{ github.event.pull_request.number }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          LABEL_NAME: 'run-codeql'
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975 # v6.4.0 https://github.com/actions/github-script/commit/98814c53be79b1d30f795b907e553d8679345975
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { ISSUE_NUMBER, REPO_OWNER, REPO_NAME, LABEL_NAME } = process.env
+            github.rest.issues.removeLabel({ owner: REPO_OWNER, repo: REPO_NAME, issue_number: ISSUE_NUMBER, name: LABEL_NAME })
+
+      - name: Checkout
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          ref: ${{ needs.setup.outputs.commit_id }}
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@d23060145bc9131d50558d5d4185494a20208101 # v2.12.5 https://github.com/github/codeql-action/commit/d23060145bc9131d50558d5d4185494a20208101
+        with:
+          languages: ${{ matrix.language }}
+          config-file: ./.github/codeql/codeql-config.yml
+          queries: +security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@d23060145bc9131d50558d5d4185494a20208101 # v2.12.5 https://github.com/github/codeql-action/commit/d23060145bc9131d50558d5d4185494a20208101
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@d23060145bc9131d50558d5d4185494a20208101 # v2.12.5 https://github.com/github/codeql-action/commit/d23060145bc9131d50558d5d4185494a20208101
+        with:
+          # ref should target refs/pull/<number>/head
+          ref: refs/pull/${{ needs.setup.outputs.pr_number }}/head
+          sha: ${{ needs.setup.outputs.commit_id }}
+          category: '/language:${{ matrix.language }}'
+
+  dependency-review:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          ref: ${{ needs.setup.outputs.commit_id }}
+          repository: ${{ github.repository }}
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v3
+        with:
+          base-ref: ${{ needs.setup.outputs.base_sha }}
+          head-ref: ${{ needs.setup.outputs.commit_id }}
+
+  setup-cache:
+    needs: setup
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    with:
+      commit: ${{ needs.setup.outputs.commit_id }}
+      repository: ${{ github.repository }}
+
+  e2e:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    needs: [setup, setup-cache]
+    permissions:
+      pull-requests: write # used to remove label
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
+    with:
+      commit: ${{ needs.setup.outputs.commit_id }}
+      repository: ${{ github.repository }}
+    secrets:
+      AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
+      GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
+      STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+      IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      USERNAME: ${{ secrets.USERNAME }}
+      NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+      DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+      DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+      DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+
+  # update status on success
+  update-success-status:
+    if: ${{ success() }}
+    needs: [setup, e2e, codeql, dependency-review]
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write # This is required for running set-status actions
+    steps:
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+      - name: Update status when tests are successful
+        uses: aws-amplify/amplify-ui/.github/actions/set-status@main
+        with:
+          sha: ${{ needs.setup.outputs.commit_id }}
+          state: 'success'
+          context: 'Run PR checks'
+          description: 'PR checks have finished running'
+          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}
+
+  # update status on failure
+  update-failure-status:
+    if: ${{ failure() }}
+    needs: [setup, e2e, codeql, dependency-review]
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write # This is required for running set-status actions
+    steps:
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+      - name: Update status when PR tests are not successful
+        uses: aws-amplify/amplify-ui/.github/actions/set-status@main
+        with:
+          sha: ${{ needs.setup.outputs.commit_id }}
+          state: 'failure'
+          context: 'Run PR checks'
+          description: 'PR checks have failed'
+          target-url: https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/actions/runs/${{ github.run_id }}

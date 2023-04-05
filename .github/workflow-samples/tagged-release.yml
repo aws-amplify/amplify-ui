@@ -18,8 +18,22 @@ on:
 
 jobs:
   # You can skip tests based on your use case.
-  test:
+  setup-cache:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@<BRANCH>
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  unit:
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@<BRANCH>
+    needs: setup-cache
+    with:
+      commit: ${{ github.sha }}
+      repository: ${{ github.repository }}
+
+  e2e:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@<BRANCH>
+    needs: unit
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
@@ -40,7 +54,6 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   publish:
-    needs: test # remove this line if you're skipping test job.
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
       dist-tag: <TAG>

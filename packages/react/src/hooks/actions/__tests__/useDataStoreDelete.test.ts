@@ -6,7 +6,7 @@ import {
   EVENT_ACTION_DATASTORE_DELETE,
   UI_CHANNEL,
 } from '../constants';
-import { Todo } from '../testShared';
+import { Todo } from '../testModels/todo';
 import { useDataStoreDeleteAction } from '../useDataStoreDeleteAction';
 import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 

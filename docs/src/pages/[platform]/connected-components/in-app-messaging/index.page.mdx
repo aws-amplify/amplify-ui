@@ -37,7 +37,7 @@ In-App Messaging allows you to better engage users with contextually appropriate
 ## Getting Started
 
 Integration with your application can be done with the `InAppMessagingProvider` and `InAppMessageDisplay` components directly, 
-or wrap your app in `withInAppMessaging` (a [React Higher-Order Component](https://reactjs.org/docs/higher-order-components.html)):
+or wrap your app in `withInAppMessaging` (a [React Higher-Order Component](https://legacy.reactjs.org/docs/higher-order-components.html)):
 
 <Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./examples/getting-started.${platform}.mdx`)}</Fragment>
 
@@ -45,7 +45,7 @@ or wrap your app in `withInAppMessaging` (a [React Higher-Order Component](https
 
 ## `InAppMessagingProvider` and `useInAppMessaging`
 
-`InAppMessagingProvider` exposes the value of the `InAppMessagingContext` (a [React context](https://reactjs.org/docs/context.html)) 
+`InAppMessagingProvider` exposes the value of the `InAppMessagingContext` (a [React context](https://legacy.reactjs.org/docs/context.html)) 
 to its `children`. `useInAppMessaging` can be used to directly interact with `InAppMessagingContext` from within `InAppMessagingProvider`.
 
 `useInAppMessaging` exposes the following functions and values of the `InAppMessagingContext`:

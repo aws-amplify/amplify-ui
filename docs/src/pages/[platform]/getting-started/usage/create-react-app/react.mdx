@@ -1,7 +1,12 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
 import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
+
+<Alert role="none" variation="info">
+  The minimum version supported by Amplify UI is Create React App v5 ([Migration Guide](https://github.com/facebook/create-react-app/blob/main/CHANGELOG.md#migrating-from-40x-to-500)).
+  If you have any issue with Create React App v4, check out [Trouble Shooting](/react/getting-started/troubleshooting#create-react-app).
+</Alert>
 
 ## Tutorial
 

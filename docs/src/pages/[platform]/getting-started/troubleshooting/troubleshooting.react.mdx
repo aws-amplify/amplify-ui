@@ -1,7 +1,9 @@
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 
-## Webpack 5+
+## Webpack
+
+### Webpack 5+: `Uncaught ReferenceError: process is not defined`
 
 Follow the instructions below to if you are using Webpack 5:
 
@@ -37,6 +39,10 @@ Webpack 4 already includes this polyfill.
     new NodePolyfillPlugin(), // Polyfill Node.js globals (e.g. global, process, etc)
   ],
 ```
+
+### Webpack 4: Can’t import the named export ‘Amplify’ from non EcmaScript module (only default export is available)
+
+Follow [here](#cra-4-cant-import-the-named-export-amplify-from-non-ecmascript-module-only-default-export-is-available) for solutions.
 
 ## Vite
 <Tabs>
@@ -189,7 +195,9 @@ export default defineConfig({
 
 ## Create React App
 
-When using [Geo components](/connected-components/geo) and Create React App v5, users may experience the following error when rendering the `<MapView>` component in a production build:
+### CRA 4: `Uncaught ReferenceError: g is not defined`
+
+When using [Geo components](/connected-components/geo) and Create React App v4, users may experience the following error when rendering the `<MapView>` component in a production build:
 ```bash
 Uncaught ReferenceError: g is not defined
 ```
@@ -220,11 +228,39 @@ to the following:
 
 **3.** Run your production build using a tool like [serve](https://www.npmjs.com/package/serve) (`serve -s build`) and verify the `<MapView>` component renders without error.
 
+### CRA 4: Can’t import the named export ‘Amplify’ from non EcmaScript module (only default export is available)
+
+Create React App v4 is not officially supported by Amplify UI. When you use it, you may get the following error
+
+```bash
+ ./node_modules/@aws-amplify/ui-react/dist/esm/components/..\/\*.mjs
+
+ Can’t import the named export ‘Amplify’ from non EcmaScript module (only default export is available)
+```
+
+To resolve the error, you may either (1) upgrade to Create React App version 5 ([Migration Guide](https://github.com/facebook/create-react-app/blob/main/CHANGELOG.md#migrating-from-40x-to-500)), or (2) override the webpack config using tools like [React App Rewired](https://github.com/timarney/react-app-rewired), [Craco](https://craco.js.org/docs/configuration/webpack/) to add the following rule:
+
+```JavaScript
+{
+  module: {
+    rules: [
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }
+    ]
+  }
+}
+```
+
 ## Jest
+
+### `window.URL.createObjectURL is not a function`
 
 As of v2.15.0 of `@aws-amplify/ui-react` which included the release of Geo components, users of the Jest testing framework may run into the following error when attempting to run tests:
 
-```
+```bash
 window.URL.createObjectURL is not a function
 ```
 
