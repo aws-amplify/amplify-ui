@@ -14,6 +14,7 @@ export type LinkInfo = {
   statusCode: number;
   tagName: string;
   tagText: string;
+  originalStatusCode?: number;
 };
 const requestedUrl: Set<string> = new Set();
 
@@ -96,6 +97,7 @@ export async function checkLink(
     } else {
       const { get } = href.includes('https:') ? https : http;
       const request = await get(href, async ({ statusCode = 0 }) => {
+        const originalStatusCode = statusCode;
         statusCode =
           (
             await returnStatus({
@@ -104,7 +106,7 @@ export async function checkLink(
             })
           )?.statusCode ?? statusCode;
         requestedUrl.add(href);
-        res({ ...linkData, statusCode });
+        res({ ...linkData, statusCode, originalStatusCode });
       });
       request.end();
     }
