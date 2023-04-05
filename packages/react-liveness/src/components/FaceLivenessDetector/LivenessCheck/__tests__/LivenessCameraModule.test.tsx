@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import { when, resetAllWhenMocks } from 'jest-when';
+import { LivenessClassNames } from '../../types/classNames';
 
 import {
   renderWithLivenessProvider,
@@ -17,6 +18,7 @@ import {
   selectVideoConstraints,
   selectVideoStream,
 } from '../LivenessCameraModule';
+import { FaceMatchState } from '../../service';
 import { getDisplayText } from '../../utils/getDisplayText';
 
 jest.mock('../../hooks');
@@ -38,7 +40,8 @@ describe('LivenessCameraModule', () => {
   let isNotRecording = false;
   let isRecording = false;
 
-  const { hintDisplayText, streamDisplayText, errorDisplayText } = getDisplayText(undefined);
+  const { hintDisplayText, streamDisplayText, errorDisplayText } =
+    getDisplayText(undefined);
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
   function mockStateMatchesAndSelectors() {
@@ -149,6 +152,180 @@ describe('LivenessCameraModule', () => {
 
     expect(screen.getByTestId('rec-icon')).toBeInTheDocument();
     expect(screen.getByText(recordingIndicatorText)).toBeInTheDocument();
+  });
+
+  it('should render MatchIndicator when isRecording and faceMatchState is TOO_FAR', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector
+      .mockReturnValue(25)
+      .mockReturnValue(FaceMatchState.TOO_FAR);
+
+    const testId = 'cameraModule';
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        testId={testId}
+      />
+    );
+    const videoEl = screen.getByTestId('video');
+    videoEl.dispatchEvent(new Event('canplay'));
+
+    const cameraModule = await screen.findByTestId(testId);
+    const matchIndicator = cameraModule.getElementsByClassName(
+      LivenessClassNames.MatchIndicator
+    );
+    expect(matchIndicator).toHaveLength(1);
+  });
+
+  it('should render MatchIndicator when isRecording and faceMatchState is CANT_IDENTIFY', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector
+      .mockReturnValue(25)
+      .mockReturnValue(FaceMatchState.CANT_IDENTIFY);
+
+    const testId = 'cameraModule';
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        testId={testId}
+      />
+    );
+    const videoEl = screen.getByTestId('video');
+    videoEl.dispatchEvent(new Event('canplay'));
+
+    const cameraModule = await screen.findByTestId(testId);
+    const matchIndicator = cameraModule.getElementsByClassName(
+      LivenessClassNames.MatchIndicator
+    );
+    expect(matchIndicator).toHaveLength(1);
+  });
+
+  it('should render MatchIndicator when isRecording and faceMatchState is FACE_IDENTIFIED', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector
+      .mockReturnValue(25)
+      .mockReturnValue(FaceMatchState.FACE_IDENTIFIED);
+
+    const testId = 'cameraModule';
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        testId={testId}
+      />
+    );
+    const videoEl = screen.getByTestId('video');
+    videoEl.dispatchEvent(new Event('canplay'));
+
+    const cameraModule = await screen.findByTestId(testId);
+    const matchIndicator = cameraModule.getElementsByClassName(
+      LivenessClassNames.MatchIndicator
+    );
+    expect(matchIndicator).toHaveLength(1);
+  });
+
+  it('should not render MatchIndicator when isRecording and faceMatchState is TOO_CLOSE', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector
+      .mockReturnValue(25)
+      .mockReturnValue(FaceMatchState.TOO_CLOSE);
+
+    const testId = 'cameraModule';
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        testId={testId}
+      />
+    );
+    const videoEl = screen.getByTestId('video');
+    videoEl.dispatchEvent(new Event('canplay'));
+
+    const cameraModule = await screen.findByTestId(testId);
+    const matchIndicator = cameraModule.getElementsByClassName(
+      LivenessClassNames.MatchIndicator
+    );
+    expect(matchIndicator).toHaveLength(0);
+  });
+
+  it('should not render MatchIndicator when isRecording and faceMatchState is MATCHED', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector
+      .mockReturnValue(25)
+      .mockReturnValue(FaceMatchState.MATCHED);
+
+    const testId = 'cameraModule';
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        testId={testId}
+      />
+    );
+    const videoEl = screen.getByTestId('video');
+    videoEl.dispatchEvent(new Event('canplay'));
+
+    const cameraModule = await screen.findByTestId(testId);
+    const matchIndicator = cameraModule.getElementsByClassName(
+      LivenessClassNames.MatchIndicator
+    );
+    expect(matchIndicator).toHaveLength(0);
+  });
+
+  it('should not render MatchIndicator when isRecording and faceMatchState is TOO_MANY', async () => {
+    isRecording = true;
+    mockStateMatchesAndSelectors();
+    mockUseLivenessSelector
+      .mockReturnValue(25)
+      .mockReturnValue(FaceMatchState.TOO_MANY);
+
+    const testId = 'cameraModule';
+
+    renderWithLivenessProvider(
+      <LivenessCameraModule
+        isMobileScreen={false}
+        isRecordingStopped={false}
+        hintDisplayText={hintDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+        testId={testId}
+      />
+    );
+    const videoEl = screen.getByTestId('video');
+    videoEl.dispatchEvent(new Event('canplay'));
+
+    const cameraModule = await screen.findByTestId(testId);
+    const matchIndicator = cameraModule.getElementsByClassName(
+      LivenessClassNames.MatchIndicator
+    );
+    expect(matchIndicator).toHaveLength(0);
   });
 
   it('should create appropriate selectors', () => {

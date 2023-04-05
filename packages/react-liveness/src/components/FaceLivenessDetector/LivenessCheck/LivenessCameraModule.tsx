@@ -11,7 +11,11 @@ import {
   useMediaStreamInVideo,
   UseMediaStreamInVideo,
 } from '../hooks';
-import { ErrorDisplayText, HintDisplayText, StreamDisplayText } from '../displayText';
+import {
+  ErrorDisplayText,
+  HintDisplayText,
+  StreamDisplayText,
+} from '../displayText';
 
 import {
   CancelButton,
@@ -22,7 +26,11 @@ import {
   selectErrorState,
 } from '../shared';
 import { LivenessClassNames } from '../types/classNames';
-import { CheckScreenComponents, FaceLivenessErrorModal, renderErrorModal } from '../shared/FaceLivenessErrorModal';
+import {
+  CheckScreenComponents,
+  FaceLivenessErrorModal,
+  renderErrorModal,
+} from '../shared/FaceLivenessErrorModal';
 
 export const selectVideoConstraints = createLivenessSelector(
   (state) => state.context.videoAssociatedParams?.videoConstraints
@@ -44,6 +52,7 @@ export interface LivenessCameraModuleProps {
   hintDisplayText: Required<HintDisplayText>;
   errorDisplayText: Required<ErrorDisplayText>;
   components?: CheckScreenComponents;
+  testId?: string;
 }
 
 const centeredLoader = (
@@ -64,11 +73,12 @@ export const LivenessCameraModule = (
     hintDisplayText,
     errorDisplayText,
     components: customComponents,
+    testId,
   } = props;
 
   const { cancelLivenessCheckText, recordingIndicatorText } = streamDisplayText;
 
-  const { ErrorView = FaceLivenessErrorModal } = (customComponents ?? {});
+  const { ErrorView = FaceLivenessErrorModal } = customComponents ?? {};
 
   const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
@@ -158,6 +168,7 @@ export const LivenessCameraModule = (
         LivenessClassNames.CameraModule,
         isMobileScreen && `${LivenessClassNames.CameraModule}--mobile`
       )}
+      data-testid={testId}
     >
       {!isCameraReady && centeredLoader}
 
@@ -218,15 +229,18 @@ export const LivenessCameraModule = (
           >
             <Hint hintDisplayText={hintDisplayText} />
 
-            {errorState &&
+            {errorState && (
               <ErrorView
                 onRetry={() => {
                   send({ type: 'CANCEL' });
                 }}
               >
-                {renderErrorModal({ errorState, overrideErrorDisplayText: errorDisplayText })}
+                {renderErrorModal({
+                  errorState,
+                  overrideErrorDisplayText: errorDisplayText,
+                })}
               </ErrorView>
-            }
+            )}
 
             {/* 
               We only want to show the MatchIndicator when we're recording
@@ -234,7 +248,7 @@ export const LivenessCameraModule = (
               initial face identified state
             */}
             {isRecording &&
-              showMatchIndicatorStates.includes(faceMatchState) ? (
+            showMatchIndicatorStates.includes(faceMatchState) ? (
               <MatchIndicator percentage={faceMatchPercentage} />
             ) : null}
 
