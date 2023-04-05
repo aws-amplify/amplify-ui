@@ -124,7 +124,7 @@ export const connectedComponents: ComponentNavItem[] = [
   },
   {
     href: '/connected-components/authenticator/advanced',
-    label: 'Advanced usage',
+    label: 'Advanced Usage',
     platforms: ['react', 'vue', 'angular', 'react-native'],
     tertiary: true,
   },
