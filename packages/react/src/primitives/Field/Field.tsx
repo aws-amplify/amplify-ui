@@ -63,9 +63,6 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, typeof Flex> = (
   );
 };
 
-/**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/field)
- */
 export const Field = React.forwardRef(FieldPrimitive);
 
 Field.displayName = 'Field';
