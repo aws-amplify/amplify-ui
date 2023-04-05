@@ -1,5 +1,4 @@
-
-Feature: Storage Manager with default files
+Feature: Upload a file to S3 with public access level settings
 
   Background:
     Given I'm running the example "ui/components/storage/storage-manager/public-access-level"
