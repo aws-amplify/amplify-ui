@@ -74,7 +74,7 @@ describe('Divider component', () => {
     render(<Divider className="my-divider" ref={ref} />);
 
     await screen.findByRole('separator');
-    expect(ref.current.nodeName).toBe('HR');
+    expect(ref.current?.nodeName).toBe('HR');
   });
 
   it('can render any arbitrary data-* attribute', async () => {

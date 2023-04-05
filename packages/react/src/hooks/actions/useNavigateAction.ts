@@ -42,7 +42,7 @@ export const useNavigateAction = (
         };
       case 'anchor':
         return () => {
-          window.location.hash = anchor;
+          window.location.hash = anchor ?? '';
         };
       case 'reload':
         return () => {

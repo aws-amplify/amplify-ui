@@ -26,6 +26,7 @@ export const ForceNewPassword = ({
 
   const {
     components: {
+      // @ts-ignore
       ForceNewPassword: { FormFields = ForceNewPassword.FormFields },
     },
   } = useCustomComponents();

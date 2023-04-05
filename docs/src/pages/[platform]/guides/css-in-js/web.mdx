@@ -1,8 +1,12 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 
 One of the goals of Amplify is to be a good citizen of the environment it exists in. As such Amplify works hard to not interfere with other tools that are being used.
 
 There are many CSS In JS libraries out there that give a number of benefits. Amplify does not use a CSS In JS library to implement its theming system but operates well with the major CSS In JS libraries out there. Below are a few of the libraries with descriptions of how they work with Amplify's theming system.
+
+<Alert variation="warning" role="none">
+  If your CSS library depends on injecting style tags into the DOM, make sure they are being injected <b>after</b> Amplify UI's style tag. In other words, ensure the style tag for Amplify UI is listed above your custom styles in the `<head>` tag. If Amplify UI's styles are injected after custom styles, then your custom styles may be unset.
+</Alert>
 
 <Tabs>
 <TabItem title="Styled Components">

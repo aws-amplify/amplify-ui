@@ -97,7 +97,7 @@ Feature: Sign In with Phone Number
   Scenario: Phone number field autocompletes username
   
   On sign in form, autocomplete prefers usage of username instead of phone number. 
-  See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands.
+  See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands/.
 
     Then "Phone Number" field autocompletes "username"
 

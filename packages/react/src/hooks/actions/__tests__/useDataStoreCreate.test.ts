@@ -6,7 +6,7 @@ import {
   EVENT_ACTION_DATASTORE_CREATE,
   UI_CHANNEL,
 } from '../constants';
-import { Todo } from '../testShared';
+import { Todo } from '../testModels/todo';
 import { useDataStoreCreateAction } from '../useDataStoreCreateAction';
 import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 import { renderHook } from '@testing-library/react-hooks';

@@ -1,5 +1,88 @@
 # @aws-amplify/ui-react
 
+## 4.5.1
+
+### Patch Changes
+
+- [#3657](https://github.com/aws-amplify/amplify-ui/pull/3657) [`fefc4cb3d`](https://github.com/aws-amplify/amplify-ui/commit/fefc4cb3df12d344792b33ad100c6252c9fa2819) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding in missing changeset from previous release.
+
+- Updated dependencies [[`fefc4cb3d`](https://github.com/aws-amplify/amplify-ui/commit/fefc4cb3df12d344792b33ad100c6252c9fa2819)]:
+  - @aws-amplify/ui@5.5.10
+  - @aws-amplify/ui-react-core@2.1.18
+
+## 4.5.0
+
+### Minor Changes
+
+- [#3589](https://github.com/aws-amplify/amplify-ui/pull/3589) [`3c3fbf4d7`](https://github.com/aws-amplify/amplify-ui/commit/3c3fbf4d73d9381cb3ee6d5590eb97062143f589) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - FileUploader becomes StorageManager!
+
+  Creating a new package `@aws-amplify/ui-react-storage` to keep all future Storage related connected components, the first of which is the StorageManager.
+  The StorageManager is a partial re-write of the FileUploader to address some customer issues and make the component more scalable for the future.
+
+  Some notable changes from FileUploader -> StorageManager
+
+  - Component slots: You can override each part of the StorageManager with your custom UI
+  - Pre-upload process files: You can use this to programatically change file names before upload or perform optimizations and validations.
+  - Easy text updates: The StorageManager component has a `displayText` prop where you can pass in all the text the component uses.
+
+  ```jsx
+  import { StorageManager } from '@aws-amplify/ui-react-storage';
+
+  export const DefaultStorageManagerExample = () => {
+    return (
+      <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="public"
+        maxFileCount={1}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#3636](https://github.com/aws-amplify/amplify-ui/pull/3636) [`61f525f53`](https://github.com/aws-amplify/amplify-ui/commit/61f525f531978a894373b41a70bd788d507bb514) Thanks [@letsbelopez](https://github.com/letsbelopez)! - fix: add boolean number to datastorepredicateobject operand (internal)
+
+- [#3611](https://github.com/aws-amplify/amplify-ui/pull/3611) [`72d5e06eb`](https://github.com/aws-amplify/amplify-ui/commit/72d5e06ebbf024735ec44c04ad6e61b62a7dd20a) Thanks [@reesscot](https://github.com/reesscot)! - chore: enable ts strict in `ui-react` package
+
+## 4.4.3
+
+### Patch Changes
+
+- [#3609](https://github.com/aws-amplify/amplify-ui/pull/3609) [`47b39c57a`](https://github.com/aws-amplify/amplify-ui/commit/47b39c57afcbae6d6d90f13646ee974efcade3af) Thanks [@sreeramsama](https://github.com/sreeramsama)! - Revert feature that add optional event handling on Geo LocationSearch component
+
+## 4.4.2
+
+### Patch Changes
+
+- [#3317](https://github.com/aws-amplify/amplify-ui/pull/3317) [`7f1392bcf`](https://github.com/aws-amplify/amplify-ui/commit/7f1392bcf00807d62bf0e1d3eb2c2d6f51e161a9) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(types): better typing of studio code for TS strict mode
+
+  - getOverridesFromVariants
+  - useNavigateAction
+  - useTypeCastFields
+
+- Updated dependencies [[`5ee48f997`](https://github.com/aws-amplify/amplify-ui/commit/5ee48f99780ba5df889c1d66f24a0ebc9f601125)]:
+  - @aws-amplify/ui@5.5.9
+  - @aws-amplify/ui-react-core@2.1.17
+
+## 4.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`ee2c6981e`](https://github.com/aws-amplify/amplify-ui/commit/ee2c6981e19413f0d9a9fd093d14be934ae5d63b), [`9cc835828`](https://github.com/aws-amplify/amplify-ui/commit/9cc8358284be497e67911c335dfda76c8f41bf98)]:
+  - @aws-amplify/ui@5.5.8
+  - @aws-amplify/ui-react-core@2.1.16
+
+## 4.4.0
+
+### Minor Changes
+
+- [#2227](https://github.com/aws-amplify/amplify-ui/pull/2227) [`df064a275`](https://github.com/aws-amplify/amplify-ui/commit/df064a275b56b2f7e717a2431f792554b0496e0a) Thanks [@crnkyunicorn](https://github.com/crnkyunicorn)! - Updated the standalone LocationSearch component to pass through events from the underlying maplibre library and included example code in the Geo example
+
+### Patch Changes
+
+- [#3538](https://github.com/aws-amplify/amplify-ui/pull/3538) [`28338f8fe`](https://github.com/aws-amplify/amplify-ui/commit/28338f8febf57a6db38712b80f56e0bd49d4cda0) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: bump `maplibre-gl-js-amplify` to 3.0.5
+
 ## 4.3.10
 
 ### Patch Changes

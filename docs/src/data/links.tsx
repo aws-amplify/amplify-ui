@@ -194,6 +194,13 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/connected-components/storage/storagemanager',
+    label: 'Storage Manager',
+    body: 'StorageManager component allows users to upload and manage files in your Amplify backend.',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/in-app-messaging',
     label: 'In-App Messaging',
     body: 'Amplify UI In-App Messaging provides UI components for displaying In-App Messages.',
@@ -608,7 +615,7 @@ export const theming: ComponentNavItem[] = [
   },
 ];
 
-export const DISCORD = 'https://discord.gg/amplify';
+export const DISCORD = 'https://discord.com/invite/amplify';
 export const COMMUNITY = 'https://amplify.aws/community';
 export const COMMUNITY_EVENTS = 'https://amplify.aws/community/events';
 export const COMMUNITY_POSTS = 'https://amplify.aws/community/posts';

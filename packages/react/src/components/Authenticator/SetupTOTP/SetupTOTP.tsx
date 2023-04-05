@@ -33,6 +33,7 @@ export const SetupTOTP = ({
 
   const {
     components: {
+      // @ts-ignore
       SetupTOTP: { Header = SetupTOTP.Header, Footer = SetupTOTP.Footer },
     },
   } = useCustomComponents();
@@ -46,7 +47,11 @@ export const SetupTOTP = ({
 
   const generateQRCode = React.useCallback(async (): Promise<void> => {
     try {
-      const totpCode = getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode);
+      const totpCode = getTotpCodeURL(
+        totpIssuer,
+        totpUsername!,
+        totpSecretCode!
+      );
       const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
       setQrCode(qrCodeImageSource);
@@ -64,7 +69,7 @@ export const SetupTOTP = ({
   }, [generateQRCode, qrCode]);
 
   const copyText = (): void => {
-    navigator.clipboard.writeText(totpSecretCode);
+    navigator.clipboard.writeText(totpSecretCode!);
     setCopyTextLabel(getCopiedText());
   };
 
@@ -124,5 +129,6 @@ SetupTOTP.Header = function Header(): JSX.Element {
 };
 
 SetupTOTP.Footer = function Footer(): JSX.Element {
+  // @ts-ignore
   return null;
 };
