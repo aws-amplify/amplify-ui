@@ -1,4 +1,3 @@
-
 Feature: Upload a file to S3 with public access level settings
 
   Background:
