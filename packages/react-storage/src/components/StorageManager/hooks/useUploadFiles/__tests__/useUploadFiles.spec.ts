@@ -119,7 +119,7 @@ describe('useUploadFiles', () => {
 
     await waitFor(() => {
       expect(mockOnUploadError).toHaveBeenCalledTimes(1);
-      expect(mockOnUploadError).toHaveBeenCalledWith(mockError);
+      expect(mockOnUploadError).toHaveBeenCalledWith(mockError, { key: 'key' });
     });
   });
 });
