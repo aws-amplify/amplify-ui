@@ -21,7 +21,8 @@
     "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "4.4.3",
+    "@aws-amplify/ui-react": "4.5.1",
+    "@aws-amplify/ui-react-storage": "1.0.1",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",

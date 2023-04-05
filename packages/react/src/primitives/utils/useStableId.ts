@@ -36,5 +36,5 @@ export const useStableId: UseStableId = (id) => {
       setStableId((reactId: string | undefined) => reactId ?? String(count++));
     }
   }, [id]);
-  return id || (stableId ? `${AUTO_GENERATED_ID_PREFIX}-${stableId}` : '');
+  return id ?? (stableId ? `${AUTO_GENERATED_ID_PREFIX}-${stableId}` : '');
 };

@@ -135,6 +135,8 @@ describe('Collection component', () => {
   it('should not throw when items is not an array', () => {
     expect(() =>
       render(
+        // @ts-expect-error
+        // it's expected that items will cause TS error since the type doesn't allow null
         <Collection type="list" testId={testList} items={null}>
           {(item, index) => <div />}
         </Collection>

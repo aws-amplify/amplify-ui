@@ -21,6 +21,7 @@ export function RouteContainer({
   const { route } = useAuthenticator(({ route }) => [route]);
 
   const {
+    // @ts-ignore
     components: { Header, Footer },
   } = useCustomComponents();
 

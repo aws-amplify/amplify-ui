@@ -63,7 +63,6 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
       editable={true}
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
-      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
@@ -144,7 +143,6 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
       editable={true}
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
-      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
@@ -225,7 +223,6 @@ exports[`TextField renders as expected 1`] = `
       editable={true}
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
-      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
@@ -307,7 +304,6 @@ exports[`TextField renders as expected as password field 1`] = `
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
       secureTextEntry={true}
-      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
@@ -389,7 +385,6 @@ exports[`TextField renders as expected when disabled 1`] = `
       editable={false}
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
-      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
@@ -470,7 +465,6 @@ exports[`TextField renders as expected with error message 1`] = `
       editable={true}
       placeholder="Placeholder"
       placeholderTextColor="hsl(210, 10%, 40%)"
-      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {

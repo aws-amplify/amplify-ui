@@ -81,10 +81,10 @@ export const useStepper = ({
     : uncontrolledValue;
 
   const shouldDisableIncreaseButton =
-    isDisabled || isReadOnly || value + step > max;
+    isDisabled ?? isReadOnly ?? value + step > max;
 
   const shouldDisableDecreaseButton =
-    isDisabled || isReadOnly || value - step < min;
+    isDisabled ?? isReadOnly ?? value - step < min;
 
   // This is the exact value to be rendered on screen
   // It could be a string, like '-' or empty string when users clear the input

@@ -44,6 +44,6 @@ export type DataStorePredicateObject = {
   and?: DataStorePredicateObject[];
   or?: DataStorePredicateObject[];
   field?: string;
-  operand?: string;
+  operand?: string | boolean | number;
   operator?: string;
 };

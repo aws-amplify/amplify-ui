@@ -47,7 +47,7 @@ describe('Divider component', () => {
     const dividerTestId = 'dividerTest';
     render(<Divider id={dividerTestId} />);
 
-    const divider = (await screen.findByRole('separator'));
+    const divider = await screen.findByRole('separator');
     expect(divider.nodeName).toBe('HR');
     expect(divider.id).toBe(dividerTestId);
     expect(divider.dataset['size']).toBeUndefined();
@@ -57,14 +57,14 @@ describe('Divider component', () => {
 
   it('renders a vertical divider', async () => {
     render(<Divider orientation="vertical" />);
-    const divider = (await screen.findByRole('separator'));
+    const divider = await screen.findByRole('separator');
     expect(divider.getAttribute('aria-orientation')).toBe('vertical');
   });
 
   it('can render custom classnames', async () => {
     render(<Divider className="my-divider" />);
 
-    const divider = (await screen.findByRole('separator'));
+    const divider = await screen.findByRole('separator');
     expect(divider.className).toContain('my-divider');
     expect(divider.className).toContain(ComponentClassNames.Divider);
   });
@@ -74,18 +74,18 @@ describe('Divider component', () => {
     render(<Divider className="my-divider" ref={ref} />);
 
     await screen.findByRole('separator');
-    expect(ref.current.nodeName).toBe('HR');
+    expect(ref.current?.nodeName).toBe('HR');
   });
 
   it('can render any arbitrary data-* attribute', async () => {
     render(<Divider data-demo="true" />);
-    const divider = (await screen.findByRole('separator'));
+    const divider = await screen.findByRole('separator');
     expect(divider.dataset['demo']).toBe('true');
   });
 
   it('adds label to the dataset (to then be displayed via CSS)', async () => {
     render(<Divider label="Hello" />);
-    const divider = (await screen.findByRole('separator'));
+    const divider = await screen.findByRole('separator');
     expect(divider.dataset['label']).toBe('Hello');
   });
 });

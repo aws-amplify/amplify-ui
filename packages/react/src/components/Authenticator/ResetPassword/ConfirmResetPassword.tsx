@@ -22,6 +22,7 @@ export const ConfirmResetPassword = ({
 
   const {
     components: {
+      // @ts-ignore
       ConfirmResetPassword: {
         Header = ConfirmResetPassword.Header,
         Footer = ConfirmResetPassword.Footer,
@@ -65,5 +66,6 @@ ConfirmResetPassword.Header = function Header(): JSX.Element {
 };
 
 ConfirmResetPassword.Footer = function Footer(): JSX.Element {
+  // @ts-ignore
   return null;
 };
