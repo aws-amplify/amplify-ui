@@ -8,7 +8,7 @@ export const StorageManagerEventExample = () => {
     <>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="private"
+        accessLevel="public"
         maxFileCount={3}
         onFileRemove={({ key }) => {
           setFiles((prevFiles) => {

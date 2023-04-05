@@ -1,6 +1,5 @@
 ---
 "@aws-amplify/ui-react-storage": minor
-"@aws-amplify/ui-react": minor
 ---
 
 feat(storage-manager): add `onUploadStart` event handler and add the file key to `onUploadError`
