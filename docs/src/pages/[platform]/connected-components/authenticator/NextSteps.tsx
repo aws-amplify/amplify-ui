@@ -23,7 +23,7 @@ export function NextSteps() {
       />
       <CardLink
         icon={<MdFlipToFront />}
-        title="Advanced usage"
+        title="Advanced Usage"
         href={`/${platform}/connected-components/authenticator/advanced`}
         desc="Access Authenticator UI component state outside of the UI component"
       />
