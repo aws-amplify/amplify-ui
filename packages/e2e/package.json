@@ -12,12 +12,13 @@
     "test:geo": "cypress run --spec 'features/ui/components/geo/*.feature'",
     "test:theme": "cypress run --spec 'features/ui/theme/*.feature'",
     "test:guides": "cypress run --spec 'features/ui/guides/*.feature'",
+    "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags @react-native",
     "detox:build:ios:debug": "detox build --configuration ios.simulator.debug",
     "detox:build:ios:release": "detox build --configuration ios.simulator.release",
-    "detox:e2e:ios": "DETOX_CONFIGURATION=ios ./node_modules/.bin/cucumber-js --tags @react-native",
+    "detox:e2e:ios": "DETOX_CONFIGURATION=ios.simulator.debug yarn cucumber",
     "detox:build:android:debug": "detox build --configuration android.emulator.debug",
     "detox:build:android:release": "detox build --configuration android.emulator.release",
-    "detox:e2e:android": "DETOX_CONFIGURATION=android ./node_modules/.bin/cucumber-js --tags @react-native"
+    "detox:e2e:android": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber"
   },
   "cypress-cucumber-preprocessor": {
     "filterSpecs": true,
