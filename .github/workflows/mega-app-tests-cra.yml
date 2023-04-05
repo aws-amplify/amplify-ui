@@ -19,6 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react]
+        build-tool: [cra, next]
         framework-version: [16, 'latest']
         pkg-manager: [npm]
         language: [ts]
@@ -26,20 +27,27 @@ jobs:
         include:
           - build-tool: cra
             build-tool-version: 5
+          - build-tool: next
+            build-tool-version: 13
           - framework: react
             framework-version: latest
             build-tool: cra
             build-tool-version: 5
             pkg-manager: npm
-            language: js
+            language: js # Target variable
             node-version: 18
           - framework: react
             framework-version: latest
             build-tool: cra
             build-tool-version: 5
-            pkg-manager: 'yarn'
+            pkg-manager: 'yarn' # Target variable
             language: ts
             node-version: 18
+        exclude:
+          - build-tool: next
+            framework-version: 16
+          - build-tool: next
+            node-version: 16
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
       DEPENDENCIES: react@${{ matrix.framework-version }} react-dom@${{ matrix.framework-version }} @aws-amplify/ui-react aws-amplify
@@ -87,37 +95,44 @@ jobs:
         run: rm -rf ~/.aws
       - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
         run: |
-          if ${{ matrix.language == 'js' }};then
+          if ${{ matrix.build-tool == 'cra' && matrix.language == 'js' }};then
             npx create-react-app mega-apps/$MEGA_APP_NAME
-          else
+          fi
+          if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
             npx create-react-app mega-apps/$MEGA_APP_NAME --template typescript
+          fi
+          if ${{ matrix.build-tool == 'next' }};then
+            npx create-next-app@${{ matrix.build-tool-version }} mega-apps/$MEGA_APP_NAME --ts
           fi
         working-directory: build-system-tests
       - name: Copy aws_export and App.js
         run: |
-          cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src
-          if ${{ matrix.language == 'js' }};then
-            cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.js
-            if ${{ matrix.framework-version == '16' }};then
-              cp templates/components/react/cra/index-react-16.js mega-apps/$MEGA_APP_NAME/src/index.js
+          if ${{ matrix.build-tool == 'cra' }};then
+            cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src
+            if ${{ matrix.language == 'js' }};then
+              cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.js
+            else
+              cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
+              if ${{ matrix.framework-version == '16' }};then
+                cp templates/components/react/cra/index-react-16.js mega-apps/$MEGA_APP_NAME/src/index.tsx
+              fi
             fi
-          else
-            cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
-            if ${{ matrix.framework-version == '16' }};then
-              cp templates/components/react/cra/index-react-16.js mega-apps/$MEGA_APP_NAME/src/index.tsx
-            fi
+          fi
+          if ${{ matrix.build-tool == 'next' }};then
+            cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/pages
+            cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/pages/index.tsx
           fi
         working-directory: build-system-tests
       - name: Install @aws-amplify/ui-react aws-amplify and build
         run: |
           if ${{ matrix.pkg-manager == 'yarn' }};then
-            if ${{ matrix.framework-version != 'latest' && matrix.language == 'ts' }};then
+            if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
               yarn add $DEP_TYPES
             fi
             yarn add $DEPENDENCIES
             yarn build
           else
-            if ${{ matrix.framework-version != 'latest' && matrix.language == 'ts' }};then
+            if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
               npm install $DEP_TYPES
             fi
             npm install $DEPENDENCIES
