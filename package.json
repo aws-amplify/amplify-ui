@@ -1,7 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "preinstall": "sh setup-codeartifact.sh",
     "build": "turbo run build --include-dependencies --no-deps --scope=*@aws-amplify/*",
     "clean": "turbo run clean && rimraf node_modules",
     "setup": "yarn install && yarn build",
