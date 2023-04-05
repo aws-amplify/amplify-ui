@@ -39,9 +39,11 @@ async function returnStatus({
       );
     }
     /**
-     * If 308, check if it's a internal direction (see docs/next.config.js redirects logic)
-     * If it's internal direction, after adding the platform, it should be 200
-     * Otherwise, the link needs to be updated
+     * If 308, check if it's an internal redirection to add [platform] prefix. See docs/next.config.js redirects logic.
+     * If it's an internal redirection to add [platform] prefix, after adding the platform, it should be 200.
+     * Otherwise, the link needs to be updated.
+     * e.g. 308 from "/guides" passes (because it's redirected to "react/guides"),
+     *  but 308 from "connected-components/authenticator/headless" fails and returns a 404 ((because it's redirected to "react/connected-components/authenticator/advanced").
      */
     if (statusCode === 308) {
       const hostNameRegex = RegExp(`http(s)?:\/\/[^/]*`, 'i'); // matches everything between http(s)?: to "/", which is the hostname. e.g., "https://github.com/".
