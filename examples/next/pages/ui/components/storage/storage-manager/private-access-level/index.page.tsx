@@ -10,7 +10,7 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 export function StorageManagerExample() {
-  const { signOut } = useAuthenticator({ signOut } => [signOut]);
+  const { signOut } = useAuthenticator((context) => [context.signOut]);
   return (
     <>
       <StorageManager
