@@ -1,7 +1,7 @@
 ---
-title: Headless
-metaTitle: Headless
-description: For advanced use cases you can run the Authenticator in a headless mode.
+title: Advanced Usage
+metaTitle: Advanced Usage
+description: Access Authenticator UI component state outside of the UI component
 supportedFrameworks: react|angular|vue|react-native
 ---
 
@@ -25,25 +25,25 @@ export async function getStaticProps() {
 <DeveloperPreview />
 
 <Fragment>
-  {({ platform }) => import(`./advanced/useAuthenticator.${platform}.mdx`)}
+  {({ platform }) => import(`./useAuthenticator.${platform}.mdx`)}
 </Fragment>
 
 ## Access Auth State
 
 <Fragment>
-  {({ platform }) => import(`./advanced/current-route.${platform}.mdx`)}
+  {({ platform }) => import(`./current-route.${platform}.mdx`)}
 </Fragment>
 
 ## Access Authenticated User
 
 <Fragment>
-  {({ platform }) => import(`./advanced/current-user.${platform}.mdx`)}
+  {({ platform }) => import(`./current-user.${platform}.mdx`)}
 </Fragment>
 
 ## Trigger Transitions
 
 <Fragment>
-  {({ platform }) => import(`./advanced/trigger-transitions.${platform}.mdx`)}
+  {({ platform }) => import(`./trigger-transitions.${platform}.mdx`)}
 </Fragment>
 
 ### Example
@@ -51,13 +51,13 @@ export async function getStaticProps() {
 Here's an example that uses the `toResetPassword` trigger transition, to create a custom button. Note that example uses the [Footer "slot" override](../authenticator/customization#headers--footers).
 
 <Fragment>
-  {({ platform }) => import(`./advanced/example.${platform}.mdx`)}
+  {({ platform }) => import(`./example.${platform}.mdx`)}
 </Fragment>
 
 ## Full API
 
 <Fragment>
-  {({ platform }) => import(`./advanced/full-api.${platform}.mdx`)}
+  {({ platform }) => import(`./full-api.${platform}.mdx`)}
 </Fragment>
 
 <Tabs overflow="scroll">
@@ -143,7 +143,7 @@ These helper functions trigger transition to another `route`. Note that any inva
           <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
         </TableRow>
         <Fragment>
-          {({ platform }) => platform === 'angular' || platform === 'vue' ? import(`./advanced/to-federated-sign-in.mdx`) : Promise.resolve(() => null)}
+          {({ platform }) => platform === 'angular' || platform === 'vue' ? import(`./to-federated-sign-in.mdx`) : Promise.resolve(() => null)}
         </Fragment>
         <TableRow>
           <ResponsiveTableCell label="Name">`skipVerification`</ResponsiveTableCell>
