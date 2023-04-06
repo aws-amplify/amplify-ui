@@ -177,8 +177,8 @@ const SecondaryNav = (props) => {
         }
         value="connected-components"
       >
-        {connectedComponents.map(({ label, ...rest }) => (
-          <NavLink key={label} {...rest} onClick={props.onClick}>
+        {connectedComponents.map(({ label, href, ...rest }) => (
+          <NavLink key={href} href={href} {...rest} onClick={props.onClick}>
             {label}
           </NavLink>
         ))}

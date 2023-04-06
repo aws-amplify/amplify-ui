@@ -101,6 +101,9 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
       await this.stopVideo();
       this.dispatchStopVideoEvent();
     }
+    if (!this._reader) {
+      return;
+    }
     await this._reader.cancel();
     return this._reader.closed;
   }

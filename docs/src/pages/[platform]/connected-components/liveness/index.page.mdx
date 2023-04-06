@@ -19,6 +19,10 @@ export async function getStaticProps() {
 
 Amplify UI Face Liveness is powered by [Amazon Rekognition](https://aws.amazon.com/rekognition/).
 
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./intro.${platform}.mdx`)}
+</Fragment>
+
 ## Quick start
 
 <Fragment>
@@ -62,11 +66,6 @@ To use Amplify UI Liveness, you must also set up a backend to create the livenes
 
 <Fragment>{({ platform }) => import(`./quick-start-add.${platform}.mdx`)}</Fragment>
 
-## Best Practices
-
-* End users should complete the Face Liveness check in environments that aren't too dark or too bright and have fairly uniform lighting.
-* You should choose a value for the confidence score threshold that reflects the nature of your use case. For use cases with greater security concerns, use a higher threshold.
-* You should regularly run human review checks on audit images to check that spoof attacks are mitigated at the confidence threshold you set. 
-* You should offer an alternative Face Liveness verification path to your end users if they are photo-sensitive or do not wish to verify their Face Liveness using Rekognition.
+> See [Rekognition documentation](https://docs.aws.amazon.com/rekognition/latest/dg/recommendations-liveness.html) for best practices when using the `FaceLivenessDetector` component
 
 <Fragment>{({ platform }) => import(`./credentials-provider.${platform}.mdx`)}</Fragment>
