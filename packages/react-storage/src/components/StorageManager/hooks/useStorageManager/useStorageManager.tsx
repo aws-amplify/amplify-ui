@@ -36,14 +36,16 @@ export function useStorageManager(
       action: Action
     ) => UseStorageManagerState
   >(storageManagerStateReducer, {
-    files: defaultFiles.map((file) => {
-      return {
-        ...file,
-        id: file.key,
-        key: file.key,
-        status: FileStatus.UPLOADED,
-      };
-    }) as StorageFiles,
+    files: (defaultFiles ?? [])
+      .filter((file) => file && typeof file.key === 'string')
+      .map((file) => {
+        return {
+          ...file,
+          id: file.key,
+          key: file.key,
+          status: FileStatus.UPLOADED,
+        };
+      }) as StorageFiles,
   });
 
   const addFiles: UseStorageManager['addFiles'] = ({
