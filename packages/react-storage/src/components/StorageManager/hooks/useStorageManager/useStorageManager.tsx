@@ -12,6 +12,7 @@ import {
   setUploadProgressAction,
   setUploadStatusAction,
 } from './actions';
+import { isObject } from '@aws-amplify/ui';
 
 export interface UseStorageManager {
   addFiles: (params: {
@@ -27,6 +28,14 @@ export interface UseStorageManager {
   files: StorageFiles;
 }
 
+const isDefaultFile = (file: unknown): file is DefaultFile =>
+  !!(isObject(file) && (file as DefaultFile).key);
+
+const createFileFromDefault = (file: DefaultFile) =>
+  isDefaultFile(file)
+    ? { ...file, id: file.key, status: FileStatus.UPLOADED }
+    : undefined;
+
 export function useStorageManager(
   defaultFiles: Array<DefaultFile> = []
 ): UseStorageManager {
@@ -36,16 +45,9 @@ export function useStorageManager(
       action: Action
     ) => UseStorageManagerState
   >(storageManagerStateReducer, {
-    files: (defaultFiles ?? [])
-      .filter((file) => file && typeof file.key === 'string')
-      .map((file) => {
-        return {
-          ...file,
-          id: file.key,
-          key: file.key,
-          status: FileStatus.UPLOADED,
-        };
-      }) as StorageFiles,
+    files: (Array.isArray(defaultFiles)
+      ? defaultFiles.map(createFileFromDefault).filter((file) => !!file)
+      : []) as StorageFiles,
   });
 
   const addFiles: UseStorageManager['addFiles'] = ({

@@ -114,4 +114,31 @@ describe('useUploadFiles', () => {
     );
     expect(result.current.files.length).toBe(1);
   });
+
+  describe('defaultFiles', () => {
+    it('should handle good defaultFiles', () => {
+      const { result } = renderHook(() =>
+        useStorageManager([{ key: 'file.jpg' }])
+      );
+      expect(result.current.files).toHaveLength(1);
+    });
+
+    it('should handle null defaultFiles', () => {
+      // @ts-expect-error
+      const { result } = renderHook(() => useStorageManager(null));
+      expect(result.current.files).toHaveLength(0);
+    });
+
+    it('should handle bad defaultFiles', () => {
+      const { result } = renderHook(() =>
+        useStorageManager([
+          // @ts-expect-error
+          null,
+          { key: null },
+          { foo: 'bar' },
+        ])
+      );
+      expect(result.current.files).toHaveLength(0);
+    });
+  });
 });
