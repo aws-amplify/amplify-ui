@@ -1,14 +1,25 @@
 import * as React from 'react';
+import { Amplify } from 'aws-amplify';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Field } from '@aws-amplify/ui-react/internal';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
-export const StorageManagerEventExample = () => {
+export function StorageManagerExample() {
   const [files, setFiles] = React.useState({});
-
   return (
-    <>
+    <Field
+      label="Images"
+      isReadOnly={false}
+      isRequired={false}
+      errorMessage={'error'}
+      hasError={false}
+    >
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="private"
         maxFileCount={3}
         onFileRemove={({ key }) => {
           setFiles((prevFiles) => {
@@ -56,6 +67,7 @@ export const StorageManagerEventExample = () => {
           </div>
         ) : null;
       })}
-    </>
+    </Field>
   );
-};
+}
+export default withAuthenticator(StorageManagerExample);
