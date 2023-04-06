@@ -12,6 +12,6 @@ Feature: Upload a file to S3 with public access level settings
     Given I intercept '{ "method": "PUT", "url": "**/test.jpg?partNumber=1**"  }' with fixture "Storage.public-uploads.xml"
     Given I intercept '{ "method": "POST", "url": "**/test.jpg?uploadId**"  }' with fixture "Storage.public-upload-complete-multipart.xml"
     Given I intercept '{ "method": "GET", "url": "**/?list-type=2**"  }' with fixture "Storage.public-uploads-list.xml"
-    Then I see "Uploaded successfully"
+    Then I see "Uploaded"
     Then I see "1 file uploaded"
 
