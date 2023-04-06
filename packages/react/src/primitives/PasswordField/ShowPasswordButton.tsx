@@ -28,7 +28,6 @@ const ShowPasswordButtonPrimitive: Primitive<
 ) => {
   const showPasswordButtonClass = classNames(
     ComponentClassNames.FieldShowPassword,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
     classNameModifierByFlag(
       ComponentClassNames.FieldShowPassword,
       'error',
