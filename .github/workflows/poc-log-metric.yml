@@ -11,7 +11,7 @@ jobs:
       - name: Log success data point to metric BuildAndRuntimeTestFailure
         uses: ./.github/actions/log-metric
         with:
-          metric-name: BuildAndRuntimeTestFailure
+          metric-name: TEST
           value: 0
           role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN}}
           aws-region: us-east-2
