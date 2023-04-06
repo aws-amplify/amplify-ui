@@ -19,9 +19,9 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react]
-        framework-version: [16, 17, latest]
-        build-tool: [cra, next]
-        build-tool-version: [11, latest]
+        framework-version: [16, latest]
+        build-tool: [cra]
+        build-tool-version: [latest]
         pkg-manager: [npm]
         language: [ts]
         node-version: [16, 18]
@@ -40,21 +40,28 @@ jobs:
             pkg-manager: 'yarn' # Target variable
             language: ts
             node-version: 18
-        exclude:
-          - build-tool: cra
+          - framework: react
             framework-version: 17
-          - build-tool: cra
+            build-tool: next # Target variable
             build-tool-version: 11
-          - build-tool: next
-            framework-version: 16
-          - build-tool: next
-            framework-version: 17
-            build-tool-version: latest
-          - build-tool: next
-            framework-version: latest
-            build-tool-version: 11
-          - build-tool: next
+            pkg-manager: npm
+            language: ts
             node-version: 16
+          - framework: react
+            framework-version: latest
+            build-tool: next # Target variable
+            build-tool-version: 13
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: react
+            framework-version: latest
+            build-tool: gatsby
+            build-tool-version: 5
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
       DEPENDENCIES: react@${{ matrix.framework-version }} react-dom@${{ matrix.framework-version }} @aws-amplify/ui-react aws-amplify
@@ -106,11 +113,19 @@ jobs:
           if ${{ matrix.build-tool == 'cra' && matrix.language == 'js' }};then
             npx create-react-app mega-apps/$MEGA_APP_NAME
           fi
+
           if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
             npx create-react-app mega-apps/$MEGA_APP_NAME --template typescript
           fi
+
           if ${{ matrix.build-tool == 'next' }};then
             npx create-next-app mega-apps/$MEGA_APP_NAME --ts --no-src-dir --no-experimental-app --no-eslint
+          fi
+
+          if ${{ matrix.build-tool == 'gatsby' }};then
+            cd mega-apps
+            npm init gatsby $MEGA_APP_NAME -- -y -ts
+            cd ..
           fi
         working-directory: build-system-tests
       - name: Copy aws_export and App.js
@@ -139,6 +154,11 @@ jobs:
                 cp templates/components/react/next/template-tsconfig-${{ matrix.build-tool-version }}.json mega-apps/$MEGA_APP_NAME/tsconfig.json
                 echo "copied template-tsconfig-11.json to tsconfig.json"
             fi
+          fi
+
+          if ${{ matrix.build-tool == 'gatsby' }};then
+            environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src/pages
+            cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/pages/index.tsx
           fi
         working-directory: build-system-tests
       - name: Install @aws-amplify/ui-react aws-amplify and build
