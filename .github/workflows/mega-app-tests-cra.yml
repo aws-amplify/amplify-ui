@@ -20,15 +20,15 @@ jobs:
       matrix:
         framework: [react]
         build-tool: [cra, next]
-        framework-version: [16, 'latest']
+        framework-version: [16, latest]
         pkg-manager: [npm]
         language: [ts]
         node-version: [16, 18]
         include:
           - build-tool: cra
-            build-tool-version: 5
+            build-tool-version: latest
           - build-tool: next
-            build-tool-version: 13
+            build-tool-version: latest
           - framework: react
             framework-version: latest
             build-tool: cra
@@ -95,6 +95,7 @@ jobs:
         run: rm -rf ~/.aws
       - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
         run: |
+          mkdir -p mega-apps/
           if ${{ matrix.build-tool == 'cra' && matrix.language == 'js' }};then
             npx create-react-app mega-apps/$MEGA_APP_NAME
           fi
@@ -102,7 +103,7 @@ jobs:
             npx create-react-app mega-apps/$MEGA_APP_NAME --template typescript
           fi
           if ${{ matrix.build-tool == 'next' }};then
-            npx create-next-app@${{ matrix.build-tool-version }} mega-apps/$MEGA_APP_NAME --ts
+            npx create-next-app mega-apps/$MEGA_APP_NAME --ts --no-src-dir --no-experimental-app --no-eslint
           fi
         working-directory: build-system-tests
       - name: Copy aws_export and App.js
@@ -110,17 +111,18 @@ jobs:
           if ${{ matrix.build-tool == 'cra' }};then
             cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src
             if ${{ matrix.language == 'js' }};then
-              cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.js
+              cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.js
             else
-              cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
+              cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
               if ${{ matrix.framework-version == '16' }};then
                 cp templates/components/react/cra/index-react-16.js mega-apps/$MEGA_APP_NAME/src/index.tsx
               fi
             fi
           fi
           if ${{ matrix.build-tool == 'next' }};then
-            cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/pages
-            cp templates/components/react/App.js mega-apps/$MEGA_APP_NAME/pages/index.tsx
+            mkdir mega-apps/$MEGA_APP_NAME/data
+            cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/data
+            cp templates/components/react/next/App.js mega-apps/$MEGA_APP_NAME/pages/index.tsx
           fi
         working-directory: build-system-tests
       - name: Install @aws-amplify/ui-react aws-amplify and build

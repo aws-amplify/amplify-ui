@@ -10,7 +10,7 @@ import {
   InAppMessageDisplay,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import awsconfig from './aws-exports';
+import awsconfig from '@/data/aws-exports';
 Amplify.configure(awsconfig);
 
 const { InAppMessaging } = Notifications;
