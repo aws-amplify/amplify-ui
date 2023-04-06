@@ -57,7 +57,7 @@ jobs:
           - framework: react
             framework-version: latest
             build-tool: gatsby
-            build-tool-version: 5
+            build-tool-version: latest
             pkg-manager: npm
             language: ts
             node-version: 18
@@ -124,7 +124,7 @@ jobs:
 
           if ${{ matrix.build-tool == 'gatsby' }};then
             cd mega-apps
-            npm init gatsby $MEGA_APP_NAME -- -y -ts
+            npx create-gatsby@latest -y $MEGA_APP_NAME
             cd ..
           fi
         working-directory: build-system-tests
