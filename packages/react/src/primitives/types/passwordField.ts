@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ButtonProps } from './button';
 import { TextFieldProps } from './textField';
+import { InputProps } from './input';
 
 export interface PasswordFieldProps extends TextFieldProps {
   /**
@@ -57,17 +58,13 @@ export interface PasswordFieldProps extends TextFieldProps {
    * Forwarded ref for access to show password button DOM element
    */
   showPasswordButtonRef?: React.Ref<HTMLButtonElement>;
-
-  /**
-   * @description
-   * Indicates that Field is in error state.
-   */
-  hasError?: boolean;
 }
 
 export type PasswordFieldType = 'password' | 'text';
 
-export interface ShowPasswordButtonProps extends ButtonProps {
+export interface ShowPasswordButtonProps
+  extends ButtonProps,
+    Pick<InputProps, 'hasError'> {
   /**
    * @description
    * Determines whether the input is hidden or displayed. Options include 'password' or 'text'
@@ -107,10 +104,4 @@ export interface ShowPasswordButtonProps extends ButtonProps {
    * "Show password"
    */
   showPasswordButtonLabel?: string;
-
-  /**
-   * @description
-   * Indicates that Field is in error state.
-   */
-  hasError?: boolean;
 }

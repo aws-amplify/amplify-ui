@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
@@ -6,7 +7,6 @@ import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { IconVisibility, IconVisibilityOff } from '../Icon/internal';
 import { Primitive, ShowPasswordButtonProps } from '../types';
 import { classNameModifierByFlag } from '../shared/utils';
-import classNames from 'classnames';
 
 const { passwordIsHidden, passwordIsShown, showPassword } =
   ComponentText.PasswordField;
@@ -28,6 +28,7 @@ const ShowPasswordButtonPrimitive: Primitive<
 ) => {
   const showPasswordButtonClass = classNames(
     ComponentClassNames.FieldShowPassword,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
     classNameModifierByFlag(
       ComponentClassNames.FieldShowPassword,
       'error',
