@@ -7,23 +7,22 @@ inputs:
   value:
     description: 'the value to log to the metric'
     required: true
-  AWS_ACCESS_KEY_ID:
-    description: 'target AWS account credentials'
+  role-to-assume:
+    description: 'target AWS account IAM role to assume'
     required: true
-  AWS_SECRET_ACCESS_KEY:
-    description: 'target AWS account credentials'
-    required: true
-  AWS_REGION:
+  aws-region:
     description: 'target AWS account region'
     required: true
 runs:
   using: 'composite'
   steps:
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
       with:
-        aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ inputs.AWS_REGION }}
+        aws-region: ${{ inputs.aws-region }}
+        role-to-assume: ${{ inputs.role-to-assume }}
     - shell: bash
-      run: aws cloudwatch put-metric-data --metric-name ${{ inputs.metric-name }} --namespace GithubCanaryApps --value ${{ inputs.value }}
+      run: aws cloudwatch put-metric-data --metric-name "$metric_name" --namespace GithubCanaryApps --value "$value"
+      env:
+        metric_name: ${{ inputs.metric-name }}
+        value: ${{ inputs.value }}
