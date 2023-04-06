@@ -42,7 +42,7 @@ runs:
           exit 1
         fi
 
-        aws cloudwatch put-metric-data --metric-name "$metric_name" --namespace GithubCanaryApps --value "$value"
+        aws cloudwatch put-metric-data --metric-name "$metric_name" --namespace POC --value "$value"
       env:
         metric_name: ${{ inputs.metric-name }}
         value: ${{ inputs.value }}

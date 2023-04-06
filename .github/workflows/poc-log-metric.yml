@@ -1,0 +1,16 @@
+name: POC / Log Metric
+
+on: pull_request
+
+jobs:
+  put-metric:
+    runs-on: ubuntu-latest
+    environment: ci
+    steps:
+      - name: Log success data point to metric BuildAndRuntimeTestFailure
+        uses: ./.github/actions/log-metric
+        with:
+          metric-name: BuildAndRuntimeTestFailure
+          value: 0
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN}}
+          aws-region: us-east-2
