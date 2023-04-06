@@ -31,4 +31,6 @@ export {
   mergeVariantsAndOverrides,
 } from './studio';
 
+export { Field } from './primitives/Field';
+
 export { PrimitiveCatalog } from './PrimitiveCatalog';

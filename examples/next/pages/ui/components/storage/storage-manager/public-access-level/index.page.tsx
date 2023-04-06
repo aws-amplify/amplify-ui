@@ -1,5 +1,4 @@
 import { Amplify } from 'aws-amplify';
-import { withAuthenticator } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
@@ -9,11 +8,11 @@ export function StorageManagerExample() {
   return (
     <StorageManager
       acceptedFileTypes={['image/*']}
-      accessLevel="private"
+      accessLevel="public"
       maxFileCount={3}
       isResumable
-      showThumbnails={true}
+      showThumbnails
     />
   );
 }
-export default withAuthenticator(StorageManagerExample);
+export default StorageManagerExample;

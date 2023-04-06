@@ -368,6 +368,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-expander-icon-transition-timing-function: cubic-bezier(0.87, 0, 0.13, 1);
         --amplify-components-field-gap: var(--amplify-space-xs);
         --amplify-components-field-font-size: var(--amplify-font-sizes-medium);
+        --amplify-components-field-flex-direction: column;
         --amplify-components-field-small-gap: var(--amplify-space-xxxs);
         --amplify-components-field-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-field-large-gap: var(--amplify-space-small);

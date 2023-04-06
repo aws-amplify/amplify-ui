@@ -1,14 +1,16 @@
-import * as React from 'react';
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+---
+"@aws-amplify/ui-react-storage": minor
+---
 
-export const StorageManagerEventExample = () => {
+feat(storage-manager): add `onUploadStart` event handler and add the file key to `onUploadError`
+
+```jsx
+export function StorageManagerExample() {
   const [files, setFiles] = React.useState({});
-
   return (
-    <>
       <StorageManager
         acceptedFileTypes={['image/*']}
-        accessLevel="public"
+        accessLevel="private"
         maxFileCount={3}
         onFileRemove={({ key }) => {
           setFiles((prevFiles) => {
@@ -56,6 +58,6 @@ export const StorageManagerEventExample = () => {
           </div>
         ) : null;
       })}
-    </>
   );
-};
+}
+```
