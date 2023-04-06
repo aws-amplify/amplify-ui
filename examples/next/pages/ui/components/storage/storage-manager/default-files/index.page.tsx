@@ -14,20 +14,6 @@ export function StorageManagerExample() {
         showThumbnails
         defaultFiles={[{ key: 'default.jpg' }]}
       />
-      <StorageManager
-        acceptedFileTypes={['image/*']}
-        accessLevel="public"
-        maxFileCount={1}
-        showThumbnails
-        defaultFiles={[{ key: null }, null]}
-      />
-      <StorageManager
-        acceptedFileTypes={['image/*']}
-        accessLevel="public"
-        maxFileCount={1}
-        showThumbnails
-        defaultFiles={null}
-      />
     </>
   );
 }
