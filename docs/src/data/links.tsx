@@ -123,8 +123,8 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
-    href: '/connected-components/authenticator/headless',
-    label: 'Headless Usage',
+    href: '/connected-components/authenticator/advanced',
+    label: 'Advanced Usage',
     platforms: ['react', 'vue', 'angular', 'react-native'],
     tertiary: true,
   },

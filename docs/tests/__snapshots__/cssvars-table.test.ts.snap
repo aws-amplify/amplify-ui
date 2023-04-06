@@ -1879,6 +1879,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"100%\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-field-flex-direction\\",
+        \\"value\\": \\"column\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-field-font-size\\",
         \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
     },

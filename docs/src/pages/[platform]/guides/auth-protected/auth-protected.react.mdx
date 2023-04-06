@@ -173,7 +173,7 @@ const { route } = useAuthenticator((context) => [context.route]);
 ```
 </ExampleCode>
 
-The [useAuthenticator](../connected-components/authenticator/headless#useauthenticator-hook) hook is used to access, modify, and update the Authenticator's auth state. In this example we destructure `useAuthenticator` and receive the `route`. The `route` can be used to tell if a route is `authenticated` or not. The `route` can also be set to `signIn`,`signOut`, and even `idle` or `setup` depending on where the user is during the authentication flow.
+The [useAuthenticator](../connected-components/authenticator/advanced#useauthenticator-hook) hook is used to access, modify, and update the Authenticator's auth state. In this example we destructure `useAuthenticator` and receive the `route`. The `route` can be used to tell if a route is `authenticated` or not. The `route` can also be set to `signIn`,`signOut`, and even `idle` or `setup` depending on where the user is during the authentication flow.
 
 > You may have noticed that we passed into the `useAuthenticator` a context callback function: `(context) => [context.route]` This is very important as it will help prevent unneccessary re-renders of the application. Excluding it may also cause errors!
 
