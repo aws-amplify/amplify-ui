@@ -40,7 +40,6 @@ exports[`PhoneNumberField applies theming 1`] = `
       editable={true}
       keyboardType="phone-pad"
       placeholderTextColor="hsl(210, 10%, 40%)"
-      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
@@ -101,7 +100,6 @@ exports[`PhoneNumberField renders as expected 1`] = `
       editable={true}
       keyboardType="phone-pad"
       placeholderTextColor="hsl(210, 10%, 40%)"
-      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {
@@ -163,7 +161,6 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
       editable={false}
       keyboardType="phone-pad"
       placeholderTextColor="hsl(210, 10%, 40%)"
-      selectionColor="hsl(210, 50%, 10%)"
       style={
         Array [
           Object {

@@ -15,6 +15,7 @@ export interface UseUploadFilesProps
       | 'isResumable'
       | 'onUploadSuccess'
       | 'onUploadError'
+      | 'onUploadStart'
       | 'maxFileCount'
       | 'processFile'
       | 'provider'
@@ -34,6 +35,7 @@ export function useUploadFiles({
   setUploadSuccess,
   onUploadError,
   onUploadSuccess,
+  onUploadStart,
   maxFileCount,
   processFile,
   provider,
@@ -68,7 +70,7 @@ export function useUploadFiles({
         };
 
       const onError = (error: string) => {
-        onUploadError?.(error);
+        onUploadError?.(error, { key });
       };
 
       if (file) {
@@ -76,6 +78,8 @@ export function useUploadFiles({
           typeof processFile === 'function'
             ? processFile({ file, key })
             : { file, key };
+
+        onUploadStart?.({ key });
 
         if (isResumable) {
           const uploadTask = uploadFile({
@@ -112,6 +116,7 @@ export function useUploadFiles({
     setUploadingFile,
     onUploadError,
     onUploadSuccess,
+    onUploadStart,
     maxFileCount,
     setUploadSuccess,
     processFile,

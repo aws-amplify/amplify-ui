@@ -96,7 +96,6 @@ Array [
           onChangeText={[Function]}
           placeholder="Username"
           placeholderTextColor="hsl(210, 10%, 40%)"
-          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
@@ -181,7 +180,6 @@ Array [
           placeholder="Password"
           placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
-          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
@@ -514,7 +512,6 @@ Array [
           onChangeText={[Function]}
           placeholder="Username"
           placeholderTextColor="hsl(210, 10%, 40%)"
-          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
@@ -599,7 +596,6 @@ Array [
           placeholder="Password"
           placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
-          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
@@ -884,7 +880,6 @@ Array [
           onChangeText={[Function]}
           placeholder="Username"
           placeholderTextColor="hsl(210, 10%, 40%)"
-          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
@@ -969,7 +964,6 @@ Array [
           placeholder="Password"
           placeholderTextColor="hsl(210, 10%, 40%)"
           secureTextEntry={true}
-          selectionColor="hsl(210, 50%, 10%)"
           style={
             Array [
               Object {
