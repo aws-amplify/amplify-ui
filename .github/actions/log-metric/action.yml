@@ -36,7 +36,7 @@ runs:
         fi
 
         if ! [[ "$value_trimmed" =~ ^[-+]?[0-9]+\.?[0-9]*$ ]]; then
-          echo "Issue number must be a valid number"
+          echo "Metric value must be a valid number"
           exit 1
         fi
 
