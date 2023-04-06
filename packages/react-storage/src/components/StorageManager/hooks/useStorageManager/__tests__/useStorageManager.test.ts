@@ -134,7 +134,9 @@ describe('useUploadFiles', () => {
         useStorageManager([
           // @ts-expect-error
           null,
+          // @ts-expect-error
           { key: null },
+          // @ts-expect-error
           { foo: 'bar' },
         ])
       );
