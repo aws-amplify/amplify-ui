@@ -77,7 +77,7 @@ jobs:
             node-version: 18
 
     env:
-      MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
+      MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
       DEPENDENCIES: react@${{ matrix.framework-version }} react-dom@${{ matrix.framework-version }} @aws-amplify/ui-react aws-amplify
       DEP_TYPES: '@types/react@${{ matrix.framework-version }} @types/react-dom@${{ matrix.framework-version }}'
 
@@ -121,7 +121,7 @@ jobs:
         working-directory: build-system-tests
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
-      - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
+      - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
         run: |
           mkdir -p mega-apps/
           if ${{ matrix.build-tool == 'cra' && matrix.language == 'js' }};then
@@ -203,4 +203,4 @@ jobs:
             npm install $DEPENDENCIES
             npm run build
           fi
-        working-directory: build-system-tests/mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
+        working-directory: build-system-tests/mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
