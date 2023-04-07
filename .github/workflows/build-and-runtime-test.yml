@@ -148,9 +148,8 @@ jobs:
         with:
           metric-name: BuildAndRuntimeTestFailure
           value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
 
   log-success-metric:
     # Send a success data point to metric BuildAndRuntimeTestFailure in github-workflows@ us-east-2, if it's a success
@@ -164,21 +163,5 @@ jobs:
         with:
           metric-name: BuildAndRuntimeTestFailure
           value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
-
-  upload-files-on-error:
-    #send video and screenshots on failure as an artifact to be checked later
-    runs-on: ubuntu-latest
-    needs: build
-    if: ${{ failure() }}
-    steps:
-      - name: Upload videos and screenshots
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-and-runtime-test-cypress-error-files
-          path: |
-            canary/e2e/cypress/videos/**
-            canary/e2e/cypress/screenshots/**
-          retention-days: 5
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2

@@ -11,11 +11,10 @@ concurrency:
   group: test-internal-prs-${{ github.event.pull_request.id }}
   cancel-in-progress: true
 
-# Disabling e2e test on the staging repo.
-# on:
-#  pull_request:
-#     branches: [main]
-#    types: [opened, synchronize, labeled]
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, labeled]
 
 jobs:
   setup:

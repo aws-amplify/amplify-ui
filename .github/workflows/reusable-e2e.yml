@@ -24,22 +24,6 @@ on:
         required: true
       IN_APP_MESSAGING_E2E_ROLE_ARN:
         required: true
-      AWS_ACCESS_KEY_ID_AUTH:
-        required: true
-      AWS_SECRET_ACCESS_KEY_AUTH:
-        required: true
-      AWS_ACCESS_KEY_ID_DATASTORE:
-        required: true
-      AWS_SECRET_ACCESS_KEY_DATASTORE:
-        required: true
-      AWS_ACCESS_KEY_ID_STORAGE:
-        required: true
-      AWS_SECRET_ACCESS_KEY_STORAGE:
-        required: true
-      AWS_ACCESS_KEY_ID_GEO:
-        required: true
-      AWS_SECRET_ACCESS_KEY_GEO:
-        required: true
       DOMAIN:
         required: true
       PHONE_NUMBER:
@@ -316,6 +300,7 @@ jobs:
           cache: 'yarn'
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
       - name: Restore cypress runner Cache
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         id: restore-cypress-cache
