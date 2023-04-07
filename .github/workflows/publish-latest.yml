@@ -134,9 +134,8 @@ jobs:
         with:
           metric-name: PublishLatestFailure
           value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
 
   log-success-metric:
     # Send a success data point to metric PublishLatestFailure in github-workflows@ us-east-2
@@ -150,6 +149,5 @@ jobs:
         with:
           metric-name: PublishLatestFailure
           value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
