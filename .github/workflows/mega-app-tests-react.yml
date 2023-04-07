@@ -1,6 +1,6 @@
 # Description: this workflow runs build mega-apps that have all the connected components.
 
-name: Mega App Canary - CRA
+name: Mega App Canary - React
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -31,25 +31,25 @@ jobs:
             build-tool: cra
             build-tool-version: 5
             pkg-manager: npm
-            language: js # Target variable
+            language: js
             node-version: 18
           - framework: react
             framework-version: latest
             build-tool: cra
             build-tool-version: 5
-            pkg-manager: 'yarn' # Target variable
+            pkg-manager: 'yarn'
             language: ts
             node-version: 18
           - framework: react
             framework-version: 17
-            build-tool: next # Target variable
+            build-tool: next
             build-tool-version: 11
             pkg-manager: npm
             language: ts
             node-version: 16
           - framework: react
             framework-version: latest
-            build-tool: next # Target variable
+            build-tool: next
             build-tool-version: 13
             pkg-manager: npm
             language: ts
@@ -165,14 +165,10 @@ jobs:
           if ${{ matrix.build-tool == 'next' }};then
             mkdir mega-apps/$MEGA_APP_NAME/data
             cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/data
-            echo "copied data/aws-exports.js"
             cp templates/components/react/next/App.js mega-apps/$MEGA_APP_NAME/pages/index.tsx
-            echo "copied App.js to pages/index.tsx"
             if ${{ matrix.build-tool-version == '11' }};then
                 cp templates/components/react/next/template-package-${{ matrix.build-tool-version }}.json mega-apps/$MEGA_APP_NAME/package.json
-                echo "copied template-package-11.json to package.json"
                 cp templates/components/react/next/template-tsconfig-${{ matrix.build-tool-version }}.json mega-apps/$MEGA_APP_NAME/tsconfig.json
-                echo "copied template-tsconfig-11.json to tsconfig.json"
             fi
           fi
 
@@ -203,7 +199,6 @@ jobs:
             fi
             if ${{ matrix.build-tool == 'next' && matrix.build-tool-version == '11' }};then
               rm -rf node_modules
-              echo "removed node_modules"
             fi
             npm install $DEPENDENCIES
             npm run build
