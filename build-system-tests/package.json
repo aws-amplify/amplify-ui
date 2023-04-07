@@ -2,11 +2,6 @@
   "name": "build-system-tests",
   "version": "1.0.0",
   "license": "MIT",
-  "devDependencies": {
-    "create-react-app": "^5.0.1",
-    "esbuild": "^0.17.13",
-    "esbuild-register": "^3.4.2"
-  },
   "scripts": {
     "pull": "./environments/pull-environments.sh"
   }
