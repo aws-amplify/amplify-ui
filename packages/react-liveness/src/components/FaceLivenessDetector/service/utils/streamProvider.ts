@@ -7,6 +7,7 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
   RekognitionStreamingClient,
+  RekognitionStreamingClientConfig,
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { VideoRecorder } from './videoRecorder';
@@ -25,10 +26,7 @@ export interface Credentials {
   sessionToken: string;
 }
 
-// FIXME: default endpoint to prod for now, remove this when sdk has the proper endpoints setup
-const ENDPOINT =
-  process.env.NEXT_PUBLIC_STREAMING_API_URL ??
-  'wss://streaming-rekognition.us-east-1.amazonaws.com:443';
+const ENDPOINT = process.env.NEXT_PUBLIC_STREAMING_API_URL;
 export const TIME_SLICE = 1000;
 
 function isBlob(obj: unknown): obj is Blob {
@@ -115,15 +113,20 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
       throw new Error('No credentials');
     }
 
-    this._client = new RekognitionStreamingClient({
+    const clientconfig: RekognitionStreamingClientConfig = {
       credentials,
-      endpointProvider: () => {
-        const url = new URL(ENDPOINT);
-        return { url };
-      },
       region: this.region,
       customUserAgent: getAmplifyUserAgent(),
-    });
+    };
+
+    if (ENDPOINT) {
+      clientconfig.endpointProvider = () => {
+        const url = new URL(ENDPOINT);
+        return { url };
+      };
+    }
+
+    this._client = new RekognitionStreamingClient(clientconfig);
 
     this.responseStream = await this.startLivenessVideoConnection();
   }

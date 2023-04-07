@@ -55,26 +55,15 @@ jobs:
           repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
 
-      - name: Configure CodeArtifact
-        id: configure-codeartifact
-        uses: ./.github/actions/codeartifact-action
-        with:
-          role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
-          domain: amplify-ui-liveness
-          repository: amplify-ui
-
       - name: Setup Node.js 16
         uses: actions/setup-node@v2
         with:
           node-version: 16
           cache: 'yarn'
-          registry-url: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
           always-auth: true
 
       - name: Install packages
         run: yarn --frozen-lockfile --prefer-offline
-        env:
-          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
 
       - name: Build ui package
         run: yarn ui build
@@ -119,20 +108,11 @@ jobs:
           repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
 
-      - name: Configure CodeArtifact
-        id: configure-codeartifact
-        uses: ./.github/actions/codeartifact-action
-        with:
-          role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
-          domain: amplify-ui-liveness
-          repository: amplify-ui
-
       - name: Setup Node.js 16
         uses: actions/setup-node@v2
         with:
           node-version: 16
           cache: 'yarn'
-          registry-url: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
           always-auth: true
 
       - name: Restore node_modules cache
@@ -154,8 +134,6 @@ jobs:
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline  --prefer-offline
-        env:
-          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
