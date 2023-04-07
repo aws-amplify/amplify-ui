@@ -28,6 +28,7 @@ jobs:
           - react-native
           - react-core
           - react-storage
+          - react-liveness
 
     steps:
       - name: Checkout Amplify UI
