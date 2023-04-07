@@ -102,16 +102,8 @@ export const HeroSection = () => {
             </Grid>
           ) : null}
 
-          {platform === 'flutter' ? (
-            <TerminalCommand
-              command={`flutter pub add ${frameworkInstallScript}`}
-              variant="hero"
-            />
-          ) : (
-            <TerminalCommand
-              command={`npm install ${frameworkInstallScript}`}
-              variant="hero"
-            />
+          {platform === 'swift' ? null : (
+            <TerminalCommand command={frameworkInstallScript} variant="hero" />
           )}
 
           <Flex direction="row">
