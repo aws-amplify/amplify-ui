@@ -19,25 +19,39 @@ jobs:
       fail-fast: false
       matrix:
         framework: [react]
-        framework-version: [16, latest]
+        framework-version: [latest]
         build-tool: [cra]
         build-tool-version: [latest]
         pkg-manager: [npm]
         language: [ts]
-        node-version: [16, 18]
+        node-version: [18]
         include:
           - framework: react
             framework-version: latest
             build-tool: cra
-            build-tool-version: 5
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 16
+          - framework: react
+            framework-version: 16
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
             pkg-manager: npm
             language: js
             node-version: 18
           - framework: react
             framework-version: latest
             build-tool: cra
-            build-tool-version: 5
-            pkg-manager: 'yarn'
+            build-tool-version: latest
+            pkg-manager: yarn
             language: ts
             node-version: 18
           - framework: react
@@ -50,7 +64,7 @@ jobs:
           - framework: react
             framework-version: latest
             build-tool: next
-            build-tool-version: 13
+            build-tool-version: latest
             pkg-manager: npm
             language: ts
             node-version: 18
