@@ -54,9 +54,16 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 18
+          # - framework: react
+          #   framework-version: latest
+          #   build-tool: gatsby
+          #   build-tool-version: latest
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
           - framework: react
             framework-version: latest
-            build-tool: gatsby
+            build-tool: vite
             build-tool-version: latest
             pkg-manager: npm
             language: ts
@@ -127,6 +134,12 @@ jobs:
             npx create-gatsby@latest -y $MEGA_APP_NAME
             cd ..
           fi
+
+          if ${{ matrix.build-tool == 'vite' }};then
+            cd mega-apps
+            npm create vite@${{ matrix.build-tool-version }} $MEGA_APP_NAME -- --template react-ts
+            cd ..
+          fi
         working-directory: build-system-tests
       - name: Copy aws_export and App.js
         run: |
@@ -159,6 +172,14 @@ jobs:
           if ${{ matrix.build-tool == 'gatsby' }};then
             environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src/pages
             cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/pages/index.tsx
+          fi
+
+          if ${{ matrix.build-tool == 'vite' }};then
+            cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src
+            cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
+            cp templates/components/react/vite/index.html mega-apps/$MEGA_APP_NAME/index.html
+            cp templates/components/react/vite/template-tsconfig.json mega-apps/$MEGA_APP_NAME/tsconfig.json
+            cp templates/components/react/vite/vite.config.ts mega-apps/$MEGA_APP_NAME/vite.config.ts
           fi
         working-directory: build-system-tests
       - name: Install @aws-amplify/ui-react aws-amplify and build
