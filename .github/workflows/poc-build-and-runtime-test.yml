@@ -1,0 +1,135 @@
+# Description: this workflow runs build and simple runtime tests on supported
+#              frameworks and their build systems.
+#
+# Triggered by: it runs every 15 minutes.
+
+name: PoC / Build and Runtime Test
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        # Paths for each example app we want to test build on
+        include:
+          - framework: angular
+            build-tool: angularcli
+          - framework: react
+            build-tool: cra
+          - framework: react
+            build-tool: cra-ts
+          - framework: react
+            build-tool: next
+          - framework: react
+            build-tool: vite
+          - framework: react
+            build-tool: vite3
+          - framework: vue
+            build-tool: vite
+          - framework: vue
+            build-tool: vite3
+          - framework: vue
+            build-tool: vuecli
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          persist-credentials: false
+      - name: Setup Node.js 16
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 16
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Install canary package
+        uses: ./.github/actions/install-with-retries
+        with:
+          no-lockfile: true
+          working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+      - name: Pull down AWS environments
+        run: yarn pull
+        working-directory: ./canary
+      - name: Delete AWS Profile
+        run: rm -rf ~/.aws
+      - name: Build example app
+        run: yarn build
+        working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
+      # This steps attempts to restore cypress runner. It will not create any new
+      # cache entries however, because cypress runner isn't available yet.
+      - name: Restore cypress runner from Cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      - name: Install e2e packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          working-directory: ./canary/e2e
+          # If we got a cache hit on cypress runner, then we will skip cypress binary
+          # installation. Otherwise, it will install cypress binary.
+          skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+      # If cypress cache was missed, then we need to create new cache entry and upload it.
+      # At this point, cypress runner should've been installed from the previous installation
+      # step, so we go ahead and update the cache entry.
+      - name: Cache cypress runner
+        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-canary-cypress-${{ hashFiles('canary/e2e/yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      - name: Start ${{ matrix.framework }}/${{ matrix.build-tool }} example
+        run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+        working-directory: ./canary/apps/${{ matrix.framework }}/${{ matrix.build-tool }}
+      - name: Run E2E tests against ${{ matrix.framework }}/${{ matrix.build-tool }} example
+        run: yarn test
+        id: e2e
+        working-directory: ./canary
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      - name: Upload videos and screenshots
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: canary-cypress-error-${{ matrix.framework }}-${{ matrix.build-tool }}
+          path: |
+            canary/e2e/cypress/videos/**
+            canary/e2e/cypress/screenshots/**
+          retention-days: 5
