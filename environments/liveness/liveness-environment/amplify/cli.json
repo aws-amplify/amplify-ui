@@ -8,7 +8,9 @@
       "enableiterativegsiupdates": true,
       "secondarykeyasgsi": true,
       "skipoverridemutationinputtypes": true,
-      "securityEnhancementNotification": false,
+      "transformerversion": 2,
+      "suppressschemamigrationprompt": true,
+      "securityenhancementnotification": false,
       "showfieldauthnotification": false
     },
     "frontend-ios": {
@@ -47,8 +49,5 @@
     "project": {
       "overrides": true
     }
-  },
-  "debug": {
-    "shareProjectConfig": false
   }
 }
