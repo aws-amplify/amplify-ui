@@ -237,7 +237,7 @@ jobs:
       - name: Configure liveness credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-east-2
+          aws-region: us-east-1
           role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
 
       - name: Create temp AWS profile
