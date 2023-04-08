@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: ci
     steps:
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f
       - name: Configure liveness credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
