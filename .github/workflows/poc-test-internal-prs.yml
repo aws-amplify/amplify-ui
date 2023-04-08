@@ -102,7 +102,6 @@ jobs:
 
   e2e:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@liveness-main
-    needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
