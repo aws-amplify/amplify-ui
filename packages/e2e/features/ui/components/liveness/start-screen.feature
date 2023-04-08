@@ -21,7 +21,7 @@ Feature: Liveness Start Screen
 
   @react
   Scenario: The start Screen has the instructions
-    Then I see "Follow these instructions to complete the check:"
+    Then I see "Follow the instructions to complete the check:"
     And I see "Make sure your face is not covered with sunglasses or a mask."
     And I see "Move to a well-lit place that is not in direct sunlight."
     And I see "Maximize your screen's brightness."
