@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { Amplify } from 'aws-amplify';
-import awsExports from '@environments/liveness/src/aws-exports';
+import awsExports from '@environments/liveness/liveness-environment/src/aws-exports';
 
 import LivenessDefault from '../components/LivenessDefault';
 import Layout from '../components/Layout';
@@ -80,9 +80,7 @@ const App = () => {
             return (
               <View flex="1" backgroundColor="white">
                 <Heading color="black">My Custom Error Modal</Heading>
-                <Text color="black">
-                  Hey there was an error: {error}
-                </Text>
+                <Text color="black">Hey there was an error: {error}</Text>
                 {children}
               </View>
             );

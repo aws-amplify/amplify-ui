@@ -18,5 +18,4 @@ Feature: Liveness with Custom Components
   Scenario: The start Screen has the instructions
     Then I see "Instructions to follow to use liveness face detector"
     And I see "Make sure your face is not covered with sunglasses or a mask."
-    And I see "Move to a well-lit place that is not in direct sunlight."
-    And I see "When an oval appears, fill the oval with your face within 7 seconds."
+    And I see "Move to a well-lit place that is not dark or in direct sunlight."

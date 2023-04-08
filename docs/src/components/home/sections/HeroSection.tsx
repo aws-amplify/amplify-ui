@@ -106,31 +106,33 @@ export const HeroSection = () => {
             <TerminalCommand command={frameworkInstallScript} variant="hero" />
           )}
 
-          <Flex direction="row">
-            <Button
-              size="large"
-              variation="primary"
-              className="docs-home-cta"
-              as="a"
-              // @ts-ignore // IGNORE
-              href={`/${platform}/getting-started/installation`}
-            >
-              Get started building
-              <Icon ariaLabel="" as={MdChevronRight} fontSize="xl" />
-            </Button>
-            {platform === 'react' && showEditor ? (
+          {platform === 'swift' || platform === 'android' ? null : (
+            <Flex direction="row">
               <Button
                 size="large"
+                variation="primary"
                 className="docs-home-cta"
                 as="a"
                 // @ts-ignore // IGNORE
-                href="#live"
+                href={`/${platform}/getting-started/installation`}
               >
-                Or try it out
-                <Icon ariaLabel="" as={MdArrowDownward} fontSize="xl" />
+                Get started building
+                <Icon ariaLabel="" as={MdChevronRight} fontSize="xl" />
               </Button>
-            ) : null}
-          </Flex>
+              {platform === 'react' && showEditor ? (
+                <Button
+                  size="large"
+                  className="docs-home-cta"
+                  as="a"
+                  // @ts-ignore // IGNORE
+                  href="#live"
+                >
+                  Or try it out
+                  <Icon ariaLabel="" as={MdArrowDownward} fontSize="xl" />
+                </Button>
+              ) : null}
+            </Flex>
+          )}
         </Flex>
       </Flex>
     </View>

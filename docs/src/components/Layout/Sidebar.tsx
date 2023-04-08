@@ -140,21 +140,30 @@ const SecondaryNav = (props) => {
 
   const isFlutter = platform === 'flutter';
   const isReactNative = platform === 'react-native';
+  const isAndroid = platform === 'android';
+  const isSwift = platform === 'swift';
+
+  const hideGettingStarted = isAndroid || isSwift;
+  const hideTheming = isAndroid || isSwift;
+  const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
     <Expander type="multiple" value={value} onValueChange={setValue}>
-      <ExpanderItem
-        title={
-          <ExpanderTitle Icon={MdOutlineChecklist} text="Getting started" />
-        }
-        value="getting-started"
-      >
-        {gettingStarted.map(({ label, ...rest }) => (
-          <NavLink key={label} {...rest} onClick={props.onClick}>
-            {label}
-          </NavLink>
-        ))}
-      </ExpanderItem>
+      {/* Android and Swift don't have getting started at this time */}
+      {hideGettingStarted ? null : (
+        <ExpanderItem
+          title={
+            <ExpanderTitle Icon={MdOutlineChecklist} text="Getting started" />
+          }
+          value="getting-started"
+        >
+          {gettingStarted.map(({ label, ...rest }) => (
+            <NavLink key={label} {...rest} onClick={props.onClick}>
+              {label}
+            </NavLink>
+          ))}
+        </ExpanderItem>
+      )}
       {platform === 'react' ? (
         <ExpanderItem
           title={<ExpanderTitle Icon={MdOutlineWidgets} text="Components" />}
@@ -184,19 +193,22 @@ const SecondaryNav = (props) => {
         ))}
       </ExpanderItem>
 
-      <ExpanderItem
-        title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
-        value="theming"
-      >
-        {theming.map(({ label, ...rest }) => (
-          <NavLink key={label} {...rest} onClick={props.onClick}>
-            {label}
-          </NavLink>
-        ))}
-      </ExpanderItem>
+      {/* Android and Swift don't have theming at this time */}
+      {hideTheming ? null : (
+        <ExpanderItem
+          title={<ExpanderTitle Icon={MdOutlineAutoAwesome} text="Theming" />}
+          value="theming"
+        >
+          {theming.map(({ label, ...rest }) => (
+            <NavLink key={label} {...rest} onClick={props.onClick}>
+              {label}
+            </NavLink>
+          ))}
+        </ExpanderItem>
+      )}
 
-      {/* Flutter and React Native don't have guides at this time */}
-      {isFlutter || isReactNative ? null : (
+      {/* Flutter, React Native, Android, and Swift don't have guides at this time */}
+      {hideGuidesExpander ? null : (
         <ExpanderItem
           title={<ExpanderTitle Icon={MdOutlineArticle} text="Guides" />}
           value="guides"
