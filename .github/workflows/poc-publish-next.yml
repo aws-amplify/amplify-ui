@@ -9,7 +9,9 @@ concurrency:
   group: e2e-${{ github.sha }}
   cancel-in-progress: true
 
-on: pull_request
+on:
+  push:
+    branches: liveness-main
 
 permissions:
   id-token: write # This is required for requesting the JWT
