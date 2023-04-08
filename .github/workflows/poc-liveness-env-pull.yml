@@ -1,0 +1,28 @@
+on: pull_request
+
+name: POC / Liveness Environments Pull
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    environment: ci
+    steps:
+      - name: Configure liveness credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Liveness AWS environments
+        run: yarn environments liveness pull
