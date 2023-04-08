@@ -111,7 +111,7 @@ jobs:
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@liveness-main
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
@@ -123,6 +123,7 @@ jobs:
       DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
       GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
       STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+      LIVENESS_E2E_ROLE_ARN: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
       IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
