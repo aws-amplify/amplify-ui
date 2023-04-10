@@ -5,7 +5,7 @@ import { Theme, ThemeProvider, useTheme } from '@aws-amplify/ui-react';
 export function CustomizationTheme() {
   const { tokens } = useTheme();
   const theme: Theme = {
-    name: 'Liveness Example Theme',
+    name: 'Face Liveness Example Theme',
     tokens: {
       colors: {
         background: {
