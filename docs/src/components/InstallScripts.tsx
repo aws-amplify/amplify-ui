@@ -28,7 +28,7 @@ const frameworkInstallScript = (
     isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''
   }`;
 
-  const componentSubpackage = component ? `-${component}` : null;
+  const componentSubpackage = component ? `-${component}` : '';
 
   return `${packageManagerPrefix} @aws-amplify/ui-${framework}${componentSubpackage} aws-amplify${extraDependencies}`;
 };
