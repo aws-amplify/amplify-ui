@@ -3,7 +3,7 @@ import { ExampleCode } from '@/components/Example';
 
 ### Step 2. Install dependencies
 
-The FaceLivenessDetector component is built using [Jetpack Compose](https://developer.android.com/jetpack/compose). Enable Jetpack Compose by adding the following to the `android` section of your **app**'s `build.gradle` file:
+FaceLivenessDetector component is built using [Jetpack Compose](https://developer.android.com/jetpack/compose). Enable Jetpack Compose by adding the following to the `android` section of your **app**'s `build.gradle` file:
 
 ```groovy
 buildFeatures {
@@ -21,7 +21,7 @@ dependencies {
     // FaceLivenessDetector dependency
     implementation 'com.amplifyframework.ui:liveness:1.0.0'
     
-    // Material3 dependency for theming the FaceLivenessDetector
+    // Material3 dependency for theming FaceLivenessDetector
     implementation 'androidx.compose.material3:material3:1.0.1'
 }
 ```
@@ -97,7 +97,7 @@ FaceLivenessDetector requires access to the camera on the user's device in order
     </ExampleCode>
   </TabItem>
   <TabItem title="Java">
-    FaceLivenessDetector must be created in Kotlin but can still be used in a Java-based app. First, create a new Kotlin file called `MyView` and add the following code to create FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the Face Liveness session and replacing `<region>` with the region you would like to use for the Face Liveness check. The list of supported regions is in the [Amazon Rekognition Face Liveness developer guide](https://docs.aws.amazon.com/general/latest/gr/rekognition.html). The code below wraps the FaceLivenessDetector in a MaterialTheme that uses the Liveness color scheme. More information about theming is in the [Liveness Customization page](./liveness/customization).
+    FaceLivenessDetector must be created in Kotlin but can still be used in a Java-based app. First, create a new Kotlin file called `MyView` and add the following code to create FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the Face Liveness session and replacing `<region>` with the region you would like to use for the Face Liveness check. The list of supported regions is in the [Amazon Rekognition Face Liveness developer guide](https://docs.aws.amazon.com/general/latest/gr/rekognition.html). The code below wraps FaceLivenessDetector in a MaterialTheme that uses the Liveness color scheme. More information about theming is in the [Liveness Customization page](./liveness/customization).
     <ExampleCode>
     ```kotlin
     object MyView {
@@ -127,7 +127,7 @@ FaceLivenessDetector requires access to the camera on the user's device in order
     }
     ```
     </ExampleCode>
-    In the `onCreate` of your app's `MainActivity`, add the following code to display the FaceLivenessDetector:
+    In the `onCreate` of your app's `MainActivity`, add the following code to display FaceLivenessDetector:
     <ExampleCode>
     ```java
     MyView.setViewContent(this);
