@@ -147,7 +147,7 @@ export const connectedComponents: ComponentNavItem[] = [
   },
   {
     href: '/connected-components/liveness',
-    label: 'Liveness',
+    label: 'Face Liveness',
     body: 'Amplify UI provides a UI component for detecting whether the person in front of the camera is live.',
     platforms: ['react', 'android', 'swift'],
   },
