@@ -2539,6 +2539,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-interactive)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-liveness-camera-module-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-black)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-loader-animation-duration\\",
         \\"value\\": \\"1s\\"
     },
