@@ -79,6 +79,7 @@ export function getDisplayText(
     landscapeMessageText,
     portraitMessageText,
     tryAgainText,
+    legalText,
   } = displayText;
 
   const hintDisplayText: Required<HintDisplayText> = {
@@ -121,6 +122,7 @@ export function getDisplayText(
     instructionListStepTwoText,
     instructionListStepThreeText,
     instructionListStepFourText,
+    legalText,
   };
 
   const streamDisplayText: Required<StreamDisplayText> = {
