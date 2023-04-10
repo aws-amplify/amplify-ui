@@ -37,9 +37,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
 </Fragment>
 
-## Theming
-
-<Fragment>
+<Fragment platforms={['react', 'android']}>
   {({ platform }) => import(`./customization.theming.${platform}.mdx`)}
 </Fragment>
 
