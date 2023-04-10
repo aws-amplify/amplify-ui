@@ -9,7 +9,6 @@ import { Fragment } from '@/components/Fragment';
 import { Example } from '@/components/Example';
 import { FRAMEWORKS } from '@/data/frameworks';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
-import { CustomizationTable } from './CustomizationTable';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -20,10 +19,6 @@ export async function getStaticPaths() {
 export async function getStaticProps() {
   return { props: {} }
 }
-
-<Example>
-  <CustomizationTable />
-</Example>
 
 ## Start View
 
@@ -44,3 +39,5 @@ export async function getStaticProps() {
 <Fragment platforms={['react']}>
   {({ platform }) => import(`./customization.components.${platform}.mdx`)}
 </Fragment>
+
+> Note: the check screen has been optimized for increasing the end user's success rate and we strongly discourage making any changes to that screen.
