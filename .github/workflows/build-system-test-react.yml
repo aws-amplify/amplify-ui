@@ -1,6 +1,6 @@
 # Description: this workflow runs build mega-apps that have all the connected components.
 
-name: Mega App Canary - React
+name: Build System Test Canary - React
 
 permissions:
   id-token: write # This is required for requesting the JWT
