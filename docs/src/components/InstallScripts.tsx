@@ -10,11 +10,13 @@ interface TerminalCommandProps {
   packageManager?: PackageManager;
   command?: string;
   variant?: 'default' | 'hero';
+  component?: string;
 }
 
 const frameworkInstallScript = (
   framework: Framework,
-  packageManager: PackageManager
+  packageManager: PackageManager,
+  component?: string
 ) => {
   const isReactNative = framework === 'react-native';
 
@@ -26,18 +28,21 @@ const frameworkInstallScript = (
     isReactNative ? ` ${REACT_NATIVE_DEPENDENCIES}` : ''
   }`;
 
-  return `${packageManagerPrefix} @aws-amplify/ui-${framework} aws-amplify${extraDependencies}`;
+  const componentSubpackage = component ? `-${component}` : null;
+
+  return `${packageManagerPrefix} @aws-amplify/ui-${framework}${componentSubpackage} aws-amplify${extraDependencies}`;
 };
 
 export const TerminalCommand = ({
   framework,
+  component,
   packageManager,
   command,
   variant = 'default',
 }: TerminalCommandProps) => {
   const terminalCommand = command
     ? command
-    : frameworkInstallScript(framework, packageManager);
+    : frameworkInstallScript(framework, packageManager, component);
 
   return (
     <div className={`install-code__container ${variant}`}>
@@ -54,9 +59,13 @@ export const TerminalCommand = ({
 
 interface InstallScriptsProps {
   framework?: Framework;
+  component?: string;
 }
 
-export const InstallScripts = ({ framework }: InstallScriptsProps) => {
+export const InstallScripts = ({
+  framework,
+  component,
+}: InstallScriptsProps) => {
   const {
     query: { platform = 'react' },
   } = useRouter();
@@ -69,10 +78,18 @@ export const InstallScripts = ({ framework }: InstallScriptsProps) => {
   return (
     <Tabs>
       <TabItem title="npm">
-        <TerminalCommand framework={framework} packageManager="npm" />
+        <TerminalCommand
+          framework={framework}
+          component={component}
+          packageManager="npm"
+        />
       </TabItem>
       <TabItem title="yarn">
-        <TerminalCommand framework={framework} packageManager="yarn" />
+        <TerminalCommand
+          framework={framework}
+          component={component}
+          packageManager="yarn"
+        />
       </TabItem>
     </Tabs>
   );

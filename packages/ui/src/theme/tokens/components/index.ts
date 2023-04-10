@@ -23,6 +23,7 @@ import { icon, IconTokens } from './icon';
 import { image, ImageTokens } from './image';
 import { inappmessaging, InAppMessagingTokens } from './inAppMessaging';
 import { link, LinkTokens } from './link';
+import { liveness, LivenessTokens } from './liveness';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
 import { pagination, PaginationTokens } from './pagination';
@@ -78,6 +79,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   image?: ImageTokens<Output>;
   inappmessaging?: InAppMessagingTokens<Output>;
   link?: LinkTokens<Output>;
+  liveness?: LivenessTokens<Output>;
   loader?: LoaderTokens<Output>;
   menu?: MenuTokens<Output>;
   pagination?: PaginationTokens<Output>;
@@ -141,6 +143,7 @@ export const components: DefaultComponentTokens = {
   image,
   inappmessaging,
   link,
+  liveness,
   loader,
   menu,
   pagination,

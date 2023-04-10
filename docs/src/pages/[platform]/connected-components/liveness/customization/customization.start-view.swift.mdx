@@ -1,0 +1,20 @@
+The FaceLivenessDetectorView contains an initial (start) view with instructions and information about the liveness check for the end user. By default, the start view is shown before the liveness check. The start view can be disabled, allowing you to provide your own start view before the FaceLivenessDetectorView component is displayed in the app:
+
+```swift
+FaceLivenessDetectorView(
+  sessionID: <session ID>,
+  region: <region>,
+  disableStartView: true,
+  isPresented: $isPresentingLiveness,
+  onCompletion: { result in
+    switch result {
+    case .success:
+      // ...
+    case .failure(let error):
+      // ...
+    default:
+      // ...
+    }
+  }
+)
+```
