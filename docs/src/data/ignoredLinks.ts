@@ -11,4 +11,5 @@ export const IGNORED_LINKS = [
   'https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html', // 403
   'https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html', // 403
   'https://github.com/aws-amplify/amplify-ui/issues/new/choose', // 302. Only at test. Can't reproduce the status code. Can't find the redirected link.
+  'https://developer.apple.com/design/human-interface-guidelines/patterns/accessing-private-data/', // 401 Apple doesn't like bots maybe
 ];
