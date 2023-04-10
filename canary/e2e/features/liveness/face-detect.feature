@@ -5,7 +5,8 @@ Feature: Liveness Start Screen
   Background:
     Given I'm running the example "/"
   
-  @react
+  # remove the following @skip tag once the example is set up
+  @skip @react
   Scenario: Blazeface CDN is up
     Then I request "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm" and get "200"
     And I request "https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file" and get "200"
