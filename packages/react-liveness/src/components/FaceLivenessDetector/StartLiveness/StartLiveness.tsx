@@ -74,7 +74,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
           >
             {instructionDisplayText.instructionsBeginCheckText}
           </Button>
-          <Text fontSize="x-small" color="font.disabled">
+          <Text fontSize="x-small" color="font.tertiary">
             {instructionDisplayText.legalText}
           </Text>
         </Flex>
