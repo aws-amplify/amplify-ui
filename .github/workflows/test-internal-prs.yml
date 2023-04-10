@@ -111,7 +111,7 @@ jobs:
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@liveness-main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
