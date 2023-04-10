@@ -63,13 +63,13 @@ In the `onCreate` of your `Application` class, add the Auth plugin before callin
 
 ### Step 4. Request camera permissions
 
-The FaceLivenessDetector component requires access to the camera on the user's device in order to perform the liveness check. Before displaying the FaceLivenessDetector, prompt the user to grant camera permission. Please follow these guides for examples of requesting camera permission using either [Android](https://developer.android.com/training/permissions/requesting) or [Jetpack Compose](https://google.github.io/accompanist/permissions/).
+FaceLivenessDetector requires access to the camera on the user's device in order to perform the Face Liveness check. Before displaying FaceLivenessDetector, prompt the user to grant camera permission. Please follow these guides for examples of requesting camera permission using either [Android](https://developer.android.com/training/permissions/requesting) or [Jetpack Compose](https://google.github.io/accompanist/permissions/).
 
-### Step 5. Add the FaceLivenessDetector
+### Step 5. Add FaceLivenessDetector
 
 <Tabs justifyContent="flex-start">
   <TabItem title="Kotlin">
-    In the `onCreate` of your app's `MainActivity`, add the following code to display the FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the liveness session and replacing `<region>` with the region you would like to use for the liveness check. The list of supported regions is in the [Amazon Rekognition Liveness guide](https://docs.aws.amazon.com/general/latest/gr/rekognition.html). The code below wraps the FaceLivenessDetector in a MaterialTheme that uses the Liveness color scheme. More information about theming is in the [Liveness Customization page](./liveness/customization).
+    In the `onCreate` of your app's `MainActivity`, add the following code to display FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the Face Liveness session and replacing `<region>` with the region you would like to use for the Face Liveness check. The list of supported regions is in the [Amazon Rekognition Face Liveness developer guide](https://docs.aws.amazon.com/general/latest/gr/rekognition.html). The code below wraps FaceLivenessDetector in a MaterialTheme that uses the Face Liveness color scheme. More information about theming is in the [Face Liveness Customization page](./liveness/customization).
     <ExampleCode>
     ```kotlin
     setContent {
@@ -80,14 +80,14 @@ The FaceLivenessDetector component requires access to the camera on the user's d
                 sessionId = <session ID>,
                 region = <region>,
                 onComplete = {
-                     Log.i("MyApp", "Liveness flow is complete")
-                     // The Liveness flow is complete and the liveness session
+                     Log.i("MyApp", "Face Liveness flow is complete")
+                     // The Face Liveness flow is complete and the session
                      // results are ready. Use your backend to retrieve the
-                     // results for the liveness session.
+                     // results for the Face Liveness session.
                 },
                 onError = { error ->
-                     Log.e("MyApp", "Error during Liveness flow", error)
-                     // An error occurred during the Liveness flow, such as
+                     Log.e("MyApp", "Error during Face Liveness flow", error)
+                     // An error occurred during the Face Liveness flow, such as
                      // time out or missing the required permissions.
                 }
             )
@@ -97,7 +97,7 @@ The FaceLivenessDetector component requires access to the camera on the user's d
     </ExampleCode>
   </TabItem>
   <TabItem title="Java">
-    The FaceLivenessDetector component must be created in Kotlin but can still be used in a Java-based app. First, create a new Kotlin file called `MyView` and add the following code to create the FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the liveness session and replacing `<region>` with the region you would like to use for the liveness check. The list of supported regions is in the [Amazon Rekognition Liveness guide](https://docs.aws.amazon.com/general/latest/gr/rekognition.html). The code below wraps the FaceLivenessDetector in a MaterialTheme that uses the Liveness color scheme. More information about theming is in the [Liveness Customization page](./liveness/customization).
+    FaceLivenessDetector must be created in Kotlin but can still be used in a Java-based app. First, create a new Kotlin file called `MyView` and add the following code to create FaceLivenessDetector, replacing `<session ID>` with the session ID returned from creating the Face Liveness session and replacing `<region>` with the region you would like to use for the Face Liveness check. The list of supported regions is in the [Amazon Rekognition Face Liveness developer guide](https://docs.aws.amazon.com/general/latest/gr/rekognition.html). The code below wraps the FaceLivenessDetector in a MaterialTheme that uses the Liveness color scheme. More information about theming is in the [Liveness Customization page](./liveness/customization).
     <ExampleCode>
     ```kotlin
     object MyView {
@@ -110,14 +110,14 @@ The FaceLivenessDetector component requires access to the camera on the user's d
                         sessionId = <session ID>,
                         region = <region>,
                         onComplete = {
-                            Log.i("MyApp", "Liveness flow is complete")
-                            // The Liveness flow is complete and the liveness
+                            Log.i("MyApp", "Face Liveness flow is complete")
+                            // The Face Liveness flow is complete and the
                             // session results are ready. Use your backend to
-                            // retrieve the results for the liveness session.
+                            // retrieve the results for the Face Liveness session.
                         },
                         onError = { error ->
-                            Log.e("MyApp", "Error during Liveness flow", error)
-                            // An error occurred during the Liveness flow, such
+                            Log.e("MyApp", "Error during Face Liveness flow", error)
+                            // An error occurred during the Face Liveness flow, such
                             // as time out or missing the required permissions.
                         }
                     )
