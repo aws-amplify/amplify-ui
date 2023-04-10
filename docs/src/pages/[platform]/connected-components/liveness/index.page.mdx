@@ -19,9 +19,11 @@ export async function getStaticProps() {
 
 Amplify UI Face Liveness is powered by [Amazon Rekognition](https://aws.amazon.com/rekognition/).
 
-<Fragment platforms={['react']}>
+<Fragment platforms={['react', 'android', 'swift']}>
   {({ platform }) => import(`./intro.${platform}.mdx`)}
 </Fragment>
+
+> To know more about spoof attempts deterred by Face Liveness, <a href="">watch our video on Youtube</a>.
 
 ## Quick start
 
