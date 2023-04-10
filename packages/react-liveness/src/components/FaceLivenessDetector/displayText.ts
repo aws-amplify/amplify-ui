@@ -38,6 +38,7 @@ export type InstructionDisplayText = {
   instructionListStepTwoText?: string;
   instructionListStepThreeText?: string;
   instructionListStepFourText?: string;
+  legalText?: string;
 };
 
 export type StreamDisplayText = {
@@ -114,6 +115,8 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintIlluminationTooDarkText: 'Move to brighter area',
   hintIlluminationNormalText: 'Lighting conditions normal',
   hintHoldFaceForFreshnessText: 'Hold still',
+  legalText:
+    "This App uses Amazon Web Services as a service provider for liveness verification. Biometric identifiers and biometric information (“biometric data”) may be collected, stored, and used by Amazon Web Services on behalf of this App for the purpose of providing and developing the liveness verification services and underlying technologies. You hereby provide your express, informed, written release and consent for this App and Amazon Web Services to collect, use, and store your biometric data as described herein. Except as required or permitted by applicable law, this App will instruct Amazon Web Services to permanently destroy biometric data that is stored on this App's behalf when the initial purpose for collecting or obtaining such data has been satisfied, within any relevant time after your last interaction with the services, or after being informed by you that such data should be destroyed, whichever comes first.",
   ...defaultErrorDisplayText,
 };
 
