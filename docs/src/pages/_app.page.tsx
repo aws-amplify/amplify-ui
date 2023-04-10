@@ -55,12 +55,6 @@ if (typeof window === 'undefined') {
 function MyApp({ Component, pageProps }) {
   const [expanded, setExpanded] = React.useState(false);
 
-  Storage.addPluggable(new MyStorageProvider('fast', { delay: 10 }));
-  Storage.addPluggable(new MyStorageProvider('slow', { delay: 1000 }));
-  Storage.addPluggable(
-    new MyStorageProvider('error', { delay: 50, networkError: true })
-  );
-
   const {
     pathname,
     query: { platform = 'react' },

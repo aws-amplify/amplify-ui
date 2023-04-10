@@ -22,7 +22,7 @@ const dictionary = {
     instructionListHeadingText:
       'Siga las instrucciones para completar la verificación:',
     goodFitCaptionText: 'Buen ajuste',
-    tooFarCaptionText: 'Muy lejo',
+    tooFarCaptionText: 'Demasiado lejos',
   },
 };
 
