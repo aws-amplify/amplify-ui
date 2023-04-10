@@ -55,7 +55,7 @@ export function CustomizationTable() {
           <TableCell>No</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>Face Match Timeout</TableCell>
+          <TableCell>Face Fit Timeout</TableCell>
           <TableCell>No</TableCell>
         </TableRow>
         <TableRow>
