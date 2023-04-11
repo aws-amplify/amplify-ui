@@ -9,6 +9,7 @@ import {
   InAppMessagingProvider,
   InAppMessageDisplay,
 } from '@aws-amplify/ui-react';
+import { StorageManager } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
@@ -40,6 +41,13 @@ export default function Home() {
         )}
       </Authenticator>
       <AccountSettings.ChangePassword onSuccess={handleSuccess} />
+      <AccountSettings.DeleteUser onSuccess={handleSuccess} />
+      <StorageManager
+            acceptedFileTypes={['image/*']}
+            accessLevel="public"
+            maxFileCount={1}
+            isResumable
+          />
       <MapView />
     </>
   );
