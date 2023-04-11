@@ -17,9 +17,6 @@ Amplify.configure(awsconfig);
 const { InAppMessaging } = Notifications;
 
 export default function Home() {
-  const handleSuccess = () => {
-    alert('password is successfully changed!');
-  };
   useEffect(() => {
     // sync remote in-app messages
     InAppMessaging.syncMessages();
@@ -40,8 +37,8 @@ export default function Home() {
           </main>
         )}
       </Authenticator>
-      <AccountSettings.ChangePassword onSuccess={handleSuccess} />
-      <AccountSettings.DeleteUser onSuccess={handleSuccess} />
+      <AccountSettings.ChangePassword onSuccess={() => {}} />
+      <AccountSettings.DeleteUser onSuccess={() => {}} />
       <StorageManager
             acceptedFileTypes={['image/*']}
             accessLevel="public"
