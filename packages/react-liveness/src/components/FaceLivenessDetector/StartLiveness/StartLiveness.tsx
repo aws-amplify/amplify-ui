@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, Button, Card, Text } from '@aws-amplify/ui-react';
+import { Flex, Button, Card } from '@aws-amplify/ui-react';
 
 import { InstructionDisplayText } from '../displayText';
 import {
@@ -66,7 +66,7 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
           />
         )}
 
-        <Flex direction="column" justifyContent="center">
+        <Flex justifyContent="center">
           <Button
             variation="primary"
             type="button"
@@ -74,9 +74,6 @@ export function StartLiveness(props: StartLivenessProps): JSX.Element {
           >
             {instructionDisplayText.instructionsBeginCheckText}
           </Button>
-          <Text fontSize="x-small" color="font.tertiary">
-            {instructionDisplayText.legalText}
-          </Text>
         </Flex>
       </Flex>
     </Card>
