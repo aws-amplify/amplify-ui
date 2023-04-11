@@ -26,7 +26,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
       img-src 'self' blob: ${ANALYTICS_CSP.all.img.join(' ')};
       connect-src 'self' *.shortbread.aws.dev ${ANALYTICS_CSP.all.connect.join(
         ' '
-      )} https://*.algolia.net https://*.algolianet.com;
+      )} https://*.algolia.net https://*.algolianet.com https://cdn.jsdelivr.net https://tfhub.dev https://storage.googleapis.com;
       script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' ${ANALYTICS_CSP.all.script.join(
       ' '
     )};

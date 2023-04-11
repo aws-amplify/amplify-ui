@@ -123,8 +123,8 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
-    href: '/connected-components/authenticator/headless',
-    label: 'Headless Usage',
+    href: '/connected-components/authenticator/advanced',
+    label: 'Advanced Usage',
     platforms: ['react', 'vue', 'angular', 'react-native'],
     tertiary: true,
   },
@@ -143,6 +143,18 @@ export const connectedComponents: ComponentNavItem[] = [
     href: '/connected-components/account-settings/delete-user',
     label: 'Delete User',
     platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/connected-components/liveness',
+    label: 'Face Liveness',
+    body: 'Amplify UI provides a UI component for detecting whether the person in front of the camera is live.',
+    platforms: ['react', 'android', 'swift'],
+  },
+  {
+    href: '/connected-components/liveness/customization',
+    label: 'Customization',
+    platforms: ['react', 'android', 'swift'],
     tertiary: true,
   },
   {
@@ -607,4 +619,6 @@ export const ANDROID_REFERENCE =
 export const JS_REFERENCE = 'https://aws-amplify.github.io/amplify-js/api/';
 
 export const GITHUB_REPO = `${GITHUB}/amplify-ui/`;
+export const ANDROID_GITHUB_REPO = `${GITHUB}/amplify-ui-android/`;
+export const SWIFT_GITHUB_REPO = `${GITHUB}/amplify-ui-swift/`;
 export const GITHUB_REPO_FILE = `${GITHUB_REPO}/blob/main/`;

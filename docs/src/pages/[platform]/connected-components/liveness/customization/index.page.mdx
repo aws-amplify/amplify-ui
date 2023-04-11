@@ -1,0 +1,46 @@
+---
+title: Customization
+metaTitle: Customization
+description: Customize your FaceLivenessDetector
+supportedFrameworks: react|android|swift
+---
+
+import { Fragment } from '@/components/Fragment';
+import { Example } from '@/components/Example';
+import { FRAMEWORKS } from '@/data/frameworks';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+## Start View
+
+<Fragment>
+  {({ platform }) => import(`./customization.start-view.${platform}.mdx`)}
+</Fragment>
+
+## Internationalization (I18n)
+
+<Fragment>
+  {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
+</Fragment>
+
+<Fragment platforms={['react', 'android']}>
+  {({ platform }) => import(`./customization.theming.${platform}.mdx`)}
+</Fragment>
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./customization.components.${platform}.mdx`)}
+</Fragment>
+
+## Best Practices
+
+1. The get ready screen has been optimized for increasing the end user's success rate and we strongly discourage making any changes to that screen.
+1. We do not recommend modifying the countdown time, face fit timeout, and oval size, as they affect the security and accuracy of the Face Liveness check.
