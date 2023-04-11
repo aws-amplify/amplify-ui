@@ -2,10 +2,6 @@
 
 name: Build System Test Canary - React
 
-permissions:
-  id-token: write # This is required for requesting the JWT
-  contents: read # This is required for actions/checkout
-
 on:
   schedule:
     - cron: '*/15 * * * *' # Run every 15 minutes
@@ -98,11 +94,11 @@ jobs:
 
     steps:
       - name: Checkout Amplify UI
-        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
           persist-credentials: false
       - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
           node-version: ${{ matrix.node-version }}
           cache: ${{ matrix.pkg-manager }}
