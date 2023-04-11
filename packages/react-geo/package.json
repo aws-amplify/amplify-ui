@@ -40,21 +40,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.8",
-    "@aws-amplify/ui-react-core": "2.1.16",
-    "classnames": "2.3.1",
-    "lodash": "4.17.21",
+    "@aws-amplify/ui": "5.5.10",
+    "@aws-amplify/ui-react": "4.5.1",
+    "@aws-amplify/ui-react-core": "2.1.18",
     "tslib": "2.4.1"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",
     "react": ">= 16.14.0",
     "react-dom": ">= 16.14.0"
-  },
-  "peerDependenciesMeta": {
-    "aws-amplify": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.3.1",
