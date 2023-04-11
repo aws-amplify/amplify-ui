@@ -40,4 +40,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./customization.components.${platform}.mdx`)}
 </Fragment>
 
-> Note: the check screen has been optimized for increasing the end user's success rate and we strongly discourage making any changes to that screen.
+## Best Practices
+
+1. The get ready screen has been optimized for increasing the end user's success rate and we strongly discourage making any changes to that screen.
+1. We do not recommend modifying the countdown time, face fit timeout, and oval size, as they affect the security and accuracy of the Face Liveness check.
