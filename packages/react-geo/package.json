@@ -43,6 +43,10 @@
     "@aws-amplify/ui": "5.5.10",
     "@aws-amplify/ui-react": "4.5.1",
     "@aws-amplify/ui-react-core": "2.1.18",
+    "depcheck": "^1.4.3",
+    "react-map-gl": "7.0.22",
+    "maplibre-gl": "2.4.0",
+    "maplibre-gl-js-amplify": "3.0.5",
     "tslib": "2.4.1"
   },
   "peerDependencies": {
