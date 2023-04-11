@@ -399,8 +399,6 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Run Docs link checker
-        # TODO: remove continue-on-error after all the links are available
-        continue-on-error: true
         run: yarn docs test:links
 
       - name: Upload failure screenshots and errors
