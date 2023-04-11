@@ -23,8 +23,8 @@ function App() {
         <Button onClick={signOut}>Sign out</Button>
       </Card>
       <FaceLivenessDetector
-        sessionId={'123'}
-        region={'us-east-1'}
+        sessionId="123"
+        region="us-east-1"
         handleGetLivenessDetection={async () => {}}
       />
     </AmplifyProvider>
