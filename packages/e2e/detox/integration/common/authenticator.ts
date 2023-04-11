@@ -1,8 +1,19 @@
-import { When } from '@cucumber/cucumber';
-import { by, element } from 'detox';
+import { Then, When } from '@cucumber/cucumber';
+import { by, element, expect } from 'detox';
 
 const getUserAlias = (status: string) =>
   `${process.env.USERNAME}+${status === 'UNKNOWN' ? Date.now() : status}`;
+
+const getCountryCode = (status: string) =>
+  status === 'CONFIRMED'
+    ? '+1'
+    : status === 'UNCONFIRMED'
+    ? '+7'
+    : status === 'UNKNOWN'
+    ? '+20'
+    : status === 'FORCE_CHANGE_PASSWORD'
+    ? '+30'
+    : '';
 
 When(
   'I type my {string} with status {string}',
@@ -13,7 +24,7 @@ When(
     } else if (loginMechanism === 'username') {
       text = getUserAlias(status);
     } else if (loginMechanism === 'phone number') {
-      text = process.env.PHONE_NUMBER;
+      text = `${getCountryCode(status)}${process.env.PHONE_NUMBER}`;
     }
     await element(by.id('amplify__text-field__input-container'))
       .atIndex(0)
@@ -29,4 +40,26 @@ When('I type my password', async () => {
 
 When('I select my country code with status {string}', (status: string) => {
   // do nothing, React-Native phonenumber field does not support country code selection yet
+});
+
+Then('I will be redirected to the confirm forgot password page', async () => {
+  await expect(element(by.text('New Password')).atIndex(0)).toBeVisible();
+});
+
+Then('I type a valid code', async () => {
+  await element(by.id('amplify__text-field__input-container'))
+    .atIndex(0)
+    .typeText('1234');
+});
+
+Then('I type my new password', async () => {
+  await element(by.id('amplify__text-field__input-container'))
+    .atIndex(1)
+    .typeText(process.env.VALID_PASSWORD);
+});
+
+Then('I confirm my password', async () => {
+  await element(by.id('amplify__text-field__input-container'))
+    .atIndex(2)
+    .typeText(process.env.VALID_PASSWORD);
 });

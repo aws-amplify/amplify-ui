@@ -305,6 +305,154 @@ jobs:
             packages/e2e/cypress/screenshots/**
           retention-days: 5
 
+  e2e-ios:
+    runs-on: macos-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
+          # always points to the target branch.
+          # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          persist-credentials: false
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 16
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
+      - name: Restore node_modules cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
+      - name: Restore ui/dist cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-ui-cache
+        with:
+          path: ./packages/ui/dist
+          key: ${{ runner.os }}-ui-${{ inputs.commit }}
+
+      - name: Restore react-native/dist cache
+        id: restore-package-cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        with:
+          path: ./packages/react-native/dist
+          key: ${{ runner.os }}-react-native-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Restore CocoaPods cache
+        id: restore-cocoapods-cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        with:
+          path: ./examples/react-native/ios/Pods
+          key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
+          restore-keys: |
+            pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
+            pods-
+        continue-on-error: true
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Install simulator
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+
+      - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true
+
+      - name: Build @aws-amplify/ui package
+        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
+        run: yarn ui build
+
+      - name: Build react-core package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn react-core build
+
+      - name: Build react-native package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn react-native build
+
+      - name: Update CocoaPods
+        run: |
+          gem update cocoapods xcodeproj
+          yarn react-native-example ios:pod-install
+
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+
+      - name: Configure auth credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Auth AWS environments
+        run: yarn environments auth pull
+
+      - name: Delete AWS profile
+        run: rm -rf ~/.aws
+
+      - name: Rebuild detox
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: yarn detox clean-framework-cache && yarn detox build-framework-cache
+
+      - name: Build ios example
+        run: yarn workspace e2e detox:build:ios:release
+
+      - name: Run E2E tests against react-native example
+        id: e2e
+        run: yarn workspace e2e detox:e2e:ios
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
+        with:
+          name: ios-e2e-detox-error-react-native
+          path: |
+            packages/e2e/detox/screenshots/**
+          retention-days: 5
+
   docs:
     runs-on: ubuntu-latest
     environment: ci
