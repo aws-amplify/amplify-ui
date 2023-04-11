@@ -147,6 +147,17 @@ module.exports = withNextPluginPreval({
         destination: '/react/:nav',
         permanent: true,
       },
+
+      /**
+       * Renamed the "headless" Authenticator docs to "advanced"
+       */
+      {
+        source:
+          '/:platform(react|react-native|angular|vue)/connected-components/authenticator/headless',
+        destination:
+          '/:platform(react|react-native|angular|vue)/connected-components/authenticator/advanced',
+        permanent: true,
+      },
     ];
   },
 

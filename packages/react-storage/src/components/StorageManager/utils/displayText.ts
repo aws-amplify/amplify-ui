@@ -29,7 +29,7 @@ export const defaultStorageManagerDisplayText = {
   dropFilesText: 'Drop files here or',
   pauseText: 'Pause',
   resumeText: 'Resume',
-  uploadSuccessfulText: 'Uploaded successfully',
+  uploadSuccessfulText: 'Uploaded',
   getPausedText(percentage: number): string {
     return `Paused: ${percentage}%`;
   },

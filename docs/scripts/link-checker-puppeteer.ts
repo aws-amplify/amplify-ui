@@ -16,19 +16,39 @@ const end = process.argv[3];
 const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
 
 function reportResult(links: LinkInfo[]) {
+  const isInternalLink = (link) => link.includes('http://localhost:3000');
   const errorLinks = links.filter((link) => {
     const isInternalRedirection =
-      link.statusCode === 308 && link.href.includes('http://localhost:3000');
+      link.statusCode === 308 && isInternalLink(link.href);
     const goodStatusCodes = [0, ...DEFAULT_GOOD_STATUS_CODES];
     return !goodStatusCodes.includes(link.statusCode) && !isInternalRedirection;
   });
 
   if (errorLinks.length) {
     errorLinks.forEach(
-      ({ statusCode, pageIdx, linkIdx, href, tagName, tagText, pageUrl }) => {
-        console.error(
-          `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
-        );
+      ({
+        statusCode,
+        pageIdx,
+        linkIdx,
+        href,
+        tagName,
+        tagText,
+        pageUrl,
+        originalStatusCode,
+      }) => {
+        if (
+          statusCode === 404 &&
+          originalStatusCode === 308 &&
+          isInternalLink(href)
+        ) {
+          console.error(
+            `❌ [RETURNING STATUS...] ${originalStatusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}. Please update the unnecessary redirect.`
+          );
+        } else {
+          console.error(
+            `❌ [RETURNING STATUS...] ${statusCode} for page #${pageIdx} link #${linkIdx} -- ${href} from ${tagName} tag "${tagText}" on  page ${pageUrl}`
+          );
+        }
       }
     );
     throw new Error(`${errorLinks.length} broken links found`);

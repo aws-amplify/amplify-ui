@@ -32,6 +32,7 @@ function StorageManager({
   onUploadError,
   onUploadSuccess,
   onFileRemove,
+  onUploadStart,
   showThumbnails = true,
   processFile,
   components,
@@ -108,6 +109,7 @@ function StorageManager({
     maxFileCount,
     onUploadError,
     onUploadSuccess,
+    onUploadStart,
     setUploadingFile,
     setUploadProgress,
     setUploadSuccess,
@@ -181,7 +183,7 @@ function StorageManager({
   const allUploadsSuccessful =
     files.length === 0
       ? false
-      : files.every((status) => status?.progress === 100);
+      : files.every((file) => file?.status === FileStatus.UPLOADED);
 
   // Displays if over max files
   const hasMaxFilesError =

@@ -7,7 +7,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": [],
+    "types": ["@types/long"],
     "lib": ["dom", "es2019", "dom.iterable"]
   },
   "angularCompilerOptions": {

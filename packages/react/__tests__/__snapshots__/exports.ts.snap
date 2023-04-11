@@ -87,6 +87,8 @@ Array [
 
 exports[`@aws-amplify/ui-react/internal exports should match snapshot 1`] = `
 Array [
+  "AlertIcon",
+  "Field",
   "IconAdd",
   "IconCheck",
   "IconCheckCircle",
@@ -125,6 +127,7 @@ Array [
   "useNavigateAction",
   "useStateMutationAction",
   "useStorageURL",
+  "useThemeBreakpoint",
 ]
 `;
 

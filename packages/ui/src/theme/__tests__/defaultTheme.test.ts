@@ -368,6 +368,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-expander-icon-transition-timing-function: cubic-bezier(0.87, 0, 0.13, 1);
         --amplify-components-field-gap: var(--amplify-space-xs);
         --amplify-components-field-font-size: var(--amplify-font-sizes-medium);
+        --amplify-components-field-flex-direction: column;
         --amplify-components-field-small-gap: var(--amplify-space-xxxs);
         --amplify-components-field-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-field-large-gap: var(--amplify-space-small);
@@ -530,6 +531,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-link-focus-color: var(--amplify-colors-font-focus);
         --amplify-components-link-hover-color: var(--amplify-colors-font-hover);
         --amplify-components-link-visited-color: var(--amplify-colors-font-interactive);
+        --amplify-components-liveness-camera-module-background-color: var(--amplify-colors-black);
         --amplify-components-loader-width: var(--amplify-font-sizes-medium);
         --amplify-components-loader-height: var(--amplify-font-sizes-medium);
         --amplify-components-loader-font-size: var(--amplify-font-sizes-xs);

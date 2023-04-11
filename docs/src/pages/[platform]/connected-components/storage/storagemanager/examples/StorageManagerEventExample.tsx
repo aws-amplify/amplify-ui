@@ -2,25 +2,60 @@ import * as React from 'react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 export const StorageManagerEventExample = () => {
-  const [files, setFiles] = React.useState([]);
+  const [files, setFiles] = React.useState({});
 
   return (
     <>
       <StorageManager
         acceptedFileTypes={['image/*']}
         accessLevel="public"
-        maxFileCount={10}
+        maxFileCount={3}
         onFileRemove={({ key }) => {
-          setFiles((prevFiles) => prevFiles.filter((file) => file.key !== key));
+          setFiles((prevFiles) => {
+            return {
+              ...prevFiles,
+              [key]: undefined,
+            };
+          });
+        }}
+        onUploadError={(error, { key }) => {
+          setFiles((prevFiles) => {
+            return {
+              ...prevFiles,
+              [key]: {
+                status: 'error',
+              },
+            };
+          });
         }}
         onUploadSuccess={({ key }) => {
-          setFiles((prevFiles) => [...prevFiles, { key }]);
+          setFiles((prevFiles) => {
+            return {
+              ...prevFiles,
+              [key]: {
+                status: 'success',
+              },
+            };
+          });
         }}
-        provider="fast" // IGNORE
+        onUploadStart={({ key }) => {
+          setFiles((prevFiles) => {
+            return {
+              ...prevFiles,
+              [key]: {
+                status: 'uploading',
+              },
+            };
+          });
+        }}
       />
-      {files.map((file) => (
-        <div key={file.key}>{file.key}</div>
-      ))}
+      {Object.keys(files).map((key) => {
+        return files[key] ? (
+          <div>
+            {key}: {files[key].status}
+          </div>
+        ) : null;
+      })}
     </>
   );
 };
