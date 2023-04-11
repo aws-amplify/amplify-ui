@@ -111,30 +111,6 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           working-directory: ./build-system-tests
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-      # Amplify CLI does not support headless pull with temporary credentials
-      # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
-      - name: Pull down AWS environments
-        run: yarn pull
-        working-directory: build-system-tests
-      - name: Delete AWS Profile
-        run: rm -rf ~/.aws
       - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
         run: |
           mkdir -p mega-apps/
@@ -165,7 +141,7 @@ jobs:
       - name: Copy aws_export and App.js
         run: |
           if ${{ matrix.build-tool == 'cra' }};then
-            cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src
+            cp templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/src/aws-exports.js
             if ${{ matrix.language == 'js' }};then
               cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.js
             else
@@ -178,7 +154,7 @@ jobs:
 
           if ${{ matrix.build-tool == 'next' }};then
             mkdir mega-apps/$MEGA_APP_NAME/data
-            cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/data
+            cp templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/data/aws-exports.js
             cp templates/components/react/next/App.js mega-apps/$MEGA_APP_NAME/pages/index.tsx
             if ${{ matrix.build-tool-version == '11' }};then
                 cp templates/components/react/next/template-package-${{ matrix.build-tool-version }}.json mega-apps/$MEGA_APP_NAME/package.json
@@ -187,12 +163,12 @@ jobs:
           fi
 
           if ${{ matrix.build-tool == 'gatsby' }};then
-            environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src/pages
+            templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/src/pages/aws-exports.js
             cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/pages/index.tsx
           fi
 
           if ${{ matrix.build-tool == 'vite' }};then
-            cp environments/src/aws-exports.js mega-apps/$MEGA_APP_NAME/src
+            cp templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/src/aws-exports.js
             cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
             cp templates/components/react/vite/index.html mega-apps/$MEGA_APP_NAME/index.html
             cp templates/components/react/vite/template-tsconfig.json mega-apps/$MEGA_APP_NAME/tsconfig.json
