@@ -146,7 +146,7 @@ export const connectedComponents: ComponentNavItem[] = [
   {
     href: '/connected-components/authenticator/headless',
     label: 'Headless Usage',
-    platforms: ['android', 'react', 'vue', 'angular', 'react-native'],
+    platforms: ['react', 'vue', 'angular', 'react-native'],
     tertiary: true,
   },
   {

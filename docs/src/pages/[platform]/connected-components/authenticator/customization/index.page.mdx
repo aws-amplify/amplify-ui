@@ -26,7 +26,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./customization.routing.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web', 'react-native']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native', 'android']}>
   {({ platform }) =>
     import(`./customization.headers-and-footers.${platform}.mdx`)
   }
@@ -50,7 +50,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web', 'flutter']}>
+<Fragment useCommonWebContent platforms={['web', 'flutter', 'android']}>
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
 </Fragment>
 
@@ -58,15 +58,15 @@ export async function getStaticProps() {
   {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web', 'react-native']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native', 'android']}>
   {({ platform }) => import(`./formfields/form-fields.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web','react-native']}>
+<Fragment useCommonWebContent platforms={['web','react-native', 'android']}>
   {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
 </Fragment>
 
-<Fragment platforms={['flutter']}>
+<Fragment platforms={['flutter', 'android']}>
   {({ platform }) =>
     import(`./customization.full-ui-customization.${platform}.mdx`)
   }

@@ -1,0 +1,53 @@
+## Headers & Footers
+
+There are two ways you can add custom headers and footers to your Android Authenticator.
+
+First, you can add a single header/footer to every screen in the Authenticator.  The following example adds an image to the header and a copyright to the footer:
+
+```kotlin
+Authenticator(
+    headerContent = { 
+        Image(
+            painter = painterResource(R.drawable.acme_logo), 
+            contentDescription = null
+        )
+    },
+    footerContent = { Text("© Acme Inc, 2023") }
+) {
+  // ...
+} 
+```
+
+Alternatively, you can add a header or a footer to an individual screen.  More detail on fully customizing the UI of individual screens is in [Full UI Customization](#full-ui-customization).  This example uses an inline lambda to add a `Divider` component to the header on the sign up screen.
+
+```kotlin
+Authenticator(
+    signUpContent = { signUpState ->
+        AuthenticatorSignUp(
+            state = signUpState,
+            headerContent = {
+                Column {
+                    // Re-use the default header
+                    AuthenticatorSignUpHeader()
+                    // Add a Divider
+                    Divider()
+                }
+            }
+        )
+    }
+) {
+ // ...
+}
+```
+
+or by using a `@Composable` function:
+
+```kotlin
+Authenticator(
+    signUpContent = { SignUpWithCustomHeader() },
+    signInContent = { CustomSignIn() }
+    // ...etc
+) {
+    // ...
+}
+```
