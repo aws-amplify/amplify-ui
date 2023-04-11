@@ -40,9 +40,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.10",
-    "@aws-amplify/ui-react": "4.5.1",
-    "@aws-amplify/ui-react-core": "2.1.18",
+    "@aws-amplify/ui": "5.6.0",
+    "@aws-amplify/ui-react": "4.6.0",
+    "@aws-amplify/ui-react-core": "2.1.19",
     "maplibre-gl": "2.4.0",
     "maplibre-gl-js-amplify": "3.0.5",
     "react-map-gl": "7.0.22",
