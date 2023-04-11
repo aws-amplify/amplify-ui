@@ -3,14 +3,14 @@ module.exports = {
   collectCoverageFrom: ['<rootDir>/src/**/*.(ts|tsx)'],
   // ignore coverage for top level "export", version and style files
   coveragePathIgnorePatterns: ['<rootDir>/src/(index|styles|version).(ts|tsx)'],
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 80,
-  //     functions: 80,
-  //     lines: 80,
-  //     statements: 80,
-  //   },
-  // },
+  coverageThreshold: {
+    global: {
+      branches: 61,
+      functions: 50,
+      lines: 69,
+      statements: 72,
+    },
+  },
   globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',
