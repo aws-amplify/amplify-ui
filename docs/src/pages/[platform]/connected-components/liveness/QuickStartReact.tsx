@@ -26,7 +26,7 @@ export function LivenessQuickStartReact() {
 
   const handleAnalysisComplete = async () => {
     /*
-     * This should be replaced with your own backend API
+     * This should be replaced with a real call to your own backend API
      */
     const response = await fetch(
       `/api/get?sessionId=${createLivenessApiData.sessionId}`
