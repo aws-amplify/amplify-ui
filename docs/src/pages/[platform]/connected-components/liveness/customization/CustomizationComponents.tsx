@@ -12,7 +12,7 @@ export function CustomizationComponents() {
         Header: () => {
           return (
             <View flex="1">
-              <Heading>Face liveness check</Heading>
+              <Heading>Face Liveness check</Heading>
               <Text>
                 You will go through a face verification process to prove that
                 you are a real person.
@@ -36,7 +36,7 @@ export function CustomizationComponents() {
         Instructions: (): JSX.Element => {
           return (
             <Card variation="elevated">
-              Instructions to follow to use liveness face detector
+              Instructions to follow to use Face Liveness detector
               <ol>
                 <li>
                   Make sure your face is not covered with sunglasses or a mask.

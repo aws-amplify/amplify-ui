@@ -1,10 +1,13 @@
 import { Example } from '@/components/Example';
 import { Customizationi18n } from './Customizationi18n';
+import { Alert } from '@aws-amplify/ui-react';
 
-The text in the FaceLivenessDetector component is defined as string resources in the component's [displayText.ts file](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/displayText.ts). These values can be translated/overwritten by following the example below:
+The text in FaceLivenessDetector is defined as string resources in the component's [displayText.ts file](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/displayText.ts). These values can be translated/overwritten by following the example below:
 
 ```tsx file=./Customizationi18n.tsx
 ```
+
+<Alert role="none" variation="warning">The following example only demonstrates the ability to customize the component's string resources; the Face Liveness check is not intended to work.</Alert>
 
 <Example>
 <Customizationi18n />
