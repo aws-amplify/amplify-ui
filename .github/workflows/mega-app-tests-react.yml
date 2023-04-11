@@ -52,6 +52,7 @@ jobs:
             build-tool: cra
             build-tool-version: latest
             pkg-manager: yarn
+            pkg-manager-version: 1.22.19
             language: ts
             node-version: 18
           - framework: react
@@ -178,6 +179,12 @@ jobs:
       - name: Install @aws-amplify/ui-react aws-amplify and build
         run: |
           if ${{ matrix.pkg-manager == 'yarn' }};then
+            echo "yarn version"
+            yarn -v
+            echo "yarn set version ${{ matrix.pkg-manager-version }}"
+            yarn set version ${{ matrix.pkg-manager-version }}
+            echo "yarn version"
+            yarn -v
             if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
               yarn add $DEP_TYPES
             fi
