@@ -2,6 +2,7 @@ import * as React from 'react';
 import { act, render, screen } from '@testing-library/react';
 import { Amplify, Auth } from 'aws-amplify';
 
+import '../../../../jest.setup';
 import { MapView } from '..';
 
 jest.mock('maplibre-gl-js-amplify', () => ({

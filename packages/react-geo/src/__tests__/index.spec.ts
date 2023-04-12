@@ -1,3 +1,4 @@
+import '../../jest.setup';
 import * as geoExports from '..';
 
 describe('exports', () => {
