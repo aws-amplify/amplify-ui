@@ -109,45 +109,31 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           working-directory: ./build-system-tests
-      - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
-        run: ./.github/scripts/create-mega-app.sh
+      - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
+        run: ./.github/scripts/mega-app-create-app.sh
         shell: bash
         env:
           BUILD_TOOL: ${{ matrix.build-tool }}
           LANGUAGE: ${{ matrix.language }}
-          MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
       - name: Copy aws_export and App.js
-        run: ./.github/scripts/copy-mega-app-files.sh
+        run: ./.github/scripts/mega-app-copy-files.sh
         shell: bash
         env:
           BUILD_TOOL: ${{ matrix.build-tool }}
           LANGUAGE: ${{ matrix.language }}
-          MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
           FRAMEWORK_VERSION: ${{ matrix.framework-version }}
-      - name: Install @aws-amplify/ui-react aws-amplify and build
-        run: |
-          if ${{ matrix.pkg-manager == 'yarn' }};then
-            echo "yarn version"
-            yarn -v
-            echo "yarn set version ${{ matrix.pkg-manager-version }}"
-            yarn set version ${{ matrix.pkg-manager-version }}
-            echo "yarn version"
-            yarn -v
-            if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
-              yarn add $DEP_TYPES
-            fi
-            yarn add $DEPENDENCIES
-            yarn build
-          else
-            if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
-              npm install $DEP_TYPES
-            fi
-            if ${{ matrix.build-tool == 'next' && matrix.build-tool-version == '11' }};then
-              rm -rf node_modules
-            fi
-            npm install $DEPENDENCIES
-            npm run build
-          fi
-        working-directory: build-system-tests/mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
+      - name: Install Packages and Build
+        run: ./.github/scripts/mega-app-copy-files.sh
+        shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+          PKG_MANAGER: ${{ matrix.pkg-manager }}
+          PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          DEP_TYPES: ${{ env.DEP_TYPES }}
