@@ -108,92 +108,31 @@ jobs:
         uses: ./.github/actions/install-with-retries
         with:
           working-directory: ./build-system-tests
-      - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
-        run: |
-          mkdir -p mega-apps/
-          if ${{ matrix.build-tool == 'cra' && matrix.language == 'js' }};then
-            npx create-react-app mega-apps/$MEGA_APP_NAME
-          fi
-
-          if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
-            npx create-react-app mega-apps/$MEGA_APP_NAME --template typescript
-          fi
-
-          if ${{ matrix.build-tool == 'next' }};then
-            npx create-next-app mega-apps/$MEGA_APP_NAME --ts --no-src-dir --no-experimental-app --no-eslint
-          fi
-
-          if ${{ matrix.build-tool == 'gatsby' }};then
-            cd mega-apps
-            npx create-gatsby@latest -y $MEGA_APP_NAME
-            cd ..
-          fi
-
-          if ${{ matrix.build-tool == 'vite' }};then
-            cd mega-apps
-            npm create vite@${{ matrix.build-tool-version }} $MEGA_APP_NAME -- --template react-ts
-            cd ..
-          fi
-        working-directory: build-system-tests
+      - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
+        run: ./.github/scripts/mega-app-create-app.sh
+        shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
       - name: Copy aws_export and App.js
-        run: |
-          if ${{ matrix.build-tool == 'cra' }};then
-            cp templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/src/aws-exports.js
-            if ${{ matrix.language == 'js' }};then
-              cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.js
-            else
-              cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
-              if ${{ matrix.framework-version == '16' }};then
-                cp templates/components/react/cra/index-react-${{ matrix.framework-version }}.js mega-apps/$MEGA_APP_NAME/src/index.tsx
-              fi
-            fi
-          fi
-
-          if ${{ matrix.build-tool == 'next' }};then
-            mkdir mega-apps/$MEGA_APP_NAME/data
-            cp templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/data/aws-exports.js
-            cp templates/components/react/next/App.js mega-apps/$MEGA_APP_NAME/pages/index.tsx
-            if ${{ matrix.build-tool-version == '11' }};then
-                cp templates/components/react/next/template-package-${{ matrix.build-tool-version }}.json mega-apps/$MEGA_APP_NAME/package.json
-                cp templates/components/react/next/template-tsconfig-${{ matrix.build-tool-version }}.json mega-apps/$MEGA_APP_NAME/tsconfig.json
-            fi
-          fi
-
-          if ${{ matrix.build-tool == 'gatsby' }};then
-            templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/src/pages/aws-exports.js
-            cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/pages/index.tsx
-          fi
-
-          if ${{ matrix.build-tool == 'vite' }};then
-            cp templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/src/aws-exports.js
-            cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
-            cp templates/components/react/vite/index.html mega-apps/$MEGA_APP_NAME/index.html
-            cp templates/components/react/vite/template-tsconfig.json mega-apps/$MEGA_APP_NAME/tsconfig.json
-            cp templates/components/react/vite/vite.config.ts mega-apps/$MEGA_APP_NAME/vite.config.ts
-          fi
-        working-directory: build-system-tests
-      - name: Install @aws-amplify/ui-react aws-amplify and build
-        run: |
-          if ${{ matrix.pkg-manager == 'yarn' }};then
-            echo "yarn version"
-            yarn -v
-            echo "yarn set version ${{ matrix.pkg-manager-version }}"
-            yarn set version ${{ matrix.pkg-manager-version }}
-            echo "yarn version"
-            yarn -v
-            if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
-              yarn add $DEP_TYPES
-            fi
-            yarn add $DEPENDENCIES
-            yarn build
-          else
-            if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
-              npm install $DEP_TYPES
-            fi
-            if ${{ matrix.build-tool == 'next' && matrix.build-tool-version == '11' }};then
-              rm -rf node_modules
-            fi
-            npm install $DEPENDENCIES
-            npm run build
-          fi
-        working-directory: build-system-tests/mega-apps/${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
+        run: ./.github/scripts/mega-app-copy-files.sh
+        shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+      - name: Install Packages and Build
+        run: ./.github/scripts/mega-app-copy-files.sh
+        shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+          PKG_MANAGER: ${{ matrix.pkg-manager }}
+          PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          DEP_TYPES: ${{ env.DEP_TYPES }}
