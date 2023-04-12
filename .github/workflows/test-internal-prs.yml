@@ -104,7 +104,7 @@ jobs:
       repository: ${{ github.repository }}
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@chenwz-license-checker
     needs: setup-cache
     with:
       commit: ${{ github.event.pull_request.head.sha }}
