@@ -2,7 +2,6 @@ import {
   getOvalDetailsFromSessionInformation,
   isCameraDeviceVirtual,
 } from '../liveness';
-import { LivenessOvalDetails } from '../../types';
 import { mockSessionInformation } from '../__mocks__/testUtils';
 
 describe('Liveness Helper', () => {
@@ -20,15 +19,15 @@ describe('Liveness Helper', () => {
     });
   });
 
-  describe('getFaceMatchStateInLivenessOval', () => {
-    const ovalDetails: LivenessOvalDetails = {
-      height: 254,
-      width: 157,
-      centerY: 285, // top: 285 - 254 / 2 = 158
-      flippedCenterX: 286, // left: 286 - 157 / 2 = 207.5
-      centerX: 286, // left: 286 - 157 / 2 = 207.5
-    };
-  });
+  // describe('getFaceMatchStateInLivenessOval', () => {
+  //   const ovalDetails: LivenessOvalDetails = {
+  //     height: 254,
+  //     width: 157,
+  //     centerY: 285, // top: 285 - 254 / 2 = 158
+  //     flippedCenterX: 286, // left: 286 - 157 / 2 = 207.5
+  //     centerX: 286, // left: 286 - 157 / 2 = 207.5
+  //   };
+  // });
 
   describe('isCameraDeviceVirtual', () => {
     const mockCameraDevice: MediaDeviceInfo = {

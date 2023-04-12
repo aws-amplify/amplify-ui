@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
-import {
-  FaceLivenessDetector,
-} from '@aws-amplify/ui-react-liveness';
+import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
@@ -20,16 +18,12 @@ export default function LivenessDefault({
     stopLiveness,
   } = useLiveness();
 
-  const [error, setError] = useState(undefined);
-  const [checkFailed, setCheckFailed] = useState(false);
-
   if (createLivenessSessionApiError) {
     return <div>Some error occured...</div>;
   }
 
   function onUserCancel() {
     stopLiveness();
-    setError(undefined);
   }
 
   return (
@@ -64,12 +58,9 @@ export default function LivenessDefault({
                   const response = await handleGetLivenessDetection(
                     createLivenessSessionApiData.sessionId
                   );
-                  if (!response.isLive) {
-                    setCheckFailed(true);
-                  }
                 }}
                 onError={(error) => {
-                  setError(error);
+                  console.error(error);
                 }}
                 disableInstructionScreen={disableInstructionScreen}
                 components={components}
