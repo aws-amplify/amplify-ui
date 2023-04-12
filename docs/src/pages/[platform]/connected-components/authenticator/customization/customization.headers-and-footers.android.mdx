@@ -53,9 +53,10 @@ Authenticator(
             state = signUpState,
             headerContent = {
                 Column {
-                    // Re-use the default header
-                    AuthenticatorTitle(stringResource(com.amplifyframework.ui.authenticator.R.string.authenticator_title_signup))
-                    // Add a Divider
+                    Text(
+                        style = MaterialTheme.typography.titleLarge,
+                        text = stringResource(R.string.amplify_ui_authenticator_title_signup)
+                    )
                     Divider()
                 }
             }

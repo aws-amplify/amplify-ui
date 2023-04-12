@@ -11,14 +11,8 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    val authenticatorState = rememberAuthenticatorState()
     setContent {
-      Authenticator(
-          modifier = Modifier
-              .weight(1f)
-              .fillMaxWidth(),
-          state = authenticatorState
-      ) { state ->
+      Authenticator { state ->
           SignedInContent(state)
       }
     }

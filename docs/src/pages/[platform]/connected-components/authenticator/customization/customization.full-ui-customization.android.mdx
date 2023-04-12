@@ -24,12 +24,12 @@ Authenticator(
                 onValueChange = { password.state.content = it }
             )
 
+            Button(onClick = { scope.launch { state.signIn() } }) {
+                Text("Sign In")
+            }
+
             // Can also re-use Authenticator's composables
-            AuthenticatorButton(
-                label = "Let's go!",
-                onClick = { scope.launch { state.signIn() } },
-                loading = state.form.submitting
-            )
+            SignInFooter(state)
         }
     }
 ) {
