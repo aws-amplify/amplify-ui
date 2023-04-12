@@ -50,6 +50,8 @@ jobs:
         with:
           # only install binary if cypress cache missed
           skip-cypress-binary: ${{ steps.restore-cypress-cache.outputs.cache-hit }}
+      - name: Validate licenses
+        run: yarn license
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
