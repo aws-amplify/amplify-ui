@@ -118,42 +118,14 @@ jobs:
           MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
       - name: Copy aws_export and App.js
-        run: |
-          if ${{ matrix.build-tool == 'cra' }};then
-            cp templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/src/aws-exports.js
-            if ${{ matrix.language == 'js' }};then
-              cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.js
-            else
-              cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
-              if ${{ matrix.framework-version == '16' }};then
-                cp templates/components/react/cra/index-react-${{ matrix.framework-version }}.js mega-apps/$MEGA_APP_NAME/src/index.tsx
-              fi
-            fi
-          fi
-
-          if ${{ matrix.build-tool == 'next' }};then
-            mkdir mega-apps/$MEGA_APP_NAME/data
-            cp templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/data/aws-exports.js
-            cp templates/components/react/next/App.js mega-apps/$MEGA_APP_NAME/pages/index.tsx
-            if ${{ matrix.build-tool-version == '11' }};then
-                cp templates/components/react/next/template-package-${{ matrix.build-tool-version }}.json mega-apps/$MEGA_APP_NAME/package.json
-                cp templates/components/react/next/template-tsconfig-${{ matrix.build-tool-version }}.json mega-apps/$MEGA_APP_NAME/tsconfig.json
-            fi
-          fi
-
-          if ${{ matrix.build-tool == 'gatsby' }};then
-            templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/src/pages/aws-exports.js
-            cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/pages/index.tsx
-          fi
-
-          if ${{ matrix.build-tool == 'vite' }};then
-            cp templates/template-aws-exports.js mega-apps/$MEGA_APP_NAME/src/aws-exports.js
-            cp templates/components/react/cra/App.js mega-apps/$MEGA_APP_NAME/src/App.tsx
-            cp templates/components/react/vite/index.html mega-apps/$MEGA_APP_NAME/index.html
-            cp templates/components/react/vite/template-tsconfig.json mega-apps/$MEGA_APP_NAME/tsconfig.json
-            cp templates/components/react/vite/vite.config.ts mega-apps/$MEGA_APP_NAME/vite.config.ts
-          fi
-        working-directory: build-system-tests
+        run: ./.github/scripts/copy-mega-app-files.sh
+        shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
       - name: Install @aws-amplify/ui-react aws-amplify and build
         run: |
           if ${{ matrix.pkg-manager == 'yarn' }};then
