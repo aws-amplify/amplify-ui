@@ -9,7 +9,7 @@ export const DeveloperPreview = () => {
 
   const platformName = {
     'react-native': 'React Native',
-    android: 'Android',
+    'android': 'Android',
   }[platform];
 
   return (
