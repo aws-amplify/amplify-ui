@@ -58,7 +58,7 @@ val state = rememberAuthenticatorState(
             required = true,
             validator = {
                 if (!content.contains("example.com")) {
-                    FieldError.Custom("`Your website must be have a domain of example.com")
+                    FieldError.Custom("Your website must have a domain of example.com")
                 } else {
                     null
                 }
