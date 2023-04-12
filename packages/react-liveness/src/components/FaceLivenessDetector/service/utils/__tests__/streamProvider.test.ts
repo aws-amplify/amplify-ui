@@ -27,10 +27,6 @@ Amplify.Credentials.get = mockGet;
 let SWITCH = false;
 
 describe('LivenessStreamProvider', () => {
-  const mockNavigatorMediaDevices: any = {
-    getUserMedia: jest.fn(),
-    enumerateDevices: jest.fn(),
-  };
   const mockReadableStream = {
     getReader: () => {
       return {
@@ -116,7 +112,7 @@ describe('LivenessStreamProvider', () => {
 
   describe('constructor', () => {
     test('happy case', () => {
-      const provider = new LivenessStreamProvider(
+      new LivenessStreamProvider(
         'sessionId',
         'us-east-1',
         mockVideoMediaStream,
