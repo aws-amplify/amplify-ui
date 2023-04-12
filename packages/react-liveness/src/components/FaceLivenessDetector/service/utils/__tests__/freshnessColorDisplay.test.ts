@@ -20,8 +20,6 @@ const mockMediaRecorder = {
 };
 
 describe('FreshnessColorDisplay', () => {
-  const stream = {} as MediaStream;
-
   beforeEach(() => {
     Object.defineProperty(window, 'MediaRecorder', {
       writable: true,
