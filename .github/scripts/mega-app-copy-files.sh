@@ -27,11 +27,6 @@ if [ "$BUILD_TOOL" == 'next' ]; then
     fi
 fi
 
-if [ "$BUILD_TOOL" == 'gatsby' ]; then
-    cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/pages/aws-exports.js
-    cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/pages/index.tsx
-fi
-
 if [ "$BUILD_TOOL" == 'vite' ]; then
     cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
     cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.tsx
