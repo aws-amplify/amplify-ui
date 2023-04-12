@@ -98,13 +98,13 @@ jobs:
 
   setup-cache:
     needs: setup
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@chenwz-license-checker
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@chenwz-license-checker
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
     needs: setup-cache
     with:
       commit: ${{ github.event.pull_request.head.sha }}
