@@ -16,10 +16,6 @@ if [ "$BUILD_TOOL" == 'next' ]; then
     npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint
 fi
 
-if [ "$BUILD_TOOL" == 'gatsby' ]; then
-    npx create-gatsby@latest -y $MEGA_APP_NAME
-fi
-
 if [ "$BUILD_TOOL" == 'vite' ]; then
     npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts
 fi

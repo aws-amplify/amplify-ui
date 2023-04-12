@@ -65,14 +65,6 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 18
-          # TODO: add hard-coded gatsby
-          # - framework: react
-          #   framework-version: latest
-          #   build-tool: gatsby
-          #   build-tool-version: latest
-          #   pkg-manager: npm
-          #   language: ts
-          #   node-version: 18
           - framework: react
             framework-version: latest
             build-tool: vite
