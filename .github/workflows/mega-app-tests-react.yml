@@ -110,32 +110,13 @@ jobs:
         with:
           working-directory: ./build-system-tests
       - name: Create MegaApp ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
-        run: |
-          mkdir -p mega-apps/
-          if ${{ matrix.build-tool == 'cra' && matrix.language == 'js' }};then
-            npx create-react-app mega-apps/$MEGA_APP_NAME
-          fi
-
-          if ${{ matrix.build-tool == 'cra' && matrix.language == 'ts' }};then
-            npx create-react-app mega-apps/$MEGA_APP_NAME --template typescript
-          fi
-
-          if ${{ matrix.build-tool == 'next' }};then
-            npx create-next-app mega-apps/$MEGA_APP_NAME --ts --no-src-dir --no-experimental-app --no-eslint
-          fi
-
-          if ${{ matrix.build-tool == 'gatsby' }};then
-            cd mega-apps
-            npx create-gatsby@latest -y $MEGA_APP_NAME
-            cd ..
-          fi
-
-          if ${{ matrix.build-tool == 'vite' }};then
-            cd mega-apps
-            npm create vite@${{ matrix.build-tool-version }} $MEGA_APP_NAME -- --template react-ts
-            cd ..
-          fi
-        working-directory: build-system-tests
+        run: ./.github/scripts/create-mega-app.sh
+        shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
       - name: Copy aws_export and App.js
         run: |
           if ${{ matrix.build-tool == 'cra' }};then
