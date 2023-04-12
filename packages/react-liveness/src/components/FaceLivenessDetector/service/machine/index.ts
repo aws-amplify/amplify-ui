@@ -1,6 +1,6 @@
 /* eslint-disable */
 // @ts-nocheck
-import { createMachine, assign, actions, send, spawn } from 'xstate';
+import { createMachine, assign, actions, spawn } from 'xstate';
 import {
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
@@ -31,7 +31,6 @@ import {
   FreshnessColorDisplay,
 } from '../utils';
 import { nanoid } from 'nanoid';
-import { TIME_SLICE } from '../utils/streamProvider';
 import {
   getStaticLivenessOvalDetails,
   LivenessErrorStateStringMap,
