@@ -19,6 +19,7 @@ describe('Liveness Helper', () => {
     });
   });
 
+  // TODO: add test for this
   // describe('getFaceMatchStateInLivenessOval', () => {
   //   const ovalDetails: LivenessOvalDetails = {
   //     height: 254,
