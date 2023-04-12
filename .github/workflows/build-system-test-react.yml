@@ -47,7 +47,7 @@ jobs:
             build-tool: cra
             build-tool-version: latest
             pkg-manager: yarn
-            pkg-manager-version: 1.22.19
+            pkg-manager-version: 1
             language: ts
             node-version: 18
           - framework: react
