@@ -1,4 +1,4 @@
-import { View, Flex, Text, Image } from '@aws-amplify/ui-react';
+import { Flex, Text, Image } from '@aws-amplify/ui-react';
 import { Badge, Button } from '@aws-amplify/ui-react';
 
 function truncateNumber(number, digitsAfterDot) {
