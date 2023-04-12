@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
 import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
