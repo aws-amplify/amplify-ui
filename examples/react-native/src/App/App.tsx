@@ -1,7 +1,7 @@
 /**
  * `Authenticator` Example and Demo Apps
  */
-// import Example from '../features/Authenticator/Demo/Example';
+import Example from '../features/Authenticator/Demo/Example';
 // import Example from '../features/Authenticator/Basic/Example';
 // import Example from '../features/Authenticator/Component/Example';
 // import Example from '../features/Authenticator/ComponentSlots/Example';
@@ -13,7 +13,7 @@
 /**
  * `InAppMessaging` Example and Demo Apps
  */
-import Example from '../features/InAppMessaging/Demo/Example';
+// import Example from '../features/InAppMessaging/Demo/Example';
 
 /**
  * `Theming` Example and Demo Apps
