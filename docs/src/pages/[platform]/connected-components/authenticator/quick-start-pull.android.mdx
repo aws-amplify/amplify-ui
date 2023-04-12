@@ -1,8 +1,19 @@
-Then run `amplify pull` to sync your `amplifyconfiguration.json` with your cloud backend:
+import { Link } from '@aws-amplify/ui-react';
+
+Then, run `amplify add auth` to configure how you want the Authenticator and its associated Cognito resources to behave.  If you want more details on all of the options available in this step, please check out the Amplify Android Auth <Link href="https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources">getting started page</Link> or the more detailed Amplify CLI <Link href="https://docs.amplify.aws/cli/auth/overview/">documentation</Link>.
+
+```shell
+amplify add auth
+  ...
+```
+```shell
+amplify push
+```
+
+Alternatively, if you already have an Amplify app set up that you want to import the backend from, run `amplify pull` to sync your `amplifyconfiguration.json` with your cloud backend:
 
 ```shell
 amplify pull
 ```
 
 This will update your `amplifyconfiguration.json` with your latest backend configuration for the Authenticator.
-
