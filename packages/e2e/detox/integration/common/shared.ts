@@ -23,6 +23,6 @@ Then("I don't see {string}", async (message: string) => {
   await expect(element(by.text(message))).not.toBeVisible();
 });
 
-When('I reload the page', () => {
-  device.reloadReactNative();
+When('I reload the page', async () => {
+  await device.reloadReactNative();
 });

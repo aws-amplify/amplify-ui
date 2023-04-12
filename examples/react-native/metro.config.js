@@ -19,6 +19,10 @@ const WORKSPACE_NODE_MODULES_PATH = path.resolve(
   __dirname,
   '../../node_modules'
 );
+const ENVIRONMENTS_MODULE_PATH = path.resolve(
+  WORKSPACE_ROOT_PATH,
+  'environments'
+);
 
 const config = { resolver: {}, transformer: {}, server: {} };
 
@@ -69,7 +73,11 @@ const watchFolders = internalPackages
   .filter(isInternalUsedDep)
   .map(({ packagePath }) => packagePath);
 
-config.watchFolders = [WORKSPACE_NODE_MODULES_PATH, ...watchFolders];
+config.watchFolders = [
+  WORKSPACE_NODE_MODULES_PATH,
+  ...watchFolders,
+  ENVIRONMENTS_MODULE_PATH,
+];
 
 // include app and package node_modules
 config.resolver.nodeModulesPath = [

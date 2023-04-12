@@ -1,5 +1,4 @@
 import { init, cleanup, onTestDone } from 'detox/internals';
-import { device } from 'detox';
 import {
   After,
   AfterAll,
@@ -14,9 +13,11 @@ type DetoxTestStatus = 'passed' | 'failed';
 // Load environment variables
 dotenv.config();
 
+const SCENARIO_PREFIX = "I'm running the example ";
+
 // Cucumber has default timeout of 5000, not enough for Detox async operations
 // https://wix.github.io/Detox/docs/guide/cucumber-js-integration
-setDefaultTimeout(120 * 1000);
+setDefaultTimeout(500000);
 
 BeforeAll(async () => {
   await init({
@@ -31,11 +32,10 @@ AfterAll(async () => {
 After(async (message: ITestCaseHookParameter) => {
   const { pickle } = message;
 
-  await device.resetContentAndSettings;
   // inform Detox that Cucumber test ended, allows Detox to save logs/screenshots
   await onTestDone({
     title: pickle.name,
-    fullName: pickle.name,
+    fullName: `${pickle.uri}--${pickle.name}`,
     status: mapStatus(message),
   });
 });

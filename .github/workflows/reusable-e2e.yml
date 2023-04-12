@@ -375,7 +375,7 @@ jobs:
           brew install applesimutils
 
       - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        if: steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true
@@ -426,16 +426,18 @@ jobs:
       - name: Delete AWS profile
         run: rm -rf ~/.aws
 
+      - name: Start Metro Bundler in background
+        run: yarn workspace react-native-example dev --reset-cache &
+
       - name: Rebuild detox
-        if: steps.cache.outputs.cache-hit == 'true'
         run: yarn detox clean-framework-cache && yarn detox build-framework-cache
 
       - name: Build ios example
-        run: yarn workspace e2e detox:build:ios:release
+        run: yarn workspace e2e detox:build:ios:debug
 
       - name: Run E2E tests against react-native example
         id: e2e
-        run: yarn workspace e2e detox:e2e:ios
+        run: yarn workspace e2e detox:e2e:ios:debug
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
