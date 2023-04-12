@@ -55,7 +55,7 @@ export default function LivenessDefault({
                 region={'us-east-1'}
                 onUserCancel={onUserCancel}
                 onAnalysisComplete={async () => {
-                  const response = await handleGetLivenessDetection(
+                  await handleGetLivenessDetection(
                     createLivenessSessionApiData.sessionId
                   );
                 }}
