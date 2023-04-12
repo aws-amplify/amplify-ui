@@ -98,7 +98,7 @@ jobs:
 
   setup-cache:
     needs: setup
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@chenwz-license-checker
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
