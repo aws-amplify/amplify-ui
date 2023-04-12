@@ -1,7 +1,7 @@
 export * from './hooks/useAuth';
 export * from './hooks/useDataStore';
 export * from './hooks/useStorageURL';
-export * from './primitives/Icon/internal';
+export * from './hooks/useThemeBreakpoint';
 export {
   UseAuthSignOutAction,
   useAuthSignOutAction,
@@ -19,6 +19,8 @@ export type { UseDataStoreDeleteActionOptions } from './hooks/actions/useDataSto
 export { useDataStoreUpdateAction } from './hooks/actions/useDataStoreUpdateAction';
 export type { UseDataStoreUpdateActionOptions } from './hooks/actions/useDataStoreUpdateAction';
 
+export { AlertIcon } from './primitives/Alert/AlertIcon';
+export * from './primitives/Icon/internal';
 export * from './primitives/shared/datastore';
 export {
   EscapeHatchProps,

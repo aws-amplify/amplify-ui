@@ -1,0 +1,39 @@
+import { Alert, Link, Text } from '@aws-amplify/ui-react';
+import { ExampleCode } from '@/components/Example';
+
+Amplify UI Android requires Android API level 24 (Android 7.0) or above. You will also need to add dependencies for `FaceLivenessDetector` to the app's `build.gradle` file as shown below.
+
+<ExampleCode>
+    ```groovy
+      android {
+          compileOptions {
+              sourceCompatibility JavaVersion.VERSION_1_8
+              targetCompatibility JavaVersion.VERSION_1_8
+          }
+          buildFeatures {
+              compose true
+          }
+          composeOptions {
+             kotlinCompilerExtensionVersion '1.2.0'
+          }
+      }
+      
+      dependencies {
+          // FaceLivenessDetector dependency
+          implementation 'com.amplifyframework.ui:liveness:1.0.0'
+          
+          // Material3 dependency for theming FaceLivenessDetector
+          implementation 'androidx.compose.material3:material3:1.0.1'
+      }
+    ```
+</ExampleCode>
+
+<Alert role="none" variation="info">
+  <Text color="inherit">
+    The Face Liveness component is currently the only supported component for
+    Android.
+  </Text>
+  <Link href="/android/connected-components/liveness">
+    View Face Liveness Component docs
+  </Link>
+</Alert>

@@ -24,6 +24,8 @@ on:
         required: true
       IN_APP_MESSAGING_E2E_ROLE_ARN:
         required: true
+      LIVENESS_E2E_ROLE_ARN:
+        required: true
       DOMAIN:
         required: true
       PHONE_NUMBER:
@@ -154,6 +156,10 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-storage build
 
+      - name: Build react-liveness package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-liveness build
+
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
 
@@ -228,6 +234,22 @@ jobs:
       - name: Pull down Datastore AWS environments
         run: yarn environments datastore pull
 
+      - name: Configure liveness credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-west-2
+          role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
+
+      - name: Create temp AWS profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Liveness AWS environments
+        run: yarn environments liveness pull
+
       - name: Configure in-app-messaging credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -255,6 +277,9 @@ jobs:
 
       - name: Start ${{ matrix.example }} example
         run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+        env:
+          # Setting this value temporarily since the beta liveness sample app hits the gamma endpoint
+          NEXT_PUBLIC_STREAMING_API_URL: wss://streaming-rekognition-gamma.us-east-1.amazonaws.com
 
       - name: Run E2E tests against ${{ matrix.example }} example
         id: e2e
@@ -344,9 +369,12 @@ jobs:
 
       - name: Build react package
         run: yarn react build
-        
+
       - name: Build react-storage package
         run: yarn react-storage build
+
+      - name: Build react-liveness package
+        run: yarn react-liveness build
 
       - name: Build docs package
         run: yarn docs build
@@ -359,9 +387,6 @@ jobs:
       - name: Start docs site
         run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
 
-      - name: Run Docs link checker
-        run: yarn docs test:links
-
       - name: Run E2E tests against docs
         run: yarn workspace e2e test:theme
         id: e2e
@@ -372,6 +397,9 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Run Docs link checker
+        run: yarn docs test:links
 
       - name: Upload failure screenshots and errors
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce

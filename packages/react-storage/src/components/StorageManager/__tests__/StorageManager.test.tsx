@@ -151,6 +151,32 @@ describe('StorageManager', () => {
     await waitFor(() => expect(onUploadSuccess).toHaveBeenCalledTimes(1));
   });
 
+  it('calls onUploadStart callback when file starts uploading', async () => {
+    const onUploadStart = jest.fn();
+    render(
+      <StorageManager {...storeManagerProps} onUploadStart={onUploadStart} />
+    );
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+    fireEvent.change(hiddenInput, {
+      target: { files: [file] },
+    });
+    expect(storageSpy).toBeCalledWith(file.name, file, {
+      contentType: 'text/plain',
+      level: 'public',
+      progressCallback: expect.any(Function),
+      provider: undefined,
+      resumable: false,
+    });
+
+    // Wait for the file to be uploaded
+    await waitFor(() => expect(onUploadStart).toHaveBeenCalledTimes(1));
+  });
+
   it('renders a warning if maxFileCount is zero', () => {
     render(<StorageManager {...storeManagerProps} maxFileCount={0} />);
 

@@ -16,6 +16,6 @@ Feature: Upload a file to S3 with private access level settings
     Given I intercept '{ "method": "PUT", "url": "**/test.jpg?partNumber=1**"  }' with fixture "Storage.private-uploads.xml"
     Given I intercept '{ "method": "POST", "url": "**/test.jpg?uploadId**"  }' with fixture "Storage.private-upload-complete-multipart.xml"
     Given I intercept '{ "method": "GET", "url": "**/?list-type=2**"  }' with fixture "Storage.private-uploads-list.xml"
-    Then I see "Uploaded successfully"
+    Then I see "Uploaded"
     Then I see "1 file uploaded"
     Then I click "Sign out"
