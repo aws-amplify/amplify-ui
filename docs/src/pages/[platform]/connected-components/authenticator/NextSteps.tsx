@@ -5,7 +5,9 @@ import { MdOutlineAutoAwesome, MdTune, MdFlipToFront } from 'react-icons/md';
 export function NextSteps() {
   const { platform } = useRouter().query;
 
-  if (platform === 'flutter' || platform === 'android') return null;
+  if (platform === 'android') return null;
+
+  const showAdvancedUseCases = platform !== 'flutter';
 
   return (
     <CardLinkGroup title="Next steps" id="next-steps">
@@ -21,12 +23,14 @@ export function NextSteps() {
         href={`/${platform}/connected-components/authenticator/customization`}
         desc="Override and customize your Authenticator"
       />
-      <CardLink
-        icon={<MdFlipToFront />}
-        title="Advanced Usage"
-        href={`/${platform}/connected-components/authenticator/advanced`}
-        desc="Access Authenticator UI component state outside of the UI component"
-      />
+      {showAdvancedUseCases ? (
+        <CardLink
+          icon={<MdFlipToFront />}
+          title="Advanced Usage"
+          href={`/${platform}/connected-components/authenticator/advanced`}
+          desc="Access Authenticator UI component state outside of the UI component"
+        />
+      ) : null}
     </CardLinkGroup>
   );
 }
