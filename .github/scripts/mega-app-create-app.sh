@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 cd build-system-tests
 mkdir -p mega-apps/
 
