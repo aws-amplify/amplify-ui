@@ -7,14 +7,12 @@ export const DeveloperPreview = () => {
   } = useRouter();
   if (platform !== 'react-native' && platform !== 'android') return null;
 
-  const platformName = {
-    'react-native': 'React Native',
-    'android': 'Android',
-  }[platform];
+  const devPlatformName =
+    platform === 'react-native' ? 'React Native' : 'Android';
 
   return (
     <Alert variation="info" heading="Developer Preview">
-      The {platformName} Authenticator is currently in developer preview.
+      The {devPlatformName} Authenticator is currently in developer preview.
     </Alert>
   );
 };
