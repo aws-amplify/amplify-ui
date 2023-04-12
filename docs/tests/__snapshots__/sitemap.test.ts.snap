@@ -3,9 +3,9 @@
 exports[`Sitemap Snapshot 1`] = `
 "/, 
 /android, 
-/android/connected-components/authenticator
-/android/connected-components/authenticator/configuration
-/android/connected-components/authenticator/customization
+/android/connected-components/authenticator,
+/android/connected-components/authenticator/configuration,
+/android/connected-components/authenticator/customization,
 /android/connected-components/liveness, 
 /android/connected-components/liveness/customization, 
 /angular, 
