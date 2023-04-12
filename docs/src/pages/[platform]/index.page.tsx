@@ -67,6 +67,8 @@ const HomePage = ({ colorMode }) => {
       pageContent = <ReactNativeHomePage colorMode={colorMode} />;
       break;
     case 'android':
+      pageContent = <AndroidHomePage colorMode={colorMode} />;
+      break;
     case 'swift':
       pageContent = null;
       break;

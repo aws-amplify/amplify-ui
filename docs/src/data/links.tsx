@@ -491,12 +491,26 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/introduction',
     label: 'Introduction',
-    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
+    platforms: [
+      'react',
+      'vue',
+      'angular',
+      'flutter',
+      'react-native',
+      'android',
+    ],
   },
   {
     href: '/getting-started/installation',
     label: 'Installation',
-    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
+    platforms: [
+      'react',
+      'vue',
+      'angular',
+      'flutter',
+      'react-native',
+      'android',
+    ],
   },
   {
     href: '/getting-started/usage',
