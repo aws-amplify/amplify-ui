@@ -1,17 +1,4 @@
-import { Image } from '@aws-amplify/ui-react';
-
 ## Headers & Footers
-
-These areas in the Authenticator are the header and footer:
-
-<Image
-  alt="Example screenshot of the Android Authenticator with custom headers and footers."
-  height={{ base: '25rem', medium: '25rem' }}
-  display="block"
-  objectFit="contain"
-  style={{ margin: '0 auto' }}
-  src="/android-authenticator-headers-footers.png"
-/>
 
 There are two ways you can add custom headers and footers to your Android Authenticator.
 
@@ -21,7 +8,7 @@ First, you can add a single header/footer to every screen in the Authenticator. 
 Authenticator(
     headerContent = {
         Box(
-            modifier = Modifier.size(80.dp)
+            modifier = Modifier.size(80.dp).align(Alignment.CenterHorizontally)
         ) {
             Image(
                 painter = painterResource(R.drawable.amplify),
@@ -29,20 +16,16 @@ Authenticator(
             )
         }
     },
-    footerContent = { Text("© Acme Inc, 2023") }
+    footerContent = {
+        Text(
+            "© Acme Inc, 2023",
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+    }
 ) {
   // ...
 } 
 ```
-
-<Image
-  alt="Example screenshot of the Android Authenticator with custom headers and footers."
-  height={{ base: '25rem', medium: '25rem' }}
-  display="block"
-  objectFit="contain"
-  style={{ margin: '0 auto' }}
-  src="/android-authenticator-custom-headers-footers.png"
-/>
 
 Alternatively, you can add a header or a footer to an individual screen.  More detail on fully customizing the UI of individual screens is in [Full UI Customization](#full-ui-customization).  This example uses an inline lambda to add a `Divider` component to the header on the sign up screen.
 
