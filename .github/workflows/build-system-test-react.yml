@@ -90,10 +90,6 @@ jobs:
           cache: ${{ matrix.pkg-manager }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Install build-system-tests package
-        uses: ./.github/actions/install-with-retries
-        with:
-          working-directory: ./build-system-tests
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
         run: ./.github/scripts/mega-app-create-app.sh
         shell: bash
