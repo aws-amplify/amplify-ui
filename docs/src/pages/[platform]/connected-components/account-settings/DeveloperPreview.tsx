@@ -8,7 +8,7 @@ export const DeveloperPreview = () => {
   if (platform !== 'react') return null;
 
   return (
-    <Alert variation="info" heading="Developer Preview">
+    <Alert variation="info" heading="Developer Preview" role="none">
       Account Settings components are currently in developer preview.
     </Alert>
   );

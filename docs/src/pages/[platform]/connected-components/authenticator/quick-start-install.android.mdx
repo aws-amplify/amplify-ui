@@ -1,0 +1,19 @@
+The Authenticator component is built using [Jetpack Compose](https://developer.android.com/jetpack/compose). Enable Jetpack Compose by adding the following to the `android` section of your **app**'s `build.gradle` file:
+
+```groovy
+buildFeatures {
+    compose true
+}
+composeOptions {
+   kotlinCompilerExtensionVersion '1.2.0'
+}
+```
+
+Add the following dependency to your **app**'s `build.gradle` file and click "Sync Now" when prompted:
+
+```groovy
+dependencies {    
+    // Authenticator dependency
+    implementation 'com.amplifyframework.ui:authenticator:1.0.0-dev-preview.0'
+}
+```

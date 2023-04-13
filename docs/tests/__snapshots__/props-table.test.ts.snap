@@ -48,13 +48,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"ViewProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"heading\\": {
-                        \\"name\\": \\"heading\\",
-                        \\"type\\": \\"React.ReactNode\\",
-                        \\"description\\": \\"The heading property will affect the content of the Alert heading.\\",
-                        \\"category\\": \\"AlertProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
                         \\"type\\": \\"'info' | 'error' | 'warning' | 'success'\\",
@@ -87,6 +80,13 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"hasIcon\\",
                         \\"type\\": \\"boolean | undefined\\",
                         \\"description\\": \\"The hasIcon property will determine whether or not an icon is displayed on the Alert. Defaults to true (icon displayed).\\",
+                        \\"category\\": \\"AlertProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"heading\\": {
+                        \\"name\\": \\"heading\\",
+                        \\"type\\": \\"React.ReactNode\\",
+                        \\"description\\": \\"The heading property will affect the content of the Alert heading.\\",
                         \\"category\\": \\"AlertProps\\",
                         \\"isOptional\\": true
                     },

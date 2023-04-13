@@ -93,9 +93,6 @@ jobs:
         run: yarn install
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -175,9 +172,6 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
