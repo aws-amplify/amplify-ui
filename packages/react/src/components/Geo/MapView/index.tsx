@@ -4,6 +4,7 @@ import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import ReactMapGL from 'react-map-gl';
 import type { MapProps, MapRef, TransformRequestFunction } from 'react-map-gl';
 import { Amplify, Auth } from 'aws-amplify';
+import { useDeprecationWarning } from '../../../hooks/useDeprecationWarning';
 
 // Utility types for missing AmplifyConfig type, only includes Geo related key/values.
 // Note: these types should not be be used outside this file
@@ -41,6 +42,11 @@ interface MapViewProps extends Omit<MapProps, 'mapLib' | 'transformRequest'> {
  */
 const MapView = forwardRef<MapRef, MapViewProps>(
   ({ mapLib, mapStyle, style, ...props }, ref) => {
+    useDeprecationWarning({
+      shouldWarn: true,
+      message:
+        'MapView component from @aws-amplify/ui-react is being deprecated and will be removed from this package in a future major release. Please use the MapView component from @aws-amplify/ui-react-geo instead.',
+    });
     const amplifyConfig = Amplify.configure() as AmplifyGeoConfig;
     const geoConfig = useMemo(
       () =>
