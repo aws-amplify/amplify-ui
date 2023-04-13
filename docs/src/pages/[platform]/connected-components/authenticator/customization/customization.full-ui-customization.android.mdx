@@ -9,13 +9,13 @@ Authenticator(
     signInContent = { state ->
         val scope = rememberCoroutineScope()
         Column {
-            val userName = state.form.fields[FieldKey.Username]!!
+            val username = state.form.fields[FieldKey.Username]!!
             val password = state.form.fields[FieldKey.Password]!!
 
-            // Can use completely custom UI
+            // Replace default UI with completely custom UI
             TextField(
                 placeholder = { Text("Username") },
-                value = userName.state.content,
+                value = username.state.content,
                 onValueChange = { userName.state.content = it }
             )
             TextField(
@@ -28,7 +28,7 @@ Authenticator(
                 Text("Sign In")
             }
 
-            // Can also re-use Authenticator's composables
+            // Or reuse Authenticator's composables
             SignInFooter(state)
         }
     }
