@@ -143,13 +143,13 @@ const SecondaryNav = (props) => {
   const isAndroid = platform === 'android';
   const isSwift = platform === 'swift';
 
-  const hideGettingStarted = isAndroid || isSwift;
+  const hideGettingStarted = isSwift;
   const hideTheming = isAndroid || isSwift;
   const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
     <Expander type="multiple" value={value} onValueChange={setValue}>
-      {/* Android and Swift don't have getting started at this time */}
+      {/* Swift doesn't have getting started at this time */}
       {hideGettingStarted ? null : (
         <ExpanderItem
           title={

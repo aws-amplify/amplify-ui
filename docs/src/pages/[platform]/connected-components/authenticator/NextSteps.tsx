@@ -5,7 +5,7 @@ import { MdOutlineAutoAwesome, MdTune, MdFlipToFront } from 'react-icons/md';
 export function NextSteps() {
   const { platform } = useRouter().query;
 
-  if (platform === 'flutter') return null;
+  if (platform === 'flutter' || platform === 'android') return null;
 
   return (
     <CardLinkGroup title="Next steps" id="next-steps">
