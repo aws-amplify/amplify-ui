@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Amplify, Auth } from 'aws-amplify';
 
 import '../../../../jest.setup';
