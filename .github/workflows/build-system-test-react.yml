@@ -74,6 +74,13 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 18
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-cli
+            build-tool-version: 13
+            pkg-manager: npm
+            language: ts
+            node-version: 18
 
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
