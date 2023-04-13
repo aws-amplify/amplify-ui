@@ -99,7 +99,7 @@ Please refer to the following contributing guides:
 
 ## Publishing
 
-Amplify UI publishes to NPM on every Tues (mandatory). We use [`changesets`](https://github.com/changesets/changesets) to drive our deployment procedure:
+Amplify UI publishes to NPM on every Tuesday. We use [`changesets`](https://github.com/changesets/changesets) to drive our deployment procedure:
 
 1. Each contributor adds a changeset in their PR
 1. Changesets get accumulated into [Version Packages PR](https://github.com/aws-amplify/amplify-ui/pulls/app%2Fgithub-actions).
