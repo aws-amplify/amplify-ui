@@ -1,0 +1,25 @@
+import { ExampleCode } from '@/components/Example';
+
+Amplify UI Android requires Android API level 24 (Android 7.0) or above. The Amplify UI Android connected components are built using [Jetpack Compose](https://developer.android.com/jetpack/compose). You will need to update the app's `build.gradle` file as shown below to use Jetpack Compose.
+
+<ExampleCode>
+    ```groovy
+      android {
+          compileOptions {
+              sourceCompatibility JavaVersion.VERSION_1_8
+              targetCompatibility JavaVersion.VERSION_1_8
+          }
+          buildFeatures {
+              compose true
+          }
+          composeOptions {
+             kotlinCompilerExtensionVersion '1.2.0'
+          }
+      }
+      
+      dependencies {
+          // Material3 dependency for theming the connected components
+          implementation 'androidx.compose.material3:material3:1.0.1'
+      }
+    ```
+</ExampleCode>

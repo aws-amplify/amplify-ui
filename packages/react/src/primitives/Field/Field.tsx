@@ -50,11 +50,12 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, typeof Flex> = (
       {...rest}
     >
       {label ? <Label visuallyHidden={labelHidden}>{label}</Label> : null}
-      {descriptiveText ? (
-        <FieldDescription labelHidden={labelHidden}>
-          {descriptiveText}
-        </FieldDescription>
-      ) : null}
+
+      <FieldDescription
+        labelHidden={labelHidden}
+        descriptiveText={descriptiveText}
+      />
+
       {children}
       {errorMessage ? (
         <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />

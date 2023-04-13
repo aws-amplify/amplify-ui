@@ -27,7 +27,7 @@ const TestComponent = () => {
   return null;
 };
 
-function Container({ children }: { children: React.ReactNode }) {
+function Container({ children }: { children?: React.ReactNode }) {
   return <View testID={CONTAINER_TEST_ID}>{children}</View>;
 }
 

@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "environments-liveness",
+  "version": "0.0.1",
+  "scripts": {
+    "pull": "../pull-environments.sh -r us-west-2"
+  }
+}

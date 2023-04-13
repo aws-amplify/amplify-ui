@@ -9,6 +9,7 @@ const packages = [
   'packages/angular/projects/ui-angular',
   'packages/react',
   'packages/react-native',
+  'packages/react-liveness',
   'packages/vue',
 ];
 

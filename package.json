@@ -11,6 +11,7 @@
     "react-storage": "yarn workspace @aws-amplify/ui-react-storage",
     "react-core": "yarn workspace @aws-amplify/ui-react-core",
     "react-core-auth": "yarn workspace @aws-amplify/ui-react-core-auth",
+    "react-liveness": "yarn workspace @aws-amplify/ui-react-liveness",
     "react-native": "yarn workspace @aws-amplify/ui-react-native",
     "ui": "yarn workspace @aws-amplify/ui",
     "vue": "yarn workspace @aws-amplify/ui-vue",
@@ -26,6 +27,10 @@
     "prepare": "husky install",
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn generateVersions && yarn angular build",
     "publish:next": "yarn changeset publish --tag next",
+    "version:liveness": "yarn changeset version --snapshot liveness-$(git rev-parse --short=7 HEAD) && yarn generateVersions && yarn angular build",
+    "publish:liveness": "yarn changeset publish --tag liveness",
+    "version:studio": "yarn changeset version --snapshot studio-$(git rev-parse --short=7 HEAD) && yarn generateVersions && yarn angular build",
+    "publish:studio": "yarn changeset publish --tag studio",
     "version:latest": "yarn changeset version && yarn generateVersions && yarn angular build",
     "publish:latest": "yarn changeset publish",
     "generateVersions": "node scripts/generateVersion",
@@ -42,6 +47,7 @@
       "packages/configs/eslint"
     ],
     "nohoist": [
+      "**/next",
       "**/@radix-ui",
       "**/@radix-ui/**",
       "**/react",
