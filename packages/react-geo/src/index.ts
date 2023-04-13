@@ -1,1 +1,1 @@
-export { MapView, LocationSearch } from './components';
+export { MapView, LocationSearch, Geocoder } from './components';

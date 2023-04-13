@@ -1,1 +1,1 @@
-export { LocationSearch } from './LocationSearch';
+export { Geocoder, LocationSearch } from './LocationSearch';
