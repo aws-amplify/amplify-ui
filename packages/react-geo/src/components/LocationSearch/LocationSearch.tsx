@@ -85,3 +85,5 @@ export const LocationSearch = (props: LocationSearchProps): JSX.Element => {
 
   return <LocationSearchStandalone {...LOCATION_SEARCH_OPTIONS} {...props} />;
 };
+
+export const Geocoder = LocationSearch;
