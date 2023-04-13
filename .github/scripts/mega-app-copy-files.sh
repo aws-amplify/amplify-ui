@@ -49,3 +49,11 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
     echo "cp templates/components/react/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts"
     cp templates/components/react/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
 fi
+
+if [ "$BUILD_TOOL" == 'cli' ]; then
+    cp templates/components/angular/angular.json mega-apps/${MEGA_APP_NAME}/angular.json
+    cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
+    cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+    cp templates/components/angular/polyfills.ts mega-apps/${MEGA_APP_NAME}/src
+    cp templates/components/angular/tsconfig.app.json mega-apps/${MEGA_APP_NAME}/tsconfig.app.json
+fi
