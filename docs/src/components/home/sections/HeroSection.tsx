@@ -106,7 +106,7 @@ export const HeroSection = () => {
             <TerminalCommand command={frameworkInstallScript} variant="hero" />
           )}
 
-          {platform === 'swift' || platform === 'android' ? null : (
+          {platform === 'swift' ? null : (
             <Flex direction="row">
               <Button
                 size="large"
