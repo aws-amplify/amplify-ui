@@ -4,6 +4,7 @@ import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useControl, useMap } from 'react-map-gl';
 import type { IControl } from 'react-map-gl';
 import { LocationSearchProps } from '../types/maplibre-gl-geocoder';
+import { useDeprecationWarning } from '../../../hooks/useDeprecationWarning';
 
 const LOCATION_SEARCH_OPTIONS = {
   maplibregl,
@@ -71,6 +72,12 @@ const LocationSearchStandalone = (props: LocationSearchProps) => {
  * }
  */
 export const LocationSearch = (props: LocationSearchProps): JSX.Element => {
+  useDeprecationWarning({
+    shouldWarn: true,
+    message:
+      'LocationSearch component from @aws-amplify/ui-react is being deprecated and will be removed from this package in a future major release. Please use the LocationSearch component from @aws-amplify/ui-react-geo instead.',
+  });
+
   const { current: map } = useMap();
 
   /**
@@ -86,4 +93,12 @@ export const LocationSearch = (props: LocationSearchProps): JSX.Element => {
   return <LocationSearchStandalone {...LOCATION_SEARCH_OPTIONS} {...props} />;
 };
 
-export const Geocoder = LocationSearch;
+export const Geocoder = (props: LocationSearchProps): JSX.Element => {
+  useDeprecationWarning({
+    shouldWarn: true,
+    message:
+      'Geocoder component from @aws-amplify/ui-react is being deprecated and will be removed from this package in a future major release. Please use the LocationSearch component from @aws-amplify/ui-react-geo instead.',
+  });
+
+  return <LocationSearch {...props} />;
+};
