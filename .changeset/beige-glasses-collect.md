@@ -3,4 +3,4 @@
 '@aws-amplify/ui': patch
 ---
 
-Losslessly Compress Images
+Losslessly compress images
