@@ -1,0 +1,14 @@
+```kotlin
+val authenticatorState = rememberAuthenticatorState(
+    signUpForm = {
+        email()
+        username()
+        password()
+        confirmPassword()
+    }
+)
+
+Authenticator(state = authenticatorState) {
+    // ...
+}
+```
