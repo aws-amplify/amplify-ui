@@ -3,7 +3,7 @@
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
 
-import { livenessMachine, MIN_FACE_MATCH_TIME } from '..';
+import { livenessMachine } from '..';
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
