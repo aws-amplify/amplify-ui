@@ -60,9 +60,7 @@ currentUserCredentialsSpy.mockImplementation(() =>
 describe('Map component', () => {
   it('should render', async () => {
     configureSpy.mockReturnValue(partialAmplifyConfig);
-    await act(async () => {
-      render(<MapView />);
-    });
-    expect(screen.getByTestId('react-map-gl-mock')).toBeInTheDocument();
+    render(<MapView />);
+    expect(await screen.findByTestId('react-map-gl-mock')).toBeInTheDocument();
   });
 });
