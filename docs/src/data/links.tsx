@@ -115,6 +115,7 @@ export const connectedComponents: ComponentNavItem[] = [
       'angular',
       'flutter',
       'react-native',
+      'swift',
     ],
   },
   {
@@ -127,6 +128,7 @@ export const connectedComponents: ComponentNavItem[] = [
       'angular',
       'flutter',
       'react-native',
+      'swift',
     ],
     tertiary: true,
   },
@@ -140,6 +142,7 @@ export const connectedComponents: ComponentNavItem[] = [
       'angular',
       'flutter',
       'react-native',
+      'swift',
     ],
     tertiary: true,
   },

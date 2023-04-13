@@ -7,6 +7,25 @@ export function NextSteps() {
 
   if (platform === 'flutter' || platform === 'android') return null;
 
+  if (platform === 'swift') {
+    return (
+      <CardLinkGroup title="Next steps" id="next-steps">
+        <CardLink
+          title="Configuration"
+          icon={<MdTune />}
+          href={`/${platform}/connected-components/authenticator/configuration`}
+          desc="How to setup and configure your Authenticator component"
+        />
+        <CardLink
+          title="Customization"
+          icon={<MdOutlineAutoAwesome />}
+          href={`/${platform}/connected-components/authenticator/customization`}
+          desc="Override and customize your Authenticator"
+        />
+      </CardLinkGroup>
+    );
+  }
+
   return (
     <CardLinkGroup title="Next steps" id="next-steps">
       <CardLink

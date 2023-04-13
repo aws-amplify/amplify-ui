@@ -1,0 +1,22 @@
+import { Alert } from '@aws-amplify/ui-react';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+<Alert role="none" heading="Zero Configuration">
+
+The Authenticator [automatically infers](/connected-components/authenticator#step-1-configure-backend) the login mechanisms from the current Amplify configuration.
+
+</Alert>
+
+Cognito User Pools currently supports username, email, and phone number as login mechanisms. 
+
+<Tabs>
+  <TabItem title="Username">
+    ![Username](/swift/signIn.username.png)
+  </TabItem>
+  <TabItem title="Email">
+    ![Email](/swift/signIn.email.png)
+  </TabItem>
+  <TabItem title="Phone Number">
+    ![PhoneNumber](/swift/signIn.phoneNumber.png)
+  </TabItem>
+</Tabs>
