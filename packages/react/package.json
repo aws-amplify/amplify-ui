@@ -2,15 +2,15 @@
   "name": "@aws-amplify/ui-react",
   "version": "4.6.0",
   "main": "dist/index.js",
-  "module": "dist/esm/index.mjs",
+  "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
     "./internal": {
-      "import": "./dist/esm/internal.mjs",
+      "import": "./dist/esm/internal.js",
       "require": "./dist/internal.js"
     },
     "./styles.css": "./dist/styles.css",
@@ -35,14 +35,13 @@
     "build": "yarn build:catalog && yarn build:rollup",
     "build:catalog": "yarn node -r esbuild-register scripts/generatePrimitiveCatalog.ts",
     "build:rollup": "rollup --config",
-    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
-    "test:ci": "yarn test && yarn check:esm",
+    "test:ci": "yarn test",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
@@ -78,6 +77,7 @@
     }
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^7.0.8",
     "@svgr/core": "^5.5.0",
@@ -114,31 +114,31 @@
   "size-limit": [
     {
       "name": "Authenticator",
-      "path": "dist/esm/index.mjs",
+      "path": "dist/esm/index.js",
       "import": "{ Authenticator }",
       "limit": "120 kB"
     },
     {
       "name": "Geo",
-      "path": "dist/esm/index.mjs",
+      "path": "dist/esm/index.js",
       "import": "{ MapView, LocationSearch }",
       "limit": "330 kB"
     },
     {
       "name": "Storage - FileUploader",
-      "path": "dist/esm/index.mjs",
+      "path": "dist/esm/index.js",
       "import": "{ FileUploader }",
       "limit": "140 kB"
     },
     {
       "name": "AccountSettings",
-      "path": "dist/esm/index.mjs",
+      "path": "dist/esm/index.js",
       "import": "{ AccountSettings }",
       "limit": "60 kB"
     },
     {
       "name": "InAppMessaging",
-      "path": "dist/esm/index.mjs",
+      "path": "dist/esm/index.js",
       "import": "{ InAppMessagingProvider, InAppMessageDisplay }",
       "limit": "110 kB"
     }

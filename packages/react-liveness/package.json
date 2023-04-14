@@ -2,11 +2,11 @@
   "name": "@aws-amplify/ui-react-liveness",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "module": "dist/esm/index.mjs",
+  "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css"
@@ -31,14 +31,13 @@
   "scripts": {
     "build": "yarn build:rollup",
     "build:rollup": "rollup --config",
-    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-liveness\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
-    "test:ci": "yarn test && yarn check:esm",
+    "test:ci": "yarn test",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
@@ -93,7 +92,7 @@
   "size-limit": [
     {
       "name": "FaceLivenessDetector",
-      "path": "dist/esm/index.mjs",
+      "path": "dist/esm/index.js",
       "import": "{ FaceLivenessDetector }",
       "limit": "275 kB"
     }
