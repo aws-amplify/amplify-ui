@@ -27,7 +27,7 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
     npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts
 fi
 
-if [[ "$BUILD_TOOL" == 'angular-cli' ]]; then
+if [[ "$BUILD_TOOL" == 'angular-app' ]]; then
     npm install -g @angular/cli@${BUILD_TOOL_VERSION}
     ng new $MEGA_APP_NAME --minimal --interactive=false
 fi

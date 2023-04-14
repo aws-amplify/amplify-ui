@@ -50,7 +50,7 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
     cp templates/components/react/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
 fi
 
-if [ "$BUILD_TOOL" == 'angular-cli' ]; then
+if [ "$BUILD_TOOL" == 'angular-app' ]; then
     cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
     cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
     if [ "$BUILD_TOOL_VERSION" == 'latest' ]; then
