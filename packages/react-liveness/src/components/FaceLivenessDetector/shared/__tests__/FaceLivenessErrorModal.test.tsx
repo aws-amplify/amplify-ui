@@ -7,7 +7,6 @@ import {
   renderErrorModal,
 } from '../FaceLivenessErrorModal';
 import { defaultErrorDisplayText } from '../../displayText';
-import { mockMatchMedia } from '../../__mocks__';
 
 const {
   serverHeaderText,

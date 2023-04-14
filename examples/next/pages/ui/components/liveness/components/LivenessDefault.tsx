@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
 import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
@@ -18,16 +17,12 @@ export default function LivenessDefault({
     stopLiveness,
   } = useLiveness();
 
-  const [error, setError] = useState(undefined);
-  const [checkFailed, setCheckFailed] = useState(false);
-
   if (createLivenessSessionApiError) {
     return <div>Some error occured...</div>;
   }
 
   function onUserCancel() {
     stopLiveness();
-    setError(undefined);
   }
 
   return (
@@ -59,15 +54,12 @@ export default function LivenessDefault({
                 region={'us-east-1'}
                 onUserCancel={onUserCancel}
                 onAnalysisComplete={async () => {
-                  const response = await handleGetLivenessDetection(
+                  await handleGetLivenessDetection(
                     createLivenessSessionApiData.sessionId
                   );
-                  if (!response.isLive) {
-                    setCheckFailed(true);
-                  }
                 }}
                 onError={(error) => {
-                  setError(error);
+                  console.error(error);
                 }}
                 disableInstructionScreen={disableInstructionScreen}
                 components={components}

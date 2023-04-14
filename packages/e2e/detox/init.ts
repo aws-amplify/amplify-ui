@@ -13,8 +13,6 @@ type DetoxTestStatus = 'passed' | 'failed';
 // Load environment variables
 dotenv.config();
 
-const SCENARIO_PREFIX = "I'm running the example ";
-
 // Cucumber has default timeout of 5000, not enough for Detox async operations
 // https://wix.github.io/Detox/docs/guide/cucumber-js-integration
 setDefaultTimeout(500000);
