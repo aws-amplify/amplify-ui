@@ -132,7 +132,7 @@ exports[`Sitemap Snapshot 1`] = `
 /swift/connected-components/authenticator/customization, 
 /swift/connected-components/liveness, 
 /swift/connected-components/liveness/customization, 
-/swift/getting-started/introduction,
+/swift/getting-started/introduction, 
 /vue, 
 /vue/connected-components/authenticator, 
 /vue/connected-components/authenticator/advanced, 
