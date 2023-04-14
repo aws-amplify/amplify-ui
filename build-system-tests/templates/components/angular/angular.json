@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-15-cli-15-ts": {
+    "ng-cli-ts": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -40,7 +40,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-15-cli-15-ts",
+            "outputPath": "dist/ng-app-ts",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -88,10 +88,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ng-15-cli-15-ts:build:production"
+              "browserTarget": "ng-app-ts:build:production"
             },
             "development": {
-              "browserTarget": "ng-15-cli-15-ts:build:development"
+              "browserTarget": "ng-app-ts:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,7 +99,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-15-cli-15-ts:build"
+            "browserTarget": "ng-app-ts:build"
           }
         }
       }

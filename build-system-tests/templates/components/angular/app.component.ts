@@ -18,5 +18,5 @@ import { Component } from '@angular/core';
   styles: [],
 })
 export class AppComponent {
-  title = 'ng-15-cli-15-ts';
+  title = 'ng-app-ts';
 }

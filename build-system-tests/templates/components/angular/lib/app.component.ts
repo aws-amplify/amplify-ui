@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styles: [],
 })
 export class AppComponent {
-  title = 'ng-15-lib-15-ts';
+  title = 'ng-lib-ts';
 }

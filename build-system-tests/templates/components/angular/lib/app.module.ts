@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 // @ts-ignore
 import { MyAmplifyUiLibModule } from 'my-amplify-ui-lib';
 
-import { AppComponent } from '../../../../mega-apps/ng-15-lib-15-ts/src/app/app.component';
+import { AppComponent } from './app.component';
 
 // @ts-ignore
 @NgModule({
