@@ -113,6 +113,7 @@ jobs:
           BUILD_TOOL: ${{ matrix.build-tool }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
           LANGUAGE: ${{ matrix.language }}
+          FRAMEWORK: ${{ matrix.framework }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
       - name: Copy aws_export and App.js
         run: ./.github/scripts/mega-app-copy-files.sh
@@ -122,6 +123,7 @@ jobs:
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          FRAMEWORK: ${{ matrix.framework }}
           FRAMEWORK_VERSION: ${{ matrix.framework-version }}
       - name: Install Packages and Build
         run: ./.github/scripts/mega-app-install-build.sh

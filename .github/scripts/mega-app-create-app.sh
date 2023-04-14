@@ -27,7 +27,11 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
     npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts
 fi
 
-if [[ "$BUILD_TOOL" == 'angular-app' ]]; then
+if [[ "$FRAMEWORK" == 'angular' ]]; then
     npm install -g @angular/cli@${BUILD_TOOL_VERSION}
     ng new $MEGA_APP_NAME --minimal --interactive=false
+    if [ "$BUILD_TOOL" == 'angular-lib' ]; then
+        cd $MEGA_APP_NAME
+        ng generate library my-amplify-ui-lib
+    fi
 fi

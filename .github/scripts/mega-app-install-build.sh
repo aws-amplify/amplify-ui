@@ -30,6 +30,14 @@ else
         echo "rm -rf node_modules"
         rm -rf node_modules
     fi
+
+    if [[ "$BUILD_TOOL" == 'angular-lib' ]]; then
+        cd projects/my-amplify-ui-lib/
+        npm install --save-peer @aws-amplify/ui-angular@${BUILD_TOOL_VERSION} aws-amplify${BUILD_TOOL_VERSION}
+        cd -
+        npm install $DEPENDENCIES
+        ng build my-amplify-ui-lib
+    fi
     echo "npm install $DEPENDENCIES"
     npm install $DEPENDENCIES
     echo "npm run build"
