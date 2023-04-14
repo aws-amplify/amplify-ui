@@ -100,7 +100,7 @@ jobs:
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
           FRAMEWORK_VERSION: ${{ matrix.framework-version }}
       - name: Install Packages and Build
-        run: ./.github/scripts/mega-app-copy-files.sh
+        run: ./.github/scripts/mega-app-install-build.sh
         shell: bash
         env:
           BUILD_TOOL: ${{ matrix.build-tool }}
