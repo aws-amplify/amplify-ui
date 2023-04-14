@@ -539,14 +539,14 @@ export const gettingStarted: ComponentNavItem[] = [
     platforms: ['react', 'vue', 'angular', 'react-native'],
   },
   {
-    href: '/getting-started/usage/create-react-app',
-    label: 'Create React App',
+    href: '/getting-started/usage/nextjs',
+    label: 'Next.js',
     platforms: ['react'],
     tertiary: true,
   },
   {
-    href: '/getting-started/usage/nextjs',
-    label: 'Next.js',
+    href: '/getting-started/usage/create-react-app',
+    label: 'Create React App',
     platforms: ['react'],
     tertiary: true,
   },
