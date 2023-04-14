@@ -104,6 +104,7 @@ jobs:
         shell: bash
         env:
           BUILD_TOOL: ${{ matrix.build-tool }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
           PKG_MANAGER: ${{ matrix.pkg-manager }}
