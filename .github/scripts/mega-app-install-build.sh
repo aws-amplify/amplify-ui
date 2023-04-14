@@ -34,8 +34,8 @@ else
     if [[ "$BUILD_TOOL" == 'angular-lib' ]]; then
         echo "cd projects/my-amplify-ui-lib/"
         cd projects/my-amplify-ui-lib/
-        echo "npm install --save-peer @aws-amplify/ui-angular@${BUILD_TOOL_VERSION} aws-amplify${BUILD_TOOL_VERSION}"
-        npm install --save-peer @aws-amplify/ui-angular@${BUILD_TOOL_VERSION} aws-amplify${BUILD_TOOL_VERSION}
+        echo "npm install --save-peer @aws-amplify/ui-angular@ aws-amplify"
+        npm install --save-peer @aws-amplify/ui-angular aws-amplify
         echo "cd -"
         cd -
         echo "npm install $DEPENDENCIES"
