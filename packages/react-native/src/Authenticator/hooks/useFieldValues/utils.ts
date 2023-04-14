@@ -130,6 +130,7 @@ export const getTypedField = ({
   ...field
 }: AuthenticatorLegacyField): TypedField => {
   const type = getFieldType(machineFieldType);
+  const testID = `amplify__text-field__input-${name}`;
 
   return Object.entries(field).reduce(
     (acc, [key, value]) => {
@@ -141,10 +142,10 @@ export const getTypedField = ({
       // map to `required` prop
       if (key === 'isRequired' || key === 'required') {
         // `TypedField` props expects `required` key
-        return { ...acc, required: value as boolean };
+        return { ...acc, required: value as boolean, testID };
       }
 
-      return { ...acc, [key]: value };
+      return { ...acc, [key]: value, testID };
     },
     // initialize `acc` with field `name` and `type`
     { name, type } as TypedField

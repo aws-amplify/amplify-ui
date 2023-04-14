@@ -26,16 +26,14 @@ When(
     } else if (loginMechanism === 'phone number') {
       text = `${getCountryCode(status)}${process.env.PHONE_NUMBER}`;
     }
-    await element(by.id('amplify__text-field__input-container'))
-      .atIndex(0)
-      .typeText(text);
+    await element(by.id(`amplify__text-field__input-username`)).typeText(text);
   }
 );
 
 When('I type my password', async () => {
-  await element(by.id('amplify__text-field__input-container'))
-    .atIndex(1)
-    .typeText(process.env.VALID_PASSWORD);
+  await element(by.id('amplify__text-field__input-password')).typeText(
+    process.env.VALID_PASSWORD
+  );
 });
 
 When('I select my country code with status {string}', (status: string) => {
@@ -53,9 +51,9 @@ Then('I type a valid code', async () => {
 });
 
 Then('I type my new password', async () => {
-  await element(by.id('amplify__text-field__input-container'))
-    .atIndex(1)
-    .typeText(process.env.VALID_PASSWORD);
+  await element(by.id('amplify__text-field__input-password')).typeText(
+    process.env.VALID_PASSWORD
+  );
 });
 
 Then('I confirm my password', async () => {

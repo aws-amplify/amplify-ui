@@ -21,7 +21,8 @@
     "detox:e2e:ios:release": "DETOX_CONFIGURATION=ios.simulator.release yarn cucumber",
     "detox:build:android:debug": "detox build --configuration android.emulator.debug",
     "detox:build:android:release": "detox build --configuration android.emulator.release",
-    "detox:e2e:android": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber"
+    "detox:e2e:android:debug": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber",
+    "detox:e2e:android:release": "DETOX_CONFIGURATION=android.emulator.release yarn cucumber"
   },
   "cypress-cucumber-preprocessor": {
     "filterSpecs": true,

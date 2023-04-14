@@ -332,7 +332,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+          key: ${{ runner.os }}-nodemodules-ios-${{ inputs.commit }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
@@ -341,14 +341,14 @@ jobs:
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ inputs.commit }}
+          key: ${{ runner.os }}-ui-ios-${{ inputs.commit }}
 
       - name: Restore react-native/dist cache
         id: restore-package-cache
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: ./packages/react-native/dist
-          key: ${{ runner.os }}-react-native-${{ inputs.commit }}
+          key: ${{ runner.os }}-react-native-ios-${{ inputs.commit }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
@@ -432,7 +432,6 @@ jobs:
         run: yarn workspace e2e detox:build:ios:debug
 
       - name: Run E2E tests against react-native example
-        id: e2e
         run: yarn workspace e2e detox:e2e:ios:debug
         env:
           # Env values for testing flows
@@ -447,6 +446,146 @@ jobs:
         if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
         with:
           name: ios-e2e-detox-error-react-native
+          path: |
+            packages/e2e/detox/screenshots/**
+          retention-days: 5
+
+  e2e-android:
+    runs-on: macos-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
+          # always points to the target branch.
+          # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          persist-credentials: false
+
+      - name: Install Java 11
+        uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
+        with:
+          distribution: 'corretto' # Amazon Corretto Build of OpenJDK
+          java-version: '11'
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 16
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
+      - name: Restore node_modules cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-cache-android
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-android-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
+      - name: Restore ui/dist cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-ui-cache
+        with:
+          path: ./packages/ui/dist
+          key: ${{ runner.os }}-ui-android-${{ inputs.commit }}
+
+      - name: Restore react-native/dist cache
+        id: restore-package-cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        with:
+          path: ./packages/react-native/dist
+          key: ${{ runner.os }}-react-native-android-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true
+
+      - name: Build @aws-amplify/ui package
+        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
+        run: yarn ui build
+
+      - name: Build react-core package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn react-core build
+
+      - name: Build react-native package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn react-native build
+
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+
+      - name: Configure auth credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Auth AWS environments
+        run: yarn environments auth pull
+
+      - name: Delete AWS profile
+        run: rm -rf ~/.aws
+
+      - name: Install emulator
+        run: |
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --device "pixel_5" --package "system-images;android-27;default;x86_64"
+
+      - name: Start Android emulator
+        run: |
+          nohup $ANDROID_HOME/tools/emulator -verbose -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on -qemu -m 2048 &
+          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          $ANDROID_HOME/platform-tools/adb devices
+
+      - name: Start Metro Bundler in background
+        run: yarn workspace react-native-example dev --reset-cache &
+
+      - name: Build android example
+        run: yarn workspace e2e detox:build:android:debug
+
+      - name: Run E2E tests against react-native example
+        run: yarn workspace e2e detox:e2e:android:debug
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: ${{ failure() && steps.e2e-android.outcome != 'success' }}
+        with:
+          name: android-e2e-detox-error-react-native
           path: |
             packages/e2e/detox/screenshots/**
           retention-days: 5
