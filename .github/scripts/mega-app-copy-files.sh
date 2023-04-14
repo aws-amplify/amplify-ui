@@ -50,22 +50,32 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
     cp templates/components/react/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
 fi
 
-if [[ "$BUILD_TOOL" == 'angular' ]]; then
+if [[ "$FRAMEWORK" == 'angular' ]]; then
     if [ "$BUILD_TOOL_VERSION" == 'latest' ]; then
         cp templates/components/angular/angular.json mega-apps/${MEGA_APP_NAME}/angular.json
+        echo "cp templates/components/angular/angular.json mega-apps/${MEGA_APP_NAME}/angular.json"
         cp templates/components/angular/polyfills.ts mega-apps/${MEGA_APP_NAME}/src
+        echo "cp templates/components/angular/polyfills.ts mega-apps/${MEGA_APP_NAME}/src"
         cp templates/components/angular/tsconfig.app.json mega-apps/${MEGA_APP_NAME}/tsconfig.app.json
+        echo "cp templates/components/angular/tsconfig.app.json mega-apps/${MEGA_APP_NAME}/tsconfig.app.json"
     elif [ "$BUILD_TOOL_VERSION" == '13' ]; then
         cp templates/components/angular/polyfills-angular-13.ts mega-apps/${MEGA_APP_NAME}/src/polyfills.ts
+        echo "cp templates/components/angular/polyfills-angular-13.ts mega-apps/${MEGA_APP_NAME}/src/polyfills.ts"
     fi
 
     if [ "$BUILD_TOOL" == 'angular-app' ]; then
+        echo "cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
         cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
+        echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
         cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
     elif [ "$BUILD_TOOL" == 'angular-lib' ]; then
+        echo "cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
         cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
+        echo "cp templates/components/angular/lib/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
         cp templates/components/angular/lib/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+        echo "cp templates/components/angular/lib/my-amplify-ui-lib.component.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.component.ts"
         cp templates/components/angular/lib/my-amplify-ui-lib.component.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.component.ts
+        echo "cp templates/components/angular/lib/my-amplify-ui-lib.module.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.module.ts"
         cp templates/components/angular/lib/my-amplify-ui-lib.module.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.module.ts
     fi
 fi
