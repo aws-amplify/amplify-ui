@@ -63,24 +63,22 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
     </FieldGroupIcon>
   ) : undefined;
 
-  const ClearButton = !isDisabled ? (
-    <FieldClearButton
-      ariaLabel={clearButtonLabel}
-      excludeFromTabOrder
-      isVisible={strHasLength(composedValue)}
-      onClick={onClearHandler}
-      size={size}
-      variation="link"
-    />
-  ) : undefined;
-
   return (
     <TextField
       autoComplete={autoComplete}
       className={classNames(ComponentClassNames.SearchField, className)}
       labelHidden={labelHidden}
       innerStartComponent={SearchIcon}
-      innerEndComponent={ClearButton}
+      innerEndComponent={
+        <FieldClearButton
+          ariaLabel={clearButtonLabel}
+          excludeFromTabOrder
+          isVisible={!isDisabled && strHasLength(composedValue)}
+          onClick={onClearHandler}
+          size={size}
+          variation="link"
+        />
+      }
       isDisabled={isDisabled}
       name={name}
       onChange={handleOnChange}
