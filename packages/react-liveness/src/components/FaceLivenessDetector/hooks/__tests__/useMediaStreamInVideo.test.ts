@@ -25,7 +25,7 @@ describe('useMediaStreamInVideo', () => {
       width: { ideal: 100 },
     };
 
-    const { result, rerender, unmount } = renderHook(() => {
+    const { result, unmount } = renderHook(() => {
       return useMediaStreamInVideo(stream, videoConstraints);
     });
 
