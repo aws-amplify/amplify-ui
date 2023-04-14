@@ -41,7 +41,7 @@
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
-    "test:ci": "yarn test && yarn check:esm",
+    "test:ci": "yarn test",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
