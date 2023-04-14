@@ -522,6 +522,7 @@ export const gettingStarted: ComponentNavItem[] = [
       'flutter',
       'react-native',
       'android',
+      'swift',
     ],
   },
   {
