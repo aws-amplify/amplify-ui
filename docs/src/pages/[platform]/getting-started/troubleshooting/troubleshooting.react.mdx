@@ -45,8 +45,7 @@ Webpack 4 already includes this polyfill.
 Follow [here](#cra-4-cant-import-the-named-export-amplify-from-non-ecmascript-module-only-default-export-is-available) for solutions.
 
 ## Vite
-<Tabs>
-  <TabItem title="TypeScript">
+
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
 **1.** Add the following script tag to the `index.html` file right before the `</body>` tag.
@@ -77,16 +76,7 @@ export default defineConfig({
   }
 })
 ```
-**3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
 
-```json
-  "compilerOptions": {
-    "skipLibCheck": true,
-  }
-...
-```
-  </TabItem>
-  <TabItem title="JavaScript">
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
 **1.** Add the following script tag to the `index.html` file right before the `</body>` tag. This will only run on the client side and will polyfill Node globals.
@@ -117,8 +107,6 @@ export default defineConfig({
   }
 })
 ```
-  </TabItem>
-</Tabs>
 
 ## Astro
 

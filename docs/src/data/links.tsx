@@ -545,6 +545,12 @@ export const gettingStarted: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/getting-started/usage/vite',
+    label: 'Vite',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/getting-started/usage/create-react-app',
     label: 'Create React App',
     platforms: ['react'],

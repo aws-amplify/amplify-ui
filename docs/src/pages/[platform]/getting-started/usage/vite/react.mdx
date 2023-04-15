@@ -1,0 +1,108 @@
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Example, ExampleCode } from '@/components/Example';
+import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
+import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
+
+## Tutorial
+
+In this brief tutorial, we're going to build a basic shopping card component using [Vite.js](https://vitejs.dev/) and Amplify UI. Then, we'll elaborate on our shopping card to play with the possibilities of using Amplify UI.
+
+### Setup and Installation
+
+First, execute the command below in your terminal. When prompted for the name of your project, enter `amplify-ui-demo`.  Source: [Vite Guide](https://vitejs.dev/guide/)
+<Tabs>
+  <TabItem title="JavaScript">
+    npm 6.x
+    <TerminalCommand command="npm create vite@latest amplify-ui-demo --template react && cd amplify-ui-demo" />
+    npm 7+, extra double-dash is needed:
+    <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react && cd amplify-ui-demo"/>
+  </TabItem>
+  <TabItem title="TypeScript">
+    #### npm 6.x
+    <TerminalCommand command="npm create vite@latest amplify-ui-demo --template react-ts && cd amplify-ui-demo
+    " />
+    #### npm 7+, extra double-dash is needed:
+    <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react-ts && cd amplify-ui-demo"/>
+  </TabItem>
+</Tabs>
+<p>
+
+Next, install the Amplify UI React package:
+</p>
+<TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify"/>
+
+
+When working with a [Vite](https://vitejs.dev) project you must make a few modifications to polyfill Node globals. Please follow the steps below:
+
+**1.** Add the following script tag to the `index.html` file right before the `</body>` tag. This will only run on the client side and will polyfill Node globals.
+
+```html
+  <script>
+    window.global = window;
+    window.process = {
+      env: { DEBUG: undefined },
+    };
+    var exports = {};
+  </script>
+</body>
+```
+
+**2.** Update the `vite.config.js` and add a resolve alias inside the `defineConfig({})` as seen below.
+
+```js
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ]
+  }
+})
+```
+
+### Basic Demo
+
+Open up the project in your IDE and delete the contents of the `index.css` file. 
+
+Next replace the contents of the `App.jsx` or `App.tsx` file with the code below:
+
+<Example>
+  <ExampleCode>
+  
+```tsx file=./examples/BasicExampleCode.tsx
+
+```
+
+  </ExampleCode>
+  <BasicShoppingCard />
+</Example>
+
+When you start the app (`npm run dev`), you should see a basic shopping card component.
+
+### Advanced Demo
+
+If you’d like to play around with a more comprehensive demo of the Amplify UI library, create a separate file under the `pages` folder named `paintings.js`, and copy/paste this code into it:
+
+<ExampleCode>
+
+```tsx file=./examples/paintings.ts
+
+```
+
+  </ExampleCode>
+
+Then, replace the contents of `App.js` or `App.tsx` with the code below, restart the app, and experience all the beautiful components in action!
+
+<Example>
+  <ExampleCode>
+
+```tsx file=./examples/AdvancedExampleCode.tsx
+
+```
+
+  </ExampleCode>
+  <AdvancedShoppingCard />
+</Example>
