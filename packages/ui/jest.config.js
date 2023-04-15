@@ -4,6 +4,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     // ignore coverage for top level "export"
     '<rootDir>/src/index.ts',
+    // ignore coverage for style-dictionary type declaration file
     '<rootDir>/src/theme/types/style-dictionary.d.ts',
   ],
   coverageThreshold: {

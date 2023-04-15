@@ -1,9 +1,10 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.(ts|vue)'],
-  // ignore coverage for index, version and style files
   coveragePathIgnorePatterns: [
+    // ignore coverage for subdirectories' index files
     '<rootDir>/src/(components|composables|types)/index.ts',
+    // ignore coverage for top level "export", shims-vue and version files
     '<rootDir>/src/(index|shims-vue.d|version).ts',
   ],
   coverageThreshold: {
