@@ -42,6 +42,7 @@ jobs:
       DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}
       GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
       STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
+      LIVENESS_E2E_ROLE_ARN: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
       IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
@@ -92,9 +93,6 @@ jobs:
         run: yarn install
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -174,9 +172,6 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
-      - name: Get CLI versions
-        id: cli-version
-        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -218,9 +213,8 @@ jobs:
         with:
           metric-name: PublishNextFailure
           value: 1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
 
   log-success-metric:
     # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
@@ -234,6 +228,5 @@ jobs:
         with:
           metric-name: PublishNextFailure
           value: 0
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_METRIC_LOGGER }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_METRIC_LOGGER }}
-          AWS_REGION: us-east-2
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2

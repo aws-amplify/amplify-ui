@@ -3,9 +3,11 @@
 The Authenticator has several "slots" that you can customize to add messaging & functionality to meet your app's needs.
 
 The Authenticator itself has the following optional slots which are rendered on each subcomponent:
-- `Container` - default `Container` wraps the `Authenticator`, has keyboard aware behavior
+- `Container` - Wraps the `Authenticator`. Can be overridden by extending `Authenticator.Container` or with a `View` component
 - `Footer` - renders below subcomponent content, no default provided
 - `Header` - renders above subcomponent content, no default provided
+
+> The default `Container` component contains keyboard aware scroll behavior.
 
 ```jsx file=../../../../../../../examples/react-native/src/features/Authenticator/Slots/Example.tsx
 
