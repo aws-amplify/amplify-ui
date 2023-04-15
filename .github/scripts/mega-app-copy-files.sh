@@ -51,18 +51,8 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then
-    if [ "$BUILD_TOOL_VERSION" == 'latest' ]; then
-        cp templates/components/angular/angular.json mega-apps/${MEGA_APP_NAME}/angular.json
-        echo "cp templates/components/angular/angular.json mega-apps/${MEGA_APP_NAME}/angular.json"
-        cp templates/components/angular/polyfills.ts mega-apps/${MEGA_APP_NAME}/src
-        echo "cp templates/components/angular/polyfills.ts mega-apps/${MEGA_APP_NAME}/src"
-        cp templates/components/angular/tsconfig.app.json mega-apps/${MEGA_APP_NAME}/tsconfig.app.json
-        echo "cp templates/components/angular/tsconfig.app.json mega-apps/${MEGA_APP_NAME}/tsconfig.app.json"
-    elif [ "$BUILD_TOOL_VERSION" == '13' ]; then
-        cp templates/components/angular/polyfills-angular-13.ts mega-apps/${MEGA_APP_NAME}/src/polyfills.ts
-        echo "cp templates/components/angular/polyfills-angular-13.ts mega-apps/${MEGA_APP_NAME}/src/polyfills.ts"
-    fi
-
+    # The following change is to test build. If to work on the brower, we also need to change polyfills.
+    # See more: https://ui.docs.amplify.aws/angular/getting-started/troubleshooting
     if [ "$BUILD_TOOL" == 'angular-app' ]; then
         echo "cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
         cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
