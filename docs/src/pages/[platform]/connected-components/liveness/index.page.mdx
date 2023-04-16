@@ -1,6 +1,6 @@
 ---
 title: Face Liveness
-description: Amplify UI FaceLivenessDetector provides a UI component for Amazon Rekognition Face Liveness that helps developers deter fraud and scams during face-based identity checks by validating that users are physically present in front of the camera at that moment, and not an imposter spoofing the user's face.
+description: Amplify UI FaceLivenessDetector provides a UI component for Amazon Rekognition Face Liveness that helps developers verify that only real users, not bad actors using spoofs, can access your services.
 supportedFrameworks: react|android|swift
 ---
 
@@ -17,11 +17,13 @@ export async function getStaticProps() {
   return { props: {} }
 }
 
-Amplify UI Face Liveness is powered by [Amazon Rekognition](https://aws.amazon.com/rekognition/).
+Amplify UI FaceLivenessDetector is powered by [Amazon Rekognition Face Liveness](https://aws.amazon.com/rekognition/). The following video shows an example of FaceLivenessDetector in action.
 
 <Fragment platforms={['react', 'android', 'swift']}>
   {({ platform }) => import(`./intro.${platform}.mdx`)}
 </Fragment>
+
+To learn more about spoof attempts deterred by Face Liveness, please see this [demonstration video on YouTube](https://www.youtube.com/watch?v=JfzwVl1wy0s).
 
 ## Quick start
 
