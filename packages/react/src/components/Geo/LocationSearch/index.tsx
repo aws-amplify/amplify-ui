@@ -97,7 +97,7 @@ export const Geocoder = (props: LocationSearchProps): JSX.Element => {
   useDeprecationWarning({
     shouldWarn: true,
     message:
-      'Geocoder component from @aws-amplify/ui-react is being deprecated and will be removed from this package in a future major release. Please use the LocationSearch component from @aws-amplify/ui-react-geo instead.',
+      'The `Geocoder` component has been replaced by `LocationSearch` and is available from `@aws-amplify/ui-react-geo`. `Geocoder` will be removed from this package in a future major release. Please install `@aws-amplify/ui-react-geo` and replace `Geocoder` usage with `LocationSearch`.',
   });
 
   return <LocationSearch {...props} />;
