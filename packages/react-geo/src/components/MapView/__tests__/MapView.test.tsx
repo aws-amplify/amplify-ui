@@ -1,8 +1,15 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
 import { Amplify, Auth } from 'aws-amplify';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+/**
+ * This is a workaround to the problem of the jsdom library not supporting
+ * URL.createObjectURL. See https://github.com/jsdom/jsdom/issues/1721.
+ */
+if (typeof window.URL.createObjectURL === 'undefined') {
+  window.URL.createObjectURL = jest.fn();
+}
 
-import '../../../../jest.setup';
 import { MapView } from '..';
 
 jest.mock('maplibre-gl-js-amplify', () => ({

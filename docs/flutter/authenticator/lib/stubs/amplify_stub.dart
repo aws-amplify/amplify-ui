@@ -12,14 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// stub copied from https://github.com/aws-amplify/amplify-flutter/tree/6b141a2e15d47c4bb936c7baefd4e1a20e9ed9b3/packages/amplify_test/lib/src/stubs
+
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amplify_flutter/amplify_flutter.dart';
+// ignore: depend_on_referenced_packages
+import 'package:amplify_core/amplify_core.dart';
 
 /// A stub of [Amplify] that holds the config in memory and
 /// does nothing else to register plugins.
 class AmplifyStub extends AmplifyClass {
+  AmplifyStub() : super.protected();
   AmplifyConfig? _config;
 
   bool _isConfigured = false;
@@ -40,14 +44,17 @@ class AmplifyStub extends AmplifyClass {
   Future<void> addPlugin(AmplifyPluginInterface plugin) async {
     try {
       if (plugin is AuthPluginInterface) {
-        await Auth.addPlugin(plugin);
+        await Auth.addPlugin(
+          plugin,
+          authProviderRepo: AmplifyAuthProviderRepository(),
+        );
       } else {
-        throw AmplifyException(
+        throw StateError(
           'The type of plugin ${plugin.runtimeType} is not yet supported.',
         );
       }
-    } on Exception catch (e) {
-      throw AmplifyException(
+    } on Exception {
+      throw StateError(
         'Amplify plugin ${plugin.runtimeType} was not added successfully.',
       );
     }
@@ -61,8 +68,8 @@ class AmplifyStub extends AmplifyClass {
   Future<void> configure(String configuration) async {
     try {
       jsonDecode(configuration);
-    } on FormatException catch (e) {
-      throw const AmplifyException(
+    } on FormatException {
+      throw Exception(
         'The provided configuration is not a valid json.',
       );
     }
@@ -77,21 +84,16 @@ class AmplifyStub extends AmplifyClass {
 
   AmplifyConfig _parseConfigJson(String configuration) {
     try {
-      return AmplifyConfig.fromJson(jsonDecode(configuration));
-    } on Exception catch (e) {
+      return AmplifyConfig.fromJson(
+        jsonDecode(configuration) as Map<String, Object?>,
+      );
+    } on Exception {
       return const AmplifyConfig();
     }
   }
 
-  AmplifyStub() : super.protected();
-
   @override
   Future<void> configurePlatform(String config) async {
-    // no-op
-  }
-
-  @override
-  Future<void> reset() async {
     // no-op
   }
 }
