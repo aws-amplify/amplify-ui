@@ -44,13 +44,7 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     echo "npm install -g @vue/cli@${BUILD_TOOL_VERSION}"
     npm install -g @vue/cli@${BUILD_TOOL_VERSION}
     if [ "$BUILD_TOOL" == 'vue-cli' ]; then
-        # echo "vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME"
-        # vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME
-        echo "cp ../templates/components/vue/vuerc-${FRAMEWORK_VERSION}.json ~/.vuerc"
-        cp ../templates/components/vue/vuerc-${FRAMEWORK_VERSION} ~/.vuerc
-        echo "cat ~/.vuerc"
-        cat ~/.vuerc
-        echo "vue create $MEGA_APP_NAME"
-        vue create $MEGA_APP_NAME
+        echo "vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME"
+        vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME
     fi
 fi
