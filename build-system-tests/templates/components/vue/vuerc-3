@@ -1,0 +1,11 @@
+{
+  "useTaobaoRegistry": false,
+  "packageManager": "npm",
+  "presets": {
+    "amplify-ui-build-system-test-preset": {
+      "useConfigFiles": false,
+      "plugins": {},
+      "vueVersion": "3"
+    }
+  }
+}
