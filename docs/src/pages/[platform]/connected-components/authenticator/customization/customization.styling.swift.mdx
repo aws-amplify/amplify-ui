@@ -1,0 +1,41 @@
+## Theming
+
+By default, the Authenticator style matches those of the Amplify UI's default theme.
+You can customize this look and feel by using the `authenticatorTheme(_:)` view modifider and providing a customized `AuthenticatorTheme`:
+
+```swift
+Authenticator { _ in
+    // ...
+}.authenticatorTheme(myCustomTheme)
+```
+
+`AuthenticatorTheme` is a class that allows you to set the style for various elements, which will be applied throughout the Authenticator views.
+
+You can customize:
+- Spacing (horizontal and vertical): For Authenticator views, buttons, banners and fields.
+- Colors: For backgrounds, borders and foreground elements.
+- Fonts: For all views
+
+The following example changes the colors and fonts used in the Authenticator:
+
+```swift 
+struct MyView: View {
+    private let theme = AuthenticatorTheme()
+
+    init() {
+        theme.Fonts.title = .custom("Impact", size: 40)
+        theme.Authenticator.spacing.vertical = 15
+        theme.Colors.Background.interactive = .red
+        theme.Colors.Foreground.primary = .red
+        theme.Colors.Foreground.secondary = .pink
+        theme.Colors.Foreground.interactive = .orange
+    }
+
+    var body: some View {
+        Authenticator { _ in
+            // ...
+        }
+        .authenticatorTheme(theme)
+    }
+}
+```

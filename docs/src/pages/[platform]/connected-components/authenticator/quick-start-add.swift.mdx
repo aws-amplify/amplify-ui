@@ -1,0 +1,9 @@
+import { Fragment } from '@/components/Fragment';
+
+The quickest way to get started is by adding the Authenticator view as the entry point in your application.
+
+Once an end-user has created an account and/or signed in, the provided content is displayed with access to the user.
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-example.${platform}.mdx`)}
+</Fragment>
