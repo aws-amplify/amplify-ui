@@ -150,6 +150,7 @@ jobs:
           DEP_TYPES: ${{ env.DEP_TYPES }}
           DEPENDENCIES: ${{ env.DEPENDENCIES }}
           FRAMEWORK: ${{ matrix.framework }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
           PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
