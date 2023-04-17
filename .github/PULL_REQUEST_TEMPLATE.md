@@ -20,10 +20,10 @@ the requirements below.
 
 <!-- Remove items that do not apply. For completed items, change [ ] to [x]. -->
 
+- [ ] Have read the [Pull Request Guidelines](https://github.com/aws-amplify/amplify-ui/blob/main/CONTRIBUTING.md)
 - [ ] PR description included
-- [ ] `yarn test` passes
-- [ ] Tests are updated
-- [ ] No side effects or [`sideEffects`](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react/CONTRIBUTING.md#code-standards) field updated
 - [ ] Relevant documentation is changed or added (and PR referenced)
+- [ ] `yarn test` passes and tests are updated/added
+- [ ] No side effects or [`sideEffects`](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react/CONTRIBUTING.md#code-standards) field updated
 
 By submitting this pull request, I confirm that my contribution is made under the terms of the Apache 2.0 license.

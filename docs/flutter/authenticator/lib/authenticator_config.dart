@@ -21,14 +21,6 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticatorConfig {
-  final String id;
-  final ThemeMode themeMode;
-  final AuthenticatorStep initialStep;
-  final String amplifyConfig;
-  final List<SignUpFormField> signUpAttributes;
-  final bool useCustomUI;
-  final bool useCustomTheme;
-  final Device device;
   AuthenticatorConfig({
     this.id = '',
     this.themeMode = ThemeMode.light,
@@ -39,6 +31,14 @@ class AuthenticatorConfig {
     this.useCustomTheme = false,
     this.device = Device.ios,
   }) : amplifyConfig = amplifyConfig ?? buildAmplifyConfig();
+  final String id;
+  final ThemeMode themeMode;
+  final AuthenticatorStep initialStep;
+  final String amplifyConfig;
+  final List<SignUpFormField<dynamic>> signUpAttributes;
+  final bool useCustomUI;
+  final bool useCustomTheme;
+  final Device device;
 
   static AuthenticatorConfig fromMap(Map<String, String?> map) {
     return AuthenticatorConfig(
@@ -83,7 +83,7 @@ class AuthenticatorConfig {
     }
   }
 
-  static List<SignUpFormField> _parseSignUpAttributes(String? value) {
+  static List<SignUpFormField<dynamic>> _parseSignUpAttributes(String? value) {
     final signUpFields = value?.split(',') ?? [];
     return signUpFields
         .map((field) {
@@ -148,7 +148,7 @@ class AuthenticatorConfig {
               );
           }
         })
-        .whereType<SignUpFormField>()
+        .whereType<SignUpFormField<dynamic>>()
         .toList();
   }
 }
@@ -158,30 +158,31 @@ String buildAmplifyConfig({
   bool includeSocialProviders = false,
 }) {
   usernameAttribute = usernameAttribute?.toUpperCase();
-  Map<String, dynamic> config = {
-    "UserAgent": "aws-amplify-cli/2.0",
-    "Version": "1.0",
-    "auth": {
-      "plugins": {
-        "awsCognitoAuthPlugin": {
-          "Auth": {
-            "Default": {
-              "authenticationFlowType": "USER_SRP_AUTH",
-              "socialProviders": includeSocialProviders
+  final config = {
+    'UserAgent': 'aws-amplify-cli/2.0',
+    'Version': '1.0',
+    'auth': {
+      'plugins': {
+        'awsCognitoAuthPlugin': {
+          'Auth': {
+            'Default': {
+              'authenticationFlowType': 'USER_SRP_AUTH',
+              'socialProviders': includeSocialProviders
                   ? ['AMAZON', 'APPLE', 'FACEBOOK', 'GOOGLE']
-                  : [],
-              "usernameAttributes":
-                  usernameAttribute == 'USERNAME' ? [] : [usernameAttribute],
-              "signupAttributes": usernameAttribute == 'USERNAME'
+                  : <String>[],
+              'usernameAttributes': usernameAttribute == 'USERNAME'
+                  ? <String>[]
+                  : [usernameAttribute],
+              'signupAttributes': usernameAttribute == 'USERNAME'
                   ? ['EMAIL']
                   : [usernameAttribute],
-              "passwordProtectionSettings": {
-                "passwordPolicyMinLength": 6,
-                "passwordPolicyCharacters": []
+              'passwordProtectionSettings': {
+                'passwordPolicyMinLength': 6,
+                'passwordPolicyCharacters': <String>[]
               },
-              "mfaConfiguration": "OFF",
-              "mfaTypes": ["SMS"],
-              "verificationMechanisms": usernameAttribute == 'USERNAME'
+              'mfaConfiguration': 'OFF',
+              'mfaTypes': ['SMS'],
+              'verificationMechanisms': usernameAttribute == 'USERNAME'
                   ? ['EMAIL']
                   : [usernameAttribute],
             }
