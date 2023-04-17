@@ -97,10 +97,10 @@ jobs:
             node-version: 18
 
           - framework: vue
-            framework-version: 3 # here use "3" instead of "latest" because .vuerc doesn't accept "latest" as "vueVersion"
+            framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
             build-tool: vue-cli
             build-tool-version: latest
-            pkg-manager: npm
+            pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
             language: ts
             node-version: 18
 
