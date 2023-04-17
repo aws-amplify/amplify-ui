@@ -75,7 +75,7 @@ export const LocationSearch = (props: LocationSearchProps): JSX.Element => {
   useDeprecationWarning({
     shouldWarn: true,
     message:
-      'LocationSearch component from @aws-amplify/ui-react is being deprecated and will be removed from this package in a future major release. Please use the LocationSearch component from @aws-amplify/ui-react-geo instead.',
+      'The `LocationSearch` component has been migrated to `@aws-amplify/ui-react-geo` and will be removed from this package in a future major release. Please install `@aws-amplify/ui-react-geo` and update the import path.',
   });
 
   const { current: map } = useMap();
