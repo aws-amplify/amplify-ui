@@ -1,0 +1,27 @@
+```swift
+import Amplify
+import Authenticator
+import AWSCognitoAuthPlugin
+import SwiftUI
+
+@main
+struct MyApp: App {
+    init() {
+        do {
+            try Amplify.add(plugin: AWSCognitoAuthPlugin())
+            try Amplify.configure()
+        } catch {
+            print("Unable to configure Amplify \(error)")
+        }
+    }
+
+    var body: some Scene {
+        WindowGroup {
+            Authenticator { state in
+                Text("Hello, \(state.user.username)")
+            }
+        }
+    }
+}
+
+```
