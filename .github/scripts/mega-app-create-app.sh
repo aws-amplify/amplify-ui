@@ -39,3 +39,12 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         ng generate library my-amplify-ui-lib
     fi
 fi
+
+if [[ "$FRAMEWORK" == 'vue' ]]; then
+    echo "npm install -g @vue/cli@${BUILD_TOOL_VERSION}"
+    npm install -g @vue/cli@${BUILD_TOOL_VERSION}
+    if [ "$BUILD_TOOL" == 'vue-cli' ]; then
+        echo "vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME"
+        vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME
+    fi
+fi

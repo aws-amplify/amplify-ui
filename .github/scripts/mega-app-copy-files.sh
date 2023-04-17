@@ -69,3 +69,8 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         cp templates/components/angular/lib/my-amplify-ui-lib.module.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.module.ts
     fi
 fi
+
+if [[ "$FRAMEWORK" == 'vue' ]]; then
+    echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
+    cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
+fi
