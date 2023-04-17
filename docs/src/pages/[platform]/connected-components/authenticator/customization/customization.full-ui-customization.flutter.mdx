@@ -1,7 +1,8 @@
 import { Link } from '@aws-amplify/ui-react';
 import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
+import { Example, ExampleCode } from '@/components/Example';
 
-### Full UI Customization
+## Full UI Customization
 
 In addition to customizing form fields and theming, you can also build a custom UI for one or more of the <Link isExternal href="https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/AuthenticatorStep.html">authenticator steps</Link> using a combination of prebuilt widgets from the amplify_authenticator package, and widgets that you build yourself. This can be used for simple use cases, such as adding a logo to the sign in screen, as well as more complex use cases.
 
@@ -11,92 +12,12 @@ Below is an example of how you can use `authenticatorBuilder` to add a logo to b
 
 This example uses several prebuilt widgets from the amplify_authenticator package, such as `SignInForm()`, `SignUpForm()`, `SignInFormField.username()`, and `SignInButton()`. All of the prebuilt widgets are integrated into the authenticator's state, meaning that you do not have to add an `onChanged` callback for the Form Fields, or an `onTap` callback for the Buttons. You can find a full list of the prebuilt forms, form fields, and buttons in <Link isExternal href="https://pub.dev/documentation/amplify_authenticator/latest/amplify_authenticator/amplify_authenticator-library.html">the API docs</Link>.
 
-```dart
-return Authenticator(
-  // builder used to show a custom sign in and sign up experience
-  authenticatorBuilder: (BuildContext context, AuthenticatorState state) {
-    const padding = EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 16);
-    switch (state.currentStep) {
-      case AuthenticatorStep.signIn:
-        return Scaffold(
-          body: Padding(
-            padding: padding,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // app logo
-                  const Center(child: FlutterLogo(size: 100)),
-                  // prebuilt sign in form from amplify_authenticator package
-                  SignInForm(),
-                ],
-              ),
-            ),
-          ),
-          // custom button to take the user to sign up
-          persistentFooterButtons: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Don\'t have an account?'),
-                TextButton(
-                  onPressed: () => state.changeStep(
-                    AuthenticatorStep.signUp,
-                  ),
-                  child: const Text('Sign Up'),
-                ),
-              ],
-            ),
-          ],
-        );
-      case AuthenticatorStep.signUp:
-        return Scaffold(
-          body: Padding(
-            padding: padding,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // app logo
-                  const Center(child: FlutterLogo(size: 100)),
-                  // prebuilt sign up form from amplify_authenticator package
-                  SignUpForm(),
-                ],
-              ),
-            ),
-          ),
-          // custom button to take the user to sign in
-          persistentFooterButtons: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Already have an account?'),
-                TextButton(
-                  onPressed: () => state.changeStep(
-                    AuthenticatorStep.signIn,
-                  ),
-                  child: const Text('Sign In'),
-                ),
-              ],
-            ),
-          ],
-        );
-      default:
-        // returning null defaults to the prebuilt authenticator for all other steps
-        return null;
-    }
-  },
-  child: MaterialApp(
-    builder: Authenticator.builder(),
-    home: const Scaffold(
-      body: Center(
-        child: Text('You are logged in!'),
-      ),
-    ),
-  ),
-);
-```
-
+<ExampleCode>
+  ```dart file=../../../../../../flutter/authenticator/lib/examples/full_ui_customization.dart
+  ```
+</ExampleCode>
+  
 <FlutterAuthenticatorExample
   id="flutter-authenticator-full-ui-customization"
-  showWeb={false}
   useCustomUI={true}
 />
