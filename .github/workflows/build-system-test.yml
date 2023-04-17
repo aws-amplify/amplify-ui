@@ -106,7 +106,7 @@ jobs:
 
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
-      DEPENDENCIES: react@${{ matrix.framework-version }} react-dom@${{ matrix.framework-version }} @aws-amplify/ui-${{ matrix.framework }} aws-amplify @aws-amplify/ui-react-storage
+      DEPENDENCIES: ${{ matrix.framework }}@${{ matrix.framework-version }} @aws-amplify/ui-${{ matrix.framework }} aws-amplify
       DEP_TYPES: '@types/react@${{ matrix.framework-version }} @types/react-dom@${{ matrix.framework-version }}'
 
     steps:
@@ -125,31 +125,32 @@ jobs:
         run: ./.github/scripts/mega-app-create-app.sh
         shell: bash
         env:
-          BUILD_TOOL: ${{ matrix.build-tool }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
-          LANGUAGE: ${{ matrix.language }}
-          FRAMEWORK: ${{ matrix.framework }}
+          BUILD_TOOL: ${{ matrix.build-tool }}
           FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          FRAMEWORK: ${{ matrix.framework }}
+          LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
       - name: Copy aws_export and App.js
         run: ./.github/scripts/mega-app-copy-files.sh
         shell: bash
         env:
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
           BUILD_TOOL: ${{ matrix.build-tool }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          FRAMEWORK: ${{ matrix.framework }}
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
-          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
-          FRAMEWORK: ${{ matrix.framework }}
-          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
       - name: Install Packages and Build
         run: ./.github/scripts/mega-app-install-build.sh
         shell: bash
         env:
-          BUILD_TOOL: ${{ matrix.build-tool }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          DEP_TYPES: ${{ env.DEP_TYPES }}
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          FRAMEWORK: ${{ matrix.framework }}
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
-          PKG_MANAGER: ${{ matrix.pkg-manager }}
           PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
-          DEPENDENCIES: ${{ env.DEPENDENCIES }}
-          DEP_TYPES: ${{ env.DEP_TYPES }}
+          PKG_MANAGER: ${{ matrix.pkg-manager }}
