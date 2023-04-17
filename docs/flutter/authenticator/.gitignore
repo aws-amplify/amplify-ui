@@ -31,8 +31,6 @@
 .pub/
 /build/
 
-# Web related
-
 # Symbolication related
 app.*.symbols
 
