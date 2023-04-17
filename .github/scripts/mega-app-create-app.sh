@@ -23,8 +23,8 @@ if [ "$BUILD_TOOL" == 'next' ]; then
 fi
 
 if [ "$BUILD_TOOL" == 'vite' ]; then
-    echo "npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts"
-    npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts
+    echo "npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template ${FRAMEWORK}-ts"
+    npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template ${FRAMEWORK}-ts
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then

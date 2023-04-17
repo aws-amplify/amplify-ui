@@ -37,11 +37,14 @@ if [ "$BUILD_TOOL" == 'next' ]; then
     fi
 fi
 
-if [ "$BUILD_TOOL" == 'vite' ]; then
+if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
     echo "cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
     cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
     echo "cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.tsx"
     cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.tsx
+
+    # See troubleshooting:
+    # https://ui.docs.amplify.aws/react/getting-started/troubleshooting#vite
     echo "cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html"
     cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html
     echo "cp templates/components/react/vite/template-tsconfig.json mega-apps/${MEGA_APP_NAME}/tsconfig.json"
@@ -73,4 +76,12 @@ fi
 if [[ "$FRAMEWORK" == 'vue' ]]; then
     echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
     cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
+
+    # See Troubleshooting: https://ui.docs.amplify.aws/vue/getting-started/troubleshooting
+    if [[ "$BUILD_TOOL" == 'vite' ]]; then
+        echo "cp templates/components/vue/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html"
+        cp templates/components/vue/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html
+        echo "cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts"
+        cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
+    fi
 fi
