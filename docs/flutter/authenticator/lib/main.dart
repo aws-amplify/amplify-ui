@@ -20,10 +20,10 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:confetti/confetti.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_authenticator_example/authenticator_config.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_auth_cognito_stub.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_stub.dart';
-import 'package:flutter/material.dart';
 
 void main() {
   runApp(const FlutterAuthenticatorPreview());
@@ -31,8 +31,8 @@ void main() {
 
 class FlutterAuthenticatorPreview extends StatefulWidget {
   const FlutterAuthenticatorPreview({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<FlutterAuthenticatorPreview> createState() =>
@@ -79,14 +79,14 @@ class _FlutterAuthenticatorPreviewState
 
 class MyApp extends StatefulWidget {
   const MyApp({
-    Key? key,
+    super.key,
     required this.config,
-  }) : super(key: key);
+  });
 
   final AuthenticatorConfig config;
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -101,7 +101,11 @@ class _MyAppState extends State<MyApp> {
       // stub Amplify
       Amplify = AmplifyStub();
       // add the auth plugin stub
-      await Amplify.addPlugin(AmplifyAuthCognitoStub());
+      await Amplify.addPlugin(
+        AmplifyAuthCognitoStub(
+          delay: const Duration(milliseconds: 100),
+        ),
+      );
       // configure amplify
       await Amplify.configure(widget.config.amplifyConfig);
       final message = {
@@ -110,7 +114,7 @@ class _MyAppState extends State<MyApp> {
       };
       window.parent?.postMessage(jsonEncode(message), "*");
     } on Exception catch (e) {
-      print('An error occurred configuring Amplify: $e');
+      safePrint('An error occurred configuring Amplify: $e');
     }
   }
 
@@ -162,8 +166,8 @@ class _MyAppState extends State<MyApp> {
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<HomeWidget> createState() => _HomeWidgetState();
@@ -215,73 +219,105 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 }
 
+/// A widget that displays a logo, a body, and an optional footer.
+class CustomScaffold extends StatelessWidget {
+  const CustomScaffold({
+    super.key,
+    required this.state,
+    required this.body,
+    this.footer,
+  });
+
+  final AuthenticatorState state;
+  final Widget body;
+  final Widget? footer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // App logo
+              const Padding(
+                padding: EdgeInsets.only(top: 32),
+                child: Center(child: FlutterLogo(size: 100)),
+              ),
+              Container(
+                constraints: const BoxConstraints(maxWidth: 600),
+                child: body,
+              ),
+            ],
+          ),
+        ),
+      ),
+      persistentFooterButtons: footer != null ? [footer!] : null,
+    );
+  }
+}
+
 Widget? customBuilder(BuildContext context, AuthenticatorState state) {
-  const padding = EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 16);
   switch (state.currentStep) {
     case AuthenticatorStep.signIn:
-      return Scaffold(
-        body: Padding(
-          padding: padding,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // app logo
-                const Center(child: FlutterLogo(size: 100)),
-                // prebuilt sign in form from amplify_authenticator package
-                SignInForm(),
-              ],
-            ),
-          ),
-        ),
-        // custom button to take the user to sign up
-        persistentFooterButtons: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Don\'t have an account?'),
-              TextButton(
-                onPressed: () => state.changeStep(
-                  AuthenticatorStep.signUp,
-                ),
-                child: const Text('Sign Up'),
+      return CustomScaffold(
+        state: state,
+        // A prebuilt Sign In form from amplify_authenticator
+        body: SignInForm(),
+        // A custom footer with a button to take the user to sign up
+        footer: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Don\'t have an account?'),
+            TextButton(
+              onPressed: () => state.changeStep(
+                AuthenticatorStep.signUp,
               ),
-            ],
-          ),
-        ],
+              child: const Text('Sign Up'),
+            ),
+          ],
+        ),
       );
     case AuthenticatorStep.signUp:
-      return Scaffold(
-        body: Padding(
-          padding: padding,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // app logo
-                const Center(child: FlutterLogo(size: 100)),
-                // prebuilt sign up form from amplify_authenticator package
-                SignUpForm(),
-              ],
-            ),
-          ),
-        ),
-        // custom button to take the user to sign in
-        persistentFooterButtons: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Already have an account?'),
-              TextButton(
-                onPressed: () => state.changeStep(
-                  AuthenticatorStep.signIn,
-                ),
-                child: const Text('Sign In'),
+      return CustomScaffold(
+        state: state,
+        // A prebuilt Sign Up form from amplify_authenticator
+        body: SignUpForm(),
+        // A custom footer with a button to take the user to sign in
+        footer: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Already have an account?'),
+            TextButton(
+              onPressed: () => state.changeStep(
+                AuthenticatorStep.signIn,
               ),
-            ],
-          ),
-        ],
+              child: const Text('Sign In'),
+            ),
+          ],
+        ),
+      );
+    case AuthenticatorStep.confirmSignUp:
+      return CustomScaffold(
+        state: state,
+        // A prebuilt Confirm Sign Up form from amplify_authenticator
+        body: ConfirmSignUpForm(),
+      );
+    case AuthenticatorStep.resetPassword:
+      return CustomScaffold(
+        state: state,
+        // A prebuilt Reset Password form from amplify_authenticator
+        body: ResetPasswordForm(),
+      );
+    case AuthenticatorStep.confirmResetPassword:
+      return CustomScaffold(
+        state: state,
+        // A prebuilt Confirm Reset Password form from amplify_authenticator
+        body: const ConfirmResetPasswordForm(),
       );
     default:
-      // returning null defaults to the prebuilt authenticator for all other steps
+      // Returning null defaults to the prebuilt authenticator for all other steps
       return null;
   }
 }
@@ -297,7 +333,7 @@ ThemeData customLightTheme = ThemeData(
   indicatorColor: Colors.indigo,
   textTheme: const TextTheme(
     // text theme of the header on each step
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       fontWeight: FontWeight.w600,
       fontSize: 24,
     ),
@@ -332,7 +368,7 @@ ThemeData customDarkTheme = ThemeData(
   ),
   indicatorColor: Colors.indigo,
   textTheme: const TextTheme(
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       fontWeight: FontWeight.w600,
       fontSize: 24,
       color: Colors.white,
