@@ -44,16 +44,6 @@ const config = defineConfig([
       terser(),
     ],
   },
-  // CSS config
-  {
-    input: 'src/styles.ts',
-    output: {
-      dir: 'dist',
-      format: 'cjs',
-      assetFileNames: '[name][extname]',
-    },
-    plugins: [styles({ mode: ['extract'] })],
-  },
 ]);
 
 export default config;
