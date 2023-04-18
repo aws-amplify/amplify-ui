@@ -370,6 +370,15 @@ jobs:
           brew tap wix/brew
           brew install applesimutils
 
+      - name: Create and start iOS simulators
+        run: |
+          xcrun simctl create "iPhone_Test_1" "iPhone 13"
+          xcrun simctl create "iPhone_Test_2" "iPhone 13"
+          xcrun simctl create "iPhone_Test_3" "iPhone 13"
+          xcrun simctl boot iPhone_Test_1
+          xcrun simctl boot iPhone_Test_2
+          xcrun simctl boot iPhone_Test_3
+
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
@@ -432,7 +441,7 @@ jobs:
         run: yarn workspace e2e detox:build:ios:debug
 
       - name: Run E2E tests against react-native example
-        run: yarn workspace e2e detox:e2e:ios:debug
+        run: yarn workspace e2e detox:e2e:ios:debug --parallel 3
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -440,6 +449,12 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Clean up simulators
+        run: |
+          xcrun simctl delete iPhone_Test_1
+          xcrun simctl delete iPhone_Test_2
+          xcrun simctl delete iPhone_Test_3
 
       - name: Upload failure screenshots and errors
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
