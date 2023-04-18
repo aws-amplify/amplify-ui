@@ -15,7 +15,6 @@ export function FlutterAuthenticatorExample({
   includeSocialProviders = false,
   useCustomUI = false,
   useCustomTheme = false,
-  showWeb = true,
   // id is passed to the flutter authenticator.
   // it is used by the authenticator to signal when the authenticator has finished loading.
   id = generateId(),
@@ -93,20 +92,7 @@ export function FlutterAuthenticatorExample({
       <Tabs justifyContent="flex-start">
         <TabItem title="iOS">{getDeviceView('ios')}</TabItem>
         <TabItem title="Android">{getDeviceView('android')}</TabItem>
-        {showWeb ? (
-          <TabItem title="Web & Desktop (developer preview)">
-            <Alert variation="info" role="none">
-              {
-                'Web and desktop support for the Amplify Flutter Auth category is now in developer preview. See the '
-              }
-              <Link href={'/flutter/getting-started/installation'}>
-                {'installation guide '}
-              </Link>
-              {'for more info.'}
-            </Alert>
-            {getDeviceView('web')}
-          </TabItem>
-        ) : null}
+        <TabItem title="Web & Desktop">{getDeviceView('web')}</TabItem>
       </Tabs>
     </div>
   );
