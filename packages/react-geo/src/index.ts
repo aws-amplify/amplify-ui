@@ -1,1 +1,1 @@
-export const Geo = 'Geo';
+export { MapView, LocationSearch } from './components';
