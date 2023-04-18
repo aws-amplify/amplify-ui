@@ -11,6 +11,7 @@ export default function LivenessInlineResults({
   getLivenessResponse,
   onUserCancel,
 }) {
+  console.log(typeof getLivenessResponse.auditImageBytes);
   const { isLive, confidenceScore, auditImageBytes } = getLivenessResponse;
 
   const displayScore = truncateNumber(confidenceScore, 4);
