@@ -46,5 +46,7 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     if [ "$BUILD_TOOL" == 'vue-cli' ]; then
         echo "vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME"
         vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME
+    elif [ "$BUILD_TOOL" == 'nuxt' ]; then
+        npx nuxt init $MEGA_APP_NAME
     fi
 fi

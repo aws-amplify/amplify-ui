@@ -117,6 +117,13 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: nuxt
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
 
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}

@@ -84,4 +84,9 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         echo "cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts"
         cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
     fi
+
+    if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
+        echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
+        cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
+    fi
 fi
