@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['amplify-ui/react'],
+  extends: ['amplify-ui/react-core'],
   // point to local tsconfig
   parserOptions: { project: ['./tsconfig.json'], tsconfigRootDir: __dirname },
   ignorePatterns: ['dist', '*.config.js', '.eslintrc.js', 'jest.setup.ts'],
