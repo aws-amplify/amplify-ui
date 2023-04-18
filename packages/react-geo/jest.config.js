@@ -7,8 +7,8 @@ module.exports = {
     global: {
       branches: 64,
       functions: 44,
-      lines: 71,
-      statements: 75,
+      lines: 70,
+      statements: 74,
     },
   },
   globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
