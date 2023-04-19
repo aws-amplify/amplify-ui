@@ -24,7 +24,7 @@ on:
         required: true
       IN_APP_MESSAGING_E2E_ROLE_ARN:
         required: true
-      LIVENESS_E2E_ROLE_ARN:
+      LIVENESS_E2E_ROLE_ARN_NEW:
         required: true
       DOMAIN:
         required: true
@@ -233,8 +233,8 @@ jobs:
       - name: Configure liveness credentials
         uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
         with:
-          aws-region: us-west-2
-          role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN_NEW }}
 
       - name: Create temp AWS profile
         run: |
