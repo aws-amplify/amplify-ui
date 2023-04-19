@@ -425,8 +425,8 @@ jobs:
       - name: Start Metro Bundler in background
         run: yarn workspace react-native-example dev --reset-cache &
 
-      - name: Rebuild detox
-        run: yarn detox clean-framework-cache && yarn detox build-framework-cache
+      - name: Rebuild detox cache
+        run: yarn detox rebuild-framework-cache
 
       - name: Build ios example
         run: yarn workspace e2e detox:build:ios:debug
