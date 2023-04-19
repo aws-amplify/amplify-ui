@@ -34,9 +34,9 @@ Widget build(BuildContext context) {
           title: 'Bio',
           attributeKey: const CognitoUserAttributeKey.custom('bio'),
         ),
+        SignUpFormField.password(),
+        SignUpFormField.passwordConfirmation(),
       ],
-      SignUpFormField.password(),
-      SignUpFormField.passwordConfirmation(),
     ),
     child: MaterialApp(
       builder: Authenticator.builder(),
