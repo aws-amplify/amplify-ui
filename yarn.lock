@@ -4692,10 +4692,10 @@
     resolve-pkg "^2.0.0"
     uuid "^8.3.2"
 
-"@bahmutov/cypress-esbuild-preprocessor@^2.1.3":
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/@bahmutov/cypress-esbuild-preprocessor/-/cypress-esbuild-preprocessor-2.2.0.tgz#ba5b6bf96e83da3cb4d0cc2baedd0eeee8c84a4f"
-  integrity sha512-pTvxRi6+OFsXy6uCn/HlO5zi0fUZWbiCtTiLTDf/+kgEfZ/Y8WIxZ2pjuir9MEM8prQenBw60TLcM0wcazh7+Q==
+"@bahmutov/cypress-esbuild-preprocessor@~2.1.3":
+  version "2.1.5"
+  resolved "https://registry.npmjs.org/@bahmutov/cypress-esbuild-preprocessor/-/cypress-esbuild-preprocessor-2.1.5.tgz#6e4746a470f097f3833a25f5e72bdcac178cbc41"
+  integrity sha512-cJMlZOZ3kUb/s2KQ8p7DJNiOzwApSoYCiK1toJKBvz58MbqBIeBjD7F8NFJE1MrFzYBYAOQcSMVWHp4y1l/Fjg==
   dependencies:
     debug "4.3.4"
 
@@ -24368,10 +24368,10 @@ react-live@^2.4.1:
     react-simple-code-editor "^0.11.0"
     unescape "^1.0.1"
 
-react-map-gl@7.0.15:
-  version "7.0.15"
-  resolved "https://registry.npmjs.org/react-map-gl/-/react-map-gl-7.0.15.tgz#ded08ccff49012099a9945b6c2ef7f266dfbde49"
-  integrity sha512-l7x8lBhIEcHTreSgrc7hsKv5HsMY1wQg2PVXuKAPmQtgRZc9C3NGwurVJFe24gOlAwzta5UavAHWDiZdU1ZNCw==
+react-map-gl@7.0.23:
+  version "7.0.23"
+  resolved "https://registry.npmjs.org/react-map-gl/-/react-map-gl-7.0.23.tgz#f6a2daf34fc3e4fb67d7ab4fa687cf6887c8810c"
+  integrity sha512-874jEtdS/fB2R4jSJKud9va0H0GlxhtiSFuUMATiniQ7A2lQnZLkZIPEWwIPkMmNZDXNlTAkxWEdSHzsqADVAw==
   dependencies:
     "@types/mapbox-gl" "^2.6.0"
 
