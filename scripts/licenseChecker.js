@@ -1,7 +1,6 @@
 const checker = require('license-checker');
 const path = require('path');
 
-// The licenses prohibited from use at Amazon - https://policy.a2z.com/docs/82477/publication
 const prohibitedLicenses = [
   'AGPL-1.0',
   'AGPL-3.0',
