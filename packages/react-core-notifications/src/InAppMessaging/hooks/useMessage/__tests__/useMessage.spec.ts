@@ -4,7 +4,7 @@ import {
 } from '@aws-amplify/notifications';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 
-import { RenderNothing } from '../../../../components';
+import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../../useInAppMessaging';
 import {
   BannerMessageCommonProps,
