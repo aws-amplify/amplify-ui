@@ -45,7 +45,7 @@ const MapView = forwardRef<MapRef, MapViewProps>(
     useDeprecationWarning({
       shouldWarn: true,
       message:
-      'The `MapView` component has been migrated to `@aws-amplify/ui-react-geo` and will be removed from this package in a future major release. Please install `@aws-amplify/ui-react-geo` and update the import path.',
+        'The `MapView` component has been migrated to `@aws-amplify/ui-react-geo` and will be removed from this package in a future major release. Please install `@aws-amplify/ui-react-geo` and update the import path.',
     });
     const amplifyConfig = Amplify.configure() as AmplifyGeoConfig;
     const geoConfig = useMemo(
@@ -102,9 +102,8 @@ const MapView = forwardRef<MapRef, MapViewProps>(
         ref={ref}
         style={styleProps}
         transformRequest={transformRequest}
-        // workaround until type is fixed on react-map-gl: https://github.com/visgl/react-map-gl/issues/1973
-        fog={props.fog ?? undefined}
-        terrain={props.terrain ?? undefined}
+        fog={props.fog}
+        terrain={props.terrain}
       />
     ) : null;
   }
