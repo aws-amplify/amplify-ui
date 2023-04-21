@@ -79,3 +79,25 @@ Then you need to:
      DOCSEARCH_DOCS_INDEX_NAME="docsearch"
      SITE_URL="https://localhost:5001" # can be any string
      ```
+
+## Link Checking Locally
+
+> Run the following commands from the monorepo entry point
+
+1. Build the docs site:
+
+```sh
+$ yarn docs build
+```
+
+2. Run the build:
+
+```sh
+$ yarn docs start
+```
+
+3. In a **separate** terminal window, run link checking:
+
+```sh
+$ yarn docs test:links
+```
