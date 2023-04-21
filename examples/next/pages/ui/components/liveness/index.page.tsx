@@ -13,8 +13,8 @@ Amplify.configure({
     endpoints: [
       {
         name: 'SampleBackend',
-        endpoint: 'https://s0ctzw9239.execute-api.us-east-1.amazonaws.com/prod',
-        region: 'us-east-1',
+        endpoint: 'https://lfurp52ij6.execute-api.us-east-2.amazonaws.com/dev',
+        region: 'us-east-2',
         // endpoint: '/liveness-next-example/api',
       },
     ],
