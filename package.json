@@ -30,8 +30,9 @@
     "version:studio": "yarn changeset version --snapshot studio-$(git rev-parse --short=7 HEAD) && yarn generateVersions && yarn angular build",
     "publish:studio": "yarn changeset publish --tag studio",
     "version:latest": "yarn changeset version && yarn generateVersions && yarn angular build",
-    "publish:latest": "yarn changeset publish",
+    "publish:latest": "yarn setLivenessPrivate && yarn changeset publish",
     "generateVersions": "node scripts/generateVersion",
+    "setLivenessPrivate": "node scripts/setLivenessPackagePrivate",
     "bumpVersions": "yarn changeset version && yarn generateVersions"
   },
   "workspaces": {
