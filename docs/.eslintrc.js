@@ -3,7 +3,10 @@ module.exports = {
   rules: {
     // Doesn't apply to nextJS
     'react/react-in-jsx-scope': 'off',
-    'no-alert': 'off', // We use Alert in example code
+
+    // We use Alert and console in example code:
+    'no-alert': 'off',
+    'no-console': 0,
 
     // @TODO Fix these:
     '@typescript-eslint/explicit-module-boundary-types': 0,
@@ -22,7 +25,6 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 0,
     'react/jsx-no-useless-fragment': 0,
     'react/destructuring-assignment': 0,
-    'no-console': 0,
 
     // This rule requires the `strictNullChecks` compiler option to be turned on to function correctly
     '@typescript-eslint/prefer-nullish-coalescing': 0,
