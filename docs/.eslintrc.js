@@ -1,9 +1,6 @@
 module.exports = {
   extends: ['next/core-web-vitals', 'amplify-ui/react'],
   rules: {
-    // react hook rules
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'error',
     // Doesn't apply to nextJS
     'react/react-in-jsx-scope': 'off',
     'no-alert': 'off', // We use Alert in example code
