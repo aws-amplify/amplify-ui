@@ -301,7 +301,36 @@ jobs:
             packages/e2e/cypress/screenshots/**
           retention-days: 5
 
+  check-changed-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
+    steps:
+      - name: Checkout Amplify UI
+        id: has-rn-changed-packages
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
+          # always points to the target branch.
+          # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          fetch-depth: 2
+          persist-credentials: false
+
+      - name: Determine if there were changes to react-native packages
+        id: has-rn-changed-packages
+        uses: ./.github/actions/changed-packages
+        with:
+          commit: ${{ inputs.commit }}
+          packages: |
+            packages/react-native
+            packages/react-core
+            packages/ui
+
   e2e-ios:
+    needs: check-changed-packages
+    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
@@ -451,6 +480,8 @@ jobs:
           retention-days: 5
 
   e2e-android:
+    needs: check-changed-packages
+    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
