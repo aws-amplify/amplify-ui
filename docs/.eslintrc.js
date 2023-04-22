@@ -23,7 +23,6 @@ module.exports = {
     '@typescript-eslint/await-thenable': 0,
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-misused-promises': 0,
-    'react/jsx-no-useless-fragment': 0,
     'react/destructuring-assignment': 0,
 
     // This rule requires the `strictNullChecks` compiler option to be turned on to function correctly

@@ -179,29 +179,27 @@ export const GridDemo = () => {
     <Demo
       code={propsToCode(gridContainerProps, gridItemsCode)}
       propControls={
-        <>
-          <Expander
-            type="multiple"
-            value={value as string | string[]}
-            onChange={handleExpandChange}
-          >
-            <ExpanderItem title="Grid container props" value="item-1">
-              <GridContainerPropControls {...gridContainerProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Header) props" value="item-2">
-              <GridItemPropControls {...headerGridItemProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Nav) props" value="item-3">
-              <GridItemPropControls {...navGridItemProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Main) props" value="item-4">
-              <GridItemPropControls {...mainGridItemProps} />
-            </ExpanderItem>
-            <ExpanderItem title="Grid item (Footer) props" value="item-5">
-              <GridItemPropControls {...footerGridItemProps} />
-            </ExpanderItem>
-          </Expander>
-        </>
+        <Expander
+          type="multiple"
+          value={value as string | string[]}
+          onChange={handleExpandChange}
+        >
+          <ExpanderItem title="Grid container props" value="item-1">
+            <GridContainerPropControls {...gridContainerProps} />
+          </ExpanderItem>
+          <ExpanderItem title="Grid item (Header) props" value="item-2">
+            <GridItemPropControls {...headerGridItemProps} />
+          </ExpanderItem>
+          <ExpanderItem title="Grid item (Nav) props" value="item-3">
+            <GridItemPropControls {...navGridItemProps} />
+          </ExpanderItem>
+          <ExpanderItem title="Grid item (Main) props" value="item-4">
+            <GridItemPropControls {...mainGridItemProps} />
+          </ExpanderItem>
+          <ExpanderItem title="Grid item (Footer) props" value="item-5">
+            <GridItemPropControls {...footerGridItemProps} />
+          </ExpanderItem>
+        </Expander>
       }
     >
       <Grid
