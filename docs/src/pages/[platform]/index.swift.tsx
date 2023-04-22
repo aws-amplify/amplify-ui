@@ -1,21 +1,14 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 
-import {
-  AmplifySection,
-  AuthenticationSection,
-} from '@/components/home/sections';
+import { AmplifySection } from '@/components/home/sections';
 
-const SwiftHomePage = ({ colorMode }) => {
+const SwiftHomePage = () => {
   const {
     query: { platform = 'swift' },
   } = useRouter();
 
-  return (
-    <>
-      <AmplifySection platform={platform} />
-    </>
-  );
+  return <AmplifySection platform={platform} />;
 };
 
 export default SwiftHomePage;

@@ -12,7 +12,6 @@ type ControlType = 'checkbox' | 'text' | string;
 export type FieldControl = [FieldValue, FieldSetter, FieldName, ControlType];
 
 export interface GetFieldControlsProps {
-  typeName: string;
   fields: FieldControl[];
 }
 

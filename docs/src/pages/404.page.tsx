@@ -13,8 +13,8 @@ import { cats } from '@/data/cats';
 
 const Custom404 = () => {
   const { tokens } = useTheme();
-  let [href, setHref] = React.useState('https://ui.docs.amplify.aws');
-  let [cat, setCat] = React.useState(undefined);
+  const [href, setHref] = React.useState('https://ui.docs.amplify.aws');
+  const [cat, setCat] = React.useState(undefined);
 
   React.useEffect(() => {
     setHref(window.location.href);
@@ -29,7 +29,7 @@ const Custom404 = () => {
           {`Apologies—we can't seem to find this page.`} <br />
           {`If this is a mistake, please `}
           <Link
-            isExternal={true}
+            isExternal
             href={`https://github.com/aws-amplify/amplify-ui/issues/new?title=[missing-page]&labels=Documentation&body=${encodeURI(`**Page**: [\`${href}\`](${href})
 **Feedback**: <!-- your feedback here -->`)}`}
           >

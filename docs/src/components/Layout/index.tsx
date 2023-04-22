@@ -20,6 +20,15 @@ import {
 
 const nextRootSelector = '#__next';
 
+function getGitHubRepo(framework = 'react') {
+  if (framework === 'android') {
+    return ANDROID_GITHUB_REPO;
+  } else if (framework === 'swift') {
+    return SWIFT_GITHUB_REPO;
+  }
+  return GITHUB_REPO;
+}
+
 export default function Page({
   children,
   frontmatter = {},
@@ -156,13 +165,4 @@ export default function Page({
       ) : null}
     </>
   );
-}
-
-function getGitHubRepo(framework = 'react') {
-  if (framework === 'android') {
-    return ANDROID_GITHUB_REPO;
-  } else if (framework === 'swift') {
-    return SWIFT_GITHUB_REPO;
-  }
-  return GITHUB_REPO;
 }

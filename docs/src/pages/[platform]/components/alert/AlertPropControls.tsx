@@ -62,7 +62,7 @@ export const AlertPropControls: AlertPropControlsInterface = ({
 
       <TextField
         label="Body"
-        value={body as string}
+        value={body}
         onChange={(event) => setBody(event.target.value)}
       />
 
@@ -71,7 +71,7 @@ export const AlertPropControls: AlertPropControlsInterface = ({
         isChecked={isDismissible}
         labelPosition="end"
         onChange={(event) => {
-          setIsDismissible(event.target.checked as AlertProps['isDismissible']);
+          setIsDismissible(event.target.checked);
         }}
       />
 
@@ -79,9 +79,7 @@ export const AlertPropControls: AlertPropControlsInterface = ({
         label="hasIcon"
         isChecked={hasIcon}
         labelPosition="end"
-        onChange={(event) =>
-          setHasIcon(event.target.checked as AlertProps['hasIcon'])
-        }
+        onChange={(event) => setHasIcon(event.target.checked)}
       />
     </Flex>
   );

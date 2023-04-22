@@ -23,7 +23,7 @@ const propsToCode = (props: ViewProps) => {
     getPropString(props.width, 'width') +
     `\n  onClick={() => alert('🏔 What a beautiful <View>! 🔭')}
   >
-  {"I\'m a <${props.as}>! 🤩"}
+  {"I'm a <${props.as}>! 🤩"}
 </View>`
   );
 };

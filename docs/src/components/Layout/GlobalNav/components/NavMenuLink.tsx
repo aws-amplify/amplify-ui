@@ -1,5 +1,4 @@
 import { Text, Link } from '@aws-amplify/ui-react';
-import { Dispatch, SetStateAction } from 'react';
 import styles from '../GlobalNav.module.scss';
 import { IconLink, ExternalLink } from './icons';
 import { NavMenuItem } from '../GlobalNav';
@@ -10,11 +9,8 @@ export function NavMenuLink({
 }: {
   navMenuItem: NavMenuItem;
   currentMenuItem: string;
-  hasSecondaryNav?: boolean;
-  isMobile?: boolean;
-  setShowGlobalNav?: Dispatch<SetStateAction<boolean>>;
 }) {
-  const label: string = navMenuItem.label;
+  const { label } = navMenuItem;
   const linkContent: JSX.Element =
     navMenuItem.type === 'EXTERNAL' ? (
       <Text as="span" color="inherit">
@@ -45,7 +41,7 @@ export function NavMenuLink({
   } else {
     return (
       <Link
-        isExternal={true}
+        isExternal
         className={styles['nav-menu-item']}
         href={navMenuItem.url}
       >

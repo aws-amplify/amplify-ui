@@ -4,7 +4,6 @@ import {
   MdOutlineChecklist,
   MdOutlineWidgets,
   MdOutlineAutoAwesome,
-  MdWebAssetOff,
   MdOutlineArticle,
   MdOutlinePower,
 } from 'react-icons/md';
@@ -29,22 +28,6 @@ import Link from 'next/link';
 import { FrameworkChooser } from './FrameworkChooser';
 import { LogoLink } from './LogoLink';
 import { MenuButton } from './MenuButton';
-
-const NavLinks = ({
-  items,
-  onClick,
-}: {
-  items: ComponentNavItem[];
-  onClick?: () => void;
-}) => (
-  <Collection type="list" items={items} gap="0">
-    {({ href, label, tertiary }) => (
-      <NavLink key={label} href={href} tertiary={tertiary} onClick={onClick}>
-        {label}
-      </NavLink>
-    )}
-  </Collection>
-);
 
 const NavLink = ({
   href,
@@ -74,6 +57,22 @@ const NavLink = ({
     </Link>
   );
 };
+
+const NavLinks = ({
+  items,
+  onClick,
+}: {
+  items: ComponentNavItem[];
+  onClick?: () => void;
+}) => (
+  <Collection type="list" items={items} gap="0">
+    {({ href, label, tertiary }) => (
+      <NavLink key={label} href={href} tertiary={tertiary} onClick={onClick}>
+        {label}
+      </NavLink>
+    )}
+  </Collection>
+);
 
 const NavLinkComponentsSection = ({ heading, components, ...props }) => {
   const { query } = useRouter();
@@ -133,9 +132,9 @@ const ExpanderTitle = ({ Icon, text }) => {
 // TODO: clean up this logic
 const SecondaryNav = (props) => {
   const { pathname } = useRouter();
-  const { platform } = props;
+  const { platform, onClick } = props;
   // Extract section from URL (/section/... => section)
-  let section = pathname.split('/')[2];
+  const section = pathname.split('/')[2];
   const [value, setValue] = React.useState<string | string[]>([section]);
 
   const isFlutter = platform === 'flutter';
@@ -156,7 +155,7 @@ const SecondaryNav = (props) => {
           value="getting-started"
         >
           {gettingStarted.map(({ label, ...rest }) => (
-            <NavLink key={label} {...rest} onClick={props.onClick}>
+            <NavLink key={label} {...rest} onClick={onClick}>
               {label}
             </NavLink>
           ))}
@@ -185,7 +184,7 @@ const SecondaryNav = (props) => {
         value="connected-components"
       >
         {connectedComponents.map(({ label, href, ...rest }) => (
-          <NavLink key={href} href={href} {...rest} onClick={props.onClick}>
+          <NavLink key={href} href={href} {...rest} onClick={onClick}>
             {label}
           </NavLink>
         ))}
@@ -198,7 +197,7 @@ const SecondaryNav = (props) => {
           value="theming"
         >
           {theming.map(({ label, ...rest }) => (
-            <NavLink key={label} {...rest} onClick={props.onClick}>
+            <NavLink key={label} {...rest} onClick={onClick}>
               {label}
             </NavLink>
           ))}
@@ -212,7 +211,7 @@ const SecondaryNav = (props) => {
           value="guides"
         >
           {guides.map(({ label, ...rest }) => (
-            <NavLink {...rest} key={label} onClick={props.onClick}>
+            <NavLink {...rest} key={label} onClick={onClick}>
               {label}
             </NavLink>
           ))}

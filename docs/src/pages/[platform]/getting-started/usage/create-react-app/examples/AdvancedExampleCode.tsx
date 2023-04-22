@@ -157,7 +157,9 @@ function App() {
                 placeholder="Select your size"
                 value={size}
                 onChange={(e) => {
-                  e.target.value !== '' && setError(false);
+                  if (e.target.value !== '') {
+                    setError(false);
+                  }
                   setSize(e.target.value);
                 }}
                 hasError={error}

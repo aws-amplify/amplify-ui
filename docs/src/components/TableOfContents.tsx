@@ -5,7 +5,7 @@ import { Text, ScrollView } from '@aws-amplify/ui-react';
 export const TableOfContents = ({ title, headings }) => {
   const [activeHeading, setActiveHeading] = React.useState(-1);
 
-  let offsets = [...headings].map((heading) => {
+  const offsets = [...headings].map((heading) => {
     return heading.top;
   });
 

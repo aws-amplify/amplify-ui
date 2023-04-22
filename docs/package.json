@@ -61,6 +61,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "eslint-config-amplify-ui": "0.0.0",
     "@babel/preset-env": "^7.20.2",
     "@supercharge/promise-pool": "^2.4.0",
     "@types/jest": "^27",

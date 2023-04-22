@@ -166,7 +166,11 @@ const Preview = () => {
   );
 };
 
-export const ComingSoonPrimitiveSection = ({ platform }) => {
+export const ComingSoonPrimitiveSection = ({
+  platform,
+}: {
+  platform: string;
+}): JSX.Element => {
   return (
     <View as="section" className="docs-home-section docs-grid-bg">
       <Flex direction="column" className="docs-home-subsection--thin">
@@ -182,7 +186,11 @@ export const ComingSoonPrimitiveSection = ({ platform }) => {
   );
 };
 
-export const PrimitiveSection = ({ platform, ...rest }) => {
+export const PrimitiveSection = ({
+  platform,
+}: {
+  platform: string;
+}): JSX.Element => {
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,

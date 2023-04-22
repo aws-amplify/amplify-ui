@@ -18,7 +18,7 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
   const [indicatorPosition, setIndicatorPosition] = React.useState<
     TabsProps['indicatorPosition']
   >(initialValues.indicatorPosition);
-  const children = initialValues.children;
+  const { children } = initialValues;
 
   React.useEffect(() => {
     demoState.set(Tabs.displayName, {

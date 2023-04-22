@@ -41,7 +41,7 @@ export const AuthenticatorClasses = () => {
           items={classList}
           gap="1.5rem"
           direction="row"
-          isSearchable={true}
+          isSearchable
           searchFilter={search}
           searchPlaceholder="Type to search..."
           wrap="wrap"

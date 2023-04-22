@@ -34,6 +34,7 @@ if (typeof window === 'undefined') {
   // @ts-ignore Cannot assign to 'useLayoutEffect' because it is a read-only property.ts(2540)
   React.useLayoutEffect = () => {};
 } else {
+  // eslint-disable-next-line no-console
   console.log(`
   _____           _ _ ___        _____ _____ 
  |  _  |_____ ___| |_|  _|_ _   |  |  |     |

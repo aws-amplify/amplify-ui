@@ -11,7 +11,7 @@ const HomeEditor = dynamic(() => import('../HomeEditor'), {
   ssr: false,
 }) as React.FC<any>;
 
-export const LiveSection = ({ platform, ...rest }) => {
+export const LiveSection = (): JSX.Element => {
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersectionObserver(ref, {
     threshold: 0.125,

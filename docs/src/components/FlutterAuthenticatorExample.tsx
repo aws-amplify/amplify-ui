@@ -1,12 +1,41 @@
-import {
-  Alert,
-  Link,
-  Loader,
-  TabItem,
-  Tabs,
-  View,
-} from '@aws-amplify/ui-react';
+import { Alert, Loader, TabItem, Tabs, View } from '@aws-amplify/ui-react';
 import React, { useCallback } from 'react';
+
+const generateId = () => (Math.random() + 1).toString(36).substring(2);
+
+// Loader is in a separate component to prevent the iframe from re-rendering
+// when setHasLoaded is called
+function FlutterAuthenticatorLoader({ id }) {
+  const [hasLoaded, setHasLoaded] = React.useState(false);
+
+  const onMessage = useCallback(
+    (event) => {
+      try {
+        if (event && event.data) {
+          const data = JSON.parse(event.data);
+          if (data['name'] === 'loaded' && data['id'] === id) {
+            setHasLoaded(true);
+            window.removeEventListener('message', onMessage);
+          }
+        }
+      } catch (error) {
+        // There might be other messages on the window and we don't want to barf
+        // console errors.
+      }
+    },
+    [id]
+  );
+
+  React.useEffect(() => {
+    // the authenticator will post a message to the parent window when it has finished loading
+    window.addEventListener('message', onMessage);
+    return () => {
+      window.removeEventListener('message', onMessage);
+    };
+  }, [onMessage]);
+
+  return <>{hasLoaded ? null : <Loader variation="linear" size="small" />}</>;
+}
 
 export function FlutterAuthenticatorExample({
   initialStep = 'signIn',
@@ -42,7 +71,7 @@ export function FlutterAuthenticatorExample({
       device,
       ...(signUpAttributes.length && { signUpAttributes }),
     };
-    var src = `${baseUrl}?${new URLSearchParams(queryParams).toString()}`;
+    const src = `${baseUrl}?${new URLSearchParams(queryParams).toString()}`;
 
     const style = {
       ios: {
@@ -97,37 +126,3 @@ export function FlutterAuthenticatorExample({
     </div>
   );
 }
-
-// Loader is in a separate component to prevent the iframe from re-rendering
-// when setHasLoaded is called
-function FlutterAuthenticatorLoader({ id }) {
-  const [hasLoaded, setHasLoaded] = React.useState(false);
-
-  const onMessage = useCallback((event) => {
-    try {
-      if (event && event.data) {
-        const data = JSON.parse(event.data);
-        if (data['name'] === 'loaded' && data['id'] === id) {
-          console.log('loaded!');
-          setHasLoaded(true);
-          window.removeEventListener('message', onMessage);
-        }
-      }
-    } catch (error) {
-      // There might be other messages on the window and we don't want to barf
-      // console errors.
-    }
-  }, []);
-
-  React.useEffect(() => {
-    // the authenticator will post a message to the parent window when it has finished loading
-    window.addEventListener('message', onMessage);
-    return () => {
-      window.removeEventListener('message', onMessage);
-    };
-  }, [onMessage]);
-
-  return <>{hasLoaded ? null : <Loader variation="linear" size="small" />}</>;
-}
-
-const generateId = () => (Math.random() + 1).toString(36).substring(2);

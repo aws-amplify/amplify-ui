@@ -15,7 +15,7 @@ import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import SwiftHomePage from './index.swift';
 import AndroidHomePage from './index.android';
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   return getCustomStaticPath(FRAMEWORKS);
 }
 
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
  * `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing"
  */
 
-export async function getStaticProps() {
+export function getStaticProps() {
   return { props: {} };
 }
 
@@ -46,7 +46,7 @@ const HomePage = ({ colorMode }) => {
     return () => {
       document.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   let pageContent;
 

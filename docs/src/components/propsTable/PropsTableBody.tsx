@@ -5,7 +5,7 @@ import { CodeHighlight } from '@/components/CodeHighlight';
 import { Property } from '../../../scripts/types/catalog';
 
 export const PropsTableBody = ([
-  propName,
+  __propName,
   { name, type, description, isOptional },
 ]: [string, Property]): JSX.Element => {
   return (

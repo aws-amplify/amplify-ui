@@ -29,6 +29,7 @@ const shouldRenderFragment = (
   platform: string | string[]
 ): boolean => {
   if (isArray(platform)) {
+    // eslint-disable-next-line no-console
     console.error('ERROR - Only one platform should be selected.');
     return true;
   }
@@ -40,6 +41,16 @@ const shouldRenderFragment = (
     return allowlist.includes(platform);
   }
 };
+
+function getPlatform(framework = 'react', useCommonWebContent = false) {
+  if (!useCommonWebContent) {
+    return framework;
+  }
+  if (['react', 'vue', 'angular'].includes(framework)) {
+    return 'web';
+  }
+  return framework;
+}
 
 export const Fragment = ({
   children,
@@ -56,7 +67,7 @@ export const Fragment = ({
     }
 
     return dynamic(() => children({ platform }), {
-      loading({ error, isLoading }) {
+      loading({ error }) {
         if (error) {
           return (
             <Alert role="none" variation="warning">
@@ -84,17 +95,7 @@ export const Fragment = ({
         );
       },
     });
-  }, [children, platform]);
+  }, [children, platform, platforms]);
 
   return Component ? <Component /> : null;
 };
-
-function getPlatform(framework = 'react', useCommonWebContent = false) {
-  if (!useCommonWebContent) {
-    return framework;
-  }
-  if (['react', 'vue', 'angular'].includes(framework)) {
-    return 'web';
-  }
-  return framework;
-}

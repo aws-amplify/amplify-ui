@@ -11,7 +11,6 @@ interface DesktopNavProps {
   rightLinks: NavMenuItem[];
   navLinksContainerRef: MutableRefObject<HTMLDivElement>;
   navLinksRightRef: MutableRefObject<HTMLDivElement>;
-  hasSecondaryNav: boolean;
   secondaryNavDesktop?: JSX.Element;
 }
 
@@ -21,7 +20,6 @@ export function DesktopNav({
   rightLinks,
   navLinksContainerRef,
   navLinksRightRef,
-  hasSecondaryNav,
   secondaryNavDesktop,
 }: DesktopNavProps) {
   return (

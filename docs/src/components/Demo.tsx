@@ -15,18 +15,9 @@ export const Demo = ({
   children,
   childrenOverflow = 'auto',
   propControls,
-  themeControls,
   code,
 }: DemoProps) => {
-  const [copied, setCopied] = React.useState(false);
   const { tokens } = useTheme();
-
-  const copy = () => {
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-  };
 
   return (
     <View
