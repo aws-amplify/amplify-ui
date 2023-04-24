@@ -13,6 +13,10 @@ export default function LivenessInlineResults({
 }) {
   const { isLive, confidenceScore, auditImageBytes } = getLivenessResponse;
 
+  // Previously the rekognition backend passed the base64 string but from the api direclty you receive a byte array
+  var base64string = Buffer.from(
+    new Uint8Array(Object.values(auditImageBytes))
+  ).toString('base64');
   const displayScore = truncateNumber(confidenceScore, 4);
   return (
     <>
@@ -39,7 +43,7 @@ export default function LivenessInlineResults({
       <Image
         width="100%"
         height="100%"
-        src={`data:image/jpeg;base64,${auditImageBytes}`}
+        src={`data:image/jpeg;base64,${base64string}`}
         alt="Audit image"
       />
     </>
