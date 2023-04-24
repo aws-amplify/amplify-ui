@@ -108,18 +108,42 @@ export const connectedComponents: ComponentNavItem[] = [
     href: '/connected-components/authenticator',
     label: 'Authenticator',
     body: 'The Authenticator component adds complete authentication flows to your application with minimal boilerplate.',
-    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
+    platforms: [
+      'android',
+      'react',
+      'vue',
+      'angular',
+      'flutter',
+      'react-native',
+      'swift',
+    ],
   },
   {
     href: '/connected-components/authenticator/configuration',
     label: 'Configuration',
-    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
+    platforms: [
+      'android',
+      'react',
+      'vue',
+      'angular',
+      'flutter',
+      'react-native',
+      'swift',
+    ],
     tertiary: true,
   },
   {
     href: '/connected-components/authenticator/customization',
     label: 'Customization',
-    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
+    platforms: [
+      'android',
+      'react',
+      'vue',
+      'angular',
+      'flutter',
+      'react-native',
+      'swift',
+    ],
     tertiary: true,
   },
   {
@@ -143,6 +167,18 @@ export const connectedComponents: ComponentNavItem[] = [
     href: '/connected-components/account-settings/delete-user',
     label: 'Delete User',
     platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/connected-components/liveness',
+    label: 'Face Liveness',
+    body: 'Amplify UI provides a UI component for detecting whether the person in front of the camera is live.',
+    platforms: ['react', 'android', 'swift'],
+  },
+  {
+    href: '/connected-components/liveness/customization',
+    label: 'Customization',
+    platforms: ['react', 'android', 'swift'],
     tertiary: true,
   },
   {
@@ -479,12 +515,27 @@ export const gettingStarted: ComponentNavItem[] = [
   {
     href: '/getting-started/introduction',
     label: 'Introduction',
-    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
+    platforms: [
+      'react',
+      'vue',
+      'angular',
+      'flutter',
+      'react-native',
+      'android',
+      'swift',
+    ],
   },
   {
     href: '/getting-started/installation',
     label: 'Installation',
-    platforms: ['react', 'vue', 'angular', 'flutter', 'react-native'],
+    platforms: [
+      'react',
+      'vue',
+      'angular',
+      'flutter',
+      'react-native',
+      'android',
+    ],
   },
   {
     href: '/getting-started/usage',
@@ -607,4 +658,6 @@ export const ANDROID_REFERENCE =
 export const JS_REFERENCE = 'https://aws-amplify.github.io/amplify-js/api/';
 
 export const GITHUB_REPO = `${GITHUB}/amplify-ui/`;
+export const ANDROID_GITHUB_REPO = `${GITHUB}/amplify-ui-android/`;
+export const SWIFT_GITHUB_REPO = `${GITHUB}/amplify-ui-swift/`;
 export const GITHUB_REPO_FILE = `${GITHUB_REPO}/blob/main/`;

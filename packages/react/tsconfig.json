@@ -3,6 +3,6 @@
   "compilerOptions": {
     "noImplicitAny": false
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["scripts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

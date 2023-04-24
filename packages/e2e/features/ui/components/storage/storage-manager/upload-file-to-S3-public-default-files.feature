@@ -7,7 +7,7 @@ Feature: Storage Manager with default files
   Scenario: Storage Manager renders with default files
     Then I see "Browse files"
     And I see "default.jpg"
-    And I see "Uploaded successfully"
+    And I see "Uploaded"
    
   @react
   Scenario: I should not be able to upload more files

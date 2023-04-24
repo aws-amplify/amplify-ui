@@ -2,7 +2,7 @@
 title: Configuration
 metaTitle: Configuration
 description: How to setup and configure your Authenticator component.
-supportedFrameworks: all
+supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
 ---
 
 import { Fragment } from '@/components/Fragment';
@@ -115,6 +115,6 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   {({ platform }) => import(`./variation.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web', 'react-native']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native', 'swift']}>
   {({ platform }) => import(`./hidesignup.${platform}.mdx`)}
 </Fragment>

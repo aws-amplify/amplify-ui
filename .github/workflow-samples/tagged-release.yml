@@ -16,6 +16,11 @@ on:
   push:
     branches: [<BRANCH>]
 
+# This permission block is only required if you're running e2e tests.
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
 jobs:
   # You can skip tests based on your use case.
   setup-cache:
@@ -43,6 +48,7 @@ jobs:
       GEO_E2E_ROLE_ARN: ${{ secrets.GEO_E2E_ROLE_ARN }}
       STORAGE_E2E_ROLE_ARN: ${{ secrets.STORAGE_E2E_ROLE_ARN }}
       IN_APP_MESSAGING_E2E_ROLE_ARN: ${{ secrets.IN_APP_MESSAGING_E2E_ROLE_ARN }}
+      LIVENESS_E2E_ROLE_ARN: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
       DOMAIN: ${{ secrets.DOMAIN }}
       PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
       USERNAME: ${{ secrets.USERNAME }}
@@ -55,6 +61,7 @@ jobs:
 
   publish:
     uses: ./.github/workflows/reusable-tagged-publish.yml
+    needs: e2e
     with:
       dist-tag: <TAG>
     secrets:

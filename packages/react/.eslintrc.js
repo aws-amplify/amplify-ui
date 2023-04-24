@@ -10,7 +10,6 @@ module.exports = {
 
     // NOTE: remove to turn on linting for test files
     '__tests__',
-    'scripts',
   ],
   overrides: [
     {
