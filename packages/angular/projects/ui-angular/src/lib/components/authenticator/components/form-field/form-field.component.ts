@@ -27,8 +27,8 @@ export class FormFieldComponent {
     return getErrors(validationErrors[this.name]);
   }
 
-  public onBlur($event: Event) {
-    let { name } = <HTMLInputElement>$event.target;
+  public onBlur(event: Event): void {
+    const { name } = <HTMLInputElement>event.target;
 
     this.authenticator.updateBlur({ name });
   }

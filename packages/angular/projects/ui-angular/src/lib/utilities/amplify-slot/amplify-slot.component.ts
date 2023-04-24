@@ -18,7 +18,7 @@ export class AmplifySlotComponent implements AfterContentInit {
   @HostBinding('style.display') display = 'contents';
 
   public overridingComponent: TemplateRef<any>;
-  public isOverriden: boolean = false;
+  public isOverriden = false;
 
   constructor(private propService: CustomComponentsService) {}
 

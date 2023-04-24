@@ -10,7 +10,7 @@ import classnames from 'classnames';
 export class PasswordFieldComponent {
   @Input() autocomplete = 'new-password';
   @Input() disabled = false;
-  @Input() fieldId: string = `amplify-field-${nanoid(12)}`;
+  @Input() fieldId = `amplify-field-${nanoid(12)}`;
   @Input() initialValue = '';
   @Input() label = '';
   @Input() name: string;
