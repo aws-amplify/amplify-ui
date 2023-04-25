@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as tf from '@tensorflow/tfjs-core';
 import * as blazeface from '@tensorflow-models/blazeface';
 
@@ -67,33 +66,33 @@ export class BlazeFaceFaceDetection extends FaceDetection {
 
     const timestampMs = Date.now();
 
-    const faces: Face[] = predictions.map((prediction) => {
-      const { topLeft, bottomRight, probability, landmarks } = prediction;
+    const faces: Face[] = predictions
+      .filter((prediction) => !!prediction.landmarks)
+      .map((prediction) => {
+        const { topLeft, bottomRight, probability, landmarks } = prediction;
 
-      if (landmarks === undefined) return;
+        const [right, top] = topLeft as [number, number]; // right, top because the prediction is flipped
+        const [left, bottom] = bottomRight as [number, number]; // left, bottom because the prediction is flipped
+        const width = Math.abs(right - left);
+        const height = Math.abs(bottom - top);
+        const rightEye = (landmarks as number[][])[0];
+        const leftEye = (landmarks as number[][])[1];
+        const nose = (landmarks as number[][])[2];
+        const mouth = (landmarks as number[][])[3];
 
-      const [right, top] = topLeft as [number, number]; // right, top because the prediction is flipped
-      const [left, bottom] = bottomRight as [number, number]; // left, bottom because the prediction is flipped
-      const width = Math.abs(right - left);
-      const height = Math.abs(bottom - top);
-      const rightEye = landmarks[0] as Face['rightEye'];
-      const leftEye = landmarks[1] as Face['leftEye'];
-      const nose = landmarks[2] as Face['nose'];
-      const mouth = landmarks[3] as Face['mouth'];
-
-      return {
-        top,
-        left,
-        width,
-        height,
-        timestampMs,
-        probability: probability[0] as number,
-        rightEye,
-        leftEye,
-        mouth,
-        nose,
-      };
-    });
+        return {
+          top,
+          left,
+          width,
+          height,
+          timestampMs,
+          probability: probability as number,
+          rightEye,
+          leftEye,
+          mouth,
+          nose,
+        };
+      });
 
     return faces;
   }
