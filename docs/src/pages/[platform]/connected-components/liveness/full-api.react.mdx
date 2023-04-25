@@ -1,5 +1,6 @@
 import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
-import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { FACE_LIVENESS_DETECTOR_PROPS, FACE_LIVENESS_DETECTOR_COMPONENTS, FACE_LIVENESS_DETECTOR_CONFIG } from './react-props';
 
 ## Full API Reference
 
@@ -7,140 +8,20 @@ import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTab
 
 Below is the full list of props that can be used with the `FaceLivenessDetector` component. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/liveness.ts#L4).
 
-<ResponsiveTable highlightOnHover>
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Description</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Required</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`sessionId`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">The sessionId as returned by CreateFaceLivenessSession API.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`string`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`true`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`onAnalysisComplete`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Callback that signals when the liveness session has completed analysis. At this point a request can be made to GetFaceLivenessSessionResults.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`() => Promise<void>`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`true`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`region`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">The AWS region to stream the video to, this should match the region you called the CreateFaceLivenessSession API in.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`string`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`true`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`onUserCancel`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Callback called when the user cancels the flow.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`() => void`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`onError`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Callback called when there is error occured on any step.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`(error: Error) => void`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`disableInstructionScreen`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Optional parameter for the disabling the Start/Get Ready Screen, default: false.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`boolean`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`components`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Optional object for overriding some UI components, see example [here](./liveness/customization#components).</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">[`FaceLivenessDetectorComponents`](./liveness#facelivenessdetectorcomponents)</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`displayText`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Optional object for internationalizing strings, see example [here](./liveness/customization#internationalization-i18n).</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">[`LivenessDisplayText`](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/displayText.ts#L120)</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`config`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Optional parameter for advanced options for the component.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">[`FaceLivenessDetectorConfig`](./liveness#facelivenessdetectorconfig)</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-  </TableBody>
-</ResponsiveTable>
+<ReactPropsTable props={FACE_LIVENESS_DETECTOR_PROPS} />
     
 ### FaceLivenessDetectorComponents
 
 Below is the full list of props that can be used with the `FaceLivenessDetectorComponents`. You can also reference the [example here](./liveness/customization#components).
 
-<ResponsiveTable highlightOnHover>
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Description</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Required</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-      <TableRow>
-      <ResponsiveTableCell label="Name">`Header`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Overrides the rendered component in the header section.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`React.ComponentType`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`PhotosensitiveWarning`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Overrides the rendered component for the photosensitivity warning.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`React.ComponentType`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`Instructions`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Overrides the rendered component for the instruction section.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`React.ComponentType`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`ErrorView`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Overrides the rendered component for error view.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`React.ComponentType`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-  </TableBody>
-</ResponsiveTable>
+<ReactPropsTable props={FACE_LIVENESS_DETECTOR_COMPONENTS} />
 
 ### FaceLivenessDetectorConfig
 
 Below is the full list of props that can be used with the `FaceLivenessDetectorConfig`. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/liveness.ts#L42).
 
-<ResponsiveTable highlightOnHover>
-  <TableHead>
-    <TableRow>
-      <TableCell as="th">Name</TableCell>
-      <TableCell as="th">Description</TableCell>
-      <TableCell as="th">Type</TableCell>
-      <TableCell as="th">Required</TableCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-      <TableRow>
-      <ResponsiveTableCell label="Name">`binaryPath`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Overrides the WASM backend binary CDN path, the default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/. When overriding this path ensure that the wasm version matches the version of [@tensorflow/tfjs-backend-wasm](https://www.npmjs.com/package/@tensorflow/tfjs-backend-wasm) installed by npm.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`string`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-    <TableRow>
-      <ResponsiveTableCell label="Name">`faceModelUrl`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Overrides the Blazeface model and weights bin CDN URL default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`string`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
-    </TableRow>
-  </TableBody>
-</ResponsiveTable>
-    
+<ReactPropsTable props={FACE_LIVENESS_DETECTOR_CONFIG} />
+
+### LivenessDisplayText
+
+The text in FaceLivenessDetector is defined as string resources in the component's [displayText.ts file](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/displayText.ts).
