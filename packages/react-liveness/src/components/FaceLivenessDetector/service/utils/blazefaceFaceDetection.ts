@@ -8,7 +8,7 @@ import '@tensorflow/tfjs-backend-cpu';
 import { jitteredExponentialRetry } from '@aws-amplify/core';
 
 import { isWebAssemblySupported } from './support';
-import { FaceDetection, Face } from '../types';
+import { FaceDetection, Face, Coordinate } from '../types';
 
 type BlazeFaceModelBackend = 'wasm' | 'cpu';
 
@@ -71,14 +71,14 @@ export class BlazeFaceFaceDetection extends FaceDetection {
       .map((prediction) => {
         const { topLeft, bottomRight, probability, landmarks } = prediction;
 
-        const [right, top] = topLeft as [number, number]; // right, top because the prediction is flipped
-        const [left, bottom] = bottomRight as [number, number]; // left, bottom because the prediction is flipped
+        const [right, top] = topLeft as Coordinate; // right, top because the prediction is flipped
+        const [left, bottom] = bottomRight as Coordinate; // left, bottom because the prediction is flipped
         const width = Math.abs(right - left);
         const height = Math.abs(bottom - top);
-        const rightEye = (landmarks as number[][])[0];
-        const leftEye = (landmarks as number[][])[1];
-        const nose = (landmarks as number[][])[2];
-        const mouth = (landmarks as number[][])[3];
+        const rightEye = (landmarks as Coordinate[])[0];
+        const leftEye = (landmarks as Coordinate[])[1];
+        const nose = (landmarks as Coordinate[])[2];
+        const mouth = (landmarks as Coordinate[])[3];
 
         return {
           top,
