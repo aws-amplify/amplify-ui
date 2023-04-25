@@ -3,10 +3,7 @@
 # Triggered by: whenever pr is merged to liveness-release
 
 # If successful, we will publish all updated UI packages to
-#   - https://www.npmjs.com/package/@aws-amplify/ui
-#   - https://www.npmjs.com/package/@aws-amplify/ui-react
-#   - https://www.npmjs.com/package/@aws-amplify/ui-vue
-#   - https://www.npmjs.com/package/@aws-amplify/ui-angular
+#   - https://www.npmjs.com/package/@aws-amplify/ui-react-liveness
 
 name: Test and Publish / liveness@latest
 
@@ -96,6 +93,8 @@ jobs:
           skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
         run: yarn build
+      - name: Set liveness package to be public
+        run: yarn setLivenessPublic
       - name: Publish to ui-react-liveness@latest
         run: npm publish
         working-directory: ./packages/react-liveness
