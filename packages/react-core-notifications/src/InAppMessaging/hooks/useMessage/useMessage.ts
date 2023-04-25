@@ -5,7 +5,7 @@ import {
 } from '@aws-amplify/notifications';
 import { isNil } from '@aws-amplify/ui';
 
-import { RenderNothing } from '../../../components';
+import { RenderNothing } from '@aws-amplify/ui-react-core';
 import { useInAppMessaging } from '../useInAppMessaging';
 import { UseMessage, UseMessageParams } from './types';
 import { getContentProps, getPositionProp } from './utils';

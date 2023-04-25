@@ -2,6 +2,9 @@
 
 exports[`@aws-amplify/ui-react-core-notifications exports should match snapshot 1`] = `
 Array [
-  "Notifications",
+  "InAppMessagingProvider",
+  "handleMessageAction",
+  "useInAppMessaging",
+  "useMessage",
 ]
 `;
