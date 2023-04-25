@@ -3,6 +3,8 @@ import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTab
 
 ## Full API Reference
 
+### FaceLivenessDetectorProps
+
 Below is the full list of props that can be used with the `FaceLivenessDetector` component. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/liveness.ts#L4).
 
 <ResponsiveTable highlightOnHover>
@@ -52,19 +54,89 @@ Below is the full list of props that can be used with the `FaceLivenessDetector`
       <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
     </TableRow>
     <TableRow>
-      <ResponsiveTableCell label="Name">`config`</ResponsiveTableCell>
-      <ResponsiveTableCell label="Description">Optional parameter for advanced options for the component.</ResponsiveTableCell>
-      <ResponsiveTableCell label="Type">`FaceLivenessDetectorConfig`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Name">`components`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Optional object for overriding some UI components, see example [here](./liveness/customization#components).</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">[`FaceLivenessDetectorComponents`](./liveness#facelivenessdetectorcomponents)</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
     </TableRow>
     <TableRow>
-      <ResponsiveTableCell label="Name">`config.binaryPath`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Name">`displayText`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Optional object for internationalizing strings, see example [here](./liveness/customization#internationalization-i18n).</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">[`LivenessDisplayText`](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/displayText.ts#L120)</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Name">`config`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Optional parameter for advanced options for the component.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">[`FaceLivenessDetectorConfig`](./liveness#facelivenessdetectorconfig)</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
+    </TableRow>
+  </TableBody>
+</ResponsiveTable>
+    
+### FaceLivenessDetectorComponents
+
+Below is the full list of props that can be used with the `FaceLivenessDetectorComponents`. You can also reference the [example here](./liveness/customization#components).
+
+<ResponsiveTable highlightOnHover>
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Name</TableCell>
+      <TableCell as="th">Description</TableCell>
+      <TableCell as="th">Type</TableCell>
+      <TableCell as="th">Required</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+      <TableRow>
+      <ResponsiveTableCell label="Name">`Header`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Overrides the rendered component in the header section.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`React.ComponentType`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Name">`PhotosensitiveWarning`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Overrides the rendered component for the photosensitivity warning.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`React.ComponentType`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Name">`Instructions`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Overrides the rendered component for the instruction section.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`React.ComponentType`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Name">`ErrorView`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">Overrides the rendered component for error view.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`React.ComponentType`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
+    </TableRow>
+  </TableBody>
+</ResponsiveTable>
+
+### FaceLivenessDetectorConfig
+
+Below is the full list of props that can be used with the `FaceLivenessDetectorConfig`. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/liveness.ts#L42).
+
+<ResponsiveTable highlightOnHover>
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Name</TableCell>
+      <TableCell as="th">Description</TableCell>
+      <TableCell as="th">Type</TableCell>
+      <TableCell as="th">Required</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+      <TableRow>
+      <ResponsiveTableCell label="Name">`binaryPath`</ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Overrides the WASM backend binary CDN path, the default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/. When overriding this path ensure that the wasm version matches the version of [@tensorflow/tfjs-backend-wasm](https://www.npmjs.com/package/@tensorflow/tfjs-backend-wasm) installed by npm.</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">`string`</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
     </TableRow>
     <TableRow>
-      <ResponsiveTableCell label="Name">`config.faceModelUrl`</ResponsiveTableCell>
+      <ResponsiveTableCell label="Name">`faceModelUrl`</ResponsiveTableCell>
       <ResponsiveTableCell label="Description">Overrides the Blazeface model and weights bin CDN URL default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file.</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">`string`</ResponsiveTableCell>
       <ResponsiveTableCell label="Type">`false`</ResponsiveTableCell>
