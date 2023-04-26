@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { Image } from 'react-native';
 
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
-import { MessageImage, MessageLayout } from '@aws-amplify/ui-react-core';
+import {
+  MessageImage,
+  MessageLayout,
+} from '@aws-amplify/ui-react-core-notifications';
 
 import { ImageDimensions, ImagePrefetchStatus, UseMessageImage } from './types';
 import { getLayoutImageDimensions, prefetchNetworkImage } from './utils';
