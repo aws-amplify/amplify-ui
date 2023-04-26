@@ -13,7 +13,7 @@ module.exports = {
         'plugin:@angular-eslint/recommended',
         // This is required if you use inline templates in Components
         'plugin:@angular-eslint/template/process-inline-templates',
-        '../configs/eslint/configs/index.js',
+        'amplify-ui',
       ],
       rules: {
         /*
@@ -55,7 +55,7 @@ module.exports = {
       rules: {},
     },
     {
-      extends: ['../configs/eslint/configs/jest.js'],
+      extends: ['amplify-ui/jest'],
       files: ['**/__tests__/**'],
       rules: {
         // TODO: turn these on after fixing the corresponding lint errors
