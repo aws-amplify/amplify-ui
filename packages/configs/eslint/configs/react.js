@@ -5,7 +5,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
 
     // extend internal config last to ensure prettier is final loaded extension
-    '@aws-amplify/eslint-config-amplify-ui',
+    '@aws-amplify/amplify-ui',
   ],
   parserOptions: { ecmaFeatures: { jsx: true } },
   settings: { react: { version: 'detect' } },

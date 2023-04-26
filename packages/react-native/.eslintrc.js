@@ -1,9 +1,9 @@
 module.exports = {
   ignorePatterns: ['dist', '.eslintrc.js', '*.config.js', 'jest.setup.js'],
-  extends: ['@aws-amplify/eslint-config-amplify-ui/react'],
+  extends: ['@aws-amplify/amplify-ui/react'],
   overrides: [
     {
-      extends: ['@aws-amplify/eslint-config-amplify-ui/jest'],
+      extends: ['@aws-amplify/amplify-ui/jest'],
       files: ['**/__mocks__/**', '**/__tests__/**'],
     },
   ],

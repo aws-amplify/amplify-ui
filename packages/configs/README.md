@@ -94,13 +94,13 @@ To use the `eslint` configs in an Amplify UI package, declare `@aws-amplify/esli
 
 **`@aws-amplify/eslint-config-amplify-ui`/`@aws-amplify/eslint-config-amplify-ui/react`**
 
-Add the desired config to the `extends` field of the desired package _.eslintrc.js_, along with the noted `parserOptions`. The configs can be extended using `'@aws-amplify/eslint-config-amplify-ui'`.
+Add the desired config to the `extends` field of the desired package _.eslintrc.js_, along with the noted `parserOptions`. The configs can be extended using either short (`'@aws-amplify/amplify-ui'`) or long (`'@aws-amplify/eslint-config-amplify-ui'`) form syntax:
 
 **Short Form Syntax Example:**
 
 ```js
 module.exports = {
-  extends: ['@aws-amplify/eslint-config-amplify-ui'],
+  extends: ['@aws-amplify/amplify-ui'],
   parserOptions: {
     // point to local tsconfig
     project: ['./tsconfig.json'],
@@ -113,7 +113,7 @@ module.exports = {
 
 ```js
 module.exports = {
-  extends: ['@aws-amplify/eslint-config-amplify-ui'],
+  extends: ['@aws-amplify/amplify-ui'],
   parserOptions: {
     // point to local tsconfig
     project: ['./tsconfig.json'],
@@ -131,7 +131,7 @@ module.exports = {
   // add to `overrides` to prevent jest rules from applying to entire package
   overrides: [
     {
-      extends: ['@aws-amplify/eslint-config-amplify-ui/jest'],
+      extends: ['@aws-amplify/amplify-ui'],
       // only apply to files located in `__mocks__` and `__tests__` directories
       files: ['**/__mocks__/**', '**/__tests__/**'],
     },
