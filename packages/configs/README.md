@@ -42,7 +42,7 @@ All packages are in TS strict mode by default unless opted out at the package co
 
 ### Usage of _tsconfig.dist.json_
 
-To allow type checking and linting in *\_\_tests\_\_* and *\_\_mocks\_\_* directories during development, package level \_tsconfig.json_ include all _.ts_ and _.tsx_ files. For builds, package level _tsconfig.dist.json_ files extend from their sibling _tsconfig.json_ file overriding the `excludes` value with the *\_\_tests\_\_* and *\_\_mocks\_\_* directories.
+To allow type checking and linting in _\_\_tests\_\__ and _\_\_mocks\_\__ directories during development, package level _tsconfig.json_ include all _.ts_ and _.tsx_ files. For builds, package level _tsconfig.dist.json_ files extend from their sibling _tsconfig.json_ file overriding the `excludes` value with the _\_\_tests\_\__ and _\_\_mocks\_\__ directories.
 
 **Example:**
 
