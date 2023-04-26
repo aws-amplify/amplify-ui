@@ -93,7 +93,7 @@
     "@types/tinycolor2": "^1.4.3",
     "esbuild-register": "^3.3.3",
     "eslint": "^8.13.0",
-    "eslint-config-amplify-ui": "0.0.0",
+    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "jest": "^27.0.4",
     "jest-matchmedia-mock": "^1.1.0",
     "react": "^17.0.2",

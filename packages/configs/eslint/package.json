@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-amplify-ui",
+  "name": "@aws-amplify/eslint-config-amplify-ui",
   "private": true,
   "version": "0.0.0",
   "description": "linting configuration for Amplify UI packages",
