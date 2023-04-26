@@ -1,9 +1,6 @@
 /* eslint-disable  */
 import 'jest-canvas-mock';
-import * as tf from '@tensorflow/tfjs-core';
 import * as blazeface from '@tensorflow-models/blazeface';
-import * as tfjsWasm from '@tensorflow/tfjs-backend-wasm';
-import { jitteredExponentialRetry } from '@aws-amplify/core';
 import { isWebAssemblySupported } from '../support';
 
 import { BlazeFaceFaceDetection } from '../blazefaceFaceDetection';
