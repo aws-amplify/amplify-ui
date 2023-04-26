@@ -10,7 +10,7 @@ export class MockAuthService {
 
   subscribe(callback: () => void) {
     this.listeners.push(callback);
-    const unsubscribe = jest.fn();
+    const unsubscribe = () => {};
     return { unsubscribe };
   }
 

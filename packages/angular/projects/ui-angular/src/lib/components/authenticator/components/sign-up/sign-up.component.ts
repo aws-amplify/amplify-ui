@@ -20,14 +20,11 @@ export class SignUpComponent {
     return this.authenticator.slotContext;
   }
 
-  onInput(event: Event): void {
-    const { checked, name, type, value } = <HTMLInputElement>event.target;
-    const isUncheckedCheckbox = type === 'checkbox' && !checked;
+  onInput(event: Event) {
+    let { checked, name, type, value } = <HTMLInputElement>event.target;
 
-    this.authenticator.updateForm({
-      name,
-      value: isUncheckedCheckbox ? undefined : value,
-    });
+    if (type === 'checkbox' && !checked) value = undefined;
+    this.authenticator.updateForm({ name, value });
   }
 
   onSubmit(event: Event): void {
