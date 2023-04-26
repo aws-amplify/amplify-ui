@@ -69,20 +69,20 @@ _react-core/tsconfig.dist.json_
 
 Amplify UI currently exposes the following custom `eslint` configs for extension:
 
-- `eslint-config-amplify-ui`: base `eslint` configuration, includes `typescript`, `jest` and general rules. Intended for usage with platform agnostic **Utility Packages**
-- `eslint-config-amplify-ui/react`: React/React Native `eslint` configuration, extends from the base configuration. Intended for usage with **React Utility/React UI/React Native UI Packages**
-- `eslint-config-amplify-ui/jest`: jest specific `eslint` configuration and test file lint overrides. Intended for usage with packages utilizing jest for unit tests
+- `@aws-amplify/eslint-config-amplify-ui`: base `eslint` configuration, includes `typescript`, `jest` and general rules. Intended for usage with platform agnostic **Utility Packages**
+- `@aws-amplify/eslint-config-amplify-ui/react`: React/React Native `eslint` configuration, extends from the base configuration. Intended for usage with **React Utility/React UI/React Native UI Packages**
+- `@aws-amplify/eslint-config-amplify-ui/jest`: jest specific `eslint` configuration and test file lint overrides. Intended for usage with packages utilizing jest for unit tests
 
 > In the future, additional platform specific configs can be created for React Native, Vue, etc
 
 ### Usage
 
-To use the `eslint` configs in an Amplify UI package, declare `eslint-config-amplify-ui` as a dev dependency and `eslint` as a direct dependency in the desired package _package.json_:
+To use the `eslint` configs in an Amplify UI package, declare `@aws-amplify/eslint-config-amplify-ui` as a dev dependency and `eslint` as a direct dependency in the desired package _package.json_:
 
 ```json
 {
   "devDependencies": {
-    "eslint-config-amplify-ui": "0.0.0"
+    "@aws-amplify/eslint-config-amplify-ui": "0.0.0"
   },
   "dependencies": {
     "eslint": "^8.13.0"
@@ -92,37 +92,37 @@ To use the `eslint` configs in an Amplify UI package, declare `eslint-config-amp
 
 > Note the dependency version of `0.0.0`. Rather than publishing our custom `eslint` configs to NPM, we utilize the `workspaces` field of the top level [_package.json_](../../package.json) to allow our packages to use the configs during development.
 
-**`eslint-config-amplify-ui`/`eslint-config-amplify-ui/react`**
+**`@aws-amplify/eslint-config-amplify-ui`/`@aws-amplify/eslint-config-amplify-ui/react`**
 
-Add the desired config to the `extends` field of the desired package _.eslintrc.js_, along with the noted `parserOptions`. The configs can be extended using either short (`'amplify-ui'`) or long (`'eslint-config-amplify-ui'`) form syntax:
+Add the desired config to the `extends` field of the desired package _.eslintrc.js_, along with the noted `parserOptions`. The configs can be extended using either short (`'@aws-amplify/amplify-ui'`) or long (`'@aws-amplify/eslint-config-amplify-ui'`) form syntax:
 
 **Short Form Syntax Example:**
 
 ```js
 module.exports = {
-  extends: ['amplify-ui'],
+  extends: ['@aws-amplify/amplify-ui'],
   parserOptions: {
     // point to local tsconfig
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
-}
+};
 ```
 
 **Long Form Syntax Example:**
 
 ```js
 module.exports = {
-  extends: ['eslint-plugin-amplify-ui'],
+  extends: ['@aws-amplify/eslint-config-amplify-ui'],
   parserOptions: {
     // point to local tsconfig
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
-}
+};
 ```
 
-**`eslint-config-amplify-ui/jest`**
+**`@aws-amplify/eslint-config-amplify-ui/jest`**
 
 To add the jest config for a package, add the following to the _.eslintrc.js_:
 
@@ -131,10 +131,10 @@ module.exports = {
   // add to `overrides` to prevent jest rules from applying to entire package
   overrides: [
     {
-      extends: ['amplify-ui/jest'],
+      extends: ['@aws-amplify/amplify-ui/jest'],
       // only apply to files located in `__mocks__` and `__tests__` directories
       files: ['**/__mocks__/**', '**/__tests__/**'],
     },
   ],
-}
-
+};
+```
