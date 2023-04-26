@@ -5,14 +5,14 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './checkbox.component.html',
 })
 export class CheckboxComponent implements OnInit {
-  @Input() defaultChecked: boolean = false;
+  @Input() defaultChecked = false;
   @Input() errorMessage: string;
-  @Input() hasError: boolean = false;
+  @Input() hasError = false;
   @Input() label: string;
   @Input() name: string;
   @Input() value: string;
 
-  public isChecked: boolean = false;
+  public isChecked = false;
 
   ngOnInit() {
     if (this.defaultChecked) {

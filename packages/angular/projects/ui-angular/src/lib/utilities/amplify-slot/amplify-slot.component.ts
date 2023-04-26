@@ -18,12 +18,12 @@ export class AmplifySlotComponent implements AfterContentInit {
   @HostBinding('style.display') display = 'contents';
 
   public overridingComponent: TemplateRef<any>;
-  public isOverriden: boolean = false;
+  public isOverriden = false;
 
   constructor(private propService: CustomComponentsService) {}
 
   ngAfterContentInit(): void {
-    const customComponents = this.propService.customComponents;
+    const { customComponents } = this.propService;
     const overridingComponent = customComponents[this.name];
 
     if (overridingComponent) {

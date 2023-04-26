@@ -171,7 +171,7 @@ export class AuthenticatorComponent
   }
 
   public onTabChange() {
-    const route = this.authenticator.route;
+    const { route } = this.authenticator;
     if (route === 'signIn') {
       this.authenticator.toSignUp();
     } else {
