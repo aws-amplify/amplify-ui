@@ -225,7 +225,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit_id }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
       - name: Validate licenses
