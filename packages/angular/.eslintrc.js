@@ -56,7 +56,7 @@ module.exports = {
     },
     {
       extends: ['../configs/eslint/configs/jest.js'],
-      files: ['**/__mocks__/**', '**/__tests__/**'],
+      files: ['**/__tests__/**'],
       rules: {
         // TODO: turn these on after fixing the corresponding lint errors
         'jest/no-export': 'warn',
