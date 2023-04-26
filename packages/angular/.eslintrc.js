@@ -16,7 +16,6 @@ module.exports = {
         '../configs/eslint/configs/index.js',
       ],
       rules: {
-        // based on https://angular.io/guide/styleguide#member-sequence
         // TODO: turn the following settings on and fix linting issues
         '@typescript-eslint/member-ordering': 'warn',
         '@typescript-eslint/explicit-module-boundary-types': 'warn',
