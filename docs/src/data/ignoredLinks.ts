@@ -13,7 +13,7 @@ export const IGNORED_LINKS = [
   'https://docs.aws.amazon.com/general/latest/gr/rekognition.html', // 403,
   'https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-programming-api.html', // 403
   'https://docs.aws.amazon.com/rekognition/latest/dg/recommendations-liveness.html', // 403
-  'https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-prerequisites.html', // 403
+  'https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-prerequisites.html#face-liveness-prerequisites-amplify', // 403
   'https://github.com/aws-amplify/amplify-ui/issues/new/choose', // 302. Only at test. Can't reproduce the status code. Can't find the redirected link.
   'https://github.com/aws-amplify/amplify-ui-android/issues/new/choose', // 302
   'https://github.com/aws-amplify/amplify-ui-swift/issues/new/choose', // 302 amplify-ui-wift redirects to amplify-ui-swift-liveness
