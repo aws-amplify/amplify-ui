@@ -131,7 +131,7 @@ module.exports = {
   // add to `overrides` to prevent jest rules from applying to entire package
   overrides: [
     {
-      extends: ['@aws-amplify/amplify-ui'/jest],
+      extends: ['@aws-amplify/amplify-ui/jest'],
       // only apply to files located in `__mocks__` and `__tests__` directories
       files: ['**/__mocks__/**', '**/__tests__/**'],
     },
