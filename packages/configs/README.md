@@ -113,7 +113,7 @@ module.exports = {
 
 ```js
 module.exports = {
-  extends: ['@aws-amplify/amplify-ui'],
+  extends: ['@aws-amplify/eslint-config-amplify-ui'],
   parserOptions: {
     // point to local tsconfig
     project: ['./tsconfig.json'],
