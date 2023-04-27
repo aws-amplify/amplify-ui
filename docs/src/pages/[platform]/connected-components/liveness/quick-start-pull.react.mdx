@@ -36,6 +36,7 @@ import '@aws-amplify/ui-react/styles.css';
 import awsexports from './aws-exports';
 
 Amplify.configure({
+   ...awsexports,
   "aws_cognito_region": "us-east-2", // (required) - Region where Amazon Cognito project was created
   "aws_cognito_identity_pool_id": "us-east-2:xxx-xxx-xxx-xxx-xxx", // (required) - the pool region should match the cognito region
 });
