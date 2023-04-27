@@ -105,6 +105,11 @@ export function signInActor({ services }: SignInMachineOptions) {
                     target: '#signInActor.setupTOTP',
                   },
                   {
+                    cond: 'shouldSelectMfaType',
+                    actions: ['setUser', 'setChallengeName'],
+                    target: 'rejected',
+                  },
+                  {
                     cond: 'shouldConfirmSignIn',
                     actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.confirmSignIn',
@@ -548,6 +553,16 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldSetupTOTP: (_, event): boolean => {
           return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
+        },
+        shouldSelectMfaType: (_, event): boolean => {
+          console.error(
+            `ERROR: 'SELECT_MFA_TYPE' is not supported by Amplify UI yet.
+            Please use only one MFA type or set up the MFA selector using this document: https://docs.amplify.aws/lib/auth/mfa/q/platform/js/#advanced-use-cases/`
+          );
+          return isExpectedChallengeName(
+            getChallengeName(event),
+            'SELECT_MFA_TYPE'
+          );
         },
       },
       services: {
