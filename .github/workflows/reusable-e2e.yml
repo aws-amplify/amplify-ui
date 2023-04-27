@@ -233,7 +233,7 @@ jobs:
       - name: Configure liveness credentials
         uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
         with:
-          aws-region: us-west-2
+          aws-region: us-east-2
           role-to-assume: ${{ secrets.LIVENESS_E2E_ROLE_ARN }}
 
       - name: Create temp AWS profile
@@ -307,7 +307,6 @@ jobs:
       has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
     steps:
       - name: Checkout Amplify UI
-        id: has-rn-changed-packages
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
           ref: ${{ inputs.commit }}
