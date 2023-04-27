@@ -555,14 +555,17 @@ export function signInActor({ services }: SignInMachineOptions) {
           return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
         },
         shouldSelectMfaType: (_, event): boolean => {
-          console.error(
-            `ERROR: 'SELECT_MFA_TYPE' is not supported by Amplify UI yet.
-            Please use only one MFA type or set up the MFA selector using this document: https://docs.amplify.aws/lib/auth/mfa/q/platform/js/#advanced-use-cases/`
-          );
-          return isExpectedChallengeName(
+          const isSelectedMfaType = isExpectedChallengeName(
             getChallengeName(event),
             'SELECT_MFA_TYPE'
           );
+          if (isSelectedMfaType) {
+            console.error(
+              `ERROR: 'SELECT_MFA_TYPE' is not supported by Amplify UI yet.
+            Please use only one MFA type or set up the MFA selector using this document: https://docs.amplify.aws/lib/auth/mfa/q/platform/js/#advanced-use-cases/`
+            );
+          }
+          return isSelectedMfaType;
         },
       },
       services: {
