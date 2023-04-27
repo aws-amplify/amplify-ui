@@ -1,7 +1,44 @@
-FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. [Configure the Amplify Auth category](https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-prerequisites.html#face-liveness-prerequisites-amplify) to setup Amplify Auth and add authentication to your backend configuration.
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
-> If you already have Cognito set up or do not want to use the Amplify CLI to generate Cognito resources, you can follow the documentation for [importing existing resources](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/#set-up-backend-resources) and check the section below for [Manually Configuring Amplify](./liveness#manually-configure-amplify).
+There are two methods to setup the Amazon Cognito resources needed for Amplify Auth. The most common is the Amplify CLI, which asks a series of questions and will configure both a User Pool and Identity Pool automatically. The second option is to reuse or create a Cognito Identity Pool manually and to import it into your application.
+
+<Tabs>
+  <TabItem title="Amplify CLI">
+> Use the Amplify CLI to if you are interested in Amplify automatically configurating and managing your Cognito Identity and User Pool for you.
+
+FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. If you are setting up Amplify for the first time, follow the instructions in the developer guide for [setting up Amplify Auth with our recommended settings](https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-prerequisites.html#face-liveness-prerequisites-amplify).
 
 _If you have an existing Amplify backend, run `amplify pull` to sync your `aws-exports.js` with your cloud backend._
 
-You should now have an `aws-exports.js` file in your `src` directory with your latest Amplify backend configuration.
+Once complete you should now have an `aws-exports.js` file in your `src` directory with your latest Amplify backend configuration.
+  </TabItem>
+  <TabItem title="Existing Resource">
+> Use this option if you already have a Cognito identity/user pools, or want to manage Cognito resources yourself or with a 3rd party resource management tool.
+
+If you already have Cognito set up or do not want to use the Amplify CLI to generate Cognito resources, you can follow the documentation for [importing existing resources](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/#set-up-backend-resources) or check out the code snippet below.
+
+_If you are manually setting up an identity pool in the Cognito console you need to use the v1 Cognito console and visit the [Federated Identities](https://console.aws.amazon.com/cognito/federated) section. When setting up the identity pool ensure that acess to unauthenticated identities is enabled._
+
+When initially configuring Amplify you can pass in the cognito region and an identity pool instead of using the Amplify generated aws-exports file.
+
+```jsx
+import React from 'react';
+import { ThemeProvider } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+import awsexports from './aws-exports';
+
+Amplify.configure({
+  "aws_cognito_region": "us-east-2", // (required) - Region where Amazon Cognito project was created
+  "aws_cognito_identity_pool_id": "us-east-2:xxx-xxx-xxx-xxx-xxx", // (required) - the pool region should match the cognito region
+});
+
+export default function App() {
+  return (
+    <ThemeProvider>
+    </ThemeProvider>
+  );
+}
+```
+  </TabItem>
+</Tabs>
