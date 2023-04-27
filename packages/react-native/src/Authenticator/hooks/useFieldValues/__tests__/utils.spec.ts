@@ -197,7 +197,7 @@ describe('getRouteTypedFields', () => {
     const expected = [
       {
         ...passwordField,
-        testID: `amplify__text-field__input-${passwordField.name}`,
+        testID: `authenticator__text-field__input-${passwordField.name}`,
       },
       {
         name: phoneField.name,
@@ -207,7 +207,7 @@ describe('getRouteTypedFields', () => {
         name: textField.name,
         required: textField.isRequired,
         type: 'default',
-        testID: `amplify__text-field__input-${textField.name}`,
+        testID: `authenticator__text-field__input-${textField.name}`,
       },
     ];
 

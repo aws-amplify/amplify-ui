@@ -15,7 +15,7 @@ dotenv.config();
 
 // Cucumber has default timeout of 5000, not enough for Detox async operations
 // https://wix.github.io/Detox/docs/guide/cucumber-js-integration
-setDefaultTimeout(600000);
+setDefaultTimeout(500000);
 
 BeforeAll(async () => {
   await init({

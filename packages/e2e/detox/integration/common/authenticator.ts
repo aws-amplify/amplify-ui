@@ -4,16 +4,20 @@ import { by, element, expect } from 'detox';
 const getUserAlias = (status: string) =>
   `${process.env.USERNAME}+${status === 'UNKNOWN' ? Date.now() : status}`;
 
-const getCountryCode = (status: string) =>
-  status === 'CONFIRMED'
-    ? '+1'
-    : status === 'UNCONFIRMED'
-    ? '+7'
-    : status === 'UNKNOWN'
-    ? '+20'
-    : status === 'FORCE_CHANGE_PASSWORD'
-    ? '+30'
-    : '';
+const getCountryCode = (status: string) => {
+  switch (status) {
+    case 'CONFIRMED':
+      return '+1';
+    case 'UNCONFIRMED':
+      return '+7';
+    case 'UNKNOWN':
+      return '+20';
+    case 'FORCE_CHANGE_PASSWORD':
+      return '+30';
+    default:
+      return '';
+  }
+};
 
 When(
   'I type my {string} with status {string}',
@@ -26,12 +30,14 @@ When(
     } else if (loginMechanism === 'phone number') {
       text = `${getCountryCode(status)}${process.env.PHONE_NUMBER}`;
     }
-    await element(by.id(`amplify__text-field__input-username`)).typeText(text);
+    await element(by.id(`authenticator__text-field__input-username`)).typeText(
+      text
+    );
   }
 );
 
 When('I type my password', async () => {
-  await element(by.id('amplify__text-field__input-password')).typeText(
+  await element(by.id('authenticator__text-field__input-password')).typeText(
     process.env.VALID_PASSWORD
   );
 });
@@ -45,19 +51,19 @@ Then('I will be redirected to the confirm forgot password page', async () => {
 });
 
 Then('I type a valid code', async () => {
-  await element(by.id('amplify__text-field__input-container'))
+  await element(by.id('authenticator__text-field__input-container'))
     .atIndex(0)
     .typeText('1234');
 });
 
 Then('I type my new password', async () => {
-  await element(by.id('amplify__text-field__input-password')).typeText(
+  await element(by.id('authenticator__text-field__input-password')).typeText(
     process.env.VALID_PASSWORD
   );
 });
 
 Then('I confirm my password', async () => {
-  await element(by.id('amplify__text-field__input-container'))
+  await element(by.id('authenticator__text-field__input-container'))
     .atIndex(2)
     .typeText(process.env.VALID_PASSWORD);
 });

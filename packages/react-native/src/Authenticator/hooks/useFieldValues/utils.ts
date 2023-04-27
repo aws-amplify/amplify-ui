@@ -130,7 +130,7 @@ export const getTypedField = ({
   ...field
 }: AuthenticatorLegacyField): TypedField => {
   const type = getFieldType(machineFieldType);
-  const testID = `amplify__text-field__input-${name}`;
+  const testID = `authenticator__text-field__input-${name}`;
 
   return Object.entries(field).reduce(
     (acc, [key, value]) => {

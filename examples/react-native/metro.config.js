@@ -74,9 +74,9 @@ const watchFolders = internalPackages
   .map(({ packagePath }) => packagePath);
 
 config.watchFolders = [
+  ENVIRONMENTS_MODULE_PATH,
   WORKSPACE_NODE_MODULES_PATH,
   ...watchFolders,
-  ENVIRONMENTS_MODULE_PATH,
 ];
 
 // include app and package node_modules
