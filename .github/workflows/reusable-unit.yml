@@ -78,7 +78,12 @@ jobs:
         run: yarn ui build
 
       - name: Build react-core package
-        if: ${{ matrix.package == 'react' || matrix.package == 'react-native' || matrix.package == 'react-storage' || matrix.package == 'react-liveness' }}
+        if: |
+          matrix.package == 'react' ||
+          matrix.package == 'react-core-notifications' ||
+          matrix.package == 'react-native' ||
+          matrix.package == 'react-storage' ||
+          matrix.package == 'react-liveness'
         run: yarn react-core build
 
       - name: Build react-core-notifications package
