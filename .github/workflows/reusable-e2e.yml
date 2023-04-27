@@ -307,7 +307,6 @@ jobs:
       has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
     steps:
       - name: Checkout Amplify UI
-        id: has-rn-changed-packages
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
           ref: ${{ inputs.commit }}
