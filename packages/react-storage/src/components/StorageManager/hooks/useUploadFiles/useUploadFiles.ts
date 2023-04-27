@@ -20,6 +20,7 @@ export interface UseUploadFilesProps
       | 'processFile'
       | 'provider'
       | 'path'
+      | 'metadata'
     >,
     Pick<
       UseStorageManager,
@@ -40,6 +41,7 @@ export function useUploadFiles({
   processFile,
   provider,
   path = '',
+  metadata,
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -76,8 +78,8 @@ export function useUploadFiles({
       if (file) {
         const processedFile =
           typeof processFile === 'function'
-            ? processFile({ file, key })
-            : { file, key };
+            ? processFile({ file, key, metadata })
+            : { file, key, metadata };
 
         onUploadStart?.({ key });
 
@@ -90,6 +92,7 @@ export function useUploadFiles({
             completeCallback: onComplete,
             progressCallback: onProgress,
             errorCallback: onError,
+            metadata: processedFile.metadata,
             provider,
           }) as unknown as UploadTask;
           setUploadingFile({ id, uploadTask });
@@ -102,6 +105,7 @@ export function useUploadFiles({
             completeCallback: onComplete,
             progressCallback: onProgress,
             errorCallback: onError,
+            metadata: processedFile.metadata,
             provider,
           });
           setUploadingFile({ id });
@@ -122,5 +126,6 @@ export function useUploadFiles({
     processFile,
     provider,
     path,
+    metadata,
   ]);
 }

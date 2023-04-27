@@ -10,6 +10,7 @@ interface UploadFileProps {
   errorCallback: (error: string) => void;
   completeCallback: (event: { key: string | undefined }) => void;
   provider?: string;
+  metadata?: Record<string, string>;
 }
 
 type UploadFile = Promise<void> | UploadTask;
@@ -23,6 +24,7 @@ export function uploadFile({
   completeCallback,
   isResumable = false,
   provider,
+  metadata,
   ...rest
 }: UploadFileProps): UploadFile {
   const contentType = file.type || 'binary/octet-stream';
@@ -42,6 +44,7 @@ export function uploadFile({
        * https://github.com/aws-amplify/amplify-js/blob/main/packages/storage/src/types/AWSS3Provider.ts#L59
        */
       provider: provider as `AWSS3`,
+      metadata,
       ...rest,
     });
   } else {
@@ -51,6 +54,7 @@ export function uploadFile({
       progressCallback,
       contentType,
       provider: provider as `AWSS3`,
+      metadata,
       ...rest,
     }).then(completeCallback, errorCallback);
   }
