@@ -58,7 +58,7 @@ Feature: Sign In with Phone Number
     And I type my "phone number" with status "UNKNOWN"
     And I type my password
     And I click the "Sign in" button
-    Then I see "User does not exist"
+    Then I see "User does not exist."
 
   @angular @react @vue @react-native
   Scenario: Sign in with unconfirmed credentials

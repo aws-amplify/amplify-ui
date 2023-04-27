@@ -17,10 +17,12 @@
     "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags @react-native",
     "detox:build:ios:debug": "detox build --configuration ios.simulator.debug",
     "detox:build:ios:release": "detox build --configuration ios.simulator.release",
-    "detox:e2e:ios": "DETOX_CONFIGURATION=ios.simulator.debug yarn cucumber",
+    "detox:e2e:ios:debug": "DETOX_CONFIGURATION=ios.simulator.debug yarn cucumber",
+    "detox:e2e:ios:release": "DETOX_CONFIGURATION=ios.simulator.release yarn cucumber",
     "detox:build:android:debug": "detox build --configuration android.emulator.debug",
     "detox:build:android:release": "detox build --configuration android.emulator.release",
-    "detox:e2e:android": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber"
+    "detox:e2e:android:debug": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber",
+    "detox:e2e:android:release": "DETOX_CONFIGURATION=android.emulator.release yarn cucumber"
   },
   "cypress-cucumber-preprocessor": {
     "filterSpecs": true,

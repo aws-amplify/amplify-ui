@@ -1,15 +1,33 @@
 {
   "skipLegacyWorkersInjection": true,
+  "logger": {
+    "level": "trace"
+  },
+  "artifacts": {
+    "rootDir": "./detox/screenshots",
+    "plugins": {
+      "screenshot": {
+        "enabled": true,
+        "shouldTakeAutomaticSnapshots": true,
+        "keepOnlyFailedTestsArtifacts": true,
+        "takeWhen": {
+          "testStart": false,
+          "testDone": true,
+          "appNotReady": true
+        }
+      }
+    }
+  },
   "apps": {
     "ios.debug": {
       "type": "ios.app",
       "binaryPath": "../../examples/react-native/ios/build/Build/Products/Debug-iphonesimulator/ReactNative.app",
-      "build": "xcodebuild -workspace ../../examples/react-native/ios/ReactNative.xcworkspace -scheme ReactNative -configuration Debug -sdk iphonesimulator -arch x86_64 -derivedDataPath ../../examples/react-native/ios/build"
+      "build": "xcodebuild -quiet -workspace ../../examples/react-native/ios/ReactNative.xcworkspace -scheme ReactNative -configuration Debug -sdk iphonesimulator -arch x86_64 -derivedDataPath ../../examples/react-native/ios/build"
     },
     "ios.release": {
       "type": "ios.app",
       "binaryPath": "../../examples/react-native/ios/build/Build/Products/Release-iphonesimulator/ReactNative.app",
-      "build": "xcodebuild -workspace ../../examples/react-native/ios/ReactNative.xcworkspace -scheme ReactNative -configuration Release -sdk iphonesimulator -arch x86_64 -derivedDataPath ../../examples/react-native/ios/build"
+      "build": "xcodebuild -quiet -workspace ../../examples/react-native/ios/ReactNative.xcworkspace -scheme ReactNative -configuration Release -sdk iphonesimulator -arch x86_64 -derivedDataPath ../../examples/react-native/ios/build"
     },
     "android.debug": {
       "type": "android.apk",
@@ -32,7 +50,7 @@
     "emulator": {
       "type": "android.emulator",
       "device": {
-        "avdName": "Galaxy_Nexus_API_31"
+        "avdName": "Pixel_5_API_27"
       }
     }
   },
