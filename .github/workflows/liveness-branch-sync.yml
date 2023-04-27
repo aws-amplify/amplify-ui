@@ -10,7 +10,8 @@ jobs:
     name: Branch Sync
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Sync branches
         uses: repo-sync/pull-request@v2
         id: open-pr
