@@ -82,6 +82,7 @@ function Authenticator({
 
   const typedFields = getRouteTypedFields({ fields, route });
 
+  // test trigger e2e flow
   if (isAuthenticatedRoute(route)) {
     return children ? <>{children}</> : null;
   }
