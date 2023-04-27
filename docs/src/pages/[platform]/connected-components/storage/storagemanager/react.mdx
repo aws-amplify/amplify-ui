@@ -97,6 +97,8 @@ You might want to process or modify the file(s) and/or file name(s) before they 
   </ExampleCode>
 </Example>
 
+You can also add any other [Amplify Storage options](https://docs.amplify.aws/lib/storage/upload/q/platform/js/#encrypted-uploads) by adding them to the return object of `processFile`
+
 ## Event Handling
 
 The StorageManager component has several event handlers: `onUploadStart`, `onUploadSuccess`, `onUploadError`, and `onFileRemove`
@@ -117,10 +119,7 @@ Be careful setting state in the `onUploadSuccess` because that function is bound
 
 Metadata is added as an object with string key-value pairs. It is sent as custom HTTP headers with the name `x-amz-meta-[key]`. For example, if your metadata for a file was `{mode: 'night'}`, it would set the `x-amz-meta-mode` HTTP header to `night`.
 
-There 2 ways you can add additional metadata to files
-
-1. Add `metadata` prop on the StorageManager itself. This metadata will be applied to all files uploaded.
-2. Add `metadata` in the `processFile` function to add file-specific metadata. This function recieves the metadata passed as a prop to the StorageManager so you can set session-based metadata as well as file-based metadata.
+You can add metadata by adding a `metadata` object in the return object of `processFile`. 
 
 <Example>
   <StorageManagerMetadataExample />

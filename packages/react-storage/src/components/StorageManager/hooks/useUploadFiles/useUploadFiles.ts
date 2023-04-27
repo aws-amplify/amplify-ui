@@ -20,7 +20,6 @@ export interface UseUploadFilesProps
       | 'processFile'
       | 'provider'
       | 'path'
-      | 'metadata'
     >,
     Pick<
       UseStorageManager,
@@ -41,7 +40,6 @@ export function useUploadFiles({
   processFile,
   provider,
   path = '',
-  metadata,
 }: UseUploadFilesProps): void {
   React.useEffect(() => {
     const filesReadyToUpload = files.filter(
@@ -76,36 +74,39 @@ export function useUploadFiles({
       };
 
       if (file) {
-        const processedFile =
-          typeof processFile === 'function'
-            ? processFile({ file, key, metadata })
-            : { file, key, metadata };
+        const {
+          file: processedFile,
+          key: processedKey,
+          ...processedRest
+        } = typeof processFile === 'function'
+          ? processFile({ file, key })
+          : { file, key };
 
         onUploadStart?.({ key });
 
         if (isResumable) {
           const uploadTask = uploadFile({
-            file: processedFile.file,
-            fileName: path + processedFile.key,
+            ...processedRest,
+            file: processedFile,
+            fileName: path + processedKey,
             isResumable: true,
             level: accessLevel,
             completeCallback: onComplete,
             progressCallback: onProgress,
             errorCallback: onError,
-            metadata: processedFile.metadata,
             provider,
           }) as unknown as UploadTask;
           setUploadingFile({ id, uploadTask });
         } else {
           uploadFile({
-            file: processedFile.file,
-            fileName: path + processedFile.key,
+            ...processedRest,
+            file: processedFile,
+            fileName: path + processedKey,
             isResumable: false,
             level: accessLevel,
             completeCallback: onComplete,
             progressCallback: onProgress,
             errorCallback: onError,
-            metadata: processedFile.metadata,
             provider,
           });
           setUploadingFile({ id });
@@ -126,6 +127,5 @@ export function useUploadFiles({
     processFile,
     provider,
     path,
-    metadata,
   ]);
 }

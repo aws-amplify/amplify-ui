@@ -64,7 +64,7 @@ export const STORAGE_MANAGER = [
     name: `processFile?`,
     description:
       'Called immediately before uploading a file to allow you to edit the key or the file itself.',
-    type: `(props: {key: string, file: Blob, metadata?: Record<string, string>}) => {key: string, file: Blob, metadata?: Record<string, string>};`,
+    type: `(props: {key: string, file: Blob}) => {key: string, file: Blob} & Record<string, string>;`,
   },
   {
     name: `path?`,
@@ -80,11 +80,6 @@ export const STORAGE_MANAGER = [
     name: `displayText?`,
     description: 'Text to override in the component.',
     type: 'Partial<StorageManagerDisplayText>',
-  },
-  {
-    name: `metadata?`,
-    description: '',
-    type: `Record<string, string>`,
   },
   {
     name: `components?.Container?`,

@@ -32,11 +32,11 @@ export type StorageFiles = StorageFile[];
 
 export type DefaultFile = Pick<StorageFile, 'key'>;
 
-type ProcessFileProps = Required<Pick<StorageFile, 'file' | 'key'>> & {
-  metadata?: Record<string, string>;
-};
+type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>>;
 
-type ProcessFile = (props: ProcessFileProps) => ProcessFileProps;
+type ProcessFile = (
+  props: ProcessFileParams
+) => ProcessFileParams & Record<string, any>;
 
 export interface StorageManagerProps {
   /**
@@ -115,6 +115,4 @@ export interface StorageManagerProps {
    * s3 for each file.
    */
   path?: string;
-
-  metadata?: Record<string, string>;
 }

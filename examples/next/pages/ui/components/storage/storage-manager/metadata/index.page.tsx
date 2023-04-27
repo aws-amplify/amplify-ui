@@ -8,16 +8,11 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-const processFile: StorageManagerProps['processFile'] = ({
-  file,
-  key,
-  metadata,
-}) => {
+const processFile: StorageManagerProps['processFile'] = ({ file, key }) => {
   return {
     file,
     key,
     metadata: {
-      ...metadata,
       id: key,
     },
   };
@@ -30,9 +25,6 @@ export function StorageManagerExample() {
       accessLevel="private"
       maxFileCount={3}
       showThumbnails={true}
-      metadata={{
-        test: 'bar',
-      }}
       processFile={processFile}
     />
   );
