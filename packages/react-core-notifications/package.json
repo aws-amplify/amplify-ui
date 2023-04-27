@@ -36,7 +36,8 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "5.5.8",
-    "@aws-amplify/ui-react-core": "2.1.16"
+    "@aws-amplify/ui-react-core": "2.1.16",
+    "@aws-amplify/ui-react-core-notifications": "0.0.1"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",
@@ -63,5 +64,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^27.0.3"
   },
-  "sideEffects": false
+  "sideEffects": [
+    "dist/**/*.css"
+  ]
 }
