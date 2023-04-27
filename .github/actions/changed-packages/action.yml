@@ -27,7 +27,7 @@ runs:
         changed_files=$(git diff-tree --no-commit-id --name-only -r $COMMIT_HASH)
 
         # concatenate input package names with pipe
-        # input is on multiple lines so  need :a;N;$!ba; to allow sed to read entire stream at once
+        # input is on multiple lines so need :a;N;$!ba; to allow sed to read entire stream at once
         package_names=$(echo "$PACKAGES" | sed ':a;N;$!ba;s/\n/|/g')
 
         # check if any of the modified files belongs to the specified input packages
