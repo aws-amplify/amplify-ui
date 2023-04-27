@@ -86,7 +86,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
           width,
           height,
           timestampMs,
-          probability: probability as number,
+          probability: (probability as unknown as [number])[0], // probability in reality is [number] but is typed as number | Tensor.1d
           rightEye,
           leftEye,
           mouth,
