@@ -44,7 +44,6 @@ export function uploadFile({
        * https://github.com/aws-amplify/amplify-js/blob/main/packages/storage/src/types/AWSS3Provider.ts#L59
        */
       provider: provider as `AWSS3`,
-      metadata,
       ...rest,
     });
   } else {
