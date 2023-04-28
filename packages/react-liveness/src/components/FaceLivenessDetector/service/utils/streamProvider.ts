@@ -11,6 +11,7 @@ import {
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { VideoRecorder } from './videoRecorder';
+import { CredentialProvider } from '@aws-sdk/types';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -44,6 +45,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   public region: string;
   public videoRecorder: VideoRecorder;
   public responseStream!: AsyncIterable<LivenessResponseStream>;
+  public credentialProvider?: CredentialProvider;
 
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
@@ -56,7 +58,8 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     sessionId: string,
     region: string,
     stream: MediaStream,
-    videoEl: HTMLVideoElement
+    videoEl: HTMLVideoElement,
+    credentialProvider?: CredentialProvider
   ) {
     super();
     this.sessionId = sessionId;
@@ -64,6 +67,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     this._stream = stream;
     this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
+    this.credentialProvider = credentialProvider;
     this.initPromise = this.init();
   }
 
@@ -107,7 +111,9 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   private async init() {
-    const credentials = (await AmplifyCredentials.get()) as Credentials;
+    const credentials =
+      this.credentialProvider ??
+      ((await AmplifyCredentials.get()) as Credentials);
 
     if (!credentials) {
       throw new Error('No credentials');

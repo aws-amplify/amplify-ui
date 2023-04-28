@@ -7,6 +7,7 @@ import LivenessInlineResults from './LivenessInlineResults';
 export default function LivenessDefault({
   disableInstructionScreen = false,
   components = undefined,
+  credentialProvider = undefined,
 }) {
   const {
     getLivenessResponse,
@@ -63,6 +64,7 @@ export default function LivenessDefault({
                 }}
                 disableInstructionScreen={disableInstructionScreen}
                 components={components}
+                credentialProvider={credentialProvider}
               />
             ) : null}
           </Flex>

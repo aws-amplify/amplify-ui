@@ -1,3 +1,5 @@
+import { CredentialProvider } from '@aws-sdk/types';
+
 /**
  * The props for the FaceLivenessDetector
  */
@@ -32,6 +34,11 @@ export interface FaceLivenessDetectorProps {
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
    */
   disableInstructionScreen?: boolean;
+
+  /**
+   * Optional parameter providing your own credentials when calling the Rekognition stream endpoint
+   */
+  credentialProvider?: CredentialProvider;
 
   /**
    * Optional parameter for advanced options for the component

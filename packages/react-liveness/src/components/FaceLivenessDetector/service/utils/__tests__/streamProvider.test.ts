@@ -119,6 +119,22 @@ describe('LivenessStreamProvider', () => {
         mockVideoEl
       );
     });
+
+    test('with credential provider', () => {
+      const credentialProvider = async () => {
+        return {
+          accessKeyId: 'test',
+          secretAccessKey: 'test',
+        };
+      };
+      new LivenessStreamProvider(
+        'sessionId',
+        'us-east-1',
+        mockVideoMediaStream,
+        mockVideoEl,
+        credentialProvider
+      );
+    });
   });
 
   describe('getResponseStream', () => {
