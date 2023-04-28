@@ -18,6 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
@@ -28,7 +29,6 @@
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^28.0.3",
     "eslint": "^8.14.0",
-    "eslint-config-amplify-ui": "0.0.0",
     "metro-react-native-babel-preset": "^0.70.2",
     "react": "^17.0.2",
     "react-native": "^0.68.1",

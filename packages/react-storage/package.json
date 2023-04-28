@@ -58,6 +58,7 @@
     }
   },
   "devDependencies": {
+    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^7.0.8",
     "@testing-library/jest-dom": "^5.14.1",
@@ -68,7 +69,6 @@
     "@types/react": "^17.0.2",
     "@types/testing-library__jest-dom": "^5.14.1",
     "eslint": "^8.13.0",
-    "eslint-config-amplify-ui": "0.0.0",
     "jest": "^27.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

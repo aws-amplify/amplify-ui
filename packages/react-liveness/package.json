@@ -64,6 +64,7 @@
     "xstate": "^4.33.6"
   },
   "devDependencies": {
+    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^7.0.8",
@@ -76,7 +77,6 @@
     "@types/react": "^17.0.2",
     "blob-polyfill": "^7.0.20220408",
     "eslint": "^8.13.0",
-    "eslint-config-amplify-ui": "0.0.0",
     "jest": "^27.0.4",
     "jest-canvas-mock": "^2.4.0",
     "jest-when": "^3.5.1",
