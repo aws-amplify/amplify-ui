@@ -10,7 +10,6 @@ interface UploadFileProps {
   errorCallback: (error: string) => void;
   completeCallback: (event: { key: string | undefined }) => void;
   provider?: string;
-  metadata?: Record<string, string>;
 }
 
 type UploadFile = Promise<void> | UploadTask;
