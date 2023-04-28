@@ -35,7 +35,7 @@ export type DefaultFile = Pick<StorageFile, 'key'>;
 type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>>;
 
 type ProcessFile = (
-  props: ProcessFileParams
+  params: ProcessFileParams
 ) => ProcessFileParams & Record<string, any>;
 
 export interface StorageManagerProps {
