@@ -97,7 +97,10 @@ export const setFieldErrors = assign({
 
 export const setRemoteError = assign({
   remoteError: (_, event: AuthEvent) => {
-    if (event.data.name === 'NoUserPoolError') {
+    if (
+      event.data.name === 'NoUserPoolError' /* START ISSUE 3767 */ ||
+      event.data.challengeName === 'SELECT_MFA_TYPE' /* END ISSUE 3767 */
+    ) {
       return `Configuration error (see console) – please contact the administrator`;
     }
     return event.data?.message || event.data;

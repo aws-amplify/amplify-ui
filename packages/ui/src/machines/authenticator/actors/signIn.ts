@@ -104,11 +104,13 @@ export function signInActor({ services }: SignInMachineOptions) {
                     actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.setupTOTP',
                   },
+                  /* START ISSUE 3767 - Temporary fix. Will change to handle 'SELECT_MFA_TYPE' */
                   {
                     cond: 'shouldSelectMfaType',
-                    actions: ['setUser', 'setChallengeName'],
-                    target: 'rejected',
+                    actions: 'setRemoteError',
+                    target: 'edit',
                   },
+                  /* END ISSUE 3767 */
                   {
                     cond: 'shouldConfirmSignIn',
                     actions: ['setUser', 'setChallengeName'],
@@ -554,19 +556,20 @@ export function signInActor({ services }: SignInMachineOptions) {
         shouldSetupTOTP: (_, event): boolean => {
           return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
         },
+        /* START ISSUE 3767 - Temporary fix. Will change to handle 'SELECT_MFA_TYPE' */
         shouldSelectMfaType: (_, event): boolean => {
-          const isSelectedMfaType = isExpectedChallengeName(
+          const isSelectedMfaTypeChallenge = isExpectedChallengeName(
             getChallengeName(event),
             'SELECT_MFA_TYPE'
           );
-          if (isSelectedMfaType) {
+          if (isSelectedMfaTypeChallenge) {
             console.error(
-              `ERROR: 'SELECT_MFA_TYPE' is not supported by Amplify UI yet.
-            Please use only one MFA type or set up the MFA selector using this document: https://docs.amplify.aws/lib/auth/mfa/q/platform/js/#advanced-use-cases/`
+              "ERROR: 'SELECT_MFA_TYPE' is not supported by Amplify UI yet. \n Please use only one MFA type or set up the MFA selector using this documen: https://docs.amplify.aws/lib/auth/mfa/q/platform/js/#advanced-use-cases/"
             );
           }
-          return isSelectedMfaType;
+          return isSelectedMfaTypeChallenge;
         },
+        /* END ISSUE 3767 */
       },
       services: {
         async signIn(context) {
