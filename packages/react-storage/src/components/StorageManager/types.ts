@@ -32,9 +32,9 @@ export type StorageFiles = StorageFile[];
 
 export type DefaultFile = Pick<StorageFile, 'key'>;
 
-type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>>;
+export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>>;
 
-type ProcessFile = (
+export type ProcessFile = (
   params: ProcessFileParams
 ) => ProcessFileParams & Record<string, any>;
 
