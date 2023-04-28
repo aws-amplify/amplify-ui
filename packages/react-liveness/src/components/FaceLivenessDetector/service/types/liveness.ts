@@ -1,4 +1,4 @@
-import { CredentialProvider } from '@aws-sdk/types';
+import { AwsCredentialIdentityProvider } from '@aws-sdk/types';
 
 /**
  * The props for the FaceLivenessDetector
@@ -38,7 +38,7 @@ export interface FaceLivenessDetectorProps {
   /**
    * Optional parameter providing your own credentials when calling the Rekognition stream endpoint
    */
-  credentialProvider?: CredentialProvider;
+  credentialProvider?: AwsCredentialIdentityProvider;
 
   /**
    * Optional parameter for advanced options for the component

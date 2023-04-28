@@ -7,6 +7,7 @@ import { RekognitionStreamingClient } from '@aws-sdk/client-rekognitionstreaming
 import { LivenessStreamProvider } from '../streamProvider';
 import { VideoRecorder } from '../videoRecorder';
 import { mockClientSessionInformationEvent } from '../__mocks__/testUtils';
+import { AwsCredentialIdentityProvider } from '@aws-sdk/types';
 
 jest.mock('../videoRecorder');
 jest.mock('@aws-sdk/client-rekognitionstreaming');
@@ -121,7 +122,7 @@ describe('LivenessStreamProvider', () => {
     });
 
     test('with credential provider', () => {
-      const credentialProvider = async () => {
+      const credentialProvider: AwsCredentialIdentityProvider = async () => {
         return {
           accessKeyId: 'test',
           secretAccessKey: 'test',

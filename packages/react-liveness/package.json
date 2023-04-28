@@ -65,6 +65,7 @@
   },
   "devDependencies": {
     "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
+    "@aws-sdk/types": "3.310.0",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^7.0.8",
