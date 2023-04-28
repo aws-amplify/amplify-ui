@@ -7,6 +7,7 @@ import { FileStatus } from '../../types';
 
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
+import { isFunction } from '@aws-amplify/ui';
 
 export interface UseUploadFilesProps
   extends Pick<
@@ -78,7 +79,7 @@ export function useUploadFiles({
           file: processedFile,
           key: processedKey,
           ...processedRest
-        } = typeof processFile === 'function'
+        } = isFunction(processFile)
           ? processFile({ file, key })
           : { file, key };
 
