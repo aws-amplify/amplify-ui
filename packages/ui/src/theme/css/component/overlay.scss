@@ -1,0 +1,32 @@
+.amplify-overlay {
+  --horizontal: flex-start;
+  --vertical: flex-start;
+  position: fixed;
+  width: 100%;
+  top: env(safe-area-inset-top);
+  bottom: env(safe-area-inset-bottom);
+  left: 0;
+  background: var(--amplify-colors-overlay-10);
+  padding: var(--amplify-space-large);
+  z-index: 1;
+  justify-content: var(--horizontal);
+  align-items: var(--vertical);
+}
+.amplify-overlay--horizontal-start {
+  --horizontal: flex-start;
+}
+.amplify-overlay--horizontal-center {
+  --horizontal: center;
+}
+.amplify-overlay--horizontal-end {
+  --horizontal: end;
+}
+.amplify-overlay--vertical-start {
+  --vertical: flex-start;
+}
+.amplify-overlay--vertical-center {
+  --vertical: center;
+}
+.amplify-overlay--vertical-end {
+  --vertical: end;
+}

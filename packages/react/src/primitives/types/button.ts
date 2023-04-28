@@ -8,9 +8,15 @@ export type ButtonVariations =
   | 'primary'
   | 'link'
   | 'menu'
+  | 'destructive'
+  | 'warning';
+export type ButtonColorThemes =
+  | 'brand'
+  | 'info'
+  | 'error'
   | 'warning'
-  | 'destructive';
-
+  | 'success'
+  | 'neutral';
 export interface ButtonProps extends ViewProps, FlexContainerStyleProps {
   /**
    * @description
@@ -64,4 +70,10 @@ export interface ButtonProps extends ViewProps, FlexContainerStyleProps {
    * Changes the visual weight of the button.
    */
   variation?: ButtonVariations;
+
+  /**
+   * @description
+   * Changes the color scheme of the button
+   */
+  colorTheme?: ButtonColorThemes;
 }

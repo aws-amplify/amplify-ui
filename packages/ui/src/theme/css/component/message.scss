@@ -1,0 +1,152 @@
+.amplify-message {
+  align-items: var(--amplify-components-message-align-items);
+  background-color: var(--amplify-components-message-background-color);
+  color: var(--amplify-components-message-color);
+  justify-content: var(--amplify-components-message-justify-content);
+  padding-block: var(--amplify-components-message-padding-block);
+  padding-inline: var(--amplify-components-message-padding-inline);
+  border-color: var(--amplify-components-message-border-color);
+  border-style: var(--amplify-components-message-border-style);
+  border-width: var(--amplify-components-message-border-width);
+  line-height: var(--amplify-components-message-line-height);
+  &--plain {
+    background-color: var(--amplify-components-message-plain-background-color);
+    border-color: var(--amplify-components-message-plain-border-color);
+    color: var(--amplify-components-message-plain-color);
+    &.amplify-message--info {
+      background-color: var(
+        --amplify-components-message-plain-info-background-color
+      );
+      border-color: var(--amplify-components-message-plain-info-border-color);
+      color: var(--amplify-components-message-plain-info-color);
+    }
+    &.amplify-message--error {
+      background-color: var(
+        --amplify-components-message-plain-error-background-color
+      );
+      border-color: var(--amplify-components-message-plain-error-border-color);
+      color: var(--amplify-components-message-plain-error-color);
+    }
+    &.amplify-message--warning {
+      background-color: var(
+        --amplify-components-message-plain-warning-background-color
+      );
+      border-color: var(
+        --amplify-components-message-plain-warning-border-color
+      );
+      color: var(--amplify-components-message-plain-warning-color);
+    }
+    &.amplify-message--success {
+      background-color: var(
+        --amplify-components-message-plain-success-background-color
+      );
+      border-color: var(
+        --amplify-components-message-plain-success-border-color
+      );
+      color: var(--amplify-components-message-plain-success-color);
+    }
+  }
+  &--outline {
+    background-color: var(
+      --amplify-components-message-outline-background-color
+    );
+    border-color: var(--amplify-components-message-outline-border-color);
+    color: var(--amplify-components-message-outline-color);
+    &.amplify-message--info {
+      background-color: var(
+        --amplify-components-message-outline-info-background-color
+      );
+      border-color: var(--amplify-components-message-outline-info-border-color);
+      color: var(--amplify-components-message-outline-info-color);
+    }
+    &.amplify-message--error {
+      background-color: var(
+        --amplify-components-message-outline-error-background-color
+      );
+      border-color: var(
+        --amplify-components-message-outline-error-border-color
+      );
+      color: var(--amplify-components-message-outline-error-color);
+    }
+    &.amplify-message--warning {
+      background-color: var(
+        --amplify-components-message-outline-warning-background-color
+      );
+      border-color: var(
+        --amplify-components-message-outline-warning-border-color
+      );
+      color: var(--amplify-components-message-outline-warning-color);
+    }
+    &.amplify-message--success {
+      background-color: var(
+        --amplify-components-message-outline-success-background-color
+      );
+      border-color: var(
+        --amplify-components-message-outline-success-border-color
+      );
+      color: var(--amplify-components-message-outline-success-color);
+    }
+  }
+  &--filled {
+    background-color: var(--amplify-components-message-filled-background-color);
+    border-color: var(--amplify-components-message-filled-border-color);
+    color: var(--amplify-components-message-filled-color);
+    &.amplify-message--info {
+      background-color: var(
+        --amplify-components-message-filled-info-background-color
+      );
+      border-color: var(--amplify-components-message-filled-info-border-color);
+      color: var(--amplify-components-message-filled-info-color);
+    }
+    &.amplify-message--error {
+      background-color: var(
+        --amplify-components-message-filled-error-background-color
+      );
+      border-color: var(--amplify-components-message-filled-error-border-color);
+      color: var(--amplify-components-message-filled-error-color);
+    }
+    &.amplify-message--warning {
+      background-color: var(
+        --amplify-components-message-filled-warning-background-color
+      );
+      border-color: var(
+        --amplify-components-message-filled-warning-border-color
+      );
+      color: var(--amplify-components-message-filled-warning-color);
+    }
+    &.amplify-message--success {
+      background-color: var(
+        --amplify-components-message-filled-success-background-color
+      );
+      border-color: var(
+        --amplify-components-message-filled-success-border-color
+      );
+      color: var(--amplify-components-message-filled-success-color);
+    }
+  }
+}
+
+.amplify-message__icon {
+  font-size: var(--amplify-components-message-icon-size);
+}
+
+.amplify-message__heading {
+  display: block;
+  font-weight: var(--amplify-components-message-heading-font-weight);
+  font-size: var(--amplify-components-message-heading-font-size);
+}
+
+.amplify-message__body {
+  color: inherit;
+  display: block;
+}
+
+.amplify-message__content {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--amplify-space-xs);
+}
+
+.amplify-message__dismiss {
+  align-self: flex-start;
+}

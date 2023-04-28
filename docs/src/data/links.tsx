@@ -241,6 +241,12 @@ export const feedbackComponents: ComponentNavItem[] = [
     icon: MdWarning,
   },
   {
+    href: '/components/message',
+    label: 'Message',
+    body: `A message displays feedback to the user`,
+    platforms: ['react'],
+  },
+  {
     href: '/components/placeholder',
     label: 'Placeholder',
     body: `The Placeholder component is used to fill out the interface while content is loaded asynchronously.`,

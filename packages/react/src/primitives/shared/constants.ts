@@ -381,6 +381,47 @@ export const ComponentClassObject: ComponentClassNameItems = {
     description:
       'Menu trigger button (MenuButton, not wrapped in amplify-menu-content class)',
   },
+  Message: {
+    className: ComponentClassName.Message,
+    components: ['Message'],
+    description: 'Class applied to the root element of the Message',
+  },
+  MessageIcon: {
+    className: ComponentClassName.MessageIcon,
+    components: ['Message'],
+    description: 'Class applied to Icon component within the Message primitive',
+  },
+  MessageHeading: {
+    className: ComponentClassName.MessageHeading,
+    components: ['Message'],
+    description: 'Class applied to the heading View',
+  },
+  MessageBody: {
+    className: ComponentClassName.MessageBody,
+    components: ['Message'],
+    description: 'Class applied to the body View',
+  },
+  MessageContent: {
+    className: ComponentClassName.MessageContent,
+    components: ['Message'],
+    description:
+      'Class applied to the wrappar around heading and children of the Message',
+  },
+  MessageDismiss: {
+    className: ComponentClassName.MessageDismiss,
+    components: ['Message'],
+    description: 'Class applied to the close Button',
+  },
+  NotificationBar: {
+    className: ComponentClassName.NotificationBar,
+    components: ['NotificationBar'],
+    description: 'Container for displaying message queues',
+  },
+  Overlay: {
+    className: ComponentClassName.Overlay,
+    components: ['Overlay'],
+    description: 'Overlay wrapper',
+  },
   Pagination: {
     className: ComponentClassName.Pagination,
     components: ['Pagination'],
@@ -833,6 +874,14 @@ export const ComponentClassNames: ComponentClassNamesType = {
   MenuContentWrapper: ComponentClassObject.MenuContentWrapper.className,
   MenuItem: ComponentClassObject.MenuItem.className,
   MenuTrigger: ComponentClassObject.MenuTrigger.className,
+  Message: ComponentClassObject.Message.className,
+  MessageIcon: ComponentClassObject.MessageIcon.className,
+  MessageHeading: ComponentClassObject.MessageHeading.className,
+  MessageBody: ComponentClassObject.MessageBody.className,
+  MessageContent: ComponentClassObject.MessageContent.className,
+  MessageDismiss: ComponentClassObject.MessageDismiss.className,
+  NotificationBar: ComponentClassObject.NotificationBar.className,
+  Overlay: ComponentClassObject.Overlay.className,
   Pagination: ComponentClassObject.Pagination.className,
   PaginationItemButton: ComponentClassObject.PaginationItemButton.className,
   PaginationItemCurrent: ComponentClassObject.PaginationItemCurrent.className,

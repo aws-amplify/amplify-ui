@@ -19,6 +19,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     size,
     type = 'button',
     variation,
+    colorTheme = 'brand',
     ...rest
   },
   ref
@@ -27,6 +28,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     ComponentClassNames.Button,
     ComponentClassNames.FieldGroupControl,
     classNameModifier(ComponentClassNames.Button, variation),
+    classNameModifier(ComponentClassNames.Button, colorTheme),
     classNameModifier(ComponentClassNames.Button, size),
     classNameModifierByFlag(
       ComponentClassNames.Button,

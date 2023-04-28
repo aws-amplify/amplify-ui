@@ -5,6 +5,17 @@ type StateTokens<Output> = DesignTokenProperties<
   Output
 >;
 
+type SeverityTokens<Output> = DesignTokenProperties<
+  'backgroundColor' | 'borderColor' | 'color',
+  Output
+> & {
+  _hover?: StateTokens<Output>;
+  _focus?: StateWithShadowTokens<Output>;
+  _active?: StateTokens<Output>;
+  _disabled?: StateTokens<Output>;
+  _loading?: StateTokens<Output>;
+};
+
 type StateWithShadowTokens<Output> = StateTokens<Output> &
   DesignTokenProperties<'boxShadow', Output>;
 
@@ -17,6 +28,11 @@ type PrimaryVariationTokens<Output> = StateTokens<Output> &
     _hover?: StateTokens<Output>;
     _focus?: StateWithShadowTokens<Output>;
     _active?: StateTokens<Output>;
+    info?: SeverityTokens<Output>;
+    error?: SeverityTokens<Output>;
+    success?: SeverityTokens<Output>;
+    warning?: SeverityTokens<Output>;
+    neutral?: SeverityTokens<Output>;
   };
 
 type MenuVariationTokens<Output> = DesignTokenProperties<
@@ -38,6 +54,11 @@ type LinkVariationTokens<Output> = DesignTokenProperties<
   _active?: StateTokens<Output>;
   _disabled?: StateTokens<Output>;
   _loading?: StateTokens<Output>;
+  info?: SeverityTokens<Output>;
+  error?: SeverityTokens<Output>;
+  success?: SeverityTokens<Output>;
+  warning?: SeverityTokens<Output>;
+  neutral?: SeverityTokens<Output>;
 };
 
 type ButtonSizeTokens<Output> = DesignTokenProperties<
@@ -72,8 +93,8 @@ export type ButtonTokens<Output extends OutputVariantKey> =
     _loading?: StateTokens<Output>;
     _disabled?: StateTokens<Output>;
     primary?: PrimaryVariationTokens<Output>;
-    warning?: LinkVariationTokens<Output>;
-    destructive?: PrimaryVariationTokens<Output>;
+    // warning?: LinkVariationTokens<Output>;
+    // destructive?: PrimaryVariationTokens<Output>;
     menu?: MenuVariationTokens<Output>;
     link?: LinkVariationTokens<Output>;
     small?: ButtonSizeTokens<Output>;
@@ -167,6 +188,201 @@ export const button: Required<ButtonTokens<'default'>> = {
       backgroundColor: { value: '{colors.brand.primary.100.value}' },
       color: { value: '{colors.font.inverse.value}' },
     },
+    info: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.blue.80}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.blue.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.100.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+    },
+    warning: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.orange.80}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.orange.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.100.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+    },
+    error: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.red.80}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.red.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.100.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+    },
+    success: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.green.80}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.green.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.100.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+    },
+    neutral: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.neutral.80}' },
+      color: { value: '{colors.font.inverse.value}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.neutral.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.neutral.90.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.neutral.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.neutral.100.value}' },
+        color: { value: '{colors.font.inverse.value}' },
+      },
+    },
   },
 
   menu: {
@@ -196,7 +412,7 @@ export const button: Required<ButtonTokens<'default'>> = {
   link: {
     backgroundColor: { value: 'transparent' },
     borderColor: { value: 'transparent' },
-    borderWidth: { value: '{space.zero.value}' },
+    borderWidth: { value: '{borderWidths.small.value}' },
     color: { value: '{colors.font.interactive.value}' },
     _hover: {
       borderColor: { value: 'transparent' },
@@ -224,74 +440,274 @@ export const button: Required<ButtonTokens<'default'>> = {
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.disabled.value}' },
     },
-  },
-
-  warning: {
-    backgroundColor: { value: 'transparent' },
-    borderColor: { value: '{colors.red.60}' },
-    borderWidth: { value: '{borderWidths.small}' },
-    color: { value: '{colors.red.60}' },
-    _hover: {
-      borderColor: { value: '{colors.red.80}' },
-      backgroundColor: { value: '{colors.red.10}' },
-      color: { value: '{colors.font.error}' },
+    info: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.blue.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.10.value}' },
+        color: { value: '{colors.blue.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.10.value}' },
+        color: { value: '{colors.blue.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.blue.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.blue.20.value}' },
+        color: { value: '{colors.blue.100.value}' },
+      },
     },
-    _focus: {
-      borderColor: { value: '{colors.red.80}' },
-      backgroundColor: { value: '{colors.red.10}' },
-      color: { value: '{colors.red.80}' },
-      boxShadow: { value: '{components.fieldcontrol._error._focus.boxShadow}' },
+    warning: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.orange.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.10.value}' },
+        color: { value: '{colors.orange.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.10.value}' },
+        color: { value: '{colors.orange.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.orange.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.orange.20.value}' },
+        color: { value: '{colors.orange.100.value}' },
+      },
     },
-    _active: {
-      borderColor: { value: '{colors.red.100}' },
-      backgroundColor: { value: '{colors.red.20}' },
+    success: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.green.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.10.value}' },
+        color: { value: '{colors.green.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.10.value}' },
+        color: { value: '{colors.green.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.green.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.green.20.value}' },
+        color: { value: '{colors.green.100.value}' },
+      },
+    },
+    error: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
       color: { value: '{colors.red.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.10.value}' },
+        color: { value: '{colors.red.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.10.value}' },
+        color: { value: '{colors.red.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.red.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.red.20.value}' },
+        color: { value: '{colors.red.100.value}' },
+      },
     },
-    _disabled: {
-      borderColor: { value: '{colors.border.tertiary}' },
+    neutral: {
+      borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.font.disabled}' },
-    },
-    _loading: {
-      borderColor: { value: '{colors.border.tertiary}' },
-      backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.font.disabled}' },
+      color: { value: '{colors.neutral.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: 'hsla(0,0%,0%,.05)' },
+        color: { value: '{colors.neutral.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: 'hsla(0,0%,0%,.05)' },
+        color: { value: '{colors.neutral.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.neutral.80.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.overlay.10.value}' },
+        color: { value: '{colors.neutral.100.value}' },
+      },
     },
   },
 
-  destructive: {
-    borderColor: { value: 'transparent' },
-    borderWidth: { value: '{borderWidths.small}' },
-    borderStyle: { value: 'solid' },
-    backgroundColor: { value: '{colors.red.60}' },
-    color: { value: '{colors.font.inverse}' },
-    _disabled: {
-      borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.background.disabled}' },
-      color: { value: '{colors.font.disabled}' },
-    },
-    _loading: {
-      borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.background.disabled}' },
-      color: { value: '{colors.font.disabled}' },
-    },
-    _hover: {
-      borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.red.80}' },
-      color: { value: '{colors.font.inverse}' },
-    },
-    _focus: {
-      borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.red.80}' },
-      color: { value: '{colors.font.inverse}' },
-      boxShadow: { value: '{components.fieldcontrol._error._focus.boxShadow}' },
-    },
-    _active: {
-      borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.red.100}' },
-      color: { value: '{colors.font.inverse}' },
-    },
-  },
+  // warning: {
+  //   backgroundColor: { value: 'transparent' },
+  //   borderColor: { value: '{colors.red.60}' },
+  //   borderWidth: { value: '{borderWidths.small}' },
+  //   color: { value: '{colors.red.60}' },
+  //   _hover: {
+  //     borderColor: { value: '{colors.red.80}' },
+  //     backgroundColor: { value: '{colors.red.10}' },
+  //     color: { value: '{colors.font.error}' },
+  //   },
+  //   _focus: {
+  //     borderColor: { value: '{colors.red.80}' },
+  //     backgroundColor: { value: '{colors.red.10}' },
+  //     color: { value: '{colors.red.80}' },
+  //     boxShadow: { value: '{components.fieldcontrol._error._focus.boxShadow}' },
+  //   },
+  //   _active: {
+  //     borderColor: { value: '{colors.red.100}' },
+  //     backgroundColor: { value: '{colors.red.20}' },
+  //     color: { value: '{colors.red.100}' },
+  //   },
+  //   _disabled: {
+  //     borderColor: { value: '{colors.border.tertiary}' },
+  //     backgroundColor: { value: 'transparent' },
+  //     color: { value: '{colors.font.disabled}' },
+  //   },
+  //   _loading: {
+  //     borderColor: { value: '{colors.border.tertiary}' },
+  //     backgroundColor: { value: 'transparent' },
+  //     color: { value: '{colors.font.disabled}' },
+  //   },
+  // },
+
+  // destructive: {
+  //   borderColor: { value: 'transparent' },
+  //   borderWidth: { value: '{borderWidths.small}' },
+  //   borderStyle: { value: 'solid' },
+  //   backgroundColor: { value: '{colors.red.60}' },
+  //   color: { value: '{colors.font.inverse}' },
+  //   _disabled: {
+  //     borderColor: { value: 'transparent' },
+  //     backgroundColor: { value: '{colors.background.disabled}' },
+  //     color: { value: '{colors.font.disabled}' },
+  //   },
+  //   _loading: {
+  //     borderColor: { value: 'transparent' },
+  //     backgroundColor: { value: '{colors.background.disabled}' },
+  //     color: { value: '{colors.font.disabled}' },
+  //   },
+  //   _hover: {
+  //     borderColor: { value: 'transparent' },
+  //     backgroundColor: { value: '{colors.red.80}' },
+  //     color: { value: '{colors.font.inverse}' },
+  //   },
+  //   _focus: {
+  //     borderColor: { value: 'transparent' },
+  //     backgroundColor: { value: '{colors.red.80}' },
+  //     color: { value: '{colors.font.inverse}' },
+  //     boxShadow: { value: '{components.fieldcontrol._error._focus.boxShadow}' },
+  //   },
+  //   _active: {
+  //     borderColor: { value: 'transparent' },
+  //     backgroundColor: { value: '{colors.red.100}' },
+  //     color: { value: '{colors.font.inverse}' },
+  //   },
+  // },
 
   // sizes
   small: {

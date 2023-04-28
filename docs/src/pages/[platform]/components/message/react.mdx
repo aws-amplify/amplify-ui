@@ -1,0 +1,52 @@
+import { Fragment } from '@/components/Fragment'; 
+import { Message, View } from '@aws-amplify/ui-react';
+
+import {
+  BasicExample,
+  Filled,
+  Outline,
+  Composable
+} from './examples/';
+
+import { Example, ExampleCode } from '@/components/Example';
+
+## Usage
+
+
+<Example>
+  <BasicExample />
+  <ExampleCode>
+```tsx file=./examples/BasicExample.tsx
+
+````
+  </ExampleCode>
+</Example>
+
+## Filled
+
+<Example>
+  <Filled />
+  <ExampleCode>
+```tsx file=./examples/Filled.tsx
+
+````
+  </ExampleCode>
+</Example>
+
+## Outline
+
+<Example>
+  <Outline />
+  <ExampleCode>
+```tsx file=./examples/Outline.tsx
+
+````
+  </ExampleCode>
+</Example>
+
+## Composable
+Combine the Message component with other Amplify UI components and style props to meet the design needs for a notification, a toast, a status change, etc.
+
+<Example>
+  <Composable />
+</Example>
