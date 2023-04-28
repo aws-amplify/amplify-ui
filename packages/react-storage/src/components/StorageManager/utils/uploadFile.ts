@@ -53,7 +53,6 @@ export function uploadFile({
       progressCallback,
       contentType,
       provider: provider as `AWSS3`,
-      metadata,
       ...rest,
     }).then(completeCallback, errorCallback);
   }
