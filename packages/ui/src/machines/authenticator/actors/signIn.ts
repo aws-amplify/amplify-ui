@@ -558,16 +558,16 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         /* START ISSUE 3767 - Temporary fix. Will change to handle 'SELECT_MFA_TYPE' */
         shouldSelectMfaType: (_, event): boolean => {
-          const isSelectedMfaTypeChallenge = isExpectedChallengeName(
+          const isSelectMfaTypeChallenge = isExpectedChallengeName(
             getChallengeName(event),
             'SELECT_MFA_TYPE'
           );
-          if (isSelectedMfaTypeChallenge) {
+          if (isSelectMfaTypeChallenge) {
             console.error(
               "ERROR: 'SELECT_MFA_TYPE' is not supported by Amplify UI yet. \n Please use only one MFA type or set up the MFA selector using this documen: https://docs.amplify.aws/lib/auth/mfa/q/platform/js/#advanced-use-cases/"
             );
           }
-          return isSelectedMfaTypeChallenge;
+          return isSelectMfaTypeChallenge;
         },
         /* END ISSUE 3767 */
       },
