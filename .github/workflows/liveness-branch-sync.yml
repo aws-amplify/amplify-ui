@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  pull-requests: write
+
 jobs:
   branch-sync:
     name: Branch Sync
