@@ -106,7 +106,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                   /* START ISSUE 3767 - Temporary fix. Will change to handle 'SELECT_MFA_TYPE' */
                   {
-                    cond: 'shouldSelectMfaType',
+                    cond: 'isSelectMFATypeChallenge',
                     actions: 'setRemoteError',
                     target: 'edit',
                   },
@@ -557,7 +557,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           return isExpectedChallengeName(getChallengeName(event), 'MFA_SETUP');
         },
         /* START ISSUE 3767 - Temporary fix. Will change to handle 'SELECT_MFA_TYPE' */
-        shouldSelectMfaType: (_, event): boolean => {
+        isSelectMFATypeChallenge: (_, event): boolean => {
           const isSelectMfaTypeChallenge = isExpectedChallengeName(
             getChallengeName(event),
             'SELECT_MFA_TYPE'
