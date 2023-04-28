@@ -24,7 +24,6 @@ export function uploadFile({
   completeCallback,
   isResumable = false,
   provider,
-  metadata,
   ...rest
 }: UploadFileProps): UploadFile {
   const contentType = file.type || 'binary/octet-stream';
