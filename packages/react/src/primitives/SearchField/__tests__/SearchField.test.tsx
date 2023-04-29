@@ -13,7 +13,7 @@ const testId = 'SearchFieldTestId';
 const searchQuery = 'Amplify UI components';
 
 describe('SearchField component', () => {
-  const ControlledSearchField = () => {
+  const ControlledSearchField = ({ isDisabled = false }) => {
     const [value, setValue] = React.useState('');
     const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
       setValue(event.target.value);
@@ -28,6 +28,7 @@ describe('SearchField component', () => {
         onChange={onChange}
         onClear={onClear}
         value={value}
+        isDisabled={isDisabled}
       />
     );
   };
@@ -224,6 +225,14 @@ describe('SearchField component', () => {
 
       const clearButton = await screen.findByLabelText(clearButtonLabel);
       expect(clearButton).toHaveAttribute('aria-label', clearButtonLabel);
+    });
+
+    it('should remove clear button when input is disabled', async () => {
+      render(<ControlledSearchField isDisabled />);
+
+      const clearButton = screen.queryByLabelText(clearButtonLabel);
+
+      expect(clearButton).toBeNull();
     });
   });
 });

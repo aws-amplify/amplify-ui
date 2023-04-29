@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* eslint-disable */
 import {
   LivenessOvalDetails,
@@ -105,17 +104,25 @@ export function getOvalDetailsFromSessionInformation({
     sessionInformation?.Challenge?.FaceMovementAndLightChallenge
       ?.OvalParameters;
 
+  if (
+    !ovalParameters ||
+    !ovalParameters.CenterX ||
+    !ovalParameters.CenterY ||
+    !ovalParameters.Width ||
+    !ovalParameters.Height
+  ) {
+    throw new Error('Oval parameters not returned from session information.');
+  }
+
   // We need to include a flippedCenterX for visualizing the oval on a flipped camera view
   // The camera view we show the customer is flipped to making moving left and right more obvious
   // The video stream sent to the liveness service is not flipped
   return {
-    flippedCenterX: ovalParameters?.CenterX
-      ? videoWidth - ovalParameters?.CenterX
-      : undefined,
-    centerX: ovalParameters?.CenterX,
-    centerY: ovalParameters?.CenterY,
-    width: ovalParameters?.Width,
-    height: ovalParameters?.Height,
+    flippedCenterX: videoWidth - ovalParameters.CenterX,
+    centerX: ovalParameters.CenterX,
+    centerY: ovalParameters.CenterY,
+    width: ovalParameters.Width,
+    height: ovalParameters.Height,
   };
 }
 
@@ -256,14 +263,29 @@ export function getFaceMatchStateInLivenessOval(
 ): FaceMatchStateInLivenessOval {
   let faceMatchState: FaceMatchState;
 
+  const challengeConfig =
+    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
+      ?.ChallengeConfig;
+  if (
+    !challengeConfig ||
+    !challengeConfig.OvalIouThreshold ||
+    !challengeConfig.OvalIouHeightThreshold ||
+    !challengeConfig.OvalIouWidthThreshold ||
+    !challengeConfig.FaceIouHeightThreshold ||
+    !challengeConfig.FaceIouWidthThreshold
+  ) {
+    throw new Error(
+      'Challenge information not returned from session information.'
+    );
+  }
+
   const {
     OvalIouThreshold,
     OvalIouHeightThreshold,
     OvalIouWidthThreshold,
     FaceIouHeightThreshold,
     FaceIouWidthThreshold,
-  } =
-    sessionInformation.Challenge.FaceMovementAndLightChallenge.ChallengeConfig;
+  } = challengeConfig;
 
   const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
     face,
