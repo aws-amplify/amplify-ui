@@ -8,6 +8,7 @@ import {
   FilePickerProps,
 } from './ui';
 import { StorageManagerDisplayText } from './utils';
+import { has, isObject } from '@aws-amplify/ui';
 
 export enum FileStatus {
   QUEUED = 'queued',
@@ -32,11 +33,16 @@ export type StorageFiles = StorageFile[];
 
 export type DefaultFile = Pick<StorageFile, 'key'>;
 
-export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>>;
+export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>> &
+  Record<string, any>;
 
 export type ProcessFile = (
   params: ProcessFileParams
-) => ProcessFileParams & Record<string, any>;
+) => Promise<ProcessFileParams> | ProcessFileParams;
+
+export const isProcessedFile = (arg: unknown): arg is ProcessFileParams => {
+  return isObject(arg) && has(arg, 'file');
+};
 
 export interface StorageManagerProps {
   /**

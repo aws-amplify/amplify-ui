@@ -3,7 +3,7 @@ import type { UploadTask } from '@aws-amplify/storage';
 
 import { uploadFile } from '../../utils/uploadFile';
 
-import { FileStatus } from '../../types';
+import { FileStatus, isProcessedFile } from '../../types';
 
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
@@ -75,42 +75,75 @@ export function useUploadFiles({
       };
 
       if (file) {
-        const {
-          file: processedFile,
-          key: processedKey,
-          ...processedRest
-        } = isFunction(processFile)
+        const processedFile = isFunction(processFile)
           ? processFile({ file, key })
           : { file, key };
 
-        onUploadStart?.({ key });
-
-        if (isResumable) {
-          const uploadTask = uploadFile({
-            ...processedRest,
-            file: processedFile,
-            fileName: path + processedKey,
-            isResumable: true,
-            level: accessLevel,
-            completeCallback: onComplete,
-            progressCallback: onProgress,
-            errorCallback: onError,
-            provider,
-          }) as unknown as UploadTask;
-          setUploadingFile({ id, uploadTask });
+        // processFile can return a Promise or immediately return the processed file
+        // if it is a processed file, start the upload
+        if (isProcessedFile(processedFile)) {
+          const { file, key, ...processedRest } = processedFile;
+          onUploadStart?.({ key });
+          if (isResumable) {
+            const uploadTask = uploadFile({
+              ...processedRest,
+              file,
+              fileName: path + key,
+              isResumable: true,
+              level: accessLevel,
+              completeCallback: onComplete,
+              progressCallback: onProgress,
+              errorCallback: onError,
+              provider,
+            }) as unknown as UploadTask;
+            setUploadingFile({ id, uploadTask });
+          } else {
+            uploadFile({
+              ...processedRest,
+              file,
+              fileName: path + key,
+              isResumable: false,
+              level: accessLevel,
+              completeCallback: onComplete,
+              progressCallback: onProgress,
+              errorCallback: onError,
+              provider,
+            });
+            setUploadingFile({ id });
+          }
         } else {
-          uploadFile({
-            ...processedRest,
-            file: processedFile,
-            fileName: path + processedKey,
-            isResumable: false,
-            level: accessLevel,
-            completeCallback: onComplete,
-            progressCallback: onProgress,
-            errorCallback: onError,
-            provider,
+          // processedFile is a Promise, resolve it first,
+          // then start the upload
+          processedFile.then(({ file, key, ...rest }) => {
+            onUploadStart?.({ key });
+            if (isResumable) {
+              const uploadTask = uploadFile({
+                ...rest,
+                file,
+                fileName: path + key,
+                isResumable: true,
+                level: accessLevel,
+                completeCallback: onComplete,
+                progressCallback: onProgress,
+                errorCallback: onError,
+                provider,
+              }) as unknown as UploadTask;
+              setUploadingFile({ id, uploadTask });
+            } else {
+              uploadFile({
+                ...rest,
+                file,
+                fileName: path + key,
+                isResumable: false,
+                level: accessLevel,
+                completeCallback: onComplete,
+                progressCallback: onProgress,
+                errorCallback: onError,
+                provider,
+              });
+              setUploadingFile({ id });
+            }
           });
-          setUploadingFile({ id });
         }
       }
     }
