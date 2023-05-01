@@ -105,4 +105,29 @@ describe('uploadfile', () => {
       }
     );
   });
+
+  it('passes metadata to Storage.put', () => {
+    uploadFile({
+      file: imageFile,
+      fileName: imageFile.name,
+      level: 'public',
+      progressCallback: () => '',
+      errorCallback: () => '',
+      completeCallback: () => '',
+      isResumable: false,
+      metadata: {
+        foo: 'bar',
+      },
+    });
+
+    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
+      level: 'public',
+      progressCallback: expect.any(Function),
+      resumable: false,
+      contentType: 'image/png',
+      metadata: {
+        foo: 'bar',
+      },
+    });
+  });
 });

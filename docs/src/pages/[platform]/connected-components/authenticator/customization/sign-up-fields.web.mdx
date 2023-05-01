@@ -4,7 +4,7 @@ import {
   useAuthenticator,
 } from '@aws-amplify/ui-react';
 
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 
 ## Sign Up Fields
@@ -60,3 +60,26 @@ The following example customizes the Sign Up screen by:
 </Example>
 
 > If you'd like to add an attribute please first consider using the [Sign Up Attributes](configuration#sign-up-attributes) prop. In some instances you may want to add an app-specific attribute. In those cases you can add a new form element to the Sign Up form fields. Be aware the HTML `name` attribute on the new form field must match the name of the Cognito attribute. If the cognito attribute is a [custom attribute](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html) it must have the `custom:` prefix in the HTML attribute name.
+
+<Example>
+  <ExampleCode>
+  ```js
+    const formFields = {
+      signUp: {
+        email: {
+          order:1
+        },
+        password: {
+          order: 2
+        },
+        confirm_password: {
+          order: 3
+        },
+        'custom:your_custom_attribute': {
+          order: 4
+        }
+      },
+    }
+  ```
+  </ExampleCode>
+</Example>

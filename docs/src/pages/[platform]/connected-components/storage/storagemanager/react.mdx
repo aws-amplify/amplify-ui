@@ -14,6 +14,7 @@ import {
   StorageManagerFileTypesExample,
   StorageManagerResumableExample,
   StorageManagerEventExample,
+  StorageManagerMetadataExample,
 } from './examples'
 
 <DefaultStorageManagerExample />
@@ -96,6 +97,8 @@ You might want to process or modify the file(s) and/or file name(s) before they 
   </ExampleCode>
 </Example>
 
+You can also add any other [Amplify Storage options](https://docs.amplify.aws/lib/storage/upload/q/platform/js/#encrypted-uploads) by adding them to the return object of `processFile`
+
 ## Event Handling
 
 The StorageManager component has several event handlers: `onUploadStart`, `onUploadSuccess`, `onUploadError`, and `onFileRemove`
@@ -108,9 +111,23 @@ The StorageManager component has several event handlers: `onUploadStart`, `onUpl
   </ExampleCode>
 </Example>
 
-<Alert variation="warning" heading="Use a Ref">
+<Alert variation="warning" heading="Use a previousState">
 Be careful setting state in the `onUploadSuccess` because that function is bound when the upload _starts_. Make sure to use the previous state argument rather than the current state in the component.
 </Alert>
+
+## Adding metadata
+
+Metadata is added as an object with string key-value pairs. It is sent as custom HTTP headers with the name `x-amz-meta-[key]`. For example, if your metadata for a file was `{mode: 'night'}`, it would set the `x-amz-meta-mode` HTTP header to `night`.
+
+You can add metadata by adding a `metadata` object in the return object of `processFile`. 
+
+<Example>
+  <StorageManagerMetadataExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerMetadataExample.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ## Customization
 

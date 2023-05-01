@@ -23,7 +23,11 @@ const phoneField = {
   name: 'phonenumber',
   type: 'tel',
 };
-const textField = { order: 3, name: 'username', isRequired: true };
+const textField = {
+  order: 3,
+  name: 'username',
+  isRequired: true,
+};
 
 const radioField = { type: 'radio', name: 'email', value: 'hello@world.com' };
 
@@ -191,7 +195,10 @@ describe('getRouteTypedFields', () => {
     });
 
     const expected = [
-      passwordField,
+      {
+        ...passwordField,
+        testID: `authenticator__text-field__input-${passwordField.name}`,
+      },
       {
         name: phoneField.name,
         type: 'phone',
@@ -200,6 +207,7 @@ describe('getRouteTypedFields', () => {
         name: textField.name,
         required: textField.isRequired,
         type: 'default',
+        testID: `authenticator__text-field__input-${textField.name}`,
       },
     ];
 
