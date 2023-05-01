@@ -53,7 +53,7 @@ const excludePackages = [
   // This is MIT licensed but cannot infer correctly
   // https://github.com/mapbox/jsonlint
   '@mapbox/jsonlint-lines-primitives@2.0.2',
-  // This is MIT licensed but cannot infer correclty
+  // This is MIT licensed but cannot infer correctly
   // https://github.com/tecfu/breakword
   'breakword@1.0.5',
   // This package does not exist in Github but still available in npm without being licensed
