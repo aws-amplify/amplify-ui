@@ -98,10 +98,10 @@ export const setFieldErrors = assign({
 export const setRemoteError = assign({
   remoteError: (_, event: AuthEvent) => {
     if (
-      event.data.name === 'NoUserPoolError' /* START ISSUE 3767 */ ||
-      event.data.challengeName === 'SELECT_MFA_TYPE' /* END ISSUE 3767 */
+      event.data.name === 'NoUserPoolError' ||
+      event.data.challengeName === 'SELECT_MFA_TYPE' // TODO: ISSUE-3767 - Temporary fix. Will change to handle 'SELECT_MFA_TYPE'
     ) {
-      return `Configuration error (see console) – please contact the administrator`;
+      return `Configuration error – please contact the administrator`;
     }
     return event.data?.message || event.data;
   },
