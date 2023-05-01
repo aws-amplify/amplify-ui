@@ -50,7 +50,7 @@ const approvedLicenses = [
 
 // Excluding packages that are either unlicensed or license cannot be inferred correctly
 const excludePackages = [
-  // This is MIT licensed but cannot infer correclty
+  // This is MIT licensed but cannot infer correctly
   // https://github.com/mapbox/jsonlint
   '@mapbox/jsonlint-lines-primitives@2.0.2',
   // This is MIT licensed but cannot infer correclty
