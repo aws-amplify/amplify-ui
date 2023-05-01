@@ -1,10 +1,9 @@
 import { isFunction } from '@aws-amplify/ui';
-import { StorageManagerProps } from '../../types';
+import { ProcessFileParams, StorageManagerProps } from '../../types';
 
-interface ProcessFileParams extends Pick<StorageManagerProps, 'processFile'> {
-  file: File;
-  key: string;
-}
+interface ResolveFileParams
+  extends Pick<StorageManagerProps, 'processFile'>,
+    ProcessFileParams {}
 
 /**
  * Utility function that takes the processFile prop, along with a file a key
@@ -15,7 +14,7 @@ export const resolveFile = ({
   processFile,
   file,
   key,
-}: ProcessFileParams): Promise<Pick<ProcessFileParams, 'file' | 'key'>> => {
+}: ResolveFileParams): Promise<ProcessFileParams> => {
   return new Promise((resolve, reject) => {
     const result = isFunction(processFile)
       ? processFile({ file, key })
@@ -23,9 +22,7 @@ export const resolveFile = ({
     if (result instanceof Promise) {
       result.then(resolve).catch(reject);
     } else {
-      resolve({
-        ...result,
-      });
+      resolve(result);
     }
   });
 };
