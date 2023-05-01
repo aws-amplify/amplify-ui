@@ -32,6 +32,12 @@ export type StorageFiles = StorageFile[];
 
 export type DefaultFile = Pick<StorageFile, 'key'>;
 
+export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>>;
+
+export type ProcessFile = (
+  params: ProcessFileParams
+) => ProcessFileParams & Record<string, any>;
+
 export interface StorageManagerProps {
   /**
    * List of accepted File types
@@ -92,9 +98,7 @@ export interface StorageManagerProps {
   /**
    * Process file before upload
    */
-  processFile?: (
-    storageFile: Required<Pick<StorageFile, 'file' | 'key'>>
-  ) => Required<Pick<StorageFile, 'file' | 'key'>>;
+  processFile?: ProcessFile;
   /**
    * Determines if thumbnails show for image files
    */

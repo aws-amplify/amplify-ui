@@ -7,6 +7,7 @@ import { FileStatus } from '../../types';
 
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
+import { isFunction } from '@aws-amplify/ui';
 
 export interface UseUploadFilesProps
   extends Pick<
@@ -74,17 +75,21 @@ export function useUploadFiles({
       };
 
       if (file) {
-        const processedFile =
-          typeof processFile === 'function'
-            ? processFile({ file, key })
-            : { file, key };
+        const {
+          file: processedFile,
+          key: processedKey,
+          ...processedRest
+        } = isFunction(processFile)
+          ? processFile({ file, key })
+          : { file, key };
 
         onUploadStart?.({ key });
 
         if (isResumable) {
           const uploadTask = uploadFile({
-            file: processedFile.file,
-            fileName: path + processedFile.key,
+            ...processedRest,
+            file: processedFile,
+            fileName: path + processedKey,
             isResumable: true,
             level: accessLevel,
             completeCallback: onComplete,
@@ -95,8 +100,9 @@ export function useUploadFiles({
           setUploadingFile({ id, uploadTask });
         } else {
           uploadFile({
-            file: processedFile.file,
-            fileName: path + processedFile.key,
+            ...processedRest,
+            file: processedFile,
+            fileName: path + processedKey,
             isResumable: false,
             level: accessLevel,
             completeCallback: onComplete,

@@ -64,7 +64,7 @@ export const STORAGE_MANAGER = [
     name: `processFile?`,
     description:
       'Called immediately before uploading a file to allow you to edit the key or the file itself.',
-    type: `(file: {key: string, file: Blob}) => {key: string, file: Blob};`,
+    type: `(params: {key: string, file: Blob}) => {key: string, file: Blob} & Record<string, string>;`,
   },
   {
     name: `path?`,
