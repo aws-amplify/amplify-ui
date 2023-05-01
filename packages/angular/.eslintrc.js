@@ -13,7 +13,7 @@ module.exports = {
         'plugin:@angular-eslint/recommended',
         // This is required if you use inline templates in Components
         'plugin:@angular-eslint/template/process-inline-templates',
-        'amplify-ui',
+        '@aws-amplify/amplify-ui',
       ],
       rules: {
         /*
