@@ -1,7 +1,7 @@
 import { Storage } from 'aws-amplify';
 import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 
-interface UploadFileProps {
+type UploadFileProps = {
   file: File;
   fileName: string;
   level: StorageAccessLevel;
@@ -10,7 +10,7 @@ interface UploadFileProps {
   errorCallback: (error: string) => void;
   completeCallback: (event: { key: string | undefined }) => void;
   provider?: string;
-}
+} & Record<string, any>;
 
 type UploadFile = Promise<void> | UploadTask;
 

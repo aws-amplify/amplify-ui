@@ -8,11 +8,13 @@ export interface Face {
   height: number;
   timestampMs: number;
   probability?: number;
-  rightEye: number[];
-  leftEye: number[];
-  mouth: number[];
-  nose: number[];
+  rightEye: Coordinate;
+  leftEye: Coordinate;
+  mouth: Coordinate;
+  nose: Coordinate;
 }
+
+export type Coordinate = [number, number];
 
 /**
  * The abstract class representing FaceDetection
