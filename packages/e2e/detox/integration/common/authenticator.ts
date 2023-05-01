@@ -1,6 +1,8 @@
 import { Then, When } from '@cucumber/cucumber';
 import { by, element, expect } from 'detox';
 
+import { capitalize } from '@aws-amplify/ui';
+
 const AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX =
   'authenticator__text-field__input';
 
@@ -26,7 +28,7 @@ When(
   'I type my {string} with status {string}',
   async (loginMechanism: string, status: string) => {
     let text = '',
-      usernameAttribute = loginMechanism.toUpperCase();
+      usernameAttribute = capitalize(loginMechanism);
     if (loginMechanism === 'email') {
       text = `${getUserAlias(status)}@${process.env.DOMAIN}`;
     } else if (loginMechanism === 'username') {

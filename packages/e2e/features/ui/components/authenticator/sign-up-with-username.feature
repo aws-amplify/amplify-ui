@@ -17,9 +17,19 @@ Feature: Sign Up with Username
   Scenario: "Phone Number" is not included
     Then I don't see "Phone Number"
   
-  @angular @react @vue @react-native
+  @angular @react @vue
   Scenario: Sign up a new username & password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-username"
+    When I type a new "username"
+    And I type my password
+    And I confirm my password
+    And I type my "email" with status "UNCONFIRMED"
+    And I click the "Create Account" button
+    Then I see "Your code is on the way"
+    And I see "Confirmation Code"
+
+  @react-native
+  Scenario: Sign up a new username & password
     When I type a new "username"
     And I type my password
     And I confirm my password
