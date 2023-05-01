@@ -1,7 +1,7 @@
 const checker = require('license-checker');
 const path = require('path');
 
-// A list of approved license
+// A list of approved licenses
 const approvedLicenses = [
   '0BSD',
   'Apache-2.0',
