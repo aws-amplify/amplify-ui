@@ -55,7 +55,7 @@ module.exports = {
       rules: {},
     },
     {
-      extends: ['amplify-ui/jest'],
+      extends: ['@aws-amplify/amplify-ui/jest'],
       files: ['**/__mocks__/**', '**/__tests__/**'],
       rules: {
         // TODO: turn these on after fixing the corresponding lint errors
