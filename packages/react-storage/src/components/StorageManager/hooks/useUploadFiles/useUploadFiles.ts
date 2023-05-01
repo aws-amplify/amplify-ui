@@ -75,26 +75,23 @@ export function useUploadFiles({
       };
 
       if (file) {
-        resolveFile({ processFile, file, key }).then(
-          ({ file, key, ...rest }) => {
-            onUploadStart?.({ key });
-            const uploadTask = uploadFile({
-              ...rest,
-              file,
-              key: path + key,
-              isResumable,
-              level: accessLevel,
-              completeCallback: onComplete,
-              progressCallback: onProgress,
-              errorCallback: onError,
-              provider,
-            }) as unknown as UploadTask;
-            setUploadingFile({
-              id,
-              uploadTask: isResumable ? uploadTask : undefined,
-            });
-          }
-        );
+        resolveFile({ processFile, file, key }).then(({ key, ...rest }) => {
+          onUploadStart?.({ key });
+          const uploadTask = uploadFile({
+            ...rest,
+            isResumable,
+            provider,
+            key: path + key,
+            level: accessLevel,
+            completeCallback: onComplete,
+            progressCallback: onProgress,
+            errorCallback: onError,
+          }) as unknown as UploadTask;
+          setUploadingFile({
+            id,
+            uploadTask: isResumable ? uploadTask : undefined,
+          });
+        });
       }
     }
   }, [
