@@ -9,7 +9,7 @@ export const useTextProps = (): TextPropControlsProps => {
   const [as, setAs] = React.useState<TextProps['as']>('p');
   const [isTruncated, setIsTruncated] =
     React.useState<TextProps['isTruncated']>(false);
-  const [color, setColor] = React.useState<string>('blue');
+  const [color, setColor] = React.useState<string>('');
   const [lineHeight, setLineHeight] = React.useState<string>('1.5em');
   const [fontWeight, setFontWeight] = React.useState<number>(400);
   const [fontStyle, setFontStyle] = React.useState<string>('normal');
