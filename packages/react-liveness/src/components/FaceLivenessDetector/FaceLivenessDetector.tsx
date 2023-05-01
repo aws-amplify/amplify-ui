@@ -17,7 +17,8 @@ import { CheckScreenComponents } from './shared/FaceLivenessErrorModal';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
-type FaceLivenessDetectorComponents = StartScreenComponents & CheckScreenComponents;
+type FaceLivenessDetectorComponents = StartScreenComponents &
+  CheckScreenComponents;
 
 export interface FaceLivenessDetectorProps
   extends FaceLivenessDetectorPropsFromUi {
@@ -40,7 +41,7 @@ export default function FaceLivenessDetector(
     cameraDisplayText,
     instructionDisplayText,
     streamDisplayText,
-    errorDisplayText
+    errorDisplayText,
   } = getDisplayText(displayText);
 
   const service = useInterpret(livenessMachine, {
