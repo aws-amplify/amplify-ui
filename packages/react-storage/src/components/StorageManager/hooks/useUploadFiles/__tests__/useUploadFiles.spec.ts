@@ -60,15 +60,14 @@ describe('useUploadFiles', () => {
       useUploadFiles({ ...props, files: [mockUploadingFile, mockQueuedFile] })
     );
 
-    expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
-    expect(mockSetUploadingFile).toHaveBeenCalledWith({
-      id: mockQueuedFile.id,
-    });
-    expect(mockSetUploadingFile).not.toHaveBeenCalledWith({
-      id: mockUploadingFile.id,
-    });
-
     await waitFor(() => {
+      expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
+      expect(mockSetUploadingFile).toHaveBeenCalledWith({
+        id: mockQueuedFile.id,
+      });
+      expect(mockSetUploadingFile).not.toHaveBeenCalledWith({
+        id: mockUploadingFile.id,
+      });
       expect(mockSetUploadSuccess).toHaveBeenCalledTimes(1);
       expect(mockSetUploadSuccess).toHaveBeenCalledWith({
         id: mockQueuedFile.id,
@@ -81,7 +80,7 @@ describe('useUploadFiles', () => {
     });
   });
 
-  it('should upload all resumable queued files', () => {
+  it('should upload all resumable queued files', async () => {
     (Storage.put as jest.Mock).mockResolvedValue(storageOutput);
     renderHook(() =>
       useUploadFiles({
@@ -90,14 +89,15 @@ describe('useUploadFiles', () => {
         files: [mockUploadingFile, mockQueuedFile],
       })
     );
-
-    expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
-    expect(mockSetUploadingFile).toHaveBeenCalledWith({
-      id: mockQueuedFile.id,
-      uploadTask: expect.any(Object),
-    });
-    expect(mockSetUploadingFile).not.toHaveBeenCalledWith({
-      id: mockUploadingFile.id,
+    await waitFor(() => {
+      expect(mockSetUploadingFile).toHaveBeenCalledTimes(1);
+      expect(mockSetUploadingFile).toHaveBeenCalledWith({
+        id: mockQueuedFile.id,
+        uploadTask: expect.any(Object),
+      });
+      expect(mockSetUploadingFile).not.toHaveBeenCalledWith({
+        id: mockUploadingFile.id,
+      });
     });
   });
 
