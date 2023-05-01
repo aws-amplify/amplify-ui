@@ -1,6 +1,5 @@
 ---
 "@aws-amplify/ui-react-storage": minor
-"@aws-amplify/ui-react": minor
 ---
 
 feat(storage-manager): make processFile async. This allows for reading the file contents and performing async validations or mutations like creating a hash of the file contents. 
