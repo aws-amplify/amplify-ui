@@ -1,6 +1,6 @@
 import { Linking } from 'react-native';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
-import { HandleMessageLinkAction } from '@aws-amplify/ui-react-core';
+import { HandleMessageLinkAction } from '@aws-amplify/ui-react-core-notifications';
 
 const logger = new Logger('Notifications.InAppMessaging');
 
