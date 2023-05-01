@@ -7,3 +7,4 @@ export { StorageManagerDisplayTextExample } from './StorageManagerDisplayTextExa
 export { StorageManagerFileTypesExample } from './StorageManagerFileTypesExample';
 export { StorageManagerResumableExample } from './StorageManagerResumableExample';
 export { StorageManagerEventExample } from './StorageManagerEventExample';
+export { StorageManagerMetadataExample } from './StorageManagerMetadataExample';

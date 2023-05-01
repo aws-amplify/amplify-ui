@@ -99,7 +99,7 @@ export const TextPropControls: TextPropControlsInterface = ({
       </SelectField>
       <TextField
         label="color"
-        placeholder={String(color)}
+        placeholder="blue"
         onChange={(event) => setColor(event.target.value)}
       />
       <SwitchField
