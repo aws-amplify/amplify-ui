@@ -32,11 +32,12 @@ export type StorageFiles = StorageFile[];
 
 export type DefaultFile = Pick<StorageFile, 'key'>;
 
-export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>>;
+export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>> &
+  Record<string, any>;
 
 export type ProcessFile = (
   params: ProcessFileParams
-) => ProcessFileParams & Record<string, any>;
+) => Promise<ProcessFileParams> | ProcessFileParams;
 
 export interface StorageManagerProps {
   /**
