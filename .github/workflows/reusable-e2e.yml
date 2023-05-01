@@ -323,6 +323,7 @@ jobs:
             packages/react-native
             packages/react-core
             packages/ui
+            packages/e2e
 
   e2e-ios:
     needs: check-changed-packages

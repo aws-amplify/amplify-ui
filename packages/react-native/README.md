@@ -7,7 +7,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 3. Data-bound components that make it easy to display dynamic data, like DataStoreCollections.
 4. Theming capabilities that allow you to customize the appearance of Amplify UI to match your brand.
 
-## React Native Documentation
+## React Native Documentation 📖
 
 - https://ui.docs.amplify.aws/react-native
 
