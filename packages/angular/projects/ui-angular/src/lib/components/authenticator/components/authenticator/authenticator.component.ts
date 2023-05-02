@@ -171,7 +171,7 @@ export class AuthenticatorComponent
   }
 
   public onTabChange() {
-    const route = this.authenticator.route;
+    const { route } = this.authenticator;
     if (route === 'signIn') {
       this.authenticator.toSignUp();
     } else {
@@ -201,9 +201,9 @@ export class AuthenticatorComponent
 
   private mapCustomComponents(
     componentQuery: QueryList<AmplifySlotDirective>
-  ): Record<string, TemplateRef<any>> {
+  ): Record<string, TemplateRef<unknown>> {
     if (!componentQuery) return {};
-    const customComponents: Record<string, TemplateRef<any>> = {};
+    const customComponents: Record<string, TemplateRef<unknown>> = {};
     componentQuery.forEach((component) => {
       customComponents[component.name] = component.template;
     });

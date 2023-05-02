@@ -28,7 +28,7 @@ export class FormFieldComponent {
   }
 
   public onBlur($event: Event) {
-    let { name } = <HTMLInputElement>$event.target;
+    const { name } = <HTMLInputElement>$event.target;
 
     this.authenticator.updateBlur({ name });
   }
