@@ -28,7 +28,7 @@ module.exports = {
 
         /*
          * `prefer-nullish-coalescing` requires `strictNullChecks` to be on.
-         * Turn this warn until we turn `strict` on in the `tsconfig.json`.
+         * Turn this off until we turn `strict` on in the `tsconfig.json`.
          */
         '@typescript-eslint/prefer-nullish-coalescing': 'off',
 
