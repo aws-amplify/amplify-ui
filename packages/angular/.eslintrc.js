@@ -13,7 +13,7 @@ module.exports = {
         'plugin:@angular-eslint/recommended',
         // This is required if you use inline templates in Components
         'plugin:@angular-eslint/template/process-inline-templates',
-        'amplify-ui',
+        '@aws-amplify/amplify-ui',
       ],
       rules: {
         /*
@@ -51,12 +51,12 @@ module.exports = {
       rules: {},
     },
     {
-      extends: ['amplify-ui/jest'],
+      extends: ['@aws-amplify/amplify-ui/jest'],
       files: ['**/__mocks__/**', '**/__tests__/**'],
       rules: {
         // TODO: turn these on after fixing the corresponding lint errors
-        'jest/no-export': 'off',
-        'jest/unbound-method': 'off',
+        'jest/no-export': 'warn',
+        'jest/unbound-method': 'warn',
       },
     },
   ],

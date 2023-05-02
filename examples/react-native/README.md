@@ -18,6 +18,8 @@ arch -arm64 brew install cocoapods
 
 ## Build and install the Example App
 
+_prerequisite_: You must populate `.env` values in order for example app to run successfully. The values you need to populate are specified in [`examples/react-native/.env.example`](./.env.example).
+
 > Only required for fresh installs.
 
 ### iOS Simulator
