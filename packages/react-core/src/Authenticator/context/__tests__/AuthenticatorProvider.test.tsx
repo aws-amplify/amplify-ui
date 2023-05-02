@@ -79,15 +79,4 @@ describe('AuthenticatorProvider', () => {
 
     expect(queryByText('authenticated')).toBeDefined();
   });
-
-  it('returns the expected value of auth status when a user signs out', () => {
-    currentAuthenticatedUserSpy.mockResolvedValueOnce({ username: 'username' });
-    const { queryByText } = render(
-      <AuthenticatorProvider>
-        <AuthStatusComponent />
-      </AuthenticatorProvider>
-    );
-
-    expect(queryByText('authenticated')).toBeDefined();
-  });
 });
