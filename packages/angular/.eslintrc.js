@@ -20,16 +20,15 @@ module.exports = {
          * TODO: turn the following settings on after fixing the
          * corresponding linting issues.
          */
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/member-ordering': 'off',
-        '@typescript-eslint/no-explicit-any': 'error',
-        '@typescript-eslint/no-unsafe-argument': 'off',
-        '@typescript-eslint/no-unsafe-assignment': 'off',
-        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'warn',
+        '@typescript-eslint/member-ordering': 'warn',
+        '@typescript-eslint/no-unsafe-argument': 'warn',
+        '@typescript-eslint/no-unsafe-assignment': 'warn',
+        '@typescript-eslint/no-unsafe-member-access': 'warn',
 
         /*
          * `prefer-nullish-coalescing` requires `strictNullChecks` to be on.
-         * Turn this off until we turn `strict` on in the `tsconfig.json`.
+         * Turn this warn until we turn `strict` on in the `tsconfig.json`.
          */
         '@typescript-eslint/prefer-nullish-coalescing': 'off',
 
@@ -54,8 +53,8 @@ module.exports = {
       files: ['**/__mocks__/**', '**/__tests__/**'],
       rules: {
         // TODO: turn these on after fixing the corresponding lint errors
-        'jest/no-export': 'off',
-        'jest/unbound-method': 'off',
+        'jest/no-export': 'warn',
+        'jest/unbound-method': 'warn',
       },
     },
   ],
