@@ -3,19 +3,19 @@ import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
+import { InstallScripts } from '@/components/InstallScripts';
 import { STORAGE_MANAGER, FILE_PICKER, DROPZONE_PROPS, DISPLAY_TEXT } from './props';
 import {
   DefaultStorageManagerExample,
   StorageManagerComponentOverridesExample,
-  StorageManagerThemeExample,
-  StorageManageri18nExample,
-  StorageManagerProcessFileExample,
   StorageManagerDisplayTextExample,
-  StorageManagerFileTypesExample,
-  StorageManagerResumableExample,
   StorageManagerEventExample,
-  StorageManagerMetadataExample,
+  StorageManagerFileTypesExample,
   StorageManagerHashExample,
+  StorageManageri18nExample,
+  StorageManagerMetadataExample,
+  StorageManagerResumableExample,
+  StorageManagerThemeExample,
 } from './examples'
 
 <DefaultStorageManagerExample />
@@ -27,6 +27,8 @@ import {
 </Alert>
 
 To use the StorageManager component import it into your React application with the included styles. 
+
+<InstallScripts component="storage" />
 
 <ExampleCode>
 ```jsx
@@ -86,7 +88,7 @@ A resumable upload will upload the file in chunks. This allows users to pause an
 
 You might want to process or modify the file(s) and/or file name(s) before they are uploaded. One common situation is you may want to ensure files uploaded are at unique keys by hashing the file contents and using that as the key rather than the filename.
 
-You can pass a `processFile` function to the StorageManager which accepts an object with `file: [File](https://developer.mozilla.org/en-US/docs/Web/API/File)` and `key: string` and should return an object with file, key, and any other Storage configurations. The `processFile` can either return synchronously or return a Promise. This example uses a Promise to read the contents of the file and create a hash for the key.
+You can pass a `processFile` function to the StorageManager which accepts an object with `file`: [File](https://developer.mozilla.org/en-US/docs/Web/API/File), and `key`: string, and should return an object with file, key, and any other Storage configurations. The `processFile` can either return synchronously or return a Promise. This example uses a Promise to read the contents of the file and create a hash for the key.
 
 <Example>
   <StorageManagerHashExample />
