@@ -3,7 +3,7 @@
 .env.local
 *.log
 node_modules
-aws-exports.js
+# aws-exports.js
 aws-exports.ts
 
 # We have mock exports in the following locations
