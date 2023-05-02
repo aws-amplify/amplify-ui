@@ -31,15 +31,15 @@ export default function AuthenticatorProvider({
   // if a user was to sign in using `Auth.signIn` directly rather than using `Authenticator`
   const [authStatus, setAuthStatus] = React.useState<AuthStatus>('configuring');
 
+  // only run on first render
   React.useEffect(() => {
     Auth.currentAuthenticatedUser()
-      .then((user: { username?: string }) => {
-        if (user?.username) {
-          setAuthStatus('authenticated');
-        }
+      .then(() => {
+        setAuthStatus('authenticated');
       })
-      // prevent `Auth.currentAuthenticatedUser` from logging an error if `user` is `undefined`
-      .catch(() => null);
+      .catch(() => {
+        setAuthStatus('unauthenticated');
+      });
   }, []);
 
   /**
