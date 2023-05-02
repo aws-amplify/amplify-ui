@@ -302,6 +302,8 @@ PODS:
     - glog
   - react-native-get-random-values (1.8.0):
     - React-Core
+  - react-native-launch-arguments (3.1.4):
+    - React
   - react-native-netinfo (8.3.1):
     - React-Core
   - react-native-safe-area-context (4.5.1):
@@ -431,6 +433,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-get-random-values (from `../../../node_modules/react-native-get-random-values`)
+  - react-native-launch-arguments (from `../node_modules/react-native-launch-arguments`)
   - "react-native-netinfo (from `../../../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -509,6 +512,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-get-random-values:
     :path: "../../../node_modules/react-native-get-random-values"
+  react-native-launch-arguments:
+    :path: "../node_modules/react-native-launch-arguments"
   react-native-netinfo:
     :path: "../../../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
@@ -579,6 +584,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 218a2503198ff28a085f8e16622a8d8f507c8019
   React-logger: f79dd3cc0f9b44f5611c6c7862badd891a862cf8
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
+  react-native-launch-arguments: 8e21f656fb7ade515fd974209b06be1b9279c91e
   react-native-netinfo: 1a6035d3b9780221d407c277ebfb5722ace00658
   react-native-safe-area-context: f5549f36508b1b7497434baa0cd97d7e470920d4
   React-perflogger: 30ab8d6db10e175626069e742eead3ebe8f24fd5

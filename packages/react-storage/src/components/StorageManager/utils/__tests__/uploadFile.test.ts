@@ -18,7 +18,7 @@ describe('uploadfile', () => {
 
     uploadFile({
       file: imageFile,
-      fileName: imageFile.name,
+      key: imageFile.name,
       completeCallback,
       errorCallback,
       isResumable: true,
@@ -42,7 +42,7 @@ describe('uploadfile', () => {
     const progressCallback = () => '';
     uploadFile({
       file: imageFile,
-      fileName: imageFile.name,
+      key: imageFile.name,
       level: 'public',
       progressCallback: progressCallback,
       errorCallback: () => '',
@@ -63,7 +63,7 @@ describe('uploadfile', () => {
   it('calls uploadFile with contentType defined image type', () => {
     uploadFile({
       file: imageFile,
-      fileName: imageFile.name,
+      key: imageFile.name,
       level: 'public',
       progressCallback: () => '',
       errorCallback: () => '',
@@ -86,7 +86,7 @@ describe('uploadfile', () => {
 
     uploadFile({
       file: imageFileTypeUndefined,
-      fileName: imageFileTypeUndefined.name,
+      key: imageFileTypeUndefined.name,
       level: 'public',
       progressCallback: () => '',
       errorCallback: () => '',
@@ -104,5 +104,30 @@ describe('uploadfile', () => {
         contentType: 'binary/octet-stream',
       }
     );
+  });
+
+  it('passes metadata to Storage.put', () => {
+    uploadFile({
+      file: imageFile,
+      key: imageFile.name,
+      level: 'public',
+      progressCallback: () => '',
+      errorCallback: () => '',
+      completeCallback: () => '',
+      isResumable: false,
+      metadata: {
+        foo: 'bar',
+      },
+    });
+
+    expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
+      level: 'public',
+      progressCallback: expect.any(Function),
+      resumable: false,
+      contentType: 'image/png',
+      metadata: {
+        foo: 'bar',
+      },
+    });
   });
 });

@@ -12,7 +12,8 @@ type BaseDropZoneTokens<OutputType> = DesignTokenProperties<
 
 export interface FileUploaderTokens<OutputType extends OutputVariantKey> {
   dropzone?: DesignTokenProperties<
-    'gap' | 'paddingBlock' | 'paddingInline' | 'textAlign'
+    'gap' | 'paddingBlock' | 'paddingInline' | 'textAlign',
+    OutputType
   > &
     BaseDropZoneTokens<OutputType> & {
       _active?: BaseDropZoneTokens<OutputType>;
