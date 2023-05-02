@@ -2,11 +2,11 @@
   "name": "@aws-amplify/ui-react-storage",
   "version": "1.2.0",
   "main": "dist/index.js",
-  "module": "dist/esm/index.mjs",
+  "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css"
@@ -28,14 +28,13 @@
   "scripts": {
     "build": "yarn build:rollup",
     "build:rollup": "rollup --config",
-    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-storage\"'",
     "clean": "rimraf dist node_modules",
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
     "prebuild": "rimraf dist",
     "size": "yarn size-limit",
     "test": "jest",
-    "test:ci": "yarn test && yarn check:esm",
+    "test:ci": "yarn test",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
@@ -59,6 +58,7 @@
   },
   "devDependencies": {
     "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
+    "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^7.0.8",
     "@testing-library/jest-dom": "^5.14.1",
@@ -87,7 +87,7 @@
   "size-limit": [
     {
       "name": "StorageManager",
-      "path": "dist/esm/index.mjs",
+      "path": "dist/esm/index.js",
       "import": "{ StorageManager }",
       "limit": "120 kB"
     }

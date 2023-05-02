@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import CountdownCircleTimer from 'react-countdown-circle-timer';
+import * as CountdownCircleTimer from 'react-countdown-circle-timer';
 import classNames from 'classnames';
 
 import { Flex, Loader, Text, View, useTheme } from '@aws-amplify/ui-react';
