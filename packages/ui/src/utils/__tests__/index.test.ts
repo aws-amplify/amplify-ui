@@ -2,6 +2,8 @@ import {
   areEmptyArrays,
   areEmptyObjects,
   capitalize,
+  classNameModifier,
+  classNameModifierByFlag,
   has,
   isEmpty,
   isFunction,
@@ -11,7 +13,9 @@ import {
   isSet,
   isString,
   isUndefined,
+  sanitizeNamespaceImport,
 } from '..';
+import { ComponentClassName, Modifiers } from '../../types';
 
 const validArrays = [[], [], [], []];
 const invalidArrays = [[7]];
@@ -260,4 +264,53 @@ describe('isFunction', () => {
       expect(isFunction(value)).toBe(false);
     }
   );
+});
+
+describe('sanitizeNamespaceImport', () => {
+  it('returns the default value in the happy path', () => {
+    const input = { default: 'DEFAULT', anExport: 'AN_EXPORT' };
+    const output = sanitizeNamespaceImport(input);
+
+    expect(output).toBe(input.default);
+  });
+
+  it('returns the sanitized value', () => {
+    const input = { anExport: 'AN_EXPORT' };
+    const output = sanitizeNamespaceImport(input);
+
+    expect(output).toStrictEqual({ ...input, default: undefined });
+  });
+});
+
+describe('classNameModifier', () => {
+  const modifiedClassName = 'amplify-alert--modified';
+  const myClass = ComponentClassName.Alert;
+  const modifier = 'modified';
+
+  it('should return the modified className with a modifier passed in', () => {
+    expect(classNameModifier(myClass, modifier)).toEqual(modifiedClassName);
+  });
+
+  it('should return empty string without a modifier passed in', () => {
+    // force undefined to be Modifiers type for exhaustive edge case test
+    expect(
+      classNameModifier(myClass, undefined as unknown as Modifiers)
+    ).toEqual('');
+  });
+});
+
+describe('classNameModifierByFlag', () => {
+  const modifiedClassName = 'amplify-alert--modified';
+  const myClass = ComponentClassName.Alert;
+  const modifier = 'modified';
+
+  it('should return the modified className with a true flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, true)).toEqual(
+      modifiedClassName
+    );
+  });
+
+  it('should return empty string with a false flag value passed in', () => {
+    expect(classNameModifierByFlag(myClass, modifier, false)).toEqual('');
+  });
 });
