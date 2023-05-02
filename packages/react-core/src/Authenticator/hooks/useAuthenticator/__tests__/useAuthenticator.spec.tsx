@@ -61,9 +61,6 @@ const Wrapper = ({ children }: { children?: React.ReactNode }) => (
 jest.spyOn(Auth, 'currentAuthenticatedUser').mockResolvedValue(undefined);
 
 describe('useAuthenticator', () => {
-  // beforeAll(() => {
-  // });
-
   beforeEach(() => {
     getComparatorSpy.mockClear();
     getServiceFacadeSpy.mockClear();
