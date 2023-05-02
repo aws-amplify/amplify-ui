@@ -22,7 +22,7 @@ module.exports = {
          */
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/member-ordering': 'off',
-        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-explicit-any': 'error',
         '@typescript-eslint/no-unsafe-argument': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-member-access': 'off',
@@ -54,8 +54,8 @@ module.exports = {
       files: ['**/__mocks__/**', '**/__tests__/**'],
       rules: {
         // TODO: turn these on after fixing the corresponding lint errors
-        'jest/no-export': 'warn',
-        'jest/unbound-method': 'warn',
+        'jest/no-export': 'off',
+        'jest/unbound-method': 'off',
       },
     },
   ],

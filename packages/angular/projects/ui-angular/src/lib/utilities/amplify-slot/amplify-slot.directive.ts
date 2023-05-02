@@ -4,7 +4,7 @@ import { Directive, Input, TemplateRef } from '@angular/core';
   selector: '[amplifySlot]',
 })
 export class AmplifySlotDirective {
-  constructor(public template: TemplateRef<any>) {}
+  constructor(public template: TemplateRef<unknown>) {}
   public name: string;
 
   @Input() set amplifySlot(component: string) {

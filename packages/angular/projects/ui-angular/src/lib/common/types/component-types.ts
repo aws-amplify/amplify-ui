@@ -4,7 +4,7 @@ import { AuthFormData } from '@aws-amplify/ui';
 /**
  * Maps custom components from customer to the name of the component it's overriding.
  */
-export type CustomComponents = Record<string, TemplateRef<any>>;
+export type CustomComponents = Record<string, TemplateRef<unknown>>;
 
 /**
  * Contains properties to be passed to each auth subcomponents.
