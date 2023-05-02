@@ -40,7 +40,7 @@ fi
 if [ "$BUILD_TOOL" == 'vite' ]; then
     echo "cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
     cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
-    echo "cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.tsx"
+    echo "cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx"
     cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.tsx
     echo "cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html"
     cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html
