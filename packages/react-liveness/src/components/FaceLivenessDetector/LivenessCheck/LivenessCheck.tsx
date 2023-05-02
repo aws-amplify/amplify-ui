@@ -124,7 +124,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
             onRetry={() => {
               send({
                 type: 'CANCEL',
-              })
+              });
             }}
           />
         </Flex>

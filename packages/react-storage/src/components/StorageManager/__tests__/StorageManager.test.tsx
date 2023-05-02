@@ -139,16 +139,18 @@ describe('StorageManager', () => {
     fireEvent.change(hiddenInput, {
       target: { files: [file] },
     });
-    expect(storageSpy).toBeCalledWith(file.name, file, {
-      contentType: 'text/plain',
-      level: 'public',
-      progressCallback: expect.any(Function),
-      provider: undefined,
-      resumable: false,
-    });
 
     // Wait for the file to be uploaded
-    await waitFor(() => expect(onUploadSuccess).toHaveBeenCalledTimes(1));
+    await waitFor(() => {
+      expect(storageSpy).toBeCalledWith(file.name, file, {
+        contentType: 'text/plain',
+        level: 'public',
+        progressCallback: expect.any(Function),
+        provider: undefined,
+        resumable: false,
+      });
+      expect(onUploadSuccess).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('calls onUploadStart callback when file starts uploading', async () => {
@@ -165,16 +167,18 @@ describe('StorageManager', () => {
     fireEvent.change(hiddenInput, {
       target: { files: [file] },
     });
-    expect(storageSpy).toBeCalledWith(file.name, file, {
-      contentType: 'text/plain',
-      level: 'public',
-      progressCallback: expect.any(Function),
-      provider: undefined,
-      resumable: false,
-    });
 
     // Wait for the file to be uploaded
-    await waitFor(() => expect(onUploadStart).toHaveBeenCalledTimes(1));
+    await waitFor(() => {
+      expect(storageSpy).toBeCalledWith(file.name, file, {
+        contentType: 'text/plain',
+        level: 'public',
+        progressCallback: expect.any(Function),
+        provider: undefined,
+        resumable: false,
+      });
+      expect(onUploadStart).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('renders a warning if maxFileCount is zero', () => {
