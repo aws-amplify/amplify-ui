@@ -38,10 +38,22 @@ When(
       usernameAttribute = 'Phone Number';
     }
 
-    const inputField = by
-      .type('UITextField')
-      .withDescendant(by.label(`Enter your ${usernameAttribute}`));
-    await element(inputField).typeText(text);
+    if (device.getPlatform() === 'ios') {
+      const inputField = by
+        .type('UITextField')
+        .withDescendant(by.label(`Enter your ${usernameAttribute}`));
+      await element(inputField).typeText(text);
+    } else {
+      await element(
+        by
+          .type('android.widget.EditText')
+          .withAncestor(
+            by
+              .id('amplify__text-field-container')
+              .withDescendant(by.text(usernameAttribute))
+          )
+      ).typeText(text);
+    }
   }
 );
 
