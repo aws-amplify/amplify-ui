@@ -18,6 +18,6 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 - **Accessible** Amplify UI components follow [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) and [WAI-ARIA](https://www.w3.org/TR/wai-aria-1.2/) best practices and guidelines such as color contrast, keyboard navigation, accessible labels, and focus management.
 - **Primitive components (React only right now)** Primitive components are used in the connected components, like Authenticator, you can also customize them and use them to build the rest of your UI.
 
-## We love contributors!! 💛
+## We love contributors!! ✨
 
 See our contributing guide [CONTRIBUTING.md](/CONTRIBUTING.md) to help us scale Amplify UI!
