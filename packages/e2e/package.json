@@ -1,5 +1,5 @@
 {
-  "name": "e2e",
+  "name": "@aws-amplify/ui-e2e",
   "version": "0.0.1",
   "license": "MIT",
   "private": true,
