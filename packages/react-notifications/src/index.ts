@@ -1,1 +1,1 @@
-export const Notifications = 'Notifications';
+export * from './components/InAppMessaging';

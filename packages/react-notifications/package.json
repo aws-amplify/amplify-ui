@@ -40,9 +40,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.8",
-    "@aws-amplify/ui-react-core": "2.1.16",
-    "@aws-amplify/ui-react-core-notifications": "0.0.1"
+    "@aws-amplify/ui": "5.6.1",
+    "@aws-amplify/ui-react": "4.6.1",
+    "@aws-amplify/ui-react-core-notifications": "0.0.1",
+    "classnames": "2.3.1"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",
@@ -50,6 +51,7 @@
     "react-dom": ">= 16.14.0"
   },
   "devDependencies": {
+    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "@rollup/plugin-typescript": "^8.3.1",
     "@size-limit/preset-big-lib": "^7.0.8",
     "@testing-library/jest-dom": "^5.14.1",
@@ -60,7 +62,6 @@
     "@types/react": "^17.0.2",
     "@types/testing-library__jest-dom": "^5.14.1",
     "eslint": "^8.13.0",
-    "eslint-config-amplify-ui": "0.0.0",
     "jest": "^27.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
