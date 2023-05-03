@@ -1,6 +1,7 @@
 import React, { ReactNode, useContext, useEffect, useMemo } from 'react';
 import { useInterpret } from '@xstate/react';
 
+import { Auth } from 'aws-amplify';
 import {
   AuthStatus,
   AuthMachineHubHandler,
@@ -10,7 +11,6 @@ import {
 } from '@aws-amplify/ui';
 
 import { AuthenticatorContext } from './AuthenticatorContext';
-import { Auth } from 'aws-amplify';
 
 type Options = Parameters<AuthMachineHubHandler>[2];
 
