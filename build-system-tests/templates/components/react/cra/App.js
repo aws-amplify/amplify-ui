@@ -30,9 +30,9 @@ export default function Home() {
       </InAppMessagingProvider>
       <FileUploader acceptedFileTypes={['image/*']} accessLevel="public" />
       <Authenticator>
-        {({ signOut, user }) => (
+        {({ signOut, user = { username: '' } }) => (
           <main>
-            <h1>Hello {user?.username}</h1>
+            <h1>Hello {user.username}</h1>
             <button onClick={signOut}>Sign out</button>
           </main>
         )}
