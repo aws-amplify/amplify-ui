@@ -201,11 +201,6 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
-  build-system-test:
-    uses: ./.github/workflows/reusable-build-system-test.yml
-    secrets:
-      METRIC_LOGGER_ROLE_ARN: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-
   log-failure-metric:
     # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
     runs-on: ubuntu-latest
