@@ -21,6 +21,18 @@ export default defineConfig({
 
       Object.assign(config.env, process.env);
 
+      // This is a chrome launch option which enables fake videos
+      on('before:browser:launch', (browser, launchOptions) => {
+        if (browser.family === 'chromium' && browser.name !== 'electron') {
+          // Mac/Linux, on Windows path should be c:\\path\\to\\video\\my-video.y4m'
+          launchOptions.args.push(
+            '--use-file-for-fake-video-capture=cypress/fixtures/faceRecording.y4m'
+          );
+        }
+
+        return launchOptions;
+      });
+
       return config;
     },
   },
