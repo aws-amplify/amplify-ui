@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "auth-with-phone-and-sms-mfa-environment",
+  "name": "@aws-amplify/ui-auth-with-phone-and-sms-mfa-environment",
   "version": "0.0.1",
   "scripts": {
     "pull": "amplify pull --appId d1xz3uui039hi --envName staging"
