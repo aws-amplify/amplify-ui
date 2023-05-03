@@ -1,6 +1,11 @@
 import { Then, When } from '@cucumber/cucumber';
 import { by, element, expect } from 'detox';
 
+import { capitalize } from '@aws-amplify/ui';
+
+const AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX =
+  'authenticator__text-field__input';
+
 const getUserAlias = (status: string) =>
   `${process.env.USERNAME}+${status === 'UNKNOWN' ? Date.now() : status}`;
 
@@ -22,24 +27,70 @@ const getCountryCode = (status: string) => {
 When(
   'I type my {string} with status {string}',
   async (loginMechanism: string, status: string) => {
-    let text = '';
+    let text = '',
+      usernameAttribute = capitalize(loginMechanism);
     if (loginMechanism === 'email') {
       text = `${getUserAlias(status)}@${process.env.DOMAIN}`;
     } else if (loginMechanism === 'username') {
       text = getUserAlias(status);
     } else if (loginMechanism === 'phone number') {
       text = `${getCountryCode(status)}${process.env.PHONE_NUMBER}`;
+      usernameAttribute = 'Phone Number';
     }
-    await element(by.id(`authenticator__text-field__input-username`)).typeText(
-      text
-    );
+
+    if (device.getPlatform() === 'ios') {
+      const inputField = by
+        .type('UITextField')
+        .withDescendant(by.label(`Enter your ${usernameAttribute}`));
+      await element(inputField).typeText(text);
+    } else {
+      await device.disableSynchronization();
+      await element(
+        by
+          .type('android.widget.EditText')
+          .withAncestor(
+            by
+              .id('amplify__text-field-container')
+              .withDescendant(by.text(usernameAttribute))
+          )
+      ).typeText(text);
+      await device.pressBack();
+      await device.enableSynchronization();
+    }
+  }
+);
+
+When(
+  'I type a new {string} with value {string}',
+  async (field: string, text: string) => {
+    await element(
+      by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${field}`)
+    ).typeText(text);
   }
 );
 
 When('I type my password', async () => {
-  await element(by.id('authenticator__text-field__input-password')).typeText(
-    process.env.VALID_PASSWORD
-  );
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
+  ).typeText(process.env.VALID_PASSWORD);
+});
+
+When('I type an invalid wrong complexity password', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
+  ).typeText('inv');
+});
+
+When('I type an invalid no lower case password', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
+  ).typeText('INV');
+});
+
+When('I type a new {string}', async (field: string) => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${field}`)
+  ).typeText(`${Date.now()}`);
 });
 
 When('I select my country code with status {string}', (status: string) => {
@@ -51,19 +102,35 @@ Then('I will be redirected to the confirm forgot password page', async () => {
 });
 
 Then('I type a valid code', async () => {
-  await element(by.id('authenticator__text-field__input-container'))
-    .atIndex(0)
-    .typeText('1234');
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
+  ).typeText('1234');
 });
 
 Then('I type my new password', async () => {
-  await element(by.id('authenticator__text-field__input-password')).typeText(
-    process.env.VALID_PASSWORD
-  );
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
+  ).typeText(process.env.VALID_PASSWORD);
 });
 
 Then('I confirm my password', async () => {
-  await element(by.id('authenticator__text-field__input-container'))
-    .atIndex(2)
-    .typeText(process.env.VALID_PASSWORD);
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirm_password`)
+  ).typeText(process.env.VALID_PASSWORD);
 });
+
+When('I click the {string} button', async (name: string) => {
+  if (name === 'Create Account') {
+    // Create Account tab and button have the same text
+    await element(by.text(name)).atIndex(1).tap();
+  } else {
+    await element(by.text(name)).tap();
+  }
+});
+
+Then(
+  'I confirm {string} error is accessible in password field',
+  async (label: string) => {
+    await expect(element(by.label(label))).toBeVisible();
+  }
+);
