@@ -10,3 +10,5 @@ on: pull_request
 jobs:
   build-system-test:
     uses: ./.github/workflows/reusable-build-system-test.yml
+    secrets:
+      METRIC_LOGGER_ROLE_ARN: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}

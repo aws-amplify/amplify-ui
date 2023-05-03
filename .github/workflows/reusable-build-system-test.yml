@@ -1,6 +1,9 @@
 # Description: this a reusable workflow that build mega-apps that have all the connected components.
 on:
   workflow_call:
+    secrets:
+      METRIC_LOGGER_ROLE_ARN:
+        required: true
 
 jobs:
   build:
