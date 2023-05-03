@@ -30,9 +30,9 @@ export default function Home() {
       </InAppMessagingProvider>
       <FileUploader acceptedFileTypes={['image/*']} accessLevel="public" />
       <Authenticator>
-        {({ signOut, user = { username: '' } }) => (
+        {({ signOut, user }) => (
           <main>
-            <h1>Hello {user.username}</h1>
+            <h1>Hello {user?.username}</h1>
             <button onClick={signOut}>Sign out</button>
           </main>
         )}
@@ -40,11 +40,11 @@ export default function Home() {
       <AccountSettings.ChangePassword onSuccess={() => {}} />
       <AccountSettings.DeleteUser onSuccess={() => {}} />
       <StorageManager
-            acceptedFileTypes={['image/*']}
-            accessLevel="public"
-            maxFileCount={1}
-            isResumable
-          />
+        acceptedFileTypes={['image/*']}
+        accessLevel="public"
+        maxFileCount={1}
+        isResumable
+      />
       <MapView />
     </>
   );
