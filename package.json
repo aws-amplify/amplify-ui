@@ -20,7 +20,7 @@
     "react-native-example": "yarn workspace @aws-amplify/ui-react-native-example",
     "vue-example": "yarn workspace @aws-amplify/ui-vue-example",
     "e2e": "yarn workspace e2e",
-    "environments": "yarn workspace environments",
+    "environments": "yarn workspace @aws-amplify/ui-environments",
     "license": "node scripts/licenseChecker.js",
     "test": "yarn ui test && yarn react-core test && yarn react test && yarn react-native test && yarn e2e test",
     "prepare": "husky install",
