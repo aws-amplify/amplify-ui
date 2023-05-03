@@ -1,5 +1,6 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
+import { Auth } from 'aws-amplify';
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
 import * as UIModule from '@aws-amplify/ui';
 
@@ -57,6 +58,8 @@ const Wrapper = ({ children }: { children?: React.ReactNode }) => (
   <AuthenticatorProvider>{children}</AuthenticatorProvider>
 );
 
+jest.spyOn(Auth, 'currentAuthenticatedUser').mockResolvedValue(undefined);
+
 describe('useAuthenticator', () => {
   beforeEach(() => {
     getComparatorSpy.mockClear();
@@ -69,37 +72,50 @@ describe('useAuthenticator', () => {
     expect(result.error?.message).toBe(USE_AUTHENTICATOR_ERROR);
   });
 
-  it('returns the expected values', () => {
-    const { result } = renderHook(useAuthenticator, {
+  it('returns the expected values', async () => {
+    const { result, waitForNextUpdate } = renderHook(useAuthenticator, {
       wrapper: Wrapper,
     });
+
+    await waitForNextUpdate();
 
     expect(getServiceFacadeSpy).toHaveBeenCalled();
 
     expect(result.current).toMatchSnapshot();
   });
 
-  it('calls getComparator with the selector argument', () => {
+  it('calls getComparator with the selector argument', async () => {
     const mockSelector = jest.fn();
 
-    renderHook(() => useAuthenticator(mockSelector), { wrapper: Wrapper });
+    const { waitForNextUpdate } = renderHook(
+      () => useAuthenticator(mockSelector),
+      { wrapper: Wrapper }
+    );
+
+    await waitForNextUpdate();
 
     expect(getComparatorSpy).toHaveBeenLastCalledWith(mockSelector);
   });
 
-  it('does not call getComparator when no selector argument passed', () => {
-    renderHook(useAuthenticator, { wrapper: Wrapper });
+  it('does not call getComparator when no selector argument passed', async () => {
+    const { waitForNextUpdate } = renderHook(useAuthenticator, {
+      wrapper: Wrapper,
+    });
+
+    await waitForNextUpdate();
 
     expect(getComparatorSpy).not.toBeCalled();
   });
 
-  it('calls getQRFields only for the setupTOTP route', () => {
+  it('calls getQRFields only for the setupTOTP route', async () => {
     getServiceFacadeSpy.mockReturnValueOnce({
       ...mockServiceFacade,
       route: 'signIn',
     });
 
-    const { rerender } = renderHook(useAuthenticator, { wrapper: Wrapper });
+    const { rerender, waitForNextUpdate } = renderHook(useAuthenticator, {
+      wrapper: Wrapper,
+    });
 
     expect(getQRFieldsSpy).toHaveBeenCalledTimes(0);
 
@@ -108,7 +124,7 @@ describe('useAuthenticator', () => {
       route: 'setupTOTP',
     });
 
-    rerender();
+    await waitForNextUpdate();
 
     expect(getQRFieldsSpy).toHaveBeenCalledTimes(1);
 
