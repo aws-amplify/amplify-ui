@@ -1,22 +1,22 @@
 import { Storage } from 'aws-amplify';
 import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 
-interface UploadFileProps {
+export type UploadFileProps = {
   file: File;
-  fileName: string;
+  key: string;
   level: StorageAccessLevel;
   isResumable?: boolean;
   progressCallback: (progress: { loaded: number; total: number }) => void;
   errorCallback: (error: string) => void;
   completeCallback: (event: { key: string | undefined }) => void;
   provider?: string;
-}
+} & Record<string, any>;
 
 type UploadFile = Promise<void> | UploadTask;
 
 export function uploadFile({
   file,
-  fileName,
+  key,
   level = 'private',
   progressCallback,
   errorCallback,
@@ -27,7 +27,7 @@ export function uploadFile({
 }: UploadFileProps): UploadFile {
   const contentType = file.type || 'binary/octet-stream';
   if (isResumable === true) {
-    return Storage.put(fileName, file, {
+    return Storage.put(key, file, {
       level,
       resumable: true, // Ensures correct typing for resumable behavior
       progressCallback,
@@ -45,7 +45,7 @@ export function uploadFile({
       ...rest,
     });
   } else {
-    return Storage.put(fileName, file, {
+    return Storage.put(key, file, {
       level,
       resumable: false,
       progressCallback,

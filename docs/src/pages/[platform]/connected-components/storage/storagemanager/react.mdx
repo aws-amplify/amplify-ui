@@ -3,17 +3,19 @@ import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
+import { InstallScripts } from '@/components/InstallScripts';
 import { STORAGE_MANAGER, FILE_PICKER, DROPZONE_PROPS, DISPLAY_TEXT } from './props';
 import {
   DefaultStorageManagerExample,
   StorageManagerComponentOverridesExample,
-  StorageManagerThemeExample,
-  StorageManageri18nExample,
-  StorageManagerProcessFileExample,
   StorageManagerDisplayTextExample,
-  StorageManagerFileTypesExample,
-  StorageManagerResumableExample,
   StorageManagerEventExample,
+  StorageManagerFileTypesExample,
+  StorageManagerHashExample,
+  StorageManageri18nExample,
+  StorageManagerMetadataExample,
+  StorageManagerResumableExample,
+  StorageManagerThemeExample,
 } from './examples'
 
 <DefaultStorageManagerExample />
@@ -25,6 +27,8 @@ import {
 </Alert>
 
 To use the StorageManager component import it into your React application with the included styles. 
+
+<InstallScripts component="storage" />
 
 <ExampleCode>
 ```jsx
@@ -82,19 +86,24 @@ A resumable upload will upload the file in chunks. This allows users to pause an
 
 ## Pre-upload Processing
 
-You might want to process or modify the file(s) and/or file name(s) before they are uploaded. Some common use cases for this are:
+You might want to process or modify the file(s) and/or file name(s) before they are uploaded. One common situation is you may want to ensure files uploaded are at unique keys by hashing the file contents and using that as the key rather than the filename.
 
-1. Rename the file to be ensure uniqueness by adding a timestamp or has to the file name.
-1. Performing file optimizations like removing unnecessary metadata.
-1. Performing custom file validations like reading the contents of a file to ensure it is in the proper structure.
+You can pass a `processFile` function to the StorageManager which accepts an object with `file`: [File](https://developer.mozilla.org/en-US/docs/Web/API/File), and `key`: string, and should return an object with file, key, and any other Storage configurations. The `processFile` can either return synchronously or return a Promise. This example uses a Promise to read the contents of the file and create a hash for the key.
 
 <Example>
-  <StorageManagerProcessFileExample />
+  <StorageManagerHashExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerProcessFileExample.tsx
+    ```jsx file=./examples/StorageManagerHashExample.tsx
     ```
   </ExampleCode>
 </Example>
+
+Other uses-cases for processing the file before upload:
+
+1. Performing file optimizations like removing unnecessary metadata.
+1. Performing custom file validations like reading the contents of a file to ensure it is in the proper structure.
+
+You can also add any other [Amplify Storage options](https://docs.amplify.aws/lib/storage/upload/q/platform/js/#encrypted-uploads) by adding them to the return object of `processFile`
 
 ## Event Handling
 
@@ -108,9 +117,23 @@ The StorageManager component has several event handlers: `onUploadStart`, `onUpl
   </ExampleCode>
 </Example>
 
-<Alert variation="warning" heading="Use a Ref">
+<Alert variation="warning" heading="Use a previousState">
 Be careful setting state in the `onUploadSuccess` because that function is bound when the upload _starts_. Make sure to use the previous state argument rather than the current state in the component.
 </Alert>
+
+## Adding metadata
+
+Metadata is added as an object with string key-value pairs. It is sent as custom HTTP headers with the name `x-amz-meta-[key]`. For example, if your metadata for a file was `{mode: 'night'}`, it would set the `x-amz-meta-mode` HTTP header to `night`.
+
+You can add metadata by adding a `metadata` object in the return object of `processFile`. 
+
+<Example>
+  <StorageManagerMetadataExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerMetadataExample.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ## Customization
 
