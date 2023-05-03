@@ -86,6 +86,11 @@ jobs:
         run: yarn build
         working-directory: ./canary
 
+  build-system-test:
+    uses: ./.github/workflows/reusable-build-system-test.yml
+    secrets:
+      METRIC_LOGGER_ROLE_ARN: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+
   publish:
     runs-on: ubuntu-latest
     environment: deployment
