@@ -1,5 +1,43 @@
 # @aws-amplify/ui-react
 
+## 4.6.1
+
+### Patch Changes
+
+- [#3750](https://github.com/aws-amplify/amplify-ui/pull/3750) [`1412aa4eb`](https://github.com/aws-amplify/amplify-ui/commit/1412aa4eb4837c44c4e5ecce66188e1e256f952c) Thanks [@tannerbyers](https://github.com/tannerbyers)! - Removed optional undefined type workaround for MapView props (fog & terrain) due to fix in react-map-gl library.
+
+- [#3788](https://github.com/aws-amplify/amplify-ui/pull/3788) [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(storage-manager): add metadata and the rest of the Storage.put params
+
+  ```jsx
+  const processFile = ({ file, key }) => {
+    return {
+      file,
+      key,
+      metadata: {
+        id: key,
+      },
+    };
+  };
+
+  export function StorageManagerMetadataExample() {
+    return (
+      <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="private"
+        maxFileCount={3}
+        showThumbnails={true}
+        processFile={processFile}
+      />
+    );
+  }
+  ```
+
+- [#3708](https://github.com/aws-amplify/amplify-ui/pull/3708) [`9551c521b`](https://github.com/aws-amplify/amplify-ui/commit/9551c521b8bed4844f5d57a8cf842ed8b5bd6bee) Thanks [@helmax-y](https://github.com/helmax-y)! - Clear button is removed for disabled SearchField
+
+- Updated dependencies [[`4ca838978`](https://github.com/aws-amplify/amplify-ui/commit/4ca838978d23a086f80859a7cb57f184ff49e2d4), [`d6a3676f2`](https://github.com/aws-amplify/amplify-ui/commit/d6a3676f2295ed39fa83b9d31a9540f3437ba129), [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54)]:
+  - @aws-amplify/ui@5.6.1
+  - @aws-amplify/ui-react-core@2.1.20
+
 ## 4.6.0
 
 ### Minor Changes
