@@ -13,7 +13,7 @@ export function useLiveness() {
     mutate,
   } = useSWR(
     'CreateStreamingLivenessSession',
-    () => API.post('SampleBackend', '/liveness/create', {}),
+    () => API.post('BYOB', '/liveness/create', {}),
     { revalidateOnFocus: false }
   );
 
@@ -42,11 +42,7 @@ export function useLiveness() {
   };
 
   const handleGetLivenessDetection = async (sessionId) => {
-    const response = await API.get(
-      'SampleBackend',
-      `/liveness/${sessionId}`,
-      {}
-    );
+    const response = await API.get('BYOB', `/liveness/${sessionId}`, {});
     setGetLivenessResponse(response);
     return { isLive: response.isLive };
   };

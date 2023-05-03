@@ -68,7 +68,14 @@ export default function App() {
     </template>
   </authenticator>
 </template>`,
-  flutter: `class _MyAppState extends State<MyApp> {
+  flutter: `class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
@@ -79,9 +86,9 @@ export default function App() {
     try {
       await Amplify.addPlugin(AmplifyAuthCognito());
       await Amplify.configure(amplifyconfig);
-      print('Successfully configured');
+      safePrint('Successfully configured');
     } on Exception catch (e) {
-      print('Error configuring Amplify: $e');
+      safePrint('Error configuring Amplify: $e');
     }
   }
 
