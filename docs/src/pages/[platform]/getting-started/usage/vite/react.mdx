@@ -2,6 +2,7 @@ import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
 import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
+import { Fragment } from '@/components/Fragment';
 
 ## Tutorial
 
@@ -9,59 +10,28 @@ In this brief tutorial, we're going to build a basic shopping card component usi
 
 ### Setup and Installation
 
-First, execute the command below in your terminal. When prompted for the name of your project, enter `amplify-ui-demo`.  Source: [Vite Guide](https://vitejs.dev/guide/)
+First, execute the command below in your terminal. When prompted for the name of your project, enter `amplify-ui-demo`.  Also see [Vite Guide](https://vitejs.dev/guide/)
 <Tabs>
   <TabItem title="JavaScript">
-    npm 6.x
-    <TerminalCommand command="npm create vite@latest amplify-ui-demo --template react && cd amplify-ui-demo" />
-    npm 7+, extra double-dash is needed:
+    #### npm 7+
     <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react && cd amplify-ui-demo"/>
   </TabItem>
   <TabItem title="TypeScript">
-    #### npm 6.x
-    <TerminalCommand command="npm create vite@latest amplify-ui-demo --template react-ts && cd amplify-ui-demo
-    " />
-    #### npm 7+, extra double-dash is needed:
+    #### npm 7+
     <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react-ts && cd amplify-ui-demo"/>
   </TabItem>
 </Tabs>
 <p>
 
-Next, install the Amplify UI React package:
+**Next, install the Amplify UI React package:**
 </p>
 <TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify"/>
 
+**When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
 
-When working with a [Vite](https://vitejs.dev) project you must make a few modifications to polyfill Node globals. Please follow the steps below:
-
-**1.** Add the following script tag to the `index.html` file right before the `</body>` tag. This will only run on the client side and will polyfill Node globals.
-
-```html
-  <script>
-    window.global = window;
-    window.process = {
-      env: { DEBUG: undefined },
-    };
-    var exports = {};
-  </script>
-</body>
-```
-
-**2.** Update the `vite.config.js` and add a resolve alias inside the `defineConfig({})` as seen below.
-
-```js
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-      alias: [
-      {
-        find: './runtimeConfig',
-        replacement: './runtimeConfig.browser',
-      },
-    ]
-  }
-})
-```
+<Fragment>
+  {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill.mdx`)}
+</Fragment>
 
 ### Basic Demo
 
