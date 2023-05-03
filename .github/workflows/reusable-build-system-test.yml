@@ -1,0 +1,139 @@
+# Description: this a reusable workflow that build mega-apps that have all the connected components.
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [react]
+        framework-version: [latest]
+        build-tool: [cra, next, vite]
+        build-tool-version: [latest]
+        pkg-manager: [npm]
+        language: [ts]
+        node-version: [18]
+        include:
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 16
+          - framework: react
+            framework-version: 16
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: js
+            node-version: 18
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: yarn
+            pkg-manager-version: 1
+            language: ts
+            node-version: 18
+          - framework: react
+            framework-version: 17
+            build-tool: next
+            build-tool-version: 11
+            pkg-manager: npm
+            language: ts
+            node-version: 16
+          - framework: react
+            framework-version: latest
+            build-tool: vite
+            build-tool-version: 2
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
+    env:
+      MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
+      DEPENDENCIES: react@${{ matrix.framework-version }} react-dom@${{ matrix.framework-version }} @aws-amplify/ui-react aws-amplify @aws-amplify/ui-react-storage
+      DEP_TYPES: '@types/react@${{ matrix.framework-version }} @types/react-dom@${{ matrix.framework-version }}'
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          persist-credentials: false
+      - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: ${{ matrix.pkg-manager }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
+        run: ./.github/scripts/mega-app-create-app.sh
+        shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+      - name: Copy aws_export and App.js
+        run: ./.github/scripts/mega-app-copy-files.sh
+        shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+      - name: Install Packages and Build
+        run: ./.github/scripts/mega-app-install-build.sh
+        shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+          PKG_MANAGER: ${{ matrix.pkg-manager }}
+          PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          DEP_TYPES: ${{ env.DEP_TYPES }}
+
+  log-failure-metric:
+    # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ failure() }}
+    steps:
+      - name: Log failure data point to metric BuildSystemTestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildSystemTestFailure
+          value: 1
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
+
+  log-success-metric:
+    # Send a success data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ success() }}
+    steps:
+      - name: Log success data point to metric BuildSystemTestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildSystemTestFailure
+          value: 0
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
