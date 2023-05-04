@@ -1,5 +1,72 @@
 # @aws-amplify/ui-react-storage
 
+## 1.2.0
+
+### Minor Changes
+
+- [#3798](https://github.com/aws-amplify/amplify-ui/pull/3798) [`89e67899c`](https://github.com/aws-amplify/amplify-ui/commit/89e67899c1b48b6bb6b235fa22b62e3f6c1e1112) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(storage-manager): make processFile async. This allows for reading the file contents and performing async validations or mutations like creating a hash of the file contents.
+
+  ```jsx
+  const processFile = async ({ file }) => {
+    const fileExtension = file.name.split('.').pop();
+
+    return file
+      .arrayBuffer()
+      .then((filebuffer) => window.crypto.subtle.digest('SHA-1', filebuffer))
+      .then((hashBuffer) => {
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray
+          .map((a) => a.toString(16).padStart(2, '0'))
+          .join('');
+        return { file, key: `${hashHex}.${fileExtension}` };
+      });
+  };
+
+  export const StorageManagerHashExample = () => {
+    return (
+      <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="public"
+        maxFileCount={1}
+        processFile={processFile}
+      />
+    );
+  };
+  ```
+
+- [#3788](https://github.com/aws-amplify/amplify-ui/pull/3788) [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(storage-manager): add metadata and the rest of the Storage.put params
+
+  ```jsx
+  const processFile = ({ file, key }) => {
+    return {
+      file,
+      key,
+      metadata: {
+        id: key,
+      },
+    };
+  };
+
+  export function StorageManagerMetadataExample() {
+    return (
+      <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="private"
+        maxFileCount={3}
+        showThumbnails={true}
+        processFile={processFile}
+      />
+    );
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`4ca838978`](https://github.com/aws-amplify/amplify-ui/commit/4ca838978d23a086f80859a7cb57f184ff49e2d4), [`1412aa4eb`](https://github.com/aws-amplify/amplify-ui/commit/1412aa4eb4837c44c4e5ecce66188e1e256f952c), [`d6a3676f2`](https://github.com/aws-amplify/amplify-ui/commit/d6a3676f2295ed39fa83b9d31a9540f3437ba129), [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54), [`9551c521b`](https://github.com/aws-amplify/amplify-ui/commit/9551c521b8bed4844f5d57a8cf842ed8b5bd6bee)]:
+  - @aws-amplify/ui@5.6.1
+  - @aws-amplify/ui-react@4.6.1
+  - @aws-amplify/ui-react-core@2.1.20
+
 ## 1.1.0
 
 ### Minor Changes
