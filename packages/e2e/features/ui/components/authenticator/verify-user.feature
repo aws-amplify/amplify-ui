@@ -4,7 +4,7 @@ Feature: Verify User
   redirect them to account verification screen.
 
   Background:
-    Given I'm running the example "ui/components/authenticator/sign-in-with-email"
+    Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
 
   @angular @react @vue
@@ -19,7 +19,17 @@ Feature: Verify User
     Then "New Label" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your Confirmation Code:"
 
-  @angular @react @vue
+  @react-native
+  Scenario: Redirect to "Confirm Verify" page and replace label and placeholder
+    When I type my "email" with status "UNVERIFIED"
+    And I type my password
+    And I click the "Sign in" button
+    And I click the "Email" radio button
+    And I click the "Verify" button
+    Then I see "New Label"
+    Then I see "Enter your Confirmation Code:"
+
+  @angular @react @vue @react-native
   Scenario: Redirect to "Verify" page and verify custom header and footer text
     When I type my "email" with status "UNVERIFIED"
     And I type my password
@@ -27,7 +37,7 @@ Feature: Verify User
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Skip verify account
     When I type my "email" with status "UNVERIFIED"
     And I type my password
@@ -35,7 +45,7 @@ Feature: Verify User
     And I click the "Skip" button
     Then I see "Sign out"
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Redirect to "Confirm Verify" page and verify custom header and footer 
     When I type my "email" with status "UNVERIFIED"
     And I type my password

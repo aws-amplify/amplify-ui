@@ -7,7 +7,9 @@ const AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX =
   'authenticator__text-field__input';
 
 const getUserAlias = (status: string) =>
-  `${process.env.USERNAME}+${status === 'UNKNOWN' ? Date.now() : status}`;
+  `${process.env.USERNAME}+${
+    status === 'UNKNOWN' ? status + Date.now() : status
+  }`;
 
 const getCountryCode = (status: string) => {
   switch (status) {
@@ -44,18 +46,22 @@ When(
         .withDescendant(by.label(`Enter your ${usernameAttribute}`));
       await element(inputField).typeText(text);
     } else {
-      await device.disableSynchronization();
-      await element(
-        by
-          .type('android.widget.EditText')
-          .withAncestor(
-            by
-              .id('amplify__text-field-container')
-              .withDescendant(by.text(usernameAttribute))
-          )
-      ).typeText(text);
+      try {
+        await element(
+          by.id(`authenticator__text-field__input-${loginMechanism}`)
+        ).typeText(text);
+      } catch (e) {
+        await element(
+          by
+            .type('android.widget.EditText')
+            .withAncestor(
+              by
+                .id('amplify__text-field-container')
+                .withDescendant(by.text(usernameAttribute))
+            )
+        ).typeText(text);
+      }
       await device.pressBack();
-      await device.enableSynchronization();
     }
   }
 );
@@ -81,7 +87,19 @@ When('I type an invalid wrong complexity password', async () => {
   ).typeText('inv');
 });
 
+When('I type an invalid wrong complexity new password', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
+  ).typeText('inv');
+});
+
 When('I type an invalid no lower case password', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
+  ).typeText('INV');
+});
+
+When('I type an invalid no lower case new password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
   ).typeText('INV');
@@ -107,6 +125,18 @@ Then('I type a valid code', async () => {
   ).typeText('1234');
 });
 
+Then('I type a valid confirmation code', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
+  ).typeText('123456');
+});
+
+Then('I type an invalid confirmation code', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
+  ).typeText('0000');
+});
+
 Then('I type my new password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
@@ -128,8 +158,19 @@ When('I click the {string} button', async (name: string) => {
   }
 });
 
+When('I click the {string} radio button', async (label: string) => {
+  await element(by.id('amplify__radio-button__container')).tap();
+});
+
 Then(
   'I confirm {string} error is accessible in password field',
+  async (label: string) => {
+    await expect(element(by.label(label))).toBeVisible();
+  }
+);
+
+Then(
+  'I confirm {string} error is accessible in new password field',
   async (label: string) => {
     await expect(element(by.label(label))).toBeVisible();
   }

@@ -16,14 +16,13 @@ Amplify.configure({
 I18n.putVocabularies(translations);
 I18n.setLanguage('en');
 I18n.putVocabulariesForLanguage('en', {
-  'Enter your code': 'Enter the code given',
-  'It may take a minute to arrive': 'It will take several minutes to arrive',
+  'Enter your username': 'Enter your Username',
 });
 
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator initialState="signUp">
+      <Authenticator initialState="resetPassword">
         <View style={style.container}>
           <SignOutButton />
         </View>

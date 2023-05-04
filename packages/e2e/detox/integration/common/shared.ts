@@ -18,6 +18,27 @@ Given(
   }
 );
 
+Given(
+  'I intercept {string} with error fixture {string}',
+  (json: string, fixture: string) => {
+    // don't need to do anything
+  }
+);
+
+Given(
+  'I mock {string} with fixture {string}',
+  (json: string, fixture: string) => {
+    // don't need to do anything
+  }
+);
+
+Given(
+  'I mock {string} event with fixture {string}',
+  (json: string, fixture: string) => {
+    // don't need to do anything
+  }
+);
+
 Then('I see {string}', async (message: string) => {
   await expect(element(by.text(message))).toBeVisible();
 });
