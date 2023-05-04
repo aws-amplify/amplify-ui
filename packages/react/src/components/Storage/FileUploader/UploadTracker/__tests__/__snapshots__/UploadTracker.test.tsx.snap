@@ -33,6 +33,10 @@ exports[`UploadTracker exists 1`] = `
         type="button"
       >
         <span
+          class="amplify-flex amplify-button__loader-wrapper"
+          role="status"
+        />
+        <span
           class="amplify-visually-hidden"
         >
           Edit file name 
@@ -68,6 +72,10 @@ exports[`UploadTracker exists 1`] = `
         data-size="small"
         type="button"
       >
+        <span
+          class="amplify-flex amplify-button__loader-wrapper"
+          role="status"
+        />
         <span
           class="amplify-visually-hidden"
         >

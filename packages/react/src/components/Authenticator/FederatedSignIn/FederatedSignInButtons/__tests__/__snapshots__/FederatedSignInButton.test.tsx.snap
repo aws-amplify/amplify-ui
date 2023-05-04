@@ -9,6 +9,10 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Facebook', 
     type="button"
   >
     <span
+      class="amplify-flex amplify-button__loader-wrapper"
+      role="status"
+    />
+    <span
       class="amplify-text"
     >
       Sign In with Facebook
@@ -25,6 +29,10 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Google', te
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >
+    <span
+      class="amplify-flex amplify-button__loader-wrapper"
+      role="status"
+    />
     <span
       class="amplify-text"
     >
@@ -43,6 +51,10 @@ exports[`FederatedSignInButton renders as expected with { provider: 'LoginWithAm
     type="button"
   >
     <span
+      class="amplify-flex amplify-button__loader-wrapper"
+      role="status"
+    />
+    <span
       class="amplify-text"
     >
       Sign In with Amazon
@@ -59,6 +71,10 @@ exports[`FederatedSignInButton renders as expected with { provider: 'SignInWithA
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >
+    <span
+      class="amplify-flex amplify-button__loader-wrapper"
+      role="status"
+    />
     <span
       class="amplify-text"
     >

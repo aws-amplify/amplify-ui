@@ -12,6 +12,10 @@ exports[`DeleteUser renders as expected 1`] = `
       data-variation="warning"
       type="button"
     >
+      <span
+        class="amplify-flex amplify-button__loader-wrapper"
+        role="status"
+      />
       Delete Account
     </button>
   </div>
@@ -29,6 +33,10 @@ exports[`DeleteUser renders as expected with components overrides 1`] = `
       data-fullwidth="false"
       type="button"
     >
+      <span
+        class="amplify-flex amplify-button__loader-wrapper"
+        role="status"
+      />
       Custom Delete Button
     </button>
   </div>

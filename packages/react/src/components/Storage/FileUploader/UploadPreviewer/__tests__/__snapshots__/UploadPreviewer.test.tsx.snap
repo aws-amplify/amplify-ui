@@ -28,6 +28,10 @@ exports[`UploadPreviewer renders as expected 1`] = `
           data-variation="link"
           type="button"
         >
+          <span
+            class="amplify-flex amplify-button__loader-wrapper"
+            role="status"
+          />
           Clear all
         </button>
         <button
@@ -37,6 +41,10 @@ exports[`UploadPreviewer renders as expected 1`] = `
           data-variation="primary"
           type="button"
         >
+          <span
+            class="amplify-flex amplify-button__loader-wrapper"
+            role="status"
+          />
           Upload 1 file
         </button>
       </div>
