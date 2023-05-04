@@ -37,15 +37,15 @@ export class VerifyUserComponent implements OnInit {
 
   constructor(public authenticator: AuthenticatorService) {}
 
+  public get context() {
+    return this.authenticator.slotContext;
+  }
+
   ngOnInit(): void {
     const actorState = getActorState(
       this.authenticator.authState
     ) as SignInState;
     this.unverifiedContactMethods = actorState.context.unverifiedContactMethods;
-  }
-
-  public get context() {
-    return this.authenticator.slotContext;
   }
 
   getLabel(attr: keyof UnverifiedContactMethods): string {

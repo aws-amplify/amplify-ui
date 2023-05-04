@@ -39,12 +39,12 @@ export class SetupTotpComponent implements OnInit {
 
   constructor(public authenticator: AuthenticatorService) {}
 
-  async ngOnInit(): Promise<void> {
-    await this.generateQRCode();
-  }
-
   public get context() {
     return this.authenticator.slotContext;
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.generateQRCode();
   }
 
   async generateQRCode() {
