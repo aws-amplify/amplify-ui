@@ -15,7 +15,7 @@ dotenv.config();
 
 // Cucumber has default timeout of 5000, not enough for Detox async operations
 // https://wix.github.io/Detox/docs/guide/cucumber-js-integration
-// anything lower than 500000 (8min) has caused flakiness in CI, especially for initial bundling 
+// anything lower than 500000 (8min) has caused flakiness in CI, especially for initial bundling
 // TODO: review when more powerful mac-os runtimes are available in github workflows
 setDefaultTimeout(500000);
 
@@ -23,6 +23,8 @@ BeforeAll(async () => {
   await init({
     testRunnerArgv: { ...process.env },
   });
+  // android only, no-op for ios, required for mock server connection
+  await device.reverseTcpPort(9091);
 });
 
 AfterAll(async () => {
