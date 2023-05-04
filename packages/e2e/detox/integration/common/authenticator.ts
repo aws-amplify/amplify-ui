@@ -44,7 +44,6 @@ When(
         .withDescendant(by.label(`Enter your ${usernameAttribute}`));
       await element(inputField).typeText(text);
     } else {
-      await device.disableSynchronization();
       await element(
         by
           .type('android.widget.EditText')
@@ -55,7 +54,6 @@ When(
           )
       ).typeText(text);
       await device.pressBack();
-      await device.enableSynchronization();
     }
   }
 );
