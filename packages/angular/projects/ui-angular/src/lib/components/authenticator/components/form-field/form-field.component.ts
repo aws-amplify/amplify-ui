@@ -22,6 +22,10 @@ export class FormFieldComponent {
 
   constructor(private authenticator: AuthenticatorService) {}
 
+  get ariaDescribedBy() {
+    return this.hasError() ? this.errorId : undefined;
+  }
+
   get errors(): string[] {
     const { validationErrors } = this.authenticator;
     return getErrors(validationErrors[this.name]);
@@ -43,10 +47,6 @@ export class FormFieldComponent {
 
   hasError(): boolean {
     return this.errors?.length > 0;
-  }
-
-  get ariaDescribedBy() {
-    return this.hasError() ? this.errorId : undefined;
   }
 
   translate(phrase: string): string {

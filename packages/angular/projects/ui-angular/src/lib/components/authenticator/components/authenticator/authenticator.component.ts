@@ -61,6 +61,15 @@ export class AuthenticatorComponent
     private changeDetector: ChangeDetectorRef
   ) {}
 
+  // context passed to "authenticated" slot
+  public get context() {
+    return this.authenticator.slotContext;
+  }
+
+  public get route() {
+    return this.authenticator.route;
+  }
+
   ngOnInit(): void {
     const {
       initialState,
@@ -160,16 +169,6 @@ export class AuthenticatorComponent
   /**
    * Class Functions
    */
-
-  // context passed to "authenticated" slot
-  public get context() {
-    return this.authenticator.slotContext;
-  }
-
-  public get route() {
-    return this.authenticator.route;
-  }
-
   public onTabChange() {
     const { route } = this.authenticator;
     if (route === 'signIn') {
