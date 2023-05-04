@@ -11,6 +11,7 @@ import {
   SignInState,
   translate,
   authenticatorTextUtil,
+  UnverifiedContactMethods,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getAttributeMap } from '../../../../common';
@@ -47,10 +48,10 @@ export class VerifyUserComponent implements OnInit {
     return this.authenticator.slotContext;
   }
 
-  getLabelForAttr(authAttr: string): string {
+  getLabel(attr: keyof UnverifiedContactMethods): string {
     const attributeMap = getAttributeMap();
-    const label = attributeMap[authAttr]?.label;
-    return translate<string>(label);
+    const { label } = attributeMap[attr];
+    return translate(label);
   }
 
   onInput(event: Event) {
