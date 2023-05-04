@@ -1,5 +1,39 @@
 # @aws-amplify/ui
 
+## 5.6.1
+
+### Patch Changes
+
+- [#3718](https://github.com/aws-amplify/amplify-ui/pull/3718) [`4ca838978`](https://github.com/aws-amplify/amplify-ui/commit/4ca838978d23a086f80859a7cb57f184ff49e2d4) Thanks [@0618](https://github.com/0618)! - Losslessly compress images
+
+- [#3792](https://github.com/aws-amplify/amplify-ui/pull/3792) [`d6a3676f2`](https://github.com/aws-amplify/amplify-ui/commit/d6a3676f2295ed39fa83b9d31a9540f3437ba129) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui): Fixes an issue where the input primitive doesn't render properly for calendar types.
+
+- [#3788](https://github.com/aws-amplify/amplify-ui/pull/3788) [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(storage-manager): add metadata and the rest of the Storage.put params
+
+  ```jsx
+  const processFile = ({ file, key }) => {
+    return {
+      file,
+      key,
+      metadata: {
+        id: key,
+      },
+    };
+  };
+
+  export function StorageManagerMetadataExample() {
+    return (
+      <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="private"
+        maxFileCount={3}
+        showThumbnails={true}
+        processFile={processFile}
+      />
+    );
+  }
+  ```
+
 ## 5.6.0
 
 ### Minor Changes
