@@ -19,9 +19,7 @@
         [value]="unverifiedContactMethod.key"
         [id]="labelId"
       />
-      <label [for]="labelId">{{
-        getLabelForAttr(unverifiedContactMethod.key)
-      }}</label>
+      <label [for]="labelId">{{ getLabel(unverifiedContactMethod.key) }}</label>
     </div>
 
     <button
