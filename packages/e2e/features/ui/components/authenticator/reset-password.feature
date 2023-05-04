@@ -25,7 +25,7 @@ Feature: Reset Password
     And I click the "Send code" button
     Then I see "Username/client id combination not found."
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Reset Password with valid placeholder 
     Then I see "Enter your username"
     And I don't see "Enter your phone number"
