@@ -30,7 +30,7 @@ export class PasswordFieldComponent {
   public classnames = classnames;
   public ComponentClassName = ComponentClassName;
 
-  togglePasswordText() {
+  togglePasswordText(): void {
     this.showPassword = !this.showPassword;
     this.showPasswordButtonlabel = this.showPassword
       ? translate('Hide password')

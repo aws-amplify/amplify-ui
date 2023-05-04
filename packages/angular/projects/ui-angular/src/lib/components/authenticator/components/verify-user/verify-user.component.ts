@@ -43,7 +43,7 @@ export class VerifyUserComponent implements OnInit {
     this.unverifiedContactMethods = actorState.context.unverifiedContactMethods;
   }
 
-  public get context() {
+  public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;
   }
 
@@ -53,7 +53,7 @@ export class VerifyUserComponent implements OnInit {
     return translate<string>(label);
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.authenticator.updateForm({ name, value });

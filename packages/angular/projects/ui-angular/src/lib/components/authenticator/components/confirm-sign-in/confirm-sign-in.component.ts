@@ -30,7 +30,7 @@ export class ConfirmSignInComponent implements OnInit {
     this.setHeaderText();
   }
 
-  public get context() {
+  public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;
   }
 
