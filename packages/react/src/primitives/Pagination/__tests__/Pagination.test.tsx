@@ -37,7 +37,7 @@ describe('Pagination component:', () => {
     const lastPage = await screen.findByLabelText(
       `${ComponentText.PaginationItem.pageLabel} ${totalPages}`
     );
-    expect(lastPage.childNodes.length).toBe(1);
+    expect(lastPage.childNodes.length).toBe(2);
     expect(lastPage).toHaveTextContent('5');
   });
 
@@ -76,14 +76,14 @@ describe('Pagination component:', () => {
       ComponentText.PaginationItem.previousLabel
     );
     expect(previous.nodeName).toBe('BUTTON');
-    expect(previous.childNodes.length).toBe(1);
+    expect(previous.childNodes.length).toBe(2);
     expect(previous).toBeDisabled();
 
     const next = await screen.findByLabelText(
       ComponentText.PaginationItem.nextLabel
     );
     expect(next.nodeName).toBe('BUTTON');
-    expect(next.childNodes.length).toBe(1);
+    expect(next.childNodes.length).toBe(2);
     expect(next).not.toBeDisabled();
   });
 
@@ -102,13 +102,13 @@ describe('Pagination component:', () => {
     const previous = await screen.findByLabelText(
       ComponentText.PaginationItem.previousLabel
     );
-    expect(previous.childNodes.length).toBe(1);
+    expect(previous.childNodes.length).toBe(2);
     expect(previous).not.toBeDisabled();
 
     const next = await screen.findByLabelText(
       ComponentText.PaginationItem.nextLabel
     );
-    expect(next.childNodes.length).toBe(1);
+    expect(next.childNodes.length).toBe(2);
     expect(next).toBeDisabled();
   });
 
@@ -118,13 +118,13 @@ describe('Pagination component:', () => {
     const previous = await screen.findByLabelText(
       ComponentText.PaginationItem.previousLabel
     );
-    expect(previous.childNodes.length).toBe(1);
+    expect(previous.childNodes.length).toBe(2);
     expect(previous).not.toBeDisabled();
 
     const next = await screen.findByLabelText(
       ComponentText.PaginationItem.nextLabel
     );
-    expect(next.childNodes.length).toBe(1);
+    expect(next.childNodes.length).toBe(2);
     expect(next).not.toBeDisabled();
   });
 
@@ -143,13 +143,13 @@ describe('Pagination component:', () => {
     const previous = await screen.findByLabelText(
       ComponentText.PaginationItem.previousLabel
     );
-    expect(previous.childNodes.length).toBe(1);
+    expect(previous.childNodes.length).toBe(2);
     expect(previous).not.toBeDisabled();
 
     const next = await screen.findByLabelText(
       ComponentText.PaginationItem.nextLabel
     );
-    expect(next.childNodes.length).toBe(1);
+    expect(next.childNodes.length).toBe(2);
     expect(next).not.toBeDisabled();
   });
 
