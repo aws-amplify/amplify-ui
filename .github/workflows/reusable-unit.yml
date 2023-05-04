@@ -88,7 +88,10 @@ jobs:
         run: yarn react-core build
 
       - name: Build react-core-notifications package
-        if: ${{ matrix.package == 'react-notifications' || matrix.package == 'react-native' }}
+        if: |
+          matrix.package == 'react-notifications' ||
+          matrix.package == 'react' ||
+          matrix.package == 'react-native'
         run: yarn react-core-notifications build
 
       - name: Build react package
