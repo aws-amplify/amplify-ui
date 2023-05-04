@@ -85,6 +85,28 @@ jobs:
           cache: ${{ matrix.pkg-manager }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Restore CocoaPods cache
+        id: restore-cocoapods-cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        with:
+          path: ./examples/react-native/ios/Pods
+          key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
+          restore-keys: |
+            pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
+            pods-
+        continue-on-error: true
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Install simulator
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+      - name: Update CocoaPods
+        run: |
+          gem update cocoapods xcodeproj
+          yarn react-native-example ios:pod-install
+
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
         run: ./.github/scripts/mega-app-create-app.sh
         shell: bash
