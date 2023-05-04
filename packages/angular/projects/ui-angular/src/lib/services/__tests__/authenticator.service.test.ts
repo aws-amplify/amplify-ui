@@ -33,7 +33,9 @@ jest.spyOn(UIModule, 'getServiceFacade').mockReturnValue(mockFacade);
 // mock interpreted authservice
 jest
   .spyOn(XState, 'interpret')
-  .mockReturnValue(new MockAuthService() as unknown as XState.AnyInterpreter);
+  .mockReturnValue(
+    new MockAuthService() as unknown as ReturnType<typeof XState.interpret>
+  );
 
 describe('AuthenticatorService', () => {
   let authService: AuthenticatorService;
@@ -52,8 +54,7 @@ describe('AuthenticatorService', () => {
 
     expect(handler).toBeCalledTimes(1);
 
-    const facade = handler.mock.calls[0][0];
-    expect(facade).toEqual(mockFacade);
+    expect(handler).toHaveBeenCalledWith(mockFacade);
 
     unsubscribe();
   });

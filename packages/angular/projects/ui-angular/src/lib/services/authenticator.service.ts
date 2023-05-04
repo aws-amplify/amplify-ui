@@ -45,10 +45,6 @@ export class AuthenticatorService implements OnDestroy {
     this._authService = authService;
   }
 
-  ngOnDestroy(): void {
-    if (this._machineSubscription) this._machineSubscription.unsubscribe();
-  }
-
   /**
    * Context facades
    */
@@ -181,6 +177,10 @@ export class AuthenticatorService implements OnDestroy {
       callback(this._facade);
     });
     return subscription;
+  }
+
+  ngOnDestroy(): void {
+    if (this._machineSubscription) this._machineSubscription.unsubscribe();
   }
 
   /** @deprecated For internal use only */

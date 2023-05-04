@@ -17,15 +17,6 @@ module.exports = {
       ],
       rules: {
         /*
-         * TODO: turn the following settings on after fixing the
-         * corresponding linting issues.
-         */
-        '@typescript-eslint/member-ordering': 'warn',
-        '@typescript-eslint/no-unsafe-argument': 'warn',
-        '@typescript-eslint/no-unsafe-assignment': 'warn',
-        '@typescript-eslint/no-unsafe-member-access': 'warn',
-
-        /*
          * `prefer-nullish-coalescing` requires `strictNullChecks` to be on.
          * Turn this off until we turn `strict` on in the `tsconfig.json`.
          */
