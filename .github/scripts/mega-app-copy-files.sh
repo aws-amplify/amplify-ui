@@ -25,6 +25,8 @@ if [ "$BUILD_TOOL" == 'next' ]; then
     mkdir mega-apps/${MEGA_APP_NAME}/data
     echo "cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/data/aws-exports.js"
     cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/data/aws-exports.js
+    echo "ls mega-apps/${MEGA_APP_NAME}/"
+    ls mega-apps/${MEGA_APP_NAME}/
     echo "cp templates/components/react/next/App.js mega-apps/${MEGA_APP_NAME}/pages/index.tsx"
     cp templates/components/react/next/App.js mega-apps/${MEGA_APP_NAME}/pages/index.tsx
     if [ "$BUILD_TOOL_VERSION" == '11' ]; then
