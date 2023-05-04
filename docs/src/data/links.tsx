@@ -610,6 +610,12 @@ export const theming: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/theming/default-theme/color-themes',
+    label: 'Color Themes',
+    platforms: ['react', 'vue', 'angular'],
+    tertiary: true,
+  },
+  {
     href: '/theming/default-theme/typography',
     label: 'Typography',
     platforms: ['react', 'vue', 'angular'],

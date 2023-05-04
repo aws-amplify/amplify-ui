@@ -31,39 +31,33 @@ export interface MessageProps extends FlexProps {
 
   /**
    * @description
-   * The isDismissible property will affect whether the user can dismiss (close) the Alert. Defaults to false (not dismissible).
+   * The isDismissible property will affect whether the user can dismiss (close) the Message. Defaults to false (not dismissible).
    */
   isDismissible?: boolean;
 
   /**
    * @description
-   * Configures the accessible label for the Alert's dismiss button.
+   * Configures the accessible label for the Message's dismiss button.
    */
   dismissButtonLabel?: string;
 
   /**
    * @description
-   * The onDismiss callback will be called when the user dismisses (closes) the Alert.
+   * The onDismiss callback will be called when the user dismisses (closes) the Message.
    */
   onDismiss?: () => void;
 
   /**
    * @description
-   * The hasIcon property will determine whether or not an icon is displayed on the Alert. Defaults to true (icon displayed).
+   * The hasIcon property will determine whether or not an icon is displayed on the Message. Defaults to true (icon displayed).
    */
   hasIcon?: boolean;
 
   /**
    * @description
-   * The heading property will affect the content of the Alert heading.
+   * The heading property will affect the content of the Message heading.
    */
   heading?: React.ReactNode;
-
-  /**
-   * @description
-   * The actions properety allows you to add additional controls to the Message.
-   */
-  actions?: React.ReactNode;
 
   /**
    * @description

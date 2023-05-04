@@ -154,11 +154,29 @@ export const Composable = () => {
             <Link href="/">Learn about social providers.</Link>
           </Text>
         </Message>
+        <Message variation="filled" colorTheme="error">
+          <Flex alignItems="center" justifyContent="space-between">
+            Workflows are limited during active LSE.{' '}
+            <Button size="small" variation="primary" colorTheme="error">
+              Follow for updates
+            </Button>
+          </Flex>
+        </Message>
+        <Message colorTheme="error" alignSelf="center">
+          Too many attempts, please wait before trying again.
+        </Message>
         <Message
-          variation="filled"
           colorTheme="error"
-          heading="Please fix the following form errors:"
-        ></Message>
+          heading="Error"
+          variation="outline"
+          alignSelf="center"
+          width="500px"
+        >
+          <Text variation="tertiary">
+            /App.js: Adjacent JSX elements must be wrapped in an enclosing tag.
+            Did you want a JSX fragment <>...</>? (5:4)
+          </Text>
+        </Message>
       </Flex>
     </View>
   );
