@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "auth-with-email-environment",
+  "name": "@aws-amplify/ui-auth-with-email-environment",
   "version": "0.0.1",
   "scripts": {
     "pull": "amplify pull --appId d38yznh7fio4c0 --envName staging"
