@@ -23,14 +23,21 @@ jobs:
         pkg-manager: [npm]
         language: [ts]
         node-version: [18]
-        # include:
-        #   - framework: react
-        #     framework-version: latest
-        #     build-tool: cra
-        #     build-tool-version: latest
-        #     pkg-manager: npm
-        #     language: ts
-        #     node-version: 16
+        include:
+          - framework: react-native
+            framework-version: latest
+            build-tool: expo
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          # - framework: react
+          #   framework-version: latest
+          #   build-tool: cra
+          #   build-tool-version: latest
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 16
         # - framework: react
         #   framework-version: 16
         #   build-tool: cra
@@ -85,7 +92,9 @@ jobs:
           cache: ${{ matrix.pkg-manager }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
       - name: Restore CocoaPods cache
+        if: ${{ matrix.framework == 'react-native' }}
         id: restore-cocoapods-cache
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
@@ -98,6 +107,7 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Restore node_modules cache
+        if: ${{ matrix.framework == 'react-native' }}
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         id: restore-cache
         with:
@@ -109,15 +119,17 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Install simulator
+        if: ${{ matrix.framework == 'react-native' }}
         run: |
           brew tap wix/brew
           brew install applesimutils
       - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true'
+        if: ${{ matrix.framework == 'react-native' }} && steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true
       - name: Update CocoaPods
+        if: ${{ matrix.framework == 'react-native' }}
         run: |
           gem update cocoapods xcodeproj
           yarn react-native-example ios:pod-install
