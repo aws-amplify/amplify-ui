@@ -31,12 +31,16 @@ else
         rm -rf node_modules
     fi
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        echo "npm install $DEPENDENCIES"
-        npm install $DEPENDENCIES
         echo "npm i -g expo-cli"
         npm i -g expo-cli
-        echo "expo client:install:ios"
-        expo client:install:ios
+        echo "ls -la"
+        ls -la
+        echo "xcrun simctl list --json"
+        xcrun simctl list --json
+        echo "npm install $DEPENDENCIES"
+        npm install $DEPENDENCIES
+        echo "npx expo client:install:ios"
+        npx expo client:install:ios
         echo "npm run ios"
         npm run ios
     else
