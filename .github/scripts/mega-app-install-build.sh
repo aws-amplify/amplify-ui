@@ -37,6 +37,12 @@ else
         ls -la
         echo "xcrun simctl list --json"
         xcrun simctl list --json
+        echo "SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)"
+        SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)
+        echo "echo $SIMULATOR_ID"
+        echo $SIMULATOR_ID
+        echo "xcrun simctl boot $SIMULATOR_ID"
+        xcrun simctl boot $SIMULATOR_ID
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
         echo "npx expo client:install:ios"
