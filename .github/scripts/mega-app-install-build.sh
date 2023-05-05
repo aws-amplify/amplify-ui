@@ -33,6 +33,8 @@ else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
+        echo "npm i -g expo-cli"
+        npm i -g expo-cli
         echo "npm run ios"
         npm run ios
     else
