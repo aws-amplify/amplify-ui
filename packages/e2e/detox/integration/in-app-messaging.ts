@@ -13,6 +13,9 @@ Then(
 );
 
 Then('I see a {string} banner dialog', async (type: string) => {
+  await waitFor(element(by.id(`inappmessaging-${type}banner-dialog`)))
+    .toExist()
+    .withTimeout(2000);
   await expect(
     element(by.id(`inappmessaging-${type}banner-dialog`))
   ).toBeVisible();

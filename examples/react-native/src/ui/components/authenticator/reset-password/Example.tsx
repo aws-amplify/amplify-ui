@@ -15,7 +15,26 @@ Amplify.configure({
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator initialState="resetPassword">
+      <Authenticator
+        initialState="resetPassword"
+        components={{
+          ResetPassword: (props) => (
+            <Authenticator.ResetPassword
+              {...props}
+              fields={[
+                {
+                  type: 'default',
+                  name: 'username',
+                  label: 'Enter your username',
+                  placeholder: 'Enter your Username',
+                  required: true,
+                  testID: 'authenticator__text-field__input-username',
+                },
+              ]}
+            />
+          ),
+        }}
+      >
         <View style={style.container}>
           <SignOutButton />
         </View>

@@ -20,14 +20,13 @@ Feature: Verify User
     Then I see placeholder "Enter your Confirmation Code:"
 
   @react-native
-  Scenario: Redirect to "Confirm Verify" page and replace label and placeholder
+  Scenario: Redirect to "Confirm Verify" page and replace label
     When I type my "email" with status "UNVERIFIED"
     And I type my password
     And I click the "Sign in" button
     And I click the "Email" radio button
     And I click the "Verify" button
     Then I see "New Label"
-    Then I see "Enter your Confirmation Code:"
 
   @angular @react @vue @react-native
   Scenario: Redirect to "Verify" page and verify custom header and footer text

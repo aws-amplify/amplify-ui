@@ -40,17 +40,21 @@ When(
       usernameAttribute = 'Phone Number';
     }
 
-    if (device.getPlatform() === 'ios') {
-      const inputField = by
-        .type('UITextField')
-        .withDescendant(by.label(`Enter your ${usernameAttribute}`));
-      await element(inputField).typeText(text);
-    } else {
-      try {
-        await element(
-          by.id(`authenticator__text-field__input-${loginMechanism}`)
-        ).typeText(text);
-      } catch (e) {
+    try {
+      await element(
+        by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${loginMechanism}`)
+      ).typeText(text);
+    } catch (e) {
+      // for some custom fields the test id doesn't match the login mechanism
+      if (device.getPlatform() === 'ios') {
+        // match the input by placeholder label
+        const inputField = by
+          .type('UITextField')
+          .withDescendant(by.label(`Enter your ${usernameAttribute}`));
+        await element(inputField).typeText(text);
+      } else {
+        // android renders placeholders differently, in a hint prop of the text field
+        // there is not Detox matcher for this prop, so we're matching by field label
         await element(
           by
             .type('android.widget.EditText')
@@ -60,8 +64,8 @@ When(
                 .withDescendant(by.text(usernameAttribute))
             )
         ).typeText(text);
+        await device.pressBack();
       }
-      await device.pressBack();
     }
   }
 );
