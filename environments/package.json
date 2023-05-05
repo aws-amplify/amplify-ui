@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "environments",
+  "name": "@aws-amplify/ui-environments",
   "version": "0.0.1",
   "scripts": {
     "auth": "yarn --cwd auth/",
