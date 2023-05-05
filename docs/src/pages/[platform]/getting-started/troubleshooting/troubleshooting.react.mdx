@@ -2,65 +2,9 @@ import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 import { Fragment } from '@/components/Fragment';
 
-## Webpack
-
-### Webpack 5+: `Uncaught ReferenceError: process is not defined`
-
-Follow the instructions below to if you are using Webpack 5:
-
-<Alert role="none" variation="info">
-*Note:*
-Polyfill is only required for Webpack 5+. In this version Node.js global variable shims required by the `aws-amplify` package were removed, which results in the following error message:
-
-```
-Uncaught ReferenceError: process is not defined
-```
-
-Webpack 4 already includes this polyfill.
-
-</Alert>
-
-1. Add
-   [node-polyfill-webpack-plugin](https://www.npmjs.com/package/node-polyfill-webpack-plugin)
-   as dev dependency:
-
-<Tabs>
-<TabItem title="npm">
-<TerminalCommand command="npm install node-polyfill-webpack-plugin -D" />
-</TabItem>
-<TabItem title="yarn">
-<TerminalCommand command="yarn add node-polyfill-webpack-plugin -D" />
-</TabItem>
-</Tabs>
-
-2. Add the plugin to your `webpack.config.js` plugins list:\_
-
-```js
-  plugins: [
-    new NodePolyfillPlugin(), // Polyfill Node.js globals (e.g. global, process, etc)
-  ],
-```
-
-### Webpack 4: Can’t import the named export ‘Amplify’ from non EcmaScript module (only default export is available)
-
-Follow [here](#cra-4-cant-import-the-named-export-amplify-from-non-ecmascript-module-only-default-export-is-available) for solutions.
-
-## Next.js
-
-### Next 13.4+: React Server Components
-
-Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). To use Amplify UI componenents, you must use them inside the Client Component tree by placing `"use client"` at the boundary between your Client and Server component module graph. Please see the Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages) on how you could achieve this.
-
-## Vite
-
-When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
-
-<Fragment>
-  {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
-</Fragment>
-
-
 ## Astro
+
+### `Uncaught ReferenceError: global is not defined`
 
 When working with a [Astro](https://astro.build/) project you must make a few modifications. Please follow the steps below.
 <Tabs>
@@ -92,14 +36,6 @@ export default defineConfig({
   }
 })
 ```
-**3.** (Optional) If you run into TypeScript strict errors from `aws-amplify` you may need to update the `tsconfig.json` file with the following config:
-
-```json
-  "compilerOptions": {
-    "skipLibCheck": true,
-  }
-...
-```
   </TabItem>
   <TabItem title="JavaScript">
 **1.** Add the following script to the bottom of the `index.astro` file. This will only run on the client side and will polyfill Node globals.
@@ -114,7 +50,7 @@ export default defineConfig({
 </script>
 ```
 
-**2.** Update the `astro.config.mjs` to add a resolve alias inside the `defineConfig({})` as seen below.
+**2.** Update the `astro.config.mjs` to add a resolve object inside the `defineConfig({})` as seen below.
 
 ```js
 export default defineConfig({
@@ -217,3 +153,79 @@ if (typeof window.URL.createObjectURL === 'undefined') {
 ```
 
 This is a known problem when using the `jsdom` library (a dependency of Jest) with a package that uses an unrecognized function. See [this issue](https://github.com/jsdom/jsdom/issues/1721).
+
+## Next.js
+
+### Next 13.4+: React Server Components
+
+Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). To use Amplify UI componenents, you must use them inside the Client Component tree by placing `"use client"` at the boundary between your Client and Server component module graph. Please see the Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages) on how you could achieve this.
+
+
+## Webpack
+
+### Webpack 5+: `Uncaught ReferenceError: process is not defined`
+
+Follow the instructions below to if you are using Webpack 5:
+
+<Alert role="none" variation="info">
+*Note:*
+Polyfill is only required for Webpack 5+. In this version Node.js global variable shims required by the `aws-amplify` package were removed, which results in the following error message:
+
+```
+Uncaught ReferenceError: process is not defined
+```
+
+Webpack 4 already includes this polyfill.
+
+</Alert>
+
+1. Add
+   [node-polyfill-webpack-plugin](https://www.npmjs.com/package/node-polyfill-webpack-plugin)
+   as dev dependency:
+
+<Tabs>
+<TabItem title="npm">
+<TerminalCommand command="npm install node-polyfill-webpack-plugin -D" />
+</TabItem>
+<TabItem title="yarn">
+<TerminalCommand command="yarn add node-polyfill-webpack-plugin -D" />
+</TabItem>
+</Tabs>
+
+2. Add the plugin to your `webpack.config.js` plugins list:\_
+
+```js
+  plugins: [
+    new NodePolyfillPlugin(), // Polyfill Node.js globals (e.g. global, process, etc)
+  ],
+```
+
+### Webpack 4: Can’t import the named export ‘Amplify’ from non EcmaScript module (only default export is available)
+
+Follow [here](#cra-4-cant-import-the-named-export-amplify-from-non-ecmascript-module-only-default-export-is-available) for solutions.
+
+
+## Vite
+
+### `Uncaught ReferenceError: global is not defined`
+
+When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
+
+<Tabs>
+  <TabItem title="TypeScript">
+    <Fragment>
+      {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
+    </Fragment>
+    <Fragment>
+      {({ platform }) => import(`./shared/vite-polyfill-ts.mdx`)}
+    </Fragment>
+  </TabItem>
+  <TabItem title="JavaScript">
+    <Fragment>
+      {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
+    </Fragment>
+  </TabItem>
+</Tabs>
+
+
+

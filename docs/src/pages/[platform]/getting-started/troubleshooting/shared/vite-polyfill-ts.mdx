@@ -1,0 +1,17 @@
+**3.** (Optional) If you run into TypeScript errors importing `aws-exports.js`, you may need to update the `tsconfig.json` file with the following config and add a type declaration file:
+
+```json
+  "compilerOptions": {
+    "allowJs": true,
+  }
+...
+```
+
+`aws-exports.d.ts` file:
+
+```ts
+declare const awsmobile: Record<string, any>
+export default awsmobile;
+```
+
+> If you are still having issues, please see comments on the following issue for additional [Vite workarounds](https://github.com/aws-amplify/amplify-js/issues/9639). Note that there is active ongoing work to make these modifications unnecessary.

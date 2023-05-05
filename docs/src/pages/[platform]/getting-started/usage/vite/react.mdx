@@ -6,7 +6,7 @@ import { Fragment } from '@/components/Fragment';
 
 ## Tutorial
 
-In this brief tutorial, we're going to build a basic shopping card component using [Vite.js](https://vitejs.dev/) and Amplify UI. Then, we'll elaborate on our shopping card to play with the possibilities of using Amplify UI.
+In this brief tutorial, we're going to build a basic shopping cart component using [Vite.js](https://vitejs.dev/) and Amplify UI. Then, we'll elaborate on our shopping card to play with the possibilities of using Amplify UI.
 
 ### Setup and Installation
 
@@ -16,23 +16,35 @@ First, execute the command below in your terminal. When prompted for the name of
   <TabItem title="JavaScript">
     #### npm 7+
     <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react && cd amplify-ui-demo"/>
+
+    **Next, install the Amplify UI React package:**
+
+    <TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify"/>
+
+    **When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
+
+    <Fragment>
+      {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill.mdx`)}
+    </Fragment>
+
   </TabItem>
   <TabItem title="TypeScript">
     #### npm 7+
     <TerminalCommand command="npm create vite@latest amplify-ui-demo -- --template react-ts && cd amplify-ui-demo"/>
+    **Next, install the Amplify UI React package:**
+
+    <TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify"/>
+
+    **When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
+
+    <Fragment>
+      {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill.mdx`)}
+    </Fragment>
+    <Fragment>
+      {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill-ts.mdx`)}
+    </Fragment>
   </TabItem>
 </Tabs>
-<p>
-
-**Next, install the Amplify UI React package:**
-</p>
-<TerminalCommand command="npm install @aws-amplify/ui-react aws-amplify"/>
-
-**When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.**
-
-<Fragment>
-  {({ platform }) => import(`../../troubleshooting/shared/vite-polyfill.mdx`)}
-</Fragment>
 
 ### Basic Demo
 
@@ -56,7 +68,7 @@ Now start the app by running `npm run dev` and you should see a basic shopping c
 ### Advanced Demo
 
 If you’d like to play around with a more comprehensive demo of the Amplify UI library, create a separate file under the `pages` folder named `paintings.js`, and copy/paste this code into it:
-
+<Example>
 <ExampleCode>
 
 ```tsx file=./examples/paintings.ts
@@ -64,11 +76,11 @@ If you’d like to play around with a more comprehensive demo of the Amplify UI 
 ```
 
   </ExampleCode>
-
+</Example>
 Then, replace the contents of `App.jsx` or `App.tsx` with the code below, restart the app, and experience all the beautiful components in action!
 
 <Example>
-  <ExampleCode>
+  <ExampleCode height="500px">
 
 ```tsx file=./examples/AdvancedExampleCode.tsx
 
