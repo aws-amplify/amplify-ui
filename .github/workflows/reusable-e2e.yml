@@ -535,6 +535,8 @@ jobs:
           nohup $ANDROID_HOME/emulator/emulator -verbose -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on -cores 2 -qemu -m 4096 &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
           $ANDROID_HOME/platform-tools/adb devices
+          # all network requests going from the device to this will be forwarded to the virtual machine where the mock server is running
+          $ANDROID_HOME/platform-tools/adb reverse tcp:9091 tcp:9091
 
       - name: Start Metro Bundler in background
         run: yarn workspace react-native-example dev --reset-cache &
