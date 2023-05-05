@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
-  "name": "vue-example",
+  "name": "@aws-amplify/ui-vue-example",
   "private": true,
   "scripts": {
     "dev": "vite --port 3000",
