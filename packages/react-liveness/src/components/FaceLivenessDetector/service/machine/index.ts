@@ -85,7 +85,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         endFace: undefined,
         initialFaceMatchTime: undefined,
       },
-      freshnessColorAssociatedParams: undefined,
+      freshnessColorAssociatedParams: {
+        freshnessColorEl: undefined,
+        freshnessColors: [],
+        freshnessColorsComplete: false,
+        freshnessColorDisplay: undefined,
+      },
       errorState: undefined,
       livenessStreamProvider: undefined,
       responseStreamActorRef: undefined,
@@ -660,7 +665,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateErrorStateForFreshnessTimeout: assign({
         errorState: (context) => {
           const { freshnessColorEl } = context.freshnessColorAssociatedParams!;
-          freshnessColorEl!.style.display = 'none';
+          if (freshnessColorEl) {
+            freshnessColorEl.style.display = 'none';
+          }
           return LivenessErrorState.FRESHNESS_TIMEOUT;
         },
       }),
