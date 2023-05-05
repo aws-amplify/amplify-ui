@@ -35,6 +35,8 @@ else
         npm install $DEPENDENCIES
         echo "npm i -g expo-cli"
         npm i -g expo-cli
+        echo "expo client:install:ios"
+        expo client:install:ios
         echo "npm run ios"
         npm run ios
     else
