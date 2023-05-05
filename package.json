@@ -39,7 +39,7 @@
   "workspaces": {
     "packages": [
       "docs",
-@      "environments",
+      "environments",
       "examples/*",
       "packages/*",
       "packages/angular/projects/ui-angular",
