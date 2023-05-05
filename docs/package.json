@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "docs",
+  "name": "@aws-amplify/ui-docs",
   "version": "0.0.1",
   "scripts": {
     "dev": "next dev -p 5001",
