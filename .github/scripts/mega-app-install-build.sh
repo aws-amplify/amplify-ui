@@ -30,8 +30,15 @@ else
         echo "rm -rf node_modules"
         rm -rf node_modules
     fi
-    echo "npm install $DEPENDENCIES"
-    npm install $DEPENDENCIES
-    echo "npm run build"
-    npm run build
+    if [[ "$FRAMEWORK" == "react-native" ]]; then
+        echo "npm install $DEPENDENCIES"
+        npm install $DEPENDENCIES
+        echo "npm run ios"
+        npm run ios
+    else
+        echo "npm install $DEPENDENCIES"
+        npm install $DEPENDENCIES
+        echo "npm run build"
+        npm run build
+    fi
 fi

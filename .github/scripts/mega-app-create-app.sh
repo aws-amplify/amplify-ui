@@ -26,3 +26,8 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
     echo "npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts"
     npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts
 fi
+
+if [ "$BUILD_TOOL" == 'expo' ]; then
+    echo "npx create-expo-app@${BUILD_TOOL_VERSION} $MEGA_APP_NAME"
+    npx create-expo-app@${BUILD_TOOL_VERSION} $MEGA_APP_NAME
+fi

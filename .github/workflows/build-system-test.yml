@@ -163,6 +163,7 @@ jobs:
           PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
           DEPENDENCIES: ${{ env.DEPENDENCIES }}
           DEP_TYPES: ${{ env.DEP_TYPES }}
+          FRAMEWORK: ${{ matrix.framework }}
 
   # log-failure-metric:
   #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
