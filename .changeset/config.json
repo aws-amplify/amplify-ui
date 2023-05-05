@@ -10,13 +10,13 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "amplify-ui-angular-mono",
-    "angular-example",
-    "docs",
-    "e2e",
-    "environments",
-    "next-example",
-    "react-native-example",
-    "vue-example"
+    "@aws-amplify/ui-angular-mono",
+    "@aws-amplify/ui-angular-example",
+    "@aws-amplify/ui-docs",
+    "@aws-amplify/ui-e2e",
+    "@aws-amplify/ui-environments",
+    "@aws-amplify/ui-next-example",
+    "@aws-amplify/ui-react-native-example",
+    "@aws-amplify/ui-vue-example"
   ]
 }
