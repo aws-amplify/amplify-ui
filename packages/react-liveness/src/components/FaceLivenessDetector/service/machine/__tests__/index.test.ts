@@ -114,6 +114,12 @@ describe('Liveness Machine', () => {
       endFace: mockFace,
       initialFaceMatchTime: Date.now() - 500,
     },
+    freshnessColorAssociatedParams: {
+      freshnessColorEl: document.createElement('canvas'),
+      freshnessColors: [],
+      freshnessColorsComplete: false,
+      freshnessColorDisplay: mockFreshnessColorDisplay,
+    },
   });
 
   let service: LivenessInterpreter;
@@ -448,7 +454,7 @@ describe('Liveness Machine', () => {
       expect(
         service.state.context.livenessStreamProvider!.getResponseStream
       ).toHaveBeenCalledTimes(1);
-      expect(service.state.context.errorState).toBeNull();
+      expect(service.state.context.errorState).toBeUndefined();
 
       jest.advanceTimersToNextTimer();
       expect(service.state.value).toEqual('timeout');
