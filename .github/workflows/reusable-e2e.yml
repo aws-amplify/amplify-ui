@@ -449,7 +449,7 @@ jobs:
   e2e-android:
     needs: check-changed-packages
     if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     environment: ci
     env:
       NODE_ENV: test
@@ -532,7 +532,7 @@ jobs:
 
       - name: Start Android emulator
         run: |
-          nohup $ANDROID_HOME/emulator/emulator -verbose -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on -cores 2 -qemu -m 4096 &
+          nohup $ANDROID_HOME/emulator/emulator -verbose -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu swiftshader_indirect -accel off -cores 2 -qemu -m 4096 &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
           $ANDROID_HOME/platform-tools/adb devices
           # all network requests going from the device to this will be forwarded to the virtual machine where the mock server is running
