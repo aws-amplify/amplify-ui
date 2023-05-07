@@ -7,6 +7,7 @@ import { FileStatus } from '../../types';
 
 import { StorageManagerProps } from '../../types';
 import { UseStorageManager } from '../useStorageManager';
+import { resolveFile } from './resolveFile';
 
 export interface UseUploadFilesProps
   extends Pick<
@@ -74,38 +75,23 @@ export function useUploadFiles({
       };
 
       if (file) {
-        const processedFile =
-          typeof processFile === 'function'
-            ? processFile({ file, key })
-            : { file, key };
-
-        onUploadStart?.({ key });
-
-        if (isResumable) {
+        resolveFile({ processFile, file, key }).then(({ key, ...rest }) => {
+          onUploadStart?.({ key });
           const uploadTask = uploadFile({
-            file: processedFile.file,
-            fileName: path + processedFile.key,
-            isResumable: true,
+            ...rest,
+            isResumable,
+            provider,
+            key: path + key,
             level: accessLevel,
             completeCallback: onComplete,
             progressCallback: onProgress,
             errorCallback: onError,
-            provider,
           }) as unknown as UploadTask;
-          setUploadingFile({ id, uploadTask });
-        } else {
-          uploadFile({
-            file: processedFile.file,
-            fileName: path + processedFile.key,
-            isResumable: false,
-            level: accessLevel,
-            completeCallback: onComplete,
-            progressCallback: onProgress,
-            errorCallback: onError,
-            provider,
+          setUploadingFile({
+            id,
+            uploadTask: isResumable ? uploadTask : undefined,
           });
-          setUploadingFile({ id });
-        }
+        });
       }
     }
   }, [

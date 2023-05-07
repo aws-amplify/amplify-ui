@@ -1,5 +1,6 @@
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
+import { Fragment } from '@/components/Fragment';
 
 ## Webpack
 
@@ -44,81 +45,20 @@ Webpack 4 already includes this polyfill.
 
 Follow [here](#cra-4-cant-import-the-named-export-amplify-from-non-ecmascript-module-only-default-export-is-available) for solutions.
 
+## Next.js
+
+### Next 13.4+: React Server Components
+
+Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). To use Amplify UI componenents, you must use them inside the Client Component tree by placing `"use client"` at the boundary between your Client and Server component module graph. Please see the Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages) on how you could achieve this.
+
 ## Vite
-<Tabs>
-  <TabItem title="TypeScript">
+
 When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
 
-**1.** Add the following script tag to the `index.html` file right before the `</body>` tag.
+<Fragment>
+  {({ platform }) => import(`./shared/vite-polyfill.mdx`)}
+</Fragment>
 
-```html
-  <script>
-    window.global = window;
-    window.process = {
-      env: { DEBUG: undefined },
-    }
-    var exports = {};
-  </script>
-</body>
-```
-
-**2.** Update the `vite.config.ts` and add a resolve alias inside the `defineConfig({})` as seen below.
-
-```ts
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-      alias: [
-      {
-        find: './runtimeConfig',
-        replacement: './runtimeConfig.browser',
-      },
-    ]
-  }
-})
-```
-**3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
-
-```json
-  "compilerOptions": {
-    "skipLibCheck": true,
-  }
-...
-```
-  </TabItem>
-  <TabItem title="JavaScript">
-When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
-
-**1.** Add the following script tag to the `index.html` file right before the `</body>` tag. This will only run on the client side and will polyfill Node globals.
-
-```html
-  <script>
-    window.global = window;
-    window.process = {
-      env: { DEBUG: undefined },
-    };
-    var exports = {};
-  </script>
-</body>
-```
-
-**2.** Update the `vite.config.js` and add a resolve alias inside the `defineConfig({})` as seen below.
-
-```js
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-      alias: [
-      {
-        find: './runtimeConfig',
-        replacement: './runtimeConfig.browser',
-      },
-    ]
-  }
-})
-```
-  </TabItem>
-</Tabs>
 
 ## Astro
 
@@ -152,12 +92,12 @@ export default defineConfig({
   }
 })
 ```
-**3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
+**3.** (Optional) If you run into TypeScript strict errors from `aws-amplify` you may need to update the `tsconfig.json` file with the following config:
 
-```js
-...
+```json
   "compilerOptions": {
     "skipLibCheck": true,
+  }
 ...
 ```
   </TabItem>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import * as tf from '@tensorflow/tfjs-core';
 import * as blazeface from '@tensorflow-models/blazeface';
 
@@ -9,7 +8,7 @@ import '@tensorflow/tfjs-backend-cpu';
 import { jitteredExponentialRetry } from '@aws-amplify/core';
 
 import { isWebAssemblySupported } from './support';
-import { FaceDetection, Face } from '../types';
+import { FaceDetection, Face, Coordinate } from '../types';
 
 type BlazeFaceModelBackend = 'wasm' | 'cpu';
 
@@ -67,33 +66,33 @@ export class BlazeFaceFaceDetection extends FaceDetection {
 
     const timestampMs = Date.now();
 
-    const faces: Face[] = predictions.map((prediction) => {
-      const { topLeft, bottomRight, probability, landmarks } = prediction;
+    const faces: Face[] = predictions
+      .filter((prediction) => !!prediction.landmarks)
+      .map((prediction) => {
+        const { topLeft, bottomRight, probability, landmarks } = prediction;
 
-      if (landmarks === undefined) return;
+        const [right, top] = topLeft as Coordinate; // right, top because the prediction is flipped
+        const [left, bottom] = bottomRight as Coordinate; // left, bottom because the prediction is flipped
+        const width = Math.abs(right - left);
+        const height = Math.abs(bottom - top);
+        const rightEye = (landmarks as Coordinate[])[0];
+        const leftEye = (landmarks as Coordinate[])[1];
+        const nose = (landmarks as Coordinate[])[2];
+        const mouth = (landmarks as Coordinate[])[3];
 
-      const [right, top] = topLeft as [number, number]; // right, top because the prediction is flipped
-      const [left, bottom] = bottomRight as [number, number]; // left, bottom because the prediction is flipped
-      const width = Math.abs(right - left);
-      const height = Math.abs(bottom - top);
-      const rightEye = landmarks[0] as Face['rightEye'];
-      const leftEye = landmarks[1] as Face['leftEye'];
-      const nose = landmarks[2] as Face['nose'];
-      const mouth = landmarks[3] as Face['mouth'];
-
-      return {
-        top,
-        left,
-        width,
-        height,
-        timestampMs,
-        probability: probability[0] as number,
-        rightEye,
-        leftEye,
-        mouth,
-        nose,
-      };
-    });
+        return {
+          top,
+          left,
+          width,
+          height,
+          timestampMs,
+          probability: (probability as unknown as [number])[0], // probability in reality is [number] but is typed as number | Tensor.1d
+          rightEye,
+          leftEye,
+          mouth,
+          nose,
+        };
+      });
 
     return faces;
   }
