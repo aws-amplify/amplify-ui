@@ -1,6 +1,8 @@
 import { Then, When } from '@cucumber/cucumber';
 import { by, element, expect } from 'detox';
 
+const POPUP_DISPLAY_TIMEOUT = 3000;
+
 Then('{string} checkbox is checked', async (checkboxName: string) => {
   await expect(element(by.label(checkboxName))).toBeVisible();
 });
@@ -15,7 +17,7 @@ Then(
 Then('I see a {string} banner dialog', async (type: string) => {
   await waitFor(element(by.id(`inappmessaging-${type}banner-dialog`)))
     .toExist()
-    .withTimeout(3000);
+    .withTimeout(POPUP_DISPLAY_TIMEOUT);
   await expect(
     element(by.id(`inappmessaging-${type}banner-dialog`))
   ).toBeVisible();
@@ -25,7 +27,7 @@ Then('I see a {string} banner dialog', async (type: string) => {
 Then('I see a {string} dialog', async (type: string) => {
   await waitFor(element(by.id(`inappmessaging-${type}-dialog`)))
     .toExist()
-    .withTimeout(3000);
+    .withTimeout(POPUP_DISPLAY_TIMEOUT);
   await expect(element(by.id(`inappmessaging-${type}-dialog`))).toBeVisible();
 });
 

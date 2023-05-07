@@ -46,6 +46,7 @@ Feature: Sign In with Username
     Then I see "Sign out"
     When I reload the page
     Then I see "Sign out"
+    And I click the "Sign out" button
 
   @angular @react @vue
   Scenario: Sign in with confirmed credentials, reload, sign out, then sign in again
@@ -74,6 +75,7 @@ Feature: Sign In with Username
     And I type my password
     And I click the "Sign in" button
     Then I see "Sign out"
+    And I click the "Sign out" button
 
   # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
   # test accounts will expire in Cognito.

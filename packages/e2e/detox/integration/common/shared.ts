@@ -4,7 +4,6 @@ import { by, element, expect } from 'detox';
 Given("I'm running the example {string}", async (name: string) => {
   await device.launchApp({
     newInstance: true,
-    delete: true,
     launchArgs: {
       EXAMPLE_APP_NAME: name,
     },
