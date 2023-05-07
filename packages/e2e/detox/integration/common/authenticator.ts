@@ -64,8 +64,9 @@ When(
                 .withDescendant(by.text(usernameAttribute))
             )
         ).typeText(text);
-        await device.pressBack();
       }
+    } finally {
+      await device.pressBack();
     }
   }
 );
