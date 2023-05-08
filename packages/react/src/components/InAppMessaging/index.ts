@@ -1,7 +1,7 @@
 export {
   InAppMessagingProvider,
   useInAppMessaging,
-} from '@aws-amplify/ui-react-core';
+} from '@aws-amplify/ui-react-core-notifications';
 
 export { BannerMessageProps } from './BannerMessage';
 export { FullScreenMessageProps } from './FullScreenMessage';
