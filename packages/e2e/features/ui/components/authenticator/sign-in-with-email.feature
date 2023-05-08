@@ -61,7 +61,6 @@ Feature: Sign In with Email
     Then I see "Sign out"
     And I click the "Sign out" button
     Then I see "Sign in"
-    And I click the "Sign out" button
 
   @angular @react @vue
   Scenario: Sign Up Tab Is Not Present 
