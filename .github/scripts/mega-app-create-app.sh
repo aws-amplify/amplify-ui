@@ -27,7 +27,8 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
     npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts
 fi
 
-if [ "$BUILD_TOOL" == 'expo' ]; then
-    echo "npx create-expo-app@${BUILD_TOOL_VERSION} $MEGA_APP_NAME"
-    npx create-expo-app@${BUILD_TOOL_VERSION} $MEGA_APP_NAME
+if [[ "$BUILD_TOOL" == 'cli' && "$FRAMEWORK" == 'react-native' ]]; then
+    MEGA_APP_NAME="rn${FRAMEWORK_VERSION}Cli${BUILD_TOOL_VERSION}Node18Ts"
+    echo "npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION"
+    npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION
 fi

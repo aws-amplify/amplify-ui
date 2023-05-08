@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ "$BUILD_TOOL" == 'cli' && "$FRAMEWORK" == 'react-native' ]]; then
+    MEGA_APP_NAME="rn${FRAMEWORK_VERSION}Cli${BUILD_TOOL_VERSION}Node18Ts"
+fi
+
 echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
 cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 if [ "$PKG_MANAGER" == 'yarn' ]; then
@@ -31,8 +35,6 @@ else
         rm -rf node_modules
     fi
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        echo "npm i -g expo-cli"
-        npm i -g expo-cli
         echo "ls -la"
         ls -la
         echo "xcrun simctl list --json"
@@ -45,8 +47,6 @@ else
         xcrun simctl boot $SIMULATOR_ID
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
-        echo "npx expo client:install:ios"
-        npx expo client:install:ios
         echo "npm run ios"
         npm run ios
     else

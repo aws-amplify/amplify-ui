@@ -26,7 +26,7 @@ jobs:
         include:
           - framework: react-native
             framework-version: latest
-            build-tool: expo
+            build-tool: cli
             build-tool-version: latest
             pkg-manager: npm
             language: ts
@@ -123,6 +123,9 @@ jobs:
         run: |
           brew tap wix/brew
           brew install applesimutils
+          brew install watchman
+          echo "ruby --version"
+          ruby --version
       - name: Install packages
         if: ${{ matrix.framework == 'react-native' }} && steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
@@ -138,6 +141,8 @@ jobs:
         run: ./.github/scripts/mega-app-create-app.sh
         shell: bash
         env:
+          FRAMEWORK: ${{ matrix.framework }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
           BUILD_TOOL: ${{ matrix.build-tool }}
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
@@ -164,6 +169,7 @@ jobs:
           DEPENDENCIES: ${{ env.DEPENDENCIES }}
           DEP_TYPES: ${{ env.DEP_TYPES }}
           FRAMEWORK: ${{ matrix.framework }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
 
   # log-failure-metric:
   #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
