@@ -166,7 +166,7 @@ export const LivenessCheck: React.FC<LivenessCheckProps> = ({
       return (
         <LivenessCameraModule
           isMobileScreen={isMobile}
-          isRecordingStopped={isRecordingStopped}
+          isRecordingStopped={isRecordingStopped!}
           streamDisplayText={streamDisplayText}
           hintDisplayText={hintDisplayText}
           errorDisplayText={errorDisplayText}
