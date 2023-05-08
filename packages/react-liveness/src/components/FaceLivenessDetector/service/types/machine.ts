@@ -22,40 +22,42 @@ import {
 import { Face, FaceDetection } from './faceDetection';
 
 export interface FaceMatchAssociatedParams {
-  illuminationState: IlluminationState;
-  faceMatchState: FaceMatchState;
-  faceMatchPercentage: number;
-  currentDetectedFace: Face;
-  startFace: Face;
-  endFace: Face;
-  initialFaceMatchTime: number;
+  illuminationState?: IlluminationState;
+  faceMatchState?: FaceMatchState;
+  faceMatchPercentage?: number;
+  currentDetectedFace?: Face;
+  startFace?: Face;
+  endFace?: Face;
+  initialFaceMatchTime?: number;
 }
 
 export interface FreshnessColorAssociatedParams {
-  freshnessColorEl: HTMLCanvasElement;
-  freshnessColors: string[];
-  freshnessColorsComplete: boolean;
-  freshnessColorDisplay: FreshnessColorDisplay;
+  freshnessColorEl?: HTMLCanvasElement;
+  freshnessColors?: string[];
+  freshnessColorsComplete?: boolean;
+  freshnessColorDisplay?: FreshnessColorDisplay;
 }
 
 export interface OvalAssociatedParams {
-  faceDetector: FaceDetection;
-  initialFace: Face;
-  ovalDetails: LivenessOvalDetails;
-  scaleFactor: number;
+  faceDetector?: FaceDetection;
+  initialFace?: Face;
+  ovalDetails?: LivenessOvalDetails;
+  scaleFactor?: number;
 }
 
 export interface VideoAssociatedParams {
-  videoConstraints: MediaTrackConstraints;
-  videoEl: HTMLVideoElement;
-  canvasEl: HTMLCanvasElement;
-  videoMediaStream: MediaStream;
-  videoRecorder: VideoRecorder;
-  recordingStartTimestampMs: number;
-  isMobile: boolean | undefined;
+  videoConstraints?: MediaTrackConstraints;
+  videoEl?: HTMLVideoElement;
+  canvasEl?: HTMLCanvasElement;
+  videoMediaStream?: MediaStream;
+  videoRecorder?: VideoRecorder;
+  recordingStartTimestampMs?: number;
+  isMobile?: boolean;
 }
 
-export interface LivenessContext {
+export type LivenessContext = Partial<HydratedLivenessContext>;
+
+export interface HydratedLivenessContext {
   maxFailedAttempts: number;
   failedAttempts: number;
   componentProps: FaceLivenessDetectorProps;
@@ -65,10 +67,10 @@ export interface LivenessContext {
   ovalAssociatedParams: OvalAssociatedParams;
   faceMatchAssociatedParams: FaceMatchAssociatedParams;
   freshnessColorAssociatedParams: FreshnessColorAssociatedParams;
-  errorState: LivenessErrorState | null;
+  errorState: LivenessErrorState;
   livenessStreamProvider: LivenessStreamProvider;
   responseStreamActorRef: ActorRef<any>;
-  shouldDisconnect: boolean | undefined;
+  shouldDisconnect: boolean;
   faceMatchStateBeforeStart: FaceMatchState;
   isFaceFarEnoughBeforeRecording: boolean;
   isRecordingStopped: boolean;
