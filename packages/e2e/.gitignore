@@ -3,5 +3,6 @@ cypress/fixtures/example.json
 cypress/screenshots
 cypress/videos
 
+detox/screenshots
 
 .env

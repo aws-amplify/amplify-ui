@@ -1,0 +1,7 @@
+FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. [Configure the Amplify Auth category](https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-prerequisites.html#face-liveness-prerequisites-amplify) to setup Amplify Auth and add authentication to your backend configuration.
+
+> If you already have Cognito set up or do not want to use the Amplify CLI to generate Cognito resources, you can follow the documentation for [importing existing resources](https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources).
+
+_If you have an existing backend, run `amplify pull` to sync your `amplifyconfiguration.json` with your cloud backend._
+
+You should now have an `amplifyconfiguration.json` file in your `app/src/main/res/raw` directory with your latest backend configuration.

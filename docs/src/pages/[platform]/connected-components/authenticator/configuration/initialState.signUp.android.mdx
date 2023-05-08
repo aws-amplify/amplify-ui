@@ -1,0 +1,9 @@
+```kotlin
+val authenticatorState = rememberAuthenticatorState(
+    initialStep = AuthenticatorStep.SignUp
+)
+
+Authenticator(state = authenticatorState) {
+    // ...
+}
+```

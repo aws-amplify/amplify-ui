@@ -70,6 +70,62 @@ const priorityProps = {
 };
 
 /**
+ * Get a catalog-compatible component property definition
+ */
+const getCatalogComponentProperty = (
+  property: Symbol
+): PrimitiveCatalogComponentProperty | undefined => {
+  const propType = property.getDeclarations()[0].getType();
+
+  if (!propType) {
+    return;
+  } else if (propType.isBoolean() || propType.isBooleanLiteral()) {
+    return { type: 'boolean' };
+  } else if (propType.isString() || propType.isStringLiteral()) {
+    return { type: 'string' };
+  } else if (propType.isNumber() || propType.isNumberLiteral()) {
+    return { type: 'number' };
+  } else if (propType.isUnion()) {
+    const hasNumber = propType
+      .getUnionTypes()
+      .filter((prop) => !prop.isNull() && !prop.isUndefined()) // Filter out null and undefined since union types aren't supported in Studio
+      .every((prop) => {
+        return prop.isNumber() || prop.isNumberLiteral();
+      });
+
+    const hasBoolean = propType
+      .getUnionTypes()
+      .filter((prop) => !prop.isNull() && !prop.isUndefined())
+      .every((prop) => {
+        return prop.isBoolean() || prop.isBooleanLiteral();
+      });
+
+    const hasString = propType
+      .getUnionTypes()
+      .filter((prop) => !prop.isNull() && !prop.isUndefined())
+      .some((prop) => prop.isStringLiteral() || prop.isString());
+
+    if (hasNumber) {
+      return {
+        type: 'number',
+      };
+    }
+
+    if (hasString) {
+      return {
+        type: 'string',
+      };
+    }
+
+    if (hasBoolean) {
+      return {
+        type: 'boolean',
+      };
+    }
+  }
+};
+
+/**
  * Determine if a TypeScript AST Node is a React component
  */
 const isPrimitive = (node: Node): node is VariableDeclaration => {
@@ -97,45 +153,6 @@ const getComponentProperties = (type: Type) => {
   });
 
   return properties;
-};
-
-/**
- * Get a catalog-compatible component property definition
- */
-const getCatalogComponentProperty = (
-  property: Symbol
-): PrimitiveCatalogComponentProperty | undefined => {
-  const propType = property.getDeclarations()[0].getType();
-
-  if (!propType) {
-    return;
-  } else if (propType.isBoolean() || propType.isBooleanLiteral()) {
-    return { type: 'boolean' };
-  } else if (propType.isString() || propType.isStringLiteral()) {
-    return { type: 'string' };
-  } else if (propType.isNumber() || propType.isNumberLiteral()) {
-    return { type: 'number' };
-  } else if (propType.isUnion()) {
-    const hasNumber = propType
-      .getUnionTypes()
-      .every((prop) => prop.isNumber() || prop.isNumberLiteral());
-
-    const hasString = propType
-      .getUnionTypes()
-      .some((prop) => prop.isStringLiteral() || prop.isString());
-
-    if (hasNumber) {
-      return {
-        type: 'number',
-      };
-    }
-
-    if (hasString) {
-      return {
-        type: 'string',
-      };
-    }
-  }
 };
 
 const project = new Project({
@@ -169,11 +186,12 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
 
   // Skip primitives without properties
   if (Object.keys(properties).length > 0) {
-    if (priorityProps.hasOwnProperty(componentName)) {
-      priorityProps[componentName].forEach((prop) => {
-        if (properties.hasOwnProperty(prop)) {
-          properties[prop].priority = true;
+    if (priorityProps[componentName]) {
+      (priorityProps[componentName] as string[]).forEach((prop) => {
+        if (properties[prop]) {
+          (properties[prop] as { priority: boolean }).priority = true;
         } else {
+          // eslint-disable-next-line no-console
           console.log(`Skipping ${prop} on ${componentName}`);
         }
       });

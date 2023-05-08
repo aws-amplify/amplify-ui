@@ -1,0 +1,35 @@
+import { Fragment } from '@/components/Fragment';
+import { InstallScripts } from '@/components/InstallScripts';
+
+### Step 2. Install dependencies
+
+<InstallScripts component='liveness' />
+
+### Step 3. Initialize Amplify
+
+```jsx
+import React from 'react';
+import { ThemeProvider } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import '@aws-amplify/ui-react/styles.css';
+import awsexports from './aws-exports';
+
+Amplify.configure(awsexports);
+
+export default function App() {
+  return (
+    <ThemeProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+### Step 4. Add FaceLivenessDetector
+
+To get started you will need to make a request to your backend to receive a `sessionId` and pass that to the `FaceLivenessDetector` component.
+
+Once a valid sessionId, region, and callback has been passed, FaceLivenessDetector will take care of streaming video and presenting Face Liveness challenges.
+
+```tsx file=./QuickStartReact.tsx
+```
+

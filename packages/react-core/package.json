@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core",
-  "version": "2.1.17",
+  "version": "2.1.20",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "react-native": "dist/index.js",
@@ -30,7 +30,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.5.9",
+    "@aws-amplify/ui": "5.6.1",
     "@xstate/react": "3.0.1",
     "lodash": "4.17.21",
     "xstate": "^4.33.6"
@@ -40,6 +40,7 @@
     "react": ">= 16.14.0"
   },
   "devDependencies": {
+    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "@rollup/plugin-typescript": "^8.3.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
@@ -48,7 +49,6 @@
     "@types/react-dom": "^17.0.13",
     "@types/react-test-renderer": "^17.0.1",
     "eslint": "^8.4.1",
-    "eslint-config-amplify-ui": "0.0.0",
     "jest": "^27.0.4",
     "prettier": "2.4.1",
     "react": "^17.0.2",

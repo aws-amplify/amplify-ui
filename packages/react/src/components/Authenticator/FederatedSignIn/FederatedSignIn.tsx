@@ -17,6 +17,7 @@ export function FederatedSignIn(): JSX.Element {
   );
 
   if (socialProviders.length === 0) {
+    // @ts-ignore
     return null;
   }
 

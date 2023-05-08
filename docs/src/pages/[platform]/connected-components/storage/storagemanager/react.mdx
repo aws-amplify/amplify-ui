@@ -1,0 +1,209 @@
+import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
+
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { Example, ExampleCode } from '@/components/Example';
+import { InstallScripts } from '@/components/InstallScripts';
+import { STORAGE_MANAGER, FILE_PICKER, DROPZONE_PROPS, DISPLAY_TEXT } from './props';
+import {
+  DefaultStorageManagerExample,
+  StorageManagerComponentOverridesExample,
+  StorageManagerDisplayTextExample,
+  StorageManagerEventExample,
+  StorageManagerFileTypesExample,
+  StorageManagerHashExample,
+  StorageManageri18nExample,
+  StorageManagerMetadataExample,
+  StorageManagerResumableExample,
+  StorageManagerThemeExample,
+} from './examples'
+
+<DefaultStorageManagerExample />
+
+## Basic Usage
+
+<Alert variation="warning" heading="Wait!">
+  Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
+</Alert>
+
+To use the StorageManager component import it into your React application with the included styles. 
+
+<InstallScripts component="storage" />
+
+<ExampleCode>
+```jsx
+import { StorageManager } from '@aws-amplify/ui-react-storage';
+import '@aws-amplify/ui-react/styles.css';
+```
+</ExampleCode>
+
+At a minimum you must include the `accessLevel`, `acceptedFileTypes`, and `maxFileCount` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'public' | 'private' | 'protected'`.
+
+<Example>
+  <DefaultStorageManagerExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultStorageManagerExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Alert variation="info">
+  The uploading capabilities in these examples are stubbed out so they don't actually upload files anywhere!
+</Alert>
+
+### Props
+
+<ReactPropsTable props={STORAGE_MANAGER} />
+
+## Setting Limits
+
+You can limit what users upload with these 3 props:
+
+* `maxFileSize`: sets a maximum file size the uploader will accept in bytes. The default is unlimited.
+* `maxFileCount`: accepts how many files at one time you can select to upload.
+* `acceptedFileTypes`: an array of file type strings that follow the [HTML `accept` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept).
+
+<Example>
+  <StorageManagerFileTypesExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerFileTypesExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+## Pausable / Resumable Uploads
+
+A resumable upload will upload the file in chunks. This allows users to pause an upload and resume it at a later time. You will typically want to do this only when the expected files are larger than the chunk size, which is 5MB.
+
+<Example>
+  <StorageManagerResumableExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerResumableExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Pre-upload Processing
+
+You might want to process or modify the file(s) and/or file name(s) before they are uploaded. One common situation is you may want to ensure files uploaded are at unique keys by hashing the file contents and using that as the key rather than the filename.
+
+You can pass a `processFile` function to the StorageManager which accepts an object with `file`: [File](https://developer.mozilla.org/en-US/docs/Web/API/File), and `key`: string, and should return an object with file, key, and any other Storage configurations. The `processFile` can either return synchronously or return a Promise. This example uses a Promise to read the contents of the file and create a hash for the key.
+
+<Example>
+  <StorageManagerHashExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerHashExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+Other uses-cases for processing the file before upload:
+
+1. Performing file optimizations like removing unnecessary metadata.
+1. Performing custom file validations like reading the contents of a file to ensure it is in the proper structure.
+
+You can also add any other [Amplify Storage options](https://docs.amplify.aws/lib/storage/upload/q/platform/js/#encrypted-uploads) by adding them to the return object of `processFile`
+
+## Event Handling
+
+The StorageManager component has several event handlers: `onUploadStart`, `onUploadSuccess`, `onUploadError`, and `onFileRemove`
+
+<Example>
+  <StorageManagerEventExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerEventExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Alert variation="warning" heading="Use a previousState">
+Be careful setting state in the `onUploadSuccess` because that function is bound when the upload _starts_. Make sure to use the previous state argument rather than the current state in the component.
+</Alert>
+
+## Adding metadata
+
+Metadata is added as an object with string key-value pairs. It is sent as custom HTTP headers with the name `x-amz-meta-[key]`. For example, if your metadata for a file was `{mode: 'night'}`, it would set the `x-amz-meta-mode` HTTP header to `night`.
+
+You can add metadata by adding a `metadata` object in the return object of `processFile`. 
+
+<Example>
+  <StorageManagerMetadataExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerMetadataExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Customization
+
+### Text and labels
+
+All text in the StorageManager component is customizable with the `displayText` prop. 
+
+<Example>
+  <StorageManagerDisplayTextExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerDisplayTextExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Expander isCollapsible>
+  <ExpanderItem title="Display text props" value="display-text">
+    <ReactPropsTable props={DISPLAY_TEXT} />
+  </ExpanderItem>
+</Expander>
+
+### Internationalization
+
+You can use the `displayText` prop to also support different languages. Use an open source library like i18next, react-intl, or make your own:
+
+<Example>
+  <StorageManageri18nExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManageri18nExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+### Component overrides
+
+Don't like how things look? Use your own components inside the StorageManager! You can pass your own components with the `components` prop. The available components to override are: `Container`, `FileList`, `FileListHeader`, `DropZone`, and `FilePicker`. 
+
+_You can even use a completely different UI kit like MUI, Chakra, or your own design system!_
+
+<Example>
+  <StorageManagerComponentOverridesExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerComponentOverridesExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+<Expander type="multiple">
+  <ExpanderItem title="FilePicker props" value="filepicker">
+    <ReactPropsTable props={FILE_PICKER} />
+  </ExpanderItem>
+  <ExpanderItem title="DropZone props" value="dropzone">
+    <ReactPropsTable props={DROPZONE_PROPS} />
+  </ExpanderItem>
+</Expander>
+
+
+### Theming
+
+<Example>
+  <StorageManagerThemeExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerThemeExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+
+### Target Classes
+
+If you like, you can target classes directly or use CSS variables to make changes to the look and feel of the File Uploader. 
+
+<ComponentStyleDisplay componentName="StorageManager" />

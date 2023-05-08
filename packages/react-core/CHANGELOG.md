@@ -1,5 +1,26 @@
 # @aws-amplify/ui-react-core
 
+## 2.1.20
+
+### Patch Changes
+
+- Updated dependencies [[`4ca838978`](https://github.com/aws-amplify/amplify-ui/commit/4ca838978d23a086f80859a7cb57f184ff49e2d4), [`d6a3676f2`](https://github.com/aws-amplify/amplify-ui/commit/d6a3676f2295ed39fa83b9d31a9540f3437ba129), [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54)]:
+  - @aws-amplify/ui@5.6.1
+
+## 2.1.19
+
+### Patch Changes
+
+- Updated dependencies [[`bc3fd6d95`](https://github.com/aws-amplify/amplify-ui/commit/bc3fd6d951b1ab1b188722f59ce04118d04d16af), [`747516159`](https://github.com/aws-amplify/amplify-ui/commit/747516159d504b551dab09cbe8f214fa7b4505df)]:
+  - @aws-amplify/ui@5.6.0
+
+## 2.1.18
+
+### Patch Changes
+
+- Updated dependencies [[`fefc4cb3d`](https://github.com/aws-amplify/amplify-ui/commit/fefc4cb3df12d344792b33ad100c6252c9fa2819)]:
+  - @aws-amplify/ui@5.5.10
+
 ## 2.1.17
 
 ### Patch Changes

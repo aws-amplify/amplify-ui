@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
-  "name": "vue-example",
+  "name": "@aws-amplify/ui-vue-example",
   "private": true,
   "scripts": {
     "dev": "vite --port 3000",
@@ -10,7 +10,7 @@
     "start": "vite preview --port 3000"
   },
   "dependencies": {
-    "@aws-amplify/ui-vue": "^3.1.12",
+    "@aws-amplify/ui-vue": "^3.1.15",
     "aws-amplify": "latest",
     "vue": "^3.0.5",
     "vue-router": "4"

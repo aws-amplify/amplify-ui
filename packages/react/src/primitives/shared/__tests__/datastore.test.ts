@@ -1,66 +1,102 @@
+import {
+  RecursiveModelPredicate,
+  RecursiveModelPredicateAggregateExtender,
+  RecursiveModelPredicateOperator,
+  ValuePredicate,
+} from '@aws-amplify/datastore';
+
 import { DataStorePredicateObject } from '../../types/datastore';
 import { createDataStorePredicate } from '../datastore';
+import { PredicateInternalsKey } from '@aws-amplify/datastore';
 
-type Post = {
-  id: string;
-  name: string;
-  age: string;
+type Post = { id: string; name: string; age: string };
+
+const namePredicateObject = {
+  field: 'name',
+  operator: 'startsWith',
+  operand: 'John',
 };
 
-describe('createDataStorePredicate', () => {
-  const namePredicateObject = {
-    field: 'name',
-    operator: 'startsWith',
-    operand: 'John',
-  };
+const agePredicateObject = {
+  field: 'age',
+  operator: 'gt',
+  operand: '25',
+};
 
-  const agePredicateObject = {
-    field: 'age',
-    operator: 'gt',
-    operand: '25',
-  };
+const booleanPredicateObject = {
+  field: 'isActive',
+  operator: 'eq',
+  operand: true,
+};
+
+const agePredicate = jest.fn();
+const booleanPredicate = jest.fn();
+const namePredicate = jest.fn();
+
+const baseCondition: Omit<
+  RecursiveModelPredicate<Post>,
+  'and' | 'or' | 'not'
+> = {
+  id: '' as unknown as ValuePredicate<Post, string>,
+  name: '' as unknown as ValuePredicate<Post, string>,
+  age: '' as unknown as ValuePredicate<Post, string>,
+};
+
+const ageCondition: RecursiveModelPredicate<Post> = {
+  ...baseCondition,
+  [agePredicateObject.field]: {
+    [agePredicateObject.operator]: agePredicate,
+  },
+} as RecursiveModelPredicate<Post>;
+
+const booleanCondition: RecursiveModelPredicate<Post> = {
+  ...baseCondition,
+  [booleanPredicateObject.field]: {
+    [booleanPredicateObject.operator]: booleanPredicate,
+  },
+} as RecursiveModelPredicate<Post>;
+
+const nameCondition: RecursiveModelPredicate<Post> = {
+  ...baseCondition,
+  [namePredicateObject.field]: {
+    [namePredicateObject.operator]: namePredicate,
+  },
+} as RecursiveModelPredicate<Post>;
+
+describe('createDataStorePredicate', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   test('should generate a simple predicate', () => {
     const predicate = createDataStorePredicate<Post>(namePredicateObject);
 
-    const namePredicate = jest.fn();
-
-    const condition: any = {
-      [namePredicateObject.field]: {
-        [namePredicateObject.operator]: namePredicate,
-      },
-    };
-
-    predicate(condition);
+    predicate(nameCondition);
     expect(namePredicate).toHaveBeenCalledWith(namePredicateObject.operand);
   });
 
-  test('should generate a group predicate: or', () => {
+  test('should generate a simple boolean predicate', () => {
+    const predicate = createDataStorePredicate<Post>(booleanPredicateObject);
+
+    predicate(booleanCondition);
+    expect(booleanPredicate).toHaveBeenCalledWith(
+      booleanPredicateObject.operand
+    );
+  });
+
+  test('should generate an `or` group predicate', () => {
     const predicateObject: DataStorePredicateObject = {
       or: [namePredicateObject, agePredicateObject],
     };
 
     const predicate = createDataStorePredicate<Post>(predicateObject);
 
-    console.log({ predicate: predicate.toString() });
+    const or: RecursiveModelPredicateOperator<Post> = (p) =>
+      [p(nameCondition), p(ageCondition)] as unknown as PredicateInternalsKey;
 
-    const namePredicate = jest.fn();
-    const agePredicate = jest.fn();
-
-    const condition: any = {
-      or: (p) => [
-        p({
-          [namePredicateObject.field]: {
-            [namePredicateObject.operator]: namePredicate,
-          },
-        }),
-        p({
-          [agePredicateObject.field]: {
-            [agePredicateObject.operator]: agePredicate,
-          },
-        }),
-      ],
-    };
+    const condition = {
+      or,
+    } as RecursiveModelPredicate<Post>;
 
     predicate(condition);
 
@@ -68,30 +104,19 @@ describe('createDataStorePredicate', () => {
     expect(agePredicate).toHaveBeenCalledWith(agePredicateObject.operand);
   });
 
-  test('should generate a group predicate: and', () => {
+  test('should generate an `and` group predicate', () => {
     const predicateObject: DataStorePredicateObject = {
       and: [namePredicateObject, agePredicateObject],
     };
 
     const predicate = createDataStorePredicate<Post>(predicateObject);
 
-    const namePredicate = jest.fn();
-    const agePredicate = jest.fn();
+    const and: RecursiveModelPredicateOperator<Post> = (p) =>
+      [p(nameCondition), p(ageCondition)] as unknown as PredicateInternalsKey;
 
-    const condition: any = {
-      and: (p) => [
-        p({
-          [namePredicateObject.field]: {
-            [namePredicateObject.operator]: namePredicate,
-          },
-        }),
-        p({
-          [agePredicateObject.field]: {
-            [agePredicateObject.operator]: agePredicate,
-          },
-        }),
-      ],
-    };
+    const condition = {
+      and,
+    } as RecursiveModelPredicate<Post>;
 
     predicate(condition);
 
@@ -101,35 +126,22 @@ describe('createDataStorePredicate', () => {
 
   test('should generate a nested predicate', () => {
     const predicateObject: DataStorePredicateObject = {
-      and: [
-        namePredicateObject,
-        {
-          or: [agePredicateObject],
-        },
-      ],
+      and: [namePredicateObject, { or: [agePredicateObject] }],
     };
 
     const predicate = createDataStorePredicate<Post>(predicateObject);
 
-    const namePredicate = jest.fn();
-    const agePredicate = jest.fn();
+    const or: RecursiveModelPredicateOperator<Post> = (orGroup) =>
+      orGroup(ageCondition) as unknown as PredicateInternalsKey;
 
-    const condition: any = {
-      and: (andGroup) => {
+    const condition = {
+      and: (andGroup: RecursiveModelPredicateAggregateExtender<Post>) =>
         andGroup({
-          [namePredicateObject.field]: {
-            [namePredicateObject.operator]: namePredicate,
-          },
-          or: (orGroup) => {
-            orGroup({
-              [agePredicateObject.field]: {
-                [agePredicateObject.operator]: agePredicate,
-              },
-            });
-          },
-        });
-      },
-    };
+          ...nameCondition,
+          or,
+        } as RecursiveModelPredicate<Post>),
+    } as unknown as RecursiveModelPredicate<Post>;
+
     predicate(condition);
 
     expect(namePredicate).toHaveBeenCalledWith(namePredicateObject.operand);
