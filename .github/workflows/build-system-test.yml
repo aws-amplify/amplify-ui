@@ -3,10 +3,8 @@
 name: Build System Test Canary
 
 on:
-  push:
-    branches:
-      - 'mega-app-canary'
-      - 'mega-app-canary-ng-vue'
+  schedule:
+    - cron: '*/15 * * * *' # Run every 15 minutes
 
 jobs:
   build:
