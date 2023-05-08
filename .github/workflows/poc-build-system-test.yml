@@ -1,0 +1,174 @@
+# Description: this workflow runs build mega-apps that have all the connected components.
+
+name: PoC / Build System Test Canary
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [react]
+        framework-version: [latest]
+        build-tool: [cra, next, vite]
+        build-tool-version: [latest]
+        pkg-manager: [npm]
+        language: [ts]
+        node-version: [18]
+        include:
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 16
+          - framework: react
+            framework-version: 16
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: js
+            node-version: 18
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: yarn
+            pkg-manager-version: 1
+            language: ts
+            node-version: 18
+          - framework: react
+            framework-version: 17
+            build-tool: next
+            build-tool-version: 11
+            pkg-manager: npm
+            language: ts
+            node-version: 16
+          - framework: react
+            framework-version: latest
+            build-tool: vite
+            build-tool-version: 2
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-app
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-app
+            build-tool-version: 13
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-lib
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-lib
+            build-tool-version: 13
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
+          - framework: vue
+            framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
+            build-tool: vue-cli
+            build-tool-version: latest
+            pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
+            language: ts
+            node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: vite
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: vite
+            build-tool-version: 2
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: nuxt
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
+    env:
+      MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
+      DEPENDENCIES: ${{ matrix.framework }}@${{ matrix.framework-version }} @aws-amplify/ui-${{ matrix.framework }} aws-amplify
+      DEP_TYPES: '@types/react@${{ matrix.framework-version }} @types/react-dom@${{ matrix.framework-version }}'
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          persist-credentials: false
+      - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: ${{ matrix.pkg-manager }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
+        run: ./.github/scripts/mega-app-create-app.sh
+        shell: bash
+        env:
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          FRAMEWORK: ${{ matrix.framework }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+      - name: Copy aws_export and App.js
+        run: ./.github/scripts/mega-app-copy-files.sh
+        shell: bash
+        env:
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          FRAMEWORK: ${{ matrix.framework }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+      - name: Install Packages and Build
+        run: ./.github/scripts/mega-app-install-build.sh
+        shell: bash
+        env:
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          DEP_TYPES: ${{ env.DEP_TYPES }}
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          FRAMEWORK: ${{ matrix.framework }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+          PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
+          PKG_MANAGER: ${{ matrix.pkg-manager }}
