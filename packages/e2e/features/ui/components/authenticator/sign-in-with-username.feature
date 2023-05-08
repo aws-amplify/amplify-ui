@@ -10,12 +10,12 @@ Feature: Sign In with Username
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-username"
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
     When I type my "username" with status "UNKNOWN"
     And I type my password
     And I click the "Sign in" button
-    Then I see "User does not exist"
+    Then I see "User does not exist."
 
   @angular @react @vue
   Scenario: Verify Submit text is correct on confirm Reset Password Page without translation
@@ -31,14 +31,14 @@ Feature: Sign In with Username
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
     And I see "Submit"
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Sign in with unconfirmed credentials
     When I type my "username" with status "UNCONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Confirmation Code"
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials
     When I type my "username" with status "CONFIRMED"
     And I type my password
@@ -46,6 +46,7 @@ Feature: Sign In with Username
     Then I see "Sign out"
     When I reload the page
     Then I see "Sign out"
+    And I click the "Sign out" button
 
   @angular @react @vue
   Scenario: Sign in with confirmed credentials, reload, sign out, then sign in again
@@ -62,7 +63,7 @@ Feature: Sign In with Username
     And I click the "Sign in" button
     Then I see "Sign out"
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials, sign out, then sign in again
     When I type my "username" with status "CONFIRMED"
     And I type my password
@@ -74,6 +75,7 @@ Feature: Sign In with Username
     And I type my password
     And I click the "Sign in" button
     Then I see "Sign out"
+    And I click the "Sign out" button
 
   # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
   # test accounts will expire in Cognito.

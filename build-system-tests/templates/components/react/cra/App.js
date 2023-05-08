@@ -40,11 +40,11 @@ export default function Home() {
       <AccountSettings.ChangePassword onSuccess={() => {}} />
       <AccountSettings.DeleteUser onSuccess={() => {}} />
       <StorageManager
-            acceptedFileTypes={['image/*']}
-            accessLevel="public"
-            maxFileCount={1}
-            isResumable
-          />
+        acceptedFileTypes={['image/*']}
+        accessLevel="public"
+        maxFileCount={1}
+        isResumable
+      />
       <MapView />
     </>
   );

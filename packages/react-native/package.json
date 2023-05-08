@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-native",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -18,6 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
@@ -28,7 +29,6 @@
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^28.0.3",
     "eslint": "^8.14.0",
-    "eslint-config-amplify-ui": "0.0.0",
     "metro-react-native-babel-preset": "^0.70.2",
     "react": "^17.0.2",
     "react-native": "^0.68.1",
@@ -37,8 +37,9 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.6.0",
-    "@aws-amplify/ui-react-core": "2.1.19"
+    "@aws-amplify/ui": "5.6.1",
+    "@aws-amplify/ui-react-core": "2.1.20",
+    "@aws-amplify/ui-react-core-notifications": "0.0.1"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",

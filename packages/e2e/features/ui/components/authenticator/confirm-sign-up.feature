@@ -19,7 +19,16 @@ Feature: Confirm Sign Up
     Then I see "Enter this code:"
     Then I see "It will take several minutes to arrive."
 
-  @angular @react @vue
+  @react-native
+  Scenario: Confirm new password page has correct translations
+    When I type a new "email"
+    And I type my password
+    And I confirm my password
+    And I click the "Create Account" button
+    And I see "Confirmation Code"
+    Then I see "Your code is on the way. To log in, enter the code we sent you. It will take several minutes to arrive."
+
+  @angular @react @vue @react-native
   Scenario: Confirm a new username & password with an invalid code
     When I type a new "email"
     And I type my password
@@ -32,7 +41,7 @@ Feature: Confirm Sign Up
     # Not the actual error a real user would see because this is a test user with a mock API call
     Then I see "Username/client id combination not found."
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Confirm a new username & password with a valid code
     When I type a new "email"
     And I type my password

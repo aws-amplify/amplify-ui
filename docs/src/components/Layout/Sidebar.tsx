@@ -143,14 +143,12 @@ const SecondaryNav = (props) => {
   const isAndroid = platform === 'android';
   const isSwift = platform === 'swift';
 
-  const hideGettingStarted = isSwift;
   const hideTheming = isAndroid || isSwift;
   const hideGuidesExpander = isFlutter || isReactNative || isAndroid || isSwift;
 
   return (
     <Expander type="multiple" value={value} onValueChange={setValue}>
-      {/* Swift doesn't have getting started at this time */}
-      {hideGettingStarted ? null : (
+      {
         <ExpanderItem
           title={
             <ExpanderTitle Icon={MdOutlineChecklist} text="Getting started" />
@@ -163,7 +161,7 @@ const SecondaryNav = (props) => {
             </NavLink>
           ))}
         </ExpanderItem>
-      )}
+      }
       {platform === 'react' ? (
         <ExpanderItem
           title={<ExpanderTitle Icon={MdOutlineWidgets} text="Components" />}

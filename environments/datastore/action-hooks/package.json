@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "action-hooks",
+  "name": "@aws-amplify/ui-action-hooks-environment",
   "version": "0.0.1",
   "scripts": {
     "pull": "amplify pull --appId d1c6vwjkmuz6ml --envName dev"

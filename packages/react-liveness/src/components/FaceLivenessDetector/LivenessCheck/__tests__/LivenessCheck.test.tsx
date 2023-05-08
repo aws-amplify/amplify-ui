@@ -19,13 +19,14 @@ const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 const mockUseThemeBreakpoint = getMockedFunction(useThemeBreakpoint);
 const mockUseLivenessSelector = getMockedFunction(useLivenessSelector);
 
-const {
-  landscapeHeaderText,
-  landscapeMessageText
-} = defaultErrorDisplayText;
+const { landscapeHeaderText, landscapeMessageText } = defaultErrorDisplayText;
 
-const { hintDisplayText, cameraDisplayText, streamDisplayText, errorDisplayText } =
-  getDisplayText(undefined);
+const {
+  hintDisplayText,
+  cameraDisplayText,
+  streamDisplayText,
+  errorDisplayText,
+} = getDisplayText(undefined);
 
 const {
   cameraMinSpecificationsHeadingText,

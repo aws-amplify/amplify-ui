@@ -1,1 +1,1 @@
-export { ComponentClassName } from './componentClassName';
+export { ComponentClassName, Modifiers } from './componentClassName';
