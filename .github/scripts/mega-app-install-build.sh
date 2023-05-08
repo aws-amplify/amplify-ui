@@ -37,8 +37,6 @@ else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
         echo "ls -la"
         ls -la
-        echo "xcrun simctl list --json"
-        xcrun simctl list --json
         echo "SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)"
         SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)
         echo "echo $SIMULATOR_ID"
