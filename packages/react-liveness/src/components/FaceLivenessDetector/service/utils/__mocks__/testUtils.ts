@@ -136,7 +136,7 @@ export const mockContext = (): LivenessContext => {
       freshnessColorsComplete: false,
       freshnessColorDisplay: mockFreshnessColorDisplay,
     },
-    errorState: null,
+    errorState: undefined,
     livenessStreamProvider: mockLivenessStreamProvider,
     serverSessionInformation: mockSessionInformation,
     responseStreamActorRef: mockResponseStreamActorRef,
