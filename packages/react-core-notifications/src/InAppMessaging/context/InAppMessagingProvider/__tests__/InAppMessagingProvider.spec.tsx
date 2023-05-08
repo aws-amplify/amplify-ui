@@ -2,7 +2,7 @@ import React from 'react';
 import TestRenderer, { ReactTestRenderer } from 'react-test-renderer';
 import { Notifications } from '@aws-amplify/notifications';
 
-import { RenderNothing } from '../../../../components';
+import { RenderNothing } from '@aws-amplify/ui-react-core';
 
 import { useInAppMessaging } from '../../../hooks/useInAppMessaging';
 import { InAppMessagingContextType } from '../..';
