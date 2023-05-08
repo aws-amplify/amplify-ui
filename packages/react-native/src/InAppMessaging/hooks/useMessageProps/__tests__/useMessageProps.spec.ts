@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import {
   MessageButtonProps,
   MessageComponentBaseProps,
-} from '@aws-amplify/ui-react-core';
+} from '@aws-amplify/ui-react-core-notifications';
 
 import { useMessageImage } from '../../useMessageImage';
 import { MessageOverrideStyle } from '../types';
