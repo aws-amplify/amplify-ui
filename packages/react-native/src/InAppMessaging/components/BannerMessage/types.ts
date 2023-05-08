@@ -1,5 +1,5 @@
 import { ViewStyle } from 'react-native';
-import { BannerMessageCommonProps } from '@aws-amplify/ui-react-core';
+import { BannerMessageCommonProps } from '@aws-amplify/ui-react-core-notifications';
 
 import { MessageDefaultStyle, MessageOverrideStyle } from '../../hooks';
 

@@ -40,15 +40,15 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 
 ### Contribution Process
 
-1. Fork & Clone this repo
+1. Fork & Clone this repo (Make sure to disable associated GitHub Actions. In fork go to Settings > Actions > General > Disable actions > save)
 1. [`nvm install`](https://github.com/nvm-sh/nvm)
 1. [`nvm use`](https://github.com/nvm-sh/nvm)
 1. `yarn setup`
 1. Within your fork, create a new branch based on the issue you're addressing -- `git checkout -b angular/remove-browser-module`
-1. Once your work is committed, validate your changes according to [local development guides](#local-devleopment-guides).
+1. Once your work is committed, validate your changes according to [local development guides](#local-development-guides).
 1. Push your branch with `git push origin -u`
 1. Open a PR against this repo from your newly published branch.
-1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and does not bump any of private packages like `docs`, `e2e`, `examples`, etc.
+1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and does not bump any of private packages like `docs`, `e2e`, `examples`, etc. If you only updated a private package like `docs`, `e2e`, or `examples`, skip this step.
 1. Finally, Amplify UI team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners. In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)
 
 ### Troubleshooting
@@ -99,9 +99,13 @@ Please refer to the following contributing guides:
 
 ## Publishing
 
-Amplify UI team publishes to NPM on every Tues (mandatory) and Thurs (optional). We use [`changesets`](https://github.com/changesets/changesets) to drive our deployment procedure:
+Amplify UI publishes to NPM on every Tuesday. We use [`changesets`](https://github.com/changesets/changesets) to drive our deployment procedure:
 
 1. Each contributor adds a changeset in their PR
 1. Changesets get accumulated into [Version Packages PR](https://github.com/aws-amplify/amplify-ui/pulls/app%2Fgithub-actions).
 1. Maintainer will run tests, approve, and merge the PR.
 1. Previous step will trigger [`publish-latest`](./.github/workflows/publish-next.yml) action that will build and publish packages to NPM.
+
+### Docs Publishing
+
+Amplify UI publishes updates to the UI docs site each Tuesday as a part of the primary publish process. For Pull Requests that require publishing outside of the standard publish process, a **one week** lead time is required with the exception of high severity issues.

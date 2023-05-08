@@ -13,6 +13,7 @@
     "allowJs": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "outDir": "dist",
     "resolveJsonModule": true,
     "types": ["webpack-env", "vite/client", "@types/jest"],
     "paths": {
