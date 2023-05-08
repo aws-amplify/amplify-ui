@@ -1,7 +1,7 @@
 import {
   MessageComponentBaseProps,
   MessageTextAlign,
-} from '@aws-amplify/ui-react-core';
+} from '@aws-amplify/ui-react-core-notifications';
 import { StyleParams } from '../types';
 
 import { getPayloadStyle, getMessageStyles } from '../utils';

@@ -148,6 +148,10 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-core-notifications build
+
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
@@ -269,17 +273,17 @@ jobs:
         run: rm -rf ~/.aws
 
       - name: Build ${{ matrix.example }} example
-        run: yarn workspace ${{ matrix.example }}-example build
+        run: yarn ${{ matrix.example }}-example build
 
       - name: Start ${{ matrix.example }} example
-        run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
         env:
           # Setting this value temporarily since the beta liveness sample app hits the gamma endpoint
           NEXT_PUBLIC_STREAMING_API_URL: wss://streaming-rekognition-gamma.us-east-1.amazonaws.com
 
       - name: Run E2E tests against ${{ matrix.example }} example
         id: e2e
-        run: yarn workspace e2e test:examples
+        run: yarn e2e test:examples
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
           TAGS: '${{ matrix.tags }}'
@@ -323,6 +327,7 @@ jobs:
             packages/react-native
             packages/react-core
             packages/ui
+            packages/e2e
 
   e2e-ios:
     needs: check-changed-packages
@@ -418,16 +423,16 @@ jobs:
         run: rm -rf ~/.aws
 
       - name: Start Metro Bundler in background
-        run: yarn workspace react-native-example dev --reset-cache &
+        run: yarn react-native-example dev --reset-cache &
 
       - name: Rebuild detox cache
         run: yarn detox rebuild-framework-cache
 
       - name: Build ios example
-        run: yarn workspace e2e detox:build:ios:debug
+        run: yarn e2e detox:build:ios:debug
 
       - name: Run E2E tests against react-native example
-        run: yarn workspace e2e detox:e2e:ios:debug
+        run: yarn e2e detox:e2e:ios:debug
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -440,7 +445,7 @@ jobs:
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
         with:
-          name: ios-e2e-detox-error-react-native
+          name: e2e-detox-error-react-native-ios
           path: |
             packages/e2e/detox/screenshots/**
           retention-days: 5
@@ -536,13 +541,13 @@ jobs:
           $ANDROID_HOME/platform-tools/adb devices
 
       - name: Start Metro Bundler in background
-        run: yarn workspace react-native-example dev --reset-cache &
+        run: yarn react-native-example dev --reset-cache &
 
       - name: Build android example
-        run: yarn workspace e2e detox:build:android:debug
+        run: yarn e2e detox:build:android:debug
 
       - name: Run E2E tests against react-native example
-        run: yarn workspace e2e detox:e2e:android:debug
+        run: yarn e2e detox:e2e:android:debug
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -555,7 +560,7 @@ jobs:
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
         if: ${{ failure() && steps.e2e-android.outcome != 'success' }}
         with:
-          name: android-e2e-detox-error-react-native
+          name: e2e-detox-error-react-native-android
           path: |
             packages/e2e/detox/screenshots/**
           retention-days: 5
@@ -622,6 +627,9 @@ jobs:
       - name: Build react-core package
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        run: yarn react-core-notifications build
+
       - name: Build react package
         run: yarn react build
 
@@ -643,7 +651,7 @@ jobs:
         run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
 
       - name: Run E2E tests against docs
-        run: yarn workspace e2e test:theme
+        run: yarn e2e test:theme
         id: e2e
         env:
           # Env values for testing flows

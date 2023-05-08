@@ -1,4 +1,4 @@
-import { ModalMessageCommonProps } from '@aws-amplify/ui-react-core';
+import { ModalMessageCommonProps } from '@aws-amplify/ui-react-core-notifications';
 
 import { MessageDefaultStyle, MessageOverrideStyle } from '../../hooks';
 

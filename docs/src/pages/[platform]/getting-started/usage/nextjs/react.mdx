@@ -1,11 +1,11 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
 import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
 
 ## Tutorial
 
-In this brief tutorial, we're going to build a basic shopping card component using [Next.js](https://nextjs.org/docs/getting-started) and Amplify UI. Then, we'll elaborate on our shopping card to play with the possibilities of using Amplify UI.
+In this brief tutorial, we're going to build a basic shopping card component using [Next.js](https://nextjs.org/docs) and Amplify UI. Then, we'll elaborate on our shopping card to play with the possibilities of using Amplify UI.
 
 ### Setup and Installation
 
@@ -26,42 +26,95 @@ Then, install the Amplify UI React package:
 
 ### Basic Demo
 
-Open up the project in your IDE and replace the contents of the `pages/index.js` file with the code below:
+<Alert variation="info" role="none">
+Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). To use Amplify UI componenents, you must use them inside the Client Component tree by placing `"use client"` at the boundary between your Client and Server component module graph. Please see the Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages) on how you could achieve this.
 
-<Example>
-  <ExampleCode>
-  
-```tsx file=./examples/BasicExampleCode.tsx
+In this guide for Next.js 13.4+, we placed `"use client"` at the top of `page.jsx` for demonstration purposes.
+</Alert>
 
+<Tabs>
+  <TabItem title="Next.js 13.4+">
+
+Open up the project in your IDE and replace the contents of the `app/page.jsx` with the code below:
+
+    <Example>
+      <ExampleCode>
+      
+```tsx file=./examples/UseClientBasicExampleCode.tsx
 ```
 
-  </ExampleCode>
-  <BasicShoppingCard />
-</Example>
+      </ExampleCode>
+      <BasicShoppingCard />
+    </Example>
+  </TabItem>
+  <TabItem title="Next.js 11.0-13.3">
+
+Open up the project in your IDE and replace the contents of the `pages/index.js` with the code below:
+
+  <Example>
+    <ExampleCode>
+    
+  ```tsx file=./examples/BasicExampleCode.tsx
+  ```
+
+    </ExampleCode>
+    <BasicShoppingCard />
+  </Example>
+
+  </TabItem>
+</Tabs>
 
 When you start the app (`npm run dev` or `yarn dev`), you should see a basic shopping card component.
 
 ### Advanced Demo
 
-If you’d like to play around with a more comprehensive demo of the Amplify UI library, create a separate file under the `pages` folder named `paintings.js`, and copy/paste this code into it:
+<Tabs>
+  <TabItem title="Next.js 13.4+">
 
-  <ExampleCode>
+If you’d like to play around with a more comprehensive demo of the Amplify UI library, create a separate file under the `app` folder named `paintings.js`, and copy/paste this code into it:
+
+    <ExampleCode>
 
 ```tsx file=./examples/paintings.ts
-
 ```
 
-  </ExampleCode>
+    </ExampleCode>
+
+Then, replace the contents of `src/page.jsx` with the code below, restart the app, and experience all the beautiful components in action!
+
+    <Example>
+      <ExampleCode>
+
+```tsx file=./examples/UseClientAdvancedExampleCode.tsx
+```
+
+      </ExampleCode>
+      <AdvancedShoppingCard />
+    </Example>
+  </TabItem>
+  <TabItem title="Next.js 11.0-13.3">
+
+If you’d like to play around with a more comprehensive demo of the Amplify UI library, create a separate file under the `pages` folder named `paintings.js`, and copy/paste this code into it:
+
+    <ExampleCode>
+
+```tsx file=./examples/paintings.ts
+```
+
+   </ExampleCode>
 
 Then, replace the contents of `pages/index.js` with the code below, restart the app, and experience all the beautiful components in action!
 
-<Example>
-  <ExampleCode>
+    <Example>
+      <ExampleCode>
 
 ```tsx file=./examples/AdvancedExampleCode.tsx
-
 ```
 
-  </ExampleCode>
-  <AdvancedShoppingCard />
-</Example>
+      </ExampleCode>
+      <AdvancedShoppingCard />
+    </Example>
+
+  </TabItem>
+</Tabs>
+

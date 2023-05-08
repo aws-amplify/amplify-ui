@@ -5,7 +5,7 @@ Feature: Sign Up with Email
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Login mechanism set to "email"
     Then I see "Email" as an input field
     And I don't see "Username" as an input field
@@ -32,7 +32,7 @@ Feature: Sign Up with Email
     And I verify the body has "test@example.com" included
     Then I see "Confirmation Code"
 
-@angular @react @vue  
+@angular @react @vue @react-native
 Scenario: Sign up with a new email & password
   Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
   When I type a new "email"

@@ -1,5 +1,5 @@
 {
-  "name": "react-native-example",
+  "name": "@aws-amplify/ui-react-native-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {

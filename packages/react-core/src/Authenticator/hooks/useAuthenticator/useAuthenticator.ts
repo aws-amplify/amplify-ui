@@ -36,6 +36,9 @@ export default function useAuthenticator(
 
   const comparator = selector ? getComparator(selector) : defaultComparator;
 
+  // the purpose of `context.authStatus`is to intentionally override `facade.authStatus`. `facade.authStatus` does
+  // not update on external sign in events (for example when a user is not using the `Authenticator`).
+  const { authStatus } = context;
   const facade = useSelector(service, xstateSelector, comparator);
 
   const { route, totpSecretCode, unverifiedContactMethods, user, ...rest } =
@@ -57,6 +60,7 @@ export default function useAuthenticator(
 
   return {
     ...rest,
+    authStatus,
     route,
     totpSecretCode,
     unverifiedContactMethods,
