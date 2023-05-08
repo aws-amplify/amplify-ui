@@ -1,4 +1,9 @@
-import { DataStore, SortDirection } from '@aws-amplify/datastore';
+import {
+  DataStore,
+  PersistentModelConstructor,
+  SortDirection,
+  ProducerPaginationInput,
+} from '@aws-amplify/datastore';
 import { renderHook } from '@testing-library/react-hooks';
 import { createDataStorePredicate } from '../../primitives/shared/datastore';
 import {
@@ -10,24 +15,33 @@ import { Todo } from '../actions/testModels/todo';
 
 jest.mock('@aws-amplify/datastore');
 
-const fakeModel: any = {
-  id: 'FakeModel',
-};
+type FakeModel = PersistentModelConstructor<Todo>;
+type Callback = (x: any) => void;
 
-const nextFakeModel: any = {
+const fakeModel = {
+  id: 'FakeModel',
+} as unknown as FakeModel;
+
+const nextFakeModel = {
   id: 'nextFakeModel',
-};
+} as unknown as FakeModel;
 
 const fakeItem = {
   fakeField: 'fake-value',
-};
+} as unknown as FakeModel;
+
+const fakePagination = {
+  limit: 100,
+  sort: (s: { rating: (s: SortDirection) => void }) =>
+    s.rating(SortDirection.ASCENDING),
+} as unknown as ProducerPaginationInput<Todo>;
 
 const fakeId = 'fake-id';
 
 describe('useDataStoreCollection', () => {
   afterEach(() => jest.clearAllMocks());
 
-  it('should return default values while data is being fetched', async () => {
+  it('should return default values while data is being fetched', () => {
     (DataStore.observeQuery as jest.Mock).mockImplementation(() => ({
       subscribe: () => ({
         unsubscribe: jest.fn(),
@@ -48,7 +62,7 @@ describe('useDataStoreCollection', () => {
   it('should set error if DataStore.observeQuery throws an error', async () => {
     const fakeError = new Error('Unexpected DataStore error');
     const fakeDataStoreObserveQuery = jest.fn(() => ({
-      subscribe: (_, onError) => {
+      subscribe: (_, onError: Callback) => {
         setTimeout(() => onError(fakeError), 500);
         return { unsubscribe: () => {} };
       },
@@ -83,15 +97,10 @@ describe('useDataStoreCollection', () => {
       operator: 'eq',
       operand: 'fake-value',
     };
-    const predicate: any = createDataStorePredicate<Todo>(namePredicateObject);
-
-    const fakePagination = {
-      limit: 100,
-      sort: (s) => s.rating(SortDirection.ASCENDING),
-    };
+    const predicate = createDataStorePredicate<Todo>(namePredicateObject);
 
     const fakeDataStoreObserveQuery = jest.fn(() => ({
-      subscribe: (onSuccess) => {
+      subscribe: (onSuccess: Callback) => {
         setTimeout(() => onSuccess({ items: fakeItems }), 500);
         return { unsubscribe: () => {} };
       },
@@ -116,7 +125,7 @@ describe('useDataStoreCollection', () => {
     expect(result.current.items).toBe(fakeItems);
   });
 
-  it('should unsubscribe on unmount', async () => {
+  it('should unsubscribe on unmount', () => {
     const unsubscribe = jest.fn();
 
     const fakeDataStoreObserveQuery = jest.fn(() => ({
@@ -297,15 +306,10 @@ describe('useDataStoreBinding', () => {
       operator: 'eq',
       operand: 'fake-value',
     };
-    const predicate: any = createDataStorePredicate<Todo>(namePredicateObject);
-
-    const fakePagination = {
-      limit: 100,
-      sort: (s) => s.rating(SortDirection.ASCENDING),
-    };
+    const predicate = createDataStorePredicate<Todo>(namePredicateObject);
 
     const fakeDataStoreObserveQuery = jest.fn(() => ({
-      subscribe: (onSuccess) => {
+      subscribe: (onSuccess: Callback) => {
         setTimeout(() => onSuccess({ items: fakeItems }), 500);
         return { unsubscribe: () => {} };
       },

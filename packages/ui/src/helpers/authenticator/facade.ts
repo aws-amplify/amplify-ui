@@ -39,7 +39,7 @@ export type AuthenticatorRoute =
   | 'verifyUser';
 
 type AuthenticatorValidationErrors = ValidationError;
-type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
+export type AuthStatus = 'configuring' | 'authenticated' | 'unauthenticated';
 
 interface AuthenticatorServiceContextFacade {
   authStatus: AuthStatus;

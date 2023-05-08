@@ -74,7 +74,10 @@ const renderToastErrorModal = (props: {
   );
 };
 
-export const renderErrorModal = ({ errorState, overrideErrorDisplayText }: {
+export const renderErrorModal = ({
+  errorState,
+  overrideErrorDisplayText,
+}: {
   errorState: LivenessErrorState;
   overrideErrorDisplayText?: ErrorDisplayText;
 }): JSX.Element | null => {
@@ -95,7 +98,7 @@ export const renderErrorModal = ({ errorState, overrideErrorDisplayText }: {
       displayText,
     });
   }
-}
+};
 
 export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
   props
@@ -107,9 +110,7 @@ export const FaceLivenessErrorModal: React.FC<FaceLivenessErrorModalProps> = (
     ...overrideErrorDisplayText,
   };
 
-  const {
-    tryAgainText,
-  } = displayText;
+  const { tryAgainText } = displayText;
 
   return (
     <Overlay backgroundColor="overlay.40">
