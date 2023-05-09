@@ -2,6 +2,13 @@
 
 echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
 cd build-system-tests/mega-apps/${MEGA_APP_NAME}
+
+if [ "$FRAMEWORK" == 'react' ]; then
+    echo "$DEPENDENCIES='$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage'"
+    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage"
+    echo "Dependencies to be installed: $DEPENDENCIES"
+fi
+
 if [ "$PKG_MANAGER" == 'yarn' ]; then
     echo "yarn version"
     yarn -v
@@ -29,6 +36,19 @@ else
         # because create-next-app only creates the app with the latest version
         echo "rm -rf node_modules"
         rm -rf node_modules
+    fi
+
+    if [[ "$BUILD_TOOL" == 'angular-lib' ]]; then
+        echo "cd projects/my-amplify-ui-lib/"
+        cd projects/my-amplify-ui-lib/
+        echo "npm install --save-peer @aws-amplify/ui-angular@ aws-amplify"
+        npm install --save-peer @aws-amplify/ui-angular aws-amplify
+        echo "cd -"
+        cd -
+        echo "npm install $DEPENDENCIES"
+        npm install $DEPENDENCIES
+        echo "ng build my-amplify-ui-lib"
+        ng build my-amplify-ui-lib
     fi
     echo "npm install $DEPENDENCIES"
     npm install $DEPENDENCIES
