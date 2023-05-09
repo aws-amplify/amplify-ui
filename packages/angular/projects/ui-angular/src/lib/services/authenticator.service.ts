@@ -27,7 +27,7 @@ const logger = new Logger('state-machine');
 @Injectable({
   providedIn: 'root', // ensure we have a singleton service
 })
-export class AuthenticatorService implements OnInit, OnDestroy {
+export class AuthenticatorService implements OnDestroy {
   private _authState: AuthMachineState;
   private _authStatus: AuthStatus = 'configuring';
   private _authService: AuthInterpreter;
@@ -42,15 +42,7 @@ export class AuthenticatorService implements OnInit, OnDestroy {
 
     this.setupMachineSubscription();
     this.setupHubListner();
-  }
-
-  async ngOnInit(): Promise<void> {
-    try {
-      await Auth.currentAuthenticatedUser();
-      this._authStatus = 'authenticated';
-    } catch (e) {
-      this._authStatus = 'unauthenticated';
-    }
+    this.getInitialAuthStatus();
   }
 
   ngOnDestroy(): void {
@@ -199,6 +191,15 @@ export class AuthenticatorService implements OnInit, OnDestroy {
     this.authService.send(event);
   }
 
+  private async getInitialAuthStatus(): Promise<void> {
+    try {
+      await Auth.currentAuthenticatedUser();
+      this._authStatus = 'authenticated';
+    } catch (e) {
+      this._authStatus = 'unauthenticated';
+    }
+  }
+
   private setupHubListner(): void {
     this._hubSubject = new Subject<void>();
 
@@ -212,7 +213,6 @@ export class AuthenticatorService implements OnInit, OnDestroy {
     this._unsubscribeHub = listenToAuthHub(
       this._authService,
       async (data, service) => {
-        console.log('[authenticator.service]', 'new hub event');
         await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
         this._hubSubject.next();
       }

@@ -76,7 +76,6 @@ export class AuthenticatorComponent
     const { initializeMachine } = this.authenticator;
 
     this.authenticator.hubSubject.subscribe(() => {
-      console.log('[authenticator.component]', 'new hub event');
       /*
        * Hub events aren't properly caught by Angular, because they are
        * synchronous events. Angular tracks async network events and
