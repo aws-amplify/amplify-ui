@@ -11,7 +11,37 @@ There are four methods to setup the Amazon Cognito resources needed for Amplify 
   <TabItem title="Amplify CLI">
 > Use the Amplify CLI to automatically configure and manage your Cognito Identity and User Pool for you.
 
-FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. [Configure the Amplify Auth category](https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-prerequisites.html#face-liveness-prerequisites-amplify) to setup Amplify Auth and add authentication to your backend configuration.
+FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. If you are using Amplify for the first time, follow the instructions for [installing the Amplify CLI](https://docs.amplify.aws/cli/start/install/).
+
+#### Set up a new Amplify project
+
+```bash
+$ amplify init
+? Enter a name for the project androidliveness
+? Initialize the project with the above configuration? No
+? Enter a name for the environment dev
+? Choose your default editor: Android Studio
+? Choose the type of app that you're building android
+Please tell us about your project
+? Where is your Res directory:  app/src/main/res
+```
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-pull-cli.mdx`)}
+</Fragment>
+
+#### Push to create the resources
+
+```bash
+$ amplify push
+✔ Successfully pulled backend environment dev from the cloud.
+
+Current Environment: dev
+
+| Category | Resource name    | Operation | Provider plugin   |
+| -------- | ---------------- | --------- | ----------------- |
+| Auth     | androidlive••••• | Create    | awscloudformation | 
+```
 
 _If you have an existing backend, run `amplify pull` to sync your `amplifyconfiguration.json` with your cloud backend._
 
