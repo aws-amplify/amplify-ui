@@ -27,7 +27,7 @@ export class ConfirmSignUpComponent {
 
   constructor(public authenticator: AuthenticatorService) {}
 
-  public get context() {
+  public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;
   }
 
@@ -41,7 +41,7 @@ export class ConfirmSignUpComponent {
     return getDeliveryMessageText(codeDeliveryDetails);
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.authenticator.updateForm({ name, value });

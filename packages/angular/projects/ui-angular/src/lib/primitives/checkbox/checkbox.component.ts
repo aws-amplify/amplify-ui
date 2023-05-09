@@ -14,13 +14,13 @@ export class CheckboxComponent implements OnInit {
 
   public isChecked = false;
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.defaultChecked) {
       this.isChecked = true;
     }
   }
 
-  handleClick() {
+  handleClick(): void {
     this.isChecked = !this.isChecked;
   }
 }

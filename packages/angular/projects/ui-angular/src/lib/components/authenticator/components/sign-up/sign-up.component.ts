@@ -16,11 +16,11 @@ export class SignUpComponent {
 
   constructor(public authenticator: AuthenticatorService) {}
 
-  public get context() {
+  public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     const { checked, name, type, value } = <HTMLInputElement>event.target;
     const isUncheckedCheckbox = type === 'checkbox' && !checked;
 

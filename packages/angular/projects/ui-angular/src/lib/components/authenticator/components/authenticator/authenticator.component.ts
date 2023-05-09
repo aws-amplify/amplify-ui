@@ -62,11 +62,11 @@ export class AuthenticatorComponent
   ) {}
 
   // context passed to "authenticated" slot
-  public get context() {
+  public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;
   }
 
-  public get route() {
+  public get route(): AuthenticatorService['route'] {
     return this.authenticator.route;
   }
 
@@ -169,7 +169,7 @@ export class AuthenticatorComponent
   /**
    * Class Functions
    */
-  public onTabChange() {
+  public onTabChange(): void {
     const { route } = this.authenticator;
     if (route === 'signIn') {
       this.authenticator.toSignUp();
@@ -178,12 +178,12 @@ export class AuthenticatorComponent
     }
   }
 
-  public hasTabs() {
+  public hasTabs(): boolean {
     const { route } = this.authenticator;
     return route === 'signIn' || route === 'signUp';
   }
 
-  public hasRouteComponent() {
+  public hasRouteComponent(): boolean {
     const { route } = this.authenticator;
 
     switch (route) {

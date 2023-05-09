@@ -17,12 +17,6 @@ module.exports = {
       ],
       rules: {
         /*
-         * TODO: turn the following settings on after fixing the
-         * corresponding linting issues.
-         */
-        '@typescript-eslint/explicit-module-boundary-types': 'warn',
-
-        /*
          * `prefer-nullish-coalescing` requires `strictNullChecks` to be on.
          * Turn this off until we turn `strict` on in the `tsconfig.json`.
          */

@@ -26,7 +26,7 @@ export class ConfirmSignInComponent implements OnInit {
 
   constructor(public authenticator: AuthenticatorService) {}
 
-  public get context() {
+  public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;
   }
 

@@ -8,17 +8,17 @@ import * as XState from 'xstate';
 export class MockAuthService {
   private listeners: (() => void)[] = [];
 
-  subscribe(callback: () => void) {
+  subscribe(callback: () => void): { unsubscribe: () => void } {
     this.listeners.push(callback);
     const unsubscribe = jest.fn();
     return { unsubscribe };
   }
 
-  start() {
+  start(): this {
     return this;
   }
 
-  send() {
+  send(): void {
     for (const listener of this.listeners) {
       listener();
     }

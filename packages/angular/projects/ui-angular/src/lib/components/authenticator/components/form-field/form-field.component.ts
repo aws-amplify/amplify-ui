@@ -22,7 +22,7 @@ export class FormFieldComponent {
 
   constructor(private authenticator: AuthenticatorService) {}
 
-  get ariaDescribedBy() {
+  get ariaDescribedBy(): string | undefined {
     return this.hasError() ? this.errorId : undefined;
   }
 
@@ -31,7 +31,7 @@ export class FormFieldComponent {
     return getErrors(validationErrors[this.name]);
   }
 
-  public onBlur($event: Event) {
+  public onBlur($event: Event): void {
     const { name } = <HTMLInputElement>$event.target;
 
     this.authenticator.updateBlur({ name });
