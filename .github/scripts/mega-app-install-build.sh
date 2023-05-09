@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "$BUILD_TOOL" == 'cli' && "$FRAMEWORK" == 'react-native' ]]; then
-    MEGA_APP_NAME="rn${FRAMEWORK_VERSION}Cli${BUILD_TOOL_VERSION}Node18Ts"
+    MEGA_APP_NAME="rn${FRAMEWORK_VERSION}Cli${BUILD_TOOL_VERSION}Node18Ts${PLATFORM}"
 fi
 
 echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
@@ -37,16 +37,18 @@ else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
         echo "ls -la"
         ls -la
-        echo "SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)"
-        SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)
-        echo "echo $SIMULATOR_ID"
-        echo $SIMULATOR_ID
-        echo "xcrun simctl boot $SIMULATOR_ID"
-        xcrun simctl boot $SIMULATOR_ID
+        if [[ "$PLATFORM" == "ios" ]]; then
+            echo "SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)"
+            SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)
+            echo "echo $SIMULATOR_ID"
+            echo $SIMULATOR_ID
+            echo "xcrun simctl boot $SIMULATOR_ID"
+            xcrun simctl boot $SIMULATOR_ID
+        fi
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
-        echo "npm run ios"
-        npm run ios
+        echo "npm run $PLATFORM"
+        npm run $PLATFORM
     else
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES

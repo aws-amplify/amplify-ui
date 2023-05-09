@@ -31,6 +31,15 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 18
+            platform: ios
+          - framework: react-native
+            framework-version: latest
+            build-tool: cli
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+            platform: android
           # - framework: react
           #   framework-version: latest
           #   build-tool: cra
@@ -94,7 +103,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Restore CocoaPods cache
-        if: ${{ matrix.framework == 'react-native' }}
+        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'ios' }}
         id: restore-cocoapods-cache
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
@@ -107,7 +116,7 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Restore node_modules cache
-        if: ${{ matrix.framework == 'react-native' }}
+        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'ios' }}
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         id: restore-cache
         with:
@@ -119,7 +128,7 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
       - name: Install simulator
-        if: ${{ matrix.framework == 'react-native' }}
+        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'ios' }}
         run: |
           brew tap wix/brew
           brew install applesimutils
@@ -127,12 +136,12 @@ jobs:
           echo "ruby --version"
           ruby --version
       - name: Install packages
-        if: ${{ matrix.framework == 'react-native' }} && steps.restore-cache.outputs.cache-hit != 'true'
+        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'ios' }} && steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true
       - name: Update CocoaPods
-        if: ${{ matrix.framework == 'react-native' }}
+        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'ios' }}
         run: |
           gem update cocoapods xcodeproj
           yarn react-native-example ios:pod-install
@@ -147,6 +156,7 @@ jobs:
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          PLATFORM: ${{ matrix.platform }}
       - name: Copy aws_export and App.js
         run: ./.github/scripts/mega-app-copy-files.sh
         shell: bash
@@ -157,6 +167,7 @@ jobs:
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
           FRAMEWORK: ${{ matrix.framework }}
           FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          PLATFORM: ${{ matrix.platform }}
       - name: Install Packages and Build
         run: ./.github/scripts/mega-app-install-build.sh
         shell: bash
@@ -171,6 +182,7 @@ jobs:
           DEP_TYPES: ${{ env.DEP_TYPES }}
           FRAMEWORK: ${{ matrix.framework }}
           FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          PLATFORM: ${{ matrix.platform }}
 
   # log-failure-metric:
   #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
