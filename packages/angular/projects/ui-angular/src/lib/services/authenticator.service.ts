@@ -1,4 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Event, interpret, Subscription } from 'xstate';
+
 import { Logger } from '@aws-amplify/core';
 import {
   AuthContext,
@@ -6,11 +9,13 @@ import {
   AuthInterpreter,
   AuthMachineState,
   createAuthenticatorMachine,
+  defaultAuthHubHandler,
   getServiceFacade,
+  listenToAuthHub,
 } from '@aws-amplify/ui';
-import { Event, interpret, Subscription } from 'xstate';
-import { AuthSubscriptionCallback } from '../common';
 import { translate } from '@aws-amplify/ui';
+
+import { AuthSubscriptionCallback } from '../common';
 
 const logger = new Logger('state-machine');
 
@@ -25,11 +30,22 @@ export class AuthenticatorService implements OnDestroy {
   private _authService: AuthInterpreter;
   private _machineSubscription: Subscription;
   private _facade: ReturnType<typeof getServiceFacade>;
+  private _hubSubject: Subject<void>;
+  private _unsubscribeHub: () => void;
 
   constructor() {
     const machine = createAuthenticatorMachine();
-
     const authService = interpret(machine).start();
+
+    this._hubSubject = new Subject<void>();
+    this._unsubscribeHub = listenToAuthHub(
+      authService,
+      async (data, service) => {
+        console.log('[authenticator.service]', 'new hub event');
+        await defaultAuthHubHandler(data, service);
+        this._hubSubject.next();
+      }
+    );
 
     this._machineSubscription = authService.subscribe((state: unknown) => {
       const newState = state as AuthMachineState;
@@ -45,6 +61,7 @@ export class AuthenticatorService implements OnDestroy {
 
   ngOnDestroy(): void {
     if (this._machineSubscription) this._machineSubscription.unsubscribe();
+    if (this._unsubscribeHub) this._unsubscribeHub();
   }
 
   /**
@@ -90,7 +107,6 @@ export class AuthenticatorService implements OnDestroy {
   /**
    * Service facades
    */
-
   public get initializeMachine() {
     return this._facade.initializeMachine;
   }
@@ -164,6 +180,11 @@ export class AuthenticatorService implements OnDestroy {
       ...this._facade,
       $implicit: this._facade,
     };
+  }
+
+  /** @deprecated For internal use only */
+  public get hubSubject(): Subject<void> {
+    return this._hubSubject;
   }
 
   public subscribe(callback: AuthSubscriptionCallback): Subscription {
