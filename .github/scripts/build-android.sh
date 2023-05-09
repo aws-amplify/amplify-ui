@@ -18,12 +18,18 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-# Step 1: Log errors to LOG_FILE in the background
+# Log errors to LOG_FILE in the background
 echo -e "${BLUE_BOLD}Create ${LOG_FILE}${NC}"
 touch $LOG_FILE
 echo -e "${BLUE_BOLD}Logging errors to $LOG_FILE in the background${NC}"
 npx react-native log-android >$LOG_FILE &
 
-# Step 2: Run npm run android in the background for <time> seconds
+# Check if the command succeeded
+if [ $? -ne 0 ]; then
+  echo -e "${BLUE_BOLD}Failed to run command: npx react-native log-android > $LOG_FILE &${NC}"
+  exit 1
+fi
+
+# Run npm run android in the background for <time> seconds
 echo -e "${BLUE_BOLD}Running npm run android${NC}"
 npm run android

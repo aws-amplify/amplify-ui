@@ -23,7 +23,7 @@ NC="\033[0m"
 sleep $TIME_TO_RUN
 
 # Check for errors in the log file
-if grep -q "error" "$LOG_FILE"; then
+if grep -qi "error\|fail" "$LOG_FILE" || [ ! -s "$LOG_FILE" ]; then
   # Display the full log file and exit with a failure status code
   echo -e "${RED_BOLD}Error detected in $LOG_FILE:${NC}"
   cat $LOG_FILE
