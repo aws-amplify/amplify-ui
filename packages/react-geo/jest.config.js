@@ -1,8 +1,8 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.(ts|tsx)'],
-  // ignore coverage for top level "export", version and style files
-  coveragePathIgnorePatterns: ['<rootDir>/src/(index|styles).(ts)'],
+  // ignore coverage for top level "export" and style files
+  coveragePathIgnorePatterns: ['<rootDir>/src/(index|styles).ts'],
   coverageThreshold: {
     global: {
       branches: 61,
