@@ -41,7 +41,7 @@ export class AuthenticatorService implements OnDestroy {
     this._authService = interpret(machine).start();
 
     this.setupMachineSubscription();
-    this.setupHubListner();
+    this.setupHubListener();
     this.getInitialAuthStatus();
   }
 
@@ -200,7 +200,7 @@ export class AuthenticatorService implements OnDestroy {
     }
   }
 
-  private setupHubListner(): void {
+  private setupHubListener(): void {
     this._hubSubject = new Subject<void>();
 
     const onSignIn = () => {
