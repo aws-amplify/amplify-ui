@@ -27,12 +27,8 @@ const propsToCode = (
 ) => `
 <Text
     variation="${variation}"
-    as="${as}"
-    color="${color}"${
-  isTruncated
-    ? `
-    isTruncated={true}`
-    : ''
+    as="${as}"${color ? `\n    color="${color}"` : ''}${
+  isTruncated ? `\n    isTruncated={true}` : ''
 }
     lineHeight="${lineHeight}"
     fontWeight={${fontWeight}}

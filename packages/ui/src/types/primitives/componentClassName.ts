@@ -161,3 +161,5 @@ export enum ComponentClassName {
   ToggleButtonGroup = 'amplify-togglebuttongroup',
   VisuallyHidden = 'amplify-visually-hidden',
 }
+
+export type Modifiers = string | number | null;

@@ -70,36 +70,6 @@ const priorityProps = {
 };
 
 /**
- * Determine if a TypeScript AST Node is a React component
- */
-const isPrimitive = (node: Node): node is VariableDeclaration => {
-  const typeName = node.getType().getText(node);
-  return (
-    Node.isVariableDeclaration(node) &&
-    (typeName.startsWith('Primitive') ||
-      typeName.startsWith('React.ForwardRef'))
-  );
-};
-
-const isCallableNode = (node: Node): node is VariableDeclaration =>
-  node.getType().getCallSignatures().length > 0;
-
-const getComponentProperties = (type: Type) => {
-  const properties: PrimitiveCatalogComponentProperties = {};
-
-  type.getProperties().forEach((prop) => {
-    const propName = prop.getName();
-    const property = getCatalogComponentProperty(prop);
-
-    if (property) {
-      properties[propName] = property;
-    }
-  });
-
-  return properties;
-};
-
-/**
  * Get a catalog-compatible component property definition
  */
 const getCatalogComponentProperty = (
@@ -155,6 +125,36 @@ const getCatalogComponentProperty = (
   }
 };
 
+/**
+ * Determine if a TypeScript AST Node is a React component
+ */
+const isPrimitive = (node: Node): node is VariableDeclaration => {
+  const typeName = node.getType().getText(node);
+  return (
+    Node.isVariableDeclaration(node) &&
+    (typeName.startsWith('Primitive') ||
+      typeName.startsWith('React.ForwardRef'))
+  );
+};
+
+const isCallableNode = (node: Node): node is VariableDeclaration =>
+  node.getType().getCallSignatures().length > 0;
+
+const getComponentProperties = (type: Type) => {
+  const properties: PrimitiveCatalogComponentProperties = {};
+
+  type.getProperties().forEach((prop) => {
+    const propName = prop.getName();
+    const property = getCatalogComponentProperty(prop);
+
+    if (property) {
+      properties[propName] = property;
+    }
+  });
+
+  return properties;
+};
+
 const project = new Project({
   tsConfigFilePath: path.resolve(__dirname, '..', 'tsconfig.json'),
 });
@@ -186,11 +186,12 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
 
   // Skip primitives without properties
   if (Object.keys(properties).length > 0) {
-    if (priorityProps.hasOwnProperty(componentName)) {
-      priorityProps[componentName].forEach((prop) => {
-        if (properties.hasOwnProperty(prop)) {
-          properties[prop].priority = true;
+    if (priorityProps[componentName]) {
+      (priorityProps[componentName] as string[]).forEach((prop) => {
+        if (properties[prop]) {
+          (properties[prop] as { priority: boolean }).priority = true;
         } else {
+          // eslint-disable-next-line no-console
           console.log(`Skipping ${prop} on ${componentName}`);
         }
       });
