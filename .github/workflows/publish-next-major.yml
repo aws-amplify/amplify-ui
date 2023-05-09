@@ -1,9 +1,9 @@
 # Description: This workflow runs unit + e2e tests, then publishes UI packages
-#              to `@next` NPM tag.
+#              to `@next-release` NPM tag.
 #
 # Triggered by: merge to `main`
 
-name: Test and Publish / next-major
+name: Test and Publish / next-release
 
 concurrency:
   group: e2e-${{ github.sha }}
