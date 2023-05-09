@@ -208,6 +208,19 @@ jobs:
         if: ${{ matrix.framework == 'react-native' && matrix.platform == 'android' }}
         run: ./.github/scripts/check-android.sh ${{ matrix.logfile }}
         shell: bash
+        env:
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          LANGUAGE: ${{ matrix.language }}
+          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
+          PKG_MANAGER: ${{ matrix.pkg-manager }}
+          PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          DEP_TYPES: ${{ env.DEP_TYPES }}
+          FRAMEWORK: ${{ matrix.framework }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          PLATFORM: ${{ matrix.platform }}
+          LOG_FILE: ${{ matrix.logfile }}
 
 
   # log-failure-metric:
