@@ -11,7 +11,7 @@ concurrency:
 
 on:
   push:
-    branches: [next-major-release]
+    branches: [next-major-release/main]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -19,20 +19,20 @@ permissions:
 
 jobs:
   setup-cache:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@next-major-release/main
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@next-major-release/main
     needs: setup-cache
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@next-major-release/main
     needs: unit
     with:
       commit: ${{ github.sha }}
@@ -54,102 +54,8 @@ jobs:
       DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-  guides:
-    runs-on: ubuntu-latest
-    environment: ci
-    env:
-      NODE_ENV: test
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - path: ./guides/react/protected-routes
-            tags: '@guides and not @todo-guides'
-
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-        with:
-          persist-credentials: false
-
-      - name: Setup Node.js 16
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-
-      - name: Restore cypress runner Cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        id: restore-cypress-cache
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-
-      - name: Install packages
-        run: yarn install
-      - name: Add Amplify CLI
-        run: yarn global add @aws-amplify/cli
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-      # Amplify CLI does not support headless pull with temporary credentials
-      # when useProfile is false.
-      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-      - name: Create temp AWS profile
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-          aws configure set default.region $AWS_REGION
-      - name: Pull down AWS environments
-        run: yarn environments auth pull:email
-      - name: Delete AWS Profile
-        run: rm -rf ~/.aws
-
-      - name: Install guides
-        run: yarn install
-        working-directory: ${{ matrix.path }}
-
-      - name: Build guides
-        run: yarn build
-        working-directory: ${{ matrix.path }}
-
-      - name: Start guides site
-        run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
-        working-directory: ${{ matrix.path }}
-
-      - name: Run E2E tests against guides
-        run: yarn e2e test:guides
-        id: e2e
-        env:
-          # Override on the default value in `cypress.json` with framework-specific tag
-          TAGS: '${{ matrix.tags }}'
-
-          # Env values for testing flows
-          DOMAIN: ${{ secrets.DOMAIN }}
-          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-          USERNAME: ${{ secrets.USERNAME }}
-          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-      - name: Upload videos and screenshots
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
-        if: ${{ failure() && steps.e2e.outcome != 'success' }}
-        with:
-          name: guides-cypress-error
-          path: |
-            packages/e2e/cypress/videos/**
-            packages/e2e/cypress/screenshots/**
-          retention-days: 5
-
   publish:
-    needs: [e2e, guides]
+    needs: [e2e]
     uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
       dist-tag: next-release
@@ -191,8 +97,8 @@ jobs:
         working-directory: ./canary
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
-      - name: Setup canary apps against @next
-        run: yarn setup:next
+      - name: Setup canary apps against @next-major-release
+        run: yarn setup:next-major-release
         working-directory: ./canary
       - name: Run yarn install on each sample app
         run: yarn install
@@ -200,33 +106,3 @@ jobs:
       - name: Run yarn build on each sample app
         run: yarn build
         working-directory: ./canary
-
-  log-failure-metric:
-    # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 1
-          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-          aws-region: us-east-2
-
-  log-success-metric:
-    # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 0
-          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-          aws-region: us-east-2
