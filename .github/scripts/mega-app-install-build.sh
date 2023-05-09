@@ -49,8 +49,8 @@ else
             echo "npm run $PLATFORM"
             npm run $PLATFORM
         else
-            cp ../../../.github/scripts/test-android.sh ./test-android.sh
-            ./test-android.sh
+            cp ../../../.github/scripts/build-android.sh ./build-android.sh
+            ./build-android.sh $LOG_FILE
         fi
     else
         echo "npm install $DEPENDENCIES"

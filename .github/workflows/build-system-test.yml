@@ -40,6 +40,7 @@ jobs:
             language: ts
             node-version: 18
             platform: android
+            logfile: test.log
           # - framework: react
           #   framework-version: latest
           #   build-tool: cra
@@ -202,6 +203,12 @@ jobs:
           FRAMEWORK: ${{ matrix.framework }}
           FRAMEWORK_VERSION: ${{ matrix.framework-version }}
           PLATFORM: ${{ matrix.platform }}
+          LOG_FILE: ${{ matrix.logfile }}
+      - name: Detect Android Error
+        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'android' }}
+        run: ./.github/scripts/check-android.sh ${{ matrix.logfile }}
+        shell: bash
+
 
   # log-failure-metric:
   #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
