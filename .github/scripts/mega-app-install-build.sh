@@ -44,11 +44,14 @@ else
             echo $SIMULATOR_ID
             echo "xcrun simctl boot $SIMULATOR_ID"
             xcrun simctl boot $SIMULATOR_ID
+            echo "npm install $DEPENDENCIES"
+            npm install $DEPENDENCIES
+            echo "npm run $PLATFORM"
+            npm run $PLATFORM
+        else
+            cp ../../../.github/scripts/test-android.sh ./test-android.sh
+            ./test-android.sh
         fi
-        echo "npm install $DEPENDENCIES"
-        npm install $DEPENDENCIES
-        echo "npm run $PLATFORM"
-        npm run $PLATFORM
     else
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
