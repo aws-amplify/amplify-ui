@@ -1,7 +1,7 @@
 # Description: This workflow runs unit + e2e tests, then publishes UI packages
 #              to `@next-release` NPM tag.
 #
-# Triggered by: merge to `main`
+# Triggered by: merge to `next-major-release`
 
 name: Test and Publish / next-release
 
