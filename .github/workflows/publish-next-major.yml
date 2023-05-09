@@ -6,7 +6,7 @@
 name: Test and Publish / next-release
 
 concurrency:
-  group: e2e-${{ github.sha }}
+  group: next-major-${{ github.sha }}
   cancel-in-progress: true
 
 on:
