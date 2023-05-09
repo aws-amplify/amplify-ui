@@ -80,7 +80,7 @@ If you’d like to play around with a more comprehensive demo of the Amplify UI 
 
     </ExampleCode>
 
-Then, replace the contents of `src/page.jsx` with the code below, restart the app, and experience all the beautiful components in action!
+Then, replace the contents of `app/page.jsx` with the code below, restart the app, and experience all the beautiful components in action!
 
     <Example>
       <ExampleCode>
@@ -118,3 +118,73 @@ Then, replace the contents of `pages/index.js` with the code below, restart the 
   </TabItem>
 </Tabs>
 
+### Connected Components
+
+<Tabs>
+  <TabItem title="Next.js 13.4+">
+
+To use Connected componnets in app directory, make sure you re-export `Authenticator` as a Client Component by placing "use client" at the top of the file and set up with `Amplify.configure`, for example:
+
+    <ExampleCode>
+
+    ```tsx
+    // Authenticator.jsx
+    'use client';
+
+    import { Amplify } from 'aws-amplify';
+
+    import { Authenticator } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+
+    import awsExports from '../src/aws-exports';
+    Amplify.configure(awsExports);
+
+    export default Authenticator;
+    ```
+
+    </ExampleCode>
+
+Then, import `Authenticator` from the Client Component module `Authenticator.jsx` and use it inside `app/page.jsx`.
+
+    <Example>
+      <ExampleCode>
+
+      ```tsx
+      // app/page.jsx
+      import Authenticator from './Authenticator';
+
+      export default function Home() {
+        return <Authenticator>Hello, Amplify!</Authenticator>;
+      }
+      ```
+
+      </ExampleCode>
+    </Example>
+  </TabItem>
+  <TabItem title="Next.js 11.0-13.3">
+
+To use Connected componnets in page directory, make sure you set up `Amplify.configure` in `src/pages/_app.jsx`
+    <ExampleCode>
+
+    ```tsx
+    // src/pages/_app.jsx
+    import { Amplify } from 'aws-amplify';
+
+    import { Authenticator } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+
+    import awsExports from '../aws-exports';
+    Amplify.configure(awsExports);
+
+    export default function App({ Component, pageProps }) {
+      return (
+        // your app
+        <Authenticator><Component {...pageProps} /></Authenticator>
+      );
+    }
+    ```
+
+   </ExampleCode>
+
+  </TabItem>
+</Tabs>
