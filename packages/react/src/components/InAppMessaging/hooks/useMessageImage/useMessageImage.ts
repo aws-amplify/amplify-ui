@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MessageImage } from '@aws-amplify/ui-react-core';
+import { MessageImage } from '@aws-amplify/ui-react-core-notifications';
 
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
 

@@ -115,6 +115,7 @@ exports[`FullScreenMessage renders as expected in landscape mode 1`] = `
         },
       }
     }
+    testID="inappmessaging-fullscreen-dialog"
   />
 </MessageWrapper>
 `;
@@ -231,6 +232,7 @@ exports[`FullScreenMessage renders as expected in portrait mode 1`] = `
         },
       }
     }
+    testID="inappmessaging-fullscreen-dialog"
   />
 </MessageWrapper>
 `;
