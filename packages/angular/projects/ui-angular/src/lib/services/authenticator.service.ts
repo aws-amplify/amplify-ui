@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Event, interpret, Subscription } from 'xstate';
 
+import { Auth } from 'aws-amplify';
 import { Logger } from '@aws-amplify/core';
 import {
   AuthContext,
@@ -17,7 +18,6 @@ import {
 import { translate } from '@aws-amplify/ui';
 
 import { AuthSubscriptionCallback } from '../common';
-import { Auth } from 'aws-amplify';
 
 const logger = new Logger('state-machine');
 
