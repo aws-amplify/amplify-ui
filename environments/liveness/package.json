@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "environments-liveness",
+  "name": "@aws-amplify/ui-environments-liveness",
   "version": "0.0.1",
   "scripts": {
-    "pull": "../pull-environments.sh -r us-west-2"
+    "pull": "../pull-environments.sh -r us-east-2"
   }
 }

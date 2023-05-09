@@ -4,7 +4,7 @@ import {
   handleMessageAction,
   OnMessageAction,
   useMessage,
-} from '@aws-amplify/ui-react-core';
+} from '@aws-amplify/ui-react-core-notifications';
 
 import { BannerMessage } from '../BannerMessage';
 import { FullScreenMessage } from '../FullScreenMessage';

@@ -12,6 +12,7 @@ aws-exports.ts
 !examples/next/pages/ui/hooks/*/*/aws-exports.js
 !examples/vue/src/pages/ui/components/*/*/aws-exports.js
 !examples/react-native/src/features/*/*/aws-exports.js
+!examples/react-native/src/ui/*/*/*/aws-exports.js
 
 # .npmrc is used in our deployment procedure to login to npm. Ignored for security.
 .npmrc
