@@ -1,4 +1,4 @@
-import { FullScreenMessageCommonProps } from '@aws-amplify/ui-react-core';
+import { FullScreenMessageCommonProps } from '@aws-amplify/ui-react-core-notifications';
 import { MessageDefaultStyle, MessageOverrideStyle } from '../../hooks';
 
 export interface FullScreenMessageProps

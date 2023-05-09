@@ -4,7 +4,6 @@ import { by, element, expect } from 'detox';
 Given("I'm running the example {string}", async (name: string) => {
   await device.launchApp({
     newInstance: true,
-    delete: true,
     launchArgs: {
       EXAMPLE_APP_NAME: name,
     },
@@ -13,6 +12,27 @@ Given("I'm running the example {string}", async (name: string) => {
 
 Given(
   'I intercept {string} with fixture {string}',
+  (json: string, fixture: string) => {
+    // don't need to do anything
+  }
+);
+
+Given(
+  'I intercept {string} with error fixture {string}',
+  (json: string, fixture: string) => {
+    // don't need to do anything
+  }
+);
+
+Given(
+  'I mock {string} with fixture {string}',
+  (json: string, fixture: string) => {
+    // don't need to do anything
+  }
+);
+
+Given(
+  'I mock {string} event with fixture {string}',
   (json: string, fixture: string) => {
     // don't need to do anything
   }
