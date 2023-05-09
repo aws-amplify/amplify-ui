@@ -11,9 +11,12 @@ NC="\033[0m"
 
 # To resolve "error Command failed: /Users/runner/Library/Android/sdk/platform-tools/adb logcat -c"
 # https://stackoverflow.com/questions/63617294/error-while-running-android-build-on-react-native
-export ANDROID_HOME=/Users/$USER/Library/Android/sdk
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-export PATH=$ANDROID_HOME/tools:$PATH
+# https://stackoverflow.com/questions/55677874/failed-to-launch-emulator-error-emulator-didnt-connect-within-60-seconds
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Step 1: Log errors to LOG_FILE in the background
 echo -e "${BLUE_BOLD}Create ${LOG_FILE}${NC}"

@@ -159,12 +159,12 @@ jobs:
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
           echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --device "pixel_5" --package "system-images;android-27;default;x86_64"
 
-      # - name: Start Android emulator
-      #   if: ${{ matrix.framework == 'react-native' && matrix.platform == 'android' }}
-      #   run: |
-      #     nohup $ANDROID_HOME/tools/emulator -verbose -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on -qemu -m 2048 &
-      #     $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
-      #     $ANDROID_HOME/platform-tools/adb devices
+      - name: Start Android emulator
+        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'android' }}
+        run: |
+          nohup $ANDROID_HOME/tools/emulator -verbose -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on -qemu -m 2048 &
+          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          $ANDROID_HOME/platform-tools/adb devices
 
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
         run: ./.github/scripts/mega-app-create-app.sh
