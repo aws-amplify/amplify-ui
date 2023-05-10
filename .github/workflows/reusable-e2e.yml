@@ -160,6 +160,10 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-notifications build
 
+      - name: Build react-geo package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-geo build
+
       - name: Build react-storage package
         if: ${{ matrix.package == 'react' }}
         run: yarn react-storage build
@@ -646,6 +650,9 @@ jobs:
 
       - name: Build react-notifications package
         run: yarn react-notifications build
+
+      - name: Build react-geo package
+        run: yarn react-geo build
 
       - name: Build react-storage package
         run: yarn react-storage build
