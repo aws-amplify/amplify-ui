@@ -31,7 +31,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run npm run android in the background for <time> seconds
-echo -e "${BLUE_BOLD}$ANDROID_HOMEp/latform-tools/adb logcat -b all -c${NC}"
-$ANDROID_HOMEp/latform-tools/adb logcat -b all -c
+# echo -e "${BLUE_BOLD}$ANDROID_HOMEp/platform-tools/adb logcat -b all -c${NC}"
+# $ANDROID_HOMEp/platform-tools/adb logcat -b all -c
 echo -e "${BLUE_BOLD}Running npm run android${NC}"
 npm run android
