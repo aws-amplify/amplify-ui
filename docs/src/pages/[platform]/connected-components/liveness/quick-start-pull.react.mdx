@@ -88,3 +88,7 @@ export default function App() {
 ```
   </TabItem>
 </Tabs>
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+</Fragment>

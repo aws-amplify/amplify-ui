@@ -46,11 +46,21 @@ Current Environment: dev
 _If you have an existing backend, run `amplify pull` to sync your `amplifyconfiguration.json` with your cloud backend._
 
 You should now have an `amplifyconfiguration.json` file in your `app/src/main/res/raw` directory with your latest backend configuration.
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+</Fragment>
+
   </TabItem>
   <TabItem title="Existing Cognito Resource">
 > If you previously had unmanaged resources that you want to manage with Amplify you can use the CLI to import your Cognito resources.
 
 FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. Follow the instructions for [importing existing resources](https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources).
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+</Fragment>
+
   </TabItem>
   <TabItem title="Self Managed Cognito Resource">
 > Use this option if you already have a Cognito identity/user pools that you do not want to import to Amplify, or want to manage Cognito resources yourself or with a 3rd party resource management tool.
@@ -79,6 +89,11 @@ When initially configuring Amplify (assuming you are using no pieces of Amplify 
   }
 }
 ```
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+</Fragment>
+
   </TabItem>
   <TabItem title="Custom Credentials Provider">
 > Use this option if you want more control over the process of obtaining AWS credentials.
@@ -109,6 +124,14 @@ FaceLivenessDetector(
     }
 )
 ```
+
+<Fragment>
+  {({}) => import(`./credentials-provider-callout.mdx`)}
+</Fragment>
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-add-with-credentials-provider.android.mdx`)}
+</Fragment>
 
   </TabItem>
 </Tabs>
