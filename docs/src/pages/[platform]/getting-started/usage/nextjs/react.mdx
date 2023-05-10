@@ -240,7 +240,9 @@ An example below is shown for `Authenticator` component:
     export default function App({ Component, pageProps }) {
       return (
         // your app
-        <Authenticator><Component {...pageProps} /></Authenticator>
+        <Authenticator>
+          <Component {...pageProps} />
+        </Authenticator>
       );
     }
     ```
