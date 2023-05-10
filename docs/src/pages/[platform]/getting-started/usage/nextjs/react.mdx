@@ -25,14 +25,14 @@ Then, install the Amplify UI React package:
 <InstallScripts framework="react" />
 
 ### Usage
-<Alert variation="info" role="none">
-Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). To use Amplify UI componenents, you must use them inside the Client Component tree by placing `"use client"` at the boundary between your Client and Server component module graph. Please see the Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages) on how you could achieve this.
-</Alert>
 
 <Tabs>
   <TabItem title="Next.js 13.4+">
+  <Alert variation="info" role="none">
+    Amplify UI components only works in Client Components. If you need to load them into a Server Component, you need to convert them into client-side components by adding a `'use client'` at the top of your file. Please see instructions below on how you could achieve this. For more info, visit Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages).
+  </Alert>
 #### UI Components
-To use Amplify UI components in app directory, you must re-export them as Client Components.
+To use Amplify UI components in Server Components, you must re-export them as Client Components.
 
 An example below is shown for using Amplify UI `Button` component:
 
