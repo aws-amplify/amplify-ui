@@ -7,7 +7,6 @@ import { BLOCK_CLASS } from '../constants';
 import { BannerMessage } from '../BannerMessage';
 import { BannerMessageProps } from '../types';
 
-const useBreakpointValueSpy = jest.spyOn(UiReactModule, 'useBreakpointValue');
 jest.mock('../../hooks/');
 jest.mock('../../MessageLayout', () => ({
   MessageLayout: () => 'MessageLayout',
@@ -31,6 +30,8 @@ const BANNER_LOCATIONS = BANNER_ALIGNMENTS.reduce(
 const TEST_PROPS: BannerMessageProps = { layout: 'TOP_BANNER' };
 
 const mockUseMessageProps = useMessageProps as jest.Mock;
+
+const useBreakpointValueSpy = jest.spyOn(UiReactModule, 'useBreakpointValue');
 
 describe('BannerMessage component', () => {
   beforeEach(() => {
