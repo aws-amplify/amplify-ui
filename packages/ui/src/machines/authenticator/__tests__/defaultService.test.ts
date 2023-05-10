@@ -6,6 +6,7 @@ import { Auth } from 'aws-amplify';
 jest.mock('aws-amplify');
 
 const {
+  getCurrentUser,
   handleConfirmSignIn,
   handleConfirmSignUp,
   handleForgotPassword,
@@ -72,7 +73,7 @@ describe('validateFormPassword', () => {
   });
 
   it('validates as expected with invalid password (fails all requirements) and strict password policy', async () => {
-    // is too short, and does not meet any of character requirements
+    // is too short, and does not meet any of character requirements but lowercase characters
     const password = 'short';
     const result = await validateFormPassword(
       { password },
@@ -84,6 +85,24 @@ describe('validateFormPassword', () => {
         'Password must have at least 8 characters',
         'Password must have numbers',
         'Password must have upper case letters',
+        'Password must have special characters',
+      ],
+    });
+  });
+
+  it('validates as expected with invalid password (fails all requirements but uppercase) and strict password policy', async () => {
+    // is too short, and does not meet any of character requirements but uppercase characters
+    const password = 'SHORT';
+    const result = await validateFormPassword(
+      { password },
+      touched,
+      strictPasswordPolicy
+    );
+    expect(result).toStrictEqual({
+      password: [
+        'Password must have at least 8 characters',
+        'Password must have lower case letters',
+        'Password must have numbers',
         'Password must have special characters',
       ],
     });
@@ -282,5 +301,13 @@ describe('handleForgotPassword', () => {
     await handleForgotPassword(testCredentials);
 
     expect(Auth.forgotPassword).toHaveBeenCalledWith({ ...testCredentials });
+  });
+});
+
+describe('getCurrentUser', () => {
+  it('should call Auth.currentAuthenticatedUser', async () => {
+    await getCurrentUser();
+
+    expect(Auth.currentAuthenticatedUser).toHaveBeenCalledTimes(1);
   });
 });

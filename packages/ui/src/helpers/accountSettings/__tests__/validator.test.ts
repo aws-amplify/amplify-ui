@@ -11,6 +11,7 @@ import {
   getMatchesConfirmPassword,
   shouldValidate,
   runFieldValidators,
+  getDefaultConfirmPasswordValidators,
 } from '../validator';
 import { ValidatorOptions } from '../../../types';
 
@@ -320,5 +321,39 @@ describe('runFieldValidators', () => {
       hasBlurred,
     });
     expect(result).toEqual([]);
+  });
+
+  it('returns previous errors when a validator returns an error message', () => {
+    const value = 'test';
+    const validators: ValidatorOptions[] = [
+      {
+        validator: (val: string) => val === 'other',
+        validationMode: 'onChange',
+        message: 'Value is not correct',
+      },
+      {
+        validator: (val: string) => val.length > 5,
+        validationMode: 'onBlur',
+        message: 'Value must be longer than 5 characters',
+      },
+    ];
+    const eventType = 'change';
+    const hasBlurred = true;
+
+    const result = runFieldValidators({
+      value,
+      validators,
+      eventType,
+      hasBlurred,
+    });
+    expect(result).toEqual(['Value is not correct']);
+  });
+});
+
+describe('getDefaultConfirmPasswordValidators', () => {
+  it('returns an array with one validator', () => {
+    const password = 'password';
+    const validators = getDefaultConfirmPasswordValidators(password);
+    expect(validators).toHaveLength(1);
   });
 });

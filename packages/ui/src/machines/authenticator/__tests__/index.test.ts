@@ -428,6 +428,8 @@ describe('authenticator', () => {
       createAuthenticatorMachine().withConfig({
         actions: {
           setUser: jest.fn(() => Promise.resolve),
+          configure: jest.fn(() => Promise.resolve),
+          setHasSetup: jest.fn(() => Promise.resolve),
         },
         services: {
           getCurrentUser: jest.fn(async () => Promise.resolve),
@@ -452,5 +454,12 @@ describe('authenticator', () => {
     expect(service.getSnapshot().value).toStrictEqual({
       signOut: 'runActor',
     });
+
+    service.send({
+      type: 'done.invoke.signOutActor',
+    });
+
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual({ setup: 'waitConfig' });
   });
 });

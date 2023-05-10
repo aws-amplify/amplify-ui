@@ -37,6 +37,12 @@ const federatedSignInSpy = jest
 const verifiedContactSpy = jest
   .spyOn(Auth, 'verifiedContact')
   .mockResolvedValue({} as never);
+const verifyCurrentUserAttributeSpy = jest
+  .spyOn(Auth, 'verifyCurrentUserAttribute')
+  .mockResolvedValue();
+const verifyCurrentUserAttributeSubmitSpy = jest
+  .spyOn(Auth, 'verifyCurrentUserAttributeSubmit')
+  .mockResolvedValue({} as never);
 
 describe('signInActor', () => {
   afterEach(() => {
@@ -156,11 +162,8 @@ describe('signInActor', () => {
             setUnverifiedContactMethods: jest.fn(),
             setUsername: jest.fn(),
           },
-          services: {
-            verifyUser: jest.fn(async () => Promise.resolve),
-          },
           guards: {
-            shouldRequestVerification: jest.fn(() => false),
+            shouldRequestVerification: jest.fn(() => true),
           },
         })
     );
@@ -174,6 +177,22 @@ describe('signInActor', () => {
     });
     await flushPromises();
     expect(verifiedContactSpy).toHaveBeenCalledTimes(1);
+    expect(service.getSnapshot().value).toStrictEqual({ verifyUser: 'edit' });
+    service.send({
+      type: 'SUBMIT',
+    });
+    await flushPromises();
+    expect(verifyCurrentUserAttributeSpy).toHaveBeenCalledTimes(1);
+
+    expect(service.getSnapshot().value).toStrictEqual({
+      confirmVerifyUser: 'edit',
+    });
+
+    service.send({
+      type: 'SUBMIT',
+    });
+    await flushPromises();
+    expect(verifyCurrentUserAttributeSubmitSpy).toHaveBeenCalledTimes(1);
     expect(service.getSnapshot().value).toStrictEqual('resolved');
   });
 
@@ -200,7 +219,6 @@ describe('signInActor', () => {
             verifyUser: jest.fn(async () => Promise.resolve),
           },
           guards: {
-            shouldRequestVerification: jest.fn(() => false),
             shouldSetupTOTP: jest.fn(() => false),
             shouldForceChangePassword: jest.fn(() => false),
           },
@@ -417,5 +435,102 @@ describe('signInActor', () => {
       mockConfirmationCode
     );
     expect(service.getSnapshot().value).toStrictEqual('resolved');
+  });
+
+  it('redirects if password reset is required', async () => {
+    service = interpret(
+      signInActor({
+        services: {
+          handleSignIn: jest.fn(async () => {
+            throw { code: 'PasswordResetRequiredException' };
+          }),
+        },
+      })
+        .withContext({
+          intent: 'test',
+          loginMechanisms: ['email'],
+          socialProviders: [],
+        })
+        .withConfig({
+          actions: {
+            clearFormValues: jest.fn(),
+            clearError: jest.fn(),
+            clearTouched: jest.fn(),
+            parsePhoneNumber: jest.fn(),
+            resendCode: jest.fn(),
+            sendUpdate: jest.fn(() => Promise.reject),
+            setUnverifiedContactMethods: jest.fn(),
+            setUsernameAuthAttributes: jest.fn(() => Promise.resolve),
+            setConfirmSignUpIntent: jest.fn(() => Promise.resolve),
+          },
+          services: {
+            checkVerifiedContact: jest.fn(async () => Promise.resolve),
+            verifyUser: jest.fn(async () => Promise.resolve),
+          },
+          guards: {
+            shouldRequestVerification: jest.fn(() => false),
+          },
+        })
+    );
+
+    service.start();
+
+    expect(service.getSnapshot().value).toStrictEqual({ signIn: 'edit' });
+    const credentials = { username: mockUsername, password: mockPassword };
+    service.send({
+      type: 'SUBMIT',
+      data: credentials,
+    });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual('rejected');
+  });
+
+  it('redirects if user is not confirmed', async () => {
+    service = interpret(
+      signInActor({
+        services: {
+          handleSignIn: jest.fn(async () => {
+            throw { code: 'UserNotConfirmedException' };
+          }),
+        },
+      })
+        .withContext({
+          intent: 'test',
+          loginMechanisms: ['email'],
+          socialProviders: [],
+        })
+        .withConfig({
+          actions: {
+            clearFormValues: jest.fn(),
+            clearError: jest.fn(),
+            clearTouched: jest.fn(),
+            parsePhoneNumber: jest.fn(),
+            resendCode: jest.fn(),
+            sendUpdate: jest.fn(() => Promise.resolve),
+            setUnverifiedContactMethods: jest.fn(),
+            setUsername: jest.fn(),
+            setUsernameAuthAttributes: jest.fn(() => Promise.resolve),
+            setConfirmResetPasswordIntent: jest.fn(() => Promise.resolve),
+          },
+          services: {
+            checkVerifiedContact: jest.fn(async () => Promise.resolve),
+            verifyUser: jest.fn(async () => Promise.resolve),
+          },
+          guards: {
+            shouldRequestVerification: jest.fn(() => false),
+          },
+        })
+    );
+
+    service.start();
+
+    expect(service.getSnapshot().value).toStrictEqual({ signIn: 'edit' });
+    const credentials = { username: mockUsername, password: mockPassword };
+    service.send({
+      type: 'SUBMIT',
+      data: credentials,
+    });
+    await flushPromises();
+    expect(service.getSnapshot().value).toStrictEqual('rejected');
   });
 });
