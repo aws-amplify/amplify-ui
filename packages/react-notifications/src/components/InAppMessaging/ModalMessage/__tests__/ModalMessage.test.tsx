@@ -7,7 +7,6 @@ import { DIALOG_CLASS } from '../constants';
 import { ModalMessage } from '../ModalMessage';
 import { ModalMessageProps } from '../types';
 
-const useBreakpointValueSpy = jest.spyOn(UiReactModule, 'useBreakpointValue');
 jest.mock('../../hooks/');
 jest.mock('../../MessageLayout', () => ({
   MessageLayout: () => 'MessageLayout',
@@ -16,6 +15,8 @@ jest.mock('../../MessageLayout', () => ({
 const TEST_PROPS: ModalMessageProps = { layout: 'MODAL' };
 
 const mockUseMessageProps = useMessageProps as jest.Mock;
+
+const useBreakpointValueSpy = jest.spyOn(UiReactModule, 'useBreakpointValue');
 
 describe('ModalMessage component', () => {
   beforeEach(() => {
