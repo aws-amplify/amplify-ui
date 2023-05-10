@@ -11,7 +11,7 @@ cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 LOG_FILE=$1
 
 # Define the time to run the command
-TIME_TO_RUN=30
+TIME_TO_RUN=60
 
 # Define the color codes
 BLUE_BOLD="\033[1;36m"
@@ -20,10 +20,8 @@ RED_BOLD="\033[1;31m"
 NC="\033[0m"
 
 # Sleep for the specified time
+echo -e "${BLUE_BOLD}Sleep for $TIME_TO_RUN second...${NC}"
 sleep $TIME_TO_RUN
-
-echo "${RED_BOLD}curl localhost:8081... ${NC}"
-curl localhost:8081
 
 # Check for errors in the log file
 if grep -qi "error\|fail" "$LOG_FILE" || [ ! -s "$LOG_FILE" ]; then
