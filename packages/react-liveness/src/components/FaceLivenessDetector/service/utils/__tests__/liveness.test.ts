@@ -2,9 +2,12 @@ import 'jest-canvas-mock';
 import {
   drawLivenessOvalInCanvas,
   estimateIllumination,
+  getColorsSequencesFromSessionInformation,
+  getFaceMatchState,
   getFaceMatchStateInLivenessOval,
   getOvalDetailsFromSessionInformation,
   isCameraDeviceVirtual,
+  isFaceDistanceBelowThreshold,
 } from '../liveness';
 import {
   mockContext,
@@ -121,6 +124,182 @@ describe('Liveness Helper', () => {
 
       expect(faceMatchState).toBe(FaceMatchState.TOO_FAR);
       expect(faceMatchPercentage).toBe(0);
+    });
+  });
+
+  describe('getFaceMatchState', () => {
+    const mockBlazeFace: any = {
+      modelLoadingPromise: Promise.resolve(),
+      triggerModelLoading: jest.fn(),
+      loadModels: jest.fn(),
+      detectFaces: jest.fn(),
+    };
+    it('should return FACE_IDENTIFIED if only one face returned', async () => {
+      mockBlazeFace.detectFaces.mockResolvedValue([mockFace]);
+
+      const faceMatchState = await getFaceMatchState(
+        mockBlazeFace,
+        jest.fn() as unknown as HTMLVideoElement
+      );
+
+      expect(faceMatchState).toBe(FaceMatchState.FACE_IDENTIFIED);
+    });
+
+    it('should return CANT_IDENTIFY if no faces returned', async () => {
+      mockBlazeFace.detectFaces.mockResolvedValue([]);
+
+      const faceMatchState = await getFaceMatchState(
+        mockBlazeFace,
+        jest.fn() as unknown as HTMLVideoElement
+      );
+
+      expect(faceMatchState).toBe(FaceMatchState.CANT_IDENTIFY);
+    });
+
+    it('should return TOO_MANY if more than one face returned', async () => {
+      mockBlazeFace.detectFaces.mockResolvedValue([mockFace, mockFace]);
+
+      const faceMatchState = await getFaceMatchState(
+        mockBlazeFace,
+        jest.fn() as unknown as HTMLVideoElement
+      );
+
+      expect(faceMatchState).toBe(FaceMatchState.TOO_MANY);
+    });
+  });
+
+  describe('isFaceDistanceBelowThreshold', () => {
+    const mockBlazeFace: any = {
+      modelLoadingPromise: Promise.resolve(),
+      triggerModelLoading: jest.fn(),
+      loadModels: jest.fn(),
+      detectFaces: jest.fn(),
+    };
+    it('should return false if no faces', async () => {
+      mockBlazeFace.detectFaces.mockResolvedValue([]);
+
+      const result = await isFaceDistanceBelowThreshold({
+        faceDetector: mockBlazeFace,
+        videoEl: jest.fn() as unknown as HTMLVideoElement,
+        ovalDetails: mockOvalDetails,
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('should return false if more than one face', async () => {
+      mockBlazeFace.detectFaces.mockResolvedValue([mockFace, mockFace]);
+
+      const result = await isFaceDistanceBelowThreshold({
+        faceDetector: mockBlazeFace,
+        videoEl: jest.fn() as unknown as HTMLVideoElement,
+        ovalDetails: mockOvalDetails,
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('should return true if below threshold', async () => {
+      mockBlazeFace.detectFaces.mockResolvedValue([mockFace]);
+
+      const result = await isFaceDistanceBelowThreshold({
+        faceDetector: mockBlazeFace,
+        videoEl: jest.fn() as unknown as HTMLVideoElement,
+        ovalDetails: mockOvalDetails,
+        reduceThreshold: true,
+        isMobile: true,
+      });
+
+      expect(result).toBe(true);
+    });
+  });
+
+  describe('getColorsSequencesFromSessionInformation', () => {
+    it('should return a parsed color sequence', async () => {
+      const colorSequence = getColorsSequencesFromSessionInformation(
+        mockSessionInformation
+      );
+
+      expect(colorSequence.length).toBe(8);
+      expect(colorSequence[0]).toStrictEqual({
+        color: 'rgb(0,0,0)',
+        downscrollDuration: 300,
+        flatDisplayDuration: 100,
+      });
+    });
+
+    it('should work even if there are no color sequences', async () => {
+      const mockSessionInfo = {
+        Challenge: {
+          FaceMovementAndLightChallenge: {
+            ChallengeConfig: {
+              BlazeFaceDetectionThreshold: 0.75,
+              FaceDistanceThreshold: 0.4000000059604645,
+              FaceDistanceThresholdMax: 0,
+              FaceDistanceThresholdMin: 0.4000000059604645,
+              FaceIouHeightThreshold: 0.15000000596046448,
+              FaceIouWidthThreshold: 0.15000000596046448,
+              OvalHeightWidthRatio: 1.6180000305175781,
+              OvalIouHeightThreshold: 0.25,
+              OvalIouThreshold: 0.699999988079071,
+              OvalIouWidthThreshold: 0.25,
+            },
+            OvalParameters: {
+              Width: 1,
+              Height: 2,
+              CenterX: 3,
+              CenterY: 4,
+            },
+            LightChallengeType: 'SEQUENTIAL',
+            ColorSequences: undefined,
+          },
+        },
+      };
+      const colorSequence =
+        getColorsSequencesFromSessionInformation(mockSessionInfo);
+
+      expect(colorSequence.length).toBe(0);
+    });
+
+    it('should not return values if color sequences do not contain durations', async () => {
+      const mockSessionInfo = {
+        Challenge: {
+          FaceMovementAndLightChallenge: {
+            ChallengeConfig: {
+              BlazeFaceDetectionThreshold: 0.75,
+              FaceDistanceThreshold: 0.4000000059604645,
+              FaceDistanceThresholdMax: 0,
+              FaceDistanceThresholdMin: 0.4000000059604645,
+              FaceIouHeightThreshold: 0.15000000596046448,
+              FaceIouWidthThreshold: 0.15000000596046448,
+              OvalHeightWidthRatio: 1.6180000305175781,
+              OvalIouHeightThreshold: 0.25,
+              OvalIouThreshold: 0.699999988079071,
+              OvalIouWidthThreshold: 0.25,
+            },
+            OvalParameters: {
+              Width: 1,
+              Height: 2,
+              CenterX: 3,
+              CenterY: 4,
+            },
+            LightChallengeType: 'SEQUENTIAL',
+            ColorSequences: [
+              {
+                FreshnessColor: {
+                  RGB: [0, 0, 0], // black
+                },
+                DownscrollDuration: undefined,
+                FlatDisplayDuration: undefined,
+              },
+            ],
+          },
+        },
+      };
+      const colorSequence =
+        getColorsSequencesFromSessionInformation(mockSessionInfo);
+
+      expect(colorSequence.length).toBe(0);
     });
   });
 

@@ -65,15 +65,6 @@ describe('VideoRecorder', () => {
     expect(mockMediaRecorder.pause).toHaveBeenCalledTimes(1);
   });
 
-  it('should stop the recording and clear data on destroy', () => {
-    mockMediaRecorder.state = 'recording';
-
-    const videoRecorder = new VideoRecorder(stream);
-    videoRecorder.destroy();
-
-    expect(mockMediaRecorder.stop).toHaveBeenCalledTimes(1);
-  });
-
   it('should return the underlying recorder state', () => {
     const videoRecorder = new VideoRecorder(stream);
     expect(videoRecorder.getState()).toBe('');

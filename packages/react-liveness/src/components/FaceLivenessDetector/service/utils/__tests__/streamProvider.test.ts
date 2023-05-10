@@ -71,7 +71,6 @@ describe('LivenessStreamProvider', () => {
     start: jest.fn(),
     stop: jest.fn(),
     getBlob: jest.fn(),
-    destroy: jest.fn(),
     dispatch: jest.fn(),
     getState: jest.fn().mockReturnValue('recording'),
     videoStream: mockReadableStream,
