@@ -1,3 +1,5 @@
+import { Alert } from '@aws-amplify/ui-react';
+
 import { Fragment } from '@/components/Fragment';
 import { InstallScripts } from '@/components/InstallScripts';
 
@@ -6,6 +8,10 @@ import { InstallScripts } from '@/components/InstallScripts';
 <InstallScripts component='liveness' />
 
 ### Step 3. Initialize Amplify
+
+<Alert variation="info" role="none">
+Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). To use Amplify UI componenents, you must use them inside the Client Component tree by placing `"use client"` at the boundary between your Client and Server component module graph. If you are using it, you need to do some extra setup [here](/react/getting-started/usage/nextjs#connected-components).
+</Alert>
 
 ```jsx
 import React from 'react';

@@ -24,6 +24,232 @@ Then, install the Amplify UI React package:
 
 <InstallScripts framework="react" />
 
+### Usage
+<Alert variation="info" role="none">
+Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). To use Amplify UI componenents, you must use them inside the Client Component tree by placing `"use client"` at the boundary between your Client and Server component module graph. Please see the Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages) on how you could achieve this.
+</Alert>
+
+<Tabs>
+  <TabItem title="Next.js 13.4+">
+#### UI Components
+To use Amplify UI components in app directory, you must re-export them as Client Components.
+
+An example below is shown for using Amplify UI `Button` component:
+
+First, create a client module, for example, `AmplifyUIComponents.jsx` by placing `'use client'` at the top and re-export `Button` component.
+
+    <ExampleCode>
+
+    ```tsx
+    // AmplifyUIComponents.jsx
+    'use client';
+
+    import { Button } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+
+    export { Button };
+    ```
+
+    </ExampleCode>
+
+Then, import `Button` from the client module and use it anywhere you want, e.g., `app/page.jsx`.
+
+    <Example>
+      <ExampleCode>
+
+      ```tsx
+      // app/page.jsx
+      import { Button } from './AmplifyUIComponents';
+
+      export default function Home() {
+        return <Button>Hello, Amplify!</Button>;
+      }
+      ```
+
+      </ExampleCode>
+    </Example>
+
+To use more Amplify UI components, you need to re-export them in the same client module `AmplifyUIComponents.jsx` and then load them from there.
+
+    <ExampleCode>
+
+    ```tsx
+    // AmplifyUIComponents.jsx
+    'use client';
+
+    import { Alert, Button, Card } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+
+    export { Alert, Button, Card };
+    ```
+
+    </ExampleCode>
+#### Connected Components
+    To use Amplify UI Connected Components in app directory, you must set up `Amplify.configure` in a client module.
+
+    First, create a client module, for example, `configure.js` by placing `'use client'` at the top of the file under `app` directory:
+
+    <ExampleCode>
+
+    ```tsx
+    // configure.js
+    "use client";
+
+    import { Amplify } from "aws-amplify";
+
+    import config from "../src/aws-exports";
+    
+    Amplify.configure(config);
+    ```
+
+    </ExampleCode>
+
+    Then import `configure.js` in `page.jsx` to finish the setup,
+        <ExampleCode>
+
+    ```tsx
+    // page.jsx
+    import "./configure";
+
+    export default function Home() {
+      return <h1>Hello, Amplify!</h1>;
+    }
+    ```
+
+    </ExampleCode>
+
+Like UI components, you must re-export Connected components as Client Components before using them.
+
+An example below is shown for `Authenticator` component:
+
+First, create a client module, for example, `AmplifyConnectedComponents.jsx` by placing `'use client'` at the top of the file under `app` directory,
+
+    <ExampleCode>
+
+    ```tsx
+    // AmplifyConnectedComponents.jsx
+    'use client';
+
+    import { Authenticator } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+   
+    export { Authenticator };
+    ```
+
+    </ExampleCode>
+
+Then, import `Authenticator` from the client module and use it anywhere you want, e.g., `app/page.jsx`.
+
+    <Example>
+      <ExampleCode>
+
+      ```tsx
+      // app/page.jsx
+      import { Authenticator } from './Authenticator';
+
+      export default function Home() {
+        return <Authenticator>Hello, Amplify!</Authenticator>;
+      }
+      ```
+
+      </ExampleCode>
+    </Example>
+
+To use more Connected components, you need to re-export them in the same client module `AmplifyConnectedComponents.jsx` and then load them from there.
+
+    <ExampleCode>
+
+    ```tsx
+    // AmplifyConnectedComponents.jsx
+    'use client';
+
+    import { Authenticator } from '@aws-amplify/ui-react';
+    import { StorageManager } from '@aws-amplify/ui-react-storage';
+    import '@aws-amplify/ui-react/styles.css';
+
+    export { Authenticator, StorageManager };
+    ```
+
+    </ExampleCode>
+
+**You may want to combine the setup and re-exports into a single client module.**
+
+For example, create a client module `AmplifyUI.js` specific for Amplify UI under `app` directory and then finish the setup with `Amplify.configure` and re-export everything you need from there.
+
+    <ExampleCode>
+
+    ```tsx
+    // AmplifyUI.js
+    'use client';
+
+    import { Amplify } from 'aws-amplify';
+
+    import { Authenticator, Button } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+
+    import awsExports from '../src/aws-exports';
+    Amplify.configure(awsExports);
+
+    export { Authenticator, Button };
+    ```
+
+    </ExampleCode>
+
+For more info, see Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages).
+
+  </TabItem>
+  <TabItem title="Next.js 11.0-13.3">
+#### UI Components
+To use Amplify UI components in page directory, simply import them into your modules.
+
+An example below is shown for using Amplify UI `Button` component:
+
+    <ExampleCode>
+
+    ```tsx
+    // src/pages/page.jsx
+    import { Button } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+
+    export default function Page() {
+      return (
+       <Button>Hello, Amplify!</Button>
+      );
+    }
+    ```
+
+   </ExampleCode>
+
+#### Connected Components
+To use Amplify Connected componnets in page directory, you must set up `Amplify.configure` in `src/pages/_app.jsx`
+
+An example below is shown for `Authenticator` component:
+
+    <ExampleCode>
+
+    ```tsx
+    // src/pages/_app.jsx
+    import { Amplify } from 'aws-amplify';
+
+    import { Authenticator } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+
+    import awsExports from '../aws-exports';
+    Amplify.configure(awsExports);
+
+    export default function App({ Component, pageProps }) {
+      return (
+        // your app
+        <Authenticator><Component {...pageProps} /></Authenticator>
+      );
+    }
+    ```
+
+   </ExampleCode>
+
+  </TabItem>
+</Tabs>
+
 ### Basic Demo
 
 <Alert variation="info" role="none">
@@ -114,77 +340,6 @@ Then, replace the contents of `pages/index.js` with the code below, restart the 
       </ExampleCode>
       <AdvancedShoppingCard />
     </Example>
-
-  </TabItem>
-</Tabs>
-
-### Connected Components
-
-<Tabs>
-  <TabItem title="Next.js 13.4+">
-
-To use Connected componnets in app directory, make sure you re-export `Authenticator` as a Client Component by placing "use client" at the top of the file and set up with `Amplify.configure`, for example:
-
-    <ExampleCode>
-
-    ```tsx
-    // Authenticator.jsx
-    'use client';
-
-    import { Amplify } from 'aws-amplify';
-
-    import { Authenticator } from '@aws-amplify/ui-react';
-    import '@aws-amplify/ui-react/styles.css';
-
-    import awsExports from '../src/aws-exports';
-    Amplify.configure(awsExports);
-
-    export default Authenticator;
-    ```
-
-    </ExampleCode>
-
-Then, import `Authenticator` from the Client Component module `Authenticator.jsx` and use it inside `app/page.jsx`.
-
-    <Example>
-      <ExampleCode>
-
-      ```tsx
-      // app/page.jsx
-      import Authenticator from './Authenticator';
-
-      export default function Home() {
-        return <Authenticator>Hello, Amplify!</Authenticator>;
-      }
-      ```
-
-      </ExampleCode>
-    </Example>
-  </TabItem>
-  <TabItem title="Next.js 11.0-13.3">
-
-To use Connected componnets in page directory, make sure you set up `Amplify.configure` in `src/pages/_app.jsx`
-    <ExampleCode>
-
-    ```tsx
-    // src/pages/_app.jsx
-    import { Amplify } from 'aws-amplify';
-
-    import { Authenticator } from '@aws-amplify/ui-react';
-    import '@aws-amplify/ui-react/styles.css';
-
-    import awsExports from '../aws-exports';
-    Amplify.configure(awsExports);
-
-    export default function App({ Component, pageProps }) {
-      return (
-        // your app
-        <Authenticator><Component {...pageProps} /></Authenticator>
-      );
-    }
-    ```
-
-   </ExampleCode>
 
   </TabItem>
 </Tabs>
