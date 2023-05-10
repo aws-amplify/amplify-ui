@@ -22,6 +22,9 @@ NC="\033[0m"
 # Sleep for the specified time
 sleep $TIME_TO_RUN
 
+echo "${RED_BOLD}curl localhost:8081... ${NC}"
+curl localhost:8081
+
 # Check for errors in the log file
 if grep -qi "error\|fail" "$LOG_FILE" || [ ! -s "$LOG_FILE" ]; then
   # Display the full log file and exit with a failure status code
