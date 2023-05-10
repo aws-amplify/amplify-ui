@@ -549,11 +549,14 @@ jobs:
       - name: Install emulator
         run: |
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --device "pixel_5" --package "system-images;android-27;default;x86_64"
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
+          printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
 
       - name: Start Android emulator
         run: |
-          nohup $ANDROID_HOME/tools/emulator -verbose -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on -qemu -m 2048 &
+          nohup $ANDROID_HOME/emulator/emulator -verbose -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
           $ANDROID_HOME/platform-tools/adb devices
 
@@ -564,7 +567,11 @@ jobs:
         run: yarn e2e detox:build:android:debug
 
       - name: Run E2E tests against react-native example
-        run: yarn e2e detox:e2e:android:debug
+        run: |
+          # all network requests going from the device on this port will be forwarded to the virtual machine where the mock server is running
+          $ANDROID_HOME/platform-tools/adb reverse tcp:9091 tcp:9091
+          yarn workspace e2e detox:e2e:android:debug
+          
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
