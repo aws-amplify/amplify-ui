@@ -8,7 +8,6 @@ import { FullScreenMessage } from '../FullScreenMessage';
 import { FullScreenMessageProps } from '../types';
 import { BackdropProps } from '../../Backdrop/types';
 
-const useBreakpointValueSpy = jest.spyOn(UiReactModule, 'useBreakpointValue');
 jest.mock('../../Backdrop', () => ({
   withBackdrop: (Component: React.ComponentClass) => (props: BackdropProps) =>
     <Component {...props} />,
@@ -21,6 +20,8 @@ jest.mock('../../MessageLayout', () => ({
 const TEST_PROPS: FullScreenMessageProps = { layout: 'FULL_SCREEN' };
 
 const mockUseMessageProps = useMessageProps as jest.Mock;
+
+const useBreakpointValueSpy = jest.spyOn(UiReactModule, 'useBreakpointValue');
 
 describe('FullScreenMessage component', () => {
   beforeEach(() => {

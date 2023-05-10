@@ -47,7 +47,9 @@ describe('FreshnessColorDisplay', () => {
     expect(response).toBe(false);
 
     const canvasContext =
-      context.freshnessColorAssociatedParams.freshnessColorEl.getContext('2d');
+      context.freshnessColorAssociatedParams!.freshnessColorEl!.getContext(
+        '2d'
+      );
     const drawCalls = (canvasContext as any).__getDrawCalls();
     const path = (canvasContext as any)._path;
     expect(drawCalls[drawCalls.length - 1].type).toBe('fillRect');
@@ -56,11 +58,11 @@ describe('FreshnessColorDisplay', () => {
     expect(path[2].type).toBe('clip');
 
     const clientSessionInfo = (
-      context.livenessStreamProvider.sendClientInfo as jest.Mock
+      context.livenessStreamProvider!.sendClientInfo as jest.Mock
     ).mock.calls[0][0];
-    expect(context.livenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
-      1
-    );
+    expect(
+      context.livenessStreamProvider!.sendClientInfo
+    ).toHaveBeenCalledTimes(1);
     expect(
       clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
         .CurrentColor.RGB
@@ -85,11 +87,11 @@ describe('FreshnessColorDisplay', () => {
     expect(response).toBe(false);
 
     const clientSessionInfo = (
-      context.livenessStreamProvider.sendClientInfo as jest.Mock
+      context.livenessStreamProvider!.sendClientInfo as jest.Mock
     ).mock.calls[0][0];
-    expect(context.livenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
-      1
-    );
+    expect(
+      context.livenessStreamProvider!.sendClientInfo
+    ).toHaveBeenCalledTimes(1);
     expect(
       clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
         .CurrentColor.RGB
@@ -117,11 +119,11 @@ describe('FreshnessColorDisplay', () => {
     expect((display as any).stageIndex).toStrictEqual(1);
 
     const clientSessionInfo = (
-      context.livenessStreamProvider.sendClientInfo as jest.Mock
+      context.livenessStreamProvider!.sendClientInfo as jest.Mock
     ).mock.calls[0][0];
-    expect(context.livenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
-      1
-    );
+    expect(
+      context.livenessStreamProvider!.sendClientInfo
+    ).toHaveBeenCalledTimes(1);
     expect(
       clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
         .CurrentColor.RGB
@@ -147,7 +149,9 @@ describe('FreshnessColorDisplay', () => {
     expect(response).toBe(true);
 
     const canvasContext =
-      context.freshnessColorAssociatedParams.freshnessColorEl.getContext('2d');
+      context.freshnessColorAssociatedParams!.freshnessColorEl!.getContext(
+        '2d'
+      );
     const drawCalls = (canvasContext as any).__getDrawCalls();
     expect(drawCalls.length).toBe(0);
   });
