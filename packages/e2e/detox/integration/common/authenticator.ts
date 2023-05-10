@@ -42,7 +42,7 @@ When(
 
     try {
       await element(
-        by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${loginMechanism}`)
+        by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${usernameAttribute}`)
       ).typeText(text);
     } catch (e) {
       // for some custom fields the test id doesn't match the login mechanism
@@ -117,7 +117,7 @@ When('I type a new {string}', async (field: string) => {
 });
 
 When('I select my country code with status {string}', (status: string) => {
-  // do nothing, React-Native phonenumber field does not support country code selection yet
+  // do nothing, React-Native phone number field does not support country code selection yet
 });
 
 Then('I will be redirected to the confirm forgot password page', async () => {
