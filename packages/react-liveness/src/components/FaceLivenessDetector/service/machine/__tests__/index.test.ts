@@ -1,5 +1,4 @@
 /* eslint-disable */
-// @ts-nocheck
 import { interpret } from 'xstate';
 import { setImmediate } from 'timers';
 
@@ -109,17 +108,23 @@ describe('Liveness Machine', () => {
     faceMatchAssociatedParams: {
       illuminationState: IlluminationState.NORMAL,
       faceMatchState: FaceMatchState.MATCHED,
-      matchPercentage: 100,
+      faceMatchPercentage: 100,
       currentDetectedFace: mockFace,
       startFace: mockFace,
       endFace: mockFace,
       initialFaceMatchTime: Date.now() - 500,
     },
+    freshnessColorAssociatedParams: {
+      freshnessColorEl: document.createElement('canvas'),
+      freshnessColors: [],
+      freshnessColorsComplete: false,
+      freshnessColorDisplay: mockFreshnessColorDisplay,
+    },
   });
 
   let service: LivenessInterpreter;
 
-  function transitionToCameraCheck(service) {
+  function transitionToCameraCheck(service: LivenessInterpreter) {
     service.start();
     service.send({
       type: 'BEGIN',
@@ -127,7 +132,9 @@ describe('Liveness Machine', () => {
     });
   }
 
-  async function transitionToInitializeLivenessStream(service) {
+  async function transitionToInitializeLivenessStream(
+    service: LivenessInterpreter
+  ) {
     transitionToCameraCheck(service);
     await flushPromises(); // waitForDOMAndCameraDetails
 
@@ -143,7 +150,7 @@ describe('Liveness Machine', () => {
     await flushPromises();
     jest.advanceTimersToNextTimer(); // checkFaceDetectedBeforeStart
   }
-  async function transitionToRecording(service) {
+  async function transitionToRecording(service: LivenessInterpreter) {
     await transitionToInitializeLivenessStream(service);
     await flushPromises(); // notRecording
 
@@ -164,7 +171,7 @@ describe('Liveness Machine', () => {
     jest.advanceTimersToNextTimer();
   }
 
-  async function transitionToUploading(service) {
+  async function transitionToUploading(service: LivenessInterpreter) {
     await transitionToRecording(service);
     await flushPromises(); // detectInitialFaceAndDrawOval
     jest.advanceTimersToNextTimer(); // checkFaceDetected
@@ -239,10 +246,10 @@ describe('Liveness Machine', () => {
 
     expect(service.state.value).toBe('cameraCheck');
     expect(
-      service.state.context.videoAssociatedParams.videoConstraints
+      service.state.context.videoAssociatedParams!.videoConstraints
     ).toEqual(mockVideoConstaints);
     expect(
-      service.state.context.ovalAssociatedParams.faceDetector
+      service.state.context.ovalAssociatedParams!.faceDetector
     ).toBeDefined();
   });
 
@@ -253,7 +260,7 @@ describe('Liveness Machine', () => {
       await flushPromises();
       expect(service.state.value).toBe('waitForDOMAndCameraDetails');
       expect(
-        service.state.context.videoAssociatedParams.videoMediaStream
+        service.state.context.videoAssociatedParams!.videoMediaStream
       ).toEqual(mockVideoMediaStream);
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenCalledWith({
         video: mockVideoConstaints,
@@ -287,7 +294,7 @@ describe('Liveness Machine', () => {
       await flushPromises();
       expect(service.state.value).toBe('waitForDOMAndCameraDetails');
       expect(
-        service.state.context.videoAssociatedParams.videoMediaStream
+        service.state.context.videoAssociatedParams!.videoMediaStream
       ).toEqual(mockVideoMediaStream);
       expect(mockNavigatorMediaDevices.getUserMedia).toHaveBeenNthCalledWith(
         1,
@@ -435,19 +442,19 @@ describe('Liveness Machine', () => {
       await transitionToRecording(service);
 
       expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
-      expect(service.state.context.videoAssociatedParams.videoEl).toBe(
+      expect(service.state.context.videoAssociatedParams!.videoEl).toBe(
         mockVideoEl
       );
-      expect(service.state.context.videoAssociatedParams.canvasEl).toBe(
+      expect(service.state.context.videoAssociatedParams!.canvasEl).toBe(
         mockCanvasEl
       );
-      expect(service.state.context.videoAssociatedParams.videoMediaStream).toBe(
-        mockVideoMediaStream
-      );
       expect(
-        service.state.context.livenessStreamProvider.getResponseStream
+        service.state.context.videoAssociatedParams!.videoMediaStream
+      ).toBe(mockVideoMediaStream);
+      expect(
+        service.state.context.livenessStreamProvider!.getResponseStream
       ).toHaveBeenCalledTimes(1);
-      expect(service.state.context.errorState).toBeNull();
+      expect(service.state.context.errorState).toBeUndefined();
 
       jest.advanceTimersToNextTimer();
       expect(service.state.value).toEqual('timeout');
@@ -468,12 +475,12 @@ describe('Liveness Machine', () => {
         recording: 'ovalMatching',
       });
       expect(
-        service.state.context.faceMatchAssociatedParams.faceMatchState
+        service.state.context.faceMatchAssociatedParams!.faceMatchState
       ).toBe(FaceMatchState.FACE_IDENTIFIED);
-      expect(service.state.context.ovalAssociatedParams.ovalDetails).toBe(
+      expect(service.state.context.ovalAssociatedParams!.ovalDetails).toBe(
         mockOvalDetails
       );
-      expect(service.state.context.ovalAssociatedParams.initialFace).toBe(
+      expect(service.state.context.ovalAssociatedParams!.initialFace).toBe(
         mockFace
       );
 
@@ -502,10 +509,10 @@ describe('Liveness Machine', () => {
       jest.advanceTimersToNextTimer();
       expect(service.state.value).toEqual({ recording: 'checkFaceDetected' });
       expect(
-        service.state.context.faceMatchAssociatedParams.faceMatchState
+        service.state.context.faceMatchAssociatedParams!.faceMatchState
       ).toBe(FaceMatchState.CANT_IDENTIFY);
       expect(
-        service.state.context.faceMatchAssociatedParams.illuminationState
+        service.state.context.faceMatchAssociatedParams!.illuminationState
       ).toBe(IlluminationState.BRIGHT);
     });
 
@@ -588,9 +595,9 @@ describe('Liveness Machine', () => {
         recording: 'flashFreshnessColors',
       });
       expect(
-        service.state.context.faceMatchAssociatedParams.faceMatchState
+        service.state.context.faceMatchAssociatedParams!.faceMatchState
       ).toBe(FaceMatchState.MATCHED);
-      expect(service.state.context.faceMatchAssociatedParams.endFace).toBe(
+      expect(service.state.context.faceMatchAssociatedParams!.endFace).toBe(
         mockFace
       );
     });
@@ -607,12 +614,12 @@ describe('Liveness Machine', () => {
         uploading: 'waitForDisconnectEvent',
       });
       expect(
-        service.state.context.faceMatchAssociatedParams.faceMatchState
+        service.state.context.faceMatchAssociatedParams!.faceMatchState
       ).toBe(FaceMatchState.MATCHED);
-      expect(service.state.context.faceMatchAssociatedParams.startFace).toBe(
+      expect(service.state.context.faceMatchAssociatedParams!.startFace).toBe(
         mockFace
       );
-      expect(service.state.context.faceMatchAssociatedParams.endFace).toBe(
+      expect(service.state.context.faceMatchAssociatedParams!.endFace).toBe(
         mockFace
       );
       expect(mockLivenessStreamProvider.sendClientInfo).toHaveBeenCalledTimes(
@@ -638,7 +645,7 @@ describe('Liveness Machine', () => {
       jest.advanceTimersToNextTimer();
       expect(service.state.value).toEqual({ recording: 'checkMatch' });
       expect(
-        service.state.context.faceMatchAssociatedParams.faceMatchState
+        service.state.context.faceMatchAssociatedParams!.faceMatchState
       ).toBe(FaceMatchState.TOO_CLOSE);
     });
   });
