@@ -3,6 +3,7 @@ import {
   uploadFile,
   humanFileSize,
   isValidExtension,
+  checkMaxSize,
 } from '../uploader';
 import { Storage } from 'aws-amplify';
 
@@ -159,6 +160,22 @@ describe('Uploader utils', () => {
       const isValid = isValidExtension('test.png', 'test2.jpg');
 
       expect(isValid).toBeFalsy();
+    });
+  });
+
+  describe('checkMaxSize', () => {
+    it('returns a message if file size exceeds max', () => {
+      const result = checkMaxSize(1, imageFile);
+
+      expect(result).toStrictEqual('File size must be below 1 B');
+    });
+
+    it('returns null if max size is zero', () => {
+      expect(checkMaxSize(0, imageFile)).toStrictEqual(null);
+    });
+
+    it('returns a message if file size is below max', () => {
+      expect(checkMaxSize(100, imageFile)).toStrictEqual(null);
     });
   });
 });

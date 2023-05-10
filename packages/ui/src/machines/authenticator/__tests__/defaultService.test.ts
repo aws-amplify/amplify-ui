@@ -1,8 +1,20 @@
-import { PasswordSettings } from '../../../types';
+import { AuthChallengeName, PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
+import { Auth } from 'aws-amplify';
 
-const { validateFormPassword } = defaultServices;
+jest.mock('aws-amplify');
+
+const {
+  handleConfirmSignIn,
+  handleConfirmSignUp,
+  handleForgotPassword,
+  handleForgotPasswordSubmit,
+  handleSignIn,
+  handleSignUp,
+  validateFormPassword,
+  validateConfirmPassword,
+} = defaultServices;
 
 const untouched = { password: false };
 const touched = { password: true };
@@ -119,5 +131,156 @@ describe('validateFormPassword', () => {
       strictPasswordPolicy
     );
     expect(result).toBeNull();
+  });
+});
+
+describe('validateConfirmPassword', () => {
+  it('validates as expected with valid password', async () => {
+    const password = 'UnitTest_Password';
+    const formData = {
+      password: password,
+      confirm_password: password,
+    };
+    const touchData = {
+      password: touched,
+      confirm_password: touched,
+    };
+
+    const result = await validateConfirmPassword(formData, touchData);
+
+    expect(result).toBeUndefined();
+  });
+
+  it('returns null if password and confirm_password are both empty', async () => {
+    const formData = {
+      password: '',
+      confirm_password: '',
+    };
+    const touchData = {
+      password: false,
+      confirm_password: false,
+    };
+
+    const result = await validateConfirmPassword(formData, touchData);
+
+    expect(result).toBeNull();
+  });
+  it('returns an error if password and confirm_password do not match', async () => {
+    const formData = {
+      password: 'password1',
+      confirm_password: 'password2',
+    };
+    const touchData = {
+      password: touched,
+      confirm_password: touched,
+    };
+
+    const result = await validateConfirmPassword(formData, touchData);
+
+    expect(result).toEqual({
+      confirm_password: 'Your passwords must match',
+    });
+  });
+
+  it('returns an error if password and confirm_password are both entered and have length >= 6', async () => {
+    const formData = {
+      password: 'password1',
+      confirm_password: 'password2',
+    };
+    const touchData = {
+      password: true,
+      confirm_password: true,
+    };
+
+    const result = await validateConfirmPassword(formData, touchData);
+
+    expect(result).toEqual({
+      confirm_password: 'Your passwords must match',
+    });
+  });
+});
+
+describe('handleSignUp', () => {
+  const testCredentials = { username: 'testuser', password: 'testpass' };
+  it('should call Auth.signUp with form data and autoSignIn enabled', async () => {
+    await handleSignUp(testCredentials);
+
+    expect(Auth.signUp).toHaveBeenCalledWith({
+      ...testCredentials,
+      autoSignIn: { enabled: true },
+    });
+  });
+});
+
+describe('handleSignIn', () => {
+  const testCredentials = { username: 'testuser', password: 'testpass' };
+  it('should call Auth.signIn with username and password', async () => {
+    await handleSignIn(testCredentials);
+
+    expect(Auth.signIn).toHaveBeenCalledWith(
+      testCredentials.username,
+      testCredentials.password
+    );
+  });
+});
+
+describe('handleConfirmSignIn', () => {
+  const testCredentials = {
+    user: 'testuser',
+    code: '1234',
+    mfaType: 'SMS_MFA' as AuthChallengeName,
+  };
+  it('should call Auth.confirmSignIn', async () => {
+    await handleConfirmSignIn(testCredentials);
+
+    expect(Auth.confirmSignIn).toHaveBeenCalledWith(
+      testCredentials.user,
+      testCredentials.code,
+      testCredentials.mfaType
+    );
+  });
+});
+
+describe('handleConfirmSignUp', () => {
+  const testCredentials = {
+    username: 'testuser',
+    code: '1234',
+  };
+  it('should call Auth.confirmSignUp', async () => {
+    await handleConfirmSignUp(testCredentials);
+
+    expect(Auth.confirmSignUp).toHaveBeenCalledWith(
+      testCredentials.username,
+      testCredentials.code
+    );
+  });
+});
+
+describe('handleForgotPasswordSubmit', () => {
+  const testCredentials = {
+    username: 'testuser',
+    password: 'testpassword',
+    code: '1234',
+  };
+  it('should call Auth.forgotPasswordSubmit', async () => {
+    await handleForgotPasswordSubmit(testCredentials);
+
+    expect(Auth.forgotPasswordSubmit).toHaveBeenCalledWith(
+      testCredentials.username,
+      testCredentials.code,
+      testCredentials.password
+    );
+  });
+});
+
+describe('handleForgotPassword', () => {
+  const testCredentials = {
+    username: 'testuser',
+    password: 'testpassword',
+  };
+  it('should call Auth.forgotPassword', async () => {
+    await handleForgotPassword(testCredentials);
+
+    expect(Auth.forgotPassword).toHaveBeenCalledWith({ ...testCredentials });
   });
 });
