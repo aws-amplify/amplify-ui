@@ -31,6 +31,7 @@ if grep -qi "error\|fail" "$LOG_FILE" || [ ! -s "$LOG_FILE" ]; then
 fi
 
 # If no errors were found, exit with a success status code
+echo -e "$LOG_FILE:"
 cat $LOG_FILE
 echo -e "${GREEN_BOLD}No errors detected in $LOG_FILE${NC}"
 exit 0
