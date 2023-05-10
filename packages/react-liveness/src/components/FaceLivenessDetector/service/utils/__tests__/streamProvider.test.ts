@@ -239,5 +239,19 @@ describe('LivenessStreamProvider', () => {
       expect(mockVideoRecorder.stop).toHaveBeenCalled();
       expect(response).toBeUndefined();
     });
+
+    test('should stop video even if the stream is not available', async () => {
+      const provider = new LivenessStreamProvider(
+        'sessionId',
+        'us-east-1',
+        mockVideoMediaStream,
+        mockVideoEl
+      );
+      (provider as any)._reader = undefined;
+      const response = await provider.endStream();
+
+      expect(mockVideoRecorder.stop).toHaveBeenCalled();
+      expect(response).toBeUndefined();
+    });
   });
 });
