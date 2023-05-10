@@ -6,7 +6,53 @@ There are three methods to setup the Amazon Cognito resources needed for Amplify
   <TabItem title="Amplify CLI">
 > Use the Amplify CLI to automatically configure and manage your Cognito Identity and User Pool for you.
 
-FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. If you are setting up Amplify for the first time, follow the instructions in the developer guide for [setting up Amplify Auth with our recommended settings](https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-prerequisites.html#face-liveness-prerequisites-amplify).
+FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. If you are using Amplify for the first time, follow the instructions for [installing the Amplify CLI](https://docs.amplify.aws/cli/start/install/).
+
+#### Set up a new Amplify project
+
+```bash
+$ amplify init
+? Enter a name for the project reactliveness
+? Enter a name for the environment dev
+? Choose your default editor: Visual Studio Code
+? Choose the type of app that you're building javascript
+Please tell us about your project
+? What javascript framework are you using react
+? Source Directory Path:  src
+? Distribution Directory Path: build
+? Build Command:  npm run-script build
+? Start Command: npm run-script start
+```
+
+#### Add the auth category
+
+```bash
+$ amplify add auth
+ Do you want to use the default authentication and security configuration? Manual configuration
+ 
+ Select the authentication/authorization services that you want to use: User Sign-Up, Sign-In, connected with AWS IAM controls (Enables per-user Storage features for images or other content, Analytics, and more)
+ 
+ Provide a friendly name for your resource that will be used to label this category in the project: <default>
+ 
+ Enter a name for your identity pool. <default>
+ 
+ Allow unauthenticated logins? (Provides scoped down permissions that you can control via AWS IAM) Yes
+ 
+ <Choose defaults for the rest of the questions>   
+```
+
+#### Push to create the resources
+
+```bash
+$ amplify push
+✔ Successfully pulled backend environment dev from the cloud.
+
+Current Environment: dev
+
+| Category | Resource name    | Operation | Provider plugin   |
+| -------- | ---------------- | --------- | ----------------- |
+| Auth     | reactlive••••••• | Create    | awscloudformation | 
+```
 
 _If you have an existing Amplify backend, run `amplify pull` to sync your `aws-exports.js` with your cloud backend._
 

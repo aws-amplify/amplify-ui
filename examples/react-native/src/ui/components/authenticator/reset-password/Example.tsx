@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Authenticator } from '@aws-amplify/ui-react-native';
-import { Amplify, I18n } from 'aws-amplify';
-import { translations } from '@aws-amplify/ui';
+import { Amplify } from 'aws-amplify';
 
 import { SignOutButton } from '../SignOutButton';
 import awsconfig from './aws-exports';
@@ -13,17 +12,29 @@ Amplify.configure({
   Auth: { endpoint: 'http://127.0.0.1:9091/' },
 });
 
-I18n.putVocabularies(translations);
-I18n.setLanguage('en');
-I18n.putVocabulariesForLanguage('en', {
-  'Enter your code': 'Enter the code given',
-  'It may take a minute to arrive': 'It will take several minutes to arrive',
-});
-
 function App() {
   return (
     <Authenticator.Provider>
-      <Authenticator initialState="signUp">
+      <Authenticator
+        initialState="resetPassword"
+        components={{
+          ResetPassword: (props) => (
+            <Authenticator.ResetPassword
+              {...props}
+              fields={[
+                {
+                  type: 'default',
+                  name: 'username',
+                  label: 'Enter your username',
+                  placeholder: 'Enter your Username',
+                  required: true,
+                  testID: 'authenticator__text-field__input-username',
+                },
+              ]}
+            />
+          ),
+        }}
+      >
         <View style={style.container}>
           <SignOutButton />
         </View>

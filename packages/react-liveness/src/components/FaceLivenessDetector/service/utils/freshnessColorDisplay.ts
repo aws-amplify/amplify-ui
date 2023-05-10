@@ -60,11 +60,9 @@ export class FreshnessColorDisplay {
     resolve: (params: any) => void,
     _: (params: any) => void
   ) {
-    const {
-      freshnessColorAssociatedParams: { freshnessColorEl },
-      ovalAssociatedParams: { ovalDetails, scaleFactor },
-      videoAssociatedParams: { videoEl },
-    } = this.context;
+    const { freshnessColorEl } = this.context.freshnessColorAssociatedParams!;
+    const { ovalDetails, scaleFactor } = this.context.ovalAssociatedParams!;
+    const { videoEl } = this.context.videoAssociatedParams!;
     const tickStartTime = Date.now();
 
     // Send a colorStart time only for the first tick of the first color
@@ -81,7 +79,7 @@ export class FreshnessColorDisplay {
 
     let timeSinceLastColorChange =
       tickStartTime - this.timeLastFlatOrScrollChange;
-    freshnessColorEl.style.display = 'block';
+    freshnessColorEl!.style.display = 'block';
 
     // Every 10 ms tick we will check if the threshold for flat or scrolling, if so we will try to go to the next stage
     if (
@@ -104,18 +102,18 @@ export class FreshnessColorDisplay {
           : this.currColorSequence.flatDisplayDuration);
 
       fillOverlayCanvasFractional({
-        overlayCanvas: freshnessColorEl,
+        overlayCanvas: freshnessColorEl!,
         prevColor: this.prevColorSequence.color,
         nextColor: this.currColorSequence.color,
-        videoEl: videoEl,
-        ovalDetails,
+        videoEl: videoEl!,
+        ovalDetails: ovalDetails!,
         heightFraction,
-        scaleFactor,
+        scaleFactor: scaleFactor!,
       });
 
       resolve(false);
     } else {
-      freshnessColorEl.style.display = 'none';
+      freshnessColorEl!.style.display = 'none';
       resolve(true);
     }
   }
@@ -156,15 +154,13 @@ export class FreshnessColorDisplay {
 
   // Every 100 ms we  will check if the face is still in the oval
   private async matchFaceInOval(reject: () => void) {
-    const {
-      ovalAssociatedParams: { faceDetector },
-      videoAssociatedParams: { videoEl },
-    } = this.context;
+    const { faceDetector } = this.context.ovalAssociatedParams!;
+    const { videoEl } = this.context.videoAssociatedParams!;
 
     const timeSinceLastFaceMatchCheck =
       Date.now() - this.timeLastFaceMatchChecked;
     if (timeSinceLastFaceMatchCheck > FACE_MATCH_TICK_RATE) {
-      const faceMatchState = await getFaceMatchState(faceDetector, videoEl);
+      const faceMatchState = await getFaceMatchState(faceDetector!, videoEl!);
 
       this.timeLastFaceMatchChecked = Date.now();
       if (faceMatchState === FaceMatchState.MATCHED) {
@@ -190,7 +186,7 @@ export class FreshnessColorDisplay {
     currColorIndex: number;
   }) {
     const { livenessStreamProvider, challengeId } = this.context;
-    livenessStreamProvider.sendClientInfo({
+    livenessStreamProvider!.sendClientInfo({
       Challenge: {
         FaceMovementAndLightChallenge: {
           ChallengeId: challengeId,

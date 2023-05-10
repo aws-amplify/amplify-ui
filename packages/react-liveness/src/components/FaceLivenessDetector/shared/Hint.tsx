@@ -17,10 +17,10 @@ export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
 );
 export const selectFaceMatchState = createLivenessSelector(
-  (state) => state.context.faceMatchAssociatedParams.faceMatchState
+  (state) => state.context.faceMatchAssociatedParams!.faceMatchState
 );
 export const selectIlluminationState = createLivenessSelector(
-  (state) => state.context.faceMatchAssociatedParams.illuminationState
+  (state) => state.context.faceMatchAssociatedParams!.illuminationState
 );
 export const selectIsFaceFarEnoughBeforeRecording = createLivenessSelector(
   (state) => state.context.isFaceFarEnoughBeforeRecording

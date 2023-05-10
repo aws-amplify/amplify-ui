@@ -75,6 +75,7 @@ Feature: Sign In with Phone Number
     And I type my password
     And I click the "Sign in" button
     Then I see "Sign out"
+    And I click the "Sign out" button
 
   @angular @react @vue
   Scenario: Sign in with confirmed credentials and don't select country code
