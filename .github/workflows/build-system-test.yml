@@ -207,9 +207,9 @@ jobs:
           FRAMEWORK_VERSION: ${{ matrix.framework-version }}
           PLATFORM: ${{ matrix.platform }}
           LOG_FILE: ${{ matrix.logfile }}
-      - name: Detect Android Error
-        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'android' }}
-        run: ./.github/scripts/check-android.sh
+      - name: Detect Mega App Error in Log
+        if: ${{ matrix.framework == 'react-native' }}
+        run: ./.github/scripts/check-react-native-log.sh
         shell: bash
         env:
           BUILD_TOOL: ${{ matrix.build-tool }}
