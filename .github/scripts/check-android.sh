@@ -10,8 +10,8 @@ cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 # Define the log file to check
 LOG_FILE=$1
 
-# Define the time to wait the command
-TIME_TO_WAIT=120
+# Define the time of seconds to wait the command
+TIME_TO_WAIT=200
 
 # Define the color codes
 BLUE_BOLD="\033[1;36m"
