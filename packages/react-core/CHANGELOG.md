@@ -4,10 +4,10 @@
 
 ### Patch Changes
 
-- [#3759](https://github.com/aws-amplify/amplify-ui/pull/3759) [`64445ebbe`](https://github.com/aws-amplify/amplify-ui/commit/64445ebbee4dd6106375e809fb07cd21fdaff346) Thanks [@sreeramsama](https://github.com/sreeramsama)! - Add ui-react-core-notifications
+- [#3759](https://github.com/aws-amplify/amplify-ui/pull/3759) [`64445ebbe`](https://github.com/aws-amplify/amplify-ui/commit/64445ebbee4dd6106375e809fb07cd21fdaff346) Thanks [@sreeramsama](https://github.com/sreeramsama)! - Add `ui-react-core-notifications` package for utilities related to the Notifications category.
 
-- [#3824](https://github.com/aws-amplify/amplify-ui/pull/3824) [`fca578782`](https://github.com/aws-amplify/amplify-ui/commit/fca57878265e35e48a64993d82fc386a91a62fc7) Thanks [@sreeramsama](https://github.com/sreeramsama)! - Add new ui-react-notifications package for components like InAppMessaging.
-  Specifically, add deprecation messages for InAppMessagingDisplay, InAppMessagingProvider and useInAppMessaging in ui-react package. They have been migrated to `@aws-amplify/ui-react-notifications` and will be removed from this package in a future major release. Please install `@aws-amplify/ui-react-notifications` and update the import paths.
+- [#3824](https://github.com/aws-amplify/amplify-ui/pull/3824) [`fca578782`](https://github.com/aws-amplify/amplify-ui/commit/fca57878265e35e48a64993d82fc386a91a62fc7) Thanks [@sreeramsama](https://github.com/sreeramsama)! - Add new `ui-react-notifications` package for components like InAppMessaging.
+  Add deprecation messages for InAppMessagingDisplay, InAppMessagingProvider and useInAppMessaging in `ui-react` package. They have been migrated to `@aws-amplify/ui-react-notifications` and will be removed from `ui-react` in a future major release. Please install `@aws-amplify/ui-react-notifications` and update the import paths.
 
 - [#3806](https://github.com/aws-amplify/amplify-ui/pull/3806) [`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui): add event callbacks to defaultAuthHubHandler
 

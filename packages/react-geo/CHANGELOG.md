@@ -4,7 +4,7 @@
 
 ### Major Changes
 
-- [#3706](https://github.com/aws-amplify/amplify-ui/pull/3706) [`951b833b2`](https://github.com/aws-amplify/amplify-ui/commit/951b833b2373e6bf0652ef44a1554d99765ffe46) Thanks [@sreeramsama](https://github.com/sreeramsama)! - Add new ui-react-geo package for Geo related components. They will be moved out from ui-react in a future breaking change release.
+- [#3706](https://github.com/aws-amplify/amplify-ui/pull/3706) [`951b833b2`](https://github.com/aws-amplify/amplify-ui/commit/951b833b2373e6bf0652ef44a1554d99765ffe46) Thanks [@sreeramsama](https://github.com/sreeramsama)! - Add new `ui-react-geo` package for Geo related components. They will be moved out from `ui-react` in a future breaking change release.
 
 ### Patch Changes
 
