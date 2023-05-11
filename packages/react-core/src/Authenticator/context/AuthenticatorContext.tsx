@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AuthInterpreter } from '@aws-amplify/ui';
+import { AuthInterpreter, AuthStatus } from '@aws-amplify/ui';
 
 /**
  * Authenticator React.Context type
@@ -12,5 +12,6 @@ type AuthenticatorContextType = { service: AuthInterpreter };
  *
  * https://xstate.js.org/docs/recipes/react.html#context-provider
  */
-export const AuthenticatorContext =
-  React.createContext<AuthenticatorContextType | null>(null);
+export const AuthenticatorContext = React.createContext<
+  (AuthenticatorContextType & { authStatus: AuthStatus }) | null
+>(null);
