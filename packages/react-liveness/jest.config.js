@@ -6,9 +6,9 @@ module.exports = {
   coverageThreshold: {
     global: {
       branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
+      functions: 85,
+      lines: 89,
+      statements: 89,
     },
   },
   globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
