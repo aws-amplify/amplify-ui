@@ -16,13 +16,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        framework: [react]
-        framework-version: [latest]
-        build-tool: [cra, next, vite]
-        build-tool-version: [latest]
-        pkg-manager: [npm]
-        language: [ts]
-        node-version: [18]
+        # framework: [react]
+        # framework-version: [latest]
+        # build-tool: [cra, next, vite]
+        # build-tool-version: [latest]
+        # pkg-manager: [npm]
+        # language: [ts]
+        # node-version: [18]
         include:
           - framework: react-native
             framework-version: latest
@@ -32,6 +32,7 @@ jobs:
             language: ts
             node-version: 18
             platform: ios
+            logfile: test.log
           - framework: react-native
             framework-version: latest
             build-tool: cli
@@ -223,7 +224,6 @@ jobs:
           FRAMEWORK_VERSION: ${{ matrix.framework-version }}
           PLATFORM: ${{ matrix.platform }}
           LOG_FILE: ${{ matrix.logfile }}
-
 
   # log-failure-metric:
   #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
