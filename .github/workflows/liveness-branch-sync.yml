@@ -15,11 +15,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-      - name: Sync branches
-        uses: repo-sync/pull-request@7e79a9f5dc3ad0ce53138f01df2fad14a04831c5
-        id: open-pr
-        with:
-          source_branch: main
-          destination_branch: liveness-release
-          pr_title: 'Sync branch main to liveness-release'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create sync pull request
+        run: gh pr create -B liveness-release -H main --title 'Sync branch main to liveness-release' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
