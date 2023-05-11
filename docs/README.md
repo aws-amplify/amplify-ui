@@ -73,11 +73,13 @@ Then you need to:
 2. Set "Environment variables" from the left sidebar. Add "SITE_URL", "DOCSEARCH_DOCS_APP_ID", "DOCSEARCH_DOCS_API_KEY", "DOCSEARCH_DOCS_INDEX_NAME".
    - "SITE_URL": feel free to use any string
    - "DOCSEARCH_DOCS_APP_ID", "DOCSEARCH_DOCS_API_KEY", "DOCSEARCH_DOCS_INDEX_NAME". If you have them from [Algolia DocSearch](https://docsearch.algolia.com/), use them. Otherwise, please use DocSearch's [testing credentials](https://docsearch.algolia.com/docs/DocSearch-v3)
+   - "NODE_OPTIONS": may not be necessary but will help resolve GC/memory errors when deploying
      ```
      DOCSEARCH_DOCS_APP_ID="R2IYF7ETH7"
      DOCSEARCH_DOCS_API_KEY="599cec31baffa4868cae4e79f180729b"
      DOCSEARCH_DOCS_INDEX_NAME="docsearch"
      SITE_URL="https://localhost:5001" # can be any string
+     NODE_OPTIONS="--max_old_space_size=32768"
      ```
 
 ## Link Checking Locally

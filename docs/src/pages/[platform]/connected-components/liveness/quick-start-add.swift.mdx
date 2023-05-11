@@ -32,7 +32,6 @@ struct MyView: View {
     FaceLivenessDetectorView(
       sessionID: <session ID>,
       region: <region>,
-      credentialsProvider: MyCredentialsProvider(),
       isPresented: $isPresentingLiveness,
       onCompletion: { result in
         switch result {
