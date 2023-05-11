@@ -24,6 +24,12 @@ NC="\033[0m"
 echo -e "${BLUE_BOLD}Sleep for $TIME_TO_WAIT second...${NC}"
 sleep $TIME_TO_WAIT
 
+# Check if the log file only has one line
+if [[ $(wc -l <"$LOG_FILE") -eq 1 && $(head -n 1 "$LOG_FILE") == "info Starting logkitty" ]]; then
+  echo -e "${RED_BOLD}Failed to get the logging messages. Please increase TIME_TO_WAIT.${NC}"
+  exit 1
+fi
+
 # Define the exceptions to the error criteria
 EXCEPTIONS=("Notifications.InAppMessaging - Failed to sync messages" "InAppMessaging.AWSPinpointProvider - Error getting in-app messages")
 
