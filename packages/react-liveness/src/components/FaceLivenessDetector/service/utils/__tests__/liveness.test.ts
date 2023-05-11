@@ -1,7 +1,6 @@
 import 'jest-canvas-mock';
 import {
   drawLivenessOvalInCanvas,
-  estimateIllumination,
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
   getFaceMatchStateInLivenessOval,
@@ -15,12 +14,7 @@ import {
   mockOvalDetails,
   mockSessionInformation,
 } from '../__mocks__/testUtils';
-import {
-  Face,
-  FaceMatchState,
-  IlluminationState,
-  LivenessOvalDetails,
-} from '../../types';
+import { Face, FaceMatchState, LivenessOvalDetails } from '../../types';
 
 describe('Liveness Helper', () => {
   describe('getOvalDetailsFromSessionInformation', () => {
