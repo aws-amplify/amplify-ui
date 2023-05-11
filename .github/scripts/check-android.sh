@@ -10,6 +10,9 @@ cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 # Define the log file to check
 LOG_FILE=$1
 
+# Define the time to run the command
+TIME_TO_RUN=60
+
 # Define the color codes
 BLUE_BOLD="\033[1;36m"
 GREEN_BOLD="\033[1;32m"
