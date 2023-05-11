@@ -37,6 +37,8 @@ else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
         echo "ls -la"
         ls -la
+        echo "npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
         if [[ "$PLATFORM" == "ios" ]]; then
             echo "SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)"
             SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)
