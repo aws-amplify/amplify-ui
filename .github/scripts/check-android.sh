@@ -45,7 +45,7 @@ while read -r line; do
   fi
   for exception in "${EXCEPTIONS[@]}"; do
     if [[ "$line" == *"$exception"* ]]; then
-      echo -e "${YELLOW} found: $line${NC}"
+      echo -e "${YELLOW_BOLD}Exception found: $line${NC}"
       LINE_ERROR=false
       break
     fi

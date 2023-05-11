@@ -46,12 +46,12 @@ else
             echo $SIMULATOR_ID
             echo "xcrun simctl boot $SIMULATOR_ID"
             xcrun simctl boot $SIMULATOR_ID
-            echo "npm install $DEPENDENCIES"
-            npm install $DEPENDENCIES
             echo "npm run $PLATFORM"
             npm run $PLATFORM
         else
+            echo "cp ../../../.github/scripts/build-android.sh ./build-android.sh"
             cp ../../../.github/scripts/build-android.sh ./build-android.sh
+            echo "./build-android.sh $LOG_FILE"
             ./build-android.sh $LOG_FILE
         fi
     else
