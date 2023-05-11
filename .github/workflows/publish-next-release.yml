@@ -5,10 +5,6 @@
 
 name: Test and Publish / next-release
 
-concurrency:
-  group: next-release-${{ github.sha }}
-  cancel-in-progress: true
-
 on:
   push:
     branches: [next-release/main]
