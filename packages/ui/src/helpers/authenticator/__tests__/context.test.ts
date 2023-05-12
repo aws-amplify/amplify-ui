@@ -1,4 +1,4 @@
-import { AuthContext, AuthMachineState, LoginMechanism } from '../../../types';
+import { AuthContext, AuthMachineState } from '../../../types';
 import { getPrimaryAlias, getConfiguredAliases } from '../context';
 
 describe('getPrimaryAlias', () => {
