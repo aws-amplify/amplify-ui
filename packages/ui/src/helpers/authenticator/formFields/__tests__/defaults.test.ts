@@ -126,7 +126,7 @@ describe('defaultFormFieldsGetters', () => {
 
   it('console.debug is called with expected message for unsupported signup field', () => {
     const debugSpy = jest.spyOn(console, 'debug');
-    const formFields = defaultFormFieldsGetters.signUp(badState);
+    defaultFormFieldsGetters.signUp(badState);
 
     expect(debugSpy).toHaveBeenCalledWith(
       `Authenticator does not have a default implementation for test. Customize SignUp FormFields to add your own.`
