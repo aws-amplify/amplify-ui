@@ -17,11 +17,15 @@ touch $LOG_FILE
 echo -e "${BLUE_BOLD}Installing react-native-log-ios...${NC}"
 npm install -D react-native-log-ios
 echo -e "${BLUE_BOLD}Logging errors from mega-app $MEGA_APP_NAME to $LOG_FILE in the background...${NC}"
-echo -e "${GREEN_BOLD}npx react-native-log-ios $MEGA_APP_NAME >$LOG_FILE &${NC}"
 npx react-native-log-ios $MEGA_APP_NAME >$LOG_FILE &
 
+# Run `npm start` to prevent "no bundle URL present"
+# details: https://stackoverflow.com/questions/42610070/what-is-the-meaning-of-no-bundle-url-present-in-react-native
+echo -e "${BLUE_BOLD}npm start${NC}"
+npm start &
+
 # Step 2: Run npm run android in the background for <time> seconds
-echo "npx pod-install" # To prevent "AsyncStorage is null." https://react-native-async-storage.github.io/async-storage/docs/install/
+echo -e "${BLUE_BOLD}npx pod-install${NC}" # To prevent "AsyncStorage is null." https://react-native-async-storage.github.io/async-storage/docs/install/
 npx pod-install
 echo -e "${BLUE_BOLD}Running npm run ios...${NC}"
 npm run ios
