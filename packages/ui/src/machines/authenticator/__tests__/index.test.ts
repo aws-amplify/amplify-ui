@@ -423,7 +423,7 @@ describe('authenticator', () => {
     });
   });
 
-  it('should spawn the signOut actor ', async () => {
+  it('should spawn the signOut actor', async () => {
     service = interpret(
       createAuthenticatorMachine().withConfig({
         actions: {
