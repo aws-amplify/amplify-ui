@@ -13,6 +13,12 @@ on:
         # repository to run tests against (possibly a fork of amplify-ui)
         required: true
         type: string
+        # skip checking changed packages job if true
+      skip-changed-packages-check:
+        required: false
+        default: false
+        type: boolean
+
     secrets:
       AUTH_E2E_ROLE_ARN:
         required: true
@@ -316,7 +322,7 @@ jobs:
   check-changed-packages:
     runs-on: ubuntu-latest
     outputs:
-      has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
+      has-changed-packages: ${{ inputs.skip-changed-packages-check || steps.has-rn-changed-packages.outputs.has-changed-packages }}
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
@@ -328,6 +334,7 @@ jobs:
 
       - name: Determine if there were changes to react-native packages
         id: has-rn-changed-packages
+        if: ${{ !inputs.skip-changed-packages-check }}
         uses: ./.github/actions/changed-packages
         with:
           commit: ${{ inputs.commit }}
@@ -571,7 +578,7 @@ jobs:
           # all network requests going from the device on this port will be forwarded to the virtual machine where the mock server is running
           $ANDROID_HOME/platform-tools/adb reverse tcp:9091 tcp:9091
           yarn workspace e2e detox:e2e:android:debug
-          
+
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
