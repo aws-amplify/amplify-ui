@@ -1,16 +1,15 @@
-import { actions, createMachine } from 'xstate';
-
+import { Auth } from 'aws-amplify';
 import {
   clearAttributeToVerify,
   handleSubmit,
-  setChallengeName,
+  resendCode,
   setFieldErrors,
   setTotpSecretCode,
   setUsername,
   stopActor,
 } from '../actions';
 
-const { assign } = actions;
+jest.mock('aws-amplify');
 
 describe('stopActor', () => {
   it('should call xstate.stop', async () => {
@@ -70,5 +69,15 @@ describe('handleSubmit', () => {
 
     expect(result.type).toStrictEqual('xstate.assign');
     expect(result.assignment['formValues']).toStrictEqual(expect.any(Function));
+  });
+});
+
+describe('resendCode', () => {
+  it('should call Auth.forgotPassword', async () => {
+    const authSpy = jest.spyOn(Auth, 'forgotPassword');
+    const mockUsername = 'test';
+    resendCode({ username: mockUsername });
+
+    expect(authSpy).toHaveBeenCalledWith(mockUsername);
   });
 });

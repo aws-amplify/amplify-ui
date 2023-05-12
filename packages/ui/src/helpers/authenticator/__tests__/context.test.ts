@@ -13,6 +13,10 @@ describe('getPrimaryAlias', () => {
     } as AuthMachineState;
     expect(getPrimaryAlias(state)).toEqual('email');
   });
+
+  it("shouldn't break if state isn't provided", () => {
+    expect(getPrimaryAlias(null)).toEqual('username');
+  });
 });
 
 describe('getConfiguredAliases', () => {

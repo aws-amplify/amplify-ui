@@ -1,11 +1,12 @@
 import { AuthChallengeName, PasswordSettings } from '../../../types';
 import { defaultServices } from '../defaultServices';
 import { ALLOWED_SPECIAL_CHARACTERS } from '../../../helpers/authenticator/constants';
-import { Auth } from 'aws-amplify';
+import { Amplify, Auth } from 'aws-amplify';
 
 jest.mock('aws-amplify');
 
 const {
+  getAmplifyConfig,
   getCurrentUser,
   handleConfirmSignIn,
   handleConfirmSignUp,
@@ -15,6 +16,8 @@ const {
   handleSignUp,
   validateFormPassword,
   validateConfirmPassword,
+  validateCustomSignUp,
+  validatePreferredUsername,
 } = defaultServices;
 
 const untouched = { password: false };
@@ -42,6 +45,21 @@ describe('validateFormPassword', () => {
       { password },
       touched,
       strictPasswordPolicy
+    );
+    expect(result).toBeNull();
+  });
+
+  it('validates as expected with invalid password policy characters', async () => {
+    const password = 'UnitTest_Password1';
+    const passwordSettings: PasswordSettings = {
+      //@ts-expect-error
+      passwordPolicyCharacters: ['UNSUPPORTED'],
+      passwordPolicyMinLength: 8,
+    };
+    const result = await validateFormPassword(
+      { password },
+      touched,
+      passwordSettings
     );
     expect(result).toBeNull();
   });
@@ -217,6 +235,21 @@ describe('validateConfirmPassword', () => {
       confirm_password: 'Your passwords must match',
     });
   });
+
+  it('does not return an error if password is entered and and confirm_password is not and has length < 6', async () => {
+    const formData = {
+      password: 'password1',
+      confirm_password: 'pass',
+    };
+    const touchData = {
+      password: true,
+      confirm_password: false,
+    };
+
+    const result = await validateConfirmPassword(formData, touchData);
+
+    expect(result).toBeUndefined();
+  });
 });
 
 describe('handleSignUp', () => {
@@ -309,5 +342,29 @@ describe('getCurrentUser', () => {
     await getCurrentUser();
 
     expect(Auth.currentAuthenticatedUser).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getAmplifyConfig', () => {
+  it('should call Amplify.configure', async () => {
+    await getAmplifyConfig();
+
+    expect(Amplify.configure).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('validateFormPassword', () => {
+  it('does nothing', async () => {
+    const password = 'UnitTest_Password1';
+    const result = await validateCustomSignUp({ password }, touched);
+    expect(result).toBeUndefined();
+  });
+});
+
+describe('validatePreferredUsername', () => {
+  it('does nothing', async () => {
+    const username = 'test';
+    const result = await validatePreferredUsername({ username }, touched);
+    expect(result).toBeUndefined();
   });
 });

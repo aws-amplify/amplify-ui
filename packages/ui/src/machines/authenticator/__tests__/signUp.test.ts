@@ -171,7 +171,6 @@ describe('signUpActor', () => {
             validateSignUp: jest.fn(async () => Promise.resolve),
           },
           guards: {
-            isUserAlreadyConfirmed: jest.fn(() => false),
             shouldSkipConfirm: jest.fn(() => false),
           },
         })
@@ -189,5 +188,54 @@ describe('signUpActor', () => {
     expect(service.getSnapshot().value).toStrictEqual({
       confirmSignUp: 'edit',
     });
+  });
+
+  it('should handle resending the scenario when user is already confirmed', async () => {
+    service = interpret(
+      createSignUpMachine({})
+        .withContext({
+          intent: 'confirmSignUp',
+          authAttributes: {
+            username: mockUsername,
+            password: mockPassword,
+          },
+          loginMechanisms: ['username'],
+        } as unknown as SignUpContext)
+        .withConfig({
+          actions: {
+            clearFormValues: jest.fn(),
+            clearError: jest.fn(),
+            clearTouched: jest.fn(),
+            resendCode: jest.fn(),
+            sendUpdate: jest.fn(() => Promise.resolve),
+            setUnverifiedContactMethods: jest.fn(),
+            setUsername: jest.fn(),
+          },
+          services: {
+            checkVerifiedContact: jest.fn(async () => Promise.resolve),
+            confirmSignUp: jest.fn(async () => Promise.resolve),
+            setAutoSignInIntent: jest.fn(async () => Promise.resolve),
+            signUp: jest.fn(async () => Promise.resolve),
+            validateSignUp: jest.fn(async () => Promise.resolve),
+            resendConfirmationCode: jest.fn(async () => {
+              throw { message: 'User is already confirmed.' };
+            }),
+          },
+          guards: {
+            shouldSkipConfirm: jest.fn(() => false),
+          },
+        })
+    );
+    service.start();
+
+    expect(service.getSnapshot().value).toStrictEqual({
+      confirmSignUp: 'edit',
+    });
+    service.send({
+      type: 'RESEND',
+    });
+    await flushPromises();
+    expect(resendSignUpSpy).not.toHaveBeenCalled();
+    expect(service.getSnapshot().value).toStrictEqual('resolved');
   });
 });

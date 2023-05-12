@@ -12,6 +12,7 @@ const imageFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const docFile = new File(['goodbye'], 'goodbye.doc', {
   type: 'application/msword',
 });
+const noNameFile = new File(['hello'], null, null);
 describe('Uploader utils', () => {
   describe('returnAcceptedFiles', () => {
     it('returns only image files with mimetype image/*', () => {
@@ -37,6 +38,19 @@ describe('Uploader utils', () => {
         acceptedFileTypes
       );
       expect(acceptedFiles).toEqual([]);
+    });
+    it('returns files with specified mime type files', () => {
+      const acceptedFileTypes = [docFile.type];
+      const acceptedFiles = returnAcceptedFiles([docFile], acceptedFileTypes);
+      expect(acceptedFiles).toEqual([docFile]);
+    });
+    it("shouldn't crash if file name is not present", () => {
+      const acceptedFileTypes = [''];
+      const acceptedFiles = returnAcceptedFiles(
+        [noNameFile],
+        acceptedFileTypes
+      );
+      expect(acceptedFiles).toEqual([noNameFile]);
     });
   });
   describe('uploadfile', () => {
@@ -125,6 +139,27 @@ describe('Uploader utils', () => {
           contentType: 'binary/octet-stream',
         }
       );
+    });
+    it('calls Storage with level set to private', () => {
+      storageSpy.mockImplementation(() => Promise.resolve() as any);
+      uploadFile({
+        file: imageFile,
+        fileName: imageFile.name,
+        level: undefined,
+        progressCallback: () => '',
+        errorCallback: () => '',
+        completeCallback: () => '',
+        isResumable: true,
+      });
+
+      expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
+        completeCallback: expect.any(Function),
+        errorCallback: expect.any(Function),
+        level: 'private',
+        progressCallback: expect.any(Function),
+        resumable: true,
+        contentType: 'image/png',
+      });
     });
   });
 

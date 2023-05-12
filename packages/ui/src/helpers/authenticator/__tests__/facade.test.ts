@@ -147,9 +147,6 @@ describe('getServiceContextFacade', () => {
           user: {
             username: 'test',
           } as AmplifyUser,
-          config: {
-            socialProviders: ['amazon'],
-          },
         },
       } as AuthMachineState;
       const facade = getServiceContextFacade(state);
@@ -159,7 +156,6 @@ describe('getServiceContextFacade', () => {
       expect(facade.user).toEqual({
         username: 'test',
       });
-      expect(facade.socialProviders).toEqual(['amazon']);
     }
   );
 

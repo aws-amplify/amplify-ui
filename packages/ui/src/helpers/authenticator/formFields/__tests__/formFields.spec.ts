@@ -13,6 +13,8 @@ import {
   removeOrderKeys,
 } from '../formFields';
 
+import * as Actor from '../../actor';
+
 const fields: FormFieldsArray = [
   [
     'name',
@@ -56,6 +58,8 @@ const fields: FormFieldsArray = [
   ['phone_number', { order: 7, dialCode: '+44', labelHidden: true }],
 ];
 
+const getActorContextSpy = jest.spyOn(Actor, 'getActorContext');
+
 const generateMockState = (
   formFields: AuthFormFields | undefined,
   usernameAlias: LoginMechanism
@@ -80,7 +84,7 @@ describe('getCustomFormField', () => {
   it('returns empty object if customFormFields is not present', () => {
     const state = generateMockState(undefined, 'email');
     const result = getCustomFormFields('signIn', state);
-
+    expect(getActorContextSpy).toHaveBeenCalledWith(state);
     expect(result).toStrictEqual({});
   });
 
@@ -104,7 +108,7 @@ describe('getCustomFormField', () => {
     const {
       username: { label, placeholder, type, autocomplete, isRequired },
     } = getCustomFormFields('signIn', state);
-
+    expect(getActorContextSpy).toHaveBeenCalledWith(state);
     // overriden value should be present
     expect(label).toMatch('Mock Email Label');
 

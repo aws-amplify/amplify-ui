@@ -103,6 +103,14 @@ describe('authenticatorTextUtil', () => {
     });
   });
 
+  describe('getForgotPasswordText', () => {
+    it('returns the correct text forgot password', () => {
+      expect(authenticatorTextUtil.getForgotPasswordText(true)).toEqual(
+        'Forgot Password?'
+      );
+    });
+  });
+
   describe('authenticator shared text', () => {
     it('return a text for all the utils', () => {
       Object.entries(authenticatorTextUtil).map(([name, fn]) => {
