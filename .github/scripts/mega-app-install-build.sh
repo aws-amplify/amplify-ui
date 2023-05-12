@@ -40,12 +40,12 @@ else
         echo "npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
         npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
         if [[ "$PLATFORM" == "ios" ]]; then
-            echo "SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)"
-            SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)
-            echo "echo $SIMULATOR_ID"
-            echo $SIMULATOR_ID
-            echo "xcrun simctl boot $SIMULATOR_ID"
-            xcrun simctl boot $SIMULATOR_ID
+            # echo "SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)"
+            # SIMULATOR_ID=$(xcrun simctl getenv "iPhone 14" SIMULATOR_UDID)
+            # echo "echo $SIMULATOR_ID"
+            # echo $SIMULATOR_ID
+            # echo "xcrun simctl boot $SIMULATOR_ID"
+            # xcrun simctl boot $SIMULATOR_ID
             echo "cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh"
             cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh
             echo "./build-${PLATFORM}.sh $LOG_FILE"
