@@ -223,7 +223,7 @@ describe('authenticator', () => {
     });
   });
 
-  it('should spawn the signIn actor ', async () => {
+  it('should spawn the signIn actor', async () => {
     service = interpret(
       createAuthenticatorMachine()
         .withContext({
