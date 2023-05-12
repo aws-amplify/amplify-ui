@@ -1,45 +1,10 @@
-import {
-  FaceMovementAndLightServerChallenge,
-  LivenessResponseStream,
-  OvalParameters,
-  ServerChallenge,
-  SessionInformation,
-} from '@aws-sdk/client-rekognitionstreaming';
+import { LivenessResponseStream } from '@aws-sdk/client-rekognitionstreaming';
 
 export const isServerSesssionInformationEvent = (
   value: unknown
 ): value is LivenessResponseStream.ServerSessionInformationEventMember => {
   return !!(value as LivenessResponseStream.ServerSessionInformationEventMember)
     ?.ServerSessionInformationEvent;
-};
-
-export const isOvalParameters = (value: unknown): value is OvalParameters => {
-  const { CenterX, CenterY, Width } = value as OvalParameters;
-  return (
-    typeof Width === 'number' &&
-    typeof CenterX === 'number' &&
-    typeof CenterY === 'number'
-  );
-};
-
-export const isFaceMovementAndLightChallenge = (
-  value: unknown
-): value is FaceMovementAndLightServerChallenge => {
-  return isOvalParameters(
-    (value as FaceMovementAndLightServerChallenge)?.OvalParameters
-  );
-};
-
-export const isServerChallenge = (value: unknown): value is ServerChallenge => {
-  return isFaceMovementAndLightChallenge(
-    (value as ServerChallenge)?.FaceMovementAndLightChallenge
-  );
-};
-
-export const isSessionInformation = (
-  value: unknown
-): value is SessionInformation => {
-  return isServerChallenge((value as SessionInformation)?.Challenge);
 };
 
 export const isDisconnectionEvent = (
