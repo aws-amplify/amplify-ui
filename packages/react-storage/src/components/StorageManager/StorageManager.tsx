@@ -38,6 +38,7 @@ function StorageManager({
   components,
   provider,
   path,
+  filesRef,
 }: StorageManagerProps): JSX.Element {
   if (!acceptedFileTypes || !accessLevel || !maxFileCount) {
     logger.warn(
@@ -75,6 +76,7 @@ function StorageManager({
 
   const {
     addFiles,
+    clearFiles,
     files,
     removeUpload,
     setUploadingFile,
@@ -83,6 +85,14 @@ function StorageManager({
     setUploadSuccess,
     setUploadResumed,
   } = useStorageManager(defaultFiles);
+
+  React.useImperativeHandle(filesRef, () => {
+    return {
+      clearFiles: () => {
+        clearFiles();
+      },
+    };
+  });
 
   const dropZoneProps = useDropZone({
     onChange: (event: React.DragEvent<HTMLDivElement>) => {
