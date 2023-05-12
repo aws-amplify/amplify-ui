@@ -8,11 +8,12 @@ echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
 cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 
 # Define the time of seconds to wait the command
-if $PLATFORM == "ios"; then
-  TIME_TO_WAIT=240
-else
-  TIME_TO_WAIT=200
-fi
+# if $PLATFORM == "ios"; then
+#   TIME_TO_WAIT=240
+# else
+#   TIME_TO_WAIT=200
+# fi
+TIME_TO_WAIT=240
 
 # Define the color codes
 BLUE_BOLD="\033[1;36m"
