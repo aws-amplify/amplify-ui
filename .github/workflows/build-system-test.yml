@@ -6,12 +6,12 @@ permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
 on:
-  push:
-    branches: ['mega-app-canary-rn']
+  schedule:
+    - cron: '*/15 * * * *' # Run every 15 minutes
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     environment: ci
     strategy:
       fail-fast: false
@@ -24,24 +24,6 @@ jobs:
         language: [ts]
         node-version: [18]
         include:
-          - framework: react-native
-            framework-version: latest
-            build-tool: cli
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-            platform: ios
-            logfile: test.log
-          - framework: react-native
-            framework-version: latest
-            build-tool: cli
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-            platform: android
-            logfile: test.log
           - framework: react
             framework-version: latest
             build-tool: cra
@@ -86,9 +68,67 @@ jobs:
             language: ts
             node-version: 18
 
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-app
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-app
+            build-tool-version: 13
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-lib
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-lib
+            build-tool-version: 13
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
+          - framework: vue
+            framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
+            build-tool: vue-cli
+            build-tool-version: latest
+            pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
+            language: ts
+            node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: vite
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: vite
+            build-tool-version: 2
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: nuxt
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
-      DEPENDENCIES: react@${{ matrix.framework-version }} react-dom@${{ matrix.framework-version }} @aws-amplify/ui-react aws-amplify @aws-amplify/ui-react-storage
+      DEPENDENCIES: ${{ matrix.framework }}@${{ matrix.framework-version }} @aws-amplify/ui-${{ matrix.framework }} aws-amplify
       DEP_TYPES: '@types/react@${{ matrix.framework-version }} @types/react-dom@${{ matrix.framework-version }}'
 
     steps:
@@ -103,119 +143,40 @@ jobs:
           cache: ${{ matrix.pkg-manager }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-
-      - name: Restore CocoaPods cache
-        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'ios' }}
-        id: restore-cocoapods-cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        with:
-          path: ./examples/react-native/ios/Pods
-          key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
-          restore-keys: |
-            pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
-            pods-
-        continue-on-error: true
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-      - name: Restore node_modules cache
-        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'ios' }}
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        id: restore-cache
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
-      - name: Install Java 11
-        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'android' }}
-        uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
-        with:
-          distribution: 'corretto' # Amazon Corretto Build of OpenJDK
-          java-version: '11'
-
-      - name: Install iOS simulator
-        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'ios' }}
-        run: |
-          brew tap wix/brew
-          brew install applesimutils
-          brew install watchman
-          echo "ruby --version"
-          ruby --version
-      - name: Install packages
-        if: ${{ matrix.framework == 'react-native' }} && steps.restore-cache.outputs.cache-hit != 'true'
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: true
-      - name: Update CocoaPods
-        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'ios' }}
-        run: |
-          gem update cocoapods xcodeproj
-          yarn react-native-example ios:pod-install
-
-      - name: Install Android emulator
-        if: ${{ matrix.framework == 'react-native' && matrix.platform == 'android' }}
-        run: |
-          echo -e "echo \$ANDROID_HOME"
-          echo $ANDROID_HOME
-          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --device "pixel_5" --package "system-images;android-27;default;x86_64"
-
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
         run: ./.github/scripts/mega-app-create-app.sh
         shell: bash
         env:
-          FRAMEWORK: ${{ matrix.framework }}
-          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
           BUILD_TOOL: ${{ matrix.build-tool }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          FRAMEWORK: ${{ matrix.framework }}
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
-          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
-          PLATFORM: ${{ matrix.platform }}
       - name: Copy aws_export and App.js
         run: ./.github/scripts/mega-app-copy-files.sh
         shell: bash
         env:
+          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
           BUILD_TOOL: ${{ matrix.build-tool }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
+          FRAMEWORK: ${{ matrix.framework }}
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
-          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
-          FRAMEWORK: ${{ matrix.framework }}
-          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
-          PLATFORM: ${{ matrix.platform }}
       - name: Install Packages and Build
         run: ./.github/scripts/mega-app-install-build.sh
         shell: bash
         env:
-          BUILD_TOOL: ${{ matrix.build-tool }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
+          BUILD_TOOL: ${{ matrix.build-tool }}
+          DEP_TYPES: ${{ env.DEP_TYPES }}
+          DEPENDENCIES: ${{ env.DEPENDENCIES }}
+          FRAMEWORK: ${{ matrix.framework }}
+          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
           LANGUAGE: ${{ matrix.language }}
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
-          PKG_MANAGER: ${{ matrix.pkg-manager }}
           PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
-          DEPENDENCIES: ${{ env.DEPENDENCIES }}
-          DEP_TYPES: ${{ env.DEP_TYPES }}
-          FRAMEWORK: ${{ matrix.framework }}
-          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
-          PLATFORM: ${{ matrix.platform }}
-          LOG_FILE: ${{ matrix.logfile }}
-      - name: Detect Mega App Error in Log
-        if: ${{ matrix.framework == 'react-native' }}
-        run: ./.github/scripts/check-react-native-log.sh
-        shell: bash
-        env:
-          BUILD_TOOL: ${{ matrix.build-tool }}
-          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
-          LANGUAGE: ${{ matrix.language }}
           PKG_MANAGER: ${{ matrix.pkg-manager }}
-          PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
-          DEPENDENCIES: ${{ env.DEPENDENCIES }}
-          DEP_TYPES: ${{ env.DEP_TYPES }}
-          FRAMEWORK: ${{ matrix.framework }}
-          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
-          PLATFORM: ${{ matrix.platform }}
-          LOG_FILE: ${{ matrix.logfile }}
 
   log-failure-metric:
     # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
