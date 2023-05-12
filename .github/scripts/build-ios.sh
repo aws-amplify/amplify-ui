@@ -7,8 +7,6 @@ MEGA_APP_NAME=$2
 
 # Define the color codes
 BLUE_BOLD="\033[1;36m"
-GREEN_BOLD="\033[1;32m"
-RED_BOLD="\033[1;31m"
 NC="\033[0m"
 
 # Step 1: Log errors to LOG_FILE in the background
