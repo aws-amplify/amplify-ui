@@ -175,7 +175,7 @@ describe('authenticator', () => {
     expect(service.getSnapshot().value).toStrictEqual({ signIn: 'runActor' });
   });
 
-  it('should spawn the resetPassword actor ', async () => {
+  it('should spawn the resetPassword actor', async () => {
     service = interpret(
       createAuthenticatorMachine()
         .withContext({
