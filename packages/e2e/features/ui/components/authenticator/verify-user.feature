@@ -19,7 +19,7 @@ Feature: Verify User
     Then "New Label" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your Confirmation Code:"
 
-  @react-nativee
+  @react-native
   Scenario: Redirect to "Confirm Verify" page and replace label
     When I type my "email" with status "UNVERIFIED"
     And I type my password
@@ -30,7 +30,7 @@ Feature: Verify User
     And I click the "Skip" button
     And I click the "Sign out" button
 
-  @angular @react @vue @react-nativee
+  @angular @react @vue @react-native
   Scenario: Redirect to "Verify" page and verify custom header and footer text
     When I type my "email" with status "UNVERIFIED"
     And I type my password
@@ -40,7 +40,7 @@ Feature: Verify User
     And I click the "Skip" button
     And I click the "Sign out" button
 
-  @angular @react @vue @react-nativee
+  @angular @react @vue @react-native
   Scenario: Skip verify account
     When I type my "email" with status "UNVERIFIED"
     And I type my password
@@ -49,7 +49,7 @@ Feature: Verify User
     Then I see "Sign out"
     And I click the "Sign out" button
 
-  @angular @react @vue @react-nativee
+  @angular @react @vue @react-native
   Scenario: Redirect to "Confirm Verify" page and verify custom header and footer 
     When I type my "email" with status "UNVERIFIED"
     And I type my password
