@@ -317,7 +317,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               1: {
                 target: 'ovalMatching',
                 cond: 'hasNotFaceMatchedInOval',
-                // actions: 'resetFaceMatchTimeAndStartFace',
               },
             },
           },
@@ -334,14 +333,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   actions: 'updateFreshnessDetails',
                 },
               ],
-              // onError: {
-              //   target: 'flashFreshnessColorError',
-              // },
             },
-          },
-          flashFreshnessColorError: {
-            entry: ['updateErrorStateForFreshnessTimeout'],
-            always: [{ target: '#livenessMachine.timeout' }],
           },
           success: {
             entry: ['stopRecording'],
@@ -617,16 +609,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      resetFaceMatchTimeAndStartFace: assign({
-        faceMatchAssociatedParams: (context) => {
-          return {
-            ...context.faceMatchAssociatedParams,
-            startFace: undefined,
-            endFace: undefined,
-            initialFaceMatchTime: undefined,
-          };
-        },
-      }),
       resetErrorState: assign({
         errorState: (_) => undefined,
       }),
@@ -660,15 +642,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             ...context.freshnessColorAssociatedParams,
             freshnessColorsComplete: event.data!.freshnessColorsComplete,
           };
-        },
-      }),
-      updateErrorStateForFreshnessTimeout: assign({
-        errorState: (context) => {
-          const { freshnessColorEl } = context.freshnessColorAssociatedParams!;
-          if (freshnessColorEl) {
-            freshnessColorEl.style.display = 'none';
-          }
-          return LivenessErrorState.FRESHNESS_TIMEOUT;
         },
       }),
       setupFlashFreshnessColors: assign({
