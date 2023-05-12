@@ -49,7 +49,7 @@ else
             echo "cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh"
             cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh
             echo "./build-${PLATFORM}.sh $LOG_FILE"
-            ./build-${PLATFORM}.sh $LOG_FILE
+            ./build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME
         else
             echo "cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh"
             cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh

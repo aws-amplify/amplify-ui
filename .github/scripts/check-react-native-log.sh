@@ -8,12 +8,11 @@ echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
 cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 
 # Define the time of seconds to wait the command
-# if $PLATFORM == "ios"; then
-#   TIME_TO_WAIT=240
-# else
-#   TIME_TO_WAIT=200
-# fi
-TIME_TO_WAIT=240
+if [ "$PLATFORM" = "ios" ]; then
+  TIME_TO_WAIT=300
+else
+  TIME_TO_WAIT=200
+fi
 
 # Define the color codes
 BLUE_BOLD="\033[1;36m"
@@ -34,13 +33,13 @@ fi
 
 # Define the exceptions to the error criteria
 EXCEPTIONS=("Notifications.InAppMessaging - Failed to sync messages" "InAppMessaging.AWSPinpointProvider - Error getting in-app messages")
-START_MESSAGES=("info Starting logkitty" "React Native iOS Logger started for XCode project ${MEGA_APP_NAME}")
+START_MESSAGES=("info Starting logkitty" "React Native iOS Logger started for XCode project")
 
 # Step 0: Check if the log file has only one line with the start message
 echo -e "${BLUE_BOLD}Checking log file for start messages...\n${NC}"
 if [[ $(wc -l <"$LOG_FILE") -eq 1 ]]; then
   for start_message in "${START_MESSAGES[@]}"; do
-    if [[ $(head -n 1 "$LOG_FILE") == "$start_message" ]]; then
+    if echo $(head -n 1 "$LOG_FILE") | grep -q "$start_message"; then
       echo -e "${RED_BOLD}Failed to get the logging messages. Please increase TIME_TO_WAIT.${NC}"
       echo -e "${BLUE_BOLD}Full log:${NC}"
       cat "$LOG_FILE"
