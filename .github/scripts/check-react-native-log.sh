@@ -60,13 +60,14 @@ while read -r line; do
     echo -e $line
     LINE_ERROR=true
   elif [[ "$line" == *"fail"* ]]; then
-    echo -e "${RED_BOLD}fail found: ${NC}"
+    echo -e "${RED_BOLD}fail found:${NC}"
     echo -e $line
     LINE_ERROR=true
   fi
   for exception in "${EXCEPTIONS[@]}"; do
     if [[ "$line" == *"$exception"* ]]; then
-      echo -e "${YELLOW_BOLD}Exception found: $line${NC}"
+      echo -e "${YELLOW_BOLD}Exception found:${NC}"
+      echo -e $line
       LINE_ERROR=false
       break
     fi
