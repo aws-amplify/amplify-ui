@@ -198,7 +198,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         invoke: {
           src: 'openLivenessStreamConnection',
           onDone: {
-            target: 'waitForSessionInfo',
+            target: 'notRecording',
             actions: [
               'updateLivenessStreamProvider',
               'spawnResponseStreamActor',
@@ -206,38 +206,38 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
         },
       },
-      waitForSessionInfo: {
-        after: {
-          0: {
-            target: 'notRecording',
-            cond: 'hasServerSessionInfo',
-          },
-          100: { target: 'waitForSessionInfo' },
-        },
-      },
       notRecording: {
         on: {
           START_RECORDING: 'recording', // if countdown completes while face is far enough, start recording
         },
-        initial: 'detectFaceDistanceDuringCountdown',
+        initial: 'waitForSessionInfo',
         states: {
-          detectFaceDistanceDuringCountdown: {
+          waitForSessionInfo: {
+            after: {
+              0: {
+                target: '#livenessMachine.recording',
+                cond: 'hasServerSessionInfo',
+              },
+              10: { target: 'detectFaceDistanceDuringLoading' },
+            },
+          },
+          detectFaceDistanceDuringLoading: {
             invoke: {
               src: 'detectFaceDistance',
               onDone: {
-                target: 'checkFaceDistanceDuringCountdown',
+                target: 'checkFaceDistanceDuringLoading',
                 actions: ['updateFaceDistanceBeforeRecording'],
               },
             },
           },
-          checkFaceDistanceDuringCountdown: {
+          checkFaceDistanceDuringLoading: {
             after: {
               0: {
                 target: 'failure',
                 cond: 'hasNotEnoughFaceDistanceBeforeRecording',
               },
-              200: {
-                target: 'detectFaceDistanceDuringCountdown',
+              100: {
+                target: 'waitForSessionInfo',
               },
             },
           },

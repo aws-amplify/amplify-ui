@@ -55,7 +55,6 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
   );
   const isRecording = state.matches('recording');
   const isNotRecording = state.matches('notRecording');
-  const isWaitingForSessionInfo = state.matches('waitForSessionInfo');
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');
   const isCheckFailed = state.matches('checkFailed');
@@ -102,12 +101,6 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       }
 
       if (isNotRecording) {
-        return (
-          <Toast>{hintDisplayText.hintHoldFacePositionCountdownText}</Toast>
-        );
-      }
-
-      if (isWaitingForSessionInfo) {
         return (
           <Toast>
             <Flex alignItems="center" gap="xs">

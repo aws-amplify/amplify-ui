@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
-import CountdownCircleTimer from 'react-countdown-circle-timer';
 import classNames from 'classnames';
 
-import { Flex, Loader, Text, View, useTheme } from '@aws-amplify/ui-react';
+import { Flex, Loader, View } from '@aws-amplify/ui-react';
 import { FaceMatchState } from '../service';
 import {
   useLivenessActor,
@@ -80,7 +79,6 @@ export const LivenessCameraModule = (
 
   const { ErrorView = FaceLivenessErrorModal } = customComponents ?? {};
 
-  const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
 
   const videoStream = useLivenessSelector(selectVideoStream);
@@ -102,10 +100,8 @@ export const LivenessCameraModule = (
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const freshnessColorRef = useRef<HTMLDivElement | null>(null);
 
-  const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
   const isCheckingCamera = state.matches('cameraCheck');
-  const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
   const isFlashingFreshness = state.matches({
@@ -145,13 +141,8 @@ export const LivenessCameraModule = (
     }
   }, [send, videoRef, isCameraReady, isMobileScreen]);
 
-  const timerCompleteHandler = () => {
-    send({ type: 'START_RECORDING' });
-  };
-
   const handleMediaPlay = () => {
     setIsCameraReady(true);
-    setCountDownRunning(true);
   };
 
   if (isCheckingCamera) {
@@ -218,66 +209,38 @@ export const LivenessCameraModule = (
           </View>
         )}
 
-        {countDownRunning && (
-          <Overlay
-            anchorOrigin={{
-              horizontal: 'center',
-              vertical:
-                isRecording && !isFlashingFreshness ? 'start' : 'space-between',
-            }}
-            className={LivenessClassNames.InstructionOverlay}
-          >
-            <Hint hintDisplayText={hintDisplayText} />
+        <Overlay
+          anchorOrigin={{
+            horizontal: 'center',
+            vertical:
+              isRecording && !isFlashingFreshness ? 'start' : 'space-between',
+          }}
+          className={LivenessClassNames.InstructionOverlay}
+        >
+          <Hint hintDisplayText={hintDisplayText} />
 
-            {errorState && (
-              <ErrorView
-                onRetry={() => {
-                  send({ type: 'CANCEL' });
-                }}
-              >
-                {renderErrorModal({
-                  errorState,
-                  overrideErrorDisplayText: errorDisplayText,
-                })}
-              </ErrorView>
-            )}
+          {errorState && (
+            <ErrorView
+              onRetry={() => {
+                send({ type: 'CANCEL' });
+              }}
+            >
+              {renderErrorModal({
+                errorState,
+                overrideErrorDisplayText: errorDisplayText,
+              })}
+            </ErrorView>
+          )}
 
-            {/* 
+          {/* 
               We only want to show the MatchIndicator when we're recording
               and when the face is in either the too far state, or the 
               initial face identified state
             */}
-            {isRecording &&
-            showMatchIndicatorStates.includes(faceMatchState!) ? (
-              <MatchIndicator percentage={faceMatchPercentage!} />
-            ) : null}
-
-            {isNotRecording && (
-              <View
-                className={LivenessClassNames.CountdownContainer}
-                testId="liveness-camera-countdown-timer"
-              >
-                <CountdownCircleTimer.CountdownCircleTimer
-                  isPlaying={isNotRecording}
-                  size={85}
-                  strokeWidth={8}
-                  duration={3}
-                  rotation="counterclockwise"
-                  // FIXME: colors is hard coded because it only allows a hex value
-                  colors="#40aabf"
-                  trailColor={`${tokens.colors.background.primary}`}
-                  onComplete={timerCompleteHandler}
-                >
-                  {({ remainingTime }) => (
-                    <Text fontSize="xxxl" fontWeight="bold">
-                      {remainingTime}
-                    </Text>
-                  )}
-                </CountdownCircleTimer.CountdownCircleTimer>
-              </View>
-            )}
-          </Overlay>
-        )}
+          {isRecording && showMatchIndicatorStates.includes(faceMatchState!) ? (
+            <MatchIndicator percentage={faceMatchPercentage!} />
+          ) : null}
+        </Overlay>
       </View>
     </Flex>
   );
