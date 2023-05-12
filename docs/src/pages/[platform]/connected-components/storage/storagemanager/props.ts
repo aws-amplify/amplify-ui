@@ -106,6 +106,12 @@ export const STORAGE_MANAGER = [
     description: 'The heading above the list of files',
     type: `React.ComponentType<FileListHeaderProps>`,
   },
+  {
+    name: `filesRef?`,
+    description:
+      'The ref for the imperative handle exposed by Storage Manager for manipulating the files state.',
+    type: `React.Ref<FilesRefType>`,
+  },
 ];
 
 export const FILE_PICKER = [
