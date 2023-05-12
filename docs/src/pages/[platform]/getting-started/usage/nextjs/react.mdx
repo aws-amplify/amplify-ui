@@ -24,212 +24,55 @@ Then, install the Amplify UI React package:
 
 <InstallScripts framework="react" />
 
-### Usage
+### App Router
+Next.js 13.4+ introduced the [App Router `/ app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [React Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). 
 
-<Tabs>
-  <TabItem title="Next.js 13.4+">
-  <Alert variation="info" role="none">
-    Amplify UI components only work in Client Components. If you need to load them into a Server Component, you need to convert them into client-side components by adding a `'use client'` at the top of your file. Please see instructions below on how you could achieve this. For more info, visit Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages).
-  </Alert>
+Amplify UI components are highly interactive and must be used as Client Components. In order to use Amplify UI components in a Server Component, you need to convert them to Client Components by adding a `'use client'` at the top of your file.
+
+For more info, visit Next.js [third party package documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages).
+
 #### UI Components
 
 To use an Amplify UI component in Server Components, you must re-export them as Client Components.
 
 An example below is shown for using Amplify UI `Button` component:
 
-First, create a Client Component file _AmplifyUIComponents.jsx_ that re-exports `Button`. Make sure to place `'use client'` at the top of _AmplifyConnectedComponents.jsx_ to let Nextjs know that should be handled as a Client Component.
+First, create a Client Component file _AmplifyComponents.jsx_ that re-exports `Button`. Make sure to place `'use client'` at the top of _AmplifyConnectedComponents.jsx_ to let Nextjs know that should be handled as a Client Component.
 
-    <ExampleCode>
+<ExampleCode>
 
-    ```tsx
-    // AmplifyUIComponents.jsx
-    'use client';
+```tsx
+// AmplifyComponents.jsx
+'use client';
 
-    import { Button } from '@aws-amplify/ui-react';
-    import '@aws-amplify/ui-react/styles.css';
+// To allow client-based Amplify components to be rendered inside of React Server Components we need to:
 
-    export { Button };
-    ```
+// 1. Import the Amplify components to be used in the application
+import { Button } from '@aws-amplify/ui-react';
 
-    </ExampleCode>
+// 2. Import the Amplify UI styles
+import '@aws-amplify/ui-react/styles.css';
+
+// 3. Re-export the Amplify components for use in the application
+export { Button };
+```
+
+</ExampleCode>
 
 Then, import `Button` from the Client Component and use it anywhere you want, e.g., `app/page.jsx`.
 
-    <ExampleCode>
+<ExampleCode>
 
-    ```tsx
-    // app/page.jsx
-    import { Button } from './AmplifyUIComponents';
+```tsx
+// app/page.jsx
+import { Button } from './AmplifyUIComponents';
 
-    export default function Home() {
-      return <Button>Hello, Amplify!</Button>;
-    }
-    ```
+export default function Home() {
+  return <Button>Hello, Amplify!</Button>;
+}
+```
 
-    </ExampleCode>
-
-#### Connected Components
-    To use an Amplify UI Connected Component within the _app_ directory, you must run `Amplify.configure` in a Client Component file.
-
-    First, create a Client Component file _configure-client.js_ by placing `'use client'` at the top within _app_ directory:
-
-    <ExampleCode>
-
-    ```tsx
-    // configure-client.js
-    'use client';
-  
-    import { Amplify } from "aws-amplify";
-    import '@aws-amplify/ui-react/styles.css';
-
-    import config from "../src/aws-exports";
-    
-    Amplify.configure(config);
-    ```
-
-    </ExampleCode>
-
-    Then import _configure-client.js_ in _layout.jsx_ to finish the setup,
-   <ExampleCode>
-
-    ```tsx
-    // layout.jsx
-    import "./configure-client";
-    ...
-    ```
-
-    </ExampleCode>
-
-You must re-export Connected Components as Client Components before using them in Server Components.
-
-An example below is shown for `Authenticator` component:
-
-First, create a Client Component, for example, _AmplifyConnectedComponents.jsx_ by placing `'use client'` at the top within _app_ directory,
-
-    <ExampleCode>
-
-    ```tsx
-    // AmplifyConnectedComponents.jsx
-    'use client';
-
-    import { Authenticator } from '@aws-amplify/ui-react';
-   
-    export { Authenticator };
-    ```
-
-    </ExampleCode>
-
-Then, import `Authenticator` from the Client Component and use it anywhere you want, e.g., _app/page.jsx_.
-
-      <ExampleCode>
-
-      ```tsx
-      // app/page.jsx
-      import { Authenticator } from './Authenticator';
-
-      export default function Home() {
-        return <Authenticator>Hello, Amplify!</Authenticator>;
-      }
-      ```
-
-      </ExampleCode>
-
-To use more Connected Components, you need to re-export them in the same Client Component _AmplifyConnectedComponents.jsx_ and then load them from there.
-
-    <ExampleCode>
-
-    ```tsx
-    // AmplifyConnectedComponents.jsx
-    'use client';
-
-    import { Authenticator } from '@aws-amplify/ui-react';
-    import { StorageManager } from '@aws-amplify/ui-react-storage';
-    import '@aws-amplify/ui-react/styles.css';
-
-    export { Authenticator, StorageManager };
-    ```
-
-    </ExampleCode>
-
-**You may want to combine the setup and re-exports into a single Client Component.**
-
-For example, create a Client Component file _AmplifyUI.js_ specific for Amplify UI under _app_ directory and then finish the setup with `Amplify.configure` and re-export everything you need from there.
-
-    <ExampleCode>
-
-    ```tsx
-    // AmplifyUI.js
-    'use client';
-
-    import { Amplify } from 'aws-amplify';
-
-    import { Authenticator, Button } from '@aws-amplify/ui-react';
-    import '@aws-amplify/ui-react/styles.css';
-
-    import awsExports from '../src/aws-exports';
-    Amplify.configure(awsExports);
-
-    export { Authenticator, Button };
-    ```
-
-    </ExampleCode>
-
-For more info, see Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages).
-
-  </TabItem>
-  <TabItem title="Next.js 11.0-13.3">
-#### UI Components
-To use Amplify UI components in page directory, simply import them into your modules.
-
-An example below is shown for using Amplify UI `Button` component:
-
-    <ExampleCode>
-
-    ```tsx
-    // src/pages/page.jsx
-    import { Button } from '@aws-amplify/ui-react';
-    import '@aws-amplify/ui-react/styles.css';
-
-    export default function Page() {
-      return (
-       <Button>Hello, Amplify!</Button>
-      );
-    }
-    ```
-
-   </ExampleCode>
-
-#### Connected Components
-To use Amplify Connected Componnets in page directory, you must set up `Amplify.configure` in `src/pages/_app.jsx`
-
-An example below is shown for `Authenticator` component:
-
-    <ExampleCode>
-
-    ```tsx
-    // src/pages/_app.jsx
-    import { Amplify } from 'aws-amplify';
-
-    import { Authenticator } from '@aws-amplify/ui-react';
-    import '@aws-amplify/ui-react/styles.css';
-
-    import awsExports from '../aws-exports';
-    Amplify.configure(awsExports);
-
-    export default function App({ Component, pageProps }) {
-      return (
-        // your app
-        <Authenticator>
-          <Component {...pageProps} />
-        </Authenticator>
-      );
-    }
-    ```
-
-   </ExampleCode>
-
-  </TabItem>
-</Tabs>
+</ExampleCode>
 
 ### Basic Demo
 
