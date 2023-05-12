@@ -33,13 +33,11 @@ Then, install the Amplify UI React package:
   </Alert>
 #### UI Components
 
-##### Single Component
-
-To use a Amplify UI component in Server Components, you must re-export them as Client Components.
+To use an Amplify UI component in Server Components, you must re-export them as Client Components.
 
 An example below is shown for using Amplify UI `Button` component:
 
-First, create a Client Component that exports the Amplify component.  For example, create`AmplifyUIComponents.jsx` placing `'use client'` at the top , import the component and styles and re-export `Button` component.
+First, create a Client Component file _AmplifyUIComponents.jsx_ that re-exports `Button`. Make sure to place `'use client'` at the top of _AmplifyConnectedComponents.jsx_ to let Nextjs know that should be handled as a Client Component.
 
     <ExampleCode>
 
@@ -70,35 +68,19 @@ Then, import `Button` from the Client Component and use it anywhere you want, e.
 
     </ExampleCode>
 
-##### Multiple Components
-
-To use more Amplify UI components, you need to re-export them in the same Client Component `AmplifyUIComponents.jsx` and then load them from there.
-
-    <ExampleCode>
-
-    ```tsx
-    // AmplifyUIComponents.jsx
-    'use client';
-
-    import { Alert, Button, Card } from '@aws-amplify/ui-react';
-    import '@aws-amplify/ui-react/styles.css';
-
-    export { Alert, Button, Card };
-    ```
-
-    </ExampleCode>
-
 #### Connected Components
-    To use a Amplify UI Connected Component in app directory, you must set up `Amplify.configure` in a Client Component.
+    To use an Amplify UI Connected Component within the _app_ directory, you must run `Amplify.configure` in a Client Component file.
 
-    First, create a Client Component, for example, `configure.js` by placing `'use client'` at the top of the file under `app` directory:
+    First, create a Client Component file _configure-client.js_ by placing `'use client'` at the top within _app_ directory:
 
     <ExampleCode>
 
     ```tsx
-    // configure.js
-
+    // configure-client.js
+    'use client';
+  
     import { Amplify } from "aws-amplify";
+    import '@aws-amplify/ui-react/styles.css';
 
     import config from "../src/aws-exports";
     
@@ -107,25 +89,22 @@ To use more Amplify UI components, you need to re-export them in the same Client
 
     </ExampleCode>
 
-    Then import `configure.js` in `page.jsx` to finish the setup,
+    Then import _configure-client.js_ in _layout.jsx_ to finish the setup,
    <ExampleCode>
 
     ```tsx
-    // page.jsx
-    import "./configure";
-
-    export default function Home() {
-      return <h1>Hello, Amplify!</h1>;
-    }
+    // layout.jsx
+    import "./configure-client";
+    ...
     ```
 
     </ExampleCode>
 
-Like UI components, you must re-export the Connected Component as a Client Component before using them.
+You must re-export Connected Components as Client Components before using them in Server Components.
 
 An example below is shown for `Authenticator` component:
 
-First, create a Client Component, for example, `AmplifyConnectedComponents.jsx` by placing `'use client'` at the top of the file under `app` directory,
+First, create a Client Component, for example, _AmplifyConnectedComponents.jsx_ by placing `'use client'` at the top within _app_ directory,
 
     <ExampleCode>
 
@@ -134,14 +113,13 @@ First, create a Client Component, for example, `AmplifyConnectedComponents.jsx` 
     'use client';
 
     import { Authenticator } from '@aws-amplify/ui-react';
-    import '@aws-amplify/ui-react/styles.css';
    
     export { Authenticator };
     ```
 
     </ExampleCode>
 
-Then, import `Authenticator` from the Client Component and use it anywhere you want, e.g., `app/page.jsx`.
+Then, import `Authenticator` from the Client Component and use it anywhere you want, e.g., _app/page.jsx_.
 
       <ExampleCode>
 
@@ -156,7 +134,7 @@ Then, import `Authenticator` from the Client Component and use it anywhere you w
 
       </ExampleCode>
 
-To use more Connected Components, you need to re-export them in the same Client Component `AmplifyConnectedComponents.jsx` and then load them from there.
+To use more Connected Components, you need to re-export them in the same Client Component _AmplifyConnectedComponents.jsx_ and then load them from there.
 
     <ExampleCode>
 
@@ -175,7 +153,7 @@ To use more Connected Components, you need to re-export them in the same Client 
 
 **You may want to combine the setup and re-exports into a single Client Component.**
 
-For example, create a Client Component `AmplifyUI.js` specific for Amplify UI under `app` directory and then finish the setup with `Amplify.configure` and re-export everything you need from there.
+For example, create a Client Component file _AmplifyUI.js_ specific for Amplify UI under _app_ directory and then finish the setup with `Amplify.configure` and re-export everything you need from there.
 
     <ExampleCode>
 
