@@ -11,7 +11,7 @@ jest.mock('../../hooks/useLivenessActor');
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
 
 describe('CancelButton', () => {
-  const mockActorState: any = {};
+  const mockActorState: any = jest.fn();
   const mockActorSend = jest.fn();
 
   const buttonAriaLabel = 'Cancel Liveness check';
@@ -46,5 +46,17 @@ describe('CancelButton', () => {
     expect(mockActorSend).toHaveBeenCalledWith({
       type: 'CANCEL',
     });
+  });
+
+  it('should render nothing if the machine state is done', () => {
+    mockUseLivenessActor.mockReturnValueOnce([
+      { done: true } as any,
+      mockActorSend,
+    ]);
+    renderWithLivenessProvider(<CancelButton ariaLabel={buttonAriaLabel} />);
+
+    expect(
+      screen.queryByRole('button', { name: buttonAriaLabel })
+    ).not.toBeInTheDocument();
   });
 });

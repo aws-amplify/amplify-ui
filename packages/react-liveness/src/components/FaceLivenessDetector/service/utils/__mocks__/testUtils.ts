@@ -51,7 +51,6 @@ export const mockVideoRecorder: any = {
   start: jest.fn(),
   stop: jest.fn(),
   getBlob: jest.fn(),
-  destroy: jest.fn(),
   recordingStartApiTimestamp: Date.now(),
   recorderStartTimestamp: Date.now(),
   recorderEndTimestamp: Date.now(),

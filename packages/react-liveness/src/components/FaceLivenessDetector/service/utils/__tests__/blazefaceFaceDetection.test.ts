@@ -47,6 +47,16 @@ describe('blazefaceFaceDetection', () => {
     expect(new BlazeFaceFaceDetection()).toBeTruthy();
   });
 
+  it('can be initialized with a wasm binary path', () => {
+    expect(new BlazeFaceFaceDetection('https://example.com')).toBeTruthy();
+  });
+
+  it('can be initialized with a wasm binary path and a facemodel url', () => {
+    expect(
+      new BlazeFaceFaceDetection('https://example.com', 'https://example.com')
+    ).toBeTruthy();
+  });
+
   it('detectFaces', async () => {
     const model = new BlazeFaceFaceDetection();
     (model as any)._model = {
