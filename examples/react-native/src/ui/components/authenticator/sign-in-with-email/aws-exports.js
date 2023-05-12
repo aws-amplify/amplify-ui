@@ -1,2 +1,2 @@
-import awsExports from 'environments/auth/auth-with-email/src/aws-exports';
+import awsExports from '@aws-amplify/ui-environments/auth/auth-with-email/src/aws-exports';
 export default awsExports;
