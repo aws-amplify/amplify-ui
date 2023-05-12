@@ -1,10 +1,8 @@
 import {
   fillOverlayCanvasFractional,
-  getFaceMatchState,
   getRGBArrayFromColorString,
 } from './liveness';
 import { LivenessContext } from '../types/machine';
-import { FaceMatchState } from '../types/liveness';
 import { ClientFreshnessColorSequence } from '../types/service';
 
 const TICK_RATE = 10; // ms -- the rate at which we will render/check colors
@@ -149,28 +147,6 @@ export class FreshnessColorDisplay {
         prevColor: this.prevColorSequence.color,
         currColorIndex: this.stageIndex,
       });
-    }
-  }
-
-  // Every 100 ms we  will check if the face is still in the oval
-  private async matchFaceInOval(reject: () => void) {
-    const { faceDetector } = this.context.ovalAssociatedParams!;
-    const { videoEl } = this.context.videoAssociatedParams!;
-
-    const timeSinceLastFaceMatchCheck =
-      Date.now() - this.timeLastFaceMatchChecked;
-    if (timeSinceLastFaceMatchCheck > FACE_MATCH_TICK_RATE) {
-      const faceMatchState = await getFaceMatchState(faceDetector!, videoEl!);
-
-      this.timeLastFaceMatchChecked = Date.now();
-      if (faceMatchState === FaceMatchState.MATCHED) {
-        this.timeFaceMatched = Date.now();
-      } else {
-        const timeSinceLastFaceMatch = Date.now() - this.timeFaceMatched;
-        if (timeSinceLastFaceMatch > FACE_MATCH_TIMEOUT) {
-          reject();
-        }
-      }
     }
   }
 
