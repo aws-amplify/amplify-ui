@@ -137,7 +137,7 @@ jobs:
       repository: ${{ github.repository }}
 
   e2e:
-    uses: ./.github/workflows/reusable-e2e.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
