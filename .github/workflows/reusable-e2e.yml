@@ -321,11 +321,11 @@ jobs:
 
   check-changed-packages:
     runs-on: ubuntu-latest
+    if: ${{ !inputs.skip-changed-packages-check }}
     outputs:
-      has-changed-packages: ${{ inputs.skip-changed-packages-check || steps.has-rn-changed-packages.outputs.has-changed-packages }}
+      has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
     steps:
       - name: Checkout Amplify UI
-        if: ${{ !inputs.skip-changed-packages-check }}
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
           ref: ${{ inputs.commit }}
@@ -335,7 +335,6 @@ jobs:
 
       - name: Determine if there were changes to react-native packages
         id: has-rn-changed-packages
-        if: ${{ !inputs.skip-changed-packages-check }}
         uses: ./.github/actions/changed-packages
         with:
           commit: ${{ inputs.commit }}
@@ -348,7 +347,7 @@ jobs:
 
   e2e-ios:
     needs: check-changed-packages
-    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: ${{ inputs.skip-changed-packages-check || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
@@ -473,7 +472,7 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
-    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: ${{ inputs.skip-changed-packages-check || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
