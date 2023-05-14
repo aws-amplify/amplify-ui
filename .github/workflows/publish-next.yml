@@ -33,7 +33,7 @@ jobs:
 
   e2e:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@chenwz-dev-skip
-    # needs: unit
+    needs: setup-cache
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}

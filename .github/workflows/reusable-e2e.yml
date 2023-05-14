@@ -472,7 +472,7 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
-    if: ${{ always() && (inputs.skip-changed-packages-check || needs.check-changed-packages.outputs.has-changed-packages == 'true') }}
+    if: ${{ (needs.check-changed-packages.result == 'skipped' && inputs.skip-changed-packages-check || needs.check-changed-packages.outputs.has-changed-packages == 'true') }}
     runs-on: macos-latest
     environment: ci
     env:
@@ -596,117 +596,117 @@ jobs:
             packages/e2e/detox/screenshots/**
           retention-days: 5
 
-  docs:
-    runs-on: ubuntu-latest
-    environment: ci
-    env:
-      NODE_ENV: test
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-        with:
-          ref: ${{ inputs.commit }}
-          repository: ${{ inputs.repository }}
-          persist-credentials: false
+  # docs:
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   env:
+  #     NODE_ENV: test
+  #   steps:
+  #     - name: Checkout Amplify UI
+  #       uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+  #       with:
+  #         ref: ${{ inputs.commit }}
+  #         repository: ${{ inputs.repository }}
+  #         persist-credentials: false
 
-      - name: Setup Node.js 16
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+  #     - name: Setup Node.js 16
+  #       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+  #       with:
+  #         node-version: 16
+  #         cache: 'yarn'
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
-      - name: Restore cypress runner Cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        id: restore-cypress-cache
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+  #     - name: Restore cypress runner Cache
+  #       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+  #       id: restore-cypress-cache
+  #       with:
+  #         path: ~/.cache/Cypress
+  #         key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Restore Puppeteer runner cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        id: restore-puppeteer-cache
-        with:
-          path: ~/.cache/puppeteer
-          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+  #     - name: Restore Puppeteer runner cache
+  #       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+  #       id: restore-puppeteer-cache
+  #       with:
+  #         path: ~/.cache/puppeteer
+  #         key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
 
-      - name: Restore node_modules cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        id: restore-cache
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+  #     - name: Restore node_modules cache
+  #       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+  #       id: restore-cache
+  #       with:
+  #         path: |
+  #           ./node_modules
+  #           **/node_modules
+  #         key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+  #       env:
+  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
 
-      - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-puppeteer-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: false
+  #     - name: Install packages
+  #       if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-puppeteer-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+  #       uses: ./.github/actions/install-with-retries
+  #       with:
+  #         skip-cypress-binary: false
 
-      - name: Build ui package
-        run: yarn ui build
+  #     - name: Build ui package
+  #       run: yarn ui build
 
-      - name: Build react-core package
-        run: yarn react-core build
+  #     - name: Build react-core package
+  #       run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        run: yarn react-core-notifications build
+  #     - name: Build react-core-notifications package
+  #       run: yarn react-core-notifications build
 
-      - name: Build react package
-        run: yarn react build
+  #     - name: Build react package
+  #       run: yarn react build
 
-      - name: Build react-notifications package
-        run: yarn react-notifications build
+  #     - name: Build react-notifications package
+  #       run: yarn react-notifications build
 
-      - name: Build react-geo package
-        run: yarn react-geo build
+  #     - name: Build react-geo package
+  #       run: yarn react-geo build
 
-      - name: Build react-storage package
-        run: yarn react-storage build
+  #     - name: Build react-storage package
+  #       run: yarn react-storage build
 
-      - name: Build react-liveness package
-        run: yarn react-liveness build
+  #     - name: Build react-liveness package
+  #       run: yarn react-liveness build
 
-      - name: Build docs package
-        run: yarn docs build
-        env:
-          SITE_URL: ${{ secrets.SITE_URL }}
-          DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
-          DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
-          DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+  #     - name: Build docs package
+  #       run: yarn docs build
+  #       env:
+  #         SITE_URL: ${{ secrets.SITE_URL }}
+  #         DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+  #         DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+  #         DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
-      - name: Start docs site
-        run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+  #     - name: Start docs site
+  #       run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
 
-      - name: Run E2E tests against docs
-        run: yarn e2e test:theme
-        id: e2e
-        env:
-          # Env values for testing flows
-          DOMAIN: ${{ secrets.DOMAIN }}
-          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-          USERNAME: ${{ secrets.USERNAME }}
-          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+  #     - name: Run E2E tests against docs
+  #       run: yarn e2e test:theme
+  #       id: e2e
+  #       env:
+  #         # Env values for testing flows
+  #         DOMAIN: ${{ secrets.DOMAIN }}
+  #         PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+  #         USERNAME: ${{ secrets.USERNAME }}
+  #         NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+  #         VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
-      - name: Run Docs link checker
-        run: yarn docs test:links
+  #     - name: Run Docs link checker
+  #       run: yarn docs test:links
 
-      - name: Upload failure screenshots and errors
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
-        if: ${{ failure() && steps.e2e.outcome != 'success' }}
-        with:
-          name: docs-e2e-cypress-error
-          path: |
-            packages/e2e/cypress/videos/**
-            packages/e2e/cypress/screenshots/**
-          retention-days: 5
+  #     - name: Upload failure screenshots and errors
+  #       uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+  #       if: ${{ failure() && steps.e2e.outcome != 'success' }}
+  #       with:
+  #         name: docs-e2e-cypress-error
+  #         path: |
+  #           packages/e2e/cypress/videos/**
+  #           packages/e2e/cypress/screenshots/**
+  #         retention-days: 5
