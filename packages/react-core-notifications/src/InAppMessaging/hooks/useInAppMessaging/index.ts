@@ -1,4 +1,1 @@
-export {
-  UseInAppMessaging,
-  default as useInAppMessaging,
-} from './useInAppMessaging';
+export { default as useInAppMessaging } from './useInAppMessaging';

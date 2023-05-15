@@ -7,7 +7,6 @@ export {
   FullScreenMessageComponent,
   handleMessageAction,
   HandleMessageLinkAction,
-  InAppMessagingProviderProps,
   InAppMessagingProvider,
   MessageButtonProps,
   MessageCommonProps,
@@ -20,7 +19,6 @@ export {
   ModalMessageCommonProps,
   ModalMessageComponent,
   OnMessageAction,
-  UseInAppMessaging,
   useInAppMessaging,
   useMessage,
 } from './InAppMessaging';

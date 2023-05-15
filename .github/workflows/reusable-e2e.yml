@@ -156,10 +156,6 @@ jobs:
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
 
-      - name: Build react-notifications package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-notifications build
-
       - name: Build react-geo package
         if: ${{ matrix.package == 'react' }}
         run: yarn react-geo build
@@ -647,9 +643,6 @@ jobs:
 
       - name: Build react package
         run: yarn react build
-
-      - name: Build react-notifications package
-        run: yarn react-notifications build
 
       - name: Build react-geo package
         run: yarn react-geo build

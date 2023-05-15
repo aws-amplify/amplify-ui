@@ -1,4 +1,1 @@
-export {
-  InAppMessagingProviderProps,
-  default as InAppMessagingProvider,
-} from './InAppMessagingProvider';
+export { default as InAppMessagingProvider } from './InAppMessagingProvider';
