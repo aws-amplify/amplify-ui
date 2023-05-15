@@ -30,7 +30,8 @@ When(
   'I type my {string} with status {string}',
   async (loginMechanism: string, status: string) => {
     let text = '',
-      usernameAttribute = capitalize(loginMechanism);
+      usernameAttribute = capitalize(loginMechanism),
+      testIdSuffix = loginMechanism;
     if (loginMechanism === 'email') {
       text = `${getUserAlias(status)}@${process.env.DOMAIN}`;
     } else if (loginMechanism === 'username') {
@@ -38,11 +39,13 @@ When(
     } else if (loginMechanism === 'phone number') {
       text = `${getCountryCode(status)}${process.env.PHONE_NUMBER}`;
       usernameAttribute = 'Phone Number';
+      testIdSuffix = 'phone-number';
     }
 
     try {
+      // try to retrieve element by test Id first
       await element(
-        by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${usernameAttribute}`)
+        by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${testIdSuffix}`)
       ).typeText(text);
     } catch (e) {
       // for some custom fields the test id doesn't match the login mechanism
