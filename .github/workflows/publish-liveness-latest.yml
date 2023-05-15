@@ -115,7 +115,7 @@ jobs:
       - name: Log failure data point to metric PublishLatestFailure
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          metric-name: PublishLatestFailure
+          metric-name: PublishLivenessFailure
           value: 1
           role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
           aws-region: us-east-2
@@ -130,7 +130,7 @@ jobs:
       - name: Log success data point to metric PublishLatestFailure
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          metric-name: PublishLatestFailure
+          metric-name: PublishLivenessFailure
           value: 0
           role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
           aws-region: us-east-2

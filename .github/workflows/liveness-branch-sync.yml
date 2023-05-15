@@ -3,7 +3,6 @@ name: Liveness Release Branch Sync
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   pull-requests: write
