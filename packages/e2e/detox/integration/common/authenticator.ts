@@ -46,7 +46,7 @@ When(
       // try to retrieve element by test Id first
       await element(
         by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${testIdSuffix}`)
-      ).typeText(text);
+      ).replaceText(text);
     } catch (e) {
       // for some custom fields the test id doesn't match the login mechanism
       if (device.getPlatform() === 'ios') {
@@ -54,7 +54,7 @@ When(
         const inputField = by
           .type('UITextField')
           .withDescendant(by.label(`Enter your ${usernameAttribute}`));
-        await element(inputField).typeText(text);
+        await element(inputField).replaceText(text);
       } else {
         // android renders placeholders differently, in a hint prop of the text field
         // there is not Detox matcher for this prop, so we're matching by field label
@@ -66,7 +66,7 @@ When(
                 .id('amplify__text-field-container')
                 .withDescendant(by.text(usernameAttribute))
             )
-        ).typeText(text);
+        ).replaceText(text);
       }
     } finally {
       await device.pressBack();
@@ -79,44 +79,44 @@ When(
   async (field: string, text: string) => {
     await element(
       by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${field}`)
-    ).typeText(text);
+    ).replaceText(text);
   }
 );
 
 When('I type my password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
-  ).typeText(process.env.VALID_PASSWORD);
+  ).replaceText(process.env.VALID_PASSWORD);
 });
 
 When('I type an invalid wrong complexity password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
-  ).typeText('inv');
+  ).replaceText('inv');
 });
 
 When('I type an invalid wrong complexity new password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
-  ).typeText('inv');
+  ).replaceText('inv');
 });
 
 When('I type an invalid no lower case password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
-  ).typeText('INV');
+  ).replaceText('INV');
 });
 
 When('I type an invalid no lower case new password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
-  ).typeText('INV');
+  ).replaceText('INV');
 });
 
 When('I type a new {string}', async (field: string) => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${field}`)
-  ).typeText(`${Date.now()}`);
+  ).replaceText(`${Date.now()}`);
 });
 
 When('I select my country code with status {string}', (status: string) => {
@@ -130,31 +130,31 @@ Then('I will be redirected to the confirm forgot password page', async () => {
 Then('I type a valid code', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
-  ).typeText('1234');
+  ).replaceText('1234');
 });
 
 Then('I type a valid confirmation code', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
-  ).typeText('123456');
+  ).replaceText('123456');
 });
 
 Then('I type an invalid confirmation code', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
-  ).typeText('0000');
+  ).replaceText('0000');
 });
 
 Then('I type my new password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
-  ).typeText(process.env.VALID_PASSWORD);
+  ).replaceText(process.env.VALID_PASSWORD);
 });
 
 Then('I confirm my password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirm_password`)
-  ).typeText(process.env.VALID_PASSWORD);
+  ).replaceText(process.env.VALID_PASSWORD);
 });
 
 When('I click the {string} button', async (name: string) => {
