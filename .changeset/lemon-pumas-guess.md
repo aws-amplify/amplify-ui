@@ -4,4 +4,4 @@
 "@aws-amplify/ui-react": patch
 ---
 
-Add `ui-react-core-notifications` package for utilities related to the Notifications category.
+Add ui-react-core-notifications
