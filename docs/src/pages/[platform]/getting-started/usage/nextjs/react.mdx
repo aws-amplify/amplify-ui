@@ -48,27 +48,27 @@ First, create a Client Component file _AmplifyComponents.jsx_ that re-exports `B
 // To allow client-based Amplify components to be rendered inside of React Server Components we need to:
 
 // 1. Import the Amplify components to be used in the application
-import { Button } from '@aws-amplify/ui-react';
+import { Link } from '@aws-amplify/ui-react';
 
 // 2. Import the Amplify UI styles
 import '@aws-amplify/ui-react/styles.css';
 
 // 3. Re-export the Amplify components for use in the application
-export { Button };
+export { Link };
 ```
 
 </ExampleCode>
 
-Then, import `Button` from the Client Component and use it anywhere you want, e.g., `app/page.jsx`.
+Then, import `Link` from the Client Component and use it anywhere you want, e.g., `app/page.jsx`.
 
 <ExampleCode>
 
 ```tsx
 // app/page.jsx
-import { Button } from './AmplifyComponents';
+import { Link } from './AmplifyComponents';
 
 export default function Home() {
-  return <Button>Hello, Amplify!</Button>;
+  return <Link href="https://ui.docs.amplify.aws">Hello, Amplify UI!</Link>;
 }
 ```
 
