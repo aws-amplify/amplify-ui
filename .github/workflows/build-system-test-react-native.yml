@@ -27,7 +27,7 @@ jobs:
         logfile: [test.log]
 
     env:
-      MEGA_APP_NAME: rn${{ matrix.framework-version }}Cli${{ matrix.build-tool-version }}Node${{ matrix.node-version }}${{ matrix.language }}
+      MEGA_APP_NAME: rn${{ matrix.framework-version }}Cli${{ matrix.build-tool-version }}Node${{ matrix.node-version }}${{ matrix.language }}${{ matrix.platform }}
       DEPENDENCIES: aws-amplify @aws-amplify/ui-${{ matrix.framework }} react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
 
     steps:
