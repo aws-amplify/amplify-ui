@@ -5,7 +5,7 @@ import * as XState from 'xstate';
 
 // mock state machine service
 // based on https://github.com/statelyai/xstate/blob/main/packages/core/src/interpreter.ts
-export class MockAuthService {
+class MockAuthService {
   private listeners: (() => void)[] = [];
 
   subscribe(callback: () => void): { unsubscribe: () => void } {
@@ -47,7 +47,8 @@ describe('AuthenticatorService', () => {
 
   it('subscribe returns state machine facade', () => {
     const handler = jest.fn();
-    const { unsubscribe } = authService.subscribe(handler);
+
+    const subscription = authService.subscribe(handler);
 
     // trigger a mock transition
     authService.send('INIT');
@@ -56,6 +57,6 @@ describe('AuthenticatorService', () => {
 
     expect(handler).toHaveBeenCalledWith(mockFacade);
 
-    unsubscribe();
+    subscription.unsubscribe();
   });
 });
