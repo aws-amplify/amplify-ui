@@ -31,6 +31,7 @@ export default function BannerMessage({
         {...messageProps}
         orientation="landscape"
         styles={messageStyles}
+        testID={`inappmessaging-${position}banner-dialog`}
       />
     </MessageWrapper>
   );

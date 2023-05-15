@@ -23,8 +23,6 @@ BeforeAll(async () => {
   await init({
     testRunnerArgv: { ...process.env },
   });
-  // android only, no-op for ios, required for mock server connection
-  await device.reverseTcpPort(9091);
 });
 
 AfterAll(async () => {
