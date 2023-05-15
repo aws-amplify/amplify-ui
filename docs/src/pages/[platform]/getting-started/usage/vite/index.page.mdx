@@ -1,0 +1,22 @@
+---
+title: Vite
+metaTitle: Vite
+description: How to get started using Amplify UI with Vite
+metaDescription: How to get started using Amplify UI with Vite
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<Fragment>{({ platform }) => import(`./react.mdx`)}</Fragment>

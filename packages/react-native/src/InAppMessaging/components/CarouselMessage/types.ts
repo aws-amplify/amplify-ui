@@ -3,7 +3,7 @@ import { StyleProp, ViewStyle } from 'react-native';
 import {
   CarouselMessageCommonProps,
   MessageComponentBaseProps,
-} from '@aws-amplify/ui-react-core';
+} from '@aws-amplify/ui-react-core-notifications';
 
 import { MessageDefaultStyle, MessageOverrideStyle } from '../../hooks';
 

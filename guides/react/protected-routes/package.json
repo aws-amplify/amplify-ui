@@ -1,5 +1,5 @@
 {
-  "name": "route-amplify-demo",
+  "name": "@aws-amplify/ui-route-demo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

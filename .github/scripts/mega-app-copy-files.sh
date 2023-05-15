@@ -37,17 +37,58 @@ if [ "$BUILD_TOOL" == 'next' ]; then
     fi
 fi
 
-if [ "$BUILD_TOOL" == 'vite' ]; then
+if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
     echo "cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
     cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
     echo "cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx"
     cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx
+
+    # See troubleshooting:
+    # https://ui.docs.amplify.aws/react/getting-started/troubleshooting#vite
     echo "cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html"
     cp templates/components/react/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html
     echo "cp templates/components/react/vite/template-tsconfig-vite-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/tsconfig.json"
     cp templates/components/react/vite/template-tsconfig-vite-${BUILD_TOOL_VERSION}.json mega-apps/${MEGA_APP_NAME}/tsconfig.json
     echo "cp templates/components/react/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts"
     cp templates/components/react/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
+fi
+
+if [[ "$FRAMEWORK" == 'angular' ]]; then
+    # The following change is to test build. If to work on the brower, we also need to change polyfills.
+    # See more: https://ui.docs.amplify.aws/angular/getting-started/troubleshooting
+    if [ "$BUILD_TOOL" == 'angular-app' ]; then
+        echo "cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
+        cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
+        echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
+        cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+    elif [ "$BUILD_TOOL" == 'angular-lib' ]; then
+        echo "cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
+        cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
+        echo "cp templates/components/angular/lib/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
+        cp templates/components/angular/lib/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+        echo "cp templates/components/angular/lib/my-amplify-ui-lib.component.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.component.ts"
+        cp templates/components/angular/lib/my-amplify-ui-lib.component.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.component.ts
+        echo "cp templates/components/angular/lib/my-amplify-ui-lib.module.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.module.ts"
+        cp templates/components/angular/lib/my-amplify-ui-lib.module.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.module.ts
+    fi
+fi
+
+if [[ "$FRAMEWORK" == 'vue' ]]; then
+    echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
+    cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
+
+    # See Troubleshooting: https://ui.docs.amplify.aws/vue/getting-started/troubleshooting
+    if [[ "$BUILD_TOOL" == 'vite' ]]; then
+        echo "cp templates/components/vue/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html"
+        cp templates/components/vue/vite/index.html mega-apps/${MEGA_APP_NAME}/index.html
+        echo "cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts"
+        cp templates/components/vue/vite/vite.config.ts mega-apps/${MEGA_APP_NAME}/vite.config.ts
+    fi
+
+    if [[ "$BUILD_TOOL" == 'nuxt' ]]; then
+        echo "cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/"
+        cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
+    fi
 fi
 
 if [[ "$FRAMEWORK" == "react-native" && "$BUILD_TOOL" == 'cli' ]]; then

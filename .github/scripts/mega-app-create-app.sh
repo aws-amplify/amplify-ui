@@ -18,13 +18,37 @@ if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
 fi
 
 if [ "$BUILD_TOOL" == 'next' ]; then
-    echo "npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint"
-    npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint
+    echo "npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint --no-app"
+    npx create-next-app ${MEGA_APP_NAME} --ts --no-src-dir --no-experimental-app --no-eslint --no-app
 fi
 
 if [ "$BUILD_TOOL" == 'vite' ]; then
-    echo "npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts"
-    npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template react-ts
+    echo "npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template ${FRAMEWORK}-ts"
+    npm create vite@${BUILD_TOOL_VERSION} $MEGA_APP_NAME -- --template ${FRAMEWORK}-ts
+fi
+
+if [[ "$FRAMEWORK" == 'angular' ]]; then
+    echo "npm install -g @angular/cli@${BUILD_TOOL_VERSION}"
+    npm install -g @angular/cli@${BUILD_TOOL_VERSION}
+    echo "ng new $MEGA_APP_NAME --minimal --interactive=false"
+    ng new $MEGA_APP_NAME --minimal --interactive=false
+    if [ "$BUILD_TOOL" == 'angular-lib' ]; then
+        echo "cd $MEGA_APP_NAME"
+        cd $MEGA_APP_NAME
+        echo "ng generate library my-amplify-ui-lib"
+        ng generate library my-amplify-ui-lib
+    fi
+fi
+
+if [[ "$FRAMEWORK" == 'vue' ]]; then
+    echo "npm install -g @vue/cli@${BUILD_TOOL_VERSION}"
+    npm install -g @vue/cli@${BUILD_TOOL_VERSION}
+    if [ "$BUILD_TOOL" == 'vue-cli' ]; then
+        echo "vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME"
+        vue create --preset ../templates/components/vue/preset-${FRAMEWORK_VERSION}.json $MEGA_APP_NAME
+    elif [ "$BUILD_TOOL" == 'nuxt' ]; then
+        npx nuxt init $MEGA_APP_NAME
+    fi
 fi
 
 if [[ "$BUILD_TOOL" == 'cli' && "$FRAMEWORK" == 'react-native' ]]; then
