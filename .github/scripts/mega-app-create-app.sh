@@ -54,4 +54,8 @@ fi
 if [[ "$BUILD_TOOL" == 'cli' && "$FRAMEWORK" == 'react-native' ]]; then
     echo "npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION"
     npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION
+    echo "cd $MEGA_APP_NAME"
+    cd $MEGA_APP_NAME
+    echo "cat package.json"
+    cat package.json
 fi
