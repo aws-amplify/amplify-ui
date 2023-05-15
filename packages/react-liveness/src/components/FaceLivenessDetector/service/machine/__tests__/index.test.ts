@@ -163,7 +163,6 @@ describe('Liveness Machine', () => {
     jest.advanceTimersToNextTimer(); // waitForSessionInformation
     await flushPromises(); // detectFaceDistanceBeforeRecording
     jest.advanceTimersToNextTimer(); // checkFaceDistanceBeforeRecording
-    // await flushPromises();
   }
 
   async function advanceMinFaceMatches() {
