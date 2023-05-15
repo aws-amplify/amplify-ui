@@ -321,7 +321,6 @@ jobs:
 
   check-changed-packages:
     runs-on: ubuntu-latest
-    if: ${{ !inputs.skip-changed-packages-check }}
     outputs:
       has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
     steps:
@@ -334,6 +333,7 @@ jobs:
           persist-credentials: false
 
       - name: Determine if there were changes to react-native packages
+        if: ${{ !inputs.skip-changed-packages-check }}
         id: has-rn-changed-packages
         uses: ./.github/actions/changed-packages
         with:
@@ -347,8 +347,7 @@ jobs:
 
   e2e-ios:
     needs: check-changed-packages
-    # !cancelled() ensures the job will be run when check-changed-packages is skipped if the condition is met
-    if: ${{ !cancelled() && needs.check-changed-packages.result == 'skipped' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: ${{ inputs.skip-changed-packages-check || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
@@ -473,8 +472,7 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
-    # !!cancelled() ensures the job will be run when check-changed-packages is skipped if the condition is met
-    if: ${{ !cancelled() && needs.check-changed-packages.result == 'skipped' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: ${{ inputs.skip-changed-packages-check || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
