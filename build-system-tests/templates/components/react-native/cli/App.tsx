@@ -22,10 +22,6 @@ function SignOutButton() {
 }
 
 function App(): JSX.Element {
-  useEffect(() => {
-    // sync remote in-app messages
-    InAppMessaging.syncMessages();
-  }, []);
   return (
     <>
       <Authenticator.Provider>
