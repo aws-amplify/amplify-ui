@@ -1,5 +1,7 @@
 import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
 
+import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
+
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import { Fragment } from '@/components/Fragment';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
@@ -27,7 +29,7 @@ import {
   Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
 </Alert>
 
-<Fragment>{() => import('../../shared/AppDirectoryAlert.mdx')}</Fragment>
+<AppDirectoryAlert />
 
 To use the StorageManager component import it into your React application with the included styles. 
 

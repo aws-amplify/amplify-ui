@@ -1,5 +1,7 @@
 import { Alert } from '@aws-amplify/ui-react';
 
+import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
+
 import { Fragment } from '@/components/Fragment';
 import { InstallScripts } from '@/components/InstallScripts';
 
@@ -13,7 +15,7 @@ import { InstallScripts } from '@/components/InstallScripts';
 
 ### Step 3. Initialize Amplify
 
-<Fragment>{() => import('../shared/AppDirectoryAlert.mdx')}</Fragment>
+<AppDirectoryAlert />
 
 ```jsx
 import React from 'react';
