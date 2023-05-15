@@ -5,7 +5,7 @@ Feature: In-App Messaging demo page to show banners with various configurations
   Background:
     Given I'm running the example "ui/components/in-app-messaging/demo"
 
-  @react @react-native
+  @react
   Scenario: Verify that the default banner is top banner with primary and secondary buttons
     Given "Has Primary Button" checkbox is checked
     And "Has Secondary Button" checkbox is checked
