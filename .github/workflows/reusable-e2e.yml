@@ -13,8 +13,8 @@ on:
         # repository to run tests against (possibly a fork of amplify-ui)
         required: true
         type: string
-        # skip checking changed packages job if true
       skip-changed-packages-check:
+        # skip checking changed packages job if true
         required: false
         default: false
         type: boolean
@@ -347,8 +347,8 @@ jobs:
 
   e2e-ios:
     needs: check-changed-packages
-    # !cancelled() ensures the job will be run if the condition is met regardless of whether check-changed-packages is skipped
-    if: ${{ !cancelled() && (inputs.skip-changed-packages-check || needs.check-changed-packages.outputs.has-changed-packages == 'true') }}
+    # success() ensures the job will be run when check-changed-packages is skipped if the condition is met
+    if: ${{ success() && needs.check-changed-packages.result == 'skipped' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
@@ -473,8 +473,8 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
-    # !cancelled() ensures the job will be run if the condition is met regardless of whether check-changed-packages is skipped
-    if: ${{ !cancelled() && (inputs.skip-changed-packages-check || needs.check-changed-packages.outputs.has-changed-packages == 'true') }}
+    # success() ensures the job will be run when check-changed-packages is skipped if the condition is met
+    if: ${{ success() && needs.check-changed-packages.result == 'skipped' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
