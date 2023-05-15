@@ -1,6 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { RenderNothing } from '@aws-amplify/ui-react-core';
+import { RenderNothing } from '../../../../components';
 
 import { useInAppMessaging } from '..';
 

@@ -4,7 +4,7 @@ import {
   handleMessageAction,
   OnMessageAction,
   useMessage,
-} from '@aws-amplify/ui-react-core-notifications';
+} from '@aws-amplify/ui-react-core';
 
 import { ThemeProvider } from '../../ThemeProvider';
 
