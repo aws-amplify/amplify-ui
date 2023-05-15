@@ -1,4 +1,4 @@
-# Description: this workflow runs build mega-apps that have all the connected components.
+# Description: this workflow runs build mega-apps that have all the connected components for React Native.
 
 name: Build System Test Canary / React Native
 
@@ -6,8 +6,8 @@ permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
 on:
-  push:
-    branches: ['mega-app-canary-rn']
+  schedule:
+    - cron: '0 */1 * * *' # Run at the first minute of every hour
 
 jobs:
   build:
