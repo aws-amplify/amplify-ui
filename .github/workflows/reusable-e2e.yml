@@ -570,8 +570,8 @@ jobs:
         run: |
           # all network requests going from the device on this port will be forwarded to the virtual machine where the mock server is running
           $ANDROID_HOME/platform-tools/adb reverse tcp:9091 tcp:9091
-          yarn workspace e2e detox:e2e:android:debug
-          
+          yarn e2e detox:e2e:android:debug
+
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
