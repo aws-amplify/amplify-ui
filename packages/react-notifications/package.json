@@ -43,8 +43,7 @@
     "@aws-amplify/ui": "5.6.1",
     "@aws-amplify/ui-react": "4.6.1",
     "@aws-amplify/ui-react-core-notifications": "0.0.1",
-    "classnames": "2.3.1",
-    "tinycolor2": "1.4.2"
+    "classnames": "2.3.1"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",
@@ -62,7 +61,6 @@
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.2",
     "@types/testing-library__jest-dom": "^5.14.1",
-    "@types/tinycolor2": "^1.4.3",
     "eslint": "^8.13.0",
     "jest": "^27.0.4",
     "react": "^17.0.2",
