@@ -347,8 +347,8 @@ jobs:
 
   e2e-ios:
     needs: check-changed-packages
-    # success() ensures the job will be run when check-changed-packages is skipped if the condition is met
-    if: ${{ success() && needs.check-changed-packages.result == 'skipped' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    # !failure() ensures the job will be run when check-changed-packages is skipped if the condition is met
+    if: ${{ !failure() && needs.check-changed-packages.result == 'skipped' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
@@ -473,8 +473,8 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
-    # success() ensures the job will be run when check-changed-packages is skipped if the condition is met
-    if: ${{ success() && needs.check-changed-packages.result == 'skipped' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    # !failure() ensures the job will be run when check-changed-packages is skipped if the condition is met
+    if: ${{ !failure() && needs.check-changed-packages.result == 'skipped' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
