@@ -6,8 +6,6 @@ import { LivenessContext } from '../types/machine';
 import { ClientFreshnessColorSequence } from '../types/service';
 
 const TICK_RATE = 10; // ms -- the rate at which we will render/check colors
-const FACE_MATCH_TICK_RATE = 100; // ms -- the rate at which we will check for faceMatch during freshness
-const FACE_MATCH_TIMEOUT = 1000; // ms -- length of time before freshness will reset
 
 enum COLOR_STAGE {
   SCROLLING = 'SCROLLING',
