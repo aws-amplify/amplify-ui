@@ -20,5 +20,4 @@ export const IGNORED_LINKS = [
   'https://github.com/aws-amplify/amplify-ui-swift/issues/new/choose', // 302 amplify-ui-wift redirects to amplify-ui-swift-liveness
   'https://github.com/aws-amplify/amplify-ui-swift-liveness/issues/new/choose', // 302 amplify-ui-swift-liveness does not have issue templates yet
   'https://developer.apple.com/design/human-interface-guidelines/patterns/accessing-private-data/', // 401 Apple doesn't like bots maybe
-  'https://twitter.com/AWSAmplify',
 ];

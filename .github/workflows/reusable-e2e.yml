@@ -334,7 +334,6 @@ jobs:
           packages: |
             packages/react-native
             packages/react-core
-            packages/react-core-notifications
             packages/ui
             packages/e2e
 
@@ -392,10 +391,6 @@ jobs:
       - name: Build react-core package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
-
-      - name: Build react-core-notifications package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
-        run: yarn react-core-notifications build
 
       - name: Build react-native package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
@@ -508,10 +503,6 @@ jobs:
       - name: Build react-core package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
-
-      - name: Build react-core-notifications package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
-        run: yarn react-core-notifications build
 
       - name: Build react-native package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
