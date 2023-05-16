@@ -126,7 +126,7 @@ jobs:
         working-directory: ${{ matrix.path }}
 
       - name: Run E2E tests against guides
-        run: yarn workspace e2e test:guides
+        run: yarn e2e test:guides
         id: e2e
         env:
           # Override on the default value in `cypress.json` with framework-specific tag

@@ -18,7 +18,7 @@ describe('uploadfile', () => {
 
     uploadFile({
       file: imageFile,
-      fileName: imageFile.name,
+      key: imageFile.name,
       completeCallback,
       errorCallback,
       isResumable: true,
@@ -42,7 +42,7 @@ describe('uploadfile', () => {
     const progressCallback = () => '';
     uploadFile({
       file: imageFile,
-      fileName: imageFile.name,
+      key: imageFile.name,
       level: 'public',
       progressCallback: progressCallback,
       errorCallback: () => '',
@@ -63,7 +63,7 @@ describe('uploadfile', () => {
   it('calls uploadFile with contentType defined image type', () => {
     uploadFile({
       file: imageFile,
-      fileName: imageFile.name,
+      key: imageFile.name,
       level: 'public',
       progressCallback: () => '',
       errorCallback: () => '',
@@ -86,7 +86,7 @@ describe('uploadfile', () => {
 
     uploadFile({
       file: imageFileTypeUndefined,
-      fileName: imageFileTypeUndefined.name,
+      key: imageFileTypeUndefined.name,
       level: 'public',
       progressCallback: () => '',
       errorCallback: () => '',
@@ -109,7 +109,7 @@ describe('uploadfile', () => {
   it('passes metadata to Storage.put', () => {
     uploadFile({
       file: imageFile,
-      fileName: imageFile.name,
+      key: imageFile.name,
       level: 'public',
       progressCallback: () => '',
       errorCallback: () => '',
