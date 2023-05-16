@@ -322,11 +322,13 @@ jobs:
           packages: |
             packages/react-native
             packages/react-core
+            packages/react-core-notifications
             packages/ui
             packages/e2e
 
   e2e-ios:
     needs: check-changed-packages
+    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
@@ -447,6 +449,7 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
+    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
