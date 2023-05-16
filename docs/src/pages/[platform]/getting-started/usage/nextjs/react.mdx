@@ -27,50 +27,7 @@ Then, install the Amplify UI React package:
 ### App Router
 Next.js 13.4+ introduced the [App Router `/ app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [React Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). 
 
-Amplify UI components are highly interactive and must be used as Client Components. In order to use Amplify UI components in a Server Component, you need to convert them to Client Components by adding a `'use client'` at the top of your file.
-
-For more info, visit Next.js [third party package documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages).
-
-#### UI Components
-
-To use an Amplify UI component in Server Components, you must re-export them as Client Components.
-
-An example below is shown for using Amplify UI `Link` component:
-
-First, create a Client Component file _AmplifyComponents.jsx_ that re-exports `Link`. Make sure to place `'use client'` at the top of _AmplifyComponents.jsx_ to let Nextjs know that the contents of the file should be handled as a Client Component.
-
-<ExampleCode>
-
-```tsx
-// AmplifyComponents.jsx
-'use client';
-
-// To allow client-based Amplify components to be rendered inside of React Server Components we need to:
-
-// 1. Import the Amplify components to be used in the application
-import { Link } from '@aws-amplify/ui-react';
-
-// 2. Import the Amplify UI styles
-import '@aws-amplify/ui-react/styles.css';
-
-// 3. Re-export the Amplify components for use in the application
-export { Link };
-```
-
-</ExampleCode>
-
-Then, import `Link` from the Client Component and use it anywhere you want, e.g., `app/page.jsx`.
-
-<ExampleCode>
-
-```tsx
-// app/page.jsx
-import { Link } from './AmplifyComponents';
-
-export default function Home() {
-  return <Link href="https://ui.docs.amplify.aws">Hello, Amplify UI!</Link>;
-}
-```
+Amplify UI components are highly interactive and must be used as Client Components. For more info, visit Next.js [third party package documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages).
 
 </ExampleCode>
 
