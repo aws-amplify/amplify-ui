@@ -41,7 +41,6 @@ module.exports = {
     {
       extends: ['@aws-amplify/amplify-ui/jest'],
       files: ['**/__mocks__/**', '**/__tests__/**'],
-      rules: {},
     },
   ],
 };
