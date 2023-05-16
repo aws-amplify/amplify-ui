@@ -15,7 +15,7 @@
     "test:theme": "cypress run --spec 'features/ui/theme/*.feature' --browser chrome",
     "test:guides": "cypress run --spec 'features/ui/guides/*.feature' --browser chrome",
     "precucumber": "node detox/mockServer.js &",
-    "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags @react-native --parallel 2",
+    "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags @react-native",
     "postcucumber": "kill $(lsof -t -i :9091)",
     "detox:build:ios:debug": "detox build --configuration ios.simulator.debug",
     "detox:build:ios:release": "detox build --configuration ios.simulator.release",
