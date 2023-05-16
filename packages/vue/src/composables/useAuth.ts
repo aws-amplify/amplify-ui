@@ -5,6 +5,7 @@ import { interpret } from 'xstate';
 import {
   AuthInterpreter,
   createAuthenticatorMachine,
+  defaultAuthHubHandler,
   getServiceFacade,
   listenToAuthHub,
 } from '@aws-amplify/ui';
@@ -38,7 +39,18 @@ const useInternalAuthenticator = () => {
   onMounted(() => {
     createValues();
 
-    unsubscribeHub = listenToAuthHub(service.value);
+    const onSignIn = () => {
+      useAuthenticatorValue.authStatus = 'authenticated';
+    };
+
+    const onSignOut = () => {
+      useAuthenticatorValue.authStatus = 'unauthenticated';
+    };
+
+    listenToAuthHub(service.value, async (data, service) => {
+      await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
+    });
+
     Auth.currentAuthenticatedUser()
       .then(() => {
         useAuthenticatorValue.authStatus = 'authenticated';
