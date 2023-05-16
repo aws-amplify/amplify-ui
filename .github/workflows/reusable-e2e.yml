@@ -322,6 +322,7 @@ jobs:
           packages: |
             packages/react-native
             packages/react-core
+            packages/react-core-notifications
             packages/ui
             packages/e2e
 
