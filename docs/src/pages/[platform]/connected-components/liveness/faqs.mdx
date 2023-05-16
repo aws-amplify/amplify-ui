@@ -1,0 +1,25 @@
+import { Fragment } from '@/components/Fragment';
+
+## Frequently Asked Questions
+
+The following issues are presented with corresponding troubleshooting steps. Please check them out in case you run into issues like these -- if the remedies don't work, please file an issue in our GitHub repositories.
+
+### Error: Cognito user pool does not allow access to unauthenticated identities
+
+First, make sure you have followed the [prerequisites for setting up Amplify resources](#step-1-configure-amplify). Second, you can also go into the Cognito identity pool configured in your Amplify app, edit it and select the checkbox labeled "Enable access to unauthenticated identities" -- then save the changes. Finally, if using React, ensure that your `aws-exports.js` file exists and is being imported correctly into your app.
+
+### Error: Server error - Session not found 
+
+Ensure that the region you are using to create the liveness session using your backend is the same as the one used within your app to start it. Also ensure that the session ID returned from the backend when creating the session is the same as the one started by the app. Note that whether the liveness check succeeds or fails, a new session is required.
+
+### Error: AccessDeniedError when calling Rekognition APIs (CreateFaceLivenessSession, etc.)
+
+Make sure you are not using an unsupported region that hasn’t been deployed yet, such as CMH (as of May 2, 2023). A full list appears on the bottom of [this page](https://aws.amazon.com/rekognition/face-liveness/).
+
+### No result when GetFaceLivenessSessionResults is called
+
+Make sure you are using the same session ID as you created.
+
+<Fragment platforms={['android']}>
+  {({ platform }) => import(`./faqs-${platform}.mdx`)}
+</Fragment>
