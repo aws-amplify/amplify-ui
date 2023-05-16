@@ -1,5 +1,5 @@
 import React from 'react';
-import { InAppMessagingProvider } from '@aws-amplify/ui-react-core-notifications';
+import { InAppMessagingProvider } from '@aws-amplify/ui-react-core';
 
 import { InAppMessageDisplay, MessageComponents } from '../InAppMessageDisplay';
 
