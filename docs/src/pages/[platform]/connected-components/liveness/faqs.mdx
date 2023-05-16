@@ -6,7 +6,7 @@ The following issues are presented with corresponding troubleshooting steps. Ple
 
 ### Error: Cognito user pool does not allow access to unauthenticated identities
 
-First, make sure you have followed the [prerequisites for setting up Amplify resources](#step-1-configure-auth). Second, you can also go into the Cognito identity pool configured in your Amplify app, edit it and select the checkbox labeled "Enable access to unauthenticated identities" -- then save the changes. Finally, if using React, ensure that your `aws-exports.js` file exists and is being imported correctly into your app.
+First, make sure you have followed the [prerequisites for setting up Amplify resources](#step-1-configure-auth). Second, you can also go into the Cognito identity pool configured in your Amplify app, edit it and select the checkbox labeled "Enable access to unauthenticated identities" -- then save the changes. Finally, ensure that the configuration file -- `aws-exports.js` on web or `amplifyconfiguration.json` on mobile -- contains the name of the correct identity pool.
 
 ### Error: Server error - Session not found 
 
