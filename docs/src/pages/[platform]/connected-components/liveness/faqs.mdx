@@ -10,7 +10,8 @@ First, make sure you have followed the [prerequisites for setting up Amplify res
 
 ### Error: Server error - Session not found 
 
-Ensure that the region you are using to create the liveness session using your backend is the same as the one used within your app to start it. Also ensure that the session ID returned from the backend when creating the session is the same as the one started by the app. Note that whether the liveness check succeeds or fails, a new session is required.
+1. Ensure that the AWS region you are using to create the liveness session using with your backend is the same as the one used within your app.
+2. Ensure that the session ID returned from the backend when creating the session is the same as the one started use by the app. Note: session ID's can only be used once. You must create a new session to allow users to retry.
 
 ### Error: AccessDeniedError when calling Rekognition APIs (CreateFaceLivenessSession, etc.)
 
