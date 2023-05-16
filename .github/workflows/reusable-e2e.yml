@@ -528,6 +528,7 @@ jobs:
       - name: Install emulator
         run: |
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-28;default;x86_64"
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
           echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_28 --device "pixel_5" --abi x86_64 --package "system-images;android-28;default;x86_64"
           printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_28.avd/config.ini
           printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_28.avd/config.ini
@@ -538,6 +539,8 @@ jobs:
           nohup $ANDROID_HOME/emulator/emulator -verbose -avd Pixel_5_API_28 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
           $ANDROID_HOME/platform-tools/adb devices
+          # disable spell checker
+          $ANDROID_HOME/platform-tools/adb shell settings put secure spell_checker_enabled 0
 
       - name: Start Metro Bundler in background
         run: yarn react-native-example dev --reset-cache &

@@ -43,7 +43,7 @@ When(
     }
 
     try {
-      // try to retrieve element by test Id first
+      // try to retrieve element by test ID first
       await element(
         by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${testIdSuffix}`)
       ).typeText(text);
