@@ -13,15 +13,16 @@ export const AppDirectoryAlert = () => (
       </Link>{' '}
       Amplify UI components are interactive and designed to work on the client
       side. To use them inside of Server Components you must wrap them in a
-      Client Component with <code>&quot;use client&quot;</code>. See{' '}
-      <Link href="/react/getting-started/usage/nextjs#app-router">
-        Using Next.js App Router with Amplify UI.
+      Client Component with <code>&quot;use client&quot;</code>. For more info,
+      visit{' '}
+      <Link href="https://nextjs.org/docs/getting-started/react-essentials#third-party-packages">
+        Next.js third party package documentation.
       </Link>
     </Text>
-    <Text>
-      If you are using Next.js{' '}
+    <Text paddingTop="relative.small">
+      If you are using{' '}
       <Link href="https://nextjs.org/docs/pages/building-your-application/routing">
-        Pages Router,
+        Next.js Pages Router,
       </Link>{' '}
       no changes are required to use Amplify UI components.
     </Text>

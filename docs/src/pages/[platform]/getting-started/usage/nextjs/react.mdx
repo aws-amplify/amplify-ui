@@ -1,4 +1,5 @@
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 import { Example, ExampleCode } from '@/components/Example';
 import { BasicShoppingCard, AdvancedShoppingCard } from '../shared';
 import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx';
@@ -8,9 +9,7 @@ import { InstallScripts, TerminalCommand } from '@/components/InstallScripts.tsx
 In this brief tutorial, we're going to build a basic shopping card component using [Next.js](https://nextjs.org/docs) and Amplify UI. Then, we'll elaborate on our shopping card to play with the possibilities of using Amplify UI.
 
 ### App Router
-Next.js 13.4+ introduced the [App Router](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [React Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components).  Amplify UI components are highly interactive and must be used as Client Components. For more info, visit Next.js [third party package documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages).
-
-If you are using Next.js [Pages Router](https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts), no changes are required to use Amplify UI components.
+<AppDirectoryAlert/>
 
 ### Setup and Installation
 
