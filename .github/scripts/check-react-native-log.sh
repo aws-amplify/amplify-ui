@@ -74,7 +74,7 @@ while read -r line; do
 done <"$LOG_FILE"
 
 # Step 2: Errors found, show the file and exit with failure
-if $LINE_ERROR; then
+if [[ $LINE_ERROR == true ]]; then
   echo -e "${RED_BOLD}Errors found in log file \"$LOG_FILE\":${NC}"
   echo -e "${BLUE_BOLD}Full log:${NC}"
   cat "$LOG_FILE"
