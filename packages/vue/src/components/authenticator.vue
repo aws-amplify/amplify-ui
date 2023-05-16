@@ -10,13 +10,11 @@ import {
   onMounted,
   onUnmounted,
 } from 'vue';
-import { useActor, useInterpret } from '@xstate/vue';
 import {
   AmplifyUser,
   AuthenticatorMachineOptions,
   authenticatorTextUtil,
   AuthFormFields,
-  createAuthenticatorMachine,
   getActorState,
   getServiceFacade,
   listenToAuthHub,
@@ -77,16 +75,13 @@ const emit = defineEmits([
   'verifyUserSubmit',
   'confirmVerifyUserSubmit',
 ]);
-const machine = createAuthenticatorMachine();
 
-const service = useInterpret(machine);
 let unsubscribeHub: () => void;
 let unsubscribeMachine: () => void;
 
-const { state, send } = useActor(service);
-useAuth(service);
-
 const hasInitialized = ref(false);
+
+const { service, send, state } = useAuth();
 
 /**
  * Subscribes to state machine changes and sends INIT event

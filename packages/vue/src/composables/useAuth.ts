@@ -1,21 +1,32 @@
-import { useActor } from '@xstate/vue';
-import { ref, reactive, Ref, watchEffect } from 'vue';
-import { getServiceFacade } from '@aws-amplify/ui';
-import { facade } from './useUtils';
-import { InterpretService } from '@/components';
+import { ref, reactive, Ref, watchEffect, onMounted } from 'vue';
 
-const service = ref() as Ref<InterpretService>;
+import { useActor } from '@xstate/vue';
+import {
+  AuthInterpreter,
+  createAuthenticatorMachine,
+  getServiceFacade,
+} from '@aws-amplify/ui';
+
+import { facade } from './useUtils';
+import { interpret } from 'xstate';
+
+const service = ref() as Ref<AuthInterpreter>;
 const useAuthenticatorValue = reactive({
   ...facade,
   send: '' as unknown,
   state: '' as unknown,
 }) as any;
 
-export const useAuth = (serv?: InterpretService) => {
-  if (serv) {
-    service.value = serv;
-  }
-  return useActor(service.value);
+export const useAuth = () => {
+  onMounted(() => {
+    if (!service.value) {
+      const machine = createAuthenticatorMachine();
+      service.value = interpret(machine);
+    }
+  });
+  const { state, send } = useActor(service.value);
+
+  return { service: service.value, state, send };
 };
 
 const useInternalAuthenticator = () => {
