@@ -7,7 +7,7 @@ permissions:
 
 on:
   schedule:
-    - cron: '0 */1 * * *' # Run at the first minute of every hour
+    - cron: '0 * * * *' # Run at the first minute of every hour
 
 jobs:
   build:
@@ -53,7 +53,6 @@ jobs:
           restore-keys: |
             pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
             pods-
-        continue-on-error: true
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Restore node_modules cache
