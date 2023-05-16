@@ -1,4 +1,4 @@
-import { ref, reactive, Ref, watchEffect, onMounted, onUnmounted } from 'vue';
+import { ref, reactive, Ref, watchEffect, onUnmounted } from 'vue';
 import { useActor } from '@xstate/vue';
 import { interpret } from 'xstate';
 
@@ -18,15 +18,12 @@ import { facade } from './useUtils';
 const service = ref() as Ref<AuthInterpreter>;
 
 export const useAuth = (): UseAuth => {
-  onMounted(() => {
-    if (!service.value) {
-      const machine = createAuthenticatorMachine();
-      service.value = interpret(machine);
-    }
-  });
+  if (!service.value) {
+    const machine = createAuthenticatorMachine();
+    service.value = interpret(machine);
+  }
 
   const { state, send } = useActor(service.value);
-
   return { service: service.value, state, send };
 };
 
@@ -55,29 +52,27 @@ export const useAuthenticator = () => {
     useAuthenticatorValue.state = state;
   };
 
-  onMounted(() => {
-    createValues();
+  createValues();
 
-    const onSignIn = () => {
-      useAuthenticatorValue.authStatus = 'authenticated';
-    };
+  const onSignIn = () => {
+    authStatus.value = 'authenticated';
+  };
 
-    const onSignOut = () => {
-      useAuthenticatorValue.authStatus = 'unauthenticated';
-    };
+  const onSignOut = () => {
+    authStatus.value = 'unauthenticated';
+  };
 
-    listenToAuthHub(service, async (data, service) => {
-      await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
-    });
-
-    Auth.currentAuthenticatedUser()
-      .then(() => {
-        useAuthenticatorValue.authStatus = 'authenticated';
-      })
-      .catch(() => {
-        useAuthenticatorValue.authStatus = 'unauthenticated';
-      });
+  listenToAuthHub(service, async (data, service) => {
+    await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
   });
+
+  Auth.currentAuthenticatedUser()
+    .then(() => {
+      useAuthenticatorValue.authStatus = 'authenticated';
+    })
+    .catch(() => {
+      useAuthenticatorValue.authStatus = 'unauthenticated';
+    });
 
   watchEffect(() => {
     createValues();
