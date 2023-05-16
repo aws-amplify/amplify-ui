@@ -29,6 +29,7 @@ export default function MessageLayout({
     primaryButton,
     secondaryButton,
     styles,
+    testID,
   } = props;
 
   const iconButton = (
@@ -44,7 +45,7 @@ export default function MessageLayout({
   );
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID={testID}>
       <View style={styles.contentContainer}>
         {orientation === 'portrait' && iconButton}
         {hasRenderableImage && (

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "environments-storage",
+  "name": "@aws-amplify/ui-environments-storage",
   "version": "0.0.1",
   "scripts": {
     "pull": "../pull-environments.sh -r us-east-2"

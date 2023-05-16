@@ -1,4 +1,4 @@
-import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core';
+import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core-notifications';
 
 import { DeviceOrientation } from '../../../hooks';
 import {
@@ -12,4 +12,5 @@ export interface LayoutProps
     Omit<UseMessageProps, 'shouldRenderMessage' | 'styles'> {
   orientation: DeviceOrientation;
   styles: Omit<MessageComponentStyles, 'wrapper'>;
+  testID?: string;
 }

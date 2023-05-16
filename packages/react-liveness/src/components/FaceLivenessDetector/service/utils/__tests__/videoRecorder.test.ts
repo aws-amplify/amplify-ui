@@ -10,6 +10,8 @@ const mockMediaRecorder = {
   state: '',
   stop: jest.fn(),
   addEventListener: jest.fn(),
+  pause: jest.fn(),
+  dispatchEvent: jest.fn(),
 };
 
 describe('VideoRecorder', () => {
@@ -31,6 +33,13 @@ describe('VideoRecorder', () => {
     expect(new VideoRecorder(stream)).toBeTruthy();
   });
 
+  it('fails to be initialized if MediaRecorder is not available', () => {
+    (window as any).MediaRecorder = undefined;
+    expect(() => new VideoRecorder(stream)).toThrow(
+      'MediaRecorder is not supported by this browser'
+    );
+  });
+
   it('should start the recording on start', () => {
     const videoRecorder = new VideoRecorder(stream);
     videoRecorder.start();
@@ -47,11 +56,29 @@ describe('VideoRecorder', () => {
     expect(mockMediaRecorder.stop).toHaveBeenCalledTimes(1);
   });
 
+  it('should pause the recording on pause', () => {
+    mockMediaRecorder.state = 'recording';
+
+    const videoRecorder = new VideoRecorder(stream);
+    videoRecorder.pause();
+
+    expect(mockMediaRecorder.pause).toHaveBeenCalledTimes(1);
+  });
+
   it('should return the underlying recorder state', () => {
     const videoRecorder = new VideoRecorder(stream);
     expect(videoRecorder.getState()).toBe('');
 
     mockMediaRecorder.state = 'recording';
     expect(videoRecorder.getState()).toBe('recording');
+  });
+
+  it('should dispatch an event to mediarecorder on dispatch', () => {
+    mockMediaRecorder.state = 'recording';
+
+    const videoRecorder = new VideoRecorder(stream);
+    videoRecorder.dispatch(new Event('stopVideo'));
+
+    expect(mockMediaRecorder.dispatchEvent).toHaveBeenCalledTimes(1);
   });
 });

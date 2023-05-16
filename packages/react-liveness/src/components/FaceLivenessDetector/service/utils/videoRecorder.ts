@@ -16,7 +16,7 @@ export class VideoRecorder {
   public firstChunkTimestamp: number | undefined;
   public recorderStarted!: Promise<void>;
 
-  private _recorder: MediaRecorder | null;
+  private _recorder: MediaRecorder;
   private _stream: MediaStream;
   private _options: VideoRecorderOptions;
   private _chunks: Blob[];
@@ -36,38 +36,32 @@ export class VideoRecorder {
   }
 
   getState(): string | undefined {
-    return this._recorder?.state;
+    return this._recorder.state;
   }
 
   start(timeSlice?: number): void {
     this.clearRecordedData();
     this.recordingStartApiTimestamp = Date.now();
-    this._recorder?.start(timeSlice);
+    this._recorder.start(timeSlice);
   }
 
   async stop(): Promise<void> {
     if (this.getState() === 'recording') {
-      this._recorder?.stop();
+      this._recorder.stop();
     }
     return this._recorderStopped;
   }
 
   pause(): void {
-    this._recorder?.pause();
+    this._recorder.pause();
   }
 
   clearRecordedData(): void {
     this._chunks = [];
   }
 
-  destroy(): void {
-    this.stop();
-    this.clearRecordedData();
-    this._recorder = null;
-  }
-
   dispatch(event: Event): void {
-    this._recorder?.dispatchEvent(event);
+    this._recorder.dispatchEvent(event);
   }
 
   private _setupCallbacks() {
@@ -105,20 +99,20 @@ export class VideoRecorder {
     });
 
     this.recorderStarted = new Promise((resolve) => {
-      this._recorder!.onstart = () => {
+      this._recorder.onstart = () => {
         this.recorderStartTimestamp = Date.now();
         resolve();
       };
     });
 
     this._recorderStopped = new Promise((resolve) => {
-      this._recorder!.onstop = () => {
+      this._recorder.onstop = () => {
         this.recorderEndTimestamp = Date.now();
         resolve();
       };
     });
 
-    this._recorder!.onerror = () => {
+    this._recorder.onerror = () => {
       if (this.getState() !== 'stopped') {
         this.stop();
       }
