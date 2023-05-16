@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.6.2
+
+### Patch Changes
+
+- [#3806](https://github.com/aws-amplify/amplify-ui/pull/3806) [`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui): add event callbacks to defaultAuthHubHandler
+
 ## 5.6.1
 
 ### Patch Changes
