@@ -47,7 +47,6 @@ describe('AuthenticatorService', () => {
 
   it('subscribe returns state machine facade', () => {
     const handler = jest.fn();
-
     const subscription = authService.subscribe(handler);
 
     // trigger a mock transition
