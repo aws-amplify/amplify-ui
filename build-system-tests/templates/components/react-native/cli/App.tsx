@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Text } from 'react-native';
 
-import { Amplify, Notifications } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import {
   Authenticator,
   useAuthenticator,
@@ -13,8 +13,6 @@ import 'react-native-url-polyfill/auto';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
-
-const { InAppMessaging } = Notifications;
 
 function SignOutButton() {
   const { signOut } = useAuthenticator();
