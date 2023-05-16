@@ -68,7 +68,7 @@ while read -r line; do
       break
     fi
   done
-  if [[ "$LINE_ERROR" == "true" ]]; then
+  if [[ $LINE_ERROR == true ]]; then
     break
   fi
 done <"$LOG_FILE"
