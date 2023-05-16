@@ -51,12 +51,13 @@ LINE_ERROR=false
 while read -r line; do
   if [[ "$line" == "" ]]; then
     continue
-  # Check if there's any line start with "NN:NN:NN, " (N is 0-9), and has "Error" or "ERROR".
-  elif echo "$line" | grep -Eq '^([0-9]{2}:){2}[0-9]{2}, .*(Error|ERROR)'; then
+  # Check if there's any line start with "NN:NN:NN," or "[NN:NN:NN]" (N is 0-9), and has "Error" or "ERROR".
+  elif echo "$line" | grep -Eq '^(\[?([0-9]{2}:){2}[0-9]{2}\]?,?).*(Error|ERROR)'; then
     echo -e "${RED_BOLD}ERROR found:${NC}"
     echo -e $line
     LINE_ERROR=true
-  elif [[ "$line" == *"fail"* ]]; then
+    # Check if there's any line start with "NN:NN:NN," or "[NN:NN:NN]" (N is 0-9), and has "fail".
+  elif echo "$line" | grep -Eq '^(\[?([0-9]{2}:){2}[0-9]{2}\]?,?).*(fail)'; then
     echo -e "${RED_BOLD}fail found:${NC}"
     echo -e $line
     LINE_ERROR=true
@@ -69,9 +70,6 @@ while read -r line; do
       break
     fi
   done
-  if [[ $LINE_ERROR == true ]]; then
-    break
-  fi
 done <"$LOG_FILE"
 
 # Step 2: Errors found, show the file and exit with failure
