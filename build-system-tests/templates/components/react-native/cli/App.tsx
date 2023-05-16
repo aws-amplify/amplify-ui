@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button, Text } from 'react-native';
+import 'react-native-get-random-values';
+import 'react-native-url-polyfill/auto';
 
 // import { Amplify } from 'aws-amplify';
 import {
@@ -8,8 +10,6 @@ import {
   InAppMessageDisplay,
   InAppMessagingProvider,
 } from '@aws-amplify/ui-react-native';
-import 'react-native-get-random-values';
-import 'react-native-url-polyfill/auto';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);

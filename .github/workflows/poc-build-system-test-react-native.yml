@@ -51,7 +51,6 @@ jobs:
           restore-keys: |
             pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
             pods-
-        continue-on-error: true
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Restore node_modules cache

@@ -7,7 +7,7 @@ LOG_FILE=$1
 BLUE_BOLD="\033[1;36m"
 GREEN_BOLD="\033[1;32m"
 RED_BOLD="\033[1;31m"
-NC="\033[0m"
+RESET="\033[0m"
 
 # To resolve "error Command failed: /Users/runner/Library/Android/sdk/platform-tools/adb logcat -c"
 # https://stackoverflow.com/questions/63617294/error-while-running-android-build-on-react-native
@@ -19,17 +19,17 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Log errors to LOG_FILE in the background
-echo -e "${BLUE_BOLD}Create ${LOG_FILE}${NC}"
+echo -e "${BLUE_BOLD}Create ${LOG_FILE}${RESET}"
 touch $LOG_FILE
-echo -e "${BLUE_BOLD}Logging errors to $LOG_FILE in the background${NC}"
+echo -e "${BLUE_BOLD}Logging errors to $LOG_FILE in the background${RESET}"
 npx react-native log-android >$LOG_FILE &
 
 # Check if the command succeeded
 if [ $? -ne 0 ]; then
-  echo -e "${BLUE_BOLD}Failed to run command: npx react-native log-android > $LOG_FILE &${NC}"
+  echo -e "${BLUE_BOLD}Failed to run command: npx react-native log-android > $LOG_FILE &${RESET}"
   exit 1
 fi
 
 # Run npm run android in the background for <time> seconds
-echo -e "${BLUE_BOLD}Running npm run android${NC}"
+echo -e "${BLUE_BOLD}Running npm run android${RESET}"
 npm run android
