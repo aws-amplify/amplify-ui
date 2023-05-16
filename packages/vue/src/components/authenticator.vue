@@ -17,7 +17,6 @@ import {
   AuthFormFields,
   getActorState,
   getServiceFacade,
-  listenToAuthHub,
   SocialProvider,
   configureComponent,
 } from '@aws-amplify/ui';
@@ -105,7 +104,6 @@ unsubscribeMachine = service.subscribe((newState) => {
 }).unsubscribe;
 
 onMounted(() => {
-  unsubscribeHub = listenToAuthHub(service);
   configureComponent({
     packageName: '@aws-amplify/ui-vue',
     version: VERSION,

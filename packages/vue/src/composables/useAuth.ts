@@ -1,14 +1,15 @@
-import { ref, reactive, Ref, watchEffect, onMounted } from 'vue';
-
+import { ref, reactive, Ref, watchEffect, onMounted, onUnmounted } from 'vue';
 import { useActor } from '@xstate/vue';
+import { interpret } from 'xstate';
+
 import {
   AuthInterpreter,
   createAuthenticatorMachine,
   getServiceFacade,
+  listenToAuthHub,
 } from '@aws-amplify/ui';
 
 import { facade } from './useUtils';
-import { interpret } from 'xstate';
 
 const service = ref() as Ref<AuthInterpreter>;
 const useAuthenticatorValue = reactive({
@@ -18,12 +19,21 @@ const useAuthenticatorValue = reactive({
 }) as any;
 
 export const useAuth = () => {
+  let unsubscribeHub: () => void;
+
   onMounted(() => {
     if (!service.value) {
       const machine = createAuthenticatorMachine();
       service.value = interpret(machine);
     }
+
+    unsubscribeHub = listenToAuthHub(service.value);
   });
+
+  onUnmounted(() => {
+    unsubscribeHub();
+  });
+
   const { state, send } = useActor(service.value);
 
   return { service: service.value, state, send };
