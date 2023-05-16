@@ -2,6 +2,8 @@
 
 # Define the log file path
 LOG_FILE=$1
+# Define app name
+MEGA_APP_NAME=$2
 
 # Define the color codes
 BLUE_BOLD="\033[1;36m"
@@ -17,6 +19,9 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+echo -e "${BLUE_BOLD}cd build-system-tests/mega-apps/${MEGA_APP_NAME}${RESET}"
+cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 
 # Log errors to LOG_FILE in the background
 echo -e "${BLUE_BOLD}Create ${LOG_FILE}${RESET}"

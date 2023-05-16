@@ -9,6 +9,9 @@ MEGA_APP_NAME=$2
 BLUE_BOLD="\033[1;36m"
 RESET="\033[0m"
 
+echo -e "${BLUE_BOLD}cd build-system-tests/mega-apps/${MEGA_APP_NAME}${RESET}"
+cd build-system-tests/mega-apps/${MEGA_APP_NAME}
+
 # Step 1: Log errors to LOG_FILE in the background
 echo -e "${BLUE_BOLD}Create ${LOG_FILE}${RESET}"
 touch $LOG_FILE

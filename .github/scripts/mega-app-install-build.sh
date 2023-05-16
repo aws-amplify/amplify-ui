@@ -41,17 +41,9 @@ else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
         echo "npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
         npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
-        if [[ "$PLATFORM" == "ios" ]]; then
-            echo "cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh"
-            cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh
-            echo "./build-${PLATFORM}.sh $LOG_FILE"
-            ./build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME
-        else
-            echo "cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh"
-            cp ../../../.github/scripts/build-${PLATFORM}.sh ./build-${PLATFORM}.sh
-            echo "./build-${PLATFORM}.sh $LOG_FILE"
-            ./build-${PLATFORM}.sh $LOG_FILE
-        fi
+
+        echo "../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE"
+        ../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME
     else
         if [[ "$BUILD_TOOL" == 'angular-lib' ]]; then
             echo "cd projects/my-amplify-ui-lib/"
