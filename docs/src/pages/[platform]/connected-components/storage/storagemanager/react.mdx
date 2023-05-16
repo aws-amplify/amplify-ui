@@ -1,5 +1,7 @@
 import { Alert, Expander, ExpanderItem } from '@aws-amplify/ui-react';
 
+import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
+
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
@@ -25,6 +27,8 @@ import {
 <Alert variation="warning" heading="Wait!">
   Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
 </Alert>
+
+<AppDirectoryAlert />
 
 To use the StorageManager component import it into your React application with the included styles. 
 

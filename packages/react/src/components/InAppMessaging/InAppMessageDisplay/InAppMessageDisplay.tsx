@@ -4,7 +4,7 @@ import {
   handleMessageAction,
   OnMessageAction,
   useMessage,
-} from '@aws-amplify/ui-react-core-notifications';
+} from '@aws-amplify/ui-react-core';
 
 import { ThemeProvider } from '../../ThemeProvider';
 
@@ -14,7 +14,6 @@ import { ModalMessage } from '../ModalMessage';
 
 import handleMessageLinkAction from './handleMessageLinkAction';
 import { InAppMessageDisplayProps, MessageDefaultComponents } from './types';
-import { useDeprecationWarning } from '../../../hooks/useDeprecationWarning';
 
 // TODO: replace below components incrementally as they become available
 function CarouselMessage<P>(_: P) {
@@ -39,11 +38,6 @@ const onMessageAction: OnMessageAction = ({ action, url }) => {
 function InAppMessageDisplay({
   components: overrideComponents,
 }: InAppMessageDisplayProps): JSX.Element {
-  useDeprecationWarning({
-    shouldWarn: true,
-    message:
-      'The `InAppMessageDisplay` component has been migrated to `@aws-amplify/ui-react-notifications` and will be removed from this package in a future major release. Please install `@aws-amplify/ui-react-notifications` and update the import path.',
-  });
   const components = React.useMemo(
     () => ({ ...platformComponents, ...overrideComponents }),
     [overrideComponents]
