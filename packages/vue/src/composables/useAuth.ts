@@ -10,6 +10,7 @@ import {
 } from '@aws-amplify/ui';
 
 import { facade } from './useUtils';
+import { Auth } from 'aws-amplify';
 
 const service = ref() as Ref<AuthInterpreter>;
 const useAuthenticatorValue = reactive({
@@ -19,19 +20,11 @@ const useAuthenticatorValue = reactive({
 }) as any;
 
 export const useAuth = () => {
-  let unsubscribeHub: () => void;
-
   onMounted(() => {
     if (!service.value) {
       const machine = createAuthenticatorMachine();
       service.value = interpret(machine);
     }
-
-    unsubscribeHub = listenToAuthHub(service.value);
-  });
-
-  onUnmounted(() => {
-    unsubscribeHub();
   });
 
   const { state, send } = useActor(service.value);
@@ -40,10 +33,29 @@ export const useAuth = () => {
 };
 
 const useInternalAuthenticator = () => {
-  createValues();
+  let unsubscribeHub: () => void;
+
+  onMounted(() => {
+    createValues();
+
+    unsubscribeHub = listenToAuthHub(service.value);
+    Auth.currentAuthenticatedUser()
+      .then(() => {
+        useAuthenticatorValue.authStatus = 'authenticated';
+      })
+      .catch(() => {
+        useAuthenticatorValue.authStatus = 'unauthenticated';
+      });
+  });
+
+  onUnmounted(() => {
+    unsubscribeHub();
+  });
+
   watchEffect(() => {
     createValues();
   });
+
   return useAuthenticatorValue;
 };
 
