@@ -15,9 +15,8 @@ export const AppDirectoryAlert = () => (
       side. To use them inside of Server Components you must wrap them in a
       Client Component with <code>&quot;use client&quot;</code>. See{' '}
       <Link href="/react/getting-started/usage/nextjs#app-router">
-        Using Next.js App Router with Amplify UI
+        Using Next.js App Router with Amplify UI.
       </Link>
-      . <br />
     </Text>
     <Text>
       If you are using Next.js{' '}
