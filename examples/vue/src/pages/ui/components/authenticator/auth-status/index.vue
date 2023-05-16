@@ -15,12 +15,6 @@ const isAuthenticated = computed(() => authStatus.value === 'authenticated');
 const signOut = () => Auth.signOut();
 
 const onSubmit = (event: Event) => {
-  event.preventDefault();
-  console.log(event.target);
-  console.log(
-    Object.fromEntries(new FormData(event.target as HTMLFormElement)) as any
-  );
-
   Auth.signIn(
     Object.fromEntries(new FormData(event.target as HTMLFormElement)) as any
   );
@@ -28,7 +22,7 @@ const onSubmit = (event: Event) => {
 </script>
 
 <template>
-  <form @submit="onSubmit">
+  <form @submit.prevent="onSubmit">
     <div>{{ authStatus }}</div>
 
     <div
