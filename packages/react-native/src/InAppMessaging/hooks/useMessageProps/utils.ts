@@ -4,7 +4,7 @@ import {
   MessageComponentBaseProps,
   MessageLayout,
   MessagePayloadStyle,
-} from '@aws-amplify/ui-react-core-notifications';
+} from '@aws-amplify/ui-react-core';
 
 import { DEFAULT_CAROUSEL_INDICATOR_SIZE } from '../../../primitives';
 import { BUTTON_PRESSED_OPACITY, SPACING_EXTRA_LARGE } from '../../constants';
