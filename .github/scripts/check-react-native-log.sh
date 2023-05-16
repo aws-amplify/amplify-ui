@@ -28,7 +28,7 @@ if [[ $(wc -l <"$LOG_FILE") -eq 1 && $(head -n 1 "$LOG_FILE") == "info Starting 
 fi
 
 # Define the exceptions to the error criteria
-EXCEPTIONS=("Notifications.InAppMessaging - Failed to sync messages" "InAppMessaging.AWSPinpointProvider - Error getting in-app messages")
+EXCEPTIONS=("AuthError -")
 START_MESSAGES=("info Starting logkitty" "React Native iOS Logger started for XCode project")
 
 # Step 0: Check if the log file has only one line with the start message
