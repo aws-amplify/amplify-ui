@@ -1,4 +1,4 @@
-import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core-notifications';
+import { MessageComponentBaseProps } from '@aws-amplify/ui-react-core';
 
 import { DeviceOrientation } from '../../../hooks';
 import {
