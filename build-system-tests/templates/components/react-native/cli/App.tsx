@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Text } from 'react-native';
 
 import { Amplify, Notifications } from 'aws-amplify';
