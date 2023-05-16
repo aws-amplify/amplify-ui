@@ -19,7 +19,7 @@ Make sure you are using a supported AWS region. Please refer to [Liveness suppor
 
 ### No result when GetFaceLivenessSessionResults is called
 
-Ensure that the session ID returned from the backend when creating the session is the same as the one started use by the app. Note: session ID's can only be used once. You must create a new session to allow users to retry.
+Ensure that the session ID returned from the backend when creating the session is the same as the one created on initialization of the Liveness UI. Note: session IDs can only be used once. You must create a new session to allow users to retry the Liveness check.
 
 <Fragment platforms={['android']}>
   {({ platform }) => import(`./faqs-${platform}.mdx`)}
