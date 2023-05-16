@@ -32,6 +32,7 @@ export default function FullScreenMessage(
         {...messageProps}
         orientation={deviceOrientation}
         styles={messageStyles}
+        testID={`inappmessaging-fullscreen-dialog`}
       />
     </MessageWrapper>
   );

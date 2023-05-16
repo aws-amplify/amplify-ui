@@ -665,30 +665,28 @@ export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
 ): ClientFreshnessColorSequence[] {
   const colorSequenceFromSessionInfo =
-    sessionInformation.Challenge?.FaceMovementAndLightChallenge?.ColorSequences;
-  const colorSequences: (ClientFreshnessColorSequence | undefined)[] = [
-    ...(colorSequenceFromSessionInfo ? colorSequenceFromSessionInfo : []),
-  ].map(
-    ({
-      FreshnessColor,
-      DownscrollDuration: downscrollDuration,
-      FlatDisplayDuration: flatDisplayDuration,
-    }) => {
-      const colorArray = FreshnessColor?.RGB;
-      const color = colorArray
-        ? `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`
-        : '';
-      return typeof color !== 'undefined' &&
-        typeof downscrollDuration !== 'undefined' &&
-        typeof flatDisplayDuration !== 'undefined'
-        ? {
-            color,
-            downscrollDuration,
-            flatDisplayDuration,
-          }
-        : undefined;
-    }
-  );
+    sessionInformation.Challenge!.FaceMovementAndLightChallenge!
+      .ColorSequences || [];
+  const colorSequences: (ClientFreshnessColorSequence | undefined)[] =
+    colorSequenceFromSessionInfo.map(
+      ({
+        FreshnessColor,
+        DownscrollDuration: downscrollDuration,
+        FlatDisplayDuration: flatDisplayDuration,
+      }) => {
+        const colorArray = FreshnessColor!.RGB!;
+        const color = `rgb(${colorArray[0]},${colorArray[1]},${colorArray[2]})`;
+        return typeof color !== 'undefined' &&
+          typeof downscrollDuration !== 'undefined' &&
+          typeof flatDisplayDuration !== 'undefined'
+          ? {
+              color,
+              downscrollDuration,
+              flatDisplayDuration,
+            }
+          : undefined;
+      }
+    );
 
   return colorSequences.filter(isClientFreshnessColorSequence);
 }
@@ -737,7 +735,7 @@ export async function isFaceDistanceBelowThreshold({
 }: {
   faceDetector: FaceDetection;
   videoEl: HTMLVideoElement;
-  ovalDetails?: LivenessOvalDetails;
+  ovalDetails: LivenessOvalDetails;
   reduceThreshold?: boolean;
   isMobile?: boolean;
 }): Promise<boolean> {
@@ -755,7 +753,7 @@ export async function isFaceDistanceBelowThreshold({
       //exactly one face detected, match face with oval;
       detectedFace = detectedFaces[0];
 
-      const width = ovalDetails?.width;
+      const width = ovalDetails.width;
       const { pupilDistance, faceHeight } =
         getPupilDistanceAndFaceHeight(detectedFace);
 
