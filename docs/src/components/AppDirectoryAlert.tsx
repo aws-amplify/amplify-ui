@@ -5,7 +5,7 @@ export const AppDirectoryAlert = () => (
     <Text>
       Next.js 13.4+ introduces{' '}
       <Link href="https://nextjs.org/docs/app/building-your-application/routing#the-app-directory">
-        app directory
+        App Router
       </Link>{' '}
       with the usage of{' '}
       <Link href="https://nextjs.org/docs/getting-started/react-essentials#server-components">
@@ -21,8 +21,8 @@ export const AppDirectoryAlert = () => (
     </Text>
     <Text>
       If you are using Next.js{' '}
-      <Link href="https://nextjs.org/docs/app/building-your-application/routing#the-app-directory">
-        pages directory,
+      <Link href="https://nextjs.org/docs/pages/building-your-application/routing">
+        Pages Router,
       </Link>{' '}
       no changes are required to use Amplify UI components.
     </Text>
