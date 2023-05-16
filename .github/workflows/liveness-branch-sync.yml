@@ -15,6 +15,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Create sync pull request
-        run: gh pr create -B liveness-release -H main --title 'Sync branch main to liveness-release' --body 'Created by Github action'
+        run: gh pr edit -B liveness-release || gh pr create -B liveness-release -H main --title 'Sync branch main to liveness-release' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
