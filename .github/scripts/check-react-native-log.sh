@@ -51,7 +51,8 @@ LINE_ERROR=false
 while read -r line; do
   if [[ "$line" == "" ]]; then
     continue
-  elif [[ "$line" == *"ERROR"* ]]; then
+  # Check if there's any line start with "NN:NN:NN, " (N is 0-9), and has "Error" or "ERROR".
+  elif echo "$line" | grep -Eq '^([0-9]{2}:){2}[0-9]{2}, .*(Error|ERROR)'; then
     echo -e "${RED_BOLD}ERROR found:${NC}"
     echo -e $line
     LINE_ERROR=true
