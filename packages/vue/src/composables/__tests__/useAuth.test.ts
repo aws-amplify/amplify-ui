@@ -1,39 +1,30 @@
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, Ref, ref } from 'vue';
 import { mount } from '@vue/test-utils';
 import * as XStateVue from '@xstate/vue';
 import * as XState from 'xstate';
 
-import * as AmplifyUI from '@aws-amplify/ui';
+import * as UIModule from '@aws-amplify/ui';
 
 import { useAuth } from '../useAuth';
 
 class MockAuthService {
-  private listeners: (() => void)[] = [];
-
-  subscribe(callback: () => void) {
-    this.listeners.push(callback);
+  subscribe() {
     return { unsubscribe: jest.fn() };
   }
 
   start() {
     return this;
   }
-
-  send() {
-    for (const listener of this.listeners) {
-      listener();
-    }
-  }
 }
 
-const mockState = {} as unknown as AmplifyUI.AuthMachineState;
+const mockState = ref({}) as unknown as Ref<UIModule.AuthMachineState>;
 const mockService = new MockAuthService() as unknown as XState.AnyInterpreter;
 const mockSend = jest.fn();
-const mockUnsubscribeHub = jest.fn();
 
+const unsubscribeHubSpy = jest.fn();
 const listenToAuthHubSpy = jest
-  .spyOn(AmplifyUI, 'listenToAuthHub')
-  .mockReturnValue(mockUnsubscribeHub);
+  .spyOn(UIModule, 'listenToAuthHub')
+  .mockReturnValue(unsubscribeHubSpy);
 
 jest.spyOn(XState, 'interpret').mockReturnValue(mockService);
 jest.spyOn(XStateVue, 'useActor').mockImplementation(() => {
@@ -61,7 +52,7 @@ const DoubleTestComponent = defineComponent({
 describe('useAuth', () => {
   beforeEach(() => {
     listenToAuthHubSpy.mockClear();
-    mockUnsubscribeHub.mockClear();
+    unsubscribeHubSpy.mockClear();
   });
 
   it('returns expected values', () => {
@@ -69,7 +60,7 @@ describe('useAuth', () => {
 
     const { state, send, service } = wrapper.vm;
 
-    expect(state).toBe(mockState);
+    expect(state).toBe(mockState.value);
     expect(send).toBe(mockSend);
     expect(service).toBe(mockService);
 
@@ -81,7 +72,7 @@ describe('useAuth', () => {
     expect(listenToAuthHubSpy).toBeCalledTimes(1);
     expect(listenToAuthHubSpy).toBeCalledWith(
       mockService,
-      AmplifyUI.defaultAuthHubHandler
+      UIModule.defaultAuthHubHandler
     );
 
     wrapper.unmount();
@@ -99,13 +90,13 @@ describe('useAuth', () => {
     wrapper.unmount();
 
     expect(listenToAuthHubSpy).toBeCalledTimes(1);
-    expect(mockUnsubscribeHub).toBeCalledTimes(1);
+    expect(unsubscribeHubSpy).toBeCalledTimes(1);
   });
 
   it('unsubscribes to hub only once even if multiple instances are mounted', () => {
     const wrapper = mount(DoubleTestComponent);
     wrapper.unmount();
 
-    expect(mockUnsubscribeHub).toBeCalledTimes(1);
+    expect(unsubscribeHubSpy).toBeCalledTimes(1);
   });
 });
