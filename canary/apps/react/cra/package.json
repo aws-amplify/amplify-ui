@@ -33,9 +33,6 @@
       "last 1 safari version"
     ]
   },
-  "resolutions": {
-    "webpack": "5.82.1"
-  },
   "devDependencies": {
     "@size-limit/preset-app": "^7.0.8",
     "customize-cra": "^1.0.0",
