@@ -1,25 +1,14 @@
 <script setup lang="ts">
 import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { ref, toRefs, computed, useAttrs, onMounted, onUnmounted } from 'vue';
 import {
-  ref,
-  toRefs,
-  computed,
-  useAttrs,
-  watch,
-  Ref,
-  onMounted,
-  onUnmounted,
-} from 'vue';
-import {
-  AmplifyUser,
+  AuthFormFields,
   AuthenticatorMachineOptions,
   AuthenticatorRoute,
-  authenticatorTextUtil,
-  AuthFormFields,
-  getServiceFacade,
-  SocialProvider,
-  configureComponent,
   AuthenticatorServiceFacade,
+  SocialProvider,
+  authenticatorTextUtil,
+  configureComponent,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -103,7 +92,7 @@ unsubscribeMachine = service.subscribe((newState) => {
   }
 }).unsubscribe;
 
-const { route, toSignIn, toSignUp } = toRefs(
+const { route, signOut, toSignIn, toSignUp, user } = toRefs(
   // `useAuthenticator` is casted for temporary type safety on this file.
   useAuthenticator() as AuthenticatorServiceFacade
 );
@@ -218,28 +207,6 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
     confirmVerifyUserComponent.value.submit(e);
   }
 };
-
-// watchers
-
-/**
- * Update service facade when context updates
- */
-
-const user: Ref<AmplifyUser | null> = ref(null);
-const signOut = ref();
-
-watch(
-  () => state.value.context,
-  () => {
-    const { user: u, signOut: s } = getServiceFacade({
-      send,
-      state: state.value,
-    });
-    user.value = u;
-    signOut.value = s;
-  },
-  { immediate: true }
-);
 
 const hasTabs = computed(() => {
   return route.value === 'signIn' || route.value === 'signUp';
@@ -514,10 +481,10 @@ const hasRouteComponent = computed(() => {
     </div>
   </div>
   <slot
-    v-if="state?.matches('authenticated')"
-    :user="user"
-    :state="state"
-    :signOut="signOut"
-    :send="send"
+    v-if="route === 'authenticated'"
+    :user="(user as any)"
+    :state="(state as any)"
+    :signOut="(signOut as any)"
+    :send="(send as any)"
   ></slot>
 </template>
