@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "noImplicitAny": false,
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": ["esnext", "dom"],
     "baseUrl": "./",
     "paths": {
       "@environments/*": ["../../environments/*"]

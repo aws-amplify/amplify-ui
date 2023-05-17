@@ -4,7 +4,6 @@ import {
   AuthInterpreter,
   AuthMachineSend,
   AuthMachineState,
-  AuthStatus,
   DefaultFormFieldOptions,
   SignInState,
   SignUpState,
@@ -13,7 +12,6 @@ import { ComputedRef, InjectionKey, Ref, Slot } from 'vue';
 import { Interpreter } from 'xstate';
 
 export interface UseAuth {
-  authStatus: Ref<AuthStatus>;
   send: AuthMachineSend;
   service: AuthInterpreter;
   state: Ref<AuthMachineState>;
