@@ -15,12 +15,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Create sync pull request
-        run:
+        run: |
           length=$(gh pr list -B liveness-release -H main -s open --json title --jq "length")
           if [[ "$length" -eq 0 ]]; then
-          gh pr create -B liveness-release -H main --title 'Sync branch main to liveness-release' --body 'Created by Github action'
+            gh pr create -B liveness-release -H main --title 'Sync branch main to liveness-release' --body 'Created by Github action'
           else
-          echo "Sync PR already open, skipping."
+            echo "Sync PR already open, skipping."
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
