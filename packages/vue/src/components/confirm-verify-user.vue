@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { createSharedComposable } from '@vueuse/core';
+import {} from '@vueuse/core';
 
 import {
   authenticatorTextUtil,
@@ -13,8 +13,7 @@ import BaseFormFields from './primitives/base-form-fields.vue';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 
-const useAuthShared = createSharedComposable(useAuthenticator);
-const props = useAuthShared();
+const props = useAuthenticator();
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmVerifyUserSubmit', 'skipClicked']);

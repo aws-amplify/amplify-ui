@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
-import { createSharedComposable } from '@vueuse/core';
 import {
   authenticatorTextUtil,
   getFormDataFromEvent,
@@ -12,9 +11,8 @@ import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.v
 
 import { useAuthenticator } from '../composables/useAuth';
 
-const useAuthShared = createSharedComposable(useAuthenticator);
-const facadeValues = useAuthShared();
-const props = useAuthShared();
+const facadeValues = useAuthenticator();
+const props = useAuthenticator();
 const { hasValidationErrors, isPending, error } = toRefs(facadeValues);
 
 const attrs = useAttrs();
