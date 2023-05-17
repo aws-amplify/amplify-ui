@@ -26,10 +26,13 @@ runs:
         changed_packages=()
         changed_files=$(git diff-tree --no-commit-id --name-only -r $COMMIT_HASH)
 
+        echo "PACKAGES: $PACKAGES"
+        echo "changed_files are $changed_files"
         # concatenate input package names with pipe
         # input is on multiple lines so need :a;N;$!ba; to allow sed to read entire stream at once
         package_names=$(echo "$PACKAGES" | sed ':a;N;$!ba;s/\n/|/g')
 
+        echo "package_names are $package_names"
         # check if any of the modified files belongs to the specified input packages
         if echo "$changed_files" | grep -Eq "^($package_names)/"; then
           echo "has-changed-packages=true" >> $GITHUB_OUTPUT
