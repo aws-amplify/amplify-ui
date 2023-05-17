@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import {} from '@vueuse/core';
 
 import {
   authenticatorTextUtil,
