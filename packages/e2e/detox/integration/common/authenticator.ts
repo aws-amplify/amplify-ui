@@ -7,7 +7,9 @@ const AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX =
   'authenticator__text-field__input';
 
 const getUserAlias = (status: string) =>
-  `${process.env.USERNAME}+${status === 'UNKNOWN' ? Date.now() : status}`;
+  `${process.env.USERNAME}+${
+    status === 'UNKNOWN' ? status + Date.now() : status
+  }`;
 
 const getCountryCode = (status: string) => {
   switch (status) {
@@ -28,7 +30,8 @@ When(
   'I type my {string} with status {string}',
   async (loginMechanism: string, status: string) => {
     let text = '',
-      usernameAttribute = capitalize(loginMechanism);
+      usernameAttribute = capitalize(loginMechanism),
+      testIdSuffix = loginMechanism;
     if (loginMechanism === 'email') {
       text = `${getUserAlias(status)}@${process.env.DOMAIN}`;
     } else if (loginMechanism === 'username') {
@@ -36,26 +39,37 @@ When(
     } else if (loginMechanism === 'phone number') {
       text = `${getCountryCode(status)}${process.env.PHONE_NUMBER}`;
       usernameAttribute = 'Phone Number';
+      testIdSuffix = 'phone-number';
     }
 
-    if (device.getPlatform() === 'ios') {
-      const inputField = by
-        .type('UITextField')
-        .withDescendant(by.label(`Enter your ${usernameAttribute}`));
-      await element(inputField).typeText(text);
-    } else {
-      await device.disableSynchronization();
+    try {
+      // try to retrieve element by test Id first
       await element(
-        by
-          .type('android.widget.EditText')
-          .withAncestor(
-            by
-              .id('amplify__text-field-container')
-              .withDescendant(by.text(usernameAttribute))
-          )
+        by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${testIdSuffix}`)
       ).typeText(text);
+    } catch (e) {
+      // for some custom fields the test id doesn't match the login mechanism
+      if (device.getPlatform() === 'ios') {
+        // match the input by placeholder label
+        const inputField = by
+          .type('UITextField')
+          .withDescendant(by.label(`Enter your ${usernameAttribute}`));
+        await element(inputField).typeText(text);
+      } else {
+        // android renders placeholders differently, in a hint prop of the text field
+        // there is not Detox matcher for this prop, so we're matching by field label
+        await element(
+          by
+            .type('android.widget.EditText')
+            .withAncestor(
+              by
+                .id('amplify__text-field-container')
+                .withDescendant(by.text(usernameAttribute))
+            )
+        ).typeText(text);
+      }
+    } finally {
       await device.pressBack();
-      await device.enableSynchronization();
     }
   }
 );
@@ -81,7 +95,19 @@ When('I type an invalid wrong complexity password', async () => {
   ).typeText('inv');
 });
 
+When('I type an invalid wrong complexity new password', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
+  ).typeText('inv');
+});
+
 When('I type an invalid no lower case password', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
+  ).typeText('INV');
+});
+
+When('I type an invalid no lower case new password', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
   ).typeText('INV');
@@ -94,7 +120,7 @@ When('I type a new {string}', async (field: string) => {
 });
 
 When('I select my country code with status {string}', (status: string) => {
-  // do nothing, React-Native phonenumber field does not support country code selection yet
+  // do nothing, React-Native phone number field does not support country code selection yet
 });
 
 Then('I will be redirected to the confirm forgot password page', async () => {
@@ -105,6 +131,18 @@ Then('I type a valid code', async () => {
   await element(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
   ).typeText('1234');
+});
+
+Then('I type a valid confirmation code', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
+  ).typeText('123456');
+});
+
+Then('I type an invalid confirmation code', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
+  ).typeText('0000');
 });
 
 Then('I type my new password', async () => {
@@ -128,8 +166,19 @@ When('I click the {string} button', async (name: string) => {
   }
 });
 
+When('I click the {string} radio button', async (label: string) => {
+  await element(by.id('amplify__radio-button__container')).tap();
+});
+
 Then(
   'I confirm {string} error is accessible in password field',
+  async (label: string) => {
+    await expect(element(by.label(label))).toBeVisible();
+  }
+);
+
+Then(
+  'I confirm {string} error is accessible in new password field',
   async (label: string) => {
     await expect(element(by.label(label))).toBeVisible();
   }

@@ -31,50 +31,13 @@ To learn more about spoof attempts deterred by Face Liveness, please see this [d
   {({ platform }) => import(`./prerequisite.${platform}.mdx`)}
 </Fragment>
 
-### Step 1. Configure Amplify
-
-#### Setup Auth
+### Step 1. Configure Auth
 
 <Fragment>
   {({ platform }) => import(`./quick-start-pull.${platform}.mdx`)}
 </Fragment>
 
-#### Update IAM Role Permissions
-
-Now that you have Amplify Auth setup, follow the steps below to create an inline policy to enable authenticated app users to access Rekognition.
-
-1. Go to AWS IAM console → Roles
-
-2. Select the newly created `unauthRole` for your project (`amplify-<project_name>-<env_name>-<id>-unauthRole` if using the Amplify CLI). Note that `unauthRole` should be used if you are not logging in, but if you are using an authenticator with your application, you will need to use `authRole`.
-
-3. Choose **Add Permissions**, then select **Create Inline Policy**, then choose **JSON** and paste the following:
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": "rekognition:StartFaceLivenessSession",
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-4. Choose **Review Policy**
-
-5. Name the policy
-
-6. Choose **Create Policy**
-
-To use Amplify UI FaceLivenessDetector, you must also set up a backend to create the Face Liveness session and retrieve the session results. Follow the [Amazon Rekognition Face Liveness developer guide](https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-programming-api.html) to set up your backend.
-
-<Fragment>{({ platform }) => import(`./quick-start-add.${platform}.mdx`)}</Fragment>
-
 > See [Rekognition documentation](https://docs.aws.amazon.com/rekognition/latest/dg/recommendations-liveness.html) for best practices when using `FaceLivenessDetector`.
-
-<Fragment>{({ platform }) => import(`./credentials-provider.${platform}.mdx`)}</Fragment>
 
 <Fragment>
   {({ platform }) => import(`./full-api.${platform}.mdx`)}

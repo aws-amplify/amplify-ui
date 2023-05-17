@@ -15,7 +15,7 @@ const propsToCode = (expanderProps) => {
       : '') +
     `>
   <ExpanderItem title="Is it accessible?" value="demo-item-1">
-    Yes! It adheres to the WAI-ARAI design pattern.
+    Yes! It adheres to the WAI-ARIA design pattern.
   </ExpanderItem>
   <ExpanderItem title="Can I customize the styling?" value="demo-item-2">
     Of course! See the section on CSS Styling below.
@@ -50,7 +50,7 @@ export const ExpanderDemo = () => {
         isCollapsible={expanderProps.isCollapsible}
       >
         <ExpanderItem title="Is it accessible?" value="demo-item-1">
-          Yes! It adheres to the WAI-ARAI design pattern.
+          Yes! It adheres to the WAI-ARIA design pattern.
         </ExpanderItem>
         <ExpanderItem title="Can I customize the styling?" value="demo-item-2">
           Of course! See the section on CSS Styling below.
