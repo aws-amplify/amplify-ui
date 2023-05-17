@@ -1,5 +1,5 @@
 import { createSharedComposable } from '@vueuse/core';
-import { ref, reactive, Ref, watchEffect, onScopeDispose } from 'vue';
+import { reactive, watchEffect, onScopeDispose } from 'vue';
 import { useActor } from '@xstate/vue';
 import { interpret } from 'xstate';
 
@@ -15,27 +15,18 @@ import { UseAuth } from '../types';
 import { facade } from './useUtils';
 
 export const useAuth = createSharedComposable((): UseAuth => {
-  const service: Ref<AuthInterpreter | undefined> = ref(undefined);
-  const unsubscribeHub: Ref<(() => void) | undefined> = ref();
+  const machine = createAuthenticatorMachine();
+  const service: AuthInterpreter = interpret(machine).start();
 
-  if (!service.value) {
-    const machine = createAuthenticatorMachine();
-    service.value = interpret(machine).start();
-  }
+  const { state, send } = useActor(service);
 
-  const { state, send } = useActor(service.value);
+  const unsubscribeHub = listenToAuthHub(service, defaultAuthHubHandler);
 
-  if (!unsubscribeHub.value) {
-    unsubscribeHub.value = listenToAuthHub(
-      service.value,
-      defaultAuthHubHandler
-    );
-  }
   onScopeDispose(() => {
-    unsubscribeHub.value?.();
+    unsubscribeHub();
   });
 
-  return { service: service.value, send, state };
+  return { service: service, send, state };
 });
 
 export const useAuthenticator = createSharedComposable(() => {
