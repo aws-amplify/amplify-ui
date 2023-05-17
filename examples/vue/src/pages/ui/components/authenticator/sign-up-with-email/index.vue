@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import { Amplify, Auth, I18n } from 'aws-amplify';
-import {
-  Authenticator,
-  translations,
-  useAuthenticator,
-} from '@aws-amplify/ui-vue';
-import { toRefs } from 'vue';
+import { Amplify, Auth, Hub, I18n } from 'aws-amplify';
+import { Authenticator, translations } from '@aws-amplify/ui-vue';
+import { ref, toRefs } from 'vue';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
-
-const { authStatus } = toRefs(useAuthenticator());
 
 const formFields = {
   confirmSignUp: {
@@ -45,11 +39,23 @@ const services = {
     });
   },
 };
+
+const logHub = () => {
+  console.log((Hub as any).listeners.auth);
+};
+
+const showAuthenticator = ref(true);
+
+const toggleAuthenticator = () => {
+  showAuthenticator.value = !showAuthenticator.value;
+};
 </script>
 
 <template>
-  {{ authStatus }}
+  <button @click="logHub">log Hub</button>
+  <button @click="toggleAuthenticator">toggle Authenticator</button>
   <authenticator
+    v-if="showAuthenticator"
     :services="services"
     :form-fields="formFields"
     initial-state="signUp"

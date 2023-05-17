@@ -15,14 +15,18 @@ import {
 import { UseAuth } from '../types';
 import { facade } from './useUtils';
 
-const service = ref() as Ref<AuthInterpreter>;
+const service: Ref<AuthInterpreter | undefined> = ref(undefined);
+const subscribers = ref<number>(0);
+const unsubscribeHub = ref<(() => void) | undefined>();
 
 export const useAuth = (): UseAuth => {
+  subscribers.value++;
+  const authStatus: Ref<AuthStatus> = ref('unauthenticated');
+
   if (!service.value) {
     const machine = createAuthenticatorMachine();
     service.value = interpret(machine).start();
   }
-  const authStatus: Ref<AuthStatus> = ref('unauthenticated');
 
   const onSignIn = () => {
     authStatus.value = 'authenticated';
@@ -32,12 +36,15 @@ export const useAuth = (): UseAuth => {
     authStatus.value = 'unauthenticated';
   };
 
-  const unsubscribeHub = listenToAuthHub(
-    service.value,
-    async (data, service) => {
-      await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
-    }
-  );
+  if (!unsubscribeHub.value) {
+    console.log('subscribing...');
+    unsubscribeHub.value = listenToAuthHub(
+      service.value,
+      async (data, service) => {
+        await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
+      }
+    );
+  }
 
   Auth.currentAuthenticatedUser()
     .then(() => {
@@ -50,7 +57,12 @@ export const useAuth = (): UseAuth => {
   const { state, send } = useActor(service.value);
 
   onScopeDispose(() => {
-    unsubscribeHub();
+    subscribers.value--;
+
+    if (subscribers.value === 0 && unsubscribeHub.value) {
+      unsubscribeHub.value();
+      unsubscribeHub.value = undefined;
+    }
   });
 
   return { authStatus, service: service.value, send, state };
