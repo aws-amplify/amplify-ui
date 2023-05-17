@@ -19,6 +19,7 @@ import {
   getServiceFacade,
   SocialProvider,
   configureComponent,
+  AuthenticatorServiceFacade,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -102,10 +103,10 @@ unsubscribeMachine = service.subscribe((newState) => {
   }
 }).unsubscribe;
 
-const { route: untypedRoute, toSignIn, toSignUp } = toRefs(useAuthenticator());
-
-// temporary enforce type safety until we strongly type Vue Authenticator
-const route = untypedRoute as Ref<AuthenticatorRoute>;
+const { route, toSignIn, toSignUp } = toRefs(
+  // `useAuthenticator` is casted for temporary type safety on this file.
+  useAuthenticator() as AuthenticatorServiceFacade
+);
 
 onMounted(() => {
   configureComponent({
