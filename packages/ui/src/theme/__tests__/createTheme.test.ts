@@ -245,5 +245,34 @@ describe('@aws-amplify/ui', () => {
         );
       });
     });
+    describe('overrides', () => {
+      const { cssText } = createTheme({
+        name: 'test-tokens',
+        tokens: {
+          colors: {
+            neutral: {
+              100: { value: 'hotpink' },
+            },
+            font: {
+              secondary: { value: '{colors.red.10}' },
+              tertiary: { value: '{colors.red.10.value}' },
+            },
+            background: {
+              primary: '{colors.black}',
+              secondary: '{colors.white.value}',
+            },
+          },
+        },
+        overrides: [
+          {
+            colorMode: 'dark',
+          },
+        ],
+      });
+
+      it('should include media query', () => {
+        expect(cssText).toContain('@media (prefers-color-scheme: dark)');
+      });
+    });
   });
 });

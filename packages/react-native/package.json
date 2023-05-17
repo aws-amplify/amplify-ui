@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-native",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -37,9 +37,8 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.6.1",
-    "@aws-amplify/ui-react-core": "2.1.20",
-    "@aws-amplify/ui-react-core-notifications": "0.0.1"
+    "@aws-amplify/ui": "5.6.2",
+    "@aws-amplify/ui-react-core": "2.1.21"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",
