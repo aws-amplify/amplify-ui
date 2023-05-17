@@ -38,7 +38,7 @@ export const useAuthenticator = () => {
     state: undefined,
   }) as any;
 
-  const createValues = () => {
+  const updateFacadeValues = () => {
     const facadeValues = getServiceFacade({
       send,
       state: state.value,
@@ -52,7 +52,7 @@ export const useAuthenticator = () => {
     useAuthenticatorValue.state = state;
   };
 
-  createValues();
+  updateFacadeValues();
 
   const onSignIn = () => {
     authStatus.value = 'authenticated';
@@ -75,7 +75,7 @@ export const useAuthenticator = () => {
     });
 
   watchEffect(() => {
-    createValues();
+    updateFacadeValues();
   });
 
   onUnmounted(() => {
