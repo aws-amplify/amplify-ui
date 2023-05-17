@@ -61,6 +61,11 @@ while read -r line; do
     echo -e "${RED_BOLD}fail found:${RESET}"
     echo -e $line
     LINE_ERROR=true
+    # Check if there's any line start with "NN:NN:NN," or "[NN:NN:NN]" (N is 0-9), and has "Could not connect to development server".
+  elif echo "$line" | grep -Eq '^(\[?([0-9]{2}:){2}[0-9]{2}\]?,?).*(Could not connect to development server)'; then
+    echo -e "${RED_BOLD}Connection error:${RESET}"
+    echo -e $line
+    LINE_ERROR=true
   fi
   for exception in "${EXCEPTIONS[@]}"; do
     if [[ "$line" == *"$exception"* ]]; then
