@@ -75,7 +75,6 @@ const emit = defineEmits([
   'confirmVerifyUserSubmit',
 ]);
 
-let unsubscribeHub: () => void;
 let unsubscribeMachine: () => void;
 
 const hasInitialized = ref(false);
@@ -111,7 +110,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (unsubscribeHub) unsubscribeHub();
   if (unsubscribeMachine) unsubscribeMachine();
 });
 

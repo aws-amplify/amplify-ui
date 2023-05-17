@@ -20,7 +20,7 @@ const service = ref() as Ref<AuthInterpreter>;
 export const useAuth = (): UseAuth => {
   if (!service.value) {
     const machine = createAuthenticatorMachine();
-    service.value = interpret(machine);
+    service.value = interpret(machine).start();
   }
 
   const { state, send } = useActor(service.value);
@@ -30,29 +30,12 @@ export const useAuth = (): UseAuth => {
 export const useAuthenticator = () => {
   const { service, state, send } = useAuth();
 
-  let unsubscribeHub: () => void;
   const authStatus = ref<AuthStatus>('configuring');
   const useAuthenticatorValue = reactive({
     ...facade,
     send: undefined,
     state: undefined,
   }) as any;
-
-  const updateFacadeValues = () => {
-    const facadeValues = getServiceFacade({
-      send,
-      state: state.value,
-    });
-    for (const key of Object.keys(facade)) {
-      //@ts-ignore
-      useAuthenticatorValue[key] = facadeValues[key];
-    }
-    useAuthenticatorValue.authStatus = authStatus.value;
-    useAuthenticatorValue.send = send;
-    useAuthenticatorValue.state = state;
-  };
-
-  updateFacadeValues();
 
   const onSignIn = () => {
     authStatus.value = 'authenticated';
@@ -62,7 +45,7 @@ export const useAuthenticator = () => {
     authStatus.value = 'unauthenticated';
   };
 
-  listenToAuthHub(service, async (data, service) => {
+  const unsubscribeHub = listenToAuthHub(service, async (data, service) => {
     await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
   });
 
@@ -75,9 +58,18 @@ export const useAuthenticator = () => {
     });
 
   watchEffect(() => {
-    updateFacadeValues();
+    const facadeValues = getServiceFacade({
+      send,
+      state: state.value,
+    });
+    for (const key of Object.keys(facade)) {
+      //@ts-ignore
+      useAuthenticatorValue[key] = facadeValues[key];
+    }
+    useAuthenticatorValue.authStatus = authStatus.value;
+    useAuthenticatorValue.send = send;
+    useAuthenticatorValue.state = state;
   });
-
   onUnmounted(() => {
     unsubscribeHub();
   });
