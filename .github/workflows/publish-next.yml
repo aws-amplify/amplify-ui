@@ -37,6 +37,7 @@ jobs:
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
+      skip-changed-packages-check: 'true' # always run e2e tests for native platform on main
     secrets:
       AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}
       DATASTORE_E2E_ROLE_ARN: ${{ secrets.DATASTORE_E2E_ROLE_ARN }}

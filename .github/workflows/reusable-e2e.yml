@@ -13,6 +13,12 @@ on:
         # repository to run tests against (possibly a fork of amplify-ui)
         required: true
         type: string
+      skip-changed-packages-check:
+        # skip checking changed packages job if true
+        required: false
+        default: 'false'
+        type: string
+
     secrets:
       AUTH_E2E_ROLE_ARN:
         required: true
@@ -315,6 +321,7 @@ jobs:
           persist-credentials: false
 
       - name: Determine if there were changes to react-native packages
+        if: ${{ inputs.skip-changed-packages-check == 'false' }}
         id: has-rn-changed-packages
         uses: ./.github/actions/changed-packages
         with:
@@ -327,7 +334,7 @@ jobs:
 
   e2e-ios:
     needs: check-changed-packages
-    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
@@ -448,7 +455,7 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
-    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
     runs-on: macos-latest
     environment: ci
     env:
