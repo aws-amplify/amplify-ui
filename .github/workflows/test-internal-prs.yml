@@ -98,7 +98,7 @@ jobs:
 
   setup-cache:
     needs: setup
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@categorical-packages/main
+    uses: ./.github/workflows/reusable-setup-cache.yml
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
@@ -130,14 +130,14 @@ jobs:
         run: yarn license
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@categorical-packages/main
+    uses: ./.github/workflows/reusable-unit.yml
     needs: setup-cache
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@categorical-packages/main
+    uses: ./.github/workflows/reusable-e2e.yml
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
