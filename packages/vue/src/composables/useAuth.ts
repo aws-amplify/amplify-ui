@@ -26,7 +26,7 @@ export const useAuth = createSharedComposable((): UseAuth => {
     unsubscribeHub();
   });
 
-  return { service: service, send, state };
+  return { service, send, state };
 });
 
 export const useAuthenticator = createSharedComposable(() => {
