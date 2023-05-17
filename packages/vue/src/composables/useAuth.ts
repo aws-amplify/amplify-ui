@@ -34,8 +34,8 @@ export const useAuthenticator = () => {
   const authStatus = ref<AuthStatus>('configuring');
   const useAuthenticatorValue = reactive({
     ...facade,
-    send: '' as unknown,
-    state: '' as unknown,
+    send: undefined,
+    state: undefined,
   }) as any;
 
   const createValues = () => {
