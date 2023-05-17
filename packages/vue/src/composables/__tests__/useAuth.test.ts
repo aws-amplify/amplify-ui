@@ -93,7 +93,7 @@ describe('useAuth', () => {
     expect(unsubscribeHubSpy).toBeCalledTimes(1);
   });
 
-  it('unsubscribes to hub only once even if multiple instances are mounted', () => {
+  it('unsubscribes only once even if multiple instances are mounted', () => {
     const wrapper = mount(DoubleTestComponent);
     wrapper.unmount();
 
