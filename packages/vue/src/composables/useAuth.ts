@@ -1,4 +1,4 @@
-import { ref, reactive, Ref, watchEffect, onUnmounted } from 'vue';
+import { ref, reactive, Ref, watchEffect, onScopeDispose } from 'vue';
 import { useActor } from '@xstate/vue';
 import { interpret } from 'xstate';
 
@@ -22,20 +22,7 @@ export const useAuth = (): UseAuth => {
     const machine = createAuthenticatorMachine();
     service.value = interpret(machine).start();
   }
-
-  const { state, send } = useActor(service.value);
-  return { service: service.value, state, send };
-};
-
-export const useAuthenticator = () => {
-  const { service, state, send } = useAuth();
-
-  const authStatus = ref<AuthStatus>('configuring');
-  const useAuthenticatorValue = reactive({
-    ...facade,
-    send: undefined,
-    state: undefined,
-  }) as any;
+  const authStatus: Ref<AuthStatus> = ref('unauthenticated');
 
   const onSignIn = () => {
     authStatus.value = 'authenticated';
@@ -45,17 +32,38 @@ export const useAuthenticator = () => {
     authStatus.value = 'unauthenticated';
   };
 
-  const unsubscribeHub = listenToAuthHub(service, async (data, service) => {
-    await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
-  });
+  const unsubscribeHub = listenToAuthHub(
+    service.value,
+    async (data, service) => {
+      await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
+    }
+  );
 
   Auth.currentAuthenticatedUser()
     .then(() => {
-      useAuthenticatorValue.authStatus = 'authenticated';
+      authStatus.value = 'authenticated';
     })
     .catch(() => {
-      useAuthenticatorValue.authStatus = 'unauthenticated';
+      authStatus.value = 'unauthenticated';
     });
+
+  const { state, send } = useActor(service.value);
+
+  onScopeDispose(() => {
+    unsubscribeHub();
+  });
+
+  return { authStatus, service: service.value, send, state };
+};
+
+export const useAuthenticator = () => {
+  const { authStatus, state, send } = useAuth();
+
+  const useAuthenticatorValue = reactive({
+    ...facade,
+    send: undefined,
+    state: undefined,
+  }) as any;
 
   watchEffect(() => {
     const facadeValues = getServiceFacade({
@@ -69,9 +77,6 @@ export const useAuthenticator = () => {
     useAuthenticatorValue.authStatus = authStatus.value;
     useAuthenticatorValue.send = send;
     useAuthenticatorValue.state = state;
-  });
-  onUnmounted(() => {
-    unsubscribeHub();
   });
 
   return useAuthenticatorValue;
