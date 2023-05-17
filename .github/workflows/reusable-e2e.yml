@@ -540,6 +540,10 @@ jobs:
           $ANDROID_HOME/platform-tools/adb devices
           # disable spell checker
           $ANDROID_HOME/platform-tools/adb shell settings put secure spell_checker_enabled 0
+          # disable animations
+          $ANDROID_HOME/platform-tools/adb shell settings put global window_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb shell settings put global transition_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Start Metro Bundler in background
         run: yarn react-native-example dev --reset-cache &
