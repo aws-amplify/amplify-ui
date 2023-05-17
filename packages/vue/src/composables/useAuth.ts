@@ -14,19 +14,19 @@ import {
 
 import { UseAuth } from '../types';
 import { facade } from './useUtils';
+import { createSharedComposable } from '@vueuse/core';
 
-const service: Ref<AuthInterpreter | undefined> = ref(undefined);
-const subscribers = ref<number>(0);
-const unsubscribeHub = ref<(() => void) | undefined>();
-
-export const useAuth = (): UseAuth => {
-  subscribers.value++;
+export const useAuth = createSharedComposable((): UseAuth => {
+  const service: Ref<AuthInterpreter | undefined> = ref(undefined);
   const authStatus: Ref<AuthStatus> = ref('unauthenticated');
+  const unsubscribeHub: Ref<(() => void) | undefined> = ref();
 
   if (!service.value) {
     const machine = createAuthenticatorMachine();
     service.value = interpret(machine).start();
   }
+
+  const { state, send } = useActor(service.value);
 
   const onSignIn = () => {
     authStatus.value = 'authenticated';
@@ -37,7 +37,6 @@ export const useAuth = (): UseAuth => {
   };
 
   if (!unsubscribeHub.value) {
-    console.log('subscribing...');
     unsubscribeHub.value = listenToAuthHub(
       service.value,
       async (data, service) => {
@@ -54,21 +53,14 @@ export const useAuth = (): UseAuth => {
       authStatus.value = 'unauthenticated';
     });
 
-  const { state, send } = useActor(service.value);
-
   onScopeDispose(() => {
-    subscribers.value--;
-
-    if (subscribers.value === 0 && unsubscribeHub.value) {
-      unsubscribeHub.value();
-      unsubscribeHub.value = undefined;
-    }
+    unsubscribeHub.value?.();
   });
 
   return { authStatus, service: service.value, send, state };
-};
+});
 
-export const useAuthenticator = () => {
+export const useAuthenticator = createSharedComposable(() => {
   const { authStatus, state, send } = useAuth();
 
   const useAuthenticatorValue = reactive({
@@ -92,4 +84,4 @@ export const useAuthenticator = () => {
   });
 
   return useAuthenticatorValue;
-};
+});

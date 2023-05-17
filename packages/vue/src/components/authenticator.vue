@@ -233,7 +233,8 @@ watch(
     });
     user.value = u;
     signOut.value = s;
-  }
+  },
+  { immediate: true }
 );
 
 const hasTabs = computed(() => {
