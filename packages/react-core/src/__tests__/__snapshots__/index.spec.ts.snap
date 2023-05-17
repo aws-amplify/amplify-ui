@@ -3,7 +3,8 @@
 exports[`@aws-amplify/ui-react-core exports should match snapshot 1`] = `
 Array [
   "AuthenticatorProvider",
-  "RenderNothing",
+  "InAppMessagingProvider",
+  "handleMessageAction",
   "isAuthenticatorComponentRouteKey",
   "resolveAuthenticatorComponents",
   "templateJoin",
@@ -11,6 +12,8 @@ Array [
   "useAuthenticatorInitMachine",
   "useAuthenticatorRoute",
   "useHasValueUpdated",
+  "useInAppMessaging",
+  "useMessage",
   "usePreviousValue",
 ]
 `;

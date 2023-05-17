@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Amplify, Notifications } from 'aws-amplify';
-import { Text } from '@aws-amplify/ui-react';
-import { withInAppMessaging } from '@aws-amplify/ui-react-notifications';
+import { Text, withInAppMessaging } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import config from './aws-exports';
