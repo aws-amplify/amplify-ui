@@ -6,7 +6,14 @@ import {
   LoginMechanism,
 } from '../../../../types';
 
-import { getCustomFormFields, removeOrderKeys } from '../formFields';
+import {
+  getCustomFormFields,
+  getFormFields,
+  getSortedFormFields,
+  removeOrderKeys,
+} from '../formFields';
+
+import * as Actor from '../../actor';
 
 const fields: FormFieldsArray = [
   [
@@ -51,6 +58,8 @@ const fields: FormFieldsArray = [
   ['phone_number', { order: 7, dialCode: '+44', labelHidden: true }],
 ];
 
+const getActorContextSpy = jest.spyOn(Actor, 'getActorContext');
+
 const generateMockState = (
   formFields: AuthFormFields | undefined,
   usernameAlias: LoginMechanism
@@ -75,7 +84,7 @@ describe('getCustomFormField', () => {
   it('returns empty object if customFormFields is not present', () => {
     const state = generateMockState(undefined, 'email');
     const result = getCustomFormFields('signIn', state);
-
+    expect(getActorContextSpy).toHaveBeenCalledWith(state);
     expect(result).toStrictEqual({});
   });
 
@@ -99,7 +108,7 @@ describe('getCustomFormField', () => {
     const {
       username: { label, placeholder, type, autocomplete, isRequired },
     } = getCustomFormFields('signIn', state);
-
+    expect(getActorContextSpy).toHaveBeenCalledWith(state);
     // overriden value should be present
     expect(label).toMatch('Mock Email Label');
 
@@ -205,5 +214,61 @@ describe('getCustomFormField', () => {
     expect(birthdate.placeholder).toMatch('Enter your Birthdate');
 
     expect(zoneinfo).toStrictEqual(zoneinfoOptions);
+  });
+});
+
+describe('getFormFields', () => {
+  const formFields: AuthFormFields = {
+    signIn: {
+      username: {
+        label: 'Mock Label',
+      },
+    },
+  };
+  const mockState = generateMockState(formFields, 'username');
+
+  it('returns form fields with translations applied', () => {
+    const route = 'signIn';
+    const formFields = getFormFields(route, mockState);
+    expect(formFields).toStrictEqual({
+      password: {
+        autocomplete: 'current-password',
+        isRequired: true,
+        label: 'Password',
+        placeholder: 'Enter your Password',
+        type: 'password',
+      },
+      username: {
+        autocomplete: 'username',
+        isRequired: true,
+        label: 'Mock Label',
+        placeholder: 'Enter your Username',
+        type: 'text',
+      },
+    });
+  });
+
+  it('does not include QR field', () => {
+    const route = 'confirmSignIn';
+    const formFields = getFormFields(route, mockState);
+    expect(formFields).not.toHaveProperty('QR');
+  });
+});
+
+describe('getSortedFormFields', () => {
+  const formFields: AuthFormFields = {
+    signIn: {
+      username: {
+        label: 'Mock Label',
+      },
+    },
+  };
+  const mockState = generateMockState(formFields, 'username');
+
+  it('returns a sorted array of form fields', () => {
+    const route = 'signIn';
+    const formFieldsArray = getSortedFormFields(route, mockState);
+
+    expect(Array.isArray(formFieldsArray)).toBe(true);
   });
 });
