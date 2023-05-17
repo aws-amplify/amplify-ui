@@ -2,13 +2,13 @@
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import { ref, toRefs, computed, useAttrs, onMounted, onUnmounted } from 'vue';
 import {
-  AuthFormFields,
   AuthenticatorMachineOptions,
   AuthenticatorRoute,
   AuthenticatorServiceFacade,
-  SocialProvider,
   authenticatorTextUtil,
+  AuthFormFields,
   configureComponent,
+  SocialProvider,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
