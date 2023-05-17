@@ -129,6 +129,15 @@ To include an Amplify UI package as a dependency add it to the `dependencies` fi
 },
 ```
 
+Then update the value of `INTERNAL_DEPENDENCY_DIRECTORY_NAMES` in the Example app [_metro.config.js_](./metro.config.js) to include the internal dependency package **directory** name:
+
+```js
+const INTERNAL_DEPENDENCY_DIRECTORY_NAMES = [
+  'ui'
+  ...
+]
+```
+
 > Only internal packages within the _packages_ directory are resolved in _metro.config.js_
 
 ## Adding Dependencies with Native Modules or direct React usage required by `@aws-amplify/ui-react-native`
