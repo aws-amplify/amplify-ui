@@ -30,7 +30,8 @@ When(
   'I type my {string} with status {string}',
   async (loginMechanism: string, status: string) => {
     let text = '',
-      usernameAttribute = capitalize(loginMechanism);
+      usernameAttribute = capitalize(loginMechanism),
+      testIdSuffix = loginMechanism;
     if (loginMechanism === 'email') {
       text = `${getUserAlias(status)}@${process.env.DOMAIN}`;
     } else if (loginMechanism === 'username') {
@@ -38,11 +39,13 @@ When(
     } else if (loginMechanism === 'phone number') {
       text = `${getCountryCode(status)}${process.env.PHONE_NUMBER}`;
       usernameAttribute = 'Phone Number';
+      testIdSuffix = 'phone-number';
     }
 
     try {
+      // try to retrieve element by test Id first
       await element(
-        by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${loginMechanism}`)
+        by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${testIdSuffix}`)
       ).typeText(text);
     } catch (e) {
       // for some custom fields the test id doesn't match the login mechanism
@@ -117,7 +120,7 @@ When('I type a new {string}', async (field: string) => {
 });
 
 When('I select my country code with status {string}', (status: string) => {
-  // do nothing, React-Native phonenumber field does not support country code selection yet
+  // do nothing, React-Native phone number field does not support country code selection yet
 });
 
 Then('I will be redirected to the confirm forgot password page', async () => {

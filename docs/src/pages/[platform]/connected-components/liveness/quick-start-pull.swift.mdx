@@ -1,7 +1,141 @@
-FaceLivenessDetectorView uses Amplify Auth by default to authorize users to perform the Face Liveness check. [Configure the Amplify Auth category](https://docs.aws.amazon.com/rekognition/latest/dg/face-liveness-prerequisites.html#face-liveness-prerequisites-amplify) to setup Amplify Auth and add authentication to your backend configuration.
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Fragment } from '@/components/Fragment';
 
-> If you already have Cognito set up or do not want to use the Amplify CLI to generate Cognito resources, you can follow the documentation for [importing existing resources](https://docs.amplify.aws/lib/project-setup/use-existing-resources/q/platform/ios/).
+There are four methods to setup the Amazon Cognito resources needed for Amplify Auth. The most common is the Amplify CLI create flow which asks a series of questions and will configure both a User Pool and Identity Pool automatically. The second option is the Amplify CLI import flow which adds an existing Cognito resource into Amplify. The third is to reuse or create a Cognito Identity Pool manually and to add it into your application. Finally the fourth is to pass a credentials provider which obtains the AWS credentials under your control.
+
+<Fragment>
+  {({}) => import(`./cognito-callout.mdx`)}
+</Fragment>
+
+<Tabs>
+  <TabItem title="Amplify CLI">
+> Use the Amplify CLI to automatically configure and manage your Cognito Identity and User Pool for you.
+
+FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. If you are using Amplify for the first time, follow the instructions for [installing the Amplify CLI](https://docs.amplify.aws/cli/start/install/).
+
+#### Set up a new Amplify project
+
+```bash
+$ amplify init
+? Enter a name for the project swiftliveness
+? Initialize the project with the above configuration? No
+? Enter a name for the environment dev
+? Choose your default editor: Xcode (macOS only)
+? Choose the type of app that you're building ios
+```
+
+<Fragment>
+  {({ platform }) => import(`./quick-start-pull-cli.mdx`)}
+</Fragment>
+
+#### Push to create the resources
+
+```bash
+$ amplify push
+✔ Successfully pulled backend environment dev from the cloud.
+
+Current Environment: dev
+
+| Category | Resource name    | Operation | Provider plugin   |
+| -------- | ---------------- | --------- | ----------------- |
+| Auth     | swiftlive••••••• | Create    | awscloudformation | 
+```
 
 _If you have an existing backend, run `amplify pull` to sync your `amplifyconfiguration.json` with your cloud backend._
 
-You should now have an `amplifyconfiguration.json` file in your project's main directory with your latest backend configuration.
+You should now have an `amplifyconfiguration.json` file in your `app/src/main/res/raw` directory with your latest backend configuration.
+  <Fragment>
+  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+</Fragment>
+  </TabItem>
+  <TabItem title="Existing Cognito Resource">
+> If you previously had unmanaged resources that you want to manage with Amplify you can use the CLI to import your Cognito resources.
+
+FaceLivenessDetector uses Amplify Auth by default to authorize users to perform the Face Liveness check. Follow the instructions for [importing existing resources](https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources).
+ <Fragment>
+  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+</Fragment> 
+  </TabItem>
+  <TabItem title="Self Managed Cognito Resource">
+> Use this option if you already have a Cognito identity/user pools that you do not want to import to Amplify, or want to manage Cognito resources yourself or with a 3rd party resource management tool.
+
+If you already have Cognito set up or do not want to use the Amplify CLI to generate Cognito resources, you can follow the documentation in the [existing resources tab](https://docs.amplify.aws/lib/auth/getting-started/q/platform/android/#set-up-backend-resources).
+
+_If you are manually setting up an identity pool in the Cognito console you can follow [this guide](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-started-with-identity-pools.html#create-identity-pool). When setting up the identity pool ensure that access to unauthenticated identities is enabled._
+
+When initially configuring Amplify (assuming you are using no pieces of Amplify other than the FaceLivenessDetector) you can manually create an `amplifyconfiguration.json` and add it your project’s main directory in this form:
+
+```json
+{
+  "auth": {
+    "plugins": {
+      "awsCognitoAuthPlugin": {
+        "CredentialsProvider": {
+          "CognitoIdentity": {
+            "Default": {
+              "PoolId": "us-east-1:-------------",
+              "Region": "us-east-1"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+<Fragment>
+  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+</Fragment>
+  </TabItem>
+  <TabItem title="Custom Credentials Provider">
+> Use this option if you want more control over the process of obtaining AWS credentials.
+
+By default, FaceLivenessDetector uses Amplify Auth to authorize users to perform the Face Liveness check. You can use your own credentials provider to retrieve credentials from [Amazon Cognito](https://aws.amazon.com/cognito/) or assume a role with [Amazon STS](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html), for example:
+
+
+```swift
+import Amplify
+
+struct MyCredentialsProvider: AWSCredentialsProvider {
+    func fetchAWSCredentials() async throws -> AWSCredentials { 
+        // Fetch the credentials
+    }
+}
+```
+
+```swift
+import SwiftUI
+import FaceLiveness
+
+struct MyView: View { 
+  @State private var isPresentingLiveness = true
+
+  var body: some View { 
+    FaceLivenessDetectorView(
+      sessionID: <session ID>,
+      region: <region>,
+      credentialsProvider: MyCredentialsProvider(),
+      isPresented: $isPresentingLiveness,
+      onCompletion: { result in
+        switch result {
+        case .success: 
+          // ...
+        case .failure(let error):
+          // ...
+        default:
+          // ...
+        }
+      }
+    )
+  }
+}
+```
+
+<Fragment>
+  {({}) => import(`./credentials-provider-callout.mdx`)}
+</Fragment>
+<Fragment>
+  {({ platform }) => import(`./quick-start-add-with-credentials-provider.swift.mdx`)}
+</Fragment>
+  </TabItem>
+</Tabs>
