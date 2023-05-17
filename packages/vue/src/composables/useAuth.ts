@@ -43,8 +43,8 @@ export const useAuthenticator = createSharedComposable(() => {
 
   const useAuthenticatorValue = reactive({
     ...facade,
-    send: undefined,
-    state: undefined,
+    send,
+    state,
   }) as any;
 
   watchEffect(() => {

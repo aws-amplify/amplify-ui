@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
 import {
   ref,
   toRefs,
@@ -13,9 +13,9 @@ import {
 import {
   AmplifyUser,
   AuthenticatorMachineOptions,
+  AuthenticatorRoute,
   authenticatorTextUtil,
   AuthFormFields,
-  getActorState,
   getServiceFacade,
   SocialProvider,
   configureComponent,
@@ -102,6 +102,11 @@ unsubscribeMachine = service.subscribe((newState) => {
   }
 }).unsubscribe;
 
+const { route: untypedRoute, toSignIn, toSignUp } = toRefs(useAuthenticator());
+
+// temporary enforce type safety until we strongly type Vue Authenticator
+const route = untypedRoute as Ref<AuthenticatorRoute>;
+
 onMounted(() => {
   configureComponent({
     packageName: '@aws-amplify/ui-vue',
@@ -112,8 +117,6 @@ onMounted(() => {
 onUnmounted(() => {
   if (unsubscribeMachine) unsubscribeMachine();
 });
-
-const actorState = computed(() => getActorState(state.value));
 
 const signInComponent = ref();
 const signUpComponent = ref();
@@ -238,19 +241,18 @@ watch(
 );
 
 const hasTabs = computed(() => {
-  return (
-    actorState.value?.matches('signIn') || actorState.value?.matches('signUp')
-  );
+  return route.value === 'signIn' || route.value === 'signUp';
 });
 
 const hasRouteComponent = computed(() => {
-  return !(
-    state.value.matches('authenticated') ||
-    state.value.matches('idle') ||
-    state.value.matches('setup') ||
-    state.value.matches('signOut') ||
-    actorState.value?.matches('autoSignIn')
-  );
+  const routesWithoutComponents: AuthenticatorRoute[] = [
+    'authenticated',
+    'idle',
+    'setup',
+    'signOut',
+    'transition',
+  ];
+  return !routesWithoutComponents.includes(route.value);
 });
 </script>
 
@@ -269,21 +271,21 @@ const hasRouteComponent = computed(() => {
       >
         <base-two-tabs v-if="hasTabs && !hideSignUp">
           <base-two-tab-item
-            :active="actorState?.matches('signIn')"
+            :active="route === 'signIn'"
             :id="44472"
             :label="signInLabel"
-            @click="send('SIGN_IN')"
+            @click="toSignIn"
           />
           <base-two-tab-item
-            :active="actorState?.matches('signUp')"
+            :active="route === 'signUp'"
             :id="44471"
             :label="createAccountLabel"
-            @click="send('SIGN_UP')"
+            @click="toSignUp"
           />
         </base-two-tabs>
         <div v-if="hasTabs" data-amplify-router-content>
           <sign-in
-            v-if="actorState?.matches('signIn')"
+            v-if="route === 'signIn'"
             @sign-in-submit="onSignInSubmitI"
             ref="signInComponent"
           >
@@ -312,7 +314,7 @@ const hasRouteComponent = computed(() => {
             </template>
           </sign-in>
           <sign-up
-            v-if="actorState?.matches('signUp') && !hideSignUp"
+            v-if="route === 'signUp' && !hideSignUp"
             @sign-up-submit="onSignUpSubmitI"
             ref="signUpComponent"
           >
@@ -333,7 +335,7 @@ const hasRouteComponent = computed(() => {
         </div>
 
         <confirm-sign-up
-          v-if="actorState?.matches('confirmSignUp')"
+          v-if="route === 'confirmSignUp'"
           @confirm-sign-up-submit="onConfirmSignUpSubmitI"
           ref="confirmSignUpComponent"
         >
@@ -354,7 +356,7 @@ const hasRouteComponent = computed(() => {
         </confirm-sign-up>
 
         <reset-password
-          v-if="actorState?.matches('resetPassword')"
+          v-if="route === 'resetPassword'"
           @reset-password-submit="onResetPasswordSubmitI"
           ref="resetPasswordComponent"
         >
@@ -375,7 +377,7 @@ const hasRouteComponent = computed(() => {
         </reset-password>
 
         <confirm-reset-password
-          v-if="actorState?.matches('confirmResetPassword')"
+          v-if="route === 'confirmResetPassword'"
           @confirm-reset-password-submit="onConfirmResetPasswordSubmitI"
           ref="confirmResetPasswordComponent"
         >
@@ -398,7 +400,7 @@ const hasRouteComponent = computed(() => {
         </confirm-reset-password>
 
         <confirm-sign-in
-          v-if="actorState?.matches('confirmSignIn')"
+          v-if="route === 'confirmSignIn'"
           @confirm-sign-in-submit="onConfirmSignInSubmitI"
           ref="confirmSignInComponent"
         >
@@ -419,10 +421,7 @@ const hasRouteComponent = computed(() => {
         </confirm-sign-in>
 
         <setup-totp
-          v-if="
-            actorState?.matches('setupTOTP.edit') ||
-            actorState?.matches('setupTOTP.submit')
-          "
+          v-if="route === 'setupTOTP'"
           @confirm-setup-totp-submit="onConfirmSetupTOTPSubmitI"
           ref="confirmSetupTOTPComponent"
         >
@@ -443,7 +442,7 @@ const hasRouteComponent = computed(() => {
         </setup-totp>
 
         <force-new-password
-          v-if="actorState?.matches('forceNewPassword')"
+          v-if="route === 'forceNewPassword'"
           @force-new-password-submit="onForceNewPasswordSubmitI"
           ref="forceNewPasswordComponent"
         >
@@ -469,7 +468,7 @@ const hasRouteComponent = computed(() => {
         </force-new-password>
 
         <verify-user
-          v-if="actorState?.matches('verifyUser')"
+          v-if="route === 'verifyUser'"
           @verify-user-submit="onVerifyUserSubmitI"
           ref="verifyUserComponent"
         >
@@ -490,7 +489,7 @@ const hasRouteComponent = computed(() => {
         </verify-user>
 
         <confirm-verify-user
-          v-if="actorState?.matches('confirmVerifyUser')"
+          v-if="route === 'confirmVerifyUser'"
           @confirm-verify-user-submit="onConfirmVerifyUserSubmitI"
           ref="confirmVerifyUserComponent"
         >
