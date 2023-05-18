@@ -213,14 +213,19 @@ const hasTabs = computed(() => {
 });
 
 const hasRouteComponent = computed(() => {
-  const routesWithoutComponents: AuthenticatorRoute[] = [
-    'authenticated',
-    'idle',
-    'setup',
-    'signOut',
-    'transition',
+  const routesWithComponent: AuthenticatorRoute[] = [
+    'signIn',
+    'signUp',
+    'confirmSignUp',
+    'resetPassword',
+    'confirmResetPassword',
+    'confirmSignIn',
+    'setupTOTP',
+    'forceNewPassword',
+    'verifyUser',
+    'confirmVerifyUser',
   ];
-  return !routesWithoutComponents.includes(route.value);
+  return routesWithComponent.includes(route.value);
 });
 </script>
 
@@ -480,6 +485,7 @@ const hasRouteComponent = computed(() => {
       <slot name="footer"></slot>
     </div>
   </div>
+  <!-- cast slot props back to any for backwards compatibility -->
   <slot
     v-if="route === 'authenticated'"
     :user="(user as any)"

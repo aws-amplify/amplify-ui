@@ -11,9 +11,8 @@ import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.v
 
 import { useAuthenticator } from '../composables/useAuth';
 
-const facadeValues = useAuthenticator();
 const props = useAuthenticator();
-const { hasValidationErrors, isPending, error } = toRefs(facadeValues);
+const { hasValidationErrors, isPending, error } = toRefs(props);
 
 const attrs = useAttrs();
 const emit = defineEmits(['signUpSubmit']);
