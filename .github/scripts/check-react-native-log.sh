@@ -3,7 +3,8 @@
 echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
 cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 
-# Define the time of seconds to wait the command
+# Define the time of seconds to wait the logging messages
+# TIME_TO_WAIT numbers are based on the experiments on GitHub Actions
 if [ "$PLATFORM" = "ios" ]; then
   TIME_TO_WAIT=300
 else
