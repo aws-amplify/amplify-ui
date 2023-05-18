@@ -957,16 +957,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           height: height!,
         });
 
-        const {
-          isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording,
-          error,
-        } = await isFaceDistanceBelowThreshold({
-          faceDetector: faceDetector!,
-          videoEl: videoEl!,
-          ovalDetails,
-          reduceThreshold: faceDistanceCheckBeforeRecording, // if this is the second face distance check reduce the threshold
-          isMobile,
-        });
+        const { isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording } =
+          await isFaceDistanceBelowThreshold({
+            faceDetector: faceDetector!,
+            videoEl: videoEl!,
+            ovalDetails,
+            reduceThreshold: faceDistanceCheckBeforeRecording, // if this is the second face distance check reduce the threshold
+            isMobile,
+          });
 
         return { isFaceFarEnoughBeforeRecording };
       },
