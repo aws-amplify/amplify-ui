@@ -140,8 +140,7 @@ jobs:
           LOG_FILE: ${{ matrix.logfile }}
       - name: Detect Mega App Error in Log
         if: ${{ matrix.framework == 'react-native' }}
-        run: ./.github/scripts/check-react-native-log.sh
-        shell: bash
+        run: node ./.github/scripts/checkReactNativeLog.js
         env:
           BUILD_TOOL: ${{ matrix.build-tool }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
