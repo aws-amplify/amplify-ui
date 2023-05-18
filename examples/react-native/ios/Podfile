@@ -26,8 +26,8 @@ target 'ReactNative' do
 
   # Enables Flipper.
   #
-  # Note that if you have use_frameworks! enabled, Flipper will not work and
-  # you should disable the next line.
+  # flipper disabled by default to improve iOS build times for CI
+  # and because we use react-native debugger tools in dev, not flipper
   # use_flipper!()
 
   post_install do |installer|

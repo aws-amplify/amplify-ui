@@ -1,8 +1,5 @@
 {
   "skipLegacyWorkersInjection": true,
-  "logger": {
-    "level": "trace"
-  },
   "artifacts": {
     "rootDir": "./detox/screenshots",
     "plugins": {
@@ -44,7 +41,7 @@
     "simulator": {
       "type": "ios.simulator",
       "device": {
-        "type": "iPhone 13"
+        "type": "iPhone 14"
       }
     },
     "emulator": {
