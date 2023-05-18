@@ -425,10 +425,6 @@ jobs:
       - name: Delete AWS profile
         run: rm -rf ~/.aws
 
-      - name: Start simulator
-        run: |
-          xcrun simctl boot "iPhone 13"
-
       - name: Start Metro Bundler in background
         run: yarn react-native-example dev --reset-cache &
 
