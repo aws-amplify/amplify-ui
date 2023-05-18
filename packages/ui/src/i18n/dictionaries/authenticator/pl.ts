@@ -20,7 +20,7 @@ export const plDict: AuthenticatorDictionary = {
   'Dismiss alert': 'Odrzuć alert',
   Email: 'E-mail',
   'Enter your code': 'Wprowadź swój kod',
-  'Enter your email': 'Wpisz swój adres e-mail',
+  'Enter your Email': 'Wpisz swój adres e-mail',
   'Enter your phone number': 'Wpisz swój numer telefonu',
   'Enter your username': 'Wprowadź swoją nazwę użytkownika',
   'Forgot your password?': 'Zapomniałeś hasła? ',
