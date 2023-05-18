@@ -46,23 +46,24 @@ fi
 
 # Step 1: Check if all lines in the log file meet the criteria:
 echo -e "${BLUE_BOLD}Checking log file \"$LOG_FILE\" for errors...${RESET}"
-LINE_ERROR=false
+HAS_ERROR=false
 
 while read -r line; do
+  LINE_ERROR=false
   if [[ "$line" == "" ]]; then
     continue
-  # Check if there's any line start with "NN:NN:NN," or "[NN:NN:NN]" (N is 0-9), and has "Error" or "ERROR".
-  elif echo "$line" | grep -Eq '^(\[?([0-9]{2}:){2}[0-9]{2}\]?,?).*(Error|ERROR)'; then
+  # Check if there's any line has "NN:NN:NN"(N is 0-9) and "Error" or "ERROR".
+  elif echo "$line" | grep -Eq '(([0-9]{2}:){2}[0-9]{2},?).*(Error|ERROR)'; then
     echo -e "${RED_BOLD}ERROR found:${RESET}"
     echo -e $line
     LINE_ERROR=true
-    # Check if there's any line start with "NN:NN:NN," or "[NN:NN:NN]" (N is 0-9), and has "fail".
-  elif echo "$line" | grep -Eq '^(\[?([0-9]{2}:){2}[0-9]{2}\]?,?).*(fail)'; then
+    # Check if there's any line has "NN:NN:NN"(N is 0-9) and "fail".
+  elif echo "$line" | grep -Eq '(([0-9]{2}:){2}[0-9]{2},?).*(fail)'; then
     echo -e "${RED_BOLD}fail found:${RESET}"
     echo -e $line
     LINE_ERROR=true
-    # Check if there's any line start with "NN:NN:NN," or "[NN:NN:NN]" (N is 0-9), and has "Could not connect to development server".
-  elif echo "$line" | grep -Eq '^(\[?([0-9]{2}:){2}[0-9]{2}\]?,?).*(Could not connect to development server)'; then
+    # Check if there's any line has "NN:NN:NN"(N is 0-9) and "Could not connect to development server".
+  elif echo "$line" | grep -Eq '(([0-9]{2}:){2}[0-9]{2},?).*(Could not connect to development server)'; then
     echo -e "${RED_BOLD}Connection error:${RESET}"
     echo -e $line
     LINE_ERROR=true
@@ -75,10 +76,14 @@ while read -r line; do
       break
     fi
   done
+  if [[ $LINE_ERROR == true ]]; then
+    HAS_ERROR=true
+  fi
 done <"$LOG_FILE"
 
 # Step 2: Errors found, show the file and exit with failure
-if [[ $LINE_ERROR == true ]]; then
+echo -e "${RED_BOLD} 🌔 STEP2: HAS_ERROR: ${HAS_ERROR} ${RESET}"
+if [[ $HAS_ERROR == true ]]; then
   echo -e "${RED_BOLD}Errors found in log file \"$LOG_FILE\":${RESET}"
   echo -e "${BLUE_BOLD}Full log:${RESET}"
   cat "$LOG_FILE"
