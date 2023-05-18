@@ -405,7 +405,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         entry: ['cleanUpResources', 'callUserTimeoutCallback', 'freezeStream'],
       },
       error: {
-        type: 'final',
         entry: [
           'cleanUpResources',
           'callErrorCallback',
