@@ -18,7 +18,7 @@ YELLOW_BOLD="\033[1;33m"
 RESET="\033[0m"
 
 # Sleep for the specified time
-echo -e "${BLUE_BOLD}Sleep for $TIME_TO_WAIT second...${RESET}"
+echo -e "${BLUE_BOLD}Sleep for $TIME_TO_WAIT seconds...${RESET}"
 sleep $TIME_TO_WAIT
 
 # Check if the log file only has one line
