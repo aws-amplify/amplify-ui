@@ -1,14 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { render } from '@testing-library/react-native';
-import {
-  MessageLayout,
-  useMessage,
-} from '@aws-amplify/ui-react-core-notifications';
+import { MessageLayout, useMessage } from '@aws-amplify/ui-react-core';
 
 import InAppMessageDisplay from '../InAppMessageDisplay';
 
-jest.mock('@aws-amplify/ui-react-core-notifications');
+jest.mock('@aws-amplify/ui-react-core');
 
 const mockUseMessage = useMessage as jest.Mock;
 

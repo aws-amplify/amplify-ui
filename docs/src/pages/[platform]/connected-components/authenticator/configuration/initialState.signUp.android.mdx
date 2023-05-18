@@ -1,9 +1,18 @@
+import { Image, View } from '@aws-amplify/ui-react';
+
 ```kotlin
 val authenticatorState = rememberAuthenticatorState(
-    initialStep = AuthenticatorStep.SignUp
+    initialStep = AuthenticatorStep.SignUp // Type checking ensures you can only pass SignIn, SignUp, and ResetPassword here
 )
 
 Authenticator(state = authenticatorState) {
     // ...
 }
 ```
+<View
+    width="100%"
+    textAlign="center"
+>
+    <Image alt="Sign up with Amplify Android Authenticator" width="33%" src="/android/authenticator/sign-up.png" />
+
+</View>

@@ -9,7 +9,11 @@ import {
   hasSpecialChar,
   hasUpperCase,
   getMatchesConfirmPassword,
+  shouldValidate,
+  runFieldValidators,
+  getDefaultConfirmPasswordValidators,
 } from '../validator';
+import { ValidatorOptions } from '../../../types';
 
 const partialAmplifyPasswordConfig = {
   aws_cognito_password_protection_settings: {
@@ -193,5 +197,163 @@ describe('getConfirmPassword', () => {
     const { validator } = getMatchesConfirmPassword('myPassword');
     const isValid = validator('mismatchingPassword');
     expect(isValid).toBe(false);
+  });
+});
+
+describe('shouldValidate', () => {
+  it('returns true when validationMode is onBlur eventType is blur', () => {
+    const result = shouldValidate({
+      validationMode: 'onBlur',
+      eventType: 'blur',
+      hasBlurred: false,
+    });
+
+    expect(result).toBe(true);
+  });
+
+  it('returns false when validationMode is onBlur and eventType is not blur', () => {
+    const result = shouldValidate({
+      validationMode: 'onBlur',
+      eventType: 'change',
+      hasBlurred: false,
+    });
+
+    expect(result).toBe(false);
+  });
+
+  it('returns true when validationMode is onChange and eventType is change', () => {
+    const result = shouldValidate({
+      validationMode: 'onChange',
+      eventType: 'change',
+      hasBlurred: false,
+    });
+
+    expect(result).toBe(true);
+  });
+
+  it('returns true when validationMode is onTouched and eventType is blur and hasBlurred is false', () => {
+    const result = shouldValidate({
+      validationMode: 'onTouched',
+      eventType: 'blur',
+      hasBlurred: false,
+    });
+
+    expect(result).toBe(true);
+  });
+
+  it('returns false when validationMode is onTouched and eventType is change and hasBlurred is false', () => {
+    const result = shouldValidate({
+      validationMode: 'onTouched',
+      eventType: 'change',
+      hasBlurred: false,
+    });
+
+    expect(result).toBe(false);
+  });
+});
+
+describe('runFieldValidators', () => {
+  it('returns an empty array when there are no validators', () => {
+    const value = 'test';
+    const validators = [];
+    const eventType = 'blur';
+    const hasBlurred = false;
+    const result = runFieldValidators({
+      value,
+      validators,
+      eventType,
+      hasBlurred,
+    });
+    expect(result).toEqual([]);
+  });
+
+  it('returns an empty array when the value is empty', () => {
+    const value = '';
+    const validators: ValidatorOptions[] = [
+      { validator: () => true, validationMode: 'onBlur', message: 'error' },
+    ];
+    const eventType = 'blur';
+    const hasBlurred = false;
+    const result = runFieldValidators({
+      value,
+      validators,
+      eventType,
+      hasBlurred,
+    });
+    expect(result).toEqual([]);
+  });
+
+  it('returns an error message when a validator fails', () => {
+    const value = 'test';
+    const validators: ValidatorOptions[] = [
+      {
+        validator: (value) => value === 'pass',
+        validationMode: 'onBlur',
+        message: 'error',
+      },
+    ];
+    const eventType = 'blur';
+    const hasBlurred = false;
+    const result = runFieldValidators({
+      value,
+      validators,
+      eventType,
+      hasBlurred,
+    });
+    expect(result).toEqual(['error']);
+  });
+
+  it('returns an empty array when all validators pass', () => {
+    const value = 'pass';
+    const validators: ValidatorOptions[] = [
+      {
+        validator: (value) => value === 'pass',
+        validationMode: 'onBlur',
+        message: 'error',
+      },
+    ];
+    const eventType = 'blur';
+    const hasBlurred = false;
+    const result = runFieldValidators({
+      value,
+      validators,
+      eventType,
+      hasBlurred,
+    });
+    expect(result).toEqual([]);
+  });
+
+  it('returns previous errors when a validator returns an error message', () => {
+    const value = 'test';
+    const validators: ValidatorOptions[] = [
+      {
+        validator: (val: string) => val === 'other',
+        validationMode: 'onChange',
+        message: 'Value is not correct',
+      },
+      {
+        validator: (val: string) => val.length > 5,
+        validationMode: 'onBlur',
+        message: 'Value must be longer than 5 characters',
+      },
+    ];
+    const eventType = 'change';
+    const hasBlurred = true;
+
+    const result = runFieldValidators({
+      value,
+      validators,
+      eventType,
+      hasBlurred,
+    });
+    expect(result).toEqual(['Value is not correct']);
+  });
+});
+
+describe('getDefaultConfirmPasswordValidators', () => {
+  it('returns an array with one validator', () => {
+    const password = 'password';
+    const validators = getDefaultConfirmPasswordValidators(password);
+    expect(validators).toHaveLength(1);
   });
 });
