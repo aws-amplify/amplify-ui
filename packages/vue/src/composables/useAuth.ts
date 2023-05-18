@@ -1,43 +1,55 @@
+import { createSharedComposable } from '@vueuse/core';
+import { reactive, watchEffect, onScopeDispose } from 'vue';
 import { useActor } from '@xstate/vue';
-import { ref, reactive, Ref, watchEffect } from 'vue';
-import { getServiceFacade } from '@aws-amplify/ui';
+import { interpret } from 'xstate';
+
+import {
+  AuthInterpreter,
+  createAuthenticatorMachine,
+  defaultAuthHubHandler,
+  getServiceFacade,
+  listenToAuthHub,
+} from '@aws-amplify/ui';
+
+import { UseAuth } from '../types';
 import { facade } from './useUtils';
-import { InterpretService } from '@/components';
 
-const service = ref() as Ref<InterpretService>;
-const useAuthenticatorValue = reactive({
-  ...facade,
-  send: '' as unknown,
-  state: '' as unknown,
-}) as any;
+export const useAuth = createSharedComposable((): UseAuth => {
+  const machine = createAuthenticatorMachine();
+  const service: AuthInterpreter = interpret(machine).start();
 
-export const useAuth = (serv?: InterpretService) => {
-  if (serv) {
-    service.value = serv;
-  }
-  return useActor(service.value);
-};
+  const { state, send } = useActor(service);
 
-const useInternalAuthenticator = () => {
-  createValues();
-  watchEffect(() => {
-    createValues();
+  const unsubscribeHub = listenToAuthHub(service, defaultAuthHubHandler);
+
+  onScopeDispose(() => {
+    unsubscribeHub();
   });
-  return useAuthenticatorValue;
-};
 
-export const useAuthenticator = useInternalAuthenticator;
+  return { service, send, state };
+});
 
-function createValues() {
-  if (!service.value) return;
-
+export const useAuthenticator = createSharedComposable(() => {
   const { state, send } = useAuth();
 
-  const facadeValues = getServiceFacade({ send, state: state.value });
-  for (const key of Object.keys(facade)) {
-    //@ts-ignore
-    useAuthenticatorValue[key] = facadeValues[key];
-  }
-  useAuthenticatorValue.send = send;
-  useAuthenticatorValue.state = state;
-}
+  const useAuthenticatorValue = reactive({
+    ...facade,
+    send,
+    state,
+  }) as any;
+
+  watchEffect(() => {
+    const facadeValues = getServiceFacade({
+      send,
+      state: state.value,
+    });
+    for (const key of Object.keys(facade)) {
+      //@ts-ignore
+      useAuthenticatorValue[key] = facadeValues[key];
+    }
+    useAuthenticatorValue.send = send;
+    useAuthenticatorValue.state = state;
+  });
+
+  return useAuthenticatorValue;
+});

@@ -1,0 +1,20 @@
+<form (submit)="handleSubmit($event)">
+  <div>{{ authenticator.authStatus }}</div>
+
+  <div
+    *ngIf="!isAuthenticated"
+    [style.display]="'flex'"
+    [style.flex-direction]="'column'"
+    [style.gap]="'1rem'"
+  >
+    <label for="username">Username</label>
+    <input id="username" name="username" />
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" />
+    <button type="submit">Sign In</button>
+  </div>
+
+  <div *ngIf="isAuthenticated">
+    <button type="button" (click)="signOut()">Sign Out</button>
+  </div>
+</form>
