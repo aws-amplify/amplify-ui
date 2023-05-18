@@ -32,7 +32,7 @@ const hubListenSpy = jest.spyOn(Hub, 'listen');
 jest.spyOn(XState, 'interpret').mockReturnValue(mockService);
 jest.spyOn(XStateVue, 'useActor').mockImplementation(() => {
   return { state: mockState, send: mockSend } as unknown as ReturnType<
-    typeof XStateVue['useActor']
+    (typeof XStateVue)['useActor']
   >;
 });
 
