@@ -37,11 +37,9 @@ export const useAuth = createSharedComposable((): UseAuth => {
 
   Auth.currentAuthenticatedUser()
     .then(() => {
-      console.log('here');
       authStatus.value = 'authenticated';
     })
     .catch(() => {
-      console.log('there');
       authStatus.value = 'unauthenticated';
     });
 
