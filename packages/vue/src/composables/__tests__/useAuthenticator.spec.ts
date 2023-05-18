@@ -31,6 +31,7 @@ const mockService = new MockAuthService() as unknown as XState.AnyInterpreter;
 const mockSend = jest.fn();
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
+  authStatus: ref('unauthenticated'),
   state: mockState,
   service: mockService,
   send: mockSend,
@@ -59,7 +60,7 @@ describe('useAuthenticator', () => {
       state: mockState.value,
     });
 
-    expect(wrapper.vm.authStatus).toBe('authenticated');
+    expect(wrapper.vm.authStatus).toBe('unauthenticated');
     wrapper.unmount();
   });
 
