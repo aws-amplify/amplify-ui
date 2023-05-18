@@ -127,4 +127,13 @@ describe('defaultAuthHubHandler', () => {
       expect(handler).toHaveBeenCalledTimes(1);
     }
   );
+
+  it("doesn't break when unsupported event is passed", async () => {
+    const spyError = jest.spyOn(console, 'error');
+    await defaultAuthHubHandler(
+      { payload: { event: 'unsupported' } } as unknown as HubCapsule,
+      unauthenticatedStateMachine
+    );
+    expect(spyError).not.toHaveBeenCalled();
+  });
 });

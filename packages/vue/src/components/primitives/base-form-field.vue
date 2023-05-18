@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { toRefs, computed } from 'vue';
-import { createSharedComposable } from '@vueuse/core';
 import { nanoid } from 'nanoid';
 
 import { FormFieldOptions, getErrors, translate } from '@aws-amplify/ui';
@@ -19,8 +18,7 @@ const props = withDefaults(defineProps<BaseFormField>(), {
 
 const { name, formField } = toRefs(props);
 
-const useAuthShared = createSharedComposable(useAuthenticator);
-const { validationErrors } = toRefs(useAuthShared());
+const { validationErrors } = toRefs(useAuthenticator());
 
 const { type } = formField.value;
 

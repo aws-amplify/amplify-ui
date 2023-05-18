@@ -3,6 +3,9 @@ title: In-App Messaging
 description: Amplify UI In-App Messaging provides UI components for displaying in-app messages.
 supportedFrameworks: react|react-native
 ---
+import { Alert } from '@aws-amplify/ui-react';
+
+import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 
 import { Fragment } from '@/components/Fragment';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
@@ -35,6 +38,8 @@ In-App Messaging allows you to better engage users with contextually appropriate
 <Fragment platforms={['react', 'react-native']}>{({ platform }) => import(`./fragments/prereqs.${platform}.mdx`)}</Fragment>
 
 ## Getting Started
+
+<AppDirectoryAlert />
 
 Integration with your application can be done with the `InAppMessagingProvider` and `InAppMessageDisplay` components directly, 
 or wrap your app in `withInAppMessaging` (a [React Higher-Order Component](https://legacy.reactjs.org/docs/higher-order-components.html)):

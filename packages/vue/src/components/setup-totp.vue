@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, reactive, computed, ComputedRef, useAttrs, ref } from 'vue';
-import { createSharedComposable } from '@vueuse/core';
 import QRCode from 'qrcode';
 
 import { Logger } from 'aws-amplify';
@@ -18,8 +17,7 @@ import BaseFormFields from './primitives/base-form-fields.vue';
 
 const logger = new Logger('SetupTOTP-logger');
 
-const useAuthShared = createSharedComposable(useAuthenticator);
-const props = useAuthShared();
+const props = useAuthenticator();
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
