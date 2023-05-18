@@ -1,9 +1,9 @@
 Feature: Verify Auth Status on Sign In and Sign Out
 
   Background:
-    Given I'm running the example "/ui/components/authenticator/use-authenticator-auth-status"
+    Given I'm running the example "/ui/components/authenticator/auth-status"
 
-  @react
+  @angular @react
   Scenario: Sign in with confirmed credentials, reload, sign out, and reload
     Then I see "unauthenticated" 
     When I type my "username" with status "CONFIRMED"
