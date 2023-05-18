@@ -82,7 +82,6 @@ while read -r line; do
 done <"$LOG_FILE"
 
 # Step 2: Errors found, show the file and exit with failure
-echo -e "${RED_BOLD} 🌔 STEP2: HAS_ERROR: ${HAS_ERROR} ${RESET}"
 if [[ $HAS_ERROR == true ]]; then
   echo -e "${RED_BOLD}Errors found in log file \"$LOG_FILE\":${RESET}"
   echo -e "${BLUE_BOLD}Full log:${RESET}"
