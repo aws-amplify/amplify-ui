@@ -43,7 +43,7 @@ When(
     }
 
     try {
-      // try to retrieve element by test ID first
+      // try to retrieve element by test Id first
       await element(
         by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${testIdSuffix}`)
       ).typeText(text);
@@ -56,7 +56,7 @@ When(
           .withDescendant(by.label(`Enter your ${usernameAttribute}`));
         await element(inputField).typeText(text);
       } else {
-        // Android renders placeholders differently, in a hint prop of the text field
+        // android renders placeholders differently, in a hint prop of the text field
         // there is not Detox matcher for this prop, so we're matching by field label
         await element(
           by
