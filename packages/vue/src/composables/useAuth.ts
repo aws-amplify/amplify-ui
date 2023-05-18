@@ -19,7 +19,7 @@ import { facade } from './useUtils';
 export const useAuth = createSharedComposable((): UseAuth => {
   const machine = createAuthenticatorMachine();
   const service: AuthInterpreter = interpret(machine).start();
-  const authStatus: Ref<AuthStatus> = ref('unauthenticated');
+  const authStatus: Ref<AuthStatus> = ref('configuring');
 
   const { state, send } = useActor(service);
 
@@ -37,9 +37,11 @@ export const useAuth = createSharedComposable((): UseAuth => {
 
   Auth.currentAuthenticatedUser()
     .then(() => {
+      console.log('here');
       authStatus.value = 'authenticated';
     })
     .catch(() => {
+      console.log('there');
       authStatus.value = 'unauthenticated';
     });
 
