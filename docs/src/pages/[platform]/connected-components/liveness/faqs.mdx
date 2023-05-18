@@ -23,6 +23,10 @@ Make sure you are using a supported AWS region. Please refer to [Liveness suppor
 
 Ensure that the session ID returned from the backend when creating the session is the same as the one created on initialization of the Liveness UI. Note: session IDs can only be used once. You must create a new session to allow users to retry the Liveness check.
 
-<Fragment platforms={['android']}>
+<Fragment platforms={['android', 'swift']}>
   {({ platform }) => import(`./faqs-${platform}.mdx`)}
 </Fragment>
+
+### I am unable to use the Amplify CLI and/or CloudFormation. Can I still use the FaceLivenessDetector?
+
+Yes, this use case is supported.  Please select "Self Managed Cognito Resource" in [Step 1](#step-1-configure-auth).
