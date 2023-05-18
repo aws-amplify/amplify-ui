@@ -7,15 +7,13 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
-import { createSharedComposable } from '@vueuse/core';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
-const useAuthShared = createSharedComposable(useAuthenticator);
-const { isPending, error, codeDeliveryDetails } = toRefs(useAuthShared());
-const { submitForm, updateForm, resendCode } = useAuthShared();
+const { isPending, error, codeDeliveryDetails } = toRefs(useAuthenticator());
+const { submitForm, updateForm, resendCode } = useAuthenticator();
 
 // Text Util
 const {
