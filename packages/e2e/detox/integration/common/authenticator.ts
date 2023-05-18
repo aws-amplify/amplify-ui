@@ -56,7 +56,7 @@ When(
           .withDescendant(by.label(`Enter your ${usernameAttribute}`));
         await element(inputField).typeText(text);
       } else {
-        // Android renders placeholders differently, in a hint prop of the text field
+        // android renders placeholders differently, in a hint prop of the text field
         // there is not Detox matcher for this prop, so we're matching by field label
         await element(
           by
