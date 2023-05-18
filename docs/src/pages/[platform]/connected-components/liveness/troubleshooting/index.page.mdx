@@ -6,13 +6,11 @@ supportedFrameworks: react|android|swift
 
 import { Fragment } from '@/components/Fragment';
 
-## Troubleshooting
-
 The following issues are presented with corresponding troubleshooting steps. Please check them out in case you run into issues like these -- if the remedies don't work, please file an issue in our GitHub repositories.
 
 ### Error: Cognito user pool does not allow access to unauthenticated identities
 
-First, make sure you have followed the [prerequisites for setting up Amplify resources](#step-1-configure-auth). Second, you can also go into the Cognito identity pool configured in your Amplify app, edit it and select the checkbox labeled "Enable access to unauthenticated identities" -- then save the changes. Finally, ensure that the configuration file -- `aws-exports.js` on web or `amplifyconfiguration.json` on mobile -- contains the name of the correct identity pool.
+First, make sure you have followed the [prerequisites for setting up Amplify resources](./#step-1-configure-auth). Second, you can also go into the Cognito identity pool configured in your Amplify app, edit it and select the checkbox labeled "Enable access to unauthenticated identities" -- then save the changes. Finally, ensure that the configuration file -- `aws-exports.js` on web or `amplifyconfiguration.json` on mobile -- contains the name of the correct identity pool.
 
 ### Error: Server error - Session not found 
 
