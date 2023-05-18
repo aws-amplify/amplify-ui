@@ -73,6 +73,7 @@ const mockStateRef = ref(idleState) as unknown as Ref<AuthMachineState>;
 
 const sendSpy = jest.fn();
 const useAuthSpy = jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
+  authStatus: ref('unauthenticated'),
   state: mockStateRef,
   send: sendSpy,
   service: mockService,
