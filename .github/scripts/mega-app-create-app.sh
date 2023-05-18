@@ -52,6 +52,8 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
 fi
 
 if [[ "$BUILD_TOOL" == 'cli' && "$FRAMEWORK" == 'react-native' ]]; then
+    echo "rm -rf $MEGA_APP_NAME" # Remove $MEGA_APP_NAME if it exists
+    rm -rf $MEGA_APP_NAME
     echo "npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION"
     npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION
     # React-Native, since 0.71.8,
