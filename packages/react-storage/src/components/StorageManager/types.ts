@@ -41,7 +41,7 @@ export type ProcessFile = (
   params: ProcessFileParams
 ) => Promise<ProcessFileParams> | ProcessFileParams;
 
-export interface FilesRefType {
+export interface StorageManagerHandle {
   clearFiles: () => void;
 }
 
@@ -122,9 +122,4 @@ export interface StorageManagerProps {
    * s3 for each file.
    */
   path?: string;
-
-  /**
-   * Ref for interfacing with selected files
-   */
-  filesRef?: React.Ref<FilesRefType>;
 }
