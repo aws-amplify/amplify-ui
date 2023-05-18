@@ -374,21 +374,17 @@ jobs:
           brew install applesimutils
 
       - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true
 
       - name: Build @aws-amplify/ui package
-        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
       - name: Build react-core package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
 
       - name: Build react-native package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-native build
 
       - name: Update CocoaPods
@@ -486,21 +482,17 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true
 
       - name: Build @aws-amplify/ui package
-        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
       - name: Build react-core package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
 
       - name: Build react-native package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-native build
 
       - name: Add Amplify CLI
