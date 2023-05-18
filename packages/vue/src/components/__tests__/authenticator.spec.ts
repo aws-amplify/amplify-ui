@@ -1,7 +1,6 @@
 import { reactive, Ref, ref } from 'vue';
 import { render, screen } from '@testing-library/vue';
 
-import * as UIModule from '@aws-amplify/ui';
 import {
   AuthenticatorServiceFacade,
   AuthEvent,
@@ -81,8 +80,6 @@ const useAuthSpy = jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
   .mockReturnValue(reactive(mockServiceFacade));
-
-jest.spyOn(UIModule, 'getActorContext');
 
 describe('authenticator', () => {
   beforeEach(() => {
