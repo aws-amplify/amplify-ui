@@ -107,10 +107,10 @@ export const STORAGE_MANAGER = [
     type: `React.ComponentType<FileListHeaderProps>`,
   },
   {
-    name: `filesRef?`,
+    name: `ref?`,
     description:
       'The ref for the imperative handle exposed by Storage Manager for manipulating the files state.',
-    type: `React.Ref<FilesRefType>`,
+    type: `React.ForwardedRef<StorageManagerHandle>`,
   },
 ];
 

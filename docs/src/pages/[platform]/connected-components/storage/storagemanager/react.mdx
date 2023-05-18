@@ -18,7 +18,7 @@ import {
   StorageManagerMetadataExample,
   StorageManagerResumableExample,
   StorageManagerThemeExample,
-  StorageManagerFilesRefExample,
+  StorageManagerHandleExample,
 } from './examples'
 
 <DefaultStorageManagerExample />
@@ -200,9 +200,9 @@ _You can even use a completely different UI kit like MUI, Chakra, or your own de
 The `files` state is managed within the StorageManager component. To allow for clearing the internal `files` state, StorageManaer exposes a custom ref handle to the parent component with a `clearFiles()` method.
 
 <Example>
-  <StorageManagerFilesRefExample />
+  <StorageManagerHandleExample />
   <ExampleCode>
-    ```jsx file=./examples/StorageManagerFilesRefExample.tsx
+    ```jsx file=./examples/StorageManagerHandleExample.tsx
     ```
   </ExampleCode>
 </Example>
