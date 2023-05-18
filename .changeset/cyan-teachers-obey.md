@@ -1,10 +1,10 @@
 ---
-'@aws-amplify/ui-react-storage': minor
+'@aws-amplify/ui-react-storage': major
 ---
 
 What changed:
 
-- Added exposed filesRef for the Storage Manager component.
+- Wrapped StorageManager with ForwardRef to allow for exposed imperative handles and potential future DOM manipulation.
 - This allows for clearing of the files list from a separate component where the Storage Manager component is being used.
 
 Why was the change made:
