@@ -214,16 +214,16 @@ const hasTabs = computed(() => {
 
 const hasRouteComponent = computed(() => {
   const routesWithComponent: AuthenticatorRoute[] = [
-    'signIn',
-    'signUp',
-    'confirmSignUp',
-    'resetPassword',
     'confirmResetPassword',
     'confirmSignIn',
-    'setupTOTP',
-    'forceNewPassword',
-    'verifyUser',
+    'confirmSignUp',
     'confirmVerifyUser',
+    'forceNewPassword',
+    'resetPassword',
+    'setupTOTP',
+    'signIn',
+    'signUp',
+    'verifyUser',
   ];
   return routesWithComponent.includes(route.value);
 });
