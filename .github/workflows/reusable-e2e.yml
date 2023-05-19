@@ -148,21 +148,9 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-core-notifications build
-
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
-
-      - name: Build react-notifications package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-notifications build
-
-      - name: Build react-geo package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-geo build
 
       - name: Build react-storage package
         if: ${{ matrix.package == 'react' }}
@@ -334,7 +322,6 @@ jobs:
           packages: |
             packages/react-native
             packages/react-core
-            packages/react-core-notifications
             packages/ui
             packages/e2e
 
@@ -392,10 +379,6 @@ jobs:
       - name: Build react-core package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
-
-      - name: Build react-core-notifications package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
-        run: yarn react-core-notifications build
 
       - name: Build react-native package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
@@ -509,10 +492,6 @@ jobs:
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
-        run: yarn react-core-notifications build
-
       - name: Build react-native package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-native build
@@ -570,8 +549,8 @@ jobs:
         run: |
           # all network requests going from the device on this port will be forwarded to the virtual machine where the mock server is running
           $ANDROID_HOME/platform-tools/adb reverse tcp:9091 tcp:9091
-          yarn workspace e2e detox:e2e:android:debug
-          
+          yarn e2e detox:e2e:android:debug
+
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -651,17 +630,8 @@ jobs:
       - name: Build react-core package
         run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        run: yarn react-core-notifications build
-
       - name: Build react package
         run: yarn react build
-
-      - name: Build react-notifications package
-        run: yarn react-notifications build
-
-      - name: Build react-geo package
-        run: yarn react-geo build
 
       - name: Build react-storage package
         run: yarn react-storage build

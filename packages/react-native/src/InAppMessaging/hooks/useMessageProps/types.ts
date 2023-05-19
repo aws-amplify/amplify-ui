@@ -5,10 +5,7 @@ import {
   TextStyle,
   ViewStyle,
 } from 'react-native';
-import {
-  MessageLayout,
-  MessagePayloadStyle,
-} from '@aws-amplify/ui-react-core-notifications';
+import { MessageLayout, MessagePayloadStyle } from '@aws-amplify/ui-react-core';
 
 import { ButtonProps } from '../../../primitives';
 
