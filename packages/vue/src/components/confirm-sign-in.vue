@@ -7,7 +7,6 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { createSharedComposable } from '@vueuse/core';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import BaseFormFields from './primitives/base-form-fields.vue';
@@ -17,8 +16,7 @@ const attrs = useAttrs();
 
 const { state, send } = useAuth();
 
-const useAuthShared = createSharedComposable(useAuthenticator);
-const props = useAuthShared();
+const props = useAuthenticator();
 
 const actorState = computed(() =>
   getActorState(state.value)
