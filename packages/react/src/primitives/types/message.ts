@@ -53,11 +53,11 @@ export interface MessageProps extends FlexProps {
    */
   hasIcon?: boolean;
 
-  /**
-   * @description
-   * The heading property will affect the content of the Message heading.
-   */
-  heading?: React.ReactNode;
+  // /**
+  //  * @description
+  //  * The heading property will affect the content of the Message heading.
+  //  */
+  // heading?: React.ReactNode;
 
   /**
    * @description
@@ -65,3 +65,5 @@ export interface MessageProps extends FlexProps {
    */
   buttonRef?: React.Ref<HTMLButtonElement>;
 }
+
+export interface MessageHeadingProps extends FlexProps {}

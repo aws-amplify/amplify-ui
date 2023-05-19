@@ -19,8 +19,6 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
     dismissButtonLabel = ComponentText.Alert.dismissButtonLabel,
     hasIcon = true,
     icon,
-    heading,
-    actions,
     isDismissible = false,
     onDismiss,
     colorTheme = 'neutral',
@@ -38,7 +36,6 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
       onDismiss();
     }
   }, [setDismissed, onDismiss, dismissed]);
-  console.log(icon);
 
   return !dismissed ? (
     <Flex
@@ -56,19 +53,14 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
       {icon ? <div>{icon}</div> : null}
 
       <Flex className={ComponentClassNames.MessageContent}>
-        {heading && (
-          <View className={ComponentClassNames.MessageHeading}>{heading}</View>
-        )}
         {children ? (
           <View className={ComponentClassNames.MessageBody}>{children}</View>
         ) : null}
       </Flex>
-      {actions ? <View>{actions}</View> : null}
       {isDismissible && (
         <Button
           ariaLabel={dismissButtonLabel}
-          variation="link"
-          colorTheme="neutral"
+          colorTheme={colorTheme}
           className={ComponentClassNames.MessageDismiss}
           onClick={dismissAlert}
           ref={buttonRef}

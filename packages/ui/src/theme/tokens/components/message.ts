@@ -4,13 +4,13 @@ type MessageVariationTokens<OutputType> = DesignTokenProperties<
   'backgroundColor' | 'color' | 'borderColor',
   OutputType
 > & {
-  info?: MessageSeverityTokens<OutputType>;
-  error?: MessageSeverityTokens<OutputType>;
-  warning?: MessageSeverityTokens<OutputType>;
-  success?: MessageSeverityTokens<OutputType>;
+  info?: MessageColorThemeTokens<OutputType>;
+  error?: MessageColorThemeTokens<OutputType>;
+  warning?: MessageColorThemeTokens<OutputType>;
+  success?: MessageColorThemeTokens<OutputType>;
 };
 
-type MessageSeverityTokens<OutputType> = DesignTokenProperties<
+type MessageColorThemeTokens<OutputType> = DesignTokenProperties<
   'backgroundColor' | 'color' | 'borderColor',
   OutputType
 >;
