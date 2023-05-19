@@ -21,15 +21,15 @@ const checkStartMessage = (colors, logLines, logFile) => {
   ];
 
   console.log(
-    `${colors.blueBold}Checking log file for start messages...${colors.colorReset}}`
+    `${colors.blueBold}Checking log file for start messages...${colors.colorEnd}}`
   );
   if (logLines.length === 1) {
     for (const startMessage of startMessages) {
       if (logLines[0].includes(startMessage)) {
         console.error(
-          `${colors.redBold}Failed to get the logging messages. Please increase TIME_TO_WAIT.${colors.colorReset}`
+          `${colors.redBold}Failed to get the logging messages. Please increase TIME_TO_WAIT.${colors.colorEnd}`
         );
-        console.log(`${colors.blueBold}Full log:${colors.colorReset}`);
+        console.log(`${colors.blueBold}Full log:${colors.colorEnd}`);
         console.log(logFile);
         process.exit(1);
       }
@@ -43,7 +43,7 @@ const checkStartMessage = (colors, logLines, logFile) => {
  */
 const checkErrorMessage = (colors, logLines) => {
   console.log(
-    `${colors.blueBold}Checking log file ${process.env.LOG_FILE} for errors...${colors.colorReset}`
+    `${colors.blueBold}Checking log file ${process.env.LOG_FILE} for errors...${colors.colorEnd}`
   );
 
   let hasError = false;
@@ -60,7 +60,7 @@ const checkErrorMessage = (colors, logLines) => {
     )})`;
 
     if (line.match(errorRegex)) {
-      console.error(`${colors.redBold}ERROR found:${colors.colorReset}`);
+      console.error(`${colors.redBold}ERROR found:${colors.colorEnd}`);
       console.error(line);
       isErrorLine = true;
     }
@@ -69,9 +69,7 @@ const checkErrorMessage = (colors, logLines) => {
     const exceptions = ['AuthError -'];
     for (const exception of exceptions) {
       if (line.includes(exception)) {
-        console.warn(
-          `${colors.yellowBold}Exception found:${colors.colorReset}`
-        );
+        console.warn(`${colors.yellowBold}Exception found:${colors.colorEnd}`);
         console.warn(line);
         isErrorLine = false;
         break;
