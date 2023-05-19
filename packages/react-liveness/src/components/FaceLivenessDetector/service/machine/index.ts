@@ -122,7 +122,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       RUNTIME_ERROR: {
         target: 'error',
-        // actions: 'updateErrorStateForRuntime',
       },
       MOBILE_LANDSCAPE_WARNING: {
         target: 'mobileLandscapeWarning',
