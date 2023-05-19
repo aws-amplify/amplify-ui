@@ -752,7 +752,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps!.onError?.(error);
       },
       callErrorCallback: async (context, event) => {
-        console.log({ event });
         const errorMessage =
           event.data?.error?.message || event.data?.error?.Message;
         const error = new Error(errorMessage);
