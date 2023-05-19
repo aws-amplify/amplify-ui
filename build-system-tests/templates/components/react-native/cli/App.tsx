@@ -3,7 +3,7 @@ import { Button, Text } from 'react-native';
 import 'react-native-get-random-values';
 import 'react-native-url-polyfill/auto';
 
-// import { Amplify } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import {
   Authenticator,
   useAuthenticator,
