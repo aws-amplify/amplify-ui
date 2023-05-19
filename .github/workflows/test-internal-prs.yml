@@ -5,13 +5,16 @@
 #   (2) On every commit to the PR
 #   (3) Adding run-tests label to the PR
 
-name: Test / Internal PRs / angular-lint
+name: Test / Internal PRs
 
 concurrency:
   group: test-internal-prs-${{ github.event.pull_request.id }}
   cancel-in-progress: true
 
-on: pull_request
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, labeled]
 
 jobs:
   setup:
@@ -19,12 +22,12 @@ jobs:
     # We run tests only if
     #   (1) this pr is not from a fork, and
     #   (2) it's either 'opened' or 'synchronize' action or 'labeled' action with 'run-tests' label.
-    # if: |
-    #   github.event.pull_request.head.repo.full_name == github.repository && (
-    #     github.event.action == 'opened' ||
-    #     github.event.action == 'synchronize' ||
-    #     (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
-    #   )
+    if: |
+      github.event.pull_request.head.repo.full_name == github.repository && (
+        github.event.action == 'opened' ||  
+        github.event.action == 'synchronize' || 
+        (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
+      )
     permissions:
       pull-requests: write # used to remove label
       statuses: write # This is required for running set-status actions
@@ -45,7 +48,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
       - name: Set status to commit sha
-        uses: ./.github/actions/set-status
+        uses: aws-amplify/amplify-ui/.github/actions/set-status@main
         with:
           sha: ${{ github.event.pull_request.head.sha }}
           state: 'pending'
@@ -95,7 +98,7 @@ jobs:
 
   setup-cache:
     needs: setup
-    uses: ./.github/workflows/reusable-setup-cache.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
@@ -127,14 +130,14 @@ jobs:
         run: yarn license
 
   unit:
-    uses: ./.github/workflows/reusable-unit.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
     needs: setup-cache
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: ./.github/workflows/reusable-e2e.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
