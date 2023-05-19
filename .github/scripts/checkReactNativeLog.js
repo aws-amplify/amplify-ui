@@ -90,18 +90,14 @@ const checkReactNativeLog = () => {
     greenBold: '\x1b[1;32m',
     redBold: '\x1b[1;31m',
     yellowBold: '\x1b[1;33m',
-    colorReset: '\x1b[0m',
+    colorEnd: '\x1b[0m',
   };
 
-  let timeToWait;
-  if (process.env.PLATFORM === 'ios') {
-    timeToWait = 300;
-  } else {
-    timeToWait = 200;
-  }
+  // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
+  let timeToWait = process.env.PLATFORM === 'ios' ? 300 : 200;
 
   console.log(
-    `${colors.blueBold}Sleep for'${timeToWait}'seconds...${colors.colorReset}}`
+    `${colors.blueBold}Sleep for'${timeToWait}'seconds...${colors.colorEnd}}`
   );
   sleep(timeToWait);
 
@@ -114,24 +110,24 @@ const checkReactNativeLog = () => {
 
   if (hasError) {
     console.error(
-      `${colors.redBold}Errors found in log file ${process.env.LOG_FILE}${colors.colorReset}`
+      `${colors.redBold}Errors found in log file ${process.env.LOG_FILE}${colors.colorEnd}`
     );
-    console.log(`${colors.blueBold}Full log:${colors.colorReset}`);
+    console.log(`${colors.blueBold}Full log:${colors.colorEnd}`);
     console.log(logFile);
     process.exit(1);
   } else if (logFile === '') {
     console.error(
-      `${colors.redBold}Log file ${process.env.LOG_FILE} is empty.${colors.colorReset}`
+      `${colors.redBold}Log file ${process.env.LOG_FILE} is empty.${colors.colorEnd}`
     );
-    console.log(`${colors.blueBold}Full log:${colors.colorReset}`);
+    console.log(`${colors.blueBold}Full log:${colors.colorEnd}`);
     console.log(logFile);
     process.exit(1);
   }
 
-  console.log(`${colors.greenBold}Full log:${colors.colorReset}`);
+  console.log(`${colors.greenBold}Full log:${colors.colorEnd}`);
   console.log(logFile);
   console.log(
-    `${colors.greenBold}No errors found in log file ${process.env.LOG_FILE}${colors.colorReset}`
+    `${colors.greenBold}No errors found in log file ${process.env.LOG_FILE}${colors.colorEnd}`
   );
   process.exit(0);
 };

@@ -35,6 +35,6 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Run npm run android in the background for <time> seconds
+# Run npm run android in the background
 echo -e "${BLUE_BOLD}Running npm run android${COLOR_END}"
 npm run android
