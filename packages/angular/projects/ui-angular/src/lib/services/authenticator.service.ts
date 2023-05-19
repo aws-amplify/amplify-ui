@@ -1,18 +1,25 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Event, interpret, Subscription } from 'xstate';
+
+import { Auth } from 'aws-amplify';
 import { Logger } from '@aws-amplify/core';
 import {
   AmplifyUser,
   AuthContext,
+  AuthenticatorServiceFacade,
   AuthEvent,
   AuthInterpreter,
   AuthMachineState,
+  AuthStatus,
   createAuthenticatorMachine,
+  defaultAuthHubHandler,
   getServiceFacade,
-  AuthenticatorServiceFacade,
+  listenToAuthHub,
 } from '@aws-amplify/ui';
-import { Event, interpret, Subscription } from 'xstate';
-import { AuthSubscriptionCallback } from '../common/types';
 import { translate } from '@aws-amplify/ui';
+
+import { AuthSubscriptionCallback } from '../common/types';
 
 const logger = new Logger('state-machine');
 
@@ -24,25 +31,20 @@ const logger = new Logger('state-machine');
 })
 export class AuthenticatorService implements OnDestroy {
   private _authState: AuthMachineState;
+  private _authStatus: AuthStatus = 'configuring';
   private _authService: AuthInterpreter;
   private _machineSubscription: Subscription;
   private _facade: ReturnType<typeof getServiceFacade>;
+  private _hubSubject: Subject<void>;
+  private _unsubscribeHub: () => void;
 
   constructor() {
     const machine = createAuthenticatorMachine();
+    this._authService = interpret(machine).start();
 
-    const authService = interpret(machine).start();
-
-    this._machineSubscription = authService.subscribe((state: unknown) => {
-      const newState = state as AuthMachineState;
-      this._authState = newState;
-      this._facade = getServiceFacade({
-        send: authService.send,
-        state: newState,
-      });
-    });
-
-    this._authService = authService;
+    this.setupMachineSubscription();
+    this.setupHubListener();
+    this.getInitialAuthStatus();
   }
 
   /**
@@ -66,7 +68,7 @@ export class AuthenticatorService implements OnDestroy {
   }
 
   public get authStatus(): AuthenticatorServiceFacade['authStatus'] {
-    return this._facade?.authStatus;
+    return this._authStatus;
   }
 
   public get user(): AmplifyUser {
@@ -166,6 +168,11 @@ export class AuthenticatorService implements OnDestroy {
     };
   }
 
+  /** @deprecated For internal use only */
+  public get hubSubject(): Subject<void> {
+    return this._hubSubject;
+  }
+
   public subscribe(callback: AuthSubscriptionCallback): Subscription {
     if (!this._authService) {
       logger.error(
@@ -181,10 +188,52 @@ export class AuthenticatorService implements OnDestroy {
 
   ngOnDestroy(): void {
     if (this._machineSubscription) this._machineSubscription.unsubscribe();
+    if (this._unsubscribeHub) this._unsubscribeHub();
   }
 
   /** @deprecated For internal use only */
   public send(event: Event<AuthEvent>): void {
     this.authService.send(event);
+  }
+
+  private async getInitialAuthStatus(): Promise<void> {
+    try {
+      await Auth.currentAuthenticatedUser();
+      this._authStatus = 'authenticated';
+    } catch (e) {
+      this._authStatus = 'unauthenticated';
+    }
+  }
+
+  private setupHubListener(): void {
+    this._hubSubject = new Subject<void>();
+
+    const onSignIn = () => {
+      this._authStatus = 'authenticated';
+    };
+    const onSignOut = () => {
+      this._authStatus = 'unauthenticated';
+    };
+
+    this._unsubscribeHub = listenToAuthHub(
+      this._authService,
+      async (data, service) => {
+        await defaultAuthHubHandler(data, service, { onSignIn, onSignOut });
+        this._hubSubject.next();
+      }
+    );
+  }
+
+  private setupMachineSubscription(): void {
+    this._machineSubscription = this._authService.subscribe(
+      (state: unknown) => {
+        const newState = state as AuthMachineState;
+        this._authState = newState;
+        this._facade = getServiceFacade({
+          send: this._authService.send,
+          state: newState,
+        });
+      }
+    );
   }
 }

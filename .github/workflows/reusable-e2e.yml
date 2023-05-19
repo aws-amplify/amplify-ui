@@ -13,6 +13,12 @@ on:
         # repository to run tests against (possibly a fork of amplify-ui)
         required: true
         type: string
+      skip-changed-packages-check:
+        # skip checking changed packages job if true
+        required: false
+        default: 'false'
+        type: string
+
     secrets:
       AUTH_E2E_ROLE_ARN:
         required: true
@@ -148,21 +154,9 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-core-notifications build
-
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
-
-      - name: Build react-notifications package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-notifications build
-
-      - name: Build react-geo package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-geo build
 
       - name: Build react-storage package
         if: ${{ matrix.package == 'react' }}
@@ -327,6 +321,7 @@ jobs:
           persist-credentials: false
 
       - name: Determine if there were changes to react-native packages
+        if: ${{ inputs.skip-changed-packages-check == 'false' }}
         id: has-rn-changed-packages
         uses: ./.github/actions/changed-packages
         with:
@@ -334,14 +329,13 @@ jobs:
           packages: |
             packages/react-native
             packages/react-core
-            packages/react-core-notifications
             packages/ui
             packages/e2e
 
   e2e-ios:
     needs: check-changed-packages
-    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-latest
+    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    runs-on: macos-13
     environment: ci
     env:
       NODE_ENV: test
@@ -380,25 +374,17 @@ jobs:
           brew install applesimutils
 
       - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true
 
       - name: Build @aws-amplify/ui package
-        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
       - name: Build react-core package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
-        run: yarn react-core-notifications build
-
       - name: Build react-native package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-native build
 
       - name: Update CocoaPods
@@ -465,8 +451,8 @@ jobs:
 
   e2e-android:
     needs: check-changed-packages
-    if: ${{ needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-latest
+    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    runs-on: macos-13
     environment: ci
     env:
       NODE_ENV: test
@@ -496,25 +482,17 @@ jobs:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
 
       - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-with-retries
         with:
           skip-cypress-binary: true
 
       - name: Build @aws-amplify/ui package
-        if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
       - name: Build react-core package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
-        run: yarn react-core-notifications build
-
       - name: Build react-native package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-native build
 
       - name: Add Amplify CLI
@@ -548,17 +526,24 @@ jobs:
 
       - name: Install emulator
         run: |
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager --verbose create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
           printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
           printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
           printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
 
       - name: Start Android emulator
         run: |
-          nohup $ANDROID_HOME/emulator/emulator -verbose -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
           $ANDROID_HOME/platform-tools/adb devices
+          # disable spell checker
+          $ANDROID_HOME/platform-tools/adb shell settings put secure spell_checker_enabled 0
+          # disable animations
+          $ANDROID_HOME/platform-tools/adb shell settings put global window_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb shell settings put global transition_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Start Metro Bundler in background
         run: yarn react-native-example dev --reset-cache &
@@ -651,17 +636,8 @@ jobs:
       - name: Build react-core package
         run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        run: yarn react-core-notifications build
-
       - name: Build react package
         run: yarn react build
-
-      - name: Build react-notifications package
-        run: yarn react-notifications build
-
-      - name: Build react-geo package
-        run: yarn react-geo build
 
       - name: Build react-storage package
         run: yarn react-storage build
