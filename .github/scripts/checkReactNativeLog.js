@@ -10,6 +10,40 @@ const sleep = (seconds) => {
   }
 };
 
+const log = (type, message) => {
+  const colors = {
+    blueBold: '\x1b[1;36m',
+    greenBold: '\x1b[1;32m',
+    redBold: '\x1b[1;31m',
+    yellowBold: '\x1b[1;33m',
+    colorEnd: '\x1b[0m',
+  };
+  switch (type) {
+    case 'warning':
+      console.warn(
+        `${colors.yellowBold}[WARNING...] ${message}${colors.colorEnd}`
+      );
+      break;
+    case 'error':
+      console.error(`${colors.redBold}[ERROR...] ${message}${colors.colorEnd}`);
+      break;
+    case 'success':
+      console.log(
+        `${colors.greenBold}[SUCCESS...] ${message}${colors.colorEnd}`
+      );
+      break;
+    case 'command':
+      console.log(`${colors.blueBold}[RUN...] ${message}${colors.colorEnd}`);
+      break;
+    case 'info':
+      console.log(`${colors.blueBold}[INFO...] ${message}${colors.blueEnd}`);
+      break;
+    default:
+      console.log(message);
+      break;
+  }
+};
+
 /**
  * checkStartMessage is a function that checks if the log file ONLY contains the starting message
  * If the log file ONLY contains the starting message, it means that the logging messages are not ready yet
@@ -20,17 +54,16 @@ const checkStartMessage = (colors, logLines, logFile) => {
     'React Native iOS Logger started for XCode project',
   ];
 
-  console.log(
-    `${colors.blueBold}Checking log file for start messages...${colors.colorReset}}`
-  );
+  log('info', 'Checking log file for start messages...');
   if (logLines.length === 1) {
     for (const startMessage of startMessages) {
       if (logLines[0].includes(startMessage)) {
-        console.error(
-          `${colors.redBold}Failed to get the logging messages. Please increase TIME_TO_WAIT.${colors.colorReset}`
+        log(
+          'error',
+          'Failed to get the logging messages. Please increase TIME_TO_WAIT.'
         );
-        console.log(`${colors.blueBold}Full log:${colors.colorReset}`);
-        console.log(logFile);
+        log('info', 'Log file:');
+        log('log', logFile);
         process.exit(1);
       }
     }
@@ -42,9 +75,7 @@ const checkStartMessage = (colors, logLines, logFile) => {
  * @returns {boolean} hasError
  */
 const checkErrorMessage = (colors, logLines) => {
-  console.log(
-    `${colors.blueBold}Checking log file ${process.env.LOG_FILE} for errors...${colors.colorReset}`
-  );
+  log('info', `Checking log file ${process.env.LOG_FILE} for errors...`);
 
   let hasError = false;
   for (const line of logLines) {
@@ -60,8 +91,8 @@ const checkErrorMessage = (colors, logLines) => {
     )})`;
 
     if (line.match(errorRegex)) {
-      console.error(`${colors.redBold}ERROR found:${colors.colorReset}`);
-      console.error(line);
+      log('error', 'Error found:');
+      log('error', line);
       isErrorLine = true;
     }
 
@@ -69,9 +100,7 @@ const checkErrorMessage = (colors, logLines) => {
     const exceptions = ['AuthError -'];
     for (const exception of exceptions) {
       if (line.includes(exception)) {
-        console.warn(
-          `${colors.yellowBold}Exception found:${colors.colorReset}`
-        );
+        console.warn(`${colors.yellowBold}Exception found:${colors.colorEnd}`);
         console.warn(line);
         isErrorLine = false;
         break;
@@ -83,26 +112,16 @@ const checkErrorMessage = (colors, logLines) => {
 };
 
 const checkReactNativeLog = () => {
-  console.log(`cd build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`);
-  process.chdir(`build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`);
-  const colors = {
-    blueBold: '\x1b[1;36m',
-    greenBold: '\x1b[1;32m',
-    redBold: '\x1b[1;31m',
-    yellowBold: '\x1b[1;33m',
-    colorReset: '\x1b[0m',
-  };
-
-  let timeToWait;
-  if (process.env.PLATFORM === 'ios') {
-    timeToWait = 300;
-  } else {
-    timeToWait = 200;
-  }
-
-  console.log(
-    `${colors.blueBold}Sleep for'${timeToWait}'seconds...${colors.colorReset}}`
+  log(
+    'command',
+    `cd build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`
   );
+  process.chdir(`build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`);
+
+  // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
+  let timeToWait = process.env.PLATFORM === 'ios' ? 300 : 200;
+
+  log('info', `Sleep for'${timeToWait}'seconds...`);
   sleep(timeToWait);
 
   const logFile = fs.readFileSync(process.env.LOG_FILE, 'utf-8');
@@ -113,26 +132,21 @@ const checkReactNativeLog = () => {
   let hasError = checkErrorMessage(colors, logLines);
 
   if (hasError) {
-    console.error(
-      `${colors.redBold}Errors found in log file ${process.env.LOG_FILE}${colors.colorReset}`
-    );
-    console.log(`${colors.blueBold}Full log:${colors.colorReset}`);
-    console.log(logFile);
+    log('error', `Errors found in log file ${process.env.LOG_FILE}`);
+    log('info', 'Log file:');
+    log('log', logFile);
     process.exit(1);
   } else if (logFile === '') {
-    console.error(
-      `${colors.redBold}Log file ${process.env.LOG_FILE} is empty.${colors.colorReset}`
-    );
-    console.log(`${colors.blueBold}Full log:${colors.colorReset}`);
-    console.log(logFile);
+    log('error', `Log file ${process.env.LOG_FILE} is empty.`);
+    log('info', 'Full log:');
+    log('log', logFile);
     process.exit(1);
   }
 
-  console.log(`${colors.greenBold}Full log:${colors.colorReset}`);
-  console.log(logFile);
-  console.log(
-    `${colors.greenBold}No errors found in log file ${process.env.LOG_FILE}${colors.colorReset}`
-  );
+  log('info', 'Full log:');
+  log('log', logFile);
+  log('success', `No errors found in log file ${process.env.LOG_FILE}`);
+
   process.exit(0);
 };
 
