@@ -41,11 +41,6 @@ module.exports = {
     {
       extends: ['@aws-amplify/amplify-ui/jest'],
       files: ['**/__mocks__/**', '**/__tests__/**'],
-      rules: {
-        // TODO: turn these on after fixing the corresponding lint errors
-        'jest/no-export': 'warn',
-        'jest/unbound-method': 'warn',
-      },
     },
   ],
 };
