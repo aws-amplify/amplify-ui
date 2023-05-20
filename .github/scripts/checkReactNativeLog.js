@@ -48,7 +48,7 @@ const log = (type, message) => {
  * checkStartMessage is a function that checks if the log file ONLY contains the starting message
  * If the log file ONLY contains the starting message, it means that the logging messages are not ready yet
  */
-const checkStartMessage = (colors, logLines, logFile) => {
+const checkStartMessage = (logLines, logFile) => {
   const startMessages = [
     'info Starting logkitty',
     'React Native iOS Logger started for XCode project',
@@ -74,7 +74,7 @@ const checkStartMessage = (colors, logLines, logFile) => {
  * checkErrorMessage is a function that checks if there is an error in the log file
  * @returns {boolean} hasError
  */
-const checkErrorMessage = (colors, logLines) => {
+const checkErrorMessage = (logLines) => {
   log('info', `Checking log file ${process.env.LOG_FILE} for errors...`);
 
   let hasError = false;
@@ -100,7 +100,8 @@ const checkErrorMessage = (colors, logLines) => {
     const exceptions = ['AuthError -'];
     for (const exception of exceptions) {
       if (line.includes(exception)) {
-        console.warn(`${colors.yellowBold}Exception found:${colors.colorEnd}`);
+        log('warning', 'Exception found:');
+        log('log', line);
         console.warn(line);
         isErrorLine = false;
         break;
@@ -127,9 +128,9 @@ const checkReactNativeLog = () => {
   const logFile = fs.readFileSync(process.env.LOG_FILE, 'utf-8');
   const logLines = logFile.split('\n').filter((line) => line !== '');
 
-  checkStartMessage(colors, logLines, logFile);
+  checkStartMessage(logLines, logFile);
 
-  let hasError = checkErrorMessage(colors, logLines);
+  let hasError = checkErrorMessage(logLines);
 
   if (hasError) {
     log('error', `Errors found in log file ${process.env.LOG_FILE}`);

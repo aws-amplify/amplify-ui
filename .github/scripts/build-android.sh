@@ -5,12 +5,6 @@ LOG_FILE=$1
 # Define app name
 MEGA_APP_NAME=$2
 
-# Define the color codes
-BLUE_BOLD="\033[1;36m"
-GREEN_BOLD="\033[1;32m"
-RED_BOLD="\033[1;31m"
-COLOR_END="\033[0m"
-
 # Import log function
 source "../../../.github/scripts/log.sh"
 
