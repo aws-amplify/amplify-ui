@@ -7,7 +7,16 @@ import { DividerProps, Primitive } from '../types';
 import { View } from '../View';
 
 const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
-  { className, orientation = 'horizontal', size, label, ...rest },
+  {
+    className,
+    orientation = 'horizontal',
+    size,
+    label,
+    borderColor,
+    borderWidth,
+    borderStyle,
+    ...rest
+  },
   ref
 ) => {
   const componentClasses = classNames(
@@ -25,6 +34,9 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
       className={componentClasses}
       data-size={size}
       data-label={label}
+      borderColor={borderColor}
+      borderWidth={borderWidth}
+      borderStyle={borderStyle}
       ref={ref}
       {...rest}
     />
