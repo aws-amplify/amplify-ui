@@ -5,7 +5,7 @@ Feature: In-App Messaging demo page to show banners with various configurations
   Background:
     Given I'm running the example "ui/components/in-app-messaging/demo"
 
-  @react @react-native
+  @react
   Scenario: Verify that the default banner is top banner with primary and secondary buttons
     Given "Has Primary Button" checkbox is checked
     And "Has Secondary Button" checkbox is checked
@@ -16,7 +16,7 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I dismiss the banner
     Then I do not see the banner
 
-  @react @react-native
+  @react
   Scenario: Verify that the banner has expected number of buttons
     When I toggle "Has Secondary Button" checkbox
     And I click the "Display Demo Message" button
@@ -31,31 +31,31 @@ Feature: In-App Messaging demo page to show banners with various configurations
     When I dismiss the banner
     Then I do not see the banner
 
-  @react @react-native
+  @react
   Scenario: Verify that the banner is shown as a bottom banner
     When I click the "BOTTOM_BANNER" layout radio option
     And I click the "Display Demo Message" button
     Then I see a "bottom" banner dialog
 
-  @react @react-native
+  @react
   Scenario: Verify that the banner is shown as a middle banner
     When I click the "MIDDLE_BANNER" layout radio option
     And I click the "Display Demo Message" button
     Then I see a "middle" banner dialog
 
-  @react @react-native
+  @react
   Scenario: Verify that the banner is shown as a modal
     When I click the "MODAL" layout radio option
     And I click the "Display Demo Message" button
     Then I see a "modal" dialog
 
-  @react @react-native
+  @react
   Scenario: Verify that the banner is shown as fullscreen
     When I click the "FULL_SCREEN" layout radio option
     And I click the "Display Demo Message" button
     Then I see a "fullscreen" dialog
 
-  @react @react-native
+  @react
   Scenario: Verify that top banner is shown with an image
     Given "Has Image" checkbox is checked
     And "TOP_BANNER" layout radio option is selected

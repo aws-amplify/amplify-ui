@@ -3,7 +3,7 @@ import {
   CarouselMessageComponent,
   FullScreenMessageComponent,
   ModalMessageComponent,
-} from '@aws-amplify/ui-react-core-notifications';
+} from '@aws-amplify/ui-react-core';
 
 import { BannerMessageProps } from '../BannerMessage';
 import { CarouselMessageProps } from '../CarouselMessage';
