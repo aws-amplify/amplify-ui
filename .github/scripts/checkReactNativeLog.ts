@@ -75,8 +75,7 @@ const checkStartMessage = async (
 const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
   log('info', `Checking log file ${process.env.LOG_FILE} for errors...`);
 
-  let hasError = false;
-  await PromisePool.for(logLines).process(async (line) => {
+  const { results } = await PromisePool.for(logLines).process(async (line) => {
     let isErrorLine = false;
     const errorKeyWords = [
       'Error',
@@ -105,10 +104,10 @@ const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
         break;
       }
     }
-    hasError = hasError || isErrorLine;
+    return isErrorLine;
   });
 
-  return hasError;
+  return results.some((result) => result === true);
 };
 
 const checkReactNativeLog = async (): Promise<void> => {
