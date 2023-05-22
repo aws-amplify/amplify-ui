@@ -88,12 +88,36 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
 
   /**
    * @description
+   * Shorthand CSS property that sets the color of an element's border.
+   * @see
+   *[MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
+   */
+  borderColor?: ResponsiveStyle<ColorKeys<StyleToken<Property.BorderColor>>>;
+
+  /**
+   * @description
    * Rounds the corners of an element's outer border edge.
    * You can set a single radius to make circular corners, or two radii to make elliptical corners.
    * @see
    *[MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius)
    */
   borderRadius?: ResponsiveStyle<RadiiKeys<StyleToken<Property.BorderRadius>>>;
+
+  /**
+   * @description
+   * Shorthand CSS property that sets the line style for all four sides of an element's border.
+   * @see
+   *[MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
+   */
+  borderStyle?: ResponsiveStyle<StyleToken<Property.BorderStyle>>;
+
+  /**
+   * @description
+   * Shorthand CSS property that sets the width of an element's border.
+   * @see
+   *[MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
+   */
+  borderWidth?: ResponsiveStyle<SpaceKeys<Property.BorderWidth>>;
 
   /**
    * @description
@@ -631,7 +655,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   backgroundImage: 'backgroundImage',
   basis: 'flexBasis',
   border: 'border',
+  borderColor: 'borderColor',
   borderRadius: 'borderRadius',
+  borderStyle: 'borderStyle',
+  borderWidth: 'borderWidth',
   bottom: 'bottom',
   boxShadow: 'boxShadow',
   color: 'color',

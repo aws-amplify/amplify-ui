@@ -1,13 +1,7 @@
 .amplify-divider {
-  border-color: attr(
-    borderColor,
-    var(--amplify-components-divider-border-color)
-  );
-  border-style: attr(
-    borderStyle,
-    var(--amplify-components-divider-border-style)
-  );
-  border-width: attr(borderWidth, 0);
+  border-color: var(--amplify-components-divider-border-color);
+  border-style: var(--amplify-components-divider-border-style);
+  border-width: 0;
   opacity: var(--amplify-components-divider-opacity);
   padding: 0;
   display: block;
