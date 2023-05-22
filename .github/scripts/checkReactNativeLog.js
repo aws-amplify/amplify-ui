@@ -113,8 +113,6 @@ const checkErrorMessage = async (logLines) => {
 };
 
 const checkReactNativeLog = async () => {
-  process.env.MEGA_APP_NAME = 'rnlatestClilatestNode18tsandroid';
-  process.env.LOG_FILE = 'test.log';
   log(
     'command',
     `cd build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`
@@ -122,7 +120,7 @@ const checkReactNativeLog = async () => {
   process.chdir(`build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`);
 
   // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
-  let timeToWait = 0;
+  let timeToWait = process.env.PLATFORM === 'ios' ? 300 : 200;
 
   log('info', `Sleep for'${timeToWait}'seconds...`);
   sleep(timeToWait);
