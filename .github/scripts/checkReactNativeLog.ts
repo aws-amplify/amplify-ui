@@ -1,16 +1,10 @@
-const fs = require('fs');
+import fs from 'fs';
 
-const sleep = (seconds) => {
-  const milliseconds = seconds * 1000;
-  const start = new Date().getTime();
-  while (true) {
-    if (new Date().getTime() - start > milliseconds) {
-      break;
-    }
-  }
+const sleep = (seconds: number): Promise<void> => {
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 };
 
-const log = (type, message) => {
+const log = (type: string, message: string): void => {
   const colors = {
     blueBold: '\x1b[1;36m',
     greenBold: '\x1b[1;32m',
@@ -48,7 +42,10 @@ const log = (type, message) => {
  * checkStartMessage is a function that checks if the log file ONLY contains the starting message
  * If the log file ONLY contains the starting message, it means that the logging messages are not ready yet
  */
-const checkStartMessage = async (logLines, logFile) => {
+const checkStartMessage = async (
+  logLines: string[],
+  logFile: string
+): Promise<void> => {
   const startMessages = [
     'info Starting logkitty',
     'React Native iOS Logger started for XCode project',
@@ -74,7 +71,7 @@ const checkStartMessage = async (logLines, logFile) => {
  * checkErrorMessage is a function that checks if there is an error in the log file
  * @returns {boolean} hasError
  */
-const checkErrorMessage = async (logLines) => {
+const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
   log('info', `Checking log file ${process.env.LOG_FILE} for errors...`);
 
   let hasError = false;
@@ -112,7 +109,7 @@ const checkErrorMessage = async (logLines) => {
   return hasError;
 };
 
-const checkReactNativeLog = async () => {
+const checkReactNativeLog = async (): Promise<void> => {
   log(
     'command',
     `cd build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`
@@ -122,8 +119,8 @@ const checkReactNativeLog = async () => {
   // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
   let timeToWait = process.env.PLATFORM === 'ios' ? 300 : 200;
 
-  log('info', `Sleep for'${timeToWait}'seconds...`);
-  sleep(timeToWait);
+  log('info', `Sleep for '${timeToWait}' seconds...`);
+  await sleep(timeToWait);
 
   const logFile = fs.readFileSync(process.env.LOG_FILE, 'utf-8');
   const logLines = logFile.split('\n').filter((line) => line !== '');

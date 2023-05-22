@@ -24,11 +24,11 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run npm run android in the background
-echo "command" "cd android"
+log "command" "cd android"
 cd android
-echo "command" "./gradlew clean" # To prevent "installDebug FAILED" https://stackoverflow.com/a/54955869/12610324
+log "command" "./gradlew clean" # To prevent "installDebug FAILED" https://stackoverflow.com/a/54955869/12610324
 ./gradlew clean
-echo "command" "cd .."
+log "command" "cd .."
 cd ..
 log "command" "npm run android"
 npm run android
