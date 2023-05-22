@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { PromisePool } from '@supercharge/promise-pool';
 
 const sleep = (seconds: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
@@ -75,7 +76,7 @@ const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
   log('info', `Checking log file ${process.env.LOG_FILE} for errors...`);
 
   let hasError = false;
-  for (const line of logLines) {
+  await PromisePool.for(logLines).process(async (line) => {
     let isErrorLine = false;
     const errorKeyWords = [
       'Error',
@@ -105,7 +106,8 @@ const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
       }
     }
     hasError = hasError || isErrorLine;
-  }
+  });
+
   return hasError;
 };
 
