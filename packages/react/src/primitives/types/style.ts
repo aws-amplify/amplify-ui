@@ -92,7 +92,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
    * @see
    * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
    */
-  borderColor?: ResponsiveStyle<StyleToken<Property.BorderColor>>;
+  borderColor?: ResponsiveStyle<ColorKeys<StyleToken<Property.BorderColor>>>;
 
   /**
    * @description
@@ -100,7 +100,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
    * @see
    * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
    */
-  borderWidth?: ResponsiveStyle<StyleToken<Property.BorderWidth>>;
+  borderWidth?: ResponsiveStyle<SpaceKeys<StyleToken<Property.BorderWidth>>>;
 
   /**
    * @description

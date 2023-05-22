@@ -246,7 +246,9 @@ export const isThemeStylePropKey = (key: string): key is ThemeStylePropKey => {
 
 export type ThemeStylePropKey =
   | 'backgroundColor'
+  | 'borderColor'
   | 'borderRadius'
+  | 'borderWidth'
   | 'bottom'
   | 'boxShadow'
   | 'color'
