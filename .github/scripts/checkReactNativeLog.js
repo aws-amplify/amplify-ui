@@ -1,13 +1,7 @@
 const fs = require('fs');
 
 const sleep = (seconds) => {
-  const milliseconds = seconds * 1000;
-  const start = new Date().getTime();
-  while (true) {
-    if (new Date().getTime() - start > milliseconds) {
-      break;
-    }
-  }
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 };
 
 const log = (type, message) => {
@@ -123,7 +117,7 @@ const checkReactNativeLog = async () => {
   let timeToWait = process.env.PLATFORM === 'ios' ? 300 : 200;
 
   log('info', `Sleep for'${timeToWait}'seconds...`);
-  sleep(timeToWait);
+  await sleep(timeToWait);
 
   const logFile = fs.readFileSync(process.env.LOG_FILE, 'utf-8');
   const logLines = logFile.split('\n').filter((line) => line !== '');
