@@ -153,7 +153,7 @@ jobs:
           PLATFORM: ${{ matrix.platform }}
           LOG_FILE: ${{ matrix.logfile }}
       - name: Detect Mega App Error in Log
-        run: node ./.github/scripts/checkReactNativeLog.js
+        run: node --require esbuild-register .github/scripts/checkReactNativeLog.ts
         env:
           BUILD_TOOL: ${{ matrix.build-tool }}
           BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
