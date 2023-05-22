@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { MessageContentProps } from '@aws-amplify/ui-react-core-notifications';
+import { MessageContentProps } from '@aws-amplify/ui-react-core';
 
 import { Carousel } from '../../../primitives';
 import { IN_APP_MESSAGING_TEST_ID } from '../../constants';

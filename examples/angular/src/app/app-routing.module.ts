@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { AuthStatusComponent } from 'src/pages/ui/components/authenticator/auth-status/auth-status.component';
 import { CustomSignUpFieldsComponent } from 'src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component';
 import { CustomSlotsComponent } from 'src/pages/ui/components/authenticator/custom-slots/custom-slots.component';
 import { HubEventsComponent } from 'src/pages/ui/components/authenticator/hub-events/hub-events.component';
@@ -22,6 +24,10 @@ import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator
 import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/home/useAuthenticatorHome.component';
 
 const routes: Routes = [
+  {
+    path: 'ui/components/authenticator/auth-status',
+    component: AuthStatusComponent,
+  },
   {
     path: 'ui/components/authenticator/custom-sign-up-fields',
     component: CustomSignUpFieldsComponent,
