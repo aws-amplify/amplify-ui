@@ -88,6 +88,30 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
 
   /**
    * @description
+   * Shorthand CSS property that sets an element's border-color.
+   * @see
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
+   */
+  borderColor?: ResponsiveStyle<StyleToken<Property.BorderColor>>;
+
+  /**
+   * @description
+   * Shorthand CSS property that sets an element's border-width.
+   * @see
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
+   */
+  borderWidth?: ResponsiveStyle<StyleToken<Property.BorderWidth>>;
+
+  /**
+   * @description
+   * Shorthand CSS property that sets an element's border-style.
+   * @see
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
+   */
+  borderStyle?: ResponsiveStyle<StyleToken<Property.BorderStyle>>;
+
+  /**
+   * @description
    * Rounds the corners of an element's outer border edge.
    * You can set a single radius to make circular corners, or two radii to make elliptical corners.
    * @see
@@ -632,6 +656,9 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   basis: 'flexBasis',
   border: 'border',
   borderRadius: 'borderRadius',
+  borderColor: 'borderColor',
+  borderWidth: 'borderWidth',
+  borderStyle: 'borderStyle',
   bottom: 'bottom',
   boxShadow: 'boxShadow',
   color: 'color',
