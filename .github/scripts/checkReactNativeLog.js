@@ -36,7 +36,7 @@ const log = (type, message) => {
       console.log(`${colors.blueBold}[RUN...] ${message}${colors.colorEnd}`);
       break;
     case 'info':
-      console.log(`${colors.blueBold}[INFO...] ${message}${colors.blueEnd}`);
+      console.log(`${colors.blueBold}[INFO...] ${message}${colors.colorEnd}`);
       break;
     default:
       console.log(message);
