@@ -48,7 +48,7 @@ const log = (type, message) => {
  * checkStartMessage is a function that checks if the log file ONLY contains the starting message
  * If the log file ONLY contains the starting message, it means that the logging messages are not ready yet
  */
-const checkStartMessage = (logLines, logFile) => {
+const checkStartMessage = async (logLines, logFile) => {
   const startMessages = [
     'info Starting logkitty',
     'React Native iOS Logger started for XCode project',
@@ -74,7 +74,7 @@ const checkStartMessage = (logLines, logFile) => {
  * checkErrorMessage is a function that checks if there is an error in the log file
  * @returns {boolean} hasError
  */
-const checkErrorMessage = (logLines) => {
+const checkErrorMessage = async (logLines) => {
   log('info', `Checking log file ${process.env.LOG_FILE} for errors...`);
 
   let hasError = false;
@@ -112,7 +112,9 @@ const checkErrorMessage = (logLines) => {
   return hasError;
 };
 
-const checkReactNativeLog = () => {
+const checkReactNativeLog = async () => {
+  process.env.MEGA_APP_NAME = 'rnlatestClilatestNode18tsandroid';
+  process.env.LOG_FILE = 'test.log';
   log(
     'command',
     `cd build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`
@@ -120,7 +122,7 @@ const checkReactNativeLog = () => {
   process.chdir(`build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`);
 
   // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
-  let timeToWait = process.env.PLATFORM === 'ios' ? 300 : 200;
+  let timeToWait = 0;
 
   log('info', `Sleep for'${timeToWait}'seconds...`);
   sleep(timeToWait);
@@ -128,9 +130,9 @@ const checkReactNativeLog = () => {
   const logFile = fs.readFileSync(process.env.LOG_FILE, 'utf-8');
   const logLines = logFile.split('\n').filter((line) => line !== '');
 
-  checkStartMessage(logLines, logFile);
+  await checkStartMessage(logLines, logFile);
 
-  let hasError = checkErrorMessage(logLines);
+  let hasError = await checkErrorMessage(logLines);
 
   if (hasError) {
     log('error', `Errors found in log file ${process.env.LOG_FILE}`);
