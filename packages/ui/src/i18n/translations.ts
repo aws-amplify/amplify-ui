@@ -20,6 +20,7 @@ import {
   itDict,
   jaDict,
   krDict,
+  nbDict,
   nlDict,
   plDict,
   ptDict,
@@ -88,6 +89,7 @@ export const translations: Record<string, Dict> = {
   // TODO: remove kr in next major release
   kr: krDict,
   ko: krDict,
+  nb: nbDict,
   nl: nlDict,
   pl: plDict,
   pt: ptDict,
