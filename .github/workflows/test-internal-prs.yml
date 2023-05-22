@@ -13,7 +13,7 @@ concurrency:
 
 on:
   pull_request:
-    branches: [main]
+    branches: [liveness/main]
     types: [opened, synchronize, labeled]
 
 jobs:
