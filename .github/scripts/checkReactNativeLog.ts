@@ -18,7 +18,9 @@ const log = (type: string, message: string): void => {
     console.log(message);
   } else {
     console.log(
-      `${colors[type]}[${type.toUpperCase}...] ${message}${colorEnd}`
+      `${
+        colors[type]
+      }[ amplify-ui -- ${type.toUpperCase()}] ${message}${colorEnd}`
     );
   }
 };
