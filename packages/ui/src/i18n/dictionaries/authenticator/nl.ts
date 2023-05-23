@@ -20,7 +20,7 @@ export const nlDict: AuthenticatorDictionary = {
   'Dismiss alert': 'Waarschuwing sluiten',
   Email: 'E-mail',
   'Enter your code': 'Vul je code in',
-  'Enter your email': 'Vul je e-mail in',
+  'Enter your Email': 'Vul je e-mail in',
   'Enter your Password': 'Vul je wachtwoord in',
   'Enter your phone number': 'Vul je telefoonnummer in',
   'Enter your username': 'Vul je gebruikersnaam in',

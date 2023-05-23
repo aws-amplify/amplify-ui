@@ -20,7 +20,7 @@ export const uaDict: AuthenticatorDictionary = {
   'Dismiss alert': 'Відхилити сповіщення',
   Email: 'Email',
   'Enter your code': 'Введіть код',
-  'Enter your email': 'Введіть ваш email',
+  'Enter your Email': 'Введіть ваш email',
   'Enter your phone number': 'Введіть ваш номер телефону',
   'Enter your username': 'Введіть ваше імʼя користувача',
   'Forgot password?': 'Забули пароль?',
