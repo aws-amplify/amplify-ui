@@ -20,7 +20,7 @@ export const zhDict: AuthenticatorDictionary = {
   'Dismiss alert': '关闭警报',
   Email: '邮箱',
   'Enter your code': '输入验证码',
-  'Enter your email': '输入电子邮件',
+  'Enter your Email': '输入电子邮件',
   'Enter your phone number': '输入电话号码',
   'Enter your username': '输入用户名',
   'Forgot your password?': '忘记密码了？',
