@@ -75,37 +75,39 @@ const checkStartMessage = async (
 const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
   log('info', `Checking log file ${process.env.LOG_FILE} for errors...`);
 
-  const { results } = await PromisePool.for(logLines).process(async (line) => {
-    let isErrorLine = false;
-    const errorKeyWords = [
-      'Error',
-      'ERROR',
-      'fail',
-      'Could not connect to development server',
-    ];
-    const errorRegex = `(([0-9]{2}:){2}[0-9]{2},?).*(${errorKeyWords.join(
-      '|'
-    )})`;
+  const { results } = await PromisePool.withConcurrency(1)
+    .for(logLines)
+    .process(async (line) => {
+      let isErrorLine = false;
+      const errorKeyWords = [
+        'Error',
+        'ERROR',
+        'fail',
+        'Could not connect to development server',
+      ];
+      const errorRegex = `(([0-9]{2}:){2}[0-9]{2},?).*(${errorKeyWords.join(
+        '|'
+      )})`;
 
-    if (line.match(errorRegex)) {
-      log('error', 'Error found:');
-      log('error', line);
-      isErrorLine = true;
-    }
-
-    // Exceptions are errors that are not really errors
-    const exceptions = ['AuthError -'];
-    for (const exception of exceptions) {
-      if (line.includes(exception)) {
-        log('warning', 'Exception found:');
-        log('log', line);
-        console.warn(line);
-        isErrorLine = false;
-        break;
+      if (line.match(errorRegex)) {
+        log('error', 'Error found:');
+        log('error', line);
+        isErrorLine = true;
       }
-    }
-    return isErrorLine;
-  });
+
+      // Exceptions are errors that are not really errors
+      const exceptions = ['AuthError -'];
+      for (const exception of exceptions) {
+        if (line.includes(exception)) {
+          log('warning', 'Exception found:');
+          log('log', line);
+          console.warn(line);
+          isErrorLine = false;
+          break;
+        }
+      }
+      return isErrorLine;
+    });
 
   return results.some((result) => result === true);
 };
