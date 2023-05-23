@@ -1,0 +1,4 @@
+{
+  "__type": "ResourceNotFoundException",
+  "message": "Error deleting user"
+}
