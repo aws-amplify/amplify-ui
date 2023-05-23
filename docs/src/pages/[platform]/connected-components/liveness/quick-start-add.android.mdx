@@ -11,6 +11,12 @@ import { Fragment } from '@/components/Fragment';
 FaceLivenessDetector component is built using [Jetpack Compose](https://developer.android.com/jetpack/compose). Enable Jetpack Compose by adding the following to the `android` section of your **app**'s `build.gradle` file:
 
 ```groovy
+compileOptions {
+    // Support for Java 8 features
+    coreLibraryDesugaringEnabled true
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
 buildFeatures {
     compose true
 }
@@ -31,6 +37,9 @@ dependencies {
     
     // Material3 dependency for theming FaceLivenessDetector
     implementation 'androidx.compose.material3:material3:1.0.1'
+
+    // Support for Java 8 features
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }
 ```
 
