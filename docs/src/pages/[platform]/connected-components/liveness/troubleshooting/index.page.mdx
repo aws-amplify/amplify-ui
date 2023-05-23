@@ -10,7 +10,7 @@ The following issues are presented with corresponding troubleshooting steps. Ple
 
 ### Error: Cognito user pool does not allow access to unauthenticated identities
 
-First, make sure you have followed the [prerequisites for setting up Amplify resources](./#step-1-configure-auth). Second, you can also go into the Cognito identity pool configured in your Amplify app, edit it and select the checkbox labeled "Enable access to unauthenticated identities" -- then save the changes. Finally, ensure that the configuration file -- `aws-exports.js` on web or `amplifyconfiguration.json` on mobile -- contains the name of the correct identity pool.
+First, make sure you have followed the [prerequisites for setting up Amplify resources](../liveness#step-1-configure-auth). Second, you can also go into the Cognito identity pool configured in your Amplify app, edit it and select the checkbox labeled "Enable access to unauthenticated identities" -- then save the changes. Finally, ensure that the configuration file -- `aws-exports.js` on web or `amplifyconfiguration.json` on mobile -- contains the name of the correct identity pool.
 
 ### Error: Server error - Session not found 
 
@@ -33,4 +33,4 @@ Ensure that the session ID returned from the backend when creating the session i
 
 ### I am unable to use the Amplify CLI and/or CloudFormation. Can I still use the FaceLivenessDetector?
 
-Yes, this use case is supported.  Please select "Self Managed Cognito Resource" in [Step 1 of the setup](./#step-1-configure-auth).
+Yes, this use case is supported.  Please select "Self Managed Cognito Resource" in [Step 1 of the setup](../liveness#step-1-configure-auth).
