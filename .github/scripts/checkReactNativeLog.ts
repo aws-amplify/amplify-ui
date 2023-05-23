@@ -5,11 +5,10 @@ const sleep = (seconds: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 };
 
-const log = (
-  type: 'info' | 'command' | 'success' | 'error' | 'warning' | 'log',
-  message: string
-): void => {
-  const colors = {
+type LogType = 'info' | 'command' | 'success' | 'error' | 'warning';
+
+const log = (type: LogType | 'log', message: string): void => {
+  const colors: { [key in LogType]: string } = {
     info: '\x1b[1;36m',
     command: '\x1b[1;34m',
     success: '\x1b[1;32m',
@@ -17,7 +16,8 @@ const log = (
     warning: '\x1b[1;33m',
   };
   const colorEnd = '\x1b[0m';
-  if (!colors[type]) {
+
+  if (type === 'log') {
     console.log(message);
   } else {
     console.log(
