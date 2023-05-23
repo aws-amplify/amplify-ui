@@ -7,7 +7,7 @@ log() {
   yellowBold="\x1b[1;33m"
   colorEnd="\x1b[0m"
 
-  prefix="amplify-ui --"
+  prefix="amplify-ui -"
 
   case $1 in
   "warning")
