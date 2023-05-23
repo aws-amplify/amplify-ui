@@ -6,6 +6,7 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { AuthStatusComponent } from 'src/pages/ui/components/authenticator/auth-status/auth-status.component';
 import { CustomSignUpFieldsComponent } from 'src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component';
 import { CustomSlotsComponent } from 'src/pages/ui/components/authenticator/custom-slots/custom-slots.component';
 import { HubEventsComponent } from 'src/pages/ui/components/authenticator/hub-events/hub-events.component';
@@ -30,6 +31,7 @@ import { UseAuthenticatorHomeComponent } from 'src/pages/ui/components/authentic
 @NgModule({
   declarations: [
     AppComponent,
+    AuthStatusComponent,
     CustomSignUpFieldsComponent,
     CustomSlotsComponent,
     HubEventsComponent,
