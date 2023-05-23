@@ -5,7 +5,10 @@ const sleep = (seconds: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
 };
 
-const log = (type: string, message: string): void => {
+const log = (
+  type: 'info' | 'command' | 'success' | 'error' | 'warning' | 'log',
+  message: string
+): void => {
   const colors = {
     info: '\x1b[1;36m',
     command: '\x1b[1;34m',
@@ -20,7 +23,7 @@ const log = (type: string, message: string): void => {
     console.log(
       `${
         colors[type]
-      }[ amplify-ui -- ${type.toUpperCase()}] ${message}${colorEnd}`
+      }[ amplify-ui - ${type.toUpperCase()}] ${message}${colorEnd}`
     );
   }
 };
