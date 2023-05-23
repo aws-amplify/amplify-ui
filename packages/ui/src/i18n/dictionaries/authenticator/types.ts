@@ -17,7 +17,7 @@ type AuthenticatorText =
   | 'Dismiss alert'
   | 'Email'
   | 'Enter your code'
-  | 'Enter your email'
+  | 'Enter your Email'
   | 'Enter your phone number'
   | 'Enter your username'
   | 'Forgot your password?'
