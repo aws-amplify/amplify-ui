@@ -148,9 +148,21 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-core-notifications build
+
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
+
+      - name: Build react-notifications package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-notifications build
+
+      - name: Build react-geo package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-geo build
 
       - name: Build react-storage package
         if: ${{ matrix.package == 'react' }}
@@ -381,6 +393,10 @@ jobs:
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn react-core-notifications build
+
       - name: Build react-native package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-native build
@@ -492,6 +508,10 @@ jobs:
       - name: Build react-core package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core build
+
+      - name: Build react-core-notifications package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn react-core-notifications build
 
       - name: Build react-native package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
@@ -631,8 +651,17 @@ jobs:
       - name: Build react-core package
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        run: yarn react-core-notifications build
+
       - name: Build react package
         run: yarn react build
+
+      - name: Build react-notifications package
+        run: yarn react-notifications build
+
+      - name: Build react-geo package
+        run: yarn react-geo build
 
       - name: Build react-storage package
         run: yarn react-storage build
