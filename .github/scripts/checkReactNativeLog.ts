@@ -12,13 +12,13 @@ const log = (type: string, message: string): void => {
     success: '\x1b[1;32m',
     error: '\x1b[1;31m',
     warning: '\x1b[1;33m',
-    colorEnd: '\x1b[0m',
   };
+  const colorEnd = '\x1b[0m';
   if (!colors[type]) {
     console.log(message);
   } else {
     console.log(
-      `${colors[type]}[${type.toUpperCase}...] ${message}${colors.colorEnd}`
+      `${colors[type]}[${type.toUpperCase}...] ${message}${colorEnd}`
     );
   }
 };
