@@ -24,7 +24,6 @@ export const nbDict: AuthenticatorDictionary = {
   'Enter your Birthdate': 'Skriv inn fødselsdatoen din',
   'Enter your code': 'Skriv inn koden din',
   'Enter your Confirmation Code': 'Skriv inn bekreftelseskoden din',
-  'Enter your email': 'Skriv inn e-postadressen din',
   'Enter your Email': 'Skriv inn e-postadressen din',
   'Enter your Family Name': 'Skriv inn etternavnet ditt',
   'Enter your Given Name': 'Skriv inn fornavnet ditt',
