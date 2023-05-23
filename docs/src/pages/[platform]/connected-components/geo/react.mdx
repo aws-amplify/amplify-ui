@@ -1,12 +1,17 @@
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+
+import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
+
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
-import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 
 Amplify UI Geo is powered by
 [Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/) and
 [Amazon Location Service](https://aws.amazon.com/location/).
 
 ### Quick Start
+
+<AppDirectoryAlert />
 
 <Alert variation="info" heading="Create React App setup">
 There's a known issue for users of Create React App v4 where the default prod `browserslist` configuration causes build errors when building for production. See the [Create React App Troubleshooting Guide](/getting-started/troubleshooting#create-react-app) to configure Create React App for use with the MapView UI component.

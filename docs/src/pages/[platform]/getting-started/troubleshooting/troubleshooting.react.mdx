@@ -160,6 +160,19 @@ This is a known problem when using the `jsdom` library (a dependency of Jest) wi
 
 Next.js 13.4+ introduces [app directory](https://nextjs.org/docs/app/building-your-application/routing#the-app-directory) with the usage of [Server Components](https://nextjs.org/docs/getting-started/react-essentials#server-components). To use Amplify UI componenents, you must use them inside the Client Component tree by placing `"use client"` at the boundary between your Client and Server component module graph. Please see the Next.js [documentation](https://nextjs.org/docs/getting-started/react-essentials#third-party-packages) on how you could achieve this.
 
+### Next 13.4+: `Module not found` Errors
+
+When you use Amplify with Next.js App Router, you will see the follow errors from `aws-crt` and `encoding` in the server terminal:
+
+```
+./node_modules/node-fetch/lib/index.js
+Module not found: Can't resolve 'encoding' in 'xxx'
+
+./node_modules/@aws-sdk/client-sts/node_modules/@aws-sdk/util-user-agent-node/dist-cjs/is-crt-available.js
+Module not found: Can't resolve 'aws-crt' in 'xxx'
+```
+
+These errors will not affect the use and functionality of the client, nor will errors appear in the browser console. This is a known transitive issue when using the AWS SDK. The issue is currently tracked [here](https://github.com/aws-amplify/amplify-js/issues/11030).
 
 ## Webpack
 

@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=./packages/* --filter=!./packages/angular",
+    "build": "turbo run build --filter=./packages/* --filter=!./packages/angular --filter=./packages/angular/projects/ui-angular",
     "clean": "turbo run clean && rimraf node_modules",
     "setup": "yarn install && yarn build",
     "refresh": "yarn clean && yarn setup",
