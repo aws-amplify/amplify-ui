@@ -7,35 +7,19 @@ const sleep = (seconds: number): Promise<void> => {
 
 const log = (type: string, message: string): void => {
   const colors = {
-    blueBold: '\x1b[1;36m',
-    greenBold: '\x1b[1;32m',
-    redBold: '\x1b[1;31m',
-    yellowBold: '\x1b[1;33m',
+    info: '\x1b[1;36m',
+    command: '\x1b[1;34m',
+    success: '\x1b[1;32m',
+    error: '\x1b[1;31m',
+    warning: '\x1b[1;33m',
     colorEnd: '\x1b[0m',
   };
-  switch (type) {
-    case 'warning':
-      console.warn(
-        `${colors.yellowBold}[WARNING...] ${message}${colors.colorEnd}`
-      );
-      break;
-    case 'error':
-      console.error(`${colors.redBold}[ERROR...] ${message}${colors.colorEnd}`);
-      break;
-    case 'success':
-      console.log(
-        `${colors.greenBold}[SUCCESS...] ${message}${colors.colorEnd}`
-      );
-      break;
-    case 'command':
-      console.log(`${colors.blueBold}[RUN...] ${message}${colors.colorEnd}`);
-      break;
-    case 'info':
-      console.log(`${colors.blueBold}[INFO...] ${message}${colors.colorEnd}`);
-      break;
-    default:
-      console.log(message);
-      break;
+  if (!colors[type]) {
+    console.log(message);
+  } else {
+    console.log(
+      `${colors[type]}[${type.toUpperCase}...] ${message}${colors.colorEnd}`
+    );
   }
 };
 

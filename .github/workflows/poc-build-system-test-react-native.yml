@@ -47,9 +47,7 @@ jobs:
         with:
           path: ./examples/react-native/ios/Pods
           key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
-          restore-keys: |
-            pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
-            pods-
+          restore-keys: pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
       - name: Restore node_modules cache
