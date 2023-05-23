@@ -216,13 +216,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         initial: 'waitForSessionInfo',
         states: {
           waitForSessionInfo: {
-            always: [
-              {
+            after: {
+              0: {
                 target: '#livenessMachine.recording',
                 cond: 'hasServerSessionInfo',
               },
-              { target: 'detectFaceDistanceDuringLoading' },
-            ],
+              10: { target: 'detectFaceDistanceDuringLoading' },
+            },
           },
           detectFaceDistanceDuringLoading: {
             invoke: {
