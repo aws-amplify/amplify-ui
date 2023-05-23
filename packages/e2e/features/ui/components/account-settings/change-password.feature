@@ -7,7 +7,7 @@ Feature: Change Password
 
   @react
   Scenario: Change password of an authenticated user
-    When I type my "username" with status "CONFIRMED"
+    When I type my "email" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Change Password:"
@@ -21,7 +21,7 @@ Feature: Change Password
 
   @react
   Scenario: Change password with wrong password requirements
-    When I type my "username" with status "CONFIRMED"
+    When I type my "email" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Change Password:"

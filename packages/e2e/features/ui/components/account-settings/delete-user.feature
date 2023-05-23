@@ -8,7 +8,7 @@ Feature: Delete User
   @react
   Scenario: Delete an authenticated user
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.DeleteUser" } }' with fixture "delete-user"
-    When I type my "username" with status "CONFIRMED"
+    When I type my "email" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Hello"
@@ -21,7 +21,7 @@ Feature: Delete User
  @react
   Scenario: Initiate delete but don't confirm deletion
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.DeleteUser" } }' with fixture "delete-user"
-    When I type my "username" with status "CONFIRMED"
+    When I type my "email" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Hello"
@@ -35,7 +35,7 @@ Feature: Delete User
   @react
   Scenario: Delete fails due to cognito error
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.DeleteUser" } }' with error fixture "delete-user-failure"
-    When I type my "username" with status "CONFIRMED"
+    When I type my "email" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Hello"

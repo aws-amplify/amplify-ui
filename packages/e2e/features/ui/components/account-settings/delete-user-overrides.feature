@@ -8,7 +8,7 @@ Feature: Delete User
 
   @react
   Scenario: Customize warning view
-    When I type my "username" with status "CONFIRMED"
+    When I type my "email" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     And I see "Delete Account:"
