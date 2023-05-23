@@ -140,13 +140,13 @@ const checkReactNativeLog = async (): Promise<void> => {
     log('info', 'Full log:');
     log('log', logFile);
     process.exit(1);
+  } else {
+    log('info', 'Full log:');
+    log('log', logFile);
+    log('success', `No errors found in log file ${process.env.LOG_FILE}`);
+
+    process.exit(0);
   }
-
-  log('info', 'Full log:');
-  log('log', logFile);
-  log('success', `No errors found in log file ${process.env.LOG_FILE}`);
-
-  process.exit(0);
 };
 
 checkReactNativeLog();
