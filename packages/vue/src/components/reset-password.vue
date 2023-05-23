@@ -8,14 +8,12 @@ import {
 import BaseFormFields from './primitives/base-form-fields.vue';
 
 import { useAuthenticator } from '../composables/useAuth';
-import { createSharedComposable } from '@vueuse/core';
 
 const attrs = useAttrs();
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
-const useAuthShared = createSharedComposable(useAuthenticator);
-const { send, submitForm } = useAuthShared();
-const { error, isPending } = toRefs(useAuthShared());
+const { send, submitForm } = useAuthenticator();
+const { error, isPending } = toRefs(useAuthenticator());
 
 // Text Util
 const { getBackToSignInText, getResetYourPasswordText, getSendCodeText } =
