@@ -7,11 +7,9 @@ import {
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';
-import { createSharedComposable } from '@vueuse/core';
 
 const { state } = useAuth();
-const useAuthShared = createSharedComposable(useAuthenticator);
-const { route } = useAuthShared();
+const { route } = useAuthenticator();
 const {
   value: { context },
 } = state;

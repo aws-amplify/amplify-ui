@@ -20,7 +20,7 @@ export const frDict: AuthenticatorDictionary = {
   'Dismiss alert': `Supprimer l'alerte`,
   Email: 'Email',
   'Enter your code': 'Saisissez cotre code de confirmation',
-  'Enter your email': 'Saisissez votre adresse email',
+  'Enter your Email': 'Saisissez votre adresse email',
   'Enter your phone number': 'Saisissez votre numéro de téléphone',
   'Enter your username': "Saisissez votre nom d'utilisateur",
   'Forgot your password?': 'Mot de passe oublié ? ',
