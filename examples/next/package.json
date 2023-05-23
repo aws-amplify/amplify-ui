@@ -10,9 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.6.1",
-    "@aws-amplify/ui-react-liveness": "^1.0.1",
-    "@aws-amplify/ui-react-storage": "^1.2.0",
+    "@aws-amplify/ui-react": "^4.6.3",
+    "@aws-amplify/ui-react-liveness": "^1.0.3",
+    "@aws-amplify/ui-react-storage": "^1.2.2",
     "@aws-amplify/ui-react-notifications": "^0.0.1",
     "@aws-amplify/ui-react-geo": "^0.0.1",
     "aws-amplify": "latest",

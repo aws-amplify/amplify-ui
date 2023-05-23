@@ -20,7 +20,7 @@ export const ptDict: AuthenticatorDictionary = {
   'Dismiss alert': 'Descartar alerta',
   Email: 'O email',
   'Enter your code': 'Insira seu código',
-  'Enter your email': 'Digite seu e-mail',
+  'Enter your Email': 'Digite seu e-mail',
   'Enter your phone number': 'Digite seu número de telefone',
   'Enter your username': 'entre com seu nome de usuário',
   'Forgot your password?': 'Esqueceu sua senha? ',
