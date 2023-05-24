@@ -1,4 +1,4 @@
-Feature: Change Password
+Feature: Change Password With Overrides
 
   Developers can customize the default components.
 
