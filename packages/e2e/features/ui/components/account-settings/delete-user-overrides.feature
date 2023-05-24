@@ -1,4 +1,4 @@
-Feature: Delete User
+Feature: Delete User With Overrides
 
   Developers can customize the delete user page.
 
