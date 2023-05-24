@@ -7,10 +7,12 @@ import {
   FileUploader,
   MapView,
   Text,
-  InAppMessagingProvider,
-  InAppMessageDisplay,
 } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
+import {
+  InAppMessageDisplay,
+  InAppMessagingProvider,
+} from '@aws-amplify/ui-react-notifications';
 import '@aws-amplify/ui-react/styles.css';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
