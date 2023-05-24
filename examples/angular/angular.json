@@ -41,7 +41,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/styles.scss", "@aws-amplify/ui-angular/theme.css"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
