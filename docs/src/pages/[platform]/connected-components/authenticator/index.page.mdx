@@ -31,7 +31,9 @@ export async function getStaticProps() {
 
 ## Quick start
 
-<AppDirectoryAlert />
+<Fragment platforms={['react']}>
+  {({ platform }) => import('@/components/AppDirectoryAlert')}
+</Fragment>
 
 ### Step 1. Configure backend
 
