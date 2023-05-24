@@ -50,3 +50,17 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         npx nuxt init $MEGA_APP_NAME
     fi
 fi
+
+if [[ "$BUILD_TOOL" == 'cli' && "$FRAMEWORK" == 'react-native' ]]; then
+    echo "rm -rf $MEGA_APP_NAME" # Remove $MEGA_APP_NAME if it exists
+    rm -rf $MEGA_APP_NAME
+    echo "npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION"
+    npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION
+    # React-Native, since 0.71.8,
+    # no longer shows warning "npm WARN exec The following package was not found and will be installed: react-native@0.71.8",
+    # so we log the package.json to check the versions
+    echo "cd $MEGA_APP_NAME"
+    cd $MEGA_APP_NAME
+    echo "cat package.json"
+    cat package.json
+fi

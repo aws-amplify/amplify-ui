@@ -38,20 +38,28 @@ else
         rm -rf node_modules
     fi
 
-    if [[ "$BUILD_TOOL" == 'angular-lib' ]]; then
-        echo "cd projects/my-amplify-ui-lib/"
-        cd projects/my-amplify-ui-lib/
-        echo "npm install --save-peer @aws-amplify/ui-angular@ aws-amplify"
-        npm install --save-peer @aws-amplify/ui-angular aws-amplify
-        echo "cd -"
-        cd -
+    if [[ "$FRAMEWORK" == "react-native" ]]; then
+        echo "npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
+        npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
+
+        echo "../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE"
+        ../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME
+    else
+        if [[ "$BUILD_TOOL" == 'angular-lib' ]]; then
+            echo "cd projects/my-amplify-ui-lib/"
+            cd projects/my-amplify-ui-lib/
+            echo "npm install --save-peer @aws-amplify/ui-angular aws-amplify"
+            npm install --save-peer @aws-amplify/ui-angular aws-amplify
+            echo "cd -"
+            cd -
+            echo "npm install $DEPENDENCIES"
+            npm install $DEPENDENCIES
+            echo "ng build my-amplify-ui-lib"
+            ng build my-amplify-ui-lib
+        fi
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
-        echo "ng build my-amplify-ui-lib"
-        ng build my-amplify-ui-lib
+        echo "npm run build"
+        npm run build
     fi
-    echo "npm install $DEPENDENCIES"
-    npm install $DEPENDENCIES
-    echo "npm run build"
-    npm run build
 fi
