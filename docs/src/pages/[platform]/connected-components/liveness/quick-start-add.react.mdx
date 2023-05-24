@@ -15,7 +15,9 @@ import { InstallScripts } from '@/components/InstallScripts';
 
 ### Step 3. Initialize Amplify
 
-<AppDirectoryAlert />
+<Fragment platforms={['react']}>
+  {({ platform }) => import('@/components/AppDirectoryAlert')}
+</Fragment>
 
 ```jsx
 import React from 'react';
