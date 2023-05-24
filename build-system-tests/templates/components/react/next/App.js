@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Marker } from 'react-map-gl';
 import { Amplify, Notifications } from 'aws-amplify';
 import {
