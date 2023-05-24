@@ -12,7 +12,7 @@ Feature: Change Password
     And I click the "Sign in" button
     Then I see "Change Password:"
     And I type my current password
-    And I type my password
+    And I type my new password
     And I confirm my password
     And I click the "Update password" button
     Then I see "Password has been changed succesfully."
