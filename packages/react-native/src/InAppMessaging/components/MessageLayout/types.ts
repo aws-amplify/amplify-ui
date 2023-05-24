@@ -12,4 +12,5 @@ export interface LayoutProps
     Omit<UseMessageProps, 'shouldRenderMessage' | 'styles'> {
   orientation: DeviceOrientation;
   styles: Omit<MessageComponentStyles, 'wrapper'>;
+  testID?: string;
 }

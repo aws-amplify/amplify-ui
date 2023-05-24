@@ -1,5 +1,31 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.17
+
+### Patch Changes
+
+- Updated dependencies [[`62425139f`](https://github.com/aws-amplify/amplify-ui/commit/62425139fb5e41a3b36b46aac1d31b965a2739fc)]:
+  - @aws-amplify/ui@5.6.3
+  - @aws-amplify/ui-react-core@2.1.22
+
+## 1.2.16
+
+### Patch Changes
+
+- [#3806](https://github.com/aws-amplify/amplify-ui/pull/3806) [`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui): add event callbacks to defaultAuthHubHandler
+
+- Updated dependencies [[`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86), [`82f3968b7`](https://github.com/aws-amplify/amplify-ui/commit/82f3968b7f750f069bda4ad7bfa9c34d7ee6091f)]:
+  - @aws-amplify/ui-react-core@2.1.21
+  - @aws-amplify/ui@5.6.2
+
+## 1.2.15
+
+### Patch Changes
+
+- Updated dependencies [[`4ca838978`](https://github.com/aws-amplify/amplify-ui/commit/4ca838978d23a086f80859a7cb57f184ff49e2d4), [`d6a3676f2`](https://github.com/aws-amplify/amplify-ui/commit/d6a3676f2295ed39fa83b9d31a9540f3437ba129), [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54)]:
+  - @aws-amplify/ui@5.6.1
+  - @aws-amplify/ui-react-core@2.1.20
+
 ## 1.2.14
 
 ### Patch Changes

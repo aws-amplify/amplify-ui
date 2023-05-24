@@ -20,7 +20,7 @@ export const heDict: AuthenticatorDictionary = {
   'Dismiss alert': 'הסר התראה',
   Email: 'אימייל',
   'Enter your code': 'הכנס את הקוד',
-  'Enter your email': 'הכנס את המייל שלך',
+  'Enter your Email': 'הכנס את המייל שלך',
   'Enter your phone number': 'הכנס את מספר הטלפון שלך',
   'Enter your username': 'הכנס את שם המתמש שלך',
   'Forgot your password?': 'שחכת סיסמא ?',

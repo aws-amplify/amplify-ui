@@ -5,6 +5,8 @@ supportedFrameworks: android|angular|flutter|react|react-native|swift|vue
 ---
 
 import { Fragment } from '@/components/Fragment';
+import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
+
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { NextSteps } from './NextSteps';
 import { FRAMEWORKS } from '@/data/frameworks';
@@ -28,6 +30,10 @@ export async function getStaticProps() {
 </Fragment>
 
 ## Quick start
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import('@/components/AppDirectoryAlert')}
+</Fragment>
 
 ### Step 1. Configure backend
 

@@ -1,6 +1,9 @@
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
+
 import { InstallScripts } from '@/components/InstallScripts';
 import { DeveloperPreview } from './DeveloperPreview';
+import { Fragment } from '@/components/Fragment';
 
 <DeveloperPreview />
 
@@ -11,6 +14,11 @@ Account Settings components are a set of standalone components that add [user ma
 </Alert>
 
 ## Quick Start
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import('@/components/AppDirectoryAlert')}
+</Fragment>
+
 
 ### Step 1. Configure Backend
 

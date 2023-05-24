@@ -5,10 +5,10 @@ module.exports = {
   coveragePathIgnorePatterns: ['<rootDir>/src/(index|styles|version).(ts|tsx)'],
   coverageThreshold: {
     global: {
-      branches: 65,
-      functions: 76,
-      lines: 77,
-      statements: 78,
+      branches: 80,
+      functions: 85,
+      lines: 89,
+      statements: 89,
     },
   },
   globals: { 'ts-jest': { tsconfig: 'tsconfig.json' } },
