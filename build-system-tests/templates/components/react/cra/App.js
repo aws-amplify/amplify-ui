@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Marker } from 'react-map-gl';
 import { Amplify, Notifications } from 'aws-amplify';
 import {
   AccountSettings,
@@ -17,6 +18,10 @@ Amplify.configure(awsconfig);
 const { InAppMessaging } = Notifications;
 
 export default function Home() {
+  const [{ latitude, longitude }] = useState({
+    latitude: 40,
+    longitude: -100,
+  });
   useEffect(() => {
     // sync remote in-app messages
     InAppMessaging.syncMessages();
@@ -45,7 +50,9 @@ export default function Home() {
         maxFileCount={1}
         isResumable
       />
-      <MapView />
+      <MapView>
+        <Marker latitude={latitude} longitude={longitude} />
+      </MapView>
     </>
   );
 }
