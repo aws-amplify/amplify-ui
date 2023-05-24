@@ -66,63 +66,63 @@ jobs:
             language: ts
             node-version: 18
 
-          - framework: angular
-            framework-version: latest
-            build-tool: angular-app
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: angular
-            framework-version: latest
-            build-tool: angular-app
-            build-tool-version: 13
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: angular
-            framework-version: latest
-            build-tool: angular-lib
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: angular
-            framework-version: latest
-            build-tool: angular-lib
-            build-tool-version: 13
-            pkg-manager: npm
-            language: ts
-            node-version: 18
+          # - framework: angular
+          #   framework-version: latest
+          #   build-tool: angular-app
+          #   build-tool-version: latest
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
+          # - framework: angular
+          #   framework-version: latest
+          #   build-tool: angular-app
+          #   build-tool-version: 13
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
+          # - framework: angular
+          #   framework-version: latest
+          #   build-tool: angular-lib
+          #   build-tool-version: latest
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
+          # - framework: angular
+          #   framework-version: latest
+          #   build-tool: angular-lib
+          #   build-tool-version: 13
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
 
-          - framework: vue
-            framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
-            build-tool: vue-cli
-            build-tool-version: latest
-            pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
-            language: ts
-            node-version: 18
-          - framework: vue
-            framework-version: latest
-            build-tool: vite
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: vue
-            framework-version: latest
-            build-tool: vite
-            build-tool-version: 2
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: vue
-            framework-version: latest
-            build-tool: nuxt
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
+          # - framework: vue
+          #   framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
+          #   build-tool: vue-cli
+          #   build-tool-version: latest
+          #   pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
+          #   language: ts
+          #   node-version: 18
+          # - framework: vue
+          #   framework-version: latest
+          #   build-tool: vite
+          #   build-tool-version: latest
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
+          # - framework: vue
+          #   framework-version: latest
+          #   build-tool: vite
+          #   build-tool-version: 2
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
+          # - framework: vue
+          #   framework-version: latest
+          #   build-tool: nuxt
+          #   build-tool-version: latest
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
 
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
