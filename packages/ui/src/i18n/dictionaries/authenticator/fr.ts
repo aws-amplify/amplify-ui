@@ -69,7 +69,6 @@ export const frDict: AuthenticatorDictionary = {
   'Create account': 'Créer un compte',
   'Enter your Birthdate': 'Saisissez votre date de naissance',
   'Enter your Confirmation Code': 'Saisissez votre code de confirmation',
-  'Enter your Email': 'Saisissez votre adresse email',
   'Enter your Family Name': 'Saisissez votre nom de famille',
   'Enter your Given Name': 'Saisissez votre prénom',
   'Enter your Middle Name': 'Saisissez votre deuxième prénom',
