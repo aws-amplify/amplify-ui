@@ -90,3 +90,10 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
         cp templates/components/vue/nuxt/* mega-apps/${MEGA_APP_NAME}/
     fi
 fi
+
+if [[ "$FRAMEWORK" == "react-native" && "$BUILD_TOOL" == 'cli' ]]; then
+    echo "cp templates/components/react-native/cli/App.tsx mega-apps/${MEGA_APP_NAME}/App.tsx"
+    cp templates/components/react-native/cli/App.tsx mega-apps/${MEGA_APP_NAME}/App.tsx
+    echo "cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/aws-exports.js"
+    cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/aws-exports.js
+fi
