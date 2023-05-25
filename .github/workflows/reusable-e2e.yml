@@ -154,10 +154,6 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-core build
 
-      - name: Build react-core-notifications package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-core-notifications build
-
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
