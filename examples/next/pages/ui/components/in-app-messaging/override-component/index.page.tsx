@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect } from 'react';
 import { Amplify, Notifications } from 'aws-amplify';
+import { Button, Flex, Text } from '@aws-amplify/ui-react';
 import {
-  Button,
-  Flex,
-  Text,
   useInAppMessaging,
   withInAppMessaging,
-} from '@aws-amplify/ui-react';
+} from '@aws-amplify/ui-react-notifications';
+
 import '@aws-amplify/ui-react/styles.css';
 
 import config from './aws-exports';
