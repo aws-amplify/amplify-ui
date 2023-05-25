@@ -324,7 +324,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -878,7 +887,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -1521,7 +1539,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -2038,7 +2065,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -2609,7 +2645,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -3132,7 +3177,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -3653,7 +3707,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -4128,7 +4191,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -4555,7 +4627,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -5065,7 +5146,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -5573,7 +5663,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -6075,7 +6174,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -6583,7 +6691,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -7131,7 +7248,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -7667,7 +7793,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -8187,7 +8322,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -8697,7 +8841,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -9241,7 +9394,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -10314,7 +10476,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -10847,7 +11018,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -11418,7 +11598,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -12511,7 +12700,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -13052,7 +13250,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -13464,7 +13671,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -13900,7 +14116,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -14444,7 +14669,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -15116,7 +15350,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -15772,7 +16015,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -16289,7 +16541,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -16895,7 +17156,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -17463,7 +17733,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -18000,7 +18279,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -18520,7 +18808,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -19180,7 +19477,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -19754,7 +20060,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -20389,7 +20704,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -21046,7 +21370,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -21632,7 +21965,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -22161,7 +22503,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -22681,7 +23032,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -23186,7 +23546,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -23694,7 +24063,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -24193,7 +24571,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -24692,7 +25079,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -25197,7 +25593,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -25726,7 +26131,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -26247,7 +26661,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -26855,7 +27278,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -27502,7 +27934,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -28076,7 +28517,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
@@ -28615,7 +29065,16 @@ Object {
       "border": Object {
         "type": "string",
       },
+      "borderColor": Object {
+        "type": "string",
+      },
       "borderRadius": Object {
+        "type": "string",
+      },
+      "borderStyle": Object {
+        "type": "string",
+      },
+      "borderWidth": Object {
         "type": "string",
       },
       "bottom": Object {
