@@ -104,7 +104,7 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
   {
     name: `TIMEOUT`,
     description:
-      'Indicates an timeout occurred when user attempted a liveness check.',
+      'Indicates a timeout occurred when user attempted a liveness check.',
     type: `Error`,
   },
   {
