@@ -9,7 +9,12 @@ const INTERNAL_DEPENDENCY_FLAG = '*';
 const INTERNAL_DIRECTORY_ROOTS = ['packages'];
 
 // internal packages used by the RN example
-const INTERNAL_USED_PACKAGES = ['ui', 'react-core', 'react-native'];
+const INTERNAL_DEPENDENCY_DIRECTORY_NAMES = [
+  'react-core',
+  'react-core-notifications',
+  'react-native',
+  'ui',
+];
 
 const EXAMPLE_APP_PACKAGE_JSON = require('./package.json');
 const EXAMPLE_APP_ROOT = __dirname;
@@ -32,7 +37,7 @@ const dependencies = {
 };
 
 const filterUnusedInternalPackages = ({ name }) =>
-  INTERNAL_USED_PACKAGES.includes(name);
+  INTERNAL_DEPENDENCY_DIRECTORY_NAMES.includes(name);
 
 function getInternalPackages(root, internalPackagesDirectory) {
   return internalPackagesDirectory

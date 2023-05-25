@@ -1,6 +1,6 @@
 import { Alert, Link, Text } from '@aws-amplify/ui-react';
 
-export const AppDirectoryAlert = () => (
+const AppDirectoryAlert = () => (
   <Alert variation="info" role="none">
     <Text>
       Next.js 13.4+ introduces{' '}
@@ -28,3 +28,4 @@ export const AppDirectoryAlert = () => (
     </Text>
   </Alert>
 );
+export default AppDirectoryAlert;
