@@ -87,6 +87,14 @@ Feature: Sign In with Username
     And I click the "Sign in" button
     Then I see "Change Password"
 
+  @angular @react @vue
+  Scenario: Sign in with force change password credentials
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "select-mfa-type"
+    When I type my "username" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Configuration error – please contact the administrator"
+
 @angular @react @vue
   Scenario: Sign in with untrimmed username
     When I type my username with untrimmed spaces
