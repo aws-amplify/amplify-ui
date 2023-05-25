@@ -48,6 +48,23 @@ Given("I'm running the example {string}", (example: string) => {
   });
 });
 
+Given(
+  "I'm running the example {string} and monitor its console",
+  (example: string) => {
+    cy.visit(example, {
+      // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
+      onBeforeLoad(win) {
+        Object.defineProperty(win.navigator, 'language', { value: language });
+        cy.stub(win.console, 'log').as('consoleLog');
+        cy.stub(win.console, 'error').as('consoleError');
+      },
+      onLoad(contentWindow) {
+        window = contentWindow;
+      },
+    });
+  }
+);
+
 Given("I'm running the docs page {string}", (page: string) => {
   cy.visit(page, {
     // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
@@ -114,6 +131,13 @@ Given(
       stub = cy.stub(obj, method);
       stub.returns(result);
     });
+  }
+);
+
+When(
+  'I see {string} in console: {string}',
+  (type: 'log' | 'error', message: string) => {
+    cy.get(`@console${type}`).should('be.calledWith', message);
   }
 );
 

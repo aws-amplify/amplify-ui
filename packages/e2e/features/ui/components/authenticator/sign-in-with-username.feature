@@ -8,7 +8,7 @@ Feature: Sign In with Username
   username when signing into your application.
 
   Background:
-    Given I'm running the example "/ui/components/authenticator/sign-in-with-username"
+    Given I'm running the example "/ui/components/authenticator/sign-in-with-username" and monitor its console
 
   @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
@@ -88,12 +88,13 @@ Feature: Sign In with Username
     Then I see "Change Password"
 
   @angular @react @vue
-  Scenario: Sign in with force change password credentials
+  Scenario: Sign in with SELECT_MFA_TYPE
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "select-mfa-type"
     When I type my "username" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Configuration error – please contact the administrator"
+    And I see "Error" in console: "Please use only one MFA type, or ensure that the end user has preferred MFA set up."
 
 @angular @react @vue
   Scenario: Sign in with untrimmed username
