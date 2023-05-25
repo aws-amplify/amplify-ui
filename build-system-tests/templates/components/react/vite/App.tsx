@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Marker } from 'react-map-gl';
+import { useEffect } from 'react';
 import { Amplify, Notifications } from 'aws-amplify';
 import {
   AccountSettings,
   Authenticator,
   FileUploader,
-  MapView,
   Text,
 } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
@@ -13,6 +11,7 @@ import {
   InAppMessageDisplay,
   InAppMessagingProvider,
 } from '@aws-amplify/ui-react-notifications';
+import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 import '@aws-amplify/ui-react/styles.css';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
@@ -20,10 +19,6 @@ Amplify.configure(awsconfig);
 const { InAppMessaging } = Notifications;
 
 export default function Home() {
-  const [{ latitude, longitude }] = useState({
-    latitude: 40,
-    longitude: -100,
-  });
   useEffect(() => {
     // sync remote in-app messages
     InAppMessaging.syncMessages();
@@ -52,8 +47,14 @@ export default function Home() {
         maxFileCount={1}
         isResumable
       />
-      <MapView>
-        <Marker latitude={latitude} longitude={longitude} />
+      <MapView
+        initialViewState={{
+          latitude: 37.8,
+          longitude: -122.4,
+          zoom: 14,
+        }}
+      >
+        <LocationSearch />
       </MapView>
     </>
   );
