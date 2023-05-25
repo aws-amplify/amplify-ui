@@ -49,7 +49,12 @@ Cypress.Commands.add(
 
 Cypress.Commands.add('findInputField', (field: string) => {
   const codeFieldNames = ['confirmation code', 'code *'];
-  const passwordFieldNames = ['password', 'new password', 'confirm password'];
+  const passwordFieldNames = [
+    'password',
+    'new password',
+    'confirm password',
+    'current password',
+  ];
 
   const isConfirmationCodeField = codeFieldNames.includes(field.toLowerCase());
   const isPasswordField = passwordFieldNames.includes(field.toLowerCase());
