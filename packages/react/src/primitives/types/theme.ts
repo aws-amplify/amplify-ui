@@ -1,4 +1,5 @@
 import type {
+  BorderWidths,
   FontSizes,
   FontWeights,
   LineHeights,
@@ -166,6 +167,8 @@ type ShadowColorKeys =
   | 'shadow.primary'
   | 'shadow.secondary'
   | 'shadow.tertiary';
+
+export type BorderWidthKeys<PropertyType> = PropertyType | keyof BorderWidths;
 
 export type ColorKeys<PropertyType> =
   | PropertyType

@@ -3,6 +3,7 @@ import { WebDesignToken } from '@aws-amplify/ui';
 
 import type {
   BoxShadowKeys,
+  BorderWidthKeys,
   ColorKeys,
   FontFamilyKeys,
   FontSizeKeys,
@@ -100,7 +101,9 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
    * @see
    * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
    */
-  borderWidth?: ResponsiveStyle<SpaceKeys<StyleToken<Property.BorderWidth>>>;
+  borderWidth?: ResponsiveStyle<
+    BorderWidthKeys<StyleToken<Property.BorderWidth>>
+  >;
 
   /**
    * @description
