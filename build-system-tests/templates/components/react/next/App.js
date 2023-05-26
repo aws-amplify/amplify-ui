@@ -4,13 +4,16 @@ import {
   AccountSettings,
   Authenticator,
   FileUploader,
-  MapView,
   Text,
-  InAppMessagingProvider,
-  InAppMessageDisplay,
 } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
+import {
+  InAppMessageDisplay,
+  InAppMessagingProvider,
+} from '@aws-amplify/ui-react-notifications';
+import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 import '@aws-amplify/ui-react/styles.css';
+import '@aws-amplify/ui-react-geo/styles.css';
 import awsconfig from '@/data/aws-exports';
 Amplify.configure(awsconfig);
 
@@ -45,7 +48,15 @@ export default function Home() {
         maxFileCount={1}
         isResumable
       />
-      <MapView />
+      <MapView
+        initialViewState={{
+          latitude: 37.8,
+          longitude: -122.4,
+          zoom: 14,
+        }}
+      >
+        <LocationSearch />
+      </MapView>
     </>
   );
 }

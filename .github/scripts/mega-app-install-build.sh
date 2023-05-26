@@ -4,8 +4,8 @@ echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
 cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 
 if [ "$FRAMEWORK" == 'react' ]; then
-    echo "$DEPENDENCIES='$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage'"
-    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage"
+    echo "\$DEPENDENCIES='\$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications'"
+    DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications"
     echo "Dependencies to be installed: $DEPENDENCIES"
 fi
 
