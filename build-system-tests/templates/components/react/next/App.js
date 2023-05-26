@@ -13,6 +13,7 @@ import {
 } from '@aws-amplify/ui-react-notifications';
 import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 import '@aws-amplify/ui-react/styles.css';
+import '@aws-amplify/ui-react-geo/styles.css';
 import awsconfig from '@/data/aws-exports';
 Amplify.configure(awsconfig);
 
