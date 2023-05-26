@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "latest",
-    "aws-amplify": "5.2.4-unstable.5d00b1f.2",
+    "aws-amplify": "5.2.4-unstable.eeb6c9c.3",
     "vue": "^3.2.37"
   },
   "devDependencies": {
