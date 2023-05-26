@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@aws-amplify/ui-react-core-notifications exports should match snapshot 1`] = `
+Array [
+  "InAppMessagingProvider",
+  "handleMessageAction",
+  "useInAppMessaging",
+  "useMessage",
+]
+`;

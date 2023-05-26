@@ -1,0 +1,36 @@
+---
+title: Face Liveness Troubleshooting
+description: Troubleshoot your issues with the Amplify UI FaceLivenessDetector component.
+supportedFrameworks: react|android|swift
+---
+
+import { Fragment } from '@/components/Fragment';
+
+The following issues are presented with corresponding troubleshooting steps. Please check them out in case you run into issues like these -- if the remedies don't work, please file an issue in our GitHub repositories.
+
+### Error: Cognito user pool does not allow access to unauthenticated identities
+
+First, make sure you have followed the [prerequisites for setting up Amplify resources](../liveness#step-1-configure-auth). Second, you can also go into the Cognito identity pool configured in your Amplify app, edit it and select the checkbox labeled "Enable access to unauthenticated identities" -- then save the changes. Finally, ensure that the configuration file -- `aws-exports.js` on web or `amplifyconfiguration.json` on mobile -- contains the name of the correct identity pool.
+
+### Error: Server error - Session not found 
+
+1. Ensure that the AWS region you are using to create the liveness session in your backend is the same as the one used within your app.
+2. Ensure that the session ID returned from the backend when creating the session is the same as the one created on initialization of the Liveness UI. Note: session IDs can only be used once. You must create a new session to allow users to retry the Liveness check.
+
+### Error: AccessDeniedError when calling Rekognition APIs (CreateFaceLivenessSession, etc.)
+
+Full error: `An error occurred (AccessDeniedException) when calling the CreateFaceLivenessSession`.
+
+Make sure you are using a supported AWS region. Please refer to [Liveness supported regions](https://aws.amazon.com/rekognition/face-liveness/#FAQs) documentation.
+
+### No result when GetFaceLivenessSessionResults is called
+
+Ensure that the session ID returned from the backend when creating the session is the same as the one created on initialization of the Liveness UI. Note: session IDs can only be used once. You must create a new session to allow users to retry the Liveness check.
+
+<Fragment platforms={['android', 'swift', 'react']}>
+  {({ platform }) => import(`./troubleshooting-${platform}.mdx`)}
+</Fragment>
+
+### I am unable to use the Amplify CLI and/or CloudFormation. Can I still use the FaceLivenessDetector?
+
+Yes, this use case is supported.  Please select "Self Managed Cognito Resource" in [Step 1 of the setup](../liveness#step-1-configure-auth).
