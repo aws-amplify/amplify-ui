@@ -91,10 +91,7 @@ jobs:
 
       - name: Build react-core-notifications package
         if: |
-          matrix.package == 'react' ||
           matrix.package == 'react-native' ||
-          matrix.package == 'react-storage' ||
-          matrix.package == 'react-liveness' ||
           matrix.package == 'react-notifications'
         run: yarn react-core-notifications build
 
