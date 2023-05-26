@@ -48,7 +48,8 @@
       "type": "android.emulator",
       "device": {
         "avdName": "Pixel_5_API_27"
-      }
+      },
+      "headless": true
     }
   },
   "configurations": {
