@@ -20,7 +20,7 @@ export const idDict: AuthenticatorDictionary = {
   'Dismiss alert': 'Hentikan pemberitahuan',
   Email: 'Email',
   'Enter your code': 'Masukkan kode anda',
-  'Enter your email': 'Masukkan email anda',
+  'Enter your Email': 'Masukkan email anda',
   'Enter your phone number': 'Masukkan nomor telepon anda',
   'Enter your username': 'Masukkan nama akun anda',
   'Forgot your password?': 'Lupa kata sandi? ',

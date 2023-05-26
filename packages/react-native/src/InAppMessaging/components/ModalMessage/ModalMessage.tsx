@@ -31,6 +31,7 @@ export default function ModalMessage(
         {...messageProps}
         orientation={deviceOrientation}
         styles={messageStyles}
+        testID={`inappmessaging-modal-dialog`}
       />
     </MessageWrapper>
   );

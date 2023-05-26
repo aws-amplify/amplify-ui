@@ -1,5 +1,5 @@
 {
-  "name": "next-example",
+  "name": "@aws-amplify/ui-next-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,9 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.6.0",
-    "@aws-amplify/ui-react-liveness": "^1.0.0",
-    "@aws-amplify/ui-react-storage": "^1.1.0",
+    "@aws-amplify/ui-react": "^4.6.4",
+    "@aws-amplify/ui-react-liveness": "^1.0.4",
+    "@aws-amplify/ui-react-storage": "^1.2.3",
+    "@aws-amplify/ui-react-notifications": "^1.0.0",
+    "@aws-amplify/ui-react-geo": "^1.0.0",
     "@aws-sdk/credential-providers": "3.321.1",
     "@aws-sdk/types": "3.310.0",
     "aws-amplify": "latest",

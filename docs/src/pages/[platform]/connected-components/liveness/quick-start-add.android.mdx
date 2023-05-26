@@ -1,5 +1,10 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import { ExampleCode } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>
+  {({}) => import(`./liveness-service-setup.mdx`)}
+</Fragment>
 
 ### Step 2. Install dependencies
 
@@ -20,6 +25,9 @@ Add the following dependencies to your **app**'s `build.gradle` file and click "
 dependencies {
     // FaceLivenessDetector dependency
     implementation 'com.amplifyframework.ui:liveness:1.0.0'
+    
+    // Amplify Auth dependency (unnecessary if using your own credentials provider)
+    implementation 'com.amplifyframework:aws-auth-cognito:2.8.1'
     
     // Material3 dependency for theming FaceLivenessDetector
     implementation 'androidx.compose.material3:material3:1.0.1'

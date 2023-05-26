@@ -9,7 +9,12 @@ const INTERNAL_DEPENDENCY_FLAG = '*';
 const INTERNAL_DIRECTORY_ROOTS = ['packages'];
 
 // internal packages used by the RN example
-const INTERNAL_USED_PACKAGES = ['ui', 'react-core', 'react-native'];
+const INTERNAL_DEPENDENCY_DIRECTORY_NAMES = [
+  'react-core',
+  'react-core-notifications',
+  'react-native',
+  'ui',
+];
 
 const EXAMPLE_APP_PACKAGE_JSON = require('./package.json');
 const EXAMPLE_APP_ROOT = __dirname;
@@ -18,6 +23,10 @@ const WORKSPACE_ROOT_PATH = path.resolve(__dirname, '../..');
 const WORKSPACE_NODE_MODULES_PATH = path.resolve(
   __dirname,
   '../../node_modules'
+);
+const ENVIRONMENTS_MODULE_PATH = path.resolve(
+  WORKSPACE_ROOT_PATH,
+  'environments'
 );
 
 const config = { resolver: {}, transformer: {}, server: {} };
@@ -28,7 +37,7 @@ const dependencies = {
 };
 
 const filterUnusedInternalPackages = ({ name }) =>
-  INTERNAL_USED_PACKAGES.includes(name);
+  INTERNAL_DEPENDENCY_DIRECTORY_NAMES.includes(name);
 
 function getInternalPackages(root, internalPackagesDirectory) {
   return internalPackagesDirectory
@@ -69,7 +78,11 @@ const watchFolders = internalPackages
   .filter(isInternalUsedDep)
   .map(({ packagePath }) => packagePath);
 
-config.watchFolders = [WORKSPACE_NODE_MODULES_PATH, ...watchFolders];
+config.watchFolders = [
+  ENVIRONMENTS_MODULE_PATH,
+  WORKSPACE_NODE_MODULES_PATH,
+  ...watchFolders,
+];
 
 // include app and package node_modules
 config.resolver.nodeModulesPath = [

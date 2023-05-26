@@ -72,7 +72,6 @@ describe('LivenessStreamProvider', () => {
     start: jest.fn(),
     stop: jest.fn(),
     getBlob: jest.fn(),
-    destroy: jest.fn(),
     dispatch: jest.fn(),
     getState: jest.fn().mockReturnValue('recording'),
     videoStream: mockReadableStream,
@@ -251,6 +250,20 @@ describe('LivenessStreamProvider', () => {
         mockVideoMediaStream,
         mockVideoEl
       );
+      const response = await provider.endStream();
+
+      expect(mockVideoRecorder.stop).toHaveBeenCalled();
+      expect(response).toBeUndefined();
+    });
+
+    test('should stop video even if the stream is not available', async () => {
+      const provider = new LivenessStreamProvider(
+        'sessionId',
+        'us-east-1',
+        mockVideoMediaStream,
+        mockVideoEl
+      );
+      (provider as any)._reader = undefined;
       const response = await provider.endStream();
 
       expect(mockVideoRecorder.stop).toHaveBeenCalled();

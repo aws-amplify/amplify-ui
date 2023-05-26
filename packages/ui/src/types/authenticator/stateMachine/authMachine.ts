@@ -31,5 +31,6 @@ export type AuthMachineSend = AuthInterpreter['send'];
  */
 export type AuthMachineHubHandler = (
   data: HubCapsule,
-  service: AuthInterpreter
+  service: AuthInterpreter,
+  options?: { onSignIn?: () => void; onSignOut?: () => void }
 ) => Promise<void>;

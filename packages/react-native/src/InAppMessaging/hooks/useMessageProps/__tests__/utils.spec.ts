@@ -4,7 +4,7 @@ import {
   MessageComponentBaseProps,
   MessageLayout,
   MessageTextAlign,
-} from '@aws-amplify/ui-react-core';
+} from '@aws-amplify/ui-react-core-notifications';
 import { BUTTON_PRESSED_OPACITY } from '../../../constants';
 import { MessageDefaultStyle } from '../types';
 import { StyleParams } from '../types';

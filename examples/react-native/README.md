@@ -18,6 +18,8 @@ arch -arm64 brew install cocoapods
 
 ## Build and install the Example App
 
+_prerequisite_: You must populate `.env` values in order for example app to run successfully. The values you need to populate are specified in [`examples/react-native/.env.example`](./.env.example).
+
 > Only required for fresh installs.
 
 ### iOS Simulator
@@ -125,6 +127,15 @@ To include an Amplify UI package as a dependency add it to the `dependencies` fi
     "@aws-amplify/ui": "*",
     ...
 },
+```
+
+Then update the value of `INTERNAL_DEPENDENCY_DIRECTORY_NAMES` in the Example app [_metro.config.js_](./metro.config.js) to include the internal dependency package **directory** name:
+
+```js
+const INTERNAL_DEPENDENCY_DIRECTORY_NAMES = [
+  'ui'
+  ...
+]
 ```
 
 > Only internal packages within the _packages_ directory are resolved in _metro.config.js_

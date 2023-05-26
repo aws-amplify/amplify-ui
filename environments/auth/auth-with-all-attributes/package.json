@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "auth-with-all-attributes",
+  "name": "@aws-amplify/ui-auth-with-all-attributes-environment",
   "version": "0.0.1",
   "scripts": {
     "pull": "amplify pull --appId d401a6flvh7gn --envName dev"

@@ -10,6 +10,7 @@ export const frDict = { ...authenticatorDict.frDict };
 export const itDict = { ...authenticatorDict.itDict };
 export const jaDict = { ...authenticatorDict.jaDict };
 export const krDict = { ...authenticatorDict.krDict };
+export const nbDict = { ...authenticatorDict.nbDict };
 export const nlDict = { ...authenticatorDict.nlDict };
 export const plDict = { ...authenticatorDict.plDict };
 export const ptDict = { ...authenticatorDict.ptDict };

@@ -5,19 +5,19 @@ Feature: Sign Up with Username
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-username"
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Login mechanism set to "username"
     Then I see "Username" as an input field
 
-  @angular @react @vue 
+  @angular @react @vue @react-native
   Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     Then I see "Email" as an "email" field
   
-  @angular @react @vue 
+  @angular @react @vue @react-native
   Scenario: "Phone Number" is not included
     Then I don't see "Phone Number"
   
-  @angular @react @vue 
+  @angular @react @vue
   Scenario: Sign up a new username & password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-username"
     When I type a new "username"
@@ -26,6 +26,16 @@ Feature: Sign Up with Username
     And I type my "email" with status "UNCONFIRMED"
     And I click the "Create Account" button
     Then I see "Your code is on the way"
+    And I see "Confirmation Code"
+
+  @react-native
+  Scenario: Sign up a new username & password
+    When I type a new "username"
+    And I type my password
+    And I confirm my password
+    And I type my "email" with status "UNCONFIRMED"
+    And I click the "Create Account" button
+    Then I see "Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive."
     And I see "Confirmation Code"
 
   @angular @react @vue
