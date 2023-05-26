@@ -1,5 +1,8 @@
 import { View, Flex, Loader, Text } from '@aws-amplify/ui-react';
-import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
+import {
+  FaceLivenessDetector,
+  FaceLivenessDetectorCore,
+} from '@aws-amplify/ui-react-liveness';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
 import LivenessInlineResults from './LivenessInlineResults';
@@ -50,22 +53,40 @@ export default function LivenessDefault({
 
           <Flex gap="0" direction="column" position="relative">
             {!getLivenessResponse ? (
-              <FaceLivenessDetector
-                sessionId={createLivenessSessionApiData.sessionId}
-                region={'us-east-1'}
-                onUserCancel={onUserCancel}
-                onAnalysisComplete={async () => {
-                  await handleGetLivenessDetection(
-                    createLivenessSessionApiData.sessionId
-                  );
-                }}
-                onError={(error) => {
-                  console.error(error);
-                }}
-                disableInstructionScreen={disableInstructionScreen}
-                components={components}
-                credentialProvider={credentialProvider}
-              />
+              credentialProvider ? (
+                <FaceLivenessDetectorCore
+                  sessionId={createLivenessSessionApiData.sessionId}
+                  region={'us-east-1'}
+                  onUserCancel={onUserCancel}
+                  onAnalysisComplete={async () => {
+                    await handleGetLivenessDetection(
+                      createLivenessSessionApiData.sessionId
+                    );
+                  }}
+                  onError={(error) => {
+                    console.error(error);
+                  }}
+                  disableInstructionScreen={disableInstructionScreen}
+                  components={components}
+                  config={{ credentialProvider }}
+                />
+              ) : (
+                <FaceLivenessDetector
+                  sessionId={createLivenessSessionApiData.sessionId}
+                  region={'us-east-1'}
+                  onUserCancel={onUserCancel}
+                  onAnalysisComplete={async () => {
+                    await handleGetLivenessDetection(
+                      createLivenessSessionApiData.sessionId
+                    );
+                  }}
+                  onError={(error) => {
+                    console.error(error);
+                  }}
+                  disableInstructionScreen={disableInstructionScreen}
+                  components={components}
+                />
+              )
             ) : null}
           </Flex>
         </Flex>

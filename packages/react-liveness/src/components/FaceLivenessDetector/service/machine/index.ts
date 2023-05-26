@@ -898,12 +898,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         return { stream: realVideoDeviceStream };
       },
       async openLivenessStreamConnection(context) {
+        const { config } = context.componentProps!;
+        const { credentialProvider } = config!;
         const livenessStreamProvider = new LivenessStreamProvider(
           context.componentProps!.sessionId,
           context.componentProps!.region,
           context.videoAssociatedParams!.videoMediaStream!,
           context.videoAssociatedParams!.videoEl!,
-          context.componentProps!.credentialProvider
+          credentialProvider
         );
 
         streamConnectionOpenTimestamp = Date.now();

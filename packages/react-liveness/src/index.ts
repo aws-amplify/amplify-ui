@@ -1,1 +1,6 @@
-export { FaceLivenessDetector, FaceLivenessDetectorProps } from './components';
+export {
+  FaceLivenessDetector,
+  FaceLivenessDetectorProps,
+  FaceLivenessDetectorCore,
+  FaceLivenessDetectorCoreProps,
+} from './components';
