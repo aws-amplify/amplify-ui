@@ -510,7 +510,6 @@ jobs:
         run: yarn react-core build
 
       - name: Build react-core-notifications package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core-notifications build
 
       - name: Build react-native package
@@ -575,13 +574,21 @@ jobs:
           $ANDROID_HOME/platform-tools/adb -s 'emulator-5556' shell settings put global transition_animation_scale 0.0
           $ANDROID_HOME/platform-tools/adb -s 'emulator-5556' shell settings put global animator_duration_scale 0.0
 
+          $ANDROID_HOME/platform-tools/adb -s 'emulator-5558' wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          # disable spell checker
+          $ANDROID_HOME/platform-tools/adb -s 'emulator-5558' shell settings put secure spell_checker_enabled 0
+          # disable animations
+          $ANDROID_HOME/platform-tools/adb -s 'emulator-5558' shell settings put global window_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb -s 'emulator-5558' shell settings put global transition_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb -s 'emulator-5558' shell settings put global animator_duration_scale 0.0
+
           $ANDROID_HOME/platform-tools/adb devices
 
       - name: Start Metro Bundler in background
         run: yarn react-native-example dev --reset-cache &
 
       - name: Build android example
-        run: yarn e2e detox:build:android:debug
+        run: yarn e2e detox:build:android:debug --parallel  3
 
       - name: Run E2E tests against react-native example
         run: |
