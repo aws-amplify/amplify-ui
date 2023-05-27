@@ -79,6 +79,6 @@
     "vue-tsc": "~0.40.10"
   },
   "peerDependencies": {
-    "aws-amplify": "5.2.4-unstable.eeb6c9c.3"
+    "aws-amplify": "5.2.4"
   }
 }
