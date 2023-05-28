@@ -46,35 +46,26 @@ When(
     try {
       // try to retrieve element by test Id first
       await typeInInputField(
-        element(
-          by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${testIdSuffix}`)
-        ),
+        by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${testIdSuffix}`),
         text
       );
     } catch (e) {
       // for some custom fields the test id doesn't match the login mechanism
-      if (device.getPlatform() === 'ios') {
-        // match the input by placeholder label
-        const inputField = by
-          .type('UITextField')
-          .withDescendant(by.label(`Enter your ${usernameAttribute}`));
-        await typeInInputField(element(inputField), text);
-      } else {
-        // android renders placeholders differently, in a hint prop of the text field
-        // there is not Detox matcher for this prop, so we're matching by field label
-        await typeInInputField(
-          element(
+      const nativeInputType =
+        device.getPlatform() === 'ios'
+          ? 'UITextField'
+          : 'android.widget.EditText';
+      // match by label instead
+      await typeInInputField(
+        by
+          .type(nativeInputType)
+          .withAncestor(
             by
-              .type('android.widget.EditText')
-              .withAncestor(
-                by
-                  .id('amplify__text-field-container')
-                  .withDescendant(by.text(usernameAttribute))
-              )
+              .id('amplify__text-field-container')
+              .withDescendant(by.text(usernameAttribute))
           ),
-          text
-        );
-      }
+        text
+      );
     }
   }
 );
@@ -83,7 +74,7 @@ When(
   'I type a new {string} with value {string}',
   async (field: string, text: string) => {
     await typeInInputField(
-      element(by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${field}`)),
+      by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${field}`),
       text
     );
   }
@@ -91,42 +82,42 @@ When(
 
 When('I type my password', async () => {
   await typeInInputField(
-    element(by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`),
     process.env.VALID_PASSWORD
   );
 });
 
 When('I type an invalid wrong complexity password', async () => {
   await typeInInputField(
-    element(by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`),
     'inv'
   );
 });
 
 When('I type an invalid wrong complexity new password', async () => {
   await typeInInputField(
-    element(by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`),
     'inv'
   );
 });
 
 When('I type an invalid no lower case password', async () => {
   await typeInInputField(
-    element(by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`),
     'INV'
   );
 });
 
 When('I type an invalid no lower case new password', async () => {
   await typeInInputField(
-    element(by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`),
     'INV'
   );
 });
 
 When('I type a new {string}', async (field: string) => {
   await typeInInputField(
-    element(by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${field}`)),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${field}`),
     `${Date.now()}`
   );
 });
@@ -141,43 +132,35 @@ Then('I will be redirected to the confirm forgot password page', async () => {
 
 Then('I type a valid code', async () => {
   await typeInInputField(
-    element(
-      by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
-    ),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`),
     '1234'
   );
 });
 
 Then('I type a valid confirmation code', async () => {
   await typeInInputField(
-    element(
-      by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
-    ),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`),
     '123456'
   );
 });
 
 Then('I type an invalid confirmation code', async () => {
   await typeInInputField(
-    element(
-      by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`)
-    ),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirmation_code`),
     '0000'
   );
 });
 
 Then('I type my new password', async () => {
   await typeInInputField(
-    element(by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`),
     process.env.VALID_PASSWORD
   );
 });
 
 Then('I confirm my password', async () => {
   await typeInInputField(
-    element(
-      by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirm_password`)
-    ),
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirm_password`),
     process.env.VALID_PASSWORD
   );
 });
