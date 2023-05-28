@@ -1,6 +1,16 @@
 import { Given, Then, When } from '@cucumber/cucumber';
 import { by, element, expect } from 'detox';
 
+export const typeInInputField = async (
+  inputField: Detox.NativeElement,
+  text: string
+) => {
+  await device.disableSynchronization();
+  await inputField.replaceText(text);
+  await inputField.tapReturnKey();
+  await device.enableSynchronization();
+};
+
 Given("I'm running the example {string}", async (name: string) => {
   await device.launchApp({
     newInstance: true,
