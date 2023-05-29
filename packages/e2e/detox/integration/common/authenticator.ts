@@ -55,7 +55,7 @@ When(
         device.getPlatform() === 'ios'
           ? 'UITextField'
           : 'android.widget.EditText';
-      // match by label instead
+      // match by text field label instead
       await typeInInputField(
         by
           .type(nativeInputType)
