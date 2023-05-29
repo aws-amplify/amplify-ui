@@ -555,8 +555,8 @@ jobs:
 
       - name: Start Android emulator
         run: |
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port 5554 -read-only -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port 5556 -read-only -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port 5554 -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port 5556 -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
 
           $ANDROID_HOME/platform-tools/adb -s 'emulator-5554' wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
           # disable spell checker
@@ -584,7 +584,7 @@ jobs:
 
       - name: Run E2E tests against react-native example
         run: |
-          yarn e2e detox:e2e:android:debug --retry 1 --fail-fast --parallel 2
+          DETOX_HEADLESS=true yarn e2e detox:e2e:android:debug --retry 1 --fail-fast --parallel 2
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
