@@ -2,7 +2,6 @@
   "default": {
     "requireModule": ["ts-node/register"],
     "require": ["detox/init.ts", "detox/integration/**/*.ts"],
-    "publishQuiet": true,
-    "failFast": true
+    "publishQuiet": true
   }
 }

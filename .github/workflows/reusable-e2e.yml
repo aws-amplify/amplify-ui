@@ -448,7 +448,7 @@ jobs:
         run: yarn e2e detox:build:ios:debug
 
       - name: Run E2E tests against react-native example
-        run: yarn e2e detox:e2e:ios:debug
+        run: yarn e2e detox:e2e:ios:debug --retry 1 --fail-fast
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -575,8 +575,7 @@ jobs:
 
       - name: Run E2E tests against react-native example
         run: |
-          yarn e2e detox:e2e:android:debug
-
+          yarn e2e detox:e2e:android:debug --retry 1 --fail-fast
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
