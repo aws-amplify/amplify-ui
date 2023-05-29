@@ -546,6 +546,7 @@ jobs:
 
       - name: Install emulator
         run: |
+          brew install coreutils
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools 'platforms;android-27'
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
@@ -555,24 +556,19 @@ jobs:
 
       - name: Start Android emulator
         run: |
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port 5554 -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port 5556 -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+          function configure_emulator() {
+            local port=$1
 
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5554' wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
-          # disable spell checker
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5554' shell settings put secure spell_checker_enabled 0
-          # disable animations
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5554' shell settings put global window_animation_scale 0.0
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5554' shell settings put global transition_animation_scale 0.0
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5554' shell settings put global animator_duration_scale 0.0 
+            nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port "$port" -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+            timeout 5m $ANDROID_HOME/platform-tools/adb -s "emulator-$port" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put secure spell_checker_enabled 0
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global window_animation_scale 0.0
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global transition_animation_scale 0.0
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global animator_duration_scale 0.0
+          }
 
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5556' wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
-          # disable spell checker
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5556' shell settings put secure spell_checker_enabled 0
-          # disable animations
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5556' shell settings put global window_animation_scale 0.0
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5556' shell settings put global transition_animation_scale 0.0
-          $ANDROID_HOME/platform-tools/adb -s 'emulator-5556' shell settings put global animator_duration_scale 0.0
+          configure_emulator 5554
+          configure_emulator 5556
 
           $ANDROID_HOME/platform-tools/adb devices
 

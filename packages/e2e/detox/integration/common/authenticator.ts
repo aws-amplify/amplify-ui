@@ -44,7 +44,7 @@ When(
     }
 
     try {
-      // try to retrieve element by test ID first
+      // try to retrieve element by testID first
       await typeInInputField(
         by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-${testIdSuffix}`),
         text
