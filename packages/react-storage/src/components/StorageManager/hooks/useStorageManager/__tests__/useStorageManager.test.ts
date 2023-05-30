@@ -41,6 +41,23 @@ describe('useUploadFiles', () => {
     expect(result.current.files[1].status).toStrictEqual(FileStatus.QUEUED);
   });
 
+  it('should clear files', () => {
+    const { result } = renderHook(() => useStorageManager(defaultFiles));
+    act(() =>
+      result.current.addFiles({
+        files: [
+          new File(['test1'], 'test1.txt', { type: 'text/plain' }),
+          new File(['test2'], 'test2.txt', { type: 'text/plain' }),
+        ],
+        getFileErrorMessage: () => '',
+      })
+    );
+
+    expect(result.current.files.length).toBe(4);
+    act(() => result.current.clearFiles());
+    expect(result.current.files.length).toBe(0);
+  });
+
   it('should set uploading file', () => {
     const { result } = renderHook(() => useStorageManager(defaultFiles));
 
