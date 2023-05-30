@@ -28,6 +28,10 @@ export async function getStaticProps() {
 </Fragment>
 
 <Fragment platforms={['web']} useCommonWebContent>
+  {({ platform }) => import(`./shims.${platform}.mdx`)}
+</Fragment>
+
+<Fragment platforms={['web']} useCommonWebContent>
   {({ platform }) => import(`./styles.${platform}.mdx`)}
 </Fragment>
 
