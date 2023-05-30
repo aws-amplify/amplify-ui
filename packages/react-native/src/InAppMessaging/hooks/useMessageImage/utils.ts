@@ -1,6 +1,6 @@
 import { Image } from 'react-native';
 import { ConsoleLogger as Logger } from '@aws-amplify/core';
-import { MessageLayout } from '@aws-amplify/ui-react-core';
+import { MessageLayout } from '@aws-amplify/ui-react-core-notifications';
 
 import {
   BANNER_IMAGE_SCREEN_SIZE,
