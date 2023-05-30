@@ -5,7 +5,7 @@ export { esDict } from './es';
 export { frDict } from './fr';
 export { itDict } from './it';
 export { jaDict } from './ja';
-export { krDict } from './kr';
+export { koDict } from './ko';
 export { nbDict } from './nb';
 export { nlDict } from './nl';
 export { plDict } from './pl';
