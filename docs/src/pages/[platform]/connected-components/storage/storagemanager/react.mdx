@@ -19,6 +19,7 @@ import {
   StorageManagerMetadataExample,
   StorageManagerResumableExample,
   StorageManagerThemeExample,
+  StorageManagerHandleExample,
 } from './examples'
 
 <DefaultStorageManagerExample />
@@ -197,6 +198,17 @@ _You can even use a completely different UI kit like MUI, Chakra, or your own de
   </ExpanderItem>
 </Expander>
 
+### Imperative handles
+
+The `files` state is managed within the `StorageManager` component itself. To allow for clearing the internal `files` state, `StorageManager` exposes a custom ref handle to the parent component with a `clearFiles` method.
+
+<Example>
+  <StorageManagerHandleExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerHandleExample.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ### Theming
 
