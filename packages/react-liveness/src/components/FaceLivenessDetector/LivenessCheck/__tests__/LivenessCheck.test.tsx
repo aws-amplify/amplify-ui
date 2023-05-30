@@ -44,6 +44,30 @@ describe('LivenessCheck', () => {
   };
   const mockActorSend = jest.fn();
 
+  const { userAgent: originalUserAgent } = window.navigator;
+
+  beforeAll(() => {
+    Object.defineProperty(
+      window.navigator,
+      'userAgent',
+      ((value) => ({
+        get() {
+          return value;
+        },
+        set(v) {
+          value = v;
+        },
+      }))(window.navigator['userAgent'])
+    );
+  });
+
+  afterAll(() => {
+    Object.defineProperty(window, 'navigator', {
+      configurable: true,
+      value: originalUserAgent,
+    });
+  });
+
   beforeEach(() => {
     mockUseLivenessActor.mockReturnValue([mockActorState, mockActorSend]);
     mockUseThemeBreakpoint.mockReturnValue('small');
@@ -143,5 +167,20 @@ describe('LivenessCheck', () => {
     expect(screen.getByText(landscapeHeaderText)).toBeInTheDocument();
     expect(screen.getByText(landscapeMessageText)).toBeInTheDocument();
     expect(screen.queryByText('LivenessCameraModule')).not.toBeInTheDocument();
+  });
+
+  it('should render the component on mobile', () => {
+    mockActorState.matches.mockReturnValue(true);
+    (global.navigator as any).userAgent =
+      'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
+
+    renderWithLivenessProvider(
+      <LivenessCheck
+        hintDisplayText={hintDisplayText}
+        cameraDisplayText={cameraDisplayText}
+        streamDisplayText={streamDisplayText}
+        errorDisplayText={errorDisplayText}
+      />
+    );
   });
 });
