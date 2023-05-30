@@ -109,7 +109,7 @@ export const STORAGE_MANAGER = [
   {
     name: `ref?`,
     description:
-      'The ref for the imperative handle exposed by Storage Manager for manipulating the files state.',
+      'Forward ref prop exposing StorageManager imperative methods.',
     type: `React.ForwardedRef<StorageManagerHandle>`,
   },
 ];
