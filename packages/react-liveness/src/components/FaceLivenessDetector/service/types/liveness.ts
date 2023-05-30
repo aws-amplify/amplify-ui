@@ -1,7 +1,7 @@
 import { AwsCredentialProvider } from './credentials';
 
 /**
- * The props for the FaceLivenessDetector
+ * The props for the FaceLivenessDetectorCore which allows for fullconfiguration of auth
  */
 export interface FaceLivenessDetectorCoreProps {
   /**
@@ -40,6 +40,10 @@ export interface FaceLivenessDetectorCoreProps {
    */
   config?: FaceLivenessDetectorCoreConfig;
 }
+
+/**
+ * The props for the FaceLivenessDetector extends FaceLivenessDetectorCore with defaults for Amplify Auth configuration
+ */
 
 export type FaceLivenessDetectorProps = Omit<
   FaceLivenessDetectorCoreProps,

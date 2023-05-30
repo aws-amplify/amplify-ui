@@ -9,8 +9,8 @@ import LivenessInlineResults from './LivenessInlineResults';
 
 export default function LivenessDefault({
   disableInstructionScreen = false,
-  components = undefined,
-  credentialProvider = undefined,
+  components,
+  credentialProvider,
 }) {
   const {
     getLivenessResponse,

@@ -11,7 +11,7 @@ import {
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
 import { VideoRecorder } from './videoRecorder';
-import { CredentialProvider } from '@aws-sdk/types';
+import { AwsCredentialProvider } from '../types';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -25,6 +25,14 @@ export interface Credentials {
   accessKeyId: string;
   secretAccessKey: string;
   sessionToken: string;
+}
+
+export interface StreamProviderArgs {
+  sessionId: string;
+  region: string;
+  stream: MediaStream;
+  videoEl: HTMLVideoElement;
+  credentialProvider?: AwsCredentialProvider;
 }
 
 const ENDPOINT = process.env.NEXT_PUBLIC_STREAMING_API_URL;
@@ -45,7 +53,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   public region: string;
   public videoRecorder: VideoRecorder;
   public responseStream!: AsyncIterable<LivenessResponseStream>;
-  public credentialProvider?: CredentialProvider;
+  public credentialProvider?: AwsCredentialProvider;
 
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
@@ -53,14 +61,13 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   private _stream: MediaStream;
   private initPromise: Promise<void>;
 
-  // eslint-disable-next-line max-params
-  constructor(
-    sessionId: string,
-    region: string,
-    stream: MediaStream,
-    videoEl: HTMLVideoElement,
-    credentialProvider?: CredentialProvider
-  ) {
+  constructor({
+    sessionId,
+    region,
+    stream,
+    videoEl,
+    credentialProvider,
+  }: StreamProviderArgs) {
     super();
     this.sessionId = sessionId;
     this.region = region;

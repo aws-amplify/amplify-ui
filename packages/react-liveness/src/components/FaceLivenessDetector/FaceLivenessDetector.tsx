@@ -15,20 +15,20 @@ export interface FaceLivenessDetectorProps
   displayText?: LivenessDisplayText;
 }
 
+const credentialProvider = async () => {
+  const credentials =
+    (await AmplifyCredentials.get()) as AwsTemporaryCredentials;
+  return credentials;
+};
+
 export default function FaceLivenessDetector(
   props: FaceLivenessDetectorProps
 ): JSX.Element {
-  const amplifyCredentialsProvider = async () => {
-    const credentials =
-      (await AmplifyCredentials.get()) as AwsTemporaryCredentials;
-    return credentials;
-  };
-
-  const { config } = props;
+  const { config, ...rest } = props;
   return (
     <FaceLivenessDetectorCore
-      {...props}
-      config={{ credentialProvider: amplifyCredentialsProvider, ...config }}
+      {...rest}
+      config={{ credentialProvider, ...config }}
     />
   );
 }
