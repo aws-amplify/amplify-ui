@@ -20,7 +20,7 @@ export const svDict: AuthenticatorDictionary = {
   'Dismiss alert': 'Avvisa varning',
   Email: 'E-post',
   'Enter your code': 'Skriv din kod',
-  'Enter your email': 'Fyll i din e-post',
+  'Enter your Email': 'Fyll i din e-post',
   'Enter your phone number': 'Ange ditt telefonnummer',
   'Enter your username': 'Ange ditt användarnamn',
   'Forgot your password?': 'Glömt ditt lösenord? ',

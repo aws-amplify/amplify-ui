@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exports should match the expected snapshot 1`] = `
+Array [
+  "InAppMessageDisplay",
+  "InAppMessagingProvider",
+  "useInAppMessaging",
+  "withInAppMessaging",
+]
+`;

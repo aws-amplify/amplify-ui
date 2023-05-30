@@ -5,19 +5,9 @@ export const DeveloperPreview = () => {
   const {
     query: { platform = 'react' },
   } = useRouter();
-  if (
-    platform !== 'react-native' &&
-    platform !== 'android' &&
-    platform !== 'swift'
-  )
-    return null;
+  if (platform !== 'react-native') return null;
 
-  const devPlatformName =
-    platform === 'react-native'
-      ? 'React Native'
-      : platform === 'android'
-      ? 'Android'
-      : 'Swift';
+  const devPlatformName = 'React Native';
 
   return (
     <Alert variation="info" heading="Developer Preview">

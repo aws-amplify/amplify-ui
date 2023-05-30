@@ -27,6 +27,9 @@ jobs:
           - react
           - react-native
           - react-core
+          - react-core-notifications
+          - react-notifications
+          - react-geo
           - react-storage
           - react-liveness
 
@@ -77,11 +80,29 @@ jobs:
         run: yarn ui build
 
       - name: Build react-core package
-        if: ${{ matrix.package == 'react' || matrix.package == 'react-native' || matrix.package == 'react-storage' || matrix.package == 'react-liveness' }}
+        if: |
+          matrix.package == 'react' ||
+          matrix.package == 'react-core-notifications' ||
+          matrix.package == 'react-native' ||
+          matrix.package == 'react-storage' ||
+          matrix.package == 'react-liveness' ||
+          matrix.package == 'react-notifications'
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        if: |
+          matrix.package == 'react' ||
+          matrix.package == 'react-native' ||
+          matrix.package == 'react-storage' ||
+          matrix.package == 'react-liveness' ||
+          matrix.package == 'react-notifications'
+        run: yarn react-core-notifications build
+
       - name: Build react package
-        if: ${{ matrix.package == 'react-storage' || matrix.package == 'react-liveness' && matrix.package != 'react'}}
+        if: |
+          matrix.package == 'react-notifications' ||
+          matrix.package == 'react-storage' ||
+          matrix.package == 'react-liveness'
         run: yarn react build
 
       - name: Build ${{ matrix.package }} package
