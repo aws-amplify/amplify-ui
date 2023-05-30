@@ -14,7 +14,7 @@ export const StorageManagerHandleExample = () => {
         ref={files}
       />
       <Button onClick={() => files.current.clearFiles()}>
-        {'Clear Files'}
+        Clear Files
       </Button>
     </>
   );
