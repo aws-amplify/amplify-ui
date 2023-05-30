@@ -56,8 +56,5 @@
       "path": "build/static/js/main.*.js",
       "limit": "281 kB"
     }
-  ],
-  "resolutions": {
-    "@babel/core": "7.21.8"
-  }
+  ]
 }
