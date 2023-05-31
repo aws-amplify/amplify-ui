@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { BaseFlexProps } from './flex';
 import { BaseToggleButtonProps } from './toggleButton';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseToggleButtonGroupProps
   extends BaseFlexProps,
@@ -39,4 +39,4 @@ export interface BaseToggleButtonGroupProps
 }
 
 export type ToggleButtonGroupProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseToggleButtonGroupProps, Element>;
+  PrimitiveProps<BaseToggleButtonGroupProps, Element>;

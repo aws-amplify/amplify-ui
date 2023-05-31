@@ -1,6 +1,6 @@
 import { BaseFlexProps } from './flex';
 import { FieldVariations } from './field';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export type FieldGroupOrientation = 'horizontal' | 'vertical';
 
@@ -15,4 +15,4 @@ export interface BaseFieldGroupOptions extends BaseFlexProps {
 }
 
 export type FieldGroupOptions<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseFieldGroupOptions, Element>;
+  PrimitiveProps<BaseFieldGroupOptions, Element>;

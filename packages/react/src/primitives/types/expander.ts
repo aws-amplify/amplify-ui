@@ -1,8 +1,4 @@
-import {
-  ElementType,
-  PrimitivePropsWithRef,
-  BaseViewProps,
-} from '../types/view';
+import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 
 type ExpanderType = 'single' | 'multiple';
 
@@ -42,8 +38,10 @@ export interface BaseExpanderProps extends BaseViewProps {
    */
   onValueChange?: (value?: string | string[]) => void;
 }
-export type ExpanderProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseExpanderProps, Element>;
+export type ExpanderProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseExpanderProps,
+  Element
+>;
 
 export interface BaseExpanderItemProps extends BaseViewProps {
   /**
@@ -60,4 +58,4 @@ export interface BaseExpanderItemProps extends BaseViewProps {
 }
 
 export type ExpanderItemProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseExpanderItemProps, Element>;
+  PrimitiveProps<BaseExpanderItemProps, Element>;

@@ -1,10 +1,6 @@
 import { Property } from 'csstype';
 
-import {
-  ElementType,
-  PrimitivePropsWithRef,
-  BaseViewProps,
-} from '../types/view';
+import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { Sizes } from './base';
 import { StyleToken } from './style';
 
@@ -50,5 +46,7 @@ export interface BaseLoaderProps extends BaseViewProps {
   isPercentageTextHidden?: boolean;
 }
 
-export type LoaderProps<Element extends ElementType = 'svg'> =
-  PrimitivePropsWithRef<BaseLoaderProps, Element>;
+export type LoaderProps<Element extends ElementType = 'svg'> = PrimitiveProps<
+  BaseLoaderProps,
+  Element
+>;

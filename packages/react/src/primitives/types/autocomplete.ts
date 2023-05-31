@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BaseSearchFieldProps } from './searchField';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface AutocompleteComboboxProps {
   role: React.AriaRole;
@@ -138,7 +138,7 @@ export interface BaseAutocompleteProps extends BaseSearchFieldProps {
 }
 
 export type AutocompleteProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BaseAutocompleteProps, Element>;
+  PrimitiveProps<BaseAutocompleteProps, Element>;
 
 export interface UseAutocompleteProps extends Partial<AutocompleteProps> {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { BaseButtonProps } from './button';
 import { BaseFlexProps } from './flex';
 import { Sizes } from './base';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseMenuProps extends BaseFlexProps {
   /**
@@ -49,8 +49,10 @@ export interface BaseMenuProps extends BaseFlexProps {
    */
   triggerClassName?: string;
 }
-export type MenuProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseMenuProps, Element>;
+export type MenuProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseMenuProps,
+  Element
+>;
 
 export interface BaseMenuItemProps extends BaseButtonProps {
   /**
@@ -60,5 +62,7 @@ export interface BaseMenuItemProps extends BaseButtonProps {
   children?: React.ReactNode;
 }
 
-export type MenuItemProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseMenuItemProps, Element>;
+export type MenuItemProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseMenuItemProps,
+  Element
+>;

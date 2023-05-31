@@ -4,7 +4,7 @@ import { Sizes } from './base';
 import { BaseStyleProps, StyleToken } from './style';
 import { BaseInputProps } from './input';
 import { BaseFieldProps, LabelPositions } from './field';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseSwitchFieldProps
   extends BaseInputProps,
@@ -91,4 +91,4 @@ export interface BaseSwitchFieldProps
 }
 
 export type SwitchFieldProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BaseSwitchFieldProps, Element>;
+  PrimitiveProps<BaseSwitchFieldProps, Element>;

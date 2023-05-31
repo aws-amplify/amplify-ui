@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BaseButtonProps } from './button';
 import { BaseTextFieldProps } from './textField';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BasePasswordFieldProps extends BaseTextFieldProps {
   /**
@@ -61,7 +61,7 @@ export interface BasePasswordFieldProps extends BaseTextFieldProps {
 }
 
 export type PasswordFieldProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BasePasswordFieldProps, Element>;
+  PrimitiveProps<BasePasswordFieldProps, Element>;
 
 export type PasswordFieldType = 'password' | 'text';
 
@@ -108,4 +108,4 @@ export interface BaseShowPasswordButtonProps extends BaseButtonProps {
 }
 
 export type ShowPasswordButtonProps<Element extends ElementType = 'button'> =
-  PrimitivePropsWithRef<BaseShowPasswordButtonProps, Element>;
+  PrimitiveProps<BaseShowPasswordButtonProps, Element>;

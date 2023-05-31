@@ -1,4 +1,4 @@
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface BaseHighlightMatchProps extends BaseViewProps {
   /**
@@ -15,4 +15,4 @@ export interface BaseHighlightMatchProps extends BaseViewProps {
 }
 
 export type HighlightMatchProps<Element extends ElementType = 'span'> =
-  PrimitivePropsWithRef<BaseHighlightMatchProps, Element>;
+  PrimitiveProps<BaseHighlightMatchProps, Element>;

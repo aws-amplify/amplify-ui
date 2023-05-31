@@ -1,5 +1,5 @@
 import { TextProps } from './text';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -14,4 +14,4 @@ export interface BaseHeadingProps extends TextProps {
 }
 
 export type HeadingProps<Element extends ElementType = HeadingTag> =
-  PrimitivePropsWithRef<BaseHeadingProps, Element>;
+  PrimitiveProps<BaseHeadingProps, Element>;

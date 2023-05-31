@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { BaseTextFieldProps } from './textField';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseSearchFieldProps extends BaseTextFieldProps {
   /**
@@ -67,13 +67,13 @@ export interface BaseSearchFieldProps extends BaseTextFieldProps {
 }
 
 export type SearchFieldProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BaseSearchFieldProps, Element>;
+  PrimitiveProps<BaseSearchFieldProps, Element>;
 
 export interface BaseSearchFieldButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
 
 export type SearchFieldButtonProps<Element extends ElementType = 'button'> =
-  PrimitivePropsWithRef<BaseSearchFieldButtonProps, Element>;
+  PrimitiveProps<BaseSearchFieldButtonProps, Element>;
 
 export interface UseSearchFieldProps extends Partial<SearchFieldProps> {
   externalRef?: React.ForwardedRef<HTMLInputElement>;

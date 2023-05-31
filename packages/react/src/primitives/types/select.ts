@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { Sizes } from './base';
 
 export type SelectVariation = 'quiet';
@@ -86,4 +86,4 @@ export interface BaseSelectProps extends BaseViewProps {
 }
 
 export type SelectProps<Element extends ElementType = 'select'> =
-  PrimitivePropsWithRef<BaseSelectProps, Element>;
+  PrimitiveProps<BaseSelectProps, Element>;

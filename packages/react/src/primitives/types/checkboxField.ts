@@ -1,10 +1,10 @@
 import { BaseCheckboxProps } from './checkbox';
 import { BaseFieldProps } from './field';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseCheckboxFieldProps
   extends BaseCheckboxProps,
     BaseFieldProps {}
 
 export type CheckboxFieldProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BaseCheckboxFieldProps, Element>;
+  PrimitiveProps<BaseCheckboxFieldProps, Element>;

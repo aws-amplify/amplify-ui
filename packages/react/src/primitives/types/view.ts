@@ -33,7 +33,7 @@ export type PrimitivePropsWithoutRef<
   React.ComponentPropsWithoutRef<Element>
 >;
 
-export type PrimitivePropsWithRef<
+export type PrimitiveProps<
   Props extends BaseViewProps,
   Element extends ElementType
 > = PrimitivePropsWithoutRef<Props, Element> & RefProp<Element>;
@@ -43,7 +43,7 @@ export type Primitive<
   Element extends ElementType
 > = React.ForwardRefRenderFunction<
   React.ComponentRef<Element>,
-  PrimitivePropsWithRef<Props, Element>
+  PrimitiveProps<Props, Element>
 >;
 
 export interface ForwardRefPrimitive<
@@ -52,7 +52,7 @@ export interface ForwardRefPrimitive<
 > extends React.ForwardRefExoticComponent<unknown> {
   // overload the JSX constructor to make it accept generics
   <Element extends ElementType = DefaultElement>(
-    props: PrimitivePropsWithRef<Props, Element>
+    props: PrimitiveProps<Props, Element>
   ): React.ReactElement | null;
 }
 
@@ -76,5 +76,7 @@ export interface BaseViewProps
   style?: React.CSSProperties;
 }
 
-export type ViewProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseViewProps, Element>;
+export type ViewProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseViewProps,
+  Element
+>;

@@ -1,4 +1,4 @@
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type TextVariation =
   | 'primary'
@@ -26,5 +26,7 @@ export interface BaseTextProps extends BaseViewProps {
   isTruncated?: boolean;
 }
 
-export type TextProps<Element extends ElementType = 'p'> =
-  PrimitivePropsWithRef<BaseTextProps, Element>;
+export type TextProps<Element extends ElementType = 'p'> = PrimitiveProps<
+  BaseTextProps,
+  Element
+>;

@@ -1,5 +1,5 @@
 import { BaseTextFieldProps } from '../types/textField';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseStepperFieldProps extends BaseTextFieldProps {
   /**
@@ -76,4 +76,4 @@ export interface BaseStepperFieldProps extends BaseTextFieldProps {
 }
 
 export type StepperFieldProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BaseStepperFieldProps, Element>;
+  PrimitiveProps<BaseStepperFieldProps, Element>;

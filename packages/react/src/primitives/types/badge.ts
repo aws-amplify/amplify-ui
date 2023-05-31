@@ -1,5 +1,5 @@
 import { Sizes } from './base';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type BadgeVariations = 'info' | 'error' | 'warning' | 'success';
 export type BadgeSizes = Sizes;
@@ -17,5 +17,7 @@ export interface BaseBadgeProps extends BaseViewProps {
   size?: BadgeSizes;
 }
 
-export type BadgeProps<Element extends ElementType = 'span'> =
-  PrimitivePropsWithRef<BaseBadgeProps, Element>;
+export type BadgeProps<Element extends ElementType = 'span'> = PrimitiveProps<
+  BaseBadgeProps,
+  Element
+>;

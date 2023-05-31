@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FlexContainerStyleProps } from './flex';
 import { BaseInputProps } from './input';
 import { BaseFieldProps } from './field';
-import { PrimitivePropsWithRef, ElementType } from './view';
+import { PrimitiveProps, ElementType } from './view';
 
 export interface TextFieldOptions
   extends BaseFieldProps,
@@ -42,4 +42,4 @@ export interface TextFieldOptions
 export interface BaseTextFieldProps extends TextFieldOptions, BaseInputProps {}
 
 export type TextFieldProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BaseTextFieldProps, Element>;
+  PrimitiveProps<BaseTextFieldProps, Element>;

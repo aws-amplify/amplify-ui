@@ -1,4 +1,4 @@
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 // VisuallyHidden should not support style props
 // @TODO change to extending the following type once `[key: string]: any` has been removed:
@@ -7,4 +7,4 @@ import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
 export interface BaseVisuallyHiddenProps extends BaseViewProps {}
 
 export type VisuallyHiddenProps<Element extends ElementType = 'span'> =
-  PrimitivePropsWithRef<BaseVisuallyHiddenProps, Element>;
+  PrimitiveProps<BaseVisuallyHiddenProps, Element>;

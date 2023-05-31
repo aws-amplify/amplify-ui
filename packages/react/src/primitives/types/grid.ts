@@ -1,7 +1,7 @@
 import { Property } from 'csstype';
 
 import { ResponsiveStyle, CSSLayoutStyleProps } from './style';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type GridSpanType = number | string | 'auto';
 
@@ -125,5 +125,7 @@ export interface GridItemStyleProps {
 
 export interface BaseGridProps extends GridContainerStyleProps, BaseViewProps {}
 
-export type GridProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseGridProps, Element>;
+export type GridProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseGridProps,
+  Element
+>;

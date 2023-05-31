@@ -1,4 +1,4 @@
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type CardVariations = 'outlined' | 'elevated';
 
@@ -10,5 +10,7 @@ export interface BaseCardProps extends BaseViewProps {
   variation?: CardVariations;
 }
 
-export type CardProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseCardProps, Element>;
+export type CardProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseCardProps,
+  Element
+>;

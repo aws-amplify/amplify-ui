@@ -3,7 +3,7 @@ import { BaseFlexProps } from './flex';
 import { BaseInputProps } from './input';
 import { FieldProps, LabelPositions } from './field';
 import { BaseStyleProps } from './style';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseCheckboxProps extends BaseFlexProps, BaseInputProps {
   /**
@@ -53,7 +53,7 @@ export interface BaseCheckboxProps extends BaseFlexProps, BaseInputProps {
 }
 
 export type CheckboxProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BaseCheckboxProps, Element>;
+  PrimitiveProps<BaseCheckboxProps, Element>;
 
 export interface UseCheckbox {
   dataChecked?: boolean;

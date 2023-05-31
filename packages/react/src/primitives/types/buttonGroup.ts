@@ -4,7 +4,7 @@ import { AriaProps } from './base';
 import { BaseStyleProps } from './style';
 import { BaseButtonProps } from './button';
 import { BaseFlexProps } from './flex';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseButtonGroupProps
   extends AriaProps,
@@ -15,4 +15,4 @@ export interface BaseButtonGroupProps
 }
 
 export type ButtonGroupProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseButtonGroupProps, Element>;
+  PrimitiveProps<BaseButtonGroupProps, Element>;

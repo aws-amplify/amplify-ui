@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Sizes } from './base';
 import { FieldVariations } from './field';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type EnterKeyHint =
   | 'enter'
@@ -135,5 +135,7 @@ export interface BaseInputProps extends BaseViewProps {
   variation?: FieldVariations;
 }
 
-export type InputProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BaseInputProps, Element>;
+export type InputProps<Element extends ElementType = 'input'> = PrimitiveProps<
+  BaseInputProps,
+  Element
+>;

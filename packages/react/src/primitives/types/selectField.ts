@@ -1,7 +1,7 @@
 import { FlexContainerStyleProps } from './flex';
 import { BaseSelectProps } from './select';
 import { BaseFieldProps } from './field';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseSelectFieldProps
   extends BaseFieldProps,
@@ -15,4 +15,4 @@ export interface BaseSelectFieldProps
 }
 
 export type SelectFieldProps<Element extends ElementType = 'select'> =
-  PrimitivePropsWithRef<BaseSelectFieldProps, Element>;
+  PrimitiveProps<BaseSelectFieldProps, Element>;

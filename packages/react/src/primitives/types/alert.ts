@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { BaseFlexProps } from './flex';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export type AlertVariations = 'info' | 'error' | 'warning' | 'success';
 
@@ -49,5 +49,7 @@ export interface BaseAlertProps extends BaseFlexProps {
   buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
-export type AlertProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseAlertProps, Element>;
+export type AlertProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseAlertProps,
+  Element
+>;

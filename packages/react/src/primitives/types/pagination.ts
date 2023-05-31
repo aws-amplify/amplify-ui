@@ -1,6 +1,6 @@
 import { BaseComponentProps, AriaProps } from './base';
 import { BaseStyleProps } from './style';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type PaginationItemType = 'page' | 'next' | 'previous' | 'ellipsis';
 export type PaginationCallbackType = 'onNext' | 'onPrevious' | 'onChange';
@@ -90,7 +90,7 @@ export interface BasePaginationProps extends BaseViewProps {
 }
 
 export type PaginationProps<Element extends ElementType = 'nav'> =
-  PrimitivePropsWithRef<BasePaginationProps, Element>;
+  PrimitiveProps<BasePaginationProps, Element>;
 
 export interface UsePaginationProps
   extends Omit<
@@ -147,4 +147,4 @@ export interface BasePaginationItemProps
 }
 
 export type PaginationItemProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BasePaginationItemProps, Element>;
+  PrimitiveProps<BasePaginationItemProps, Element>;

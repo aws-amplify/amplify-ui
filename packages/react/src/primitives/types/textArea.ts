@@ -2,7 +2,7 @@ import { Property } from 'csstype';
 
 import { Sizes } from './base';
 import { FieldVariations } from './field';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface TextAreaStyleProps {
   /**
@@ -102,4 +102,4 @@ export interface BaseTextAreaProps extends TextAreaStyleProps, BaseViewProps {
   variation?: FieldVariations;
 }
 export type TextAreaProps<Element extends ElementType = 'textarea'> =
-  PrimitivePropsWithRef<BaseTextAreaProps, Element>;
+  PrimitiveProps<BaseTextAreaProps, Element>;

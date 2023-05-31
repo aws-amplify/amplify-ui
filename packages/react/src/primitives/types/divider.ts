@@ -1,5 +1,5 @@
 import { Sizes } from './base';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type DividerOrientations = 'horizontal' | 'vertical';
 export type DividerSizes = Sizes;
@@ -30,5 +30,7 @@ export interface DividerOptions {
 
 export interface BaseDividerProps extends BaseViewProps, DividerOptions {}
 
-export type DividerProps<Element extends ElementType = 'hr'> =
-  PrimitivePropsWithRef<BaseDividerProps, Element>;
+export type DividerProps<Element extends ElementType = 'hr'> = PrimitiveProps<
+  BaseDividerProps,
+  Element
+>;

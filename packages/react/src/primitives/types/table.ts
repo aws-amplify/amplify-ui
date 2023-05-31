@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Sizes } from './base';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type TableSize = Sizes;
 export type TableVariation = 'bordered' | 'striped';
@@ -31,12 +31,14 @@ export interface BaseTableProps extends BaseViewProps {
    */
   variation?: TableVariation;
 }
-export type TableProps<Element extends ElementType = 'table'> =
-  PrimitivePropsWithRef<BaseTableProps, Element>;
+export type TableProps<Element extends ElementType = 'table'> = PrimitiveProps<
+  BaseTableProps,
+  Element
+>;
 
 export interface BaseTableBodyProps extends BaseViewProps {}
 export type TableBodyProps<Element extends ElementType = 'tbody'> =
-  PrimitivePropsWithRef<BaseTableBodyProps, Element>;
+  PrimitiveProps<BaseTableBodyProps, Element>;
 
 export type TableCellElement = 'td' | 'th';
 
@@ -54,16 +56,18 @@ export interface BaseTableCellProps extends BaseViewProps {
   rowspan?: Pick<React.HTMLProps<HTMLTableCellElement>, 'rowSpan'>;
 }
 export type TableCellProps<Element extends ElementType = TableCellElement> =
-  PrimitivePropsWithRef<BaseTableCellProps, Element>;
+  PrimitiveProps<BaseTableCellProps, Element>;
 
 export interface BaseTableFootProps extends BaseViewProps {}
 export type TableFootProps<Element extends ElementType = 'tfoot'> =
-  PrimitivePropsWithRef<BaseTableFootProps, Element>;
+  PrimitiveProps<BaseTableFootProps, Element>;
 
 export interface BaseTableHeadProps extends BaseViewProps {}
 export type TableHeadProps<Element extends ElementType = 'thead'> =
-  PrimitivePropsWithRef<BaseTableHeadProps, Element>;
+  PrimitiveProps<BaseTableHeadProps, Element>;
 
 export interface BaseTableRowProps extends BaseViewProps {}
-export type TableRowProps<Element extends ElementType = 'tr'> =
-  PrimitivePropsWithRef<BaseTableRowProps, Element>;
+export type TableRowProps<Element extends ElementType = 'tr'> = PrimitiveProps<
+  BaseTableRowProps,
+  Element
+>;

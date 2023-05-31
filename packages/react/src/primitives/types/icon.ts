@@ -1,5 +1,5 @@
 import { Property } from 'csstype';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { Sizes } from './base';
 import * as React from 'react';
 
@@ -58,5 +58,7 @@ export interface BaseIconProps extends BaseViewProps {
   paths?: React.SVGAttributes<SVGPathElement>[];
 }
 
-export type IconProps<Element extends ElementType = 'svg'> =
-  PrimitivePropsWithRef<BaseIconProps, Element>;
+export type IconProps<Element extends ElementType = 'svg'> = PrimitiveProps<
+  BaseIconProps,
+  Element
+>;

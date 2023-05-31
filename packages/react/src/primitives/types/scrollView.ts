@@ -1,4 +1,4 @@
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 type ScrollViewOrientation = 'horizontal' | 'vertical';
 
@@ -11,4 +11,4 @@ export interface BaseScrollViewProps extends BaseViewProps {
 }
 
 export type ScrollViewProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseScrollViewProps, Element>;
+  PrimitiveProps<BaseScrollViewProps, Element>;

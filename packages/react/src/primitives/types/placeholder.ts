@@ -1,5 +1,5 @@
 import { Sizes } from './base';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type PlaceholderSizes = Sizes;
 
@@ -20,4 +20,4 @@ export interface BasePlaceholderProps extends BaseViewProps {
 }
 
 export type PlaceholderProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BasePlaceholderProps, Element>;
+  PrimitiveProps<BasePlaceholderProps, Element>;

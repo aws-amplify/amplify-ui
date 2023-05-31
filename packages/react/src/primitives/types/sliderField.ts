@@ -3,7 +3,7 @@ import React from 'react';
 
 import { StyleToken } from './style';
 import { BaseTextFieldProps } from './textField';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 type SliderOrientation = 'horizontal' | 'vertical';
 type Direction = 'ltr' | 'rtl';
@@ -99,4 +99,4 @@ export interface BaseSliderFieldProps
 }
 
 export type SliderFieldProps<Element extends ElementType = 'span'> =
-  PrimitivePropsWithRef<BaseSliderFieldProps, Element>;
+  PrimitiveProps<BaseSliderFieldProps, Element>;

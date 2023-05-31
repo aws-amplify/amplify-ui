@@ -1,5 +1,5 @@
 import { Sizes } from './base';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { FlexContainerStyleProps } from './flex';
 
 export type ButtonSizes = Sizes;
@@ -69,4 +69,4 @@ export interface BaseButtonProps
 }
 
 export type ButtonProps<Element extends ElementType = 'button'> =
-  PrimitivePropsWithRef<BaseButtonProps, Element>;
+  PrimitiveProps<BaseButtonProps, Element>;

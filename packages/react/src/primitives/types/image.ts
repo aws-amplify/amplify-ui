@@ -1,6 +1,6 @@
 import { Property } from 'csstype';
 
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { ResponsiveStyle } from './style';
 
 export interface ImageStyleProps {
@@ -63,5 +63,7 @@ export interface ImageOptions extends ImageStyleProps {
 
 export interface BaseImageProps extends BaseViewProps, ImageOptions {}
 
-export type ImageProps<Element extends ElementType = 'img'> =
-  PrimitivePropsWithRef<BaseImageProps, Element>;
+export type ImageProps<Element extends ElementType = 'img'> = PrimitiveProps<
+  BaseImageProps,
+  Element
+>;

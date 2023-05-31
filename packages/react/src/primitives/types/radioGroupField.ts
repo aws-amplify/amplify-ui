@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FlexContainerStyleProps } from './flex';
 import { BaseFieldProps, LabelPositions } from './field';
 import { BaseInputProps } from './input';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseRadioGroupFieldProps
   extends BaseFieldProps,
@@ -27,4 +27,4 @@ export interface BaseRadioGroupFieldProps
 }
 
 export type RadioGroupFieldProps<Element extends ElementType = 'input'> =
-  PrimitivePropsWithRef<BaseRadioGroupFieldProps, Element>;
+  PrimitiveProps<BaseRadioGroupFieldProps, Element>;

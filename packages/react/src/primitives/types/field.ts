@@ -2,7 +2,7 @@ import { BaseFieldGroupIconButtonProps } from './fieldGroupIcon';
 import { BaseInputProps } from './input';
 import { BaseTextProps } from './text';
 import { BaseStyleProps } from './style';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 /**
  * Shared type across all field types
@@ -44,26 +44,28 @@ export interface BaseFieldProps extends BaseViewProps {
   inputStyles?: BaseStyleProps;
 }
 
-export type FieldProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseFieldProps, Element>;
+export type FieldProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseFieldProps,
+  Element
+>;
 
 export interface BaseFieldClearButtonProps
   extends Partial<BaseFieldGroupIconButtonProps> {}
 export type FieldClearButtonProps<Element extends ElementType = 'button'> =
-  PrimitivePropsWithRef<BaseFieldClearButtonProps, Element>;
+  PrimitiveProps<BaseFieldClearButtonProps, Element>;
 
 export interface BaseFieldDescriptionProps
   extends BaseTextProps,
     Pick<BaseFieldProps, 'descriptiveText' | 'labelHidden'> {}
 export type FieldDescriptionProps<Element extends ElementType = 'p'> =
-  PrimitivePropsWithRef<BaseFieldDescriptionProps, Element>;
+  PrimitiveProps<BaseFieldDescriptionProps, Element>;
 
 export interface BaseFieldErrorMessageProps
   extends BaseTextProps,
     Pick<BaseFieldProps, 'errorMessage'>,
     Pick<BaseInputProps, 'hasError'> {}
 export type FieldErrorMessageProps<Element extends ElementType = 'p'> =
-  PrimitivePropsWithRef<BaseFieldErrorMessageProps, Element>;
+  PrimitiveProps<BaseFieldErrorMessageProps, Element>;
 
 export type FieldVariations = 'quiet';
 

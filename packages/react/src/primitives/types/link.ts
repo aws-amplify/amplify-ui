@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface LinkOptions {
   /**
@@ -26,5 +26,7 @@ export interface BaseLinkProps extends BaseViewProps, LinkOptions {
   children: React.ReactNode;
 }
 
-export type LinkProps<Element extends ElementType = 'a'> =
-  PrimitivePropsWithRef<BaseLinkProps, Element>;
+export type LinkProps<Element extends ElementType = 'a'> = PrimitiveProps<
+  BaseLinkProps,
+  Element
+>;

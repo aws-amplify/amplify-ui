@@ -1,5 +1,5 @@
 import { BaseButtonProps } from './button';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseToggleButtonProps extends BaseButtonProps {
   /**
@@ -28,4 +28,4 @@ export interface BaseToggleButtonProps extends BaseButtonProps {
 }
 
 export type ToggleButtonProps<Element extends ElementType = 'button'> =
-  PrimitivePropsWithRef<BaseToggleButtonProps, Element>;
+  PrimitiveProps<BaseToggleButtonProps, Element>;

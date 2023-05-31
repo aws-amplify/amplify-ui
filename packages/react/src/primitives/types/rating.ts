@@ -3,7 +3,7 @@ import { Property } from 'csstype';
 import { BaseFlexProps } from './flex';
 import { Sizes } from './base';
 import { StyleToken } from './style';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export type RatingSizes = Sizes;
 
@@ -64,5 +64,7 @@ export interface RatingOptions {
 
 export interface BaseRatingProps extends RatingOptions, BaseFlexProps {}
 
-export type RatingProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseRatingProps, Element>;
+export type RatingProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseRatingProps,
+  Element
+>;

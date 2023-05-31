@@ -3,7 +3,7 @@ import * as React from 'react';
 import { BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
 import { BaseFlexProps } from './flex';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export type TabsSpacing = 'equal' | 'relative';
 
@@ -48,8 +48,10 @@ export interface BaseTabsProps extends BaseFlexProps {
    */
   indicatorPosition?: 'top' | 'bottom';
 }
-export type TabsProps<Element extends ElementType = 'div'> =
-  PrimitivePropsWithRef<BaseTabsProps, Element>;
+export type TabsProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseTabsProps,
+  Element
+>;
 
 export interface BaseTabItemProps extends BaseComponentProps, BaseStyleProps {
   /**
@@ -71,4 +73,4 @@ export interface BaseTabItemProps extends BaseComponentProps, BaseStyleProps {
   children?: React.ReactNode;
 }
 export type TabItemProps<Element extends ElementType = 'button'> =
-  PrimitivePropsWithRef<BaseTabItemProps, Element>;
+  PrimitiveProps<BaseTabItemProps, Element>;

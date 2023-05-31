@@ -1,4 +1,4 @@
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface BaseLabelProps extends BaseViewProps {
   /**
@@ -14,5 +14,7 @@ export interface BaseLabelProps extends BaseViewProps {
   children: React.ReactNode;
 }
 
-export type LabelProps<Element extends ElementType = 'label'> =
-  PrimitivePropsWithRef<BaseLabelProps, Element>;
+export type LabelProps<Element extends ElementType = 'label'> = PrimitiveProps<
+  BaseLabelProps,
+  Element
+>;

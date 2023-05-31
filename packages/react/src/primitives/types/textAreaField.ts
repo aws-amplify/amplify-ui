@@ -2,7 +2,7 @@ import { BaseTextAreaProps, TextAreaStyleProps } from './textArea';
 import { BaseFieldProps } from './field';
 import { FlexContainerStyleProps } from './flex';
 import { BaseStyleProps } from './style';
-import { ElementType, PrimitivePropsWithRef } from './view';
+import { ElementType, PrimitiveProps } from './view';
 
 export interface BaseTextAreaFieldProps
   extends BaseFieldProps,
@@ -12,4 +12,4 @@ export interface BaseTextAreaFieldProps
 }
 
 export type TextAreaFieldProps<Element extends ElementType = 'textarea'> =
-  PrimitivePropsWithRef<BaseTextAreaProps, Element>;
+  PrimitiveProps<BaseTextAreaProps, Element>;

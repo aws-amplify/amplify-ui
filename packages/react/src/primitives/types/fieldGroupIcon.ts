@@ -1,4 +1,4 @@
-import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { BaseButtonProps } from './button';
 
 export interface BaseFieldGroupIconProps extends BaseViewProps {
@@ -17,11 +17,11 @@ export interface BaseFieldGroupIconProps extends BaseViewProps {
 }
 export type FieldGroupIconProps<
   Element extends ElementType = 'button' | 'div'
-> = PrimitivePropsWithRef<BaseFieldGroupIconProps, Element>;
+> = PrimitiveProps<BaseFieldGroupIconProps, Element>;
 
 export interface BaseFieldGroupIconButtonProps
   extends BaseFieldGroupIconProps,
     Pick<BaseButtonProps, 'onClick' | 'variation' | 'size' | 'type'> {}
 
 export type FieldGroupIconButtonProps<Element extends ElementType = 'button'> =
-  PrimitivePropsWithRef<BaseFieldGroupIconButtonProps, Element>;
+  PrimitiveProps<BaseFieldGroupIconButtonProps, Element>;
