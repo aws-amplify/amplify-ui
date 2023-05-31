@@ -20,11 +20,6 @@ const eventHandler = `(file: {key: string}) => void;`;
 
 export const STORAGE_MANAGER = [
   {
-    name: `acceptedFileTypes`,
-    description: 'List of accepted file types',
-    type: `string[]`,
-  },
-  {
     name: `accessLevel`,
     description:
       'Access level for files in Storage. See https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/',
@@ -34,6 +29,12 @@ export const STORAGE_MANAGER = [
     name: `maxFileCount`,
     description: '',
     type: 'integer',
+  },
+  {
+    name: `acceptedFileTypes?`,
+    description:
+      "List of accepted file types, values of `['*']` or undefined allow any files",
+    type: `string[]`,
   },
   {
     name: `maxFileSize?`,
