@@ -55,6 +55,7 @@ Feature: Reset Password
     And I see "Code *"
     Then I type a valid code
     And I slowly type an invalid wrong complexity new password
+    And I confirm my password
     Then I see "Password must have numbers"
     Then I see "Password must have special characters"
     Then I see "Password must have upper case letters"
