@@ -194,8 +194,8 @@ If the example app is not picking up changes to the values in _.env_ close Metro
 yarn react-native-example dev --reset-cache
 ```
 
-### Andoid emulator fails to connect to Metro server
+### Android emulator fails to connect to Metro server
 
 ```bash
-`adb reverse tcp:8081 tcp:8081`
+adb reverse tcp:8081 tcp:8081
 ```
