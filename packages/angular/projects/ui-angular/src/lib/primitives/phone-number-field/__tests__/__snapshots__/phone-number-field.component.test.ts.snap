@@ -15,20 +15,14 @@ exports[`amplify-phone-number-field renders as expected 1`] = `
   <div
     amplify-field-group=""
     class="amplify-flex amplify-phonenumberfield"
-    style="gap: 0px"
+    style="gap: 0px;"
   >
     <div
       class="amplify-field-group__outer-start"
     >
       <div
-        class="
-        amplify-flex
-        amplify-field
-        amplify-selectfield
-        amplify-countrycodeselect
-        amplify-dialcodeselect
-      "
-        style="flex-direction: column"
+        class="amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect amplify-dialcodeselect"
+        style="flex-direction: column;"
       >
         <amplify-form-select
           label="Country Code"
@@ -49,7 +43,6 @@ exports[`amplify-phone-number-field renders as expected 1`] = `
               id="mock-id-0"
               name="country_code"
             >
-              
               <option
                 value="+1"
               >
@@ -1080,10 +1073,11 @@ exports[`amplify-phone-number-field renders as expected 1`] = `
               >
                  +998 
               </option>
+              
             </select>
             <div
               class="amplify-flex amplify-select__icon-wrapper"
-              style="align-items: center; justify-content: center"
+              style="align-items: center; justify-content: center;"
             >
               <svg
                 class="amplify-icon amplify-icon--large"
