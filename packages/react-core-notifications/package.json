@@ -1,0 +1,68 @@
+{
+  "name": "@aws-amplify/ui-react-core-notifications",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "dist/types/index.d.ts",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aws-amplify/amplify-ui",
+    "directory": "packages/react-core-notifications"
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "yarn build:rollup",
+    "build:rollup": "rollup --config",
+    "check:esm": "node --input-type=module --eval 'import \"@aws-amplify/ui-react-core-notifications\"'",
+    "clean": "rimraf dist node_modules",
+    "dev": "yarn build:rollup --watch",
+    "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
+    "prebuild": "rimraf dist",
+    "test": "jest",
+    "test:ci": "yarn test && yarn check:esm",
+    "test:watch": "yarn test --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aws-amplify/ui": "5.6.4",
+    "@aws-amplify/ui-react-core": "2.1.23"
+  },
+  "peerDependencies": {
+    "aws-amplify": ">= 5.0.1",
+    "react": ">= 16.14.0"
+  },
+  "devDependencies": {
+    "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.1",
+    "@types/jest": "^26.0.23",
+    "@types/react": "^17.0.2",
+    "@types/react-test-renderer": "^17.0.1",
+    "@types/testing-library__jest-dom": "^5.14.1",
+    "eslint": "^8.13.0",
+    "jest": "^27.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.70.0",
+    "rollup-plugin-node-externals": "^4.1.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-jest": "^27.0.3"
+  },
+  "sideEffects": false
+}

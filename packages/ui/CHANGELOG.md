@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.6.4
+
+### Patch Changes
+
+- [#3923](https://github.com/aws-amplify/amplify-ui/pull/3923) [`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd) Thanks [@reesscot](https://github.com/reesscot)! - fix (authenticator): fix translations for enter your email
+
 ## 5.6.3
 
 ### Patch Changes

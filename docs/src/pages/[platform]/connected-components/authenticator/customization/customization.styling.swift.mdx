@@ -12,7 +12,7 @@ Authenticator { _ in
 `AuthenticatorTheme` is a class that allows you to set the style for various elements, which will be applied throughout the Authenticator views.
 
 You can customize:
-- Spacing (horizontal and vertical): For Authenticator views, buttons, banners and fields.
+- Spacing (horizontal and vertical): For Authenticator views, buttons, alerts and fields.
 - Colors: For backgrounds, borders and foreground elements.
 - Fonts: For all views
 
@@ -23,12 +23,39 @@ struct MyView: View {
     private let theme = AuthenticatorTheme()
 
     init() {
-        theme.Fonts.title = .custom("Impact", size: 40)
-        theme.Authenticator.spacing.vertical = 15
-        theme.Colors.Background.interactive = .red
-        theme.Colors.Foreground.primary = .red
-        theme.Colors.Foreground.secondary = .pink
-        theme.Colors.Foreground.interactive = .orange
+        // Colors
+        theme.colors.background.interactive = .pink
+        theme.colors.foreground.interactive = .red
+        theme.colors.border.interactive = .pink
+        
+        // Fonts
+        theme.fonts.title = .custom("Impact", size: 40)
+
+        // Authenticator
+        theme.components.authenticator.spacing.vertical = 20
+        theme.components.authenticator.cornerRadius = 25
+        theme.components.authenticator.backgroundColor = Color(uiColor: .systemGray6)
+        theme.components.authenticator.padding = .init(
+            top: 20,
+            bottom: 20,
+            trailing: 50,
+            leading: 50
+        )
+        
+        // Buttons
+        theme.components.button.primary.cornerRadius = 100
+        theme.components.button.primary.padding = 20
+        theme.components.button.link.font = .custom("Noteworthy-Bold", size: 15)
+                
+        // Fields
+        theme.components.field.spacing.vertical = 20
+        theme.components.field.backgroundColor = .init(uiColor: .init(dynamicProvider: {
+            return $0.userInterfaceStyle == .dark ? .black : .white
+        })) // A dynamic color according to the color mode
+        
+        // Alerts
+        theme.components.alert.cornerRadius = 30
+        theme.components.alert.padding = 50
     }
 
     var body: some View {
