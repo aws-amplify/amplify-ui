@@ -3,7 +3,7 @@ import { Button } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 export const StorageManagerHandleExample = () => {
-  const files = React.useRef();
+  const ref = React.useRef(null);
 
   return (
     <>
@@ -11,11 +11,9 @@ export const StorageManagerHandleExample = () => {
         acceptedFileTypes={['image/*']}
         accessLevel="public"
         maxFileCount={3}
-        ref={files}
+        ref={ref}
       />
-      <Button onClick={() => files.current.clearFiles()}>
-        Clear Files
-      </Button>
+      <Button onClick={() => ref.current.clearFiles()}>Clear Files</Button>
     </>
   );
 };
