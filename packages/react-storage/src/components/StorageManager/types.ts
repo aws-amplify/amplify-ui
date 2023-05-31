@@ -41,7 +41,7 @@ export type ProcessFile = (
 
 export interface StorageManagerProps {
   /**
-   * List of accepted File types, values of '*' or undefined allow any files
+   * List of accepted File types, values of `['*']` or undefined allow any files
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
    */
   acceptedFileTypes?: string[];
