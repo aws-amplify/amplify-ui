@@ -29,7 +29,8 @@
     "android.debug": {
       "type": "android.apk",
       "binaryPath": "../../examples/react-native/android/app/build/outputs/apk/debug/app-debug.apk",
-      "build": "cd ../../examples/react-native/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ../../.."
+      "build": "cd ../../examples/react-native/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ../../..",
+      "reversePorts": [9091]
     },
     "android.release": {
       "type": "android.apk",
@@ -48,7 +49,8 @@
       "type": "android.emulator",
       "device": {
         "avdName": "Pixel_5_API_27"
-      }
+      },
+      "headless": true
     }
   },
   "configurations": {
