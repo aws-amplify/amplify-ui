@@ -2,12 +2,12 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { Amplify } from 'aws-amplify';
-import { AwsCredentialIdentityProvider } from '@aws-sdk/types';
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 import awsExports from '@environments/liveness/liveness-environment/src/aws-exports';
 
 import LivenessDefault from '../components/LivenessDefault';
 import Layout from '../components/Layout';
+import { AwsCredentialProvider } from '@aws-amplify/ui-react-liveness';
 
 Amplify.configure({
   ...awsExports,
@@ -17,11 +17,10 @@ Amplify.configure({
 });
 
 const App = () => {
-  const credentialProvider: AwsCredentialIdentityProvider =
-    fromCognitoIdentityPool({
-      clientConfig: { region: 'us-east-2' },
-      identityPoolId: 'us-east-2:89d27d83-5313-46b2-a7cb-328604399400',
-    });
+  const credentialProvider: AwsCredentialProvider = fromCognitoIdentityPool({
+    clientConfig: { region: 'us-east-2' },
+    identityPoolId: 'us-east-2:89d27d83-5313-46b2-a7cb-328604399400',
+  });
 
   return (
     <Layout>

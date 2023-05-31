@@ -6,3 +6,8 @@ export {
   default as FaceLivenessDetectorCore,
   FaceLivenessDetectorCoreProps,
 } from './FaceLivenessDetectorCore';
+export {
+  AwsCredentialProvider,
+  AwsTemporaryCredentials,
+  AwsCredentials,
+} from './service';

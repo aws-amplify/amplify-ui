@@ -3,4 +3,7 @@ export {
   FaceLivenessDetectorProps,
   FaceLivenessDetectorCore,
   FaceLivenessDetectorCoreProps,
+  AwsCredentialProvider,
+  AwsCredentials,
+  AwsTemporaryCredentials,
 } from './components';

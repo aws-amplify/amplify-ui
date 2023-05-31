@@ -9,8 +9,8 @@ export interface AwsCredentials {
 }
 
 export interface AwsTemporaryCredentials extends AwsCredentials {
-  readonly sessionToken: string;
-  readonly expiration: Date;
+  readonly sessionToken?: string;
+  readonly expiration?: Date;
 }
 
 export interface IdentityProvider<IdentityT extends AwsTemporaryCredentials> {
