@@ -461,6 +461,9 @@ Object {
       "checked": Object {
         "type": "boolean",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -1587,6 +1590,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -1837,6 +1843,9 @@ Object {
       },
       "checked": Object {
         "type": "boolean",
+      },
+      "children": Object {
+        "type": "string",
       },
       "className": Object {
         "type": "string",
@@ -2115,6 +2124,12 @@ Object {
   },
   "Collection": Object {
     "properties": Object {
+      "about": Object {
+        "type": "string",
+      },
+      "accessKey": Object {
+        "type": "string",
+      },
       "alignContent": Object {
         "type": "string",
       },
@@ -2127,10 +2142,163 @@ Object {
       "area": Object {
         "type": "string",
       },
+      "aria-activedescendant": Object {
+        "type": "string",
+      },
+      "aria-atomic": Object {
+        "type": "string",
+      },
+      "aria-autocomplete": Object {
+        "type": "string",
+      },
+      "aria-busy": Object {
+        "type": "string",
+      },
+      "aria-checked": Object {
+        "type": "string",
+      },
+      "aria-colcount": Object {
+        "type": "number",
+      },
+      "aria-colindex": Object {
+        "type": "number",
+      },
+      "aria-colspan": Object {
+        "type": "number",
+      },
+      "aria-controls": Object {
+        "type": "string",
+      },
+      "aria-current": Object {
+        "type": "string",
+      },
+      "aria-describedby": Object {
+        "type": "string",
+      },
+      "aria-details": Object {
+        "type": "string",
+      },
+      "aria-disabled": Object {
+        "type": "string",
+      },
+      "aria-dropeffect": Object {
+        "type": "string",
+      },
+      "aria-errormessage": Object {
+        "type": "string",
+      },
+      "aria-expanded": Object {
+        "type": "string",
+      },
+      "aria-flowto": Object {
+        "type": "string",
+      },
+      "aria-grabbed": Object {
+        "type": "string",
+      },
+      "aria-haspopup": Object {
+        "type": "string",
+      },
+      "aria-hidden": Object {
+        "type": "string",
+      },
+      "aria-invalid": Object {
+        "type": "string",
+      },
+      "aria-keyshortcuts": Object {
+        "type": "string",
+      },
+      "aria-label": Object {
+        "type": "string",
+      },
+      "aria-labelledby": Object {
+        "type": "string",
+      },
+      "aria-level": Object {
+        "type": "number",
+      },
+      "aria-live": Object {
+        "type": "string",
+      },
+      "aria-modal": Object {
+        "type": "string",
+      },
+      "aria-multiline": Object {
+        "type": "string",
+      },
+      "aria-multiselectable": Object {
+        "type": "string",
+      },
+      "aria-orientation": Object {
+        "type": "string",
+      },
+      "aria-owns": Object {
+        "type": "string",
+      },
+      "aria-placeholder": Object {
+        "type": "string",
+      },
+      "aria-posinset": Object {
+        "type": "number",
+      },
+      "aria-pressed": Object {
+        "type": "string",
+      },
+      "aria-readonly": Object {
+        "type": "string",
+      },
+      "aria-relevant": Object {
+        "type": "string",
+      },
+      "aria-required": Object {
+        "type": "string",
+      },
+      "aria-roledescription": Object {
+        "type": "string",
+      },
+      "aria-rowcount": Object {
+        "type": "number",
+      },
+      "aria-rowindex": Object {
+        "type": "number",
+      },
+      "aria-rowspan": Object {
+        "type": "number",
+      },
+      "aria-selected": Object {
+        "type": "string",
+      },
+      "aria-setsize": Object {
+        "type": "number",
+      },
+      "aria-sort": Object {
+        "type": "string",
+      },
+      "aria-valuemax": Object {
+        "type": "number",
+      },
+      "aria-valuemin": Object {
+        "type": "number",
+      },
+      "aria-valuenow": Object {
+        "type": "number",
+      },
+      "aria-valuetext": Object {
+        "type": "string",
+      },
       "ariaLabel": Object {
         "type": "string",
       },
       "ariaValuetext": Object {
+        "type": "string",
+      },
+      "autoCapitalize": Object {
+        "type": "string",
+      },
+      "autoCorrect": Object {
+        "type": "string",
+      },
+      "autoSave": Object {
         "type": "string",
       },
       "backgroundColor": Object {
@@ -2154,6 +2322,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -2175,7 +2346,28 @@ Object {
       "columnStart": Object {
         "type": "string",
       },
+      "contentEditable": Object {
+        "type": "string",
+      },
+      "contextMenu": Object {
+        "type": "string",
+      },
+      "datatype": Object {
+        "type": "string",
+      },
+      "defaultChecked": Object {
+        "type": "boolean",
+      },
+      "defaultValue": Object {
+        "type": "string",
+      },
+      "dir": Object {
+        "type": "string",
+      },
       "display": Object {
+        "type": "string",
+      },
+      "draggable": Object {
         "type": "string",
       },
       "flex": Object {
@@ -2202,11 +2394,20 @@ Object {
       "height": Object {
         "type": "string",
       },
+      "hidden": Object {
+        "type": "boolean",
+      },
       "id": Object {
         "type": "string",
       },
       "inert": Object {
         "type": "boolean",
+      },
+      "inputMode": Object {
+        "type": "string",
+      },
+      "is": Object {
+        "type": "string",
       },
       "isDisabled": Object {
         "type": "boolean",
@@ -2217,10 +2418,31 @@ Object {
       "isSearchable": Object {
         "type": "boolean",
       },
+      "itemID": Object {
+        "type": "string",
+      },
+      "itemProp": Object {
+        "type": "string",
+      },
+      "itemRef": Object {
+        "type": "string",
+      },
+      "itemScope": Object {
+        "type": "boolean",
+      },
+      "itemType": Object {
+        "type": "string",
+      },
       "itemsPerPage": Object {
         "type": "number",
       },
       "justifyContent": Object {
+        "type": "string",
+      },
+      "key": Object {
+        "type": "string",
+      },
+      "lang": Object {
         "type": "string",
       },
       "left": Object {
@@ -2319,8 +2541,26 @@ Object {
       "paddingTop": Object {
         "type": "string",
       },
+      "placeholder": Object {
+        "type": "string",
+      },
       "position": Object {
         "type": "string",
+      },
+      "prefix": Object {
+        "type": "string",
+      },
+      "property": Object {
+        "type": "string",
+      },
+      "radioGroup": Object {
+        "type": "string",
+      },
+      "resource": Object {
+        "type": "string",
+      },
+      "results": Object {
+        "type": "number",
       },
       "right": Object {
         "type": "string",
@@ -2352,8 +2592,26 @@ Object {
       "searchPlaceholder": Object {
         "type": "string",
       },
+      "security": Object {
+        "type": "string",
+      },
       "shrink": Object {
         "type": "string",
+      },
+      "slot": Object {
+        "type": "string",
+      },
+      "spellCheck": Object {
+        "type": "string",
+      },
+      "suppressContentEditableWarning": Object {
+        "type": "boolean",
+      },
+      "suppressHydrationWarning": Object {
+        "type": "boolean",
+      },
+      "tabIndex": Object {
+        "type": "number",
       },
       "testId": Object {
         "type": "string",
@@ -2367,6 +2625,9 @@ Object {
       "textTransform": Object {
         "type": "string",
       },
+      "title": Object {
+        "type": "string",
+      },
       "top": Object {
         "type": "string",
       },
@@ -2376,7 +2637,19 @@ Object {
       "transformOrigin": Object {
         "type": "string",
       },
+      "translate": Object {
+        "type": "string",
+      },
       "type": Object {
+        "type": "string",
+      },
+      "typeof": Object {
+        "type": "string",
+      },
+      "unselectable": Object {
+        "type": "string",
+      },
+      "vocab": Object {
         "type": "string",
       },
       "whiteSpace": Object {
@@ -2420,6 +2693,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
@@ -2666,6 +2942,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
@@ -2915,6 +3194,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -3156,6 +3438,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -3395,6 +3680,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
@@ -3652,6 +3940,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
@@ -3926,6 +4217,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -4149,16 +4443,175 @@ Object {
   },
   "Heading": Object {
     "properties": Object {
+      "about": Object {
+        "type": "string",
+      },
+      "accessKey": Object {
+        "type": "string",
+      },
       "alignSelf": Object {
         "type": "string",
       },
       "area": Object {
         "type": "string",
       },
+      "aria-activedescendant": Object {
+        "type": "string",
+      },
+      "aria-atomic": Object {
+        "type": "string",
+      },
+      "aria-autocomplete": Object {
+        "type": "string",
+      },
+      "aria-busy": Object {
+        "type": "string",
+      },
+      "aria-checked": Object {
+        "type": "string",
+      },
+      "aria-colcount": Object {
+        "type": "number",
+      },
+      "aria-colindex": Object {
+        "type": "number",
+      },
+      "aria-colspan": Object {
+        "type": "number",
+      },
+      "aria-controls": Object {
+        "type": "string",
+      },
+      "aria-current": Object {
+        "type": "string",
+      },
+      "aria-describedby": Object {
+        "type": "string",
+      },
+      "aria-details": Object {
+        "type": "string",
+      },
+      "aria-disabled": Object {
+        "type": "string",
+      },
+      "aria-dropeffect": Object {
+        "type": "string",
+      },
+      "aria-errormessage": Object {
+        "type": "string",
+      },
+      "aria-expanded": Object {
+        "type": "string",
+      },
+      "aria-flowto": Object {
+        "type": "string",
+      },
+      "aria-grabbed": Object {
+        "type": "string",
+      },
+      "aria-haspopup": Object {
+        "type": "string",
+      },
+      "aria-hidden": Object {
+        "type": "string",
+      },
+      "aria-invalid": Object {
+        "type": "string",
+      },
+      "aria-keyshortcuts": Object {
+        "type": "string",
+      },
+      "aria-label": Object {
+        "type": "string",
+      },
+      "aria-labelledby": Object {
+        "type": "string",
+      },
+      "aria-level": Object {
+        "type": "number",
+      },
+      "aria-live": Object {
+        "type": "string",
+      },
+      "aria-modal": Object {
+        "type": "string",
+      },
+      "aria-multiline": Object {
+        "type": "string",
+      },
+      "aria-multiselectable": Object {
+        "type": "string",
+      },
+      "aria-orientation": Object {
+        "type": "string",
+      },
+      "aria-owns": Object {
+        "type": "string",
+      },
+      "aria-placeholder": Object {
+        "type": "string",
+      },
+      "aria-posinset": Object {
+        "type": "number",
+      },
+      "aria-pressed": Object {
+        "type": "string",
+      },
+      "aria-readonly": Object {
+        "type": "string",
+      },
+      "aria-relevant": Object {
+        "type": "string",
+      },
+      "aria-required": Object {
+        "type": "string",
+      },
+      "aria-roledescription": Object {
+        "type": "string",
+      },
+      "aria-rowcount": Object {
+        "type": "number",
+      },
+      "aria-rowindex": Object {
+        "type": "number",
+      },
+      "aria-rowspan": Object {
+        "type": "number",
+      },
+      "aria-selected": Object {
+        "type": "string",
+      },
+      "aria-setsize": Object {
+        "type": "number",
+      },
+      "aria-sort": Object {
+        "type": "string",
+      },
+      "aria-valuemax": Object {
+        "type": "number",
+      },
+      "aria-valuemin": Object {
+        "type": "number",
+      },
+      "aria-valuenow": Object {
+        "type": "number",
+      },
+      "aria-valuetext": Object {
+        "type": "string",
+      },
       "ariaLabel": Object {
         "type": "string",
       },
       "ariaValuetext": Object {
+        "type": "string",
+      },
+      "autoCapitalize": Object {
+        "type": "string",
+      },
+      "autoCorrect": Object {
+        "type": "string",
+      },
+      "autoSave": Object {
         "type": "string",
       },
       "backgroundColor": Object {
@@ -4204,7 +4657,28 @@ Object {
       "columnStart": Object {
         "type": "string",
       },
+      "contentEditable": Object {
+        "type": "string",
+      },
+      "contextMenu": Object {
+        "type": "string",
+      },
+      "datatype": Object {
+        "type": "string",
+      },
+      "defaultChecked": Object {
+        "type": "boolean",
+      },
+      "defaultValue": Object {
+        "type": "string",
+      },
+      "dir": Object {
+        "type": "string",
+      },
       "display": Object {
+        "type": "string",
+      },
+      "draggable": Object {
         "type": "string",
       },
       "flex": Object {
@@ -4228,17 +4702,47 @@ Object {
       "height": Object {
         "type": "string",
       },
+      "hidden": Object {
+        "type": "boolean",
+      },
       "id": Object {
         "type": "string",
       },
       "inert": Object {
         "type": "boolean",
       },
+      "inputMode": Object {
+        "type": "string",
+      },
+      "is": Object {
+        "type": "string",
+      },
       "isDisabled": Object {
         "type": "boolean",
       },
       "isTruncated": Object {
         "type": "boolean",
+      },
+      "itemID": Object {
+        "type": "string",
+      },
+      "itemProp": Object {
+        "type": "string",
+      },
+      "itemRef": Object {
+        "type": "string",
+      },
+      "itemScope": Object {
+        "type": "boolean",
+      },
+      "itemType": Object {
+        "type": "string",
+      },
+      "key": Object {
+        "type": "string",
+      },
+      "lang": Object {
+        "type": "string",
       },
       "left": Object {
         "type": "string",
@@ -4340,8 +4844,26 @@ Object {
       "paddingTop": Object {
         "type": "string",
       },
+      "placeholder": Object {
+        "type": "string",
+      },
       "position": Object {
         "type": "string",
+      },
+      "prefix": Object {
+        "type": "string",
+      },
+      "property": Object {
+        "type": "string",
+      },
+      "radioGroup": Object {
+        "type": "string",
+      },
+      "resource": Object {
+        "type": "string",
+      },
+      "results": Object {
+        "type": "number",
       },
       "right": Object {
         "type": "string",
@@ -4361,8 +4883,26 @@ Object {
       "rowStart": Object {
         "type": "string",
       },
+      "security": Object {
+        "type": "string",
+      },
       "shrink": Object {
         "type": "string",
+      },
+      "slot": Object {
+        "type": "string",
+      },
+      "spellCheck": Object {
+        "type": "string",
+      },
+      "suppressContentEditableWarning": Object {
+        "type": "boolean",
+      },
+      "suppressHydrationWarning": Object {
+        "type": "boolean",
+      },
+      "tabIndex": Object {
+        "type": "number",
       },
       "testId": Object {
         "type": "string",
@@ -4376,6 +4916,9 @@ Object {
       "textTransform": Object {
         "type": "string",
       },
+      "title": Object {
+        "type": "string",
+      },
       "top": Object {
         "type": "string",
       },
@@ -4385,7 +4928,19 @@ Object {
       "transformOrigin": Object {
         "type": "string",
       },
+      "translate": Object {
+        "type": "string",
+      },
+      "typeof": Object {
+        "type": "string",
+      },
+      "unselectable": Object {
+        "type": "string",
+      },
       "variation": Object {
+        "type": "string",
+      },
+      "vocab": Object {
         "type": "string",
       },
       "whiteSpace": Object {
@@ -4886,6 +5441,12 @@ Object {
   },
   "Image": Object {
     "properties": Object {
+      "about": Object {
+        "type": "string",
+      },
+      "accessKey": Object {
+        "type": "string",
+      },
       "alignSelf": Object {
         "type": "string",
       },
@@ -4896,10 +5457,163 @@ Object {
       "area": Object {
         "type": "string",
       },
+      "aria-activedescendant": Object {
+        "type": "string",
+      },
+      "aria-atomic": Object {
+        "type": "string",
+      },
+      "aria-autocomplete": Object {
+        "type": "string",
+      },
+      "aria-busy": Object {
+        "type": "string",
+      },
+      "aria-checked": Object {
+        "type": "string",
+      },
+      "aria-colcount": Object {
+        "type": "number",
+      },
+      "aria-colindex": Object {
+        "type": "number",
+      },
+      "aria-colspan": Object {
+        "type": "number",
+      },
+      "aria-controls": Object {
+        "type": "string",
+      },
+      "aria-current": Object {
+        "type": "string",
+      },
+      "aria-describedby": Object {
+        "type": "string",
+      },
+      "aria-details": Object {
+        "type": "string",
+      },
+      "aria-disabled": Object {
+        "type": "string",
+      },
+      "aria-dropeffect": Object {
+        "type": "string",
+      },
+      "aria-errormessage": Object {
+        "type": "string",
+      },
+      "aria-expanded": Object {
+        "type": "string",
+      },
+      "aria-flowto": Object {
+        "type": "string",
+      },
+      "aria-grabbed": Object {
+        "type": "string",
+      },
+      "aria-haspopup": Object {
+        "type": "string",
+      },
+      "aria-hidden": Object {
+        "type": "string",
+      },
+      "aria-invalid": Object {
+        "type": "string",
+      },
+      "aria-keyshortcuts": Object {
+        "type": "string",
+      },
+      "aria-label": Object {
+        "type": "string",
+      },
+      "aria-labelledby": Object {
+        "type": "string",
+      },
+      "aria-level": Object {
+        "type": "number",
+      },
+      "aria-live": Object {
+        "type": "string",
+      },
+      "aria-modal": Object {
+        "type": "string",
+      },
+      "aria-multiline": Object {
+        "type": "string",
+      },
+      "aria-multiselectable": Object {
+        "type": "string",
+      },
+      "aria-orientation": Object {
+        "type": "string",
+      },
+      "aria-owns": Object {
+        "type": "string",
+      },
+      "aria-placeholder": Object {
+        "type": "string",
+      },
+      "aria-posinset": Object {
+        "type": "number",
+      },
+      "aria-pressed": Object {
+        "type": "string",
+      },
+      "aria-readonly": Object {
+        "type": "string",
+      },
+      "aria-relevant": Object {
+        "type": "string",
+      },
+      "aria-required": Object {
+        "type": "string",
+      },
+      "aria-roledescription": Object {
+        "type": "string",
+      },
+      "aria-rowcount": Object {
+        "type": "number",
+      },
+      "aria-rowindex": Object {
+        "type": "number",
+      },
+      "aria-rowspan": Object {
+        "type": "number",
+      },
+      "aria-selected": Object {
+        "type": "string",
+      },
+      "aria-setsize": Object {
+        "type": "number",
+      },
+      "aria-sort": Object {
+        "type": "string",
+      },
+      "aria-valuemax": Object {
+        "type": "number",
+      },
+      "aria-valuemin": Object {
+        "type": "number",
+      },
+      "aria-valuenow": Object {
+        "type": "number",
+      },
+      "aria-valuetext": Object {
+        "type": "string",
+      },
       "ariaLabel": Object {
         "type": "string",
       },
       "ariaValuetext": Object {
+        "type": "string",
+      },
+      "autoCapitalize": Object {
+        "type": "string",
+      },
+      "autoCorrect": Object {
+        "type": "string",
+      },
+      "autoSave": Object {
         "type": "string",
       },
       "backgroundColor": Object {
@@ -4923,6 +5637,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -4941,7 +5658,34 @@ Object {
       "columnStart": Object {
         "type": "string",
       },
+      "contentEditable": Object {
+        "type": "string",
+      },
+      "contextMenu": Object {
+        "type": "string",
+      },
+      "crossOrigin": Object {
+        "type": "string",
+      },
+      "datatype": Object {
+        "type": "string",
+      },
+      "decoding": Object {
+        "type": "string",
+      },
+      "defaultChecked": Object {
+        "type": "boolean",
+      },
+      "defaultValue": Object {
+        "type": "string",
+      },
+      "dir": Object {
+        "type": "string",
+      },
       "display": Object {
+        "type": "string",
+      },
+      "draggable": Object {
         "type": "string",
       },
       "flex": Object {
@@ -4966,14 +5710,44 @@ Object {
         "priority": true,
         "type": "string",
       },
+      "hidden": Object {
+        "type": "boolean",
+      },
       "id": Object {
         "type": "string",
       },
       "inert": Object {
         "type": "boolean",
       },
+      "inputMode": Object {
+        "type": "string",
+      },
+      "is": Object {
+        "type": "string",
+      },
       "isDisabled": Object {
         "type": "boolean",
+      },
+      "itemID": Object {
+        "type": "string",
+      },
+      "itemProp": Object {
+        "type": "string",
+      },
+      "itemRef": Object {
+        "type": "string",
+      },
+      "itemScope": Object {
+        "type": "boolean",
+      },
+      "itemType": Object {
+        "type": "string",
+      },
+      "key": Object {
+        "type": "string",
+      },
+      "lang": Object {
+        "type": "string",
       },
       "left": Object {
         "type": "string",
@@ -4982,6 +5756,9 @@ Object {
         "type": "string",
       },
       "lineHeight": Object {
+        "type": "string",
+      },
+      "loading": Object {
         "type": "string",
       },
       "margin": Object {
@@ -5078,8 +5855,29 @@ Object {
       "paddingTop": Object {
         "type": "string",
       },
+      "placeholder": Object {
+        "type": "string",
+      },
       "position": Object {
         "type": "string",
+      },
+      "prefix": Object {
+        "type": "string",
+      },
+      "property": Object {
+        "type": "string",
+      },
+      "radioGroup": Object {
+        "type": "string",
+      },
+      "referrerPolicy": Object {
+        "type": "string",
+      },
+      "resource": Object {
+        "type": "string",
+      },
+      "results": Object {
+        "type": "number",
       },
       "right": Object {
         "type": "string",
@@ -5099,10 +5897,19 @@ Object {
       "rowStart": Object {
         "type": "string",
       },
+      "security": Object {
+        "type": "string",
+      },
       "shrink": Object {
         "type": "string",
       },
       "sizes": Object {
+        "type": "string",
+      },
+      "slot": Object {
+        "type": "string",
+      },
+      "spellCheck": Object {
         "type": "string",
       },
       "src": Object {
@@ -5111,6 +5918,15 @@ Object {
       },
       "srcSet": Object {
         "type": "string",
+      },
+      "suppressContentEditableWarning": Object {
+        "type": "boolean",
+      },
+      "suppressHydrationWarning": Object {
+        "type": "boolean",
+      },
+      "tabIndex": Object {
+        "type": "number",
       },
       "testId": Object {
         "type": "string",
@@ -5124,6 +5940,9 @@ Object {
       "textTransform": Object {
         "type": "string",
       },
+      "title": Object {
+        "type": "string",
+      },
       "top": Object {
         "type": "string",
       },
@@ -5131,6 +5950,21 @@ Object {
         "type": "string",
       },
       "transformOrigin": Object {
+        "type": "string",
+      },
+      "translate": Object {
+        "type": "string",
+      },
+      "typeof": Object {
+        "type": "string",
+      },
+      "unselectable": Object {
+        "type": "string",
+      },
+      "useMap": Object {
+        "type": "string",
+      },
+      "vocab": Object {
         "type": "string",
       },
       "whiteSpace": Object {
@@ -5144,16 +5978,175 @@ Object {
   },
   "Link": Object {
     "properties": Object {
+      "about": Object {
+        "type": "string",
+      },
+      "accessKey": Object {
+        "type": "string",
+      },
       "alignSelf": Object {
         "type": "string",
       },
       "area": Object {
         "type": "string",
       },
+      "aria-activedescendant": Object {
+        "type": "string",
+      },
+      "aria-atomic": Object {
+        "type": "string",
+      },
+      "aria-autocomplete": Object {
+        "type": "string",
+      },
+      "aria-busy": Object {
+        "type": "string",
+      },
+      "aria-checked": Object {
+        "type": "string",
+      },
+      "aria-colcount": Object {
+        "type": "number",
+      },
+      "aria-colindex": Object {
+        "type": "number",
+      },
+      "aria-colspan": Object {
+        "type": "number",
+      },
+      "aria-controls": Object {
+        "type": "string",
+      },
+      "aria-current": Object {
+        "type": "string",
+      },
+      "aria-describedby": Object {
+        "type": "string",
+      },
+      "aria-details": Object {
+        "type": "string",
+      },
+      "aria-disabled": Object {
+        "type": "string",
+      },
+      "aria-dropeffect": Object {
+        "type": "string",
+      },
+      "aria-errormessage": Object {
+        "type": "string",
+      },
+      "aria-expanded": Object {
+        "type": "string",
+      },
+      "aria-flowto": Object {
+        "type": "string",
+      },
+      "aria-grabbed": Object {
+        "type": "string",
+      },
+      "aria-haspopup": Object {
+        "type": "string",
+      },
+      "aria-hidden": Object {
+        "type": "string",
+      },
+      "aria-invalid": Object {
+        "type": "string",
+      },
+      "aria-keyshortcuts": Object {
+        "type": "string",
+      },
+      "aria-label": Object {
+        "type": "string",
+      },
+      "aria-labelledby": Object {
+        "type": "string",
+      },
+      "aria-level": Object {
+        "type": "number",
+      },
+      "aria-live": Object {
+        "type": "string",
+      },
+      "aria-modal": Object {
+        "type": "string",
+      },
+      "aria-multiline": Object {
+        "type": "string",
+      },
+      "aria-multiselectable": Object {
+        "type": "string",
+      },
+      "aria-orientation": Object {
+        "type": "string",
+      },
+      "aria-owns": Object {
+        "type": "string",
+      },
+      "aria-placeholder": Object {
+        "type": "string",
+      },
+      "aria-posinset": Object {
+        "type": "number",
+      },
+      "aria-pressed": Object {
+        "type": "string",
+      },
+      "aria-readonly": Object {
+        "type": "string",
+      },
+      "aria-relevant": Object {
+        "type": "string",
+      },
+      "aria-required": Object {
+        "type": "string",
+      },
+      "aria-roledescription": Object {
+        "type": "string",
+      },
+      "aria-rowcount": Object {
+        "type": "number",
+      },
+      "aria-rowindex": Object {
+        "type": "number",
+      },
+      "aria-rowspan": Object {
+        "type": "number",
+      },
+      "aria-selected": Object {
+        "type": "string",
+      },
+      "aria-setsize": Object {
+        "type": "number",
+      },
+      "aria-sort": Object {
+        "type": "string",
+      },
+      "aria-valuemax": Object {
+        "type": "number",
+      },
+      "aria-valuemin": Object {
+        "type": "number",
+      },
+      "aria-valuenow": Object {
+        "type": "number",
+      },
+      "aria-valuetext": Object {
+        "type": "string",
+      },
       "ariaLabel": Object {
         "type": "string",
       },
       "ariaValuetext": Object {
+        "type": "string",
+      },
+      "autoCapitalize": Object {
+        "type": "string",
+      },
+      "autoCorrect": Object {
+        "type": "string",
+      },
+      "autoSave": Object {
         "type": "string",
       },
       "backgroundColor": Object {
@@ -5198,7 +6191,28 @@ Object {
       "columnStart": Object {
         "type": "string",
       },
+      "contentEditable": Object {
+        "type": "string",
+      },
+      "contextMenu": Object {
+        "type": "string",
+      },
+      "datatype": Object {
+        "type": "string",
+      },
+      "defaultChecked": Object {
+        "type": "boolean",
+      },
+      "defaultValue": Object {
+        "type": "string",
+      },
+      "dir": Object {
+        "type": "string",
+      },
       "display": Object {
+        "type": "string",
+      },
+      "draggable": Object {
         "type": "string",
       },
       "flex": Object {
@@ -5222,7 +6236,13 @@ Object {
       "height": Object {
         "type": "string",
       },
+      "hidden": Object {
+        "type": "boolean",
+      },
       "href": Object {
+        "type": "string",
+      },
+      "hrefLang": Object {
         "type": "string",
       },
       "id": Object {
@@ -5231,11 +6251,38 @@ Object {
       "inert": Object {
         "type": "boolean",
       },
+      "inputMode": Object {
+        "type": "string",
+      },
+      "is": Object {
+        "type": "string",
+      },
       "isDisabled": Object {
         "type": "boolean",
       },
       "isExternal": Object {
         "type": "boolean",
+      },
+      "itemID": Object {
+        "type": "string",
+      },
+      "itemProp": Object {
+        "type": "string",
+      },
+      "itemRef": Object {
+        "type": "string",
+      },
+      "itemScope": Object {
+        "type": "boolean",
+      },
+      "itemType": Object {
+        "type": "string",
+      },
+      "key": Object {
+        "type": "string",
+      },
+      "lang": Object {
+        "type": "string",
       },
       "left": Object {
         "type": "string",
@@ -5283,6 +6330,9 @@ Object {
         "type": "string",
       },
       "maxWidth": Object {
+        "type": "string",
+      },
+      "media": Object {
         "type": "string",
       },
       "minHeight": Object {
@@ -5333,8 +6383,35 @@ Object {
       "paddingTop": Object {
         "type": "string",
       },
+      "ping": Object {
+        "type": "string",
+      },
+      "placeholder": Object {
+        "type": "string",
+      },
       "position": Object {
         "type": "string",
+      },
+      "prefix": Object {
+        "type": "string",
+      },
+      "property": Object {
+        "type": "string",
+      },
+      "radioGroup": Object {
+        "type": "string",
+      },
+      "referrerPolicy": Object {
+        "type": "string",
+      },
+      "rel": Object {
+        "type": "string",
+      },
+      "resource": Object {
+        "type": "string",
+      },
+      "results": Object {
+        "type": "number",
       },
       "right": Object {
         "type": "string",
@@ -5354,7 +6431,28 @@ Object {
       "rowStart": Object {
         "type": "string",
       },
+      "security": Object {
+        "type": "string",
+      },
       "shrink": Object {
+        "type": "string",
+      },
+      "slot": Object {
+        "type": "string",
+      },
+      "spellCheck": Object {
+        "type": "string",
+      },
+      "suppressContentEditableWarning": Object {
+        "type": "boolean",
+      },
+      "suppressHydrationWarning": Object {
+        "type": "boolean",
+      },
+      "tabIndex": Object {
+        "type": "number",
+      },
+      "target": Object {
         "type": "string",
       },
       "testId": Object {
@@ -5369,6 +6467,9 @@ Object {
       "textTransform": Object {
         "type": "string",
       },
+      "title": Object {
+        "type": "string",
+      },
       "top": Object {
         "type": "string",
       },
@@ -5376,6 +6477,21 @@ Object {
         "type": "string",
       },
       "transformOrigin": Object {
+        "type": "string",
+      },
+      "translate": Object {
+        "type": "string",
+      },
+      "type": Object {
+        "type": "string",
+      },
+      "typeof": Object {
+        "type": "string",
+      },
+      "unselectable": Object {
+        "type": "string",
+      },
+      "vocab": Object {
         "type": "string",
       },
       "whiteSpace": Object {
@@ -5419,6 +6535,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
@@ -5681,6 +6800,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
@@ -6511,6 +7633,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -6784,6 +7909,9 @@ Object {
       },
       "checked": Object {
         "type": "boolean",
+      },
+      "children": Object {
+        "type": "string",
       },
       "className": Object {
         "type": "string",
@@ -7136,6 +8264,9 @@ Object {
       "checked": Object {
         "type": "boolean",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -7477,6 +8608,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -7724,6 +8858,9 @@ Object {
       "checked": Object {
         "priority": true,
         "type": "boolean",
+      },
+      "children": Object {
+        "type": "string",
       },
       "className": Object {
         "type": "string",
@@ -8017,6 +9154,9 @@ Object {
       },
       "checked": Object {
         "type": "boolean",
+      },
+      "children": Object {
+        "type": "string",
       },
       "className": Object {
         "type": "string",
@@ -8331,6 +9471,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -8604,6 +9747,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -8853,6 +9999,9 @@ Object {
       },
       "checked": Object {
         "type": "boolean",
+      },
+      "children": Object {
+        "type": "string",
       },
       "className": Object {
         "type": "string",
@@ -9196,6 +10345,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -9499,6 +10651,9 @@ Object {
       },
       "checked": Object {
         "type": "boolean",
+      },
+      "children": Object {
+        "type": "string",
       },
       "className": Object {
         "type": "string",
@@ -9871,6 +11026,9 @@ Object {
       "checked": Object {
         "type": "boolean",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -10218,6 +11376,9 @@ Object {
       },
       "checked": Object {
         "type": "boolean",
+      },
+      "children": Object {
+        "type": "string",
       },
       "className": Object {
         "type": "string",
@@ -10770,6 +11931,9 @@ Object {
       "caption": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -11014,6 +12178,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -11228,9 +12395,6 @@ Object {
       "ariaValuetext": Object {
         "type": "string",
       },
-      "as": Object {
-        "type": "string",
-      },
       "backgroundColor": Object {
         "type": "string",
       },
@@ -11250,6 +12414,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
@@ -11487,6 +12654,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -11722,6 +12892,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -11955,6 +13128,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
@@ -12723,6 +13899,9 @@ Object {
       "boxShadow": Object {
         "type": "string",
       },
+      "children": Object {
+        "type": "string",
+      },
       "className": Object {
         "type": "string",
       },
@@ -13045,6 +14224,9 @@ Object {
       },
       "checked": Object {
         "type": "boolean",
+      },
+      "children": Object {
+        "type": "string",
       },
       "className": Object {
         "type": "string",
@@ -13623,6 +14805,283 @@ Object {
       },
     },
   },
+  "ToggleButtonGroup": Object {
+    "properties": Object {
+      "alignContent": Object {
+        "type": "string",
+      },
+      "alignItems": Object {
+        "type": "string",
+      },
+      "alignSelf": Object {
+        "type": "string",
+      },
+      "area": Object {
+        "type": "string",
+      },
+      "ariaLabel": Object {
+        "type": "string",
+      },
+      "ariaValuetext": Object {
+        "type": "string",
+      },
+      "backgroundColor": Object {
+        "type": "string",
+      },
+      "backgroundImage": Object {
+        "type": "string",
+      },
+      "basis": Object {
+        "type": "string",
+      },
+      "border": Object {
+        "type": "string",
+      },
+      "borderRadius": Object {
+        "type": "string",
+      },
+      "bottom": Object {
+        "type": "string",
+      },
+      "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
+        "type": "string",
+      },
+      "className": Object {
+        "type": "string",
+      },
+      "color": Object {
+        "type": "string",
+      },
+      "column": Object {
+        "type": "string",
+      },
+      "columnEnd": Object {
+        "type": "string",
+      },
+      "columnGap": Object {
+        "type": "string",
+      },
+      "columnSpan": Object {
+        "type": "string",
+      },
+      "columnStart": Object {
+        "type": "string",
+      },
+      "direction": Object {
+        "type": "string",
+      },
+      "display": Object {
+        "type": "string",
+      },
+      "flex": Object {
+        "type": "string",
+      },
+      "fontFamily": Object {
+        "type": "string",
+      },
+      "fontSize": Object {
+        "type": "string",
+      },
+      "fontStyle": Object {
+        "type": "string",
+      },
+      "fontWeight": Object {
+        "type": "string",
+      },
+      "gap": Object {
+        "type": "string",
+      },
+      "grow": Object {
+        "type": "string",
+      },
+      "height": Object {
+        "type": "string",
+      },
+      "id": Object {
+        "type": "string",
+      },
+      "inert": Object {
+        "type": "boolean",
+      },
+      "isDisabled": Object {
+        "type": "boolean",
+      },
+      "isExclusive": Object {
+        "type": "boolean",
+      },
+      "isSelectionRequired": Object {
+        "type": "boolean",
+      },
+      "justifyContent": Object {
+        "type": "string",
+      },
+      "left": Object {
+        "type": "string",
+      },
+      "letterSpacing": Object {
+        "type": "string",
+      },
+      "lineHeight": Object {
+        "type": "string",
+      },
+      "margin": Object {
+        "type": "string",
+      },
+      "marginBlock": Object {
+        "type": "string",
+      },
+      "marginBlockEnd": Object {
+        "type": "string",
+      },
+      "marginBlockStart": Object {
+        "type": "string",
+      },
+      "marginBottom": Object {
+        "type": "string",
+      },
+      "marginInline": Object {
+        "type": "string",
+      },
+      "marginInlineEnd": Object {
+        "type": "string",
+      },
+      "marginInlineStart": Object {
+        "type": "string",
+      },
+      "marginLeft": Object {
+        "type": "string",
+      },
+      "marginRight": Object {
+        "type": "string",
+      },
+      "marginTop": Object {
+        "type": "string",
+      },
+      "maxHeight": Object {
+        "type": "string",
+      },
+      "maxWidth": Object {
+        "type": "string",
+      },
+      "minHeight": Object {
+        "type": "string",
+      },
+      "minWidth": Object {
+        "type": "string",
+      },
+      "opacity": Object {
+        "type": "string",
+      },
+      "order": Object {
+        "type": "string",
+      },
+      "overflow": Object {
+        "type": "string",
+      },
+      "padding": Object {
+        "type": "string",
+      },
+      "paddingBlock": Object {
+        "type": "string",
+      },
+      "paddingBlockEnd": Object {
+        "type": "string",
+      },
+      "paddingBlockStart": Object {
+        "type": "string",
+      },
+      "paddingBottom": Object {
+        "type": "string",
+      },
+      "paddingInline": Object {
+        "type": "string",
+      },
+      "paddingInlineEnd": Object {
+        "type": "string",
+      },
+      "paddingInlineStart": Object {
+        "type": "string",
+      },
+      "paddingLeft": Object {
+        "type": "string",
+      },
+      "paddingRight": Object {
+        "type": "string",
+      },
+      "paddingTop": Object {
+        "type": "string",
+      },
+      "position": Object {
+        "type": "string",
+      },
+      "right": Object {
+        "type": "string",
+      },
+      "role": Object {
+        "type": "string",
+      },
+      "row": Object {
+        "type": "string",
+      },
+      "rowEnd": Object {
+        "type": "string",
+      },
+      "rowGap": Object {
+        "type": "string",
+      },
+      "rowSpan": Object {
+        "type": "string",
+      },
+      "rowStart": Object {
+        "type": "string",
+      },
+      "shrink": Object {
+        "type": "string",
+      },
+      "size": Object {
+        "type": "string",
+      },
+      "testId": Object {
+        "type": "string",
+      },
+      "textAlign": Object {
+        "type": "string",
+      },
+      "textDecoration": Object {
+        "type": "string",
+      },
+      "textTransform": Object {
+        "type": "string",
+      },
+      "top": Object {
+        "type": "string",
+      },
+      "transform": Object {
+        "type": "string",
+      },
+      "transformOrigin": Object {
+        "type": "string",
+      },
+      "value": Object {
+        "type": "string",
+      },
+      "variation": Object {
+        "type": "string",
+      },
+      "whiteSpace": Object {
+        "type": "string",
+      },
+      "width": Object {
+        "type": "string",
+      },
+      "wrap": Object {
+        "type": "string",
+      },
+    },
+  },
   "View": Object {
     "properties": Object {
       "alignSelf": Object {
@@ -13656,6 +15115,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
@@ -13891,6 +15353,9 @@ Object {
         "type": "string",
       },
       "boxShadow": Object {
+        "type": "string",
+      },
+      "children": Object {
         "type": "string",
       },
       "className": Object {
