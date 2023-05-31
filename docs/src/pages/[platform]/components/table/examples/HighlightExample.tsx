@@ -10,7 +10,7 @@ export const HighlightExample = () => (
   <Table highlightOnHover={true}>
     <TableHead>
       <TableRow>
-        <TableCell as="th" columnSpan="2">
+        <TableCell as="th" colSpan={2}>
           Not highlighted
         </TableCell>
       </TableRow>
