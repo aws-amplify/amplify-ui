@@ -3,10 +3,10 @@ import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
-import { TextProps, Primitive } from '../types';
+import { BaseTextProps, Primitive, ForwardRefPrimitive } from '../types';
 import { View } from '../View';
 
-const TextPrimitive: Primitive<TextProps, 'p'> = (
+const TextPrimitive: Primitive<BaseTextProps, 'p'> = (
   { as = 'p', className, children, isTruncated, variation, ...rest },
   ref
 ) => {
@@ -34,6 +34,9 @@ const TextPrimitive: Primitive<TextProps, 'p'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/text)
  */
-export const Text = React.forwardRef(TextPrimitive);
+export const Text = React.forwardRef(TextPrimitive) as ForwardRefPrimitive<
+  BaseTextProps,
+  'p'
+>;
 
 Text.displayName = 'Text';

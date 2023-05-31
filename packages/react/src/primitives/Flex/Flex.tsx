@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { FlexProps, Primitive } from '../types';
+import { BaseFlexProps, ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
 
-const FlexPrimitive: Primitive<FlexProps, 'div'> = (
+const FlexPrimitive: Primitive<BaseFlexProps, 'div'> = (
   { className, children, ...rest },
   ref
 ) => (
@@ -21,6 +21,9 @@ const FlexPrimitive: Primitive<FlexProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/flex)
  */
-export const Flex = React.forwardRef(FlexPrimitive);
+export const Flex = React.forwardRef(FlexPrimitive) as ForwardRefPrimitive<
+  BaseFlexProps,
+  'div'
+>;
 
 Flex.displayName = 'Flex';

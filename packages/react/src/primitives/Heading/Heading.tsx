@@ -3,10 +3,13 @@ import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
-import { HeadingProps, Primitive } from '../types';
+import {
+  ForwardRefPrimitive,
+  BaseHeadingProps,
+  HeadingTag,
+  Primitive,
+} from '../types';
 import { View } from '../View';
-
-type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 interface HeadingLevels {
   [key: number]: HeadingTag;
@@ -21,7 +24,7 @@ const headingLevels: HeadingLevels = {
   6: 'h6',
 };
 
-const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
+const HeadingPrimitive: Primitive<BaseHeadingProps, HeadingTag> = (
   { className, children, isTruncated, level = 6, ...rest },
   ref
 ) => (
@@ -47,6 +50,8 @@ const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/heading)
  */
-export const Heading = React.forwardRef(HeadingPrimitive);
+export const Heading = React.forwardRef(
+  HeadingPrimitive
+) as ForwardRefPrimitive<BaseHeadingProps, HeadingTag>;
 
 Heading.displayName = 'Heading';

@@ -5,11 +5,11 @@ import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { IconExpandMore } from '../Icon/internal';
-import { Primitive } from '../types';
-import { SelectProps } from '../types/select';
+import { ForwardRefPrimitive, Primitive } from '../types';
+import { BaseSelectProps } from '../types/select';
 import { View } from '../View';
 
-const SelectPrimitive: Primitive<SelectProps, 'select'> = (
+const SelectPrimitive: Primitive<BaseSelectProps, 'select'> = (
   {
     autoComplete,
     className,
@@ -71,6 +71,9 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   );
 };
 
-export const Select = React.forwardRef(SelectPrimitive);
+export const Select = React.forwardRef(SelectPrimitive) as ForwardRefPrimitive<
+  BaseSelectProps,
+  'select'
+>;
 
 Select.displayName = 'Select';

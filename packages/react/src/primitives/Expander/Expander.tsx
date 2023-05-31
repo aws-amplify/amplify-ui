@@ -6,15 +6,15 @@ import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { ComponentClassNames } from '../shared/constants';
-import { ExpanderProps } from '../types/expander';
-import { Primitive } from '../types/view';
+import { BaseExpanderProps } from '../types/expander';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
 const { Root } = sanitizeNamespaceImport(Accordion);
 
-const ExpanderPrimitive: Primitive<ExpanderProps, 'div'> = (
+const ExpanderPrimitive: Primitive<BaseExpanderProps, 'div'> = (
   {
     children,
     className,
@@ -76,6 +76,8 @@ const ExpanderPrimitive: Primitive<ExpanderProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/expander)
  */
-export const Expander = React.forwardRef(ExpanderPrimitive);
+export const Expander = React.forwardRef(
+  ExpanderPrimitive
+) as ForwardRefPrimitive<BaseExpanderProps, 'div'>;
 
 Expander.displayName = 'Expander';

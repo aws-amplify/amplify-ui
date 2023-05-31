@@ -3,11 +3,15 @@ import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
-import { FieldGroupOptions, Primitive } from '../types';
+import {
+  BaseFieldGroupOptions,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { Flex } from '../Flex';
 import { View } from '../View';
 
-const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
+const FieldGroupPrimitive: Primitive<BaseFieldGroupOptions, 'div'> = (
   {
     children,
     className,
@@ -95,6 +99,8 @@ const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
   );
 };
 
-export const FieldGroup = React.forwardRef(FieldGroupPrimitive);
+export const FieldGroup = React.forwardRef(
+  FieldGroupPrimitive
+) as ForwardRefPrimitive<BaseFieldGroupOptions, 'div'>;
 
 FieldGroup.displayName = 'FieldGroup';

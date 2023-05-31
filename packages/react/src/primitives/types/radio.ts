@@ -1,7 +1,8 @@
-import { InputProps } from './input';
+import { BaseInputProps } from './input';
 import { LabelPositions } from './field';
+import { ElementType, PrimitivePropsWithRef } from './view';
 
-export interface RadioProps extends InputProps {
+export interface BaseRadioProps extends BaseInputProps {
   value: string;
 
   /**
@@ -11,3 +12,6 @@ export interface RadioProps extends InputProps {
    */
   labelPosition?: LabelPositions;
 }
+
+export type RadioProps<Element extends ElementType = 'input'> =
+  PrimitivePropsWithRef<BaseRadioProps, Element>;

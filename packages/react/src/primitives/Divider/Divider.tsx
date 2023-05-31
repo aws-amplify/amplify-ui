@@ -3,10 +3,10 @@ import * as React from 'react';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
-import { DividerProps, Primitive } from '../types';
+import { BaseDividerProps, ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
 
-const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
+const DividerPrimitive: Primitive<BaseDividerProps, 'hr'> = (
   { className, orientation = 'horizontal', size, label, ...rest },
   ref
 ) => {
@@ -34,6 +34,8 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/divider)
  */
-export const Divider = React.forwardRef(DividerPrimitive);
+export const Divider = React.forwardRef(
+  DividerPrimitive
+) as ForwardRefPrimitive<BaseDividerProps, 'hr'>;
 
 Divider.displayName = 'Divider';

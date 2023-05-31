@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  AlertProps,
-  ButtonProps,
+  BaseAlertProps,
+  BaseButtonProps,
   PasswordFieldProps,
-  PrimitiveProps,
+  PrimitivePropsWithoutRef,
 } from '../../primitives/types';
 
 /*
@@ -11,9 +11,12 @@ import {
  *
  * Note that `PrimitiveProps` is used to get native html types, like `onSubmit`.
  */
-type PasswordFieldPrimitiveProps = PrimitiveProps<PasswordFieldProps, 'input'>;
-type ButtonPrimitiveProps = PrimitiveProps<ButtonProps, 'button'>;
-type AlertPrimitiveProps = PrimitiveProps<AlertProps, 'div'>;
+type PasswordFieldPrimitiveProps = PrimitivePropsWithoutRef<
+  PasswordFieldProps,
+  'input'
+>;
+type ButtonPrimitiveProps = PrimitivePropsWithoutRef<BaseButtonProps, 'button'>;
+type AlertPrimitiveProps = PrimitivePropsWithoutRef<BaseAlertProps, 'div'>;
 
 /*
  * These are common prop types for component overrides.
@@ -25,7 +28,9 @@ type CommonPasswordFieldProps = Partial<PasswordFieldPrimitiveProps> &
     Pick<PasswordFieldPrimitiveProps, 'onBlur' | 'onChange' | 'name'>
   > & { fieldValidationErrors?: string[] };
 
-type CommonAlertProps = Partial<PrimitiveProps<AlertProps, 'div'>> &
+type CommonAlertProps = Partial<
+  PrimitivePropsWithoutRef<BaseAlertProps, 'div'>
+> &
   Required<Pick<AlertPrimitiveProps, 'children'>>;
 
 type CommonButtonProps<T extends 'submit' | 'default' = 'default'> =

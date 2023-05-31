@@ -193,6 +193,8 @@ function ChangePassword({
     <View
       as="form"
       className={ComponentClassName.ChangePassword}
+      // React.FormEventHandler<HTMLFormElement> does not accept async function
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleSubmit}
     >
       <Flex direction="column">

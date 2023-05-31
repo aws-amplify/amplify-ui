@@ -1,13 +1,8 @@
 import * as React from 'react';
 import { useStyles } from '../shared/styleUtils';
-import {
-  ElementType,
-  HTMLElementType,
-  PrimitivePropsWithRef,
-  ViewProps,
-} from '../types';
+import { ForwardRefPrimitive, BaseViewProps, Primitive } from '../types';
 
-const ViewPrimitive = <Element extends ElementType = 'div'>(
+const ViewPrimitive: Primitive<BaseViewProps, 'div'> = (
   {
     as = 'div',
     children,
@@ -17,8 +12,8 @@ const ViewPrimitive = <Element extends ElementType = 'div'>(
     style,
     inert,
     ...rest
-  }: PrimitivePropsWithRef<ViewProps, Element>,
-  ref?: React.ForwardedRef<HTMLElementType<Element>>
+  },
+  ref
 ) => {
   const { propStyles, nonStyleProps } = useStyles(rest, style);
 
@@ -40,6 +35,9 @@ const ViewPrimitive = <Element extends ElementType = 'div'>(
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/view)
  */
-export const View = React.forwardRef(ViewPrimitive);
+export const View = React.forwardRef(ViewPrimitive) as ForwardRefPrimitive<
+  BaseViewProps,
+  'div'
+>;
 
 View.displayName = 'View';

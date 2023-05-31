@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import { ComponentClassNames } from '../../shared';
 import { Link } from '../Link';
@@ -103,30 +102,5 @@ describe('Link:', () => {
       fontWeight: 'var(--amplify-font-weights-bold)',
       textDecoration: 'underline',
     });
-  });
-
-  it('can integrate with react-router-dom using the "to" prop', () => {
-    render(<SampleRoutingApp />);
-
-    expect(screen.getByText(/you are home/i)).toBeInTheDocument();
-
-    const leftClick = { button: 0 };
-    userEvent.click(screen.getByText(/about/i), leftClick);
-
-    expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
-  });
-
-  it('should call console.warn if "to" prop is used without "as" prop', () => {
-    const spyWarn = jest.spyOn(console, 'warn');
-    render(<Link to="/test">Test</Link>);
-    expect(spyWarn).toHaveBeenCalled();
-    spyWarn.mockRestore();
-  });
-
-  it('should not call console.warn if "to" prop is used with "as" prop', () => {
-    const spyWarn = jest.spyOn(console, 'warn');
-    render(<SampleRoutingApp />);
-    expect(spyWarn).not.toHaveBeenCalled();
-    spyWarn.mockRestore();
   });
 });

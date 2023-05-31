@@ -3,10 +3,10 @@ import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
-import { InputProps, Primitive } from '../types';
+import { BaseInputProps, ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
 
-const InputPrimitive: Primitive<InputProps, 'input'> = (
+const InputPrimitive: Primitive<BaseInputProps, 'input'> = (
   {
     autoComplete,
     checked,
@@ -76,6 +76,9 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
   );
 };
 
-export const Input = React.forwardRef(InputPrimitive);
+export const Input = React.forwardRef(InputPrimitive) as ForwardRefPrimitive<
+  BaseInputProps,
+  'input'
+>;
 
 Input.displayName = 'Input';

@@ -8,11 +8,14 @@ import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { Primitive, TextFieldProps } from '../types';
+import { ForwardRefPrimitive, Primitive, BaseTextFieldProps } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 
-const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
+const TextFieldPrimitive: Primitive<BaseTextFieldProps, 'input'> = (
+  props,
+  ref
+) => {
   const {
     className,
     descriptiveText,
@@ -84,6 +87,8 @@ const TextFieldPrimitive: Primitive<TextFieldProps, 'input'> = (props, ref) => {
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/textfield)
  */
-export const TextField = React.forwardRef(TextFieldPrimitive);
+export const TextField = React.forwardRef(
+  TextFieldPrimitive
+) as ForwardRefPrimitive<BaseTextFieldProps, 'input'>;
 
 TextField.displayName = 'TextField';

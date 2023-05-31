@@ -10,7 +10,7 @@ import { SearchField } from '../SearchField';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
 import {
-  CollectionProps,
+  BaseCollectionProps,
   GridCollectionProps,
   ListCollectionProps,
 } from '../types';
@@ -72,7 +72,7 @@ export const Collection = <Item,>({
   type = 'list',
   testId,
   ...rest
-}: CollectionProps<Item>): JSX.Element => {
+}: BaseCollectionProps<Item>): JSX.Element => {
   const [searchText, setSearchText] = React.useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -123,7 +123,9 @@ export const Collection = <Item,>({
           <SearchField
             label={searchLabel}
             placeholder={searchPlaceholder}
-            onChange={(e) => onSearch(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onSearch(e.target.value)
+            }
             onClear={() => setSearchText('')}
           />
         </Flex>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { ImageProps, Primitive } from '../types';
+import { ImageProps, ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
 
 const ImagePrimitive: Primitive<ImageProps, 'img'> = (
@@ -20,6 +20,9 @@ const ImagePrimitive: Primitive<ImageProps, 'img'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/image)
  */
-export const Image = React.forwardRef(ImagePrimitive);
+export const Image = React.forwardRef(ImagePrimitive) as ForwardRefPrimitive<
+  ImageProps,
+  'img'
+>;
 
 Image.displayName = 'Image';

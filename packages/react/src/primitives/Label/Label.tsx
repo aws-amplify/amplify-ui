@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { LabelProps, Primitive } from '../types';
+import { LabelProps, ForwardRefPrimitive, Primitive } from '../types';
 import { View } from '../View';
 
 const LabelPrimitive: Primitive<LabelProps, 'label'> = (
@@ -23,6 +23,9 @@ const LabelPrimitive: Primitive<LabelProps, 'label'> = (
   );
 };
 
-export const Label = React.forwardRef(LabelPrimitive);
+export const Label = React.forwardRef(LabelPrimitive) as ForwardRefPrimitive<
+  LabelProps,
+  'label'
+>;
 
 Label.displayName = 'Label';

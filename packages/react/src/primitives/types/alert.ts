@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { FlexProps } from './flex';
+import { BaseFlexProps } from './flex';
+import { ElementType, PrimitivePropsWithRef } from './view';
 
 export type AlertVariations = 'info' | 'error' | 'warning' | 'success';
 
-export interface AlertProps extends FlexProps {
+export interface BaseAlertProps extends BaseFlexProps {
   /**
    * @description
    * The variation property will affect the background color of the Alert.
@@ -47,3 +48,6 @@ export interface AlertProps extends FlexProps {
    */
   buttonRef?: React.Ref<HTMLButtonElement>;
 }
+
+export type AlertProps<Element extends ElementType = 'div'> =
+  PrimitivePropsWithRef<BaseAlertProps, Element>;

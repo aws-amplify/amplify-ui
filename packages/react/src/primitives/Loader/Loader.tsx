@@ -3,8 +3,8 @@ import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
-import { LoaderProps } from '../types/loader';
-import { Primitive } from '../types/view';
+import { BaseLoaderProps } from '../types/loader';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
 
 export const LINEAR_EMPTY = 'linear-empty';
@@ -17,7 +17,7 @@ export const RADIUS = 42;
 // circumference = 2 * r * PI  (r = 42)
 export const CIRCUMFERENCE = 2 * RADIUS * Math.PI;
 
-const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
+const LoaderPrimitive: Primitive<BaseLoaderProps, 'svg'> = (
   {
     className,
     filledColor,
@@ -148,6 +148,9 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/loader)
  */
-export const Loader = React.forwardRef(LoaderPrimitive);
+export const Loader = React.forwardRef(LoaderPrimitive) as ForwardRefPrimitive<
+  BaseLoaderProps,
+  'svg'
+>;
 
 Loader.displayName = 'Loader';

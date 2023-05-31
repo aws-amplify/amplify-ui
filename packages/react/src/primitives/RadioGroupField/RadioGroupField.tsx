@@ -8,13 +8,15 @@ import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { RadioGroupContext, RadioGroupContextType } from './context';
-import { RadioGroupFieldProps, Primitive } from '../types';
+import {
+  BaseRadioGroupFieldProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
 
-// Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
-// because all rest props are passed to Flex container
-const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
+const RadioGroupFieldPrimitive: Primitive<BaseRadioGroupFieldProps, 'div'> = (
   {
     children,
     className,
@@ -112,6 +114,8 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/radiogroupfield)
  */
-export const RadioGroupField = React.forwardRef(RadioGroupFieldPrimitive);
+export const RadioGroupField = React.forwardRef(
+  RadioGroupFieldPrimitive
+) as ForwardRefPrimitive<BaseRadioGroupFieldProps, 'div'>;
 
 RadioGroupField.displayName = 'RadioGroupField';

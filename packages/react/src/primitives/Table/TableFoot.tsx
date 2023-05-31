@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { Primitive, TableFootProps } from '../types';
+import { ForwardRefPrimitive, Primitive, BaseTableFootProps } from '../types';
 import { View } from '../View';
 
-const TableFootPrimitive: Primitive<TableFootProps, 'tfoot'> = (
+const TableFootPrimitive: Primitive<BaseTableFootProps, 'tfoot'> = (
   { children, className, ...rest },
   ref
 ) => (
@@ -19,6 +19,8 @@ const TableFootPrimitive: Primitive<TableFootProps, 'tfoot'> = (
   </View>
 );
 
-export const TableFoot = React.forwardRef(TableFootPrimitive);
+export const TableFoot = React.forwardRef(
+  TableFootPrimitive
+) as ForwardRefPrimitive<BaseTableFootProps, 'tfoot'>;
 
 TableFoot.displayName = 'TableFoot';

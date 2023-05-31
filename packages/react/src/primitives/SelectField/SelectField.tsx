@@ -7,13 +7,13 @@ import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { Select } from '../Select';
-import { SelectFieldProps, Primitive } from '../types';
+import { BaseSelectFieldProps, ForwardRefPrimitive, Primitive } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 
 interface SelectFieldChildrenProps {
   children?: React.ReactNode;
-  options?: SelectFieldProps['options'];
+  options?: BaseSelectFieldProps['options'];
 }
 
 const selectFieldChildren = ({
@@ -37,7 +37,7 @@ const selectFieldChildren = ({
   ));
 };
 
-const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
+const SelectFieldPrimitive: Primitive<BaseSelectFieldProps, 'select'> = (
   props,
   ref
 ) => {
@@ -102,6 +102,8 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/selectfield)
  */
-export const SelectField = React.forwardRef(SelectFieldPrimitive);
+export const SelectField = React.forwardRef(
+  SelectFieldPrimitive
+) as ForwardRefPrimitive<BaseSelectFieldProps, 'select'>;
 
 SelectField.displayName = 'SelectField';

@@ -1,5 +1,5 @@
 import { Property } from 'csstype';
-import { ViewProps } from './view';
+import { ElementType, PrimitivePropsWithRef, BaseViewProps } from './view';
 import { Sizes } from './base';
 import * as React from 'react';
 
@@ -12,7 +12,7 @@ export type ViewBox = {
 
 export type IconSize = Sizes;
 
-export interface IconProps extends ViewProps {
+export interface BaseIconProps extends BaseViewProps {
   /**
    * @description
    * This defines the shape of the <path> SVG element(the 'd' attribute).
@@ -57,3 +57,6 @@ export interface IconProps extends ViewProps {
    */
   paths?: React.SVGAttributes<SVGPathElement>[];
 }
+
+export type IconProps<Element extends ElementType = 'svg'> =
+  PrimitivePropsWithRef<BaseIconProps, Element>;
