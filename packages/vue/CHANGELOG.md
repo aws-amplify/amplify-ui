@@ -1,5 +1,23 @@
 # @aws-amplify/ui-vue
 
+## 3.1.18
+
+### Patch Changes
+
+- Updated dependencies [[`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd)]:
+  - @aws-amplify/ui@5.6.4
+
+## 3.1.17
+
+### Patch Changes
+
+- [#3908](https://github.com/aws-amplify/amplify-ui/pull/3908) [`4cb09a3ec`](https://github.com/aws-amplify/amplify-ui/commit/4cb09a3ecc67faa316359978e3baf7d56f65565c) Thanks [@wlee221](https://github.com/wlee221)! - chore(vue): refactor vue composable usages and move state machine logic to `useAuth`
+
+- [#3922](https://github.com/aws-amplify/amplify-ui/pull/3922) [`318030ae7`](https://github.com/aws-amplify/amplify-ui/commit/318030ae7087255961bb32270a2ff31413e4342e) Thanks [@wlee221](https://github.com/wlee221)! - fix(vue): separate `authStatus` logic from UI
+
+- Updated dependencies [[`62425139f`](https://github.com/aws-amplify/amplify-ui/commit/62425139fb5e41a3b36b46aac1d31b965a2739fc)]:
+  - @aws-amplify/ui@5.6.3
+
 ## 3.1.16
 
 ### Patch Changes

@@ -20,7 +20,7 @@ export const trDict: AuthenticatorDictionary = {
   'Dismiss alert': 'Uyarıyı reddet',
   Email: 'E-posta',
   'Enter your code': 'Kodu girin',
-  'Enter your email': 'E-posta adresinizi girin',
+  'Enter your Email': 'E-posta adresinizi girin',
   'Enter your phone number': 'Telefon numaranızı girin',
   'Enter your username': 'Kullanıcı adınızı girin',
   'Forgot your password?': 'Şifrenizi mi unuttunuz?',

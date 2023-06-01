@@ -20,7 +20,7 @@ export const itDict: AuthenticatorDictionary = {
   'Dismiss alert': `Ignora l'avviso`,
   Email: 'Email',
   'Enter your code': 'Inserisci il tuo codice',
-  'Enter your email': 'Inserisci la tua e-mail',
+  'Enter your Email': 'Inserisci la tua e-mail',
   'Enter your phone number': 'Inserisci il tuo numero di telefono"',
   'Enter your username': 'Inserisci il tuo nome utente',
   'Forgot your password?': 'Password dimenticata?',
