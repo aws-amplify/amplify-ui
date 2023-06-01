@@ -36,7 +36,6 @@ module.exports = {
     {
       files: ['**/*.html'],
       extends: ['plugin:@angular-eslint/template/recommended'],
-      rules: {},
     },
     {
       extends: ['@aws-amplify/amplify-ui/jest'],
