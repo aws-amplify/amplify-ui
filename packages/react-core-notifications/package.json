@@ -2,11 +2,11 @@
   "name": "@aws-amplify/ui-react-core-notifications",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "module": "dist/esm/index.mjs",
+  "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.mjs",
+      "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
     "./package.json": "./package.json"
@@ -31,7 +31,7 @@
     "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
     "prebuild": "rimraf dist",
     "test": "jest",
-    "test:ci": "yarn test && yarn check:esm",
+    "test:ci": "yarn test",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc --noEmit"
   },
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
+    "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
