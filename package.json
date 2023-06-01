@@ -49,7 +49,6 @@
       "packages/configs/eslint"
     ],
     "nohoist": [
-      "**/jest",
       "**/next",
       "**/@radix-ui",
       "**/@radix-ui/**",

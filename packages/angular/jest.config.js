@@ -18,16 +18,16 @@ module.exports = {
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
   transformIgnorePatterns: ['node_modules/(?!.*.(mjs|ts)$)'],
   moduleNameMapper: {
-    uuid: require.resolve('uuid'),
-    nanoid: require.resolve('nanoid'),
+    '^uuid$': '<rootDir>/../../node_modules/uuid',
+    '^nanoid$': '<rootDir>/../../node_modules/nanoid',
   },
   transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
-  },
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-    },
+    '^.+\\.{ts|tsx}?$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+      },
+    ],
   },
 };
