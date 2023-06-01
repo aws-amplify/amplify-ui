@@ -1,7 +1,7 @@
 import { AwsCredentialProvider } from './credentials';
 
 /**
- * The props for the FaceLivenessDetectorCore which allows for fullconfiguration of auth
+ * The props for the FaceLivenessDetectorCore which allows for full configuration of auth
  */
 export interface FaceLivenessDetectorCoreProps {
   /**
