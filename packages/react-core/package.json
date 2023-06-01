@@ -7,7 +7,7 @@
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
       "types": "./dist/types/index.d.ts"
     },
     "./package.json": "./package.json"
