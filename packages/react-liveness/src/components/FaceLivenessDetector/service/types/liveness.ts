@@ -70,7 +70,7 @@ export interface FaceLivenessDetectorCoreConfig {
   faceModelUrl?: string;
 
   /**
-   * Optional parameter providing your own credentials when calling the Rekognition stream endpoint
+   * Optional parameter allowing usage of custom credential providers when calling the Rekognition stream endpoint
    */
   credentialProvider?: AwsCredentialProvider;
 }
