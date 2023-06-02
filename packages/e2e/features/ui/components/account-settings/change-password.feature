@@ -15,7 +15,7 @@ Feature: Change Password
     And I type my new password
     And I confirm my password
     And I click the "Update password" button
-    Then I see "Password has been changed succesfully."
+    Then I see "Password has been changed successfully."
     And I click the "Sign out" button
     Then I see "Sign in"
 
