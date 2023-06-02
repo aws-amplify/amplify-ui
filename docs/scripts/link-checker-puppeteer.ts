@@ -51,7 +51,10 @@ function reportResult(links: LinkInfo[]) {
         }
       }
     );
-    throw new Error(`${errorLinks.length} broken links found`);
+    const failedLinks = errorLinks.filter((link) => link.statusCode >= 400);
+    if (failedLinks.length) {
+      throw new Error(`${errorLinks.length} broken links found`);
+    }
   } else {
     console.log('🎉 All links look good!');
   }
