@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { ComponentClassNames } from '../../shared';
 import { Link } from '../Link';
@@ -102,5 +103,16 @@ describe('Link:', () => {
       fontWeight: 'var(--amplify-font-weights-bold)',
       textDecoration: 'underline',
     });
+  });
+
+  it('can integrate with react-router-dom using the "to" prop', () => {
+    render(<SampleRoutingApp />);
+
+    expect(screen.getByText(/you are home/i)).toBeInTheDocument();
+
+    const leftClick = { button: 0 };
+    userEvent.click(screen.getByText(/about/i), leftClick);
+
+    expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
   });
 });
