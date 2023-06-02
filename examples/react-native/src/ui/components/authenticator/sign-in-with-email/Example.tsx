@@ -17,6 +17,16 @@ const components = {
   },
 };
 
+const fields = [
+  {
+    type: 'default' as const,
+    name: 'confirmation_code',
+    label: 'New Label',
+    placeholder: 'Enter your Confirmation Code:',
+    required: false,
+  },
+];
+
 function App() {
   return (
     <Authenticator.Provider>
@@ -32,15 +42,7 @@ function App() {
           ConfirmVerifyUser: (props) => (
             <Authenticator.ConfirmVerifyUser
               {...props}
-              fields={[
-                {
-                  type: 'default',
-                  name: 'confirmation_code',
-                  label: 'New Label',
-                  placeholder: 'Enter your Confirmation Code:',
-                  required: false,
-                },
-              ]}
+              fields={fields}
               Header={components.Header}
               Footer={components.Footer}
             />
