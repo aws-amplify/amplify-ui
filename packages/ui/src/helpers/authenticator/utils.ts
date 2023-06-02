@@ -10,6 +10,7 @@ import { waitFor } from 'xstate/lib/waitFor.js';
 import { AuthInterpreter, AuthMachineHubHandler } from '../../types';
 import { ALLOWED_SPECIAL_CHARACTERS } from './constants';
 import { getActorState } from './actor';
+import { isFunction } from '../../utils';
 
 type ConfigureOptions = { packageName: string; version: string };
 export const configureComponent = ({
@@ -67,13 +68,16 @@ const waitForAutoSignInState = async (service: AuthInterpreter) => {
  * xstate events.
  */
 export const defaultAuthHubHandler: AuthMachineHubHandler = async (
-  data,
-  service
+  { payload: { data, event } },
+  service,
+  options
 ) => {
   const { send } = service;
   const state = service.getSnapshot(); // this is just a getter and is not expensive
 
-  switch (data.payload.event) {
+  const { onSignIn, onSignOut } = options ?? {};
+
+  switch (event) {
     // TODO: We can add more cases here, according to
     // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
     case 'tokenRefresh':
@@ -94,7 +98,7 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
         await waitForAutoSignInState(service);
         const currentActorState = getActorState(service.getSnapshot());
         if (currentActorState?.matches('autoSignIn')) {
-          send({ type: 'AUTO_SIGN_IN', data: data.payload.data });
+          send({ type: 'AUTO_SIGN_IN', data });
         }
       }
       break;
@@ -102,12 +106,20 @@ export const defaultAuthHubHandler: AuthMachineHubHandler = async (
       await waitForAutoSignInState(service);
       const currentActorState = getActorState(service.getSnapshot());
       if (currentActorState?.matches('autoSignIn')) {
-        send({ type: 'AUTO_SIGN_IN_FAILURE', data: data.payload.data });
+        send({ type: 'AUTO_SIGN_IN_FAILURE', data });
       }
       break;
     }
+    case 'signIn':
+      if (isFunction(onSignIn)) {
+        onSignIn();
+      }
+      break;
     case 'signOut':
     case 'tokenRefresh_failure':
+      if (isFunction(onSignOut)) {
+        onSignOut();
+      }
       if (state.matches('authenticated.idle')) {
         send('SIGN_OUT');
       }

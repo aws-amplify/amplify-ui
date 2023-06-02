@@ -1,5 +1,38 @@
 # @aws-amplify/ui-react-storage
 
+## 1.2.4
+
+### Patch Changes
+
+- [#4009](https://github.com/aws-amplify/amplify-ui/pull/4009) [`9c0935c6e`](https://github.com/aws-amplify/amplify-ui/commit/9c0935c6e0093c369a4aa2c8177b847f82df11b8) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(storage): allow any file types when using drag/drop
+
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`7f59b3c4d`](https://github.com/aws-amplify/amplify-ui/commit/7f59b3c4dd27205a35c1b07ddc0f06a0db9de776), [`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd)]:
+  - @aws-amplify/ui-react-core@2.1.23
+  - @aws-amplify/ui-react@4.6.4
+  - @aws-amplify/ui@5.6.4
+
+## 1.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`62425139f`](https://github.com/aws-amplify/amplify-ui/commit/62425139fb5e41a3b36b46aac1d31b965a2739fc)]:
+  - @aws-amplify/ui@5.6.3
+  - @aws-amplify/ui-react@4.6.3
+  - @aws-amplify/ui-react-core@2.1.22
+
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86), [`82f3968b7`](https://github.com/aws-amplify/amplify-ui/commit/82f3968b7f750f069bda4ad7bfa9c34d7ee6091f)]:
+  - @aws-amplify/ui-react-core@2.1.21
+  - @aws-amplify/ui-react@4.6.2
+  - @aws-amplify/ui@5.6.2
+
 ## 1.2.0
 
 ### Minor Changes

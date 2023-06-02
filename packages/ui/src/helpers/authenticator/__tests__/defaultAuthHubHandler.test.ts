@@ -29,10 +29,15 @@ const unauthenticatedStateMachine = {
 const authSendSpy = jest.spyOn(authenticatedStateMachine, 'send');
 const unauthSendSpy = jest.spyOn(unauthenticatedStateMachine, 'send');
 
+const onSignIn = jest.fn();
+const onSignOut = jest.fn();
+
 describe('defaultAuthHubHandler', () => {
   beforeEach(() => {
     authSendSpy.mockClear();
     unauthSendSpy.mockClear();
+    onSignIn.mockClear();
+    onSignOut.mockClear();
   });
 
   it('responds to token refresh event when state is authenticated', async () => {
@@ -107,5 +112,28 @@ describe('defaultAuthHubHandler', () => {
     expect(unauthSendSpy).toHaveBeenCalledWith({
       type: 'AUTO_SIGN_IN_FAILURE',
     });
+  });
+
+  it.each(['signIn', 'signOut'])(
+    'calls the %s event handler as expected',
+    async (event) => {
+      const handler = event === 'signIn' ? onSignIn : onSignOut;
+      const handlerKey = event === 'signIn' ? 'onSignIn' : 'onSignOut';
+      await defaultAuthHubHandler(
+        { payload: { event } } as unknown as HubCapsule,
+        authenticatedStateMachine,
+        { [handlerKey]: handler }
+      );
+      expect(handler).toHaveBeenCalledTimes(1);
+    }
+  );
+
+  it("doesn't break when unsupported event is passed", async () => {
+    const spyError = jest.spyOn(console, 'error');
+    await defaultAuthHubHandler(
+      { payload: { event: 'unsupported' } } as unknown as HubCapsule,
+      unauthenticatedStateMachine
+    );
+    expect(spyError).not.toHaveBeenCalled();
   });
 });

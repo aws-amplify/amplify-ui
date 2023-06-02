@@ -64,6 +64,24 @@ const SignInWithPhone = React.lazy(
 const SignInWithUsername = React.lazy(
   () => import('../ui/components/authenticator/sign-in-with-username/Example')
 );
+const SignUpWithAttributes = React.lazy(
+  () => import('../ui/components/authenticator/sign-up-with-attributes/Example')
+);
+const SignUpWithEmail = React.lazy(
+  () => import('../ui/components/authenticator/sign-up-with-email/Example')
+);
+const SignUpWithPhone = React.lazy(
+  () => import('../ui/components/authenticator/sign-up-with-phone/Example')
+);
+const SignUpWithUsername = React.lazy(
+  () => import('../ui/components/authenticator/sign-up-with-username/Example')
+);
+const ResetPassword = React.lazy(
+  () => import('../ui/components/authenticator/reset-password/Example')
+);
+const WithAuthenticator = React.lazy(
+  () => import('../ui/components/authenticator/with-authenticator/Example')
+);
 
 const logger = new Logger('RNExample-logger');
 
@@ -100,6 +118,20 @@ export const ExampleComponent = () => {
       return <SignInWithUsername />;
     case 'ui/components/authenticator/sign-in-with-phone':
       return <SignInWithPhone />;
+    case 'ui/components/authenticator/sign-up-with-email':
+      return <SignUpWithEmail />;
+    case 'ui/components/authenticator/sign-up-with-phone/':
+      return <SignUpWithPhone />;
+    case 'ui/components/authenticator/sign-up-with-username':
+      return <SignUpWithUsername />;
+    case 'ui/components/authenticator/sign-up-with-attributes':
+      return <SignUpWithAttributes />;
+    case 'ui/components/authenticator/reset-password':
+      return <ResetPassword />;
+    case '/ui/components/authenticator/withAuthenticator':
+      return <WithAuthenticator />;
+    case 'ui/components/in-app-messaging/demo':
+      return <InAppMessaging />;
     default:
       logger.warn(
         'EXAMPLE_APP_NAME environment variable not configured correctly, running default example app'

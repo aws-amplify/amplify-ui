@@ -1,5 +1,23 @@
 # @aws-amplify/ui
 
+## 5.6.4
+
+### Patch Changes
+
+- [#3923](https://github.com/aws-amplify/amplify-ui/pull/3923) [`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd) Thanks [@reesscot](https://github.com/reesscot)! - fix (authenticator): fix translations for enter your email
+
+## 5.6.3
+
+### Patch Changes
+
+- [#3595](https://github.com/aws-amplify/amplify-ui/pull/3595) [`62425139f`](https://github.com/aws-amplify/amplify-ui/commit/62425139fb5e41a3b36b46aac1d31b965a2739fc) Thanks [@Majid-J](https://github.com/Majid-J)! - Added Norwegian as a supported language to Authenticator.
+
+## 5.6.2
+
+### Patch Changes
+
+- [#3806](https://github.com/aws-amplify/amplify-ui/pull/3806) [`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui): add event callbacks to defaultAuthHubHandler
+
 ## 5.6.1
 
 ### Patch Changes

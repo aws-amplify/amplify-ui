@@ -6,16 +6,16 @@ Feature: Sign Up with Phone
     Given I'm running the example "ui/components/authenticator/sign-up-with-phone/"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
 
-  @angular @react @vue
+  @angular @react @vue @react-native
   Scenario: Login mechanism set to "phone_number"
     Then I see "Phone Number" as an input field
     And I don't see "Username" as an input field
 
-  @angular @react @vue 
+  @angular @react @vue @react-native
   Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     Then I see "Email" as an "email" field
 
-  @angular @react @vue 
+  @angular @react @vue @react-native
   Scenario: Sign up with valid phone number & password
     When I select my country code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"

@@ -1,5 +1,30 @@
 # @aws-amplify/ui-angular
 
+## 3.2.18
+
+### Patch Changes
+
+- Updated dependencies [[`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd)]:
+  - @aws-amplify/ui@5.6.4
+
+## 3.2.17
+
+### Patch Changes
+
+- [#3848](https://github.com/aws-amplify/amplify-ui/pull/3848) [`88f98e1f9`](https://github.com/aws-amplify/amplify-ui/commit/88f98e1f9eb46eabbf8826b378a9294c3d6f0712) Thanks [@wlee221](https://github.com/wlee221)! - fix(angular): separate `authStatus` logic from UI
+
+- Updated dependencies [[`62425139f`](https://github.com/aws-amplify/amplify-ui/commit/62425139fb5e41a3b36b46aac1d31b965a2739fc)]:
+  - @aws-amplify/ui@5.6.3
+
+## 3.2.16
+
+### Patch Changes
+
+- [#3806](https://github.com/aws-amplify/amplify-ui/pull/3806) [`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui): add event callbacks to defaultAuthHubHandler
+
+- Updated dependencies [[`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86)]:
+  - @aws-amplify/ui@5.6.2
+
 ## 3.2.15
 
 ### Patch Changes
