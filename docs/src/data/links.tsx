@@ -182,6 +182,12 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/connected-components/liveness/troubleshooting',
+    label: 'Troubleshooting',
+    platforms: ['react', 'android', 'swift'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/geo',
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',
@@ -543,14 +549,20 @@ export const gettingStarted: ComponentNavItem[] = [
     platforms: ['react', 'vue', 'angular', 'react-native'],
   },
   {
-    href: '/getting-started/usage/create-react-app',
-    label: 'Create React App',
+    href: '/getting-started/usage/nextjs',
+    label: 'Next.js',
     platforms: ['react'],
     tertiary: true,
   },
   {
-    href: '/getting-started/usage/nextjs',
-    label: 'Next.js',
+    href: '/getting-started/usage/vite',
+    label: 'Vite',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
+    href: '/getting-started/usage/create-react-app',
+    label: 'Create React App',
     platforms: ['react'],
     tertiary: true,
   },

@@ -24,7 +24,7 @@ export const enDict: AuthenticatorDictionary = {
   'Enter your Birthdate': 'Enter your Birthdate',
   'Enter your code': 'Enter your code',
   'Enter your Confirmation Code': 'Enter your Confirmation Code',
-  'Enter your email': 'Enter your email',
+  'Enter your Email': 'Enter your Email',
   'Enter your Family Name': 'Enter your Family Name',
   'Enter your Given Name': 'Enter your Given Name',
   'Enter your Middle Name': 'Enter your Middle Name',

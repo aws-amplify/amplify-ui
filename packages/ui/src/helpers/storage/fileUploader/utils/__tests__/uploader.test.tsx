@@ -3,6 +3,7 @@ import {
   uploadFile,
   humanFileSize,
   isValidExtension,
+  checkMaxSize,
 } from '../uploader';
 import { Storage } from 'aws-amplify';
 
@@ -11,6 +12,7 @@ const imageFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 const docFile = new File(['goodbye'], 'goodbye.doc', {
   type: 'application/msword',
 });
+const noNameFile = new File(['hello'], null, null);
 describe('Uploader utils', () => {
   describe('returnAcceptedFiles', () => {
     it('returns only image files with mimetype image/*', () => {
@@ -36,6 +38,19 @@ describe('Uploader utils', () => {
         acceptedFileTypes
       );
       expect(acceptedFiles).toEqual([]);
+    });
+    it('returns files with specified mime type files', () => {
+      const acceptedFileTypes = [docFile.type];
+      const acceptedFiles = returnAcceptedFiles([docFile], acceptedFileTypes);
+      expect(acceptedFiles).toEqual([docFile]);
+    });
+    it("shouldn't crash if file name is not present", () => {
+      const acceptedFileTypes = [''];
+      const acceptedFiles = returnAcceptedFiles(
+        [noNameFile],
+        acceptedFileTypes
+      );
+      expect(acceptedFiles).toEqual([noNameFile]);
     });
   });
   describe('uploadfile', () => {
@@ -125,6 +140,27 @@ describe('Uploader utils', () => {
         }
       );
     });
+    it('calls Storage with level set to private', () => {
+      storageSpy.mockImplementation(() => Promise.resolve() as any);
+      uploadFile({
+        file: imageFile,
+        fileName: imageFile.name,
+        level: undefined,
+        progressCallback: () => '',
+        errorCallback: () => '',
+        completeCallback: () => '',
+        isResumable: true,
+      });
+
+      expect(storageSpy).toBeCalledWith(imageFile.name, imageFile, {
+        completeCallback: expect.any(Function),
+        errorCallback: expect.any(Function),
+        level: 'private',
+        progressCallback: expect.any(Function),
+        resumable: true,
+        contentType: 'image/png',
+      });
+    });
   });
 
   describe('humanFileSize', () => {
@@ -159,6 +195,22 @@ describe('Uploader utils', () => {
       const isValid = isValidExtension('test.png', 'test2.jpg');
 
       expect(isValid).toBeFalsy();
+    });
+  });
+
+  describe('checkMaxSize', () => {
+    it('returns a message if file size exceeds max', () => {
+      const result = checkMaxSize(1, imageFile);
+
+      expect(result).toStrictEqual('File size must be below 1 B');
+    });
+
+    it('returns null if max size is zero', () => {
+      expect(checkMaxSize(0, imageFile)).toStrictEqual(null);
+    });
+
+    it('returns a message if file size is below max', () => {
+      expect(checkMaxSize(100, imageFile)).toStrictEqual(null);
     });
   });
 });

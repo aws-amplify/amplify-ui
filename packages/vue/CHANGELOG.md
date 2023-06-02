@@ -1,5 +1,34 @@
 # @aws-amplify/ui-vue
 
+## 3.1.18
+
+### Patch Changes
+
+- Updated dependencies [[`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd)]:
+  - @aws-amplify/ui@5.6.4
+
+## 3.1.17
+
+### Patch Changes
+
+- [#3908](https://github.com/aws-amplify/amplify-ui/pull/3908) [`4cb09a3ec`](https://github.com/aws-amplify/amplify-ui/commit/4cb09a3ecc67faa316359978e3baf7d56f65565c) Thanks [@wlee221](https://github.com/wlee221)! - chore(vue): refactor vue composable usages and move state machine logic to `useAuth`
+
+- [#3922](https://github.com/aws-amplify/amplify-ui/pull/3922) [`318030ae7`](https://github.com/aws-amplify/amplify-ui/commit/318030ae7087255961bb32270a2ff31413e4342e) Thanks [@wlee221](https://github.com/wlee221)! - fix(vue): separate `authStatus` logic from UI
+
+- Updated dependencies [[`62425139f`](https://github.com/aws-amplify/amplify-ui/commit/62425139fb5e41a3b36b46aac1d31b965a2739fc)]:
+  - @aws-amplify/ui@5.6.3
+
+## 3.1.16
+
+### Patch Changes
+
+- [#3806](https://github.com/aws-amplify/amplify-ui/pull/3806) [`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui): add event callbacks to defaultAuthHubHandler
+
+- [#3836](https://github.com/aws-amplify/amplify-ui/pull/3836) [`82f3968b7`](https://github.com/aws-amplify/amplify-ui/commit/82f3968b7f750f069bda4ad7bfa9c34d7ee6091f) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add `types` field to `exports` in `package.json` for `@aws-amplify/ui-react-core` and `@aws-amplify/ui-vue`
+
+- Updated dependencies [[`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86)]:
+  - @aws-amplify/ui@5.6.2
+
 ## 3.1.15
 
 ### Patch Changes

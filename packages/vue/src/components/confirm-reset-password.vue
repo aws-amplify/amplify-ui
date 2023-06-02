@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
-import { createSharedComposable } from '@vueuse/core';
 
 import {
   authenticatorTextUtil,
@@ -15,8 +14,7 @@ import BaseFormFields from './primitives/base-form-fields.vue';
 
 const { state, send } = useAuth();
 
-const useAuthShared = createSharedComposable(useAuthenticator);
-const props = useAuthShared();
+const props = useAuthenticator();
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);

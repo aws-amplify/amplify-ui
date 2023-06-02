@@ -33,6 +33,11 @@ To run existing tests on `react-native` framework:
 1. Run `yarn e2e detox:build:android`
 1. Run `yarn e2e detox:e2e:android`
 
+Troubleshooting
+
+If the emulator fails to connect to Metro server, run:
+`adb reverse tcp:8081 tcp:8081`
+
 ## Contributing
 
 ### Making new tests
