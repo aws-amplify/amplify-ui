@@ -12,4 +12,4 @@ export interface BaseTextAreaFieldProps
 }
 
 export type TextAreaFieldProps<Element extends ElementType = 'textarea'> =
-  PrimitiveProps<BaseTextAreaProps, Element>;
+  PrimitiveProps<BaseTextAreaFieldProps, Element>;

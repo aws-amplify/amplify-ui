@@ -5,6 +5,7 @@ import { classNameModifier } from '../shared/utils';
 import { Checkbox } from '../Checkbox';
 import {
   BaseCheckboxFieldProps,
+  CheckboxFieldProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
@@ -13,7 +14,7 @@ import { FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { getTestId } from '../utils/getTestId';
 
-const CheckboxFieldPrimitive: Primitive<BaseCheckboxFieldProps, 'input'> = (
+const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   {
     className,
     errorMessage,
@@ -54,8 +55,9 @@ const CheckboxFieldPrimitive: Primitive<BaseCheckboxFieldProps, 'input'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/checkboxfield)
  */
-export const CheckboxField = React.forwardRef(
-  CheckboxFieldPrimitive
-) as ForwardRefPrimitive<BaseCheckboxFieldProps, 'input'>;
+export const CheckboxField: ForwardRefPrimitive<
+  BaseCheckboxFieldProps,
+  'input'
+> = React.forwardRef(CheckboxFieldPrimitive);
 
 CheckboxField.displayName = 'CheckboxField';

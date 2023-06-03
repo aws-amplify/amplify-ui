@@ -8,7 +8,12 @@ import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
 import { IconMenu } from '../Icon/internal';
 import { MenuButton } from './MenuButton';
-import { BaseMenuProps, ForwardRefPrimitive, Primitive } from '../types';
+import {
+  BaseMenuProps,
+  MenuProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -18,7 +23,7 @@ const { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } =
 export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id';
 export const MENU_ITEMS_GROUP_TEST_ID = 'amplify-menu-items-group-test-id';
 
-const MenuPrimitive: Primitive<BaseMenuProps, 'div'> = (
+const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   {
     menuAlign = 'start',
     children,
@@ -69,9 +74,7 @@ const MenuPrimitive: Primitive<BaseMenuProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
  */
-export const Menu = React.forwardRef(MenuPrimitive) as ForwardRefPrimitive<
-  BaseMenuProps,
-  'div'
->;
+export const Menu: ForwardRefPrimitive<BaseMenuProps, 'div'> =
+  React.forwardRef(MenuPrimitive);
 
 Menu.displayName = 'Menu';

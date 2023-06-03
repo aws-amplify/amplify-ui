@@ -8,13 +8,14 @@ import {
   ForwardRefPrimitive,
   Primitive,
   BaseShowPasswordButtonProps,
+  ShowPasswordButtonProps,
 } from '../types';
 
 const { passwordIsHidden, passwordIsShown, showPassword } =
   ComponentText.PasswordField;
 
 const ShowPasswordButtonPrimitive: Primitive<
-  BaseShowPasswordButtonProps,
+  ShowPasswordButtonProps,
   'button'
 > = (
   {
@@ -51,8 +52,9 @@ const ShowPasswordButtonPrimitive: Primitive<
   );
 };
 
-export const ShowPasswordButton = React.forwardRef(
-  ShowPasswordButtonPrimitive
-) as ForwardRefPrimitive<BaseShowPasswordButtonProps, 'button'>;
+export const ShowPasswordButton: ForwardRefPrimitive<
+  BaseShowPasswordButtonProps,
+  'button'
+> = React.forwardRef(ShowPasswordButtonPrimitive);
 
 ShowPasswordButton.displayName = 'ShowPasswordButton';

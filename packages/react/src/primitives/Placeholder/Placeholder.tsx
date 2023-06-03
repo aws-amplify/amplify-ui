@@ -3,10 +3,15 @@ import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
-import { BasePlaceholderProps, ForwardRefPrimitive, Primitive } from '../types';
+import {
+  BasePlaceholderProps,
+  PlaceholderProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { View } from '../View';
 
-const PlaceholderPrimitive: Primitive<BasePlaceholderProps, 'div'> = (
+const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
   { className, children, isLoaded, size, ...rest },
   ref
 ) => {
@@ -31,8 +36,7 @@ const PlaceholderPrimitive: Primitive<BasePlaceholderProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/placeholder)
  */
-export const Placeholder = React.forwardRef(
-  PlaceholderPrimitive
-) as ForwardRefPrimitive<BasePlaceholderProps, 'div'>;
+export const Placeholder: ForwardRefPrimitive<BasePlaceholderProps, 'div'> =
+  React.forwardRef(PlaceholderPrimitive);
 
 Placeholder.displayName = 'Placeholder';

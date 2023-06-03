@@ -7,30 +7,30 @@ import {
   ForwardRefPrimitive,
   Primitive,
   BaseSearchFieldButtonProps,
+  SearchFieldButtonProps,
 } from '../types';
 
 const ariaLabelText = ComponentText.SearchField.searchButtonLabel;
 
-const SearchFieldButtonPrimitive: Primitive<
+const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
+  ({ size, ...props }, ref) => {
+    return (
+      <FieldGroupIconButton
+        ariaLabel={ariaLabelText}
+        className={ComponentClassNames.SearchFieldSearch}
+        size={size}
+        ref={ref}
+        type="submit"
+        {...props}
+      >
+        <IconSearch />
+      </FieldGroupIconButton>
+    );
+  };
+
+export const SearchFieldButton: ForwardRefPrimitive<
   BaseSearchFieldButtonProps,
   'button'
-> = ({ size, ...props }, ref) => {
-  return (
-    <FieldGroupIconButton
-      ariaLabel={ariaLabelText}
-      className={ComponentClassNames.SearchFieldSearch}
-      size={size}
-      ref={ref}
-      type="submit"
-      {...props}
-    >
-      <IconSearch />
-    </FieldGroupIconButton>
-  );
-};
-
-export const SearchFieldButton = React.forwardRef(
-  SearchFieldButtonPrimitive
-) as ForwardRefPrimitive<BaseSearchFieldButtonProps, 'button'>;
+> = React.forwardRef(SearchFieldButtonPrimitive);
 
 SearchFieldButton.displayName = 'SearchFieldButton';

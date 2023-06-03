@@ -223,3 +223,7 @@ export type ComponentClassNameItems = {
 export type ComponentClassNames = {
   [Name in ComponentClassNameKey]: ComponentClassNameMetadata['className'];
 };
+
+export type IsAny<Type> = (Type extends never ? true : false) extends false
+  ? false
+  : true;

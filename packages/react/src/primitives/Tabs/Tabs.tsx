@@ -8,8 +8,10 @@ import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import {
   BaseTabsProps,
-  TabsSpacing,
   BaseTabItemProps,
+  TabsProps,
+  TabsSpacing,
+  TabItemProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
@@ -39,9 +41,9 @@ type ExtendedTabItemProps = Parameters<typeof TabItemPrimitive>[0] & {
 const isExtendedTabItem = (
   child: React.ReactFragment | React.ReactChild | React.ReactPortal
 ): child is React.ReactElement<ExtendedTabItemProps> =>
-  React.isValidElement<BaseTabItemProps>(child);
+  React.isValidElement<TabItemProps>(child);
 
-const TabsPrimitive: Primitive<BaseTabsProps, 'div'> = (
+const TabsPrimitive: Primitive<TabsProps, 'div'> = (
   {
     ariaLabel,
     children,
@@ -104,7 +106,7 @@ const TabsPrimitive: Primitive<BaseTabsProps, 'div'> = (
   );
 };
 
-const TabItemPrimitive: Primitive<BaseTabItemProps, 'button'> = (
+const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
   { className, title, ...rest },
   ref
 ) => (
@@ -121,13 +123,10 @@ const TabItemPrimitive: Primitive<BaseTabItemProps, 'button'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
-export const Tabs = React.forwardRef(TabsPrimitive) as ForwardRefPrimitive<
-  BaseTabsProps,
-  'div'
->;
-export const TabItem = React.forwardRef(
-  TabItemPrimitive
-) as ForwardRefPrimitive<BaseTabItemProps, 'button'>;
+export const Tabs: ForwardRefPrimitive<BaseTabsProps, 'div'> =
+  React.forwardRef(TabsPrimitive);
+export const TabItem: ForwardRefPrimitive<BaseTabItemProps, 'button'> =
+  React.forwardRef(TabItemPrimitive);
 
 Tabs.displayName = 'Tabs';
 TabItem.displayName = 'TabItem';

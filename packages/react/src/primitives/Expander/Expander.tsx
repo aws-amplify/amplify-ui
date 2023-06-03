@@ -6,7 +6,7 @@ import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { ComponentClassNames } from '../shared/constants';
-import { BaseExpanderProps } from '../types/expander';
+import { BaseExpanderProps, ExpanderProps } from '../types/expander';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 
@@ -14,7 +14,7 @@ import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
 const { Root } = sanitizeNamespaceImport(Accordion);
 
-const ExpanderPrimitive: Primitive<BaseExpanderProps, 'div'> = (
+const ExpanderPrimitive: Primitive<ExpanderProps, 'div'> = (
   {
     children,
     className,
@@ -76,8 +76,7 @@ const ExpanderPrimitive: Primitive<BaseExpanderProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/expander)
  */
-export const Expander = React.forwardRef(
-  ExpanderPrimitive
-) as ForwardRefPrimitive<BaseExpanderProps, 'div'>;
+export const Expander: ForwardRefPrimitive<BaseExpanderProps, 'div'> =
+  React.forwardRef(ExpanderPrimitive);
 
 Expander.displayName = 'Expander';

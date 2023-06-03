@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
+import { IsAny } from '../shared/types';
 
 type MergeProps<A, B> = A & Omit<B, keyof A>;
 
@@ -24,7 +25,7 @@ export type PrimitivePropsWithAs<
   Element extends ElementType
 > = Omit<Props, 'as'> & AsProp<Element>;
 
-export type PrimitivePropsWithoutRef<
+export type PrimitivePropsWithHTMLAttributes<
   Props extends BaseViewProps,
   Element extends ElementType
 > = MergeProps<
@@ -36,20 +37,22 @@ export type PrimitivePropsWithoutRef<
 export type PrimitiveProps<
   Props extends BaseViewProps,
   Element extends ElementType
-> = PrimitivePropsWithoutRef<Props, Element> & RefProp<Element>;
+> = IsAny<Element> extends false
+  ? PrimitivePropsWithHTMLAttributes<
+      Omit<Props, 'ref'> & RefProp<Element>,
+      Element
+    >
+  : PrimitivePropsWithHTMLAttributes<Props, Element>;
 
 export type Primitive<
   Props extends BaseViewProps,
   Element extends ElementType
-> = React.ForwardRefRenderFunction<
-  React.ComponentRef<Element>,
-  PrimitiveProps<Props, Element>
->;
+> = React.ForwardRefRenderFunction<React.ComponentRef<Element>, Props>;
 
 export interface ForwardRefPrimitive<
   Props extends BaseViewProps,
   DefaultElement extends ElementType
-> extends React.ForwardRefExoticComponent<unknown> {
+> extends React.ForwardRefExoticComponent<Props> {
   // overload the JSX constructor to make it accept generics
   <Element extends ElementType = DefaultElement>(
     props: PrimitiveProps<Props, Element>

@@ -11,11 +11,12 @@ import { ComponentClassNames } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
 import type {
   BaseSearchFieldProps,
+  SearchFieldProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
 
-const SearchFieldPrimitive: Primitive<BaseSearchFieldProps, 'input'> = (
+const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   {
     autoComplete = 'off',
     className,
@@ -99,8 +100,7 @@ const SearchFieldPrimitive: Primitive<BaseSearchFieldProps, 'input'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/searchfield)
  */
-export const SearchField = React.forwardRef(
-  SearchFieldPrimitive
-) as ForwardRefPrimitive<BaseSearchFieldProps, 'input'>;
+export const SearchField: ForwardRefPrimitive<BaseSearchFieldProps, 'input'> =
+  React.forwardRef(SearchFieldPrimitive);
 
 SearchField.displayName = 'SearchField';

@@ -11,7 +11,7 @@ import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
-import { BaseSliderFieldProps } from '../types/sliderField';
+import { BaseSliderFieldProps, SliderFieldProps } from '../types/sliderField';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
@@ -25,7 +25,7 @@ export const SLIDER_ROOT_TEST_ID = 'slider-root';
 export const SLIDER_TRACK_TEST_ID = 'slider-track';
 export const SLIDER_RANGE_TEST_ID = 'slider-range';
 
-const SliderFieldPrimitive: Primitive<BaseSliderFieldProps, 'span'> = (
+const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
   {
     ariaValuetext,
     className,
@@ -189,8 +189,7 @@ const SliderFieldPrimitive: Primitive<BaseSliderFieldProps, 'span'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/sliderfield)
  */
-export const SliderField = React.forwardRef(
-  SliderFieldPrimitive
-) as ForwardRefPrimitive<BaseSliderFieldProps, 'span'>;
+export const SliderField: ForwardRefPrimitive<BaseSliderFieldProps, 'span'> =
+  React.forwardRef(SliderFieldPrimitive);
 
 SliderField.displayName = 'SliderField';

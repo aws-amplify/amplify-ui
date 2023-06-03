@@ -2,12 +2,17 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { BaseIconProps, ForwardRefPrimitive, Primitive } from '../types';
+import {
+  BaseIconProps,
+  IconProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { View } from '../View';
 
 const defaultViewBox = { minX: 0, minY: 0, width: 24, height: 24 };
 
-const IconPrimitive: Primitive<BaseIconProps, 'svg'> = (
+const IconPrimitive: Primitive<IconProps, 'svg'> = (
   {
     className,
     // as can be used to render other icon react components too
@@ -57,9 +62,7 @@ const IconPrimitive: Primitive<BaseIconProps, 'svg'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/icon)
  */
-export const Icon = React.forwardRef(IconPrimitive) as ForwardRefPrimitive<
-  BaseIconProps,
-  'svg'
->;
+export const Icon: ForwardRefPrimitive<BaseIconProps, 'svg'> =
+  React.forwardRef(IconPrimitive);
 
 Icon.displayName = 'Icon';

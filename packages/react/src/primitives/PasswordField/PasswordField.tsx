@@ -4,6 +4,7 @@ import * as React from 'react';
 import { ComponentClassNames } from '../shared/constants';
 import {
   BasePasswordFieldProps,
+  PasswordFieldProps,
   PasswordFieldType,
   ForwardRefPrimitive,
   Primitive,
@@ -11,7 +12,7 @@ import {
 import { ShowPasswordButton } from './ShowPasswordButton';
 import { TextField } from '../TextField';
 
-const PasswordFieldPrimitive: Primitive<BasePasswordFieldProps, 'input'> = (
+const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
   {
     autoComplete = 'current-password',
     label,
@@ -65,8 +66,9 @@ const PasswordFieldPrimitive: Primitive<BasePasswordFieldProps, 'input'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/passwordfield)
  */
-export const PasswordField = React.forwardRef(
-  PasswordFieldPrimitive
-) as ForwardRefPrimitive<BasePasswordFieldProps, 'input'>;
+export const PasswordField: ForwardRefPrimitive<
+  BasePasswordFieldProps,
+  'input'
+> = React.forwardRef(PasswordFieldPrimitive);
 
 PasswordField.displayName = 'PasswordField';

@@ -4,13 +4,14 @@ import classNames from 'classnames';
 import { ComponentClassNames } from '../shared/constants';
 import {
   BaseFieldGroupIconProps,
+  FieldGroupIconProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
 import { View } from '../View';
 
 const FieldGroupIconPrimitive: Primitive<
-  BaseFieldGroupIconProps,
+  FieldGroupIconProps,
   'button' | 'div'
 > = (
   {
@@ -34,8 +35,9 @@ const FieldGroupIconPrimitive: Primitive<
   ) : null;
 };
 
-export const FieldGroupIcon = React.forwardRef(
-  FieldGroupIconPrimitive
-) as ForwardRefPrimitive<BaseFieldGroupIconProps, 'button' | 'div'>;
+export const FieldGroupIcon: ForwardRefPrimitive<
+  BaseFieldGroupIconProps,
+  'button' | 'div'
+> = React.forwardRef(FieldGroupIconPrimitive);
 
 FieldGroupIcon.displayName = 'FieldGroupIcon';

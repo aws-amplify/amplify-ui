@@ -10,7 +10,10 @@ import { IconAdd, IconRemove } from '../Icon/internal';
 import { Input } from '../Input';
 import { Label } from '../Label';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
-import { BaseStepperFieldProps } from '../types/stepperField';
+import {
+  BaseStepperFieldProps,
+  StepperFieldProps,
+} from '../types/stepperField';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
@@ -19,7 +22,7 @@ import { useStableId } from '../utils/useStableId';
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
 
-const StepperFieldPrimitive: Primitive<BaseStepperFieldProps, 'input'> = (
+const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   props,
   ref
 ) => {
@@ -175,8 +178,7 @@ const StepperFieldPrimitive: Primitive<BaseStepperFieldProps, 'input'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/stepperfield)
  */
-export const StepperField = React.forwardRef(
-  StepperFieldPrimitive
-) as ForwardRefPrimitive<BaseStepperFieldProps, 'input'>;
+export const StepperField: ForwardRefPrimitive<BaseStepperFieldProps, 'input'> =
+  React.forwardRef(StepperFieldPrimitive);
 
 StepperField.displayName = 'StepperField';

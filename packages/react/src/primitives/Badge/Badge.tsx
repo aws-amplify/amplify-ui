@@ -2,11 +2,16 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
-import { BaseBadgeProps, ForwardRefPrimitive, Primitive } from '../types';
+import {
+  BadgeProps,
+  BaseBadgeProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
 
-const BadgePrimitive: Primitive<BaseBadgeProps, 'span'> = (
+const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
   { className, children, variation, size, ...rest },
   ref
 ) => {
@@ -34,9 +39,7 @@ const BadgePrimitive: Primitive<BaseBadgeProps, 'span'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/badge)
  */
-export const Badge = React.forwardRef(BadgePrimitive) as ForwardRefPrimitive<
-  BaseBadgeProps,
-  'span'
->;
+export const Badge: ForwardRefPrimitive<BaseBadgeProps, 'span'> =
+  React.forwardRef(BadgePrimitive);
 
 Badge.displayName = 'Badge';

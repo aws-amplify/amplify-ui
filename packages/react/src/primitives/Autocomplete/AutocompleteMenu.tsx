@@ -6,9 +6,14 @@ import { ScrollView } from '../ScrollView';
 import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
 import { ComponentText } from '../shared/constants';
-import type { Primitive, AutocompleteMenuProps } from '../types';
+import type {
+  ForwardRefPrimitive,
+  Primitive,
+  AutocompleteMenuProps,
+  BaseAutocompleteMenuProps,
+} from '../types';
 
-export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
+const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = ({
   ariaLabel,
   children,
   Header = null,
@@ -89,5 +94,10 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
     </ScrollView>
   );
 };
+
+export const AutocompleteMenu: ForwardRefPrimitive<
+  BaseAutocompleteMenuProps,
+  'div'
+> = React.forwardRef(AutocompleteMenuPrimitive);
 
 AutocompleteMenu.displayName = 'AutocompleteMenu';

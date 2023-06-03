@@ -5,11 +5,16 @@ import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
-import { BaseRadioProps, ForwardRefPrimitive, Primitive } from '../types';
+import {
+  BaseRadioProps,
+  RadioProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { Text } from '../Text';
 import { useRadioGroupContext } from '../RadioGroupField/context';
 
-export const RadioPrimitive: Primitive<BaseRadioProps, 'input'> = (
+export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   {
     children,
     className,
@@ -122,9 +127,7 @@ export const RadioPrimitive: Primitive<BaseRadioProps, 'input'> = (
   );
 };
 
-export const Radio = React.forwardRef(RadioPrimitive) as ForwardRefPrimitive<
-  BaseRadioProps,
-  'input'
->;
+export const Radio: ForwardRefPrimitive<BaseRadioProps, 'input'> =
+  React.forwardRef(RadioPrimitive);
 
 Radio.displayName = 'Radio';

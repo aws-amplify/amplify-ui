@@ -2,7 +2,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { LinkProps, ForwardRefPrimitive, Primitive } from '../types';
+import {
+  BaseLinkProps,
+  LinkProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { View } from '../View';
 
 const LinkPrimitive: Primitive<LinkProps, 'a'> = (
@@ -26,9 +31,7 @@ const LinkPrimitive: Primitive<LinkProps, 'a'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/link)
  */
-export const Link = React.forwardRef(LinkPrimitive) as ForwardRefPrimitive<
-  LinkProps,
-  'a'
->;
+export const Link: ForwardRefPrimitive<BaseLinkProps, 'a'> =
+  React.forwardRef(LinkPrimitive);
 
 Link.displayName = 'Link';

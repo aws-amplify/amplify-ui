@@ -6,6 +6,7 @@ import { ComponentClassNames } from '../shared/constants';
 import {
   ForwardRefPrimitive,
   BaseHeadingProps,
+  HeadingProps,
   HeadingTag,
   Primitive,
 } from '../types';
@@ -24,7 +25,7 @@ const headingLevels: HeadingLevels = {
   6: 'h6',
 };
 
-const HeadingPrimitive: Primitive<BaseHeadingProps, HeadingTag> = (
+const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
   { className, children, isTruncated, level = 6, ...rest },
   ref
 ) => (
@@ -50,8 +51,7 @@ const HeadingPrimitive: Primitive<BaseHeadingProps, HeadingTag> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/heading)
  */
-export const Heading = React.forwardRef(
-  HeadingPrimitive
-) as ForwardRefPrimitive<BaseHeadingProps, HeadingTag>;
+export const Heading: ForwardRefPrimitive<BaseHeadingProps, HeadingTag> =
+  React.forwardRef(HeadingPrimitive);
 
 Heading.displayName = 'Heading';

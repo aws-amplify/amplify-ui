@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
-import { BaseExpanderItemProps } from '../types/expander';
+import { BaseExpanderItemProps, ExpanderItemProps } from '../types/expander';
 import { IconExpandMore } from '../Icon/internal';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
@@ -21,7 +21,7 @@ export const EXPANDER_HEADER_TEST_ID = 'expander-header';
 export const EXPANDER_ICON_TEST_ID = 'expander-icon';
 export const EXPANDER_CONTENT_TEXT_TEST_ID = 'expander-content-text';
 
-const ExpanderItemPrimitive: Primitive<BaseExpanderItemProps, 'div'> = (
+const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
   { children, className, title, value, ..._rest },
   ref
 ) => {
@@ -69,8 +69,7 @@ const ExpanderItemPrimitive: Primitive<BaseExpanderItemProps, 'div'> = (
   );
 };
 
-export const ExpanderItem = React.forwardRef(
-  ExpanderItemPrimitive
-) as ForwardRefPrimitive<BaseExpanderItemProps, 'div'>;
+export const ExpanderItem: ForwardRefPrimitive<BaseExpanderItemProps, 'div'> =
+  React.forwardRef(ExpanderItemPrimitive);
 
 ExpanderItem.displayName = 'ExpanderItem';

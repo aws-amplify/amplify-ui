@@ -6,10 +6,10 @@ import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { IconExpandMore } from '../Icon/internal';
 import { ForwardRefPrimitive, Primitive } from '../types';
-import { BaseSelectProps } from '../types/select';
+import { BaseSelectProps, SelectProps } from '../types/select';
 import { View } from '../View';
 
-const SelectPrimitive: Primitive<BaseSelectProps, 'select'> = (
+const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
     autoComplete,
     className,
@@ -71,9 +71,7 @@ const SelectPrimitive: Primitive<BaseSelectProps, 'select'> = (
   );
 };
 
-export const Select = React.forwardRef(SelectPrimitive) as ForwardRefPrimitive<
-  BaseSelectProps,
-  'select'
->;
+export const Select: ForwardRefPrimitive<BaseSelectProps, 'select'> =
+  React.forwardRef(SelectPrimitive);
 
 Select.displayName = 'Select';

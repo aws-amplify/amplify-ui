@@ -10,13 +10,14 @@ import { VisuallyHidden } from '../VisuallyHidden';
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import {
   BaseRadioGroupFieldProps,
+  RadioGroupFieldProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
 import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
 
-const RadioGroupFieldPrimitive: Primitive<BaseRadioGroupFieldProps, 'div'> = (
+const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'div'> = (
   {
     children,
     className,
@@ -114,8 +115,9 @@ const RadioGroupFieldPrimitive: Primitive<BaseRadioGroupFieldProps, 'div'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/radiogroupfield)
  */
-export const RadioGroupField = React.forwardRef(
-  RadioGroupFieldPrimitive
-) as ForwardRefPrimitive<BaseRadioGroupFieldProps, 'div'>;
+export const RadioGroupField: ForwardRefPrimitive<
+  BaseRadioGroupFieldProps,
+  'div'
+> = React.forwardRef(RadioGroupFieldPrimitive);
 
 RadioGroupField.displayName = 'RadioGroupField';

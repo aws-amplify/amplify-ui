@@ -4,7 +4,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
   FlexContainerStyleProps,
-  ViewProps,
+  BaseViewProps,
   BaseInputProps,
   BaseFieldProps,
 } from '../types';
@@ -19,7 +19,7 @@ interface FieldPrimitiveProps
   extends BaseFieldProps,
     BaseInputProps,
     FlexContainerStyleProps,
-    ViewProps {}
+    BaseViewProps {}
 
 const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
   const {
@@ -62,9 +62,7 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
   );
 };
 
-export const Field = React.forwardRef(FieldPrimitive) as ForwardRefPrimitive<
-  FieldPrimitiveProps,
-  'div'
->;
+export const Field: ForwardRefPrimitive<FieldPrimitiveProps, 'div'> =
+  React.forwardRef(FieldPrimitive);
 
 Field.displayName = 'Field';

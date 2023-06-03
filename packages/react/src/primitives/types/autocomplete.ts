@@ -29,7 +29,7 @@ export interface ComboBoxOption {
   label: string;
 }
 
-export interface AutocompleteOptionProps extends BaseViewProps {
+export interface BaseAutocompleteOptionProps extends BaseViewProps {
   /**
    * React node that will be wrapped inside a li element
    */
@@ -40,8 +40,10 @@ export interface AutocompleteOptionProps extends BaseViewProps {
    */
   isActive: boolean;
 }
+export type AutocompleteOptionProps<Element extends ElementType = 'li'> =
+  PrimitiveProps<BaseAutocompleteOptionProps, Element>;
 
-export interface AutocompleteMenuProps extends BaseViewProps {
+export interface BaseAutocompleteMenuProps extends BaseViewProps {
   /**
    * @description
    * Defines a string value that labels an interactive element for accessibility
@@ -92,6 +94,8 @@ export interface AutocompleteMenuProps extends BaseViewProps {
    */
   listboxId: string;
 }
+export type AutocompleteMenuProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseAutocompleteMenuProps, Element>;
 
 export interface BaseAutocompleteProps extends BaseSearchFieldProps {
   /**

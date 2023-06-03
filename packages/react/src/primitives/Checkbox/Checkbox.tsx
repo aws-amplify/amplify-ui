@@ -6,7 +6,7 @@ import { IconCheck, IconIndeterminate } from '../Icon/internal';
 import { Input } from '../Input';
 import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { BaseCheckboxProps } from '../types/checkbox';
+import { BaseCheckboxProps, CheckboxProps } from '../types/checkbox';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
@@ -15,7 +15,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
 
-const CheckboxPrimitive: Primitive<BaseCheckboxProps, 'input'> = (
+const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
     checked,
     className,
@@ -178,8 +178,7 @@ const CheckboxPrimitive: Primitive<BaseCheckboxProps, 'input'> = (
   );
 };
 
-export const Checkbox = React.forwardRef(
-  CheckboxPrimitive
-) as ForwardRefPrimitive<BaseCheckboxProps, 'input'>;
+export const Checkbox: ForwardRefPrimitive<BaseCheckboxProps, 'input'> =
+  React.forwardRef(CheckboxPrimitive);
 
 Checkbox.displayName = 'Checkbox';

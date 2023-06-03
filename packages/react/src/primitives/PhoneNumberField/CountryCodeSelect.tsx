@@ -5,12 +5,13 @@ import { countryDialCodes } from '@aws-amplify/ui';
 import { ComponentClassNames } from '../shared/constants';
 import {
   BaseDialCodeSelectProps,
+  DialCodeSelectProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
 import { SelectField } from '../SelectField';
 
-const DialCodeSelectPrimitive: Primitive<BaseDialCodeSelectProps, 'select'> = (
+const DialCodeSelectPrimitive: Primitive<DialCodeSelectProps, 'select'> = (
   { className, dialCodeList, isReadOnly, ...props },
   ref
 ) => {
@@ -48,8 +49,9 @@ const DialCodeSelectPrimitive: Primitive<BaseDialCodeSelectProps, 'select'> = (
   );
 };
 
-export const CountryCodeSelect = React.forwardRef(
-  DialCodeSelectPrimitive
-) as ForwardRefPrimitive<BaseDialCodeSelectProps, 'select'>;
+export const CountryCodeSelect: ForwardRefPrimitive<
+  BaseDialCodeSelectProps,
+  'select'
+> = React.forwardRef(DialCodeSelectPrimitive);
 
 CountryCodeSelect.displayName = 'CountryCodeSelect';

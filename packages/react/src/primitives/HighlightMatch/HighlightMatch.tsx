@@ -7,14 +7,15 @@ import { getTestId } from '../utils/getTestId';
 import { ComponentClassNames } from '../shared/constants';
 import type {
   BaseHighlightMatchProps,
+  HighlightMatchProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
 
-export const HighlightMatchPrimitive: Primitive<
-  BaseHighlightMatchProps,
-  'span'
-> = ({ children, className, query, testId, ...rest }, ref) => {
+export const HighlightMatchPrimitive: Primitive<HighlightMatchProps, 'span'> = (
+  { children, className, query, testId, ...rest },
+  ref
+) => {
   const matchTestId = getTestId(testId, 'match');
   const startIndex = children
     ?.toLocaleLowerCase()
@@ -53,8 +54,9 @@ export const HighlightMatchPrimitive: Primitive<
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/highlightmatch)
  */
-export const HighlightMatch = React.forwardRef(
-  HighlightMatchPrimitive
-) as ForwardRefPrimitive<BaseHighlightMatchProps, 'span'>;
+export const HighlightMatch: ForwardRefPrimitive<
+  BaseHighlightMatchProps,
+  'span'
+> = React.forwardRef(HighlightMatchPrimitive);
 
 HighlightMatch.displayName = 'HighlightMatch';
