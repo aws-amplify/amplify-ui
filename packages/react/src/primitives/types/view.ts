@@ -42,7 +42,7 @@ export type PrimitiveProps<
       Omit<Props, 'ref'> & RefProp<Element>,
       Element
     >
-  : PrimitivePropsWithHTMLAttributes<Props, Element>;
+  : never;
 
 export type Primitive<
   Props extends BaseViewProps,
