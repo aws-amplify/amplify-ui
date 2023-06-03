@@ -13,17 +13,20 @@ import type {
   BaseAutocompleteMenuProps,
 } from '../types';
 
-const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = ({
-  ariaLabel,
-  children,
-  Header = null,
-  Footer = null,
-  LoadingIndicator = null,
-  Empty = null,
-  isLoading,
-  listboxId,
-  ...rest
-}) => {
+const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
+  {
+    ariaLabel,
+    children,
+    Header = null,
+    Footer = null,
+    LoadingIndicator = null,
+    Empty = null,
+    isLoading,
+    listboxId,
+    ...rest
+  },
+  ref
+) => {
   const MenuHeader = () => {
     return (
       Header && (
@@ -69,7 +72,11 @@ const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = ({
     );
 
   return (
-    <ScrollView className={ComponentClassNames.AutocompleteMenu} {...rest}>
+    <ScrollView
+      className={ComponentClassNames.AutocompleteMenu}
+      ref={ref}
+      {...rest}
+    >
       {isLoading ? (
         <MenuLoading />
       ) : (

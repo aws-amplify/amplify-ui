@@ -11,12 +11,10 @@ import type {
   BaseAutocompleteOptionProps,
 } from '../types';
 
-const AutocompleteOptionPrimitive: Primitive<AutocompleteOptionProps, 'li'> = ({
-  children,
-  className,
-  isActive,
-  ...rest
-}) => {
+const AutocompleteOptionPrimitive: Primitive<AutocompleteOptionProps, 'li'> = (
+  { children, className, isActive, ...rest },
+  ref
+) => {
   return (
     <View
       aria-selected={isActive}
@@ -31,6 +29,7 @@ const AutocompleteOptionPrimitive: Primitive<AutocompleteOptionProps, 'li'> = ({
         ),
         className
       )}
+      ref={ref}
       {...rest}
     >
       {children}
