@@ -16,20 +16,24 @@ type AsProp<Element extends ElementType> = {
   as?: Element;
 };
 
-type RefProp<Element extends ElementType> = React.RefAttributes<
-  React.ComponentRef<Element>
->;
-
 export type PrimitivePropsWithAs<
   Props extends BaseViewProps,
   Element extends ElementType
 > = Omit<Props, 'as'> & AsProp<Element>;
 
+type PrimitivePropsWithRef<
+  Props extends BaseViewProps,
+  Element extends ElementType
+> = Omit<Props, 'ref'> &
+  (IsAny<Element> extends false
+    ? React.RefAttributes<React.ComponentRef<Element>>
+    : React.RefAttributes<any>);
+
 export type PrimitivePropsWithHTMLAttributes<
   Props extends BaseViewProps,
   Element extends ElementType
 > = MergeProps<
-  PrimitivePropsWithAs<Props, Element>,
+  PrimitivePropsWithRef<Props, Element>,
   // exclude `ref?: LegacyRef` included in DetailedHTMLProps
   React.ComponentPropsWithoutRef<Element>
 >;
@@ -37,12 +41,10 @@ export type PrimitivePropsWithHTMLAttributes<
 export type PrimitiveProps<
   Props extends BaseViewProps,
   Element extends ElementType
-> = IsAny<Element> extends false
-  ? PrimitivePropsWithHTMLAttributes<
-      Omit<Props, 'ref'> & RefProp<Element>,
-      Element
-    >
-  : never;
+> = PrimitivePropsWithHTMLAttributes<
+  PrimitivePropsWithAs<Props, Element>,
+  Element
+>;
 
 export type Primitive<
   Props extends BaseViewProps,
