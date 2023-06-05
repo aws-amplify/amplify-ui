@@ -21,10 +21,13 @@ Amplify.configure(awsconfig);
 export class AppModule {}
 ```
 
-Import Authenticator style inside `styles.css`
+Open your `angular.json` file, and add `node_modules/@aws-amplify/ui-angular/theme.css` to `styles` array in your `angular.json`. This array is located in `projects.<project-name>.architect.build.options`.
 
-```css
-@import '~@aws-amplify/ui-angular/theme.css';
+```js
+"styles": [
+  "node_modules/@aws-amplify/ui-angular/theme.css",
+  "src/styles.css"
+],
 ```
 
 Wrap your template with `amplify-authenticator` inside `app.component.html`
