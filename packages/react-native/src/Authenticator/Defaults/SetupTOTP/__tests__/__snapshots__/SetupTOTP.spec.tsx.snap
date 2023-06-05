@@ -172,6 +172,7 @@ Array [
         },
       ]
     }
+    testID="amplify__error-message"
   >
     <Image
       accessibilityRole="image"
@@ -250,6 +251,7 @@ Array [
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={
@@ -520,6 +522,7 @@ Array [
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={
