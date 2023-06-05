@@ -156,7 +156,7 @@ function ChangePassword({
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!user) {
       return;
@@ -166,16 +166,20 @@ function ChangePassword({
     if (errorMessage) {
       setErrorMessage(null);
     }
-    try {
-      await changePassword({ user, currentPassword, newPassword });
 
-      onSuccess?.(); // notify success to the parent
-    } catch (e) {
-      const error = e as Error;
-      if (error.message) setErrorMessage(error.message);
+    const promise = changePassword({ user, currentPassword, newPassword });
 
-      onError?.(error); // notify error to the parent
-    }
+    promise
+      .then(() => {
+        // notify success to the parent
+        onSuccess?.();
+      })
+      .catch((e) => {
+        const error = e as Error;
+        if (error.message) setErrorMessage(error.message);
+
+        onError?.(error); // notify error to the parent
+      });
   };
 
   // Return null if Auth.getCurrentAuthenticatedUser is still in progress
@@ -193,8 +197,6 @@ function ChangePassword({
     <View
       as="form"
       className={ComponentClassName.ChangePassword}
-      // React.FormEventHandler<HTMLFormElement> does not accept async function
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
