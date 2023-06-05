@@ -88,3 +88,53 @@ export const FACE_LIVENESS_DETECTOR_CONFIG = [
     type: `string`,
   },
 ];
+
+export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
+  {
+    name: `RUNTIME_ERROR`,
+    description: 'Indicates an error that occurs in the component runtime.',
+    type: `Error`,
+  },
+  {
+    name: `SERVER_ERROR`,
+    description:
+      'Indicates an error occurred from the Rekognition streaming API or in the onAnalysisComplete callback.',
+    type: `Error`,
+  },
+  {
+    name: `TIMEOUT`,
+    description:
+      'Indicates a timeout occurred when user attempted a liveness check.',
+    type: `Error`,
+  },
+  {
+    name: `FACE_DISTANCE_ERROR`,
+    description:
+      'Indicates that the user moved their face too close to the camera before the check started.',
+    type: `Error`,
+  },
+  {
+    name: `CAMERA_ACCESS_ERROR`,
+    description:
+      "Indicates that an error occurred when attempting to access the user's camera, this could be because they did not allow camera permissions in the browser.",
+    type: `Error`,
+  },
+  {
+    name: `CAMERA_FRAMERATE_ERROR`,
+    description:
+      'Indicates that the provided camera does not meet the minimum framerate requirements for a liveness check.',
+    type: `Error`,
+  },
+  {
+    name: `FRESHNESS_TIMEOUT`,
+    description:
+      'Indicates that the component timed out when attempting attempting to determine freshness of the video via colors flashing on the screen.',
+    type: `Error`,
+  },
+  {
+    name: `MOBILE_LANDSCAPE_ERROR`,
+    description:
+      'Indicates that the user attempted to switch to using landscape mode which is not supported.',
+    type: `Error`,
+  },
+];

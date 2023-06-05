@@ -33,8 +33,13 @@ To run existing tests on `react-native` framework:
 1. Run `yarn e2e detox:build:android`
 1. Run `yarn e2e detox:e2e:android`
 
-To forward network requests on port 9091 to the mock server run:
-`adb reverse tcp:9091 tcp:9091`
+Troubleshooting
+
+If the emulator fails to connect to Metro server, run:
+
+```bash
+adb reverse tcp:8081 tcp:8081
+```
 
 ## Contributing
 
