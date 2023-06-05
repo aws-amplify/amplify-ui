@@ -33,9 +33,10 @@ if [ $BUILD_TOOL == 'expo' ]; then
   PID=$!
   echo $PID
 
-  # Wait for 60 seconds
-  log "command" "sleep 60"
-  sleep 60
+  # Wait for 30 seconds
+  SLEEP_TIME=30
+  log "command" "sleep $SLEEP_TIME"
+  sleep $SLEEP_TIME
 
   # Terminate the command using the stored PID
   log "command" "pkill -P $PID"
