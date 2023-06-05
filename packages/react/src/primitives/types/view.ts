@@ -2,7 +2,11 @@ import * as React from 'react';
 
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
-import { IsAny } from '../shared/types';
+
+// A utility type to check if a type is any
+export type IsAny<Type> = (Type extends never ? true : false) extends false
+  ? false
+  : true;
 
 type MergeProps<A, B> = A & Omit<B, keyof A>;
 
