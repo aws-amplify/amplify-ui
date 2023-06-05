@@ -33,7 +33,7 @@ exports[`amplify-error renders as expected 1`] = `
       <button
         amplify-button=""
         aria-label="Dismiss alert"
-        class="amplify-field-group__control amplify-alert__dismiss amplify-button amplify-button--link amplify-button--medium"
+        class="amplify-button amplify-button--link amplify-button--medium"
         data-fullwidth="false"
         data-size="medium"
         data-variation="link"
