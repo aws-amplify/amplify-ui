@@ -1,4 +1,4 @@
-export { checkLink } from './checkLink';
+export { checkLink, isInternalLink } from './checkLink';
 export { crawlAllLinks } from './crawlAllLinks';
 export { getAllTypesData } from './getAllTypesData';
 export { getCatalog } from './getCatalog';
