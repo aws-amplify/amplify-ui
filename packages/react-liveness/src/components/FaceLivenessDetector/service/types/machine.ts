@@ -10,10 +10,10 @@ import {
 import {
   FaceLivenessDetectorProps,
   FaceMatchState,
-  LivenessErrorState,
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
+import { LivenessErrorState } from './error';
 import {
   VideoRecorder,
   LivenessStreamProvider,
