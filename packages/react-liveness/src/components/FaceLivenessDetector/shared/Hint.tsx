@@ -69,7 +69,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
     [FaceMatchState.TOO_MANY]: hintDisplayText.hintTooManyFacesText,
     [FaceMatchState.TOO_CLOSE]: hintDisplayText.hintTooCloseText,
     [FaceMatchState.TOO_FAR]: hintDisplayText.hintTooFarText,
-    [FaceMatchState.MATCHED]: undefined,
+    [FaceMatchState.MATCHED]: hintDisplayText.hintHoldFaceForFreshnessText,
   };
 
   const IlluminationStateStringMap: Record<IlluminationState, string> = {
@@ -153,7 +153,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       // the TOO_CLOSE text, but for FACE_IDENTIFED, CANT_IDENTIFY, TOO_MANY
       // we are defaulting to the TOO_FAR text (for now). For MATCHED state,
       // we don't want to show any toasts.
-      return faceMatchState !== FaceMatchState.MATCHED ? (
+      return (
         <Toast
           size="large"
           variation={
@@ -164,7 +164,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
             ? FaceMatchStateStringMap[FaceMatchState.TOO_CLOSE]
             : FaceMatchStateStringMap[FaceMatchState.TOO_FAR]}
         </Toast>
-      ) : null;
+      );
     }
 
     return null;
