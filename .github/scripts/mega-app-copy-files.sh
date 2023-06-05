@@ -1,10 +1,16 @@
 #!/bin/bash
 
+if [[ "$FRAMEWORK" == "react-native" && "$BUILD_TOOL" == 'cli' ]]; then
+    AWS_EXPORTS_FILE="templates/template-react-native-aws-exports.js"
+else
+    AWS_EXPORTS_FILE="templates/template-aws-exports.js"
+fi
+
 echo "cd build-system-tests"
 cd build-system-tests
 if [ "$BUILD_TOOL" == 'cra' ]; then
-    echo "cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
-    cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
+    echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
+    cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
     if [ "$LANGUAGE" == 'js' ]; then
         echo "cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.js"
         cp templates/components/react/cra/App.js mega-apps/${MEGA_APP_NAME}/src/App.js
@@ -23,8 +29,8 @@ fi
 if [ "$BUILD_TOOL" == 'next' ]; then
     echo "mkdir mega-apps/${MEGA_APP_NAME}/data"
     mkdir mega-apps/${MEGA_APP_NAME}/data
-    echo "cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/data/aws-exports.js"
-    cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/data/aws-exports.js
+    echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/data/aws-exports.js"
+    cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/data/aws-exports.js
     echo "cp templates/components/react/next/App.js mega-apps/${MEGA_APP_NAME}/pages/index.tsx"
     cp templates/components/react/next/App.js mega-apps/${MEGA_APP_NAME}/pages/index.tsx
     if [ "$BUILD_TOOL_VERSION" == '11' ]; then
@@ -38,8 +44,8 @@ if [ "$BUILD_TOOL" == 'next' ]; then
 fi
 
 if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
-    echo "cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
-    cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
+    echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
+    cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
     echo "cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx"
     cp templates/components/react/vite/App.tsx mega-apps/${MEGA_APP_NAME}/src/App.tsx
 
@@ -98,10 +104,10 @@ if [[ "$FRAMEWORK" == "react-native" ]]; then
         # React Native CLI has to use the template-aws-exports.js, which is an empty aws-exports file
         # Because we need to see the "'AuthError -" to know the errors are successfully logged.
         # Because React Native CLI doesn't log error in the initial terminal. We have to use react-native-log-ios or log-android to log errors.
-        echo "cp templates/template-react-native-aws-exports.js mega-apps/${MEGA_APP_NAME}/aws-exports.js"
-        cp templates/template-react-native-aws-exports.js mega-apps/${MEGA_APP_NAME}/aws-exports.js
+        echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/aws-exports.js"
+        cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/aws-exports.js
     elif [[ "$BUILD_TOOL" == 'expo' ]]; then
-        echo "cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/aws-exports.js"
-        cp templates/template-aws-exports.js mega-apps/${MEGA_APP_NAME}/aws-exports.js
+        echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/aws-exports.js"
+        cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/aws-exports.js
     fi
 fi
