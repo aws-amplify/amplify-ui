@@ -95,7 +95,7 @@ if [[ "$FRAMEWORK" == "react-native" ]]; then
     echo "cp templates/components/react-native/cli/App.tsx mega-apps/${MEGA_APP_NAME}/App.tsx"
     cp templates/components/react-native/cli/App.tsx mega-apps/${MEGA_APP_NAME}/App.tsx
     if [[ "$BUILD_TOOL" == 'cli' ]]; then
-        # React Native CLI has to use the template-aws-exports.js, which is an emplty aws-exports file
+        # React Native CLI has to use the template-aws-exports.js, which is an empty aws-exports file
         # Because we need to see the "'AuthError -" to know the errors are successfully logged.
         # Because React Native CLI doesn't log error in the initial terminal. We have to use react-native-log-ios or log-android to log errors.
         echo "cp templates/template-react-native-aws-exports.js mega-apps/${MEGA_APP_NAME}/aws-exports.js"
