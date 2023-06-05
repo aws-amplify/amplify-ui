@@ -167,9 +167,7 @@ function ChangePassword({
       setErrorMessage(null);
     }
 
-    const promise = changePassword({ user, currentPassword, newPassword });
-
-    promise
+    changePassword({ user, currentPassword, newPassword })
       .then(() => {
         // notify success to the parent
         onSuccess?.();
