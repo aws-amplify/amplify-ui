@@ -3,11 +3,7 @@
   "dest": "../../dist/ui-angular",
   "assets": ["./theme.css", "./styles/component.css", "./LICENSE"],
   "lib": {
-    "entryFile": "src/index.ts",
-    "umdModuleIds": {
-      "xstate": "xstate",
-      "aws-amplify": "aws-amplify"
-    }
+    "entryFile": "src/index.ts"
   },
   "allowedNonPeerDependencies": [
     "@aws-amplify/ui",
