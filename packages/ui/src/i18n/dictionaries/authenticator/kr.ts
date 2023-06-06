@@ -1,6 +1,6 @@
 import { AuthenticatorDictionary } from './types';
 
-export const koDict: AuthenticatorDictionary = {
+export const krDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
     '계정 복구를 위해 연락처 확인이 필요합니다',
   'Back to Sign In': '로그인으로 돌아가기',
