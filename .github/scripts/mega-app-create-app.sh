@@ -51,16 +51,27 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     fi
 fi
 
-if [[ "$BUILD_TOOL" == 'cli' && "$FRAMEWORK" == 'react-native' ]]; then
+if [[ "$FRAMEWORK" == 'react-native' ]]; then
     echo "rm -rf $MEGA_APP_NAME" # Remove $MEGA_APP_NAME if it exists
     rm -rf $MEGA_APP_NAME
-    echo "npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION"
-    npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION
-    # React-Native, since 0.71.8,
-    # no longer shows warning "npm WARN exec The following package was not found and will be installed: react-native@0.71.8",
-    # so we log the package.json to check the versions
-    echo "cd $MEGA_APP_NAME"
-    cd $MEGA_APP_NAME
-    echo "cat package.json"
-    cat package.json
+    if [[ "$BUILD_TOOL" == 'cli' ]]; then
+        echo "npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION"
+        npx react-native@${BUILD_TOOL_VERSION} init $MEGA_APP_NAME --version $FRAMEWORK_VERSION
+        # React-Native, since 0.71.8,
+        # no longer shows warning "npm WARN exec The following package was not found and will be installed: react-native@0.71.8",
+        # so we log the package.json to check the versions
+        echo "cd $MEGA_APP_NAME"
+        cd $MEGA_APP_NAME
+        echo "npm list react-native"
+        npm list react-native
+    elif [[ "$BUILD_TOOL" == 'expo' ]]; then
+        echo "npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript"
+        npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript
+        echo "cd $MEGA_APP_NAME"
+        cd $MEGA_APP_NAME
+        echo "cat package.json" # Log the package.json to check the expo version should be later than 48.0.19
+        cat package.json
+        echo "npx expo-env-info"
+        npx expo-env-info
+    fi
 fi

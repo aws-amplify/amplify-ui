@@ -42,8 +42,8 @@ else
         echo "npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill"
         npm install @aws-amplify/ui-react-native aws-amplify react-native-safe-area-context amazon-cognito-identity-js @react-native-community/netinfo @react-native-async-storage/async-storage react-native-get-random-values react-native-url-polyfill
 
-        echo "../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE"
-        ../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME
+        echo "../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL"
+        ../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL
     else
         if [[ "$BUILD_TOOL" == 'angular-lib' ]]; then
             echo "cd projects/my-amplify-ui-lib/"
@@ -57,8 +57,17 @@ else
             echo "ng build my-amplify-ui-lib"
             ng build my-amplify-ui-lib
         fi
+
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
+
+        if [[ "$FRAMEWORK" == 'angular' ]]; then
+            echo "rm -rf node_modules package-lock.json"
+            rm -rf node_modules package-lock.json # To prevent Expected identifier but found "=", unable to publish app https://github.com/aws-amplify/amplify-js/issues/11455
+            echo "npm install"
+            npm install
+        fi
+
         echo "npm run build"
         npm run build
     fi
