@@ -6,7 +6,15 @@ import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { TabsProps, TabsSpacing, TabItemProps, Primitive } from '../types';
+import {
+  BaseTabsProps,
+  BaseTabItemProps,
+  TabsProps,
+  TabsSpacing,
+  TabItemProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { View } from '../View';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
@@ -35,7 +43,7 @@ const isExtendedTabItem = (
 ): child is React.ReactElement<ExtendedTabItemProps> =>
   React.isValidElement<TabItemProps>(child);
 
-const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
+const TabsPrimitive: Primitive<TabsProps, 'div'> = (
   {
     ariaLabel,
     children,
@@ -46,7 +54,7 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
     indicatorPosition,
     spacing,
     ...rest
-  }: TabsProps,
+  }: BaseTabsProps,
   ref
 ) => {
   // mapping our props to Radix's props
@@ -115,8 +123,10 @@ const TabItemPrimitive: Primitive<TabItemProps, 'button'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/tabs)
  */
-export const Tabs = React.forwardRef(TabsPrimitive);
-export const TabItem = React.forwardRef(TabItemPrimitive);
+export const Tabs: ForwardRefPrimitive<BaseTabsProps, 'div'> =
+  React.forwardRef(TabsPrimitive);
+export const TabItem: ForwardRefPrimitive<BaseTabItemProps, 'button'> =
+  React.forwardRef(TabItemPrimitive);
 
 Tabs.displayName = 'Tabs';
 TabItem.displayName = 'TabItem';
