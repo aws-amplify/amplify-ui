@@ -62,8 +62,8 @@ if [[ "$FRAMEWORK" == 'react-native' ]]; then
         # so we log the package.json to check the versions
         echo "cd $MEGA_APP_NAME"
         cd $MEGA_APP_NAME
-        echo "cat package.json"
-        cat package.json
+        echo "npm list react-native"
+        npm list react-native
     elif [[ "$BUILD_TOOL" == 'expo' ]]; then
         echo "npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript"
         npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript
