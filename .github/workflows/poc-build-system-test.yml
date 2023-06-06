@@ -20,7 +20,7 @@ jobs:
         build-tool-version: [latest]
         pkg-manager: [npm]
         language: [ts]
-        node-version: [18]
+        node-version: [16]
         include:
           - framework: react
             framework-version: latest
