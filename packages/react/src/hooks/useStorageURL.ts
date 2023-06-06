@@ -14,7 +14,8 @@ export interface UseStorageURLResult {
  */
 export const useStorageURL = (
   key: string,
-  options?: S3ProviderGetConfig
+  options?: S3ProviderGetConfig,
+  fallbackURL?: string
 ): UseStorageURLResult & { fetch: () => () => void } => {
   const [result, setResult] = React.useState<UseStorageURLResult>({
     isLoading: true,
@@ -33,13 +34,15 @@ export const useStorageURL = (
     // Attempt to fetch storage object url
     promise
       .then((url) => setResult({ url, isLoading: false }))
-      .catch((error: Error) => setResult({ error, isLoading: false }));
+      .catch((error: Error) =>
+        setResult({ url: fallbackURL, error, isLoading: false })
+      );
 
     // Cancel current promise on unmount
     return () => Storage.cancel(promise);
   };
 
-  React.useEffect(fetch, [key]);
+  React.useEffect(fetch, [key, fallbackURL]);
 
   return { ...result, fetch };
 };

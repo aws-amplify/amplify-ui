@@ -6,6 +6,12 @@ import { ResponsiveStyle } from './style';
 export interface ImageStyleProps {
   /**
    * @description
+   * Sets a preferred aspect ratio for the selected replaced element's box
+   */
+  aspectRatio?: ResponsiveStyle<Property.AspectRatio>;
+
+  /**
+   * @description
    *  Sets how the content of an <img> should be resized to fit its container
    */
   objectFit?: ResponsiveStyle<Property.ObjectFit>;
@@ -47,6 +53,12 @@ export interface ImageOptions extends ImageStyleProps {
    *[MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-srcset)
    */
   srcSet?: React.ImgHTMLAttributes<HTMLImageElement>['srcSet'];
+
+  /**
+   * @description
+   * Image will be loaded lazily if set to true.
+   */
+  isLazy?: boolean;
 
   /**
    * @description

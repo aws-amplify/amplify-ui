@@ -6,13 +6,14 @@ import { ImageProps, Primitive } from '../types';
 import { View } from '../View';
 
 const ImagePrimitive: Primitive<ImageProps, 'img'> = (
-  { className, ...rest },
+  { className, isLazy, ...rest },
   ref
 ) => (
   <View
     as="img"
     ref={ref}
     className={classNames(ComponentClassNames.Image, className)}
+    loading={isLazy ? 'lazy' : 'eager'}
     {...rest}
   />
 );
