@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-storage
 
+## 1.2.4
+
+### Patch Changes
+
+- [#4009](https://github.com/aws-amplify/amplify-ui/pull/4009) [`9c0935c6e`](https://github.com/aws-amplify/amplify-ui/commit/9c0935c6e0093c369a4aa2c8177b847f82df11b8) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(storage): allow any file types when using drag/drop
+
 ## 1.2.3
 
 ### Patch Changes

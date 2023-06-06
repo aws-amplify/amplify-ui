@@ -23,7 +23,7 @@ const logger = new Logger('Storage.StorageManager');
 
 function StorageManagerBase(
   {
-    acceptedFileTypes,
+    acceptedFileTypes = [],
     accessLevel,
     defaultFiles,
     displayText: overrideDisplayText,
@@ -42,10 +42,8 @@ function StorageManagerBase(
   }: StorageManagerProps,
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
-  if (!acceptedFileTypes || !accessLevel || !maxFileCount) {
-    logger.warn(
-      'FileUploader requires accessLevel, acceptedFileTypes and maxFileCount props'
-    );
+  if (!accessLevel || !maxFileCount) {
+    logger.warn('FileUploader requires accessLevel and maxFileCount props');
   }
 
   const Components = {

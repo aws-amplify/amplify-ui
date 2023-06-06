@@ -17,7 +17,6 @@ const storageSpy = jest
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
 const storeManagerProps: StorageManagerProps = {
-  acceptedFileTypes: [],
   accessLevel: 'public',
   maxFileCount: 100,
 };
