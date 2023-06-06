@@ -68,8 +68,8 @@ else
             rm -rf node_modules package-lock.json
             echo "npm cache clean --force"
             npm cache clean --force
-            echo "npm install"
-            npm install
+            echo "npm install --force" # To prevent error: ERESOLVE unable to resolve dependency tree https://stackoverflow.com/questions/71582397/eresolve-unable-to-resolve-dependency-tree-while-installing-a-pacakge
+            npm install --force
         fi
 
         echo "npm run build"
