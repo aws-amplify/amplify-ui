@@ -61,9 +61,13 @@ else
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
 
+        # To prevent error: Expected identifier but found "="
+        # details: https://github.com/aws-amplify/amplify-js/issues/11455
         if [[ "$FRAMEWORK" == 'angular' ]]; then
             echo "rm -rf node_modules package-lock.json"
-            rm -rf node_modules package-lock.json # To prevent Expected identifier but found "=", unable to publish app https://github.com/aws-amplify/amplify-js/issues/11455
+            rm -rf node_modules package-lock.json
+            echo "npm cache clean --force"
+            npm cache clean --force
             echo "npm install"
             npm install
         fi
