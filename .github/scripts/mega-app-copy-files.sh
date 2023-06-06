@@ -67,6 +67,8 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
         echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
         cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
+        echo "cp cp templates/components/angular/template-tsconfig-latest.json mega-apps/${MEGA_APP_NAME}/tsconfig.json"
+        cp templates/components/angular/template-tsconfig-latest.json mega-apps/${MEGA_APP_NAME}/tsconfig.json
     elif [ "$BUILD_TOOL" == 'angular-lib' ]; then
         echo "cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
         cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
