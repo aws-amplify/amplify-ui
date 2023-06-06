@@ -33,8 +33,8 @@ if [ $BUILD_TOOL == 'expo' ]; then
   PID=$!
   echo $PID
 
-  # Wait for 10 seconds
-  SLEEP_TIME=10
+  # Wait for 1 seconds
+  SLEEP_TIME=1
   log "command" "sleep $SLEEP_TIME"
   sleep $SLEEP_TIME
 
