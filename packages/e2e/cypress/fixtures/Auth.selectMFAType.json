@@ -1,0 +1,10 @@
+{
+  "ChallengeName": "SELECT_MFA_TYPE",
+  "ChallengeParameters": {
+    "CODE_DELIVERY_DESTINATION": "+*******0618",
+    "CODE_DELIVERY_DELIVERY_MEDIUM": "SMS",
+    "MFAS_CAN_CHOOSE": "[\"SMS_MFA\",\"SOFTWARE_TOKEN_MFA\"]",
+    "FRIENDLY_DEVICE_NAME": "My TOTP device"
+  },
+  "session": "••••••"
+}
