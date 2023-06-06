@@ -17,7 +17,7 @@ struct MyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            Authenticator {  in
+            Authenticator { state in
                 VStack {
                     Text("Hello, \(state.user.username)")
                     Button("Sign out") {
