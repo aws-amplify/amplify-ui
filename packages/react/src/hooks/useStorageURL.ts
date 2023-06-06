@@ -22,11 +22,12 @@ export const useStorageURL = (
 
   // Used to prevent an infinite loop on useEffect, because `options`
   // will have a different reference on every render
-  const serializedOptions = JSON.stringify(options);
+  const optionsRef = React.useRef(options);
 
   const fetch = () => {
     setResult({ isLoading: true });
 
+    const options = optionsRef.current;
     const promise = Storage.get(key, options);
 
     // Attempt to fetch storage object url
@@ -38,7 +39,7 @@ export const useStorageURL = (
     return () => Storage.cancel(promise);
   };
 
-  React.useEffect(fetch, [key, options, serializedOptions]);
+  React.useEffect(fetch, [key]);
 
   return { ...result, fetch };
 };
