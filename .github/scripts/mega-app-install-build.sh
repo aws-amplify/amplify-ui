@@ -57,8 +57,17 @@ else
             echo "ng build my-amplify-ui-lib"
             ng build my-amplify-ui-lib
         fi
+
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
+
+        if [[ "$FRAMEWORK" == 'angular' ]]; then
+            echo "rm -rf node_modules package-lock.json"
+            rm -rf node_modules package-lock.json # To prevent Expected identifier but found "=", unable to publish app https://github.com/aws-amplify/amplify-js/issues/11455
+            echo "npm install"
+            npm install
+        fi
+
         echo "npm run build"
         npm run build
     fi
