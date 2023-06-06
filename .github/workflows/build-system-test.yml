@@ -128,7 +128,7 @@ jobs:
 
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
-      DEPENDENCIES: ${{ matrix.framework }}@${{ matrix.framework-version }} @aws-amplify/ui-${{ matrix.framework }} aws-amplify
+      DEPENDENCIES: ${{ matrix.framework }}@${{ matrix.framework-version }} @aws-amplify/ui-${{ matrix.framework }}@next-release aws-amplify
       DEP_TYPES: '@types/react@${{ matrix.framework-version }} @types/react-dom@${{ matrix.framework-version }}'
 
     steps:
