@@ -49,14 +49,15 @@ Install the 1.x version of the `@aws-amplify/ui-react-notifications` library and
 </TabItem>
 </Tabs>
 
-#### 3. `@aws-amplify/ui-react@5.x` remove the `to` prop on `Link` component and instead have it extended from the underlying rendered third-party `Link` if it contains a `to` prop.
+#### 3. `@aws-amplify/ui-react@5.x` removes the `to` prop from the `Link` component.
 
-For example, using React Router Link with Amplify Link.
+If using a `Link` component with the `to` prop, remove `to` and instead extend from the underlying rendered third-party `Link`. For example, using React Router `Link` with the Amplify UI `Link` component:
 
-```
+```tsx
+import { Link } from '@aws-amplify/ui-react';
 import { Link as ReactRouterLink } from 'react-router-dom';
 
-<Link as={ReactRouterLink} to="/" >Home</Link>
+<Link as={ReactRouterLink} to="/">Home</Link>
 ```
 
 #### 4. `@aws-amplify/ui-react@5.x` updates component types to include the underlying rendered HTML element's attributes and strictly types the `View` component.
