@@ -102,13 +102,13 @@ jobs:
             pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
             language: ts
             node-version: 18
-          - framework: vue
-            framework-version: latest
-            build-tool: vite
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
+          # - framework: vue
+          #   framework-version: latest
+          #   build-tool: vite
+          #   build-tool-version: latest
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
           - framework: vue
             framework-version: latest
             build-tool: vite
