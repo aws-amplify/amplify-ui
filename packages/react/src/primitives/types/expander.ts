@@ -1,8 +1,8 @@
-import { ViewProps } from '../types/view';
+import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 
 type ExpanderType = 'single' | 'multiple';
 
-export interface ExpanderProps extends ViewProps {
+export interface BaseExpanderProps extends BaseViewProps {
   /**
    * @description
    * The value of the item(s) to expand.  Use on uncontrolled component.
@@ -38,8 +38,12 @@ export interface ExpanderProps extends ViewProps {
    */
   onValueChange?: (value?: string | string[]) => void;
 }
+export type ExpanderProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseExpanderProps,
+  Element
+>;
 
-export interface ExpanderItemProps extends ViewProps {
+export interface BaseExpanderItemProps extends BaseViewProps {
   /**
    * @description
    * The content of the heading.
@@ -52,3 +56,6 @@ export interface ExpanderItemProps extends ViewProps {
    */
   value: string;
 }
+
+export type ExpanderItemProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseExpanderItemProps, Element>;

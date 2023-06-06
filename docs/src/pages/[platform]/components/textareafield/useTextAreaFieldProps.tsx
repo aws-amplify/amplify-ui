@@ -1,74 +1,76 @@
 import * as React from 'react';
 
-import { TextAreaFieldProps } from '@aws-amplify/ui-react';
+import { BaseTextAreaFieldProps } from '@aws-amplify/ui-react';
 
-export const useTextAreaFieldProps = (initialValues: TextAreaFieldProps) => {
+export const useTextAreaFieldProps = (
+  initialValues: BaseTextAreaFieldProps
+) => {
   const [autoComplete, setAutoComplete] = React.useState<
-    TextAreaFieldProps['autoComplete']
+    BaseTextAreaFieldProps['autoComplete']
   >(initialValues.autoComplete);
 
   const [defaultValue, setDefaultValue] = React.useState<
-    TextAreaFieldProps['defaultValue']
+    BaseTextAreaFieldProps['defaultValue']
   >(initialValues.defaultValue);
 
   const [hasError, setHasError] = React.useState<
-    TextAreaFieldProps['hasError']
+    BaseTextAreaFieldProps['hasError']
   >(initialValues.hasError);
 
-  const [label, setLabel] = React.useState<TextAreaFieldProps['label']>(
+  const [label, setLabel] = React.useState<BaseTextAreaFieldProps['label']>(
     initialValues.label
   );
 
   const [descriptiveText, setDescriptiveText] = React.useState<
-    TextAreaFieldProps['descriptiveText']
+    BaseTextAreaFieldProps['descriptiveText']
   >(initialValues.descriptiveText);
 
   const [errorMessage, setErrorMessage] = React.useState<
-    TextAreaFieldProps['errorMessage']
+    BaseTextAreaFieldProps['errorMessage']
   >(initialValues.errorMessage);
 
   const [isDisabled, setIsDisabled] = React.useState<
-    TextAreaFieldProps['isDisabled']
+    BaseTextAreaFieldProps['isDisabled']
   >(initialValues.isDisabled);
 
   const [isReadOnly, setIsReadOnly] = React.useState<
-    TextAreaFieldProps['isReadOnly']
+    BaseTextAreaFieldProps['isReadOnly']
   >(initialValues.isReadOnly);
 
   const [isRequired, setIsRequired] = React.useState<
-    TextAreaFieldProps['isRequired']
+    BaseTextAreaFieldProps['isRequired']
   >(initialValues.isRequired);
 
   const [labelHidden, setLabelHidden] = React.useState<
-    TextAreaFieldProps['labelHidden']
+    BaseTextAreaFieldProps['labelHidden']
   >(initialValues.labelHidden);
 
   const [placeholder, setPlaceholder] = React.useState<
-    TextAreaFieldProps['placeholder']
+    BaseTextAreaFieldProps['placeholder']
   >(initialValues.placeholder);
 
   const [maxLength, setMaxLength] = React.useState<
-    TextAreaFieldProps['maxLength']
+    BaseTextAreaFieldProps['maxLength']
   >(initialValues.maxLength);
 
-  const [name, setName] = React.useState<TextAreaFieldProps['name']>(
+  const [name, setName] = React.useState<BaseTextAreaFieldProps['name']>(
     initialValues.name
   );
 
-  const [rows, setRows] = React.useState<TextAreaFieldProps['rows']>(
+  const [rows, setRows] = React.useState<BaseTextAreaFieldProps['rows']>(
     initialValues.rows
   );
 
-  const [size, setSize] = React.useState<TextAreaFieldProps['size']>(
+  const [size, setSize] = React.useState<BaseTextAreaFieldProps['size']>(
     initialValues.size
   );
 
-  const [value, setValue] = React.useState<TextAreaFieldProps['value']>(
+  const [value, setValue] = React.useState<BaseTextAreaFieldProps['value']>(
     initialValues.value
   );
 
   const [variation, setVariation] = React.useState<
-    TextAreaFieldProps['variation']
+    BaseTextAreaFieldProps['variation']
   >(initialValues.variation);
 
   return {
