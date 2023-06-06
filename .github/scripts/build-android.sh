@@ -27,20 +27,7 @@ if [ $BUILD_TOOL == 'expo' ]; then
   log "command" "npm run android"
   # Run npm run android in the background
   npm run android &
-
-  # Store the process ID (PID) of the last background command
-  log "command" "PID=\$!"
-  PID=$!
-  echo $PID
-
-  # Wait for 1 seconds
-  SLEEP_TIME=1
-  log "command" "sleep $SLEEP_TIME"
-  sleep $SLEEP_TIME
-
-  # Terminate the command using the stored PID
-  log "command" "pkill -P $PID"
-  pkill -P $PID
+  npx wait-on -t 20000 tcp:19000
 else
   log "command" "cd android"
   cd android
