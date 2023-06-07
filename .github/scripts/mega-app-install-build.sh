@@ -48,16 +48,16 @@ else
         if [[ "$BUILD_TOOL" == 'angular-lib' ]]; then
             echo "cd projects/my-amplify-ui-lib/"
             cd projects/my-amplify-ui-lib/
-            echo "npm install --exact @aws-amplify/ui-angular@next-release aws-amplify"
-            npm install --exact @aws-amplify/ui-angular@next-release aws-amplify
+            echo "npm install --save-exact @aws-amplify/ui-angular@next-release aws-amplify"
+            npm install --save-exact @aws-amplify/ui-angular@next-release aws-amplify
             echo "cd -"
             cd -
             echo "ng build my-amplify-ui-lib"
             ng build my-amplify-ui-lib
         fi
 
-        echo "npm install --exact $DEPENDENCIES"
-        npm install --exact $DEPENDENCIES
+        echo "npm install --save-exact $DEPENDENCIES"
+        npm install --save-exact $DEPENDENCIES
 
         # To prevent error: Expected identifier but found "="
         # details: https://github.com/aws-amplify/amplify-js/issues/11455
