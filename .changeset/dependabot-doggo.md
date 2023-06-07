@@ -1,5 +1,7 @@
 ---
 "@aws-amplify/ui-react": major
+"@aws-amplify/ui-react-liveness": patch
+"@aws-amplify/ui-react-notifications": patch
 ---
 
 **Breaking Changes**: 
