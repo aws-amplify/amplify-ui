@@ -175,6 +175,13 @@ jobs:
           MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
           PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
           PKG_MANAGER: ${{ matrix.pkg-manager }}
+      - name: Upload failed app
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: package-lock-${{ env.MEGA_APP_NAME }}.json
+          path: build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}
+          retention-days: 1
 
   # log-failure-metric:
   #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
