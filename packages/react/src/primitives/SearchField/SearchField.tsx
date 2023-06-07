@@ -9,7 +9,12 @@ import { TextField } from '../TextField';
 import { useSearchField } from './useSearchField';
 import { ComponentClassNames } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
-import type { SearchFieldProps, Primitive } from '../types';
+import type {
+  BaseSearchFieldProps,
+  SearchFieldProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 
 const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   {
@@ -95,6 +100,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/searchfield)
  */
-export const SearchField = React.forwardRef(SearchFieldPrimitive);
+export const SearchField: ForwardRefPrimitive<BaseSearchFieldProps, 'input'> =
+  React.forwardRef(SearchFieldPrimitive);
 
 SearchField.displayName = 'SearchField';

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Sizes } from './base';
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type TableSize = Sizes;
 export type TableVariation = 'bordered' | 'striped';
 
-export interface TableProps extends ViewProps {
+export interface BaseTableProps extends BaseViewProps {
   /**
    * @description
    * Optional caption which serves as an accessible title/caption for
@@ -31,14 +31,18 @@ export interface TableProps extends ViewProps {
    */
   variation?: TableVariation;
 }
+export type TableProps<Element extends ElementType = 'table'> = PrimitiveProps<
+  BaseTableProps,
+  Element
+>;
 
-export interface TableBodyProps extends ViewProps {}
+export interface BaseTableBodyProps extends BaseViewProps {}
+export type TableBodyProps<Element extends ElementType = 'tbody'> =
+  PrimitiveProps<BaseTableBodyProps, Element>;
 
 export type TableCellElement = 'td' | 'th';
 
-export interface TableCellProps extends ViewProps {
-  as?: TableCellElement;
-
+export interface BaseTableCellProps extends BaseViewProps {
   /**
    * @description
    * Defines the number of columns spanned by a cell within a <table>
@@ -51,9 +55,19 @@ export interface TableCellProps extends ViewProps {
    */
   rowspan?: Pick<React.HTMLProps<HTMLTableCellElement>, 'rowSpan'>;
 }
+export type TableCellProps<Element extends ElementType = TableCellElement> =
+  PrimitiveProps<BaseTableCellProps, Element>;
 
-export interface TableFootProps extends ViewProps {}
+export interface BaseTableFootProps extends BaseViewProps {}
+export type TableFootProps<Element extends ElementType = 'tfoot'> =
+  PrimitiveProps<BaseTableFootProps, Element>;
 
-export interface TableHeadProps extends ViewProps {}
+export interface BaseTableHeadProps extends BaseViewProps {}
+export type TableHeadProps<Element extends ElementType = 'thead'> =
+  PrimitiveProps<BaseTableHeadProps, Element>;
 
-export interface TableRowProps extends ViewProps {}
+export interface BaseTableRowProps extends BaseViewProps {}
+export type TableRowProps<Element extends ElementType = 'tr'> = PrimitiveProps<
+  BaseTableRowProps,
+  Element
+>;

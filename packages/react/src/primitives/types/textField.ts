@@ -1,10 +1,13 @@
 import * as React from 'react';
 
 import { FlexContainerStyleProps } from './flex';
-import { InputProps } from './input';
-import { FieldProps } from './field';
+import { BaseInputProps } from './input';
+import { BaseFieldProps } from './field';
+import { PrimitiveProps, ElementType } from './view';
 
-export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
+export interface TextFieldOptions
+  extends BaseFieldProps,
+    FlexContainerStyleProps {
   /**
    * @description
    * Component(s) to show after input
@@ -33,7 +36,10 @@ export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
    * @description
    * Input field type
    */
-  type?: InputProps['type'];
+  type?: BaseInputProps['type'];
 }
 
-export interface TextFieldProps extends TextFieldOptions, InputProps {}
+export interface BaseTextFieldProps extends TextFieldOptions, BaseInputProps {}
+
+export type TextFieldProps<Element extends ElementType = 'input'> =
+  PrimitiveProps<BaseTextFieldProps, Element>;
