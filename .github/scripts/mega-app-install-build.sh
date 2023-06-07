@@ -72,15 +72,6 @@ else
             ng build my-amplify-ui-lib
         fi
 
-        echo "npm install $DEPENDENCIES"
-        npm install $DEPENDENCIES
-
-        echo "[DEBUG] npm ls @aws-amplify/ui-angular"
-        npm ls @aws-amplify/ui-angular
-
-        echo "[DEBUG] cat package.json"
-        cat package.json
-
         # To prevent error: Expected identifier but found "="
         # details: https://github.com/aws-amplify/amplify-js/issues/11455
         if [[ "$FRAMEWORK" == 'angular' ]]; then
@@ -97,14 +88,5 @@ else
             echo "[DEBUG] cat package.json"
             cat package.json
         fi
-
-        echo "[DEBUG] ls"
-        ls
-
-        echo "[DEBUG] pwd"
-        pwd
-
-        echo "npm run build"
-        npm run build
     fi
 fi
