@@ -6,14 +6,14 @@ import { Flex } from '../Flex';
 import { IconChevronLeft, IconChevronRight } from '../Icon/internal';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { PaginationItemProps } from '../types/pagination';
+import { BasePaginationItemProps } from '../types/pagination';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 
 export const PAGINATION_CURRENT_TEST_ID = 'current';
 export const PAGINATION_ELLIPSIS_TEST_ID = 'ellipsis';
 
-export const PaginationItem: React.FC<PaginationItemProps> = ({
+export const PaginationItem: React.FC<BasePaginationItemProps> = ({
   type,
   page,
   currentPage,

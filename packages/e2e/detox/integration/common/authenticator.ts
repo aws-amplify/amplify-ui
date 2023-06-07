@@ -87,6 +87,12 @@ When('I type my password', async () => {
   );
 });
 
+Then('I slowly type an invalid wrong complexity new password', async () => {
+  await element(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`)
+  ).typeText('inv');
+});
+
 When('I type an invalid wrong complexity password', async () => {
   await typeInInputField(
     by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-password`),

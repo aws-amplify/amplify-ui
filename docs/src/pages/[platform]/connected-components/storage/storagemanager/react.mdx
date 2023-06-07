@@ -19,6 +19,7 @@ import {
   StorageManagerMetadataExample,
   StorageManagerResumableExample,
   StorageManagerThemeExample,
+  StorageManagerHandleExample,
 } from './examples'
 
 <DefaultStorageManagerExample />
@@ -44,7 +45,7 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 </ExampleCode>
 
-At a minimum you must include the `accessLevel`, `acceptedFileTypes`, and `maxFileCount` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'public' | 'private' | 'protected'`.
+At a minimum you must include the `accessLevel` and `maxFileCount` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'public' | 'private' | 'protected'`.
 
 <Example>
   <DefaultStorageManagerExample />
@@ -197,6 +198,17 @@ _You can even use a completely different UI kit like MUI, Chakra, or your own de
   </ExpanderItem>
 </Expander>
 
+### Imperative handles
+
+The `files` state is managed within the `StorageManager` component itself. To allow for clearing the internal `files` state, `StorageManager` exposes a custom ref handle to the parent component with a `clearFiles` method.
+
+<Example>
+  <StorageManagerHandleExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerHandleExample.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ### Theming
 

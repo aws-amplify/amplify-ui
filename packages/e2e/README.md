@@ -36,7 +36,10 @@ To run existing tests on `react-native` framework:
 Troubleshooting
 
 If the emulator fails to connect to Metro server, run:
-`adb reverse tcp:8081 tcp:8081`
+
+```bash
+adb reverse tcp:8081 tcp:8081
+```
 
 ## Contributing
 

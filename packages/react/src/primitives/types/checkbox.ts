@@ -1,10 +1,11 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
-import { FlexProps } from './flex';
-import { InputProps } from './input';
+import { BaseFlexProps } from './flex';
+import { BaseInputProps } from './input';
 import { FieldProps, LabelPositions } from './field';
 import { BaseStyleProps } from './style';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface CheckboxProps extends FlexProps, InputProps {
+export interface BaseCheckboxProps extends BaseFlexProps, BaseInputProps {
   /**
    * @description
    * Sets the label text
@@ -50,6 +51,9 @@ export interface CheckboxProps extends FlexProps, InputProps {
    */
   inputStyles?: BaseStyleProps;
 }
+
+export type CheckboxProps<Element extends ElementType = 'input'> =
+  PrimitiveProps<BaseCheckboxProps, Element>;
 
 export interface UseCheckbox {
   dataChecked?: boolean;

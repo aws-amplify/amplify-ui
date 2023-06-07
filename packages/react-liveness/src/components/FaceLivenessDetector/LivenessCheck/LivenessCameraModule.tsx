@@ -100,7 +100,7 @@ export const LivenessCameraModule = (
   );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const freshnessColorRef = useRef<HTMLDivElement | null>(null);
+  const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);

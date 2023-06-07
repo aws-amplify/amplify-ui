@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { FlexProps } from './flex';
-import { GridProps } from './grid';
+import { BaseFlexProps } from './flex';
+import { BaseGridProps } from './grid';
 import { BaseStyleProps } from './style';
+import { ElementType, PrimitiveProps, PrimitivePropsWithAs } from './view';
 
 export type CollectionType = 'list' | 'grid' | 'table';
 
@@ -75,11 +76,21 @@ export interface CollectionBaseProps<Item> {
 }
 
 // @TODO Add TableCollectionProps
-export type ListCollectionProps<Item> = FlexProps & CollectionBaseProps<Item>;
-export type GridCollectionProps<Item> = GridProps & CollectionBaseProps<Item>;
+export type ListCollectionProps<Item> = BaseFlexProps &
+  CollectionBaseProps<Item>;
+export type GridCollectionProps<Item> = BaseGridProps &
+  CollectionBaseProps<Item>;
 
-export type CollectionProps<Item> = CollectionWrapperProps &
+export type BaseCollectionProps<
+  Item,
+  Element extends ElementType
+> = PrimitivePropsWithAs<CollectionWrapperProps, Element> &
   (
     | ({ type: 'list' } & ListCollectionProps<Item>)
     | ({ type: 'grid' } & GridCollectionProps<Item>)
   );
+
+export type CollectionProps<
+  Item,
+  Element extends ElementType = 'div'
+> = PrimitiveProps<BaseCollectionProps<Item, Element>, Element>;

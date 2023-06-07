@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { ButtonProps } from './button';
-import { TextFieldProps } from './textField';
+import { BaseButtonProps } from './button';
+import { BaseTextFieldProps } from './textField';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface PasswordFieldProps extends TextFieldProps {
+export interface BasePasswordFieldProps extends BaseTextFieldProps {
   /**
    * @description
    * For password fields, will hide the "show password" button
@@ -59,9 +60,12 @@ export interface PasswordFieldProps extends TextFieldProps {
   showPasswordButtonRef?: React.Ref<HTMLButtonElement>;
 }
 
+export type PasswordFieldProps<Element extends ElementType = 'input'> =
+  PrimitiveProps<BasePasswordFieldProps, Element>;
+
 export type PasswordFieldType = 'password' | 'text';
 
-export interface ShowPasswordButtonProps extends ButtonProps {
+export interface BaseShowPasswordButtonProps extends BaseButtonProps {
   /**
    * @description
    * Determines whether the input is hidden or displayed. Options include 'password' or 'text'
@@ -102,3 +106,6 @@ export interface ShowPasswordButtonProps extends ButtonProps {
    */
   showPasswordButtonLabel?: string;
 }
+
+export type ShowPasswordButtonProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseShowPasswordButtonProps, Element>;
