@@ -181,6 +181,7 @@ jobs:
         with:
           name: package-lock-${{ env.MEGA_APP_NAME }}.json
           path: build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}/package-lock.json
+          retention-days: 1
 
   # log-failure-metric:
   #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
