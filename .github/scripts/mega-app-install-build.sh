@@ -95,6 +95,9 @@ else
         echo "[DEBUG] ls"
         ls
 
+        echo "[DEBUG] pwd"
+        pwd
+
         echo "npm run build"
         npm run build
     fi
