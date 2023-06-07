@@ -177,7 +177,7 @@ jobs:
           PKG_MANAGER: ${{ matrix.pkg-manager }}
       - name: clean up folders
         if: ${{ failure() }}
-        run: rm -rf build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}/node_modules build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}/dist build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}/dist/.angular
+        run: rm -rf build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}/node_modules build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}/**/node_modules build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}/dist build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}/dist/.angular
       - name: Upload failed app
         if: ${{ failure() }}
         uses: actions/upload-artifact@v3
