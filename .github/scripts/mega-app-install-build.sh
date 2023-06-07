@@ -50,24 +50,8 @@ else
             cd projects/my-amplify-ui-lib/
             echo "npm install --save-peer @aws-amplify/ui-angular@next-release aws-amplify"
             npm install --save-peer @aws-amplify/ui-angular@next-release aws-amplify
-
-            echo "[DEBUG] npm ls @aws-amplify/ui-angular"
-            npm ls @aws-amplify/ui-angular
-
-            echo "[DEBUG] cat package.json"
-            cat package.json
-
             echo "cd -"
             cd -
-            # echo "npm install $DEPENDENCIES"
-            # npm install $DEPENDENCIES
-
-            # echo "[DEBUG] npm ls @aws-amplify/ui-angular"
-            # npm ls @aws-amplify/ui-angular
-
-            # echo "[DEBUG] cat package.json"
-            # cat package.json
-
             echo "ng build my-amplify-ui-lib"
             ng build my-amplify-ui-lib
         fi
@@ -81,12 +65,6 @@ else
             npm cache clean --force
             echo "npm install --force" # To prevent error: ERESOLVE unable to resolve dependency tree https://stackoverflow.com/questions/71582397/eresolve-unable-to-resolve-dependency-tree-while-installing-a-pacakge
             npm install --force
-
-            echo "[DEBUG] npm ls @aws-amplify/ui-angular"
-            npm ls @aws-amplify/ui-angular
-
-            echo "[DEBUG] cat package.json"
-            cat package.json
         fi
     fi
 fi
