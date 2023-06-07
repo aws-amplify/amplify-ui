@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
-import { ExpanderItemProps } from '../types/expander';
+import { BaseExpanderItemProps, ExpanderItemProps } from '../types/expander';
 import { IconExpandMore } from '../Icon/internal';
-import { Primitive } from '../types/view';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
@@ -69,6 +69,7 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
   );
 };
 
-export const ExpanderItem = React.forwardRef(ExpanderItemPrimitive);
+export const ExpanderItem: ForwardRefPrimitive<BaseExpanderItemProps, 'div'> =
+  React.forwardRef(ExpanderItemPrimitive);
 
 ExpanderItem.displayName = 'ExpanderItem';
