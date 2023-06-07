@@ -62,6 +62,9 @@ else
         # To prevent error: Expected identifier but found "="
         # details: https://github.com/aws-amplify/amplify-js/issues/11455
         if [[ "$FRAMEWORK" == 'angular' ]]; then
+            # angular shouldn't be installed
+            echo "npm remove angular"
+            npm remove angular
             echo "rm -rf node_modules package-lock.json"
             rm -rf node_modules package-lock.json
             echo "npm install --force" # To prevent error: ERESOLVE unable to resolve dependency tree https://stackoverflow.com/questions/71582397/eresolve-unable-to-resolve-dependency-tree-while-installing-a-pacakge
