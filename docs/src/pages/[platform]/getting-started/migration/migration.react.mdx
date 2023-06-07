@@ -33,8 +33,25 @@ Install the 1.x version of the `@aws-amplify/ui-react-geo` library and update yo
 Styles supporting Amplify Geo UI components are moved to `@aws-amplify/ui-react-geo` library and are not available through `@aws-amplify/ui-react` library anymore.
 When using components like `MapView` or `LocationSearch` from `@aws-amplify/ui-react-geo` library, import the styles from the same library as well.
 
-```
+```tsx
 import '@aws-amplify/ui-react-geo/styles.css';
+```
+
+For example, you can import the MapView component with related styles from `@aws-amplify/ui-react-geo` library.
+
+```tsx
+import { Amplify } from 'aws-amplify';
+import { MapView } from '@aws-amplify/ui-react-geo';
+
+import '@aws-amplify/ui-react-geo/styles.css';
+
+import awsExports from './aws-exports';
+
+Amplify.configure(awsExports);
+
+export default function BasicMap() {
+  return <MapView />;
+}
 ```
 
 #### 2. `@aws-amplify/ui-react@5.x` drops Amplify Notifications components. They are moved to a separate new package `@aws-amplify/ui-react-notifications`.
@@ -48,6 +65,35 @@ Install the 1.x version of the `@aws-amplify/ui-react-notifications` library and
 <TerminalCommand command="yarn add @aws-amplify/ui-react-notifications@1.x" />
 </TabItem>
 </Tabs>
+
+For example, you can import the In-App messaging components like InAppMessageDisplay and InAppMessagingProvider from `@aws-amplify/ui-react-notifications` library.
+
+```tsx
+import { Text } from '@aws-amplify/ui-react';
+import {
+  InAppMessageDisplay
+  InAppMessagingProvider,
+} from '@aws-amplify/ui-react-notifications';
+
+import '@aws-amplify/ui-react/styles.css';
+
+import awsExports from './aws-exports';
+
+Amplify.configure(awsExports);
+
+const App = () => {
+  useEffect(() => {
+    InAppMessaging.syncMessages();
+  }, []);
+
+  return (
+    <InAppMessagingProvider>
+      <InAppMessageDisplay />
+      <Text>In-App Messaging Example</Text>
+    </InAppMessagingProvider>
+  );
+};
+```
 
 #### 3. `@aws-amplify/ui-react@5.x` removes the `to` prop from the `Link` component.
 
