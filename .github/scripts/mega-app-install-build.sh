@@ -51,19 +51,22 @@ else
             echo "npm install --save-peer @aws-amplify/ui-angular@next-release aws-amplify"
             npm install --save-peer @aws-amplify/ui-angular@next-release aws-amplify
 
-            echo "[DEBUG] cat package.json"
-            cat package.json
-
-            echo "cd -"
-            cd -
-            echo "npm install $DEPENDENCIES"
-            npm install $DEPENDENCIES
-
             echo "[DEBUG] npm ls @aws-amplify/ui-angular"
             npm ls @aws-amplify/ui-angular
 
             echo "[DEBUG] cat package.json"
             cat package.json
+
+            echo "cd -"
+            cd -
+            # echo "npm install $DEPENDENCIES"
+            # npm install $DEPENDENCIES
+
+            # echo "[DEBUG] npm ls @aws-amplify/ui-angular"
+            # npm ls @aws-amplify/ui-angular
+
+            # echo "[DEBUG] cat package.json"
+            # cat package.json
 
             echo "ng build my-amplify-ui-lib"
             ng build my-amplify-ui-lib
