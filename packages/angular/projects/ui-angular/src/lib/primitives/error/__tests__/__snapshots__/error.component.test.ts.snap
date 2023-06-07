@@ -5,15 +5,16 @@ exports[`amplify-error renders as expected 1`] = `
   id="root0"
 >
   <amplify-error>
+    
     <div
       class="amplify-flex amplify-alert amplify-alert--error"
       data-variation="error"
       role="alert"
-      style="align-items: center; justify-content: space-between;"
+      style="align-items: center; justify-content: space-between"
     >
       <div
         class="amplify-flex"
-        style="align-items: center;"
+        style="align-items: center"
       >
         <svg
           aria-hidden="true"
@@ -54,7 +55,6 @@ exports[`amplify-error renders as expected 1`] = `
         </svg>
       </button>
     </div>
-    
   </amplify-error>
 </div>
 `;
