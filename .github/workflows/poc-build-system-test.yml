@@ -180,7 +180,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: package-lock-${{ env.MEGA_APP_NAME }}.json
-          path: ${{ env.MEGA_APP_NAME }}/package-lock.json
+          path: build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}/package-lock.json
 
   # log-failure-metric:
   #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
