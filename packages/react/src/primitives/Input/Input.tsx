@@ -3,7 +3,12 @@ import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
-import { InputProps, Primitive } from '../types';
+import {
+  BaseInputProps,
+  InputProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { View } from '../View';
 
 const InputPrimitive: Primitive<InputProps, 'input'> = (
@@ -76,6 +81,7 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
   );
 };
 
-export const Input = React.forwardRef(InputPrimitive);
+export const Input: ForwardRefPrimitive<BaseInputProps, 'input'> =
+  React.forwardRef(InputPrimitive);
 
 Input.displayName = 'Input';

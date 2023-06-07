@@ -34,6 +34,12 @@ export function storageManagerStateReducer(
         files: newFiles,
       };
     }
+    case StorageManagerActionTypes.CLEAR_FILES: {
+      return {
+        ...state,
+        files: [],
+      };
+    }
     case StorageManagerActionTypes.SET_STATUS_UPLOADING: {
       const { id, uploadTask } = action;
       const { files } = state;

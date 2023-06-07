@@ -1,6 +1,113 @@
 import { Alert,  Tabs, TabItem } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 
+## 4.x to 5.x
+### Installation
+Install the 5.x version of the `@aws-amplify/ui-react` library.
+
+<Tabs>
+<TabItem title="npm">
+<TerminalCommand command="npm install @aws-amplify/ui-react@5.x" />
+</TabItem>
+<TabItem title="yarn">
+<TerminalCommand command="yarn add @aws-amplify/ui-react@5.x" />
+</TabItem>
+</Tabs>
+
+### Update and usage
+
+`@aws-amplify/ui-react@5.x` introduces the following breaking changes:
+
+#### 1. `@aws-amplify/ui-react@5.x` drops Amplify Geo components. They are moved to a separate new package `@aws-amplify/ui-react-geo`.
+Install the 1.x version of the `@aws-amplify/ui-react-geo` library and update your existing imports accordingly.
+
+<Tabs>
+<TabItem title="npm">
+<TerminalCommand command="npm install @aws-amplify/ui-react-geo@1.x" />
+</TabItem>
+<TabItem title="yarn">
+<TerminalCommand command="yarn add @aws-amplify/ui-react-geo@1.x" />
+</TabItem>
+</Tabs>
+
+Styles supporting Amplify Geo UI components are moved to `@aws-amplify/ui-react-geo` library and are not available through `@aws-amplify/ui-react` library anymore.
+When using components like `MapView` or `LocationSearch` from `@aws-amplify/ui-react-geo` library, import the styles from the same library as well.
+
+```tsx
+import '@aws-amplify/ui-react-geo/styles.css';
+```
+
+For example, you can import the MapView component with related styles from `@aws-amplify/ui-react-geo` library.
+
+```tsx
+import { Amplify } from 'aws-amplify';
+import { MapView } from '@aws-amplify/ui-react-geo';
+
+import '@aws-amplify/ui-react-geo/styles.css';
+
+import awsExports from './aws-exports';
+
+Amplify.configure(awsExports);
+
+export default function BasicMap() {
+  return <MapView />;
+}
+```
+
+#### 2. `@aws-amplify/ui-react@5.x` drops Amplify Notifications components. They are moved to a separate new package `@aws-amplify/ui-react-notifications`.
+Install the 1.x version of the `@aws-amplify/ui-react-notifications` library and update your existing imports accordingly.
+
+<Tabs>
+<TabItem title="npm">
+<TerminalCommand command="npm install @aws-amplify/ui-react-notifications@1.x" />
+</TabItem>
+<TabItem title="yarn">
+<TerminalCommand command="yarn add @aws-amplify/ui-react-notifications@1.x" />
+</TabItem>
+</Tabs>
+
+For example, you can import the In-App messaging components like InAppMessageDisplay and InAppMessagingProvider from `@aws-amplify/ui-react-notifications` library.
+
+```tsx
+import { Text } from '@aws-amplify/ui-react';
+import {
+  InAppMessageDisplay
+  InAppMessagingProvider,
+} from '@aws-amplify/ui-react-notifications';
+
+import '@aws-amplify/ui-react/styles.css';
+
+import awsExports from './aws-exports';
+
+Amplify.configure(awsExports);
+
+const App = () => {
+  useEffect(() => {
+    InAppMessaging.syncMessages();
+  }, []);
+
+  return (
+    <InAppMessagingProvider>
+      <InAppMessageDisplay />
+      <Text>In-App Messaging Example</Text>
+    </InAppMessagingProvider>
+  );
+};
+```
+
+#### 3. `@aws-amplify/ui-react@5.x` removes the `to` prop from the `Link` component.
+
+If using a `Link` component with the `to` prop, remove `to` and instead extend from the underlying rendered third-party `Link`. For example, using React Router `Link` with the Amplify UI `Link` component:
+
+```tsx
+import { Link } from '@aws-amplify/ui-react';
+import { Link as ReactRouterLink } from 'react-router-dom';
+
+<Link as={ReactRouterLink} to="/">Home</Link>
+```
+
+#### 4. `@aws-amplify/ui-react@5.x` updates component types to include the underlying rendered HTML element's attributes and strictly types the `View` component.
+
 ## 3.x to 4.x
 ### Installation
 Install the 4.x version of the `@aws-amplify/ui-react` library and the 5.x version of the `aws-amplify` library.

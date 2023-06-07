@@ -1,6 +1,11 @@
 import * as React from 'react';
 
-import { FieldClearButtonProps, Primitive } from '../types';
+import {
+  BaseFieldClearButtonProps,
+  FieldClearButtonProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { IconClose } from '../Icon/internal';
 import { ComponentText } from '../shared/constants';
@@ -16,6 +21,9 @@ const FieldClearButtonPrimitive: Primitive<FieldClearButtonProps, 'button'> = (
   </FieldGroupIconButton>
 );
 
-export const FieldClearButton = React.forwardRef(FieldClearButtonPrimitive);
+export const FieldClearButton: ForwardRefPrimitive<
+  BaseFieldClearButtonProps,
+  'button'
+> = React.forwardRef(FieldClearButtonPrimitive);
 
 FieldClearButton.displayName = 'FieldClearButton';
