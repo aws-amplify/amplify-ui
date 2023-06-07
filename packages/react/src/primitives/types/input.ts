@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Sizes } from './base';
 import { FieldVariations } from './field';
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type EnterKeyHint =
   | 'enter'
@@ -24,7 +24,7 @@ export type InputMode =
 
 export type InputSizes = Sizes;
 
-export interface InputProps extends ViewProps {
+export interface BaseInputProps extends BaseViewProps {
   /**
    * @description
    * Specifies permissions for browser UA to autocomplete field.
@@ -134,3 +134,8 @@ export interface InputProps extends ViewProps {
    */
   variation?: FieldVariations;
 }
+
+export type InputProps<Element extends ElementType = 'input'> = PrimitiveProps<
+  BaseInputProps,
+  Element
+>;

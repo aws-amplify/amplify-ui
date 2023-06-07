@@ -2,7 +2,7 @@ import { Property } from 'csstype';
 
 import { Sizes } from './base';
 import { FieldVariations } from './field';
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface TextAreaStyleProps {
   /**
@@ -12,7 +12,7 @@ export interface TextAreaStyleProps {
   resize?: Property.Resize;
 }
 
-export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
+export interface BaseTextAreaProps extends TextAreaStyleProps, BaseViewProps {
   /**
    * @description
    * Specifies permissions for browser UA to autocomplete field.
@@ -101,3 +101,5 @@ export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
    */
   variation?: FieldVariations;
 }
+export type TextAreaProps<Element extends ElementType = 'textarea'> =
+  PrimitiveProps<BaseTextAreaProps, Element>;

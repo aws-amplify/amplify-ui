@@ -2,7 +2,13 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { Primitive, TableCellElement, TableCellProps } from '../types';
+import {
+  ForwardRefPrimitive,
+  Primitive,
+  TableCellElement,
+  BaseTableCellProps,
+  TableCellProps,
+} from '../types';
 import { View } from '../View';
 
 const TableCellPrimitive: Primitive<TableCellProps, TableCellElement> = (
@@ -24,6 +30,9 @@ const TableCellPrimitive: Primitive<TableCellProps, TableCellElement> = (
   </View>
 );
 
-export const TableCell = React.forwardRef(TableCellPrimitive);
+export const TableCell: ForwardRefPrimitive<
+  BaseTableCellProps,
+  TableCellElement
+> = React.forwardRef(TableCellPrimitive);
 
 TableCell.displayName = 'TableCell';
