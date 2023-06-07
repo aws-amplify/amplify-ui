@@ -92,6 +92,9 @@ else
             cat package.json
         fi
 
+        echo "[DEBUG] ls"
+        ls
+
         echo "npm run build"
         npm run build
     fi
