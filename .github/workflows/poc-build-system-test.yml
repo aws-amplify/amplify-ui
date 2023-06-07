@@ -179,7 +179,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
-          name: package-lock-${{ env.MEGA_APP_NAME }}.json
+          name: ${{ env.MEGA_APP_NAME }}
           path: build-system-tests/mega-apps/${{ env.MEGA_APP_NAME }}
           retention-days: 1
 
