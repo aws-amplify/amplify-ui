@@ -9,14 +9,15 @@ exports[`amplify-tabs renders as expected 1`] = `
       aria-orientation="horizontal"
       data-orientation="horizontal"
       role="tablist"
-      style="outline: none;"
+      style="outline: none"
       tabindex="0"
     >
       <div
         class="amplify-flex amplify-tabs"
         data-indicator-position="top"
-        style="gap: 0px; justify-content: center;"
+        style="gap: 0px; justify-content: center"
       >
+        
         <div
           aria-controls="radix-id-randomstring0-1-content-0"
           aria-selected="true"
@@ -43,7 +44,6 @@ exports[`amplify-tabs renders as expected 1`] = `
         >
            Second Tab 
         </div>
-        
       </div>
     </div>
     <amplify-tab-item
@@ -57,6 +57,7 @@ exports[`amplify-tabs renders as expected 1`] = `
         id="radix-id-randomstring0-1-content-0"
         role="tabpanel"
       >
+        
         
       </div>
     </amplify-tab-item>

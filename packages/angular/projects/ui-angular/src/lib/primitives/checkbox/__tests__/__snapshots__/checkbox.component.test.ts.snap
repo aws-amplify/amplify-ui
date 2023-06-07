@@ -15,7 +15,11 @@ exports[`amplify-checkbox renders as expected 1`] = `
       >
         <input
           aria-invalid="false"
-          class="amplify-input amplify-field-group__control amplify-checkbox__input"
+          class="
+          amplify-input
+          amplify-field-group__control
+          amplify-checkbox__input
+        "
           name="checkbox"
           type="checkbox"
           value="value"

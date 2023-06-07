@@ -5,7 +5,7 @@ import { TabItem, Tabs } from '@aws-amplify/ui-react';
 Angular 6+ does not include shims for `global` or `process`. Follow the instructions below to resolve `global` or `process` reference errors.
 
 <Tabs>
-<TabItem title="Angular 15+">
+<TabItem title="Angular 15">
 
 First, create `src/polyfills.ts` and add the following:
 
@@ -25,7 +25,7 @@ Then, open your `angular.json` file, and add `src/polyfills.ts` to `polyfills` a
 ],
 ```
 
-And finally, make sure to add `src/polyfills` to `files` in your `tsconfig.app.json`:
+And finally, make sure to add `src/polyfills` to `files` in your `tsconfig`:
 
 ```json{4}
 {

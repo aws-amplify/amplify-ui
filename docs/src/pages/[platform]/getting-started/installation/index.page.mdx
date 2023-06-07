@@ -27,10 +27,6 @@ export async function getStaticProps() {
   {({ platform }) => import(`./dependencies.${platform}.mdx`)}
 </Fragment>
 
-<Fragment platforms={['angular']}>
-  {({ platform }) => import(`./shims.${platform}.mdx`)}
-</Fragment>
-
 <Fragment platforms={['web']} useCommonWebContent>
   {({ platform }) => import(`./styles.${platform}.mdx`)}
 </Fragment>
