@@ -18,7 +18,7 @@ const ImagePrimitive: Primitive<ImageProps, 'img'> = (
     as="img"
     ref={ref}
     className={classNames(ComponentClassNames.Image, className)}
-    loading={isLazy ? 'lazy' : 'eager'}
+    loading={isLazy ? 'lazy' : undefined}
     {...rest}
   />
 );
