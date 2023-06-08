@@ -62,8 +62,12 @@ export const useAuthenticator = createSharedComposable(() => {
     state,
   }) as any;
 
-  // note that watchEffect runs immediately, so `useAuthenticatorValue` is
-  // guaranteed to have facade values by the time `useAuthenticator` returns.
+  /*
+   * Note that watchEffect runs immediately, so `useAuthenticatorValue` is
+   * guaranteed to have facade values by the time `useAuthenticator` returns.
+   *
+   * https://vuejs.org/api/reactivity-core.html#watcheffect
+   */
   watchEffect(() => {
     const facade = getServiceFacade({
       send,
