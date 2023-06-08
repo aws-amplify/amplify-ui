@@ -4,10 +4,16 @@ echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
 cd build-system-tests/mega-apps/${MEGA_APP_NAME}
 
 if [ "$FRAMEWORK" == 'react' ]; then
-    echo "\$DEPENDENCIES='\$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications'"
+    # add react-dom
+    echo "DEPENDENCIES='\$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications'"
     DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications"
-    echo "Dependencies to be installed: $DEPENDENCIES"
+elif [ "$FRAMEWORK" == 'angular' ]; then
+    # remove angular
+    echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify""
+    DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify"
 fi
+
+echo "Dependencies to be installed: $DEPENDENCIES"
 
 if [ "$PKG_MANAGER" == 'yarn' ]; then
     echo "yarn version"
@@ -56,20 +62,16 @@ else
             npm install $DEPENDENCIES
             echo "ng build my-amplify-ui-lib"
             ng build my-amplify-ui-lib
+        else
+            echo "npm install $DEPENDENCIES"
+            npm install $DEPENDENCIES
         fi
 
-        echo "npm install $DEPENDENCIES"
-        npm install $DEPENDENCIES
-
-        # To prevent error: Expected identifier but found "="
-        # details: https://github.com/aws-amplify/amplify-js/issues/11455
         if [[ "$FRAMEWORK" == 'angular' ]]; then
             echo "rm -rf node_modules package-lock.json"
-            rm -rf node_modules package-lock.json
-            echo "npm cache clean --force"
-            npm cache clean --force
-            echo "npm install --force" # To prevent error: ERESOLVE unable to resolve dependency tree https://stackoverflow.com/questions/71582397/eresolve-unable-to-resolve-dependency-tree-while-installing-a-pacakge
-            npm install --force
+            rm -rf node_modules package-lock.json # To prevent Expected identifier but found "=", unable to publish app https://github.com/aws-amplify/amplify-js/issues/11455
+            echo "npm install"
+            npm install
         fi
 
         echo "npm run build"
