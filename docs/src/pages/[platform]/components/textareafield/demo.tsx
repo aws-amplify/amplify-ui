@@ -4,7 +4,7 @@ import {
   TextAreaField,
   Flex,
   FlexContainerStyleProps,
-  TextAreaFieldProps,
+  BaseTextAreaFieldProps,
 } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
@@ -168,13 +168,13 @@ export const TextAreaFieldDemo = () => {
       <TextAreaField
         alignContent={alignContent as FlexContainerStyleProps['alignContent']}
         alignItems={alignItems as FlexContainerStyleProps['alignItems']}
-        autoComplete={autoComplete as TextAreaFieldProps['autoComplete']}
+        autoComplete={autoComplete as BaseTextAreaFieldProps['autoComplete']}
         descriptiveText={
-          descriptiveText as TextAreaFieldProps['descriptiveText']
+          descriptiveText as BaseTextAreaFieldProps['descriptiveText']
         }
-        defaultValue={defaultValue as TextAreaFieldProps['defaultValue']}
+        defaultValue={defaultValue as BaseTextAreaFieldProps['defaultValue']}
         direction={direction as FlexContainerStyleProps['direction']}
-        errorMessage={errorMessage as TextAreaFieldProps['errorMessage']}
+        errorMessage={errorMessage as BaseTextAreaFieldProps['errorMessage']}
         gap={gap as FlexContainerStyleProps['gap']}
         hasError={hasError as unknown as boolean}
         isDisabled={isDisabled as unknown as boolean}
@@ -183,15 +183,15 @@ export const TextAreaFieldDemo = () => {
         justifyContent={
           justifyContent as FlexContainerStyleProps['justifyContent']
         }
-        label={label as TextAreaFieldProps['label']}
+        label={label as BaseTextAreaFieldProps['label']}
         labelHidden={labelHidden as unknown as boolean}
-        maxLength={maxLength as TextAreaFieldProps['maxLength']}
-        name={name as TextAreaFieldProps['name']}
-        placeholder={placeholder as TextAreaFieldProps['placeholder']}
-        rows={rows as TextAreaFieldProps['rows']}
-        size={size as TextAreaFieldProps['size']}
-        value={value as TextAreaFieldProps['value']}
-        variation={variation as TextAreaFieldProps['variation']}
+        maxLength={maxLength as BaseTextAreaFieldProps['maxLength']}
+        name={name as BaseTextAreaFieldProps['name']}
+        placeholder={placeholder as BaseTextAreaFieldProps['placeholder']}
+        rows={rows as BaseTextAreaFieldProps['rows']}
+        size={size as BaseTextAreaFieldProps['size']}
+        value={value as BaseTextAreaFieldProps['value']}
+        variation={variation as BaseTextAreaFieldProps['variation']}
         wrap={wrap as FlexContainerStyleProps['wrap']}
         onChange={(e) => console.info(e.currentTarget.value)}
         onInput={(e) => console.info('input fired:', e.currentTarget.value)}

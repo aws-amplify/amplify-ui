@@ -8,7 +8,7 @@ import { ComponentClassNames } from '../../shared/constants';
 
 import { PhoneNumberField } from '../PhoneNumberField';
 
-const onSubmit = jest.fn((e: React.FormEvent<HTMLDivElement>) => {
+const onSubmit = jest.fn((e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 });
 

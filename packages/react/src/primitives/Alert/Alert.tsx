@@ -4,14 +4,19 @@ import { isFunction } from '@aws-amplify/ui';
 
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { classNameModifier } from '../shared/utils';
-import { AlertProps, Primitive } from '../types';
+import {
+  AlertProps,
+  BaseAlertProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon/internal';
 
-const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
+const AlertPrimitive: Primitive<AlertProps, 'div'> = (
   {
     buttonRef,
     children,
@@ -73,6 +78,7 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/alert)
  */
-export const Alert = React.forwardRef(AlertPrimitive);
+export const Alert: ForwardRefPrimitive<BaseAlertProps, 'div'> =
+  React.forwardRef(AlertPrimitive);
 
 Alert.displayName = 'Alert';

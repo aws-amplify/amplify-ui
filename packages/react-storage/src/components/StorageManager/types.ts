@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 
 import {
@@ -32,12 +34,23 @@ export type StorageFiles = StorageFile[];
 
 export type DefaultFile = Pick<StorageFile, 'key'>;
 
+export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>> &
+  Record<string, any>;
+
+export type ProcessFile = (
+  params: ProcessFileParams
+) => Promise<ProcessFileParams> | ProcessFileParams;
+
+export interface StorageManagerHandle {
+  clearFiles: () => void;
+}
+
 export interface StorageManagerProps {
   /**
-   * List of accepted File types
+   * List of accepted File types, values of `['*']` or undefined allow any files
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
    */
-  acceptedFileTypes: string[];
+  acceptedFileTypes?: string[];
   /**
    * Access level for file uploads
    * @see https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/
@@ -92,9 +105,7 @@ export interface StorageManagerProps {
   /**
    * Process file before upload
    */
-  processFile?: (
-    storageFile: Required<Pick<StorageFile, 'file' | 'key'>>
-  ) => Required<Pick<StorageFile, 'file' | 'key'>>;
+  processFile?: ProcessFile;
   /**
    * Determines if thumbnails show for image files
    */

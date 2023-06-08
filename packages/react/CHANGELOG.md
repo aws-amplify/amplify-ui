@@ -1,5 +1,84 @@
 # @aws-amplify/ui-react
 
+## 5.0.0
+
+### Major Changes
+
+- [#4048](https://github.com/aws-amplify/amplify-ui/pull/4048) [`c19278b0b`](https://github.com/aws-amplify/amplify-ui/commit/c19278b0bee7c9b499bd619c8ee0f458cbb5da83) Thanks [@calebpollman](https://github.com/calebpollman)! - **Breaking Changes**:
+
+  - `@aws-amplify/ui-react@5.x` removes the `to` prop on `Link` component and instead have it extended from the underlying rendered third-party `Link` if it contains a `to` prop ([PR](https://github.com/aws-amplify/amplify-ui/pull/4011)).
+
+  - `@aws-amplify/ui-react@5.x` strictly types the `View` component and updates all component types to include the underlying rendered HTML element's attributes ([PR](https://github.com/aws-amplify/amplify-ui/pull/4011)).
+
+## 4.6.4
+
+### Patch Changes
+
+- [#3901](https://github.com/aws-amplify/amplify-ui/pull/3901) [`7f59b3c4d`](https://github.com/aws-amplify/amplify-ui/commit/7f59b3c4dd27205a35c1b07ddc0f06a0db9de776) Thanks [@sreeramsama](https://github.com/sreeramsama)! - - Adds new `ui-react-core-notifications` package for utilities related to the Notifications category, and new `ui-react-notifications` package for components like InAppMessaging. Also sets deprecation messages for `InAppMessagingDisplay`, `InAppMessagingProvider` and `useInAppMessaging` in `ui-react` package as they will be moved out in a future breaking change release.
+  - Adds new `ui-react-geo` package for Geo related components like `MapView` and `LocationSearch`. They will be moved out from `ui-react` in a future breaking change release.
+- Updated dependencies [[`7f59b3c4d`](https://github.com/aws-amplify/amplify-ui/commit/7f59b3c4dd27205a35c1b07ddc0f06a0db9de776), [`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd)]:
+  - @aws-amplify/ui-react-core-notifications@1.0.0
+  - @aws-amplify/ui-react-core@2.1.23
+  - @aws-amplify/ui@5.6.4
+
+## 4.6.3
+
+### Patch Changes
+
+- Updated dependencies [[`62425139f`](https://github.com/aws-amplify/amplify-ui/commit/62425139fb5e41a3b36b46aac1d31b965a2739fc)]:
+  - @aws-amplify/ui@5.6.3
+  - @aws-amplify/ui-react-core@2.1.22
+
+## 4.6.2
+
+### Patch Changes
+
+- [#3806](https://github.com/aws-amplify/amplify-ui/pull/3806) [`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui): add event callbacks to defaultAuthHubHandler
+
+- [#3836](https://github.com/aws-amplify/amplify-ui/pull/3836) [`82f3968b7`](https://github.com/aws-amplify/amplify-ui/commit/82f3968b7f750f069bda4ad7bfa9c34d7ee6091f) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add `types` field to `exports` in `package.json` for `@aws-amplify/ui-react-core` and `@aws-amplify/ui-vue`
+
+- Updated dependencies [[`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86), [`82f3968b7`](https://github.com/aws-amplify/amplify-ui/commit/82f3968b7f750f069bda4ad7bfa9c34d7ee6091f)]:
+  - @aws-amplify/ui-react-core@2.1.21
+  - @aws-amplify/ui@5.6.2
+
+## 4.6.1
+
+### Patch Changes
+
+- [#3750](https://github.com/aws-amplify/amplify-ui/pull/3750) [`1412aa4eb`](https://github.com/aws-amplify/amplify-ui/commit/1412aa4eb4837c44c4e5ecce66188e1e256f952c) Thanks [@tannerbyers](https://github.com/tannerbyers)! - Removed optional undefined type workaround for MapView props (fog & terrain) due to fix in react-map-gl library.
+
+- [#3788](https://github.com/aws-amplify/amplify-ui/pull/3788) [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(storage-manager): add metadata and the rest of the Storage.put params
+
+  ```jsx
+  const processFile = ({ file, key }) => {
+    return {
+      file,
+      key,
+      metadata: {
+        id: key,
+      },
+    };
+  };
+
+  export function StorageManagerMetadataExample() {
+    return (
+      <StorageManager
+        acceptedFileTypes={['image/*']}
+        accessLevel="private"
+        maxFileCount={3}
+        showThumbnails={true}
+        processFile={processFile}
+      />
+    );
+  }
+  ```
+
+- [#3708](https://github.com/aws-amplify/amplify-ui/pull/3708) [`9551c521b`](https://github.com/aws-amplify/amplify-ui/commit/9551c521b8bed4844f5d57a8cf842ed8b5bd6bee) Thanks [@helmax-y](https://github.com/helmax-y)! - Clear button is removed for disabled SearchField
+
+- Updated dependencies [[`4ca838978`](https://github.com/aws-amplify/amplify-ui/commit/4ca838978d23a086f80859a7cb57f184ff49e2d4), [`d6a3676f2`](https://github.com/aws-amplify/amplify-ui/commit/d6a3676f2295ed39fa83b9d31a9540f3437ba129), [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54)]:
+  - @aws-amplify/ui@5.6.1
+  - @aws-amplify/ui-react-core@2.1.20
+
 ## 4.6.0
 
 ### Minor Changes
