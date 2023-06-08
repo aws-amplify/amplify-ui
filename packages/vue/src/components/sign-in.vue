@@ -14,6 +14,7 @@ import FederatedSignIn from './federated-sign-in.vue';
 import { useAuthenticator } from '../composables/useAuth';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
+// `useAuthenticator` is casted for temporary type safety on this file.
 const props = useAuthenticator() as AuthenticatorServiceFacade;
 const { submitForm, updateForm, toResetPassword } = props;
 const { error, isPending } = toRefs(props);

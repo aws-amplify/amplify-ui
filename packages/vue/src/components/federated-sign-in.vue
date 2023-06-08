@@ -9,6 +9,7 @@ import {
 import { useAuthenticator } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';
 
+// `useAuthenticator` is casted for temporary type safety on this file.
 const { route, socialProviders } =
   useAuthenticator() as AuthenticatorServiceFacade;
 

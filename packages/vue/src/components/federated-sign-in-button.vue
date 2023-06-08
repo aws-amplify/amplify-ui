@@ -22,6 +22,7 @@ const props = defineProps<{ provider: string }>();
 
 const { provider } = toRefs(props);
 
+// `useAuthenticator` is casted for temporary type safety on this file.
 const { toFederatedSignIn } = useAuthenticator() as AuthenticatorServiceFacade;
 
 // Methods
