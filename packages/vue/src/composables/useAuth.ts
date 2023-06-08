@@ -69,7 +69,7 @@ export const useAuthenticator = createSharedComposable(() => {
      * one `reactive` object to prevent iterating manually over its keys.
      */
     for (const key of Object.keys(facade)) {
-      // @ts-ignore
+      //@ts-ignore
       useAuthenticatorValue[key] = facade[key];
     }
     useAuthenticatorValue.authStatus = authStatus.value;
