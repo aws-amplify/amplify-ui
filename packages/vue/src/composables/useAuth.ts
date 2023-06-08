@@ -7,7 +7,6 @@ import { Auth } from 'aws-amplify';
 import {
   AuthInterpreter,
   AuthStatus,
-  AuthenticatorServiceFacade,
   createAuthenticatorMachine,
   defaultAuthHubHandler,
   getServiceFacade,
