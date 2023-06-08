@@ -1,8 +1,14 @@
 # @aws-amplify/ui-react-liveness
 
-## 1.0.5
+## 1.0.1
 
 ### Patch Changes
+
+- [#4053](https://github.com/aws-amplify/amplify-ui/pull/4053) [`fba989bed`](https://github.com/aws-amplify/amplify-ui/commit/fba989bed2b388d104b86f5eb17a26da6e6d5415) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): upgrade `@aws-sdk/client-rekognitionstreaming` to version patched with `fast-xml-parser` version `4.2.4`
+
+- [#4026](https://github.com/aws-amplify/amplify-ui/pull/4026) [`6981696bb`](https://github.com/aws-amplify/amplify-ui/commit/6981696bb3c01494519b0ba6d230225ae20dc707) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): fix flickering progress bar bug
+
+- [#4034](https://github.com/aws-amplify/amplify-ui/pull/4034) [`34efa0196`](https://github.com/aws-amplify/amplify-ui/commit/34efa0196dbb09e3c9aac54fec5910e1dfc4be49) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): catch websocket connection errors
 
 - [#4048](https://github.com/aws-amplify/amplify-ui/pull/4048) [`c19278b0b`](https://github.com/aws-amplify/amplify-ui/commit/c19278b0bee7c9b499bd619c8ee0f458cbb5da83) Thanks [@calebpollman](https://github.com/calebpollman)! - **Breaking Changes**:
 
@@ -11,41 +17,15 @@
   - `@aws-amplify/ui-react@5.x` strictly types the `View` component and updates all component types to include the underlying rendered HTML element's attributes ([PR](https://github.com/aws-amplify/amplify-ui/pull/4011)).
 
 - Updated dependencies [[`c19278b0b`](https://github.com/aws-amplify/amplify-ui/commit/c19278b0bee7c9b499bd619c8ee0f458cbb5da83)]:
+
   - @aws-amplify/ui-react@5.0.0
 
-## 1.0.4
-
-### Patch Changes
-
 - Updated dependencies [[`7f59b3c4d`](https://github.com/aws-amplify/amplify-ui/commit/7f59b3c4dd27205a35c1b07ddc0f06a0db9de776), [`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd)]:
+
   - @aws-amplify/ui-react@4.6.4
   - @aws-amplify/ui@5.6.4
 
-## 1.0.3
-
-### Patch Changes
-
-- Updated dependencies [[`62425139f`](https://github.com/aws-amplify/amplify-ui/commit/62425139fb5e41a3b36b46aac1d31b965a2739fc)]:
-  - @aws-amplify/ui@5.6.3
-  - @aws-amplify/ui-react@4.6.3
-
-## 1.0.2
-
-### Patch Changes
-
-- Updated dependencies [[`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86), [`82f3968b7`](https://github.com/aws-amplify/amplify-ui/commit/82f3968b7f750f069bda4ad7bfa9c34d7ee6091f)]:
-  - @aws-amplify/ui-react@4.6.2
-  - @aws-amplify/ui@5.6.2
-
-## 1.0.1
-
-### Patch Changes
-
 - [#3718](https://github.com/aws-amplify/amplify-ui/pull/3718) [`4ca838978`](https://github.com/aws-amplify/amplify-ui/commit/4ca838978d23a086f80859a7cb57f184ff49e2d4) Thanks [@0618](https://github.com/0618)! - Losslessly compress images
-
-- Updated dependencies [[`4ca838978`](https://github.com/aws-amplify/amplify-ui/commit/4ca838978d23a086f80859a7cb57f184ff49e2d4), [`1412aa4eb`](https://github.com/aws-amplify/amplify-ui/commit/1412aa4eb4837c44c4e5ecce66188e1e256f952c), [`d6a3676f2`](https://github.com/aws-amplify/amplify-ui/commit/d6a3676f2295ed39fa83b9d31a9540f3437ba129), [`37d63424e`](https://github.com/aws-amplify/amplify-ui/commit/37d63424e23e971713f76d201ce829ec6974fc54), [`9551c521b`](https://github.com/aws-amplify/amplify-ui/commit/9551c521b8bed4844f5d57a8cf842ed8b5bd6bee)]:
-  - @aws-amplify/ui@5.6.1
-  - @aws-amplify/ui-react@4.6.1
 
 ## 1.0.0
 

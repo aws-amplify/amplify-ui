@@ -1340,7 +1340,7 @@
     "@aws-sdk/util-waiter" "3.6.1"
     tslib "^2.0.0"
 
-"@aws-sdk/client-rekognitionstreaming@^3.348.0":
+"@aws-sdk/client-rekognitionstreaming@3.348.0":
   version "3.348.0"
   resolved "https://registry.npmjs.org/@aws-sdk/client-rekognitionstreaming/-/client-rekognitionstreaming-3.348.0.tgz#5f4711f63a8d5853127e31dd3bfc8b710b7d3036"
   integrity sha512-e6yjC/IeSX/VQtIDcy++MnrDK0u2NSl+d1o0Q8NK4k9mR1sJfu1ZxktjLlp4swDvXXHmgTsO6hCOX/td5tD5Nw==
