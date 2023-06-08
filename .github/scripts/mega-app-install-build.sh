@@ -8,7 +8,8 @@ if [ "$FRAMEWORK" == 'react' ]; then
     echo "DEPENDENCIES='\$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications'"
     DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications"
 elif [ "$FRAMEWORK" == 'angular' ]; then
-    # remove angular
+    # remove angular since it's deprecated https://www.npmjs.com/package/angular
+    # We've install @amplify/cli when creating the app
     echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify""
     DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify"
 fi
