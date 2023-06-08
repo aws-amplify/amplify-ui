@@ -71,7 +71,7 @@ jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
 const usernameInputParams = { name: 'username', value: 'username' };
 const passwordInputParams = { name: 'password', value: 'verysecurepassword' };
 
-describe('signIn', () => {
+describe('SignIn', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
