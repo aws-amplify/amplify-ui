@@ -1,13 +1,11 @@
 # Description: this workflow runs build mega-apps that have all the connected components.
 
-name: Build System Test Canary
+name: PoC / Build System Test Canary
 
 permissions:
   id-token: write # This is required for aws-actions/configure-aws-credentials
 
-on:
-  schedule:
-    - cron: '*/15 * * * *' # Run every 15 minutes
+on: pull_request
 
 jobs:
   build:
@@ -97,34 +95,34 @@ jobs:
             language: ts
             node-version: 18
 
-          - framework: vue
-            framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
-            build-tool: vue-cli
-            build-tool-version: latest
-            pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
-            language: ts
-            node-version: 18
-          - framework: vue
-            framework-version: latest
-            build-tool: vite
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: vue
-            framework-version: latest
-            build-tool: vite
-            build-tool-version: 2
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: vue
-            framework-version: latest
-            build-tool: nuxt
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
+          # - framework: vue
+          #   framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
+          #   build-tool: vue-cli
+          #   build-tool-version: latest
+          #   pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
+          #   language: ts
+          #   node-version: 18
+          # - framework: vue
+          #   framework-version: latest
+          #   build-tool: vite
+          #   build-tool-version: latest
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
+          # - framework: vue
+          #   framework-version: latest
+          #   build-tool: vite
+          #   build-tool-version: 2
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
+          # - framework: vue
+          #   framework-version: latest
+          #   build-tool: nuxt
+          #   build-tool-version: latest
+          #   pkg-manager: npm
+          #   language: ts
+          #   node-version: 18
 
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
@@ -178,32 +176,32 @@ jobs:
           PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
           PKG_MANAGER: ${{ matrix.pkg-manager }}
 
-  log-failure-metric:
-    # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric BuildSystemTestFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: BuildSystemTestFailure
-          value: 1
-          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-          aws-region: us-east-2
+  # log-failure-metric:
+  #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: build
+  #   if: ${{ failure() }}
+  #   steps:
+  #     - name: Log failure data point to metric BuildSystemTestFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: BuildSystemTestFailure
+  #         value: 1
+  #         role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+  #         aws-region: us-east-2
 
-  log-success-metric:
-    # Send a success data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric BuildSystemTestFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: BuildSystemTestFailure
-          value: 0
-          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-          aws-region: us-east-2
+  # log-success-metric:
+  #   # Send a success data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
+  #   runs-on: ubuntu-latest
+  #   environment: ci
+  #   needs: build
+  #   if: ${{ success() }}
+  #   steps:
+  #     - name: Log success data point to metric BuildSystemTestFailure
+  #       uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+  #       with:
+  #         metric-name: BuildSystemTestFailure
+  #         value: 0
+  #         role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+  #         aws-region: us-east-2
