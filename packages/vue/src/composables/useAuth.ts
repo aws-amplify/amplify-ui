@@ -74,7 +74,7 @@ export const useAuthenticator = createSharedComposable(() => {
     }
     useAuthenticatorValue.authStatus = authStatus.value;
     useAuthenticatorValue.send = send;
-    useAuthenticatorValue.state = state.value;
+    useAuthenticatorValue.state = state;
   });
 
   return useAuthenticatorValue;
