@@ -7,6 +7,7 @@ import { Auth } from 'aws-amplify';
 import {
   AuthInterpreter,
   AuthStatus,
+  AuthenticatorServiceFacade,
   createAuthenticatorMachine,
   defaultAuthHubHandler,
   getServiceFacade,
@@ -57,10 +58,7 @@ export const useAuthenticator = createSharedComposable(() => {
    * `reactive` to prevent manual value assignemnts through for loop.
    */
   // TODO(BREAKING): remove the cast to any
-  const useAuthenticatorValue = reactive({
-    send,
-    state,
-  }) as any;
+  const useAuthenticatorValue = reactive({}) as any;
 
   /*
    * Note that watchEffect runs immediately, so `useAuthenticatorValue` is
@@ -73,10 +71,14 @@ export const useAuthenticator = createSharedComposable(() => {
       send,
       state: state.value,
     });
-    for (const key of Object.keys(facade)) {
-      //@ts-ignore
+
+    const facadeKeys = Object.keys(facade) as Array<
+      keyof AuthenticatorServiceFacade
+    >;
+    for (const key of facadeKeys) {
       useAuthenticatorValue[key] = facade[key];
     }
+
     useAuthenticatorValue.authStatus = authStatus.value;
     useAuthenticatorValue.send = send;
     useAuthenticatorValue.state = state.value;
