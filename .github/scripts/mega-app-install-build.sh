@@ -8,7 +8,8 @@ if [ "$FRAMEWORK" == 'react' ]; then
     echo "DEPENDENCIES='\$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications'"
     DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications"
 elif [ "$FRAMEWORK" == 'angular' ]; then
-    # remove angular
+    # remove angular since it's deprecated https://www.npmjs.com/package/angular
+    # We've install @amplify/cli when creating the app
     echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify""
     DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify"
 fi
@@ -51,25 +52,13 @@ else
         echo "../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL"
         ../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL
     else
-        if [[ "$BUILD_TOOL" == 'angular-lib' ]]; then
-            echo "cd projects/my-amplify-ui-lib/"
-            cd projects/my-amplify-ui-lib/
-            echo "npm install --save-peer @aws-amplify/ui-angular aws-amplify"
-            npm install --save-peer @aws-amplify/ui-angular aws-amplify
-            echo "cd -"
-            cd -
-            echo "npm install $DEPENDENCIES"
-            npm install $DEPENDENCIES
-            echo "ng build my-amplify-ui-lib"
-            ng build my-amplify-ui-lib
-        else
-            echo "npm install $DEPENDENCIES"
-            npm install $DEPENDENCIES
-        fi
+        echo "npm install $DEPENDENCIES"
+        npm install $DEPENDENCIES
 
         if [[ "$FRAMEWORK" == 'angular' ]]; then
+            # To prevent Expected identifier but found "=", unable to publish app https://github.com/aws-amplify/amplify-js/issues/11455
             echo "rm -rf node_modules package-lock.json"
-            rm -rf node_modules package-lock.json # To prevent Expected identifier but found "=", unable to publish app https://github.com/aws-amplify/amplify-js/issues/11455
+            rm -rf node_modules package-lock.json
             echo "npm install"
             npm install
         fi
