@@ -1,4 +1,4 @@
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type TextVariation =
   | 'primary'
@@ -9,13 +9,7 @@ export type TextVariation =
   | 'info'
   | 'success';
 
-export interface TextProps extends ViewProps {
-  /**
-   * @description
-   * HTML allowed tags
-   */
-  as?: 'p' | 'span' | 'strong' | 'em';
-
+export interface BaseTextProps extends BaseViewProps {
   /**
    * @description
    * This should be the primary way to handle different styles of text. Lower-level
@@ -31,3 +25,8 @@ export interface TextProps extends ViewProps {
    */
   isTruncated?: boolean;
 }
+
+export type TextProps<Element extends ElementType = 'p'> = PrimitiveProps<
+  BaseTextProps,
+  Element
+>;

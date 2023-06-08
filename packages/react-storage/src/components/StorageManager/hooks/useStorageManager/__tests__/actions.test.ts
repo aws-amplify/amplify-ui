@@ -3,6 +3,7 @@ import { FileStatus } from '../../../types';
 
 import {
   addFilesAction,
+  clearFilesAction,
   removeUploadAction,
   setUploadingFileAction,
   setUploadProgressAction,
@@ -20,6 +21,16 @@ describe('addFilesAction', () => {
       getFileErrorMessage,
     };
     const action = addFilesAction({ files, getFileErrorMessage });
+    expect(action).toEqual(expectedAction);
+  });
+});
+
+describe('clearFilesAction', () => {
+  it('creates an action with the CLEAR_FILES type', () => {
+    const expectedAction = {
+      type: StorageManagerActionTypes.CLEAR_FILES,
+    };
+    const action = clearFilesAction();
     expect(action).toEqual(expectedAction);
   });
 });
