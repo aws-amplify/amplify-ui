@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FederatedSignInButton renders as expected 1`] = `
+<div>
+  
+  <button
+    class="amplify-button amplify-field-group__control federated-sign-in-button amplify-authenticator__font"
+    data-amplify-button=""
+    data-disabled="false"
+    data-fullwidth="false"
+    data-loading="false"
+    fullwidth="false"
+    style="font-weight: normal;"
+    type="button"
+  >
+    
+    <div
+      class="amplify-flex federated-sign-in-button-row amplify-authenticator__sign-in-button-wrapper"
+    >
+      
+      
+      Sign In with Amazon
+      
+      
+    </div>
+    
+  </button>
+  
+</div>
+`;
