@@ -7,7 +7,6 @@ import { Auth } from 'aws-amplify';
 import {
   AuthInterpreter,
   AuthStatus,
-  AuthenticatorServiceFacade,
   createAuthenticatorMachine,
   defaultAuthHubHandler,
   getServiceFacade,
@@ -70,12 +69,12 @@ export const useAuthenticator = createSharedComposable(() => {
      * one `reactive` object to prevent iterating manually over its keys.
      */
     for (const key of Object.keys(facade)) {
-      // @ts-ignore
+      //@ts-ignore
       useAuthenticatorValue[key] = facade[key];
     }
     useAuthenticatorValue.authStatus = authStatus.value;
     useAuthenticatorValue.send = send;
-    useAuthenticatorValue.state = state.value;
+    useAuthenticatorValue.state = state;
   });
 
   return useAuthenticatorValue;
