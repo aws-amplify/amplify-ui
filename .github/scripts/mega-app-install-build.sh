@@ -9,8 +9,11 @@ if [ "$FRAMEWORK" == 'react' ]; then
     DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications"
 elif [ "$FRAMEWORK" == 'angular' ]; then
     # remove angular
-    echo "DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify""
-    DEPENDENCIES="@aws-amplify/ui-$FRAMEWORK aws-amplify"
+    echo "DEPENDENCIES="aws-amplify""
+    DEPENDENCIES="aws-amplify"
+    # install next-release
+    echo "npm install @aws-amplify/ui-$FRAMEWORK@next-release --save-exact"
+    npm install @aws-amplify/ui-$FRAMEWORK@next-release --save-exact
 fi
 
 echo "Dependencies to be installed: $DEPENDENCIES"
