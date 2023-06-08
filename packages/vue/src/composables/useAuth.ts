@@ -53,10 +53,6 @@ export const useAuth = createSharedComposable((): UseAuth => {
 export const useAuthenticator = createSharedComposable(() => {
   const { authStatus, state, send } = useAuth();
 
-  /*
-   * TODO(BREAKING): consider using a plain object with `refs` instead of
-   * `reactive` to prevent manual value assignemnts through for loop.
-   */
   // TODO(BREAKING): remove the cast to any
   const useAuthenticatorValue = reactive({}) as any;
 
@@ -67,18 +63,16 @@ export const useAuthenticator = createSharedComposable(() => {
    * https://vuejs.org/api/reactivity-core.html#watcheffect
    */
   watchEffect(() => {
-    const facade = getServiceFacade({
-      send,
-      state: state.value,
-    });
+    const facade = getServiceFacade({ send, state: state.value });
 
-    const facadeKeys = Object.keys(facade) as Array<
-      keyof AuthenticatorServiceFacade
-    >;
-    for (const key of facadeKeys) {
+    /*
+     * TODO(BREAKING): consider using a plain object with `refs` instead of
+     * one `reactive` object to prevent iterating manually over its keys.
+     */
+    for (const key of Object.keys(facade)) {
+      // @ts-ignore
       useAuthenticatorValue[key] = facade[key];
     }
-
     useAuthenticatorValue.authStatus = authStatus.value;
     useAuthenticatorValue.send = send;
     useAuthenticatorValue.state = state.value;
