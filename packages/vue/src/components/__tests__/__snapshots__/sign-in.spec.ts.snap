@@ -25,9 +25,6 @@ exports[`SignIn renders as expected 1`] = `
           data-amplify-fieldset=""
         >
           
-          <!-- &lt;template #fieldSetI="{ slotData }"&gt;
-              &lt;slot name="signin-fields" :info="slotData"&gt; &lt;/slot&gt;
-            &lt;/template&gt; -->
           <legend
             class="amplify-visually-hidden"
           >

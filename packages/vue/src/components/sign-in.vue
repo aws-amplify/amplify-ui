@@ -88,9 +88,9 @@ const onForgotPasswordClicked = (): void => {
             :disabled="isPending"
             class="amplify-flex amplify-authenticator__column"
           >
-            <!-- <template #fieldSetI="{ slotData }">
+            <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
-            </template> -->
+            </template>
             <legend class="amplify-visually-hidden">Sign in</legend>
             <base-form-fields route="signIn"></base-form-fields>
           </base-field-set>
