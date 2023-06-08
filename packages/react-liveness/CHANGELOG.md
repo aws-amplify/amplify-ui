@@ -4,6 +4,8 @@
 
 ### Patch Changes
 
+- [#4062](https://github.com/aws-amplify/amplify-ui/pull/4062) [`c56cde0ff`](https://github.com/aws-amplify/amplify-ui/commit/c56cde0ff5c144f60dfd2bc46adf0a1c53984f0c) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): increase ws connection timeout to 10s, default was 2s
+
 - [#4053](https://github.com/aws-amplify/amplify-ui/pull/4053) [`fba989bed`](https://github.com/aws-amplify/amplify-ui/commit/fba989bed2b388d104b86f5eb17a26da6e6d5415) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): upgrade `@aws-sdk/client-rekognitionstreaming` to version patched with `fast-xml-parser` version `4.2.4`
 
 - [#4026](https://github.com/aws-amplify/amplify-ui/pull/4026) [`6981696bb`](https://github.com/aws-amplify/amplify-ui/commit/6981696bb3c01494519b0ba6d230225ae20dc707) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): fix flickering progress bar bug
