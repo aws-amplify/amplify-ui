@@ -32,18 +32,18 @@ const { getForgotPasswordText, getSignInText, getSigningInText } =
 // Computed Properties
 const forgotYourPasswordLink = computed(() => getForgotPasswordText());
 const signInButtonText = computed(() => getSignInText());
-const signIngButtonText = computed(() => getSigningInText());
+const signingInButtonText = computed(() => getSigningInText());
 
 // Methods
-
 const onInput = (e: Event): void => {
   const { name, value } = e.target as HTMLInputElement;
   updateForm({ name, value });
 };
 
 const onSignInSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onSignInSubmit) {
-    // TODO(BREAKING): remove unused emit
     emit('signInSubmit', e);
   } else {
     submitForm(getFormDataFromEvent(e));
@@ -51,8 +51,9 @@ const onSignInSubmit = (e: Event): void => {
 };
 
 const onForgotPasswordClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  /* istanbul ignore next */
   if (attrs?.onForgotPasswordClicked) {
-    // TODO(BREAKING): remove unused emit
     emit('forgotPasswordClicked');
   } else {
     toResetPassword();
@@ -87,9 +88,9 @@ const onForgotPasswordClicked = (): void => {
             :disabled="isPending"
             class="amplify-flex amplify-authenticator__column"
           >
-            <template #fieldSetI="{ slotData }">
+            <!-- <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
-            </template>
+            </template> -->
             <legend class="amplify-visually-hidden">Sign in</legend>
             <base-form-fields route="signIn"></base-form-fields>
           </base-field-set>
@@ -104,7 +105,7 @@ const onForgotPasswordClicked = (): void => {
             :loading="false"
             :variation="'primary'"
           >
-            {{ isPending ? signIngButtonText : signInButtonText }}
+            {{ isPending ? signingInButtonText : signInButtonText }}
           </amplify-button>
         </base-wrapper>
       </base-form>
