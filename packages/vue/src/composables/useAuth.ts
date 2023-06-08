@@ -14,7 +14,6 @@ import {
 } from '@aws-amplify/ui';
 
 import { UseAuth } from '../types';
-import { facade } from './useUtils';
 
 export const useAuth = createSharedComposable((): UseAuth => {
   const machine = createAuthenticatorMachine();
@@ -54,7 +53,6 @@ export const useAuthenticator = createSharedComposable(() => {
   const { authStatus, state, send } = useAuth();
 
   const useAuthenticatorValue = reactive({
-    ...facade,
     send,
     state,
   }) as any;
@@ -64,7 +62,7 @@ export const useAuthenticator = createSharedComposable(() => {
       send,
       state: state.value,
     });
-    for (const key of Object.keys(facade)) {
+    for (const key of Object.keys(facadeValues)) {
       //@ts-ignore
       useAuthenticatorValue[key] = facadeValues[key];
     }
