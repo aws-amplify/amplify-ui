@@ -82,6 +82,10 @@ fi
 if [[ "$FRAMEWORK" == 'vue' ]]; then
     echo "cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue"
     cp templates/components/vue/App.vue mega-apps/${MEGA_APP_NAME}/src/App.vue
+    echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
+    cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
+    echo "node ../.github/scripts/modifyJSON.js mega-apps/${MEGA_APP_NAME}/tsconfig.json add \"compilerOptions.allowJs true\""
+    node ../.github/scripts/modifyJSON.js mega-apps/${MEGA_APP_NAME}/tsconfig.json add "compilerOptions.allowJs true"
 
     # See Troubleshooting: https://ui.docs.amplify.aws/vue/getting-started/troubleshooting
     if [[ "$BUILD_TOOL" == 'vite' ]]; then
