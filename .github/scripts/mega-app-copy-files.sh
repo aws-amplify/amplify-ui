@@ -67,15 +67,6 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
         cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
         echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
         cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
-    elif [ "$BUILD_TOOL" == 'angular-lib' ]; then
-        echo "cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
-        cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
-        echo "cp templates/components/angular/lib/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
-        cp templates/components/angular/lib/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
-        echo "cp templates/components/angular/lib/my-amplify-ui-lib.component.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.component.ts"
-        cp templates/components/angular/lib/my-amplify-ui-lib.component.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.component.ts
-        echo "cp templates/components/angular/lib/my-amplify-ui-lib.module.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.module.ts"
-        cp templates/components/angular/lib/my-amplify-ui-lib.module.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.module.ts
     fi
 fi
 

@@ -82,20 +82,6 @@ jobs:
             pkg-manager: npm
             language: ts
             node-version: 18
-          - framework: angular
-            framework-version: latest
-            build-tool: angular-lib
-            build-tool-version: latest
-            pkg-manager: npm
-            language: ts
-            node-version: 18
-          - framework: angular
-            framework-version: latest
-            build-tool: angular-lib
-            build-tool-version: 13
-            pkg-manager: npm
-            language: ts
-            node-version: 18
 
           - framework: vue
             framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
