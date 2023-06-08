@@ -76,7 +76,7 @@ jobs:
           - framework: angular
             framework-version: latest
             build-tool: angular-app
-            build-tool-version: 13
+            build-tool-version: 14
             pkg-manager: npm
             language: ts
             node-version: 18
@@ -90,7 +90,7 @@ jobs:
           - framework: angular
             framework-version: latest
             build-tool: angular-lib
-            build-tool-version: 13
+            build-tool-version: 14
             pkg-manager: npm
             language: ts
             node-version: 18
