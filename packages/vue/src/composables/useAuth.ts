@@ -14,7 +14,6 @@ import {
 } from '@aws-amplify/ui';
 
 import { UseAuth } from '../types';
-import { facade } from './useUtils';
 
 export const useAuth = createSharedComposable((): UseAuth => {
   const machine = createAuthenticatorMachine();
@@ -53,24 +52,30 @@ export const useAuth = createSharedComposable((): UseAuth => {
 export const useAuthenticator = createSharedComposable(() => {
   const { authStatus, state, send } = useAuth();
 
+  /*
+   * TODO(BREAKING): consider using a plain object with `refs` instead of
+   * `reactive` to prevent manual value assignemnts through for loop.
+   */
+  // TODO(BREAKING): remove the cast to any
   const useAuthenticatorValue = reactive({
-    ...facade,
     send,
     state,
   }) as any;
 
+  // note that watchEffect runs immediately, so `useAuthenticatorValue` is
+  // guaranteed to have facade values by the time `useAuthenticator` returns.
   watchEffect(() => {
-    const facadeValues = getServiceFacade({
+    const facade = getServiceFacade({
       send,
       state: state.value,
     });
     for (const key of Object.keys(facade)) {
       //@ts-ignore
-      useAuthenticatorValue[key] = facadeValues[key];
+      useAuthenticatorValue[key] = facade[key];
     }
     useAuthenticatorValue.authStatus = authStatus.value;
     useAuthenticatorValue.send = send;
-    useAuthenticatorValue.state = state;
+    useAuthenticatorValue.state = state.value;
   });
 
   return useAuthenticatorValue;
