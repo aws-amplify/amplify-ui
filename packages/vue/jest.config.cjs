@@ -16,7 +16,7 @@ module.exports = {
       branches: 26,
       functions: 28,
       lines: 49,
-      statements: 44,
+      statements: 48,
     },
   },
   testEnvironment: 'jsdom',
