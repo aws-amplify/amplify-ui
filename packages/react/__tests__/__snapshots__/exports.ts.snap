@@ -4928,6 +4928,9 @@ Object {
       "ariaValuetext": Object {
         "type": "string",
       },
+      "aspectRatio": Object {
+        "type": "string",
+      },
       "backgroundColor": Object {
         "type": "string",
       },
@@ -5002,6 +5005,9 @@ Object {
         "type": "boolean",
       },
       "isDisabled": Object {
+        "type": "boolean",
+      },
+      "isLazy": Object {
         "type": "boolean",
       },
       "left": Object {
