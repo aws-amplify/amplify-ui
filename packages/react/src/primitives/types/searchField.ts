@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
-import { TextFieldProps } from './textField';
+import { BaseTextFieldProps } from './textField';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface SearchFieldProps extends TextFieldProps {
+export interface BaseSearchFieldProps extends BaseTextFieldProps {
   /**
    * @description
    * Set the initial value for an uncontrolled search field
@@ -65,8 +66,14 @@ export interface SearchFieldProps extends TextFieldProps {
   searchButtonRef?: React.Ref<HTMLButtonElement>;
 }
 
-export interface SearchFieldButtonProps
+export type SearchFieldProps<Element extends ElementType = 'input'> =
+  PrimitiveProps<BaseSearchFieldProps, Element>;
+
+export interface BaseSearchFieldButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
+
+export type SearchFieldButtonProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseSearchFieldButtonProps, Element>;
 
 export interface UseSearchFieldProps extends Partial<SearchFieldProps> {
   externalRef?: React.ForwardedRef<HTMLInputElement>;

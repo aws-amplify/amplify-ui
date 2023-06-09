@@ -10,6 +10,7 @@ import {
   RekognitionStreamingClientConfig,
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
+import { WebSocketFetchHandler } from '@aws-sdk/middleware-websocket';
 import { VideoRecorder } from './videoRecorder';
 import { AwsCredentialProvider } from '../types';
 
@@ -130,6 +131,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
       credentials,
       region: this.region,
       customUserAgent: getAmplifyUserAgent(),
+      requestHandler: new WebSocketFetchHandler({ connectionTimeout: 10_000 }),
     };
 
     if (ENDPOINT) {
