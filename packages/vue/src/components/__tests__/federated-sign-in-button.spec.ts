@@ -4,17 +4,19 @@ import { screen, render, fireEvent } from '@testing-library/vue';
 import { components } from '../../../global-spec';
 import FederatedSignInButton from '../federated-sign-in-button.vue';
 
-import { mockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { mockServiceFacade as baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import * as UseAuthComposables from '../../composables/useAuth';
 
 const toFederatedSignInSpy = jest.fn();
 
-jest.spyOn(UseAuthComposables, 'useAuthenticator').mockReturnValue(
-  reactive({
-    ...mockServiceFacade,
-    toFederatedSignIn: toFederatedSignInSpy,
-  })
-);
+const mockServiceFacade = {
+  ...baseMockServiceFacade,
+  toFederatedSignIn: toFederatedSignInSpy,
+};
+
+jest
+  .spyOn(UseAuthComposables, 'useAuthenticator')
+  .mockReturnValue(reactive(mockServiceFacade));
 
 describe('FederatedSignInButton', () => {
   beforeEach(() => {
