@@ -1,13 +1,12 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
-
 import { Amplify } from 'aws-amplify';
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-import awsExports from '@environments/liveness/liveness-environment/src/aws-exports';
+import { AwsCredentialProvider } from '@aws-amplify/ui-react-liveness';
 
 import LivenessDefault from '../components/LivenessDefault';
 import Layout from '../components/Layout';
-import { AwsCredentialProvider } from '@aws-amplify/ui-react-liveness';
+import awsExports from './aws-exports';
 
 Amplify.configure({
   ...awsExports,
