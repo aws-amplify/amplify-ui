@@ -20,6 +20,8 @@ const { submitForm, updateForm, toResetPassword } = props;
 const { error, isPending } = toRefs(props);
 
 const attrs = useAttrs();
+
+/** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits([
   'signInSubmit',
   'forgotPasswordClicked',
