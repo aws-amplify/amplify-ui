@@ -8,6 +8,8 @@ fi
 
 echo "cd build-system-tests"
 cd build-system-tests
+npm install
+
 if [ "$BUILD_TOOL" == 'cra' ]; then
     echo "cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js"
     cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
