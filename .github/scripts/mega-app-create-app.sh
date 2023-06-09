@@ -30,14 +30,8 @@ fi
 if [[ "$FRAMEWORK" == 'angular' ]]; then
     echo "npm install -g @angular/cli@${BUILD_TOOL_VERSION}"
     npm install -g @angular/cli@${BUILD_TOOL_VERSION}
-    echo "ng new $MEGA_APP_NAME --minimal --interactive=false"
-    ng new $MEGA_APP_NAME --minimal --interactive=false
-    if [ "$BUILD_TOOL" == 'angular-lib' ]; then
-        echo "cd $MEGA_APP_NAME"
-        cd $MEGA_APP_NAME
-        echo "ng generate library my-amplify-ui-lib"
-        ng generate library my-amplify-ui-lib
-    fi
+    echo "ng new $MEGA_APP_NAME --interactive=false"
+    ng new $MEGA_APP_NAME --interactive=false
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then

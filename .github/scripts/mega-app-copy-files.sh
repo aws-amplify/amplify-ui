@@ -62,23 +62,12 @@ if [[ "$FRAMEWORK" == 'react' && "$BUILD_TOOL" == 'vite' ]]; then
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then
-    # The following change is to test build. If to work on the brower, we also need to change polyfills.
+    # The following change is to test build. If to work on the browser, we also need to change polyfills.
     # See more: https://ui.docs.amplify.aws/angular/getting-started/troubleshooting
-    if [ "$BUILD_TOOL" == 'angular-app' ]; then
-        echo "cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
-        cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
-        echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
-        cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
-    elif [ "$BUILD_TOOL" == 'angular-lib' ]; then
-        echo "cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
-        cp templates/components/angular/lib/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
-        echo "cp templates/components/angular/lib/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
-        cp templates/components/angular/lib/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
-        echo "cp templates/components/angular/lib/my-amplify-ui-lib.component.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.component.ts"
-        cp templates/components/angular/lib/my-amplify-ui-lib.component.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.component.ts
-        echo "cp templates/components/angular/lib/my-amplify-ui-lib.module.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.module.ts"
-        cp templates/components/angular/lib/my-amplify-ui-lib.module.ts mega-apps/${MEGA_APP_NAME}/projects/my-amplify-ui-lib/src/lib/my-amplify-ui-lib.module.ts
-    fi
+    echo "cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts"
+    cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
+    echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
+    cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
