@@ -1,6 +1,6 @@
 Feature: Liveness with Custom Components
 
-  Test Liveness component supports using a custom credential provider
+Liveness component supports using a custom credential provider.
 
   Background:
     Given I'm running the example "ui/components/liveness/with-credential-provider/"
