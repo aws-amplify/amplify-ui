@@ -2,42 +2,16 @@ import { reactive, ref, Ref } from 'vue';
 import { render, screen } from '@testing-library/vue';
 
 import { components } from '../../../global-spec';
+import { mockServiceFacade as baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import * as UseAuthComposables from '../../composables/useAuth';
 import FederatedSignIn from '../federated-sign-in.vue';
 
 import {
   AuthInterpreter,
   AuthMachineState,
-  AuthenticatorServiceFacade,
   SocialProvider,
   authenticatorTextUtil,
 } from '@aws-amplify/ui';
-
-const mockServiceFacade: AuthenticatorServiceFacade = {
-  authStatus: 'authenticated',
-  codeDeliveryDetails: {} as AuthenticatorServiceFacade['codeDeliveryDetails'],
-  error: undefined as unknown as AuthenticatorServiceFacade['error'],
-  hasValidationErrors: false,
-  isPending: false,
-  route: 'signIn',
-  socialProviders: [],
-  unverifiedContactMethods: { email: 'test#example.com' },
-  user: {} as AuthenticatorServiceFacade['user'],
-  validationErrors:
-    {} as unknown as AuthenticatorServiceFacade['validationErrors'],
-  totpSecretCode: null,
-  initializeMachine: jest.fn(),
-  resendCode: jest.fn(),
-  signOut: jest.fn(),
-  submitForm: jest.fn(),
-  updateForm: jest.fn(),
-  updateBlur: jest.fn(),
-  toFederatedSignIn: jest.fn(),
-  toResetPassword: jest.fn(),
-  toSignIn: jest.fn(),
-  toSignUp: jest.fn(),
-  skipVerification: jest.fn(),
-};
 
 const socialProviders: SocialProvider[] = [
   'amazon',
@@ -53,6 +27,7 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   state: ref(undefined) as unknown as Ref<AuthMachineState>,
 });
 
+const mockServiceFacade = { ...baseMockServiceFacade, route: 'signIn' };
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
   .mockReturnValue(reactive(mockServiceFacade));
@@ -70,10 +45,12 @@ describe('FederatedSignIn', () => {
   it.each(socialProviders)(
     'renders as expected with %s provider',
     async (socialProvider) => {
-      useAuthenticatorSpy.mockReturnValueOnce({
-        ...mockServiceFacade,
-        socialProviders: [socialProvider],
-      });
+      useAuthenticatorSpy.mockReturnValueOnce(
+        reactive({
+          ...mockServiceFacade,
+          socialProviders: [socialProvider],
+        })
+      );
 
       const { container } = render(FederatedSignIn, { global: { components } });
       expect(container).toMatchSnapshot();

@@ -1,49 +1,16 @@
-import { reactive, Ref, ref } from 'vue';
+import { Ref, ref } from 'vue';
 import { fireEvent, render, screen } from '@testing-library/vue';
 
 import * as UIModule from '@aws-amplify/ui';
-import {
-  AuthenticatorServiceFacade,
-  AuthInterpreter,
-  AuthMachineState,
-} from '@aws-amplify/ui';
+import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
 import SignIn from '../sign-in.vue';
+import { mockServiceFacade as baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 
 // mock random value so that snapshots are consistent
 jest.spyOn(Math, 'random').mockReturnValue(0.1);
-
-const updateFormSpy = jest.fn();
-const submitFormSpy = jest.fn();
-const toResetPasswordSpy = jest.fn();
-
-const mockServiceFacade: AuthenticatorServiceFacade = {
-  authStatus: 'authenticated',
-  codeDeliveryDetails: {} as AuthenticatorServiceFacade['codeDeliveryDetails'],
-  error: undefined as unknown as AuthenticatorServiceFacade['error'],
-  hasValidationErrors: false,
-  isPending: false,
-  route: 'signIn',
-  socialProviders: [],
-  unverifiedContactMethods: { email: 'test#example.com' },
-  user: {} as AuthenticatorServiceFacade['user'],
-  validationErrors:
-    {} as unknown as AuthenticatorServiceFacade['validationErrors'],
-  totpSecretCode: null,
-  initializeMachine: jest.fn(),
-  resendCode: jest.fn(),
-  signOut: jest.fn(),
-  submitForm: submitFormSpy,
-  updateForm: updateFormSpy,
-  updateBlur: jest.fn(),
-  toFederatedSignIn: jest.fn(),
-  toResetPassword: toResetPasswordSpy,
-  toSignIn: jest.fn(),
-  toSignUp: jest.fn(),
-  skipVerification: jest.fn(),
-};
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
@@ -52,9 +19,21 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   state: ref(undefined) as unknown as Ref<AuthMachineState>,
 });
 
+const updateFormSpy = jest.fn();
+const submitFormSpy = jest.fn();
+const toResetPasswordSpy = jest.fn();
+
+const mockServiceFacade = {
+  ...baseMockServiceFacade,
+  route: 'signIn',
+  updateForm: updateFormSpy,
+  submitForm: submitFormSpy,
+  toResetPassword: toResetPasswordSpy,
+};
+
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
-  .mockReturnValue(reactive(mockServiceFacade));
+  .mockReturnValue(mockServiceFacade);
 
 jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
   country_code: '+1',
@@ -75,6 +54,7 @@ describe('SignIn', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
+
   it('renders as expected', () => {
     const { container } = render(SignIn, { global: { components } });
     expect(container).toMatchSnapshot();
