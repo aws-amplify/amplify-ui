@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.0.0",
-    "@aws-amplify/ui-react-liveness": "^1.0.1",
+    "@aws-amplify/ui-react-liveness": "^1.0.2",
     "@aws-amplify/ui-react-storage": "^2.0.0",
     "@aws-amplify/ui-react-notifications": "^1.0.1",
     "@aws-amplify/ui-react-geo": "^1.0.0",

@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 1.0.2
+
+### Patch Changes
+
+- [#4070](https://github.com/aws-amplify/amplify-ui/pull/4070) [`88d153a88`](https://github.com/aws-amplify/amplify-ui/commit/88d153a884da968daf90a622e9c7afecdc817e79) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): add tslib@2.4.1 to react-liveness
+
 ## 1.0.1
 
 ### Patch Changes
