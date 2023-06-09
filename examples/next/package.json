@@ -27,7 +27,6 @@
     "swr": "^2.0.0"
   },
   "devDependencies": {
-    "@aws-sdk/types": "3.347.0",
     "@types/node": "^15.12.4",
     "@types/react": "17.0.47",
     "eslint": "7.29.0",
