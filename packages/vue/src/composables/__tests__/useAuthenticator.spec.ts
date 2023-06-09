@@ -20,6 +20,7 @@ class MockAuthService {
 
 const mockServiceFacade = {
   authStatus: 'authenticated',
+  socialProviders: ['amazon'],
 } as unknown as AuthenticatorServiceFacade;
 
 const getServiceFacadeSpy = jest
@@ -54,13 +55,19 @@ describe('useAuthenticator', () => {
   it('returns the expected values', () => {
     const wrapper = mount(TestComponent);
 
+    expect(wrapper.vm.authStatus).toBe('unauthenticated');
+    expect(wrapper.vm.socialProviders).toStrictEqual(['amazon']);
+    wrapper.unmount();
+  });
+
+  it('calls getServiceFacade once on initial mount', () => {
+    const wrapper = mount(TestComponent);
+
     expect(getServiceFacadeSpy).toBeCalledTimes(1);
     expect(getServiceFacadeSpy).toBeCalledWith({
       send: mockSend,
       state: mockState.value,
     });
-
-    expect(wrapper.vm.authStatus).toBe('unauthenticated');
     wrapper.unmount();
   });
 
