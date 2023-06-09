@@ -25,7 +25,6 @@ const shouldShowFederatedSignIn =
 const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
 // Computed Properties
-
 const fp = computed(() => FederatedIdentityProviders);
 const signInWithAmazon = computed(() =>
   getSignInWithFederationText(route, 'amazon')

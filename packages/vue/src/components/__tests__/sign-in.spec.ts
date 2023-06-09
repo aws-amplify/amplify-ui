@@ -1,4 +1,4 @@
-import { Ref, ref } from 'vue';
+import { reactive, Ref, ref } from 'vue';
 import { fireEvent, render, screen } from '@testing-library/vue';
 
 import * as UIModule from '@aws-amplify/ui';
@@ -33,7 +33,7 @@ const mockServiceFacade = {
 
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
-  .mockReturnValue(mockServiceFacade);
+  .mockReturnValue(reactive(mockServiceFacade));
 
 jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
   country_code: '+1',
@@ -102,20 +102,24 @@ describe('SignIn', () => {
   });
 
   it('displays error if it is present', async () => {
-    useAuthenticatorSpy.mockReturnValueOnce({
-      ...mockServiceFacade,
-      error: 'mockError',
-    });
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...mockServiceFacade,
+        error: 'mockError',
+      })
+    );
     render(SignIn, { global: { components } });
 
     expect(await screen.findByText('mockError')).toBeInTheDocument();
   });
 
   it('disables the submit button if sign in is pending', async () => {
-    useAuthenticatorSpy.mockReturnValueOnce({
-      ...mockServiceFacade,
-      isPending: true,
-    });
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...mockServiceFacade,
+        isPending: true,
+      })
+    );
     render(SignIn, { global: { components } });
 
     const submitButton = await screen.findByRole('button', {

@@ -53,7 +53,7 @@ const onSignInSubmit = (e: Event): void => {
 
 const onForgotPasswordClicked = (): void => {
   // TODO(BREAKING): remove unused emit
-  /* istanbul ignore next */
+  // istanbul ignore next
   if (attrs?.onForgotPasswordClicked) {
     emit('forgotPasswordClicked');
   } else {

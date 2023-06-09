@@ -37,7 +37,26 @@ describe('FederatedSignIn', () => {
     jest.clearAllMocks();
   });
 
-  it('does not render anything if socialProviders are empty', () => {
+  it('does not render anything if socialProviders does not exist', () => {
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...mockServiceFacade,
+        socialProviders: undefined,
+      })
+    );
+
+    const { container } = render(FederatedSignIn, { global: { components } });
+    expect(container.firstChild?.hasChildNodes()).toBe(false);
+  });
+
+  it('does not render anything if socialProviders array is empty', () => {
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...mockServiceFacade,
+        socialProviders: [],
+      })
+    );
+
     const { container } = render(FederatedSignIn, { global: { components } });
     expect(container.firstChild?.hasChildNodes()).toBe(false);
   });
