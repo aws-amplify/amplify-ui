@@ -93,12 +93,10 @@
     "@changesets/changelog-github": "0.4.1",
     "@changesets/cli": "^2.16.0",
     "husky": ">=6",
-    "json": "^11.0.0",
     "license-checker": "^25.0.1",
     "lint-staged": ">=10",
     "prettier": "2.4.1",
     "rimraf": "^3.0.2",
-    "strip-json-comments-cli": "^2.0.2",
     "turbo": "^1.2.8",
     "typescript": "^4.6.3",
     "wait-on": "^6.0.0"
