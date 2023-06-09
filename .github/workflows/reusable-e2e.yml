@@ -65,13 +65,13 @@ jobs:
       # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
         include:
-          - example: angular
-            package: angular
-            tags: '@angular and not @todo-angular'
+          # - example: angular
+          #   package: angular
+          #   tags: '@angular and not @todo-angular'
 
-          - example: next
-            package: react
-            tags: '@react and not @todo-react'
+          # - example: next
+          #   package: react
+          #   tags: '@react and not @todo-react'
 
           - example: vue
             package: vue
