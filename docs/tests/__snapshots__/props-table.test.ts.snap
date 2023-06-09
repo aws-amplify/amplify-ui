@@ -3754,6 +3754,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"ImageOptions\\",
                         \\"isOptional\\": true
                     },
+                    \\"isLazy\\": {
+                        \\"name\\": \\"isLazy\\",
+                        \\"type\\": \\"boolean | undefined\\",
+                        \\"description\\": \\"Image will be loaded lazily if set to true.\\",
+                        \\"category\\": \\"ImageOptions\\",
+                        \\"isOptional\\": true
+                    },
                     \\"onLoad\\": {
                         \\"name\\": \\"onLoad\\",
                         \\"type\\": \\"((event: React.SyntheticEvent<HTMLImageElement, Event>) => void) | undefined\\",
@@ -3766,6 +3773,13 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"((error: string | React.SyntheticEvent<HTMLImageElement, Event>) => void) | undefined\\",
                         \\"description\\": \\"Handles error events on image.\\",
                         \\"category\\": \\"ImageOptions\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"aspectRatio\\": {
+                        \\"name\\": \\"aspectRatio\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.AspectRatio> | undefined\\",
+                        \\"description\\": \\"Sets a preferred aspect ratio for the selected replaced element's box\\",
+                        \\"category\\": \\"ImageStyleProps\\",
                         \\"isOptional\\": true
                     },
                     \\"objectFit\\": {
