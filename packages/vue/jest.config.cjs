@@ -2,7 +2,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/src/**/*.(ts|vue)',
-    // ignore  __mock__ directories
+    // ignore ___mock__ directories
     '!<rootDir>/**/__mock__',
   ],
   coveragePathIgnorePatterns: [
