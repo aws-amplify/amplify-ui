@@ -86,8 +86,8 @@ if [[ "$FRAMEWORK" == 'vue' ]]; then
     cp $AWS_EXPORTS_FILE mega-apps/${MEGA_APP_NAME}/src/aws-exports.js
 
     # Add `allowJs: true` to tsconfig for aws-exports.js
-    echo "node ../.github/scripts/modifyJSON.js mega-apps/${MEGA_APP_NAME}/tsconfig.json add \"compilerOptions.allowJs true\""
-    node ../.github/scripts/modifyJSON.js mega-apps/${MEGA_APP_NAME}/tsconfig.json add "compilerOptions.allowJs true"
+    echo "npx json -I -f mega-apps/vue-3-vue-cli-latest-node-18-ts/tsconfig.json -e \"this.compilerOptions.allowJs=true\""
+    npx json -I -f mega-apps/vue-3-vue-cli-latest-node-18-ts/tsconfig.json -e "this.compilerOptions.allowJs=true"
 
     # See Troubleshooting: https://ui.docs.amplify.aws/vue/getting-started/troubleshooting
     if [[ "$BUILD_TOOL" == 'vite' ]]; then
