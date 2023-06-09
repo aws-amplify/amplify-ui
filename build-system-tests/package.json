@@ -1,5 +1,5 @@
 {
-  "name": "build-system-tests",
+  "name": "@aws-amplify/ui-build-system-tests",
   "version": "1.0.0",
   "devDependencies": {
     "json": "^11.0.0",
