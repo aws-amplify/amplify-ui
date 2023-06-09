@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/vue';
 import { AuthEvent, AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
-import { mockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import * as UseAuthComposables from '../../composables/useAuth';
 import Authenticator from '../authenticator';
 
@@ -50,7 +50,7 @@ const useAuthSpy = jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 });
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
-  .mockReturnValue(reactive(mockServiceFacade));
+  .mockReturnValue(reactive(baseMockServiceFacade));
 
 describe('authenticator', () => {
   beforeEach(() => {
@@ -115,7 +115,7 @@ describe('authenticator', () => {
   it('renders default slot if route is authenticated', () => {
     useAuthenticatorSpy.mockReturnValue(
       reactive({
-        ...mockServiceFacade,
+        ...baseMockServiceFacade,
         route: 'authenticated',
       })
     );

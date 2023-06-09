@@ -1,6 +1,6 @@
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
 
-export const mockServiceFacade: AuthenticatorServiceFacade = {
+export const baseMockServiceFacade: AuthenticatorServiceFacade = {
   authStatus: 'authenticated',
   codeDeliveryDetails: {} as AuthenticatorServiceFacade['codeDeliveryDetails'],
   error: undefined as unknown as AuthenticatorServiceFacade['error'],

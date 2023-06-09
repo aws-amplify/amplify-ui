@@ -2,7 +2,7 @@ import { reactive, ref, Ref } from 'vue';
 import { render, screen } from '@testing-library/vue';
 
 import { components } from '../../../global-spec';
-import { mockServiceFacade as baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import * as UseAuthComposables from '../../composables/useAuth';
 import FederatedSignIn from '../federated-sign-in.vue';
 

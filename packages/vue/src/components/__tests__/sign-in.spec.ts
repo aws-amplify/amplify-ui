@@ -7,7 +7,7 @@ import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
 import SignIn from '../sign-in.vue';
-import { mockServiceFacade as baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 
 // mock random value so that snapshots are consistent
 jest.spyOn(Math, 'random').mockReturnValue(0.1);

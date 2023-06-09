@@ -4,7 +4,7 @@ import { screen, render, fireEvent } from '@testing-library/vue';
 import { components } from '../../../global-spec';
 import FederatedSignInButton from '../federated-sign-in-button.vue';
 
-import { mockServiceFacade as baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
+import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import * as UseAuthComposables from '../../composables/useAuth';
 
 const toFederatedSignInSpy = jest.fn();
