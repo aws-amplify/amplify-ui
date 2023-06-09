@@ -95,11 +95,13 @@ jobs:
         run: yarn build
       - name: Set liveness package to be public
         run: yarn setLivenessPublic
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to ui-react-liveness@latest
         run: npm publish
         working-directory: ./packages/react-liveness
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Trigger build for sample app
         run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
         env:
