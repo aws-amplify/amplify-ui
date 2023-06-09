@@ -60,7 +60,7 @@ describe('useAuthenticator', () => {
     wrapper.unmount();
   });
 
-  it('calls getServiceFacade once on initial render', () => {
+  it('calls getServiceFacade once on initial mount', () => {
     const wrapper = mount(TestComponent);
 
     expect(getServiceFacadeSpy).toBeCalledTimes(1);
