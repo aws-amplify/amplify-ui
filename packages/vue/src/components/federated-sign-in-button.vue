@@ -16,8 +16,11 @@
 
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import { useAuthenticator } from '../composables/useAuth';
+
 import { AuthenticatorServiceFacade } from '@aws-amplify/ui';
+
+import { useAuthenticator } from '../composables/useAuth';
+
 const props = defineProps<{ provider: string }>();
 
 const { provider } = toRefs(props);
