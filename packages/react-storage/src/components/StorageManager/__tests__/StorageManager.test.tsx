@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, act } from '@testing-library/react';
 
 import { Logger } from 'aws-amplify';
 import { ComponentClassNames } from '@aws-amplify/ui-react';
@@ -7,7 +7,7 @@ import { Storage } from 'aws-amplify';
 
 import * as StorageHooks from '../hooks';
 import { StorageManager } from '../StorageManager';
-import { StorageManagerProps } from '../types';
+import { StorageManagerProps, StorageManagerHandle } from '../types';
 import { defaultStorageManagerDisplayText } from '../utils';
 
 const storageSpy = jest
@@ -17,7 +17,6 @@ const storageSpy = jest
 const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
 
 const storeManagerProps: StorageManagerProps = {
-  acceptedFileTypes: [],
   accessLevel: 'public',
   maxFileCount: 100,
 };
@@ -219,5 +218,37 @@ describe('StorageManager', () => {
       files: [mockFile],
       getFileErrorMessage: expect.any(Function),
     });
+  });
+
+  it('clears files when imperative handle clearFiles() is called', () => {
+    const ref = React.createRef<StorageManagerHandle>();
+    const mockAddFiles = jest.fn();
+    const mockClearFiles = jest.fn();
+    jest.spyOn(StorageHooks, 'useStorageManager').mockReturnValue({
+      addFiles: mockAddFiles,
+      clearFiles: mockClearFiles,
+      files: [],
+    } as unknown as StorageHooks.UseStorageManager);
+
+    render(<StorageManager {...storeManagerProps} ref={ref} />);
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    expect(hiddenInput).toBeInTheDocument();
+    const file = new File(['file content'], 'file.txt', { type: 'text/plain' });
+    fireEvent.change(hiddenInput, {
+      target: { files: [file] },
+    });
+
+    expect(mockAddFiles).toHaveBeenCalledTimes(1);
+    expect(mockAddFiles).toHaveBeenCalledWith({
+      files: [file],
+      getFileErrorMessage: expect.any(Function),
+    });
+
+    act(() => ref.current?.clearFiles());
+    expect(mockClearFiles).toHaveBeenCalledTimes(1);
+    expect(mockClearFiles).toHaveBeenCalledWith();
   });
 });

@@ -1,10 +1,10 @@
 import { Sizes } from './base';
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type BadgeVariations = 'info' | 'error' | 'warning' | 'success';
 export type BadgeSizes = Sizes;
 
-export interface BadgeProps extends ViewProps {
+export interface BaseBadgeProps extends BaseViewProps {
   /**
    * @description
    * The variation property will affect the background color of the badge.
@@ -16,3 +16,8 @@ export interface BadgeProps extends ViewProps {
    */
   size?: BadgeSizes;
 }
+
+export type BadgeProps<Element extends ElementType = 'span'> = PrimitiveProps<
+  BaseBadgeProps,
+  Element
+>;

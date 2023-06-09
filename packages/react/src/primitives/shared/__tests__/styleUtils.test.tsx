@@ -9,10 +9,10 @@ import {
   useStyles,
   useTransformStyleProps,
 } from '../styleUtils';
-import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
+import { ComponentPropsToStylePropsMap, BaseViewProps } from '../../types';
 import { Breakpoint } from '../../types/responsive';
 
-type UnknownViewProps = ViewProps & Record<string, unknown>;
+type UnknownViewProps = BaseViewProps & Record<string, unknown>;
 
 const props: UnknownViewProps = {
   backgroundColor: 'blue',

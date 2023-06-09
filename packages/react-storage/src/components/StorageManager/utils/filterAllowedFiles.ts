@@ -1,7 +1,16 @@
 export const filterAllowedFiles = (
   files: File[],
-  acceptedFileTypes: string[]
+  acceptedFileTypes?: string[]
 ): File[] => {
+  // Allow any files if acceptedFileTypes is undefined, empty array, or contains '*'
+  if (
+    !acceptedFileTypes ||
+    acceptedFileTypes.length === 0 ||
+    acceptedFileTypes.includes('*')
+  ) {
+    return files;
+  }
+
   // Remove any files that are not in the accepted file list
   return files.filter((file) => {
     const fileName = file.name || '';
