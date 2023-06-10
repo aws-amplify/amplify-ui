@@ -1,5 +1,77 @@
 #!/bin/bash
 
+# Default values
+BUILD_TOOL="cra"
+BUILD_TOOL_VERSION="latest"
+LANGUAGE="js"
+MEGA_APP_NAME=""
+FRAMEWORK="react"
+FRAMEWORK_VERSION="latest"
+
+# Options
+# -bt, --build-tool
+#               Build tool: cra, next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo
+#               Default: cra
+# -btv, --build-tool-version
+#               Build tool version
+#               Default: latest
+# e.g.
+# $ ./mega-app-copy-files.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest
+# $ ./mega-app-copy-files.sh -bt react -btr latest -lang typescript -n react-latest-cra-latest-node-18-ts -fw cra -fwv latest
+# $ ./mega-app-copy-files.sh -n react-latest-cra-latest-node-18-ts
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+    -bt | --build-tool)
+        BUILD_TOOL=$2
+        shift
+        ;;
+    -btr | --build-tool-version)
+        BUILD_TOOL_VERSION=$2
+        shift
+        ;;
+    -lang | --language)
+        LANGUAGE=$2
+        shift
+        ;;
+    -n | --name)
+        MEGA_APP_NAME=$2
+        shift
+        ;;
+    -fw | --framework)
+        FRAMEWORK=$2
+        shift
+        ;;
+    -fwv | --framework-version)
+        FRAMEWORK_VERSION=$2
+        shift
+        ;;
+    -h | --help)
+        echo "Usage: mega-app-create-app.sh [OPTIONS]"
+        echo "Options:"
+        echo "  -bt, --build-tool          Specify the build tool: cra, next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo. (default: cra)"
+        echo "  -btr, --build-tool-version Specify the build tool version (default: latest)"
+        echo "  -lang, --language          Specify the language: js, ts (default: js)"
+        echo "  -n, --name                 Specify the mega app name (required)"
+        echo "  -fw, --framework           Specify the framework: react, angular, vue, react-native (default: react)"
+        echo "  -fwv, --framework-version  Specify the framework version (default: latest)"
+        echo "  -h, --help                 Show help message"
+        exit 0
+        ;;
+    *)
+        echo "Unknown option: $1"
+        exit 1
+        ;;
+    esac
+    shift
+done
+
+# Check if MEGA_APP_NAME is provided
+if [[ -z "$MEGA_APP_NAME" ]]; then
+    echo "Please provide a name for the mega app using the -n or --name option."
+    exit 1
+fi
+
 if [[ "$FRAMEWORK" == "react-native" && "$BUILD_TOOL" == 'cli' ]]; then
     AWS_EXPORTS_FILE="templates/template-react-native-aws-exports.js"
 else
