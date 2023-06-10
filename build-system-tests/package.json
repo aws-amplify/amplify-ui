@@ -1,0 +1,9 @@
+{
+  "name": "@aws-amplify/ui-build-system-tests",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "json": "^11.0.0",
+    "strip-json-comments-cli": "^2.0.2"
+  }
+}
