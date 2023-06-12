@@ -180,3 +180,10 @@ export function trimValues<T extends Record<string, string>>(
     {} as T
   );
 }
+
+export const isValidEmail = (value: string | undefined) => {
+  if (!value) return false;
+
+  const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  return emailRegex.test(value);
+};

@@ -28,14 +28,20 @@ const SignUp: DefaultSignUpComponent = ({
   hideSignIn,
   isPending,
   toSignIn,
+  validationErrors,
   ...rest
 }) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+  const {
+    fields: fieldsWithHandlers,
+    formValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getSignUpTabText();
@@ -67,6 +73,7 @@ const SignUp: DefaultSignUpComponent = ({
       fields={fieldsWithHandlers}
       headerText={headerText}
       isPending={isPending}
+      validationErrors={formValidationErrors}
     />
   );
 };

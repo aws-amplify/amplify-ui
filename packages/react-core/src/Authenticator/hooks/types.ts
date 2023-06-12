@@ -75,6 +75,7 @@ export type CommonRouteProps = {
   handleBlur: UseAuthenticator['updateBlur'];
   handleChange: UseAuthenticator['updateForm'];
   handleSubmit: UseAuthenticator['submitForm'];
+  validationErrors?: UseAuthenticator['validationErrors'];
 };
 
 /**
@@ -82,7 +83,6 @@ export type CommonRouteProps = {
  */
 export type ConfirmResetPasswordBaseProps<FieldType = {}> = {
   resendCode: UseAuthenticator['resendCode'];
-  validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
@@ -105,7 +105,6 @@ export type ConfirmVerifyUserProps<FieldType = {}> = {
 
 export type ForceResetPasswordBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
-  validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 
@@ -132,7 +131,6 @@ export type SignUpBaseProps<FieldType = {}> = {
   hideSignIn?: boolean;
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
   toSignIn: UseAuthenticator['toSignIn'];
-  validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps &
   ComponentSlots<FieldType>;
 

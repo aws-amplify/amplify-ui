@@ -2,7 +2,10 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 
 import { Logger } from 'aws-amplify';
-import { UnverifiedContactMethodType } from '@aws-amplify/ui';
+import {
+  UnverifiedContactMethodType,
+  authenticatorTextUtil,
+} from '@aws-amplify/ui';
 import {
   RadioFieldOptions,
   TextFieldOptionsType,
@@ -58,6 +61,7 @@ describe('useFieldValues', () => {
           value: undefined,
         },
       ],
+      formValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -80,6 +84,7 @@ describe('useFieldValues', () => {
           value: undefined,
         },
       ],
+      formValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -95,6 +100,7 @@ describe('useFieldValues', () => {
     expect(result.current).toStrictEqual({
       disableFormSubmit: true,
       fields: [{ ...radioField, onChange: expect.any(Function) }],
+      formValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -105,6 +111,7 @@ describe('useFieldValues', () => {
     expect(result.current).toStrictEqual({
       disableFormSubmit: false,
       fields: mockfields,
+      formValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -150,6 +157,37 @@ describe('useFieldValues', () => {
     expect(props.handleSubmit).toHaveBeenCalledTimes(1);
     expect(props.handleSubmit).toHaveBeenCalledWith({
       [textField.name]: mockValue,
+    });
+  });
+
+  it('runs validations for email fields', () => {
+    const emailField = {
+      label: 'test',
+      type: 'email',
+      name: 'invalid_email',
+      value: 'test@',
+    } as TextFieldOptionsType;
+    const phoneTextField = {
+      type: 'phone',
+      name: 'testPhone',
+    } as TextFieldOptionsType;
+    const { result } = renderHook(() =>
+      useFieldValues({
+        ...props,
+        fields: [emailField, phoneTextField],
+      })
+    );
+    const mockEvent = {
+      nativeEvent: { target: 1 },
+    } as NativeSyntheticEvent<TextInputFocusEventData>;
+    result.current.fields[0].onBlur?.(mockEvent);
+    expect(props.handleBlur).toHaveBeenCalledTimes(1);
+    expect(props.handleBlur).toHaveBeenCalledWith({
+      name: emailField.name,
+      value: undefined,
+    });
+    expect(result.current.formValidationErrors).toStrictEqual({
+      email: authenticatorTextUtil.getInvalidEmailText(),
     });
   });
 
@@ -234,6 +272,7 @@ describe('useFieldValues', () => {
           value: undefined,
         },
       ],
+      formValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -267,6 +306,7 @@ describe('useFieldValues', () => {
           value: mockValue,
         },
       ],
+      formValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });

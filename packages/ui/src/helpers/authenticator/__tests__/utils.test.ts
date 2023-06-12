@@ -1,4 +1,9 @@
-import { configureComponent, getTotpCodeURL, trimValues } from '../utils';
+import {
+  configureComponent,
+  getTotpCodeURL,
+  isValidEmail,
+  trimValues,
+} from '../utils';
 
 import * as AuthModule from '@aws-amplify/auth';
 
@@ -72,5 +77,17 @@ describe('configureComponent', () => {
     expect(appendToCognitoUserAgentSpy).toHaveBeenCalledWith(
       `${packageName}/${version}`
     );
+  });
+});
+
+describe('isValidEmail', () => {
+  it('should validate an email address', () => {
+    expect(isValidEmail('test@example.com')).toBe(true);
+
+    expect(isValidEmail('testexample.com')).toBe(false);
+    expect(isValidEmail('test@')).toBe(false);
+    expect(isValidEmail('test@.')).toBe(false);
+    expect(isValidEmail('test@example@test.com')).toBe(false);
+    expect(isValidEmail('test @example.com')).toBe(false);
   });
 });

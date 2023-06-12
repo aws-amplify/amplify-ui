@@ -109,7 +109,8 @@ const isKeyAllowed = (key: string) =>
 
 const isValidMachineFieldType = (
   type: string | undefined
-): type is MachineFieldTypeKey => type === 'password' || type === 'tel';
+): type is MachineFieldTypeKey =>
+  type === 'password' || type === 'tel' || type == 'email';
 
 const getFieldType = (type: string | undefined): AuthenticatorFieldTypeKey => {
   if (isValidMachineFieldType(type)) {

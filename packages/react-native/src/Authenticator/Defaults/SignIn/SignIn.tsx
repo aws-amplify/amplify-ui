@@ -21,6 +21,7 @@ const SignIn: DefaultSignInComponent = ({
   hideSignUp,
   toResetPassword,
   toSignUp,
+  validationErrors,
   ...rest
 }) => {
   const {
@@ -30,12 +31,17 @@ const SignIn: DefaultSignInComponent = ({
     getForgotPasswordText,
   } = authenticatorTextUtil;
 
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+  const {
+    fields: fieldsWithHandlers,
+    formValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getSignInTabText();
@@ -70,6 +76,7 @@ const SignIn: DefaultSignInComponent = ({
       buttons={buttons}
       fields={fieldsWithHandlers}
       headerText={headerText}
+      validationErrors={formValidationErrors}
     />
   );
 };
