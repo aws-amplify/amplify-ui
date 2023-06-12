@@ -12,7 +12,7 @@ name: Test and Publish / latest
 
 on:
   push:
-    branches: [main]
+    branches: [main, hotfix]
 
 permissions:
   id-token: write # This is required for requesting the JWT
