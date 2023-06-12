@@ -1,5 +1,12 @@
 # @aws-amplify/ui-react-notifications
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react@5.0.1
+
 ## 1.0.1
 
 ### Patch Changes

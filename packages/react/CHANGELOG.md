@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 5.0.1
+
+### Patch Changes
+
+- Super urgent hot fix
+
 ## 5.0.0
 
 ### Major Changes

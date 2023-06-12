@@ -1,5 +1,11 @@
 # @aws-amplify/ui-angular
 
+## 3.2.19
+
+### Patch Changes
+
+- Super urgent hot fix
+
 ## 3.2.18
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @aws-amplify/ui-react-storage
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @aws-amplify/ui-react@5.0.1
+
 ## 2.0.0
 
 ### Major Changes
