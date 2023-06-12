@@ -44,6 +44,30 @@ describe('LivenessCheck', () => {
   };
   const mockActorSend = jest.fn();
 
+  const { userAgent: originalUserAgent } = window.navigator;
+
+  beforeAll(() => {
+    Object.defineProperty(
+      window.navigator,
+      'userAgent',
+      ((value) => ({
+        get() {
+          return value;
+        },
+        set(v) {
+          value = v;
+        },
+      }))(window.navigator['userAgent'])
+    );
+  });
+
+  afterAll(() => {
+    Object.defineProperty(window, 'navigator', {
+      configurable: true,
+      value: originalUserAgent,
+    });
+  });
+
   beforeEach(() => {
     mockUseLivenessActor.mockReturnValue([mockActorState, mockActorSend]);
     mockUseThemeBreakpoint.mockReturnValue('small');
@@ -125,6 +149,9 @@ describe('LivenessCheck', () => {
   });
 
   it('should render the component content for mobile landscape errors', () => {
+    mockActorState.matches.mockReturnValue(true);
+    (global.navigator as any).userAgent =
+      'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
     mockMatchMedia('(orientation: landscape)', true);
     mockActorState.matches.mockReturnValue(true);
     mockUseLivenessSelector.mockReturnValue(

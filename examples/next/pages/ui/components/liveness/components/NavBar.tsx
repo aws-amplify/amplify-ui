@@ -80,6 +80,10 @@ export default function NavBar({
               <Link href="/ui/components/liveness/with-custom-components">
                 With Custom Components
               </Link>
+
+              <Link href="/ui/components/liveness/with-credential-provider">
+                With Credential Provider
+              </Link>
             </Flex>
           </Card>
         </View>

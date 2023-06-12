@@ -1,7 +1,9 @@
+import { AwsCredentialProvider } from './credentials';
+
 /**
- * The props for the FaceLivenessDetector
+ * The props for the FaceLivenessDetectorCore which allows for full configuration of auth
  */
-export interface FaceLivenessDetectorProps {
+export interface FaceLivenessDetectorCoreProps {
   /**
    * The sessionId as returned by CreateStreamingLivenessSession API
    */
@@ -36,10 +38,24 @@ export interface FaceLivenessDetectorProps {
   /**
    * Optional parameter for advanced options for the component
    */
-  config?: FaceLivenessDetectorConfig;
+  config?: FaceLivenessDetectorCoreConfig;
 }
 
-export interface FaceLivenessDetectorConfig {
+/**
+ * The props for the FaceLivenessDetector extends FaceLivenessDetectorCore with defaults for Amplify Auth configuration
+ */
+
+export type FaceLivenessDetectorProps = Omit<
+  FaceLivenessDetectorCoreProps,
+  'config'
+> & {
+  /**
+   * Optional parameter for advanced options for the component
+   */
+  config?: FaceLivenessDetectorConfig;
+};
+
+export interface FaceLivenessDetectorCoreConfig {
   /**
    * overrides the Wasm backend binary CDN path
    * default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/.
@@ -52,7 +68,17 @@ export interface FaceLivenessDetectorConfig {
    * default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file
    */
   faceModelUrl?: string;
+
+  /**
+   * Optional parameter allowing usage of custom credential providers when calling the Rekognition stream endpoint
+   */
+  credentialProvider?: AwsCredentialProvider;
 }
+
+export type FaceLivenessDetectorConfig = Omit<
+  FaceLivenessDetectorCoreConfig,
+  'credentialProvider'
+>;
 
 /**
  * The coordiates of any bounding box
