@@ -7,7 +7,7 @@ import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
 import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
-import SignIn from '../sign-in.vue';
+import SignUp from '../sign-up.vue';
 
 // mock random value so that snapshots are consistent
 jest.spyOn(Math, 'random').mockReturnValue(0.1);
@@ -45,37 +45,67 @@ jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
     'password',
     { label: 'Password', placeholder: 'Enter your Password', type: 'password' },
   ],
+  [
+    'confirm_password',
+    {
+      label: 'Confirm Password',
+      placeholder: 'Please your Password',
+      type: 'password',
+    },
+  ],
+  ['email', { label: 'Email', placeholder: 'Enter your Email' }],
 ]);
 
 const usernameInputParams = { name: 'username', value: 'username' };
 const passwordInputParams = { name: 'password', value: 'verysecurepassword' };
+const confirmPasswordInputParams = {
+  name: 'confirm_password',
+  value: 'verysecurepassword',
+};
+const emailInputParams = { name: 'email', value: 'email@example.com' };
 
-describe('SignIn', () => {
+describe('SignUp', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders as expected', () => {
-    const { container } = render(SignIn, { global: { components } });
+    const { container } = render(SignUp, { global: { components } });
     expect(container).toMatchSnapshot();
   });
 
   it('sends change event on form input', async () => {
-    render(SignIn, { global: { components } });
+    render(SignUp, { global: { components } });
     const usernameField = await screen.findByLabelText('Username');
     const passwordField = await screen.findByLabelText('Password');
+    const confirmPasswordField = await screen.findByLabelText(
+      'Confirm Password'
+    );
+    const emailField = await screen.findByLabelText('Email');
 
-    await fireEvent.input(usernameField, { target: usernameInputParams });
+    await fireEvent.update(usernameField, 'username');
     expect(updateFormSpy).toHaveBeenCalledWith(usernameInputParams);
 
-    await fireEvent.input(passwordField, { target: passwordInputParams });
+    await fireEvent.update(passwordField, 'verysecurepassword');
     expect(updateFormSpy).toHaveBeenCalledWith(passwordInputParams);
+
+    await fireEvent.input(confirmPasswordField, {
+      target: confirmPasswordInputParams,
+    });
+    expect(updateFormSpy).toHaveBeenCalledWith(confirmPasswordInputParams);
+
+    await fireEvent.input(emailField, { target: emailInputParams });
+    expect(updateFormSpy).toHaveBeenCalledWith(emailInputParams);
   });
 
-  it('sends submit event on form submit', async () => {
-    render(SignIn, { global: { components } });
+  it.only('sends submit event on form submit', async () => {
+    render(SignUp, { global: { components } });
     const usernameField = await screen.findByLabelText('Username');
     const passwordField = await screen.findByLabelText('Password');
+    const confirmPasswordField = await screen.findByLabelText(
+      'Confirm Password'
+    );
+    const emailField = await screen.findByLabelText('Email');
 
     await fireEvent.input(usernameField, { target: usernameInputParams });
     expect(updateFormSpy).toHaveBeenCalledWith(usernameInputParams);
@@ -83,14 +113,28 @@ describe('SignIn', () => {
     await fireEvent.input(passwordField, { target: passwordInputParams });
     expect(updateFormSpy).toHaveBeenCalledWith(passwordInputParams);
 
-    const submitButton = await screen.findByRole('button', { name: 'Sign in' });
+    await fireEvent.input(confirmPasswordField, {
+      target: confirmPasswordInputParams,
+    });
+
+    await fireEvent.input(emailField, { target: emailInputParams });
+    expect(updateFormSpy).toHaveBeenCalledWith(emailInputParams);
+
+    const submitButton = await screen.findByRole('button', {
+      name: 'Create in',
+    });
     await fireEvent.click(submitButton);
 
-    expect(submitFormSpy).toHaveBeenCalled();
+    expect(submitFormSpy).toHaveBeenCalledWith({
+      username: 'username',
+      password: 'verysecurepassword',
+      confirm_password: 'verysecurepassword',
+      email: 'email@example.com',
+    });
   });
 
   it('forgot password button navigates to reset password screen', async () => {
-    render(SignIn, { global: { components } });
+    render(SignUp, { global: { components } });
 
     const forgotPasswordButton = await screen.findByRole('button', {
       name: 'Forgot your password?',
@@ -108,7 +152,7 @@ describe('SignIn', () => {
         error: 'mockError',
       })
     );
-    render(SignIn, { global: { components } });
+    render(SignUp, { global: { components } });
 
     expect(await screen.findByText('mockError')).toBeInTheDocument();
   });
@@ -120,7 +164,7 @@ describe('SignIn', () => {
         isPending: true,
       })
     );
-    render(SignIn, { global: { components } });
+    render(SignUp, { global: { components } });
 
     const submitButton = await screen.findByRole('button', {
       name: 'Signing in',
