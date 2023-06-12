@@ -130,21 +130,20 @@
   font-size: var(--amplify-components-message-icon-size);
 }
 
-.amplify-message__heading {
-  display: block;
-  font-weight: var(--amplify-components-message-heading-font-weight);
-  font-size: var(--amplify-components-message-heading-font-size);
+.amplify-message__title {
+  font-weight: var(--amplify-components-message-title-font-weight);
+  font-size: var(--amplify-components-message-title-font-size);
 }
 
-.amplify-message__body {
-  color: inherit;
-  display: block;
-}
+// .amplify-message__body {
+//   color: inherit;
+//   display: block;
+// }
 
 .amplify-message__content {
   flex: 1;
   flex-direction: column;
-  gap: var(--amplify-space-xs);
+  gap: var(--amplify-space-xxxs);
 }
 
 .amplify-message__dismiss {

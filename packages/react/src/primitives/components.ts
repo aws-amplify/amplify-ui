@@ -18,7 +18,7 @@ export { Image } from './Image';
 export { Link } from './Link';
 export { Loader } from './Loader';
 export { Menu, MenuButton, MenuItem } from './Menu';
-export { Message, MessageTitle } from './Message';
+export { Message, MessageTitle, MessageContent } from './Message';
 export { NotificationBar } from './NotificationBar';
 export { Overlay } from './Overlay';
 export { Pagination } from './Pagination';

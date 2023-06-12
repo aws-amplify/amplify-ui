@@ -1,2 +1,3 @@
 export { Message } from './Message';
-export { MessageHeading } from './MessageTitle';
+export { MessageTitle } from './MessageTitle';
+export { MessageContent } from './MessageContent';

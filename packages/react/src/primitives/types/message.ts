@@ -66,4 +66,5 @@ export interface MessageProps extends FlexProps {
   buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
-export interface MessageHeadingProps extends FlexProps {}
+export interface MessageTitleProps extends FlexProps {}
+export interface MessageContentProps extends FlexProps {}

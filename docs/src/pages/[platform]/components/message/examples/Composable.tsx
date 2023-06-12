@@ -2,6 +2,8 @@ import {
   View,
   Flex,
   Message,
+  MessageTitle,
+  MessageContent,
   Text,
   Button,
   Link,
@@ -18,30 +20,45 @@ import {
 
 export const Composable = () => {
   return (
-    <View padding="medium" backgroundColor="white">
-      <Flex direction="column" maxWidth="540px">
+    <View padding="medium">
+      <Flex direction="column" gap="xl">
         <Message
           variation="filled"
           colorTheme="info"
           hasIcon={false}
           isDismissible={true}
-          heading="Your build is ready."
         >
-          <Flex direction="column" gap="xs">
-            <Text>A new build is available for download.</Text>
-            <Flex alignItems="center">
-              <Button variation="primary" colorTheme="info" size="small">
-                Download 3.45.67
-              </Button>
-              <Link href="/">View changelog</Link>
+          <MessageContent>
+            <MessageTitle>Your build is ready.</MessageTitle>
+            <Flex direction="column" gap="xs">
+              <Text>A new build is available for download.</Text>
+              <Flex alignItems="center">
+                <Button variation="primary" colorTheme="info" size="small">
+                  Download 3.45.67
+                </Button>
+                <Link href="/">View changelog</Link>
+              </Flex>
             </Flex>
-          </Flex>
+          </MessageContent>
         </Message>
         <Message
           alignItems="flex-start"
           gap="xxxs"
-          heading={
-            <Flex paddingLeft="small" justifyContent="space-between">
+          icon={
+            <View>
+              <Image
+                width="52px"
+                height="52px"
+                objectFit="cover"
+                borderRadius="50%"
+                alt="Some text describing this message"
+                src="https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987"
+              />
+            </View>
+          }
+        >
+          <MessageContent>
+            <MessageTitle paddingLeft="small" justifyContent="space-between">
               <View>
                 <Text fontWeight="bold" as="span">
                   Amplify UI
@@ -58,41 +75,28 @@ export const Composable = () => {
               <Button colorTheme="neutral" size="small">
                 Follow
               </Button>
+            </MessageTitle>
+            <Flex direction="column" gap="xs">
+              <View paddingLeft="small">
+                Visit our docs site to learn all about the new primitive changes
+                in version 35!
+              </View>
+              <Flex>
+                <Button size="small" fontSize="large" variation="link">
+                  <BiReply />
+                </Button>
+                <Button size="small" fontSize="large" variation="link">
+                  <BiRepost />
+                </Button>
+                <Button size="small" fontSize="large" variation="link">
+                  <BiHeart />
+                </Button>
+                <Button size="small" fontSize="large" variation="link">
+                  <BiDotsHorizontalRounded />
+                </Button>
+              </Flex>
             </Flex>
-          }
-          icon={
-            <View>
-              <Image
-                width="52px"
-                height="52px"
-                objectFit="cover"
-                borderRadius="50%"
-                alt="Some text describing this message"
-                src="https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987"
-              />
-            </View>
-          }
-        >
-          <Flex direction="column" gap="xs">
-            <View paddingLeft="small">
-              Visit our docs site to learn all about the new primitive changes
-              in version 35!
-            </View>
-            <Flex>
-              <Button size="small" fontSize="large" variation="link">
-                <BiReply />
-              </Button>
-              <Button size="small" fontSize="large" variation="link">
-                <BiRepost />
-              </Button>
-              <Button size="small" fontSize="large" variation="link">
-                <BiHeart />
-              </Button>
-              <Button size="small" fontSize="large" variation="link">
-                <BiDotsHorizontalRounded />
-              </Button>
-            </Flex>
-          </Flex>
+          </MessageContent>
         </Message>
         <Message
           variation="outline"
@@ -119,33 +123,43 @@ export const Composable = () => {
           hasIcon={false}
           boxShadow="0 1px 8px rgba(0,0,0,.15)"
           borderRadius="medium"
-          heading="Are you sure you want to delete this item?"
         >
-          <Flex direction="column" gap="xl">
-            <Text>Deleted items cannot be recovered.</Text>
-            <Flex justifyContent="flex-end">
-              <Button variation="link" colorTheme="neutral" size="small">
-                Cancel
-              </Button>
-              <Button variation="primary" colorTheme="error" size="small">
-                Yes, delete this item.
-              </Button>
+          <MessageContent>
+            <MessageTitle>
+              Are you sure you want to delete this item?
+            </MessageTitle>
+            <Flex direction="column">
+              <Text>Deleted items cannot be recovered.</Text>
+              <Flex justifyContent="flex-end">
+                <Button variation="link" colorTheme="neutral" size="small">
+                  Cancel
+                </Button>
+                <Button variation="primary" colorTheme="error" size="small">
+                  Yes, delete this item.
+                </Button>
+              </Flex>
             </Flex>
-          </Flex>
+          </MessageContent>
         </Message>
         <Message
           variation="filled"
           colorTheme="success"
           hasIcon={false}
-          heading=" All systems are stable."
-        ></Message>
+          isDismissible={true}
+        >
+          <MessageTitle>All systems are stable.</MessageTitle>
+        </Message>
         <Message variation="filled" colorTheme="warning">
-          <Flex alignItems="center" justifyContent="space-between">
+          <MessageContent
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+          >
             You are almost out of storage.{' '}
             <Button variation="primary" colorTheme="warning" size="small">
               Manage app storage
             </Button>
-          </Flex>
+          </MessageContent>
         </Message>
         <Message variation="outline" colorTheme="info" heading="Did you know?">
           <Text>
@@ -155,12 +169,16 @@ export const Composable = () => {
           </Text>
         </Message>
         <Message variation="filled" colorTheme="error">
-          <Flex alignItems="center" justifyContent="space-between">
+          <MessageContent
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+          >
             Workflows are limited during active LSE.{' '}
             <Button size="small" variation="primary" colorTheme="error">
               Follow for updates
             </Button>
-          </Flex>
+          </MessageContent>
         </Message>
         <Message colorTheme="error" alignSelf="center">
           Too many attempts, please wait before trying again.
@@ -172,10 +190,12 @@ export const Composable = () => {
           alignSelf="center"
           width="500px"
         >
-          <Text variation="tertiary">
-            /App.js: Adjacent JSX elements must be wrapped in an enclosing tag.
-            Did you want a JSX fragment <>...</>? (5:4)
-          </Text>
+          <MessageContent>
+            <Text variation="tertiary" as="span">
+              /App.js: Adjacent JSX elements must be wrapped in an enclosing
+              tag. Did you want a JSX fragment <>...</>? (5:4)
+            </Text>
+          </MessageContent>
         </Message>
       </Flex>
     </View>

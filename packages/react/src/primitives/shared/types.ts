@@ -142,7 +142,7 @@ type ComponentClassNameKey =
   | 'MenuTrigger'
   | 'Message'
   | 'MessageIcon'
-  | 'MessageHeading'
+  | 'MessageTitle'
   | 'MessageBody'
   | 'MessageContent'
   | 'MessageDismiss'

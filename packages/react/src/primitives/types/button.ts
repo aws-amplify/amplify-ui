@@ -7,11 +7,11 @@ export type ButtonTypes = 'button' | 'reset' | 'submit';
 export type ButtonVariations =
   | 'primary'
   | 'link'
+  | 'outlined'
   | 'menu'
   | 'destructive'
   | 'warning';
 export type ButtonColorThemes =
-  | 'brand'
   | 'info'
   | 'error'
   | 'warning'

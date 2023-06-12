@@ -5,7 +5,6 @@ import { isFunction } from '@aws-amplify/ui';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { classNameModifier } from '../shared/utils';
 import { MessageProps, Primitive } from '../types';
-import { View } from '../View';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { MessageIcon } from './MessageIcon';
@@ -52,15 +51,13 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
       {hasIcon ? <MessageIcon severity={colorTheme} ariaHidden /> : null}
       {icon ? <div>{icon}</div> : null}
 
-      <Flex className={ComponentClassNames.MessageContent}>
-        {children ? (
-          <View className={ComponentClassNames.MessageBody}>{children}</View>
-        ) : null}
-      </Flex>
+      {children ? children : null}
+
       {isDismissible && (
         <Button
           ariaLabel={dismissButtonLabel}
-          colorTheme={colorTheme}
+          colorTheme="neutral"
+          variation="link"
           className={ComponentClassNames.MessageDismiss}
           onClick={dismissAlert}
           ref={buttonRef}

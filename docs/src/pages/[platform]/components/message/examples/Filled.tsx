@@ -1,46 +1,42 @@
-import { Flex, Message } from '@aws-amplify/ui-react';
+import {
+  Flex,
+  Message,
+  MessageTitle,
+  MessageContent,
+} from '@aws-amplify/ui-react';
 
 export const Filled = () => {
   return (
     <Flex direction="column" padding="medium">
-      <Message
-        heading="A heading for a message"
-        variation="filled"
-        isDismissible={true}
-      >
-        This is a filled default message.
+      <Message variation="filled" isDismissible={true}>
+        <MessageContent>
+          <MessageTitle>Title for a message</MessageTitle>
+          This is a filled default message.
+        </MessageContent>
       </Message>
-      <Message
-        heading="A heading for a message"
-        colorTheme="info"
-        variation="filled"
-        isDismissible={true}
-      >
-        This is a filled default message.
+      <Message colorTheme="info" variation="filled" isDismissible={true}>
+        <MessageContent>
+          <MessageTitle>Title for a message</MessageTitle>
+          This is a filled info message.
+        </MessageContent>
       </Message>
-      <Message
-        heading="A heading for a message"
-        colorTheme="success"
-        variation="filled"
-        isDismissible={true}
-      >
-        This is a filled default message.
+      <Message colorTheme="success" variation="filled" isDismissible={true}>
+        <MessageContent>
+          <MessageTitle>Title for a message</MessageTitle>
+          This is a filled success message.
+        </MessageContent>
       </Message>
-      <Message
-        heading="A heading for a message"
-        colorTheme="error"
-        variation="filled"
-        isDismissible={true}
-      >
-        This is a filled default message.
+      <Message colorTheme="error" variation="filled" isDismissible={true}>
+        <MessageContent>
+          <MessageTitle>Title for a message</MessageTitle>
+          This is a filled error message.
+        </MessageContent>
       </Message>
-      <Message
-        heading="A heading for a message"
-        colorTheme="warning"
-        variation="filled"
-        isDismissible={true}
-      >
-        This is a filled default message.
+      <Message colorTheme="warning" variation="filled" isDismissible={true}>
+        <MessageContent>
+          <MessageTitle>Title for a message</MessageTitle>
+          This is a filled warning message.
+        </MessageContent>
       </Message>
     </Flex>
   );

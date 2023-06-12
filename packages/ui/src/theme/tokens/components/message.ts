@@ -17,7 +17,7 @@ type MessageColorThemeTokens<OutputType> = DesignTokenProperties<
 
 type MessageIconTokens<OutputType> = DesignTokenProperties<'size', OutputType>;
 
-type MessageHeadingTokens<OutputType> = DesignTokenProperties<
+type MessageTitleTokens<OutputType> = DesignTokenProperties<
   'fontSize' | 'fontWeight',
   OutputType
 >;
@@ -37,7 +37,7 @@ type MessageTokenKey =
 export type MessageTokens<OutputType extends OutputVariantKey> =
   DesignTokenProperties<MessageTokenKey, OutputType> & {
     icon?: MessageIconTokens<OutputType>;
-    heading?: MessageHeadingTokens<OutputType>;
+    title?: MessageTitleTokens<OutputType>;
     plain?: MessageVariationTokens<OutputType>;
     outline?: MessageVariationTokens<OutputType>;
     filled?: MessageVariationTokens<OutputType>;
@@ -60,7 +60,7 @@ export const message: Required<MessageTokens<'default'>> = {
     size: { value: '{fontSizes.xl.value}' },
   },
 
-  heading: {
+  title: {
     fontSize: { value: '{fontSizes.medium.value}' },
     fontWeight: { value: '{fontWeights.bold.value}' },
   },
