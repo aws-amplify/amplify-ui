@@ -1,6 +1,10 @@
 module.exports = {
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.(ts|vue)'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.(ts|vue)',
+    // ignore ___mock__ directories
+    '!<rootDir>/**/__mock__/*',
+  ],
   coveragePathIgnorePatterns: [
     // ignore coverage for subdirectories' index files
     '<rootDir>/src/(components|composables|types)/index.ts',
@@ -9,10 +13,10 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      branches: 22,
-      functions: 22,
-      lines: 46,
-      statements: 45,
+      branches: 25,
+      functions: 28,
+      lines: 48,
+      statements: 48,
     },
   },
   testEnvironment: 'jsdom',

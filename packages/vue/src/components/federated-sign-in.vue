@@ -1,20 +1,17 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import {
+  AuthenticatorServiceFacade,
   authenticatorTextUtil,
   FederatedIdentityProviders,
 } from '@aws-amplify/ui';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { useAuthenticator } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';
 
-const { state } = useAuth();
-const { route } = useAuthenticator();
-const {
-  value: { context },
-} = state;
-
-const socialProviders = context?.config?.socialProviders;
+// `useAuthenticator` is casted for temporary type safety on this file.
+const { route, socialProviders } =
+  useAuthenticator() as AuthenticatorServiceFacade;
 
 const includeAmazon = socialProviders?.includes('amazon');
 const includeApple = socialProviders?.includes('apple');
@@ -28,7 +25,6 @@ const shouldShowFederatedSignIn =
 const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
 // Computed Properties
-
 const fp = computed(() => FederatedIdentityProviders);
 const signInWithAmazon = computed(() =>
   getSignInWithFederationText(route, 'amazon')

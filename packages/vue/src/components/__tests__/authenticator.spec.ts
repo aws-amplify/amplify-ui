@@ -1,45 +1,15 @@
 import { reactive, Ref, ref } from 'vue';
 import { render, screen } from '@testing-library/vue';
 
-import {
-  AuthenticatorServiceFacade,
-  AuthEvent,
-  AuthInterpreter,
-  AuthMachineState,
-} from '@aws-amplify/ui';
+import { AuthEvent, AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
+import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import * as UseAuthComposables from '../../composables/useAuth';
 import Authenticator from '../authenticator';
 
 // mock `aws-amplify` to prevent logging auth errors during test runs
 jest.mock('aws-amplify');
-
-const mockServiceFacade: AuthenticatorServiceFacade = {
-  authStatus: 'authenticated',
-  codeDeliveryDetails: {} as AuthenticatorServiceFacade['codeDeliveryDetails'],
-  error: undefined as unknown as AuthenticatorServiceFacade['error'],
-  hasValidationErrors: false,
-  isPending: false,
-  route: 'idle',
-  socialProviders: [],
-  unverifiedContactMethods: { email: 'test#example.com' },
-  user: {} as AuthenticatorServiceFacade['user'],
-  validationErrors:
-    undefined as unknown as AuthenticatorServiceFacade['validationErrors'],
-  totpSecretCode: null,
-  initializeMachine: jest.fn(),
-  resendCode: jest.fn(),
-  signOut: jest.fn(),
-  submitForm: jest.fn(),
-  updateForm: jest.fn(),
-  updateBlur: jest.fn(),
-  toFederatedSignIn: jest.fn(),
-  toResetPassword: jest.fn(),
-  toSignIn: jest.fn(),
-  toSignUp: jest.fn(),
-  skipVerification: jest.fn(),
-};
 
 class MockAuthService {
   public listeners: ((state: AuthMachineState) => void)[] = [];
@@ -80,7 +50,7 @@ const useAuthSpy = jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 });
 const useAuthenticatorSpy = jest
   .spyOn(UseAuthComposables, 'useAuthenticator')
-  .mockReturnValue(reactive(mockServiceFacade));
+  .mockReturnValue(reactive(baseMockServiceFacade));
 
 describe('authenticator', () => {
   beforeEach(() => {
@@ -145,7 +115,7 @@ describe('authenticator', () => {
   it('renders default slot if route is authenticated', () => {
     useAuthenticatorSpy.mockReturnValue(
       reactive({
-        ...mockServiceFacade,
+        ...baseMockServiceFacade,
         route: 'authenticated',
       })
     );
