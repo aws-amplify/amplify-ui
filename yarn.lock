@@ -9622,14 +9622,6 @@
   dependencies:
     fast-safe-stringify "^2.0.7"
 
-"@xstate/react@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/@xstate/react/-/react-3.0.0.tgz#888d9a6f128c70b632c18ad55f1f851f6ab092ba"
-  integrity sha512-KHSCfwtb8gZ7QH2luihvmKYI+0lcdHQOmGNRUxUEs4zVgaJCyd8csCEmwPsudpliLdUmyxX2pzUBojFkINpotw==
-  dependencies:
-    use-isomorphic-layout-effect "^1.0.0"
-    use-sync-external-store "^1.0.0"
-
 "@xstate/react@3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@xstate/react/-/react-3.0.1.tgz#937eeb5d5d61734ab756ca40146f84a6fe977095"
