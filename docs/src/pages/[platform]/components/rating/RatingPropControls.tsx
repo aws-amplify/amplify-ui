@@ -32,22 +32,38 @@ export const RatingPropControls: RatingPropControlsInterface = ({
   setFillColor,
   setEmptyColor,
 }) => {
+  function handleValueChange(value: string) {
+    if (value === '') {
+      setValue(0);
+    } else if (parseFloat(value)) {
+      setValue(parseFloat(value));
+    }
+  }
+
+  function handleMaxValueChange(value: string) {
+    if (value === '') {
+      setMaxValue(0);
+    } else if (parseInt(value)) {
+      setMaxValue(parseInt(value));
+    }
+  }
+
   return (
     <Flex direction="column">
       <TextField
         label="value"
         value={value}
-        type="number"
         placeholder="Set Value"
-        onChange={(event) => setValue(event.target.value)}
+        type="number"
+        onChange={(event) => handleValueChange(event.target.value)}
       />
 
       <TextField
         label="maxValue"
         value={maxValue}
-        type="number"
         placeholder="Set Max Value"
-        onChange={(event) => setMaxValue(event.target.value)}
+        type="number"
+        onChange={(event) => handleMaxValueChange(event.target.value)}
       />
 
       <SelectField
