@@ -3,82 +3,72 @@ import * as React from 'react';
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
 
+// A utility type to check if a type is any
+export type IsAny<Type> = (Type extends never ? true : false) extends false
+  ? false
+  : true;
+
 type MergeProps<A, B> = A & Omit<B, keyof A>;
 
-export type ElementType = React.FC<any> | keyof JSX.IntrinsicElements;
+export type ElementType = React.ElementType;
 
-/**
- * @description
- * Convert string element type to DOMElement Type
- * e.g. 'button' => HTMLButtonElement
- */
-export type HTMLElementType<Element extends ElementType> =
-  Element extends keyof JSX.IntrinsicElements
-    ? React.ElementRef<Element>
-    : HTMLElementTypeFromExoticComponentRef<Element>;
-
-/**
- * @description
- * Allows us to extract ElementType from `typeof Root` used in SliderField
- * e.g. React.ForwardRefExoticComponent<SliderProps & React.RefAttributes<HTMLSpanElement>> => HTMLSpanElement
- */
-type HTMLElementTypeFromExoticComponentRef<Element extends ElementType> =
-  Element extends React.ForwardRefExoticComponent<
-    React.RefAttributes<infer DOMHTMLElement>
-  >
-    ? DOMHTMLElement
-    : HTMLElement; // Fallback to HTMLElement if nothing else matches
-
-export type ElementProps<Element extends ElementType> =
-  Element extends keyof JSX.IntrinsicElements
-    ? JSX.IntrinsicElements[Element]
-    : Element extends React.FC<infer ComponentProps>
-    ? ComponentProps
-    : never;
-
-export type PrimitiveProps<
-  Props extends ViewProps,
-  Element extends ElementType
-> = MergeProps<
-  Omit<Props, 'as'> & {
-    /**
-     * @description
-     * Changes the type of HTML element rendered
-     */
-    as?: Element | Props['as'];
-  },
-  Omit<ElementProps<Element>, 'ref'> // exclude `ref?: LegacyRef` included in DetailedHTMLProps
->;
-
-export type PrimitivePropsWithRef<
-  Props extends ViewProps,
-  Element extends ElementType
-> = PrimitiveProps<Props, Element> & {
-  /**
-   * @description
-   * References a DOM element from within a parent component
-   */
-  ref?: React.Ref<HTMLElementType<Element>>;
-};
-
-export type Primitive<
-  Props extends ViewProps,
-  Element extends ElementType
-> = React.ForwardRefRenderFunction<
-  HTMLElementType<Element>,
-  PrimitivePropsWithRef<Props, Element>
->;
-
-export interface ViewProps
-  extends BaseComponentProps,
-    BaseStyleProps,
-    AriaProps {
+type AsProp<Element extends ElementType> = {
   /**
    * @description
    * Changes the type of HTML element rendered
    */
-  as?: ElementType;
+  as?: Element;
+};
 
+export type PrimitivePropsWithAs<
+  Props extends BaseViewProps,
+  Element extends ElementType
+> = Omit<Props, 'as'> & AsProp<Element>;
+
+type PrimitivePropsWithRef<
+  Props extends BaseViewProps,
+  Element extends ElementType
+> = Omit<Props, 'ref'> &
+  (IsAny<Element> extends false
+    ? React.RefAttributes<React.ComponentRef<Element>>
+    : React.RefAttributes<any>);
+
+export type PrimitivePropsWithHTMLAttributes<
+  Props extends BaseViewProps,
+  Element extends ElementType
+> = MergeProps<
+  PrimitivePropsWithRef<Props, Element>,
+  // exclude `ref?: LegacyRef` included in DetailedHTMLProps
+  React.ComponentPropsWithoutRef<Element>
+>;
+
+export type PrimitiveProps<
+  Props extends BaseViewProps,
+  Element extends ElementType
+> = PrimitivePropsWithHTMLAttributes<
+  PrimitivePropsWithAs<Props, Element>,
+  Element
+>;
+
+export type Primitive<
+  Props extends BaseViewProps,
+  Element extends ElementType
+> = React.ForwardRefRenderFunction<React.ComponentRef<Element>, Props>;
+
+export interface ForwardRefPrimitive<
+  Props extends BaseViewProps,
+  DefaultElement extends ElementType
+> extends React.ForwardRefExoticComponent<Props> {
+  // overload the JSX constructor to make it accept generics
+  <Element extends ElementType = DefaultElement>(
+    props: PrimitiveProps<Props, Element>
+  ): React.ReactElement | null;
+}
+
+export interface BaseViewProps
+  extends BaseComponentProps,
+    BaseStyleProps,
+    AriaProps {
   /**
    * @description
    * Sets the Boolean `disabled` HTML attribute, which, when present, makes the element not mutable, focusable, or even submitted with the form
@@ -94,3 +84,8 @@ export interface ViewProps
    */
   style?: React.CSSProperties;
 }
+
+export type ViewProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseViewProps,
+  Element
+>;

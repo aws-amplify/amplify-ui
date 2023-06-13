@@ -10,7 +10,8 @@ import { SearchField } from '../SearchField';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { strHasLength } from '../shared/utils';
 import {
-  CollectionProps,
+  BaseCollectionProps,
+  ElementType,
   GridCollectionProps,
   ListCollectionProps,
 } from '../types';
@@ -59,7 +60,7 @@ const renderCollectionOrNoResultsFound = <Item,>(
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/collection)
  */
-export const Collection = <Item,>({
+export const Collection = <Item, Element extends ElementType>({
   className,
   isSearchable,
   isPaginated,
@@ -72,7 +73,7 @@ export const Collection = <Item,>({
   type = 'list',
   testId,
   ...rest
-}: CollectionProps<Item>): JSX.Element => {
+}: BaseCollectionProps<Item, Element>): JSX.Element => {
   const [searchText, setSearchText] = React.useState<string>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -123,7 +124,9 @@ export const Collection = <Item,>({
           <SearchField
             label={searchLabel}
             placeholder={searchPlaceholder}
-            onChange={(e) => onSearch(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onSearch(e.target.value)
+            }
             onClear={() => setSearchText('')}
           />
         </Flex>

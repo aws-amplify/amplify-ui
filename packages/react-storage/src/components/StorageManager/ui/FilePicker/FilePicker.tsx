@@ -1,9 +1,11 @@
 import React from 'react';
-import { Button, ComponentClassNames } from '@aws-amplify/ui-react';
+import {
+  Button,
+  ComponentClassNames,
+  ButtonProps,
+} from '@aws-amplify/ui-react';
 
-export type FilePickerProps = Parameters<typeof Button>[0] & {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-};
+export type FilePickerProps = ButtonProps;
 
 export function FilePicker({
   children,

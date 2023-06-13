@@ -9,7 +9,7 @@ import { FullScreenMessageProps } from '../types';
 import { BackdropProps } from '../../Backdrop/types';
 
 jest.mock('../../Backdrop', () => ({
-  withBackdrop: (Component: React.ComponentClass) => (props: BackdropProps) =>
+  withBackdrop: (Component: React.FC) => (props: BackdropProps) =>
     <Component {...props} />,
 }));
 jest.mock('../../hooks/');

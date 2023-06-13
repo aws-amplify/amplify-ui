@@ -1,11 +1,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import {
+  ForwardRefPrimitive,
   Primitive,
   FlexContainerStyleProps,
-  ViewProps,
-  InputProps,
-  FieldProps,
+  BaseViewProps,
+  BaseInputProps,
+  BaseFieldProps,
 } from '../types';
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
@@ -15,15 +16,12 @@ import { FieldErrorMessage } from './FieldErrorMessage';
 import { Label } from '../Label';
 
 interface FieldPrimitiveProps
-  extends FieldProps,
-    InputProps,
+  extends BaseFieldProps,
+    BaseInputProps,
     FlexContainerStyleProps,
-    ViewProps {}
+    BaseViewProps {}
 
-const FieldPrimitive: Primitive<FieldPrimitiveProps, typeof Flex> = (
-  props,
-  ref
-) => {
+const FieldPrimitive: Primitive<FieldPrimitiveProps, 'div'> = (props, ref) => {
   const {
     className,
     size,
@@ -64,6 +62,7 @@ const FieldPrimitive: Primitive<FieldPrimitiveProps, typeof Flex> = (
   );
 };
 
-export const Field = React.forwardRef(FieldPrimitive);
+export const Field: ForwardRefPrimitive<FieldPrimitiveProps, 'div'> =
+  React.forwardRef(FieldPrimitive);
 
 Field.displayName = 'Field';
