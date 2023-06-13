@@ -9,12 +9,6 @@ FRAMEWORK="react"
 FRAMEWORK_VERSION="latest"
 
 # Options
-# -bt, --build-tool
-#               Build tool: cra, next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo
-#               Default: cra
-# -btv, --build-tool-version
-#               Build tool version
-#               Default: latest
 # e.g.
 # $ ./mega-app-create-app.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest
 # $ ./mega-app-create-app.sh -bt react -btr latest -lang typescript -n react-latest-cra-latest-node-18-ts -fw cra -fwv latest
@@ -71,6 +65,10 @@ if [[ -z "$MEGA_APP_NAME" ]]; then
     echo "Please provide a name for the mega app using the -n or --name option."
     exit 1
 fi
+
+###########################
+# Start Creating Mega App #
+###########################
 
 echo "cd build-system-tests"
 cd build-system-tests
