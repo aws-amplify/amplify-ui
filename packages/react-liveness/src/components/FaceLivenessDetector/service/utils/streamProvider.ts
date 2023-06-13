@@ -1,4 +1,7 @@
-import { Credentials as AmplifyCredentials } from '@aws-amplify/core';
+import {
+  Credentials as AmplifyCredentials,
+  getAmplifyUserAgent,
+} from '@aws-amplify/core';
 import { AmazonAIInterpretPredictionsProvider } from '@aws-amplify/predictions';
 import {
   ClientSessionInformationEvent,
@@ -115,7 +118,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     const clientconfig: RekognitionStreamingClientConfig = {
       credentials,
       region: this.region,
-      customUserAgent: `${getLivenessUserAgent()}`,
+      customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent}`,
       requestHandler: new WebSocketFetchHandler({ connectionTimeout: 10_000 }),
     };
 
