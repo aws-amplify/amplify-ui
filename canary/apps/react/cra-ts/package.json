@@ -32,9 +32,6 @@
       "react-app/jest"
     ]
   },
-  "resolutions": {
-    "aria-query": "5.1.3"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
