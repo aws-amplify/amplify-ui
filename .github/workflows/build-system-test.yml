@@ -23,6 +23,7 @@ jobs:
         pkg-manager: [npm]
         language: [ts]
         node-version: [18]
+        pkg-manager-version: [latest]
         include:
           - framework: react
             framework-version: latest
@@ -114,8 +115,6 @@ jobs:
 
     env:
       MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-node-${{ matrix.node-version }}-${{ matrix.language }}
-      DEPENDENCIES: ${{ matrix.framework }}@${{ matrix.framework-version }} @aws-amplify/ui-${{ matrix.framework }} aws-amplify
-      DEP_TYPES: '@types/react@${{ matrix.framework-version }} @types/react-dom@${{ matrix.framework-version }}'
 
     steps:
       - name: Checkout Amplify UI
@@ -130,39 +129,19 @@ jobs:
         env:
           SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
       - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
-        run: ./.github/scripts/mega-app-create-app.sh
+        run: ./.github/scripts/mega-app-create-app.sh --build-tool ${{ matrix.build-tool }} --build-tool-version ${{ matrix.build-tool-version }} --language ${{ matrix.language }} --name ${{ env.MEGA_APP_NAME }} --framework ${{ matrix.framework }} --framework-version ${{ matrix.framework-version }}
         shell: bash
-        env:
-          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
-          BUILD_TOOL: ${{ matrix.build-tool }}
-          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
-          FRAMEWORK: ${{ matrix.framework }}
-          LANGUAGE: ${{ matrix.language }}
-          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
       - name: Copy aws_export and App.js
-        run: ./.github/scripts/mega-app-copy-files.sh
+        run: ./.github/scripts/mega-app-copy-files.sh --build-tool ${{ matrix.build-tool }} --build-tool-version ${{ matrix.build-tool-version }} --language ${{ matrix.language }} --name ${{ env.MEGA_APP_NAME }} --framework ${{ matrix.framework }} --framework-version ${{ matrix.framework-version }}
         shell: bash
-        env:
-          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
-          BUILD_TOOL: ${{ matrix.build-tool }}
-          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
-          FRAMEWORK: ${{ matrix.framework }}
-          LANGUAGE: ${{ matrix.language }}
-          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
-      - name: Install Packages and Build
-        run: ./.github/scripts/mega-app-install-build.sh
+
+      - name: Install Packages
+        run: ./.github/scripts/mega-app-install.sh --build-tool ${{ matrix.build-tool }} --build-tool-version ${{ matrix.build-tool-version }} --language ${{ matrix.language }} --name ${{ env.MEGA_APP_NAME }} --framework ${{ matrix.framework }} --framework-version ${{ matrix.framework-version }} --pkg-manager ${{ matrix.pkg-manager }} --pkg-manager-version ${{ matrix.pkg-manager-version }}
         shell: bash
-        env:
-          BUILD_TOOL_VERSION: ${{ matrix.build-tool-version }}
-          BUILD_TOOL: ${{ matrix.build-tool }}
-          DEP_TYPES: ${{ env.DEP_TYPES }}
-          DEPENDENCIES: ${{ env.DEPENDENCIES }}
-          FRAMEWORK: ${{ matrix.framework }}
-          FRAMEWORK_VERSION: ${{ matrix.framework-version }}
-          LANGUAGE: ${{ matrix.language }}
-          MEGA_APP_NAME: ${{ env.MEGA_APP_NAME }}
-          PKG_MANAGER_VERSION: ${{ matrix.pkg-manager-version }}
-          PKG_MANAGER: ${{ matrix.pkg-manager }}
+
+      - name: Build MegaApp ${{ env.MEGA_APP_NAME }}
+        run: ./.github/scripts/mega-app-build.sh --build-tool ${{ matrix.build-tool }} --build-tool-version ${{ matrix.build-tool-version }} --language ${{ matrix.language }} --name ${{ env.MEGA_APP_NAME }} --framework ${{ matrix.framework }} --framework-version ${{ matrix.framework-version }} --pkg-manager ${{ matrix.pkg-manager }}
+        shell: bash
 
   log-failure-metric:
     # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
