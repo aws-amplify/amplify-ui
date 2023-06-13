@@ -8,13 +8,18 @@ import { IconStar } from '../Icon/internal';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
 import { RatingIcon } from './RatingIcon';
 import { RatingMixedIcon } from './RatingMixedIcon';
-import { RatingProps, Primitive } from '../types';
+import {
+  BaseRatingProps,
+  RatingProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { VisuallyHidden } from '../VisuallyHidden';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
 const RATING_DEFAULT_VALUE = 0;
 
-const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
+const RatingPrimitive: Primitive<RatingProps, 'div'> = (
   {
     className,
     emptyColor,
@@ -83,6 +88,7 @@ const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/rating)
  */
-export const Rating = React.forwardRef(RatingPrimitive);
+export const Rating: ForwardRefPrimitive<BaseRatingProps, 'div'> =
+  React.forwardRef(RatingPrimitive);
 
 Rating.displayName = 'Rating';

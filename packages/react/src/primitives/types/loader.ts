@@ -1,6 +1,6 @@
 import { Property } from 'csstype';
 
-import { ViewProps } from '../types/view';
+import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 import { Sizes } from './base';
 import { StyleToken } from './style';
 
@@ -8,7 +8,7 @@ export type LoaderSizes = Sizes;
 
 export type LoaderVariations = 'linear';
 
-export interface LoaderProps extends ViewProps {
+export interface BaseLoaderProps extends BaseViewProps {
   /**
    * @description
    * This will set the size of Loader.
@@ -45,3 +45,8 @@ export interface LoaderProps extends ViewProps {
    */
   isPercentageTextHidden?: boolean;
 }
+
+export type LoaderProps<Element extends ElementType = 'svg'> = PrimitiveProps<
+  BaseLoaderProps,
+  Element
+>;

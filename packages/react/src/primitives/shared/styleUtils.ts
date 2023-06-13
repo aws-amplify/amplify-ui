@@ -6,7 +6,7 @@ import {
   GridItemStyleProps,
   GridSpanType,
   ResponsiveObject,
-  ViewProps,
+  BaseViewProps,
   AllStylePropKey,
 } from '../types';
 
@@ -113,7 +113,7 @@ interface ConvertStylePropsToStyleObjParams {
 export interface ConvertStylePropsToStyleObj {
   (params: ConvertStylePropsToStyleObjParams): {
     propStyles: React.CSSProperties;
-    nonStyleProps: Partial<ViewProps>;
+    nonStyleProps: Partial<BaseViewProps>;
   };
 }
 
@@ -178,7 +178,7 @@ export const useStyles = (
   style?: React.CSSProperties
 ): {
   propStyles: React.CSSProperties;
-  nonStyleProps: Partial<ViewProps>;
+  nonStyleProps: Partial<BaseViewProps>;
 } => {
   const {
     breakpoints: { values: breakpoints, defaultBreakpoint },
