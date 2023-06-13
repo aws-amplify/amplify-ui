@@ -37,15 +37,17 @@ export const RatingPropControls: RatingPropControlsInterface = ({
       <TextField
         label="value"
         value={value}
+        type="number"
         placeholder="Set Value"
-        onChange={(event) => setValue(parseInt(event.target.value))}
+        onChange={(event) => setValue(event.target.value)}
       />
 
       <TextField
         label="maxValue"
         value={maxValue}
+        type="number"
         placeholder="Set Max Value"
-        onChange={(event) => setMaxValue(parseInt(event.target.value))}
+        onChange={(event) => setMaxValue(event.target.value)}
       />
 
       <SelectField
