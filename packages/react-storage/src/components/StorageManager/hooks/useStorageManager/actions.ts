@@ -18,6 +18,12 @@ export const addFilesAction = ({
   };
 };
 
+export const clearFilesAction = (): Action => {
+  return {
+    type: StorageManagerActionTypes.CLEAR_FILES,
+  };
+};
+
 export const setUploadingFileAction = ({
   id,
   uploadTask,

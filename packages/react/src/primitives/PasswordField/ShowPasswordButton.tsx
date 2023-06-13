@@ -4,14 +4,19 @@ import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { IconVisibility, IconVisibilityOff } from '../Icon/internal';
-import { Primitive, ShowPasswordButtonProps } from '../types';
+import {
+  ForwardRefPrimitive,
+  Primitive,
+  BaseShowPasswordButtonProps,
+  ShowPasswordButtonProps,
+} from '../types';
 
 const { passwordIsHidden, passwordIsShown, showPassword } =
   ComponentText.PasswordField;
 
 const ShowPasswordButtonPrimitive: Primitive<
   ShowPasswordButtonProps,
-  typeof Button
+  'button'
 > = (
   {
     fieldType,
@@ -47,6 +52,9 @@ const ShowPasswordButtonPrimitive: Primitive<
   );
 };
 
-export const ShowPasswordButton = React.forwardRef(ShowPasswordButtonPrimitive);
+export const ShowPasswordButton: ForwardRefPrimitive<
+  BaseShowPasswordButtonProps,
+  'button'
+> = React.forwardRef(ShowPasswordButtonPrimitive);
 
 ShowPasswordButton.displayName = 'ShowPasswordButton';
