@@ -1,4 +1,5 @@
 import { Fragment } from '@/components/Fragment';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 ### Step 1. Configure backend
 
@@ -16,13 +17,21 @@ import { Fragment } from '@/components/Fragment';
 
 When working with Vite in a Vue project, you must make a few modifications. Please follow the steps below.
 
-<Fragment>
-  {({ platform }) => import('../../getting-started/troubleshooting/shared/vite-polyfill.mdx')}
-</Fragment>
-
-<Fragment>
-  {({ platform }) => import('../../getting-started/troubleshooting/shared/vite-polyfill-ts.mdx')}
-</Fragment>
+<Tabs>
+  <TabItem title="TypeScript">
+    <Fragment>
+      {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill.mdx`)}
+    </Fragment>
+    <Fragment>
+      {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill-ts.mdx`)}
+    </Fragment>
+  </TabItem>
+  <TabItem title="JavaScript">
+    <Fragment>
+      {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill.mdx`)}
+    </Fragment>
+  </TabItem>
+</Tabs>
 
 ### Step 4. Add the Authenticator
 
