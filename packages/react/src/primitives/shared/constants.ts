@@ -412,16 +412,6 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Message'],
     description: 'Class applied to the close Button',
   },
-  NotificationBar: {
-    className: ComponentClassName.NotificationBar,
-    components: ['NotificationBar'],
-    description: 'Container for displaying message queues',
-  },
-  Overlay: {
-    className: ComponentClassName.Overlay,
-    components: ['Overlay'],
-    description: 'Overlay wrapper',
-  },
   Pagination: {
     className: ComponentClassName.Pagination,
     components: ['Pagination'],
@@ -880,8 +870,6 @@ export const ComponentClassNames: ComponentClassNamesType = {
   MessageBody: ComponentClassObject.MessageBody.className,
   MessageContent: ComponentClassObject.MessageContent.className,
   MessageDismiss: ComponentClassObject.MessageDismiss.className,
-  NotificationBar: ComponentClassObject.NotificationBar.className,
-  Overlay: ComponentClassObject.Overlay.className,
   Pagination: ComponentClassObject.Pagination.className,
   PaginationItemButton: ComponentClassObject.PaginationItemButton.className,
   PaginationItemCurrent: ComponentClassObject.PaginationItemCurrent.className,

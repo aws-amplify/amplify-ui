@@ -24,8 +24,6 @@ export * from './link';
 export * from './loader';
 export * from './menu';
 export * from './message';
-export * from './notificationBar';
-export * from './overlay';
 export * from './pagination';
 export * from './passwordField';
 export * from './phoneNumberField';

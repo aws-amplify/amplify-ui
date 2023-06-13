@@ -1,1 +1,0 @@
-export { NotificationBar } from './NotificationBar';

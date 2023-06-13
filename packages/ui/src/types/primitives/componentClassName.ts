@@ -94,8 +94,6 @@ export enum ComponentClassName {
   MessageBody = 'amplify-message__body',
   MessageContent = 'amplify-message__content',
   MessageDismiss = 'amplify-message__dismiss',
-  NotificationBar = 'amplify-notificationbar',
-  Overlay = 'amplify-overlay',
   Pagination = 'amplify-pagination',
   PaginationItemButton = 'amplify-pagination__item-button',
   PaginationItemCurrent = 'amplify-pagination__item-current',
