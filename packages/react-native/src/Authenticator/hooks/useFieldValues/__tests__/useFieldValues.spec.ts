@@ -187,7 +187,7 @@ describe('useFieldValues', () => {
       value: undefined,
     });
     expect(result.current.formValidationErrors).toStrictEqual({
-      email: authenticatorTextUtil.getInvalidEmailText(),
+      invalid_email: [authenticatorTextUtil.getInvalidEmailText()],
     });
   });
 
