@@ -3,7 +3,31 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
+    "@supercharge/promise-pool": "^2.4.0",
+    "commander": "^10.0.1",
     "json": "^11.0.0",
     "strip-json-comments-cli": "^2.0.2"
+  },
+  "scripts": {
+    "setup:react": "./scripts/setup-mega-app.sh",
+    "setup:angular": "./scripts/setup-mega-app.sh -F angular",
+    "setup:vue": "./scripts/setup-mega-app.sh -F vue",
+    "setup:react-native": "./scripts/setup-mega-app.sh -F react-native",
+    "react-latest-cra-latest-ts": "npm run setup:react",
+    "react-latest-next-latest-ts": "npm run setup:react -- -B next",
+    "react-latest-vite-latest-ts": "npm run setup:react -- -B vite",
+    "react-16-cra-latest-ts": "npm run setup:react -- -f 16",
+    "react-latest-cra-latest-js": "npm run setup:react -- -l js",
+    "react-17-next-11-ts": "npm run setup:react -- -f 17 -B next -b 11",
+    "react-latest-vite-2-ts": "npm run setup:react -- -B vite -b 2",
+    "angular-latest-angular-cli-latest-ts": "npm run setup:angular -- -B angular-cli",
+    "angular-14-angular-cli-14-ts": "npm run setup:angular -- -f 14 -B angular-cli -b 14 -n angular-latest-angular-cli-v14-ts",
+    "vue-3-vue-cli-latest-ts": "npm run setup:vue -- -f 3 -B vue-cli",
+    "vue-latest-vite-latest-ts": "npm run setup:vue -- -B vite",
+    "vue-latest-vite-2-ts": "npm run setup:vue -- -B vite -b 2",
+    "vue-latest-nuxt-latest-ts": "npm run setup:vue -- -B nuxt",
+    "rnlatestclilatesttsios": "npm run setup:react-native -- -B cli -A ios -n rnlatestclilatesttsios",
+    "rnlatestclilatesttsandroid": "npm run setup:react-native -- -B cli -A android -n rnlatestclilatesttsandroid",
+    "rnlatestexpolatesttsandroid": "npm run setup:react-native -- -B expo -A android -n rnlatestexpolatesttsandroid"
   }
 }
