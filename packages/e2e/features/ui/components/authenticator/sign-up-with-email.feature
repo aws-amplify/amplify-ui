@@ -41,6 +41,12 @@ Scenario: Sign up with a new email & password
   And I click the "Create Account" button
   Then I see "Confirmation Code"
 
+@react-native
+Scenario: Sign up using invalid email
+  When I type a new "email" with value 'inv'
+  And I type my password
+  Then I see "Please enter a valid email"
+
   @angular @react @vue
   Scenario: Email field autocompletes username
 
