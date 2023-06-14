@@ -59,7 +59,6 @@ export default function useFieldValues<FieldType extends TypedField>({
         validationErrors.push(getRequiredFieldText());
       }
       if (field.type == 'email') {
-        logger.warn('validating email ', value);
         validationErrors.push(isValidEmail(value) ? '' : getInvalidEmailText());
       }
       setFormValidationErrors({

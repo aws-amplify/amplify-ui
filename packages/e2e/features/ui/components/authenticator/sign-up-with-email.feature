@@ -43,8 +43,9 @@ Scenario: Sign up with a new email & password
 
 @react-native
 Scenario: Sign up using invalid email
+  When I type a new "email" with value ''
+  Then I see "This field is required"
   When I type a new "email" with value 'inv'
-  And I type my password
   Then I see "Please enter a valid email"
 
   @angular @react @vue
