@@ -56,6 +56,13 @@ export function LivenessQuickStartReact() {
           sessionId={createLivenessApiData.sessionId}
           region="us-east-1"
           onAnalysisComplete={handleAnalysisComplete}
+          // These URL's are our recommended CDN's supported by Rekognition and will be set to default in the next Major Version
+          config={{
+            binaryPath:
+              'https://cdn.liveness.rekognition.aws.dev/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/',
+            faceModelUrl:
+              'https://cdn.liveness.rekognition.aws.dev/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json',
+          }}
         />
       )}
     </ThemeProvider>
