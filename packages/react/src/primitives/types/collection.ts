@@ -75,10 +75,11 @@ export interface CollectionBaseProps<Item> {
   children: (item: Item, index: number) => JSX.Element;
 }
 
-// @TODO Add TableCollectionProps
-export type ListCollectionProps<Item> = BaseFlexProps &
+// Omit `children` prop of `BaseFlexProps` and `BaseGridProps` to prevent `CollectionProps[`children']`
+// from resolving to a type union of `React.ReactNode & (item: Item, index: number) => JSX.Element`
+export type ListCollectionProps<Item> = Omit<BaseFlexProps, 'children'> &
   CollectionBaseProps<Item>;
-export type GridCollectionProps<Item> = BaseGridProps &
+export type GridCollectionProps<Item> = Omit<BaseGridProps, 'children'> &
   CollectionBaseProps<Item>;
 
 export type BaseCollectionProps<
