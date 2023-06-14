@@ -60,13 +60,7 @@ export interface CollectionWrapperProps extends BaseStyleProps {
   searchNoResultsFound?: React.ReactNode;
 }
 
-export interface CollectionBaseProps<Item> {
-  /**
-   * @description
-   * The items from a data source that will be mapped by the Collection component
-   */
-  items: Array<Item>;
-
+interface CollectionChildren<Item> {
   /**
    * @description
    * The component to be repeated
@@ -75,23 +69,46 @@ export interface CollectionBaseProps<Item> {
   children: (item: Item, index: number) => JSX.Element;
 }
 
-// Omit `children` prop of `BaseFlexProps` and `BaseGridProps` to prevent `CollectionProps[`children']`
-// from resolving to a type union of `React.ReactNode & (item: Item, index: number) => JSX.Element`
-export type ListCollectionProps<Item> = Omit<BaseFlexProps, 'children'> &
+export interface CollectionBaseProps<Item> extends CollectionChildren<Item> {
+  /**
+   * @description
+   * The items from a data source that will be mapped by the Collection component
+   */
+  items: Array<Item>;
+}
+
+export type ListCollectionProps<Item> = BaseFlexProps &
   CollectionBaseProps<Item>;
-export type GridCollectionProps<Item> = Omit<BaseGridProps, 'children'> &
+export type GridCollectionProps<Item> = BaseGridProps &
   CollectionBaseProps<Item>;
 
+/**
+ * Omits `React.ReactNode` as children to prevent intersection type of
+ * `{ children: React.ReactNode & (item: Item, index: number) => JSX.Element; }
+ * and replaces with `CollectionChildren`
+ */
+type ReassignChildren<T, Item> = Omit<T, 'children'> & CollectionChildren<Item>;
+
+// Note: `BaseCollectionProps` is used directly as the expected props interface of `Collection`
 export type BaseCollectionProps<
   Item,
   Element extends ElementType
-> = PrimitivePropsWithAs<CollectionWrapperProps, Element> &
-  (
-    | ({ type: 'list' } & ListCollectionProps<Item>)
-    | ({ type: 'grid' } & GridCollectionProps<Item>)
-  );
+> = ReassignChildren<
+  PrimitivePropsWithAs<CollectionWrapperProps, Element> &
+    (
+      | ({ type: 'list' } & ListCollectionProps<Item>)
+      | ({ type: 'grid' } & GridCollectionProps<Item>)
+    ),
+  Item
+>;
 
 export type CollectionProps<
   Item,
   Element extends ElementType = 'div'
-> = PrimitiveProps<BaseCollectionProps<Item, Element>, Element>;
+> = ReassignChildren<
+  PrimitiveProps<
+    BaseCollectionProps<Item, Element> & { children: React.ReactNode },
+    Element
+  >,
+  Item
+>;
