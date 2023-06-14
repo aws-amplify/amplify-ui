@@ -182,6 +182,12 @@ export const connectedComponents: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/connected-components/liveness/troubleshooting',
+    label: 'Troubleshooting',
+    platforms: ['react', 'android', 'swift'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/geo',
     label: 'Geo',
     body: 'Amplify UI Geo provides UI components for maps and location search built on top of Amazon Location Service.',

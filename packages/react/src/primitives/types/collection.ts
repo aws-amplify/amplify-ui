@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { FlexProps } from './flex';
-import { GridProps } from './grid';
+import { BaseFlexProps } from './flex';
+import { BaseGridProps } from './grid';
 import { BaseStyleProps } from './style';
+import { ElementType, PrimitiveProps, PrimitivePropsWithAs } from './view';
 
 export type CollectionType = 'list' | 'grid' | 'table';
 
@@ -74,12 +75,23 @@ export interface CollectionBaseProps<Item> {
   children: (item: Item, index: number) => JSX.Element;
 }
 
-// @TODO Add TableCollectionProps
-export type ListCollectionProps<Item> = FlexProps & CollectionBaseProps<Item>;
-export type GridCollectionProps<Item> = GridProps & CollectionBaseProps<Item>;
+// Omit `children` prop of `BaseFlexProps` and `BaseGridProps` to prevent `CollectionProps[`children']`
+// from resolving to a type union of `React.ReactNode & (item: Item, index: number) => JSX.Element`
+export type ListCollectionProps<Item> = Omit<BaseFlexProps, 'children'> &
+  CollectionBaseProps<Item>;
+export type GridCollectionProps<Item> = Omit<BaseGridProps, 'children'> &
+  CollectionBaseProps<Item>;
 
-export type CollectionProps<Item> = CollectionWrapperProps &
+export type BaseCollectionProps<
+  Item,
+  Element extends ElementType
+> = PrimitivePropsWithAs<CollectionWrapperProps, Element> &
   (
     | ({ type: 'list' } & ListCollectionProps<Item>)
     | ({ type: 'grid' } & GridCollectionProps<Item>)
   );
+
+export type CollectionProps<
+  Item,
+  Element extends ElementType = 'div'
+> = PrimitiveProps<BaseCollectionProps<Item, Element>, Element>;

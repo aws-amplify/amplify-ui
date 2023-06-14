@@ -41,4 +41,18 @@ Authenticator { _ in
     }
 ])
 
+// ...
+// Custom extension to convert a Binding<String> into a Binding<Bool>
+extension Binding where Value == String {
+    func asBool() -> Binding<Bool> {
+        return .init(
+            get: {
+                return Bool(wrappedValue) ?? false
+            },
+            set: { value in
+                wrappedValue = String(value)
+            }
+        )
+    }
+}
 ```

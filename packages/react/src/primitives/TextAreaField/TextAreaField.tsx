@@ -6,10 +6,13 @@ import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { Primitive } from '../types';
+import { ForwardRefPrimitive, Primitive } from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { TextArea } from '../TextArea';
-import { TextAreaFieldProps } from '../types/textAreaField';
+import {
+  BaseTextAreaFieldProps,
+  TextAreaFieldProps,
+} from '../types/textAreaField';
 import { useStableId } from '../utils/useStableId';
 
 export const DEFAULT_ROW_COUNT = 3;
@@ -81,6 +84,9 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/textareafield)
  */
-export const TextAreaField = React.forwardRef(TextAreaFieldPrimitive);
+export const TextAreaField: ForwardRefPrimitive<
+  BaseTextAreaFieldProps,
+  'textarea'
+> = React.forwardRef(TextAreaFieldPrimitive);
 
 TextAreaField.displayName = 'TextAreaField';

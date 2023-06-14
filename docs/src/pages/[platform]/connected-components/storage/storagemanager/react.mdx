@@ -5,6 +5,7 @@ import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
 import { Example, ExampleCode } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
 import { InstallScripts } from '@/components/InstallScripts';
 import { STORAGE_MANAGER, FILE_PICKER, DROPZONE_PROPS, DISPLAY_TEXT } from './props';
 import {
@@ -18,6 +19,7 @@ import {
   StorageManagerMetadataExample,
   StorageManagerResumableExample,
   StorageManagerThemeExample,
+  StorageManagerHandleExample,
 } from './examples'
 
 <DefaultStorageManagerExample />
@@ -28,7 +30,9 @@ import {
   Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
 </Alert>
 
-<AppDirectoryAlert />
+<Fragment platforms={['react']}>
+  {({ platform }) => import('@/components/AppDirectoryAlert')}
+</Fragment>
 
 To use the StorageManager component import it into your React application with the included styles. 
 
@@ -41,7 +45,7 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 </ExampleCode>
 
-At a minimum you must include the `accessLevel`, `acceptedFileTypes`, and `maxFileCount` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'public' | 'private' | 'protected'`.
+At a minimum you must include the `accessLevel` and `maxFileCount` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'public' | 'private' | 'protected'`.
 
 <Example>
   <DefaultStorageManagerExample />
@@ -194,6 +198,17 @@ _You can even use a completely different UI kit like MUI, Chakra, or your own de
   </ExpanderItem>
 </Expander>
 
+### Imperative handles
+
+The `files` state is managed within the `StorageManager` component itself. To allow for clearing the internal `files` state, `StorageManager` exposes a custom ref handle to the parent component with a `clearFiles` method.
+
+<Example>
+  <StorageManagerHandleExample />
+  <ExampleCode>
+    ```jsx file=./examples/StorageManagerHandleExample.tsx
+    ```
+  </ExampleCode>
+</Example>
 
 ### Theming
 
