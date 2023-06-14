@@ -46,7 +46,7 @@ while [[ $# -gt 0 ]]; do
         PKG_MANAGER=$2
         shift
         ;;
-    -@ | --platform)
+    -A | --platform)
         PLATFORM=$2
         shift
         ;;
@@ -60,7 +60,7 @@ while [[ $# -gt 0 ]]; do
         echo "  -F, --framework             Specify the framework: react, angular, vue, react-native (default: react)"
         echo "  -f, --framework-version     Specify the framework version (default: latest)"
         echo "  -P, --pkg-manager           Specify the package manager: npm, yarn (default: npm)"
-        echo "  -@, --platform              Specify the platform: android, ios (default: android)"
+        echo "  -A, --platform              Specify the platform: android, ios (default: android)"
         echo "  -h, --help                  Show help message"
         exit 0
         ;;
