@@ -83,6 +83,7 @@ describe('configureComponent', () => {
 describe('isValidEmail', () => {
   it('should validate an email address', () => {
     expect(isValidEmail('test@example.com')).toBe(true);
+    expect(isValidEmail('TEST@EXAMPLE.COM')).toBe(true);
 
     expect(isValidEmail('testexample.com')).toBe(false);
     expect(isValidEmail('test@')).toBe(false);

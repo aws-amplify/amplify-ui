@@ -184,6 +184,8 @@ export function trimValues<T extends Record<string, string>>(
 export const isValidEmail = (value: string | undefined) => {
   if (!value) return false;
 
-  const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  // source: HTML5 spec https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   return emailRegex.test(value);
 };

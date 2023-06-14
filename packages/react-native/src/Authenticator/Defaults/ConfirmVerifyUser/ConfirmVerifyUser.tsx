@@ -27,14 +27,20 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   handleSubmit,
   isPending,
   skipVerification,
+  validationErrors,
   ...rest
 }) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+  const {
+    fields: fieldsWithHandlers,
+    formValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getAccountRecoveryInfoText();
@@ -56,6 +62,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={formValidationErrors}
     />
   );
 };

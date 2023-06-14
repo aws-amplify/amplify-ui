@@ -33,14 +33,20 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
   isPending,
   toSignIn,
   totpSecretCode,
+  validationErrors,
   ...rest
 }) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+  const {
+    fields: fieldsWithHandlers,
+    formValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getSetupTOTPText();
@@ -74,6 +80,7 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={formValidationErrors}
     />
   );
 };

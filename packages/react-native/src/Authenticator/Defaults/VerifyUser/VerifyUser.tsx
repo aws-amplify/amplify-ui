@@ -25,14 +25,20 @@ const VerifyUser: DefaultVerifyUserComponent = ({
   handleChange,
   handleSubmit,
   skipVerification,
+  validationErrors,
   ...rest
 }) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+  const {
+    fields: fieldsWithHandlers,
+    formValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getVerifyContactText();
@@ -55,6 +61,7 @@ const VerifyUser: DefaultVerifyUserComponent = ({
       buttons={buttons}
       fields={fieldsWithHandlers}
       headerText={headerText}
+      validationErrors={formValidationErrors}
     />
   );
 };

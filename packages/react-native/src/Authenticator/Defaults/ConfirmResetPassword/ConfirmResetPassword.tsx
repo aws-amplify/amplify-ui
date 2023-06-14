@@ -27,14 +27,20 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
   handleSubmit,
   isPending,
   resendCode,
+  validationErrors,
   ...rest
 }) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+  const {
+    fields: fieldsWithHandlers,
+    formValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getResetYourPasswordText();
@@ -56,6 +62,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={formValidationErrors}
     />
   );
 };

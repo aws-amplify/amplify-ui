@@ -22,7 +22,7 @@ import {
 
 const logger = new Logger('Authenticator');
 
-const { getInvalidEmailText } = authenticatorTextUtil;
+const { getInvalidEmailText, getRequiredFieldText } = authenticatorTextUtil;
 
 export default function useFieldValues<FieldType extends TypedField>({
   componentName,
@@ -54,11 +54,17 @@ export default function useFieldValues<FieldType extends TypedField>({
 
   const runValidation = useCallback(
     (field: TextFieldOptionsType, value: string | undefined) => {
-      if (field.type == 'email') {
-        setFormValidationErrors({
-          [field.type]: isValidEmail(value) ? '' : getInvalidEmailText(),
-        });
+      const validationErrors = [];
+      if (field.required && !value) {
+        validationErrors.push(getRequiredFieldText());
       }
+      if (field.type == 'email') {
+        logger.warn('validating email ', value);
+        validationErrors.push(isValidEmail(value) ? '' : getInvalidEmailText());
+      }
+      setFormValidationErrors({
+        [field.name]: validationErrors,
+      });
     },
     []
   );
@@ -143,7 +149,7 @@ export default function useFieldValues<FieldType extends TypedField>({
   return {
     fields: fieldsWithHandlers,
     disableFormSubmit,
-    handleFormSubmit,
     formValidationErrors: { ...formValidationErrors, ...validationErrors },
+    handleFormSubmit,
   };
 }
