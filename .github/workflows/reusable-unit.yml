@@ -109,6 +109,8 @@ jobs:
       - name: Check ${{ matrix.package }} bundle size
         if: |
           matrix.package == 'react' ||
+          matrix.package == 'react-core' ||
+          matrix.package == 'react-core-notifications' ||
           matrix.package == 'react-notifications' ||
           matrix.package == 'react-geo' ||
           matrix.package == 'react-storage' ||
