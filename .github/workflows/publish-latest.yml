@@ -1,10 +1,11 @@
 # Description: this workflow publishes UI packages to `latest` tag on NPM.
 #
-# Triggered by: whenever "Version Packages" is merged
+# Triggered by: whenever "Version Packages" is merged to `main` or whenever a hot fix PR is merged to `hotfix`
 
 # If successful, we will publish all updated UI packages to
 #   - https://www.npmjs.com/package/@aws-amplify/ui
 #   - https://www.npmjs.com/package/@aws-amplify/ui-react
+#   - https://www.npmjs.com/package/@aws-amplify/ui-react-native
 #   - https://www.npmjs.com/package/@aws-amplify/ui-vue
 #   - https://www.npmjs.com/package/@aws-amplify/ui-angular
 
@@ -12,7 +13,7 @@ name: Test and Publish / latest
 
 on:
   push:
-    branches: [main]
+    branches: [main, hotfix]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -58,7 +59,7 @@ jobs:
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
@@ -76,8 +77,13 @@ jobs:
         working-directory: ./canary
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
-      - name: Setup canary apps against @next
+      - name: Setup canary apps against @next on main
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: yarn setup:next
+        working-directory: ./canary
+      - name: Setup canary apps on hotfix
+        if: ${{ github.ref == 'refs/heads/hotfix' }}
+        run: yarn setup
         working-directory: ./canary
       - name: Run yarn install on each sample app
         run: yarn install

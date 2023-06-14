@@ -35,6 +35,7 @@
     "publish:studio": "yarn changeset publish --tag studio",
     "version:latest": "yarn changeset version && yarn generateVersions && yarn angular build",
     "publish:latest": "yarn changeset publish",
+    "version:hotfix": "yarn changeset && yarn bumpVersions && yarn build",
     "generateVersions": "node scripts/generateVersion",
     "setLivenessPublic": "node scripts/setLivenessPublic",
     "bumpVersions": "yarn changeset version && yarn generateVersions"
