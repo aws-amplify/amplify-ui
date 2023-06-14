@@ -83,29 +83,26 @@ export type GridCollectionProps<Item> = BaseGridProps &
   CollectionBaseProps<Item>;
 
 /**
- * Omits `React.ReactNode` as children to prevent intersection type of
- * `{ children: React.ReactNode & (item: Item, index: number) => JSX.Element; }
+ * Omits `React.ReactNode` as children to prevent intersection type for `children` of
+ * `React.ReactNode & (item: Item, index: number) => JSX.Element`
  * and replaces with `CollectionChildren`
  */
-type ReassignChildren<T, Item> = Omit<T, 'children'> & CollectionChildren<Item>;
+type ReplaceChildren<T, Item> = Omit<T, 'children'> & CollectionChildren<Item>;
 
 // Note: `BaseCollectionProps` is used directly as the expected props interface of `Collection`
 export type BaseCollectionProps<
   Item,
   Element extends ElementType
-> = ReassignChildren<
-  PrimitivePropsWithAs<CollectionWrapperProps, Element> &
-    (
-      | ({ type: 'list' } & ListCollectionProps<Item>)
-      | ({ type: 'grid' } & GridCollectionProps<Item>)
-    ),
-  Item
->;
+> = PrimitivePropsWithAs<CollectionWrapperProps, Element> &
+  (
+    | ReplaceChildren<{ type: 'list' } & ListCollectionProps<Item>, Item>
+    | ReplaceChildren<{ type: 'grid' } & GridCollectionProps<Item>, Item>
+  );
 
 export type CollectionProps<
   Item,
   Element extends ElementType = 'div'
-> = ReassignChildren<
+> = ReplaceChildren<
   PrimitiveProps<
     BaseCollectionProps<Item, Element> & { children: React.ReactNode },
     Element
