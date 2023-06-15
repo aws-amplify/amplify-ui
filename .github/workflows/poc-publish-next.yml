@@ -3,15 +3,13 @@
 #
 # Triggered by: merge to `main`
 
-name: Test and Publish / next
+name: POC / Test and Publish / next
 
 concurrency:
   group: e2e-${{ github.sha }}
   cancel-in-progress: true
 
-on:
-  push:
-    branches: [main]
+on: pull_request
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -149,18 +147,10 @@ jobs:
             packages/e2e/cypress/screenshots/**
           retention-days: 5
 
-  publish:
-    needs: [e2e, guides]
-    uses: ./.github/workflows/reusable-tagged-publish.yml
-    with:
-      dist-tag: next
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
   deploy-sample-app:
     runs-on: ubuntu-latest
     environment: deployment
-    needs: publish
+    needs: e2e
     steps:
       - name: Trigger build for beta liveness sample app pointing at next tag
         run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
@@ -168,7 +158,7 @@ jobs:
           ENDPOINT: ${{ secrets.LIVENESS_BETA_SAMPLE_APP_BUILD_TRIGGER }}
 
   build-test:
-    needs: publish
+    needs: e2e
     runs-on: ubuntu-latest
     environment: ci
     steps:
@@ -211,33 +201,3 @@ jobs:
       - name: Run yarn build on each sample app
         run: yarn build
         working-directory: ./canary
-
-  log-failure-metric:
-    # Send a failure data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a failure
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ failure() }}
-    steps:
-      - name: Log failure data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 1
-          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-          aws-region: us-east-2
-
-  log-success-metric:
-    # Send a success data point to metric PublishNextFailure in github-workflows@ us-east-2, if it's a success
-    runs-on: ubuntu-latest
-    environment: ci
-    needs: build-test
-    if: ${{ success() }}
-    steps:
-      - name: Log success data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
-        with:
-          metric-name: PublishNextFailure
-          value: 0
-          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
-          aws-region: us-east-2
