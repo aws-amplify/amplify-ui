@@ -31,7 +31,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   ...rest
 }) => {
   const {
-    disableFormSubmit,
+    disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,

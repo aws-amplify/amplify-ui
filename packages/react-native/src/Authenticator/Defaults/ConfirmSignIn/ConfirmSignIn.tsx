@@ -32,7 +32,7 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
   ...rest
 }) => {
   const {
-    disableFormSubmit,
+    disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,

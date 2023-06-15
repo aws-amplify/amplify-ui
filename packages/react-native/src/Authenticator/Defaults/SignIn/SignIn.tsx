@@ -32,7 +32,7 @@ const SignIn: DefaultSignInComponent = ({
   } = authenticatorTextUtil;
 
   const {
-    disableFormSubmit,
+    disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,

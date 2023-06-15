@@ -33,7 +33,7 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
   ...rest
 }) => {
   const {
-    disableFormSubmit,
+    disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,

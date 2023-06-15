@@ -30,7 +30,7 @@ const ResetPassword: DefaultResetPasswordComponent = ({
   ...rest
 }) => {
   const {
-    disableFormSubmit,
+    disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,

@@ -37,7 +37,7 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
   ...rest
 }) => {
   const {
-    disableFormSubmit,
+    disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,
