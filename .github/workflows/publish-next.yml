@@ -168,7 +168,7 @@ jobs:
           ENDPOINT: ${{ secrets.LIVENESS_BETA_SAMPLE_APP_BUILD_TRIGGER }}
 
   build-test:
-    needs: deploy-sample-app
+    needs: publish
     runs-on: ubuntu-latest
     environment: ci
     steps:
