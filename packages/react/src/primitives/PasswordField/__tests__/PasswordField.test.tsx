@@ -115,7 +115,7 @@ describe('PasswordField component', () => {
     expect(button).toBeNull();
   });
 
-  it('should be able show error when field has error', async () => {
+  it('should show error styling when field has error', async () => {
     const { container } = render(
       <PasswordField
         label="Password"
