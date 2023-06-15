@@ -9,7 +9,7 @@ export class ErrorComponent {
   public isVisible = true;
   public dismissAriaLabel = translate('Dismiss alert');
 
-  public close() {
+  public close(): void {
     this.isVisible = false;
   }
 }

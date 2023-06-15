@@ -171,6 +171,13 @@ Then('I confirm my password', async () => {
   );
 });
 
+Then('I add an invalid password confirmation', async () => {
+  await typeInInputField(
+    by.id(`${AUTHENTICATOR_TEXT_FIELD_TEST_ID_PREFIX}-confirm_password`),
+    'invald_password_confirmation'
+  );
+});
+
 When('I click the {string} button', async (name: string) => {
   if (name === 'Create Account') {
     // Create Account tab and button have the same text
@@ -197,3 +204,7 @@ Then(
     await expect(element(by.label(label))).toBeVisible();
   }
 );
+
+Then('I do not see a remote error with id {string}', async (id: string) => {
+  await expect(element(by.id(id))).not.toExist();
+});
