@@ -28,6 +28,7 @@
     "vue-latest-nuxt-latest-ts": "npm run setup:vue -- -B nuxt",
     "rnlatestclilatesttsios": "npm run setup:react-native -- -B cli -A ios -n rnlatestclilatesttsios",
     "rnlatestclilatesttsandroid": "npm run setup:react-native -- -B cli -A android -n rnlatestclilatesttsandroid",
-    "rnlatestexpolatesttsandroid": "npm run setup:react-native -- -B expo -A android -n rnlatestexpolatesttsandroid"
+    "rnlatestexpolatesttsandroid": "npm run setup:react-native -- -B expo -A android -n rnlatestexpolatesttsandroid",
+    "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts"
   }
 }
