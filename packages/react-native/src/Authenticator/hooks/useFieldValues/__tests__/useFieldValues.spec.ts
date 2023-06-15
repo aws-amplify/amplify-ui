@@ -187,7 +187,34 @@ describe('useFieldValues', () => {
       value: undefined,
     });
     expect(result.current.fieldValidationErrors).toStrictEqual({
-      invalid_email: [authenticatorTextUtil.getInvalidEmailText()],
+      [emailField.name]: [authenticatorTextUtil.getInvalidEmailText()],
+    });
+  });
+
+  it('runs validations for required fields', () => {
+    const requiredField = {
+      label: 'test',
+      type: 'password',
+      name: 'required',
+      required: true,
+    } as TextFieldOptionsType;
+    const { result } = renderHook(() =>
+      useFieldValues({
+        ...props,
+        fields: [requiredField],
+      })
+    );
+    const mockEvent = {
+      nativeEvent: { target: 1 },
+    } as NativeSyntheticEvent<TextInputFocusEventData>;
+    result.current.fields[0].onBlur?.(mockEvent);
+    expect(props.handleBlur).toHaveBeenCalledTimes(1);
+    expect(props.handleBlur).toHaveBeenCalledWith({
+      name: requiredField.name,
+      value: undefined,
+    });
+    expect(result.current.fieldValidationErrors).toStrictEqual({
+      [requiredField.name]: [authenticatorTextUtil.getRequiredFieldText()],
     });
   });
 

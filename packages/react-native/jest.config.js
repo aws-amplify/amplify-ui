@@ -1,10 +1,13 @@
 module.exports = {
   preset: 'react-native',
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*{c,C}onstants.ts',
   ],
+  // ignore coverage for top level "export" and style files
+  coveragePathIgnorePatterns: ['<rootDir>/src/(index|styles).(ts|tsx)'],
   moduleNameMapper: {
     '^react$': '<rootDir>/node_modules/react',
     '^react-native$': '<rootDir>/node_modules/react-native',
