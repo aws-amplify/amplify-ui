@@ -1818,7 +1818,7 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"children\\",
                         \\"type\\": \\"(item: Item, index: number) => JSX.Element\\",
                         \\"description\\": \\"The component to be repeated\\\\nSame interface as Array.prototype.map\\",
-                        \\"category\\": \\"CollectionBaseProps\\",
+                        \\"category\\": \\"CollectionChildren\\",
                         \\"isOptional\\": false
                     }
                 }

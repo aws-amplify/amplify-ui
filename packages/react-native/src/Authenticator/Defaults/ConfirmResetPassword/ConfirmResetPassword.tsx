@@ -25,12 +25,14 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
   handleBlur,
   handleChange,
   handleSubmit,
+  hasValidationErrors,
   isPending,
   resendCode,
   validationErrors,
   ...rest
 }) => {
   const {
+    disableFormSubmit,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,
@@ -43,16 +45,27 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
     validationErrors,
   });
 
+  const disabled = hasValidationErrors || disableFormSubmit;
   const headerText = getResetYourPasswordText();
   const primaryButtonText = isPending ? getSubmittingText() : getSubmitText();
   const secondaryButtonText = getResendCodeText();
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       secondary: { children: secondaryButtonText, onPress: resendCode },
     }),
-    [handleFormSubmit, primaryButtonText, resendCode, secondaryButtonText]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      resendCode,
+      secondaryButtonText,
+    ]
   );
 
   return (

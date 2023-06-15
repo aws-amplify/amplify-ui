@@ -32,6 +32,7 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
   ...rest
 }) => {
   const {
+    disableFormSubmit,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,
@@ -50,10 +51,20 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: [{ children: secondaryButtonText, onPress: toSignIn }],
     }),
-    [handleFormSubmit, primaryButtonText, secondaryButtonText, toSignIn]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      secondaryButtonText,
+      toSignIn,
+    ]
   );
 
   return (

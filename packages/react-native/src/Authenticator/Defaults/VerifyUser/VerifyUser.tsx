@@ -29,6 +29,7 @@ const VerifyUser: DefaultVerifyUserComponent = ({
   ...rest
 }) => {
   const {
+    disableFormSubmit,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,
@@ -48,10 +49,10 @@ const VerifyUser: DefaultVerifyUserComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: verifyText, onPress: handleFormSubmit },
+      primary: { children: verifyText, disabled, onPress: handleFormSubmit },
       links: [{ children: skipText, onPress: skipVerification }],
     }),
-    [handleFormSubmit, skipText, skipVerification, verifyText]
+    [disabled, handleFormSubmit, skipText, skipVerification, verifyText]
   );
 
   return (

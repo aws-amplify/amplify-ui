@@ -31,6 +31,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   ...rest
 }) => {
   const {
+    disableFormSubmit,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,
@@ -49,10 +50,20 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: [{ children: secondaryButtonText, onPress: skipVerification }],
     }),
-    [handleFormSubmit, primaryButtonText, skipVerification, secondaryButtonText]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      skipVerification,
+      secondaryButtonText,
+    ]
   );
 
   return (

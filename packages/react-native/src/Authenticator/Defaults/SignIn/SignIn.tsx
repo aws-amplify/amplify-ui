@@ -32,6 +32,7 @@ const SignIn: DefaultSignInComponent = ({
   } = authenticatorTextUtil;
 
   const {
+    disableFormSubmit,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,
@@ -55,12 +56,13 @@ const SignIn: DefaultSignInComponent = ({
       onPress: toResetPassword,
     };
     return {
-      primary: { children: signInText, onPress: handleFormSubmit },
+      primary: { children: signInText, disabled, onPress: handleFormSubmit },
       links: hideSignUp
         ? [forgotPassword]
         : [forgotPassword, { children: signUpText, onPress: toSignUp }],
     };
   }, [
+    disabled,
     forgotPasswordText,
     handleFormSubmit,
     hideSignUp,

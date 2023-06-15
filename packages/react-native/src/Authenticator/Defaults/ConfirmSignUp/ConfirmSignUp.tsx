@@ -33,6 +33,7 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
   ...rest
 }) => {
   const {
+    disableFormSubmit,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,
@@ -52,10 +53,20 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       secondary: { children: secondaryButtonText, onPress: resendCode },
     }),
-    [handleFormSubmit, primaryButtonText, resendCode, secondaryButtonText]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      resendCode,
+      secondaryButtonText,
+    ]
   );
 
   return (

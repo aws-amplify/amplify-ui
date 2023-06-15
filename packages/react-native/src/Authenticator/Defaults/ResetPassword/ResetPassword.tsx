@@ -30,6 +30,7 @@ const ResetPassword: DefaultResetPasswordComponent = ({
   ...rest
 }) => {
   const {
+    disableFormSubmit,
     fields: fieldsWithHandlers,
     formValidationErrors,
     handleFormSubmit,
@@ -48,10 +49,20 @@ const ResetPassword: DefaultResetPasswordComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: [{ children: secondaryButtonText, onPress: toSignIn }],
     }),
-    [handleFormSubmit, primaryButtonText, secondaryButtonText, toSignIn]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      secondaryButtonText,
+      toSignIn,
+    ]
   );
 
   return (
