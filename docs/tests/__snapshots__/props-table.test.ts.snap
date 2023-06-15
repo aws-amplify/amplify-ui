@@ -1716,13 +1716,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"children\\": {
-                        \\"name\\": \\"children\\",
-                        \\"type\\": \\"React.ReactNode\\",
-                        \\"description\\": \\"Children to be rendered inside the component The component to be repeated\\\\nSame interface as Array.prototype.map\\",
-                        \\"category\\": \\"BaseComponentProps\\",
-                        \\"isOptional\\": false
-                    },
                     \\"className\\": {
                         \\"name\\": \\"className\\",
                         \\"type\\": \\"string | undefined\\",
@@ -1819,6 +1812,13 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"Item[]\\",
                         \\"description\\": \\"The items from a data source that will be mapped by the Collection component\\",
                         \\"category\\": \\"CollectionBaseProps\\",
+                        \\"isOptional\\": false
+                    },
+                    \\"children\\": {
+                        \\"name\\": \\"children\\",
+                        \\"type\\": \\"(item: Item, index: number) => JSX.Element\\",
+                        \\"description\\": \\"The component to be repeated\\\\nSame interface as Array.prototype.map\\",
+                        \\"category\\": \\"CollectionChildren\\",
                         \\"isOptional\\": false
                     }
                 }
