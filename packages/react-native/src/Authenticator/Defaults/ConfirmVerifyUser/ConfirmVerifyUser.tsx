@@ -33,7 +33,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
-    formValidationErrors,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -73,7 +73,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
-      validationErrors={formValidationErrors}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

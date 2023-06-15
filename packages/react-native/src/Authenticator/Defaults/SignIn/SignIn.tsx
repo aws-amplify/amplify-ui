@@ -34,7 +34,7 @@ const SignIn: DefaultSignInComponent = ({
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
-    formValidationErrors,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -78,7 +78,7 @@ const SignIn: DefaultSignInComponent = ({
       buttons={buttons}
       fields={fieldsWithHandlers}
       headerText={headerText}
-      validationErrors={formValidationErrors}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

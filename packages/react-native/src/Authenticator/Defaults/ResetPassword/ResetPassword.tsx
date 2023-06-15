@@ -32,7 +32,7 @@ const ResetPassword: DefaultResetPasswordComponent = ({
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
-    formValidationErrors,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -72,7 +72,7 @@ const ResetPassword: DefaultResetPasswordComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
-      validationErrors={formValidationErrors}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

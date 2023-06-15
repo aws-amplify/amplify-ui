@@ -35,7 +35,7 @@ const SignUp: DefaultSignUpComponent = ({
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,
-    formValidationErrors,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -81,7 +81,7 @@ const SignUp: DefaultSignUpComponent = ({
       fields={fieldsWithHandlers}
       headerText={headerText}
       isPending={isPending}
-      validationErrors={formValidationErrors}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

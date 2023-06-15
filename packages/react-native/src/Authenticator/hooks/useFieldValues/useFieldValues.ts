@@ -33,7 +33,7 @@ export default function useFieldValues<FieldType extends TypedField>({
   validationErrors,
 }: UseFieldValuesParams<FieldType>): UseFieldValues<FieldType> {
   const [values, setValues] = useState<Record<string, string>>({});
-  const [formValidationErrors, setFormValidationErrors] =
+  const [fieldValidationErrors, setfieldValidationErrors] =
     useState<ValidationError>({});
   const isRadioFieldComponent = componentName === 'VerifyUser';
 
@@ -54,15 +54,15 @@ export default function useFieldValues<FieldType extends TypedField>({
 
   const runValidation = useCallback(
     (field: TextFieldOptionsType, value: string | undefined) => {
-      const validationErrors = [];
+      const fieldErrors = [];
       if (field.required && !value) {
-        validationErrors.push(getRequiredFieldText());
+        fieldErrors.push(getRequiredFieldText());
       }
       if (field.type == 'email') {
-        validationErrors.push(isValidEmail(value) ? '' : getInvalidEmailText());
+        fieldErrors.push(isValidEmail(value) ? '' : getInvalidEmailText());
       }
-      setFormValidationErrors({
-        [field.name]: validationErrors,
+      setfieldValidationErrors({
+        [field.name]: fieldErrors,
       });
     },
     []
@@ -148,7 +148,7 @@ export default function useFieldValues<FieldType extends TypedField>({
   return {
     fields: fieldsWithHandlers,
     disableFormSubmit,
-    formValidationErrors: { ...formValidationErrors, ...validationErrors },
+    fieldValidationErrors: { ...fieldValidationErrors, ...validationErrors },
     handleFormSubmit,
   };
 }

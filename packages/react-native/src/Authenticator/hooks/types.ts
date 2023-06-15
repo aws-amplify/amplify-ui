@@ -24,10 +24,12 @@ type FieldOptions<FieldProps, Type extends AuthenticatorFieldTypeKey> = {
   type: Type;
 } & Omit<FieldProps, 'disabled' | 'onBlur'>;
 
+type EmailFieldOptions = FieldOptions<PhoneNumberFieldProps, 'email'>;
 type PasswordFieldOptions = FieldOptions<PasswordFieldProps, 'password'>;
 type PhoneFieldOptions = FieldOptions<PhoneNumberFieldProps, 'phone'>;
-type DefaultFieldOptions = FieldOptions<TextFieldProps, 'default' | 'email'>;
+type DefaultFieldOptions = FieldOptions<TextFieldProps, 'default'>;
 export type TextFieldOptionsType = (
+  | EmailFieldOptions
   | PasswordFieldOptions
   | PhoneFieldOptions
   | DefaultFieldOptions

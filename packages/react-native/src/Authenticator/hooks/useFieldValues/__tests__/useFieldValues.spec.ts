@@ -61,7 +61,7 @@ describe('useFieldValues', () => {
           value: undefined,
         },
       ],
-      formValidationErrors: {},
+      fieldValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -84,7 +84,7 @@ describe('useFieldValues', () => {
           value: undefined,
         },
       ],
-      formValidationErrors: {},
+      fieldValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -100,7 +100,7 @@ describe('useFieldValues', () => {
     expect(result.current).toStrictEqual({
       disableFormSubmit: true,
       fields: [{ ...radioField, onChange: expect.any(Function) }],
-      formValidationErrors: {},
+      fieldValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -111,7 +111,7 @@ describe('useFieldValues', () => {
     expect(result.current).toStrictEqual({
       disableFormSubmit: false,
       fields: mockfields,
-      formValidationErrors: {},
+      fieldValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -186,7 +186,7 @@ describe('useFieldValues', () => {
       name: emailField.name,
       value: undefined,
     });
-    expect(result.current.formValidationErrors).toStrictEqual({
+    expect(result.current.fieldValidationErrors).toStrictEqual({
       invalid_email: [authenticatorTextUtil.getInvalidEmailText()],
     });
   });
@@ -272,7 +272,7 @@ describe('useFieldValues', () => {
           value: undefined,
         },
       ],
-      formValidationErrors: {},
+      fieldValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });
@@ -306,7 +306,7 @@ describe('useFieldValues', () => {
           value: mockValue,
         },
       ],
-      formValidationErrors: {},
+      fieldValidationErrors: {},
       handleFormSubmit: expect.any(Function),
     });
   });

@@ -34,7 +34,7 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
-    formValidationErrors,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -74,7 +74,7 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
-      validationErrors={formValidationErrors}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

@@ -31,7 +31,7 @@ const VerifyUser: DefaultVerifyUserComponent = ({
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
-    formValidationErrors,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -62,7 +62,7 @@ const VerifyUser: DefaultVerifyUserComponent = ({
       buttons={buttons}
       fields={fieldsWithHandlers}
       headerText={headerText}
-      validationErrors={formValidationErrors}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

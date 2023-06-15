@@ -34,7 +34,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,
-    formValidationErrors,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -75,7 +75,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
-      validationErrors={formValidationErrors}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

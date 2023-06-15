@@ -30,7 +30,7 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,
-    formValidationErrors,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -73,7 +73,7 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
-      validationErrors={formValidationErrors}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

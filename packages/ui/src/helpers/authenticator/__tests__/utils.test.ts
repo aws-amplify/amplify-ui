@@ -81,14 +81,22 @@ describe('configureComponent', () => {
 });
 
 describe('isValidEmail', () => {
-  it('should validate an email address', () => {
+  it('should return true for a valid email address', () => {
     expect(isValidEmail('test@example.com')).toBe(true);
     expect(isValidEmail('TEST@EXAMPLE.COM')).toBe(true);
+  });
 
+  it('should return false for an invalid email address', () => {
     expect(isValidEmail('testexample.com')).toBe(false);
     expect(isValidEmail('test@')).toBe(false);
     expect(isValidEmail('test@.')).toBe(false);
     expect(isValidEmail('test@example@test.com')).toBe(false);
     expect(isValidEmail('test @example.com')).toBe(false);
+  });
+
+  it('should return false if there is no email address', () => {
+    expect(isValidEmail(null)).toBe(false);
+    expect(isValidEmail(undefined)).toBe(false);
+    expect(isValidEmail('')).toBe(false);
   });
 });
