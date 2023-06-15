@@ -1,5 +1,5 @@
 ---
-"@aws-amplify/ui-react-liveness": patch
+"@aws-amplify/ui-react-liveness": major
 ---
 
-chore(liveness): update liveness component default cdn to use rekognition cdn
+**Breaking**: Update liveness component default cdn to use rekognition cdn
