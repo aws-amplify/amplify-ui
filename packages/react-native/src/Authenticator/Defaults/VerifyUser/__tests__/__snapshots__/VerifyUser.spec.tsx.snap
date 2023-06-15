@@ -102,6 +102,7 @@ Array [
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
+                "margin": 4,
               },
               Object {
                 "height": 20,
@@ -168,6 +169,7 @@ Array [
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
+                "margin": 4,
               },
               Object {
                 "height": 20,
@@ -417,6 +419,7 @@ Array [
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
+                "margin": 4,
               },
               Object {
                 "height": 20,
@@ -483,6 +486,7 @@ Array [
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
+                "margin": 4,
               },
               Object {
                 "height": 20,
