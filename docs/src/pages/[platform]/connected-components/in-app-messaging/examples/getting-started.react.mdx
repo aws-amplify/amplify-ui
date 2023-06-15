@@ -1,19 +1,24 @@
 import { Tabs, TabItem, } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 
-<Example>
-  <ExampleCode>
-    <Tabs>
-      <TabItem title="InAppMessagingProvider/InAppMessageDisplay">
-          ```js file=../../../../../../../examples/next/pages/ui/components/in-app-messaging/basic-usage-provider/index.page.tsx
+<Tabs className="docs-tabs">
+  <TabItem title="InAppMessagingProvider">
+    <Example>
+      <ExampleCode>
+```js file=../../../../../../../examples/next/pages/ui/components/in-app-messaging/basic-usage-provider/index.page.tsx
 
-          ```
-      </TabItem>
-      <TabItem title="withInAppMessaging">
-          ```js file=../../../../../../../examples/next/pages/ui/components/in-app-messaging/basic-usage-hoc/index.page.tsx
+```
+      </ExampleCode>
+    </Example>
+      
+  </TabItem>
+  <TabItem title="withInAppMessaging">
+    <Example>
+      <ExampleCode>
+      ```js file=../../../../../../../examples/next/pages/ui/components/in-app-messaging/basic-usage-hoc/index.page.tsx
 
-          ```
-      </TabItem>
-    </Tabs>
-  </ExampleCode>
-</Example>
+      ```
+      </ExampleCode>
+    </Example>
+  </TabItem>
+</Tabs>

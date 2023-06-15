@@ -1,13 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { FieldDescriptionProps } from '../types';
+import { BaseFieldDescriptionProps } from '../types';
 import { Text } from '../Text';
 import { ComponentClassNames } from '../shared/constants';
 
 export const QA_FIELD_DESCRIPTION = 'qa-field-description';
 
-export const FieldDescription: React.FC<FieldDescriptionProps> = ({
+export const FieldDescription: React.FC<BaseFieldDescriptionProps> = ({
   descriptiveText,
   labelHidden,
   ...rest

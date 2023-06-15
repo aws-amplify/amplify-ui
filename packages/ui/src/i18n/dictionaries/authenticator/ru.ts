@@ -20,7 +20,7 @@ export const ruDict: AuthenticatorDictionary = {
   'Dismiss alert': 'Закрыть оповещение',
   Email: 'электронная почта',
   'Enter your code': 'ввести ваш Код',
-  'Enter your email': 'ввести ваш электронная почта',
+  'Enter your Email': 'ввести ваш электронная почта',
   'Enter your phone number': 'ввести ваш номер телефона',
   'Enter your username': 'ввести ваш имя пользователя',
   'Forgot your password?': 'Забыли ваш пароль?',

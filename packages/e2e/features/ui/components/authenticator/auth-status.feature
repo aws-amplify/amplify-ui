@@ -1,9 +1,15 @@
 Feature: Verify Auth Status on Sign In and Sign Out
 
+`useAuthenticator` and `AuthService` export `authStatus` that can be used to check
+the authenticated status of the application.
+
+This feature tests that `authStatus` is available and updated even if Authenticator
+UI is not rendered in the DOM tree.
+
   Background:
     Given I'm running the example "/ui/components/authenticator/auth-status"
 
-  @angular @react
+  @angular @react @vue
   Scenario: Sign in with confirmed credentials, reload, sign out, and reload
     Then I see "unauthenticated" 
     When I type my "username" with status "CONFIRMED"

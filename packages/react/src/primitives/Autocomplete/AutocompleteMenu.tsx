@@ -6,19 +6,27 @@ import { ScrollView } from '../ScrollView';
 import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
 import { ComponentText } from '../shared/constants';
-import type { Primitive, AutocompleteMenuProps } from '../types';
+import type {
+  ForwardRefPrimitive,
+  Primitive,
+  AutocompleteMenuProps,
+  BaseAutocompleteMenuProps,
+} from '../types';
 
-export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
-  ariaLabel,
-  children,
-  Header = null,
-  Footer = null,
-  LoadingIndicator = null,
-  Empty = null,
-  isLoading,
-  listboxId,
-  ...rest
-}) => {
+const AutocompleteMenuPrimitive: Primitive<AutocompleteMenuProps, 'div'> = (
+  {
+    ariaLabel,
+    children,
+    Header = null,
+    Footer = null,
+    LoadingIndicator = null,
+    Empty = null,
+    isLoading,
+    listboxId,
+    ...rest
+  },
+  ref
+) => {
   const MenuHeader = () => {
     return (
       Header && (
@@ -64,7 +72,11 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
     );
 
   return (
-    <ScrollView className={ComponentClassNames.AutocompleteMenu} {...rest}>
+    <ScrollView
+      className={ComponentClassNames.AutocompleteMenu}
+      ref={ref}
+      {...rest}
+    >
       {isLoading ? (
         <MenuLoading />
       ) : (
@@ -89,5 +101,10 @@ export const AutocompleteMenu: Primitive<AutocompleteMenuProps, 'div'> = ({
     </ScrollView>
   );
 };
+
+export const AutocompleteMenu: ForwardRefPrimitive<
+  BaseAutocompleteMenuProps,
+  'div'
+> = React.forwardRef(AutocompleteMenuPrimitive);
 
 AutocompleteMenu.displayName = 'AutocompleteMenu';

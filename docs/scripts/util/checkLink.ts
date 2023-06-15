@@ -18,6 +18,9 @@ export type LinkInfo = {
 };
 const requestedUrl: Set<string> = new Set();
 
+const hostName = 'http://localhost:3000';
+export const isInternalLink = (link) => link.includes(hostName);
+
 async function returnStatus({
   href,
   linkIdx,
@@ -46,12 +49,12 @@ async function returnStatus({
      * e.g. 308 from "/guides" passes (because it's redirected to "react/guides"),
      *  but 308 from "connected-components/authenticator/headless" fails and returns a 404 ((because it's redirected to "react/connected-components/authenticator/advanced").
      */
-    if (statusCode === 308) {
-      const hostNameRegex = RegExp(`http(s)?:\/\/[^/]*`, 'i'); // matches everything between http(s)?: to "/", which is the hostname. e.g., "https://github.com/".
-      const platform = pageUrl.replace(hostNameRegex, '').split('/')[1];
-      const newHref = `${
-        href.match(hostNameRegex)[0]
-      }/${platform}${href.replace(hostNameRegex, '')}`;
+    if (statusCode === 308 && isInternalLink(href)) {
+      const platform = pageUrl.replace(hostName, '').split('/')[1];
+      const newHref = `${href.match(hostName)[0]}/${platform}${href.replace(
+        hostName,
+        ''
+      )}`;
       return await checkLink(
         { href: newHref, tagName, tagText, pageIdx, pageUrl },
         linkIdx

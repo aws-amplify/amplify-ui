@@ -63,7 +63,7 @@ type FontSizeBlockProps = {
 export function FontSizeBlock({ value }: FontSizeBlockProps) {
   return (
     <FontBlock>
-      <View width="4rem" align="right" fontSize={value}>
+      <View width="4rem" textAlign="right" fontSize={value}>
         Aa
       </View>
     </FontBlock>

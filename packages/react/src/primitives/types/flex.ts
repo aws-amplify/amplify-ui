@@ -1,7 +1,7 @@
 import { Property } from 'csstype';
 
 import { CSSLayoutStyleProps, ResponsiveStyle } from './style';
-import { ViewProps } from './view';
+import { BaseViewProps, PrimitiveProps, ElementType } from './view';
 
 export interface FlexContainerStyleProps extends CSSLayoutStyleProps {
   /**
@@ -23,7 +23,12 @@ export interface FlexContainerStyleProps extends CSSLayoutStyleProps {
   wrap?: ResponsiveStyle<Property.FlexWrap>;
 }
 
-export interface FlexProps extends ViewProps, FlexContainerStyleProps {}
+export interface BaseFlexProps extends BaseViewProps, FlexContainerStyleProps {}
+
+export type FlexProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseFlexProps,
+  Element
+>;
 
 export interface FlexItemStyleProps {
   /**

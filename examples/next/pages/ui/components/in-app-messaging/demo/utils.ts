@@ -6,7 +6,7 @@ import {
   InAppMessageButton,
   InAppMessageLayout,
 } from '@aws-amplify/notifications';
-import { useInAppMessaging } from '@aws-amplify/ui-react';
+import { useInAppMessaging } from '@aws-amplify/ui-react-notifications';
 
 type ImageOrientation = 'landscape' | 'portrait';
 
