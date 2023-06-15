@@ -79,21 +79,6 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
     type: `Error`,
   },
   {
-    name: `.countdownFaceTooClose`,
-    description: 'The face is too close.',
-    type: `Error`,
-  },
-  {
-    name: `.countdownMultipleFaces`,
-    description: 'Multiple faces detected.',
-    type: `Error`,
-  },
-  {
-    name: `.countdownNoFace`,
-    description: 'No face is detected.',
-    type: `Error`,
-  },
-  {
     name: `.invalidRegion`,
     description: 'The region provided is invalid.',
     type: `Error`,
