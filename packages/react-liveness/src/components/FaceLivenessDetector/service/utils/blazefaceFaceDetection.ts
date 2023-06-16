@@ -33,13 +33,13 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   }
 
   async loadModels(): Promise<void> {
-    if (isWebAssemblySupported()) {
-      await this._loadWebAssemblyBackend();
-    } else {
-      await this._loadCPUBackend();
-    }
-
     try {
+      if (isWebAssemblySupported()) {
+        await this._loadWebAssemblyBackend();
+      } else {
+        await this._loadCPUBackend();
+      }
+
       await tf.ready();
       this._model = await jitteredExponentialRetry(blazeface.load, [
         {
@@ -100,12 +100,20 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   private async _loadWebAssemblyBackend() {
     try {
       tfjsWasm.setWasmPaths(this.binaryPath);
+      let success = false;
+
       await jitteredExponentialRetry(async () => {
-        const success = await tf.setBackend('wasm');
-        if (!success) {
-          throw new Error(`Initialization of backend wasm failed`);
-        }
+        const response = await fetch(
+          `${this.binaryPath}tfjs-backend-wasm-simd.wasm`
+        );
+        success = response.ok;
       }, []);
+
+      if (!success) {
+        throw new Error(`Fetch of backend wasm url failed`);
+      }
+
+      await tf.setBackend('wasm');
       this.modelBackend = 'wasm';
     } catch (e) {
       throw new Error(
