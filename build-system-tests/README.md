@@ -27,6 +27,48 @@ nvm install <VERSION-NUMBER> # if hasn't installed
 nvm use <VERSION-NUMBER>
 ```
 
+### Create A New MegaApp not exist in package.json
+
+If the MegaApp you want to create is not pre-configured in the package.json, here are several ways to create it using the scripts/ .
+
+#### Setup MegaApp in One Step
+
+```sh
+$ ./mega-app-create-app.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest
+```
+
+### Setup MegaApp Step by Step
+
+- Step 1: Create
+
+```sh
+$ ./mega-app-create-app.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest
+```
+
+- Step 2: Copy/Modify Files
+
+```sh
+$ ./mega-app-copy-files.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest
+$ ./mega-app-copy-files.sh -n react-latest-cra-latest-node-18-ts
+$ ./mega-app-copy-files.sh -B react -b latest -l typescript -n react-latest-cra-latest-node-18-ts -F cra -f latest
+```
+
+- Step 3: Install Dependencies
+
+```sh
+$ ./mega-app-install.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest --pkg-manager npm --pkg-manager-version latest
+$ ./mega-app-install.sh -B react -b latest -l typescript -n react-latest-cra-latest-node-18-ts -F cra -f latest -P npm -p latest
+$ ./mega-app-install.sh -n react-latest-cra-latest-node-18-ts
+```
+
+- Step 4: Run Build
+
+```sh
+$ ./mega-app-build.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest --pkg-manager npm
+$ ./mega-app-build.sh -B react -b latest -l typescript -n react-latest-cra-latest-node-18-ts -F cra -f latest -P npm
+$ ./mega-app-build.sh -n react-latest-cra-latest-node-18-ts
+```
+
 ### Troubleshooting
 
 - If see the following error message:

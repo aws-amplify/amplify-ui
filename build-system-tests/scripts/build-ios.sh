@@ -8,7 +8,10 @@ MEGA_APP_NAME=$2
 BUILD_TOOL=$3
 
 # Import log function
-source "../../../.github/scripts/log.sh"
+source "./scripts/log.sh"
+
+log "command" "cd mega-apps"
+cd mega-apps/$MEGA_APP_NAME
 
 # Step 1: Log errors to LOG_FILE in the background
 log "command" "touch $LOG_FILE"
