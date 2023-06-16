@@ -14,7 +14,8 @@ There are two Github workflows:
 In this _build-system-tests_ folder, run
 
 ```sh
-$ npm run <MEGA-APP-NAME>
+$ npm run <MEGA_APP_NAME> # e.g. npm run react-latest-vite-latest-ts
+$ npm run setup:<FRAMEWORK>:<BUILD_TOOL> -- --framework-version <FRAMEWORK_VERSION_NUMBER> --build-tool-version <BUILD_TOOL_VERSION_NUMBER> # e.g npm run setup:vue:vite -- -f latest -b 2
 ```
 
 Note:
