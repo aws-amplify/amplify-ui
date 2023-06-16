@@ -122,6 +122,7 @@ jobs:
       - name: Detect Mega App Error in Log
         run: npm run checkReactNativeLogs -- --log-file-name ${{ matrix.logfile }} --mega-app-name ${{ env.MEGA_APP_NAME }} --platform ${{ matrix.platform }}
         shell: bash
+        working-directory: build-system-tests
 
   # log-failure-metric:
   #   # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
