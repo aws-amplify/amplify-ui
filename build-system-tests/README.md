@@ -36,6 +36,8 @@ If the MegaApp you want to create is not pre-configured in the package.json, her
 
 ```sh
 $ ./mega-app-create-app.sh --build-tool react --build-tool-version latest --language typescript --name react-latest-cra-latest-node-18-ts --framework cra --framework-version latest
+
+$ npm run setup:<FRAMEWORK>:<BUILD_TOOL> -- --framework-version <FRAMEWORK_VERSION_NUMBER> --build-tool-version <BUILD_TOOL_VERSION_NUMBER> # e.g npm run setup:vue:vite -- -f latest -b 2
 ```
 
 ### Setup MegaApp Step by Step
