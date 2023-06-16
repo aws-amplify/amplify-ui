@@ -22,8 +22,8 @@ import {
   Hint,
   RecordingIcon,
   Overlay,
-  MatchIndicator,
   selectErrorState,
+  MemoizedMatchIndicator,
 } from '../shared';
 import { LivenessClassNames } from '../types/classNames';
 import {
@@ -251,7 +251,9 @@ export const LivenessCameraModule = (
             {isRecording &&
             !isFlashingFreshness &&
             showMatchIndicatorStates.includes(faceMatchState!) ? (
-              <MatchIndicator percentage={faceMatchPercentage!} />
+              <MemoizedMatchIndicator
+                percentage={Math.ceil(faceMatchPercentage!)}
+              />
             ) : null}
 
             {isNotRecording && (

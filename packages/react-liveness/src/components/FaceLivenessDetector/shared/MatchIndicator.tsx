@@ -38,3 +38,5 @@ export const MatchIndicator: React.FC<MatchIndicatorProps> = ({
     </div>
   );
 };
+
+export const MemoizedMatchIndicator = React.memo(MatchIndicator);
