@@ -135,7 +135,8 @@ if [[ "$FRAMEWORK" == 'angular' ]]; then
     cp templates/components/angular/app.component.ts mega-apps/${MEGA_APP_NAME}/src/app/app.component.ts
     echo "cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts"
     cp templates/components/angular/app.module.ts mega-apps/${MEGA_APP_NAME}/src/app/app.module.ts
-    cat templates/components/angular/style-appendix.css >>mega-apps/${MEGA_APP_NAME}/src/styles.css
+    echo "npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e \"this.projects[\\\"$MEGA_APP_NAME\\\"].architect.build.options.styles.push(\\\"node_modules/@aws-amplify/ui-angular/theme.css\\\")\""
+    npx json -I -f mega-apps/${MEGA_APP_NAME}/angular.json -e "this.projects[\"$MEGA_APP_NAME\"].architect.build.options.styles.push(\"node_modules/@aws-amplify/ui-angular/theme.css\")"
 
     # The following change is to test change polyfills so that the app works in browser in local.
     # See more: https://ui.docs.amplify.aws/angular/getting-started/troubleshooting
