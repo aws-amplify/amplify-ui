@@ -100,7 +100,7 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then
-    echo "npx  @angular/cli@${BUILD_TOOL_VERSION} new $MEGA_APP_NAME --interactive=false"
+    echo "npx @angular/cli@${BUILD_TOOL_VERSION} new $MEGA_APP_NAME --interactive=false"
     npx @angular/cli@${BUILD_TOOL_VERSION} new $MEGA_APP_NAME --interactive=false
 fi
 
