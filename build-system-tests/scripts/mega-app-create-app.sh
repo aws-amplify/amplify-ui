@@ -69,8 +69,6 @@ echo "###########################"
 echo "# Start Creating Mega App #"
 echo "###########################"
 
-# echo "cd build-system-tests"
-# cd build-system-tests
 echo "mkdir -p mega-apps/"
 mkdir -p mega-apps/
 echo "cd mega-apps"

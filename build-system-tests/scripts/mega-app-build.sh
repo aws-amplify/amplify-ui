@@ -89,6 +89,8 @@ if [ "$PKG_MANAGER" == 'yarn' ]; then
     yarn build
 else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
+        echo "Back to build-system-tests folder"
+        echo "cd -"
         cd -
         echo "./scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL"
         ./scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL
