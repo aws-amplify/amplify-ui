@@ -1,7 +1,11 @@
 import { Logger } from 'aws-amplify';
 import {
+  authenticatorTextUtil,
+  isString,
   isUnverifiedContactMethodType,
+  isValidEmail,
   UnverifiedContactMethodType,
+  ValidationError,
 } from '@aws-amplify/ui';
 import {
   AuthenticatorLegacyField,
@@ -14,11 +18,14 @@ import {
   AuthenticatorFieldTypeKey,
   MachineFieldTypeKey,
   RadioFieldOptions,
+  TextFieldOptionsType,
   TypedField,
 } from '../types';
 import { KEY_ALLOW_LIST } from './constants';
 
 const logger = new Logger('Authenticator');
+
+const { getInvalidEmailText, getRequiredFieldText } = authenticatorTextUtil;
 
 export const isRadioFieldOptions = (
   field: TypedField
@@ -177,3 +184,38 @@ export function getRouteTypedFields({
 
   return isVerifyUserRoute ? radioFields : getTypedFields(fields);
 }
+
+/**
+ *
+ * @param field
+ * @param value
+ * @param stateValidations
+ * @returns
+ */
+export const runFieldValidation = (
+  field: TextFieldOptionsType,
+  value: string | undefined,
+  stateValidations: ValidationError | undefined
+): string[] => {
+  let fieldErrors: string[] = [];
+  if (field.required && !value) {
+    fieldErrors.push(getRequiredFieldText());
+  }
+  if (field.type === 'email') {
+    if (!isValidEmail(value)) {
+      fieldErrors.push(getInvalidEmailText());
+    }
+  }
+
+  // add state machine validation errors, if any
+  if (stateValidations && stateValidations[field.name]) {
+    const stateValidation = stateValidations[field.name];
+    if (isString(stateValidation)) {
+      fieldErrors.push(stateValidation);
+    } else {
+      fieldErrors = fieldErrors.concat(stateValidation);
+    }
+  }
+
+  return fieldErrors;
+};

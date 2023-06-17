@@ -136,7 +136,9 @@ describe('useFieldValues', () => {
     const mockEvent = {
       nativeEvent: { target: 1 },
     } as NativeSyntheticEvent<TextInputFocusEventData>;
-    result.current.fields[0].onBlur?.(mockEvent);
+    act(() => {
+      result.current.fields[0].onBlur?.(mockEvent);
+    });
     expect(props.handleBlur).toHaveBeenCalledTimes(1);
     expect(props.handleBlur).toHaveBeenCalledWith({
       name: textField.name,
@@ -180,7 +182,9 @@ describe('useFieldValues', () => {
     const mockEvent = {
       nativeEvent: { target: 1 },
     } as NativeSyntheticEvent<TextInputFocusEventData>;
-    result.current.fields[0].onBlur?.(mockEvent);
+    act(() => {
+      result.current.fields[0].onBlur?.(mockEvent);
+    });
     expect(props.handleBlur).toHaveBeenCalledTimes(1);
     expect(props.handleBlur).toHaveBeenCalledWith({
       name: emailField.name,
@@ -207,7 +211,9 @@ describe('useFieldValues', () => {
     const mockEvent = {
       nativeEvent: { target: 1 },
     } as NativeSyntheticEvent<TextInputFocusEventData>;
-    result.current.fields[0].onBlur?.(mockEvent);
+    act(() => {
+      result.current.fields[0].onBlur?.(mockEvent);
+    });
     expect(props.handleBlur).toHaveBeenCalledTimes(1);
     expect(props.handleBlur).toHaveBeenCalledWith({
       name: requiredField.name,

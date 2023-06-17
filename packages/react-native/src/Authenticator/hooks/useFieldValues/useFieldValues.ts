@@ -1,28 +1,18 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Logger } from 'aws-amplify';
-import {
-  ValidationError,
-  authenticatorTextUtil,
-  isValidEmail,
-} from '@aws-amplify/ui';
+import { ValidationError } from '@aws-amplify/ui';
 
-import {
-  OnChangeText,
-  TextFieldOnBlur,
-  TextFieldOptionsType,
-  TypedField,
-} from '../types';
+import { OnChangeText, TextFieldOnBlur, TypedField } from '../types';
 
 import { UseFieldValues, UseFieldValuesParams } from './types';
 import {
   getSanitizedTextFields,
   getSanitizedRadioFields,
   isRadioFieldOptions,
+  runFieldValidation,
 } from './utils';
 
 const logger = new Logger('Authenticator');
-
-const { getInvalidEmailText, getRequiredFieldText } = authenticatorTextUtil;
 
 export default function useFieldValues<FieldType extends TypedField>({
   componentName,
@@ -33,7 +23,8 @@ export default function useFieldValues<FieldType extends TypedField>({
   validationErrors,
 }: UseFieldValuesParams<FieldType>): UseFieldValues<FieldType> {
   const [values, setValues] = useState<Record<string, string>>({});
-  const [fieldValidationErrors, setfieldValidationErrors] =
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [fieldValidationErrors, setFieldValidationErrors] =
     useState<ValidationError>({});
   const isRadioFieldComponent = componentName === 'VerifyUser';
 
@@ -52,22 +43,6 @@ export default function useFieldValues<FieldType extends TypedField>({
     return getSanitizedTextFields(fields, componentName);
   }, [componentName, fields, isRadioFieldComponent]);
 
-  const runValidation = useCallback(
-    (field: TextFieldOptionsType, value: string | undefined) => {
-      const fieldErrors = [];
-      if (field.required && !value) {
-        fieldErrors.push(getRequiredFieldText());
-      }
-      if (field.type == 'email') {
-        fieldErrors.push(isValidEmail(value) ? '' : getInvalidEmailText());
-      }
-      setfieldValidationErrors({
-        [field.name]: fieldErrors,
-      });
-    },
-    []
-  );
-
   const fieldsWithHandlers = sanitizedFields.map((field) => {
     if (isRadioFieldOptions(field)) {
       const onChange = (value: string) => {
@@ -84,13 +59,18 @@ export default function useFieldValues<FieldType extends TypedField>({
     const { name, label, labelHidden, ...rest } = field;
 
     const onBlur: TextFieldOnBlur = (event) => {
+      setTouched({ ...touched, [name]: true });
+
       // call `onBlur` passed as text `field` option
       field.onBlur?.(event);
 
       // call machine blur handler
       handleBlur({ name, value: values[name] });
 
-      runValidation(field, values[name]);
+      setFieldValidationErrors({
+        ...fieldValidationErrors,
+        [name]: runFieldValidation(field, values[name], validationErrors),
+      });
     };
 
     const onChangeText: OnChangeText = (value) => {
@@ -99,6 +79,13 @@ export default function useFieldValues<FieldType extends TypedField>({
 
       // call machine change handler
       handleChange({ name, value });
+
+      if (touched[name]) {
+        setFieldValidationErrors({
+          ...fieldValidationErrors,
+          [name]: runFieldValidation(field, value, validationErrors),
+        });
+      }
 
       setValues({ ...values, [name]: value });
     };
