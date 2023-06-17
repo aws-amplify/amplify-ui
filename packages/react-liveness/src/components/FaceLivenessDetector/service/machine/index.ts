@@ -1189,8 +1189,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 );
 
 const responseStreamActor = async (callback: StreamActorCallback) => {
-  const stream = await responseStream;
   try {
+    const stream = await responseStream;
     for await (const event of stream) {
       if (isServerSesssionInformationEvent(event)) {
         callback({

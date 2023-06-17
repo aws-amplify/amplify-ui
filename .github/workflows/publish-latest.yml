@@ -117,6 +117,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Trigger build for prod liveness sample app pointing at latest tag
+        run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
+        env:
+          ENDPOINT: ${{ secrets.LIVENESS_PROD_SAMPLE_APP_BUILD_TRIGGER }}
 
   log-failure-metric:
     # Send a failure data point to metric PublishLatestFailure in github-workflows@ us-east-2

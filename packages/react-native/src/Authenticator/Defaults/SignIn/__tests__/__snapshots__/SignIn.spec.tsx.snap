@@ -261,6 +261,11 @@ Array [
   </View>,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -290,6 +295,7 @@ Array [
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={
@@ -677,6 +683,11 @@ Array [
   </View>,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -706,6 +717,7 @@ Array [
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={
@@ -1059,6 +1071,7 @@ Array [
         },
       ]
     }
+    testID="amplify__error-message"
   >
     <Image
       accessibilityRole="image"
@@ -1103,6 +1116,11 @@ Array [
   </View>,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -1132,6 +1150,7 @@ Array [
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={

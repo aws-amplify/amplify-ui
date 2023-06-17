@@ -32,7 +32,7 @@ function App({ signOut }) {
             />
             {isSuccessful ? (
               <Alert variation="success" isDismissible>
-                Password has been changed succesfully.
+                Password has been changed successfully.
               </Alert>
             ) : null}
           </Flex>

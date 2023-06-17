@@ -1,6 +1,6 @@
 import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
-import { FACE_LIVENESS_DETECTOR_PROPS, FACE_LIVENESS_DETECTOR_COMPONENTS, FACE_LIVENESS_DETECTOR_CONFIG } from './react-props';
+import { FACE_LIVENESS_DETECTOR_PROPS, FACE_LIVENESS_DETECTOR_COMPONENTS, FACE_LIVENESS_DETECTOR_CONFIG, FACE_LIVENESS_DETECTOR_ERROR_STATES } from './react-props';
 
 ## Full API Reference
 
@@ -18,9 +18,15 @@ Below is the full list of props that can be used with the `FaceLivenessDetectorC
 
 ### FaceLivenessDetectorConfig
 
-Below is the full list of props that can be used with the `FaceLivenessDetectorConfig`. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/liveness.ts#L42).
+Below is the full list of props that can be used with the `FaceLivenessDetectorConfig`. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/liveness.ts).
 
 <ReactPropsTable props={FACE_LIVENESS_DETECTOR_CONFIG} />
+
+### Error States
+
+Below is the full list of error states that can be returned from the `onError` prop. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/error.ts).
+
+<ReactPropsTable props={FACE_LIVENESS_DETECTOR_ERROR_STATES} />
 
 ### LivenessDisplayText
 

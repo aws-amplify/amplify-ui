@@ -1,5 +1,32 @@
 # @aws-amplify/ui-react-core
 
+## 2.1.23
+
+### Patch Changes
+
+- [#3901](https://github.com/aws-amplify/amplify-ui/pull/3901) [`7f59b3c4d`](https://github.com/aws-amplify/amplify-ui/commit/7f59b3c4dd27205a35c1b07ddc0f06a0db9de776) Thanks [@sreeramsama](https://github.com/sreeramsama)! - - Adds new `ui-react-core-notifications` package for utilities related to the Notifications category, and new `ui-react-notifications` package for components like InAppMessaging. Also sets deprecation messages for `InAppMessagingDisplay`, `InAppMessagingProvider` and `useInAppMessaging` in `ui-react` package as they will be moved out in a future breaking change release.
+  - Adds new `ui-react-geo` package for Geo related components like `MapView` and `LocationSearch`. They will be moved out from `ui-react` in a future breaking change release.
+- Updated dependencies [[`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd)]:
+  - @aws-amplify/ui@5.6.4
+
+## 2.1.22
+
+### Patch Changes
+
+- Updated dependencies [[`62425139f`](https://github.com/aws-amplify/amplify-ui/commit/62425139fb5e41a3b36b46aac1d31b965a2739fc)]:
+  - @aws-amplify/ui@5.6.3
+
+## 2.1.21
+
+### Patch Changes
+
+- [#3806](https://github.com/aws-amplify/amplify-ui/pull/3806) [`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui): add event callbacks to defaultAuthHubHandler
+
+- [#3836](https://github.com/aws-amplify/amplify-ui/pull/3836) [`82f3968b7`](https://github.com/aws-amplify/amplify-ui/commit/82f3968b7f750f069bda4ad7bfa9c34d7ee6091f) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: add `types` field to `exports` in `package.json` for `@aws-amplify/ui-react-core` and `@aws-amplify/ui-vue`
+
+- Updated dependencies [[`998a8c74f`](https://github.com/aws-amplify/amplify-ui/commit/998a8c74ff42c250d0d028efb20afa2d54528c86)]:
+  - @aws-amplify/ui@5.6.2
+
 ## 2.1.20
 
 ### Patch Changes

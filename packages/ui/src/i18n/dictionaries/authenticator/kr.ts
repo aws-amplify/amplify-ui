@@ -20,7 +20,7 @@ export const krDict: AuthenticatorDictionary = {
   'Dismiss alert': '알림 무시',
   Email: '이메일',
   'Enter your code': '인증번호를 입력해주세요',
-  'Enter your email': '이메일 입력',
+  'Enter your Email': '이메일 입력',
   'Enter your phone number': '전화번호 입력',
   'Enter your username': '아이디를 입력해주세요',
   'Hide password': '비밀번호 숨기기',

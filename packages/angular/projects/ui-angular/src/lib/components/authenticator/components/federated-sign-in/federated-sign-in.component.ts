@@ -11,10 +11,10 @@ const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 })
 export class FederatedSignInComponent implements OnInit {
   public FederatedProviders = FederatedIdentityProviders;
-  public includeAmazon: boolean = false;
-  public includeApple: boolean = false;
-  public includeFacebook: boolean = false;
-  public includeGoogle: boolean = false;
+  public includeAmazon = false;
+  public includeApple = false;
+  public includeFacebook = false;
+  public includeGoogle = false;
   public shouldShowFederatedSignIn = false;
 
   // translated texts

@@ -1,29 +1,13 @@
 import * as React from 'react';
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface LinkOptions {
-  /**
-   * @description
-   * Children to be rendered inside the Link component
-   */
-  children: React.ReactNode;
-
   /**
    * @description
    * Boolean value indicating an external link
    * sets the rel attribute to "noopener noreferrer"
    */
   isExternal?: boolean;
-
-  /**
-   * @deprecated
-   * The Link component's to prop will soon be deprecated.
-   * Please see the Amplify UI documentation for using the Link component with routing libraries:
-   * https://ui.docs.amplify.aws/react/components/link#routing-libraries
-   * @description
-   * A string representation of the URL path
-   */
-  to?: string;
 
   /**
    * @description
@@ -34,4 +18,15 @@ export interface LinkOptions {
   href?: string;
 }
 
-export interface LinkProps extends ViewProps, LinkOptions {}
+export interface BaseLinkProps extends BaseViewProps, LinkOptions {
+  /**
+   * @description
+   * Children to be rendered inside the Link component
+   */
+  children: React.ReactNode;
+}
+
+export type LinkProps<Element extends ElementType = 'a'> = PrimitiveProps<
+  BaseLinkProps,
+  Element
+>;

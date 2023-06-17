@@ -4,14 +4,17 @@ import * as React from 'react';
 import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
 import { classNameModifierByFlag } from '../shared/utils';
-import type { Primitive, AutocompleteOptionProps } from '../types';
+import type {
+  ForwardRefPrimitive,
+  Primitive,
+  AutocompleteOptionProps,
+  BaseAutocompleteOptionProps,
+} from '../types';
 
-export const AutocompleteOption: Primitive<AutocompleteOptionProps, 'li'> = ({
-  children,
-  className,
-  isActive,
-  ...rest
-}) => {
+const AutocompleteOptionPrimitive: Primitive<AutocompleteOptionProps, 'li'> = (
+  { children, className, isActive, ...rest },
+  ref
+) => {
   return (
     <View
       aria-selected={isActive}
@@ -26,11 +29,17 @@ export const AutocompleteOption: Primitive<AutocompleteOptionProps, 'li'> = ({
         ),
         className
       )}
+      ref={ref}
       {...rest}
     >
       {children}
     </View>
   );
 };
+
+export const AutocompleteOption: ForwardRefPrimitive<
+  BaseAutocompleteOptionProps,
+  'li'
+> = React.forwardRef(AutocompleteOptionPrimitive);
 
 AutocompleteOption.displayName = 'AutocompleteOption';

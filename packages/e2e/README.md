@@ -1,6 +1,4 @@
-**\***This README is still in progress\*
-
-# Testing E2E with Cypress
+# Testing E2E with Cypress (Angular, React, Vue)
 
 ## Getting Started
 
@@ -14,27 +12,43 @@ _prerequisite_: You must create populate `packages/e2e/.env` values in order for
 1. Run `yarn [framework]-example dev` (e.g. `yarn react-example dev`)
 1. Run `yarn e2e dev`
 
-To run existing tests on `react-native` framework:
+# Testing E2E with Detox (React Native)
 
-<b>iOS</b>
+## Getting Started
+
+To run existing tests on `react-native` framework, first navigate to the React Native Example App [_.env_](../../examples/react-native/.env) and assuming the file exists locally, remove the `EXAMPLE_APP_NAME` constant if it has been declared to allow `detox` to control which example app is run based on the test path.
+
+**iOS**
+
+If not previously installed locally, install `applesimutils`:
+
+```sh
+brew tap wix/brew
+brew install applesimutils
+```
 
 1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
 1. Run `yarn setup`
 1. Run `yarn react-native-example ios:pod-install`
 1. Run `yarn react-native-example ios`
-1. Run `yarn e2e detox:build:ios`
-1. Run `yarn e2e detox:e2e:ios`
+1. Run `yarn e2e detox:build:ios:debug`
+1. Run `yarn e2e detox:e2e:ios:debug`
 
-<b>Android</b>
+**Android**
 
 1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
 1. Run `yarn setup`
 1. Run `yarn react-native-example android`
-1. Run `yarn e2e detox:build:android`
-1. Run `yarn e2e detox:e2e:android`
+1. Run `yarn e2e detox:build:android:debug`
+1. Run `yarn e2e detox:e2e:android:debug`
 
-To forward network requests on port 9091 to the mock server run:
-`adb reverse tcp:9091 tcp:9091`
+Troubleshooting
+
+If the emulator fails to connect to Metro server, run:
+
+```bash
+adb reverse tcp:8081 tcp:8081
+```
 
 ## Contributing
 
