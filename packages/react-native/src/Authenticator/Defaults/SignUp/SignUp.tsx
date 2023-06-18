@@ -25,12 +25,17 @@ const SignUp: DefaultSignUpComponent = ({
   handleBlur,
   handleChange,
   handleSubmit,
+  hasValidationErrors,
   hideSignIn,
   isPending,
   toSignIn,
   ...rest
 }) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+  const {
+    disableFormSubmit,
+    fields: fieldsWithHandlers,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
@@ -38,6 +43,7 @@ const SignUp: DefaultSignUpComponent = ({
     handleSubmit,
   });
 
+  const disabled = hasValidationErrors || disableFormSubmit;
   const headerText = getSignUpTabText();
   const primaryButtonText = isPending
     ? getCreatingAccountText()
@@ -46,12 +52,17 @@ const SignUp: DefaultSignUpComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: hideSignIn
         ? undefined
         : [{ children: secondaryButtonText, onPress: toSignIn }],
     }),
     [
+      disabled,
       handleFormSubmit,
       hideSignIn,
       primaryButtonText,

@@ -5,7 +5,9 @@ import { Event, interpret, Subscription } from 'xstate';
 import { Auth } from 'aws-amplify';
 import { Logger } from '@aws-amplify/core';
 import {
+  AmplifyUser,
   AuthContext,
+  AuthenticatorServiceFacade,
   AuthEvent,
   AuthInterpreter,
   AuthMachineState,
@@ -17,7 +19,7 @@ import {
 } from '@aws-amplify/ui';
 import { translate } from '@aws-amplify/ui';
 
-import { AuthSubscriptionCallback } from '../common';
+import { AuthSubscriptionCallback } from '../common/types';
 
 const logger = new Logger('state-machine');
 
@@ -45,75 +47,71 @@ export class AuthenticatorService implements OnDestroy {
     this.getInitialAuthStatus();
   }
 
-  ngOnDestroy(): void {
-    if (this._machineSubscription) this._machineSubscription.unsubscribe();
-    if (this._unsubscribeHub) this._unsubscribeHub();
-  }
-
   /**
    * Context facades
    */
 
-  public get error() {
+  public get error(): AuthenticatorServiceFacade['error'] {
     return translate(this._facade?.error);
   }
 
-  public get hasValidationErrors() {
+  public get hasValidationErrors(): AuthenticatorServiceFacade['hasValidationErrors'] {
     return this._facade?.hasValidationErrors;
   }
 
-  public get isPending() {
+  public get isPending(): AuthenticatorServiceFacade['isPending'] {
     return this._facade?.isPending;
   }
 
-  public get route() {
+  public get route(): AuthenticatorServiceFacade['route'] {
     return this._facade?.route;
   }
 
-  public get authStatus() {
+  public get authStatus(): AuthenticatorServiceFacade['authStatus'] {
     return this._authStatus;
   }
 
-  public get user() {
+  public get user(): AmplifyUser {
     return this._facade?.user;
   }
 
-  public get validationErrors() {
+  public get validationErrors(): AuthenticatorServiceFacade['validationErrors'] {
     return this._facade?.validationErrors;
   }
 
-  public get codeDeliveryDetails() {
+  public get codeDeliveryDetails(): AuthenticatorServiceFacade['codeDeliveryDetails'] {
     return this._facade?.codeDeliveryDetails;
   }
 
-  public get totpSecretCode() {
+  public get totpSecretCode(): AuthenticatorServiceFacade['totpSecretCode'] {
     return this._facade?.totpSecretCode;
   }
 
   /**
    * Service facades
    */
-  public get initializeMachine() {
+
+  public get initializeMachine(): AuthenticatorServiceFacade['initializeMachine'] {
     return this._facade.initializeMachine;
   }
 
-  public get updateForm() {
+  public get updateForm(): AuthenticatorServiceFacade['updateForm'] {
     return this._facade.updateForm;
   }
 
-  public get updateBlur() {
+  public get updateBlur(): AuthenticatorServiceFacade['updateBlur'] {
     return this._facade.updateBlur;
   }
 
-  public get resendCode() {
+  public get resendCode(): AuthenticatorServiceFacade['resendCode'] {
     return this._facade.resendCode;
   }
 
-  public get signOut() {
+  public get signOut(): AuthenticatorServiceFacade['signOut'] {
     return this._facade.signOut;
   }
 
-  public get submitForm() {
+  public get submitForm(): AuthenticatorServiceFacade['submitForm'] {
     return this._facade.submitForm;
   }
 
@@ -121,23 +119,23 @@ export class AuthenticatorService implements OnDestroy {
    * Transition facades
    */
 
-  public get toFederatedSignIn() {
+  public get toFederatedSignIn(): AuthenticatorServiceFacade['toFederatedSignIn'] {
     return this._facade.toFederatedSignIn;
   }
 
-  public get toResetPassword() {
+  public get toResetPassword(): AuthenticatorServiceFacade['toResetPassword'] {
     return this._facade.toResetPassword;
   }
 
-  public get toSignIn() {
+  public get toSignIn(): AuthenticatorServiceFacade['toSignIn'] {
     return this._facade.toSignIn;
   }
 
-  public get toSignUp() {
+  public get toSignUp(): AuthenticatorServiceFacade['toSignUp'] {
     return this._facade.toSignUp;
   }
 
-  public get skipVerification() {
+  public get skipVerification(): AuthenticatorServiceFacade['skipVerification'] {
     return this._facade.skipVerification;
   }
 
@@ -161,7 +159,9 @@ export class AuthenticatorService implements OnDestroy {
   }
 
   /** @deprecated For internal use only */
-  public get slotContext() {
+  public get slotContext(): AuthenticatorServiceFacade & {
+    $implicit: AuthenticatorServiceFacade;
+  } {
     return {
       ...this._facade,
       $implicit: this._facade,
@@ -186,8 +186,13 @@ export class AuthenticatorService implements OnDestroy {
     return subscription;
   }
 
+  ngOnDestroy(): void {
+    if (this._machineSubscription) this._machineSubscription.unsubscribe();
+    if (this._unsubscribeHub) this._unsubscribeHub();
+  }
+
   /** @deprecated For internal use only */
-  public send(event: Event<AuthEvent>) {
+  public send(event: Event<AuthEvent>): void {
     this.authService.send(event);
   }
 

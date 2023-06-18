@@ -1,0 +1,44 @@
+import { Fragment } from '@/components/Fragment';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+### Step 1. Configure backend
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./quick-start-pull.${platform}.mdx`)}
+</Fragment>
+
+### Step 2. Install dependencies
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./quick-start-install.${platform}.mdx`)}
+</Fragment>
+
+### Step 3. Update Vite config and index.html
+
+When working with Vite in a Vue project, you must make a few modifications. Please follow the steps below.
+
+<Tabs>
+  <TabItem title="TypeScript">
+    <Fragment>
+      {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill.mdx`)}
+    </Fragment>
+    <Fragment>
+      {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill-ts.mdx`)}
+    </Fragment>
+  </TabItem>
+  <TabItem title="JavaScript">
+    <Fragment>
+      {({ platform }) => import(`../../getting-started/troubleshooting/shared/vite-polyfill.mdx`)}
+    </Fragment>
+  </TabItem>
+</Tabs>
+
+### Step 4. Add the Authenticator
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+</Fragment>
+
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) => import(`./trouble-shooting-alert.${platform}.mdx`)}
+</Fragment>

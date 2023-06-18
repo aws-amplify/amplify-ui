@@ -11,6 +11,7 @@ import {
   SignInState,
   translate,
   authenticatorTextUtil,
+  UnverifiedContactMethods,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getAttributeMap } from '../../../../common';
@@ -36,6 +37,10 @@ export class VerifyUserComponent implements OnInit {
 
   constructor(public authenticator: AuthenticatorService) {}
 
+  public get context(): AuthenticatorService['slotContext'] {
+    return this.authenticator.slotContext;
+  }
+
   ngOnInit(): void {
     const actorState = getActorState(
       this.authenticator.authState
@@ -43,17 +48,13 @@ export class VerifyUserComponent implements OnInit {
     this.unverifiedContactMethods = actorState.context.unverifiedContactMethods;
   }
 
-  public get context() {
-    return this.authenticator.slotContext;
-  }
-
-  getLabelForAttr(authAttr: string): string {
+  getLabel(attr: keyof UnverifiedContactMethods): string {
     const attributeMap = getAttributeMap();
-    const label = attributeMap[authAttr]?.label;
-    return translate<string>(label);
+    const { label } = attributeMap[attr];
+    return translate(label);
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.authenticator.updateForm({ name, value });
