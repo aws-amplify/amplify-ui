@@ -69,6 +69,7 @@ export default function DefaultContent<
           iconStyle={themedStyles.errorMessageIcon}
           labelStyle={themedStyles.errorMessageLabel}
           style={themedStyles.errorMessage}
+          testID="amplify__error-message"
         >
           {error}
         </ErrorMessage>
@@ -78,6 +79,7 @@ export default function DefaultContent<
         variant="primary"
         textStyle={themedStyles.buttonPrimaryLabel}
         style={themedStyles.buttonPrimary}
+        testID="amplify__button"
       />
       {secondary ? (
         <Button

@@ -22,11 +22,11 @@ export class SignInComponent {
 
   constructor(public authenticator: AuthenticatorService) {}
 
-  public get context() {
+  public get context(): AuthenticatorService['slotContext'] {
     return this.authenticator.slotContext;
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.authenticator.updateForm({ name, value });

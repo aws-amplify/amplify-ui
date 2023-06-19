@@ -9,7 +9,7 @@ Feature: Confirm Sign Up
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
 
   @angular @react @vue
-  Scenario: Confirm  new password page has correct translations and replaced placeholder
+  Scenario: Confirm new password page has correct translations and replaced placeholder
     When I type a new "email"
     And I type my password
     And I confirm my password

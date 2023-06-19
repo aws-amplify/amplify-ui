@@ -3,7 +3,11 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
 import { CountryCodeSelect } from './CountryCodeSelect';
-import { PhoneNumberFieldProps, Primitive } from '../types';
+import {
+  PhoneNumberFieldProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { ComponentText } from '../shared/constants';
 import { TextField } from '../TextField';
 
@@ -75,6 +79,9 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/phonenumberfield)
  */
-export const PhoneNumberField = React.forwardRef(PhoneNumberFieldPrimitive);
+export const PhoneNumberField: ForwardRefPrimitive<
+  PhoneNumberFieldProps,
+  'input'
+> = React.forwardRef(PhoneNumberFieldPrimitive);
 
 PhoneNumberField.displayName = 'PhoneNumberField';
