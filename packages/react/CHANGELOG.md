@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 5.0.1
+
+### Patch Changes
+
+- [#4099](https://github.com/aws-amplify/amplify-ui/pull/4099) [`be856b057`](https://github.com/aws-amplify/amplify-ui/commit/be856b057750f9d2706c2a1e43c6ff1669e50a7b) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(react): omit ReactNode from Collection children prop
+
 ## 5.0.0
 
 ### Major Changes
