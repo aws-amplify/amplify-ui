@@ -60,7 +60,7 @@ type LinkVariationTokens<Output> = DesignTokenProperties<
   warning?: SeverityTokens<Output>;
   neutral?: SeverityTokens<Output>;
 };
-type OutlineVariationTokens<Output> = DesignTokenProperties<
+type OutlinedVariationTokens<Output> = DesignTokenProperties<
   'backgroundColor' | 'borderColor' | 'borderWidth' | 'color',
   Output
 > & {
@@ -112,7 +112,7 @@ export type ButtonTokens<Output extends OutputVariantKey> =
     // destructive?: PrimaryVariationTokens<Output>;
     menu?: MenuVariationTokens<Output>;
     link?: LinkVariationTokens<Output>;
-    outline?: OutlineVariationTokens<Output>;
+    outlined?: OutlinedVariationTokens<Output>;
     small?: ButtonSizeTokens<Output>;
     large?: ButtonSizeTokens<Output>;
     loaderWrapper?: DesignTokenProperties<'alignItems' | 'gap', Output>;
@@ -657,7 +657,7 @@ export const button: Required<ButtonTokens<'default'>> = {
       },
     },
   },
-  outline: {
+  outlined: {
     backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.brand.primary.60}' },
     borderWidth: { value: '{borderWidths.small.value}' },
