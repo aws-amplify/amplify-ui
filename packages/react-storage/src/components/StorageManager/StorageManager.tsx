@@ -5,7 +5,7 @@ import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
 
 import { useStorageManager, useUploadFiles, useDropZone } from './hooks';
-import { FileStatus, StorageManagerProps } from './types';
+import { FileStatus, StorageManagerProps, StorageManagerHandle } from './types';
 import {
   Container,
   DropZone,
@@ -21,24 +21,27 @@ import {
 
 const logger = new Logger('Storage.StorageManager');
 
-function StorageManager({
-  acceptedFileTypes = [],
-  accessLevel,
-  defaultFiles,
-  displayText: overrideDisplayText,
-  isResumable = false,
-  maxFileCount,
-  maxFileSize,
-  onUploadError,
-  onUploadSuccess,
-  onFileRemove,
-  onUploadStart,
-  showThumbnails = true,
-  processFile,
-  components,
-  provider,
-  path,
-}: StorageManagerProps): JSX.Element {
+function StorageManagerBase(
+  {
+    acceptedFileTypes = [],
+    accessLevel,
+    defaultFiles,
+    displayText: overrideDisplayText,
+    isResumable = false,
+    maxFileCount,
+    maxFileSize,
+    onUploadError,
+    onUploadSuccess,
+    onFileRemove,
+    onUploadStart,
+    showThumbnails = true,
+    processFile,
+    components,
+    provider,
+    path,
+  }: StorageManagerProps,
+  ref: React.ForwardedRef<StorageManagerHandle>
+): JSX.Element {
   if (!accessLevel || !maxFileCount) {
     logger.warn('FileUploader requires accessLevel and maxFileCount props');
   }
@@ -73,6 +76,7 @@ function StorageManager({
 
   const {
     addFiles,
+    clearFiles,
     files,
     removeUpload,
     setUploadingFile,
@@ -81,6 +85,8 @@ function StorageManager({
     setUploadSuccess,
     setUploadResumed,
   } = useStorageManager(defaultFiles);
+
+  React.useImperativeHandle(ref, () => ({ clearFiles }));
 
   const dropZoneProps = useDropZone({
     onChange: (event: React.DragEvent<HTMLDivElement>) => {
@@ -250,10 +256,17 @@ function StorageManager({
   );
 }
 
-StorageManager.Container = Container;
-StorageManager.DropZone = DropZone;
-StorageManager.FileList = FileList;
-StorageManager.FileListHeader = FileListHeader;
-StorageManager.FilePicker = FilePicker;
+const StorageManager = Object.assign(
+  React.forwardRef<StorageManagerHandle, StorageManagerProps>(
+    StorageManagerBase
+  ),
+  {
+    Container,
+    DropZone,
+    FileList,
+    FileListHeader,
+    FilePicker,
+  }
+);
 
 export { StorageManager };

@@ -30,7 +30,11 @@ const SignIn: DefaultSignInComponent = ({
     getForgotPasswordText,
   } = authenticatorTextUtil;
 
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+  const {
+    disableFormSubmit: disabled,
+    fields: fieldsWithHandlers,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
@@ -49,12 +53,13 @@ const SignIn: DefaultSignInComponent = ({
       onPress: toResetPassword,
     };
     return {
-      primary: { children: signInText, onPress: handleFormSubmit },
+      primary: { children: signInText, disabled, onPress: handleFormSubmit },
       links: hideSignUp
         ? [forgotPassword]
         : [forgotPassword, { children: signUpText, onPress: toSignUp }],
     };
   }, [
+    disabled,
     forgotPasswordText,
     handleFormSubmit,
     hideSignUp,

@@ -198,6 +198,18 @@ function getPropertiesFromAllTypeData(sourceTypes: TypeFileName[]) {
   let targetProps: Properties;
 
   sourceTypes.forEach((type) => {
+    // as prop
+    targetProps = {
+      ...targetProps,
+      as: {
+        name: 'as',
+        type: 'React.ElementType',
+        description: 'Changes the underlying rendered HTML element',
+        category: 'BaseComponentProps',
+        isOptional: true,
+      },
+    };
+
     if (!allTypeFilesInterfaceData.get(type)) return;
     for (const [propName, property] of allTypeFilesInterfaceData
       .get(type)
