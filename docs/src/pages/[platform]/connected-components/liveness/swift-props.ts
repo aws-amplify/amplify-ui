@@ -49,7 +49,7 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
   {
     name: `.sessionTimedOut`,
     description:
-      'The session timed out and id not receive response from server within the time limit.',
+      'The session timed out and did not receive response from server within the time limit.',
     type: `Error`,
   },
   {
