@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-liveness
 
+## 1.0.3
+
+### Patch Changes
+
+- [#4103](https://github.com/aws-amplify/amplify-ui/pull/4103) [`6dee2da1f`](https://github.com/aws-amplify/amplify-ui/commit/6dee2da1fe711af1af3d21ea9eb64a2b4e2b3668) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): update progress bar to remove pin
+
+- Updated dependencies [[`be856b057`](https://github.com/aws-amplify/amplify-ui/commit/be856b057750f9d2706c2a1e43c6ff1669e50a7b)]:
+  - @aws-amplify/ui-react@5.0.1
+
 ## 1.0.2
 
 ### Patch Changes

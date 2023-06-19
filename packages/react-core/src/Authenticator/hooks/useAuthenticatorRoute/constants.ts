@@ -37,6 +37,7 @@ const COMMON_ROUTE_MACHINE_KEYS: CommonRouteMachineKey[] = [
 
 const CONFIRM_RESET_PASSWORD_MACHINE_KEYS: ConfirmResetPasswordMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
+  'hasValidationErrors',
   'resendCode',
   'validationErrors',
 ];
@@ -56,6 +57,7 @@ const CONFIRM_VERIFY_USER_MACHINE_KEYS: ConfirmVerifyUserMachineKey[] = [
 ];
 const FORCE_NEW_PASSWORD_MACHINE_KEYS: ForceNewPasswordMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
+  'hasValidationErrors',
   'toSignIn',
   'validationErrors',
 ];
@@ -71,6 +73,7 @@ const SIGN_IN_MACHINE_KEYS: SignInMachineKey[] = [
 ];
 const SIGN_UP_MACHINE_KEYS: SignUpMachineKey[] = [
   ...COMMON_ROUTE_MACHINE_KEYS,
+  'hasValidationErrors',
   'toSignIn',
   'validationErrors',
 ];

@@ -56,6 +56,9 @@ export function LivenessQuickStartReact() {
           sessionId={createLivenessApiData.sessionId}
           region="us-east-1"
           onAnalysisComplete={handleAnalysisComplete}
+          onError={(error) => {
+            console.error(error);
+          }}
         />
       )}
     </ThemeProvider>
