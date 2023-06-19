@@ -35,9 +35,9 @@
     "vue-latest-vite-latest-ts": "npm run setup:vue:vite",
     "vue-latest-vite-2-ts": "npm run setup:vue:vite -- -b 2",
     "vue-latest-nuxt-latest-ts": "npm run setup:vue:nuxt",
-    "rnlatestclilatesttsios": "npm run setup:react-native:cli -- -A ios -n rnlatestclilatesttsios",
-    "rnlatestclilatesttsandroid": "npm run setup:react-native:cli -- -A android -n rnlatestclilatesttsandroid",
-    "rnlatestexpolatesttsandroid": "npm run setup:react-native:expo -- -A android -n rnlatestexpolatesttsandroid",
+    "rnlatestclilatesttsios": "npm run setup:react-native:cli -- -A ios -n rnLatestCliLatestTsIos",
+    "rnlatestclilatesttsandroid": "npm run setup:react-native:cli -- -A android -n rnLatestCliLatestTsAndroid",
+    "rnlatestexpolatesttsandroid": "npm run setup:react-native:expo -- -A android -n rnLatestExpoLatestTsAndroid",
     "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts"
   }
 }
