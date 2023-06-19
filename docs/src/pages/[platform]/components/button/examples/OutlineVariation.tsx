@@ -5,20 +5,20 @@ export const OutlineVariation = () => {
     <Flex direction="column">
       <code>variation=&quot;outline&quot;</code>
       <Flex>
-        <Button variation="outline">Brand</Button>
-        <Button variation="outline" colorTheme="info">
+        <Button variation="outlined">Brand</Button>
+        <Button variation="outlined" colorTheme="info">
           Info
         </Button>
-        <Button variation="outline" colorTheme="warning">
+        <Button variation="outlined" colorTheme="warning">
           Warning
         </Button>
-        <Button variation="outline" colorTheme="error">
+        <Button variation="outlined" colorTheme="error">
           Primary
         </Button>
-        <Button variation="outline" colorTheme="success">
+        <Button variation="outlined" colorTheme="success">
           Success
         </Button>
-        <Button variation="outline" colorTheme="neutral">
+        <Button variation="outlined" colorTheme="neutral">
           Neutral
         </Button>
       </Flex>

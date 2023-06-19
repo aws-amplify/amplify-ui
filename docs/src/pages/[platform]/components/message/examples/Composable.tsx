@@ -161,7 +161,7 @@ export const Composable = () => {
             </Button>
           </MessageContent>
         </Message>
-        <Message variation="outline" colorTheme="info" heading="Did you know?">
+        <Message variation="outline" colorTheme="info">
           <Text>
             You can use social providers like Google and Facebook with the
             Amplify UI Authenticator.{' '}
@@ -185,12 +185,12 @@ export const Composable = () => {
         </Message>
         <Message
           colorTheme="error"
-          heading="Error"
           variation="outline"
           alignSelf="center"
           width="500px"
         >
           <MessageContent>
+            <MessageTitle>Error</MessageTitle>
             <Text variation="tertiary" as="span">
               /App.js: Adjacent JSX elements must be wrapped in an enclosing
               tag. Did you want a JSX fragment <>...</>? (5:4)
