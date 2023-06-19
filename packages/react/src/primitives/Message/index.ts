@@ -1,3 +1,3 @@
-export { Message } from './Message';
-export { MessageTitle } from './MessageTitle';
-export { MessageContent } from './MessageContent';
+export * from './Message';
+export * from './MessageTitle';
+export * from './MessageContent';

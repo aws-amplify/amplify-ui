@@ -2,7 +2,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { MessageContentProps, Primitive } from '../types';
+import {
+  MessageContentProps,
+  BaseMessageContentProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { Flex } from '../Flex';
 
 const MessageContentPrimitive: Primitive<MessageContentProps, typeof Flex> = (
@@ -20,9 +25,9 @@ const MessageContentPrimitive: Primitive<MessageContentProps, typeof Flex> = (
   );
 };
 
-/**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/message)
- */
-export const MessageContent = React.forwardRef(MessageContentPrimitive);
+export const MessageContent: ForwardRefPrimitive<
+  BaseMessageContentProps,
+  'div'
+> = React.forwardRef(MessageContentPrimitive);
 
 MessageContent.displayName = 'MessageContent';

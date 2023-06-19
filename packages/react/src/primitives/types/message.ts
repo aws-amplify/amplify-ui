@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { FlexProps } from './flex';
+import { BaseFlexProps } from './flex';
+import { ElementType, PrimitiveProps } from './view';
 
 export type MessageColorThemes =
   | 'neutral'
@@ -10,7 +11,7 @@ export type MessageColorThemes =
   | 'success';
 export type MessageVariations = 'plain' | 'outline' | 'filled';
 
-export interface MessageProps extends FlexProps {
+export interface BaseMessageProps extends BaseFlexProps {
   /**
    * @description
    * The variation property will affect the overall style of the Message.
@@ -66,5 +67,16 @@ export interface MessageProps extends FlexProps {
   buttonRef?: React.Ref<HTMLButtonElement>;
 }
 
-export interface MessageTitleProps extends FlexProps {}
-export interface MessageContentProps extends FlexProps {}
+export interface BaseMessageTitleProps extends BaseFlexProps {}
+export interface BaseMessageContentProps extends BaseFlexProps {}
+
+export type MessageProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseMessageProps,
+  Element
+>;
+
+export type MessageTitleProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseMessageTitleProps, Element>;
+
+export type MessageContentProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseMessageContentProps, Element>;

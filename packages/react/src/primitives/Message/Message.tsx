@@ -4,7 +4,12 @@ import { isFunction } from '@aws-amplify/ui';
 
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { classNameModifier } from '../shared/utils';
-import { MessageProps, Primitive } from '../types';
+import {
+  MessageProps,
+  BaseMessageProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { MessageIcon } from './MessageIcon';
@@ -70,8 +75,9 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
 };
 
 /**
- * [📖 Docs](https://ui.docs.amplify.aws/react/components/alert)
+ * [📖 Docs](https://ui.docs.amplify.aws/react/components/message)
  */
-export const Message = React.forwardRef(MessagePrimitive);
+export const Message: ForwardRefPrimitive<BaseMessageProps, 'div'> =
+  React.forwardRef(MessagePrimitive);
 
 Message.displayName = 'Message';

@@ -88,6 +88,8 @@ export type Category =
   | 'LoaderProps'
   | 'MenuProps'
   | 'MessageProps'
+  | 'MessageTitleProps'
+  | 'MessageContentProps'
   | 'Other'
   | 'PasswordFieldProps'
   | 'PhoneNumberFieldProps'

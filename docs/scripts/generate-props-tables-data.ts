@@ -54,6 +54,7 @@ async function createAllPropsTablesData(): Promise<
       {
         Expander: ['ExpanderItem'],
         Menu: ['MenuButton', 'MenuItem'],
+        Message: ['MessageContent', 'MessageTitle'],
         RadioGroupField: ['Radio'],
         Tabs: ['TabItem'],
         Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],
