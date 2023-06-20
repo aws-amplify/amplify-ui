@@ -92,6 +92,7 @@ export const LivenessCameraModule = (
     FaceMatchState.TOO_FAR,
     FaceMatchState.CANT_IDENTIFY,
     FaceMatchState.FACE_IDENTIFIED,
+    FaceMatchState.MATCHED,
   ];
 
   const { videoRef, videoWidth, videoHeight } = useMediaStreamInVideo(
@@ -100,7 +101,7 @@ export const LivenessCameraModule = (
   );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const freshnessColorRef = useRef<HTMLDivElement | null>(null);
+  const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
   const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
@@ -248,6 +249,7 @@ export const LivenessCameraModule = (
               initial face identified state
             */}
             {isRecording &&
+            !isFlashingFreshness &&
             showMatchIndicatorStates.includes(faceMatchState!) ? (
               <MatchIndicator percentage={faceMatchPercentage!} />
             ) : null}

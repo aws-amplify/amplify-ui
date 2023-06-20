@@ -10,8 +10,8 @@ export class PhoneNumberFieldComponent implements OnInit {
   @Input() autocomplete = 'new-password';
   @Input() disabled = false;
   @Input() defaultCountryCode: string;
-  @Input() selectFieldId: string = `amplify-field-${nanoid(12)}`;
-  @Input() textFieldId: string = `amplify-field-${nanoid(12)}`;
+  @Input() selectFieldId = `amplify-field-${nanoid(12)}`;
+  @Input() textFieldId = `amplify-field-${nanoid(12)}`;
   @Input() initialValue = '';
   @Input() label = '';
   @Input() name: string;

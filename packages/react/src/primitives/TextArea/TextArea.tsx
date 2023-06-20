@@ -3,8 +3,8 @@ import classNames from 'classnames';
 
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared';
-import { Primitive } from '../types/view';
-import { TextAreaProps } from '../types/textArea';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
+import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { View } from '../View';
 
 const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
@@ -43,6 +43,7 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
   );
 };
 
-export const TextArea = React.forwardRef(TextAreaPrimitive);
+export const TextArea: ForwardRefPrimitive<BaseTextAreaProps, 'textarea'> =
+  React.forwardRef(TextAreaPrimitive);
 
 TextArea.displayName = 'TextArea';

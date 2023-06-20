@@ -7,13 +7,18 @@ import { Flex } from '../Flex';
 import { FieldErrorMessage } from '../Field';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { Primitive, SwitchFieldProps } from '../types';
+import {
+  ForwardRefPrimitive,
+  Primitive,
+  BaseSwitchFieldProps,
+  SwitchFieldProps,
+} from '../types';
 import { useStableId } from '../utils/useStableId';
 import { useSwitch } from './useSwitch';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 
-const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
+const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
   {
     className,
     defaultChecked,
@@ -136,6 +141,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/switchfield)
  */
-export const SwitchField = React.forwardRef(SwitchFieldPrimitive);
+export const SwitchField: ForwardRefPrimitive<BaseSwitchFieldProps, 'div'> =
+  React.forwardRef(SwitchFieldPrimitive);
 
 SwitchField.displayName = 'SwitchField';

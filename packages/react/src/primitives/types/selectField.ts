@@ -1,14 +1,18 @@
 import { FlexContainerStyleProps } from './flex';
-import { SelectProps } from './select';
-import { FieldProps } from './field';
+import { BaseSelectProps } from './select';
+import { BaseFieldProps } from './field';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface SelectFieldProps
-  extends FieldProps,
+export interface BaseSelectFieldProps
+  extends BaseFieldProps,
     FlexContainerStyleProps,
-    SelectProps {
+    BaseSelectProps {
   /**
    * @description
    * List of option values for select dropdown
    */
   options?: string[];
 }
+
+export type SelectFieldProps<Element extends ElementType = 'select'> =
+  PrimitiveProps<BaseSelectFieldProps, Element>;

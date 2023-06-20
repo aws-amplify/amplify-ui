@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import type { StorageAccessLevel, UploadTask } from '@aws-amplify/storage';
 
 import {
@@ -38,6 +40,10 @@ export type ProcessFileParams = Required<Pick<StorageFile, 'file' | 'key'>> &
 export type ProcessFile = (
   params: ProcessFileParams
 ) => Promise<ProcessFileParams> | ProcessFileParams;
+
+export interface StorageManagerHandle {
+  clearFiles: () => void;
+}
 
 export interface StorageManagerProps {
   /**

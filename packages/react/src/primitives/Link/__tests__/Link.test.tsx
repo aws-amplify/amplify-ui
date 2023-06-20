@@ -115,18 +115,4 @@ describe('Link:', () => {
 
     expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
   });
-
-  it('should call console.warn if "to" prop is used without "as" prop', () => {
-    const spyWarn = jest.spyOn(console, 'warn');
-    render(<Link to="/test">Test</Link>);
-    expect(spyWarn).toHaveBeenCalled();
-    spyWarn.mockRestore();
-  });
-
-  it('should not call console.warn if "to" prop is used with "as" prop', () => {
-    const spyWarn = jest.spyOn(console, 'warn');
-    render(<SampleRoutingApp />);
-    expect(spyWarn).not.toHaveBeenCalled();
-    spyWarn.mockRestore();
-  });
 });
