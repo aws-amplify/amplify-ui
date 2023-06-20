@@ -320,3 +320,48 @@ The latest version of the `Authenticator` has a completely different set of CSS 
 #### `onAuthUIStateChange`
 
 Previous versions of `Authenticator` exposed a `onAuthUIStateChange` handler to detect Auth state changes. For similar functionality see [useAuthenticator](/react/connected-components/authenticator/advanced#access-auth-state).
+
+## `@aws-amplify/ui-react-liveness` 1.x to 2.x
+### Installation
+
+Install the 2.x version of the `@aws-amplify/ui-react-liveness` library.
+
+<Tabs>
+<TabItem title="npm">
+<TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react-liveness@2.x" />
+</TabItem>
+<TabItem title="yarn">
+<TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react-liveness@2.x" />
+</TabItem>
+</Tabs>
+
+### Update and Usage
+
+Optionally update your App with the new prop usage:
+
+**App.js**
+
+```diff
+ const App = () => (
+  return (
+    <ThemeProvider>
+      {loading ? (
+        <Loader />
+      ) : (
+        <FaceLivenessDetector
+          sessionId={createLivenessApiData.sessionId}
+          region="us-east-1"
+          onAnalysisComplete={handleAnalysisComplete}
+-         onError={(error) => {
+-           console.error(error);
+-         }}
++         onError={(livenessError) => {
++           console.error({ state: livenessError.state, error: livenessError.error});
++         }}
+        />
+      )}
+    </ThemeProvider>
+  );
+);
+
+```
