@@ -29,7 +29,11 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   skipVerification,
   ...rest
 }) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+  const {
+    disableFormSubmit: disabled,
+    fields: fieldsWithHandlers,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
@@ -43,10 +47,20 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: [{ children: secondaryButtonText, onPress: skipVerification }],
     }),
-    [handleFormSubmit, primaryButtonText, skipVerification, secondaryButtonText]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      skipVerification,
+      secondaryButtonText,
+    ]
   );
 
   return (

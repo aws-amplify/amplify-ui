@@ -7,7 +7,12 @@ import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { Select } from '../Select';
-import { SelectFieldProps, Primitive } from '../types';
+import {
+  BaseSelectFieldProps,
+  SelectFieldProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 
@@ -102,6 +107,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/selectfield)
  */
-export const SelectField = React.forwardRef(SelectFieldPrimitive);
+export const SelectField: ForwardRefPrimitive<BaseSelectFieldProps, 'select'> =
+  React.forwardRef(SelectFieldPrimitive);
 
 SelectField.displayName = 'SelectField';

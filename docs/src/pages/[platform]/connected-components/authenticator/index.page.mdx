@@ -43,4 +43,8 @@ export async function getStaticProps() {
   {({ platform }) => import('./quick-start.angular.mdx')}
 </Fragment>
 
+<Fragment platforms={['vue']}>
+  {({ platform }) => import('./quick-start.vue.mdx')}
+</Fragment>
+
 <NextSteps />

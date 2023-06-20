@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { Button } from '../../Button';
 import { ButtonGroup } from '../ButtonGroup';
-import { ButtonGroupProps, PrimitivePropsWithRef } from '../../types';
+import { ButtonGroupProps, PrimitiveProps } from '../../types';
 import { ComponentClassNames } from '../../shared/constants';
 import {
   testFlexProps,
@@ -12,7 +12,7 @@ import {
 
 describe('ButtonGroup:', () => {
   const getButtonGroup = (
-    props: Partial<PrimitivePropsWithRef<ButtonGroupProps, 'div'>>
+    props: Partial<PrimitiveProps<ButtonGroupProps, 'div'>>
   ) => {
     return (
       <ButtonGroup {...props}>

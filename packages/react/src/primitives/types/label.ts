@@ -1,6 +1,6 @@
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
-export interface LabelProps extends ViewProps {
+export interface BaseLabelProps extends BaseViewProps {
   /**
    * @description
    * Whether label should be visually hidden
@@ -13,3 +13,8 @@ export interface LabelProps extends ViewProps {
    */
   children: React.ReactNode;
 }
+
+export type LabelProps<Element extends ElementType = 'label'> = PrimitiveProps<
+  BaseLabelProps,
+  Element
+>;

@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import { FlexProps } from './flex';
-import { ToggleButtonProps } from './toggleButton';
+import { BaseFlexProps } from './flex';
+import { BaseToggleButtonProps } from './toggleButton';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface ToggleButtonGroupProps
-  extends FlexProps,
-    Pick<ToggleButtonProps, 'size' | 'variation'> {
+export interface BaseToggleButtonGroupProps
+  extends BaseFlexProps,
+    Pick<BaseToggleButtonProps, 'size' | 'variation'> {
   /**
    * @description
    * Accepts any number of ToggleButton components
@@ -36,3 +37,6 @@ export interface ToggleButtonGroupProps
    */
   onChange: (value: string | (string | undefined)[] | undefined) => void;
 }
+
+export type ToggleButtonGroupProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseToggleButtonGroupProps, Element>;

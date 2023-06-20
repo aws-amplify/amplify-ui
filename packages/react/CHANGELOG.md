@@ -1,5 +1,21 @@
 # @aws-amplify/ui-react
 
+## 5.0.1
+
+### Patch Changes
+
+- [#4099](https://github.com/aws-amplify/amplify-ui/pull/4099) [`be856b057`](https://github.com/aws-amplify/amplify-ui/commit/be856b057750f9d2706c2a1e43c6ff1669e50a7b) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(react): omit ReactNode from Collection children prop
+
+## 5.0.0
+
+### Major Changes
+
+- [#4048](https://github.com/aws-amplify/amplify-ui/pull/4048) [`c19278b0b`](https://github.com/aws-amplify/amplify-ui/commit/c19278b0bee7c9b499bd619c8ee0f458cbb5da83) Thanks [@calebpollman](https://github.com/calebpollman)! - **Breaking Changes**:
+
+  - `@aws-amplify/ui-react@5.x` removes the `to` prop on `Link` component and instead have it extended from the underlying rendered third-party `Link` if it contains a `to` prop ([PR](https://github.com/aws-amplify/amplify-ui/pull/4011)).
+
+  - `@aws-amplify/ui-react@5.x` strictly types the `View` component and updates all component types to include the underlying rendered HTML element's attributes ([PR](https://github.com/aws-amplify/amplify-ui/pull/4011)).
+
 ## 4.6.4
 
 ### Patch Changes

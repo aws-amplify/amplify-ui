@@ -7,6 +7,7 @@ import { Action, GetFileErrorMessage, UseStorageManagerState } from './types';
 import { storageManagerStateReducer } from './reducer';
 import {
   addFilesAction,
+  clearFilesAction,
   removeUploadAction,
   setUploadingFileAction,
   setUploadProgressAction,
@@ -19,6 +20,7 @@ export interface UseStorageManager {
     files: File[];
     getFileErrorMessage: GetFileErrorMessage;
   }) => void;
+  clearFiles: () => void;
   setUploadingFile: (params: { id: string; uploadTask?: UploadTask }) => void;
   setUploadProgress: (params: { id: string; progress: number }) => void;
   setUploadSuccess: (params: { id: string }) => void;
@@ -55,6 +57,10 @@ export function useStorageManager(
     getFileErrorMessage,
   }) => {
     dispatch(addFilesAction({ files, getFileErrorMessage }));
+  };
+
+  const clearFiles: UseStorageManager['clearFiles'] = () => {
+    dispatch(clearFilesAction());
   };
 
   const setUploadingFile: UseStorageManager['setUploadingFile'] = ({
@@ -95,6 +101,7 @@ export function useStorageManager(
     setUploadSuccess,
     setUploadingFile,
     addFiles,
+    clearFiles,
     files,
   };
 }

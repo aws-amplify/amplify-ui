@@ -133,7 +133,7 @@ const isPrimitive = (node: Node): node is VariableDeclaration => {
   return (
     Node.isVariableDeclaration(node) &&
     (typeName.startsWith('Primitive') ||
-      typeName.startsWith('React.ForwardRef'))
+      typeName.startsWith('ForwardRefPrimitive'))
   );
 };
 

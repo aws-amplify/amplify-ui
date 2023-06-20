@@ -26,12 +26,12 @@ export class ConfirmSignInComponent implements OnInit {
 
   constructor(public authenticator: AuthenticatorService) {}
 
-  ngOnInit(): void {
-    this.setHeaderText();
+  public get context(): AuthenticatorService['slotContext'] {
+    return this.authenticator.slotContext;
   }
 
-  public get context() {
-    return this.authenticator.slotContext;
+  ngOnInit(): void {
+    this.setHeaderText();
   }
 
   setHeaderText(): void {

@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { Sizes } from './base';
 
 export type SelectVariation = 'quiet';
 
-export interface SelectProps extends ViewProps {
+export interface BaseSelectProps extends BaseViewProps {
   /**
    * @description
    * A string providing a hint for a user agent's autocomplete feature
@@ -84,3 +84,6 @@ export interface SelectProps extends ViewProps {
    */
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
 }
+
+export type SelectProps<Element extends ElementType = 'select'> =
+  PrimitiveProps<BaseSelectProps, Element>;

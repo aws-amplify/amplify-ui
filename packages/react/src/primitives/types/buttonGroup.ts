@@ -2,13 +2,17 @@ import * as React from 'react';
 
 import { AriaProps } from './base';
 import { BaseStyleProps } from './style';
-import { ButtonProps } from './button';
-import { FlexProps } from './flex';
+import { BaseButtonProps } from './button';
+import { BaseFlexProps } from './flex';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface ButtonGroupProps
+export interface BaseButtonGroupProps
   extends AriaProps,
     BaseStyleProps,
-    FlexProps,
-    Pick<ButtonProps, 'size' | 'variation'> {
+    BaseFlexProps,
+    Pick<BaseButtonProps, 'size' | 'variation'> {
   children: React.ReactNode;
 }
+
+export type ButtonGroupProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseButtonGroupProps, Element>;
