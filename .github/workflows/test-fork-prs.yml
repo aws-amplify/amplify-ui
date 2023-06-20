@@ -240,6 +240,7 @@ jobs:
       contents: read # This is required for actions/checkout
     with:
       commit: ${{ needs.setup.outputs.commit_id }}
+      pr-branch: ${{ github.event.workflow_run.head_branch }}
       repository: ${{ github.repository }}
     secrets:
       AUTH_E2E_ROLE_ARN: ${{ secrets.AUTH_E2E_ROLE_ARN }}

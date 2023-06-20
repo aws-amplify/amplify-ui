@@ -137,10 +137,11 @@ jobs:
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml # CHANGE TO BE REVERTED
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
+      pr-branch: ${{ github.event.pull_request.head.ref }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
     permissions:
       id-token: write # This is required for requesting the JWT

@@ -9,6 +9,10 @@ on:
         # commit to run tests against
         required: true
         type: string
+      pr-branch:
+        # branch to check changed files against
+        required: true
+        type: string
       repository:
         # repository to run tests against (possibly a fork of amplify-ui)
         required: true
@@ -327,9 +331,9 @@ jobs:
       - name: Checkout Amplify UI
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
-          ref: ${{ inputs.commit }}
+          ref: ${{ inputs.pr-branch }}
           repository: ${{ inputs.repository }}
-          fetch-depth: 2
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Determine if there were changes to react-native packages
@@ -337,7 +341,7 @@ jobs:
         id: has-rn-changed-packages
         uses: ./.github/actions/changed-packages
         with:
-          commit: ${{ inputs.commit }}
+          pr-branch: ${{ inputs.pr-branch }}
           packages: |
             packages/react-native
             packages/react-core

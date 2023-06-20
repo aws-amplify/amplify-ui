@@ -36,6 +36,7 @@ jobs:
     needs: unit
     with:
       commit: ${{ github.sha }}
+      pr_branch: 'main'
       repository: ${{ github.repository }}
       skip-changed-packages-check: 'true' # always run e2e tests for native platform on main
     secrets:
