@@ -23,7 +23,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     loadingText = '',
     size,
     type = 'button',
-    variation,
+    variation = 'outlined',
     colorTheme = 'brand',
     ...rest
   },

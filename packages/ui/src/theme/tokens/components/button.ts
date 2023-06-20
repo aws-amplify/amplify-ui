@@ -659,9 +659,9 @@ export const button: Required<ButtonTokens<'default'>> = {
   },
   outlined: {
     backgroundColor: { value: 'transparent' },
-    borderColor: { value: '{colors.brand.primary.60}' },
-    borderWidth: { value: '{borderWidths.small.value}' },
-    color: { value: '{colors.font.interactive.value}' },
+    borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
+    borderWidth: { value: '{components.fieldcontrol.borderWidth.value}' },
+    color: { value: '{colors.font.primary.value}' },
     _hover: {
       borderColor: { value: '{colors.brand.primary.60}' },
       backgroundColor: { value: '{colors.brand.primary.10.value}' },
