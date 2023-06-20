@@ -54,14 +54,14 @@ while [[ $# -gt 0 ]]; do
         echo "Usage: mega-app-create-app.sh [OPTIONS]"
         echo "Options:"
         echo "  -B, --build-tool            Specify the build tool: cra, next, vite, angular-cli, vue-cli, nuxt, react-native-cli, expo. (default: cra)"
-        echo "  -b, --build-tool-version   Specify the build tool version (default: latest)"
-        echo "  -l, --language            Specify the language: js, ts (default: js)"
-        echo "  -n, --name                   Specify the mega app name (required)"
+        echo "  -b, --build-tool-version    Specify the build tool version (default: latest)"
+        echo "  -l, --language              Specify the language: js, ts (default: js)"
+        echo "  -n, --name                  Specify the mega app name (required)"
         echo "  -F, --framework             Specify the framework: react, angular, vue, react-native (default: react)"
-        echo "  -f, --framework-version    Specify the framework version (default: latest)"
+        echo "  -f, --framework-version     Specify the framework version (default: latest)"
         echo "  -P, --pkg-manager           Specify the package manager: npm, yarn (default: npm)"
-        echo "  -p, --pkg-manager-version  Specify the package manager version (default: latest)"
-        echo "  -h, --help                 Show help message"
+        echo "  -p, --pkg-manager-version   Specify the package manager version (default: latest)"
+        echo "  -h, --help                  Show help message"
         exit 0
         ;;
     *)
@@ -74,18 +74,17 @@ done
 
 # Check if MEGA_APP_NAME is provided
 if [[ -z "$MEGA_APP_NAME" ]]; then
-    echo "Please provide a name for the mega app using the -n or --name option."
-    exit 1
+    MEGA_APP_NAME="$FRAMEWORK-$FRAMEWORK_VERSION-$BUILD_TOOL-$BUILD_TOOL_VERSION-$LANGUAGE"
 fi
 
-##########################
-# Start Mega App Install #
-##########################
+echo "##########################"
+echo "# Start Mega App Install #"
+echo "##########################"
 
 DEPENDENCIES="$FRAMEWORK@$FRAMEWORK_VERSION @aws-amplify/ui-$FRAMEWORK aws-amplify"
 
-echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
-cd build-system-tests/mega-apps/${MEGA_APP_NAME}
+echo "cd ./mega-apps/${MEGA_APP_NAME}"
+cd ./mega-apps/${MEGA_APP_NAME}
 
 if [ "$FRAMEWORK" == 'react' ]; then
     # add react-dom
@@ -93,7 +92,7 @@ if [ "$FRAMEWORK" == 'react' ]; then
     DEPENDENCIES="$DEPENDENCIES react-dom@$FRAMEWORK_VERSION @aws-amplify/ui-react-storage @aws-amplify/ui-react-geo @aws-amplify/ui-react-notifications"
 
     if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'ts' ]]; then
-        $DEP_TYPES="@types/react@$FRAMEWORK_VERSION @types/react-dom@$FRAMEWORK_VERSION"
+        DEP_TYPES="@types/react@$FRAMEWORK_VERSION @types/react-dom@$FRAMEWORK_VERSION"
         echo "yarn add $DEP_TYPES"
         yarn add $DEP_TYPES
     fi
@@ -141,13 +140,9 @@ else
     else
         echo "npm install $DEPENDENCIES"
         npm install $DEPENDENCIES
-
-        if [[ "$FRAMEWORK" == 'angular' ]]; then
-            # To prevent Expected identifier but found "=", unable to publish app https://github.com/aws-amplify/amplify-js/issues/11455
-            echo "rm -rf node_modules package-lock.json"
-            rm -rf node_modules package-lock.json
-            echo "npm install"
-            npm install
-        fi
     fi
 fi
+
+echo "Back to build-system-tests folder"
+echo "cd ../../"
+cd ../../

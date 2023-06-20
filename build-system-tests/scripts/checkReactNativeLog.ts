@@ -1,5 +1,31 @@
 import fs from 'fs';
+import { Command } from 'commander';
 import { PromisePool } from '@supercharge/promise-pool';
+
+const program = new Command();
+
+/**
+ * Example usage:
+ * $ node --require esbuild-register ./scripts/checkReactNativeLog.ts --log-file-name test.log --mega-app-name rnlatestclilatesttsios --platform android
+ */
+program
+  .option('-l, --log-file-name <filename>', 'Specify the log file name')
+  .option('-n, --mega-app-name <appname>', 'Specify the mega app name')
+  .option('-p, --platform <platform>', 'Specify the platform (ios/android)')
+  .parse(process.argv);
+
+program.parse();
+
+const {
+  logFileName = 'test.log',
+  megaAppName,
+  platform = 'ios',
+} = program.opts();
+
+if (!megaAppName) {
+  console.error('Missing --mega-app-name');
+  process.exit(1);
+}
 
 const sleep = (seconds: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
@@ -65,7 +91,7 @@ const checkStartMessage = async (
  * @returns {boolean} hasError
  */
 const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
-  log('info', `Checking log file ${process.env.LOG_FILE} for errors...`);
+  log('info', `Checking log file ${logFileName} for errors...`);
 
   const { results } = await PromisePool.withConcurrency(1)
     .for(logLines)
@@ -105,19 +131,16 @@ const checkErrorMessage = async (logLines: string[]): Promise<boolean> => {
 };
 
 const checkReactNativeLog = async (): Promise<void> => {
-  log(
-    'command',
-    `cd build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`
-  );
-  process.chdir(`build-system-tests/mega-apps/${process.env.MEGA_APP_NAME}`);
+  log('command', `cd mega-apps/${megaAppName}`);
+  process.chdir(`mega-apps/${megaAppName}`);
 
   // Wait for the logging messages to be ready. The number is based on real experiments in Github Actions.
-  let timeToWait = process.env.PLATFORM === 'android' ? 200 : 300;
+  let timeToWait = platform === 'android' ? 200 : 300;
 
   log('info', `Sleep for '${timeToWait}' seconds...`);
   await sleep(timeToWait);
 
-  const logFile = fs.readFileSync(process.env.LOG_FILE, 'utf-8');
+  const logFile = fs.readFileSync(logFileName, 'utf-8');
   const logLines = logFile.split('\n').filter((line) => line !== '');
 
   await checkStartMessage(logLines, logFile);
@@ -125,19 +148,19 @@ const checkReactNativeLog = async (): Promise<void> => {
   let hasError = await checkErrorMessage(logLines);
 
   if (hasError) {
-    log('error', `Errors found in log file ${process.env.LOG_FILE}`);
+    log('error', `Errors found in log file ${logFileName}`);
     log('info', 'Log file:');
     log('log', logFile);
     process.exit(1);
   } else if (logFile === '') {
-    log('error', `Log file ${process.env.LOG_FILE} is empty.`);
+    log('error', `Log file ${logFileName} is empty.`);
     log('info', 'Full log:');
     log('log', logFile);
     process.exit(1);
   } else {
     log('info', 'Full log:');
     log('log', logFile);
-    log('success', `No errors found in log file ${process.env.LOG_FILE}`);
+    log('success', `No errors found in log file ${logFileName}`);
 
     process.exit(0);
   }

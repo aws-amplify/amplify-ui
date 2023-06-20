@@ -74,24 +74,26 @@ done
 
 # Check if MEGA_APP_NAME is provided
 if [[ -z "$MEGA_APP_NAME" ]]; then
-    echo "Please provide a name for the mega app using the -n or --name option."
-    exit 1
+    MEGA_APP_NAME="$FRAMEWORK-$FRAMEWORK_VERSION-$BUILD_TOOL-$BUILD_TOOL_VERSION-$LANGUAGE"
 fi
 
-########################
-# Start Mega App Build #
-########################
+echo "########################"
+echo "# Start Mega App Build #"
+echo "########################"
 
-echo "cd build-system-tests/mega-apps/${MEGA_APP_NAME}"
-cd build-system-tests/mega-apps/${MEGA_APP_NAME}
+echo "cd ./mega-apps/${MEGA_APP_NAME}"
+cd ./mega-apps/${MEGA_APP_NAME}
 
 if [ "$PKG_MANAGER" == 'yarn' ]; then
     echo "yarn build"
     yarn build
 else
     if [[ "$FRAMEWORK" == "react-native" ]]; then
-        echo "../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL"
-        ../../../.github/scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL
+        echo "Back to build-system-tests folder"
+        echo "cd -"
+        cd -
+        echo "./scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL"
+        ./scripts/build-${PLATFORM}.sh $LOG_FILE $MEGA_APP_NAME $BUILD_TOOL
     else
         echo "npm run build"
         npm run build

@@ -62,20 +62,22 @@ done
 
 # Check if MEGA_APP_NAME is provided
 if [[ -z "$MEGA_APP_NAME" ]]; then
-    echo "Please provide a name for the mega app using the -n or --name option."
-    exit 1
+    MEGA_APP_NAME="$FRAMEWORK-$FRAMEWORK_VERSION-$BUILD_TOOL-$BUILD_TOOL_VERSION-$LANGUAGE"
 fi
 
-###########################
-# Start Creating Mega App #
-###########################
+echo "###########################"
+echo "# Start Creating Mega App #"
+echo "###########################"
 
-echo "cd build-system-tests"
-cd build-system-tests
 echo "mkdir -p mega-apps/"
 mkdir -p mega-apps/
 echo "cd mega-apps"
 cd mega-apps
+
+# Create a blank package.json
+# Otherwise mega-apps will be automatically created in build-system-tests/ folder even if we cd into mega-apps/ folder.
+echo "echo "{}" >package.json"
+echo "{}" >package.json
 
 if [[ "$BUILD_TOOL" == 'cra' && "$LANGUAGE" == 'js' ]]; then
     echo "npx create-react-app ${MEGA_APP_NAME}"
@@ -98,10 +100,8 @@ if [ "$BUILD_TOOL" == 'vite' ]; then
 fi
 
 if [[ "$FRAMEWORK" == 'angular' ]]; then
-    echo "npm install -g @angular/cli@${BUILD_TOOL_VERSION}"
-    npm install -g @angular/cli@${BUILD_TOOL_VERSION}
-    echo "ng new $MEGA_APP_NAME --interactive=false"
-    ng new $MEGA_APP_NAME --interactive=false
+    echo "npx @angular/cli@${BUILD_TOOL_VERSION} new $MEGA_APP_NAME --interactive=false"
+    npx @angular/cli@${BUILD_TOOL_VERSION} new $MEGA_APP_NAME --interactive=false
 fi
 
 if [[ "$FRAMEWORK" == 'vue' ]]; then
@@ -133,9 +133,13 @@ if [[ "$FRAMEWORK" == 'react-native' ]]; then
         npx create-expo-app $MEGA_APP_NAME --template expo-template-blank-typescript
         echo "cd $MEGA_APP_NAME"
         cd $MEGA_APP_NAME
-        echo "cat package.json" # Log the package.json to check the expo version should be later than 48.0.19
-        cat package.json
+        echo "npm list expo" # Log the package.json to check the expo version should be later than 48.0.19
+        npm list expo
         echo "npx expo-env-info"
         npx expo-env-info
     fi
 fi
+
+echo "Back to build-system-tests folder"
+echo "cd .."
+cd ..

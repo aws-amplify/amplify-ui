@@ -31,7 +31,7 @@ jobs:
             platform: ios
 
     env:
-      MEGA_APP_NAME: rn${{ matrix.framework-version }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}Node${{ matrix.node-version }}${{ matrix.language }}${{ matrix.platform }}
+      MEGA_APP_NAME: rn${{ matrix.framework-version }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.language }}${{ matrix.platform }}
 
     steps:
       - name: Checkout Amplify UI
@@ -117,24 +117,14 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell settings put global transition_animation_scale 0.0
           $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
-      - name: Create MegaApp ${{ env.MEGA_APP_NAME }}
-        run: ./.github/scripts/mega-app-create-app.sh --build-tool ${{ matrix.build-tool }} --build-tool-version ${{ matrix.build-tool-version }} --language ${{ matrix.language }} --name ${{ env.MEGA_APP_NAME }} --framework ${{ matrix.framework }} --framework-version ${{ matrix.framework-version }}
+      - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
+        run: npm run ${{ env.MEGA_APP_NAME }}
         shell: bash
-      - name: Copy aws_export and App.js
-        run: ./.github/scripts/mega-app-copy-files.sh --build-tool ${{ matrix.build-tool }} --build-tool-version ${{ matrix.build-tool-version }} --language ${{ matrix.language }} --name ${{ env.MEGA_APP_NAME }} --framework ${{ matrix.framework }} --framework-version ${{ matrix.framework-version }}
-        shell: bash
-
-      - name: Install Packages
-        run: ./.github/scripts/mega-app-install.sh --build-tool ${{ matrix.build-tool }} --build-tool-version ${{ matrix.build-tool-version }} --language ${{ matrix.language }} --name ${{ env.MEGA_APP_NAME }} --framework ${{ matrix.framework }} --framework-version ${{ matrix.framework-version }} --pkg-manager ${{ matrix.pkg-manager }} --pkg-manager-version ${{ matrix.pkg-manager-version }}
-
-      - name: Build MegaApp ${{ env.MEGA_APP_NAME }}
-        run: ./.github/scripts/mega-app-build.sh --build-tool ${{ matrix.build-tool }} --build-tool-version ${{ matrix.build-tool-version }} --language ${{ matrix.language }} --name ${{ env.MEGA_APP_NAME }} --framework ${{ matrix.framework }} --framework-version ${{ matrix.framework-version }} --pkg-manager ${{ matrix.pkg-manager }} --platform ${{ matrix.platform }}
-        shell: bash
+        working-directory: build-system-tests
       - name: Detect Mega App Error in Log
-        run: node --require esbuild-register .github/scripts/checkReactNativeLog.ts
-        env:
-          PLATFORM: ${{ matrix.platform }}
-          LOG_FILE: ${{ matrix.logfile }}
+        run: npm run checkReactNativeLogs -- --log-file-name ${{ matrix.logfile }} --mega-app-name ${{ env.MEGA_APP_NAME }} --platform ${{ matrix.platform }}
+        shell: bash
+        working-directory: build-system-tests
 
   log-failure-metric:
     # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
