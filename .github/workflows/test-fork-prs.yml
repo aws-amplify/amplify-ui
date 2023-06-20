@@ -193,6 +193,50 @@ jobs:
         with:
           base-ref: ${{ needs.setup.outputs.base_sha }}
           head-ref: ${{ needs.setup.outputs.commit_id }}
+          allow-licenses:
+            - '0BSD'
+            - 'Apache-2.0'
+            - 'Boost'
+            - 'BouncyCastle'
+            - 'BSD-1-Clause'
+            - 'BSD-2-Clause-FreeBSD'
+            - 'BSD-2-Clause'
+            - 'BSD-3-Clause-Attribution'
+            - 'BSD-3-Clause'
+            - 'BSD-Source-Code'
+            - 'BSD'
+            - 'bzip2'
+            - 'CC-BY-3.0'
+            - 'CC-BY-4.0'
+            - 'CC0-1.0'
+            - 'curl'
+            - 'EDL'
+            - 'HDF5'
+            - 'ISC'
+            - 'JSON'
+            - 'libjpeg'
+            - 'libpng'
+            - 'MIT'
+            - 'MPL-2.0'
+            - 'NTP'
+            - 'OFL-1.0'
+            - 'OLDAP-2.8'
+            - 'OpenSSL'
+            - 'PDDL-1.0'
+            - 'PIL'
+            - 'PostgreSQL'
+            - 'Python-2.0'
+            - 'Python-2.1.1'
+            - 'Spencer-94'
+            - 'SQLite'
+            - 'Unicode-DFS-2015'
+            - 'Unicode-DFS-2016'
+            - 'Unlicense'
+            - 'WTFPL-2.0'
+            - 'WTFPL'
+            - 'X11'
+            - 'zlib-acknowledgement'
+            - 'Zlib'
 
   setup-cache:
     needs: setup
@@ -200,36 +244,6 @@ jobs:
     with:
       commit: ${{ needs.setup.outputs.commit_id }}
       repository: ${{ github.repository }}
-
-  license-checker:
-    runs-on: ubuntu-latest
-    needs: [setup, setup-cache]
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-        with:
-          ref: ${{ needs.setup.outputs.commit_id }}
-          repository: ${{ github.repository }}
-          persist-credentials: false
-      - name: Setup Node.js 16
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Restore node_modules cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        id: restore-cache
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit_id }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
-      - name: Validate licenses
-        run: yarn license
 
   e2e:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
@@ -261,7 +275,7 @@ jobs:
   # update status on success
   update-success-status:
     if: ${{ success() }}
-    needs: [setup, e2e, codeql, dependency-review, license-checker]
+    needs: [setup, e2e, codeql, dependency-review]
     runs-on: ubuntu-latest
     permissions:
       statuses: write # This is required for running set-status actions
@@ -279,7 +293,7 @@ jobs:
   # update status on failure
   update-failure-status:
     if: ${{ failure() }}
-    needs: [setup, e2e, codeql, dependency-review, license-checker]
+    needs: [setup, e2e, codeql, dependency-review]
     runs-on: ubuntu-latest
     permissions:
       statuses: write # This is required for running set-status actions
