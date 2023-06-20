@@ -29,9 +29,10 @@ exports[`File Uploader exists 1`] = `
       Drop files here or
     </p>
     <button
-      class="amplify-button amplify-field-group__control amplify-button--small amplify-fileuploader__dropzone__button"
+      class="amplify-button amplify-field-group__control amplify-button--outlined amplify-button--brand amplify-button--small amplify-fileuploader__dropzone__button"
       data-fullwidth="false"
       data-size="small"
+      data-variation="outlined"
       type="button"
     >
       Browse files

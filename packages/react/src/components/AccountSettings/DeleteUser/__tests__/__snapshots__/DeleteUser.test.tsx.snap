@@ -7,7 +7,7 @@ exports[`DeleteUser renders as expected 1`] = `
     style="flex-direction: column;"
   >
     <button
-      class="amplify-button amplify-field-group__control amplify-button--warning"
+      class="amplify-button amplify-field-group__control amplify-button--warning amplify-button--brand"
       data-fullwidth="false"
       data-variation="warning"
       type="button"
@@ -25,8 +25,9 @@ exports[`DeleteUser renders as expected with components overrides 1`] = `
     style="flex-direction: column;"
   >
     <button
-      class="amplify-button amplify-field-group__control"
+      class="amplify-button amplify-field-group__control amplify-button--outlined amplify-button--brand"
       data-fullwidth="false"
+      data-variation="outlined"
       type="button"
     >
       Custom Delete Button

@@ -26,7 +26,7 @@ exports[`UploadTracker exists 1`] = `
         </p>
       </div>
       <button
-        class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+        class="amplify-button amplify-field-group__control amplify-button--link amplify-button--brand amplify-button--small"
         data-fullwidth="false"
         data-size="small"
         data-variation="link"
@@ -63,9 +63,10 @@ exports[`UploadTracker exists 1`] = `
         5 B
       </span>
       <button
-        class="amplify-button amplify-field-group__control amplify-button--small"
+        class="amplify-button amplify-field-group__control amplify-button--outlined amplify-button--brand amplify-button--small"
         data-fullwidth="false"
         data-size="small"
+        data-variation="outlined"
         type="button"
       >
         <span

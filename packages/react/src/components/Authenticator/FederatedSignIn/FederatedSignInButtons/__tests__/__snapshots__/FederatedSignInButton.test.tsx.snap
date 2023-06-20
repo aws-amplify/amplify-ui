@@ -3,8 +3,9 @@
 exports[`FederatedSignInButton renders as expected with { provider: 'Facebook', text: 'Sign In with Facebook' } provider 1`] = `
 <div>
   <button
-    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    class="amplify-button amplify-field-group__control amplify-button--outlined amplify-button--brand federated-sign-in-button"
     data-fullwidth="false"
+    data-variation="outlined"
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >
@@ -20,8 +21,9 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Facebook', 
 exports[`FederatedSignInButton renders as expected with { provider: 'Google', text: 'Sign In with Google' } provider 1`] = `
 <div>
   <button
-    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    class="amplify-button amplify-field-group__control amplify-button--outlined amplify-button--brand federated-sign-in-button"
     data-fullwidth="false"
+    data-variation="outlined"
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >
@@ -37,8 +39,9 @@ exports[`FederatedSignInButton renders as expected with { provider: 'Google', te
 exports[`FederatedSignInButton renders as expected with { provider: 'LoginWithAmazon', text: 'Sign In with Amazon' } provider 1`] = `
 <div>
   <button
-    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    class="amplify-button amplify-field-group__control amplify-button--outlined amplify-button--brand federated-sign-in-button"
     data-fullwidth="false"
+    data-variation="outlined"
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >
@@ -54,8 +57,9 @@ exports[`FederatedSignInButton renders as expected with { provider: 'LoginWithAm
 exports[`FederatedSignInButton renders as expected with { provider: 'SignInWithApple', text: 'Sign In with Apple' } provider 1`] = `
 <div>
   <button
-    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    class="amplify-button amplify-field-group__control amplify-button--outlined amplify-button--brand federated-sign-in-button"
     data-fullwidth="false"
+    data-variation="outlined"
     style="font-weight: var(--amplify-font-weights-normal); gap: 1rem;"
     type="button"
   >

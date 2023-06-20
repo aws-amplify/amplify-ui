@@ -22,7 +22,7 @@ exports[`UploadPreviewer renders as expected 1`] = `
         class="amplify-fileuploader__previewer__footer__actions"
       >
         <button
-          class="amplify-button amplify-field-group__control amplify-button--link amplify-button--small"
+          class="amplify-button amplify-field-group__control amplify-button--link amplify-button--brand amplify-button--small"
           data-fullwidth="false"
           data-size="small"
           data-variation="link"
@@ -31,7 +31,7 @@ exports[`UploadPreviewer renders as expected 1`] = `
           Clear all
         </button>
         <button
-          class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--small"
+          class="amplify-button amplify-field-group__control amplify-button--primary amplify-button--brand amplify-button--small"
           data-fullwidth="false"
           data-size="small"
           data-variation="primary"
