@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { ButtonProps } from './button';
-import { FlexProps } from './flex';
+import { BaseButtonProps } from './button';
+import { BaseFlexProps } from './flex';
 import { Sizes } from './base';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface MenuProps extends FlexProps {
+export interface BaseMenuProps extends BaseFlexProps {
   /**
    * @description
    * Alignment of menu against trigger
@@ -48,11 +49,20 @@ export interface MenuProps extends FlexProps {
    */
   triggerClassName?: string;
 }
+export type MenuProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseMenuProps,
+  Element
+>;
 
-export interface MenuItemProps extends ButtonProps {
+export interface BaseMenuItemProps extends BaseButtonProps {
   /**
    * @description
    * Accepts any number of MenuItem components
    */
   children?: React.ReactNode;
 }
+
+export type MenuItemProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseMenuItemProps,
+  Element
+>;

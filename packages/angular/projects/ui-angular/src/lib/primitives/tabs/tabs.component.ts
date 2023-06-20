@@ -34,14 +34,14 @@ export class TabsComponent implements AfterContentInit {
     }
   }
 
-  selectTab(tab: TabItemComponent) {
+  selectTab(tab: TabItemComponent): void {
     this.tabs.forEach((tab) => {
       tab.active = false;
     });
     tab.active = true;
   }
 
-  handleTabClick(tab: TabItemComponent) {
+  handleTabClick(tab: TabItemComponent): void {
     if (tab.active) return; // don't do anything if clicks the current active tab
     this.tabChange.emit();
     this.selectTab(tab);

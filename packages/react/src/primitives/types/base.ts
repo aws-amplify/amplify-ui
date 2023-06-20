@@ -10,6 +10,12 @@ export interface BaseComponentProps {
 
   /**
    * @description
+   * Children to be rendered inside the component
+   */
+  children?: React.ReactNode;
+
+  /**
+   * @description
    * Additional CSS class name for component
    */
   className?: string;

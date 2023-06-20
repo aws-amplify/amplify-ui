@@ -5,20 +5,20 @@ import * as XState from 'xstate';
 
 // mock state machine service
 // based on https://github.com/statelyai/xstate/blob/main/packages/core/src/interpreter.ts
-export class MockAuthService {
+class MockAuthService {
   private listeners: (() => void)[] = [];
 
-  subscribe(callback: () => void) {
+  subscribe(callback: () => void): { unsubscribe: () => void } {
     this.listeners.push(callback);
-    const unsubscribe = () => {};
+    const unsubscribe = jest.fn();
     return { unsubscribe };
   }
 
-  start() {
+  start(): this {
     return this;
   }
 
-  send() {
+  send(): void {
     for (const listener of this.listeners) {
       listener();
     }
@@ -33,7 +33,9 @@ jest.spyOn(UIModule, 'getServiceFacade').mockReturnValue(mockFacade);
 // mock interpreted authservice
 jest
   .spyOn(XState, 'interpret')
-  .mockReturnValue(new MockAuthService() as unknown as XState.AnyInterpreter);
+  .mockReturnValue(
+    new MockAuthService() as unknown as ReturnType<typeof XState.interpret>
+  );
 
 describe('AuthenticatorService', () => {
   let authService: AuthenticatorService;
@@ -45,16 +47,15 @@ describe('AuthenticatorService', () => {
 
   it('subscribe returns state machine facade', () => {
     const handler = jest.fn();
-    const { unsubscribe } = authService.subscribe(handler);
+    const subscription = authService.subscribe(handler);
 
     // trigger a mock transition
     authService.send('INIT');
 
     expect(handler).toBeCalledTimes(1);
 
-    const facade = handler.mock.calls[0][0];
-    expect(facade).toEqual(mockFacade);
+    expect(handler).toHaveBeenCalledWith(mockFacade);
 
-    unsubscribe();
+    subscription.unsubscribe();
   });
 });
