@@ -12,13 +12,19 @@ import { Fragment } from '@/components/Fragment';
   {({ platform }) => import(`./quick-start-install.${platform}.mdx`)}
 </Fragment>
 
-### Step 3. Add polyfills and type fixes
+### Step 3. Process and Global Shim
 
 <Fragment>
   {({ platform }) => import('../../getting-started/troubleshooting/shared/angular-polyfill.mdx')}
 </Fragment>
 
-### Step 4. Add the Authenticator
+### Step 4. Add declaration file for aws-exports
+
+<Fragment>
+  {({ platform }) => import('../../getting-started/troubleshooting/shared/add-aws-exports-type.mdx')}
+</Fragment>
+
+### Step 5. Add the Authenticator
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}

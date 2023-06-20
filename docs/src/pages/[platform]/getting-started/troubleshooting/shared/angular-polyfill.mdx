@@ -49,12 +49,3 @@ Add the following to your `src/polyfills.ts`:
 
   </TabItem>
 </Tabs>
-
-If you run into TypeScript errors importing `aws-exports.js`, you may need to add a type declaration file:
-
-`aws-exports.d.ts` file:
-
-```ts
-declare const awsmobile: Record<string, any>
-export default awsmobile;
-```
