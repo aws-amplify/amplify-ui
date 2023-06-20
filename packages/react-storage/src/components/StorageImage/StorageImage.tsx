@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { isFunction } from '@aws-amplify/ui';
 import { Image, ComponentClassNames } from '@aws-amplify/ui-react';
 import { useStorageURL } from '@aws-amplify/ui-react/internal';
 
@@ -19,11 +20,11 @@ export const StorageImage = ({
     fallbackSrc
   );
 
-  if (error && onStorageError) {
+  if (error && isFunction(onStorageError)) {
     onStorageError(error);
   }
 
   return (
-    <Image className={ComponentClassNames.StorageImage} src={url} {...rest} />
+    <Image {...rest} className={ComponentClassNames.StorageImage} src={url} />
   );
 };

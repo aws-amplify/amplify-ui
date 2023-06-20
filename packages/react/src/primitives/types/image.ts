@@ -57,6 +57,7 @@ export interface ImageOptions extends ImageStyleProps {
   /**
    * @description
    * Image will be loaded lazily if set to true.
+   * @default false
    */
   isLazy?: boolean;
 

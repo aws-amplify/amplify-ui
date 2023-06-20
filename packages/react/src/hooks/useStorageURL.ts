@@ -34,15 +34,18 @@ export const useStorageURL = (
     // Attempt to fetch storage object url
     promise
       .then((url) => setResult({ url, isLoading: false }))
-      .catch((error: Error) =>
-        setResult({ url: fallbackURL, error, isLoading: false })
-      );
+      .catch((error: Error) => setResult({ error, isLoading: false }));
 
     // Cancel current promise on unmount
     return () => Storage.cancel(promise);
   };
 
-  React.useEffect(fetch, [key, fallbackURL]);
+  React.useEffect(fetch, [key]);
+
+  // Set the url to fallbackURL if error happens
+  if (result.error) {
+    result.url = fallbackURL;
+  }
 
   return { ...result, fetch };
 };

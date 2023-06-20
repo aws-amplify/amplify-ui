@@ -55,7 +55,7 @@ describe('StorageImage:', () => {
     expect(img).toHaveAttribute('src', imgURL);
   });
 
-  it('should set image src attribute to fallbackSrc and invoke onStorageError when Storage get is rejected', async () => {
+  it('should set image src attribute to fallbackSrc and invoke onStorageError when Storage.get is rejected', async () => {
     jest.restoreAllMocks();
     jest.spyOn(Storage, 'get').mockRejectedValue(errorMessage);
     const onStorageError = jest.fn();
