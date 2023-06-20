@@ -1,6 +1,4 @@
 import { Button, Flex } from '@aws-amplify/ui-react';
-import { MdCheck } from 'react-icons/md';
-import { BsFillTrashFill } from 'react-icons/bs';
 
 export const PrimaryVariation = () => {
   return (
