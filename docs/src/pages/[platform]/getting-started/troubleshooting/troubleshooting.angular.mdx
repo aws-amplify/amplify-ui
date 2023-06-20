@@ -3,3 +3,7 @@ import { Fragment } from '@/components/Fragment';
 <Fragment>
   {({ platform }) => import('./shared/angular-polyfill.mdx')}
 </Fragment>
+
+### Warning: CommonJS or AMD dependencies
+
+If you see CommonJS or AMD dependencies optimization bailouts warnings on Angular 9+, add the following [content](https://gist.github.com/wlee221/6d98d96740bea6f53327b4db4a432616) to your `angular.json`.
