@@ -9,7 +9,7 @@ export interface StorageManagerTokens<OutputType extends OutputVariantKey>
 export const storagemanager: Required<StorageManagerTokens<'default'>> = {
   ...fileuploader,
   filelist: {
-    flexDirection: 'column',
-    gap: '{space.small}',
+    flexDirection: { value: 'column' },
+    gap: { value: '{space.small}' },
   },
 };

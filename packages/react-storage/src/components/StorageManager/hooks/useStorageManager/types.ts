@@ -7,6 +7,7 @@ export interface UseStorageManagerState {
 
 export enum StorageManagerActionTypes {
   ADD_FILES = 'ADD_FILES',
+  CLEAR_FILES = 'CLEAR_FILES',
   SET_STATUS = 'SET_STATUS',
   SET_STATUS_UPLOADING = 'SET_STATUS_UPLOADING',
   SET_UPLOAD_PROGRESS = 'SET_UPLOAD_PROGRESS',
@@ -20,6 +21,9 @@ export type Action =
       type: StorageManagerActionTypes.ADD_FILES;
       files: File[];
       getFileErrorMessage: GetFileErrorMessage;
+    }
+  | {
+      type: StorageManagerActionTypes.CLEAR_FILES;
     }
   | {
       type: StorageManagerActionTypes.SET_STATUS;

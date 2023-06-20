@@ -32,20 +32,42 @@ export const RatingPropControls: RatingPropControlsInterface = ({
   setFillColor,
   setEmptyColor,
 }) => {
+  function handleValueChange(value: string) {
+    if (value === '') {
+      setValue(0);
+    } else if (parseFloat(value)) {
+      setValue(parseFloat(value));
+    }
+  }
+
+  function handleMaxValueChange(value: string) {
+    if (value === '') {
+      setMaxValue(0);
+    } else if (parseInt(value)) {
+      setMaxValue(parseInt(value));
+    }
+  }
+
   return (
     <Flex direction="column">
       <TextField
         label="value"
         value={value}
         placeholder="Set Value"
-        onChange={(event) => setValue(parseInt(event.target.value))}
+        type="number"
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          handleValueChange(event.target.value)
+        }
       />
 
       <TextField
         label="maxValue"
         value={maxValue}
         placeholder="Set Max Value"
-        onChange={(event) => setMaxValue(parseInt(event.target.value))}
+        type="number"
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          handleMaxValueChange(event.target.value)
+        }
       />
 
       <SelectField
@@ -69,14 +91,18 @@ export const RatingPropControls: RatingPropControlsInterface = ({
         label="fillColor"
         value={fillColor as string}
         placeholder="Set Fill Color"
-        onChange={(event) => setFillColor(event.target.value)}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setFillColor(event.target.value)
+        }
       />
 
       <TextField
         label="emptyColor"
         value={emptyColor as string}
         placeholder="Set Empty Color"
-        onChange={(event) => setEmptyColor(event.target.value)}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setEmptyColor(event.target.value)
+        }
       />
     </Flex>
   );

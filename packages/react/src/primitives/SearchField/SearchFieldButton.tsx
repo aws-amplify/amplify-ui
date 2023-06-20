@@ -3,7 +3,12 @@ import * as React from 'react';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { IconSearch } from '../Icon/internal';
-import { Primitive, SearchFieldButtonProps } from '../types';
+import {
+  ForwardRefPrimitive,
+  Primitive,
+  BaseSearchFieldButtonProps,
+  SearchFieldButtonProps,
+} from '../types';
 
 const ariaLabelText = ComponentText.SearchField.searchButtonLabel;
 
@@ -23,6 +28,9 @@ const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
     );
   };
 
-export const SearchFieldButton = React.forwardRef(SearchFieldButtonPrimitive);
+export const SearchFieldButton: ForwardRefPrimitive<
+  BaseSearchFieldButtonProps,
+  'button'
+> = React.forwardRef(SearchFieldButtonPrimitive);
 
 SearchFieldButton.displayName = 'SearchFieldButton';
