@@ -246,7 +246,9 @@ export const LivenessCameraModule = (
             {/* 
               We only want to show the MatchIndicator when we're recording
               and when the face is in either the too far state, or the 
-              initial face identified state
+              initial face identified state. Using the MemoizedMatchIndicator here
+              so that even when this component re-renders the indicator is only
+              re-rendered if the percentage prop changes.
             */}
             {isRecording &&
             !isFlashingFreshness &&
