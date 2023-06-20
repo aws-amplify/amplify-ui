@@ -534,7 +534,9 @@ describe('Liveness Machine', () => {
         LivenessErrorState.RUNTIME_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+      const livenessError = (mockcomponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(livenessError.state).toBe(LivenessErrorState.RUNTIME_ERROR);
     });
 
     it('should reach error state after receiving a server error from the websocket stream', async () => {
@@ -552,8 +554,9 @@ describe('Liveness Machine', () => {
         LivenessErrorState.SERVER_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      error.name = LivenessErrorState.SERVER_ERROR;
-      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+      const livenessError = (mockcomponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
     });
 
     it('should reach ovalMatching state and send client sessionInformation', async () => {
@@ -722,7 +725,9 @@ describe('Liveness Machine', () => {
         LivenessErrorState.SERVER_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+      const livenessError = (mockcomponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
     });
   });
 });

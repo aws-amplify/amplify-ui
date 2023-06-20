@@ -24,7 +24,7 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
   {
     name: `onError?`,
     description: 'Callback called when there is error occured on any step.',
-    type: `(error: Error) => void`,
+    type: `(error: LivenessError) => void`,
   },
   {
     name: `disableInstructionScreen?`,
@@ -86,6 +86,21 @@ export const FACE_LIVENESS_DETECTOR_CONFIG = [
     description:
       'Overrides the Blazeface model and weights bin CDN URL default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file.',
     type: `string`,
+  },
+];
+
+export const LIVENESS_ERROR = [
+  {
+    name: `state`,
+    description:
+      'The LivenessErrorState value which indicates the general error type as seen from the component.',
+    type: `LivenessErrorState`,
+  },
+  {
+    name: `error`,
+    description:
+      'The error object containing the more specific error name and stack trace.',
+    type: `Error`,
   },
 ];
 
