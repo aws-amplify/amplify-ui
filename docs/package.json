@@ -12,6 +12,7 @@
     "build": "yarn build:cssvars-table && yarn build:props-tables && NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "build:cssvars-table": "node --require esbuild-register ./scripts/generate-cssvars-table-data.ts",
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables-data.ts",
+    "clean": "rimraf node_modules .next && yarn flutter:clean",
     "lint": "next lint",
     "postbuild": "yarn postbuild:sitemap && yarn test && yarn postbuild:previews",
     "postbuild:previews": "node --require esbuild-register ./scripts/generate-previews.ts",
@@ -56,6 +57,7 @@
     "remark-github": "^10.1.0",
     "remark-mdx-frontmatter": "^1.0.1",
     "remark-mdx-images": "^1.0.2",
+    "rimraf": "^3.0.2",
     "sass": "^1.43.4",
     "slugify": "^1.6.3"
   },
