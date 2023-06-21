@@ -1003,7 +1003,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"colorTheme\\": {
                         \\"name\\": \\"colorTheme\\",
-                        \\"type\\": \\"| 'info'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'success'\\\\n  | 'overlay'\\",
+                        \\"type\\": \\"| 'brand'\\\\n  | 'info'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'success'\\\\n  | 'overlay'\\",
                         \\"description\\": \\"Changes the color scheme of the button\\",
                         \\"category\\": \\"BaseButtonProps\\",
                         \\"isOptional\\": true
@@ -4628,7 +4628,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"colorTheme\\": {
                         \\"name\\": \\"colorTheme\\",
-                        \\"type\\": \\"| 'info'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'success'\\\\n  | 'overlay'\\",
+                        \\"type\\": \\"| 'brand'\\\\n  | 'info'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'success'\\\\n  | 'overlay'\\",
                         \\"description\\": \\"Changes the color scheme of the button\\",
                         \\"category\\": \\"BaseButtonProps\\",
                         \\"isOptional\\": true
@@ -4897,7 +4897,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"colorTheme\\": {
                         \\"name\\": \\"colorTheme\\",
-                        \\"type\\": \\"| 'info'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'success'\\\\n  | 'overlay'\\",
+                        \\"type\\": \\"| 'brand'\\\\n  | 'info'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'success'\\\\n  | 'overlay'\\",
                         \\"description\\": \\"Changes the color scheme of the button\\",
                         \\"category\\": \\"BaseButtonProps\\",
                         \\"isOptional\\": true
@@ -12607,7 +12607,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"colorTheme\\": {
                         \\"name\\": \\"colorTheme\\",
-                        \\"type\\": \\"| 'info'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'success'\\\\n  | 'overlay'\\",
+                        \\"type\\": \\"| 'brand'\\\\n  | 'info'\\\\n  | 'error'\\\\n  | 'warning'\\\\n  | 'success'\\\\n  | 'overlay'\\",
                         \\"description\\": \\"Changes the color scheme of the button\\",
                         \\"category\\": \\"BaseButtonProps\\",
                         \\"isOptional\\": true
