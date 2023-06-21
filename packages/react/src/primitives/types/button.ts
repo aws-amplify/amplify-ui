@@ -12,6 +12,7 @@ export type ButtonVariations =
   | 'destructive'
   | 'warning';
 export type ButtonColorThemes =
+  | 'brand'
   | 'info'
   | 'error'
   | 'warning'
