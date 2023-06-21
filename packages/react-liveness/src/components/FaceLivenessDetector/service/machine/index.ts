@@ -1176,7 +1176,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         await livenessStreamProvider!.dispatchStopVideoEvent();
       },
       async getLiveness(context) {
+        const { livenessStreamProvider } = context;
         const { onAnalysisComplete } = context.componentProps!;
+
+        livenessStreamProvider!.endStream();
 
         // Get liveness result
         await onAnalysisComplete();
