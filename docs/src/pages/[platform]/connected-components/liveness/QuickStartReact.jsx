@@ -3,13 +3,12 @@ import { FaceLivenessDetector } from '@aws-amplify/ui-react-liveness';
 import { Loader, ThemeProvider } from '@aws-amplify/ui-react';
 
 export function LivenessQuickStartReact() {
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [createLivenessApiData, setCreateLivenessApiData] = React.useState<{
-    sessionId: string;
-  } | null>(null);
+  const [loading, setLoading] = React.useState(true);
+  const [createLivenessApiData, setCreateLivenessApiData] =
+    React.useState(null);
 
   React.useEffect(() => {
-    const fetchCreateLiveness: () => Promise<void> = async () => {
+    const fetchCreateLiveness = async () => {
       /*
        * This should be replaced with a real call to your own backend API
        */
@@ -24,7 +23,7 @@ export function LivenessQuickStartReact() {
     fetchCreateLiveness();
   }, []);
 
-  const handleAnalysisComplete: () => Promise<void> = async () => {
+  const handleAnalysisComplete = async () => {
     /*
      * This should be replaced with a real call to your own backend API
      */
