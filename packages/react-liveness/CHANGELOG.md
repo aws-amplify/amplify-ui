@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-liveness
 
+## 1.0.5
+
+### Patch Changes
+
+- [#4138](https://github.com/aws-amplify/amplify-ui/pull/4138) [`a818da3db`](https://github.com/aws-amplify/amplify-ui/commit/a818da3db7d511e94bc61dede1e834f244617ec9) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): remove websocket error showing up after connection closes
+
 ## 1.0.4
 
 ### Patch Changes
