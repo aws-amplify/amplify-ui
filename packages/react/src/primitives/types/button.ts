@@ -16,7 +16,7 @@ export type ButtonColorThemes =
   | 'error'
   | 'warning'
   | 'success'
-  | 'neutral';
+  | 'overlay';
 
 export interface BaseButtonProps
   extends BaseViewProps,

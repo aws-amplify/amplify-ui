@@ -8,7 +8,7 @@ export const OutlineVariation = () => {
       <Button colorTheme="warning">warning</Button>
       <Button colorTheme="error">error</Button>
       <Button colorTheme="success">success</Button>
-      <Button colorTheme="neutral">neutral</Button>
+      <Button colorTheme="overlay">overlay</Button>
     </Flex>
   );
 };

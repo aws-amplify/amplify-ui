@@ -16,8 +16,8 @@ export const LinkVariation = () => {
       <Button variation="link" colorTheme="success">
         success
       </Button>
-      <Button variation="link" colorTheme="neutral">
-        neutral
+      <Button variation="link" colorTheme="overlay">
+        overlay
       </Button>
     </Flex>
   );

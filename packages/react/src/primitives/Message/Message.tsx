@@ -61,7 +61,7 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
       {isDismissible && (
         <Button
           ariaLabel={dismissButtonLabel}
-          colorTheme="neutral"
+          colorTheme="overlay"
           variation="link"
           className={ComponentClassNames.MessageDismiss}
           onClick={dismissAlert}

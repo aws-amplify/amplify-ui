@@ -16,8 +16,8 @@ export const PrimaryVariation = () => {
       <Button variation="primary" colorTheme="success">
         success
       </Button>
-      <Button variation="primary" colorTheme="neutral">
-        neutral
+      <Button variation="primary" colorTheme="overlay">
+        overlay
       </Button>
     </Flex>
   );

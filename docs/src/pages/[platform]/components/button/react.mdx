@@ -7,7 +7,7 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ThemeExample from '@/components/ThemeExample.mdx';
 
 import { ButtonDemo } from './demo';
-import { IconButtonExample, ButtonThemeExample, PrimaryVariation, LinkVariation, OutlineVariation } from './examples';
+import { OverlayUseCase, IconButtonExample, ButtonThemeExample, PrimaryVariation, LinkVariation, OutlineVariation, BrandUseCase } from './examples';
 
 ## Demo
 
@@ -60,6 +60,35 @@ import { IconButtonExample, ButtonThemeExample, PrimaryVariation, LinkVariation,
   </ExampleCode>
 </Example>
 
+### brand colorTheme
+<Example>
+  <View>
+    <BrandUseCase />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/BrandUseCase.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### overlay colorTheme
+<Example>
+  <View>
+    <OverlayUseCase />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/OverlayUseCase.tsx
+
+```
+
+  </ExampleCode>
+</Example>
 
 
 Import the Button primitive and styles.

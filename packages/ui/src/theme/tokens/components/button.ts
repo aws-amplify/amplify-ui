@@ -5,7 +5,7 @@ type StateTokens<Output> = DesignTokenProperties<
   Output
 >;
 
-type SeverityTokens<Output> = DesignTokenProperties<
+type ColorThemeTokens<Output> = DesignTokenProperties<
   'backgroundColor' | 'borderColor' | 'color',
   Output
 > & {
@@ -28,11 +28,11 @@ type PrimaryVariationTokens<Output> = StateTokens<Output> &
     _hover?: StateTokens<Output>;
     _focus?: StateWithShadowTokens<Output>;
     _active?: StateTokens<Output>;
-    info?: SeverityTokens<Output>;
-    error?: SeverityTokens<Output>;
-    success?: SeverityTokens<Output>;
-    warning?: SeverityTokens<Output>;
-    neutral?: SeverityTokens<Output>;
+    info?: ColorThemeTokens<Output>;
+    error?: ColorThemeTokens<Output>;
+    success?: ColorThemeTokens<Output>;
+    warning?: ColorThemeTokens<Output>;
+    overlay?: ColorThemeTokens<Output>;
   };
 
 type MenuVariationTokens<Output> = DesignTokenProperties<
@@ -54,11 +54,11 @@ type LinkVariationTokens<Output> = DesignTokenProperties<
   _active?: StateTokens<Output>;
   _disabled?: StateTokens<Output>;
   _loading?: StateTokens<Output>;
-  info?: SeverityTokens<Output>;
-  error?: SeverityTokens<Output>;
-  success?: SeverityTokens<Output>;
-  warning?: SeverityTokens<Output>;
-  neutral?: SeverityTokens<Output>;
+  info?: ColorThemeTokens<Output>;
+  error?: ColorThemeTokens<Output>;
+  success?: ColorThemeTokens<Output>;
+  warning?: ColorThemeTokens<Output>;
+  overlay?: ColorThemeTokens<Output>;
 };
 type OutlinedVariationTokens<Output> = DesignTokenProperties<
   'backgroundColor' | 'borderColor' | 'borderWidth' | 'color',
@@ -69,11 +69,11 @@ type OutlinedVariationTokens<Output> = DesignTokenProperties<
   _active?: StateTokens<Output>;
   _disabled?: StateTokens<Output>;
   _loading?: StateTokens<Output>;
-  info?: SeverityTokens<Output>;
-  error?: SeverityTokens<Output>;
-  success?: SeverityTokens<Output>;
-  warning?: SeverityTokens<Output>;
-  neutral?: SeverityTokens<Output>;
+  info?: ColorThemeTokens<Output>;
+  error?: ColorThemeTokens<Output>;
+  success?: ColorThemeTokens<Output>;
+  warning?: ColorThemeTokens<Output>;
+  overlay?: ColorThemeTokens<Output>;
 };
 
 type ButtonSizeTokens<Output> = DesignTokenProperties<
@@ -360,9 +360,9 @@ export const button: Required<ButtonTokens<'default'>> = {
         color: { value: '{colors.font.inverse.value}' },
       },
     },
-    neutral: {
+    overlay: {
       borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.neutral.80}' },
+      backgroundColor: { value: '{colors.overlay.70}' },
       color: { value: '{colors.font.inverse.value}' },
       _disabled: {
         borderColor: { value: 'transparent' },
@@ -376,12 +376,12 @@ export const button: Required<ButtonTokens<'default'>> = {
       },
       _hover: {
         borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.neutral.90.value}' },
+        backgroundColor: { value: '{colors.overlay.90.value}' },
         color: { value: '{colors.font.inverse.value}' },
       },
       _focus: {
         borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.neutral.90.value}' },
+        backgroundColor: { value: '{colors.overlay.90.value}' },
         color: { value: '{colors.font.inverse.value}' },
         boxShadow: {
           value: {
@@ -389,13 +389,13 @@ export const button: Required<ButtonTokens<'default'>> = {
             offsetY: '0px',
             blurRadius: '0px',
             spreadRadius: '1px',
-            color: '{colors.neutral.100.value}',
+            color: '{colors.overlay.90.value}',
           },
         },
       },
       _active: {
         borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.neutral.100.value}' },
+        backgroundColor: { value: '{colors.overlay.90.value}' },
         color: { value: '{colors.font.inverse.value}' },
       },
     },
@@ -616,7 +616,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         color: { value: '{colors.red.100.value}' },
       },
     },
-    neutral: {
+    overlay: {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.neutral.100}' },
@@ -632,13 +632,13 @@ export const button: Required<ButtonTokens<'default'>> = {
       },
       _hover: {
         borderColor: { value: 'transparent' },
-        backgroundColor: { value: 'hsla(0,0%,0%,.05)' },
-        color: { value: '{colors.neutral.90.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.overlay.80.value}' },
       },
       _focus: {
         borderColor: { value: 'transparent' },
-        backgroundColor: { value: 'hsla(0,0%,0%,.05)' },
-        color: { value: '{colors.neutral.100.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.overlay.90.value}' },
         // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
@@ -646,14 +646,14 @@ export const button: Required<ButtonTokens<'default'>> = {
             offsetY: '0px',
             blurRadius: '0px',
             spreadRadius: '1px',
-            color: '{colors.neutral.80.value}',
+            color: '{colors.overlay.90.value}',
           },
         },
       },
       _active: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.overlay.10.value}' },
-        color: { value: '{colors.neutral.100.value}' },
+        color: { value: '{colors.overlay.90.value}' },
       },
     },
   },
@@ -848,7 +848,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         color: { value: '{colors.red.100.value}' },
       },
     },
-    neutral: {
+    overlay: {
       borderColor: { value: '{colors.neutral.60.value}' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.neutral.100}' },
@@ -863,13 +863,13 @@ export const button: Required<ButtonTokens<'default'>> = {
         color: { value: '{colors.font.disabled.value}' },
       },
       _hover: {
-        borderColor: { value: '{colors.neutral.60.value}' },
-        backgroundColor: { value: 'hsla(0,0%,0%,.05)' },
-        color: { value: '{colors.neutral.100.value}' },
+        borderColor: { value: '{colors.overlay.60.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.overlay.90.value}' },
       },
       _focus: {
-        borderColor: { value: '{colors.neutral.100.value}' },
-        backgroundColor: { value: 'hsla(0,0%,0%,.05)' },
+        borderColor: { value: '{colors.overlay.90.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
         color: { value: '{colors.neutral.100.value}' },
         // Should we make field control box shadows for info, warning, success?
         boxShadow: {
@@ -883,8 +883,8 @@ export const button: Required<ButtonTokens<'default'>> = {
         },
       },
       _active: {
-        borderColor: { value: '{colors.neutral.100.value}' },
-        backgroundColor: { value: 'hsla(0,0%,0%,.05)' },
+        borderColor: { value: '{colors.overlay.90.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
         color: { value: '{colors.neutral.100.value}' },
       },
     },

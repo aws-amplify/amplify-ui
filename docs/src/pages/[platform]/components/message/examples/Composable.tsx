@@ -72,7 +72,7 @@ export const Composable = () => {
                   @ui.docs.amplify.aws
                 </Text>
               </View>
-              <Button colorTheme="neutral" size="small">
+              <Button colorTheme="overlay" size="small">
                 Follow
               </Button>
             </MessageTitle>
@@ -131,7 +131,7 @@ export const Composable = () => {
             <Flex direction="column">
               <Text>Deleted items cannot be recovered.</Text>
               <Flex justifyContent="flex-end">
-                <Button variation="link" colorTheme="neutral" size="small">
+                <Button variation="link" colorTheme="overlay" size="small">
                   Cancel
                 </Button>
                 <Button variation="primary" colorTheme="error" size="small">

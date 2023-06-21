@@ -40,7 +40,7 @@ type ColorValueScale<
 
 // scale keys
 type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
-type OverlayKey = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
+type OverlayKey = 5 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
 
 // color palettes
 type ColorPaletteKey =
@@ -311,6 +311,7 @@ export const colors: Colors<'default'> = {
   },
 
   overlay: {
+    5: { value: 'hsla(0, 0%, 0%, 0.05)' },
     10: { value: 'hsla(0, 0%, 0%, 0.1)' },
     20: { value: 'hsla(0, 0%, 0%, 0.2)' },
     30: { value: 'hsla(0, 0%, 0%, 0.3)' },
