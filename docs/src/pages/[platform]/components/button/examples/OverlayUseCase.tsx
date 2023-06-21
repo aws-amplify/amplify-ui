@@ -17,10 +17,13 @@ export const OverlayUseCase = () => {
         variation="filled"
         colorTheme="success"
         isDismissible={true}
-        maxWidth="360px"
+        maxWidth="520px"
       >
-        <MessageContent>
+        <MessageContent direction="row" alignItems="center">
           <MessageTitle>Registration details saved.</MessageTitle>
+          <Button colorTheme="overlay" marginLeft="auto" size="small">
+            View details
+          </Button>
         </MessageContent>
       </Message>
       <Card

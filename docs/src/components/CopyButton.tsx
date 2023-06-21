@@ -5,7 +5,7 @@ import { Button, ButtonProps } from '@aws-amplify/ui-react';
 import { trackCopy } from '@/utils/track';
 
 interface CopyButtonProps
-  extends Pick<ButtonProps, 'className' | 'size' | 'variation'> {
+  extends Pick<ButtonProps, 'className' | 'size' | 'variation' | 'colorTheme'> {
   copyText: string;
 }
 
@@ -14,6 +14,7 @@ export const CopyButton = ({
   copyText,
   size,
   variation,
+  colorTheme = 'brand',
 }: CopyButtonProps) => {
   const [copied, setCopied] = React.useState(false);
 
@@ -32,6 +33,7 @@ export const CopyButton = ({
         isDisabled={copied}
         size={size}
         variation={variation}
+        colorTheme={colorTheme}
       >
         {copied ? 'Copied!' : 'Copy'}
       </Button>

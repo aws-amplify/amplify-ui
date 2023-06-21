@@ -36,6 +36,7 @@ export function ExampleCode({ children }) {
         copyText={text}
         size="small"
         variation="link"
+        colorTheme="overlay"
       />
       <div ref={ref}>{children}</div>
     </div>

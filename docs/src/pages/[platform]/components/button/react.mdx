@@ -1,5 +1,5 @@
 import { Fragment } from '@/components/Fragment'; 
-import { Button, ButtonGroup, Flex, View } from '@aws-amplify/ui-react';
+import { Button, ButtonGroup, Flex, View, Message, MessageTitle, MessageContent } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 import StandardHTMLAttributes from '@/components/StandardHTMLAttributes.mdx';
@@ -76,6 +76,11 @@ import { OverlayUseCase, IconButtonExample, ButtonThemeExample, PrimaryVariation
 </Example>
 
 ### overlay colorTheme
+
+<Message colorTheme="info" variation="filled">
+  <MessageContent><MessageTitle>overlay color theme</MessageTitle>Use the overlay color theme when you don't necessarily want to imply an action via color, or where button color might clash with the background.</MessageContent>
+</Message>
+
 <Example>
   <View>
     <OverlayUseCase />
