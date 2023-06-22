@@ -1,0 +1,17 @@
+import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { FACE_LIVENESS_DETECTOR_PARAMETERS, FACE_LIVENESS_DETECTOR_ERROR_STATES } from './swift-props';
+
+## Full API Reference
+
+### FaceLivenessDetectorView Parameters
+
+Below is the full list of parameters that can be used with the `FaceLivenessDetectorView` component. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui-swift-liveness/blob/main/Sources/FaceLiveness/Views/Liveness/FaceLivenessDetectionView.swift#L27).
+
+<ReactPropsTable props={FACE_LIVENESS_DETECTOR_PARAMETERS} />
+
+### Error States
+
+Below is the full list of error states that can be returned from the `onCompletion` handler of `FaceLivenessDetectorView`. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui-swift-liveness/blob/main/Sources/FaceLiveness/Views/Liveness/FaceLivenessDetectionError.swift).
+
+<ReactPropsTable props={FACE_LIVENESS_DETECTOR_ERROR_STATES} />
