@@ -1,0 +1,6 @@
+If you run into TypeScript errors importing `aws-exports.js`, create `aws-exports.d.ts` file in the directory `aws-exports.js` is in and add the following content:
+
+```ts
+declare const awsmobile: Record<string, any>
+export default awsmobile;
+```
