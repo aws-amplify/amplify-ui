@@ -22,6 +22,23 @@ Install the 4.x version of the `@aws-amplify/ui-angular` library.
 
 If your application is on Angular 13 or older, please migrate to Angular 14+ as per [official guide](https://update.angular.io).
 
+#### 2. `@aws-amplify/ui-angular@4.x` requires `@aws-amplify/ui-angular/theme.css` to be imported via `angular.json`
+
+Previous version of `@aws-amplify/ui-angular` required `@aws-amplify/ui-angular/theme.css` to be in your global CSS file. To migrate, you should first remove the style import from your global CSS:
+
+```diff
+- @import '~@aws-amplify/ui-angular/theme.css';
+```
+
+Then open your `angular.json` file, and add `node_modules/@aws-amplify/ui-angular/theme.css` to `styles` array. This array is located in `projects.<project-name>.architect.build.options`.
+
+```diff
+"styles": [
++ "node_modules/@aws-amplify/ui-angular/theme.css",
+  "src/styles.css"
+],
+```
+
 ## 2.x to 3.x
 ### Installation
 Install the 3.x version of the `@aws-amplify/ui-angular` library and the 5.x version of the `aws-amplify` library.
