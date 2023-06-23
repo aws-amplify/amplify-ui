@@ -8,8 +8,9 @@ export type UseDeprecationWarning = (params: {
 /**
  * Logs a deprecation warning message.
  *
- * @inportant Please use the React/React Native specific platform implementations as the
- * hook and does not consider take whether the code is running in development or prod.
+ * @important Please use the React/React Native specific platform implementations.
+ * This version of the hook is a base implementation that the others extend from due
+ * to env differences between running in RN or the browser
  */
 const useDeprecationWarning: UseDeprecationWarning = ({
   shouldWarn,
