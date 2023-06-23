@@ -193,7 +193,7 @@ jobs:
         with:
           base-ref: ${{ needs.setup.outputs.base_sha }}
           head-ref: ${{ needs.setup.outputs.commit_id }}
-          config-file: '.github/configs/dependency-review-config.yml'
+          config-file: '.github/dependency-review/config.yml'
 
   setup-cache:
     needs: setup
