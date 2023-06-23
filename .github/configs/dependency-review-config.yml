@@ -15,6 +15,7 @@ allow-licenses:
   - 'curl'
   - 'ISC'
   - 'JSON'
+  - 'MIT'
   - 'MPL-2.0'
   - 'NTP'
   - 'OFL-1.0'
