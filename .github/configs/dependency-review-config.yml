@@ -21,7 +21,7 @@ allow_licenses:
   - 'JSON'
   - 'libjpeg'
   - 'libpng'
-  - MIT
+  - 'MIT'
   - 'MPL-2.0'
   - 'NTP'
   - 'OFL-1.0'

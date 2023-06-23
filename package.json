@@ -94,6 +94,7 @@
     "is-odd": "^3.0.1",
     "lint-staged": ">=10",
     "prettier": "2.4.1",
+    "react": "^18.2.0",
     "rimraf": "^3.0.2",
     "turbo": "^1.2.8",
     "typescript": "^4.6.3",
