@@ -2,9 +2,21 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
+
 import SignIn from '../SignIn';
 
-const { getSignInText, getForgotPasswordText } = authenticatorTextUtil;
+jest.mock('@aws-amplify/ui-react-core', () => ({
+  useAuthenticator: jest.fn(),
+}));
+const mockUseAuthenticator = useAuthenticator as jest.Mock;
+
+const {
+  getSignInText,
+  getForgotPasswordText,
+  getSignInWithFederationText,
+  getOrText,
+} = authenticatorTextUtil;
 
 const username = {
   name: 'username',
@@ -38,6 +50,17 @@ const props = {
 };
 
 describe('SignIn', () => {
+  beforeAll(() => {
+    mockUseAuthenticator.mockReturnValue({
+      route: 'signIn',
+      socialProviders: [],
+      toFederatedSignIn: jest.fn(),
+    });
+  });
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders as expected', () => {
     const { toJSON, getAllByRole, getByText } = render(<SignIn {...props} />);
     expect(toJSON()).toMatchSnapshot();
@@ -62,5 +85,29 @@ describe('SignIn', () => {
   it('renders as expected when hideSignUp is true', () => {
     const { toJSON } = render(<SignIn {...props} hideSignUp />);
     expect(toJSON()).toMatchSnapshot();
+  });
+});
+
+describe('SignIn federated', () => {
+  beforeAll(() => {
+    mockUseAuthenticator.mockReturnValue({
+      route: 'signIn',
+      socialProviders: ['amazon'],
+      toFederatedSignIn: jest.fn(),
+    });
+  });
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders as expected with social providers', () => {
+    const { toJSON, getByTestId, getByText } = render(<SignIn {...props} />);
+    expect(toJSON()).toMatchSnapshot();
+
+    expect(getByTestId('amplify__federated-provider-buttons')).toBeDefined();
+    expect(
+      getByText(getSignInWithFederationText('signIn', 'amazon'))
+    ).toBeDefined();
+    expect(getByText(getOrText())).toBeDefined();
   });
 });

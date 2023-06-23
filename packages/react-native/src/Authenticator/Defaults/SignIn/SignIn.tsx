@@ -74,6 +74,7 @@ const SignIn: DefaultSignInComponent = ({
       {...rest}
       buttons={buttons}
       fields={fieldsWithHandlers}
+      hasFederatedProviderButtons
       headerText={headerText}
     />
   );

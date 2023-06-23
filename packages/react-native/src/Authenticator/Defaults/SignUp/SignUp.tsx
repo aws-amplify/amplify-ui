@@ -76,6 +76,7 @@ const SignUp: DefaultSignUpComponent = ({
       {...rest}
       buttons={buttons}
       fields={fieldsWithHandlers}
+      hasFederatedProviderButtons
       headerText={headerText}
       isPending={isPending}
     />

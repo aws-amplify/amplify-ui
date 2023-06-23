@@ -1,8 +1,15 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-import { SignUp } from '..';
 import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { useAuthenticator } from '@aws-amplify/ui-react-core';
+
+import { SignUp } from '..';
+
+jest.mock('@aws-amplify/ui-react-core', () => ({
+  useAuthenticator: jest.fn(),
+}));
+const mockUseAuthenticator = useAuthenticator as jest.Mock;
 
 const USERNAME = 'username';
 const username = {
@@ -49,9 +56,21 @@ const props = {
   validationErrors: undefined,
 };
 
-const { getCreatingAccountText } = authenticatorTextUtil;
+const { getCreatingAccountText, getSignInWithFederationText, getOrText } =
+  authenticatorTextUtil;
 
 describe('SignUp', () => {
+  beforeAll(() => {
+    mockUseAuthenticator.mockReturnValue({
+      route: 'signUp',
+      socialProviders: [],
+      toFederatedSignIn: jest.fn(),
+    });
+  });
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders as expected', () => {
     const { toJSON, getAllByRole, queryByText } = render(<SignUp {...props} />);
     expect(toJSON()).toMatchSnapshot();
@@ -98,5 +117,29 @@ describe('SignUp', () => {
 
     expect(getByText('error')).toBeDefined();
     expect(getByText('another error')).toBeDefined();
+  });
+});
+
+describe('SignUp federated', () => {
+  beforeAll(() => {
+    mockUseAuthenticator.mockReturnValue({
+      route: 'signUp',
+      socialProviders: ['amazon'],
+      toFederatedSignIn: jest.fn(),
+    });
+  });
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders as expected with social providers', () => {
+    const { toJSON, getByTestId, getByText } = render(<SignUp {...props} />);
+    expect(toJSON()).toMatchSnapshot();
+
+    expect(getByTestId('amplify__federated-provider-buttons')).toBeDefined();
+    expect(
+      getByText(getSignInWithFederationText('signUp', 'amazon'))
+    ).toBeDefined();
+    expect(getByText(getOrText())).toBeDefined();
   });
 });

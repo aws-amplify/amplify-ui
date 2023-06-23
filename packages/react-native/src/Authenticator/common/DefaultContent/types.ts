@@ -72,4 +72,5 @@ export type DefaultContentProps<
   FormFields: DefaultFormFieldsComponent<FieldsType>;
   Header: AuthenticatorHeaderComponent<{ style?: StyleProp<TextStyle> }>;
   validationErrors?: AuthenticatorMachineContext['validationErrors'];
+  hasFederatedProviderButtons?: boolean;
 };

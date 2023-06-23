@@ -7,6 +7,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
       "paddingVertical": 4,
     }
   }
+  testID="amplify__federated-provider-buttons"
 >
   <View
     accessibilityRole="button"
@@ -148,7 +149,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
         ]
       }
     >
-      Or
+      or
     </Text>
     <View
       style={
