@@ -1,5 +1,6 @@
 allow_licenses:
   - '0BSD'
+  - 'Apache-2.0'
   - 'Boost'
   - 'BouncyCastle'
   - 'BSD-1-Clause'
@@ -20,7 +21,6 @@ allow_licenses:
   - 'JSON'
   - 'libjpeg'
   - 'libpng'
-  - 'MIT'
   - 'MPL-2.0'
   - 'NTP'
   - 'OFL-1.0'
