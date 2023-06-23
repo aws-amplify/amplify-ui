@@ -91,7 +91,6 @@
     "@changesets/changelog-github": "0.4.1",
     "@changesets/cli": "^2.16.0",
     "husky": ">=6",
-    "is-odd": "^3.0.1",
     "lint-staged": ">=10",
     "prettier": "2.4.1",
     "rimraf": "^3.0.2",
