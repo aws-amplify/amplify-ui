@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react-liveness
 
+## 1.0.4
+
+### Patch Changes
+
+- [#4095](https://github.com/aws-amplify/amplify-ui/pull/4095) [`2bda547aa`](https://github.com/aws-amplify/amplify-ui/commit/2bda547aaffe9db7ffe460bf4028040a4b0a9566) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): add liveness version user agent to rekognition streaming api call
+
+- Updated dependencies [[`3cecd0765`](https://github.com/aws-amplify/amplify-ui/commit/3cecd0765b46c77c49af24fae7cfb9054ebe2cdb)]:
+  - @aws-amplify/ui@5.6.5
+  - @aws-amplify/ui-react@5.0.2
+
 ## 1.0.3
 
 ### Patch Changes

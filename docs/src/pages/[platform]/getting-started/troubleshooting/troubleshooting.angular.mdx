@@ -6,21 +6,12 @@ import { Fragment } from '@/components/Fragment';
   {({ platform }) => import('./shared/angular-polyfill.mdx')}
 </Fragment>
 
+### Could not find a declaration file for module './aws-exports'
 
-### Unhandled Promise rejection console errors
-
-If you see `Unhandled Promise rejection: [message] ; zone: <root> ; ...` errors on console, you can add the following code after you import `zone.js` inside `src/polyfills.ts` file:
-
-```ts{3}
-import 'zone.js/dist/zone'; // Included with Angular CLI.
-
-(window as any).Zone['__zone_symbol__ignoreConsoleErrorUncaughtError'] = true;
-```
-
-### Typescript Strict Mode Errors
-
-Angular 12+ now turns on typescript strict mode by default. This has known type issues when installing Amplify. You can either work around this by disabling strict mode inside your `tsconfig.json`, or by following the TypeScript strict [troubleshooting guide](https://docs.amplify.aws/lib/troubleshooting/strict-mode/q/platform/js/).
+<Fragment>
+  {({ platform }) => import('./shared/add-aws-exports-type.mdx')}
+</Fragment>
 
 ### Warning: CommonJS or AMD dependencies
 
-If you see CommonJS or AMD dependencies optimization bailouts warnings on Angular 9+, add the following [content](https://gist.github.com/wlee221/6d98d96740bea6f53327b4db4a432616) to your `angular.json`.
+If you see CommonJS or AMD dependencies optimization bailouts warnings, add the following [content](https://gist.github.com/wlee221/6d98d96740bea6f53327b4db4a432616) to your `angular.json`.

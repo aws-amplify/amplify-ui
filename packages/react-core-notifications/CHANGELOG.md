@@ -1,5 +1,13 @@
 # @aws-amplify/ui-react-core-notifications
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`23180b470`](https://github.com/aws-amplify/amplify-ui/commit/23180b470c7b3b78a5970d00f8c2dc5ce8773eff), [`3cecd0765`](https://github.com/aws-amplify/amplify-ui/commit/3cecd0765b46c77c49af24fae7cfb9054ebe2cdb)]:
+  - @aws-amplify/ui-react-core@2.1.24
+  - @aws-amplify/ui@5.6.5
+
 ## 1.0.0
 
 ### Major Changes
