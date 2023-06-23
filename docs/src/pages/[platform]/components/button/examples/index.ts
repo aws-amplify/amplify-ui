@@ -5,3 +5,4 @@ export { LinkVariation } from './LinkVariation';
 export { OutlineVariation } from './OutlineVariation';
 export { BrandUseCase } from './BrandUseCase';
 export { OverlayUseCase } from './OverlayUseCase';
+export { SeverityUseCase } from './SeverityUseCase';

@@ -27,18 +27,21 @@ export const OverlayUseCase = () => {
         </MessageContent>
       </Message>
       <Card
-        padding="large"
-        backgroundColor="brand.secondary.80"
+        padding="xl"
+        backgroundImage="linear-gradient(to right, #fffcdc, #d9a7c7)"
         maxWidth="480px"
       >
         <Flex direction="column">
-          <Text color="font.inverse">
+          <Text>
             Join us in Las Vegas to hear the latest from AWS, learn from
             experts, and connect with the global cloud community.
           </Text>
-          <Button variation="primary" colorTheme="overlay">
-            Register
-          </Button>
+          <Flex>
+            <Button variation="primary" colorTheme="brand">
+              Register
+            </Button>
+            <Button colorTheme="overlay">Schedule</Button>
+          </Flex>
         </Flex>
       </Card>
     </Flex>

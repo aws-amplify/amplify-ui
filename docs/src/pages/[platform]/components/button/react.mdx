@@ -7,7 +7,7 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import ThemeExample from '@/components/ThemeExample.mdx';
 
 import { ButtonDemo } from './demo';
-import { OverlayUseCase, IconButtonExample, ButtonThemeExample, PrimaryVariation, LinkVariation, OutlineVariation, BrandUseCase } from './examples';
+import { SeverityUseCase, OverlayUseCase, IconButtonExample, ButtonThemeExample, PrimaryVariation, LinkVariation, OutlineVariation, BrandUseCase } from './examples';
 
 ## Demo
 
@@ -61,6 +61,11 @@ import { OverlayUseCase, IconButtonExample, ButtonThemeExample, PrimaryVariation
 </Example>
 
 ### brand colorTheme
+
+<Message colorTheme="info" variation="filled">
+  <MessageContent><MessageTitle>Example brand color theme use case</MessageTitle>Brand color theme is often best used for primary/secondary calls to actions, marketing content, or where color doesn't convey the action.</MessageContent>
+</Message>
+
 <Example>
   <View>
     <BrandUseCase />
@@ -75,10 +80,30 @@ import { OverlayUseCase, IconButtonExample, ButtonThemeExample, PrimaryVariation
   </ExampleCode>
 </Example>
 
+### info, error, success & warning colorThemes
+
+<Message colorTheme="info" variation="filled">
+  <MessageContent><MessageTitle>Example severity color theme use case</MessageTitle> Color can help give visual distinction to actions that might be accompanied by a severity or better match the background color.</MessageContent>
+</Message>
+
+<Example>
+  <View>
+    <SeverityUseCase />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/SeverityUseCase.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
 ### overlay colorTheme
 
 <Message colorTheme="info" variation="filled">
-  <MessageContent><MessageTitle>overlay color theme</MessageTitle>Use the overlay color theme when you don't necessarily want to imply an action via color, or where button color might clash with the background.</MessageContent>
+  <MessageContent><MessageTitle>Example overlay color theme use case</MessageTitle>Use the overlay color theme when you don't necessarily want to imply an action via color, or where button color might clash with the background.</MessageContent>
 </Message>
 
 <Example>

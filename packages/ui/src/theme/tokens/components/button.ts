@@ -362,7 +362,7 @@ export const button: Required<ButtonTokens<'default'>> = {
     },
     overlay: {
       borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.overlay.60}' },
+      backgroundColor: { value: '{colors.overlay.70}' },
       color: { value: '{colors.font.inverse.value}' },
       _disabled: {
         borderColor: { value: 'transparent' },
