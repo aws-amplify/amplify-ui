@@ -27,7 +27,7 @@ export class FederatedSignInComponent implements OnInit {
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    const { socialProviders } = this.authenticator.context?.config;
+    const socialProviders = this.authenticator.context?.config?.socialProviders;
 
     this.setFederatedTexts();
     this.includeAmazon = socialProviders?.includes('amazon');
