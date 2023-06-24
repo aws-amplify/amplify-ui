@@ -16,7 +16,9 @@ _prerequisite_: You must create populate `packages/e2e/.env` values in order for
 
 ## Getting Started
 
-To run existing tests on `react-native` framework, first navigate to the React Native Example App [_.env_](../../examples/react-native/.env) and assuming the file exists locally, remove the `EXAMPLE_APP_NAME` constant if it has been declared to allow `detox` to control which example app is run based on the test path.
+To run existing tests on `react-native` framework, first navigate to the React Native Example App [_.env_](../../examples/react-native/.env) and assuming the file exists locally, remove the `EXAMPLE_APP_NAME` constant if it has been declared to allow `Detox` to control which example app is run based on the test path.
+
+Sign up and reset password flows are mocked by overriding the `Auth` endpoint when calling `Amplify.configure` to point to a local express mock server running on port 9091. The `precucumber` and `postcucumber` scripts in the `package.json` file take care of starting and terminating the mock server.
 
 **iOS**
 
