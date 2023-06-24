@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-core
 
+## 2.1.24
+
+### Patch Changes
+
+- [#4013](https://github.com/aws-amplify/amplify-ui/pull/4013) [`23180b470`](https://github.com/aws-amplify/amplify-ui/commit/23180b470c7b3b78a5970d00f8c2dc5ce8773eff) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react-native): disable Authenticator submit button on invalid form
+
+- Updated dependencies [[`3cecd0765`](https://github.com/aws-amplify/amplify-ui/commit/3cecd0765b46c77c49af24fae7cfb9054ebe2cdb)]:
+  - @aws-amplify/ui@5.6.5
+
 ## 2.1.23
 
 ### Patch Changes

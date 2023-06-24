@@ -1,6 +1,10 @@
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
-```js
-/* ./src/styles.css */
-@import '~@aws-amplify/ui-angular/theme.css';
+Open your `angular.json` file, and add `node_modules/@aws-amplify/ui-angular/theme.css` to `styles` array in your `angular.json`. This array is located in `projects.<project-name>.architect.build.options`.
+
+```json{2}
+"styles": [
+  "node_modules/@aws-amplify/ui-angular/theme.css",
+  "src/styles.css"
+],
 ```
