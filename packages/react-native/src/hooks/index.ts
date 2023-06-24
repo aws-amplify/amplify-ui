@@ -1,3 +1,4 @@
+export { useDeprecationWarning } from './useDeprecationWarning';
 export {
   DeviceOrientation,
   useDeviceOrientation,

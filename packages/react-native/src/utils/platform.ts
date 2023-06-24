@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 
+const IS_DEV = __DEV__;
 const IS_ANDROID = Platform.OS === 'android';
 const IS_IOS = Platform.OS === 'ios';
 
@@ -16,6 +17,7 @@ const PLATFORM_TOUCH_TARGET = Platform.select({
 export default {
   ...Platform,
   IS_ANDROID,
+  IS_DEV,
   IS_IOS,
   PLATFORM_TOUCH_TARGET,
 };
