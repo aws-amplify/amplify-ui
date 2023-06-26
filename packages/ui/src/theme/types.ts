@@ -1,6 +1,7 @@
 import { PartialDeep } from '../types';
 import { DefaultTokens, Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
+import { ComponentsTheme } from './components';
 
 export * from './tokens/types/designToken';
 export type { BorderWidths } from './tokens/borderWidths';
@@ -110,12 +111,15 @@ export interface Theme {
    * and a generic selector override.
    */
   overrides?: Array<Override>;
+
+  components?: ComponentsTheme;
 }
 
 /**
  * A DefaultTheme has all tokens and breakpoints required
  */
-export interface DefaultTheme extends Pick<Theme, 'name' | 'overrides'> {
+export interface DefaultTheme
+  extends Pick<Theme, 'name' | 'overrides' | 'components'> {
   tokens: DefaultTokens;
   breakpoints: Breakpoints;
 }
@@ -126,7 +130,10 @@ export interface DefaultTheme extends Pick<Theme, 'name' | 'overrides'> {
  * to be used in Javascript/Typescript.
  */
 export interface WebTheme
-  extends Pick<DefaultTheme, 'breakpoints' | 'name' | 'overrides'> {
+  extends Pick<
+    DefaultTheme,
+    'breakpoints' | 'name' | 'overrides' | 'components'
+  > {
   cssText: string;
   // property `components` is not specified on `WebTokens`,
   // but is a required token property of `WebTheme`

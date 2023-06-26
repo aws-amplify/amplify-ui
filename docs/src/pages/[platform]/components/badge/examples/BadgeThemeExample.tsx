@@ -2,31 +2,43 @@ import { Badge, ThemeProvider, Theme, Flex } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'badge-theme',
-  tokens: {
-    components: {
-      badge: {
-        // Default styles
-        color: { value: '{colors.white}' },
-        fontWeight: { value: '{fontWeights.normal}' },
-        fontSize: { value: '{fontSizes.medium}' },
-        backgroundColor: { value: '{colors.blue.80}' },
-        paddingVertical: { value: '{space.small}' },
-        paddingHorizontal: { value: '{space.medium}' },
-        borderRadius: { value: '{radii.small}' },
-
-        // Variations
-        success: {
-          color: { value: '{colors.black}' },
-          backgroundColor: { value: '{colors.green.60}' },
-        },
-
-        // Sizes
+  components: {
+    badge: {
+      // background: 'linear-gradient(90deg, {colors.brand.secondary.60} 0%, rgba(9,9,121,1) 35%, {colors.brand.secondary.90} 100%)',
+      border: '10px solid ',
+      borderColor: '{colors.brand.secondary.60}',
+      size: {
         large: {
-          fontSize: { value: '{fontSizes.xxl}' },
+          background: '{colors.brand.primary.60}',
         },
       },
     },
   },
+  // tokens: {
+  //   components: {
+  //     badge: {
+  //       // Default styles
+  //       color: { value: '{colors.white}' },
+  //       fontWeight: { value: '{fontWeights.normal}' },
+  //       fontSize: { value: '{fontSizes.medium}' },
+  //       backgroundColor: { value: '{colors.blue.80}' },
+  //       paddingVertical: { value: '{space.small}' },
+  //       paddingHorizontal: { value: '{space.medium}' },
+  //       borderRadius: { value: '{radii.small}' },
+
+  //       // Variations
+  //       success: {
+  //         color: { value: '{colors.black}' },
+  //         backgroundColor: { value: '{colors.green.60}' },
+  //       },
+
+  //       // Sizes
+  //       large: {
+  //         fontSize: { value: '{fontSizes.xxl}' },
+  //       },
+  //     },
+  //   },
+  // },
 };
 
 export const BadgeThemeExample = () => (

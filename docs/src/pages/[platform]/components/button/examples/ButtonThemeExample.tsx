@@ -2,6 +2,17 @@ import { Button, Flex, ThemeProvider, Theme } from '@aws-amplify/ui-react';
 
 const theme: Theme = {
   name: 'button-theme',
+  components: {
+    button: {
+      variation: {
+        primary: {
+          _hover: {
+            background: 'pink',
+          },
+        },
+      },
+    },
+  },
   tokens: {
     colors: {
       border: {
