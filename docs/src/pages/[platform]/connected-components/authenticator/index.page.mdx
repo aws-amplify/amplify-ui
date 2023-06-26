@@ -31,28 +31,20 @@ export async function getStaticProps() {
 
 ## Quick start
 
-<AppDirectoryAlert />
-
-### Step 1. Configure backend
-
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-pull.${platform}.mdx`)}
+<Fragment platforms={['react']}>
+  {({ platform }) => import('@/components/AppDirectoryAlert')}
 </Fragment>
 
-### Step 2. Install dependencies
-
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-install.${platform}.mdx`)}
+<Fragment platforms={['android','flutter','react','react-native','swift']}>
+  {({ platform }) => import('./quick-start.mdx')}
 </Fragment>
 
-### Step 3. Add the Authenticator
-
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./quick-start-add.${platform}.mdx`)}
+<Fragment platforms={['angular']}>
+  {({ platform }) => import('./quick-start.angular.mdx')}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web']}>
-  {({ platform }) => import(`./trouble-shooting-alert.${platform}.mdx`)}
+<Fragment platforms={['vue']}>
+  {({ platform }) => import('./quick-start.vue.mdx')}
 </Fragment>
 
 <NextSteps />

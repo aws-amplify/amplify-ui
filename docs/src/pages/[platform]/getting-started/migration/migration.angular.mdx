@@ -1,6 +1,44 @@
 import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 
+## 3.x to 4.x
+### Installation
+Install the 4.x version of the `@aws-amplify/ui-angular` library.
+
+<Tabs>
+<TabItem title="npm">
+<TerminalCommand command="npm install @aws-amplify/ui-angular@4.x" />
+</TabItem>
+<TabItem title="yarn">
+<TerminalCommand command="yarn add @aws-amplify/ui-angular@4.x" />
+</TabItem>
+</Tabs>
+
+### Update and usage
+
+`@aws-amplify/ui-angular@4.x` introduces the following breaking changes:
+
+#### 1. `@aws-amplify/ui-angular@4.x` bumps minimum Angular version to 14
+
+If your application is on Angular 13 or older, please migrate to Angular 14+ as per [official guide](https://update.angular.io).
+
+#### 2. `@aws-amplify/ui-angular@4.x` requires `@aws-amplify/ui-angular/theme.css` to be imported via `angular.json`
+
+Previous version of `@aws-amplify/ui-angular` required `@aws-amplify/ui-angular/theme.css` to be in your global CSS file. To migrate, you should first remove the style import from your global CSS:
+
+```diff
+- @import '~@aws-amplify/ui-angular/theme.css';
+```
+
+Then open your `angular.json` file, and add `node_modules/@aws-amplify/ui-angular/theme.css` to `styles` array. This array is located in `projects.<project-name>.architect.build.options`.
+
+```diff
+"styles": [
++ "node_modules/@aws-amplify/ui-angular/theme.css",
+  "src/styles.css"
+],
+```
+
 ## 2.x to 3.x
 ### Installation
 Install the 3.x version of the `@aws-amplify/ui-angular` library and the 5.x version of the `aws-amplify` library.
@@ -118,7 +156,7 @@ export class AppModule {}
 For more details on how to use the components, please see the [v1 documentation](https://github.com/aws-amplify/amplify-ui/tree/legacy/legacy/amplify-ui-angular).
 
 ## 1.x to 2.x
-## Installation
+### Installation
 
 Install the 2.x version of the `@aws-amplify/ui-angular` library.
 
@@ -168,7 +206,7 @@ You'll also have to import the styles in the `styles.css` file.
 @import '~@aws-amplify/ui-angular/theme.css';
 ```
 
-## Usage
+### Usage
 
 Using the `Authenticator` component is similar to the `1.x` usage.
 
@@ -196,7 +234,7 @@ Below is an example of how to create an Authenticator.
 
 ```
 
-## Breaking changes
+### Breaking changes
 
 The 2.x version of the `Authenticator` component has several differences from earlier versions. Here are a few of the major changes that you'll need to look out for.
 

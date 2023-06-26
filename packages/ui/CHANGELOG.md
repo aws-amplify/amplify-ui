@@ -1,5 +1,19 @@
 # @aws-amplify/ui
 
+## 5.6.5
+
+### Patch Changes
+
+- [#4108](https://github.com/aws-amplify/amplify-ui/pull/4108) [`3cecd0765`](https://github.com/aws-amplify/amplify-ui/commit/3cecd0765b46c77c49af24fae7cfb9054ebe2cdb) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix linear loader size bug
+
+  The linear loader was too big after #1331, this fixes it
+
+## 5.6.4
+
+### Patch Changes
+
+- [#3923](https://github.com/aws-amplify/amplify-ui/pull/3923) [`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd) Thanks [@reesscot](https://github.com/reesscot)! - fix (authenticator): fix translations for enter your email
+
 ## 5.6.3
 
 ### Patch Changes

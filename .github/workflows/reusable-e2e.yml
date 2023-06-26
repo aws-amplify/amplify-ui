@@ -154,9 +154,21 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-core-notifications build
+
       - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
+
+      - name: Build react-notifications package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-notifications build
+
+      - name: Build react-geo package
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react-geo build
 
       - name: Build react-storage package
         if: ${{ matrix.package == 'react' }}
@@ -329,6 +341,7 @@ jobs:
           packages: |
             packages/react-native
             packages/react-core
+            packages/react-core-notifications
             packages/ui
             packages/e2e
 
@@ -384,6 +397,10 @@ jobs:
       - name: Build react-core package
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn react-core-notifications build
+
       - name: Build react-native package
         run: yarn react-native build
 
@@ -431,7 +448,7 @@ jobs:
         run: yarn e2e detox:build:ios:debug
 
       - name: Run E2E tests against react-native example
-        run: yarn e2e detox:e2e:ios:debug
+        run: yarn e2e detox:e2e:ios:debug --retry 1 --fail-fast
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -492,6 +509,9 @@ jobs:
       - name: Build react-core package
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        run: yarn react-core-notifications build
+
       - name: Build react-native package
         run: yarn react-native build
 
@@ -526,24 +546,31 @@ jobs:
 
       - name: Install emulator
         run: |
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools
+          brew install coreutils
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools 'platforms;android-27'
           echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
           echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
-          printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
           printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
           printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
 
       - name: Start Android emulator
         run: |
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
-          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          function configure_emulator() {
+            local port=$1
+
+            nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port "$port" -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+            timeout 5m $ANDROID_HOME/platform-tools/adb -s "emulator-$port" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put secure spell_checker_enabled 0
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global window_animation_scale 0.0
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global transition_animation_scale 0.0
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global animator_duration_scale 0.0
+          }
+
+          configure_emulator 5554
+          configure_emulator 5556
+
           $ANDROID_HOME/platform-tools/adb devices
-          # disable spell checker
-          $ANDROID_HOME/platform-tools/adb shell settings put secure spell_checker_enabled 0
-          # disable animations
-          $ANDROID_HOME/platform-tools/adb shell settings put global window_animation_scale 0.0
-          $ANDROID_HOME/platform-tools/adb shell settings put global transition_animation_scale 0.0
-          $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
 
       - name: Start Metro Bundler in background
         run: yarn react-native-example dev --reset-cache &
@@ -553,10 +580,7 @@ jobs:
 
       - name: Run E2E tests against react-native example
         run: |
-          # all network requests going from the device on this port will be forwarded to the virtual machine where the mock server is running
-          $ANDROID_HOME/platform-tools/adb reverse tcp:9091 tcp:9091
-          yarn e2e detox:e2e:android:debug
-
+          DETOX_HEADLESS=true yarn e2e detox:e2e:android:debug --retry 1 --fail-fast --parallel 2
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -636,8 +660,17 @@ jobs:
       - name: Build react-core package
         run: yarn react-core build
 
+      - name: Build react-core-notifications package
+        run: yarn react-core-notifications build
+
       - name: Build react package
         run: yarn react build
+
+      - name: Build react-notifications package
+        run: yarn react-notifications build
+
+      - name: Build react-geo package
+        run: yarn react-geo build
 
       - name: Build react-storage package
         run: yarn react-storage build

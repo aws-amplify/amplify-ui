@@ -1,6 +1,6 @@
 import { PromisePool } from '@supercharge/promise-pool';
 import { sitePaths } from '../src/data/sitePaths';
-import { checkLink, crawlAllLinks } from './util';
+import { checkLink, crawlAllLinks, isInternalLink } from './util';
 import type { LinkInfo } from './util';
 import {
   DEFAULT_GOOD_STATUS_CODES,
@@ -16,7 +16,6 @@ const end = process.argv[3];
 const testPaths = end ? sitePaths.slice(+start, +end) : sitePaths.slice(+start);
 
 function reportResult(links: LinkInfo[]) {
-  const isInternalLink = (link) => link.includes('http://localhost:3000');
   const errorLinks = links.filter((link) => {
     const isInternalRedirection =
       link.statusCode === 308 && isInternalLink(link.href);
@@ -51,7 +50,14 @@ function reportResult(links: LinkInfo[]) {
         }
       }
     );
-    throw new Error(`${errorLinks.length} broken links found`);
+    const failedLinks = errorLinks.filter((link) => link.statusCode >= 400);
+    if (failedLinks.length) {
+      throw new Error(`${failedLinks.length} broken links were found`);
+    } else {
+      console.warn(
+        `⚠️ Found ${errorLinks.length} links with errors. Please update them.`
+      );
+    }
   } else {
     console.log('🎉 All links look good!');
   }

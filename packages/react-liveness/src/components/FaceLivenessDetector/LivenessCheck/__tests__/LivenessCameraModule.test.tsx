@@ -270,7 +270,7 @@ describe('LivenessCameraModule', () => {
     expect(matchIndicator).toHaveLength(0);
   });
 
-  it('should not render MatchIndicator when isRecording and faceMatchState is MATCHED', async () => {
+  it('should render MatchIndicator when isRecording and faceMatchState is MATCHED', async () => {
     isRecording = true;
     mockStateMatchesAndSelectors();
     mockUseLivenessSelector
@@ -296,7 +296,7 @@ describe('LivenessCameraModule', () => {
     const matchIndicator = cameraModule.getElementsByClassName(
       LivenessClassNames.MatchIndicator
     );
-    expect(matchIndicator).toHaveLength(0);
+    expect(matchIndicator).toHaveLength(1);
   });
 
   it('should not render MatchIndicator when isRecording and faceMatchState is TOO_MANY', async () => {

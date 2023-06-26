@@ -3,6 +3,7 @@ import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 
 import { InstallScripts } from '@/components/InstallScripts';
 import { DeveloperPreview } from './DeveloperPreview';
+import { Fragment } from '@/components/Fragment';
 
 <DeveloperPreview />
 
@@ -14,7 +15,10 @@ Account Settings components are a set of standalone components that add [user ma
 
 ## Quick Start
 
-<AppDirectoryAlert />
+<Fragment platforms={['react']}>
+  {({ platform }) => import('@/components/AppDirectoryAlert')}
+</Fragment>
+
 
 ### Step 1. Configure Backend
 

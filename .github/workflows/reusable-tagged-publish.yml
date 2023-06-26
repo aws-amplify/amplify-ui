@@ -36,8 +36,6 @@ jobs:
           skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
         run: yarn build
-      - name: Set liveness package to be public
-        run: yarn setLivenessPublic
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset

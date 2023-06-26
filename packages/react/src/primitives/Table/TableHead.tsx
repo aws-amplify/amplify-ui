@@ -2,7 +2,12 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { Primitive, TableHeadProps } from '../types';
+import {
+  ForwardRefPrimitive,
+  Primitive,
+  BaseTableHeadProps,
+  TableHeadProps,
+} from '../types';
 import { View } from '../View';
 
 const TableHeadPrimitive: Primitive<TableHeadProps, 'thead'> = (
@@ -19,6 +24,7 @@ const TableHeadPrimitive: Primitive<TableHeadProps, 'thead'> = (
   </View>
 );
 
-export const TableHead = React.forwardRef(TableHeadPrimitive);
+export const TableHead: ForwardRefPrimitive<BaseTableHeadProps, 'thead'> =
+  React.forwardRef(TableHeadPrimitive);
 
 TableHead.displayName = 'TableHead';

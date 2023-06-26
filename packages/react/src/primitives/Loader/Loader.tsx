@@ -3,8 +3,8 @@ import classNames from 'classnames';
 
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
-import { LoaderProps } from '../types/loader';
-import { Primitive } from '../types/view';
+import { BaseLoaderProps, LoaderProps } from '../types/loader';
+import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { View } from '../View';
 
 export const LINEAR_EMPTY = 'linear-empty';
@@ -148,6 +148,7 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/loader)
  */
-export const Loader = React.forwardRef(LoaderPrimitive);
+export const Loader: ForwardRefPrimitive<BaseLoaderProps, 'svg'> =
+  React.forwardRef(LoaderPrimitive);
 
 Loader.displayName = 'Loader';
