@@ -17,7 +17,6 @@ const props = withDefaults(defineProps<BaseFormField>(), {
 });
 
 const { name, formField } = toRefs(props);
-console.error({ name: name.value, formField: formField.value });
 
 const { validationErrors } = toRefs(useAuthenticator());
 

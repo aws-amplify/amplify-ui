@@ -21,7 +21,6 @@ let formFields: FormFieldsArray = [];
 
 onBeforeMount(() => {
   formFields = getSortedFormFields(route.value, state.value);
-  console.error(formFields);
 });
 </script>
 <template>

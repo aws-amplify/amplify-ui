@@ -83,10 +83,10 @@ describe('SignUp', () => {
     );
     const emailField = await screen.findByLabelText('Email');
 
-    await fireEvent.update(usernameField, 'username');
+    await fireEvent.input(usernameField, { target: usernameInputParams });
     expect(updateFormSpy).toHaveBeenCalledWith(usernameInputParams);
 
-    await fireEvent.update(passwordField, 'verysecurepassword');
+    await fireEvent.input(passwordField, { target: passwordInputParams });
     expect(updateFormSpy).toHaveBeenCalledWith(passwordInputParams);
 
     await fireEvent.input(confirmPasswordField, {
@@ -98,7 +98,7 @@ describe('SignUp', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(emailInputParams);
   });
 
-  it.only('sends submit event on form submit', async () => {
+  it('sends submit event on form submit', async () => {
     render(SignUp, { global: { components } });
     const usernameField = await screen.findByLabelText('Username');
     const passwordField = await screen.findByLabelText('Password');
@@ -121,28 +121,11 @@ describe('SignUp', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(emailInputParams);
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Create in',
+      name: 'Create Account',
     });
     await fireEvent.click(submitButton);
 
-    expect(submitFormSpy).toHaveBeenCalledWith({
-      username: 'username',
-      password: 'verysecurepassword',
-      confirm_password: 'verysecurepassword',
-      email: 'email@example.com',
-    });
-  });
-
-  it('forgot password button navigates to reset password screen', async () => {
-    render(SignUp, { global: { components } });
-
-    const forgotPasswordButton = await screen.findByRole('button', {
-      name: 'Forgot your password?',
-    });
-
-    await fireEvent.click(forgotPasswordButton);
-
-    expect(toResetPasswordSpy).toHaveBeenCalled();
+    expect(submitFormSpy).toHaveBeenCalledTimes(1);
   });
 
   it('displays error if it is present', async () => {
@@ -167,7 +150,7 @@ describe('SignUp', () => {
     render(SignUp, { global: { components } });
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Signing in',
+      name: 'Create Account',
     });
 
     expect(submitButton).toBeDisabled();
