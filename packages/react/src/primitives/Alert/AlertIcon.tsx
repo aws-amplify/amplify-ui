@@ -2,12 +2,8 @@ import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { AlertVariations } from '../types';
-import {
-  IconInfo,
-  IconError,
-  IconWarning,
-  IconCheckCircle,
-} from '../Icon/internal';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 interface AlertIconProps {
   variation?: AlertVariations;
@@ -21,37 +17,19 @@ export const AlertIcon: React.FC<AlertIconProps> = ({
   variation,
   ariaHidden,
 }) => {
-  switch (variation) {
-    case 'info':
-      return (
-        <IconInfo
-          aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
-        />
-      );
-    case 'error':
-      return (
-        <IconError
-          aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
-        />
-      );
-    case 'warning':
-      return (
-        <IconWarning
-          aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
-        />
-      );
-    case 'success':
-      return (
-        <IconCheckCircle
-          aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
-        />
-      );
-    default:
-      return null;
+  const { icons } = useTheme();
+  if (variation) {
+    const icon = icons.alert[variation];
+
+    return (
+      <Icon
+        {...icon}
+        aria-hidden={ariaHidden}
+        className={ComponentClassNames.AlertIcon}
+      />
+    );
+  } else {
+    return null;
   }
 };
 

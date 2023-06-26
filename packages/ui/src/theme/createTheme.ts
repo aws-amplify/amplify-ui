@@ -49,7 +49,7 @@ export function createTheme(
     setupToken,
   }) as WebTheme['tokens']; // Setting the type here because setupTokens is recursive
 
-  const { breakpoints, name } = mergedTheme;
+  const { breakpoints, name, icons } = mergedTheme as unknown as WebTheme;
 
   // flattenProperties is another internal Style Dictionary function
   // that creates an array of all tokens.
@@ -113,6 +113,7 @@ export function createTheme(
   return {
     tokens,
     breakpoints,
+    icons,
     name,
     cssText,
     // keep overrides separate from base theme

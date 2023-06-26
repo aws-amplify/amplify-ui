@@ -1,6 +1,7 @@
 import { PartialDeep } from '../types';
 import { DefaultTokens, Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
+import { DefaultIcons, Icons, WebIcons } from './icons';
 
 export * from './tokens/types/designToken';
 export type { BorderWidths } from './tokens/borderWidths';
@@ -101,6 +102,7 @@ export interface Theme {
    * multiple themes on a page.
    */
   name: string;
+  icons?: Icons;
   tokens?: Tokens;
   breakpoints?: PartialDeep<Breakpoints>;
   /**
@@ -117,6 +119,7 @@ export interface Theme {
  */
 export interface DefaultTheme extends Pick<Theme, 'name' | 'overrides'> {
   tokens: DefaultTokens;
+  icons: DefaultIcons;
   breakpoints: Breakpoints;
 }
 
@@ -131,4 +134,5 @@ export interface WebTheme
   // property `components` is not specified on `WebTokens`,
   // but is a required token property of `WebTheme`
   tokens: WebTokens;
+  icons: WebIcons;
 }
