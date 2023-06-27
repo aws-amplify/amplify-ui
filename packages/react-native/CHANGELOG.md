@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.20
+
+### Patch Changes
+
+- [#4168](https://github.com/aws-amplify/amplify-ui/pull/4168) [`d930e2ed1`](https://github.com/aws-amplify/amplify-ui/commit/d930e2ed17f3e638e2b62699ba2dd164b32f8118) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(RWA/RNA): deprecate passwordSettings prop
+
+- Updated dependencies [[`b0e16e78c`](https://github.com/aws-amplify/amplify-ui/commit/b0e16e78c6a41945aa79f3e14fa3f9e6cb0e5e76), [`d930e2ed1`](https://github.com/aws-amplify/amplify-ui/commit/d930e2ed17f3e638e2b62699ba2dd164b32f8118)]:
+  - @aws-amplify/ui@5.6.6
+  - @aws-amplify/ui-react-core@2.1.25
+  - @aws-amplify/ui-react-core-notifications@1.0.2
+
 ## 1.2.19
 
 ### Patch Changes

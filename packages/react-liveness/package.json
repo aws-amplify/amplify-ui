@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-liveness",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -48,8 +48,8 @@
     "react-dom": ">= 16.14.0"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.6.5",
-    "@aws-amplify/ui-react": "5.0.2",
+    "@aws-amplify/ui": "5.6.6",
+    "@aws-amplify/ui-react": "5.0.3",
     "@aws-sdk/client-rekognitionstreaming": "3.348.0",
     "@tensorflow-models/blazeface": "0.0.7",
     "@tensorflow/tfjs-backend-cpu": "3.11.0",

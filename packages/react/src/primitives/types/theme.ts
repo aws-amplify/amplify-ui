@@ -1,4 +1,5 @@
 import type {
+  BorderWidths,
   FontSizes,
   FontWeights,
   LineHeights,
@@ -167,6 +168,8 @@ type ShadowColorKeys =
   | 'shadow.secondary'
   | 'shadow.tertiary';
 
+export type BorderWidthKeys<PropertyType> = PropertyType | keyof BorderWidths;
+
 export type ColorKeys<PropertyType> =
   | PropertyType
   | WhiteKey
@@ -246,7 +249,9 @@ export const isThemeStylePropKey = (key: string): key is ThemeStylePropKey => {
 
 export type ThemeStylePropKey =
   | 'backgroundColor'
+  | 'borderColor'
   | 'borderRadius'
+  | 'borderWidth'
   | 'bottom'
   | 'boxShadow'
   | 'color'
