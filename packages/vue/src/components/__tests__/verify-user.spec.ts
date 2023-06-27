@@ -2,7 +2,12 @@ import { reactive, Ref, ref } from 'vue';
 import { fireEvent, render, screen } from '@testing-library/vue';
 
 import * as UIModule from '@aws-amplify/ui';
-import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
+import {
+  AuthenticatorServiceFacade,
+  AuthInterpreter,
+  AuthMachineState,
+  UnverifiedContactMethods,
+} from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
@@ -29,11 +34,11 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 const updateFormSpy = jest.fn();
 const submitFormSpy = jest.fn();
 const skipVerificationSpy = jest.fn();
-const unverifiedContactMethods: UIModule.UnverifiedContactMethods = {
+const unverifiedContactMethods: UnverifiedContactMethods = {
   email: 'test@example.com',
 };
 
-const mockServiceFacade: UIModule.AuthenticatorServiceFacade = {
+const mockServiceFacade: AuthenticatorServiceFacade = {
   ...baseMockServiceFacade,
   route: 'verifyUser',
   updateForm: updateFormSpy,

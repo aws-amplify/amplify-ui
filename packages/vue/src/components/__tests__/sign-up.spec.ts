@@ -2,7 +2,11 @@ import { reactive, Ref, ref } from 'vue';
 import { fireEvent, render, screen } from '@testing-library/vue';
 
 import * as UIModule from '@aws-amplify/ui';
-import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
+import {
+  AuthenticatorServiceFacade,
+  AuthInterpreter,
+  AuthMachineState,
+} from '@aws-amplify/ui';
 
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
@@ -23,7 +27,7 @@ const updateFormSpy = jest.fn();
 const updateBlurSpy = jest.fn();
 const submitFormSpy = jest.fn();
 
-const mockServiceFacade = {
+const mockServiceFacade: AuthenticatorServiceFacade = {
   ...baseMockServiceFacade,
   route: 'signIn',
   updateBlur: updateBlurSpy,
