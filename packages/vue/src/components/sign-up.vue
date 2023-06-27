@@ -31,9 +31,11 @@ const createAccountLabel = computed(() => getCreateAccountText());
 const onInput = (e: Event): void => {
   let { checked, name, type, value } = e.target as HTMLInputElement;
 
-  if (type === 'checkbox' && !checked)
-    (value as string | undefined) = undefined;
-  updateForm({ name, value });
+  const isUncheckedCheckbox = type === 'checkbox' && !checked;
+  updateForm({
+    name,
+    value: isUncheckedCheckbox ? undefined : (value as string),
+  });
 };
 
 function onBlur(e: Event) {
@@ -84,8 +86,9 @@ const onSignUpSubmit = (e: Event): void => {
             :variation="'primary'"
             style="border-radius: 0px; font-weight: normal"
             :disabled="isPending || hasValidationErrors"
-            >{{ createAccountLabel }}</amplify-button
           >
+            {{ createAccountLabel }}
+          </amplify-button>
         </base-wrapper>
       </base-form>
     </base-wrapper>

@@ -20,15 +20,15 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 });
 
 const updateFormSpy = jest.fn();
+const updateBlurSpy = jest.fn();
 const submitFormSpy = jest.fn();
-const toResetPasswordSpy = jest.fn();
 
 const mockServiceFacade = {
   ...baseMockServiceFacade,
   route: 'signIn',
+  updateBlur: updateBlurSpy,
   updateForm: updateFormSpy,
   submitForm: submitFormSpy,
-  toResetPassword: toResetPasswordSpy,
 };
 
 const useAuthenticatorSpy = jest
@@ -39,11 +39,15 @@ jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
   country_code: '+1',
 });
 
-jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
+const baseSignUpFormFields: UIModule.FormFieldsArray = [
   ['username', { label: 'Username', placeholder: 'Enter your Username' }],
   [
     'password',
-    { label: 'Password', placeholder: 'Enter your Password', type: 'password' },
+    {
+      label: 'Password',
+      placeholder: 'Enter your Password',
+      type: 'password',
+    },
   ],
   [
     'confirm_password',
@@ -54,7 +58,11 @@ jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
     },
   ],
   ['email', { label: 'Email', placeholder: 'Enter your Email' }],
-]);
+];
+
+const getSortedFormFIeldsSpy = jest
+  .spyOn(UIModule, 'getSortedFormFields')
+  .mockReturnValue(baseSignUpFormFields);
 
 const usernameInputParams = { name: 'username', value: 'username' };
 const passwordInputParams = { name: 'password', value: 'verysecurepassword' };
@@ -63,6 +71,10 @@ const confirmPasswordInputParams = {
   value: 'verysecurepassword',
 };
 const emailInputParams = { name: 'email', value: 'email@example.com' };
+const checkboxInputParams = {
+  name: 'mycheckbox',
+  value: 'checkboxvalue',
+};
 
 describe('SignUp', () => {
   beforeEach(() => {
@@ -74,7 +86,7 @@ describe('SignUp', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('sends change event on form input', async () => {
+  it('handles change events', async () => {
     render(SignUp, { global: { components } });
     const usernameField = await screen.findByLabelText('Username');
     const passwordField = await screen.findByLabelText('Password');
@@ -98,7 +110,37 @@ describe('SignUp', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(emailInputParams);
   });
 
-  it('sends submit event on form submit', async () => {
+  it('handles blur event', async () => {
+    render(SignUp, { global: { components } });
+    const usernameField = await screen.findByLabelText('Username');
+
+    await fireEvent.blur(usernameField);
+    expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'username' });
+  });
+
+  it('handles checkbox event', async () => {
+    getSortedFormFIeldsSpy.mockReturnValueOnce([
+      ['mycheckbox', { label: 'My Checkbox', type: 'checkbox' }],
+    ]);
+    render(SignUp, { global: { components } });
+
+    const checkboxField = await screen.findByLabelText('My Checkbox');
+
+    // check the checkbox
+    await fireEvent.click(checkboxField, { target: checkboxInputParams });
+    expect(updateFormSpy).toHaveBeenCalledWith({
+      name: 'mycheckbox',
+      value: 'checkboxvalue',
+    });
+
+    // uncheck the checkbox. Value should be undefined.
+    await fireEvent.click(checkboxField, { target: checkboxInputParams });
+    expect(updateFormSpy).toHaveBeenCalledWith({
+      name: 'mycheckbox',
+    });
+  });
+
+  it('handles submit event', async () => {
     render(SignUp, { global: { components } });
     const usernameField = await screen.findByLabelText('Username');
     const passwordField = await screen.findByLabelText('Password');
@@ -140,7 +182,7 @@ describe('SignUp', () => {
     expect(await screen.findByText('mockError')).toBeInTheDocument();
   });
 
-  it('disables the submit button if sign in is pending', async () => {
+  it('disables the submit button if sign up is pending', async () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
         ...mockServiceFacade,
