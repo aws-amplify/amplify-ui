@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
 import {
+  AuthenticatorServiceFacade,
   authenticatorTextUtil,
   getFormDataFromEvent,
   translate,
@@ -15,7 +16,7 @@ const attrs = useAttrs();
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
 // `useAuthenticator` is casted for temporary type safety on this file.
-const props = useAuthenticator();
+const props = useAuthenticator() as AuthenticatorServiceFacade;
 const { codeDeliveryDetails, error, isPending } = toRefs(props);
 const { resendCode, submitForm, updateForm } = props;
 
