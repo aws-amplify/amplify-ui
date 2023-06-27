@@ -51,6 +51,8 @@ const submit = (e: Event): void => {
 };
 
 const onSkipClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onSkipClicked) {
     emit('skipClicked');
   } else {
