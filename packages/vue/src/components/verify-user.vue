@@ -84,6 +84,7 @@ const onSkipClicked = (): void => {
           <base-wrapper
             class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
           >
+            <!-- TODO(BREAKING): remove hard coded string 493c -->
             <base-label
               class="amplify-visually-hidden amplify-label"
               id="amplify-field-493c"

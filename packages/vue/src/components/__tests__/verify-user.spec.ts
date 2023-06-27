@@ -7,7 +7,7 @@ import { AuthInterpreter, AuthMachineState } from '@aws-amplify/ui';
 import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
 import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
-import ConfirmSignUp from '../confirm-sign-up.vue';
+import VerifyUser from '../verify-user.vue';
 
 // mock random value so that snapshots are consistent
 jest.spyOn(Math, 'random').mockReturnValue(0.1);
@@ -28,14 +28,18 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 
 const updateFormSpy = jest.fn();
 const submitFormSpy = jest.fn();
-const resendCodeSpy = jest.fn();
+const skipVerificationSpy = jest.fn();
+const unverifiedContactMethods: UIModule.UnverifiedContactMethods = {
+  email: 'test@example.com',
+};
 
-const mockServiceFacade = {
+const mockServiceFacade: UIModule.AuthenticatorServiceFacade = {
   ...baseMockServiceFacade,
-  route: 'confirmSignUp',
+  route: 'verifyUser',
   updateForm: updateFormSpy,
+  skipVerification: skipVerificationSpy,
   submitForm: submitFormSpy,
-  resendCode: resendCodeSpy,
+  unverifiedContactMethods,
 };
 
 const useAuthenticatorSpy = jest
@@ -46,51 +50,51 @@ jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
   country_code: '+1',
 });
 
-jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
-  [
-    'confirmation_code',
-    {
-      label: 'Confirmation Code',
-      placeholder: 'Enter your code',
-      type: 'number',
-    },
-  ],
-]);
-
-const codeInputParams = { name: 'confirmation_code', value: '123456' };
-
-describe('ConfirmSignUp', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
+describe('VerifyUser', () => {
   it('renders as expected', () => {
-    const { container } = render(ConfirmSignUp, { global: { components } });
+    const { container } = render(VerifyUser, { global: { components } });
     expect(container).toMatchSnapshot();
   });
 
   it('handles change events', async () => {
-    render(ConfirmSignUp, { global: { components } });
+    render(VerifyUser, { global: { components } });
 
-    const codeField = await screen.findByLabelText('Confirmation Code');
+    const checkboxField = await screen.findByLabelText('Email');
 
-    await fireEvent.input(codeField, { target: codeInputParams });
-    expect(updateFormSpy).toHaveBeenCalledWith(codeInputParams);
+    await fireEvent.click(checkboxField);
+    expect(updateFormSpy).toHaveBeenCalledWith({
+      name: 'unverifiedAttr',
+      value: 'email',
+    });
   });
 
   it('handles submit event', async () => {
-    render(ConfirmSignUp, { global: { components } });
+    render(VerifyUser, { global: { components } });
 
-    const codeField = await screen.findByLabelText('Confirmation Code');
+    const checkboxField = await screen.findByLabelText('Email');
 
-    await fireEvent.input(codeField, { target: codeInputParams });
-    expect(updateFormSpy).toHaveBeenCalledWith(codeInputParams);
-
-    const submitButton = await screen.findByRole('button', {
-      name: 'Confirm',
+    await fireEvent.click(checkboxField);
+    expect(updateFormSpy).toHaveBeenCalledWith({
+      name: 'unverifiedAttr',
+      value: 'email',
     });
+
+    const submitButton = await screen.findByRole('button', { name: 'Verify' });
     await fireEvent.click(submitButton);
+
     expect(submitFormSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('handles skip verification', async () => {
+    render(VerifyUser, { global: { components } });
+
+    const skipButton = await screen.findByRole('button', {
+      name: 'Skip',
+    });
+
+    await fireEvent.click(skipButton);
+
+    expect(skipVerificationSpy).toHaveBeenCalledTimes(1);
   });
 
   it('displays error if it is present', async () => {
@@ -100,32 +104,24 @@ describe('ConfirmSignUp', () => {
         error: 'mockError',
       })
     );
-    render(ConfirmSignUp, { global: { components } });
+    render(VerifyUser, { global: { components } });
 
     expect(await screen.findByText('mockError')).toBeInTheDocument();
   });
 
-  it('handles resend code', async () => {
-    render(ConfirmSignUp, { global: { components } });
-
-    const resendCodeButton = await screen.findByRole('button', {
-      name: 'Resend Code',
-    });
-
-    await fireEvent.click(resendCodeButton);
-
-    expect(resendCodeSpy).toHaveBeenCalledTimes(1);
-  });
-
-  it('disables the submit button if if sign up is pending', async () => {
-    useAuthenticatorSpy.mockReturnValue(
-      reactive({ ...mockServiceFacade, isPending: true })
+  it('disables the submit button if sign up is pending', async () => {
+    useAuthenticatorSpy.mockReturnValueOnce(
+      reactive({
+        ...mockServiceFacade,
+        isPending: true,
+      })
     );
-    render(ConfirmSignUp, { global: { components } });
+    render(VerifyUser, { global: { components } });
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Confirm',
+      name: 'Verify',
     });
+
     expect(submitButton).toBeDisabled();
   });
 });

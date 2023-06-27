@@ -39,30 +39,28 @@ jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
   country_code: '+1',
 });
 
-const baseSignUpFormFields: UIModule.FormFieldsArray = [
-  ['username', { label: 'Username', placeholder: 'Enter your Username' }],
-  [
-    'password',
-    {
-      label: 'Password',
-      placeholder: 'Enter your Password',
-      type: 'password',
-    },
-  ],
-  [
-    'confirm_password',
-    {
-      label: 'Confirm Password',
-      placeholder: 'Please your Password',
-      type: 'password',
-    },
-  ],
-  ['email', { label: 'Email', placeholder: 'Enter your Email' }],
-];
-
-const getSortedFormFIeldsSpy = jest
+const getSortedFormFieldsSpy = jest
   .spyOn(UIModule, 'getSortedFormFields')
-  .mockReturnValue(baseSignUpFormFields);
+  .mockReturnValue([
+    ['username', { label: 'Username', placeholder: 'Enter your Username' }],
+    [
+      'password',
+      {
+        label: 'Password',
+        placeholder: 'Enter your Password',
+        type: 'password',
+      },
+    ],
+    [
+      'confirm_password',
+      {
+        label: 'Confirm Password',
+        placeholder: 'Please your Password',
+        type: 'password',
+      },
+    ],
+    ['email', { label: 'Email', placeholder: 'Enter your Email' }],
+  ]);
 
 const usernameInputParams = { name: 'username', value: 'username' };
 const passwordInputParams = { name: 'password', value: 'verysecurepassword' };
@@ -119,7 +117,7 @@ describe('SignUp', () => {
   });
 
   it('handles checkbox event', async () => {
-    getSortedFormFIeldsSpy.mockReturnValueOnce([
+    getSortedFormFieldsSpy.mockReturnValueOnce([
       ['mycheckbox', { label: 'My Checkbox', type: 'checkbox' }],
     ]);
     render(SignUp, { global: { components } });
@@ -158,6 +156,7 @@ describe('SignUp', () => {
     await fireEvent.input(confirmPasswordField, {
       target: confirmPasswordInputParams,
     });
+    expect(updateFormSpy).toHaveBeenCalledWith(confirmPasswordInputParams);
 
     await fireEvent.input(emailField, { target: emailInputParams });
     expect(updateFormSpy).toHaveBeenCalledWith(emailInputParams);
