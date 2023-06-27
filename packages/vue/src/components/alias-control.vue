@@ -71,7 +71,7 @@ const randomPhone = Math.floor(Math.random() * 999999);
               autocomplete="tel-country-code"
               aria-label="country code"
               name="country_code"
-              :options="dialCodeList"
+              :options="dialCodeList!"
               :select-value="dialCode"
             >
             </base-select>
