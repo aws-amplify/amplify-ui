@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- [#4161](https://github.com/aws-amplify/amplify-ui/pull/4161) [`b0e16e78c`](https://github.com/aws-amplify/amplify-ui/commit/b0e16e78c6a41945aa79f3e14fa3f9e6cb0e5e76) Thanks [@hbuchel](https://github.com/hbuchel)! - Add `borderColor`, `borderWidth`, and `borderStyle` style props
+- [#4161](https://github.com/aws-amplify/amplify-ui/pull/4161) [`b0e16e78c`](https://github.com/aws-amplify/amplify-ui/commit/b0e16e78c6a41945aa79f3e14fa3f9e6cb0e5e76) Thanks [@judygab](https://github.com/judygab)! - Add `borderColor`, `borderWidth`, and `borderStyle` style props
 
 - [#4168](https://github.com/aws-amplify/amplify-ui/pull/4168) [`d930e2ed1`](https://github.com/aws-amplify/amplify-ui/commit/d930e2ed17f3e638e2b62699ba2dd164b32f8118) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(RWA/RNA): deprecate passwordSettings prop
 
