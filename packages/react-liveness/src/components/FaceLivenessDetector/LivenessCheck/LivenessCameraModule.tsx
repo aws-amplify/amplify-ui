@@ -63,6 +63,13 @@ const centeredLoader = (
   />
 );
 
+/**
+ * For now we want to memoize the HOC for MatchIndicator because to optimize renders
+ * The LivenessCameraModule still needs to be optimized for re-renders and at that time
+ * we shoudl be able to remove this memoization
+ */
+const MemoizedMatchIndicator = React.memo(MatchIndicator);
+
 export const LivenessCameraModule = (
   props: LivenessCameraModuleProps
 ): JSX.Element => {
@@ -154,10 +161,6 @@ export const LivenessCameraModule = (
     setIsCameraReady(true);
     setCountDownRunning(true);
   };
-
-  const memoizedMatchIndicator = React.useMemo(() => {
-    return <MatchIndicator percentage={Math.ceil(faceMatchPercentage!)} />;
-  }, [faceMatchPercentage]);
 
   if (isCheckingCamera) {
     return (
@@ -256,9 +259,11 @@ export const LivenessCameraModule = (
             */}
             {isRecording &&
             !isFlashingFreshness &&
-            showMatchIndicatorStates.includes(faceMatchState!)
-              ? memoizedMatchIndicator
-              : null}
+            showMatchIndicatorStates.includes(faceMatchState!) ? (
+              <MemoizedMatchIndicator
+                percentage={Math.ceil(faceMatchPercentage!)}
+              />
+            ) : null}
 
             {isNotRecording && (
               <View
