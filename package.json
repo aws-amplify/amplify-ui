@@ -36,6 +36,7 @@
     "version:latest": "yarn changeset version && yarn generateVersions && yarn angular build",
     "publish:latest": "yarn changeset publish",
     "version:hotfix": "yarn changeset && yarn bumpVersions && yarn build",
+    "publish:hotfix": "yarn changeset publish --tag hotfix",
     "generateVersions": "node scripts/generateVersion",
     "setLivenessPublic": "node scripts/setLivenessPublic",
     "bumpVersions": "yarn changeset version && yarn generateVersions"
