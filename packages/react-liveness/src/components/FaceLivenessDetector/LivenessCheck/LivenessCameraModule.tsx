@@ -23,7 +23,7 @@ import {
   RecordingIcon,
   Overlay,
   selectErrorState,
-  MemoizedMatchIndicator,
+  MatchIndicator,
 } from '../shared';
 import { LivenessClassNames } from '../types/classNames';
 import {
@@ -155,6 +155,10 @@ export const LivenessCameraModule = (
     setCountDownRunning(true);
   };
 
+  const memoizedMatchIndicator = React.useMemo(() => {
+    return <MatchIndicator percentage={Math.ceil(faceMatchPercentage!)} />;
+  }, [faceMatchPercentage]);
+
   if (isCheckingCamera) {
     return (
       <Flex height={videoHeight} width="100%" position="relative">
@@ -246,17 +250,15 @@ export const LivenessCameraModule = (
             {/* 
               We only want to show the MatchIndicator when we're recording
               and when the face is in either the too far state, or the 
-              initial face identified state. Using the MemoizedMatchIndicator here
+              initial face identified state. Using the a memoized MatchIndicator here
               so that even when this component re-renders the indicator is only
               re-rendered if the percentage prop changes.
             */}
             {isRecording &&
             !isFlashingFreshness &&
-            showMatchIndicatorStates.includes(faceMatchState!) ? (
-              <MemoizedMatchIndicator
-                percentage={Math.ceil(faceMatchPercentage!)}
-              />
-            ) : null}
+            showMatchIndicatorStates.includes(faceMatchState!)
+              ? memoizedMatchIndicator
+              : null}
 
             {isNotRecording && (
               <View
