@@ -39,15 +39,15 @@ export class SetupTotpComponent implements OnInit {
 
   constructor(public authenticator: AuthenticatorService) {}
 
+  public get context(): AuthenticatorService['slotContext'] {
+    return this.authenticator.slotContext;
+  }
+
   async ngOnInit(): Promise<void> {
     await this.generateQRCode();
   }
 
-  public get context() {
-    return this.authenticator.slotContext;
-  }
-
-  async generateQRCode() {
+  async generateQRCode(): Promise<void> {
     const { authState: state, totpSecretCode, user } = this.authenticator;
     const { formFields } = getActorContext(state) as SignInContext;
     const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
@@ -69,7 +69,7 @@ export class SetupTotpComponent implements OnInit {
     }
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.authenticator.updateForm({ name, value });

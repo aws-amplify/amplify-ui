@@ -1,5 +1,25 @@
 # @aws-amplify/ui-angular
 
+## 4.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`b0e16e78c`](https://github.com/aws-amplify/amplify-ui/commit/b0e16e78c6a41945aa79f3e14fa3f9e6cb0e5e76), [`d930e2ed1`](https://github.com/aws-amplify/amplify-ui/commit/d930e2ed17f3e638e2b62699ba2dd164b32f8118)]:
+  - @aws-amplify/ui@5.6.6
+
+## 4.0.0
+
+### Major Changes
+
+- [#4117](https://github.com/aws-amplify/amplify-ui/pull/4117) [`fd5183afa`](https://github.com/aws-amplify/amplify-ui/commit/fd5183afa57a0fc6e18940e3121eaf0c12542548) Thanks [@sreeramsama](https://github.com/sreeramsama)! - **Breaking**: bump minimum Angular version to 14. If your application is on Angular 13 or older, please migrate to Angular 14+ as per [official guide](https://update.angular.io/).
+
+## 3.2.19
+
+### Patch Changes
+
+- Updated dependencies [[`3cecd0765`](https://github.com/aws-amplify/amplify-ui/commit/3cecd0765b46c77c49af24fae7cfb9054ebe2cdb)]:
+  - @aws-amplify/ui@5.6.5
+
 ## 3.2.18
 
 ### Patch Changes

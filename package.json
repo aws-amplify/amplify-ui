@@ -38,7 +38,6 @@
     "version:hotfix": "yarn changeset && yarn bumpVersions && yarn build",
     "publish:hotfix": "yarn changeset publish --tag hotfix",
     "generateVersions": "node scripts/generateVersion",
-    "setLivenessPublic": "node scripts/setLivenessPublic",
     "bumpVersions": "yarn changeset version && yarn generateVersions"
   },
   "workspaces": {

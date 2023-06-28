@@ -193,6 +193,7 @@ describe('Liveness Machine', () => {
 
     mockedHelpers.isCameraDeviceVirtual.mockImplementation(() => false);
     mockedHelpers.VideoRecorder.mockImplementation(() => mockVideoRecorder);
+    (mockVideoRecorder.getVideoChunkSize as jest.Mock).mockReturnValue(10);
     mockedHelpers.BlazeFaceFaceDetection.mockImplementation(
       () => mockBlazeFace
     );
@@ -720,6 +721,23 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual('error');
       expect(service.state.context.errorState).toBe(
         LivenessErrorState.SERVER_ERROR
+      );
+      expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
+      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+    });
+
+    it('should reach error state if no chunks are recorded', async () => {
+      const error = new Error('Video chunks not recorded successfully.');
+      error.name = LivenessErrorState.RUNTIME_ERROR;
+
+      (mockVideoRecorder.getVideoChunkSize as jest.Mock).mockReturnValue(0);
+      await transitionToUploading(service);
+
+      await flushPromises(); // stopVideo
+
+      expect(service.state.value).toEqual('error');
+      expect(service.state.context.errorState).toBe(
+        LivenessErrorState.RUNTIME_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
       expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
