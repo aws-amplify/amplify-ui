@@ -66,7 +66,7 @@ const centeredLoader = (
 /**
  * For now we want to memoize the HOC for MatchIndicator because to optimize renders
  * The LivenessCameraModule still needs to be optimized for re-renders and at that time
- * we shoudl be able to remove this memoization
+ * we should be able to remove this memoization
  */
 const MemoizedMatchIndicator = React.memo(MatchIndicator);
 
