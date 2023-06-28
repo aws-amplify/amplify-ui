@@ -740,7 +740,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       callErrorCallback: async (context, event) => {
         const errorMessage =
-          event.data?.error?.message || event.data?.error?.Message;
+          event.data?.error?.message ||
+          event.data?.error?.Message ||
+          event.data?.message;
         const error = new Error(errorMessage);
         error.name = context.errorState!;
         context.componentProps!.onError?.(error);
@@ -1170,6 +1172,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
         };
+
+        if (livenessStreamProvider!.videoRecorder.getVideoChunkSize() === 0) {
+          throw new Error('Video chunks not recorded successfully.');
+        }
 
         livenessStreamProvider!.sendClientInfo(livenessActionDocument);
 
