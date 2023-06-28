@@ -187,17 +187,17 @@ export function getRouteTypedFields({
 
 /**
  *
- * @param field
- * @param value
- * @param stateValidations
- * @returns
+ * @param {TextFieldOptionsType} field text field type
+ * @param {string | undefined} value text field value
+ * @param {string[]} stateValidations validation errors array from state machine
+ * @returns {string[]} field errors array
  */
 export const runFieldValidation = (
   field: TextFieldOptionsType,
   value: string | undefined,
   stateValidations: ValidationError | undefined
 ): string[] => {
-  let fieldErrors: string[] = [];
+  const fieldErrors: string[] = [];
   if (field.required && !value) {
     fieldErrors.push(getRequiredFieldText());
   }
@@ -208,12 +208,12 @@ export const runFieldValidation = (
   }
 
   // add state machine validation errors, if any
-  if (stateValidations && stateValidations[field.name]) {
-    const stateValidation = stateValidations[field.name];
-    if (isString(stateValidation)) {
-      fieldErrors.push(stateValidation);
+  const stateFieldValidation = stateValidations?.[field.name];
+  if (stateFieldValidation) {
+    if (isString(stateFieldValidation)) {
+      fieldErrors.push(stateFieldValidation);
     } else {
-      fieldErrors = fieldErrors.concat(stateValidation);
+      return fieldErrors.concat(stateFieldValidation);
     }
   }
 

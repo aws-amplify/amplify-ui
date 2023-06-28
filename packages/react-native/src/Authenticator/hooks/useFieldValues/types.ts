@@ -34,7 +34,7 @@ export interface UseFieldValuesParams<FieldType extends TypedField> {
 
 export interface UseFieldValues<FieldType extends TypedField> {
   fields: FieldType[]; // return either radio or text
-  fieldValidationErrors?: ValidationError;
+  fieldValidationErrors: ValidationError | undefined;
   disableFormSubmit: boolean;
   handleFormSubmit: () => void;
 }
