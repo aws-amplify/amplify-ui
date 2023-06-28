@@ -2,12 +2,7 @@
 #
 # Triggered by: whenever "Version Packages" is merged to `main`
 
-# If successful, we will publish all updated UI packages to
-#   - https://www.npmjs.com/package/@aws-amplify/ui
-#   - https://www.npmjs.com/package/@aws-amplify/ui-react
-#   - https://www.npmjs.com/package/@aws-amplify/ui-react-native
-#   - https://www.npmjs.com/package/@aws-amplify/ui-vue
-#   - https://www.npmjs.com/package/@aws-amplify/ui-angular
+# If successful, we will publish all updated UI packages to NPM.
 
 name: Test and Publish / latest
 

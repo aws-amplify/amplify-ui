@@ -2,12 +2,7 @@
 #
 # Triggered by: whenever a PR is merged to `hotfix` branch
 
-# If successful, we will publish all updated UI packages to
-#   - https://www.npmjs.com/package/@aws-amplify/ui
-#   - https://www.npmjs.com/package/@aws-amplify/ui-react
-#   - https://www.npmjs.com/package/@aws-amplify/ui-react-native
-#   - https://www.npmjs.com/package/@aws-amplify/ui-vue
-#   - https://www.npmjs.com/package/@aws-amplify/ui-angular
+# If successful, we will publish all updated UI packages to NPM.
 
 name: Test and Publish / hotfix
 
@@ -34,7 +29,7 @@ jobs:
         id: has-changesets
         uses: ./.github/actions/has-changesets
       # Note: if there are no changesets, that means that either
-      #         (1) A hot fix PR PR was just merged, or
+      #         (1) A hot fix PR was just merged, or
       #         (2) no commits with changesets have been merged after packages were last published.
       #
       #       In either way, we'll attempt to publish the packages. In case of (1), publish will succeed. In
@@ -42,36 +37,12 @@ jobs:
       #       skip publish.
 
   publish-hotfix:
-    runs-on: ubuntu-latest
-    environment: deployment
-    needs: setup
-    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-        with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
-          fetch-depth: 0
-      - name: Setup Node.js 16
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Install packages
-        uses: ./.github/actions/install-with-retries
-        with:
-          skip-cypress-binary: true # publishing doesn't need cypress
-      - name: Build packages
-        run: yarn build
-      - name: Publish to @hotfix
-        uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
-        with:
-          publish: yarn publish:hotfix
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    needs: [setup]
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: hotfix
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
     runs-on: ubuntu-latest
