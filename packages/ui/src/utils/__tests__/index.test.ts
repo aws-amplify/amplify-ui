@@ -14,6 +14,7 @@ import {
   isString,
   isUndefined,
   sanitizeNamespaceImport,
+  splitObject,
 } from '..';
 import { ComponentClassName, Modifiers } from '../../types';
 
@@ -312,5 +313,52 @@ describe('classNameModifierByFlag', () => {
 
   it('should return empty string with a false flag value passed in', () => {
     expect(classNameModifierByFlag(myClass, modifier, false)).toEqual('');
+  });
+});
+
+describe('splitObject', () => {
+  it('should split an object by key', () => {
+    const [one, two] = splitObject(
+      {
+        foo: 'foo',
+        bar: 'bar',
+      },
+      (key, value) => {
+        return key === 'foo';
+      }
+    );
+    expect(one).toEqual({ foo: 'foo' });
+    expect(two).toEqual({ bar: 'bar' });
+  });
+
+  it('should split an object by value', () => {
+    const [one, two] = splitObject(
+      {
+        foo: 'foo',
+        bar: 'bar',
+        baz: 'baz',
+      },
+      (key, value) => {
+        return value.startsWith('ba');
+      }
+    );
+    expect(two).toEqual({ foo: 'foo' });
+    expect(one).toEqual({ bar: 'bar', baz: 'baz' });
+  });
+
+  it('should handle nested objects', () => {
+    const [one, two] = splitObject(
+      {
+        foo: 'foo',
+        _hover: {
+          background: 'red',
+        },
+      },
+      (key, value) => {
+        return key.startsWith('_');
+      }
+    );
+    expect(two).toEqual({ foo: 'foo' });
+    expect(one).toEqual({ _hover: { background: 'red' } });
   });
 });

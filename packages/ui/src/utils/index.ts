@@ -206,3 +206,35 @@ export const classNameModifierByFlag = (
 ): string => {
   return flag ? `${base}--${modifier}` : '';
 };
+
+type SplitObject<ObjectType = Record<string, any>> = (
+  object: ObjectType,
+  predicate: (key: string, value: any) => boolean
+) => [ObjectType, ObjectType];
+
+/**
+ * Takes an object and splits it into 2 objects based on a
+ * predicate function.
+ * @param object - The object to split
+ * @param predicate -
+ * @returns a Tuple of 2 objects, first contains entries where the predicate returned true
+ */
+export const splitObject: SplitObject = (object, predicate) => {
+  return Object.entries(object).reduce(
+    (acc, [key, value]) => {
+      if (predicate(key, value)) {
+        acc[0] = {
+          ...acc[0],
+          [key]: value,
+        };
+      } else {
+        acc[1] = {
+          ...acc[1],
+          [key]: value,
+        };
+      }
+      return acc;
+    },
+    [{}, {}]
+  );
+};

@@ -8,7 +8,7 @@ import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
 import { WebDesignToken } from './tokens/types/designToken';
 import { ComponentsTheme } from './components';
 import { kebabCase } from 'lodash';
-import { isString } from '../utils';
+import { isString, splitObject } from '../utils';
 
 /**
  * This will take a design token and add some data to it for it
@@ -27,18 +27,6 @@ const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
 };
 
 /**
- * This will split an array into 2 arrays and return them.
- * The first array is all the items that pass the filter
- * function and the second are the failures.
- */
-function partition(array, filter) {
-  let pass = [],
-    fail = [];
-  array.forEach((e, idx, arr) => (filter(e, idx, arr) ? pass : fail).push(e));
-  return [pass, fail];
-}
-
-/**
  * This will take an object like:
  * {paddingTop:'20px',color:'{colors.font.primary}'}
  * and turn it into a CSS string:
@@ -51,6 +39,11 @@ function propsToString(props: Record<string, string>): string {
     })
     .join(' ');
 }
+
+const stateKeys = ['_hover', '_active'];
+const modifierKeys = ['variation', 'size'];
+
+const nonPropKeys = [...stateKeys, ...modifierKeys];
 
 export function createComponentCSS(
   str: string,
@@ -67,28 +60,68 @@ export function createComponentCSS(
 
   Object.entries(components).forEach(([key, component]) => {
     const componentClassName = `${str} .amplify-${key}`;
-    toRet += `${componentClassName} { `;
-    //
-    const [props, other] = partition(Object.keys(component), (key) =>
-      isString(component[key])
-    );
-    props.forEach((key) => {
+
+    // TODO: this logic needs to be hardened
+    const [props, other] = splitObject(component, (key, value) => {
+      return isString(value);
+    });
+
+    const [states, nonStates] = splitObject(other, (key, value) => {
+      return stateKeys.includes(key);
+    });
+
+    const [modifiers, children] = splitObject(nonStates, (key, value) => {
+      return modifierKeys.includes(key);
+    });
+
+    // if there are no props, skip
+    toRet += `${componentClassName} {`;
+    Object.entries(props).forEach(([key, value]) => {
       toRet += `${kebabCase(key)}:${cssValue({ value: component[key] })}; `;
     });
     toRet += `}\n`;
-    const [modifiers, children] = partition(other, (key) =>
-      ['variation', 'size'].includes(key)
-    );
-    modifiers.forEach((modifier) => {
+    Object.entries(states).forEach(([key, value]) => {
+      toRet += `${componentClassName}:${key.replace('_', '')} {`;
+      Object.entries(value).forEach(([key, value]) => {
+        // @ts-ignore
+        toRet += `${kebabCase(key)}:${cssValue({ value })}; `;
+      });
+      toRet += `}\n`;
+    });
+
+    Object.entries(modifiers).forEach(([modifier, value]) => {
       Object.keys(component[modifier]).forEach((key) => {
+        const {} = component[modifier][key];
+        const [states, props] = Object.keys(component[modifier][key]).reduce(
+          (acc, curr) => {
+            if (stateKeys.includes(curr)) {
+              acc[0][curr] = component[modifier][key][curr];
+            } else {
+              acc[1][curr] = component[modifier][key][curr];
+            }
+            return acc;
+          },
+          [{}, {}]
+        );
         toRet += `${componentClassName}--${key} { `;
-        toRet += propsToString(component[modifier][key]);
+        toRet += propsToString(props);
         toRet += ` }`;
+        if (Object.keys(states).length) {
+          Object.keys(states).forEach((state) => {
+            toRet += `${componentClassName}--${key}:${state.replace(
+              '_',
+              ''
+            )} { `;
+            toRet += propsToString(states[state]);
+            toRet += ` }`;
+          });
+        }
       });
     });
-    children.forEach((child) => {
-      toRet += `${componentClassName}__${child} { `;
-      toRet += propsToString(component[child]);
+
+    Object.entries(children).forEach(([key, value]) => {
+      toRet += `${componentClassName}__${key} { `;
+      toRet += propsToString(value);
       toRet += ` }`;
     });
   });

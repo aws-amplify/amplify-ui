@@ -38,8 +38,10 @@ describe('@aws-amplify/ui', () => {
           button: {
             variation: {
               primary: {
+                background: 'red',
                 _hover: {
                   background: 'pink',
+                  color: '{colors.font.primary}',
                 },
               },
             },
