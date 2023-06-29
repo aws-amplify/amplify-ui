@@ -12,6 +12,10 @@ import {
   UseAuthenticator,
   useAuthenticatorInitMachine,
 } from '@aws-amplify/ui-react-core';
+
+import { VERSION } from '../../version';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
+
 import {
   CustomComponentsContext,
   ComponentsProviderProps,
@@ -23,7 +27,6 @@ import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ResetPassword } from './ResetPassword';
 import { defaultComponents } from './hooks/useCustomComponents/defaultComponents';
-import { VERSION } from '../../version';
 
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
@@ -48,11 +51,18 @@ export function AuthenticatorInternal({
   hideSignUp,
   initialState,
   loginMechanisms,
+  passwordSettings,
   signUpAttributes,
   services,
   socialProviders,
   variation,
 }: AuthenticatorProps): JSX.Element {
+  useDeprecationWarning({
+    message:
+      'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
+    shouldWarn: !!passwordSettings,
+  });
+
   const { route, signOut, user } = useAuthenticator(
     ({ route, signOut, user }) => [route, signOut, user]
   );
