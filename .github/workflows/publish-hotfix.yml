@@ -28,13 +28,6 @@ jobs:
       - name: Check if repo has unconsumed changesets
         id: has-changesets
         uses: ./.github/actions/has-changesets
-      # Note: if there are no changesets, that means that either
-      #         (1) A hot fix PR was just merged, or
-      #         (2) no commits with changesets have been merged after packages were last published.
-      #
-      #       In either way, we'll attempt to publish the packages. In case of (1), publish will succeed. In
-      #       case of (2), `@changesets/action` will know that UI packages have already published and will
-      #       skip publish.
 
   publish-hotfix:
     needs: [setup]
