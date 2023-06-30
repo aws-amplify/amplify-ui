@@ -1,27 +1,25 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs } from 'vue';
+import { computed, toRefs, useAttrs } from 'vue';
 
 import {
+  AuthenticatorServiceFacade,
   authenticatorTextUtil,
-  getActorState,
   getFormDataFromEvent,
-  SignInState,
   translate,
 } from '@aws-amplify/ui';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { useAuthenticator } from '../composables/useAuth';
 
-const props = useAuthenticator();
+// `useAuthenticator` is casted for temporary type safety on this file.
+const props = useAuthenticator() as AuthenticatorServiceFacade;
+const { error, isPending } = toRefs(props);
+const { skipVerification, submitForm, updateForm } = props;
 
 const attrs = useAttrs();
+
+/** @deprecated Authenticator component events are deprecated and not maintained. */
 const emit = defineEmits(['confirmVerifyUserSubmit', 'skipClicked']);
-
-const { state, send } = useAuth();
-
-const actorState: ComputedRef<SignInState> = computed(
-  () => getActorState(state.value) as SignInState
-);
 
 // Text Util
 const { getAccountRecoveryInfoText, getSkipText, getSubmitText } =
@@ -35,14 +33,12 @@ const submitText = computed(() => getSubmitText());
 // Methods
 const onInput = (e: Event): void => {
   const { name, value } = e.target as HTMLInputElement;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
+  updateForm({ name, value });
 };
 
 const onConfirmVerifyUserSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmVerifyUserSubmit) {
     emit('confirmVerifyUserSubmit', e);
   } else {
@@ -51,16 +47,16 @@ const onConfirmVerifyUserSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  props.submitForm(getFormDataFromEvent(e));
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onSkipClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onSkipClicked) {
     emit('skipClicked');
   } else {
-    send({
-      type: 'SKIP',
-    });
+    skipVerification();
   }
 };
 </script>
@@ -71,7 +67,7 @@ const onSkipClicked = (): void => {
       <base-form @input="onInput" @submit.prevent="onConfirmVerifyUserSubmit">
         <base-field-set
           class="amplify-flex amplify-authenticator__column"
-          :disabled="actorState.matches('confirmVerifyUser.pending')"
+          :disabled="isPending"
         >
           <slot name="header">
             <base-heading :level="3" class="amplify-heading">
@@ -83,15 +79,15 @@ const onSkipClicked = (): void => {
           </base-wrapper>
 
           <base-footer class="amplify-flex amplify-authenticator__column">
-            <base-alert v-if="actorState?.context?.remoteError">
-              {{ translate(actorState?.context.remoteError) }}
+            <base-alert v-if="error">
+              {{ translate(error) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
               :fullwidth="false"
               :variation="'primary'"
               type="submit"
-              :disabled="actorState.matches('confirmVerifyUser.pending')"
+              :disabled="isPending"
               >{{ submitText }}</amplify-button
             >
             <amplify-button

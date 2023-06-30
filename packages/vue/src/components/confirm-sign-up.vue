@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
 import {
+  AuthenticatorServiceFacade,
   authenticatorTextUtil,
   getFormDataFromEvent,
   translate,
@@ -10,10 +11,14 @@ import { useAuthenticator } from '../composables/useAuth';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
 const attrs = useAttrs();
+
+/** @deprecated Authenticator component events are deprecated and not maintained. */
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
-const { isPending, error, codeDeliveryDetails } = toRefs(useAuthenticator());
-const { submitForm, updateForm, resendCode } = useAuthenticator();
+// `useAuthenticator` is casted for temporary type safety on this file.
+const props = useAuthenticator() as AuthenticatorServiceFacade;
+const { codeDeliveryDetails, error, isPending } = toRefs(props);
+const { resendCode, submitForm, updateForm } = props;
 
 // Text Util
 const {
@@ -42,6 +47,8 @@ const onInput = (e: Event): void => {
 };
 
 const onConfirmSignUpSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmSignUpSubmit) {
     emit('confirmSignUpSubmit', e);
   } else {
@@ -54,6 +61,8 @@ const submit = (e: Event): void => {
 };
 
 const onLostCodeClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onLostCodeClicked) {
     emit('lostCodeClicked');
   } else {
