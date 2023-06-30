@@ -151,7 +151,7 @@ jobs:
 
   publish:
     needs: [e2e, guides]
-    uses: ./.github/workflows/reusable-tagged-publish.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
     with:
       dist-tag: next
     secrets:
