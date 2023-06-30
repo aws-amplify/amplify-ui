@@ -151,11 +151,21 @@ jobs:
 
   publish:
     needs: [e2e, guides]
-    uses: ./.github/workflows/reusable-tagged-publish.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
     with:
       dist-tag: next
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  deploy-sample-app:
+    runs-on: ubuntu-latest
+    environment: deployment
+    needs: publish
+    steps:
+      - name: Trigger build for beta liveness sample app pointing at next tag
+        run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
+        env:
+          ENDPOINT: ${{ secrets.LIVENESS_BETA_SAMPLE_APP_BUILD_TRIGGER }}
 
   build-test:
     needs: publish

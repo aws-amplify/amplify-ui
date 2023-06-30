@@ -1,5 +1,21 @@
 # @aws-amplify/ui
 
+## 5.6.6
+
+### Patch Changes
+
+- [#4161](https://github.com/aws-amplify/amplify-ui/pull/4161) [`b0e16e78c`](https://github.com/aws-amplify/amplify-ui/commit/b0e16e78c6a41945aa79f3e14fa3f9e6cb0e5e76) Thanks [@judygab](https://github.com/judygab)! - Add `borderColor`, `borderWidth`, and `borderStyle` style props
+
+- [#4168](https://github.com/aws-amplify/amplify-ui/pull/4168) [`d930e2ed1`](https://github.com/aws-amplify/amplify-ui/commit/d930e2ed17f3e638e2b62699ba2dd164b32f8118) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(RWA/RNA): deprecate passwordSettings prop
+
+## 5.6.5
+
+### Patch Changes
+
+- [#4108](https://github.com/aws-amplify/amplify-ui/pull/4108) [`3cecd0765`](https://github.com/aws-amplify/amplify-ui/commit/3cecd0765b46c77c49af24fae7cfb9054ebe2cdb) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix linear loader size bug
+
+  The linear loader was too big after #1331, this fixes it
+
 ## 5.6.4
 
 ### Patch Changes

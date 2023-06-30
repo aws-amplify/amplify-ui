@@ -37,6 +37,7 @@ type PropsResolver = (
 const {
   codeDeliveryDetails,
   error,
+  hasValidationErrors,
   isPending,
   resendCode,
   route,
@@ -71,7 +72,13 @@ describe('getRouteMachineSelector', () => {
   it.each([
     [
       'confirmResetPassword',
-      [...commonSelectorProps, resendCode, validationErrors, route],
+      [
+        ...commonSelectorProps,
+        hasValidationErrors,
+        resendCode,
+        validationErrors,
+        route,
+      ],
     ],
     ['confirmSignIn', [...commonSelectorProps, toSignIn, user, route]],
     [
@@ -81,7 +88,13 @@ describe('getRouteMachineSelector', () => {
     ['confirmVerifyUser', [...commonSelectorProps, skipVerification, route]],
     [
       'forceNewPassword',
-      [...commonSelectorProps, toSignIn, validationErrors, route],
+      [
+        ...commonSelectorProps,
+        hasValidationErrors,
+        toSignIn,
+        validationErrors,
+        route,
+      ],
     ],
     ['idle', [route]],
     ['resetPassword', [...commonSelectorProps, toSignIn, route]],
@@ -95,7 +108,16 @@ describe('getRouteMachineSelector', () => {
         route,
       ],
     ],
-    ['signUp', [...commonSelectorProps, toSignIn, validationErrors, route]],
+    [
+      'signUp',
+      [
+        ...commonSelectorProps,
+        hasValidationErrors,
+        toSignIn,
+        validationErrors,
+        route,
+      ],
+    ],
     ['setupTOTP', [...commonSelectorProps, toSignIn, totpSecretCode, route]],
     ['verifyUser', [...commonSelectorProps, skipVerification, route]],
   ])('returns the expected route selector for %s', (route, expected) => {
@@ -110,7 +132,7 @@ describe('props resolver functions', () => {
     [
       'ConfirmResetPassword',
       resolveConfirmResetPasswordRoute,
-      { resendCode, validationErrors },
+      { hasValidationErrors, resendCode, validationErrors },
     ],
     ['ConfirmSignIn', resolveConfirmSignInRoute, { challengeName, toSignIn }],
     [
@@ -126,7 +148,7 @@ describe('props resolver functions', () => {
     [
       'ForceNewPassword',
       resolveForceNewPasswordRoute,
-      { error, isPending, toSignIn, validationErrors },
+      { error, hasValidationErrors, isPending, toSignIn, validationErrors },
     ],
     [
       'ResetPassword',
@@ -149,7 +171,7 @@ describe('props resolver functions', () => {
     [
       'SignUp',
       resolveSignUpRoute,
-      { error, isPending, toSignIn, validationErrors },
+      { error, hasValidationErrors, isPending, toSignIn, validationErrors },
     ],
     [
       'VerifyUser',

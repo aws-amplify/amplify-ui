@@ -34,6 +34,7 @@ const props = {
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
   handleSubmit: jest.fn(),
+  hasValidationErrors: false,
   Header: ConfirmResetPassword.Header,
   isPending: false,
   resendCode: jest.fn(),
