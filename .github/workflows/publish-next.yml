@@ -19,20 +19,20 @@ permissions:
 
 jobs:
   setup-cache:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-setup-cache.yml@main
+    uses: ./.github/workflows/reusable-setup-cache.yml
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
+    uses: ./.github/workflows/reusable-unit.yml
     needs: setup-cache
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: ./.github/workflows/reusable-e2e.yml
     needs: unit
     with:
       commit: ${{ github.sha }}
@@ -151,7 +151,7 @@ jobs:
 
   publish:
     needs: [e2e, guides]
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
+    uses: ./.github/workflows/reusable-tagged-publish.yml
     with:
       dist-tag: next
     secrets:
@@ -220,7 +220,7 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        uses: ./.github/actions/log-metric
         with:
           metric-name: PublishNextFailure
           value: 1
@@ -235,7 +235,7 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric PublishNextFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        uses: ./.github/actions/log-metric
         with:
           metric-name: PublishNextFailure
           value: 0

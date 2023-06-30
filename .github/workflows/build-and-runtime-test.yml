@@ -141,7 +141,7 @@ jobs:
     if: ${{ failure() }}
     steps:
       - name: Log failure data point to metric BuildAndRuntimeTestFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        uses: ./.github/actions/log-metric
         with:
           metric-name: BuildAndRuntimeTestFailure
           value: 1
@@ -156,7 +156,7 @@ jobs:
     if: ${{ success() }}
     steps:
       - name: Log success data point to metric BuildAndRuntimeTestFailure
-        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        uses: ./.github/actions/log-metric
         with:
           metric-name: BuildAndRuntimeTestFailure
           value: 0
