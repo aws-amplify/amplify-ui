@@ -32,6 +32,16 @@ Feature: Sign Up with Email
     And I verify the body has "test@example.com" included
     Then I see "Confirmation Code"
 
+@react-native
+  Scenario: Confirm sign up submit button is disabled when required fields are empty or invalid
+    When I click the "Create Account" button
+    Then I do not see a remote error with id "amplify__error-message"
+    When I type a new "email" with value "TEST@example.com"
+    And I type my password
+    And I add an invalid password confirmation
+    And I click the "Create Account" button
+    Then I do not see a remote error with id "amplify__error-message"
+
 @angular @react @vue @react-native
 Scenario: Sign up with a new email & password
   Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"

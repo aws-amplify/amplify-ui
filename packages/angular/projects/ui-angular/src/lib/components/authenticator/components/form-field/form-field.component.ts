@@ -22,13 +22,17 @@ export class FormFieldComponent {
 
   constructor(private authenticator: AuthenticatorService) {}
 
+  get ariaDescribedBy(): string | undefined {
+    return this.hasError() ? this.errorId : undefined;
+  }
+
   get errors(): string[] {
     const { validationErrors } = this.authenticator;
     return getErrors(validationErrors[this.name]);
   }
 
-  public onBlur($event: Event) {
-    let { name } = <HTMLInputElement>$event.target;
+  public onBlur($event: Event): void {
+    const { name } = <HTMLInputElement>$event.target;
 
     this.authenticator.updateBlur({ name });
   }
@@ -43,10 +47,6 @@ export class FormFieldComponent {
 
   hasError(): boolean {
     return this.errors?.length > 0;
-  }
-
-  get ariaDescribedBy() {
-    return this.hasError() ? this.errorId : undefined;
   }
 
   translate(phrase: string): string {

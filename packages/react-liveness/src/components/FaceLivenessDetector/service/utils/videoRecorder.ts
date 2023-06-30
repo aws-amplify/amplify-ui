@@ -64,6 +64,10 @@ export class VideoRecorder {
     this._recorder.dispatchEvent(event);
   }
 
+  getVideoChunkSize(): number {
+    return this._chunks.length;
+  }
+
   private _setupCallbacks() {
     // Creates a Readablestream of video chunks. Waits to receive a clientSessionInfo event before pushing
     //  a livenessActionDocument to the ReadableStream and finally closing the ReadableStream

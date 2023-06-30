@@ -77,14 +77,19 @@ export type CommonRouteProps = {
   handleSubmit: UseAuthenticator['submitForm'];
 };
 
+export interface ValidationProps {
+  hasValidationErrors: UseAuthenticator['hasValidationErrors'];
+  validationErrors?: UseAuthenticator['validationErrors'];
+}
+
 /**
  * Base Route component props
  */
 export type ConfirmResetPasswordBaseProps<FieldType = {}> = {
   resendCode: UseAuthenticator['resendCode'];
-  validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type ConfirmSignInBaseProps<FieldType = {}> = {
   challengeName: AuthChallengeName;
@@ -105,9 +110,9 @@ export type ConfirmVerifyUserProps<FieldType = {}> = {
 
 export type ForceResetPasswordBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
-  validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type ResetPasswordBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
@@ -132,9 +137,9 @@ export type SignUpBaseProps<FieldType = {}> = {
   hideSignIn?: boolean;
   toFederatedSignIn: UseAuthenticator['toFederatedSignIn'];
   toSignIn: UseAuthenticator['toSignIn'];
-  validationErrors?: UseAuthenticator['validationErrors'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type VerifyUserProps<FieldType = {}> = {
   skipVerification: UseAuthenticator['skipVerification'];

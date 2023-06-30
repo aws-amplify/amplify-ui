@@ -34,6 +34,9 @@ export interface AuthContext {
     socialProviders?: SocialProvider[];
     formFields?: AuthFormFields;
     initialState?: 'signIn' | 'signUp' | 'resetPassword';
+    /**
+     * @deprecated The `passwordSettings` property has been deprecated and will be removed in a future major version of Amplify UI.
+     */
     passwordSettings?: PasswordSettings;
   };
   services?: Partial<typeof defaultServices>;
