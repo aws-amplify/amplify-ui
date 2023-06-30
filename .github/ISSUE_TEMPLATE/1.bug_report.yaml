@@ -53,7 +53,7 @@ body:
         - In-App Messaging
         - Liveness
         - Primitive components
-        - Storage (File Uploader)
+        - Storage (Storage Manger, File Uploader)
         - Other
     validations:
       required: true
