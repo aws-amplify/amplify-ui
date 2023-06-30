@@ -51,6 +51,7 @@ body:
         - Account Settings
         - Geo (MapView)
         - In-App Messaging
+        - Liveness
         - Primitive components
         - Storage (File Uploader)
         - Other
