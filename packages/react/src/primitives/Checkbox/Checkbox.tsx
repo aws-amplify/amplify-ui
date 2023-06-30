@@ -2,7 +2,6 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { Flex } from '../Flex';
-import { IconCheck, IconIndeterminate } from '../Icon/internal';
 import { Input } from '../Input';
 import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
@@ -14,6 +13,8 @@ import { useCheckbox } from './useCheckbox';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -33,6 +34,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   },
   ref
 ) => {
+  const { icons } = useTheme();
   const { styleProps, rest } = splitPrimitiveProps(_rest);
   // controlled way should always override uncontrolled way
   const initialChecked = checked !== undefined ? checked : defaultChecked;
@@ -95,7 +97,8 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   const renderedIcon = React.useMemo(
     () =>
       isIndeterminate ? (
-        <IconIndeterminate
+        <Icon
+          {...icons.checkbox.indeterminate}
           className={classNames(
             iconClasses,
             classNameModifierByFlag(
@@ -107,14 +110,23 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           data-testid={iconTestId}
         />
       ) : (
-        <IconCheck
+        <Icon
+          {...icons.checkbox.checked}
           className={iconClasses}
           data-checked={dataChecked}
           data-disabled={isDisabled}
           data-testid={iconTestId}
         />
       ),
-    [dataChecked, iconClasses, iconTestId, isDisabled, isIndeterminate]
+    [
+      dataChecked,
+      iconClasses,
+      iconTestId,
+      isDisabled,
+      isIndeterminate,
+      icons.checkbox.checked,
+      icons.checkbox.indeterminate,
+    ]
   );
 
   return (

@@ -3,7 +3,6 @@ import * as React from 'react';
 
 import { FieldClearButton } from '../Field';
 import { FieldGroupIcon } from '../FieldGroupIcon';
-import { IconSearch } from '../Icon/internal';
 import { SearchFieldButton } from './SearchFieldButton';
 import { TextField } from '../TextField';
 import { useSearchField } from './useSearchField';
@@ -15,6 +14,8 @@ import type {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   {
@@ -37,6 +38,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   },
   ref
 ) => {
+  const { icons } = useTheme();
   const {
     composedValue,
     onClearHandler,
@@ -64,7 +66,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
 
   const SearchIcon = hasSearchIcon ? (
     <FieldGroupIcon>
-      <IconSearch />
+      <Icon {...icons.searchField.search} />
     </FieldGroupIcon>
   ) : undefined;
 

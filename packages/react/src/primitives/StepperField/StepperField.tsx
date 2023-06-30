@@ -6,7 +6,6 @@ import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { Flex } from '../Flex';
-import { IconAdd, IconRemove } from '../Icon/internal';
 import { Input } from '../Input';
 import { Label } from '../Label';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
@@ -18,6 +17,8 @@ import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
@@ -52,6 +53,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     ..._rest
   } = props;
 
+  const { icons } = useTheme();
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
   const ariaDescribedBy = descriptiveText ? descriptionId : undefined;
@@ -122,7 +124,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             onClick={handleDecrease}
             size={size}
           >
-            <IconRemove data-testid={DECREASE_ICON} />
+            <Icon {...icons.stepperField.remove} data-testid={DECREASE_ICON} />
           </FieldGroupIconButton>
         }
         outerEndComponent={
@@ -146,7 +148,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             onClick={handleIncrease}
             size={size}
           >
-            <IconAdd data-testid={INCREASE_ICON} />
+            <Icon {...icons.stepperField.add} data-testid={INCREASE_ICON} />
           </FieldGroupIconButton>
         }
       >

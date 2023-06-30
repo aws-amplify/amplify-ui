@@ -1,9 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { View, ComponentClassNames, Text } from '@aws-amplify/ui-react';
+import {
+  View,
+  ComponentClassNames,
+  Text,
+  useTheme,
+  Icon,
+} from '@aws-amplify/ui-react';
 import { classNameModifier } from '@aws-amplify/ui';
-import { IconUpload } from '@aws-amplify/ui-react/internal';
 import { DropZoneProps } from './types';
 
 export function DropZone({
@@ -18,6 +23,7 @@ export function DropZone({
   testId,
 }: DropZoneProps): JSX.Element {
   const { dropFilesText } = displayText;
+  const { icons } = useTheme();
 
   return (
     <View
@@ -36,7 +42,8 @@ export function DropZone({
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
-      <IconUpload
+      <Icon
+        {...icons.storageManager.upload}
         aria-hidden
         className={ComponentClassNames.StorageManagerDropZoneIcon}
       />

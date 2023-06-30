@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconStar } from '../Icon/internal';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
 import { RatingIcon } from './RatingIcon';
 import { RatingMixedIcon } from './RatingMixedIcon';
@@ -15,6 +14,8 @@ import {
   Primitive,
 } from '../types';
 import { VisuallyHidden } from '../VisuallyHidden';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
 const RATING_DEFAULT_VALUE = 0;
@@ -25,7 +26,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
     emptyColor,
     emptyIcon,
     fillColor,
-    icon = <IconStar />,
+    icon,
     maxValue = RATING_DEFAULT_MAX_VALUE,
     size,
     value = RATING_DEFAULT_VALUE,
@@ -33,13 +34,15 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
   },
   ref
 ) => {
+  const { icons } = useTheme();
+
   const items = new Array(Math.ceil(maxValue)).fill(1).map((_, index) => {
     const currentIconIndex = index + 1;
     if (isIconFilled(currentIconIndex, value))
       return (
         <RatingIcon
           key={index.toString()}
-          icon={icon}
+          icon={icon ?? <Icon {...icons.rating.filled} />}
           fill={fillColor}
           className="amplify-rating-icon-filled"
         />
@@ -48,7 +51,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
       return (
         <RatingIcon
           key={index.toString()}
-          icon={emptyIcon ?? icon}
+          icon={emptyIcon ?? icon ?? <Icon {...icons.rating.empty} />}
           fill={emptyColor}
           className="amplify-rating-icon-empty"
         />
@@ -57,8 +60,8 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
       return (
         <RatingMixedIcon
           key={index.toString()}
-          fillIcon={icon}
-          emptyIcon={emptyIcon ?? icon}
+          fillIcon={icon ?? <Icon {...icons.rating.filled} />}
+          emptyIcon={emptyIcon ?? icon ?? <Icon {...icons.rating.empty} />}
           value={value}
           fillColor={fillColor}
           emptyColor={emptyColor}

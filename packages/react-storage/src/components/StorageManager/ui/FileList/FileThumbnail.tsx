@@ -1,7 +1,12 @@
 import React from 'react';
 
-import { View, Image, ComponentClassNames } from '@aws-amplify/ui-react';
-import { IconFile } from '@aws-amplify/ui-react/internal';
+import {
+  View,
+  Image,
+  ComponentClassNames,
+  useTheme,
+  Icon,
+} from '@aws-amplify/ui-react';
 import { FileThumbnailProps } from './types';
 
 export const FileThumbnail = ({
@@ -9,7 +14,12 @@ export const FileThumbnail = ({
   isImage,
   url,
 }: FileThumbnailProps): JSX.Element => {
-  const thumbnail = isImage ? <Image alt={fileName} src={url} /> : <IconFile />;
+  const { icons } = useTheme();
+  const thumbnail = isImage ? (
+    <Image alt={fileName} src={url} />
+  ) : (
+    <Icon {...icons.storageManager.file} />
+  );
 
   return (
     <View className={ComponentClassNames.StorageManagerFileImage}>

@@ -4,10 +4,11 @@ import classNames from 'classnames';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconExpandMore } from '../Icon/internal';
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { BaseSelectProps, SelectProps } from '../types/select';
 import { View } from '../View';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
@@ -18,7 +19,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     value,
     defaultValue,
     hasError,
-    icon = <IconExpandMore />,
+    icon,
     iconColor,
     children,
     placeholder,
@@ -28,6 +29,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   },
   ref
 ) => {
+  const { icons } = useTheme();
   const DEFAULT_PLACEHOLDER_VALUE = '';
   // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
   const shouldSetDefaultPlaceholderValue =
@@ -65,7 +67,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         {children}
       </View>
       <Flex className={ComponentClassNames.SelectIconWrapper} color={iconColor}>
-        {icon}
+        {icon ?? <Icon {...icons.select.expand} />}
       </Flex>
     </View>
   );

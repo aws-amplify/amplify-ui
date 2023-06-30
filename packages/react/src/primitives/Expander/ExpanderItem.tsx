@@ -6,11 +6,12 @@ import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
 import { BaseExpanderItemProps, ExpanderItemProps } from '../types/expander';
-import { IconExpandMore } from '../Icon/internal';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -25,6 +26,7 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
   { children, className, title, value, ..._rest },
   ref
 ) => {
+  const { icons } = useTheme();
   const triggerId = useStableId();
   const contentId = useStableId();
   const { rest } = splitPrimitiveProps(_rest);
@@ -46,7 +48,8 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
           id={triggerId}
         >
           {title}
-          <IconExpandMore
+          <Icon
+            {...icons.expander.more}
             aria-hidden
             className={ComponentClassNames.ExpanderIcon}
             data-testid={EXPANDER_ICON_TEST_ID}

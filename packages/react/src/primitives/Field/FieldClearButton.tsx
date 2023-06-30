@@ -7,19 +7,23 @@ import {
   Primitive,
 } from '../types';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
-import { IconClose } from '../Icon/internal';
 import { ComponentText } from '../shared/constants';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 const ariaLabelText = ComponentText.Fields.clearButtonLabel;
 
 const FieldClearButtonPrimitive: Primitive<FieldClearButtonProps, 'button'> = (
   { ariaLabel = ariaLabelText, size, ...rest },
   ref
-) => (
-  <FieldGroupIconButton ariaLabel={ariaLabel} size={size} ref={ref} {...rest}>
-    <IconClose />
-  </FieldGroupIconButton>
-);
+) => {
+  const { icons } = useTheme();
+  return (
+    <FieldGroupIconButton ariaLabel={ariaLabel} size={size} ref={ref} {...rest}>
+      <Icon {...icons.field.clear} />
+    </FieldGroupIconButton>
+  );
+};
 
 export const FieldClearButton: ForwardRefPrimitive<
   BaseFieldClearButtonProps,

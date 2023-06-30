@@ -3,13 +3,14 @@ import * as React from 'react';
 import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
-import { IconVisibility, IconVisibilityOff } from '../Icon/internal';
 import {
   ForwardRefPrimitive,
   Primitive,
   BaseShowPasswordButtonProps,
   ShowPasswordButtonProps,
 } from '../types';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 const { passwordIsHidden, passwordIsShown, showPassword } =
   ComponentText.PasswordField;
@@ -28,6 +29,7 @@ const ShowPasswordButtonPrimitive: Primitive<
   },
   ref
 ) => {
+  const { icons } = useTheme();
   return (
     <Button
       aria-checked={fieldType !== 'password'}
@@ -44,9 +46,9 @@ const ShowPasswordButtonPrimitive: Primitive<
           : passwordIsShownLabel}
       </VisuallyHidden>
       {fieldType === 'password' ? (
-        <IconVisibility size={size} />
+        <Icon {...icons.passwordField.visibility} />
       ) : (
-        <IconVisibilityOff size={size} />
+        <Icon {...icons.passwordField.visibilityOff} />
       )}
     </Button>
   );

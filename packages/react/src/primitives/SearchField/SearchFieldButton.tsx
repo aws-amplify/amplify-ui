@@ -2,18 +2,20 @@ import * as React from 'react';
 
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
-import { IconSearch } from '../Icon/internal';
 import {
   ForwardRefPrimitive,
   Primitive,
   BaseSearchFieldButtonProps,
   SearchFieldButtonProps,
 } from '../types';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 const ariaLabelText = ComponentText.SearchField.searchButtonLabel;
 
 const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
   ({ size, ...props }, ref) => {
+    const { icons } = useTheme();
     return (
       <FieldGroupIconButton
         ariaLabel={ariaLabelText}
@@ -23,7 +25,7 @@ const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
         type="submit"
         {...props}
       >
-        <IconSearch />
+        <Icon {...icons.searchField.search} />
       </FieldGroupIconButton>
     );
   };

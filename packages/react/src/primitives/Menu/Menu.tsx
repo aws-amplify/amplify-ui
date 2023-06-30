@@ -6,7 +6,6 @@ import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
-import { IconMenu } from '../Icon/internal';
 import { MenuButton } from './MenuButton';
 import {
   BaseMenuProps,
@@ -14,6 +13,8 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
+import { useTheme } from '../../hooks';
+import { Icon } from '../Icon';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -37,39 +38,42 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
     ...rest
   },
   ref
-) => (
-  <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
-    <DropdownMenuTrigger asChild>
-      {trigger ?? (
-        <MenuButton
-          ariaLabel={ariaLabel}
-          size={size}
-          testId={MENU_TRIGGER_TEST_ID}
-          className={classNames(
-            ComponentClassNames.MenuTrigger,
-            triggerClassName
-          )}
-        >
-          <IconMenu size={size} />
-        </MenuButton>
-      )}
-    </DropdownMenuTrigger>
-    <DropdownMenuContent
-      align={menuAlign}
-      className={ComponentClassNames.MenuContentWrapper}
-    >
-      <ButtonGroup
-        className={classNames(ComponentClassNames.MenuContent, className)}
-        ref={ref}
-        size={size}
-        testId={MENU_ITEMS_GROUP_TEST_ID}
-        {...rest}
+) => {
+  const { icons } = useTheme();
+  return (
+    <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
+      <DropdownMenuTrigger asChild>
+        {trigger ?? (
+          <MenuButton
+            ariaLabel={ariaLabel}
+            size={size}
+            testId={MENU_TRIGGER_TEST_ID}
+            className={classNames(
+              ComponentClassNames.MenuTrigger,
+              triggerClassName
+            )}
+          >
+            <Icon {...icons.menu.menu} />
+          </MenuButton>
+        )}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align={menuAlign}
+        className={ComponentClassNames.MenuContentWrapper}
       >
-        {children}
-      </ButtonGroup>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
+        <ButtonGroup
+          className={classNames(ComponentClassNames.MenuContent, className)}
+          ref={ref}
+          size={size}
+          testId={MENU_ITEMS_GROUP_TEST_ID}
+          {...rest}
+        >
+          {children}
+        </ButtonGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)
