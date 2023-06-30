@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "^14.3.0",
     "@angular/router": "^14.3.0",
     "@aws-amplify/ui-angular": "^4.0.1",
-    "aws-amplify": "5.0.22-v5-custom-clients.d32b70a.64",
+    "aws-amplify": "5.0.22-v5-custom-clients.5193e71.56",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
