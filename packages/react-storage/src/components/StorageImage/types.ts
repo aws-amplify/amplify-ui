@@ -8,5 +8,5 @@ export interface StorageImageProps extends Omit<ImageProps, 'src'> {
   accessLevel: StorageAccessLevel;
   identityId?: string;
   fallbackSrc?: string;
-  onStorageError?: (error: Error) => void;
+  onStorageGetError?: (error: Error) => void;
 }

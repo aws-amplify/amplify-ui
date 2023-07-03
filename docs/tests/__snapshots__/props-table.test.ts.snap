@@ -3757,7 +3757,7 @@ exports[`Props Table 1`] = `
                     \\"isLazy\\": {
                         \\"name\\": \\"isLazy\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Image will be loaded lazily if set to true.\\",
+                        \\"description\\": \\"Image will be loaded lazily if set to true. Default: false\\",
                         \\"category\\": \\"ImageOptions\\",
                         \\"isOptional\\": true
                     },

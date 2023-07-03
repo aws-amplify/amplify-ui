@@ -16,13 +16,28 @@ describe('StorageImage:', () => {
     jest.spyOn(Storage, 'get').mockResolvedValue(imgURL);
   });
 
-  it('should render classname', async () => {
+  it('should render default classname', async () => {
     render(
       <StorageImage alt="StorageImage" imgKey={imgKey} accessLevel="public" />
     );
 
     const img = await screen.findByRole('img');
     expect(img).toHaveClass(ComponentClassNames.StorageImage);
+  });
+
+  it('should render custom classname', async () => {
+    const className = 'MyImage';
+    render(
+      <StorageImage
+        alt="StorageImage"
+        className={className}
+        imgKey={imgKey}
+        accessLevel="public"
+      />
+    );
+
+    const img = await screen.findByRole('img');
+    expect(img).toHaveClass(className);
   });
 
   it('should set loading attribute to lazy if isLazy prop is true', async () => {
@@ -46,7 +61,7 @@ describe('StorageImage:', () => {
         alt="StorageImage"
         imgKey={imgKey}
         accessLevel="public"
-        onStorageError={onStorageError}
+        onStorageGetError={onStorageError}
       />
     );
 
@@ -65,7 +80,7 @@ describe('StorageImage:', () => {
         imgKey={imgKey}
         accessLevel="public"
         fallbackSrc={fallbackSrc}
-        onStorageError={onStorageError}
+        onStorageGetError={onStorageError}
       />
     );
 
