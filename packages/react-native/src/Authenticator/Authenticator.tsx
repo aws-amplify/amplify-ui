@@ -13,6 +13,7 @@ import {
 
 import { configureComponent } from '@aws-amplify/ui';
 
+import { useDeprecationWarning } from '../hooks';
 import { DefaultContainer, InnerContainer } from './common';
 import { TypedField, getRouteTypedFields } from './hooks';
 import { AuthenticatorProps } from './types';
@@ -61,6 +62,12 @@ function Authenticator({
   Header,
   ...options
 }: AuthenticatorProps): JSX.Element | null {
+  useDeprecationWarning({
+    message:
+      'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
+    shouldWarn: !!options?.passwordSettings,
+  });
+
   React.useEffect(() => {
     configureComponent({
       packageName: '@aws-amplify/ui-react-native',
