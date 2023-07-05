@@ -46,7 +46,7 @@ export type PrimitivePropsWithHTMLAttributes<
         // exclude `ref?: LegacyRef` included in DetailedHTMLProps
         React.ComponentPropsWithoutRef<Element>
       >
-    : never;
+    : any;
 
 export type PrimitiveProps<
   Props extends BaseViewProps,
