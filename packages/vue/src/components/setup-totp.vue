@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, computed, toRefs, useAttrs, ref } from 'vue';
+import { computed, ref, toRefs, useAttrs, onMounted, reactive } from 'vue';
 import QRCode from 'qrcode';
 
 import { Logger } from 'aws-amplify';
@@ -8,29 +8,30 @@ import {
   getFormDataFromEvent,
   translate,
   getTotpCodeURL,
-  AuthenticatorServiceFacade,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
 const logger = new Logger('SetupTOTP-logger');
 
-const props = useAuthenticator() as AuthenticatorServiceFacade;
+const props = useAuthenticator() as UseAuthenticator;
 const { updateForm, submitForm, toSignIn } = props;
-const { user, totpSecretCode, isPending, error } = toRefs(props);
+const { user, totpSecretCode, isPending, error, QRFields } = toRefs(props);
 
 const attrs = useAttrs();
 
 /** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
 
-const { totpIssuer = 'AWSCognito', totpUsername = user.value?.username } =
-  formOverrides?.['QR'] ?? {};
+const { totpIssuer = 'AWSCognito', totpUsername = user.value.username } =
+  QRFields.value ?? {};
 
-const totpCodeURL = totpSecretCode.value
-  ? getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode.value)
-  : null;
+const totpCodeURL =
+  totpSecretCode.value && totpUsername
+    ? getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode.value)
+    : null;
 
 const qrCode = reactive({
   qrCodeImageSource: '',
@@ -169,8 +170,8 @@ const onBackToSignInClicked = (): void => {
                 type="button"
                 @click.prevent="onBackToSignInClicked"
               >
-                {{ backSignInText }}</amplify-button
-              >
+                {{ backSignInText }}
+              </amplify-button>
               <slot
                 name="footer"
                 :onBackToSignInClicked="onBackToSignInClicked"

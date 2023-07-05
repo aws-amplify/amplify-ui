@@ -5,6 +5,7 @@ import {
   AuthMachineSend,
   AuthMachineState,
   AuthStatus,
+  AuthenticatorServiceFacade,
   DefaultFormFieldOptions,
   SignInState,
   SignUpState,
@@ -66,3 +67,8 @@ export type InterpretService = Interpreter<
 
 export const InterpretServiceInjectionKeyTypes: InjectionKey<InterpretService> =
   Symbol('interpret.service');
+
+export type UseAuthenticator = AuthenticatorServiceFacade & {
+  /** @deprecated For internal use only */
+  QRFields: { totpIssuer?: string; totpUsername?: string } | null;
+};
