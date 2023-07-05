@@ -45,12 +45,12 @@ export const LandscapeErrorModal: React.FC<LandscapeErrorModalProps> = (
       className={LivenessClassNames.LandscapeErrorModal}
       height={isLandscape ? 'auto' : 480}
     >
-      <Text className={`${LivenessClassNames.LandscapeErrorModal}__header`}>
+      <Text className={LivenessClassNames.LandscapeErrorModalHeader}>
         {header}
       </Text>
       <Text>{isLandscape ? landscapeMessage : portraitMessage}</Text>
       {!isLandscape ? (
-        <Flex className={`${LivenessClassNames.LandscapeErrorModal}__button`}>
+        <Flex className={LivenessClassNames.LandscapeErrorModalButton}>
           <Button variation="primary" type="button" onClick={onRetry}>
             {tryAgainText}
           </Button>

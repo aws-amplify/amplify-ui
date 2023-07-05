@@ -46,12 +46,10 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
         <AlertIcon ariaHidden variation="info" />
         {shouldShowPopover && (
           <>
-            <Flex className={`${LivenessClassNames.Popover}__anchor`} />
+            <Flex className={LivenessClassNames.PopoverAnchor} />
+            <Flex className={LivenessClassNames.PopoverAnchorSecondary} />
             <Flex
-              className={`${LivenessClassNames.Popover}__anchor-secondary`}
-            />
-            <Flex
-              className={`${LivenessClassNames.Popover}__container`}
+              className={LivenessClassNames.PopoverContainer}
               left={isMobileScreen ? -190 : -108}
               data-testid="popover-text"
             >

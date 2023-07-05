@@ -21,10 +21,8 @@ export const Toast: React.FC<ToastProps> = ({
       maxWidth={{ base: '100%', small: '70%' }}
       {...rest}
     >
-      <Flex className={`${LivenessClassNames.Toast}__container`}>
-        <Flex className={`${LivenessClassNames.Toast}__message`}>
-          {children}
-        </Flex>
+      <Flex className={LivenessClassNames.ToastContainer}>
+        <Flex className={LivenessClassNames.ToastMessage}>{children}</Flex>
       </Flex>
     </View>
   );

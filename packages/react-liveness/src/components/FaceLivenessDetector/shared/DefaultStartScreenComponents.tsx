@@ -20,11 +20,11 @@ export const DefaultHeader = ({
   bodyText,
 }: DefaultHeaderProps): JSX.Element => {
   return (
-    <View className={`${LivenessClassNames.StartScreenHeader}`}>
-      <View className={`${LivenessClassNames.StartScreenHeader}__heading`}>
+    <View className={LivenessClassNames.StartScreenHeader}>
+      <View className={LivenessClassNames.StartScreenHeaderHeading}>
         {headingText}
       </View>
-      <View className={`${LivenessClassNames.StartScreenHeader}__body`}>
+      <View className={LivenessClassNames.StartScreenHeaderBody}>
         {bodyText}
       </View>
     </View>
@@ -74,9 +74,7 @@ export const DefaultInstructions = ({
 }: DefaultInstructionsProps): JSX.Element => {
   return (
     <Flex direction="column">
-      <Text
-        className={`${LivenessClassNames.StartScreenInstructions}__heading`}
-      >
+      <Text className={LivenessClassNames.StartScreenInstructionsHeading}>
         {headingText}
       </Text>
       <Flex className={LivenessClassNames.Figures}>

@@ -111,7 +111,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       if (isWaitingForSessionInfo) {
         return (
           <Toast>
-            <Flex className={`${LivenessClassNames.Hint}__text`}>
+            <Flex className={LivenessClassNames.HintText}>
               <Loader />
               <View>{hintDisplayText.hintConnectingText}</View>
             </Flex>
@@ -126,7 +126,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
             anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
           >
             <Toast>
-              <Flex className={`${LivenessClassNames.Hint}__text`}>
+              <Flex className={LivenessClassNames.HintText}>
                 <Loader />
                 <View>{hintDisplayText.hintVerifyingText}</View>
               </Flex>
