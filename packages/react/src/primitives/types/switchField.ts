@@ -90,5 +90,5 @@ export interface BaseSwitchFieldProps
   value?: string | number;
 }
 
-export type SwitchFieldProps<Element extends ElementType = 'input'> =
+export type SwitchFieldProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseSwitchFieldProps, Element>;

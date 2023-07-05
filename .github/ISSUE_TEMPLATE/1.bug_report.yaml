@@ -49,10 +49,11 @@ body:
       options:
         - Authenticator
         - Account Settings
-        - Geo (MapView)
+        - Geo (MapView/LocationSearch)
         - In-App Messaging
+        - Liveness
         - Primitive components
-        - Storage (File Uploader)
+        - Storage (Storage Manager)
         - Other
     validations:
       required: true

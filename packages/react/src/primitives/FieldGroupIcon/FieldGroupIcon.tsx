@@ -10,10 +10,7 @@ import {
 } from '../types';
 import { View } from '../View';
 
-const FieldGroupIconPrimitive: Primitive<
-  FieldGroupIconProps,
-  'button' | 'div'
-> = (
+const FieldGroupIconPrimitive: Primitive<FieldGroupIconProps, 'div'> = (
   {
     className,
     children,
@@ -37,7 +34,7 @@ const FieldGroupIconPrimitive: Primitive<
 
 export const FieldGroupIcon: ForwardRefPrimitive<
   BaseFieldGroupIconProps,
-  'button' | 'div'
+  'div'
 > = React.forwardRef(FieldGroupIconPrimitive);
 
 FieldGroupIcon.displayName = 'FieldGroupIcon';
