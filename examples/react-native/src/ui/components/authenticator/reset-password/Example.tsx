@@ -27,7 +27,7 @@ function App() {
                   type: 'default',
                   name: 'username',
                   label: 'Enter your username',
-                  placeholder: 'Enter your Username',
+                  placeholder: 'Enter your username',
                   required: true,
                   testID: 'authenticator__text-field__input-username',
                 },

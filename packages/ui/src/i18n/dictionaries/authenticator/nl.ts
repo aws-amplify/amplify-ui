@@ -24,7 +24,6 @@ export const nlDict: AuthenticatorDictionary = {
   'Enter your Password': 'Vul je wachtwoord in',
   'Enter your phone number': 'Vul je telefoonnummer in',
   'Enter your username': 'Vul je gebruikersnaam in',
-  'Enter your Username': 'Vul je gebruikersnaam in',
   'Forgot your password?': 'Wachtwoord vergeten? ',
   'Hide password': 'Verberg wachtwoord',
   'It may take a minute to arrive': 'Het kan even duren voordat deze aankomt',
