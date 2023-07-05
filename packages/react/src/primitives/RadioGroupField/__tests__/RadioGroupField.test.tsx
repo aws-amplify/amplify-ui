@@ -44,7 +44,7 @@ describe('RadioFieldGroup', () => {
   });
 
   it('should forward ref to DOM element', async () => {
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = React.createRef<HTMLFieldSetElement>();
     render(<RadioGroupField {...basicProps} ref={ref}></RadioGroupField>);
 
     await screen.findByTestId(basicProps.testId);

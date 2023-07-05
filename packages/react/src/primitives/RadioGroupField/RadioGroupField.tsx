@@ -17,7 +17,7 @@ import {
 import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
 
-const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'div'> = (
+const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'fieldset'> = (
   {
     children,
     className,
@@ -117,7 +117,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, 'div'> = (
  */
 export const RadioGroupField: ForwardRefPrimitive<
   BaseRadioGroupFieldProps,
-  'div'
+  'fieldset'
 > = React.forwardRef(RadioGroupFieldPrimitive);
 
 RadioGroupField.displayName = 'RadioGroupField';
