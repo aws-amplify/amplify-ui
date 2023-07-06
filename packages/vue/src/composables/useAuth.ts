@@ -6,14 +6,22 @@ import { interpret } from 'xstate';
 import { Auth } from 'aws-amplify';
 import {
   AuthInterpreter,
+  AuthMachineState,
   AuthStatus,
   createAuthenticatorMachine,
   defaultAuthHubHandler,
+  getActorContext,
   getServiceFacade,
   listenToAuthHub,
 } from '@aws-amplify/ui';
 
 import { UseAuth } from '../types';
+
+export const getQRFields = (
+  state: AuthMachineState
+): { totpIssuer?: string; totpUsername?: string } => ({
+  ...getActorContext(state)?.formFields?.setupTOTP?.QR,
+});
 
 export const useAuth = createSharedComposable((): UseAuth => {
   const machine = createAuthenticatorMachine();
@@ -72,6 +80,13 @@ export const useAuthenticator = createSharedComposable(() => {
       //@ts-ignore
       useAuthenticatorValue[key] = facade[key];
     }
+
+    // legacy `QRFields` values only used for SetupTOTP page to retrieve issuer information, will be removed in future
+    const qrFields =
+      facade.route === 'setupTOTP' ? getQRFields(state.value) : null;
+
+    useAuthenticatorValue.QRFields = qrFields;
+
     useAuthenticatorValue.authStatus = authStatus.value;
     useAuthenticatorValue.send = send;
     useAuthenticatorValue.state = state;

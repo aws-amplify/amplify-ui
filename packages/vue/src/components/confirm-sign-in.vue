@@ -1,66 +1,61 @@
 <script setup lang="ts">
+import { computed, toRefs, useAttrs } from 'vue';
 import {
   authenticatorTextUtil,
-  getActorState,
   getFormDataFromEvent,
-  SignInState,
   translate,
 } from '@aws-amplify/ui';
-import { computed, ComputedRef, useAttrs } from 'vue';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
+/** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
 const attrs = useAttrs();
 
-const { state, send } = useAuth();
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
 
-const props = useAuthenticator();
+const { submitForm, toSignIn, updateForm } = facade;
+const { user, error, isPending } = toRefs(facade);
 
-const actorState = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<SignInState>;
-const challengeName = actorState.value.context.challengeName;
+const challengeName = computed(() => user.value.challengeName);
 
 // Text Util
 const { getBackToSignInText, getConfirmText, getChallengeText } =
   authenticatorTextUtil;
 
 // Computed Properties
-const confirmSignInHeading = computed(() => getChallengeText(challengeName));
+const confirmSignInHeading = computed(() =>
+  getChallengeText(challengeName.value)
+);
 const backSignInText = computed(() => getBackToSignInText());
 const confirmText = computed(() => getConfirmText());
 
 // Methods
 const onInput = (e: Event): void => {
   const { name, value } = e.target as HTMLInputElement;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
+  updateForm({ name, value });
 };
 
 const onConfirmSignInSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmSignInSubmit) {
     emit('confirmSignInSubmit', e);
   } else {
-    submit(e);
+    submitForm(getFormDataFromEvent(e));
   }
 };
 
-const submit = (e: Event): void => {
-  props.submitForm(getFormDataFromEvent(e));
-};
-
 const onBackToSignInClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onBackToSignInClicked) {
     emit('backToSignInClicked');
   } else {
-    send({
-      type: 'SIGN_IN',
-    });
+    toSignIn();
   }
 };
 </script>
@@ -75,7 +70,7 @@ const onBackToSignInClicked = (): void => {
       >
         <base-field-set
           class="amplify-flex amplify-authenticator__column"
-          :disabled="actorState.matches('confirmSignIn.pending')"
+          :disabled="isPending"
         >
           <slot name="header">
             <base-heading :level="3" class="amplify-heading">
@@ -86,8 +81,8 @@ const onBackToSignInClicked = (): void => {
             <base-form-fields route="confirmSignIn"></base-form-fields>
           </base-wrapper>
           <base-footer class="amplify-flex amplify-authenticator__column">
-            <base-alert v-if="actorState?.context?.remoteError">
-              {{ translate(actorState?.context?.remoteError) }}
+            <base-alert v-if="error">
+              {{ translate(error) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
@@ -95,7 +90,7 @@ const onBackToSignInClicked = (): void => {
               :loading="false"
               :variation="'primary'"
               style="font-weight: normal"
-              :disabled="actorState.matches('confirmSignIn.pending')"
+              :disabled="isPending"
               >{{ confirmText }}</amplify-button
             >
             <amplify-button
