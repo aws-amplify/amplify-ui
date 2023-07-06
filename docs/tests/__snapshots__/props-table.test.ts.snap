@@ -5715,17 +5715,17 @@ exports[`Props Table 1`] = `
         \\"PhoneNumberField\\": [
             {
                 \\"Main\\": {
-                    \\"id\\": {
-                        \\"name\\": \\"id\\",
-                        \\"type\\": \\"string | undefined\\",
-                        \\"description\\": \\"Unique identifier\\",
-                        \\"category\\": \\"BaseComponentProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"children\\": {
                         \\"name\\": \\"children\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"Children to be rendered inside the component\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"id\\": {
+                        \\"name\\": \\"id\\",
+                        \\"type\\": \\"string | undefined\\",
+                        \\"description\\": \\"Unique identifier\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
