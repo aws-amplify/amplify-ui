@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 5.0.4
+
+### Patch Changes
+
+- [#4200](https://github.com/aws-amplify/amplify-ui/pull/4200) [`572730f7b`](https://github.com/aws-amplify/amplify-ui/commit/572730f7b16b87a6b2ab0c40116a4c8c5acdbd36) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fix implicit `any` type inference for event handlers' event parameter.
+
 ## 5.0.3
 
 ### Patch Changes
