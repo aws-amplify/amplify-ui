@@ -3754,13 +3754,6 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"ImageOptions\\",
                         \\"isOptional\\": true
                     },
-                    \\"isLazy\\": {
-                        \\"name\\": \\"isLazy\\",
-                        \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Image will be loaded lazily if set to true. Default: false\\",
-                        \\"category\\": \\"ImageOptions\\",
-                        \\"isOptional\\": true
-                    },
                     \\"onLoad\\": {
                         \\"name\\": \\"onLoad\\",
                         \\"type\\": \\"((event: React.SyntheticEvent<HTMLImageElement, Event>) => void) | undefined\\",

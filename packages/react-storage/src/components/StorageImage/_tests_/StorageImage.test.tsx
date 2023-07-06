@@ -40,20 +40,6 @@ describe('StorageImage:', () => {
     expect(img).toHaveClass(className);
   });
 
-  it('should set loading attribute to lazy if isLazy prop is true', async () => {
-    render(
-      <StorageImage
-        alt="StorageImage"
-        imgKey={imgKey}
-        accessLevel="public"
-        isLazy
-      />
-    );
-
-    const img = await screen.findByRole('img');
-    expect(img).toHaveAttribute('loading', 'lazy');
-  });
-
   it('should get the presigned URL and pass it to image src attribute', async () => {
     const onStorageError = jest.fn();
     render(

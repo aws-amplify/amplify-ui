@@ -23,12 +23,12 @@ export const useStorageURL = (
 
   // Used to prevent an infinite loop on useEffect, because `options`
   // will have a different reference on every render
-  const optionsRef = React.useRef(options);
+  const serializedOptions = JSON.stringify(options);
 
   const fetch = () => {
     setResult({ isLoading: true });
 
-    const options = optionsRef.current;
+    const options = JSON.parse(serializedOptions) as S3ProviderGetConfig;
     const promise = Storage.get(key, options);
 
     // Attempt to fetch storage object url
@@ -40,7 +40,7 @@ export const useStorageURL = (
     return () => Storage.cancel(promise);
   };
 
-  React.useEffect(fetch, [key]);
+  React.useEffect(fetch, [key, serializedOptions]);
 
   // Set the url to fallbackURL if error happens
   if (result.error) {
