@@ -26,5 +26,5 @@ export interface BaseRadioGroupFieldProps
   labelPosition?: LabelPositions;
 }
 
-export type RadioGroupFieldProps<Element extends ElementType = 'input'> =
+export type RadioGroupFieldProps<Element extends ElementType = 'fieldset'> =
   PrimitiveProps<BaseRadioGroupFieldProps, Element>;
