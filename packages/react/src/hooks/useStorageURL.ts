@@ -23,7 +23,7 @@ export const useStorageURL = (
 
   // Used to prevent an infinite loop on useEffect, because `options`
   // will have a different reference on every render
-  const serializedOptions = JSON.stringify(options);
+  const serializedOptions = JSON.stringify(options ?? {});
 
   const fetch = () => {
     setResult({ isLoading: true });
