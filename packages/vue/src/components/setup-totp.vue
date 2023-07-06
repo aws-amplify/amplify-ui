@@ -19,7 +19,7 @@ const logger = new Logger('SetupTOTP-logger');
 // `useAuthenticator` is casted for temporary type safety on this file.
 const props = useAuthenticator() as UseAuthenticator;
 const { updateForm, submitForm, toSignIn } = props;
-const { user, totpSecretCode, isPending, error, QRFields } = toRefs(props);
+const { error, isPending, QRFields , totpSecretCode, user} = toRefs(props);
 
 const attrs = useAttrs();
 
