@@ -14,11 +14,11 @@ import BaseFormFields from './primitives/base-form-fields.vue';
 const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
 const attrs = useAttrs();
 
-// `useAuthenticator` is casted for temporary type safety on this file.
-const props = useAuthenticator() as UseAuthenticator;
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
 
-const { submitForm, toSignIn, updateForm } = props;
-const { user, error, isPending } = toRefs(props);
+const { submitForm, toSignIn, updateForm } = facade;
+const { user, error, isPending } = toRefs(facade);
 
 const challengeName = computed(() => user.value.challengeName);
 

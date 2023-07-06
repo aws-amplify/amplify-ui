@@ -16,10 +16,11 @@ import BaseFormFields from './primitives/base-form-fields.vue';
 
 const logger = new Logger('SetupTOTP-logger');
 
-// `useAuthenticator` is casted for temporary type safety on this file.
-const props = useAuthenticator() as UseAuthenticator;
-const { updateForm, submitForm, toSignIn } = props;
-const { error, isPending, QRFields, totpSecretCode, user } = toRefs(props);
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+
+const { updateForm, submitForm, toSignIn } = facade;
+const { error, isPending, QRFields, totpSecretCode, user } = toRefs(facade);
 
 const attrs = useAttrs();
 
