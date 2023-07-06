@@ -1,5 +1,20 @@
 # @aws-amplify/ui-react-liveness
 
+## 1.0.6
+
+### Patch Changes
+
+- [#4122](https://github.com/aws-amplify/amplify-ui/pull/4122) [`0dc976595`](https://github.com/aws-amplify/amplify-ui/commit/0dc9765955b8406f8f062ad65400261a8b34bc3a) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): improve face match percentage performance
+
+- [#4174](https://github.com/aws-amplify/amplify-ui/pull/4174) [`bc5533c14`](https://github.com/aws-amplify/amplify-ui/commit/bc5533c145da3a048533813ad893a1b0d96ea341) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): liveness package name in user agent
+
+- [#4150](https://github.com/aws-amplify/amplify-ui/pull/4150) [`699345400`](https://github.com/aws-amplify/amplify-ui/commit/699345400dafb1e2fa6b341934c6ce3fe553b1f8) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(liveness): remove websocket error showing up after connection closes
+
+- [#4177](https://github.com/aws-amplify/amplify-ui/pull/4177) [`19d4114ce`](https://github.com/aws-amplify/amplify-ui/commit/19d4114ce2706b8dbba6df6c4f07f800f1a04c39) Thanks [@wlee221](https://github.com/wlee221)! - Bump `@aws-sdk/client-rekognitionstreaming` to 3.360.0
+
+- Updated dependencies [[`572730f7b`](https://github.com/aws-amplify/amplify-ui/commit/572730f7b16b87a6b2ab0c40116a4c8c5acdbd36)]:
+  - @aws-amplify/ui-react@5.0.4
+
 ## 1.0.5
 
 ### Patch Changes
