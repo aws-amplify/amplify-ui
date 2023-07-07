@@ -175,7 +175,7 @@ describe('ConfirmResetPassword', () => {
     expect(toSignInSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('disables the submit button if confirmation is pending', async () => {
+  it('disables the submit button if password change is pending', async () => {
     useAuthenticatorSpy.mockReturnValue(
       reactive({ ...mockServiceFacade, isPending: true })
     );
