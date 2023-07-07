@@ -166,7 +166,7 @@ describe('ConfirmResetPassword', () => {
     expect(resendCodeSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('disables the submit button if confirmation is pending', async () => {
+  it('disables the submit button if password reset is pending', async () => {
     useAuthenticatorSpy.mockReturnValue(
       reactive({ ...mockServiceFacade, isPending: true })
     );
