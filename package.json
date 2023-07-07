@@ -34,6 +34,8 @@
     "publish:studio": "yarn changeset publish --tag studio",
     "version:latest": "yarn changeset version && yarn generateVersions && yarn angular build",
     "publish:latest": "yarn changeset publish",
+    "version:hotfix": "yarn changeset && yarn bumpVersions && yarn angular build",
+    "publish:hotfix": "yarn changeset publish --tag hotfix",
     "generateVersions": "node scripts/generateVersion",
     "bumpVersions": "yarn changeset version && yarn generateVersions"
   },
