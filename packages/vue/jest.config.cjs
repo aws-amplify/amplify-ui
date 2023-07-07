@@ -13,10 +13,10 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      branches: 51,
-      functions: 64,
-      lines: 76,
-      statements: 75,
+      branches: 62,
+      functions: 81,
+      lines: 87,
+      statements: 87,
     },
   },
   testEnvironment: 'jsdom',
