@@ -8,7 +8,7 @@ import { components } from '../../../global-spec';
 import * as UseAuthComposables from '../../composables/useAuth';
 import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import { UseAuthenticator } from '../../types';
-import ConfirmResetPassword from '../confirm-reset-password.vue';
+import ForceNewPassword from '../force-new-password.vue';
 
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
@@ -20,7 +20,7 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
 const updateBlurSpy = jest.fn();
 const updateFormSpy = jest.fn();
 const submitFormSpy = jest.fn();
-const resendCodeSpy = jest.fn();
+const toSignInSpy = jest.fn();
 
 const mockServiceFacade: UseAuthenticator = {
   ...baseMockServiceFacade,
@@ -28,7 +28,7 @@ const mockServiceFacade: UseAuthenticator = {
   updateBlur: updateBlurSpy,
   updateForm: updateFormSpy,
   submitForm: submitFormSpy,
-  resendCode: resendCodeSpy,
+  toSignIn: toSignInSpy,
 };
 
 const useAuthenticatorSpy = jest
@@ -41,18 +41,10 @@ jest.spyOn(UIModule, 'getActorContext').mockReturnValue({
 
 jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
   [
-    'confirmation_code',
-    {
-      label: 'Code *',
-      placeholder: 'Code',
-      type: 'number',
-    },
-  ],
-  [
     'password',
     {
-      label: 'New Password',
-      placeholder: 'New Password',
+      label: 'Password',
+      placeholder: 'Enter your Password',
       type: 'password',
     },
   ],
@@ -60,19 +52,30 @@ jest.spyOn(UIModule, 'getSortedFormFields').mockReturnValue([
     'confirm_password',
     {
       label: 'Confirm Password',
-      placeholder: 'Confirm Password',
+      placeholder: 'Please confirm your Password',
       type: 'password',
+    },
+  ],
+  [
+    'preferred_username',
+    {
+      label: 'Preferred Username',
+      placeholder: 'Enter your Preferred Username',
+      type: 'text',
     },
   ],
 ]);
 
-const codeInputPrams = { name: 'confirmation_code', value: '123456' };
-const newPasswordInputParams = {
+const passwordInputParams = {
   name: 'password',
   value: 'verysecurepassword',
 };
 const confirmPasswordInputParams = {
   name: 'confirm_password',
+  value: 'verysecurepassword',
+};
+const preferredUsernameInputParams = {
+  name: 'preferred_username',
   value: 'verysecurepassword',
 };
 
@@ -85,7 +88,7 @@ describe('ConfirmResetPassword', () => {
     // mock random value so that snapshots are consistent
     const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
 
-    const { container } = render(ConfirmResetPassword, {
+    const { container } = render(ForceNewPassword, {
       global: { components },
     });
     expect(container).toMatchSnapshot();
@@ -94,52 +97,58 @@ describe('ConfirmResetPassword', () => {
   });
 
   it('handles change events as expected', async () => {
-    render(ConfirmResetPassword, { global: { components } });
+    render(ForceNewPassword, {
+      global: { components },
+    });
 
-    const codeField = await screen.findByLabelText('Code *');
-    const newPasswordField = await screen.findByLabelText('New Password');
+    const passwordField = await screen.findByLabelText('Password');
     const confirmPasswordField = await screen.findByLabelText(
       'Confirm Password'
     );
+    const preferredUsernameField = await screen.findByLabelText(
+      'Preferred Username'
+    );
 
-    await fireEvent.input(codeField, { target: codeInputPrams });
-    expect(updateFormSpy).toHaveBeenCalledWith(codeInputPrams);
-
-    await fireEvent.input(newPasswordField, { target: newPasswordInputParams });
-    expect(updateFormSpy).toHaveBeenCalledWith(newPasswordInputParams);
+    await fireEvent.input(passwordField, { target: passwordInputParams });
+    expect(updateFormSpy).toHaveBeenCalledWith(passwordInputParams);
 
     await fireEvent.input(confirmPasswordField, {
       target: confirmPasswordInputParams,
     });
     expect(updateFormSpy).toHaveBeenCalledWith(confirmPasswordInputParams);
+
+    await fireEvent.input(preferredUsernameField, {
+      target: preferredUsernameInputParams,
+    });
+    expect(updateFormSpy).toHaveBeenCalledWith(preferredUsernameInputParams);
   });
 
   it('handles blur events as expected', async () => {
-    render(ConfirmResetPassword, {
-      global: { components },
-    });
+    render(ForceNewPassword, { global: { components } });
 
-    const codeField = await screen.findByLabelText('Code *');
-    const newPasswordField = await screen.findByLabelText('New Password');
+    const passwordField = await screen.findByLabelText('Password');
     const confirmPasswordField = await screen.findByLabelText(
       'Confirm Password'
     );
+    const preferredUsernameField = await screen.findByLabelText(
+      'Preferred Username'
+    );
 
-    await fireEvent.blur(codeField);
-    expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'confirmation_code' });
-
-    await fireEvent.blur(newPasswordField);
+    await fireEvent.blur(passwordField);
     expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'password' });
 
     await fireEvent.blur(confirmPasswordField);
     expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'confirm_password' });
+
+    await fireEvent.blur(preferredUsernameField);
+    expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'preferred_username' });
   });
 
   it('handles submit events as expected', async () => {
-    render(ConfirmResetPassword, { global: { components } });
+    render(ForceNewPassword, { global: { components } });
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Submit',
+      name: 'Change Password',
     });
 
     await fireEvent.click(submitButton);
@@ -150,30 +159,30 @@ describe('ConfirmResetPassword', () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({ ...mockServiceFacade, error: 'mockError' })
     );
-    render(ConfirmResetPassword, { global: { components } });
+    render(ForceNewPassword, { global: { components } });
 
     expect(await screen.findByText('mockError')).toBeInTheDocument();
   });
 
-  it('handles resend code button as expected', async () => {
-    render(ConfirmResetPassword, { global: { components } });
+  it('handles back to sign in button as expected', async () => {
+    render(ForceNewPassword, { global: { components } });
 
-    const resendCodeButton = await screen.findByRole('button', {
-      name: 'Resend Code',
+    const backToSignInButton = await screen.findByRole('button', {
+      name: 'Back to Sign In',
     });
-    await fireEvent.click(resendCodeButton);
+    await fireEvent.click(backToSignInButton);
 
-    expect(resendCodeSpy).toHaveBeenCalledTimes(1);
+    expect(toSignInSpy).toHaveBeenCalledTimes(1);
   });
 
   it('disables the submit button if confirmation is pending', async () => {
     useAuthenticatorSpy.mockReturnValue(
       reactive({ ...mockServiceFacade, isPending: true })
     );
-    render(ConfirmResetPassword, { global: { components } });
+    render(ForceNewPassword, { global: { components } });
 
     const submitButton = await screen.findByRole('button', {
-      name: 'Submit',
+      name: 'Changing…',
     });
     expect(submitButton).toBeDisabled();
   });
