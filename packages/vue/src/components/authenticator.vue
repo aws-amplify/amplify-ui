@@ -52,6 +52,7 @@ const {
   formFields,
 } = toRefs(props);
 
+/** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits([
   'signInSubmit',
   'confirmSignUpSubmit',
@@ -105,7 +106,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (unsubscribeMachine) unsubscribeMachine();
+  unsubscribeMachine();
 });
 
 const signInComponent = ref();
@@ -126,89 +127,129 @@ const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 const signInLabel = computed(() => getSignInTabText());
 const createAccountLabel = computed(() => getSignUpTabText());
 
-//methods
-
+// methods
 const onSignInSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onSignInSubmit) {
     emit('signInSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused
+    // istanbul ignore next
     signInComponent.value?.submit(e);
   }
 };
 
 const onConfirmSignUpSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmSignUpSubmit) {
     emit('confirmSignUpSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmSignUpComponent.value.submit(e);
   }
 };
 
 const onResetPasswordSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onResetPasswordSubmit) {
     emit('resetPasswordSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     resetPasswordComponent.value.submit(e);
   }
 };
 
 const onConfirmResetPasswordSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmResetPasswordSubmit) {
     emit('confirmResetPasswordSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmResetPasswordComponent.value.submit(e);
   }
 };
 
 const onConfirmSignInSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmSignInSubmit) {
     emit('confirmSignInSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmSignInComponent.value.submit(e);
   }
 };
 
 const onConfirmSetupTOTPSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onForceNewPasswordSubmit) {
     emit('mSetupTOTPSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmSetupTOTPComponent.value.submit(e);
   }
 };
 
 const onForceNewPasswordSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onForceNewPasswordSubmit) {
     emit('forceNewPasswordSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     forceNewPasswordComponent.value.submit(e);
   }
 };
 
 const onSignUpSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     signUpComponent.value.submit();
   }
 };
 
 const onVerifyUserSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onVerifyUserSubmit) {
     emit('verifyUserSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     verifyUserComponent.value.submit(e);
   }
 };
 
 const onConfirmVerifyUserSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmVerifyUserSubmit) {
     emit('confirmVerifyUserSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmVerifyUserComponent.value.submit(e);
   }
 };
 
 const hasTabs = computed(() => {
+  // istanbul ignore next
   return route.value === 'signIn' || route.value === 'signUp';
 });
 

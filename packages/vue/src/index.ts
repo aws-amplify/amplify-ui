@@ -65,6 +65,7 @@ export {
   Authenticator,
   AuthenticatorSignUpFormFields,
   AuthenticatorForceNewPasswordFormFields,
+  /** @deprecated RenderInfo is unmaintained. */
   RenderInfo,
   ForceNewPassword,
   PasswordControl,
