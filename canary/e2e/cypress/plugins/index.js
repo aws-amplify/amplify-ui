@@ -7,7 +7,7 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-const cucumber = require('cypress-cucumber-preprocessor').default;
+const cucumber = require('@badeball/cypress-cucumber-preprocessor').default;
 const path = require('path');
 require('dotenv-safe').config({
   allowEmptyValues: true,
