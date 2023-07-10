@@ -11,6 +11,7 @@ export type ButtonVariations =
   | 'warning'
   | 'destructive';
 
+/** @deprecated For internal use only */
 export interface BaseButtonProps
   extends BaseViewProps,
     FlexContainerStyleProps {

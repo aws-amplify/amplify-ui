@@ -1,5 +1,6 @@
 import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseLabelProps extends BaseViewProps {
   /**
    * @description

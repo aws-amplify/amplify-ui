@@ -2,6 +2,7 @@ import { ElementType, PrimitiveProps, BaseViewProps } from '../types/view';
 
 type ExpanderType = 'single' | 'multiple';
 
+/** @deprecated For internal use only */
 export interface BaseExpanderProps extends BaseViewProps {
   /**
    * @description
@@ -38,6 +39,8 @@ export interface BaseExpanderProps extends BaseViewProps {
    */
   onValueChange?: (value?: string | string[]) => void;
 }
+
+/** @deprecated For internal use only */
 export type ExpanderProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseExpanderProps,
   Element

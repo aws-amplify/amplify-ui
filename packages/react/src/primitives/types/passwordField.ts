@@ -3,6 +3,7 @@ import { BaseButtonProps } from './button';
 import { BaseTextFieldProps } from './textField';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BasePasswordFieldProps extends BaseTextFieldProps {
   /**
    * @description
@@ -65,6 +66,7 @@ export type PasswordFieldProps<Element extends ElementType = 'input'> =
 
 export type PasswordFieldType = 'password' | 'text';
 
+/** @deprecated For internal use only */
 export interface BaseShowPasswordButtonProps extends BaseButtonProps {
   /**
    * @description
