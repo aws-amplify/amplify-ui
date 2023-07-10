@@ -46,7 +46,7 @@ const HomePage = ({ colorMode }) => {
     return () => {
       document.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   let pageContent;
 
