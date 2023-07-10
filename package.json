@@ -26,7 +26,6 @@
     "vue-example": "yarn workspace @aws-amplify/ui-vue-example",
     "e2e": "yarn workspace @aws-amplify/ui-e2e",
     "environments": "yarn workspace @aws-amplify/ui-environments",
-    "license": "node scripts/licenseChecker.js",
     "test": "yarn ui test && yarn react-core test && yarn react test && yarn react-native test && yarn e2e test",
     "prepare": "husky install",
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn generateVersions && yarn angular build",
@@ -37,6 +36,8 @@
     "publish:studio": "yarn changeset publish --tag studio",
     "version:latest": "yarn changeset version && yarn generateVersions && yarn angular build",
     "publish:latest": "yarn changeset publish",
+    "version:hotfix": "yarn changeset && yarn bumpVersions && yarn angular build",
+    "publish:hotfix": "yarn changeset publish --tag hotfix",
     "generateVersions": "node scripts/generateVersion",
     "bumpVersions": "yarn changeset version && yarn generateVersions"
   },
@@ -87,14 +88,14 @@
     "prismjs": "^1.25.0",
     "react-dev-utils": "^11.0.4",
     "shell-quote": "1.7.3",
+    "tough-cookie": "4.1.3",
     "trim-newlines": "3.0.1",
     "yaml": "2.2.2"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.4.1",
-    "@changesets/cli": "^2.16.0",
+    "@changesets/cli": "^2.26.2",
     "husky": ">=6",
-    "license-checker": "^25.0.1",
     "lint-staged": ">=10",
     "prettier": "2.4.1",
     "rimraf": "^3.0.2",
