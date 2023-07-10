@@ -20,11 +20,13 @@ export const DefaultHeader = ({
   bodyText,
 }: DefaultHeaderProps): JSX.Element => {
   return (
-    <View flex="1">
-      <View color="font.primary" fontWeight="bold">
+    <View className={LivenessClassNames.StartScreenHeader}>
+      <View className={LivenessClassNames.StartScreenHeaderHeading}>
         {headingText}
       </View>
-      <View color="font.primary">{bodyText}</View>
+      <View className={LivenessClassNames.StartScreenHeaderBody}>
+        {bodyText}
+      </View>
     </View>
   );
 };
@@ -42,10 +44,7 @@ export const DefaultPhotosensitiveWarning = ({
 }: DefaultPhotosensitiveWarningProps): JSX.Element => {
   return (
     <Flex
-      className={ComponentClassNames.Alert}
-      color="orange.80"
-      backgroundColor="orange.20"
-      alignItems="center"
+      className={`${ComponentClassNames.Alert} ${LivenessClassNames.StartScreenWarning}`}
     >
       <View flex="1">
         <View className={ComponentClassNames.AlertHeading}>{headingText}</View>
@@ -75,7 +74,7 @@ export const DefaultInstructions = ({
 }: DefaultInstructionsProps): JSX.Element => {
   return (
     <Flex direction="column">
-      <Text color="font.primary" fontWeight="bold">
+      <Text className={LivenessClassNames.StartScreenInstructionsHeading}>
         {headingText}
       </Text>
       <Flex className={LivenessClassNames.Figures}>
