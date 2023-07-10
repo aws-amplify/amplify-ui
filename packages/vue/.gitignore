@@ -1,4 +1,7 @@
 dist
 
 # ignore jest generated coverage directory
-coverage 
+coverage
+
+# not part of public
+components.d.ts
