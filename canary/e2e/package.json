@@ -16,15 +16,16 @@
   },
   "author": "",
   "devDependencies": {
-    "cypress": "^9.5.1",
     "@testing-library/cypress": "^7.0.6",
     "@types/cypress-cucumber-preprocessor": "^4.0.0",
+    "cypress": "^10.11.0",
     "cypress-cucumber-preprocessor": "^4.1.2",
     "dotenv-safe": "^8.2.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.3.2"
   },
   "resolutions": {
+    "semver": "7.5.4",
     "tough-cookie": "4.1.3"
   }
 }
