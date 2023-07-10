@@ -9,11 +9,11 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSignInComponent } from '../types';
+import { DefaultSignInProps } from '../types';
 
 const COMPONENT_NAME = 'SignIn';
 
-const SignIn: DefaultSignInComponent = ({
+const SignIn = ({
   fields,
   handleBlur,
   handleChange,
@@ -22,7 +22,7 @@ const SignIn: DefaultSignInComponent = ({
   toResetPassword,
   toSignUp,
   ...rest
-}) => {
+}: DefaultSignInProps): JSX.Element => {
   const {
     getSignInTabText,
     getSignInText,
