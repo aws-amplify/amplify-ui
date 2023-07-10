@@ -40,12 +40,12 @@ export interface BaseExpanderProps extends BaseViewProps {
   onValueChange?: (value?: string | string[]) => void;
 }
 
-/** @deprecated For internal use only */
 export type ExpanderProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseExpanderProps,
   Element
 >;
 
+/** @deprecated For internal use only */
 export interface BaseExpanderItemProps extends BaseViewProps {
   /**
    * @description
