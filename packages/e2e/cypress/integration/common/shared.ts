@@ -90,12 +90,11 @@ Given(
       throw error;
     }
 
-    cy.intercept(routeMatcher, (req) => {
-      req.reply((res) => {
-        res.headers[headerName] = headerValue; // Add header to the response
-        res.send({ fixture }); // Respond with fixture data
-      });
-    }).as('route');
+    cy.intercept(routeMatcher, {
+      headers: {
+        [headerName]: headerValue,
+      },
+    });
   }
 );
 
