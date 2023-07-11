@@ -21,7 +21,7 @@
     "@angular-eslint/schematics": "~14.4.0",
     "@angular-eslint/template-parser": "~14.4.0",
     "@angular/animations": "^14.3.0",
-    "@angular/cli": "^14.2.11",
+    "@angular/cli": "^14.2.12",
     "@angular/common": "^14.3.0",
     "@angular/compiler": "^14.3.0",
     "@angular/compiler-cli": "^14.3.0",
