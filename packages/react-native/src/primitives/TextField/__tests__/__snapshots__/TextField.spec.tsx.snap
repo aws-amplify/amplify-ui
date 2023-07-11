@@ -123,7 +123,7 @@ exports[`TextField doesn't render the errorMessage if errorMessage prop is undef
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 10%, 58%)",
+        "borderColor": "hsl(0, 95%, 30%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -445,7 +445,7 @@ exports[`TextField renders as expected with error message 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 10%, 58%)",
+        "borderColor": "hsl(0, 95%, 30%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
