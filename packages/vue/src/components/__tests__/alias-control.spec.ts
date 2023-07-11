@@ -48,6 +48,56 @@ describe('AliasControl', () => {
     });
     const field = await screen.findByRole('textbox');
     expect(field).toHaveClass('amplify-input', 'amplify-field-group__control');
+    expect(field).toHaveAttribute('type', 'text');
+  });
+
+  it('renders phone number field with default class and attributes', async () => {
+    render(AliasControl, {
+      global: {
+        components,
+      },
+      props: {
+        label: 'Phone Number',
+        name: 'phone_number',
+        placeholder: 'Phone Number',
+        type: 'tel',
+      },
+    });
+    const field = await screen.findByLabelText('Phone Number');
+    expect(field).toHaveAttribute('type', 'tel');
+  });
+
+  it('does not add required attribute if field is optional', async () => {
+    render(AliasControl, {
+      global: {
+        components,
+      },
+      props: {
+        label: 'Username',
+        name: 'username',
+        placeholder: 'Username',
+        required: false,
+      },
+    });
+    const field = await screen.findByLabelText('Username');
+    expect(field).not.toHaveAttribute('required');
+  });
+
+  it('hides label if labelHidden is true', async () => {
+    render(AliasControl, {
+      global: {
+        components,
+      },
+      props: {
+        label: 'Enter your Username',
+        name: 'username',
+        placeholder: 'Username',
+        labelHidden: true,
+      },
+    });
+    expect(screen.queryByText('Enter your Username')).toHaveClass(
+      'amplify-visually-hidden'
+    );
   });
 
   it('should add aria-invalid attribute to text field when hasError is true', async () => {
