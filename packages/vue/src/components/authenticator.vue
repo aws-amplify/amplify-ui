@@ -148,7 +148,6 @@ const signInLabel = computed(() => getSignInTabText());
 const createAccountLabel = computed(() => getSignUpTabText());
 
 // methods
-/* c8 ignore start */
 const onSignInSubmitI = (e: Event) => {
   // TODO(BREAKING): remove unused emit
   // istanbul ignore next
@@ -268,7 +267,6 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
     confirmVerifyUserComponent.value.submit(e);
   }
 };
-/* c8 ignore end */
 
 const hasTabs = computed(() => {
   // istanbul ignore next
