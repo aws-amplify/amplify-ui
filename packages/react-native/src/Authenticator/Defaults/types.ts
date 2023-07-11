@@ -21,55 +21,69 @@ export type DefaultComponents<
   Props = {}
 > = AuthenticatorComponentDefaults<FieldType, Props>;
 
-export type DefaultConfirmResetPasswordComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ConfirmResetPasswordStyle }
->['ConfirmResetPassword'];
+export type DefaultConfirmResetPasswordProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ConfirmResetPasswordStyle }
+  >['ConfirmResetPassword']
+>;
 
-export type DefaultConfirmSignInComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ConfirmSignInStyle }
->['ConfirmSignIn'];
+export type DefaultConfirmSignInProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ConfirmSignInStyle }
+  >['ConfirmSignIn']
+>;
 
-export type DefaultConfirmSignUpComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ConfirmSignUpStyle }
->['ConfirmSignUp'];
+export type DefaultConfirmSignUpProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ConfirmSignUpStyle }
+  >['ConfirmSignUp']
+>;
 
-export type DefaultConfirmVerifyUserComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ConfirmVerifyUserStyle }
->['ConfirmVerifyUser'];
+export type DefaultConfirmVerifyUserProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ConfirmVerifyUserStyle }
+  >['ConfirmVerifyUser']
+>;
 
-export type DefaultForceNewPasswordComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ForceNewPasswordStyle }
->['ForceNewPassword'];
+export type DefaultForceNewPasswordProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ForceNewPasswordStyle }
+  >['ForceNewPassword']
+>;
 
-export type DefaultResetPasswordComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: ResetPasswordStyle }
->['ResetPassword'];
+export type DefaultResetPasswordProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: ResetPasswordStyle }
+  >['ResetPassword']
+>;
 
-export type DefaultSetupTOTPComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: SetupTOTPStyle }
->['SetupTOTP'];
+export type DefaultSetupTOTPProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    TextFieldOptionsType,
+    { style?: SetupTOTPStyle }
+  >['SetupTOTP']
+>;
 
-export type DefaultSignInComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: SignInStyle }
->['SignIn'];
+export type DefaultSignInProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<TextFieldOptionsType, { style?: SignInStyle }>['SignIn']
+>;
 
-export type DefaultSignUpComponent = DefaultComponents<
-  TextFieldOptionsType,
-  { style?: SignUpStyle }
->['SignUp'];
+export type DefaultSignUpProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<TextFieldOptionsType, { style?: SignUpStyle }>['SignUp']
+>;
 
-export type DefaultVerifyUserComponent = DefaultComponents<
-  RadioFieldOptions,
-  { style?: VerifyUserStyle }
->['VerifyUser'];
+export type DefaultVerifyUserProps = React.ComponentPropsWithoutRef<
+  DefaultComponents<
+    RadioFieldOptions,
+    { style?: VerifyUserStyle }
+  >['VerifyUser']
+>;
 
 /**
  * Custom Authenticator components
