@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import {
+  ref,
+  toRefs,
+  computed,
+  useAttrs,
+  onMounted,
+  onUnmounted,
+  withDefaults,
+} from 'vue';
 import { useAuth, useAuthenticator } from '../composables/useAuth';
-import { ref, toRefs, computed, useAttrs, onMounted, onUnmounted } from 'vue';
 import {
   AuthenticatorMachineOptions,
   AuthenticatorRoute,
@@ -25,22 +33,28 @@ import { VERSION } from '../version';
 
 const attrs = useAttrs();
 
-const props = withDefaults(
-  defineProps<{
-    hideSignUp?: boolean;
-    initialState?: AuthenticatorMachineOptions['initialState'];
-    loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
-    services?: AuthenticatorMachineOptions['services'];
-    signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
-    variation?: 'default' | 'modal';
-    socialProviders?: SocialProvider[];
-    formFields?: AuthFormFields;
-  }>(),
-  {
-    variation: 'default',
-  }
-);
+interface AuthenticatorProps {
+  hideSignUp?: boolean;
+  initialState?: AuthenticatorMachineOptions['initialState'];
+  loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+  services?: AuthenticatorMachineOptions['services'];
+  signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
+  variation?: 'default' | 'modal';
+  socialProviders?: SocialProvider[];
+  formFields?: AuthFormFields;
+}
 
+const props = withDefaults(defineProps<AuthenticatorProps>(), {
+  variation: 'default',
+});
+
+/**
+ * There's a known type inferrence bug with `toRefs`. `toRefs` returns
+ * `Ref<Type | undefined> | undefined` for optional properties, where the last
+ * `| undefined` is not accurate. Casting this until this issue is resolved.
+ *
+ * https://github.com/vuejs/core/issues/6420
+ */
 const {
   initialState,
   loginMechanisms,
@@ -81,12 +95,18 @@ unsubscribeMachine = service.subscribe((newState) => {
     send({
       type: 'INIT',
       data: {
-        initialState: initialState?.value,
-        loginMechanisms: loginMechanisms?.value,
-        socialProviders: socialProviders?.value,
-        signUpAttributes: signUpAttributes?.value,
-        services: services?.value,
-        formFields: formFields?.value,
+        /**
+         * There's a type inference bug with prop refs in Vue that incorrectly
+         * assumes refs can be undefined. Adding `!` until this is resolved.
+         *
+         * https://github.com/vuejs/vue-jest/pull/423#issuecomment-990940792
+         */
+        initialState: initialState!.value,
+        loginMechanisms: loginMechanisms!.value,
+        socialProviders: socialProviders!.value,
+        signUpAttributes: signUpAttributes!.value,
+        services: services!.value,
+        formFields: formFields!.value,
       },
     });
     hasInitialized.value = true;
@@ -128,6 +148,7 @@ const signInLabel = computed(() => getSignInTabText());
 const createAccountLabel = computed(() => getSignUpTabText());
 
 // methods
+/* c8 ignore start */
 const onSignInSubmitI = (e: Event) => {
   // TODO(BREAKING): remove unused emit
   // istanbul ignore next
@@ -247,6 +268,7 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
     confirmVerifyUserComponent.value.submit(e);
   }
 };
+/* c8 ignore end */
 
 const hasTabs = computed(() => {
   // istanbul ignore next

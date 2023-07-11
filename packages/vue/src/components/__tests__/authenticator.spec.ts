@@ -63,7 +63,7 @@ const setupState = {
 const mockStateRef = ref(idleState) as unknown as Ref<AuthMachineState>;
 
 const sendSpy = jest.fn();
-const useAuthSpy = jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
+jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
   state: mockStateRef,
   send: sendSpy,
@@ -105,7 +105,7 @@ describe('authenticator', () => {
     });
   });
 
-  it('initializes with Authenticator props', () => {
+  it('initializes state machine with Authenticator props', () => {
     const props = {
       formFields: {},
       initialState: 'signIn',
@@ -114,6 +114,20 @@ describe('authenticator', () => {
       signUpAttributes: ['phone_number'],
       socialProviders: ['facebook'],
     };
+    render(Authenticator, { global: { components }, props });
+
+    const listener = mockService['listeners'][0];
+    listener(setupState);
+
+    expect(sendSpy).toBeCalledTimes(1);
+    expect(sendSpy).toHaveBeenCalledWith({
+      type: 'INIT',
+      data: props,
+    });
+  });
+
+  it('initializes state machine with empty Authenticator props', () => {
+    const props = {};
     render(Authenticator, { global: { components }, props });
 
     const listener = mockService['listeners'][0];
