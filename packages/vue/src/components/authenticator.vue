@@ -79,7 +79,7 @@ unsubscribeMachine = service.subscribe((newState) => {
          * There's a type inference bug with prop refs in Vue that incorrectly
          * assumes refs can be undefined. Adding `!` until this is resolved.
          *
-         * https://github.com/vuejs/vue-jest/pull/423#issuecomment-990940792
+         * https://github.com/vuejs/vue-jest/issues/422
          */
         initialState: initialState!.value,
         loginMechanisms: loginMechanisms!.value,
