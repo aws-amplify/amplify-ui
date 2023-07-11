@@ -9,14 +9,16 @@ import {
   withDefaults,
 } from 'vue';
 import {
+  AuthFormFields,
+  AuthenticatorMachineOptions,
   AuthenticatorRoute,
   AuthenticatorServiceFacade,
+  SocialProvider,
   authenticatorTextUtil,
   configureComponent,
 } from '@aws-amplify/ui';
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import { VERSION } from '../version';
-import { AuthenticatorProps } from '../types';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -28,6 +30,17 @@ import ResetPassword from './reset-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
+
+interface AuthenticatorProps {
+  hideSignUp?: boolean;
+  initialState?: AuthenticatorMachineOptions['initialState'];
+  loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+  services?: AuthenticatorMachineOptions['services'];
+  signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
+  variation?: 'default' | 'modal';
+  socialProviders?: SocialProvider[];
+  formFields?: AuthFormFields;
+}
 
 const attrs = useAttrs();
 

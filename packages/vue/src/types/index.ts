@@ -3,29 +3,15 @@ import { Interpreter } from 'xstate';
 import {
   AuthContext,
   AuthEvent,
-  AuthFormFields,
   AuthInterpreter,
   AuthMachineSend,
   AuthMachineState,
   AuthStatus,
-  AuthenticatorMachineOptions,
   AuthenticatorServiceFacade,
   DefaultFormFieldOptions,
   SignInState,
   SignUpState,
-  SocialProvider,
 } from '@aws-amplify/ui';
-
-export interface AuthenticatorProps {
-  hideSignUp?: boolean;
-  initialState?: AuthenticatorMachineOptions['initialState'];
-  loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
-  services?: AuthenticatorMachineOptions['services'];
-  signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
-  variation?: 'default' | 'modal';
-  socialProviders?: SocialProvider[];
-  formFields?: AuthFormFields;
-}
 
 export interface UseAuth {
   authStatus: Ref<AuthStatus>;
