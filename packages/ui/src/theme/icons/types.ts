@@ -11,6 +11,7 @@ export type Icon = {
   viewBox?: ViewBox;
   pathData?: string;
   paths?: React.SVGAttributes<SVGPathElement>[];
+  as?: React.ElementType;
 };
 
 export type ComponentIcons<

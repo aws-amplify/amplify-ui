@@ -50,7 +50,7 @@ select {
   }
 }
 
-[class*='amplify'] {
+[class*='amplify']:where(:not(svg)) {
   all: unset; /* protect against external styles */
   box-sizing: border-box; /* set box-sizing after unset above */
 }
