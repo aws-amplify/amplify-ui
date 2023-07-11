@@ -1,2 +1,2 @@
-import awsExports from '@environments/auth/auth-with-email-and-custom-attributes/src/aws-exports';
+import awsExports from '../../../../../../../../AmplifyJsCustomClientsPentest/packages/backend/src/aws-exports';
 export default awsExports;

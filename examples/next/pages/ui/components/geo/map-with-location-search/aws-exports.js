@@ -1,2 +1,2 @@
-import awsExports from '@environments/geo/basic-map/src/aws-exports';
+import awsExports from '../../../../../../../../AmplifyJsCustomClientsPentest/packages/backend/src/aws-exports';
 export default awsExports;

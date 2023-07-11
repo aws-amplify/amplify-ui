@@ -2,14 +2,14 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { Amplify } from 'aws-amplify';
-import awsExports from '@environments/liveness/liveness-environment/src/aws-exports';
+// import awsExports from '@environments/liveness/liveness-environment/src/aws-exports';
 
 import LivenessDefault from '../components/LivenessDefault';
 import Layout from '../components/Layout';
 import { Alert, Card, Heading, View, Text } from '@aws-amplify/ui-react';
 
 Amplify.configure({
-  ...awsExports,
+  // ...awsExports,
   API: {
     endpoints: [
       {
