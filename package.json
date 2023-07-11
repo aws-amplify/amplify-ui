@@ -70,7 +70,6 @@
     "@types/react": "17.0.47",
     "**/@angular-devkit/build-angular/minimatch": "3.0.5",
     "**/@angular-devkit/build-angular/webpack": "^5.76.0",
-    "**/@changesets/cli/**/normalize-package-data/semver": "7.5.4",
     "**/@cucumber/cucumber/**/semver": "7.5.4",
     "**/@size-limit/webpack/webpack": "^5.76.0",
     "**/serve/serve-handler/minimatch": "3.0.5",
