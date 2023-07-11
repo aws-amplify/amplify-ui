@@ -151,14 +151,6 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@angular-devkit/architect@0.1402.11":
-  version "0.1402.11"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1402.11.tgz#53d12c2433a4bad0b863028e0e3b38e5540f3739"
-  integrity sha512-RuSZrBQ+QbipAESZ4aXCyAMQHaEaDyyV/FDS9J2HJWfEFbRD5oxlEt/tBC8XjmJQsktaUOh07GT8MNJjPKVAQw==
-  dependencies:
-    "@angular-devkit/core" "14.2.11"
-    rxjs "6.6.7"
-
 "@angular-devkit/architect@0.1402.12":
   version "0.1402.12"
   resolved "https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.1402.12.tgz#10f3982c35ebe4b8baf86e6060c3a24addfeeeb9"
@@ -167,15 +159,15 @@
     "@angular-devkit/core" "14.2.12"
     rxjs "6.6.7"
 
-"@angular-devkit/build-angular@^14.2.11":
-  version "14.2.11"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-14.2.11.tgz#168c3606949cd9439cfbcba7302d77641905c7a3"
-  integrity sha512-O3X7GXcCBCGceVSHT+GIJ2JrRCg2YcO7HtNavpmPrraNr1o+aCdTkmT5WTS2cqWkZBm/z0wqKR8PsX/ZoD2r1A==
+"@angular-devkit/build-angular@^14.2.12":
+  version "14.2.12"
+  resolved "https://registry.npmjs.org/@angular-devkit/build-angular/-/build-angular-14.2.12.tgz#d77d2dde538ae77560c4657e4dd2ac5fb45514c5"
+  integrity sha512-ei8/FaL80Q6si/aF6FLZgtT4Kr2rudlyGMqQM4Rd2Zvt8mCh3TgM7QdLhoI11t9A0LWz6RIdROlDimMyyOEF6Q==
   dependencies:
     "@ampproject/remapping" "2.2.0"
-    "@angular-devkit/architect" "0.1402.11"
-    "@angular-devkit/build-webpack" "0.1402.11"
-    "@angular-devkit/core" "14.2.11"
+    "@angular-devkit/architect" "0.1402.12"
+    "@angular-devkit/build-webpack" "0.1402.12"
+    "@angular-devkit/core" "14.2.12"
     "@babel/core" "7.18.10"
     "@babel/generator" "7.18.12"
     "@babel/helper-annotate-as-pure" "7.18.6"
@@ -186,7 +178,7 @@
     "@babel/runtime" "7.18.9"
     "@babel/template" "7.18.10"
     "@discoveryjs/json-ext" "0.5.7"
-    "@ngtools/webpack" "14.2.11"
+    "@ngtools/webpack" "14.2.12"
     ansi-colors "4.1.3"
     babel-loader "8.2.5"
     babel-plugin-istanbul "6.1.1"
@@ -220,7 +212,7 @@
     rxjs "6.6.7"
     sass "1.54.4"
     sass-loader "13.0.2"
-    semver "7.3.7"
+    semver "7.5.3"
     source-map-loader "4.0.0"
     source-map-support "0.5.21"
     stylus "0.59.0"
@@ -237,24 +229,13 @@
   optionalDependencies:
     esbuild "0.15.5"
 
-"@angular-devkit/build-webpack@0.1402.11":
-  version "0.1402.11"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-webpack/-/build-webpack-0.1402.11.tgz#293802727ee747fc47b6965a12befad012a1b721"
-  integrity sha512-Ajyg1O6B6JSHsDlPdh165uy3glW4IiUlRXu8VVAOSA88WIT1Dl17f4Oun0/t27ip0/CNceiVY9MzOqIwGL1E6g==
+"@angular-devkit/build-webpack@0.1402.12":
+  version "0.1402.12"
+  resolved "https://registry.npmjs.org/@angular-devkit/build-webpack/-/build-webpack-0.1402.12.tgz#9333b734b612d2fbf321c27a60183699349c8e76"
+  integrity sha512-xBkbSwOhHgUsJk1tTtITqbHHiA0OdjwdrYZYceyfDASAglyRX6rT4Q9/Ppf7TSck6M1tUR76efYOn3D3ial29w==
   dependencies:
-    "@angular-devkit/architect" "0.1402.11"
+    "@angular-devkit/architect" "0.1402.12"
     rxjs "6.6.7"
-
-"@angular-devkit/core@14.2.11":
-  version "14.2.11"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-14.2.11.tgz#a92397c1b4c04c2a710b9de9b53eecc78d7db6b3"
-  integrity sha512-cBIGs6y9rykOQqnuAQOB1DgIRyBFYtvKRJb7QNUfIJ0qUfARKkuV/yikv3lrb95ePGkmoRzmjkFqcFZiYU+r7A==
-  dependencies:
-    ajv "8.11.0"
-    ajv-formats "2.1.1"
-    jsonc-parser "3.1.0"
-    rxjs "6.6.7"
-    source-map "0.7.4"
 
 "@angular-devkit/core@14.2.12":
   version "14.2.12"
@@ -6751,10 +6732,10 @@
   resolved "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-11.1.4.tgz#370c310ba197e799235492bf71084d3acbbb2c6a"
   integrity sha512-7MPXYWsCo5qGZXyyJwBLvQkYi0hKARtpjGxjt/mdxn7A7O+jKJgAuxgOo/lnZIiXfbJzxRnSD8k6WkUwN0IVmg==
 
-"@ngtools/webpack@14.2.11":
-  version "14.2.11"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-14.2.11.tgz#f1266221de67e6e81399fc6fd040128b621ce74b"
-  integrity sha512-4enbLFAp98uTgWYF6OFceQqLcfv2/0brIrNN4iWT9xe/Mh3zdCt+eH42zvNRsqo9WXNWRSLvnx8I924p83LNlw==
+"@ngtools/webpack@14.2.12":
+  version "14.2.12"
+  resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-14.2.12.tgz#a6350b9e8bb12e296c346bebf73c7b3cca5273ac"
+  integrity sha512-d/NRQAjS3BsMDUpLrhza+bvI7HKIV+lyRAvD3LYj5FE9kMoEGw4zRo9JG8ookCzvT2FjNiXQ7DWDZSAeMOy+WQ==
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3":
   version "2.1.8-no-fsevents.3"
@@ -27085,7 +27066,7 @@ semver-dsl@^1.0.1:
   dependencies:
     semver "^5.3.0"
 
-"semver@2 || 3 || 4 || 5", semver@7.3.7, semver@7.3.8, semver@7.5.4, semver@7.x, semver@^7.0.0, semver@^7.1.1, semver@^7.2.1, semver@^7.3.2, semver@^7.3.5, semver@^7.3.6, semver@^7.3.7, semver@^7.5.3:
+"semver@2 || 3 || 4 || 5", semver@7.3.8, semver@7.5.4, semver@7.x, semver@^7.0.0, semver@^7.1.1, semver@^7.2.1, semver@^7.3.2, semver@^7.3.5, semver@^7.3.6, semver@^7.3.7, semver@^7.5.3:
   version "7.5.4"
   resolved "https://registry.npmjs.org/semver/-/semver-7.5.4.tgz#483986ec4ed38e1c6c48c34894a9182dbff68a6e"
   integrity sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==
