@@ -48,13 +48,6 @@ const props = withDefaults(defineProps<AuthenticatorProps>(), {
   variation: 'default',
 });
 
-/**
- * There's a known type inferrence bug with `toRefs`. `toRefs` returns
- * `Ref<Type | undefined> | undefined` for optional properties, where the last
- * `| undefined` is not accurate. Casting this until this issue is resolved.
- *
- * https://github.com/vuejs/core/issues/6420
- */
 const {
   initialState,
   loginMechanisms,
