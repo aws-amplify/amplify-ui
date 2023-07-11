@@ -28,7 +28,7 @@ export interface Credentials {
   sessionToken: string;
 }
 
-const ENDPOINT = process.env.NEXT_PUBLIC_STREAMING_API_URL;
+const ENDPOINT = process && process.env.NEXT_PUBLIC_STREAMING_API_URL;
 export const TIME_SLICE = 1000;
 
 function isBlob(obj: unknown): obj is Blob {
