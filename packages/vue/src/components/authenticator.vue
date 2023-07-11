@@ -8,16 +8,15 @@ import {
   onUnmounted,
   withDefaults,
 } from 'vue';
-import { useAuth, useAuthenticator } from '../composables/useAuth';
 import {
-  AuthenticatorMachineOptions,
   AuthenticatorRoute,
   AuthenticatorServiceFacade,
   authenticatorTextUtil,
-  AuthFormFields,
   configureComponent,
-  SocialProvider,
 } from '@aws-amplify/ui';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { VERSION } from '../version';
+import { AuthenticatorProps } from '../types';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -29,20 +28,8 @@ import ResetPassword from './reset-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
-import { VERSION } from '../version';
 
 const attrs = useAttrs();
-
-interface AuthenticatorProps {
-  hideSignUp?: boolean;
-  initialState?: AuthenticatorMachineOptions['initialState'];
-  loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
-  services?: AuthenticatorMachineOptions['services'];
-  signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
-  variation?: 'default' | 'modal';
-  socialProviders?: SocialProvider[];
-  formFields?: AuthFormFields;
-}
 
 const props = withDefaults(defineProps<AuthenticatorProps>(), {
   variation: 'default',
@@ -269,7 +256,6 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
 };
 
 const hasTabs = computed(() => {
-  // istanbul ignore next
   return route.value === 'signIn' || route.value === 'signUp';
 });
 
