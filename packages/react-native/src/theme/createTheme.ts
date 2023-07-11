@@ -51,6 +51,9 @@ const setupToken = ({
     if (value.includes('px')) {
       return parseInt(value, 10);
     }
+    if (path[0] === 'borderWidths' || path[0] === 'space') {
+      return parseFloat(value);
+    }
     if (path[0] === 'opacities') {
       return parseFloat(value);
     }
