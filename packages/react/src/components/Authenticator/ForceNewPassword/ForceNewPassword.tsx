@@ -75,3 +75,13 @@ export const ForceNewPassword = ({
 ForceNewPassword.FormFields = function FormFields() {
   return <DefaultFormFields />;
 };
+
+ForceNewPassword.Header = function Header(): JSX.Element {
+  // @ts-ignore
+  return null;
+};
+
+ForceNewPassword.Footer = function Footer(): JSX.Element {
+  // @ts-ignore
+  return null;
+};
