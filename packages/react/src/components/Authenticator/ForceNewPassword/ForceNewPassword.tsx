@@ -78,15 +78,14 @@ export const ForceNewPassword = ({
   );
 };
 
-ForceNewPassword.FormFields = function FormFields() {
+ForceNewPassword.FormFields = function FormFields(): JSX.Element | null {
   return <DefaultFormFields />;
 };
 
-ForceNewPassword.Header = function Header() {
+ForceNewPassword.Header = function Header(): JSX.Element | null {
   return <Heading level={4}>{getChangePasswordText()}</Heading>;
 };
 
-ForceNewPassword.Footer = function Footer(): JSX.Element {
-  // @ts-ignore
+ForceNewPassword.Footer = function Footer(): JSX.Element | null {
   return null;
 };
