@@ -2,7 +2,7 @@ import { AuthenticatorDictionary } from './types';
 
 export const deDict: AuthenticatorDictionary = {
   'Account recovery requires verified contact information':
-    'Zurücksetzen des Account benötigt einen verifizierten Account',
+    'Zurücksetzen des Accounts benötigt einen verifizierten Account',
   'Back to Sign In': 'Zurück zur Anmeldung',
   'Change Password': 'Passwort ändern',
   Changing: 'Ändern von',
@@ -33,8 +33,8 @@ export const deDict: AuthenticatorDictionary = {
   Password: 'Passwort',
   'Phone Number': 'Telefonnummer',
   'Resend Code': 'Code erneut senden',
-  'Reset your Password': 'Zurücksetzen des Passwort',
-  'Reset your password': 'Zurücksetzen des passwort',
+  'Reset your Password': 'Zurücksetzen des Passworts',
+  'Reset your password': 'Zurücksetzen des passworts',
   'Send code': 'Code senden',
   'Send Code': 'Code senden',
   Sending: 'Wird gesendet',
@@ -90,7 +90,7 @@ export const deDict: AuthenticatorDictionary = {
   'Username cannot be empty': 'Benutzername darf nicht leer sein',
   'We Emailed You': 'Email wurde versendet',
   'Your code is on the way. To log in, enter the code we emailed to':
-    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir per E-Mail verschickt haben',
   'Your code is on the way. To log in, enter the code we texted to':
-    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir verschickt haben an',
+    'Ihr Bestätigungscode ist unterwegs. Um sich einzuloggen geben Sie den Code ein, den wir per SMS verschickt haben',
 };
