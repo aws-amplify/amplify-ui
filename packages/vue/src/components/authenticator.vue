@@ -147,7 +147,7 @@ const onSignInSubmitI = (e: Event) => {
   if (attrs?.onSignInSubmit) {
     emit('signInSubmit', e);
   } else {
-    // TODO(BREAKING): remove unused
+    // TODO(BREAKING): remove unused event binding
     // istanbul ignore next
     signInComponent.value?.submit(e);
   }
