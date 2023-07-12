@@ -11368,28 +11368,28 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"outerEndComponent\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"Component(s) to show after input\\",
-                        \\"category\\": \\"TextField\\",
+                        \\"category\\": \\"TextFieldOptions\\",
                         \\"isOptional\\": true
                     },
                     \\"outerStartComponent\\": {
                         \\"name\\": \\"outerStartComponent\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"Component(s) to show before input\\",
-                        \\"category\\": \\"TextField\\",
+                        \\"category\\": \\"TextFieldOptions\\",
                         \\"isOptional\\": true
                     },
                     \\"innerStartComponent\\": {
                         \\"name\\": \\"innerStartComponent\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"FieldGroupIconButton component to show inside of input at start\\",
-                        \\"category\\": \\"TextField\\",
+                        \\"category\\": \\"TextFieldOptions\\",
                         \\"isOptional\\": true
                     },
                     \\"innerEndComponent\\": {
                         \\"name\\": \\"innerEndComponent\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"FieldGroupIconButton component to show inside of input at end\\",
-                        \\"category\\": \\"TextField\\",
+                        \\"category\\": \\"TextFieldOptions\\",
                         \\"isOptional\\": true
                     },
                     \\"type\\": {
@@ -11402,36 +11402,36 @@ exports[`Props Table 1`] = `
                     \\"descriptiveText\\": {
                         \\"name\\": \\"descriptiveText\\",
                         \\"type\\": \\"React.ReactNode\\",
-                        \\"description\\": \\"Provides additional information needed to fill field\\\\n    (e.g. password requirements, etc.)\\",
-                        \\"category\\": \\"Field\\",
+                        \\"description\\": \\"Provides additional information needed to fill field\\\\n(e.g. password requirements, etc.)\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
                     \\"errorMessage\\": {
                         \\"name\\": \\"errorMessage\\",
-                        \\"type\\": \\"string\\",
-                        \\"description\\": \\"When defined and \`hasError\` is true, show error message\\",
-                        \\"category\\": \\"Field\\",
+                        \\"type\\": \\"string | undefined\\",
+                        \\"description\\": \\" When defined and \`hasError\` is true, show error message\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
                     \\"label\\": {
                         \\"name\\": \\"label\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"Label text for field (required)\\",
-                        \\"category\\": \\"Field\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": false
                     },
                     \\"labelHidden\\": {
                         \\"name\\": \\"labelHidden\\",
-                        \\"type\\": \\"boolean\\",
+                        \\"type\\": \\"boolean | undefined\\",
                         \\"description\\": \\"Visually hide label (not recommended in most cases) Default: false\\",
-                        \\"category\\": \\"Field\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
                     \\"inputStyles\\": {
                         \\"name\\": \\"inputStyles\\",
-                        \\"type\\": \\"BaseStyleProps\\",
+                        \\"type\\": \\"BaseStyleProps | undefined\\",
                         \\"description\\": \\"Style props to be applied to the input element\\",
-                        \\"category\\": \\"Field\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
                     \\"isDisabled\\": {
@@ -11552,6 +11552,7 @@ exports[`Props Table 1`] = `
                         \\"description\\": \\"Changes the underlying rendered HTML element\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
+<<<<<<< Updated upstream
                     },
                     \\"BaseTextFieldProps\\": {
                         \\"name\\": \\"BaseTextFieldProps\\",
@@ -11601,6 +11602,8 @@ exports[`Props Table 1`] = `
                         \\"description\\": \\"0: / 1: * 2: * 3:   4: @ 5: d 6: e 7: p 8: r 9: e 10: c 11: a 12: t 13: e 14: d 15:   16: F 17: o 18: r 19:   20: i 21: n 22: t 23: e 24: r 25: n 26: a 27: l 28:   29: u 30: s 31: e 32:   33: o 34: n 35: l 36: y 37:   38: * 39: /\\",
                         \\"category\\": \\"Field\\",
                         \\"isOptional\\": true
+=======
+>>>>>>> Stashed changes
                     }
                 }
             },
@@ -12352,16 +12355,16 @@ exports[`Props Table 1`] = `
                     },
                     \\"isDisabled\\": {
                         \\"name\\": \\"isDisabled\\",
-                        \\"type\\": \\"boolean\\",
+                        \\"type\\": \\"boolean | undefined\\",
                         \\"description\\": \\"Sets the Boolean \`disabled\` HTML attribute, which, when present, makes the element not mutable, focusable, or even submitted with the form\\",
-                        \\"category\\": \\"View\\",
+                        \\"category\\": \\"BaseViewProps\\",
                         \\"isOptional\\": true
                     },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
-                        \\"type\\": \\"React.CSSProperties\\",
-                        \\"description\\": \\"Accepts a JavaScript object with camelCased properties rather than a CSS string.\\\\n    This is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes. See: [React docs](https://reactjs.org/docs/dom-elements.html#style)\\",
-                        \\"category\\": \\"View\\",
+                        \\"type\\": \\"React.CSSProperties | undefined\\",
+                        \\"description\\": \\"Accepts a JavaScript object with camelCased properties rather than a CSS string.\\\\nThis is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes. See: [React docs](https://reactjs.org/docs/dom-elements.html#style)\\",
+                        \\"category\\": \\"BaseViewProps\\",
                         \\"isOptional\\": true
                     },
                     \\"as\\": {
@@ -12369,13 +12372,6 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"React.ElementType\\",
                         \\"description\\": \\"Changes the underlying rendered HTML element\\",
                         \\"category\\": \\"BaseComponentProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"ForwardRefPrimitive\\": {
-                        \\"name\\": \\"ForwardRefPrimitive\\",
-                        \\"type\\": \\"extends React.ForwardRefExoticComponent<Props>\\",
-                        \\"description\\": \\"\\",
-                        \\"category\\": \\"View\\",
                         \\"isOptional\\": true
                     },
                     \\"ariaLabel\\": {
