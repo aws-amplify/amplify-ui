@@ -114,4 +114,21 @@ describe('PasswordField component', () => {
     const button = screen.queryByRole('button');
     expect(button).toBeNull();
   });
+
+  it('should show error styling when field has error', async () => {
+    const { container } = render(
+      <PasswordField
+        label="Password"
+        name="password"
+        hasError={true}
+        placeholder="Password"
+      />
+    );
+    const input = await screen.findByPlaceholderText('Password');
+    const button = await screen.findByRole('switch');
+    expect(input.classList).toContain(`${ComponentClassNames.Input}--error`);
+    expect(button.classList).toContain(
+      `${ComponentClassNames.FieldShowPassword}--error`
+    );
+  });
 });
