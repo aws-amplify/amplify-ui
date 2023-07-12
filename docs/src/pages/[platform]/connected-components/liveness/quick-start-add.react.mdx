@@ -1,4 +1,4 @@
-import { Alert } from '@aws-amplify/ui-react';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 
 import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
 
@@ -42,6 +42,13 @@ To get started you will need to make a request to your backend to receive a `ses
 
 Once a valid sessionId, region, and callback has been passed, FaceLivenessDetector will take care of streaming video and presenting Face Liveness challenges.
 
+<Tabs>
+  <TabItem title="TypeScript">
 ```tsx file=./QuickStartReact.tsx
 ```
-
+  </TabItem>
+  <TabItem title="Javascript">
+```tsx file=./QuickStartReact.jsx
+```
+  </TabItem>
+</Tabs>

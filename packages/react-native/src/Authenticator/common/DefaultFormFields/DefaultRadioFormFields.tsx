@@ -2,7 +2,7 @@ import React from 'react';
 import { censorAllButFirstAndLast, censorPhoneNumber } from '@aws-amplify/ui';
 
 import { Radio, RadioGroup } from '../../../primitives';
-import { DefaultRadioFormFieldsComponent } from './types';
+import { DefaultRadioFormFieldsProps } from './types';
 
 const censorContactInformation = (name: string, value: string): string => {
   let censoredVal = value;
@@ -17,16 +17,16 @@ const censorContactInformation = (name: string, value: string): string => {
   return censoredVal;
 };
 
-const DefaultFormFields: DefaultRadioFormFieldsComponent = ({
+const DefaultRadioFormFields = ({
   fields,
-  isPending,
   fieldContainerStyle,
   fieldLabelStyle,
+  isPending,
   style,
-}) => {
+}: DefaultRadioFormFieldsProps): JSX.Element => {
   return (
     <RadioGroup disabled={isPending} style={style}>
-      {fields.map(({ name, value, ...props }) => (
+      {(fields ?? []).map(({ name, value, ...props }) => (
         <Radio
           {...props}
           key={value}
@@ -42,4 +42,6 @@ const DefaultFormFields: DefaultRadioFormFieldsComponent = ({
   );
 };
 
-export default DefaultFormFields;
+DefaultRadioFormFields.displayName = 'FormFields';
+
+export default DefaultRadioFormFields;
