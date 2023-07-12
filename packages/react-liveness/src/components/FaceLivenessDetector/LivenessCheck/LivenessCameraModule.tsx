@@ -22,8 +22,8 @@ import {
   Hint,
   RecordingIcon,
   Overlay,
-  MatchIndicator,
   selectErrorState,
+  MatchIndicator,
 } from '../shared';
 import { LivenessClassNames } from '../types/classNames';
 import {
@@ -62,6 +62,13 @@ const centeredLoader = (
     data-testid="centered-loader"
   />
 );
+
+/**
+ * For now we want to memoize the HOC for MatchIndicator because to optimize renders
+ * The LivenessCameraModule still needs to be optimized for re-renders and at that time
+ * we should be able to remove this memoization
+ */
+const MemoizedMatchIndicator = React.memo(MatchIndicator);
 
 export const LivenessCameraModule = (
   props: LivenessCameraModuleProps
@@ -246,12 +253,16 @@ export const LivenessCameraModule = (
             {/* 
               We only want to show the MatchIndicator when we're recording
               and when the face is in either the too far state, or the 
-              initial face identified state
+              initial face identified state. Using the a memoized MatchIndicator here
+              so that even when this component re-renders the indicator is only
+              re-rendered if the percentage prop changes.
             */}
             {isRecording &&
             !isFlashingFreshness &&
             showMatchIndicatorStates.includes(faceMatchState!) ? (
-              <MatchIndicator percentage={faceMatchPercentage!} />
+              <MemoizedMatchIndicator
+                percentage={Math.ceil(faceMatchPercentage!)}
+              />
             ) : null}
 
             {isNotRecording && (

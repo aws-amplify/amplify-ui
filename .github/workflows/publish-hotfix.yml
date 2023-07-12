@@ -1,15 +1,14 @@
-# Description: this workflow publishes liveness package to `latest` tag on NPM.
+# Description: this workflow publishes UI packages to `latest` tag on NPM.
 #
-# Triggered by: whenever pr is merged to liveness-release
+# Triggered by: whenever a PR is merged to `hotfix` branch
 
-# If successful, we will publish all updated UI packages to
-#   - https://www.npmjs.com/package/@aws-amplify/ui-react-liveness
+# If successful, we will publish all updated UI packages to NPM.
 
-name: Test and Publish / liveness@latest
+name: Test and Publish / hotfix
 
 on:
   push:
-    branches: [liveness-release]
+    branches: [hotfix]
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -18,17 +17,31 @@ permissions:
 jobs:
   setup:
     runs-on: ubuntu-latest
+    outputs:
+      has-changesets: ${{ steps.has-changesets.outputs.has-changesets }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
+      - name: Check if repo has unconsumed changesets
+        id: has-changesets
+        uses: ./.github/actions/has-changesets
+
+  publish-hotfix:
+    needs: [setup]
+    uses: ./.github/workflows/reusable-tagged-publish.yml
+    with:
+      dist-tag: hotfix
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-test:
     runs-on: ubuntu-latest
-    needs: setup
+    needs: publish-hotfix
     environment: ci
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
@@ -42,7 +55,7 @@ jobs:
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
@@ -60,8 +73,8 @@ jobs:
         working-directory: ./canary
       - name: Delete AWS Profile
         run: rm -rf ~/.aws
-      - name: Setup canary apps against @next
-        run: yarn setup:next
+      - name: Setup canary apps against @hotfix
+        run: yarn setup:hotfix
         working-directory: ./canary
       - name: Run yarn install on each sample app
         run: yarn install
@@ -74,6 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: deployment
     needs: build-test
+    if: ${{ needs.setup.outputs.has-changesets != 'true' }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
@@ -93,19 +107,13 @@ jobs:
           skip-cypress-binary: true # publishing doesn't need cypress
       - name: Build packages
         run: yarn build
-      - name: Set liveness package to be public
-        run: yarn setLivenessPublic
-      - name: Create .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+      - name: Publish to @latest
+        uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
+        with:
+          publish: yarn publish:latest
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish to ui-react-liveness@latest
-        run: npm publish
-        working-directory: ./packages/react-liveness
-      - name: Trigger build for sample app
-        run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
-        env:
-          ENDPOINT: ${{ secrets.LIVENESS_PROD_SAMPLE_APP_BUILD_TRIGGER }}
 
   log-failure-metric:
     # Send a failure data point to metric PublishLatestFailure in github-workflows@ us-east-2
@@ -117,7 +125,7 @@ jobs:
       - name: Log failure data point to metric PublishLatestFailure
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          metric-name: PublishLivenessFailure
+          metric-name: PublishLatestFailure
           value: 1
           role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
           aws-region: us-east-2
@@ -132,7 +140,7 @@ jobs:
       - name: Log success data point to metric PublishLatestFailure
         uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
         with:
-          metric-name: PublishLivenessFailure
+          metric-name: PublishLatestFailure
           value: 0
           role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
           aws-region: us-east-2

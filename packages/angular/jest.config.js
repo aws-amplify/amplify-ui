@@ -17,13 +17,17 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/projects/ui-angular/src/setup.jest.ts'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
   transformIgnorePatterns: ['node_modules/(?!.*.(mjs|ts)$)'],
-  transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
+  moduleNameMapper: {
+    '^uuid$': '<rootDir>/../../node_modules/uuid',
+    '^nanoid$': '<rootDir>/../../node_modules/nanoid',
   },
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-    },
+  transform: {
+    '^.+\\.{ts|tsx}?$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+      },
+    ],
   },
 };
