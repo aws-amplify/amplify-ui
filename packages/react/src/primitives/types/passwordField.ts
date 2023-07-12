@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BaseButtonProps } from './button';
 import { BaseTextFieldProps } from './textField';
 import { ElementType, PrimitiveProps } from './view';
+import { BaseInputProps } from './input';
 
 /** @deprecated For internal use only */
 export interface BasePasswordFieldProps extends BaseTextFieldProps {
@@ -67,7 +68,9 @@ export type PasswordFieldProps<Element extends ElementType = 'input'> =
 export type PasswordFieldType = 'password' | 'text';
 
 /** @deprecated For internal use only */
-export interface BaseShowPasswordButtonProps extends BaseButtonProps {
+export interface BaseShowPasswordButtonProps
+  extends BaseButtonProps,
+    Pick<BaseInputProps, 'hasError'> {
   /**
    * @description
    * Determines whether the input is hidden or displayed. Options include 'password' or 'text'

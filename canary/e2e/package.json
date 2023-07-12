@@ -25,6 +25,8 @@
     "typescript": "^4.3.2"
   },
   "resolutions": {
+    "**/cypress-cucumber-preprocessor/**/semver": "6.3.1",
+    "**/cypress-cucumber-preprocessor/**/core-js-compat/**/semver": "7.5.4",
     "tough-cookie": "4.1.3"
   }
 }
