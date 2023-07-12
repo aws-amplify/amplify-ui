@@ -84,7 +84,7 @@ export const FACE_LIVENESS_DETECTOR_CONFIG = [
   {
     name: `faceModelUrl?`,
     description:
-      'Overrides the Blazeface model and weights bin CDN URL default is https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json.',
+      'Overrides the Blazeface model and weights bin CDN URL. Default value is `https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json`.',
     type: `string`,
   },
 ];
