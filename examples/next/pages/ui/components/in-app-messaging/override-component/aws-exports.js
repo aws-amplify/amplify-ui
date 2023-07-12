@@ -3,6 +3,6 @@
 // The Demo app will still function without values below,
 // but will throw warnings on some displayMessage calls
 
-import awsExports from '../../../../../../../../AmplifyJsCustomClientsPentest/packages/backend/src/aws-exports';
+import awsExports from '@environments/in-app-messaging/in-app-messaging-with-pinpoint-campaign/src/aws-exports';
 
 export default awsExports;
