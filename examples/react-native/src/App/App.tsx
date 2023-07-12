@@ -111,7 +111,9 @@ export const ExampleComponent = () => {
       return <ThemingExample />;
     case 'DarkModeExample':
       return <DarkModeExample />;
+
     // Detox-Cucumber e2e tests
+    // below apps are not meant to be run as example apps, they are part of integration testing in CI
     case '/ui/components/authenticator/sign-in-with-email':
       return <SignInWithEmail />;
     case '/ui/components/authenticator/sign-in-with-username':

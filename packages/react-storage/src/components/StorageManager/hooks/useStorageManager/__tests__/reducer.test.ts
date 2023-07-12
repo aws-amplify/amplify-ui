@@ -49,6 +49,32 @@ describe('storageManagerStateReducer', () => {
     expect(result.current.state.files).toStrictEqual(expectedFiles);
   });
 
+  it('should clear files from state on CLEAR_FILES action', () => {
+    const { result } = renderHook(() => {
+      const [state, dispatch] = useReducer(storageManagerStateReducer, {
+        files: [
+          {
+            id: imageFile.name,
+            file: imageFile,
+            error: '',
+            key: imageFile.name,
+            status: FileStatus.UPLOADING,
+            isImage: true,
+            progress: -1,
+          },
+        ],
+      });
+      return { state, dispatch };
+    });
+
+    const clearFilesAction: Action = {
+      type: StorageManagerActionTypes.CLEAR_FILES,
+    };
+    act(() => result.current.dispatch(clearFilesAction));
+
+    expect(result.current.state.files).toEqual([]);
+  });
+
   it('should set uploading status and progress on SET_STATUS_UPLOADING action', () => {
     const { result } = renderHook(() => {
       const [state, dispatch] = useReducer(storageManagerStateReducer, {

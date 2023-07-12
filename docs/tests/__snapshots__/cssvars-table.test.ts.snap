@@ -2572,15 +2572,15 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-loader-linear-font-size\\",
-        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+        \\"value\\": \\"var(--amplify-font-sizes-xxs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-loader-linear-large-font-size\\",
-        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+        \\"value\\": \\"var(--amplify-font-sizes-xs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-loader-linear-large-stroke-width\\",
-        \\"value\\": \\"var(--amplify-font-sizes-large)\\"
+        \\"value\\": \\"var(--amplify-font-sizes-xs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-loader-linear-min-width\\",
@@ -2588,11 +2588,11 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-loader-linear-small-font-size\\",
-        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+        \\"value\\": \\"var(--amplify-font-sizes-xxxs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-loader-linear-small-stroke-width\\",
-        \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+        \\"value\\": \\"var(--amplify-font-sizes-xxxs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-loader-linear-stroke-empty\\",
@@ -2608,7 +2608,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-loader-linear-stroke-width\\",
-        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+        \\"value\\": \\"var(--amplify-font-sizes-xxs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-loader-linear-width\\",

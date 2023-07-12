@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react-geo
 
+## 1.0.1
+
+### Patch Changes
+
+- [#4143](https://github.com/aws-amplify/amplify-ui/pull/4143) [`0fc37db80`](https://github.com/aws-amplify/amplify-ui/commit/0fc37db80d1259b88683feb9ac21e11fc297ff00) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: unpin maplibre-gl-js-amplify. [Issue #4142](https://github.com/aws-amplify/amplify-ui/issues/4142)
+
 ## 1.0.0
 
 ### Major Changes

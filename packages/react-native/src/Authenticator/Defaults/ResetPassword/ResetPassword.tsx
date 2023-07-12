@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultResetPasswordComponent } from '../types';
+import { DefaultResetPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ResetPassword';
 const {
@@ -19,7 +19,7 @@ const {
   getBackToSignInText,
 } = authenticatorTextUtil;
 
-const ResetPassword: DefaultResetPasswordComponent = ({
+const ResetPassword = ({
   fields,
   handleBlur,
   handleChange,
@@ -27,8 +27,12 @@ const ResetPassword: DefaultResetPasswordComponent = ({
   isPending,
   toSignIn,
   ...rest
-}) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+}: DefaultResetPasswordProps): JSX.Element => {
+  const {
+    disableFormSubmit: disabled,
+    fields: fieldsWithHandlers,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
@@ -42,10 +46,20 @@ const ResetPassword: DefaultResetPasswordComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: [{ children: secondaryButtonText, onPress: toSignIn }],
     }),
-    [handleFormSubmit, primaryButtonText, secondaryButtonText, toSignIn]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      secondaryButtonText,
+      toSignIn,
+    ]
   );
 
   return (

@@ -23,5 +23,10 @@ export {
 export { RenderNothing } from './components';
 
 // components/hooks/utils
-export { useHasValueUpdated, usePreviousValue } from './hooks';
+export {
+  useDeprecationWarning,
+  UseDeprecationWarning,
+  useHasValueUpdated,
+  usePreviousValue,
+} from './hooks';
 export { templateJoin } from './utils';

@@ -8,3 +8,4 @@ export { StorageManageri18nExample } from './StorageManageri18nExample';
 export { StorageManagerMetadataExample } from './StorageManagerMetadataExample';
 export { StorageManagerResumableExample } from './StorageManagerResumableExample';
 export { StorageManagerThemeExample } from './StorageManagerThemeExample';
+export { StorageManagerHandleExample } from './StorageManagerHandleExample';

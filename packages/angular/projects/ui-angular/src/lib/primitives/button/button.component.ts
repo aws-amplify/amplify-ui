@@ -18,11 +18,11 @@ export class ButtonComponent implements OnInit {
   @HostBinding('attr.data-variation') variationAttr: string;
   @HostBinding('style.font-weight') fontWeightAttr: string;
 
-  @HostBinding('attr.disabled') get getDisabled() {
+  @HostBinding('attr.disabled') get getDisabled(): string {
     return this.isDisabled ? '' : null;
   }
 
-  @HostBinding('class') get classNames() {
+  @HostBinding('class') get classNames(): string {
     let className = 'amplify-button';
     if (this.variation) {
       className += ` amplify-button--${this.variation}`;
@@ -40,7 +40,7 @@ export class ButtonComponent implements OnInit {
     return className;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.typeAttr = this.type;
     this.fullWidthAttr = this.fullWidth;
     this.sizeAttr = this.size;

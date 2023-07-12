@@ -1,6 +1,7 @@
-import { TextFieldProps } from '../types/textField';
+import { BaseTextFieldProps } from '../types/textField';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface StepperFieldProps extends TextFieldProps {
+export interface BaseStepperFieldProps extends BaseTextFieldProps {
   /**
    * @description
    * <input> elements of type number are used to let the user enter a number. They include built-in validation to reject non-numerical entries.
@@ -73,3 +74,6 @@ export interface StepperFieldProps extends TextFieldProps {
    */
   onDecrease?: () => void;
 }
+
+export type StepperFieldProps<Element extends ElementType = 'input'> =
+  PrimitiveProps<BaseStepperFieldProps, Element>;

@@ -13,17 +13,17 @@ import { CustomComponentsService } from '../../services/custom-components.servic
 })
 export class AmplifySlotComponent implements AfterContentInit {
   @Input() name: string;
-  @Input() context: Record<PropertyKey, any>;
+  @Input() context: Record<PropertyKey, unknown>;
 
   @HostBinding('style.display') display = 'contents';
 
-  public overridingComponent: TemplateRef<any>;
-  public isOverriden: boolean = false;
+  public overridingComponent: TemplateRef<unknown>;
+  public isOverriden = false;
 
   constructor(private propService: CustomComponentsService) {}
 
   ngAfterContentInit(): void {
-    const customComponents = this.propService.customComponents;
+    const { customComponents } = this.propService;
     const overridingComponent = customComponents[this.name];
 
     if (overridingComponent) {
