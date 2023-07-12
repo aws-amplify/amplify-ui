@@ -12,6 +12,8 @@ import { FaceDetection, Face, Coordinate } from '../types';
 
 type BlazeFaceModelBackend = 'wasm' | 'cpu';
 
+export const BLAZEFACE_VERSION = '0.0.7';
+
 /**
  * The BlazeFace implementation of the FaceDetection interface.
  */
@@ -25,7 +27,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
     super();
     this.faceModelUrl =
       faceModelUrl ??
-      'https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json';
+      `https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/${BLAZEFACE_VERSION}/model/model.json`;
     this.binaryPath =
       binaryPath ??
       /**  Note: If to update this link,
