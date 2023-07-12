@@ -26,7 +26,7 @@ type ComponentTheme<ComponentType, Output> = Output extends 'output'
   : ((tokens: StrictTheme['tokens']) => ComponentType) | ComponentType;
 
 // TODO: make optional all the way down
-export type Components<Output> = Record<string, object> & {
+export type Components<Output> = {
   button?: ComponentTheme<ButtonStyles, Output>;
   checkbox?: ComponentTheme<CheckboxStyles, Output>;
   divider?: ComponentTheme<DividerStyles, Output>;
