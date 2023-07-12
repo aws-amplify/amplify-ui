@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSignUpComponent } from '../types';
+import { DefaultSignUpProps } from '../types';
 
 const COMPONENT_NAME = 'SignUp';
 
@@ -20,7 +20,7 @@ const {
   getSignUpTabText,
 } = authenticatorTextUtil;
 
-const SignUp: DefaultSignUpComponent = ({
+const SignUp = ({
   fields,
   handleBlur,
   handleChange,
@@ -30,7 +30,7 @@ const SignUp: DefaultSignUpComponent = ({
   isPending,
   toSignIn,
   ...rest
-}) => {
+}: DefaultSignUpProps): JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,
