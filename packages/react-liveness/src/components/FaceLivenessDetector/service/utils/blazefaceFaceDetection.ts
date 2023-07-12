@@ -25,13 +25,13 @@ export class BlazeFaceFaceDetection extends FaceDetection {
     super();
     this.faceModelUrl =
       faceModelUrl ??
-      'https://cdn.liveness.rekognition.aws.dev/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json';
+      'https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json';
     this.binaryPath =
       binaryPath ??
       /**  Note: If to update this link,
        *   also make sure to update the link in the canary/e2e test "canary/e2e/features/liveness/face-detect.feature"
        */
-      `https://cdn.liveness.rekognition.aws.dev/face-detection/tensorflow/tfjs-backend-wasm/${tfjsWasm.version_wasm}/`;
+      `https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/${tfjsWasm.version_wasm}/`;
   }
 
   async loadModels(): Promise<void> {
