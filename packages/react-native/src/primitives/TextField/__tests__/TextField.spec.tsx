@@ -67,7 +67,7 @@ describe('TextField', () => {
     expect(queryByText(message)).toBeNull();
   });
 
-  it(`doesn't render the errorMessage if errorMessage prop is undefined`, () => {
+  it(`shows error style, but doesn't render the errorMessage if errorMessage prop is undefined`, () => {
     const message = 'Error message';
     const { toJSON, queryByText } = render(
       <TextField {...defaultProps} error />
