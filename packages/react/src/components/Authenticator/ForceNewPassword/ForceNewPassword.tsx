@@ -27,7 +27,11 @@ export const ForceNewPassword = ({
   const {
     components: {
       // @ts-ignore
-      ForceNewPassword: { FormFields = ForceNewPassword.FormFields },
+      ForceNewPassword: {
+        FormFields = ForceNewPassword.FormFields,
+        Header = ForceNewPassword.Header,
+        Footer = ForceNewPassword.Footer,
+      },
     },
   } = useCustomComponents();
 
@@ -42,7 +46,7 @@ export const ForceNewPassword = ({
         onBlur={handleBlur}
       >
         <Flex as="fieldset" direction="column" isDisabled={isPending}>
-          <Heading level={3}>{getChangePasswordText()}</Heading>
+          <Header />
 
           <FormFields />
 
@@ -66,6 +70,8 @@ export const ForceNewPassword = ({
           >
             {getBackToSignInText()}
           </Button>
+
+          <Footer />
         </Flex>
       </form>
     </RouteContainer>
@@ -76,9 +82,8 @@ ForceNewPassword.FormFields = function FormFields() {
   return <DefaultFormFields />;
 };
 
-ForceNewPassword.Header = function Header(): JSX.Element {
-  // @ts-ignore
-  return null;
+ForceNewPassword.Header = function Header() {
+  return <Heading level={4}>{getChangePasswordText()}</Heading>;
 };
 
 ForceNewPassword.Footer = function Footer(): JSX.Element {
