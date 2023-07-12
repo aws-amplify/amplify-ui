@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "latest",
-    "aws-amplify": "unstable",
+    "aws-amplify": "5.3.4-unstable.28bc873.6",
     "react": "latest",
     "react-dom": "latest"
   },

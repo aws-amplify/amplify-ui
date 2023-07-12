@@ -43,7 +43,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "aws-amplify": "unstable",
+    "aws-amplify": "5.3.4-unstable.28bc873.6",
     "react": ">= 16.14.0",
     "react-dom": ">= 16.14.0"
   },

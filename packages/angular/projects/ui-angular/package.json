@@ -16,7 +16,7 @@
   },
   "peerDependencies": {
     "@angular/core": ">= 14.0.0",
-    "aws-amplify": "5.0.22-v5-custom-clients.d32b70a.64"
+    "aws-amplify": "5.3.4-unstable.28bc873.6"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.6.6",
