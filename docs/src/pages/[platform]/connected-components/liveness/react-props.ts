@@ -78,7 +78,7 @@ export const FACE_LIVENESS_DETECTOR_CONFIG = [
   {
     name: `binaryPath?`,
     description:
-      'Overrides the WASM binary path, the default is https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/. When overriding this path ensure that the wasm version matches the version of @tensorflow/tfjs-backend-wasm installed by npm.',
+      'Overrides the WASM binary path, the default is `https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/`. When overriding this path ensure that the wasm version matches the version of @tensorflow/tfjs-backend-wasm installed by npm.',
     type: `string`,
   },
   {
