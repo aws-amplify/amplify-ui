@@ -8,6 +8,7 @@ import { SignOutButton } from '../SignOutButton';
 import awsconfig from './aws-exports';
 Amplify.configure({
   ...awsconfig,
+  // mock server endpoint for Detox e2es
   Auth: { endpoint: 'http://127.0.0.1:9091/' },
 });
 

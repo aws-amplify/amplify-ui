@@ -12,6 +12,7 @@ import {
 import { Toast } from './Toast';
 import { Overlay } from './Overlay';
 import { HintDisplayText } from '../displayText';
+import { LivenessClassNames } from '../types/classNames';
 
 export const selectErrorState = createLivenessSelector(
   (state) => state.context.errorState
@@ -110,7 +111,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       if (isWaitingForSessionInfo) {
         return (
           <Toast>
-            <Flex alignItems="center" gap="xs">
+            <Flex className={LivenessClassNames.HintText}>
               <Loader />
               <View>{hintDisplayText.hintConnectingText}</View>
             </Flex>
@@ -121,11 +122,11 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       if (isUploading) {
         return (
           <Overlay
-            backgroundColor="overlay.40"
+            className={LivenessClassNames.OpaqueOverlay}
             anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
           >
             <Toast>
-              <Flex alignItems="center" gap="xs">
+              <Flex className={LivenessClassNames.HintText}>
                 <Loader />
                 <View>{hintDisplayText.hintVerifyingText}</View>
               </Flex>

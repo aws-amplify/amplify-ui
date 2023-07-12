@@ -5715,17 +5715,17 @@ exports[`Props Table 1`] = `
         \\"PhoneNumberField\\": [
             {
                 \\"Main\\": {
-                    \\"id\\": {
-                        \\"name\\": \\"id\\",
-                        \\"type\\": \\"string | undefined\\",
-                        \\"description\\": \\"Unique identifier\\",
-                        \\"category\\": \\"BaseComponentProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"children\\": {
                         \\"name\\": \\"children\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"Children to be rendered inside the component\\",
+                        \\"category\\": \\"BaseComponentProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"id\\": {
+                        \\"name\\": \\"id\\",
+                        \\"type\\": \\"string | undefined\\",
+                        \\"description\\": \\"Unique identifier\\",
                         \\"category\\": \\"BaseComponentProps\\",
                         \\"isOptional\\": true
                     },
@@ -12466,6 +12466,27 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"border\\",
                         \\"type\\": \\"ResponsiveStyle<StyleToken<Property.Border>>\\",
                         \\"description\\": \\"Shorthand CSS property that sets an element's border-width, border-style, and border-color. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border)\\",
+                        \\"category\\": \\"Style\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"borderColor\\": {
+                        \\"name\\": \\"borderColor\\",
+                        \\"type\\": \\"ResponsiveStyle<ColorKeys<StyleToken<Property.BorderColor>>>\\",
+                        \\"description\\": \\"Shorthand CSS property that sets an element's border-color. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)\\",
+                        \\"category\\": \\"Style\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"borderWidth\\": {
+                        \\"name\\": \\"borderWidth\\",
+                        \\"type\\": \\"ResponsiveStyle<\\\\n    BorderWidthKeys<StyleToken<Property.BorderWidth>>\\\\n  >\\",
+                        \\"description\\": \\"Shorthand CSS property that sets an element's border-width. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)\\",
+                        \\"category\\": \\"Style\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"borderStyle\\": {
+                        \\"name\\": \\"borderStyle\\",
+                        \\"type\\": \\"ResponsiveStyle<StyleToken<Property.BorderStyle>>\\",
+                        \\"description\\": \\"Shorthand CSS property that sets an element's border-style. See: [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)\\",
                         \\"category\\": \\"Style\\",
                         \\"isOptional\\": true
                     },

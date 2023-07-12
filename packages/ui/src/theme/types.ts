@@ -3,6 +3,7 @@ import { DefaultTokens, Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
 
 export * from './tokens/types/designToken';
+export type { BorderWidths } from './tokens/borderWidths';
 export type { FontSizes } from './tokens/fontSizes';
 export type { FontWeights } from './tokens/fontWeights';
 export type { LineHeights } from './tokens/lineHeights';
