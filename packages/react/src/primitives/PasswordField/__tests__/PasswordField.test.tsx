@@ -116,7 +116,7 @@ describe('PasswordField component', () => {
   });
 
   it('should show error styling when field has error', async () => {
-    const { container } = render(
+    render(
       <PasswordField
         label="Password"
         name="password"
