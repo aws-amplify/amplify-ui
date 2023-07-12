@@ -74,21 +74,6 @@ export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
   },
 ];
 
-export const FACE_LIVENESS_DETECTOR_CONFIG = [
-  {
-    name: `binaryPath?`,
-    description:
-      'Overrides the WASM binary path, the default is https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/. When overriding this path ensure that the wasm version matches the version of @tensorflow/tfjs-backend-wasm installed by npm.',
-    type: `string`,
-  },
-  {
-    name: `faceModelUrl?`,
-    description:
-      'Overrides the Blazeface model and weights bin CDN URL. Default value is https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json.',
-    type: `string`,
-  },
-];
-
 export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
   {
     name: `RUNTIME_ERROR`,

@@ -15,6 +15,13 @@ type BlazeFaceModelBackend = 'wasm' | 'cpu';
 export const BLAZEFACE_VERSION = '0.0.7';
 
 /**
+ *   WARNING: When updating these links,
+ *   also make sure to update documentation and the link in the canary/e2e test "canary/e2e/features/liveness/face-detect.feature"
+ */
+export const DEFAULT_BLAZEFACE_URL = `https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/${BLAZEFACE_VERSION}/model/model.json`;
+export const DEFAULT_TFJS_WASM_URL = `https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/${tfjsWasm.version_wasm}/`;
+
+/**
  * The BlazeFace implementation of the FaceDetection interface.
  */
 export class BlazeFaceFaceDetection extends FaceDetection {
@@ -25,15 +32,8 @@ export class BlazeFaceFaceDetection extends FaceDetection {
 
   constructor(binaryPath?: string, faceModelUrl?: string) {
     super();
-    this.faceModelUrl =
-      faceModelUrl ??
-      `https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/${BLAZEFACE_VERSION}/model/model.json`;
-    this.binaryPath =
-      binaryPath ??
-      /**  Note: If to update this link,
-       *   also make sure to update the link in the canary/e2e test "canary/e2e/features/liveness/face-detect.feature"
-       */
-      `https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/${tfjsWasm.version_wasm}/`;
+    this.faceModelUrl = faceModelUrl ?? DEFAULT_BLAZEFACE_URL;
+    this.binaryPath = binaryPath ?? DEFAULT_TFJS_WASM_URL;
   }
 
   async loadModels(): Promise<void> {
