@@ -1,0 +1,157 @@
+# Description: this workflow runs build mega-apps that have all the connected components for React Native.
+
+name: Build System Test Canary / React Native
+
+permissions:
+  id-token: write # This is required for aws-actions/configure-aws-credentials
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Run at the first minute of every hour
+
+jobs:
+  build:
+    runs-on: macos-13
+    environment: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [react-native]
+        framework-version: [latest]
+        build-tool: [cli, expo]
+        build-tool-version: [latest]
+        pkg-manager: [npm]
+        language: [ts]
+        node-version: [18]
+        platform: [ios, android]
+        logfile: [test.log]
+        pkg-manager-version: [latest]
+        exclude:
+          - build-tool: expo
+            platform: ios
+
+    env:
+      MEGA_APP_NAME: rn${{ matrix.framework-version }}${{ matrix.build-tool }}${{ matrix.build-tool-version }}${{ matrix.language }}${{ matrix.platform }}
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          persist-credentials: false
+      - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: ${{ matrix.pkg-manager }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
+      - name: Restore CocoaPods cache
+        if: ${{ matrix.platform == 'ios' }}
+        id: restore-cocoapods-cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        with:
+          path: ./examples/react-native/ios/Pods
+          key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
+          restore-keys: pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+      - name: Restore node_modules cache
+        if: ${{ matrix.platform == 'ios' }}
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+      - name: Install Java 11
+        if: ${{ matrix.platform == 'android' }}
+        uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
+        with:
+          distribution: 'corretto' # Amazon Corretto Build of OpenJDK
+          java-version: '11'
+
+      - name: Install iOS simulator
+        if: ${{ matrix.platform == 'ios' }}
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+          brew install watchman
+          echo "ruby --version"
+          ruby --version
+      - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true
+      - name: Update CocoaPods
+        if: ${{ matrix.platform == 'ios' }}
+        run: |
+          gem update cocoapods xcodeproj
+          yarn react-native-example ios:pod-install
+
+      - name: Install Android emulator
+        if: ${{ matrix.platform == 'android' }}
+        run: |
+          echo -e "echo \$ANDROID_HOME"
+          echo $ANDROID_HOME
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
+          printf 'hw.cpu.ncore=2\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+      - name: Start Android emulator
+        if: ${{ matrix.platform == 'android' }}
+        run: |
+          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+          $ANDROID_HOME/platform-tools/adb devices
+          # disable spell checker
+          $ANDROID_HOME/platform-tools/adb shell settings put secure spell_checker_enabled 0
+          # disable animations
+          $ANDROID_HOME/platform-tools/adb shell settings put global window_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb shell settings put global transition_animation_scale 0.0
+          $ANDROID_HOME/platform-tools/adb shell settings put global animator_duration_scale 0.0
+
+      - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
+        run: npm run ${{ env.MEGA_APP_NAME }}
+        shell: bash
+        working-directory: build-system-tests
+      - name: Detect Mega App Error in Log
+        run: npm run checkReactNativeLogs -- --log-file-name ${{ matrix.logfile }} --mega-app-name ${{ env.MEGA_APP_NAME }} --platform ${{ matrix.platform }}
+        shell: bash
+        working-directory: build-system-tests
+
+  log-failure-metric:
+    # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ failure() }}
+    steps:
+      - name: Log failure data point to metric BuildSystemTestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildSystemTestFailure
+          value: 1
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
+
+  log-success-metric:
+    # Send a success data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ success() }}
+    steps:
+      - name: Log success data point to metric BuildSystemTestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildSystemTestFailure
+          value: 0
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
