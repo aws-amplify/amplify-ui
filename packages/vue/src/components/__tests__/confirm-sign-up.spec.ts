@@ -13,9 +13,6 @@ import * as UseAuthComposables from '../../composables/useAuth';
 import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import ConfirmSignUp from '../confirm-sign-up.vue';
 
-// mock random value so that snapshots are consistent
-jest.spyOn(Math, 'random').mockReturnValue(0.1);
-
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
   send: jest.fn(),
@@ -69,11 +66,16 @@ describe('ConfirmSignUp', () => {
   });
 
   it('renders as expected', () => {
+    // mock random value so that snapshots are consistent
+    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
+
     const { container } = render(ConfirmSignUp, { global: { components } });
     expect(container).toMatchSnapshot();
+
+    mathRandomSpy.mockRestore();
   });
 
-  it('handles change events', async () => {
+  it('sends change event on form input', async () => {
     render(ConfirmSignUp, { global: { components } });
 
     const codeField = await screen.findByLabelText('Confirmation Code');
@@ -82,7 +84,7 @@ describe('ConfirmSignUp', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(codeInputParams);
   });
 
-  it('handles submit event', async () => {
+  it('sends submit event on form submit', async () => {
     render(ConfirmSignUp, { global: { components } });
 
     const codeField = await screen.findByLabelText('Confirmation Code');
@@ -109,7 +111,7 @@ describe('ConfirmSignUp', () => {
     expect(await screen.findByText('mockError')).toBeInTheDocument();
   });
 
-  it('handles resend code', async () => {
+  it('handles resend code button as expected', async () => {
     render(ConfirmSignUp, { global: { components } });
 
     const resendCodeButton = await screen.findByRole('button', {

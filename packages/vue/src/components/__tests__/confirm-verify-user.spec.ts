@@ -13,9 +13,6 @@ import * as UseAuthComposables from '../../composables/useAuth';
 import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import ConfirmVerifyUser from '../confirm-verify-user.vue';
 
-// mock random value so that snapshots are consistent
-jest.spyOn(Math, 'random').mockReturnValue(0.1);
-
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
   send: jest.fn(),
@@ -69,11 +66,16 @@ describe('ConfirmVerifyUser', () => {
   });
 
   it('renders as expected', () => {
+    // mock random value so that snapshots are consistent
+    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
+
     const { container } = render(ConfirmVerifyUser, { global: { components } });
     expect(container).toMatchSnapshot();
+
+    mathRandomSpy.mockRestore();
   });
 
-  it('handles change events', async () => {
+  it('sends change event on form input', async () => {
     render(ConfirmVerifyUser, { global: { components } });
 
     const codeField = await screen.findByLabelText('Code *');
@@ -82,7 +84,7 @@ describe('ConfirmVerifyUser', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(codeInputParams);
   });
 
-  it('handles submit event', async () => {
+  it('sends submit event on form submit', async () => {
     render(ConfirmVerifyUser, { global: { components } });
 
     const codeField = await screen.findByLabelText('Code *');
@@ -104,7 +106,7 @@ describe('ConfirmVerifyUser', () => {
     expect(skipVerificationSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('displays error if it is present', async () => {
+  it('displays error if present', async () => {
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
         ...mockServiceFacade,

@@ -13,9 +13,6 @@ import * as UseAuthComposables from '../../composables/useAuth';
 import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import SignUp from '../sign-up.vue';
 
-// mock random value so that snapshots are consistent
-jest.spyOn(Math, 'random').mockReturnValue(0.1);
-
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
   send: jest.fn(),
@@ -84,11 +81,16 @@ describe('SignUp', () => {
   });
 
   it('renders as expected', () => {
+    // mock random value so that snapshots are consistent
+    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
+
     const { container } = render(SignUp, { global: { components } });
     expect(container).toMatchSnapshot();
+
+    mathRandomSpy.mockRestore();
   });
 
-  it('handles change events', async () => {
+  it('sends change event on form input', async () => {
     render(SignUp, { global: { components } });
     const usernameField = await screen.findByLabelText('Username');
     const passwordField = await screen.findByLabelText('Password');
@@ -142,7 +144,7 @@ describe('SignUp', () => {
     });
   });
 
-  it('handles submit event', async () => {
+  it('sends submit event on form submit', async () => {
     render(SignUp, { global: { components } });
     const usernameField = await screen.findByLabelText('Username');
     const passwordField = await screen.findByLabelText('Password');

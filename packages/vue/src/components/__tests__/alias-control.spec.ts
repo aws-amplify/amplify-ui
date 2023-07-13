@@ -1,6 +1,7 @@
-import AliasControl from '../alias-control.vue';
-import { components } from '../../../global-spec';
 import { render, screen } from '@testing-library/vue';
+
+import { components } from '../../../global-spec';
+import AliasControl from '../alias-control.vue';
 
 describe('AliasControl', () => {
   it('renders a label with default class', async () => {

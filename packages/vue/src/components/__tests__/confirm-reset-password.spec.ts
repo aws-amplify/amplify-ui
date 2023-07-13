@@ -10,6 +10,8 @@ import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticat
 import { UseAuthenticator } from '../../types';
 import ConfirmResetPassword from '../confirm-reset-password.vue';
 
+const mathRandomSpy = jest.spyOn(Math, 'random');
+
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
   send: jest.fn(),
@@ -77,23 +79,22 @@ const confirmPasswordInputParams = {
 };
 
 describe('ConfirmResetPassword', () => {
-  beforeEach(() => {
+  afterEach(() => {
     jest.clearAllMocks();
+    mathRandomSpy.mockRestore();
   });
 
   it('renders as expected', () => {
     // mock random value so that snapshots are consistent
-    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
+    mathRandomSpy.mockReturnValue(0.1);
 
     const { container } = render(ConfirmResetPassword, {
       global: { components },
     });
     expect(container).toMatchSnapshot();
-
-    mathRandomSpy.mockRestore();
   });
 
-  it('handles change events as expected', async () => {
+  it('sends change event on form input', async () => {
     render(ConfirmResetPassword, { global: { components } });
 
     const codeField = await screen.findByLabelText('Code *');
@@ -114,7 +115,7 @@ describe('ConfirmResetPassword', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(confirmPasswordInputParams);
   });
 
-  it('handles blur events as expected', async () => {
+  it('sends blur event on form blur', async () => {
     render(ConfirmResetPassword, {
       global: { components },
     });
@@ -135,7 +136,7 @@ describe('ConfirmResetPassword', () => {
     expect(updateBlurSpy).toHaveBeenCalledWith({ name: 'confirm_password' });
   });
 
-  it('handles submit events as expected', async () => {
+  it('sends submit event on form submit', async () => {
     render(ConfirmResetPassword, { global: { components } });
 
     const submitButton = await screen.findByRole('button', {

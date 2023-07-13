@@ -4,19 +4,18 @@ import { computed, toRefs, useAttrs } from 'vue';
 import {
   authenticatorTextUtil,
   defaultFormFieldOptions,
+  getFormDataFromEvent,
   LoginMechanism,
   translate,
-  getFormDataFromEvent,
-  AuthenticatorServiceFacade,
 } from '@aws-amplify/ui';
 
+import { UseAuthenticator } from '../types';
 import { useAuthenticator } from '../composables/useAuth';
 
-// `useAuthenticator` is casted for temporary type safety on this file.
-const props = useAuthenticator() as AuthenticatorServiceFacade;
-
-const { isPending, unverifiedContactMethods, error } = toRefs(props);
-const { skipVerification, submitForm, updateForm } = props;
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { isPending, unverifiedContactMethods, error } = toRefs(facade);
+const { skipVerification, submitForm, updateForm } = facade;
 
 const attrs = useAttrs();
 
@@ -132,8 +131,9 @@ const onSkipClicked = (): void => {
               :variation="'primary'"
               type="submit"
               :disabled="isPending"
-              >{{ verifyText }}</amplify-button
             >
+              {{ verifyText }}
+            </amplify-button>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
               :fullwidth="false"
@@ -143,8 +143,8 @@ const onSkipClicked = (): void => {
               type="button"
               @click.prevent="onSkipClicked"
             >
-              {{ skipText }}</amplify-button
-            >
+              {{ skipText }}
+            </amplify-button>
             <slot
               name="footer"
               :onSkipClicked="onSkipClicked"

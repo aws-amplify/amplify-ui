@@ -9,9 +9,6 @@ import * as UseAuthComposables from '../../composables/useAuth';
 import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticatorMock';
 import SignIn from '../sign-in.vue';
 
-// mock random value so that snapshots are consistent
-jest.spyOn(Math, 'random').mockReturnValue(0.1);
-
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
   send: jest.fn(),
@@ -56,8 +53,13 @@ describe('SignIn', () => {
   });
 
   it('renders as expected', () => {
+    // mock random value so that snapshots are consistent
+    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
+
     const { container } = render(SignIn, { global: { components } });
     expect(container).toMatchSnapshot();
+
+    mathRandomSpy.mockRestore();
   });
 
   it('sends change event on form input', async () => {

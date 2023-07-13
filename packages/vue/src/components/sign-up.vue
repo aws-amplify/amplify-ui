@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
+
 import {
-  AuthenticatorServiceFacade,
   authenticatorTextUtil,
   getFormDataFromEvent,
   translate,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
-// `useAuthenticator` is casted for temporary type safety on this file.
-const props = useAuthenticator() as AuthenticatorServiceFacade;
-const { submitForm, updateBlur, updateForm } = props;
-const { error, hasValidationErrors, isPending } = toRefs(props);
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { submitForm, updateBlur, updateForm } = facade;
+const { error, hasValidationErrors, isPending } = toRefs(facade);
 
 const attrs = useAttrs();
 

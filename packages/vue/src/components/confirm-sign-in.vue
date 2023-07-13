@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, toRefs, useAttrs } from 'vue';
+
 import {
   authenticatorTextUtil,
   getFormDataFromEvent,
@@ -16,7 +17,6 @@ const attrs = useAttrs();
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-
 const { submitForm, toSignIn, updateForm } = facade;
 const { user, error, isPending } = toRefs(facade);
 
@@ -91,8 +91,9 @@ const onBackToSignInClicked = (): void => {
               :variation="'primary'"
               style="font-weight: normal"
               :disabled="isPending"
-              >{{ confirmText }}</amplify-button
             >
+              {{ confirmText }}
+            </amplify-button>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
               :fullwidth="false"
@@ -102,8 +103,8 @@ const onBackToSignInClicked = (): void => {
               type="button"
               @click.prevent="onBackToSignInClicked"
             >
-              {{ backSignInText }}</amplify-button
-            >
+              {{ backSignInText }}
+            </amplify-button>
             <slot
               name="footer"
               :onBackToSignInClicked="onBackToSignInClicked"
