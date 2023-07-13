@@ -38,6 +38,10 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   send: mockSend,
 });
 
+const getQRFieldsSpy = jest
+  .spyOn(UseAuthComposables, 'getQRFields')
+  .mockReturnValue({});
+
 const TestComponent = defineComponent({
   setup() {
     return useAuthenticator();
@@ -91,6 +95,19 @@ describe('useAuthenticator', () => {
       send: mockSend,
       state: newStateValue,
     });
+
+    wrapper.unmount();
+  });
+
+  it('calls getQRFields if route is setupTOTP', () => {
+    getServiceFacadeSpy.mockReturnValueOnce({
+      ...mockServiceFacade,
+      route: 'setupTOTP',
+    });
+
+    const wrapper = mount(TestComponent);
+
+    expect(getQRFieldsSpy).toHaveBeenCalledWith(mockState.value);
 
     wrapper.unmount();
   });
