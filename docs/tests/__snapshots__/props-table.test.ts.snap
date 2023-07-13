@@ -11368,28 +11368,28 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"outerEndComponent\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"Component(s) to show after input\\",
-                        \\"category\\": \\"TextField\\",
+                        \\"category\\": \\"TextFieldOptions\\",
                         \\"isOptional\\": true
                     },
                     \\"outerStartComponent\\": {
                         \\"name\\": \\"outerStartComponent\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"Component(s) to show before input\\",
-                        \\"category\\": \\"TextField\\",
+                        \\"category\\": \\"TextFieldOptions\\",
                         \\"isOptional\\": true
                     },
                     \\"innerStartComponent\\": {
                         \\"name\\": \\"innerStartComponent\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"FieldGroupIconButton component to show inside of input at start\\",
-                        \\"category\\": \\"TextField\\",
+                        \\"category\\": \\"TextFieldOptions\\",
                         \\"isOptional\\": true
                     },
                     \\"innerEndComponent\\": {
                         \\"name\\": \\"innerEndComponent\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"FieldGroupIconButton component to show inside of input at end\\",
-                        \\"category\\": \\"TextField\\",
+                        \\"category\\": \\"TextFieldOptions\\",
                         \\"isOptional\\": true
                     },
                     \\"type\\": {
@@ -11402,36 +11402,36 @@ exports[`Props Table 1`] = `
                     \\"descriptiveText\\": {
                         \\"name\\": \\"descriptiveText\\",
                         \\"type\\": \\"React.ReactNode\\",
-                        \\"description\\": \\"Provides additional information needed to fill field\\\\n    (e.g. password requirements, etc.)\\",
-                        \\"category\\": \\"Field\\",
+                        \\"description\\": \\"Provides additional information needed to fill field\\\\n(e.g. password requirements, etc.)\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
                     \\"errorMessage\\": {
                         \\"name\\": \\"errorMessage\\",
-                        \\"type\\": \\"string\\",
-                        \\"description\\": \\"When defined and \`hasError\` is true, show error message\\",
-                        \\"category\\": \\"Field\\",
+                        \\"type\\": \\"string | undefined\\",
+                        \\"description\\": \\" When defined and \`hasError\` is true, show error message\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
                     \\"label\\": {
                         \\"name\\": \\"label\\",
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"Label text for field (required)\\",
-                        \\"category\\": \\"Field\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": false
                     },
                     \\"labelHidden\\": {
                         \\"name\\": \\"labelHidden\\",
-                        \\"type\\": \\"boolean\\",
+                        \\"type\\": \\"boolean | undefined\\",
                         \\"description\\": \\"Visually hide label (not recommended in most cases) Default: false\\",
-                        \\"category\\": \\"Field\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
                     \\"inputStyles\\": {
                         \\"name\\": \\"inputStyles\\",
-                        \\"type\\": \\"BaseStyleProps\\",
+                        \\"type\\": \\"BaseStyleProps | undefined\\",
                         \\"description\\": \\"Style props to be applied to the input element\\",
-                        \\"category\\": \\"Field\\",
+                        \\"category\\": \\"BaseFieldProps\\",
                         \\"isOptional\\": true
                     },
                     \\"isDisabled\\": {
@@ -11551,55 +11551,6 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"React.ElementType\\",
                         \\"description\\": \\"Changes the underlying rendered HTML element\\",
                         \\"category\\": \\"BaseComponentProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"BaseTextFieldProps\\": {
-                        \\"name\\": \\"BaseTextFieldProps\\",
-                        \\"type\\": \\"extends TextFieldOptions, BaseInputProps\\",
-                        \\"description\\": \\"\\",
-                        \\"category\\": \\"TextField\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"resize\\": {
-                        \\"name\\": \\"resize\\",
-                        \\"type\\": \\"Property.Resize\\",
-                        \\"description\\": \\"Defines if (and how) an element is resizable by the user\\",
-                        \\"category\\": \\"TextArea\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"maxLength\\": {
-                        \\"name\\": \\"maxLength\\",
-                        \\"type\\": \\"number\\",
-                        \\"description\\": \\"Text contents maximum length.\\",
-                        \\"category\\": \\"TextArea\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"rows\\": {
-                        \\"name\\": \\"rows\\",
-                        \\"type\\": \\"number\\",
-                        \\"description\\": \\"Controls height based on number of rows of text to display.\\",
-                        \\"category\\": \\"TextArea\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"BaseFieldClearButtonProps\\": {
-                        \\"name\\": \\"BaseFieldClearButtonProps\\",
-                        \\"type\\": \\"extends Partial<BaseFieldGroupIconButtonProps>\\",
-                        \\"description\\": \\"\\",
-                        \\"category\\": \\"Field\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"BaseFieldDescriptionProps\\": {
-                        \\"name\\": \\"BaseFieldDescriptionProps\\",
-                        \\"type\\": \\"extends BaseTextProps,\\\\n    Pick<BaseFieldProps, 'descriptiveText' | 'labelHidden'>\\",
-                        \\"description\\": \\"\\",
-                        \\"category\\": \\"Field\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"BaseFieldErrorMessageProps\\": {
-                        \\"name\\": \\"BaseFieldErrorMessageProps\\",
-                        \\"type\\": \\"extends BaseTextProps,\\\\n    Pick<BaseFieldProps, 'errorMessage'>,\\\\n    Pick<BaseInputProps, 'hasError'>\\",
-                        \\"description\\": \\"\\",
-                        \\"category\\": \\"Field\\",
                         \\"isOptional\\": true
                     }
                 }
@@ -12352,16 +12303,16 @@ exports[`Props Table 1`] = `
                     },
                     \\"isDisabled\\": {
                         \\"name\\": \\"isDisabled\\",
-                        \\"type\\": \\"boolean\\",
+                        \\"type\\": \\"boolean | undefined\\",
                         \\"description\\": \\"Sets the Boolean \`disabled\` HTML attribute, which, when present, makes the element not mutable, focusable, or even submitted with the form\\",
-                        \\"category\\": \\"View\\",
+                        \\"category\\": \\"BaseViewProps\\",
                         \\"isOptional\\": true
                     },
                     \\"style\\": {
                         \\"name\\": \\"style\\",
-                        \\"type\\": \\"React.CSSProperties\\",
-                        \\"description\\": \\"Accepts a JavaScript object with camelCased properties rather than a CSS string.\\\\n    This is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes. See: [React docs](https://reactjs.org/docs/dom-elements.html#style)\\",
-                        \\"category\\": \\"View\\",
+                        \\"type\\": \\"React.CSSProperties | undefined\\",
+                        \\"description\\": \\"Accepts a JavaScript object with camelCased properties rather than a CSS string.\\\\nThis is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes. See: [React docs](https://reactjs.org/docs/dom-elements.html#style)\\",
+                        \\"category\\": \\"BaseViewProps\\",
                         \\"isOptional\\": true
                     },
                     \\"as\\": {
@@ -12369,13 +12320,6 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"React.ElementType\\",
                         \\"description\\": \\"Changes the underlying rendered HTML element\\",
                         \\"category\\": \\"BaseComponentProps\\",
-                        \\"isOptional\\": true
-                    },
-                    \\"ForwardRefPrimitive\\": {
-                        \\"name\\": \\"ForwardRefPrimitive\\",
-                        \\"type\\": \\"extends React.ForwardRefExoticComponent<Props>\\",
-                        \\"description\\": \\"\\",
-                        \\"category\\": \\"View\\",
                         \\"isOptional\\": true
                     },
                     \\"ariaLabel\\": {
