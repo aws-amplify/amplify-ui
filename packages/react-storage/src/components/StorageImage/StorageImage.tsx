@@ -1,7 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { isFunction } from '@aws-amplify/ui';
 import { Image, ComponentClassNames } from '@aws-amplify/ui-react';
 import { useStorageURL } from '@aws-amplify/ui-react/internal';
 
@@ -16,15 +15,23 @@ export const StorageImage = ({
   onStorageGetError,
   ...rest
 }: StorageImageProps): JSX.Element => {
-  const { url, error } = useStorageURL(
-    imgKey,
-    { level: accessLevel, identityId },
-    fallbackSrc
+  const options = React.useMemo(
+    () => ({
+      accessLevel,
+      identityId,
+    }),
+    [accessLevel, identityId]
   );
 
-  if (error && isFunction(onStorageGetError)) {
-    onStorageGetError(error);
-  }
+  const errorConfig = React.useMemo(
+    () => ({
+      fallbackURL: fallbackSrc,
+      onError: onStorageGetError,
+    }),
+    [fallbackSrc, onStorageGetError]
+  );
+
+  const { url } = useStorageURL(imgKey, options, errorConfig);
 
   return (
     <Image

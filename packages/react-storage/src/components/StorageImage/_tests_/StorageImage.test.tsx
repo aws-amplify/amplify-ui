@@ -6,7 +6,7 @@ import { ComponentClassNames } from '@aws-amplify/ui-react';
 
 import { StorageImage } from '../StorageImage';
 
-describe('StorageImage:', () => {
+describe('StorageImage', () => {
   const imgKey = 'test.jpg';
   const imgURL = 'https://amplify.s3.amazonaws.com/path/to/test.jpg';
   const fallbackSrc = 'https://amplify.s3.amazonaws.com/path/to/fallback.jpg';
@@ -56,7 +56,7 @@ describe('StorageImage:', () => {
     expect(img).toHaveAttribute('src', imgURL);
   });
 
-  it('should set image src attribute to fallbackSrc and invoke onStorageError when Storage.get is rejected', async () => {
+  it('should set image src attribute to fallbackSrc and invoke onGetStorageError when Storage.get is rejected', async () => {
     jest.restoreAllMocks();
     jest.spyOn(Storage, 'get').mockRejectedValue(errorMessage);
     const onStorageError = jest.fn();

@@ -1,11 +1,16 @@
 import * as React from 'react';
 
+import { isFunction } from '@aws-amplify/ui';
 import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
 
 export interface UseStorageURLResult {
   url?: string;
-  error?: Error;
   isLoading: boolean;
+}
+
+interface UseStorageURLErrorConfig {
+  fallbackURL?: string;
+  onError?: (error: Error) => void;
 }
 
 /**
@@ -15,37 +20,33 @@ export interface UseStorageURLResult {
 export const useStorageURL = (
   key: string,
   options?: S3ProviderGetConfig,
-  fallbackURL?: string
-): UseStorageURLResult & { fetch: () => () => void } => {
+  errorConfig?: UseStorageURLErrorConfig
+): UseStorageURLResult => {
   const [result, setResult] = React.useState<UseStorageURLResult>({
     isLoading: true,
   });
 
-  // Used to prevent an infinite loop on useEffect, because `options`
-  // will have a different reference on every render
-  const serializedOptions = JSON.stringify(options ?? {});
-
   const fetch = () => {
     setResult({ isLoading: true });
 
-    const options = JSON.parse(serializedOptions) as S3ProviderGetConfig;
     const promise = Storage.get(key, options);
 
     // Attempt to fetch storage object url
     promise
       .then((url) => setResult({ url, isLoading: false }))
-      .catch((error: Error) => setResult({ error, isLoading: false }));
+      .catch((error: Error) => {
+        const { fallbackURL, onError } = errorConfig ?? {};
+        if (isFunction(onError)) {
+          onError(error);
+        }
+        setResult({ isLoading: false, url: fallbackURL });
+      });
 
     // Cancel current promise on unmount
     return () => Storage.cancel(promise);
   };
 
-  React.useEffect(fetch, [key, serializedOptions]);
+  React.useEffect(fetch, [key, options, errorConfig]);
 
-  // Set the url to fallbackURL if error happens
-  if (result.error) {
-    result.url = fallbackURL;
-  }
-
-  return { ...result, fetch };
+  return { ...result };
 };
