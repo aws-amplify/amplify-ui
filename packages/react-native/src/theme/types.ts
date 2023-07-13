@@ -17,8 +17,6 @@ import {
   TextFieldStyles,
 } from '../primitives';
 
-type OutputVariantKey = 'input' | 'output' | unknown;
-
 // Util that takes a theme shape
 // and if it is an input of createTheme it can be the theme shape OR a function
 // that takes in base tokens as an argument and returns that shape.
@@ -28,22 +26,23 @@ type ComponentTheme<ComponentType, Output> = Output extends 'output'
   : ((tokens: StrictTheme['tokens']) => ComponentType) | ComponentType;
 
 // TODO: make optional all the way down
-export type Components<Output extends OutputVariantKey = unknown> = {
-  button?: ComponentTheme<ButtonStyles, Output>;
-  checkbox?: ComponentTheme<CheckboxStyles, Output>;
-  divider?: ComponentTheme<DividerStyles, Output>;
-  errorMessage?: ComponentTheme<ErrorMessageStyles, Output>;
-  heading?: ComponentTheme<HeadingStyles, Output>;
-  icon?: ComponentTheme<IconStyles, Output>;
-  iconButton?: ComponentTheme<IconButtonStyles, Output>;
-  label?: ComponentTheme<LabelStyles, Output>;
-  passwordField?: ComponentTheme<PasswordFieldStyles, Output>;
-  phoneNumberField?: ComponentTheme<PhoneNumberFieldStyles, Output>;
-  radio?: ComponentTheme<RadioStyles, Output>;
-  radioGroup?: ComponentTheme<RadioGroupStyles, Output>;
-  tabs?: ComponentTheme<TabsStyles, Output>;
-  textField?: ComponentTheme<TextFieldStyles, Output>;
-};
+export type Components<Output extends 'input' | 'output' | unknown = unknown> =
+  {
+    button?: ComponentTheme<ButtonStyles, Output>;
+    checkbox?: ComponentTheme<CheckboxStyles, Output>;
+    divider?: ComponentTheme<DividerStyles, Output>;
+    errorMessage?: ComponentTheme<ErrorMessageStyles, Output>;
+    heading?: ComponentTheme<HeadingStyles, Output>;
+    icon?: ComponentTheme<IconStyles, Output>;
+    iconButton?: ComponentTheme<IconButtonStyles, Output>;
+    label?: ComponentTheme<LabelStyles, Output>;
+    passwordField?: ComponentTheme<PasswordFieldStyles, Output>;
+    phoneNumberField?: ComponentTheme<PhoneNumberFieldStyles, Output>;
+    radio?: ComponentTheme<RadioStyles, Output>;
+    radioGroup?: ComponentTheme<RadioGroupStyles, Output>;
+    tabs?: ComponentTheme<TabsStyles, Output>;
+    textField?: ComponentTheme<TextFieldStyles, Output>;
+  };
 
 export type ColorMode = 'light' | 'dark' | 'system' | null;
 export type Override = Omit<Theme, 'overrides'> & {
