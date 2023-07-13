@@ -15,9 +15,6 @@ import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticat
 import { UseAuthenticator } from '../../types';
 import SetupTOTP from '../setup-totp.vue';
 
-// mock random value so that snapshots are consistent
-jest.spyOn(Math, 'random').mockReturnValue(0.1);
-
 // mock clipboard
 const writeClipboardTextSpy = jest.fn();
 Object.assign(navigator, { clipboard: { writeText: writeClipboardTextSpy } });
@@ -77,21 +74,30 @@ describe('SetupTOTP', () => {
   });
 
   it('renders loading text as expected on init', async () => {
+    // mock random value so that snapshots are consistent
+    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
+
     const { container } = render(SetupTOTP, { global: { components } });
     await screen.findByText('Loading...');
     expect(container).toMatchSnapshot();
+
+    mathRandomSpy.mockRestore();
   });
 
   it('renders qrcode image as expected after onMounted is done', async () => {
+    // mock random value so that snapshots are consistent
+    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
+
     const { container } = render(SetupTOTP, { global: { components } });
 
     // wait for qrcode to render
     await screen.findByAltText('qr code');
-
     expect(container).toMatchSnapshot();
+
+    mathRandomSpy.mockRestore();
   });
 
-  it('handles change events as expected', async () => {
+  it('sends change event on form input', async () => {
     render(SetupTOTP, { global: { components } });
 
     const codeField = await screen.findByLabelText('Code *');
@@ -100,7 +106,7 @@ describe('SetupTOTP', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(codeInputParams);
   });
 
-  it('handles submit event as expected', async () => {
+  it('sends submit event on form submit', async () => {
     render(SetupTOTP, { global: { components } });
 
     const codeField = await screen.findByLabelText('Code *');

@@ -14,9 +14,6 @@ import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticat
 import { UseAuthenticator } from '../../types';
 import ConfirmSignIn from '../confirm-sign-in.vue';
 
-// mock random value so that snapshots are consistent
-jest.spyOn(Math, 'random').mockReturnValue(0.1);
-
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
   send: jest.fn(),
@@ -64,11 +61,19 @@ describe('ConfirmSignIn', () => {
   });
 
   it('renders as expected for TOTP challenge', () => {
+    // mock random value so that snapshots are consistent
+    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
+
     const { container } = render(ConfirmSignIn, { global: { components } });
     expect(container).toMatchSnapshot();
+
+    mathRandomSpy.mockRestore();
   });
 
   it('renders as expected for SMS challenge', () => {
+    // mock random value so that snapshots are consistent
+    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
+
     useAuthenticatorSpy.mockReturnValueOnce(
       reactive({
         ...mockServiceFacade,
@@ -77,9 +82,11 @@ describe('ConfirmSignIn', () => {
     );
     const { container } = render(ConfirmSignIn, { global: { components } });
     expect(container).toMatchSnapshot();
+
+    mathRandomSpy.mockRestore();
   });
 
-  it('handles change events as expected', async () => {
+  it('sends change event on form input', async () => {
     render(ConfirmSignIn, { global: { components } });
 
     const codeField = await screen.findByLabelText('Code *');
@@ -88,7 +95,7 @@ describe('ConfirmSignIn', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(codeInputParams);
   });
 
-  it('handles submit event as expected', async () => {
+  it('sends submit event on form submit', async () => {
     render(ConfirmSignIn, { global: { components } });
 
     const codeField = await screen.findByLabelText('Code *');

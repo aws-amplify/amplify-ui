@@ -8,16 +8,18 @@ import {
   onUnmounted,
   withDefaults,
 } from 'vue';
+
 import {
   AuthFormFields,
   AuthenticatorMachineOptions,
   AuthenticatorRoute,
-  AuthenticatorServiceFacade,
   SocialProvider,
   authenticatorTextUtil,
   configureComponent,
 } from '@aws-amplify/ui';
+
 import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import { VERSION } from '../version';
 
 import SignIn from './sign-in.vue';
@@ -106,10 +108,9 @@ unsubscribeMachine = service.subscribe((newState) => {
   }
 }).unsubscribe;
 
-const { route, signOut, toSignIn, toSignUp, user } = toRefs(
-  // `useAuthenticator` is casted for temporary type safety on this file.
-  useAuthenticator() as AuthenticatorServiceFacade
-);
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { route, signOut, toSignIn, toSignUp, user } = toRefs(facade);
 
 onMounted(() => {
   configureComponent({

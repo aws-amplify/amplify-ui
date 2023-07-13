@@ -2,22 +2,20 @@
 import { computed, toRefs, useAttrs } from 'vue';
 
 import {
-  AuthenticatorServiceFacade,
   authenticatorTextUtil,
   getFormDataFromEvent,
   translate,
 } from '@aws-amplify/ui';
 
+import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
+import BaseFormFields from './primitives/base-form-fields.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
-// @xstate
-import { useAuthenticator } from '../composables/useAuth';
-import BaseFormFields from './primitives/base-form-fields.vue';
-
-// `useAuthenticator` is casted for temporary type safety on this file.
-const props = useAuthenticator() as AuthenticatorServiceFacade;
-const { submitForm, updateForm, toResetPassword } = props;
-const { error, isPending } = toRefs(props);
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { submitForm, updateForm, toResetPassword } = facade;
+const { error, isPending } = toRefs(facade);
 
 const attrs = useAttrs();
 

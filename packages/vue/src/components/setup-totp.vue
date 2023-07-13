@@ -18,7 +18,6 @@ const logger = new Logger('SetupTOTP-logger');
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-
 const { updateForm, submitForm, toSignIn } = facade;
 const { error, isPending, QRFields, totpSecretCode, user } = toRefs(facade);
 

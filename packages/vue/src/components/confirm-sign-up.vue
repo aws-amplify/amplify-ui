@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
 import {
-  AuthenticatorServiceFacade,
   authenticatorTextUtil,
   getFormDataFromEvent,
   translate,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
 const attrs = useAttrs();
@@ -15,10 +15,10 @@ const attrs = useAttrs();
 /** @deprecated Authenticator component events are deprecated and not maintained. */
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
-// `useAuthenticator` is casted for temporary type safety on this file.
-const props = useAuthenticator() as AuthenticatorServiceFacade;
-const { codeDeliveryDetails, error, isPending } = toRefs(props);
-const { resendCode, submitForm, updateForm } = props;
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { codeDeliveryDetails, error, isPending } = toRefs(facade);
+const { resendCode, submitForm, updateForm } = facade;
 
 // Text Util
 const {

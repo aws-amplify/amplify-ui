@@ -5,10 +5,10 @@ import {
   getFormDataFromEvent,
   translate,
 } from '@aws-amplify/ui';
-import BaseFormFields from './primitives/base-form-fields.vue';
 
 import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const attrs = useAttrs();
 /** @deprecated Component events are deprecated and not maintained. */
@@ -16,7 +16,6 @@ const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-
 const { submitForm, toSignIn, updateForm } = facade;
 const { error, isPending } = toRefs(facade);
 
@@ -99,8 +98,8 @@ const onBackToSignInClicked = (): void => {
             type="button"
             @click.prevent="onBackToSignInClicked"
           >
-            {{ backSignInText }}</amplify-button
-          >
+            {{ backSignInText }}
+          </amplify-button>
           <slot
             name="footer"
             :onBackToSignInClicked="onBackToSignInClicked"

@@ -13,7 +13,6 @@ import BaseFormFields from './primitives/base-form-fields.vue';
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-
 const { resendCode, submitForm, updateBlur, updateForm } = facade;
 const { error, isPending } = toRefs(facade);
 

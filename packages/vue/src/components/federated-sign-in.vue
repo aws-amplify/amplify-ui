@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+
 import {
-  AuthenticatorServiceFacade,
   authenticatorTextUtil,
   FederatedIdentityProviders,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import FederatedSignInButton from './federated-sign-in-button.vue';
 
-// `useAuthenticator` is casted for temporary type safety on this file.
-const { route, socialProviders } =
-  useAuthenticator() as AuthenticatorServiceFacade;
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { route, socialProviders } = facade;
 
 const includeAmazon = socialProviders?.includes('amazon');
 const includeApple = socialProviders?.includes('apple');

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, toRefs, useAttrs } from 'vue';
+
 import {
   authenticatorTextUtil,
   getFormDataFromEvent,
@@ -8,7 +9,6 @@ import {
 
 import { useAuthenticator } from '../composables/useAuth';
 import { UseAuthenticator } from '../types';
-
 import AuthenticatorForceNewPasswordFormFields from './authenticator-force-new-password-form-fields.vue';
 
 /** @deprecated Component events are deprecated and not maintained. */
@@ -17,7 +17,6 @@ const attrs = useAttrs();
 
 // `facade` is manually typed to `UseAuthenticator` for temporary type safety.
 const facade: UseAuthenticator = useAuthenticator();
-
 const { submitForm, toSignIn, updateBlur, updateForm } = facade;
 const { error, isPending } = toRefs(facade);
 

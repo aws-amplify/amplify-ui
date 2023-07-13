@@ -65,7 +65,7 @@ describe('ResetPassword', () => {
     mathRandomSpy.mockRestore();
   });
 
-  it('handles change events as expected', async () => {
+  it('sends change event on form input', async () => {
     render(ResetPassword, { global: { components } });
 
     const emailField = await screen.findByLabelText('Email');
@@ -74,7 +74,7 @@ describe('ResetPassword', () => {
     expect(updateFormSpy).toHaveBeenCalledWith(emailInputParams);
   });
 
-  it('handles submit events as expected', async () => {
+  it('sends submit event on form submit', async () => {
     render(ResetPassword, { global: { components } });
 
     const emailField = await screen.findByLabelText('Email');
