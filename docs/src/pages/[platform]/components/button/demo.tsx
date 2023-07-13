@@ -54,6 +54,11 @@ const PropControls = (props) => {
         <option value="link">Link</option>
         <option value="warning">Warning</option>
         <option value="destructive">Destructive</option>
+        {/* 
+          TODO: Remove. Temporarily add to aid with verifying colorTheme affects 
+          on Menu variation.
+        */}
+        <option value="menu">Menu</option>
       </SelectField>
       <SelectField
         name="colorTheme"

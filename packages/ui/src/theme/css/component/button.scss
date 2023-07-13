@@ -877,7 +877,7 @@
   We need the :not() here because our new color theme, warning, produces
   the same class as our warning variations which will soon be deprecated. 
   */
-  &--destructive:not(.amplify-button--warning) {
+  &--destructive {
     border-width: var(--amplify-components-button-destructive-border-width);
     background-color: var(
       --amplify-components-button-destructive-background-color
@@ -936,7 +936,11 @@
     );
   }
 
-  &--warning {
+  /* 
+  We need the :not() here because our new color theme, warning, produces
+  the same class as our warning variation which will soon be deprecated. 
+  */
+  &--warning:not(.amplify-button--destructive):not(.amplify-button--menu) {
     background-color: var(--amplify-components-button-warning-background-color);
     border-color: var(--amplify-components-button-warning-border-color);
     border-width: var(--amplify-components-button-warning-border-width);
