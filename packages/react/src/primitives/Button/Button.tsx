@@ -29,11 +29,17 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   },
   ref
 ) => {
+  // These variations support colorThemes
+  const supportsColorThemes = ['outlined', 'link', 'primary'];
+
   const componentClasses = classNames(
     ComponentClassNames.Button,
     ComponentClassNames.FieldGroupControl,
     classNameModifier(ComponentClassNames.Button, variation),
-    classNameModifier(ComponentClassNames.Button, colorTheme),
+    // Test if variation supports colorThemes before applying
+    // colorTheme modiifying class.
+    supportsColorThemes.includes(variation) &&
+      classNameModifier(ComponentClassNames.Button, colorTheme),
     classNameModifier(ComponentClassNames.Button, size),
     classNameModifierByFlag(
       ComponentClassNames.Button,
