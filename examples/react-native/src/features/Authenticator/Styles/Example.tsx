@@ -30,12 +30,17 @@ const MyHeader = ({
   style?: StyleProp<ViewStyle>;
 }) => {
   const {
-    tokens: { colors, fontSizes },
+    tokens: { colors, fontSizes, borderWidths },
   } = useTheme();
+  console.log({ borderWidths });
   return (
     <View style={style}>
       <Text
-        style={{ fontSize: fontSizes.xxl, color: colors.brand.primary[80] }}
+        style={{
+          fontSize: fontSizes.xxl,
+          color: colors.brand.secondary[80],
+          borderWidth: borderWidths.large,
+        }}
       >
         {children}
       </Text>
@@ -49,6 +54,11 @@ function SignOutButton() {
 }
 
 const theme: Theme = {
+  tokens: {
+    borderWidths: {
+      large: '1rem',
+    },
+  },
   overrides: [defaultDarkModeOverride],
 };
 

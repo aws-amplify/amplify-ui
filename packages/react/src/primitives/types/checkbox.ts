@@ -5,6 +5,7 @@ import { FieldProps, LabelPositions } from './field';
 import { BaseStyleProps } from './style';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseCheckboxProps extends BaseFlexProps, BaseInputProps {
   /**
    * @description

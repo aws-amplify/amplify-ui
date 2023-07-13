@@ -1,5 +1,23 @@
 # @aws-amplify/ui-react-core
 
+## 2.1.25
+
+### Patch Changes
+
+- [#4168](https://github.com/aws-amplify/amplify-ui/pull/4168) [`d930e2ed1`](https://github.com/aws-amplify/amplify-ui/commit/d930e2ed17f3e638e2b62699ba2dd164b32f8118) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(RWA/RNA): deprecate passwordSettings prop
+
+- Updated dependencies [[`b0e16e78c`](https://github.com/aws-amplify/amplify-ui/commit/b0e16e78c6a41945aa79f3e14fa3f9e6cb0e5e76), [`d930e2ed1`](https://github.com/aws-amplify/amplify-ui/commit/d930e2ed17f3e638e2b62699ba2dd164b32f8118)]:
+  - @aws-amplify/ui@5.6.6
+
+## 2.1.24
+
+### Patch Changes
+
+- [#4013](https://github.com/aws-amplify/amplify-ui/pull/4013) [`23180b470`](https://github.com/aws-amplify/amplify-ui/commit/23180b470c7b3b78a5970d00f8c2dc5ce8773eff) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(ui-react-native): disable Authenticator submit button on invalid form
+
+- Updated dependencies [[`3cecd0765`](https://github.com/aws-amplify/amplify-ui/commit/3cecd0765b46c77c49af24fae7cfb9054ebe2cdb)]:
+  - @aws-amplify/ui@5.6.5
+
 ## 2.1.23
 
 ### Patch Changes

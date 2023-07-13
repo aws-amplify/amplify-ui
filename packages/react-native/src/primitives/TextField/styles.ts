@@ -19,6 +19,9 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       opacity: opacities[60],
       ...components?.textField?.disabled,
     },
+    error: {
+      borderColor: colors.border.error,
+    },
     fieldContainer: {
       alignItems: 'center',
       borderColor: colors.border.primary,

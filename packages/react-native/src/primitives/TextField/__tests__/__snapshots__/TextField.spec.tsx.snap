@@ -80,86 +80,6 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
 </View>
 `;
 
-exports[`TextField doesn't render the errorMessage if errorMessage prop is undefined 1`] = `
-<View
-  style={
-    Array [
-      Object {
-        "alignItems": "flex-start",
-      },
-      undefined,
-    ]
-  }
-  testID="amplify__text-field-container"
->
-  <Text
-    accessibilityLabel="Label"
-    accessibilityRole="text"
-    style={
-      Array [
-        Object {
-          "fontSize": 14,
-          "fontWeight": "400",
-          "lineHeight": 21,
-        },
-        Object {
-          "color": "hsl(210, 50%, 10%)",
-        },
-        Array [
-          Object {
-            "color": "hsl(210, 25%, 25%)",
-            "lineHeight": 21,
-            "padding": 4,
-          },
-          undefined,
-        ],
-      ]
-    }
-  >
-    Label
-  </Text>
-  <View
-    accessible={true}
-    style={
-      Object {
-        "alignItems": "center",
-        "borderColor": "hsl(210, 10%, 58%)",
-        "borderRadius": 4,
-        "borderWidth": 1,
-        "flexDirection": "row",
-        "paddingHorizontal": 8,
-      }
-    }
-    testID="amplify__text-field__input-container"
-  >
-    <TextInput
-      accessibilityState={
-        Object {
-          "disabled": undefined,
-        }
-      }
-      accessible={true}
-      autoCapitalize="none"
-      editable={true}
-      placeholder="Placeholder"
-      placeholderTextColor="hsl(210, 10%, 40%)"
-      style={
-        Array [
-          Object {
-            "color": "hsl(210, 50%, 10%)",
-            "flexGrow": 1,
-            "fontSize": 16,
-            "paddingVertical": 12,
-          },
-          undefined,
-        ]
-      }
-      testID="textInput"
-    />
-  </View>
-</View>
-`;
-
 exports[`TextField renders as expected 1`] = `
 <View
   style={
@@ -445,7 +365,7 @@ exports[`TextField renders as expected with error message 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "hsl(210, 10%, 58%)",
+        "borderColor": "hsl(0, 95%, 30%)",
         "borderRadius": 4,
         "borderWidth": 1,
         "flexDirection": "row",
@@ -497,5 +417,85 @@ exports[`TextField renders as expected with error message 1`] = `
   >
     Error message
   </Text>
+</View>
+`;
+
+exports[`TextField shows error style, but doesn't render the errorMessage if errorMessage prop is undefined 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+      },
+      undefined,
+    ]
+  }
+  testID="amplify__text-field-container"
+>
+  <Text
+    accessibilityLabel="Label"
+    accessibilityRole="text"
+    style={
+      Array [
+        Object {
+          "fontSize": 14,
+          "fontWeight": "400",
+          "lineHeight": 21,
+        },
+        Object {
+          "color": "hsl(210, 50%, 10%)",
+        },
+        Array [
+          Object {
+            "color": "hsl(210, 25%, 25%)",
+            "lineHeight": 21,
+            "padding": 4,
+          },
+          undefined,
+        ],
+      ]
+    }
+  >
+    Label
+  </Text>
+  <View
+    accessible={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "hsl(0, 95%, 30%)",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "paddingHorizontal": 8,
+      }
+    }
+    testID="amplify__text-field__input-container"
+  >
+    <TextInput
+      accessibilityState={
+        Object {
+          "disabled": undefined,
+        }
+      }
+      accessible={true}
+      autoCapitalize="none"
+      editable={true}
+      placeholder="Placeholder"
+      placeholderTextColor="hsl(210, 10%, 40%)"
+      style={
+        Array [
+          Object {
+            "color": "hsl(210, 50%, 10%)",
+            "flexGrow": 1,
+            "fontSize": 16,
+            "paddingVertical": 12,
+          },
+          undefined,
+        ]
+      }
+      testID="textInput"
+    />
+  </View>
 </View>
 `;

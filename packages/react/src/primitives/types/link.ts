@@ -18,6 +18,7 @@ export interface LinkOptions {
   href?: string;
 }
 
+/** @deprecated For internal use only */
 export interface BaseLinkProps extends BaseViewProps, LinkOptions {
   /**
    * @description

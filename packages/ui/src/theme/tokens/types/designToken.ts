@@ -47,8 +47,8 @@ export type BorderWidthValue<
 > = Output extends 'required'
   ? Platform extends 'react-native'
     ? number
-    : SpaceValue
-  : SpaceValue;
+    : SpaceValue<Platform>
+  : SpaceValue<Platform>;
 export type BorderValue = string;
 export type BoxSizingValue = string;
 export type BoxShadowValue = ShadowValue;

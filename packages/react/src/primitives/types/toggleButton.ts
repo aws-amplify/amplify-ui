@@ -1,6 +1,7 @@
 import { BaseButtonProps } from './button';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseToggleButtonProps extends BaseButtonProps {
   /**
    * @description

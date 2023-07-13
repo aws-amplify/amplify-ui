@@ -464,6 +464,7 @@ export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
   [LivenessErrorState.SERVER_ERROR]: 'SERVER_ERROR',
   [LivenessErrorState.TIMEOUT]: 'TIMEOUT',
   [LivenessErrorState.FACE_DISTANCE_ERROR]: 'FACE_DISTANCE_ERROR',
+  [LivenessErrorState.MULTIPLE_FACES_ERROR]: 'MULTIPLE_FACES_ERROR',
   [LivenessErrorState.CAMERA_FRAMERATE_ERROR]: 'CAMERA_FRAMERATE_ERROR',
   [LivenessErrorState.CAMERA_ACCESS_ERROR]: 'CAMERA_ACCESS_ERROR',
   [LivenessErrorState.MOBILE_LANDSCAPE_ERROR]: 'MOBILE_LANDSCAPE_ERROR',
@@ -738,15 +739,25 @@ export async function isFaceDistanceBelowThreshold({
   ovalDetails: LivenessOvalDetails;
   reduceThreshold?: boolean;
   isMobile?: boolean;
-}): Promise<boolean> {
+}): Promise<{
+  isDistanceBelowThreshold: boolean;
+  error?:
+    | LivenessErrorState.FACE_DISTANCE_ERROR
+    | LivenessErrorState.MULTIPLE_FACES_ERROR;
+}> {
   const detectedFaces = await faceDetector.detectFaces(videoEl);
   let detectedFace: Face;
 
-  let distanceBelowThreshold = false;
+  let isDistanceBelowThreshold = false;
+  let error:
+    | LivenessErrorState.FACE_DISTANCE_ERROR
+    | LivenessErrorState.MULTIPLE_FACES_ERROR
+    | undefined;
 
   switch (detectedFaces.length) {
     case 0: {
       //no face detected;
+      error = LivenessErrorState.FACE_DISTANCE_ERROR;
       break;
     }
     case 1: {
@@ -763,23 +774,27 @@ export async function isFaceDistanceBelowThreshold({
         (alpha * pupilDistance + gamma * faceHeight) / 2 / alpha;
 
       if (width) {
-        distanceBelowThreshold =
+        isDistanceBelowThreshold =
           calibratedPupilDistance / width <
           (!reduceThreshold
             ? FACE_DISTANCE_THRESHOLD
             : isMobile
             ? REDUCED_THRESHOLD_MOBILE
             : REDUCED_THRESHOLD);
+        if (!isDistanceBelowThreshold) {
+          error = LivenessErrorState.FACE_DISTANCE_ERROR;
+        }
       }
       break;
     }
     default: {
       //more than one face detected
+      error = LivenessErrorState.MULTIPLE_FACES_ERROR;
       break;
     }
   }
 
-  return distanceBelowThreshold;
+  return { isDistanceBelowThreshold, error };
 }
 
 export function getBoundingBox({
