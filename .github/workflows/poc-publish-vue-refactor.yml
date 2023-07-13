@@ -60,9 +60,9 @@ jobs:
       DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
 
   publish:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@vue-refactor/main
     needs: e2e
     with:
-      dist-tag: <vue-refactor>
+      dist-tag: vue-refactor
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
