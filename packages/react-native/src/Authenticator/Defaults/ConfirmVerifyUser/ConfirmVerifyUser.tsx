@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmVerifyUserComponent } from '../types';
+import { DefaultConfirmVerifyUserProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmVerifyUser';
 
@@ -20,7 +20,7 @@ const {
   getSubmittingText,
 } = authenticatorTextUtil;
 
-const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
+const ConfirmVerifyUser = ({
   fields,
   handleBlur,
   handleChange,
@@ -28,7 +28,7 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   isPending,
   skipVerification,
   ...rest
-}) => {
+}: DefaultConfirmVerifyUserProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

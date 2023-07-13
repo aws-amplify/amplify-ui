@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmSignUpComponent } from '../types';
+import { DefaultConfirmSignUpProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmSignUp';
 
@@ -21,7 +21,7 @@ const {
   getResendCodeText,
 } = authenticatorTextUtil;
 
-const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
+const ConfirmSignUp = ({
   codeDeliveryDetails,
   fields,
   handleBlur,
@@ -30,7 +30,7 @@ const ConfirmSignUp: DefaultConfirmSignUpComponent = ({
   isPending,
   resendCode,
   ...rest
-}) => {
+}: DefaultConfirmSignUpProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
