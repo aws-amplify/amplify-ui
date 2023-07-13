@@ -10,8 +10,6 @@ import { baseMockServiceFacade } from '../../composables/__mock__/useAuthenticat
 import { UseAuthenticator } from '../../types';
 import ConfirmResetPassword from '../confirm-reset-password.vue';
 
-const mathRandomSpy = jest.spyOn(Math, 'random');
-
 jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   authStatus: ref('unauthenticated'),
   send: jest.fn(),
@@ -79,19 +77,20 @@ const confirmPasswordInputParams = {
 };
 
 describe('ConfirmResetPassword', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
-    mathRandomSpy.mockRestore();
   });
 
   it('renders as expected', () => {
     // mock random value so that snapshots are consistent
-    mathRandomSpy.mockReturnValue(0.1);
+    const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.1);
 
     const { container } = render(ConfirmResetPassword, {
       global: { components },
     });
     expect(container).toMatchSnapshot();
+
+    mathRandomSpy.mockRestore();
   });
 
   it('sends change event on form input', async () => {
