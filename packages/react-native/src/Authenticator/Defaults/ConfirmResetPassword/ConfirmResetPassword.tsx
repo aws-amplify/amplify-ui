@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmResetPasswordComponent } from '../types';
+import { DefaultConfirmResetPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmResetPassword';
 
@@ -20,7 +20,7 @@ const {
   getResendCodeText,
 } = authenticatorTextUtil;
 
-const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
+const ConfirmResetPassword = ({
   fields,
   handleBlur,
   handleChange,
@@ -29,7 +29,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
   isPending,
   resendCode,
   ...rest
-}) => {
+}: DefaultConfirmResetPasswordProps): JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,

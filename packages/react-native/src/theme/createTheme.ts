@@ -26,6 +26,16 @@ const setupComponents = ({ components, tokens }: StrictTheme) => {
   }).components;
 };
 
+const shouldParseFloatValue = (pathKey: string) =>
+  [
+    'space',
+    'borderWidths',
+    'opacities',
+    'fontSizes',
+    'lineHeights',
+    'radii',
+  ].includes(pathKey);
+
 const setupToken = ({
   token,
   path = [],
@@ -39,27 +49,28 @@ const setupToken = ({
 }): string | number => {
   const { value } = token;
   if (typeof value === 'string') {
-    // Perform transforms
-    if (path[0] === 'space') {
-      if (value.includes('rem')) {
-        return Math.floor(parseFloat(value) * 16 * spaceModifier);
-      }
-    }
-    if (value.includes('rem')) {
-      return Math.floor(parseFloat(value) * 16);
-    }
-    if (value.includes('px')) {
-      return parseInt(value, 10);
-    }
-    if (path[0] === 'opacities') {
-      return parseFloat(value);
-    }
     // Remove .value from references if there is a reference
+    // this needs to come first so we don't get NaNs for references
     if (usesReference(value)) {
       return value.replace('.value', '');
     }
+
+    if (shouldParseFloatValue(path[0])) {
+      if (value.includes('rem')) {
+        if (path[0] === 'space') {
+          return Math.floor(parseFloat(value) * 16 * spaceModifier);
+        }
+        return Math.floor(parseFloat(value) * 16);
+      }
+      if (value.includes('px')) {
+        return parseInt(value, 10);
+      }
+      return parseFloat(value);
+    }
+
     return value;
   }
+
   // Font Weights in RN are strings
   if (path[0] === 'fontWeights') {
     return `${value}`;

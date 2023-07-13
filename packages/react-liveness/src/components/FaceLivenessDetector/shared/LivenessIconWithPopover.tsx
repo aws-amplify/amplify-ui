@@ -5,8 +5,9 @@
 
 import * as React from 'react';
 
-import { Flex, useTheme } from '@aws-amplify/ui-react';
+import { Flex } from '@aws-amplify/ui-react';
 import { AlertIcon, useThemeBreakpoint } from '@aws-amplify/ui-react/internal';
+import { LivenessClassNames } from '../types/classNames';
 
 export interface LivenessIconWithPopoverProps {
   children: string;
@@ -14,7 +15,6 @@ export interface LivenessIconWithPopoverProps {
 
 export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
   ({ children }) => {
-    const { tokens } = useTheme();
     const breakpoint = useThemeBreakpoint();
     const [shouldShowPopover, setShouldShowPopover] = React.useState(false);
     const wrapperRef = React.useRef<HTMLDivElement | null>(null);
@@ -38,49 +38,19 @@ export const LivenessIconWithPopover: React.FC<LivenessIconWithPopoverProps> =
 
     return (
       <Flex
-        position="relative"
+        className={LivenessClassNames.Popover}
         onClick={() => setShouldShowPopover(!shouldShowPopover)}
         ref={wrapperRef}
-        style={{ cursor: 'pointer' }}
         testId="popover-icon"
       >
         <AlertIcon ariaHidden variation="info" />
         {shouldShowPopover && (
           <>
+            <Flex className={LivenessClassNames.PopoverAnchor} />
+            <Flex className={LivenessClassNames.PopoverAnchorSecondary} />
             <Flex
-              position={'absolute'}
-              top={26}
-              left={3}
-              style={{
-                zIndex: 3,
-                borderStyle: 'solid',
-                borderWidth: '0 9px 9px 9px',
-                borderColor: `transparent transparent ${tokens.colors.background.primary} transparent`,
-              }}
-            />
-            <Flex
-              position={'absolute'}
-              top={24}
-              left={2}
-              style={{
-                zIndex: 2,
-                borderStyle: 'solid',
-                borderWidth: '0 10px 10px 10px',
-                borderColor: `transparent transparent ${tokens.colors.border.secondary} transparent`,
-              }}
-            />
-            <Flex
-              position={'absolute'}
-              backgroundColor={`${tokens.colors.background.primary}`}
-              color={`${tokens.colors.font.primary}`}
-              direction={'row'}
-              fontSize={tokens.fontSizes.xs}
-              padding={tokens.space.small}
-              top={33}
-              minWidth={240}
+              className={LivenessClassNames.PopoverContainer}
               left={isMobileScreen ? -190 : -108}
-              border={`1px solid ${tokens.colors.border.secondary}`}
-              borderRadius={2}
               data-testid="popover-text"
             >
               {children}
