@@ -1,0 +1,43 @@
+{
+  "name": "@aws-amplify/ui-build-system-tests",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "@supercharge/promise-pool": "^2.4.0",
+    "commander": "^10.0.1",
+    "json": "^11.0.0",
+    "strip-json-comments-cli": "^2.0.2"
+  },
+  "scripts": {
+    "setup:react": "./scripts/setup-mega-app.sh",
+    "setup:react:cra": "./scripts/setup-mega-app.sh -B cra",
+    "setup:react:next": "./scripts/setup-mega-app.sh -B next",
+    "setup:react:vite": "./scripts/setup-mega-app.sh -B vite",
+    "setup:angular": "./scripts/setup-mega-app.sh -F angular",
+    "setup:angular:cli": "./scripts/setup-mega-app.sh -F angular -B angular-cli",
+    "setup:vue": "./scripts/setup-mega-app.sh -F vue",
+    "setup:vue:cli": "./scripts/setup-mega-app.sh -F vue -B vue-cli",
+    "setup:vue:vite": "./scripts/setup-mega-app.sh -F vue -B vite",
+    "setup:vue:nuxt": "./scripts/setup-mega-app.sh -F vue -B nuxt",
+    "setup:react-native": "./scripts/setup-mega-app.sh -F react-native",
+    "setup:react-native:cli": "./scripts/setup-mega-app.sh -F react-native -B cli",
+    "setup:react-native:expo": "./scripts/setup-mega-app.sh -F react-native -B expo",
+    "react-latest-cra-latest-ts": "npm run setup:react:cra",
+    "react-latest-next-latest-ts": "npm run setup:react:next",
+    "react-latest-vite-latest-ts": "npm run setup:react:vite",
+    "react-16-cra-latest-ts": "npm run setup:react:cra -- -f 16",
+    "react-latest-cra-latest-js": "npm run setup:react:cra -- -l js",
+    "react-17-next-11-ts": "npm run setup:react:next -- -f 17 -b 11",
+    "react-latest-vite-2-ts": "npm run setup:react:vite -- -b 2",
+    "angular-latest-angular-cli-latest-ts": "npm run setup:angular:cli",
+    "angular-14-angular-cli-14-ts": "npm run setup:angular:cli -- -f 14 -b 14 -n angular-latest-angular-cli-v14-ts",
+    "vue-3-vue-cli-latest-ts": "npm run setup:vue:cli -- -f 3",
+    "vue-latest-vite-latest-ts": "npm run setup:vue:vite",
+    "vue-latest-vite-2-ts": "npm run setup:vue:vite -- -b 2",
+    "vue-latest-nuxt-latest-ts": "npm run setup:vue:nuxt",
+    "rnlatestclilatesttsios": "npm run setup:react-native:cli -- -A ios -n rnLatestCliLatestTsIos",
+    "rnlatestclilatesttsandroid": "npm run setup:react-native:cli -- -A android -n rnLatestCliLatestTsAndroid",
+    "rnlatestexpolatesttsandroid": "npm run setup:react-native:expo -- -A android -n rnLatestExpoLatestTsAndroid",
+    "checkReactNativeLogs": "node --require esbuild-register ./scripts/checkReactNativeLog.ts"
+  }
+}

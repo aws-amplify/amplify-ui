@@ -1,12 +1,8 @@
 # Description: this workflow publishes UI packages to `latest` tag on NPM.
 #
-# Triggered by: whenever "Version Packages" is merged
+# Triggered by: whenever "Version Packages" is merged to `main`
 
-# If successful, we will publish all updated UI packages to
-#   - https://www.npmjs.com/package/@aws-amplify/ui
-#   - https://www.npmjs.com/package/@aws-amplify/ui-react
-#   - https://www.npmjs.com/package/@aws-amplify/ui-vue
-#   - https://www.npmjs.com/package/@aws-amplify/ui-angular
+# If successful, we will publish all updated UI packages to NPM.
 
 name: Test and Publish / latest
 
@@ -58,7 +54,7 @@ jobs:
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}

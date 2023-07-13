@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmSignInComponent } from '../types';
+import { DefaultConfirmSignInProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmSignIn';
 
@@ -20,7 +20,7 @@ const {
   getConfirmingText,
 } = authenticatorTextUtil;
 
-const ConfirmSignIn: DefaultConfirmSignInComponent = ({
+const ConfirmSignIn = ({
   challengeName,
   fields,
   handleBlur,
@@ -29,7 +29,7 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
   isPending,
   toSignIn,
   ...rest
-}) => {
+}: DefaultConfirmSignInProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

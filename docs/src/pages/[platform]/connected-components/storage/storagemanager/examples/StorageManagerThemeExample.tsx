@@ -19,7 +19,6 @@ const theme = {
 
 export const StorageManagerThemeExample = () => {
   return (
-    // @ts-ignore // IGNORE
     <ThemeProvider theme={theme}>
       <StorageManager
         acceptedFileTypes={['image/*']}
