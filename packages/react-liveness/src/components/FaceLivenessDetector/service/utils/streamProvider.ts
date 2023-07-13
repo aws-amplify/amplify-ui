@@ -28,6 +28,7 @@ export interface Credentials {
   sessionToken: string;
 }
 
+const ENDPOINT = process.env.NEXT_PUBLIC_STREAMING_API_URL;
 export const TIME_SLICE = 1000;
 
 function isBlob(obj: unknown): obj is Blob {
@@ -120,6 +121,13 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
       customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent()}`,
       requestHandler: new WebSocketFetchHandler({ connectionTimeout: 10_000 }),
     };
+
+    if (ENDPOINT) {
+      clientconfig.endpointProvider = () => {
+        const url = new URL(ENDPOINT);
+        return { url };
+      };
+    }
 
     this._client = new RekognitionStreamingClient(clientconfig);
 
