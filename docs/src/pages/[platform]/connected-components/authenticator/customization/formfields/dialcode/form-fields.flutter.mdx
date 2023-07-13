@@ -3,7 +3,7 @@
 @override
 Widget build(BuildContext context) {
   return Authenticator(
-    defaultDialCode: CountryCode.jp,
+    dialCodeOptions: const DialCodeOptions(defaultDialCode: DialCode.jp),
     child: MaterialApp(
       builder: Authenticator.builder(),
       home: Scaffold(
