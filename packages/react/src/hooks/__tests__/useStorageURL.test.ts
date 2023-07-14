@@ -15,19 +15,6 @@ describe('useStorageURL', () => {
     onStorageGetError: jest.fn(),
   };
 
-  it('should return undefined at initialization', async () => {
-    (Storage.get as jest.Mock).mockResolvedValue(storageUrl);
-
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useStorageURL(storageKey)
-    );
-
-    expect(result.current).toBeUndefined();
-
-    // Force next render to prevent test warning
-    await waitForNextUpdate();
-  });
-
   it('should return a Storage URL', async () => {
     (Storage.get as jest.Mock).mockResolvedValue(storageUrl);
 
@@ -35,11 +22,16 @@ describe('useStorageURL', () => {
       useStorageURL(storageKey, storageOptions)
     );
 
+    // should return undefined at initialization
+    expect(result.current).toBeUndefined();
+
+    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
+
+    // Next update will happen when Storage.get resolves
     await waitForNextUpdate();
 
     expect(result.current).toBe(storageUrl);
     expect(Storage.get).toHaveBeenCalledTimes(1);
-    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
   });
 
   it('should invoke onStorageGetError and return a fallbackURL when Storage.get fails', async () => {
@@ -51,6 +43,9 @@ describe('useStorageURL', () => {
       useStorageURL(storageKey, storageOptions, errorConfig)
     );
 
+    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
+
+    // Next update will happen when Storage.get resolves
     await waitForNextUpdate();
 
     expect(result.current).toBe(errorConfig.fallbackURL);
@@ -58,15 +53,19 @@ describe('useStorageURL', () => {
     expect(errorConfig.onStorageGetError).toHaveBeenCalledWith(customError);
   });
 
-  it('should execute Storage.cancel before rendering next update', async () => {
+  it('should execute Storage.cancel before rerendering', async () => {
     (Storage.get as jest.Mock).mockResolvedValue(storageUrl);
 
-    const { waitForNextUpdate } = renderHook(() => useStorageURL(storageKey));
+    const { waitForNextUpdate } = renderHook(() =>
+      useStorageURL(storageKey, storageOptions)
+    );
 
-    // Next update triggered when Storage.get resolves
+    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
+
+    // Next update will happen when Storage.get resolves
     await waitForNextUpdate();
 
-    // Storage.cancel was run as a cleanup function in useEffect before the next update
+    // Since a rerender has happened, Storage.cancel should be run once at this point as a useEffect cleanup function
     expect(Storage.cancel).toHaveBeenCalled();
     expect(Storage.cancel).toHaveBeenCalledTimes(1);
   });
