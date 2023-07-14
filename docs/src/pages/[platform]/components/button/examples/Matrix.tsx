@@ -1,5 +1,59 @@
 import * as React from 'react';
-import { Button, Flex, Heading } from '@aws-amplify/ui-react';
+import {
+  Button,
+  ButtonVariations,
+  ButtonColorThemes,
+  Flex,
+  Heading,
+} from '@aws-amplify/ui-react';
+
+const ButtonSet = ({
+  variation,
+  colorTheme,
+}: {
+  variation?: ButtonVariations;
+  colorTheme?: ButtonColorThemes;
+}) => {
+  return (
+    <Flex>
+      <Button variation={variation} colorTheme={colorTheme}>
+        normal
+      </Button>
+      <Button
+        variation={variation}
+        colorTheme={colorTheme}
+        className="amplify-button--test-hover"
+      >
+        hover
+      </Button>
+      <Button
+        variation={variation}
+        colorTheme={colorTheme}
+        className="amplify-button--test-focus"
+      >
+        focus
+      </Button>
+      <Button
+        variation={variation}
+        colorTheme={colorTheme}
+        className="amplify-button--test-active"
+      >
+        active
+      </Button>
+      <Button variation={variation} colorTheme={colorTheme} isDisabled={true}>
+        disabled
+      </Button>
+      <Button
+        variation={variation}
+        colorTheme={colorTheme}
+        isLoading={true}
+        loadingText="loading"
+      >
+        loading
+      </Button>
+    </Flex>
+  );
+};
 
 export const Matrix = () => {
   return (
@@ -7,203 +61,29 @@ export const Matrix = () => {
       <Heading level={3} fontSize="medium">
         Outlined (default) variation
       </Heading>
-      <Flex>
-        <Button>normal</Button>
-        <Button isDisabled={true}>disabled</Button>
-        <Button isLoading={true} loadingText="loading">
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button colorTheme="info">normal</Button>
-        <Button colorTheme="info" isDisabled={true}>
-          disabled
-        </Button>
-        <Button colorTheme="info" isLoading={true} loadingText="loading">
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button colorTheme="error">normal</Button>
-        <Button colorTheme="error" isDisabled={true}>
-          disabled
-        </Button>
-        <Button colorTheme="error" isLoading={true} loadingText="loading">
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button colorTheme="success">normal</Button>
-        <Button colorTheme="success" isDisabled={true}>
-          disabled
-        </Button>
-        <Button colorTheme="success" isLoading={true} loadingText="loading">
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button colorTheme="warning">normal</Button>
-        <Button colorTheme="warning" isDisabled={true}>
-          disabled
-        </Button>
-        <Button colorTheme="warning" isLoading={true} loadingText="loading">
-          loading
-        </Button>
-      </Flex>
+      <ButtonSet />
+      <ButtonSet colorTheme="info" />
+      <ButtonSet colorTheme="warning" />
+      <ButtonSet colorTheme="success" />
+      <ButtonSet colorTheme="error" />
 
       <Heading level={3} fontSize="medium" marginTop="large">
         Primary variation
       </Heading>
-      <Flex>
-        <Button variation="primary">normal</Button>
-        <Button variation="primary" isDisabled={true}>
-          disabled
-        </Button>
-        <Button variation="primary" isLoading={true} loadingText="loading">
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button variation="primary" colorTheme="info">
-          normal
-        </Button>
-        <Button variation="primary" colorTheme="info" isDisabled={true}>
-          disabled
-        </Button>
-        <Button
-          variation="primary"
-          colorTheme="info"
-          isLoading={true}
-          loadingText="loading"
-        >
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button variation="primary" colorTheme="error">
-          normal
-        </Button>
-        <Button variation="primary" colorTheme="error" isDisabled={true}>
-          disabled
-        </Button>
-        <Button
-          variation="primary"
-          colorTheme="error"
-          isLoading={true}
-          loadingText="loading"
-        >
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button variation="primary" colorTheme="success">
-          normal
-        </Button>
-        <Button variation="primary" colorTheme="success" isDisabled={true}>
-          disabled
-        </Button>
-        <Button
-          variation="primary"
-          colorTheme="success"
-          isLoading={true}
-          loadingText="loading"
-        >
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button variation="primary" colorTheme="warning">
-          normal
-        </Button>
-        <Button variation="primary" colorTheme="warning" isDisabled={true}>
-          disabled
-        </Button>
-        <Button
-          variation="primary"
-          colorTheme="warning"
-          isLoading={true}
-          loadingText="loading"
-        >
-          loading
-        </Button>
-      </Flex>
+      <ButtonSet variation="primary" />
+      <ButtonSet variation="primary" colorTheme="info" />
+      <ButtonSet variation="primary" colorTheme="warning" />
+      <ButtonSet variation="primary" colorTheme="success" />
+      <ButtonSet variation="primary" colorTheme="error" />
 
       <Heading level={3} fontSize="medium" marginTop="large">
         Link variation
       </Heading>
-      <Flex>
-        <Button variation="link">normal</Button>
-        <Button variation="link" isDisabled={true}>
-          disabled
-        </Button>
-        <Button variation="link" isLoading={true} loadingText="loading">
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button variation="link" colorTheme="info">
-          normal
-        </Button>
-        <Button variation="link" colorTheme="info" isDisabled={true}>
-          disabled
-        </Button>
-        <Button
-          variation="link"
-          colorTheme="info"
-          isLoading={true}
-          loadingText="loading"
-        >
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button variation="link" colorTheme="error">
-          normal
-        </Button>
-        <Button variation="link" colorTheme="error" isDisabled={true}>
-          disabled
-        </Button>
-        <Button
-          variation="link"
-          colorTheme="error"
-          isLoading={true}
-          loadingText="loading"
-        >
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button variation="link" colorTheme="success">
-          normal
-        </Button>
-        <Button variation="link" colorTheme="success" isDisabled={true}>
-          disabled
-        </Button>
-        <Button
-          variation="link"
-          colorTheme="success"
-          isLoading={true}
-          loadingText="loading"
-        >
-          loading
-        </Button>
-      </Flex>
-      <Flex>
-        <Button variation="link" colorTheme="warning">
-          normal
-        </Button>
-        <Button variation="link" colorTheme="warning" isDisabled={true}>
-          disabled
-        </Button>
-        <Button
-          variation="link"
-          colorTheme="warning"
-          isLoading={true}
-          loadingText="loading"
-        >
-          loading
-        </Button>
-      </Flex>
+      <ButtonSet variation="link" />
+      <ButtonSet variation="link" colorTheme="info" />
+      <ButtonSet variation="link" colorTheme="warning" />
+      <ButtonSet variation="link" colorTheme="success" />
+      <ButtonSet variation="link" colorTheme="error" />
     </Flex>
   );
 };

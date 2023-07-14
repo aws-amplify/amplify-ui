@@ -1535,46 +1535,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"start\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-outlined-active-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-brand-primary-20)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-active-border-color\\",
-        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-active-color\\",
-        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-background-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-border-color\\",
-        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-border-width\\",
-        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-width)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-disabled-background-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-outlined-error-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-red-20)\\"
     },
@@ -1651,34 +1611,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-outlined-focus-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-focus-border-color\\",
-        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-focus-box-shadow\\",
-        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-box-shadow)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-focus-color\\",
-        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-hover-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-hover-border-color\\",
-        \\"value\\": \\"var(--amplify-colors-brand-primary-60)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-hover-color\\",
-        \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-outlined-info-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-blue-20)\\"
     },
@@ -1752,18 +1684,6 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-info-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-loading-background-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-loading-color\\",
         \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
