@@ -2,21 +2,33 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import resolveObject from 'style-dictionary/lib/utils/resolveObject';
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
 import { isFunction, setupTokens } from '@aws-amplify/ui';
-import { Theme, StrictTheme, ColorMode, Components } from './types';
+import {
+  Theme,
+  StrictTheme,
+  ColorMode,
+  Components,
+  StrictTokens,
+} from './types';
 import { defaultTheme } from './defaultTheme';
 
 // This will resolve all references in component themes by either
 // calling the component theme function with the already resolved base tokens
 // OR
 // resolving the component theme object
-const setupComponents = ({ components, tokens }: StrictTheme) => {
+const setupComponents = ({
+  components,
+  tokens,
+}: {
+  components: Components;
+  tokens: StrictTokens;
+}) => {
   const output = components
     ? Object.entries(components).reduce(
         (acc, [key, value]) => ({
           ...acc,
           [key]: isFunction(value) ? (value(tokens) as typeof value) : value,
         }),
-        {} as Components<'components'>
+        {}
       )
     : {};
 
@@ -129,14 +141,14 @@ export const createTheme = (
     }) as StrictTheme['tokens']
   );
 
-  let { components } = mergedTheme;
+  let components;
 
   // Resolve component token references too
   if (mergedTheme.components) {
     components = setupComponents({
-      ...mergedTheme,
+      components: mergedTheme.components,
       tokens,
-    }) as Components<'output'>;
+    });
   }
 
   return { ...mergedTheme, tokens, components };
