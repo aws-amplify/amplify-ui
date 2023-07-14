@@ -15,8 +15,8 @@ describe('useStorageURL', () => {
     onStorageGetError: jest.fn(),
   };
 
-  it('should return expected values at initialization', async () => {
-    (Storage.get as jest.Mock).mockResolvedValue(storageKey);
+  it('should return undefined at initialization', async () => {
+    (Storage.get as jest.Mock).mockResolvedValue(storageUrl);
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useStorageURL(storageKey)
@@ -59,7 +59,7 @@ describe('useStorageURL', () => {
   });
 
   it('should execute Storage.cancel before rendering next update', async () => {
-    (Storage.get as jest.Mock).mockResolvedValue(storageKey);
+    (Storage.get as jest.Mock).mockResolvedValue(storageUrl);
 
     const { waitForNextUpdate } = renderHook(() => useStorageURL(storageKey));
 
