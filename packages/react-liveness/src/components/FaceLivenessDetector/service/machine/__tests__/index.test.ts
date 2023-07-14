@@ -741,7 +741,10 @@ describe('Liveness Machine', () => {
         LivenessErrorState.RUNTIME_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+      expect(mockcomponentProps.onError).toHaveBeenCalledWith({
+        state: LivenessErrorState.RUNTIME_ERROR,
+        error,
+      });
     });
   });
 });
