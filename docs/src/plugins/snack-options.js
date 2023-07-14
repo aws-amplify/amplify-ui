@@ -3,8 +3,8 @@ module.exports = {
 export default {}`,
   defaultOptions: {
     name: 'example',
-    platform: 'web',
-    supportedPlatforms: 'ios,android,web',
+    platform: 'android',
+    supportedPlatforms: 'ios,android',
     preview: true,
     loading: 'lazy',
     dependencies: [
