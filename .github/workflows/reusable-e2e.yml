@@ -65,13 +65,13 @@ jobs:
       # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
         include:
-          # - example: angular
-          #   package: angular
-          #   tags: '@angular and not @todo-angular'
+          - example: angular
+            package: angular
+            tags: '@angular and not @todo-angular'
 
-          # - example: next
-          #   package: react
-          #   tags: '@react and not @todo-react'
+          - example: next
+            package: react
+            tags: '@react and not @todo-react'
 
           - example: vue
             package: vue
@@ -319,396 +319,396 @@ jobs:
             packages/e2e/cypress/screenshots/**
           retention-days: 5
 
-  # check-changed-packages:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
-  #   steps:
-  #     - name: Checkout Amplify UI
-  #       uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-  #       with:
-  #         ref: ${{ inputs.commit }}
-  #         repository: ${{ inputs.repository }}
-  #         fetch-depth: 2
-  #         persist-credentials: false
-
-  #     - name: Determine if there were changes to react-native packages
-  #       if: ${{ inputs.skip-changed-packages-check == 'false' }}
-  #       id: has-rn-changed-packages
-  #       uses: ./.github/actions/changed-packages
-  #       with:
-  #         commit: ${{ inputs.commit }}
-  #         packages: |
-  #           packages/react-native
-  #           packages/react-core
-  #           packages/react-core-notifications
-  #           packages/ui
-  #           packages/e2e
-
-  # e2e-ios:
-  #   needs: check-changed-packages
-  #   if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-  #   runs-on: macos-13
-  #   environment: ci
-  #   env:
-  #     NODE_ENV: test
-  #   steps:
-  #     - name: Checkout Amplify UI
-  #       uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-  #       with:
-  #         ref: ${{ inputs.commit }}
-  #         repository: ${{ inputs.repository }}
-  #         persist-credentials: false
-
-  #     - name: Setup Node.js 16
-  #       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-  #       with:
-  #         node-version: 16
-  #         cache: 'yarn'
-  #       env:
-  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-
-  #     - name: Restore CocoaPods cache
-  #       id: restore-cocoapods-cache
-  #       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-  #       with:
-  #         path: ./examples/react-native/ios/Pods
-  #         key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
-  #         restore-keys: |
-  #           pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
-  #           pods-
-  #       continue-on-error: true
-  #       env:
-  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-
-  #     - name: Install simulator
-  #       run: |
-  #         brew tap wix/brew
-  #         brew install applesimutils
-
-  #     - name: Install packages
-  #       uses: ./.github/actions/install-with-retries
-  #       with:
-  #         skip-cypress-binary: true
-
-  #     - name: Build @aws-amplify/ui package
-  #       run: yarn ui build
-
-  #     - name: Build react-core package
-  #       run: yarn react-core build
-
-  #     - name: Build react-core-notifications package
-  #       if: steps.restore-package-cache.outputs.cache-hit != 'true'
-  #       run: yarn react-core-notifications build
-
-  #     - name: Build react-native package
-  #       run: yarn react-native build
-
-  #     - name: Update CocoaPods
-  #       run: |
-  #         gem update cocoapods xcodeproj
-  #         yarn react-native-example ios:pod-install
-
-  #     - name: Add Amplify CLI
-  #       run: yarn global add @aws-amplify/cli
-
-  #     - name: Get CLI versions
-  #       id: cli-version
-  #       run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
-
-  #     - name: Configure auth credentials
-  #       uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
-  #       with:
-  #         aws-region: us-east-2
-  #         role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-
-  #     # Amplify CLI does not support headless pull with temporary credentials
-  #     # when useProfile is false.
-  #     # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-  #     - name: Create temp AWS Profile
-  #       run: |
-  #         aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-  #         aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-  #         aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-  #         aws configure set default.region $AWS_REGION
-
-  #     - name: Pull down Auth AWS environments
-  #       run: yarn environments auth pull
-
-  #     - name: Delete AWS profile
-  #       run: rm -rf ~/.aws
-
-  #     - name: Start Metro Bundler in background
-  #       run: yarn react-native-example dev --reset-cache &
-
-  #     - name: Rebuild detox cache
-  #       run: yarn detox rebuild-framework-cache
-
-  #     - name: Build ios example
-  #       run: yarn e2e detox:build:ios:debug
-
-  #     - name: Run E2E tests against react-native example
-  #       run: yarn e2e detox:e2e:ios:debug --retry 1 --fail-fast
-  #       env:
-  #         # Env values for testing flows
-  #         DOMAIN: ${{ secrets.DOMAIN }}
-  #         PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-  #         USERNAME: ${{ secrets.USERNAME }}
-  #         NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-  #         VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-
-  #     - name: Upload failure screenshots and errors
-  #       uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
-  #       if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
-  #       with:
-  #         name: e2e-detox-error-react-native-ios
-  #         path: |
-  #           packages/e2e/detox/screenshots/**
-  #         retention-days: 5
-
-  # e2e-android:
-  #   needs: check-changed-packages
-  #   if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-  #   runs-on: macos-13
-  #   environment: ci
-  #   env:
-  #     NODE_ENV: test
-  #   steps:
-  #     - name: Checkout Amplify UI
-  #       uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-  #       with:
-  #         # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
-  #         # always points to the target branch.
-  #         # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
-  #         ref: ${{ inputs.commit }}
-  #         repository: ${{ inputs.repository }}
-  #         persist-credentials: false
-
-  #     - name: Install Java 11
-  #       uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
-  #       with:
-  #         distribution: 'corretto' # Amazon Corretto Build of OpenJDK
-  #         java-version: '11'
-
-  #     - name: Setup Node.js 16
-  #       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-  #       with:
-  #         node-version: 16
-  #         cache: 'yarn'
-  #       env:
-  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-
-  #     - name: Install packages
-  #       uses: ./.github/actions/install-with-retries
-  #       with:
-  #         skip-cypress-binary: true
-
-  #     - name: Build @aws-amplify/ui package
-  #       run: yarn ui build
-
-  #     - name: Build react-core package
-  #       run: yarn react-core build
-
-  #     - name: Build react-core-notifications package
-  #       run: yarn react-core-notifications build
-
-  #     - name: Build react-native package
-  #       run: yarn react-native build
-
-  #     - name: Add Amplify CLI
-  #       run: yarn global add @aws-amplify/cli
-
-  #     - name: Get CLI versions
-  #       id: cli-version
-  #       run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
-
-  #     - name: Configure auth credentials
-  #       uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
-  #       with:
-  #         aws-region: us-east-2
-  #         role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
-
-  #     # Amplify CLI does not support headless pull with temporary credentials
-  #     # when useProfile is false.
-  #     # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
-  #     - name: Create temp AWS Profile
-  #       run: |
-  #         aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-  #         aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
-  #         aws configure set aws_session_token $AWS_SESSION_TOKEN && \
-  #         aws configure set default.region $AWS_REGION
-
-  #     - name: Pull down Auth AWS environments
-  #       run: yarn environments auth pull
-
-  #     - name: Delete AWS profile
-  #       run: rm -rf ~/.aws
-
-  #     - name: Install emulator
-  #       run: |
-  #         brew install coreutils
-  #         echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
-  #         $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools 'platforms;android-27'
-  #         echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
-  #         echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
-  #         printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
-  #         printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
-
-  #     - name: Start Android emulator
-  #       run: |
-  #         function configure_emulator() {
-  #           local port=$1
-
-  #           nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port "$port" -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
-  #           timeout 5m $ANDROID_HOME/platform-tools/adb -s "emulator-$port" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
-  #           $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put secure spell_checker_enabled 0
-  #           $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global window_animation_scale 0.0
-  #           $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global transition_animation_scale 0.0
-  #           $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global animator_duration_scale 0.0
-  #         }
-
-  #         configure_emulator 5554
-  #         configure_emulator 5556
-
-  #         $ANDROID_HOME/platform-tools/adb devices
-
-  #     - name: Start Metro Bundler in background
-  #       run: yarn react-native-example dev --reset-cache &
-
-  #     - name: Build android example
-  #       run: yarn e2e detox:build:android:debug
-
-  #     - name: Run E2E tests against react-native example
-  #       run: |
-  #         DETOX_HEADLESS=true yarn e2e detox:e2e:android:debug --retry 1 --fail-fast --parallel 2
-  #       env:
-  #         # Env values for testing flows
-  #         DOMAIN: ${{ secrets.DOMAIN }}
-  #         PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-  #         USERNAME: ${{ secrets.USERNAME }}
-  #         NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-  #         VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-
-  #     - name: Upload failure screenshots and errors
-  #       uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
-  #       if: ${{ failure() && steps.e2e-android.outcome != 'success' }}
-  #       with:
-  #         name: e2e-detox-error-react-native-android
-  #         path: |
-  #           packages/e2e/detox/screenshots/**
-  #         retention-days: 5
-
-  # docs:
-  #   runs-on: ubuntu-latest
-  #   environment: ci
-  #   env:
-  #     NODE_ENV: test
-  #   steps:
-  #     - name: Checkout Amplify UI
-  #       uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-  #       with:
-  #         ref: ${{ inputs.commit }}
-  #         repository: ${{ inputs.repository }}
-  #         persist-credentials: false
-
-  #     - name: Setup Node.js 16
-  #       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-  #       with:
-  #         node-version: 16
-  #         cache: 'yarn'
-  #       env:
-  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-
-  #     - name: Restore cypress runner Cache
-  #       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-  #       id: restore-cypress-cache
-  #       with:
-  #         path: ~/.cache/Cypress
-  #         key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
-  #       env:
-  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-
-  #     - name: Restore Puppeteer runner cache
-  #       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-  #       id: restore-puppeteer-cache
-  #       with:
-  #         path: ~/.cache/puppeteer
-  #         key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
-  #       env:
-  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
-
-  #     - name: Restore node_modules cache
-  #       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-  #       id: restore-cache
-  #       with:
-  #         path: |
-  #           ./node_modules
-  #           **/node_modules
-  #         key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
-  #       env:
-  #         SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
-
-  #     - name: Install packages
-  #       if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-puppeteer-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
-  #       uses: ./.github/actions/install-with-retries
-  #       with:
-  #         skip-cypress-binary: false
-
-  #     - name: Build ui package
-  #       run: yarn ui build
-
-  #     - name: Build react-core package
-  #       run: yarn react-core build
-
-  #     - name: Build react-core-notifications package
-  #       run: yarn react-core-notifications build
-
-  #     - name: Build react package
-  #       run: yarn react build
-
-  #     - name: Build react-notifications package
-  #       run: yarn react-notifications build
-
-  #     - name: Build react-geo package
-  #       run: yarn react-geo build
-
-  #     - name: Build react-storage package
-  #       run: yarn react-storage build
-
-  #     - name: Build react-liveness package
-  #       run: yarn react-liveness build
-
-  #     - name: Build docs package
-  #       run: yarn docs build
-  #       env:
-  #         SITE_URL: ${{ secrets.SITE_URL }}
-  #         DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
-  #         DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
-  #         DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
-
-  #     - name: Start docs site
-  #       run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
-
-  #     - name: Run E2E tests against docs
-  #       run: yarn e2e test:theme
-  #       id: e2e
-  #       env:
-  #         # Env values for testing flows
-  #         DOMAIN: ${{ secrets.DOMAIN }}
-  #         PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-  #         USERNAME: ${{ secrets.USERNAME }}
-  #         NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-  #         VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-
-  #     - name: Run Docs link checker
-  #       run: yarn docs test:links
-
-  #     - name: Upload failure screenshots and errors
-  #       uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
-  #       if: ${{ failure() && steps.e2e.outcome != 'success' }}
-  #       with:
-  #         name: docs-e2e-cypress-error
-  #         path: |
-  #           packages/e2e/cypress/videos/**
-  #           packages/e2e/cypress/screenshots/**
-  #         retention-days: 5
+  check-changed-packages:
+    runs-on: ubuntu-latest
+    outputs:
+      has-changed-packages: ${{ steps.has-rn-changed-packages.outputs.has-changed-packages }}
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          fetch-depth: 2
+          persist-credentials: false
+
+      - name: Determine if there were changes to react-native packages
+        if: ${{ inputs.skip-changed-packages-check == 'false' }}
+        id: has-rn-changed-packages
+        uses: ./.github/actions/changed-packages
+        with:
+          commit: ${{ inputs.commit }}
+          packages: |
+            packages/react-native
+            packages/react-core
+            packages/react-core-notifications
+            packages/ui
+            packages/e2e
+
+  e2e-ios:
+    needs: check-changed-packages
+    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    runs-on: macos-13
+    environment: ci
+    env:
+      NODE_ENV: test
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          persist-credentials: false
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 16
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
+      - name: Restore CocoaPods cache
+        id: restore-cocoapods-cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        with:
+          path: ./examples/react-native/ios/Pods
+          key: ${{ runner.os }}-cocoapods-${{ inputs.commit }}
+          restore-keys: |
+            pods-${{ hashFiles('examples/react-native/ios/Podfile.lock') }}
+            pods-
+        continue-on-error: true
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Install simulator
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true
+
+      - name: Build @aws-amplify/ui package
+        run: yarn ui build
+
+      - name: Build react-core package
+        run: yarn react-core build
+
+      - name: Build react-core-notifications package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
+        run: yarn react-core-notifications build
+
+      - name: Build react-native package
+        run: yarn react-native build
+
+      - name: Update CocoaPods
+        run: |
+          gem update cocoapods xcodeproj
+          yarn react-native-example ios:pod-install
+
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+
+      - name: Configure auth credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Auth AWS environments
+        run: yarn environments auth pull
+
+      - name: Delete AWS profile
+        run: rm -rf ~/.aws
+
+      - name: Start Metro Bundler in background
+        run: yarn react-native-example dev --reset-cache &
+
+      - name: Rebuild detox cache
+        run: yarn detox rebuild-framework-cache
+
+      - name: Build ios example
+        run: yarn e2e detox:build:ios:debug
+
+      - name: Run E2E tests against react-native example
+        run: yarn e2e detox:e2e:ios:debug --retry 1 --fail-fast
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: ${{ failure() && steps.e2e-ios.outcome != 'success' }}
+        with:
+          name: e2e-detox-error-react-native-ios
+          path: |
+            packages/e2e/detox/screenshots/**
+          retention-days: 5
+
+  e2e-android:
+    needs: check-changed-packages
+    if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
+    runs-on: macos-13
+    environment: ci
+    env:
+      NODE_ENV: test
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
+          # always points to the target branch.
+          # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          persist-credentials: false
+
+      - name: Install Java 11
+        uses: actions/setup-java@de1bb2b0c5634f0fc4438d7aa9944e68f9bf86cc # 3.6.0
+        with:
+          distribution: 'corretto' # Amazon Corretto Build of OpenJDK
+          java-version: '11'
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 16
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
+      - name: Install packages
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: true
+
+      - name: Build @aws-amplify/ui package
+        run: yarn ui build
+
+      - name: Build react-core package
+        run: yarn react-core build
+
+      - name: Build react-core-notifications package
+        run: yarn react-core-notifications build
+
+      - name: Build react-native package
+        run: yarn react-native build
+
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+
+      - name: Get CLI versions
+        id: cli-version
+        run: echo "version=$(amplify --version)" >> $GITHUB_OUTPUT
+
+      - name: Configure auth credentials
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
+
+      # Amplify CLI does not support headless pull with temporary credentials
+      # when useProfile is false.
+      # See: https://github.com/aws-amplify/amplify-cli/issues/11009.
+      - name: Create temp AWS Profile
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && \
+          aws configure set aws_session_token $AWS_SESSION_TOKEN && \
+          aws configure set default.region $AWS_REGION
+
+      - name: Pull down Auth AWS environments
+        run: yarn environments auth pull
+
+      - name: Delete AWS profile
+        run: rm -rf ~/.aws
+
+      - name: Install emulator
+        run: |
+          brew install coreutils
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install 'build-tools;33.0.2' platform-tools 'platforms;android-27'
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "system-images;android-27;default;x86_64"
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd --force --name Pixel_5_API_27 --device "pixel_5" --abi x86_64 --package "system-images;android-27;default;x86_64"
+          printf 'hw.ramSize=2048\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+          printf 'hw.heapSize=576\n' >> ~/.android/avd/Pixel_5_API_27.avd/config.ini
+
+      - name: Start Android emulator
+        run: |
+          function configure_emulator() {
+            local port=$1
+
+            nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port "$port" -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+            timeout 5m $ANDROID_HOME/platform-tools/adb -s "emulator-$port" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put secure spell_checker_enabled 0
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global window_animation_scale 0.0
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global transition_animation_scale 0.0
+            $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global animator_duration_scale 0.0
+          }
+
+          configure_emulator 5554
+          configure_emulator 5556
+
+          $ANDROID_HOME/platform-tools/adb devices
+
+      - name: Start Metro Bundler in background
+        run: yarn react-native-example dev --reset-cache &
+
+      - name: Build android example
+        run: yarn e2e detox:build:android:debug
+
+      - name: Run E2E tests against react-native example
+        run: |
+          DETOX_HEADLESS=true yarn e2e detox:e2e:android:debug --retry 1 --fail-fast --parallel 2
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: ${{ failure() && steps.e2e-android.outcome != 'success' }}
+        with:
+          name: e2e-detox-error-react-native-android
+          path: |
+            packages/e2e/detox/screenshots/**
+          retention-days: 5
+
+  docs:
+    runs-on: ubuntu-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
+          persist-credentials: false
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: 16
+          cache: 'yarn'
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+
+      - name: Restore cypress runner Cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Restore Puppeteer runner cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-puppeteer-cache
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer-${{ hashFiles('yarn.lock') }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
+
+      - name: Restore node_modules cache
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
+
+      - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-puppeteer-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-with-retries
+        with:
+          skip-cypress-binary: false
+
+      - name: Build ui package
+        run: yarn ui build
+
+      - name: Build react-core package
+        run: yarn react-core build
+
+      - name: Build react-core-notifications package
+        run: yarn react-core-notifications build
+
+      - name: Build react package
+        run: yarn react build
+
+      - name: Build react-notifications package
+        run: yarn react-notifications build
+
+      - name: Build react-geo package
+        run: yarn react-geo build
+
+      - name: Build react-storage package
+        run: yarn react-storage build
+
+      - name: Build react-liveness package
+        run: yarn react-liveness build
+
+      - name: Build docs package
+        run: yarn docs build
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+          DOCSEARCH_DOCS_APP_ID: ${{ secrets.DOCSEARCH_DOCS_APP_ID }}
+          DOCSEARCH_DOCS_API_KEY: ${{ secrets.DOCSEARCH_DOCS_API_KEY }}
+          DOCSEARCH_DOCS_INDEX_NAME: ${{ secrets.DOCSEARCH_DOCS_INDEX_NAME }}
+
+      - name: Start docs site
+        run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+
+      - name: Run E2E tests against docs
+        run: yarn e2e test:theme
+        id: e2e
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Run Docs link checker
+        run: yarn docs test:links
+
+      - name: Upload failure screenshots and errors
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
+        if: ${{ failure() && steps.e2e.outcome != 'success' }}
+        with:
+          name: docs-e2e-cypress-error
+          path: |
+            packages/e2e/cypress/videos/**
+            packages/e2e/cypress/screenshots/**
+          retention-days: 5
