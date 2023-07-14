@@ -709,6 +709,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterFaceDistanceDelay: actions.send(
         {
           type: 'RUNTIME_ERROR',
+          data: new Error(
+            'Avoid moving closer during countdown and ensure only one face is in front of camera.'
+          ),
         },
         {
           delay: 0,
@@ -760,7 +763,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       callErrorCallback: async (context, event) => {
         const livenessError: LivenessError = {
           state: context.errorState!,
-          error: event.data?.error,
+          error: event.data?.error || event.data,
         };
         context.componentProps!.onError?.(livenessError);
       },
