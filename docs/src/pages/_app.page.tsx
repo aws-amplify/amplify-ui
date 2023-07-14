@@ -129,6 +129,7 @@ function MyApp({ Component, pageProps }) {
       </div>
       <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
       <Script src="/scripts/shortbreadv2.js" />
+      <Script src="/scripts/snackEmbed.js" />
     </>
   );
 }
