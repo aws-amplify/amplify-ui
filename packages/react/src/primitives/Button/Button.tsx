@@ -37,7 +37,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     ComponentClassNames.FieldGroupControl,
     classNameModifier(ComponentClassNames.Button, variation),
     // Test if variation supports colorThemes before applying
-    // colorTheme modiifying class.
+    // colorTheme modifying class.
     supportsColorThemes.includes(variation) &&
       classNameModifier(ComponentClassNames.Button, colorTheme),
     classNameModifier(ComponentClassNames.Button, size),

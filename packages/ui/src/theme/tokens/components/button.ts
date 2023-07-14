@@ -61,15 +61,17 @@ type LinkVariationTokens<Output> = DesignTokenProperties<
   overlay?: ColorThemeTokens<Output>;
 };
 
-type OutlinedVariationTokens<Output> = DesignTokenProperties<
-  'backgroundColor' | 'borderColor' | 'borderWidth' | 'color',
-  Output
-> & {
-  _hover?: StateTokens<Output>;
-  _focus?: StateWithShadowTokens<Output>;
-  _active?: StateTokens<Output>;
-  _disabled?: StateTokens<Output>;
-  _loading?: StateTokens<Output>;
+// type OutlinedVariationTokens<Output> = DesignTokenProperties<
+//   'backgroundColor' | 'borderColor' | 'borderWidth' | 'color',
+//   Output
+// > & {
+
+type OutlinedVariationTokens<Output> = {
+  // _hover?: StateTokens<Output>;
+  // _focus?: StateWithShadowTokens<Output>;
+  // _active?: StateTokens<Output>;
+  // _disabled?: StateTokens<Output>;
+  // _loading?: StateTokens<Output>;
   info?: ColorThemeTokens<Output>;
   error?: ColorThemeTokens<Output>;
   success?: ColorThemeTokens<Output>;
@@ -144,7 +146,6 @@ export const button: Required<ButtonTokens<'default'>> = {
   borderStyle: { value: '{components.fieldcontrol.borderStyle.value}' },
   borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
   color: { value: '{colors.font.primary.value}' },
-
   _hover: {
     color: { value: '{colors.font.focus.value}' },
     backgroundColor: { value: '{colors.brand.primary.10.value}' },
@@ -171,8 +172,241 @@ export const button: Required<ButtonTokens<'default'>> = {
     backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
-
   // variations
+
+  outlined: {
+    // backgroundColor: { value: 'transparent' },
+    // borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
+    // borderWidth: { value: '{components.fieldcontrol.borderWidth.value}' },
+    // color: { value: '{colors.font.primary.value}' },
+    // _hover: {
+    //   borderColor: { value: '{colors.brand.primary.60}' },
+    //   backgroundColor: { value: '{colors.brand.primary.10.value}' },
+    //   color: { value: '{colors.brand.primary.100.value}' },
+    // },
+    // _focus: {
+    //   borderColor: { value: '{colors.brand.primary.100}' },
+    //   backgroundColor: { value: '{colors.brand.primary.10.value}' },
+    //   color: { value: '{colors.brand.primary.100}' },
+    //   boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
+    // },
+    // _active: {
+    //   borderColor: { value: '{colors.brand.primary.100}' },
+    //   backgroundColor: { value: '{colors.brand.primary.20.value}' },
+    //   color: { value: '{colors.brand.primary.100}' },
+    // },
+    // _disabled: {
+    //   borderColor: { value: 'transparent' },
+    //   backgroundColor: { value: 'transparent' },
+    //   color: { value: '{colors.font.disabled.value}' },
+    // },
+    // _loading: {
+    //   borderColor: { value: 'transparent' },
+    //   backgroundColor: { value: 'transparent' },
+    //   color: { value: '{colors.font.disabled.value}' },
+    // },
+    info: {
+      borderColor: { value: '{colors.blue.60.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.blue.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: '{colors.blue.60.value}' },
+        backgroundColor: { value: '{colors.blue.10.value}' },
+        color: { value: '{colors.blue.100.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.blue.100.value}' },
+        backgroundColor: { value: '{colors.blue.10.value}' },
+        color: { value: '{colors.blue.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.blue.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.blue.100.value}' },
+        backgroundColor: { value: '{colors.blue.20.value}' },
+        color: { value: '{colors.blue.100.value}' },
+      },
+    },
+    warning: {
+      borderColor: { value: '{colors.orange.60.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.orange.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: '{colors.orange.60.value}' },
+        backgroundColor: { value: '{colors.orange.10.value}' },
+        color: { value: '{colors.orange.100.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.orange.100.value}' },
+        backgroundColor: { value: '{colors.orange.10.value}' },
+        color: { value: '{colors.orange.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.orange.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.orange.100.value}' },
+        backgroundColor: { value: '{colors.orange.20.value}' },
+        color: { value: '{colors.orange.100.value}' },
+      },
+    },
+    success: {
+      borderColor: { value: '{colors.green.60.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.green.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: '{colors.green.60.value}' },
+        backgroundColor: { value: '{colors.green.10.value}' },
+        color: { value: '{colors.green.100.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.green.100.value}' },
+        backgroundColor: { value: '{colors.green.10.value}' },
+        color: { value: '{colors.green.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.green.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.green.100.value}' },
+        backgroundColor: { value: '{colors.green.20.value}' },
+        color: { value: '{colors.green.100.value}' },
+      },
+    },
+    error: {
+      borderColor: { value: '{colors.red.60.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.red.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: '{colors.red.60.value}' },
+        backgroundColor: { value: '{colors.red.10.value}' },
+        color: { value: '{colors.red.100.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.red.100.value}' },
+        backgroundColor: { value: '{colors.red.10.value}' },
+        color: { value: '{colors.red.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.red.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.red.100.value}' },
+        backgroundColor: { value: '{colors.red.20.value}' },
+        color: { value: '{colors.red.100.value}' },
+      },
+    },
+    overlay: {
+      borderColor: { value: '{colors.neutral.60.value}' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.neutral.100}' },
+      _disabled: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _loading: {
+        borderColor: { value: 'transparent' },
+        backgroundColor: { value: '{colors.background.disabled.value}' },
+        color: { value: '{colors.font.disabled.value}' },
+      },
+      _hover: {
+        borderColor: { value: '{colors.overlay.60.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.overlay.90.value}' },
+      },
+      _focus: {
+        borderColor: { value: '{colors.overlay.90.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.neutral.100.value}' },
+        // Should we make field control box shadows for info, warning, success?
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '1px',
+            color: '{colors.neutral.100.value}',
+          },
+        },
+      },
+      _active: {
+        borderColor: { value: '{colors.overlay.90.value}' },
+        backgroundColor: { value: '{colors.overlay.5.value}' },
+        color: { value: '{colors.neutral.100.value}' },
+      },
+    },
+  },
+
   primary: {
     borderColor: { value: 'transparent' },
     borderWidth: { value: '{borderWidths.small.value}' },
@@ -655,238 +889,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.overlay.10.value}' },
         color: { value: '{colors.overlay.90.value}' },
-      },
-    },
-  },
-  outlined: {
-    backgroundColor: { value: 'transparent' },
-    borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
-    borderWidth: { value: '{components.fieldcontrol.borderWidth.value}' },
-    color: { value: '{colors.font.primary.value}' },
-    _hover: {
-      borderColor: { value: '{colors.brand.primary.60}' },
-      backgroundColor: { value: '{colors.brand.primary.10.value}' },
-      color: { value: '{colors.brand.primary.100.value}' },
-    },
-    _focus: {
-      borderColor: { value: '{colors.brand.primary.100}' },
-      backgroundColor: { value: '{colors.brand.primary.10.value}' },
-      color: { value: '{colors.brand.primary.100}' },
-      boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
-    },
-    _active: {
-      borderColor: { value: '{colors.brand.primary.100}' },
-      backgroundColor: { value: '{colors.brand.primary.20.value}' },
-      color: { value: '{colors.brand.primary.100}' },
-    },
-    _disabled: {
-      borderColor: { value: 'transparent' },
-      backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.font.disabled.value}' },
-    },
-    _loading: {
-      borderColor: { value: 'transparent' },
-      backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.font.disabled.value}' },
-    },
-    info: {
-      borderColor: { value: '{colors.blue.60.value}' },
-      backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.blue.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _hover: {
-        borderColor: { value: '{colors.blue.60.value}' },
-        backgroundColor: { value: '{colors.blue.10.value}' },
-        color: { value: '{colors.blue.100.value}' },
-      },
-      _focus: {
-        borderColor: { value: '{colors.blue.100.value}' },
-        backgroundColor: { value: '{colors.blue.10.value}' },
-        color: { value: '{colors.blue.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
-        boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.blue.100.value}',
-          },
-        },
-      },
-      _active: {
-        borderColor: { value: '{colors.blue.100.value}' },
-        backgroundColor: { value: '{colors.blue.20.value}' },
-        color: { value: '{colors.blue.100.value}' },
-      },
-    },
-    warning: {
-      borderColor: { value: '{colors.orange.60.value}' },
-      backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.orange.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _hover: {
-        borderColor: { value: '{colors.orange.60.value}' },
-        backgroundColor: { value: '{colors.orange.10.value}' },
-        color: { value: '{colors.orange.100.value}' },
-      },
-      _focus: {
-        borderColor: { value: '{colors.orange.100.value}' },
-        backgroundColor: { value: '{colors.orange.10.value}' },
-        color: { value: '{colors.orange.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
-        boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.orange.100.value}',
-          },
-        },
-      },
-      _active: {
-        borderColor: { value: '{colors.orange.100.value}' },
-        backgroundColor: { value: '{colors.orange.20.value}' },
-        color: { value: '{colors.orange.100.value}' },
-      },
-    },
-    success: {
-      borderColor: { value: '{colors.green.60.value}' },
-      backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.green.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _hover: {
-        borderColor: { value: '{colors.green.60.value}' },
-        backgroundColor: { value: '{colors.green.10.value}' },
-        color: { value: '{colors.green.100.value}' },
-      },
-      _focus: {
-        borderColor: { value: '{colors.green.100.value}' },
-        backgroundColor: { value: '{colors.green.10.value}' },
-        color: { value: '{colors.green.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
-        boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.green.100.value}',
-          },
-        },
-      },
-      _active: {
-        borderColor: { value: '{colors.green.100.value}' },
-        backgroundColor: { value: '{colors.green.20.value}' },
-        color: { value: '{colors.green.100.value}' },
-      },
-    },
-    error: {
-      borderColor: { value: '{colors.red.60.value}' },
-      backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.red.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _hover: {
-        borderColor: { value: '{colors.red.60.value}' },
-        backgroundColor: { value: '{colors.red.10.value}' },
-        color: { value: '{colors.red.100.value}' },
-      },
-      _focus: {
-        borderColor: { value: '{colors.red.100.value}' },
-        backgroundColor: { value: '{colors.red.10.value}' },
-        color: { value: '{colors.red.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
-        boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.red.100.value}',
-          },
-        },
-      },
-      _active: {
-        borderColor: { value: '{colors.red.100.value}' },
-        backgroundColor: { value: '{colors.red.20.value}' },
-        color: { value: '{colors.red.100.value}' },
-      },
-    },
-    overlay: {
-      borderColor: { value: '{colors.neutral.60.value}' },
-      backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.neutral.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _hover: {
-        borderColor: { value: '{colors.overlay.60.value}' },
-        backgroundColor: { value: '{colors.overlay.5.value}' },
-        color: { value: '{colors.overlay.90.value}' },
-      },
-      _focus: {
-        borderColor: { value: '{colors.overlay.90.value}' },
-        backgroundColor: { value: '{colors.overlay.5.value}' },
-        color: { value: '{colors.neutral.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
-        boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.neutral.100.value}',
-          },
-        },
-      },
-      _active: {
-        borderColor: { value: '{colors.overlay.90.value}' },
-        backgroundColor: { value: '{colors.overlay.5.value}' },
-        color: { value: '{colors.neutral.100.value}' },
       },
     },
   },

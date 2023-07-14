@@ -67,6 +67,7 @@
   &--fullwidth {
     width: 100%;
   }
+
   &--menu {
     border-width: var(--amplify-components-button-menu-border-width);
     background-color: var(--amplify-components-button-menu-background-color);
@@ -132,25 +133,7 @@
       color: var(--amplify-components-button-primary-active-color);
     }
 
-    --amplify-internal-button-disabled-border-color: var(
-      --amplify-components-button-primary-disabled-border-color
-    );
-    --amplify-internal-button-disabled-background-color: var(
-      --amplify-components-button-primary-disabled-background-color
-    );
-    --amplify-internal-button-disabled-color: var(
-      --amplify-components-button-primary-disabled-color
-    );
-    --amplify-internal-button-loading-background-color: var(
-      --amplify-components-button-primary-loading-background-color
-    );
-    --amplify-internal-button-loading-border-color: var(
-      --amplify-components-button-primary-loading-border-color
-    );
-    --amplify-internal-button-loading-color: var(
-      --amplify-components-button-primary-loading-color
-    );
-    &.amplify-button--info {
+    &.amplify-button--info:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-primary-info-background-color
       );
@@ -190,7 +173,7 @@
         color: var(--amplify-components-button-primary-info-active-color);
       }
     }
-    &.amplify-button--warning {
+    &.amplify-button--warning:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-primary-warning-background-color
       );
@@ -232,7 +215,7 @@
         color: var(--amplify-components-button-primary-warning-active-color);
       }
     }
-    &.amplify-button--success {
+    &.amplify-button--success:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-primary-success-background-color
       );
@@ -274,7 +257,7 @@
         color: var(--amplify-components-button-primary-success-active-color);
       }
     }
-    &.amplify-button--error {
+    &.amplify-button--error:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-primary-error-background-color
       );
@@ -314,7 +297,7 @@
         color: var(--amplify-components-button-primary-error-active-color);
       }
     }
-    &.amplify-button--overlay {
+    &.amplify-button--overlay:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-primary-overlay-background-color
       );
@@ -356,6 +339,24 @@
         color: var(--amplify-components-button-primary-overlay-active-color);
       }
     }
+    --amplify-internal-button-disabled-border-color: var(
+      --amplify-components-button-primary-disabled-border-color
+    );
+    --amplify-internal-button-disabled-background-color: var(
+      --amplify-components-button-primary-disabled-background-color
+    );
+    --amplify-internal-button-disabled-color: var(
+      --amplify-components-button-primary-disabled-color
+    );
+    --amplify-internal-button-loading-background-color: var(
+      --amplify-components-button-primary-loading-background-color
+    );
+    --amplify-internal-button-loading-border-color: var(
+      --amplify-components-button-primary-loading-border-color
+    );
+    --amplify-internal-button-loading-color: var(
+      --amplify-components-button-primary-loading-color
+    );
   }
 
   &--link {
@@ -363,27 +364,6 @@
     border-color: var(--amplify-components-button-link-border-color);
     background-color: var(--amplify-components-button-link-background-color);
     color: var(--amplify-components-button-link-color);
-
-    --amplify-internal-button-disabled-text-decoration: none;
-    --amplify-internal-button-disabled-border-color: var(
-      --amplify-components-button-link-disabled-border-color
-    );
-    --amplify-internal-button-disabled-background-color: var(
-      --amplify-components-button-link-disabled-background-color
-    );
-    --amplify-internal-button-disabled-color: var(
-      --amplify-components-button-link-disabled-color
-    );
-    --amplify-internal-button-loading-background-color: var(
-      --amplify-components-button-link-loading-background-color
-    );
-    --amplify-internal-button-loading-border-color: var(
-      --amplify-components-button-link-loading-border-color
-    );
-    --amplify-internal-button-loading-color: var(
-      --amplify-components-button-link-loading-color
-    );
-    --amplify-internal-button-loading-text-decoration: none;
 
     &:hover {
       background-color: var(
@@ -409,7 +389,7 @@
       border-color: var(--amplify-components-button-link-active-border-color);
       color: var(--amplify-components-button-link-active-color);
     }
-    &.amplify-button--info {
+    &.amplify-button--info:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-link-info-background-color
       );
@@ -447,7 +427,7 @@
         color: var(--amplify-components-button-link-info-active-color);
       }
     }
-    &.amplify-button--warning {
+    &.amplify-button--warning:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-link-warning-background-color
       );
@@ -487,7 +467,7 @@
         color: var(--amplify-components-button-link-warning-active-color);
       }
     }
-    &.amplify-button--error {
+    &.amplify-button--error:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-link-error-background-color
       );
@@ -527,7 +507,7 @@
         color: var(--amplify-components-button-link-error-active-color);
       }
     }
-    &.amplify-button--success {
+    &.amplify-button--success:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-link-success-background-color
       );
@@ -566,7 +546,7 @@
         color: var(--amplify-components-button-link-success-active-color);
       }
     }
-    &.amplify-button--overlay {
+    &.amplify-button--overlay:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-link-overlay-background-color
       );
@@ -605,16 +585,6 @@
         color: var(--amplify-components-button-link-overlay-active-color);
       }
     }
-  }
-
-  &--outlined {
-    border-width: var(--amplify-components-button-outlined-border-width);
-    background-color: var(
-      --amplify-components-button-outlined-background-color
-    );
-    border-color: var(--amplify-components-button-outlined-border-color);
-    color: var(--amplify-components-button-outlined-color);
-
     --amplify-internal-button-disabled-text-decoration: none;
     --amplify-internal-button-disabled-border-color: var(
       --amplify-components-button-link-disabled-border-color
@@ -635,38 +605,10 @@
       --amplify-components-button-link-loading-color
     );
     --amplify-internal-button-loading-text-decoration: none;
+  }
 
-    &:hover {
-      background-color: var(
-        --amplify-components-button-outlined-hover-background-color
-      );
-      border-color: var(
-        --amplify-components-button-outlined-hover-border-color
-      );
-      color: var(--amplify-components-button-outlined-hover-color);
-    }
-
-    &:focus {
-      background-color: var(
-        --amplify-components-button-outlined-focus-background-color
-      );
-      border-color: var(
-        --amplify-components-button-outlined-focus-border-color
-      );
-      color: var(--amplify-components-button-outlined-focus-color);
-      box-shadow: var(--amplify-components-button-outlined-focus-box-shadow);
-    }
-
-    &:active {
-      background-color: var(
-        --amplify-components-button-outlined-active-background-color
-      );
-      border-color: var(
-        --amplify-components-button-outlined-active-border-color
-      );
-      color: var(--amplify-components-button-outlined-active-color);
-    }
-    &.amplify-button--info {
+  &--outlined {
+    &.amplify-button--info:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-outlined-info-background-color
       );
@@ -706,7 +648,7 @@
         color: var(--amplify-components-button-outlined-info-active-color);
       }
     }
-    &.amplify-button--warning {
+    &.amplify-button--warning:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-outlined-warning-background-color
       );
@@ -748,7 +690,7 @@
         color: var(--amplify-components-button-outlined-warning-active-color);
       }
     }
-    &.amplify-button--error {
+    &.amplify-button--error:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-outlined-error-background-color
       );
@@ -790,7 +732,7 @@
         color: var(--amplify-components-button-outlined-error-active-color);
       }
     }
-    &.amplify-button--success {
+    &.amplify-button--success:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-outlined-success-background-color
       );
@@ -831,7 +773,7 @@
         color: var(--amplify-components-button-outlined-success-active-color);
       }
     }
-    &.amplify-button--overlay {
+    &.amplify-button--overlay:not(.amplify-button--loading):not(.amplify-button--disabled) {
       background-color: var(
         --amplify-components-button-outlined-overlay-background-color
       );
@@ -873,6 +815,7 @@
       }
     }
   }
+
   &--destructive {
     border-width: var(--amplify-components-button-destructive-border-width);
     background-color: var(
@@ -1019,6 +962,7 @@
       --amplify-components-button-large-padding-inline-end
     );
   }
+
   &--disabled {
     background-color: var(--amplify-internal-button-disabled-background-color);
     border-color: var(--amplify-internal-button-disabled-border-color);
