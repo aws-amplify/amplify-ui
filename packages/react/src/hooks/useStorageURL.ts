@@ -1,16 +1,12 @@
 import * as React from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
+import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
 import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
-
-export interface UseStorageURLResult {
-  url?: string;
-  isLoading: boolean;
-}
 
 interface UseStorageURLErrorConfig {
   fallbackURL?: string;
-  onError?: (error: Error) => void;
+  onStorageGetError?: (error: Error) => void;
 }
 
 /**
@@ -21,32 +17,30 @@ export const useStorageURL = (
   key: string,
   options?: S3ProviderGetConfig,
   errorConfig?: UseStorageURLErrorConfig
-): UseStorageURLResult => {
-  const [result, setResult] = React.useState<UseStorageURLResult>({
-    isLoading: true,
-  });
+): string | undefined => {
+  const [url, setURL] = React.useState<string>();
+  const hasKeyUpdated = useHasValueUpdated(key);
 
-  const fetch = () => {
-    setResult({ isLoading: true });
+  React.useEffect(() => {
+    if (!hasKeyUpdated) {
+      return;
+    }
 
-    const promise = Storage.get(key, options);
-
-    // Attempt to fetch storage object url
-    promise
-      .then((url) => setResult({ url, isLoading: false }))
+    const promise = Storage.get(key, options)
+      .then((url) => setURL(url))
       .catch((error: Error) => {
-        const { fallbackURL, onError } = errorConfig ?? {};
-        if (isFunction(onError)) {
-          onError(error);
+        const { fallbackURL, onStorageGetError } = errorConfig ?? {};
+        if (isFunction(onStorageGetError)) {
+          onStorageGetError(error);
         }
-        setResult({ isLoading: false, url: fallbackURL });
+        if (fallbackURL) {
+          setURL(fallbackURL);
+        }
       });
 
     // Cancel current promise on unmount
     return () => Storage.cancel(promise);
-  };
+  }, [key, options, errorConfig, hasKeyUpdated]);
 
-  React.useEffect(fetch, [key, options, errorConfig]);
-
-  return { ...result };
+  return url;
 };

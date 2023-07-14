@@ -26,12 +26,12 @@ export const StorageImage = ({
   const errorConfig = React.useMemo(
     () => ({
       fallbackURL: fallbackSrc,
-      onError: onStorageGetError,
+      onStorageGetError,
     }),
     [fallbackSrc, onStorageGetError]
   );
 
-  const { url } = useStorageURL(imgKey, options, errorConfig);
+  const url = useStorageURL(imgKey, options, errorConfig);
 
   return (
     <Image
