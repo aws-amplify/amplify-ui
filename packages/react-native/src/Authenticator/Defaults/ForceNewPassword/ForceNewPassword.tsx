@@ -9,14 +9,14 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultForceNewPasswordComponent } from '../types';
+import { DefaultForceNewPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ForceNewPassword';
 
 const { getChangePasswordText, getChangingText, getBackToSignInText } =
   authenticatorTextUtil;
 
-const ForceNewPassword: DefaultForceNewPasswordComponent = ({
+const ForceNewPassword = ({
   fields,
   handleBlur,
   handleChange,
@@ -26,7 +26,7 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
   toSignIn,
   validationErrors,
   ...rest
-}) => {
+}: DefaultForceNewPasswordProps): JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,

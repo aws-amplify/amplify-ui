@@ -61,6 +61,7 @@ export interface ImageOptions extends ImageStyleProps {
   onError?(error: string | React.SyntheticEvent<HTMLImageElement, Event>): void;
 }
 
+/** @deprecated For internal use only */
 export interface BaseImageProps extends BaseViewProps, ImageOptions {}
 
 export type ImageProps<Element extends ElementType = 'img'> = PrimitiveProps<

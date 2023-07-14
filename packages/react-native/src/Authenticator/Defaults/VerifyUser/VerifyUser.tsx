@@ -8,7 +8,7 @@ import {
   DefaultRadioFormFields,
 } from '../../common';
 import { useFieldValues } from '../../hooks';
-import { DefaultVerifyUserComponent } from '../types';
+import { DefaultVerifyUserProps } from '../types';
 
 const COMPONENT_NAME = 'VerifyUser';
 
@@ -19,7 +19,7 @@ const {
   getAccountRecoveryInfoText,
 } = authenticatorTextUtil;
 
-const VerifyUser: DefaultVerifyUserComponent = ({
+const VerifyUser = ({
   fields,
   handleBlur,
   handleChange,
@@ -27,7 +27,7 @@ const VerifyUser: DefaultVerifyUserComponent = ({
   skipVerification,
   validationErrors,
   ...rest
-}) => {
+}: DefaultVerifyUserProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,

@@ -8,6 +8,7 @@ export type LoaderSizes = Sizes;
 
 export type LoaderVariations = 'linear';
 
+/** @deprecated For internal use only */
 export interface BaseLoaderProps extends BaseViewProps {
   /**
    * @description

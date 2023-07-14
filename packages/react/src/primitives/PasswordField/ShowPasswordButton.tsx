@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
@@ -8,14 +9,14 @@ import {
   ForwardRefPrimitive,
   Primitive,
   BaseShowPasswordButtonProps,
-  ShowPasswordButtonProps,
 } from '../types';
+import { classNameModifierByFlag } from '../shared/utils';
 
 const { passwordIsHidden, passwordIsShown, showPassword } =
   ComponentText.PasswordField;
 
 const ShowPasswordButtonPrimitive: Primitive<
-  ShowPasswordButtonProps,
+  BaseShowPasswordButtonProps,
   'button'
 > = (
   {
@@ -24,15 +25,25 @@ const ShowPasswordButtonPrimitive: Primitive<
     passwordIsShownLabel = passwordIsShown,
     showPasswordButtonLabel = showPassword,
     size,
+    hasError,
     ...rest
   },
   ref
 ) => {
+  const showPasswordButtonClass = classNames(
+    ComponentClassNames.FieldShowPassword,
+    classNameModifierByFlag(
+      ComponentClassNames.FieldShowPassword,
+      'error',
+      hasError
+    )
+  );
+
   return (
     <Button
       aria-checked={fieldType !== 'password'}
       ariaLabel={showPasswordButtonLabel}
-      className={ComponentClassNames.FieldShowPassword}
+      className={showPasswordButtonClass}
       ref={ref}
       role="switch"
       size={size}

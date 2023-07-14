@@ -1,14 +1,7 @@
 import * as React from 'react';
 import {
   Card,
-  Text,
   View,
-  Image,
-  Badge,
-  Button,
-  Flex,
-  Divider,
-  Heading,
   SelectField,
   CardProps,
   useTheme,
@@ -60,7 +53,7 @@ export const CardDemo = () => {
         backgroundColor={tokens.colors.background.secondary}
         padding={tokens.space.medium}
       >
-        <Card {...props}>{`I'm a card!`}</Card>
+        <Card variation={variation}>{`I'm a card!`}</Card>
       </View>
     </Demo>
   );

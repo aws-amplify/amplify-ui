@@ -4,6 +4,7 @@ import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 export type BadgeVariations = 'info' | 'error' | 'warning' | 'success';
 export type BadgeSizes = Sizes;
 
+/** @deprecated For internal use only */
 export interface BaseBadgeProps extends BaseViewProps {
   /**
    * @description

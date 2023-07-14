@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Flex, Button, Text } from '@aws-amplify/ui-react';
 import { getLandscapeMediaQuery } from '../utils/device';
+import { LivenessClassNames } from '../types/classNames';
 interface LandscapeErrorModalProps {
   onRetry: () => void;
   header: string;
@@ -41,20 +42,15 @@ export const LandscapeErrorModal: React.FC<LandscapeErrorModalProps> = (
 
   return (
     <Flex
-      backgroundColor="background.primary"
-      direction="column"
-      textAlign="center"
-      alignItems="center"
-      justifyContent="center"
-      width="100%"
+      className={LivenessClassNames.LandscapeErrorModal}
       height={isLandscape ? 'auto' : 480}
     >
-      <Text fontSize="large" fontWeight="bold">
+      <Text className={LivenessClassNames.LandscapeErrorModalHeader}>
         {header}
       </Text>
       <Text>{isLandscape ? landscapeMessage : portraitMessage}</Text>
       {!isLandscape ? (
-        <Flex justifyContent="center">
+        <Flex className={LivenessClassNames.LandscapeErrorModalButton}>
           <Button variation="primary" type="button" onClick={onRetry}>
             {tryAgainText}
           </Button>
