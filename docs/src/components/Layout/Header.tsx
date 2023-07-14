@@ -76,7 +76,7 @@ export const Header = ({
               title="GitHub"
             >
               <VisuallyHidden>GitHub</VisuallyHidden>
-              <GithubIcon />
+              <GithubIcon aria-hidden="true" />
             </Button>
           </View>
         ) : null}
