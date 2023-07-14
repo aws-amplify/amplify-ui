@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
-import CountdownCircleTimer from 'react-countdown-circle-timer';
 import classNames from 'classnames';
 
-import { Flex, Loader, Text, View, useTheme } from '@aws-amplify/ui-react';
+import { Flex, Loader, View } from '@aws-amplify/ui-react';
 import { FaceMatchState } from '../service';
 import {
   useLivenessActor,
@@ -87,7 +86,6 @@ export const LivenessCameraModule = (
 
   const { ErrorView = FaceLivenessErrorModal } = customComponents ?? {};
 
-  const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
 
   const videoStream = useLivenessSelector(selectVideoStream);
@@ -110,10 +108,8 @@ export const LivenessCameraModule = (
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const freshnessColorRef = useRef<HTMLCanvasElement | null>(null);
 
-  const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [isCameraReady, setIsCameraReady] = useState<boolean>(false);
   const isCheckingCamera = state.matches('cameraCheck');
-  const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
   const isCheckSucceeded = state.matches('checkSucceeded');
   const isFlashingFreshness = state.matches({
@@ -153,13 +149,8 @@ export const LivenessCameraModule = (
     }
   }, [send, videoRef, isCameraReady, isMobileScreen]);
 
-  const timerCompleteHandler = () => {
-    send({ type: 'START_RECORDING' });
-  };
-
   const handleMediaPlay = () => {
     setIsCameraReady(true);
-    setCountDownRunning(true);
   };
 
   if (isCheckingCamera) {
@@ -226,71 +217,44 @@ export const LivenessCameraModule = (
           </View>
         )}
 
-        {countDownRunning && (
-          <Overlay
-            anchorOrigin={{
-              horizontal: 'center',
-              vertical:
-                isRecording && !isFlashingFreshness ? 'start' : 'space-between',
-            }}
-            className={LivenessClassNames.InstructionOverlay}
-          >
-            <Hint hintDisplayText={hintDisplayText} />
+        <Overlay
+          anchorOrigin={{
+            horizontal: 'center',
+            vertical:
+              isRecording && !isFlashingFreshness ? 'start' : 'space-between',
+          }}
+          className={LivenessClassNames.InstructionOverlay}
+        >
+          <Hint hintDisplayText={hintDisplayText} />
 
-            {errorState && (
-              <ErrorView
-                onRetry={() => {
-                  send({ type: 'CANCEL' });
-                }}
-              >
-                {renderErrorModal({
-                  errorState,
-                  overrideErrorDisplayText: errorDisplayText,
-                })}
-              </ErrorView>
-            )}
+          {errorState && (
+            <ErrorView
+              onRetry={() => {
+                send({ type: 'CANCEL' });
+              }}
+            >
+              {renderErrorModal({
+                errorState,
+                overrideErrorDisplayText: errorDisplayText,
+              })}
+            </ErrorView>
+          )}
 
-            {/* 
+          {/* 
               We only want to show the MatchIndicator when we're recording
               and when the face is in either the too far state, or the 
               initial face identified state. Using the a memoized MatchIndicator here
               so that even when this component re-renders the indicator is only
               re-rendered if the percentage prop changes.
             */}
-            {isRecording &&
-            !isFlashingFreshness &&
-            showMatchIndicatorStates.includes(faceMatchState!) ? (
-              <MemoizedMatchIndicator
-                percentage={Math.ceil(faceMatchPercentage!)}
-              />
-            ) : null}
-
-            {isNotRecording && (
-              <View
-                className={LivenessClassNames.CountdownContainer}
-                testId="liveness-camera-countdown-timer"
-              >
-                <CountdownCircleTimer.CountdownCircleTimer
-                  isPlaying={isNotRecording}
-                  size={85}
-                  strokeWidth={8}
-                  duration={3}
-                  rotation="counterclockwise"
-                  // FIXME: colors is hard coded because it only allows a hex value
-                  colors="#40aabf"
-                  trailColor={`${tokens.colors.background.primary}`}
-                  onComplete={timerCompleteHandler}
-                >
-                  {({ remainingTime }) => (
-                    <Text fontSize="xxxl" fontWeight="bold">
-                      {remainingTime}
-                    </Text>
-                  )}
-                </CountdownCircleTimer.CountdownCircleTimer>
-              </View>
-            )}
-          </Overlay>
-        )}
+          {isRecording &&
+          !isFlashingFreshness &&
+          showMatchIndicatorStates.includes(faceMatchState!) ? (
+            <MemoizedMatchIndicator
+              percentage={Math.ceil(faceMatchPercentage!)}
+            />
+          ) : null}
+        </Overlay>
       </View>
     </Flex>
   );

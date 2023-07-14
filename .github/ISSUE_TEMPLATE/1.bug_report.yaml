@@ -75,6 +75,10 @@ body:
         - Safari
         - iOS (React Native)
         - Android (React Native)
+  - type: input
+    attributes:
+      label: Which region are you seeing the problem in?
+      description: If applicable, specify the AWS region you are using your connected component with.
   - type: textarea
     attributes:
       label: Please describe your bug.
@@ -105,6 +109,11 @@ body:
         // Put your code below this line.
 
         ```
+  - type: textarea
+    attributes:
+      label: Console log output
+      description: |
+        If you have any additional error or log information from the browser console log output, especially from an onError handler, please attach in the field below.
   - type: textarea
     attributes:
       label: Additional information and screenshots

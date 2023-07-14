@@ -79,6 +79,25 @@ Given(
   }
 );
 
+Given(
+  'I intercept {string} with fixture {string} and add header {string} with value {string}',
+  (json: string, fixture: string, headerName: string, headerValue: string) => {
+    let routeMatcher;
+
+    try {
+      routeMatcher = JSON.parse(json);
+    } catch (error) {
+      throw error;
+    }
+
+    cy.intercept(routeMatcher, {
+      headers: {
+        [headerName]: headerValue,
+      },
+    });
+  }
+);
+
 Given('I verify the body has {string} included', (value: string) => {
   cy.wait('@route').its('request.body.Username').should('include', value);
 });

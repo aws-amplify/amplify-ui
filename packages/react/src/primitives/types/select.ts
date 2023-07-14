@@ -5,6 +5,7 @@ import { Sizes } from './base';
 
 export type SelectVariation = 'quiet';
 
+/** @deprecated For internal use only */
 export interface BaseSelectProps extends BaseViewProps {
   /**
    * @description

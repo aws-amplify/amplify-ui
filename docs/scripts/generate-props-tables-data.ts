@@ -165,11 +165,10 @@ function getPropertiesByCategory(
 
   /**
    * Some special components don't have accurate properties generated from getCatalog, so we have to manually point it to AllTypesData as well in addition to the Catalog.
-   * First element is the component's name
    */
   const specialComponents: { [key in string]: TypeFileName[] } = {
-    View: ['View', 'Base', 'Style'],
-    TextField: ['TextField', 'TextArea', 'Input', 'Field'],
+    View: ['Base', 'Style'],
+    TextField: ['Input'],
   };
 
   for (const propertyName in catalog[componentName]) {
