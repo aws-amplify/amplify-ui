@@ -9,6 +9,7 @@ export type TextVariation =
   | 'info'
   | 'success';
 
+/** @deprecated For internal use only */
 export interface BaseTextProps extends BaseViewProps {
   /**
    * @description

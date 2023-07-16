@@ -20,7 +20,7 @@ type FieldControlDisabledTokens<Output> = DesignTokenProperties<
 >;
 
 type FieldControlErrorTokens<Output> = DesignTokenProperties<
-  'borderColor',
+  'borderColor' | 'color',
   Output
 > & {
   _focus?: DesignTokenProperties<'boxShadow', Output>;
@@ -186,6 +186,7 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
   },
   _error: {
     borderColor: { value: '{colors.border.error.value}' },
+    color: { value: '{colors.font.error.value}' },
     _focus: {
       boxShadow: {
         value: {

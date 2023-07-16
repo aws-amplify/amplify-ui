@@ -31,6 +31,8 @@ const renderToastErrorModal = (props: {
     timeoutMessageText,
     faceDistanceHeaderText,
     faceDistanceMessageText,
+    multipleFacesHeaderText,
+    multipleFacesMessageText,
     clientHeaderText,
     clientMessageText,
     serverHeaderText,
@@ -48,6 +50,10 @@ const renderToastErrorModal = (props: {
     case LivenessErrorState.FACE_DISTANCE_ERROR:
       heading = faceDistanceHeaderText;
       message = faceDistanceMessageText;
+      break;
+    case LivenessErrorState.MULTIPLE_FACES_ERROR:
+      heading = multipleFacesHeaderText;
+      message = multipleFacesMessageText;
       break;
     case LivenessErrorState.RUNTIME_ERROR:
       heading = clientHeaderText;
