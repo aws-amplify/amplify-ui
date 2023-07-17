@@ -1,7 +1,12 @@
 import * as React from 'react';
 
 import { Amplify } from 'aws-amplify';
-import { Text } from '@aws-amplify/ui-react';
+import {
+  Button,
+  Text,
+  useAuthenticator,
+  withAuthenticator,
+} from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
@@ -10,6 +15,7 @@ Amplify.configure(awsExports);
 
 export function StorageImageExample() {
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const { signOut } = useAuthenticator((context) => [context.signOut]);
 
   const onLoad = () => {
     setIsLoaded(true);
@@ -18,17 +24,18 @@ export function StorageImageExample() {
   return (
     <>
       <StorageImage
-        alt="This is a public image."
-        imgKey="public-e2e.jpeg"
-        accessLevel="public"
+        alt="This is a protected image."
+        imgKey="protected-e2e.jpeg"
+        accessLevel="protected"
         onLoad={onLoad}
       />
       {isLoaded ? (
-        <Text>The public image is loaded.</Text>
+        <Text>The protected image is loaded.</Text>
       ) : (
-        <Text>The public image is loading.</Text>
+        <Text>The protected image is loading.</Text>
       )}
+      <Button onClick={signOut}>Sign out</Button>
     </>
   );
 }
-export default StorageImageExample;
+export default withAuthenticator(StorageImageExample);

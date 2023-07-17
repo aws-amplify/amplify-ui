@@ -24,15 +24,15 @@ export function StorageImageExample() {
   return (
     <>
       <StorageImage
-        alt="This is a test image."
-        imgKey="cat.jpg"
+        alt="This is a private image."
+        imgKey="private-e2e.jpeg"
         accessLevel="private"
         onLoad={onLoad}
       />
       {isLoaded ? (
-        <Text>The image is loaded.</Text>
+        <Text>The private image is loaded.</Text>
       ) : (
-        <Text>The image is loading.</Text>
+        <Text>The private image is loading.</Text>
       )}
       <Button onClick={signOut}>Sign out</Button>
     </>
