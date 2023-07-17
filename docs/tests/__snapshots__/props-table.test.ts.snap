@@ -3768,6 +3768,13 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"ImageOptions\\",
                         \\"isOptional\\": true
                     },
+                    \\"aspectRatio\\": {
+                        \\"name\\": \\"aspectRatio\\",
+                        \\"type\\": \\"ResponsiveStyle<Property.AspectRatio> | undefined\\",
+                        \\"description\\": \\"Sets a preferred aspect ratio for the selected replaced element's box\\",
+                        \\"category\\": \\"ImageStyleProps\\",
+                        \\"isOptional\\": true
+                    },
                     \\"objectFit\\": {
                         \\"name\\": \\"objectFit\\",
                         \\"type\\": \\"ResponsiveStyle<Property.ObjectFit> | undefined\\",

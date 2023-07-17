@@ -29,11 +29,13 @@ const SignUp = ({
   hideSignIn,
   isPending,
   toSignIn,
+  validationErrors,
   ...rest
 }: DefaultSignUpProps): JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -41,6 +43,7 @@ const SignUp = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const disabled = hasValidationErrors || disableFormSubmit;
@@ -78,6 +81,7 @@ const SignUp = ({
       fields={fieldsWithHandlers}
       headerText={headerText}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

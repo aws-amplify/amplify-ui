@@ -28,11 +28,13 @@ const ConfirmResetPassword = ({
   hasValidationErrors,
   isPending,
   resendCode,
+  validationErrors,
   ...rest
 }: DefaultConfirmResetPasswordProps): JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -40,6 +42,7 @@ const ConfirmResetPassword = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const disabled = hasValidationErrors || disableFormSubmit;
@@ -72,6 +75,7 @@ const ConfirmResetPassword = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

@@ -147,4 +147,10 @@ export const authenticatorTextUtil = {
   getVerifyText: () => translate(DefaultTexts.VERIFY),
   getVerifyContactText: () => translate(DefaultTexts.VERIFY_CONTACT),
   getAccountRecoveryInfoText: () => translate(DefaultTexts.VERIFY_HEADING),
+
+  /** Validations */
+  // TODO: add defaultText
+  getInvalidEmailText: () => translate('Please enter a valid email'),
+  // TODO: add defaultText
+  getRequiredFieldText: () => translate('This field is required'),
 } as const; // using `as const` so that keys are strongly typed

@@ -29,11 +29,13 @@ const ConfirmSignUp = ({
   handleSubmit,
   isPending,
   resendCode,
+  validationErrors,
   ...rest
 }: DefaultConfirmSignUpProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -41,6 +43,7 @@ const ConfirmSignUp = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getDeliveryMethodText(codeDeliveryDetails);
@@ -74,6 +77,7 @@ const ConfirmSignUp = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };
