@@ -5175,9 +5175,6 @@ Object {
       "isDisabled": Object {
         "type": "boolean",
       },
-      "isLazy": Object {
-        "type": "boolean",
-      },
       "left": Object {
         "type": "string",
       },
