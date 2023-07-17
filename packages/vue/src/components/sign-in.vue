@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs } from 'vue';
+import { computed, toRefs, useAttrs } from 'vue';
 
 import {
   authenticatorTextUtil,
-  getActorState,
   getFormDataFromEvent,
-  SignInState,
   translate,
 } from '@aws-amplify/ui';
 
+import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
+import BaseFormFields from './primitives/base-form-fields.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
-// @xstate
-import { useAuth, useAuthenticator } from '../composables/useAuth';
-import BaseFormFields from './primitives/base-form-fields.vue';
-
-const props = useAuthenticator();
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { submitForm, updateForm, toResetPassword } = facade;
+const { error, isPending } = toRefs(facade);
 
 const attrs = useAttrs();
+
+/** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits([
   'signInSubmit',
   'forgotPasswordClicked',
@@ -31,41 +33,31 @@ const { getForgotPasswordText, getSignInText, getSigningInText } =
 // Computed Properties
 const forgotYourPasswordLink = computed(() => getForgotPasswordText());
 const signInButtonText = computed(() => getSignInText());
-const signIngButtonText = computed(() => getSigningInText());
-
-const { state, send } = useAuth();
-const actorState = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<SignInState>;
+const signingInButtonText = computed(() => getSigningInText());
 
 // Methods
-
 const onInput = (e: Event): void => {
   const { name, value } = e.target as HTMLInputElement;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
+  updateForm({ name, value });
 };
 
 const onSignInSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onSignInSubmit) {
     emit('signInSubmit', e);
   } else {
-    submit(e);
+    submitForm(getFormDataFromEvent(e));
   }
 };
 
-const submit = (e: Event): void => {
-  props.submitForm(getFormDataFromEvent(e));
-};
-
 const onForgotPasswordClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onForgotPasswordClicked) {
     emit('forgotPasswordClicked');
   } else {
-    send({ type: 'RESET_PASSWORD' });
+    toResetPassword();
   }
 };
 </script>
@@ -94,7 +86,7 @@ const onForgotPasswordClicked = (): void => {
         <federated-sign-in></federated-sign-in>
         <base-wrapper class="amplify-flex amplify-authenticator__column">
           <base-field-set
-            :disabled="actorState.matches('signIn.submit')"
+            :disabled="isPending"
             class="amplify-flex amplify-authenticator__column"
           >
             <template #fieldSetI="{ slotData }">
@@ -103,22 +95,18 @@ const onForgotPasswordClicked = (): void => {
             <legend class="amplify-visually-hidden">Sign in</legend>
             <base-form-fields route="signIn"></base-form-fields>
           </base-field-set>
-          <base-alert v-if="actorState.context.remoteError">
-            {{ translate(actorState.context.remoteError) }}
+          <base-alert v-if="error">
+            {{ translate(error) }}
           </base-alert>
 
           <amplify-button
-            :disabled="actorState.matches('signIn.submit')"
+            :disabled="isPending"
             class="amplify-field-group__control amplify-authenticator__font"
             :fullwidth="true"
             :loading="false"
             :variation="'primary'"
           >
-            {{
-              actorState.matches('signIn.submit')
-                ? signIngButtonText
-                : signInButtonText
-            }}
+            {{ isPending ? signingInButtonText : signInButtonText }}
           </amplify-button>
         </base-wrapper>
       </base-form>
