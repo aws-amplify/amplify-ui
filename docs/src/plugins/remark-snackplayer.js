@@ -1,5 +1,4 @@
 const walkTree = require('./walkTree');
-const { defaultOptions, exportsCode } = require('./snack-options');
 
 const parseParams = (paramString = '') => {
   const parts = paramString.split(' ');
@@ -20,87 +19,33 @@ const parseParams = (paramString = '') => {
 const processNode = (node, parent) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const params = parseParams(node.meta);
-
-      const {
-        name,
-        description,
-        platform,
-        supportedPlatforms,
-        preview,
-        loading,
-        dependencies,
-      } = {
-        ...defaultOptions,
-        ...params,
-      };
+      const { name, description, preview } = parseParams(node.meta);
 
       // Generate AST Node for SnackPlayer
       // See https://github.com/expo/snack/blob/main/docs/embedding-snacks.md
       const elem = {
         type: 'mdxJsxFlowElement',
-        name: 'div',
+        name: 'ExpoSnackWithExports',
         attributes: [
           {
             type: 'mdxJsxAttribute',
-            name: 'className',
-            value: 'snack-player',
-          },
-          {
-            type: 'mdxJsxAttribute',
-            name: 'data-snack-name',
-            value: name,
-          },
-          {
-            type: 'mdxJsxAttribute',
-            name: 'data-snack-description',
+            name: 'description',
             value: description,
           },
           {
             type: 'mdxJsxAttribute',
-            name: 'data-snack-dependencies',
-            value: dependencies.join(','),
+            name: 'name',
+            value: name,
           },
           {
             type: 'mdxJsxAttribute',
-            name: 'data-snack-platform',
-            value: platform,
-          },
-          {
-            type: 'mdxJsxAttribute',
-            name: 'data-snack-supported-platforms',
-            value: supportedPlatforms,
-          },
-          {
-            type: 'mdxJsxAttribute',
-            name: 'data-snack-preview',
+            name: 'preview',
             value: preview,
           },
           {
             type: 'mdxJsxAttribute',
-            name: 'data-snack-loading',
-            value: loading,
-          },
-          {
-            type: 'mdxJsxAttribute',
-            name: 'data-snack-sdk-version',
-            value: '45.0.0',
-          },
-          {
-            type: 'mdxJsxAttribute',
-            name: 'data-snack-files',
-            value: encodeURIComponent(
-              JSON.stringify({
-                'App.tsx': {
-                  type: 'CODE',
-                  contents: node.value,
-                },
-                'aws-exports.js': {
-                  type: 'CODE',
-                  contents: exportsCode,
-                },
-              })
-            ),
+            name: 'code',
+            value: node.value,
           },
         ],
       };
@@ -127,6 +72,45 @@ const SnackPlayer = () => {
           nodesToProcess.push(processNode(node, parent));
         }
       );
+
+      // If there are expo snack nodes,
+      // add the import to the main AST
+      if (nodesToProcess.length) {
+        const snackUrl = '@/components/ExpoSnack';
+        // https://astexplorer.net/
+        tree.children.unshift({
+          type: 'mdxjsEsm',
+          data: {
+            estree: {
+              type: 'Program',
+              sourceType: 'module',
+              body: [
+                {
+                  type: 'ImportDeclaration',
+                  source: {
+                    type: 'Literal',
+                    value: snackUrl,
+                    raw: JSON.stringify(snackUrl),
+                  },
+                  specifiers: [
+                    {
+                      type: 'ImportSpecifier',
+                      imported: {
+                        type: 'Identifier',
+                        name: 'ExpoSnackWithExports',
+                      },
+                      local: {
+                        type: 'Identifier',
+                        name: 'ExpoSnackWithExports',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        });
+      }
 
       // Wait for all promises to be resolved
       Promise.all(nodesToProcess).then(resolve()).catch(reject());

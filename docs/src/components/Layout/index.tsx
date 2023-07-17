@@ -41,8 +41,6 @@ export default function Page({
   // TODO: is there a better way to do this?
   React.useLayoutEffect(() => {
     const updateHeaders = debounce(() => {
-      // @ts-ignore
-      window?.ExpoSnack?.initialize();
       setHeadings(
         [
           ...document.querySelectorAll(
