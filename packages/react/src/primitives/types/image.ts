@@ -56,12 +56,6 @@ export interface ImageOptions extends ImageStyleProps {
 
   /**
    * @description
-   * Image will be loaded lazily if set to true.
-   */
-  isLazy?: boolean;
-
-  /**
-   * @description
    * Handles loading event on image.
    */
   onLoad?(event: React.SyntheticEvent<HTMLImageElement, Event>): void;
