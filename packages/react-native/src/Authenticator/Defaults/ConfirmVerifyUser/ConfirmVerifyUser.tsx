@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmVerifyUserComponent } from '../types';
+import { DefaultConfirmVerifyUserProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmVerifyUser';
 
@@ -20,7 +20,7 @@ const {
   getSubmittingText,
 } = authenticatorTextUtil;
 
-const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
+const ConfirmVerifyUser = ({
   fields,
   handleBlur,
   handleChange,
@@ -28,8 +28,12 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
   isPending,
   skipVerification,
   ...rest
-}) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+}: DefaultConfirmVerifyUserProps): JSX.Element => {
+  const {
+    disableFormSubmit: disabled,
+    fields: fieldsWithHandlers,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
@@ -43,10 +47,20 @@ const ConfirmVerifyUser: DefaultConfirmVerifyUserComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: [{ children: secondaryButtonText, onPress: skipVerification }],
     }),
-    [handleFormSubmit, primaryButtonText, skipVerification, secondaryButtonText]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      skipVerification,
+      secondaryButtonText,
+    ]
   );
 
   return (

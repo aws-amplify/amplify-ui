@@ -193,6 +193,7 @@ jobs:
         with:
           base-ref: ${{ needs.setup.outputs.base_sha }}
           head-ref: ${{ needs.setup.outputs.commit_id }}
+          config-file: '.github/dependency-review/config.yml'
 
   setup-cache:
     needs: setup
@@ -200,36 +201,6 @@ jobs:
     with:
       commit: ${{ needs.setup.outputs.commit_id }}
       repository: ${{ github.repository }}
-
-  license-checker:
-    runs-on: ubuntu-latest
-    needs: [setup, setup-cache]
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
-        with:
-          ref: ${{ needs.setup.outputs.commit_id }}
-          repository: ${{ github.repository }}
-          persist-credentials: false
-      - name: Setup Node.js 16
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
-        with:
-          node-version: 16
-          cache: 'yarn'
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
-      - name: Restore node_modules cache
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        id: restore-cache
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit_id }}
-        env:
-          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 3
-      - name: Validate licenses
-        run: yarn license
 
   e2e:
     uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
@@ -261,7 +232,7 @@ jobs:
   # update status on success
   update-success-status:
     if: ${{ success() }}
-    needs: [setup, e2e, codeql, dependency-review, license-checker]
+    needs: [setup, e2e, codeql, dependency-review]
     runs-on: ubuntu-latest
     permissions:
       statuses: write # This is required for running set-status actions
@@ -279,7 +250,7 @@ jobs:
   # update status on failure
   update-failure-status:
     if: ${{ failure() }}
-    needs: [setup, e2e, codeql, dependency-review, license-checker]
+    needs: [setup, e2e, codeql, dependency-review]
     runs-on: ubuntu-latest
     permissions:
       statuses: write # This is required for running set-status actions

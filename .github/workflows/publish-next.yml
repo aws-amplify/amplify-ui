@@ -96,7 +96,7 @@ jobs:
         run: yarn global add @aws-amplify/cli
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}
@@ -151,11 +151,21 @@ jobs:
 
   publish:
     needs: [e2e, guides]
-    uses: ./.github/workflows/reusable-tagged-publish.yml
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-tagged-publish.yml@main
     with:
       dist-tag: next
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  deploy-sample-app:
+    runs-on: ubuntu-latest
+    environment: deployment
+    needs: publish
+    steps:
+      - name: Trigger build for beta liveness sample app pointing at next tag
+        run: curl -X POST -d {} $ENDPOINT -H "Content-Type:application/json"
+        env:
+          ENDPOINT: ${{ secrets.LIVENESS_BETA_SAMPLE_APP_BUILD_TRIGGER }}
 
   build-test:
     needs: publish
@@ -174,7 +184,7 @@ jobs:
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0 https://github.com/aws-actions/configure-aws-credentials/commit/e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef
         with:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.AUTH_E2E_ROLE_ARN }}

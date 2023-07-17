@@ -6,7 +6,7 @@ import { ComponentClassNames } from '@aws-amplify/ui-react';
 
 import { StorageImage } from '../StorageImage';
 
-describe('StorageImage:', () => {
+describe('StorageImage', () => {
   const imgKey = 'test.jpg';
   const imgURL = 'https://amplify.s3.amazonaws.com/path/to/test.jpg';
   const fallbackSrc = 'https://amplify.s3.amazonaws.com/path/to/fallback.jpg';
@@ -16,7 +16,7 @@ describe('StorageImage:', () => {
     jest.spyOn(Storage, 'get').mockResolvedValue(imgURL);
   });
 
-  it('should render classname', async () => {
+  it('should render default classname', async () => {
     render(
       <StorageImage alt="StorageImage" imgKey={imgKey} accessLevel="public" />
     );
@@ -25,18 +25,19 @@ describe('StorageImage:', () => {
     expect(img).toHaveClass(ComponentClassNames.StorageImage);
   });
 
-  it('should set loading attribute to lazy if isLazy prop is true', async () => {
+  it('should render custom classname', async () => {
+    const className = 'MyImage';
     render(
       <StorageImage
         alt="StorageImage"
+        className={className}
         imgKey={imgKey}
         accessLevel="public"
-        isLazy
       />
     );
 
     const img = await screen.findByRole('img');
-    expect(img).toHaveAttribute('loading', 'lazy');
+    expect(img).toHaveClass(className);
   });
 
   it('should get the presigned URL and pass it to image src attribute', async () => {
@@ -46,7 +47,7 @@ describe('StorageImage:', () => {
         alt="StorageImage"
         imgKey={imgKey}
         accessLevel="public"
-        onStorageError={onStorageError}
+        onStorageGetError={onStorageError}
       />
     );
 
@@ -55,7 +56,7 @@ describe('StorageImage:', () => {
     expect(img).toHaveAttribute('src', imgURL);
   });
 
-  it('should set image src attribute to fallbackSrc and invoke onStorageError when Storage get is rejected', async () => {
+  it('should set image src attribute to fallbackSrc and invoke onGetStorageError when Storage.get is rejected', async () => {
     jest.restoreAllMocks();
     jest.spyOn(Storage, 'get').mockRejectedValue(errorMessage);
     const onStorageError = jest.fn();
@@ -65,7 +66,7 @@ describe('StorageImage:', () => {
         imgKey={imgKey}
         accessLevel="public"
         fallbackSrc={fallbackSrc}
-        onStorageError={onStorageError}
+        onStorageGetError={onStorageError}
       />
     );
 

@@ -28,19 +28,25 @@ export type PrimitivePropsWithAs<
 type PrimitivePropsWithRef<
   Props extends BaseViewProps,
   Element extends ElementType
-> = Omit<Props, 'ref'> &
-  (IsAny<Element> extends false
-    ? React.RefAttributes<React.ComponentRef<Element>>
-    : React.RefAttributes<any>);
+> = Omit<Props, 'ref'> & React.RefAttributes<React.ComponentRef<Element>>;
 
 export type PrimitivePropsWithHTMLAttributes<
   Props extends BaseViewProps,
   Element extends ElementType
-> = MergeProps<
-  PrimitivePropsWithRef<Props, Element>,
-  // exclude `ref?: LegacyRef` included in DetailedHTMLProps
-  React.ComponentPropsWithoutRef<Element>
->;
+> =
+  /**
+   * Doing an IsAny<Element> conditional check here makes sure typescript infers the type of `Element`.
+   * Without this check Typescript won't do an additional inference phase for the generics `Element`,
+   * and simply treat it as any, which in turn affects other the inference for other types.
+   * e.g. In an event handler, onChange((event) => { console.log(event)}), event will be implicitly inferred as any without the check
+   */
+  IsAny<Element> extends false
+    ? MergeProps<
+        PrimitivePropsWithRef<Props, Element>,
+        // exclude `ref?: LegacyRef` included in DetailedHTMLProps
+        React.ComponentPropsWithoutRef<Element>
+      >
+    : any;
 
 export type PrimitiveProps<
   Props extends BaseViewProps,
@@ -65,6 +71,7 @@ export interface ForwardRefPrimitive<
   ): React.ReactElement | null;
 }
 
+/** @deprecated For internal use only */
 export interface BaseViewProps
   extends BaseComponentProps,
     BaseStyleProps,

@@ -12,7 +12,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSetupTOTPComponent } from '../types';
+import { DefaultSetupTOTPProps } from '../types';
 import { styles } from './styles';
 
 const COMPONENT_NAME = 'SetupTOTP';
@@ -25,7 +25,7 @@ const {
   getSetupTOTPInstructionsText,
 } = authenticatorTextUtil;
 
-const SetupTOTP: DefaultSetupTOTPComponent = ({
+const SetupTOTP = ({
   fields,
   handleBlur,
   handleChange,
@@ -34,8 +34,12 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
   toSignIn,
   totpSecretCode,
   ...rest
-}) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+}: DefaultSetupTOTPProps): JSX.Element => {
+  const {
+    disableFormSubmit: disabled,
+    fields: fieldsWithHandlers,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
@@ -60,10 +64,20 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: [{ children: secondaryButtonText, onPress: toSignIn }],
     }),
-    [handleFormSubmit, primaryButtonText, secondaryButtonText, toSignIn]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      secondaryButtonText,
+      toSignIn,
+    ]
   );
 
   return (

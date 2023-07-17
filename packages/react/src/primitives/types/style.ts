@@ -3,6 +3,7 @@ import { WebDesignToken } from '@aws-amplify/ui';
 
 import type {
   BoxShadowKeys,
+  BorderWidthKeys,
   ColorKeys,
   FontFamilyKeys,
   FontSizeKeys,
@@ -85,6 +86,32 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
    * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border)
    */
   border?: ResponsiveStyle<StyleToken<Property.Border>>;
+
+  /**
+   * @description
+   * Shorthand CSS property that sets an element's border-color.
+   * @see
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)
+   */
+  borderColor?: ResponsiveStyle<ColorKeys<StyleToken<Property.BorderColor>>>;
+
+  /**
+   * @description
+   * Shorthand CSS property that sets an element's border-width.
+   * @see
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-width)
+   */
+  borderWidth?: ResponsiveStyle<
+    BorderWidthKeys<StyleToken<Property.BorderWidth>>
+  >;
+
+  /**
+   * @description
+   * Shorthand CSS property that sets an element's border-style.
+   * @see
+   * [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style)
+   */
+  borderStyle?: ResponsiveStyle<StyleToken<Property.BorderStyle>>;
 
   /**
    * @description
@@ -633,6 +660,9 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   basis: 'flexBasis',
   border: 'border',
   borderRadius: 'borderRadius',
+  borderColor: 'borderColor',
+  borderWidth: 'borderWidth',
+  borderStyle: 'borderStyle',
   bottom: 'bottom',
   boxShadow: 'boxShadow',
   color: 'color',

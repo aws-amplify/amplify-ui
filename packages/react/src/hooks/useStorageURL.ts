@@ -1,11 +1,12 @@
 import * as React from 'react';
 
+import { isFunction } from '@aws-amplify/ui';
+import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
 import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
 
-export interface UseStorageURLResult {
-  url?: string;
-  error?: Error;
-  isLoading: boolean;
+interface UseStorageURLErrorConfig {
+  fallbackURL?: string;
+  onStorageGetError?: (error: Error) => void;
 }
 
 /**
@@ -15,34 +16,31 @@ export interface UseStorageURLResult {
 export const useStorageURL = (
   key: string,
   options?: S3ProviderGetConfig,
-  fallbackURL?: string
-): UseStorageURLResult & { fetch: () => () => void } => {
-  const [result, setResult] = React.useState<UseStorageURLResult>({
-    isLoading: true,
-  });
+  errorConfig?: UseStorageURLErrorConfig
+): string | undefined => {
+  const [url, setURL] = React.useState<string>();
+  const hasKeyUpdated = useHasValueUpdated(key);
 
-  // Used to prevent an infinite loop on useEffect, because `options`
-  // will have a different reference on every render
-  const optionsRef = React.useRef(options);
+  React.useEffect(() => {
+    if (!hasKeyUpdated) {
+      return;
+    }
 
-  const fetch = () => {
-    setResult({ isLoading: true });
-
-    const options = optionsRef.current;
-    const promise = Storage.get(key, options);
-
-    // Attempt to fetch storage object url
-    promise
-      .then((url) => setResult({ url, isLoading: false }))
-      .catch((error: Error) =>
-        setResult({ url: fallbackURL, error, isLoading: false })
-      );
+    const promise = Storage.get(key, options)
+      .then((url) => setURL(url))
+      .catch((error: Error) => {
+        const { fallbackURL, onStorageGetError } = errorConfig ?? {};
+        if (isFunction(onStorageGetError)) {
+          onStorageGetError(error);
+        }
+        if (fallbackURL) {
+          setURL(fallbackURL);
+        }
+      });
 
     // Cancel current promise on unmount
     return () => Storage.cancel(promise);
-  };
+  }, [key, options, errorConfig, hasKeyUpdated]);
 
-  React.useEffect(fetch, [key, fallbackURL]);
-
-  return { ...result, fetch };
+  return url;
 };

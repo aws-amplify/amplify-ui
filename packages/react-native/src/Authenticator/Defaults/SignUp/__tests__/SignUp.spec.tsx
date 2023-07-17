@@ -39,6 +39,7 @@ const props = {
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
   handleSubmit: jest.fn(),
+  hasValidationErrors: false,
   Header: SignUp.Header,
   isPending: false,
   socialProviders: [],
