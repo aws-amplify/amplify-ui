@@ -28,11 +28,13 @@ const ConfirmSignIn = ({
   handleSubmit,
   isPending,
   toSignIn,
+  validationErrors,
   ...rest
 }: DefaultConfirmSignInProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -40,6 +42,7 @@ const ConfirmSignIn = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getChallengeText(challengeName);
@@ -71,6 +74,7 @@ const ConfirmSignIn = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };
