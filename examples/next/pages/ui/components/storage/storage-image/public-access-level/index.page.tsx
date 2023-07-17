@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Amplify } from 'aws-amplify';
-import { Text } from '@aws-amplify/ui-react';
+import { Text, Loader } from '@aws-amplify/ui-react';
 import { StorageImage } from '@aws-amplify/ui-react-storage';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
@@ -18,7 +18,7 @@ export function StorageImageExample() {
   return (
     <>
       <StorageImage
-        alt="This is a public image."
+        alt="public cat"
         imgKey="public-e2e.jpeg"
         accessLevel="public"
         onLoad={onLoad}
@@ -26,7 +26,7 @@ export function StorageImageExample() {
       {isLoaded ? (
         <Text>The public image is loaded.</Text>
       ) : (
-        <Text>The public image is loading.</Text>
+        <Loader testId="Loader" />
       )}
     </>
   );

@@ -4,6 +4,7 @@ import { Amplify } from 'aws-amplify';
 import {
   Button,
   Text,
+  Loader,
   useAuthenticator,
   withAuthenticator,
 } from '@aws-amplify/ui-react';
@@ -24,7 +25,7 @@ export function StorageImageExample() {
   return (
     <>
       <StorageImage
-        alt="This is a protected image."
+        alt="protected cat"
         imgKey="protected-e2e.jpeg"
         accessLevel="protected"
         onLoad={onLoad}
@@ -32,7 +33,7 @@ export function StorageImageExample() {
       {isLoaded ? (
         <Text>The protected image is loaded.</Text>
       ) : (
-        <Text>The protected image is loading.</Text>
+        <Loader testId="Loader" />
       )}
       <Button onClick={signOut}>Sign out</Button>
     </>
