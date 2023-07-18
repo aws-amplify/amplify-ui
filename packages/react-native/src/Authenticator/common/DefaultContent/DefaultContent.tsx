@@ -4,7 +4,6 @@ import { View } from 'react-native';
 import { Button, Label, ErrorMessage } from '../../../primitives';
 import { TextFieldOptionsType, RadioFieldOptions } from '../../hooks';
 import { StrictTheme, useTheme } from '../../../theme';
-import { FederatedProviderButtons } from '../FederatedProviderButtons';
 import { getDefaultStyle } from './styles';
 import { DefaultContentProps } from './types';
 
@@ -24,7 +23,6 @@ export default function DefaultContent<
   FormFields,
   isPending,
   Header,
-  hasFederatedProviderButtons = false,
   headerText,
   validationErrors,
 }: DefaultContentProps<FieldsType>): JSX.Element {
@@ -54,8 +52,6 @@ export default function DefaultContent<
           body
         )
       ) : null}
-
-      {hasFederatedProviderButtons ? <FederatedProviderButtons /> : null}
 
       <FormFields
         fieldContainerStyle={themedStyles.fieldContainer}
