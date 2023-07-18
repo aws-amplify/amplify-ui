@@ -66,6 +66,7 @@ export const Matrix = () => {
       <ButtonSet colorTheme="warning" />
       <ButtonSet colorTheme="success" />
       <ButtonSet colorTheme="error" />
+      <ButtonSet colorTheme="overlay" />
 
       <Heading level={3} fontSize="medium" marginTop="large">
         Primary variation
@@ -75,6 +76,7 @@ export const Matrix = () => {
       <ButtonSet variation="primary" colorTheme="warning" />
       <ButtonSet variation="primary" colorTheme="success" />
       <ButtonSet variation="primary" colorTheme="error" />
+      <ButtonSet variation="primary" colorTheme="overlay" />
 
       <Heading level={3} fontSize="medium" marginTop="large">
         Link variation
@@ -84,6 +86,7 @@ export const Matrix = () => {
       <ButtonSet variation="link" colorTheme="warning" />
       <ButtonSet variation="link" colorTheme="success" />
       <ButtonSet variation="link" colorTheme="error" />
+      <ButtonSet variation="link" colorTheme="overlay" />
     </Flex>
   );
 };

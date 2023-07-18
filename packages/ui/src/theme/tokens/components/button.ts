@@ -173,38 +173,7 @@ export const button: Required<ButtonTokens<'default'>> = {
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
   // variations
-
   outlined: {
-    // backgroundColor: { value: 'transparent' },
-    // borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
-    // borderWidth: { value: '{components.fieldcontrol.borderWidth.value}' },
-    // color: { value: '{colors.font.primary.value}' },
-    // _hover: {
-    //   borderColor: { value: '{colors.brand.primary.60}' },
-    //   backgroundColor: { value: '{colors.brand.primary.10.value}' },
-    //   color: { value: '{colors.brand.primary.100.value}' },
-    // },
-    // _focus: {
-    //   borderColor: { value: '{colors.brand.primary.100}' },
-    //   backgroundColor: { value: '{colors.brand.primary.10.value}' },
-    //   color: { value: '{colors.brand.primary.100}' },
-    //   boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
-    // },
-    // _active: {
-    //   borderColor: { value: '{colors.brand.primary.100}' },
-    //   backgroundColor: { value: '{colors.brand.primary.20.value}' },
-    //   color: { value: '{colors.brand.primary.100}' },
-    // },
-    // _disabled: {
-    //   borderColor: { value: 'transparent' },
-    //   backgroundColor: { value: 'transparent' },
-    //   color: { value: '{colors.font.disabled.value}' },
-    // },
-    // _loading: {
-    //   borderColor: { value: 'transparent' },
-    //   backgroundColor: { value: 'transparent' },
-    //   color: { value: '{colors.font.disabled.value}' },
-    // },
     info: {
       borderColor: { value: '{colors.blue.60.value}' },
       backgroundColor: { value: 'transparent' },
@@ -368,7 +337,7 @@ export const button: Required<ButtonTokens<'default'>> = {
     overlay: {
       borderColor: { value: '{colors.neutral.60.value}' },
       backgroundColor: { value: 'transparent' },
-      color: { value: '{colors.neutral.100}' },
+      color: { value: '{colors.font.primary.value}' },
       _disabled: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.background.disabled.value}' },
@@ -382,12 +351,12 @@ export const button: Required<ButtonTokens<'default'>> = {
       _hover: {
         borderColor: { value: '{colors.overlay.60.value}' },
         backgroundColor: { value: '{colors.overlay.5.value}' },
-        color: { value: '{colors.overlay.90.value}' },
+        color: { value: '{colors.neutral.90.value}' },
       },
       _focus: {
         borderColor: { value: '{colors.overlay.90.value}' },
         backgroundColor: { value: '{colors.overlay.5.value}' },
-        color: { value: '{colors.neutral.100.value}' },
+        color: { value: '{colors.neutral.90.value}' },
         // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
@@ -401,7 +370,7 @@ export const button: Required<ButtonTokens<'default'>> = {
       },
       _active: {
         borderColor: { value: '{colors.overlay.90.value}' },
-        backgroundColor: { value: '{colors.overlay.5.value}' },
+        backgroundColor: { value: '{colors.overlay.10.value}' },
         color: { value: '{colors.neutral.100.value}' },
       },
     },

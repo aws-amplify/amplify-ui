@@ -10,6 +10,7 @@ export const ColorThemes = () => {
         <Button colorTheme="success">success</Button>
         <Button colorTheme="error">error</Button>
         <Button colorTheme="warning">warning</Button>
+        <Button colorTheme="overlay">overlay</Button>
       </Flex>
       <Flex>
         <Button variation="primary">default</Button>
@@ -25,6 +26,9 @@ export const ColorThemes = () => {
         <Button variation="primary" colorTheme="warning">
           warning
         </Button>
+        <Button variation="primary" colorTheme="overlay">
+          overlay
+        </Button>
       </Flex>
       <Flex>
         <Button variation="link">default</Button>
@@ -39,6 +43,9 @@ export const ColorThemes = () => {
         </Button>
         <Button variation="link" colorTheme="warning">
           warning
+        </Button>
+        <Button variation="link" colorTheme="overlay">
+          overlay
         </Button>
       </Flex>
     </Flex>

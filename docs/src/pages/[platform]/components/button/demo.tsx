@@ -74,6 +74,7 @@ const PropControls = (props) => {
         <option value="info">Info</option>
         <option value="warning">Warning</option>
         <option value="success">Success</option>
+        <option value="overlay">Overlay</option>
       </SelectField>
 
       <SelectField
