@@ -12,7 +12,7 @@ import usePreviousValue from './usePreviousValue';
  * - current and previous `value` are equal
  *
  * Returns `true`:
- * - on initial render and not ignoring first render (default behavior)
+ * - on initial render when not ignoring first render (default behavior)
  * - current and previous `value` are not equal
  */
 export default function useHasValueUpdated<Value>(
