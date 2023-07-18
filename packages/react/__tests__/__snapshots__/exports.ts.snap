@@ -5087,9 +5087,6 @@ Object {
       "ariaValuetext": Object {
         "type": "string",
       },
-      "aspectRatio": Object {
-        "type": "string",
-      },
       "backgroundColor": Object {
         "type": "string",
       },

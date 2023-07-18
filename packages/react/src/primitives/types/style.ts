@@ -651,7 +651,6 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   alignItems: 'alignItems',
   alignSelf: 'alignSelf',
   area: 'gridArea',
-  aspectRatio: 'aspectRatio',
   autoColumns: 'gridAutoColumns',
   autoFlow: 'gridAutoFlow',
   autoRows: 'gridAutoRows',

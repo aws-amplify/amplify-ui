@@ -6,12 +6,6 @@ import { ResponsiveStyle } from './style';
 export interface ImageStyleProps {
   /**
    * @description
-   * Sets a preferred aspect ratio for the selected replaced element's box
-   */
-  aspectRatio?: ResponsiveStyle<Property.AspectRatio>;
-
-  /**
-   * @description
    *  Sets how the content of an <img> should be resized to fit its container
    */
   objectFit?: ResponsiveStyle<Property.ObjectFit>;

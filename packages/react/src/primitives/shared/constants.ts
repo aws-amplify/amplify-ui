@@ -548,10 +548,6 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['StepperField'],
     description: 'Class applied to the StepperField input',
   },
-  StorageImage: {
-    className: ComponentClassName.StorageImage,
-    components: ['StorageImage'],
-  },
   StorageManager: {
     className: ComponentClassName.StorageManager,
     components: ['StorageManager'],
@@ -872,7 +868,6 @@ export const ComponentClassNames: ComponentClassNamesType = {
   StepperFieldButtonIncrease:
     ComponentClassObject.StepperFieldButtonIncrease.className,
   StepperFieldInput: ComponentClassObject.StepperFieldInput.className,
-  StorageImage: ComponentClassObject.StorageImage.className,
   StorageManager: ComponentClassObject.StorageManager.className,
   StorageManagerDropZone: ComponentClassObject.StorageManagerDropZone.className,
   StorageManagerDropZoneIcon:

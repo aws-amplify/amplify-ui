@@ -1,12 +1,11 @@
 import * as React from 'react';
 
-import { isFunction } from '@aws-amplify/ui';
-import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
 import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
 
-interface UseStorageURLErrorConfig {
-  fallbackURL?: string;
-  onStorageGetError?: (error: Error) => void;
+export interface UseStorageURLResult {
+  url?: string;
+  error?: Error;
+  isLoading: boolean;
 }
 
 /**
@@ -15,32 +14,31 @@ interface UseStorageURLErrorConfig {
  */
 export const useStorageURL = (
   key: string,
-  options?: S3ProviderGetConfig,
-  errorConfig?: UseStorageURLErrorConfig
-): string | undefined => {
-  const [url, setURL] = React.useState<string>();
-  const hasKeyUpdated = useHasValueUpdated(key);
+  options?: S3ProviderGetConfig
+): UseStorageURLResult & { fetch: () => () => void } => {
+  const [result, setResult] = React.useState<UseStorageURLResult>({
+    isLoading: true,
+  });
 
-  React.useEffect(() => {
-    if (!hasKeyUpdated) {
-      return;
-    }
+  // Used to prevent an infinite loop on useEffect, because `options`
+  // will have a different reference on every render
+  const serializedOptions = JSON.stringify(options);
 
-    const promise = Storage.get(key, options)
-      .then((url) => setURL(url))
-      .catch((error: Error) => {
-        const { fallbackURL, onStorageGetError } = errorConfig ?? {};
-        if (isFunction(onStorageGetError)) {
-          onStorageGetError(error);
-        }
-        if (fallbackURL) {
-          setURL(fallbackURL);
-        }
-      });
+  const fetch = () => {
+    setResult({ isLoading: true });
+
+    const promise = Storage.get(key, options);
+
+    // Attempt to fetch storage object url
+    promise
+      .then((url) => setResult({ url, isLoading: false }))
+      .catch((error: Error) => setResult({ error, isLoading: false }));
 
     // Cancel current promise on unmount
     return () => Storage.cancel(promise);
-  }, [key, options, errorConfig, hasKeyUpdated]);
+  };
 
-  return url;
+  React.useEffect(fetch, [key, options, serializedOptions]);
+
+  return { ...result, fetch };
 };
