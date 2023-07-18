@@ -30,6 +30,7 @@ const SignUp = ({
   hideSignIn,
   isPending,
   socialProviders,
+  toFederatedSignIn,
   toSignIn,
   validationErrors,
   ...rest
@@ -55,7 +56,17 @@ const SignUp = ({
     : getCreateAccountText();
   const secondaryButtonText = getSignInTabText();
 
-  const body = <>{socialProviders ? <FederatedProviderButtons /> : null}</>;
+  const body = (
+    <>
+      {socialProviders ? (
+        <FederatedProviderButtons
+          route="signUp"
+          socialProviders={socialProviders}
+          toFederatedSignIn={toFederatedSignIn}
+        />
+      ) : null}
+    </>
+  );
 
   const buttons = useMemo(
     () => ({

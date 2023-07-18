@@ -6,7 +6,7 @@ import { AuthenticatorMachineContext } from '@aws-amplify/ui-react-core';
 export interface FederatedProviderButtonsProps
   extends Pick<
     AuthenticatorMachineContext,
-    'socialProviders' | 'toFederatedSignIn'
+    'route' | 'socialProviders' | 'toFederatedSignIn'
   > {}
 
 export interface FederatedProviderButtonStyle {

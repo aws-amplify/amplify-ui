@@ -1,64 +1,54 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { authenticatorTextUtil } from '@aws-amplify/ui';
-import { useAuthenticator } from '@aws-amplify/ui-react-core';
+import {
+  AuthenticatorRoute,
+  SocialProvider,
+  authenticatorTextUtil,
+} from '@aws-amplify/ui';
 
 import FederatedProviderButtons from '../FederatedProviderButtons';
 
 const { getSignInWithFederationText } = authenticatorTextUtil;
 
-jest.mock('@aws-amplify/ui-react-core', () => ({
-  useAuthenticator: jest.fn(),
-}));
-
-const route = 'signIn';
+const route: AuthenticatorRoute = 'signIn';
+const provider = 'amazon';
+const socialProviders: SocialProvider[] = [provider];
 const toFederatedSignIn = jest.fn();
-const mockUseAuthenticator = useAuthenticator as jest.Mock;
+const defaultProps = {
+  route,
+  socialProviders,
+  toFederatedSignIn,
+};
 
 describe('FederatedProviderButtons', () => {
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
   it('renders as expected', () => {
-    mockUseAuthenticator.mockReturnValue({
-      route: route,
-      socialProviders: ['amazon'],
-      toFederatedSignIn,
-    });
-    const { getByText, toJSON } = render(<FederatedProviderButtons />);
+    const { getByText, toJSON } = render(
+      <FederatedProviderButtons {...defaultProps} />
+    );
 
     expect(
-      getByText(getSignInWithFederationText(route, 'amazon'))
+      getByText(getSignInWithFederationText(route, provider))
     ).toBeDefined();
 
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it('renders null when socialProviders is empty', () => {
-    mockUseAuthenticator.mockReturnValue({
-      route: route,
-      socialProviders: [],
-      toFederatedSignIn,
-    });
-    const { toJSON } = render(<FederatedProviderButtons />);
+  it('renders nothing when socialProviders is empty', () => {
+    const { toJSON } = render(
+      <FederatedProviderButtons {...defaultProps} socialProviders={[]} />
+    );
 
     expect(toJSON()).toBe(null);
   });
 
   it('calls toFederatedSignIn with the expected provider on press', () => {
-    const provider = 'amazon';
-    mockUseAuthenticator.mockReturnValue({
-      route: route,
-      socialProviders: [provider],
-      toFederatedSignIn,
-    });
-
-    const { getByText } = render(<FederatedProviderButtons />);
+    const { getByText } = render(
+      <FederatedProviderButtons {...defaultProps} />
+    );
 
     const providerButton = getByText(
-      getSignInWithFederationText(route, 'amazon')
+      getSignInWithFederationText(route, provider)
     );
     expect(providerButton).toBeDefined();
 

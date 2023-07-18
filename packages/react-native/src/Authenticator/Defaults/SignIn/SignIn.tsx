@@ -21,6 +21,7 @@ const SignIn = ({
   handleSubmit,
   hideSignUp,
   socialProviders,
+  toFederatedSignIn,
   toResetPassword,
   toSignUp,
   validationErrors,
@@ -52,7 +53,17 @@ const SignIn = ({
   const signInText = getSignInText();
   const signUpText = getSignUpTabText();
 
-  const body = <>{socialProviders ? <FederatedProviderButtons /> : null}</>;
+  const body = (
+    <>
+      {socialProviders ? (
+        <FederatedProviderButtons
+          route="signIn"
+          socialProviders={socialProviders}
+          toFederatedSignIn={toFederatedSignIn}
+        />
+      ) : null}
+    </>
+  );
 
   const buttons = useMemo(() => {
     const forgotPassword = {

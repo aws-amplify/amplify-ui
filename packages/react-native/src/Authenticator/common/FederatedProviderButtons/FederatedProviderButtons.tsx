@@ -2,20 +2,20 @@ import React, { useMemo } from 'react';
 import { View } from 'react-native';
 
 import { SocialProvider, authenticatorTextUtil } from '@aws-amplify/ui';
-import { useAuthenticator } from '@aws-amplify/ui-react-core';
 
-import { FederatedProviderButton } from '../FederatedProviderButton';
 import { Divider } from '../../../primitives';
+import { FederatedProviderButton } from '../FederatedProviderButton';
+import { FederatedProviderButtonsProps } from './types';
 import { icons } from '../../../assets';
 import { styles } from './styles';
 
 const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
-export default function FederatedProviderButtons(): JSX.Element | null {
-  const { route, socialProviders, toFederatedSignIn } = useAuthenticator(
-    ({ route, socialProviders }) => [route, socialProviders]
-  );
-
+export default function FederatedProviderButtons({
+  route,
+  socialProviders,
+  toFederatedSignIn,
+}: FederatedProviderButtonsProps): JSX.Element | null {
   const providerButtons = useMemo(
     () =>
       socialProviders?.map((provider: SocialProvider) => {
