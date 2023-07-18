@@ -9,7 +9,7 @@ export function LivenessQuickStartReact() {
   } | null>(null);
 
   React.useEffect(() => {
-    const fetchCreateLiveness = async () => {
+    const fetchCreateLiveness: () => Promise<void> = async () => {
       /*
        * This should be replaced with a real call to your own backend API
        */
@@ -24,7 +24,7 @@ export function LivenessQuickStartReact() {
     fetchCreateLiveness();
   }, []);
 
-  const handleAnalysisComplete = async () => {
+  const handleAnalysisComplete: () => Promise<void> = async () => {
     /*
      * This should be replaced with a real call to your own backend API
      */

@@ -1,26 +1,24 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs } from 'vue';
+import { computed, toRefs, useAttrs } from 'vue';
+
 import {
   authenticatorTextUtil,
-  getActorState,
-  SignInState,
   getFormDataFromEvent,
   translate,
 } from '@aws-amplify/ui';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
-
+import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import AuthenticatorForceNewPasswordFormFields from './authenticator-force-new-password-form-fields.vue';
 
-const attrs = useAttrs();
+/** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
+const attrs = useAttrs();
 
-const { state, send } = useAuth();
-
-const props = useAuthenticator();
-const actorState = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<SignInState>;
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { submitForm, toSignIn, updateBlur, updateForm } = facade;
+const { error, isPending } = toRefs(facade);
 
 // Text Util
 const { getChangePasswordText, getChangingText, getBackToSignInText } =
@@ -33,16 +31,18 @@ const backSignInText = computed(() => getBackToSignInText());
 
 // Methods
 const onHaveAccountClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onHaveAccountClicked) {
     emit('haveAccountClicked');
   } else {
-    send({
-      type: 'SIGN_IN',
-    });
+    toSignIn();
   }
 };
 
 const onForceNewPasswordSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onForceNewPasswordSubmit) {
     emit('forceNewPasswordSubmit', e);
   } else {
@@ -51,21 +51,17 @@ const onForceNewPasswordSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  props.submitForm(getFormDataFromEvent(e));
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onInput = (e: Event): void => {
   const { name, value } = e.target as HTMLInputElement;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
+  updateForm({ name, value });
 };
 
 function onBlur(e: Event) {
   const { name } = e.target as HTMLInputElement;
-  props.updateBlur({ name });
+  updateBlur({ name });
 }
 </script>
 
@@ -80,7 +76,7 @@ function onBlur(e: Event) {
       >
         <base-field-set
           class="amplify-flex amplify-authenticator__column"
-          :disabled="actorState.matches('forceNewPassword.pending')"
+          :disabled="isPending"
         >
           <slot name="header">
             <base-heading :level="3" class="amplify-heading">
@@ -94,8 +90,8 @@ function onBlur(e: Event) {
           </base-wrapper>
 
           <base-footer class="amplify-flex amplify-authenticator__column">
-            <base-alert data-ui-error v-if="actorState.context.remoteError">
-              {{ translate(actorState.context.remoteError) }}
+            <base-alert data-ui-error v-if="error">
+              {{ translate(error) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
@@ -103,13 +99,14 @@ function onBlur(e: Event) {
               :loading="false"
               :variation="'primary'"
               style="font-weight: normal"
-              :disabled="actorState.matches('signUp.submit')"
-              >{{
-                actorState.matches('forceNewPassword.pending')
+              :disabled="isPending"
+            >
+              {{
+                isPending
                   ? changingPasswordLabel + '&hellip;'
                   : changePasswordLabel
-              }}</amplify-button
-            >
+              }}
+            </amplify-button>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
               :fullwidth="false"
@@ -119,8 +116,8 @@ function onBlur(e: Event) {
               type="button"
               @click.prevent="onHaveAccountClicked"
             >
-              {{ backSignInText }}</amplify-button
-            >
+              {{ backSignInText }}
+            </amplify-button>
             <slot
               name="footer"
               :onHaveAccountClicked="onHaveAccountClicked"

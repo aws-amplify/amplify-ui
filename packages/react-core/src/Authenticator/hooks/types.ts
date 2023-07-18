@@ -95,18 +95,21 @@ export type ConfirmSignInBaseProps<FieldType = {}> = {
   challengeName: AuthChallengeName;
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type ConfirmSignUpBaseProps<FieldType = {}> = {
   codeDeliveryDetails: UseAuthenticator['codeDeliveryDetails'];
   resendCode: UseAuthenticator['resendCode'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type ConfirmVerifyUserProps<FieldType = {}> = {
   skipVerification: UseAuthenticator['skipVerification'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type ForceResetPasswordBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
@@ -117,13 +120,15 @@ export type ForceResetPasswordBaseProps<FieldType = {}> = {
 export type ResetPasswordBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type SetupTOTPBaseProps<FieldType = {}> = {
   toSignIn: UseAuthenticator['toSignIn'];
   totpSecretCode: UseAuthenticator['totpSecretCode'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type SignInBaseProps<FieldType = {}> = {
   hideSignUp?: boolean;
@@ -131,7 +136,8 @@ export type SignInBaseProps<FieldType = {}> = {
   toResetPassword: UseAuthenticator['toResetPassword'];
   toSignUp: UseAuthenticator['toSignUp'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export type SignUpBaseProps<FieldType = {}> = {
   hideSignIn?: boolean;
@@ -144,7 +150,8 @@ export type SignUpBaseProps<FieldType = {}> = {
 export type VerifyUserProps<FieldType = {}> = {
   skipVerification: UseAuthenticator['skipVerification'];
 } & CommonRouteProps &
-  ComponentSlots<FieldType>;
+  ComponentSlots<FieldType> &
+  ValidationProps;
 
 export interface DefaultProps<FieldType = {}> {
   ConfirmSignIn: ConfirmSignInBaseProps<FieldType>;

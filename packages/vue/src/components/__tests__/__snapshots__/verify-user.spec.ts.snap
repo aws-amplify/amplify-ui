@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerifyUser renders as expected 1`] = `
+<div>
+  
+  <div>
+    
+    
+    <form
+      data-amplify-form=""
+    >
+      
+      
+      <fieldset
+        class="amplify-flex amplify-authenticator__column"
+        data-amplify-fieldset=""
+      >
+        
+        
+        <h3
+          class="amplify-heading amplify-heading--3"
+          data-amplify-heading=""
+        >
+          Account recovery requires verified contact information
+        </h3>
+        
+        <div
+          class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
+        >
+          
+          <!-- TODO(BREAKING): remove hard coded string 493c -->
+          <label
+            class="amplify-visually-hidden amplify-label"
+            data-amplify-label=""
+            id="amplify-field-493c"
+          >
+            
+            Verify Contact
+            
+          </label>
+          <div
+            aria-labelledby="amplify-field-493c"
+            class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
+          >
+            
+            
+            <label
+              class="amplify-flex amplify-radio"
+              data-amplify-label=""
+              data-amplify-verify-label=""
+              id="verify"
+            >
+              
+              <input
+                aria-invalid="false"
+                class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                data-amplify-input=""
+                data-amplify-verify-input=""
+                id="verify"
+                name="unverifiedAttr"
+                type="radio"
+                value="email"
+              />
+              
+              <span
+                aria-hidden="true"
+                class="amplify-flex amplify-radio__button"
+                data-amplify-text=""
+              >
+                
+                
+              </span>
+              
+              
+              <span
+                class="amplify-text amplify-radio__label"
+                data-amplify-text=""
+              >
+                
+                Email
+                
+              </span>
+              
+              
+            </label>
+            
+            
+          </div>
+          
+        </div>
+        
+        <footer
+          class="amplify-flex amplify-authenticator__column"
+        >
+          
+          <!--v-if-->
+          
+          <button
+            class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+            data-amplify-button=""
+            data-disabled="false"
+            data-fullwidth="false"
+            data-loading="false"
+            data-variation="primary"
+            fullwidth="false"
+            type="submit"
+          >
+            
+            Verify
+            
+          </button>
+          
+          
+          <button
+            class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+            data-amplify-button=""
+            data-disabled="false"
+            data-fullwidth="false"
+            data-loading="false"
+            data-size="small"
+            data-variation="link"
+            fullwidth="false"
+            style="font-weight: normal;"
+            type="button"
+          >
+            
+            Skip
+            
+          </button>
+          
+          
+          
+          
+        </footer>
+        
+        
+      </fieldset>
+      
+      
+    </form>
+    
+    
+  </div>
+  
+</div>
+`;

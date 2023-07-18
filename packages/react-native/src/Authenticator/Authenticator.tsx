@@ -8,11 +8,11 @@ import {
   useAuthenticator,
   useAuthenticatorRoute,
   useAuthenticatorInitMachine,
-  UseAuthenticator,
 } from '@aws-amplify/ui-react-core';
 
 import { configureComponent } from '@aws-amplify/ui';
 
+import { useDeprecationWarning } from '../hooks';
 import { DefaultContainer, InnerContainer } from './common';
 import { TypedField, getRouteTypedFields } from './hooks';
 import { AuthenticatorProps } from './types';
@@ -44,9 +44,6 @@ const DEFAULTS = {
   VerifyUser,
 };
 
-const isAuthenticatedRoute = (route: UseAuthenticator['route']) =>
-  route === 'authenticated' || route === 'signOut';
-
 const routePropSelector = ({
   route,
 }: AuthenticatorMachineContext): AuthenticatorMachineContext['route'][] => [
@@ -61,6 +58,12 @@ function Authenticator({
   Header,
   ...options
 }: AuthenticatorProps): JSX.Element | null {
+  useDeprecationWarning({
+    message:
+      'The `passwordSettings` prop has been deprecated and will be removed in a future major version of Amplify UI.',
+    shouldWarn: !!options?.passwordSettings,
+  });
+
   React.useEffect(() => {
     configureComponent({
       packageName: '@aws-amplify/ui-react-native',
@@ -70,7 +73,7 @@ function Authenticator({
 
   useAuthenticatorInitMachine(options);
 
-  const { fields, route } = useAuthenticator(routePropSelector);
+  const { authStatus, fields, route } = useAuthenticator(routePropSelector);
 
   const components = useMemo(
     // allow any to prevent TS from assuming that all fields are of type `TextFieldOptions`
@@ -82,7 +85,7 @@ function Authenticator({
 
   const typedFields = getRouteTypedFields({ fields, route });
 
-  if (isAuthenticatedRoute(route)) {
+  if (authStatus === 'authenticated') {
     return children ? <>{children}</> : null;
   }
 

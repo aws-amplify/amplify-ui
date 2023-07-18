@@ -121,6 +121,7 @@ export enum ComponentClassName {
   StepperFieldButtonDecrease = 'amplify-stepperfield__button--decrease',
   StepperFieldButtonIncrease = 'amplify-stepperfield__button--increase',
   StepperFieldInput = 'amplify-stepperfield__input',
+  StorageImage = 'amplify-storageimage',
   StorageManager = 'amplify-storagemanager',
   StorageManagerDropZone = 'amplify-storagemanager__dropzone',
   StorageManagerDropZoneIcon = 'amplify-storagemanager__dropzone__icon',
