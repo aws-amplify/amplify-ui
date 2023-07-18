@@ -44,7 +44,7 @@ export default class MyStorageProvider implements StorageProvider {
 
   // get object/pre-signed url from storage
   // we don't use this yet
-  get(key: string, options?): Promise<string | object> {
+  public async get(key: string, options?): Promise<string | object> {
     console.log('test');
     return new Promise((resolve, reject) => {
       setTimeout(() => {
