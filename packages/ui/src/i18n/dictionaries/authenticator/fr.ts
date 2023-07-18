@@ -92,5 +92,6 @@ export const frDict: AuthenticatorDictionary = {
     'Votre code est en route. Pour vous connecter entrez le code reçu sur cette adresse email',
   'Your code is on the way. To log in, enter the code we texted to':
     'Votre code est en route. Pour vous connecter entrez le code reçu sur ce numéro de téléphone',
+  'Your passwords must match': 'Vos mots de passe doivent être identiques',
   'It may take a minute to arrive.': 'Cela peut prendre quelques minutes.',
 };

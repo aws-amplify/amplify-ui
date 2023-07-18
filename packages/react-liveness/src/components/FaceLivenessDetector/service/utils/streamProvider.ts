@@ -118,7 +118,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     const clientconfig: RekognitionStreamingClientConfig = {
       credentials,
       region: this.region,
-      customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent}`,
+      customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent()}`,
       requestHandler: new WebSocketFetchHandler({ connectionTimeout: 10_000 }),
     };
 

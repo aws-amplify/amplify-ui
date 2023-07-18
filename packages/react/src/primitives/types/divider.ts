@@ -28,6 +28,7 @@ export interface DividerOptions {
   label?: string;
 }
 
+/** @deprecated For internal use only */
 export interface BaseDividerProps extends BaseViewProps, DividerOptions {}
 
 export type DividerProps<Element extends ElementType = 'hr'> = PrimitiveProps<
