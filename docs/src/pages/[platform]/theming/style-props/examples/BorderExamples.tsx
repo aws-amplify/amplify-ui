@@ -5,9 +5,9 @@ export const BorderStylePropExample = () => {
   return (
     <Button
       borderRadius="0.5rem"
-      borderStyle={'dashed'}
-      borderColor={'red'}
-      borderWidth={'medium'}
+      borderStyle="dashed"
+      borderColor="red"
+      borderWidth="medium"
     >
       Border Styling Example
     </Button>
