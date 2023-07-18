@@ -367,3 +367,7 @@ Optionally update your App with the new prop usage:
 );
 
 ```
+
+#### CDN CSP Policy
+
+The 2.x version of the `FaceLivenessDetector` has updated the default CDN for TensorFlow and Blazeface to a new URL. If your application has an existing CSP policy ensure to update the policy to allow https://cdn.liveness.rekognition.amazonaws.com. Please look over the [Liveness Config](../connected-components/liveness/customization#facelivenessdetectorconfig) section for more information.
