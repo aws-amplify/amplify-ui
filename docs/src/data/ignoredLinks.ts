@@ -22,4 +22,7 @@ export const IGNORED_LINKS = [
   'https://developer.apple.com/design/human-interface-guidelines/patterns/accessing-private-data/', // 401 Apple doesn't like bots maybe
   'https://developer.apple.com/documentation/xcode/localization', // 403
   'https://twitter.com/AWSAmplify',
+  'https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file', // 302 to a google cdn
+  'https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/', // 404 this is the intentional path as the tfjs library will append the correct file name
+  'https://cdn.liveness.rekognition.amazonaws.com',
 ];

@@ -1,8 +1,9 @@
 import { Alert,  Tabs, TabItem } from '@aws-amplify/ui-react';
 import { TerminalCommand } from '@/components/InstallScripts';
 
-## 4.x to 5.x
-### Installation
+## `@aws-amplify/ui-react`
+### 4.x to 5.x
+#### Installation
 Install the 5.x version of the `@aws-amplify/ui-react` library.
 
 <Tabs>
@@ -14,7 +15,7 @@ Install the 5.x version of the `@aws-amplify/ui-react` library.
 </TabItem>
 </Tabs>
 
-### Update and usage
+#### Update and usage
 
 `@aws-amplify/ui-react@5.x` introduces the following breaking changes:
 
@@ -108,8 +109,8 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 
 #### 4. `@aws-amplify/ui-react@5.x` updates component types to include the underlying rendered HTML element's attributes and strictly types the `View` component.
 
-## 3.x to 4.x
-### Installation
+### 3.x to 4.x
+#### Installation
 Install the 4.x version of the `@aws-amplify/ui-react` library and the 5.x version of the `aws-amplify` library.
 
 <Tabs>
@@ -121,7 +122,7 @@ Install the 4.x version of the `@aws-amplify/ui-react` library and the 5.x versi
 </TabItem>
 </Tabs>
 
-### Update and usage
+#### Update and usage
 
 `@aws-amplify/ui-react@4.x` introduces the following breaking changes:
 
@@ -207,7 +208,7 @@ If you are overriding `Auth.signUp`, update the override function call to includ
 
 ```
 
-#### 6. `@aws-amplify/ui-react@4.x` removes legacy i18n translation keys removed
+##### 6. `@aws-amplify/ui-react@4.x` removes legacy i18n translation keys removed
 
 We replaced following legacy Authenticator texts:
 
@@ -215,9 +216,9 @@ We replaced following legacy Authenticator texts:
 
 If you were using `I18n` to translate those keys, please update your translations accordingly to match the new strings.
 
-## 2.x to 3.x
+### 2.x to 3.x
 
-### Installation
+#### Installation
 Install the 3.x version of the `@aws-amplify/ui-react` library.
 
 <Tabs>
@@ -229,7 +230,7 @@ Install the 3.x version of the `@aws-amplify/ui-react` library.
 </TabItem>
 </Tabs>
 
-### Update and usage
+#### Update and usage
 
 `@aws-amplify/ui-react@3.x` introduces the following breaking changes:
 
@@ -244,12 +245,12 @@ Replace any icon components in use the react-icons package or other React icon l
 
 Note: We did not remove the [Icon](/react/components/icon) component, which allows customers to easily add SVG icons using the `pathData` prop.
 
-#### 2. `@aws-amplify/ui-react@3.x` removes `ShareText`.
+##### 2. `@aws-amplify/ui-react@3.x` removes `ShareText`.
 
 This export has been removed and should no longer be used.
 
-## 1.x to 2.x
-### Installation
+### 1.x to 2.x
+#### Installation
 
 Install the 2.x version of the `@aws-amplify/ui-react` library.
 
@@ -262,7 +263,7 @@ Install the 2.x version of the `@aws-amplify/ui-react` library.
 </TabItem>
 </Tabs>
 
-### Update and Usage
+#### Update and Usage
 
 Update the **App.js** with the new `Authenticator` and remove the old `AmplifyAuthenticator` as seen below:
 
@@ -297,7 +298,7 @@ Amplify.configure(awsExports);
 
 ```
 
-### Authenticator breaking changes (1.x to 2.x)
+#### Authenticator breaking changes (1.x to 2.x)
 
 The latest version of the `Authenticator` component has several differences from earlier versions. Here are a few of the major changes that you'll need to look out for.
 
@@ -320,3 +321,53 @@ The latest version of the `Authenticator` has a completely different set of CSS 
 #### `onAuthUIStateChange`
 
 Previous versions of `Authenticator` exposed a `onAuthUIStateChange` handler to detect Auth state changes. For similar functionality see [useAuthenticator](/react/connected-components/authenticator/advanced#access-auth-state).
+
+## `@aws-amplify/ui-react-liveness`
+### 1.x to 2.x
+#### Installation
+
+Install the 2.x version of the `@aws-amplify/ui-react-liveness` library.
+
+<Tabs>
+<TabItem title="npm">
+<TerminalCommand command="npm install aws-amplify @aws-amplify/ui-react-liveness@2.x" />
+</TabItem>
+<TabItem title="yarn">
+<TerminalCommand command="yarn add aws-amplify @aws-amplify/ui-react-liveness@2.x" />
+</TabItem>
+</Tabs>
+
+#### Update and Usage
+
+Optionally update your App with the new prop usage:
+
+**App.js**
+
+```diff
+ const App = () => (
+  return (
+    <ThemeProvider>
+      {loading ? (
+        <Loader />
+      ) : (
+        <FaceLivenessDetector
+          sessionId={createLivenessApiData.sessionId}
+          region="us-east-1"
+          onAnalysisComplete={handleAnalysisComplete}
+-         onError={(error) => {
+-           console.error(error);
+-         }}
++         onError={(livenessError) => {
++           console.error({ state: livenessError.state, error: livenessError.error});
++         }}
+        />
+      )}
+    </ThemeProvider>
+  );
+);
+
+```
+
+#### CDN CSP Policy
+
+The 2.x version of the `FaceLivenessDetector` has updated the default CDN for TensorFlow and Blazeface to a new URL. If your application has an existing CSP policy, update your policy to allow https://cdn.liveness.rekognition.amazonaws.com. Please look over the [Liveness Config](../connected-components/liveness/customization#facelivenessdetectorconfig) section for more information.

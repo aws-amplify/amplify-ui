@@ -18,6 +18,7 @@ import {
   LivenessErrorState,
   IlluminationState,
   StreamActorCallback,
+  LivenessError,
 } from '../types';
 import {
   BlazeFaceFaceDetection,
@@ -708,6 +709,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterFaceDistanceDelay: actions.send(
         {
           type: 'RUNTIME_ERROR',
+          data: new Error(
+            'Avoid moving closer during countdown and ensure only one face is in front of camera.'
+          ),
         },
         {
           delay: 0,
@@ -729,8 +733,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
           const errorMessage = event.data!.message || event.data!.Message;
           const error = new Error(errorMessage);
-          error.name = errorState;
-          context.componentProps!.onError?.(error);
+
+          const livenessError: LivenessError = {
+            state: errorState,
+            error: error,
+          };
+          context.componentProps!.onError?.(livenessError);
 
           return errorState;
         },
@@ -744,20 +752,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps!.onUserCancel?.();
       },
       callUserTimeoutCallback: async (context) => {
-        const error = new Error(
-          LivenessErrorStateStringMap[context.errorState!]
-        );
+        const error = new Error('Client Timeout');
         error.name = context.errorState!;
-        context.componentProps!.onError?.(error);
+        const livenessError: LivenessError = {
+          state: context.errorState!,
+          error: error,
+        };
+        context.componentProps!.onError?.(livenessError);
       },
       callErrorCallback: async (context, event) => {
-        const errorMessage =
-          event.data?.error?.message ||
-          event.data?.error?.Message ||
-          event.data?.message;
-        const error = new Error(errorMessage);
-        error.name = context.errorState!;
-        context.componentProps!.onError?.(error);
+        const livenessError: LivenessError = {
+          state: context.errorState!,
+          error: event.data?.error || event.data,
+        };
+        context.componentProps!.onError?.(livenessError);
       },
       cleanUpResources: async (context) => {
         const { freshnessColorEl } = context.freshnessColorAssociatedParams!;
