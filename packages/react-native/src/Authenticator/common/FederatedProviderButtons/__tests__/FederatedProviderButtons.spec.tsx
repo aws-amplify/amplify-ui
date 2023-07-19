@@ -1,51 +1,55 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
+import {
+  AuthenticatorRoute,
+  SocialProvider,
+  authenticatorTextUtil,
+} from '@aws-amplify/ui';
+
 import FederatedProviderButtons from '../FederatedProviderButtons';
 
+const { getSignInWithFederationText } = authenticatorTextUtil;
+
+const route: AuthenticatorRoute = 'signIn';
+const provider = 'amazon';
+const socialProviders: SocialProvider[] = [provider];
 const toFederatedSignIn = jest.fn();
-const providerButtonText = 'Sign In with Amazon';
+const defaultProps = {
+  route,
+  socialProviders,
+  toFederatedSignIn,
+};
 
 describe('FederatedProviderButtons', () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
-
   it('renders as expected', () => {
     const { getByText, toJSON } = render(
-      <FederatedProviderButtons
-        socialProviders={['amazon']}
-        toFederatedSignIn={toFederatedSignIn}
-      />
+      <FederatedProviderButtons {...defaultProps} />
     );
 
-    const providerButton = getByText(providerButtonText);
-    expect(providerButton).toBeDefined();
+    expect(
+      getByText(getSignInWithFederationText(route, provider))
+    ).toBeDefined();
 
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it('renders null when socialProviders is empty', () => {
+  it('renders nothing when socialProviders is empty', () => {
     const { toJSON } = render(
-      <FederatedProviderButtons
-        socialProviders={[]}
-        toFederatedSignIn={toFederatedSignIn}
-      />
+      <FederatedProviderButtons {...defaultProps} socialProviders={[]} />
     );
 
     expect(toJSON()).toBe(null);
   });
 
   it('calls toFederatedSignIn with the expected provider on press', () => {
-    const provider = 'amazon';
     const { getByText } = render(
-      <FederatedProviderButtons
-        socialProviders={[provider]}
-        toFederatedSignIn={toFederatedSignIn}
-      />
+      <FederatedProviderButtons {...defaultProps} />
     );
 
-    const providerButton = getByText(providerButtonText);
+    const providerButton = getByText(
+      getSignInWithFederationText(route, provider)
+    );
     expect(providerButton).toBeDefined();
 
     fireEvent.press(providerButton);
