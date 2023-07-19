@@ -7,30 +7,35 @@ jest.mock('@aws-amplify/storage');
 describe('useStorageURL', () => {
   afterEach(() => jest.clearAllMocks());
 
-  const storageKey = 'file.jpg';
-  const storageOptions: S3ProviderGetConfig = { level: 'public' };
-  const storageUrl = 'https://amplify.s3.amazonaws.com/path/to/the/file.jpg';
-  const errorConfig = {
-    fallbackURL: 'https://amplify.s3.amazonaws.com/path/to/the/fallback.jpg',
-    onStorageGetError: jest.fn(),
+  const key = 'file.jpg';
+  const options: S3ProviderGetConfig = { level: 'public' };
+  const url = 'https://amplify.s3.amazonaws.com/path/to/the/file.jpg';
+  const fallbackURL =
+    'https://amplify.s3.amazonaws.com/path/to/the/fallback.jpg';
+  const onStorageGetError = jest.fn();
+  const useStorageURLParams = {
+    key,
+    options,
+    fallbackURL,
+    onStorageGetError,
   };
 
   it('should return a Storage URL', async () => {
-    (Storage.get as jest.Mock).mockResolvedValue(storageUrl);
+    (Storage.get as jest.Mock).mockResolvedValue(url);
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useStorageURL(storageKey, storageOptions)
+      useStorageURL(useStorageURLParams)
     );
 
     // should return undefined at initialization
     expect(result.current).toBeUndefined();
 
-    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
+    expect(Storage.get).toHaveBeenCalledWith(key, options);
 
     // Next update will happen when Storage.get resolves
     await waitForNextUpdate();
 
-    expect(result.current).toBe(storageUrl);
+    expect(result.current).toBe(url);
     expect(Storage.get).toHaveBeenCalledTimes(1);
   });
 
@@ -40,27 +45,27 @@ describe('useStorageURL', () => {
     (Storage.get as jest.Mock).mockRejectedValue(customError);
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useStorageURL(storageKey, storageOptions, errorConfig)
+      useStorageURL(useStorageURLParams)
     );
 
-    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
+    expect(Storage.get).toHaveBeenCalledWith(key, options);
 
     // Next update will happen when Storage.get resolves
     await waitForNextUpdate();
 
-    expect(result.current).toBe(errorConfig.fallbackURL);
-    expect(errorConfig.onStorageGetError).toHaveBeenCalledTimes(1);
-    expect(errorConfig.onStorageGetError).toHaveBeenCalledWith(customError);
+    expect(result.current).toBe(fallbackURL);
+    expect(onStorageGetError).toHaveBeenCalledTimes(1);
+    expect(onStorageGetError).toHaveBeenCalledWith(customError);
   });
 
   it('should execute Storage.cancel before rerendering', async () => {
-    (Storage.get as jest.Mock).mockResolvedValue(storageUrl);
+    (Storage.get as jest.Mock).mockResolvedValue(url);
 
     const { waitForNextUpdate } = renderHook(() =>
-      useStorageURL(storageKey, storageOptions)
+      useStorageURL(useStorageURLParams)
     );
 
-    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
+    expect(Storage.get).toHaveBeenCalledWith(key, options);
 
     // Next update will happen when Storage.get resolves
     await waitForNextUpdate();
