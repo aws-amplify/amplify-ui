@@ -87,6 +87,36 @@ export const Matrix = () => {
       <ButtonSet variation="link" colorTheme="success" />
       <ButtonSet variation="link" colorTheme="error" />
       <ButtonSet variation="link" colorTheme="overlay" />
+
+      <Heading level={3} fontSize="medium" marginTop="large">
+        Destructive variation
+      </Heading>
+      <ButtonSet variation="destructive" />
+      <ButtonSet variation="destructive" colorTheme="info" />
+      <ButtonSet variation="destructive" colorTheme="warning" />
+      <ButtonSet variation="destructive" colorTheme="success" />
+      <ButtonSet variation="destructive" colorTheme="error" />
+      <ButtonSet variation="destructive" colorTheme="overlay" />
+
+      <Heading level={3} fontSize="medium" marginTop="large">
+        Warning variation
+      </Heading>
+      <ButtonSet variation="warning" />
+      <ButtonSet variation="warning" colorTheme="info" />
+      <ButtonSet variation="warning" colorTheme="warning" />
+      <ButtonSet variation="warning" colorTheme="success" />
+      <ButtonSet variation="warning" colorTheme="error" />
+      <ButtonSet variation="warning" colorTheme="overlay" />
+
+      <Heading level={3} fontSize="medium" marginTop="large">
+        Menu variation
+      </Heading>
+      <ButtonSet variation="menu" />
+      <ButtonSet variation="menu" colorTheme="info" />
+      <ButtonSet variation="menu" colorTheme="warning" />
+      <ButtonSet variation="menu" colorTheme="success" />
+      <ButtonSet variation="menu" colorTheme="error" />
+      <ButtonSet variation="menu" colorTheme="overlay" />
     </Flex>
   );
 };
