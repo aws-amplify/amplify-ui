@@ -1,6 +1,6 @@
 import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
-import { FACE_LIVENESS_DETECTOR_PROPS, FACE_LIVENESS_DETECTOR_COMPONENTS, FACE_LIVENESS_DETECTOR_CONFIG, FACE_LIVENESS_DETECTOR_ERROR_STATES } from './react-props';
+import { FACE_LIVENESS_DETECTOR_PROPS, FACE_LIVENESS_DETECTOR_COMPONENTS, FACE_LIVENESS_DETECTOR_CONFIG, FACE_LIVENESS_DETECTOR_ERROR_STATES, FACE_LIVENESS_DETECTOR_CORE_CONFIG } from './react-props';
 
 ## Full API Reference
 
@@ -21,6 +21,12 @@ Below is the full list of props that can be used with the `FaceLivenessDetectorC
 Below is the full list of props that can be used with the `FaceLivenessDetectorConfig`. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/liveness.ts). For instructions on using your own CDN [check here](./liveness/customization#custom-cdn).
 
 <ReactPropsTable props={FACE_LIVENESS_DETECTOR_CONFIG} />
+
+### FaceLivenessDetectorCoreConfig
+
+Below is the full list of props that can be used with the `FaceLivenessDetectorCoreConfig`. This config can only be used with the `<FaceLivenessDetectoreCore />` component.
+
+<ReactPropsTable props={FACE_LIVENESS_DETECTOR_CORE_CONFIG} />
 
 ### Error States
 

@@ -89,6 +89,15 @@ export const FACE_LIVENESS_DETECTOR_CONFIG = [
   },
 ];
 
+export const FACE_LIVENESS_DETECTOR_CORE_CONFIG = [
+  ...FACE_LIVENESS_DETECTOR_CONFIG,
+  {
+    name: `credentialProvider?`,
+    description: 'An optional callback that provides AWS Credentials.',
+    type: `AwsCredentialProvider`,
+  },
+];
+
 export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
   {
     name: `RUNTIME_ERROR`,
