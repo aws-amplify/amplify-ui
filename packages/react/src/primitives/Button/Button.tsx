@@ -39,7 +39,11 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     // Test if variation supports colorThemes before applying
     // colorTheme modifying class.
     supportsColorThemes.includes(variation) &&
-      classNameModifier(ComponentClassNames.Button, colorTheme),
+      colorTheme &&
+      classNameModifier(
+        ComponentClassNames.Button,
+        `${variation}--${colorTheme}`
+      ),
     classNameModifier(ComponentClassNames.Button, size),
     classNameModifierByFlag(
       ComponentClassNames.Button,
