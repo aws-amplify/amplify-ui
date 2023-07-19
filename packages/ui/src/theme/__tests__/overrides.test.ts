@@ -450,6 +450,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-disabled-border-color: var(--amplify-colors-transparent);
         --amplify-components-fieldcontrol-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-fieldcontrol-error-border-color: var(--amplify-colors-border-error);
+        --amplify-components-fieldcontrol-error-color: var(--amplify-colors-font-error);
         --amplify-components-fieldcontrol-error-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-border-error);
         --amplify-components-fieldgroup-gap: var(--amplify-space-zero);
         --amplify-components-fieldgroup-vertical-align-items: center;

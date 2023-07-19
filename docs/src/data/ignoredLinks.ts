@@ -23,4 +23,5 @@ export const IGNORED_LINKS = [
   'https://twitter.com/AWSAmplify',
   'https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file', // 302 to a google cdn
   'https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/', // 404 this is the intentional path as the tfjs library will append the correct file name
+  'https://cdn.liveness.rekognition.amazonaws.com',
 ];

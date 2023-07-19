@@ -23,6 +23,7 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
     showPasswordButtonLabel,
     showPasswordButtonRef,
     size,
+    hasError,
     ...rest
   },
   ref
@@ -50,6 +51,7 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
             ref={showPasswordButtonRef}
             size={size}
             showPasswordButtonLabel={showPasswordButtonLabel}
+            hasError={hasError}
           />
         )
       }
@@ -58,6 +60,7 @@ const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
       label={label}
       className={classNames(ComponentClassNames.PasswordField, className)}
       ref={ref}
+      hasError={hasError}
       {...rest}
     />
   );

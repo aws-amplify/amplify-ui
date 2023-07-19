@@ -22,6 +22,7 @@ const props = {
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
   handleSubmit: jest.fn(),
+  hasValidationErrors: false,
   isPending: false,
   toSignIn,
   totpSecretCode: "Let's keep it hush hush",

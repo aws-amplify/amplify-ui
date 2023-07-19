@@ -61,7 +61,7 @@ describe('withAuthenticator', () => {
     useAuthenticatorSpy.mockImplementation(
       () =>
         ({
-          route: 'authenticated',
+          authStatus: 'authenticated',
         } as unknown as UIReactCoreModule.UseAuthenticator)
     );
 

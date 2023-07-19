@@ -24,7 +24,7 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
   {
     name: `onError?`,
     description: 'Callback called when there is error occured on any step.',
-    type: `(error: Error) => void`,
+    type: `(error: LivenessError) => void`,
   },
   {
     name: `disableInstructionScreen?`,
@@ -71,6 +71,21 @@ export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
     name: `ErrorView?`,
     description: 'Overrides the rendered component for error view.',
     type: `React.ComponentType`,
+  },
+];
+
+export const LIVENESS_ERROR = [
+  {
+    name: `state`,
+    description:
+      'The LivenessErrorState value which indicates the general error type as seen from the component.',
+    type: `LivenessErrorState`,
+  },
+  {
+    name: `error`,
+    description:
+      'The error object containing the more specific error name and stack trace.',
+    type: `Error`,
   },
 ];
 

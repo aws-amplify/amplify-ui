@@ -1,44 +1,37 @@
 <script setup lang="ts">
-import { onMounted, reactive, computed, ComputedRef, useAttrs, ref } from 'vue';
+import { computed, ref, toRefs, useAttrs, onMounted, reactive } from 'vue';
 import QRCode from 'qrcode';
 
 import { Logger } from 'aws-amplify';
 import {
   authenticatorTextUtil,
-  getActorState,
   getFormDataFromEvent,
-  SignInState,
   translate,
   getTotpCodeURL,
 } from '@aws-amplify/ui';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
 const logger = new Logger('SetupTOTP-logger');
 
-const props = useAuthenticator();
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { updateForm, submitForm, toSignIn } = facade;
+const { error, isPending, QRFields, totpSecretCode, user } = toRefs(facade);
 
 const attrs = useAttrs();
+
+/** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
 
-const { state, send } = useAuth();
-const {
-  value: { context },
-} = state;
-
-const actorState = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<SignInState>;
-const { totpSecretCode, user } = actorState.value.context;
-
-const formOverrides = context?.config?.formFields?.setupTOTP;
-const { totpIssuer = 'AWSCognito', totpUsername = user?.username } =
-  formOverrides?.['QR'] ?? {};
+const { totpIssuer = 'AWSCognito', totpUsername = user.value.username } =
+  QRFields.value ?? {};
 
 const totpCodeURL =
-  typeof totpSecretCode === 'string' && typeof totpUsername === 'string'
-    ? getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode)
+  totpSecretCode.value && totpUsername
+    ? getTotpCodeURL(totpIssuer, totpUsername, totpSecretCode.value)
     : null;
 
 const qrCode = reactive({
@@ -53,15 +46,15 @@ const { getCopyText, getCopiedText, getBackToSignInText, getConfirmText } =
 const copyTextLabel = ref(getCopyText());
 
 function copyText() {
-  if (typeof totpSecretCode === 'string') {
-    navigator.clipboard.writeText(totpSecretCode);
+  if (totpSecretCode.value) {
+    navigator.clipboard.writeText(totpSecretCode.value);
   }
   copyTextLabel.value = getCopiedText();
 }
 
 // lifecycle hooks
 onMounted(async () => {
-  if (!user || !totpCodeURL) {
+  if (!user.value || !totpCodeURL) {
     return;
   }
   try {
@@ -80,26 +73,26 @@ const confirmText = computed(() => getConfirmText());
 // Methods
 const onInput = (e: Event): void => {
   const { name, value } = e.target as HTMLInputElement;
-  send({ type: 'CHANGE', data: { name, value } });
+  updateForm({ name, value });
 };
 
 const onSetupTOTPSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmSetupTOTPSubmit) {
     emit('confirmSetupTOTPSubmit', e);
   } else {
-    submit(e);
+    submitForm(getFormDataFromEvent(e));
   }
 };
 
-const submit = (e: Event): void => {
-  props.submitForm(getFormDataFromEvent(e));
-};
-
 const onBackToSignInClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onBackToSignInClicked) {
     emit('backToSignInClicked');
   } else {
-    send({ type: 'SIGN_IN' });
+    toSignIn();
   }
 };
 </script>
@@ -114,7 +107,7 @@ const onBackToSignInClicked = (): void => {
       >
         <base-field-set
           class="amplify-flex amplify-authenticator__column"
-          :disabled="actorState.matches('confirmSignIn.pending')"
+          :disabled="isPending"
         >
           <base-wrapper class="amplify-flex amplify-authenticator__column">
             <slot name="header">
@@ -156,8 +149,8 @@ const onBackToSignInClicked = (): void => {
               <base-form-fields route="setupTOTP"></base-form-fields>
             </base-wrapper>
             <base-footer class="amplify-flex amplify-authenticator__column">
-              <base-alert v-if="actorState.context?.remoteError">
-                {{ translate(actorState.context.remoteError) }}
+              <base-alert v-if="error">
+                {{ translate(error) }}
               </base-alert>
               <amplify-button
                 class="amplify-field-group__control amplify-authenticator__font"
@@ -165,7 +158,7 @@ const onBackToSignInClicked = (): void => {
                 :loading="false"
                 :variation="'primary'"
                 type="submit"
-                :disabled="actorState.matches('confirmSignIn.pending')"
+                :disabled="isPending"
               >
                 {{ confirmText }}
               </amplify-button>
@@ -178,8 +171,8 @@ const onBackToSignInClicked = (): void => {
                 type="button"
                 @click.prevent="onBackToSignInClicked"
               >
-                {{ backSignInText }}</amplify-button
-              >
+                {{ backSignInText }}
+              </amplify-button>
               <slot
                 name="footer"
                 :onBackToSignInClicked="onBackToSignInClicked"

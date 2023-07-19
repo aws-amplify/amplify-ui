@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import { useStorageURL } from '../useStorageURL';
 import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
 
@@ -10,82 +10,63 @@ describe('useStorageURL', () => {
   const storageKey = 'file.jpg';
   const storageOptions: S3ProviderGetConfig = { level: 'public' };
   const storageUrl = 'https://amplify.s3.amazonaws.com/path/to/the/file.jpg';
-
-  it('should return expected values at initialization', async () => {
-    (Storage.get as jest.Mock).mockResolvedValue(undefined);
-
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useStorageURL(storageKey)
-    );
-
-    expect(result.current.error).toBeUndefined();
-    expect(result.current.isLoading).toBe(true);
-    expect(result.current.url).toBeUndefined();
-
-    // Force next render to prevent test warning
-    await waitForNextUpdate();
-  });
+  const errorConfig = {
+    fallbackURL: 'https://amplify.s3.amazonaws.com/path/to/the/fallback.jpg',
+    onStorageGetError: jest.fn(),
+  };
 
   it('should return a Storage URL', async () => {
     (Storage.get as jest.Mock).mockResolvedValue(storageUrl);
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useStorageURL(storageKey)
-    );
-
-    await waitForNextUpdate();
-
-    expect(result.current.error).toBeUndefined();
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.url).toBe(storageUrl);
-  });
-
-  it('should invoke Storage.get on fetch', async () => {
-    const mockStorageGet = jest.fn(() => Promise.resolve());
-
-    (Storage.get as jest.Mock).mockImplementation(mockStorageGet);
-
-    const { waitForNextUpdate } = renderHook(() =>
       useStorageURL(storageKey, storageOptions)
     );
 
+    // should return undefined at initialization
+    expect(result.current).toBeUndefined();
+
+    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
+
+    // Next update will happen when Storage.get resolves
     await waitForNextUpdate();
 
-    expect(mockStorageGet).toHaveBeenCalledWith(storageKey, storageOptions);
+    expect(result.current).toBe(storageUrl);
+    expect(Storage.get).toHaveBeenCalledTimes(1);
   });
 
-  it('should set an error when Storage.get fails', async () => {
+  it('should invoke onStorageGetError and return a fallbackURL when Storage.get fails', async () => {
     const customError = new Error('Something wrong happen');
 
     (Storage.get as jest.Mock).mockRejectedValue(customError);
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useStorageURL(storageKey)
+      useStorageURL(storageKey, storageOptions, errorConfig)
     );
 
+    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
+
+    // Next update will happen when Storage.get resolves
     await waitForNextUpdate();
 
-    expect(result.current.error).toBe(customError);
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.url).toBeUndefined();
+    expect(result.current).toBe(errorConfig.fallbackURL);
+    expect(errorConfig.onStorageGetError).toHaveBeenCalledTimes(1);
+    expect(errorConfig.onStorageGetError).toHaveBeenCalledWith(customError);
   });
 
-  it('should cancel Storage.get request on unmount', async () => {
-    const mockStorageCancel = jest.fn();
+  it('should execute Storage.cancel before rerendering', async () => {
+    (Storage.get as jest.Mock).mockResolvedValue(storageUrl);
 
-    (Storage.get as jest.Mock).mockResolvedValue(undefined);
-    (Storage.cancel as jest.Mock).mockImplementation(mockStorageCancel);
-
-    const { waitForNextUpdate, unmount } = renderHook(() =>
-      useStorageURL(storageKey)
+    const { waitForNextUpdate } = renderHook(() =>
+      useStorageURL(storageKey, storageOptions)
     );
 
-    // Start Storage fetch
+    expect(Storage.get).toHaveBeenCalledWith(storageKey, storageOptions);
+
+    // Next update will happen when Storage.get resolves
     await waitForNextUpdate();
 
-    // Unmount!
-    act(() => unmount());
-
-    expect(mockStorageCancel).toHaveBeenCalled();
+    // Since a rerender has happened, Storage.cancel should be run once at this point as a useEffect cleanup function
+    expect(Storage.cancel).toHaveBeenCalled();
+    expect(Storage.cancel).toHaveBeenCalledTimes(1);
   });
 });

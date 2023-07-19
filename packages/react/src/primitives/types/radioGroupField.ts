@@ -5,6 +5,7 @@ import { BaseFieldProps, LabelPositions } from './field';
 import { BaseInputProps } from './input';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseRadioGroupFieldProps
   extends BaseFieldProps,
     FlexContainerStyleProps,

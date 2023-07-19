@@ -71,6 +71,7 @@ export interface ForwardRefPrimitive<
   ): React.ReactElement | null;
 }
 
+/** @deprecated For internal use only */
 export interface BaseViewProps
   extends BaseComponentProps,
     BaseStyleProps,

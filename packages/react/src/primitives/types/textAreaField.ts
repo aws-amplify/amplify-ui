@@ -4,6 +4,7 @@ import { FlexContainerStyleProps } from './flex';
 import { BaseStyleProps } from './style';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseTextAreaFieldProps
   extends BaseFieldProps,
     FlexContainerStyleProps,
