@@ -22,4 +22,5 @@ export const IGNORED_LINKS = [
   'https://developer.apple.com/design/human-interface-guidelines/patterns/accessing-private-data/', // 401 Apple doesn't like bots maybe
   'https://developer.apple.com/documentation/xcode/localization', // 403
   'https://twitter.com/AWSAmplify',
+  'https://cdn.liveness.rekognition.amazonaws.com',
 ];
