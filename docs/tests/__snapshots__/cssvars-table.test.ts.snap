@@ -1688,7 +1688,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-active-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-overlay-5)\\"
+        \\"value\\": \\"var(--amplify-colors-overlay-10)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-active-border-color\\",
@@ -1708,7 +1708,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-color\\",
-        \\"value\\": \\"var(--amplify-colors-neutral-100)\\"
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-disabled-background-color\\",
@@ -1736,7 +1736,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-focus-color\\",
-        \\"value\\": \\"var(--amplify-colors-neutral-100)\\"
+        \\"value\\": \\"var(--amplify-colors-neutral-90)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-hover-background-color\\",
@@ -1748,7 +1748,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-hover-color\\",
-        \\"value\\": \\"var(--amplify-colors-overlay-90)\\"
+        \\"value\\": \\"var(--amplify-colors-neutral-90)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-loading-background-color\\",
