@@ -1,3 +1,5 @@
+import { LivenessErrorState } from './error';
+
 /**
  * The props for the FaceLivenessDetector
  */
@@ -26,7 +28,7 @@ export interface FaceLivenessDetectorProps {
   /**
    * Callback called when there is error occured on any step
    */
-  onError?: (error: Error) => void;
+  onError?: (livenessError: LivenessError) => void;
 
   /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
@@ -94,4 +96,9 @@ export enum FaceMatchState {
   CANT_IDENTIFY = 'CANNOT IDENTIFY',
   FACE_IDENTIFIED = 'ONE FACE IDENTIFIED',
   TOO_MANY = 'TOO MANY FACES',
+}
+
+export interface LivenessError {
+  state: LivenessErrorState;
+  error: Error;
 }
