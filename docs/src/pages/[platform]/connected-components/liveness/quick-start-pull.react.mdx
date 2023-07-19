@@ -87,6 +87,33 @@ export default function App() {
 }
 ```
   </TabItem>
+  <TabItem title="Custom Credentials Provider">
+> Use this option if you want more control over the process of obtaining AWS credentials.
+
+By default, FaceLivenessDetector uses Amplify Auth to authorize users to perform the Face Liveness check. You can use your own credentials provider to retrieve credentials from [Amazon Cognito](https://aws.amazon.com/cognito/) or assume a role with [Amazon STS](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html), for example:
+
+```jsx
+import { FaceLivenessDetectorCore, AwsCredentialProvider } from '@aws-amplify/ui-react-liveness';
+ 
+const credentialProvider: AwsCredentialProvider = async () => {
+  // Fetch the credentials
+}
+
+return (
+  <FaceLivenessDetectorCore
+    sessionId={'<sessionId>'}
+    region={'<region>'}
+    onAnalysisComplete={() => {}}
+    onError={onError}
+    config={{ credentialProvider }}
+  />
+);
+```
+
+<Fragment>
+  {({}) => import(`./credentials-provider-callout.mdx`)}
+</Fragment>
+  </TabItem>
 </Tabs>
 
 <Fragment>
