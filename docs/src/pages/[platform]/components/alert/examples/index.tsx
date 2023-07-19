@@ -4,7 +4,7 @@ export { AlertIconExample } from './AlertIconExample';
 export { AlertStylePropsExample } from './AlertStylePropsExample';
 export { AlertVariationsExample } from './AlertVariationsExample';
 export { AlertThemeExample } from './AlertThemeExample';
-export { DefaultAlertExample } from './DefaultAlertExample';
+export { default as DefaultAlertExample } from './DefaultAlertExample';
 export { DismissButtonLabelExample } from './DismissButtonLabelExample';
 export { DismissibleAlertExample } from './DismissibleAlertExample';
 export { OnDismissAlertExample } from './OnDismissAlertExample';
