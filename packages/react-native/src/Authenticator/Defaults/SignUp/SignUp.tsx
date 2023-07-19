@@ -56,17 +56,13 @@ const SignUp = ({
     : getCreateAccountText();
   const secondaryButtonText = getSignInTabText();
 
-  const body = (
-    <>
-      {socialProviders ? (
-        <FederatedProviderButtons
-          route="signUp"
-          socialProviders={socialProviders}
-          toFederatedSignIn={toFederatedSignIn}
-        />
-      ) : null}
-    </>
-  );
+  const body = socialProviders ? (
+    <FederatedProviderButtons
+      route="signUp"
+      socialProviders={socialProviders}
+      toFederatedSignIn={toFederatedSignIn}
+    />
+  ) : null;
 
   const buttons = useMemo(
     () => ({

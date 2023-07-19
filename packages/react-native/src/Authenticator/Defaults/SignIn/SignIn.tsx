@@ -53,17 +53,13 @@ const SignIn = ({
   const signInText = getSignInText();
   const signUpText = getSignUpTabText();
 
-  const body = (
-    <>
-      {socialProviders ? (
-        <FederatedProviderButtons
-          route="signIn"
-          socialProviders={socialProviders}
-          toFederatedSignIn={toFederatedSignIn}
-        />
-      ) : null}
-    </>
-  );
+  const body = socialProviders ? (
+    <FederatedProviderButtons
+      route="signIn"
+      socialProviders={socialProviders}
+      toFederatedSignIn={toFederatedSignIn}
+    />
+  ) : null;
 
   const buttons = useMemo(() => {
     const forgotPassword = {
