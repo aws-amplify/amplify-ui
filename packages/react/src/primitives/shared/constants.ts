@@ -551,6 +551,7 @@ export const ComponentClassObject: ComponentClassNameItems = {
   StorageImage: {
     className: ComponentClassName.StorageImage,
     components: ['StorageImage'],
+    description: 'Class applied to the img tag',
   },
   StorageManager: {
     className: ComponentClassName.StorageManager,

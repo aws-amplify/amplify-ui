@@ -1,0 +1,67 @@
+import { Alert, Image } from '@aws-amplify/ui-react';
+
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import { Example, ExampleCode } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import { AppDirectoryAlert } from '@/components/AppDirectoryAlert';
+import { InstallScripts } from '@/components/InstallScripts';
+import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
+import { STORAGE_IMAGE } from './props';
+import {
+  DefaultStorageImageExample,
+  StorageImageErrorHandlingExample
+} from './examples'
+
+## Basic Usage
+
+<Alert variation="warning" heading="Wait!">
+  Did you follow the [quick start instructions](/connected-components/storage#quick-start) to set up the storage and auth services?
+</Alert>
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import('@/components/AppDirectoryAlert')}
+</Fragment>
+
+To use the StorageImage component, import it into your React application with the included styles. 
+
+<InstallScripts component="storage" />
+
+<ExampleCode>
+```js
+import { StorageImage } from '@aws-amplify/ui-react-storage';
+import '@aws-amplify/ui-react/styles.css';
+```
+</ExampleCode>
+
+At a minimum you must include the `alt`, `imgKey` and `accessLevel` props. `accessLevel` refers to the [Amplify Storage access level](https://docs.amplify.aws/lib/storage/configureaccess/q/platform/js/), which is `'public' | 'private' | 'protected'`.
+
+<Example>
+  <Image alt='cat' src='/cats/1.jpg' width="400px" height="400px" />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultStorageImageExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Props
+
+<ReactPropsTable props={STORAGE_IMAGE} />
+
+Note: A new `Storage.get` request is made only when the `imgKey` changes.
+
+## Error Handling
+
+To handle the error caused by `Storage.get`, you can pass a `onStorageGetError` handler and optionally provide a `fallbackSrc` for the component to load a fallback image.
+
+<Example>
+ <Image alt='fallback cat' src='/cats/2.jpg' width="400px" height="400px" />
+  <ExampleCode>
+    ```jsx file=./examples/StorageImageErrorHandlingExample.tsx
+    ```
+  </ExampleCode>
+</Example>
+
+## Customization
+
+### Target Classes
+<ComponentStyleDisplay componentName="StorageImage" />
