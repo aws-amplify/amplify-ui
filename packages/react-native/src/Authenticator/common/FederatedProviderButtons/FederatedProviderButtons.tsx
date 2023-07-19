@@ -1,21 +1,24 @@
 import React, { useMemo } from 'react';
 import { View } from 'react-native';
-import { capitalize } from '@aws-amplify/ui';
 
-import { icons } from '../../../assets';
-import { FederatedProviderButton } from '../FederatedProviderButton';
+import { SocialProvider, authenticatorTextUtil } from '@aws-amplify/ui';
+
 import { Divider } from '../../../primitives';
-
-import { styles } from './styles';
+import { FederatedProviderButton } from '../FederatedProviderButton';
 import { FederatedProviderButtonsProps } from './types';
+import { icons } from '../../../assets';
+import { styles } from './styles';
+
+const { getSignInWithFederationText, getOrText } = authenticatorTextUtil;
 
 export default function FederatedProviderButtons({
+  route,
   socialProviders,
   toFederatedSignIn,
 }: FederatedProviderButtonsProps): JSX.Element | null {
   const providerButtons = useMemo(
     () =>
-      socialProviders?.map((provider) => {
+      socialProviders?.map((provider: SocialProvider) => {
         const providerIconSource = icons[`${provider}Logo`];
 
         const handlePress = () => {
@@ -29,17 +32,17 @@ export default function FederatedProviderButtons({
             source={providerIconSource}
             style={styles.button}
           >
-            {`Sign In with ${capitalize(provider)}`}
+            {getSignInWithFederationText(route, provider)}
           </FederatedProviderButton>
         );
       }),
-    [socialProviders, toFederatedSignIn]
+    [route, socialProviders, toFederatedSignIn]
   );
 
   return providerButtons?.length ? (
-    <View style={styles.container}>
+    <View style={styles.container} testID="amplify__federated-provider-buttons">
       {providerButtons}
-      <Divider labelStyle={styles.text}>Or</Divider>
+      <Divider labelStyle={styles.text}>{getOrText()}</Divider>
     </View>
   ) : null;
 }
