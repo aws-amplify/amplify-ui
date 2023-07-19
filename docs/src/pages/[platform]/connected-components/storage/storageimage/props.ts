@@ -1,5 +1,10 @@
 export const STORAGE_IMAGE = [
   {
+    name: 'alt',
+    description: 'Alternative text description of the image',
+    type: 'string',
+  },
+  {
     name: 'imgKey',
     description: 'The key of an image.',
     type: 'string',
