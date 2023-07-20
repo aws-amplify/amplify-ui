@@ -4,11 +4,17 @@ import flattenProperties from 'style-dictionary/lib/utils/flattenProperties.js';
 
 import { defaultTheme } from './defaultTheme';
 import { Theme, DefaultTheme, WebTheme, Override } from './types';
-import { cssValue, cssNameTransform, setupTokens, SetupToken } from './utils';
+import {
+  cssValue,
+  cssNameTransform,
+  setupTokens,
+  SetupToken,
+  isDesignToken,
+} from './utils';
 import { WebDesignToken } from './tokens/types/designToken';
 import { ComponentsTheme } from './components';
-import { kebabCase } from 'lodash';
-import { isString, splitObject } from '../utils';
+import { kebabCase, split } from 'lodash';
+import { isFunction, isString, splitObject } from '../utils';
 
 /**
  * This will take a design token and add some data to it for it
@@ -33,23 +39,29 @@ const setupToken: SetupToken<WebDesignToken> = ({ token, path }) => {
  * `padding-top:20px; color: var(--colors-font-primary);`
  */
 function propsToString(props: Record<string, string>): string {
-  return Object.keys(props)
-    .map((key) => {
-      return `${kebabCase(key)}:${cssValue({ value: props[key] })}; `;
+  return Object.entries(props)
+    .map(([key, value]) => {
+      // const _value = isString(value) ? value : value.value;
+      // @ts-ignore
+      const _value = isDesignToken(value)
+        ? cssValue(value)
+        : cssValue({ value });
+      return `${kebabCase(key)}:${_value}; `;
     })
     .join(' ');
 }
 
 const stateKeys = ['_hover', '_active'];
-const modifierKeys = ['variation', 'size'];
+const modifierKeys = ['variation', 'size', 'colorTheme'];
 
 const nonPropKeys = [...stateKeys, ...modifierKeys];
 
 export function createComponentCSS(
   str: string,
-  components: ComponentsTheme
+  components: ComponentsTheme,
+  tokens: DefaultTheme['tokens']
 ): string {
-  let toRet = '';
+  let cssText = '';
   // first we need to create the classname based on the key `.amplify-${key}`
   // we need to turn references into CSS vars
   // we need to turn prop names from camelCase into kebab-case (fontSize => font-size)
@@ -60,73 +72,76 @@ export function createComponentCSS(
 
   Object.entries(components).forEach(([key, component]) => {
     const componentClassName = `${str} .amplify-${key}`;
+    const componentTheme = isFunction(component)
+      ? (component(tokens) as typeof component)
+      : component;
 
     // TODO: this logic needs to be hardened
-    const [props, other] = splitObject(component, (key, value) => {
-      return isString(value);
-    });
+    // const [props, other] = splitObject(_componentTheme, (key, value) => {
+    //   return isString(value);
+    // });
 
-    const [states, nonStates] = splitObject(other, (key, value) => {
+    const [states, nonStates] = splitObject(componentTheme, (key, value) => {
       return stateKeys.includes(key);
     });
 
-    const [modifiers, children] = splitObject(nonStates, (key, value) => {
+    const [modifiers, other] = splitObject(nonStates, (key, value) => {
       return modifierKeys.includes(key);
     });
 
-    // if there are no props, skip
-    toRet += `${componentClassName} {`;
-    Object.entries(props).forEach(([key, value]) => {
-      toRet += `${kebabCase(key)}:${cssValue({ value: component[key] })}; `;
+    const [children, props] = splitObject(other, (key, value) => {
+      return key === 'children';
     });
-    toRet += `}\n`;
+
+    // if there are no props, skip
+    cssText += `${componentClassName} {`;
+    cssText += propsToString(props);
+    cssText += `}\n`;
+
     Object.entries(states).forEach(([key, value]) => {
-      toRet += `${componentClassName}:${key.replace('_', '')} {`;
-      Object.entries(value).forEach(([key, value]) => {
-        // @ts-ignore
-        toRet += `${kebabCase(key)}:${cssValue({ value })}; `;
-      });
-      toRet += `}\n`;
+      cssText += `${componentClassName}:${key.replace('_', '')} {`;
+      cssText += propsToString(value);
+      cssText += `}\n`;
     });
 
     Object.entries(modifiers).forEach(([modifier, value]) => {
-      Object.keys(component[modifier]).forEach((key) => {
-        const {} = component[modifier][key];
-        const [states, props] = Object.keys(component[modifier][key]).reduce(
+      Object.keys(value).forEach((key) => {
+        const {} = value[key];
+        const [states, props] = Object.keys(value[key]).reduce(
           (acc, curr) => {
             if (stateKeys.includes(curr)) {
-              acc[0][curr] = component[modifier][key][curr];
+              acc[0][curr] = value[key][curr];
             } else {
-              acc[1][curr] = component[modifier][key][curr];
+              acc[1][curr] = value[key][curr];
             }
             return acc;
           },
           [{}, {}]
         );
-        toRet += `${componentClassName}--${key} { `;
-        toRet += propsToString(props);
-        toRet += ` }`;
+        cssText += `${componentClassName}--${key} { `;
+        cssText += propsToString(props);
+        cssText += ` }`;
         if (Object.keys(states).length) {
           Object.keys(states).forEach((state) => {
-            toRet += `${componentClassName}--${key}:${state.replace(
+            cssText += `${componentClassName}--${key}:${state.replace(
               '_',
               ''
             )} { `;
-            toRet += propsToString(states[state]);
-            toRet += ` }`;
+            cssText += propsToString(states[state]);
+            cssText += ` }`;
           });
         }
       });
     });
 
     Object.entries(children).forEach(([key, value]) => {
-      toRet += `${componentClassName}__${key} { `;
-      toRet += propsToString(value);
-      toRet += ` }`;
+      cssText += `${componentClassName}__${key} { `;
+      cssText += propsToString(value);
+      cssText += ` }`;
     });
   });
 
-  return toRet;
+  return cssText;
 }
 
 /**
@@ -144,7 +159,14 @@ export function createTheme(
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
-  const mergedTheme = deepExtend<DefaultTheme>([{}, DefaultTheme, theme]);
+  const mergedTheme = deepExtend<DefaultTheme>([
+    {},
+    DefaultTheme,
+    {
+      ...theme,
+      components: {},
+    },
+  ]);
 
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:
@@ -166,10 +188,11 @@ export function createTheme(
       .join('\n') +
     `\n}\n`;
 
-  if (mergedTheme.components) {
+  if (theme?.components) {
     cssText += createComponentCSS(
       `[data-amplify-theme="${name}"]`,
-      mergedTheme.components
+      theme.components,
+      mergedTheme.tokens
     );
   }
 

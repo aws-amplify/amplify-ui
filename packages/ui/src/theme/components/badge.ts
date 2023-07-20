@@ -1,13 +1,15 @@
-import type * as CSS from 'csstype';
+import { CSSProperties, ComponentTheme } from './utils';
 
 type Variations = 'info' | 'success';
 type Sizes = 'small' | 'large';
 
-export type BadgeTheme = {
-  variation?: {
-    [key in Variations]?: CSS.Properties;
-  };
-  size?: {
-    [key in Sizes]?: CSS.Properties;
-  };
-} & CSS.Properties;
+export type BadgeTheme = ComponentTheme<
+  {
+    variation?: {
+      [key in Variations]?: CSSProperties;
+    };
+    size?: {
+      [key in Sizes]?: CSSProperties;
+    };
+  } & CSSProperties
+>;
