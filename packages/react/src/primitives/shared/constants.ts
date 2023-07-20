@@ -79,6 +79,11 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Badge'],
     description: 'Top level element that wraps the Badge component',
   },
+  Breadcrumbs: {
+    className: ComponentClassName.Breadcrumbs,
+    components: ['Breadcrumbs'],
+    description: 'Top level element that wraps the Breadcrumbs component',
+  },
   Button: {
     className: ComponentClassName.Button,
     components: ['Button'],
@@ -753,6 +758,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   AutocompleteMenuOptions:
     ComponentClassObject.AutocompleteMenuOptions.className,
   Badge: ComponentClassObject.Badge.className,
+  Breadcrumbs: ComponentClassObject.Breadcrumbs.className,
   Button: ComponentClassObject.Button.className,
   ButtonGroup: ComponentClassObject.ButtonGroup.className,
   ButtonLoaderWrapper: ComponentClassObject.ButtonLoaderWrapper.className,

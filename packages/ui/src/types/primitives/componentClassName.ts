@@ -13,6 +13,7 @@ export enum ComponentClassName {
   AutocompleteMenuOption = 'amplify-autocomplete__menu__option',
   AutocompleteMenuOptions = 'amplify-autocomplete__menu__options',
   Badge = 'amplify-badge',
+  Breadcrumbs = 'amplify-breadcrumbs',
   Button = 'amplify-button',
   ButtonGroup = 'amplify-buttongroup',
   ButtonLoaderWrapper = 'amplify-button__loader-wrapper',
