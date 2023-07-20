@@ -1,13 +1,25 @@
-import { TextStyle, ViewStyle } from 'react-native';
+import { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native';
 
 import { AuthenticatorMachineContext } from '@aws-amplify/ui-react-core';
 
-// TODO extend from ViewProps, add button style related style props
 export interface FederatedProviderButtonsProps
   extends Pick<
-    AuthenticatorMachineContext,
-    'route' | 'socialProviders' | 'toFederatedSignIn'
-  > {}
+      AuthenticatorMachineContext,
+      'route' | 'socialProviders' | 'toFederatedSignIn'
+    >,
+    ViewProps {
+  /*
+   * @description
+   * Styles for the buttons
+   */
+  buttonStyle?: StyleProp<ViewStyle>;
+
+  /*
+   * @description
+   * Styles for the divider text
+   */
+  textStyle?: StyleProp<TextStyle>;
+}
 
 export interface FederatedProviderButtonStyle {
   button: ViewStyle;
