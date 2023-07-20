@@ -61,17 +61,7 @@ type LinkVariationTokens<Output> = DesignTokenProperties<
   overlay?: ColorThemeTokens<Output>;
 };
 
-// type OutlinedVariationTokens<Output> = DesignTokenProperties<
-//   'backgroundColor' | 'borderColor' | 'borderWidth' | 'color',
-//   Output
-// > & {
-
 type OutlinedVariationTokens<Output> = {
-  // _hover?: StateTokens<Output>;
-  // _focus?: StateWithShadowTokens<Output>;
-  // _active?: StateTokens<Output>;
-  // _disabled?: StateTokens<Output>;
-  // _loading?: StateTokens<Output>;
   info?: ColorThemeTokens<Output>;
   error?: ColorThemeTokens<Output>;
   success?: ColorThemeTokens<Output>;

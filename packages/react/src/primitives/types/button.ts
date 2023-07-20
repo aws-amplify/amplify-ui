@@ -18,6 +18,7 @@ export type ButtonColorThemes =
   | 'success'
   | 'overlay';
 
+/** @deprecated For internal use only */
 export interface BaseButtonProps
   extends BaseViewProps,
     FlexContainerStyleProps {
