@@ -19,10 +19,17 @@ export interface FederatedProviderButtonsProps
    * Styles for the divider text
    */
   textStyle?: StyleProp<TextStyle>;
+
+  /*
+   * @description
+   * Styles for the divider line
+   */
+  dividerStyle?: StyleProp<ViewStyle>;
 }
 
 export interface FederatedProviderButtonStyle {
   button: ViewStyle;
   container: ViewStyle;
+  divider: ViewStyle;
   text: TextStyle;
 }

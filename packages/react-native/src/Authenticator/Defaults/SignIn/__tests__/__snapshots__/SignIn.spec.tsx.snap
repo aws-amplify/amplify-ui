@@ -1424,7 +1424,10 @@ Array [
               "flex": 1,
               "height": 0.5,
             },
-            undefined,
+            Array [
+              Object {},
+              undefined,
+            ],
           ]
         }
         testID="amplify__divider__line"
@@ -1468,7 +1471,10 @@ Array [
               "flex": 1,
               "height": 0.5,
             },
-            undefined,
+            Array [
+              Object {},
+              undefined,
+            ],
           ]
         }
       />

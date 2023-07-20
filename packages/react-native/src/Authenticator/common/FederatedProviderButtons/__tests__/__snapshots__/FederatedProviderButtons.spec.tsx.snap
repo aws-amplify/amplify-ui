@@ -127,7 +127,10 @@ exports[`FederatedProviderButtons applies theme and style props 1`] = `
             "flex": 1,
             "height": 0.5,
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
       testID="amplify__divider__line"
@@ -173,7 +176,10 @@ exports[`FederatedProviderButtons applies theme and style props 1`] = `
             "flex": 1,
             "height": 0.5,
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     />
@@ -306,7 +312,10 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
             "flex": 1,
             "height": 0.5,
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
       testID="amplify__divider__line"
@@ -350,7 +359,10 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
             "flex": 1,
             "height": 0.5,
           },
-          undefined,
+          Array [
+            Object {},
+            undefined,
+          ],
         ]
       }
     />

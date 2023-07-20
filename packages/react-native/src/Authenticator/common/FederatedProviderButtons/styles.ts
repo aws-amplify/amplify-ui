@@ -17,6 +17,7 @@ export const getThemedStyles = (
       paddingHorizontal: space.small,
       paddingVertical: space.xxs,
     },
+    divider: {},
     text: {
       paddingVertical: space.xs,
       textAlign: 'center',

@@ -17,6 +17,7 @@ export const FEDERATED_PROVIDER_BUTTONS_TEST_ID =
 
 export default function FederatedProviderButtons({
   buttonStyle,
+  dividerStyle,
   route,
   socialProviders,
   style,
@@ -55,7 +56,10 @@ export default function FederatedProviderButtons({
       testID={FEDERATED_PROVIDER_BUTTONS_TEST_ID}
     >
       {providerButtons}
-      <Divider labelStyle={[themedStyle.text, textStyle]}>
+      <Divider
+        labelStyle={[themedStyle.text, textStyle]}
+        lineStyle={[themedStyle.divider, dividerStyle]}
+      >
         {getOrText()}
       </Divider>
     </View>
