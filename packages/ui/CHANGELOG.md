@@ -1,5 +1,56 @@
 # @aws-amplify/ui
 
+## 5.6.7
+
+### Patch Changes
+
+- [#4236](https://github.com/aws-amplify/amplify-ui/pull/4236) [`78fdfd6c8`](https://github.com/aws-amplify/amplify-ui/commit/78fdfd6c8268c56204f905402162ad8cb40a0c8e) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(ui): add color design token for field control error state.
+
+  Updates the ShowPasswordButton color to use this token instead of border-color.
+
+- [#4227](https://github.com/aws-amplify/amplify-ui/pull/4227) [`d3ee05415`](https://github.com/aws-amplify/amplify-ui/commit/d3ee054159e1de81861bcd9273be9b1c87924cf4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(react-native): border widths, spacing, font sizes, opacities in the theme don't throw runtime errors.
+
+  These are all valid in a theme now:
+
+  ```typescript
+  const theme: Theme = {
+    tokens: {
+      borderWidths: {
+        small: '4',
+        medium: '1rem',
+        large: 6,
+      },
+      opacities: {
+        '10': '0.2',
+      },
+      space: {
+        small: 4,
+        medium: '6',
+        large: '{space.small.value}',
+      },
+      fontSizes: {
+        small: '1rem',
+      },
+    },
+  };
+  ```
+
+- [#3646](https://github.com/aws-amplify/amplify-ui/pull/3646) [`165a8abbd`](https://github.com/aws-amplify/amplify-ui/commit/165a8abbda8aa3e95fb9466fc60f8694c646d5bc) Thanks [@Rogue-striker](https://github.com/Rogue-striker)! - Allow PasswordField visibility toggle icon border color to indicate error
+
+- [#4194](https://github.com/aws-amplify/amplify-ui/pull/4194) [`13098b36a`](https://github.com/aws-amplify/amplify-ui/commit/13098b36a75452d839955d141bd25f57538b1a22) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): move inline css to classes
+
+- [#4160](https://github.com/aws-amplify/amplify-ui/pull/4160) [`37e490d39`](https://github.com/aws-amplify/amplify-ui/commit/37e490d3997a1dc55e2998c277790945921e6dc3) Thanks [@tyndria](https://github.com/tyndria)! - Add missing french translation
+
+- [#4262](https://github.com/aws-amplify/amplify-ui/pull/4262) [`aea82ff1b`](https://github.com/aws-amplify/amplify-ui/commit/aea82ff1bb6e066ed8b70433f4d72cd34bf0ccae) Thanks [@zchenwei](https://github.com/zchenwei)! - feat(ui-react-storage): Add a new connected component `StorageImage`. It allows you load the images managed by Amplify Storage.
+
+  _Example:_
+
+  ```jsx
+  import { StorageImage } from '@aws-amplify/ui-react-storage';
+
+  <StorageImage alt="StorageImage" imgKey="image.jpg" accessLevel="public" />;
+  ```
+
 ## 5.6.6
 
 ### Patch Changes
