@@ -7,5 +7,5 @@ Feature: Liveness Start Screen
   
   @react
   Scenario: Blazeface CDN is up
-    Then I request "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm" and get "200"
-    And I request "https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file" and get "200"
+    Then I request "https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/tfjs-backend-wasm-simd.wasm" and get "200"
+    And I request "https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json" and get "200"

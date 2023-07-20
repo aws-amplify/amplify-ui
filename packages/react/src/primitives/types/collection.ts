@@ -90,6 +90,7 @@ export type GridCollectionProps<Item> = BaseGridProps &
 type ReplaceChildren<T, Item> = Omit<T, 'children'> & CollectionChildren<Item>;
 
 // Note: `BaseCollectionProps` is used directly as the expected props interface of `Collection`
+/** @deprecated For internal use only */
 export type BaseCollectionProps<
   Item,
   Element extends ElementType

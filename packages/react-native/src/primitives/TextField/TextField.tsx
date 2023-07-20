@@ -33,8 +33,9 @@ export default function TextField({
     () => ({
       ...themedStyle.fieldContainer,
       ...(disabled && themedStyle.disabled),
+      ...(error && themedStyle.error),
     }),
-    [disabled, themedStyle]
+    [disabled, error, themedStyle]
   );
 
   return (

@@ -5,15 +5,19 @@ import {
   getFormDataFromEvent,
   translate,
 } from '@aws-amplify/ui';
-import BaseFormFields from './primitives/base-form-fields.vue';
 
 import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
+import BaseFormFields from './primitives/base-form-fields.vue';
 
 const attrs = useAttrs();
+/** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
-const { send, submitForm } = useAuthenticator();
-const { error, isPending } = toRefs(useAuthenticator());
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { submitForm, toSignIn, updateForm } = facade;
+const { error, isPending } = toRefs(facade);
 
 // Text Util
 const { getBackToSignInText, getResetYourPasswordText, getSendCodeText } =
@@ -26,32 +30,27 @@ const sendCodeText = computed(() => getSendCodeText());
 
 // Methods
 const onResetPasswordSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onResetPasswordSubmit) {
     emit('resetPasswordSubmit', e);
   } else {
-    submit(e);
+    submitForm(getFormDataFromEvent(e));
   }
-};
-
-const submit = (e: Event): void => {
-  submitForm(getFormDataFromEvent(e));
 };
 
 const onInput = (e: Event): void => {
   const { name, value } = e.target as HTMLInputElement;
-  send({
-    type: 'CHANGE',
-    data: { name, value },
-  });
+  updateForm({ name, value });
 };
 
 const onBackToSignInClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onBackToSignInClicked) {
     emit('backToSignInClicked');
   } else {
-    send({
-      type: 'SIGN_IN',
-    });
+    toSignIn();
   }
 };
 </script>
@@ -87,8 +86,9 @@ const onBackToSignInClicked = (): void => {
             :variation="'primary'"
             type="submit"
             :disabled="isPending"
-            >{{ sendCodeText }}</amplify-button
           >
+            {{ sendCodeText }}
+          </amplify-button>
           <amplify-button
             class="amplify-field-group__control amplify-authenticator__font"
             :fullwidth="false"
@@ -98,8 +98,8 @@ const onBackToSignInClicked = (): void => {
             type="button"
             @click.prevent="onBackToSignInClicked"
           >
-            {{ backSignInText }}</amplify-button
-          >
+            {{ backSignInText }}
+          </amplify-button>
           <slot
             name="footer"
             :onBackToSignInClicked="onBackToSignInClicked"

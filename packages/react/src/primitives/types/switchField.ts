@@ -6,6 +6,7 @@ import { BaseInputProps } from './input';
 import { BaseFieldProps, LabelPositions } from './field';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseSwitchFieldProps
   extends BaseInputProps,
     BaseFieldProps,

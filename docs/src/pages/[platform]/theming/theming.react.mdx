@@ -3,7 +3,7 @@ import { Example } from '@/components/Example';
 
 A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of [design tokens](#design-tokens), [breakpoints](#breakpoints), and [overrides](#overrides). The goals of the Amplify UI theme are:
 
-1. **Leverage platform technologies as much as possible for performance and broad support.** This means plain CSS and CSS variables. You can always fall back to writing CSS (or a pre-processer to CSS like [Sass](https://github.com/sass/sass)).
+1. **Leverage platform technologies as much as possible for performance and broad support.** This means plain CSS and CSS variables. You can always fall back to writing CSS (or a pre-processer to CSS like [Sass](https://sass-lang.com/)).
 1. **Use framework-specific patterns to provide an easier developer experience.** This means providing an extendable theme which generates CSS and CSS variables for your application.
 
 ## Getting started
@@ -31,7 +31,7 @@ export const myTheme = {
 
 ### CSS
 
-You can theme Amplify UI using CSS and CSS variables if you do not want to use the theme object structure. Amplify UI components use plain CSS so styling components can be done with CSS (or a pre-processor like [Sass](https://github.com/sass/sass)). All of the design tokens defined in the Amplify theme are [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) which can be overridden:
+You can theme Amplify UI using CSS and CSS variables if you do not want to use the theme object structure. Amplify UI components use plain CSS so styling components can be done with CSS (or a pre-processor like [Sass](https://sass-lang.com/)). All of the design tokens defined in the Amplify theme are [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) which can be overridden:
 
 ```css
 :root, [data-amplify-theme] {

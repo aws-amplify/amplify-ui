@@ -33,7 +33,8 @@ type ButtonToken<Output> = DesignTokenProperties<
 };
 
 type IconCheckedStateToken<Output> = DesignTokenProperties<
-  'opacity' | 'transform'
+  'opacity' | 'transform',
+  Output
 > & {
   _disabled?: DesignTokenProperties<'backgroundColor', Output>;
 };

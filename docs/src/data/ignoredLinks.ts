@@ -20,5 +20,9 @@ export const IGNORED_LINKS = [
   'https://github.com/aws-amplify/amplify-ui-swift/issues/new/choose', // 302 amplify-ui-wift redirects to amplify-ui-swift-liveness
   'https://github.com/aws-amplify/amplify-ui-swift-liveness/issues/new/choose', // 302 amplify-ui-swift-liveness does not have issue templates yet
   'https://developer.apple.com/design/human-interface-guidelines/patterns/accessing-private-data/', // 401 Apple doesn't like bots maybe
+  'https://developer.apple.com/documentation/xcode/localization', // 403
   'https://twitter.com/AWSAmplify',
+  'https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file', // 302 to a google cdn
+  'https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/', // 404 this is the intentional path as the tfjs library will append the correct file name
+  'https://cdn.liveness.rekognition.amazonaws.com',
 ];

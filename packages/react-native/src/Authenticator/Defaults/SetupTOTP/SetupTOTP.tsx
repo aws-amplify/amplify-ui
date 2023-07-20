@@ -12,7 +12,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSetupTOTPComponent } from '../types';
+import { DefaultSetupTOTPProps } from '../types';
 import { styles } from './styles';
 
 const COMPONENT_NAME = 'SetupTOTP';
@@ -25,7 +25,7 @@ const {
   getSetupTOTPInstructionsText,
 } = authenticatorTextUtil;
 
-const SetupTOTP: DefaultSetupTOTPComponent = ({
+const SetupTOTP = ({
   fields,
   handleBlur,
   handleChange,
@@ -33,11 +33,13 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
   isPending,
   toSignIn,
   totpSecretCode,
+  validationErrors,
   ...rest
-}) => {
+}: DefaultSetupTOTPProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -45,6 +47,7 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getSetupTOTPText();
@@ -88,6 +91,7 @@ const SetupTOTP: DefaultSetupTOTPComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

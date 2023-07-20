@@ -1,7 +1,11 @@
 import { Logger } from 'aws-amplify';
 import {
+  authenticatorTextUtil,
+  isString,
   isUnverifiedContactMethodType,
+  isValidEmail,
   UnverifiedContactMethodType,
+  ValidationError,
 } from '@aws-amplify/ui';
 import {
   AuthenticatorLegacyField,
@@ -14,11 +18,14 @@ import {
   AuthenticatorFieldTypeKey,
   MachineFieldTypeKey,
   RadioFieldOptions,
+  TextFieldOptionsType,
   TypedField,
 } from '../types';
 import { KEY_ALLOW_LIST } from './constants';
 
 const logger = new Logger('Authenticator');
+
+const { getInvalidEmailText, getRequiredFieldText } = authenticatorTextUtil;
 
 export const isRadioFieldOptions = (
   field: TypedField
@@ -109,7 +116,8 @@ const isKeyAllowed = (key: string) =>
 
 const isValidMachineFieldType = (
   type: string | undefined
-): type is MachineFieldTypeKey => type === 'password' || type === 'tel';
+): type is MachineFieldTypeKey =>
+  type === 'password' || type === 'tel' || type == 'email';
 
 const getFieldType = (type: string | undefined): AuthenticatorFieldTypeKey => {
   if (isValidMachineFieldType(type)) {
@@ -176,3 +184,38 @@ export function getRouteTypedFields({
 
   return isVerifyUserRoute ? radioFields : getTypedFields(fields);
 }
+
+/**
+ *
+ * @param {TextFieldOptionsType} field text field type
+ * @param {string | undefined} value text field value
+ * @param {string[]} stateValidations validation errors array from state machine
+ * @returns {string[]} field errors array
+ */
+export const runFieldValidation = (
+  field: TextFieldOptionsType,
+  value: string | undefined,
+  stateValidations: ValidationError | undefined
+): string[] => {
+  const fieldErrors: string[] = [];
+  if (field.required && !value) {
+    fieldErrors.push(getRequiredFieldText());
+  }
+  if (field.type === 'email') {
+    if (!isValidEmail(value)) {
+      fieldErrors.push(getInvalidEmailText());
+    }
+  }
+
+  // add state machine validation errors, if any
+  const stateFieldValidation = stateValidations?.[field.name];
+  if (stateFieldValidation) {
+    if (isString(stateFieldValidation)) {
+      fieldErrors.push(stateFieldValidation);
+    } else {
+      return fieldErrors.concat(stateFieldValidation);
+    }
+  }
+
+  return fieldErrors;
+};

@@ -2,6 +2,7 @@ import { BaseInputProps } from './input';
 import { LabelPositions } from './field';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseRadioProps extends BaseInputProps {
   value: string;
 
