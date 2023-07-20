@@ -2482,9 +2482,13 @@ Array [
   </Text>,
   <View
     style={
-      Object {
-        "paddingVertical": 4,
-      }
+      Array [
+        Object {
+          "paddingHorizontal": 12,
+          "paddingVertical": 4,
+        },
+        undefined,
+      ]
     }
     testID="amplify__federated-provider-buttons"
   >
@@ -2526,9 +2530,12 @@ Array [
               "width": "100%",
             },
             undefined,
-            Object {
-              "marginVertical": 8,
-            },
+            Array [
+              Object {
+                "marginVertical": 8,
+              },
+              undefined,
+            ],
           ],
         ]
       }
@@ -2620,10 +2627,13 @@ Array [
                 "margin": 16,
                 "textAlign": "center",
               },
-              Object {
-                "paddingVertical": 8,
-                "textAlign": "center",
-              },
+              Array [
+                Object {
+                  "paddingVertical": 8,
+                  "textAlign": "center",
+                },
+                undefined,
+              ],
             ],
           ]
         }

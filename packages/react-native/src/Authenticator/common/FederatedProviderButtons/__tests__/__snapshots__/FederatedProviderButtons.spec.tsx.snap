@@ -5,7 +5,7 @@ exports[`FederatedProviderButtons applies theme and style props 1`] = `
   style={
     Array [
       Object {
-        "paddingHorizontal": 4,
+        "paddingHorizontal": 12,
         "paddingVertical": 4,
       },
       Object {
@@ -186,7 +186,7 @@ exports[`FederatedProviderButtons renders as expected 1`] = `
   style={
     Array [
       Object {
-        "paddingHorizontal": 4,
+        "paddingHorizontal": 12,
         "paddingVertical": 4,
       },
       undefined,
