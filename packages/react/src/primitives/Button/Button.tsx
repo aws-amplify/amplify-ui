@@ -23,14 +23,22 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     loadingText = '',
     size,
     type = 'button',
-    variation = 'outlined',
+    variation,
     colorTheme,
     ...rest
   },
   ref
 ) => {
-  // These variations support colorThemes
-  const supportsColorThemes = ['outlined', 'link', 'primary'];
+  // These variations support colorThemes. 'undefined' accounts for our
+  // 'default' variation which is not named. This is done so we do not need to
+  // include a breaking change of defining a default value for variation.
+  const supportsColorThemes = ['link', 'primary', undefined].includes(
+    variation
+  );
+
+  // Use the variation to construct our color theme modifier classes; in the
+  // case of our 'default' variation, use 'outlined'
+  const variationColorThemeModifier = variation ? variation : 'outlined';
 
   const componentClasses = classNames(
     ComponentClassNames.Button,
@@ -38,11 +46,11 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     classNameModifier(ComponentClassNames.Button, variation),
     // Check if variation supports colorThemes before applying
     // colorTheme modifying class.
-    supportsColorThemes.includes(variation) &&
+    supportsColorThemes &&
       colorTheme &&
       classNameModifier(
         ComponentClassNames.Button,
-        `${variation}--${colorTheme}`
+        `${variationColorThemeModifier}--${colorTheme}`
       ),
     classNameModifier(ComponentClassNames.Button, size),
     classNameModifierByFlag(

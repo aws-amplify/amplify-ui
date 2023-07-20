@@ -996,7 +996,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
-                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'outlined'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
+                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
                         \\"description\\": \\"Changes the visual weight of the button.\\",
                         \\"category\\": \\"BaseButtonProps\\",
                         \\"isOptional\\": true
@@ -4628,7 +4628,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
-                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'outlined'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
+                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
                         \\"description\\": \\"Changes the visual weight of the button.\\",
                         \\"category\\": \\"BaseButtonProps\\",
                         \\"isOptional\\": true
@@ -4897,7 +4897,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
-                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'outlined'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
+                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
                         \\"description\\": \\"Changes the visual weight of the button.\\",
                         \\"category\\": \\"BaseButtonProps\\",
                         \\"isOptional\\": true
@@ -11861,7 +11861,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
-                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'outlined'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
+                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
                         \\"description\\": \\"Changes the visual weight of the button.\\",
                         \\"category\\": \\"BaseButtonProps\\",
                         \\"isOptional\\": true
@@ -12130,7 +12130,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
-                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'outlined'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
+                        \\"type\\": \\"| 'primary'\\\\n  | 'link'\\\\n  | 'menu'\\\\n  | 'warning'\\\\n  | 'destructive'\\",
                         \\"description\\": \\"Changes the visual weight of the button.\\",
                         \\"category\\": \\"BaseButtonProps\\",
                         \\"isOptional\\": true

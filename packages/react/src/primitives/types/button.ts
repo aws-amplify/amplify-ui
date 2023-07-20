@@ -7,7 +7,6 @@ export type ButtonTypes = 'button' | 'reset' | 'submit';
 export type ButtonVariations =
   | 'primary'
   | 'link'
-  | 'outlined'
   | 'menu'
   | 'warning'
   | 'destructive';
