@@ -14,7 +14,8 @@ import {
   AlertStylePropsExample,
   AlertThemeExample,
   DismissButtonLabelExample,
-  RoleOverride
+  RoleOverride,
+  AlertIconProviderExample,
 } from './examples';
 
 <Badge variation="info">Usage note:</Badge> The Alert component has an ARIA `alert` role by default which has some <Link href="#accessibility">accessibility implications</Link>. 
@@ -146,6 +147,21 @@ Use the `onDismiss` prop to pass a function that will run when the Alert is dism
     </ExampleCode>
   </Example>
 </ThemeExample>
+
+### Overriding icons
+
+
+<Example>
+  <AlertIconProviderExample />
+  
+  <ExampleCode>
+
+  ```tsx file=./examples/AlertIconProviderExample.tsx
+
+  ```
+
+  </ExampleCode>
+</Example>
 
 ### Target classes
 
