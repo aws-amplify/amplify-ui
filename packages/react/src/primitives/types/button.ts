@@ -7,11 +7,18 @@ export type ButtonTypes = 'button' | 'reset' | 'submit';
 export type ButtonVariations =
   | 'primary'
   | 'link'
+  | 'outlined'
   | 'menu'
   | 'warning'
   | 'destructive';
 
-/** @deprecated For internal use only */
+export type ButtonColorThemes =
+  | 'info'
+  | 'error'
+  | 'warning'
+  | 'success'
+  | 'overlay';
+
 export interface BaseButtonProps
   extends BaseViewProps,
     FlexContainerStyleProps {
@@ -67,6 +74,12 @@ export interface BaseButtonProps
    * Changes the visual weight of the button.
    */
   variation?: ButtonVariations;
+
+  /**
+   * @description
+   * Changes the color scheme of the button
+   */
+  colorTheme?: ButtonColorThemes;
 }
 
 export type ButtonProps<Element extends ElementType = 'button'> =

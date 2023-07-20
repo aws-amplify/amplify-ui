@@ -52,6 +52,7 @@ const MenuButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       type={type}
       data-testid={testId}
       aria-label={ariaLabel}
+      variation={variation}
       style={propStyles}
       {...nonStyleProps}
     >
