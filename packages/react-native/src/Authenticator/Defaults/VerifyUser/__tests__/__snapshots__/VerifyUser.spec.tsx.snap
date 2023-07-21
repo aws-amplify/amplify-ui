@@ -28,9 +28,9 @@ Array [
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -118,9 +118,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 14,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 21,
+                "lineHeight": 24,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -185,9 +185,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 14,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 21,
+                "lineHeight": 24,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -345,9 +345,9 @@ Array [
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -435,9 +435,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 14,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 21,
+                "lineHeight": 24,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -502,9 +502,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 14,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 21,
+                "lineHeight": 24,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
