@@ -1,7 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Text, ComponentClassNames } from '@aws-amplify/ui-react';
+import {
+  Text,
+  ComponentClassNames,
+  useIcons,
+  View,
+} from '@aws-amplify/ui-react';
 import { IconCheck, IconError } from '@aws-amplify/ui-react/internal';
 import { classNameModifier } from '@aws-amplify/ui';
 import { FileStatus } from '../../types';
@@ -15,6 +20,7 @@ export const FileStatusMessage = ({
   status,
   uploadSuccessfulText,
 }: FileStatusMessageProps): JSX.Element | null => {
+  const icons = useIcons();
   switch (status) {
     case FileStatus.UPLOADING: {
       return (
@@ -40,7 +46,10 @@ export const FileStatusMessage = ({
             )
           )}
         >
-          <IconCheck fontSize="xl" /> {uploadSuccessfulText}
+          <View as="span" fontSize="xl">
+            {icons?.storageManager?.success ?? <IconCheck />}
+          </View>
+          {uploadSuccessfulText}
         </Text>
       );
     case FileStatus.ERROR:
@@ -54,7 +63,10 @@ export const FileStatusMessage = ({
             )
           )}
         >
-          <IconError fontSize="xl" /> {errorMessage}
+          <View as="span" fontSize="xl">
+            {icons?.storageManager?.error ?? <IconError />}
+          </View>
+          {errorMessage}
         </Text>
       );
     default:

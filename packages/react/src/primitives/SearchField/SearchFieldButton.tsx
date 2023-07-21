@@ -9,11 +9,13 @@ import {
   BaseSearchFieldButtonProps,
   SearchFieldButtonProps,
 } from '../types';
+import { useIcons } from '../../hooks/useIcons';
 
 const ariaLabelText = ComponentText.SearchField.searchButtonLabel;
 
 const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
   ({ size, ...props }, ref) => {
+    const icons = useIcons();
     return (
       <FieldGroupIconButton
         ariaLabel={ariaLabelText}
@@ -23,7 +25,7 @@ const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
         type="submit"
         {...props}
       >
-        <IconSearch />
+        {icons?.searchField?.search ?? <IconSearch />}
       </FieldGroupIconButton>
     );
   };

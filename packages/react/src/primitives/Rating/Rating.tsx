@@ -15,6 +15,7 @@ import {
   Primitive,
 } from '../types';
 import { VisuallyHidden } from '../VisuallyHidden';
+import { useIcons } from '../../hooks/useIcons';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
 const RATING_DEFAULT_VALUE = 0;
@@ -25,7 +26,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
     emptyColor,
     emptyIcon,
     fillColor,
-    icon = <IconStar />,
+    icon,
     maxValue = RATING_DEFAULT_MAX_VALUE,
     size,
     value = RATING_DEFAULT_VALUE,
@@ -33,13 +34,16 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
   },
   ref
 ) => {
+  const icons = useIcons();
+  const filledIcon = icon ?? icons?.rating?.filled ?? <IconStar />;
+  const _emptyIcon = emptyIcon ?? icon ?? icons?.rating?.empty ?? <IconStar />;
   const items = new Array(Math.ceil(maxValue)).fill(1).map((_, index) => {
     const currentIconIndex = index + 1;
     if (isIconFilled(currentIconIndex, value))
       return (
         <RatingIcon
           key={index.toString()}
-          icon={icon}
+          icon={filledIcon}
           fill={fillColor}
           className="amplify-rating-icon-filled"
         />
@@ -48,7 +52,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
       return (
         <RatingIcon
           key={index.toString()}
-          icon={emptyIcon ?? icon}
+          icon={_emptyIcon}
           fill={emptyColor}
           className="amplify-rating-icon-empty"
         />
@@ -57,8 +61,8 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
       return (
         <RatingMixedIcon
           key={index.toString()}
-          fillIcon={icon}
-          emptyIcon={emptyIcon ?? icon}
+          fillIcon={filledIcon}
+          emptyIcon={_emptyIcon}
           value={value}
           fillColor={fillColor}
           emptyColor={emptyColor}

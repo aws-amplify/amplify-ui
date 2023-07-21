@@ -6,6 +6,8 @@ interface IconProviderProps {
   icons?: IconContextInterface;
 }
 
+export { IconContextInterface };
+
 export function IconProvider({
   children,
   icons,

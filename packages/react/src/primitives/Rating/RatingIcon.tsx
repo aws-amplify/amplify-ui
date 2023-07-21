@@ -6,7 +6,7 @@ import { View } from '../View';
 import { StyleToken } from '../types/style';
 
 interface RatingIconProps {
-  icon: JSX.Element;
+  icon: React.ReactNode;
   fill?: StyleToken<Property.Color>;
   className: string;
 }

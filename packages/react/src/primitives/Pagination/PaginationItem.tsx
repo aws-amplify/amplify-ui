@@ -9,6 +9,7 @@ import { VisuallyHidden } from '../VisuallyHidden';
 import { BasePaginationItemProps } from '../types/pagination';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
+import { useIcons } from '../../hooks/useIcons';
 
 export const PAGINATION_CURRENT_TEST_ID = 'current';
 export const PAGINATION_ELLIPSIS_TEST_ID = 'ellipsis';
@@ -23,6 +24,7 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
   ariaLabel,
   ...rest
 }) => {
+  const icons = useIcons();
   const nextClasses = classNames(
     ComponentClassNames.PaginationItemButton,
     classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
@@ -93,7 +95,7 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
             ariaLabel={ariaLabel}
             {...rest}
           >
-            <IconChevronRight size="large" />
+            {icons?.pagination?.next ?? <IconChevronRight />}
           </Button>
         </View>
       );
@@ -111,7 +113,7 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
             ariaLabel={ariaLabel}
             {...rest}
           >
-            <IconChevronLeft size="large" />
+            {icons?.pagination?.previous ?? <IconChevronLeft />}
           </Button>
         </View>
       );

@@ -11,6 +11,7 @@ import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
+import { useIcons } from '../../hooks/useIcons';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -28,6 +29,7 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
   const triggerId = useStableId();
   const contentId = useStableId();
   const { rest } = splitPrimitiveProps(_rest);
+  const icons = useIcons();
   return (
     <Item
       className={classNames(ComponentClassNames.ExpanderItem, className)}
@@ -46,11 +48,12 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
           id={triggerId}
         >
           {title}
-          <IconExpandMore
-            aria-hidden
+          <span
             className={ComponentClassNames.ExpanderIcon}
             data-testid={EXPANDER_ICON_TEST_ID}
-          />
+          >
+            {icons?.expander?.more ?? <IconExpandMore aria-hidden />}
+          </span>
         </Trigger>
       </Header>
       <Content

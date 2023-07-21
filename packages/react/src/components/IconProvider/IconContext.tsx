@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 type ComponentIcons<Keys extends string> = {
-  [Key in Keys]?: React.ReactElement;
+  [Key in Keys]?: React.ReactNode;
 };
 
 export interface IconContextInterface {

@@ -14,6 +14,8 @@ import { useCheckbox } from './useCheckbox';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
+import { useIcons } from '../../hooks/useIcons';
+import { View } from '../View';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -39,6 +41,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
 
   const { dataChecked, dataFocus, onBlur, onChange, onFocus, setDataChecked } =
     useCheckbox(initialChecked, onChangeProp);
+  const icons = useIcons();
 
   React.useEffect(() => {
     const isControlled = checked !== undefined;
@@ -89,32 +92,33 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       ComponentClassNames.CheckboxIcon,
       'disabled',
       isDisabled
+    ),
+    classNameModifierByFlag(
+      ComponentClassNames.CheckboxIcon,
+      'indeterminate',
+      isIndeterminate
     )
   );
+  const iconProps = {
+    className: classNames(iconClasses),
+    'data-checked': dataChecked,
+    'data-disabled': isDisabled,
+    'data-testid': iconTestId,
+  };
 
-  const renderedIcon = React.useMemo(
-    () =>
-      isIndeterminate ? (
-        <IconIndeterminate
-          className={classNames(
-            iconClasses,
-            classNameModifierByFlag(
-              ComponentClassNames.CheckboxIcon,
-              'indeterminate',
-              isIndeterminate
-            )
-          )}
-          data-testid={iconTestId}
-        />
-      ) : (
-        <IconCheck
-          className={iconClasses}
-          data-checked={dataChecked}
-          data-disabled={isDisabled}
-          data-testid={iconTestId}
-        />
-      ),
-    [dataChecked, iconClasses, iconTestId, isDisabled, isIndeterminate]
+  const checkedIcon = icons?.checkbox?.checked ? (
+    <View as="span" className={classNames(iconClasses)}>
+      {icons.checkbox.checked}
+    </View>
+  ) : (
+    <IconCheck {...iconProps} />
+  );
+  const indeterminateIcon = icons?.checkbox?.indeterminate ? (
+    <View as="span" className={classNames(iconClasses)}>
+      {icons.checkbox.indeterminate}
+    </View>
+  ) : (
+    <IconIndeterminate {...iconProps} />
   );
 
   return (
@@ -172,7 +176,14 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         testId={buttonTestId}
         {...inputStyles}
       >
-        {renderedIcon}
+        {/* <View as="span"
+          className={classNames(iconClasses)}
+          data-checked={dataChecked}
+          data-disabled={isDisabled}
+          data-testid={iconTestId}>
+          {isIndeterminate ? indeterminateIcon : checkedIcon}
+        </View> */}
+        {isIndeterminate ? indeterminateIcon : checkedIcon}
       </Flex>
     </Flex>
   );
