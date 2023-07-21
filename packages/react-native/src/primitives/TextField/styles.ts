@@ -13,6 +13,7 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
   return StyleSheet.create({
     container: {
       alignItems: 'flex-start',
+      marginBottom: space.medium,
       ...components?.textField?.container,
     },
     disabled: {
@@ -36,14 +37,15 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
       fontSize: fontSizes.medium,
       flexGrow: 1,
       paddingVertical: space.small,
+      paddingHorizontal: space.xxs,
       // this is needed because of extra padding inside the input - in Android only
       ...(Platform.OS === 'android' && { padding: 0 }),
       ...components?.textField?.field,
     },
     label: {
       color: colors.font.secondary,
-      lineHeight: getLineHeight(fontSizes.small),
-      padding: space.xxs,
+      lineHeight: getLineHeight(fontSizes.medium),
+      paddingVertical: space.xs,
       ...components?.textField?.label,
     },
   });
