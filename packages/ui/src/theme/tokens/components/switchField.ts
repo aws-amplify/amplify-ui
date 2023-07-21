@@ -18,7 +18,12 @@ export type SwitchFieldTokens<OutputType extends OutputVariantKey> =
     small?: SwitchFieldSizeTokens<OutputType>;
     label?: DesignTokenProperties<'padding', OutputType>;
     thumb?: DesignTokenProperties<
-      'backgroundColor' | 'borderColor' | 'borderRadius' | 'width',
+      | 'backgroundColor'
+      | 'borderColor'
+      | 'borderStyle'
+      | 'borderWidth'
+      | 'borderRadius'
+      | 'width',
       OutputType
     > & {
       checked?: DesignTokenProperties<'transform', OutputType>;
@@ -67,7 +72,9 @@ export const switchfield: Required<SwitchFieldTokens<'default'>> = {
 
   thumb: {
     backgroundColor: { value: '{colors.background.primary.value}' },
-    borderColor: { value: '{colors.border.tertiary.value}' },
+    borderColor: { value: 'transparent' },
+    borderWidth: { value: '{borderWidths.small.value}' },
+    borderStyle: { value: 'solid' },
     borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
       transform: { value: '{transforms.slideX.medium.value}' },

@@ -1,6 +1,8 @@
 .amplify-switchfield {
   display: inline-block;
   font-size: var(--amplify-components-switchfield-font-size);
+  cursor: pointer;
+  
   &--small {
     font-size: var(--amplify-components-switchfield-small-font-size);
   }
@@ -68,6 +70,8 @@
   border-radius: var(--amplify-components-switchfield-thumb-border-radius);
   width: var(--amplify-components-switchfield-thumb-width);
   height: var(--amplify-components-switchfield-thumb-width);
+  border-width: var(--amplify-components-switchfield-thumb-border-width);
+  border-style: var(--amplify-components-switchfield-thumb-border-style);
   border-color: var(--amplify-components-switchfield-thumb-border-color);
   overflow-wrap: break-word;
   &--checked {
