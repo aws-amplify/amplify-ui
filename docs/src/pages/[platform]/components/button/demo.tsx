@@ -4,6 +4,7 @@ import {
   Button,
   ButtonSizes,
   ButtonVariations,
+  ButtonColorThemes,
   ButtonProps,
   Flex,
   SwitchField,
@@ -21,6 +22,9 @@ const propsToCode = (props) => {
     (props.loading ? `\n  isLoading={${props.loading}}` : '') +
     (props.variation
       ? `\n  variation=${JSON.stringify(props.variation)}`
+      : '') +
+    (props.colorTheme
+      ? `\n  colorTheme=${JSON.stringify(props.colorTheme)}`
       : '') +
     (props.size ? `\n  size=${JSON.stringify(props.size)}` : '') +
     `
@@ -48,8 +52,23 @@ const PropControls = (props) => {
         <option value="">Default</option>
         <option value="primary">Primary</option>
         <option value="link">Link</option>
+      </SelectField>
+
+      <SelectField
+        name="colorTheme"
+        id="colorTheme"
+        label="ColorTheme"
+        value={props.colorTheme}
+        onChange={(event) =>
+          props.setColorTheme(event.target.value as ButtonColorThemes)
+        }
+      >
+        <option value="">Default</option>
+        <option value="error">Error</option>
+        <option value="info">Info</option>
         <option value="warning">Warning</option>
-        <option value="destructive">Destructive</option>
+        <option value="success">Success</option>
+        <option value="overlay">Overlay</option>
       </SelectField>
 
       <SelectField
@@ -115,6 +134,7 @@ export const ButtonDemo = () => {
   const [loadingText, setLoadingText] = React.useState('');
   const [ariaLabel, setAriaLabel] = React.useState<string>('');
   const [variation, setVariation] = React.useState<ButtonVariations>();
+  const [colorTheme, setColorTheme] = React.useState<ButtonColorThemes>();
   const [size, setSize] = React.useState<ButtonSizes>();
 
   const props = {
@@ -134,6 +154,7 @@ export const ButtonDemo = () => {
     setLoadingText,
     setAriaLabel,
     setVariation,
+    setColorTheme,
     setSize,
   };
   return (
@@ -146,6 +167,7 @@ export const ButtonDemo = () => {
         isLoading={loading}
         loadingText={loadingText}
         variation={variation}
+        colorTheme={colorTheme}
         size={size}
         onClick={() => alert('hello')}
         ariaLabel={ariaLabel}
