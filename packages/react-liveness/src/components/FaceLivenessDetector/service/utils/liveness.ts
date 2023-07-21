@@ -171,7 +171,7 @@ export function getStaticLivenessOvalDetails({
   const ovalHeight = 1.618 * ovalWidth;
 
   return {
-    flippedCenterX: Math.floor(videoWidth - centerX),
+    flippedCenterX: Math.floor(centerX),
     centerX: Math.floor(centerX),
     centerY: Math.floor(centerY),
     width: Math.floor(ovalWidth),
@@ -263,29 +263,11 @@ export function getFaceMatchStateInLivenessOval(
 ): FaceMatchStateInLivenessOval {
   let faceMatchState: FaceMatchState;
 
-  const challengeConfig =
-    sessionInformation?.Challenge?.FaceMovementAndLightChallenge
-      ?.ChallengeConfig;
-  if (
-    !challengeConfig ||
-    !challengeConfig.OvalIouThreshold ||
-    !challengeConfig.OvalIouHeightThreshold ||
-    !challengeConfig.OvalIouWidthThreshold ||
-    !challengeConfig.FaceIouHeightThreshold ||
-    !challengeConfig.FaceIouWidthThreshold
-  ) {
-    throw new Error(
-      'Challenge information not returned from session information.'
-    );
-  }
-
-  const {
-    OvalIouThreshold,
-    OvalIouHeightThreshold,
-    OvalIouWidthThreshold,
-    FaceIouHeightThreshold,
-    FaceIouWidthThreshold,
-  } = challengeConfig;
+  const OvalIouThreshold = 0.75;
+  const OvalIouHeightThreshold = 0.25;
+  const OvalIouWidthThreshold = 0.25;
+  const FaceIouHeightThreshold = 0.15;
+  const FaceIouWidthThreshold = 0.15;
 
   const faceBoundingBox: BoundingBox = generateBboxFromLandmarks(
     face,
@@ -665,11 +647,8 @@ export const isClientFreshnessColorSequence = (
 export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
 ): ClientFreshnessColorSequence[] {
-  const colorSequenceFromSessionInfo =
-    sessionInformation.Challenge!.FaceMovementAndLightChallenge!
-      .ColorSequences || [];
   const colorSequences: (ClientFreshnessColorSequence | undefined)[] =
-    colorSequenceFromSessionInfo.map(
+    MOCK_COLOR_SEQUENCES.map(
       ({
         FreshnessColor,
         DownscrollDuration: downscrollDuration,

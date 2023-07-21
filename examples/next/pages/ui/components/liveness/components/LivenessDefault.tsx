@@ -75,10 +75,9 @@ export default function LivenessDefault({
                   sessionId={createLivenessSessionApiData.sessionId}
                   region={'us-east-1'}
                   onUserCancel={onUserCancel}
-                  onAnalysisComplete={async () => {
-                    await handleGetLivenessDetection(
-                      createLivenessSessionApiData.sessionId
-                    );
+                  onAnalysisComplete={({ videoBlob, deviceMetadata }) => {
+                    console.log(videoBlob);
+                    console.log(deviceMetadata);
                   }}
                   onError={(error) => {
                     console.error(error);

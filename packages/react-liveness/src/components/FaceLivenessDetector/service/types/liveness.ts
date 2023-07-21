@@ -14,7 +14,10 @@ export interface FaceLivenessDetectorCoreProps {
    * Callback that signals when the liveness session has completed analysis.
    * At this point a request can be made to GetFaceLivenessSessionResults.
    */
-  onAnalysisComplete: () => Promise<void>;
+  onAnalysisComplete: (result: {
+    videoBlob: Blob;
+    deviceMetadata: { [key: string]: string };
+  }) => void;
 
   /**
    * The AWS region to stream the video to, for current regional support see the documentation here: FIXME LINK

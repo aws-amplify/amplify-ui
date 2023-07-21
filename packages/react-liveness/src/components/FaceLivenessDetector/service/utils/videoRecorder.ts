@@ -15,11 +15,11 @@ export class VideoRecorder {
   public recorderEndTimestamp: number | undefined;
   public firstChunkTimestamp: number | undefined;
   public recorderStarted!: Promise<void>;
+  public _chunks: Blob[];
 
   private _recorder: MediaRecorder;
   private _stream: MediaStream;
   private _options: VideoRecorderOptions;
-  private _chunks: Blob[];
   private _recorderStopped!: Promise<void>;
 
   constructor(stream: MediaStream, options: VideoRecorderOptions = {}) {

@@ -24,7 +24,6 @@ import {
   BlazeFaceFaceDetection,
   drawLivenessOvalInCanvas,
   getFaceMatchStateInLivenessOval,
-  getOvalDetailsFromSessionInformation,
   LivenessStreamProvider,
   estimateIllumination,
   isCameraDeviceVirtual,
@@ -52,8 +51,6 @@ export const MIN_FACE_MATCH_TIME = 500;
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
 let streamConnectionOpenTimestamp: number;
-
-let responseStream: Promise<AsyncIterable<LivenessResponseStream>>;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -199,52 +196,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         invoke: {
           src: 'openLivenessStreamConnection',
           onDone: {
-            target: 'notRecording',
+            target: 'recording',
             actions: [
               'updateLivenessStreamProvider',
               'spawnResponseStreamActor',
             ],
-          },
-        },
-      },
-      notRecording: {
-        on: {
-          START_RECORDING: 'recording', // if countdown completes while face is far enough, start recording
-        },
-        initial: 'waitForSessionInfo',
-        states: {
-          waitForSessionInfo: {
-            after: {
-              0: {
-                target: '#livenessMachine.recording',
-                cond: 'hasServerSessionInfo',
-              },
-              100: { target: 'detectFaceDistanceDuringLoading' },
-            },
-          },
-          detectFaceDistanceDuringLoading: {
-            invoke: {
-              src: 'detectFaceDistanceWhileLoading',
-              onDone: {
-                target: 'checkFaceDistanceDuringLoading',
-                actions: ['updateFaceDistanceWhileLoading'],
-              },
-            },
-          },
-          checkFaceDistanceDuringLoading: {
-            always: [
-              {
-                target: 'failure',
-                cond: 'hasNotEnoughFaceDistanceBeforeRecording',
-              },
-              {
-                target: 'waitForSessionInfo',
-              },
-            ],
-          },
-          failure: {
-            entry: 'sendTimeoutAfterFaceDistanceDelay',
-            type: 'final',
           },
         },
       },
@@ -350,20 +306,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             entry: ['sendTimeoutAfterWaitingForDisconnect', 'pauseVideoStream'],
             invoke: {
               src: 'stopVideo',
-              onDone: 'waitForDisconnectEvent',
+              onDone: 'getLivenessResult',
               onError: {
                 target: '#livenessMachine.error',
                 actions: 'updateErrorStateForRuntime',
               },
-            },
-          },
-          waitForDisconnectEvent: {
-            after: {
-              0: {
-                target: 'getLivenessResult',
-                cond: 'getShouldDisconnect',
-              },
-              100: { target: 'waitForDisconnectEvent' },
             },
           },
           getLivenessResult: {
@@ -385,7 +332,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             target: 'timeout',
             cond: 'shouldTimeoutOnFailedAttempts',
           },
-          { target: 'notRecording' },
+          { target: 'recording' },
         ],
       },
       permissionDenied: {
@@ -419,9 +366,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   },
   {
     actions: {
-      spawnResponseStreamActor: assign({
-        responseStreamActorRef: () => spawn(responseStreamActor),
-      }),
+      spawnResponseStreamActor: assign({}),
       updateFailedAttempts: assign({
         failedAttempts: (context) => {
           return context.failedAttempts! + 1;
@@ -537,11 +482,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       }),
       startRecording: assign({
         videoAssociatedParams: (context) => {
-          if (!context.serverSessionInformation) {
-            throw new Error(
-              'Session information was not received from response stream'
-            );
-          }
           if (
             context.livenessStreamProvider!.videoRecorder &&
             context.livenessStreamProvider!.videoRecorder.getState() !==
@@ -929,7 +869,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         streamConnectionOpenTimestamp = Date.now();
 
-        responseStream = livenessStreamProvider.getResponseStream();
         return { livenessStreamProvider };
       },
       async detectFace(context) {
@@ -1068,9 +1007,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const scaleFactor = videoScaledWidth / videoEl!.videoWidth;
 
         // generate oval details from initialFace and video dimensions
-        const ovalDetails = getOvalDetailsFromSessionInformation({
-          sessionInformation: serverSessionInformation!,
-          videoWidth: videoEl!.width,
+        const ovalDetails = getStaticLivenessOvalDetails({
+          width: videoEl!.width,
+          height: videoEl!.height,
         });
 
         // renormalize initial face
@@ -1227,68 +1166,21 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           throw new Error('Video chunks not recorded successfully.');
         }
 
-        livenessStreamProvider!.sendClientInfo(livenessActionDocument);
-
-        await livenessStreamProvider!.dispatchStopVideoEvent();
+        livenessStreamProvider!.dispatchStopVideoEvent();
       },
       async getLiveness(context) {
         const { onAnalysisComplete } = context.componentProps!;
 
+        const chunks = context.livenessStreamProvider?.videoRecorder._chunks;
+
+        const blobData = new Blob(chunks, { type: 'video/webm' });
+
         // Get liveness result
-        await onAnalysisComplete();
+        onAnalysisComplete({
+          videoBlob: blobData,
+          deviceMetadata: { foo: 'bar' },
+        });
       },
     },
   }
 );
-
-const responseStreamActor = async (callback: StreamActorCallback) => {
-  try {
-    const stream = await responseStream;
-    for await (const event of stream) {
-      if (isServerSesssionInformationEvent(event)) {
-        callback({
-          type: 'SET_SESSION_INFO',
-          data: {
-            sessionInfo: event.ServerSessionInformationEvent.SessionInformation,
-          },
-        });
-      } else if (isDisconnectionEvent(event)) {
-        callback({ type: 'DISCONNECT_EVENT' });
-      } else if (isValidationExceptionEvent(event)) {
-        callback({
-          type: 'SERVER_ERROR',
-          data: { error: { ...event.ValidationException } },
-        });
-      } else if (isInternalServerExceptionEvent(event)) {
-        callback({
-          type: 'SERVER_ERROR',
-          data: { error: { ...event.InternalServerException } },
-        });
-      } else if (isThrottlingExceptionEvent(event)) {
-        callback({
-          type: 'SERVER_ERROR',
-          data: { error: { ...event.ThrottlingException } },
-        });
-      } else if (isServiceQuotaExceededExceptionEvent(event)) {
-        callback({
-          type: 'SERVER_ERROR',
-          data: { error: { ...event.ServiceQuotaExceededException } },
-        });
-      }
-    }
-  } catch (error: unknown) {
-    let returnedError = error;
-    if (isInvalidSignatureRegionException(error)) {
-      returnedError = new Error(
-        'Invalid region in FaceLivenessDetector or credentials are scoped to the wrong region.'
-      );
-    }
-
-    if (returnedError instanceof Error) {
-      callback({
-        type: 'SERVER_ERROR',
-        data: { error: returnedError },
-      });
-    }
-  }
-};
