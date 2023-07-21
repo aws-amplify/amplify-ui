@@ -1,5 +1,51 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.21
+
+### Patch Changes
+
+- [#4227](https://github.com/aws-amplify/amplify-ui/pull/4227) [`d3ee05415`](https://github.com/aws-amplify/amplify-ui/commit/d3ee054159e1de81861bcd9273be9b1c87924cf4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(react-native): border widths, spacing, font sizes, opacities in the theme don't throw runtime errors.
+
+  These are all valid in a theme now:
+
+  ```typescript
+  const theme: Theme = {
+    tokens: {
+      borderWidths: {
+        small: '4',
+        medium: '1rem',
+        large: 6,
+      },
+      opacities: {
+        '10': '0.2',
+      },
+      space: {
+        small: 4,
+        medium: '6',
+        large: '{space.small.value}',
+      },
+      fontSizes: {
+        small: '1rem',
+      },
+    },
+  };
+  ```
+
+- [#4215](https://github.com/aws-amplify/amplify-ui/pull/4215) [`279b3852c`](https://github.com/aws-amplify/amplify-ui/commit/279b3852cf579e10fab225536aa54850ab3a9424) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(rna): expose TS types of RNA static components
+
+- [#4225](https://github.com/aws-amplify/amplify-ui/pull/4225) [`d87fb4beb`](https://github.com/aws-amplify/amplify-ui/commit/d87fb4beb4fa6e76ee09221a1a361553884ac42b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(react-native): adding error styles to text field
+
+- [#4107](https://github.com/aws-amplify/amplify-ui/pull/4107) [`6d14bf3f3`](https://github.com/aws-amplify/amplify-ui/commit/6d14bf3f386523bacd6832e56cc5903f644da88e) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - chore(ui-react-native): Add Authenticator fields validations
+
+- [#4247](https://github.com/aws-amplify/amplify-ui/pull/4247) [`41b9055c8`](https://github.com/aws-amplify/amplify-ui/commit/41b9055c821b44e9347146a9588755eeef588f13) Thanks [@calebpollman](https://github.com/calebpollman)! - feature(rna): update is signed in logic to read from Auth
+
+- [#4239](https://github.com/aws-amplify/amplify-ui/pull/4239) [`30e0fce43`](https://github.com/aws-amplify/amplify-ui/commit/30e0fce430cbab200f572205b5c5ce6ff618972c) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(react-native): fix the theme components type
+
+- Updated dependencies [[`78fdfd6c8`](https://github.com/aws-amplify/amplify-ui/commit/78fdfd6c8268c56204f905402162ad8cb40a0c8e), [`d3ee05415`](https://github.com/aws-amplify/amplify-ui/commit/d3ee054159e1de81861bcd9273be9b1c87924cf4), [`165a8abbd`](https://github.com/aws-amplify/amplify-ui/commit/165a8abbda8aa3e95fb9466fc60f8694c646d5bc), [`13098b36a`](https://github.com/aws-amplify/amplify-ui/commit/13098b36a75452d839955d141bd25f57538b1a22), [`37e490d39`](https://github.com/aws-amplify/amplify-ui/commit/37e490d3997a1dc55e2998c277790945921e6dc3), [`6d14bf3f3`](https://github.com/aws-amplify/amplify-ui/commit/6d14bf3f386523bacd6832e56cc5903f644da88e), [`aea82ff1b`](https://github.com/aws-amplify/amplify-ui/commit/aea82ff1bb6e066ed8b70433f4d72cd34bf0ccae)]:
+  - @aws-amplify/ui@5.6.7
+  - @aws-amplify/ui-react-core@2.1.26
+  - @aws-amplify/ui-react-core-notifications@1.0.3
+
 ## 1.2.20
 
 ### Patch Changes

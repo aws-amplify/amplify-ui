@@ -31,10 +31,7 @@ import {
   FreshnessColorDisplay,
 } from '../utils';
 import { nanoid } from 'nanoid';
-import {
-  getStaticLivenessOvalDetails,
-  LivenessErrorStateStringMap,
-} from '../utils/liveness';
+import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,

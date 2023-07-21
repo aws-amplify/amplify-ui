@@ -4504,11 +4504,19 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-switchfield-thumb-border-color\\",
-        \\"value\\": \\"var(--amplify-colors-border-tertiary)\\"
+        \\"value\\": \\"transparent\\"
     },
     {
         \\"variable\\": \\"--amplify-components-switchfield-thumb-border-radius\\",
         \\"value\\": \\"var(--amplify-radii-xxxl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-thumb-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-switchfield-thumb-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-switchfield-thumb-checked-transform\\",
