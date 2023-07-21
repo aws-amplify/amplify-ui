@@ -54,7 +54,9 @@
     box-shadow: var(--amplify-components-switchfield-focused-shadow);
   }
   &--error {
-    background-color: var(--amplify-components-switchfield-track-error-background-color);
+    background-color: var(
+      --amplify-components-switchfield-track-error-background-color
+    );
   }
 }
 
