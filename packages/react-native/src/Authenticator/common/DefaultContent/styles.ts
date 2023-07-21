@@ -12,7 +12,7 @@ export const getDefaultStyle = ({
       paddingHorizontal: space.small,
     },
     buttonPrimary: {
-      marginHorizontal: space.medium,
+      marginHorizontal: space.small,
       marginVertical: space.small,
     },
     buttonPrimaryLabel: {}, // themed value only

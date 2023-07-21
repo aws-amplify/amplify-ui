@@ -11,7 +11,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -248,7 +248,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
+          "marginHorizontal": 12,
           "marginVertical": 12,
         },
       ]
@@ -343,7 +343,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -521,7 +521,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
+          "marginHorizontal": 12,
           "marginVertical": 12,
         },
       ]
