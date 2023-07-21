@@ -1079,18 +1079,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-red-100)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-link-error-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-error-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-error-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-link-error-focus-background-color\\",
         \\"value\\": \\"var(--amplify-colors-red-10)\\"
     },
@@ -1117,18 +1105,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-link-error-hover-color\\",
         \\"value\\": \\"var(--amplify-colors-red-90)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-error-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-error-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-error-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-link-focus-background-color\\",
@@ -1183,18 +1159,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-blue-100)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-link-info-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-info-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-info-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-link-info-focus-background-color\\",
         \\"value\\": \\"var(--amplify-colors-blue-10)\\"
     },
@@ -1221,18 +1185,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-link-info-hover-color\\",
         \\"value\\": \\"var(--amplify-colors-blue-90)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-info-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-info-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-info-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-link-loading-background-color\\",
@@ -1271,18 +1223,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-neutral-100)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-link-overlay-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-overlay-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-overlay-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-link-overlay-focus-background-color\\",
         \\"value\\": \\"var(--amplify-colors-overlay-5)\\"
     },
@@ -1311,18 +1251,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-overlay-80)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-link-overlay-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-overlay-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-overlay-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-link-success-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-green-20)\\"
     },
@@ -1345,18 +1273,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-link-success-color\\",
         \\"value\\": \\"var(--amplify-colors-green-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-success-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-success-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-success-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-link-success-focus-background-color\\",
@@ -1387,18 +1303,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-green-90)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-link-success-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-success-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-success-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-link-warning-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-orange-20)\\"
     },
@@ -1421,18 +1325,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-link-warning-color\\",
         \\"value\\": \\"var(--amplify-colors-orange-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-warning-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-warning-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-warning-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-link-warning-focus-background-color\\",
@@ -1461,18 +1353,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-link-warning-hover-color\\",
         \\"value\\": \\"var(--amplify-colors-orange-90)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-warning-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-warning-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-link-warning-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-loader-wrapper-align-items\\",
@@ -1559,18 +1439,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-red-100)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-outlined-error-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-error-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-error-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-outlined-error-focus-background-color\\",
         \\"value\\": \\"var(--amplify-colors-red-10)\\"
     },
@@ -1599,18 +1467,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-red-100)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-outlined-error-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-error-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-error-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-outlined-info-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-blue-20)\\"
     },
@@ -1633,18 +1489,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-outlined-info-color\\",
         \\"value\\": \\"var(--amplify-colors-blue-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-info-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-info-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-info-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-info-focus-background-color\\",
@@ -1675,18 +1519,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-blue-100)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-outlined-info-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-info-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-info-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-overlay-10)\\"
     },
@@ -1709,18 +1541,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-color\\",
         \\"value\\": \\"var(--amplify-colors-font-primary)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-overlay-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-overlay-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-overlay-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-overlay-focus-background-color\\",
@@ -1751,18 +1571,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-neutral-90)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-outlined-overlay-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-overlay-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-overlay-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-outlined-success-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-green-20)\\"
     },
@@ -1785,18 +1593,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-outlined-success-color\\",
         \\"value\\": \\"var(--amplify-colors-green-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-success-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-success-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-success-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-success-focus-background-color\\",
@@ -1827,18 +1623,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-green-100)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-outlined-success-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-success-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-success-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-outlined-warning-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-orange-20)\\"
     },
@@ -1861,18 +1645,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-outlined-warning-color\\",
         \\"value\\": \\"var(--amplify-colors-orange-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-warning-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-warning-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-warning-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-outlined-warning-focus-background-color\\",
@@ -1901,18 +1673,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-outlined-warning-hover-color\\",
         \\"value\\": \\"var(--amplify-colors-orange-100)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-warning-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-warning-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-outlined-warning-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-padding-block-end\\",
@@ -1999,18 +1759,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-primary-error-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-error-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-error-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-primary-error-focus-background-color\\",
         \\"value\\": \\"var(--amplify-colors-red-90)\\"
     },
@@ -2037,18 +1785,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-primary-error-hover-color\\",
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-error-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-error-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-error-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-primary-focus-background-color\\",
@@ -2103,18 +1839,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-primary-info-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-info-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-info-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-primary-info-focus-background-color\\",
         \\"value\\": \\"var(--amplify-colors-blue-90)\\"
     },
@@ -2141,18 +1865,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-primary-info-hover-color\\",
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-info-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-info-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-info-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-primary-loading-background-color\\",
@@ -2191,18 +1903,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-primary-overlay-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-overlay-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-overlay-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-primary-overlay-focus-background-color\\",
         \\"value\\": \\"var(--amplify-colors-overlay-90)\\"
     },
@@ -2231,18 +1931,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-primary-overlay-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-overlay-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-overlay-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-primary-success-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-green-100)\\"
     },
@@ -2265,18 +1953,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-primary-success-color\\",
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-success-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-success-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-success-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-primary-success-focus-background-color\\",
@@ -2307,18 +1983,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-button-primary-success-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-success-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-success-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-button-primary-warning-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-orange-100)\\"
     },
@@ -2341,18 +2005,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-primary-warning-color\\",
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-warning-disabled-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-warning-disabled-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-warning-disabled-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-primary-warning-focus-background-color\\",
@@ -2381,18 +2033,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-primary-warning-hover-color\\",
         \\"value\\": \\"var(--amplify-colors-font-inverse)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-warning-loading-background-color\\",
-        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-warning-loading-border-color\\",
-        \\"value\\": \\"transparent\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-button-primary-warning-loading-color\\",
-        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-small-font-size\\",

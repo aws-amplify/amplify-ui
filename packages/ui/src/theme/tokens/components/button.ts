@@ -12,8 +12,6 @@ type ColorThemeTokens<Output> = DesignTokenProperties<
   _hover?: StateTokens<Output>;
   _focus?: StateWithShadowTokens<Output>;
   _active?: StateTokens<Output>;
-  _disabled?: StateTokens<Output>;
-  _loading?: StateTokens<Output>;
 };
 
 type StateWithShadowTokens<Output> = StateTokens<Output> &
@@ -168,16 +166,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: '{colors.blue.60.value}' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.blue.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: '{colors.blue.60.value}' },
         backgroundColor: { value: '{colors.blue.10.value}' },
@@ -208,16 +196,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: '{colors.orange.60.value}' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.orange.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: '{colors.orange.60.value}' },
         backgroundColor: { value: '{colors.orange.10.value}' },
@@ -248,16 +226,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: '{colors.green.60.value}' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.green.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: '{colors.green.60.value}' },
         backgroundColor: { value: '{colors.green.10.value}' },
@@ -288,16 +256,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: '{colors.red.60.value}' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.red.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: '{colors.red.60.value}' },
         backgroundColor: { value: '{colors.red.10.value}' },
@@ -328,16 +286,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: '{colors.neutral.60.value}' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.primary.value}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: '{colors.overlay.60.value}' },
         backgroundColor: { value: '{colors.overlay.5.value}' },
@@ -402,16 +350,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: '{colors.blue.80}' },
       color: { value: '{colors.font.inverse.value}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.blue.90.value}' },
@@ -441,16 +379,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: '{colors.orange.80}' },
       color: { value: '{colors.font.inverse.value}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.orange.90.value}' },
@@ -480,16 +408,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: '{colors.red.80}' },
       color: { value: '{colors.font.inverse.value}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.red.90.value}' },
@@ -519,16 +437,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: '{colors.green.80}' },
       color: { value: '{colors.font.inverse.value}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.green.90.value}' },
@@ -558,16 +466,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: '{colors.overlay.70}' },
       color: { value: '{colors.font.inverse.value}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.overlay.90.value}' },
@@ -654,16 +552,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.blue.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.blue.10.value}' },
@@ -694,16 +582,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.orange.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.orange.10.value}' },
@@ -734,16 +612,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.green.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.green.10.value}' },
@@ -774,16 +642,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.red.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.red.10.value}' },
@@ -814,16 +672,6 @@ export const button: Required<ButtonTokens<'default'>> = {
       borderColor: { value: 'transparent' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.neutral.100}' },
-      _disabled: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
-      _loading: {
-        borderColor: { value: 'transparent' },
-        backgroundColor: { value: '{colors.background.disabled.value}' },
-        color: { value: '{colors.font.disabled.value}' },
-      },
       _hover: {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.overlay.5.value}' },
