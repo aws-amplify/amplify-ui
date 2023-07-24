@@ -56,7 +56,7 @@
     --amplify-internal-button-background-color: var(--amplify-components-button-hover-background-color);
     --amplify-internal-button-border-color: var(--amplify-components-button-focus-border-color);
     --amplify-internal-button-color: var(--amplify-components-button-focus-color);
-    --amplify-internal-button-focus-box-shadow: var(--amplify-components-button-focus-box-shadow);
+    box-shadow: var(--amplify-internal-button-focus-box-shadow);
   }
 
   &:active,
