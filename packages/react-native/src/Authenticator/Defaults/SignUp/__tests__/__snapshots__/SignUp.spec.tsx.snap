@@ -35,7 +35,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Object {
             "paddingHorizontal": 12,
@@ -117,7 +117,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -267,7 +267,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -417,7 +417,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -655,7 +655,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Object {
             "paddingHorizontal": 12,
@@ -737,7 +737,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -887,7 +887,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -1037,7 +1037,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -1217,7 +1217,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Object {
             "paddingHorizontal": 12,
@@ -1300,7 +1300,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -1453,7 +1453,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -1606,7 +1606,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -1845,7 +1845,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Object {
             "paddingHorizontal": 12,
@@ -1927,7 +1927,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -2077,7 +2077,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -2227,7 +2227,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -2524,7 +2524,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Object {
             "paddingHorizontal": 12,
@@ -2636,7 +2636,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -2789,7 +2789,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},
@@ -2942,7 +2942,7 @@ Array [
         Array [
           Object {
             "alignItems": "flex-start",
-            "marginBottom": 16,
+            "marginBottom": 8,
           },
           Array [
             Object {},

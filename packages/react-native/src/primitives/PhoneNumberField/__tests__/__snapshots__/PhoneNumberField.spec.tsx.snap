@@ -6,7 +6,7 @@ exports[`PhoneNumberField applies theming 1`] = `
     Array [
       Object {
         "alignItems": "flex-start",
-        "marginBottom": 16,
+        "marginBottom": 8,
       },
       Array [
         Object {},
@@ -68,7 +68,7 @@ exports[`PhoneNumberField renders as expected 1`] = `
     Array [
       Object {
         "alignItems": "flex-start",
-        "marginBottom": 16,
+        "marginBottom": 8,
       },
       Array [
         Object {},
@@ -130,7 +130,7 @@ exports[`PhoneNumberField renders as expected when disabled 1`] = `
     Array [
       Object {
         "alignItems": "flex-start",
-        "marginBottom": 16,
+        "marginBottom": 8,
       },
       Array [
         Object {},

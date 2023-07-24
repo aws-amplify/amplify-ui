@@ -13,7 +13,7 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
   return StyleSheet.create({
     container: {
       alignItems: 'flex-start',
-      marginBottom: space.medium,
+      marginBottom: space.xs,
       ...components?.textField?.container,
     },
     disabled: {
