@@ -1152,11 +1152,6 @@
     );
   }
 
-  /* 
-  We need the :not() here because our new color theme, warning, produces
-  the same class as our warning variation which breaks these combinations. 
-  The warning variation will eventually be deprecated. 
-  */
   &--warning {
     background-color: var(--amplify-components-button-warning-background-color);
     border-color: var(--amplify-components-button-warning-border-color);
