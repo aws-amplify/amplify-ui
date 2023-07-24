@@ -23,7 +23,7 @@ interface SnackOptions {
   sdkVersion?: string;
 }
 
-const defaultOptions = {
+const defaultOptions: SnackOptions = {
   name: 'example',
   platform: 'android',
   supportedPlatforms: 'ios,android',
@@ -116,7 +116,6 @@ export const ExpoSnack = (options: SnackOptions) => {
     ['iframeId', id.current],
     ['theme', theme],
   ]);
-  console.log(params.toString());
 
   return (
     <View className="snack-player" {...rest}>
