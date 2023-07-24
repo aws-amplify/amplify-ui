@@ -56,7 +56,7 @@ export type MenuProps<Element extends ElementType = 'div'> = PrimitiveProps<
 >;
 
 /** @deprecated For internal use only */
-export interface BaseMenuItemProps extends BaseButtonProps {
+export interface BaseMenuItemProps extends Omit<BaseButtonProps, 'colorTheme'> {
   /**
    * @description
    * Accepts any number of MenuItem components
@@ -68,3 +68,10 @@ export type MenuItemProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseMenuItemProps,
   Element
 >;
+
+/** @deprecated For internal use only */
+export interface BaseMenuButtonProps
+  extends Omit<BaseButtonProps, 'colorTheme'> {}
+
+export type MenuButtonProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseMenuButtonProps, Element>;

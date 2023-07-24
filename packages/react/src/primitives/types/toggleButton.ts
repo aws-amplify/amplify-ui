@@ -2,7 +2,8 @@ import { BaseButtonProps } from './button';
 import { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
-export interface BaseToggleButtonProps extends BaseButtonProps {
+export interface BaseToggleButtonProps
+  extends Omit<BaseButtonProps, 'colorTheme'> {
   /**
    * @description
    * Controls the selected state of the ToggleButton
