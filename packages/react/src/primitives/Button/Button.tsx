@@ -13,6 +13,10 @@ import { Flex } from '../Flex';
 import { Loader } from '../Loader';
 import { View } from '../View';
 
+// These variations support colorThemes. 'undefined' accounts for our
+// 'default' variation which is not named.
+const supportedVariations = ['link', 'primary', undefined];
+
 const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   {
     className,
@@ -29,12 +33,8 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   },
   ref
 ) => {
-  // These variations support colorThemes. 'undefined' accounts for our
-  // 'default' variation which is not named. This is done so we do not need to
-  // include a breaking change of defining a default value for variation.
-  const supportsColorThemes = ['link', 'primary', undefined].includes(
-    variation
-  );
+  // Test if variation supports color themes.
+  const supportsColorThemes = supportedVariations.includes(variation);
 
   // Use the variation to construct our color theme modifier classes; in the
   // case of our 'default' variation, use 'outlined'
