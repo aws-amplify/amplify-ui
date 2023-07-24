@@ -8,7 +8,7 @@ import { appendToCognitoUserAgent } from '@aws-amplify/auth';
 import { waitFor } from 'xstate/lib/waitFor.js';
 
 import { AuthInterpreter, AuthMachineHubHandler } from '../../types';
-import { ALLOWED_SPECIAL_CHARACTERS } from './constants';
+import { ALLOWED_SPECIAL_CHARACTERS, emailRegex } from './constants';
 import { getActorState } from './actor';
 import { isFunction } from '../../utils';
 
@@ -180,3 +180,9 @@ export function trimValues<T extends Record<string, string>>(
     {} as T
   );
 }
+
+export const isValidEmail = (value: string | undefined) => {
+  if (!value) return false;
+
+  return emailRegex.test(value);
+};

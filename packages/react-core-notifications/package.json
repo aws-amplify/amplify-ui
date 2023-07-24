@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-core-notifications",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -36,8 +36,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.6.6",
-    "@aws-amplify/ui-react-core": "2.1.25"
+    "@aws-amplify/ui": "5.6.7",
+    "@aws-amplify/ui-react-core": "2.1.26"
   },
   "peerDependencies": {
     "aws-amplify": ">= 5.0.1",
@@ -53,7 +53,7 @@
     "@types/react": "^17.0.2",
     "@types/react-test-renderer": "^17.0.1",
     "@types/testing-library__jest-dom": "^5.14.1",
-    "eslint": "^8.13.0",
+    "eslint": "^8.44.0",
     "jest": "^27.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

@@ -450,6 +450,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-disabled-border-color: var(--amplify-colors-transparent);
         --amplify-components-fieldcontrol-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-fieldcontrol-error-border-color: var(--amplify-colors-border-error);
+        --amplify-components-fieldcontrol-error-color: var(--amplify-colors-font-error);
         --amplify-components-fieldcontrol-error-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-border-error);
         --amplify-components-fieldgroup-gap: var(--amplify-space-zero);
         --amplify-components-fieldgroup-vertical-align-items: center;
@@ -859,7 +860,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-switchfield-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-switchfield-label-padding: var(--amplify-space-xs);
         --amplify-components-switchfield-thumb-background-color: var(--amplify-colors-background-primary);
-        --amplify-components-switchfield-thumb-border-color: var(--amplify-colors-border-tertiary);
+        --amplify-components-switchfield-thumb-border-color: transparent;
+        --amplify-components-switchfield-thumb-border-width: var(--amplify-border-widths-small);
+        --amplify-components-switchfield-thumb-border-style: solid;
         --amplify-components-switchfield-thumb-border-radius: var(--amplify-radii-xxxl);
         --amplify-components-switchfield-thumb-checked-transform: var(--amplify-transforms-slide-x-medium);
         --amplify-components-switchfield-thumb-transition-duration: var(--amplify-time-medium);

@@ -1,6 +1,7 @@
 import { defaultDarkModeOverride } from '@aws-amplify/ui-react';
 
-export default {
+const theme = {
   name: 'default-theme',
   overrides: [defaultDarkModeOverride],
 };
+export default theme;

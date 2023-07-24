@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultResetPasswordComponent } from '../types';
+import { DefaultResetPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ResetPassword';
 const {
@@ -19,18 +19,20 @@ const {
   getBackToSignInText,
 } = authenticatorTextUtil;
 
-const ResetPassword: DefaultResetPasswordComponent = ({
+const ResetPassword = ({
   fields,
   handleBlur,
   handleChange,
   handleSubmit,
   isPending,
   toSignIn,
+  validationErrors,
   ...rest
-}) => {
+}: DefaultResetPasswordProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -38,6 +40,7 @@ const ResetPassword: DefaultResetPasswordComponent = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getResetYourPasswordText();
@@ -69,6 +72,7 @@ const ResetPassword: DefaultResetPasswordComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

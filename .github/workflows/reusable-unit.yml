@@ -110,6 +110,10 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react size
 
+      - name: Check ${{ matrix.package }} bundle size
+        if: ${{ matrix.package == 'react-liveness' }}
+        run: yarn react-liveness size
+
       - name: Cache ${{ matrix.package }}/dist
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1 https://github.com/actions/cache/commit/88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:

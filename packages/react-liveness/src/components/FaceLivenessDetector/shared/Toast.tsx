@@ -17,20 +17,12 @@ export const Toast: React.FC<ToastProps> = ({
 }) => {
   return (
     <View
-      padding="small"
-      borderRadius="medium"
       className={`${LivenessClassNames.Toast} ${LivenessClassNames.Toast}--${variation} ${LivenessClassNames.Toast}--${size}`}
       maxWidth={{ base: '100%', small: '70%' }}
       {...rest}
     >
-      <Flex gap="xs" direction="column" alignItems="center">
-        <Flex
-          className={`${LivenessClassNames.Toast}__message`}
-          textAlign="center"
-          direction="column"
-        >
-          {children}
-        </Flex>
+      <Flex className={LivenessClassNames.ToastContainer}>
+        <Flex className={LivenessClassNames.ToastMessage}>{children}</Flex>
       </Flex>
     </View>
   );

@@ -163,7 +163,6 @@ describe('Liveness Machine', () => {
     jest.advanceTimersToNextTimer(); // waitForSessionInformation
     await flushPromises(); // detectFaceDistanceBeforeRecording
     jest.advanceTimersToNextTimer(); // checkFaceDistanceBeforeRecording
-    service.send({ type: 'START_RECORDING' });
   }
 
   async function advanceMinFaceMatches() {
@@ -421,7 +420,7 @@ describe('Liveness Machine', () => {
   describe('notRecording', () => {
     it('should reach recording state on START_RECORDING', async () => {
       await transitionToInitializeLivenessStream(service);
-      await flushPromises(); // notRecording
+      await flushPromises(); // checkFaceDistanceBeforeRecording
 
       service.send({
         type: 'SET_SESSION_INFO',
@@ -429,10 +428,9 @@ describe('Liveness Machine', () => {
           sessionInfo: mockSessionInformation,
         },
       });
-      jest.advanceTimersToNextTimer(); // waitForSessionInformation
-      await flushPromises(); // detectFaceDistanceBeforeRecording
-      jest.advanceTimersToNextTimer(); // checkFaceDistanceBeforeRecording
-      service.send({ type: 'START_RECORDING' });
+      jest.advanceTimersToNextTimer(); // initializeLivenessStream
+      await flushPromises(); // { notRecording: 'waitForSessionInfo' }
+      jest.advanceTimersToNextTimer(); // { recording: 'ovalDrawing' }
 
       expect(service.state.value).toEqual({ recording: 'ovalDrawing' });
     });
@@ -497,7 +495,6 @@ describe('Liveness Machine', () => {
         .mockResolvedValue([mockFace])
         .mockResolvedValueOnce([mockFace]) // first to pass detecting face before start
         .mockResolvedValueOnce([mockFace]) // second to pass face distance before start
-        .mockResolvedValueOnce([mockFace]) // third to pass face distance check after countdown
         .mockResolvedValueOnce([]); // not having face in view when recording begins
       mockedHelpers.estimateIllumination.mockImplementation(
         () => IlluminationState.BRIGHT
@@ -524,7 +521,6 @@ describe('Liveness Machine', () => {
         .mockResolvedValue([mockFace])
         .mockResolvedValueOnce([mockFace]) // first to pass detecting face before start
         .mockResolvedValueOnce([mockFace]) // second to pass face distance before start
-        .mockResolvedValueOnce([mockFace]) // third to pass face distance check after countdown
         .mockRejectedValue(error);
 
       await transitionToRecording(service);
@@ -535,7 +531,9 @@ describe('Liveness Machine', () => {
         LivenessErrorState.RUNTIME_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+      const livenessError = (mockcomponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(livenessError.state).toBe(LivenessErrorState.RUNTIME_ERROR);
     });
 
     it('should reach error state after receiving a server error from the websocket stream', async () => {
@@ -553,8 +551,9 @@ describe('Liveness Machine', () => {
         LivenessErrorState.SERVER_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      error.name = LivenessErrorState.SERVER_ERROR;
-      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+      const livenessError = (mockcomponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
     });
 
     it('should reach ovalMatching state and send client sessionInformation', async () => {
@@ -723,7 +722,9 @@ describe('Liveness Machine', () => {
         LivenessErrorState.SERVER_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+      const livenessError = (mockcomponentProps.onError as jest.Mock).mock
+        .calls[0][0];
+      expect(livenessError.state).toBe(LivenessErrorState.SERVER_ERROR);
     });
 
     it('should reach error state if no chunks are recorded', async () => {
@@ -740,7 +741,10 @@ describe('Liveness Machine', () => {
         LivenessErrorState.RUNTIME_ERROR
       );
       expect(mockcomponentProps.onError).toHaveBeenCalledTimes(1);
-      expect(mockcomponentProps.onError).toHaveBeenCalledWith(error);
+      expect(mockcomponentProps.onError).toHaveBeenCalledWith({
+        state: LivenessErrorState.RUNTIME_ERROR,
+        error,
+      });
     });
   });
 });
