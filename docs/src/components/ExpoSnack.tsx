@@ -62,7 +62,7 @@ export const ExpoSnack = (options: SnackOptions) => {
   };
   // We need a unique ID b/c we need to listen to window events that the iframe
   // will send and it sends the iframe id
-  const id = Math.random().toString(36).substring(2, 10);
+  const id = React.useRef(Math.random().toString(36).substring(2, 10));
   const ref = React.useRef<HTMLIFrameElement>();
   const [theme, setTheme] = React.useState('light');
 
@@ -83,12 +83,12 @@ export const ExpoSnack = (options: SnackOptions) => {
     const listener = function (event) {
       const [eventName, data] = event.data;
 
-      if (eventName === 'expoFrameLoaded' && data.iframeId === id) {
+      if (eventName === 'expoFrameLoaded' && data.iframeId === id.current) {
         ref.current.contentWindow.postMessage(
           [
             'expoDataEvent',
             {
-              iframeId: id,
+              iframeId: id.current,
               dependencies: dependencies.join(','),
               code: code,
               files: JSON.stringify(files),
@@ -113,9 +113,10 @@ export const ExpoSnack = (options: SnackOptions) => {
     ['preview', `${preview}`],
     ['waitForData', 'true'],
     ['sdkVersion', sdkVersion],
-    ['iframeId', id],
+    ['iframeId', id.current],
     ['theme', theme],
   ]);
+  console.log(params.toString());
 
   return (
     <View className="snack-player" {...rest}>
