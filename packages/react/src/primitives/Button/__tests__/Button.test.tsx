@@ -7,7 +7,7 @@ import { ButtonColorTheme } from '../../types';
 import { ComponentClassNames } from '../../shared';
 
 describe('Button test suite', () => {
-  const SUPPORTED_COLOR_THEMES = [
+  const SUPPORTED_COLOR_THEMES: ButtonColorTheme[] = [
     'info',
     'success',
     'warning',
@@ -58,12 +58,7 @@ describe('Button test suite', () => {
     'should render the %s color theme for the default variation',
     async (colorTheme) => {
       const testId = `default-${colorTheme}-ColorTheme`;
-      render(
-        <Button
-          testId={testId}
-          colorTheme={colorTheme as ButtonColorTheme}
-        ></Button>
-      );
+      render(<Button testId={testId} colorTheme={colorTheme} />);
       const button = await screen.findByTestId(testId);
       expect(button.classList).toContain(
         `amplify-button--outlined--${colorTheme}`
@@ -76,11 +71,7 @@ describe('Button test suite', () => {
     async (colorTheme) => {
       const testId = `primary-${colorTheme}-ColorTheme`;
       render(
-        <Button
-          variation="primary"
-          testId={testId}
-          colorTheme={colorTheme as ButtonColorTheme}
-        ></Button>
+        <Button variation="primary" testId={testId} colorTheme={colorTheme} />
       );
       const button = await screen.findByTestId(testId);
       expect(button.classList).toContain(
@@ -94,11 +85,7 @@ describe('Button test suite', () => {
     async (colorTheme) => {
       const testId = `link-${colorTheme}-ColorTheme`;
       render(
-        <Button
-          variation="link"
-          testId={testId}
-          colorTheme={colorTheme as ButtonColorTheme}
-        ></Button>
+        <Button variation="link" testId={testId} colorTheme={colorTheme} />
       );
       const button = await screen.findByTestId(testId);
       expect(button.classList).toContain(`amplify-button--link--${colorTheme}`);
