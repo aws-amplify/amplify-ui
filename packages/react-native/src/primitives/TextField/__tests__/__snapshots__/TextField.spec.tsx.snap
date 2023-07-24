@@ -6,6 +6,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
     Array [
       Object {
         "alignItems": "flex-start",
+        "marginBottom": 8,
       },
       undefined,
     ]
@@ -18,9 +19,9 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -28,8 +29,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "lineHeight": 21,
-            "padding": 4,
+            "paddingVertical": 8,
           },
           undefined,
         ],
@@ -69,6 +69,7 @@ exports[`TextField doesn't render the errorMessage if error prop is false 1`] = 
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingHorizontal": 4,
             "paddingVertical": 12,
           },
           undefined,
@@ -86,6 +87,7 @@ exports[`TextField renders as expected 1`] = `
     Array [
       Object {
         "alignItems": "flex-start",
+        "marginBottom": 8,
       },
       undefined,
     ]
@@ -98,9 +100,9 @@ exports[`TextField renders as expected 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -108,8 +110,7 @@ exports[`TextField renders as expected 1`] = `
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "lineHeight": 21,
-            "padding": 4,
+            "paddingVertical": 8,
           },
           undefined,
         ],
@@ -149,6 +150,7 @@ exports[`TextField renders as expected 1`] = `
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingHorizontal": 4,
             "paddingVertical": 12,
           },
           undefined,
@@ -166,6 +168,7 @@ exports[`TextField renders as expected as password field 1`] = `
     Array [
       Object {
         "alignItems": "flex-start",
+        "marginBottom": 8,
       },
       undefined,
     ]
@@ -178,9 +181,9 @@ exports[`TextField renders as expected as password field 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -188,8 +191,7 @@ exports[`TextField renders as expected as password field 1`] = `
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "lineHeight": 21,
-            "padding": 4,
+            "paddingVertical": 8,
           },
           undefined,
         ],
@@ -230,6 +232,7 @@ exports[`TextField renders as expected as password field 1`] = `
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingHorizontal": 4,
             "paddingVertical": 12,
           },
           undefined,
@@ -247,6 +250,7 @@ exports[`TextField renders as expected when disabled 1`] = `
     Array [
       Object {
         "alignItems": "flex-start",
+        "marginBottom": 8,
       },
       undefined,
     ]
@@ -259,9 +263,9 @@ exports[`TextField renders as expected when disabled 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -269,8 +273,7 @@ exports[`TextField renders as expected when disabled 1`] = `
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "lineHeight": 21,
-            "padding": 4,
+            "paddingVertical": 8,
           },
           undefined,
         ],
@@ -311,6 +314,7 @@ exports[`TextField renders as expected when disabled 1`] = `
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingHorizontal": 4,
             "paddingVertical": 12,
           },
           undefined,
@@ -328,6 +332,7 @@ exports[`TextField renders as expected with error message 1`] = `
     Array [
       Object {
         "alignItems": "flex-start",
+        "marginBottom": 8,
       },
       undefined,
     ]
@@ -340,9 +345,9 @@ exports[`TextField renders as expected with error message 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -350,8 +355,7 @@ exports[`TextField renders as expected with error message 1`] = `
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "lineHeight": 21,
-            "padding": 4,
+            "paddingVertical": 8,
           },
           undefined,
         ],
@@ -391,6 +395,7 @@ exports[`TextField renders as expected with error message 1`] = `
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingHorizontal": 4,
             "paddingVertical": 12,
           },
           undefined,
@@ -404,9 +409,9 @@ exports[`TextField renders as expected with error message 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -426,6 +431,7 @@ exports[`TextField shows error style, but doesn't render the errorMessage if err
     Array [
       Object {
         "alignItems": "flex-start",
+        "marginBottom": 8,
       },
       undefined,
     ]
@@ -438,9 +444,9 @@ exports[`TextField shows error style, but doesn't render the errorMessage if err
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -448,8 +454,7 @@ exports[`TextField shows error style, but doesn't render the errorMessage if err
         Array [
           Object {
             "color": "hsl(210, 25%, 25%)",
-            "lineHeight": 21,
-            "padding": 4,
+            "paddingVertical": 8,
           },
           undefined,
         ],
@@ -489,6 +494,7 @@ exports[`TextField shows error style, but doesn't render the errorMessage if err
             "color": "hsl(210, 50%, 10%)",
             "flexGrow": 1,
             "fontSize": 16,
+            "paddingHorizontal": 4,
             "paddingVertical": 12,
           },
           undefined,
