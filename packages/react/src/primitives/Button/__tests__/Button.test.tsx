@@ -6,14 +6,15 @@ import { Button } from '../Button';
 import { ButtonColorTheme } from '../../types';
 import { ComponentClassNames } from '../../shared';
 
+const SUPPORTED_COLOR_THEMES: ButtonColorTheme[] = [
+  'info',
+  'success',
+  'warning',
+  'error',
+  'overlay',
+];
+
 describe('Button test suite', () => {
-  const SUPPORTED_COLOR_THEMES: ButtonColorTheme[] = [
-    'info',
-    'success',
-    'warning',
-    'error',
-    'overlay',
-  ];
   it('should render button variations', async () => {
     render(
       <div>
