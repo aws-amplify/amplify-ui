@@ -38,7 +38,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
 
   // Use the variation to construct our color theme modifier classes; in the
   // case of our 'default' variation, use 'outlined'
-  const variationColorThemeModifier = variation ? variation : 'outlined';
+  const variationColorThemeModifier = variation ?? 'outlined';
 
   const componentClasses = classNames(
     ComponentClassNames.Button,
