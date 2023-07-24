@@ -105,7 +105,6 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "lineHeight": 24,
                 "paddingVertical": 8,
               },
               undefined,
@@ -248,8 +247,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 12,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
@@ -437,7 +435,6 @@ Array [
             Array [
               Object {
                 "color": "hsl(210, 25%, 25%)",
-                "lineHeight": 24,
                 "paddingVertical": 8,
               },
               undefined,
@@ -521,8 +518,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 12,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }

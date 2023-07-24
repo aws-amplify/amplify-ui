@@ -82,8 +82,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 12,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
@@ -239,8 +238,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 12,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
@@ -455,8 +453,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 12,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }

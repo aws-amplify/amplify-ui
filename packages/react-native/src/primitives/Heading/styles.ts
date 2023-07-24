@@ -17,13 +17,13 @@ export const getThemedStyles = (theme: StrictTheme): HeadingStyles => {
     },
     1: {
       fontSize: fontSizes.xxxl,
-      fontWeight: fontWeights.medium,
+      fontWeight: fontWeights.light,
       lineHeight: getLineHeight(fontSizes.xxxl),
       ...components?.heading?.[1],
     },
     2: {
       fontSize: fontSizes.xxl,
-      fontWeight: fontWeights.medium,
+      fontWeight: fontWeights.normal,
       lineHeight: getLineHeight(fontSizes.xxl),
       ...components?.heading?.[2],
     },
@@ -41,13 +41,13 @@ export const getThemedStyles = (theme: StrictTheme): HeadingStyles => {
     },
     5: {
       fontSize: fontSizes.medium,
-      fontWeight: fontWeights.bold,
+      fontWeight: fontWeights.semibold,
       lineHeight: getLineHeight(fontSizes.medium),
       ...components?.heading?.[5],
     },
     6: {
       fontSize: fontSizes.small,
-      fontWeight: fontWeights.extrabold,
+      fontWeight: fontWeights.bold,
       lineHeight: getLineHeight(fontSizes.small),
       ...components?.heading?.[6],
     },

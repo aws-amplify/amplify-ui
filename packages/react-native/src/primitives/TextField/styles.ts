@@ -1,7 +1,6 @@
 import { Platform, StyleSheet } from 'react-native';
 
 import { StrictTheme } from '../../theme';
-import { getLineHeight } from '../../utils';
 import { TextFieldStyles } from './types';
 
 export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
@@ -44,7 +43,6 @@ export const getThemedStyles = (theme: StrictTheme): TextFieldStyles => {
     },
     label: {
       color: colors.font.secondary,
-      lineHeight: getLineHeight(fontSizes.medium),
       paddingVertical: space.xs,
       ...components?.textField?.label,
     },
