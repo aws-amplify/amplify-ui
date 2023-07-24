@@ -21,6 +21,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   {
     className,
     children,
+    colorTheme,
     isFullWidth = false,
     isDisabled,
     isLoading,
@@ -28,7 +29,6 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     size,
     type = 'button',
     variation,
-    colorTheme,
     ...rest
   },
   ref

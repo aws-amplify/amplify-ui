@@ -11,7 +11,7 @@ export type ButtonVariations =
   | 'warning'
   | 'destructive';
 
-export type ButtonColorThemes =
+export type ButtonColorTheme =
   | 'info'
   | 'error'
   | 'warning'
@@ -79,7 +79,7 @@ export interface BaseButtonProps
    * @description
    * Changes the color scheme of the button
    */
-  colorTheme?: ButtonColorThemes;
+  colorTheme?: ButtonColorTheme;
 }
 
 export type ButtonProps<Element extends ElementType = 'button'> =
