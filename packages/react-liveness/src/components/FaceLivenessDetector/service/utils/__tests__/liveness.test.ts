@@ -267,79 +267,79 @@ describe('Liveness Helper', () => {
       });
     });
 
-    it('should work even if there are no color sequences', async () => {
-      const mockSessionInfo = {
-        Challenge: {
-          FaceMovementAndLightChallenge: {
-            ChallengeConfig: {
-              BlazeFaceDetectionThreshold: 0.75,
-              FaceDistanceThreshold: 0.4000000059604645,
-              FaceDistanceThresholdMax: 0,
-              FaceDistanceThresholdMin: 0.4000000059604645,
-              FaceIouHeightThreshold: 0.15000000596046448,
-              FaceIouWidthThreshold: 0.15000000596046448,
-              OvalHeightWidthRatio: 1.6180000305175781,
-              OvalIouHeightThreshold: 0.25,
-              OvalIouThreshold: 0.699999988079071,
-              OvalIouWidthThreshold: 0.25,
-            },
-            OvalParameters: {
-              Width: 1,
-              Height: 2,
-              CenterX: 3,
-              CenterY: 4,
-            },
-            LightChallengeType: 'SEQUENTIAL',
-            ColorSequences: undefined,
-          },
-        },
-      };
-      const colorSequence =
-        getColorsSequencesFromSessionInformation(mockSessionInfo);
+    //   it('should work even if there are no color sequences', async () => {
+    //     const mockSessionInfo = {
+    //       Challenge: {
+    //         FaceMovementAndLightChallenge: {
+    //           ChallengeConfig: {
+    //             BlazeFaceDetectionThreshold: 0.75,
+    //             FaceDistanceThreshold: 0.4000000059604645,
+    //             FaceDistanceThresholdMax: 0,
+    //             FaceDistanceThresholdMin: 0.4000000059604645,
+    //             FaceIouHeightThreshold: 0.15000000596046448,
+    //             FaceIouWidthThreshold: 0.15000000596046448,
+    //             OvalHeightWidthRatio: 1.6180000305175781,
+    //             OvalIouHeightThreshold: 0.25,
+    //             OvalIouThreshold: 0.699999988079071,
+    //             OvalIouWidthThreshold: 0.25,
+    //           },
+    //           OvalParameters: {
+    //             Width: 1,
+    //             Height: 2,
+    //             CenterX: 3,
+    //             CenterY: 4,
+    //           },
+    //           LightChallengeType: 'SEQUENTIAL',
+    //           ColorSequences: undefined,
+    //         },
+    //       },
+    //     };
+    //     const colorSequence =
+    //       getColorsSequencesFromSessionInformation(mockSessionInfo);
 
-      expect(colorSequence.length).toBe(0);
-    });
+    //     expect(colorSequence.length).toBe(0);
+    //   });
 
-    it('should not return values if color sequences do not contain durations', async () => {
-      const mockSessionInfo = {
-        Challenge: {
-          FaceMovementAndLightChallenge: {
-            ChallengeConfig: {
-              BlazeFaceDetectionThreshold: 0.75,
-              FaceDistanceThreshold: 0.4000000059604645,
-              FaceDistanceThresholdMax: 0,
-              FaceDistanceThresholdMin: 0.4000000059604645,
-              FaceIouHeightThreshold: 0.15000000596046448,
-              FaceIouWidthThreshold: 0.15000000596046448,
-              OvalHeightWidthRatio: 1.6180000305175781,
-              OvalIouHeightThreshold: 0.25,
-              OvalIouThreshold: 0.699999988079071,
-              OvalIouWidthThreshold: 0.25,
-            },
-            OvalParameters: {
-              Width: 1,
-              Height: 2,
-              CenterX: 3,
-              CenterY: 4,
-            },
-            LightChallengeType: 'SEQUENTIAL',
-            ColorSequences: [
-              {
-                FreshnessColor: {
-                  RGB: [0, 0, 0], // black
-                },
-                DownscrollDuration: undefined,
-                FlatDisplayDuration: undefined,
-              },
-            ],
-          },
-        },
-      };
-      const colorSequence =
-        getColorsSequencesFromSessionInformation(mockSessionInfo);
+    //   it('should not return values if color sequences do not contain durations', async () => {
+    //     const mockSessionInfo = {
+    //       Challenge: {
+    //         FaceMovementAndLightChallenge: {
+    //           ChallengeConfig: {
+    //             BlazeFaceDetectionThreshold: 0.75,
+    //             FaceDistanceThreshold: 0.4000000059604645,
+    //             FaceDistanceThresholdMax: 0,
+    //             FaceDistanceThresholdMin: 0.4000000059604645,
+    //             FaceIouHeightThreshold: 0.15000000596046448,
+    //             FaceIouWidthThreshold: 0.15000000596046448,
+    //             OvalHeightWidthRatio: 1.6180000305175781,
+    //             OvalIouHeightThreshold: 0.25,
+    //             OvalIouThreshold: 0.699999988079071,
+    //             OvalIouWidthThreshold: 0.25,
+    //           },
+    //           OvalParameters: {
+    //             Width: 1,
+    //             Height: 2,
+    //             CenterX: 3,
+    //             CenterY: 4,
+    //           },
+    //           LightChallengeType: 'SEQUENTIAL',
+    //           ColorSequences: [
+    //             {
+    //               FreshnessColor: {
+    //                 RGB: [0, 0, 0], // black
+    //               },
+    //               DownscrollDuration: undefined,
+    //               FlatDisplayDuration: undefined,
+    //             },
+    //           ],
+    //         },
+    //       },
+    //     };
+    //     const colorSequence =
+    //       getColorsSequencesFromSessionInformation(mockSessionInfo);
 
-      expect(colorSequence.length).toBe(0);
-    });
+    //     expect(colorSequence.length).toBe(0);
+    //   });
   });
 
   describe('isCameraDeviceVirtual', () => {

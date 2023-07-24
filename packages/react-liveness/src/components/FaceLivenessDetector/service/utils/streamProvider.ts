@@ -37,6 +37,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   public videoRecorder: VideoRecorder;
   public responseStream!: AsyncIterable<LivenessResponseStream>;
   public credentialProvider?: AwsCredentialProvider;
+  public clientInfo: any[];
 
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
@@ -59,6 +60,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     this.videoRecorder = new VideoRecorder(stream);
     this.credentialProvider = credentialProvider;
     this.initPromise = this.init();
+    this.clientInfo = [];
   }
 
   public async getResponseStream(): Promise<
@@ -73,11 +75,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   public sendClientInfo(clientInfo: ClientSessionInformationEvent): void {
-    this.videoRecorder.dispatch(
-      new MessageEvent('clientSesssionInfo', {
-        data: { clientInfo },
-      })
-    );
+    this.clientInfo.push(clientInfo);
   }
 
   public async stopVideo(): Promise<void> {

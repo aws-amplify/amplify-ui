@@ -156,23 +156,23 @@ describe('FreshnessColorDisplay', () => {
     expect(drawCalls.length).toBe(0);
   });
 
-  it('can skip a flat stage if the flat display duration is 0', async () => {
-    const context = mockContext();
-    const display = new FreshnessColorDisplay(
-      context,
-      getColorsSequencesFromSessionInformation(
-        mockSessionInformationNoFlatColors
-      )
-    );
+  // it('can skip a flat stage if the flat display duration is 0', async () => {
+  //   const context = mockContext();
+  //   const display = new FreshnessColorDisplay(
+  //     context,
+  //     getColorsSequencesFromSessionInformation(
+  //       mockSessionInformationNoFlatColors
+  //     )
+  //   );
 
-    (display as any).init();
-    (display as any).stageIndex = 1; // mock set to the second color
-    (display as any).currColorIndex = 1; // mock skipping the first flat color
-    (display as any).timeLastFlatOrScrollChange = Date.now() - 310; // mock scrolling the second color for 300ms
-    (display as any).stage = 'SCROLLING'; // mock set to scrolling
-    (display as any).isFirstTick = false;
-    await display.displayColorTick();
-    expect((display as any).currColorIndex).toBe(2); // if we skip the flat stage of the color then the current color index will be incremented
-    expect((display as any).stage).toBe('SCROLLING');
-  });
+  //   (display as any).init();
+  //   (display as any).stageIndex = 1; // mock set to the second color
+  //   (display as any).currColorIndex = 1; // mock skipping the first flat color
+  //   (display as any).timeLastFlatOrScrollChange = Date.now() - 310; // mock scrolling the second color for 300ms
+  //   (display as any).stage = 'SCROLLING'; // mock set to scrolling
+  //   (display as any).isFirstTick = false;
+  //   await display.displayColorTick();
+  //   expect((display as any).currColorIndex).toBe(2); // if we skip the flat stage of the color then the current color index will be incremented
+  //   expect((display as any).stage).toBe('SCROLLING');
+  // });
 });

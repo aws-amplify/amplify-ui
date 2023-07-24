@@ -44,6 +44,7 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
+import { getLivenessUserAgent } from '../../utils/platform';
 
 export const MIN_FACE_MATCH_TIME = 500;
 
@@ -51,6 +52,14 @@ export const MIN_FACE_MATCH_TIME = 500;
 let faceDetectedTimestamp: number;
 let ovalDrawnTimestamp: number;
 let streamConnectionOpenTimestamp: number;
+
+let userCamera: MediaDeviceInfo;
+
+let cameraCheckTimeStamp: number;
+let recordingStartTimestamp: number;
+let recordingEndTimestamp: number;
+let freshnessColorStartTimestamp: number;
+let freshnessColorEndTimestamp: number;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -454,26 +463,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           const flippedInitialFaceLeft =
             width! - initialFace!.left - initialFace!.width;
 
-          context.livenessStreamProvider!.sendClientInfo({
-            Challenge: {
-              FaceMovementAndLightChallenge: {
-                ChallengeId: challengeId,
-                VideoStartTimestamp: timestamp,
-                InitialFace: {
-                  InitialFaceDetectedTimestamp: initialFace!.timestampMs,
-                  BoundingBox: getBoundingBox({
-                    deviceHeight: height!,
-                    deviceWidth: width!,
-                    height: initialFace!.height,
-                    width: initialFace!.width,
-                    top: initialFace!.top,
-                    left: flippedInitialFaceLeft,
-                  }),
-                },
-              },
-            },
-          });
-
           return {
             ...context.videoAssociatedParams,
             recordingStartTimestampMs: timestamp,
@@ -488,6 +477,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               'recording'
           ) {
             context.livenessStreamProvider!.startRecordingLivenessVideo();
+            recordingStartTimestamp = Date.now();
           }
 
           return {
@@ -495,7 +485,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           };
         },
       }),
-      stopRecording: (context) => {},
+      stopRecording: (context) => {
+        freshnessColorEndTimestamp = Date.now();
+      },
       updateFaceMatchBeforeStartDetails: assign({
         faceMatchStateBeforeStart: (_, event) => {
           return event.data!.faceMatchState;
@@ -810,6 +802,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async checkVirtualCameraAndGetStream(context) {
         const { videoConstraints } = context.videoAssociatedParams!;
 
+        cameraCheckTimeStamp = Date.now();
+
         // Get initial stream to enumerate devices with non-empty labels
         const initialStream = await navigator.mediaDevices.getUserMedia({
           video: videoConstraints,
@@ -853,6 +847,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             audio: false,
           });
         }
+
+        userCamera = realVideoDevices[0];
 
         return { stream: realVideoDeviceStream };
       },
@@ -1105,6 +1101,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const { freshnessColorsComplete, freshnessColorDisplay } =
           context.freshnessColorAssociatedParams!;
 
+        freshnessColorStartTimestamp = Date.now();
+
         if (freshnessColorsComplete) {
           return;
         }
@@ -1114,10 +1112,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         return { freshnessColorsComplete: completed };
       },
       async stopVideo(context) {
-        const { challengeId, livenessStreamProvider } = context;
+        const { livenessStreamProvider } = context;
         const { videoMediaStream } = context.videoAssociatedParams!;
-        const { initialFace, ovalDetails } = context.ovalAssociatedParams!;
-        const { startFace, endFace } = context.faceMatchAssociatedParams!;
+        const { initialFace } = context.ovalAssociatedParams!;
 
         const { width, height } = videoMediaStream!
           .getTracks()[0]
@@ -1128,39 +1125,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         await livenessStreamProvider!.stopVideo();
 
-        const livenessActionDocument: ClientSessionInformationEvent = {
-          Challenge: {
-            FaceMovementAndLightChallenge: {
-              ChallengeId: challengeId,
-              InitialFace: {
-                InitialFaceDetectedTimestamp: initialFace!.timestampMs,
-                BoundingBox: getBoundingBox({
-                  deviceHeight: height!,
-                  deviceWidth: width!,
-                  height: initialFace!.height,
-                  width: initialFace!.width,
-                  top: initialFace!.top,
-                  left: flippedInitialFaceLeft,
-                }),
-              },
-              TargetFace: {
-                FaceDetectedInTargetPositionStartTimestamp:
-                  startFace!.timestampMs,
-                FaceDetectedInTargetPositionEndTimestamp: endFace!.timestampMs,
-                BoundingBox: getBoundingBox({
-                  deviceHeight: height!,
-                  deviceWidth: width!,
-                  height: ovalDetails!.height,
-                  width: ovalDetails!.width,
-                  top: ovalDetails!.centerY - ovalDetails!.height / 2,
-                  left: ovalDetails!.centerX - ovalDetails!.width / 2,
-                }),
-              },
-              VideoEndTimestamp:
-                livenessStreamProvider!.videoRecorder.recorderEndTimestamp,
-            },
-          },
-        };
+        recordingEndTimestamp = Date.now();
 
         if (livenessStreamProvider!.videoRecorder.getVideoChunkSize() === 0) {
           throw new Error('Video chunks not recorded successfully.');
@@ -1170,15 +1135,66 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       async getLiveness(context) {
         const { onAnalysisComplete } = context.componentProps!;
+        const { challengeId, livenessStreamProvider } = context;
+        const {
+          videoMediaStream,
+          videoConstraints,
+          recordingStartTimestampMs,
+          videoEl,
+        } = context.videoAssociatedParams!;
+        const { initialFace, ovalDetails } = context.ovalAssociatedParams!;
+        const { startFace, endFace } = context.faceMatchAssociatedParams!;
 
         const chunks = context.livenessStreamProvider?.videoRecorder._chunks;
 
         const blobData = new Blob(chunks, { type: 'video/webm' });
 
+        const freshnessColorSignals =
+          context.livenessStreamProvider?.clientInfo.map((info) => {
+            return info.Challenge.FaceMovementAndLightChallenge.ColorDisplayed;
+          });
+
+        const deviceMetadata: { [key: string]: any } = {
+          application: {
+            clientVersion: getLivenessUserAgent(),
+            userAgent: window.navigator.userAgent,
+            facingMode: videoConstraints?.facingMode,
+            window: {
+              height: window.innerHeight,
+              width: window.innerWidth,
+            },
+          },
+          device: {
+            camera: userCamera,
+            screen: window.screen,
+          },
+          media: {
+            calculatedStartTimestamp: recordingStartTimestampMs,
+            recordingStartTimestamp,
+            recordingEndTimestamp,
+            video: {
+              videoConstraints,
+              width: videoEl?.width,
+              height: videoEl?.height,
+              quality: videoEl?.getVideoPlaybackQuality(),
+            },
+          },
+          challenge: {
+            initialFace,
+            startFace,
+            endFace,
+            ovalDetails,
+            cameraCheckTimeStamp,
+            freshnessColorStartTimestamp,
+            freshnessColorEndTimestamp,
+            freshnessColorSignals: freshnessColorSignals,
+          },
+        };
+
         // Get liveness result
         onAnalysisComplete({
           videoBlob: blobData,
-          deviceMetadata: { foo: 'bar' },
+          deviceMetadata,
         });
       },
     },
