@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.22
+
+### Patch Changes
+
+- [#4276](https://github.com/aws-amplify/amplify-ui/pull/4276) [`9a491c767`](https://github.com/aws-amplify/amplify-ui/commit/9a491c767f2b440d75b8e4b3ddf53711d0fa5e8b) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(react-native): small tweaks to authenticator styling to space out text fields a bit
+
+- Updated dependencies [[`6b71ec46c`](https://github.com/aws-amplify/amplify-ui/commit/6b71ec46ccbf63c4605c9a57d3ecff098a42938a)]:
+  - @aws-amplify/ui@5.6.8
+  - @aws-amplify/ui-react-core@2.1.27
+  - @aws-amplify/ui-react-core-notifications@1.0.4
+
 ## 1.2.21
 
 ### Patch Changes
