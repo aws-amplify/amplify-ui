@@ -1,15 +1,26 @@
 <script setup lang="ts">
-import { useAuth, useAuthenticator } from '../composables/useAuth';
-import { ref, toRefs, computed, useAttrs, onMounted, onUnmounted } from 'vue';
 import {
+  ref,
+  toRefs,
+  computed,
+  useAttrs,
+  onMounted,
+  onUnmounted,
+  withDefaults,
+} from 'vue';
+
+import {
+  AuthFormFields,
   AuthenticatorMachineOptions,
   AuthenticatorRoute,
-  AuthenticatorServiceFacade,
-  authenticatorTextUtil,
-  AuthFormFields,
-  configureComponent,
   SocialProvider,
+  authenticatorTextUtil,
+  configureComponent,
 } from '@aws-amplify/ui';
+
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
+import { VERSION } from '../version';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -21,25 +32,23 @@ import ResetPassword from './reset-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
-import { VERSION } from '../version';
+
+interface AuthenticatorProps {
+  hideSignUp?: boolean;
+  initialState?: AuthenticatorMachineOptions['initialState'];
+  loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+  services?: AuthenticatorMachineOptions['services'];
+  signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
+  variation?: 'default' | 'modal';
+  socialProviders?: SocialProvider[];
+  formFields?: AuthFormFields;
+}
 
 const attrs = useAttrs();
 
-const props = withDefaults(
-  defineProps<{
-    hideSignUp?: boolean;
-    initialState?: AuthenticatorMachineOptions['initialState'];
-    loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
-    services?: AuthenticatorMachineOptions['services'];
-    signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
-    variation?: 'default' | 'modal';
-    socialProviders?: SocialProvider[];
-    formFields?: AuthFormFields;
-  }>(),
-  {
-    variation: 'default',
-  }
-);
+const props = withDefaults(defineProps<AuthenticatorProps>(), {
+  variation: 'default',
+});
 
 const {
   initialState,
@@ -52,6 +61,7 @@ const {
   formFields,
 } = toRefs(props);
 
+/** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits([
   'signInSubmit',
   'confirmSignUpSubmit',
@@ -80,22 +90,27 @@ unsubscribeMachine = service.subscribe((newState) => {
     send({
       type: 'INIT',
       data: {
-        initialState: initialState?.value,
-        loginMechanisms: loginMechanisms?.value,
-        socialProviders: socialProviders?.value,
-        signUpAttributes: signUpAttributes?.value,
-        services: services?.value,
-        formFields: formFields?.value,
+        /**
+         * There's a type inference bug with prop refs that incorrectly assume
+         * they can be undefined. Adding `!` until this is resolved from Vue's end.
+         *
+         * https://github.com/vuejs/core/issues/6420
+         */
+        initialState: initialState!.value,
+        loginMechanisms: loginMechanisms!.value,
+        socialProviders: socialProviders!.value,
+        signUpAttributes: signUpAttributes!.value,
+        services: services!.value,
+        formFields: formFields!.value,
       },
     });
     hasInitialized.value = true;
   }
 }).unsubscribe;
 
-const { route, signOut, toSignIn, toSignUp, user } = toRefs(
-  // `useAuthenticator` is casted for temporary type safety on this file.
-  useAuthenticator() as AuthenticatorServiceFacade
-);
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { route, signOut, toSignIn, toSignUp, user } = toRefs(facade);
 
 onMounted(() => {
   configureComponent({
@@ -105,7 +120,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (unsubscribeMachine) unsubscribeMachine();
+  unsubscribeMachine();
 });
 
 const signInComponent = ref();
@@ -126,84 +141,123 @@ const { getSignInTabText, getSignUpTabText } = authenticatorTextUtil;
 const signInLabel = computed(() => getSignInTabText());
 const createAccountLabel = computed(() => getSignUpTabText());
 
-//methods
-
+// methods
 const onSignInSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onSignInSubmit) {
     emit('signInSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     signInComponent.value?.submit(e);
   }
 };
 
 const onConfirmSignUpSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmSignUpSubmit) {
     emit('confirmSignUpSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmSignUpComponent.value.submit(e);
   }
 };
 
 const onResetPasswordSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onResetPasswordSubmit) {
     emit('resetPasswordSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     resetPasswordComponent.value.submit(e);
   }
 };
 
 const onConfirmResetPasswordSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmResetPasswordSubmit) {
     emit('confirmResetPasswordSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmResetPasswordComponent.value.submit(e);
   }
 };
 
 const onConfirmSignInSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmSignInSubmit) {
     emit('confirmSignInSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmSignInComponent.value.submit(e);
   }
 };
 
 const onConfirmSetupTOTPSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onForceNewPasswordSubmit) {
     emit('mSetupTOTPSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmSetupTOTPComponent.value.submit(e);
   }
 };
 
 const onForceNewPasswordSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onForceNewPasswordSubmit) {
     emit('forceNewPasswordSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     forceNewPasswordComponent.value.submit(e);
   }
 };
 
 const onSignUpSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     signUpComponent.value.submit();
   }
 };
 
 const onVerifyUserSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onVerifyUserSubmit) {
     emit('verifyUserSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     verifyUserComponent.value.submit(e);
   }
 };
 
 const onConfirmVerifyUserSubmitI = (e: Event) => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmVerifyUserSubmit) {
     emit('confirmVerifyUserSubmit', e);
   } else {
+    // TODO(BREAKING): remove unused event binding
+    // istanbul ignore next
     confirmVerifyUserComponent.value.submit(e);
   }
 };

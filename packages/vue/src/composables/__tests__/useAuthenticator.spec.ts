@@ -20,6 +20,7 @@ class MockAuthService {
 
 const mockServiceFacade = {
   authStatus: 'authenticated',
+  socialProviders: ['amazon'],
 } as unknown as AuthenticatorServiceFacade;
 
 const getServiceFacadeSpy = jest
@@ -36,6 +37,10 @@ jest.spyOn(UseAuthComposables, 'useAuth').mockReturnValue({
   service: mockService,
   send: mockSend,
 });
+
+const getQRFieldsSpy = jest
+  .spyOn(UseAuthComposables, 'getQRFields')
+  .mockReturnValue({});
 
 const TestComponent = defineComponent({
   setup() {
@@ -54,13 +59,19 @@ describe('useAuthenticator', () => {
   it('returns the expected values', () => {
     const wrapper = mount(TestComponent);
 
+    expect(wrapper.vm.authStatus).toBe('unauthenticated');
+    expect(wrapper.vm.socialProviders).toStrictEqual(['amazon']);
+    wrapper.unmount();
+  });
+
+  it('calls getServiceFacade once on initial mount', () => {
+    const wrapper = mount(TestComponent);
+
     expect(getServiceFacadeSpy).toBeCalledTimes(1);
     expect(getServiceFacadeSpy).toBeCalledWith({
       send: mockSend,
       state: mockState.value,
     });
-
-    expect(wrapper.vm.authStatus).toBe('unauthenticated');
     wrapper.unmount();
   });
 
@@ -84,6 +95,19 @@ describe('useAuthenticator', () => {
       send: mockSend,
       state: newStateValue,
     });
+
+    wrapper.unmount();
+  });
+
+  it('calls getQRFields if route is setupTOTP', () => {
+    getServiceFacadeSpy.mockReturnValueOnce({
+      ...mockServiceFacade,
+      route: 'setupTOTP',
+    });
+
+    const wrapper = mount(TestComponent);
+
+    expect(getQRFieldsSpy).toHaveBeenCalledWith(mockState.value);
 
     wrapper.unmount();
   });

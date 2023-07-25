@@ -5,6 +5,7 @@ import { BaseFlexProps } from './flex';
 import { Sizes } from './base';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseMenuProps extends BaseFlexProps {
   /**
    * @description
@@ -54,6 +55,7 @@ export type MenuProps<Element extends ElementType = 'div'> = PrimitiveProps<
   Element
 >;
 
+/** @deprecated For internal use only */
 export interface BaseMenuItemProps extends BaseButtonProps {
   /**
    * @description

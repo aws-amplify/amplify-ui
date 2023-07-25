@@ -26,22 +26,23 @@ type ComponentTheme<ComponentType, Output> = Output extends 'output'
   : ((tokens: StrictTheme['tokens']) => ComponentType) | ComponentType;
 
 // TODO: make optional all the way down
-export type Components<Output> = Record<string, object> & {
-  button?: ComponentTheme<ButtonStyles, Output>;
-  checkbox?: ComponentTheme<CheckboxStyles, Output>;
-  divider?: ComponentTheme<DividerStyles, Output>;
-  errorMessage?: ComponentTheme<ErrorMessageStyles, Output>;
-  heading?: ComponentTheme<HeadingStyles, Output>;
-  icon?: ComponentTheme<IconStyles, Output>;
-  iconButton?: ComponentTheme<IconButtonStyles, Output>;
-  label?: ComponentTheme<LabelStyles, Output>;
-  passwordField?: ComponentTheme<PasswordFieldStyles, Output>;
-  phoneNumberField?: ComponentTheme<PhoneNumberFieldStyles, Output>;
-  radio?: ComponentTheme<RadioStyles, Output>;
-  radioGroup?: ComponentTheme<RadioGroupStyles, Output>;
-  tabs?: ComponentTheme<TabsStyles, Output>;
-  textField?: ComponentTheme<TextFieldStyles, Output>;
-};
+export type Components<Output extends 'input' | 'output' | unknown = unknown> =
+  {
+    button?: ComponentTheme<ButtonStyles, Output>;
+    checkbox?: ComponentTheme<CheckboxStyles, Output>;
+    divider?: ComponentTheme<DividerStyles, Output>;
+    errorMessage?: ComponentTheme<ErrorMessageStyles, Output>;
+    heading?: ComponentTheme<HeadingStyles, Output>;
+    icon?: ComponentTheme<IconStyles, Output>;
+    iconButton?: ComponentTheme<IconButtonStyles, Output>;
+    label?: ComponentTheme<LabelStyles, Output>;
+    passwordField?: ComponentTheme<PasswordFieldStyles, Output>;
+    phoneNumberField?: ComponentTheme<PhoneNumberFieldStyles, Output>;
+    radio?: ComponentTheme<RadioStyles, Output>;
+    radioGroup?: ComponentTheme<RadioGroupStyles, Output>;
+    tabs?: ComponentTheme<TabsStyles, Output>;
+    textField?: ComponentTheme<TextFieldStyles, Output>;
+  };
 
 export type ColorMode = 'light' | 'dark' | 'system' | null;
 export type Override = Omit<Theme, 'overrides'> & {

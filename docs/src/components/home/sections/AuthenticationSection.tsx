@@ -17,6 +17,7 @@ import { useIntersectionObserver } from '@/components/useIntersection';
 import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
 import { BrowserMock } from '@/components/home/BrowserMock';
 import { trackScroll } from '@/utils/track';
+import { ExpoSnack, ExpoSnackWithExports } from '@/components/ExpoSnack';
 
 // TODO: grab this code from actual examples so we don't need to keep these in sync
 const authenticatorCode = {
@@ -197,35 +198,42 @@ export const AuthenticationSection = ({ platform }) => {
           </Text>
         </Flex>
 
-        <Flex
-          direction={{
-            base: 'column',
-            xl: 'row',
-          }}
-          alignItems="center"
-          gap="xxl"
-          className="docs-home-subsection"
-        >
-          {platform === 'flutter' ? (
-            <View flex="1">
-              <FlutterAuthenticatorExample id="flutter-authenticator-home" />
-            </View>
-          ) : platform === 'react-native' ? null : (
-            <BrowserMock flex="1" location="https://localhost">
-              <Authenticator />
-            </BrowserMock>
-          )}
+        {platform === 'react-native' ? (
+          <ExpoSnackWithExports
+            name="Authenticator"
+            code={authenticatorCode[platform]}
+          />
+        ) : (
+          <Flex
+            direction={{
+              base: 'column',
+              xl: 'row',
+            }}
+            alignItems="center"
+            gap="xxl"
+            className="docs-home-subsection"
+          >
+            {platform === 'flutter' ? (
+              <View flex="1">
+                <FlutterAuthenticatorExample id="flutter-authenticator-home" />
+              </View>
+            ) : platform === 'react-native' ? null : (
+              <BrowserMock flex="1" location="https://localhost">
+                <Authenticator />
+              </BrowserMock>
+            )}
 
-          {hiddenOnMobile ? (
-            <HomeCode flex="1" fileName={fileName[platform]}>
-              <CodeHighlight
-                code={authenticatorCode[platform]}
-                language={languages[platform]}
-                withLines
-              />
-            </HomeCode>
-          ) : null}
-        </Flex>
+            {hiddenOnMobile ? (
+              <HomeCode flex="1" fileName={fileName[platform]}>
+                <CodeHighlight
+                  code={authenticatorCode[platform]}
+                  language={languages[platform]}
+                  withLines
+                />
+              </HomeCode>
+            ) : null}
+          </Flex>
+        )}
         <HomeCTA href={`/${platform}/connected-components/authenticator`}>
           Get started with the Authenticator
         </HomeCTA>

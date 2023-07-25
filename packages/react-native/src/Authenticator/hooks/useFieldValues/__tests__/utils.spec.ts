@@ -1,10 +1,12 @@
 import { Logger } from 'aws-amplify';
-import { TypedField } from '../../types';
+import { authenticatorTextUtil } from '@aws-amplify/ui';
 
+import { TextFieldOptionsType, TypedField } from '../../types';
 import {
   getRouteTypedFields,
   getSanitizedRadioFields,
   getSanitizedTextFields,
+  runFieldValidation,
 } from '../utils';
 
 const warnSpy = jest.spyOn(Logger.prototype, 'warn');
@@ -212,5 +214,69 @@ describe('getRouteTypedFields', () => {
     ];
 
     expect(fields).toStrictEqual(expected);
+  });
+});
+
+describe('runFieldValidation', () => {
+  const { getInvalidEmailText, getRequiredFieldText } = authenticatorTextUtil;
+  const field: TextFieldOptionsType = {
+    required: true,
+    type: 'email',
+    name: 'email',
+  };
+
+  it('should return an empty array when no errors are found', () => {
+    const value = 'test@example.com';
+    const stateValidations = {};
+
+    const result = runFieldValidation(field, value, stateValidations);
+
+    expect(result).toEqual([]);
+  });
+
+  it('should return an array with the required field error when value is missing', () => {
+    const value = undefined;
+    const stateValidations = {};
+
+    const result = runFieldValidation(field, value, stateValidations);
+
+    expect(result).toEqual([getRequiredFieldText(), getInvalidEmailText()]);
+  });
+
+  it('should return an array with the invalid email error when email value is invalid', () => {
+    const value = 'invalid-email';
+    const stateValidations = {};
+
+    const result = runFieldValidation(field, value, stateValidations);
+
+    expect(result).toEqual([getInvalidEmailText()]);
+  });
+
+  it('should include state machine validation errors in the result', () => {
+    const value = 'test@example.com';
+    const errorMessage = 'Email already exists.';
+    const stateValidations = {
+      email: errorMessage,
+    };
+
+    const result = runFieldValidation(field, value, stateValidations);
+
+    expect(result).toEqual([errorMessage]);
+  });
+
+  it('should concatenate state machine validation errors with other errors', () => {
+    const value = undefined;
+    const errorMessage = 'Email already exists.';
+    const stateValidations = {
+      email: errorMessage,
+    };
+
+    const result = runFieldValidation(field, value, stateValidations);
+
+    expect(result).toEqual([
+      getRequiredFieldText(),
+      getInvalidEmailText(),
+      errorMessage,
+    ]);
   });
 });

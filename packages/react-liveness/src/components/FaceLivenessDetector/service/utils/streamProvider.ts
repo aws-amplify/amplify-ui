@@ -13,6 +13,7 @@ import {
 import { WebSocketFetchHandler } from '@aws-sdk/middleware-websocket';
 import { VideoRecorder } from './videoRecorder';
 import { getLivenessUserAgent } from '../../utils/platform';
+import { AwsCredentialProvider } from '../types';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -26,6 +27,14 @@ export interface Credentials {
   accessKeyId: string;
   secretAccessKey: string;
   sessionToken: string;
+}
+
+export interface StreamProviderArgs {
+  sessionId: string;
+  region: string;
+  stream: MediaStream;
+  videoEl: HTMLVideoElement;
+  credentialProvider?: AwsCredentialProvider;
 }
 
 const ENDPOINT = process.env.NEXT_PUBLIC_STREAMING_API_URL;
@@ -46,6 +55,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   public region: string;
   public videoRecorder: VideoRecorder;
   public responseStream!: AsyncIterable<LivenessResponseStream>;
+  public credentialProvider?: AwsCredentialProvider;
 
   private _reader!: ReadableStreamDefaultReader;
   private videoEl: HTMLVideoElement;
@@ -53,19 +63,20 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   private _stream: MediaStream;
   private initPromise: Promise<void>;
 
-  // eslint-disable-next-line max-params
-  constructor(
-    sessionId: string,
-    region: string,
-    stream: MediaStream,
-    videoEl: HTMLVideoElement
-  ) {
+  constructor({
+    sessionId,
+    region,
+    stream,
+    videoEl,
+    credentialProvider,
+  }: StreamProviderArgs) {
     super();
     this.sessionId = sessionId;
     this.region = region;
     this._stream = stream;
     this.videoEl = videoEl;
     this.videoRecorder = new VideoRecorder(stream);
+    this.credentialProvider = credentialProvider;
     this.initPromise = this.init();
   }
 
@@ -109,7 +120,9 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
   }
 
   private async init() {
-    const credentials = (await AmplifyCredentials.get()) as Credentials;
+    const credentials =
+      this.credentialProvider ??
+      ((await AmplifyCredentials.get()) as Credentials);
 
     if (!credentials) {
       throw new Error('No credentials');
@@ -118,7 +131,7 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     const clientconfig: RekognitionStreamingClientConfig = {
       credentials,
       region: this.region,
-      customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent}`,
+      customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent()}`,
       requestHandler: new WebSocketFetchHandler({ connectionTimeout: 10_000 }),
     };
 

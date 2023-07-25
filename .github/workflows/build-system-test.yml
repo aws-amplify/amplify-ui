@@ -1,0 +1,164 @@
+# Description: this workflow runs build mega-apps that have all the connected components.
+
+name: Build System Test Canary
+
+permissions:
+  id-token: write # This is required for aws-actions/configure-aws-credentials
+
+on:
+  schedule:
+    - cron: '*/15 * * * *' # Run every 15 minutes
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [react]
+        framework-version: [latest]
+        build-tool: [cra, next, vite]
+        build-tool-version: [latest]
+        pkg-manager: [npm]
+        language: [ts]
+        node-version: [18]
+        pkg-manager-version: [latest]
+        include:
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 16
+          - framework: react
+            framework-version: 16
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: npm
+            language: js
+            node-version: 18
+          - framework: react
+            framework-version: latest
+            build-tool: cra
+            build-tool-version: latest
+            pkg-manager: yarn
+            pkg-manager-version: 1
+            language: ts
+            node-version: 18
+          - framework: react
+            framework-version: 17
+            build-tool: next
+            build-tool-version: 11
+            pkg-manager: npm
+            language: ts
+            node-version: 16
+          - framework: react
+            framework-version: latest
+            build-tool: vite
+            build-tool-version: 2
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
+          - framework: angular
+            framework-version: latest
+            build-tool: angular-cli
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: angular
+            framework-version: 14
+            build-tool: angular-cli
+            build-tool-version: 14
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
+          - framework: vue
+            framework-version: 3 # here use "3" instead of "latest" because .vuerc(preset) doesn't accept "latest" as "vueVersion"
+            build-tool: vue-cli
+            build-tool-version: latest
+            pkg-manager: yarn # vue-cli defualt pkg-manager is yarn. It can't be customized in the preset.json.
+            language: ts
+            node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: vite
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: vite
+            build-tool-version: 2
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+          - framework: vue
+            framework-version: latest
+            build-tool: nuxt
+            build-tool-version: latest
+            pkg-manager: npm
+            language: ts
+            node-version: 18
+
+    env:
+      MEGA_APP_NAME: ${{ matrix.framework }}-${{ matrix.framework-version }}-${{ matrix.build-tool }}-${{ matrix.build-tool-version }}-${{ matrix.language }}
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
+        with:
+          persist-credentials: false
+      - name: Setup Node.js ${{ matrix.node-version }} with ${{ matrix.pkg-manager }}
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0 https://github.com/actions/setup-node/commit/64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: ${{ matrix.pkg-manager }}
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: 2
+      - name: Create MegaApp ${{ env.MEGA_APP_NAME }} and run build on NodeJS ${{ matrix.node-version }}
+        run: npm run ${{ env.MEGA_APP_NAME }}
+        shell: bash
+        working-directory: build-system-tests
+
+  log-failure-metric:
+    # Send a failure data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ failure() }}
+    steps:
+      - name: Log failure data point to metric BuildSystemTestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildSystemTestFailure
+          value: 1
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2
+
+  log-success-metric:
+    # Send a success data point to metric BuildSystemTestFailure in github-workflows@ us-east-2
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
+    if: ${{ success() }}
+    steps:
+      - name: Log success data point to metric BuildSystemTestFailure
+        uses: aws-amplify/amplify-ui/.github/actions/log-metric@main
+        with:
+          metric-name: BuildSystemTestFailure
+          value: 0
+          role-to-assume: ${{ secrets.METRIC_LOGGER_ROLE_ARN }}
+          aws-region: us-east-2

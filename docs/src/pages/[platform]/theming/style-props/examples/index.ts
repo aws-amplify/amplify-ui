@@ -1,6 +1,6 @@
 export { BackgroundThemeTokenExample } from './BackgroundExamples';
 export { BackgroundStyles } from './BackgroundStyles';
-export { BorderThemeTokenExample } from './BorderExamples';
+export { BorderStylePropExample } from './BorderExamples';
 export { BorderStyles } from './BorderStyles';
 export { ColorThemeTokenExample } from './ColorExamples';
 export { ColorStyles } from './ColorStyles';
