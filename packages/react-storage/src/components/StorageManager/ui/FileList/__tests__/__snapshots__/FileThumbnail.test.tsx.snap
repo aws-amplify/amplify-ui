@@ -39,3 +39,15 @@ exports[`FileThumbnail renders an image 1`] = `
   </div>
 </div>
 `;
+
+exports[`FileThumbnail renders custom icons from IconProvider 1`] = `
+<div>
+  <div
+    class="amplify-storagemanager__file__image"
+  >
+    <span
+      class="my-custom-icon"
+    />
+  </div>
+</div>
+`;

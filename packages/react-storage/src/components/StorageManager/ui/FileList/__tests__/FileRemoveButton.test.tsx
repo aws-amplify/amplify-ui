@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassNames, IconProvider } from '@aws-amplify/ui-react';
 
 import { FileRemoveButton } from '../FileRemoveButton';
 import { FileRemoveButtonProps } from '../types';
@@ -39,5 +39,23 @@ describe('FileRemoveButton', () => {
     const button = await findByRole('button');
     userEvent.click(button);
     expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('renders custom icons from IconProvider', () => {
+    const { container } = render(
+      <IconProvider
+        icons={{
+          storageManager: {
+            remove: <span className="my-custom-icon" />,
+          },
+        }}
+      >
+        <FileRemoveButton {...fileRemoveButtonProps} />
+      </IconProvider>
+    );
+
+    const customIcon = container.querySelector('.my-custom-icon');
+    expect(customIcon).toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 });

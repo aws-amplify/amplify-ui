@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import { ComponentClassNames, IconProvider } from '@aws-amplify/ui-react';
 import { classNameModifier } from '@aws-amplify/ui';
 
 import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
@@ -65,5 +65,30 @@ describe('DropZone', () => {
 
     const dropZoneChildren = await screen.findByTestId(testId);
     expect(dropZoneChildren).toHaveTextContent(testText);
+  });
+
+  it('renders custom icons from IconProvider', () => {
+    const { container } = render(
+      <IconProvider
+        icons={{
+          storageManager: {
+            upload: <span className="my-custom-icon" />,
+          },
+        }}
+      >
+        <DropZone
+          inDropZone={false}
+          onDragEnter={() => {}}
+          onDragLeave={() => {}}
+          onDragOver={() => {}}
+          onDragStart={() => {}}
+          onDrop={() => {}}
+          displayText={defaultStorageManagerDisplayText}
+        />
+      </IconProvider>
+    );
+    const customIcon = container.querySelector('.my-custom-icon');
+    expect(customIcon).toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 });
