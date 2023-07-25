@@ -1,4 +1,5 @@
 import { defineConfig } from 'rollup';
+import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import externals from 'rollup-plugin-node-externals';
@@ -16,6 +17,7 @@ const config = defineConfig([
     input,
     output: { dir: 'dist', format: 'cjs' },
     plugins: [
+      commonjs(),
       externals(),
       typescript({ declarationDir: 'dist/types', sourceMap, tsconfig }),
       terser(),
@@ -27,11 +29,11 @@ const config = defineConfig([
     output: {
       dir: esmOutputDir,
       format: 'es',
-      entryFileNames: '[name].mjs',
       preserveModules: true,
       preserveModulesRoot: 'src',
     },
     plugins: [
+      commonjs(),
       externals(),
       typescript({
         outDir: esmOutputDir,
