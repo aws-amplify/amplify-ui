@@ -12,9 +12,9 @@ export const getThemedStyles = (theme: StrictTheme): LabelStyles => {
 
   return StyleSheet.create({
     text: {
-      fontSize: fontSizes.small,
+      fontSize: fontSizes.medium,
       fontWeight: fontWeights.normal,
-      lineHeight: getLineHeight(fontSizes.small),
+      lineHeight: getLineHeight(fontSizes.medium),
       ...components?.label?.text,
     },
     primary: {
