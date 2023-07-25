@@ -398,7 +398,6 @@ jobs:
         run: yarn react-core build
 
       - name: Build react-core-notifications package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core-notifications build
 
       - name: Build react-native package
@@ -588,6 +587,11 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Terminate emulators
+        run: |
+          adb -s emulator-5554 emu kill
+          adb -s emulator-5556 emu kill
 
       - name: Upload failure screenshots and errors
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
