@@ -24,6 +24,12 @@ export interface BaseButtonProps
     FlexContainerStyleProps {
   /**
    * @description
+   * Changes the color scheme of the button
+   */
+  colorTheme?: ButtonColorTheme;
+
+  /**
+   * @description
    * If `true`, the button will be disabled.
    */
   isDisabled?: boolean;
@@ -74,13 +80,13 @@ export interface BaseButtonProps
    * Changes the visual weight of the button.
    */
   variation?: ButtonVariations;
-
-  /**
-   * @description
-   * Changes the color scheme of the button
-   */
-  colorTheme?: ButtonColorTheme;
 }
 
 export type ButtonProps<Element extends ElementType = 'button'> =
   PrimitiveProps<BaseButtonProps, Element>;
+
+/** @deprecated For internal use only */
+export type BaseButtonPropsWithoutColorTheme = Omit<
+  BaseButtonProps,
+  'colorTheme'
+>;
