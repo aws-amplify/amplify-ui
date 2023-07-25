@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 5.0.6
+
+### Patch Changes
+
+- [#4271](https://github.com/aws-amplify/amplify-ui/pull/4271) [`6b71ec46c`](https://github.com/aws-amplify/amplify-ui/commit/6b71ec46ccbf63c4605c9a57d3ecff098a42938a) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix border color token for SwitchField thumb
+
+- Updated dependencies [[`6b71ec46c`](https://github.com/aws-amplify/amplify-ui/commit/6b71ec46ccbf63c4605c9a57d3ecff098a42938a)]:
+  - @aws-amplify/ui@5.6.8
+  - @aws-amplify/ui-react-core@2.1.27
+
 ## 5.0.5
 
 ### Patch Changes
