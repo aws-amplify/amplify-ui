@@ -179,7 +179,9 @@ module.exports = withNextPluginPreval({
       require('rehype-autolink-headings'),
     ];
     const defaultRemarkPlugins = [
+      // This needs to come first to import the code before other plugins
       require('remark-code-import'),
+      require('./src/plugins/remark-snackplayer'),
       require('remark-gfm'),
       require('remark-mdx-images'),
       [
