@@ -23,6 +23,7 @@ export * from './label';
 export * from './link';
 export * from './loader';
 export * from './menu';
+export * from './message';
 export * from './pagination';
 export * from './passwordField';
 export * from './phoneNumberField';
