@@ -175,7 +175,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: '{colors.blue.100.value}' },
         backgroundColor: { value: '{colors.blue.10.value}' },
         color: { value: '{colors.blue.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -205,7 +204,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: '{colors.orange.100.value}' },
         backgroundColor: { value: '{colors.orange.10.value}' },
         color: { value: '{colors.orange.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -235,7 +233,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: '{colors.green.100.value}' },
         backgroundColor: { value: '{colors.green.10.value}' },
         color: { value: '{colors.green.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -265,7 +262,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: '{colors.red.100.value}' },
         backgroundColor: { value: '{colors.red.10.value}' },
         color: { value: '{colors.red.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -295,7 +291,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: '{colors.overlay.90.value}' },
         backgroundColor: { value: '{colors.overlay.5.value}' },
         color: { value: '{colors.neutral.90.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -561,7 +556,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.blue.10.value}' },
         color: { value: '{colors.blue.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -591,7 +585,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.orange.10.value}' },
         color: { value: '{colors.orange.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -621,7 +614,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.green.10.value}' },
         color: { value: '{colors.green.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -651,7 +643,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.red.10.value}' },
         color: { value: '{colors.red.100.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
@@ -681,7 +672,6 @@ export const button: Required<ButtonTokens<'default'>> = {
         borderColor: { value: 'transparent' },
         backgroundColor: { value: '{colors.overlay.5.value}' },
         color: { value: '{colors.overlay.90.value}' },
-        // Should we make field control box shadows for info, warning, success?
         boxShadow: {
           value: {
             offsetX: '0px',
