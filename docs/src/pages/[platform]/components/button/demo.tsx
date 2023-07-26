@@ -4,7 +4,7 @@ import {
   Button,
   ButtonSizes,
   ButtonVariations,
-  ButtonColorThemes,
+  ButtonColorTheme,
   ButtonProps,
   Flex,
   SwitchField,
@@ -60,7 +60,7 @@ const PropControls = (props) => {
         label="ColorTheme"
         value={props.colorTheme}
         onChange={(event) =>
-          props.setColorTheme(event.target.value as ButtonColorThemes)
+          props.setColorTheme(event.target.value as ButtonColorTheme)
         }
       >
         <option value="">Default</option>
@@ -134,7 +134,7 @@ export const ButtonDemo = () => {
   const [loadingText, setLoadingText] = React.useState('');
   const [ariaLabel, setAriaLabel] = React.useState<string>('');
   const [variation, setVariation] = React.useState<ButtonVariations>();
-  const [colorTheme, setColorTheme] = React.useState<ButtonColorThemes>();
+  const [colorTheme, setColorTheme] = React.useState<ButtonColorTheme>();
   const [size, setSize] = React.useState<ButtonSizes>();
 
   const props = {
