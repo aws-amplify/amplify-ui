@@ -11,7 +11,7 @@ export type ButtonVariations =
   | 'warning'
   | 'destructive';
 
-export type ButtonColorThemes =
+export type ButtonColorTheme =
   | 'info'
   | 'error'
   | 'warning'
@@ -22,6 +22,12 @@ export type ButtonColorThemes =
 export interface BaseButtonProps
   extends BaseViewProps,
     FlexContainerStyleProps {
+  /**
+   * @description
+   * Changes the color scheme of the button
+   */
+  colorTheme?: ButtonColorTheme;
+
   /**
    * @description
    * If `true`, the button will be disabled.
@@ -74,13 +80,13 @@ export interface BaseButtonProps
    * Changes the visual weight of the button.
    */
   variation?: ButtonVariations;
-
-  /**
-   * @description
-   * Changes the color scheme of the button
-   */
-  colorTheme?: ButtonColorThemes;
 }
 
 export type ButtonProps<Element extends ElementType = 'button'> =
   PrimitiveProps<BaseButtonProps, Element>;
+
+/** @deprecated For internal use only */
+export type BaseButtonPropsWithoutColorTheme = Omit<
+  BaseButtonProps,
+  'colorTheme'
+>;

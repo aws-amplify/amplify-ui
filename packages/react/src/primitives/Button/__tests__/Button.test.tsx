@@ -3,7 +3,16 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Button } from '../Button';
+import { ButtonColorTheme } from '../../types';
 import { ComponentClassNames } from '../../shared';
+
+const SUPPORTED_COLOR_THEMES: ButtonColorTheme[] = [
+  'info',
+  'success',
+  'warning',
+  'error',
+  'overlay',
+];
 
 describe('Button test suite', () => {
   it('should render button variations', async () => {
@@ -46,201 +55,43 @@ describe('Button test suite', () => {
     expect(menu.classList).toContain(`${ComponentClassNames['Button']}--menu`);
   });
 
-  it('should render color themes for default variation', async () => {
-    render(
-      <div>
-        <Button testId="defaultInfoColorTheme" colorTheme="info">
-          info
-        </Button>
-        <Button testId="defaultSuccessColorTheme" colorTheme="success">
-          success
-        </Button>
-        <Button testId="defaultErrorColorTheme" colorTheme="error">
-          error
-        </Button>
-        <Button testId="defaultWarningColorTheme" colorTheme="warning">
-          warning
-        </Button>
-        <Button testId="defaultOverlayColorTheme" colorTheme="overlay">
-          overlay
-        </Button>
-      </div>
-    );
+  it.each(SUPPORTED_COLOR_THEMES)(
+    'should render the %s color theme for the default variation',
+    async (colorTheme) => {
+      const testId = `default-${colorTheme}-ColorTheme`;
+      render(<Button testId={testId} colorTheme={colorTheme} />);
+      const button = await screen.findByTestId(testId);
+      expect(button.classList).toContain(
+        `amplify-button--outlined--${colorTheme}`
+      );
+    }
+  );
 
-    const defaultInfoColorTheme = await screen.findByTestId(
-      'defaultInfoColorTheme'
-    );
-    const defaultSuccessColorTheme = await screen.findByTestId(
-      'defaultSuccessColorTheme'
-    );
-    const defaultErrorColorTheme = await screen.findByTestId(
-      'defaultErrorColorTheme'
-    );
-    const defaultWarningColorTheme = await screen.findByTestId(
-      'defaultWarningColorTheme'
-    );
-    const defaultOverlayColorTheme = await screen.findByTestId(
-      'defaultOverlayColorTheme'
-    );
+  it.each(SUPPORTED_COLOR_THEMES)(
+    'should render the %s color theme for the primary variation',
+    async (colorTheme) => {
+      const testId = `primary-${colorTheme}-ColorTheme`;
+      render(
+        <Button variation="primary" testId={testId} colorTheme={colorTheme} />
+      );
+      const button = await screen.findByTestId(testId);
+      expect(button.classList).toContain(
+        `amplify-button--primary--${colorTheme}`
+      );
+    }
+  );
 
-    expect(defaultInfoColorTheme.classList).toContain(
-      'amplify-button--outlined--info'
-    );
-    expect(defaultSuccessColorTheme.classList).toContain(
-      'amplify-button--outlined--success'
-    );
-    expect(defaultErrorColorTheme.classList).toContain(
-      'amplify-button--outlined--error'
-    );
-    expect(defaultWarningColorTheme.classList).toContain(
-      'amplify-button--outlined--warning'
-    );
-    expect(defaultOverlayColorTheme.classList).toContain(
-      'amplify-button--outlined--overlay'
-    );
-  });
-
-  it('should render color themes for link variation', async () => {
-    render(
-      <div>
-        <Button variation="link" testId="linkInfoColorTheme" colorTheme="info">
-          info
-        </Button>
-        <Button
-          variation="link"
-          testId="linkSuccessColorTheme"
-          colorTheme="success"
-        >
-          success
-        </Button>
-        <Button
-          variation="link"
-          testId="linkErrorColorTheme"
-          colorTheme="error"
-        >
-          error
-        </Button>
-        <Button
-          variation="link"
-          testId="linkWarningColorTheme"
-          colorTheme="warning"
-        >
-          warning
-        </Button>
-        <Button
-          variation="link"
-          testId="linkOverlayColorTheme"
-          colorTheme="overlay"
-        >
-          overlay
-        </Button>
-      </div>
-    );
-
-    const linkInfoColorTheme = await screen.findByTestId('linkInfoColorTheme');
-    const linkSuccessColorTheme = await screen.findByTestId(
-      'linkSuccessColorTheme'
-    );
-    const linkErrorColorTheme = await screen.findByTestId(
-      'linkErrorColorTheme'
-    );
-    const linkWarningColorTheme = await screen.findByTestId(
-      'linkWarningColorTheme'
-    );
-    const linkOverlayColorTheme = await screen.findByTestId(
-      'linkOverlayColorTheme'
-    );
-
-    expect(linkInfoColorTheme.classList).toContain(
-      'amplify-button--link--info'
-    );
-    expect(linkSuccessColorTheme.classList).toContain(
-      'amplify-button--link--success'
-    );
-    expect(linkErrorColorTheme.classList).toContain(
-      'amplify-button--link--error'
-    );
-    expect(linkWarningColorTheme.classList).toContain(
-      'amplify-button--link--warning'
-    );
-    expect(linkOverlayColorTheme.classList).toContain(
-      'amplify-button--link--overlay'
-    );
-  });
-
-  it('should render color themes for primary variation', async () => {
-    render(
-      <div>
-        <Button
-          variation="primary"
-          testId="primaryInfoColorTheme"
-          colorTheme="info"
-        >
-          info
-        </Button>
-        <Button
-          variation="primary"
-          testId="primarySuccessColorTheme"
-          colorTheme="success"
-        >
-          success
-        </Button>
-        <Button
-          variation="primary"
-          testId="primaryErrorColorTheme"
-          colorTheme="error"
-        >
-          error
-        </Button>
-        <Button
-          variation="primary"
-          testId="primaryWarningColorTheme"
-          colorTheme="warning"
-        >
-          warning
-        </Button>
-        <Button
-          variation="primary"
-          testId="primaryOverlayColorTheme"
-          colorTheme="overlay"
-        >
-          overlay
-        </Button>
-      </div>
-    );
-
-    const primaryInfoColorTheme = await screen.findByTestId(
-      'primaryInfoColorTheme'
-    );
-    const primarySuccessColorTheme = await screen.findByTestId(
-      'primarySuccessColorTheme'
-    );
-    const primaryErrorColorTheme = await screen.findByTestId(
-      'primaryErrorColorTheme'
-    );
-    const primaryWarningColorTheme = await screen.findByTestId(
-      'primaryWarningColorTheme'
-    );
-    const primaryOverlayColorTheme = await screen.findByTestId(
-      'primaryOverlayColorTheme'
-    );
-
-    expect(primaryInfoColorTheme.classList).toContain(
-      'amplify-button--primary--info'
-    );
-    expect(primarySuccessColorTheme.classList).toContain(
-      'amplify-button--primary--success'
-    );
-    expect(primaryErrorColorTheme.classList).toContain(
-      'amplify-button--primary--error'
-    );
-    expect(primaryWarningColorTheme.classList).toContain(
-      'amplify-button--primary--warning'
-    );
-    expect(primaryOverlayColorTheme.classList).toContain(
-      'amplify-button--primary--overlay'
-    );
-  });
+  it.each(SUPPORTED_COLOR_THEMES)(
+    'should render the %s color theme for the link variation',
+    async (colorTheme) => {
+      const testId = `link-${colorTheme}-ColorTheme`;
+      render(
+        <Button variation="link" testId={testId} colorTheme={colorTheme} />
+      );
+      const button = await screen.findByTestId(testId);
+      expect(button.classList).toContain(`amplify-button--link--${colorTheme}`);
+    }
+  );
 
   it('should not render a color theme class for menu, warning, and destructive variations', async () => {
     render(
