@@ -1,37 +1,50 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { classNameModifier } from '../shared/utils';
-import {
-  BadgeProps,
-  BaseBadgeProps,
-  ForwardRefPrimitive,
-  Primitive,
-} from '../types';
+import { BreadcrumbProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
+import { BreadcrumbItem } from './BreadcrumbItem';
+import { BreadcrumbLink } from './BreadcrumbLink';
 
-const BreadcrumbsPrimitive: Primitive<BadgeProps, 'span'> = (
-  { className, children, variation, size, ...rest },
+const DefaultBreadcrumbSeparator = () => {
+  return (
+    <View as="span" className={ComponentClassNames.BreadcrumbSeparator}>
+      /
+    </View>
+  );
+};
+
+const BreadcrumbsPrimitive: Primitive<BreadcrumbProps, 'span'> = (
+  { className, children, separator = <DefaultBreadcrumbSeparator />, ...rest },
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.Badge,
-    className,
-    classNameModifier(ComponentClassNames.Badge, variation),
-    classNameModifier(ComponentClassNames.Badge, size)
+    ComponentClassNames.Breadcrumbs,
+    className
   );
+
+  const childCount = React.Children.count(children);
+  const validChildren = React.Children.toArray(children).filter((child) =>
+    React.isValidElement(child)
+  ) as React.ReactElement[];
 
   return (
     <View
-      as="span"
+      as="nav"
+      aria-label="Breadcrumb"
       className={componentClasses}
-      data-variation={variation}
-      data-size={size}
       ref={ref}
       {...rest}
     >
-      {children}
+      <View as="ol">
+        {React.Children.map(validChildren, (child, i) =>
+          React.cloneElement(child, {
+            isCurrent: i === childCount - 1,
+            separator,
+          })
+        )}
+      </View>
     </View>
   );
 };
@@ -39,7 +52,11 @@ const BreadcrumbsPrimitive: Primitive<BadgeProps, 'span'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/breadcrumbs)
  */
-export const Breadcrumbs: ForwardRefPrimitive<BaseBadgeProps, 'nav'> =
-  React.forwardRef(BreadcrumbsPrimitive);
+const Breadcrumbs = Object.assign(React.forwardRef(BreadcrumbsPrimitive), {
+  Item: BreadcrumbItem,
+  Link: BreadcrumbLink,
+});
 
 Breadcrumbs.displayName = 'Breadcrumbs';
+
+export { Breadcrumbs };

@@ -1,8 +1,7 @@
+import React from 'react';
 import { Sizes } from './base';
 import { ElementType, PrimitiveProps, BaseViewProps } from './view';
-
-export type BadgeVariations = 'info' | 'error' | 'warning' | 'success';
-export type BadgeSizes = Sizes;
+import { LinkOptions } from './link';
 
 /** @deprecated For internal use only */
 export interface BaseBreadcrumbProps extends BaseViewProps {
@@ -12,6 +11,18 @@ export interface BaseBreadcrumbProps extends BaseViewProps {
    */
   size?: Sizes;
   separator?: React.ReactNode;
+  children?: React.ReactNode;
+}
+
+export interface BaseBreadcrumbItemProps extends BaseViewProps {
+  isCurrent?: boolean;
+  isDisabled?: boolean;
+  separator?: React.ReactNode;
+}
+
+export interface BaseBreadcrumbLinkProps extends LinkOptions {
+  isCurrent?: boolean;
+  isDisabled?: boolean;
 }
 
 /**
@@ -24,5 +35,8 @@ export interface BaseBreadcrumbProps extends BaseViewProps {
 export type BreadcrumbProps<Element extends ElementType = 'nav'> =
   PrimitiveProps<BaseBreadcrumbProps, Element>;
 
-export type BreadcrumbItemProps<Element extends ElementType = 'a'> =
-  PrimitiveProps<{} & BaseViewProps, Element>;
+export type BreadcrumbItemProps<Element extends ElementType = 'li'> =
+  PrimitiveProps<BaseBreadcrumbItemProps, Element>;
+
+export type BreadcrumbLinkProps<Element extends ElementType = 'a'> =
+  PrimitiveProps<BaseBreadcrumbLinkProps, Element>;
