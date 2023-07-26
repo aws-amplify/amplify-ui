@@ -61,8 +61,7 @@
   );
   --amplify-internal-button-loading-text-decoration: initial;
 
-  &:hover,
-  &.amplify-button--test-hover {
+  &:hover {
     --amplify-internal-button-background-color: var(
       --amplify-components-button-hover-background-color
     );
@@ -74,8 +73,7 @@
     );
   }
 
-  &:focus,
-  &.amplify-button--test-focus {
+  &:focus {
     --amplify-internal-button-background-color: var(
       --amplify-components-button-hover-background-color
     );
@@ -88,8 +86,7 @@
     box-shadow: var(--amplify-internal-button-focus-box-shadow);
   }
 
-  &:active,
-  &.amplify-button--test-active {
+  &:active {
     --amplify-internal-button-background-color: var(
       --amplify-components-button-active-background-color
     );
@@ -117,8 +114,7 @@
         --amplify-components-button-outlined-info-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-info-hover-background-color
         );
@@ -130,8 +126,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-info-focus-background-color
         );
@@ -146,8 +141,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-info-active-background-color
         );
@@ -170,8 +164,7 @@
         --amplify-components-button-outlined-warning-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-warning-hover-background-color
         );
@@ -183,8 +176,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-warning-focus-background-color
         );
@@ -199,8 +191,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-warning-active-background-color
         );
@@ -223,8 +214,7 @@
         --amplify-components-button-outlined-error-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-error-hover-background-color
         );
@@ -236,8 +226,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-error-focus-background-color
         );
@@ -252,8 +241,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-error-active-background-color
         );
@@ -276,8 +264,7 @@
         --amplify-components-button-outlined-success-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-success-hover-background-color
         );
@@ -289,8 +276,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-success-focus-background-color
         );
@@ -305,8 +291,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-success-active-background-color
         );
@@ -329,8 +314,7 @@
         --amplify-components-button-outlined-overlay-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-overlay-hover-background-color
         );
@@ -342,8 +326,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-overlay-focus-background-color
         );
@@ -358,8 +341,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-outlined-overlay-active-background-color
         );
@@ -378,16 +360,14 @@
     background-color: var(--amplify-components-button-menu-background-color);
     justify-content: var(--amplify-components-button-menu-justify-content);
 
-    &:hover,
-    &.amplify-button--test-hover {
+    &:hover {
       color: var(--amplify-components-button-menu-hover-color);
       background-color: var(
         --amplify-components-button-menu-hover-background-color
       );
     }
 
-    &:focus,
-    &.amplify-button--test-focus {
+    &:focus {
       box-shadow: none;
       color: var(--amplify-components-button-menu-focus-color);
       background-color: var(
@@ -395,8 +375,7 @@
       );
     }
 
-    &:active,
-    &.amplify-button--test-active {
+    &:active {
       color: var(--amplify-components-button-menu-active-color);
       background-color: var(
         --amplify-components-button-menu-active-background-color
@@ -422,8 +401,7 @@
       --amplify-components-button-primary-color
     );
 
-    &:hover,
-    &.amplify-button--test-hover {
+    &:hover {
       --amplify-internal-button-background-color: var(
         --amplify-components-button-primary-hover-background-color
       );
@@ -435,8 +413,7 @@
       );
     }
 
-    &:focus,
-    &.amplify-button--test-focus {
+    &:focus {
       --amplify-internal-button-background-color: var(
         --amplify-components-button-primary-focus-background-color
       );
@@ -451,8 +428,7 @@
       );
     }
 
-    &:active,
-    &.amplify-button--test-active {
+    &:active {
       --amplify-internal-button-background-color: var(
         --amplify-components-button-primary-active-background-color
       );
@@ -475,8 +451,7 @@
         --amplify-components-button-primary-info-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-info-hover-background-color
         );
@@ -488,8 +463,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-info-focus-background-color
         );
@@ -504,8 +478,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-info-active-background-color
         );
@@ -528,8 +501,7 @@
         --amplify-components-button-primary-warning-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-warning-hover-background-color
         );
@@ -541,8 +513,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-warning-focus-background-color
         );
@@ -557,8 +528,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-warning-active-background-color
         );
@@ -581,8 +551,7 @@
         --amplify-components-button-primary-error-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-error-hover-background-color
         );
@@ -594,8 +563,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-error-focus-background-color
         );
@@ -610,8 +578,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-error-active-background-color
         );
@@ -634,8 +601,7 @@
         --amplify-components-button-primary-success-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-success-hover-background-color
         );
@@ -647,8 +613,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-success-focus-background-color
         );
@@ -663,8 +628,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-success-active-background-color
         );
@@ -687,8 +651,7 @@
         --amplify-components-button-primary-overlay-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-overlay-hover-background-color
         );
@@ -700,8 +663,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-overlay-focus-background-color
         );
@@ -716,8 +678,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-primary-overlay-active-background-color
         );
@@ -763,8 +724,7 @@
       --amplify-components-button-link-color
     );
 
-    &:hover,
-    &.amplify-button--test-hover {
+    &:hover {
       --amplify-internal-button-background-color: var(
         --amplify-components-button-link-hover-background-color
       );
@@ -776,8 +736,7 @@
       );
     }
 
-    &:focus,
-    &.amplify-button--test-focus {
+    &:focus {
       --amplify-internal-button-background-color: var(
         --amplify-components-button-link-focus-background-color
       );
@@ -792,8 +751,7 @@
       );
     }
 
-    &:active,
-    &.amplify-button--test-active {
+    &:active {
       --amplify-internal-button-background-color: var(
         --amplify-components-button-link-active-background-color
       );
@@ -816,8 +774,7 @@
         --amplify-components-button-link-info-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-info-hover-background-color
         );
@@ -829,8 +786,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-info-focus-background-color
         );
@@ -845,8 +801,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-info-active-background-color
         );
@@ -869,8 +824,7 @@
         --amplify-components-button-link-warning-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-warning-hover-background-color
         );
@@ -882,8 +836,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-warning-focus-background-color
         );
@@ -898,8 +851,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-warning-active-background-color
         );
@@ -922,8 +874,7 @@
         --amplify-components-button-link-error-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-error-hover-background-color
         );
@@ -935,8 +886,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-error-focus-background-color
         );
@@ -951,8 +901,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-error-active-background-color
         );
@@ -975,8 +924,7 @@
         --amplify-components-button-link-success-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-success-hover-background-color
         );
@@ -988,8 +936,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-success-focus-background-color
         );
@@ -1004,8 +951,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-success-active-background-color
         );
@@ -1028,8 +974,7 @@
         --amplify-components-button-link-overlay-color
       );
 
-      &:hover,
-      &.amplify-button--test-hover {
+      &:hover {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-overlay-hover-background-color
         );
@@ -1041,8 +986,7 @@
         );
       }
 
-      &:focus,
-      &.amplify-button--test-focus {
+      &:focus {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-overlay-focus-background-color
         );
@@ -1057,8 +1001,7 @@
         );
       }
 
-      &:active,
-      &.amplify-button--test-active {
+      &:active {
         --amplify-internal-button-background-color: var(
           --amplify-components-button-link-overlay-active-background-color
         );
@@ -1098,8 +1041,7 @@
     border-color: var(--amplify-components-button-destructive-border-color);
     color: var(--amplify-components-button-destructive-color);
 
-    &:hover,
-    &.amplify-button--test-hover {
+    &:hover {
       background-color: var(
         --amplify-components-button-destructive-hover-background-color
       );
@@ -1109,8 +1051,7 @@
       color: var(--amplify-components-button-destructive-hover-color);
     }
 
-    &:focus,
-    &.amplify-button--test-focus {
+    &:focus {
       background-color: var(
         --amplify-components-button-destructive-focus-background-color
       );
@@ -1121,8 +1062,7 @@
       box-shadow: var(--amplify-components-button-destructive-focus-box-shadow);
     }
 
-    &:active,
-    &.amplify-button--test-active {
+    &:active {
       background-color: var(
         --amplify-components-button-destructive-active-background-color
       );
@@ -1179,8 +1119,7 @@
     );
     --amplify-internal-button-loading-text-decoration: none;
 
-    &:hover,
-    &.amplify-button--test-hover {
+    &:hover {
       background-color: var(
         --amplify-components-button-warning-hover-background-color
       );
@@ -1188,8 +1127,7 @@
       color: var(--amplify-components-button-warning-hover-color);
     }
 
-    &:focus,
-    &.amplify-button--test-focus {
+    &:focus {
       background-color: var(
         --amplify-components-button-warning-focus-background-color
       );
@@ -1198,8 +1136,7 @@
       box-shadow: var(--amplify-components-button-warning-focus-box-shadow);
     }
 
-    &:active,
-    &.amplify-button--test-active {
+    &:active {
       background-color: var(
         --amplify-components-button-warning-active-background-color
       );
@@ -1244,8 +1181,7 @@
     color: var(--amplify-internal-button-disabled-color);
     text-decoration: var(--amplify-internal-button-disabled-text-decoration);
     cursor: not-allowed;
-    &:hover,
-    &.amplify-button--test-hover {
+    &:hover {
       background-color: var(
         --amplify-internal-button-disabled-background-color
       );
@@ -1261,8 +1197,7 @@
       color: var(--amplify-internal-button-disabled-color);
       text-decoration: var(--amplify-internal-button-disabled-text-decoration);
     }
-    &:active,
-    &.amplify-button--test-active {
+    &:active {
       background-color: var(
         --amplify-internal-button-disabled-background-color
       );
@@ -1277,22 +1212,19 @@
     border-color: var(--amplify-internal-button-loading-border-color);
     color: var(--amplify-components-button-loading-color);
     text-decoration: var(--amplify-internal-button-loading-text-decoration);
-    &:hover,
-    &.amplify-button--test-hover {
+    &:hover {
       background-color: var(--amplify-internal-button-loading-background-color);
       border-color: var(--amplify-internal-button-loading-border-color);
       color: var(--amplify-components-button-loading-color);
       text-decoration: var(--amplify-internal-button-loading-text-decoration);
     }
-    &:focus,
-    &.amplify-button--test-focus {
+    &:focus {
       background-color: var(--amplify-internal-button-loading-background-color);
       border-color: var(--amplify-internal-button-loading-border-color);
       color: var(--amplify-components-button-loading-color);
       text-decoration: var(--amplify-internal-button-loading-text-decoration);
     }
-    &:active,
-    &.amplify-button--test-active {
+    &:active {
       background-color: var(--amplify-internal-button-loading-background-color);
       border-color: var(--amplify-internal-button-loading-border-color);
       color: var(--amplify-components-button-loading-color);
