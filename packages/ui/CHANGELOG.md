@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.6.8
+
+### Patch Changes
+
+- [#4271](https://github.com/aws-amplify/amplify-ui/pull/4271) [`6b71ec46c`](https://github.com/aws-amplify/amplify-ui/commit/6b71ec46ccbf63c4605c9a57d3ecff098a42938a) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix border color token for SwitchField thumb
+
 ## 5.6.7
 
 ### Patch Changes
