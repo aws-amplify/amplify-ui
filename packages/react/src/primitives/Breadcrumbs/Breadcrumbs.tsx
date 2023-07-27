@@ -1,7 +1,12 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { BreadcrumbProps, Primitive } from '../types';
+import {
+  BaseBreadcrumbProps,
+  BreadcrumbProps,
+  Primitive,
+  ForwardRefPrimitive,
+} from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
 import { BreadcrumbItem } from './BreadcrumbItem';
@@ -9,7 +14,7 @@ import { BreadcrumbLink } from './BreadcrumbLink';
 
 const DefaultBreadcrumbSeparator = () => {
   return (
-    <View as="span" className={ComponentClassNames.BreadcrumbSeparator}>
+    <View as="span" className={ComponentClassNames.BreadcrumbsSeparator}>
       /
     </View>
   );
@@ -37,7 +42,7 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbProps, 'span'> = (
       ref={ref}
       {...rest}
     >
-      <View as="ol">
+      <View as="ol" className={ComponentClassNames.BreadcrumbsList}>
         {React.Children.map(validChildren, (child, i) =>
           React.cloneElement(child, {
             isCurrent: i === childCount - 1,
@@ -49,13 +54,21 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbProps, 'span'> = (
   );
 };
 
+type BreadcrumbsType = ForwardRefPrimitive<BaseBreadcrumbProps, 'nav'> & {
+  Link: typeof BreadcrumbLink;
+  Item: typeof BreadcrumbItem;
+};
+
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/breadcrumbs)
  */
-const Breadcrumbs = Object.assign(React.forwardRef(BreadcrumbsPrimitive), {
-  Item: BreadcrumbItem,
-  Link: BreadcrumbLink,
-});
+const Breadcrumbs: BreadcrumbsType = Object.assign(
+  React.forwardRef(BreadcrumbsPrimitive),
+  {
+    Item: BreadcrumbItem,
+    Link: BreadcrumbLink,
+  }
+);
 
 Breadcrumbs.displayName = 'Breadcrumbs';
 

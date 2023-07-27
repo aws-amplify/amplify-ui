@@ -33,7 +33,7 @@ export default function NextBreadcrumbsExample() {
       {breadcrumbs.map(({ href, text }, i) => {
         const isCurrent = i === breadcrumbs.length - 1;
         return (
-          <Breadcrumbs.Item isCurrent={isCurrent}>
+          <Breadcrumbs.Item isCurrent={isCurrent} key={href}>
             <Link href={href} passHref>
               <Breadcrumbs.Link isCurrent={isCurrent}>{text}</Breadcrumbs.Link>
             </Link>

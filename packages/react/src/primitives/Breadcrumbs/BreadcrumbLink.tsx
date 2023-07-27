@@ -16,14 +16,14 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbLinkProps, 'span'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.BreadcrumbLink,
+    ComponentClassNames.BreadcrumbsLink,
     classNameModifierByFlag(
-      ComponentClassNames.BreadcrumbLink,
+      ComponentClassNames.BreadcrumbsLink,
       'current',
       isCurrent
     ),
     classNameModifierByFlag(
-      ComponentClassNames.BreadcrumbLink,
+      ComponentClassNames.BreadcrumbsLink,
       'disabled',
       isDisabled
     ),

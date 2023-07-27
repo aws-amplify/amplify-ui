@@ -84,20 +84,25 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Breadcrumbs'],
     description: 'Top level element that wraps the Breadcrumbs component',
   },
-  BreadcrumbItem: {
-    className: ComponentClassName.BreadcrumbItem,
+  BreadcrumbsItem: {
+    className: ComponentClassName.BreadcrumbsItem,
     components: ['Breadcrumbs'],
     description: 'Each breadcrumb',
   },
-  BreadcrumbSeparator: {
-    className: ComponentClassName.BreadcrumbSeparator,
-    components: ['Breadcrumbs'],
-    description: 'Separator between each breadcrumb',
-  },
-  BreadcrumbLink: {
-    className: ComponentClassName.BreadcrumbLink,
+  BreadcrumbsLink: {
+    className: ComponentClassName.BreadcrumbsLink,
     components: ['Breadcrumbs'],
     description: 'Links used within breadcrumbs',
+  },
+  BreadcrumbsList: {
+    className: ComponentClassName.BreadcrumbsList,
+    components: ['Breadcrumbs'],
+    description: 'Links used within breadcrumbs',
+  },
+  BreadcrumbsSeparator: {
+    className: ComponentClassName.BreadcrumbsSeparator,
+    components: ['Breadcrumbs'],
+    description: 'Separator between each breadcrumb',
   },
   Button: {
     className: ComponentClassName.Button,
@@ -774,9 +779,10 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.AutocompleteMenuOptions.className,
   Badge: ComponentClassObject.Badge.className,
   Breadcrumbs: ComponentClassObject.Breadcrumbs.className,
-  BreadcrumbItem: ComponentClassObject.BreadcrumbItem.className,
-  BreadcrumbSeparator: ComponentClassObject.BreadcrumbSeparator.className,
-  BreadcrumbLink: ComponentClassObject.BreadcrumbLink.className,
+  BreadcrumbsItem: ComponentClassObject.BreadcrumbsItem.className,
+  BreadcrumbsLink: ComponentClassObject.BreadcrumbsLink.className,
+  BreadcrumbsList: ComponentClassObject.BreadcrumbsList.className,
+  BreadcrumbsSeparator: ComponentClassObject.BreadcrumbsSeparator.className,
   Button: ComponentClassObject.Button.className,
   ButtonGroup: ComponentClassObject.ButtonGroup.className,
   ButtonLoaderWrapper: ComponentClassObject.ButtonLoaderWrapper.className,

@@ -16,14 +16,14 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbItemProps, 'li'> = (
   ref
 ) => {
   const componentClasses = classNames(
-    ComponentClassNames.BreadcrumbItem,
+    ComponentClassNames.BreadcrumbsItem,
     classNameModifierByFlag(
-      ComponentClassNames.BreadcrumbItem,
+      ComponentClassNames.BreadcrumbsItem,
       'current',
       isCurrent
     ),
     classNameModifierByFlag(
-      ComponentClassNames.BreadcrumbItem,
+      ComponentClassNames.BreadcrumbsItem,
       'disabled',
       isDisabled
     ),

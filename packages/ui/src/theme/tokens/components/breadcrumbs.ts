@@ -17,7 +17,7 @@ export type BreadcrumbsTokens<OutputType extends OutputVariantKey> =
 
 export const breadcrumbs: Required<BreadcrumbsTokens<'default'>> = {
   flexDirection: { value: 'row' },
-  gap: { value: '{space.medium}' },
+  gap: { value: '0' },
   color: { value: '{colors.font.tertiary}' },
 
   item: {
