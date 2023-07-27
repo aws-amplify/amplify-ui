@@ -1,5 +1,35 @@
 # @aws-amplify/ui-react-liveness
 
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`6b71ec46c`](https://github.com/aws-amplify/amplify-ui/commit/6b71ec46ccbf63c4605c9a57d3ecff098a42938a)]:
+  - @aws-amplify/ui-react@5.0.6
+  - @aws-amplify/ui@5.6.8
+
+## 2.0.0
+
+### Major Changes
+
+- [#4134](https://github.com/aws-amplify/amplify-ui/pull/4134) [`d09da6935`](https://github.com/aws-amplify/amplify-ui/commit/d09da69352f3330300f0b101949395c0e39db142) Thanks [@thaddmt](https://github.com/thaddmt)! - breaking(liveness): update onError callback to use LivenessError type instead of Error
+
+- [#4106](https://github.com/aws-amplify/amplify-ui/pull/4106) [`d165ddfb2`](https://github.com/aws-amplify/amplify-ui/commit/d165ddfb20cbbae921db5774ef12735796722452) Thanks [@thaddmt](https://github.com/thaddmt)! - **Breaking**: Update liveness component default cdn to use rekognition cdn. Note: customers with CSP policies will need to update their policy to allow the new default cdn url at - https://cdn.liveness.rekognition.amazonaws.com
+
+### Minor Changes
+
+- [#4260](https://github.com/aws-amplify/amplify-ui/pull/4260) [`e4bf31234`](https://github.com/aws-amplify/amplify-ui/commit/e4bf3123409ab813d118e87c95777cd5bcaff313) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(liveness): Liveness cred provider
+
+### Patch Changes
+
+- [#4238](https://github.com/aws-amplify/amplify-ui/pull/4238) [`78fab28c6`](https://github.com/aws-amplify/amplify-ui/commit/78fab28c6d83dc5d286df4adeaf4ea349963d762) Thanks [@thaddmt](https://github.com/thaddmt)! - feat(liveness): remove 3 second countdown from liveness check
+
+- [#4194](https://github.com/aws-amplify/amplify-ui/pull/4194) [`13098b36a`](https://github.com/aws-amplify/amplify-ui/commit/13098b36a75452d839955d141bd25f57538b1a22) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): move inline css to classes
+
+- Updated dependencies [[`78fdfd6c8`](https://github.com/aws-amplify/amplify-ui/commit/78fdfd6c8268c56204f905402162ad8cb40a0c8e), [`d3ee05415`](https://github.com/aws-amplify/amplify-ui/commit/d3ee054159e1de81861bcd9273be9b1c87924cf4), [`165a8abbd`](https://github.com/aws-amplify/amplify-ui/commit/165a8abbda8aa3e95fb9466fc60f8694c646d5bc), [`13098b36a`](https://github.com/aws-amplify/amplify-ui/commit/13098b36a75452d839955d141bd25f57538b1a22), [`f0b32d275`](https://github.com/aws-amplify/amplify-ui/commit/f0b32d27509cbc00013e96f6cfc735695b7784c8), [`c3a418d8d`](https://github.com/aws-amplify/amplify-ui/commit/c3a418d8d8bd057c27de59379033c2c538762141), [`37e490d39`](https://github.com/aws-amplify/amplify-ui/commit/37e490d3997a1dc55e2998c277790945921e6dc3), [`aea82ff1b`](https://github.com/aws-amplify/amplify-ui/commit/aea82ff1bb6e066ed8b70433f4d72cd34bf0ccae)]:
+  - @aws-amplify/ui@5.6.7
+  - @aws-amplify/ui-react@5.0.5
+
 ## 1.0.6
 
 ### Patch Changes
