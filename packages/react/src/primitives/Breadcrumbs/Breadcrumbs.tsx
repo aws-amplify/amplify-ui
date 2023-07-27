@@ -11,6 +11,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
 import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbLink } from './BreadcrumbLink';
+import { BreadcrumbsContext } from './BreadcrumbsContext';
 
 const DefaultBreadcrumbSeparator = () => {
   return (
@@ -20,19 +21,19 @@ const DefaultBreadcrumbSeparator = () => {
   );
 };
 
-const BreadcrumbsPrimitive: Primitive<BreadcrumbProps, 'span'> = (
-  { className, children, separator = <DefaultBreadcrumbSeparator />, ...rest },
+const BreadcrumbsPrimitive: Primitive<BreadcrumbProps, 'nav'> = (
+  { className, children, separator, ...rest },
   ref
 ) => {
   const componentClasses = classNames(
     ComponentClassNames.Breadcrumbs,
     className
   );
-
-  const childCount = React.Children.count(children);
-  const validChildren = React.Children.toArray(children).filter((child) =>
-    React.isValidElement(child)
-  ) as React.ReactElement[];
+  const value = React.useMemo(() => {
+    return {
+      separator: separator ?? <DefaultBreadcrumbSeparator />,
+    };
+  }, [separator]);
 
   return (
     <View
@@ -43,12 +44,9 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbProps, 'span'> = (
       {...rest}
     >
       <View as="ol" className={ComponentClassNames.BreadcrumbsList}>
-        {React.Children.map(validChildren, (child, i) =>
-          React.cloneElement(child, {
-            isCurrent: i === childCount - 1,
-            separator,
-          })
-        )}
+        <BreadcrumbsContext.Provider value={value}>
+          {children}
+        </BreadcrumbsContext.Provider>
       </View>
     </View>
   );

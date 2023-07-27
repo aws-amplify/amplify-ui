@@ -17,7 +17,6 @@ export interface BaseBreadcrumbProps extends BaseViewProps {
 export interface BaseBreadcrumbItemProps extends BaseViewProps {
   isCurrent?: boolean;
   isDisabled?: boolean;
-  separator?: React.ReactNode;
 }
 
 export interface BaseBreadcrumbLinkProps extends LinkOptions {

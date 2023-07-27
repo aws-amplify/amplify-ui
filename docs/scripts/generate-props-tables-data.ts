@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { globbyStream } from 'globby';
-import { getAllTypesData, getCatalog } from './util';
+import { getAllTypesData, getCatalog, componentsWithChildren } from './util';
 import type {
   Category,
   ComponentName,
@@ -50,21 +50,21 @@ async function createAllPropsTablesData(): Promise<
       [componentName]: propsSortedByCategory,
     } as PropsTableSubComponentData);
 
-    const componentsWithChildren: { [key in ComponentName]?: ComponentName[] } =
-      {
-        Expander: ['ExpanderItem'],
-        Breadcrumbs: [
-          'Breadcrumbs.Item',
-          'Breadcrumbs.List',
-          'Breadcrumbs.Link',
-          'Breadcrumbs.Separator',
-        ],
-        Menu: ['MenuButton', 'MenuItem'],
-        RadioGroupField: ['Radio'],
-        Tabs: ['TabItem'],
-        Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],
-        ToggleButton: ['ToggleButtonGroup'],
-      };
+    // const componentsWithChildren: { [key in ComponentName]?: ComponentName[] } =
+    //   {
+    //     Expander: ['ExpanderItem'],
+    //     Breadcrumbs: [
+    //       'Breadcrumbs.Item',
+    //       'Breadcrumbs.List',
+    //       'Breadcrumbs.Link',
+    //       'Breadcrumbs.Separator',
+    //     ],
+    //     Menu: ['MenuButton', 'MenuItem'],
+    //     RadioGroupField: ['Radio'],
+    //     Tabs: ['TabItem'],
+    //     Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],
+    //     ToggleButton: ['ToggleButtonGroup'],
+    //   };
 
     if (componentName in componentsWithChildren) {
       const subComponentProps = {};

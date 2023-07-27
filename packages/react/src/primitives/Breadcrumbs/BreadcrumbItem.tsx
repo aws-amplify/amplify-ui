@@ -10,11 +10,13 @@ import {
 } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
+import { BreadcrumbsContext } from './BreadcrumbsContext';
 
 const BreadcrumbItemPrimitive: Primitive<BreadcrumbItemProps, 'li'> = (
-  { className, children, isCurrent, isDisabled, separator, ...rest },
+  { className, children, isCurrent, isDisabled, ...rest },
   ref
 ) => {
+  const { separator } = React.useContext(BreadcrumbsContext);
   const componentClasses = classNames(
     ComponentClassNames.BreadcrumbsItem,
     classNameModifierByFlag(
