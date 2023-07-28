@@ -3,6 +3,7 @@ import {
   CustomSeparatorExample,
   DefaultBreadcrumbsExample,
   NextBreadcrumbsExample,
+  BreadcrumbsStyleExample,
 } from './examples'
 
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay'
@@ -68,3 +69,23 @@ You can customize the separator between breadcrumb links with the `separator` pr
 
 
 ### Local styling
+
+All the sub-components of the Breadcrumbs accept any styling props, classNames, or any other ways to style components.
+
+
+<Example>
+  <BreadcrumbsStyleExample />
+  
+  <ExampleCode>
+  ```jsx file=./examples/BreadcrumbsStyleExample.tsx
+  ```
+  </ExampleCode>
+</Example>
+
+## Accessibility
+
+https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/examples/breadcrumb/
+
+The Breadcrumbs component is a `nav` element to let browsers know it is for navigation, with an ordered list, `ol`, because the 
+
+Use the `isCurrent` prop for the current element in the navigation which sets `aria-current="page"` and `aria-disabled="true"` on the link. 

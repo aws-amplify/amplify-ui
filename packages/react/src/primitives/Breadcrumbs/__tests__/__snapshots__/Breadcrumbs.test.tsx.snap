@@ -20,13 +20,9 @@ exports[`Breadcrumbs: should match snapshot 1`] = `
         </a>
         <span
           aria-hidden="true"
-          class=""
+          class="amplify-breadcrumbs__separator"
         >
-          <span
-            class="amplify-breadcrumbs__separator"
-          >
-            /
-          </span>
+          /
         </span>
       </li>
       <li
