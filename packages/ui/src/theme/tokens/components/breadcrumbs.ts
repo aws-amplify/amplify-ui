@@ -3,15 +3,21 @@ import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 export type BreadcrumbsTokens<OutputType extends OutputVariantKey> =
   DesignTokenProperties<'gap' | 'flexDirection' | 'color', OutputType> & {
     item?: DesignTokenProperties<
-      'color' | 'fontSize' | 'alignItems' | 'lineHeight',
+      'color' | 'fontSize' | 'alignItems' | 'lineHeight' | 'flexDirection',
       OutputType
     >;
     separator?: DesignTokenProperties<
       'color' | 'fontSize' | 'paddingInline',
       OutputType
     >;
-    link?: {
-      current?: DesignTokenProperties<'color' | 'fontSize', OutputType>;
+    link?: DesignTokenProperties<
+      'color' | 'fontSize' | 'fontWeight' | 'textDecoration',
+      OutputType
+    > & {
+      current?: DesignTokenProperties<
+        'color' | 'fontSize' | 'fontWeight' | 'textDecoration',
+        OutputType
+      >;
     };
   };
 
@@ -21,6 +27,7 @@ export const breadcrumbs: Required<BreadcrumbsTokens<'default'>> = {
   color: { value: '{colors.font.tertiary}' },
 
   item: {
+    flexDirection: { value: 'row' },
     color: { value: 'inherit' },
     fontSize: { value: 'inherit' },
     alignItems: { value: 'center' },
@@ -34,9 +41,16 @@ export const breadcrumbs: Required<BreadcrumbsTokens<'default'>> = {
   },
 
   link: {
+    color: { value: '{components.link.color}' },
+    fontSize: { value: 'inherit' },
+    fontWeight: { value: 'normal' },
+    textDecoration: { value: 'none' },
+
     current: {
-      color: { value: 'inherit' },
+      color: { value: '{components.link.active.color}' },
       fontSize: { value: 'inherit' },
+      fontWeight: { value: 'normal' },
+      textDecoration: { value: 'none' },
     },
   },
 };

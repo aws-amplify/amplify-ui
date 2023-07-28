@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import {
   BaseBreadcrumbProps,
-  BreadcrumbProps,
+  BreadcrumbsProps,
   Primitive,
   ForwardRefPrimitive,
 } from '../types';
@@ -13,7 +13,7 @@ import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbLink } from './BreadcrumbLink';
 import { BreadcrumbsContext } from './BreadcrumbsContext';
 
-const BreadcrumbsPrimitive: Primitive<BreadcrumbProps, 'nav'> = (
+const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
   { className, children, separator = '/', ...rest },
   ref
 ) => {

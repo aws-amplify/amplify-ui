@@ -2,8 +2,6 @@ export type ComponentName =
   | 'Alert'
   | 'Badge'
   | 'Breadcrumbs'
-  | 'Breadcrumbs.Separator'
-  | 'Breadcrumbs.List'
   | 'Breadcrumbs.Link'
   | 'Breadcrumbs.Item'
   | 'Button'

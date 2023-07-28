@@ -50,22 +50,6 @@ async function createAllPropsTablesData(): Promise<
       [componentName]: propsSortedByCategory,
     } as PropsTableSubComponentData);
 
-    // const componentsWithChildren: { [key in ComponentName]?: ComponentName[] } =
-    //   {
-    //     Expander: ['ExpanderItem'],
-    //     Breadcrumbs: [
-    //       'Breadcrumbs.Item',
-    //       'Breadcrumbs.List',
-    //       'Breadcrumbs.Link',
-    //       'Breadcrumbs.Separator',
-    //     ],
-    //     Menu: ['MenuButton', 'MenuItem'],
-    //     RadioGroupField: ['Radio'],
-    //     Tabs: ['TabItem'],
-    //     Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],
-    //     ToggleButton: ['ToggleButtonGroup'],
-    //   };
-
     if (componentName in componentsWithChildren) {
       const subComponentProps = {};
       componentsWithChildren[componentName].forEach((childName) => {

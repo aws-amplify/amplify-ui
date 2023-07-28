@@ -28,11 +28,11 @@ export interface BaseBreadcrumbLinkProps extends BaseLinkProps {}
  * react-router cannot and uses `to` prop
  */
 
-export type BreadcrumbProps<Element extends ElementType = 'nav'> =
+export type BreadcrumbsProps<Element extends ElementType = 'nav'> =
   PrimitiveProps<BaseBreadcrumbProps, Element>;
 
-export type BreadcrumbItemProps<Element extends ElementType = 'li'> =
+export type BreadcrumbsItemProps<Element extends ElementType = 'li'> =
   PrimitiveProps<BaseBreadcrumbItemProps, Element>;
 
-export type BreadcrumbLinkProps<Element extends ElementType = 'a'> =
+export type BreadcrumbsLinkProps<Element extends ElementType = 'a'> =
   PrimitiveProps<BaseBreadcrumbLinkProps, Element>;

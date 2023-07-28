@@ -843,6 +843,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"inherit\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-item-flex-direction\\",
+        \\"value\\": \\"row\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-breadcrumbs-item-font-size\\",
         \\"value\\": \\"inherit\\"
     },
@@ -851,12 +855,36 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"1\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-color\\",
+        \\"value\\": \\"var(--amplify-components-link-color)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-color\\",
-        \\"value\\": \\"inherit\\"
+        \\"value\\": \\"var(--amplify-components-link-active-color)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-font-size\\",
         \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-font-weight\\",
+        \\"value\\": \\"normal\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-text-decoration\\",
+        \\"value\\": \\"underline\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-font-size\\",
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-font-weight\\",
+        \\"value\\": \\"normal\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-text-decoration\\",
+        \\"value\\": \\"none\\"
     },
     {
         \\"variable\\": \\"--amplify-components-breadcrumbs-separator-color\\",

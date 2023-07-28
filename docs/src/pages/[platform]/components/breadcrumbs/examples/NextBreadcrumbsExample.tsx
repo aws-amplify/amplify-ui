@@ -3,11 +3,11 @@ import { Breadcrumbs } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 
 export default function NextBreadcrumbsExample() {
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
 
-  const nestedRoutes = pathname
-    .replace('/[platform]', '')
+  const nestedRoutes = asPath
     .split('#')[0]
+    .split('?')[0]
     .split('/')
     .filter((subpath) => subpath.length > 0);
 

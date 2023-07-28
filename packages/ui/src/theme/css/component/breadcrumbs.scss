@@ -1,6 +1,4 @@
-.amplify-breadcrumbs {
-
-}
+// No styles on .amplify-breadcrumbs
 
 .amplify-breadcrumbs__list {
   display: flex;
@@ -11,8 +9,9 @@
 
 .amplify-breadcrumbs__item {
   display: inline-flex;
-  align-items: center;
-  line-height: 1;
+  flex-direction: var(--amplify-components-breadcrumbs-item-flex-direction);
+  align-items: var(--amplify-components-breadcrumbs-item-align-items);
+  line-height: var(--amplify-components-breadcrumbs-item-line-height);
   color: var(--amplify-components-breadcrumbs-item-color);
   font-size: var(--amplify-components-breadcrumbs-item-font-size);
 }
@@ -24,10 +23,15 @@
 }
 
 .amplify-breadcrumbs__link {
-
+  color: var(--amplify-components-breadcrumbs-link-color);
+  font-size: var(--amplify-components-breadcrumbs-link-font-size);
+  font-weight: var(--amplify-components-breadcrumbs-link-font-weight);
+  text-decoration: var(--amplify-components-breadcrumbs-link-text-decoration);
 }
 
 .amplify-breadcrumbs__link--current {
   color: var(--amplify-components-breadcrumbs-link-current-color);
   font-size: var(--amplify-components-breadcrumbs-link-current-font-size);
+  font-weight: var(--amplify-components-breadcrumbs-link-current-font-weight);
+  text-decoration: var(--amplify-components-breadcrumbs-link-current-text-decoration);
 }

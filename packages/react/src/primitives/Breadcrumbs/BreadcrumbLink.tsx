@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { classNameModifierByFlag } from '../shared/utils';
 import {
-  BreadcrumbLinkProps,
+  BreadcrumbsLinkProps,
   ForwardRefPrimitive,
   Primitive,
   BaseBreadcrumbLinkProps,
@@ -12,7 +12,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { Link } from '../Link';
 import { BreadcrumbsContext } from './BreadcrumbsContext';
 
-const BreadcrumbLinkPrimitive: Primitive<BreadcrumbLinkProps, 'span'> = (
+const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'span'> = (
   { className, children, href, ...rest },
   ref
 ) => {

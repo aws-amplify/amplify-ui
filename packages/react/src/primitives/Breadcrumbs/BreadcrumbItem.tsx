@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { classNameModifierByFlag } from '../shared/utils';
 import {
-  BreadcrumbItemProps,
+  BreadcrumbsItemProps,
   ForwardRefPrimitive,
   Primitive,
   BaseBreadcrumbItemProps,
@@ -12,7 +12,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
 import { BreadcrumbsContext } from './BreadcrumbsContext';
 
-const BreadcrumbItemPrimitive: Primitive<BreadcrumbItemProps, 'li'> = (
+const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
   { className, children, isCurrent, isDisabled, ...rest },
   ref
 ) => {

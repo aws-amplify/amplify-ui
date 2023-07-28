@@ -139,6 +139,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-breadcrumbs-flex-direction: row;
         --amplify-components-breadcrumbs-gap: 0;
         --amplify-components-breadcrumbs-color: var(--amplify-colors-font-tertiary);
+        --amplify-components-breadcrumbs-item-flex-direction: row;
         --amplify-components-breadcrumbs-item-color: inherit;
         --amplify-components-breadcrumbs-item-font-size: inherit;
         --amplify-components-breadcrumbs-item-align-items: center;
@@ -146,8 +147,14 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-breadcrumbs-separator-color: inherit;
         --amplify-components-breadcrumbs-separator-font-size: inherit;
         --amplify-components-breadcrumbs-separator-padding-inline: var(--amplify-space-small);
-        --amplify-components-breadcrumbs-link-current-color: inherit;
+        --amplify-components-breadcrumbs-link-color: var(--amplify-components-link-color);
+        --amplify-components-breadcrumbs-link-font-size: inherit;
+        --amplify-components-breadcrumbs-link-font-weight: normal;
+        --amplify-components-breadcrumbs-link-text-decoration: none;
+        --amplify-components-breadcrumbs-link-current-color: var(--amplify-components-link-active-color);
         --amplify-components-breadcrumbs-link-current-font-size: inherit;
+        --amplify-components-breadcrumbs-link-current-font-weight: normal;
+        --amplify-components-breadcrumbs-link-current-text-decoration: none;
         --amplify-components-button-font-weight: var(--amplify-font-weights-bold);
         --amplify-components-button-transition-duration: var(--amplify-components-fieldcontrol-transition-duration);
         --amplify-components-button-font-size: var(--amplify-components-fieldcontrol-font-size);

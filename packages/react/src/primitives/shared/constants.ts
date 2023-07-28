@@ -97,7 +97,7 @@ export const ComponentClassObject: ComponentClassNameItems = {
   BreadcrumbsList: {
     className: ComponentClassName.BreadcrumbsList,
     components: ['Breadcrumbs'],
-    description: 'Links used within breadcrumbs',
+    description: 'List element within nav',
   },
   BreadcrumbsSeparator: {
     className: ComponentClassName.BreadcrumbsSeparator,
