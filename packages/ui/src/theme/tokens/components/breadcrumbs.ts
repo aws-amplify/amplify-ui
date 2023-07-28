@@ -6,11 +6,11 @@ export type BreadcrumbsTokens<OutputType extends OutputVariantKey> =
       'color' | 'fontSize' | 'alignItems' | 'lineHeight',
       OutputType
     >;
-    separator?: DesignTokenProperties<'color' | 'fontSize', OutputType>;
-    link?: DesignTokenProperties<
-      'paddingBlock' | 'paddingInline',
+    separator?: DesignTokenProperties<
+      'color' | 'fontSize' | 'paddingInline',
       OutputType
-    > & {
+    >;
+    link?: {
       current?: DesignTokenProperties<'color' | 'fontSize', OutputType>;
     };
   };
@@ -30,11 +30,10 @@ export const breadcrumbs: Required<BreadcrumbsTokens<'default'>> = {
   separator: {
     color: { value: 'inherit' },
     fontSize: { value: 'inherit' },
+    paddingInline: { value: '{space.small}' },
   },
 
   link: {
-    paddingBlock: { value: '{space.xs}' },
-    paddingInline: { value: '{space.small}' },
     current: {
       color: { value: 'inherit' },
       fontSize: { value: 'inherit' },

@@ -102,6 +102,18 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-badge-large-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-badge-large-padding-vertical: var(--amplify-space-small);
         --amplify-components-badge-large-padding-horizontal: var(--amplify-space-medium);
+        --amplify-components-breadcrumbs-flex-direction: row;
+        --amplify-components-breadcrumbs-gap: 0;
+        --amplify-components-breadcrumbs-color: var(--amplify-colors-font-tertiary);
+        --amplify-components-breadcrumbs-item-color: inherit;
+        --amplify-components-breadcrumbs-item-font-size: inherit;
+        --amplify-components-breadcrumbs-item-align-items: center;
+        --amplify-components-breadcrumbs-item-line-height: 1;
+        --amplify-components-breadcrumbs-separator-color: inherit;
+        --amplify-components-breadcrumbs-separator-font-size: inherit;
+        --amplify-components-breadcrumbs-separator-padding-inline: var(--amplify-space-small);
+        --amplify-components-breadcrumbs-link-current-color: inherit;
+        --amplify-components-breadcrumbs-link-current-font-size: inherit;
         --amplify-components-button-font-weight: var(--amplify-font-weights-bold);
         --amplify-components-button-transition-duration: var(--amplify-components-fieldcontrol-transition-duration);
         --amplify-components-button-font-size: var(--amplify-components-fieldcontrol-font-size);

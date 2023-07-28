@@ -20,11 +20,11 @@
 .amplify-breadcrumbs__separator {
   color: var(--amplify-components-breadcrumbs-separator-color);
   font-size: var(--amplify-components-breadcrumbs-separator-font-size);
+  padding-inline: var(--amplify-components-breadcrumbs-separator-padding-inline);
 }
 
 .amplify-breadcrumbs__link {
-  padding-block: var(--amplify-components-breadcrumbs-link-padding-block);
-  padding-inline: var(--amplify-components-breadcrumbs-link-padding-inline);
+
 }
 
 .amplify-breadcrumbs__link--current {

@@ -41,9 +41,13 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbItemProps, 'li'> = (
         {children}
       </BreadcrumbsContext.Provider>
       {isCurrent ? null : (
-        <span className="" aria-hidden="true">
+        <View
+          as="span"
+          aria-hidden="true"
+          className={ComponentClassNames.BreadcrumbsSeparator}
+        >
           {separator}
-        </span>
+        </View>
       )}
     </View>
   );

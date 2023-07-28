@@ -13,16 +13,8 @@ import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbLink } from './BreadcrumbLink';
 import { BreadcrumbsContext } from './BreadcrumbsContext';
 
-const DefaultBreadcrumbSeparator = () => {
-  return (
-    <View as="span" className={ComponentClassNames.BreadcrumbsSeparator}>
-      /
-    </View>
-  );
-};
-
 const BreadcrumbsPrimitive: Primitive<BreadcrumbProps, 'nav'> = (
-  { className, children, separator, ...rest },
+  { className, children, separator = '/', ...rest },
   ref
 ) => {
   const componentClasses = classNames(
@@ -31,7 +23,7 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbProps, 'nav'> = (
   );
   const value = React.useMemo(() => {
     return {
-      separator: separator ?? <DefaultBreadcrumbSeparator />,
+      separator,
     };
   }, [separator]);
 
