@@ -180,7 +180,9 @@ When('I click the {string}', (id: string) => {
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
-  }).click();
+  })
+    .should('be.visible')
+    .click();
 });
 
 Then('I see the {string} button', (name: string) => {
