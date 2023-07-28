@@ -5,3 +5,4 @@ export { default as BreadcrumbsThemeExample } from './BreadcrumbsThemeExample';
 export { default as BreadcrumbsStyleExample } from './BreadcrumbsStyleExample';
 export { default as CustomSeparatorIconExample } from './CustomSeparatorIconExample';
 export { default as BreadcrumbsArrayExample } from './BreadcrumbsArrayExample';
+export { default as BreadcrumbsWithDropdownExample } from './BreadcrumbsWithDropdownExample';

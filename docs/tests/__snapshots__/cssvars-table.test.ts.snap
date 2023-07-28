@@ -872,7 +872,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-text-decoration\\",
-        \\"value\\": \\"underline\\"
+        \\"value\\": \\"none\\"
     },
     {
         \\"variable\\": \\"--amplify-components-breadcrumbs-link-font-size\\",
