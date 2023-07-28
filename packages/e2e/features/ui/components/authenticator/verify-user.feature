@@ -38,6 +38,7 @@ Feature: Verify User
     Then I see "Enter Information:"
     Then I see "Footer Information"
     And I click the "Skip" button
+    Then I see "Sign out"
     And I click the "Sign out" button
 
   @angular @react @vue @react-nativee
@@ -59,5 +60,6 @@ Feature: Verify User
     Then I see "Enter Information:"
     Then I see "Footer Information"
     And I click the "Skip" button
+    Then I see "Sign out"
     And I click the "Sign out" button
     
