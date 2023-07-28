@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sizes } from './base';
 import { ElementType, PrimitiveProps, BaseViewProps } from './view';
-import { LinkOptions } from './link';
+import { BaseLinkProps } from './link';
 
 /** @deprecated For internal use only */
 export interface BaseBreadcrumbProps extends BaseViewProps {
@@ -19,10 +19,7 @@ export interface BaseBreadcrumbItemProps extends BaseViewProps {
   isDisabled?: boolean;
 }
 
-export interface BaseBreadcrumbLinkProps extends LinkOptions {
-  isCurrent?: boolean;
-  isDisabled?: boolean;
-}
+export interface BaseBreadcrumbLinkProps extends BaseLinkProps {}
 
 /**
  * Should work with NextJS routing and react-router

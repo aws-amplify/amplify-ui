@@ -26,12 +26,10 @@ export default function BreadcrumbsThemeExample() {
           <Breadcrumbs.Link href="/category">Category</Breadcrumbs.Link>
         </Breadcrumbs.Item>
         <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="/category/item">Type</Breadcrumbs.Link>
+          <Breadcrumbs.Link href="/category/type">Type</Breadcrumbs.Link>
         </Breadcrumbs.Item>
         <Breadcrumbs.Item isCurrent>
-          <Breadcrumbs.Link isCurrent href="/category/type/item">
-            Item
-          </Breadcrumbs.Link>
+          <Breadcrumbs.Link href="/category/type/item">Item</Breadcrumbs.Link>
         </Breadcrumbs.Item>
       </Breadcrumbs>
     </ThemeProvider>

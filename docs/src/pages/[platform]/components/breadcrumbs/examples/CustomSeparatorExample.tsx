@@ -10,9 +10,7 @@ export default function CustomSeparatorExample() {
         <Breadcrumbs.Link href="/category/item">Type</Breadcrumbs.Link>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item isCurrent>
-        <Breadcrumbs.Link isCurrent href="/category/type/item">
-          Item
-        </Breadcrumbs.Link>
+        <Breadcrumbs.Link href="/category/type/item">Item</Breadcrumbs.Link>
       </Breadcrumbs.Item>
     </Breadcrumbs>
   );

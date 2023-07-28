@@ -31,10 +31,15 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbItemProps, 'li'> = (
     ),
     className
   );
+  const value = React.useMemo(() => {
+    return { isCurrent, isDisabled };
+  }, [isCurrent, isDisabled]);
 
   return (
     <View as="li" className={componentClasses} ref={ref} {...rest}>
-      {children}
+      <BreadcrumbsContext.Provider value={value}>
+        {children}
+      </BreadcrumbsContext.Provider>
       {isCurrent ? null : (
         <span className="" aria-hidden="true">
           {separator}

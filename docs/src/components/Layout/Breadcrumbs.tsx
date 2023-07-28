@@ -3,34 +3,23 @@ import { useRouter } from 'next/router';
 import { Breadcrumbs } from '@aws-amplify/ui-react';
 
 export const DocsBreadcrumbs = () => {
-  const router = useRouter();
+  const { pathname } = useRouter();
 
-  function generateBreadcrumbs() {
-    // Remove any query parameters, as those aren't included in breadcrumbs
-    const asPathWithoutQuery = router.asPath.split('?')[0];
+  const nestedRoutes = pathname
+    .replace('/[platform]', '')
+    .split('#')[0]
+    .split('/')
+    .filter((subpath) => subpath.length > 0);
 
-    // Break down the path between "/"s, removing empty entities
-    // Ex:"/my/nested/path" --> ["my", "nested", "path"]
-    const asPathNestedRoutes = asPathWithoutQuery
-      .split('/')
-      .filter((v) => v.length > 0);
+  const breadcrumbs = [
+    { href: '/', text: 'Home' },
+    ...nestedRoutes.map((subpath, i) => {
+      const href = '/' + nestedRoutes.slice(0, i + 1).join('/');
 
-    // Iterate over the list of nested route parts and build
-    // a "crumb" object for each one.
-    const crumblist = asPathNestedRoutes.map((subpath, idx) => {
-      // We can get the partial nested route for the crumb
-      // by joining together the path parts up to this point.
-      const href = '/' + asPathNestedRoutes.slice(0, idx + 1).join('/');
-      // The title will just be the route string for now
       const text = subpath;
       return { href, text };
-    });
-
-    // Add in a default "Home" crumb for the top-level
-    return [{ href: '/', text: 'Home' }, ...crumblist];
-  }
-
-  const breadcrumbs = generateBreadcrumbs();
+    }),
+  ];
 
   return (
     <Breadcrumbs>
@@ -39,7 +28,7 @@ export const DocsBreadcrumbs = () => {
         return (
           <Breadcrumbs.Item isCurrent={isCurrent} key={href}>
             <Link href={href} passHref>
-              <Breadcrumbs.Link isCurrent={isCurrent}>{text}</Breadcrumbs.Link>
+              <Breadcrumbs.Link>{text}</Breadcrumbs.Link>
             </Link>
           </Breadcrumbs.Item>
         );
