@@ -2,7 +2,7 @@ import { Breadcrumbs } from '@aws-amplify/ui-react';
 
 export default function CustomSeparatorExample() {
   return (
-    <Breadcrumbs separator={<span>|</span>}>
+    <Breadcrumbs separator={'|'}>
       <Breadcrumbs.Item>
         <Breadcrumbs.Link href="/category">Category</Breadcrumbs.Link>
       </Breadcrumbs.Item>

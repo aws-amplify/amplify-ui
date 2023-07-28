@@ -1,4 +1,5 @@
 import { Breadcrumbs } from '@aws-amplify/ui-react';
+import { MdChevronRight } from 'react-icons/md';
 
 const breadcrumbs = [
   {
@@ -16,22 +17,12 @@ const breadcrumbs = [
   },
 ];
 
-export default function BreadcrumbsStyleExample() {
+export default function CustomSeparatorIconExample() {
   return (
-    <Breadcrumbs
-      backgroundColor="background.tertiary"
-      borderRadius="medium"
-      padding="medium"
-    >
+    <Breadcrumbs separator={<MdChevronRight />}>
       {breadcrumbs.map(({ href, text, isCurrent }) => (
         <Breadcrumbs.Item isCurrent={isCurrent} key={href}>
-          <Breadcrumbs.Link
-            fontWeight="bold"
-            textDecoration="underline"
-            href={href}
-          >
-            {text}
-          </Breadcrumbs.Link>
+          <Breadcrumbs.Link href={href}>{text}</Breadcrumbs.Link>
         </Breadcrumbs.Item>
       ))}
     </Breadcrumbs>

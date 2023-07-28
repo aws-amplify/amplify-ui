@@ -4,13 +4,15 @@ export default function DefaultBreadcrumbsExample() {
   return (
     <Breadcrumbs>
       <Breadcrumbs.Item>
-        <Breadcrumbs.Link href="/category">Category</Breadcrumbs.Link>
+        <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>
-        <Breadcrumbs.Link href="/category/type">Type</Breadcrumbs.Link>
+        <Breadcrumbs.Link href="/components">Components</Breadcrumbs.Link>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item isCurrent>
-        <Breadcrumbs.Link href="/category/type/item">Item</Breadcrumbs.Link>
+        <Breadcrumbs.Link href="/components/breadcrumbs">
+          Breadcrumbs
+        </Breadcrumbs.Link>
       </Breadcrumbs.Item>
     </Breadcrumbs>
   );

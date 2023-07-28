@@ -5,13 +5,15 @@ const theme = createTheme({
   tokens: {
     components: {
       breadcrumbs: {
-        gap: '0',
         separator: {
           color: '{colors.brand.secondary.20}',
           fontSize: '{fontSizes.xl}',
+          paddingInline: '{space.medium}',
         },
         link: {
-          paddingInline: '{space.xl}',
+          current: {
+            color: '{colors.brand.secondary.80}',
+          },
         },
       },
     },

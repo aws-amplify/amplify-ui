@@ -859,20 +859,16 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"inherit\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-breadcrumbs-link-padding-block\\",
-        \\"value\\": \\"var(--amplify-space-xs)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-breadcrumbs-link-padding-inline\\",
-        \\"value\\": \\"var(--amplify-space-small)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-breadcrumbs-separator-color\\",
         \\"value\\": \\"inherit\\"
     },
     {
         \\"variable\\": \\"--amplify-components-breadcrumbs-separator-font-size\\",
         \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-separator-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-active-background-color\\",

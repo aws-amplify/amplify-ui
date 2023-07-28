@@ -4,24 +4,35 @@ import {
   DefaultBreadcrumbsExample,
   NextBreadcrumbsExample,
   BreadcrumbsStyleExample,
+  CustomSeparatorIconExample,
+  BreadcrumbsArrayExample,
 } from './examples'
 
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay'
 import { Example, ExampleCode } from '@/components/Example'
-
-## Demo
-
-## Structure
-
+import ThemeExample from '@/components/ThemeExample.mdx'
 
 
 ## Usage
+
+Import the `Breadcrumbs` component and and render individual `Breadcrumbs.Item`s with a `Breadcrumbs.Link` inside. The current breadcrumb should use the `isCurrent` prop which sets the appropriate aria attributes.
 
 <Example>
   <DefaultBreadcrumbsExample />
   
   <ExampleCode>
   ```jsx file=./examples/DefaultBreadcrumbsExample.tsx
+  ```
+  </ExampleCode>
+</Example>
+
+Typically you would would iterate over an array of breadcrumbs as opposed to manually creating each breadcrumb.
+
+<Example>
+  <BreadcrumbsArrayExample />
+  
+  <ExampleCode>
+  ```jsx file=./examples/BreadcrumbsArrayExample.tsx
   ```
   </ExampleCode>
 </Example>
@@ -39,7 +50,20 @@ You can customize the separator between breadcrumb links with the `separator` pr
   </ExampleCode>
 </Example>
 
+### Custom separator with icon
+
+<Example>
+  <CustomSeparatorIconExample />
+  
+  <ExampleCode>
+  ```jsx file=./examples/CustomSeparatorIconExample.tsx
+  ```
+  </ExampleCode>
+</Example>
+
 ### NextJS
+
+You can use Breacrumbs with NextJS's Link component and `useRouter` to automatically generate the breadcrumbs based on the current path.
 
 <Example>
   <NextBreadcrumbsExample />
@@ -52,8 +76,7 @@ You can customize the separator between breadcrumb links with the `separator` pr
 
 ## Styling
 
-### Theme
-
+<ThemeExample component="Breadcrumbs">
 <Example>
   <BreadcrumbsThemeExample />
   
@@ -62,16 +85,50 @@ You can customize the separator between breadcrumb links with the `separator` pr
   ```
   </ExampleCode>
 </Example>
+</ThemeExample>
 
 ### Target classes
 
 <ComponentStyleDisplay componentName="Breadcrumbs" />
 
+### Global styling
+
+To override styling on all Breadcrumbs components, you can set Amplify CSS variables or use the target classes like `.amplify-breadcrumbs` class.
+
+<Example>
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .amplify-breadcrumbs {
+      background-color: pink;
+    }
+    ```
+  </ExampleCode>
+</Example>
 
 ### Local styling
 
-All the sub-components of the Breadcrumbs accept any styling props, classNames, or any other ways to style components.
+To override styling on a specific Breadcrumbs component or sub-component, you can use (in order of increasing specificity): a class selector and style props.
 
+_Using a class selector:_
+
+<Example>
+  <ExampleCode>
+    ```jsx
+    <Breadcrumbs className="my-breadcrumbs">
+    </Breadcrumbs>
+    ```
+  
+    ```css
+    /* styles.css */
+    .my-breadcrumbs {
+       background-color: pink;
+    }
+    ```
+  </ExampleCode>
+</Example>
+
+_Using style props:_
 
 <Example>
   <BreadcrumbsStyleExample />
@@ -84,8 +141,10 @@ All the sub-components of the Breadcrumbs accept any styling props, classNames, 
 
 ## Accessibility
 
-https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/examples/breadcrumb/
+https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb
 
-The Breadcrumbs component is a `nav` element to let browsers know it is for navigation, with an ordered list, `ol`, because the 
 
-Use the `isCurrent` prop for the current element in the navigation which sets `aria-current="page"` and `aria-disabled="true"` on the link. 
+* The Breadcrumbs component is a `nav` element to let browsers know it is for navigation, with `aria-label="Breadcrumbs"` to identify it as breadcrumbs
+* The list of links is rendered in an ordered list, `ol`
+* Separators have `aria-hidden="true"` so they are not announced by screen readers
+* Use the `isCurrent` prop for the current element in the navigation which sets `aria-current="page"` and `aria-disabled="true"` on the link. 
