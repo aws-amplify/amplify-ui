@@ -20,7 +20,21 @@ export {
   UseAuthenticatorRoute,
 } from './Authenticator';
 
-export { RenderNothing } from './components';
+export {
+  RenderNothing,
+  FormValues,
+  FieldProvider,
+  FormHandle,
+  FormProvider,
+  FormProviderProps,
+  OnReset,
+  OnSubmit,
+  useField,
+  useForm,
+  Validate,
+  Validator,
+  withFormProvider,
+} from './components';
 
 export {
   useDeprecationWarning,
