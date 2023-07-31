@@ -55,7 +55,7 @@ export async function getStaticProps() {
   {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent platforms={['web', 'react-native']}>
+<Fragment useCommonWebContent platforms={['web', 'react-native', 'flutter']}>
   {({ platform }) => import(`./formfields/form-fields.${platform}.mdx`)}
 </Fragment>
 
