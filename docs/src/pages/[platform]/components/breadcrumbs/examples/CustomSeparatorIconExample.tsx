@@ -7,11 +7,11 @@ const breadcrumbs = [
     text: 'Home',
   },
   {
-    href: '/components',
+    href: '/react/components',
     text: 'Components',
   },
   {
-    href: '/components/breadcrumbs',
+    href: '/react/components/breadcrumbs',
     text: 'Breadcrumbs',
     isCurrent: true,
   },

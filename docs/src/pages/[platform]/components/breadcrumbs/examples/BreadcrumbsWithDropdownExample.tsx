@@ -7,7 +7,7 @@ export default function BreadcrumbsWithDropdownExample() {
         <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>
-        <Breadcrumbs.Link href="/components">Components</Breadcrumbs.Link>
+        <Breadcrumbs.Link href="/react/components">Components</Breadcrumbs.Link>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item isCurrent>
         <SelectField

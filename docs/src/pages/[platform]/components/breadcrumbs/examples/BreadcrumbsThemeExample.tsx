@@ -25,13 +25,17 @@ export default function BreadcrumbsThemeExample() {
     <ThemeProvider theme={theme}>
       <Breadcrumbs>
         <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="/category">Category</Breadcrumbs.Link>
+          <Breadcrumbs.Link href="/react/components">Home</Breadcrumbs.Link>
         </Breadcrumbs.Item>
         <Breadcrumbs.Item>
-          <Breadcrumbs.Link href="/category/type">Type</Breadcrumbs.Link>
+          <Breadcrumbs.Link href="/react/components">
+            Components
+          </Breadcrumbs.Link>
         </Breadcrumbs.Item>
         <Breadcrumbs.Item isCurrent>
-          <Breadcrumbs.Link href="/category/type/item">Item</Breadcrumbs.Link>
+          <Breadcrumbs.Link href="/react/components/breadcrumbs">
+            Breadcrumbs
+          </Breadcrumbs.Link>
         </Breadcrumbs.Item>
       </Breadcrumbs>
     </ThemeProvider>

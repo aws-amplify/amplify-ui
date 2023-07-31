@@ -4,13 +4,15 @@ export default function CustomSeparatorExample() {
   return (
     <Breadcrumbs separator={'|'}>
       <Breadcrumbs.Item>
-        <Breadcrumbs.Link href="/category">Category</Breadcrumbs.Link>
+        <Breadcrumbs.Link href="/react/components">Home</Breadcrumbs.Link>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>
-        <Breadcrumbs.Link href="/category/item">Type</Breadcrumbs.Link>
+        <Breadcrumbs.Link href="/react/components">Components</Breadcrumbs.Link>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item isCurrent>
-        <Breadcrumbs.Link href="/category/type/item">Item</Breadcrumbs.Link>
+        <Breadcrumbs.Link href="/react/components/breadcrumbs">
+          Breadcrumbs
+        </Breadcrumbs.Link>
       </Breadcrumbs.Item>
     </Breadcrumbs>
   );
