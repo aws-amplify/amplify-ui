@@ -1,6 +1,14 @@
-// Prevents usage of T from being automatically inferred.
-// https://github.com/Microsoft/TypeScript/issues/14829#issuecomment-504042546
+/**
+ * Prevents usage of T from being automatically inferred.
+ * see: https://github.com/Microsoft/TypeScript/issues/14829#issuecomment-504042546
+ */
 export type NoInfer<T> = [T][T extends any ? 0 : never];
+
+/**
+ * Inproves readability of enumerable properties of an `Object` created from another `Object`,
+ * for example types that have been created using `Omit` or `Pick`.
+ */
+export type Prettify<T> = { [K in keyof T]: T[K] } & {};
 
 /**
 Matches any [primitive value](https://developer.mozilla.org/en-US/docs/Glossary/Primitive).
