@@ -18,6 +18,7 @@ import {
   LivenessErrorState,
   IlluminationState,
   StreamActorCallback,
+  LivenessError,
 } from '../types';
 import {
   BlazeFaceFaceDetection,
@@ -30,10 +31,7 @@ import {
   FreshnessColorDisplay,
 } from '../utils';
 import { nanoid } from 'nanoid';
-import {
-  getStaticLivenessOvalDetails,
-  LivenessErrorStateStringMap,
-} from '../utils/liveness';
+import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,
@@ -708,6 +706,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterFaceDistanceDelay: actions.send(
         {
           type: 'RUNTIME_ERROR',
+          data: new Error(
+            'Avoid moving closer during countdown and ensure only one face is in front of camera.'
+          ),
         },
         {
           delay: 0,
@@ -729,8 +730,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
           const errorMessage = event.data!.message || event.data!.Message;
           const error = new Error(errorMessage);
-          error.name = errorState;
-          context.componentProps!.onError?.(error);
+
+          const livenessError: LivenessError = {
+            state: errorState,
+            error: error,
+          };
+          context.componentProps!.onError?.(livenessError);
 
           return errorState;
         },
@@ -744,20 +749,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps!.onUserCancel?.();
       },
       callUserTimeoutCallback: async (context) => {
-        const error = new Error(
-          LivenessErrorStateStringMap[context.errorState!]
-        );
+        const error = new Error('Client Timeout');
         error.name = context.errorState!;
-        context.componentProps!.onError?.(error);
+        const livenessError: LivenessError = {
+          state: context.errorState!,
+          error: error,
+        };
+        context.componentProps!.onError?.(livenessError);
       },
       callErrorCallback: async (context, event) => {
-        const errorMessage =
-          event.data?.error?.message ||
-          event.data?.error?.Message ||
-          event.data?.message;
-        const error = new Error(errorMessage);
-        error.name = context.errorState!;
-        context.componentProps!.onError?.(error);
+        const livenessError: LivenessError = {
+          state: context.errorState!,
+          error: event.data?.error || event.data,
+        };
+        context.componentProps!.onError?.(livenessError);
       },
       cleanUpResources: async (context) => {
         const { freshnessColorEl } = context.freshnessColorAssociatedParams!;
@@ -912,12 +917,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         return { stream: realVideoDeviceStream };
       },
       async openLivenessStreamConnection(context) {
-        const livenessStreamProvider = new LivenessStreamProvider(
-          context.componentProps!.sessionId,
-          context.componentProps!.region,
-          context.videoAssociatedParams!.videoMediaStream!,
-          context.videoAssociatedParams!.videoEl!
-        );
+        const { config } = context.componentProps!;
+        const { credentialProvider } = config!;
+        const livenessStreamProvider = new LivenessStreamProvider({
+          sessionId: context.componentProps!.sessionId,
+          region: context.componentProps!.region,
+          stream: context.videoAssociatedParams!.videoMediaStream!,
+          videoEl: context.videoAssociatedParams!.videoEl!,
+          credentialProvider: credentialProvider,
+        });
 
         streamConnectionOpenTimestamp = Date.now();
 

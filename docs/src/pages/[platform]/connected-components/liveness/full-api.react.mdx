@@ -1,6 +1,8 @@
 import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View } from '@aws-amplify/ui-react';
 import ReactPropsTable from '@/components/propsTable/ReactPropsTable';
-import { FACE_LIVENESS_DETECTOR_PROPS, FACE_LIVENESS_DETECTOR_COMPONENTS, FACE_LIVENESS_DETECTOR_CONFIG, FACE_LIVENESS_DETECTOR_ERROR_STATES } from './react-props';
+import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
+import { CodeHighlight } from '@/components/CodeHighlight';
+import { FACE_LIVENESS_DETECTOR_PROPS, FACE_LIVENESS_DETECTOR_COMPONENTS, FACE_LIVENESS_DETECTOR_CONFIG, FACE_LIVENESS_DETECTOR_ERROR_STATES, LIVENESS_ERROR } from './react-props';
 
 ## Full API Reference
 
@@ -20,9 +22,70 @@ Below is the full list of props that can be used with the `FaceLivenessDetectorC
 
 Below is the full list of props that can be used with the `FaceLivenessDetectorConfig`. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/liveness.ts). For instructions on using your own CDN [check here](./liveness/customization#custom-cdn).
 
-<ReactPropsTable props={FACE_LIVENESS_DETECTOR_CONFIG} />
+<ResponsiveTable highlightOnHover>
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Name</TableCell>
+      <TableCell as="th">Description</TableCell>
+      <TableCell as="th">Type</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <ResponsiveTableCell label="Name">binaryPath?</ResponsiveTableCell>
+      {/* WARNING: Ensure that this URL matches the value in the liveness component */}
+      <ResponsiveTableCell label="Description">Overrides the WASM binary path, the default is https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/. When overriding this path ensure that the wasm version matches the version of [@tensorflow/tfjs-backend-wasm](https://www.npmjs.com/package/@tensorflow/tfjs-backend-wasm) installed by npm.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type"><CodeHighlight code={"string"} language="typescript" /></ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Name">faceModelUrl?</ResponsiveTableCell>
+      {/* WARNING: Ensure that this URL matches the value in the liveness component */}
+      <ResponsiveTableCell label="Description">Overrides the Blazeface model and weights bin CDN URL. Default value is https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type"><CodeHighlight code={"string"} language="typescript" /></ResponsiveTableCell>
+    </TableRow>
+  </TableBody>
+</ResponsiveTable>
 
-### Error States
+### FaceLivenessDetectorCoreConfig
+
+Below is the full list of props that can be used with the `FaceLivenessDetectorCoreConfig`. This config can only be used with the `<FaceLivenessDetectoreCore />` component.
+
+<ResponsiveTable highlightOnHover>
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Name</TableCell>
+      <TableCell as="th">Description</TableCell>
+      <TableCell as="th">Type</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <ResponsiveTableCell label="Name">binaryPath?</ResponsiveTableCell>
+      {/* WARNING: Ensure that this URL matches the value in the liveness component */}
+      <ResponsiveTableCell label="Description">Overrides the WASM binary path, the default is https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow/tfjs-backend-wasm/3.11.0/. When overriding this path ensure that the wasm version matches the version of [@tensorflow/tfjs-backend-wasm](https://www.npmjs.com/package/@tensorflow/tfjs-backend-wasm) installed by npm.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type"><CodeHighlight code={"string"} language="typescript" /></ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Name">faceModelUrl?</ResponsiveTableCell>
+      {/* WARNING: Ensure that this URL matches the value in the liveness component */}
+      <ResponsiveTableCell label="Description">Overrides the Blazeface model and weights bin CDN URL. Default value is https://cdn.liveness.rekognition.amazonaws.com/face-detection/tensorflow-models/blazeface/0.0.7/model/model.json</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type"><CodeHighlight code={"string"} language="typescript" /></ResponsiveTableCell>
+    </TableRow>
+    <TableRow>
+      <ResponsiveTableCell label="Name">credentialProvider?</ResponsiveTableCell>
+      <ResponsiveTableCell label="Description">An optional callback that provides AWS Credentials.</ResponsiveTableCell>
+      <ResponsiveTableCell label="Type"><CodeHighlight code={"AwsCredentialProvider"} language="typescript" /></ResponsiveTableCell>
+    </TableRow>
+  </TableBody>
+</ResponsiveTable>
+
+### LivenessError
+
+Below is the LivenessError type used in the `onError` function that should give you more granularity into the types of errors happening in the component. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/liveness.ts).
+
+<ReactPropsTable props={LIVENESS_ERROR} />
+
+### LivenessErrorState
 
 Below is the full list of error states that can be returned from the `onError` prop. You can also reference the [source code here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/react-liveness/src/components/FaceLivenessDetector/service/types/error.ts).
 

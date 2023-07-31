@@ -1,7 +1,10 @@
+import { AwsCredentialProvider } from './credentials';
+import { LivenessErrorState } from './error';
+
 /**
- * The props for the FaceLivenessDetector
+ * The props for the FaceLivenessDetectorCore which allows for full configuration of auth
  */
-export interface FaceLivenessDetectorProps {
+export interface FaceLivenessDetectorCoreProps {
   /**
    * The sessionId as returned by CreateStreamingLivenessSession API
    */
@@ -26,7 +29,7 @@ export interface FaceLivenessDetectorProps {
   /**
    * Callback called when there is error occured on any step
    */
-  onError?: (error: Error) => void;
+  onError?: (livenessError: LivenessError) => void;
 
   /**
    * Optional parameter for the disabling the Start/Get Ready Screen, default: false
@@ -36,10 +39,24 @@ export interface FaceLivenessDetectorProps {
   /**
    * Optional parameter for advanced options for the component
    */
-  config?: FaceLivenessDetectorConfig;
+  config?: FaceLivenessDetectorCoreConfig;
 }
 
-export interface FaceLivenessDetectorConfig {
+/**
+ * The props for the FaceLivenessDetector extends FaceLivenessDetectorCore with defaults for Amplify Auth configuration
+ */
+
+export type FaceLivenessDetectorProps = Omit<
+  FaceLivenessDetectorCoreProps,
+  'config'
+> & {
+  /**
+   * Optional parameter for advanced options for the component
+   */
+  config?: FaceLivenessDetectorConfig;
+};
+
+export interface FaceLivenessDetectorCoreConfig {
   /**
    * overrides the Wasm backend binary CDN path
    * default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/.
@@ -52,7 +69,17 @@ export interface FaceLivenessDetectorConfig {
    * default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file
    */
   faceModelUrl?: string;
+
+  /**
+   * Optional parameter allowing usage of custom credential providers when calling the Rekognition stream endpoint
+   */
+  credentialProvider?: AwsCredentialProvider;
 }
+
+export type FaceLivenessDetectorConfig = Omit<
+  FaceLivenessDetectorCoreConfig,
+  'credentialProvider'
+>;
 
 /**
  * The coordiates of any bounding box
@@ -94,4 +121,9 @@ export enum FaceMatchState {
   CANT_IDENTIFY = 'CANNOT IDENTIFY',
   FACE_IDENTIFIED = 'ONE FACE IDENTIFIED',
   TOO_MANY = 'TOO MANY FACES',
+}
+
+export interface LivenessError {
+  state: LivenessErrorState;
+  error: Error;
 }

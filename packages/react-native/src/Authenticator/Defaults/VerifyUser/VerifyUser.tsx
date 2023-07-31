@@ -25,11 +25,13 @@ const VerifyUser = ({
   handleChange,
   handleSubmit,
   skipVerification,
+  validationErrors,
   ...rest
 }: DefaultVerifyUserProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -37,6 +39,7 @@ const VerifyUser = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getVerifyContactText();
@@ -59,6 +62,7 @@ const VerifyUser = ({
       buttons={buttons}
       fields={fieldsWithHandlers}
       headerText={headerText}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

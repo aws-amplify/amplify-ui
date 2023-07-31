@@ -44,6 +44,7 @@ const props = {
   handleBlur: jest.fn(),
   handleChange: jest.fn(),
   handleSubmit,
+  hasValidationErrors: false,
   Header: VerifyUser.Header,
   isPending: false,
   skipVerification: jest.fn(),
