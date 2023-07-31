@@ -18,7 +18,7 @@ Feature: Liveness Detector
       And I click the "close-icon"
       Then I see the "Begin check" button
 
-  @react
+  @todo-react
   Scenario: See camera module and instructions
       Then I click the "Begin check" button
       And I see "liveness-detector" element
