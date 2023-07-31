@@ -51,9 +51,9 @@ exports[`Checkbox applies label position prop 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -120,9 +120,9 @@ exports[`Checkbox applies theme and style props 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -193,9 +193,9 @@ exports[`Checkbox renders as expected when disabled 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -260,9 +260,9 @@ exports[`Checkbox renders as expected when passing a number to the size prop 1`]
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -327,9 +327,9 @@ exports[`Checkbox renders as expected when selected is false 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -394,9 +394,9 @@ exports[`Checkbox renders as expected when selected is true 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -461,9 +461,9 @@ exports[`Checkbox renders as expected with custom accessibilityRole 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",

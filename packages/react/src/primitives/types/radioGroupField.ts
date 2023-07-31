@@ -5,6 +5,7 @@ import { BaseFieldProps, LabelPositions } from './field';
 import { BaseInputProps } from './input';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseRadioGroupFieldProps
   extends BaseFieldProps,
     FlexContainerStyleProps,
@@ -26,5 +27,5 @@ export interface BaseRadioGroupFieldProps
   labelPosition?: LabelPositions;
 }
 
-export type RadioGroupFieldProps<Element extends ElementType = 'input'> =
+export type RadioGroupFieldProps<Element extends ElementType = 'fieldset'> =
   PrimitiveProps<BaseRadioGroupFieldProps, Element>;

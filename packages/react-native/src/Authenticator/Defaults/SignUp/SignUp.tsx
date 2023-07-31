@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSignUpComponent } from '../types';
+import { DefaultSignUpProps } from '../types';
 
 const COMPONENT_NAME = 'SignUp';
 
@@ -20,7 +20,7 @@ const {
   getSignUpTabText,
 } = authenticatorTextUtil;
 
-const SignUp: DefaultSignUpComponent = ({
+const SignUp = ({
   fields,
   handleBlur,
   handleChange,
@@ -29,11 +29,13 @@ const SignUp: DefaultSignUpComponent = ({
   hideSignIn,
   isPending,
   toSignIn,
+  validationErrors,
   ...rest
-}) => {
+}: DefaultSignUpProps): JSX.Element => {
   const {
     disableFormSubmit,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -41,6 +43,7 @@ const SignUp: DefaultSignUpComponent = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const disabled = hasValidationErrors || disableFormSubmit;
@@ -78,6 +81,7 @@ const SignUp: DefaultSignUpComponent = ({
       fields={fieldsWithHandlers}
       headerText={headerText}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

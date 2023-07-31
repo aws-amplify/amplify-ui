@@ -200,6 +200,13 @@ export const connectedComponents: ComponentNavItem[] = [
     platforms: ['react'],
   },
   {
+    href: '/connected-components/storage/storageimage',
+    label: 'Storage Image',
+    body: 'StorageImage component allows users to load an image managed by Amplify Storage.',
+    platforms: ['react'],
+    tertiary: true,
+  },
+  {
     href: '/connected-components/storage/storagemanager',
     label: 'Storage Manager',
     body: 'StorageManager component allows users to upload and manage files in your Amplify backend.',

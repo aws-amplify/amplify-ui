@@ -24,7 +24,7 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
   {
     name: `onError?`,
     description: 'Callback called when there is error occured on any step.',
-    type: `(error: Error) => void`,
+    type: `(error: LivenessError) => void`,
   },
   {
     name: `disableInstructionScreen?`,
@@ -74,18 +74,18 @@ export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
   },
 ];
 
-export const FACE_LIVENESS_DETECTOR_CONFIG = [
+export const LIVENESS_ERROR = [
   {
-    name: `binaryPath?`,
+    name: `state`,
     description:
-      'Overrides the WASM backend binary CDN path, the default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/. When overriding this path ensure that the wasm version matches the version of @tensorflow/tfjs-backend-wasm installed by npm.',
-    type: `string`,
+      'The LivenessErrorState value which indicates the general error type as seen from the component.',
+    type: `LivenessErrorState`,
   },
   {
-    name: `faceModelUrl?`,
+    name: `error`,
     description:
-      'Overrides the Blazeface model and weights bin CDN URL default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file.',
-    type: `string`,
+      'The error object containing the more specific error name and stack trace.',
+    type: `Error`,
   },
 ];
 

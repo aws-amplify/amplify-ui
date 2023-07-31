@@ -18,6 +18,7 @@ import {
   LivenessErrorState,
   IlluminationState,
   StreamActorCallback,
+  LivenessError,
 } from '../types';
 import {
   BlazeFaceFaceDetection,
@@ -30,10 +31,7 @@ import {
   FreshnessColorDisplay,
 } from '../utils';
 import { nanoid } from 'nanoid';
-import {
-  getStaticLivenessOvalDetails,
-  LivenessErrorStateStringMap,
-} from '../utils/liveness';
+import { getStaticLivenessOvalDetails } from '../utils/liveness';
 import {
   isThrottlingExceptionEvent,
   isServiceQuotaExceededExceptionEvent,
@@ -120,6 +118,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         target: 'error',
         actions: 'updateErrorStateForServer',
       },
+      RUNTIME_ERROR: {
+        target: 'error',
+      },
       MOBILE_LANDSCAPE_WARNING: {
         target: 'mobileLandscapeWarning',
         actions: 'updateErrorStateForServer',
@@ -198,7 +199,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         invoke: {
           src: 'openLivenessStreamConnection',
           onDone: {
-            target: 'waitForSessionInfo',
+            target: 'notRecording',
             actions: [
               'updateLivenessStreamProvider',
               'spawnResponseStreamActor',
@@ -206,40 +207,40 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
         },
       },
-      waitForSessionInfo: {
-        after: {
-          0: {
-            target: 'notRecording',
-            cond: 'hasServerSessionInfo',
-          },
-          100: { target: 'waitForSessionInfo' },
-        },
-      },
       notRecording: {
         on: {
           START_RECORDING: 'recording', // if countdown completes while face is far enough, start recording
         },
-        initial: 'detectFaceDistanceDuringCountdown',
+        initial: 'waitForSessionInfo',
         states: {
-          detectFaceDistanceDuringCountdown: {
+          waitForSessionInfo: {
+            after: {
+              0: {
+                target: '#livenessMachine.recording',
+                cond: 'hasServerSessionInfo',
+              },
+              100: { target: 'detectFaceDistanceDuringLoading' },
+            },
+          },
+          detectFaceDistanceDuringLoading: {
             invoke: {
-              src: 'detectFaceDistance',
+              src: 'detectFaceDistanceWhileLoading',
               onDone: {
-                target: 'checkFaceDistanceDuringCountdown',
-                actions: ['updateFaceDistanceBeforeRecording'],
+                target: 'checkFaceDistanceDuringLoading',
+                actions: ['updateFaceDistanceWhileLoading'],
               },
             },
           },
-          checkFaceDistanceDuringCountdown: {
-            after: {
-              0: {
+          checkFaceDistanceDuringLoading: {
+            always: [
+              {
                 target: 'failure',
                 cond: 'hasNotEnoughFaceDistanceBeforeRecording',
               },
-              200: {
-                target: 'detectFaceDistanceDuringCountdown',
+              {
+                target: 'waitForSessionInfo',
               },
-            },
+            ],
           },
           failure: {
             entry: 'sendTimeoutAfterFaceDistanceDelay',
@@ -565,6 +566,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           return event.data!.isFaceFarEnoughBeforeRecording;
         },
       }),
+      updateFaceDistanceWhileLoading: assign({
+        isFaceFarEnoughBeforeRecording: (_, event) => {
+          return event.data!.isFaceFarEnoughBeforeRecording;
+        },
+        errorState: (_, event) => {
+          return event.data?.error;
+        },
+      }),
       updateOvalAndFaceDetailsPostDraw: assign({
         ovalAssociatedParams: (context, event) => ({
           ...context.ovalAssociatedParams,
@@ -618,7 +627,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       }),
       updateErrorStateForRuntime: assign({
-        errorState: (_) => LivenessErrorState.RUNTIME_ERROR,
+        errorState: (_, event) => {
+          return event.data?.errorState || LivenessErrorState.RUNTIME_ERROR;
+        },
       }),
       updateErrorStateForServer: assign({
         errorState: (_) => LivenessErrorState.SERVER_ERROR,
@@ -694,8 +705,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       ),
       sendTimeoutAfterFaceDistanceDelay: actions.send(
         {
-          type: 'TIMEOUT',
-          data: { errorState: LivenessErrorState.FACE_DISTANCE_ERROR },
+          type: 'RUNTIME_ERROR',
+          data: new Error(
+            'Avoid moving closer during countdown and ensure only one face is in front of camera.'
+          ),
         },
         {
           delay: 0,
@@ -717,8 +730,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
           const errorMessage = event.data!.message || event.data!.Message;
           const error = new Error(errorMessage);
-          error.name = errorState;
-          context.componentProps!.onError?.(error);
+
+          const livenessError: LivenessError = {
+            state: errorState,
+            error: error,
+          };
+          context.componentProps!.onError?.(livenessError);
 
           return errorState;
         },
@@ -732,18 +749,20 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.componentProps!.onUserCancel?.();
       },
       callUserTimeoutCallback: async (context) => {
-        const error = new Error(
-          LivenessErrorStateStringMap[context.errorState!]
-        );
+        const error = new Error('Client Timeout');
         error.name = context.errorState!;
-        context.componentProps!.onError?.(error);
+        const livenessError: LivenessError = {
+          state: context.errorState!,
+          error: error,
+        };
+        context.componentProps!.onError?.(livenessError);
       },
       callErrorCallback: async (context, event) => {
-        const errorMessage =
-          event.data?.error?.message || event.data?.error?.Message;
-        const error = new Error(errorMessage);
-        error.name = context.errorState!;
-        context.componentProps!.onError?.(error);
+        const livenessError: LivenessError = {
+          state: context.errorState!,
+          error: event.data?.error || event.data,
+        };
+        context.componentProps!.onError?.(livenessError);
       },
       cleanUpResources: async (context) => {
         const { freshnessColorEl } = context.freshnessColorAssociatedParams!;
@@ -898,12 +917,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         return { stream: realVideoDeviceStream };
       },
       async openLivenessStreamConnection(context) {
-        const livenessStreamProvider = new LivenessStreamProvider(
-          context.componentProps!.sessionId,
-          context.componentProps!.region,
-          context.videoAssociatedParams!.videoMediaStream!,
-          context.videoAssociatedParams!.videoEl!
-        );
+        const { config } = context.componentProps!;
+        const { credentialProvider } = config!;
+        const livenessStreamProvider = new LivenessStreamProvider({
+          sessionId: context.componentProps!.sessionId,
+          region: context.componentProps!.region,
+          stream: context.videoAssociatedParams!.videoMediaStream!,
+          videoEl: context.videoAssociatedParams!.videoEl!,
+          credentialProvider: credentialProvider,
+        });
 
         streamConnectionOpenTimestamp = Date.now();
 
@@ -943,7 +965,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           height: height!,
         });
 
-        const isFaceFarEnoughBeforeRecording =
+        const { isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording } =
           await isFaceDistanceBelowThreshold({
             faceDetector: faceDetector!,
             videoEl: videoEl!,
@@ -953,6 +975,36 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           });
 
         return { isFaceFarEnoughBeforeRecording };
+      },
+      async detectFaceDistanceWhileLoading(context) {
+        const {
+          isFaceFarEnoughBeforeRecording: faceDistanceCheckBeforeRecording,
+        } = context;
+        const { videoEl, videoMediaStream, isMobile } =
+          context.videoAssociatedParams!;
+        const { faceDetector } = context.ovalAssociatedParams!;
+
+        const { width, height } = videoMediaStream!
+          .getTracks()[0]
+          .getSettings();
+
+        const ovalDetails = getStaticLivenessOvalDetails({
+          width: width!,
+          height: height!,
+        });
+
+        const {
+          isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording,
+          error,
+        } = await isFaceDistanceBelowThreshold({
+          faceDetector: faceDetector!,
+          videoEl: videoEl!,
+          ovalDetails,
+          reduceThreshold: faceDistanceCheckBeforeRecording, // if this is the second face distance check reduce the threshold
+          isMobile,
+        });
+
+        return { isFaceFarEnoughBeforeRecording, error };
       },
       async detectInitialFaceAndDrawOval(context) {
         const { serverSessionInformation, livenessStreamProvider } = context;
@@ -1171,15 +1223,16 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
         };
 
+        if (livenessStreamProvider!.videoRecorder.getVideoChunkSize() === 0) {
+          throw new Error('Video chunks not recorded successfully.');
+        }
+
         livenessStreamProvider!.sendClientInfo(livenessActionDocument);
 
         await livenessStreamProvider!.dispatchStopVideoEvent();
       },
       async getLiveness(context) {
-        const { livenessStreamProvider } = context;
         const { onAnalysisComplete } = context.componentProps!;
-
-        livenessStreamProvider!.endStream();
 
         // Get liveness result
         await onAnalysisComplete();

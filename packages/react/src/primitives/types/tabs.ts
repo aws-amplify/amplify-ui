@@ -7,6 +7,7 @@ import { ElementType, PrimitiveProps } from './view';
 
 export type TabsSpacing = 'equal' | 'relative';
 
+/** @deprecated For internal use only */
 export interface BaseTabsProps extends BaseFlexProps {
   /**
    * @description
@@ -53,6 +54,7 @@ export type TabsProps<Element extends ElementType = 'div'> = PrimitiveProps<
   Element
 >;
 
+/** @deprecated For internal use only */
 export interface BaseTabItemProps extends BaseComponentProps, BaseStyleProps {
   /**
    * @description

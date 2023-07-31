@@ -2,7 +2,16 @@ import { Button, useTheme } from '@aws-amplify/ui-react';
 
 // use any CSS value
 export const BorderStylePropExample = () => {
-  return <Button borderRadius="0.5rem">Border Styling Example</Button>;
+  return (
+    <Button
+      borderRadius="0.5rem"
+      borderStyle="dashed"
+      borderColor="hsl(190, 70%, 70%)"
+      borderWidth="medium"
+    >
+      Border Styling Example
+    </Button>
+  );
 };
 
 // use a design token from the theme object

@@ -5,6 +5,7 @@ import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 export type TableSize = Sizes;
 export type TableVariation = 'bordered' | 'striped';
 
+/** @deprecated For internal use only */
 export interface BaseTableProps extends BaseViewProps {
   /**
    * @description
@@ -36,12 +37,14 @@ export type TableProps<Element extends ElementType = 'table'> = PrimitiveProps<
   Element
 >;
 
+/** @deprecated For internal use only */
 export interface BaseTableBodyProps extends BaseViewProps {}
 export type TableBodyProps<Element extends ElementType = 'tbody'> =
   PrimitiveProps<BaseTableBodyProps, Element>;
 
 export type TableCellElement = 'td' | 'th';
 
+/** @deprecated For internal use only */
 export interface BaseTableCellProps extends BaseViewProps {
   /**
    * @description
@@ -58,14 +61,17 @@ export interface BaseTableCellProps extends BaseViewProps {
 export type TableCellProps<Element extends ElementType = TableCellElement> =
   PrimitiveProps<BaseTableCellProps, Element>;
 
+/** @deprecated For internal use only */
 export interface BaseTableFootProps extends BaseViewProps {}
 export type TableFootProps<Element extends ElementType = 'tfoot'> =
   PrimitiveProps<BaseTableFootProps, Element>;
 
+/** @deprecated For internal use only */
 export interface BaseTableHeadProps extends BaseViewProps {}
 export type TableHeadProps<Element extends ElementType = 'thead'> =
   PrimitiveProps<BaseTableHeadProps, Element>;
 
+/** @deprecated For internal use only */
 export interface BaseTableRowProps extends BaseViewProps {}
 export type TableRowProps<Element extends ElementType = 'tr'> = PrimitiveProps<
   BaseTableRowProps,

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Flex, FlexProps } from '@aws-amplify/ui-react';
+import { LivenessClassNames } from '../types/classNames';
 
 interface AnchorOrigin {
   horizontal: 'start' | 'center' | 'end';
@@ -13,19 +14,14 @@ interface OverlayProps extends FlexProps {
 export const Overlay: React.FC<OverlayProps> = ({
   children,
   anchorOrigin = { horizontal: 'center', vertical: 'center' },
+  className,
   ...rest
 }) => {
   return (
     <Flex
-      direction="column"
-      position="absolute"
-      left="0"
-      top="0"
+      className={`${LivenessClassNames.Overlay} ${className}`}
       alignItems={anchorOrigin.horizontal}
       justifyContent={anchorOrigin.vertical}
-      width="100%"
-      height="100%"
-      padding="xl"
       {...rest}
     >
       {children}
