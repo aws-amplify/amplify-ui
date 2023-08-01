@@ -831,6 +831,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"row\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-flex-wrap\\",
+        \\"value\\": \\"wrap\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-breadcrumbs-gap\\",
         \\"value\\": \\"0\\"
     },
@@ -860,7 +864,11 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-color\\",
-        \\"value\\": \\"var(--amplify-components-link-active-color)\\"
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-cursor\\",
+        \\"value\\": \\"default\\"
     },
     {
         \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-font-size\\",
@@ -883,6 +891,14 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"normal\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-breadcrumbs-link-text-decoration\\",
         \\"value\\": \\"none\\"
     },
@@ -896,7 +912,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-breadcrumbs-separator-padding-inline\\",
-        \\"value\\": \\"var(--amplify-space-small)\\"
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-active-background-color\\",

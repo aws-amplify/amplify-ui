@@ -11,7 +11,6 @@ const breadcrumbs = [
     text: 'Components',
   },
   {
-    href: '/react/components/breadcrumbs',
     text: 'Breadcrumbs',
     isCurrent: true,
   },

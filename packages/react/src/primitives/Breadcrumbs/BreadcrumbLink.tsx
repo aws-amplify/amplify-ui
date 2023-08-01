@@ -12,11 +12,11 @@ import { ComponentClassNames } from '../shared/constants';
 import { Link } from '../Link';
 import { BreadcrumbsContext } from './BreadcrumbsContext';
 
-const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'span'> = (
+const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
   { className, children, href, ...rest },
   ref
 ) => {
-  const { isCurrent, isDisabled } = React.useContext(BreadcrumbsContext);
+  const { isCurrent } = React.useContext(BreadcrumbsContext);
   const componentClasses = classNames(
     ComponentClassNames.BreadcrumbsLink,
     classNameModifierByFlag(
@@ -24,26 +24,15 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'span'> = (
       'current',
       isCurrent
     ),
-    classNameModifierByFlag(
-      ComponentClassNames.BreadcrumbsLink,
-      'disabled',
-      isDisabled
-    ),
     className
   );
-
-  const linkProps = {
-    'aria-current': isCurrent ? 'page' : undefined,
-    'aria-disabled': isDisabled ? 'true' : undefined,
-    as: isCurrent ? 'span' : 'a',
-  };
 
   return (
     <Link
       className={componentClasses}
       ref={ref}
       href={href}
-      {...linkProps}
+      aria-current={isCurrent ? 'page' : undefined}
       {...rest}
     >
       {children}

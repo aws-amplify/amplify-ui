@@ -33,9 +33,7 @@ export default function BreadcrumbsThemeExample() {
           </Breadcrumbs.Link>
         </Breadcrumbs.Item>
         <Breadcrumbs.Item isCurrent>
-          <Breadcrumbs.Link href="/react/components/breadcrumbs">
-            Breadcrumbs
-          </Breadcrumbs.Link>
+          <Breadcrumbs.Link>Breadcrumbs</Breadcrumbs.Link>
         </Breadcrumbs.Item>
       </Breadcrumbs>
     </ThemeProvider>
