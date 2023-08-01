@@ -77,6 +77,9 @@ export interface FaceLivenessDetectorCoreConfig {
    * Optional parameter allowing usage of custom credential providers when calling the Rekognition stream endpoint
    */
   credentialProvider?: AwsCredentialProvider;
+
+  centerXSeed?: number;
+  centerYSeed?: number;
 }
 
 export type FaceLivenessDetectorConfig = Omit<

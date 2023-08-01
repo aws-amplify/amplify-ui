@@ -170,6 +170,8 @@ export function getStaticLivenessOvalDetails({
   const ovalWidth = ovalRatio * videoWidth;
   const ovalHeight = 1.618 * ovalWidth;
 
+  console.log(centerX, centerY);
+
   return {
     flippedCenterX: Math.floor(centerX),
     centerX: Math.floor(centerX),

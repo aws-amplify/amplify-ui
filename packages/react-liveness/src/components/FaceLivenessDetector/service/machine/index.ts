@@ -1006,6 +1006,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const ovalDetails = getStaticLivenessOvalDetails({
           width: videoEl!.width,
           height: videoEl!.height,
+          centerXSeed: context.componentProps?.config?.centerXSeed,
+          centerYSeed: context.componentProps?.config?.centerYSeed,
         });
 
         // renormalize initial face

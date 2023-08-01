@@ -187,17 +187,6 @@ describe('Hint', () => {
     ).toBeInTheDocument();
   });
 
-  it('should render uploading state if present', () => {
-    isUploading = true;
-    mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
-
-    expect(
-      screen.getByText(hintDisplayText.hintVerifyingText)
-    ).toBeInTheDocument();
-  });
-
   it('should not render check succeeded state if present', () => {
     isCheckSuccessful = true;
     mockStateMatchesAndSelectors();

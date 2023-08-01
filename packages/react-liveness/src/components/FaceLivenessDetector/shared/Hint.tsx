@@ -10,7 +10,6 @@ import {
   createLivenessSelector,
 } from '../hooks';
 import { Toast } from './Toast';
-import { Overlay } from './Overlay';
 import { HintDisplayText } from '../displayText';
 import { LivenessClassNames } from '../types/classNames';
 
@@ -113,19 +112,7 @@ export const Hint: React.FC<HintProps> = ({ hintDisplayText }) => {
       }
 
       if (isUploading) {
-        return (
-          <Overlay
-            className={LivenessClassNames.OpaqueOverlay}
-            anchorOrigin={{ horizontal: 'center', vertical: 'end' }}
-          >
-            <Toast>
-              <Flex className={LivenessClassNames.HintText}>
-                <Loader />
-                <View>{hintDisplayText.hintVerifyingText}</View>
-              </Flex>
-            </Toast>
-          </Overlay>
-        );
+        return;
       }
 
       if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
