@@ -112,7 +112,7 @@ class _MyAppState extends State<MyApp> {
         'name': 'loaded',
         'id': widget.config.id,
       };
-      window.parent?.postMessage(jsonEncode(message), "*");
+      window.parent?.postMessage(jsonEncode(message), '*');
     } on Exception catch (e) {
       safePrint('An error occurred configuring Amplify: $e');
     }
@@ -152,7 +152,6 @@ class _MyAppState extends State<MyApp> {
       initialStep: widget.config.initialStep,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        useInheritedMediaQuery: true,
         title: 'Authenticator Demo',
         builder: Authenticator.builder(),
         theme: theme,
@@ -189,10 +188,10 @@ class _HomeWidgetState extends State<HomeWidget> {
       children: [
         Scaffold(
           appBar: AppBar(),
-          body: Center(
+          body: const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Text(
                   'You are logged in!',
                   style: TextStyle(fontSize: 16),
