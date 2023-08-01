@@ -4,26 +4,30 @@ $breakpoint-tableBreak: $breakpoint-large;
 
 .docs-grid-bordered {
   border: solid var(--amplify-colors-border-tertiary);
-  border-width: var(--amplify-border-widths-small) 0 0 var(--amplify-border-widths-small);
+  border-width: var(--amplify-border-widths-small) 0 0
+    var(--amplify-border-widths-small);
   li {
     list-style: none;
     padding: var(--amplify-space-small);
     font-size: var(--amplify-font-sizes-small);
     border: solid var(--amplify-colors-border-tertiary);
-    border-width: 0 var(--amplify-border-widths-small) var(--amplify-border-widths-small) 0;
+    border-width: 0 var(--amplify-border-widths-small)
+      var(--amplify-border-widths-small) 0;
   }
 }
 
 .docs-responsiveTable {
   --labelWidth: 6rem;
   line-height: var(--amplify-line-heights-small);
-  pre, code {
+  pre,
+  code {
     margin: 0;
     padding: 0;
     background: none;
     white-space: normal;
   }
-  td, th {
+  td,
+  th {
     &:first-child {
       border-left: none;
     }
@@ -31,8 +35,9 @@ $breakpoint-tableBreak: $breakpoint-large;
       border-right: none;
     }
   }
-  &:not([data-highlightonhover=true]) {
-    td, th {
+  &:not([data-highlightonhover='true']) {
+    td,
+    th {
       &:first-child {
         padding-left: 0;
       }
@@ -43,13 +48,16 @@ $breakpoint-tableBreak: $breakpoint-large;
   }
   @media (max-width: $breakpoint-tableBreak) {
     display: block;
-    pre, code {
+    pre,
+    code {
       max-width: 100%;
     }
-    tr, th, tbody {
+    tr,
+    th,
+    tbody {
       display: block;
     }
-    &[data-highlightonhover=true] {
+    &[data-highlightonhover='true'] {
       .amplify-table__row:not(.amplify-table__head *):hover {
         background-color: transparent;
       }
@@ -58,26 +66,29 @@ $breakpoint-tableBreak: $breakpoint-large;
       /* We can't `display: none` a thead or SR won't recognize it */
       height: 0;
       overflow: hidden;
-      tr, th {
+      tr,
+      th {
         height: 0;
         margin: 0;
         overflow: hidden;
         border: none;
       }
     }
-    td, th  {
+    td,
+    th {
       padding: 0;
       display: flex;
       align-items: stretch;
       &:not(:last-child) {
-        border-bottom: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
+        border-bottom: var(--amplify-border-widths-small) solid
+          var(--amplify-colors-border-tertiary);
       }
     }
     tr {
-      border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-secondary);
+      border: var(--amplify-border-widths-small) solid
+        var(--amplify-colors-border-secondary);
       margin-block-end: var(--amplify-space-small);
     }
-
   }
 }
 
@@ -97,7 +108,7 @@ $breakpoint-tableBreak: $breakpoint-large;
 }
 
 .docs-responsiveTable__value {
-  td:first-child &  {
+  td:first-child & {
     font-weight: var(--amplify-font-weights-bold);
   }
   @media (max-width: $breakpoint-tableBreak) {
@@ -108,6 +119,3 @@ $breakpoint-tableBreak: $breakpoint-large;
     padding: var(--amplify-space-xxs);
   }
 }
-
-
-

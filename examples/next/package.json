@@ -10,10 +10,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^5.0.5",
-    "@aws-amplify/ui-react-liveness": "^2.0.0",
-    "@aws-amplify/ui-react-storage": "^2.1.0",
-    "@aws-amplify/ui-react-notifications": "^1.0.6",
+    "@aws-amplify/ui-react": "^5.0.6",
+    "@aws-amplify/ui-react-liveness": "^2.0.1",
+    "@aws-amplify/ui-react-storage": "^2.1.1",
+    "@aws-amplify/ui-react-notifications": "^1.0.7",
     "@aws-amplify/ui-react-geo": "^1.0.1",
     "@aws-sdk/credential-providers": "^3.370.0",
     "aws-amplify": "latest",
