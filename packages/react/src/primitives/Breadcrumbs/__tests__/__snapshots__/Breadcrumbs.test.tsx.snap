@@ -28,14 +28,13 @@ exports[`Breadcrumbs: should match snapshot 1`] = `
       <li
         class="amplify-breadcrumbs__item amplify-breadcrumbs__item--current"
       >
-        <a
+        <span
           aria-current="page"
-          aria-disabled="true"
           class="amplify-link amplify-breadcrumbs__link amplify-breadcrumbs__link--current"
           href="test"
         >
           test
-        </a>
+        </span>
       </li>
     </ol>
   </nav>

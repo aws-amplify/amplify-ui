@@ -90,6 +90,5 @@ describe('Breadcrumbs:', () => {
       `.${ComponentClassNames.BreadcrumbsLink}`
     );
     expect(linkElement).toHaveAttribute('aria-current', 'page');
-    expect(linkElement).toHaveAttribute('aria-disabled', 'true');
   });
 });
