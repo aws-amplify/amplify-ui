@@ -45,9 +45,11 @@ const PropControls = (props) => {
         id="variation"
         label="Variation"
         value={props.variation}
-        onChange={(event) =>
-          props.setVariation(event.target.value as ButtonVariations)
-        }
+        onChange={(event) => {
+          event.target.value !== ''
+            ? props.setVariation(event.target.value as ButtonVariations)
+            : props.setVariation(undefined);
+        }}
       >
         <option value="">Default</option>
         <option value="primary">Primary</option>
@@ -59,9 +61,11 @@ const PropControls = (props) => {
         id="colorTheme"
         label="ColorTheme"
         value={props.colorTheme}
-        onChange={(event) =>
-          props.setColorTheme(event.target.value as ButtonColorTheme)
-        }
+        onChange={(event) => {
+          event.target.value !== ''
+            ? props.setColorTheme(event.target.value as ButtonColorTheme)
+            : props.setColorTheme(undefined);
+        }}
       >
         <option value="">Default</option>
         <option value="error">Error</option>
@@ -133,8 +137,9 @@ export const ButtonDemo = () => {
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
   const [loadingText, setLoadingText] = React.useState('');
   const [ariaLabel, setAriaLabel] = React.useState<string>('');
-  const [variation, setVariation] = React.useState<ButtonVariations>();
-  const [colorTheme, setColorTheme] = React.useState<ButtonColorTheme>();
+  const [variation, setVariation] = React.useState<ButtonVariations>(undefined);
+  const [colorTheme, setColorTheme] =
+    React.useState<ButtonColorTheme>(undefined);
   const [size, setSize] = React.useState<ButtonSizes>();
 
   const props = {
@@ -143,6 +148,7 @@ export const ButtonDemo = () => {
     fullWidth,
     loadingText,
     ariaLabel,
+    colorTheme,
     variation,
     size,
   };
@@ -157,6 +163,7 @@ export const ButtonDemo = () => {
     setColorTheme,
     setSize,
   };
+
   return (
     <Demo
       code={propsToCode(props)}
