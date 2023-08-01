@@ -1,15 +1,17 @@
 {
   "name": "@aws-amplify/ui-react-native",
   "version": "1.2.22",
-  "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "main": "lib/index.js",
+  "module": "dist/index.js",
+  "react-native": "src/index.ts",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "yarn build:dist && cp -a src/assets dist",
-    "build:dist": "tsc --project tsconfig.dist.json",
+    "build": "yarn build:cjs && yarn build:esm",
+    "build:cjs": "tsc --project tsconfig.cjs.json && cp -a src/assets/icons lib/assets",
+    "build:esm": "tsc --project tsconfig.esm.json && cp -a src/assets/icons dist/assets",
     "clean": "rimraf dist",
-    "dev": "yarn build:dist --watch",
+    "dev": "yarn build:esm --watch",
     "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
     "test": "jest",
@@ -50,5 +52,12 @@
   },
   "resolutions": {
     "@types/react": "^17.0.2"
-  }
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "!**/__mocks__",
+    "!**/__tests__"
+  ]
 }

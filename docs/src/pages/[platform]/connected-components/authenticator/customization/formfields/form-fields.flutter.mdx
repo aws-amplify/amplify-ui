@@ -1,0 +1,27 @@
+import {
+  Authenticator,
+  CheckboxField,
+  useAuthenticator,
+} from '@aws-amplify/ui-react';
+
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+## Form Field Customization
+
+The Authenticator allows for customization of multiple aspects of the form fields.
+The sections below will describe several use cases, on how to modify these fields.
+
+### Default international dial code
+
+Default Dial code customization is available via the `defaultDialCode` prop in the `dialCodeOptions` parameter. Changing the `defaultDialCode` will change the default dial code in the phone number field for all forms, including the sign up, sign in, and forgot password forms.
+
+The dial codes are a list of the [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) codes. For example, the United States is `us`, and Canada is `ca`.
+A list of the codes can also be found in the `DialCode` class. 
+
+<Fragment>
+  {({platform}) => import(`./dialcode/form-fields.flutter.mdx`)}
+</Fragment>
+
+
+

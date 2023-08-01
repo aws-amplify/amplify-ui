@@ -10,7 +10,6 @@ import { Tabs, TabItem, Table, TableHead, TableRow, TableCell, TableBody, View }
 import { Fragment } from '@/components/Fragment';
 import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 import { ResponsiveTable, ResponsiveTableCell } from '@/components/ResponsiveTable';
-import { DeveloperPreview } from '../DeveloperPreview';
 
 export async function getStaticPaths() {
   return getCustomStaticPath(frontmatter.supportedFrameworks);
@@ -21,8 +20,6 @@ export async function getStaticPaths() {
 export async function getStaticProps() {
   return { props: {} }
 }
-
-<DeveloperPreview />
 
 <Fragment>
   {({ platform }) => import(`./useAuthenticator.${platform}.mdx`)}
