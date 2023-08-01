@@ -1,7 +1,10 @@
 import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 export type BreadcrumbsTokens<OutputType extends OutputVariantKey> =
-  DesignTokenProperties<'gap' | 'flexDirection' | 'color', OutputType> & {
+  DesignTokenProperties<
+    'gap' | 'flexDirection' | 'flexWrap' | 'color',
+    OutputType
+  > & {
     item?: DesignTokenProperties<
       'color' | 'fontSize' | 'alignItems' | 'lineHeight' | 'flexDirection',
       OutputType
@@ -11,11 +14,16 @@ export type BreadcrumbsTokens<OutputType extends OutputVariantKey> =
       OutputType
     >;
     link?: DesignTokenProperties<
-      'color' | 'fontSize' | 'fontWeight' | 'textDecoration',
+      | 'color'
+      | 'fontSize'
+      | 'fontWeight'
+      | 'paddingInline'
+      | 'paddingBlock'
+      | 'textDecoration',
       OutputType
     > & {
       current?: DesignTokenProperties<
-        'color' | 'fontSize' | 'fontWeight' | 'textDecoration',
+        'color' | 'cursor' | 'fontSize' | 'fontWeight' | 'textDecoration',
         OutputType
       >;
     };
@@ -23,6 +31,7 @@ export type BreadcrumbsTokens<OutputType extends OutputVariantKey> =
 
 export const breadcrumbs: Required<BreadcrumbsTokens<'default'>> = {
   flexDirection: { value: 'row' },
+  flexWrap: { value: 'wrap' },
   gap: { value: '0' },
   color: { value: '{colors.font.tertiary}' },
 
@@ -37,7 +46,7 @@ export const breadcrumbs: Required<BreadcrumbsTokens<'default'>> = {
   separator: {
     color: { value: 'inherit' },
     fontSize: { value: 'inherit' },
-    paddingInline: { value: '{space.small}' },
+    paddingInline: { value: '{space.xxs}' },
   },
 
   link: {
@@ -45,9 +54,12 @@ export const breadcrumbs: Required<BreadcrumbsTokens<'default'>> = {
     fontSize: { value: 'inherit' },
     fontWeight: { value: 'normal' },
     textDecoration: { value: 'none' },
+    paddingInline: { value: '{space.xs}' },
+    paddingBlock: { value: '{space.xxs}' },
 
     current: {
-      color: { value: '{components.link.active.color}' },
+      color: { value: 'inherit' },
+      cursor: { value: 'default' },
       fontSize: { value: 'inherit' },
       fontWeight: { value: 'normal' },
       textDecoration: { value: 'none' },

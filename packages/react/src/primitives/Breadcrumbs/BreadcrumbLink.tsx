@@ -33,17 +33,9 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'span'> = (
   );
 
   const linkProps = {
-    ...(isCurrent
-      ? {
-          'aria-current': 'page',
-          'aria-disabled': 'true',
-        }
-      : null),
-    ...(isDisabled
-      ? {
-          'aria-disabled': 'true',
-        }
-      : null),
+    'aria-current': isCurrent ? 'page' : undefined,
+    'aria-disabled': isDisabled ? 'true' : undefined,
+    as: isCurrent ? 'span' : 'a',
   };
 
   return (
