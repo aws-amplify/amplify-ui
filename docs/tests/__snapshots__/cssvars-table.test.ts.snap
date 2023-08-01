@@ -3235,6 +3235,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"center\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-select-icon-wrapper-large-right\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-select-icon-wrapper-pointer-events\\",
         \\"value\\": \\"none\\"
     },
@@ -3247,6 +3251,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-space-medium)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-select-icon-wrapper-small-right\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-select-icon-wrapper-top\\",
         \\"value\\": \\"50%\\"
     },
@@ -3257,6 +3265,10 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-select-large-min-width\\",
         \\"value\\": \\"7.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-large-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-xxl)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-select-min-width\\",
@@ -3281,6 +3293,10 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-select-small-min-width\\",
         \\"value\\": \\"5.5rem\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-select-small-padding-inline-end\\",
+        \\"value\\": \\"var(--amplify-space-xl)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-select-white-space\\",
