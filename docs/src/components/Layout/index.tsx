@@ -17,7 +17,6 @@ import {
   W3CIcon,
   GithubIcon,
 } from '@/components/Icons';
-import { DocsBreadcrumbs } from './Breadcrumbs';
 
 const nextRootSelector = '#__next';
 
@@ -89,7 +88,6 @@ export default function Page({
       <div className="docs-content">
         <section className="docs-content-body">
           <section className="docs-meta">
-            <DocsBreadcrumbs />
             <Heading level={1}>{title}</Heading>
             {description ? (
               <Text className="docs-description">{description}</Text>
