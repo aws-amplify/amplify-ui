@@ -45,6 +45,7 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
+import { getVideoConstraints } from '../../StartLiveness/helpers';
 
 export const MIN_FACE_MATCH_TIME = 500;
 
@@ -66,7 +67,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       failedAttempts: 0,
       componentProps: undefined,
       serverSessionInformation: undefined,
-      videoAssociatedParams: undefined,
+      videoAssociatedParams: {
+        videoConstraints: getVideoConstraints(),
+      },
       ovalAssociatedParams: undefined,
       faceMatchAssociatedParams: {
         illuminationState: undefined,

@@ -1,4 +1,4 @@
-export function getVideoConstraints(): MediaTrackConstraints | null {
+export function getVideoConstraints(): MediaTrackConstraints {
   return {
     width: {
       min: 320,

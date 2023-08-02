@@ -11,6 +11,10 @@ export function useMediaStreamInVideo(
   stream: MediaStream,
   videoConstraints: MediaTrackConstraints
 ): UseMediaStreamInVideo {
+  if (!videoConstraints) {
+    throw new Error('Video constraints not defined.');
+  }
+
   const height = (videoConstraints.height as ConstrainULongRange).ideal;
   const width = (videoConstraints.width as ConstrainULongRange).ideal;
 
