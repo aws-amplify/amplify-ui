@@ -119,8 +119,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   ThemeData get theme {
-    final theme =
-        widget.config.useCustomTheme ? customLightTheme : ThemeData.light();
+    final theme = widget.config.useCustomTheme
+        ? customLightTheme
+        : ThemeData.light(
+            useMaterial3: true,
+          );
     return widget.config.device == Device.web
         ? theme
         : theme.copyWith(
@@ -130,8 +133,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   ThemeData get darkTheme {
-    final theme =
-        widget.config.useCustomTheme ? customDarkTheme : ThemeData.dark();
+    final theme = widget.config.useCustomTheme
+        ? customDarkTheme
+        : ThemeData.dark(
+            useMaterial3: true,
+          );
     return widget.config.device == Device.web
         ? theme
         : theme.copyWith(
@@ -323,6 +329,7 @@ Widget? customBuilder(BuildContext context, AuthenticatorState state) {
 
 // light theme
 ThemeData customLightTheme = ThemeData(
+  useMaterial3: true,
   // app's colors scheme and brightness
   colorScheme: ColorScheme.fromSwatch(
     brightness: Brightness.light,
@@ -361,6 +368,7 @@ ThemeData customLightTheme = ThemeData(
 
 // dark theme
 ThemeData customDarkTheme = ThemeData(
+  useMaterial3: true,
   colorScheme: ColorScheme.fromSwatch(
     brightness: Brightness.dark,
     primarySwatch: Colors.indigo,
