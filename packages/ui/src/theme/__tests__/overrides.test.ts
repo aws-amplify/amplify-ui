@@ -730,13 +730,17 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-icon-wrapper-right: var(--amplify-space-medium);
         --amplify-components-select-icon-wrapper-transform: translateY(-50%);
         --amplify-components-select-icon-wrapper-pointer-events: none;
+        --amplify-components-select-icon-wrapper-small-right: var(--amplify-space-xs);
+        --amplify-components-select-icon-wrapper-large-right: var(--amplify-space-medium);
         --amplify-components-select-option-background-color: var(--amplify-colors-background-primary);
         --amplify-components-select-option-color: var(--amplify-colors-font-primary);
         --amplify-components-select-option-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-select-white-space: nowrap;
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
+        --amplify-components-select-small-padding-inline-end: var(--amplify-space-xl);
         --amplify-components-select-large-min-width: 7.5rem;
+        --amplify-components-select-large-padding-inline-end: var(--amplify-space-xxl);
         --amplify-components-selectfield-border-color: var(--amplify-components-fieldcontrol-border-color);
         --amplify-components-selectfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-selectfield-flex-direction: column;
@@ -860,7 +864,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-switchfield-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-switchfield-label-padding: var(--amplify-space-xs);
         --amplify-components-switchfield-thumb-background-color: var(--amplify-colors-background-primary);
-        --amplify-components-switchfield-thumb-border-color: var(--amplify-colors-border-tertiary);
+        --amplify-components-switchfield-thumb-border-color: transparent;
+        --amplify-components-switchfield-thumb-border-width: var(--amplify-border-widths-small);
+        --amplify-components-switchfield-thumb-border-style: solid;
         --amplify-components-switchfield-thumb-border-radius: var(--amplify-radii-xxxl);
         --amplify-components-switchfield-thumb-checked-transform: var(--amplify-transforms-slide-x-medium);
         --amplify-components-switchfield-thumb-transition-duration: var(--amplify-time-medium);

@@ -203,10 +203,12 @@
       color: var(--amplify-components-button-link-active-color);
     }
   }
-  
+
   &--destructive {
     border-width: var(--amplify-components-button-destructive-border-width);
-    background-color: var(--amplify-components-button-destructive-background-color);
+    background-color: var(
+      --amplify-components-button-destructive-background-color
+    );
     border-color: var(--amplify-components-button-destructive-border-color);
     color: var(--amplify-components-button-destructive-color);
 
@@ -214,7 +216,9 @@
       background-color: var(
         --amplify-components-button-destructive-hover-background-color
       );
-      border-color: var(--amplify-components-button-destructive-hover-border-color);
+      border-color: var(
+        --amplify-components-button-destructive-hover-border-color
+      );
       color: var(--amplify-components-button-destructive-hover-color);
     }
 
@@ -222,7 +226,9 @@
       background-color: var(
         --amplify-components-button-destructive-focus-background-color
       );
-      border-color: var(--amplify-components-button-destructive-focus-border-color);
+      border-color: var(
+        --amplify-components-button-destructive-focus-border-color
+      );
       color: var(--amplify-components-button-destructive-focus-color);
       box-shadow: var(--amplify-components-button-destructive-focus-box-shadow);
     }
@@ -256,7 +262,7 @@
       --amplify-components-button-destructive-loading-color
     );
   }
-  
+
   &--warning {
     background-color: var(--amplify-components-button-warning-background-color);
     border-color: var(--amplify-components-button-warning-border-color);
@@ -305,7 +311,9 @@
       background-color: var(
         --amplify-components-button-warning-active-background-color
       );
-      border-color: var(--amplify-components-button-warning-active-border-color);
+      border-color: var(
+        --amplify-components-button-warning-active-border-color
+      );
       color: var(--amplify-components-button-warning-active-color);
     }
   }

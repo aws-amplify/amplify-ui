@@ -66,7 +66,13 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </View>
-      <Flex className={ComponentClassNames.SelectIconWrapper} color={iconColor}>
+      <Flex
+        className={classNames(
+          ComponentClassNames.SelectIconWrapper,
+          classNameModifier(ComponentClassNames.SelectIconWrapper, size)
+        )}
+        color={iconColor}
+      >
         {icon ?? icons?.select?.expand ?? <IconExpandMore />}
       </Flex>
     </View>
