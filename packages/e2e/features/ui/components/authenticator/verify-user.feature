@@ -3,6 +3,8 @@ Feature: Verify User
   If end user tries to sign in with unverified account, Authenticator will
   redirect them to account verification screen.
 
+  Note: tests are skipped for React Native, need separate app for verify-user so we don't mock sign-in
+   
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
@@ -49,7 +51,7 @@ Feature: Verify User
     Then I see "Sign out"
     And I click the "Sign out" button
 
-  @todo-angular @todo-react @todo-vue @todo-react-native 
+  @todo-angular @todo-react @todo-vue @todo-react-native
   Scenario: Redirect to "Confirm Verify" page and verify custom header and footer 
     When I type my "email" with status "UNVERIFIED"
     And I type my password
