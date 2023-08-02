@@ -51,8 +51,8 @@ final authenticator = Authenticator(
   stringResolver: stringResolver,
   child: MaterialApp(
     title: 'Authenticator Demo',
-    theme: ThemeData.light(useMaterial3: true,),
-    darkTheme: ThemeData.dark(useMaterial3: true,),
+    theme: ThemeData.light(),
+    darkTheme: ThemeData.dark(useMaterial3: true),
     builder: Authenticator.builder(),
     home: const Scaffold(
       body: Center(

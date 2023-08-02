@@ -121,9 +121,7 @@ class _MyAppState extends State<MyApp> {
   ThemeData get theme {
     final theme = widget.config.useCustomTheme
         ? customLightTheme
-        : ThemeData.light(
-            useMaterial3: true,
-          );
+        : ThemeData.light(useMaterial3: true);
     return widget.config.device == Device.web
         ? theme
         : theme.copyWith(
@@ -135,9 +133,7 @@ class _MyAppState extends State<MyApp> {
   ThemeData get darkTheme {
     final theme = widget.config.useCustomTheme
         ? customDarkTheme
-        : ThemeData.dark(
-            useMaterial3: true,
-          );
+        : ThemeData.dark(useMaterial3: true);
     return widget.config.device == Device.web
         ? theme
         : theme.copyWith(

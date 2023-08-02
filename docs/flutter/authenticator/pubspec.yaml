@@ -18,7 +18,7 @@ dependencies:
   go_router: ^10.0.0
 
 dev_dependencies:
-  amplify_lints: ^2.0.2
+  amplify_lints: ^3.0.0
   flutter_test:
     sdk: flutter
 
