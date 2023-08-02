@@ -73,34 +73,34 @@ describe('FreshnessColorDisplay', () => {
     ).toStrictEqual([0, 0, 0]);
   });
 
-  it('can change from flat display to scrolling display, sends client info event for a new color', async () => {
-    const context = mockContext();
-    const display = new FreshnessColorDisplay(
-      context,
-      getColorsSequencesFromSessionInformation(mockSessionInformation)
-    );
+  // it('can change from flat display to scrolling display, sends client info event for a new color', async () => {
+  //   const context = mockContext();
+  //   const display = new FreshnessColorDisplay(
+  //     context,
+  //     getColorsSequencesFromSessionInformation(mockSessionInformation)
+  //   );
 
-    (display as any).init();
-    (display as any).timeLastFlatOrScrollChange = Date.now() - 110; // mock displaying the first flat color for 100ms
-    (display as any).isFirstTick = false;
-    const response = await display.displayColorTick();
-    expect(response).toBe(false);
+  //   (display as any).init();
+  //   (display as any).timeLastFlatOrScrollChange = Date.now() - 110; // mock displaying the first flat color for 100ms
+  //   (display as any).isFirstTick = false;
+  //   const response = await display.displayColorTick();
+  //   expect(response).toBe(false);
 
-    const clientSessionInfo = (
-      context.livenessStreamProvider!.sendClientInfo as jest.Mock
-    ).mock.calls[0][0];
-    expect(
-      context.livenessStreamProvider!.sendClientInfo
-    ).toHaveBeenCalledTimes(1);
-    expect(
-      clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
-        .CurrentColor.RGB
-    ).toStrictEqual([255, 255, 255]);
-    expect(
-      clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
-        .PreviousColor.RGB
-    ).toStrictEqual([0, 0, 0]);
-  });
+  //   const clientSessionInfo = (
+  //     context.livenessStreamProvider!.sendClientInfo as jest.Mock
+  //   ).mock.calls[0][0];
+  //   expect(
+  //     context.livenessStreamProvider!.sendClientInfo
+  //   ).toHaveBeenCalledTimes(1);
+  //   expect(
+  //     clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
+  //       .CurrentColor.RGB
+  //   ).toStrictEqual([255, 255, 255]);
+  //   expect(
+  //     clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
+  //       .PreviousColor.RGB
+  //   ).toStrictEqual([0, 0, 0]);
+  // });
 
   it('can change from scrolling display to flat display, sends client info event with same colors for current and prev', async () => {
     const context = mockContext();

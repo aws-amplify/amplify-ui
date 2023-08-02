@@ -170,8 +170,6 @@ export function getStaticLivenessOvalDetails({
   const ovalWidth = ovalRatio * videoWidth;
   const ovalHeight = 1.618 * ovalWidth;
 
-  console.log(centerX, centerY);
-
   return {
     flippedCenterX: Math.floor(centerX),
     centerX: Math.floor(centerX),
@@ -465,13 +463,6 @@ export const MOCK_COLOR_SEQUENCES: ColorSequence[] = [
   },
   {
     FreshnessColor: {
-      RGB: [255, 255, 255], // white
-    },
-    DownscrollDuration: 300,
-    FlatDisplayDuration: 100,
-  },
-  {
-    FreshnessColor: {
       RGB: [255, 0, 0], // red
     },
     DownscrollDuration: 300,
@@ -646,11 +637,64 @@ export const isClientFreshnessColorSequence = (
   obj: ClientFreshnessColorSequence | undefined
 ): obj is ClientFreshnessColorSequence => !!obj;
 
+// declare the function
+const shuffle = (array: ColorSequence[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
+const FRESHNESS_SEQUENCE_LENGTH = 8;
+const UNIQUE_COLORS_COUNT = 4;
 export function getColorsSequencesFromSessionInformation(
   sessionInformation: SessionInformation
 ): ClientFreshnessColorSequence[] {
+  const blackColor = MOCK_COLOR_SEQUENCES[0];
+  const shuffledArray = shuffle(MOCK_COLOR_SEQUENCES.slice(1));
+
+  // Choose distinct colors from the source colors
+  const distinctColors = shuffledArray.slice(0, UNIQUE_COLORS_COUNT);
+
+  const remainingColorsCount =
+    FRESHNESS_SEQUENCE_LENGTH - UNIQUE_COLORS_COUNT - 1;
+
+  // Choose remaining colors from the source colors, allowing for repetition
+  const repeatedColors: ColorSequence[] = [];
+  for (let i = 0; i < remainingColorsCount; i++) {
+    repeatedColors.push(
+      shuffledArray[Math.floor(Math.random() * repeatedColors.length)]
+    );
+  }
+
+  // Randomize the order of the colors
+  // Concatenate the two lists to get the final list of 6 colors
+  const chosenColors = shuffle([...distinctColors, ...repeatedColors]);
+
+  // Remove any consecutive matching colors
+  for (let i = 0; i < chosenColors.length - 1; i++) {
+    if (chosenColors[i].FreshnessColor === chosenColors[i + 1].FreshnessColor) {
+      // If two consecutive colors match, choose a new color from the pool
+      // without selecting a color that has already been chosen from a triplet
+      const blockEndIndex = Math.min(i + 3, chosenColors.length);
+      const sourceColorSet = Array.from(new Set(MOCK_COLOR_SEQUENCES.slice(1)));
+      const chosenColorSet = Array.from(
+        new Set(chosenColors.slice(i, blockEndIndex))
+      );
+      const remainingColors = sourceColorSet
+        .filter((x) => !chosenColorSet.includes(x))
+        .concat(chosenColorSet.filter((x) => !sourceColorSet.includes(x)));
+      const newColor =
+        remainingColors[Math.floor(Math.random() * remainingColors.length)];
+      chosenColors[i + 1] = newColor;
+    }
+  }
+
+  chosenColors.unshift(blackColor);
+
   const colorSequences: (ClientFreshnessColorSequence | undefined)[] =
-    MOCK_COLOR_SEQUENCES.map(
+    chosenColors.map(
       ({
         FreshnessColor,
         DownscrollDuration: downscrollDuration,
