@@ -155,7 +155,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-breadcrumbs-link-padding-inline: var(--amplify-space-xs);
         --amplify-components-breadcrumbs-link-padding-block: var(--amplify-space-xxs);
         --amplify-components-breadcrumbs-link-current-color: inherit;
-        --amplify-components-breadcrumbs-link-current-cursor: default;
         --amplify-components-breadcrumbs-link-current-font-size: inherit;
         --amplify-components-breadcrumbs-link-current-font-weight: normal;
         --amplify-components-breadcrumbs-link-current-text-decoration: none;

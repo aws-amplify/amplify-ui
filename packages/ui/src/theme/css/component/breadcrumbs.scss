@@ -20,7 +20,9 @@
 .amplify-breadcrumbs__separator {
   color: var(--amplify-components-breadcrumbs-separator-color);
   font-size: var(--amplify-components-breadcrumbs-separator-font-size);
-  padding-inline: var(--amplify-components-breadcrumbs-separator-padding-inline);
+  padding-inline: var(
+    --amplify-components-breadcrumbs-separator-padding-inline
+  );
 }
 
 .amplify-breadcrumbs__link {
@@ -34,12 +36,9 @@
 
 .amplify-breadcrumbs__link--current {
   color: var(--amplify-components-breadcrumbs-link-current-color);
-  cursor: var(--amplify-components-breadcrumbs-link-current-cursor);
   font-size: var(--amplify-components-breadcrumbs-link-current-font-size);
   font-weight: var(--amplify-components-breadcrumbs-link-current-font-weight);
-  text-decoration: var(--amplify-components-breadcrumbs-link-current-text-decoration);
-
-  &:hover {
-    color: var(--amplify-components-breadcrumbs-link-current-color);
-  }
+  text-decoration: var(
+    --amplify-components-breadcrumbs-link-current-text-decoration
+  );
 }

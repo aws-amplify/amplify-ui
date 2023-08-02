@@ -23,7 +23,7 @@ export type BreadcrumbsTokens<OutputType extends OutputVariantKey> =
       OutputType
     > & {
       current?: DesignTokenProperties<
-        'color' | 'cursor' | 'fontSize' | 'fontWeight' | 'textDecoration',
+        'color' | 'fontSize' | 'fontWeight' | 'textDecoration',
         OutputType
       >;
     };
@@ -59,7 +59,6 @@ export const breadcrumbs: Required<BreadcrumbsTokens<'default'>> = {
 
     current: {
       color: { value: 'inherit' },
-      cursor: { value: 'default' },
       fontSize: { value: 'inherit' },
       fontWeight: { value: 'normal' },
       textDecoration: { value: 'none' },

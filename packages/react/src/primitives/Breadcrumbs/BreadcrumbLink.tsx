@@ -10,6 +10,7 @@ import {
 } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { Link } from '../Link';
+import { Text } from '../Text';
 import { BreadcrumbsContext } from './BreadcrumbsContext';
 
 const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
@@ -27,17 +28,25 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
     className
   );
 
-  return (
-    <Link
-      className={componentClasses}
-      ref={ref}
-      href={href}
-      aria-current={isCurrent ? 'page' : undefined}
-      {...rest}
-    >
-      {children}
-    </Link>
-  );
+  if (isCurrent) {
+    return (
+      <Text
+        as="span"
+        aria-current="page"
+        className={componentClasses}
+        ref={ref}
+        {...rest}
+      >
+        {children}
+      </Text>
+    );
+  } else {
+    return (
+      <Link className={componentClasses} ref={ref} href={href} {...rest}>
+        {children}
+      </Link>
+    );
+  }
 };
 
 /**
