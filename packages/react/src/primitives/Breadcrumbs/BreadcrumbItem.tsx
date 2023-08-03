@@ -2,18 +2,18 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { classNameModifierByFlag } from '../shared/utils';
+import { ComponentClassNames } from '../shared/constants';
 import {
+  BaseBreadcrumbItemProps,
   BreadcrumbsItemProps,
   ForwardRefPrimitive,
   Primitive,
-  BaseBreadcrumbItemProps,
 } from '../types';
-import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
 import { BreadcrumbsContext } from './BreadcrumbsContext';
 
 const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
-  { className, children, isCurrent, isDisabled, ...rest },
+  { className, children, isCurrent, ...rest },
   ref
 ) => {
   const { separator } = React.useContext(BreadcrumbsContext);
@@ -24,16 +24,11 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
       'current',
       isCurrent
     ),
-    classNameModifierByFlag(
-      ComponentClassNames.BreadcrumbsItem,
-      'disabled',
-      isDisabled
-    ),
     className
   );
   const value = React.useMemo(() => {
-    return { isCurrent, isDisabled };
-  }, [isCurrent, isDisabled]);
+    return { isCurrent };
+  }, [isCurrent]);
 
   return (
     <View as="li" className={componentClasses} ref={ref} {...rest}>

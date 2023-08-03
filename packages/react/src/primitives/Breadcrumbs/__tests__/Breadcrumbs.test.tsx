@@ -9,7 +9,6 @@ const breadcrumbs = [
     text: 'test',
   },
   {
-    href: 'test',
     text: 'test',
     isCurrent: true,
   },
@@ -82,7 +81,7 @@ describe('Breadcrumbs:', () => {
     const { container } = render(
       <Breadcrumbs>
         <Breadcrumbs.Item isCurrent>
-          <Breadcrumbs.Link href="test">Test</Breadcrumbs.Link>
+          <Breadcrumbs.Link>Test</Breadcrumbs.Link>
         </Breadcrumbs.Item>
       </Breadcrumbs>
     );

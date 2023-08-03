@@ -16,7 +16,6 @@ export interface BaseBreadcrumbProps extends BaseViewProps {
 
 export interface BaseBreadcrumbItemProps extends BaseViewProps {
   isCurrent?: boolean;
-  isDisabled?: boolean;
 }
 
 export interface BaseBreadcrumbLinkProps extends BaseLinkProps {}
