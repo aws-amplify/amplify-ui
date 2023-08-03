@@ -60,6 +60,7 @@ let recordingStartTimestamp: number;
 let recordingEndTimestamp: number;
 let freshnessColorStartTimestamp: number;
 let freshnessColorEndTimestamp: number;
+let videoSettingsBeforeStopping: any;
 
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
@@ -1122,6 +1123,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           .getTracks()[0]
           .getSettings();
 
+        videoSettingsBeforeStopping = videoMediaStream!
+          .getTracks()[0]
+          .getSettings();
+
         const flippedInitialFaceLeft =
           width! - initialFace!.left - initialFace!.width;
 
@@ -1179,6 +1184,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               width: videoEl?.width,
               height: videoEl?.height,
               quality: videoEl?.getVideoPlaybackQuality(),
+              settings: videoSettingsBeforeStopping,
             },
           },
           challenge: {
