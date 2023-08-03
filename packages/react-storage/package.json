@@ -89,7 +89,7 @@
       "name": "StorageManager",
       "path": "dist/esm/index.mjs",
       "import": "{ StorageManager }",
-      "limit": "120 kB"
+      "limit": "30 kB"
     }
   ]
 }

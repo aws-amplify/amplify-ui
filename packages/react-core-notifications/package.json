@@ -30,6 +30,7 @@
     "dev": "yarn build:rollup --watch",
     "lint": "yarn typecheck && eslint src --ext .js,.ts,.tsx",
     "prebuild": "rimraf dist",
+    "size": "yarn size-limit",
     "test": "jest",
     "test:ci": "yarn test && yarn check:esm",
     "test:watch": "yarn test --watch",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@aws-amplify/eslint-config-amplify-ui": "0.0.0",
     "@rollup/plugin-typescript": "^8.3.1",
+    "@size-limit/preset-big-lib": "^7.0.8",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.1",
@@ -62,7 +64,15 @@
     "rollup": "^2.70.0",
     "rollup-plugin-node-externals": "^4.1.1",
     "rollup-plugin-terser": "^7.0.2",
+    "size-limit": "^7.0.8",
     "ts-jest": "^27.0.3"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "size-limit": [
+    {
+      "path": "dist/esm/index.mjs",
+      "import": "{ useInAppMessaging, useMessage, InAppMessagingProvider, handleMessageAction }",
+      "limit": "80 kB"
+    }
+  ]
 }
