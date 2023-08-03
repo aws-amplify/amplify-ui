@@ -867,10 +867,6 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"inherit\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-cursor\\",
-        \\"value\\": \\"default\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-font-size\\",
         \\"value\\": \\"inherit\\"
     },
