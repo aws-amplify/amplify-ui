@@ -5,7 +5,7 @@ export type HintDisplayText = {
   hintCanNotIdentifyText?: string;
   hintTooCloseText?: string;
   hintTooFarText?: string;
-  hintHoldFacePositionCountdownText?: string;
+  hintHoldFacePositionCountdownText?: string /** @deprecated String is no longer in use */;
   hintConnectingText?: string;
   hintVerifyingText?: string;
   hintIlluminationTooBrightText?: string;
@@ -109,7 +109,8 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintCanNotIdentifyText: 'Move face in front of camera',
   hintTooCloseText: 'Move back',
   hintTooFarText: 'Move closer',
-  hintHoldFacePositionCountdownText: 'Hold face position during countdown',
+  hintHoldFacePositionCountdownText:
+    'Hold face position during countdown' /** @deprecated String is no longer in use */,
   hintConnectingText: 'Connecting...',
   hintVerifyingText: 'Verifying...',
   hintIlluminationTooBrightText: 'Move to dimmer area',
