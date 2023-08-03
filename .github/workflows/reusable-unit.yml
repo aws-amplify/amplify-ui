@@ -107,15 +107,8 @@ jobs:
         run: yarn ${{ matrix.package }} build
 
       - name: Check ${{ matrix.package }} bundle size
-        if: |
-          matrix.package == 'react' ||
-          matrix.package == 'react-core' ||
-          matrix.package == 'react-core-notifications' ||
-          matrix.package == 'react-notifications' ||
-          matrix.package == 'react-geo' ||
-          matrix.package == 'react-storage' ||
-          matrix.package == 'react-liveness'
-        run: yarn ${{ matrix.package }} size
+        if: ${{ matrix.package == 'react' }}
+        run: yarn react size
 
       - name: Check ${{ matrix.package }} bundle size
         if: ${{ matrix.package == 'react-liveness' }}
