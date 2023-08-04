@@ -1,0 +1,31 @@
+.amplify-fieldset {
+  gap: var(--amplify-components-fieldset-gap);
+  flex-direction: var(--amplify-components-fieldset-flex-direction);
+  font-size: var(--amplify-components-fieldset-font-size);
+  &--horizontal {
+    align-items: var(--amplify-components-fieldset-horizontal-align-items);
+    flex-direction: var(
+      --amplify-components-fieldset-horizontal-flex-direction
+    );
+  }
+  /* Sizes */
+  &--small {
+    font-size: var(--amplify-components-fieldset-small-font-size);
+  }
+  &--large {
+    font-size: var(--amplify-components-fieldset-large-font-size);
+  }
+  /* Variations */
+  &--outlined {
+    border: var(--amplify-components-fieldset-outlined-border-width)
+      var(--amplify-components-fieldset-outlined-border-style)
+      var(--amplify-components-fieldset-outlined-border-color);
+    padding: var(--amplify-components-fieldset-outlined-padding);
+  }
+}
+
+.amplify-fieldset-legend {
+  color: var(--amplify-components-fieldset-legend-color);
+  font-weight: var(--amplify-components-fieldset-legend-font-weight);
+  line-height: var(--amplify-components-fieldset-legend-line-height);
+}

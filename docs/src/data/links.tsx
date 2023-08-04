@@ -278,6 +278,13 @@ export const inputComponents: ComponentNavItem[] = [
     icon: MdSearch,
   },
   {
+    href: '/components/fieldset',
+    label: 'Fieldset',
+    body: `Fieldsets are used to group related form fields.`,
+    platforms: ['react'],
+    icon: MdSearch,
+  },
+  {
     href: '/components/textareafield',
     label: 'TextArea Field',
     body: `The TextAreaField form primitive can be used allow users to input multiline text content.`,

@@ -47,7 +47,8 @@
   background-color: var(
     --amplify-components-stepperfield-button-background-color
   );
-  &--disabled {
+  &--disabled,
+  .amplify-fieldset[disabled] & {
     background-color: var(
       --amplify-components-stepperfield-button-disabled-background-color
     );

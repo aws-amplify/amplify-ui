@@ -9,6 +9,7 @@ export { Collection } from './Collection';
 export { Divider } from './Divider';
 export { Expander, ExpanderItem } from './Expander';
 export { FieldGroupIcon, FieldGroupIconButton } from './FieldGroupIcon';
+export { Fieldset } from './Fieldset';
 export { Flex } from './Flex';
 export { Grid } from './Grid';
 export { Heading } from './Heading';

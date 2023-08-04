@@ -53,6 +53,8 @@ export enum ComponentClassName {
   FieldGroupHasInnerStart = 'amplify-field-group--has-inner-start',
   FieldShowPassword = 'amplify-field__show-password',
   FieldGroupFieldWrapper = 'amplify-field-group__field-wrapper',
+  Fieldset = 'amplify-fieldset',
+  FieldsetLegend = 'amplify-fieldset-legend',
   FileUploaderDropZone = 'amplify-fileuploader__dropzone',
   FileUploaderDropZoneIcon = 'amplify-fileuploader__dropzone__icon',
   FileUploaderDropZoneText = 'amplify-fileuploader__dropzone__text',

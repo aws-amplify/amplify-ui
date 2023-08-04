@@ -345,7 +345,8 @@
       --amplify-components-button-large-padding-inline-end
     );
   }
-  &--disabled {
+  &--disabled,
+  .amplify-fieldset[disabled] & {
     background-color: var(--amplify-internal-button-disabled-background-color);
     border-color: var(--amplify-internal-button-disabled-border-color);
     color: var(--amplify-internal-button-disabled-color);

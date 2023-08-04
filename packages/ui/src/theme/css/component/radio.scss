@@ -7,7 +7,8 @@
   // without a relatively positioned element in the ancestor tree,
   // focusing the hidden input might break some interfaces
   position: relative;
-  &--disabled {
+  &--disabled,
+  .amplify-fieldset[disabled] & {
     cursor: var(--amplify-components-radio-disabled-cursor);
   }
   --amplify-components-text-color: var(--amplify-components-radio-label-color);
@@ -67,7 +68,10 @@
 }
 
 // checked and disabled state can coexist though data will not be submitted
-.amplify-radio__input:checked:disabled + .amplify-radio__button {
+.amplify-radio__input:checked:disabled + .amplify-radio__button,
+.amplify-fieldset[disabled]
+  .amplify-radio__input:checked
+  + .amplify-radio__button {
   color: var(--amplify-components-radio-button-checked-disabled-color);
 }
 
@@ -84,13 +88,15 @@
   box-shadow: var(--amplify-components-radio-button-error-focus-box-shadow);
 }
 
-.amplify-radio__input:disabled + .amplify-radio__button {
+.amplify-radio__input:disabled + .amplify-radio__button,
+.amplify-fieldset[disabled] .amplify-radio__input + .amplify-radio__button {
   border-color: var(--amplify-components-radio-button-disabled-border-color);
   background-color: var(
     --amplify-components-radio-button-disabled-background-color
   );
 }
 
-.amplify-radio__label[data-disabled='true'] {
+.amplify-radio__label[data-disabled='true'],
+.amplify-fieldset[disabled] .amplify-radio__label {
   color: var(--amplify-components-radio-label-disabled-color);
 }
