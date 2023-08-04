@@ -5,7 +5,7 @@ export type HintDisplayText = {
   hintCanNotIdentifyText?: string;
   hintTooCloseText?: string;
   hintTooFarText?: string;
-  /** @deprecated String is no longer in use */
+ /** @deprecated `hintHoldFacePositionCountdownText` is no longer in use and will be removed in a future major version release. */
   hintHoldFacePositionCountdownText?: string;
   hintConnectingText?: string;
   hintVerifyingText?: string;
