@@ -170,10 +170,6 @@ jobs:
         if: ${{ matrix.package == 'react' }}
         run: yarn react-geo build
 
-      - name: Build react-storage package
-        if: ${{ matrix.package == 'react' }}
-        run: yarn react-storage build
-
       - name: Build react-liveness package
         if: ${{ matrix.package == 'react' }}
         run: yarn react-liveness build
