@@ -35,7 +35,7 @@ class AuthenticatorConfig {
   final ThemeMode themeMode;
   final AuthenticatorStep initialStep;
   final String amplifyConfig;
-  final List<SignUpFormField<dynamic>> signUpAttributes;
+  final List<SignUpFormField<Object>> signUpAttributes;
   final bool useCustomUI;
   final bool useCustomTheme;
   final Device device;
@@ -46,8 +46,9 @@ class AuthenticatorConfig {
       themeMode: _parseThemeMode(map['themeMode']),
       initialStep: _parseAuthenticatorStep(map['initialStep']),
       amplifyConfig: buildAmplifyConfig(
-          usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
-          includeSocialProviders: map['includeSocialProviders'] == 'true'),
+        usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
+        includeSocialProviders: map['includeSocialProviders'] == 'true',
+      ),
       signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
       useCustomUI: map['useCustomUI'] == 'true',
       useCustomTheme: map['useCustomTheme'] == 'true',
@@ -83,7 +84,7 @@ class AuthenticatorConfig {
     }
   }
 
-  static List<SignUpFormField<dynamic>> _parseSignUpAttributes(String? value) {
+  static List<SignUpFormField<Object>> _parseSignUpAttributes(String? value) {
     final signUpFields = value?.split(',') ?? [];
     return signUpFields
         .map((field) {
@@ -148,7 +149,7 @@ class AuthenticatorConfig {
               );
           }
         })
-        .whereType<SignUpFormField<dynamic>>()
+        .whereType<SignUpFormField<Object>>()
         .toList();
   }
 }
