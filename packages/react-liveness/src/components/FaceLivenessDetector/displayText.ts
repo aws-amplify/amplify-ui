@@ -110,7 +110,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintCanNotIdentifyText: 'Move face in front of camera',
   hintTooCloseText: 'Move back',
   hintTooFarText: 'Move closer',
-  /** @deprecated String is no longer in use */
+ /** @deprecated `hintHoldFacePositionCountdownText` is no longer in use and will be removed in a future major version release. */
   hintHoldFacePositionCountdownText: 'Hold face position during countdown',
   hintConnectingText: 'Connecting...',
   hintVerifyingText: 'Verifying...',
