@@ -13,7 +13,7 @@ import { View } from '../View';
 import { BreadcrumbsContext } from './BreadcrumbsContext';
 
 const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
-  { className, children, isCurrent, ...rest },
+  { className, children, isCurrent, as = 'li', ...rest },
   ref
 ) => {
   const { separator } = React.useContext(BreadcrumbsContext);
@@ -31,7 +31,7 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
   }, [isCurrent]);
 
   return (
-    <View as="li" className={componentClasses} ref={ref} {...rest}>
+    <View {...rest} as={as} className={componentClasses} ref={ref}>
       <BreadcrumbsContext.Provider value={value}>
         {children}
       </BreadcrumbsContext.Provider>

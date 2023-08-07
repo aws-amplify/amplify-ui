@@ -29,20 +29,23 @@ const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
   );
 
   if (isCurrent) {
+    const ariaCurrent = rest['aria-current'] ?? 'page';
+    const as = rest.as ?? 'span';
+
     return (
       <Text
-        as="span"
-        aria-current="page"
+        {...rest}
+        as={as}
+        aria-current={ariaCurrent}
         className={componentClasses}
         ref={ref}
-        {...rest}
       >
         {children}
       </Text>
     );
   } else {
     return (
-      <Link className={componentClasses} ref={ref} href={href} {...rest}>
+      <Link {...rest} className={componentClasses} ref={ref} href={href}>
         {children}
       </Link>
     );

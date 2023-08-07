@@ -14,7 +14,7 @@ import { BreadcrumbLink } from './BreadcrumbLink';
 import { BreadcrumbsContext } from './BreadcrumbsContext';
 
 const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
-  { className, children, separator = '/', ...rest },
+  { className, children, as = 'nav', separator = '/', ...rest },
   ref
 ) => {
   const componentClasses = classNames(
@@ -26,14 +26,15 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
       separator,
     };
   }, [separator]);
+  const ariaLabel = rest['aria-label'] ?? 'Breadcrumb';
 
   return (
     <View
-      as="nav"
-      aria-label="Breadcrumb"
+      {...rest}
+      as={as}
+      aria-label={ariaLabel}
       className={componentClasses}
       ref={ref}
-      {...rest}
     >
       <View as="ol" className={ComponentClassNames.BreadcrumbsList}>
         <BreadcrumbsContext.Provider value={value}>
