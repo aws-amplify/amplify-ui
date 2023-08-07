@@ -1,5 +1,4 @@
-import React from 'react';
-import { Sizes } from './base';
+import * as React from 'react';
 import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { BaseLinkProps } from './link';
 
@@ -7,11 +6,9 @@ import { BaseLinkProps } from './link';
 export interface BaseBreadcrumbProps extends BaseViewProps {
   /**
    * @description
-   * The size property will affect the font size of the breadcrumbs.
+   * Separator between breadcrumb items
    */
-  size?: Sizes;
   separator?: React.ReactNode;
-  children?: React.ReactNode;
 }
 
 export interface BaseBreadcrumbItemProps extends BaseViewProps {
