@@ -10,13 +10,16 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
-import { BreadcrumbsContext } from './BreadcrumbsContext';
+import {
+  BreadcrumbsProvider,
+  useBreadcrumbsContext,
+} from './BreadcrumbsContext';
 
 const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
   { className, children, isCurrent, as = 'li', ...rest },
   ref
 ) => {
-  const { separator } = React.useContext(BreadcrumbsContext);
+  const { separator } = useBreadcrumbsContext();
   const componentClasses = classNames(
     ComponentClassNames.BreadcrumbsItem,
     classNameModifierByFlag(
@@ -26,15 +29,12 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
     ),
     className
   );
-  const value = React.useMemo(() => {
-    return { isCurrent };
-  }, [isCurrent]);
 
   return (
     <View {...rest} as={as} className={componentClasses} ref={ref}>
-      <BreadcrumbsContext.Provider value={value}>
+      <BreadcrumbsProvider isCurrent={isCurrent}>
         {children}
-      </BreadcrumbsContext.Provider>
+      </BreadcrumbsProvider>
       {isCurrent ? null : (
         <View
           as="span"

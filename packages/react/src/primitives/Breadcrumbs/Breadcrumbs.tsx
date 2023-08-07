@@ -11,7 +11,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { View } from '../View';
 import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbLink } from './BreadcrumbLink';
-import { BreadcrumbsContext } from './BreadcrumbsContext';
+import { BreadcrumbsProvider } from './BreadcrumbsContext';
 
 const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
   { className, children, as = 'nav', separator = '/', ...rest },
@@ -21,11 +21,7 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
     ComponentClassNames.Breadcrumbs,
     className
   );
-  const value = React.useMemo(() => {
-    return {
-      separator,
-    };
-  }, [separator]);
+
   const ariaLabel = rest['aria-label'] ?? 'Breadcrumb';
 
   return (
@@ -37,9 +33,9 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
       ref={ref}
     >
       <View as="ol" className={ComponentClassNames.BreadcrumbsList}>
-        <BreadcrumbsContext.Provider value={value}>
+        <BreadcrumbsProvider separator={separator}>
           {children}
-        </BreadcrumbsContext.Provider>
+        </BreadcrumbsProvider>
       </View>
     </View>
   );
