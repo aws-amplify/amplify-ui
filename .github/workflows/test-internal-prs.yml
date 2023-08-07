@@ -130,14 +130,14 @@ jobs:
         run: yarn license
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@hotfix
     needs: setup-cache
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@hotfix
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
