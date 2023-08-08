@@ -81,9 +81,6 @@ body {
 
 a {
   color: var(--amplify-components-link-color);
-  [data-amplify-theme] & {
-    cursor: pointer;
-  }
 
   &:hover,
   &:focus {
