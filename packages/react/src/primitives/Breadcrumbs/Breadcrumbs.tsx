@@ -19,7 +19,12 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
   const ariaLabel = rest['aria-label'] ?? 'Breadcrumb';
 
   return (
-    <BreadcrumbContainer aria-label={ariaLabel} className={className} ref={ref}>
+    <BreadcrumbContainer
+      {...rest}
+      aria-label={ariaLabel}
+      className={className}
+      ref={ref}
+    >
       {items?.map(({ href, label }, idx) => {
         const isCurrent = items.length - 1 === idx;
         return (
