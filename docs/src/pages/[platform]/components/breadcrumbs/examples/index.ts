@@ -1,4 +1,5 @@
 export { default as BreadcrumbsArrayExample } from './BreadcrumbsArrayExample';
+export { default as BreadcrumbsSeparatorExample } from './BreadcrumbsSeparatorExample';
 export { default as BreadcrumbsStyleExample } from './BreadcrumbsStyleExample';
 export { default as BreadcrumbsThemeExample } from './BreadcrumbsThemeExample';
 export { default as BreadcrumbsWithDropdownExample } from './BreadcrumbsWithDropdownExample';

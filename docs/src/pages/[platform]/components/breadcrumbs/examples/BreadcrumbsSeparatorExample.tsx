@@ -1,11 +1,13 @@
 import { Breadcrumbs } from '@aws-amplify/ui-react';
 
-export default function CustomSeparatorExample() {
+const MySeparator = () => <Breadcrumbs.Separator>{`//`}</Breadcrumbs.Separator>;
+
+export default function BreadcrumbsSeparatorExample() {
   return (
-    <Breadcrumbs
-      separator={<Breadcrumbs.Separator>{`|`}</Breadcrumbs.Separator>}
-    >
+    <Breadcrumbs separator={<MySeparator />}>
       <Breadcrumbs.Item>
+        {/* Add a separator at the beginning */}
+        <MySeparator />
         <Breadcrumbs.Link href="/react/components">Home</Breadcrumbs.Link>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>
@@ -13,6 +15,8 @@ export default function CustomSeparatorExample() {
       </Breadcrumbs.Item>
       <Breadcrumbs.Item isCurrent>
         <Breadcrumbs.Link>Breadcrumbs</Breadcrumbs.Link>
+        {/* Add a separator at the end */}
+        <MySeparator />
       </Breadcrumbs.Item>
     </Breadcrumbs>
   );

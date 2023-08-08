@@ -35,15 +35,8 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
       <BreadcrumbsProvider isCurrent={isCurrent}>
         {children}
       </BreadcrumbsProvider>
-      {isCurrent || !separator ? null : (
-        <View
-          as="span"
-          aria-hidden="true"
-          className={ComponentClassNames.BreadcrumbsSeparator}
-        >
-          {separator}
-        </View>
-      )}
+      {/* Don't show separator if item isCurrent */}
+      {isCurrent ? null : separator}
     </View>
   );
 };
@@ -53,7 +46,7 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
  */
 export const BreadcrumbItem: ForwardRefPrimitive<
   BaseBreadcrumbItemProps,
-  'nav'
+  'span'
 > = React.forwardRef(BreadcrumbItemPrimitive);
 
-BreadcrumbItem.displayName = 'BreadcrumbItem';
+BreadcrumbItem.displayName = 'Breadcrumbs.Item';

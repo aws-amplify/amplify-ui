@@ -17,6 +17,8 @@ export interface BaseBreadcrumbItemProps extends BaseViewProps {
 
 export interface BaseBreadcrumbLinkProps extends BaseLinkProps {}
 
+export interface BaseBreadcrumbSeparatorProps extends BaseViewProps {}
+
 /**
  * Should work with NextJS routing and react-router
  * both render an a tag,
@@ -32,3 +34,6 @@ export type BreadcrumbsItemProps<Element extends ElementType = 'li'> =
 
 export type BreadcrumbsLinkProps<Element extends ElementType = 'a'> =
   PrimitiveProps<BaseBreadcrumbLinkProps, Element>;
+
+export type BreadcrumbsSeparatorProps<Element extends ElementType = 'span'> =
+  PrimitiveProps<BaseBreadcrumbSeparatorProps, Element>;

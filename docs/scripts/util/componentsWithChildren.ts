@@ -4,7 +4,11 @@ export const componentsWithChildren: {
   [key in ComponentName]?: ComponentName[];
 } = {
   Expander: ['ExpanderItem'],
-  Breadcrumbs: ['Breadcrumbs.Item', 'Breadcrumbs.Link'],
+  Breadcrumbs: [
+    'Breadcrumbs.Item',
+    'Breadcrumbs.Link',
+    'Breadcrumbs.Separator',
+  ],
   Menu: ['MenuButton', 'MenuItem'],
   RadioGroupField: ['Radio'],
   Tabs: ['TabItem'],

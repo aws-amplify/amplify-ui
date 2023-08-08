@@ -4,6 +4,7 @@ export type ComponentName =
   | 'Breadcrumbs'
   | 'Breadcrumbs.Link'
   | 'Breadcrumbs.Item'
+  | 'Breadcrumbs.Separator'
   | 'Button'
   | 'ButtonGroup'
   | 'Card'

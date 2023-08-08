@@ -12,9 +12,12 @@ import { View } from '../View';
 import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbLink } from './BreadcrumbLink';
 import { BreadcrumbsProvider } from './BreadcrumbsContext';
+import { BreadcrumbSeparator } from './BreadcrumbSeparator';
+
+const DefaultSeparator = <BreadcrumbSeparator>{'/'}</BreadcrumbSeparator>;
 
 const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
-  { className, children, as = 'nav', separator = '/', ...rest },
+  { className, children, as = 'nav', separator = DefaultSeparator, ...rest },
   ref
 ) => {
   const componentClasses = classNames(
@@ -44,6 +47,7 @@ const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
 type BreadcrumbsType = ForwardRefPrimitive<BaseBreadcrumbProps, 'nav'> & {
   Link: typeof BreadcrumbLink;
   Item: typeof BreadcrumbItem;
+  Separator: typeof BreadcrumbSeparator;
 };
 
 /**
@@ -54,6 +58,7 @@ const Breadcrumbs: BreadcrumbsType = Object.assign(
   {
     Item: BreadcrumbItem,
     Link: BreadcrumbLink,
+    Separator: BreadcrumbSeparator,
   }
 );
 
