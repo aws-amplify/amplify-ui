@@ -12,7 +12,7 @@ export type CSSProperties = {
 };
 
 export type WithStates = {
-  [key in States]?: CSS.Properties;
+  [key in States]?: CSSProperties;
 };
 
 export type ComponentTheme<ThemeType extends CSSProperties = CSSProperties> =

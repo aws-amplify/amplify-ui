@@ -5,11 +5,8 @@ type Sizes = 'small' | 'large';
 
 export type BadgeTheme = ComponentTheme<
   {
-    variation?: {
-      [key in Variations]?: CSSProperties;
-    };
-    size?: {
-      [key in Sizes]?: CSSProperties;
+    modifier?: {
+      [key in Variations | Sizes]?: CSSProperties;
     };
   } & CSSProperties
 >;

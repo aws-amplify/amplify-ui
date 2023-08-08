@@ -1,5 +1,4 @@
-import type * as CSS from 'csstype';
-import type { Sizes, WithStates } from './utils';
+import type { Sizes, WithStates, CSSProperties, ComponentTheme } from './utils';
 
 type Variations =
   | 'primary'
@@ -9,12 +8,11 @@ type Variations =
   | 'menu'
   | 'link';
 
-export type ButtonTheme = {
-  variation?: {
-    [key in Variations]?: CSS.Properties & WithStates;
-  };
-  size?: {
-    [key in Sizes]?: CSS.Properties & WithStates;
-  };
-} & CSS.Properties &
-  WithStates;
+export type ButtonTheme = ComponentTheme<
+  {
+    modifier?: {
+      [key in Variations | Sizes]?: CSSProperties & WithStates;
+    };
+  } & CSSProperties &
+    WithStates
+>;

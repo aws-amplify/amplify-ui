@@ -1,18 +1,25 @@
 import { AlertTheme } from './alert';
 import { BadgeTheme } from './badge';
 import { ButtonTheme } from './button';
-import { CSSProperties, ComponentTheme } from './utils';
+import { CSSProperties, ComponentTheme, WithStates } from './utils';
+
+type BaseComponentTheme = {
+  modifier?: Record<string, CSSProperties & WithStates>;
+  children?: Record<string, CSSProperties & WithStates>;
+} & CSSProperties &
+  WithStates;
+
+export { ComponentTheme, BaseComponentTheme };
 
 export type ComponentsTheme = {
+  [key: string]: ComponentTheme<
+    {
+      modifier?: Record<string, CSSProperties & WithStates>;
+      children?: Record<string, CSSProperties & WithStates>;
+    } & CSSProperties &
+      WithStates
+  >;
   alert?: AlertTheme;
   badge?: BadgeTheme;
   button?: ButtonTheme;
-  [key: string]: ComponentTheme<
-    {
-      variation?: Record<string, CSSProperties>;
-      size?: Record<string, CSSProperties>;
-      children?: Record<string, CSSProperties>;
-      colorTheme?: Record<string, CSSProperties>;
-    } & CSSProperties
-  >;
 };

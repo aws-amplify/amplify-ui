@@ -138,4 +138,8 @@ export interface WebTheme
   // property `components` is not specified on `WebTokens`,
   // but is a required token property of `WebTheme`
   tokens: WebTokens;
+  className: Record<
+    string,
+    (props: { modifier?: string; element?: string }) => string
+  >;
 }
