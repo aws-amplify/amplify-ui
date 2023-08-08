@@ -35,7 +35,7 @@ const BreadcrumbItemPrimitive: Primitive<BreadcrumbsItemProps, 'li'> = (
       <BreadcrumbsProvider isCurrent={isCurrent}>
         {children}
       </BreadcrumbsProvider>
-      {isCurrent ? null : (
+      {isCurrent || !separator ? null : (
         <View
           as="span"
           aria-hidden="true"
