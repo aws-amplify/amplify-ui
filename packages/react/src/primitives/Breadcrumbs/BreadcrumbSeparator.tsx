@@ -12,7 +12,7 @@ import { View } from '../View';
 const BreadcrumbSeparatorPrimitive: Primitive<
   BreadcrumbsSeparatorProps,
   'span'
-> = ({ className, children, as = 'span', ...rest }, ref) => {
+> = ({ className = '/', children, as = 'span', ...rest }, ref) => {
   const ariaHidden = rest['aria-hidden'] ?? 'true';
   return (
     <View

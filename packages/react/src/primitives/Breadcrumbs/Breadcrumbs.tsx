@@ -12,10 +12,8 @@ import { BreadcrumbLink } from './BreadcrumbLink';
 import { BreadcrumbSeparator } from './BreadcrumbSeparator';
 import { BreadcrumbContainer } from './BreadcrumbContainer';
 
-const DefaultSeparator = <BreadcrumbSeparator>{'/'}</BreadcrumbSeparator>;
-
 const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
-  { className, items, separator = DefaultSeparator, ...rest },
+  { className, items, separator = BreadcrumbSeparator, ...rest },
   ref
 ) => {
   const ariaLabel = rest['aria-label'] ?? 'Breadcrumb';

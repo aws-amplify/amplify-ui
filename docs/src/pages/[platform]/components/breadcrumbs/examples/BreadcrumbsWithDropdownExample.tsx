@@ -5,11 +5,11 @@ export default function BreadcrumbsWithDropdownExample() {
     <Breadcrumbs.Container>
       <Breadcrumbs.Item>
         <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-        <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
+        <Breadcrumbs.Separator />
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>
         <Breadcrumbs.Link href="/react/components">Components</Breadcrumbs.Link>
-        <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
+        <Breadcrumbs.Separator />
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>
         <SelectField

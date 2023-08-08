@@ -17,7 +17,7 @@ export default function CustomSeparatorExample() {
           isCurrent: true,
         },
       ]}
-      separator={'|'}
+      separator={<Breadcrumbs.Separator>|</Breadcrumbs.Separator>}
     />
   );
 }

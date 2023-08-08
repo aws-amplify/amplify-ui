@@ -30,9 +30,7 @@ export default function NextBreadcrumbsExample() {
             <Link href={href} passHref>
               <Breadcrumbs.Link isCurrent={isCurrent}>{text}</Breadcrumbs.Link>
             </Link>
-            {isCurrent ? null : (
-              <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
-            )}
+            {isCurrent ? null : <Breadcrumbs.Separator />}
           </Breadcrumbs.Item>
         );
       })}

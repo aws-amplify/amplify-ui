@@ -25,15 +25,15 @@ A composable component for displaying breadcrumb navigation
 ```
 
 ```jsx
-<Breadcrumbs.Container>
-  {breadcrumbs.map(({ href, label }, idx) => {
-    const isCurrent = breadcrumbs.length - 1 === idx;
-    return (
-      <Breadcrumbs.Item>
-        <Breadcrumbs.Link isCurrent={isCurrent} href={href}>{label}</Breadcrumbs.Link>
-        {isCurrent ? null : <Breadcrumbs.Separator>/</Breadcrumbs.Separator>}
-      </Breadcrumbs.Item>
+  <Breadcrumbs.Container>
+    {breadcrumbs.map(({ href, label }, idx) => {
+      const isCurrent = breadcrumbs.length - 1 === idx;
+      return (
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link isCurrent={isCurrent} href={href}>{label}</Breadcrumbs.Link>
+          {isCurrent ? null : <Breadcrumbs.Separator>/</Breadcrumbs.Separator>}
+        </Breadcrumbs.Item>
+      )}
     )}
-  )}
-</Breadcrumbs.Container>
+  </Breadcrumbs.Container>
 ```

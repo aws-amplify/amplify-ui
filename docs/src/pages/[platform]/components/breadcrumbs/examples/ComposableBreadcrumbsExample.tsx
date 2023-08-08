@@ -4,19 +4,19 @@ export default function ComposableBreadcrumbsExample() {
   return (
     <Breadcrumbs.Container>
       <Breadcrumbs.Item>
-        <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
+        <Breadcrumbs.Separator />
         <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
-        <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
+        <Breadcrumbs.Separator />
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>
         <Breadcrumbs.Link href="/react/components">Components</Breadcrumbs.Link>
-        <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
+        <Breadcrumbs.Separator />
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>
         <Breadcrumbs.Link href="/react/components/breadcrumbs" isCurrent>
           Breadcrumbs
         </Breadcrumbs.Link>
-        <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
+        <Breadcrumbs.Separator />
       </Breadcrumbs.Item>
     </Breadcrumbs.Container>
   );
