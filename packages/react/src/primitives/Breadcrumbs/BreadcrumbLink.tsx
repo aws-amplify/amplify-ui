@@ -11,13 +11,11 @@ import {
 import { ComponentClassNames } from '../shared/constants';
 import { Link } from '../Link';
 import { Text } from '../Text';
-import { BreadcrumbsContext } from './BreadcrumbsContext';
 
 const BreadcrumbLinkPrimitive: Primitive<BreadcrumbsLinkProps, 'a'> = (
-  { className, children, href, ...rest },
+  { className, children, href, isCurrent, ...rest },
   ref
 ) => {
-  const { isCurrent } = React.useContext(BreadcrumbsContext);
   const componentClasses = classNames(
     ComponentClassNames.BreadcrumbsLink,
     classNameModifierByFlag(

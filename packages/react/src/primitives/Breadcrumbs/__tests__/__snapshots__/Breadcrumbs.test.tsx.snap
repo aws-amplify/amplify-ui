@@ -26,7 +26,7 @@ exports[`Breadcrumbs: should match snapshot 1`] = `
         </span>
       </li>
       <li
-        class="amplify-breadcrumbs__item amplify-breadcrumbs__item--current"
+        class="amplify-breadcrumbs__item"
       >
         <span
           aria-current="page"

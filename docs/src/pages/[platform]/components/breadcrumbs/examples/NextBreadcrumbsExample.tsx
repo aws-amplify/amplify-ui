@@ -22,17 +22,20 @@ export default function NextBreadcrumbsExample() {
   ];
 
   return (
-    <Breadcrumbs>
+    <Breadcrumbs.Container>
       {breadcrumbs.map(({ href, text }, i) => {
         const isCurrent = i === breadcrumbs.length - 1;
         return (
-          <Breadcrumbs.Item isCurrent={isCurrent} key={href}>
+          <Breadcrumbs.Item key={href}>
             <Link href={href} passHref>
-              <Breadcrumbs.Link>{text}</Breadcrumbs.Link>
+              <Breadcrumbs.Link isCurrent={isCurrent}>{text}</Breadcrumbs.Link>
             </Link>
+            {isCurrent ? null : (
+              <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
+            )}
           </Breadcrumbs.Item>
         );
       })}
-    </Breadcrumbs>
+    </Breadcrumbs.Container>
   );
 }

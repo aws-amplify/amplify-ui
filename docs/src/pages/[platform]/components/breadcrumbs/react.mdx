@@ -1,9 +1,9 @@
 import {
-  BreadcrumbsArrayExample,
   BreadcrumbsSeparatorExample,
   BreadcrumbsStyleExample,
   BreadcrumbsThemeExample,
   BreadcrumbsWithDropdownExample,
+  ComposableBreadcrumbsExample,
   CustomSeparatorExample,
   CustomSeparatorIconExample,
   DefaultBreadcrumbsExample,
@@ -29,16 +29,6 @@ Import the `Breadcrumbs` component and and render individual `Breadcrumbs.Item`s
   </ExampleCode>
 </Example>
 
-Typically you would would iterate over an array of breadcrumbs as opposed to manually creating each breadcrumb.
-
-<Example>
-  <BreadcrumbsArrayExample />
-  
-  <ExampleCode>
-  ```jsx file=./examples/BreadcrumbsArrayExample.tsx
-  ```
-  </ExampleCode>
-</Example>
 
 ### Custom separator
 
@@ -76,13 +66,22 @@ You can customize the separator between breadcrumb links with the `separator` pr
   </ExampleCode>
 </Example>
 
+## Composable
+
+The sub-components of the Breadcrumbs component are exposed so you can compose the Breadcrumbs however you want. With the composable API you can full control over what is rendered and unlock more advanced use-cases. 
+
+* `<Breadcrumbs.Container>`
+* `<Breadcrumbs.Item>`
+* `<Breadcrumbs.Link>`
+* `<Breadcrumbs.Separator>`
+
 ### Beginning and ending separator
 
 <Example>
-  <BreadcrumbsSeparatorExample />
+  <ComposableBreadcrumbsExample />
   
   <ExampleCode>
-  ```jsx file=./examples/BreadcrumbsSeparatorExample.tsx
+  ```jsx file=./examples/ComposableBreadcrumbsExample.tsx
   ```
   </ExampleCode>
 </Example>

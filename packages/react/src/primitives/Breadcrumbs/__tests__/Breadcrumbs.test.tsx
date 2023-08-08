@@ -6,38 +6,21 @@ import { ComponentClassNames } from '../../shared';
 const breadcrumbs = [
   {
     href: 'test',
-    text: 'test',
+    label: 'test',
   },
   {
-    text: 'test',
-    isCurrent: true,
+    label: 'test',
   },
 ];
 
 describe('Breadcrumbs:', () => {
   it('should match snapshot', () => {
-    const { container } = render(
-      <Breadcrumbs>
-        {breadcrumbs.map(({ text, href, isCurrent }) => (
-          <Breadcrumbs.Item isCurrent={isCurrent}>
-            <Breadcrumbs.Link href={href}>{text}</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-        ))}
-      </Breadcrumbs>
-    );
+    const { container } = render(<Breadcrumbs items={breadcrumbs} />);
     expect(container).toMatchSnapshot();
   });
 
   it('renders the proper accessibility attributes', () => {
-    const { container } = render(
-      <Breadcrumbs>
-        {breadcrumbs.map(({ text, href, isCurrent }) => (
-          <Breadcrumbs.Item isCurrent={isCurrent}>
-            <Breadcrumbs.Link href={href}>{text}</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-        ))}
-      </Breadcrumbs>
-    );
+    const { container } = render(<Breadcrumbs items={breadcrumbs} />);
     // https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/examples/breadcrumb/
     expect(
       container.querySelector(`.${ComponentClassNames.Breadcrumbs}`)
@@ -46,13 +29,10 @@ describe('Breadcrumbs:', () => {
 
   it('can render custom separators', () => {
     const { container } = render(
-      <Breadcrumbs separator={<span className="test">|</span>}>
-        {breadcrumbs.map(({ text, href, isCurrent }) => (
-          <Breadcrumbs.Item isCurrent={isCurrent}>
-            <Breadcrumbs.Link href={href}>{text}</Breadcrumbs.Link>
-          </Breadcrumbs.Item>
-        ))}
-      </Breadcrumbs>
+      <Breadcrumbs
+        items={breadcrumbs}
+        separator={<span className="test">|</span>}
+      />
     );
 
     expect(container.querySelector('.test')).toBeInTheDocument();
@@ -60,13 +40,13 @@ describe('Breadcrumbs:', () => {
 
   it('can apply custom classNames', () => {
     const { container } = render(
-      <Breadcrumbs className="custom-breadcrumbs">
+      <Breadcrumbs.Container className="custom-breadcrumbs">
         <Breadcrumbs.Item className="custom-breadcrumbs__item">
           <Breadcrumbs.Link className="custom-breadcrumbs__link" href="/test">
             Test
           </Breadcrumbs.Link>
         </Breadcrumbs.Item>
-      </Breadcrumbs>
+      </Breadcrumbs.Container>
     );
     expect(container.querySelector('.custom-breadcrumbs')).toBeInTheDocument();
     expect(
@@ -78,13 +58,7 @@ describe('Breadcrumbs:', () => {
   });
 
   it('should apply proper aria attributes to current link', () => {
-    const { container } = render(
-      <Breadcrumbs>
-        <Breadcrumbs.Item isCurrent>
-          <Breadcrumbs.Link>Test</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-      </Breadcrumbs>
-    );
+    const { container } = render(<Breadcrumbs items={[{ label: 'Test' }]} />);
     const linkElement = container.querySelector(
       `.${ComponentClassNames.BreadcrumbsLink}`
     );

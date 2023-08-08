@@ -9,15 +9,22 @@ export interface BaseBreadcrumbProps extends BaseViewProps {
    * Separator between breadcrumb items
    */
   separator?: React.ReactNode;
+  items?: Array<{
+    href?: string;
+    label?: React.ReactNode;
+    isCurrent?: boolean;
+  }>;
 }
 
-export interface BaseBreadcrumbItemProps extends BaseViewProps {
+export interface BaseBreadcrumbItemProps extends BaseViewProps {}
+
+export interface BaseBreadcrumbLinkProps extends BaseLinkProps {
   isCurrent?: boolean;
 }
 
-export interface BaseBreadcrumbLinkProps extends BaseLinkProps {}
-
 export interface BaseBreadcrumbSeparatorProps extends BaseViewProps {}
+
+export interface BaseBreadcrumbContainerProps extends BaseViewProps {}
 
 /**
  * Should work with NextJS routing and react-router
@@ -37,3 +44,6 @@ export type BreadcrumbsLinkProps<Element extends ElementType = 'a'> =
 
 export type BreadcrumbsSeparatorProps<Element extends ElementType = 'span'> =
   PrimitiveProps<BaseBreadcrumbSeparatorProps, Element>;
+
+export type BreadcrumbsContainerProps<Element extends ElementType = 'nav'> =
+  PrimitiveProps<BaseBreadcrumbContainerProps, Element>;

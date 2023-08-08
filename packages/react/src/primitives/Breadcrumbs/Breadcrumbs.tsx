@@ -1,5 +1,4 @@
 import * as React from 'react';
-import classNames from 'classnames';
 
 import {
   BaseBreadcrumbProps,
@@ -7,40 +6,35 @@ import {
   Primitive,
   ForwardRefPrimitive,
 } from '../types';
-import { ComponentClassNames } from '../shared/constants';
-import { View } from '../View';
+
 import { BreadcrumbItem } from './BreadcrumbItem';
 import { BreadcrumbLink } from './BreadcrumbLink';
-import { BreadcrumbsProvider } from './BreadcrumbsContext';
 import { BreadcrumbSeparator } from './BreadcrumbSeparator';
+import { BreadcrumbContainer } from './BreadcrumbContainer';
 
 const DefaultSeparator = <BreadcrumbSeparator>{'/'}</BreadcrumbSeparator>;
 
 const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
-  { className, children, as = 'nav', separator = DefaultSeparator, ...rest },
+  { className, items, separator = DefaultSeparator, ...rest },
   ref
 ) => {
-  const componentClasses = classNames(
-    ComponentClassNames.Breadcrumbs,
-    className
-  );
-
   const ariaLabel = rest['aria-label'] ?? 'Breadcrumb';
 
   return (
-    <View
-      {...rest}
-      as={as}
-      aria-label={ariaLabel}
-      className={componentClasses}
-      ref={ref}
-    >
-      <View as="ol" className={ComponentClassNames.BreadcrumbsList}>
-        <BreadcrumbsProvider separator={separator}>
-          {children}
-        </BreadcrumbsProvider>
-      </View>
-    </View>
+    <BreadcrumbContainer aria-label={ariaLabel} className={className} ref={ref}>
+      {items?.map(({ href, label }, idx) => {
+        const isCurrent = items.length - 1 === idx;
+        return (
+          <BreadcrumbItem key={href}>
+            <BreadcrumbLink href={href} isCurrent={isCurrent}>
+              {label}
+            </BreadcrumbLink>
+            {/* Don't show separator if item isCurrent */}
+            {isCurrent ? null : separator}
+          </BreadcrumbItem>
+        );
+      })}
+    </BreadcrumbContainer>
   );
 };
 
@@ -48,6 +42,7 @@ type BreadcrumbsType = ForwardRefPrimitive<BaseBreadcrumbProps, 'nav'> & {
   Link: typeof BreadcrumbLink;
   Item: typeof BreadcrumbItem;
   Separator: typeof BreadcrumbSeparator;
+  Container: typeof BreadcrumbContainer;
 };
 
 /**
@@ -59,6 +54,7 @@ const Breadcrumbs: BreadcrumbsType = Object.assign(
     Item: BreadcrumbItem,
     Link: BreadcrumbLink,
     Separator: BreadcrumbSeparator,
+    Container: BreadcrumbContainer,
   }
 );
 

@@ -17,22 +17,23 @@ const breadcrumbs = [
 
 export default function BreadcrumbsStyleExample() {
   return (
-    <Breadcrumbs
+    <Breadcrumbs.Container
       backgroundColor="background.tertiary"
       borderRadius="medium"
       padding="medium"
     >
       {breadcrumbs.map(({ href, text, isCurrent }) => (
-        <Breadcrumbs.Item isCurrent={isCurrent} key={href}>
+        <Breadcrumbs.Item key={href}>
           <Breadcrumbs.Link
             fontWeight="bold"
             textDecoration="underline"
             href={href}
+            isCurrent={isCurrent}
           >
             {text}
           </Breadcrumbs.Link>
         </Breadcrumbs.Item>
       ))}
-    </Breadcrumbs>
+    </Breadcrumbs.Container>
   );
 }

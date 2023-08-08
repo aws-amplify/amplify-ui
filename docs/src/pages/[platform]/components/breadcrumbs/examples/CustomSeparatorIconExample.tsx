@@ -1,29 +1,24 @@
 import { Breadcrumbs } from '@aws-amplify/ui-react';
 import { MdChevronRight } from 'react-icons/md';
 
-const breadcrumbs = [
-  {
-    href: '/',
-    text: 'Home',
-  },
-  {
-    href: '/react/components',
-    text: 'Components',
-  },
-  {
-    text: 'Breadcrumbs',
-    isCurrent: true,
-  },
-];
-
 export default function CustomSeparatorIconExample() {
   return (
-    <Breadcrumbs separator={<MdChevronRight />}>
-      {breadcrumbs.map(({ href, text, isCurrent }) => (
-        <Breadcrumbs.Item isCurrent={isCurrent} key={href}>
-          <Breadcrumbs.Link href={href}>{text}</Breadcrumbs.Link>
-        </Breadcrumbs.Item>
-      ))}
-    </Breadcrumbs>
+    <Breadcrumbs
+      items={[
+        {
+          href: '/react/components',
+          label: 'Home',
+        },
+        {
+          href: '/react/components',
+          label: 'Components',
+        },
+        {
+          label: 'Breadcrumbs',
+          isCurrent: true,
+        },
+      ]}
+      separator={<MdChevronRight />}
+    />
   );
 }

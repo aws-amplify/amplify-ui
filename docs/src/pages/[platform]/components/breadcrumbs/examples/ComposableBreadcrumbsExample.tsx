@@ -1,9 +1,10 @@
-import { Breadcrumbs, SelectField } from '@aws-amplify/ui-react';
+import { Breadcrumbs } from '@aws-amplify/ui-react';
 
-export default function BreadcrumbsWithDropdownExample() {
+export default function ComposableBreadcrumbsExample() {
   return (
     <Breadcrumbs.Container>
       <Breadcrumbs.Item>
+        <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
         <Breadcrumbs.Link href="/">Home</Breadcrumbs.Link>
         <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
       </Breadcrumbs.Item>
@@ -12,13 +13,10 @@ export default function BreadcrumbsWithDropdownExample() {
         <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
       </Breadcrumbs.Item>
       <Breadcrumbs.Item>
-        <SelectField
-          label="branch"
-          labelHidden
-          variation="quiet"
-          size="small"
-          options={['Breadcrumbs', 'Breadcrumbs.Item', 'Breadcrumbs.Link']}
-        />
+        <Breadcrumbs.Link href="/react/components/breadcrumbs" isCurrent>
+          Breadcrumbs
+        </Breadcrumbs.Link>
+        <Breadcrumbs.Separator>/</Breadcrumbs.Separator>
       </Breadcrumbs.Item>
     </Breadcrumbs.Container>
   );
