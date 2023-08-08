@@ -472,6 +472,8 @@ jobs:
     environment: ci
     env:
       NODE_ENV: test
+      EMULATOR1_PORT: 5554
+      EMULATOR2_PORT: 5556
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
@@ -566,8 +568,8 @@ jobs:
             $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global animator_duration_scale 0.0
           }
 
-          configure_emulator 5554
-          configure_emulator 5556
+          configure_emulator $EMULATOR1_PORT
+          configure_emulator $EMULATOR2_PORT
 
           $ANDROID_HOME/platform-tools/adb devices
 
@@ -590,8 +592,8 @@ jobs:
 
       - name: Terminate emulators
         run: |
-          adb -s emulator-5554 emu kill
-          adb -s emulator-5556 emu kill
+          adb -s emulator-$EMULATOR1_PORT emu kill
+          adb -s emulator-$EMULATOR2_PORT emu kill
 
       - name: Upload failure screenshots and errors
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce
