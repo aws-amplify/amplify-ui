@@ -13,7 +13,7 @@ import { BreadcrumbSeparator } from './BreadcrumbSeparator';
 import { BreadcrumbContainer } from './BreadcrumbContainer';
 
 const BreadcrumbsPrimitive: Primitive<BreadcrumbsProps, 'nav'> = (
-  { className, items, separator = BreadcrumbSeparator, ...rest },
+  { className, items, separator = <BreadcrumbSeparator />, ...rest },
   ref
 ) => {
   const ariaLabel = rest['aria-label'] ?? 'Breadcrumb';
