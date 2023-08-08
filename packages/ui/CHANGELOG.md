@@ -1,5 +1,19 @@
 # @aws-amplify/ui
 
+## 5.6.9
+
+### Patch Changes
+
+- [#4301](https://github.com/aws-amplify/amplify-ui/pull/4301) [`e7e75874d`](https://github.com/aws-amplify/amplify-ui/commit/e7e75874dea238046c94e4fdd965029620171254) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react/ui): update paddingInlineEnd and icon placement on small and large Select primitives with related tokens for theming.
+
+- [#4293](https://github.com/aws-amplify/amplify-ui/pull/4293) [`0417bd41c`](https://github.com/aws-amplify/amplify-ui/commit/0417bd41c065673eb70dd916c9008d88671445c9) Thanks [@florian42](https://github.com/florian42)! - fix(authenticator): typos and missing german translations
+
+## 5.6.8
+
+### Patch Changes
+
+- [#4271](https://github.com/aws-amplify/amplify-ui/pull/4271) [`6b71ec46c`](https://github.com/aws-amplify/amplify-ui/commit/6b71ec46ccbf63c4605c9a57d3ecff098a42938a) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix border color token for SwitchField thumb
+
 ## 5.6.7
 
 ### Patch Changes

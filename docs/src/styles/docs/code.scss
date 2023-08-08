@@ -445,3 +445,12 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
   padding-left: var(--amplify-space-medium);
   background-color: hsla(190, 95%, 50%, 0.125);
 }
+
+.snack-player {
+  overflow: hidden;
+  background: var(--amplify-colors-background-secondary);
+  border: 1px solid var(--amplify-colors-border-secondary);
+  border-radius: var(--amplify-radii-small);
+  height: 600px;
+  width: 100%;
+}

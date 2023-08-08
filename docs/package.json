@@ -3,13 +3,14 @@
   "name": "@aws-amplify/ui-docs",
   "version": "0.0.1",
   "scripts": {
-    "dev": "next dev -p 5001",
+    "dev": "yarn prebuild && yarn next dev -p 5001",
     "preflutter:build": "yarn flutter:clean",
     "flutter:build": "(cd flutter/authenticator && flutter build web)",
     "postflutter:build": "yarn flutter:copy",
     "flutter:clean": "rm -rf public/flutter/authenticator",
     "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
-    "build": "yarn build:cssvars-table && yarn build:props-tables && NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
+    "prebuild": "yarn build:cssvars-table && yarn build:props-tables",
+    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "build:cssvars-table": "node --require esbuild-register ./scripts/generate-cssvars-table-data.ts",
     "build:props-tables": "node --require esbuild-register ./scripts/generate-props-tables-data.ts",
     "clean": "rimraf node_modules .next && yarn flutter:clean",
@@ -22,8 +23,8 @@
     "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "5.0.5",
-    "@aws-amplify/ui-react-storage": "2.1.0",
+    "@aws-amplify/ui-react": "5.0.7",
+    "@aws-amplify/ui-react-storage": "2.1.2",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
