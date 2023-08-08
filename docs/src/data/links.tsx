@@ -465,7 +465,7 @@ export const navigationComponents: ComponentNavItem[] = [
   {
     href: '/components/breadcrumbs',
     label: 'Breadcrumbs',
-    body: `The breadcrumbs component is a navigation list used to visualize the information architecture of a website and the users current place in the hierarchy.`,
+    body: `The breadcrumbs component is a navigation list used to visualize the information architecture of a website and the user's current place in the hierarchy.`,
     platforms: ['react'],
     icon: MdChevronRight,
   },
