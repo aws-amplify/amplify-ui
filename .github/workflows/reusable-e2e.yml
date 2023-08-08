@@ -468,7 +468,7 @@ jobs:
   e2e-android:
     needs: check-changed-packages
     if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-13
+    runs-on: macos-12
     environment: ci
     env:
       NODE_ENV: test
@@ -560,7 +560,7 @@ jobs:
           function configure_emulator() {
             local port=$1
 
-            nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port "$port" -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+            nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port "$port" -read-only -no-window -no-boot-anim -no-audio -gpu host -accel on &
             timeout 5m $ANDROID_HOME/platform-tools/adb -s "emulator-$port" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
             $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put secure spell_checker_enabled 0
             $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global window_animation_scale 0.0
@@ -591,6 +591,7 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
 
       - name: Terminate emulators
+        if: success() || failure()
         run: |
           adb -s emulator-$EMULATOR1_PORT emu kill
           adb -s emulator-$EMULATOR2_PORT emu kill
