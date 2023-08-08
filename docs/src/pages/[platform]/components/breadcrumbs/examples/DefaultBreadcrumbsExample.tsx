@@ -5,7 +5,7 @@ export default function DefaultBreadcrumbsExample() {
     <Breadcrumbs
       items={[
         {
-          href: '/react/components',
+          href: '/',
           label: 'Home',
         },
         {

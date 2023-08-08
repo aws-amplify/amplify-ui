@@ -26,7 +26,7 @@ export default function BreadcrumbsThemeExample() {
       <Breadcrumbs
         items={[
           {
-            href: '/react/components',
+            href: '/',
             label: 'Home',
           },
           {
@@ -35,7 +35,6 @@ export default function BreadcrumbsThemeExample() {
           },
           {
             label: 'Breadcrumbs',
-            isCurrent: true,
           },
         ]}
       />

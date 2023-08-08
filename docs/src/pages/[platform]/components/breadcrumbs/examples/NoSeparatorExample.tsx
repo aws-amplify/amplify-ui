@@ -5,7 +5,7 @@ export default function NoSeparatorExample() {
     <Breadcrumbs
       items={[
         {
-          href: '/react/components',
+          href: '/',
           label: 'Home',
         },
         {

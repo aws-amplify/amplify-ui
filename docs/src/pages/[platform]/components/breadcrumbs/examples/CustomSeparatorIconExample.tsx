@@ -6,7 +6,7 @@ export default function CustomSeparatorIconExample() {
     <Breadcrumbs
       items={[
         {
-          href: '/react/components',
+          href: '/',
           label: 'Home',
         },
         {
@@ -15,7 +15,6 @@ export default function CustomSeparatorIconExample() {
         },
         {
           label: 'Breadcrumbs',
-          isCurrent: true,
         },
       ]}
       separator={<MdChevronRight />}
