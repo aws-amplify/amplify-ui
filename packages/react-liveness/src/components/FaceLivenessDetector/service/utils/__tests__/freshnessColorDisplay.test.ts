@@ -62,7 +62,7 @@ describe('FreshnessColorDisplay', () => {
     ).mock.calls[0][0];
     expect(
       context.livenessStreamProvider!.sendClientInfo
-    ).toHaveBeenCalledTimes(1);
+    ).toHaveBeenCalledTimes(2);
     expect(
       clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
         .CurrentColor.RGB
@@ -110,7 +110,7 @@ describe('FreshnessColorDisplay', () => {
     );
 
     (display as any).init();
-    (display as any).timeLastFlatOrScrollChange = Date.now() - 310; // mock scrolling the second color for 300ms
+    (display as any).timeLastFlatOrScrollChange = Date.now() - 510; // mock scrolling the second color for 300ms
     (display as any).stage = 'SCROLLING'; // mock set to scrolling
     (display as any).stageIndex = 0; // mock set to the second color
     (display as any).isFirstTick = false;
@@ -127,7 +127,7 @@ describe('FreshnessColorDisplay', () => {
     expect(
       clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
         .CurrentColor.RGB
-    ).toStrictEqual([0, 0, 0]);
+    ).toStrictEqual([0, 255, 0]);
     expect(
       clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
         .PreviousColor.RGB
