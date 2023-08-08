@@ -45,6 +45,7 @@ import {
   ClientSessionInformationEvent,
   LivenessResponseStream,
 } from '@aws-sdk/client-rekognitionstreaming';
+import { STATIC_VIDEO_CONSTRAINTS } from '../../StartLiveness/helpers';
 
 export const MIN_FACE_MATCH_TIME = 500;
 
@@ -66,7 +67,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       failedAttempts: 0,
       componentProps: undefined,
       serverSessionInformation: undefined,
-      videoAssociatedParams: undefined,
+      videoAssociatedParams: {
+        videoConstraints: STATIC_VIDEO_CONSTRAINTS,
+      },
       ovalAssociatedParams: undefined,
       faceMatchAssociatedParams: {
         illuminationState: undefined,
@@ -133,11 +136,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       cameraCheck: {
-        entry: [
-          'resetErrorState',
-          'setVideoConstraints',
-          'initializeFaceDetector',
-        ],
+        entry: ['resetErrorState', 'initializeFaceDetector'],
         invoke: {
           src: 'checkVirtualCameraAndGetStream',
           onDone: {
@@ -425,16 +424,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateFailedAttempts: assign({
         failedAttempts: (context) => {
           return context.failedAttempts! + 1;
-        },
-      }),
-      setVideoConstraints: assign({
-        videoAssociatedParams: (context, event) => {
-          return {
-            ...context.videoAssociatedParams,
-            videoConstraints:
-              event.data?.videoConstraints ||
-              context.videoAssociatedParams?.videoConstraints,
-          };
         },
       }),
       updateVideoMediaStream: assign({
@@ -790,7 +779,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         failedAttempts: 0,
         componentProps: (context) => context.componentProps,
         serverSessionInformation: (_) => undefined,
-        videoAssociatedParams: (_) => undefined,
+        videoAssociatedParams: (_) => {
+          return {
+            videoConstraints: STATIC_VIDEO_CONSTRAINTS,
+          };
+        },
         ovalAssociatedParams: (_) => undefined,
         errorState: (_) => undefined,
         livenessStreamProvider: (_) => undefined,
