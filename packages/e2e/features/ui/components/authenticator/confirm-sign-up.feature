@@ -19,7 +19,7 @@ Feature: Confirm Sign Up
     Then I see "Enter this code:"
     Then I see "It will take several minutes to arrive."
 
-  @todo-react-native
+  @react-native
   Scenario: Confirm new password page has correct translations
     When I type a new "email"
     And I type my password
