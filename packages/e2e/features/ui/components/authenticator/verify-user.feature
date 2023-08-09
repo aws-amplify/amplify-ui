@@ -51,7 +51,7 @@ Feature: Verify User
     Then I see "Sign out"
     And I click the "Sign out" button
 
-  @todo-angular @todo-react @todo-vue @todo-react-native
+  @angular @react @vue @todo-react-native
   Scenario: Redirect to "Confirm Verify" page and verify custom header and footer 
     When I type my "email" with status "UNVERIFIED"
     And I type my password
