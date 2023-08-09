@@ -3,6 +3,8 @@ Feature: Verify User
   If end user tries to sign in with unverified account, Authenticator will
   redirect them to account verification screen.
 
+  Note: tests are skipped for React Native, need separate app for verify-user so we don't mock sign-in
+   
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
@@ -19,7 +21,7 @@ Feature: Verify User
     Then "New Label" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your Confirmation Code:"
 
-  @react-nativee
+  @todo-react-native
   Scenario: Redirect to "Confirm Verify" page and replace label
     When I type my "email" with status "UNVERIFIED"
     And I type my password
@@ -30,7 +32,7 @@ Feature: Verify User
     And I click the "Skip" button
     And I click the "Sign out" button
 
-  @angular @react @vue @react-nativee
+  @angular @react @vue @todo-react-native
   Scenario: Redirect to "Verify" page and verify custom header and footer text
     When I type my "email" with status "UNVERIFIED"
     And I type my password
@@ -40,7 +42,7 @@ Feature: Verify User
     And I click the "Skip" button
     And I click the "Sign out" button
 
-  @angular @react @vue @react-nativee
+  @angular @react @vue @todo-react-native
   Scenario: Skip verify account
     When I type my "email" with status "UNVERIFIED"
     And I type my password
