@@ -9,7 +9,6 @@ import { View, Flex } from '@aws-amplify/ui-react';
 import { FaceLivenessDetectorProvider } from './providers';
 import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
-import { getVideoConstraints } from './StartLiveness/helpers';
 import { StartScreenComponents } from './shared/DefaultStartScreenComponents';
 import { LivenessDisplayText } from './displayText';
 import { getDisplayText } from './utils/getDisplayText';
@@ -58,11 +57,8 @@ export default function FaceLivenessDetectorCore(
   const isStartView = state.matches('start') || state.matches('userCancel');
 
   const beginLivenessCheck = React.useCallback(() => {
-    const videoConstraints = getVideoConstraints();
-
     send({
       type: 'BEGIN',
-      data: { videoConstraints },
     });
   }, [send]);
 
