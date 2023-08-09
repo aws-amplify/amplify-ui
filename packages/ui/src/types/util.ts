@@ -5,7 +5,7 @@
 export type NoInfer<T> = [T][T extends any ? 0 : never];
 
 /**
- * Inproves readability of enumerable properties of an `Object` created from another `Object`,
+ * Improves readability of enumerable properties of an `Object` created from another `Object`,
  * for example types that have been created using `Omit` or `Pick`.
  */
 export type Prettify<T> = { [K in keyof T]: T[K] } & {};
