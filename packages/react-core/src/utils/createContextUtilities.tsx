@@ -20,7 +20,7 @@ type ContextOptions<ContextType extends {}> =
   | OptionsWithErrorMessage;
 
 /**
- * Uses a `ContextType` generic to create:
+ * Use a `ContextType` generic and `options` to create:
  * - `Context`: React Context of type `ContextType`
  * - `Provider`: React Context `Provider` component exposing the `ContextType`
  *   as optional props
@@ -28,7 +28,8 @@ type ContextOptions<ContextType extends {}> =
  *
  * @template ContextType Type definition of the Context.
  * > For most use cases the keys of `ContextType` should not be optional in
- * preference of explicit `undefined`
+ * preference of explicit `undefined` to avoid having optional types on the
+ * Utility Hook return
  *
  * @param options Context utility options. Requires a `contextName`, and either
  * a `defaultValue` of `ContextType` or `errorMessage` allowing for differing
@@ -84,7 +85,7 @@ export default function createContextUtilities<ContextType extends {}>(
     const { children, ...context } = props;
     const value = React.useMemo(
       () => context,
-      // Umpack `context` as the dep array as using `[context]` results in
+      // Unpack `context` for the dep array; using `[context]` results in
       // evaluation on every render
       // eslint-disable-next-line react-hooks/exhaustive-deps
       Object.values(context)
