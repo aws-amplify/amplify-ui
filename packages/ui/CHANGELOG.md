@@ -1,5 +1,52 @@
 # @aws-amplify/ui
 
+## 5.7.0
+
+### Minor Changes
+
+- [#4288](https://github.com/aws-amplify/amplify-ui/pull/4288) [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - New component: Breadcrumbs!
+
+  A composable component for displaying breadcrumb navigation
+
+  ```jsx
+  <Breadcrumbs
+    items={[
+      {
+        href: '/',
+        label: 'Home',
+      },
+      {
+        href: '/category',
+        label: 'Category',
+      },
+      {
+        href: '/category/type',
+        label: 'Type',
+      },
+    ]}
+  />
+  ```
+
+  ```jsx
+  <Breadcrumbs.Container>
+    {breadcrumbs.map(({ href, label }, idx) => {
+      const isCurrent = breadcrumbs.length - 1 === idx;
+      return (
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link isCurrent={isCurrent} href={href}>
+            {label}
+          </Breadcrumbs.Link>
+          {isCurrent ? null : <Breadcrumbs.Separator>/</Breadcrumbs.Separator>}
+        </Breadcrumbs.Item>
+      );
+    })}
+  </Breadcrumbs.Container>
+  ```
+
+### Patch Changes
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
 ## 5.6.9
 
 ### Patch Changes
