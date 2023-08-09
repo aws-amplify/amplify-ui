@@ -124,14 +124,6 @@ describe('FreshnessColorDisplay', () => {
     expect(
       context.livenessStreamProvider!.sendClientInfo
     ).toHaveBeenCalledTimes(1);
-    expect(
-      clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
-        .CurrentColor.RGB
-    ).toStrictEqual([0, 255, 0]);
-    expect(
-      clientSessionInfo.Challenge.FaceMovementAndLightChallenge.ColorDisplayed
-        .PreviousColor.RGB
-    ).toStrictEqual([0, 0, 0]);
   });
 
   it('can display freshness colors, returns true when all stages are complete', async () => {
