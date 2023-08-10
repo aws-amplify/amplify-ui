@@ -27,7 +27,6 @@ export {
   FormHandle,
   FormProvider,
   FormProviderProps,
-  OnReset,
   OnSubmit,
   useField,
   useForm,
