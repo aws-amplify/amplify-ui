@@ -68,7 +68,7 @@ export const TextAreaFieldDemo = () => {
   placeholder="${placeholder}"` +
     (rows
       ? `
-  rows="${rows}"`
+  rows={${rows}}`
       : '') +
     (size
       ? `
