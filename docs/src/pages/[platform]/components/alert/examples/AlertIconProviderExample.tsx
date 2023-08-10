@@ -1,4 +1,4 @@
-import { Alert, Flex, IconProvider } from '@aws-amplify/ui-react';
+import { Alert, Flex, IconsProvider } from '@aws-amplify/ui-react';
 import {
   FcMediumPriority,
   FcHighPriority,
@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fc';
 
 export const AlertIconProviderExample = () => (
-  <IconProvider
+  <IconsProvider
     icons={{
       alert: {
         info: <FcInfo />,
@@ -20,7 +20,6 @@ export const AlertIconProviderExample = () => (
     }}
   >
     <Flex direction="column">
-      <Alert heading="Default alert title">Hello</Alert>
       <Alert variation="info" heading="Info">
         Here is some info
       </Alert>
@@ -30,5 +29,5 @@ export const AlertIconProviderExample = () => (
       <Alert variation="warning" heading="Warning" />
       <Alert variation="error" heading="Error" />
     </Flex>
-  </IconProvider>
+  </IconsProvider>
 );

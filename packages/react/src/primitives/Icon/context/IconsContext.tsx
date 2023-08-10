@@ -4,7 +4,7 @@ type ComponentIcons<Keys extends string> = {
   [Key in Keys]?: React.ReactNode;
 };
 
-export interface IconContextInterface {
+export type IconsContextInterface = {
   alert?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;
   checkbox?: ComponentIcons<'indeterminate' | 'checked'>;
   expander?: ComponentIcons<'more'>;
@@ -19,8 +19,8 @@ export interface IconContextInterface {
   storageManager?: ComponentIcons<
     'upload' | 'remove' | 'error' | 'success' | 'file'
   >;
-}
+};
 
-export const IconContext = React.createContext<
-  IconContextInterface | undefined
+export const IconsContext = React.createContext<
+  IconsContextInterface | undefined
 >({});

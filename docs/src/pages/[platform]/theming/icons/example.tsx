@@ -1,7 +1,7 @@
 import {
   CheckboxField,
   Flex,
-  IconProvider,
+  IconsProvider,
   Rating,
   SearchField,
   SelectField,
@@ -28,7 +28,7 @@ import { StorageManager } from '@aws-amplify/ui-react-storage';
 
 export default function IconProviderExample() {
   return (
-    <IconProvider
+    <IconsProvider
       icons={{
         checkbox: {
           checked: <FiCheck />,
@@ -68,6 +68,6 @@ export default function IconProviderExample() {
         <StepperField label="Stepper" />
         <StorageManager accessLevel="public" maxFileCount={5} />
       </Flex>
-    </IconProvider>
+    </IconsProvider>
   );
 }

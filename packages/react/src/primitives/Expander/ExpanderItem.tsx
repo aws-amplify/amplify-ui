@@ -6,12 +6,11 @@ import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ComponentClassNames } from '../shared/constants';
 import { BaseExpanderItemProps, ExpanderItemProps } from '../types/expander';
-import { IconExpandMore } from '../Icon/internal';
+import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { useStableId } from '../utils/useStableId';
 import { View } from '../View';
-import { useIcons } from '../../hooks/useIcons';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -29,7 +28,7 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
   const triggerId = useStableId();
   const contentId = useStableId();
   const { rest } = splitPrimitiveProps(_rest);
-  const icons = useIcons();
+  const icons = useIcons('expander');
   return (
     <Item
       className={classNames(ComponentClassNames.ExpanderItem, className)}
@@ -51,8 +50,9 @@ const ExpanderItemPrimitive: Primitive<ExpanderItemProps, 'div'> = (
           <span
             className={ComponentClassNames.ExpanderIcon}
             data-testid={EXPANDER_ICON_TEST_ID}
+            aria-hidden="true"
           >
-            {icons?.expander?.more ?? <IconExpandMore aria-hidden />}
+            {icons?.more ?? <IconExpandMore />}
           </span>
         </Trigger>
       </Header>

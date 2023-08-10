@@ -5,6 +5,8 @@ import IconSwitcher from './IconSwitcher'
 
 <IconSwitcher />
 
+
+
 <Example>
   <IconProviderExample />
   
@@ -13,3 +15,12 @@ import IconSwitcher from './IconSwitcher'
     ```
   </ExampleCode>
 </Example>
+
+The IconProvider component uses React context to make the custom icon set available to child components. Any component inside the IconProvider will have access to the custom icons via the useIcon hook.
+
+To use IconProvider, wrap it around the part of your app where you want to override icons. Then, pass an icons prop which should be an object mapping icon names to React components. For example:
+
+The components that use icons that can be overridden are:
+
+* [Alert](../components/alert)
+* [Checkbox](../components/checkboxfield)

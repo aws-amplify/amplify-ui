@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconStar } from '../Icon/internal';
+import { IconStar, useIcons } from '../Icon';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
 import { RatingIcon } from './RatingIcon';
 import { RatingMixedIcon } from './RatingMixedIcon';
@@ -15,7 +15,6 @@ import {
   Primitive,
 } from '../types';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { useIcons } from '../../hooks/useIcons';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
 const RATING_DEFAULT_VALUE = 0;
@@ -34,9 +33,9 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
   },
   ref
 ) => {
-  const icons = useIcons();
-  const filledIcon = icon ?? icons?.rating?.filled ?? <IconStar />;
-  const _emptyIcon = emptyIcon ?? icon ?? icons?.rating?.empty ?? <IconStar />;
+  const icons = useIcons('rating');
+  const filledIcon = icon ?? icons?.filled ?? <IconStar />;
+  const _emptyIcon = emptyIcon ?? icon ?? icons?.empty ?? <IconStar />;
   const items = new Array(Math.ceil(maxValue)).fill(1).map((_, index) => {
     const currentIconIndex = index + 1;
     if (isIconFilled(currentIconIndex, value))

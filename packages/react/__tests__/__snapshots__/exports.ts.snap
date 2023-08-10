@@ -29,6 +29,7 @@ Array [
   "Heading",
   "HighlightMatch",
   "Icon",
+  "IconsProvider",
   "Image",
   "Link",
   "Loader",
@@ -5316,6 +5317,13 @@ Object {
       },
       "width": Object {
         "priority": true,
+        "type": "string",
+      },
+    },
+  },
+  "IconsProvider": Object {
+    "properties": Object {
+      "children": Object {
         "type": "string",
       },
     },

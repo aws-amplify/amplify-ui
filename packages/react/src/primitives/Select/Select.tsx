@@ -4,11 +4,10 @@ import classNames from 'classnames';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconExpandMore } from '../Icon/internal';
+import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { BaseSelectProps, SelectProps } from '../types/select';
 import { View } from '../View';
-import { useIcons } from '../../hooks/useIcons';
 
 const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
@@ -41,7 +40,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     classNameModifierByFlag(ComponentClassNames.Select, 'error', hasError),
     className
   );
-  const icons = useIcons();
+  const icons = useIcons('select');
 
   return (
     <View className={ComponentClassNames.SelectWrapper}>
@@ -73,7 +72,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         )}
         color={iconColor}
       >
-        {icon ?? icons?.select?.expand ?? <IconExpandMore />}
+        {icon ?? icons?.expand ?? <IconExpandMore />}
       </Flex>
     </View>
   );

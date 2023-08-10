@@ -14,8 +14,7 @@ import { View } from '../View';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
-import { IconClose } from '../Icon/internal';
-import { useIcons } from '../../hooks/useIcons';
+import { IconClose, useIcons } from '../Icon';
 
 const AlertPrimitive: Primitive<AlertProps, 'div'> = (
   {
@@ -33,7 +32,7 @@ const AlertPrimitive: Primitive<AlertProps, 'div'> = (
   ref
 ) => {
   const [dismissed, setDismissed] = React.useState<boolean>(false);
-  const icons = useIcons();
+  const icons = useIcons('alert');
 
   const dismissAlert = React.useCallback(() => {
     setDismissed(!dismissed);
@@ -70,7 +69,7 @@ const AlertPrimitive: Primitive<AlertProps, 'div'> = (
           onClick={dismissAlert}
           ref={buttonRef}
         >
-          {icons?.alert?.close ?? <IconClose aria-hidden="true" />}
+          {icons?.close ?? <IconClose aria-hidden="true" />}
         </Button>
       )}
     </Flex>

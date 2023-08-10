@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { Flex } from '../Flex';
-import { IconCheck, IconIndeterminate } from '../Icon/internal';
+import { IconCheck, IconIndeterminate, useIcons } from '../Icon';
 import { Input } from '../Input';
 import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
@@ -14,7 +14,6 @@ import { useCheckbox } from './useCheckbox';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
-import { useIcons } from '../../hooks/useIcons';
 import { View } from '../View';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
@@ -41,7 +40,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
 
   const { dataChecked, dataFocus, onBlur, onChange, onFocus, setDataChecked } =
     useCheckbox(initialChecked, onChangeProp);
-  const icons = useIcons();
+  const icons = useIcons('checkbox');
 
   React.useEffect(() => {
     const isControlled = checked !== undefined;
@@ -106,16 +105,16 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     'data-testid': iconTestId,
   };
 
-  const checkedIcon = icons?.checkbox?.checked ? (
+  const checkedIcon = icons?.checked ? (
     <View as="span" className={classNames(iconClasses)}>
-      {icons.checkbox.checked}
+      {icons.checked}
     </View>
   ) : (
     <IconCheck {...iconProps} />
   );
-  const indeterminateIcon = icons?.checkbox?.indeterminate ? (
+  const indeterminateIcon = icons?.indeterminate ? (
     <View as="span" className={classNames(iconClasses)}>
-      {icons.checkbox.indeterminate}
+      {icons.indeterminate}
     </View>
   ) : (
     <IconIndeterminate {...iconProps} />

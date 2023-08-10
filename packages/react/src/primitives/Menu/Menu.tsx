@@ -6,7 +6,7 @@ import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
-import { IconMenu } from '../Icon/internal';
+import { IconMenu, useIcons } from '../Icon';
 import { MenuButton } from './MenuButton';
 import {
   BaseMenuProps,
@@ -14,7 +14,6 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { useIcons } from '../../hooks/useIcons';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -39,7 +38,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   },
   ref
 ) => {
-  const icons = useIcons();
+  const icons = useIcons('menu');
   return (
     <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
       <DropdownMenuTrigger asChild>
@@ -53,7 +52,7 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
               triggerClassName
             )}
           >
-            {icons?.menu?.menu ?? <IconMenu />}
+            {icons?.menu ?? <IconMenu />}
           </MenuButton>
         )}
       </DropdownMenuTrigger>

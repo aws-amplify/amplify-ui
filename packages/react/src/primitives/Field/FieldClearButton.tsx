@@ -7,9 +7,8 @@ import {
   Primitive,
 } from '../types';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
-import { IconClose } from '../Icon/internal';
+import { IconClose, useIcons } from '../Icon';
 import { ComponentText } from '../shared/constants';
-import { useIcons } from '../../hooks/useIcons';
 
 const ariaLabelText = ComponentText.Fields.clearButtonLabel;
 
@@ -17,10 +16,10 @@ const FieldClearButtonPrimitive: Primitive<FieldClearButtonProps, 'button'> = (
   { ariaLabel = ariaLabelText, size, ...rest },
   ref
 ) => {
-  const icons = useIcons();
+  const icons = useIcons('field');
   return (
     <FieldGroupIconButton ariaLabel={ariaLabel} size={size} ref={ref} {...rest}>
-      {icons?.field?.clear ?? <IconClose />}
+      {icons?.clear ?? <IconClose />}
     </FieldGroupIconButton>
   );
 };
