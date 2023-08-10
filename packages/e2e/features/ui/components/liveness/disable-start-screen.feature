@@ -11,8 +11,8 @@ Feature: Disable Start Screen
 
   @react
   Scenario: See camera module and instructions
-      Then I see "liveness-detector" element
-      Then I see "connecting"
-      Then I see "Face didn't fill oval within time limit."
-      Then I click the "Try again" button
-      Then I see "Loading"
+      And I see "liveness-detector" element
+      And I see "connecting"
+      And I see "Face didn't fill oval within time limit."
+      And I click the "Try again" button
+      And I see "Loading"

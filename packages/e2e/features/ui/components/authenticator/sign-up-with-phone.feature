@@ -4,12 +4,12 @@ Feature: Sign Up with Phone
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-phone/"
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
 
   @angular @react @vue @react-native
   Scenario: Login mechanism set to "phone_number"
     Then I see "Phone Number" as an input field
-    Then I don't see "Username" as an input field
+    And I don't see "Username" as an input field
 
   @angular @react @vue @react-native
   Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
@@ -18,11 +18,11 @@ Feature: Sign Up with Phone
   @angular @react @vue @react-native
   Scenario: Sign up with valid phone number & password
     When I select my country code with status "UNCONFIRMED"
-    Then I type my "phone number" with status "UNCONFIRMED"
-    Then I type my password
-    Then I confirm my password
-    Then I type my "email" with status "UNCONFIRMED"
-    Then I click the "Create Account" button
+    And I type my "phone number" with status "UNCONFIRMED"
+    And I type my password
+    And I confirm my password
+    And I type my "email" with status "UNCONFIRMED"
+    And I click the "Create Account" button
     Then I see "Confirmation Code"
 
   @angular @react @vue
@@ -31,10 +31,10 @@ Feature: Sign Up with Phone
   On sign up form, autocomplete prefers usage of username instead of phone number. 
   See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands/.
 
-    Then "Phone Number" field autocompletes "username"
+    And "Phone Number" field autocompletes "username"
 
   @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
-    Then "Password" field autocompletes "new-password"
-    Then "Confirm Password" field autocompletes "new-password"
+    And "Password" field autocompletes "new-password"
+    And "Confirm Password" field autocompletes "new-password"
     

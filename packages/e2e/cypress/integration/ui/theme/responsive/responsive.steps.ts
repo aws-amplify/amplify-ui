@@ -1,4 +1,4 @@
-import { Then } from '@badeball/cypress-cucumber-preprocessor';
+import { And, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 const breakpoints = {
   base: 0,
@@ -22,11 +22,11 @@ Then('I downsize the {string} viewport by 1px', (breakpoint: number) => {
   cy.viewport(breakpoints[breakpoint] - 1, defaultHeight).wait(1000);
 });
 
-Then('the breakpoints example is in view', () => {
+And('the breakpoints example is in view', () => {
   cy.findByTestId('responsive-object-syntax-breakpoints').scrollIntoView();
 });
 
-Then('the background color should be {string}', (color: string) => {
+And('the background color should be {string}', (color: string) => {
   cy.findByTestId('responsive-object-syntax-breakpoints').should(
     'have.css',
     'background-color',

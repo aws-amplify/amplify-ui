@@ -12,6 +12,6 @@ Feature: withAuthenticator
   @react @react-native
   Scenario: Application renders when signed in
     When I type my "username" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Sign out"

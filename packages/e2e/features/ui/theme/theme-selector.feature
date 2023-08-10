@@ -7,10 +7,10 @@ Feature: Theme Selector
 
   Scenario: Change theme to Classic
     Then I see "Theming"
-    Then I change the theme to "Classic"
-    Then "Add to cart" button has background color "rgb(4, 52, 149)"
+    And I change the theme to "Classic"
+    And "Add to cart" button has background color "rgb(4, 52, 149)"
 
   Scenario: Change theme to terminal
     Then I see "Theming"
-    Then I change the theme to "Terminal"
-    Then "Add to cart" button has background color "rgb(76, 203, 104)"
+    And I change the theme to "Terminal"
+    And "Add to cart" button has background color "rgb(76, 203, 104)"

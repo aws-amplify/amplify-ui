@@ -10,8 +10,8 @@ Feature: Sign Up with Attributes
   @angular @react @vue @react-native
   Scenario: Login mechanism set to "username"
     Then I see "Username" as a "text" field
-    Then I see "Email" as an "email" field
-    Then I see "Phone Number" as a "tel" field
+    And I see "Email" as an "email" field
+    And I see "Phone Number" as a "tel" field
 
   @angular @react @vue @react-native
   Scenario: Sign Up screen does not have Address
@@ -86,8 +86,8 @@ Feature: Sign Up with Attributes
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-with-attributes"
     When I click the "Sign In" tab
     When I type my "username" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Website" as a "url" field
     Then I don't see "Updated At"
     Then I see "Profile" as a "url" field

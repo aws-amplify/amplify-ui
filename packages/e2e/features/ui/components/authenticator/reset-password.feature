@@ -8,39 +8,39 @@ Feature: Reset Password
   @react @vue @angular @react-native
   Scenario: Reset Password with valid username
     When I type my "username" with status "CONFIRMED"
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
-    Then I click the "Send code" button
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
+    And I click the "Send code" button
     Then I will be redirected to the confirm forgot password page
-    Then I see "Code *"
+    And I see "Code *"
     Then I type a valid code
-    Then I type my new password
-    Then I confirm my password
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
-    Then I click the 'Submit' button
+    And I type my new password
+    And I confirm my password
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
+    And I click the 'Submit' button
     Then I see "Sign In"
     
   @react @vue @angular @react-native
   Scenario: Reset Password with invalid username
     When I type my "username" with status "UNKNOWN"
-    Then I click the "Send code" button
+    And I click the "Send code" button
     Then I see "Username/client id combination not found."
 
   @angular @react @vue @react-native
   Scenario: Reset Password with valid placeholder 
     Then I see "Enter your username"
-    Then I don't see "Enter your phone number"
-    Then I don't see "Enter your email"
+    And I don't see "Enter your phone number"
+    And I don't see "Enter your email"
 
   @angular @react @vue @react-native
   Scenario: Reset Password with wrong password requirements
     When I type my "username" with status "CONFIRMED"
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
-    Then I click the "Send code" button
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
+    And I click the "Send code" button
     Then I will be redirected to the confirm forgot password page
-    Then I see "Code *"
+    And I see "Code *"
     Then I type a valid code
-    Then I type an invalid wrong complexity new password
-    Then I confirm my password
+    And I type an invalid wrong complexity new password
+    And I confirm my password
     Then I see "Password must have numbers"
     Then I see "Password must have special characters"
     Then I see "Password must have upper case letters"
@@ -49,13 +49,13 @@ Feature: Reset Password
   @react-native
   Scenario: Reset Password with wrong password requirements typed slowly
     When I type my "username" with status "CONFIRMED"
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
-    Then I click the "Send code" button
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
+    And I click the "Send code" button
     Then I will be redirected to the confirm forgot password page
-    Then I see "Code *"
+    And I see "Code *"
     Then I type a valid code
-    Then I slowly type an invalid wrong complexity new password
-    Then I confirm my password
+    And I slowly type an invalid wrong complexity new password
+    And I confirm my password
     Then I see "Password must have numbers"
     Then I see "Password must have special characters"
     Then I see "Password must have upper case letters"
@@ -64,15 +64,15 @@ Feature: Reset Password
   @angular @react @vue @react-native
   Scenario: Reset Password without lower case characters
     When I type my "username" with status "CONFIRMED"
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
-    Then I click the "Send code" button
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
+    And I click the "Send code" button
     Then I will be redirected to the confirm forgot password page
-    Then I see "Code *"
+    And I see "Code *"
     Then I type a valid code
-    Then I type an invalid no lower case new password
-    Then I confirm my password
+    And I type an invalid no lower case new password
+    And I confirm my password
     Then I see "Password must have numbers"
     Then I see "Password must have special characters"
     Then I see "Password must have lower case letters"
     Then I see "Password must have at least 8 characters"
-    Then I confirm "Password must have numbers" error is accessible in new password field
+    And I confirm "Password must have numbers" error is accessible in new password field

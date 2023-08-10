@@ -11,7 +11,7 @@ Feature: Sign Up with Email
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I click the "Create Account" tab 
     Then I type a new "email"
-    Then I type my password
-    Then I confirm my password
+    And I type my password
+    And I confirm my password
     When I click the "Create Account" button
     Then I see "Confirmation Code"
