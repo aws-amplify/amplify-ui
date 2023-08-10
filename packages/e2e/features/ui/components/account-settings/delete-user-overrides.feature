@@ -9,9 +9,9 @@ Feature: Delete User With Overrides
   @react
   Scenario: Customize warning view
     When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I see "Delete Account:"
-    Then I click the "Delete Account" button
+    And I type my password
+    And I click the "Sign in" button
+    And I see "Delete Account:"
+    And I click the "Delete Account" button
     Then I see "Deleting your account is not reversable. Please type delete below if you want to confirm user deletion."
-    Then I click the "Back" button
+    And I click the "Back" button

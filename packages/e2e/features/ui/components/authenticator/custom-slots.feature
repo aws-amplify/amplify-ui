@@ -17,7 +17,7 @@ Feature: Custom Slots
     When I type a new "email"
     When I type a custom password from label "Password:"
     When I type a custom confirm password from label "Confirm Password:"
-    Then I click the "Create Account" button
+    And I click the "Create Account" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
@@ -27,7 +27,7 @@ Feature: Custom Slots
     When I click the "Reset Password" button
     Then I see "Enter Information:"
     Then I type my "email" with status "UNVERIFIED"
-    Then I click the "Send Code" button
+    And I click the "Send Code" button
     Then I see "Code"
     Then I see "Enter Information:"
     Then I see "Footer Information"
@@ -35,15 +35,15 @@ Feature: Custom Slots
   @angular @react @vue
   Scenario: Has Setup TOTP Verify User Footer and Header slot text
     When I type my "email" with status "CONFIRMED"
-    Then I type my password
-    Then I click the "Sign in" button
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
   Scenario: Has confirm sign in Footer and Header slot text
     When I type my "email" with status "UNVERIFIED"
-    Then I type my password
-    Then I click the "Sign in" button
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
@@ -68,7 +68,7 @@ Feature: Custom Slots
   Scenario: Has custom Sign In Footer slot text
     Given I see "Reset Password"
     When I click "Reset Password"
-    Then I see "Send code"
+    And I see "Send code"
 
   @angular @react @vue
   Scenario: Has custom Sign Up Header slot text

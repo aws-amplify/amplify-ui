@@ -8,28 +8,28 @@ Feature: Sign Up with Email
   @angular @react @vue @react-native
   Scenario: Login mechanism set to "email"
     Then I see "Email" as an input field
-    Then I don't see "Username" as an input field
-    Then I don't see "Phone Number" as an input field
+    And I don't see "Username" as an input field
+    And I don't see "Phone Number" as an input field
 
   @angular @react @vue  
   Scenario: Sign up with a new email & password and check auth message
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
-    Then I see "unauthenticated"
+    And I see "unauthenticated"
     When I type a new "email"
-    Then I type my password
-    Then I confirm my password
-    Then I click the "Create Account" button
-    Then I see "authenticated"
+    And I type my password
+    And I confirm my password
+    And I click the "Create Account" button
+    And I see "authenticated"
     Then I see "Confirmation Code"
 
 @angular @react @vue  
   Scenario: Sign up with a new email & password and lowercase the email 
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type a new "email" with value "TEST@example.com"
-    Then I type my password
-    Then I confirm my password
-    Then I click the "Create Account" button
-    Then I verify the body has "test@example.com" included
+    And I type my password
+    And I confirm my password
+    And I click the "Create Account" button
+    And I verify the body has "test@example.com" included
     Then I see "Confirmation Code"
 
 @react-native
@@ -37,18 +37,18 @@ Feature: Sign Up with Email
     When I click the "Create Account" button
     Then I do not see a remote error with id "amplify__error-message"
     When I type a new "email" with value "TEST@example.com"
-    Then I type my password
-    Then I add an invalid password confirmation
-    Then I click the "Create Account" button
+    And I type my password
+    And I add an invalid password confirmation
+    And I click the "Create Account" button
     Then I do not see a remote error with id "amplify__error-message"
 
 @angular @react @vue @react-native
 Scenario: Sign up with a new email & password
   Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
   When I type a new "email"
-  Then I type my password
-  Then I confirm my password
-  Then I click the "Create Account" button
+  And I type my password
+  And I confirm my password
+  And I click the "Create Account" button
   Then I see "Confirmation Code"
 
 @react-native
@@ -64,10 +64,10 @@ Scenario: Sign up using invalid email
   On sign up form, autocomplete prefers usage of username instead of email. 
   See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands/.
 
-    Then "Email" field autocompletes "username"
+    And "Email" field autocompletes "username"
 
   @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
-    Then "Password" field autocompletes "new-password"
-    Then "Confirm Password" field autocompletes "new-password"
+    And "Password" field autocompletes "new-password"
+    And "Confirm Password" field autocompletes "new-password"
     

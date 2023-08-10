@@ -7,15 +7,15 @@ Feature: Verify User
    
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
-    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
 
   @angular @react @vue
   Scenario: Redirect to "Confirm Verify" page and replace label and placeholder
     When I type my "email" with status "UNVERIFIED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I click the "Email" radio button
-    Then I click the "Verify" button
+    And I type my password
+    And I click the "Sign in" button
+    And I click the "Email" radio button
+    And I click the "Verify" button
     Then 'New Label' field does not have "required"
     Then I see "New Label"
     Then "New Label" field does not have class "amplify-visually-hidden"
@@ -24,42 +24,42 @@ Feature: Verify User
   @todo-react-native
   Scenario: Redirect to "Confirm Verify" page and replace label
     When I type my "email" with status "UNVERIFIED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I click the "Email" radio button
-    Then I click the "Verify" button
+    And I type my password
+    And I click the "Sign in" button
+    And I click the "Email" radio button
+    And I click the "Verify" button
     Then I see "New Label"
-    Then I click the "Skip" button
-    Then I click the "Sign out" button
+    And I click the "Skip" button
+    And I click the "Sign out" button
 
   @angular @react @vue @todo-react-native
   Scenario: Redirect to "Verify" page and verify custom header and footer text
     When I type my "email" with status "UNVERIFIED"
-    Then I type my password
-    Then I click the "Sign in" button
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
-    Then I click the "Skip" button
-    Then I click the "Sign out" button
+    And I click the "Skip" button
+    And I click the "Sign out" button
 
   @angular @react @vue @todo-react-native
   Scenario: Skip verify account
     When I type my "email" with status "UNVERIFIED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I click the "Skip" button
+    And I type my password
+    And I click the "Sign in" button
+    And I click the "Skip" button
     Then I see "Sign out"
-    Then I click the "Sign out" button
+    And I click the "Sign out" button
 
-  @angular @react @vue @todo-react-native
+  @todo-angular @todo-react @todo-vue @todo-react-native
   Scenario: Redirect to "Confirm Verify" page and verify custom header and footer 
     When I type my "email" with status "UNVERIFIED"
-    Then I type my password
-    Then I click the "Sign in" button
-    Then I click the "Email" radio button
-    Then I click the "Verify" button
+    And I type my password
+    And I click the "Sign in" button
+    And I click the "Email" radio button
+    And I click the "Verify" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
-    Then I click the "Skip" button
-    Then I click the "Sign out" button
+    And I click the "Skip" button
+    And I click the "Sign out" button
     

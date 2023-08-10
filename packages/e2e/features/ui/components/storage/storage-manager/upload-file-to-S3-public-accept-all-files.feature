@@ -6,5 +6,5 @@ Feature: Storage Manager with default files
   @react
   Scenario: I should be able to click and drag any files
     Then I see "Browse files"
-    Then I drag and drop a file with file name "test.txt"
+    And I drag and drop a file with file name "test.txt"
     Then I see "test.txt"

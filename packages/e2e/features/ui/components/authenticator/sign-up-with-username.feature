@@ -21,22 +21,22 @@ Feature: Sign Up with Username
   Scenario: Sign up a new username & password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-username"
     When I type a new "username"
-    Then I type my password
-    Then I confirm my password
-    Then I type my "email" with status "UNCONFIRMED"
-    Then I click the "Create Account" button
+    And I type my password
+    And I confirm my password
+    And I type my "email" with status "UNCONFIRMED"
+    And I click the "Create Account" button
     Then I see "Your code is on the way"
-    Then I see "Confirmation Code"
+    And I see "Confirmation Code"
 
   @react-native
   Scenario: Sign up a new username & password
     When I type a new "username"
-    Then I type my password
-    Then I confirm my password
-    Then I type my "email" with status "UNCONFIRMED"
-    Then I click the "Create Account" button
+    And I type my password
+    And I confirm my password
+    And I type my "email" with status "UNCONFIRMED"
+    And I click the "Create Account" button
     Then I see "Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive."
-    Then I see "Confirmation Code"
+    And I see "Confirmation Code"
 
   @angular @react @vue
   Scenario: Username field autocompletes username
@@ -45,4 +45,4 @@ Feature: Sign Up with Username
   @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "new-password"
-    Then "Confirm Password" field autocompletes "new-password"
+    And "Confirm Password" field autocompletes "new-password"
