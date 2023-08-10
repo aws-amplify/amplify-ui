@@ -279,7 +279,7 @@ export const button: Required<ButtonTokens<'default'>> = {
       },
     },
     overlay: {
-      borderColor: { value: '{colors.neutral.60.value}' },
+      borderColor: { value: '{colors.overlay.60.value}' },
       backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.primary.value}' },
       _hover: {
@@ -297,7 +297,7 @@ export const button: Required<ButtonTokens<'default'>> = {
             offsetY: '0px',
             blurRadius: '0px',
             spreadRadius: '1px',
-            color: '{colors.neutral.100.value}',
+            color: '{colors.overlay.90.value}',
           },
         },
       },
