@@ -80,13 +80,6 @@ export type FormHandle<Values extends FormValues = FormValues> = {
   reset: () => void;
 };
 
-/**
- * - `onSubmit`: Validation is triggered on the submit event, and inputs attach onChange event listeners to re-validate themselves
- * - `onBlur`: Validation is triggered on the blur event
- * - `onChange`: Validation is triggered on the changeevent for each input, leading to multiple re-renders. Warning: this often comes with a significant impact on performance
- * - `onTouched`: Validation is initially triggered on the first blur event. After that, it is triggered on every change event
- * - `all`: Validation is triggered on both blur and change events
- */
 type ValidationMode = 'onBlur' | 'onChange' | 'onSubmit' | 'onTouched' | 'all';
 
 export interface FormProviderProps<Values extends FormValues = FormValues> {
