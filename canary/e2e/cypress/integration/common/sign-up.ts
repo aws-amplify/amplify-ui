@@ -1,6 +1,8 @@
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress" />
-import { Given, When } from 'cypress-cucumber-preprocessor/steps';
+/// <reference types="../../support/commands" />
+
+import { Given, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('I click {string}', (text: string) => {
   cy.findByText(text).click();
