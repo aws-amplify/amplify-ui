@@ -69,7 +69,6 @@ export const useTextAreaFieldProps = (
     setHasError,
     setIsDisabled,
     setIsReadOnly,
-    setIsRequired,
     setLabel,
     setLabelHidden,
     setName,
