@@ -8,7 +8,7 @@ Feature: In-App Messaging with a custom component overriding the default banner
   @react
   Scenario: Verify that banner is displayed as a custom component on initial render
     When I see the custom component
-    And I click the "Close!" button
+    Then I click the "Close!" button
     Then I do not see the custom component
 
   @react
