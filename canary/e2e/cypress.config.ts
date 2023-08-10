@@ -11,22 +11,25 @@ export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:3000/',
     specPattern: 'features/**/*.feature',
-    env: {
-      TAGS: 'not @skip',
-    },
-    videoUploadOnPasses: false,
+
     async setupNodeEvents(on, config) {
       await addCucumberPreprocessorPlugin(on, config);
 
       on(
         'file:preprocessor',
-        createBundler({ plugins: [createEsbuildPlugin(config)] })
+        createBundler({
+          define: { global: 'window' },
+          plugins: [createEsbuildPlugin(config)],
+        })
       );
 
       Object.assign(config.env, process.env);
 
       return config;
     },
+  },
+  env: {
+    tags: 'not @skip',
   },
   video: false,
 });

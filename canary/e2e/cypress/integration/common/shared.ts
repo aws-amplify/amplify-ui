@@ -1,7 +1,3 @@
-/// <reference types="@testing-library/cypress" />
-/// <reference types="cypress" />
-/// <reference types="../../support/commands" />
-
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
 import { escapeRegExp } from 'lodash';

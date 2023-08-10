@@ -22,9 +22,8 @@
     "@testing-library/cypress": "^9.0.0",
     "cypress": "^12.17.3",
     "dotenv-safe": "^8.2.0",
-    "esbuild": "^0.19.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.3.2"
+    "typescript": "^5.1.6"
   },
   "resolutions": {
     "**/cypress-cucumber-preprocessor/**/semver": "6.3.1",

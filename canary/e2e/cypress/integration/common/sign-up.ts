@@ -1,7 +1,3 @@
-/// <reference types="@testing-library/cypress" />
-/// <reference types="cypress" />
-/// <reference types="../../support/commands" />
-
 import { Given, When } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('I click {string}', (text: string) => {

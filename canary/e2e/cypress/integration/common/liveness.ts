@@ -1,7 +1,3 @@
-/// <reference types="@testing-library/cypress" />
-/// <reference types="cypress" />
-/// <reference types="../../support/commands" />
-
 import { When } from '@badeball/cypress-cucumber-preprocessor';
 
 When(
