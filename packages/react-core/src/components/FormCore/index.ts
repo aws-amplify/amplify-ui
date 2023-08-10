@@ -6,7 +6,6 @@ export {
   FormValues,
   FormHandle,
   FormProviderProps,
-  OnReset,
   OnSubmit,
   Validate,
   Validator,
