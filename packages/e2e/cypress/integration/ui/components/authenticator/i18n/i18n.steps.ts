@@ -1,5 +1,5 @@
 import { translations } from '@aws-amplify/ui';
-import { And, Then, When } from '@badeball/cypress-cucumber-preprocessor';
+import { Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { escapeRegExp } from 'lodash';
 
 When(
@@ -23,11 +23,11 @@ Then(
   }
 );
 
-And('the {string} input is in {string}', (label: string, language: string) => {
+Then('the {string} input is in {string}', (label: string, language: string) => {
   cy.findByLabelText(translations[language][label].trim());
 });
 
-And(
+Then(
   'the {string} input is in {string} and I type the wrong username or password',
   (label: string, language: string) => {
     cy.findByLabelText(translations[language][label].trim()).type(
@@ -36,7 +36,7 @@ And(
   }
 );
 
-And(
+Then(
   'the {string} button is in {string} and I click it',
   (label: string, language: string) => {
     cy.findByRole('button', {
@@ -45,8 +45,11 @@ And(
   }
 );
 
-And('the {string} button is in {string}', (label: string, language: string) => {
-  cy.findByRole('button', {
-    name: translations[language][label].trim(),
-  });
-});
+Then(
+  'the {string} button is in {string}',
+  (label: string, language: string) => {
+    cy.findByRole('button', {
+      name: translations[language][label].trim(),
+    });
+  }
+);
