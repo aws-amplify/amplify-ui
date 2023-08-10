@@ -827,6 +827,94 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-warning)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-flex-direction\\",
+        \\"value\\": \\"row\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-flex-wrap\\",
+        \\"value\\": \\"wrap\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-gap\\",
+        \\"value\\": \\"0\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-item-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-item-color\\",
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-item-flex-direction\\",
+        \\"value\\": \\"row\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-item-font-size\\",
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-item-line-height\\",
+        \\"value\\": \\"1\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-color\\",
+        \\"value\\": \\"var(--amplify-components-link-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-color\\",
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-font-size\\",
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-font-weight\\",
+        \\"value\\": \\"normal\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-current-text-decoration\\",
+        \\"value\\": \\"none\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-font-size\\",
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-font-weight\\",
+        \\"value\\": \\"normal\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-link-text-decoration\\",
+        \\"value\\": \\"none\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-separator-color\\",
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-separator-font-size\\",
+        \\"value\\": \\"inherit\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-breadcrumbs-separator-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-button-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-brand-primary-20)\\"
     },

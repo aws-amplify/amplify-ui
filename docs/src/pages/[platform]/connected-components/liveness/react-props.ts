@@ -128,7 +128,7 @@ export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
   {
     name: `FRESHNESS_TIMEOUT`,
     description:
-      'Indicates that the component timed out when attempting attempting to determine freshness of the video via colors flashing on the screen.',
+      'Indicates that the component timed out when attempting to determine freshness of the video via colors flashing on the screen.',
     type: `Error`,
   },
   {
