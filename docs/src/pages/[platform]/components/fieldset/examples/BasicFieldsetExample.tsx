@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import {
+  Alert,
   View,
   Button,
   SelectField,
@@ -27,6 +28,9 @@ export const BasicFieldsetExample = () => {
   });
   return (
     <Flex direction="column">
+      <Alert role="none" variation="error">
+        Fix `form` and `name` type errors
+      </Alert>
       <Flex direction="column" as="form" id="form1" ref={form1Ref}>
         <Fieldset variation="outlined" legend="Address" isDisabled={true}>
           <TextField label="Street Address" />
@@ -68,7 +72,7 @@ export const BasicFieldsetExample = () => {
           <Button>normal button</Button>
         </Fieldset>
       </Flex>
-      <Fieldset form="form1">
+      <Fieldset>
         <TextField label="A sneaky input" />
       </Fieldset>
     </Flex>
