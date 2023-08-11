@@ -1,15 +1,18 @@
 import * as React from 'react';
 
-import { BaseFlexProps } from './flex';
+import { BaseViewProps } from './view';
+import { FlexContainerStyleProps } from './flex';
 import { ElementType, PrimitiveProps } from './view';
 
 /** @deprecated For internal use only */
-export interface BaseFieldsetProps extends BaseFlexProps {
+export interface BaseFieldsetProps
+  extends BaseViewProps,
+    FlexContainerStyleProps {
   /**
    * @description
    * Legend is the label for the fieldset.
    */
-  legend?: React.ReactNode;
+  legend: React.ReactNode;
 
   /**
    * @description
@@ -34,6 +37,18 @@ export interface BaseFieldsetProps extends BaseFlexProps {
    * false
    */
   isDisabled?: boolean;
+
+  /**
+   * @description
+   * Name of the fieldset.
+   */
+  name?: string;
+
+  /**
+   * @description
+   * Form to associate the fieldset with
+   */
+  form?: string;
 }
 
 export type FieldsetProps<Element extends ElementType = 'fieldset'> =

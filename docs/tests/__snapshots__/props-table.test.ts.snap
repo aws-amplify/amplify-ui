@@ -2565,7 +2565,7 @@ exports[`Props Table 1`] = `
                         \\"type\\": \\"React.ReactNode\\",
                         \\"description\\": \\"Legend is the label for the fieldset.\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
-                        \\"isOptional\\": true
+                        \\"isOptional\\": false
                     },
                     \\"legendHidden\\": {
                         \\"name\\": \\"legendHidden\\",
@@ -2599,6 +2599,20 @@ exports[`Props Table 1`] = `
                         \\"name\\": \\"isDisabled\\",
                         \\"type\\": \\"boolean | undefined\\",
                         \\"description\\": \\" Determines whether field should be disabled. Default: false\\",
+                        \\"category\\": \\"BaseFieldsetProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"name\\": {
+                        \\"name\\": \\"name\\",
+                        \\"type\\": \\"string | undefined\\",
+                        \\"description\\": \\"Name of the fieldset.\\",
+                        \\"category\\": \\"BaseFieldsetProps\\",
+                        \\"isOptional\\": true
+                    },
+                    \\"form\\": {
+                        \\"name\\": \\"form\\",
+                        \\"type\\": \\"string | undefined\\",
+                        \\"description\\": \\"Form to associate the fieldset with\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": true
                     },

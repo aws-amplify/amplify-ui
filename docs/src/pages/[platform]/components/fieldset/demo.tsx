@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { Fieldset, CheckboxField, TextField } from '@aws-amplify/ui-react';
+import {
+  Fieldset,
+  CheckboxField,
+  TextField,
+  FieldsetProps,
+} from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { FieldsetPropControls } from './FieldsetPropControls';
 import { useFieldsetProps } from './useFieldsetProps';
@@ -43,7 +48,7 @@ const defaultFieldsetProps = {
 
 export const FieldsetDemo = () => {
   const fieldsetProps = useFieldsetProps(
-    demoState.get(Fieldset.displayName) || defaultFieldsetProps
+    (demoState.get('Fieldset') as FieldsetProps) || defaultFieldsetProps
   );
 
   return (
