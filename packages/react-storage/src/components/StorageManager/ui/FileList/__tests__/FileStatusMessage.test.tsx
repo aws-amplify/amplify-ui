@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { ComponentClassNames, IconProvider } from '@aws-amplify/ui-react';
+import { ComponentClassNames, IconsProvider } from '@aws-amplify/ui-react';
 
 import { FileStatusMessage } from '../FileStatusMessage';
 import { FileStatusMessageProps } from '../types';
@@ -87,7 +87,7 @@ describe('FileStatusMessage', () => {
 
   it('renders custom icons from IconProvider', () => {
     const { container } = render(
-      <IconProvider
+      <IconsProvider
         icons={{
           storageManager: {
             success: <span className="custom-success-icon" />,
@@ -97,7 +97,7 @@ describe('FileStatusMessage', () => {
       >
         <FileStatusMessage {...defaultProps} status={FileStatus.ERROR} />
         <FileStatusMessage {...defaultProps} status={FileStatus.UPLOADED} />
-      </IconProvider>
+      </IconsProvider>
     );
 
     const customSuccessIcon = container.querySelector('.custom-success-icon');

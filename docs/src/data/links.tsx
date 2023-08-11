@@ -644,7 +644,7 @@ export const theming: ComponentNavItem[] = [
   },
   {
     href: '/theming/icons',
-    label: 'Icon',
+    label: 'Icons',
     platforms: ['react'],
   },
   {

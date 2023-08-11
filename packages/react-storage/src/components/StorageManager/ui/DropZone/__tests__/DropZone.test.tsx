@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames, IconProvider } from '@aws-amplify/ui-react';
+import { ComponentClassNames, IconsProvider } from '@aws-amplify/ui-react';
 import { classNameModifier } from '@aws-amplify/ui';
 
 import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
@@ -69,7 +69,7 @@ describe('DropZone', () => {
 
   it('renders custom icons from IconProvider', () => {
     const { container } = render(
-      <IconProvider
+      <IconsProvider
         icons={{
           storageManager: {
             upload: <span className="my-custom-icon" />,
@@ -85,7 +85,7 @@ describe('DropZone', () => {
           onDrop={() => {}}
           displayText={defaultStorageManagerDisplayText}
         />
-      </IconProvider>
+      </IconsProvider>
     );
     const customIcon = container.querySelector('.my-custom-icon');
     expect(customIcon).toBeInTheDocument();

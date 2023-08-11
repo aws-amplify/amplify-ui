@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { ComponentClassNames, IconProvider } from '@aws-amplify/ui-react';
+import { ComponentClassNames, IconsProvider } from '@aws-amplify/ui-react';
 
 import { FileThumbnail } from '../FileThumbnail';
 import { FileThumbnailProps } from '../types';
@@ -51,7 +51,7 @@ describe('FileThumbnail', () => {
 
   it('renders custom icons from IconProvider', () => {
     const { container } = render(
-      <IconProvider
+      <IconsProvider
         icons={{
           storageManager: {
             file: <span className="my-custom-icon" />,
@@ -59,7 +59,7 @@ describe('FileThumbnail', () => {
         }}
       >
         <FileThumbnail {...thumbnailProps} />
-      </IconProvider>
+      </IconsProvider>
     );
     const customIcon = container.querySelector('.my-custom-icon');
     expect(customIcon).toBeInTheDocument();

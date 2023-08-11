@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames, IconProvider } from '@aws-amplify/ui-react';
+import { ComponentClassNames, IconsProvider } from '@aws-amplify/ui-react';
 
 import { FileRemoveButton } from '../FileRemoveButton';
 import { FileRemoveButtonProps } from '../types';
@@ -43,7 +43,7 @@ describe('FileRemoveButton', () => {
 
   it('renders custom icons from IconProvider', () => {
     const { container } = render(
-      <IconProvider
+      <IconsProvider
         icons={{
           storageManager: {
             remove: <span className="my-custom-icon" />,
@@ -51,7 +51,7 @@ describe('FileRemoveButton', () => {
         }}
       >
         <FileRemoveButton {...fileRemoveButtonProps} />
-      </IconProvider>
+      </IconsProvider>
     );
 
     const customIcon = container.querySelector('.my-custom-icon');

@@ -103,7 +103,7 @@ exports[`FileList renders an alert in case of error 1`] = `
       >
         <span
           aria-hidden="true"
-          class="amplify-icon amplify-alert__icon"
+          class="amplify-icon"
           style="width: 1em; height: 1em;"
         >
           <svg
