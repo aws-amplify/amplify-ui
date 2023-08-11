@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "latest",
+    "@aws-amplify/ui-react": "0.0.0-react-v4-next-ee3c564-20230811190835",
     "@aws-amplify/ui-react-liveness": "latest",
     "aws-amplify": "latest",
     "next": "12.0.10",
