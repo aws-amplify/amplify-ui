@@ -2156,7 +2156,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-fieldset-legend-line-height\\",
-        \\"value\\": \\"var(--amplify-line-heights-small)\\"
+        \\"value\\": \\"var(--amplify-line-heights-medium)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-fieldset-outlined-border-color\\",
@@ -2171,8 +2171,16 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-border-widths-small)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-large-padding\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-fieldset-outlined-padding\\",
         \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-small-padding\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-fieldset-small-font-size\\",
