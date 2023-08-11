@@ -119,6 +119,7 @@ Array [
   "useDataStoreDeleteAction",
   "useDataStoreItem",
   "useDataStoreUpdateAction",
+  "useIcons",
   "useNavigateAction",
   "useStateMutationAction",
   "useStorageURL",

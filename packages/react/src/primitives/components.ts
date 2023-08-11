@@ -14,7 +14,7 @@ export { Flex } from './Flex';
 export { Grid } from './Grid';
 export { Heading } from './Heading';
 export { HighlightMatch } from './HighlightMatch';
-export { Icon, IconsProvider } from './Icon';
+export { Icon, IconsProvider, IconsContextInterface } from './Icon';
 export { Image } from './Image';
 export { Link } from './Link';
 export { Loader } from './Loader';

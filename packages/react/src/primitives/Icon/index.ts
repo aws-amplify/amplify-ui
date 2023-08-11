@@ -1,3 +1,3 @@
 export { Icon } from './Icon';
-export { IconsProvider, useIcons } from './context';
+export { IconsProvider, IconsContextInterface, useIcons } from './context';
 export * from './icons';
