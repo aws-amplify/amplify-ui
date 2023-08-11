@@ -9,6 +9,9 @@ interface UseFieldsetProps {
 }
 
 export const useFieldsetProps: UseFieldsetProps = (initialValues) => {
+  const [direction, setDirection] = React.useState<FieldsetProps['direction']>(
+    initialValues.direction
+  );
   const [isDisabled, setIsDisabled] = React.useState<
     FieldsetProps['isDisabled']
   >(initialValues.isDisabled);
@@ -24,15 +27,18 @@ export const useFieldsetProps: UseFieldsetProps = (initialValues) => {
 
   React.useEffect(() => {
     demoState.set(Fieldset.displayName, {
+      direction,
       isDisabled,
       legend,
       size,
       variation,
     });
-  }, [isDisabled, legend, size, variation]);
+  }, [direction, isDisabled, legend, size, variation]);
 
   return React.useMemo(
     () => ({
+      direction,
+      setDirection,
       isDisabled,
       setIsDisabled,
       legend,
@@ -42,6 +48,6 @@ export const useFieldsetProps: UseFieldsetProps = (initialValues) => {
       variation,
       setVariation,
     }),
-    [isDisabled, legend, size, variation]
+    [direction, isDisabled, legend, size, variation]
   );
 };

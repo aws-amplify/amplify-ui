@@ -44,6 +44,7 @@ const propsToCode = (props) => {
 const defaultFieldsetProps = {
   legend: 'Favorite fruits',
   isDisabled: false,
+  direction: 'column',
 };
 
 export const FieldsetDemo = () => {
@@ -61,6 +62,8 @@ export const FieldsetDemo = () => {
         size={fieldsetProps.size}
         isDisabled={fieldsetProps.isDisabled}
         legend={fieldsetProps.legend}
+        direction={fieldsetProps.direction}
+        alignItems="center"
       >
         <CheckboxField
           label="Subscribe"
@@ -74,7 +77,6 @@ export const FieldsetDemo = () => {
           name="subscribe"
           value="yes"
         />
-        <TextField size={fieldsetProps.size} label="Street Address" />
       </Fieldset>
     </Demo>
   );

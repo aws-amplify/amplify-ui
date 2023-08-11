@@ -8,6 +8,9 @@ import {
 import * as React from 'react';
 
 export interface FieldsetPropControlsProps extends FieldsetProps {
+  setDirection: (
+    value: React.SetStateAction<FieldsetProps['direction']>
+  ) => void;
   setIsDisabled: (
     value: React.SetStateAction<FieldsetProps['isDisabled']>
   ) => void;
@@ -31,6 +34,7 @@ export const FieldsetPropControls: FieldsetPropControlsInterface = ({
   setSize,
   variation,
   setVariation,
+  setDirection,
 }) => {
   return (
     <Flex direction="column">
@@ -51,6 +55,18 @@ export const FieldsetPropControls: FieldsetPropControlsInterface = ({
       >
         <option value="">default</option>
         <option value="outlined">outlined</option>
+      </SelectField>
+      <SelectField
+        label="direction"
+        name="direction"
+        onChange={(event) =>
+          setDirection(event.target.value as FieldsetProps['direction'])
+        }
+      >
+        <option value="column">column</option>
+        <option value="column-reverse">column-reverse</option>
+        <option value="row">row</option>
+        <option value="row-reverse">row-reverse</option>
       </SelectField>
       <SelectField
         name="size"
