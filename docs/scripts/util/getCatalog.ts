@@ -11,6 +11,7 @@ import {
   Catalog,
 } from '../types/catalog';
 import { TypeFileName } from '../types/allTypesData';
+import { componentsWithChildren } from './componentsWithChildren';
 
 const { allTypeFilesInterfaceData, allTypeFilesTypeData } = getAllTypesData();
 
@@ -48,6 +49,30 @@ function getCatalog() {
   const catalog: Catalog = {} as Catalog;
   for (const [componentName, [node]] of source.getExportedDeclarations()) {
     let properties: Properties = {};
+    const children = componentsWithChildren[componentName];
+    if (children) {
+      // This will get the types for nested sub-components like Breadcrumbs.Item
+      node
+        .getType()
+        .getProperties()
+        .filter((p) =>
+          children.includes(`${componentName}.${p.getName()}` as ComponentName)
+        )
+        .forEach((child) => {
+          const name = `${componentName}.${child.getName()}`;
+          const childProperties = getComponentProperties(
+            child
+              .getTypeAtLocation(node)
+              .getCallSignatures()[0]
+              .getParameters()[0]
+              .getValueDeclaration()
+              .getType(),
+            name as ComponentName
+          );
+          catalog[name] = childProperties;
+        });
+    }
+
     if (isPrimitive(node)) {
       const [propsType] = node.getType().getTypeArguments();
       properties = getComponentProperties(
@@ -85,7 +110,7 @@ function isPrimitive(node: Node): node is VariableDeclaration {
   return (
     Node.isVariableDeclaration(node) &&
     (typeName.startsWith('Primitive') ||
-      typeName.startsWith('React.ForwardRef'))
+      typeName.startsWith('ForwardRefPrimitive'))
   );
 }
 

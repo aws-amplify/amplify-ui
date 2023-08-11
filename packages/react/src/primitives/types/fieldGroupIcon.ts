@@ -1,7 +1,8 @@
-import { ViewProps } from './view';
-import { ButtonProps } from './button';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
+import { BaseButtonProps } from './button';
 
-export interface FieldGroupIconProps extends ViewProps {
+/** @deprecated For internal use only */
+export interface BaseFieldGroupIconProps extends BaseViewProps {
   /**
    * @description
    * Determines whether Icon should be visible
@@ -15,7 +16,14 @@ export interface FieldGroupIconProps extends ViewProps {
    */
   excludeFromTabOrder?: boolean;
 }
+export type FieldGroupIconProps<
+  Element extends ElementType = 'button' | 'div'
+> = PrimitiveProps<BaseFieldGroupIconProps, Element>;
 
-export interface FieldGroupIconButtonProps
-  extends FieldGroupIconProps,
-    Pick<ButtonProps, 'onClick' | 'variation' | 'size' | 'type'> {}
+/** @deprecated For internal use only */
+export interface BaseFieldGroupIconButtonProps
+  extends BaseFieldGroupIconProps,
+    Pick<BaseButtonProps, 'onClick' | 'variation' | 'size' | 'type'> {}
+
+export type FieldGroupIconButtonProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseFieldGroupIconButtonProps, Element>;

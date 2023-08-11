@@ -79,6 +79,31 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Badge'],
     description: 'Top level element that wraps the Badge component',
   },
+  Breadcrumbs: {
+    className: ComponentClassName.Breadcrumbs,
+    components: ['Breadcrumbs'],
+    description: 'Top level element that wraps the Breadcrumbs component',
+  },
+  BreadcrumbsItem: {
+    className: ComponentClassName.BreadcrumbsItem,
+    components: ['Breadcrumbs'],
+    description: 'Each breadcrumb',
+  },
+  BreadcrumbsLink: {
+    className: ComponentClassName.BreadcrumbsLink,
+    components: ['Breadcrumbs'],
+    description: 'Links used within breadcrumbs',
+  },
+  BreadcrumbsList: {
+    className: ComponentClassName.BreadcrumbsList,
+    components: ['Breadcrumbs'],
+    description: 'List element within nav',
+  },
+  BreadcrumbsSeparator: {
+    className: ComponentClassName.BreadcrumbsSeparator,
+    components: ['Breadcrumbs'],
+    description: 'Separator between each breadcrumb',
+  },
   Button: {
     className: ComponentClassName.Button,
     components: ['Button'],
@@ -548,6 +573,11 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['StepperField'],
     description: 'Class applied to the StepperField input',
   },
+  StorageImage: {
+    className: ComponentClassName.StorageImage,
+    components: ['StorageImage'],
+    description: 'Class applied to the img tag',
+  },
   StorageManager: {
     className: ComponentClassName.StorageManager,
     components: ['StorageManager'],
@@ -748,6 +778,11 @@ export const ComponentClassNames: ComponentClassNamesType = {
   AutocompleteMenuOptions:
     ComponentClassObject.AutocompleteMenuOptions.className,
   Badge: ComponentClassObject.Badge.className,
+  Breadcrumbs: ComponentClassObject.Breadcrumbs.className,
+  BreadcrumbsItem: ComponentClassObject.BreadcrumbsItem.className,
+  BreadcrumbsLink: ComponentClassObject.BreadcrumbsLink.className,
+  BreadcrumbsList: ComponentClassObject.BreadcrumbsList.className,
+  BreadcrumbsSeparator: ComponentClassObject.BreadcrumbsSeparator.className,
   Button: ComponentClassObject.Button.className,
   ButtonGroup: ComponentClassObject.ButtonGroup.className,
   ButtonLoaderWrapper: ComponentClassObject.ButtonLoaderWrapper.className,
@@ -868,6 +903,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   StepperFieldButtonIncrease:
     ComponentClassObject.StepperFieldButtonIncrease.className,
   StepperFieldInput: ComponentClassObject.StepperFieldInput.className,
+  StorageImage: ComponentClassObject.StorageImage.className,
   StorageManager: ComponentClassObject.StorageManager.className,
   StorageManagerDropZone: ComponentClassObject.StorageManagerDropZone.className,
   StorageManagerDropZoneIcon:
@@ -958,6 +994,8 @@ export const ComponentText = {
 
 export const stylePropsToThemeKeys: Record<ThemeStylePropKey, ThemeTokenKey> = {
   backgroundColor: 'colors',
+  borderColor: 'colors',
+  borderWidth: 'borderWidths',
   color: 'colors',
   borderRadius: 'radii',
   fontSize: 'fontSizes',

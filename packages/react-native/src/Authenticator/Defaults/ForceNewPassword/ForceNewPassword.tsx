@@ -9,30 +9,39 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultForceNewPasswordComponent } from '../types';
+import { DefaultForceNewPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ForceNewPassword';
 
 const { getChangePasswordText, getChangingText, getBackToSignInText } =
   authenticatorTextUtil;
 
-const ForceNewPassword: DefaultForceNewPasswordComponent = ({
+const ForceNewPassword = ({
   fields,
   handleBlur,
   handleChange,
   handleSubmit,
+  hasValidationErrors,
   isPending,
   toSignIn,
+  validationErrors,
   ...rest
-}) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+}: DefaultForceNewPasswordProps): JSX.Element => {
+  const {
+    disableFormSubmit,
+    fields: fieldsWithHandlers,
+    fieldValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
+  const disabled = hasValidationErrors || disableFormSubmit;
   const headerText = getChangePasswordText();
   const primaryButtonText = isPending
     ? getChangingText()
@@ -41,10 +50,20 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: [{ children: secondaryButtonText, onPress: toSignIn }],
     }),
-    [handleFormSubmit, primaryButtonText, secondaryButtonText, toSignIn]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      secondaryButtonText,
+      toSignIn,
+    ]
   );
 
   return (
@@ -54,6 +73,7 @@ const ForceNewPassword: DefaultForceNewPasswordComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

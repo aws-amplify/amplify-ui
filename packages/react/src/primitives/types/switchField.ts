@@ -2,12 +2,14 @@ import { Property } from 'csstype';
 
 import { Sizes } from './base';
 import { BaseStyleProps, StyleToken } from './style';
-import { InputProps } from './input';
-import { FieldProps, LabelPositions } from './field';
+import { BaseInputProps } from './input';
+import { BaseFieldProps, LabelPositions } from './field';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface SwitchFieldProps
-  extends InputProps,
-    FieldProps,
+/** @deprecated For internal use only */
+export interface BaseSwitchFieldProps
+  extends BaseInputProps,
+    BaseFieldProps,
     BaseStyleProps {
   /**
    * @description
@@ -88,3 +90,6 @@ export interface SwitchFieldProps
    */
   value?: string | number;
 }
+
+export type SwitchFieldProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseSwitchFieldProps, Element>;

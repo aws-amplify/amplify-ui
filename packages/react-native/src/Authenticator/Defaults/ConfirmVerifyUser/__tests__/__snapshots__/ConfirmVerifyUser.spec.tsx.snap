@@ -11,7 +11,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -32,6 +32,11 @@ Array [
   />,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -56,11 +61,11 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={
@@ -150,7 +155,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -171,6 +176,11 @@ Array [
   />,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -195,11 +205,11 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={
@@ -289,7 +299,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -324,6 +334,7 @@ Array [
         },
       ]
     }
+    testID="amplify__error-message"
   >
     <Image
       accessibilityRole="image"
@@ -368,6 +379,11 @@ Array [
   </View>,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -392,11 +408,11 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={

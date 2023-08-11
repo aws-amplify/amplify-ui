@@ -13,19 +13,12 @@ describe('MatchIndicator', () => {
     );
 
     const matchIndicator = await screen.findByTestId(testId);
-    const matchIndicatorPin = container.getElementsByClassName(
-      `${LivenessClassNames.MatchIndicator}__pin`
-    );
     const matchIndicatorBar = container.getElementsByClassName(
       `${LivenessClassNames.MatchIndicator}__bar`
     );
 
     expect(matchIndicator).toBeInTheDocument();
-    expect(matchIndicatorPin).toHaveLength(1);
     expect(matchIndicatorBar).toHaveLength(1);
-    expect(matchIndicatorPin[0]).toHaveStyle({
-      '--percentage': `${percentage}%`,
-    });
     expect(matchIndicatorBar[0]).toHaveStyle({
       '--percentage': `${percentage}%`,
     });
@@ -38,16 +31,10 @@ describe('MatchIndicator', () => {
       <MatchIndicator testId={testId} percentage={percentage} />
     );
 
-    const matchIndicatorPin = container.getElementsByClassName(
-      `${LivenessClassNames.MatchIndicator}__pin`
-    );
     const matchIndicatorBar = container.getElementsByClassName(
       `${LivenessClassNames.MatchIndicator}__bar`
     );
 
-    expect(matchIndicatorPin[0]).toHaveStyle({
-      '--percentage': '100%',
-    });
     expect(matchIndicatorBar[0]).toHaveStyle({
       '--percentage': '100%',
     });
@@ -60,16 +47,10 @@ describe('MatchIndicator', () => {
       <MatchIndicator testId={testId} percentage={percentage} />
     );
 
-    const matchIndicatorPin = container.getElementsByClassName(
-      `${LivenessClassNames.MatchIndicator}__pin`
-    );
     const matchIndicatorBar = container.getElementsByClassName(
       `${LivenessClassNames.MatchIndicator}__bar`
     );
 
-    expect(matchIndicatorPin[0]).toHaveStyle({
-      '--percentage': '0%',
-    });
     expect(matchIndicatorBar[0]).toHaveStyle({
       '--percentage': '0%',
     });

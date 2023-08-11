@@ -1,5 +1,139 @@
 # @aws-amplify/ui
 
+## 5.7.0
+
+### Minor Changes
+
+- [#4288](https://github.com/aws-amplify/amplify-ui/pull/4288) [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - New component: Breadcrumbs!
+
+  A composable component for displaying breadcrumb navigation
+
+  ```jsx
+  <Breadcrumbs
+    items={[
+      {
+        href: '/',
+        label: 'Home',
+      },
+      {
+        href: '/category',
+        label: 'Category',
+      },
+      {
+        href: '/category/type',
+        label: 'Type',
+      },
+    ]}
+  />
+  ```
+
+  ```jsx
+  <Breadcrumbs.Container>
+    {breadcrumbs.map(({ href, label }, idx) => {
+      const isCurrent = breadcrumbs.length - 1 === idx;
+      return (
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link isCurrent={isCurrent} href={href}>
+            {label}
+          </Breadcrumbs.Link>
+          {isCurrent ? null : <Breadcrumbs.Separator>/</Breadcrumbs.Separator>}
+        </Breadcrumbs.Item>
+      );
+    })}
+  </Breadcrumbs.Container>
+  ```
+
+### Patch Changes
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
+## 5.6.9
+
+### Patch Changes
+
+- [#4301](https://github.com/aws-amplify/amplify-ui/pull/4301) [`e7e75874d`](https://github.com/aws-amplify/amplify-ui/commit/e7e75874dea238046c94e4fdd965029620171254) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(react/ui): update paddingInlineEnd and icon placement on small and large Select primitives with related tokens for theming.
+
+- [#4293](https://github.com/aws-amplify/amplify-ui/pull/4293) [`0417bd41c`](https://github.com/aws-amplify/amplify-ui/commit/0417bd41c065673eb70dd916c9008d88671445c9) Thanks [@florian42](https://github.com/florian42)! - fix(authenticator): typos and missing german translations
+
+## 5.6.8
+
+### Patch Changes
+
+- [#4271](https://github.com/aws-amplify/amplify-ui/pull/4271) [`6b71ec46c`](https://github.com/aws-amplify/amplify-ui/commit/6b71ec46ccbf63c4605c9a57d3ecff098a42938a) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix border color token for SwitchField thumb
+
+## 5.6.7
+
+### Patch Changes
+
+- [#4236](https://github.com/aws-amplify/amplify-ui/pull/4236) [`78fdfd6c8`](https://github.com/aws-amplify/amplify-ui/commit/78fdfd6c8268c56204f905402162ad8cb40a0c8e) Thanks [@hbuchel](https://github.com/hbuchel)! - chore(ui): add color design token for field control error state.
+
+  Updates the ShowPasswordButton color to use this token instead of border-color.
+
+- [#4227](https://github.com/aws-amplify/amplify-ui/pull/4227) [`d3ee05415`](https://github.com/aws-amplify/amplify-ui/commit/d3ee054159e1de81861bcd9273be9b1c87924cf4) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(react-native): border widths, spacing, font sizes, opacities in the theme don't throw runtime errors.
+
+  These are all valid in a theme now:
+
+  ```typescript
+  const theme: Theme = {
+    tokens: {
+      borderWidths: {
+        small: '4',
+        medium: '1rem',
+        large: 6,
+      },
+      opacities: {
+        '10': '0.2',
+      },
+      space: {
+        small: 4,
+        medium: '6',
+        large: '{space.small.value}',
+      },
+      fontSizes: {
+        small: '1rem',
+      },
+    },
+  };
+  ```
+
+- [#3646](https://github.com/aws-amplify/amplify-ui/pull/3646) [`165a8abbd`](https://github.com/aws-amplify/amplify-ui/commit/165a8abbda8aa3e95fb9466fc60f8694c646d5bc) Thanks [@Rogue-striker](https://github.com/Rogue-striker)! - Allow PasswordField visibility toggle icon border color to indicate error
+
+- [#4194](https://github.com/aws-amplify/amplify-ui/pull/4194) [`13098b36a`](https://github.com/aws-amplify/amplify-ui/commit/13098b36a75452d839955d141bd25f57538b1a22) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): move inline css to classes
+
+- [#4160](https://github.com/aws-amplify/amplify-ui/pull/4160) [`37e490d39`](https://github.com/aws-amplify/amplify-ui/commit/37e490d3997a1dc55e2998c277790945921e6dc3) Thanks [@tyndria](https://github.com/tyndria)! - Add missing french translation
+
+- [#4262](https://github.com/aws-amplify/amplify-ui/pull/4262) [`aea82ff1b`](https://github.com/aws-amplify/amplify-ui/commit/aea82ff1bb6e066ed8b70433f4d72cd34bf0ccae) Thanks [@zchenwei](https://github.com/zchenwei)! - feat(ui-react-storage): Add a new connected component `StorageImage`. It allows you load the images managed by Amplify Storage.
+
+  _Example:_
+
+  ```jsx
+  import { StorageImage } from '@aws-amplify/ui-react-storage';
+
+  <StorageImage alt="StorageImage" imgKey="image.jpg" accessLevel="public" />;
+  ```
+
+## 5.6.6
+
+### Patch Changes
+
+- [#4161](https://github.com/aws-amplify/amplify-ui/pull/4161) [`b0e16e78c`](https://github.com/aws-amplify/amplify-ui/commit/b0e16e78c6a41945aa79f3e14fa3f9e6cb0e5e76) Thanks [@judygab](https://github.com/judygab)! - Add `borderColor`, `borderWidth`, and `borderStyle` style props
+
+- [#4168](https://github.com/aws-amplify/amplify-ui/pull/4168) [`d930e2ed1`](https://github.com/aws-amplify/amplify-ui/commit/d930e2ed17f3e638e2b62699ba2dd164b32f8118) Thanks [@calebpollman](https://github.com/calebpollman)! - chore(RWA/RNA): deprecate passwordSettings prop
+
+## 5.6.5
+
+### Patch Changes
+
+- [#4108](https://github.com/aws-amplify/amplify-ui/pull/4108) [`3cecd0765`](https://github.com/aws-amplify/amplify-ui/commit/3cecd0765b46c77c49af24fae7cfb9054ebe2cdb) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - fix(primitives): fix linear loader size bug
+
+  The linear loader was too big after #1331, this fixes it
+
+## 5.6.4
+
+### Patch Changes
+
+- [#3923](https://github.com/aws-amplify/amplify-ui/pull/3923) [`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd) Thanks [@reesscot](https://github.com/reesscot)! - fix (authenticator): fix translations for enter your email
+
 ## 5.6.3
 
 ### Patch Changes

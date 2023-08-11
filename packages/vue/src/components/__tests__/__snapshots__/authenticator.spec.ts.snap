@@ -1,0 +1,1390 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authenticator renders confirmResetPassword subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+        data-amplify-router-content=""
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        
+        <div>
+          
+          
+          <form
+            data-amplify-authenticator-confirmresetpassword=""
+            data-amplify-form=""
+          >
+            
+            
+            <fieldset
+              class="amplify-flex amplify-authenticator__column"
+              data-amplify-fieldset=""
+            >
+              
+              
+              <h3
+                class="amplify-heading amplify-heading--3"
+                data-amplify-heading=""
+              >
+                
+              </h3>
+              
+              <div
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                
+                
+                
+              </div>
+              
+              <footer
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                <!--v-if-->
+                
+                <button
+                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  fullwidth="false"
+                  type="submit"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                <button
+                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-size="small"
+                  data-variation="link"
+                  fullwidth="false"
+                  type="button"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                
+                
+              </footer>
+              
+              
+            </fieldset>
+            
+            
+          </form>
+          
+          
+        </div>
+        
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`authenticator renders confirmSignIn subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+        data-amplify-router-content=""
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        
+        <div>
+          
+          
+          <form
+            data-amplify-authenticator-confirmsignin=""
+            data-amplify-form=""
+          >
+            
+            
+            <fieldset
+              class="amplify-flex amplify-authenticator__column"
+              data-amplify-fieldset=""
+            >
+              
+              
+              <h3
+                class="amplify-heading amplify-heading--3"
+                data-amplify-heading=""
+              >
+                
+              </h3>
+              
+              <div
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                
+                
+                
+              </div>
+              
+              <footer
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                <!--v-if-->
+                
+                <button
+                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  fullwidth="false"
+                  style="font-weight: normal;"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                <button
+                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-size="small"
+                  data-variation="link"
+                  fullwidth="false"
+                  style="font-weight: normal;"
+                  type="button"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                
+                
+              </footer>
+              
+              
+            </fieldset>
+            
+            
+          </form>
+          
+          
+        </div>
+        
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`authenticator renders confirmSignUp subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+        data-amplify-router-content=""
+      >
+        <!--v-if-->
+        <!--v-if-->
+        
+        <div>
+          
+          
+          <form
+            data-amplify-form=""
+          >
+            
+            <div
+              class="amplify-flex amplify-authenticator__column"
+            >
+              
+              
+              <h3
+                class="amplify-heading amplify-authenticator__heading amplify-heading--3"
+                data-amplify-heading=""
+              >
+                
+              </h3>
+              
+              
+              <span
+                class="amplify-authenticator__subtitle"
+                data-amplify-text=""
+              >
+                
+                undefined. undefined.
+                
+              </span>
+              
+              
+              <fieldset
+                class="amplify-flex amplify-authenticator__column"
+                data-amplify-fieldset=""
+              >
+                
+                
+                
+                
+              </fieldset>
+              
+              
+              <footer
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                <!--v-if-->
+                
+                <button
+                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  fullwidth="false"
+                  type="submit"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                <button
+                  class="amplify-button amplify-button--default amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="default"
+                  fullwidth="false"
+                  style="font-weight: normal;"
+                  type="button"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                
+                
+              </footer>
+              
+              
+            </div>
+            
+          </form>
+          
+          
+        </div>
+        
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`authenticator renders confirmVerifyUser subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+        data-amplify-router-content=""
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        
+        <div>
+          
+          
+          <form
+            data-amplify-form=""
+          >
+            
+            
+            <fieldset
+              class="amplify-flex amplify-authenticator__column"
+              data-amplify-fieldset=""
+            >
+              
+              
+              <h3
+                class="amplify-heading amplify-heading--3"
+                data-amplify-heading=""
+              >
+                
+              </h3>
+              
+              <div
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                
+                
+                
+              </div>
+              
+              <footer
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                <!--v-if-->
+                
+                <button
+                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  fullwidth="false"
+                  type="submit"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                <button
+                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-size="small"
+                  data-variation="link"
+                  fullwidth="false"
+                  style="font-weight: normal;"
+                  type="button"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                
+                
+              </footer>
+              
+              
+            </fieldset>
+            
+            
+          </form>
+          
+          
+        </div>
+        
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`authenticator renders forceNewPassword subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+        data-amplify-router-content=""
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        
+        <div>
+          
+          
+          <form
+            data-amplify-authenticator-forcenewpassword=""
+            data-amplify-form=""
+          >
+            
+            
+            <fieldset
+              class="amplify-flex amplify-authenticator__column"
+              data-amplify-fieldset=""
+            >
+              
+              
+              <h3
+                class="amplify-heading amplify-heading--3"
+                data-amplify-heading=""
+              >
+                
+              </h3>
+              
+              <div
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                
+                
+                
+                
+                
+              </div>
+              
+              <footer
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                <!--v-if-->
+                
+                <button
+                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  fullwidth="false"
+                  style="font-weight: normal;"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                <button
+                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-size="small"
+                  data-variation="link"
+                  fullwidth="false"
+                  style="font-weight: normal;"
+                  type="button"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                
+                
+              </footer>
+              
+              
+            </fieldset>
+            
+            
+          </form>
+          
+          
+        </div>
+        
+        <!--v-if-->
+        <!--v-if-->
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`authenticator renders resetPassword subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+        data-amplify-router-content=""
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        
+        
+        <form
+          data-amplify-authenticator-resetpassword=""
+          data-amplify-form=""
+        >
+          
+          <div
+            class="amplify-flex amplify-authenticator__column"
+          >
+            
+            
+            <h3
+              class="amplify-heading amplify-heading--3"
+              data-amplify-heading=""
+            >
+              
+            </h3>
+            
+            
+            <fieldset
+              class="amplify-flex amplify-authenticator__column"
+              data-amplify-fieldset=""
+            >
+              
+              
+              
+              
+            </fieldset>
+            
+            
+            <footer
+              class="amplify-flex amplify-authenticator__column"
+            >
+              
+              <!--v-if-->
+              
+              <button
+                class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                data-amplify-button=""
+                data-disabled="false"
+                data-fullwidth="false"
+                data-loading="false"
+                data-variation="primary"
+                fullwidth="false"
+                type="submit"
+              >
+                
+                
+                
+              </button>
+              
+              
+              <button
+                class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                data-amplify-button=""
+                data-disabled="false"
+                data-fullwidth="false"
+                data-loading="false"
+                data-size="small"
+                data-variation="link"
+                fullwidth="false"
+                style="font-weight: normal;"
+                type="button"
+              >
+                
+                
+                
+              </button>
+              
+              
+              
+              
+            </footer>
+            
+            
+          </div>
+          
+        </form>
+        
+        
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`authenticator renders setupTOTP subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+        data-amplify-router-content=""
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        
+        <div>
+          
+          
+          <form
+            data-amplify-authenticator-setup-totp=""
+            data-amplify-form=""
+          >
+            
+            
+            <fieldset
+              class="amplify-flex amplify-authenticator__column"
+              data-amplify-fieldset=""
+            >
+              
+              <div
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                
+                <h3
+                  class="amplify-heading amplify-heading--3"
+                  data-amplify-heading=""
+                >
+                   Setup TOTP 
+                </h3>
+                
+                <div
+                  class="amplify-flex amplify-authenticator__column"
+                >
+                  
+                  <p>
+                    Loading...
+                  </p>
+                  <div
+                    class="amplify-flex"
+                    data-amplify-copy=""
+                  >
+                    
+                    <div>
+                      totp-mock-secret-code
+                    </div>
+                    <div
+                      data-amplify-copy-svg=""
+                    >
+                      
+                      <div
+                        data-amplify-copy-tooltip=""
+                      />
+                      <svg
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z"
+                        />
+                      </svg>
+                      
+                    </div>
+                    
+                  </div>
+                  
+                  
+                  
+                </div>
+                
+                <footer
+                  class="amplify-flex amplify-authenticator__column"
+                >
+                  
+                  <!--v-if-->
+                  
+                  <button
+                    class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                    data-amplify-button=""
+                    data-disabled="false"
+                    data-fullwidth="false"
+                    data-loading="false"
+                    data-variation="primary"
+                    fullwidth="false"
+                    type="submit"
+                  >
+                    
+                    
+                    
+                  </button>
+                  
+                  
+                  <button
+                    class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                    data-amplify-button=""
+                    data-disabled="false"
+                    data-fullwidth="false"
+                    data-loading="false"
+                    data-size="small"
+                    data-variation="link"
+                    fullwidth="false"
+                    style="font-weight: normal;"
+                    type="button"
+                  >
+                    
+                    
+                    
+                  </button>
+                  
+                  
+                  
+                  
+                </footer>
+                
+                
+              </div>
+              
+            </fieldset>
+            
+            
+          </form>
+          
+          
+        </div>
+        
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`authenticator renders signIn subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+      >
+        <div
+          aria-orientation="horizontal"
+          class="amplify-authenticator__tabs"
+          data-orientation="horizontal"
+          role="tablist"
+          tabindex="0"
+        >
+          
+          <div
+            class="amplify-flex amplify-tabs amplify-authenticator__tabs-wrapper"
+            data-indicator-position="top"
+          >
+            
+            
+            <div
+              aria-controls="radix-id-44472-8-content-0"
+              aria-selected="true"
+              class="amplify-tabs-item"
+              data-orientation="horizontal"
+              data-radix-collection-item=""
+              data-spacing="equal"
+              data-state="active"
+              id="radix-id-44472-8-trigger-0"
+              role="tab"
+              tabindex="0"
+            >
+              
+              
+              
+            </div>
+            <div
+              aria-controls="radix-id-44471-8-content-0"
+              aria-selected="false"
+              class="amplify-tabs-item"
+              data-orientation="horizontal"
+              data-radix-collection-item=""
+              data-spacing="equal"
+              data-state="inactive"
+              id="radix-id-44471-8-trigger-0"
+              role="tab"
+              tabindex="-1"
+            >
+              
+              
+              
+            </div>
+            
+            
+          </div>
+          
+        </div>
+        <div
+          data-amplify-router-content=""
+        >
+          
+          
+          
+          <div>
+            
+            
+            <form
+              data-amplify-authenticator-signin=""
+              data-amplify-form=""
+              method="post"
+            >
+              
+              <!--v-if-->
+              <div
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                
+                <fieldset
+                  class="amplify-flex amplify-authenticator__column"
+                  data-amplify-fieldset=""
+                >
+                  
+                  <legend
+                    class="amplify-visually-hidden"
+                  >
+                    Sign in
+                  </legend>
+                  
+                  
+                  
+                </fieldset>
+                
+                <!--v-if-->
+                
+                <button
+                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  fullwidth="true"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+              </div>
+              
+            </form>
+            
+            
+          </div>
+          
+          <footer>
+            
+            
+            <div
+              data-amplify-footer=""
+            >
+              
+              <button
+                class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                data-amplify-button=""
+                data-disabled="false"
+                data-fullwidth="false"
+                data-loading="false"
+                data-size="small"
+                data-variation="link"
+                fullwidth="true"
+                style="font-weight: normal;"
+                type="button"
+              >
+                
+                
+                
+              </button>
+              
+            </div>
+            
+            
+          </footer>
+          
+          
+          <!--v-if-->
+        </div>
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`authenticator renders signUp subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+      >
+        <div
+          aria-orientation="horizontal"
+          class="amplify-authenticator__tabs"
+          data-orientation="horizontal"
+          role="tablist"
+          tabindex="0"
+        >
+          
+          <div
+            class="amplify-flex amplify-tabs amplify-authenticator__tabs-wrapper"
+            data-indicator-position="top"
+          >
+            
+            
+            <div
+              aria-controls="radix-id-44472-8-content-0"
+              aria-selected="false"
+              class="amplify-tabs-item"
+              data-orientation="horizontal"
+              data-radix-collection-item=""
+              data-spacing="equal"
+              data-state="inactive"
+              id="radix-id-44472-8-trigger-0"
+              role="tab"
+              tabindex="-1"
+            >
+              
+              
+              
+            </div>
+            <div
+              aria-controls="radix-id-44471-8-content-0"
+              aria-selected="true"
+              class="amplify-tabs-item"
+              data-orientation="horizontal"
+              data-radix-collection-item=""
+              data-spacing="equal"
+              data-state="active"
+              id="radix-id-44471-8-trigger-0"
+              role="tab"
+              tabindex="0"
+            >
+              
+              
+              
+            </div>
+            
+            
+          </div>
+          
+        </div>
+        <div
+          data-amplify-router-content=""
+        >
+          <!--v-if-->
+          
+          
+          
+          <div>
+            
+            
+            <form
+              data-amplify-form=""
+            >
+              
+              <!--v-if-->
+              <div
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                
+                <fieldset
+                  class="amplify-flex amplify-authenticator__column"
+                  data-amplify-fieldset=""
+                >
+                  
+                  
+                  
+                  
+                </fieldset>
+                
+                <!--v-if-->
+                
+                <button
+                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  fullwidth="true"
+                  style="border-radius: 0px; font-weight: normal;"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+              </div>
+              
+            </form>
+            
+            
+          </div>
+          
+          <footer>
+            
+            
+          </footer>
+          
+          
+        </div>
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;
+
+exports[`authenticator renders verifyUser subcomponent 1`] = `
+<div>
+  
+  <div
+    data-amplify-authenticator=""
+    data-variation="default"
+  >
+    <div
+      data-amplify-container=""
+    >
+      
+      
+      <div
+        data-amplify-router=""
+        data-amplify-router-content=""
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        
+        <div>
+          
+          
+          <form
+            data-amplify-form=""
+          >
+            
+            
+            <fieldset
+              class="amplify-flex amplify-authenticator__column"
+              data-amplify-fieldset=""
+            >
+              
+              
+              <h3
+                class="amplify-heading amplify-heading--3"
+                data-amplify-heading=""
+              >
+                
+              </h3>
+              
+              <div
+                class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
+              >
+                
+                <!-- TODO(BREAKING): remove hard coded string 493c -->
+                <label
+                  class="amplify-visually-hidden amplify-label"
+                  data-amplify-label=""
+                  id="amplify-field-493c"
+                >
+                  
+                  
+                  
+                </label>
+                <div
+                  aria-labelledby="amplify-field-493c"
+                  class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
+                >
+                  
+                  
+                  <label
+                    class="amplify-flex amplify-radio"
+                    data-amplify-label=""
+                    data-amplify-verify-label=""
+                    id="verify"
+                  >
+                    
+                    <input
+                      aria-invalid="false"
+                      class="amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                      data-amplify-input=""
+                      data-amplify-verify-input=""
+                      id="verify"
+                      name="unverifiedAttr"
+                      type="radio"
+                      value="email"
+                    />
+                    
+                    <span
+                      aria-hidden="true"
+                      class="amplify-flex amplify-radio__button"
+                      data-amplify-text=""
+                    >
+                      
+                      
+                    </span>
+                    
+                    
+                    <span
+                      class="amplify-text amplify-radio__label"
+                      data-amplify-text=""
+                    >
+                      
+                      Email
+                      
+                    </span>
+                    
+                    
+                  </label>
+                  
+                  
+                </div>
+                
+              </div>
+              
+              <footer
+                class="amplify-flex amplify-authenticator__column"
+              >
+                
+                <!--v-if-->
+                
+                <button
+                  class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  fullwidth="false"
+                  type="submit"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                <button
+                  class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+                  data-amplify-button=""
+                  data-disabled="false"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-size="small"
+                  data-variation="link"
+                  fullwidth="false"
+                  style="font-weight: normal;"
+                  type="button"
+                >
+                  
+                  
+                  
+                </button>
+                
+                
+                
+                
+              </footer>
+              
+              
+            </fieldset>
+            
+            
+          </form>
+          
+          
+        </div>
+        
+        <!--v-if-->
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- cast slot props back to any for backwards compatibility -->
+  <!--v-if-->
+  
+</div>
+`;

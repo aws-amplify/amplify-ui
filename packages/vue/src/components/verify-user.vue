@@ -1,30 +1,26 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs } from 'vue';
+import { computed, toRefs, useAttrs } from 'vue';
 
 import {
   authenticatorTextUtil,
-  getActorState,
-  SignInState,
   defaultFormFieldOptions,
+  getFormDataFromEvent,
   LoginMechanism,
   translate,
-  getFormDataFromEvent,
 } from '@aws-amplify/ui';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
+import { useAuthenticator } from '../composables/useAuth';
 
-const props = useAuthenticator();
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { isPending, unverifiedContactMethods, error } = toRefs(facade);
+const { skipVerification, submitForm, updateForm } = facade;
 
 const attrs = useAttrs();
+
+/** @deprecated Component events are deprecated and not maintained. */
 const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
-
-const { state, send } = useAuth();
-
-const actorState: ComputedRef<SignInState> = computed(
-  () => getActorState(state.value) as SignInState
-);
-
-const { unverifiedContactMethods } = actorState.value.context;
 
 // Text Util
 const {
@@ -43,14 +39,12 @@ const verifyContactText = computed(() => getVerifyContactText());
 // Methods
 const onInput = (e: Event): void => {
   const { name, value } = e.target as HTMLInputElement;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
+  updateForm({ name, value });
 };
 
 const onVerifyUserSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onVerifyUserSubmit) {
     emit('verifyUserSubmit', e);
   } else {
@@ -59,14 +53,16 @@ const onVerifyUserSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  props.submitForm(getFormDataFromEvent(e));
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onSkipClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onSkipClicked) {
     emit('skipClicked');
   } else {
-    send('SKIP');
+    skipVerification();
   }
 };
 </script>
@@ -76,7 +72,7 @@ const onSkipClicked = (): void => {
     <base-wrapper>
       <base-form @input="onInput" @submit.prevent="onVerifyUserSubmit">
         <base-field-set
-          :disabled="actorState.matches('verifyUser.pending')"
+          :disabled="isPending"
           class="amplify-flex amplify-authenticator__column"
         >
           <slot name="header">
@@ -87,6 +83,7 @@ const onSkipClicked = (): void => {
           <base-wrapper
             class="amplify-flex amplify-field amplify-radiogroupfield amplify-authenticator__column"
           >
+            <!-- TODO(BREAKING): remove hard coded string 493c -->
             <base-label
               class="amplify-visually-hidden amplify-label"
               id="amplify-field-493c"
@@ -125,17 +122,18 @@ const onSkipClicked = (): void => {
             </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex amplify-authenticator__column">
-            <base-alert v-if="actorState?.context?.remoteError">
-              {{ translate(actorState?.context.remoteError) }}
+            <base-alert v-if="error">
+              {{ translate(error) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
               :fullwidth="false"
               :variation="'primary'"
               type="submit"
-              :disabled="actorState.matches('verifyUser.pending')"
-              >{{ verifyText }}</amplify-button
+              :disabled="isPending"
             >
+              {{ verifyText }}
+            </amplify-button>
             <amplify-button
               class="amplify-field-group__control amplify-authenticator__font"
               :fullwidth="false"
@@ -145,8 +143,8 @@ const onSkipClicked = (): void => {
               type="button"
               @click.prevent="onSkipClicked"
             >
-              {{ skipText }}</amplify-button
-            >
+              {{ skipText }}
+            </amplify-button>
             <slot
               name="footer"
               :onSkipClicked="onSkipClicked"

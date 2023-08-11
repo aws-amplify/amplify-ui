@@ -1,6 +1,8 @@
-import { ButtonProps } from './button';
+import { BaseButtonProps } from './button';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface ToggleButtonProps extends ButtonProps {
+/** @deprecated For internal use only */
+export interface BaseToggleButtonProps extends BaseButtonProps {
   /**
    * @description
    * Controls the selected state of the ToggleButton
@@ -25,3 +27,6 @@ export interface ToggleButtonProps extends ButtonProps {
    */
   onChange?: (value: string | undefined) => void;
 }
+
+export type ToggleButtonProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseToggleButtonProps, Element>;

@@ -1,9 +1,15 @@
 import { Property } from 'csstype';
 
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { ResponsiveStyle } from './style';
 
 export interface ImageStyleProps {
+  /**
+   * @description
+   * Sets a preferred aspect ratio for the selected replaced element's box
+   */
+  aspectRatio?: ResponsiveStyle<Property.AspectRatio>;
+
   /**
    * @description
    *  Sets how the content of an <img> should be resized to fit its container
@@ -61,4 +67,10 @@ export interface ImageOptions extends ImageStyleProps {
   onError?(error: string | React.SyntheticEvent<HTMLImageElement, Event>): void;
 }
 
-export interface ImageProps extends ViewProps, ImageOptions {}
+/** @deprecated For internal use only */
+export interface BaseImageProps extends BaseViewProps, ImageOptions {}
+
+export type ImageProps<Element extends ElementType = 'img'> = PrimitiveProps<
+  BaseImageProps,
+  Element
+>;

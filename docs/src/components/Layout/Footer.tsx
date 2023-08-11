@@ -17,25 +17,23 @@ export const Footer = () => {
         gap="xs"
       >
         <Button
-          as={Link}
+          as="a"
           variation="link"
-          // @ts-ignore // IGNORE
           href={GITHUB_REPO}
-          isExternal
+          rel="noopener noreferrer"
           gap="xs"
         >
-          <GithubIcon ariaLabel="" />
+          <GithubIcon aria-hidden="true" />
           Contribute on GitHub
         </Button>
         <Button
-          as={Link}
+          as="a"
           variation="link"
-          // @ts-ignore // IGNORE
           href={DISCORD}
-          isExternal
+          rel="noopener noreferrer"
           gap="xs"
         >
-          <DiscordIcon ariaLabel="" />
+          <DiscordIcon aria-hidden="true" />
           Discuss on Discord
         </Button>
       </Flex>

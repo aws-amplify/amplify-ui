@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmResetPasswordComponent } from '../types';
+import { DefaultConfirmResetPasswordProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmResetPassword';
 
@@ -20,33 +20,52 @@ const {
   getResendCodeText,
 } = authenticatorTextUtil;
 
-const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
+const ConfirmResetPassword = ({
   fields,
   handleBlur,
   handleChange,
   handleSubmit,
+  hasValidationErrors,
   isPending,
   resendCode,
+  validationErrors,
   ...rest
-}) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+}: DefaultConfirmResetPasswordProps): JSX.Element => {
+  const {
+    disableFormSubmit,
+    fields: fieldsWithHandlers,
+    fieldValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
+  const disabled = hasValidationErrors || disableFormSubmit;
   const headerText = getResetYourPasswordText();
   const primaryButtonText = isPending ? getSubmittingText() : getSubmitText();
   const secondaryButtonText = getResendCodeText();
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       secondary: { children: secondaryButtonText, onPress: resendCode },
     }),
-    [handleFormSubmit, primaryButtonText, resendCode, secondaryButtonText]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      resendCode,
+      secondaryButtonText,
+    ]
   );
 
   return (
@@ -56,6 +75,7 @@ const ConfirmResetPassword: DefaultConfirmResetPasswordComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

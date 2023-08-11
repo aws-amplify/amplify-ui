@@ -5,8 +5,8 @@ import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { IconExpandMore } from '../Icon/internal';
-import { Primitive } from '../types';
-import { SelectProps } from '../types/select';
+import { ForwardRefPrimitive, Primitive } from '../types';
+import { BaseSelectProps, SelectProps } from '../types/select';
 import { View } from '../View';
 
 const SelectPrimitive: Primitive<SelectProps, 'select'> = (
@@ -64,13 +64,20 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </View>
-      <Flex className={ComponentClassNames.SelectIconWrapper} color={iconColor}>
+      <Flex
+        className={classNames(
+          ComponentClassNames.SelectIconWrapper,
+          classNameModifier(ComponentClassNames.SelectIconWrapper, size)
+        )}
+        color={iconColor}
+      >
         {icon}
       </Flex>
     </View>
   );
 };
 
-export const Select = React.forwardRef(SelectPrimitive);
+export const Select: ForwardRefPrimitive<BaseSelectProps, 'select'> =
+  React.forwardRef(SelectPrimitive);
 
 Select.displayName = 'Select';

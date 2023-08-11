@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { SearchFieldProps } from './searchField';
-import { ViewProps } from './view';
+import { BaseSearchFieldProps } from './searchField';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export interface AutocompleteComboboxProps {
   role: React.AriaRole;
@@ -29,7 +29,8 @@ export interface ComboBoxOption {
   label: string;
 }
 
-export interface AutocompleteOptionProps extends ViewProps {
+/** @deprecated For internal use only */
+export interface BaseAutocompleteOptionProps extends BaseViewProps {
   /**
    * React node that will be wrapped inside a li element
    */
@@ -40,8 +41,11 @@ export interface AutocompleteOptionProps extends ViewProps {
    */
   isActive: boolean;
 }
+export type AutocompleteOptionProps<Element extends ElementType = 'li'> =
+  PrimitiveProps<BaseAutocompleteOptionProps, Element>;
 
-export interface AutocompleteMenuProps extends ViewProps {
+/** @deprecated For internal use only */
+export interface BaseAutocompleteMenuProps extends BaseViewProps {
   /**
    * @description
    * Defines a string value that labels an interactive element for accessibility
@@ -92,8 +96,11 @@ export interface AutocompleteMenuProps extends ViewProps {
    */
   listboxId: string;
 }
+export type AutocompleteMenuProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseAutocompleteMenuProps, Element>;
 
-export interface AutocompleteProps extends SearchFieldProps {
+/** @deprecated For internal use only */
+export interface BaseAutocompleteProps extends BaseSearchFieldProps {
   /**
    * @description
    * A list of options
@@ -136,6 +143,9 @@ export interface AutocompleteProps extends SearchFieldProps {
    */
   onSelect?: (option: ComboBoxOption) => void;
 }
+
+export type AutocompleteProps<Element extends ElementType = 'input'> =
+  PrimitiveProps<BaseAutocompleteProps, Element>;
 
 export interface UseAutocompleteProps extends Partial<AutocompleteProps> {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;

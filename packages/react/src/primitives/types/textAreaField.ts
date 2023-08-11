@@ -1,11 +1,16 @@
-import { TextAreaProps, TextAreaStyleProps } from './textArea';
-import { FieldProps } from './field';
+import { BaseTextAreaProps, TextAreaStyleProps } from './textArea';
+import { BaseFieldProps } from './field';
 import { FlexContainerStyleProps } from './flex';
 import { BaseStyleProps } from './style';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface TextAreaFieldProps
-  extends FieldProps,
+/** @deprecated For internal use only */
+export interface BaseTextAreaFieldProps
+  extends BaseFieldProps,
     FlexContainerStyleProps,
-    TextAreaProps {
+    BaseTextAreaProps {
   inputStyles?: BaseStyleProps & TextAreaStyleProps;
 }
+
+export type TextAreaFieldProps<Element extends ElementType = 'textarea'> =
+  PrimitiveProps<BaseTextAreaFieldProps, Element>;

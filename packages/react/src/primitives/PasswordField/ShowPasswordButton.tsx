@@ -1,17 +1,23 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { IconVisibility, IconVisibilityOff } from '../Icon/internal';
-import { Primitive, ShowPasswordButtonProps } from '../types';
+import {
+  ForwardRefPrimitive,
+  Primitive,
+  BaseShowPasswordButtonProps,
+} from '../types';
+import { classNameModifierByFlag } from '../shared/utils';
 
 const { passwordIsHidden, passwordIsShown, showPassword } =
   ComponentText.PasswordField;
 
 const ShowPasswordButtonPrimitive: Primitive<
-  ShowPasswordButtonProps,
-  typeof Button
+  BaseShowPasswordButtonProps,
+  'button'
 > = (
   {
     fieldType,
@@ -19,15 +25,25 @@ const ShowPasswordButtonPrimitive: Primitive<
     passwordIsShownLabel = passwordIsShown,
     showPasswordButtonLabel = showPassword,
     size,
+    hasError,
     ...rest
   },
   ref
 ) => {
+  const showPasswordButtonClass = classNames(
+    ComponentClassNames.FieldShowPassword,
+    classNameModifierByFlag(
+      ComponentClassNames.FieldShowPassword,
+      'error',
+      hasError
+    )
+  );
+
   return (
     <Button
       aria-checked={fieldType !== 'password'}
       ariaLabel={showPasswordButtonLabel}
-      className={ComponentClassNames.FieldShowPassword}
+      className={showPasswordButtonClass}
       ref={ref}
       role="switch"
       size={size}
@@ -47,6 +63,9 @@ const ShowPasswordButtonPrimitive: Primitive<
   );
 };
 
-export const ShowPasswordButton = React.forwardRef(ShowPasswordButtonPrimitive);
+export const ShowPasswordButton: ForwardRefPrimitive<
+  BaseShowPasswordButtonProps,
+  'button'
+> = React.forwardRef(ShowPasswordButtonPrimitive);
 
 ShowPasswordButton.displayName = 'ShowPasswordButton';

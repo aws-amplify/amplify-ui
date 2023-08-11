@@ -67,7 +67,7 @@ describe('TextField', () => {
     expect(queryByText(message)).toBeNull();
   });
 
-  it(`doesn't render the errorMessage if errorMessage prop is undefined`, () => {
+  it(`shows error style, but doesn't render the errorMessage if errorMessage prop is undefined`, () => {
     const message = 'Error message';
     const { toJSON, queryByText } = render(
       <TextField {...defaultProps} error />
@@ -111,18 +111,13 @@ describe('TextField', () => {
   });
 
   it('applies theme and style props', () => {
-    const errorMessageText = 'Error!';
-    const customErrorMessageStyle = { color: 'red' };
     const customFieldStyle = { color: 'orange' };
     const customLabelStyle = { color: 'blue' };
     const customStyle = { backgroundColor: 'purple' };
 
-    const { getByTestId, getByText } = render(
+    const { getByTestId } = render(
       <TextField
         {...defaultProps}
-        error
-        errorMessage={errorMessageText}
-        errorMessageStyle={customErrorMessageStyle}
         fieldStyle={customFieldStyle}
         labelStyle={customLabelStyle}
         style={customStyle}
@@ -135,7 +130,6 @@ describe('TextField', () => {
     const container = getByTestId(TEXTFIELD_CONTAINER_TEST_ID);
     const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
     const input = getByTestId(testID);
-    const errorMessage = getByText(errorMessageText);
 
     expect(container.props.style).toStrictEqual([
       themedStyle.container,
@@ -148,6 +142,61 @@ describe('TextField', () => {
       themedStyle.field,
       customFieldStyle,
     ]);
+  });
+
+  it('applies theme and style props with error', () => {
+    const errorMessageText = 'Error!';
+    const customErrorMessageStyle = { color: 'red' };
+    const customStyle = { backgroundColor: 'purple' };
+
+    const { getByTestId, getByText } = render(
+      <TextField
+        {...defaultProps}
+        style={customStyle}
+        error
+        errorMessage={errorMessageText}
+        errorMessageStyle={customErrorMessageStyle}
+      />
+    );
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    const container = getByTestId(TEXTFIELD_CONTAINER_TEST_ID);
+    const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
+    const errorMessage = getByText(errorMessageText);
+
+    expect(container.props.style).toStrictEqual([
+      themedStyle.container,
+      customStyle,
+    ]);
+    expect(inputContainer.props.style).toStrictEqual({
+      ...themedStyle.fieldContainer,
+      ...themedStyle.error,
+    });
     expect(errorMessage.props.style).toContain(customErrorMessageStyle);
+  });
+
+  it('applies theme and style props for disabled', () => {
+    const customStyle = { backgroundColor: 'purple' };
+
+    const { getByTestId } = render(
+      <TextField {...defaultProps} style={customStyle} disabled />
+    );
+
+    const { result } = renderHook(() => useTheme());
+    const themedStyle = getThemedStyles(result.current);
+
+    const container = getByTestId(TEXTFIELD_CONTAINER_TEST_ID);
+    const inputContainer = getByTestId(INPUT_CONTAINER_TEST_ID);
+
+    expect(container.props.style).toStrictEqual([
+      themedStyle.container,
+      customStyle,
+    ]);
+    expect(inputContainer.props.style).toStrictEqual({
+      ...themedStyle.fieldContainer,
+      ...themedStyle.disabled,
+    });
   });
 });

@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { SelectFieldProps } from './selectField';
-import { TextFieldProps } from './textField';
+import { BaseSelectFieldProps } from './selectField';
+import { BaseTextFieldProps } from './textField';
+import { ElementType, PrimitiveProps } from './view';
 
 interface optionalPhoneNumberFieldProps
-  extends TextFieldProps,
+  extends BaseTextFieldProps,
     CountryCodeFieldProps {
   /**
    * @description
@@ -109,10 +110,17 @@ interface DialCodeRequired extends optionalPhoneNumberFieldProps {
   defaultDialCode: string;
 }
 
-export type PhoneNumberFieldProps = CountryCodeRequired | DialCodeRequired;
+/** @deprecated For internal use only */
+export type BasePhoneNumberFieldProps = CountryCodeRequired | DialCodeRequired;
+export type PhoneNumberFieldProps<Element extends ElementType = 'input'> =
+  PrimitiveProps<BasePhoneNumberFieldProps, Element>;
 
-export interface DialCodeSelectProps extends SelectFieldProps {
+/** @deprecated For internal use only */
+export interface BaseDialCodeSelectProps extends BaseSelectFieldProps {
   defaultValue?: string;
   dialCodeList?: Array<string>;
   isReadOnly?: boolean;
 }
+
+export type DialCodeSelectProps<Element extends ElementType = 'select'> =
+  PrimitiveProps<BaseDialCodeSelectProps, Element>;

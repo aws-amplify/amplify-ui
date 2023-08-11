@@ -57,19 +57,19 @@ export const loader: Required<LoaderTokens<'default'>> = {
   linear: {
     width: { value: '100%' },
     minWidth: { value: '5rem' },
-    fontSize: { value: '{fontSizes.medium.value}' },
-    strokeWidth: { value: '{fontSizes.medium.value}' },
+    fontSize: { value: '{fontSizes.xxs.value}' },
+    strokeWidth: { value: '{fontSizes.xxs.value}' },
     strokeFilled: { value: '{colors.brand.primary.80.value}' },
     strokeEmpty: { value: '{colors.neutral.20.value}' },
     strokeLinecap: { value: 'round' },
     animationDuration: { value: '1s' },
     small: {
-      strokeWidth: { value: '{fontSizes.small.value}' },
-      fontSize: { value: '{fontSizes.small.value}' },
+      strokeWidth: { value: '{fontSizes.xxxs.value}' },
+      fontSize: { value: '{fontSizes.xxxs.value}' },
     },
     large: {
-      strokeWidth: { value: '{fontSizes.large.value}' },
-      fontSize: { value: '{fontSizes.large.value}' },
+      strokeWidth: { value: '{fontSizes.xs.value}' },
+      fontSize: { value: '{fontSizes.xs.value}' },
     },
   },
   text: {

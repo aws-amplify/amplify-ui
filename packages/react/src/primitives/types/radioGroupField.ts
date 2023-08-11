@@ -1,13 +1,15 @@
 import * as React from 'react';
 
 import { FlexContainerStyleProps } from './flex';
-import { FieldProps, LabelPositions } from './field';
-import { InputProps } from './input';
+import { BaseFieldProps, LabelPositions } from './field';
+import { BaseInputProps } from './input';
+import { ElementType, PrimitiveProps } from './view';
 
-export interface RadioGroupFieldProps
-  extends FieldProps,
+/** @deprecated For internal use only */
+export interface BaseRadioGroupFieldProps
+  extends BaseFieldProps,
     FlexContainerStyleProps,
-    InputProps {
+    BaseInputProps {
   name: string;
   value?: string;
   defaultValue?: string;
@@ -24,3 +26,6 @@ export interface RadioGroupFieldProps
    */
   labelPosition?: LabelPositions;
 }
+
+export type RadioGroupFieldProps<Element extends ElementType = 'fieldset'> =
+  PrimitiveProps<BaseRadioGroupFieldProps, Element>;

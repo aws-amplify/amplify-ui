@@ -11,7 +11,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -28,9 +28,9 @@ Array [
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -102,6 +102,7 @@ Array [
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
+                "margin": 4,
               },
               Object {
                 "height": 20,
@@ -117,9 +118,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 14,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 21,
+                "lineHeight": 24,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -168,6 +169,7 @@ Array [
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
+                "margin": 4,
               },
               Object {
                 "height": 20,
@@ -183,9 +185,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 14,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 21,
+                "lineHeight": 24,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -201,6 +203,11 @@ Array [
   </View>,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      Object {
+        "disabled": true,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -220,16 +227,17 @@ Array [
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
           "justifyContent": "center",
+          "opacity": 0.6,
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={
@@ -319,7 +327,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -336,9 +344,9 @@ Array [
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -410,6 +418,7 @@ Array [
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
+                "margin": 4,
               },
               Object {
                 "height": 20,
@@ -425,9 +434,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 14,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 21,
+                "lineHeight": 24,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -476,6 +485,7 @@ Array [
                 "borderRadius": 999,
                 "borderWidth": 2,
                 "justifyContent": "center",
+                "margin": 4,
               },
               Object {
                 "height": 20,
@@ -491,9 +501,9 @@ Array [
           style={
             Array [
               Object {
-                "fontSize": 14,
+                "fontSize": 16,
                 "fontWeight": "400",
-                "lineHeight": 21,
+                "lineHeight": 24,
               },
               Object {
                 "color": "hsl(210, 50%, 10%)",
@@ -523,6 +533,7 @@ Array [
         },
       ]
     }
+    testID="amplify__error-message"
   >
     <Image
       accessibilityRole="image"
@@ -567,6 +578,11 @@ Array [
   </View>,
   <View
     accessibilityRole="button"
+    accessibilityState={
+      Object {
+        "disabled": true,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -586,16 +602,17 @@ Array [
           "backgroundColor": "hsl(190, 95%, 30%)",
           "borderRadius": 4,
           "justifyContent": "center",
+          "opacity": 0.6,
           "paddingHorizontal": 16,
           "paddingVertical": 12,
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
+    testID="amplify__button"
   >
     <Text
       style={

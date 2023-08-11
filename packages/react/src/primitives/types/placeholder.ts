@@ -1,9 +1,10 @@
 import { Sizes } from './base';
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type PlaceholderSizes = Sizes;
 
-export interface PlaceholderProps extends ViewProps {
+/** @deprecated For internal use only */
+export interface BasePlaceholderProps extends BaseViewProps {
   /**
    * @description
    * If true, the placeholder won't show, if false the placeholder will show.
@@ -18,3 +19,6 @@ export interface PlaceholderProps extends ViewProps {
    */
   size?: PlaceholderSizes;
 }
+
+export type PlaceholderProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BasePlaceholderProps, Element>;

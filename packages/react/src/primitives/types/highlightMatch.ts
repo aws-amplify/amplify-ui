@@ -1,6 +1,7 @@
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
-export interface HighlightMatchProps extends ViewProps {
+/** @deprecated For internal use only */
+export interface BaseHighlightMatchProps extends BaseViewProps {
   /**
    * @description
    * The label you would like to have match highlighting
@@ -13,3 +14,6 @@ export interface HighlightMatchProps extends ViewProps {
    */
   query: string;
 }
+
+export type HighlightMatchProps<Element extends ElementType = 'span'> =
+  PrimitiveProps<BaseHighlightMatchProps, Element>;

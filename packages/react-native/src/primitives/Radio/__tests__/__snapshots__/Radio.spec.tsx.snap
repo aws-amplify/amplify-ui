@@ -37,6 +37,7 @@ exports[`Radio applies theme and custom styles 1`] = `
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
+          "margin": 4,
         },
         Object {
           "height": 20,
@@ -108,6 +109,7 @@ exports[`Radio renders as expected when disabled 1`] = `
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
+          "margin": 4,
         },
         Object {
           "height": 20,
@@ -123,9 +125,9 @@ exports[`Radio renders as expected when disabled 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -174,6 +176,7 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
+          "margin": 4,
         },
         Object {
           "height": 40,
@@ -206,9 +209,9 @@ exports[`Radio renders as expected when passing a number to the size prop 1`] = 
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -257,6 +260,7 @@ exports[`Radio renders as expected when selected is false 1`] = `
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
+          "margin": 4,
         },
         Object {
           "height": 20,
@@ -272,9 +276,9 @@ exports[`Radio renders as expected when selected is false 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -323,6 +327,7 @@ exports[`Radio renders as expected when selected is true 1`] = `
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
+          "margin": 4,
         },
         Object {
           "height": 20,
@@ -355,9 +360,9 @@ exports[`Radio renders as expected when selected is true 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -406,6 +411,7 @@ exports[`Radio renders as expected when size is large 1`] = `
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
+          "margin": 4,
         },
         Object {
           "height": 24,
@@ -438,9 +444,9 @@ exports[`Radio renders as expected when size is large 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -489,6 +495,7 @@ exports[`Radio renders as expected when size is medium 1`] = `
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
+          "margin": 4,
         },
         Object {
           "height": 20,
@@ -521,9 +528,9 @@ exports[`Radio renders as expected when size is medium 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -572,6 +579,7 @@ exports[`Radio renders as expected when size is small 1`] = `
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
+          "margin": 4,
         },
         Object {
           "height": 16,
@@ -604,9 +612,9 @@ exports[`Radio renders as expected when size is small 1`] = `
     style={
       Array [
         Object {
-          "fontSize": 14,
+          "fontSize": 16,
           "fontWeight": "400",
-          "lineHeight": 21,
+          "lineHeight": 24,
         },
         Object {
           "color": "hsl(210, 50%, 10%)",
@@ -655,6 +663,7 @@ exports[`Radio renders as expected with accessibilityRole 1`] = `
           "borderRadius": 999,
           "borderWidth": 2,
           "justifyContent": "center",
+          "margin": 4,
         },
         Object {
           "height": 20,

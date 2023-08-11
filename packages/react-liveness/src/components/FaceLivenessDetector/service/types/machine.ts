@@ -8,12 +8,12 @@ import {
 } from '@aws-sdk/client-rekognitionstreaming';
 
 import {
-  FaceLivenessDetectorProps,
+  FaceLivenessDetectorCoreProps,
   FaceMatchState,
-  LivenessErrorState,
   LivenessOvalDetails,
   IlluminationState,
 } from './liveness';
+import { LivenessErrorState } from './error';
 import {
   VideoRecorder,
   LivenessStreamProvider,
@@ -60,7 +60,7 @@ export type LivenessContext = Partial<HydratedLivenessContext>;
 export interface HydratedLivenessContext {
   maxFailedAttempts: number;
   failedAttempts: number;
-  componentProps: FaceLivenessDetectorProps;
+  componentProps: FaceLivenessDetectorCoreProps;
   serverSessionInformation: SessionInformation;
   challengeId: string;
   videoAssociatedParams: VideoAssociatedParams;
@@ -86,6 +86,7 @@ export type LivenessEventTypes =
   | 'DISCONNECT_EVENT'
   | 'SET_DOM_AND_CAMERA_DETAILS'
   | 'SERVER_ERROR'
+  | 'RUNTIME_ERROR'
   | 'RETRY_CAMERA_CHECK'
   | 'MOBILE_LANDSCAPE_WARNING';
 

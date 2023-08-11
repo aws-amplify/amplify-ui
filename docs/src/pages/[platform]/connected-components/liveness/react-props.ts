@@ -24,7 +24,7 @@ export const FACE_LIVENESS_DETECTOR_PROPS = [
   {
     name: `onError?`,
     description: 'Callback called when there is error occured on any step.',
-    type: `(error: Error) => void`,
+    type: `(error: LivenessError) => void`,
   },
   {
     name: `disableInstructionScreen?`,
@@ -74,17 +74,67 @@ export const FACE_LIVENESS_DETECTOR_COMPONENTS = [
   },
 ];
 
-export const FACE_LIVENESS_DETECTOR_CONFIG = [
+export const LIVENESS_ERROR = [
   {
-    name: `binaryPath?`,
+    name: `state`,
     description:
-      'Overrides the WASM backend binary CDN path, the default is https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@3.11.0/dist/. When overriding this path ensure that the wasm version matches the version of @tensorflow/tfjs-backend-wasm installed by npm.',
-    type: `string`,
+      'The LivenessErrorState value which indicates the general error type as seen from the component.',
+    type: `LivenessErrorState`,
   },
   {
-    name: `faceModelUrl?`,
+    name: `error`,
     description:
-      'Overrides the Blazeface model and weights bin CDN URL default is https://tfhub.dev/tensorflow/tfjs-model/blazeface/1/default/1/model.json?tfjs-format=file.',
-    type: `string`,
+      'The error object containing the more specific error name and stack trace.',
+    type: `Error`,
+  },
+];
+
+export const FACE_LIVENESS_DETECTOR_ERROR_STATES = [
+  {
+    name: `RUNTIME_ERROR`,
+    description: 'Indicates an error that occurs in the component runtime.',
+    type: `Error`,
+  },
+  {
+    name: `SERVER_ERROR`,
+    description:
+      'Indicates an error occurred from the Rekognition streaming API or in the onAnalysisComplete callback.',
+    type: `Error`,
+  },
+  {
+    name: `TIMEOUT`,
+    description:
+      'Indicates a timeout occurred when user attempted a liveness check.',
+    type: `Error`,
+  },
+  {
+    name: `FACE_DISTANCE_ERROR`,
+    description:
+      'Indicates that the user moved their face too close to the camera before the check started.',
+    type: `Error`,
+  },
+  {
+    name: `CAMERA_ACCESS_ERROR`,
+    description:
+      "Indicates that an error occurred when attempting to access the user's camera, this could be because they did not allow camera permissions in the browser.",
+    type: `Error`,
+  },
+  {
+    name: `CAMERA_FRAMERATE_ERROR`,
+    description:
+      'Indicates that the provided camera does not meet the minimum framerate requirements for a liveness check.',
+    type: `Error`,
+  },
+  {
+    name: `FRESHNESS_TIMEOUT`,
+    description:
+      'Indicates that the component timed out when attempting to determine freshness of the video via colors flashing on the screen.',
+    type: `Error`,
+  },
+  {
+    name: `MOBILE_LANDSCAPE_ERROR`,
+    description:
+      'Indicates that the user attempted to switch to using landscape mode which is not supported.',
+    type: `Error`,
   },
 ];

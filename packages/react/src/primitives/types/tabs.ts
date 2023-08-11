@@ -2,11 +2,13 @@ import * as React from 'react';
 
 import { BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
-import { FlexProps } from './flex';
+import { BaseFlexProps } from './flex';
+import { ElementType, PrimitiveProps } from './view';
 
 export type TabsSpacing = 'equal' | 'relative';
 
-export interface TabsProps extends FlexProps {
+/** @deprecated For internal use only */
+export interface BaseTabsProps extends BaseFlexProps {
   /**
    * @description
    * The Tabs component only accepts TabItem components as children.
@@ -47,8 +49,13 @@ export interface TabsProps extends FlexProps {
    */
   indicatorPosition?: 'top' | 'bottom';
 }
+export type TabsProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseTabsProps,
+  Element
+>;
 
-export interface TabItemProps extends BaseComponentProps, BaseStyleProps {
+/** @deprecated For internal use only */
+export interface BaseTabItemProps extends BaseComponentProps, BaseStyleProps {
   /**
    * @description
    * Change the title corresponding with each Tab's content panel.
@@ -67,3 +74,5 @@ export interface TabItemProps extends BaseComponentProps, BaseStyleProps {
    */
   children?: React.ReactNode;
 }
+export type TabItemProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseTabItemProps, Element>;

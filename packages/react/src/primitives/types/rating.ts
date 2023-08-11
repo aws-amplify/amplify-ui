@@ -1,8 +1,9 @@
 import { Property } from 'csstype';
 
-import { FlexProps } from './flex';
+import { BaseFlexProps } from './flex';
 import { Sizes } from './base';
 import { StyleToken } from './style';
+import { ElementType, PrimitiveProps } from './view';
 
 export type RatingSizes = Sizes;
 
@@ -61,4 +62,10 @@ export interface RatingOptions {
   value?: number;
 }
 
-export interface RatingProps extends RatingOptions, FlexProps {}
+/** @deprecated For internal use only */
+export interface BaseRatingProps extends RatingOptions, BaseFlexProps {}
+
+export type RatingProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseRatingProps,
+  Element
+>;

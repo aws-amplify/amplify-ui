@@ -1,5 +1,126 @@
 # @aws-amplify/ui-react-storage
 
+## 2.1.3
+
+### Patch Changes
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
+- Updated dependencies [[`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441), [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7)]:
+  - @aws-amplify/ui-react-core@2.1.29
+  - @aws-amplify/ui-react@5.1.0
+  - @aws-amplify/ui@5.7.0
+
+## 2.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`e7e75874d`](https://github.com/aws-amplify/amplify-ui/commit/e7e75874dea238046c94e4fdd965029620171254), [`0417bd41c`](https://github.com/aws-amplify/amplify-ui/commit/0417bd41c065673eb70dd916c9008d88671445c9)]:
+  - @aws-amplify/ui-react@5.0.7
+  - @aws-amplify/ui@5.6.9
+  - @aws-amplify/ui-react-core@2.1.28
+
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`6b71ec46c`](https://github.com/aws-amplify/amplify-ui/commit/6b71ec46ccbf63c4605c9a57d3ecff098a42938a)]:
+  - @aws-amplify/ui-react@5.0.6
+  - @aws-amplify/ui@5.6.8
+  - @aws-amplify/ui-react-core@2.1.27
+
+## 2.1.0
+
+### Minor Changes
+
+- [#4262](https://github.com/aws-amplify/amplify-ui/pull/4262) [`aea82ff1b`](https://github.com/aws-amplify/amplify-ui/commit/aea82ff1bb6e066ed8b70433f4d72cd34bf0ccae) Thanks [@zchenwei](https://github.com/zchenwei)! - feat(ui-react-storage): Add a new connected component `StorageImage`. It allows you load the images managed by Amplify Storage.
+
+  _Example:_
+
+  ```jsx
+  import { StorageImage } from '@aws-amplify/ui-react-storage';
+
+  <StorageImage alt="StorageImage" imgKey="image.jpg" accessLevel="public" />;
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`78fdfd6c8`](https://github.com/aws-amplify/amplify-ui/commit/78fdfd6c8268c56204f905402162ad8cb40a0c8e), [`d3ee05415`](https://github.com/aws-amplify/amplify-ui/commit/d3ee054159e1de81861bcd9273be9b1c87924cf4), [`165a8abbd`](https://github.com/aws-amplify/amplify-ui/commit/165a8abbda8aa3e95fb9466fc60f8694c646d5bc), [`13098b36a`](https://github.com/aws-amplify/amplify-ui/commit/13098b36a75452d839955d141bd25f57538b1a22), [`f0b32d275`](https://github.com/aws-amplify/amplify-ui/commit/f0b32d27509cbc00013e96f6cfc735695b7784c8), [`c3a418d8d`](https://github.com/aws-amplify/amplify-ui/commit/c3a418d8d8bd057c27de59379033c2c538762141), [`37e490d39`](https://github.com/aws-amplify/amplify-ui/commit/37e490d3997a1dc55e2998c277790945921e6dc3), [`6d14bf3f3`](https://github.com/aws-amplify/amplify-ui/commit/6d14bf3f386523bacd6832e56cc5903f644da88e), [`aea82ff1b`](https://github.com/aws-amplify/amplify-ui/commit/aea82ff1bb6e066ed8b70433f4d72cd34bf0ccae)]:
+  - @aws-amplify/ui@5.6.7
+  - @aws-amplify/ui-react@5.0.5
+  - @aws-amplify/ui-react-core@2.1.26
+
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`572730f7b`](https://github.com/aws-amplify/amplify-ui/commit/572730f7b16b87a6b2ab0c40116a4c8c5acdbd36)]:
+  - @aws-amplify/ui-react@5.0.4
+
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`b0e16e78c`](https://github.com/aws-amplify/amplify-ui/commit/b0e16e78c6a41945aa79f3e14fa3f9e6cb0e5e76), [`d930e2ed1`](https://github.com/aws-amplify/amplify-ui/commit/d930e2ed17f3e638e2b62699ba2dd164b32f8118)]:
+  - @aws-amplify/ui-react@5.0.3
+  - @aws-amplify/ui@5.6.6
+  - @aws-amplify/ui-react-core@2.1.25
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`23180b470`](https://github.com/aws-amplify/amplify-ui/commit/23180b470c7b3b78a5970d00f8c2dc5ce8773eff), [`3cecd0765`](https://github.com/aws-amplify/amplify-ui/commit/3cecd0765b46c77c49af24fae7cfb9054ebe2cdb)]:
+  - @aws-amplify/ui-react-core@2.1.24
+  - @aws-amplify/ui@5.6.5
+  - @aws-amplify/ui-react@5.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`be856b057`](https://github.com/aws-amplify/amplify-ui/commit/be856b057750f9d2706c2a1e43c6ff1669e50a7b)]:
+  - @aws-amplify/ui-react@5.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- [#4048](https://github.com/aws-amplify/amplify-ui/pull/4048) [`c19278b0b`](https://github.com/aws-amplify/amplify-ui/commit/c19278b0bee7c9b499bd619c8ee0f458cbb5da83) Thanks [@calebpollman](https://github.com/calebpollman)! - What changed:
+
+  - Wrapped StorageManager with ForwardRef to allow for exposed imperative handles and potential future DOM manipulation.
+  - This allows for clearing of the files list from a separate component where the Storage Manager component is being used.
+
+  Why was the change made:
+
+  - There was no easy way to clear the list of files without unmounting the component.
+  - This capability is important when using Storage Manager inside a form. After submit, clear all entries including uploaded files.
+
+  How should a customer update their code:
+
+  - No changes are required by the customer since the added prop is optional in the Storage Manager component.
+  - If customers want to take advantage of this change, they can create a files ref and include it in the Storage Manager component, then made calls to clearFiles from the ref.
+
+### Patch Changes
+
+- Updated dependencies [[`c19278b0b`](https://github.com/aws-amplify/amplify-ui/commit/c19278b0bee7c9b499bd619c8ee0f458cbb5da83)]:
+  - @aws-amplify/ui-react@5.0.0
+
+## 1.2.4
+
+### Patch Changes
+
+- [#4009](https://github.com/aws-amplify/amplify-ui/pull/4009) [`9c0935c6e`](https://github.com/aws-amplify/amplify-ui/commit/9c0935c6e0093c369a4aa2c8177b847f82df11b8) Thanks [@thaddmt](https://github.com/thaddmt)! - fix(storage): allow any file types when using drag/drop
+
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`7f59b3c4d`](https://github.com/aws-amplify/amplify-ui/commit/7f59b3c4dd27205a35c1b07ddc0f06a0db9de776), [`ca591a2fc`](https://github.com/aws-amplify/amplify-ui/commit/ca591a2fc319556f705be74bacd141d48f3531bd)]:
+  - @aws-amplify/ui-react-core@2.1.23
+  - @aws-amplify/ui-react@4.6.4
+  - @aws-amplify/ui@5.6.4
+
 ## 1.2.2
 
 ### Patch Changes

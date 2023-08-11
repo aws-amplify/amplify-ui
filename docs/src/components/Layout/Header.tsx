@@ -68,16 +68,15 @@ export const Header = ({
             <Button
               variation="link"
               size="small"
-              as={Link}
-              // @ts-ignore // IGNORE
+              as="a"
               href={GITHUB_REPO}
-              isExternal
+              rel="noopener noreferrer"
               color="font.tertiary"
               fontSize="large"
               title="GitHub"
             >
               <VisuallyHidden>GitHub</VisuallyHidden>
-              <GithubIcon />
+              <GithubIcon aria-hidden="true" />
             </Button>
           </View>
         ) : null}

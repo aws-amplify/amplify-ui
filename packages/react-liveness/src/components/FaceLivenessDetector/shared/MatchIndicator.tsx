@@ -35,10 +35,6 @@ export const MatchIndicator: React.FC<MatchIndicatorProps> = ({
         className={`${LivenessClassNames.MatchIndicator}__bar`}
         style={percentageStyles}
       ></div>
-      <div
-        className={`${LivenessClassNames.MatchIndicator}__pin`}
-        style={percentageStyles}
-      ></div>
     </div>
   );
 };

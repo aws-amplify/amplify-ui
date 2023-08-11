@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultConfirmSignInComponent } from '../types';
+import { DefaultConfirmSignInProps } from '../types';
 
 const COMPONENT_NAME = 'ConfirmSignIn';
 
@@ -20,7 +20,7 @@ const {
   getConfirmingText,
 } = authenticatorTextUtil;
 
-const ConfirmSignIn: DefaultConfirmSignInComponent = ({
+const ConfirmSignIn = ({
   challengeName,
   fields,
   handleBlur,
@@ -28,14 +28,21 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
   handleSubmit,
   isPending,
   toSignIn,
+  validationErrors,
   ...rest
-}) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+}: DefaultConfirmSignInProps): JSX.Element => {
+  const {
+    disableFormSubmit: disabled,
+    fields: fieldsWithHandlers,
+    fieldValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getChallengeText(challengeName);
@@ -44,10 +51,20 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: [{ children: secondaryButtonText, onPress: toSignIn }],
     }),
-    [handleFormSubmit, primaryButtonText, secondaryButtonText, toSignIn]
+    [
+      disabled,
+      handleFormSubmit,
+      primaryButtonText,
+      secondaryButtonText,
+      toSignIn,
+    ]
   );
 
   return (
@@ -57,6 +74,7 @@ const ConfirmSignIn: DefaultConfirmSignInComponent = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

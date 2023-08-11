@@ -40,7 +40,7 @@ After(async (message: ITestCaseHookParameter) => {
   });
 });
 
-/** maps cucumber test status to detox onTestDone accepted values */
+// maps cucumber test status to Detox onTestDone accepted values
 const mapStatus = (message: ITestCaseHookParameter): DetoxTestStatus => {
   switch (message.result?.status) {
     case 'PASSED':

@@ -47,8 +47,8 @@ export type BorderWidthValue<
 > = Output extends 'required'
   ? Platform extends 'react-native'
     ? number
-    : SpaceValue
-  : SpaceValue;
+    : SpaceValue<Platform>
+  : SpaceValue<Platform>;
 export type BorderValue = string;
 export type BoxSizingValue = string;
 export type BoxShadowValue = ShadowValue;
@@ -139,6 +139,7 @@ export type SpaceValue<Platform extends PlatformKey = unknown> =
   Platform extends 'react-native' ? string | number : string;
 
 export type TextAlignValue = string;
+export type TextDecorationValue = string;
 
 export type TimeValue<
   Platform extends PlatformKey = unknown,
@@ -229,6 +230,7 @@ interface TokenStandardProperties {
   strokeLinecap: StrokeLinecapValue;
   strokeWidth: StrokeWidthValue;
   textAlign: TextAlignValue;
+  textDecoration: TextDecorationValue;
   top: SpaceValue;
   transform: TransformValue;
   transitionDuration: TransitionDurationValue;

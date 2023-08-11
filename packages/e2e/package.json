@@ -18,13 +18,9 @@
     "cucumber": "./node_modules/.bin/cucumber-js --config detox/cucumber.json --tags @react-native",
     "postcucumber": "kill $(lsof -t -i :9091)",
     "detox:build:ios:debug": "detox build --configuration ios.simulator.debug",
-    "detox:build:ios:release": "detox build --configuration ios.simulator.release",
     "detox:e2e:ios:debug": "DETOX_CONFIGURATION=ios.simulator.debug yarn cucumber",
-    "detox:e2e:ios:release": "DETOX_CONFIGURATION=ios.simulator.release yarn cucumber",
     "detox:build:android:debug": "detox build --configuration android.emulator.debug",
-    "detox:build:android:release": "detox build --configuration android.emulator.release",
-    "detox:e2e:android:debug": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber",
-    "detox:e2e:android:release": "DETOX_CONFIGURATION=android.emulator.release yarn cucumber"
+    "detox:e2e:android:debug": "DETOX_CONFIGURATION=android.emulator.debug yarn cucumber"
   },
   "cypress-cucumber-preprocessor": {
     "filterSpecs": true,
@@ -34,15 +30,15 @@
     ]
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^5.6.3",
-    "@badeball/cypress-cucumber-preprocessor": "^12.1.0",
-    "@bahmutov/cypress-esbuild-preprocessor": "~2.1.3",
-    "@cucumber/cucumber": "^9.0.1",
+    "@aws-amplify/ui": "^5.7.0",
+    "@badeball/cypress-cucumber-preprocessor": "^16.0.3",
+    "@bahmutov/cypress-esbuild-preprocessor": "~2.2.0",
+    "@cucumber/cucumber": "^9.3.0",
     "@nuintun/qrcode": "^3.3.0",
-    "@testing-library/cypress": "^8.0.3",
+    "@testing-library/cypress": "^9.0.0",
     "aws-crt": "^1.10.6",
-    "cypress": "^10.7.0",
-    "detox": "^20.6.0",
+    "cypress": "^12.17.3",
+    "detox": "^20.11.2",
     "dotenv": "^16.0.2",
     "rimraf": "^3.0.2"
   }

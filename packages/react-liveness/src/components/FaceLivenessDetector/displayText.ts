@@ -5,6 +5,7 @@ export type HintDisplayText = {
   hintCanNotIdentifyText?: string;
   hintTooCloseText?: string;
   hintTooFarText?: string;
+ /** @deprecated `hintHoldFacePositionCountdownText` is no longer in use and will be removed in a future major version release. */
   hintHoldFacePositionCountdownText?: string;
   hintConnectingText?: string;
   hintVerifyingText?: string;
@@ -49,9 +50,11 @@ export const defaultErrorDisplayText = {
   timeoutHeaderText: 'Time out',
   timeoutMessageText:
     "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds.",
-  faceDistanceHeaderText: 'Check failed during countdown',
-  faceDistanceMessageText:
-    'Avoid moving closer during countdown and ensure only one face is in front of camera.',
+  faceDistanceHeaderText: 'Forward movement detected',
+  faceDistanceMessageText: 'Avoid moving closer when connecting.',
+  multipleFacesHeaderText: 'Multiple faces detected',
+  multipleFacesMessageText:
+    'Ensure only one face is present in front of the camera when connecting.',
   clientHeaderText: 'Client error',
   clientMessageText: 'Check failed due to client issue',
   serverHeaderText: 'Server issue',
@@ -107,6 +110,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   hintCanNotIdentifyText: 'Move face in front of camera',
   hintTooCloseText: 'Move back',
   hintTooFarText: 'Move closer',
+ /** @deprecated `hintHoldFacePositionCountdownText` is no longer in use and will be removed in a future major version release. */
   hintHoldFacePositionCountdownText: 'Hold face position during countdown',
   hintConnectingText: 'Connecting...',
   hintVerifyingText: 'Verifying...',

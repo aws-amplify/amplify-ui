@@ -1,12 +1,14 @@
-import { FieldGroupIconButtonProps } from './fieldGroupIcon';
-import { InputProps } from './input';
-import { TextProps } from './text';
+import { BaseFieldGroupIconButtonProps } from './fieldGroupIcon';
+import { BaseInputProps } from './input';
+import { BaseTextProps } from './text';
 import { BaseStyleProps } from './style';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 /**
  * Shared type across all field types
+ * @deprecated For internal use only
  */
-export interface FieldProps {
+export interface BaseFieldProps extends BaseViewProps {
   /**
    * @description
    * Provides additional information needed to fill field
@@ -43,15 +45,31 @@ export interface FieldProps {
   inputStyles?: BaseStyleProps;
 }
 
-export interface FieldClearButtonProps
-  extends Partial<FieldGroupIconButtonProps> {}
-export interface FieldDescriptionProps
-  extends TextProps,
-    Pick<FieldProps, 'descriptiveText' | 'labelHidden'> {}
-export interface FieldErrorMessageProps
-  extends TextProps,
-    Pick<FieldProps, 'errorMessage'>,
-    Pick<InputProps, 'hasError'> {}
+export type FieldProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseFieldProps,
+  Element
+>;
+
+/** @deprecated For internal use only */
+export interface BaseFieldClearButtonProps
+  extends Partial<BaseFieldGroupIconButtonProps> {}
+export type FieldClearButtonProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseFieldClearButtonProps, Element>;
+
+/** @deprecated For internal use only */
+export interface BaseFieldDescriptionProps
+  extends BaseTextProps,
+    Pick<BaseFieldProps, 'descriptiveText' | 'labelHidden'> {}
+export type FieldDescriptionProps<Element extends ElementType = 'p'> =
+  PrimitiveProps<BaseFieldDescriptionProps, Element>;
+
+/** @deprecated For internal use only */
+export interface BaseFieldErrorMessageProps
+  extends BaseTextProps,
+    Pick<BaseFieldProps, 'errorMessage'>,
+    Pick<BaseInputProps, 'hasError'> {}
+export type FieldErrorMessageProps<Element extends ElementType = 'p'> =
+  PrimitiveProps<BaseFieldErrorMessageProps, Element>;
 
 export type FieldVariations = 'quiet';
 

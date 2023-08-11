@@ -1,6 +1,6 @@
 import { BaseComponentProps, AriaProps } from './base';
 import { BaseStyleProps } from './style';
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type PaginationItemType = 'page' | 'next' | 'previous' | 'ellipsis';
 export type PaginationCallbackType = 'onNext' | 'onPrevious' | 'onChange';
@@ -10,7 +10,8 @@ export type PaginationLabelType =
   | 'previousLabel'
   | 'nextLabel';
 
-interface BasePaginationProps {
+/** @deprecated For internal use only */
+export interface BasePaginationProps extends BaseViewProps {
   /**
    * @description
    * Index of the current page. (starting from 1)
@@ -89,7 +90,8 @@ interface BasePaginationProps {
   onChange?: (newPageIndex?: number, prevPageIndex?: number) => void;
 }
 
-export interface PaginationProps extends BasePaginationProps, ViewProps {}
+export type PaginationProps<Element extends ElementType = 'nav'> =
+  PrimitiveProps<BasePaginationProps, Element>;
 
 export interface UsePaginationProps
   extends Omit<
@@ -98,9 +100,12 @@ export interface UsePaginationProps
   > {}
 
 export interface UsePaginationResult
-  extends Required<Omit<BasePaginationProps, PaginationLabelType>> {}
+  extends Required<
+    Omit<BasePaginationProps, PaginationLabelType | keyof BaseViewProps>
+  > {}
 
-export interface PaginationItemProps
+/** @deprecated For internal use only */
+export interface BasePaginationItemProps
   extends BaseComponentProps,
     BaseStyleProps,
     AriaProps {
@@ -142,3 +147,6 @@ export interface PaginationItemProps
    */
   onClick?: () => void;
 }
+
+export type PaginationItemProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BasePaginationItemProps, Element>;

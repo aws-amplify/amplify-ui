@@ -2,13 +2,16 @@ import { Property } from 'csstype';
 import React from 'react';
 
 import { StyleToken } from './style';
-import { TextFieldProps } from './textField';
-import { ViewProps } from './view';
+import { BaseTextFieldProps } from './textField';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 type SliderOrientation = 'horizontal' | 'vertical';
 type Direction = 'ltr' | 'rtl';
 
-export interface SliderFieldProps extends TextFieldProps, ViewProps {
+/** @deprecated For internal use only */
+export interface BaseSliderFieldProps
+  extends BaseTextFieldProps,
+    BaseViewProps {
   /**
    * @description
    * Sets the minimum value for the SliderField range
@@ -95,3 +98,6 @@ export interface SliderFieldProps extends TextFieldProps, ViewProps {
    */
   dir?: Direction;
 }
+
+export type SliderFieldProps<Element extends ElementType = 'span'> =
+  PrimitiveProps<BaseSliderFieldProps, Element>;

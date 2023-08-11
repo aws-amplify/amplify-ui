@@ -1,5 +1,5 @@
 import { Sizes } from './base';
-import { ViewProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 import { FlexContainerStyleProps } from './flex';
 
 export type ButtonSizes = Sizes;
@@ -11,7 +11,10 @@ export type ButtonVariations =
   | 'warning'
   | 'destructive';
 
-export interface ButtonProps extends ViewProps, FlexContainerStyleProps {
+/** @deprecated For internal use only */
+export interface BaseButtonProps
+  extends BaseViewProps,
+    FlexContainerStyleProps {
   /**
    * @description
    * If `true`, the button will be disabled.
@@ -65,3 +68,6 @@ export interface ButtonProps extends ViewProps, FlexContainerStyleProps {
    */
   variation?: ButtonVariations;
 }
+
+export type ButtonProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseButtonProps, Element>;

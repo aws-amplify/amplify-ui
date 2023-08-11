@@ -7,13 +7,18 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
+import { UseAuthenticator } from '../types';
 import BaseFormFields from './primitives/base-form-fields.vue';
 
 const attrs = useAttrs();
+
+/** @deprecated Authenticator component events are deprecated and not maintained. */
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
-const { isPending, error, codeDeliveryDetails } = toRefs(useAuthenticator());
-const { submitForm, updateForm, resendCode } = useAuthenticator();
+// `facade` is manually typed to `UseAuthenticator` for temporary type safety.
+const facade: UseAuthenticator = useAuthenticator();
+const { codeDeliveryDetails, error, isPending } = toRefs(facade);
+const { resendCode, submitForm, updateForm } = facade;
 
 // Text Util
 const {
@@ -42,6 +47,8 @@ const onInput = (e: Event): void => {
 };
 
 const onConfirmSignUpSubmit = (e: Event): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onConfirmSignUpSubmit) {
     emit('confirmSignUpSubmit', e);
   } else {
@@ -54,6 +61,8 @@ const submit = (e: Event): void => {
 };
 
 const onLostCodeClicked = (): void => {
+  // TODO(BREAKING): remove unused emit
+  // istanbul ignore next
   if (attrs?.onLostCodeClicked) {
     emit('lostCodeClicked');
   } else {

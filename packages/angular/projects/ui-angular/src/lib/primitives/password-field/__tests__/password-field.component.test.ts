@@ -166,7 +166,7 @@ describe('amplify-password-field', () => {
         initialValue: 'initialvalue',
       },
     });
-    const input = screen.getByLabelText('Password') as HTMLInputElement;
+    const input: HTMLInputElement = screen.getByLabelText('Password');
     expect(input.value).toBe('initialvalue');
   });
 });

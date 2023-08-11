@@ -9,7 +9,7 @@ import {
 } from '../../common';
 import { useFieldValues } from '../../hooks';
 
-import { DefaultSignUpComponent } from '../types';
+import { DefaultSignUpProps } from '../types';
 
 const COMPONENT_NAME = 'SignUp';
 
@@ -20,24 +20,33 @@ const {
   getSignUpTabText,
 } = authenticatorTextUtil;
 
-const SignUp: DefaultSignUpComponent = ({
+const SignUp = ({
   fields,
   handleBlur,
   handleChange,
   handleSubmit,
+  hasValidationErrors,
   hideSignIn,
   isPending,
   toSignIn,
+  validationErrors,
   ...rest
-}) => {
-  const { fields: fieldsWithHandlers, handleFormSubmit } = useFieldValues({
+}: DefaultSignUpProps): JSX.Element => {
+  const {
+    disableFormSubmit,
+    fields: fieldsWithHandlers,
+    fieldValidationErrors,
+    handleFormSubmit,
+  } = useFieldValues({
     componentName: COMPONENT_NAME,
     fields,
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
+  const disabled = hasValidationErrors || disableFormSubmit;
   const headerText = getSignUpTabText();
   const primaryButtonText = isPending
     ? getCreatingAccountText()
@@ -46,12 +55,17 @@ const SignUp: DefaultSignUpComponent = ({
 
   const buttons = useMemo(
     () => ({
-      primary: { children: primaryButtonText, onPress: handleFormSubmit },
+      primary: {
+        children: primaryButtonText,
+        disabled,
+        onPress: handleFormSubmit,
+      },
       links: hideSignIn
         ? undefined
         : [{ children: secondaryButtonText, onPress: toSignIn }],
     }),
     [
+      disabled,
       handleFormSubmit,
       hideSignIn,
       primaryButtonText,
@@ -67,6 +81,7 @@ const SignUp: DefaultSignUpComponent = ({
       fields={fieldsWithHandlers}
       headerText={headerText}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

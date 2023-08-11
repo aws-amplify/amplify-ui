@@ -4,50 +4,45 @@ import {
   TextField,
   SelectField,
   SwitchField,
-  TextAreaFieldProps,
+  BaseTextAreaFieldProps,
 } from '@aws-amplify/ui-react';
 
-export interface TextAreaFieldControlsProps extends TextAreaFieldProps {
-  setAutoComplete: (
-    value: React.SetStateAction<TextAreaFieldProps['autoComplete']>
-  ) => void;
-  setDefaultValue: (
-    value: React.SetStateAction<TextAreaFieldProps['defaultValue']>
-  ) => void;
+export interface TextAreaFieldControlsProps extends BaseTextAreaFieldProps {
   setDescriptiveText: (
-    value: React.SetStateAction<TextAreaFieldProps['descriptiveText']>
+    value: React.SetStateAction<BaseTextAreaFieldProps['descriptiveText']>
   ) => void;
   setErrorMessage: (
-    value: React.SetStateAction<TextAreaFieldProps['errorMessage']>
+    value: React.SetStateAction<BaseTextAreaFieldProps['errorMessage']>
   ) => void;
   setHasError: (
-    value: React.SetStateAction<TextAreaFieldProps['hasError']>
+    value: React.SetStateAction<BaseTextAreaFieldProps['hasError']>
   ) => void;
   setIsDisabled: (
-    value: React.SetStateAction<TextAreaFieldProps['isDisabled']>
+    value: React.SetStateAction<BaseTextAreaFieldProps['isDisabled']>
   ) => void;
   setIsReadOnly: (
-    value: React.SetStateAction<TextAreaFieldProps['isReadOnly']>
+    value: React.SetStateAction<BaseTextAreaFieldProps['isReadOnly']>
   ) => void;
-  setIsRequired: (
-    value: React.SetStateAction<TextAreaFieldProps['isRequired']>
+  setLabel: (
+    value: React.SetStateAction<BaseTextAreaFieldProps['label']>
   ) => void;
-  setLabel: (value: React.SetStateAction<TextAreaFieldProps['label']>) => void;
   setLabelHidden: (
-    value: React.SetStateAction<TextAreaFieldProps['labelHidden']>
+    value: React.SetStateAction<BaseTextAreaFieldProps['labelHidden']>
   ) => void;
-  setMaxLength: (
-    value: React.SetStateAction<TextAreaFieldProps['maxLength']>
+  setName: (
+    value: React.SetStateAction<BaseTextAreaFieldProps['name']>
   ) => void;
-  setName: (value: React.SetStateAction<TextAreaFieldProps['name']>) => void;
   setPlaceholder: (
-    value: React.SetStateAction<TextAreaFieldProps['placeholder']>
+    value: React.SetStateAction<BaseTextAreaFieldProps['placeholder']>
   ) => void;
-  setSize: (value: React.SetStateAction<TextAreaFieldProps['size']>) => void;
-  setRows: (value: React.SetStateAction<TextAreaFieldProps['rows']>) => void;
-  setValue: (value: React.SetStateAction<TextAreaFieldProps['value']>) => void;
+  setSize: (
+    value: React.SetStateAction<BaseTextAreaFieldProps['size']>
+  ) => void;
+  setRows: (
+    value: React.SetStateAction<BaseTextAreaFieldProps['rows']>
+  ) => void;
   setVariation: (
-    value: React.SetStateAction<TextAreaFieldProps['variation']>
+    value: React.SetStateAction<BaseTextAreaFieldProps['variation']>
   ) => void;
 }
 
@@ -56,61 +51,33 @@ interface TextAreaFieldControlsInterface {
 }
 
 export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
-  autoComplete,
-  defaultValue,
   descriptiveText,
   errorMessage,
   hasError,
   isDisabled,
   isReadOnly,
-  isRequired,
   label,
   labelHidden,
-  maxLength,
   name,
   placeholder,
   rows,
-  setAutoComplete,
-  setDefaultValue,
   setDescriptiveText,
   setErrorMessage,
   setHasError,
   setIsDisabled,
   setIsReadOnly,
-  setIsRequired,
   setLabel,
   setLabelHidden,
-  setMaxLength,
   setName,
   setPlaceholder,
   setRows,
   setSize,
-  setValue,
   setVariation,
   size,
-  value,
   variation,
 }) => {
   return (
     <Flex direction="column">
-      <TextField
-        placeholder="Set autocomplete"
-        name="autocomplete"
-        value={autoComplete}
-        onChange={(event: any) => {
-          setAutoComplete(event.target.value);
-        }}
-        label="autocomplete"
-      />
-      <TextField
-        placeholder="Set default value"
-        name="defaultValue"
-        value={defaultValue}
-        onChange={(event: any) => {
-          setDefaultValue(event.target.value);
-        }}
-        label="defaultValue"
-      />
       <TextField
         placeholder="Set label"
         name="label"
@@ -148,15 +115,6 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
         label="rows"
       />
       <TextField
-        placeholder="Set maxLength"
-        name="maxLength"
-        value={maxLength}
-        onChange={(event: any) => {
-          setMaxLength(event.target.value);
-        }}
-        label="maxLength"
-      />
-      <TextField
         placeholder="Set descriptive text"
         name="descriptiveText"
         value={descriptiveText.toString()}
@@ -173,15 +131,6 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
           setErrorMessage(event.target.value);
         }}
         label="errorMessage"
-      />
-      <TextField
-        placeholder="Set value"
-        name="value"
-        value={value}
-        onChange={(event: any) => {
-          setValue(event.target.value);
-        }}
-        label="value"
       />
       <Flex wrap="wrap">
         <SwitchField
@@ -218,14 +167,6 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
           }}
           label="isReadOnly"
         />
-        <SwitchField
-          checked={isRequired}
-          name="isRequired"
-          onChange={() => {
-            setIsRequired(!isRequired);
-          }}
-          label="isRequired"
-        />
       </Flex>
 
       <SelectField
@@ -233,7 +174,7 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
         value={size}
         placeholder="default"
         onChange={(event) =>
-          setSize(event.target.value as TextAreaFieldProps['size'])
+          setSize(event.target.value as BaseTextAreaFieldProps['size'])
         }
         label="size"
       >
@@ -246,7 +187,9 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
         value={variation}
         placeholder="default"
         onChange={(event) =>
-          setVariation(event.target.value as TextAreaFieldProps['variation'])
+          setVariation(
+            event.target.value as BaseTextAreaFieldProps['variation']
+          )
         }
         label="variation"
       >

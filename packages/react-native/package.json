@@ -1,15 +1,17 @@
 {
   "name": "@aws-amplify/ui-react-native",
-  "version": "1.2.17",
-  "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "version": "1.2.24",
+  "main": "lib/index.js",
+  "module": "dist/index.js",
+  "react-native": "src/index.ts",
   "types": "dist/index.d.ts",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "yarn build:dist && cp -a src/assets dist",
-    "build:dist": "tsc --project tsconfig.dist.json",
+    "build": "yarn build:cjs && yarn build:esm",
+    "build:cjs": "tsc --project tsconfig.cjs.json && cp -a src/assets/icons lib/assets",
+    "build:esm": "tsc --project tsconfig.esm.json && cp -a src/assets/icons dist/assets",
     "clean": "rimraf dist",
-    "dev": "yarn build:dist --watch",
+    "dev": "yarn build:esm --watch",
     "lint": "yarn typecheck && eslint src",
     "prebuild": "rimraf dist",
     "test": "jest",
@@ -28,7 +30,8 @@
     "@types/react-native": "^0.67.6",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^28.0.3",
-    "eslint": "^8.14.0",
+    "eslint": "^8.44.0",
+    "jest": "^27.0.4",
     "metro-react-native-babel-preset": "^0.70.2",
     "react": "^17.0.2",
     "react-native": "^0.68.1",
@@ -37,16 +40,24 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.6.3",
-    "@aws-amplify/ui-react-core": "2.1.22"
+    "@aws-amplify/ui": "5.7.0",
+    "@aws-amplify/ui-react-core": "2.1.29",
+    "@aws-amplify/ui-react-core-notifications": "1.0.6"
   },
   "peerDependencies": {
-    "aws-amplify": ">= 5.0.1",
+    "aws-amplify": "^5.0.1",
     "react": ">= 16.14.0",
     "react-native": ">= 0.63.4",
     "react-native-safe-area-context": ">= 4.2.5"
   },
   "resolutions": {
     "@types/react": "^17.0.2"
-  }
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "!**/__mocks__",
+    "!**/__tests__"
+  ]
 }
