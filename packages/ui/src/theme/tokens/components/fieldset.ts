@@ -52,7 +52,7 @@ export const fieldset: Required<FieldsetTokens<'default'>> = {
   },
   small: {
     fontSize: '{components.field.small.fontSize.value}',
-    gap: '{components.field.large.small.value}',
+    gap: '{components.field.small.gap.value}',
   },
   large: {
     fontSize: '{components.field.large.fontSize.value}',

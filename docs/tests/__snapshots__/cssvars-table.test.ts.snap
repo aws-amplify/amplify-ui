@@ -2180,7 +2180,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-fieldset-small-gap\\",
-        \\"value\\": \\"var(--amplify-components-field-large-small)\\"
+        \\"value\\": \\"var(--amplify-components-field-small-gap)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-fileuploader-dropzone-active-background-color\\",

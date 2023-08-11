@@ -28,12 +28,7 @@ export const BasicFieldsetExample = () => {
   return (
     <Flex direction="column">
       <Flex direction="column" as="form" id="form1" ref={form1Ref}>
-        <Fieldset
-          name="The main fieldset name"
-          variation="outlined"
-          legend="Address"
-          isDisabled={true}
-        >
+        <Fieldset variation="outlined" legend="Address" isDisabled={true}>
           <TextField label="Street Address" />
           <SelectField label="State">
             <option value="NY">NY</option>
