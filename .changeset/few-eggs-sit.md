@@ -3,7 +3,7 @@
 "@aws-amplify/ui-react": minor
 ---
 
-feat(react): Add IconProvider to customize icons globally for all Amplify UI components
+feat(react): Add IconsProvider to customize icons globally for all Amplify UI components
 
 Components that use icons:
 * Alert
@@ -17,8 +17,10 @@ Components that use icons:
 * StepperField
 * StorageManager
 
+Wrap your application with the `<IconsProvider>` (or whatever part of your app you want to customize the icons). 
+
 ```jsx
-<IconProvider icons={{
+<IconsProvider icons={{
   alert: {
     info: <MdInfo />
   }
@@ -26,3 +28,5 @@ Components that use icons:
   {/* ... */}
 </IconProvider>
 ```
+
+Works well with the react-icons package!
