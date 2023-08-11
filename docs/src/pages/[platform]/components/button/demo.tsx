@@ -4,6 +4,7 @@ import {
   Button,
   ButtonSizes,
   ButtonVariations,
+  ButtonColorTheme,
   ButtonProps,
   Flex,
   SwitchField,
@@ -21,6 +22,9 @@ const propsToCode = (props) => {
     (props.loading ? `\n  isLoading={${props.loading}}` : '') +
     (props.variation
       ? `\n  variation=${JSON.stringify(props.variation)}`
+      : '') +
+    (props.colorTheme
+      ? `\n  colorTheme=${JSON.stringify(props.colorTheme)}`
       : '') +
     (props.size ? `\n  size=${JSON.stringify(props.size)}` : '') +
     `
@@ -41,15 +45,34 @@ const PropControls = (props) => {
         id="variation"
         label="Variation"
         value={props.variation}
-        onChange={(event) =>
-          props.setVariation(event.target.value as ButtonVariations)
-        }
+        onChange={(event) => {
+          event.target.value !== ''
+            ? props.setVariation(event.target.value as ButtonVariations)
+            : props.setVariation(undefined);
+        }}
       >
         <option value="">Default</option>
         <option value="primary">Primary</option>
         <option value="link">Link</option>
+      </SelectField>
+
+      <SelectField
+        name="colorTheme"
+        id="colorTheme"
+        label="ColorTheme"
+        value={props.colorTheme}
+        onChange={(event) => {
+          event.target.value !== ''
+            ? props.setColorTheme(event.target.value as ButtonColorTheme)
+            : props.setColorTheme(undefined);
+        }}
+      >
+        <option value="">Default</option>
+        <option value="error">Error</option>
+        <option value="info">Info</option>
         <option value="warning">Warning</option>
-        <option value="destructive">Destructive</option>
+        <option value="success">Success</option>
+        <option value="overlay">Overlay</option>
       </SelectField>
 
       <SelectField
@@ -115,6 +138,7 @@ export const ButtonDemo = () => {
   const [loadingText, setLoadingText] = React.useState('');
   const [ariaLabel, setAriaLabel] = React.useState<string>('');
   const [variation, setVariation] = React.useState<ButtonVariations>();
+  const [colorTheme, setColorTheme] = React.useState<ButtonColorTheme>();
   const [size, setSize] = React.useState<ButtonSizes>();
 
   const props = {
@@ -123,6 +147,7 @@ export const ButtonDemo = () => {
     fullWidth,
     loadingText,
     ariaLabel,
+    colorTheme,
     variation,
     size,
   };
@@ -134,8 +159,10 @@ export const ButtonDemo = () => {
     setLoadingText,
     setAriaLabel,
     setVariation,
+    setColorTheme,
     setSize,
   };
+
   return (
     <Demo
       code={propsToCode(props)}
@@ -146,6 +173,7 @@ export const ButtonDemo = () => {
         isLoading={loading}
         loadingText={loadingText}
         variation={variation}
+        colorTheme={colorTheme}
         size={size}
         onClick={() => alert('hello')}
         ariaLabel={ariaLabel}
