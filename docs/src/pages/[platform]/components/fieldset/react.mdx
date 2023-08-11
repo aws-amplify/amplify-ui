@@ -9,6 +9,17 @@ import { BasicFieldsetExample } from './examples';
 
 <FieldsetDemo />
 
+## Notes
+
+### Disabled fieldsets
+Fieldsets can be disabled. Disabling a fieldset disables all controls within the fieldset; though you will not be able to rely on styling those controls via the disabled attribute (`input[disabled] {}`) because it won't be present. See native browser behavior here: https://codepen.io/hbuchel/pen/xxQBbNW I tested applying styles based on parent disabled fieldset below.
+
+### form attribute
+Fieldsets should be able to accept a form attribute that lets you associate the fieldset with a form even if it's not a child of that form. You can verify this with `HTMLFormElement.elements`
+
+### name attribute
+fieldsets should be able to accept a name
+
 ## Test disabled fieldset and form attribute
 
 <Example>

@@ -22,19 +22,22 @@ const propsToCode = (props) => {
       : '') +
     `>
   <CheckboxField
-    label="Subscribe"
-    size="${props.size}"
-    name="subscribe"
+    label="Apple"` +
+    (props.size ? `\n    size=${JSON.stringify(props.size)}` : '') +
+    `
+    name="apple"
     value="yes"
   />
   <CheckboxField
-    label="Subscribe"
-    size="${props.size}"
-    name="subscribe"
+    label="Pear"` +
+    (props.size ? `\n    size=${JSON.stringify(props.size)}` : '') +
+    `
+    name="pear"
     value="yes"
   />
-  <TextField 
-    size="${props.size}" 
+  <TextField ` +
+    (props.size ? `\n    size=${JSON.stringify(props.size)}` : '') +
+    `
     label="Street Address" 
   />
 </Fieldset>`
@@ -63,7 +66,6 @@ export const FieldsetDemo = () => {
         isDisabled={fieldsetProps.isDisabled}
         legend={fieldsetProps.legend}
         direction={fieldsetProps.direction}
-        alignItems="center"
       >
         <CheckboxField
           label="Subscribe"

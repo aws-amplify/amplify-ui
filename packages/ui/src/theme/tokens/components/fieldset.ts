@@ -8,7 +8,10 @@ export type FieldsetSizeTokens<Output> = DesignTokenProperties<
 export type FieldsetOutlinedTokens<Output> = DesignTokenProperties<
   'padding' | 'borderColor' | 'borderWidth' | 'borderStyle',
   Output
->;
+> & {
+  small?: DesignTokenProperties<'padding', Output>;
+  large?: DesignTokenProperties<'padding', Output>;
+};
 
 export type FieldsetHorizontalTokens<Output> = DesignTokenProperties<
   'flexDirection' | 'alignItems',
@@ -38,7 +41,7 @@ export const fieldset: Required<FieldsetTokens<'default'>> = {
   legend: {
     color: { value: '{colors.font.primary.value}' },
     fontWeight: { value: '{fontWeights.bold.value}' },
-    lineHeight: { value: '{lineHeights.small.value}' },
+    lineHeight: { value: '{lineHeights.medium.value}' },
   },
   horizontal: {
     flexDirection: 'row',
@@ -49,6 +52,12 @@ export const fieldset: Required<FieldsetTokens<'default'>> = {
     borderColor: '{colors.neutral.40.value}',
     borderWidth: '{borderWidths.small.value}',
     borderStyle: 'solid',
+    small: {
+      padding: '{space.small.value}',
+    },
+    large: {
+      padding: '{space.large.value}',
+    },
   },
   small: {
     fontSize: '{components.field.small.fontSize.value}',
