@@ -205,7 +205,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-outlined-error-active-border-color: var(--amplify-colors-red-100);
         --amplify-components-button-outlined-error-active-background-color: var(--amplify-colors-red-20);
         --amplify-components-button-outlined-error-active-color: var(--amplify-colors-red-100);
-        --amplify-components-button-outlined-overlay-border-color: var(--amplify-colors-neutral-60);
+        --amplify-components-button-outlined-overlay-border-color: var(--amplify-colors-overlay-60);
         --amplify-components-button-outlined-overlay-background-color: transparent;
         --amplify-components-button-outlined-overlay-color: var(--amplify-colors-font-primary);
         --amplify-components-button-outlined-overlay-hover-border-color: var(--amplify-colors-overlay-60);
@@ -214,7 +214,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-outlined-overlay-focus-border-color: var(--amplify-colors-overlay-90);
         --amplify-components-button-outlined-overlay-focus-background-color: var(--amplify-colors-overlay-5);
         --amplify-components-button-outlined-overlay-focus-color: var(--amplify-colors-neutral-90);
-        --amplify-components-button-outlined-overlay-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-neutral-100);
+        --amplify-components-button-outlined-overlay-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-overlay-90);
         --amplify-components-button-outlined-overlay-active-border-color: var(--amplify-colors-overlay-90);
         --amplify-components-button-outlined-overlay-active-background-color: var(--amplify-colors-overlay-10);
         --amplify-components-button-outlined-overlay-active-color: var(--amplify-colors-neutral-100);
