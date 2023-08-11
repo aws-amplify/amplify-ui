@@ -6,7 +6,6 @@ Array [
   "RenderNothing",
   "isAuthenticatorComponentRouteKey",
   "resolveAuthenticatorComponents",
-  "templateJoin",
   "useAuthenticator",
   "useAuthenticatorInitMachine",
   "useAuthenticatorRoute",

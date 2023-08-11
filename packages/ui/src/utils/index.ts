@@ -206,3 +206,43 @@ export const classNameModifierByFlag = (
 ): string => {
   return flag ? `${base}--${modifier}` : '';
 };
+
+/**
+ * `isFunction` but types the param with its function signature
+ *
+ * @param {unknown} value param to check
+ * @returns {boolean} whether `value` is a function
+ */
+export function isTypedFunction<T extends (...args: any[]) => any>(
+  value: unknown
+): value is T {
+  return isFunction(value);
+}
+
+/**
+ * Similar to `Array.join`, with an optional callback/template param
+ * for formatting returned string values
+ *
+ * @param {string[]} values string array
+ * @param {(value: string) => string} template callback format param
+ * @returns formatted string array
+ */
+export function templateJoin(
+  values: string[],
+  template: (value: string) => string
+): string {
+  return values.reduce(
+    (acc, curr) => `${acc}${isString(curr) ? template(curr) : ''}`,
+    ''
+  );
+}
+
+/**
+ * A function that does nothing
+ *
+ * @param {any[]} _ accepts any parameters
+ * @returns nothing
+ */
+export function noop(..._: any[]): void {
+  return;
+}
