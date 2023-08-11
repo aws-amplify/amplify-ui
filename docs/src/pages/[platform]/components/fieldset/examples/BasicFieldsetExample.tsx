@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import {
   View,
+  Button,
   SelectField,
   PasswordField,
   RadioGroupField,
@@ -43,11 +44,10 @@ export const BasicFieldsetExample = () => {
           <PasswordField
             autoComplete="new-password"
             descriptiveText="Please enter password"
-            isDisabled={true}
             label="Password"
             name="password"
-            size="small"
           />
+          <View>https://github.com/facebook/react/issues/15818 :(</View>
           <PhoneNumberField
             defaultDialCode="+1"
             label="Phone number"
@@ -70,6 +70,7 @@ export const BasicFieldsetExample = () => {
             defaultValue="Amplify UI is awesome!"
           />
           <ToggleButton>Press me!</ToggleButton>
+          <Button>normal button</Button>
         </Fieldset>
       </Flex>
       <Fieldset form="form1">

@@ -52,6 +52,7 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
       <VisuallyHidden as="legend">{legend}</VisuallyHidden>
       <View
         as="div"
+        aria-hidden="true"
         className={classNames(ComponentClassNames.FieldsetLegend, className, {
           [ComponentClassNames.VisuallyHidden]: legendHidden,
         })}

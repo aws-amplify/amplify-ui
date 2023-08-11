@@ -13,10 +13,26 @@ const propsToCode = (props) => {
       : '') +
     (props.size ? `\n  size=${JSON.stringify(props.size)}` : '') +
     (props.isDisabled
-      ? `\n  isDisabled=${JSON.stringify(props.isDisabled)}`
+      ? `\n  isDisabled={${JSON.stringify(props.isDisabled)}}`
       : '') +
-    `
-  ></Fieldset>`
+    `>
+  <CheckboxField
+    label="Subscribe"
+    size="${props.size}"
+    name="subscribe"
+    value="yes"
+  />
+  <CheckboxField
+    label="Subscribe"
+    size="${props.size}"
+    name="subscribe"
+    value="yes"
+  />
+  <TextField 
+    size="${props.size}" 
+    label="Street Address" 
+  />
+</Fieldset>`
   );
 };
 
@@ -53,7 +69,7 @@ export const FieldsetDemo = () => {
           name="subscribe"
           value="yes"
         />
-        <TextField label="Street Address" />
+        <TextField size={fieldsetProps.size} label="Street Address" />
       </Fieldset>
     </Demo>
   );

@@ -1,7 +1,7 @@
 import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
 export type FieldsetSizeTokens<Output> = DesignTokenProperties<
-  'fontSize',
+  'fontSize' | 'gap',
   Output
 >;
 
@@ -30,7 +30,7 @@ export type FieldsetTokens<Output extends OutputVariantKey> =
   };
 
 export const fieldset: Required<FieldsetTokens<'default'>> = {
-  gap: { value: '{space.medium.value}' },
+  gap: { value: '{components.field.gap.value}' },
   flexDirection: {
     value: 'column',
   },
@@ -52,8 +52,10 @@ export const fieldset: Required<FieldsetTokens<'default'>> = {
   },
   small: {
     fontSize: '{components.field.small.fontSize.value}',
+    gap: '{components.field.large.small.value}',
   },
   large: {
     fontSize: '{components.field.large.fontSize.value}',
+    gap: '{components.field.large.gap.value}',
   },
 };

@@ -11,9 +11,11 @@
   /* Sizes */
   &--small {
     font-size: var(--amplify-components-fieldset-small-font-size);
+    gap: var(--amplify-components-fieldset-small-gap);
   }
   &--large {
     font-size: var(--amplify-components-fieldset-large-font-size);
+    gap: var(--amplify-components-fieldset-large-gap);
   }
   /* Variations */
   &--outlined {
