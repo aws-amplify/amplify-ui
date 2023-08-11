@@ -137,9 +137,8 @@ export const ButtonDemo = () => {
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
   const [loadingText, setLoadingText] = React.useState('');
   const [ariaLabel, setAriaLabel] = React.useState<string>('');
-  const [variation, setVariation] = React.useState<ButtonVariations>(undefined);
-  const [colorTheme, setColorTheme] =
-    React.useState<ButtonColorTheme>(undefined);
+  const [variation, setVariation] = React.useState<ButtonVariations>();
+  const [colorTheme, setColorTheme] = React.useState<ButtonColorTheme>();
   const [size, setSize] = React.useState<ButtonSizes>();
 
   const props = {
