@@ -1,12 +1,10 @@
-export { FieldProvider, useField } from './Fields';
-export { default as FormProvider } from './FormProvider';
-export { default as withFormProvider } from './withFormProvider';
-export { default as useForm } from './useForm';
 export {
   FormValues,
   FormHandle,
-  FormProviderProps,
-  OnSubmit,
+  SubmitHandler,
   Validate,
   Validator,
 } from './types';
+export { default as useField } from './useField';
+export { default as useForm } from './useForm';
+export { default as withFormProvider } from './withFormProvider';

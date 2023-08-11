@@ -7,9 +7,8 @@ module.exports = {
     '!<rootDir>/src/**/*(c|C)onstants.ts',
     // - __mock__ directories
     '!<rootDir>/src/**/__mock__/*',
-    // - exports files
-    '!<rootDir>/src/index.ts', // primary
-    '!<rootDir>/src/Authenticator/index.ts', // Authenticator
+    // - export files
+    '!<rootDir>/**/index.ts', // primary
   ],
   coverageThreshold: {
     global: {

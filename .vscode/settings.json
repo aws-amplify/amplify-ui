@@ -12,5 +12,8 @@
   },
   "[mdx]": {
     "editor.wordWrap": "on"
+  },
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#d88ed8"
   }
 }

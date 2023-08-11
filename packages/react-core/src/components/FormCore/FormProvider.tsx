@@ -6,11 +6,13 @@ import {
 
 import { FormValues, FormHandle, FormProviderProps } from './types';
 
+const DEFAULT_MODE = 'onTouched';
+
 const FormProvider = React.forwardRef<
   FormHandle,
   FormProviderProps<FormValues>
 >(function FormProvider<Values extends FormValues>(
-  { children, defaultValues, mode = 'onTouched' }: FormProviderProps<Values>,
+  { children, defaultValues, mode = DEFAULT_MODE }: FormProviderProps<Values>,
   ref: React.ForwardedRef<FormHandle<Values>>
 ) {
   const formProviderProps = useReactHookForm<Values>({

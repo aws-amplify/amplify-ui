@@ -5,6 +5,10 @@ import { AnyComponent, MergeProps } from '../../types';
 import FormProvider from './FormProvider';
 import { FormHandle, FormProviderProps } from './types';
 
+/**
+ * @param Child `Form` base component wrapped inside `FormProvider`
+ * @returns Composed `Form` component exposing `FormContext` values to descendents
+ */
 export default function withFormProvider<
   ChildComp extends AnyComponent,
   ChildProps extends React.ComponentPropsWithRef<ChildComp>,
@@ -14,12 +18,12 @@ export default function withFormProvider<
 ): React.ForwardRefExoticComponent<
   React.PropsWithoutRef<Props> & React.RefAttributes<FormHandle>
 > {
-  return React.forwardRef<FormHandle, Props>(function WrappedForm(
-    { mode, ...props },
+  return React.forwardRef<FormHandle, Props>(function Form(
+    { defaultValues, mode, ...props },
     ref
   ) {
     return (
-      <FormProvider mode={mode} ref={ref}>
+      <FormProvider defaultValues={defaultValues} mode={mode} ref={ref}>
         <Child {...(props as ChildProps)} />
       </FormProvider>
     );
