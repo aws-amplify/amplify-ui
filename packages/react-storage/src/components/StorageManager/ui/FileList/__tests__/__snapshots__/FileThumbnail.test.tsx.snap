@@ -45,8 +45,8 @@ exports[`FileThumbnail renders custom icons from IconProvider 1`] = `
   <div
     class="amplify-storagemanager__file__image"
   >
-    <span
-      class="my-custom-icon"
+    <div
+      data-testid="file"
     />
   </div>
 </div>

@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames, IconsProvider } from '@aws-amplify/ui-react';
+import {
+  ComponentClassNames,
+  IconsProvider,
+  View,
+} from '@aws-amplify/ui-react';
 import { classNameModifier } from '@aws-amplify/ui';
 
 import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
@@ -72,7 +76,7 @@ describe('DropZone', () => {
       <IconsProvider
         icons={{
           storageManager: {
-            upload: <span className="my-custom-icon" />,
+            upload: <View testId="upload" />,
           },
         }}
       >
@@ -87,8 +91,7 @@ describe('DropZone', () => {
         />
       </IconsProvider>
     );
-    const customIcon = container.querySelector('.my-custom-icon');
-    expect(customIcon).toBeInTheDocument();
+    expect(screen.getByTestId('upload')).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
 });

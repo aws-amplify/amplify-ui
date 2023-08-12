@@ -54,8 +54,8 @@ exports[`FileRemoveButton renders custom icons from IconProvider 1`] = `
     <span
       aria-hidden="true"
     >
-      <span
-        class="my-custom-icon"
+      <div
+        data-testid="remove"
       />
     </span>
   </button>

@@ -1,8 +1,12 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ComponentClassNames, IconsProvider } from '@aws-amplify/ui-react';
+import {
+  ComponentClassNames,
+  IconsProvider,
+  View,
+} from '@aws-amplify/ui-react';
 
 import { FileRemoveButton } from '../FileRemoveButton';
 import { FileRemoveButtonProps } from '../types';
@@ -46,7 +50,7 @@ describe('FileRemoveButton', () => {
       <IconsProvider
         icons={{
           storageManager: {
-            remove: <span className="my-custom-icon" />,
+            remove: <View testId="remove" />,
           },
         }}
       >
@@ -54,8 +58,7 @@ describe('FileRemoveButton', () => {
       </IconsProvider>
     );
 
-    const customIcon = container.querySelector('.my-custom-icon');
-    expect(customIcon).toBeInTheDocument();
+    expect(screen.getByTestId('remove')).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
 });

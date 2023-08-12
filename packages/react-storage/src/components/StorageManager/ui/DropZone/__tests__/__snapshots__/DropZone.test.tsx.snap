@@ -45,8 +45,8 @@ exports[`DropZone renders custom icons from IconProvider 1`] = `
       aria-hidden="true"
       class="amplify-storagemanager__dropzone__icon"
     >
-      <span
-        class="my-custom-icon"
+      <div
+        data-testid="upload"
       />
     </span>
     <p

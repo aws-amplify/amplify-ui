@@ -5322,13 +5322,6 @@ Object {
       },
     },
   },
-  "IconsProvider": Object {
-    "properties": Object {
-      "children": Object {
-        "type": "string",
-      },
-    },
-  },
   "Image": Object {
     "properties": Object {
       "alignSelf": Object {

@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames, IconsProvider } from '@aws-amplify/ui-react';
+import {
+  ComponentClassNames,
+  IconsProvider,
+  View,
+} from '@aws-amplify/ui-react';
 
 import { FileStatusMessage } from '../FileStatusMessage';
 import { FileStatusMessageProps } from '../types';
@@ -90,8 +94,8 @@ describe('FileStatusMessage', () => {
       <IconsProvider
         icons={{
           storageManager: {
-            success: <span className="custom-success-icon" />,
-            error: <span className="custom-error-icon" />,
+            success: <View testId="success" />,
+            error: <View testId="error" />,
           },
         }}
       >
@@ -100,10 +104,8 @@ describe('FileStatusMessage', () => {
       </IconsProvider>
     );
 
-    const customSuccessIcon = container.querySelector('.custom-success-icon');
-    const customErrorIcon = container.querySelector('.custom-error-icon');
-    expect(customSuccessIcon).toBeInTheDocument();
-    expect(customErrorIcon).toBeInTheDocument();
+    expect(screen.getByTestId('success')).toBeInTheDocument();
+    expect(screen.getByTestId('error')).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
 });

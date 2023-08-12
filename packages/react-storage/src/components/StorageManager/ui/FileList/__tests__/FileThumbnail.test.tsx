@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames, IconsProvider } from '@aws-amplify/ui-react';
+import {
+  ComponentClassNames,
+  IconsProvider,
+  View,
+} from '@aws-amplify/ui-react';
 
 import { FileThumbnail } from '../FileThumbnail';
 import { FileThumbnailProps } from '../types';
@@ -54,15 +58,14 @@ describe('FileThumbnail', () => {
       <IconsProvider
         icons={{
           storageManager: {
-            file: <span className="my-custom-icon" />,
+            file: <View testId="file" />,
           },
         }}
       >
         <FileThumbnail {...thumbnailProps} />
       </IconsProvider>
     );
-    const customIcon = container.querySelector('.my-custom-icon');
-    expect(customIcon).toBeInTheDocument();
+    expect(screen.getByTestId('file')).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
 });

@@ -84,8 +84,8 @@ exports[`FileStatusMessage renders custom icons from IconProvider 1`] = `
     class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--error"
   >
     <span>
-      <span
-        class="custom-error-icon"
+      <div
+        data-testid="error"
       />
     </span>
     Error
@@ -94,8 +94,8 @@ exports[`FileStatusMessage renders custom icons from IconProvider 1`] = `
     class="amplify-text amplify-storagemanager__file__status amplify-storagemanager__file__status--success"
   >
     <span>
-      <span
-        class="custom-success-icon"
+      <div
+        data-testid="success"
       />
     </span>
     Upload successful!
