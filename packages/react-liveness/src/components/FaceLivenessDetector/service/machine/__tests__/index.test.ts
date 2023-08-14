@@ -18,6 +18,7 @@ import {
   mockSessionInformation,
   mockVideoRecorder,
 } from '../../utils/__mocks__/testUtils';
+import { STATIC_VIDEO_CONSTRAINTS } from '../../../StartLiveness/helpers';
 
 jest.useFakeTimers();
 jest.mock('../../utils');
@@ -50,11 +51,7 @@ describe('Liveness Machine', () => {
     config: {},
   };
 
-  const mockVideoConstaints: MediaTrackConstraints = {
-    width: { min: 320, ideal: 640, max: 1920 },
-    height: { min: 240, ideal: 480, max: 1080 },
-    facingMode: 'user',
-  };
+  const mockVideoConstaints: MediaTrackConstraints = STATIC_VIDEO_CONSTRAINTS;
   const mockCameraDevice: MediaDeviceInfo = {
     deviceId: 'some-device-id',
     groupId: 'some-group-id',
@@ -128,7 +125,6 @@ describe('Liveness Machine', () => {
     service.start();
     service.send({
       type: 'BEGIN',
-      data: { videoConstraints: mockVideoConstaints },
     });
   }
 

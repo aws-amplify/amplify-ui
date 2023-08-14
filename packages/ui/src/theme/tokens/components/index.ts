@@ -2,6 +2,7 @@ import { AlertTokens, alert } from './alert';
 import { AutocompleteTokens, autocomplete } from './autocomplete';
 import { AuthenticatorTokens, authenticator } from './authenticator';
 import { badge, BadgeTokens } from './badge';
+import { breadcrumbs, BreadcrumbsTokens } from './breadcrumbs';
 import { button, ButtonTokens } from './button';
 import { card, CardTokens } from './card';
 import { checkbox, CheckboxTokens } from './checkbox';
@@ -59,6 +60,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   authenticator?: AuthenticatorTokens<Output>;
   autocomplete?: AutocompleteTokens<Output>;
   badge?: BadgeTokens<Output>;
+  breadcrumbs?: BreadcrumbsTokens<Output>;
   button?: ButtonTokens<Output>;
   card?: CardTokens<Output>;
   checkbox?: CheckboxTokens<Output>;
@@ -124,6 +126,7 @@ export const components: DefaultComponentTokens = {
   authenticator,
   autocomplete,
   badge,
+  breadcrumbs,
   button,
   card,
   checkbox,

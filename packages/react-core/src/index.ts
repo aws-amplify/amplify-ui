@@ -22,11 +22,11 @@ export {
 
 export { RenderNothing } from './components';
 
-// components/hooks/utils
 export {
   useDeprecationWarning,
   UseDeprecationWarning,
   useHasValueUpdated,
   usePreviousValue,
 } from './hooks';
-export { templateJoin } from './utils';
+
+export { MergeProps } from './types';
