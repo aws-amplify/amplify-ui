@@ -1,4 +1,6 @@
 export {
+  StorageImage,
+  StorageImageProps,
   StorageManager,
   StorageManagerProps,
   DropZoneProps,

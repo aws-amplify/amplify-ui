@@ -1,3 +1,5 @@
+export { StorageImage, StorageImageProps } from './StorageImage';
+
 export {
   StorageManager,
   StorageManagerProps,

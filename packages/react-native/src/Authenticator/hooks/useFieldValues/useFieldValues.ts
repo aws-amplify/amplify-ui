@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Logger } from 'aws-amplify';
+import { ValidationError } from '@aws-amplify/ui';
 
 import { OnChangeText, TextFieldOnBlur, TypedField } from '../types';
 
@@ -8,6 +9,7 @@ import {
   getSanitizedTextFields,
   getSanitizedRadioFields,
   isRadioFieldOptions,
+  runFieldValidation,
 } from './utils';
 
 const logger = new Logger('Authenticator');
@@ -18,8 +20,12 @@ export default function useFieldValues<FieldType extends TypedField>({
   handleBlur,
   handleChange,
   handleSubmit,
+  validationErrors,
 }: UseFieldValuesParams<FieldType>): UseFieldValues<FieldType> {
   const [values, setValues] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [fieldValidationErrors, setFieldValidationErrors] =
+    useState<ValidationError>({});
   const isRadioFieldComponent = componentName === 'VerifyUser';
 
   const sanitizedFields = useMemo(() => {
@@ -53,11 +59,18 @@ export default function useFieldValues<FieldType extends TypedField>({
     const { name, label, labelHidden, ...rest } = field;
 
     const onBlur: TextFieldOnBlur = (event) => {
+      setTouched({ ...touched, [name]: true });
+
       // call `onBlur` passed as text `field` option
       field.onBlur?.(event);
 
       // call machine blur handler
       handleBlur({ name, value: values[name] });
+
+      setFieldValidationErrors({
+        ...fieldValidationErrors,
+        [name]: runFieldValidation(field, values[name], validationErrors),
+      });
     };
 
     const onChangeText: OnChangeText = (value) => {
@@ -66,6 +79,13 @@ export default function useFieldValues<FieldType extends TypedField>({
 
       // call machine change handler
       handleChange({ name, value });
+
+      if (touched[name]) {
+        setFieldValidationErrors({
+          ...fieldValidationErrors,
+          [name]: runFieldValidation(field, value, validationErrors),
+        });
+      }
 
       setValues({ ...values, [name]: value });
     };
@@ -112,5 +132,10 @@ export default function useFieldValues<FieldType extends TypedField>({
     handleSubmit?.(submitValue);
   };
 
-  return { fields: fieldsWithHandlers, disableFormSubmit, handleFormSubmit };
+  return {
+    fields: fieldsWithHandlers,
+    disableFormSubmit,
+    fieldValidationErrors: { ...fieldValidationErrors, ...validationErrors },
+    handleFormSubmit,
+  };
 }

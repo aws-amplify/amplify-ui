@@ -10,6 +10,7 @@ export const deDict: AuthenticatorDictionary = {
   Changing: 'Ändern von',
   Code: 'Code',
   'Confirm Password': 'Passwort bestätigen',
+  'Please confirm your Password': 'Bitte bestätigen Sie Ihr Passwort',
   'Confirm Sign Up': 'Registrierung bestätigen',
   'Confirm SMS Code': 'SMS-Code bestätigen',
   'Confirm TOTP Code': 'TOTP-Code bestätigen',

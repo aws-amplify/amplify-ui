@@ -24,6 +24,7 @@ export type InputMode =
 
 export type InputSizes = Sizes;
 
+/** @deprecated For internal use only */
 export interface BaseInputProps extends BaseViewProps {
   /**
    * @description

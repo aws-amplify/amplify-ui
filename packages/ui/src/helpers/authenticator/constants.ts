@@ -128,3 +128,11 @@ export const ALLOWED_SPECIAL_CHARACTERS = [
   ';',  '|', '_', '~', '`', '=',
   '+',  '-', ' '
 ];
+
+/**
+ * Email validation regex
+ *
+ * source: HTML5 spec https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
+ */
+export const emailRegex =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;

@@ -37,6 +37,7 @@ import {
   MdSystemUpdateAlt,
   MdCheckCircle,
   MdHighlight,
+  MdChevronRight,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
@@ -198,6 +199,13 @@ export const connectedComponents: ComponentNavItem[] = [
     label: 'Storage',
     body: "Amplify UI Storage components allow you to store files in the cloud using Amplify's Storage category",
     platforms: ['react'],
+  },
+  {
+    href: '/connected-components/storage/storageimage',
+    label: 'Storage Image',
+    body: 'StorageImage component allows users to load an image managed by Amplify Storage.',
+    platforms: ['react'],
+    tertiary: true,
   },
   {
     href: '/connected-components/storage/storagemanager',
@@ -453,6 +461,13 @@ export const navigationComponents: ComponentNavItem[] = [
     body: `Tabs organize content into multiple sections and allow users to navigate between them.`,
     platforms: ['react'],
     icon: MdTab,
+  },
+  {
+    href: '/components/breadcrumbs',
+    label: 'Breadcrumbs',
+    body: `The breadcrumbs component is a navigation list used to visualize the information architecture of a website and the user's current place in the hierarchy.`,
+    platforms: ['react'],
+    icon: MdChevronRight,
   },
 ].sort(sortByLabel);
 

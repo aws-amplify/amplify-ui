@@ -6,6 +6,7 @@
   "files.insertFinalNewline": true,
   "prettier.requireConfig": true,
   "typescript.tsdk": "node_modules/typescript/lib",
+  "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

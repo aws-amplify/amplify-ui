@@ -26,11 +26,13 @@ const ResetPassword = ({
   handleSubmit,
   isPending,
   toSignIn,
+  validationErrors,
   ...rest
 }: DefaultResetPasswordProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -38,6 +40,7 @@ const ResetPassword = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getResetYourPasswordText();
@@ -69,6 +72,7 @@ const ResetPassword = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

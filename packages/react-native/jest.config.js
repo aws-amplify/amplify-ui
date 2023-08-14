@@ -1,6 +1,7 @@
 module.exports = {
   preset: 'react-native',
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*{c,C}onstants.ts',

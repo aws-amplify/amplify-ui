@@ -33,11 +33,13 @@ const SetupTOTP = ({
   isPending,
   toSignIn,
   totpSecretCode,
+  validationErrors,
   ...rest
 }: DefaultSetupTOTPProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -45,6 +47,7 @@ const SetupTOTP = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getSetupTOTPText();
@@ -88,6 +91,7 @@ const SetupTOTP = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

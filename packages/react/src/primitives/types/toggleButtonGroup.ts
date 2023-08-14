@@ -4,6 +4,7 @@ import { BaseFlexProps } from './flex';
 import { BaseToggleButtonProps } from './toggleButton';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseToggleButtonGroupProps
   extends BaseFlexProps,
     Pick<BaseToggleButtonProps, 'size' | 'variation'> {

@@ -16,7 +16,7 @@
     "react-dom": "latest"
   },
   "devDependencies": {
-    "@size-limit/preset-app": "^7.0.8",
+    "@size-limit/preset-app": "^8.2.6",
     "@vitejs/plugin-react": "^1.0.7",
     "size-limit": "^8.2.6",
     "vite": "^2.8.0"

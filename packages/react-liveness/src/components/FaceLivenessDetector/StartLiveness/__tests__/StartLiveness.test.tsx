@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 
 import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
 import { useLivenessActor } from '../../hooks/useLivenessActor';
-import { getVideoConstraints } from '../helpers';
 import { StartLiveness } from '../StartLiveness';
 import { getDisplayText } from '../../utils/getDisplayText';
 
@@ -13,7 +12,6 @@ jest.mock('../../shared/CancelButton');
 jest.mock('../helpers');
 
 const mockUseLivenessActor = getMockedFunction(useLivenessActor);
-const mockGetVideoConstraints = getMockedFunction(getVideoConstraints);
 
 describe('StartLiveness', () => {
   const mockActorState: any = {};
@@ -21,9 +19,6 @@ describe('StartLiveness', () => {
   const mockBeginCheck = () => {
     mockActorSend({
       type: 'BEGIN',
-      data: {
-        videoConstraints: {},
-      },
     });
   };
 
@@ -117,9 +112,6 @@ describe('StartLiveness', () => {
   });
 
   it('should call the begin handler on begin check', () => {
-    const mockVideoConstraints = {};
-    mockGetVideoConstraints.mockReturnValue(mockVideoConstraints);
-
     renderWithLivenessProvider(
       <StartLiveness
         beginLivenessCheck={mockBeginCheck}
@@ -133,9 +125,6 @@ describe('StartLiveness', () => {
 
     expect(mockActorSend).toHaveBeenCalledWith({
       type: 'BEGIN',
-      data: {
-        videoConstraints: mockVideoConstraints,
-      },
     });
   });
 });
