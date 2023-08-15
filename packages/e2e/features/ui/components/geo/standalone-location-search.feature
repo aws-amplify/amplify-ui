@@ -4,7 +4,7 @@ Feature: Standalone LocationSearch
 
   Background:
     Given I'm running the example "ui/components/geo/standalone-location-search"
-    And my default search results is 5
+    Then my default search results is 5
 
   @react
   Scenario: Shows results while typing
@@ -14,14 +14,14 @@ Feature: Standalone LocationSearch
   @react
   Scenario: Select a single result
     When I search for "Amazon Go"
-    And I select the first search result
+    Then I select the first search result
     Then I see no search results
-    And the search input is not empty
+    Then the search input is not empty
 
   @react
   Scenario: Clear search results
     When I search for "Amazon Go"
-    And I clear the search results
+    Then I clear the search results
     Then I see no search results
-    And the search input is empty
+    Then the search input is empty
 
