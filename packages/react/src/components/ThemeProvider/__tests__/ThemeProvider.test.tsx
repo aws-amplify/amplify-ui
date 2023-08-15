@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { Theme, createTheme } from '@aws-amplify/ui';
 import * as React from 'react';
 
-import { ThemeProvider } from '../index';
+import { ThemeProvider } from '../ThemeProvider';
 import { Heading } from '../../../primitives';
 import { useTheme } from '../../../hooks';
 

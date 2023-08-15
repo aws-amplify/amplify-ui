@@ -4,7 +4,7 @@ import {
   isPortrait,
   getLandscapeMediaQuery,
 } from '../device';
-import { mockMatchMedia } from '../../__mocks__';
+import { mockMatchMedia } from '../../__mocks__/utils';
 
 const GOOGLE_PIXEL_FIREFOX =
   'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.023; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Firefox/94.0.4606.71 Mobile Safari/537.36';
