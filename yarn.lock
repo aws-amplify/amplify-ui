@@ -16362,6 +16362,11 @@ eslint-plugin-import@^2.22.1, eslint-plugin-import@^2.25.2, eslint-plugin-import
     semver "^6.3.0"
     tsconfig-paths "^3.14.1"
 
+eslint-plugin-index@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-index/-/eslint-plugin-index-1.1.5.tgz#34a73e136a1316261a10cf2d95df8716d560cd6e"
+  integrity sha512-4n8JK2kI61VEGuEzm7y5Pxs8tSBcNtxWPX731gm+ApEDGqOH+YqMclazPXtdKfex8zcl4X0dWBL0tiD9kO88cA==
+
 eslint-plugin-jest@22.4.1:
   version "22.4.1"
   resolved "https://registry.npmjs.org/eslint-plugin-jest/-/eslint-plugin-jest-22.4.1.tgz#a5fd6f7a2a41388d16f527073b778013c5189a9c"

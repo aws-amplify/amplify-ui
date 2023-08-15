@@ -8,7 +8,10 @@ import {
   LivenessErrorState,
 } from '../../service';
 
-import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
+import {
+  renderWithLivenessProvider,
+  getMockedFunction,
+} from '../../__mocks__/utils';
 import { useLivenessActor, useLivenessSelector } from '../../hooks';
 import {
   Hint,
