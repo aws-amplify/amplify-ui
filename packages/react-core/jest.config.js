@@ -8,7 +8,7 @@ module.exports = {
     // - __mock__ directories
     '!<rootDir>/src/**/__mock__/*',
     // - export files
-    '!<rootDir>/**/index.ts', // primary
+    '!<rootDir>/**/index.ts',
   ],
   coverageThreshold: {
     global: {
