@@ -14,7 +14,6 @@ import { StartScreenComponents } from './shared/DefaultStartScreenComponents';
 import { LivenessDisplayText } from './displayText';
 import { getDisplayText } from './utils/getDisplayText';
 import { CheckScreenComponents } from './shared/FaceLivenessErrorModal';
-import { isMobileScreen } from './utils/device';
 
 const DETECTOR_CLASS_NAME = 'liveness-detector';
 
@@ -59,7 +58,7 @@ export default function FaceLivenessDetectorCore(
   const isStartView = state.matches('start') || state.matches('userCancel');
 
   const beginLivenessCheck = React.useCallback(() => {
-    const videoConstraints = getVideoConstraints(isMobileScreen());
+    const videoConstraints = getVideoConstraints();
 
     send({
       type: 'BEGIN',

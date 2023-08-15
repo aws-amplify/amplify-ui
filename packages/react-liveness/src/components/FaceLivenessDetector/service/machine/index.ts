@@ -899,7 +899,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const ovalDetails = getStaticLivenessOvalDetails({
           width: width!,
           height: height!,
-          isMobile,
         });
 
         const { isDistanceBelowThreshold: isFaceFarEnoughBeforeRecording } =
@@ -928,7 +927,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const ovalDetails = getStaticLivenessOvalDetails({
           width: width!,
           height: height!,
-          isMobile,
         });
 
         const {
@@ -1011,7 +1009,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           height: videoEl!.height,
           centerXSeed: context.componentProps?.config?.centerXSeed,
           centerYSeed: context.componentProps?.config?.centerYSeed,
-          isMobile,
         });
 
         // renormalize initial face
