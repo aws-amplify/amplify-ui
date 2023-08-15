@@ -15,7 +15,8 @@ import {
 } from '@aws-sdk/client-rekognitionstreaming';
 import {
   FACE_DISTANCE_THRESHOLD,
-  FACE_DISTANCE_THRESHOLD_MOBILE,
+  REDUCED_THRESHOLD,
+  REDUCED_THRESHOLD_MOBILE,
 } from './constants';
 
 /**
@@ -131,31 +132,43 @@ export function getOvalDetailsFromSessionInformation({
 export function getStaticLivenessOvalDetails({
   width,
   height,
-  widthSeed = 1.0,
+  widthSeed = 1.1,
   centerXSeed = 0.5,
   centerYSeed = 0.5,
-  isMobile = false,
 }: {
   width: number;
   height: number;
   widthSeed?: number;
   centerXSeed?: number;
   centerYSeed?: number;
-  isMobile?: boolean;
 }): LivenessOvalDetails {
   const videoHeight = height;
   let videoWidth = width;
 
-  let centerX;
-  let centerY;
-  let ovalWidth;
-  let ovalHeight;
+  const ovalRatio = widthSeed * 0.8;
 
-  const ovalRatio = isMobile ? getMobileOvalRatio(width, height) : 0.8;
-  centerX = 0.5 * width;
-  centerY = 0.5 * height;
-  ovalHeight = ovalRatio * videoHeight;
-  ovalWidth = (ovalHeight * 3) / 4;
+  const minOvalCenterX = Math.floor((7 * width) / 16);
+  const maxOvalCenterX = Math.floor((9 * width) / 16);
+  const minOvalCenterY = Math.floor((7 * height) / 16);
+  const maxOvalCenterY = Math.floor((9 * height) / 16);
+
+  const centerX = getScaledValueFromRandomSeed(
+    centerXSeed,
+    minOvalCenterX,
+    maxOvalCenterX
+  );
+  const centerY = getScaledValueFromRandomSeed(
+    centerYSeed,
+    minOvalCenterY,
+    maxOvalCenterY
+  );
+
+  if (width >= height) {
+    videoWidth = (3 / 4) * videoHeight;
+  }
+
+  const ovalWidth = ovalRatio * videoWidth;
+  const ovalHeight = 1.618 * ovalWidth;
 
   return {
     flippedCenterX: Math.floor(centerX),
@@ -164,16 +177,6 @@ export function getStaticLivenessOvalDetails({
     width: Math.floor(ovalWidth),
     height: Math.floor(ovalHeight),
   };
-}
-
-function getMobileOvalRatio(width: number, height: number): number {
-  const aspectRatioRounded = parseFloat((height / width).toFixed(1));
-  let ovalRatio = 0.7;
-
-  if (aspectRatioRounded > 1.8) {
-    ovalRatio = ((0.95 / aspectRatioRounded) * 4) / 3;
-  }
-  return ovalRatio;
 }
 
 /**
@@ -260,7 +263,7 @@ export function getFaceMatchStateInLivenessOval(
 ): FaceMatchStateInLivenessOval {
   let faceMatchState: FaceMatchState;
 
-  const OvalIouThreshold = 0.65;
+  const OvalIouThreshold = 0.75;
   const OvalIouHeightThreshold = 0.25;
   const OvalIouWidthThreshold = 0.25;
   const FaceIouHeightThreshold = 0.15;
@@ -360,9 +363,10 @@ export function generateBboxFromLandmarks(
   const alpha = 2.0,
     gamma = 1.8;
   const ow = (alpha * pd + gamma * fh) / 2;
-  const oh = 1.8 * ow;
+  const oh = 1.618 * ow;
 
   let cx: number, cy: number;
+
   if (eyeCenter[1] <= (ovalTop + ovalHeight!) / 2) {
     cx = (eyeCenter[0] + nose[0]) / 2;
     cy = (eyeCenter[1] + nose[1]) / 2;
@@ -785,7 +789,7 @@ export async function isFaceDistanceBelowThreshold({
       //exactly one face detected, match face with oval;
       detectedFace = detectedFaces[0];
 
-      const height = videoEl.height;
+      const width = ovalDetails.width;
       const { pupilDistance, faceHeight } =
         getPupilDistanceAndFaceHeight(detectedFace);
 
@@ -794,10 +798,14 @@ export async function isFaceDistanceBelowThreshold({
       const calibratedPupilDistance =
         (alpha * pupilDistance + gamma * faceHeight) / 2 / alpha;
 
-      if (height) {
+      if (width) {
         isDistanceBelowThreshold =
-          (calibratedPupilDistance * 1.8) / height <
-          (isMobile ? FACE_DISTANCE_THRESHOLD_MOBILE : FACE_DISTANCE_THRESHOLD);
+          calibratedPupilDistance / width <
+          (!reduceThreshold
+            ? FACE_DISTANCE_THRESHOLD
+            : isMobile
+            ? REDUCED_THRESHOLD_MOBILE
+            : REDUCED_THRESHOLD);
         if (!isDistanceBelowThreshold) {
           error = LivenessErrorState.FACE_DISTANCE_ERROR;
         }
