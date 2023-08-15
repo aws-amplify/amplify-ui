@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react-core
 
+## 2.1.30
+
+### Patch Changes
+
+- [#4331](https://github.com/aws-amplify/amplify-ui/pull/4331) [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(ui-react-core): add createContextUtilities
+
+- Updated dependencies [[`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c), [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5), [`5040faf51`](https://github.com/aws-amplify/amplify-ui/commit/5040faf51ce2dc87882d452e6f90ad4ab0bd6967)]:
+  - @aws-amplify/ui@5.7.1
+
 ## 2.1.29
 
 ### Patch Changes

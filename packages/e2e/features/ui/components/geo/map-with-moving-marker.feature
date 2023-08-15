@@ -8,5 +8,5 @@ Feature: Map with Moving Marker
   @react
   Scenario: Marker position updates
     When I see the position of a map marker
-    And I click a button to move the map marker
+    Then I click a button to move the map marker
     Then I see the marker position update
