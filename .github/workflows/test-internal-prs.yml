@@ -13,8 +13,12 @@ concurrency:
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, hotfix]
     types: [opened, synchronize, labeled]
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: write # Used to push tags to GitHub
 
 jobs:
   setup:
@@ -130,14 +134,14 @@ jobs:
         run: yarn license
 
   unit:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-unit.yml@hotfix
     needs: setup-cache
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
 
   e2e:
-    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@main
+    uses: aws-amplify/amplify-ui/.github/workflows/reusable-e2e.yml@hotfix-pr-v4
     needs: unit
     with:
       commit: ${{ github.event.pull_request.head.sha }}
