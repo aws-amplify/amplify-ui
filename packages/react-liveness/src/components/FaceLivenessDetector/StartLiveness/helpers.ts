@@ -1,6 +1,6 @@
 export function getVideoConstraints(
   isMobileScreen?: boolean
-): MediaTrackConstraints | null {
+): MediaTrackConstraints {
   if (isMobileScreen) {
     // We're requesting opposite values here because we've focused on
     // portrait first.
