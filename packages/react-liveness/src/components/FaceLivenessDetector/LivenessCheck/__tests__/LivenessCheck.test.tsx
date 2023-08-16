@@ -3,12 +3,15 @@ import { screen } from '@testing-library/react';
 import { useThemeBreakpoint } from '@aws-amplify/ui-react/internal';
 
 import { LivenessErrorState } from '../../service';
-import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
+import {
+  renderWithLivenessProvider,
+  getMockedFunction,
+} from '../../__mocks__/utils';
 import { LivenessCheck } from '../LivenessCheck';
 import { useLivenessSelector, useLivenessActor } from '../../hooks';
 import { getDisplayText } from '../../utils/getDisplayText';
 import { defaultErrorDisplayText } from '../../displayText';
-import { mockMatchMedia } from '../../__mocks__';
+import { mockMatchMedia } from '../../__mocks__/utils';
 
 jest.mock('../../hooks');
 jest.mock('@aws-amplify/ui-react/internal');

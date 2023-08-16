@@ -234,6 +234,15 @@ describe('runFieldValidation', () => {
     expect(result).toEqual([]);
   });
 
+  it('should trim values when validating', () => {
+    const value = ' test@example.com ';
+    const stateValidations = {};
+
+    const result = runFieldValidation(field, value, stateValidations);
+
+    expect(result).toEqual([]);
+  });
+
   it('should return an array with the required field error when value is missing', () => {
     const value = undefined;
     const stateValidations = {};

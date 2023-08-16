@@ -13,10 +13,15 @@ import { Flex } from '../Flex';
 import { Loader } from '../Loader';
 import { View } from '../View';
 
+// These variations support colorThemes. 'undefined' accounts for our
+// 'default' variation which is not named.
+const supportedVariations = ['link', 'primary', undefined];
+
 const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   {
     className,
     children,
+    colorTheme,
     isFullWidth = false,
     isDisabled,
     isLoading,
@@ -28,10 +33,18 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   },
   ref
 ) => {
+  // Creates our colorTheme modifier string based on if the variation
+  // supports colorThemes and a colorTheme is used.
+  const colorThemeModifier =
+    supportedVariations.includes(variation) && colorTheme
+      ? `${variation ?? 'outlined'}--${colorTheme}`
+      : undefined;
+
   const componentClasses = classNames(
     ComponentClassNames.Button,
     ComponentClassNames.FieldGroupControl,
     classNameModifier(ComponentClassNames.Button, variation),
+    classNameModifier(ComponentClassNames.Button, colorThemeModifier),
     classNameModifier(ComponentClassNames.Button, size),
     classNameModifierByFlag(
       ComponentClassNames.Button,

@@ -1337,6 +1337,9 @@ Object {
       "color": Object {
         "type": "string",
       },
+      "colorTheme": Object {
+        "type": "string",
+      },
       "column": Object {
         "type": "string",
       },
