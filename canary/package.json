@@ -33,8 +33,8 @@
     "angularcli:install": "yarn --cwd apps/angular/angularcli install",
     "vite-vue": "yarn --cwd apps/vue/vite build && yarn --cwd apps/vue/vite3 build",
     "vite-vue:install": "yarn --cwd apps/vue/vite install && yarn --cwd apps/vue/vite3 install",
-    "vite-react": "yarn --cwd apps/react/vite build && yarn --cwd apps/react/vite3 build",
-    "vite-react:install": "yarn --cwd apps/react/vite install && yarn --cwd apps/react/vite3 install",
+    "vite-react": "yarn --cwd apps/react/vite build",
+    "vite-react:install": "yarn --cwd apps/react/vite install",
     "vuecli": "yarn --cwd apps/vue/vuecli build ",
     "vuecli:install": "yarn --cwd apps/vue/vuecli install"
   },
