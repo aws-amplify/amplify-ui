@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useSelector } from '@xstate/react';
 
-import { getMockedFunction } from '../../__mocks__';
+import { getMockedFunction } from '../../__mocks__/utils';
 import { useFaceLivenessDetector } from '../../providers';
 import { useLivenessSelector } from '../useLivenessSelector';
 
