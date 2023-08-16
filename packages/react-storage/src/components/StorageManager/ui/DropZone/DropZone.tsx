@@ -37,12 +37,13 @@ export function DropZone({
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
-      <span
+      <View
+        as="span"
         aria-hidden
         className={ComponentClassNames.StorageManagerDropZoneIcon}
       >
         {icons?.upload ?? <IconUpload />}
-      </span>
+      </View>
 
       <Text className={ComponentClassNames.StorageManagerDropZoneText}>
         {dropFilesText}
