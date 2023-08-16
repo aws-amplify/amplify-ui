@@ -14,17 +14,17 @@ Feature: Sign In with Email
   Scenario: Sign in with force password reset calls forgot password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth" } }' with error fixture "force-reset-password"
     When I type my "email" with status "CONFIRMED"
-    And I type my password
+    Then I type my password
     Given I spy "Amplify.Auth.forgotPassword" method
-    And I click the "Sign in" button
+    Then I click the "Sign in" button
     Then I see "Code *"
-    And "Amplify.Auth.forgotPassword" method is called
+    Then "Amplify.Auth.forgotPassword" method is called
 
   @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "User does not exist."
 
   @angular @react @vue
@@ -34,32 +34,32 @@ Feature: Sign In with Email
 
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type my "email" with status "UNCONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Confirmation Code"
-    And I type a valid confirmation code
-    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
+    Then I type a valid confirmation code
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
     # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
-    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
-    And I click the "Confirm" button
+    Then I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
+    Then I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    Then I click the "Confirm" button
     Then I see "Sign out"
 
   @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials
     When I type my "email" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Sign out"
-    And I click the "Sign out" button
+    Then I click the "Sign out" button
 
   @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials then sign out
     When I type my "email" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Sign out"
-    And I click the "Sign out" button
+    Then I click the "Sign out" button
     Then I see "Sign in"
 
   @angular @react @vue
@@ -73,8 +73,8 @@ Feature: Sign In with Email
   On sign in form, autocomplete prefers usage of username instead of email. 
   See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands/.
 
-    And "Email" field autocompletes "username"
+    Then "Email" field autocompletes "username"
 
   @angular @react @vue
   Scenario: Password fields autocomplete "current-password"
-    And "Password" field autocompletes "current-password"
+    Then "Password" field autocompletes "current-password"

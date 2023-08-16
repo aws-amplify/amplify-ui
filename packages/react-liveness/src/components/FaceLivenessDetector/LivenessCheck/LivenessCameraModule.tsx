@@ -89,7 +89,6 @@ export const LivenessCameraModule = (
   const [state, send] = useLivenessActor();
 
   const videoStream = useLivenessSelector(selectVideoStream);
-  const videoConstraints = useLivenessSelector(selectVideoConstraints);
   const faceMatchPercentage = useLivenessSelector(selectFaceMatchPercentage);
   const faceMatchState = useLivenessSelector(selectFaceMatchState);
   const errorState = useLivenessSelector(selectErrorState);
@@ -101,8 +100,7 @@ export const LivenessCameraModule = (
   ];
 
   const { videoRef, videoWidth, videoHeight } = useMediaStreamInVideo(
-    videoStream!,
-    videoConstraints!
+    videoStream!
   );
 
   const canvasRef = useRef<HTMLCanvasElement>(null);

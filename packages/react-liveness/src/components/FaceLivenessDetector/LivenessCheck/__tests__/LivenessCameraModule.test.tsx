@@ -7,7 +7,7 @@ import {
   renderWithLivenessProvider,
   getMockedFunction,
   mockMatchMedia,
-} from '../../__mocks__';
+} from '../../__mocks__/utils';
 import {
   useLivenessActor,
   useLivenessSelector,

@@ -8,17 +8,17 @@ Feature: Liveness Detector
   @react
   Scenario: Navigate with keyboard only
       Then I hit the "enter" key on "Begin check" button
-      And I click the "close-icon"
+      Then I click the "close-icon"
       # TODO: Change this to use keyboard navigation, at this time it doesnt work the same way begin check does
       Then I see the "Begin check" button
   
   @react
   Scenario: See camera module and close with the close icon
       Then I click the "Begin check" button
-      And I click the "close-icon"
+      Then I click the "close-icon"
       Then I see the "Begin check" button
 
-  @todo-react
+  @react
   Scenario: See camera module and instructions
       Then I click the "Begin check" button
       And I see "liveness-detector" element

@@ -23,8 +23,8 @@
     "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "5.0.6",
-    "@aws-amplify/ui-react-storage": "2.1.1",
+    "@aws-amplify/ui-react": "5.1.1",
+    "@aws-amplify/ui-react-storage": "2.1.4",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -73,8 +73,6 @@
     "autoprefixer": "^10.2.4",
     "babel-jest": "^29.3.1",
     "canvas": "^2.9.1",
-    "cypress": "^10.10.0",
-    "cypress-each": "^1.11.0",
     "dotenv-safe": "^8.2.0",
     "esbuild-register": "^3.3.2",
     "eslint": "7.32.0",
