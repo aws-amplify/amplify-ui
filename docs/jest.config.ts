@@ -3,10 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-export default {
-  collectCoverage: true,
-  coverageDirectory: 'coverage',
-  coverageProvider: 'v8',
+module.exports = {
   preset: 'ts-jest',
   setupFiles: ['./jestEnv.ts'],
   transform: {
