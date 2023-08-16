@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { UploadPreviewer } from '..';
+import { UploadPreviewer } from '../UploadPreviewer';
 
 import { FileState, FileStatus, FileStatuses } from '../../types';
 import { ComponentClassNames } from '../../../../../primitives';
