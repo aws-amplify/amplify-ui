@@ -11,14 +11,8 @@ export const CheckboxFieldIconExample = () => (
     }}
   >
     <Flex direction="column">
-      <CheckboxField name="cat" label="Cat" value="cat" checked={true} />
-      <CheckboxField
-        name="cat"
-        label="Cat"
-        value="cat"
-        checked={true}
-        isIndeterminate
-      />
+      <CheckboxField name="cat" label="Cat" value="cat" defaultChecked={true} />
+      <CheckboxField name="dog" label="Dog" value="dog" isIndeterminate />
     </Flex>
   </IconsProvider>
 );
