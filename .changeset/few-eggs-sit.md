@@ -9,8 +9,10 @@ Components that use icons:
 * Alert
 * Checkbox
 * Expander
+* Field
 * Menu
 * Pagination
+* PasswordField
 * Rating
 * SearchField
 * Select
