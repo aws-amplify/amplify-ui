@@ -3,7 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-module.exports = {
+const jestConfig = {
   preset: 'ts-jest',
   setupFiles: ['./jestEnv.ts'],
   transform: {
@@ -11,3 +11,5 @@ module.exports = {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
 };
+
+export default jestConfig;
