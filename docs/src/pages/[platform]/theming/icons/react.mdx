@@ -5,7 +5,9 @@ import IconSwitcher from './IconSwitcher'
 
 <IconSwitcher />
 
+## Usage
 
+To customize the icons used in the Amplify UI components, wrap your application with the `IconProvider` component and pass in the icons you want to change. The `icons` prop should be an object mapping icon names to React components. For example:
 
 <Example>
   <IconProviderExample />
@@ -16,11 +18,48 @@ import IconSwitcher from './IconSwitcher'
   </ExampleCode>
 </Example>
 
-The IconProvider component uses React context to make the custom icon set available to child components. Any component inside the IconProvider will have access to the custom icons via the useIcon hook.
+The icons passed to the IconsProvider are `ReactNode`s that get rendered directly. 
 
-To use IconProvider, wrap it around the part of your app where you want to override icons. Then, pass an icons prop which should be an object mapping icon names to React components. For example:
+The IconProvider component uses React context to make the custom icon set available to child components. Any component inside the IconProvider will have access to the custom icons via an internal hook. You can nest `IconProvider`s in different parts of your application, just like you would with other React contexts if you wanted to change icons in a certain part of your application.
 
-The components that use icons that can be overridden are:
 
-* [Alert](../components/alert)
-* [Checkbox](../components/checkboxfield)
+### Components with icons
+
+The components and their icons that can be overridden are:
+
+* [alert](../components/alert)
+  * info
+  * warning
+  * error
+  * success
+  * close
+* [checkbox](../components/checkboxfield)
+  * checked
+  * indeterminate
+* [expander](../components/exapander)
+  * more
+* [menu](../components/menu)
+  * menu
+* [pagination](../components/pagination)
+  * previous
+  * next
+* [passwordField](../components/passwordfield)
+  * visibility
+  * visibilityOff
+* [rating](../components/rating)
+  * filled
+  * empty
+* [searchField](../components/searchfield)
+  * search
+* [select](../components/select)
+  * expand
+* [stepperField](../components/stepperfield)
+  * add
+  * remove
+* [storageManager](../connected-components/storage/storagemanager)
+  * upload
+  * remove
+  * error
+  * success
+  * file
+
