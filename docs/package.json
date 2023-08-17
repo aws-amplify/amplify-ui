@@ -64,7 +64,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@babel/preset-env": "^7.20.2",
     "@supercharge/promise-pool": "^2.4.0",
     "@types/jest": "^27",
     "@types/lodash": "^4.14.170",
