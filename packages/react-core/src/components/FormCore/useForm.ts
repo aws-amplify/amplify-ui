@@ -12,7 +12,7 @@ import {
 } from './types';
 
 export const DEFAULT_ERROR_MESSAGE =
-  '`useForm` must be called inside a `FieldProvider`';
+  '`useForm` must be called inside a `FormProvider`';
 
 /**
  * Utility hook corresponding to `FormProvider`, must be used within a `FormProvider`
