@@ -13,6 +13,8 @@ function PropsTableSet({
   componentName: string;
   componentPropsData: PropsTableSubComponentData;
 }) {
+  console.log('componentName: ', componentName),
+    console.log('componentPropsData: ', componentPropsData[componentName][0]);
   return (
     <>
       <Heading level={2} id={componentName} className="amplify-heading--4">
