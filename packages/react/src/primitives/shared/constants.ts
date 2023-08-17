@@ -416,8 +416,8 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Message'],
     description: 'Class applied to Icon component within the Message primitive',
   },
-  MessageTitle: {
-    className: ComponentClassName.MessageTitle,
+  MessageHeading: {
+    className: ComponentClassName.MessageHeading,
     components: ['Message'],
     description: 'Class applied to the heading View',
   },
@@ -901,7 +901,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   MenuTrigger: ComponentClassObject.MenuTrigger.className,
   Message: ComponentClassObject.Message.className,
   MessageIcon: ComponentClassObject.MessageIcon.className,
-  MessageTitle: ComponentClassObject.MessageTitle.className,
+  MessageHeading: ComponentClassObject.MessageHeading.className,
   MessageBody: ComponentClassObject.MessageBody.className,
   MessageContent: ComponentClassObject.MessageContent.className,
   MessageDismiss: ComponentClassObject.MessageDismiss.className,

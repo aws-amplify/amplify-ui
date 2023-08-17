@@ -4,6 +4,7 @@ import { MessageColorThemes } from '../types';
 export interface MessageContextProps {
   colorTheme?: MessageColorThemes;
   dismissed?: boolean;
+  onDismiss?: () => void;
   setDismissed: (dismissed: boolean) => void;
 }
 

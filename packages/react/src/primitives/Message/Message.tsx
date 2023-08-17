@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { MessageTitle } from './MessageTitle';
+import { MessageHeading } from './MessageHeading';
 import { MessageIcon } from './MessageIcon';
 import { MessageDismiss } from './MessageDismiss';
 import { MessageContent } from './MessageContent';
@@ -20,6 +20,11 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
   {
     children,
     className,
+    heading,
+    content,
+    isDismissible,
+    onDismiss,
+    showIcon,
     colorTheme = 'neutral',
     variation = 'filled',
     ...rest
@@ -32,9 +37,10 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
     () => ({
       colorTheme,
       dismissed,
+      onDismiss,
       setDismissed,
     }),
-    [colorTheme, dismissed]
+    [colorTheme, dismissed, onDismiss]
   );
 
   return (
@@ -47,11 +53,23 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
             classNameModifier(ComponentClassNames.Message, colorTheme),
             className
           )}
-          data-variation={variation}
           ref={ref}
           {...rest}
         >
-          {children ? children : null}
+          {children ? (
+            children
+          ) : (
+            <>
+              {showIcon && <MessageIcon></MessageIcon>}
+              {heading || content ? (
+                <MessageContent>
+                  {heading ? <MessageHeading>{heading}</MessageHeading> : null}
+                  {content ? content : null}
+                </MessageContent>
+              ) : null}
+              {isDismissible ? <MessageDismiss /> : null}
+            </>
+          )}
         </Flex>
       ) : null}
     </MessageContext.Provider>
@@ -62,14 +80,20 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/message)
  */
 
-const Message: ForwardRefPrimitive<BaseMessageProps, 'div'> = Object.assign(
-  React.forwardRef(MessagePrimitive),
-  {
-    Content: MessageContent,
-    Dismiss: MessageDismiss,
-    Icon: MessageIcon,
-    Title: MessageTitle,
-  }
-);
+type MessageType = ForwardRefPrimitive<BaseMessageProps, 'div'> & {
+  Content: typeof MessageContent;
+  Dismiss: typeof MessageDismiss;
+  Icon: typeof MessageIcon;
+  Heading: typeof MessageHeading;
+};
+
+const Message: MessageType = Object.assign(React.forwardRef(MessagePrimitive), {
+  Content: MessageContent,
+  Dismiss: MessageDismiss,
+  Icon: MessageIcon,
+  Heading: MessageHeading,
+});
 
 Message.displayName = 'Message';
+
+export { Message };

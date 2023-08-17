@@ -1,8 +1,105 @@
 import { Fragment } from '@/components/Fragment'; 
-import { Message, View } from '@aws-amplify/ui-react';
+import { Message, View, Link } from '@aws-amplify/ui-react';
 
+import { MessageDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
+import {
+  BasicUsage,
+  WithTitleContent,
+  WithDismiss,
+  WithCustomizedDismiss,
+  MessageVariations,
+  MessageColorThemes
+} from './examples';
+
+
+## Demo
+
+<MessageDemo />
+
 
 ## Usage
 
-<Message colorTheme="error">Message</Message>
+<Example>
+  <BasicUsage />
+  <ExampleCode>
+    ```jsx file=./examples/BasicUsage.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Composable layout
+
+For further control over the layout and child elements, Message includes composable child components to add extra layout customization: `Message.Content` and `Message.Heading`
+
+<Example>
+  <WithTitleContent />
+  <ExampleCode>
+    ```jsx file=./examples/WithTitleContent.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Dismissable
+
+Messages can be dismissed by setting `isDismissible={true}` or by including `Message.Dismiss` if composing your own Message layout.
+
+<Example>
+  <WithDismiss />
+  <ExampleCode>
+    ```jsx file=./examples/WithDismiss.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+#### Customizing the dismiss button
+
+`Message.Dismiss` can be customized to hide the icon by setting the prop `showIcon={false}`. It can also accept custom button text and other props that our <Link href="/react/components/button">Button</Link> primitive accepts.
+
+<Example>
+  <WithCustomizedDismiss />
+  <ExampleCode>
+    ```jsx file=./examples/WithCustomizedDismiss.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Variations
+
+Message accepts the `variation` prop which allows for different background and border options.
+
+<Example>
+  <MessageVariations />
+  <ExampleCode>
+    ```jsx file=./examples/MessageVariations.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Color themes
+
+Message accepts the `colorTheme` prop which allows for different color variations. The available options are `neutral` (default), `error`, `info`, `success`, and `warning`
+
+<Example>
+  <MessageColorThemes />
+  <ExampleCode>
+    ```jsx file=./examples/MessageColorThemes.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### CSS Styling
+
+### Accessibility

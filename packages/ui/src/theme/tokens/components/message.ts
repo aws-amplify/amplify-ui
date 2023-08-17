@@ -17,8 +17,13 @@ type MessageColorThemeTokens<OutputType> = DesignTokenProperties<
 
 type MessageIconTokens<OutputType> = DesignTokenProperties<'size', OutputType>;
 
-type MessageTitleTokens<OutputType> = DesignTokenProperties<
+type MessageHeadingTokens<OutputType> = DesignTokenProperties<
   'fontSize' | 'fontWeight',
+  OutputType
+>;
+
+type MessageDismissTokens<OutputType> = DesignTokenProperties<
+  'gap',
   OutputType
 >;
 
@@ -37,9 +42,10 @@ type MessageTokenKey =
 export type MessageTokens<OutputType extends OutputVariantKey> =
   DesignTokenProperties<MessageTokenKey, OutputType> & {
     icon?: MessageIconTokens<OutputType>;
-    title?: MessageTitleTokens<OutputType>;
+    heading?: MessageHeadingTokens<OutputType>;
+    dismiss?: MessageDismissTokens<OutputType>;
     plain?: MessageVariationTokens<OutputType>;
-    outline?: MessageVariationTokens<OutputType>;
+    outlined?: MessageVariationTokens<OutputType>;
     filled?: MessageVariationTokens<OutputType>;
   };
 
@@ -60,9 +66,13 @@ export const message: Required<MessageTokens<'default'>> = {
     size: { value: '{fontSizes.xl.value}' },
   },
 
-  title: {
+  heading: {
     fontSize: { value: '{fontSizes.medium.value}' },
     fontWeight: { value: '{fontWeights.bold.value}' },
+  },
+
+  dismiss: {
+    gap: { value: '{space.xxs.value}' },
   },
 
   // Variations
@@ -91,7 +101,7 @@ export const message: Required<MessageTokens<'default'>> = {
       borderColor: { value: 'transparent' },
     },
   },
-  outline: {
+  outlined: {
     color: { value: '{colors.font.primary.value}' },
     backgroundColor: { value: '{colors.background.primary.value}' },
     borderColor: { value: '{colors.border.primary.value}' },

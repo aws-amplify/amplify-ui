@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { Button } from '../Button';
+import { VisuallyHidden } from '../VisuallyHidden';
 import { IconClose } from '../Icon/internal';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
 import { useMessageContext } from './useMessageContext';
@@ -15,29 +16,38 @@ import {
 } from '../types';
 
 const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
-  { onDismiss, children, className, ...rest },
+  { onDismiss: overrideOnDismiss, showIcon, children, className, ...rest },
   ref
 ) => {
-  const { setDismissed } = useMessageContext();
+  const { setDismissed, onDismiss } = useMessageContext();
 
   const dismissMessage = React.useCallback(() => {
     setDismissed(true);
-    if (isFunction(onDismiss)) {
+    if (isFunction(overrideOnDismiss)) {
+      overrideOnDismiss();
+    } else if (isFunction(onDismiss)) {
       onDismiss();
+    } else {
+      return;
     }
-  }, [setDismissed, onDismiss]);
+  }, [setDismissed, onDismiss, overrideOnDismiss]);
   return (
     <Button
       variation="link"
       colorTheme="overlay"
-      aria-label={ComponentText.Message.dismissButtonLabel}
       className={classNames(ComponentClassNames.MessageDismiss, className)}
       ref={ref}
       onClick={() => dismissMessage()}
       {...rest}
     >
-      <IconClose aria-hidden="true" />
-      {children}
+      {showIcon ?? <IconClose aria-hidden="true" />}
+      {children ? (
+        children
+      ) : (
+        <VisuallyHidden>
+          {ComponentText.Message.dismissButtonLabel}
+        </VisuallyHidden>
+      )}
     </Button>
   );
 };

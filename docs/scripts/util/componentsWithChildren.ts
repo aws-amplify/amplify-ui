@@ -10,6 +10,12 @@ export const componentsWithChildren: {
     'Breadcrumbs.Separator',
   ],
   Menu: ['MenuButton', 'MenuItem'],
+  Message: [
+    'MessageContent',
+    'MessageDismiss',
+    'MessageHeading',
+    'MessageIcon',
+  ],
   RadioGroupField: ['Radio'],
   Tabs: ['TabItem'],
   Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],

@@ -95,7 +95,7 @@ export enum ComponentClassName {
   MenuTrigger = 'amplify-menu-trigger',
   Message = 'amplify-message',
   MessageIcon = 'amplify-message__icon',
-  MessageTitle = 'amplify-message__title',
+  MessageHeading = 'amplify-message__heading',
   MessageBody = 'amplify-message__body',
   MessageContent = 'amplify-message__content',
   MessageDismiss = 'amplify-message__dismiss',

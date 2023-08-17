@@ -19,13 +19,7 @@ export { Image } from './Image';
 export { Link } from './Link';
 export { Loader } from './Loader';
 export { Menu, MenuButton, MenuItem } from './Menu';
-export {
-  Message,
-  MessageTitle,
-  MessageContent,
-  MessageIcon,
-  MessageDismiss,
-} from './Message';
+export { Message } from './Message';
 export { Pagination } from './Pagination';
 export { PasswordField } from './PasswordField';
 export { PhoneNumberField } from './PhoneNumberField';

@@ -10,7 +10,7 @@ export type MessageColorThemes =
   | 'error'
   | 'warning'
   | 'success';
-export type MessageVariations = 'plain' | 'outline' | 'filled';
+export type MessageVariations = 'plain' | 'outlined' | 'filled';
 
 export interface BaseMessageProps extends BaseFlexProps {
   /**
@@ -27,21 +27,9 @@ export interface BaseMessageProps extends BaseFlexProps {
 
   /**
    * @description
-   * icon allows you to pass your own element in this slot for the Message.
-   */
-  icon?: React.ReactNode;
-
-  /**
-   * @description
    * The isDismissible property will affect whether the user can dismiss (close) the Message. Defaults to false (not dismissible).
    */
   isDismissible?: boolean;
-
-  /**
-   * @description
-   * Configures the accessible label for the Message's dismiss button.
-   */
-  dismissButtonLabel?: string;
 
   /**
    * @description
@@ -53,34 +41,34 @@ export interface BaseMessageProps extends BaseFlexProps {
    * @description
    * The hasIcon property will determine whether or not an icon is displayed on the Message. Defaults to true (icon displayed).
    */
-  hasIcon?: boolean;
-
-  // /**
-  //  * @description
-  //  * The heading property will affect the content of the Message heading.
-  //  */
-  // heading?: React.ReactNode;
+  showIcon?: boolean;
 
   /**
    * @description
-   * The ref will be forwarded to the dismiss button
+   * The heading property will affect the content of the Message heading.
    */
-  buttonRef?: React.Ref<HTMLButtonElement>;
+  heading?: React.ReactNode;
+
+  /**
+   * @description
+   * The heading property will affect the content of the Message heading.
+   */
+  content?: React.ReactNode;
 }
 
-export interface BaseMessageTitleProps extends BaseFlexProps {}
+export interface BaseMessageHeadingProps extends BaseFlexProps {}
 export interface BaseMessageContentProps extends BaseFlexProps {}
 export interface BaseMessageDismissProps extends BaseButtonProps {
   onDismiss?: () => void;
-  hasIcon?: boolean;
+  showIcon?: boolean;
 }
 export type MessageProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseMessageProps,
   Element
 >;
 
-export type MessageTitleProps<Element extends ElementType = 'div'> =
-  PrimitiveProps<BaseMessageTitleProps, Element>;
+export type MessageHeadingProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseMessageHeadingProps, Element>;
 
 export type MessageContentProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseMessageContentProps, Element>;
