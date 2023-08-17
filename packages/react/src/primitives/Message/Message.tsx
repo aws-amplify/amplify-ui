@@ -1,9 +1,9 @@
 import * as React from 'react';
 import classNames from 'classnames';
-// import { MessageTitle } from './MessageTitle';
-// import { MessageIcon } from './MessageIcon';
-// import { MessageDismiss } from './MessageDismiss';
-// import { MessageContent } from './MessageContent';
+import { MessageTitle } from './MessageTitle';
+import { MessageIcon } from './MessageIcon';
+import { MessageDismiss } from './MessageDismiss';
+import { MessageContent } from './MessageContent';
 
 import { ComponentClassNames } from '../shared/constants';
 import { classNameModifier } from '../shared/utils';
@@ -62,15 +62,14 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/message)
  */
 
-export const Message: ForwardRefPrimitive<BaseMessageProps, 'div'> =
-  React.forwardRef(MessagePrimitive);
-
-// export const Message: ForwardRefPrimitive<BaseMessageProps, 'div'> =
-//   Object.assign(React.forwardRef(MessagePrimitive), {
-//     Content: MessageContent,
-//     Dismiss: MessageDismiss,
-//     Icon: MessageIcon,
-//     Title: MessageTitle,
-//   });
+const Message: ForwardRefPrimitive<BaseMessageProps, 'div'> = Object.assign(
+  React.forwardRef(MessagePrimitive),
+  {
+    Content: MessageContent,
+    Dismiss: MessageDismiss,
+    Icon: MessageIcon,
+    Title: MessageTitle,
+  }
+);
 
 Message.displayName = 'Message';

@@ -29,6 +29,7 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
   return (
     <Button
       variation="link"
+      colorTheme="overlay"
       aria-label={ComponentText.Message.dismissButtonLabel}
       className={classNames(ComponentClassNames.MessageDismiss, className)}
       ref={ref}
