@@ -9,6 +9,7 @@ export const componentsWithChildren: {
     'Breadcrumbs.Link',
     'Breadcrumbs.Separator',
   ],
+  DropZone: ['DropZone.Accepted', 'DropZone.Rejected', 'DropZone.Default'],
   Menu: ['MenuButton', 'MenuItem'],
   RadioGroupField: ['Radio'],
   Tabs: ['TabItem'],

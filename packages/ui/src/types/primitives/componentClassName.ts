@@ -36,6 +36,7 @@ export enum ComponentClassName {
   DialCodeSelect = 'amplify-dialcodeselect',
   Divider = 'amplify-divider',
   DividerLabel = 'amplify-divider--label',
+  DropZone = 'amplify-dropzone',
   Expander = 'amplify-expander',
   ExpanderContent = 'amplify-expander__content',
   ExpanderContentText = 'amplify-expander__content__text',

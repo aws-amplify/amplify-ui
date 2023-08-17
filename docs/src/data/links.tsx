@@ -38,6 +38,7 @@ import {
   MdCheckCircle,
   MdHighlight,
   MdChevronRight,
+  MdPanToolAlt,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
@@ -368,6 +369,13 @@ export const inputComponents: ComponentNavItem[] = [
     body: `The Button primitive is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.`,
     platforms: ['react'],
     icon: MdTouchApp,
+  },
+  {
+    href: '/components/dropzone',
+    label: 'DropZone',
+    body: `The Dropzone component captures files from user with drag and drop`,
+    platforms: ['react'],
+    icon: MdPanToolAlt,
   },
 ].sort(sortByLabel);
 
