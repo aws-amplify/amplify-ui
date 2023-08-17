@@ -4914,7 +4914,7 @@
     core-js-compat "^3.22.1"
     semver "^6.3.0"
 
-"@babel/preset-env@^7.12.11", "@babel/preset-env@^7.15.8", "@babel/preset-env@^7.17.10", "@babel/preset-env@^7.20.2", "@babel/preset-env@^7.4.5":
+"@babel/preset-env@^7.12.11", "@babel/preset-env@^7.15.8", "@babel/preset-env@^7.17.10", "@babel/preset-env@^7.4.5":
   version "7.21.4"
   resolved "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.21.4.tgz#a952482e634a8dd8271a3fe5459a16eb10739c58"
   integrity sha512-2W57zHs2yDLm6GD5ZpvNn71lZ0B/iypSdIeq25OurDKji6AdzV07qp4s3n1/x5BqtiGaTrPN3nerlSCaC5qNTw==
