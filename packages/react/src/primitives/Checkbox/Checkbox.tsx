@@ -1,6 +1,8 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { isFunction } from '@aws-amplify/ui';
+
 import { Flex } from '../Flex';
 import { IconCheck, IconIndeterminate, useIcons } from '../Icon';
 import { Input } from '../Input';
@@ -10,7 +12,6 @@ import { BaseCheckboxProps, CheckboxProps } from '../types/checkbox';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { getTestId } from '../utils/getTestId';
 import { useStableId } from '../utils/useStableId';
-import { useCheckbox } from './useCheckbox';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
@@ -18,7 +19,7 @@ import { View } from '../View';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
-    checked,
+    checked: controlledChecked,
     className,
     defaultChecked,
     hasError,
@@ -27,7 +28,9 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     label,
     labelHidden,
     labelPosition,
-    onChange: onChangeProp,
+    onBlur: _onBlur,
+    onFocus: _onFocus,
+    onChange: _onChange,
     testId,
     inputStyles,
     ..._rest
@@ -35,19 +38,42 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   ref
 ) => {
   const { styleProps, rest } = splitPrimitiveProps(_rest);
-  // controlled way should always override uncontrolled way
-  const initialChecked = checked !== undefined ? checked : defaultChecked;
 
-  const { dataChecked, dataFocus, onBlur, onChange, onFocus, setDataChecked } =
-    useCheckbox(initialChecked, onChangeProp);
+  const [focused, setFocused] = React.useState(false);
   const icons = useIcons('checkbox');
 
-  React.useEffect(() => {
-    const isControlled = checked !== undefined;
-    if (isControlled && checked !== dataChecked) {
-      setDataChecked(checked);
+  const isControlled = controlledChecked !== undefined;
+  const [localChecked, setLocalChecked] = React.useState(() =>
+    // if controlled, initialize to `controlledChecked` else `defaultChecked`
+    isControlled ? controlledChecked : defaultChecked
+  );
+
+  const checked = isControlled ? controlledChecked : localChecked;
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isFunction(_onChange)) {
+      _onChange(e);
     }
-  }, [checked, dataChecked, setDataChecked]);
+
+    // in controlled mode, `controlledChecked` determines checked state
+    if (!isControlled) {
+      setLocalChecked(e.target.checked);
+    }
+  };
+
+  const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (isFunction(_onFocus)) {
+      _onFocus(e);
+    }
+    setFocused(true);
+  };
+
+  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (isFunction(_onBlur)) {
+      _onBlur(e);
+    }
+    setFocused(false);
+  };
 
   const dataId = useStableId();
   React.useEffect(() => {
@@ -77,7 +103,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     classNameModifierByFlag(
       ComponentClassNames.CheckboxButton,
       'focused',
-      dataFocus
+      focused
     )
   );
   const iconClasses = classNames(
@@ -85,7 +111,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     classNameModifierByFlag(
       ComponentClassNames.CheckboxIcon,
       'checked',
-      dataChecked
+      checked
     ),
     classNameModifierByFlag(
       ComponentClassNames.CheckboxIcon,
@@ -100,7 +126,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   );
   const iconProps = {
     className: classNames(iconClasses),
-    'data-checked': dataChecked,
+    'data-checked': localChecked,
     'data-disabled': isDisabled,
     'data-testid': iconTestId,
   };
@@ -139,7 +165,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     >
       <VisuallyHidden>
         <Input
-          checked={checked}
+          checked={controlledChecked}
           className={ComponentClassNames.CheckboxInput}
           data-id={dataId}
           defaultChecked={defaultChecked}
@@ -168,20 +194,13 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         aria-hidden="true"
         as="span"
         className={flexClasses}
-        data-checked={dataChecked}
+        data-checked={checked}
         data-disabled={isDisabled}
-        data-focus={dataFocus}
+        data-focus={focused}
         data-error={hasError}
         testId={buttonTestId}
         {...inputStyles}
       >
-        {/* <View as="span"
-          className={classNames(iconClasses)}
-          data-checked={dataChecked}
-          data-disabled={isDisabled}
-          data-testid={iconTestId}>
-          {isIndeterminate ? indeterminateIcon : checkedIcon}
-        </View> */}
         {isIndeterminate ? indeterminateIcon : checkedIcon}
       </Flex>
     </Flex>
