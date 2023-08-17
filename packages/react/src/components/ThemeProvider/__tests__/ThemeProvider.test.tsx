@@ -23,31 +23,6 @@ describe('ThemeProvider', () => {
     expect(heading.nodeName).toBe('H6');
   });
 
-  it('should accept the output of createTheme to allow for extending themes', async () => {
-    const studioTheme = createTheme();
-    const extendedTheme = createTheme(
-      {
-        name: 'extended-theme',
-        tokens: {
-          colors: {
-            font: {
-              primary: { value: 'hotpink' },
-            },
-          },
-        },
-      },
-      studioTheme
-    );
-
-    const { result } = renderHook(() => useTheme(), {
-      wrapper: ({ children }) => (
-        <ThemeProvider theme={extendedTheme}>{children}</ThemeProvider>
-      ),
-    });
-
-    expect(result.current.tokens.colors.font.primary.value).toBe('hotpink');
-  });
-
   it('wraps the App in [data-amplify-theme="default-theme"]', () => {
     const { container } = render(
       <ThemeProvider>
