@@ -1,5 +1,33 @@
 # @aws-amplify/ui-react-liveness
 
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c), [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5), [`5040faf51`](https://github.com/aws-amplify/amplify-ui/commit/5040faf51ce2dc87882d452e6f90ad4ab0bd6967)]:
+  - @aws-amplify/ui-react@5.1.1
+  - @aws-amplify/ui@5.7.1
+
+## 2.0.3
+
+### Patch Changes
+
+- [#4314](https://github.com/aws-amplify/amplify-ui/pull/4314) [`3d5c98ba2`](https://github.com/aws-amplify/amplify-ui/commit/3d5c98ba2f5e3eb38f1ff3ca5909ec2c333ac21d) Thanks [@thaddmt](https://github.com/thaddmt)! - fix: ensure that media track constraints is not undefined
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
+- Updated dependencies [[`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441), [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7)]:
+  - @aws-amplify/ui-react@5.1.0
+  - @aws-amplify/ui@5.7.0
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`e7e75874d`](https://github.com/aws-amplify/amplify-ui/commit/e7e75874dea238046c94e4fdd965029620171254), [`0417bd41c`](https://github.com/aws-amplify/amplify-ui/commit/0417bd41c065673eb70dd916c9008d88671445c9)]:
+  - @aws-amplify/ui-react@5.0.7
+  - @aws-amplify/ui@5.6.9
+
 ## 2.0.1
 
 ### Patch Changes

@@ -1,0 +1,1 @@
+export { MergeProps } from './types';

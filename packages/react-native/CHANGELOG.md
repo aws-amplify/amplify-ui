@@ -1,5 +1,46 @@
 # @aws-amplify/ui-react-native
 
+## 1.2.25
+
+### Patch Changes
+
+- [#4305](https://github.com/aws-amplify/amplify-ui/pull/4305) [`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react): Add `colorTheme` prop to Button
+
+  The Button React primitive now accepts the `colorTheme` prop which allows for more color variants. Usage:
+
+  ```
+  <Button colorTheme="error">Button text</Button>
+  ```
+
+- [#4349](https://github.com/aws-amplify/amplify-ui/pull/4349) [`8c2a3aad8`](https://github.com/aws-amplify/amplify-ui/commit/8c2a3aad88453ecd0f3e1fad0678906a89e56a87) Thanks [@ioanabrooks](https://github.com/ioanabrooks)! - fix(ui-react-native): Fix RN Authenticator not trimming values before validation.
+
+- Updated dependencies [[`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c), [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5), [`5040faf51`](https://github.com/aws-amplify/amplify-ui/commit/5040faf51ce2dc87882d452e6f90ad4ab0bd6967)]:
+  - @aws-amplify/ui@5.7.1
+  - @aws-amplify/ui-react-core@2.1.30
+  - @aws-amplify/ui-react-core-notifications@1.0.7
+
+## 1.2.24
+
+### Patch Changes
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
+- Updated dependencies [[`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441), [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7)]:
+  - @aws-amplify/ui-react-core-notifications@1.0.6
+  - @aws-amplify/ui-react-core@2.1.29
+  - @aws-amplify/ui@5.7.0
+
+## 1.2.23
+
+### Patch Changes
+
+- [#4303](https://github.com/aws-amplify/amplify-ui/pull/4303) [`81d06820c`](https://github.com/aws-amplify/amplify-ui/commit/81d06820c33d44e956d01e25b0886ba2a0c5c0c2) Thanks [@calebpollman](https://github.com/calebpollman)! - package.json updates: fix module field, add commonjs output, use react-native field
+
+- Updated dependencies [[`e7e75874d`](https://github.com/aws-amplify/amplify-ui/commit/e7e75874dea238046c94e4fdd965029620171254), [`0417bd41c`](https://github.com/aws-amplify/amplify-ui/commit/0417bd41c065673eb70dd916c9008d88671445c9)]:
+  - @aws-amplify/ui@5.6.9
+  - @aws-amplify/ui-react-core@2.1.28
+  - @aws-amplify/ui-react-core-notifications@1.0.5
+
 ## 1.2.22
 
 ### Patch Changes

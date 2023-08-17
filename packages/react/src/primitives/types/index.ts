@@ -2,6 +2,7 @@ export * from './autocomplete';
 export * from './alert';
 export * from './badge';
 export * from './base';
+export * from './breadcrumbs';
 export * from './button';
 export * from './buttonGroup';
 export * from './card';
