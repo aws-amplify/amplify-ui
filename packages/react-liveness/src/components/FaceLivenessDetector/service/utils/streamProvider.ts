@@ -167,6 +167,9 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         if (value === 'stopVideo') {
           // sending an empty video chunk signals that we have ended sending video
           yield {
+            $unknown: ['Code', 5002],
+          };
+          yield {
             VideoEvent: {
               VideoChunk: [],
               TimestampMillis: Date.now(),

@@ -234,8 +234,9 @@ export class CustomWebSocketFetchHandler {
     const send = async (): Promise<void> => {
       try {
         for await (const inputChunk of data) {
-          const asdf = inputChunk.toString();
-          console.log(asdf);
+          let utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
+          console.log(utf8decoder.decode(inputChunk));
+
           socket.send(inputChunk);
         }
       } catch (err) {
