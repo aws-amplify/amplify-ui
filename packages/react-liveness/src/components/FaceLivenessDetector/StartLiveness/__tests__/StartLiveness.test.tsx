@@ -2,7 +2,10 @@ import * as React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
+import {
+  renderWithLivenessProvider,
+  getMockedFunction,
+} from '../../__mocks__/utils';
 import { useLivenessActor } from '../../hooks/useLivenessActor';
 import { StartLiveness } from '../StartLiveness';
 import { getDisplayText } from '../../utils/getDisplayText';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { UploadDropZone } from '..';
+import { UploadDropZone } from '../UploadDropZone';
 import { classNameModifier } from '../../../../../primitives/shared/utils';
 import { ComponentClassNames } from '../../../../../primitives';
 

@@ -12,7 +12,7 @@ import {
 import { useFileUploader } from './hooks/useFileUploader';
 import { UploadPreviewer } from './UploadPreviewer';
 import { UploadDropZone } from './UploadDropZone';
-import { UploadTracker } from './UploadTracker';
+import { UploadTracker } from './UploadTracker/UploadTracker';
 import { FileState, FileUploaderProps } from './types';
 import { useDeprecationWarning } from '../../../hooks/useDeprecationWarning';
 

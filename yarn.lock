@@ -4907,7 +4907,7 @@
     core-js-compat "^3.22.1"
     semver "^6.3.0"
 
-"@babel/preset-env@^7.12.11", "@babel/preset-env@^7.15.8", "@babel/preset-env@^7.17.10", "@babel/preset-env@^7.20.2", "@babel/preset-env@^7.4.5":
+"@babel/preset-env@^7.12.11", "@babel/preset-env@^7.15.8", "@babel/preset-env@^7.17.10", "@babel/preset-env@^7.4.5":
   version "7.21.4"
   resolved "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.21.4.tgz#a952482e634a8dd8271a3fe5459a16eb10739c58"
   integrity sha512-2W57zHs2yDLm6GD5ZpvNn71lZ0B/iypSdIeq25OurDKji6AdzV07qp4s3n1/x5BqtiGaTrPN3nerlSCaC5qNTw==
@@ -16516,6 +16516,11 @@ eslint-plugin-import@^2.22.1, eslint-plugin-import@^2.25.2, eslint-plugin-import
     resolve "^1.22.1"
     semver "^6.3.0"
     tsconfig-paths "^3.14.1"
+
+eslint-plugin-index@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-index/-/eslint-plugin-index-1.1.5.tgz#34a73e136a1316261a10cf2d95df8716d560cd6e"
+  integrity sha512-4n8JK2kI61VEGuEzm7y5Pxs8tSBcNtxWPX731gm+ApEDGqOH+YqMclazPXtdKfex8zcl4X0dWBL0tiD9kO88cA==
 
 eslint-plugin-jest@22.4.1:
   version "22.4.1"
