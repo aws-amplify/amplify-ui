@@ -7,7 +7,8 @@ import {
   IconError,
   IconWarning,
   IconCheckCircle,
-} from '../Icon/internal';
+  useIcons,
+} from '../Icon';
 
 interface AlertIconProps {
   variation?: AlertVariations;
@@ -21,38 +22,26 @@ export const AlertIcon: React.FC<AlertIconProps> = ({
   variation,
   ariaHidden,
 }) => {
+  const icons = useIcons('alert');
+  let icon;
   switch (variation) {
     case 'info':
-      return (
-        <IconInfo
-          aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
-        />
-      );
+      icon = icons?.info ?? <IconInfo aria-hidden={ariaHidden} />;
+      break;
     case 'error':
-      return (
-        <IconError
-          aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
-        />
-      );
+      icon = icons?.error ?? <IconError aria-hidden={ariaHidden} />;
+      break;
     case 'warning':
-      return (
-        <IconWarning
-          aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
-        />
-      );
+      icon = icons?.warning ?? <IconWarning aria-hidden={ariaHidden} />;
+      break;
     case 'success':
-      return (
-        <IconCheckCircle
-          aria-hidden={ariaHidden}
-          className={ComponentClassNames.AlertIcon}
-        />
-      );
-    default:
-      return null;
+      icon = icons?.success ?? <IconCheckCircle aria-hidden={ariaHidden} />;
+      break;
   }
+
+  return icon ? (
+    <span className={ComponentClassNames.AlertIcon}>{icon}</span>
+  ) : null;
 };
 
 AlertIcon.displayName = 'AlertIcon';

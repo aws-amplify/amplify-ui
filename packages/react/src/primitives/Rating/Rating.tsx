@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { classNameModifier } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconStar } from '../Icon/internal';
+import { IconStar, useIcons } from '../Icon';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
 import { RatingIcon } from './RatingIcon';
 import { RatingMixedIcon } from './RatingMixedIcon';
@@ -25,7 +25,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
     emptyColor,
     emptyIcon,
     fillColor,
-    icon = <IconStar />,
+    icon,
     maxValue = RATING_DEFAULT_MAX_VALUE,
     size,
     value = RATING_DEFAULT_VALUE,
@@ -33,13 +33,16 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
   },
   ref
 ) => {
+  const icons = useIcons('rating');
+  const filledIcon = icon ?? icons?.filled ?? <IconStar />;
+  const _emptyIcon = emptyIcon ?? icon ?? icons?.empty ?? <IconStar />;
   const items = new Array(Math.ceil(maxValue)).fill(1).map((_, index) => {
     const currentIconIndex = index + 1;
     if (isIconFilled(currentIconIndex, value))
       return (
         <RatingIcon
           key={index.toString()}
-          icon={icon}
+          icon={filledIcon}
           fill={fillColor}
           className="amplify-rating-icon-filled"
         />
@@ -48,7 +51,7 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
       return (
         <RatingIcon
           key={index.toString()}
-          icon={emptyIcon ?? icon}
+          icon={_emptyIcon}
           fill={emptyColor}
           className="amplify-rating-icon-empty"
         />
@@ -57,8 +60,8 @@ const RatingPrimitive: Primitive<RatingProps, 'div'> = (
       return (
         <RatingMixedIcon
           key={index.toString()}
-          fillIcon={icon}
-          emptyIcon={emptyIcon ?? icon}
+          fillIcon={filledIcon}
+          emptyIcon={_emptyIcon}
           value={value}
           fillColor={fillColor}
           emptyColor={emptyColor}

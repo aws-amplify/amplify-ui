@@ -6,7 +6,7 @@ import { sanitizeNamespaceImport } from '@aws-amplify/ui';
 
 import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
-import { IconMenu } from '../Icon/internal';
+import { IconMenu, useIcons } from '../Icon';
 import { MenuButton } from './MenuButton';
 import {
   BaseMenuProps,
@@ -37,39 +37,42 @@ const MenuPrimitive: Primitive<MenuProps, 'div'> = (
     ...rest
   },
   ref
-) => (
-  <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
-    <DropdownMenuTrigger asChild>
-      {trigger ?? (
-        <MenuButton
-          ariaLabel={ariaLabel}
-          size={size}
-          testId={MENU_TRIGGER_TEST_ID}
-          className={classNames(
-            ComponentClassNames.MenuTrigger,
-            triggerClassName
-          )}
-        >
-          <IconMenu size={size} />
-        </MenuButton>
-      )}
-    </DropdownMenuTrigger>
-    <DropdownMenuContent
-      align={menuAlign}
-      className={ComponentClassNames.MenuContentWrapper}
-    >
-      <ButtonGroup
-        className={classNames(ComponentClassNames.MenuContent, className)}
-        ref={ref}
-        size={size}
-        testId={MENU_ITEMS_GROUP_TEST_ID}
-        {...rest}
+) => {
+  const icons = useIcons('menu');
+  return (
+    <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
+      <DropdownMenuTrigger asChild>
+        {trigger ?? (
+          <MenuButton
+            ariaLabel={ariaLabel}
+            size={size}
+            testId={MENU_TRIGGER_TEST_ID}
+            className={classNames(
+              ComponentClassNames.MenuTrigger,
+              triggerClassName
+            )}
+          >
+            {icons?.menu ?? <IconMenu />}
+          </MenuButton>
+        )}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align={menuAlign}
+        className={ComponentClassNames.MenuContentWrapper}
       >
-        {children}
-      </ButtonGroup>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
+        <ButtonGroup
+          className={classNames(ComponentClassNames.MenuContent, className)}
+          ref={ref}
+          size={size}
+          testId={MENU_ITEMS_GROUP_TEST_ID}
+          {...rest}
+        >
+          {children}
+        </ButtonGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
 
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/menu)

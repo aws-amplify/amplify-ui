@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { isFunction } from '@aws-amplify/ui';
 
 import { Flex } from '../Flex';
-import { IconCheck, IconIndeterminate } from '../Icon/internal';
+import { IconCheck, IconIndeterminate, useIcons } from '../Icon';
 import { Input } from '../Input';
 import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
@@ -15,6 +15,7 @@ import { useStableId } from '../utils/useStableId';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { classNameModifierByFlag } from '../shared/utils';
+import { View } from '../View';
 
 const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
@@ -39,6 +40,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   const { styleProps, rest } = splitPrimitiveProps(_rest);
 
   const [focused, setFocused] = React.useState(false);
+  const icons = useIcons('checkbox');
 
   const isControlled = controlledChecked !== undefined;
   const [localChecked, setLocalChecked] = React.useState(() =>
@@ -115,32 +117,33 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       ComponentClassNames.CheckboxIcon,
       'disabled',
       isDisabled
+    ),
+    classNameModifierByFlag(
+      ComponentClassNames.CheckboxIcon,
+      'indeterminate',
+      isIndeterminate
     )
   );
+  const iconProps = {
+    className: classNames(iconClasses),
+    'data-checked': localChecked,
+    'data-disabled': isDisabled,
+    'data-testid': iconTestId,
+  };
 
-  const renderedIcon = React.useMemo(
-    () =>
-      isIndeterminate ? (
-        <IconIndeterminate
-          className={classNames(
-            iconClasses,
-            classNameModifierByFlag(
-              ComponentClassNames.CheckboxIcon,
-              'indeterminate',
-              isIndeterminate
-            )
-          )}
-          data-testid={iconTestId}
-        />
-      ) : (
-        <IconCheck
-          className={iconClasses}
-          data-checked={checked}
-          data-disabled={isDisabled}
-          data-testid={iconTestId}
-        />
-      ),
-    [checked, iconClasses, iconTestId, isDisabled, isIndeterminate]
+  const checkedIcon = icons?.checked ? (
+    <View as="span" className={classNames(iconClasses)}>
+      {icons.checked}
+    </View>
+  ) : (
+    <IconCheck {...iconProps} />
+  );
+  const indeterminateIcon = icons?.indeterminate ? (
+    <View as="span" className={classNames(iconClasses)}>
+      {icons.indeterminate}
+    </View>
+  ) : (
+    <IconIndeterminate {...iconProps} />
   );
 
   return (
@@ -198,7 +201,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         testId={buttonTestId}
         {...inputStyles}
       >
-        {renderedIcon}
+        {isIndeterminate ? indeterminateIcon : checkedIcon}
       </Flex>
     </Flex>
   );
