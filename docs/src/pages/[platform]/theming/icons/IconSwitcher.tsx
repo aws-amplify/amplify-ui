@@ -177,22 +177,18 @@ export default function IconProviderExample() {
 
         <Flex direction="row">
           <Flex direction="column" flex="1">
-            <Alert isDismissible variation="success">
-              Success
-            </Alert>
-            <Alert isDismissible variation="warning">
-              Warning
-            </Alert>
-            <Alert isDismissible variation="error">
-              Error
-            </Alert>
-            <Alert isDismissible variation="info">
-              Info
-            </Alert>
+            <Alert variation="success">Success</Alert>
+            <Alert variation="warning">Warning</Alert>
+            <Alert variation="error">Error</Alert>
+            <Alert variation="info">Info</Alert>
           </Flex>
 
           <Flex direction="column" flex="1">
-            <SelectField label="SelectField" labelHidden />
+            <SelectField label="SelectField" labelHidden>
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+            </SelectField>
             <PasswordField label="PasswordField" labelHidden />
             <SearchField label="SearchField" />
             <StepperField label="StepperField" labelHidden />

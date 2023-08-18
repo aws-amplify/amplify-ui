@@ -3,6 +3,8 @@ import { Example, ExampleCode } from '@/components/Example';
 import IconProviderExample from './example'
 import IconSwitcher from './IconSwitcher'
 
+## Demo
+
 <IconSwitcher />
 
 ## Usage
@@ -27,41 +29,74 @@ The IconProvider component uses React context to make the custom icon set availa
 
 The components and their icons that can be overridden are:
 
-* [alert](../components/alert)
-  * info
-  * warning
-  * error
-  * success
-  * close
-* [checkbox](../components/checkboxfield)
-  * checked
-  * indeterminate
-* [expander](../components/expander)
-  * more
-* field
-  * clear
-* [menu](../components/menu)
-  * menu
-* [pagination](../components/pagination)
-  * previous
-  * next
-* [passwordField](../components/passwordfield)
-  * visibility
-  * visibilityOff
-* [rating](../components/rating)
-  * filled
-  * empty
-* [searchField](../components/searchfield)
-  * search
-* [select](../components/selectfield)
-  * expand
-* [stepperField](../components/stepperfield)
-  * add
-  * remove
-* [storageManager](../connected-components/storage/storagemanager)
-  * upload
-  * remove
-  * error
-  * success
-  * file
+* [Alert](../components/alert)
+* [Checkbox](../components/checkboxfield)
+* [Expander](../components/expander)
+* [Menu](../components/menu)
+* [Pagination](../components/pagination)
+* [PasswordField](../components/passwordfield)
+* [Rating](../components/rating)
+* [SearchField](../components/searchfield)
+* [SelectField](../components/selectfield)
+* [StepperField](../components/stepperfield)
+* [StorageManager](../connected-components/storage/storagemanager)
 
+Here is the full list of icons you can customize with the IconProvider
+
+<Example>
+<ExampleCode>
+```javascript
+const icons = {
+  alert: {
+    close: () => </>,
+    info: () => </>,
+    error: () => </>,
+    warning: () => </>,
+    success: () => </>,
+  },
+  checkbox: {
+    indeterminate: () => </>,
+    checked: () => </>,
+  },
+  expander: {
+    more: () => </>,
+  },
+  field: {
+    clear: () => </>,
+  },
+  menu: {
+    menu: () => </>,
+  },
+  pagination: {
+    previous: () => </>,
+    next: () => </>,
+  },
+  passwordField: {
+    visibility: () => </>,
+    visibilityOff: () => </>,
+  },
+  rating: {
+    filled: () => </>,
+    empty: () => </>,
+  },
+  searchField: {
+    search: () => </>,
+  },
+  select: {
+    expand: () => </>,
+  },
+  stepperField: {
+    add: () => </>,
+    remove: () => </>,
+  },
+  storageManager: {
+    upload: () => </>,
+    remove: () => </>,
+    error: () => </>,
+    success: () => </>,
+    file: () => </>,
+  }
+}
+```
+</ExampleCode>
+</Example>
