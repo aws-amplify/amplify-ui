@@ -26,7 +26,6 @@ const propsToCode = (props) => {
     `
   loadingText=${JSON.stringify(props.loadingText)}
   onClick={() => alert('hello')}
-  ariaLabel=${JSON.stringify(props.ariaLabel)}
 >
   Click me!
 </Button>`
