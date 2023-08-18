@@ -11,3 +11,4 @@ export { SelectFieldControlledExample } from './SelectFieldControlledExample';
 export { SelectFieldOptionsExample } from './SelectFieldOptionsExample';
 export { SelectFieldThemeExample } from './SelectFieldThemeExample';
 export { SelectFieldStylePropsExample } from './SelectFieldStylePropsExample';
+export { SelectFieldIconProviderExample } from './SelectFieldIconProviderExample';
