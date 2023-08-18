@@ -71,6 +71,7 @@ exports[`Sitemap Snapshot 1`] = `
 /react/components/link, 
 /react/components/loader, 
 /react/components/menu, 
+/react/components/message, 
 /react/components/pagination, 
 /react/components/passwordfield, 
 /react/components/phonenumberfield, 
