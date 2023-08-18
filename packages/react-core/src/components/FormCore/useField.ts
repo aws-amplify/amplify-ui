@@ -1,0 +1,23 @@
+import useForm from './useForm';
+import { ChangeHandler, FocusHandler, UseField, UseFieldParams } from './types';
+
+export const DEFAULT_ERROR_MESSAGE =
+  '`Form.Field` must be used within a `Form`';
+
+/**
+ * @param params Requires `name`, all additional params optional
+ * @returns `Form` aware `Field` handler and state values
+ */
+export default function useField<
+  OnBlur extends FocusHandler,
+  OnChange extends ChangeHandler
+>(params: UseFieldParams<OnBlur, OnChange>): UseField {
+  const { getFieldState, registerField } = useForm({
+    errorMessage: DEFAULT_ERROR_MESSAGE,
+  });
+
+  return {
+    ...registerField(params),
+    ...getFieldState(params.name),
+  };
+}

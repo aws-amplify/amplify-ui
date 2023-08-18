@@ -10,7 +10,10 @@ Array [
   "useAuthenticatorInitMachine",
   "useAuthenticatorRoute",
   "useDeprecationWarning",
+  "useField",
+  "useForm",
   "useHasValueUpdated",
   "usePreviousValue",
+  "withFormProvider",
 ]
 `;
