@@ -79,7 +79,7 @@ body {
   line-height: 1.5;
 }
 
-a {
+a:not([class]) {
   color: var(--amplify-components-link-color);
 
   &:hover,
