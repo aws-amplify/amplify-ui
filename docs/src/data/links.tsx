@@ -649,6 +649,11 @@ export const theming: ComponentNavItem[] = [
     tertiary: true,
   },
   {
+    href: '/theming/icons',
+    label: 'Icons',
+    platforms: ['react'],
+  },
+  {
     href: '/theming/theme-provider',
     label: 'ThemeProvider',
     platforms: ['react'],

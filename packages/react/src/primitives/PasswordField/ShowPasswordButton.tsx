@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
-import { IconVisibility, IconVisibilityOff } from '../Icon/internal';
+import { IconVisibility, IconVisibilityOff, useIcons } from '../Icon';
 import {
   ForwardRefPrimitive,
   Primitive,
@@ -30,6 +30,7 @@ const ShowPasswordButtonPrimitive: Primitive<
   },
   ref
 ) => {
+  const icons = useIcons('passwordField');
   const showPasswordButtonClass = classNames(
     ComponentClassNames.FieldShowPassword,
     classNameModifierByFlag(
@@ -38,6 +39,11 @@ const ShowPasswordButtonPrimitive: Primitive<
       hasError
     )
   );
+
+  const icon =
+    fieldType === 'password'
+      ? icons?.visibility ?? <IconVisibility />
+      : icons?.visibilityOff ?? <IconVisibilityOff />;
 
   return (
     <Button
@@ -54,11 +60,7 @@ const ShowPasswordButtonPrimitive: Primitive<
           ? passwordIsHiddenLabel
           : passwordIsShownLabel}
       </VisuallyHidden>
-      {fieldType === 'password' ? (
-        <IconVisibility size={size} />
-      ) : (
-        <IconVisibilityOff size={size} />
-      )}
+      {icon}
     </Button>
   );
 };
