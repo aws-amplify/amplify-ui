@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { BaseFlexProps } from './flex';
 import { BaseButtonProps } from './button';
-import { ElementType, PrimitiveProps } from './view';
+import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
 export type MessageColorThemes =
   | 'neutral'
@@ -56,22 +56,27 @@ export interface BaseMessageProps extends BaseFlexProps {
   content?: React.ReactNode;
 }
 
-export interface BaseMessageHeadingProps extends BaseFlexProps {}
 export interface BaseMessageContentProps extends BaseFlexProps {}
 export interface BaseMessageDismissProps extends BaseButtonProps {
   onDismiss?: () => void;
   showIcon?: boolean;
 }
-export type MessageProps<Element extends ElementType = 'div'> = PrimitiveProps<
-  BaseMessageProps,
-  Element
->;
-
-export type MessageHeadingProps<Element extends ElementType = 'div'> =
-  PrimitiveProps<BaseMessageHeadingProps, Element>;
+export interface BaseMessageHeadingProps extends BaseFlexProps {}
+export interface BaseMessageIconProps extends BaseViewProps {}
 
 export type MessageContentProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseMessageContentProps, Element>;
 
 export type MessageDismissProps<Element extends ElementType = 'button'> =
   PrimitiveProps<BaseMessageDismissProps, Element>;
+
+export type MessageHeadingProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseMessageHeadingProps, Element>;
+
+export type MessageIconProps<Element extends ElementType = 'span'> =
+  PrimitiveProps<BaseMessageHeadingProps, Element>;
+
+export type MessageProps<Element extends ElementType = 'div'> = PrimitiveProps<
+  BaseMessageProps,
+  Element
+>;

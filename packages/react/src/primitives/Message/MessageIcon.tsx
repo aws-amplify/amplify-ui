@@ -1,7 +1,14 @@
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { MessageColorThemes } from '../types';
+import {
+  MessageIconProps,
+  BaseMessageIconProps,
+  ForwardRefPrimitive,
+  Primitive,
+} from '../types';
+import { View } from '../View';
 import { useMessageContext } from './useMessageContext';
 import {
   IconInfo,
@@ -10,30 +17,50 @@ import {
   IconCheckCircle,
 } from '../Icon/internal';
 
-interface MessageIconProps {
-  icon?: MessageColorThemes;
-}
-
-/**
- * @internal For internal Amplify UI use only. May be removed in a future release.
- */
-export const MessageIcon: React.FC<MessageIconProps> = ({ icon }) => {
+const MessageIconPrimitive: Primitive<MessageIconProps, typeof View> = (
+  { className, ...rest },
+  ref
+) => {
   const { colorTheme } = useMessageContext();
-
-  // If colorTheme prop is provided to MessageIcon use that (overrideColorTheme)
-  // otherwise, use the colorTheme from context.
-  switch (icon ? icon : colorTheme) {
+  switch (colorTheme) {
     case 'info':
-      return <IconInfo className={ComponentClassNames.MessageIcon} />;
+      return (
+        <IconInfo
+          className={classNames(ComponentClassNames.MessageIcon, className)}
+          ref={ref}
+          {...rest}
+        />
+      );
     case 'error':
-      return <IconError className={ComponentClassNames.MessageIcon} />;
+      return (
+        <IconError
+          className={classNames(ComponentClassNames.MessageIcon, className)}
+          ref={ref}
+          {...rest}
+        />
+      );
     case 'warning':
-      return <IconWarning className={ComponentClassNames.MessageIcon} />;
+      return (
+        <IconWarning
+          className={classNames(ComponentClassNames.MessageIcon, className)}
+          ref={ref}
+          {...rest}
+        />
+      );
     case 'success':
-      return <IconCheckCircle className={ComponentClassNames.MessageIcon} />;
+      return (
+        <IconCheckCircle
+          className={classNames(ComponentClassNames.MessageIcon, className)}
+          ref={ref}
+          {...rest}
+        />
+      );
     default:
       return null;
   }
 };
+
+export const MessageIcon: ForwardRefPrimitive<BaseMessageIconProps, 'div'> =
+  React.forwardRef(MessageIconPrimitive);
 
 MessageIcon.displayName = 'MessageIcon';

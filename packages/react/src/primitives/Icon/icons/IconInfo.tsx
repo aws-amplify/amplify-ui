@@ -1,22 +1,22 @@
-import classNames from 'classnames';
 import * as React from 'react';
+import classNames from 'classnames';
 
-import { ComponentClassNames } from '../../shared';
-import { InternalIcon } from './types';
+import { ComponentClassNames } from '../../shared/constants';
+import { InternalIconProps, BaseInternalIconProps } from './types';
+import { ForwardRefPrimitive, Primitive } from '../../types';
 import { View } from '../../View';
 
-/**
- * @internal For internal Amplify UI use only. May be removed in a future release.
- */
-export const IconInfo: InternalIcon = (props) => {
-  const { className, ...rest } = props;
-
+const IconInfoPrimitive: Primitive<InternalIconProps, typeof View> = (
+  { className, ...rest },
+  ref
+) => {
   return (
     <View
       as="span"
       width="1em"
       height="1em"
       className={classNames(ComponentClassNames.Icon, className)}
+      ref={ref}
       {...rest}
     >
       <svg
@@ -34,3 +34,8 @@ export const IconInfo: InternalIcon = (props) => {
     </View>
   );
 };
+
+export const IconInfo: ForwardRefPrimitive<BaseInternalIconProps, 'div'> =
+  React.forwardRef(IconInfoPrimitive);
+
+IconInfo.displayName = 'IconInfo';

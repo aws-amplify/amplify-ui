@@ -1,6 +1,6 @@
 import { Message, Flex } from '@aws-amplify/ui-react';
 
-export const WithDismiss = () => {
+export const BasicWithDismiss = () => {
   return (
     <Flex direction="column">
       <Message
@@ -10,14 +10,6 @@ export const WithDismiss = () => {
           alert('Dismissed message');
         }}
       />
-      <Message>
-        A composable message with dismiss functionality.
-        <Message.Dismiss
-          onDismiss={() => {
-            alert('Dismissed custom message');
-          }}
-        />
-      </Message>
     </Flex>
   );
 };

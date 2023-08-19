@@ -1,6 +1,7 @@
 export { BasicUsage } from './BasicUsage';
 export { WithTitleContent } from './WithTitleContent';
-export { WithDismiss } from './WithDismiss';
+export { BasicWithDismiss } from './BasicWithDismiss';
 export { WithCustomizedDismiss } from './WithCustomizedDismiss';
+export { HideIcon } from './HideIcon';
 export { MessageVariations } from './MessageVariations';
 export { MessageColorThemes } from './MessageColorThemes';
