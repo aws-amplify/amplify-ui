@@ -7,12 +7,11 @@ import {
   BasicUsage,
   BasicWithDismiss,
   HideIcon,
+  IconProviderExample,
   MessageColorThemes,
   MessageVariations,
   WithCustomizedDismiss,
-  
-  
-  WithTitleContent,
+  ComposableMessage,
 } from './examples';
 
 
@@ -46,14 +45,28 @@ Message accepts the `colorTheme` prop which allows for different color variation
   </ExampleCode>
 </Example>
 
-### Icons
+### Icon
 
-The Message icon can be hidden by using the prop `showIcon={false}`
+The Message icon can be hidden by using the prop `hasIcon={false}`
 
 <Example>
   <HideIcon />
   <ExampleCode>
     ```jsx file=./examples/HideIcon.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
+### Variations
+
+Message accepts the `variation` prop which allows for different background and border options.
+
+<Example>
+  <MessageVariations />
+  <ExampleCode>
+    ```jsx file=./examples/MessageVariations.tsx
 
     ```
 
@@ -78,12 +91,12 @@ Messages can be dismissed by setting `isDismissible={true}` or by including `Mes
 
 ## Composable layout
 
-For further control over the layout and child elements, Message includes composable child components to add extra layout customization: `Message.Content` and `Message.Heading`
+For further control over the layout and child elements, Message includes composable child components to add extra layout customization: `Message.Content`,`Message.Heading`, `Message.Dismiss`, and `Message.Icon`.
 
 <Example>
-  <WithTitleContent />
+  <ComposableMessage />
   <ExampleCode>
-    ```jsx file=./examples/WithTitleContent.tsx
+    ```jsx file=./examples/ComposableMessage.tsx
 
     ```
 
@@ -94,7 +107,7 @@ For further control over the layout and child elements, Message includes composa
 
 #### Customizing the `Message.Dismiss` child component
 
-`Message.Dismiss` can be customized to hide the icon by setting the prop `showIcon={false}`. It can also accept custom button text and other props that our <Link href="/react/components/button">Button</Link> primitive accepts.
+`Message.Dismiss` can be customized to hide the icon by setting the prop `hasIcon={false}`. It can also accept custom button text and other props that our <Link href="/react/components/button">Button</Link> primitive accepts.
 
 <Example>
   <WithCustomizedDismiss />
@@ -110,22 +123,26 @@ For further control over the layout and child elements, Message includes composa
 
 
 
-### Variations
 
-Message accepts the `variation` prop which allows for different background and border options.
+
+
+
+## Styling
+
+### Icons
+
+Message icons can be customized using IconProvider.
 
 <Example>
-  <MessageVariations />
+  <IconProviderExample />
+  
   <ExampleCode>
-    ```jsx file=./examples/MessageVariations.tsx
 
-    ```
+  ```tsx file=./examples/IconProviderExample.tsx
+
+  ```
 
   </ExampleCode>
 </Example>
 
-
-
-### CSS Styling
-
-### Accessibility
+## Accessibility

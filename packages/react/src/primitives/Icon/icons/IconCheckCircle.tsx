@@ -1,22 +1,22 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../../shared/constants';
-import { InternalIconProps, BaseInternalIconProps } from './types';
-import { ForwardRefPrimitive, Primitive } from '../../types';
+import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { InternalIcon } from './types';
 
-const IconCheckCirclePrimitive: Primitive<InternalIconProps, typeof View> = (
-  { className, ...rest },
-  ref
-) => {
+/**
+ * @internal For internal Amplify UI use only. May be removed in a future release.
+ */
+export const IconCheckCircle: InternalIcon = (props) => {
+  const { className, ...rest } = props;
+
   return (
     <View
       as="span"
       width="1em"
       height="1em"
       className={classNames(ComponentClassNames.Icon, className)}
-      ref={ref}
       {...rest}
     >
       <svg
@@ -34,10 +34,3 @@ const IconCheckCirclePrimitive: Primitive<InternalIconProps, typeof View> = (
     </View>
   );
 };
-
-export const IconCheckCircle: ForwardRefPrimitive<
-  BaseInternalIconProps,
-  'div'
-> = React.forwardRef(IconCheckCirclePrimitive);
-
-IconCheckCircle.displayName = 'IconCheckCircle';

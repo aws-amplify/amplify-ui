@@ -11,18 +11,19 @@ const propsToCode = (props) => {
     `<Message` +
     getPropString(props.variation, 'variation') +
     getPropString(props.colorTheme, 'colorTheme') +
-    `\n/>
-  <Message.Content>
-    <Message.Heading>Message title</Message.Heading>
-    This is the message content.
-  </Message.Content>
-</Message>`
+    getPropString(props.heading, 'heading') +
+    getPropString(props.content, 'content') +
+    `\n/>`
   );
 };
 
 const defaultMessageProps: MessageProps = {
   colorTheme: 'info',
   variation: 'filled',
+  heading: 'A message heading',
+  content: 'Basic message content',
+  hasIcon: true,
+  isDismissible: false,
 };
 
 export const MessageDemo = () => {
@@ -38,12 +39,11 @@ export const MessageDemo = () => {
       <Message
         variation={messageProps.variation}
         colorTheme={messageProps.colorTheme}
-      >
-        <Message.Content>
-          <Message.Heading>Message title</Message.Heading>
-          This is the message content.
-        </Message.Content>
-      </Message>
+        heading={messageProps.heading}
+        content={messageProps.content}
+        hasIcon={messageProps.hasIcon}
+        isDismissible={messageProps.isDismissible}
+      />
     </Demo>
   );
 };

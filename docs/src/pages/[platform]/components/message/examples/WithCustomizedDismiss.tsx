@@ -12,7 +12,7 @@ export const WithCustomizedDismiss = () => {
         <Message.Dismiss
           variation="primary"
           colorTheme="info"
-          showIcon={false}
+          hasIcon={false}
           size="small"
           aria-label="Dismiss Customize dismiss button message"
         >

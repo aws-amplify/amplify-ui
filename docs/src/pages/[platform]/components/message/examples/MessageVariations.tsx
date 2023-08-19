@@ -3,10 +3,12 @@ import { Message, Flex } from '@aws-amplify/ui-react';
 export const MessageVariations = () => {
   return (
     <Flex direction="column">
-      <Message>Filled (default) message with a background</Message>
-      <Message variation="outlined">Outlined messsage with a border</Message>
-      <Message variation="plain">
-        Plain message with no background or border
+      <Message colorTheme="info">Filled (default) message</Message>
+      <Message variation="outlined" colorTheme="info">
+        Outlined messsage
+      </Message>
+      <Message variation="plain" colorTheme="info">
+        Plain message
       </Message>
     </Flex>
   );

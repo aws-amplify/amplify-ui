@@ -33,6 +33,7 @@ type MessageTokenKey =
   | 'color'
   | 'backgroundColor'
   | 'borderColor'
+  | 'borderRadius'
   | 'borderStyle'
   | 'borderWidth'
   | 'lineHeight'
@@ -56,6 +57,7 @@ export const message: Required<MessageTokens<'default'>> = {
   borderColor: { value: 'transparent' },
   borderStyle: { value: 'solid' },
   borderWidth: { value: '{borderWidths.small.value}' },
+  borderRadius: { value: '0' },
   color: { value: '{colors.font.primary.value}' },
   justifyContent: { value: 'flex-start' },
   paddingBlock: { value: '{space.small.value}' },

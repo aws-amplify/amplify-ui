@@ -24,7 +24,7 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
     content,
     isDismissible,
     onDismiss,
-    showIcon = true,
+    hasIcon = true,
     colorTheme = 'neutral',
     variation = 'filled',
     ...rest
@@ -60,7 +60,7 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
             children
           ) : (
             <>
-              {showIcon ? <MessageIcon /> : null}
+              {hasIcon ? <MessageIcon /> : null}
               {heading || content ? (
                 <MessageContent>
                   {heading ? <MessageHeading>{heading}</MessageHeading> : null}

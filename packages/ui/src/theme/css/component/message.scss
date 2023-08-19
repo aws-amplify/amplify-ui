@@ -6,6 +6,7 @@
   padding-block: var(--amplify-components-message-padding-block);
   padding-inline: var(--amplify-components-message-padding-inline);
   border-color: var(--amplify-components-message-border-color);
+  border-radius: var(--amplify-components-message-border-radius);
   border-style: var(--amplify-components-message-border-style);
   border-width: var(--amplify-components-message-border-width);
   line-height: var(--amplify-components-message-line-height);
@@ -130,6 +131,9 @@
 
 .amplify-message__icon {
   font-size: var(--amplify-components-message-icon-size);
+  & > * {
+    display: block;
+  }
 }
 
 .amplify-message__heading {

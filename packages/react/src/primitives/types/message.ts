@@ -41,7 +41,7 @@ export interface BaseMessageProps extends BaseFlexProps {
    * @description
    * The hasIcon property will determine whether or not an icon is displayed on the Message. Defaults to true (icon displayed).
    */
-  showIcon?: boolean;
+  hasIcon?: boolean;
 
   /**
    * @description
@@ -59,7 +59,7 @@ export interface BaseMessageProps extends BaseFlexProps {
 export interface BaseMessageContentProps extends BaseFlexProps {}
 export interface BaseMessageDismissProps extends BaseButtonProps {
   onDismiss?: () => void;
-  showIcon?: boolean;
+  hasIcon?: boolean;
 }
 export interface BaseMessageHeadingProps extends BaseFlexProps {}
 export interface BaseMessageIconProps extends BaseViewProps {}
@@ -74,7 +74,7 @@ export type MessageHeadingProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseMessageHeadingProps, Element>;
 
 export type MessageIconProps<Element extends ElementType = 'span'> =
-  PrimitiveProps<BaseMessageHeadingProps, Element>;
+  PrimitiveProps<BaseMessageIconProps, Element>;
 
 export type MessageProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseMessageProps,

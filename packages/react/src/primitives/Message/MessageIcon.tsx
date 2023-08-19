@@ -15,49 +15,40 @@ import {
   IconError,
   IconWarning,
   IconCheckCircle,
+  useIcons,
 } from '../Icon/internal';
 
 const MessageIconPrimitive: Primitive<MessageIconProps, typeof View> = (
   { className, ...rest },
   ref
 ) => {
+  const icons = useIcons('message');
   const { colorTheme } = useMessageContext();
+  let icon;
   switch (colorTheme) {
     case 'info':
-      return (
-        <IconInfo
-          className={classNames(ComponentClassNames.MessageIcon, className)}
-          ref={ref}
-          {...rest}
-        />
-      );
+      icon = icons?.info ?? <IconInfo />;
+      break;
     case 'error':
-      return (
-        <IconError
-          className={classNames(ComponentClassNames.MessageIcon, className)}
-          ref={ref}
-          {...rest}
-        />
-      );
+      icon = icons?.error ?? <IconError />;
+      break;
     case 'warning':
-      return (
-        <IconWarning
-          className={classNames(ComponentClassNames.MessageIcon, className)}
-          ref={ref}
-          {...rest}
-        />
-      );
+      icon = icons?.warning ?? <IconWarning />;
+      break;
     case 'success':
-      return (
-        <IconCheckCircle
-          className={classNames(ComponentClassNames.MessageIcon, className)}
-          ref={ref}
-          {...rest}
-        />
-      );
-    default:
-      return null;
+      icon = icons?.success ?? <IconCheckCircle />;
+      break;
   }
+  return icon ? (
+    <View
+      className={classNames(ComponentClassNames.MessageIcon, className)}
+      aria-hidden="true"
+      ref={ref}
+      {...rest}
+    >
+      {icon}
+    </View>
+  ) : null;
 };
 
 export const MessageIcon: ForwardRefPrimitive<BaseMessageIconProps, 'div'> =

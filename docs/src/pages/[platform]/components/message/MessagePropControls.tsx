@@ -15,6 +15,12 @@ export interface MessagePropControlsProps extends MessageProps {
   setColorTheme: (
     value: React.SetStateAction<MessageProps['colorTheme']>
   ) => void;
+  setContent: (value: React.SetStateAction<MessageProps['content']>) => void;
+  setHeading: (value: React.SetStateAction<MessageProps['heading']>) => void;
+  setIsDismissible: (
+    value: React.SetStateAction<MessageProps['isDismissible']>
+  ) => void;
+  setHasIcon: (value: React.SetStateAction<MessageProps['hasIcon']>) => void;
 }
 
 interface MessagePropControlsInterface {
@@ -23,8 +29,16 @@ interface MessagePropControlsInterface {
 
 export const MessagePropControls: MessagePropControlsInterface = ({
   colorTheme,
+  content,
+  hasIcon,
+  heading,
+  isDismissible,
   variation,
   setColorTheme,
+  setContent,
+  setHasIcon,
+  setHeading,
+  setIsDismissible,
   setVariation,
 }) => {
   return (
@@ -53,6 +67,38 @@ export const MessagePropControls: MessagePropControlsInterface = ({
         <option value="warning">warning</option>
         <option value="info">info</option>
       </SelectField>
+      <TextField
+        label="Content"
+        value={content as string}
+        onChange={(event) =>
+          setContent(event.target.value as MessageProps['content'])
+        }
+      />
+      <TextField
+        label="Heading"
+        value={heading as string}
+        onChange={(event) =>
+          setHeading(event.target.value as MessageProps['heading'])
+        }
+      />
+      <SwitchField
+        label="isDismissable"
+        isChecked={isDismissible}
+        labelPosition="end"
+        onChange={(event) => {
+          setIsDismissible(
+            event.target.checked as MessageProps['isDismissible']
+          );
+        }}
+      />
+      <SwitchField
+        label="hasIcon"
+        isChecked={hasIcon}
+        labelPosition="end"
+        onChange={(event) =>
+          setHasIcon(event.target.checked as MessageProps['hasIcon'])
+        }
+      />
     </Flex>
   );
 };
