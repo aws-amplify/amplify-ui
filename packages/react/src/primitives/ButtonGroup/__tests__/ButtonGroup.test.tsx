@@ -10,35 +10,37 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 
-describe('ButtonGroup:', () => {
-  const getButtonGroup = (
-    props: Partial<PrimitiveProps<ButtonGroupProps, 'div'>>
-  ) => {
-    return (
-      <ButtonGroup {...props}>
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </ButtonGroup>
-    );
-  };
+const ButtonGroupWithChildren = React.forwardRef<
+  HTMLDivElement,
+  ButtonGroupProps
+>((props, ref) => {
+  return (
+    <ButtonGroup {...props} ref={ref}>
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </ButtonGroup>
+  );
+});
+
+describe('ButtonGroup', () => {
   it('should render classname and custom classname', async () => {
     const className = 'class-test';
-    render(getButtonGroup({ className }));
+    render(<ButtonGroupWithChildren className={className} />);
 
     const buttonGroup = await screen.findByRole('group');
     expect(buttonGroup).toHaveClass(ComponentClassNames.ButtonGroup, className);
   });
 
   it('should render all flex style props', async () => {
-    render(getButtonGroup(testFlexProps));
+    render(<ButtonGroupWithChildren {...testFlexProps} />);
     const buttonGroup = await screen.findByRole('group');
     expectFlexContainerStyleProps(buttonGroup);
   });
 
   it('should set size for each child button correctly', async () => {
     const size = 'large';
-    render(getButtonGroup({ size }));
+    render(<ButtonGroupWithChildren size={size} />);
 
     const buttons = await screen.findAllByRole('button');
     expect(buttons[0]).toHaveAttribute('data-size', size);
@@ -46,9 +48,9 @@ describe('ButtonGroup:', () => {
     expect(buttons[2]).toHaveAttribute('data-size', size);
   });
 
-  it('should set variation for each child button correctly', async () => {
+  it('sets variation for each child button correctly', async () => {
     const variation = 'primary';
-    render(getButtonGroup({ variation }));
+    render(<ButtonGroupWithChildren variation={variation} />);
 
     const buttons = await screen.findAllByRole('button');
     expect(buttons[0]).toHaveAttribute('data-variation', variation);
@@ -56,9 +58,34 @@ describe('ButtonGroup:', () => {
     expect(buttons[2]).toHaveAttribute('data-variation', variation);
   });
 
+  it('respects child button size and variation props', async () => {
+    const size = 'large';
+    const variation = 'primary';
+    render(
+      <ButtonGroup size={size} variation={variation}>
+        <Button size="small">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button variation="link">Button 3</Button>
+      </ButtonGroup>
+    );
+    const [first, second, third] = await screen.findAllByRole('button');
+
+    // override size prop
+    expect(first).toHaveAttribute('data-size', 'small');
+    expect(first).toHaveAttribute('data-variation', variation);
+
+    // inherit parent props
+    expect(second).toHaveAttribute('data-size', size);
+    expect(second).toHaveAttribute('data-variation', variation);
+
+    // override size prop
+    expect(second).toHaveAttribute('data-size', size);
+    expect(third).toHaveAttribute('data-variation', 'link');
+  });
+
   it('should forward ref to DOM element', async () => {
     const ref = React.createRef<HTMLDivElement>();
-    render(getButtonGroup({ ref }));
+    render(<ButtonGroupWithChildren ref={ref} />);
 
     await screen.findAllByRole('group');
     expect(ref.current?.nodeName).toBe('DIV');
