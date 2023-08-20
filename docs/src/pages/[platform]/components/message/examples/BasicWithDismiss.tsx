@@ -10,13 +10,6 @@ export const BasicWithDismiss = () => {
           alert('Dismissed message');
         }}
       />
-
-      <Message>
-        Content
-        <Message.Dismiss
-          onDismiss={() => alert(' dismiss composable message')}
-        />
-      </Message>
     </Flex>
   );
 };
