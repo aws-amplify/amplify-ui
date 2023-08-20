@@ -798,6 +798,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-message-border-color: transparent;
         --amplify-components-message-border-style: solid;
         --amplify-components-message-border-width: var(--amplify-border-widths-small);
+        --amplify-components-message-border-radius: 0;
         --amplify-components-message-color: var(--amplify-colors-font-primary);
         --amplify-components-message-justify-content: flex-start;
         --amplify-components-message-padding-block: var(--amplify-space-small);
