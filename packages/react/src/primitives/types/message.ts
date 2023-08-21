@@ -91,7 +91,7 @@ export type MessageDismissProps<Element extends ElementType = 'button'> =
 export type MessageHeadingProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseMessageHeadingProps, Element>;
 
-export type MessageIconProps<Element extends ElementType = 'span'> =
+export type MessageIconProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseMessageIconProps, Element>;
 
 export type MessageProps<Element extends ElementType = 'div'> = PrimitiveProps<
