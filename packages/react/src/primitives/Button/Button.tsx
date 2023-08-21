@@ -9,6 +9,8 @@ import {
   Primitive,
 } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+
+import { useFieldset } from '../Fieldset/useFieldset';
 import { Flex } from '../Flex';
 import { Loader } from '../Loader';
 import { View } from '../View';
@@ -35,6 +37,9 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
 ) => {
   // Creates our colorTheme modifier string based on if the variation
   // supports colorThemes and a colorTheme is used.
+
+  const { isDisabled: isDisabledByFieldset } = useFieldset();
+
   const colorThemeModifier =
     supportedVariations.includes(variation) && colorTheme
       ? `${variation ?? 'outlined'}--${colorTheme}`
@@ -49,7 +54,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     classNameModifierByFlag(
       ComponentClassNames.Button,
       'disabled',
-      isDisabled ?? isLoading ?? rest['disabled']
+      isDisabledByFieldset ?? isDisabled ?? isLoading ?? rest['disabled']
     ),
     classNameModifierByFlag(ComponentClassNames.Button, 'loading', isLoading),
     classNameModifierByFlag(

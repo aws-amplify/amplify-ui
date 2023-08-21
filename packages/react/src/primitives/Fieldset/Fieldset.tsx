@@ -3,15 +3,18 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
+
+import { Flex } from '../Flex';
+import { View } from '../View';
+import { VisuallyHidden } from '../VisuallyHidden';
+
 import {
   FieldsetProps,
   BaseFieldsetProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { Flex } from '../Flex';
-import { View } from '../View';
-import { VisuallyHidden } from '../VisuallyHidden';
+import { FieldsetContext } from './useFieldset';
 
 const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   {
@@ -28,6 +31,13 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   },
   ref
 ) => {
+  const value = React.useMemo(
+    () => ({
+      isDisabled,
+    }),
+    [isDisabled]
+  );
+
   const fieldsetClasses = classNames(
     ComponentClassNames.Fieldset,
     classNameModifier(ComponentClassNames.Fieldset, variation),
@@ -41,27 +51,29 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   );
 
   return (
-    <Flex
-      as="fieldset"
-      className={fieldsetClasses}
-      ref={ref}
-      disabled={isDisabled}
-      testId={testId}
-      {...rest}
-    >
-      <VisuallyHidden as="legend">{legend}</VisuallyHidden>
-      <View
-        as="div"
-        aria-hidden="true"
-        className={classNames(ComponentClassNames.FieldsetLegend, className, {
-          [ComponentClassNames.VisuallyHidden]: legendHidden,
-        })}
+    <FieldsetContext.Provider value={value}>
+      <Flex
+        as="fieldset"
+        className={fieldsetClasses}
+        ref={ref}
+        disabled={isDisabled}
+        testId={testId}
+        {...rest}
       >
-        {legend}
-      </View>
+        <VisuallyHidden as="legend">{legend}</VisuallyHidden>
+        <View
+          as="div"
+          aria-hidden="true"
+          className={classNames(ComponentClassNames.FieldsetLegend, className, {
+            [ComponentClassNames.VisuallyHidden]: legendHidden,
+          })}
+        >
+          {legend}
+        </View>
 
-      {children}
-    </Flex>
+        {children}
+      </Flex>
+    </FieldsetContext.Provider>
   );
 };
 
