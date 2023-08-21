@@ -16,7 +16,14 @@ import {
 } from '../types';
 
 const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
-  { onDismiss: overrideOnDismiss, hasIcon, children, className, ...rest },
+  {
+    onDismiss: overrideOnDismiss,
+    dismissButtonLabel,
+    hasIcon = true,
+    children,
+    className,
+    ...rest
+  },
   ref
 ) => {
   const { setDismissed, onDismiss } = useMessageContext();
@@ -41,12 +48,18 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
       onClick={() => dismissMessage()}
       {...rest}
     >
-      {hasIcon ?? icons?.close ?? <IconClose aria-hidden="true" />}
+      {hasIcon ? icons?.close ?? <IconClose aria-hidden="true" /> : null}
+      {/* 
+        Customers may include children content for Message.Dismiss, in which case
+        we should not show our accessibly hidden label.
+      */}
       {children ? (
         children
       ) : (
         <VisuallyHidden>
-          {ComponentText.Message.dismissButtonLabel}
+          {dismissButtonLabel
+            ? dismissButtonLabel
+            : ComponentText.Message.dismissButtonLabel}
         </VisuallyHidden>
       )}
     </Button>

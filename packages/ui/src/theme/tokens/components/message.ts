@@ -57,7 +57,7 @@ export const message: Required<MessageTokens<'default'>> = {
   borderColor: { value: 'transparent' },
   borderStyle: { value: 'solid' },
   borderWidth: { value: '{borderWidths.small.value}' },
-  borderRadius: { value: '0' },
+  borderRadius: { value: '{radii.xs.value}' },
   color: { value: '{colors.font.primary.value}' },
   justifyContent: { value: 'flex-start' },
   paddingBlock: { value: '{space.small.value}' },

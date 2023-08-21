@@ -3,6 +3,13 @@ import { Flex, Message, Text, Button } from '@aws-amplify/ui-react';
 export const ComposableMessage = () => {
   return (
     <Flex direction="column">
+      <Message>
+        <Message.Content>
+          <Message.Heading>A composable message heading</Message.Heading>
+          Some composable message content.
+        </Message.Content>
+        <Message.Dismiss />
+      </Message>
       <Message colorTheme="info" variation="outlined">
         <Message.Heading>Build #347</Message.Heading>
         <Text>New content is available to download.</Text>

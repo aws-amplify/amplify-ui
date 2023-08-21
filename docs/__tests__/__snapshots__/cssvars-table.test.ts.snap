@@ -3616,7 +3616,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-message-border-radius\\",
-        \\"value\\": \\"0\\"
+        \\"value\\": \\"var(--amplify-radii-xs)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-message-border-style\\",

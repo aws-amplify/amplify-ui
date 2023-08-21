@@ -22,6 +22,7 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
     className,
     heading,
     content,
+    dismissButtonLabel,
     isDismissible,
     onDismiss,
     hasIcon = true,
@@ -67,7 +68,9 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
                   {content ? content : null}
                 </MessageContent>
               ) : null}
-              {isDismissible ? <MessageDismiss /> : null}
+              {isDismissible ? (
+                <MessageDismiss dismissButtonLabel={dismissButtonLabel} />
+              ) : null}
             </>
           )}
         </Flex>

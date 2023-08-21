@@ -27,6 +27,12 @@ export interface BaseMessageProps extends BaseFlexProps {
 
   /**
    * @description
+   * Configures the accessible label for the Message's dismiss button.
+   */
+  dismissButtonLabel?: string;
+
+  /**
+   * @description
    * The isDismissible property will affect whether the user can dismiss (close) the Message. Defaults to false (not dismissible).
    */
   isDismissible?: boolean;
@@ -59,7 +65,19 @@ export interface BaseMessageProps extends BaseFlexProps {
 export interface BaseMessageContentProps extends BaseFlexProps {}
 export interface BaseMessageDismissProps extends BaseButtonProps {
   onDismiss?: () => void;
+
+  /**
+   * @description
+   * hasIcon determines whether the close icon will be displayed.
+   * @default true
+   */
   hasIcon?: boolean;
+
+  /**
+   * @description
+   * Configures the accessible label for the Message's dismiss button.
+   */
+  dismissButtonLabel?: string;
 }
 export interface BaseMessageHeadingProps extends BaseFlexProps {}
 export interface BaseMessageIconProps extends BaseViewProps {}
