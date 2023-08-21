@@ -85,10 +85,14 @@ describe('Alert:', () => {
     expect(noIcon.childElementCount).toBe(1);
     expect(defaultAlert.childElementCount).toBe(1);
     expect(
-      hasIcon.firstElementChild?.classList.contains(ComponentClassNames.Icon)
+      hasIcon.firstElementChild?.classList.contains(
+        ComponentClassNames.AlertIcon
+      )
     ).toBe(true);
     expect(
-      noIcon.firstElementChild?.classList.contains(ComponentClassNames.Icon)
+      noIcon.firstElementChild?.classList.contains(
+        ComponentClassNames.AlertIcon
+      )
     ).toBe(false);
   });
 

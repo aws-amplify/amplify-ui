@@ -13,6 +13,14 @@ const theme: Theme = {
       button: {
         // this will affect the font weight of all button variants
         fontWeight: { value: '{fontWeights.extrabold}' },
+
+        outlined: {
+          info: {
+            borderColor: '{colors.purple.60}',
+            color: '{colors.purple.90}',
+          },
+        },
+
         // style the primary variation
         primary: {
           backgroundColor: { value: '{colors.blue.60}' },
@@ -25,6 +33,23 @@ const theme: Theme = {
           _active: {
             backgroundColor: { value: '{colors.blue.90}' },
           },
+          _disabled: {
+            backgroundColor: { value: 'transparent' },
+            borderColor: { value: '{colors.neutral.30}' },
+          },
+          error: {
+            backgroundColor: { value: '{colors.pink.10}' },
+            color: { value: '{colors.red.80}' },
+            _hover: {
+              backgroundColor: { value: '#a51b34' },
+            },
+            _focus: {
+              backgroundColor: { value: '#9a0c26' },
+            },
+            _active: {
+              backgroundColor: { value: '#9a0c26' },
+            },
+          },
         },
       },
     },
@@ -35,6 +60,13 @@ export const ButtonThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
     <Flex direction="row">
       <Button variation="primary">Primary</Button>
+      <Button variation="primary" colorTheme="error">
+        Primary error
+      </Button>
+      <Button variation="primary" isDisabled={true}>
+        Primary (disabled)
+      </Button>
+      <Button colorTheme="info">Default info</Button>
     </Flex>
   </ThemeProvider>
 );

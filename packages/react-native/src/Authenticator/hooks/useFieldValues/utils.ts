@@ -202,7 +202,7 @@ export const runFieldValidation = (
     fieldErrors.push(getRequiredFieldText());
   }
   if (field.type === 'email') {
-    if (!isValidEmail(value)) {
+    if (!isValidEmail(value?.trim())) {
       fieldErrors.push(getInvalidEmailText());
     }
   }
