@@ -1,7 +1,7 @@
 import { Fragment } from '@/components/Fragment'; 
 import { Message, View, Link } from '@aws-amplify/ui-react';
-
 import { MessageDemo } from './demo';
+import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
 import { Example, ExampleCode } from '@/components/Example';
 import {
   BasicUsage,
@@ -12,6 +12,9 @@ import {
   MessageVariations,
   WithCustomizedDismiss,
   ComposableMessage,
+  MessageGlobalStyling,
+  MessageStyleProps,
+  MessageAsAlert
 } from './examples';
 
 
@@ -21,7 +24,7 @@ import {
 
 ## Usage
 
-Message can be customized via props as a basic component, or it can be used as a <a href="#composable-layout">composable component</a> which provides more control over layout and functionality.
+Message can be customized via props as a basic component, or it can be used as a <a href="#composable">composable component</a> which provides more control over layout and functionality.
 
 <Example>
   <BasicUsage />
@@ -79,6 +82,8 @@ Message accepts the `variation` prop which allows for different background and b
 
 Messages can be dismissed by setting `isDismissible={true}`. Additional dismiss behavior can be added by passing a function to the `onDismiss` prop. By default, we provide accessible button text that is hidden visually with <a href="/react/components/visuallyhidden">VisuallyHidden</a>; you can override this label by using the `dismissButtonLabel` prop.
 
+For more control over the appearance and functionality of the dismiss button, consider <a href="#composable">using Message as a composable component</a>.
+
 <Example>
   <BasicWithDismiss />
   <ExampleCode>
@@ -89,11 +94,13 @@ Messages can be dismissed by setting `isDismissible={true}`. Additional dismiss 
   </ExampleCode>
 </Example>
 
+## Composable
 
-
-## Composable layout
-
-For further control over the layout and child elements, Message includes composable child components to add extra layout customization: `Message.Content`,`Message.Heading`, `Message.Dismiss`, and `Message.Icon`.
+For further control over the layout and child elements, Message includes composable child components to add extra layout customization: 
+- `Message.Content`
+- `Message.Heading`
+- `Message.Dismiss`
+- `Message.Icon`
 
 <Example>
   <ComposableMessage />
@@ -104,8 +111,6 @@ For further control over the layout and child elements, Message includes composa
 
   </ExampleCode>
 </Example>
-
-
 
 ### Customizing the Dismiss child component
 
@@ -123,15 +128,64 @@ You can also override the dismiss functionality completely by passing an `onClic
   </ExampleCode>
 </Example>
 
-
-
-
-
-
-
-
-
 ## Styling
+
+### Target classes
+
+<ComponentStyleDisplay componentName="Message" />
+
+### Global styling
+
+To override styling on all Messages, you can override Amplify CSS variables or use the <a href="#target-classes">target classes for Message</a> in your own stylesheet.
+
+<Example>
+  <MessageGlobalStyling />
+  <ExampleCode>
+    ```css
+    /* Override CSS variables */
+    [data-amplify-theme] {
+      --amplify-components-message-filled-background-color: var(--amplify-colors-purple-10);
+      --amplify-components-message-heading-font-size: var(--amplify-font-sizes-xl);
+    }
+    /* Or target class names */
+    .amplify-message {
+      background-color: var(--amplify-colors-purple-10);
+    }
+    .amplify-message__heading {
+      font-size: var(--amplify-font-sizes-xl);
+    }
+    ```
+  </ExampleCode>
+</Example>
+
+### Local styling
+
+To override styling on a specific Message or sub-component, you can use (in order of increasing specificity): a class selector and style props.
+
+<Example>
+  <ExampleCode>
+    ```jsx
+    <Message className="my-message"></Message>
+    ```
+  
+    ```css
+    /* styles.css */
+    .my-message {
+      background-color: #ebffff;
+    }
+    ```
+  </ExampleCode>
+</Example>
+
+#### Using style props
+<Example>
+  <MessageStyleProps />
+  
+  <ExampleCode>
+  ```jsx file=./examples/MessageStyleProps.tsx
+  ```
+  </ExampleCode>
+</Example>
 
 ### Icons
 
@@ -150,3 +204,23 @@ Message icons can be customized using IconProvider.
 </Example>
 
 ## Accessibility
+
+Message does not have an ARIA role configured by default. Depending on your own use case, you can pass a `role` attribute or add your own ARIA attributes where needed.
+
+### As an alert
+
+You can pass a role, such as `alert`, to the wrapper element of Message.
+
+<Example>
+  <MessageAsAlert />
+  
+  <ExampleCode>
+
+  ```tsx file=./examples/MessageAsAlert.tsx
+
+  ```
+
+  </ExampleCode>
+</Example>
+
+

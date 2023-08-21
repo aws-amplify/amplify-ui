@@ -6,3 +6,6 @@ export { HideIcon } from './HideIcon';
 export { MessageVariations } from './MessageVariations';
 export { MessageColorThemes } from './MessageColorThemes';
 export { IconProviderExample } from './IconProviderExample';
+export { MessageGlobalStyling } from './MessageGlobalStyling';
+export { MessageStyleProps } from './MessageStyleProps';
+export { MessageAsAlert } from './MessageAsAlert';

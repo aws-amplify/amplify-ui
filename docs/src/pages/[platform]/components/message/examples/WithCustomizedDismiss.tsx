@@ -4,7 +4,7 @@ export const WithCustomizedDismiss = () => {
   return (
     <Flex direction="column">
       <Message colorTheme="info">
-        Message with customized dismiss button
+        Message with customized dismiss button appearance
         <Message.Dismiss
           variation="primary"
           colorTheme="info"

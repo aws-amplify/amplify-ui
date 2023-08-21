@@ -6,6 +6,7 @@ export const BasicWithDismiss = () => {
       <Message
         content="A basic dismissible message"
         isDismissible={true}
+        dismissButtonLabel="Dismiss this custom message"
         onDismiss={() => {
           alert('Dismissed message');
         }}
