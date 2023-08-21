@@ -3615,6 +3615,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"transparent\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-message-border-radius\\",
+        \\"value\\": \\"0\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-message-border-style\\",
         \\"value\\": \\"solid\\"
     },
