@@ -4,26 +4,26 @@ import { BaseFlexProps } from './flex';
 import { BaseButtonProps } from './button';
 import { ElementType, PrimitiveProps, BaseViewProps } from './view';
 
-export type MessageColorThemes =
+export type MessageColorTheme =
   | 'neutral'
   | 'info'
   | 'error'
   | 'warning'
   | 'success';
-export type MessageVariations = 'plain' | 'outlined' | 'filled';
+export type MessageVariation = 'plain' | 'outlined' | 'filled';
 
 export interface BaseMessageProps extends BaseFlexProps {
   /**
    * @description
    * The variation property will affect the overall style of the Message.
    */
-  variation?: MessageVariations;
+  variation?: MessageVariation;
 
   /**
    * @description
    * The colorTheme property will affect the color and iconography used in the Message.
    */
-  colorTheme?: MessageColorThemes;
+  colorTheme?: MessageColorTheme;
 
   /**
    * @description

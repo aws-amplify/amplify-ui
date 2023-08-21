@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { MessageColorThemes } from '../types';
+import { MessageColorTheme } from '../types';
 
 export interface MessageContextProps {
-  colorTheme?: MessageColorThemes;
+  colorTheme?: MessageColorTheme;
   dismissed?: boolean;
   onDismiss?: () => void;
   setDismissed: (dismissed: boolean) => void;
