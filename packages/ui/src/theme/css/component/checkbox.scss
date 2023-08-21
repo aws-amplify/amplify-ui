@@ -7,8 +7,7 @@
   // without a relatively positioned element in the ancestor tree,
   // focusing the hidden input might break some interfaces
   position: relative;
-  &--disabled,
-  .amplify-fieldset[disabled] & {
+  &--disabled {
     cursor: var(--amplify-components-checkbox-disabled-cursor);
   }
 }
@@ -80,8 +79,7 @@
     );
   }
 
-  &--disabled::before,
-  .amplify-fieldset[disabled] &::before {
+  &--disabled::before {
     border-color: var(
       --amplify-components-checkbox-button-disabled-border-color
     );
@@ -131,15 +129,13 @@
     );
   }
 
-  &--disabled,
-  .amplify-fieldset[disabled] & {
+  &--disabled {
     background-color: var(
       --amplify-internal-checkbox-icon-disabled-background-color
     );
   }
 }
 
-.amplify-checkbox__label[data-disabled='true'],
-.amplify-fieldset[disabled] .amplify-checkbox__label {
+.amplify-checkbox__label[data-disabled='true'] {
   color: var(--amplify-components-checkbox-label-disabled-color);
 }

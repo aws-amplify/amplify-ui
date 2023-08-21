@@ -72,8 +72,7 @@
   }
 
   // for disabled styles
-  &[disabled],
-  .amplify-fieldset[disabled] & {
+  &[disabled] {
     color: var(--amplify-components-fieldcontrol-disabled-color);
     cursor: var(--amplify-components-fieldcontrol-disabled-cursor);
     border-color: var(--amplify-components-fieldcontrol-disabled-border-color);
