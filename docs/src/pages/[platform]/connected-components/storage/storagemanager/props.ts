@@ -35,7 +35,7 @@ export const STORAGE_MANAGER = [
     name: `autoUpload?`,
     description:
       'Determines if the upload will automatically start after a file is selected. The default value is `true`',
-    type: `boolean'`,
+    type: 'boolean',
   },
   {
     name: `maxFileCount`,
