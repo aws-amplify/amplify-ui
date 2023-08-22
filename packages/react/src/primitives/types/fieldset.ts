@@ -4,13 +4,15 @@ import { BaseViewProps } from './view';
 import { FlexContainerStyleProps } from './flex';
 import { ElementType, PrimitiveProps } from './view';
 
+export type FieldsetVariation = 'outlined' | 'plain';
+
 /** @deprecated For internal use only */
 export interface BaseFieldsetProps
   extends BaseViewProps,
     FlexContainerStyleProps {
   /**
    * @description
-   * Legend is the label for the fieldset.
+   * Legend is the label for the Fieldset.
    */
   legend: React.ReactNode;
 
@@ -22,17 +24,15 @@ export interface BaseFieldsetProps
 
   /**
    * @description
-   * Renders the fieldset horizontally
+   * Adds plain or outlined variation to the Fieldset
    */
-  isHorizontal?: boolean;
-
-  variation?: 'outlined' | 'plain';
+  variation?: FieldsetVariation;
 
   size?: 'small' | 'large';
 
   /**
    * @description
-   *  Determines whether field should be disabled.
+   *  Determines whether the Fieldset should be disabled.
    * @default
    * false
    */
@@ -40,13 +40,13 @@ export interface BaseFieldsetProps
 
   /**
    * @description
-   * Name of the fieldset.
+   * Name of the Fieldset.
    */
   name?: string;
 
   /**
    * @description
-   * Form to associate the fieldset with
+   * Form to associate the Fieldset with
    */
   form?: string;
 }

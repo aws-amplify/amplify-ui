@@ -3200,7 +3200,7 @@ exports[`Props Table 1`] = `
                     \\"legend\\": {
                         \\"name\\": \\"legend\\",
                         \\"type\\": \\"React.ReactNode\\",
-                        \\"description\\": \\"Legend is the label for the fieldset.\\",
+                        \\"description\\": \\"Legend is the label for the Fieldset.\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": false
                     },
@@ -3211,17 +3211,10 @@ exports[`Props Table 1`] = `
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": true
                     },
-                    \\"isHorizontal\\": {
-                        \\"name\\": \\"isHorizontal\\",
-                        \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Renders the fieldset horizontally\\",
-                        \\"category\\": \\"BaseFieldsetProps\\",
-                        \\"isOptional\\": true
-                    },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
-                        \\"type\\": \\"\\\\\\"outlined\\\\\\" | undefined\\",
-                        \\"description\\": \\"\\",
+                        \\"type\\": \\"'outlined' | 'plain'\\",
+                        \\"description\\": \\"Adds plain or outlined variation to the Fieldset\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": true
                     },
@@ -3235,21 +3228,21 @@ exports[`Props Table 1`] = `
                     \\"isDisabled\\": {
                         \\"name\\": \\"isDisabled\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\" Determines whether field should be disabled. Default: false\\",
+                        \\"description\\": \\" Determines whether the Fieldset should be disabled. Default: false\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": true
                     },
                     \\"name\\": {
                         \\"name\\": \\"name\\",
                         \\"type\\": \\"string | undefined\\",
-                        \\"description\\": \\"Name of the fieldset.\\",
+                        \\"description\\": \\"Name of the Fieldset.\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": true
                     },
                     \\"form\\": {
                         \\"name\\": \\"form\\",
                         \\"type\\": \\"string | undefined\\",
-                        \\"description\\": \\"Form to associate the fieldset with\\",
+                        \\"description\\": \\"Form to associate the Fieldset with\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": true
                     },

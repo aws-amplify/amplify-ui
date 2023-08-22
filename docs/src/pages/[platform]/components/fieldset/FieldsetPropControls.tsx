@@ -53,8 +53,8 @@ export const FieldsetPropControls: FieldsetPropControlsInterface = ({
           setVariation(event.target.value as FieldsetProps['variation'])
         }
       >
-        <option value="">default</option>
-        <option value="outlined">outlined</option>
+        <option value="outlined">outlined (default)</option>
+        <option value="plain">plain</option>
       </SelectField>
       <SelectField
         label="direction"

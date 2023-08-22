@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
+import { classNameModifier } from '../shared/utils';
 
 import { Flex } from '../Flex';
 import { View } from '../View';
@@ -21,7 +21,6 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
     children,
     className,
     isDisabled,
-    isHorizontal,
     legend,
     legendHidden,
     size,
@@ -52,12 +51,16 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
     ComponentClassNames.Fieldset,
     classNameModifier(ComponentClassNames.Fieldset, variation),
     classNameModifier(ComponentClassNames.Fieldset, size),
-    classNameModifierByFlag(
-      ComponentClassNames.Fieldset,
-      'horizontal',
-      isHorizontal
-    ),
     className
+  );
+
+  const legendClasses = classNames(
+    ComponentClassNames.FieldsetLegend,
+    classNameModifier(ComponentClassNames.FieldsetLegend, size),
+    className,
+    {
+      [ComponentClassNames.VisuallyHidden]: legendHidden,
+    }
   );
 
   return (
@@ -71,13 +74,7 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
         {...rest}
       >
         <VisuallyHidden as="legend">{legend}</VisuallyHidden>
-        <View
-          as="div"
-          aria-hidden="true"
-          className={classNames(ComponentClassNames.FieldsetLegend, className, {
-            [ComponentClassNames.VisuallyHidden]: legendHidden,
-          })}
-        >
+        <View as="div" aria-hidden="true" className={legendClasses}>
           {legend}
         </View>
 

@@ -1,9 +1,17 @@
 import { Fragment } from '@/components/Fragment'; 
-import { Flex, Text, Button, View } from '@aws-amplify/ui-react';
+import { Flex, Text, Button, View, Alert, Link } from '@aws-amplify/ui-react';
 import { FieldsetDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { BasicFieldset } from './examples';
+import { 
+  BasicFieldset, 
+  FieldsetSizes, 
+  FieldsetVariations, 
+  FieldsetDirection,
+  DisabledFieldset,
+  FormAttribute,
+  NameAttribute
+} from './examples';
 
 ## Demo
 
@@ -24,18 +32,105 @@ import { BasicFieldset } from './examples';
   </ExampleCode>
 </Example>
 
-## Notes
+### Sizes
+Fieldset size can be changed via the `size` prop. It affects the Fieldset's padding and gap size and the font size of its `legend` element.
+<Example>
+  <View>
+    <FieldsetSizes />
+  </View>
+  
+  <ExampleCode>
 
-### Disabled fieldsets
-Fieldsets can be disabled. Disabling a fieldset disables all controls within the fieldset; though you will not be able to rely on styling those controls via the disabled attribute (`input[disabled] {}`) because it won't be present. See native browser behavior here: https://codepen.io/hbuchel/pen/xxQBbNW I tested applying styles based on parent disabled fieldset below.
+```jsx file=./examples/FieldsetSizes.tsx
 
-### form attribute
-Fieldsets should be able to accept a form attribute that lets you associate the fieldset with a form even if it's not a child of that form. You can verify this with `HTMLFormElement.elements`
+```
 
-### name attribute
-fieldsets should be able to accept a name
+  </ExampleCode>
+</Example>
 
+### Variation
+Fieldset by default uses the `outlined` variation which has a border and padding. Use the `plain` variation to remove the border and padding.
+<Example>
+  <View>
+    <FieldsetVariations />
+  </View>
+  
+  <ExampleCode>
 
+```jsx file=./examples/FieldsetVariations.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Direction
+Fieldset uses the <a href="/react/components/flex">Flex</a> primitive for layout which allows you to use Flex props to control the direction and alignment of the Fieldset. Use `direction="row|row-reverse|column|column-reverse"` to change the direction of the Fieldset.
+<Example>
+  <View>
+    <FieldsetDirection />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/FieldsetDirection.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Disabled
+Fieldset can be disabled by using `isDisabled={true}` prop which will apply the `[disabled]` attribute to the fieldset.
+<Alert role="none" variation="warning" heading="Note about disabled fieldsets:">
+  Disabled fieldsets in HTML will disable all inputs nested within them; even those nested within fieldsets that are not disabled. This is default browser behavior that the Fieldset primitive supports.
+</Alert>
+
+<Example>
+  <View>
+    <DisabledFieldset />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/DisabledFieldset.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Form attribute
+Fieldset supports the [form] attribute on a Fieldset using the `form` prop. Use this prop if you need to associate a Fieldset with a form that it is not a descendant of. The value of `form` should match the id of a form element. Read more about <Link isExternal href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fae-form">listed elements of forms in the HTML spec</Link>.
+<Example>
+  <View>
+    <FormAttribute />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/FormAttribute.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Name attribute
+Fieldset supports the [name] attribute. Use the `name` prop to supply a name for your Fieldset. This can be useful if parsing form controls <Link href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements" isExternal>using the form.elements api</Link>
+<Example>
+  <View>
+    <NameAttribute />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/NameAttribute.tsx
+
+```
+
+  </ExampleCode>
+</Example>
 
 ## Accessibility
 

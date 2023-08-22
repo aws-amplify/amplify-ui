@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   Fieldset,
+  FieldsetVariation,
   CheckboxField,
   TextField,
   FieldsetProps,
@@ -44,10 +45,11 @@ const propsToCode = (props) => {
   );
 };
 
-const defaultFieldsetProps = {
+const defaultFieldsetProps: FieldsetProps = {
   legend: 'Favorite fruits',
   isDisabled: false,
   direction: 'column',
+  variation: 'outlined',
 };
 
 export const FieldsetDemo = () => {
@@ -68,15 +70,15 @@ export const FieldsetDemo = () => {
         direction={fieldsetProps.direction}
       >
         <CheckboxField
-          label="Subscribe"
+          label="Apple"
           size={fieldsetProps.size}
-          name="subscribe"
+          name="apple"
           value="yes"
         />
         <CheckboxField
-          label="Subscribe"
+          label="Pear"
           size={fieldsetProps.size}
-          name="subscribe"
+          name="pear"
           value="yes"
         />
       </Fieldset>

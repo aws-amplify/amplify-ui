@@ -1,9 +1,6 @@
 import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
-export type FieldsetSizeTokens<Output> = DesignTokenProperties<
-  'fontSize' | 'gap',
-  Output
->;
+export type FieldsetSizeTokens<Output> = DesignTokenProperties<'gap', Output>;
 
 export type FieldsetOutlinedTokens<Output> = DesignTokenProperties<
   'padding' | 'borderColor' | 'borderWidth' | 'borderStyle',
@@ -13,39 +10,39 @@ export type FieldsetOutlinedTokens<Output> = DesignTokenProperties<
   large?: DesignTokenProperties<'padding', Output>;
 };
 
-export type FieldsetHorizontalTokens<Output> = DesignTokenProperties<
-  'flexDirection' | 'alignItems',
-  Output
->;
-
 export type FieldsetLegendTokens<Output> = DesignTokenProperties<
-  'color' | 'fontWeight' | 'lineHeight',
+  'fontSize' | 'color' | 'fontWeight' | 'lineHeight',
   Output
->;
+> & {
+  small?: DesignTokenProperties<'fontSize', Output>;
+  large?: DesignTokenProperties<'fontSize', Output>;
+};
 
 export type FieldsetTokens<Output extends OutputVariantKey> =
-  DesignTokenProperties<'gap' | 'flexDirection' | 'fontSize', Output> & {
+  DesignTokenProperties<'gap' | 'flexDirection' | 'borderRadius', Output> & {
     legend?: FieldsetLegendTokens<Output>;
-    horizontal?: FieldsetHorizontalTokens<Output>;
     outlined?: FieldsetOutlinedTokens<Output>;
     small?: FieldsetSizeTokens<Output>;
     large?: FieldsetSizeTokens<Output>;
   };
 
 export const fieldset: Required<FieldsetTokens<'default'>> = {
-  gap: { value: '{components.field.gap.value}' },
+  borderRadius: { value: '{radii.xs.value}' },
   flexDirection: {
     value: 'column',
   },
-  fontSize: { value: '{components.field.fontSize.value}' },
+  gap: { value: '{components.field.gap.value}' },
   legend: {
     color: { value: '{colors.font.primary.value}' },
+    fontSize: { value: '{components.field.fontSize.value}' },
     fontWeight: { value: '{fontWeights.bold.value}' },
     lineHeight: { value: '{lineHeights.medium.value}' },
-  },
-  horizontal: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    small: {
+      fontSize: '{components.field.small.fontSize.value}',
+    },
+    large: {
+      fontSize: '{components.field.large.fontSize.value}',
+    },
   },
   outlined: {
     padding: '{space.medium.value}',
@@ -60,11 +57,9 @@ export const fieldset: Required<FieldsetTokens<'default'>> = {
     },
   },
   small: {
-    fontSize: '{components.field.small.fontSize.value}',
     gap: '{components.field.small.gap.value}',
   },
   large: {
-    fontSize: '{components.field.large.fontSize.value}',
     gap: '{components.field.large.gap.value}',
   },
 };

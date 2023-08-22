@@ -2991,28 +2991,16 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-font-sizes-small)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-fieldset-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xs)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-fieldset-flex-direction\\",
         \\"value\\": \\"column\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-fieldset-font-size\\",
-        \\"value\\": \\"var(--amplify-components-field-font-size)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-fieldset-gap\\",
         \\"value\\": \\"var(--amplify-components-field-gap)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-fieldset-horizontal-align-items\\",
-        \\"value\\": \\"center\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-fieldset-horizontal-flex-direction\\",
-        \\"value\\": \\"row\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-fieldset-large-font-size\\",
-        \\"value\\": \\"var(--amplify-components-field-large-font-size)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-fieldset-large-gap\\",
@@ -3023,12 +3011,24 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-primary)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-font-size)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-fieldset-legend-font-weight\\",
         \\"value\\": \\"var(--amplify-font-weights-bold)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-large-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-large-font-size)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-fieldset-legend-line-height\\",
         \\"value\\": \\"var(--amplify-line-heights-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-small-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-small-font-size)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-fieldset-outlined-border-color\\",
@@ -3053,10 +3053,6 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-fieldset-outlined-small-padding\\",
         \\"value\\": \\"var(--amplify-space-small)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-fieldset-small-font-size\\",
-        \\"value\\": \\"var(--amplify-components-field-small-font-size)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-fieldset-small-gap\\",
