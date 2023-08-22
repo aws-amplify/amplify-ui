@@ -927,6 +927,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-active)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-button-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-button-border-color\\",
         \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
     },
