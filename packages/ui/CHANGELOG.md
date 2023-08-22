@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 5.7.2
+
+### Patch Changes
+
+- [#4366](https://github.com/aws-amplify/amplify-ui/pull/4366) [`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui): add backgroundColor token for default Button style
+
 ## 5.7.1
 
 ### Patch Changes
