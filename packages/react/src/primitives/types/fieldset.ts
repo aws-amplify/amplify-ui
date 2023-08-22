@@ -26,7 +26,7 @@ export interface BaseFieldsetProps
    */
   isHorizontal?: boolean;
 
-  variation?: 'outlined';
+  variation?: 'outlined' | 'plain';
 
   size?: 'small' | 'large';
 

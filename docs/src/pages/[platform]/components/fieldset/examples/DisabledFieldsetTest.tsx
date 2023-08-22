@@ -19,7 +19,7 @@ import {
   Fieldset,
 } from '@aws-amplify/ui-react';
 
-export const BasicFieldsetExample = () => {
+export const DisabledFieldsetTest = () => {
   const form1Ref = useRef(null);
 
   return (

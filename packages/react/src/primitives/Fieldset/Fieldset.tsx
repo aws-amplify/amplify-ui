@@ -26,28 +26,28 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
     legendHidden,
     size,
     testId,
-    variation,
+    variation = 'outlined',
     ...rest
   },
   ref
 ) => {
   const { isDisabled: isDisabledByFieldset, isNestedFieldset } = useFieldset();
-  // eslint-disable-next-line no-console
-  console.log('isDisabledByFieldset: ', legend, ' ', isDisabledByFieldset);
+
+  // Fieldsets that are nested within a disabled Fieldset should
+  // also be disabled.
   const shouldBeDisabled =
     isNestedFieldset && isDisabledByFieldset
       ? isDisabledByFieldset
       : isDisabled;
   const value = React.useMemo(
     () => ({
+      // Set isNestedFieldset to true so we can detect nested Fieldsets.
       isNestedFieldset: true,
       isDisabled: shouldBeDisabled,
     }),
     [shouldBeDisabled]
   );
 
-  // eslint-disable-next-line no-console
-  console.log('value: ', legend, ' ', value);
   const fieldsetClasses = classNames(
     ComponentClassNames.Fieldset,
     classNameModifier(ComponentClassNames.Fieldset, variation),

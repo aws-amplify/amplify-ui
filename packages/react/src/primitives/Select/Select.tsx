@@ -56,7 +56,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
             ? DEFAULT_PLACEHOLDER_VALUE
             : defaultValue
         }
-        isDisabled={isDisabledByFieldset ?? isDisabled}
+        isDisabled={isDisabledByFieldset ? isDisabledByFieldset : isDisabled}
         required={isRequired}
         data-size={size}
         data-variation={variation}

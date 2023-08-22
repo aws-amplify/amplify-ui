@@ -144,7 +144,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
         <Root
           className={rootComponentClasses}
           data-testid={SLIDER_ROOT_TEST_ID}
-          disabled={isDisabledByFieldset ?? isDisabled}
+          disabled={isDisabledByFieldset ? isDisabledByFieldset : isDisabled}
           defaultValue={defaultValues}
           onValueChange={onValueChange}
           orientation={orientation}

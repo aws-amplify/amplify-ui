@@ -50,11 +50,9 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
   } = useRadioGroupContext();
   const { isDisabled: isDisabledByFieldset } = useFieldset();
 
-  const shouldBeDisabled =
-    isDisabledByFieldset ||
-    isGroupDisabled ||
-    isDisabled ||
-    (isReadOnly && defaultValue !== value);
+  const shouldBeDisabled = isDisabledByFieldset
+    ? isDisabledByFieldset
+    : isGroupDisabled || isDisabled || (isReadOnly && defaultValue !== value);
 
   // for controlled component
   const checked =

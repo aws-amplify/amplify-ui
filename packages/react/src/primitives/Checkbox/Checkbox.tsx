@@ -43,6 +43,9 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   const [focused, setFocused] = React.useState(false);
   const icons = useIcons('checkbox');
   const { isDisabled: isDisabledByFieldset } = useFieldset();
+  const shouldBeDisabled = isDisabledByFieldset
+    ? isDisabledByFieldset
+    : isDisabled;
 
   const isControlled = controlledChecked !== undefined;
   const [localChecked, setLocalChecked] = React.useState(() =>
@@ -95,7 +98,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     classNameModifierByFlag(
       ComponentClassNames.CheckboxButton,
       'disabled',
-      isDisabledByFieldset ?? isDisabled
+      shouldBeDisabled
     ),
     classNameModifierByFlag(
       ComponentClassNames.CheckboxButton,
@@ -118,7 +121,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     classNameModifierByFlag(
       ComponentClassNames.CheckboxIcon,
       'disabled',
-      isDisabledByFieldset ?? isDisabled
+      shouldBeDisabled
     ),
     classNameModifierByFlag(
       ComponentClassNames.CheckboxIcon,
@@ -129,7 +132,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   const iconProps = {
     className: classNames(iconClasses),
     'data-checked': localChecked,
-    'data-disabled': isDisabledByFieldset ?? isDisabled,
+    'data-disabled': shouldBeDisabled,
     'data-testid': iconTestId,
   };
 
@@ -156,11 +159,11 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         classNameModifierByFlag(
           ComponentClassNames.Checkbox,
           'disabled',
-          isDisabledByFieldset ?? isDisabled
+          shouldBeDisabled
         ),
         className
       )}
-      data-disabled={isDisabledByFieldset ?? isDisabled}
+      data-disabled={shouldBeDisabled}
       data-label-position={labelPosition}
       testId={testId}
       {...styleProps}
@@ -171,7 +174,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           className={ComponentClassNames.CheckboxInput}
           data-id={dataId}
           defaultChecked={defaultChecked}
-          isDisabled={isDisabledByFieldset ?? isDisabled}
+          isDisabled={shouldBeDisabled}
           onBlur={onBlur}
           onChange={onChange}
           onFocus={onFocus}
@@ -186,7 +189,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           className={classNames(ComponentClassNames.CheckboxLabel, {
             [ComponentClassNames.VisuallyHidden]: labelHidden,
           })}
-          data-disabled={isDisabledByFieldset ?? isDisabled}
+          data-disabled={shouldBeDisabled}
           testId={labelTestId}
         >
           {label}
@@ -197,7 +200,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
         as="span"
         className={flexClasses}
         data-checked={checked}
-        data-disabled={isDisabledByFieldset ?? isDisabled}
+        data-disabled={shouldBeDisabled}
         data-focus={focused}
         data-error={hasError}
         testId={buttonTestId}

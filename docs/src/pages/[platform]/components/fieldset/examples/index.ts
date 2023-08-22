@@ -1,1 +1,1 @@
-export { BasicFieldsetExample } from './BasicFieldsetExample';
+export { BasicFieldset } from './BasicFieldset';

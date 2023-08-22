@@ -3,11 +3,26 @@ import { Flex, Text, Button, View } from '@aws-amplify/ui-react';
 import { FieldsetDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
-import { BasicFieldsetExample } from './examples';
+import { BasicFieldset } from './examples';
 
 ## Demo
 
 <FieldsetDemo />
+
+## Usage
+<Example>
+  <View>
+    <BasicFieldset />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/BasicFieldset.tsx
+
+```
+
+  </ExampleCode>
+</Example>
 
 ## Notes
 
@@ -20,21 +35,7 @@ Fieldsets should be able to accept a form attribute that lets you associate the 
 ### name attribute
 fieldsets should be able to accept a name
 
-## Test disabled fieldset and form attribute
 
-<Example>
-  <View>
-    <BasicFieldsetExample />
-  </View>
-  
-  <ExampleCode>
-
-```jsx file=./examples/BasicFieldsetExample.tsx
-
-```
-
-  </ExampleCode>
-</Example>
 
 ## Accessibility
 
