@@ -14,6 +14,7 @@ Feature: Storage Manager with footer and upload actions
     Given I intercept '{ "method": "PUT", "url": "**/test.jpg?partNumber=1**"  }' with fixture "Storage.public-upload-part.xml" and add header "Etag" with value "&quot;abc123&quot;"
     Given I intercept '{ "method": "POST", "url": "**/test.jpg?uploadId**"  }' with fixture "Storage.public-upload-complete-multipart.xml"
     Given I intercept '{ "method": "GET", "url": "**/?list-type=2**"  }' with fixture "Storage.public-uploads-list.xml"
+    Then I see "1 file selected"
     Then I click the "Upload 1 file" button
     Then I see "Uploaded"
     Then I see "1 file uploaded"
