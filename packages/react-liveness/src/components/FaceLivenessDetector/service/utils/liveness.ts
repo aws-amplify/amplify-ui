@@ -132,7 +132,7 @@ export function getOvalDetailsFromSessionInformation({
 export function getStaticLivenessOvalDetails({
   width,
   height,
-  widthSeed = 1.1,
+  widthSeed = 1.0,
   centerXSeed = 0.5,
   centerYSeed = 0.5,
 }: {
@@ -145,7 +145,7 @@ export function getStaticLivenessOvalDetails({
   const videoHeight = height;
   let videoWidth = width;
 
-  const ovalRatio = widthSeed * 0.8;
+  const ovalRatio = 0.88;
 
   const minOvalCenterX = Math.floor((7 * width) / 16);
   const maxOvalCenterX = Math.floor((9 * width) / 16);
@@ -168,7 +168,7 @@ export function getStaticLivenessOvalDetails({
   }
 
   const ovalWidth = ovalRatio * videoWidth;
-  const ovalHeight = 1.618 * ovalWidth;
+  const ovalHeight = 1.333 * ovalWidth;
 
   return {
     flippedCenterX: Math.floor(centerX),
@@ -263,7 +263,7 @@ export function getFaceMatchStateInLivenessOval(
 ): FaceMatchStateInLivenessOval {
   let faceMatchState: FaceMatchState;
 
-  const OvalIouThreshold = 0.75;
+  const OvalIouThreshold = 0.65;
   const OvalIouHeightThreshold = 0.25;
   const OvalIouWidthThreshold = 0.25;
   const FaceIouHeightThreshold = 0.15;
@@ -363,7 +363,7 @@ export function generateBboxFromLandmarks(
   const alpha = 2.0,
     gamma = 1.8;
   const ow = (alpha * pd + gamma * fh) / 2;
-  const oh = 1.618 * ow;
+  const oh = 1.333 * ow;
 
   let cx: number, cy: number;
 
