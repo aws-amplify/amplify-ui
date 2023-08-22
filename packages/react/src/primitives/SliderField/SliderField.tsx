@@ -15,6 +15,7 @@ import { BaseSliderFieldProps, SliderFieldProps } from '../types/sliderField';
 import { splitPrimitiveProps } from '../utils/splitPrimitiveProps';
 import { View } from '../View';
 import { useStableId } from '../utils/useStableId';
+import { useFieldset } from '../Fieldset/useFieldset';
 
 // Radix packages don't support ESM in Node, in some scenarios(e.g. SSR)
 // We have to use namespace import and sanitize it to ensure the interoperablity between ESM and CJS
@@ -54,6 +55,8 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
   },
   ref
 ) => {
+  const { isDisabled: isDisabledByFieldset } = useFieldset();
+
   const fieldId = useStableId(id);
   const labelId = useStableId();
   const descriptionId = useStableId();
@@ -141,7 +144,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
         <Root
           className={rootComponentClasses}
           data-testid={SLIDER_ROOT_TEST_ID}
-          disabled={isDisabled}
+          disabled={isDisabledByFieldset ?? isDisabled}
           defaultValue={defaultValues}
           onValueChange={onValueChange}
           orientation={orientation}

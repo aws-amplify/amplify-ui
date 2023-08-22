@@ -14,7 +14,7 @@ import {
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { FieldsetContext } from './useFieldset';
+import { FieldsetContext, useFieldset } from './useFieldset';
 
 const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   {
@@ -31,13 +31,23 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   },
   ref
 ) => {
+  const { isDisabled: isDisabledByFieldset, isNestedFieldset } = useFieldset();
+  // eslint-disable-next-line no-console
+  console.log('isDisabledByFieldset: ', legend, ' ', isDisabledByFieldset);
+  const shouldBeDisabled =
+    isNestedFieldset && isDisabledByFieldset
+      ? isDisabledByFieldset
+      : isDisabled;
   const value = React.useMemo(
     () => ({
-      isDisabled,
+      isNestedFieldset: true,
+      isDisabled: shouldBeDisabled,
     }),
-    [isDisabled]
+    [shouldBeDisabled]
   );
 
+  // eslint-disable-next-line no-console
+  console.log('value: ', legend, ' ', value);
   const fieldsetClasses = classNames(
     ComponentClassNames.Fieldset,
     classNameModifier(ComponentClassNames.Fieldset, variation),
@@ -56,7 +66,7 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
         as="fieldset"
         className={fieldsetClasses}
         ref={ref}
-        disabled={isDisabled}
+        disabled={shouldBeDisabled}
         testId={testId}
         {...rest}
       >

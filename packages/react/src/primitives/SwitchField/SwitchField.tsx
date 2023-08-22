@@ -17,6 +17,7 @@ import { useStableId } from '../utils/useStableId';
 import { useSwitch } from './useSwitch';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
+import { useFieldset } from '../Fieldset/useFieldset';
 
 const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
   {
@@ -47,6 +48,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
     defaultChecked,
     isDisabled,
   });
+  const { isDisabled: isDisabledByFieldset } = useFieldset();
 
   const fieldId = useStableId(id);
   const LabelType = isLabelHidden ? VisuallyHidden : View;
@@ -56,7 +58,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
     classNameModifierByFlag(
       ComponentClassNames.SwitchTrack,
       'disabled',
-      isDisabled
+      isDisabledByFieldset ?? isDisabled
     ),
     classNameModifierByFlag(
       ComponentClassNames.SwitchTrack,
@@ -71,7 +73,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
     classNameModifierByFlag(
       ComponentClassNames.SwitchThumb,
       'disabled',
-      isDisabled
+      isDisabledByFieldset ?? isDisabled
     )
   );
 
@@ -120,7 +122,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
           as="span"
           className={wrapperClasses}
           data-checked={isOn}
-          data-disabled={isDisabled}
+          data-disabled={isDisabledByFieldset ?? isDisabled}
           data-focused={isFocused}
           backgroundColor={isOn ? trackCheckedColor : trackColor}
         >
@@ -128,7 +130,7 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
             as="span"
             className={componentClasses}
             data-checked={isOn}
-            data-disabled={isDisabled}
+            data-disabled={isDisabledByFieldset ?? isDisabled}
             backgroundColor={thumbColor}
           ></View>
         </View>

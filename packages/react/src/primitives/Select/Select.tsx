@@ -8,6 +8,7 @@ import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { BaseSelectProps, SelectProps } from '../types/select';
 import { View } from '../View';
+import { useFieldset } from '../Fieldset/useFieldset';
 
 const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
@@ -41,6 +42,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     className
   );
   const icons = useIcons('select');
+  const { isDisabled: isDisabledByFieldset } = useFieldset();
 
   return (
     <View className={ComponentClassNames.SelectWrapper}>
@@ -54,7 +56,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
             ? DEFAULT_PLACEHOLDER_VALUE
             : defaultValue
         }
-        isDisabled={isDisabled}
+        isDisabled={isDisabledByFieldset ?? isDisabled}
         required={isRequired}
         data-size={size}
         data-variation={variation}
