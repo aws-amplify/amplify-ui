@@ -166,6 +166,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-padding-block-end: var(--amplify-components-fieldcontrol-padding-block-end);
         --amplify-components-button-padding-inline-start: var(--amplify-components-fieldcontrol-padding-inline-start);
         --amplify-components-button-padding-inline-end: var(--amplify-components-fieldcontrol-padding-inline-end);
+        --amplify-components-button-background-color: transparent;
         --amplify-components-button-border-color: var(--amplify-components-fieldcontrol-border-color);
         --amplify-components-button-border-width: var(--amplify-components-fieldcontrol-border-width);
         --amplify-components-button-border-style: var(--amplify-components-fieldcontrol-border-style);
