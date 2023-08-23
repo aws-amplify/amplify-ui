@@ -9,3 +9,4 @@ export { StorageManagerMetadataExample } from './StorageManagerMetadataExample';
 export { StorageManagerResumableExample } from './StorageManagerResumableExample';
 export { StorageManagerThemeExample } from './StorageManagerThemeExample';
 export { StorageManagerHandleExample } from './StorageManagerHandleExample';
+export { StorageManagerUploadActionsExample } from './StorageManagerUploadActionsExample';

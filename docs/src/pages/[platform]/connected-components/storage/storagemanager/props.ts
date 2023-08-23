@@ -26,15 +26,21 @@ export const STORAGE_MANAGER = [
     type: `'public' | 'private' | 'protected'`,
   },
   {
-    name: `maxFileCount`,
-    description: '',
-    type: 'integer',
-  },
-  {
     name: `acceptedFileTypes?`,
     description:
       "List of accepted file types, values of `['*']` or undefined allow any files",
     type: `string[]`,
+  },
+  {
+    name: `autoUpload?`,
+    description:
+      'Determines if the upload will automatically start after a file is selected. The default value is `true`',
+    type: 'boolean',
+  },
+  {
+    name: `maxFileCount`,
+    description: '',
+    type: 'integer',
   },
   {
     name: `maxFileSize?`,
@@ -106,6 +112,11 @@ export const STORAGE_MANAGER = [
     name: `components?.FileListHeader?`,
     description: 'The heading above the list of files',
     type: `React.ComponentType<FileListHeaderProps>`,
+  },
+  {
+    name: `components?.FileListFooter?`,
+    description: 'The footer below the list of files',
+    type: `React.ComponentType<FileListFooterProps>`,
   },
   {
     name: `ref?`,

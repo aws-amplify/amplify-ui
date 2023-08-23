@@ -11,6 +11,7 @@ import {
   DropZone,
   FileList,
   FileListHeader,
+  FileListFooter,
   FilePicker,
 } from './ui';
 import {
@@ -25,6 +26,7 @@ function StorageManagerBase(
   {
     acceptedFileTypes = [],
     accessLevel,
+    autoUpload = true,
     defaultFiles,
     displayText: overrideDisplayText,
     isResumable = false,
@@ -52,6 +54,7 @@ function StorageManagerBase(
     FileList,
     FilePicker,
     FileListHeader,
+    FileListFooter,
     ...components,
   };
 
@@ -79,6 +82,7 @@ function StorageManagerBase(
     clearFiles,
     files,
     removeUpload,
+    queueFiles,
     setUploadingFile,
     setUploadPaused,
     setUploadProgress,
@@ -101,6 +105,7 @@ function StorageManagerBase(
       );
       addFiles({
         files: filteredFiles,
+        status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
         getFileErrorMessage: getMaxFileSizeErrorMessage,
       });
     },
@@ -130,8 +135,17 @@ function StorageManagerBase(
 
     addFiles({
       files: Array.from(files),
+      status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
       getFileErrorMessage: getMaxFileSizeErrorMessage,
     });
+  };
+
+  const onClearAll = () => {
+    clearFiles();
+  };
+
+  const onUploadAll = () => {
+    queueFiles();
   };
 
   const onPauseUpload = ({
@@ -199,7 +213,12 @@ function StorageManagerBase(
 
   const remainingFilesCount = files.length - uploadedFilesLength;
 
+  // number of files selected for upload when autoUpload is turned off
+  const selectedFilesCount = autoUpload ? 0 : remainingFilesCount;
+
   const hasFiles = files.length > 0;
+
+  const hasUploadActions = !autoUpload && remainingFilesCount > 0;
 
   const hiddenInput = React.useRef<HTMLInputElement>(null);
   function handleClick() {
@@ -238,6 +257,7 @@ function StorageManagerBase(
           displayText={displayText}
           fileCount={files.length}
           remainingFilesCount={remainingFilesCount}
+          selectedFilesCount={selectedFilesCount}
         />
       ) : null}
       <Components.FileList
@@ -252,6 +272,14 @@ function StorageManagerBase(
         hasMaxFilesError={hasMaxFilesError}
         maxFileCount={maxFileCount}
       />
+      {hasUploadActions ? (
+        <Components.FileListFooter
+          displayText={displayText}
+          remainingFilesCount={remainingFilesCount}
+          onClearAll={onClearAll}
+          onUploadAll={onUploadAll}
+        />
+      ) : null}
     </Components.Container>
   );
 }
@@ -265,6 +293,7 @@ const StorageManager = Object.assign(
     DropZone,
     FileList,
     FileListHeader,
+    FileListFooter,
     FilePicker,
   }
 );
