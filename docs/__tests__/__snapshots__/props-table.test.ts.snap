@@ -2035,10 +2035,10 @@ exports[`Props Table 1`] = `
                     },
                     \\"value\\": {
                         \\"name\\": \\"value\\",
-                        \\"type\\": \\"string\\",
+                        \\"type\\": \\"string | undefined\\",
                         \\"description\\": \\"If value is provided, this will be a controlled field.\\",
                         \\"category\\": \\"BaseCheckboxProps\\",
-                        \\"isOptional\\": false
+                        \\"isOptional\\": true
                     },
                     \\"labelPosition\\": {
                         \\"name\\": \\"labelPosition\\",

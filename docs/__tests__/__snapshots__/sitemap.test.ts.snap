@@ -128,6 +128,7 @@ exports[`Sitemap Snapshot 1`] = `
 /react/theming/default-theme/colors, 
 /react/theming/default-theme/sizes, 
 /react/theming/default-theme/typography, 
+/react/theming/icons, 
 /react/theming/responsive, 
 /react/theming/style-props, 
 /react/theming/theme-provider, 
