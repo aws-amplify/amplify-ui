@@ -1127,12 +1127,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-storagemanager-previewer-body-padding-block: var(--amplify-space-medium);
         --amplify-components-storagemanager-previewer-body-padding-inline: var(--amplify-space-medium);
         --amplify-components-storagemanager-previewer-body-gap: var(--amplify-space-small);
-        --amplify-components-storagemanager-previewer-footer-border-color: var(--amplify-colors-border-secondary);
-        --amplify-components-storagemanager-previewer-footer-border-style: solid;
-        --amplify-components-storagemanager-previewer-footer-border-width: var(--amplify-border-widths-small);
-        --amplify-components-storagemanager-previewer-footer-padding-block: var(--amplify-space-medium);
-        --amplify-components-storagemanager-previewer-footer-padding-inline: var(--amplify-space-medium);
-        --amplify-components-storagemanager-previewer-footer-justify-content: space-between;
+        --amplify-components-storagemanager-previewer-footer-justify-content: flex-end;
         --amplify-components-storagemanager-filelist-flex-direction: column;
         --amplify-components-storagemanager-filelist-gap: var(--amplify-space-small);
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);

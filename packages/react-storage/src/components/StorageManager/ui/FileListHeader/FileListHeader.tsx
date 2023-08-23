@@ -3,22 +3,28 @@ import { StorageManagerDisplayText } from '../../utils/displayText';
 import { ComponentClassNames, Text } from '@aws-amplify/ui-react';
 
 export interface FileListHeaderProps {
+  allUploadsSuccessful: boolean;
+  displayText: StorageManagerDisplayText;
   fileCount: number;
   remainingFilesCount: number;
-  displayText: StorageManagerDisplayText;
-  allUploadsSuccessful: boolean;
+  selectedFilesCount?: number;
 }
 
 export function FileListHeader({
+  allUploadsSuccessful,
+  displayText,
   fileCount,
   remainingFilesCount,
-  displayText,
-  allUploadsSuccessful,
+  selectedFilesCount = 0,
 }: FileListHeaderProps): JSX.Element {
-  const { getFilesUploadedText, getRemainingFilesText } = displayText;
+  const { getFilesUploadedText, getRemainingFilesText, getSelectedFilesText } =
+    displayText;
+
   return (
     <Text className={ComponentClassNames.StorageManagerPreviewerText}>
-      {allUploadsSuccessful
+      {selectedFilesCount
+        ? getSelectedFilesText(selectedFilesCount)
+        : allUploadsSuccessful
         ? getFilesUploadedText(fileCount)
         : getRemainingFilesText(remainingFilesCount)}
     </Text>

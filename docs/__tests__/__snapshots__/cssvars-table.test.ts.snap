@@ -4783,28 +4783,8 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-border-widths-small)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-border-color\\",
-        \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-border-style\\",
-        \\"value\\": \\"solid\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-border-width\\",
-        \\"value\\": \\"var(--amplify-border-widths-small)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-justify-content\\",
-        \\"value\\": \\"space-between\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-padding-block\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-padding-inline\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
+        \\"value\\": \\"flex-end\\"
     },
     {
         \\"variable\\": \\"--amplify-components-storagemanager-previewer-max-height\\",

@@ -7,7 +7,11 @@ import { Storage } from 'aws-amplify';
 
 import * as StorageHooks from '../hooks';
 import { StorageManager } from '../StorageManager';
-import { StorageManagerProps, StorageManagerHandle } from '../types';
+import {
+  StorageManagerProps,
+  StorageManagerHandle,
+  FileStatus,
+} from '../types';
 import { defaultStorageManagerDisplayText } from '../utils';
 
 const storageSpy = jest
@@ -63,6 +67,25 @@ describe('StorageManager', () => {
     ).toBeVisible();
 
     expect(warnSpy).not.toHaveBeenCalled();
+  });
+
+  it('renders as expected with autoUpload turned off', () => {
+    const { getByText } = render(
+      <StorageManager {...storeManagerProps} autoUpload={false} />
+    );
+    const hiddenInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+
+    const mockFile = new File(['hello'], 'hello.png', { type: 'image/png' });
+    fireEvent.change(hiddenInput, { target: { files: [mockFile] } });
+
+    expect(
+      getByText(defaultStorageManagerDisplayText.clearAllButtonText)
+    ).toBeVisible();
+    expect(
+      getByText(defaultStorageManagerDisplayText.getSelectedFilesText(1))
+    ).toBeVisible();
   });
 
   it('renders as expected with override display text', () => {
@@ -191,6 +214,7 @@ describe('StorageManager', () => {
     jest.spyOn(StorageHooks, 'useStorageManager').mockReturnValue({
       addFiles: mockAddFiles,
       files: [],
+      status: FileStatus.QUEUED,
     } as unknown as StorageHooks.UseStorageManager);
 
     const { findByRole } = render(<StorageManager {...storeManagerProps} />);
@@ -216,6 +240,7 @@ describe('StorageManager', () => {
     expect(mockAddFiles).toHaveBeenCalledTimes(1);
     expect(mockAddFiles).toHaveBeenCalledWith({
       files: [mockFile],
+      status: FileStatus.QUEUED,
       getFileErrorMessage: expect.any(Function),
     });
   });
@@ -244,6 +269,7 @@ describe('StorageManager', () => {
     expect(mockAddFiles).toHaveBeenCalledTimes(1);
     expect(mockAddFiles).toHaveBeenCalledWith({
       files: [file],
+      status: FileStatus.QUEUED,
       getFileErrorMessage: expect.any(Function),
     });
 

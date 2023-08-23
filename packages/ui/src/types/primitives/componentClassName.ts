@@ -150,6 +150,8 @@ export enum ComponentClassName {
   StorageManagerLoader = 'amplify-storagemanager__loader',
   StorageManagerPreviewer = 'amplify-storagemanager__previewer',
   StorageManagerPreviewerText = 'amplify-storagemanager__previewer__text',
+  StorageManagerPreviewerActions = 'amplify-storagemanager__previewer__actions',
+  StorageManagerPreviewerFooter = 'amplify-storagemanager__previewer__footer',
   SwitchField = 'amplify-switchfield',
   SwitchLabel = 'amplify-switch-label',
   SwitchThumb = 'amplify-switch-thumb',
