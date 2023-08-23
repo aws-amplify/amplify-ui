@@ -9,3 +9,4 @@ export { IconProviderExample } from './IconProviderExample';
 export { MessageGlobalStyling } from './MessageGlobalStyling';
 export { MessageStyleProps } from './MessageStyleProps';
 export { MessageAsAlert } from './MessageAsAlert';
+export { MessageThemeExample } from './MessageThemeExample';

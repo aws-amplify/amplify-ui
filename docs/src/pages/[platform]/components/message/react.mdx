@@ -2,6 +2,7 @@ import { Fragment } from '@/components/Fragment';
 import { Message, View, Link } from '@aws-amplify/ui-react';
 import { MessageDemo } from './demo';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import { Example, ExampleCode } from '@/components/Example';
 import {
   BasicUsage,
@@ -14,7 +15,8 @@ import {
   ComposableMessage,
   MessageGlobalStyling,
   MessageStyleProps,
-  MessageAsAlert
+  MessageAsAlert,
+  MessageThemeExample
 } from './examples';
 
 
@@ -129,6 +131,18 @@ You can also override the dismiss functionality completely by passing an `onClic
 </Example>
 
 ## Styling
+
+### Theme
+<ThemeExample component="Message">
+<Example>
+  <MessageThemeExample />
+  
+  <ExampleCode>
+  ```jsx file=./examples/MessageThemeExample.tsx
+  ```
+  </ExampleCode>
+</Example>
+</ThemeExample>
 
 ### Target classes
 
