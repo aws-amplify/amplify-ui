@@ -26,6 +26,7 @@ export type ComponentName =
   | 'MenuButton'
   | 'MenuItem'
   | 'Message'
+  | 'Message.Container'
   | 'Message.Content'
   | 'Message.Dismiss'
   | 'Message.Icon'

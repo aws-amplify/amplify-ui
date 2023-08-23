@@ -20,20 +20,12 @@ export const IconProviderExample = () => (
     }}
   >
     <Flex direction="column">
-      <Message
-        colorTheme="info"
-        content="Info message with custom icon"
-        isDismissible
-      />
-      <Message
-        colorTheme="success"
-        content="Success message with custom icon"
-      />
-      <Message colorTheme="error" content="Error message with custom icon" />
-      <Message
-        colorTheme="warning"
-        content="Warning message with custom icon"
-      />
+      <Message colorTheme="info" isDismissible>
+        Info message with custom icon
+      </Message>
+      <Message colorTheme="success">Success message with custom icon</Message>
+      <Message colorTheme="error">Error message with custom icon</Message>
+      <Message colorTheme="warning">Warning message with custom icon</Message>
     </Flex>
   </IconsProvider>
 );

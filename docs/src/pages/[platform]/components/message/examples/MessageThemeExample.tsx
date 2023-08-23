@@ -30,17 +30,16 @@ export const MessageThemeExample = () => {
   return (
     <ThemeProvider theme={theme} colorMode="light">
       <Flex direction="column">
-        <Message
-          colorTheme="info"
-          heading="Custom info Message theme"
-          content="Content for custom info message."
-        />
+        <Message colorTheme="info" heading="Custom info Message theme">
+          Content for custom info message.
+        </Message>
         <Message
           colorTheme="error"
           variation="outlined"
           heading="Custom error outlined Message theme"
-          content="Content for custom error outlined message."
-        />
+        >
+          Content for custom error outlined message.
+        </Message>
       </Flex>
     </ThemeProvider>
   );

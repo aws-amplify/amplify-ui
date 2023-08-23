@@ -1,16 +1,15 @@
-import { Message, Flex } from '@aws-amplify/ui-react';
+import { Message } from '@aws-amplify/ui-react';
 
 export const BasicWithDismiss = () => {
   return (
-    <Flex direction="column">
-      <Message
-        content="A basic dismissible message"
-        isDismissible={true}
-        dismissButtonLabel="Dismiss this custom message"
-        onDismiss={() => {
-          alert('Dismissed message');
-        }}
-      />
-    </Flex>
+    <Message
+      isDismissible={true}
+      dismissButtonLabel="Dismiss this custom message"
+      onDismiss={() => {
+        alert('Dismissed message');
+      }}
+    >
+      A basic dismissible message
+    </Message>
   );
 };

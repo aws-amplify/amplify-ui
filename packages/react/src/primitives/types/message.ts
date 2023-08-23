@@ -12,7 +12,7 @@ export type MessageColorTheme =
   | 'success';
 export type MessageVariation = 'plain' | 'outlined' | 'filled';
 
-export interface BaseMessageProps extends BaseFlexProps {
+export interface BaseMessageContainerProps extends BaseFlexProps {
   /**
    * @description
    * The variation property will affect the overall style of the Message.
@@ -24,7 +24,9 @@ export interface BaseMessageProps extends BaseFlexProps {
    * The colorTheme property will affect the color and iconography used in the Message.
    */
   colorTheme?: MessageColorTheme;
+}
 
+export interface BaseMessageProps extends BaseMessageContainerProps {
   /**
    * @description
    * Configures the accessible label for the Message's dismiss button.
@@ -54,12 +56,6 @@ export interface BaseMessageProps extends BaseFlexProps {
    * The heading property will affect the content of the Message heading.
    */
   heading?: React.ReactNode;
-
-  /**
-   * @description
-   * The heading property will affect the content of the Message heading.
-   */
-  content?: React.ReactNode;
 }
 
 export interface BaseMessageContentProps extends BaseFlexProps {}
@@ -81,6 +77,9 @@ export interface BaseMessageDismissProps extends BaseButtonProps {
 }
 export interface BaseMessageHeadingProps extends BaseFlexProps {}
 export interface BaseMessageIconProps extends BaseViewProps {}
+
+export type MessageContainerProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseMessageContainerProps, Element>;
 
 export type MessageContentProps<Element extends ElementType = 'div'> =
   PrimitiveProps<BaseMessageContentProps, Element>;

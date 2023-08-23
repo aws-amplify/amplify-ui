@@ -11,8 +11,8 @@ export const useMessageProps: UseMessageProps = (initialValues) => {
   const [colorTheme, setColorTheme] = React.useState<
     MessageProps['colorTheme']
   >(initialValues.colorTheme);
-  const [content, setContent] = React.useState<MessageProps['content']>(
-    initialValues.content
+  const [children, setChildren] = React.useState<MessageProps['children']>(
+    initialValues.children
   );
   const [hasIcon, setHasIcon] = React.useState<MessageProps['hasIcon']>(
     initialValues.hasIcon
@@ -29,13 +29,13 @@ export const useMessageProps: UseMessageProps = (initialValues) => {
   React.useEffect(() => {
     demoState.set('Message', {
       colorTheme,
-      content,
+      children,
       hasIcon,
       heading,
       isDismissible,
       variation,
       setColorTheme,
-      setContent,
+      setChildren,
       setHasIcon,
       setHeading,
       setIsDismissible,
@@ -43,13 +43,13 @@ export const useMessageProps: UseMessageProps = (initialValues) => {
     });
   }, [
     colorTheme,
-    content,
+    children,
     hasIcon,
     heading,
     isDismissible,
     variation,
     setColorTheme,
-    setContent,
+    setChildren,
     setHasIcon,
     setHeading,
     setIsDismissible,
@@ -59,13 +59,13 @@ export const useMessageProps: UseMessageProps = (initialValues) => {
   return React.useMemo(
     () => ({
       colorTheme,
-      content,
+      children,
       hasIcon,
       heading,
       isDismissible,
       variation,
       setColorTheme,
-      setContent,
+      setChildren,
       setHasIcon,
       setHeading,
       setIsDismissible,
@@ -73,13 +73,13 @@ export const useMessageProps: UseMessageProps = (initialValues) => {
     }),
     [
       colorTheme,
-      content,
+      children,
       hasIcon,
       heading,
       isDismissible,
       variation,
       setColorTheme,
-      setContent,
+      setChildren,
       setHasIcon,
       setHeading,
       setIsDismissible,

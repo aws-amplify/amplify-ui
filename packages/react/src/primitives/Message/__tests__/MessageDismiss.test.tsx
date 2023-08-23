@@ -50,25 +50,21 @@ describe('MessageDismiss', () => {
     });
   });
 
-  it('should fire onDismiss passed via context', async () => {
+  it('should fire onDismiss passed as prop to Message', async () => {
     const onDismiss = jest.fn();
-    render(
-      <Message onDismiss={onDismiss}>
-        <Message.Dismiss />
-      </Message>
-    );
+    render(<Message isDismissible={true} onDismiss={onDismiss}></Message>);
 
     const button = await screen.findByRole('button');
     userEvent.click(button);
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
 
-  it('should fire onDismiss passed via prop', async () => {
+  it('should fire onDismiss passed via prop to Dismiss button', async () => {
     const onDismiss = jest.fn();
     render(
-      <Message>
+      <Message.Container>
         <Message.Dismiss onDismiss={onDismiss} />
-      </Message>
+      </Message.Container>
     );
 
     const button = await screen.findByRole('button');

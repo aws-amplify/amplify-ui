@@ -1,27 +1,21 @@
 import * as React from 'react';
-import classNames from 'classnames';
 import { MessageHeading } from './MessageHeading';
 import { MessageIcon } from './MessageIcon';
 import { MessageDismiss } from './MessageDismiss';
 import { MessageContent } from './MessageContent';
+import { MessageContainer } from './MessageContainer';
 
-import { ComponentClassNames } from '../shared/constants';
-import { classNameModifier } from '../shared/utils';
 import {
   MessageProps,
   BaseMessageProps,
   ForwardRefPrimitive,
   Primitive,
 } from '../types';
-import { MessageContext } from './useMessageContext';
-import { Flex } from '../Flex';
 
-const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
+const MessagePrimitive: Primitive<MessageProps, 'div'> = (
   {
     children,
-    className,
     heading,
-    content,
     dismissButtonLabel,
     isDismissible,
     onDismiss,
@@ -32,50 +26,28 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
   },
   ref
 ) => {
-  const [dismissed, setDismissed] = React.useState<boolean>(false);
-
-  const value = React.useMemo(
-    () => ({
-      colorTheme,
-      dismissed,
-      onDismiss,
-      setDismissed,
-    }),
-    [colorTheme, dismissed, onDismiss]
-  );
-
   return (
-    <MessageContext.Provider value={value}>
-      {!dismissed ? (
-        <Flex
-          className={classNames(
-            ComponentClassNames.Message,
-            classNameModifier(ComponentClassNames.Message, variation),
-            classNameModifier(ComponentClassNames.Message, colorTheme),
-            className
-          )}
-          ref={ref}
-          {...rest}
-        >
-          {children ? (
-            children
-          ) : (
-            <>
-              {hasIcon ? <MessageIcon /> : null}
-              {heading || content ? (
-                <MessageContent>
-                  {heading ? <MessageHeading>{heading}</MessageHeading> : null}
-                  {content ? content : null}
-                </MessageContent>
-              ) : null}
-              {isDismissible ? (
-                <MessageDismiss dismissButtonLabel={dismissButtonLabel} />
-              ) : null}
-            </>
-          )}
-        </Flex>
-      ) : null}
-    </MessageContext.Provider>
+    <MessageContainer
+      colorTheme={colorTheme}
+      variation={variation}
+      ref={ref}
+      {...rest}
+    >
+      <>
+        {hasIcon ? <MessageIcon /> : null}
+        <MessageContent>
+          {heading ? <MessageHeading>{heading}</MessageHeading> : null}
+          {children}
+        </MessageContent>
+
+        {isDismissible ? (
+          <MessageDismiss
+            onDismiss={onDismiss}
+            dismissButtonLabel={dismissButtonLabel}
+          />
+        ) : null}
+      </>
+    </MessageContainer>
   );
 };
 
@@ -84,6 +56,7 @@ const MessagePrimitive: Primitive<MessageProps, typeof Flex> = (
  */
 
 type MessageType = ForwardRefPrimitive<BaseMessageProps, 'div'> & {
+  Container: typeof MessageContainer;
   Content: typeof MessageContent;
   Dismiss: typeof MessageDismiss;
   Icon: typeof MessageIcon;
@@ -91,6 +64,7 @@ type MessageType = ForwardRefPrimitive<BaseMessageProps, 'div'> & {
 };
 
 const Message: MessageType = Object.assign(React.forwardRef(MessagePrimitive), {
+  Container: MessageContainer,
   Content: MessageContent,
   Dismiss: MessageDismiss,
   Icon: MessageIcon,

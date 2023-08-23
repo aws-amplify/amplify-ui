@@ -17,7 +17,7 @@ import {
 
 const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
   {
-    onDismiss: overrideOnDismiss,
+    onDismiss,
     dismissButtonLabel,
     hasIcon = true,
     children,
@@ -26,19 +26,15 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
   },
   ref
 ) => {
-  const { setDismissed, onDismiss } = useMessageContext();
+  const { setDismissed } = useMessageContext();
   const icons = useIcons('message');
 
   const dismissMessage = React.useCallback(() => {
     setDismissed(true);
-    if (isFunction(overrideOnDismiss)) {
-      overrideOnDismiss();
-    } else if (isFunction(onDismiss)) {
+    if (isFunction(onDismiss)) {
       onDismiss();
-    } else {
-      return;
     }
-  }, [setDismissed, onDismiss, overrideOnDismiss]);
+  }, [setDismissed, onDismiss]);
   return (
     <Button
       variation="link"

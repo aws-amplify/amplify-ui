@@ -2,7 +2,7 @@ import { Message } from '@aws-amplify/ui-react';
 
 export const MessageStyleProps = () => {
   return (
-    <Message
+    <Message.Container
       alignItems="center"
       colorTheme="info"
       color="neutral.100"
@@ -19,6 +19,6 @@ export const MessageStyleProps = () => {
         borderStyle="dashed"
         borderWidth="2px"
       />
-    </Message>
+    </Message.Container>
   );
 };

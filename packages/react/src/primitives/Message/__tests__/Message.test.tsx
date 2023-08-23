@@ -64,14 +64,24 @@ describe('Message', () => {
     const noIcon = await screen.findByTestId('messageNoIcon');
     const defaultMessage = await screen.findByTestId('neutralMessage');
 
-    expect(hasIcon.childElementCount).toBe(1);
-    expect(noIcon.childElementCount).toBe(0);
-    expect(defaultMessage.childElementCount).toBe(0);
+    expect(hasIcon.childElementCount).toBe(2);
+    expect(noIcon.childElementCount).toBe(1);
+    expect(defaultMessage.childElementCount).toBe(1);
     expect(
       hasIcon.firstElementChild?.classList.contains(
         ComponentClassNames.MessageIcon
       )
     ).toBe(true);
+    expect(
+      noIcon.firstElementChild?.classList.contains(
+        ComponentClassNames.MessageIcon
+      )
+    ).toBe(false);
+    expect(
+      defaultMessage.firstElementChild?.classList.contains(
+        ComponentClassNames.MessageIcon
+      )
+    ).toBe(false);
   });
 
   it('can include dismiss button', async () => {
@@ -79,9 +89,9 @@ describe('Message', () => {
 
     const isDismissible = await screen.findByTestId('messageIsDismissible');
 
-    expect(isDismissible.childElementCount).toBe(1);
+    expect(isDismissible.childElementCount).toBe(2);
     expect(
-      isDismissible.firstElementChild?.classList.contains(
+      isDismissible.lastElementChild?.classList.contains(
         ComponentClassNames.MessageDismiss
       )
     ).toBe(true);

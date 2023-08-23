@@ -3,7 +3,7 @@ import { Message, Flex } from '@aws-amplify/ui-react';
 export const WithCustomizedDismiss = () => {
   return (
     <Flex direction="column">
-      <Message colorTheme="info">
+      <Message.Container colorTheme="info">
         Message with customized dismiss button appearance
         <Message.Dismiss
           variation="primary"
@@ -15,11 +15,11 @@ export const WithCustomizedDismiss = () => {
         >
           Dismiss
         </Message.Dismiss>
-      </Message>
-      <Message>
+      </Message.Container>
+      <Message.Container>
         Message with dismiss event override.
         <Message.Dismiss onClick={() => alert('override dissmiss event')} />
-      </Message>
+      </Message.Container>
     </Flex>
   );
 };

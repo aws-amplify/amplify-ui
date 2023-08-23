@@ -7,12 +7,9 @@ export const MessageAsAlert = () => {
     <Flex direction="column">
       <Button onClick={() => setAlertActive(!alertActive)}>Toggle Alert</Button>
       {alertActive ? (
-        <Message
-          role="alert"
-          heading="Alert"
-          colorTheme="error"
-          content="This is the alert content."
-        />
+        <Message role="alert" heading="Alert" colorTheme="error">
+          This is the alert content.
+        </Message>
       ) : null}
     </Flex>
   );

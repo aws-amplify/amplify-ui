@@ -12,8 +12,9 @@ const propsToCode = (props) => {
     getPropString(props.variation, 'variation') +
     getPropString(props.colorTheme, 'colorTheme') +
     getPropString(props.heading, 'heading') +
-    getPropString(props.content, 'content') +
-    `\n/>`
+    `>` +
+    `\n  ${props.children}` +
+    `\n</Message>`
   );
 };
 
@@ -21,7 +22,7 @@ const defaultMessageProps: MessageProps = {
   colorTheme: 'info',
   variation: 'filled',
   heading: 'A message heading',
-  content: 'Basic message content',
+  children: 'Basic message content',
   hasIcon: true,
   isDismissible: false,
 };
@@ -30,6 +31,7 @@ export const MessageDemo = () => {
   const messageProps = useMessageProps(
     (demoState.get('TextField') as MessageProps) || defaultMessageProps
   );
+  console.log('heading: ', messageProps.heading);
 
   return (
     <Demo
@@ -40,10 +42,11 @@ export const MessageDemo = () => {
         variation={messageProps.variation}
         colorTheme={messageProps.colorTheme}
         heading={messageProps.heading}
-        content={messageProps.content}
         hasIcon={messageProps.hasIcon}
         isDismissible={messageProps.isDismissible}
-      />
+      >
+        {messageProps.children}
+      </Message>
     </Demo>
   );
 };

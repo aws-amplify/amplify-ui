@@ -15,7 +15,7 @@ export interface MessagePropControlsProps extends MessageProps {
   setColorTheme: (
     value: React.SetStateAction<MessageProps['colorTheme']>
   ) => void;
-  setContent: (value: React.SetStateAction<MessageProps['content']>) => void;
+  setChildren: (value: React.SetStateAction<MessageProps['children']>) => void;
   setHeading: (value: React.SetStateAction<MessageProps['heading']>) => void;
   setIsDismissible: (
     value: React.SetStateAction<MessageProps['isDismissible']>
@@ -29,13 +29,13 @@ interface MessagePropControlsInterface {
 
 export const MessagePropControls: MessagePropControlsInterface = ({
   colorTheme,
-  content,
+  children,
   hasIcon,
   heading,
   isDismissible,
   variation,
   setColorTheme,
-  setContent,
+  setChildren,
   setHasIcon,
   setHeading,
   setIsDismissible,
@@ -68,10 +68,10 @@ export const MessagePropControls: MessagePropControlsInterface = ({
         <option value="info">info</option>
       </SelectField>
       <TextField
-        label="Content"
-        value={content as string}
+        label="Body"
+        value={children as string}
         onChange={(event) =>
-          setContent(event.target.value as MessageProps['content'])
+          setChildren(event.target.value as MessageProps['children'])
         }
       />
       <TextField
