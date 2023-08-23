@@ -197,6 +197,8 @@ type ComponentClassNameKey =
   | 'StorageManagerLoader'
   | 'StorageManagerPreviewer'
   | 'StorageManagerPreviewerText'
+  | 'StorageManagerPreviewerActions'
+  | 'StorageManagerPreviewerFooter'
   | 'SwitchField'
   | 'SwitchLabel'
   | 'SwitchThumb'

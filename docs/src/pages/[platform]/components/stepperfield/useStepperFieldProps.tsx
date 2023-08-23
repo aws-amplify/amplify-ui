@@ -19,6 +19,9 @@ export const useStepperFieldProps: UseStepperFieldProps = (initialValues) => {
   const [step, setStep] = React.useState(initialValues.step);
   const [size, setSize] = React.useState(initialValues.size);
   const [variation, setVariation] = React.useState(initialValues.variation);
+  const [isDisabled, setIsDisabled] = React.useState<
+    StepperFieldProps['isDisabled']
+  >(initialValues.isDisabled);
 
   React.useEffect(() => {
     demoState.set(StepperField.displayName, {
@@ -29,8 +32,9 @@ export const useStepperFieldProps: UseStepperFieldProps = (initialValues) => {
       step,
       size,
       variation,
+      isDisabled,
     });
-  }, [label, labelHidden, max, min, step, size, variation]);
+  }, [label, labelHidden, max, min, step, size, variation, isDisabled]);
 
   return React.useMemo(
     () => ({
@@ -48,6 +52,8 @@ export const useStepperFieldProps: UseStepperFieldProps = (initialValues) => {
       setSize,
       variation,
       setVariation,
+      isDisabled,
+      setIsDisabled,
     }),
     [
       label,
@@ -64,6 +70,8 @@ export const useStepperFieldProps: UseStepperFieldProps = (initialValues) => {
       setSize,
       variation,
       setVariation,
+      isDisabled,
+      setIsDisabled,
     ]
   );
 };
