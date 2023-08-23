@@ -1,12 +1,22 @@
 import * as React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { useDropZone } from '../useDropZone';
+import { UseDropZoneProps } from '../types';
+
+const mockFile = new File(['hello'], 'hello.png', { type: 'image/png' });
+const mockOnDropComplete = jest.fn();
+const dropZoneProps: UseDropZoneProps = {
+  onDropComplete: mockOnDropComplete,
+};
+type DragEvent = React.DragEvent<HTMLDivElement>;
 
 describe('useDropZone', () => {
+  afterEach(() => jest.clearAllMocks());
+
   it('should return default values', () => {
     const { result } = renderHook(() =>
       useDropZone({
-        onDrop: () => {},
+        onDropComplete: () => {},
       })
     );
     expect(result.current.onDragStart).toBeInstanceOf(Function);
@@ -17,5 +27,86 @@ describe('useDropZone', () => {
     expect(result.current.isDragActive).toBe(false);
     expect(result.current.isDragAccept).toBe(false);
     expect(result.current.isDragReject).toBe(false);
+  });
+
+  it('should set isDragActive state to true when drag event occurs inside the drop zone', () => {
+    const { result } = renderHook(() => useDropZone(dropZoneProps));
+    const event = {
+      preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
+      dataTransfer: { dropEffect: '', items: [] },
+    } as unknown as DragEvent;
+
+    act(() => {
+      result.current.onDragOver?.(event);
+    });
+
+    expect(event.preventDefault).toBeCalled();
+    expect(event.stopPropagation).toBeCalled();
+    expect(event.dataTransfer.dropEffect).toEqual('copy');
+    expect(result.current.isDragActive).toBe(true);
+  });
+
+  it('clears the data when drag event begins', () => {
+    const { result } = renderHook(() => useDropZone(dropZoneProps));
+    const event = {
+      dataTransfer: { clearData: () => '' },
+    } as unknown as DragEvent;
+    const clearDataSpy = jest.spyOn(event.dataTransfer, 'clearData');
+
+    act(() => {
+      result.current.onDragStart?.(event);
+    });
+
+    expect(clearDataSpy).toBeCalledTimes(1);
+  });
+
+  it('should call onDropComplete function with the event object when drop event occurs inside the drop zone', () => {
+    const { result } = renderHook(() => useDropZone(dropZoneProps));
+
+    const event = {
+      preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
+      dataTransfer: { dropEffect: '', files: [mockFile] },
+    } as unknown as DragEvent;
+
+    act(() => {
+      result.current.onDrop?.(event);
+    });
+
+    expect(event.preventDefault).toBeCalled();
+    expect(event.stopPropagation).toBeCalled();
+    expect(mockOnDropComplete).toBeCalled();
+  });
+
+  it('prevents and stops event onDragEnter', () => {
+    const { result } = renderHook(() => useDropZone(dropZoneProps));
+    const event = {
+      preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
+    } as unknown as DragEvent;
+
+    act(() => {
+      result.current.onDragEnter?.(event);
+    });
+
+    expect(event.preventDefault).toBeCalled();
+    expect(event.stopPropagation).toBeCalled();
+  });
+
+  it('prevents default and propagation onDragLeave', () => {
+    const { result } = renderHook(() => useDropZone(dropZoneProps));
+    const event = {
+      preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
+    } as unknown as DragEvent;
+
+    act(() => {
+      result.current.onDragLeave?.(event);
+    });
+
+    expect(event.preventDefault).toBeCalled();
+    expect(event.stopPropagation).toBeCalled();
+    expect(result.current.isDragAccept).toBe(false);
   });
 });

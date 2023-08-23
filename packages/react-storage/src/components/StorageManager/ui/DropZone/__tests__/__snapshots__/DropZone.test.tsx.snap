@@ -3,7 +3,7 @@
 exports[`DropZone renders correctly 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__dropzone"
+    class="amplify-storagemanager__dropzone amplify-dropzone"
   >
     <span
       aria-hidden="true"
@@ -39,7 +39,7 @@ exports[`DropZone renders correctly 1`] = `
 exports[`DropZone renders custom icons from IconProvider 1`] = `
 <div>
   <div
-    class="amplify-storagemanager__dropzone"
+    class="amplify-storagemanager__dropzone amplify-dropzone"
   >
     <span
       aria-hidden="true"

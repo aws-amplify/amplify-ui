@@ -6,23 +6,20 @@ interface DropProps {
   rejectedFiles: File[];
 }
 
-export type OnDrop = (props: DropProps) => void;
-
-export interface BaseDropZoneProps extends BaseViewProps {
-  children?: React.ReactNode;
-  onDrop: (props: DropProps) => void;
-  inputRef?: React.RefObject<HTMLInputElement>;
-
-  testId?: string;
+export interface UseDropZoneProps {
+  onDropComplete?: (props: DropProps) => void;
   /**
    * List of accepted File types, values of `['*']` or undefined allow any files
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
    */
   acceptedFileTypes?: string[];
+}
+
+export interface BaseDropZoneProps extends BaseViewProps, UseDropZoneProps {
   /**
    * Maximum total files to upload in each batch
    */
-  maxFileCount: number;
+  maxFileCount?: number;
   /**
    * Maximum file size in bytes
    */
@@ -33,3 +30,24 @@ export type DropZoneProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseDropZoneProps,
   Element
 >;
+
+interface DragEvents {
+  onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
+}
+
+export interface DragStates {
+  isDragActive: boolean;
+  isDragAccept: boolean;
+  isDragReject: boolean;
+}
+
+export interface UseDropZoneReturn extends DragEvents, DragStates {}
+
+export interface BaseDropZoneContainerProps extends BaseViewProps, DragEvents {}
+
+export type DropZoneContainerProps<Element extends ElementType = 'div'> =
+  PrimitiveProps<BaseDropZoneContainerProps, Element>;

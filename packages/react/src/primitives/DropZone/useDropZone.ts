@@ -1,35 +1,6 @@
 import { useState } from 'react';
-import { OnDrop } from './types';
+import { UseDropZoneProps, UseDropZoneReturn } from './types';
 import { isFunction } from '@aws-amplify/ui';
-
-export interface UseDropZoneProps {
-  onDrop?: OnDrop;
-  onChange?: (event: React.DragEvent<HTMLDivElement>) => void;
-  /**
-   * List of accepted File types, values of `['*']` or undefined allow any files
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
-   */
-  acceptedFileTypes?: string[];
-  /**
-   * Maximum total files to upload in each batch
-   */
-  maxFileCount?: number;
-  /**
-   * Maximum file size in bytes
-   */
-  maxFileSize?: number;
-}
-
-export interface UseDropZoneReturn {
-  onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
-  isDragActive: boolean;
-  isDragAccept: boolean;
-  isDragReject: boolean;
-}
 
 type DragFile =
   | {
@@ -75,7 +46,7 @@ function filterAllowedFiles<FileType extends DragFile = DragFile>(
 }
 
 export function useDropZone({
-  onDrop: _onDrop,
+  onDropComplete,
   acceptedFileTypes = [],
 }: UseDropZoneProps): UseDropZoneReturn {
   const [isDragActive, setIsDragActive] = useState(false);
@@ -101,7 +72,6 @@ export function useDropZone({
   const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    event.persist();
     event.dataTransfer.dropEffect = 'copy';
     const files = Array.from(event.dataTransfer.items).map(
       ({ kind, type }) => ({
@@ -128,8 +98,8 @@ export function useDropZone({
       acceptedFileTypes
     );
 
-    if (isFunction(_onDrop)) {
-      _onDrop({ files: accepted, rejectedFiles: rejected });
+    if (isFunction(onDropComplete)) {
+      onDropComplete({ files: accepted, rejectedFiles: rejected });
     }
   };
 

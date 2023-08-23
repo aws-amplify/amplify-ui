@@ -2,9 +2,13 @@ import * as React from 'react';
 import { Logger } from 'aws-amplify';
 
 import { UploadTask } from '@aws-amplify/storage';
-import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
+import {
+  ComponentClassNames,
+  VisuallyHidden,
+  useDropZone,
+} from '@aws-amplify/ui-react';
 
-import { useStorageManager, useUploadFiles, useDropZone } from './hooks';
+import { useStorageManager, useUploadFiles } from './hooks';
 import { FileStatus, StorageManagerProps, StorageManagerHandle } from './types';
 import {
   Container,
@@ -93,21 +97,21 @@ function StorageManagerBase(
   React.useImperativeHandle(ref, () => ({ clearFiles }));
 
   const dropZoneProps = useDropZone({
-    onChange: (event: React.DragEvent<HTMLDivElement>) => {
-      const { files } = event.dataTransfer;
-      if (!files || files.length === 0) {
-        return;
+    acceptedFileTypes,
+    onDropComplete: ({ files, rejectedFiles }) => {
+      if (rejectedFiles && rejectedFiles.length > 0) {
+        logger.warn('Rejected files: ', rejectedFiles);
       }
-
-      const filteredFiles = filterAllowedFiles(
-        Array.from(files),
-        acceptedFileTypes
-      );
-      addFiles({
-        files: filteredFiles,
-        status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
-        getFileErrorMessage: getMaxFileSizeErrorMessage,
-      });
+      // We need to filter out files by extension here,
+      // we don't get filenames on the drag event, only on drop
+      const acceptedFiles = filterAllowedFiles(files, acceptedFileTypes);
+      if (acceptedFiles.length > 0) {
+        addFiles({
+          files: acceptedFiles,
+          status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
+          getFileErrorMessage: getMaxFileSizeErrorMessage,
+        });
+      }
     },
   });
 
@@ -234,7 +238,12 @@ function StorageManagerBase(
         hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
       }`}
     >
-      <Components.DropZone {...dropZoneProps} displayText={displayText}>
+      <Components.DropZone
+        // Still pass inDropZone to not break the API for now
+        inDropZone={dropZoneProps.isDragActive}
+        {...dropZoneProps}
+        displayText={displayText}
+      >
         <>
           <Components.FilePicker onClick={handleClick}>
             {displayText.browseFilesText}

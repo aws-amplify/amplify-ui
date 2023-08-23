@@ -28,11 +28,11 @@ describe('DropZone', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('shows correct class when inDropZone is true', async () => {
+  it('shows correct class when isDragAccept is true', async () => {
     const testId = 'dropzone';
     render(
       <DropZone
-        inDropZone
+        isDragAccept
         onDragEnter={() => {}}
         onDragLeave={() => {}}
         onDragOver={() => {}}
@@ -45,7 +45,28 @@ describe('DropZone', () => {
 
     const dropZoneElement = await screen.findByTestId(testId);
     expect(dropZoneElement).toHaveClass(
-      classNameModifier(ComponentClassNames.StorageManagerDropZone, 'active')
+      classNameModifier(ComponentClassNames.DropZone, 'accepted')
+    );
+  });
+
+  it('shows correct class when isDragReject is true', async () => {
+    const testId = 'dropzone';
+    render(
+      <DropZone
+        isDragReject
+        onDragEnter={() => {}}
+        onDragLeave={() => {}}
+        onDragOver={() => {}}
+        onDragStart={() => {}}
+        onDrop={() => {}}
+        displayText={defaultStorageManagerDisplayText}
+        testId={testId}
+      />
+    );
+
+    const dropZoneElement = await screen.findByTestId(testId);
+    expect(dropZoneElement).toHaveClass(
+      classNameModifier(ComponentClassNames.DropZone, 'rejected')
     );
   });
 
