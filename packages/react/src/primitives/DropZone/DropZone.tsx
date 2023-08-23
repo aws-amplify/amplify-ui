@@ -44,11 +44,6 @@ const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
     <DropZoneContext.Provider value={value}>
       <View
         className={classNames(
-          // classNameModifierByFlag(
-          //   ComponentClassNames.DropZone,
-          //   'active',
-          //   isDragActive
-          // ),
           classNameModifierByFlag(
             ComponentClassNames.DropZone,
             'rejected',
