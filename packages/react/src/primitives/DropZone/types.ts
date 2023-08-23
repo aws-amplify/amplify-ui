@@ -15,16 +15,7 @@ export interface UseDropZoneProps {
   acceptedFileTypes?: string[];
 }
 
-export interface BaseDropZoneProps extends BaseViewProps, UseDropZoneProps {
-  /**
-   * Maximum total files to upload in each batch
-   */
-  maxFileCount?: number;
-  /**
-   * Maximum file size in bytes
-   */
-  maxFileSize?: number;
-}
+export interface BaseDropZoneProps extends BaseViewProps, UseDropZoneProps {}
 
 export type DropZoneProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseDropZoneProps,

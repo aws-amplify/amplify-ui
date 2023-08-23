@@ -8,7 +8,7 @@ import { DropZoneContainer } from './DropZoneContainer';
 import { Accepted, Default, Rejected } from './DropZoneChildren';
 
 const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
-  { children, testId, ...rest },
+  { children, testId, isDisabled, ...rest },
   ref
 ) => {
   const {
@@ -33,12 +33,14 @@ const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
     <DropZoneProvider value={value}>
       <DropZoneContainer
         testId={testId}
+        isDisabled={isDisabled}
         onDragStart={onDragStart}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
         onDrop={onDrop}
         onDragOver={onDragOver}
         ref={ref}
+        {...rest}
       >
         {children}
       </DropZoneContainer>

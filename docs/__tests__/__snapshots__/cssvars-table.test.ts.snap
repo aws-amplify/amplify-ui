@@ -2631,6 +2631,142 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-border-widths-small)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-border-style\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-border-width\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-pressed)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-border-style\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-border-width\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-border-style\\",
+        \\"value\\": \\"dashed\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-border-style\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-border-width\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-pressed)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-border-style\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-border-width\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-text-align\\",
+        \\"value\\": \\"center\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-expander-background-color\\",
         \\"value\\": \\"var(--amplify-colors-background-primary)\\"
     },

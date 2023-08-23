@@ -1,14 +1,20 @@
-import { DropZone } from '@aws-amplify/ui-react';
+import * as React from 'react';
+import { DropZone, Text } from '@aws-amplify/ui-react';
 
 export default function DefaultDropZoneExample() {
+  const [files, setFiles] = React.useState<File[]>([]);
   return (
-    <DropZone
-      maxFileCount={3}
-      onDrop={({ files }) => {
-        console.log(files);
-      }}
-    >
-      Drag images here
-    </DropZone>
+    <>
+      <DropZone
+        onDropComplete={({ files }) => {
+          setFiles(files);
+        }}
+      >
+        Drag images here
+      </DropZone>
+      {files.map((file) => (
+        <Text key={file.name}>{file.name}</Text>
+      ))}
+    </>
   );
 }
