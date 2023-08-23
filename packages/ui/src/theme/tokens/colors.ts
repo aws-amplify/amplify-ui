@@ -298,10 +298,10 @@ export const colors: Colors<'default'> = {
     pressed: { value: '{colors.brand.primary.100.value}' },
     // Focus color is set to 100 to ensure enough contrast for accessibility
     focus: { value: '{colors.brand.primary.100.value}' },
-    info: { value: '{colors.blue.80.value}' },
-    warning: { value: '{colors.orange.80.value}' },
     error: { value: '{colors.red.80.value}' },
+    info: { value: '{colors.blue.80.value}' },
     success: { value: '{colors.green.80.value}' },
+    warning: { value: '{colors.orange.80.value}' },
   },
 
   shadow: {
