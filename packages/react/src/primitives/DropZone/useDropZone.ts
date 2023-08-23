@@ -11,7 +11,7 @@ type DragFile =
 
 function filterAllowedFiles<FileType extends DragFile = DragFile>(
   files: FileType[],
-  acceptedFileTypes?: string[]
+  acceptedFileTypes: string[]
 ): { accepted: FileType[]; rejected: FileType[] } {
   // Allow any files if acceptedFileTypes is undefined, empty array, or contains '*'
   if (
@@ -26,13 +26,13 @@ function filterAllowedFiles<FileType extends DragFile = DragFile>(
 
   function filterFile({ type = '' }) {
     const mimeType = type.toLowerCase();
-    const baseMimeType = mimeType.replace(/\/.*$/, '');
-    // @ts-ignore
+    const baseMimeType = mimeType.replace('/*', '');
+
     return acceptedFileTypes.some((type) => {
       const validType = type.trim().toLowerCase();
       if (validType.endsWith('/*')) {
         // This is something like a image/* mime type
-        return baseMimeType === validType.replace(/\/.*$/, '');
+        return baseMimeType === validType.replace('/*', '');
       }
       return mimeType === validType;
     });
