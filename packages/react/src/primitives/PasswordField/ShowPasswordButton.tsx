@@ -42,8 +42,8 @@ const ShowPasswordButtonPrimitive: Primitive<
 
   const icon =
     fieldType === 'password'
-      ? icons?.visibility ?? <IconVisibility />
-      : icons?.visibilityOff ?? <IconVisibilityOff />;
+      ? icons?.visibility ?? <IconVisibility aria-hidden="true" />
+      : icons?.visibilityOff ?? <IconVisibilityOff aria-hidden="true" />;
 
   return (
     <Button
