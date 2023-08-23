@@ -15,7 +15,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
-import { AuthFormFields, FormFields } from '@aws-amplify/ui';
+import { AuthFormFields } from '@aws-amplify/ui';
 Amplify.configure(awsExports);
 
 const components = {
