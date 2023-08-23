@@ -244,7 +244,7 @@ describe('LivenessStreamProvider', () => {
     });
   });
 
-  describe('endStream', () => {
+  describe('endStreamWithCode', () => {
     test('should stop video and end the stream and return a promise if cancelled successfully', async () => {
       const provider = new LivenessStreamProvider({
         sessionId: 'sessionId',
@@ -252,7 +252,7 @@ describe('LivenessStreamProvider', () => {
         stream: mockVideoMediaStream,
         videoEl: mockVideoEl,
       });
-      const response = await provider.endStream();
+      const response = await provider.endStreamWithCode();
 
       expect(mockVideoRecorder.stop).toHaveBeenCalled();
       expect(response).toBeUndefined();
@@ -266,7 +266,7 @@ describe('LivenessStreamProvider', () => {
         videoEl: mockVideoEl,
       });
       (provider as any)._reader = undefined;
-      const response = await provider.endStream();
+      const response = await provider.endStreamWithCode();
 
       expect(mockVideoRecorder.stop).toHaveBeenCalled();
       expect(response).toBeUndefined();

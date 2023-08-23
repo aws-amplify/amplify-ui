@@ -20,6 +20,10 @@ module.exports = {
     '^react$': '<rootDir>/node_modules/react',
   },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    '<rootDir>/src/components/FaceLivenessDetector/service/utils/CustomWebSocketFetchHandler.ts',
+  ],
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'jsdom',

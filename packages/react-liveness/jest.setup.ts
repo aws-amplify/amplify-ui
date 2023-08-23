@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import { TextDecoder } from 'util';
 
 /**
  * This is a workaround to the problem of the jsdom library not supporting
@@ -7,3 +8,8 @@ import '@testing-library/jest-dom';
 if (typeof window.URL.createObjectURL === 'undefined') {
   window.URL.createObjectURL = jest.fn();
 }
+
+Object.defineProperty(window, 'TextDecoder', {
+  writable: true,
+  value: TextDecoder,
+});

@@ -50,6 +50,15 @@ function isClientSessionInformationEvent(
   return (obj as ClientSessionInformationEvent).Challenge !== undefined;
 }
 
+interface EndStreamWithCodeEvent {
+  type: string;
+  code: number;
+}
+
+function isEndStreamWithCodeEvent(obj: unknown): obj is EndStreamWithCodeEvent {
+  return (obj as EndStreamWithCodeEvent).code !== undefined;
+}
+
 export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
   public sessionId: string;
   public region: string;
@@ -107,16 +116,17 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     this.videoRecorder.dispatch(new Event('stopVideo'));
   }
 
-  public async endStream(): Promise<undefined> {
+  public async endStreamWithCode(code?: number): Promise<undefined> {
     if (this.videoRecorder.getState() === 'recording') {
       await this.stopVideo();
-      this.dispatchStopVideoEvent();
     }
-    if (!this._reader) {
-      return;
-    }
-    await this._reader.cancel();
-    return this._reader.closed;
+    this.videoRecorder.dispatch(
+      new MessageEvent('endStreamWithCode', {
+        data: { code: code },
+      })
+    );
+
+    return;
   }
 
   private async init() {
@@ -167,9 +177,6 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
         if (value === 'stopVideo') {
           // sending an empty video chunk signals that we have ended sending video
           yield {
-            $unknown: ['Code', 5002],
-          };
-          yield {
             VideoEvent: {
               VideoChunk: [],
               TimestampMillis: Date.now(),
@@ -190,6 +197,13 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
           yield {
             ClientSessionInformationEvent: {
               Challenge: value.Challenge,
+            },
+          };
+        } else if (isEndStreamWithCodeEvent(value)) {
+          yield {
+            VideoEvent: {
+              VideoChunk: [],
+              TimestampMillis: { closeCode: value.code },
             },
           };
         }

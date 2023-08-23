@@ -4,6 +4,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/**
+ * @jest-environment node
+ */
 import { formatUrl } from '@aws-sdk/util-format-url';
 import {
   iterableToReadableStream,
@@ -80,6 +83,7 @@ export class CustomWebSocketFetchHandler {
   private readonly configPromise: Promise<WebSocketFetchHandlerOptions>;
   private readonly httpHandler: RequestHandler<any, any>;
   private readonly sockets: Record<string, WebSocket[]> = {};
+  private readonly utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
 
   constructor(
     options?:
@@ -204,9 +208,7 @@ export class CustomWebSocketFetchHandler {
       reject(error);
     };
 
-    socket.onclose = (event) => {
-      console.log('onClose!');
-      console.log({ event });
+    socket.onclose = () => {
       this.removeNotUsableSockets(socket.url);
       if (socketErrorOccurred) return;
 
@@ -234,8 +236,15 @@ export class CustomWebSocketFetchHandler {
     const send = async (): Promise<void> => {
       try {
         for await (const inputChunk of data) {
-          let utf8decoder = new TextDecoder(); // default 'utf-8' or 'utf8'
-          console.log(utf8decoder.decode(inputChunk));
+          const decodedString = this.utf8decoder.decode(inputChunk);
+          if (decodedString.includes('closeCode')) {
+            const match = decodedString.match(/"closeCode":([0-9]*)/);
+            if (match) {
+              const closeCode = match[1];
+              socket.close(parseInt(closeCode));
+            }
+            continue;
+          }
 
           socket.send(inputChunk);
         }
@@ -247,7 +256,6 @@ export class CustomWebSocketFetchHandler {
         streamError = err as Error | undefined;
       } finally {
         // WS status code: https://tools.ietf.org/html/rfc6455#section-7.4
-        console.log(streamError);
         socket.close(1000);
       }
     };
