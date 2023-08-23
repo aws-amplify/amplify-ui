@@ -4,7 +4,6 @@ export default function DisabledDropZoneExample() {
   return (
     <DropZone
       isDisabled
-      maxFileCount={3}
       onDropComplete={({ files }) => {
         console.log(files);
       }}

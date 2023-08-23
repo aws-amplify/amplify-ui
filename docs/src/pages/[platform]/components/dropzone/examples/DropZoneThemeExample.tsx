@@ -16,7 +16,6 @@ export default function DropZoneThemeExample() {
   return (
     <ThemeProvider theme={theme}>
       <DropZone
-        maxFileCount={3}
         onDropComplete={({ files }) => {
           console.log(files);
         }}
