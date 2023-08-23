@@ -15,6 +15,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 import awsExports from './aws-exports';
+import { AuthFormFields, FormFields } from '@aws-amplify/ui';
 Amplify.configure(awsExports);
 
 const components = {
@@ -186,7 +187,7 @@ const components = {
   },
 };
 
-const formFields = {
+const formFields: AuthFormFields = {
   signIn: {
     username: {
       placeholder: 'Enter your email',
@@ -202,6 +203,11 @@ const formFields = {
     confirm_password: {
       label: 'Confirm Password:',
       order: 1,
+    },
+    given_name: {
+      isRequired: true,
+      label: 'custom name:',
+      minLength: 5,
     },
   },
   forceNewPassword: {
