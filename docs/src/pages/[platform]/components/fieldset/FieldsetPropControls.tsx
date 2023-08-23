@@ -15,6 +15,9 @@ export interface FieldsetPropControlsProps extends FieldsetProps {
     value: React.SetStateAction<FieldsetProps['isDisabled']>
   ) => void;
   setLegend: (value: React.SetStateAction<FieldsetProps['legend']>) => void;
+  setLegendHidden: (
+    value: React.SetStateAction<FieldsetProps['legendHidden']>
+  ) => void;
   setSize: (value: React.SetStateAction<FieldsetProps['size']>) => void;
   setVariation: (
     value: React.SetStateAction<FieldsetProps['variation']>
@@ -26,15 +29,18 @@ interface FieldsetPropControlsInterface {
 }
 
 export const FieldsetPropControls: FieldsetPropControlsInterface = ({
+  direction,
   isDisabled,
-  setIsDisabled,
   legend,
-  setLegend,
+  legendHidden,
   size,
-  setSize,
   variation,
-  setVariation,
   setDirection,
+  setIsDisabled,
+  setLegend,
+  setLegendHidden,
+  setSize,
+  setVariation,
 }) => {
   return (
     <Flex direction="column">
@@ -59,6 +65,7 @@ export const FieldsetPropControls: FieldsetPropControlsInterface = ({
       <SelectField
         label="direction"
         name="direction"
+        value={direction as string}
         onChange={(event) =>
           setDirection(event.target.value as FieldsetProps['direction'])
         }
@@ -87,6 +94,16 @@ export const FieldsetPropControls: FieldsetPropControlsInterface = ({
         labelPosition="end"
         onChange={(event) => {
           setIsDisabled(event.target.checked as FieldsetProps['isDisabled']);
+        }}
+      />
+      <SwitchField
+        label="legendHidden"
+        isChecked={legendHidden}
+        labelPosition="end"
+        onChange={(event) => {
+          setLegendHidden(
+            event.target.checked as FieldsetProps['legendHidden']
+          );
         }}
       />
     </Flex>

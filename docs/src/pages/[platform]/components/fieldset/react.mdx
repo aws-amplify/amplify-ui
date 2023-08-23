@@ -81,7 +81,7 @@ Fieldset uses the <a href="/react/components/flex">Flex</a> primitive for layout
 </Example>
 
 ### Disabled
-Fieldset can be disabled by using `isDisabled={true}` prop which will apply the `[disabled]` attribute to the fieldset.
+Fieldset can be disabled by using `isDisabled={true}` prop which will apply the `[disabled]` attribute to the fieldset. Fieldset has no special disabled styles.
 <Alert role="none" variation="warning" heading="Note about disabled fieldsets:">
   Disabled fieldsets in HTML will disable all inputs nested within them; even those nested within fieldsets that are not disabled. This is default browser behavior that the Fieldset primitive supports.
 </Alert>
@@ -134,5 +134,12 @@ Fieldset supports the [name] attribute. Use the `name` prop to supply a name for
 
 ## Accessibility
 
-Add note about legend and why we duplicate its content in the DOM.
+ARIA attributes, roles, and other HTML attributes that are passed to Fieldset are passed to the parent DOM element which is a `<fieldset>`.
 
+### Legend
+Fieldset outputs a `<legend>` as the first nested element within the Fieldset. The `<legend>` element does not currently behave well as a flexbox child in browsers. To allow Fieldset to still operate well as a flex parent, Fieldset duplicates the contents of the `legend` prop: 
+
+- the first is output as a <a href="/react/components/visuallyhidden">VisuallyHidden</a> `<legend>` which is accessible to screen readers. 
+- The second is output as a visible `<div>` element set to `aria-hidden={true}` so that the content is not repeated for screenreaders.
+
+This enables Fieldset to have a legend as the suggested way to accessibly label a fieldset.

@@ -1,45 +1,31 @@
 import * as React from 'react';
-import {
-  Fieldset,
-  FieldsetVariation,
-  CheckboxField,
-  TextField,
-  FieldsetProps,
-} from '@aws-amplify/ui-react';
+import { Fieldset, CheckboxField, FieldsetProps } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 import { FieldsetPropControls } from './FieldsetPropControls';
 import { useFieldsetProps } from './useFieldsetProps';
 import { demoState } from '@/utils/demoState';
+import { getPropString } from '../utils/getPropString';
 
 const propsToCode = (props) => {
   return (
     `<Fieldset` +
-    (props.variation
-      ? `\n  variation=${JSON.stringify(props.variation)}`
-      : '') +
-    (props.size ? `\n  size=${JSON.stringify(props.size)}` : '') +
-    (props.isDisabled
-      ? `\n  isDisabled={${JSON.stringify(props.isDisabled)}}`
-      : '') +
+    getPropString(props.legend, 'legend') +
+    getPropString(props.variation, 'variation') +
+    getPropString(props.size, 'size') +
+    getPropString(props.isDisabled, 'isDisabled') +
+    getPropString(props.direction, 'direction') +
     `>
   <CheckboxField
     label="Apple"` +
     (props.size ? `\n    size=${JSON.stringify(props.size)}` : '') +
     `
     name="apple"
-    value="yes"
   />
   <CheckboxField
     label="Pear"` +
     (props.size ? `\n    size=${JSON.stringify(props.size)}` : '') +
     `
     name="pear"
-    value="yes"
-  />
-  <TextField ` +
-    (props.size ? `\n    size=${JSON.stringify(props.size)}` : '') +
-    `
-    label="Street Address" 
   />
 </Fieldset>`
   );
@@ -47,6 +33,7 @@ const propsToCode = (props) => {
 
 const defaultFieldsetProps: FieldsetProps = {
   legend: 'Favorite fruits',
+  legendHidden: false,
   isDisabled: false,
   direction: 'column',
   variation: 'outlined',
@@ -67,6 +54,7 @@ export const FieldsetDemo = () => {
         size={fieldsetProps.size}
         isDisabled={fieldsetProps.isDisabled}
         legend={fieldsetProps.legend}
+        legendHidden={fieldsetProps.legendHidden}
         direction={fieldsetProps.direction}
       >
         <CheckboxField

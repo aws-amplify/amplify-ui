@@ -18,6 +18,9 @@ export const useFieldsetProps: UseFieldsetProps = (initialValues) => {
   const [legend, setLegend] = React.useState<FieldsetProps['legend']>(
     initialValues.legend
   );
+  const [legendHidden, setLegendHidden] = React.useState<
+    FieldsetProps['legendHidden']
+  >(initialValues.legendHidden);
   const [size, setSize] = React.useState<FieldsetProps['size']>(
     initialValues.size
   );
@@ -30,24 +33,27 @@ export const useFieldsetProps: UseFieldsetProps = (initialValues) => {
       direction,
       isDisabled,
       legend,
+      legendHidden,
       size,
       variation,
     });
-  }, [direction, isDisabled, legend, size, variation]);
+  }, [direction, isDisabled, legend, legendHidden, size, variation]);
 
   return React.useMemo(
     () => ({
       direction,
-      setDirection,
       isDisabled,
-      setIsDisabled,
       legend,
-      setLegend,
+      legendHidden,
       size,
-      setSize,
       variation,
+      setDirection,
+      setIsDisabled,
+      setLegend,
+      setLegendHidden,
+      setSize,
       setVariation,
     }),
-    [direction, isDisabled, legend, size, variation]
+    [direction, isDisabled, legend, legendHidden, size, variation]
   );
 };
