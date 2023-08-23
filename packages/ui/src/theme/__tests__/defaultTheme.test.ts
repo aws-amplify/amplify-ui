@@ -1363,10 +1363,10 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-border-disabled: var(--amplify-colors-border-tertiary);
         --amplify-colors-border-pressed: var(--amplify-colors-brand-primary-100);
         --amplify-colors-border-focus: var(--amplify-colors-brand-primary-100);
-        --amplify-colors-border-info: var(--amplify-colors-blue-80);
-        --amplify-colors-border-warning: var(--amplify-colors-orange-80);
         --amplify-colors-border-error: var(--amplify-colors-red-80);
+        --amplify-colors-border-info: var(--amplify-colors-blue-80);
         --amplify-colors-border-success: var(--amplify-colors-green-80);
+        --amplify-colors-border-warning: var(--amplify-colors-orange-80);
         --amplify-colors-shadow-primary: hsla(210, 50%, 10%, 0.25);
         --amplify-colors-shadow-secondary: hsla(210, 50%, 10%, 0.15);
         --amplify-colors-shadow-tertiary: hsla(210, 50%, 10%, 0.05);
