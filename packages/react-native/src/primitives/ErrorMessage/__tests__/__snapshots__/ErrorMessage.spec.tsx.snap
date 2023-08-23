@@ -7,7 +7,7 @@ exports[`ErrorMessage applies theme and style props 1`] = `
     Array [
       Object {
         "alignItems": "center",
-        "backgroundColor": "hsl(0, 75%, 85%)",
+        "backgroundColor": "hsl(0, 75%, 95%)",
         "flexDirection": "row",
         "paddingHorizontal": 8,
         "paddingVertical": 12,
@@ -70,7 +70,7 @@ exports[`ErrorMessage renders default ErrorMessage as expected 1`] = `
     Array [
       Object {
         "alignItems": "center",
-        "backgroundColor": "hsl(0, 75%, 85%)",
+        "backgroundColor": "hsl(0, 75%, 95%)",
         "flexDirection": "row",
         "paddingHorizontal": 8,
         "paddingVertical": 12,
