@@ -31,7 +31,7 @@ export interface BaseMessageProps extends BaseMessageContainerProps {
    * @description
    * Configures the accessible label for the Message's dismiss button.
    */
-  dismissButtonLabel?: string;
+  dismissLabel?: string;
 
   /**
    * @description
@@ -73,7 +73,7 @@ export interface BaseMessageDismissProps extends BaseButtonProps {
    * @description
    * Configures the accessible label for the Message's dismiss button.
    */
-  dismissButtonLabel?: string;
+  dismissLabel?: string;
 }
 export interface BaseMessageHeadingProps extends BaseFlexProps {}
 export interface BaseMessageIconProps extends BaseViewProps {}

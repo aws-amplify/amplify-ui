@@ -1019,7 +1019,7 @@ export const ComponentText = {
     clearButtonLabel: 'Clear input',
   },
   Message: {
-    dismissButtonLabel: 'Dismiss message',
+    dismissLabel: 'Dismiss message',
   },
   PaginationItem: {
     currentPageLabel: 'Page',

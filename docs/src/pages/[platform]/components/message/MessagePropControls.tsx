@@ -82,7 +82,7 @@ export const MessagePropControls: MessagePropControlsInterface = ({
         }
       />
       <SwitchField
-        label="isDismissable"
+        label="isDismissible"
         isChecked={isDismissible}
         labelPosition="end"
         onChange={(event) => {

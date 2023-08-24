@@ -16,7 +16,7 @@ const MessagePrimitive: Primitive<MessageProps, 'div'> = (
   {
     children,
     heading,
-    dismissButtonLabel,
+    dismissLabel,
     isDismissible,
     onDismiss,
     hasIcon = true,
@@ -40,10 +40,7 @@ const MessagePrimitive: Primitive<MessageProps, 'div'> = (
       </MessageContent>
 
       {isDismissible ? (
-        <MessageDismiss
-          onDismiss={onDismiss}
-          dismissButtonLabel={dismissButtonLabel}
-        />
+        <MessageDismiss onDismiss={onDismiss} dismissLabel={dismissLabel} />
       ) : null}
     </MessageContainer>
   );

@@ -16,14 +16,7 @@ import {
 } from '../types';
 
 const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
-  {
-    onDismiss,
-    dismissButtonLabel,
-    hasIcon = true,
-    children,
-    className,
-    ...rest
-  },
+  { onDismiss, dismissLabel, hasIcon = true, children, className, ...rest },
   ref
 ) => {
   const { setDismissed } = useMessageContext();
@@ -41,7 +34,7 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
       colorTheme="overlay"
       className={classNames(ComponentClassNames.MessageDismiss, className)}
       ref={ref}
-      onClick={() => dismissMessage()}
+      onClick={dismissMessage}
       {...rest}
     >
       {hasIcon ? icons?.close ?? <IconClose aria-hidden="true" /> : null}
@@ -53,9 +46,7 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
         children
       ) : (
         <VisuallyHidden>
-          {dismissButtonLabel
-            ? dismissButtonLabel
-            : ComponentText.Message.dismissButtonLabel}
+          {dismissLabel ? dismissLabel : ComponentText.Message.dismissLabel}
         </VisuallyHidden>
       )}
     </Button>
@@ -64,7 +55,7 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
 
 export const MessageDismiss: ForwardRefPrimitive<
   BaseMessageDismissProps,
-  'div'
+  'button'
 > = React.forwardRef(MessageDismissPrimitive);
 
 MessageDismiss.displayName = 'MessageContent';

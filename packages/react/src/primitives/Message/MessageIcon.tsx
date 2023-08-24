@@ -18,7 +18,7 @@ import {
   useIcons,
 } from '../Icon/internal';
 
-const MessageIconPrimitive: Primitive<MessageIconProps, typeof View> = (
+const MessageIconPrimitive: Primitive<MessageIconProps, 'div'> = (
   { className, ...rest },
   ref
 ) => {

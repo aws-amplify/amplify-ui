@@ -10,7 +10,7 @@ import {
 } from '../types';
 import { Flex } from '../Flex';
 
-const MessageHeadingPrimitive: Primitive<MessageHeadingProps, typeof Flex> = (
+const MessageHeadingPrimitive: Primitive<MessageHeadingProps, 'div'> = (
   { children, className, ...rest },
   ref
 ) => {
