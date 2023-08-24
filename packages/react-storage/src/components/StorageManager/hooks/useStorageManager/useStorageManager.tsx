@@ -8,6 +8,7 @@ import { storageManagerStateReducer } from './reducer';
 import {
   addFilesAction,
   clearFilesAction,
+  queueFilesAction,
   removeUploadAction,
   setUploadingFileAction,
   setUploadProgressAction,
@@ -18,9 +19,11 @@ import { isObject } from '@aws-amplify/ui';
 export interface UseStorageManager {
   addFiles: (params: {
     files: File[];
+    status: FileStatus;
     getFileErrorMessage: GetFileErrorMessage;
   }) => void;
   clearFiles: () => void;
+  queueFiles: () => void;
   setUploadingFile: (params: { id: string; uploadTask?: UploadTask }) => void;
   setUploadProgress: (params: { id: string; progress: number }) => void;
   setUploadSuccess: (params: { id: string }) => void;
@@ -54,13 +57,18 @@ export function useStorageManager(
 
   const addFiles: UseStorageManager['addFiles'] = ({
     files,
+    status,
     getFileErrorMessage,
   }) => {
-    dispatch(addFilesAction({ files, getFileErrorMessage }));
+    dispatch(addFilesAction({ files, status, getFileErrorMessage }));
   };
 
   const clearFiles: UseStorageManager['clearFiles'] = () => {
     dispatch(clearFilesAction());
+  };
+
+  const queueFiles: UseStorageManager['queueFiles'] = () => {
+    dispatch(queueFilesAction());
   };
 
   const setUploadingFile: UseStorageManager['setUploadingFile'] = ({
@@ -100,6 +108,7 @@ export function useStorageManager(
     setUploadResumed,
     setUploadSuccess,
     setUploadingFile,
+    queueFiles,
     addFiles,
     clearFiles,
     files,

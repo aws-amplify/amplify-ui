@@ -86,6 +86,7 @@ export type ButtonTokens<Output extends OutputVariantKey> =
     | 'paddingBlockEnd'
     | 'paddingInlineStart'
     | 'paddingInlineEnd'
+    | 'backgroundColor'
     | 'borderColor'
     | 'borderWidth'
     | 'borderStyle'
@@ -129,6 +130,7 @@ export const button: Required<ButtonTokens<'default'>> = {
   paddingInlineEnd: {
     value: '{components.fieldcontrol.paddingInlineEnd.value}',
   },
+  backgroundColor: { value: 'transparent' },
   borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
   borderWidth: { value: '{components.fieldcontrol.borderWidth.value}' },
   borderStyle: { value: '{components.fieldcontrol.borderStyle.value}' },

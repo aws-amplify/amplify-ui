@@ -132,6 +132,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-padding-block-end: var(--amplify-components-fieldcontrol-padding-block-end);
         --amplify-components-button-padding-inline-start: var(--amplify-components-fieldcontrol-padding-inline-start);
         --amplify-components-button-padding-inline-end: var(--amplify-components-fieldcontrol-padding-inline-end);
+        --amplify-components-button-background-color: transparent;
         --amplify-components-button-border-color: var(--amplify-components-fieldcontrol-border-color);
         --amplify-components-button-border-width: var(--amplify-components-fieldcontrol-border-width);
         --amplify-components-button-border-style: var(--amplify-components-fieldcontrol-border-style);
@@ -1032,12 +1033,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-storagemanager-previewer-body-padding-block: var(--amplify-space-medium);
         --amplify-components-storagemanager-previewer-body-padding-inline: var(--amplify-space-medium);
         --amplify-components-storagemanager-previewer-body-gap: var(--amplify-space-small);
-        --amplify-components-storagemanager-previewer-footer-border-color: var(--amplify-colors-border-secondary);
-        --amplify-components-storagemanager-previewer-footer-border-style: solid;
-        --amplify-components-storagemanager-previewer-footer-border-width: var(--amplify-border-widths-small);
-        --amplify-components-storagemanager-previewer-footer-padding-block: var(--amplify-space-medium);
-        --amplify-components-storagemanager-previewer-footer-padding-inline: var(--amplify-space-medium);
-        --amplify-components-storagemanager-previewer-footer-justify-content: space-between;
+        --amplify-components-storagemanager-previewer-footer-justify-content: flex-end;
         --amplify-components-storagemanager-filelist-flex-direction: column;
         --amplify-components-storagemanager-filelist-gap: var(--amplify-space-small);
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);
@@ -1297,10 +1293,10 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-background-tertiary: var(--amplify-colors-neutral-20);
         --amplify-colors-background-quaternary: var(--amplify-colors-neutral-60);
         --amplify-colors-background-disabled: var(--amplify-colors-background-tertiary);
-        --amplify-colors-background-info: var(--amplify-colors-blue-20);
-        --amplify-colors-background-warning: var(--amplify-colors-orange-20);
-        --amplify-colors-background-error: var(--amplify-colors-red-20);
-        --amplify-colors-background-success: var(--amplify-colors-green-20);
+        --amplify-colors-background-info: var(--amplify-colors-blue-10);
+        --amplify-colors-background-warning: var(--amplify-colors-orange-10);
+        --amplify-colors-background-error: var(--amplify-colors-red-10);
+        --amplify-colors-background-success: var(--amplify-colors-green-10);
         --amplify-colors-border-primary: var(--amplify-colors-neutral-60);
         --amplify-colors-border-secondary: var(--amplify-colors-neutral-40);
         --amplify-colors-border-tertiary: var(--amplify-colors-neutral-20);
@@ -1308,6 +1304,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-border-pressed: var(--amplify-colors-brand-primary-100);
         --amplify-colors-border-focus: var(--amplify-colors-brand-primary-100);
         --amplify-colors-border-error: var(--amplify-colors-red-80);
+        --amplify-colors-border-info: var(--amplify-colors-blue-80);
+        --amplify-colors-border-success: var(--amplify-colors-green-80);
+        --amplify-colors-border-warning: var(--amplify-colors-orange-80);
         --amplify-colors-shadow-primary: hsla(210, 50%, 10%, 0.25);
         --amplify-colors-shadow-secondary: hsla(210, 50%, 10%, 0.15);
         --amplify-colors-shadow-tertiary: hsla(210, 50%, 10%, 0.05);
