@@ -33,20 +33,18 @@ const MessagePrimitive: Primitive<MessageProps, 'div'> = (
       ref={ref}
       {...rest}
     >
-      <>
-        {hasIcon ? <MessageIcon /> : null}
-        <MessageContent>
-          {heading ? <MessageHeading>{heading}</MessageHeading> : null}
-          {children}
-        </MessageContent>
+      {hasIcon ? <MessageIcon /> : null}
+      <MessageContent>
+        {heading ? <MessageHeading>{heading}</MessageHeading> : null}
+        {children}
+      </MessageContent>
 
-        {isDismissible ? (
-          <MessageDismiss
-            onDismiss={onDismiss}
-            dismissButtonLabel={dismissButtonLabel}
-          />
-        ) : null}
-      </>
+      {isDismissible ? (
+        <MessageDismiss
+          onDismiss={onDismiss}
+          dismissButtonLabel={dismissButtonLabel}
+        />
+      ) : null}
     </MessageContainer>
   );
 };

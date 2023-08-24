@@ -25,7 +25,7 @@ import {
 
 ## Usage
 
-Message can be customized via props as a basic component, or it can be used as a <a href="#composable">composable component</a> which provides more control over layout and functionality.
+Message can be customized via props as a basic component, or it can be used as a [composable component](#composable) which provides more control over layout and functionality.
 
 <Example>
   <BasicUsage />
@@ -53,7 +53,7 @@ Message accepts the `colorTheme` prop which allows for different color variation
 
 ### Icon
 
-The Message icon can be hidden by using the prop `hasIcon={false}`. See this section on <a href="#icons">using IconProvider to configure your own icons</a> for Message to use.
+The Message icon can be hidden by using the prop `hasIcon={false}`. See this section on [using IconProvider to configure your own icons](#icons) for Message to use.
 
 <Example>
   <HideIcon />
@@ -81,9 +81,9 @@ Message accepts the `variation` prop which allows for different background and b
 
 ### Dismissable
 
-Messages can be dismissed by setting `isDismissible={true}`. Additional dismiss behavior can be added by passing a function to the `onDismiss` prop. By default, we provide accessible button text that is hidden visually with <a href="/react/components/visuallyhidden">VisuallyHidden</a>; you can override this label by using the `dismissButtonLabel` prop.
+Messages can be dismissed by setting `isDismissible={true}`. Additional dismiss behavior can be added by passing a function to the `onDismiss` prop. By default, we provide accessible button text that is hidden visually with [VisuallyHidden](./visuallyhidden); you can override this label by using the `dismissButtonLabel` prop.
 
-For more control over the appearance and functionality of the dismiss button, consider <a href="#composable">using Message as a composable component</a>.
+For more control over the appearance and functionality of the dismiss button, consider [using Message as a composable component](#composable).
 
 <Example>
   <BasicWithDismiss />
@@ -116,7 +116,7 @@ For further control over the layout and child elements, Message includes composa
 
 ### Customizing the Dismiss child component
 
-`Message.Dismiss` can be customized to hide the icon by setting the prop `hasIcon={false}`. It can also accept custom button text and other props that our <Link href="/react/components/button">Button</Link> primitive accepts.
+`Message.Dismiss` can be customized to hide the icon by setting the prop `hasIcon={false}`. It can also accept custom button text and other props that our [Button](./button) primitive accepts.
 
 You can also override the dismiss functionality completely by passing an `onClick` event.
 
@@ -132,13 +132,25 @@ You can also override the dismiss functionality completely by passing an `onClic
 
 ## Styling
 
+### Theme
+
+<Example>
+  <MessageThemeExample />
+  <ExampleCode>
+    ```jsx file=./examples/MessageThemeExample.tsx
+
+    ```
+
+  </ExampleCode>
+</Example>
+
 ### Target classes
 
 <ComponentStyleDisplay componentName="Message" />
 
 ### Global styling
 
-To override styling on all Messages, you can override Amplify CSS variables or use the <a href="#target-classes">target classes for Message</a> in your own stylesheet.
+To override styling on all Messages, you can override Amplify CSS variables or use the [target classes for Message](#target-classes) in your own stylesheet.
 
 <Example>
   <MessageGlobalStyling />

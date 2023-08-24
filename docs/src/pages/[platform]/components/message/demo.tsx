@@ -31,7 +31,6 @@ export const MessageDemo = () => {
   const messageProps = useMessageProps(
     (demoState.get('TextField') as MessageProps) || defaultMessageProps
   );
-  console.log('heading: ', messageProps.heading);
 
   return (
     <Demo

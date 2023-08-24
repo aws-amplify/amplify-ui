@@ -1,5 +1,10 @@
 import { DesignTokenProperties, OutputVariantKey } from '../types/designToken';
 
+type MessageColorThemeTokens<OutputType> = DesignTokenProperties<
+  'backgroundColor' | 'color' | 'borderColor',
+  OutputType
+>;
+
 type MessageVariationTokens<OutputType> = DesignTokenProperties<
   'backgroundColor' | 'color' | 'borderColor',
   OutputType
@@ -9,23 +14,6 @@ type MessageVariationTokens<OutputType> = DesignTokenProperties<
   warning?: MessageColorThemeTokens<OutputType>;
   success?: MessageColorThemeTokens<OutputType>;
 };
-
-type MessageColorThemeTokens<OutputType> = DesignTokenProperties<
-  'backgroundColor' | 'color' | 'borderColor',
-  OutputType
->;
-
-type MessageIconTokens<OutputType> = DesignTokenProperties<'size', OutputType>;
-
-type MessageHeadingTokens<OutputType> = DesignTokenProperties<
-  'fontSize' | 'fontWeight',
-  OutputType
->;
-
-type MessageDismissTokens<OutputType> = DesignTokenProperties<
-  'gap',
-  OutputType
->;
 
 type MessageTokenKey =
   | 'alignItems'
@@ -42,9 +30,9 @@ type MessageTokenKey =
 
 export type MessageTokens<OutputType extends OutputVariantKey> =
   DesignTokenProperties<MessageTokenKey, OutputType> & {
-    icon?: MessageIconTokens<OutputType>;
-    heading?: MessageHeadingTokens<OutputType>;
-    dismiss?: MessageDismissTokens<OutputType>;
+    icon?: DesignTokenProperties<'size', OutputType>;
+    heading?: DesignTokenProperties<'fontSize' | 'fontWeight', OutputType>;
+    dismiss?: DesignTokenProperties<'gap', OutputType>;
     plain?: MessageVariationTokens<OutputType>;
     outlined?: MessageVariationTokens<OutputType>;
     filled?: MessageVariationTokens<OutputType>;

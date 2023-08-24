@@ -1,6 +1,11 @@
-import { Flex, Message, Theme, ThemeProvider } from '@aws-amplify/ui-react';
+import {
+  Flex,
+  Message,
+  ThemeProvider,
+  createTheme,
+} from '@aws-amplify/ui-react';
 
-const theme: Theme = {
+const theme = createTheme({
   name: 'message-theme',
   tokens: {
     components: {
@@ -24,7 +29,7 @@ const theme: Theme = {
       },
     },
   },
-};
+});
 
 export const MessageThemeExample = () => {
   return (
