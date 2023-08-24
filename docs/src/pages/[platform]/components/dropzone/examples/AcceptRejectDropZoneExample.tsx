@@ -4,7 +4,6 @@ import { MdCheckCircle, MdFileUpload, MdRemoveCircle } from 'react-icons/md';
 export default function DefaultDropZoneExample() {
   return (
     <DropZone
-      maxFileCount={3}
       acceptedFileTypes={['image/*']}
       onDropComplete={({ files }) => {
         console.log(files);

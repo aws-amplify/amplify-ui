@@ -26,13 +26,13 @@ function filterAllowedFiles<FileType extends DragFile = DragFile>(
 
   function filterFile({ type = '' }) {
     const mimeType = type.toLowerCase();
-    const baseMimeType = mimeType.replace('/*', '');
+    const baseMimeType = mimeType.split('/')[0];
 
     return acceptedFileTypes.some((type) => {
       const validType = type.trim().toLowerCase();
       if (validType.endsWith('/*')) {
         // This is something like a image/* mime type
-        return baseMimeType === validType.replace('/*', '');
+        return baseMimeType === validType.split('/')[0];
       }
       return mimeType === validType;
     });

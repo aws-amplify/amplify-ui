@@ -18,7 +18,6 @@ export type DropZoneTokens<OutputType extends OutputVariantKey> =
     BaseDropZoneTokens<OutputType> & {
       _active?: BaseDropZoneTokens<OutputType>;
       _disabled?: BaseDropZoneTokens<OutputType>;
-      // _focused?: BaseDropZoneTokens<OutputType>;
       accepted?: BaseDropZoneTokens<OutputType>;
       rejected?: BaseDropZoneTokens<OutputType>;
     };

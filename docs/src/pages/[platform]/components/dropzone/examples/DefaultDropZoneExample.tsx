@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DropZone, Text } from '@aws-amplify/ui-react';
 
 export default function DefaultDropZoneExample() {
-  const [files, setFiles] = React.useState<File[]>([]);
+  const [files, setFiles] = React.useState([]);
   return (
     <>
       <DropZone

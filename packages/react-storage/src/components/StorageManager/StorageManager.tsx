@@ -239,26 +239,24 @@ function StorageManagerBase(
       }`}
     >
       <Components.DropZone
+        {...dropZoneProps}
         // Still pass inDropZone to not break the API for now
         inDropZone={dropZoneProps.isDragActive}
-        {...dropZoneProps}
         displayText={displayText}
       >
-        <>
-          <Components.FilePicker onClick={handleClick}>
-            {displayText.browseFilesText}
-          </Components.FilePicker>
-          <VisuallyHidden>
-            <input
-              type="file"
-              tabIndex={-1}
-              ref={hiddenInput}
-              onChange={onFilePickerChange}
-              multiple={allowMultipleFiles}
-              accept={acceptedFileTypes.join(',')}
-            />
-          </VisuallyHidden>
-        </>
+        <Components.FilePicker onClick={handleClick}>
+          {displayText.browseFilesText}
+        </Components.FilePicker>
+        <VisuallyHidden>
+          <input
+            type="file"
+            tabIndex={-1}
+            ref={hiddenInput}
+            onChange={onFilePickerChange}
+            multiple={allowMultipleFiles}
+            accept={acceptedFileTypes.join(',')}
+          />
+        </VisuallyHidden>
       </Components.DropZone>
       {hasFiles ? (
         <Components.FileListHeader
