@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { useActor } from '@xstate/react';
 
 import { FaceLivenessDetector, FaceLivenessDetectorProps } from '..';
-import { getMockedFunction, mockMatchMedia } from '../__mocks__';
+import { getMockedFunction, mockMatchMedia } from '../__mocks__/utils';
 import { useMediaStreamInVideo, useLivenessActor } from '../hooks';
 
 jest.mock('../../../styles.css', () => ({}));

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { UploadTracker } from '..';
+import { UploadTracker } from '../UploadTracker';
 import { FileState } from '../../types';
 const fakeFile = new File(['hello'], 'hello.png', { type: 'image/png' });
 
