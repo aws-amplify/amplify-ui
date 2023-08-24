@@ -1,6 +1,7 @@
 export { Alert } from './Alert';
 export { Autocomplete } from './Autocomplete';
 export { Badge } from './Badge';
+export { Breadcrumbs } from './Breadcrumbs';
 export { Button } from './Button';
 export { ButtonGroup } from './ButtonGroup';
 export { Card } from './Card';

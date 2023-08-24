@@ -1,5 +1,74 @@
 # @aws-amplify/ui
 
+## 5.7.2
+
+### Patch Changes
+
+- [#4366](https://github.com/aws-amplify/amplify-ui/pull/4366) [`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui): add backgroundColor token for default Button style
+
+## 5.7.1
+
+### Patch Changes
+
+- [#4305](https://github.com/aws-amplify/amplify-ui/pull/4305) [`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react): Add `colorTheme` prop to Button
+
+  The Button React primitive now accepts the `colorTheme` prop which allows for more color variants. Usage:
+
+  ```
+  <Button colorTheme="error">Button text</Button>
+  ```
+
+- [#4331](https://github.com/aws-amplify/amplify-ui/pull/4331) [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(ui-react-core): add createContextUtilities
+
+- [#4346](https://github.com/aws-amplify/amplify-ui/pull/4346) [`5040faf51`](https://github.com/aws-amplify/amplify-ui/commit/5040faf51ce2dc87882d452e6f90ad4ab0bd6967) Thanks [@hbuchel](https://github.com/hbuchel)! - fix(ui): Fix disabled hover style for SearchField button
+
+## 5.7.0
+
+### Minor Changes
+
+- [#4288](https://github.com/aws-amplify/amplify-ui/pull/4288) [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - New component: Breadcrumbs!
+
+  A composable component for displaying breadcrumb navigation
+
+  ```jsx
+  <Breadcrumbs
+    items={[
+      {
+        href: '/',
+        label: 'Home',
+      },
+      {
+        href: '/category',
+        label: 'Category',
+      },
+      {
+        href: '/category/type',
+        label: 'Type',
+      },
+    ]}
+  />
+  ```
+
+  ```jsx
+  <Breadcrumbs.Container>
+    {breadcrumbs.map(({ href, label }, idx) => {
+      const isCurrent = breadcrumbs.length - 1 === idx;
+      return (
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link isCurrent={isCurrent} href={href}>
+            {label}
+          </Breadcrumbs.Link>
+          {isCurrent ? null : <Breadcrumbs.Separator>/</Breadcrumbs.Separator>}
+        </Breadcrumbs.Item>
+      );
+    })}
+  </Breadcrumbs.Container>
+  ```
+
+### Patch Changes
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
 ## 5.6.9
 
 ### Patch Changes

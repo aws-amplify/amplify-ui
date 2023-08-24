@@ -1,5 +1,67 @@
 # @aws-amplify/ui-react-storage
 
+## 2.2.0
+
+### Minor Changes
+
+- [#4268](https://github.com/aws-amplify/amplify-ui/pull/4268) [`f8c5b77e4`](https://github.com/aws-amplify/amplify-ui/commit/f8c5b77e46f2b304e33776b28ed5a18141f9b364) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(react): Add IconsProvider to customize icons globally for all Amplify UI components
+
+  Components that use icons:
+
+  - Alert
+  - Checkbox
+  - Expander
+  - Field
+  - Menu
+  - Pagination
+  - PasswordField
+  - Rating
+  - SearchField
+  - Select
+  - StepperField
+  - StorageManager
+
+  Wrap your application with the `<IconsProvider>` (or whatever part of your app you want to customize the icons).
+
+  ```jsx
+  <IconsProvider icons={{
+    alert: {
+      info: <MdInfo />
+    }
+  }}>
+    {/* ... */}
+  </IconProvider>
+  ```
+
+  Works well with the react-icons package!
+
+### Patch Changes
+
+- Updated dependencies [[`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9), [`f8c5b77e4`](https://github.com/aws-amplify/amplify-ui/commit/f8c5b77e46f2b304e33776b28ed5a18141f9b364), [`00f2344e5`](https://github.com/aws-amplify/amplify-ui/commit/00f2344e593b47d6a7413869220606f32e5eaf1a)]:
+  - @aws-amplify/ui@5.7.2
+  - @aws-amplify/ui-react@5.2.0
+  - @aws-amplify/ui-react-core@2.1.31
+
+## 2.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c), [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5), [`5040faf51`](https://github.com/aws-amplify/amplify-ui/commit/5040faf51ce2dc87882d452e6f90ad4ab0bd6967)]:
+  - @aws-amplify/ui-react@5.1.1
+  - @aws-amplify/ui@5.7.1
+  - @aws-amplify/ui-react-core@2.1.30
+
+## 2.1.3
+
+### Patch Changes
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
+- Updated dependencies [[`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441), [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7)]:
+  - @aws-amplify/ui-react-core@2.1.29
+  - @aws-amplify/ui-react@5.1.0
+  - @aws-amplify/ui@5.7.0
+
 ## 2.1.2
 
 ### Patch Changes

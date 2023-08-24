@@ -12,9 +12,11 @@ import {
   isObject,
   isSet,
   isString,
+  isTypedFunction,
   isUndefined,
   sanitizeNamespaceImport,
   splitObject,
+  templateJoin,
 } from '..';
 import { ComponentClassName, Modifiers } from '../../types';
 
@@ -316,6 +318,7 @@ describe('classNameModifierByFlag', () => {
   });
 });
 
+
 describe('splitObject', () => {
   it('should split an object by key', () => {
     const [one, two] = splitObject(
@@ -360,5 +363,25 @@ describe('splitObject', () => {
     );
     expect(two).toEqual({ foo: 'foo' });
     expect(one).toEqual({ _hover: { background: 'red' } });
+  });
+});
+
+describe('isTypedFunction', () => {
+  it('returns `true` when the value param is a function', () => {
+    expect(isTypedFunction(() => null)).toBe(true);
+  });
+
+  it.each(['string', null, undefined, true, false])(
+    'returns `false` when the value param is %s',
+    (value) => {
+      expect(isTypedFunction(value)).toBe(false);
+    }
+  );
+});
+
+describe('templateJoin', () => {
+  it('returns the expected value', () => {
+    const output = templateJoin(['one', 'two'], (value) => `^${value}^`);
+    expect(output).toBe('^one^^two^');
   });
 });

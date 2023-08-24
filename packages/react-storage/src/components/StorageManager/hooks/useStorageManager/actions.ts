@@ -9,11 +9,13 @@ import {
 
 export const addFilesAction = ({
   files,
+  status,
   getFileErrorMessage,
 }: AddFilesActionParams): Action => {
   return {
     type: StorageManagerActionTypes.ADD_FILES,
     files,
+    status,
     getFileErrorMessage,
   };
 };
@@ -21,6 +23,12 @@ export const addFilesAction = ({
 export const clearFilesAction = (): Action => {
   return {
     type: StorageManagerActionTypes.CLEAR_FILES,
+  };
+};
+
+export const queueFilesAction = (): Action => {
+  return {
+    type: StorageManagerActionTypes.QUEUE_FILES,
   };
 };
 

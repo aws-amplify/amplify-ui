@@ -1,5 +1,117 @@
 # @aws-amplify/ui-react
 
+## 5.2.0
+
+### Minor Changes
+
+- [#4268](https://github.com/aws-amplify/amplify-ui/pull/4268) [`f8c5b77e4`](https://github.com/aws-amplify/amplify-ui/commit/f8c5b77e46f2b304e33776b28ed5a18141f9b364) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(react): Add IconsProvider to customize icons globally for all Amplify UI components
+
+  Components that use icons:
+
+  - Alert
+  - Checkbox
+  - Expander
+  - Field
+  - Menu
+  - Pagination
+  - PasswordField
+  - Rating
+  - SearchField
+  - Select
+  - StepperField
+  - StorageManager
+
+  Wrap your application with the `<IconsProvider>` (or whatever part of your app you want to customize the icons).
+
+  ```jsx
+  <IconsProvider icons={{
+    alert: {
+      info: <MdInfo />
+    }
+  }}>
+    {/* ... */}
+  </IconProvider>
+  ```
+
+  Works well with the react-icons package!
+
+### Patch Changes
+
+- [#4355](https://github.com/aws-amplify/amplify-ui/pull/4355) [`00f2344e5`](https://github.com/aws-amplify/amplify-ui/commit/00f2344e593b47d6a7413869220606f32e5eaf1a) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): merge internal and passed focus event handler props in Checkbox, remove extraneous useCheckbox hook
+
+- Updated dependencies [[`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9)]:
+  - @aws-amplify/ui@5.7.2
+  - @aws-amplify/ui-react-core@2.1.31
+
+## 5.1.1
+
+### Patch Changes
+
+- [#4305](https://github.com/aws-amplify/amplify-ui/pull/4305) [`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c) Thanks [@hbuchel](https://github.com/hbuchel)! - feat(react): Add `colorTheme` prop to Button
+
+  The Button React primitive now accepts the `colorTheme` prop which allows for more color variants. Usage:
+
+  ```
+  <Button colorTheme="error">Button text</Button>
+  ```
+
+- [#4331](https://github.com/aws-amplify/amplify-ui/pull/4331) [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5) Thanks [@calebpollman](https://github.com/calebpollman)! - feat(ui-react-core): add createContextUtilities
+
+- Updated dependencies [[`00c7abc25`](https://github.com/aws-amplify/amplify-ui/commit/00c7abc25b263bb42b67d8980b31212d0a206d1c), [`54d884dd0`](https://github.com/aws-amplify/amplify-ui/commit/54d884dd0ae7f16cc1f5b71ae767e0ccf477c4b5), [`5040faf51`](https://github.com/aws-amplify/amplify-ui/commit/5040faf51ce2dc87882d452e6f90ad4ab0bd6967)]:
+  - @aws-amplify/ui@5.7.1
+  - @aws-amplify/ui-react-core@2.1.30
+
+## 5.1.0
+
+### Minor Changes
+
+- [#4288](https://github.com/aws-amplify/amplify-ui/pull/4288) [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - New component: Breadcrumbs!
+
+  A composable component for displaying breadcrumb navigation
+
+  ```jsx
+  <Breadcrumbs
+    items={[
+      {
+        href: '/',
+        label: 'Home',
+      },
+      {
+        href: '/category',
+        label: 'Category',
+      },
+      {
+        href: '/category/type',
+        label: 'Type',
+      },
+    ]}
+  />
+  ```
+
+  ```jsx
+  <Breadcrumbs.Container>
+    {breadcrumbs.map(({ href, label }, idx) => {
+      const isCurrent = breadcrumbs.length - 1 === idx;
+      return (
+        <Breadcrumbs.Item>
+          <Breadcrumbs.Link isCurrent={isCurrent} href={href}>
+            {label}
+          </Breadcrumbs.Link>
+          {isCurrent ? null : <Breadcrumbs.Separator>/</Breadcrumbs.Separator>}
+        </Breadcrumbs.Item>
+      );
+    })}
+  </Breadcrumbs.Container>
+  ```
+
+### Patch Changes
+
+- [#4321](https://github.com/aws-amplify/amplify-ui/pull/4321) [`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441) Thanks [@thaddmt](https://github.com/thaddmt)! - chore: set amplify dependencies to be ^ instead of >=
+
+- Updated dependencies [[`d0d9ac2de`](https://github.com/aws-amplify/amplify-ui/commit/d0d9ac2de9714c5e3d020bdac486291c50761441), [`30624bd4f`](https://github.com/aws-amplify/amplify-ui/commit/30624bd4f165ed07a1cc94071a2d5550510b07b7)]:
+  - @aws-amplify/ui-react-core@2.1.29
+  - @aws-amplify/ui@5.7.0
+
 ## 5.0.7
 
 ### Patch Changes

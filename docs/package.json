@@ -23,8 +23,8 @@
     "test:links": "node --require esbuild-register ./scripts/link-checker-puppeteer.ts"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "5.0.7",
-    "@aws-amplify/ui-react-storage": "2.1.2",
+    "@aws-amplify/ui-react": "5.2.0",
+    "@aws-amplify/ui-react-storage": "2.2.0",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@docsearch/react": "3",
@@ -64,7 +64,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@babel/preset-env": "^7.20.2",
     "@supercharge/promise-pool": "^2.4.0",
     "@types/jest": "^27",
     "@types/lodash": "^4.14.170",
@@ -73,8 +72,6 @@
     "autoprefixer": "^10.2.4",
     "babel-jest": "^29.3.1",
     "canvas": "^2.9.1",
-    "cypress": "^10.10.0",
-    "cypress-each": "^1.11.0",
     "dotenv-safe": "^8.2.0",
     "esbuild-register": "^3.3.2",
     "eslint": "7.32.0",

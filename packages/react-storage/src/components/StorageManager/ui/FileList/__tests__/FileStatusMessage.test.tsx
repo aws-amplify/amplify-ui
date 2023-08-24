@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import { ComponentClassNames } from '@aws-amplify/ui-react';
+import {
+  ComponentClassNames,
+  IconsProvider,
+  View,
+} from '@aws-amplify/ui-react';
 
 import { FileStatusMessage } from '../FileStatusMessage';
 import { FileStatusMessageProps } from '../types';
@@ -83,5 +87,25 @@ describe('FileStatusMessage', () => {
       <FileStatusMessage {...defaultProps} status={FileStatus.QUEUED} />
     );
     expect(container).toMatchInlineSnapshot(`<div />`);
+  });
+
+  it('renders custom icons from IconProvider', () => {
+    const { container } = render(
+      <IconsProvider
+        icons={{
+          storageManager: {
+            success: <View testId="success" />,
+            error: <View testId="error" />,
+          },
+        }}
+      >
+        <FileStatusMessage {...defaultProps} status={FileStatus.ERROR} />
+        <FileStatusMessage {...defaultProps} status={FileStatus.UPLOADED} />
+      </IconsProvider>
+    );
+
+    expect(screen.getByTestId('success')).toBeInTheDocument();
+    expect(screen.getByTestId('error')).toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 });

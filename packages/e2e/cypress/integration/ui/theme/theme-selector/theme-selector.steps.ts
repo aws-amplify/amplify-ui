@@ -1,7 +1,7 @@
-import { And } from '@badeball/cypress-cucumber-preprocessor';
+import { Then } from '@badeball/cypress-cucumber-preprocessor';
 import { escapeRegExp } from 'lodash';
 
-And('I change the theme to {string}', (name) => {
+Then('I change the theme to {string}', (name) => {
   cy.findByTestId('docs-home-section-themable')
     .scrollIntoView() // Scroll into view first, since NextJS lazy loads page
     .findByRole('button', { name: new RegExp(`^${escapeRegExp(name)}$`, 'i') })
@@ -9,7 +9,7 @@ And('I change the theme to {string}', (name) => {
     .click({ scrollBehavior: 'center' });
 });
 
-And(
+Then(
   '{string} button has background color {string}',
   (button: string, color: string) => {
     cy.findByTestId('docs-home-section-themable')

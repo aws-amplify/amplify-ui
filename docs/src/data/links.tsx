@@ -37,6 +37,7 @@ import {
   MdSystemUpdateAlt,
   MdCheckCircle,
   MdHighlight,
+  MdChevronRight,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
@@ -461,6 +462,13 @@ export const navigationComponents: ComponentNavItem[] = [
     platforms: ['react'],
     icon: MdTab,
   },
+  {
+    href: '/components/breadcrumbs',
+    label: 'Breadcrumbs',
+    body: `The breadcrumbs component is a navigation list used to visualize the information architecture of a website and the user's current place in the hierarchy.`,
+    platforms: ['react'],
+    icon: MdChevronRight,
+  },
 ].sort(sortByLabel);
 
 export const primitiveComponents: {
@@ -633,6 +641,11 @@ export const theming: ComponentNavItem[] = [
     label: 'Sizes',
     platforms: ['react', 'vue', 'angular'],
     tertiary: true,
+  },
+  {
+    href: '/theming/icons',
+    label: 'Icons',
+    platforms: ['react'],
   },
   {
     href: '/theming/theme-provider',

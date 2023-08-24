@@ -6,67 +6,67 @@ Feature: Confirm Sign Up
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
-    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
 
   @angular @react @vue
   Scenario: Confirm new password page has correct translations and replaced placeholder
     When I type a new "email"
-    And I type my password
-    And I confirm my password
-    And I click the "Create Account" button
-    And I see "Confirmation Code"
-    And I see placeholder "Enter the code given"
+    Then I type my password
+    Then I confirm my password
+    Then I click the "Create Account" button
+    Then I see "Confirmation Code"
+    Then I see placeholder "Enter the code given"
     Then I see "Enter this code:"
     Then I see "It will take several minutes to arrive."
 
-  @todo-react-native
+  @react-native
   Scenario: Confirm new password page has correct translations
     When I type a new "email"
-    And I type my password
-    And I confirm my password
-    And I click the "Create Account" button
-    And I see "Confirmation Code"
+    Then I type my password
+    Then I confirm my password
+    Then I click the "Create Account" button
+    Then I see "Confirmation Code"
     Then I see "Your code is on the way. To log in, enter the code we sent you. It will take several minutes to arrive."
 
   @angular @react @vue @react-native
   Scenario: Confirm a new username & password with an invalid code
     When I type a new "email"
-    And I type my password
-    And I confirm my password
-    And I click the "Create Account" button
-    And I see "Confirmation Code"
-    And I type an invalid confirmation code
-    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with error fixture "AWSCognitoIdentityProviderService.ConfirmSignUp-invalid-code"
-    And I click the "Confirm" button
+    Then I type my password
+    Then I confirm my password
+    Then I click the "Create Account" button
+    Then I see "Confirmation Code"
+    Then I type an invalid confirmation code
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with error fixture "AWSCognitoIdentityProviderService.ConfirmSignUp-invalid-code"
+    Then I click the "Confirm" button
     # Not the actual error a real user would see because this is a test user with a mock API call
     Then I see "Username/client id combination not found."
 
   @angular @react @vue @react-native
   Scenario: Confirm a new username & password with a valid code
     When I type a new "email"
-    And I type my password
-    And I confirm my password
-    And I click the "Create Account" button
-    And I see "Confirmation Code"
-    And I type a valid confirmation code
-    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    And I click the "Confirm" button
-    And I mock "autoSignIn" event with fixture "Auth.currentAuthenticatedUser-verified-email"
+    Then I type my password
+    Then I confirm my password
+    Then I click the "Create Account" button
+    Then I see "Confirmation Code"
+    Then I type a valid confirmation code
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
+    Then I click the "Confirm" button
+    Then I mock "autoSignIn" event with fixture "Auth.currentAuthenticatedUser-verified-email"
     Then I see "Sign out"
   
   @angular @react @vue 
   Scenario: User is already confirmed and then clicks Resend Code
     When I type a new "email"
-    And I type my password
-    And I confirm my password
-    And I click the "Create Account" button
+    Then I type my password
+    Then I confirm my password
+    Then I click the "Create Account" button
     Then I see "Confirmation Code"
-    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with error fixture "user-already-confirmed-error"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with error fixture "user-already-confirmed-error"
     # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
-    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
-    And I click the "Resend Code" button
-    And I mock "autoSignIn" event with fixture "Auth.signIn-verified-email"
+    Then I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
+    Then I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    Then I click the "Resend Code" button
+    Then I mock "autoSignIn" event with fixture "Auth.signIn-verified-email"
     Then I see "Sign out"
 
   @angular @react @vue
@@ -75,7 +75,7 @@ Feature: Confirm Sign Up
     See: https://developer.apple.com/documentation/security/password_autofill/enabling_password_autofill_on_an_html_input_element
 
     When I type a new "email"
-    And I type my password
-    And I confirm my password
-    And I click the "Create Account" button
+    Then I type my password
+    Then I confirm my password
+    Then I click the "Create Account" button
     Then "Confirmation Code" field autocompletes "one-time-code"
