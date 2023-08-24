@@ -65,7 +65,7 @@ export interface FormFieldOptions {
   /** Desired autocomplete HTML attribute */
   autocomplete?: string;
   /** Desired HTML pattern type */
-  pattern?: RegExp;
+  pattern?: string | undefined;
   /** Desired HTML defaultValue type */
   defaultValue?: string;
   /** isReadOnly maps to readonly HTML type */
