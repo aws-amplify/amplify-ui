@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { MessageColorTheme } from '../types';
 
-export interface MessageContextProps {
+export interface MessageContextType {
   colorTheme?: MessageColorTheme;
   dismissed?: boolean;
   setDismissed: (dismissed: boolean) => void;
 }
 
-export const MessageContext = React.createContext<MessageContextProps>({
+export const MessageContext = React.createContext<MessageContextType>({
   dismissed: false,
   setDismissed: () => {},
 });
 
-export const useMessageContext = (): MessageContextProps =>
+export const useMessage = (): MessageContextType =>
   React.useContext(MessageContext);

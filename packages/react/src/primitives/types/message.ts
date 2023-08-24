@@ -10,14 +10,14 @@ export type MessageColorTheme =
   | 'error'
   | 'warning'
   | 'success';
-export type MessageVariation = 'plain' | 'outlined' | 'filled';
+// export type MessageVariation = ;
 
 export interface BaseMessageContainerProps extends BaseFlexProps {
   /**
    * @description
    * The variation property will affect the overall style of the Message.
    */
-  variation?: MessageVariation;
+  variation?: 'plain' | 'outlined' | 'filled';
 
   /**
    * @description

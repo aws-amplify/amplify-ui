@@ -10,7 +10,7 @@ import {
   Primitive,
 } from '../types';
 import { Flex } from '../Flex';
-import { MessageContext } from './useMessageContext';
+import { MessageContext } from './useMessage';
 
 const MessageContainerPrimitive: Primitive<MessageContainerProps, 'div'> = (
   {

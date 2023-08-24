@@ -8,7 +8,7 @@ import { ComponentClassNames } from '../../shared/constants';
 describe('MessageDismiss', () => {
   it('should forward ref to Message.Dismiss container DOM element', async () => {
     const testId = 'messageDismiss';
-    const ref = React.createRef<HTMLDivElement>();
+    const ref = React.createRef<HTMLButtonElement>();
     render(
       <Message>
         <Message.Dismiss ref={ref} testId={testId} />

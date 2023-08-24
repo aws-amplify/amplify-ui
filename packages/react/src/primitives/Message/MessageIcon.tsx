@@ -9,7 +9,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
-import { useMessageContext } from './useMessageContext';
+import { useMessage } from './useMessage';
 import {
   IconInfo,
   IconError,
@@ -23,7 +23,7 @@ const MessageIconPrimitive: Primitive<MessageIconProps, 'div'> = (
   ref
 ) => {
   const icons = useIcons('message');
-  const { colorTheme } = useMessageContext();
+  const { colorTheme } = useMessage();
   let icon;
   switch (colorTheme) {
     case 'info':

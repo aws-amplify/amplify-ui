@@ -5,7 +5,7 @@ import { Button } from '../Button';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { IconClose, useIcons } from '../Icon/internal';
 import { ComponentClassNames, ComponentText } from '../shared/constants';
-import { useMessageContext } from './useMessageContext';
+import { useMessage } from './useMessage';
 import { isFunction } from '@aws-amplify/ui';
 
 import {
@@ -19,7 +19,7 @@ const MessageDismissPrimitive: Primitive<MessageDismissProps, 'button'> = (
   { onDismiss, dismissLabel, hasIcon = true, children, className, ...rest },
   ref
 ) => {
-  const { setDismissed } = useMessageContext();
+  const { setDismissed } = useMessage();
   const icons = useIcons('message');
 
   const dismissMessage = React.useCallback(() => {

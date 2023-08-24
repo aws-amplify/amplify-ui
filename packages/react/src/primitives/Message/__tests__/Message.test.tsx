@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 
 import { Message } from '../Message';
-import { MessageColorTheme, MessageVariation } from '../../types';
+import { MessageColorTheme, MessageProps } from '../../types';
 import { ComponentClassNames, ComponentText } from '../../shared/constants';
 
 const MESSAGE_COLOR_THEMES: MessageColorTheme[] = [
@@ -13,7 +13,11 @@ const MESSAGE_COLOR_THEMES: MessageColorTheme[] = [
   'neutral',
 ];
 
-const MESSAGE_VARIATIONS: MessageVariation[] = ['outlined', 'plain', 'filled'];
+const MESSAGE_VARIATIONS: MessageProps['variation'][] = [
+  'outlined',
+  'plain',
+  'filled',
+];
 
 describe('Message', () => {
   it.each(MESSAGE_COLOR_THEMES)(
@@ -102,14 +106,12 @@ describe('Message', () => {
     render(
       <div>
         <Message isDismissible />
-        <Message isDismissible dismissButtonLabel={customDismissButtonLabel} />
+        <Message isDismissible dismissLabel={customDismissButtonLabel} />
       </div>
     );
 
     const [defaultLabel, customLabel] = screen.queryAllByRole('button');
-    expect(defaultLabel).toContainHTML(
-      ComponentText.Message.dismissButtonLabel
-    );
+    expect(defaultLabel).toContainHTML(ComponentText.Message.dismissLabel);
     expect(customLabel).toContainHTML(customDismissButtonLabel);
   });
 
