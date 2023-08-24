@@ -6,6 +6,7 @@ import {
   StepperFieldProps,
   SelectField,
   TextField,
+  SwitchField,
 } from '@aws-amplify/ui-react';
 
 export interface StepperFieldPropControlsProps extends StepperFieldProps {
@@ -20,6 +21,9 @@ export interface StepperFieldPropControlsProps extends StepperFieldProps {
   setMin: (value: React.SetStateAction<StepperFieldProps['min']>) => void;
   setSize: (value: React.SetStateAction<StepperFieldProps['size']>) => void;
   setStep: (value: React.SetStateAction<StepperFieldProps['step']>) => void;
+  setIsDisabled: (
+    value: React.SetStateAction<StepperFieldProps['isDisabled']>
+  ) => void;
 }
 
 export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
@@ -38,6 +42,8 @@ export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
     setStep,
     variation,
     setVariation,
+    isDisabled,
+    setIsDisabled,
   }) => (
     <Flex direction="column">
       <TextField
@@ -98,6 +104,16 @@ export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
         checked={labelHidden}
         onChange={(event) => setLabelHidden(event.target.checked)}
         label="labelHidden"
+      />
+      <SwitchField
+        label="isDisabled"
+        isChecked={isDisabled}
+        labelPosition="end"
+        onChange={(event) => {
+          setIsDisabled(
+            event.target.checked as StepperFieldProps['isDisabled']
+          );
+        }}
       />
     </Flex>
   );

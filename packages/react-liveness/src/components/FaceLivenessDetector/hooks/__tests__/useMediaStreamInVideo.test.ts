@@ -20,13 +20,8 @@ describe('useMediaStreamInVideo', () => {
       removeTrack: jest.fn(),
     } as unknown as MediaStream;
 
-    const videoConstraints = {
-      height: { ideal: 100 },
-      width: { ideal: 100 },
-    };
-
     const { result, unmount } = renderHook(() => {
-      return useMediaStreamInVideo(stream, videoConstraints);
+      return useMediaStreamInVideo(stream);
     });
 
     expect(result.current.videoRef).toBeDefined();

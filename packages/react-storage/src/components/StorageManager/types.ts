@@ -6,12 +6,14 @@ import {
   ContainerProps,
   DropZoneProps,
   FileListHeaderProps,
+  FileListFooterProps,
   FileListProps,
   FilePickerProps,
 } from './ui';
 import { StorageManagerDisplayText } from './utils';
 
 export enum FileStatus {
+  ADDED = 'added',
   QUEUED = 'queued',
   UPLOADING = 'uploading',
   PAUSED = 'paused',
@@ -57,6 +59,10 @@ export interface StorageManagerProps {
    */
   accessLevel: StorageAccessLevel;
   /**
+   * Determines if the upload will automatically start after a file is selected, default value: true
+   */
+  autoUpload?: boolean;
+  /**
    * Component overrides
    */
   components?: {
@@ -65,6 +71,7 @@ export interface StorageManagerProps {
     FileList?: React.ComponentType<FileListProps>;
     FilePicker?: React.ComponentType<FilePickerProps>;
     FileListHeader?: React.ComponentType<FileListHeaderProps>;
+    FileListFooter?: React.ComponentType<FileListFooterProps>;
   };
   /**
    * List of default files already uploaded

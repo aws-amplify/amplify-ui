@@ -40,7 +40,7 @@ type ColorValueScale<
 
 // scale keys
 type ScaleKey = 10 | 20 | 40 | 60 | 80 | 90 | 100;
-type OverlayKey = 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
+type OverlayKey = 5 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
 
 // color palettes
 type ColorPaletteKey =
@@ -97,8 +97,9 @@ type BackgroundColorKey<Platform> =
   | 'quaternary';
 
 type BorderColorKey<Output, Platform> =
-  | Extract<StateVariantKey<Platform>, 'disabled' | 'error'>
+  | Extract<StateVariantKey<Platform>, 'disabled'>
   | OrderVariantKey<Output>
+  | InformationVariantKey
   | (Output extends 'default'
       ? // currently excludes `active` and 'hover' for `default` because there are no defaults for them
         Exclude<StateVariantKey<Platform>, 'active' | 'hover'>
@@ -281,10 +282,10 @@ export const colors: Colors<'default'> = {
     quaternary: { value: '{colors.neutral.60.value}' },
     disabled: { value: '{colors.background.tertiary.value}' },
 
-    info: { value: '{colors.blue.20.value}' },
-    warning: { value: '{colors.orange.20.value}' },
-    error: { value: '{colors.red.20.value}' },
-    success: { value: '{colors.green.20.value}' },
+    info: { value: '{colors.blue.10.value}' },
+    warning: { value: '{colors.orange.10.value}' },
+    error: { value: '{colors.red.10.value}' },
+    success: { value: '{colors.green.10.value}' },
   },
 
   border: {
@@ -298,6 +299,9 @@ export const colors: Colors<'default'> = {
     // Focus color is set to 100 to ensure enough contrast for accessibility
     focus: { value: '{colors.brand.primary.100.value}' },
     error: { value: '{colors.red.80.value}' },
+    info: { value: '{colors.blue.80.value}' },
+    success: { value: '{colors.green.80.value}' },
+    warning: { value: '{colors.orange.80.value}' },
   },
 
   shadow: {
@@ -307,6 +311,7 @@ export const colors: Colors<'default'> = {
   },
 
   overlay: {
+    5: { value: 'hsla(0, 0%, 0%, 0.05)' },
     10: { value: 'hsla(0, 0%, 0%, 0.1)' },
     20: { value: 'hsla(0, 0%, 0%, 0.2)' },
     30: { value: 'hsla(0, 0%, 0%, 0.3)' },

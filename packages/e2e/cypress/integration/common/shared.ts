@@ -2,12 +2,7 @@
 /// <reference types="cypress" />
 /// <reference types="../../support/commands" />
 
-import {
-  And,
-  Given,
-  Then,
-  When,
-} from '@badeball/cypress-cucumber-preprocessor';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
@@ -425,7 +420,7 @@ Then('I click the submit button', () => {
   }).click();
 });
 
-And('I confirm {string} error is accessible in password field', () => {
+Then('I confirm {string} error is accessible in password field', () => {
   // input field should be invalid
   cy.findInputField('Password')
     .should('have.attr', 'aria-invalid')
@@ -450,7 +445,7 @@ And('I confirm {string} error is accessible in password field', () => {
   });
 });
 
-And('I confirm {string} error is accessible in new password field', () => {
+Then('I confirm {string} error is accessible in new password field', () => {
   // input field should be invalid
   cy.findInputField('New Password')
     .should('have.attr', 'aria-invalid')

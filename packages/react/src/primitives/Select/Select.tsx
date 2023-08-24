@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { classNameModifier, classNameModifierByFlag } from '../shared/utils';
 import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { IconExpandMore } from '../Icon/internal';
+import { IconExpandMore, useIcons } from '../Icon';
 import { ForwardRefPrimitive, Primitive } from '../types';
 import { BaseSelectProps, SelectProps } from '../types/select';
 import { View } from '../View';
@@ -18,7 +18,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     value,
     defaultValue,
     hasError,
-    icon = <IconExpandMore />,
+    icon,
     iconColor,
     children,
     placeholder,
@@ -40,6 +40,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     classNameModifierByFlag(ComponentClassNames.Select, 'error', hasError),
     className
   );
+  const icons = useIcons('select');
 
   return (
     <View className={ComponentClassNames.SelectWrapper}>
@@ -64,8 +65,14 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </View>
-      <Flex className={ComponentClassNames.SelectIconWrapper} color={iconColor}>
-        {icon}
+      <Flex
+        className={classNames(
+          ComponentClassNames.SelectIconWrapper,
+          classNameModifier(ComponentClassNames.SelectIconWrapper, size)
+        )}
+        color={iconColor}
+      >
+        {icon ?? icons?.expand ?? <IconExpandMore />}
       </Flex>
     </View>
   );

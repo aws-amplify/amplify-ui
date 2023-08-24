@@ -22,7 +22,9 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
     return `default-src 'self';
       style-src 'self' 'unsafe-inline';
       font-src 'self' data:;
-      frame-src 'self' ${ANALYTICS_CSP.all.frame.join(' ')} *.youtube.com;
+      frame-src 'self' ${ANALYTICS_CSP.all.frame.join(
+        ' '
+      )} *.youtube.com https://snack.expo.dev;
       img-src 'self' blob: ${ANALYTICS_CSP.all.img.join(' ')};
       connect-src 'self' *.shortbread.aws.dev ${ANALYTICS_CSP.all.connect.join(
         ' '
@@ -40,7 +42,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
     frame-src 'self' ${[
       ...ANALYTICS_CSP.all.frame,
       ...ANALYTICS_CSP.prod.frame,
-    ].join(' ')} *.youtube.com;
+    ].join(' ')} *.youtube.com https://snack.expo.dev;
     img-src 'self' blob: ${[
       ...ANALYTICS_CSP.all.img,
       ...ANALYTICS_CSP.prod.img,

@@ -30,6 +30,31 @@ describe('useTheme', () => {
     );
   });
 
+  it('extends the theme passed to `ThemeProvider`', () => {
+    const studioTheme = createTheme();
+    const extendedTheme = createTheme(
+      {
+        name: 'extended-theme',
+        tokens: {
+          colors: {
+            font: {
+              primary: { value: 'hotpink' },
+            },
+          },
+        },
+      },
+      studioTheme
+    );
+
+    const { result } = renderHook(() => useTheme(), {
+      wrapper: ({ children }) => (
+        <AmplifyProvider theme={extendedTheme}>{children}</AmplifyProvider>
+      ),
+    });
+
+    expect(result.current.tokens.colors.font.primary.value).toBe('hotpink');
+  });
+
   it('should return a default theme if not provided through context', () => {
     const { result } = renderHook(() => useTheme(), {
       wrapper: ({ children }) => <AmplifyProvider>{children}</AmplifyProvider>,

@@ -11,7 +11,7 @@ export function storageManagerStateReducer(
 ): UseStorageManagerState {
   switch (action.type) {
     case StorageManagerActionTypes.ADD_FILES: {
-      const { files } = action;
+      const { files, status } = action;
 
       const newUploads: StorageFiles = files.map((file) => {
         const errorText = action.getFileErrorMessage(file);
@@ -21,7 +21,7 @@ export function storageManagerStateReducer(
           file,
           error: errorText,
           key: file.name,
-          status: errorText ? FileStatus.ERROR : FileStatus.QUEUED,
+          status: errorText ? FileStatus.ERROR : status,
           isImage: file.type.startsWith('image/'),
           progress: -1,
         };
@@ -38,6 +38,23 @@ export function storageManagerStateReducer(
       return {
         ...state,
         files: [],
+      };
+    }
+    case StorageManagerActionTypes.QUEUE_FILES: {
+      const { files } = state;
+
+      const newFiles = files.reduce<StorageFiles>((files, currentFile) => {
+        return [
+          ...files,
+          {
+            ...currentFile,
+            status: FileStatus.QUEUED,
+          },
+        ];
+      }, []);
+      return {
+        ...state,
+        files: newFiles,
       };
     }
     case StorageManagerActionTypes.SET_STATUS_UPLOADING: {

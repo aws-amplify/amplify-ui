@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { isObject } from '@aws-amplify/ui';
+import { STATIC_VIDEO_CONSTRAINTS } from '../StartLiveness/helpers';
 
 export interface UseMediaStreamInVideo {
   videoRef: React.MutableRefObject<HTMLVideoElement | null>;
@@ -8,11 +9,10 @@ export interface UseMediaStreamInVideo {
 }
 
 export function useMediaStreamInVideo(
-  stream: MediaStream,
-  videoConstraints: MediaTrackConstraints
+  stream: MediaStream
 ): UseMediaStreamInVideo {
-  const height = (videoConstraints.height as ConstrainULongRange).ideal;
-  const width = (videoConstraints.width as ConstrainULongRange).ideal;
+  const height = (STATIC_VIDEO_CONSTRAINTS.height as ConstrainULongRange).ideal;
+  const width = (STATIC_VIDEO_CONSTRAINTS.width as ConstrainULongRange).ideal;
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoHeight, setVideoHeight] =

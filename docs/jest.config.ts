@@ -3,10 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-export default {
-  collectCoverage: true,
-  coverageDirectory: 'coverage',
-  coverageProvider: 'v8',
+const jestConfig = {
   preset: 'ts-jest',
   setupFiles: ['./jestEnv.ts'],
   transform: {
@@ -14,3 +11,5 @@ export default {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
 };
+
+export default jestConfig;
