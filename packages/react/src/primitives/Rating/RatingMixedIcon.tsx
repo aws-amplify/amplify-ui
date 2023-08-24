@@ -7,9 +7,9 @@ import { StyleToken } from '../types/style';
 
 interface RatingMixedIconProps {
   emptyColor?: StyleToken<Property.Color>;
-  emptyIcon: JSX.Element;
+  emptyIcon: React.ReactNode;
   fillColor?: StyleToken<Property.Color>;
-  fillIcon: JSX.Element;
+  fillIcon: React.ReactNode;
   value: number;
 }
 

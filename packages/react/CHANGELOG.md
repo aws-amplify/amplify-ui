@@ -1,5 +1,48 @@
 # @aws-amplify/ui-react
 
+## 5.2.0
+
+### Minor Changes
+
+- [#4268](https://github.com/aws-amplify/amplify-ui/pull/4268) [`f8c5b77e4`](https://github.com/aws-amplify/amplify-ui/commit/f8c5b77e46f2b304e33776b28ed5a18141f9b364) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - feat(react): Add IconsProvider to customize icons globally for all Amplify UI components
+
+  Components that use icons:
+
+  - Alert
+  - Checkbox
+  - Expander
+  - Field
+  - Menu
+  - Pagination
+  - PasswordField
+  - Rating
+  - SearchField
+  - Select
+  - StepperField
+  - StorageManager
+
+  Wrap your application with the `<IconsProvider>` (or whatever part of your app you want to customize the icons).
+
+  ```jsx
+  <IconsProvider icons={{
+    alert: {
+      info: <MdInfo />
+    }
+  }}>
+    {/* ... */}
+  </IconProvider>
+  ```
+
+  Works well with the react-icons package!
+
+### Patch Changes
+
+- [#4355](https://github.com/aws-amplify/amplify-ui/pull/4355) [`00f2344e5`](https://github.com/aws-amplify/amplify-ui/commit/00f2344e593b47d6a7413869220606f32e5eaf1a) Thanks [@calebpollman](https://github.com/calebpollman)! - fix(ui-react): merge internal and passed focus event handler props in Checkbox, remove extraneous useCheckbox hook
+
+- Updated dependencies [[`5cc76794a`](https://github.com/aws-amplify/amplify-ui/commit/5cc76794a71584e26b1ec699c1dc1713d8a986c9)]:
+  - @aws-amplify/ui@5.7.2
+  - @aws-amplify/ui-react-core@2.1.31
+
 ## 5.1.1
 
 ### Patch Changes
