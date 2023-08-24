@@ -50,7 +50,7 @@
   "dependencies": {
     "@aws-amplify/ui": "5.7.1",
     "@aws-amplify/ui-react": "5.1.1",
-    "@aws-sdk/client-rekognitionstreaming": "3.360.0",
+    "@aws-sdk/client-rekognitionstreaming": "3.398.0",
     "@tensorflow-models/blazeface": "0.0.7",
     "@tensorflow/tfjs-backend-cpu": "3.11.0",
     "@tensorflow/tfjs-backend-wasm": "3.11.0",

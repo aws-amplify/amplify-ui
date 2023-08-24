@@ -675,10 +675,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalMatchDelay: actions.send(
         { type: 'TIMEOUT' },
         {
-          delay: (context) =>
-            context.serverSessionInformation?.Challenge
-              ?.FaceMovementAndLightChallenge?.ChallengeConfig
-              ?.OvalFitTimeout || DEFAULT_FACE_FIT_TIMEOUT,
+          delay: (context) => {
+            return (
+              context.serverSessionInformation?.Challenge
+                ?.FaceMovementAndLightChallenge?.ChallengeConfig
+                ?.OvalFitTimeout || DEFAULT_FACE_FIT_TIMEOUT
+            );
+          },
           id: 'ovalMatchTimeout',
         }
       ),
