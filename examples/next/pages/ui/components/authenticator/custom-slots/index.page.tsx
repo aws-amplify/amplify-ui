@@ -204,11 +204,6 @@ const formFields: AuthFormFields = {
       label: 'Confirm Password:',
       order: 1,
     },
-    given_name: {
-      isRequired: true,
-      label: 'custom name:',
-      minLength: 5,
-    },
   },
   forceNewPassword: {
     password: {
