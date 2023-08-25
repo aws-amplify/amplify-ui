@@ -2943,10 +2943,7 @@ exports[`Props Table 1`] = `
                     }
                 }
             }
-        ],
-        \\"DropZone.Accepted\\": [],
-        \\"DropZone.Rejected\\": [],
-        \\"DropZone.Default\\": []
+        ]
     },
     \\"Expander\\": {
         \\"Expander\\": [
