@@ -5,19 +5,29 @@ import { isUndefined, isString } from '@aws-amplify/ui';
 export const INVALID_OPTIONS_MESSAGE =
   'an `errorMessage` or a `defaultValue` must be provided in `options`';
 
-type OptionsWithDefaultValue<ContextType extends {}> = {
-  contextName: string;
-  defaultValue: ContextType;
-};
+type ContextOptions<ContextType, ContextName extends string> = {
+  contextName: ContextName;
+} & (
+  | // exclude `errorMessage` if `defaultValue` is present
+  { defaultValue: ContextType; errorMessage?: never }
+  // exclude `defaultValue` if `errorMessage` is present
+  | { errorMessage: string; defaultValue?: never }
+);
 
-type OptionsWithErrorMessage = {
-  contextName: string;
-  errorMessage: string;
-};
+type UtilityKey<ContextName extends string> =
+  | `${ContextName}Provider`
+  | `use${ContextName}`
+  | `${ContextName}Context`;
 
-type ContextOptions<ContextType extends {}> =
-  | OptionsWithDefaultValue<ContextType>
-  | OptionsWithErrorMessage;
+type CreateContextUtilitiesReturn<ContextType, ContextName extends string> = {
+  [Key in UtilityKey<ContextName>]: Key extends `${string}Provider`
+    ? React.ComponentType<React.PropsWithChildren<Partial<ContextType>>>
+    : Key extends `use${string}`
+    ? () => ContextType
+    : Key extends `${string}Context`
+    ? React.Context<ContextType | undefined>
+    : never;
+};
 
 /**
  * Use a `ContextType` generic and `options` to create:
@@ -28,7 +38,7 @@ type ContextOptions<ContextType extends {}> =
  *
  * @template ContextType Type definition of the Context.
  * > For most use cases the keys of `ContextType` should not be optional in
- * preference of explicit `undefined` to avoid having optional types on the
+ * preference of explicit `undefined` to avoid optional types on the
  * Utility Hook return
  *
  * @param options Context utility options. Requires a `contextName`, and either
@@ -49,31 +59,25 @@ type ContextOptions<ContextType extends {}> =
  * }
  *
  * // with `defaultValue`
- * const [StuffProvider, useStuff] = createContextUtilities<StuffContextType>({
+ * const { StuffProvider, useStuff } = createContextUtilities<StuffContextType>({
  *   contextName: 'Stuff',
  *   defaultValue: { things: 7 }
  * });
  *
  * // with `errorMessage`
- * const [StuffProvider, useStuff] = createContextUtilities<StuffContextType>({
+ * const { StuffProvider, useStuff } = createContextUtilities<StuffContextType>({
  *   contextName: 'Stuff',
  *   errorMessage: '`useStuff` must be used in a `StuffProvider`'
  * });
  * ```
  */
-export default function createContextUtilities<ContextType extends {}>(
-  options: ContextOptions<ContextType>
-): {
-  Provider: React.ComponentType<React.PropsWithChildren<Partial<ContextType>>>;
-  useContext: () => ContextType;
-  Context: React.Context<ContextType | undefined>;
-} {
-  const { contextName, defaultValue, errorMessage } =
-    (options as {
-      defaultValue: ContextType;
-      errorMessage: string;
-      contextName: string;
-    }) ?? {};
+export default function createContextUtilities<
+  ContextType,
+  ContextName extends string = string
+>(
+  options: ContextOptions<ContextType, ContextName>
+): CreateContextUtilitiesReturn<ContextType, ContextName> {
+  const { contextName, defaultValue, errorMessage } = options ?? {};
 
   if (isUndefined(defaultValue) && !isString(errorMessage)) {
     throw new Error(INVALID_OPTIONS_MESSAGE);
@@ -96,9 +100,7 @@ export default function createContextUtilities<ContextType extends {}>(
   Provider.displayName = `${contextName}Provider`;
 
   return {
-    Context,
-    Provider,
-    useContext: function () {
+    [`use${contextName}`]: function () {
       const context = React.useContext(Context);
 
       if (isUndefined(context)) {
@@ -107,5 +109,7 @@ export default function createContextUtilities<ContextType extends {}>(
 
       return context;
     },
-  };
+    [`${contextName}Provider`]: Provider,
+    [`${contextName}Context`]: Context,
+  } as CreateContextUtilitiesReturn<ContextType, ContextName>;
 }
