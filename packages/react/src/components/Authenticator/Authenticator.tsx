@@ -4,6 +4,8 @@ import {
   AmplifyUser,
   configureComponent,
   isFunction,
+  FormFieldOptions,
+  FormFieldComponents,
 } from '@aws-amplify/ui';
 
 import {
@@ -36,8 +38,26 @@ export type AuthenticatorProps = Partial<
       children:
         | React.ReactNode
         | ((props: { signOut?: SignOut; user?: AmplifyUser }) => JSX.Element);
+      formFields: {
+        [key in FormFieldComponents]?: {
+          [field_name: string]: ReactFormFieldOptions;
+        };
+      };
     }
 >;
+
+interface ReactFormFieldOptions extends FormFieldOptions {
+  /** Desired HTML defaultValue type */
+  defaultValue?: string;
+  /** isReadOnly maps to readonly HTML type */
+  isReadOnly?: boolean;
+  /** Desired HTML pattern type */
+  pattern?: string | undefined;
+  /** Desired HTML minLength type */
+  minLength?: number;
+  /** Desired HTML maxLength type */
+  maxLength?: number;
+}
 
 // `AuthenticatorInternal` exists to give access to the context returned via `useAuthenticator`,
 // which allows the `Authenticator` to just return `children` if a user is authenticated.

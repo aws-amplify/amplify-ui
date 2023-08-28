@@ -64,16 +64,6 @@ export interface FormFieldOptions {
   type?: string;
   /** Desired autocomplete HTML attribute */
   autocomplete?: string;
-  /** Desired HTML pattern type */
-  pattern?: string | undefined;
-  /** Desired HTML defaultValue type */
-  defaultValue?: string;
-  /** isReadOnly maps to readonly HTML type */
-  isReadOnly?: boolean;
-  /** Desired HTML minLength type */
-  minLength?: number;
-  /** Desired HTML maxLength type */
-  maxLength?: number;
 }
 
 export interface LegacyFormFieldOptions extends FormFieldOptions {
