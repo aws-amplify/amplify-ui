@@ -4,8 +4,8 @@ import {
   AmplifyUser,
   configureComponent,
   isFunction,
-  FormFieldOptions,
   FormFieldComponents,
+  FormFieldOptions,
 } from '@aws-amplify/ui';
 
 import {
@@ -32,7 +32,7 @@ import { defaultComponents } from './hooks/useCustomComponents/defaultComponents
 
 export type SignOut = UseAuthenticator['signOut'];
 export type AuthenticatorProps = Partial<
-  AuthenticatorMachineOptions &
+  Omit<AuthenticatorMachineOptions, 'formFields'> &
     ComponentsProviderProps &
     RouterProps & {
       children:
