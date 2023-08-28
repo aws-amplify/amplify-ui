@@ -1,6 +1,7 @@
 import { Link } from '@aws-amplify/ui-react';
 import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
 import { Example, ExampleCode } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
 
 ## Full UI Customization
 
@@ -21,3 +22,11 @@ This example uses several prebuilt widgets from the amplify_authenticator packag
   id="flutter-authenticator-full-ui-customization"
   useCustomUI={true}
 />
+
+### TOTP Setup
+
+By utilizing the `authenticatorBuilder` argument, you can also customize the TOTP setup experience. We make available two particularly helpful widgets: `TotpSetupFormField.totpQrCode()` and `TotpSetupFormField.totpCopyKey()`. In the example below, examine how you could customize the setup screen by conditionally hiding the QR code on mobile platforms.
+
+<Fragment>
+  {({platform}) => import(`./formfields/totp/form-fields.flutter.mdx`)}
+</Fragment>
