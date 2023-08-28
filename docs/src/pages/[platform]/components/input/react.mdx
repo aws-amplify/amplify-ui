@@ -35,7 +35,7 @@ Import the `Input` component and styles and connect a `Label` for accessibility/
 
     ```
 
-  </ExampleCode>
+</ExampleCode>
 </Example>
 
 ### Sizes
@@ -133,14 +133,16 @@ Input provides several event handlers: `onSelect`, `onInput`, `onChange`, `onCop
   </ExampleCode>
 </Example>
 
-<StandardHTMLAttributes component="Input" link="input" element="<input>">
+<StandardHTMLAttributes component="Input" link="input" element="<input>" />
+
+### Input Types
+Input primitive comes styled for text input only (type `text`, `date`, `number`, etc). For text component combining Input and Label, see [TextField](/textfield). For other input types, see [TextAreaField](/textareafield), [CheckBoxField](/checkboxfield), and [SelectField](/selectfield).
   <Example>
     <Label htmlFor="departing">Enter departing date ✈️</Label>
     <Input
       id="departing"
       type="date"
     />
-
     <ExampleCode>
 
     ```jsx
@@ -154,7 +156,25 @@ Input provides several event handlers: `onSelect`, `onInput`, `onChange`, `onCop
     </ExampleCode>
 
   </Example>
-</StandardHTMLAttributes>
+  <Example>
+    <Label htmlFor="quantity">Enter quantity needed: </Label>
+    <Input
+      id="quantity"
+      type="number"
+    />
+    <ExampleCode>
+
+    ```jsx
+    <Label htmlFor="quantity">Enter quantity needed: </Label>
+    <Input
+      id="quantity"
+      type="number"
+    />
+    ```
+
+    </ExampleCode>
+
+  </Example>
 
 ## CSS Styling
 
