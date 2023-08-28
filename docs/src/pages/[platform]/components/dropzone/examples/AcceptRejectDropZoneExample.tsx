@@ -5,8 +5,8 @@ export default function DefaultDropZoneExample() {
   return (
     <DropZone
       acceptedFileTypes={['image/*']}
-      onDropComplete={({ files }) => {
-        console.log(files);
+      onDropComplete={({ acceptedFiles }) => {
+        console.log(acceptedFiles);
       }}
     >
       <Flex direction="row" justifyContent="center" alignItems="center">

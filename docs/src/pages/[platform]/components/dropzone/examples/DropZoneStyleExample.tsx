@@ -3,8 +3,8 @@ import { DropZone } from '@aws-amplify/ui-react';
 export default function DropZoneStyleExample() {
   return (
     <DropZone
-      onDropComplete={({ files }) => {
-        console.log(files);
+      onDropComplete={({ acceptedFiles }) => {
+        console.log(acceptedFiles);
       }}
       borderWidth="4px"
       borderColor="red"

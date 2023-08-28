@@ -4,8 +4,8 @@ export default function DisabledDropZoneExample() {
   return (
     <DropZone
       isDisabled
-      onDropComplete={({ files }) => {
-        console.log(files);
+      onDropComplete={({ acceptedFiles }) => {
+        console.log(acceptedFiles);
       }}
     >
       Drag images here

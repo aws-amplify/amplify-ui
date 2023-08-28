@@ -16,8 +16,8 @@ export default function DropZoneThemeExample() {
   return (
     <ThemeProvider theme={theme}>
       <DropZone
-        onDropComplete={({ files }) => {
-          console.log(files);
+        onDropComplete={({ acceptedFiles }) => {
+          console.log(acceptedFiles);
         }}
       >
         Drag images here
