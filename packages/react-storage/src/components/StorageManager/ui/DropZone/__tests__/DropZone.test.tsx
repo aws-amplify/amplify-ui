@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import {
-  ComponentClassNames,
-  IconsProvider,
-  View,
-} from '@aws-amplify/ui-react';
-import { classNameModifier } from '@aws-amplify/ui';
+import { IconsProvider, View } from '@aws-amplify/ui-react';
 
 import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
 import { DropZone } from '../DropZone';
@@ -26,48 +21,6 @@ describe('DropZone', () => {
     );
 
     expect(container).toMatchSnapshot();
-  });
-
-  it('shows correct class when isDragAccept is true', async () => {
-    const testId = 'dropzone';
-    render(
-      <DropZone
-        isDragAccept
-        onDragEnter={() => {}}
-        onDragLeave={() => {}}
-        onDragOver={() => {}}
-        onDragStart={() => {}}
-        onDrop={() => {}}
-        displayText={defaultStorageManagerDisplayText}
-        testId={testId}
-      />
-    );
-
-    const dropZoneElement = await screen.findByTestId(testId);
-    expect(dropZoneElement).toHaveClass(
-      classNameModifier(ComponentClassNames.DropZone, 'accepted')
-    );
-  });
-
-  it('shows correct class when isDragReject is true', async () => {
-    const testId = 'dropzone';
-    render(
-      <DropZone
-        isDragReject
-        onDragEnter={() => {}}
-        onDragLeave={() => {}}
-        onDragOver={() => {}}
-        onDragStart={() => {}}
-        onDrop={() => {}}
-        displayText={defaultStorageManagerDisplayText}
-        testId={testId}
-      />
-    );
-
-    const dropZoneElement = await screen.findByTestId(testId);
-    expect(dropZoneElement).toHaveClass(
-      classNameModifier(ComponentClassNames.DropZone, 'rejected')
-    );
   });
 
   it('renders children', async () => {

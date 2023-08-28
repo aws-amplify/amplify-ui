@@ -23,25 +23,28 @@ const Container: Primitive<DropZoneContainerProps, 'div'> = (
   },
   ref
 ) => {
-  const { isDragAccept, isDragReject } = React.useContext(DropZoneContext);
+  const dragState = React.useContext(DropZoneContext);
+
   // Don't add drag event handlers if it is disabled.
   const dragProps = isDisabled
     ? {}
     : { onDragEnter, onDragLeave, onDragOver, onDragStart, onDrop };
   return (
     <View
+      {...rest}
+      {...dragProps}
       isDisabled={isDisabled}
       className={classNames(
         className,
         classNameModifierByFlag(
           ComponentClassNames.DropZone,
           'rejected',
-          isDragReject
+          dragState === 'reject'
         ),
         classNameModifierByFlag(
           ComponentClassNames.DropZone,
           'accepted',
-          isDragAccept
+          dragState === 'accept'
         ),
         classNameModifierByFlag(
           ComponentClassName.DropZone,
@@ -52,8 +55,6 @@ const Container: Primitive<DropZoneContainerProps, 'div'> = (
       )}
       data-testid={testId}
       ref={ref}
-      {...dragProps}
-      {...rest}
     >
       {children}
     </View>

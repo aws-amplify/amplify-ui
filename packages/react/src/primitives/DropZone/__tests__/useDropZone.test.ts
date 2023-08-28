@@ -24,9 +24,7 @@ describe('useDropZone', () => {
     expect(result.current.onDragLeave).toBeInstanceOf(Function);
     expect(result.current.onDragOver).toBeInstanceOf(Function);
     expect(result.current.onDrop).toBeInstanceOf(Function);
-    expect(result.current.isDragActive).toBe(false);
-    expect(result.current.isDragAccept).toBe(false);
-    expect(result.current.isDragReject).toBe(false);
+    expect(result.current.dragState).toBe('none');
   });
 
   it('should set isDragActive state to true when drag event occurs inside the drop zone', () => {
@@ -44,7 +42,7 @@ describe('useDropZone', () => {
     expect(event.preventDefault).toBeCalled();
     expect(event.stopPropagation).toBeCalled();
     expect(event.dataTransfer.dropEffect).toEqual('copy');
-    expect(result.current.isDragActive).toBe(true);
+    expect(result.current.dragState).toBe('accept');
   });
 
   it('clears the data when drag event begins', () => {
@@ -107,6 +105,6 @@ describe('useDropZone', () => {
 
     expect(event.preventDefault).toBeCalled();
     expect(event.stopPropagation).toBeCalled();
-    expect(result.current.isDragAccept).toBe(false);
+    expect(result.current.dragState).toBe('none');
   });
 });

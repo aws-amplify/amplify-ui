@@ -6,8 +6,8 @@ export default function DefaultDropZoneExample() {
   return (
     <>
       <DropZone
-        onDropComplete={({ files }) => {
-          setFiles(files);
+        onDropComplete={({ acceptedFiles, rejectedFiles }) => {
+          setFiles(acceptedFiles);
         }}
       >
         Drag images here

@@ -2,11 +2,8 @@ import * as React from 'react';
 import { Logger } from 'aws-amplify';
 
 import { UploadTask } from '@aws-amplify/storage';
-import {
-  ComponentClassNames,
-  VisuallyHidden,
-  useDropZone,
-} from '@aws-amplify/ui-react';
+import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
+import { useDropZone } from '@aws-amplify/ui-react/internal';
 
 import { useStorageManager, useUploadFiles } from './hooks';
 import { FileStatus, StorageManagerProps, StorageManagerHandle } from './types';
@@ -98,16 +95,19 @@ function StorageManagerBase(
 
   const dropZoneProps = useDropZone({
     acceptedFileTypes,
-    onDropComplete: ({ files, rejectedFiles }) => {
+    onDropComplete: ({ acceptedFiles, rejectedFiles }) => {
       if (rejectedFiles && rejectedFiles.length > 0) {
         logger.warn('Rejected files: ', rejectedFiles);
       }
       // We need to filter out files by extension here,
       // we don't get filenames on the drag event, only on drop
-      const acceptedFiles = filterAllowedFiles(files, acceptedFileTypes);
-      if (acceptedFiles.length > 0) {
+      const _acceptedFiles = filterAllowedFiles(
+        acceptedFiles,
+        acceptedFileTypes
+      );
+      if (_acceptedFiles.length > 0) {
         addFiles({
-          files: acceptedFiles,
+          files: _acceptedFiles,
           status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
           getFileErrorMessage: getMaxFileSizeErrorMessage,
         });
@@ -241,7 +241,7 @@ function StorageManagerBase(
       <Components.DropZone
         {...dropZoneProps}
         // Still pass inDropZone to not break the API for now
-        inDropZone={dropZoneProps.isDragActive}
+        inDropZone={dropZoneProps.dragState !== 'none'}
         displayText={displayText}
       >
         <Components.FilePicker onClick={handleClick}>

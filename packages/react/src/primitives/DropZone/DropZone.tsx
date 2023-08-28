@@ -12,26 +12,18 @@ const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
   ref
 ) => {
   const {
-    isDragAccept,
-    isDragReject,
-    isDragActive,
+    dragState,
     onDragEnter,
     onDragLeave,
     onDragOver,
     onDragStart,
     onDrop,
   } = useDropZone(rest);
-  const value = React.useMemo(() => {
-    return {
-      isDragAccept,
-      isDragReject,
-      isDragActive,
-    };
-  }, [isDragAccept, isDragReject, isDragActive]);
 
   return (
-    <DropZoneProvider value={value}>
+    <DropZoneProvider value={dragState}>
       <DropZoneContainer
+        {...rest}
         testId={testId}
         isDisabled={isDisabled}
         onDragStart={onDragStart}
@@ -40,7 +32,6 @@ const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
         onDrop={onDrop}
         onDragOver={onDragOver}
         ref={ref}
-        {...rest}
       >
         {children}
       </DropZoneContainer>
@@ -52,8 +43,6 @@ type DropZoneType = ForwardRefPrimitive<BaseDropZoneProps, 'div'> & {
   Accepted: typeof Accepted;
   Rejected: typeof Rejected;
   Default: typeof Default;
-  Provider: typeof DropZoneProvider;
-  Container: typeof DropZoneContainer;
 };
 
 /**
@@ -65,8 +54,6 @@ const DropZone: DropZoneType = Object.assign(
     Accepted,
     Rejected,
     Default,
-    Provider: DropZoneProvider,
-    Container: DropZoneContainer,
   }
 );
 

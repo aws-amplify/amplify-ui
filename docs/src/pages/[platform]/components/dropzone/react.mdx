@@ -3,7 +3,6 @@ import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay'
 
 import {
   AcceptRejectDropZoneExample,
-  ComposableDropZoneExample,
   DefaultDropZoneExample,
   DisabledDropZoneExample,
   DropZoneStyleExample,
@@ -52,28 +51,6 @@ All of these helper components are *mutually exclusive* and cover all possible s
   <AcceptRejectDropZoneExample />
   <ExampleCode>
   ```tsx file=./examples/AcceptRejectDropZoneExample.tsx
-  ```
-  </ExampleCode>
-</Example>
-
-## Composable
-
-<Example>
-  <ComposableDropZoneExample />
-  <ExampleCode>
-  ```tsx file=./examples/ComposableDropZoneExample.tsx
-  ```
-  </ExampleCode>
-</Example>
-
-## useDropZone
-
-You can build your own DropZone component with the `useDropZone` hook. `useDropZone` will return the event handlers needed to add onto an element as well as state: `isDragActive`, `isDragAccept`, `isDragReject`.
-
-<Example>
-  <UseDropZoneExample />
-  <ExampleCode>
-  ```tsx file=./examples/UseDropZoneExample.tsx
   ```
   </ExampleCode>
 </Example>

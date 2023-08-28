@@ -2,11 +2,11 @@ import * as React from 'react';
 import { ElementType, PrimitiveProps, BaseViewProps } from '../types';
 
 interface DropProps {
-  files: File[];
+  acceptedFiles: File[];
   rejectedFiles: File[];
 }
 
-export interface UseDropZoneProps {
+export interface UseDropZoneProps extends Partial<DragEvents> {
   onDropComplete?: (props: DropProps) => void;
   /**
    * List of accepted File types, values of `['*']` or undefined allow any files
@@ -30,13 +30,11 @@ interface DragEvents {
   onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
 }
 
-export interface DragStates {
-  isDragActive: boolean;
-  isDragAccept: boolean;
-  isDragReject: boolean;
-}
+export type DragState = 'accept' | 'reject' | 'none';
 
-export interface UseDropZoneReturn extends DragEvents, DragStates {}
+export interface UseDropZoneReturn extends DragEvents {
+  dragState: DragState;
+}
 
 export interface BaseDropZoneContainerProps extends BaseViewProps, DragEvents {}
 

@@ -1,17 +1,13 @@
 import * as React from 'react';
-import { DragStates } from './types';
+import { DragState } from './types';
 
-const DropZoneContext = React.createContext<DragStates>({
-  isDragAccept: false,
-  isDragReject: false,
-  isDragActive: false,
-});
+const DropZoneContext = React.createContext<DragState>('none');
 
 const DropZoneProvider = ({
   value,
   children,
 }: {
-  value: DragStates;
+  value: DragState;
   children?: React.ReactNode;
 }): JSX.Element => {
   return (

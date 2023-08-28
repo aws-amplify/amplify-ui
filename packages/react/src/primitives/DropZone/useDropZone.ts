@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { UseDropZoneProps, UseDropZoneReturn } from './types';
+import { UseDropZoneProps, UseDropZoneReturn, DragState } from './types';
 import { isFunction } from '@aws-amplify/ui';
 
 type DragFile =
@@ -12,17 +12,17 @@ type DragFile =
 function filterAllowedFiles<FileType extends DragFile = DragFile>(
   files: FileType[],
   acceptedFileTypes: string[]
-): { accepted: FileType[]; rejected: FileType[] } {
+): { acceptedFiles: FileType[]; rejectedFiles: FileType[] } {
   // Allow any files if acceptedFileTypes is undefined, empty array, or contains '*'
   if (
     !acceptedFileTypes ||
     acceptedFileTypes.length === 0 ||
     acceptedFileTypes.includes('*')
   ) {
-    return { accepted: files, rejected: [] };
+    return { acceptedFiles: files, rejectedFiles: [] };
   }
-  const accepted: FileType[] = [];
-  const rejected: FileType[] = [];
+  const acceptedFiles: FileType[] = [];
+  const rejectedFiles: FileType[] = [];
 
   function filterFile({ type = '' }) {
     const mimeType = type.toLowerCase();
@@ -39,40 +39,55 @@ function filterAllowedFiles<FileType extends DragFile = DragFile>(
   }
 
   files.forEach((file) => {
-    (filterFile(file) ? accepted : rejected).push(file);
+    (filterFile(file) ? acceptedFiles : rejectedFiles).push(file);
   });
 
-  return { accepted, rejected };
+  return { acceptedFiles, rejectedFiles };
 }
 
 export function useDropZone({
   onDropComplete,
+  onDragEnter: _onDragEnter,
+  onDragLeave: _onDragLeave,
+  onDragOver: _onDragOver,
+  onDragStart: _onDragStart,
+  onDrop: _onDrop,
   acceptedFileTypes = [],
 }: UseDropZoneProps): UseDropZoneReturn {
-  const [isDragActive, setIsDragActive] = useState(false);
-  const [isDragAccept, setIsDragAccept] = useState(false);
-  const [isDragReject, setIsDragReject] = useState(false);
+  const [dragState, setDragState] = useState<DragState>('none');
+
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.clearData();
+    if (isFunction(_onDragStart)) {
+      _onDragStart(event);
+    }
   };
 
+  // why do we need this
   const onDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    if (isFunction(_onDragEnter)) {
+      _onDragEnter(event);
+    }
   };
 
   const onDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    setIsDragActive(false);
-    setIsDragAccept(false);
-    setIsDragReject(false);
+    setDragState('none');
+    if (isFunction(_onDragLeave)) {
+      _onDragLeave(event);
+    }
   };
 
   const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
     event.dataTransfer.dropEffect = 'copy';
+    if (isFunction(_onDragOver)) {
+      _onDragOver(event);
+    }
     const files = Array.from(event.dataTransfer.items).map(
       ({ kind, type }) => ({
         kind,
@@ -80,26 +95,25 @@ export function useDropZone({
       })
     );
 
-    const { rejected } = filterAllowedFiles(files, acceptedFileTypes);
-    setIsDragActive(true);
-    setIsDragAccept(rejected.length === 0);
-    setIsDragReject(rejected.length > 0);
+    const { rejectedFiles } = filterAllowedFiles(files, acceptedFileTypes);
+    setDragState(rejectedFiles.length > 0 ? 'reject' : 'accept');
   };
 
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    setIsDragActive(false);
-    setIsDragAccept(false);
-    setIsDragReject(false);
+    setDragState('none');
     const files = Array.from(event.dataTransfer.files);
-    const { accepted, rejected } = filterAllowedFiles<File>(
+    const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
       files,
       acceptedFileTypes
     );
 
+    if (isFunction(_onDrop)) {
+      _onDrop(event);
+    }
     if (isFunction(onDropComplete)) {
-      onDropComplete({ files: accepted, rejectedFiles: rejected });
+      onDropComplete({ acceptedFiles, rejectedFiles });
     }
   };
 
@@ -109,8 +123,6 @@ export function useDropZone({
     onDragLeave,
     onDragOver,
     onDrop,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
+    dragState,
   };
 }
