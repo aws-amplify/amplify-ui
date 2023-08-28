@@ -1,12 +1,13 @@
+/**
+ * Note: This file was copied from https://github.com/aws/aws-sdk-js-v3/blob/main/packages/middleware-websocket/src/websocket-fetch-handler.ts#L176
+ * Because of this the file is not fully typed at this time but we should eventually work on fully typing this file.
+ */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/**
- * @jest-environment node
- */
 import { formatUrl } from '@aws-sdk/util-format-url';
 import {
   iterableToReadableStream,
@@ -19,6 +20,7 @@ import {
   RequestHandler,
   RequestHandlerMetadata,
 } from '@smithy/types';
+import { WS_CLOSURE_CODE } from './constants';
 
 const DEFAULT_WS_CONNECTION_TIMEOUT_MS = 2000;
 
@@ -256,7 +258,7 @@ export class CustomWebSocketFetchHandler {
         streamError = err as Error | undefined;
       } finally {
         // WS status code: https://tools.ietf.org/html/rfc6455#section-7.4
-        socket.close(1000);
+        socket.close(WS_CLOSURE_CODE.SUCCESS_CODE);
       }
     };
 

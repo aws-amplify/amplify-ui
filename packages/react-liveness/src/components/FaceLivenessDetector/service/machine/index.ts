@@ -760,7 +760,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           freshnessColorEl.style.display = 'none';
         }
 
-        let closureCode = 4000;
+        let closureCode = WS_CLOSURE_CODE.DEFAULT_ERROR_CODE;
         if (context.errorState === LivenessErrorState.TIMEOUT) {
           closureCode = WS_CLOSURE_CODE.FACE_FIT_TIMEOUT;
         } else if (context.errorState === LivenessErrorState.RUNTIME_ERROR) {

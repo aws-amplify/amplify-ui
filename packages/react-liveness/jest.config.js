@@ -6,6 +6,8 @@ module.exports = {
     '!<rootDir>/**/index.(ts|tsx)',
     // do not collect from top level version and styles files
     '!<rootDir>/src/(styles|version).(ts|tsx)',
+    // do not collect coverage from filed copies from aws-sdk
+    '!<rootDir>/src/components/FaceLivenessDetector/service/utils/CustomWebSocketFetchHandler.ts',
   ],
   coverageThreshold: {
     global: {
@@ -20,10 +22,6 @@ module.exports = {
     '^react$': '<rootDir>/node_modules/react',
   },
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
-  coveragePathIgnorePatterns: [
-    'node_modules',
-    '<rootDir>/src/components/FaceLivenessDetector/service/utils/CustomWebSocketFetchHandler.ts',
-  ],
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'jsdom',
