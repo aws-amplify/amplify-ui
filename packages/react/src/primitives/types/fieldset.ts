@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { Sizes } from './base';
 import { BaseViewProps } from './view';
 import { FlexContainerStyleProps } from './flex';
 import { ElementType, PrimitiveProps } from './view';
@@ -28,7 +29,11 @@ export interface BaseFieldsetProps
    */
   variation?: FieldsetVariation;
 
-  size?: 'small' | 'large';
+  /**
+   * @description
+   * Changes the size of the Fieldset
+   */
+  size?: Sizes;
 
   /**
    * @description
