@@ -6,7 +6,7 @@ exports[`StorageManager renders as expected 1`] = `
     class="amplify-storagemanager "
   >
     <div
-      class="amplify-storagemanager__dropzone amplify-dropzone"
+      class="amplify-storagemanager__dropzone"
     >
       <span
         aria-hidden="true"

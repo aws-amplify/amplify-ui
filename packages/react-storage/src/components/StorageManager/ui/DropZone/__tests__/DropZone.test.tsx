@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { IconsProvider, View } from '@aws-amplify/ui-react';
+import {
+  ComponentClassNames,
+  IconsProvider,
+  View,
+} from '@aws-amplify/ui-react';
+import { classNameModifier } from '@aws-amplify/ui';
 
 import { defaultStorageManagerDisplayText } from '../../../utils/displayText';
 import { DropZone } from '../DropZone';
@@ -21,6 +26,27 @@ describe('DropZone', () => {
     );
 
     expect(container).toMatchSnapshot();
+  });
+
+  it('shows correct class when inDropZone is true', async () => {
+    const testId = 'dropzone';
+    render(
+      <DropZone
+        inDropZone
+        onDragEnter={() => {}}
+        onDragLeave={() => {}}
+        onDragOver={() => {}}
+        onDragStart={() => {}}
+        onDrop={() => {}}
+        displayText={defaultStorageManagerDisplayText}
+        testId={testId}
+      />
+    );
+
+    const dropZoneElement = await screen.findByTestId(testId);
+    expect(dropZoneElement).toHaveClass(
+      classNameModifier(ComponentClassNames.StorageManagerDropZone, 'active')
+    );
   });
 
   it('renders children', async () => {

@@ -105,13 +105,11 @@ function StorageManagerBase(
         acceptedFiles,
         acceptedFileTypes
       );
-      if (_acceptedFiles.length > 0) {
-        addFiles({
-          files: _acceptedFiles,
-          status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
-          getFileErrorMessage: getMaxFileSizeErrorMessage,
-        });
-      }
+      addFiles({
+        files: _acceptedFiles,
+        status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
+        getFileErrorMessage: getMaxFileSizeErrorMessage,
+      });
     },
   });
 
@@ -238,25 +236,22 @@ function StorageManagerBase(
         hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
       }`}
     >
-      <Components.DropZone
-        {...dropZoneProps}
-        // Still pass inDropZone to not break the API for now
-        inDropZone={dropZoneProps.dragState !== 'inactive'}
-        displayText={displayText}
-      >
-        <Components.FilePicker onClick={handleClick}>
-          {displayText.browseFilesText}
-        </Components.FilePicker>
-        <VisuallyHidden>
-          <input
-            type="file"
-            tabIndex={-1}
-            ref={hiddenInput}
-            onChange={onFilePickerChange}
-            multiple={allowMultipleFiles}
-            accept={acceptedFileTypes.join(',')}
-          />
-        </VisuallyHidden>
+      <Components.DropZone {...dropZoneProps} displayText={displayText}>
+        <>
+          <Components.FilePicker onClick={handleClick}>
+            {displayText.browseFilesText}
+          </Components.FilePicker>
+          <VisuallyHidden>
+            <input
+              type="file"
+              tabIndex={-1}
+              ref={hiddenInput}
+              onChange={onFilePickerChange}
+              multiple={allowMultipleFiles}
+              accept={acceptedFileTypes.join(',')}
+            />
+          </VisuallyHidden>
+        </>
       </Components.DropZone>
       {hasFiles ? (
         <Components.FileListHeader
