@@ -5,7 +5,7 @@ export const RequiredInputExample = () => {
     <Flex as="form" direction="column" width="20rem">
       <Label htmlFor="email">
         Email
-        <Text as="span" fontSize="0.8rem" color="red">
+        <Text as="span" fontSize="small" color="font.error">
           {' '}
           (required)
         </Text>
