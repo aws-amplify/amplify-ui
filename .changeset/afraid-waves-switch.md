@@ -1,8 +1,9 @@
 ---
-"@aws-amplify/ui-react": patch
+"@aws-amplify/ui-react": minor
+"@aws-amplify/ui": minor
 ---
 
-feat(react): add new Fieldset Primitive
+feat(react/ui): add new Fieldset Primitive
 
 Usage:
 ```
