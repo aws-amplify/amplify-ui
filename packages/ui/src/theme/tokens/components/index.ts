@@ -28,6 +28,7 @@ import { link, LinkTokens } from './link';
 import { liveness, LivenessTokens } from './liveness';
 import { loader, LoaderTokens } from './loader';
 import { menu, MenuTokens } from './menu';
+import { message, MessageTokens } from './message';
 import { pagination, PaginationTokens } from './pagination';
 import { passwordfield, PasswordFieldTokens } from './passwordField';
 import { phonenumberfield, PhoneNumberFieldTokens } from './phoneNumberField';
@@ -86,6 +87,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   liveness?: LivenessTokens<Output>;
   loader?: LoaderTokens<Output>;
   menu?: MenuTokens<Output>;
+  message?: MessageTokens<Output>;
   pagination?: PaginationTokens<Output>;
   passwordfield?: PasswordFieldTokens<Output>;
   phonenumberfield?: PhoneNumberFieldTokens<Output>;
@@ -152,6 +154,7 @@ export const components: DefaultComponentTokens = {
   liveness,
   loader,
   menu,
+  message,
   pagination,
   passwordfield,
   phonenumberfield,

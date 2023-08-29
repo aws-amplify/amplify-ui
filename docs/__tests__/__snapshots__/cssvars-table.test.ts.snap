@@ -3623,6 +3623,246 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-message-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-dismiss-gap\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-error-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-error-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-info-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-info-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-info-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-success-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-success-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-success-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-warning-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-warning-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-heading-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-heading-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-icon-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-justify-content\\",
+        \\"value\\": \\"flex-start\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-line-height\\",
+        \\"value\\": \\"var(--amplify-line-heights-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-error-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-error-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-info-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-info-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-info-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-success-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-success-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-success-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-warning-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-warning-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-error-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-error-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-info-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-info-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-info-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-success-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-success-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-success-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-warning-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-warning-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-warning)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-pagination-button-color\\",
         \\"value\\": \\"var(--amplify-colors-font-primary)\\"
     },
