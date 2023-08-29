@@ -18,7 +18,7 @@ export interface BaseFieldsetProps
 
   /**
    * @description
-   * Visually hides the label while making it still accessible to screenreaders.
+   * Visually hides the legend while making it still accessible to screenreaders.
    */
   legendHidden?: boolean;
 
