@@ -21,6 +21,7 @@ import { flex, FlexTokens } from './flex';
 import { heading, HeadingTokens } from './heading';
 import { highlightmatch, HighlightMatchTokens } from './highlightMatch';
 import { icon, IconTokens } from './icon';
+import { input, InputTokens } from './input';
 import { image, ImageTokens } from './image';
 import { inappmessaging, InAppMessagingTokens } from './inAppMessaging';
 import { link, LinkTokens } from './link';
@@ -81,6 +82,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   icon?: IconTokens<Output>;
   image?: ImageTokens<Output>;
   inappmessaging?: InAppMessagingTokens<Output>;
+  input?: InputTokens<Output>;
   link?: LinkTokens<Output>;
   liveness?: LivenessTokens<Output>;
   loader?: LoaderTokens<Output>;
@@ -147,6 +149,7 @@ export const components: DefaultComponentTokens = {
   highlightmatch,
   image,
   inappmessaging,
+  input,
   link,
   liveness,
   loader,

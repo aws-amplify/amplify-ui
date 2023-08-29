@@ -68,6 +68,8 @@ exports[`Sitemap Snapshot 1`] = `
 /react/components/highlightmatch, 
 /react/components/icon, 
 /react/components/image, 
+/react/components/input, 
+/react/components/label, 
 /react/components/link, 
 /react/components/loader, 
 /react/components/menu, 
