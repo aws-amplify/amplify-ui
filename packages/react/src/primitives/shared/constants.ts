@@ -198,6 +198,11 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Divider'],
     description: 'Class applied to the label of the Divider component',
   },
+  DropZone: {
+    className: ComponentClassName.DropZone,
+    components: ['DropZone'],
+    description: 'Class applied to the DropZone component',
+  },
   Expander: {
     className: ComponentClassName.Expander,
     components: ['Expander'],
@@ -848,6 +853,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   DialCodeSelect: ComponentClassObject.DialCodeSelect.className,
   Divider: ComponentClassObject.Divider.className,
   DividerLabel: ComponentClassObject.DividerLabel.className,
+  DropZone: ComponentClassObject.DropZone.className,
   Expander: ComponentClassObject.Expander.className,
   ExpanderContent: ComponentClassObject.ExpanderContent.className,
   ExpanderContentText: ComponentClassObject.ExpanderContentText.className,

@@ -8,6 +8,7 @@ export { Card } from './Card';
 export { CheckboxField } from './CheckboxField';
 export { Collection } from './Collection';
 export { Divider } from './Divider';
+export { DropZone, DropZoneProps } from './DropZone';
 export { Expander, ExpanderItem } from './Expander';
 export { FieldGroupIcon, FieldGroupIconButton } from './FieldGroupIcon';
 export { Flex } from './Flex';

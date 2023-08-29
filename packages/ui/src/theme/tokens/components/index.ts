@@ -11,6 +11,7 @@ import { collection, CollectionTokens } from './collection';
 import { copy, CopyTokens } from './copy';
 import { dialcodeselect, DialCodeSelectTokens } from './dialCodeSelect';
 import { divider, DividerTokens } from './divider';
+import { dropzone, DropZoneTokens } from './dropZone';
 import { expander, ExpanderTokens } from './expander';
 import { field, FieldTokens } from './field';
 import { fieldcontrol, FieldControlTokens } from './fieldControl';
@@ -70,6 +71,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   copy?: CopyTokens<Output>;
   countrycodeselect?: DialCodeSelectTokens<Output>;
   divider?: DividerTokens<Output>;
+  dropzone?: DropZoneTokens<Output>;
   expander?: ExpanderTokens<Output>;
   field?: FieldTokens<Output>;
   fieldcontrol?: FieldControlTokens<Output>;
@@ -137,6 +139,7 @@ export const components: DefaultComponentTokens = {
   copy,
   countrycodeselect: dialcodeselect, // This to be renamed to dialcodeselect in the next major version
   divider,
+  dropzone,
   expander,
   field,
   fieldcontrol,
