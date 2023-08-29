@@ -16,6 +16,7 @@ import { expander, ExpanderTokens } from './expander';
 import { field, FieldTokens } from './field';
 import { fieldcontrol, FieldControlTokens } from './fieldControl';
 import { fieldgroup, FieldGroupTokens } from './fieldGroup';
+import { fieldset, FieldsetTokens } from './fieldset';
 import { fieldmessages, FieldMessagesTokens } from './fieldMessages';
 import { fileuploader, FileUploaderTokens } from './fileUploader';
 import { flex, FlexTokens } from './flex';
@@ -74,6 +75,7 @@ type BaseComponentTokens<Output extends OutputVariantKey> = {
   dropzone?: DropZoneTokens<Output>;
   expander?: ExpanderTokens<Output>;
   field?: FieldTokens<Output>;
+  fieldset?: FieldsetTokens<Output>;
   fieldcontrol?: FieldControlTokens<Output>;
   fieldgroup?: FieldGroupTokens<Output>;
   fieldmessages?: FieldMessagesTokens<Output>;
@@ -145,6 +147,7 @@ export const components: DefaultComponentTokens = {
   fieldcontrol,
   fieldgroup,
   fieldmessages,
+  fieldset,
   fileuploader,
   flex,
   heading,

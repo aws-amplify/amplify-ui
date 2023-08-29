@@ -3143,6 +3143,78 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-font-sizes-small)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-fieldset-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-flex-direction\\",
+        \\"value\\": \\"column\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-gap\\",
+        \\"value\\": \\"var(--amplify-components-field-gap)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-large-gap\\",
+        \\"value\\": \\"var(--amplify-components-field-large-gap)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-large-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-large-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-line-height\\",
+        \\"value\\": \\"var(--amplify-line-heights-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-small-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-small-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-40)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-large-padding\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-padding\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-small-padding\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-small-gap\\",
+        \\"value\\": \\"var(--amplify-components-field-small-gap)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-fileuploader-dropzone-active-background-color\\",
         \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
     },

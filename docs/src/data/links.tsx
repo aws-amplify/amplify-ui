@@ -287,6 +287,13 @@ export const inputComponents: ComponentNavItem[] = [
     icon: MdSearch,
   },
   {
+    href: '/components/fieldset',
+    label: 'Fieldset',
+    body: `Fieldsets are used to group related form fields.`,
+    platforms: ['react'],
+    icon: MdSearch,
+  },
+  {
     href: '/components/input',
     label: 'Input',
     body: `Input primitive allows creating interactive form controls`,
