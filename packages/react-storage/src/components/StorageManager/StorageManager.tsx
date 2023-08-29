@@ -241,7 +241,7 @@ function StorageManagerBase(
       <Components.DropZone
         {...dropZoneProps}
         // Still pass inDropZone to not break the API for now
-        inDropZone={dropZoneProps.dragState !== 'none'}
+        inDropZone={dropZoneProps.dragState !== 'inactive'}
         displayText={displayText}
       >
         <Components.FilePicker onClick={handleClick}>

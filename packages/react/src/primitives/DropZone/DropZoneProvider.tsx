@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DragState } from './types';
 
-const DropZoneContext = React.createContext<DragState>('none');
+const DropZoneContext = React.createContext<DragState>('inactive');
 
 const DropZoneProvider = ({
   value,

@@ -30,7 +30,7 @@ interface DragEvents {
   onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
 }
 
-export type DragState = 'accept' | 'reject' | 'none';
+export type DragState = 'accept' | 'reject' | 'inactive';
 
 export interface UseDropZoneReturn extends DragEvents {
   dragState: DragState;

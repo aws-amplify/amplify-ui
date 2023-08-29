@@ -54,7 +54,7 @@ export function useDropZone({
   onDrop: _onDrop,
   acceptedFileTypes = [],
 }: UseDropZoneProps): UseDropZoneReturn {
-  const [dragState, setDragState] = useState<DragState>('none');
+  const [dragState, setDragState] = useState<DragState>('inactive');
 
   const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.clearData();
@@ -63,7 +63,6 @@ export function useDropZone({
     }
   };
 
-  // why do we need this
   const onDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
@@ -75,7 +74,7 @@ export function useDropZone({
   const onDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    setDragState('none');
+    setDragState('inactive');
     if (isFunction(_onDragLeave)) {
       _onDragLeave(event);
     }
@@ -102,7 +101,7 @@ export function useDropZone({
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    setDragState('none');
+    setDragState('inactive');
     const files = Array.from(event.dataTransfer.files);
     const { acceptedFiles, rejectedFiles } = filterAllowedFiles<File>(
       files,

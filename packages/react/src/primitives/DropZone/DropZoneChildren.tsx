@@ -37,7 +37,7 @@ const Default: Primitive<{}, 'div'> = ({ children }) => {
   if (!dragState) {
     throw new Error('`DropZone.Default` must be used inside a DropZone');
   }
-  return dragState === 'none' ? <>{children}</> : null;
+  return dragState === 'inactive' ? <>{children}</> : null;
 };
 
 export { Accepted, Rejected, Default };
