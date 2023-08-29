@@ -3007,6 +3007,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-font-sizes-small)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-fieldset-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-fieldset-border-radius\\",
         \\"value\\": \\"var(--amplify-radii-xs)\\"
     },

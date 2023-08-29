@@ -82,7 +82,7 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
 /**
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/fieldset)
  */
-export const Fieldset: ForwardRefPrimitive<BaseFieldsetProps, 'div'> =
+export const Fieldset: ForwardRefPrimitive<BaseFieldsetProps, 'fieldset'> =
   React.forwardRef(FieldsetPrimitive);
 
 Fieldset.displayName = 'Fieldset';

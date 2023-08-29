@@ -3207,7 +3207,7 @@ exports[`Props Table 1`] = `
                     \\"legendHidden\\": {
                         \\"name\\": \\"legendHidden\\",
                         \\"type\\": \\"boolean | undefined\\",
-                        \\"description\\": \\"Visually hides the label while making it still accessible to screenreaders.\\",
+                        \\"description\\": \\"Visually hides the legend while making it still accessible to screenreaders.\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": true
                     },
@@ -3220,8 +3220,8 @@ exports[`Props Table 1`] = `
                     },
                     \\"size\\": {
                         \\"name\\": \\"size\\",
-                        \\"type\\": \\"\\\\\\"small\\\\\\" | \\\\\\"large\\\\\\" | undefined\\",
-                        \\"description\\": \\"\\",
+                        \\"type\\": \\"'small' | 'large'\\",
+                        \\"description\\": \\"Changes the size of the Fieldset\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": true
                     },
