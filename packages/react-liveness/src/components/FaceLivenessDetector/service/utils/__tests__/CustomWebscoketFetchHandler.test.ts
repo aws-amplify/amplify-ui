@@ -113,6 +113,7 @@ describe(CustomWebSocketFetchHandler.name, () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for await (const chunk of responsePayload) {
           /** pass */
+          console.log(chunk);
           continue;
         }
       } catch (err) {
