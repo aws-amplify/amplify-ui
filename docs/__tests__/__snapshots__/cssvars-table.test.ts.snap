@@ -20,11 +20,11 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-colors-background-error\\",
-        \\"value\\": \\"var(--amplify-colors-red-20)\\"
+        \\"value\\": \\"var(--amplify-colors-red-10)\\"
     },
     {
         \\"variable\\": \\"--amplify-colors-background-info\\",
-        \\"value\\": \\"var(--amplify-colors-blue-20)\\"
+        \\"value\\": \\"var(--amplify-colors-blue-10)\\"
     },
     {
         \\"variable\\": \\"--amplify-colors-background-primary\\",
@@ -40,7 +40,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-colors-background-success\\",
-        \\"value\\": \\"var(--amplify-colors-green-20)\\"
+        \\"value\\": \\"var(--amplify-colors-green-10)\\"
     },
     {
         \\"variable\\": \\"--amplify-colors-background-tertiary\\",
@@ -48,7 +48,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-colors-background-warning\\",
-        \\"value\\": \\"var(--amplify-colors-orange-20)\\"
+        \\"value\\": \\"var(--amplify-colors-orange-10)\\"
     },
     {
         \\"variable\\": \\"--amplify-colors-black\\",
@@ -95,6 +95,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
     },
     {
+        \\"variable\\": \\"--amplify-colors-border-info\\",
+        \\"value\\": \\"var(--amplify-colors-blue-80)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-colors-border-pressed\\",
         \\"value\\": \\"var(--amplify-colors-brand-primary-100)\\"
     },
@@ -107,8 +111,16 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-neutral-40)\\"
     },
     {
+        \\"variable\\": \\"--amplify-colors-border-success\\",
+        \\"value\\": \\"var(--amplify-colors-green-80)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-colors-border-tertiary\\",
         \\"value\\": \\"var(--amplify-colors-neutral-20)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-colors-border-warning\\",
+        \\"value\\": \\"var(--amplify-colors-orange-80)\\"
     },
     {
         \\"variable\\": \\"--amplify-colors-brand-primary-10\\",
@@ -925,6 +937,10 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-button-active-color\\",
         \\"value\\": \\"var(--amplify-colors-font-active)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-button-background-color\\",
+        \\"value\\": \\"transparent\\"
     },
     {
         \\"variable\\": \\"--amplify-components-button-border-color\\",
@@ -4527,28 +4543,8 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-border-widths-small)\\"
     },
     {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-border-color\\",
-        \\"value\\": \\"var(--amplify-colors-border-secondary)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-border-style\\",
-        \\"value\\": \\"solid\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-border-width\\",
-        \\"value\\": \\"var(--amplify-border-widths-small)\\"
-    },
-    {
         \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-justify-content\\",
-        \\"value\\": \\"space-between\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-padding-block\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
-    },
-    {
-        \\"variable\\": \\"--amplify-components-storagemanager-previewer-footer-padding-inline\\",
-        \\"value\\": \\"var(--amplify-space-medium)\\"
+        \\"value\\": \\"flex-end\\"
     },
     {
         \\"variable\\": \\"--amplify-components-storagemanager-previewer-max-height\\",

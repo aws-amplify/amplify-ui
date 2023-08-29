@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
-import { IconChevronLeft, IconChevronRight } from '../Icon/internal';
+import { IconChevronLeft, IconChevronRight, useIcons } from '../Icon';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { BasePaginationItemProps } from '../types/pagination';
@@ -23,6 +23,7 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
   ariaLabel,
   ...rest
 }) => {
+  const icons = useIcons('pagination');
   const nextClasses = classNames(
     ComponentClassNames.PaginationItemButton,
     classNameModifier(ComponentClassNames.PaginationItemButton, 'link'),
@@ -93,7 +94,7 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
             ariaLabel={ariaLabel}
             {...rest}
           >
-            <IconChevronRight size="large" />
+            {icons?.next ?? <IconChevronRight />}
           </Button>
         </View>
       );
@@ -111,7 +112,7 @@ export const PaginationItem: React.FC<BasePaginationItemProps> = ({
             ariaLabel={ariaLabel}
             {...rest}
           >
-            <IconChevronLeft size="large" />
+            {icons?.previous ?? <IconChevronLeft />}
           </Button>
         </View>
       );
