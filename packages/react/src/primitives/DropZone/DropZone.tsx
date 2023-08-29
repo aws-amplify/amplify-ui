@@ -8,7 +8,7 @@ import { DropZoneContainer } from './DropZoneContainer';
 import { Accepted, Default, Rejected } from './DropZoneChildren';
 
 const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
-  { children, testId, isDisabled, ...rest },
+  { children, testId, isDisabled, acceptedFileTypes, onDropComplete, ...rest },
   ref
 ) => {
   const {
@@ -18,7 +18,11 @@ const DropZonePrimitive: Primitive<DropZoneProps, 'div'> = (
     onDragOver,
     onDragStart,
     onDrop,
-  } = useDropZone(rest);
+  } = useDropZone({
+    acceptedFileTypes,
+    onDropComplete,
+    ...rest,
+  });
 
   return (
     <DropZoneProvider value={dragState}>

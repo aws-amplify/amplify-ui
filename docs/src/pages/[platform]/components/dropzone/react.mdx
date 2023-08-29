@@ -5,6 +5,7 @@ import {
   AcceptRejectDropZoneExample,
   DefaultDropZoneExample,
   DisabledDropZoneExample,
+  DropZoneInputExample,
   DropZoneStyleExample,
   DropZoneThemeExample,
   UseDropZoneExample,
@@ -51,6 +52,18 @@ All of these helper components are *mutually exclusive* and cover all possible s
   <AcceptRejectDropZoneExample />
   <ExampleCode>
   ```tsx file=./examples/AcceptRejectDropZoneExample.tsx
+  ```
+  </ExampleCode>
+</Example>
+
+### Opening the file picker
+
+You can add a button to open the file picker by adding a hidden input and firing the click event on the input element. Using an input element will automatically disable selecting files that don't match the accepted file types. 
+
+<Example>
+  <DropZoneInputExample />
+  <ExampleCode>
+  ```tsx file=./examples/DropZoneInputExample.tsx
   ```
   </ExampleCode>
 </Example>
