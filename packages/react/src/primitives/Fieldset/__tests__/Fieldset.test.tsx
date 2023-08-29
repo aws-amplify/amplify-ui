@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import { Fieldset } from '../Fieldset';
-import { TextField } from '../../TextField';
 
 import { ComponentClassNames } from '../../shared';
 
