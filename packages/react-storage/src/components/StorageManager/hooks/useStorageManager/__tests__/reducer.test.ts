@@ -20,6 +20,7 @@ describe('storageManagerStateReducer', () => {
     const addFilesAction: Action = {
       type: StorageManagerActionTypes.ADD_FILES,
       files: [imageFile],
+      status: FileStatus.QUEUED,
       getFileErrorMessage: jest.fn().mockReturnValue('Test error'),
     };
 

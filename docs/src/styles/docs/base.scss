@@ -79,21 +79,25 @@ body {
   line-height: 1.5;
 }
 
-a {
+/* 
+  Target all plain links, typically those generated in markdown in documentation
+  that don't have special classes or our primitive classes */
+a:not([class]) {
   color: var(--amplify-components-link-color);
 
   &:hover,
   &:focus {
     color: var(--amplify-components-link-hover-color);
   }
+  &:active {
+    color: var(--amplify-components-link-active-color);
+  }
+}
 
+a {
   &:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--amplify-colors-border-focus);
-  }
-
-  &:active {
-    color: var(--amplify-components-link-active-color);
   }
 }
 

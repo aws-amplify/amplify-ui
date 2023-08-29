@@ -646,6 +646,14 @@ export const ComponentClassObject: ComponentClassNameItems = {
     className: ComponentClassName.StorageManagerPreviewerText,
     components: ['StorageManager'],
   },
+  StorageManagerPreviewerActions: {
+    className: ComponentClassName.StorageManagerPreviewerActions,
+    components: ['StorageManager'],
+  },
+  StorageManagerPreviewerFooter: {
+    className: ComponentClassName.StorageManagerPreviewerFooter,
+    components: ['StorageManager'],
+  },
   SwitchField: {
     className: ComponentClassName.SwitchField,
     components: ['SwitchField'],
@@ -929,6 +937,10 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.StorageManagerPreviewer.className,
   StorageManagerPreviewerText:
     ComponentClassObject.StorageManagerPreviewerText.className,
+  StorageManagerPreviewerActions:
+    ComponentClassObject.StorageManagerPreviewerActions.className,
+  StorageManagerPreviewerFooter:
+    ComponentClassObject.StorageManagerPreviewerFooter.className,
   SwitchField: ComponentClassObject.SwitchField.className,
   SwitchLabel: ComponentClassObject.SwitchLabel.className,
   SwitchThumb: ComponentClassObject.SwitchThumb.className,
