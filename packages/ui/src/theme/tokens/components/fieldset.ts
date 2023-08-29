@@ -19,7 +19,10 @@ export type FieldsetLegendTokens<Output> = DesignTokenProperties<
 };
 
 export type FieldsetTokens<Output extends OutputVariantKey> =
-  DesignTokenProperties<'gap' | 'flexDirection' | 'borderRadius', Output> & {
+  DesignTokenProperties<
+    'backgroundColor' | 'gap' | 'flexDirection' | 'borderRadius',
+    Output
+  > & {
     legend?: FieldsetLegendTokens<Output>;
     outlined?: FieldsetOutlinedTokens<Output>;
     small?: FieldsetSizeTokens<Output>;
@@ -27,6 +30,7 @@ export type FieldsetTokens<Output extends OutputVariantKey> =
   };
 
 export const fieldset: Required<FieldsetTokens<'default'>> = {
+  backgroundColor: { value: 'transparent' },
   borderRadius: { value: '{radii.xs.value}' },
   flexDirection: {
     value: 'column',

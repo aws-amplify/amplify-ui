@@ -5,4 +5,6 @@ export { FieldsetDirection } from './FieldsetDirection';
 export { DisabledFieldset } from './DisabledFieldset';
 export { FormAttribute } from './FormAttribute';
 export { NameAttribute } from './NameAttribute';
+export { ThemeExample } from './ThemeExample';
+export { FieldsetStylePropsExample } from './FieldsetStylePropsExample';
 export { TestFieldsetControls } from './TestFieldsetControls';

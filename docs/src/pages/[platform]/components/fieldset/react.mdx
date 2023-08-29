@@ -1,5 +1,5 @@
 import { Fragment } from '@/components/Fragment'; 
-import { Flex, Text, Button, View, Alert, Link } from '@aws-amplify/ui-react';
+import { Flex, Text, Button, View, Alert, Fieldset, Link } from '@aws-amplify/ui-react';
 import { FieldsetDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
@@ -11,6 +11,8 @@ import {
   DisabledFieldset,
   FormAttribute,
   NameAttribute,
+  ThemeExample,
+  FieldsetStylePropsExample
 } from './examples';
 
 ## Demo
@@ -126,6 +128,104 @@ Fieldset supports the [name] attribute. Use the `name` prop to supply a name for
   <ExampleCode>
 
 ```jsx file=./examples/NameAttribute.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+## Styling
+
+### Theme
+
+<Example>
+  <View>
+    <ThemeExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/ThemeExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+
+### Target classes
+
+<ComponentStyleDisplay componentName="Fieldset" />
+
+### Global Styling
+
+To override styling on all Fieldsets, you can set the Amplify CSS variables or use the [target classes](#target-classes).
+
+<Example>
+  <View>
+    <Fieldset legend="A fieldset with a larger border radius" borderRadius="12px">A Fieldset styled with CSS.</Fieldset>
+  </View>
+  
+  <ExampleCode>
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-fieldset-border-radius: 12px;
+}
+/* OR */
+.amplify-fieldset {
+  border-radius: 12px;
+}
+```
+
+  </ExampleCode>
+</Example>
+
+### Local styling
+
+To override styling on a specific Fieldset, you can use (in order of increasing specificity): a class selector or style props.
+
+#### Using a class selector
+
+<Example>
+  <Fieldset className="purple-fieldset" legend="A purple fieldset">
+    This is a purple fieldset
+  </Fieldset>
+  
+  
+  <ExampleCode>
+
+```css
+/* styles.css */
+.purple-fieldset {
+  background-color: var(--amplify-colors-purple-10);
+  border-color: var(--amplify-colors-purple-60);
+}
+```
+
+  </ExampleCode>
+  <ExampleCode>
+
+```jsx
+import './styles.css';
+
+<Fieldset className="purple-fieldset" legend="A purple fieldset">
+  This is a purple fieldset
+</Fieldset>
+```
+
+  </ExampleCode>
+</Example>
+
+#### Using style props
+
+<Example>
+  <FieldsetStylePropsExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/FieldsetStylePropsExample.tsx
 
 ```
 
