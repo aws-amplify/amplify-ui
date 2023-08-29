@@ -12,7 +12,7 @@ export const FieldsetDirection = () => {
         <CheckboxField label="Item 4" name="Item 4" />
       </Fieldset>
       <Fieldset legend="column" direction="column">
-        <CheckboxField label="Item 5" name="Item 6" />
+        <CheckboxField label="Item 5" name="Item 5" />
         <CheckboxField label="Item 6" name="Item 6" />
       </Fieldset>
       <Fieldset legend="column-reverse" direction="column-reverse">
