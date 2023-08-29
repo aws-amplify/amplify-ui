@@ -6,8 +6,6 @@ module.exports = {
     '!<rootDir>/**/index.(ts|tsx)',
     // do not collect from top level version and styles files
     '!<rootDir>/src/(styles|version).(ts|tsx)',
-    // do not collect coverage from filed copies from aws-sdk
-    '!<rootDir>/src/components/FaceLivenessDetector/service/utils/CustomWebSocketFetchHandler.ts',
   ],
   coverageThreshold: {
     global: {

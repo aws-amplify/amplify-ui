@@ -3317,11 +3317,11 @@
     "@babel/highlight" "^7.18.6"
 
 "@babel/code-frame@^7.5.5":
-  version "7.22.10"
-  resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.22.10.tgz#1c20e612b768fefa75f6e90d6ecb86329247f0a3"
-  integrity sha512-/KKIMG4UEL35WmI9OlvMhurwtytjvXoFcGNrOvyG9zIzA8YmPjVtIZUf7b05+TPO7G7/GEmLHDaoCgACHl9hhA==
+  version "7.22.13"
+  resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.22.13.tgz#e3c1c099402598483b7a8c46a721d1038803755e"
+  integrity sha512-XktuhWlJ5g+3TJXc5upd9Ks1HutSArik6jf2eAjYFyIOf4ej3RN+184cZbzDvbPnuTJIUhPKKJE3cIsYTiAT3w==
   dependencies:
-    "@babel/highlight" "^7.22.10"
+    "@babel/highlight" "^7.22.13"
     chalk "^2.4.2"
 
 "@babel/compat-data@^7.17.7", "@babel/compat-data@^7.20.5", "@babel/compat-data@^7.21.4":
@@ -3709,10 +3709,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/highlight@^7.22.10":
-  version "7.22.10"
-  resolved "https://registry.npmjs.org/@babel/highlight/-/highlight-7.22.10.tgz#02a3f6d8c1cb4521b2fd0ab0da8f4739936137d7"
-  integrity sha512-78aUtVcT7MUscr0K5mIEnkwxPE0MaxkR5RxRwuHaQ+JuU5AmTPhY+do2mdzVTnIJJpyBglql2pehuBIWHug+WQ==
+"@babel/highlight@^7.22.13":
+  version "7.22.13"
+  resolved "https://registry.npmjs.org/@babel/highlight/-/highlight-7.22.13.tgz#9cda839e5d3be9ca9e8c26b6dd69e7548f0cbf16"
+  integrity sha512-C/BaXcnnvBCmHTpz/VGZ8jgtE2aYlW4hxDhseJAWZb7gqGM/qtCK6iZUb0TyKFf7BOUsBH7Q7fkRsDRhg1XklQ==
   dependencies:
     "@babel/helper-validator-identifier" "^7.22.5"
     chalk "^2.4.2"
@@ -6262,6 +6262,13 @@
   dependencies:
     "@sinclair/typebox" "^0.25.16"
 
+"@jest/schemas@^29.6.3":
+  version "29.6.3"
+  resolved "https://registry.npmjs.org/@jest/schemas/-/schemas-29.6.3.tgz#430b5ce8a4e0044a7e3819663305a7b3091c8e03"
+  integrity sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==
+  dependencies:
+    "@sinclair/typebox" "^0.27.8"
+
 "@jest/source-map@^26.6.2":
   version "26.6.2"
   resolved "https://registry.npmjs.org/@jest/source-map/-/source-map-26.6.2.tgz#29af5e1e2e324cafccc936f218309f54ab69d535"
@@ -7633,6 +7640,11 @@
   resolved "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.25.24.tgz#8c7688559979f7079aacaf31aa881c3aa410b718"
   integrity sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==
 
+"@sinclair/typebox@^0.27.8":
+  version "0.27.8"
+  resolved "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.27.8.tgz#6667fac16c436b5434a387a34dedb013198f6e6e"
+  integrity sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==
+
 "@sinonjs/commons@^1.7.0":
   version "1.8.6"
   resolved "https://registry.npmjs.org/@sinonjs/commons/-/commons-1.8.6.tgz#80c516a4dc264c2a69115e7578d62581ff455ed9"
@@ -7786,7 +7798,7 @@
     "@smithy/util-hex-encoding" "^2.0.0"
     tslib "^2.5.0"
 
-"@smithy/eventstream-serde-browser@^2.0.5":
+"@smithy/eventstream-serde-browser@^2.0.4", "@smithy/eventstream-serde-browser@^2.0.5":
   version "2.0.5"
   resolved "https://registry.npmjs.org/@smithy/eventstream-serde-browser/-/eventstream-serde-browser-2.0.5.tgz#5f4d3d78a9fcb0a5a6f5b20f69141c8cc6b0ef6b"
   integrity sha512-8NU51y94qFJbxL6SmvgWDfITHO/svvbAigkLYk2pckX17TGCSf4EXuGpGLliJp5Ljh5+vASC7mUH2jYX7MWBxA==
@@ -13093,7 +13105,12 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001228, can
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001478.tgz#0ef8a1cf8b16be47a0f9fc4ecfc952232724b32a"
   integrity sha512-gMhDyXGItTHipJj2ApIvR+iVB5hd0KP3svMWWXDvZOmjzJJassGLMfxRkQCSYgGd2gtdL/ReeiyvMSFD1Ss6Mw==
 
-caniuse-lite@^1.0.30001314, caniuse-lite@^1.0.30001517:
+caniuse-lite@^1.0.30001314:
+  version "1.0.30001524"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001524.tgz#1e14bce4f43c41a7deaeb5ebfe86664fe8dadb80"
+  integrity sha512-Jj917pJtYg9HSJBF95HVX3Cdr89JUyLT4IZ8SvM5aDRni95swKgYi3TgYLH5hnGfPE/U1dg6IfZ50UsIlLkwSA==
+
+caniuse-lite@^1.0.30001517:
   version "1.0.30001521"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001521.tgz#e9930cf499f7c1e80334b6c1fbca52e00d889e56"
   integrity sha512-fnx1grfpEOvDGH+V17eccmNjucGUnCbP6KL+l5KqBIerp26WK/+RQ7CIDE37KGJjaPyqWXXlFUyKiWmvdNNKmQ==
@@ -15109,6 +15126,11 @@ diff-sequences@^29.4.3:
   version "29.4.3"
   resolved "https://registry.npmjs.org/diff-sequences/-/diff-sequences-29.4.3.tgz#9314bc1fabe09267ffeca9cbafc457d8499a13f2"
   integrity sha512-ofrBgwpPhCD85kMKtE9RYFFq6OC1A89oW2vvgWZNCwxrUpRUILopY7lsYyMDSjc8g6U6aiO0Qubg6r4Wgt5ZnA==
+
+diff-sequences@^29.6.3:
+  version "29.6.3"
+  resolved "https://registry.npmjs.org/diff-sequences/-/diff-sequences-29.6.3.tgz#4deaf894d11407c51efc8418012f9e70b84ea921"
+  integrity sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==
 
 diff@^4.0.1:
   version "4.0.2"
@@ -19892,6 +19914,16 @@ jest-diff@^27.5.1:
     jest-get-type "^27.5.1"
     pretty-format "^27.5.1"
 
+jest-diff@^29.2.0:
+  version "29.6.4"
+  resolved "https://registry.npmjs.org/jest-diff/-/jest-diff-29.6.4.tgz#85aaa6c92a79ae8cd9a54ebae8d5b6d9a513314a"
+  integrity sha512-9F48UxR9e4XOEZvoUXEHSWY4qC4zERJaOfrbBg9JpbJOO43R1vN76REt/aMGZoY6GD5g84nnJiBIVlscegefpw==
+  dependencies:
+    chalk "^4.0.0"
+    diff-sequences "^29.6.3"
+    jest-get-type "^29.6.3"
+    pretty-format "^29.6.3"
+
 jest-diff@^29.5.0:
   version "29.5.0"
   resolved "https://registry.npmjs.org/jest-diff/-/jest-diff-29.5.0.tgz#e0d83a58eb5451dcc1fa61b1c3ee4e8f5a290d63"
@@ -20046,6 +20078,11 @@ jest-get-type@^29.4.3:
   version "29.4.3"
   resolved "https://registry.npmjs.org/jest-get-type/-/jest-get-type-29.4.3.tgz#1ab7a5207c995161100b5187159ca82dd48b3dd5"
   integrity sha512-J5Xez4nRRMjk8emnTpWrlkyb9pfRQQanDrvWHhsR1+VUfbwxi30eVcZFlcdGInRibU4G5LwHXpI7IRHU0CY+gg==
+
+jest-get-type@^29.6.3:
+  version "29.6.3"
+  resolved "https://registry.npmjs.org/jest-get-type/-/jest-get-type-29.6.3.tgz#36f499fdcea197c1045a127319c0481723908fd1"
+  integrity sha512-zrteXnqYxfQh7l5FHyL38jL39di8H8rHoecLH3JNxH3BwOrBsNeabdap5e0I23lD4HHI8W5VFBZqG4Eaq5LNcw==
 
 jest-haste-map@^26.6.2:
   version "26.6.2"
@@ -20804,6 +20841,14 @@ jest-watcher@^29.5.0:
     emittery "^0.13.1"
     jest-util "^29.5.0"
     string-length "^4.0.1"
+
+jest-websocket-mock@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.npmjs.org/jest-websocket-mock/-/jest-websocket-mock-2.4.1.tgz#e8ed6001cbeff7739b9ee4a74f5937ec1c339408"
+  integrity sha512-M/T3U5qYGoX69846gj1fFUCx8GeaOQRly2zu9mUzxDKU4iXceBwn4AHxxeCc7W6Wn98WxQNtfO+0gr7LYUGrzg==
+  dependencies:
+    jest-diff "^29.2.0"
+    mock-socket "^9.1.0"
 
 jest-when@^3.5.1:
   version "3.5.2"
@@ -23328,6 +23373,11 @@ mkdirp@^2.1.5:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-2.1.6.tgz#964fbcb12b2d8c5d6fbc62a963ac95a273e2cc19"
   integrity sha512-+hEnITedc8LAtIP9u3HJDFIdcLV2vXP33sqLLIzkv1Db1zO/1OxbvYf0Y1OC/S/Qo5dxHXepofhmxL02PsKe+A==
+
+mock-socket@^9.1.0, mock-socket@^9.2.1:
+  version "9.2.1"
+  resolved "https://registry.npmjs.org/mock-socket/-/mock-socket-9.2.1.tgz#cc9c0810aa4d0afe02d721dcb2b7e657c00e2282"
+  integrity sha512-aw9F9T9G2zpGipLLhSNh6ZpgUyUl4frcVmRN08uE1NWPWg43Wx6+sGPDbQ7E5iFZZDJW5b5bypMeAEHqTbIFag==
 
 module-alias@^2.2.2:
   version "2.2.3"
@@ -25864,6 +25914,15 @@ pretty-format@^29.0.0, pretty-format@^29.5.0:
   integrity sha512-V2mGkI31qdttvTFX7Mt4efOqHXqJWMu4/r66Xh3Z3BwZaPfPJgp6/gbwoujRpPUtfEF6AUUWx3Jim3GCw5g/Qw==
   dependencies:
     "@jest/schemas" "^29.4.3"
+    ansi-styles "^5.0.0"
+    react-is "^18.0.0"
+
+pretty-format@^29.6.3:
+  version "29.6.3"
+  resolved "https://registry.npmjs.org/pretty-format/-/pretty-format-29.6.3.tgz#d432bb4f1ca6f9463410c3fb25a0ba88e594ace7"
+  integrity sha512-ZsBgjVhFAj5KeK+nHfF1305/By3lechHQSMWCTl8iHSbfOm2TN5nHEtFc/+W7fAyUeCs2n5iow72gld4gW0xDw==
+  dependencies:
+    "@jest/schemas" "^29.6.3"
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
 
