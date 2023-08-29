@@ -23,6 +23,7 @@ describe('useUploadFiles', () => {
 
   it('should add files', () => {
     const { result } = renderHook(() => useStorageManager());
+    const status = FileStatus.QUEUED;
 
     expect(result.current.files.length).toBe(0);
     act(() =>
@@ -31,9 +32,33 @@ describe('useUploadFiles', () => {
           new File(['test1'], 'test1.txt', { type: 'text/plain' }),
           new File(['test2'], 'test2.txt', { type: 'text/plain' }),
         ],
+        status,
         getFileErrorMessage: () => '',
       })
     );
+
+    expect(result.current.files.length).toBe(2);
+
+    expect(result.current.files[0].status).toStrictEqual(status);
+    expect(result.current.files[1].status).toStrictEqual(status);
+  });
+
+  it('should queue files', () => {
+    const { result } = renderHook(() => useStorageManager());
+    const status = FileStatus.ADDED;
+
+    act(() =>
+      result.current.addFiles({
+        files: [
+          new File(['test1'], 'test1.txt', { type: 'text/plain' }),
+          new File(['test2'], 'test2.txt', { type: 'text/plain' }),
+        ],
+        status,
+        getFileErrorMessage: () => '',
+      })
+    );
+
+    act(() => result.current.queueFiles());
 
     expect(result.current.files.length).toBe(2);
 
@@ -49,6 +74,7 @@ describe('useUploadFiles', () => {
           new File(['test1'], 'test1.txt', { type: 'text/plain' }),
           new File(['test2'], 'test2.txt', { type: 'text/plain' }),
         ],
+        status: FileStatus.QUEUED,
         getFileErrorMessage: () => '',
       })
     );

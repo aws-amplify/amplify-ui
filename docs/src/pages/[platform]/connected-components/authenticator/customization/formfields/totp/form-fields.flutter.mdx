@@ -1,0 +1,55 @@
+```dart{5}
+@override
+Widget build(BuildContext context) {
+  // Check if the current platform is mobile. If it is, we will hide the QR code
+  final isMobile = Theme.of(context).platform == TargetPlatform.iOS ||
+      Theme.of(context).platform == TargetPlatform.android;
+
+  return Authenticator(
+    // `authenticatorBuilder` is used to customize the UI for one or more steps
+    authenticatorBuilder: (BuildContext context, AuthenticatorState state) {
+      switch (state.currentStep) {
+        case AuthenticatorStep.continueSignInWithTotpSetup:
+          return Scaffold(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Hide on mobile
+                if (!isMobile) ...[
+                  const Text(
+                    'If you are on a mobile device, you can scan the QR code '
+                    'using the Authenticator app.',
+                  ),
+                  // TOTP QR Code widget
+                  TotpSetupFormField.totpQrCode(),
+                  const SizedBox(height: 20),
+                ],
+                const Text('Copy the key below into your Authenticator app'),
+                // TOTP copy key widget
+                TotpSetupFormField.totpCopyKey(),
+                const SizedBox(height: 20),
+                FilledButton(
+                  onPressed: () => state.changeStep(
+                    AuthenticatorStep.confirmSignInWithTotpMfaCode,
+                  ),
+                  child: const Text('Continue'),
+                ),
+              ],
+            ),
+          );
+        default:
+          // Returning null defaults to the prebuilt authenticator for all other steps
+          return null;
+      }
+    },
+    child: MaterialApp(
+      builder: Authenticator.builder(),
+      home: const Scaffold(
+        body: Center(
+          child: Text('You are logged in!'),
+        ),
+      ),
+    ),
+  );
+}
+```

@@ -17,6 +17,8 @@ export { Heading } from './Heading';
 export { HighlightMatch } from './HighlightMatch';
 export { Icon } from './Icon';
 export { Image } from './Image';
+export { Input } from './Input';
+export { Label } from './Label';
 export { Link } from './Link';
 export { Loader } from './Loader';
 export { Menu, MenuButton, MenuItem } from './Menu';

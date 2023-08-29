@@ -372,8 +372,16 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Image'],
     description: 'Top level element that wraps the Image primitive',
   },
-  Input: { className: ComponentClassName.Input },
-  Label: { className: ComponentClassName.Label },
+  Input: {
+    className: ComponentClassName.Input,
+    components: ['Input'],
+    description: 'Class applied to the input element',
+  },
+  Label: {
+    className: ComponentClassName.Label,
+    components: ['Label'],
+    description: 'Class applied to the label element',
+  },
   Link: {
     className: ComponentClassName.Link,
     components: ['Link'],
@@ -654,6 +662,14 @@ export const ComponentClassObject: ComponentClassNameItems = {
   },
   StorageManagerPreviewerText: {
     className: ComponentClassName.StorageManagerPreviewerText,
+    components: ['StorageManager'],
+  },
+  StorageManagerPreviewerActions: {
+    className: ComponentClassName.StorageManagerPreviewerActions,
+    components: ['StorageManager'],
+  },
+  StorageManagerPreviewerFooter: {
+    className: ComponentClassName.StorageManagerPreviewerFooter,
     components: ['StorageManager'],
   },
   SwitchField: {
@@ -941,6 +957,10 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.StorageManagerPreviewer.className,
   StorageManagerPreviewerText:
     ComponentClassObject.StorageManagerPreviewerText.className,
+  StorageManagerPreviewerActions:
+    ComponentClassObject.StorageManagerPreviewerActions.className,
+  StorageManagerPreviewerFooter:
+    ComponentClassObject.StorageManagerPreviewerFooter.className,
   SwitchField: ComponentClassObject.SwitchField.className,
   SwitchLabel: ComponentClassObject.SwitchLabel.className,
   SwitchThumb: ComponentClassObject.SwitchThumb.className,

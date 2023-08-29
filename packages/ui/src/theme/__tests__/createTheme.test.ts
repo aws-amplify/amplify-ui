@@ -22,7 +22,7 @@ describe('@aws-amplify/ui', () => {
 
       it('should return a css variable reference if present on token value', () => {
         expect(tokens.colors.background.error.value).toEqual(
-          'var(--amplify-colors-red-20)'
+          'var(--amplify-colors-red-10)'
         );
       });
 

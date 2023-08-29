@@ -98,9 +98,15 @@ export function createTheme(
       }
       if ('colorMode' in override) {
         cssText += `\n@media (prefers-color-scheme: ${override.colorMode}) {
-          [data-amplify-theme="${name}"][data-amplify-color-mode="system"] {\n${customProperties}\n}
+          [data-amplify-theme="${name}"][data-amplify-color-mode="system"] {
+            ${customProperties}
+            color-scheme: ${override.colorMode};
+          }
         }\n`;
-        cssText += `\n[data-amplify-theme="${name}"][data-amplify-color-mode="${override.colorMode}"] {\n${customProperties}\n}\n`;
+        cssText += `\n[data-amplify-theme="${name}"][data-amplify-color-mode="${override.colorMode}"] {
+          ${customProperties}
+          color-scheme: ${override.colorMode};
+        }\n`;
       }
 
       return {
