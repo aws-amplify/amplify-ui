@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Fieldset } from '../Fieldset';
+import { TextField } from '../../TextField';
 
 import { ComponentClassNames } from '../../shared';
 
@@ -65,5 +66,33 @@ describe('Fieldset', () => {
 
     expect(small.classList).toContain(`${ComponentClassNames.Fieldset}--small`);
     expect(large.classList).toContain(`${ComponentClassNames.Fieldset}--large`);
+  });
+
+  it('should add the disabled attribute when isDisabled prop is used', async () => {
+    render(
+      <Fieldset isDisabled testId="disabled" legend="Legend">
+        Disabled fieldset
+      </Fieldset>
+    );
+
+    const disabled = await screen.findByTestId('disabled');
+
+    expect(disabled).toHaveAttribute('disabled');
+  });
+
+  it('should disable child Fieldset when parent isDisabled', async () => {
+    render(
+      <Fieldset isDisabled legend="Legend">
+        <Fieldset
+          isDisabled={false}
+          legend="Nested Fieldset"
+          testId="nestedFieldset"
+        ></Fieldset>
+      </Fieldset>
+    );
+
+    const nestedFieldset = await screen.findByTestId('nestedFieldset');
+
+    expect(nestedFieldset).toHaveAttribute('disabled');
   });
 });
