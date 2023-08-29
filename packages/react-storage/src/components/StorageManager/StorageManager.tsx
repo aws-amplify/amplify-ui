@@ -93,7 +93,7 @@ function StorageManagerBase(
 
   React.useImperativeHandle(ref, () => ({ clearFiles }));
 
-  const dropZoneProps = useDropZone({
+  const { dragState, ...dropZoneProps } = useDropZone({
     acceptedFileTypes,
     onDropComplete: ({ acceptedFiles, rejectedFiles }) => {
       if (rejectedFiles && rejectedFiles.length > 0) {
@@ -236,7 +236,11 @@ function StorageManagerBase(
         hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
       }`}
     >
-      <Components.DropZone {...dropZoneProps} displayText={displayText}>
+      <Components.DropZone
+        inDropZone={dragState !== 'inactive'}
+        {...dropZoneProps}
+        displayText={displayText}
+      >
         <>
           <Components.FilePicker onClick={handleClick}>
             {displayText.browseFilesText}
