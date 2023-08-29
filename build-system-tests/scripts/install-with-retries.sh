@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Runs `npm` or `yarn` install with retries
+# Takes 2 parameters: the package manager and the dependencies to be installed
+# Usage:  install_with_retries npm "$DEPENDENCIES" or  install_with_retries yarn "$DEPENDENCIES"
 install_with_retries() {
     local retries=3
     local attempt=1
