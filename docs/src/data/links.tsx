@@ -39,6 +39,7 @@ import {
   MdHighlight,
   MdChevronRight,
   MdPanToolAlt,
+  MdLabel,
 } from 'react-icons/md';
 
 export interface ComponentNavItem {
@@ -280,6 +281,20 @@ export const inputComponents: ComponentNavItem[] = [
     icon: MdSearch,
   },
   {
+    href: '/components/input',
+    label: 'Input',
+    body: `Input primitive allows creating interactive form controls`,
+    platforms: ['react'],
+    icon: MdInput,
+  },
+  {
+    href: '/components/label',
+    label: 'Label',
+    body: `Label primitive enables captioning a user interface item`,
+    platforms: ['react'],
+    icon: MdLabel,
+  },
+  {
     href: '/components/textareafield',
     label: 'TextArea Field',
     body: `The TextAreaField form primitive can be used allow users to input multiline text content.`,
@@ -289,7 +304,7 @@ export const inputComponents: ComponentNavItem[] = [
   {
     href: '/components/textfield',
     label: 'Text Field',
-    body: `The TextField form primitive can be used allow users to input text content.`,
+    body: `The TextField form primitive allows users to input text content.`,
     platforms: ['react'],
     icon: MdInput,
   },

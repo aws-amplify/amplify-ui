@@ -22,6 +22,8 @@ type ComponentNameKey =
   | 'HighlightMatch'
   | 'Icon'
   | 'Image'
+  | 'Input'
+  | 'Label'
   | 'Link'
   | 'Loader'
   | 'Menu'

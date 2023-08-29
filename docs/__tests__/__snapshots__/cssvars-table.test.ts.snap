@@ -3547,6 +3547,22 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-font-weights-extrabold)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-input-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-input-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-input-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-input-font-size\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-font-size)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-link-active-color\\",
         \\"value\\": \\"var(--amplify-colors-font-active)\\"
     },

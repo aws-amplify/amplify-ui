@@ -813,6 +813,10 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-inappmessaging-dialog-width: 30vw;
         --amplify-components-inappmessaging-header-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-inappmessaging-header-font-weight: var(--amplify-font-weights-extrabold);
+        --amplify-components-input-color: var(--amplify-components-fieldcontrol-color);
+        --amplify-components-input-border-color: var(--amplify-components-fieldcontrol-border-color);
+        --amplify-components-input-font-size: var(--amplify-components-fieldcontrol-font-size);
+        --amplify-components-input-focus-border-color: var(--amplify-components-fieldcontrol-focus-border-color);
         --amplify-components-link-active-color: var(--amplify-colors-font-active);
         --amplify-components-link-color: var(--amplify-colors-font-interactive);
         --amplify-components-link-focus-color: var(--amplify-colors-font-focus);
