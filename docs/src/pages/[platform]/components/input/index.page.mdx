@@ -1,0 +1,41 @@
+---
+title: Input
+description: Input allows users to enter text content.
+# themeSource: packages/ui/src/theme/tokens/components/input.ts
+reactSource: packages/react/src/primitives/Input/Input.tsx
+mdnUrl: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+htmlElement: input
+supportedFrameworks: react
+---
+
+import { Fragment } from '@/components/Fragment';
+import { PageTabLayout } from '@/components/Layout/PageTabLayout';
+import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
+import { PropsTableTab } from '@/components/propsTable/PropsTableTab';
+import data from '@/data/props-table.json';
+
+export async function getStaticPaths() {
+  return getCustomStaticPath(frontmatter.supportedFrameworks);
+}
+
+{/*  `getStaticProps` is required to prevent "Error: getStaticPaths was added without a getStaticProps. Without getStaticProps, getStaticPaths does nothing" */}
+
+export async function getStaticProps() {
+  return { props: {} }
+}
+
+<PageTabLayout 
+  tabComponents={[{
+    title: "Documentation", 
+    children: <Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
+  },
+  {
+    title: "Props", 
+    children: <PropsTableTab 
+                componentName={frontmatter.title} 
+                PropsData={data} 
+                htmlElement={frontmatter.htmlElement} 
+                mdnUrl={frontmatter.mdnUrl}
+              />
+  }]}
+/>
