@@ -11,8 +11,6 @@ import {
   IconProviderExample,
   MessageColorThemes,
   MessageVariations,
-  WithCustomizedDismiss,
-  ComposableMessage,
   MessageGlobalStyling,
   MessageStyleProps,
   MessageAsAlert,
@@ -24,8 +22,6 @@ import {
 <MessageDemo />
 
 ## Usage
-
-Message can be customized via props as a basic component, or it can be used as a [composable component](#composable) which provides more control over layout and functionality.
 
 <Example>
   <BasicUsage />
@@ -89,41 +85,6 @@ For more control over the appearance and functionality of the dismiss button, co
   <BasicWithDismiss />
   <ExampleCode>
     ```jsx file=./examples/BasicWithDismiss.tsx
-
-    ```
-
-  </ExampleCode>
-</Example>
-
-## Composable
-
-For further control over the layout and child elements, Message includes composable child components to add extra layout customization: 
-- `Message.Container`
-- `Message.Content`
-- `Message.Heading`
-- `Message.Dismiss`
-- `Message.Icon`
-
-<Example>
-  <ComposableMessage />
-  <ExampleCode>
-    ```jsx file=./examples/ComposableMessage.tsx
-
-    ```
-
-  </ExampleCode>
-</Example>
-
-### Customizing the Dismiss child component
-
-`Message.Dismiss` can be customized to hide the icon by setting the prop `hasIcon={false}`. It can also accept custom button text and other props that our [Button](./button) primitive accepts.
-
-You can also override the dismiss functionality completely by passing an `onClick` event.
-
-<Example>
-  <WithCustomizedDismiss />
-  <ExampleCode>
-    ```jsx file=./examples/WithCustomizedDismiss.tsx
 
     ```
 

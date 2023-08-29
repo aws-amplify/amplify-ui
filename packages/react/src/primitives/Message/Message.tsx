@@ -50,22 +50,7 @@ const MessagePrimitive: Primitive<MessageProps, 'div'> = (
  * [📖 Docs](https://ui.docs.amplify.aws/react/components/message)
  */
 
-type MessageType = ForwardRefPrimitive<BaseMessageProps, 'div'> & {
-  Container: typeof MessageContainer;
-  Content: typeof MessageContent;
-  Dismiss: typeof MessageDismiss;
-  Icon: typeof MessageIcon;
-  Heading: typeof MessageHeading;
-};
-
-const Message: MessageType = Object.assign(React.forwardRef(MessagePrimitive), {
-  Container: MessageContainer,
-  Content: MessageContent,
-  Dismiss: MessageDismiss,
-  Icon: MessageIcon,
-  Heading: MessageHeading,
-});
+export const Message: ForwardRefPrimitive<BaseMessageProps, 'div'> =
+  React.forwardRef(MessagePrimitive);
 
 Message.displayName = 'Message';
-
-export { Message };

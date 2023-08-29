@@ -6986,6 +6986,12 @@ Object {
   },
   "Message": Object {
     "properties": Object {
+      "alignContent": Object {
+        "type": "string",
+      },
+      "alignItems": Object {
+        "type": "string",
+      },
       "alignSelf": Object {
         "type": "string",
       },
@@ -7037,16 +7043,28 @@ Object {
       "color": Object {
         "type": "string",
       },
+      "colorTheme": Object {
+        "type": "string",
+      },
       "column": Object {
         "type": "string",
       },
       "columnEnd": Object {
         "type": "string",
       },
+      "columnGap": Object {
+        "type": "string",
+      },
       "columnSpan": Object {
         "type": "string",
       },
       "columnStart": Object {
+        "type": "string",
+      },
+      "direction": Object {
+        "type": "string",
+      },
+      "dismissLabel": Object {
         "type": "string",
       },
       "display": Object {
@@ -7067,7 +7085,16 @@ Object {
       "fontWeight": Object {
         "type": "string",
       },
+      "gap": Object {
+        "type": "string",
+      },
       "grow": Object {
+        "type": "string",
+      },
+      "hasIcon": Object {
+        "type": "boolean",
+      },
+      "heading": Object {
         "type": "string",
       },
       "height": Object {
@@ -7082,7 +7109,10 @@ Object {
       "isDisabled": Object {
         "type": "boolean",
       },
-      "key": Object {
+      "isDismissible": Object {
+        "type": "boolean",
+      },
+      "justifyContent": Object {
         "type": "string",
       },
       "left": Object {
@@ -7196,6 +7226,9 @@ Object {
       "rowEnd": Object {
         "type": "string",
       },
+      "rowGap": Object {
+        "type": "string",
+      },
       "rowSpan": Object {
         "type": "string",
       },
@@ -7226,10 +7259,16 @@ Object {
       "transformOrigin": Object {
         "type": "string",
       },
+      "variation": Object {
+        "type": "string",
+      },
       "whiteSpace": Object {
         "type": "string",
       },
       "width": Object {
+        "type": "string",
+      },
+      "wrap": Object {
         "type": "string",
       },
     },

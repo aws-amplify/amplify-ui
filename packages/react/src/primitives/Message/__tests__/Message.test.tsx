@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import * as React from 'react';
+import userEvent from '@testing-library/user-event';
 
 import { Message } from '../Message';
 import { MessageColorTheme, MessageProps } from '../../types';
@@ -144,5 +145,14 @@ describe('Message', () => {
 
     await screen.findByTestId(testId);
     expect(ref.current?.nodeName).toBe('DIV');
+  });
+
+  it('should fire onDismiss passed as prop to Message', async () => {
+    const onDismiss = jest.fn();
+    render(<Message isDismissible={true} onDismiss={onDismiss}></Message>);
+
+    const button = await screen.findByRole('button');
+    userEvent.click(button);
+    expect(onDismiss).toHaveBeenCalledTimes(1);
   });
 });
