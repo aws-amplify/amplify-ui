@@ -2,7 +2,7 @@ import { Fieldset, Text, TextField } from '@aws-amplify/ui-react';
 
 export const DisabledFieldset = () => {
   return (
-    <Fieldset legend="Disabled Fieldset" isDisabled={true}>
+    <Fieldset legend="Disabled Fieldset" isDisabled>
       <Text fontStyle="italic" variation="tertiary">
         The input in this fieldset is disabled because of the parent fieldset.
       </Text>
