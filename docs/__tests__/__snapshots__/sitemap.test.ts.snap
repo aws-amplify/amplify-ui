@@ -62,6 +62,7 @@ exports[`Sitemap Snapshot 1`] = `
 /react/components/collection, 
 /react/components/divider, 
 /react/components/expander, 
+/react/components/fieldset, 
 /react/components/flex, 
 /react/components/grid, 
 /react/components/heading, 

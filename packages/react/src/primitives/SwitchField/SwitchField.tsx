@@ -48,10 +48,8 @@ const SwitchFieldPrimitive: Primitive<SwitchFieldProps, 'div'> = (
     defaultChecked,
     isDisabled,
   });
-  const { isDisabled: isDisabledByFieldset } = useFieldset();
-  const shouldBeDisabled = isDisabledByFieldset
-    ? isDisabledByFieldset
-    : isDisabled;
+  const { isDisabled: isFieldsetDisabled } = useFieldset();
+  const shouldBeDisabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
 
   const fieldId = useStableId(id);
   const LabelType = isLabelHidden ? VisuallyHidden : View;

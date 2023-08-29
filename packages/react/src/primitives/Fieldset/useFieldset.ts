@@ -1,12 +1,10 @@
 import * as React from 'react';
 
-export interface FieldsetContextProps {
-  isNestedFieldset: boolean;
+interface FieldsetContextType {
   isDisabled?: boolean;
 }
 
-export const FieldsetContext = React.createContext<FieldsetContextProps>({
-  isNestedFieldset: false,
+export const FieldsetContext = React.createContext<FieldsetContextType>({
   isDisabled: false,
 });
 /**
@@ -15,5 +13,5 @@ export const FieldsetContext = React.createContext<FieldsetContextProps>({
  * via context. We also use isNestedFieldset to determine if a fieldset is
  * nested because it should be disabled if its parent fieldset is disabled.
  */
-export const useFieldset = (): FieldsetContextProps =>
+export const useFieldset = (): FieldsetContextType =>
   React.useContext(FieldsetContext);

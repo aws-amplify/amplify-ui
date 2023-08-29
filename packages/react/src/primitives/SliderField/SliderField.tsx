@@ -55,7 +55,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
   },
   ref
 ) => {
-  const { isDisabled: isDisabledByFieldset } = useFieldset();
+  const { isDisabled: isFieldsetDisabled } = useFieldset();
 
   const fieldId = useStableId(id);
   const labelId = useStableId();
@@ -144,7 +144,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, 'span'> = (
         <Root
           className={rootComponentClasses}
           data-testid={SLIDER_ROOT_TEST_ID}
-          disabled={isDisabledByFieldset ? isDisabledByFieldset : isDisabled}
+          disabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
           defaultValue={defaultValues}
           onValueChange={onValueChange}
           orientation={orientation}

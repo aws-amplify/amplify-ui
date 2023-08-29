@@ -5,3 +5,4 @@ export { FieldsetDirection } from './FieldsetDirection';
 export { DisabledFieldset } from './DisabledFieldset';
 export { FormAttribute } from './FormAttribute';
 export { NameAttribute } from './NameAttribute';
+export { TestFieldsetControls } from './TestFieldsetControls';

@@ -30,18 +30,14 @@ const FieldsetPrimitive: Primitive<FieldsetProps, 'fieldset'> = (
   },
   ref
 ) => {
-  const { isDisabled: isDisabledByFieldset, isNestedFieldset } = useFieldset();
+  const { isDisabled: isFieldsetDisabled } = useFieldset();
 
   // Fieldsets that are nested within a disabled Fieldset should
   // also be disabled.
-  const shouldBeDisabled =
-    isNestedFieldset && isDisabledByFieldset
-      ? isDisabledByFieldset
-      : isDisabled;
+  const shouldBeDisabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
   const value = React.useMemo(
     () => ({
       // Set isNestedFieldset to true so we can detect nested Fieldsets.
-      isNestedFieldset: true,
       isDisabled: shouldBeDisabled,
     }),
     [shouldBeDisabled]

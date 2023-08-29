@@ -42,10 +42,8 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
 
   const [focused, setFocused] = React.useState(false);
   const icons = useIcons('checkbox');
-  const { isDisabled: isDisabledByFieldset } = useFieldset();
-  const shouldBeDisabled = isDisabledByFieldset
-    ? isDisabledByFieldset
-    : isDisabled;
+  const { isDisabled: isFieldsetDisabled } = useFieldset();
+  const shouldBeDisabled = isFieldsetDisabled ? isFieldsetDisabled : isDisabled;
 
   const isControlled = controlledChecked !== undefined;
   const [localChecked, setLocalChecked] = React.useState(() =>

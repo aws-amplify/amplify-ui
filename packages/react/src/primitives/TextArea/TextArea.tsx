@@ -29,7 +29,7 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
     classNameModifierByFlag(ComponentClassNames.Textarea, 'error', hasError),
     className
   );
-  const { isDisabled: isDisabledByFieldset } = useFieldset();
+  const { isDisabled: isFieldsetDisabled } = useFieldset();
 
   return (
     <View
@@ -38,7 +38,7 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
       className={componentClasses}
       data-size={size}
       data-variation={variation}
-      disabled={isDisabledByFieldset ? isDisabledByFieldset : isDisabled}
+      disabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
       readOnly={isReadOnly}
       ref={ref}
       required={isRequired}

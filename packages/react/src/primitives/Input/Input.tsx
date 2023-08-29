@@ -40,7 +40,7 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
     classNameModifier(ComponentClassNames.Input, size),
     className
   );
-  const { isDisabled: isDisabledByFieldset } = useFieldset();
+  const { isDisabled: isFieldsetDisabled } = useFieldset();
 
   return (
     <View
@@ -53,7 +53,7 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
       data-variation={variation}
       defaultChecked={defaultChecked}
       defaultValue={defaultValue}
-      isDisabled={isDisabledByFieldset ? isDisabledByFieldset : isDisabled}
+      isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
       id={id}
       readOnly={isReadOnly}
       ref={ref}
