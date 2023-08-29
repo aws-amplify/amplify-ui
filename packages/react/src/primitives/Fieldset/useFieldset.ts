@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 interface FieldsetContextType {
-  isDisabled?: boolean;
+  isFieldsetDisabled?: boolean;
 }
 
 export const FieldsetContext = React.createContext<FieldsetContextType>({
-  isDisabled: false,
+  isFieldsetDisabled: false,
 });
 /**
  * @description Fieldsets in HTML can be disabled, which disables all child

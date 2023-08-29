@@ -48,7 +48,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     size,
     labelPosition: groupLabelPosition,
   } = useRadioGroupContext();
-  const { isDisabled: isFieldsetDisabled } = useFieldset();
+  const { isFieldsetDisabled } = useFieldset();
 
   const shouldBeDisabled = isFieldsetDisabled
     ? isFieldsetDisabled

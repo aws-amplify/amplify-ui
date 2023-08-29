@@ -40,7 +40,7 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
     classNameModifier(ComponentClassNames.Input, size),
     className
   );
-  const { isDisabled: isFieldsetDisabled } = useFieldset();
+  const { isFieldsetDisabled } = useFieldset();
 
   return (
     <View

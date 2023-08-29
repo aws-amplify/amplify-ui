@@ -42,7 +42,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
     className
   );
   const icons = useIcons('select');
-  const { isDisabled: isFieldsetDisabled } = useFieldset();
+  const { isFieldsetDisabled } = useFieldset();
 
   return (
     <View className={ComponentClassNames.SelectWrapper}>
