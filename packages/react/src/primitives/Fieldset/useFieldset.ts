@@ -9,9 +9,8 @@ export const FieldsetContext = React.createContext<FieldsetContextType>({
 });
 /**
  * @description Fieldsets in HTML can be disabled, which disables all child
- * fieldsets and input controls. useFieldset passes the disabled state down
- * via context. We also use isNestedFieldset to determine if a fieldset is
- * nested because it should be disabled if its parent fieldset is disabled.
+ * fieldsets and input controls. `useFieldset` passes the disabled state down
+ * via context.
  */
 export const useFieldset = (): FieldsetContextType =>
   React.useContext(FieldsetContext);
