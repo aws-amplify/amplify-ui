@@ -644,6 +644,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldmessages-description-color: var(--amplify-colors-font-secondary);
         --amplify-components-fieldmessages-description-font-style: italic;
         --amplify-components-fieldmessages-description-font-size: var(--amplify-font-sizes-small);
+        --amplify-components-fieldset-background-color: transparent;
         --amplify-components-fieldset-border-radius: var(--amplify-radii-xs);
         --amplify-components-fieldset-flex-direction: column;
         --amplify-components-fieldset-gap: var(--amplify-components-field-gap);
