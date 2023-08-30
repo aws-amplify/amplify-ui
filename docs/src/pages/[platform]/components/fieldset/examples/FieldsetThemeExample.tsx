@@ -21,7 +21,7 @@ const theme = createTheme({
   },
 });
 
-export const ThemeExample = () => (
+export const FieldsetThemeExample = () => (
   <ThemeProvider theme={theme} colorMode="light">
     <Fieldset legend="Default fieldset with theming">
       Some content of the fieldset.
