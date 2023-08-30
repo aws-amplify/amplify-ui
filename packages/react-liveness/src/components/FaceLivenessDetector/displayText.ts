@@ -49,7 +49,7 @@ export type StreamDisplayText = {
 export const defaultErrorDisplayText = {
   timeoutHeaderText: 'Time out',
   timeoutMessageText:
-    "Face didn't fill oval within time limit. Try again and completely fill oval with face within 7 seconds.",
+    "Face didn't fit inside oval in time limit. Try again and completely fill the oval with face in it.",
   faceDistanceHeaderText: 'Forward movement detected',
   faceDistanceMessageText: 'Avoid moving closer when connecting.',
   multipleFacesHeaderText: 'Multiple faces detected',
