@@ -1,5 +1,6 @@
 import { IconType } from 'react-icons/lib';
 import {
+  MdFeedback,
   MdFormatSize,
   MdTextFormat,
   MdOutlineImage,
@@ -259,8 +260,9 @@ export const feedbackComponents: ComponentNavItem[] = [
   {
     href: '/components/message',
     label: 'Message',
-    body: `A message displays feedback to the user`,
+    body: `A Message can be used to display feedback to the user.`,
     platforms: ['react'],
+    icon: MdFeedback,
   },
   {
     href: '/components/placeholder',
