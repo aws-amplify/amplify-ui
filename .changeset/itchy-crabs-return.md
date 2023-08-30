@@ -25,5 +25,3 @@ export default function DefaultDropZoneExample() {
   );
 }
 ```
-
-The DropZone part of the StorageManager connected component has been updated to use the new DropZone component too!
