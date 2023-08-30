@@ -88,7 +88,7 @@ export const defaultLivenessDisplayText: Required<LivenessDisplayText> = {
   tooFarAltText:
     "Illustration of a person's face inside of an oval; there is a gap between the perimeter of the face and the boundaries of the oval.",
   instructionListStepOneText:
-    'When an oval appears, fill the oval with your face within 7 seconds.',
+    'When an oval appears, follow the instructions to fit your face in it.',
   instructionListStepTwoText: "Maximize your screen's brightness.",
   instructionListStepThreeText:
     'Make sure your face is not covered with sunglasses or a mask.',
