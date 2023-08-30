@@ -48,7 +48,6 @@ import {
 import { STATIC_VIDEO_CONSTRAINTS } from '../../StartLiveness/helpers';
 
 export const MIN_FACE_MATCH_TIME = 500;
-const DEFAULT_FACE_FIT_TIMEOUT = 7000;
 
 // timer metrics variables
 let faceDetectedTimestamp: number;
@@ -675,13 +674,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       sendTimeoutAfterOvalMatchDelay: actions.send(
         { type: 'TIMEOUT' },
         {
-          delay: (context) => {
-            return (
-              context.serverSessionInformation?.Challenge
-                ?.FaceMovementAndLightChallenge?.ChallengeConfig
-                ?.OvalFitTimeout || DEFAULT_FACE_FIT_TIMEOUT
-            );
-          },
+          delay: 7000,
           id: 'ovalMatchTimeout',
         }
       ),
