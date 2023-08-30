@@ -38,6 +38,7 @@ import {
   MdCheckCircle,
   MdHighlight,
   MdChevronRight,
+  MdPanToolAlt,
   MdLabel,
 } from 'react-icons/md';
 
@@ -286,6 +287,13 @@ export const inputComponents: ComponentNavItem[] = [
     icon: MdSearch,
   },
   {
+    href: '/components/fieldset',
+    label: 'Fieldset',
+    body: `Fieldsets are used to group related form fields.`,
+    platforms: ['react'],
+    icon: MdSearch,
+  },
+  {
     href: '/components/input',
     label: 'Input',
     body: `Input primitive allows creating interactive form controls`,
@@ -389,6 +397,13 @@ export const inputComponents: ComponentNavItem[] = [
     body: `The Button primitive is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.`,
     platforms: ['react'],
     icon: MdTouchApp,
+  },
+  {
+    href: '/components/dropzone',
+    label: 'DropZone',
+    body: `The Dropzone component captures files from user with drag and drop`,
+    platforms: ['react'],
+    icon: MdPanToolAlt,
   },
 ].sort(sortByLabel);
 

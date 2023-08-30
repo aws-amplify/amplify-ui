@@ -198,6 +198,11 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Divider'],
     description: 'Class applied to the label of the Divider component',
   },
+  DropZone: {
+    className: ComponentClassName.DropZone,
+    components: ['DropZone'],
+    description: 'Class applied to the DropZone component',
+  },
   Expander: {
     className: ComponentClassName.Expander,
     components: ['Expander'],
@@ -238,6 +243,9 @@ export const ComponentClassObject: ComponentClassNameItems = {
   FieldErrorMessage: { className: ComponentClassName.FieldErrorMessage },
   FieldGroup: { className: ComponentClassName.FieldGroup },
   FieldGroupControl: { className: ComponentClassName.FieldGroupControl },
+  FieldGroupFieldWrapper: {
+    className: ComponentClassName.FieldGroupFieldWrapper,
+  },
   FieldGroupOuterEnd: { className: ComponentClassName.FieldGroupOuterEnd },
   FieldGroupOuterStart: { className: ComponentClassName.FieldGroupOuterStart },
   FieldGroupInnerEnd: { className: ComponentClassName.FieldGroupInnerEnd },
@@ -251,8 +259,15 @@ export const ComponentClassObject: ComponentClassNameItems = {
     className: ComponentClassName.FieldGroupHasInnerStart,
   },
   FieldShowPassword: { className: ComponentClassName.FieldShowPassword },
-  FieldGroupFieldWrapper: {
-    className: ComponentClassName.FieldGroupFieldWrapper,
+  Fieldset: {
+    className: ComponentClassName.Fieldset,
+    components: ['Fieldset'],
+    description: 'Top level element that wraps the Fieldset primitive',
+  },
+  FieldsetLegend: {
+    className: ComponentClassName.FieldsetLegend,
+    components: ['Fieldset'],
+    description: 'Visual label for the Fieldset primitive',
   },
   FileUploaderDropZone: {
     className: ComponentClassName.FileUploaderDropZone,
@@ -848,6 +863,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   DialCodeSelect: ComponentClassObject.DialCodeSelect.className,
   Divider: ComponentClassObject.Divider.className,
   DividerLabel: ComponentClassObject.DividerLabel.className,
+  DropZone: ComponentClassObject.DropZone.className,
   Expander: ComponentClassObject.Expander.className,
   ExpanderContent: ComponentClassObject.ExpanderContent.className,
   ExpanderContentText: ComponentClassObject.ExpanderContentText.className,
@@ -871,6 +887,8 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.FieldGroupHasInnerStart.className,
   FieldShowPassword: ComponentClassObject.FieldShowPassword.className,
   FieldGroupFieldWrapper: ComponentClassObject.FieldGroupFieldWrapper.className,
+  Fieldset: ComponentClassObject.Fieldset.className,
+  FieldsetLegend: ComponentClassObject.FieldsetLegend.className,
   FileUploaderDropZone: ComponentClassObject.FileUploaderDropZone.className,
   FileUploaderDropZoneIcon:
     ComponentClassObject.FileUploaderDropZoneIcon.className,

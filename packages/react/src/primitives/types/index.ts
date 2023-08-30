@@ -14,6 +14,7 @@ export * from './expander';
 export * from './field';
 export * from './fieldGroup';
 export * from './fieldGroupIcon';
+export * from './fieldset';
 export * from './flex';
 export * from './heading';
 export * from './highlightMatch';
