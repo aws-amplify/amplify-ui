@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Checkbox } from '../Checkbox';
+import { Fieldset } from '../../Fieldset';
 import { CheckboxProps } from '../../types/checkbox';
 import { PrimitiveProps } from '../../types/view';
 import { ComponentClassNames } from '../../shared/constants';
@@ -78,6 +79,30 @@ describe('Checkbox', () => {
     );
   });
 
+  it('should always be disabled if parent Fieldset isDisabled', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <Checkbox {...basicProps} testId="checkbox" />
+        <Checkbox
+          {...basicProps}
+          isDisabled={false}
+          testId="checkboxWithDisabledProp"
+        />
+      </Fieldset>
+    );
+
+    const checkbox = await screen.findByTestId('checkbox');
+    const checkboxDisabled = await screen.findByTestId(
+      'checkboxWithDisabledProp'
+    );
+    expect(checkbox).toHaveClass(
+      `${ComponentClassNames['Checkbox']}--disabled`
+    );
+    expect(checkboxDisabled).toHaveClass(
+      `${ComponentClassNames['Checkbox']}--disabled`
+    );
+  });
+
   it('should render basic props correctly', async () => {
     render(getCheckbox({ ...basicProps }));
 
@@ -125,6 +150,28 @@ describe('Checkbox', () => {
 
       const input = await screen.findByRole('checkbox');
       expect(input).toBeChecked();
+    });
+
+    it('should be disabled if parent Fieldset isDisabled and checkbox isDisabled={false}', async () => {
+      render(
+        <Fieldset legend="legend" isDisabled>
+          {getCheckbox({ ...basicProps, isDisabled: false })}
+        </Fieldset>
+      );
+
+      const input = await screen.findByRole('checkbox');
+      expect(input).toBeDisabled();
+    });
+
+    it('should be disabled if parent Fieldset isDisabled and checkbox isDisabled is not defined', async () => {
+      render(
+        <Fieldset legend="legend" isDisabled>
+          {getCheckbox({ ...basicProps })}
+        </Fieldset>
+      );
+
+      const input = await screen.findByRole('checkbox');
+      expect(input).toBeDisabled();
     });
 
     it('should be disabled if isDisabled is set to true', async () => {

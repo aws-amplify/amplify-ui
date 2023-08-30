@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Input } from '../Input';
+import { Fieldset } from '../../Fieldset';
 import { ComponentClassNames } from '../../shared';
 
 describe('Input component', () => {
@@ -83,6 +84,20 @@ describe('Input component', () => {
     expect(input).toHaveAttribute('disabled');
     expect(input).toHaveAttribute('readonly');
     expect(input).toHaveAttribute('required');
+  });
+
+  it('should always be disabled if parent Fieldset isDisabled', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <Input testId="input" />
+        <Input testId="inputWithDisabledProp" isDisabled={false} />
+      </Fieldset>
+    );
+
+    const input = await screen.findByTestId('input');
+    const inputDisabled = await screen.findByTestId('inputWithDisabledProp');
+    expect(input).toBeDisabled();
+    expect(inputDisabled).toBeDisabled();
   });
 
   it('should set size and variation data attributes', async () => {

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { Radio } from '../Radio';
+import { Fieldset } from '../../Fieldset';
 import { RadioGroupField } from '../../RadioGroupField';
 import { View } from '../../View';
 import { ComponentClassNames } from '../../shared';
@@ -47,6 +48,36 @@ describe('RadioField test suite', () => {
       <Radio value="test" isDisabled>
         test
       </Radio>
+    );
+
+    const radio = await screen.findByRole('radio');
+    expect(radio).toBeDisabled();
+
+    const radioLabel = await screen.findByText('test');
+    expect(radioLabel).toHaveAttribute('data-disabled', 'true');
+  });
+
+  it('should always be disabled if parent Fieldset isDisabled and radio isDisabled is not defined', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <Radio value="test">test</Radio>
+      </Fieldset>
+    );
+
+    const radio = await screen.findByRole('radio');
+    expect(radio).toBeDisabled();
+
+    const radioLabel = await screen.findByText('test');
+    expect(radioLabel).toHaveAttribute('data-disabled', 'true');
+  });
+
+  it('should always be disabled if parent Fieldset isDisabled and radio isDisabled={false}', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <Radio value="radio1" isDisabled={false}>
+          test
+        </Radio>
+      </Fieldset>
     );
 
     const radio = await screen.findByRole('radio');
