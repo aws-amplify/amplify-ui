@@ -3372,7 +3372,7 @@ exports[`Props Table 1`] = `
                     },
                     \\"variation\\": {
                         \\"name\\": \\"variation\\",
-                        \\"type\\": \\"'outlined' | 'plain'\\",
+                        \\"type\\": \\"\\\\\\"outlined\\\\\\" | \\\\\\"plain\\\\\\" | undefined\\",
                         \\"description\\": \\"Adds plain or outlined variation to the Fieldset\\",
                         \\"category\\": \\"BaseFieldsetProps\\",
                         \\"isOptional\\": true
