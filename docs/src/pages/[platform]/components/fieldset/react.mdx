@@ -10,7 +10,6 @@ import {
   FieldsetVariations, 
   FieldsetDirection,
   DisabledFieldset,
-  FormAttribute,
   NameAttribute,
   FieldsetThemeExample,
   FieldsetStylePropsExample
@@ -97,22 +96,6 @@ Fieldset can be disabled by using `isDisabled={true}` prop which will apply the 
   <ExampleCode>
 
 ```jsx file=./examples/DisabledFieldset.tsx
-
-```
-
-  </ExampleCode>
-</Example>
-
-### Form attribute
-Fieldset supports the [form] attribute on a Fieldset using the `form` prop. Use this prop if you need to associate a Fieldset with a form that it is not a descendant of. The value of `form` should match the id of a form element. Read more about <Link isExternal href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fae-form">listed elements of forms in the HTML spec</Link>.
-<Example>
-  <View>
-    <FormAttribute />
-  </View>
-  
-  <ExampleCode>
-
-```jsx file=./examples/FormAttribute.tsx
 
 ```
 
