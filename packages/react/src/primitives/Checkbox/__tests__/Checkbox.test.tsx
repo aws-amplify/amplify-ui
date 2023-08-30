@@ -160,7 +160,7 @@ describe('Checkbox', () => {
       );
 
       const input = await screen.findByRole('checkbox');
-      expect(input).toBeDisabled();
+      expect(input).toHaveAttribute('disabled');
     });
 
     it('should be disabled if parent Fieldset isDisabled and checkbox isDisabled is not defined', async () => {
@@ -171,7 +171,7 @@ describe('Checkbox', () => {
       );
 
       const input = await screen.findByRole('checkbox');
-      expect(input).toBeDisabled();
+      expect(input).toHaveAttribute('disabled');
     });
 
     it('should be disabled if isDisabled is set to true', async () => {

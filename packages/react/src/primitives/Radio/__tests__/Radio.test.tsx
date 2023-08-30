@@ -65,7 +65,7 @@ describe('RadioField test suite', () => {
     );
 
     const radio = await screen.findByRole('radio');
-    expect(radio).toBeDisabled();
+    expect(radio).toHaveAttribute('disabled');
 
     const radioLabel = await screen.findByText('test');
     expect(radioLabel).toHaveAttribute('data-disabled', 'true');
@@ -81,7 +81,7 @@ describe('RadioField test suite', () => {
     );
 
     const radio = await screen.findByRole('radio');
-    expect(radio).toBeDisabled();
+    expect(radio).toHaveAttribute('disabled');
 
     const radioLabel = await screen.findByText('test');
     expect(radioLabel).toHaveAttribute('data-disabled', 'true');

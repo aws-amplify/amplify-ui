@@ -96,8 +96,8 @@ describe('Input component', () => {
 
     const input = await screen.findByTestId('input');
     const inputDisabled = await screen.findByTestId('inputWithDisabledProp');
-    expect(input).toBeDisabled();
-    expect(inputDisabled).toBeDisabled();
+    expect(input).toHaveAttribute('disabled');
+    expect(inputDisabled).toHaveAttribute('disabled');
   });
 
   it('should set size and variation data attributes', async () => {
