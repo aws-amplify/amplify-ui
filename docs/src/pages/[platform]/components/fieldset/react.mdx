@@ -3,6 +3,7 @@ import { Flex, Text, Button, View, Alert, Fieldset, Link } from '@aws-amplify/ui
 import { FieldsetDemo } from './demo';
 import { Example, ExampleCode } from '@/components/Example';
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay';
+import ThemeExample from '@/components/ThemeExample.mdx';
 import { 
   BasicFieldset, 
   FieldsetSizes, 
@@ -11,7 +12,7 @@ import {
   DisabledFieldset,
   FormAttribute,
   NameAttribute,
-  ThemeExample,
+  FieldsetThemeExample,
   FieldsetStylePropsExample
 } from './examples';
 
@@ -136,22 +137,19 @@ Fieldset supports the [name] attribute. Use the `name` prop to supply a name for
 
 ## Styling
 
-### Theme
+<ThemeExample component="Fieldset">
+  <Example>
+    <FieldsetThemeExample />
+    
+    <ExampleCode>
 
-<Example>
-  <View>
-    <ThemeExample />
-  </View>
-  
-  <ExampleCode>
+    ```tsx file=./examples/FieldsetThemeExample.tsx
 
-```jsx file=./examples/ThemeExample.tsx
+    ```
 
-```
-
-  </ExampleCode>
-</Example>
-
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 
@@ -192,8 +190,6 @@ To override styling on a specific Fieldset, you can use (in order of increasing 
   <Fieldset className="purple-fieldset" legend="A purple fieldset">
     This is a purple fieldset
   </Fieldset>
-  
-  
   <ExampleCode>
 
 ```css

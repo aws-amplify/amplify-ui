@@ -1,6 +1,6 @@
 import { Example, ExampleCode } from '@/components/Example'
 import { ComponentStyleDisplay } from '@/components/ComponentStyleDisplay'
-
+import ThemeExample from '@/components/ThemeExample.mdx';
 import {
   AcceptRejectDropZoneExample,
   DefaultDropZoneExample,
@@ -71,17 +71,16 @@ You can add a button to open the file picker by adding a hidden input and firing
 
 ## Styling
 
-{/* Commenting this out to not break link checker */}
-{/* <ThemeExample component="DropZone"> */}
-<Example>
-  <DropZoneThemeExample />
-  
-  <ExampleCode>
-  ```jsx file=./examples/DropZoneThemeExample.tsx
-  ```
-  </ExampleCode>
-</Example>
-{/* </ThemeExample> */}
+<ThemeExample component="DropZone">
+  <Example>
+    <DropZoneThemeExample />
+    
+    <ExampleCode>
+    ```jsx file=./examples/DropZoneThemeExample.tsx
+    ```
+    </ExampleCode>
+  </Example>
+</ThemeExample>
 
 ### Target classes
 
