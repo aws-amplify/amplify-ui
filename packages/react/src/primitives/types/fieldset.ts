@@ -5,8 +5,6 @@ import { BaseViewProps } from './view';
 import { FlexContainerStyleProps } from './flex';
 import { ElementType, PrimitiveProps } from './view';
 
-export type FieldsetVariation = 'outlined' | 'plain';
-
 /** @deprecated For internal use only */
 export interface BaseFieldsetProps
   extends BaseViewProps,
@@ -27,7 +25,7 @@ export interface BaseFieldsetProps
    * @description
    * Adds plain or outlined variation to the Fieldset
    */
-  variation?: FieldsetVariation;
+  variation?: 'outlined' | 'plain';
 
   /**
    * @description
