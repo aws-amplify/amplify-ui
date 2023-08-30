@@ -103,22 +103,6 @@ Fieldset can be disabled by using `isDisabled={true}` prop which will apply the 
   </ExampleCode>
 </Example>
 
-### Form attribute
-Fieldset supports the [form] attribute on a Fieldset using the `form` prop. Use this prop if you need to associate a Fieldset with a form that it is not a descendant of. The value of `form` should match the id of a form element. Read more about <Link isExternal href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#attr-fae-form">listed elements of forms in the HTML spec</Link>.
-<Example>
-  <View>
-    <FormAttribute />
-  </View>
-  
-  <ExampleCode>
-
-```jsx file=./examples/FormAttribute.tsx
-
-```
-
-  </ExampleCode>
-</Example>
-
 ### Name attribute
 Fieldset supports the [name] attribute. Use the `name` prop to supply a name for your Fieldset. This can be useful if parsing form controls <Link href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements" isExternal>using the form.elements api</Link>
 <Example>
