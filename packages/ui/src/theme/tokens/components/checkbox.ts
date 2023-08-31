@@ -88,15 +88,7 @@ export const checkbox: Required<CheckboxTokens<'default'>> = {
       outlineWidth: { value: '{outlineWidths.medium.value}' },
       outlineOffset: { value: '{outlineOffsets.medium.value}' },
       borderColor: { value: '{colors.transparent.value}' },
-      boxShadow: {
-        value: {
-          offsetX: '0px',
-          offsetY: '0px',
-          blurRadius: '0px',
-          spreadRadius: '2px',
-          color: '{colors.border.focus.value}',
-        },
-      },
+      boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
     _disabled: {
       borderColor: { value: '{colors.border.disabled.value}' },
@@ -106,13 +98,7 @@ export const checkbox: Required<CheckboxTokens<'default'>> = {
       _focus: {
         borderColor: { value: '{colors.transparent.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '2px',
-            color: '{colors.border.error.value}',
-          },
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
         },
       },
     },
