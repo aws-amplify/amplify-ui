@@ -22,6 +22,7 @@ export type { UseDataStoreUpdateActionOptions } from './hooks/actions/useDataSto
 export { AlertIcon } from './primitives/Alert/AlertIcon';
 export * from './primitives/Icon/internal';
 export * from './primitives/shared/datastore';
+export { useDropZone } from './primitives/DropZone/useDropZone';
 export {
   EscapeHatchProps,
   Variant,

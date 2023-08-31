@@ -6,10 +6,12 @@ import { ComponentClassNames } from '../shared';
 import { ForwardRefPrimitive, Primitive } from '../types/view';
 import { BaseTextAreaProps, TextAreaProps } from '../types/textArea';
 import { View } from '../View';
+import { useFieldset } from '../Fieldset/useFieldset';
 
 const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
   {
     className,
+    isDisabled,
     isReadOnly,
     isRequired,
     size,
@@ -27,6 +29,7 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
     classNameModifierByFlag(ComponentClassNames.Textarea, 'error', hasError),
     className
   );
+  const { isFieldsetDisabled } = useFieldset();
 
   return (
     <View
@@ -35,6 +38,7 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
       className={componentClasses}
       data-size={size}
       data-variation={variation}
+      disabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
       readOnly={isReadOnly}
       ref={ref}
       required={isRequired}
