@@ -17,6 +17,6 @@ Liveness component supports using a custom credential provider.
       Then I see "liveness-detector" element
       Then I see "connecting"
       Then I see "Move closer"
-      Then I see "Face didn't fill oval within time limit."
+      Then I see "Face didn't fit inside oval in time limit."
       Then I click the "Try again" button
       Then I see the "Begin check" button
