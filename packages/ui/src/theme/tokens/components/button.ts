@@ -178,13 +178,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.blue.10.value}' },
         color: { value: '{colors.blue.100.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.blue.100.value}',
-          },
+          value: '{components.fieldcontrol.info._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -207,13 +201,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.orange.10.value}' },
         color: { value: '{colors.orange.100.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.orange.100.value}',
-          },
+          value: '{components.fieldcontrol.warning._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -236,13 +224,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.green.10.value}' },
         color: { value: '{colors.green.100.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.green.100.value}',
-          },
+          value: '{components.fieldcontrol.success._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -265,13 +247,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.red.10.value}' },
         color: { value: '{colors.red.100.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.red.100.value}',
-          },
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -294,13 +270,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.overlay.5.value}' },
         color: { value: '{colors.neutral.90.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.overlay.90.value}',
-          },
+          value: '{components.fieldcontrol.overlay._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -357,13 +327,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.blue.90.value}' },
         color: { value: '{colors.font.inverse.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.blue.100.value}',
-          },
+          value: '{components.fieldcontrol.info._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -386,13 +350,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.orange.90.value}' },
         color: { value: '{colors.font.inverse.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.orange.100.value}',
-          },
+          value: '{components.fieldcontrol.overlay._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -415,13 +373,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.red.90.value}' },
         color: { value: '{colors.font.inverse.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.red.100.value}',
-          },
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -444,13 +396,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.green.90.value}' },
         color: { value: '{colors.font.inverse.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.green.100.value}',
-          },
+          value: '{components.fieldcontrol.success._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -473,13 +419,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.overlay.90.value}' },
         color: { value: '{colors.font.inverse.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.overlay.90.value}',
-          },
+          value: '{components.fieldcontrol.overlay._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -559,13 +499,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.blue.10.value}' },
         color: { value: '{colors.blue.100.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.blue.100.value}',
-          },
+          value: '{components.fieldcontrol.info._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -588,13 +522,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.orange.10.value}' },
         color: { value: '{colors.orange.100.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.orange.100.value}',
-          },
+          value: '{components.fieldcontrol.warning._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -617,13 +545,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.green.10.value}' },
         color: { value: '{colors.green.100.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.green.100.value}',
-          },
+          value: '{components.fieldcontrol.success._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -646,13 +568,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.red.10.value}' },
         color: { value: '{colors.red.100.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.red.100.value}',
-          },
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
         },
       },
       _active: {
@@ -675,13 +591,7 @@ export const button: Required<ButtonTokens<'default'>> = {
         backgroundColor: { value: '{colors.overlay.5.value}' },
         color: { value: '{colors.overlay.90.value}' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '0px',
-            blurRadius: '0px',
-            spreadRadius: '1px',
-            color: '{colors.overlay.90.value}',
-          },
+          value: '{components.fieldcontrol.overlay._focus.boxShadow.value}',
         },
       },
       _active: {

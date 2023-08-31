@@ -26,6 +26,10 @@ type FieldControlErrorTokens<Output> = DesignTokenProperties<
   _focus?: DesignTokenProperties<'boxShadow', Output>;
 };
 
+// type FieldControlColorThemeTokens<Output> = {
+//   _focus?: DesignTokenProperties<'boxShadow', Output>;
+// };
+
 type FieldControlQuietTokens<Output> = DesignTokenProperties<
   | 'borderStyle'
   | 'borderInlineStart'
@@ -66,6 +70,18 @@ export type FieldControlTokens<Output extends OutputVariantKey> =
     _focus?: FieldControlFocusTokens<Output>;
     _disabled?: FieldControlDisabledTokens<Output>;
     _error?: FieldControlErrorTokens<Output>;
+    info?: {
+      _focus?: DesignTokenProperties<'boxShadow', Output>;
+    };
+    warning?: {
+      _focus?: DesignTokenProperties<'boxShadow', Output>;
+    };
+    success?: {
+      _focus?: DesignTokenProperties<'boxShadow', Output>;
+    };
+    overlay?: {
+      _focus?: DesignTokenProperties<'boxShadow', Output>;
+    };
   };
 
 export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
@@ -159,7 +175,7 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
   },
   _focus: {
     // These focus styles have been calibrated to create
-    // a highly visible focus indicator per WCAG 2.1 guidliness:
+    // a highly visible focus indicator per WCAG 2.2 guidliness:
     // See: https://www.w3.org/WAI/WCAG21/Techniques/general/G195.html
     //
     // Key features:
@@ -173,7 +189,7 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
         offsetX: '0px',
         offsetY: '0px',
         blurRadius: '0px',
-        spreadRadius: '1px',
+        spreadRadius: '2px',
         color: '{colors.border.focus.value}',
       },
     },
@@ -193,8 +209,60 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
           offsetX: '0px',
           offsetY: '0px',
           blurRadius: '0px',
-          spreadRadius: '1px',
+          spreadRadius: '2px',
           color: '{colors.border.error.value}',
+        },
+      },
+    },
+  },
+  info: {
+    _focus: {
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '2px',
+          color: '{colors.blue.100.value}',
+        },
+      },
+    },
+  },
+  warning: {
+    _focus: {
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '2px',
+          color: '{colors.orange.100.value}',
+        },
+      },
+    },
+  },
+  success: {
+    _focus: {
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '2px',
+          color: '{colors.green.100.value}',
+        },
+      },
+    },
+  },
+  overlay: {
+    _focus: {
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '2px',
+          color: '{colors.overlay.90.value}',
         },
       },
     },
