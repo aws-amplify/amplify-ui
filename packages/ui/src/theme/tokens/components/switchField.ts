@@ -46,13 +46,7 @@ export const switchfield: Required<SwitchFieldTokens<'default'>> = {
   },
   _focused: {
     shadow: {
-      value: {
-        offsetX: '0px',
-        offsetY: '0px',
-        blurRadius: '0px',
-        spreadRadius: '2px',
-        color: '{colors.border.focus.value}',
-      },
+      value: '{components.fieldcontrol._focus.boxShadow.value}',
     },
   },
 
