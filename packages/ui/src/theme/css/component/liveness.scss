@@ -161,7 +161,7 @@
 
 .amplify-liveness-match-indicator {
   display: block;
-  width: min(70%, 200px);
+  width: MIN(70%, 200px);
   position: relative;
   --amplify-liveness-match-indicator-transition: transform 0.2s linear;
 }
