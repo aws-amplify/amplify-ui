@@ -43,6 +43,7 @@
       --amplify-components-tabs-item-active-background-color
     );
     transition-property: none;
+    position: relative;
   }
 
   &:hover {
