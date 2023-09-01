@@ -1278,6 +1278,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-tabs-item-transition-duration: var(--amplify-time-medium);
         --amplify-components-tabs-item-hover-color: var(--amplify-colors-font-hover);
         --amplify-components-tabs-item-focus-color: var(--amplify-colors-font-focus);
+        --amplify-components-tabs-item-focus-visible-outline-color: var(--amplify-colors-border-focus);
         --amplify-components-tabs-item-active-color: var(--amplify-colors-font-interactive);
         --amplify-components-tabs-item-active-border-color: var(--amplify-colors-font-interactive);
         --amplify-components-tabs-item-active-background-color: transparent;

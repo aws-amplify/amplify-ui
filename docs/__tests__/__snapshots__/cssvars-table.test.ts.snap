@@ -5403,6 +5403,10 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-font-focus)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-tabs-item-focus-visible-outline-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-focus)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-tabs-item-font-size\\",
         \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
     },
