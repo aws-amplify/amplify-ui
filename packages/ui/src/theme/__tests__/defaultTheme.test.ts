@@ -599,7 +599,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-expander-item-border-start-end-radius: var(--amplify-radii-medium);
         --amplify-components-expander-item-border-end-start-radius: var(--amplify-radii-medium);
         --amplify-components-expander-item-border-end-end-radius: var(--amplify-radii-medium);
-        --amplify-components-expander-item-focus-box-shadow: 0 0 0 2px var(--amplify-colors-border-focus);
+        --amplify-components-expander-item-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
         --amplify-components-expander-header-box-shadow: 0 1px 0  var(--amplify-colors-overlay-20);
         --amplify-components-expander-trigger-min-height: 3rem;
         --amplify-components-expander-trigger-padding-inline-start: var(--amplify-space-large);
