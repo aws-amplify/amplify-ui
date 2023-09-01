@@ -163,7 +163,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-outlined-info-focus-border-color: var(--amplify-colors-blue-100);
         --amplify-components-button-outlined-info-focus-background-color: var(--amplify-colors-blue-10);
         --amplify-components-button-outlined-info-focus-color: var(--amplify-colors-blue-100);
-        --amplify-components-button-outlined-info-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-blue-100);
+        --amplify-components-button-outlined-info-focus-box-shadow: var(--amplify-components-fieldcontrol-info-focus-box-shadow);
         --amplify-components-button-outlined-info-active-border-color: var(--amplify-colors-blue-100);
         --amplify-components-button-outlined-info-active-background-color: var(--amplify-colors-blue-20);
         --amplify-components-button-outlined-info-active-color: var(--amplify-colors-blue-100);
@@ -176,7 +176,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-outlined-warning-focus-border-color: var(--amplify-colors-orange-100);
         --amplify-components-button-outlined-warning-focus-background-color: var(--amplify-colors-orange-10);
         --amplify-components-button-outlined-warning-focus-color: var(--amplify-colors-orange-100);
-        --amplify-components-button-outlined-warning-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-orange-100);
+        --amplify-components-button-outlined-warning-focus-box-shadow: var(--amplify-components-fieldcontrol-warning-focus-box-shadow);
         --amplify-components-button-outlined-warning-active-border-color: var(--amplify-colors-orange-100);
         --amplify-components-button-outlined-warning-active-background-color: var(--amplify-colors-orange-20);
         --amplify-components-button-outlined-warning-active-color: var(--amplify-colors-orange-100);
@@ -189,7 +189,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-outlined-success-focus-border-color: var(--amplify-colors-green-100);
         --amplify-components-button-outlined-success-focus-background-color: var(--amplify-colors-green-10);
         --amplify-components-button-outlined-success-focus-color: var(--amplify-colors-green-100);
-        --amplify-components-button-outlined-success-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-green-100);
+        --amplify-components-button-outlined-success-focus-box-shadow: var(--amplify-components-fieldcontrol-success-focus-box-shadow);
         --amplify-components-button-outlined-success-active-border-color: var(--amplify-colors-green-100);
         --amplify-components-button-outlined-success-active-background-color: var(--amplify-colors-green-20);
         --amplify-components-button-outlined-success-active-color: var(--amplify-colors-green-100);
@@ -202,7 +202,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-outlined-error-focus-border-color: var(--amplify-colors-red-100);
         --amplify-components-button-outlined-error-focus-background-color: var(--amplify-colors-red-10);
         --amplify-components-button-outlined-error-focus-color: var(--amplify-colors-red-100);
-        --amplify-components-button-outlined-error-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-red-100);
+        --amplify-components-button-outlined-error-focus-box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
         --amplify-components-button-outlined-error-active-border-color: var(--amplify-colors-red-100);
         --amplify-components-button-outlined-error-active-background-color: var(--amplify-colors-red-20);
         --amplify-components-button-outlined-error-active-color: var(--amplify-colors-red-100);
@@ -215,7 +215,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-outlined-overlay-focus-border-color: var(--amplify-colors-overlay-90);
         --amplify-components-button-outlined-overlay-focus-background-color: var(--amplify-colors-overlay-5);
         --amplify-components-button-outlined-overlay-focus-color: var(--amplify-colors-neutral-90);
-        --amplify-components-button-outlined-overlay-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-overlay-90);
+        --amplify-components-button-outlined-overlay-focus-box-shadow: var(--amplify-components-fieldcontrol-overlay-focus-box-shadow);
         --amplify-components-button-outlined-overlay-active-border-color: var(--amplify-colors-overlay-90);
         --amplify-components-button-outlined-overlay-active-background-color: var(--amplify-colors-overlay-10);
         --amplify-components-button-outlined-overlay-active-color: var(--amplify-colors-neutral-100);
@@ -249,7 +249,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-info-focus-border-color: transparent;
         --amplify-components-button-primary-info-focus-background-color: var(--amplify-colors-blue-90);
         --amplify-components-button-primary-info-focus-color: var(--amplify-colors-font-inverse);
-        --amplify-components-button-primary-info-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-blue-100);
+        --amplify-components-button-primary-info-focus-box-shadow: var(--amplify-components-fieldcontrol-info-focus-box-shadow);
         --amplify-components-button-primary-info-active-border-color: transparent;
         --amplify-components-button-primary-info-active-background-color: var(--amplify-colors-blue-100);
         --amplify-components-button-primary-info-active-color: var(--amplify-colors-font-inverse);
@@ -262,7 +262,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-warning-focus-border-color: transparent;
         --amplify-components-button-primary-warning-focus-background-color: var(--amplify-colors-orange-90);
         --amplify-components-button-primary-warning-focus-color: var(--amplify-colors-font-inverse);
-        --amplify-components-button-primary-warning-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-orange-100);
+        --amplify-components-button-primary-warning-focus-box-shadow: var(--amplify-components-fieldcontrol-overlay-focus-box-shadow);
         --amplify-components-button-primary-warning-active-border-color: transparent;
         --amplify-components-button-primary-warning-active-background-color: var(--amplify-colors-orange-100);
         --amplify-components-button-primary-warning-active-color: var(--amplify-colors-font-inverse);
@@ -275,7 +275,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-error-focus-border-color: transparent;
         --amplify-components-button-primary-error-focus-background-color: var(--amplify-colors-red-90);
         --amplify-components-button-primary-error-focus-color: var(--amplify-colors-font-inverse);
-        --amplify-components-button-primary-error-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-red-100);
+        --amplify-components-button-primary-error-focus-box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
         --amplify-components-button-primary-error-active-border-color: transparent;
         --amplify-components-button-primary-error-active-background-color: var(--amplify-colors-red-100);
         --amplify-components-button-primary-error-active-color: var(--amplify-colors-font-inverse);
@@ -288,7 +288,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-success-focus-border-color: transparent;
         --amplify-components-button-primary-success-focus-background-color: var(--amplify-colors-green-90);
         --amplify-components-button-primary-success-focus-color: var(--amplify-colors-font-inverse);
-        --amplify-components-button-primary-success-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-green-100);
+        --amplify-components-button-primary-success-focus-box-shadow: var(--amplify-components-fieldcontrol-success-focus-box-shadow);
         --amplify-components-button-primary-success-active-border-color: transparent;
         --amplify-components-button-primary-success-active-background-color: var(--amplify-colors-green-100);
         --amplify-components-button-primary-success-active-color: var(--amplify-colors-font-inverse);
@@ -301,7 +301,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-overlay-focus-border-color: transparent;
         --amplify-components-button-primary-overlay-focus-background-color: var(--amplify-colors-overlay-90);
         --amplify-components-button-primary-overlay-focus-color: var(--amplify-colors-font-inverse);
-        --amplify-components-button-primary-overlay-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-overlay-90);
+        --amplify-components-button-primary-overlay-focus-box-shadow: var(--amplify-components-fieldcontrol-overlay-focus-box-shadow);
         --amplify-components-button-primary-overlay-active-border-color: transparent;
         --amplify-components-button-primary-overlay-active-background-color: var(--amplify-colors-overlay-90);
         --amplify-components-button-primary-overlay-active-color: var(--amplify-colors-font-inverse);
@@ -344,7 +344,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-link-info-focus-border-color: transparent;
         --amplify-components-button-link-info-focus-background-color: var(--amplify-colors-blue-10);
         --amplify-components-button-link-info-focus-color: var(--amplify-colors-blue-100);
-        --amplify-components-button-link-info-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-blue-100);
+        --amplify-components-button-link-info-focus-box-shadow: var(--amplify-components-fieldcontrol-info-focus-box-shadow);
         --amplify-components-button-link-info-active-border-color: transparent;
         --amplify-components-button-link-info-active-background-color: var(--amplify-colors-blue-20);
         --amplify-components-button-link-info-active-color: var(--amplify-colors-blue-100);
@@ -357,7 +357,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-link-warning-focus-border-color: transparent;
         --amplify-components-button-link-warning-focus-background-color: var(--amplify-colors-orange-10);
         --amplify-components-button-link-warning-focus-color: var(--amplify-colors-orange-100);
-        --amplify-components-button-link-warning-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-orange-100);
+        --amplify-components-button-link-warning-focus-box-shadow: var(--amplify-components-fieldcontrol-warning-focus-box-shadow);
         --amplify-components-button-link-warning-active-border-color: transparent;
         --amplify-components-button-link-warning-active-background-color: var(--amplify-colors-orange-20);
         --amplify-components-button-link-warning-active-color: var(--amplify-colors-orange-100);
@@ -370,7 +370,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-link-success-focus-border-color: transparent;
         --amplify-components-button-link-success-focus-background-color: var(--amplify-colors-green-10);
         --amplify-components-button-link-success-focus-color: var(--amplify-colors-green-100);
-        --amplify-components-button-link-success-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-green-100);
+        --amplify-components-button-link-success-focus-box-shadow: var(--amplify-components-fieldcontrol-success-focus-box-shadow);
         --amplify-components-button-link-success-active-border-color: transparent;
         --amplify-components-button-link-success-active-background-color: var(--amplify-colors-green-20);
         --amplify-components-button-link-success-active-color: var(--amplify-colors-green-100);
@@ -383,7 +383,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-link-error-focus-border-color: transparent;
         --amplify-components-button-link-error-focus-background-color: var(--amplify-colors-red-10);
         --amplify-components-button-link-error-focus-color: var(--amplify-colors-red-100);
-        --amplify-components-button-link-error-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-red-100);
+        --amplify-components-button-link-error-focus-box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
         --amplify-components-button-link-error-active-border-color: transparent;
         --amplify-components-button-link-error-active-background-color: var(--amplify-colors-red-20);
         --amplify-components-button-link-error-active-color: var(--amplify-colors-red-100);
@@ -396,7 +396,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-link-overlay-focus-border-color: transparent;
         --amplify-components-button-link-overlay-focus-background-color: var(--amplify-colors-overlay-5);
         --amplify-components-button-link-overlay-focus-color: var(--amplify-colors-overlay-90);
-        --amplify-components-button-link-overlay-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-overlay-90);
+        --amplify-components-button-link-overlay-focus-box-shadow: var(--amplify-components-fieldcontrol-overlay-focus-box-shadow);
         --amplify-components-button-link-overlay-active-border-color: transparent;
         --amplify-components-button-link-overlay-active-background-color: var(--amplify-colors-overlay-10);
         --amplify-components-button-link-overlay-active-color: var(--amplify-colors-overlay-90);
@@ -490,11 +490,11 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkbox-button-focus-outline-width: var(--amplify-outline-widths-medium);
         --amplify-components-checkbox-button-focus-outline-offset: var(--amplify-outline-offsets-medium);
         --amplify-components-checkbox-button-focus-border-color: var(--amplify-colors-transparent);
-        --amplify-components-checkbox-button-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-border-focus);
+        --amplify-components-checkbox-button-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
         --amplify-components-checkbox-button-disabled-border-color: var(--amplify-colors-border-disabled);
         --amplify-components-checkbox-button-error-border-color: var(--amplify-colors-border-error);
         --amplify-components-checkbox-button-error-focus-border-color: var(--amplify-colors-transparent);
-        --amplify-components-checkbox-button-error-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-border-error);
+        --amplify-components-checkbox-button-error-focus-box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
         --amplify-components-checkbox-icon-background-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-checkbox-icon-border-radius: 20%;
         --amplify-components-checkbox-icon-opacity: var(--amplify-opacities-0);
@@ -657,19 +657,24 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-quiet-border-inline-end: none;
         --amplify-components-fieldcontrol-quiet-border-block-start: none;
         --amplify-components-fieldcontrol-quiet-border-radius: 0;
-        --amplify-components-fieldcontrol-quiet-focus-border-block-end-color: var(--amplify-colors-border-focus);
-        --amplify-components-fieldcontrol-quiet-focus-box-shadow: 0px 1px 0px  var(--amplify-colors-border-focus);
+        --amplify-components-fieldcontrol-quiet-focus-border-block-end-color: transparent;
+        --amplify-components-fieldcontrol-quiet-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
         --amplify-components-fieldcontrol-quiet-error-border-block-end-color: var(--amplify-colors-border-error);
-        --amplify-components-fieldcontrol-quiet-error-focus-box-shadow: 0px 1px 0px  var(--amplify-colors-border-error);
+        --amplify-components-fieldcontrol-quiet-error-focus-border-block-end-color: transparent;
+        --amplify-components-fieldcontrol-quiet-error-focus-box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
         --amplify-components-fieldcontrol-focus-border-color: var(--amplify-colors-border-focus);
-        --amplify-components-fieldcontrol-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-border-focus);
+        --amplify-components-fieldcontrol-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-border-focus);
         --amplify-components-fieldcontrol-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-fieldcontrol-disabled-cursor: not-allowed;
         --amplify-components-fieldcontrol-disabled-border-color: var(--amplify-colors-transparent);
         --amplify-components-fieldcontrol-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-fieldcontrol-error-border-color: var(--amplify-colors-border-error);
         --amplify-components-fieldcontrol-error-color: var(--amplify-colors-font-error);
-        --amplify-components-fieldcontrol-error-focus-box-shadow: 0px 0px 0px 1px var(--amplify-colors-border-error);
+        --amplify-components-fieldcontrol-error-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-border-error);
+        --amplify-components-fieldcontrol-info-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-blue-100);
+        --amplify-components-fieldcontrol-warning-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-orange-100);
+        --amplify-components-fieldcontrol-success-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-green-100);
+        --amplify-components-fieldcontrol-overlay-focus-box-shadow: 0px 0px 0px 2px var(--amplify-colors-overlay-90);
         --amplify-components-fieldgroup-gap: var(--amplify-space-zero);
         --amplify-components-fieldgroup-vertical-align-items: center;
         --amplify-components-fieldgroup-outer-align-items: center;
@@ -1069,7 +1074,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-sliderfield-thumb-hover-background-color: var(--amplify-colors-background-primary);
         --amplify-components-sliderfield-thumb-hover-border-color: var(--amplify-colors-border-focus);
         --amplify-components-sliderfield-thumb-focus-border-color: var(--amplify-colors-border-focus);
-        --amplify-components-sliderfield-thumb-focus-box-shadow: 0 0 0 2px var(--amplify-colors-border-focus);
+        --amplify-components-sliderfield-thumb-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
         --amplify-components-sliderfield-small-track-height: 0.25rem;
         --amplify-components-sliderfield-small-thumb-width: 1rem;
         --amplify-components-sliderfield-small-thumb-height: 1rem;
@@ -1153,7 +1158,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-storagemanager-filelist-flex-direction: column;
         --amplify-components-storagemanager-filelist-gap: var(--amplify-space-small);
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);
-        --amplify-components-switchfield-focused-shadow: 0px 0px 0px 2px var(--amplify-colors-border-focus);
+        --amplify-components-switchfield-focused-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
         --amplify-components-switchfield-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-switchfield-large-font-size: var(--amplify-font-sizes-large);
         --amplify-components-switchfield-small-font-size: var(--amplify-font-sizes-small);
