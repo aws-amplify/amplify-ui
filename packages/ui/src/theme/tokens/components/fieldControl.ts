@@ -169,7 +169,7 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
     // * Focus indicator area is at least the 2 CSS px perimeter around the component.
     // * Contrast between focused and unfocused area of contrast has a ratio of 3:1
     //
-    // IMPORTANT: Must recalibrate if `colors.border.primary` or `colors.focus` are changed
+    // IMPORTANT: Must recalibrate if `colors.border.focus` are changed
     borderColor: { value: '{colors.border.focus.value}' },
     boxShadow: {
       value: {
