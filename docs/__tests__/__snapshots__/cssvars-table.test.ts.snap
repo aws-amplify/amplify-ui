@@ -2868,7 +2868,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-expander-item-focus-box-shadow\\",
-        \\"value\\": \\"0 0 0 2px var(--amplify-colors-border-focus)\\"
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-box-shadow)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-expander-item-margin-top\\",
@@ -4720,7 +4720,7 @@ exports[`CSS Variables Table 1`] = `
     },
     {
         \\"variable\\": \\"--amplify-components-sliderfield-thumb-focus-box-shadow\\",
-        \\"value\\": \\"0 0 0 2px var(--amplify-colors-border-focus)\\"
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-box-shadow)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-sliderfield-thumb-height\\",
