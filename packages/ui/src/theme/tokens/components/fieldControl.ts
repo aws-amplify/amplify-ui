@@ -26,10 +26,6 @@ type FieldControlErrorTokens<Output> = DesignTokenProperties<
   _focus?: DesignTokenProperties<'boxShadow', Output>;
 };
 
-// type FieldControlColorThemeTokens<Output> = {
-//   _focus?: DesignTokenProperties<'boxShadow', Output>;
-// };
-
 type FieldControlQuietTokens<Output> = DesignTokenProperties<
   | 'borderStyle'
   | 'borderInlineStart'
@@ -166,12 +162,12 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
   },
   _focus: {
     // These focus styles have been calibrated to create
-    // a highly visible focus indicator per WCAG 2.2 guidliness:
-    // See: https://www.w3.org/WAI/WCAG21/Techniques/general/G195.html
+    // a highly visible focus indicator per WCAG 2.2 guidlines:
+    // See: https://www.w3.org/TR/WCAG22/#focus-appearance
     //
     // Key features:
-    // * Focus indicator area is at least the 1 CSS px border around the component.
-    // * Contrast between focused and unfocused states has a ratio of 3:1
+    // * Focus indicator area is at least the 2 CSS px perimeter around the component.
+    // * Contrast between focused and unfocused area of contrast has a ratio of 3:1
     //
     // IMPORTANT: Must recalibrate if `colors.border.primary` or `colors.focus` are changed
     borderColor: { value: '{colors.border.focus.value}' },
