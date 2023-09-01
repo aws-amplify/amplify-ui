@@ -40,7 +40,7 @@ type FieldControlQuietTokens<Output> = DesignTokenProperties<
 > & {
   _focus?: DesignTokenProperties<'borderBlockEndColor' | 'boxShadow', Output>;
   _error?: DesignTokenProperties<'borderBlockEndColor', Output> & {
-    _focus?: DesignTokenProperties<'boxShadow', Output>;
+    _focus?: DesignTokenProperties<'borderBlockEndColor' | 'boxShadow', Output>;
   };
 };
 
@@ -149,26 +149,17 @@ export const fieldcontrol: Required<FieldControlTokens<'default'>> = {
     borderBlockStart: { value: 'none' },
     borderRadius: { value: '0' },
     _focus: {
-      borderBlockEndColor: { value: '{colors.border.focus.value}' },
+      borderBlockEndColor: { value: 'transparent' },
       boxShadow: {
-        value: {
-          offsetX: '0px',
-          offsetY: '1px',
-          color: '{colors.border.focus.value}',
-          blurRadius: '0px',
-        },
+        value: '{components.fieldcontrol._focus.boxShadow.value}',
       },
     },
     _error: {
       borderBlockEndColor: { value: '{colors.border.error.value}' },
       _focus: {
+        borderBlockEndColor: { value: 'transparent' },
         boxShadow: {
-          value: {
-            offsetX: '0px',
-            offsetY: '1px',
-            color: '{colors.border.error.value}',
-            blurRadius: '0px',
-          },
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
         },
       },
     },

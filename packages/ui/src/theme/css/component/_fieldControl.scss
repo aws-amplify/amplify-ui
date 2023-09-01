@@ -71,16 +71,6 @@
     }
   }
 
-  // for disabled styles
-  &[disabled] {
-    color: var(--amplify-components-fieldcontrol-disabled-color);
-    cursor: var(--amplify-components-fieldcontrol-disabled-cursor);
-    border-color: var(--amplify-components-fieldcontrol-disabled-border-color);
-    background-color: var(
-      --amplify-components-fieldcontrol-disabled-background-color
-    );
-  }
-
   // variation styles
   &--quiet {
     border-block-start: var(
@@ -104,10 +94,23 @@
         --amplify-components-fieldcontrol-quiet-error-border-block-end-color
       );
       &:focus {
+        border-block-end-color: var(
+          --amplify-components-fieldcontrol-quiet-error-focus-border-block-end-color
+        );
         box-shadow: var(
           --amplify-components-fieldcontrol-quiet-error-focus-box-shadow
         );
       }
     }
+  }
+
+  // for disabled styles
+  &[disabled] {
+    color: var(--amplify-components-fieldcontrol-disabled-color);
+    cursor: var(--amplify-components-fieldcontrol-disabled-cursor);
+    border-color: var(--amplify-components-fieldcontrol-disabled-border-color);
+    background-color: var(
+      --amplify-components-fieldcontrol-disabled-background-color
+    );
   }
 }
