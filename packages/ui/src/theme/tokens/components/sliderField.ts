@@ -89,15 +89,7 @@ export const sliderfield: Required<SliderFieldTokens<'default'>> = {
     },
     _focus: {
       borderColor: { value: '{colors.border.focus.value}' },
-      boxShadow: {
-        value: {
-          offsetX: '0',
-          offsetY: '0',
-          blurRadius: '0',
-          spreadRadius: '2px',
-          color: '{colors.border.focus.value}',
-        },
-      },
+      boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
   },
 
