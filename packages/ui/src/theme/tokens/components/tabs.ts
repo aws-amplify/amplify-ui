@@ -21,6 +21,7 @@ type TabItemTokens<OutputType extends OutputVariantKey> = DesignTokenProperties<
 > & {
   _hover?: DesignTokenProperties<'color', OutputType>;
   _focus?: DesignTokenProperties<'color', OutputType>;
+  _focusVisible?: DesignTokenProperties<'outlineColor', OutputType>;
   _active?: TabItemStateTokens<OutputType>;
   _disabled?: TabItemStateTokens<OutputType>;
 };
@@ -57,6 +58,11 @@ export const tabs: Required<TabsTokens<'default'>> = {
     },
     _focus: {
       color: { value: '{colors.font.focus.value}' },
+    },
+    _focusVisible: {
+      outlineColor: {
+        value: '{colors.border.focus.value}',
+      },
     },
     _active: {
       color: { value: '{colors.font.interactive.value}' },
