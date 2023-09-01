@@ -82,13 +82,7 @@ export const expander: Required<ExpanderTokens<'default'>> = {
     borderEndEndRadius: { value: '{radii.medium.value}' },
     _focus: {
       boxShadow: {
-        value: {
-          offsetX: '0',
-          offsetY: '0',
-          blurRadius: '0',
-          spreadRadius: '2px',
-          color: '{colors.border.focus.value}',
-        },
+        value: '{components.fieldcontrol._focus.boxShadow.value}',
       },
     },
   },
