@@ -10,6 +10,7 @@ import {
   Primitive,
 } from '../types';
 import { View } from '../View';
+import { useFieldset } from '../Fieldset/useFieldset';
 
 const InputPrimitive: Primitive<InputProps, 'input'> = (
   {
@@ -27,15 +28,6 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
     hasError = false,
     value,
     variation,
-    onBlur,
-    onChange,
-    onCopy,
-    onCut,
-    onFocus,
-    onInput,
-    onPaste,
-    onSelect,
-    onWheel,
     ...rest
   },
   ref
@@ -48,6 +40,7 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
     classNameModifier(ComponentClassNames.Input, size),
     className
   );
+  const { isFieldsetDisabled } = useFieldset();
 
   return (
     <View
@@ -60,17 +53,8 @@ const InputPrimitive: Primitive<InputProps, 'input'> = (
       data-variation={variation}
       defaultChecked={defaultChecked}
       defaultValue={defaultValue}
-      isDisabled={isDisabled}
+      isDisabled={isFieldsetDisabled ? isFieldsetDisabled : isDisabled}
       id={id}
-      onBlur={onBlur}
-      onChange={onChange}
-      onCopy={onCopy}
-      onCut={onCut}
-      onFocus={onFocus}
-      onInput={onInput}
-      onPaste={onPaste}
-      onSelect={onSelect}
-      onWheel={onWheel}
       readOnly={isReadOnly}
       ref={ref}
       required={isRequired}

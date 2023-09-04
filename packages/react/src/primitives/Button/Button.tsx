@@ -9,6 +9,8 @@ import {
   Primitive,
 } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+
+import { useFieldset } from '../Fieldset/useFieldset';
 import { Flex } from '../Flex';
 import { Loader } from '../Loader';
 import { View } from '../View';
@@ -40,6 +42,11 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       ? `${variation ?? 'outlined'}--${colorTheme}`
       : undefined;
 
+  const { isFieldsetDisabled } = useFieldset();
+  const shouldBeDisabled = isFieldsetDisabled
+    ? isFieldsetDisabled
+    : isDisabled ?? isLoading ?? rest['disabled'];
+
   const componentClasses = classNames(
     ComponentClassNames.Button,
     ComponentClassNames.FieldGroupControl,
@@ -49,7 +56,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
     classNameModifierByFlag(
       ComponentClassNames.Button,
       'disabled',
-      isDisabled ?? isLoading ?? rest['disabled']
+      shouldBeDisabled
     ),
     classNameModifierByFlag(ComponentClassNames.Button, 'loading', isLoading),
     classNameModifierByFlag(
@@ -69,7 +76,7 @@ const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
       data-loading={isLoading}
       data-size={size}
       data-variation={variation}
-      isDisabled={isDisabled ?? isLoading}
+      isDisabled={shouldBeDisabled}
       type={type}
       {...rest}
     >

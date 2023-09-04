@@ -9,6 +9,7 @@ import {
   SLIDER_TRACK_TEST_ID,
 } from '../SliderField';
 import { Heading } from '../../Heading';
+import { Fieldset } from '../../Fieldset';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
@@ -228,6 +229,27 @@ describe('SliderField:', () => {
 
       it('should be disabled', async () => {
         render(<SliderField defaultValue={0} label="slider" isDisabled />);
+        const root = await screen.findByTestId(SLIDER_ROOT_TEST_ID);
+        expect(root).toHaveAttribute('data-disabled', '');
+      });
+
+      it('should always be disabled if parent Fieldset isDisabled and SliderField isDisabled={false}', async () => {
+        render(
+          <Fieldset legend="legend" isDisabled>
+            <SliderField defaultValue={0} label="slider" isDisabled={false} />
+          </Fieldset>
+        );
+
+        const root = await screen.findByTestId(SLIDER_ROOT_TEST_ID);
+        expect(root).toHaveAttribute('data-disabled', '');
+      });
+      it('should always be disabled if parent Fieldset isDisabled and SliderField isDisabled is not defined', async () => {
+        render(
+          <Fieldset legend="legend" isDisabled>
+            <SliderField defaultValue={0} label="slider" />
+          </Fieldset>
+        );
+
         const root = await screen.findByTestId(SLIDER_ROOT_TEST_ID);
         expect(root).toHaveAttribute('data-disabled', '');
       });
