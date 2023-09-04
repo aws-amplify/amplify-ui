@@ -1,6 +1,8 @@
 import 'jest-canvas-mock';
 import {
   drawLivenessOvalInCanvas,
+  estimateIllumination,
+  fillOverlayCanvasFractional,
   getColorsSequencesFromSessionInformation,
   getFaceMatchState,
   getFaceMatchStateInLivenessOval,
@@ -14,7 +16,13 @@ import {
   mockOvalDetails,
   mockSessionInformation,
 } from '../__mocks__/testUtils';
-import { Face, FaceMatchState, LivenessOvalDetails } from '../../types';
+import {
+  Face,
+  FaceMatchState,
+  IlluminationState,
+  LivenessErrorState,
+  LivenessOvalDetails,
+} from '../../types';
 
 describe('Liveness Helper', () => {
   describe('getOvalDetailsFromSessionInformation', () => {
@@ -178,7 +186,10 @@ describe('Liveness Helper', () => {
         ovalDetails: mockOvalDetails,
       });
 
-      expect(result).toBe(false);
+      expect(result).toStrictEqual({
+        error: 'FACE_DISTANCE_ERROR',
+        isDistanceBelowThreshold: false,
+      });
     });
 
     it('should return false if more than one face', async () => {
@@ -190,7 +201,10 @@ describe('Liveness Helper', () => {
         ovalDetails: mockOvalDetails,
       });
 
-      expect(result).toBe(false);
+      expect(result).toStrictEqual({
+        error: 'MULTIPLE_FACES_ERROR',
+        isDistanceBelowThreshold: false,
+      });
     });
 
     it('should return true if below threshold', async () => {
@@ -204,7 +218,38 @@ describe('Liveness Helper', () => {
         isMobile: true,
       });
 
-      expect(result).toBe(true);
+      expect(result).toStrictEqual({
+        error: undefined,
+        isDistanceBelowThreshold: true,
+      });
+    });
+
+    it('should return false and error if above threshold', async () => {
+      const mockCloseFace: Face = {
+        height: 100,
+        width: 100,
+        left: 150,
+        top: 200,
+        timestampMs: 1,
+        rightEye: [0, 100],
+        leftEye: [150, 100],
+        mouth: [100, 100],
+        nose: [100, 100],
+      };
+      mockBlazeFace.detectFaces.mockResolvedValue([mockCloseFace]);
+
+      const result = await isFaceDistanceBelowThreshold({
+        faceDetector: mockBlazeFace,
+        videoEl: jest.fn() as unknown as HTMLVideoElement,
+        ovalDetails: mockOvalDetails,
+        reduceThreshold: true,
+        isMobile: false,
+      });
+
+      expect(result).toStrictEqual({
+        error: LivenessErrorState.FACE_DISTANCE_ERROR,
+        isDistanceBelowThreshold: false,
+      });
     });
   });
 
@@ -347,6 +392,48 @@ describe('Liveness Helper', () => {
       expect(path[0].type).toBe('beginPath');
       expect(path[1].type).toBe('ellipse');
       expect(path[2].type).toBe('clip');
+    });
+  });
+
+  describe('fillOverlayCanvasFractional', () => {
+    it('should fail if canvas context is undefined', () => {
+      const context = mockContext();
+      const mockGetContext = jest.fn().mockReturnValue(undefined);
+      const canvas = context.videoAssociatedParams?.canvasEl!;
+      (canvas as any).getContext = mockGetContext;
+      const oval = mockOvalDetails;
+      const scaleFactor = 1;
+      const videoEl = context.videoAssociatedParams?.videoEl!;
+      expect(() =>
+        fillOverlayCanvasFractional({
+          overlayCanvas: canvas,
+          prevColor: 'red',
+          nextColor: 'black',
+          videoEl,
+          ovalDetails: oval,
+          heightFraction: 1,
+          scaleFactor,
+        })
+      ).toThrow();
+    });
+  });
+
+  describe('estimateIllumination', () => {
+    it('should fail if canvas context is undefined', () => {
+      const context = mockContext();
+      const mockGetContext = jest.fn().mockReturnValue(undefined);
+      const canvas = context.videoAssociatedParams?.canvasEl!;
+      (canvas as any).getContext = mockGetContext;
+      const videoEl = context.videoAssociatedParams?.videoEl!;
+      expect(() => estimateIllumination(videoEl)).toThrow();
+    });
+
+    it('should return too dark on an empty video element ', () => {
+      const context = mockContext();
+      const videoEl = context.videoAssociatedParams?.videoEl!;
+      Object.defineProperty(videoEl, 'videoWidth', { value: 100 });
+      Object.defineProperty(videoEl, 'videoHeight', { value: 100 });
+      expect(estimateIllumination(videoEl)).toBe(IlluminationState.DARK);
     });
   });
 });

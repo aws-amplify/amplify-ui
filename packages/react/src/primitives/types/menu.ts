@@ -1,10 +1,11 @@
 import * as React from 'react';
 
-import { BaseButtonProps } from './button';
+import { BaseButtonPropsWithoutColorTheme } from './button';
 import { BaseFlexProps } from './flex';
 import { Sizes } from './base';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseMenuProps extends BaseFlexProps {
   /**
    * @description
@@ -54,7 +55,8 @@ export type MenuProps<Element extends ElementType = 'div'> = PrimitiveProps<
   Element
 >;
 
-export interface BaseMenuItemProps extends BaseButtonProps {
+/** @deprecated For internal use only */
+export interface BaseMenuItemProps extends BaseButtonPropsWithoutColorTheme {
   /**
    * @description
    * Accepts any number of MenuItem components
@@ -66,3 +68,9 @@ export type MenuItemProps<Element extends ElementType = 'div'> = PrimitiveProps<
   BaseMenuItemProps,
   Element
 >;
+
+/** @deprecated For internal use only */
+export interface BaseMenuButtonProps extends BaseButtonPropsWithoutColorTheme {}
+
+export type MenuButtonProps<Element extends ElementType = 'button'> =
+  PrimitiveProps<BaseMenuButtonProps, Element>;

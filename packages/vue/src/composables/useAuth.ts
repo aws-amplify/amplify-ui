@@ -6,15 +6,22 @@ import { interpret } from 'xstate';
 import { Auth } from 'aws-amplify';
 import {
   AuthInterpreter,
+  AuthMachineState,
   AuthStatus,
   createAuthenticatorMachine,
   defaultAuthHubHandler,
+  getActorContext,
   getServiceFacade,
   listenToAuthHub,
 } from '@aws-amplify/ui';
 
 import { UseAuth } from '../types';
-import { facade } from './useUtils';
+
+export const getQRFields = (
+  state: AuthMachineState
+): { totpIssuer?: string; totpUsername?: string } => ({
+  ...getActorContext(state)?.formFields?.setupTOTP?.QR,
+});
 
 export const useAuth = createSharedComposable((): UseAuth => {
   const machine = createAuthenticatorMachine();
@@ -53,21 +60,33 @@ export const useAuth = createSharedComposable((): UseAuth => {
 export const useAuthenticator = createSharedComposable(() => {
   const { authStatus, state, send } = useAuth();
 
-  const useAuthenticatorValue = reactive({
-    ...facade,
-    send,
-    state,
-  }) as any;
+  // TODO(BREAKING): remove the cast to any
+  const useAuthenticatorValue = reactive({}) as any;
 
+  /*
+   * Note that watchEffect runs immediately, so `useAuthenticatorValue` is
+   * guaranteed to have facade values by the time `useAuthenticator` returns.
+   *
+   * https://vuejs.org/api/reactivity-core.html#watcheffect
+   */
   watchEffect(() => {
-    const facadeValues = getServiceFacade({
-      send,
-      state: state.value,
-    });
+    const facade = getServiceFacade({ send, state: state.value });
+
+    /*
+     * TODO(BREAKING): consider using a plain object with `refs` instead of
+     * one `reactive` object to prevent iterating manually over its keys.
+     */
     for (const key of Object.keys(facade)) {
       //@ts-ignore
-      useAuthenticatorValue[key] = facadeValues[key];
+      useAuthenticatorValue[key] = facade[key];
     }
+
+    // legacy `QRFields` values only used for SetupTOTP page to retrieve issuer information, will be removed in future
+    const qrFields =
+      facade.route === 'setupTOTP' ? getQRFields(state.value) : null;
+
+    useAuthenticatorValue.QRFields = qrFields;
+
     useAuthenticatorValue.authStatus = authStatus.value;
     useAuthenticatorValue.send = send;
     useAuthenticatorValue.state = state;

@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react-liveness",
-  "version": "1.0.6",
+  "version": "2.0.5",
   "main": "dist/index.js",
   "module": "dist/esm/index.mjs",
   "exports": {
@@ -43,14 +43,14 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "aws-amplify": ">= 5.0.1",
+    "aws-amplify": "^5.0.1",
     "react": ">= 16.14.0",
     "react-dom": ">= 16.14.0"
   },
   "dependencies": {
-    "@aws-amplify/ui": "5.6.6",
-    "@aws-amplify/ui-react": "5.0.4",
-    "@aws-sdk/client-rekognitionstreaming": "3.360.0",
+    "@aws-amplify/ui": "5.7.2",
+    "@aws-amplify/ui-react": "5.2.0",
+    "@aws-sdk/client-rekognitionstreaming": "3.398.0",
     "@tensorflow-models/blazeface": "0.0.7",
     "@tensorflow/tfjs-backend-cpu": "3.11.0",
     "@tensorflow/tfjs-backend-wasm": "3.11.0",
@@ -59,7 +59,6 @@
     "@xstate/react": "3.0.0",
     "classnames": "2.3.1",
     "nanoid": "3.1.31",
-    "react-countdown-circle-timer": "^2.5.4",
     "tslib": "2.4.1",
     "xstate": "^4.33.6"
   },

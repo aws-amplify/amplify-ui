@@ -1,3 +1,5 @@
+export { StorageImage, StorageImageProps } from './StorageImage';
+
 export {
   StorageManager,
   StorageManagerProps,
@@ -6,4 +8,5 @@ export {
   FileListProps,
   FilePickerProps,
   FileListHeaderProps,
+  FileListFooterProps,
 } from './StorageManager';

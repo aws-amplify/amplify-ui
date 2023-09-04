@@ -27,10 +27,19 @@ Note, if you're not using `nvm`, you'll need to set the environment variable: `e
 
 ### Test
 
-- Run `yarn test` to test.
-- If the snapshot test fails, run `yarn test -- -u`.
+From the monorepo root run:
 
-Test runs after build.
+```sh
+$ yarn docs test
+```
+
+#### Updating Props Table Snapshot
+
+To update the Props Table snapshot run:
+
+```sh
+$ yarn docs test -u __tests__/props-table.test.ts
+```
 
 ### Creating a Page
 

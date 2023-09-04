@@ -27,11 +27,13 @@ const ConfirmVerifyUser = ({
   handleSubmit,
   isPending,
   skipVerification,
+  validationErrors,
   ...rest
 }: DefaultConfirmVerifyUserProps): JSX.Element => {
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -39,6 +41,7 @@ const ConfirmVerifyUser = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getAccountRecoveryInfoText();
@@ -70,6 +73,7 @@ const ConfirmVerifyUser = ({
       headerText={headerText}
       fields={fieldsWithHandlers}
       isPending={isPending}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

@@ -14,18 +14,18 @@ Feature: Sign In with Phone Number
   Scenario: Reset Password with valid phone with country code
     When I click the "Forgot your password?" button
     When I select my country code with status "CONFIRMED"
-    And I type my "phone number" with status "CONFIRMED"
-    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
-    And I click the "Send code" button
-    And I verify the body has "+19995554444" included
+    Then I type my "phone number" with status "CONFIRMED"
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
+    Then I click the "Send code" button
+    Then I verify the body has "+19995554444" included
     Then I will be redirected to the confirm forgot password page
-    And I see "Code"
+    Then I see "Code"
     Then I type a valid code
-    And I type my new password
-    And I confirm my password
-    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
-    And I click the submit button
-    And I verify the body has "+19995554444" included
+    Then I type my new password
+    Then I confirm my password
+    Then I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
+    Then I click the submit button
+    Then I verify the body has "+19995554444" included
     Then I see "Sign In"
 
   @angular @react @vue
@@ -47,51 +47,51 @@ Feature: Sign In with Phone Number
   @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
     When I select my country code with status "UNKNOWN"
-    And I type my "phone number" with status "UNKNOWN"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my "phone number" with status "UNKNOWN"
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "User does not exist."
 
   @angular @react @vue @react-native
   Scenario: Sign in with unknown credentials
     When I select my country code with status "UNKNOWN"
-    And I type my "phone number" with status "UNKNOWN"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my "phone number" with status "UNKNOWN"
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "User does not exist."
 
   @angular @react @vue @react-native
   Scenario: Sign in with unconfirmed credentials
     When I select my country code with status "UNCONFIRMED"
-    And I type my "phone number" with status "UNCONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my "phone number" with status "UNCONFIRMED"
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Confirmation Code"
 
   @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials
     When I select my country code with status "CONFIRMED"
-    And I type my "phone number" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my "phone number" with status "CONFIRMED"
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Sign out"
-    And I click the "Sign out" button
+    Then I click the "Sign out" button
 
   @angular @react @vue
   Scenario: Sign in with confirmed credentials and don't select country code
     When I type my "phone number" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "User does not exist."
 
   @angular @react @vue @react-native
   Scenario: Sign in with confirmed credentials then sign out
     When I select my country code with status "CONFIRMED"
-    And I type my "phone number" with status "CONFIRMED"
-    And I type my password
-    And I click the "Sign in" button
+    Then I type my "phone number" with status "CONFIRMED"
+    Then I type my password
+    Then I click the "Sign in" button
     Then I see "Sign out"
-    And I click the "Sign out" button
+    Then I click the "Sign out" button
     Then I see "Sign in"
 
   @angular @react @vue

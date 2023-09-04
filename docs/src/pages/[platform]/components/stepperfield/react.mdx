@@ -11,6 +11,7 @@ import {
   StepperFieldValidationErrorExample,
   StepperFieldThemeExample,
   StepperFieldStylePropsExample,
+  StepperFieldIconProviderExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -151,7 +152,7 @@ Use the `hasError` and `errorMessage` props to mark a StepperField as having an 
   </Example>
 </StandardHTMLAttributes>
 
-## CSS Styling
+## Styling
 
 <ThemeExample component="StepperField">
   <Example>
@@ -166,6 +167,17 @@ Use the `hasError` and `errorMessage` props to mark a StepperField as having an 
     </ExampleCode>
   </Example>
 </ThemeExample>
+
+### Icons
+
+<Example>
+  <StepperFieldIconProviderExample />
+  
+  <ExampleCode>
+  ```tsx file=./examples/StepperFieldIconProviderExample.tsx
+  ```
+  </ExampleCode>
+</Example>
 
 ### Target classes
 

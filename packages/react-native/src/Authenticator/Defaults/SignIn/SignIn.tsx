@@ -21,6 +21,7 @@ const SignIn = ({
   hideSignUp,
   toResetPassword,
   toSignUp,
+  validationErrors,
   ...rest
 }: DefaultSignInProps): JSX.Element => {
   const {
@@ -33,6 +34,7 @@ const SignIn = ({
   const {
     disableFormSubmit: disabled,
     fields: fieldsWithHandlers,
+    fieldValidationErrors,
     handleFormSubmit,
   } = useFieldValues({
     componentName: COMPONENT_NAME,
@@ -40,6 +42,7 @@ const SignIn = ({
     handleBlur,
     handleChange,
     handleSubmit,
+    validationErrors,
   });
 
   const headerText = getSignInTabText();
@@ -75,6 +78,7 @@ const SignIn = ({
       buttons={buttons}
       fields={fieldsWithHandlers}
       headerText={headerText}
+      validationErrors={fieldValidationErrors}
     />
   );
 };

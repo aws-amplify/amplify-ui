@@ -11,7 +11,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -61,8 +61,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
@@ -156,7 +155,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -206,8 +205,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }
@@ -301,7 +299,7 @@ Array [
         },
         Object {
           "fontSize": 24,
-          "fontWeight": "300",
+          "fontWeight": "500",
           "lineHeight": 36,
         },
         Object {
@@ -326,7 +324,7 @@ Array [
       Array [
         Object {
           "alignItems": "center",
-          "backgroundColor": "hsl(0, 75%, 85%)",
+          "backgroundColor": "hsl(0, 75%, 95%)",
           "flexDirection": "row",
           "paddingHorizontal": 8,
           "paddingVertical": 12,
@@ -410,8 +408,7 @@ Array [
         },
         undefined,
         Object {
-          "marginHorizontal": 16,
-          "marginVertical": 12,
+          "margin": 12,
         },
       ]
     }

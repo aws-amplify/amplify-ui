@@ -348,7 +348,7 @@ jobs:
   e2e-ios:
     needs: check-changed-packages
     if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-13
+    runs-on: macos-12
     environment: ci
     env:
       NODE_ENV: test
@@ -398,7 +398,6 @@ jobs:
         run: yarn react-core build
 
       - name: Build react-core-notifications package
-        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn react-core-notifications build
 
       - name: Build react-native package
@@ -469,10 +468,12 @@ jobs:
   e2e-android:
     needs: check-changed-packages
     if: ${{ inputs.skip-changed-packages-check == 'true' || needs.check-changed-packages.outputs.has-changed-packages == 'true' }}
-    runs-on: macos-13
+    runs-on: macos-12
     environment: ci
     env:
       NODE_ENV: test
+      EMULATOR1_PORT: 5554
+      EMULATOR2_PORT: 5556
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0 https://github.com/actions/checkout/commit/24cb9080177205b6e8c946b17badbe402adc938f
@@ -559,7 +560,7 @@ jobs:
           function configure_emulator() {
             local port=$1
 
-            nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port "$port" -read-only -no-window -no-boot-anim -no-audio -no-snapshot-load -gpu host -accel on &
+            nohup $ANDROID_HOME/emulator/emulator -avd Pixel_5_API_27 -port "$port" -read-only -no-window -no-boot-anim -no-audio -gpu host -accel on &
             timeout 5m $ANDROID_HOME/platform-tools/adb -s "emulator-$port" wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
             $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put secure spell_checker_enabled 0
             $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global window_animation_scale 0.0
@@ -567,8 +568,8 @@ jobs:
             $ANDROID_HOME/platform-tools/adb -s "emulator-$port" shell settings put global animator_duration_scale 0.0
           }
 
-          configure_emulator 5554
-          configure_emulator 5556
+          configure_emulator $EMULATOR1_PORT
+          configure_emulator $EMULATOR2_PORT
 
           $ANDROID_HOME/platform-tools/adb devices
 
@@ -588,6 +589,12 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Terminate emulators
+        if: success() || failure()
+        run: |
+          adb -s emulator-$EMULATOR1_PORT emu kill
+          adb -s emulator-$EMULATOR2_PORT emu kill
 
       - name: Upload failure screenshots and errors
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2 https://github.com/actions/upload-artifact/commit/0b7f8abb1508181956e8e162db84b466c27e18ce

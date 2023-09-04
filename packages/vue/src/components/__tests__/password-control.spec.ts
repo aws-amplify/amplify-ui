@@ -1,7 +1,9 @@
-import PasswordControl from '../password-control.vue';
-import { components } from '../../../global-spec';
 import { fireEvent, render, screen } from '@testing-library/vue';
+
 import { ComponentClassName } from '@aws-amplify/ui';
+
+import { components } from '../../../global-spec';
+import PasswordControl from '../password-control.vue';
 
 describe('PasswordControl', () => {
   it('should render as expected', () => {

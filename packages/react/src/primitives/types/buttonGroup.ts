@@ -6,6 +6,7 @@ import { BaseButtonProps } from './button';
 import { BaseFlexProps } from './flex';
 import { ElementType, PrimitiveProps } from './view';
 
+/** @deprecated For internal use only */
 export interface BaseButtonGroupProps
   extends AriaProps,
     BaseStyleProps,

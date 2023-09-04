@@ -1,0 +1,372 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SetupTOTP renders loading text as expected on init 1`] = `
+<div>
+  
+  <div>
+    
+    
+    <form
+      data-amplify-authenticator-setup-totp=""
+      data-amplify-form=""
+    >
+      
+      
+      <fieldset
+        class="amplify-flex amplify-authenticator__column"
+        data-amplify-fieldset=""
+      >
+        
+        <div
+          class="amplify-flex amplify-authenticator__column"
+        >
+          
+          
+          <h3
+            class="amplify-heading amplify-heading--3"
+            data-amplify-heading=""
+          >
+             Setup TOTP 
+          </h3>
+          
+          <div
+            class="amplify-flex amplify-authenticator__column"
+          >
+            
+            <p>
+              Loading...
+            </p>
+            <div
+              class="amplify-flex"
+              data-amplify-copy=""
+            >
+              
+              <div>
+                totp-mock-secret-code
+              </div>
+              <div
+                data-amplify-copy-svg=""
+              >
+                
+                <div
+                  data-amplify-copy-tooltip=""
+                >
+                  COPY
+                </div>
+                <svg
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z"
+                  />
+                </svg>
+                
+              </div>
+              
+            </div>
+            
+            
+            <!-- password input -->
+            
+            <!-- textfield input -->
+            <div
+              class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+            >
+              
+              <label
+                class="amplify-label"
+                data-amplify-label=""
+                for="amplify-field-99999"
+              >
+                
+                Code *
+                
+              </label>
+              <div
+                class="amplify-flex amplify-field-group"
+              >
+                
+                <div
+                  class="amplify-field-group__outer-start"
+                >
+                  
+                  
+                </div>
+                <div
+                  class="amplify-field-group__field-wrapper"
+                >
+                  
+                  <!--Phone input-->
+                  <input
+                    aria-invalid="false"
+                    autocomplete=""
+                    class="amplify-input amplify-field-group__control"
+                    data-amplify-input=""
+                    id="amplify-field-99999"
+                    name="confirmation_code"
+                    placeholder="Enter your Confirmation Code"
+                    required=""
+                    type="number"
+                  />
+                  
+                </div>
+                
+              </div>
+              
+            </div>
+            
+            <!-- Validation error, if any -->
+            <!--v-if-->
+            
+            
+            
+          </div>
+          
+          <footer
+            class="amplify-flex amplify-authenticator__column"
+          >
+            
+            <!--v-if-->
+            
+            <button
+              class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+              data-amplify-button=""
+              data-disabled="false"
+              data-fullwidth="false"
+              data-loading="false"
+              data-variation="primary"
+              fullwidth="false"
+              type="submit"
+            >
+              
+              Confirm
+              
+            </button>
+            
+            
+            <button
+              class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+              data-amplify-button=""
+              data-disabled="false"
+              data-fullwidth="false"
+              data-loading="false"
+              data-size="small"
+              data-variation="link"
+              fullwidth="false"
+              style="font-weight: normal;"
+              type="button"
+            >
+              
+              Back to Sign In
+              
+            </button>
+            
+            
+            
+            
+          </footer>
+          
+          
+        </div>
+        
+      </fieldset>
+      
+      
+    </form>
+    
+    
+  </div>
+  
+</div>
+`;
+
+exports[`SetupTOTP renders qrcode image as expected after onMounted is done 1`] = `
+<div>
+  
+  <div>
+    
+    
+    <form
+      data-amplify-authenticator-setup-totp=""
+      data-amplify-form=""
+    >
+      
+      
+      <fieldset
+        class="amplify-flex amplify-authenticator__column"
+        data-amplify-fieldset=""
+      >
+        
+        <div
+          class="amplify-flex amplify-authenticator__column"
+        >
+          
+          
+          <h3
+            class="amplify-heading amplify-heading--3"
+            data-amplify-heading=""
+          >
+             Setup TOTP 
+          </h3>
+          
+          <div
+            class="amplify-flex amplify-authenticator__column"
+          >
+            
+            <img
+              alt="qr code"
+              class="amplify-image"
+              data-amplify-qrcode=""
+              height="228"
+              src="data:image/png;base64,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"
+              width="228"
+            />
+            <div
+              class="amplify-flex"
+              data-amplify-copy=""
+            >
+              
+              <div>
+                totp-mock-secret-code
+              </div>
+              <div
+                data-amplify-copy-svg=""
+              >
+                
+                <div
+                  data-amplify-copy-tooltip=""
+                >
+                  COPY
+                </div>
+                <svg
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z"
+                  />
+                </svg>
+                
+              </div>
+              
+            </div>
+            
+            
+            <!-- password input -->
+            
+            <!-- textfield input -->
+            <div
+              class="amplify-flex amplify-field amplify-textfield amplify-phonenumberfield amplify-authenticator__column"
+            >
+              
+              <label
+                class="amplify-label"
+                data-amplify-label=""
+                for="amplify-field-99999"
+              >
+                
+                Code *
+                
+              </label>
+              <div
+                class="amplify-flex amplify-field-group"
+              >
+                
+                <div
+                  class="amplify-field-group__outer-start"
+                >
+                  
+                  
+                </div>
+                <div
+                  class="amplify-field-group__field-wrapper"
+                >
+                  
+                  <!--Phone input-->
+                  <input
+                    aria-invalid="false"
+                    autocomplete=""
+                    class="amplify-input amplify-field-group__control"
+                    data-amplify-input=""
+                    id="amplify-field-99999"
+                    name="confirmation_code"
+                    placeholder="Enter your Confirmation Code"
+                    required=""
+                    type="number"
+                  />
+                  
+                </div>
+                
+              </div>
+              
+            </div>
+            
+            <!-- Validation error, if any -->
+            <!--v-if-->
+            
+            
+            
+          </div>
+          
+          <footer
+            class="amplify-flex amplify-authenticator__column"
+          >
+            
+            <!--v-if-->
+            
+            <button
+              class="amplify-button amplify-button--primary amplify-field-group__control amplify-authenticator__font"
+              data-amplify-button=""
+              data-disabled="false"
+              data-fullwidth="false"
+              data-loading="false"
+              data-variation="primary"
+              fullwidth="false"
+              type="submit"
+            >
+              
+              Confirm
+              
+            </button>
+            
+            
+            <button
+              class="amplify-button amplify-button--link amplify-button--small amplify-field-group__control amplify-authenticator__font"
+              data-amplify-button=""
+              data-disabled="false"
+              data-fullwidth="false"
+              data-loading="false"
+              data-size="small"
+              data-variation="link"
+              fullwidth="false"
+              style="font-weight: normal;"
+              type="button"
+            >
+              
+              Back to Sign In
+              
+            </button>
+            
+            
+            
+            
+          </footer>
+          
+          
+        </div>
+        
+      </fieldset>
+      
+      
+    </form>
+    
+    
+  </div>
+  
+</div>
+`;

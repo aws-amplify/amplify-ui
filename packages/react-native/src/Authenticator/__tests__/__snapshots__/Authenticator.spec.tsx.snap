@@ -59,15 +59,7 @@ exports[`Authenticator behaves as expected in the happy path 1`] = `
 </SafeAreaProvider>
 `;
 
-exports[`Authenticator handles the authenticated route as expected with children 1`] = `
-<Text
-  testID="child-test-id"
->
-  Test Children
-</Text>
-`;
-
-exports[`Authenticator handles the signOut route as expected with children 1`] = `
+exports[`Authenticator handles \`authStatus\` of authenticated as expected 1`] = `
 <Text
   testID="child-test-id"
 >

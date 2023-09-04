@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { globbyStream } from 'globby';
-import { getAllTypesData, getCatalog } from './util';
+import { getAllTypesData, getCatalog, componentsWithChildren } from './util';
 import type {
   Category,
   ComponentName,
@@ -49,16 +49,6 @@ async function createAllPropsTablesData(): Promise<
     data.set(componentName, {
       [componentName]: propsSortedByCategory,
     } as PropsTableSubComponentData);
-
-    const componentsWithChildren: { [key in ComponentName]?: ComponentName[] } =
-      {
-        Expander: ['ExpanderItem'],
-        Menu: ['MenuButton', 'MenuItem'],
-        RadioGroupField: ['Radio'],
-        Tabs: ['TabItem'],
-        Table: ['TableBody', 'TableCell', 'TableFoot', 'TableHead', 'TableRow'],
-        ToggleButton: ['ToggleButtonGroup'],
-      };
 
     if (componentName in componentsWithChildren) {
       const subComponentProps = {};
@@ -165,11 +155,10 @@ function getPropertiesByCategory(
 
   /**
    * Some special components don't have accurate properties generated from getCatalog, so we have to manually point it to AllTypesData as well in addition to the Catalog.
-   * First element is the component's name
    */
   const specialComponents: { [key in string]: TypeFileName[] } = {
-    View: ['View', 'Base', 'Style'],
-    TextField: ['TextField', 'TextArea', 'Input', 'Field'],
+    View: ['Base', 'Style'],
+    TextField: ['Input'],
   };
 
   for (const propertyName in catalog[componentName]) {

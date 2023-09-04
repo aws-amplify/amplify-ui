@@ -8,7 +8,10 @@ import {
   LivenessErrorState,
 } from '../../service';
 
-import { renderWithLivenessProvider, getMockedFunction } from '../../__mocks__';
+import {
+  renderWithLivenessProvider,
+  getMockedFunction,
+} from '../../__mocks__/utils';
 import { useLivenessActor, useLivenessSelector } from '../../hooks';
 import {
   Hint,
@@ -165,17 +168,6 @@ describe('Hint', () => {
     ).toBeInTheDocument();
   });
 
-  it('should render connecting message if waiting for session info', () => {
-    isWaitingForSessionInfo = true;
-    mockStateMatchesAndSelectors();
-
-    renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
-
-    expect(
-      screen.getByText(hintDisplayText.hintConnectingText)
-    ).toBeInTheDocument();
-  });
-
   it('should render hold face in oval message if flashing freshness colors', () => {
     isFlashingFreshness = true;
     mockStateMatchesAndSelectors();
@@ -194,7 +186,7 @@ describe('Hint', () => {
     renderWithLivenessProvider(<Hint hintDisplayText={hintDisplayText} />);
 
     expect(
-      screen.getByText(hintDisplayText.hintHoldFacePositionCountdownText)
+      screen.getByText(hintDisplayText.hintConnectingText)
     ).toBeInTheDocument();
   });
 

@@ -14,6 +14,12 @@
   right: var(--amplify-components-select-icon-wrapper-right);
   transform: var(--amplify-components-select-icon-wrapper-transform);
   pointer-events: var(--amplify-components-select-icon-wrapper-pointer-events);
+  &--small {
+    right: var(--amplify-components-select-icon-wrapper-small-right);
+  }
+  &--large {
+    right: var(--amplify-components-select-icon-wrapper-large-right);
+  }
 }
 
 .amplify-select {
@@ -44,9 +50,15 @@
 
   &--small {
     min-width: var(--amplify-components-select-small-min-width);
+    padding-inline-end: var(
+      --amplify-components-select-small-padding-inline-end
+    );
   }
 
   &--large {
     min-width: var(--amplify-components-select-large-min-width);
+    padding-inline-end: var(
+      --amplify-components-select-large-padding-inline-end
+    );
   }
 }

@@ -2,12 +2,7 @@
 /// <reference types="cypress" />
 /// <reference types="../../support/commands" />
 
-import {
-  And,
-  Given,
-  Then,
-  When,
-} from '@badeball/cypress-cucumber-preprocessor';
+import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
@@ -76,6 +71,25 @@ Given(
     }
 
     cy.intercept(routeMatcher, { fixture }).as('route');
+  }
+);
+
+Given(
+  'I intercept {string} with fixture {string} and add header {string} with value {string}',
+  (json: string, fixture: string, headerName: string, headerValue: string) => {
+    let routeMatcher;
+
+    try {
+      routeMatcher = JSON.parse(json);
+    } catch (error) {
+      throw error;
+    }
+
+    cy.intercept(routeMatcher, {
+      headers: {
+        [headerName]: headerValue,
+      },
+    });
   }
 );
 
@@ -406,7 +420,7 @@ Then('I click the submit button', () => {
   }).click();
 });
 
-And('I confirm {string} error is accessible in password field', () => {
+Then('I confirm {string} error is accessible in password field', () => {
   // input field should be invalid
   cy.findInputField('Password')
     .should('have.attr', 'aria-invalid')
@@ -431,7 +445,7 @@ And('I confirm {string} error is accessible in password field', () => {
   });
 });
 
-And('I confirm {string} error is accessible in new password field', () => {
+Then('I confirm {string} error is accessible in new password field', () => {
   // input field should be invalid
   cy.findInputField('New Password')
     .should('have.attr', 'aria-invalid')

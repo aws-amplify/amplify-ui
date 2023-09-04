@@ -81,30 +81,27 @@ describe('Authenticator', () => {
     expect(toJSON()).toMatchSnapshot();
   });
 
-  it.each(['authenticated', 'signOut'])(
-    'handles the %s route as expected with children',
-    (route) => {
-      useAuthenticatorSpy.mockImplementation(
-        () => ({ route } as unknown as UseAuthenticator)
-      );
+  it('handles `authStatus` of authenticated as expected', () => {
+    useAuthenticatorSpy.mockImplementation(
+      () => ({ authStatus: 'authenticated' } as unknown as UseAuthenticator)
+    );
 
-      const { getByTestId, toJSON } = render(
-        <Authenticator>
-          <TestChildren />
-        </Authenticator>
-      );
+    const { getByTestId, toJSON } = render(
+      <Authenticator>
+        <TestChildren />
+      </Authenticator>
+    );
 
-      const children = getByTestId(CHILD_TEST_ID);
+    const children = getByTestId(CHILD_TEST_ID);
 
-      expect(children.type).toBe('Text');
-      expect(children.props.children).toBe(CHILD_CONTENT);
+    expect(children.type).toBe('Text');
+    expect(children.props.children).toBe(CHILD_CONTENT);
 
-      expect(toJSON()).toMatchSnapshot();
-    }
-  );
+    expect(toJSON()).toMatchSnapshot();
+  });
 
-  it.each(['authenticated', 'signOut'])(
-    'handles the %s route as expected without children',
+  it.each(['unauthenticated', 'configuring'])(
+    'handles an authStatus of %s as expected',
     (route) => {
       useAuthenticatorSpy.mockImplementation(
         () => ({ route } as unknown as UseAuthenticator)

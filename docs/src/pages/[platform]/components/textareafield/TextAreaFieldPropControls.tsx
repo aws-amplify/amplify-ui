@@ -8,12 +8,6 @@ import {
 } from '@aws-amplify/ui-react';
 
 export interface TextAreaFieldControlsProps extends BaseTextAreaFieldProps {
-  setAutoComplete: (
-    value: React.SetStateAction<BaseTextAreaFieldProps['autoComplete']>
-  ) => void;
-  setDefaultValue: (
-    value: React.SetStateAction<BaseTextAreaFieldProps['defaultValue']>
-  ) => void;
   setDescriptiveText: (
     value: React.SetStateAction<BaseTextAreaFieldProps['descriptiveText']>
   ) => void;
@@ -29,17 +23,11 @@ export interface TextAreaFieldControlsProps extends BaseTextAreaFieldProps {
   setIsReadOnly: (
     value: React.SetStateAction<BaseTextAreaFieldProps['isReadOnly']>
   ) => void;
-  setIsRequired: (
-    value: React.SetStateAction<BaseTextAreaFieldProps['isRequired']>
-  ) => void;
   setLabel: (
     value: React.SetStateAction<BaseTextAreaFieldProps['label']>
   ) => void;
   setLabelHidden: (
     value: React.SetStateAction<BaseTextAreaFieldProps['labelHidden']>
-  ) => void;
-  setMaxLength: (
-    value: React.SetStateAction<BaseTextAreaFieldProps['maxLength']>
   ) => void;
   setName: (
     value: React.SetStateAction<BaseTextAreaFieldProps['name']>
@@ -53,9 +41,6 @@ export interface TextAreaFieldControlsProps extends BaseTextAreaFieldProps {
   setRows: (
     value: React.SetStateAction<BaseTextAreaFieldProps['rows']>
   ) => void;
-  setValue: (
-    value: React.SetStateAction<BaseTextAreaFieldProps['value']>
-  ) => void;
   setVariation: (
     value: React.SetStateAction<BaseTextAreaFieldProps['variation']>
   ) => void;
@@ -66,61 +51,33 @@ interface TextAreaFieldControlsInterface {
 }
 
 export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
-  autoComplete,
-  defaultValue,
   descriptiveText,
   errorMessage,
   hasError,
   isDisabled,
   isReadOnly,
-  isRequired,
   label,
   labelHidden,
-  maxLength,
   name,
   placeholder,
   rows,
-  setAutoComplete,
-  setDefaultValue,
   setDescriptiveText,
   setErrorMessage,
   setHasError,
   setIsDisabled,
   setIsReadOnly,
-  setIsRequired,
   setLabel,
   setLabelHidden,
-  setMaxLength,
   setName,
   setPlaceholder,
   setRows,
   setSize,
-  setValue,
   setVariation,
   size,
-  value,
   variation,
 }) => {
   return (
     <Flex direction="column">
-      <TextField
-        placeholder="Set autocomplete"
-        name="autocomplete"
-        value={autoComplete}
-        onChange={(event: any) => {
-          setAutoComplete(event.target.value);
-        }}
-        label="autocomplete"
-      />
-      <TextField
-        placeholder="Set default value"
-        name="defaultValue"
-        value={defaultValue}
-        onChange={(event: any) => {
-          setDefaultValue(event.target.value);
-        }}
-        label="defaultValue"
-      />
       <TextField
         placeholder="Set label"
         name="label"
@@ -158,15 +115,6 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
         label="rows"
       />
       <TextField
-        placeholder="Set maxLength"
-        name="maxLength"
-        value={maxLength}
-        onChange={(event: any) => {
-          setMaxLength(event.target.value);
-        }}
-        label="maxLength"
-      />
-      <TextField
         placeholder="Set descriptive text"
         name="descriptiveText"
         value={descriptiveText.toString()}
@@ -183,15 +131,6 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
           setErrorMessage(event.target.value);
         }}
         label="errorMessage"
-      />
-      <TextField
-        placeholder="Set value"
-        name="value"
-        value={value}
-        onChange={(event: any) => {
-          setValue(event.target.value);
-        }}
-        label="value"
       />
       <Flex wrap="wrap">
         <SwitchField
@@ -227,14 +166,6 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
             setIsReadOnly(!isReadOnly);
           }}
           label="isReadOnly"
-        />
-        <SwitchField
-          checked={isRequired}
-          name="isRequired"
-          onChange={() => {
-            setIsRequired(!isRequired);
-          }}
-          label="isRequired"
         />
       </Flex>
 

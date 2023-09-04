@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { MergeProps } from '@aws-amplify/ui-react-core';
 
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
@@ -7,8 +8,6 @@ import { BaseStyleProps } from './style';
 export type IsAny<Type> = (Type extends never ? true : false) extends false
   ? false
   : true;
-
-type MergeProps<A, B> = A & Omit<B, keyof A>;
 
 export type ElementType = React.ElementType;
 
@@ -71,6 +70,7 @@ export interface ForwardRefPrimitive<
   ): React.ReactElement | null;
 }
 
+/** @deprecated For internal use only */
 export interface BaseViewProps
   extends BaseComponentProps,
     BaseStyleProps,
