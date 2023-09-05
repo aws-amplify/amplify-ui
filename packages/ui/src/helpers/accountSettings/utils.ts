@@ -1,44 +1,42 @@
-import { Auth } from 'aws-amplify';
+import { updatePassword } from 'aws-amplify/auth';
 
-import { AmplifyUser } from '../../types';
 import { getLogger } from '../utils';
 
 const logger = getLogger('Auth');
 
 type ChangePasswordInput = {
-  user: AmplifyUser;
-  currentPassword: string;
+  oldPassword: string;
   newPassword: string;
 };
 
 export const changePassword = async ({
-  user,
-  currentPassword,
+  oldPassword,
   newPassword,
 }: ChangePasswordInput): Promise<void> => {
   try {
-    logger.debug('calling Auth.changePassword');
+    logger.debug('calling aws-amplify/auth updatePassword');
     /**
-     * Auth.changePassword returns `Promise<"SUCCESS">`. We're not interested
+     * updatePassword returns `Promise<"SUCCESS">`. We're not interested
      * in its resolved string value, so we just return Promise.resolve() on success.
      */
-    await Auth.changePassword(user, currentPassword, newPassword);
-    logger.debug('Auth.changePassword was successful');
+    await updatePassword({ oldPassword, newPassword });
+    logger.debug('aws-amplify/auth updatePassword was successful');
     return Promise.resolve();
   } catch (e) {
-    logger.debug('Auth.changePassword failed with error', e);
+    logger.debug('aws-amplify/auth updatePassword failed with error', e);
     return Promise.reject(e);
   }
 };
 
 export const deleteUser = async () => {
   try {
-    logger.debug('calling Auth.deleteUser');
-    await Auth.deleteUser();
-    logger.debug('Auth.deleteUser was successful');
+    logger.debug('calling aws-amplify/auth deleteUser');
+    //TODO: update when delete user API is available
+    //await Auth.deleteUser();
+    logger.debug('aws-amplify/auth deleteUser was successful');
     return Promise.resolve();
   } catch (e) {
-    logger.debug('Auth.deleteUser failed with error', e);
+    logger.debug('aws-amplify/auth deleteUser failed with error', e);
     return Promise.reject(e);
   }
 };

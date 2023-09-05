@@ -16,7 +16,7 @@
   },
   "peerDependencies": {
     "@angular/core": ">= 14.0.0",
-    "aws-amplify": "^5.0.1"
+    "aws-amplify": "console-preview"
   },
   "dependencies": {
     "@aws-amplify/ui": "5.8.0",
