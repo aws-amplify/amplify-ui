@@ -95,6 +95,7 @@
   "devDependencies": {
     "@changesets/changelog-github": "0.4.1",
     "@changesets/cli": "^2.26.2",
+    "eslint-plugin-index": "^1.1.5",
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "2.4.1",

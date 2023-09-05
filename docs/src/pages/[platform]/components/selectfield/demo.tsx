@@ -33,10 +33,16 @@ const propsToCode = (selectFieldProps) => {
     (selectFieldProps.isDisabled
       ? `\n  isDisabled={${JSON.stringify(selectFieldProps.isDisabled)}}`
       : '') +
+    (selectFieldProps.isMultiple
+      ? `\n  isMultiple={${JSON.stringify(selectFieldProps.isMultiple)}}`
+      : '') +
     `\n>` +
-    `\n  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>` +
+    `\n    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="orange">Orange</option>
+    <option value="pineapple">Pineapple</option>
+    <option value="kiwi">Kiwi</option>
+    <option value="tangerine">Tangerine</option>` +
     `\n</SelectField>`
   );
 };
@@ -70,10 +76,15 @@ export const SelectFieldDemo = () => {
         placeholder="Please select a fruit"
         size={selectFieldProps.size}
         variation={selectFieldProps.variation}
+        isMultiple={selectFieldProps.isMultiple}
+        selectSize={selectFieldProps.selectSize}
       >
         <option value="apple">Apple</option>
         <option value="banana">Banana</option>
         <option value="orange">Orange</option>
+        <option value="pineapple">Pineapple</option>
+        <option value="kiwi">Kiwi</option>
+        <option value="tangerine">Tangerine</option>
       </SelectField>
     </Demo>
   );

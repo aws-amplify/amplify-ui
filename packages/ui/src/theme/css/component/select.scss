@@ -14,9 +14,11 @@
   right: var(--amplify-components-select-icon-wrapper-right);
   transform: var(--amplify-components-select-icon-wrapper-transform);
   pointer-events: var(--amplify-components-select-icon-wrapper-pointer-events);
+
   &--small {
     right: var(--amplify-components-select-icon-wrapper-small-right);
   }
+
   &--large {
     right: var(--amplify-components-select-icon-wrapper-large-right);
   }
@@ -60,5 +62,16 @@
     padding-inline-end: var(
       --amplify-components-select-large-padding-inline-end
     );
+  }
+
+  &[multiple],
+  &[size] {
+    overflow: auto;
+    padding: 0.25rem 1rem;
+
+    option {
+      color: var(--amplify-components-select-option-color);
+      padding: 0.125rem 0;
+    }
   }
 }

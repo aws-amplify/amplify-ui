@@ -21,6 +21,8 @@ import {
   SelectFieldThemeExample,
   SelectFieldStylePropsExample,
   SelectFieldIconProviderExample,
+  SelectFieldMultipleStateExample,
+  SelectFieldSelectSizeExample,
 } from './examples';
 
 ## Demo
@@ -169,6 +171,42 @@ A disabled field will not be focusable or mutable, and it will not be submitted 
   <ExampleCode>
 
 ```jsx file=./examples/SelectFieldDisabledStateExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Multiple state
+
+The `multiple` attribute specifies that multiple options can be selected at once. If the `multiple` attribute is present, the default value for the `size` attribute is 4. Use the `isMultiple` prop to set the state for the SelectField. 
+* For Mac: Hold down the command button to select multiple options
+* For Windows: Hold down the control button to select multiple options
+
+<Example>
+  <SelectFieldMultipleStateExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldMultipleStateExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Select size
+
+The `size` attribute sets the number of visible options in a drop-down list. Use the `selectSize` prop to set the `size` attribute value. If the value of the `size` attribute is greater than 1, but lower than the total number of options in the list, the browser will add a scroll bar to indicate that there are more options to view.
+
+Default value is 1, but if the `multiple` attribute is present, the default value is 4.
+
+<Example>
+  <SelectFieldSelectSizeExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldSelectSizeExample.tsx
 
 ```
 
