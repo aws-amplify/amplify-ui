@@ -112,12 +112,6 @@
       "limit": "120 kB"
     },
     {
-      "name": "Storage - FileUploader",
-      "path": "dist/esm/index.mjs",
-      "import": "{ FileUploader }",
-      "limit": "140 kB"
-    },
-    {
       "name": "AccountSettings",
       "path": "dist/esm/index.mjs",
       "import": "{ AccountSettings }",

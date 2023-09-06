@@ -1,11 +1,6 @@
 import { useEffect } from 'react';
 import { Amplify, Notifications } from 'aws-amplify';
-import {
-  AccountSettings,
-  Authenticator,
-  FileUploader,
-  Text,
-} from '@aws-amplify/ui-react';
+import { AccountSettings, Authenticator, Text } from '@aws-amplify/ui-react';
 import { StorageManager } from '@aws-amplify/ui-react-storage';
 import {
   InAppMessageDisplay,
@@ -31,7 +26,6 @@ export default function Home() {
         <InAppMessageDisplay />
         <Text>In-App Messaging Example</Text>
       </InAppMessagingProvider>
-      <FileUploader acceptedFileTypes={['image/*']} accessLevel="public" />
       <Authenticator>
         {({ signOut, user = { username: '' } }) => (
           <main>
