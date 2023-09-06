@@ -29,7 +29,7 @@ export const useStorageURL = ({
       return;
     }
 
-    const promise = getUrl({ key, options })
+    getUrl({ key, options })
       .then(({ url }) => setURL(url.toString()))
       .catch((error: Error) => {
         if (isFunction(onStorageGetError)) {
