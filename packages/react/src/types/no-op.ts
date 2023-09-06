@@ -8,7 +8,7 @@ export const Auth = {} as any;
 export const Amplify = {} as any;
 
 //@ts-ignore
-export const Hub = {} as any;
+export const DataStore = {} as any;
 
 //@ts-ignore
-export const I18n = {} as any;
+export const Hub = {} as any;

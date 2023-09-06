@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Logger } from 'aws-amplify';
+import { ConsoleLogger } from '@aws-amplify/core';
 import { ValidationError } from '@aws-amplify/ui';
 
 import { OnChangeText, TextFieldOnBlur, TypedField } from '../types';
@@ -12,7 +12,7 @@ import {
   runFieldValidation,
 } from './utils';
 
-const logger = new Logger('Authenticator');
+const logger = new ConsoleLogger('Authenticator');
 
 export default function useFieldValues<FieldType extends TypedField>({
   componentName,

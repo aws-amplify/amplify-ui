@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { isFunction } from '@aws-amplify/ui';
 import { useHasValueUpdated } from '@aws-amplify/ui-react-core';
-import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
+import { getUrl, StorageOptions } from '@aws-amplify/storage';
 
 interface UseStorageURLParams {
   key: string;
-  options?: S3ProviderGetConfig;
+  options?: StorageOptions;
   fallbackURL?: string;
   onStorageGetError?: (error: Error) => void;
 }
@@ -29,8 +29,8 @@ export const useStorageURL = ({
       return;
     }
 
-    const promise = Storage.get(key, options)
-      .then((url) => setURL(url))
+    const promise = getUrl({ key, options })
+      .then(({ url }) => setURL(url.toString()))
       .catch((error: Error) => {
         if (isFunction(onStorageGetError)) {
           onStorageGetError(error);
@@ -39,9 +39,6 @@ export const useStorageURL = ({
           setURL(fallbackURL);
         }
       });
-
-    // Cancel current promise on unmount
-    return () => Storage.cancel(promise);
   }, [key, options, fallbackURL, onStorageGetError, hasKeyUpdated]);
 
   return url;

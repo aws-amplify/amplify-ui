@@ -1,7 +1,7 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual.js';
 
-import { Logger } from 'aws-amplify';
+import { Logger } from '@aws-amplify/core';
 import {
   changePassword,
   ValidatorOptions,
@@ -162,12 +162,12 @@ function ChangePassword({
       return;
     }
 
-    const { currentPassword, newPassword } = formValues;
+    const { oldPassword, newPassword } = formValues;
     if (errorMessage) {
       setErrorMessage(null);
     }
 
-    changePassword({ user, currentPassword, newPassword })
+    changePassword({ oldPassword, newPassword })
       .then(() => {
         // notify success to the parent
         onSuccess?.();
