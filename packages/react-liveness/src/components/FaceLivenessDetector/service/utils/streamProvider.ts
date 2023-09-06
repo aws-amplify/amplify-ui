@@ -10,10 +10,10 @@ import {
   RekognitionStreamingClientConfig,
   StartFaceLivenessSessionCommand,
 } from '@aws-sdk/client-rekognitionstreaming';
-import { WebSocketFetchHandler } from '@aws-sdk/middleware-websocket';
 import { VideoRecorder } from './videoRecorder';
 import { getLivenessUserAgent } from '../../utils/platform';
 import { AwsCredentialProvider } from '../types';
+import { CustomWebSocketFetchHandler } from './CustomWebSocketFetchHandler';
 
 export interface StartLivenessStreamInput {
   sessionId: string;
@@ -48,6 +48,15 @@ function isClientSessionInformationEvent(
   obj: unknown
 ): obj is ClientSessionInformationEvent {
   return (obj as ClientSessionInformationEvent).Challenge !== undefined;
+}
+
+interface EndStreamWithCodeEvent {
+  type: string;
+  code: number;
+}
+
+function isEndStreamWithCodeEvent(obj: unknown): obj is EndStreamWithCodeEvent {
+  return (obj as EndStreamWithCodeEvent).code !== undefined;
 }
 
 export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider {
@@ -107,16 +116,17 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
     this.videoRecorder.dispatch(new Event('stopVideo'));
   }
 
-  public async endStream(): Promise<undefined> {
+  public async endStreamWithCode(code?: number): Promise<undefined> {
     if (this.videoRecorder.getState() === 'recording') {
       await this.stopVideo();
-      this.dispatchStopVideoEvent();
     }
-    if (!this._reader) {
-      return;
-    }
-    await this._reader.cancel();
-    return this._reader.closed;
+    this.videoRecorder.dispatch(
+      new MessageEvent('endStreamWithCode', {
+        data: { code: code },
+      })
+    );
+
+    return;
   }
 
   private async init() {
@@ -132,7 +142,9 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
       credentials,
       region: this.region,
       customUserAgent: `${getAmplifyUserAgent()} ${getLivenessUserAgent()}`,
-      requestHandler: new WebSocketFetchHandler({ connectionTimeout: 10_000 }),
+      requestHandler: new CustomWebSocketFetchHandler({
+        connectionTimeout: 10_000,
+      }),
     };
 
     if (ENDPOINT) {
@@ -185,6 +197,13 @@ export class LivenessStreamProvider extends AmazonAIInterpretPredictionsProvider
           yield {
             ClientSessionInformationEvent: {
               Challenge: value.Challenge,
+            },
+          };
+        } else if (isEndStreamWithCodeEvent(value)) {
+          yield {
+            VideoEvent: {
+              VideoChunk: [],
+              TimestampMillis: { closeCode: value.code },
             },
           };
         }

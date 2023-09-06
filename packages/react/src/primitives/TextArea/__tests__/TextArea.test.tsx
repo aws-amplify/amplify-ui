@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { TextArea } from '../TextArea';
+import { Fieldset } from '../../Fieldset';
 import { ComponentClassNames } from '../../shared';
 
 describe('TextArea component', () => {
@@ -44,6 +45,22 @@ describe('TextArea component', () => {
     expect(textarea).toHaveAttribute('disabled', '');
     expect(textarea).toHaveAttribute('readonly', '');
     expect(textarea).toHaveAttribute('required', '');
+  });
+
+  it('should always be disabled if parent Fieldset isDisabled', async () => {
+    render(
+      <Fieldset legend="legend" isDisabled>
+        <TextArea testId="textarea" />
+        <TextArea testId="textareaWithDisabledProp" isDisabled={false} />
+      </Fieldset>
+    );
+
+    const textarea = await screen.findByTestId('textarea');
+    const textareaDisabled = await screen.findByTestId(
+      'textareaWithDisabledProp'
+    );
+    expect(textarea).toHaveAttribute('disabled');
+    expect(textareaDisabled).toHaveAttribute('disabled');
   });
 
   it('should set size and variation data attributes', async () => {

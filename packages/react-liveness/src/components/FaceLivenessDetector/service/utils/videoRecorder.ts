@@ -9,7 +9,9 @@ export interface VideoRecorderOptions {
  * Helper wrapper class over the native MediaRecorder.
  */
 export class VideoRecorder {
-  public videoStream!: ReadableStream<Blob | string>;
+  public videoStream!: ReadableStream<
+    Blob | string | { type: string; code: number }
+  >;
   public recordingStartApiTimestamp: number | undefined;
   public recorderStartTimestamp: number | undefined;
   public recorderEndTimestamp: number | undefined;
@@ -98,6 +100,15 @@ export class VideoRecorder {
 
         this._recorder.addEventListener('endStream', () => {
           controller.close();
+        });
+
+        this._recorder.addEventListener('endStreamWithCode', (e: any) => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+          controller.enqueue({
+            type: 'endStreamWithCode',
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            code: e.data.code as number,
+          });
         });
       },
     });
