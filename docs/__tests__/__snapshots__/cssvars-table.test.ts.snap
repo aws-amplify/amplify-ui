@@ -4547,6 +4547,14 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-colors-border-pressed)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-active-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-storagemanager-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-storagemanager-dropzone-active-border-style\\",
+        \\"value\\": \\"var(--amplify-components-storagemanager-dropzone-border-style)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-storagemanager-dropzone-active-border-width\\",
         \\"value\\": \\"var(--amplify-border-widths-medium)\\"
     },
