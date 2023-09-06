@@ -46,7 +46,7 @@ function StorageManagerBase(
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
   if (!accessLevel || !maxFileCount) {
-    logger.warn('FileUploader requires accessLevel and maxFileCount props');
+    logger.warn('StorageManager requires accessLevel and maxFileCount props');
   }
 
   const Components = {
