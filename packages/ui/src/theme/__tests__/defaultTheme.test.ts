@@ -1041,6 +1041,10 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-small-padding-inline-end: var(--amplify-space-xl);
         --amplify-components-select-large-min-width: 7.5rem;
         --amplify-components-select-large-padding-inline-end: var(--amplify-space-xxl);
+        --amplify-components-select-multiple-padding-block: var(--amplify-space-xs);
+        --amplify-components-select-multiple-padding-inline: var(--amplify-space-small);
+        --amplify-components-select-multiple-option-padding-block: var(--amplify-space-xs);
+        --amplify-components-select-multiple-option-padding-inline: var(--amplify-space-small);
         --amplify-components-selectfield-border-color: var(--amplify-components-fieldcontrol-border-color);
         --amplify-components-selectfield-color: var(--amplify-components-fieldcontrol-color);
         --amplify-components-selectfield-flex-direction: column;
