@@ -1,17 +1,17 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import QRCode from 'qrcode';
-import { Logger } from '@aws-amplify/core';
 import {
   FormFieldsArray,
   getActorContext,
   getFormDataFromEvent,
+  getLogger,
   getTotpCodeURL,
   SignInContext,
   authenticatorTextUtil,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
-const logger = new Logger('SetupTotp');
+const logger = getLogger('Auth');
 
 const {
   getSetupTOTPText,
@@ -62,7 +62,7 @@ export class SetupTotpComponent implements OnInit {
         this.totpSecretCode
       );
 
-      logger.info('totp code was generated:', totpCode);
+      logger.info(`totp code was generated: ${totpCode}`);
       this.qrCodeSource = await QRCode.toDataURL(totpCode);
     } catch (err) {
       logger.error(err);

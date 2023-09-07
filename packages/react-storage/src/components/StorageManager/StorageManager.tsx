@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Logger } from '@aws-amplify/core';
 
 import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
@@ -20,8 +19,9 @@ import {
   defaultStorageManagerDisplayText,
   filterAllowedFiles,
 } from './utils';
+import { getLogger } from '@aws-amplify/ui';
 
-const logger = new Logger('Storage.StorageManager');
+const logger = getLogger('StorageManager');
 
 function StorageManagerBase(
   {
@@ -97,7 +97,7 @@ function StorageManagerBase(
     acceptedFileTypes,
     onDropComplete: ({ acceptedFiles, rejectedFiles }) => {
       if (rejectedFiles && rejectedFiles.length > 0) {
-        logger.warn('Rejected files: ', rejectedFiles);
+        logger.warn(`Rejected files: ${rejectedFiles}`);
       }
       // We need to filter out files by extension here,
       // we don't get filenames on the drag event, only on drop

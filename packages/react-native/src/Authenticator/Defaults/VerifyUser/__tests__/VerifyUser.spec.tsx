@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 
-import { Logger } from 'aws-amplify';
 import {
   authenticatorTextUtil,
+  getLogger,
   UnverifiedContactMethodType,
 } from '@aws-amplify/ui';
 import { VerifyUser } from '..';
@@ -12,7 +12,7 @@ import { RadioFieldOptions } from '../../../hooks/types';
 const { getSkipText, getVerifyText, getAccountRecoveryInfoText } =
   authenticatorTextUtil;
 
-const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+const warnSpy = jest.spyOn(getLogger('Auth'), 'warn').mockImplementation();
 
 const radioEmailField = {
   type: 'radio',

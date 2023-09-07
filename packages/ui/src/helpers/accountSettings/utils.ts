@@ -1,6 +1,6 @@
 import { updatePassword } from 'aws-amplify/auth';
 
-import { getLogger } from '../utils';
+import { getLogger } from '../logger';
 
 const logger = getLogger('Auth');
 

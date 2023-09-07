@@ -1,8 +1,11 @@
 import QRCode from 'qrcode';
 import * as React from 'react';
 
-import { Logger } from '@aws-amplify/core';
-import { authenticatorTextUtil, getTotpCodeURL } from '@aws-amplify/ui';
+import {
+  authenticatorTextUtil,
+  getLogger,
+  getTotpCodeURL,
+} from '@aws-amplify/ui';
 
 import { Flex } from '../../../primitives/Flex';
 import { Heading } from '../../../primitives/Heading';
@@ -14,7 +17,7 @@ import { RemoteErrorMessage } from '../shared/RemoteErrorMessage';
 import { FormFields } from '../shared/FormFields';
 import { RouteContainer, RouteProps } from '../RouteContainer';
 
-const logger = new Logger('SetupTOTP-logger');
+const logger = getLogger('Auth');
 
 type LegacyQRFields = { totpIssuer?: string; totpUsername?: string };
 
@@ -56,7 +59,7 @@ export const SetupTOTP = ({
 
       setQrCode(qrCodeImageSource);
     } catch (error) {
-      logger.error(error);
+      logger.error(`Error generating the QR code ${error}`);
     } finally {
       setIsLoading(false);
     }

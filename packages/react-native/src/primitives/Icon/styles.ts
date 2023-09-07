@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { Logger } from '@aws-amplify/core';
+
+import { getLogger } from '@aws-amplify/ui';
 
 import { StrictTheme } from '../../theme';
 import { IconProps, IconStyles } from './types';
 import { iconSizes } from './constants';
 
-const logger = new Logger('Icon-logger');
+const logger = getLogger('Icon');
 
 const getIconSize = (size: IconProps['size']): number => {
   if (!size) {

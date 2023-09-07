@@ -1,7 +1,5 @@
 import React, { Suspense } from 'react';
 import { Text } from 'react-native';
-
-import { Logger } from '@aws-amplify/core';
 import { LaunchArguments } from 'react-native-launch-arguments';
 
 import { EXAMPLE_APP_NAME } from '@env';
@@ -83,8 +81,6 @@ const WithAuthenticator = React.lazy(
   () => import('../ui/components/authenticator/with-authenticator/Example')
 );
 
-const logger = new Logger('RNExample-logger');
-
 export const ExampleComponent = () => {
   // .env file or launch argument passed from Detox
   const APP = EXAMPLE_APP_NAME ?? LaunchArguments.value().EXAMPLE_APP_NAME;
@@ -135,7 +131,7 @@ export const ExampleComponent = () => {
     case 'ui/components/in-app-messaging/demo':
       return <InAppMessaging />;
     default:
-      logger.warn(
+      console.warn(
         'EXAMPLE_APP_NAME environment variable not configured correctly, running default example app'
       );
       return null;

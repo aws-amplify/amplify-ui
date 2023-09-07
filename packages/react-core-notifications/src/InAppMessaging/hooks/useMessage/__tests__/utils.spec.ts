@@ -1,11 +1,13 @@
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { getLogger } from '@aws-amplify/ui';
 
 import { MessageButton, MessageContent } from '../../../types';
 import { BannerMessageLayouts } from '../../../types';
 import { getActionHandler, getContentProps, getPositionProp } from '../utils';
 
 // use empty mockImplementation to turn off console output
-const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+const errorSpy = jest
+  .spyOn(getLogger('Notifications'), 'error')
+  .mockImplementation();
 
 const onMessageAction = jest.fn();
 

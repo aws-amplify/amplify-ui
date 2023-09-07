@@ -1,7 +1,7 @@
-import { Logger } from '@aws-amplify/core';
+import { getLogger } from '@aws-amplify/ui';
 import { HandleMessageLinkAction } from '@aws-amplify/ui-react-core-notifications';
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = getLogger('Notifications');
 
 const handleMessageLinkAction: HandleMessageLinkAction = (input) => {
   let url: URL;

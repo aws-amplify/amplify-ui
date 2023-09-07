@@ -1,5 +1,4 @@
-import { Logger } from 'aws-amplify';
-import { authenticatorTextUtil } from '@aws-amplify/ui';
+import { authenticatorTextUtil, getLogger } from '@aws-amplify/ui';
 
 import { TextFieldOptionsType, TypedField } from '../../types';
 import {
@@ -9,7 +8,7 @@ import {
   runFieldValidation,
 } from '../utils';
 
-const warnSpy = jest.spyOn(Logger.prototype, 'warn');
+const warnSpy = jest.spyOn(getLogger('Auth'), 'warn');
 
 const idle = 'idle';
 const signIn = 'signIn';

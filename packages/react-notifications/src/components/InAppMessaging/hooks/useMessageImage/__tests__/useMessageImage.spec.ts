@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { getLogger } from '@aws-amplify/ui';
 
 import useMessageImage from '../useMessageImage';
 
@@ -9,7 +9,9 @@ type ImageConstructor = new (
 ) => HTMLImageElement;
 
 // use empty mockImplementation to turn off console output
-const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+const errorSpy = jest
+  .spyOn(getLogger('Notifications'), 'error')
+  .mockImplementation();
 
 const src = 'https://test.jpeg';
 const image = { src };

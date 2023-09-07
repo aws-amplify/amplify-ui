@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Image } from 'react-native';
 
-import { Logger } from '@aws-amplify/core';
+import { getLogger } from '@aws-amplify/ui';
 import {
   MessageImage,
   MessageLayout,
@@ -10,7 +10,7 @@ import {
 import { ImageDimensions, ImagePrefetchStatus, UseMessageImage } from './types';
 import { getLayoutImageDimensions, prefetchNetworkImage } from './utils';
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = getLogger('Notifications');
 
 /**
  * Handles prefetching and dimension setting for message images

@@ -1,4 +1,4 @@
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { getLogger } from '@aws-amplify/ui';
 
 import handleMessageLinkAction from '../handleMessageLinkAction';
 
@@ -15,7 +15,9 @@ const urlWithNoProtocol = path;
 const urlWithUnsupportedProtocol = `${unsupportedProtocol}//${path}`;
 
 // chain mockImplementation to turn off console output during tests
-const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+const warnSpy = jest
+  .spyOn(getLogger('Notifications'), 'warn')
+  .mockImplementation();
 
 describe('handleMessageLinkAction', () => {
   const original = window.open;

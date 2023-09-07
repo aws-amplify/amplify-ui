@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { Event, interpret, Subscription } from 'xstate';
 
 import { Auth } from 'aws-amplify';
-import { Logger } from '@aws-amplify/core';
 import {
   AmplifyUser,
   AuthContext,
@@ -14,6 +13,7 @@ import {
   AuthStatus,
   createAuthenticatorMachine,
   defaultAuthHubHandler,
+  getLogger,
   getServiceFacade,
   listenToAuthHub,
 } from '@aws-amplify/ui';
@@ -21,7 +21,7 @@ import { translate } from '@aws-amplify/ui';
 
 import { AuthSubscriptionCallback } from '../common/types';
 
-const logger = new Logger('state-machine');
+const logger = getLogger('StateMachine');
 
 /**
  * AuthenticatorService provides access to the authenticator state and context.

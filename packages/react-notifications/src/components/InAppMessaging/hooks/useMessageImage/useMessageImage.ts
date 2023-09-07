@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { MessageImage } from '@aws-amplify/ui-react-core-notifications';
 
-import { Logger } from '@aws-amplify/core';
+import { MessageImage } from '@aws-amplify/ui-react-core-notifications';
+import { getLogger } from '@aws-amplify/ui';
 
 import { ImagePrefetchStatus, UseMessageImage } from './types';
 
-const logger = new Logger('Notifications.InAppMessaging');
+const logger = getLogger('Notifications');
 
 /**
  * Handles prefetching for message images

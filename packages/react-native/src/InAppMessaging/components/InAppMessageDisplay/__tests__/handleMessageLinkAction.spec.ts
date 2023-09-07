@@ -1,5 +1,6 @@
 import { Linking } from 'react-native';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+
+import { getLogger } from '@aws-amplify/ui';
 
 import handleMessageLinkAction from '../handleMessageLinkAction';
 
@@ -8,7 +9,9 @@ jest.mock('react-native', () => ({
 }));
 
 // use empty mockImplementation to turn off console output
-const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+const warnSpy = jest
+  .spyOn(getLogger('Notifications'), 'warn')
+  .mockImplementation();
 
 const url = 'https://docs.amplify.aws/';
 const error = 'ERROR';

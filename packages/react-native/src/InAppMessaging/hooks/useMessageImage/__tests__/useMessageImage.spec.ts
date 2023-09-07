@@ -1,6 +1,7 @@
 import { Image } from 'react-native';
 import { renderHook } from '@testing-library/react-hooks';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+
+import { getLogger } from '@aws-amplify/ui';
 import { MessageImage } from '@aws-amplify/ui-react-core-notifications';
 
 import { getLayoutImageDimensions, prefetchNetworkImage } from '../utils';
@@ -13,7 +14,9 @@ jest.mock('react-native', () => ({
 jest.mock('../utils');
 
 // use empty mockImplementation to turn off console output
-const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+const errorSpy = jest
+  .spyOn(getLogger('Notifications'), 'error')
+  .mockImplementation();
 
 const src = 'https://test.jpeg';
 const image = { src };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render, waitFor, act } from '@testing-library/react';
 
-import { Logger } from 'aws-amplify';
+import { getLogger } from '@aws-amplify/ui';
 import { ComponentClassNames } from '@aws-amplify/ui-react';
 import { Storage } from 'aws-amplify';
 
@@ -18,7 +18,9 @@ const storageSpy = jest
   .spyOn(Storage, 'put')
   .mockImplementation(() => Promise.resolve({ key: 'file' }));
 
-const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+const warnSpy = jest
+  .spyOn(getLogger('StorageManager'), 'warn')
+  .mockImplementation();
 
 const storeManagerProps: StorageManagerProps = {
   accessLevel: 'public',

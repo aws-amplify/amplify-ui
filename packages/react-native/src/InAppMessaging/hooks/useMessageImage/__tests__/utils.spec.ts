@@ -1,5 +1,5 @@
 import { Image } from 'react-native';
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { getLogger } from '@aws-amplify/ui';
 
 import {
   BANNER_IMAGE_SCREEN_MULTIPLIER,
@@ -13,7 +13,9 @@ jest.mock('react-native', () => ({
 }));
 
 // use empty mockImplementation to turn off console output
-const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+const errorSpy = jest
+  .spyOn(getLogger('Notifications'), 'error')
+  .mockImplementation();
 
 const url = 'https://test.jpeg';
 
