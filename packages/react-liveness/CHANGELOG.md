@@ -1,5 +1,13 @@
 # @aws-amplify/ui-react-liveness
 
+## 2.0.7
+
+### Patch Changes
+
+- [#4405](https://github.com/aws-amplify/amplify-ui/pull/4405) [`e274c3eac`](https://github.com/aws-amplify/amplify-ui/commit/e274c3eac4bc627407ddb700e6643e268c9c3bb3) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): get oval fit timeout from server
+
+- [#4371](https://github.com/aws-amplify/amplify-ui/pull/4371) [`41a7b4288`](https://github.com/aws-amplify/amplify-ui/commit/41a7b4288930f9574d037c0543167b405d62d016) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): Custom websocket handler
+
 ## 2.0.6
 
 ### Patch Changes
