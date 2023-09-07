@@ -63,7 +63,7 @@
     "tslib": "2.4.1"
   },
   "peerDependencies": {
-    "aws-amplify": "^5.0.1",
+    "aws-amplify": "console-preview",
     "react": ">= 16.14.0",
     "react-dom": ">= 16.14.0"
   },
@@ -110,12 +110,6 @@
       "path": "dist/esm/index.mjs",
       "import": "{ Authenticator }",
       "limit": "120 kB"
-    },
-    {
-      "name": "Storage - FileUploader",
-      "path": "dist/esm/index.mjs",
-      "import": "{ FileUploader }",
-      "limit": "140 kB"
     },
     {
       "name": "AccountSettings",

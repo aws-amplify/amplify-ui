@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Logger } from 'aws-amplify';
+import { Logger } from '@aws-amplify/core';
 
 import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
@@ -46,7 +46,7 @@ function StorageManagerBase(
   ref: React.ForwardedRef<StorageManagerHandle>
 ): JSX.Element {
   if (!accessLevel || !maxFileCount) {
-    logger.warn('FileUploader requires accessLevel and maxFileCount props');
+    logger.warn('StorageManager requires accessLevel and maxFileCount props');
   }
 
   const Components = {

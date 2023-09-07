@@ -2,7 +2,7 @@
 import { computed, ref, toRefs, useAttrs, onMounted, reactive } from 'vue';
 import QRCode from 'qrcode';
 
-import { Logger } from 'aws-amplify';
+import { Logger } from '@aws-amplify/core';
 import {
   authenticatorTextUtil,
   getFormDataFromEvent,

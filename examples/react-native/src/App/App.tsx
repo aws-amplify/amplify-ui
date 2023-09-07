@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { Text } from 'react-native';
 
-import { ConsoleLogger as Logger } from '@aws-amplify/core';
+import { Logger } from '@aws-amplify/core';
 import { LaunchArguments } from 'react-native-launch-arguments';
 
 import { EXAMPLE_APP_NAME } from '@env';
