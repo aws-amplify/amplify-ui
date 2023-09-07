@@ -198,6 +198,11 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Divider'],
     description: 'Class applied to the label of the Divider component',
   },
+  DropZone: {
+    className: ComponentClassName.DropZone,
+    components: ['DropZone'],
+    description: 'Class applied to the DropZone component',
+  },
   Expander: {
     className: ComponentClassName.Expander,
     components: ['Expander'],
@@ -238,6 +243,9 @@ export const ComponentClassObject: ComponentClassNameItems = {
   FieldErrorMessage: { className: ComponentClassName.FieldErrorMessage },
   FieldGroup: { className: ComponentClassName.FieldGroup },
   FieldGroupControl: { className: ComponentClassName.FieldGroupControl },
+  FieldGroupFieldWrapper: {
+    className: ComponentClassName.FieldGroupFieldWrapper,
+  },
   FieldGroupOuterEnd: { className: ComponentClassName.FieldGroupOuterEnd },
   FieldGroupOuterStart: { className: ComponentClassName.FieldGroupOuterStart },
   FieldGroupInnerEnd: { className: ComponentClassName.FieldGroupInnerEnd },
@@ -251,8 +259,15 @@ export const ComponentClassObject: ComponentClassNameItems = {
     className: ComponentClassName.FieldGroupHasInnerStart,
   },
   FieldShowPassword: { className: ComponentClassName.FieldShowPassword },
-  FieldGroupFieldWrapper: {
-    className: ComponentClassName.FieldGroupFieldWrapper,
+  Fieldset: {
+    className: ComponentClassName.Fieldset,
+    components: ['Fieldset'],
+    description: 'Top level element that wraps the Fieldset primitive',
+  },
+  FieldsetLegend: {
+    className: ComponentClassName.FieldsetLegend,
+    components: ['Fieldset'],
+    description: 'Visual label for the Fieldset primitive',
   },
   FileUploaderDropZone: {
     className: ComponentClassName.FileUploaderDropZone,
@@ -362,8 +377,16 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Image'],
     description: 'Top level element that wraps the Image primitive',
   },
-  Input: { className: ComponentClassName.Input },
-  Label: { className: ComponentClassName.Label },
+  Input: {
+    className: ComponentClassName.Input,
+    components: ['Input'],
+    description: 'Class applied to the input element',
+  },
+  Label: {
+    className: ComponentClassName.Label,
+    components: ['Label'],
+    description: 'Class applied to the label element',
+  },
   Link: {
     className: ComponentClassName.Link,
     components: ['Link'],
@@ -405,6 +428,37 @@ export const ComponentClassObject: ComponentClassNameItems = {
     components: ['Menu'],
     description:
       'Menu trigger button (MenuButton, not wrapped in amplify-menu-content class)',
+  },
+  Message: {
+    className: ComponentClassName.Message,
+    components: ['Message'],
+    description: 'Class applied to the root element of the Message',
+  },
+  MessageIcon: {
+    className: ComponentClassName.MessageIcon,
+    components: ['Message'],
+    description: 'Class applied to Icon component within the Message primitive',
+  },
+  MessageHeading: {
+    className: ComponentClassName.MessageHeading,
+    components: ['Message'],
+    description: 'Class applied to the heading View',
+  },
+  MessageBody: {
+    className: ComponentClassName.MessageBody,
+    components: ['Message'],
+    description: 'Class applied to the body View',
+  },
+  MessageContent: {
+    className: ComponentClassName.MessageContent,
+    components: ['Message'],
+    description:
+      'Class applied to the wrappar around heading and children of the Message',
+  },
+  MessageDismiss: {
+    className: ComponentClassName.MessageDismiss,
+    components: ['Message'],
+    description: 'Class applied to the close Button',
   },
   Pagination: {
     className: ComponentClassName.Pagination,
@@ -809,6 +863,7 @@ export const ComponentClassNames: ComponentClassNamesType = {
   DialCodeSelect: ComponentClassObject.DialCodeSelect.className,
   Divider: ComponentClassObject.Divider.className,
   DividerLabel: ComponentClassObject.DividerLabel.className,
+  DropZone: ComponentClassObject.DropZone.className,
   Expander: ComponentClassObject.Expander.className,
   ExpanderContent: ComponentClassObject.ExpanderContent.className,
   ExpanderContentText: ComponentClassObject.ExpanderContentText.className,
@@ -832,6 +887,8 @@ export const ComponentClassNames: ComponentClassNamesType = {
     ComponentClassObject.FieldGroupHasInnerStart.className,
   FieldShowPassword: ComponentClassObject.FieldShowPassword.className,
   FieldGroupFieldWrapper: ComponentClassObject.FieldGroupFieldWrapper.className,
+  Fieldset: ComponentClassObject.Fieldset.className,
+  FieldsetLegend: ComponentClassObject.FieldsetLegend.className,
   FileUploaderDropZone: ComponentClassObject.FileUploaderDropZone.className,
   FileUploaderDropZoneIcon:
     ComponentClassObject.FileUploaderDropZoneIcon.className,
@@ -876,6 +933,12 @@ export const ComponentClassNames: ComponentClassNamesType = {
   MenuContentWrapper: ComponentClassObject.MenuContentWrapper.className,
   MenuItem: ComponentClassObject.MenuItem.className,
   MenuTrigger: ComponentClassObject.MenuTrigger.className,
+  Message: ComponentClassObject.Message.className,
+  MessageIcon: ComponentClassObject.MessageIcon.className,
+  MessageHeading: ComponentClassObject.MessageHeading.className,
+  MessageBody: ComponentClassObject.MessageBody.className,
+  MessageContent: ComponentClassObject.MessageContent.className,
+  MessageDismiss: ComponentClassObject.MessageDismiss.className,
   Pagination: ComponentClassObject.Pagination.className,
   PaginationItemButton: ComponentClassObject.PaginationItemButton.className,
   PaginationItemCurrent: ComponentClassObject.PaginationItemCurrent.className,
@@ -980,6 +1043,9 @@ export const ComponentText = {
   },
   Fields: {
     clearButtonLabel: 'Clear input',
+  },
+  Message: {
+    dismissLabel: 'Dismiss message',
   },
   PaginationItem: {
     currentPageLabel: 'Page',

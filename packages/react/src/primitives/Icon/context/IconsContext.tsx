@@ -10,6 +10,7 @@ export type IconsContextInterface = {
   expander?: ComponentIcons<'more'>;
   field?: ComponentIcons<'clear'>;
   menu?: ComponentIcons<'menu'>;
+  message?: ComponentIcons<'close' | 'info' | 'error' | 'success' | 'warning'>;
   pagination?: ComponentIcons<'previous' | 'next'>;
   passwordField?: ComponentIcons<'visibility' | 'visibilityOff'>;
   rating?: ComponentIcons<'filled' | 'empty'>;

@@ -2631,6 +2631,142 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-border-widths-small)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-border-style\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-border-width\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-accepted-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-brand-primary-10)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-pressed)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-border-style\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-border-width\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-active-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-border-style\\",
+        \\"value\\": \\"dashed\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-border-style\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-border-width\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-disabled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-disabled)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-gap\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-pressed)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-border-radius\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-radius)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-border-style\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-style)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-border-width\\",
+        \\"value\\": \\"var(--amplify-components-dropzone-border-width)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-rejected-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-dropzone-text-align\\",
+        \\"value\\": \\"center\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-expander-background-color\\",
         \\"value\\": \\"var(--amplify-colors-background-primary)\\"
     },
@@ -3005,6 +3141,78 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-fieldmessages-error-font-size\\",
         \\"value\\": \\"var(--amplify-font-sizes-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-background-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-flex-direction\\",
+        \\"value\\": \\"column\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-gap\\",
+        \\"value\\": \\"var(--amplify-components-field-gap)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-large-gap\\",
+        \\"value\\": \\"var(--amplify-components-field-large-gap)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-large-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-large-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-line-height\\",
+        \\"value\\": \\"var(--amplify-line-heights-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-legend-small-font-size\\",
+        \\"value\\": \\"var(--amplify-components-field-small-font-size)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-neutral-40)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-large-padding\\",
+        \\"value\\": \\"var(--amplify-space-large)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-padding\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-outlined-small-padding\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-fieldset-small-gap\\",
+        \\"value\\": \\"var(--amplify-components-field-small-gap)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-fileuploader-dropzone-active-background-color\\",
@@ -3411,6 +3619,22 @@ exports[`CSS Variables Table 1`] = `
         \\"value\\": \\"var(--amplify-font-weights-extrabold)\\"
     },
     {
+        \\"variable\\": \\"--amplify-components-input-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-input-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-input-focus-border-color\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-focus-border-color)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-input-font-size\\",
+        \\"value\\": \\"var(--amplify-components-fieldcontrol-font-size)\\"
+    },
+    {
         \\"variable\\": \\"--amplify-components-link-active-color\\",
         \\"value\\": \\"var(--amplify-colors-font-active)\\"
     },
@@ -3605,6 +3829,246 @@ exports[`CSS Variables Table 1`] = `
     {
         \\"variable\\": \\"--amplify-components-menu-small-width\\",
         \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-align-items\\",
+        \\"value\\": \\"center\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-tertiary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-border-radius\\",
+        \\"value\\": \\"var(--amplify-radii-xs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-border-style\\",
+        \\"value\\": \\"solid\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-border-width\\",
+        \\"value\\": \\"var(--amplify-border-widths-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-dismiss-gap\\",
+        \\"value\\": \\"var(--amplify-space-xxs)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-secondary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-error-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-error-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-info-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-info-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-info-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-success-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-success-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-success-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-warning-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-warning-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-filled-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-heading-font-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-heading-font-weight\\",
+        \\"value\\": \\"var(--amplify-font-weights-bold)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-icon-size\\",
+        \\"value\\": \\"var(--amplify-font-sizes-xl)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-justify-content\\",
+        \\"value\\": \\"flex-start\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-line-height\\",
+        \\"value\\": \\"var(--amplify-line-heights-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-error-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-error-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-info-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-info-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-info-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-success-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-success-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-success-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-warning-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-warning-border-color\\",
+        \\"value\\": \\"var(--amplify-colors-border-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-outlined-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-warning)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-padding-block\\",
+        \\"value\\": \\"var(--amplify-space-small)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-padding-inline\\",
+        \\"value\\": \\"var(--amplify-space-medium)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-error-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-error-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-error-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-error)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-info-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-info-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-info-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-info)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-success-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-success-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-success-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-success)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-warning-background-color\\",
+        \\"value\\": \\"var(--amplify-colors-background-primary)\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-warning-border-color\\",
+        \\"value\\": \\"transparent\\"
+    },
+    {
+        \\"variable\\": \\"--amplify-components-message-plain-warning-color\\",
+        \\"value\\": \\"var(--amplify-colors-font-warning)\\"
     },
     {
         \\"variable\\": \\"--amplify-components-pagination-button-color\\",

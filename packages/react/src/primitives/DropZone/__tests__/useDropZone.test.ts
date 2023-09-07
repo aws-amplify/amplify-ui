@@ -1,26 +1,38 @@
 import * as React from 'react';
 import { act, renderHook } from '@testing-library/react-hooks';
-
-import { useDropZone, UseDropZoneProps } from '../useDropZone';
-
-jest.mock('@aws-amplify/storage');
+import { useDropZone } from '../useDropZone';
+import { UseDropZoneProps } from '../types';
 
 const mockFile = new File(['hello'], 'hello.png', { type: 'image/png' });
-const mockOnChange = jest.fn();
+const mockOnDropComplete = jest.fn();
 const dropZoneProps: UseDropZoneProps = {
-  onChange: mockOnChange,
+  onDropComplete: mockOnDropComplete,
 };
 type DragEvent = React.DragEvent<HTMLDivElement>;
 
 describe('useDropZone', () => {
   afterEach(() => jest.clearAllMocks());
 
-  it('should set inDropZone state to true when drag event occurs inside the drop zone', () => {
+  it('should return default values', () => {
+    const { result } = renderHook(() =>
+      useDropZone({
+        onDropComplete: () => {},
+      })
+    );
+    expect(result.current.onDragStart).toBeInstanceOf(Function);
+    expect(result.current.onDragEnter).toBeInstanceOf(Function);
+    expect(result.current.onDragLeave).toBeInstanceOf(Function);
+    expect(result.current.onDragOver).toBeInstanceOf(Function);
+    expect(result.current.onDrop).toBeInstanceOf(Function);
+    expect(result.current.dragState).toBe('inactive');
+  });
+
+  it('should set isDragActive state to true when drag event occurs inside the drop zone', () => {
     const { result } = renderHook(() => useDropZone(dropZoneProps));
     const event = {
       preventDefault: jest.fn(),
       stopPropagation: jest.fn(),
-      dataTransfer: { dropEffect: '' },
+      dataTransfer: { dropEffect: '', items: [] },
     } as unknown as DragEvent;
 
     act(() => {
@@ -30,7 +42,7 @@ describe('useDropZone', () => {
     expect(event.preventDefault).toBeCalled();
     expect(event.stopPropagation).toBeCalled();
     expect(event.dataTransfer.dropEffect).toEqual('copy');
-    expect(result.current.inDropZone).toBe(true);
+    expect(result.current.dragState).toBe('accept');
   });
 
   it('clears the data when drag event begins', () => {
@@ -47,7 +59,7 @@ describe('useDropZone', () => {
     expect(clearDataSpy).toBeCalledTimes(1);
   });
 
-  it('should call onChange function with the event object when drop event occurs inside the drop zone', () => {
+  it('should call onDropComplete function with the event object when drop event occurs inside the drop zone', () => {
     const { result } = renderHook(() => useDropZone(dropZoneProps));
 
     const event = {
@@ -62,7 +74,7 @@ describe('useDropZone', () => {
 
     expect(event.preventDefault).toBeCalled();
     expect(event.stopPropagation).toBeCalled();
-    expect(mockOnChange).toBeCalled();
+    expect(mockOnDropComplete).toBeCalled();
   });
 
   it('prevents and stops event onDragEnter', () => {
@@ -93,6 +105,6 @@ describe('useDropZone', () => {
 
     expect(event.preventDefault).toBeCalled();
     expect(event.stopPropagation).toBeCalled();
-    expect(result.current.inDropZone).toBe(false);
+    expect(result.current.dragState).toBe('inactive');
   });
 });

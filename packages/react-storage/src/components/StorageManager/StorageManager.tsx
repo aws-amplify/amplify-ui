@@ -3,8 +3,9 @@ import { Logger } from 'aws-amplify';
 
 import { UploadTask } from '@aws-amplify/storage';
 import { ComponentClassNames, VisuallyHidden } from '@aws-amplify/ui-react';
+import { useDropZone } from '@aws-amplify/ui-react/internal';
 
-import { useStorageManager, useUploadFiles, useDropZone } from './hooks';
+import { useStorageManager, useUploadFiles } from './hooks';
 import { FileStatus, StorageManagerProps, StorageManagerHandle } from './types';
 import {
   Container,
@@ -92,19 +93,20 @@ function StorageManagerBase(
 
   React.useImperativeHandle(ref, () => ({ clearFiles }));
 
-  const dropZoneProps = useDropZone({
-    onChange: (event: React.DragEvent<HTMLDivElement>) => {
-      const { files } = event.dataTransfer;
-      if (!files || files.length === 0) {
-        return;
+  const { dragState, ...dropZoneProps } = useDropZone({
+    acceptedFileTypes,
+    onDropComplete: ({ acceptedFiles, rejectedFiles }) => {
+      if (rejectedFiles && rejectedFiles.length > 0) {
+        logger.warn('Rejected files: ', rejectedFiles);
       }
-
-      const filteredFiles = filterAllowedFiles(
-        Array.from(files),
+      // We need to filter out files by extension here,
+      // we don't get filenames on the drag event, only on drop
+      const _acceptedFiles = filterAllowedFiles(
+        acceptedFiles,
         acceptedFileTypes
       );
       addFiles({
-        files: filteredFiles,
+        files: _acceptedFiles,
         status: autoUpload ? FileStatus.QUEUED : FileStatus.ADDED,
         getFileErrorMessage: getMaxFileSizeErrorMessage,
       });
@@ -234,7 +236,11 @@ function StorageManagerBase(
         hasFiles ? ComponentClassNames.StorageManagerPreviewer : ''
       }`}
     >
-      <Components.DropZone {...dropZoneProps} displayText={displayText}>
+      <Components.DropZone
+        inDropZone={dragState !== 'inactive'}
+        {...dropZoneProps}
+        displayText={displayText}
+      >
         <>
           <Components.FilePicker onClick={handleClick}>
             {displayText.browseFilesText}

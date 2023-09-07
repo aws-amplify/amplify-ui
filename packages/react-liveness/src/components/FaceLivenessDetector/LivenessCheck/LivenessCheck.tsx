@@ -20,13 +20,11 @@ import {
 } from '../displayText';
 import { LandscapeErrorModal } from '../shared/LandscapeErrorModal';
 import { CheckScreenComponents } from '../shared/FaceLivenessErrorModal';
+import { selectErrorState } from '../shared';
 
 const CHECK_CLASS_NAME = 'liveness-detector-check';
 
-export const selectErrorState = createLivenessSelector(
-  (state) => state.context.errorState
-);
-export const selectIsRecordingStopped = createLivenessSelector(
+const selectIsRecordingStopped = createLivenessSelector(
   (state) => state.context.isRecordingStopped
 );
 

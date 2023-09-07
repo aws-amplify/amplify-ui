@@ -1,5 +1,23 @@
 # @aws-amplify/ui-react-liveness
 
+## 2.0.7
+
+### Patch Changes
+
+- [#4405](https://github.com/aws-amplify/amplify-ui/pull/4405) [`e274c3eac`](https://github.com/aws-amplify/amplify-ui/commit/e274c3eac4bc627407ddb700e6643e268c9c3bb3) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): get oval fit timeout from server
+
+- [#4371](https://github.com/aws-amplify/amplify-ui/pull/4371) [`41a7b4288`](https://github.com/aws-amplify/amplify-ui/commit/41a7b4288930f9574d037c0543167b405d62d016) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): Custom websocket handler
+
+## 2.0.6
+
+### Patch Changes
+
+- [#4392](https://github.com/aws-amplify/amplify-ui/pull/4392) [`60f21e0ab`](https://github.com/aws-amplify/amplify-ui/commit/60f21e0ab7761467268cd46ac8ee1e9752df33af) Thanks [@thaddmt](https://github.com/thaddmt)! - chore(liveness): update start screen text to remove 7 seconds
+
+- Updated dependencies [[`276968530`](https://github.com/aws-amplify/amplify-ui/commit/276968530ba1049cfa4a9fd1efe8bd870b3e4b18), [`265f0b482`](https://github.com/aws-amplify/amplify-ui/commit/265f0b48249c89b004a40a1a06abc0c3551f45f7), [`ec495a6f6`](https://github.com/aws-amplify/amplify-ui/commit/ec495a6f638c53970edd8706a0eeb5f95d142689), [`e1fc61119`](https://github.com/aws-amplify/amplify-ui/commit/e1fc61119224a92a4648d1d1673177647b1a8e53), [`5b6c9bfe4`](https://github.com/aws-amplify/amplify-ui/commit/5b6c9bfe4ef1c0727270bffacb5f9e8045a8325d), [`14e402b6e`](https://github.com/aws-amplify/amplify-ui/commit/14e402b6eedab6bdef5cec21b0b084f230b0ce26), [`9471ea53a`](https://github.com/aws-amplify/amplify-ui/commit/9471ea53a2414879d197adb5f52c8dcb3e0df946), [`2407ac294`](https://github.com/aws-amplify/amplify-ui/commit/2407ac294270214bd20c414349d2423ab14b8066), [`64fba0fd2`](https://github.com/aws-amplify/amplify-ui/commit/64fba0fd2ec4a0c5061b461f527c8a45235eee13)]:
+  - @aws-amplify/ui-react@5.3.0
+  - @aws-amplify/ui@5.8.0
+
 ## 2.0.5
 
 ### Patch Changes

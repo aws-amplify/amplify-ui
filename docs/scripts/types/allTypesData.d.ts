@@ -24,6 +24,7 @@ export type TypeFileName =
   | 'Link'
   | 'Loader'
   | 'Menu'
+  | 'Message'
   | 'Pagination'
   | 'PasswordField'
   | 'PhoneNumberField'

@@ -15,9 +15,9 @@ const errorMessage = '`useStuff` must be used in a `StuffProvider`';
 
 describe('createContextUtilities', () => {
   it('utility hook exposes the expected values of a defined defaultValue', () => {
-    const defaultValue: Stuff = { items: { '1': 1, '2': 2 }, things: 1 };
+    const defaultValue = { items: { '1': 1, '2': 2 }, things: 1 };
 
-    const { useContext: useStuff } = createContextUtilities({
+    const { useStuff } = createContextUtilities<Stuff>({
       contextName,
       defaultValue,
     });
@@ -41,11 +41,10 @@ describe('createContextUtilities', () => {
   });
 
   it('utility hook exposes expected values without a defaultValue provided', () => {
-    const { Provider: StuffProvider, useContext: useStuff } =
-      createContextUtilities<Stuff>({
-        contextName,
-        errorMessage,
-      });
+    const { StuffProvider, useStuff } = createContextUtilities<Stuff>({
+      contextName,
+      errorMessage,
+    });
 
     const { result } = renderHook(useStuff, {
       wrapper: (props: { children: React.ReactNode }) => (
@@ -59,7 +58,7 @@ describe('createContextUtilities', () => {
   it('utility hook throws an error when no defaultValue is provided and used outside its context', () => {
     const errorMessage = 'Must be used in a `StuffProvider`';
 
-    const { useContext: useStuff } = createContextUtilities<Stuff>({
+    const { useStuff } = createContextUtilities<Stuff>({
       contextName,
       errorMessage,
     });
