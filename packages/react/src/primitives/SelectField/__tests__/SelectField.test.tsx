@@ -157,6 +157,32 @@ describe('SelectField', () => {
     expect(select).toBeRequired();
   });
 
+  it('should render the multiple attribute', async () => {
+    render(
+      <SelectField label={label} className={className} isMultiple>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </SelectField>
+    );
+
+    const select = await screen.findByRole(role);
+    expect(select).toHaveAttribute('multiple');
+  });
+
+  it('should render the size attribute', async () => {
+    render(
+      <SelectField label={label} className={className} selectSize={2}>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </SelectField>
+    );
+
+    const select = await screen.findByRole(role);
+    expect(select).toHaveAttribute('size', '2');
+  });
+
   it('should set size and variation data attributes', async () => {
     render(
       <SelectField label={label} testId={testId} size="small" variation="quiet">

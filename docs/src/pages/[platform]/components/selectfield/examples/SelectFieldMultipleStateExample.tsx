@@ -4,7 +4,7 @@ export const SelectFieldMultipleStateExample = () => (
   <SelectField
     label="Fruit"
     descriptiveText="What's your favorite fruit?"
-    multiple
+    isMultiple={true}
   >
     <option value="apple">Apple</option>
     <option value="banana">Banana</option>
