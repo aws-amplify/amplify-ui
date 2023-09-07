@@ -1,4 +1,4 @@
-import { Logger } from 'aws-amplify';
+import { Logger } from '@aws-amplify/core';
 
 type LoggerCategory = 'Auth' | 'Geo' | 'Notifications' | 'Storage';
 
